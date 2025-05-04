@@ -1,0 +1,5 @@
+
+> flat-earth-equipment@1.0.0 convert:json-to-csv
+> node scripts/convert-json-to-csv.mjs
+
+✅  CSV ready: ingest/parts-upload.csv (1 rows)
