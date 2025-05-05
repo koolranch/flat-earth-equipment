@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { supabase } from "@/lib/supabaseClient";
-import CategoryParts from "@/components/CategoryParts";
+import CategoryParts from "../../../components/CategoryParts";
 
 export const generateStaticParams = async () => {
   const { data: cats } = await supabase
@@ -18,7 +18,7 @@ export async function generateMetadata({ params: { category } }: { params: { cat
   };
 }
 
-export default async function CategoryPage({ params: { category } }: { params: { category: string } }) {
+export default async function CategoryPage({ params: { category } }: any) {
   // fetch distinct systems for this category
   const { data: systems } = await supabase
     .from("parts")
