@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Hero from "@/components/Hero";
 import SearchBar from "@/components/SearchBar";
+import FeaturedCategories from "@/components/FeaturedCategories";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -15,6 +16,7 @@ export default function HomePage() {
     <main className="container mx-auto px-4">
       <Hero />
       <SearchBar />
+      <FeaturedCategories />
       <section className="mt-16 grid gap-6 sm:grid-cols-2">
         <Link href="/parts" className="tile">Browse Parts →</Link>
         <Link href="/rentals" className="tile">Browse Rentals →</Link>
