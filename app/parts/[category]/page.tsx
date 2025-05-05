@@ -1,8 +1,6 @@
 import { Metadata } from "next";
 import { supabase } from "@/lib/supabaseClient";
-import Filter from "@/components/Filter";
-import Link from "next/link";
-import { useState } from "react";
+import CategoryParts from "@/components/CategoryParts";
 
 export const generateStaticParams = async () => {
   const { data: cats } = await supabase
@@ -28,41 +26,10 @@ export default async function CategoryPage({ params: { category } }: { params: {
     .eq("category", category)
     .order("system");
 
-  const [selectedSystem, setSelectedSystem] = useState<string>("");
-
-  // fetch parts filtered by both category + system
-  const { data: parts } = await supabase
-    .from("parts")
-    .select("slug,name,price")
-    .eq("category", category)
-    .in(
-      "system",
-      selectedSystem ? [selectedSystem] : systems!.map((s) => s.system)
-    )
-    .order("name");
-
   return (
     <main className="container mx-auto px-4 py-16">
       <h1 className="mb-8 text-3xl font-bold">{category} Parts</h1>
-      <div className="mb-6 max-w-sm">
-        <Filter
-          label="Filter by System"
-          options={systems!.map((s) => ({ value: s.system, label: s.system }))}
-          onChange={setSelectedSystem}
-        />
-      </div>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {parts?.map((part) => (
-          <Link
-            key={part.slug}
-            href={`/parts/${category}/${part.slug}`}
-            className="block rounded-xl border p-4 hover:shadow-lg"
-          >
-            <h2 className="text-xl font-semibold">{part.name}</h2>
-            <p className="mt-2 text-lg">${part.price.toFixed(2)}</p>
-          </Link>
-        ))}
-      </div>
+      <CategoryParts category={category} systems={systems || []} />
     </main>
   );
 } 
