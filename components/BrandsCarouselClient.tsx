@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import ImageWrapper from "./ImageWrapper";
 
 interface BrandsCarouselClientProps {
   files: string[];
@@ -40,15 +40,12 @@ export default function BrandsCarouselClient({ files }: BrandsCarouselClientProp
               className="relative flex-shrink-0 focus:ring-2 focus:ring-blue-500 rounded transition"
               aria-label={`View ${name.replace(/-/g, " ")} parts`}
             >
-              <div className="relative h-16 w-32">
-                <Image
-                  src={`/brands/${file}`}
-                  alt={name.replace(/-/g, " ")}
-                  fill
-                  sizes="(max-width: 640px) 4rem, 8rem"
-                  className="object-contain"
-                />
-              </div>
+              <ImageWrapper
+                src={`/brands/${file}`}
+                alt={name.replace(/-/g, " ")}
+                width={128}
+                height={64}
+              />
             </Link>
           );
         })}
