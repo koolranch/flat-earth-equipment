@@ -5,28 +5,34 @@ import Link from "next/link";
 export default function BrandsCarousel() {
   const files = fs
     .readdirSync(path.join(process.cwd(), "public", "brands"))
-    .filter((f) => /\.(png|webp|jpe?g)$/i.test(f));
+    .filter((f) => /\.(png|webp)$/i.test(f));
 
   return (
-    <section className="py-16">
+    <nav aria-label="Shop by Brand" className="py-16 bg-gray-50">
       <h2 className="text-2xl font-bold text-center mb-8">Shop by Brand</h2>
-      <div className="container mx-auto flex space-x-6 overflow-x-auto">
+      <div className="container mx-auto flex space-x-6 overflow-x-auto focus:outline-none">
         {files.map((file) => {
           const slug = path
             .basename(file, path.extname(file))
             .toLowerCase()
             .replace(/\s+/g, "-");
           return (
-            <Link key={file} href={`/parts/${slug}`} className="flex-shrink-0">
+            <Link
+              key={file}
+              href={`/parts/${slug}`}
+              className="flex-shrink-0 focus:ring-2 focus:ring-blue-500 rounded transition"
+              aria-label={`View ${slug.replace(/-/g, " ")} parts`}
+            >
               <img
                 src={`/brands/${file}`}
                 alt={slug.replace(/-/g, " ")}
-                className="h-16 w-auto object-contain"
+                loading="lazy"
+                className="h-16 w-auto object-contain transition hover:ring-2 hover:ring-blue-500"
               />
             </Link>
           );
         })}
       </div>
-    </section>
+    </nav>
   );
 } 
