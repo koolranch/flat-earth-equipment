@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function BrandsCarousel() {
   const files = fs
@@ -20,15 +21,18 @@ export default function BrandsCarousel() {
             <Link
               key={file}
               href={`/parts/${slug}`}
-              className="flex-shrink-0 focus:ring-2 focus:ring-blue-500 rounded transition"
+              className="relative flex-shrink-0 focus:ring-2 focus:ring-blue-500 rounded transition"
               aria-label={`View ${slug.replace(/-/g, " ")} parts`}
             >
-              <img
-                src={`/brands/${file}`}
-                alt={slug.replace(/-/g, " ")}
-                loading="lazy"
-                className="h-16 w-auto object-contain transition hover:ring-2 hover:ring-blue-500"
-              />
+              <div className="relative h-16 w-32">
+                <Image
+                  src={`/brands/${file}`}
+                  alt={slug.replace(/-/g, " ")}
+                  fill
+                  sizes="(max-width: 640px) 4rem, 8rem"
+                  className="object-contain"
+                />
+              </div>
             </Link>
           );
         })}
