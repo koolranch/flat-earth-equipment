@@ -40,7 +40,7 @@ export default async function CategoryPage({ params }: { params: { category: str
           <Link
             key={part.slug}
             href={`/parts/${category}/${part.slug}`}
-            className="block rounded-xl border p-4 hover:shadow-lg"
+            className="block rounded-lg border p-4 hover:shadow-lg"
           >
             <h2 className="text-xl font-semibold">{part.name}</h2>
             <p className="mt-2 text-lg">${part.price.toFixed(2)}</p>
