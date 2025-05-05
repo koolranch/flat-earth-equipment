@@ -9,9 +9,21 @@ export default function BrandsCarousel() {
     .filter((f) => /\.(png|webp)$/i.test(f));
 
   return (
-    <nav aria-label="Shop by Brand" className="py-16 bg-gray-50">
+    <nav aria-label="Shop by Brand" className="py-16 bg-gray-50 relative">
       <h2 className="text-2xl font-bold text-center mb-8">Shop by Brand</h2>
-      <div className="container mx-auto flex space-x-6 overflow-x-auto focus:outline-none">
+      <button
+        aria-label="Previous"
+        onClick={() =>
+          document.querySelector('[data-carousel]')?.scrollBy({ left: -200, behavior: 'smooth' })
+        }
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white rounded-full shadow"
+      >
+        ‹
+      </button>
+      <div
+        data-carousel
+        className="container mx-auto flex space-x-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide"
+      >
         {files.map((file) => {
           const slug = path
             .basename(file, path.extname(file))
@@ -37,6 +49,15 @@ export default function BrandsCarousel() {
           );
         })}
       </div>
+      <button
+        aria-label="Next"
+        onClick={() =>
+          document.querySelector('[data-carousel]')?.scrollBy({ left: 200, behavior: 'smooth' })
+        }
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white rounded-full shadow"
+      >
+        ›
+      </button>
     </nav>
   );
 } 
