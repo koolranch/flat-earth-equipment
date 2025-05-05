@@ -11,8 +11,8 @@ export const generateStaticParams = async () => {
   return distinctCategories.map((category) => ({ category }));
 };
 
-export async function generateMetadata({ params }: { params: { category: string } }): Promise<Metadata> {
-  const { category } = params;
+export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
+  const { category } = await params;
   return {
     title: `${category} Parts | Flat Earth Equipment`,
     description: `Browse ${category} parts by system.`,
@@ -20,8 +20,8 @@ export async function generateMetadata({ params }: { params: { category: string 
   };
 }
 
-export default async function CategoryPage({ params }: { params: { category: string } }) {
-  const { category } = params;
+export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
+  const { category } = await params;
   const { data: parts, error } = await supabase
     .from('parts')
     .select('slug,name,price')

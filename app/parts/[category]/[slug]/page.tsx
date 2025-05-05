@@ -1,14 +1,9 @@
 import { Metadata } from 'next';
 import { supabase } from '@/lib/supabaseClient';
 
-// Props type including both category and slug parameters
-interface PartDetailPageProps {
-  params: { category: string; slug: string };
-}
-
-// Generate dynamic metadata for the part detail page
-export async function generateMetadata({ params }: PartDetailPageProps): Promise<Metadata> {
-  const { category, slug } = params;
+// Update generateMetadata to accept Promise params
+export async function generateMetadata({ params }: { params: Promise<{ category: string; slug: string }> }): Promise<Metadata> {
+  const { category, slug } = await params;
   const { data: part } = await supabase
     .from('parts')
     .select('name,description')
@@ -23,8 +18,8 @@ export async function generateMetadata({ params }: PartDetailPageProps): Promise
 }
 
 // Render the part detail page
-export default async function PartDetail({ params }: PartDetailPageProps) {
-  const { category, slug } = params;
+export default async function PartDetail({ params }: { params: Promise<{ category: string; slug: string }> }) {
+  const { category, slug } = await params;
   const { data: part, error } = await supabase
     .from('parts')
     .select('*')
