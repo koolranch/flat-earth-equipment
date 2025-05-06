@@ -1,24 +1,26 @@
-import Hero from "../components/Hero";
-import SearchBar from "../components/SearchBar";
-import FeaturedParts from "../components/FeaturedParts";
-import BrandsCarousel from "../components/BrandsCarousel";
+import Hero from "@/components/Hero";
+import SearchBar from "@/components/SearchBar";
+import FeaturedParts from "@/components/FeaturedParts";
+import BrandsCarousel from "@/components/BrandsCarousel";
 
 export default function Page() {
   return (
-    <>
-      {/* Phase 1: Hero */}
+    <main className="space-y-24">
+      {/* Hero with background image, title & CTAs */}
       <Hero />
 
-      {/* Phase 1: Search under hero */}
-      <div className="relative -mt-16 px-4 sm:px-0">
-        <SearchBar />
-      </div>
+      {/* Search input */}
+      <section className="px-4 md:px-0 -mt-20">
+        <div className="mx-auto max-w-2xl">
+          <SearchBar />
+        </div>
+      </section>
 
-      {/* Phase 2: Featured Products */}
+      {/* Featured Products grid */}
       <FeaturedParts />
 
-      {/* Phase 3: Shop by Brand carousel */}
+      {/* Brands carousel */}
       <BrandsCarousel />
-    </>
+    </main>
   );
 } 
