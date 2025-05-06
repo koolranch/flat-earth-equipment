@@ -52,15 +52,20 @@ export default function HomePage() {
       <section className="py-24 bg-white">
         <div className="mx-auto max-w-5xl px-4">
           <h2 className="text-3xl font-bold text-center mb-8">Why Shop With Us</h2>
-          <div className="container mx-auto flex flex-wrap justify-center gap-8">
+          <div className="mx-auto max-w-4xl px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             {[
-              { icon: "🚚", title: "Fast Shipping" },
-              { icon: "🔧", title: "OEM Quality" },
-              { icon: "💬", title: "24/7 Support" },
-              { icon: "💯", title: "Satisfaction Guarantee" },
+              { file: "fast-shipping.svg", title: "Fast Shipping" },
+              { file: "oem-quality.svg", title: "OEM Quality" },
+              { file: "support.svg", title: "24/7 Support" },
+              { file: "guarantee.svg", title: "Satisfaction Guarantee" },
             ].map((item) => (
-              <div key={item.title} className="flex flex-col items-center max-w-xs">
-                <div className="text-5xl mb-4">{item.icon}</div>
+              <div key={item.title} className="flex flex-col items-center">
+                <img
+                  src={`/icons/${item.file}`}
+                  alt={item.title}
+                  className="h-12 w-12 mb-4"
+                  loading="lazy"
+                />
                 <h3 className="text-xl font-semibold">{item.title}</h3>
               </div>
             ))}
