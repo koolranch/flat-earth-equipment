@@ -26,6 +26,12 @@ export default async function Page({ params }: { params: { category: string; cit
 
   return (
     <main className="container mx-auto px-4 py-16">
+      {/* Location banner */}
+      <img
+        src={`https://via.placeholder.com/600x300/EDE6DB/D35400.png?text=${encodeURIComponent(params.city)}`}
+        alt={params.city}
+        className="w-full h-48 object-cover rounded-lg mb-6"
+      />
       <h1 className="text-3xl font-bold mb-8">
         {category.replace(/-/g, " ")} Rentals in {city.replace(/-/g, " ")}
       </h1>
