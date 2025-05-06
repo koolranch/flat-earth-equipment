@@ -2,10 +2,6 @@ import { Metadata } from "next";
 import { supabase } from "@/lib/supabaseClient";
 import Link from "next/link";
 
-interface CategoryPageProps {
-  params: { category: string };
-}
-
 export const generateStaticParams = async () => {
   const { data: cats, error } = await supabase
     .from("rental_listing")
@@ -16,16 +12,16 @@ export const generateStaticParams = async () => {
   return uniqueCategories.map((category) => ({ category }));
 };
 
-export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
-  const { category } = params;
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const { category } = await params;
   return {
     title: `${category.replace(/-/g, " ")} Rentals | Flat Earth Equipment`,
     description: `Find rental listings for ${category.replace(/-/g, " ")} in your city.`,
   };
 }
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
-  const { category } = params;
+export default async function CategoryPage({ params }: any) {
+  const { category } = await params;
   const { data: cities, error } = await supabase
     .from("rental_listing")
     .select("city")
