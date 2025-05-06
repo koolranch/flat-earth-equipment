@@ -5,7 +5,9 @@ export default function Hero() {
   return (
     <section
       className="relative flex flex-col items-center justify-center gap-6 min-h-screen text-center bg-cover bg-center"
-      style={{ backgroundImage: "url('/hero-bg.jpg')" }}
+      style={{
+        backgroundImage: "url('https://via.placeholder.com/1920x1080.png?text=Forklift+in+Action')",
+      }}
     >
       <div className="absolute inset-0 bg-black bg-opacity-50" />
       <div className="relative z-10 w-full max-w-2xl bg-white bg-opacity-10 backdrop-blur-md rounded-2xl p-8 flex flex-col items-center gap-6">
