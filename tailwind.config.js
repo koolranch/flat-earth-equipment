@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       borderRadius: {
-        'xl': '1rem',
+        xl: '1rem', // ensure rounded-xl is recognized
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
