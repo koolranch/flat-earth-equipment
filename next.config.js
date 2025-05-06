@@ -1,13 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-    // Turn off strict route-props type checking
-    typedRoutes: false,
-  },
+  // Enable the new App Router in Next.js 15+
+  appDir: true,
+
   typescript: {
     ignoreBuildErrors: true, // allow production build despite type errors
   },
+
   images: {
     remotePatterns: [
       {
