@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  // Enable the new App Router in Next.js 15+
-  appDir: true,
-
+module.exports = {
   typescript: {
     ignoreBuildErrors: true, // allow production build despite type errors
   },
@@ -17,6 +14,4 @@ const nextConfig = {
       },
     ],
   },
-};
-
-module.exports = nextConfig; 
+}; 
