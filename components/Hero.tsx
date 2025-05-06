@@ -1,4 +1,6 @@
 import Link from "next/link";
+import SearchBar from "@/components/SearchBar";
+
 export default function Hero() {
   return (
     <section className="flex flex-col items-center gap-6 py-16 text-center">
@@ -11,6 +13,9 @@ export default function Hero() {
       <div className="flex flex-wrap justify-center gap-4">
         <Link href="/parts" className="btn-primary">Find Parts</Link>
         <Link href="/rentals" className="btn-secondary">Rent Equipment</Link>
+      </div>
+      <div className="mt-6 w-full max-w-md">
+        <SearchBar />
       </div>
     </section>
   );
