@@ -8,7 +8,7 @@ export default function Hero() {
       style={{ backgroundImage: "url('/hero-bg.jpg')" }}
     >
       <div className="absolute inset-0 bg-black bg-opacity-50" />
-      <div className="relative z-10 flex flex-col items-center gap-4 px-4">
+      <div className="relative z-10 w-full max-w-2xl bg-white bg-opacity-10 backdrop-blur-md rounded-2xl p-8 flex flex-col items-center gap-6">
         <h1 className="text-5xl font-black tracking-tight sm:text-6xl text-white">
           Flat Earth Equipment
         </h1>
