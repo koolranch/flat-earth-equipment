@@ -4,30 +4,34 @@ import SearchBar from "@/components/SearchBar";
 export default function Hero() {
   return (
     <section
-      className="flex flex-col items-center justify-center gap-6 min-h-screen text-center bg-gradient-to-b from-blue-600 to-blue-800"
+      className="relative flex flex-col items-center justify-center gap-6 min-h-screen text-center bg-cover bg-center"
+      style={{ backgroundImage: "url('/hero-bg.jpg')" }}
     >
-      <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
-        Flat Earth Equipment
-      </h1>
-      <p className="max-w-xl text-lg text-muted-foreground">
-        OEM replacement parts & nationwide equipment rentals—fast quotes, same‑day shipping.
-      </p>
-      <div className="flex flex-wrap justify-center gap-4">
-        <Link
-          href="/parts"
-          className="btn-primary shadow-lg transform transition hover:-translate-y-1 hover:shadow-2xl"
-        >
-          Find Parts
-        </Link>
-        <Link
-          href="/rentals"
-          className="btn-secondary shadow-lg transform transition hover:-translate-y-1 hover:shadow-2xl"
-        >
-          Rent Equipment
-        </Link>
-      </div>
-      <div className="mt-4 w-full max-w-lg">
-        <SearchBar />
+      <div className="absolute inset-0 bg-black bg-opacity-50" />
+      <div className="relative z-10 flex flex-col items-center gap-4 px-4">
+        <h1 className="text-5xl font-black tracking-tight sm:text-6xl text-white">
+          Flat Earth Equipment
+        </h1>
+        <p className="max-w-lg text-base text-gray-200">
+          OEM replacement parts & nationwide equipment rentals—fast quotes, same‑day shipping.
+        </p>
+        <div className="flex flex-wrap justify-center gap-4">
+          <Link
+            href="/parts"
+            className="btn-primary shadow-lg transform transition hover:-translate-y-1 hover:shadow-2xl"
+          >
+            Find Parts
+          </Link>
+          <Link
+            href="/rentals"
+            className="btn-secondary shadow-lg transform transition hover:-translate-y-1 hover:shadow-2xl"
+          >
+            Rent Equipment
+          </Link>
+        </div>
+        <div className="mt-4 w-full max-w-lg">
+          <SearchBar />
+        </div>
       </div>
     </section>
   );
