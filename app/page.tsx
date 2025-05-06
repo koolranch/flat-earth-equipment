@@ -50,45 +50,42 @@ export default function HomePage() {
 
       {/* Why Shop With Us */}
       <section className="py-24 bg-white">
-        <div className="mx-auto max-w-5xl px-4">
-          <h2 className="text-3xl font-bold text-center mb-8">Why Shop With Us</h2>
-          <div className="mx-auto max-w-4xl px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-            <div className="flex flex-col items-center">
-              <img
-                src="https://unpkg.com/heroicons@2.0.18/24/solid/truck.svg"
-                alt="Fast Shipping"
-                className="h-12 w-12 mb-4"
-                loading="lazy"
-              />
-              <h3 className="text-xl font-semibold">Fast Shipping</h3>
-            </div>
-            <div className="flex flex-col items-center">
-              <img
-                src="https://unpkg.com/heroicons@2.0.18/24/solid/wrench.svg"
-                alt="OEM Quality"
-                className="h-12 w-12 mb-4"
-                loading="lazy"
-              />
-              <h3 className="text-xl font-semibold">OEM Quality</h3>
-            </div>
-            <div className="flex flex-col items-center">
-              <img
-                src="https://unpkg.com/heroicons@2.0.18/24/solid/chat-bubble-oval-left.svg"
-                alt="24/7 Support"
-                className="h-12 w-12 mb-4"
-                loading="lazy"
-              />
-              <h3 className="text-xl font-semibold">24/7 Support</h3>
-            </div>
-            <div className="flex flex-col items-center">
-              <img
-                src="https://unpkg.com/heroicons@2.0.18/24/solid/badge-check.svg"
-                alt="Satisfaction Guarantee"
-                className="h-12 w-12 mb-4"
-                loading="lazy"
-              />
-              <h3 className="text-xl font-semibold">Satisfaction Guarantee</h3>
-            </div>
+        <div className="mx-auto max-w-5xl px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 text-center">
+          <div className="flex flex-col items-center space-y-2">
+            <img
+              src="https://unpkg.com/heroicons@2.0.18/24/solid/truck.svg"
+              alt="Fast Shipping"
+              className="h-10 w-10"
+              loading="lazy"
+            />
+            <h3 className="text-lg font-medium">Fast Shipping</h3>
+          </div>
+          <div className="flex flex-col items-center space-y-2">
+            <img
+              src="https://unpkg.com/heroicons@2.0.18/24/solid/wrench.svg"
+              alt="OEM Quality"
+              className="h-10 w-10"
+              loading="lazy"
+            />
+            <h3 className="text-lg font-medium">OEM Quality</h3>
+          </div>
+          <div className="flex flex-col items-center space-y-2">
+            <img
+              src="https://unpkg.com/heroicons@2.0.18/24/solid/chat-bubble-oval-left.svg"
+              alt="24/7 Support"
+              className="h-10 w-10"
+              loading="lazy"
+            />
+            <h3 className="text-lg font-medium">24/7 Support</h3>
+          </div>
+          <div className="flex flex-col items-center space-y-2">
+            <img
+              src="https://unpkg.com/heroicons@2.0.18/24/solid/badge-check.svg"
+              alt="Satisfaction Guarantee"
+              className="h-10 w-10"
+              loading="lazy"
+            />
+            <h3 className="text-lg font-medium">Satisfaction Guarantee</h3>
           </div>
         </div>
       </section>
