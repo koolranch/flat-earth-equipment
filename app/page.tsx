@@ -35,7 +35,7 @@ export default function HomePage() {
                 className="relative block overflow-hidden rounded-lg shadow hover:shadow-xl transition"
               >
                 <img
-                  src={`/images/placeholders/${cat.toLowerCase().replace(/ /g, "-")}.png`}
+                  src={`https://via.placeholder.com/300x200.png?text=${cat.toLowerCase().replace(/ /g, "-")}`}
                   alt={cat}
                   className="h-40 w-full object-cover"
                 />
