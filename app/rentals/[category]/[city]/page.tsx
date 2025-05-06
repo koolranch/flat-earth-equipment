@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import { supabase } from "@/lib/supabaseClient";
 
-export async function generateMetadata({ params }: { params: Promise<{ category: string; city: string }> }): Promise<Metadata> {
-  const { category, city } = await params;
+export async function generateMetadata({ params }: { params: { category: string; city: string } }): Promise<Metadata> {
+  const { category, city } = params;
   return {
     title: `${category.replace(/-/g, " ")} in ${city.replace(/-/g, " ")} | Rentals`,
     description: `Request a quote for ${category.replace(/-/g, " ")} rentals in ${city.replace(/-/g, " ")}.`,
@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
 }
 
 export default async function Page({ params }: { params: { category: string; city: string } }) {
-  const { category, city } = await params;
+  const { category, city } = params;
   const { data: listings, error } = await supabase
     .from("rental_listing")
     .select("id,title,price_per_day")
