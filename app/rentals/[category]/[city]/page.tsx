@@ -9,10 +9,7 @@ export async function generateMetadata({ params }: { params: { category: string;
   };
 }
 
-export default async function Page({ params, searchParams }: {
-  params: { category: string; city: string };
-  searchParams: Record<string, string | string[]>;
-}) {
+export default async function Page({ params }: { params: { category: string; city: string } }) {
   const { category, city } = params;
   const { data: listings, error } = await supabase
     .from("rental_listing")
