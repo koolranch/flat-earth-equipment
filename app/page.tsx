@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import SearchBar from "@/components/SearchBar";
 import BrandsCarousel from "@/components/BrandsCarousel";
 import Link from "next/link";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Flat Earth Equipment | Parts & Rentals",
@@ -71,6 +72,7 @@ export default function HomePage() {
         <Link href="/parts" className="tile">Browse Parts →</Link>
         <Link href="/rentals" className="tile">Browse Rentals →</Link>
       </section>
+      <Footer />
     </main>
   );
 } 
