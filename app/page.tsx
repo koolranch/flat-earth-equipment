@@ -20,7 +20,7 @@ export default function HomePage() {
       <section className="py-16 bg-gray-50">
         <div className="mx-auto max-w-5xl px-4">
           <h2 className="text-3xl font-bold text-center mb-8">Shop by Equipment Category</h2>
-          <div className="container mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
               "Forklift",
               "Excavator",
@@ -33,10 +33,12 @@ export default function HomePage() {
                 href={`/parts/${cat.toLowerCase().replace(/\s+/g, "-")}`}
                 className="relative block overflow-hidden rounded-lg shadow hover:shadow-xl transition"
               >
-                <div className="h-40 bg-gray-200 flex items-center justify-center">
-                  <span className="text-xl font-medium">{cat}</span>
-                </div>
-                <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 flex items-center justify-center transition">
+                <img
+                  src={`/images/placeholders/${cat.toLowerCase().replace(/ /g, "-")}.png`}
+                  alt={cat}
+                  className="h-40 w-full object-cover"
+                />
+                <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 hover:bg-opacity-40 transition">
                   <span className="text-white opacity-0 hover:opacity-100">View {cat}</span>
                 </div>
               </Link>
