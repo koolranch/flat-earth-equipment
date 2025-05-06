@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { Metadata } from "next";
 import { supabase } from "@/lib/supabaseClient";
 
@@ -11,9 +9,10 @@ export async function generateMetadata({ params }: { params: { category: string;
   };
 }
 
-export default async function Page(
-  { params, searchParams }: { params: { category: string; city: string }; searchParams: Record<string, string | string[]> }
-) {
+export default async function Page({ params, searchParams }: {
+  params: { category: string; city: string };
+  searchParams: Record<string, string | string[]>;
+}) {
   const { category, city } = params;
   const { data: listings, error } = await supabase
     .from("rental_listing")
