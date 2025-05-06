@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Hero from "@/components/Hero";
 import SearchBar from "@/components/SearchBar";
+import FeaturedParts from "@/components/FeaturedParts";
 import BrandsCarousel from "@/components/BrandsCarousel";
 import Link from "next/link";
 import Footer from "@/components/Footer";
@@ -15,8 +16,12 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <main className="container mx-auto px-4">
+      {/* Phase 1: Hero */}
       <Hero />
+      {/* Phase 1: Search in Hero */}
       <SearchBar />
+      {/* Phase 2: Featured products */}
+      <FeaturedParts />
       {/* Featured Categories */}
       <section className="py-24 bg-gray-50">
         <div className="mx-auto max-w-5xl px-4">
