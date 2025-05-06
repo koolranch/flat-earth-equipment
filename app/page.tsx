@@ -17,7 +17,7 @@ export default function HomePage() {
       <Hero />
       <SearchBar />
       {/* Featured Categories */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-24 bg-gray-50">
         <div className="mx-auto max-w-5xl px-4">
           <h2 className="text-3xl font-bold text-center mb-8">Shop by Equipment Category</h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -48,7 +48,7 @@ export default function HomePage() {
       </section>
 
       {/* Why Shop With Us */}
-      <section className="py-16">
+      <section className="py-24 bg-white">
         <div className="mx-auto max-w-5xl px-4">
           <h2 className="text-3xl font-bold text-center mb-8">Why Shop With Us</h2>
           <div className="container mx-auto flex flex-wrap justify-center gap-8">
