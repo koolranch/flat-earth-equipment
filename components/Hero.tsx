@@ -1,40 +1,50 @@
 import Link from "next/link";
-import SearchBar from "@/components/SearchBar";
+import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section
-      className="relative flex flex-col items-center justify-center gap-6 min-h-screen text-center bg-cover bg-center"
-      style={{
-        backgroundImage: "url('https://via.placeholder.com/1920x1080.png?text=Forklift+in+Action')",
-      }}
-    >
-      <div className="absolute inset-0 bg-black bg-opacity-50" />
-      <div className="relative z-10 w-full max-w-2xl bg-white bg-opacity-10 backdrop-blur-md rounded-2xl p-8 flex flex-col items-center gap-6">
-        <h1 className="text-5xl font-black tracking-tight sm:text-6xl text-white">
+    <header className="relative h-[80vh] flex items-center justify-center text-center text-white">
+      {/* Hero background */}
+      <Image
+        src="https://images.unsplash.com/photo-1601134467663-3f30cfb39c4e?auto=format&fit=crop&w=1920&q=80"
+        alt="Forklift in Wyoming mountains at sunrise"
+        fill
+        className="object-cover"
+        priority
+      />
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+
+      <div className="relative z-10 max-w-2xl px-4">
+        <h1 className="font-heading text-5xl sm:text-6xl font-bold mb-4">
           Flat Earth Equipment
         </h1>
-        <p className="max-w-lg text-base text-gray-200">
-          OEM replacement parts & nationwide equipment rentals—fast quotes, same‑day shipping.
+        <p className="text-lg text-brand-light mb-8">
+          OEM Parts & Nationwide Rentals—Fast Quotes, Same-Day Shipping.
         </p>
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-4 mb-6">
           <Link
             href="/parts"
-            className="btn-primary shadow-lg transform transition hover:-translate-y-1 hover:shadow-2xl"
+            className="btn px-6 py-3 bg-brand text-white font-medium rounded-lg shadow-card hover:bg-brand-dark transition"
           >
             Find Parts
           </Link>
           <Link
             href="/rentals"
-            className="btn-secondary shadow-lg transform transition hover:-translate-y-1 hover:shadow-2xl"
+            className="btn px-6 py-3 border-2 border-brand text-brand font-medium rounded-lg shadow-card hover:bg-brand-light transition"
           >
             Rent Equipment
           </Link>
         </div>
-        <div className="mt-4 w-full max-w-lg">
-          <SearchBar />
+        {/* Search Bar placeholder */}
+        <div className="max-w-lg mx-auto">
+          <input
+            type="text"
+            placeholder="Search SKU, brand, system…"
+            className="w-full rounded-lg p-3 shadow-card border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand"
+          />
         </div>
       </div>
-    </section>
+    </header>
   );
 } 
