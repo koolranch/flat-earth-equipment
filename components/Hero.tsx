@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import SearchBar from "@/components/SearchBar";
 
 export default function Hero() {
   return (
@@ -36,13 +37,9 @@ export default function Hero() {
             Rent Equipment
           </Link>
         </div>
-        {/* Search Bar placeholder */}
-        <div className="max-w-lg mx-auto">
-          <input
-            type="text"
-            placeholder="Search SKU, brand, system…"
-            className="w-full rounded-lg p-3 shadow-card border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand"
-          />
+        {/* consolidated shared search component */}
+        <div className="mt-8 w-full max-w-md mx-auto">
+          <SearchBar />
         </div>
       </div>
     </header>
