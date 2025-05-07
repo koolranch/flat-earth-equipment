@@ -3,7 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 // On the server we need the service role key for queries during prerender
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const key = (typeof window === "undefined")
-  ? process.env.SERVICE_ROLE_KEY!          // server: use service role
+  ? process.env.SUPABASE_SERVICE_ROLE_KEY!          // server: use service role
   : process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!; // client: still anon
 
 // Create a single supabase client for interacting with your database
