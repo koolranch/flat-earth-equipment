@@ -1,5 +1,8 @@
 {
-  "buildCommand": null,
-  "outputDirectory": null,
-  "framework": "nextjs"
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "env": {
+    "SERVICE_ROLE_KEY": "@service_role_key"
+  }
 } 
