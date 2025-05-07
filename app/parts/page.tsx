@@ -33,12 +33,18 @@ export default async function PartsPage() {
               className="group block bg-white rounded-lg shadow-card overflow-hidden hover:shadow-lg transition"
             >
               <div className="relative w-full h-48 bg-gray-100">
-                <Image
-                  src={`/images/featured/${p.image_filename}`}
-                  alt={p.name}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform"
-                />
+                {p.image_filename ? (
+                  <Image
+                    src={`/images/featured/${p.image_filename}`}
+                    alt={p.name}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center text-gray-400">
+                    <span className="text-4xl">🔧</span>
+                  </div>
+                )}
               </div>
               <div className="p-4">
                 <h2 className="font-semibold text-lg">{p.name}</h2>

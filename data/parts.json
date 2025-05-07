@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Curtis 1234 Controller",
+    "slug": "curtis-1234-controller",
+    "price": 599.99,
+    "category": "controllers",
+    "brand": "Curtis",
+    "description": "High-performance motor controller for electric vehicles",
+    "sku": "CT-1234"
+  },
+  {
+    "name": "Bobcat 5000 Hydraulic Pump",
+    "slug": "bobcat-5000-hydraulic-pump",
+    "price": 1299.99,
+    "category": "hydraulics",
+    "brand": "Bobcat",
+    "description": "Heavy-duty hydraulic pump for construction equipment",
+    "sku": "BC-5000"
+  },
+  {
+    "name": "Caterpillar 3000 Radiator",
+    "slug": "caterpillar-3000-radiator",
+    "price": 899.99,
+    "category": "cooling",
+    "brand": "Caterpillar",
+    "description": "Industrial-grade radiator for heavy machinery",
+    "sku": "CAT-3000"
+  },
+  {
+    "name": "John Deere 2000 Starter",
+    "slug": "john-deere-2000-starter",
+    "price": 449.99,
+    "category": "electrical",
+    "brand": "John Deere",
+    "description": "High-torque starter motor for agricultural equipment",
+    "sku": "JD-2000"
+  },
+  {
+    "name": "Komatsu 4000 Alternator",
+    "slug": "komatsu-4000-alternator",
+    "price": 799.99,
+    "category": "electrical",
+    "brand": "Komatsu",
+    "description": "Heavy-duty alternator for mining equipment",
+    "sku": "KM-4000"
+  }
+] 

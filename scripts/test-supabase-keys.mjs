@@ -1,20 +1,24 @@
-import { createClient } from "@supabase/supabase-js";
-import 'dotenv/config';
+import { createClient } from '@supabase/supabase-js';
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-console.log("URL:", url);
-console.log("Anon Key length:", anon?.length);
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
-const supabase = createClient(url, anon);
+async function testKeys() {
+  try {
+    const { data, error } = await supabase
+      .from('parts')
+      .select('count')
+      .limit(1);
 
-// Try a simple table query to verify connectivity
-const { data, error } = await supabase
-  .from("parts")
-  .select("id")
-  .limit(1);
-if (error) {
-  console.error("❌ Supabase table query error:", error.message);
-  process.exit(1);
+    if (error) throw error;
+    console.log('✅ Successfully connected to Supabase');
+    process.exit(0);
+  } catch (error) {
+    console.error('❌ Failed to connect:', error.message);
+    process.exit(1);
+  }
 }
-console.log("✅ Supabase connectivity test passed. Sample row:", data); 
+
+testKeys(); 
