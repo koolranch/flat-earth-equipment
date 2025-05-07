@@ -2,6 +2,16 @@ import { Hero } from "@/components/ui/Hero";
 import FeaturedParts from "@/components/FeaturedParts";
 import BrandsCarousel from "@/components/BrandsCarouselClient";
 
+// List of brand image files
+const brandFiles = [
+  "honda.png",
+  "yamaha.png",
+  "kawasaki.png",
+  "suzuki.png",
+  "ktm.png",
+  "husqvarna.png"
+];
+
 export default function Page() {
   return (
     <main className="space-y-24">
@@ -12,7 +22,7 @@ export default function Page() {
       <FeaturedParts />
 
       {/* 3) Brands carousel */}
-      <BrandsCarousel />
+      <BrandsCarousel files={brandFiles} />
     </main>
   );
 } 
