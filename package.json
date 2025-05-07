@@ -14,10 +14,11 @@
   "description": "",
   "devDependencies": {
     "@supabase/supabase-js": "^2.49.4",
-    "@tailwindcss/postcss": "^4.1.5",
     "autoprefixer": "^10.4.21",
     "json2csv": "^6.0.0-alpha.2",
+    "postcss": "^8.5.3",
     "prisma": "^6.7.0",
+    "tailwindcss": "^4.1.5",
     "tw-animate-css": "^1.2.9"
   },
   "dependencies": {
@@ -26,6 +27,7 @@
     "@headlessui/react": "^2.2.2",
     "@prisma/client": "^6.7.0",
     "@radix-ui/react-popover": "^1.1.13",
+    "@radix-ui/react-slider": "^1.3.4",
     "@radix-ui/react-slot": "^1.2.2",
     "@shadcn/ui": "^0.0.4",
     "@types/node": "^22.15.3",
@@ -42,12 +44,10 @@
     "next-auth": "^4.24.11",
     "next-mdx-remote": "^5.0.0",
     "next-sitemap": "^4.2.3",
-    "postcss": "^8.5.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",
     "tailwind-merge": "^3.2.0",
-    "tailwindcss": "^4.1.5",
     "typescript": "^5.8.3"
   }
 }
