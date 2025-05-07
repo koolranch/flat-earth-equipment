@@ -8,18 +8,15 @@ for file in ingest/screenshots/*; do
     if [ -f "$file" ]; then
         echo "📸 Processing: $(basename "$file")"
         
-        # Derive a default slug from the screenshot filename
-        filename=$(basename "$file" | sed -E 's/\.[^.]+$//')
-        # Remove any leading numbers/titles, downcase, turn non-alphanumerics into hyphens
-        default_slug=$(echo "$filename" \
-                      | sed -E 's/^[0-9]+[[:space:]-]*//' \
-                      | tr '[:upper:]' '[:lower:]' \
-                      | sed -E 's/[^a-z0-9]+/-/g' \
-                      | sed -E 's/^-+|-+$//g')
-        # Prompt, falling back to the derived slug
-        echo "Enter product slug [${default_slug}]:"
-        read -r slug
-        slug=${slug:-$default_slug}
+        # auto-generate slug by stripping any "FireShot Capture ### - " prefix and everything after last dash,
+        # then kebab-casing
+        default_slug=$(basename "$file" | sed -E 's/^(FireShot Capture[[:space:]]*[0-9]+[[:space:]]*-[[:space:]]*)//i' \
+                                    | sed -E 's/\.[a-zA-Z]+$//' \
+                                    | sed -E 's/[^a-zA-Z0-9]+/-/g' \
+                                    | sed -E 's/^-+|-+$//g' \
+                                    | tr '[:upper:]' '[:lower:]')
+        echo "Auto-generated slug: $default_slug"
+        slug="$default_slug"
         
         echo "Paste the JSON from ChatGPT Vision (press Ctrl+D when done):"
         json_content=$(cat)
