@@ -1,4 +1,4 @@
-import Hero from "@/components/Hero";
+import { Hero } from "@/components/ui/Hero";
 import FeaturedParts from "@/components/FeaturedParts";
 import BrandsCarousel from "@/components/BrandsCarousel";
 
