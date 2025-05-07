@@ -1,10 +1,11 @@
 import { writeFileSync } from "fs";
 import { prisma } from "../lib/prisma.js";
+import { Part } from '@prisma/client';
 
 async function buildFeed() {
   const parts = await prisma.part.findMany();
 
-  const feed = parts.map((p) => ({
+  const feed = parts.map((p: Part) => ({
     id: p.id,
     title: p.name,
     description: p.description,
