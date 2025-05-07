@@ -120,8 +120,9 @@
 
 @layer base {
   * {
-    @apply border-border;
-    @apply ring-ring/50;
+    border-color: var(--border);
+    outline: 2px solid transparent;
+    outline-offset: 2px;
   }
   body {
     @apply bg-background text-foreground;
