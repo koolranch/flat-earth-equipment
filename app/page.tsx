@@ -1,17 +1,17 @@
 import { Hero } from "@/components/ui/Hero";
 import FeaturedParts from "@/components/FeaturedParts";
-import BrandsCarousel from "@/components/BrandsCarousel";
+import BrandsCarousel from "@/components/BrandsCarouselClient";
 
 export default function Page() {
   return (
     <main className="space-y-24">
-      {/* Hero with placeholder background */}
+      {/* 1) Full-bleed Hero */}
       <Hero />
 
-      {/* Featured Products */}
+      {/* 2) Featured Products grid */}
       <FeaturedParts />
 
-      {/* Brands Carousel */}
+      {/* 3) Brands carousel */}
       <BrandsCarousel />
     </main>
   );
