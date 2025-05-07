@@ -1,6 +1,7 @@
 import { Hero } from "@/components/ui/Hero";
 import FeaturedParts from "@/components/FeaturedParts";
 import BrandsCarousel from "@/components/BrandsCarouselClient";
+import { Features } from "@/components/ui/Features";
 
 // List of brand image files
 const brandFiles = [
@@ -21,7 +22,10 @@ export default function Page() {
       {/* 2) Featured Products grid */}
       <FeaturedParts />
 
-      {/* 3) Brands carousel */}
+      {/* 3) Value-props Features */}
+      <Features />
+
+      {/* 4) Brands carousel */}
       <BrandsCarousel files={brandFiles} />
     </main>
   );
