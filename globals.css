@@ -120,9 +120,8 @@
 
 @layer base {
   * {
-    border-color: var(--border);
-    outline-color: var(--ring);
-    outline-opacity: 0.5;
+    @apply border-border;
+    @apply ring-ring/50;
   }
   body {
     @apply bg-background text-foreground;
