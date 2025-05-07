@@ -6,15 +6,23 @@ import dotenv from 'dotenv';
 import { v4 as uuidv4 } from 'uuid';
 dotenv.config({ path: '.env.local' });
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const key = process.env.SERVICE_ROLE_KEY;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-if (!url || !key) {
+if (!supabaseUrl || !serviceRoleKey) {
   console.error('❌ Missing Supabase credentials in .env.local');
   process.exit(1);
 }
 
-const supabase = createClient(url, key);
+console.log('Debug: Using Supabase URL:', supabaseUrl);
+console.log('Debug: Service Role Key length:', serviceRoleKey.length);
+
+const supabase = createClient(supabaseUrl, serviceRoleKey, {
+  auth: {
+    autoRefreshToken: false,
+    persistSession: false
+  }
+});
 
 // Read and parse CSV
 const csvContent = fs.readFileSync('data/parts.csv', 'utf8');
@@ -28,7 +36,7 @@ async function importToSupabase() {
     // First try to delete all records
     try {
       const { error: deleteError } = await supabase
-        .from('Part')
+        .from('parts')
         .delete()
         .neq('id', '00000000-0000-0000-0000-000000000000');
       
@@ -52,13 +60,12 @@ async function importToSupabase() {
         brand: record.brand,
         description: record.description,
         sku: record.sku,
-        image_filename: `${record.slug}.jpg`,
-        createdAt: now,
-        updatedAt: now
+        created_at: now,
+        updated_at: now
       }));
 
       const { error: insertError } = await supabase
-        .from('Part')
+        .from('parts')
         .upsert(batch, { onConflict: 'slug' });
 
       if (insertError) {

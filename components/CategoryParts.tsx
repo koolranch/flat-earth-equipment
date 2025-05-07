@@ -12,6 +12,7 @@ interface Part {
   slug: string;
   name: string;
   price: number;
+  image_url: string | null;
 }
 
 export default function CategoryParts({
@@ -33,7 +34,7 @@ export default function CategoryParts({
         : systems.map((s) => s.system);
       const { data, error } = await supabase
         .from("parts")
-        .select("slug,name,price")
+        .select("slug,name,price,image_url")
         .eq("category", category)
         .in("system", filterSystems)
         .order("name");
@@ -65,10 +66,26 @@ export default function CategoryParts({
             <Link
               key={part.slug}
               href={`/parts/${category}/${part.slug}`}
-              className="block rounded-lg border p-4 hover:shadow-lg"
+              className="block rounded-lg border overflow-hidden hover:shadow-lg transition"
             >
-              <h2 className="text-xl font-semibold">{part.name}</h2>
-              <p className="mt-2 text-lg">${part.price.toFixed(2)}</p>
+              <div className="relative w-full h-48 bg-gray-200 animate-pulse">
+                <img
+                  src={part.image_url || '/images/parts/placeholder.jpg'}
+                  alt={part.name}
+                  loading="lazy"
+                  onLoad={(e) => {
+                    e.currentTarget.parentElement?.classList.remove('animate-pulse', 'bg-gray-200');
+                  }}
+                  onError={(e) => {
+                    e.currentTarget.src = '/images/parts/placeholder.jpg';
+                  }}
+                  className="absolute inset-0 w-full h-full object-contain"
+                />
+              </div>
+              <div className="p-4">
+                <h2 className="text-xl font-semibold">{part.name}</h2>
+                <p className="mt-2 text-lg">${part.price.toFixed(2)}</p>
+              </div>
             </Link>
           ))}
         </div>
