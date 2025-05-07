@@ -29,7 +29,7 @@ export default async function PartsPage() {
           {parts?.map((p) => (
             <a
               key={p.slug}
-              href={`/parts/charger-modules/${p.slug}`}
+              href={`/parts/${p.slug}`}
               className="group block bg-white rounded-lg shadow-card overflow-hidden hover:shadow-lg transition"
             >
               <div className="relative w-full h-48 bg-gray-100">
