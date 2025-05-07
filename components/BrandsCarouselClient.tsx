@@ -3,6 +3,8 @@
 import { useRef } from "react";
 import Link from "next/link";
 import ImageWrapper from "./ImageWrapper";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface BrandsCarouselClientProps {
   files: string[];
@@ -21,14 +23,17 @@ export default function BrandsCarouselClient({ files }: BrandsCarouselClientProp
       <button
         aria-label="Previous"
         onClick={() => scrollByOffset(-200)}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white rounded-full shadow"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white rounded-full shadow hover:bg-gray-50 transition-colors"
       >
-        ‹
+        <ChevronLeft className="w-6 h-6" />
       </button>
-      <div
+      <motion.div
         ref={carouselRef}
         data-carousel
         className="container mx-auto flex space-x-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide focus:outline-none"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
       >
         {files.map((file) => {
           const name = file.replace(/\.[^/.]+$/, "");
@@ -49,13 +54,13 @@ export default function BrandsCarouselClient({ files }: BrandsCarouselClientProp
             </Link>
           );
         })}
-      </div>
+      </motion.div>
       <button
         aria-label="Next"
         onClick={() => scrollByOffset(200)}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white rounded-full shadow"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white rounded-full shadow hover:bg-gray-50 transition-colors"
       >
-        ›
+        <ChevronRight className="w-6 h-6" />
       </button>
     </nav>
   );
