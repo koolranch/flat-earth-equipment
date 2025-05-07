@@ -1,0 +1,4 @@
+{
+  // Allow Cursor to edit all files, including .env*
+  "cursor.globalIgnore": []
+} 
