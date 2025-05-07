@@ -37,8 +37,7 @@ export default function Hero() {
             Rent Equipment
           </Link>
         </div>
-        {/* consolidated shared search component */}
-        <div className="mt-8 w-full max-w-md mx-auto">
+        <div className="-mt-10 w-full px-4">
           <SearchBar />
         </div>
       </div>
