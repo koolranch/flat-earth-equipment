@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { createClient } from '@supabase/supabase-js'
-import Image from 'next/image'
+import PartImage from '@/components/PartImage'
 
 export const metadata: Metadata = {
   title: "All Parts | Flat Earth Equipment",
@@ -14,12 +14,15 @@ export default async function PartsPage() {
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   )
   const { data: parts, error } = await supabase
-    .from('Part')
-    .select('slug, name, price, image_url')
+    .from('parts')
+    .select('*')
 
   if (error) {
     return <p className="text-red-500">Error loading parts: {error.message}</p>
   }
+
+  // Log the number of parts returned
+  console.log(`Found ${parts?.length || 0} parts in the database`)
 
   return (
     <main className="py-12 bg-gray-50 min-h-screen">
@@ -29,23 +32,13 @@ export default async function PartsPage() {
           {parts?.map((p) => (
             <a
               key={p.slug}
-              href={`/parts/${p.slug}`}
+              href={`/parts/${p.category}/${p.slug}`}
               className="group block bg-white rounded-lg shadow-card overflow-hidden hover:shadow-lg transition"
             >
-              <div className="relative w-full h-48 bg-gray-200 animate-pulse">
-                <img
-                  src={p.image_url || '/images/parts/placeholder.jpg'}
-                  alt={p.name}
-                  loading="lazy"
-                  onLoad={(e) => {
-                    e.currentTarget.parentElement?.classList.remove('animate-pulse', 'bg-gray-200');
-                  }}
-                  onError={(e) => {
-                    e.currentTarget.src = '/images/parts/placeholder.jpg';
-                  }}
-                  className="absolute inset-0 w-full h-full object-contain rounded"
-                />
-              </div>
+              <PartImage
+                src={p.image_url || '/images/parts/placeholder.jpg'}
+                alt={p.name}
+              />
               <div className="p-4">
                 <h2 className="font-semibold text-lg">{p.name}</h2>
                 <p className="mt-1 text-brand-dark">${p.price.toFixed(2)}</p>

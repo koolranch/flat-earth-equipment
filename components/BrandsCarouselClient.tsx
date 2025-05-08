@@ -1,24 +1,74 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
-import ImageWrapper from "./ImageWrapper";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { createClient } from '@supabase/supabase-js';
 
-interface BrandsCarouselClientProps {
-  files: string[];
-}
+type Brand = {
+  name: string;
+  slug: string;
+  logo_url: string | null;
+};
 
-export default function BrandsCarouselClient({ files }: BrandsCarouselClientProps) {
+export default function BrandsCarouselClient() {
   const carouselRef = useRef<HTMLDivElement>(null);
+  const [brands, setBrands] = useState<Brand[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchBrands() {
+      const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      );
+
+      const { data, error } = await supabase
+        .from('parts')
+        .select('brand, brand_logo_url')
+        .order('brand')
+        .limit(10);
+
+      if (error) {
+        console.error('Error fetching brands:', error);
+        return;
+      }
+
+      // Get unique brands with their logos
+      const uniqueBrands = Array.from(new Set(data.map(part => part.brand)))
+        .map(brand => ({
+          name: brand,
+          slug: brand.toLowerCase().replace(/\s+/g, '-'),
+          logo_url: data.find(part => part.brand === brand)?.brand_logo_url
+        }));
+
+      setBrands(uniqueBrands);
+      setLoading(false);
+    }
+
+    fetchBrands();
+  }, []);
 
   const scrollByOffset = (offset: number) => {
     carouselRef.current?.scrollBy({ left: offset, behavior: "smooth" });
   };
 
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4">
+        <h2 className="text-2xl font-bold text-center mb-8">Shop by Brand</h2>
+        <div className="flex space-x-6 overflow-x-auto">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="flex-shrink-0 w-32 h-16 bg-gray-200 rounded animate-pulse" />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <nav aria-label="Shop by Brand" className="py-16 bg-gray-50 relative">
+    <div className="container mx-auto px-4 relative">
       <h2 className="text-2xl font-bold text-center mb-8">Shop by Brand</h2>
       <button
         aria-label="Previous"
@@ -30,30 +80,34 @@ export default function BrandsCarouselClient({ files }: BrandsCarouselClientProp
       <motion.div
         ref={carouselRef}
         data-carousel
-        className="container mx-auto flex space-x-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide focus:outline-none"
+        className="flex space-x-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide focus:outline-none"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        {files.map((file) => {
-          const name = file.replace(/\.[^/.]+$/, "");
-          const slug = name.toLowerCase().replace(/\s+/g, "-");
-          return (
-            <Link
-              key={file}
-              href={`/parts/${slug}`}
-              className="relative flex-shrink-0 focus:ring-2 focus:ring-blue-500 rounded transition"
-              aria-label={`View ${name.replace(/-/g, " ")} parts`}
-            >
-              <ImageWrapper
-                src={`/brands/${file}`}
-                alt={name.replace(/-/g, " ")}
-                width={128}
-                height={64}
+        {brands.map((brand) => (
+          <Link
+            key={brand.slug}
+            href={`/parts/${brand.slug}`}
+            className="relative flex-shrink-0 focus:ring-2 focus:ring-blue-500 rounded transition"
+            aria-label={`View ${brand.name} parts`}
+          >
+            <div className="relative w-32 h-16 bg-gray-200 animate-pulse">
+              <img
+                src={brand.logo_url || 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-brand.png'}
+                alt={brand.name}
+                loading="lazy"
+                onLoad={(e) => {
+                  e.currentTarget.parentElement?.classList.remove('animate-pulse', 'bg-gray-200');
+                }}
+                onError={(e) => {
+                  e.currentTarget.src = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-brand.png';
+                }}
+                className="absolute inset-0 w-full h-full object-contain"
               />
-            </Link>
-          );
-        })}
+            </div>
+          </Link>
+        ))}
       </motion.div>
       <button
         aria-label="Next"
@@ -62,6 +116,6 @@ export default function BrandsCarouselClient({ files }: BrandsCarouselClientProp
       >
         <ChevronRight className="w-6 h-6" />
       </button>
-    </nav>
+    </div>
   );
 } 
