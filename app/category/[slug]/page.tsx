@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { categories } from "@/lib/data/categories";
+import { brands } from "@/lib/data/brands";
 
 type CategorySlug = typeof categories[number]["slug"];
 
@@ -41,6 +42,35 @@ export default function CategoryPage({ params }: { params: { slug: CategorySlug 
           <p className="text-slate-600">Product grid coming soon</p>
         </div>
       </section>
+
+      {category.supportedBrandSlugs && category.supportedBrandSlugs.length > 0 && (
+        <section className="mt-16 mb-12">
+          <h2 className="text-xl font-semibold mb-4">Supported Brands</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+            {category.supportedBrandSlugs.map((slug) => {
+              const brand = brands.find((b) => b.slug === slug);
+              if (!brand) return null;
+
+              return (
+                <Link
+                  key={brand.slug}
+                  href={`/brand/${brand.slug}`}
+                  className="text-center group"
+                >
+                  <img
+                    src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${brand.image}`}
+                    alt={`${brand.name} logo`}
+                    className="h-10 mx-auto object-contain group-hover:opacity-80"
+                  />
+                  <p className="text-sm text-slate-600 mt-2 group-hover:text-canyon-rust">
+                    {brand.name}
+                  </p>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       <section className="mb-12 bg-slate-50 rounded-lg p-8">
         <h2 className="text-xl font-semibold text-slate-900 mb-4">Need a Quote?</h2>
