@@ -3,6 +3,7 @@ import Link from 'next/link';
 import ImageWithFallback from '@/components/ImageWithFallback';
 import ProductGrid from '@/components/ProductGrid';
 import { brands } from '@/lib/data/brands';
+import { categories } from '@/lib/data/categories';
 import Script from 'next/script';
 import { notFound } from 'next/navigation';
 
@@ -108,6 +109,60 @@ export default function BrandPage({ params }: { params: { slug: string } }) {
         {/* Product Grid */}
         <section className="mb-12">
           <ProductGrid brand={brand.name} />
+        </section>
+
+        {/* Popular Categories Section */}
+        <section className="mt-16">
+          <h2 className="text-xl font-semibold mb-4">
+            Popular Categories for {brand.name}
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {categories.slice(0, 6).map((category) => (
+              <Link
+                key={category.slug}
+                href={`/category/${category.slug}?brand=${brand.slug}`}
+                className="bg-slate-50 border border-slate-200 rounded-md p-4 text-center hover:border-canyon-rust transition"
+              >
+                <p className="text-sm font-medium text-slate-800">
+                  {category.name}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* Trust Points Section */}
+        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-slate-50 rounded-lg shadow-sm mt-12">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-2xl font-semibold text-center text-slate-800 mb-6">
+              Why Buyers Trust Flat Earth Equipment
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-center text-slate-800">
+              <div className="bg-white border border-slate-200 rounded-lg p-4 shadow-sm">
+                <span className="text-2xl mb-2 block">✅</span>
+                <p className="font-medium">Same-Day Shipping</p>
+                <p className="text-sm text-slate-600">On most stocked items</p>
+              </div>
+
+              <div className="bg-white border border-slate-200 rounded-lg p-4 shadow-sm">
+                <span className="text-2xl mb-2 block">🛠️</span>
+                <p className="font-medium">6-Month Warranty</p>
+                <p className="text-sm text-slate-600">Covers all replacement parts</p>
+              </div>
+
+              <div className="bg-white border border-slate-200 rounded-lg p-4 shadow-sm">
+                <span className="text-2xl mb-2 block">📦</span>
+                <p className="font-medium">10,000+ Parts In Stock</p>
+                <p className="text-sm text-slate-600">Across 40+ top brands</p>
+              </div>
+
+              <div className="bg-white border border-slate-200 rounded-lg p-4 shadow-sm">
+                <span className="text-2xl mb-2 block">🇺🇸</span>
+                <p className="font-medium">U.S.-Based Support</p>
+                <p className="text-sm text-slate-600">Real help from real people</p>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* About Brand Section */}

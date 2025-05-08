@@ -12,12 +12,15 @@ export default function Footer() {
     setStatus('loading');
 
     try {
-      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      const response = await fetch('https://formspree.io/f/mrbqkjke', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ 
+          email,
+          _subject: 'New Email Signup'
+        }),
       });
 
       if (response.ok) {
@@ -86,6 +89,7 @@ export default function Footer() {
             <form onSubmit={handleSubmit} className="space-y-3">
               <input
                 type="email"
+                name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Your email"

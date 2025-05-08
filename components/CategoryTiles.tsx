@@ -2,66 +2,75 @@
 
 import Link from 'next/link';
 import { 
-  Gamepad2, 
+  Wrench, 
+  Scissors, 
+  Truck, 
   Gauge, 
   Zap, 
-  CircleDot, 
-  Bike, 
-  Battery 
+  Cpu, 
+  Battery, 
+  CircleDot 
 } from 'lucide-react';
 
 const categories = [
-  { 
-    name: 'Controllers', 
-    slug: 'controllers',
-    icon: Gamepad2
+  {
+    name: 'Forklift Parts',
+    slug: 'forklift-parts',
+    icon: Wrench
   },
-  { 
-    name: 'Hydraulic', 
-    slug: 'hydraulic',
+  {
+    name: 'Scissor Lift Parts',
+    slug: 'scissor-lift-parts',
+    icon: Scissors
+  },
+  {
+    name: 'Telehandler Parts',
+    slug: 'telehandler-parts',
+    icon: Truck
+  },
+  {
+    name: 'Hydraulic Components',
+    slug: 'hydraulic-components',
     icon: Gauge
   },
-  { 
-    name: 'Electrical', 
-    slug: 'electrical',
+  {
+    name: 'Electrical Systems',
+    slug: 'electrical-systems',
     icon: Zap
   },
-  { 
-    name: 'Brakes', 
-    slug: 'brakes',
-    icon: CircleDot
+  {
+    name: 'Controllers',
+    slug: 'controllers',
+    icon: Cpu
   },
-  { 
-    name: 'Motors', 
-    slug: 'motors',
-    icon: Bike
-  },
-  { 
-    name: 'Chargers', 
-    slug: 'chargers',
+  {
+    name: 'Chargers & Batteries',
+    slug: 'chargers-batteries',
     icon: Battery
   },
+  {
+    name: 'Tires & Wheels',
+    slug: 'tires-wheels',
+    icon: CircleDot
+  }
 ];
 
 export default function CategoryTiles() {
   return (
-    <section className="bg-gray-100 py-12" role="region" aria-label="Product Categories">
-      <div className="max-w-4xl mx-auto px-4">
-        <h2 className="font-teko text-2xl text-slate-800 mb-4">Shop by Category</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {categories.map((cat) => (
+    <section className="py-12">
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 className="text-2xl font-semibold text-center text-slate-800 mb-6">
+          Shop Popular Categories
+        </h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+          {categories.map((category) => (
             <Link
-              key={cat.slug}
-              href={`/parts?category=${cat.slug}`}
-              className="bg-white border border-gray-200 rounded-xl p-6 text-center shadow-sm hover:shadow-md hover:border-[#A0522D] transition-all duration-200 flex flex-col items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A0522D] focus-visible:ring-offset-2"
-              role="button"
-              aria-label={`Browse ${cat.name} category`}
+              key={category.slug}
+              href={`/category/${category.slug}`}
+              className="flex flex-col items-center justify-center text-center bg-slate-50 p-4 rounded-lg border border-slate-200 shadow-sm hover:border-canyon-rust transition"
             >
-              <cat.icon 
-                className="h-6 w-6 text-[#A0522D] mb-2" 
-                aria-hidden="true"
-              />
-              <span className="text-slate-800">{cat.name}</span>
+              <category.icon className="h-6 w-6 mb-2 text-canyon-rust" />
+              <span className="text-sm font-medium text-slate-800">{category.name}</span>
             </Link>
           ))}
         </div>

@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { categories } from "@/lib/data/categories";
 import { brands } from "@/lib/data/brands";
+import CategoryProductGrid from "@/components/CategoryProductGrid";
 
 type CategorySlug = typeof categories[number]["slug"];
 
@@ -36,12 +37,7 @@ export default function CategoryPage({ params }: { params: { slug: CategorySlug 
         </p>
       </section>
 
-      <section className="mb-12">
-        {/* Product grid component will be added in a future phase */}
-        <div className="bg-slate-50 rounded-lg p-8 text-center">
-          <p className="text-slate-600">Product grid coming soon</p>
-        </div>
-      </section>
+      <CategoryProductGrid categorySlug={params.slug} />
 
       {category.supportedBrandSlugs && category.supportedBrandSlugs.length > 0 && (
         <section className="mt-16 mb-12">
