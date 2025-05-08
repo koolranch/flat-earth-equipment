@@ -2,6 +2,8 @@ import { Hero } from "@/components/ui/Hero";
 import FeaturedParts from "@/components/FeaturedParts";
 import BrandsCarousel from "@/components/BrandsCarousel";
 import { Features } from "@/components/ui/Features";
+import CategoryTiles from "@/components/CategoryTiles";
+import EmailSignup from "@/components/EmailSignup";
 
 // Define the brand files array
 const brandFiles = [
@@ -20,20 +22,26 @@ export default function Page() {
       {/* 1) Full-bleed Hero */}
       <Hero />
 
-      {/* 2) Featured Products grid */}
+      {/* 2) Popular Categories */}
+      <CategoryTiles />
+
+      {/* 3) Featured Products grid */}
       <section className="py-12">
         <FeaturedParts />
       </section>
 
-      {/* 3) Value-props Features */}
+      {/* 4) Value-props Features */}
       <section className="py-12 bg-gray-50">
         <Features />
       </section>
 
-      {/* 4) Brands carousel */}
+      {/* 5) Brands carousel */}
       <section className="py-12">
         <BrandsCarousel files={brandFiles} />
       </section>
+
+      {/* 6) Email signup */}
+      <EmailSignup />
     </main>
   );
 } 
