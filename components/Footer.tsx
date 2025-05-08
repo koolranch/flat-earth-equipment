@@ -56,6 +56,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/locations" className="text-slate-600 hover:text-[#A0522D] transition-colors">
+                  Rental Service Areas
+                </Link>
+              </li>
+              <li>
                 <Link href="/shipping" className="text-slate-600 hover:text-[#A0522D] transition-colors">
                   Shipping & Returns
                 </Link>

@@ -5,35 +5,37 @@ import Link from "next/link";
 
 export function Hero() {
   return (
-    <section
-      className="relative bg-cover bg-center bg-no-repeat text-white py-20"
-      style={{
-        backgroundImage:
-          "url('https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/hero-bg-mountains.webp')",
-      }}
-    >
-      <div className="absolute inset-0 bg-black/60 z-0" />
-      <div className="relative z-10 text-center px-4">
-        <h1 className="text-4xl font-bold">Flat Earth Equipment</h1>
-        <p className="mt-4 text-lg max-w-xl mx-auto">
-          OEM replacement parts & equipment rentals — fast quotes, same-day shipping across WY, MT, & NM.
-        </p>
-        <div className="mt-6 flex flex-col items-center gap-4">
-          <SearchBar />
-          <div className="flex gap-4">
-            <Button asChild variant="secondary" className="bg-white text-gray-900 hover:bg-gray-100">
-              <a href="/parts">Browse Parts</a>
-            </Button>
-            <Button asChild variant="outline" className="text-white border-white hover:bg-white/10">
-              <a href="/rentals">Rent Equipment</a>
-            </Button>
+    <section className="relative h-[500px] md:h-[600px] w-full overflow-hidden">
+      <img
+        src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/hero-bg-mountains.webp"
+        alt="Western mountain range background representing rugged industrial service region"
+        className="absolute inset-0 w-full h-full object-cover object-center"
+        loading="eager"
+      />
+
+      {/* Dark overlay for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30"></div>
+
+      {/* Text Content */}
+      <div className="relative z-10 flex items-center justify-center h-full px-6 text-center">
+        <div className="max-w-2xl">
+          <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
+            Industrial Parts, Western Tough
+          </h1>
+          <p className="text-white text-base md:text-lg mb-6">
+            Fast quotes. Same-day shipping. Precision-fit components — without the runaround.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <div className="w-full sm:w-auto">
+              <SearchBar />
+            </div>
+            <Link
+              href="/quote"
+              className="inline-block bg-canyon-rust text-white px-6 py-3 rounded-md font-semibold hover:bg-orange-700 transition"
+            >
+              Request a Quote
+            </Link>
           </div>
-          <Link 
-            href="/parts" 
-            className="mt-6 inline-block bg-canyon-rust text-white font-semibold px-6 py-3 rounded hover:bg-orange-700 transition"
-          >
-            View All Parts
-          </Link>
         </div>
       </div>
     </section>

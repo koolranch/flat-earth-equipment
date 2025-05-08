@@ -54,7 +54,25 @@ export default function Page() {
       {/* 8) Trust Points */}
       <TrustPoints />
 
-      {/* 9) Email signup */}
+      {/* 9) Geographic Coverage */}
+      <section className="bg-slate-50 py-8 mt-16">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-lg font-semibold text-slate-800 mb-2">
+            Serving the Western U.S.
+          </h2>
+          <p className="text-slate-600 text-sm mb-4">
+            Same-day rentals available in Cheyenne, Bozeman, Pueblo, Las Cruces & beyond.
+          </p>
+          <a
+            href="/locations"
+            className="inline-block bg-canyon-rust text-white px-6 py-2 rounded-md hover:bg-orange-700 transition text-sm"
+          >
+            View All Service Areas
+          </a>
+        </div>
+      </section>
+
+      {/* 10) Email signup */}
       <EmailSignup />
     </main>
   );
