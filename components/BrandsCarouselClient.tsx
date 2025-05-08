@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Brand } from "@/lib/data/brands";
-import ImageWithFallback from "./ImageWithFallback";
 
 type BrandsCarouselProps = {
   brands: Brand[];
@@ -20,13 +19,12 @@ export default function BrandsCarouselClient({ brands }: BrandsCarouselProps) {
               href={`/brand/${brand.slug}`}
               className="group flex flex-col items-center justify-center p-4 bg-white rounded-lg border border-gray-100 hover:shadow-lg hover:scale-105 transition-all duration-200"
             >
-              <ImageWithFallback
-                src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//${brand.image}`}
+              <img
+                src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${brand.image.replace(/^\/+/, "")}`}
                 alt={`${brand.name} logo`}
                 width={120}
                 height={60}
                 className="h-12 w-auto object-contain group-hover:opacity-80 transition-opacity"
-                priority={false}
                 onError={(e) => {
                   console.error(`Failed to load logo for ${brand.name}:`, e);
                 }}
