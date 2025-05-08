@@ -12,7 +12,11 @@ export default function Navbar() {
   const navItems = [
     { label: "Parts", href: "/parts" },
     { label: "Brands", href: "/brands" },
-    { label: "Rentals", href: "/rentals" },
+    { 
+      label: "Rent Equipment", 
+      href: "/rentals",
+      className: "text-slate-900 hover:text-canyon-rust font-semibold tracking-wide transition-colors"
+    },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
   ];
@@ -37,7 +41,7 @@ export default function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`font-medium transition-colors ${
+              className={item.className || `font-medium transition-colors ${
                 pathname === item.href
                   ? "text-canyon-rust underline"
                   : "text-slate-800 hover:text-canyon-rust"
@@ -65,7 +69,7 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`font-medium transition-colors ${
+                className={item.className || `font-medium transition-colors ${
                   pathname === item.href
                     ? "text-canyon-rust underline"
                     : "text-slate-800 hover:text-canyon-rust"
