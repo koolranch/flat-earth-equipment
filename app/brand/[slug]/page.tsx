@@ -4,8 +4,10 @@ import Image from 'next/image';
 import ProductGrid from '@/components/ProductGrid';
 import { brands } from '@/lib/data/brands';
 import Script from 'next/script';
+import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
+  // This already includes all brands from the array, including Batch 4
   return brands.map((brand) => ({
     slug: brand.slug,
   }));
@@ -23,7 +25,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
   return {
     title: `Buy ${brand.name} Parts | Flat Earth Equipment`,
-    description: `Explore premium replacement parts for ${brand.name} forklifts, scissor lifts, and construction equipment. Fast quotes, nationwide shipping.`,
+    description: `Order ${brand.name} forklift and lift equipment parts online. Fast quotes, same-day shipping, and rugged service nationwide.`,
   };
 }
 
@@ -31,12 +33,7 @@ export default function BrandPage({ params }: { params: { slug: string } }) {
   const brand = brands.find((b) => b.slug === params.slug);
 
   if (!brand) {
-    return (
-      <main className="container mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold mb-4">Brand Not Found</h1>
-        <p>The requested brand page could not be found.</p>
-      </main>
-    );
+    notFound();
   }
 
   const schema = {
@@ -46,7 +43,7 @@ export default function BrandPage({ params }: { params: { slug: string } }) {
     "url": `https://flatearthequipment.com/brand/${brand.slug}`,
     "logo": `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${brand.image}`,
     "sameAs": [],
-    "description": `Replacement parts for ${brand.name} equipment including controllers, electrical systems, hydraulics, and more. Fast U.S. shipping from Flat Earth Equipment.`
+    "description": `Order ${brand.name} forklift and lift equipment parts online. Fast quotes, same-day shipping, and rugged service nationwide.`
   };
 
   return (
@@ -79,14 +76,24 @@ export default function BrandPage({ params }: { params: { slug: string } }) {
         {/* Brand Header */}
         <section className="mb-12">
           <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="relative w-48 h-48">
-              <Image
-                src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${brand.image}`}
-                alt={`${brand.name} logo`}
-                fill
-                className="object-contain"
-                priority
-              />
+            <div className="relative w-48 h-48 bg-gray-50 rounded-lg flex items-center justify-center">
+              {brand.image ? (
+                <Image
+                  src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${brand.image}`}
+                  alt={`${brand.name} logo`}
+                  fill
+                  className="object-contain p-4"
+                  priority
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = '/images/placeholder-logo.png';
+                  }}
+                />
+              ) : (
+                <div className="text-gray-400 text-center p-4">
+                  <p>Logo not available</p>
+                </div>
+              )}
             </div>
             <div>
               <h1 className="text-4xl font-bold mb-4">Parts for {brand.name} Equipment</h1>
