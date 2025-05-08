@@ -43,7 +43,7 @@ export default function BrandPage({ params }: { params: { slug: string } }) {
     "@type": "Organization",
     "name": brand.name,
     "url": `https://flatearthequipment.com/brand/${brand.slug}`,
-    "logo": `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${brand.image}`,
+    "logo": `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//${brand.image}`,
     "sameAs": [],
     "description": `Order ${brand.name} forklift and lift equipment parts online. Fast quotes, same-day shipping, and rugged service nationwide.`
   };
@@ -171,7 +171,7 @@ export default function BrandPage({ params }: { params: { slug: string } }) {
                   <div className="relative w-24 h-24 bg-gray-50 rounded-lg mb-2 flex items-center justify-center">
                     {relatedBrand.image ? (
                       <ImageWithFallback
-                        src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${relatedBrand.image}`}
+                        src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//${relatedBrand.image}`}
                         alt={`${relatedBrand.name} logo`}
                         fill
                         className="object-contain p-3"
