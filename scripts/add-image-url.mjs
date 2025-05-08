@@ -21,20 +21,26 @@ const supabase = createClient(supabaseUrl, serviceRoleKey, {
 
 const addImageUrl = async () => {
   try {
-    // Add the column
-    const { error: alterError } = await supabase
+    // First try to select from the table to see if image_url exists
+    const { error: checkError } = await supabase
       .from('parts')
-      .select('id')
-      .limit(1)
-      .then(async () => {
-        return await supabase.from('parts').update({ image_url: null }).eq('id', 'dummy-id');
-      });
+      .select('image_url')
+      .limit(1);
 
-    if (alterError && !alterError.message.includes('column "image_url" of relation "parts" already exists')) {
-      throw alterError;
+    // If we get an error about the column not existing, we need to add it
+    if (checkError && checkError.message.includes('column "image_url" does not exist')) {
+      // Add the column using a direct update that will fail if column doesn't exist
+      const { error: addColumnError } = await supabase
+        .from('parts')
+        .update({ image_url: null })
+        .eq('id', 'dummy-id');
+
+      if (addColumnError && !addColumnError.message.includes('column "image_url" of relation "parts" already exists')) {
+        throw addColumnError;
+      }
     }
 
-    // Update all rows with the image_url
+    // Get all parts that need image URLs
     const { data: parts, error: selectError } = await supabase
       .from('parts')
       .select('id, slug')
@@ -46,18 +52,23 @@ const addImageUrl = async () => {
 
     if (parts && parts.length > 0) {
       for (const part of parts) {
+        // For now, we'll use a default pattern based on the slug
+        const imageUrl = `/images/parts/${part.slug}.jpg`;
+
         const { error: updateError } = await supabase
           .from('parts')
-          .update({ image_url: `/images/parts/${part.slug}.jpg` })
+          .update({ image_url: imageUrl })
           .eq('id', part.id);
 
         if (updateError) {
           throw updateError;
         }
       }
+      console.log(`✅ Updated ${parts.length} parts with image URLs`);
+    } else {
+      console.log('✅ No parts needed image URL updates');
     }
 
-    console.log('✅ Successfully added image_url column and updated values');
   } catch (error) {
     console.error('❌ Error adding image_url column:', error);
     process.exit(1);

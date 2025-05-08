@@ -1,31 +1,46 @@
 "use client";
 
-import { useState, Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import { MagnifyingGlassIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+type Suggestion = {
+  slug: string;
+  name: string;
+};
 
 export default function SearchBar() {
   const [query, setQuery] = useState("");
-  const [options, setOptions] = useState<{ name: string; slug: string }[]>([]);
+  const [options, setOptions] = useState<Suggestion[]>([]);
 
-  async function fetchSuggestions(q: string) {
-    if (!q) return setOptions([]);
-    const { data } = await supabase
-      .from("parts")
-      .select("name,slug")
-      .ilike("name", `%${q}%`)
+  const fetchSuggestions = async (searchQuery: string) => {
+    if (!searchQuery.trim()) {
+      setOptions([]);
+      return;
+    }
+
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+
+    const { data, error } = await supabase
+      .from('parts')
+      .select('slug, name')
+      .or(`name.ilike.%${searchQuery}%,sku.ilike.%${searchQuery}%`)
       .limit(5);
-    setOptions(data ?? []);
-  }
+
+    if (error) {
+      console.error('Error fetching suggestions:', error);
+      return;
+    }
+
+    setOptions(data || []);
+  };
 
   return (
-    <div className="w-full max-w-xl mx-auto">
+    <div className="w-full max-w-xl">
       <Combobox
         as="div"
         value={query}
@@ -33,8 +48,8 @@ export default function SearchBar() {
       >
         <div className="relative">
           <Combobox.Input
-            className="w-full border border-gray-300 rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-brand"
-            placeholder="Search parts by name, brand, SKU..."
+            className="w-full border-0 rounded-lg py-2 pl-10 pr-4 text-black focus:outline-none focus:ring-2 focus:ring-brand"
+            placeholder="Search by SKU or part name"
             onChange={(e) => {
               setQuery(e.target.value);
               fetchSuggestions(e.target.value);

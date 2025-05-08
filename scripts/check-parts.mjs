@@ -15,7 +15,7 @@ const supabase = createClient(url, anon);
 async function checkParts() {
   try {
     const { data, error } = await supabase
-      .from('Part')
+      .from('parts')
       .select('name,slug,price,category,brand');
 
     if (error) throw error;
