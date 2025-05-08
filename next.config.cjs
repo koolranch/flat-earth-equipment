@@ -4,18 +4,10 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/photo-*/**',
-      },
-      {
-        protocol: 'https',
         hostname: 'mzsozezflbhebykncbmr.supabase.co',
-        port: '',
         pathname: '/storage/v1/object/public/**',
       },
     ],
-    domains: ['mzsozezflbhebykncbmr.supabase.co'],
   },
   experimental: {
     mdxRs: true,
