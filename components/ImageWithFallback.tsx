@@ -17,11 +17,11 @@ export default function ImageWithFallback(props: React.ComponentProps<typeof Ima
 
   if (error) {
     return (
-      <Image
-        {...props}
-        src="/images/placeholder-logo.png"
-        alt={props.alt || "Image not found"}
-      />
+      <div className="flex items-center justify-center bg-gray-100 rounded px-4 py-2">
+        <span className="text-gray-600 font-medium text-sm">
+          {props.alt || "Image not found"}
+        </span>
+      </div>
     );
   }
 
