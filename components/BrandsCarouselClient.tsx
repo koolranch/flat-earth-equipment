@@ -27,6 +27,9 @@ export default function BrandsCarouselClient({ brands }: BrandsCarouselProps) {
                 height={60}
                 className="h-12 w-auto object-contain group-hover:opacity-80 transition-opacity"
                 priority={false}
+                onError={(e) => {
+                  console.error(`Failed to load logo for ${brand.name}:`, e);
+                }}
               />
               <p className="text-sm text-slate-600 mt-2 group-hover:text-slate-900 transition-colors">{brand.name}</p>
             </Link>

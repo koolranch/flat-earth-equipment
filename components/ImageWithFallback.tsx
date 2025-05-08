@@ -6,7 +6,17 @@ import Image from 'next/image';
 export default function ImageWithFallback(props: React.ComponentProps<typeof Image>) {
   const [error, setError] = useState(false);
 
+  const handleError = (e: any) => {
+    console.error('Image failed to load:', {
+      src: props.src,
+      alt: props.alt,
+      error: e
+    });
+    setError(true);
+  };
+
   if (error) {
+    console.log('Using fallback image for:', props.alt);
     return (
       <Image
         {...props}
@@ -19,7 +29,7 @@ export default function ImageWithFallback(props: React.ComponentProps<typeof Ima
   return (
     <Image
       {...props}
-      onError={() => setError(true)}
+      onError={handleError}
     />
   );
 } 
