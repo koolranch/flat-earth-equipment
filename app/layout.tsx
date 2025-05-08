@@ -1,6 +1,8 @@
 import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
 import React from 'react';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 // Import your global styles (Tailwind, custom resets)
 import '../globals.css';
 
@@ -18,8 +20,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="font-sans text-gray-900 bg-gray-50 antialiased">
+      <body className={`${inter.className} font-sans text-gray-900 bg-gray-50 antialiased`}>
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
