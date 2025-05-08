@@ -21,7 +21,7 @@ export default function BrandsCarouselClient({ brands }: BrandsCarouselProps) {
               className="group flex flex-col items-center justify-center p-4 bg-white rounded-lg border border-gray-100 hover:shadow-lg hover:scale-105 transition-all duration-200"
             >
               <ImageWithFallback
-                src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${brand.image}`}
+                src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//${brand.image}`}
                 alt={`${brand.name} logo`}
                 width={120}
                 height={60}
