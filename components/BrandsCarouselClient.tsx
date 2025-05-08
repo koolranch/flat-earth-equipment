@@ -12,7 +12,11 @@ type Brand = {
   logo_url: string | null;
 };
 
-export default function BrandsCarouselClient() {
+type BrandsCarouselClientProps = {
+  files: string[];
+};
+
+export default function BrandsCarouselClient({ files }: BrandsCarouselClientProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [brands, setBrands] = useState<Brand[]>([]);
   const [loading, setLoading] = useState(true);
