@@ -1,10 +1,12 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
+import ImageWithFallback from '@/components/ImageWithFallback';
 import ProductGrid from '@/components/ProductGrid';
 import { brands } from '@/lib/data/brands';
 import Script from 'next/script';
 import { notFound } from 'next/navigation';
+
+export const dynamic = 'force-dynamic';
 
 export async function generateStaticParams() {
   // This already includes all brands from the array, including Batch 4
@@ -78,16 +80,12 @@ export default function BrandPage({ params }: { params: { slug: string } }) {
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="relative w-48 h-48 bg-gray-50 rounded-lg flex items-center justify-center">
               {brand.image ? (
-                <Image
+                <ImageWithFallback
                   src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${brand.image}`}
                   alt={`${brand.name} logo`}
                   fill
                   className="object-contain p-4"
                   priority
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = '/images/placeholder-logo.png';
-                  }}
                 />
               ) : (
                 <div className="text-gray-400 text-center p-4">
@@ -171,15 +169,11 @@ export default function BrandPage({ params }: { params: { slug: string } }) {
                 >
                   <div className="relative w-24 h-24 bg-gray-50 rounded-lg mb-2 flex items-center justify-center">
                     {relatedBrand.image ? (
-                      <Image
+                      <ImageWithFallback
                         src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${relatedBrand.image}`}
                         alt={`${relatedBrand.name} logo`}
                         fill
                         className="object-contain p-3"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src = '/images/placeholder-logo.png';
-                        }}
                       />
                     ) : (
                       <div className="text-gray-400 text-center p-4">
