@@ -43,7 +43,7 @@ export default function BrandPage({ params }: { params: { slug: string } }) {
     "@type": "Organization",
     "name": brand.name,
     "url": `https://flatearthequipment.com/brand/${brand.slug}`,
-    "logo": `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//${brand.image}`,
+    "logo": `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${brand.image}`,
     "sameAs": [],
     "description": `Order ${brand.name} forklift and lift equipment parts online. Fast quotes, same-day shipping, and rugged service nationwide.`
   };
@@ -80,13 +80,12 @@ export default function BrandPage({ params }: { params: { slug: string } }) {
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="relative w-48 h-48 bg-gray-50 rounded-lg flex items-center justify-center">
               {brand.image ? (
-                <ImageWithFallback
-                  src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//${brand.image}`}
+                <img
+                  src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${brand.image}`}
                   alt={`${brand.name} logo`}
                   width={200}
                   height={100}
                   className="h-16 w-auto object-contain mb-6"
-                  priority
                 />
               ) : (
                 <div className="text-gray-400 text-center p-4">
@@ -170,11 +169,10 @@ export default function BrandPage({ params }: { params: { slug: string } }) {
                 >
                   <div className="relative w-24 h-24 bg-gray-50 rounded-lg mb-2 flex items-center justify-center">
                     {relatedBrand.image ? (
-                      <ImageWithFallback
-                        src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//${relatedBrand.image}`}
+                      <img
+                        src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${relatedBrand.image}`}
                         alt={`${relatedBrand.name} logo`}
-                        fill
-                        className="object-contain p-3"
+                        className="object-contain p-3 w-full h-full"
                       />
                     ) : (
                       <div className="text-gray-400 text-center p-4">
