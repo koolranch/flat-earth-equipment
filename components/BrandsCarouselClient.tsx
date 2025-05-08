@@ -16,6 +16,16 @@ type BrandsCarouselClientProps = {
   files: string[];
 };
 
+const brandLogos = [
+  'Case.webp',
+  'Curtis.webp',
+  'Genie.webp',
+  'JLG.webp',
+  'Skyjack.webp',
+  'Toyota.webp',
+  'Yale.webp'
+];
+
 export default function BrandsCarouselClient({ files }: BrandsCarouselClientProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [brands, setBrands] = useState<Brand[]>([]);
@@ -72,54 +82,46 @@ export default function BrandsCarouselClient({ files }: BrandsCarouselClientProp
   }
 
   return (
-    <div className="container mx-auto px-4 relative">
-      <h2 className="text-2xl font-bold text-center mb-8">Shop by Brand</h2>
-      <button
-        aria-label="Previous"
-        onClick={() => scrollByOffset(-200)}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white rounded-full shadow hover:bg-gray-50 transition-colors"
-      >
-        <ChevronLeft className="w-6 h-6" />
-      </button>
-      <motion.div
-        ref={carouselRef}
-        data-carousel
-        className="flex space-x-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide focus:outline-none"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        {brands.map((brand) => (
-          <Link
-            key={brand.slug}
-            href={`/parts/${brand.slug}`}
-            className="relative flex-shrink-0 focus:ring-2 focus:ring-blue-500 rounded transition"
-            aria-label={`View ${brand.name} parts`}
-          >
-            <div className="relative w-32 h-16 bg-gray-200 animate-pulse">
-              <img
-                src={brand.logo_url || 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-brand.png'}
-                alt={brand.name}
-                loading="lazy"
-                onLoad={(e) => {
-                  e.currentTarget.parentElement?.classList.remove('animate-pulse', 'bg-gray-200');
-                }}
-                onError={(e) => {
-                  e.currentTarget.src = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-brand.png';
-                }}
-                className="absolute inset-0 w-full h-full object-contain"
-              />
-            </div>
-          </Link>
-        ))}
-      </motion.div>
-      <button
-        aria-label="Next"
-        onClick={() => scrollByOffset(200)}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white rounded-full shadow hover:bg-gray-50 transition-colors"
-      >
-        <ChevronRight className="w-6 h-6" />
-      </button>
-    </div>
+    <section className="bg-white py-12">
+      <div className="container mx-auto px-4 relative">
+        <h2 className="text-2xl font-bold text-center mb-8">Trusted Brands We Carry</h2>
+        <button
+          aria-label="Previous"
+          onClick={() => scrollByOffset(-200)}
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white rounded-full shadow hover:bg-gray-50 transition-colors"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+        <motion.div
+          ref={carouselRef}
+          data-carousel
+          className="flex gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide focus:outline-none items-center py-4 px-2"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          {brandLogos.map((filename, index) => (
+            <img
+              key={index}
+              src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${filename}`}
+              alt={`Brand logo ${filename}`}
+              className="h-12 object-contain"
+              loading="lazy"
+              onError={(e) => {
+                e.currentTarget.src =
+                  'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-brand.png';
+              }}
+            />
+          ))}
+        </motion.div>
+        <button
+          aria-label="Next"
+          onClick={() => scrollByOffset(200)}
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white rounded-full shadow hover:bg-gray-50 transition-colors"
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
+      </div>
+    </section>
   );
 } 
