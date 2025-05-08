@@ -1,4 +1,7 @@
+import { Metadata } from 'next';
+import { supabase } from '@/lib/supabaseClient';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 interface Product {
   name: string;
@@ -10,11 +13,37 @@ interface Product {
   image_filename?: string;
 }
 
-interface ProductPageProps {
-  product: Product;
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const { data: product } = await supabase
+    .from('parts')
+    .select('name, description')
+    .eq('slug', params.slug)
+    .single();
+
+  if (!product) {
+    return {
+      title: 'Product Not Found | Flat Earth Equipment',
+      description: 'The requested product could not be found.',
+    };
+  }
+
+  return {
+    title: `${product.name} | Flat Earth Equipment`,
+    description: product.description,
+  };
 }
 
-const ProductPage = ({ product }: ProductPageProps) => {
+export default async function ProductPage({ params }: { params: { slug: string } }) {
+  const { data: product, error } = await supabase
+    .from('parts')
+    .select('*')
+    .eq('slug', params.slug)
+    .single();
+
+  if (error || !product) {
+    notFound();
+  }
+
   return (
     <main className="max-w-6xl mx-auto px-4 py-8">
       {/* Breadcrumb Navigation */}
@@ -27,13 +56,13 @@ const ProductPage = ({ product }: ProductPageProps) => {
           </li>
           <li className="text-gray-400">/</li>
           <li>
-            <Link href={`/brand/${product.brand}`} className="text-gray-600 hover:text-gray-900">
-              {product.brand}
+            <Link href="/parts" className="text-gray-600 hover:text-gray-900">
+              Parts
             </Link>
           </li>
           <li className="text-gray-400">/</li>
           <li>
-            <Link href={`/category/${product.category}`} className="text-gray-600 hover:text-gray-900">
+            <Link href={`/parts?category=${encodeURIComponent(product.category)}`} className="text-gray-600 hover:text-gray-900">
               {product.category}
             </Link>
           </li>
@@ -88,7 +117,7 @@ const ProductPage = ({ product }: ProductPageProps) => {
               ← Back to {product.brand}
             </Link>
             <Link
-              href={`/category/${product.category}`}
+              href={`/parts?category=${encodeURIComponent(product.category)}`}
               className="text-canyon-rust hover:text-orange-700 transition-colors"
               aria-label={`Browse more ${product.category} parts`}
             >
@@ -109,7 +138,7 @@ const ProductPage = ({ product }: ProductPageProps) => {
                 Request a Quote
               </Link>
               <Link
-                href={`/category/${product.category}?brand=${product.brand}`}
+                href={`/parts?category=${encodeURIComponent(product.category)}&brand=${encodeURIComponent(product.brand)}`}
                 className="bg-white text-canyon-rust border border-canyon-rust px-4 py-2 rounded-md hover:bg-slate-50 transition-colors text-center"
               >
                 View Compatible Options
@@ -120,6 +149,4 @@ const ProductPage = ({ product }: ProductPageProps) => {
       </div>
     </main>
   );
-};
-
-export default ProductPage; 
+} 
