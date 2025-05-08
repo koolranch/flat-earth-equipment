@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import SearchBar from "@/components/SearchBar";
+import Link from "next/link";
 
 export function Hero() {
   return (
@@ -17,7 +18,7 @@ export function Hero() {
         <p className="mt-4 text-lg max-w-xl mx-auto">
           OEM replacement parts & equipment rentals — fast quotes, same-day shipping across WY, MT, & NM.
         </p>
-        <div className="mt-6 flex justify-center">
+        <div className="mt-6 flex flex-col items-center gap-4">
           <SearchBar />
           <div className="flex gap-4">
             <Button asChild variant="secondary" className="bg-white text-gray-900 hover:bg-gray-100">
@@ -27,6 +28,12 @@ export function Hero() {
               <a href="/rentals">Rent Equipment</a>
             </Button>
           </div>
+          <Link 
+            href="/parts" 
+            className="mt-6 inline-block bg-canyon-rust text-white font-semibold px-6 py-3 rounded hover:bg-orange-700 transition"
+          >
+            View All Parts
+          </Link>
         </div>
       </div>
     </section>
