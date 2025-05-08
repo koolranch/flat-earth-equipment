@@ -23,6 +23,11 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: '/blog/aerial-lift-certification',
+        destination: '/insights/aerial-lift-certification',
+        permanent: true,
+      },
+      {
         source: '/blog/fork-extensions-for-forklifts',
         destination: '/insights/fork-extensions-for-forklifts',
         permanent: true,
@@ -180,6 +185,11 @@ const nextConfig = {
       {
         source: '/blog/forklift-repair-parts-ohio',
         destination: '/insights/forklift-repair-parts-ohio',
+        permanent: true,
+      },
+      {
+        source: '/blog/jcb-excavator-serial-number-location',
+        destination: '/insights/jcb-excavator-serial-number-location',
         permanent: true,
       },
     ];

@@ -3,30 +3,30 @@ import path from 'path';
 import matter from 'gray-matter';
 import { serialize } from 'next-mdx-remote/serialize';
 
-export type BlogPost = {
+export interface BlogPost {
   slug: string;
   title: string;
-  description: string;
   date: string;
+  description: string;
   keywords: string[];
   image: string;
-  content: string;
-};
+  content: any; // Changed from string to any to match MDXRemoteSerializeResult
+}
 
 const insightsDirectory = path.join(process.cwd(), 'content/insights');
 
 export async function getBlogPost(slug: string): Promise<BlogPost | null> {
   try {
-    const fullPath = path.join(insightsDirectory, `${slug}.mdx`);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
-    const { data, content } = matter(fileContents);
+    const filePath = path.join(process.cwd(), 'content/insights', `${slug}.mdx`);
+    const fileContent = fs.readFileSync(filePath, 'utf8');
+    const { data, content } = matter(fileContent);
     const mdxSource = await serialize(content);
 
     return {
       slug,
       title: data.title,
-      description: data.description,
       date: data.date,
+      description: data.description,
       keywords: data.keywords,
       image: data.image,
       content: mdxSource,
@@ -38,23 +38,19 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
 }
 
 export async function getAllBlogPosts(): Promise<BlogPost[]> {
-  try {
-    const files = fs.readdirSync(insightsDirectory);
-    const posts = await Promise.all(
-      files
-        .filter((file) => file.endsWith('.mdx'))
-        .map(async (file) => {
-          const slug = file.replace(/\.mdx$/, '');
-          const post = await getBlogPost(slug);
-          return post;
-        })
-    );
+  const postsDirectory = path.join(process.cwd(), 'content/insights');
+  const files = fs.readdirSync(postsDirectory);
+  
+  const posts = await Promise.all(
+    files
+      .filter(file => file.endsWith('.mdx'))
+      .map(async file => {
+        const slug = file.replace(/\.mdx$/, '');
+        const post = await getBlogPost(slug);
+        return post;
+      })
+  );
 
-    return posts
-      .filter((post): post is BlogPost => post !== null)
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  } catch (error) {
-    console.error('Error reading blog posts:', error);
-    return [];
-  }
+  return posts.filter((post): post is BlogPost => post !== null)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 } 

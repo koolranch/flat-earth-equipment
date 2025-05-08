@@ -1,11 +1,11 @@
 "use client";
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-export default function QuotePage() {
+function QuoteForm() {
   const searchParams = useSearchParams();
   const prefilledSku = searchParams.get("sku") || "";
-
   const [submitted, setSubmitted] = useState(false);
 
   if (submitted) {
@@ -87,5 +87,13 @@ export default function QuotePage() {
         </button>
       </form>
     </main>
+  );
+}
+
+export default function QuotePage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <QuoteForm />
+    </Suspense>
   );
 } 
