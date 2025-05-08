@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import Image from 'next/image';
+import ImageWithFallback from './ImageWithFallback';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,8 +14,8 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <Image
-              src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/logos/flat-earth-logo-badge.webp"
+            <ImageWithFallback
+              src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp"
               alt="Flat Earth Equipment Logo"
               width={160}
               height={48}
