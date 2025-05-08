@@ -15,7 +15,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <ImageWithFallback
-              src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp"
+              src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets//flat-earth-logo-badge.webp"
               alt="Flat Earth Equipment Logo"
               width={160}
               height={48}
