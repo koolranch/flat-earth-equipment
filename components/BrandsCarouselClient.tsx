@@ -1,19 +1,13 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { motion } from "framer-motion";
 import { createClient } from '@supabase/supabase-js';
 
-type Brand = {
-  name: string;
+type BrandLogo = {
+  filename: string;
+  brandName: string;
   slug: string;
-  logo_url: string | null;
-};
-
-type BrandsCarouselClientProps = {
-  files: string[];
 };
 
 const supabase = createClient(
@@ -22,7 +16,7 @@ const supabase = createClient(
 );
 
 export default function BrandsCarouselClient() {
-  const [logos, setLogos] = useState<string[]>([]);
+  const [brandLogos, setBrandLogos] = useState<BrandLogo[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -37,11 +31,15 @@ export default function BrandsCarouselClient() {
           return;
         }
 
-        const files = data
+        const logos = data
           .filter(file => file.name.endsWith('.webp'))
-          .map(file => file.name);
+          .map(file => ({
+            filename: file.name,
+            brandName: file.name.replace('.webp', ''),
+            slug: file.name.replace('.webp', '').toLowerCase()
+          }));
 
-        setLogos(files);
+        setBrandLogos(logos);
       } catch (error) {
         console.error('❌ Error in fetchLogos:', error);
       } finally {
@@ -55,11 +53,13 @@ export default function BrandsCarouselClient() {
   if (loading) {
     return (
       <section className="bg-white py-12">
-        <h2 className="text-center text-xl font-semibold mb-6">Shop by Brand</h2>
-        <div className="flex gap-8 overflow-x-auto items-center px-4">
-          {[...Array(6)].map((_, i) => (
-            <div key={i} className="h-12 w-24 bg-gray-200 rounded animate-pulse shrink-0" />
-          ))}
+        <h2 className="font-teko text-2xl text-slate-800 text-center mb-8">Browse by Brand</h2>
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-6">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="aspect-[3/2] bg-gray-200 rounded animate-pulse" />
+            ))}
+          </div>
         </div>
       </section>
     );
@@ -67,21 +67,28 @@ export default function BrandsCarouselClient() {
 
   return (
     <section className="bg-white py-12">
-      <h2 className="text-center text-xl font-semibold mb-6">Shop by Brand</h2>
-      <div className="flex gap-8 overflow-x-auto items-center px-4">
-        {logos.map((filename, index) => (
-          <img
-            key={index}
-            src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${filename}`}
-            alt={`Brand logo ${filename.replace('.webp', '')}`}
-            className="h-12 w-auto object-contain shrink-0"
-            loading="lazy"
-            onError={(e) => {
-              e.currentTarget.src =
-                'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-brand.png';
-            }}
-          />
-        ))}
+      <h2 className="font-teko text-2xl text-slate-800 text-center mb-8">Browse by Brand</h2>
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-3 md:grid-cols-6 gap-6">
+          {brandLogos.map((brand) => (
+            <Link
+              key={brand.slug}
+              href={`/search?brand=${brand.brandName}`}
+              className="group flex items-center justify-center p-4 bg-white rounded-lg border border-gray-100 hover:shadow-lg hover:scale-105 transition-all duration-200"
+            >
+              <img
+                src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${brand.filename}`}
+                alt={`${brand.brandName} logo`}
+                className="max-h-12 w-auto object-contain"
+                loading="lazy"
+                onError={(e) => {
+                  e.currentTarget.src =
+                    'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-brand.png';
+                }}
+              />
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );
