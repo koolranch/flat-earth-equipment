@@ -21,6 +21,10 @@ export default function Navbar() {
               height={48}
               className="h-10 sm:h-12 w-auto max-w-[160px]"
               priority
+              quality={100}
+              onError={(e) => {
+                console.error('Logo failed to load:', e);
+              }}
             />
           </Link>
 
