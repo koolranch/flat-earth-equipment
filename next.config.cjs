@@ -23,6 +23,41 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: '/blog/fork-extensions-for-forklifts',
+        destination: '/insights/fork-extensions-for-forklifts',
+        permanent: true,
+      },
+      {
+        source: '/blog/what-are-forklift-forks-made-of',
+        destination: '/insights/what-are-forklift-forks-made-of-2',
+        permanent: true,
+      },
+      {
+        source: '/blog/mewp-certification',
+        destination: '/insights/mewp-certification',
+        permanent: true,
+      },
+      {
+        source: '/blog/new-holland-skid-steer-serial-number-lookup',
+        destination: '/insights/new-holland-skid-steer-serial-number-lookup',
+        permanent: true,
+      },
+      {
+        source: '/blog/jlg-0060048s-actuator',
+        destination: '/insights/jlg-0060048s-actuator',
+        permanent: true,
+      },
+      {
+        source: '/blog/ep-forklifts',
+        destination: '/insights/ep-forklifts',
+        permanent: true,
+      },
+      {
+        source: '/blog/genie-1256727gt-joystick',
+        destination: '/insights/genie-1256727gt-joystick',
+        permanent: true,
+      },
+      {
         source: '/blog/john-deere-skid-steer-serial-number-lookup',
         destination: '/insights/john-deere-skid-steer-serial-number-lookup',
         permanent: true,
