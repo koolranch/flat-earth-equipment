@@ -12,6 +12,12 @@ module.exports = {
         port: '',
         pathname: '/photo-*/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'mzsozezflbhebykncbmr.supabase.co',
+        port: '',
+        pathname: '/storage/v1/object/public/**',
+      },
     ],
   },
 }; 
