@@ -37,7 +37,7 @@ export default function Page() {
 
       {/* 5) Brands carousel */}
       <section className="py-12">
-        <BrandsCarousel files={brandFiles} />
+        <BrandsCarousel />
       </section>
 
       {/* 6) Email signup */}
