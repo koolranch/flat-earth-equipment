@@ -14,6 +14,7 @@ export interface Category {
   icon: string;
   intro: string;
   relatedSlugs: string[];
+  supportedBrandSlugs?: string[];
 }
 
 export const categories: Category[] = [
@@ -22,7 +23,8 @@ export const categories: Category[] = [
     slug: "forklift-parts",
     icon: "TruckIcon",
     intro: "We stock controllers, seats, hydraulics, electrical, and drive components for most major forklift brands — shipped fast and fit-tested.",
-    relatedSlugs: ["battery-chargers", "controllers", "seats"]
+    relatedSlugs: ["battery-chargers", "controllers", "seats"],
+    supportedBrandSlugs: ["toyota", "hyster", "doosan", "crown", "genie"]
   },
   {
     name: "Skid Steer Parts",
@@ -36,7 +38,8 @@ export const categories: Category[] = [
     slug: "telehandler-parts",
     icon: "MoveIcon",
     intro: "Hydraulic systems, control modules, and cab electronics for reliable telehandler performance on any terrain.",
-    relatedSlugs: ["controllers", "electrical"]
+    relatedSlugs: ["controllers", "electrical"],
+    supportedBrandSlugs: ["genie", "jlg", "hyster"]
   },
   {
     name: "Mini Excavator Parts",
@@ -57,7 +60,8 @@ export const categories: Category[] = [
     slug: "battery-chargers",
     icon: "BatteryChargingIcon",
     intro: "Chargers, modules, and accessories for forklifts, aerial lifts, and industrial fleets — reliable power, fast delivery.",
-    relatedSlugs: ["electrical", "controllers"]
+    relatedSlugs: ["electrical", "controllers"],
+    supportedBrandSlugs: ["enersys", "curtis", "raymond"]
   }
 ];
 
