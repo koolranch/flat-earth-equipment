@@ -1,4 +1,6 @@
-import Link from "next/link";
+import { Metadata } from 'next';
+import { supabase } from '@/lib/supabaseClient';
+import Link from 'next/link';
 import {
   TruckIcon,
   MoveHorizontalIcon,
@@ -11,10 +13,9 @@ import {
   LucideIcon,
 } from "lucide-react";
 
-export const metadata = {
-  title: "Shop Parts by Category | Flat Earth Equipment",
-  description:
-    "Explore forklift, scissor lift, and construction equipment parts by category. Hydraulic, electrical, joystick controllers, and more — shipped nationwide.",
+export const metadata: Metadata = {
+  title: 'Parts Catalog | Flat Earth Equipment',
+  description: 'Browse our complete catalog of industrial parts and components.',
 };
 
 type CategoryIcon = 
@@ -55,36 +56,76 @@ const iconMap: Record<CategoryIcon, LucideIcon> = {
   CircleIcon,
 };
 
-export default function PartsPage() {
-  return (
-    <main className="max-w-6xl mx-auto px-4 py-16">
-      <h1 className="text-3xl font-bold text-slate-900 mb-8 text-center">
-        Browse Parts by Category
-      </h1>
+export default async function PartsPage({
+  searchParams,
+}: {
+  searchParams: { category?: string };
+}) {
+  const { data: categories } = await supabase
+    .from('parts')
+    .select('category')
+    .order('category');
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-        {categories.map((cat) => {
-          const Icon = iconMap[cat.icon];
-          return (
+  const distinctCategories = Array.from(new Set(categories?.map((c) => c.category) || []));
+
+  const { data: parts, error } = await supabase
+    .from('parts')
+    .select('slug, name, price, category')
+    .order('name')
+    .eq('category', searchParams.category || '');
+
+  if (error) {
+    return <p className="p-8 text-red-600">Error: {error.message}</p>;
+  }
+
+  return (
+    <main className="container mx-auto px-4 py-16">
+      <h1 className="mb-8 text-3xl font-bold">Parts Catalog</h1>
+      
+      {/* Category Filter */}
+      <div className="mb-8">
+        <h2 className="text-xl font-semibold mb-4">Filter by Category</h2>
+        <div className="flex flex-wrap gap-2">
+          <Link
+            href="/parts"
+            className={`px-4 py-2 rounded-md ${
+              !searchParams.category
+                ? 'bg-canyon-rust text-white'
+                : 'bg-slate-100 text-slate-800 hover:bg-slate-200'
+            }`}
+          >
+            All Parts
+          </Link>
+          {distinctCategories.map((category) => (
             <Link
-              key={cat.slug}
-              href={`/category/${cat.slug}`}
-              className="flex flex-col items-center justify-center text-center bg-slate-50 p-4 rounded-lg border border-slate-200 shadow-sm hover:border-canyon-rust transition"
+              key={category}
+              href={`/parts?category=${encodeURIComponent(category)}`}
+              className={`px-4 py-2 rounded-md ${
+                searchParams.category === category
+                  ? 'bg-canyon-rust text-white'
+                  : 'bg-slate-100 text-slate-800 hover:bg-slate-200'
+              }`}
             >
-              <Icon className="h-6 w-6 mb-2 text-canyon-rust" />
-              <span className="text-sm font-medium text-slate-800">{cat.name}</span>
+              {category}
             </Link>
-          );
-        })}
+          ))}
+        </div>
       </div>
 
-      <p className="mt-12 text-center text-slate-500 text-sm">
-        Looking for something specific?{" "}
-        <Link href="/contact" className="text-canyon-rust underline">
-          Request a part quote here
-        </Link>
-        .
-      </p>
+      {/* Parts Grid */}
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {parts?.map((part) => (
+          <Link
+            key={part.slug}
+            href={`/parts/${part.slug}`}
+            className="block rounded-lg border p-4 hover:shadow-lg"
+          >
+            <h2 className="text-xl font-semibold">{part.name}</h2>
+            <p className="mt-2 text-lg">${part.price.toFixed(2)}</p>
+            <p className="text-sm text-slate-600">{part.category}</p>
+          </Link>
+        ))}
+      </div>
     </main>
   );
 } 
