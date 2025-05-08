@@ -37,6 +37,25 @@ export default function CategoryPage({ params }: { params: { slug: CategorySlug 
         </p>
       </section>
 
+      {/* Compatible Brands Section */}
+      <section className="mb-12 bg-slate-50 rounded-lg p-6">
+        <h2 className="text-xl font-semibold mb-4">Compatible Brands</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {brands.slice(0, 5).map((brand) => (
+            <Link
+              key={brand.slug}
+              href={`/brand/${brand.slug}?category=${category.slug}`}
+              className="group flex items-center p-3 bg-white rounded-md border border-slate-200 hover:border-canyon-rust transition-colors"
+              aria-label={`View ${brand.name} ${category.name.toLowerCase()}`}
+            >
+              <span className="text-slate-800 group-hover:text-canyon-rust transition-colors">
+                View {brand.name} {category.name.toLowerCase()}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       <CategoryProductGrid categorySlug={params.slug} />
 
       {category.supportedBrandSlugs && category.supportedBrandSlugs.length > 0 && (

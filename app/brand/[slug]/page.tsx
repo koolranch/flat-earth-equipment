@@ -106,6 +106,25 @@ export default function BrandPage({ params }: { params: { slug: string } }) {
           </div>
         </section>
 
+        {/* Related Categories Section */}
+        <section className="mb-12 bg-slate-50 rounded-lg p-6">
+          <h2 className="text-xl font-semibold mb-4">Related Categories</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {categories.slice(0, 5).map((category) => (
+              <Link
+                key={category.slug}
+                href={`/category/${category.slug}?brand=${brand.slug}`}
+                className="group flex items-center p-3 bg-white rounded-md border border-slate-200 hover:border-canyon-rust transition-colors"
+                aria-label={`See ${brand.name} ${category.name.toLowerCase()}`}
+              >
+                <span className="text-slate-800 group-hover:text-canyon-rust transition-colors">
+                  See {brand.name} {category.name.toLowerCase()}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         {/* Product Grid */}
         <section className="mb-12">
           <ProductGrid brand={brand.name} />

@@ -27,17 +27,17 @@ export default function Testimonials() {
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           <div className="bg-white border border-slate-200 rounded-lg p-4 shadow-sm">
-            <p className="italic text-slate-700 mb-2">"Flat Earth got us Genie parts overnight. No backorders, no nonsense."</p>
+            <p className="italic text-slate-800 font-medium mb-2">"Flat Earth got us Genie parts overnight. No backorders, no nonsense."</p>
             <p className="text-xs text-slate-500">– Fleet Manager, Montana</p>
           </div>
 
           <div className="bg-white border border-slate-200 rounded-lg p-4 shadow-sm">
-            <p className="italic text-slate-700 mb-2">"Our warehouse lift was down. These guys had the joystick in stock and on a truck within hours."</p>
+            <p className="italic text-slate-800 font-medium mb-2">"Our warehouse lift was down. These guys had the joystick in stock and on a truck within hours."</p>
             <p className="text-xs text-slate-500">– Maintenance Supervisor, Wyoming</p>
           </div>
 
           <div className="bg-white border border-slate-200 rounded-lg p-4 shadow-sm">
-            <p className="italic text-slate-700 mb-2">"Parts arrived in 24 hours, fit perfectly, and cost less than OEM."</p>
+            <p className="italic text-slate-800 font-medium mb-2">"Parts arrived in 24 hours, fit perfectly, and cost less than OEM."</p>
             <p className="text-xs text-slate-500">– Service Director, Colorado</p>
           </div>
         </div>

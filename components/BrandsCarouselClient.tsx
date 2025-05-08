@@ -17,7 +17,7 @@ export default function BrandsCarouselClient({ brands }: BrandsCarouselProps) {
             <Link
               key={brand.slug}
               href={`/brand/${brand.slug}`}
-              className="group flex flex-col items-center justify-center p-4 bg-white rounded-lg border border-gray-100 hover:shadow-lg hover:scale-105 transition-all duration-200"
+              className="group flex flex-col items-center justify-center p-4 bg-white rounded-lg border border-slate-100 hover:border-canyon-rust hover:shadow-lg hover:scale-105 transition-all duration-200"
             >
               <img
                 src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${brand.image.replace(/^\/+/, "")}`}
@@ -29,7 +29,7 @@ export default function BrandsCarouselClient({ brands }: BrandsCarouselProps) {
                   console.error(`Failed to load logo for ${brand.name}:`, e);
                 }}
               />
-              <p className="text-sm text-slate-600 mt-2 group-hover:text-slate-900 transition-colors">{brand.name}</p>
+              <p className="text-sm text-slate-600 mt-2 group-hover:text-canyon-rust transition-colors">{brand.name}</p>
             </Link>
           ))}
         </div>

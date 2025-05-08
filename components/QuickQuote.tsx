@@ -31,7 +31,7 @@ export default function QuickQuote() {
   }
 
   return (
-    <section className="bg-slate-50 border-t border-slate-200 py-12 px-4 sm:px-6 lg:px-8 rounded-md shadow-sm max-w-4xl mx-auto">
+    <section className="bg-slate-50 border-t border-slate-200 py-12 px-4 sm:px-6 lg:px-8 rounded-lg shadow-md max-w-4xl mx-auto">
       <h2 className="text-2xl font-semibold mb-4 text-center text-slate-800">
         Need a Fast Quote?
       </h2>
@@ -102,7 +102,7 @@ export default function QuickQuote() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="bg-[#A0522D] text-white px-6 py-3 rounded-md hover:bg-[#8B4513] transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-canyon-rust text-white px-6 py-3 rounded-md hover:bg-orange-700 transition font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? 'Sending...' : 'Request a Fast Quote'}
           </button>

@@ -10,15 +10,36 @@ export default function Navbar() {
   const pathname = usePathname();
 
   const navItems = [
-    { label: "Parts", href: "/parts" },
-    { label: "Brands", href: "/brands" },
+    { 
+      label: "Parts", 
+      href: "/parts",
+      className: "font-medium transition-colors hover:text-canyon-rust"
+    },
+    { 
+      label: "Brands", 
+      href: "/brands",
+      className: "font-medium transition-colors hover:text-canyon-rust"
+    },
     { 
       label: "Rent Equipment", 
       href: "/rentals",
       className: "text-slate-900 hover:text-canyon-rust font-semibold tracking-wide transition-colors"
     },
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
+    { 
+      label: "Locations", 
+      href: "/locations",
+      className: "font-medium transition-colors hover:text-canyon-rust"
+    },
+    { 
+      label: "About", 
+      href: "/about",
+      className: "font-medium transition-colors hover:text-canyon-rust"
+    },
+    { 
+      label: "Contact", 
+      href: "/contact",
+      className: "font-medium transition-colors hover:text-canyon-rust"
+    },
   ];
 
   return (
@@ -41,10 +62,10 @@ export default function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className={item.className || `font-medium transition-colors ${
+              className={`${item.className} ${
                 pathname === item.href
                   ? "text-canyon-rust underline"
-                  : "text-slate-800 hover:text-canyon-rust"
+                  : "text-slate-800"
               }`}
             >
               {item.label}
@@ -69,7 +90,7 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={item.className || `font-medium transition-colors ${
+                className={`${item.className} ${
                   pathname === item.href
                     ? "text-canyon-rust underline"
                     : "text-slate-800 hover:text-canyon-rust"
