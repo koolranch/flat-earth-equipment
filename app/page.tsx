@@ -1,16 +1,17 @@
 import { Hero } from "@/components/ui/Hero";
 import FeaturedParts from "@/components/FeaturedParts";
-import BrandsCarousel from "@/components/BrandsCarouselClient";
+import BrandsCarousel from "@/components/BrandsCarousel";
 import { Features } from "@/components/ui/Features";
 
 // Define the brand files array
 const brandFiles = [
-  'curtis.png',
-  'hyster.png',
-  'yale.png',
-  'crown.png',
-  'raymond.png',
-  'jungheinrich.png'
+  'Case.webp',
+  'Curtis.webp',
+  'Genie.webp',
+  'JLG.webp',
+  'Skyjack.webp',
+  'Toyota.webp',
+  'Yale.webp'
 ];
 
 export default function Page() {

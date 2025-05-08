@@ -1,5 +1,9 @@
 import BrandsCarouselClient from "./BrandsCarouselClient";
 
-export default function BrandsCarousel() {
-  return <BrandsCarouselClient />;
+type BrandsCarouselProps = {
+  files: string[];
+};
+
+export default function BrandsCarousel({ files }: BrandsCarouselProps) {
+  return <BrandsCarouselClient files={files} />;
 } 
