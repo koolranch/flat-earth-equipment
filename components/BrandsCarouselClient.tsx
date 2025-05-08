@@ -13,7 +13,7 @@ export default function BrandsCarouselClient({ brands }: BrandsCarouselProps) {
     <section className="bg-white py-12">
       <h2 className="font-teko text-2xl text-slate-800 text-center mb-8">Browse by Brand</h2>
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
           {brands.map((brand) => (
             <Link
               key={brand.slug}
@@ -25,10 +25,10 @@ export default function BrandsCarouselClient({ brands }: BrandsCarouselProps) {
                 alt={`${brand.name} logo`}
                 width={120}
                 height={60}
-                className="h-12 w-auto object-contain"
+                className="h-12 w-auto object-contain group-hover:opacity-80 transition-opacity"
                 priority={false}
               />
-              <p className="text-sm text-slate-600 mt-1">{brand.name}</p>
+              <p className="text-sm text-slate-600 mt-2 group-hover:text-slate-900 transition-colors">{brand.name}</p>
             </Link>
           ))}
         </div>
