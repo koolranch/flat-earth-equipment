@@ -1,10 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 export default function ImageWithFallback(props: React.ComponentProps<typeof Image>) {
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Log when component mounts
+    console.log('ImageWithFallback mounted:', {
+      src: props.src,
+      alt: props.alt
+    });
+  }, [props.src, props.alt]);
 
   const handleError = (e: any) => {
     console.error('Image failed to load:', {
@@ -13,6 +22,15 @@ export default function ImageWithFallback(props: React.ComponentProps<typeof Ima
       error: e
     });
     setError(true);
+    setLoading(false);
+  };
+
+  const handleLoad = () => {
+    console.log('Image loaded successfully:', {
+      src: props.src,
+      alt: props.alt
+    });
+    setLoading(false);
   };
 
   if (error) {
@@ -22,6 +40,7 @@ export default function ImageWithFallback(props: React.ComponentProps<typeof Ima
         {...props}
         src="/images/placeholder-logo.png"
         alt={props.alt || "Image not found"}
+        onLoad={handleLoad}
       />
     );
   }
@@ -30,6 +49,7 @@ export default function ImageWithFallback(props: React.ComponentProps<typeof Ima
     <Image
       {...props}
       onError={handleError}
+      onLoad={handleLoad}
     />
   );
 } 

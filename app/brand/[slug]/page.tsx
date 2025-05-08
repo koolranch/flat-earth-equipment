@@ -81,10 +81,11 @@ export default function BrandPage({ params }: { params: { slug: string } }) {
             <div className="relative w-48 h-48 bg-gray-50 rounded-lg flex items-center justify-center">
               {brand.image ? (
                 <ImageWithFallback
-                  src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${brand.image}`}
+                  src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//${brand.image}`}
                   alt={`${brand.name} logo`}
-                  fill
-                  className="object-contain p-4"
+                  width={200}
+                  height={100}
+                  className="h-16 w-auto object-contain mb-6"
                   priority
                 />
               ) : (
