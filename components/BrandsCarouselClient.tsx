@@ -16,111 +16,72 @@ type BrandsCarouselClientProps = {
   files: string[];
 };
 
-const brandLogos = [
-  'Case.webp',
-  'Curtis.webp',
-  'Genie.webp',
-  'JLG.webp',
-  'Skyjack.webp',
-  'Toyota.webp',
-  'Yale.webp'
-];
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
-export default function BrandsCarouselClient({ files }: BrandsCarouselClientProps) {
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const [brands, setBrands] = useState<Brand[]>([]);
+export default function BrandsCarouselClient() {
+  const [logos, setLogos] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchBrands() {
-      const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-      );
+    async function fetchLogos() {
+      try {
+        const { data, error } = await supabase.storage
+          .from('brand-logos')
+          .list('', { limit: 100 });
 
-      const { data, error } = await supabase
-        .from('parts')
-        .select('brand, brand_logo_url')
-        .order('brand')
-        .limit(10);
+        if (error) {
+          console.error('❌ Error fetching brand logos:', error);
+          return;
+        }
 
-      if (error) {
-        console.error('Error fetching brands:', error);
-        return;
+        const files = data
+          .filter(file => file.name.endsWith('.webp'))
+          .map(file => file.name);
+
+        setLogos(files);
+      } catch (error) {
+        console.error('❌ Error in fetchLogos:', error);
+      } finally {
+        setLoading(false);
       }
-
-      // Get unique brands with their logos
-      const uniqueBrands = Array.from(new Set(data.map(part => part.brand)))
-        .map(brand => ({
-          name: brand,
-          slug: brand.toLowerCase().replace(/\s+/g, '-'),
-          logo_url: data.find(part => part.brand === brand)?.brand_logo_url
-        }));
-
-      setBrands(uniqueBrands);
-      setLoading(false);
     }
 
-    fetchBrands();
+    fetchLogos();
   }, []);
-
-  const scrollByOffset = (offset: number) => {
-    carouselRef.current?.scrollBy({ left: offset, behavior: "smooth" });
-  };
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4">
-        <h2 className="text-2xl font-bold text-center mb-8">Shop by Brand</h2>
-        <div className="flex space-x-6 overflow-x-auto">
+      <section className="bg-white py-12">
+        <h2 className="text-center text-xl font-semibold mb-6">Shop by Brand</h2>
+        <div className="flex gap-8 overflow-x-auto items-center px-4">
           {[...Array(6)].map((_, i) => (
-            <div key={i} className="flex-shrink-0 w-32 h-16 bg-gray-200 rounded animate-pulse" />
+            <div key={i} className="h-12 w-24 bg-gray-200 rounded animate-pulse shrink-0" />
           ))}
         </div>
-      </div>
+      </section>
     );
   }
 
   return (
     <section className="bg-white py-12">
-      <div className="container mx-auto px-4 relative">
-        <h2 className="text-2xl font-bold text-center mb-8">Trusted Brands We Carry</h2>
-        <button
-          aria-label="Previous"
-          onClick={() => scrollByOffset(-200)}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white rounded-full shadow hover:bg-gray-50 transition-colors"
-        >
-          <ChevronLeft className="w-6 h-6" />
-        </button>
-        <motion.div
-          ref={carouselRef}
-          data-carousel
-          className="flex gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide focus:outline-none items-center py-4 px-2"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          {brandLogos.map((filename, index) => (
-            <img
-              key={index}
-              src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${filename}`}
-              alt={`Brand logo ${filename}`}
-              className="h-12 object-contain"
-              loading="lazy"
-              onError={(e) => {
-                e.currentTarget.src =
-                  'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-brand.png';
-              }}
-            />
-          ))}
-        </motion.div>
-        <button
-          aria-label="Next"
-          onClick={() => scrollByOffset(200)}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white rounded-full shadow hover:bg-gray-50 transition-colors"
-        >
-          <ChevronRight className="w-6 h-6" />
-        </button>
+      <h2 className="text-center text-xl font-semibold mb-6">Shop by Brand</h2>
+      <div className="flex gap-8 overflow-x-auto items-center px-4">
+        {logos.map((filename, index) => (
+          <img
+            key={index}
+            src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${filename}`}
+            alt={`Brand logo ${filename.replace('.webp', '')}`}
+            className="h-12 w-auto object-contain shrink-0"
+            loading="lazy"
+            onError={(e) => {
+              e.currentTarget.src =
+                'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-brand.png';
+            }}
+          />
+        ))}
       </div>
     </section>
   );

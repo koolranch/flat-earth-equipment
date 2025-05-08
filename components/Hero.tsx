@@ -14,31 +14,25 @@ export default function Hero() {
         priority
       />
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
 
-      <div className="relative z-10 max-w-2xl px-4">
-        <h1 className="font-heading text-5xl sm:text-6xl font-bold mb-4">
-          Flat Earth Equipment
+      <div className="relative z-10 max-w-3xl px-4 mx-auto">
+        <h1 className="font-teko text-5xl md:text-6xl font-bold mb-6 leading-tight">
+          Parts That Work as Hard as You Do — Western Tough, Nationwide Fast.
         </h1>
-        <p className="text-lg text-brand-light mb-8">
-          OEM Parts & Nationwide Rentals—Fast Quotes, Same-Day Shipping.
+        <p className="font-sans text-white/90 text-lg md:text-xl max-w-xl mx-auto mb-8">
+          Precision-fit components for forklifts and aerial equipment. Same-day quotes. No middleman drama.
         </p>
-        <div className="flex flex-wrap justify-center gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+          <div className="w-full sm:w-auto">
+            <SearchBar />
+          </div>
           <Link
             href="/parts"
-            className="btn px-6 py-3 bg-brand text-white font-medium rounded-lg shadow-card hover:bg-brand-dark transition"
+            className="btn px-8 py-3 bg-brand text-white font-medium rounded-lg shadow-lg hover:bg-brand-dark transition-colors whitespace-nowrap"
           >
-            Find Parts
+            Browse Parts
           </Link>
-          <Link
-            href="/rentals"
-            className="btn px-6 py-3 border-2 border-brand text-brand font-medium rounded-lg shadow-card hover:bg-brand-light transition"
-          >
-            Rent Equipment
-          </Link>
-        </div>
-        <div className="-mt-10 w-full px-4">
-          <SearchBar />
         </div>
       </div>
     </header>
