@@ -1,14 +1,7 @@
 import Link from "next/link";
 import { Metadata } from "next";
-
-const categories = [
-  { slug: "forklift-parts", name: "Forklift Parts" },
-  { slug: "skid-steer-parts", name: "Skid Steer Parts" },
-  { slug: "telehandler-parts", name: "Telehandler Parts" },
-  { slug: "mini-excavator-parts", name: "Mini Excavator Parts" },
-  { slug: "buggy-parts", name: "Buggy Parts" },
-  { slug: "battery-chargers", name: "Battery Chargers" },
-] as const;
+import { notFound } from "next/navigation";
+import { categories } from "@/lib/data/categories";
 
 type CategorySlug = typeof categories[number]["slug"];
 
@@ -19,37 +12,18 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: { slug: CategorySlug } }): Promise<Metadata> {
-  const category = categories.find((cat) => cat.slug === params.slug);
-  
-  if (!category) {
-    return {
-      title: "Category Not Found | Flat Earth Equipment",
-      description: "The requested category could not be found.",
-    };
-  }
+  const category = categories.find((c) => c.slug === params.slug);
+  if (!category) return {};
 
   return {
     title: `Buy ${category.name} | Flat Earth Equipment`,
-    description: `Explore top-quality ${category.name} with fast quotes and same-day shipping. Built for contractors, fleets, and repair techs across the U.S.`,
+    description: category.intro
   };
 }
 
 export default function CategoryPage({ params }: { params: { slug: CategorySlug } }) {
-  const category = categories.find((cat) => cat.slug === params.slug);
-  
-  if (!category) {
-    return (
-      <main className="max-w-6xl mx-auto px-4 py-16">
-        <h1 className="text-3xl font-bold text-slate-900 mb-8">Category Not Found</h1>
-        <p className="text-slate-600">The requested category could not be found.</p>
-      </main>
-    );
-  }
-
-  // Get related categories (excluding current category)
-  const relatedCategories = categories
-    .filter((cat) => cat.slug !== params.slug)
-    .slice(0, 3);
+  const category = categories.find((c) => c.slug === params.slug);
+  if (!category) return notFound();
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-16">
@@ -57,13 +31,12 @@ export default function CategoryPage({ params }: { params: { slug: CategorySlug 
       
       <section className="mb-12">
         <p className="text-lg text-slate-600 max-w-3xl">
-          Find high-quality replacement parts and components for your {category.name.toLowerCase()}. 
-          Our inventory includes OEM and aftermarket options, all backed by our same-day shipping guarantee.
+          {category.intro}
         </p>
       </section>
 
       <section className="mb-12">
-        {/* Placeholder for product grid */}
+        {/* Product grid component will be added in a future phase */}
         <div className="bg-slate-50 rounded-lg p-8 text-center">
           <p className="text-slate-600">Product grid coming soon</p>
         </div>
@@ -82,20 +55,30 @@ export default function CategoryPage({ params }: { params: { slug: CategorySlug 
         </Link>
       </section>
 
-      <section>
-        <h2 className="text-xl font-semibold text-slate-900 mb-4">Related Categories</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {relatedCategories.map((relatedCat) => (
-            <Link
-              key={relatedCat.slug}
-              href={`/category/${relatedCat.slug}`}
-              className="block p-4 bg-white rounded-lg border border-slate-200 hover:border-canyon-rust transition-colors"
-            >
-              <h3 className="font-medium text-slate-900">{relatedCat.name}</h3>
-            </Link>
-          ))}
-        </div>
-      </section>
+      {category.relatedSlugs.length > 0 && (
+        <section>
+          <h2 className="text-xl font-semibold mt-12 mb-4">Explore Related Categories</h2>
+          <ul className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {category.relatedSlugs.map((slug) => {
+              const related = categories.find((c) => c.slug === slug);
+              if (!related) return null;
+              
+              return (
+                <li key={slug}>
+                  <Link 
+                    href={`/category/${related.slug}`} 
+                    className="block p-4 bg-white rounded-lg border border-slate-200 hover:border-canyon-rust transition-colors"
+                  >
+                    <span className="text-slate-900 hover:text-canyon-rust transition-colors">
+                      {related.name}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
     </main>
   );
 } 
