@@ -3,6 +3,16 @@ import FeaturedParts from "@/components/FeaturedParts";
 import BrandsCarousel from "@/components/BrandsCarouselClient";
 import { Features } from "@/components/ui/Features";
 
+// Define the brand files array
+const brandFiles = [
+  'curtis.png',
+  'hyster.png',
+  'yale.png',
+  'crown.png',
+  'raymond.png',
+  'jungheinrich.png'
+];
+
 export default function Page() {
   return (
     <main>
@@ -21,7 +31,7 @@ export default function Page() {
 
       {/* 4) Brands carousel */}
       <section className="py-12">
-        <BrandsCarousel />
+        <BrandsCarousel files={brandFiles} />
       </section>
     </main>
   );
