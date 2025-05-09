@@ -24,18 +24,35 @@ export default function FeaturedParts() {
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
       );
 
-      const { data, error } = await supabase
+      // First, fetch the specific charger modules
+      const { data: chargerModules, error: chargerError } = await supabase
         .from('parts')
         .select('*')
-        .limit(6)
-        .order('created_at', { ascending: false });
+        .in('slug', ['6la20671-enersys', '6la20671-hawker']);
 
-      if (error) {
-        console.error('Error fetching featured parts:', error);
-        return;
+      if (chargerError) {
+        console.error('Error fetching charger modules:', chargerError);
       }
 
-      setParts(data || []);
+      // Then fetch 4 other recent parts
+      const { data: recentParts, error: recentError } = await supabase
+        .from('parts')
+        .select('*')
+        .not('slug', 'in', ['6la20671-enersys', '6la20671-hawker'])
+        .limit(4)
+        .order('created_at', { ascending: false });
+
+      if (recentError) {
+        console.error('Error fetching recent parts:', recentError);
+      }
+
+      // Combine the results, with charger modules first
+      const combinedParts = [
+        ...(chargerModules || []),
+        ...(recentParts || [])
+      ];
+
+      setParts(combinedParts);
       setLoading(false);
     }
 
@@ -66,7 +83,7 @@ export default function FeaturedParts() {
         {parts.map((part) => (
           <Link
             key={part.slug}
-            href={`/parts/${part.category}/${part.slug}`}
+            href={`/parts/${part.slug}`}
             className="group"
           >
             <div className="bg-white rounded-lg shadow-sm overflow-hidden transition-transform hover:scale-[1.02]">
@@ -86,6 +103,9 @@ export default function FeaturedParts() {
                   {part.name}
                 </h3>
                 <p className="mt-1 text-sm text-gray-500">{part.brand}</p>
+                <p className="mt-2 text-lg font-semibold text-orange-600">
+                  ${part.price?.toFixed(2)}
+                </p>
               </div>
             </div>
           </Link>
