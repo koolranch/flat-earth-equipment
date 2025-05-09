@@ -1,6 +1,7 @@
 import supabase from "@/lib/supabase";
 import Link from "next/link";
 import Image from "next/image";
+import { getBrandLogoProps } from "@/lib/utils/brand-logos";
 
 type RentalEquipmentGridProps = {
   categorySlug: string;
@@ -33,11 +34,7 @@ export default async function RentalEquipmentGrid({ categorySlug }: RentalEquipm
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
         {equipment.map((model) => {
           const brandSlug = model.brand.toLowerCase().replace(/\s+/g, '-');
-          const { data: { publicUrl: logoUrl } } = supabase
-            .storage
-            .from('brand-logos')
-            .getPublicUrl(`${brandSlug}.webp`);
-
+          
           return (
             <Link
               key={model.id}
@@ -45,8 +42,7 @@ export default async function RentalEquipmentGrid({ categorySlug }: RentalEquipm
               className="block bg-white rounded-xl shadow p-6 hover:shadow-md transition"
             >
               <Image
-                src={logoUrl}
-                alt={`${model.brand} logo`}
+                {...getBrandLogoProps(brandSlug, model.brand)}
                 width={200}
                 height={100}
                 className="mx-auto mb-4"

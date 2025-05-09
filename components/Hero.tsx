@@ -21,7 +21,7 @@ export default function Hero() {
           Parts That Work as Hard as You Do — Western Tough, Nationwide Fast.
         </h1>
         <p className="font-sans text-white/90 text-lg md:text-xl max-w-xl mx-auto mb-8">
-          Precision-fit components for forklifts and aerial equipment. Same-day quotes. No middleman drama.
+          Parts and rentals — same-day quotes, fast dispatch, and rugged gear that's ready to work.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
           <div className="w-full sm:w-auto">

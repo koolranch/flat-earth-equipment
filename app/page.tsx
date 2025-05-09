@@ -7,6 +7,7 @@ import EmailSignup from "@/components/EmailSignup";
 import QuickQuote from "@/components/QuickQuote";
 import Testimonials from "@/components/Testimonials";
 import TrustPoints from "@/components/TrustPoints";
+import FeaturedRentals from "@/components/FeaturedRentals";
 
 // Define the brand files array
 const brandFiles = [
@@ -32,6 +33,9 @@ export default function Page() {
       <div className="py-12">
         <QuickQuote />
       </div>
+
+      {/* 3.5) Featured Rentals */}
+      <FeaturedRentals />
 
       {/* 4) Featured Products grid */}
       <section className="py-12">

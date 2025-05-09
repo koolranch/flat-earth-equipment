@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Forklift body -->
+  <path d="M20 40H44V48H20V40Z" fill="#4B5563"/>
+  <!-- Forklift cabin -->
+  <path d="M32 32H44V40H32V32Z" fill="#4B5563"/>
+  <!-- Forklift forks -->
+  <path d="M12 40H20V44H12V40Z" fill="#4B5563"/>
+  <!-- Forklift wheels -->
+  <circle cx="24" cy="48" r="4" fill="#1F2937"/>
+  <circle cx="40" cy="48" r="4" fill="#1F2937"/>
+  <!-- Forklift mast -->
+  <path d="M32 24H36V32H32V24Z" fill="#4B5563"/>
+</svg> 

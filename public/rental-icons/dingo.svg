@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main body -->
+  <path d="M20 36H44V44H20V36Z" fill="#4B5563"/>
+  <!-- Bucket -->
+  <path d="M44 36H52V40H44V36Z" fill="#4B5563"/>
+  <!-- Operator area -->
+  <path d="M32 28H44V36H32V28Z" fill="#4B5563"/>
+  <!-- Tracks -->
+  <path d="M16 44H48V48H16V44Z" fill="#1F2937"/>
+  <!-- Track details -->
+  <path d="M16 44H48V46H16V44Z" fill="#4B5563"/>
+</svg> 
