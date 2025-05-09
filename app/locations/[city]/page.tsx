@@ -94,6 +94,23 @@ export default function LocationPage({ params }: { params: { city: string } }) {
       </nav>
 
       <h1 className="text-4xl font-bold mb-6">{location.name}</h1>
+      {params.city === 'pueblo-co' ? (
+        <p className="text-lg text-slate-700 mb-6">
+          Flat Earth Equipment proudly serves Pueblo and the southern Colorado Front Range with precision-fit parts, dispatch-ready rentals, and expert support. With fulfillment centers across the Western U.S., we deliver the equipment you need — fast — without the overhead of local storefronts.
+        </p>
+      ) : params.city === 'bozeman-mt' ? (
+        <p className="text-lg text-slate-700 mb-6">
+          Flat Earth Equipment supports Bozeman and the greater Gallatin Valley with fast-shipped industrial parts, equipment rentals, and expert service. We operate from regional hubs across the Western U.S. — delivering what you need, without the cost or delays of a local storefront.
+        </p>
+      ) : params.city === 'las-cruces-nm' ? (
+        <p className="text-lg text-slate-700 mb-6">
+          Flat Earth Equipment serves Las Cruces and southern New Mexico with precision-fit parts and rugged rental gear — delivered fast from our Western regional hubs. We keep costs low and response times sharp by operating without local storefronts.
+        </p>
+      ) : params.city === 'cheyenne-wy' ? (
+        <p className="text-lg text-slate-700 mb-6">
+          Flat Earth Equipment proudly supports Cheyenne and southeastern Wyoming with same-day parts shipping and rental dispatch — all without relying on a local storefront. Our low-overhead model means fast service, lower costs, and rugged reliability.
+        </p>
+      ) : null}
       <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
         <div className="grid md:grid-cols-2 gap-8">
           <div>
@@ -138,6 +155,54 @@ export default function LocationPage({ params }: { params: { city: string } }) {
           </li>
         </ul>
       </section>
+
+      {params.city === 'pueblo-co' && (
+        <div className="mt-10 space-y-2 text-sm text-slate-600">
+          <p><strong>Popular Services in Pueblo:</strong></p>
+          <ul className="list-disc list-inside">
+            <li><a href="/parts?category=forklift" className="text-canyon-rust hover:underline">Browse forklift parts</a></li>
+            <li><a href="/rentals" className="text-canyon-rust hover:underline">See available rental equipment</a></li>
+            <li><a href="/fleet" className="text-canyon-rust hover:underline">Explore fleet support</a></li>
+          </ul>
+          <p className="italic">Last updated May 2025</p>
+        </div>
+      )}
+
+      {params.city === 'bozeman-mt' && (
+        <div className="mt-10 space-y-2 text-sm text-slate-600">
+          <p><strong>Popular Services in Bozeman:</strong></p>
+          <ul className="list-disc list-inside">
+            <li><a href="/parts?category=mini-excavator" className="text-canyon-rust hover:underline">Browse mini excavator parts</a></li>
+            <li><a href="/rentals" className="text-canyon-rust hover:underline">View rental equipment</a></li>
+            <li><a href="/fleet" className="text-canyon-rust hover:underline">Learn about fleet partnerships</a></li>
+          </ul>
+          <p className="italic">Last updated May 2025</p>
+        </div>
+      )}
+
+      {params.city === 'las-cruces-nm' && (
+        <div className="mt-10 space-y-2 text-sm text-slate-600">
+          <p><strong>Popular Services in Las Cruces:</strong></p>
+          <ul className="list-disc list-inside">
+            <li><a href="/parts?category=chargers" className="text-canyon-rust hover:underline">Browse battery chargers</a></li>
+            <li><a href="/rentals" className="text-canyon-rust hover:underline">Check rental availability</a></li>
+            <li><a href="/fleet" className="text-canyon-rust hover:underline">Fleet service inquiries</a></li>
+          </ul>
+          <p className="italic">Last updated May 2025</p>
+        </div>
+      )}
+
+      {params.city === 'cheyenne-wy' && (
+        <div className="mt-10 space-y-2 text-sm text-slate-600">
+          <p><strong>Popular Services in Cheyenne:</strong></p>
+          <ul className="list-disc list-inside">
+            <li><a href="/parts?category=telehandler" className="text-canyon-rust hover:underline">Shop telehandler parts</a></li>
+            <li><a href="/rentals" className="text-canyon-rust hover:underline">See equipment for rent</a></li>
+            <li><a href="/fleet" className="text-canyon-rust hover:underline">Request fleet pricing</a></li>
+          </ul>
+          <p className="italic">Last updated May 2025</p>
+        </div>
+      )}
     </main>
   );
 } 

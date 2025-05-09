@@ -20,10 +20,10 @@ export function Hero() {
       <div className="relative z-10 flex items-center justify-center h-full px-6 text-center">
         <div className="max-w-2xl">
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
-            Industrial Parts, Western Tough
+            Parts & Rentals, Western Tough
           </h1>
           <p className="text-white text-base md:text-lg mb-6">
-            Fast quotes. Same-day shipping. Precision-fit components — without the runaround.
+            Precision-fit components and dispatch-ready equipment — fast quotes, same-day shipping, and no runaround.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <div className="w-full sm:w-auto">

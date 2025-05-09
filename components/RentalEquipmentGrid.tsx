@@ -38,7 +38,7 @@ export default async function RentalEquipmentGrid({ categorySlug }: RentalEquipm
           return (
             <Link
               key={model.id}
-              href={`/rentals/${categorySlug}/${model.name.toLowerCase().replace(/\s+/g, '-')}`}
+              href={`/rentals/${categorySlug}/${model.model.toLowerCase().replace(/\s+/g, '-')}`}
               className="block bg-white rounded-xl shadow p-6 hover:shadow-md transition"
             >
               <Image
