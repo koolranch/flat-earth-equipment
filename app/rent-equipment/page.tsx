@@ -40,7 +40,7 @@ export default async function RentEquipmentPage() {
         {categories.map((category: string) => (
           <Link
             key={category}
-            href={`/rent/${category.toLowerCase().replace(/\s+/g, "-")}`}
+            href={`/rentals/${category.toLowerCase().replace(/\s+/g, "-")}`}
             className="block rounded-xl border shadow hover:shadow-md transition p-6 bg-white"
           >
             <h2 className="text-xl font-semibold">{category}</h2>
