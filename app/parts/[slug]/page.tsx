@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { supabase } from '@/lib/supabaseClient';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import Script from 'next/script';
 
 interface Product {
   name: string;
@@ -46,28 +47,49 @@ export default async function ProductPage({ params }: { params: { slug: string }
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-8">
+      {/* JSON-LD Structured Data */}
+      <Script id="product-ld-json" type="application/ld+json">
+        {JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Product',
+          name: product.name,
+          image: product.image_filename 
+            ? `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/product-images/${product.image_filename}`
+            : undefined,
+          description: product.description?.substring(0, 150),
+          brand: {
+            '@type': 'Brand',
+            name: product.brand,
+          },
+          sku: product.sku || product.slug,
+          offers: {
+            '@type': 'Offer',
+            price: product.price?.toFixed(2),
+            priceCurrency: 'USD',
+            availability: 'https://schema.org/InStock',
+            url: `https://flatearthequipment.com/parts/${product.slug}`,
+          },
+        })}
+      </Script>
+
       {/* Breadcrumb Navigation */}
-      <nav className="text-sm mb-6">
-        <ol className="flex items-center space-x-2">
+      <nav className="text-sm text-slate-500 mb-4" aria-label="Breadcrumb">
+        <ol className="flex space-x-2">
           <li>
-            <Link href="/" className="text-gray-600 hover:text-gray-900">
-              Home
-            </Link>
+            <Link href="/" className="hover:underline text-canyon-rust">Home</Link>
+            <span className="mx-1">/</span>
           </li>
-          <li className="text-gray-400">/</li>
           <li>
-            <Link href="/parts" className="text-gray-600 hover:text-gray-900">
-              Parts
-            </Link>
+            <Link href="/parts" className="hover:underline text-canyon-rust">Parts</Link>
+            <span className="mx-1">/</span>
           </li>
-          <li className="text-gray-400">/</li>
           <li>
-            <Link href={`/parts?category=${encodeURIComponent(product.category)}`} className="text-gray-600 hover:text-gray-900">
+            <Link href={`/parts?category=${encodeURIComponent(product.category)}`} className="hover:underline text-canyon-rust">
               {product.category}
             </Link>
+            <span className="mx-1">/</span>
           </li>
-          <li className="text-gray-400">/</li>
-          <li className="text-gray-900">{product.name}</li>
+          <li className="text-slate-700" aria-current="page">{product.name}</li>
         </ol>
       </nav>
 
