@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import RentalEquipmentGrid from "@/components/RentalEquipmentGrid";
+import { createClient } from "@/utils/supabase/server";
 
 export async function generateStaticParams() {
   // This will be replaced with actual categories from the database
@@ -15,11 +16,29 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const formattedCategory = params.slug.replace(/-/g, " ");
   return {
     title: `Rent ${formattedCategory} | Flat Earth Equipment`,
-    description: `Rent ${formattedCategory} from Flat Earth Equipment. Browse our selection of high-quality equipment for your next project.`
+    description: `Rent ${formattedCategory} from Flat Earth Equipment. Browse our selection of high-quality equipment for your next project.`,
+    alternates: { canonical: `/rentals/${params.slug}` },
   };
 }
 
-export default function CategoryPage({ params }: { params: { slug: string } }) {
+async function fetchModelsByCategory(slug: string) {
+  const formattedCategory = slug.replace(/-/g, " ");
+  const { data, error } = await createClient()
+    .from("rental_equipment")
+    .select("*")
+    .ilike("category", `%${formattedCategory}%`);
+  
+  if (error) throw error;
+  return data;
+}
+
+export default async function CategoryPage({ params }: { params: { slug: string } }) {
+  const models = await fetchModelsByCategory(params.slug);
+  
+  if (!models || models.length === 0) {
+    notFound();
+  }
+
   return (
     <main className="max-w-6xl mx-auto px-4 py-16">
       <h1 className="text-3xl font-bold text-slate-900 mb-4">
