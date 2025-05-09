@@ -3,21 +3,21 @@
 import { Metadata } from "next";
 import { supabase } from "@/lib/supabaseClient";
 
-export async function generateMetadata({ params }: { params: { category: string; city: string } }): Promise<Metadata> {
-  const { category, city } = params;
+export async function generateMetadata({ params }: { params: { slug: string; city: string } }): Promise<Metadata> {
+  const { slug, city } = params;
   return {
-    title: `${category.replace(/-/g, " ")} in ${city.replace(/-/g, " ")} | Rentals`,
-    description: `Request a quote for ${category.replace(/-/g, " ")} rentals in ${city.replace(/-/g, " ")}.`,
+    title: `${slug.replace(/-/g, " ")} in ${city.replace(/-/g, " ")} | Rentals`,
+    description: `Request a quote for ${slug.replace(/-/g, " ")} rentals in ${city.replace(/-/g, " ")}.`,
   };
 }
 
 // @ts-ignore
-export default async function Page({ params }: { params: { category: string; city: string } }) {
-  const { category, city } = params;
+export default async function Page({ params }: { params: { slug: string; city: string } }) {
+  const { slug, city } = params;
   const { data: listings, error } = await supabase
     .from("rental_equipment")
     .select("id,title,price_per_day")
-    .eq("category", category)
+    .eq("category", slug)
     .eq("city", city);
 
   if (error || !listings) {
@@ -33,7 +33,7 @@ export default async function Page({ params }: { params: { category: string; cit
         className="w-full h-48 object-cover rounded-lg mb-6"
       />
       <h1 className="text-3xl font-bold mb-8">
-        {category.replace(/-/g, " ")} Rentals in {city.replace(/-/g, " ")}
+        {slug.replace(/-/g, " ")} Rentals in {city.replace(/-/g, " ")}
       </h1>
       <ul className="space-y-6">
         {listings.map((r) => (
