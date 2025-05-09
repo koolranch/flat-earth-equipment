@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Platform -->
+  <path d="M16 32H48V40H16V32Z" fill="#4B5563"/>
+  <!-- Scissor mechanism -->
+  <path d="M24 40L32 24L40 40" stroke="#4B5563" stroke-width="2"/>
+  <path d="M28 40L32 32L36 40" stroke="#4B5563" stroke-width="2"/>
+  <!-- Base -->
+  <path d="M20 48H44V52H20V48Z" fill="#1F2937"/>
+  <!-- Wheels -->
+  <circle cx="24" cy="52" r="2" fill="#4B5563"/>
+  <circle cx="40" cy="52" r="2" fill="#4B5563"/>
+</svg> 

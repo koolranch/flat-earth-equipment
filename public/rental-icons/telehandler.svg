@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main body -->
+  <path d="M20 40H44V48H20V40Z" fill="#4B5563"/>
+  <!-- Cabin -->
+  <path d="M32 32H44V40H32V32Z" fill="#4B5563"/>
+  <!-- Boom -->
+  <path d="M44 32L56 20" stroke="#4B5563" stroke-width="4"/>
+  <!-- Forks -->
+  <path d="M56 20H60V24H56V20Z" fill="#4B5563"/>
+  <!-- Wheels -->
+  <circle cx="24" cy="48" r="4" fill="#1F2937"/>
+  <circle cx="40" cy="48" r="4" fill="#1F2937"/>
+</svg> 
