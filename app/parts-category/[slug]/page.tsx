@@ -4,6 +4,12 @@ import { notFound } from "next/navigation";
 import { categories } from "@/lib/data/categories";
 import { brands } from "@/lib/data/brands";
 import CategoryProductGrid from "@/components/CategoryProductGrid";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 type CategorySlug = typeof categories[number]["slug"];
 
@@ -66,6 +72,12 @@ export default function CategoryPage({ params }: { params: { slug: CategorySlug 
               const brand = brands.find((b) => b.slug === slug);
               if (!brand) return null;
 
+              const brandSlug = brand.slug.toLowerCase();
+              const { data: { publicUrl: logoUrl } } = supabase
+                .storage
+                .from("brand-logos")
+                .getPublicUrl(`${brandSlug}.webp`);
+
               return (
                 <Link
                   key={brand.slug}
@@ -73,7 +85,7 @@ export default function CategoryPage({ params }: { params: { slug: CategorySlug 
                   className="text-center group"
                 >
                   <img
-                    src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${brand.image}`}
+                    src={logoUrl}
                     alt={`${brand.name} logo`}
                     className="h-10 mx-auto object-contain group-hover:opacity-80"
                   />
