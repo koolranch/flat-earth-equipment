@@ -22,11 +22,18 @@ export default function BrandsPage() {
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
         {brands.map((brand) => {
-          const brandSlug = brand.slug.toLowerCase();
+          // Normalize slug: lowercase, spaces & underscores → hyphens
+          const brandSlug = brand.slug.toLowerCase().replace(/[\s_]+/g, "-");
+
+          // Use .png for these brands, otherwise .webp
+          const pngBrands = ["enersys", "liugong"];
+          const ext = pngBrands.includes(brandSlug) ? "png" : "webp";
+
+          // Build path & get public URL
           const { data: { publicUrl: logoUrl } } = supabase
             .storage
             .from("brand-logos")
-            .getPublicUrl(`${brandSlug}.webp`);
+            .getPublicUrl(`${brandSlug}.${ext}`);
 
           return (
             <Link

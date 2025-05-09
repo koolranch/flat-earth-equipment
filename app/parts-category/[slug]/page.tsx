@@ -72,11 +72,18 @@ export default function CategoryPage({ params }: { params: { slug: CategorySlug 
               const brand = brands.find((b) => b.slug === slug);
               if (!brand) return null;
 
-              const brandSlug = brand.slug.toLowerCase();
+              // Normalize slug: lowercase, spaces & underscores → hyphens
+              const brandSlug = brand.slug.toLowerCase().replace(/[\s_]+/g, "-");
+
+              // Use .png for these brands, otherwise .webp
+              const pngBrands = ["enersys", "liugong"];
+              const ext = pngBrands.includes(brandSlug) ? "png" : "webp";
+
+              // Build path & get public URL
               const { data: { publicUrl: logoUrl } } = supabase
                 .storage
                 .from("brand-logos")
-                .getPublicUrl(`${brandSlug}.webp`);
+                .getPublicUrl(`${brandSlug}.${ext}`);
 
               return (
                 <Link
