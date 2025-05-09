@@ -45,8 +45,8 @@ export default function FeaturedParts() {
           .from('parts')
           .select('*')
           .not('category', 'in', ['charger modules', 'battery chargers'])
-          .limit(4)
-          .order('created_at', { ascending: false });
+          .order('created_at', { ascending: false })
+          .limit(4);
 
         console.log('Recent parts response:', { data: recentParts, error: recentError });
 
