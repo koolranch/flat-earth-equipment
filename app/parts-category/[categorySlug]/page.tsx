@@ -15,12 +15,12 @@ type CategorySlug = typeof categories[number]["slug"];
 
 export async function generateStaticParams() {
   return categories.map((category) => ({
-    category: category.slug,
+    categorySlug: category.slug,
   }));
 }
 
-export async function generateMetadata({ params }: { params: { category: CategorySlug } }): Promise<Metadata> {
-  const category = categories.find((c) => c.slug === params.category);
+export async function generateMetadata({ params }: { params: { categorySlug: CategorySlug } }): Promise<Metadata> {
+  const category = categories.find((c) => c.slug === params.categorySlug);
   if (!category) return {};
 
   return {
@@ -29,8 +29,8 @@ export async function generateMetadata({ params }: { params: { category: Categor
   };
 }
 
-export default function CategoryPage({ params }: { params: { category: CategorySlug } }) {
-  const category = categories.find((c) => c.slug === params.category);
+export default function CategoryPage({ params }: { params: { categorySlug: CategorySlug } }) {
+  const category = categories.find((c) => c.slug === params.categorySlug);
   if (!category) return notFound();
 
   return (
@@ -62,7 +62,7 @@ export default function CategoryPage({ params }: { params: { category: CategoryS
         </div>
       </section>
 
-      <CategoryProductGrid categorySlug={params.category} />
+      <CategoryProductGrid categorySlug={params.categorySlug} />
 
       {category.supportedBrandSlugs && category.supportedBrandSlugs.length > 0 && (
         <section className="mt-16 mb-12">

@@ -49,42 +49,18 @@ export default function Footer() {
           {/* Center Column - Quick Links */}
           <div>
             <h3 className="font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/about" className="text-slate-600 hover:text-[#A0522D] transition-colors">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/locations" className="text-slate-600 hover:text-[#A0522D] transition-colors">
-                  Rental Service Areas
-                </Link>
-              </li>
-              <li>
-                <Link href="/shipping" className="text-slate-600 hover:text-[#A0522D] transition-colors">
-                  Shipping & Returns
-                </Link>
-              </li>
-              <li>
-                <Link href="/warranty" className="text-slate-600 hover:text-[#A0522D] transition-colors">
-                  Warranty
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-slate-600 hover:text-[#A0522D] transition-colors">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="text-slate-600 hover:text-[#A0522D] transition-colors">
-                  Terms of Service
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy" className="text-slate-600 hover:text-[#A0522D] transition-colors">
-                  Privacy Policy
-                </Link>
-              </li>
+            <ul className="space-y-1 text-sm text-slate-600">
+              <li><Link href="/about">About Us</Link></li>
+              <li><Link href="/shipping-returns">Shipping & Returns</Link></li>
+              <li><Link href="/warranty">Warranty</Link></li>
+              <li><Link href="/contact">Contact</Link></li>
+              <li><Link href="/terms-of-service">Terms of Service</Link></li>
+              <li><Link href="/privacy-policy">Privacy Policy</Link></li>
+              <li><Link href="/locations" className="text-canyon-rust hover:underline">Service Areas</Link></li>
+              <li><Link href="/locations/cheyenne-wy">Cheyenne, WY</Link></li>
+              <li><Link href="/locations/bozeman-mt">Bozeman, MT</Link></li>
+              <li><Link href="/locations/pueblo-co">Pueblo, CO</Link></li>
+              <li><Link href="/locations/las-cruces-nm">Las Cruces, NM</Link></li>
             </ul>
           </div>
 
