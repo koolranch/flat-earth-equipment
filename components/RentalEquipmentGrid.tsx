@@ -1,4 +1,6 @@
 import supabase from "@/lib/supabase";
+import Link from "next/link";
+import Image from "next/image";
 
 type RentalEquipmentGridProps = {
   categorySlug: string;
@@ -29,24 +31,31 @@ export default async function RentalEquipmentGrid({ categorySlug }: RentalEquipm
     <section className="mt-12">
       <h2 className="text-xl font-semibold mb-6">Equipment in This Category</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-        {equipment.map((item) => (
-          <div
-            key={item.id}
-            className="bg-white border border-slate-200 rounded-md p-4 shadow-sm text-center hover:border-canyon-rust transition-colors"
-          >
-            <div className="h-24 bg-slate-100 rounded mb-4 flex items-center justify-center">
-              {/* Placeholder for product image - will be added when we have image support */}
-              <span className="text-slate-400 text-xs">Image coming soon</span>
-            </div>
-            <p className="text-sm font-medium text-slate-800 mb-1">{item.name}</p>
-            {item.brand && (
-              <p className="text-xs text-slate-500 mb-1">{item.brand}</p>
-            )}
-            {item.price && (
-              <p className="text-sm text-slate-700 mt-1">${item.price.toFixed(2)}/day</p>
-            )}
-          </div>
-        ))}
+        {equipment.map((model) => {
+          const brandSlug = model.brand.toLowerCase().replace(/\s+/g, '-');
+          const { data: { publicUrl: logoUrl } } = supabase
+            .storage
+            .from('brand-logos')
+            .getPublicUrl(`${brandSlug}.webp`);
+
+          return (
+            <Link
+              key={model.id}
+              href={`/rentals/${categorySlug}/${model.name.toLowerCase().replace(/\s+/g, '-')}`}
+              className="block bg-white rounded-xl shadow p-6 hover:shadow-md transition"
+            >
+              <Image
+                src={logoUrl}
+                alt={`${model.brand} logo`}
+                width={200}
+                height={100}
+                className="mx-auto mb-4"
+              />
+              <h2 className="text-lg font-semibold text-center">{model.brand}</h2>
+              <p className="mt-2 text-sm text-gray-700 text-center">{model.name}</p>
+            </Link>
+          );
+        })}
       </div>
     </section>
   );
