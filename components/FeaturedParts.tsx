@@ -28,6 +28,8 @@ export default function FeaturedParts() {
           .in('category', ['charger modules', 'battery chargers'])
           .limit(2);
 
+        console.log('Charger modules response:', { data: chargerModules, error: chargerError });
+
         if (chargerError) {
           console.error('Error fetching charger modules:', chargerError);
           setError('Failed to load featured products');
@@ -42,6 +44,8 @@ export default function FeaturedParts() {
           .limit(4)
           .order('created_at', { ascending: false });
 
+        console.log('Recent parts response:', { data: recentParts, error: recentError });
+
         if (recentError) {
           console.error('Error fetching recent parts:', recentError);
           setError('Failed to load recent products');
@@ -54,6 +58,13 @@ export default function FeaturedParts() {
           ...(recentParts || [])
         ];
 
+        if (combinedParts.length === 0) {
+          console.log('No parts found');
+          setError('No featured products available');
+          return;
+        }
+
+        console.log('Combined parts:', combinedParts);
         setParts(combinedParts);
       } catch (err) {
         console.error('Error in fetchFeaturedParts:', err);
