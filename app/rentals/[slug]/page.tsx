@@ -1,71 +1,70 @@
+import supabase from "@/lib/supabase";
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
-import RentalEquipmentGrid from "@/components/RentalEquipmentGrid";
-import { createClient } from "@/utils/supabase/server";
+import Link from "next/link";
 
-export async function generateStaticParams() {
-  // This will be replaced with actual categories from the database
-  return [
-    { slug: "excavators" },
-    { slug: "skid-steers" },
-    { slug: "tractors" },
-  ];
+interface PageProps {
+  params: { slug: string };
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const formattedCategory = params.slug.replace(/-/g, " ");
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const title = params.slug.replace(/-/g, ' ');
   return {
-    title: `Rent ${formattedCategory} | Flat Earth Equipment`,
-    description: `Rent ${formattedCategory} from Flat Earth Equipment. Browse our selection of high-quality equipment for your next project.`,
+    title: `${title} Rentals | Flat Earth Equipment`,
+    description: `Rent ${title} equipment nationwide from top brands and models.`,
     alternates: { canonical: `/rentals/${params.slug}` },
   };
 }
 
 async function fetchModelsByCategory(slug: string) {
-  const formattedCategory = slug.replace(/-/g, " ");
-  const { data, error } = await createClient()
-    .from("rental_equipment")
-    .select("*")
-    .ilike("category", `%${formattedCategory}%`);
-  
-  if (error) throw error;
-  return data;
+  try {
+    const formatted = slug.replace(/-/g, ' ');
+    const { data, error } = await supabase
+      .from('rental_equipment')
+      .select('*')
+      .ilike('category', `%${formatted}%`);
+    if (error) throw error;
+    return data || [];
+  } catch (err) {
+    console.error('Error fetching models:', err);
+    return [];
+  }
 }
 
-export default async function CategoryPage({ params }: { params: { slug: string } }) {
+export default async function RentalCategoryPage({ params }: PageProps) {
   const models = await fetchModelsByCategory(params.slug);
-  
-  if (!models || models.length === 0) {
-    notFound();
+  if (!models.length) {
+    return (
+      <main className="max-w-7xl mx-auto px-4 py-12">
+        <h1 className="text-4xl font-bold mb-6 capitalize">{params.slug.replace(/-/g, ' ')} Rentals</h1>
+        <p className="text-lg text-gray-700">No equipment found for this category.</p>
+      </main>
+    );
   }
 
   return (
-    <main className="max-w-6xl mx-auto px-4 py-16">
-      <h1 className="text-3xl font-bold text-slate-900 mb-4">
-        Rent {params.slug.replace(/-/g, " ")}
-      </h1>
-      
-      <section className="mb-12">
-        <p className="text-lg text-slate-600 max-w-3xl">
-          Browse our selection of high-quality {params.slug.replace(/-/g, " ")} available for rent. 
-          All equipment is well-maintained and ready for your next project.
-        </p>
-      </section>
-
-      <RentalEquipmentGrid categorySlug={params.slug} />
-
-      <section className="mt-16 mb-12 bg-slate-50 rounded-lg p-8">
-        <h2 className="text-xl font-semibold text-slate-900 mb-4">Need a Quote?</h2>
-        <p className="text-slate-600 mb-6">
-          Can't find what you're looking for? Our team of experts can help you find the right equipment for your needs.
-        </p>
-        <a
-          href="/contact"
-          className="inline-block bg-canyon-rust text-white px-6 py-3 rounded-lg hover:bg-canyon-rust/90 transition-colors"
-        >
-          Request a Quote
-        </a>
-      </section>
+    <main className="max-w-7xl mx-auto px-4 py-12">
+      <h1 className="text-4xl font-bold mb-6 capitalize">{params.slug.replace(/-/g, ' ')} Rentals</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {models.map((model) => {
+          const modelSlug = model.model.toLowerCase().replace(/\s+/g, '-');
+          return (
+            <Link
+              key={model.id}
+              href={`/rentals/${params.slug}/${modelSlug}`}
+              className="block bg-white rounded-xl shadow p-6 hover:shadow-md transition"
+            >
+              <h2 className="text-lg font-semibold">
+                {model.brand} {model.model}
+              </h2>
+              <p className="mt-2 text-sm text-gray-600">
+                {model.lift_height_ft ? `Height: ${model.lift_height_ft} ft • ` : ''}
+                {model.weight_capacity_lbs ? `Capacity: ${model.weight_capacity_lbs} lbs • ` : ''}
+                Power: {model.power_source}
+              </p>
+            </Link>
+          );
+        })}
+      </div>
     </main>
   );
 } 
