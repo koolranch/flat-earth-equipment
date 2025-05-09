@@ -23,7 +23,7 @@ export default function Navbar() {
     { 
       label: "Rent Equipment", 
       href: "/rent-equipment",
-      className: "text-slate-900 hover:text-canyon-rust font-semibold tracking-wide transition-colors"
+      className: "text-slate-800 hover:text-canyon-rust font-semibold transition"
     },
     { 
       label: "Locations", 
