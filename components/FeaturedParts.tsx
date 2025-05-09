@@ -44,7 +44,8 @@ export default function FeaturedParts() {
         const { data: recentParts, error: recentError } = await supabase
           .from('parts')
           .select('*')
-          .not('category', 'in', ['charger modules', 'battery chargers'])
+          .neq('category', 'charger modules')
+          .neq('category', 'battery chargers')
           .order('created_at', { ascending: false })
           .limit(4);
 
