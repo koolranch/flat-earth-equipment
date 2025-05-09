@@ -5,29 +5,29 @@ type CategoryProductGridProps = {
 };
 
 export default async function CategoryProductGrid({ categorySlug }: CategoryProductGridProps) {
+  const formattedCategory = categorySlug.replace(/-/g, " ");
   const { data: products, error } = await supabase
-    .from("parts")
-    .select("id, name, slug, price, category, brand")
-    .eq("category", categorySlug)
-    .limit(20);
+    .from("rental_equipment")
+    .select("*")
+    .ilike("category", `%${formattedCategory}%`);
 
   if (error) {
     console.error("Supabase error:", error);
-    return <p className="text-red-600">Failed to load parts.</p>;
+    return <p className="text-red-600">Failed to load equipment.</p>;
   }
 
   if (!products || products.length === 0) {
     return (
       <section className="mt-12 text-center text-slate-600">
-        <h2 className="text-xl font-semibold mb-4">Parts in This Category</h2>
-        <p>No parts are currently listed for this category. Check back soon or <a href="/contact" className="text-canyon-rust underline">request a quote</a>.</p>
+        <h2 className="text-xl font-semibold mb-4">Equipment in This Category</h2>
+        <p>No equipment is currently listed for this category. Check back soon or <a href="/contact" className="text-canyon-rust underline">request a quote</a>.</p>
       </section>
     );
   }
 
   return (
     <section className="mt-12">
-      <h2 className="text-xl font-semibold mb-6">Parts in This Category</h2>
+      <h2 className="text-xl font-semibold mb-6">Equipment in This Category</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
         {products.map((product) => (
           <div
