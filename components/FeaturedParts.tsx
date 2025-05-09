@@ -21,6 +21,10 @@ export default function FeaturedParts() {
   useEffect(() => {
     async function fetchFeaturedParts() {
       try {
+        // Debug log to check environment variables
+        console.log('Debug - Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
+        console.log('Debug - Supabase Key exists:', !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+
         // First, fetch the specific charger modules
         const { data: chargerModules, error: chargerError } = await supabase
           .from('parts')
