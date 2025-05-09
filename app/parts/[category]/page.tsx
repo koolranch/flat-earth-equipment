@@ -13,11 +13,11 @@ interface Product {
   image_filename?: string;
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { category: string } }): Promise<Metadata> {
   const { data: product } = await supabase
     .from('parts')
     .select('name, description')
-    .eq('slug', params.slug)
+    .eq('slug', params.category)
     .single();
 
   if (!product) {
@@ -33,11 +33,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function ProductPage({ params }: { params: { slug: string } }) {
+export default async function ProductPage({ params }: { params: { category: string } }) {
   const { data: product, error } = await supabase
     .from('parts')
     .select('*')
-    .eq('slug', params.slug)
+    .eq('slug', params.category)
     .single();
 
   if (error || !product) {
