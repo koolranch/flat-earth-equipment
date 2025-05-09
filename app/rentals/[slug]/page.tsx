@@ -3,15 +3,15 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 interface PageProps {
-  params: { category: string };
+  params: { slug: string };
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const title = params.category.replace(/-/g, ' ');
+  const title = params.slug.replace(/-/g, ' ');
   return {
     title: `${title} Rentals | Flat Earth Equipment`,
     description: `Rent ${title} equipment nationwide from top brands and models.`,
-    alternates: { canonical: `/rentals/${params.category}` },
+    alternates: { canonical: `/rentals/${params.slug}` },
   };
 }
 
@@ -31,11 +31,11 @@ async function fetchModelsByCategory(category: string) {
 }
 
 export default async function RentalCategoryPage({ params }: PageProps) {
-  const models = await fetchModelsByCategory(params.category);
+  const models = await fetchModelsByCategory(params.slug);
   if (!models.length) {
     return (
       <main className="max-w-7xl mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-6 capitalize">{params.category.replace(/-/g, ' ')} Rentals</h1>
+        <h1 className="text-4xl font-bold mb-6 capitalize">{params.slug.replace(/-/g, ' ')} Rentals</h1>
         <p className="text-lg text-gray-700">No equipment found for this category.</p>
       </main>
     );
@@ -43,14 +43,14 @@ export default async function RentalCategoryPage({ params }: PageProps) {
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold mb-6 capitalize">{params.category.replace(/-/g, ' ')} Rentals</h1>
+      <h1 className="text-4xl font-bold mb-6 capitalize">{params.slug.replace(/-/g, ' ')} Rentals</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {models.map((model) => {
           const equipmentSlug = model.model.toLowerCase().replace(/\s+/g, '-');
           return (
             <Link
               key={model.id}
-              href={`/rentals/${params.category}/${equipmentSlug}`}
+              href={`/rentals/${params.slug}/${equipmentSlug}`}
               className="block bg-white rounded-xl shadow p-6 hover:shadow-md transition"
             >
               <h2 className="text-lg font-semibold">

@@ -60,10 +60,111 @@ export async function generateMetadata({ params }: { params: { city: string } })
     };
   }
 
-  return {
+  const metadata: Metadata = {
     title: `${location.name} Location | Flat Earth Equipment`,
     description: location.description,
   };
+
+  // Add structured data for location pages
+  if (params.city === 'cheyenne-wy') {
+    metadata.other = {
+      'application/ld+json': JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'LocalBusiness',
+        'name': 'Flat Earth Equipment',
+        'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
+        'url': 'https://flatearthequipment.com/locations/cheyenne-wy',
+        'telephone': '+1-307-302-0043',
+        'address': {
+          '@type': 'PostalAddress',
+          'addressLocality': 'Cheyenne',
+          'addressRegion': 'WY',
+          'addressCountry': 'US'
+        },
+        'areaServed': {
+          '@type': 'Place',
+          'name': 'Cheyenne, WY'
+        },
+        'description': 'Flat Earth Equipment offers industrial parts and equipment rentals to contractors and facilities in Cheyenne, WY. Fast quotes, same-day shipping, and regional dispatch.',
+        'openingHours': 'Mo-Fr 07:00-17:00',
+        'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support']
+      })
+    };
+  } else if (params.city === 'bozeman-mt') {
+    metadata.other = {
+      'application/ld+json': JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'LocalBusiness',
+        'name': 'Flat Earth Equipment',
+        'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
+        'url': 'https://flatearthequipment.com/locations/bozeman-mt',
+        'telephone': '+1-307-302-0043',
+        'address': {
+          '@type': 'PostalAddress',
+          'addressLocality': 'Bozeman',
+          'addressRegion': 'MT',
+          'addressCountry': 'US'
+        },
+        'areaServed': {
+          '@type': 'Place',
+          'name': 'Bozeman, MT'
+        },
+        'description': 'Flat Earth Equipment provides rental equipment and parts to contractors, facilities, and municipalities in Bozeman, MT. Fast shipping from regional hubs.',
+        'openingHours': 'Mo-Fr 07:00-17:00',
+        'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support']
+      })
+    };
+  } else if (params.city === 'pueblo-co') {
+    metadata.other = {
+      'application/ld+json': JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'LocalBusiness',
+        'name': 'Flat Earth Equipment',
+        'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
+        'url': 'https://flatearthequipment.com/locations/pueblo-co',
+        'telephone': '+1-307-302-0043',
+        'address': {
+          '@type': 'PostalAddress',
+          'addressLocality': 'Pueblo',
+          'addressRegion': 'CO',
+          'addressCountry': 'US'
+        },
+        'areaServed': {
+          '@type': 'Place',
+          'name': 'Pueblo, CO'
+        },
+        'description': 'Flat Earth Equipment ships precision-fit parts and rugged rental equipment to contractors and industrial teams across Pueblo, Colorado. Same-day quotes and regional delivery.',
+        'openingHours': 'Mo-Fr 07:00-17:00',
+        'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support']
+      })
+    };
+  } else if (params.city === 'las-cruces-nm') {
+    metadata.other = {
+      'application/ld+json': JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'LocalBusiness',
+        'name': 'Flat Earth Equipment',
+        'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
+        'url': 'https://flatearthequipment.com/locations/las-cruces-nm',
+        'telephone': '+1-307-302-0043',
+        'address': {
+          '@type': 'PostalAddress',
+          'addressLocality': 'Las Cruces',
+          'addressRegion': 'NM',
+          'addressCountry': 'US'
+        },
+        'areaServed': {
+          '@type': 'Place',
+          'name': 'Las Cruces, NM'
+        },
+        'description': 'Flat Earth Equipment delivers parts and rental equipment to Las Cruces, Deming, and Alamogordo from regional hubs. Dispatch-ready gear and responsive fleet support.',
+        'openingHours': 'Mo-Fr 07:00-17:00',
+        'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support']
+      })
+    };
+  }
+
+  return metadata;
 }
 
 export default function LocationPage({ params }: { params: { city: string } }) {
@@ -168,6 +269,33 @@ export default function LocationPage({ params }: { params: { city: string } }) {
         </div>
       )}
 
+      {params.city === 'pueblo-co' && (
+        <section className="mt-12 space-y-6">
+          <h2 className="text-xl font-semibold text-slate-800">Frequently Asked Questions</h2>
+
+          <div>
+            <h3 className="font-medium text-slate-700">Can I rent equipment locally in Pueblo?</h3>
+            <p className="text-slate-600">
+              Yes — we deliver equipment directly to job sites across Pueblo and southern Colorado. Forklifts, lifts, and compact machines are available for fast dispatch.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-medium text-slate-700">What parts do you stock for Pueblo customers?</h3>
+            <p className="text-slate-600">
+              We stock controllers, hydraulics, filters, motors, and other precision-fit parts for major brands like Doosan, CAT, and JLG.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-medium text-slate-700">Is support based in Colorado?</h3>
+            <p className="text-slate-600">
+              Our support team is U.S.-based and available Monday through Friday. We offer responsive help for rentals, quotes, and bulk orders.
+            </p>
+          </div>
+        </section>
+      )}
+
       {params.city === 'bozeman-mt' && (
         <div className="mt-10 space-y-2 text-sm text-slate-600">
           <p><strong>Popular Services in Bozeman:</strong></p>
@@ -178,6 +306,33 @@ export default function LocationPage({ params }: { params: { city: string } }) {
           </ul>
           <p className="italic">Last updated May 2025</p>
         </div>
+      )}
+
+      {params.city === 'bozeman-mt' && (
+        <section className="mt-12 space-y-6">
+          <h2 className="text-xl font-semibold text-slate-800">Frequently Asked Questions</h2>
+
+          <div>
+            <h3 className="font-medium text-slate-700">Do you deliver to job sites around Bozeman?</h3>
+            <p className="text-slate-600">
+              Yes — we ship directly to job sites in Bozeman, Belgrade, Livingston, Big Sky and surrounding areas. Most equipment is ready to dispatch same-day.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-medium text-slate-700">What kind of rentals are available in Montana?</h3>
+            <p className="text-slate-600">
+              We supply scissor lifts, rough-terrain forklifts, compact loaders, and telehandlers across the Gallatin Valley.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-medium text-slate-700">How do I request a rental quote?</h3>
+            <p className="text-slate-600">
+              Use our <a href="/quote" className="text-canyon-rust underline">quote request form</a> or call our team for fast support.
+            </p>
+          </div>
+        </section>
       )}
 
       {params.city === 'las-cruces-nm' && (
@@ -192,6 +347,33 @@ export default function LocationPage({ params }: { params: { city: string } }) {
         </div>
       )}
 
+      {params.city === 'las-cruces-nm' && (
+        <section className="mt-12 space-y-6">
+          <h2 className="text-xl font-semibold text-slate-800">Frequently Asked Questions</h2>
+
+          <div>
+            <h3 className="font-medium text-slate-700">Do you offer rentals in Las Cruces?</h3>
+            <p className="text-slate-600">
+              Yes — we supply scissor lifts, forklifts, telehandlers, and compact equipment to job sites across southern New Mexico. Most equipment is dispatch-ready.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-medium text-slate-700">Can you ship parts to New Mexico?</h3>
+            <p className="text-slate-600">
+              Absolutely. We stock thousands of compatible parts and ship fast to Las Cruces, Deming, Alamogordo, and surrounding areas.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-medium text-slate-700">Do you support municipal and facility operations?</h3>
+            <p className="text-slate-600">
+              We serve public works, utility contractors, facility managers, and industrial teams with flexible fulfillment and responsive support.
+            </p>
+          </div>
+        </section>
+      )}
+
       {params.city === 'cheyenne-wy' && (
         <div className="mt-10 space-y-2 text-sm text-slate-600">
           <p><strong>Popular Services in Cheyenne:</strong></p>
@@ -202,6 +384,33 @@ export default function LocationPage({ params }: { params: { city: string } }) {
           </ul>
           <p className="italic">Last updated May 2025</p>
         </div>
+      )}
+
+      {params.city === 'cheyenne-wy' && (
+        <section className="mt-12 space-y-6">
+          <h2 className="text-xl font-semibold text-slate-800">Frequently Asked Questions</h2>
+
+          <div>
+            <h3 className="font-medium text-slate-700">Do you have a storefront in Cheyenne?</h3>
+            <p className="text-slate-600">
+              We don't operate a physical storefront, but we deliver fast from our nearby regional hubs. Most equipment and parts ship same-day.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-medium text-slate-700">What types of equipment are available near Cheyenne?</h3>
+            <p className="text-slate-600">
+              We offer forklifts, scissor lifts, telehandlers, and compact loaders for rent, plus thousands of compatible parts in stock.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-medium text-slate-700">Can I get bulk pricing?</h3>
+            <p className="text-slate-600">
+              Yes — we support fleet operators and large buyers with tiered pricing. <a href="/fleet" className="text-canyon-rust underline">Learn more here</a>.
+            </p>
+          </div>
+        </section>
       )}
     </main>
   );

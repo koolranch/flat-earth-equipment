@@ -5,16 +5,14 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 interface Props {
-  params: { category: string; equipment: string };
+  params: { slug: string; equipment: string };
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const equipmentName = params.equipment.replace(/-/g, " ");
-  const categoryName = params.category.replace(/-/g, " ");
+  const title = params.equipment.replace(/-/g, ' ');
   return {
-    title: `${equipmentName} Rental | Flat Earth Equipment`,
-    description: `Rent the ${equipmentName} from our ${categoryName} fleet. View specs & request a quote.`,
-    alternates: { canonical: `/rentals/${params.category}/${params.equipment}` },
+    title: `${title} Rental | Flat Earth Equipment`,
+    description: `Rent ${title} equipment nationwide. Fast quotes and flexible terms.`,
   };
 }
 
@@ -36,7 +34,7 @@ async function fetchEquipment(category: string, equipmentSlug: string) {
 }
 
 export default async function EquipmentDetailPage({ params }: Props) {
-  const equipment = await fetchEquipment(params.category, params.equipment);
+  const equipment = await fetchEquipment(params.slug, params.equipment);
   const brandSlug = equipment.brand.toLowerCase().replace(/\s+/g, '-');
   const { data: { publicUrl: logoUrl } } = supabase
     .storage
@@ -58,7 +56,7 @@ export default async function EquipmentDetailPage({ params }: Props) {
       {/* If you have images, swap src to equipment.image */}
       <div className="mb-6">
         <img
-          src={`/images/rentals/${params.category}/${params.equipment}.jpg`}
+          src={`/images/rentals/${params.slug}/${params.equipment}.jpg`}
           alt={`${equipment.brand} ${equipment.name}`}
           className="w-full rounded-xl shadow"
         />
