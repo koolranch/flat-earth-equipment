@@ -16,7 +16,7 @@ export default function FeaturedCategories() {
         {categories.map((c) => (
           <Link
             key={c.slug}
-            href={`/parts/${c.slug}`}
+            href={`/category/${c.slug}`}
             className="flex flex-col items-center space-y-2 rounded-lg border p-4 hover:shadow-lg"
           >
             <div className="h-12 w-12 bg-gray-200 rounded-full" aria-hidden="true" />

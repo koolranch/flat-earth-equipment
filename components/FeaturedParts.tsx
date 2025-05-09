@@ -8,7 +8,7 @@ type Part = {
   slug: string;
   name: string;
   price: number;
-  image_url: string | null;
+  image_filename: string | null;
   category: string;
   brand: string;
 };
@@ -89,7 +89,10 @@ export default function FeaturedParts() {
             <div className="bg-white rounded-lg shadow-sm overflow-hidden transition-transform hover:scale-[1.02]">
               <div className="aspect-square relative bg-gray-100">
                 <img
-                  src={part.image_url || 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg'}
+                  src={part.image_filename 
+                    ? `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/product-images/${part.image_filename}`
+                    : 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg'
+                  }
                   alt={part.name}
                   className="object-cover w-full h-full"
                   loading="lazy"
