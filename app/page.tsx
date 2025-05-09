@@ -1,6 +1,5 @@
 import { Hero } from "@/components/ui/Hero";
 import FeaturedParts from "@/components/FeaturedParts";
-import BrandsCarousel from "@/components/BrandsCarousel";
 import { Features } from "@/components/ui/Features";
 import CategoryTiles from "@/components/CategoryTiles";
 import EmailSignup from "@/components/EmailSignup";
@@ -8,21 +7,30 @@ import QuickQuote from "@/components/QuickQuote";
 import Testimonials from "@/components/Testimonials";
 import TrustPoints from "@/components/TrustPoints";
 import FeaturedRentals from "@/components/FeaturedRentals";
-
-// Define the brand files array
-const brandFiles = [
-  'Case.webp',
-  'Curtis.webp',
-  'Genie.webp',
-  'JLG.webp',
-  'Skyjack.webp',
-  'Toyota.webp',
-  'Yale.webp'
-];
+import Script from 'next/script';
 
 export default function Page() {
   return (
     <main>
+      {/* Structured Data for Homepage */}
+      <Script id="structured-data" type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Flat Earth Equipment",
+          url: "https://flatearthequipment.com",
+          logo: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp",
+          description: "Industrial equipment parts and rentals. Same-day shipping. Western-tough, nationwide.",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Sheridan",
+            addressRegion: "WY",
+            postalCode: "82801",
+            addressCountry: "US"
+          }
+        })}
+      </Script>
+
       {/* 1) Full-bleed Hero */}
       <Hero />
 
@@ -47,9 +55,42 @@ export default function Page() {
         <Features />
       </section>
 
-      {/* 6) Brands carousel */}
+      {/* 6) Brands grid */}
       <section className="py-12">
-        <BrandsCarousel />
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-xl font-semibold text-center mb-6">Trusted Brands We Support</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 items-center justify-center">
+            {[
+              { name: 'Genie', src: '/brand-logos/genie.webp' },
+              { name: 'Gehl', src: '/brand-logos/gehl.webp' },
+              { name: 'Hyster', src: '/brand-logos/hyster.webp' },
+              { name: 'JCB', src: '/brand-logos/jcb.webp' },
+              { name: 'Hangcha', src: '/brand-logos/hangcha.webp' },
+              { name: 'JLG', src: '/brand-logos/jlg.webp' },
+              { name: 'Kubota', src: '/brand-logos/kubota.webp' },
+              { name: 'MEC', src: '/brand-logos/mec.webp' },
+              { name: 'Skyjack', src: '/brand-logos/skyjack.webp' },
+              { name: 'Snorkel', src: '/brand-logos/snorkel.webp' },
+              { name: 'Toro', src: '/brand-logos/toro.webp' },
+              { name: 'Toyota', src: '/brand-logos/toyota.webp' },
+            ].map((brand) => (
+              <div key={brand.name} className="flex flex-col items-center">
+                <img
+                  src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public${brand.src}`}
+                  alt={`${brand.name} equipment parts and rentals`}
+                  className="h-10 object-contain mb-2"
+                  loading="lazy"
+                  width={40}
+                  height={40}
+                />
+                <span className="text-xs text-slate-600">{brand.name}</span>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-6">
+            <a href="/brands" className="text-sm text-orange-700 hover:underline">View All Brands →</a>
+          </div>
+        </div>
       </section>
 
       {/* 7) Testimonials */}
@@ -67,19 +108,19 @@ export default function Page() {
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm text-slate-700">
             <a href="/locations/cheyenne-wy" className="hover:text-canyon-rust transition">
-              <div className="text-3xl mb-2">📍</div>
+              <div className="text-3xl mb-2" aria-hidden="true">📍</div>
               Cheyenne, WY
             </a>
             <a href="/locations/bozeman-mt" className="hover:text-canyon-rust transition">
-              <div className="text-3xl mb-2">🏔️</div>
+              <div className="text-3xl mb-2" aria-hidden="true">🏔️</div>
               Bozeman, MT
             </a>
             <a href="/locations/pueblo-co" className="hover:text-canyon-rust transition">
-              <div className="text-3xl mb-2">🏗️</div>
+              <div className="text-3xl mb-2" aria-hidden="true">🏗️</div>
               Pueblo, CO
             </a>
             <a href="/locations/las-cruces-nm" className="hover:text-canyon-rust transition">
-              <div className="text-3xl mb-2">🌵</div>
+              <div className="text-3xl mb-2" aria-hidden="true">🌵</div>
               Las Cruces, NM
             </a>
           </div>
@@ -88,6 +129,21 @@ export default function Page() {
 
       {/* 10) Email signup */}
       <EmailSignup />
+
+      {/* 11) LLM-Friendly Q&A Section */}
+      <section className="mt-12 max-w-4xl mx-auto px-4">
+        <h3 className="text-lg font-semibold mb-4">Need Help Choosing the Right Part?</h3>
+        <ul className="space-y-2 text-sm text-slate-700">
+          <li>• Not sure if a controller fits your Genie lift? <em>We'll help you confirm compatibility.</em></li>
+          <li>• Need fast forklift parts in Wyoming or Montana? <em>We ship same-day from regional hubs.</em></li>
+          <li>• Looking for a reliable scissor lift rental near you? <em>Request a quote in 60 seconds.</em></li>
+        </ul>
+      </section>
+
+      {/* 12) Page Freshness Signal */}
+      <p className="text-center text-xs text-slate-500 mt-8">
+        Page last updated: May 2024
+      </p>
     </main>
   );
 } 
