@@ -42,7 +42,7 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="text-2xl font-bold">Flat Earth Equipment</div>
             <p className="text-slate-600">
-              Flat Earth Equipment is built Western tough — precision-fit industrial parts, shipped nationwide.
+              Flat Earth Equipment is built Western tough — precision-fit industrial parts and dispatch-ready rentals, shipped nationwide.
             </p>
           </div>
 

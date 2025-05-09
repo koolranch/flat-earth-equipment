@@ -9,8 +9,8 @@ import '../globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Flat Earth Equipment',
-  description: 'Quality equipment from a flat world',
+  title: "Flat Earth Equipment | Parts & Rentals for Forklifts, Scissor Lifts & More",
+  description: "Flat Earth Equipment delivers precision-fit industrial parts and rugged rental equipment — with same-day shipping across the Western U.S.",
 };
 
 export default function RootLayout({
