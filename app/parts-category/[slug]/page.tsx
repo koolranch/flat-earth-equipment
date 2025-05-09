@@ -111,7 +111,7 @@ export default function CategoryPage({ params }: { params: { slug: CategorySlug 
               return (
                 <li key={slug}>
                   <Link 
-                    href={`/category/${related.slug}`} 
+                    href={`/parts-category/${related.slug}`} 
                     className="block p-4 bg-white rounded-lg border border-slate-200 hover:border-canyon-rust transition-colors"
                   >
                     <span className="text-slate-900 hover:text-canyon-rust transition-colors">
