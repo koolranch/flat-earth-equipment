@@ -18,12 +18,12 @@ export const dynamic = 'force-dynamic';
 export async function generateStaticParams() {
   // This already includes all brands from the array, including Batch 4
   return brands.map((brand) => ({
-    category: brand.slug,
+    brand: brand.slug,
   }));
 }
 
-export async function generateMetadata({ params }: { params: { category: string } }): Promise<Metadata> {
-  const brand = brands.find((b) => b.slug === params.category);
+export async function generateMetadata({ params }: { params: { brand: string } }): Promise<Metadata> {
+  const brand = brands.find((b) => b.slug === params.brand);
   
   if (!brand) {
     return {
@@ -38,8 +38,8 @@ export async function generateMetadata({ params }: { params: { category: string 
   };
 }
 
-export default function BrandPage({ params }: { params: { category: string } }) {
-  const brand = brands.find((b) => b.slug === params.category);
+export default function BrandPage({ params }: { params: { brand: string } }) {
+  const brand = brands.find((b) => b.slug === params.brand);
 
   if (!brand) {
     notFound();
