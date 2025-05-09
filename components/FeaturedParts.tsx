@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from "@/lib/supabaseClient";
 
 type Part = {
   slug: string;
@@ -16,44 +16,50 @@ type Part = {
 export default function FeaturedParts() {
   const [parts, setParts] = useState<Part[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchFeaturedParts() {
-      const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-      );
+      try {
+        // First, fetch the specific charger modules
+        const { data: chargerModules, error: chargerError } = await supabase
+          .from('parts')
+          .select('*')
+          .in('slug', ['6la20671-enersys', '6la20671-hawker']);
 
-      // First, fetch the specific charger modules
-      const { data: chargerModules, error: chargerError } = await supabase
-        .from('parts')
-        .select('*')
-        .in('slug', ['6la20671-enersys', '6la20671-hawker']);
+        if (chargerError) {
+          console.error('Error fetching charger modules:', chargerError);
+          setError('Failed to load featured products');
+          return;
+        }
 
-      if (chargerError) {
-        console.error('Error fetching charger modules:', chargerError);
+        // Then fetch 4 other recent parts
+        const { data: recentParts, error: recentError } = await supabase
+          .from('parts')
+          .select('*')
+          .not('slug', 'in', ['6la20671-enersys', '6la20671-hawker'])
+          .limit(4)
+          .order('created_at', { ascending: false });
+
+        if (recentError) {
+          console.error('Error fetching recent parts:', recentError);
+          setError('Failed to load recent products');
+          return;
+        }
+
+        // Combine the results, with charger modules first
+        const combinedParts = [
+          ...(chargerModules || []),
+          ...(recentParts || [])
+        ];
+
+        setParts(combinedParts);
+      } catch (err) {
+        console.error('Error in fetchFeaturedParts:', err);
+        setError('An unexpected error occurred');
+      } finally {
+        setLoading(false);
       }
-
-      // Then fetch 4 other recent parts
-      const { data: recentParts, error: recentError } = await supabase
-        .from('parts')
-        .select('*')
-        .not('slug', 'in', ['6la20671-enersys', '6la20671-hawker'])
-        .limit(4)
-        .order('created_at', { ascending: false });
-
-      if (recentError) {
-        console.error('Error fetching recent parts:', recentError);
-      }
-
-      // Combine the results, with charger modules first
-      const combinedParts = [
-        ...(chargerModules || []),
-        ...(recentParts || [])
-      ];
-
-      setParts(combinedParts);
-      setLoading(false);
     }
 
     fetchFeaturedParts();
@@ -71,6 +77,28 @@ export default function FeaturedParts() {
               <div className="h-4 bg-gray-200 rounded w-1/2" />
             </div>
           ))}
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="container mx-auto px-4">
+        <h2 className="text-2xl font-bold text-center mb-8">Featured Products</h2>
+        <div className="text-center text-red-600">
+          {error}
+        </div>
+      </section>
+    );
+  }
+
+  if (!parts || parts.length === 0) {
+    return (
+      <section className="container mx-auto px-4">
+        <h2 className="text-2xl font-bold text-center mb-8">Featured Products</h2>
+        <div className="text-center text-gray-600">
+          No featured products available at the moment.
         </div>
       </section>
     );
