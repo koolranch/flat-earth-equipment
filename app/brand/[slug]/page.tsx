@@ -6,6 +6,12 @@ import { brands } from '@/lib/data/brands';
 import { categories } from '@/lib/data/categories';
 import Script from 'next/script';
 import { notFound } from 'next/navigation';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 export const dynamic = 'force-dynamic';
 
@@ -39,12 +45,18 @@ export default function BrandPage({ params }: { params: { slug: string } }) {
     notFound();
   }
 
+  const brandSlug = brand.slug.toLowerCase();
+  const { data: { publicUrl: logoUrl } } = supabase
+    .storage
+    .from("brand-logos")
+    .getPublicUrl(`${brandSlug}.webp`);
+
   const schema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": brand.name,
     "url": `https://flatearthequipment.com/brand/${brand.slug}`,
-    "logo": `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${brand.image}`,
+    "logo": logoUrl,
     "sameAs": [],
     "description": `Order ${brand.name} forklift and lift equipment parts online. Fast quotes, same-day shipping, and rugged service nationwide.`
   };
@@ -80,19 +92,13 @@ export default function BrandPage({ params }: { params: { slug: string } }) {
         <section className="mb-12">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="relative w-48 h-48 bg-gray-50 rounded-lg flex items-center justify-center">
-              {brand.image ? (
-                <img
-                  src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${brand.image}`}
-                  alt={`${brand.name} logo`}
-                  width={200}
-                  height={100}
-                  className="h-16 w-auto object-contain mb-6"
-                />
-              ) : (
-                <div className="text-gray-400 text-center p-4">
-                  <p>Logo not available</p>
-                </div>
-              )}
+              <img
+                src={logoUrl}
+                alt={`${brand.name} logo`}
+                width={200}
+                height={100}
+                className="h-16 w-auto object-contain mb-6"
+              />
             </div>
             <div>
               <h1 className="text-4xl font-bold mb-4">Parts for {brand.name} Equipment</h1>
@@ -235,30 +241,32 @@ export default function BrandPage({ params }: { params: { slug: string } }) {
             {brands
               .filter((b) => b.slug !== brand.slug)
               .slice(0, 4)
-              .map((relatedBrand) => (
-                <Link
-                  key={relatedBrand.slug}
-                  href={`/brand/${relatedBrand.slug}`}
-                  className="group flex flex-col items-center text-center hover:opacity-80 transition-opacity"
-                >
-                  <div className="relative w-24 h-24 bg-gray-50 rounded-lg mb-2 flex items-center justify-center">
-                    {relatedBrand.image ? (
+              .map((relatedBrand) => {
+                const relatedBrandSlug = relatedBrand.slug.toLowerCase();
+                const { data: { publicUrl: relatedLogoUrl } } = supabase
+                  .storage
+                  .from("brand-logos")
+                  .getPublicUrl(`${relatedBrandSlug}.webp`);
+
+                return (
+                  <Link
+                    key={relatedBrand.slug}
+                    href={`/brand/${relatedBrand.slug}`}
+                    className="group flex flex-col items-center text-center hover:opacity-80 transition-opacity"
+                  >
+                    <div className="relative w-24 h-24 bg-gray-50 rounded-lg mb-2 flex items-center justify-center">
                       <img
-                        src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${relatedBrand.image}`}
+                        src={relatedLogoUrl}
                         alt={`${relatedBrand.name} logo`}
                         className="object-contain p-3 w-full h-full"
                       />
-                    ) : (
-                      <div className="text-gray-400 text-center p-4">
-                        <p>Logo not available</p>
-                      </div>
-                    )}
-                  </div>
-                  <span className="text-sm font-medium text-gray-900 group-hover:text-blue-600">
-                    {relatedBrand.name}
-                  </span>
-                </Link>
-              ))}
+                    </div>
+                    <span className="text-sm font-medium text-gray-900 group-hover:text-blue-600">
+                      {relatedBrand.name}
+                    </span>
+                  </Link>
+                );
+              })}
           </div>
         </section>
 

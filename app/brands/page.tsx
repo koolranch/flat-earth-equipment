@@ -1,5 +1,11 @@
 import { brands } from "@/lib/data/brands";
 import Link from "next/link";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 export const metadata = {
   title: "Shop by Brand | Flat Earth Equipment",
@@ -15,22 +21,30 @@ export default function BrandsPage() {
       </h1>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-        {brands.map((brand) => (
-          <Link
-            key={brand.slug}
-            href={`/brand/${brand.slug}`}
-            className="text-center group"
-          >
-            <img
-              src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${brand.image}`}
-              alt={`${brand.name} logo`}
-              className="h-12 mx-auto object-contain group-hover:opacity-80"
-            />
-            <p className="text-sm text-slate-600 mt-2 group-hover:text-canyon-rust">
-              {brand.name}
-            </p>
-          </Link>
-        ))}
+        {brands.map((brand) => {
+          const brandSlug = brand.slug.toLowerCase();
+          const { data: { publicUrl: logoUrl } } = supabase
+            .storage
+            .from("brand-logos")
+            .getPublicUrl(`${brandSlug}.webp`);
+
+          return (
+            <Link
+              key={brand.slug}
+              href={`/brand/${brand.slug}`}
+              className="text-center group"
+            >
+              <img
+                src={logoUrl}
+                alt={`${brand.name} logo`}
+                className="h-12 mx-auto object-contain group-hover:opacity-80"
+              />
+              <p className="text-sm text-slate-600 mt-2 group-hover:text-canyon-rust">
+                {brand.name}
+              </p>
+            </Link>
+          );
+        })}
       </div>
 
       <p className="mt-12 text-center text-slate-500 text-sm">
