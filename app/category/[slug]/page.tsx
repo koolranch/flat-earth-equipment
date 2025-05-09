@@ -30,11 +30,11 @@ export async function generateMetadata({ params }: { params: { categorySlug: Cat
 }
 
 export default function CategoryPage({
-  params: { slug },
+  params: { slug: categorySlug },
 }: {
   params: { slug: string };
 }) {
-  const category = categories.find((c) => c.slug === slug);
+  const category = categories.find((c) => c.slug === categorySlug);
   if (!category) return notFound();
 
   return (
@@ -54,7 +54,7 @@ export default function CategoryPage({
           {brands.slice(0, 5).map((brand) => (
             <Link
               key={brand.slug}
-              href={`/brand/${brand.slug}?category=${slug}`}
+              href={`/brand/${brand.slug}?category=${categorySlug}`}
               className="group flex items-center p-3 bg-white rounded-md border border-slate-200 hover:border-canyon-rust transition-colors"
               aria-label={`View ${brand.name} ${category.name.toLowerCase()}`}
             >
@@ -66,7 +66,7 @@ export default function CategoryPage({
         </div>
       </section>
 
-      <CategoryProductGrid categorySlug={slug} />
+      <CategoryProductGrid categorySlug={categorySlug} />
 
       {category.supportedBrandSlugs && category.supportedBrandSlugs.length > 0 && (
         <section className="mt-16 mb-12">
