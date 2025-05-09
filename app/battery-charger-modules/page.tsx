@@ -38,7 +38,10 @@ export default async function ChargerModulesPage() {
           >
             <div className="relative h-36 w-full mb-4">
               <Image
-                src={part.image_url || '/products/placeholder.webp'}
+                src={part.image_filename 
+                  ? `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/product-images/${part.image_filename}`
+                  : 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg'
+                }
                 alt={part.name}
                 fill
                 className="object-contain"

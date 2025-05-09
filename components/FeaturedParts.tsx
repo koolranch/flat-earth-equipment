@@ -25,7 +25,8 @@ export default function FeaturedParts() {
         const { data: chargerModules, error: chargerError } = await supabase
           .from('parts')
           .select('*')
-          .in('slug', ['6la20671-enersys', '6la20671-hawker']);
+          .in('category', ['charger modules', 'battery chargers'])
+          .limit(2);
 
         if (chargerError) {
           console.error('Error fetching charger modules:', chargerError);
@@ -37,7 +38,7 @@ export default function FeaturedParts() {
         const { data: recentParts, error: recentError } = await supabase
           .from('parts')
           .select('*')
-          .not('slug', 'in', ['6la20671-enersys', '6la20671-hawker'])
+          .not('category', 'in', ['charger modules', 'battery chargers'])
           .limit(4)
           .order('created_at', { ascending: false });
 
@@ -122,10 +123,12 @@ export default function FeaturedParts() {
                     : 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg'
                   }
                   alt={part.name}
-                  className="object-cover w-full h-full"
+                  className="object-contain w-full h-full"
                   loading="lazy"
                   onError={(e) => {
-                    e.currentTarget.src = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg';
+                    const target = e.currentTarget;
+                    target.onerror = null; // Prevent infinite loop
+                    target.src = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg';
                   }}
                 />
               </div>

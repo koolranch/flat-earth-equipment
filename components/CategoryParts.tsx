@@ -8,12 +8,14 @@ interface System {
   system: string;
 }
 
-interface Part {
+type Part = {
   slug: string;
   name: string;
   price: number;
-  image_url: string | null;
-}
+  image_filename: string | null;
+  category: string;
+  brand: string;
+};
 
 export default function CategoryParts({
   category,
@@ -34,7 +36,7 @@ export default function CategoryParts({
         : systems.map((s) => s.system);
       const { data, error } = await supabase
         .from("parts")
-        .select("slug,name,price,image_url")
+        .select("slug,name,price,image_filename,category,brand")
         .eq("category", category)
         .in("system", filterSystems)
         .order("name");
@@ -70,7 +72,10 @@ export default function CategoryParts({
             >
               <div className="relative w-full h-48 bg-gray-200 animate-pulse">
                 <img
-                  src={part.image_url || '/images/parts/placeholder.jpg'}
+                  src={part.image_filename 
+                    ? `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/product-images/${part.image_filename}`
+                    : 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg'
+                  }
                   alt={part.name}
                   loading="lazy"
                   onLoad={(e) => {
