@@ -142,7 +142,7 @@ export default function Page() {
 
       {/* 12) Page Freshness Signal */}
       <p className="text-center text-xs text-slate-500 mt-8">
-        Page last updated: May 2024
+        Page last updated: May 2025
       </p>
     </main>
   );
