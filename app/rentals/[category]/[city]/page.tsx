@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: { category: string;
 export default async function Page({ params }: { params: { category: string; city: string } }) {
   const { category, city } = params;
   const { data: listings, error } = await supabase
-    .from("rental_listing")
+    .from("rental_equipment")
     .select("id,title,price_per_day")
     .eq("category", category)
     .eq("city", city);

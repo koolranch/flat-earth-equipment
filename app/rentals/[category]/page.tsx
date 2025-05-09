@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export const generateStaticParams = async () => {
   const { data: cats, error } = await supabase
-    .from("rental_listing")
+    .from("rental_equipment")
     .select("category");
   if (error || !cats) return [];
   const categoriesList = cats.map((c) => c.category);
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
 export default async function CategoryPage({ params }: any) {
   const { category } = await params;
   const { data: cities, error } = await supabase
-    .from("rental_listing")
+    .from("rental_equipment")
     .select("city")
     .eq("category", category);
 
