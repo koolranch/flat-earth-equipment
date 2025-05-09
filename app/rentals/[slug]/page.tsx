@@ -1,59 +1,52 @@
 import { Metadata } from "next";
-import { supabase } from "@/lib/supabaseClient";
-import Link from "next/link";
+import { notFound } from "next/navigation";
+import RentalEquipmentGrid from "@/components/RentalEquipmentGrid";
 
-export const generateStaticParams = async () => {
-  const { data: cats, error } = await supabase
-    .from("rental_equipment")
-    .select("category");
-  if (error || !cats) return [];
-  const categoriesList = cats.map((c) => c.category);
-  const uniqueCategories = categoriesList.filter((cat, idx, arr) => arr.indexOf(cat) === idx);
-  return uniqueCategories.map((category) => ({ slug: category.toLowerCase().replace(/\s+/g, "-") }));
-};
+export async function generateStaticParams() {
+  // This will be replaced with actual categories from the database
+  return [
+    { slug: "excavators" },
+    { slug: "skid-steers" },
+    { slug: "tractors" },
+  ];
+}
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const formattedCategory = params.slug.replace(/-/g, " ");
   return {
-    title: `${formattedCategory} Rentals | Flat Earth Equipment`,
-    description: `Find rental listings for ${formattedCategory} equipment.`,
+    title: `Rent ${formattedCategory} | Flat Earth Equipment`,
+    description: `Rent ${formattedCategory} from Flat Earth Equipment. Browse our selection of high-quality equipment for your next project.`
   };
 }
 
-export default async function CategoryPage({ params }: { params: { slug: string } }) {
-  const formattedCategory = params.slug.replace(/-/g, " ");
-  const { data: equipment, error } = await supabase
-    .from("rental_equipment")
-    .select("*")
-    .ilike("category", `%${formattedCategory}%`);
-
-  if (error || !equipment) {
-    return <p className="p-8 text-red-600">Error: {error?.message}</p>;
-  }
-
+export default function CategoryPage({ params }: { params: { slug: string } }) {
   return (
-    <main className="container mx-auto px-4 py-16">
-      <h1 className="mb-8 text-3xl font-bold">
-        {formattedCategory} Rentals
+    <main className="max-w-6xl mx-auto px-4 py-16">
+      <h1 className="text-3xl font-bold text-slate-900 mb-4">
+        Rent {params.slug.replace(/-/g, " ")}
       </h1>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {equipment.map((item) => (
-          <div
-            key={item.id}
-            className="block rounded-lg border p-6 hover:shadow-lg"
-          >
-            <h2 className="text-xl font-semibold mb-2">{item.name}</h2>
-            {item.brand && (
-              <p className="text-sm text-gray-600 mb-2">{item.brand}</p>
-            )}
-            {item.price && (
-              <p className="text-lg font-medium text-canyon-rust">
-                ${item.price.toFixed(2)}/day
-              </p>
-            )}
-          </div>
-        ))}
-      </div>
+      
+      <section className="mb-12">
+        <p className="text-lg text-slate-600 max-w-3xl">
+          Browse our selection of high-quality {params.slug.replace(/-/g, " ")} available for rent. 
+          All equipment is well-maintained and ready for your next project.
+        </p>
+      </section>
+
+      <RentalEquipmentGrid categorySlug={params.slug} />
+
+      <section className="mt-16 mb-12 bg-slate-50 rounded-lg p-8">
+        <h2 className="text-xl font-semibold text-slate-900 mb-4">Need a Quote?</h2>
+        <p className="text-slate-600 mb-6">
+          Can't find what you're looking for? Our team of experts can help you find the right equipment for your needs.
+        </p>
+        <a
+          href="/contact"
+          className="inline-block bg-canyon-rust text-white px-6 py-3 rounded-lg hover:bg-canyon-rust/90 transition-colors"
+        >
+          Request a Quote
+        </a>
+      </section>
     </main>
   );
 } 
