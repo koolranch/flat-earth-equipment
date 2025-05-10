@@ -9,7 +9,6 @@ type Part = {
   slug: string;
   name: string;
   price: number;
-  image_filename: string | null;
   image_url: string | null;
   category: string;
   brand: string;
@@ -30,7 +29,7 @@ export default function FeaturedParts() {
         // First, fetch the specific charger modules
         const { data: chargerModules, error: chargerError } = await supabase
           .from('parts')
-          .select('slug, name, price, image_filename, image_url, category, brand')
+          .select('slug, name, price, image_url, category, brand')
           .in('category', ['charger modules', 'battery chargers'])
           .limit(2);
 
@@ -45,7 +44,7 @@ export default function FeaturedParts() {
         // Then fetch 4 other recent parts
         const { data: recentParts, error: recentError } = await supabase
           .from('parts')
-          .select('slug, name, price, image_filename, image_url, category, brand')
+          .select('slug, name, price, image_url, category, brand')
           .neq('category', 'charger modules')
           .neq('category', 'battery chargers')
           .order('created_at', { ascending: false })
@@ -130,16 +129,12 @@ export default function FeaturedParts() {
         {parts.map((part) => {
           // Clean up image URL by removing double slashes
           const cleanImageUrl = part.image_url?.replace(/([^:]\/)\/+/g, '$1');
-          const imageSrc = cleanImageUrl || (part.image_filename 
-            ? `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/product-images/${part.image_filename}`
-            : 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg'
-          );
+          const imageSrc = cleanImageUrl || 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg';
 
           console.log('Rendering part:', {
             slug: part.slug,
             name: part.name,
             imageUrl: cleanImageUrl,
-            imageFilename: part.image_filename,
             finalImageSrc: imageSrc
           });
 
