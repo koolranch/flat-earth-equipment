@@ -57,11 +57,16 @@ export default async function ProductPage({ params }: { params: { slug: string }
     notFound();
   }
 
-  // Clean up image URL by removing double slashes
+  // Clean up image URL by removing double slashes and ensuring proper format
   const cleanImageUrl = product.image_url?.replace(/([^:]\/)\/+/g, '$1');
+  const imageSrc = cleanImageUrl 
+    ? `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/${cleanImageUrl.split('/').pop()}`
+    : 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg';
+
   console.log('Image URL details:', {
     original: product.image_url,
-    cleaned: cleanImageUrl
+    cleaned: cleanImageUrl,
+    finalSrc: imageSrc
   });
 
   return (
@@ -72,7 +77,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
           '@context': 'https://schema.org',
           '@type': 'Product',
           name: product.name,
-          image: cleanImageUrl || 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg',
+          image: imageSrc,
           description: product.description?.substring(0, 150),
           brand: {
             '@type': 'Brand',
@@ -114,30 +119,24 @@ export default async function ProductPage({ params }: { params: { slug: string }
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         {/* Product Image */}
         <div className="relative aspect-square bg-gray-50 rounded-lg overflow-hidden">
-          {cleanImageUrl ? (
-            <Image
-              src={cleanImageUrl}
-              alt={product.name}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-contain"
-              priority
-              onError={(e) => {
-                console.error('Product image failed to load:', {
-                  src: cleanImageUrl,
-                  product: product.name,
-                  error: e
-                });
-                // If image fails to load, try the fallback
-                const img = e.target as HTMLImageElement;
-                img.src = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg';
-              }}
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center text-gray-400">
-              No image available
-            </div>
-          )}
+          <Image
+            src={imageSrc}
+            alt={product.name}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-contain"
+            priority
+            onError={(e) => {
+              console.error('Product image failed to load:', {
+                src: imageSrc,
+                product: product.name,
+                error: e
+              });
+              // If image fails to load, try the fallback
+              const img = e.target as HTMLImageElement;
+              img.src = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg';
+            }}
+          />
         </div>
 
         {/* Product Info */}

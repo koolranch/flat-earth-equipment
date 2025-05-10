@@ -5,12 +5,13 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'mzsozezflbhebykncbmr.supabase.co',
+        port: '',
         pathname: '/storage/v1/object/public/**',
       },
     ],
   },
   experimental: {
-    mdxRs: true,
+    serverActions: true,
   },
   async redirects() {
     return [
