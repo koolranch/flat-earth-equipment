@@ -30,7 +30,7 @@ export default function FeaturedParts() {
         // First, fetch the specific charger modules
         const { data: chargerModules, error: chargerError } = await supabase
           .from('parts')
-          .select('*')
+          .select('slug, name, price, image_filename, image_url, category, brand')
           .in('category', ['charger modules', 'battery chargers'])
           .limit(2);
 
@@ -45,7 +45,7 @@ export default function FeaturedParts() {
         // Then fetch 4 other recent parts
         const { data: recentParts, error: recentError } = await supabase
           .from('parts')
-          .select('*')
+          .select('slug, name, price, image_filename, image_url, category, brand')
           .neq('category', 'charger modules')
           .neq('category', 'battery chargers')
           .order('created_at', { ascending: false })
@@ -135,6 +135,14 @@ export default function FeaturedParts() {
             : 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg'
           );
 
+          console.log('Rendering part:', {
+            slug: part.slug,
+            name: part.name,
+            imageUrl: cleanImageUrl,
+            imageFilename: part.image_filename,
+            finalImageSrc: imageSrc
+          });
+
           return (
             <Link
               key={part.slug}
@@ -150,6 +158,11 @@ export default function FeaturedParts() {
                     className="object-contain"
                     loading="lazy"
                     onError={(e) => {
+                      console.error('Image failed to load:', {
+                        src: imageSrc,
+                        part: part.name,
+                        error: e
+                      });
                       const target = e.target as HTMLImageElement;
                       target.onerror = null; // Prevent infinite loop
                       target.src = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg';
