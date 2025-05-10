@@ -19,17 +19,20 @@ interface Product {
 }
 
 // Create a single supabase client for server-side rendering
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  {
-    auth: {
-      persistSession: false,
-      autoRefreshToken: false,
-      detectSessionInUrl: false
-    }
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error('Missing Supabase environment variables');
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey, {
+  auth: {
+    persistSession: false,
+    autoRefreshToken: false,
+    detectSessionInUrl: false
   }
-);
+});
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   try {
@@ -202,9 +205,9 @@ export default async function ProductPage({ params }: { params: { slug: string }
             <Link
               href={`/parts?category=${encodeURIComponent(product.category)}`}
               className="text-canyon-rust hover:text-orange-700 transition-colors"
-              aria-label={`Browse more ${product.category} parts`}
+              aria-label={`Back to ${product.category} parts`}
             >
-              Browse more {product.category} parts →
+              ← Back to {product.category}
             </Link>
           </div>
 
