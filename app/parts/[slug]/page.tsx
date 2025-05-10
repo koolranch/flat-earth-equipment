@@ -6,6 +6,7 @@ import Script from 'next/script';
 import Image from 'next/image';
 
 interface Product {
+  id: string;
   name: string;
   price: number;
   description: string;
@@ -13,6 +14,8 @@ interface Product {
   brand: string;
   category: string;
   image_filename?: string;
+  image_url?: string;
+  slug: string;
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
@@ -38,7 +41,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function ProductPage({ params }: { params: { slug: string } }) {
   const { data: product, error } = await supabase
     .from('parts')
-    .select('*')
+    .select('id, name, description, sku, price, brand, category, image_filename, image_url, slug')
     .eq('slug', params.slug)
     .single();
 
@@ -98,14 +101,22 @@ export default async function ProductPage({ params }: { params: { slug: string }
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         {/* Product Image */}
         <div className="relative aspect-square bg-gray-50 rounded-lg overflow-hidden">
-          {product.image_filename ? (
+          {product.image_filename || product.image_url ? (
             <Image
-              src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/product-images/${product.image_filename}`}
+              src={product.image_filename 
+                ? `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/product-images/${product.image_filename}`
+                : product.image_url || ''
+              }
               alt={product.name}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-contain"
               priority
+              onError={(e) => {
+                // If image fails to load, try the fallback
+                const img = e.target as HTMLImageElement;
+                img.src = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg';
+              }}
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-gray-400">
