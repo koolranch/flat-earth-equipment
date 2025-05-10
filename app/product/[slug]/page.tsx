@@ -1,10 +1,9 @@
 import { Metadata } from 'next';
-import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
 import Image from 'next/image';
-import { createClient } from '@/utils/supabase/server';
+import { createClient } from '@supabase/supabase-js';
 
 interface Product {
   id: string;
@@ -19,7 +18,11 @@ interface Product {
 }
 
 export async function generateStaticParams() {
-  const supabase = createClient();
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+  
   const { data: products } = await supabase
     .from("parts")
     .select("slug");
@@ -27,7 +30,11 @@ export async function generateStaticParams() {
 }
 
 export default async function ProductPage({ params }: { params: { slug: string } }) {
-  const supabase = createClient();
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+  
   let product;
   
   try {
