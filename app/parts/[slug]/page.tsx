@@ -1,10 +1,9 @@
 import { Metadata } from 'next';
-import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
 import Image from 'next/image';
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@/utils/supabase/server';
 
 interface Product {
   id: string;
@@ -18,23 +17,8 @@ interface Product {
   slug: string;
 }
 
-// Create a single supabase client for server-side rendering
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error('Missing Supabase environment variables');
-}
-
-const supabase = createClient(supabaseUrl, supabaseKey, {
-  auth: {
-    persistSession: false,
-    autoRefreshToken: false,
-    detectSessionInUrl: false
-  }
-});
-
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const supabase = createClient();
   try {
     const { data: product, error } = await supabase
       .from('parts')
@@ -71,6 +55,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function ProductPage({ params }: { params: { slug: string } }) {
+  const supabase = createClient();
   let product;
   try {
     const { data, error } = await supabase
