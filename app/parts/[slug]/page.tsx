@@ -57,16 +57,14 @@ export default async function ProductPage({ params }: { params: { slug: string }
     notFound();
   }
 
-  // Clean up image URL by removing double slashes and ensuring proper format
+  // Clean up image URL by removing double slashes
   const cleanImageUrl = product.image_url?.replace(/([^:]\/)\/+/g, '$1');
-  const imageSrc = cleanImageUrl 
-    ? `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/${cleanImageUrl.split('/').pop()}`
-    : 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg';
+  const imageSrc = cleanImageUrl || 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg';
 
-  console.log('Image URL details:', {
+  console.log('Product image details:', {
     original: product.image_url,
     cleaned: cleanImageUrl,
-    finalSrc: imageSrc
+    final: imageSrc
   });
 
   return (
