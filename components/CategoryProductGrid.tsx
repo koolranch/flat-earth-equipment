@@ -57,7 +57,7 @@ export default async function CategoryProductGrid({ categorySlug }: CategoryProd
           {parts.map((part) => (
             <Link
               key={part.id}
-              href={`/parts/${part.slug}`}
+              href={`/product/${part.slug}`}
               className="bg-white border border-slate-200 rounded-md p-4 shadow-sm text-center hover:border-canyon-rust transition-colors"
             >
               <div className="relative h-24 bg-slate-100 rounded mb-4">

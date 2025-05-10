@@ -67,7 +67,7 @@ export default function CategoryParts({
           {parts.map((part) => (
             <Link
               key={part.slug}
-              href={`/parts/${part.slug}`}
+              href={`/product/${part.slug}`}
               className="block rounded-lg border overflow-hidden hover:shadow-lg transition"
             >
               <div className="relative w-full h-48 bg-gray-200 animate-pulse">

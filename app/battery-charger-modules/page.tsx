@@ -54,8 +54,9 @@ export default async function ChargerModulesPage() {
               ${part.price?.toFixed(2)}
             </p>
             <Link
-              href={`/parts/${part.slug}`}
-              className="inline-block text-sm font-medium text-white bg-orange-600 px-4 py-2 rounded hover:bg-orange-700 transition"
+              key={part.slug}
+              href={`/product/${part.slug}`}
+              className="block rounded-lg border p-4 hover:shadow-lg"
             >
               View Details
             </Link>
