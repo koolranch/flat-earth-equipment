@@ -127,9 +127,11 @@ export default function FeaturedParts() {
       <h2 className="text-2xl font-bold text-center mb-8">Featured Products</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {parts.map((part) => {
-          // Clean up image URL by removing double slashes
+          // Clean up image URL by removing double slashes and ensuring proper format
           const cleanImageUrl = part.image_url?.replace(/([^:]\/)\/+/g, '$1');
-          const imageSrc = cleanImageUrl || 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg';
+          const imageSrc = cleanImageUrl 
+            ? `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/${cleanImageUrl.split('/').pop()}`
+            : 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg';
 
           console.log('Rendering part:', {
             slug: part.slug,
