@@ -3,6 +3,7 @@ import { supabase } from '@/lib/supabaseClient';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
+import Image from 'next/image';
 
 interface Product {
   name: string;
@@ -98,10 +99,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
         {/* Product Image */}
         <div className="relative aspect-square bg-gray-50 rounded-lg overflow-hidden">
           {product.image_filename ? (
-            <img
+            <Image
               src={`https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/product-images/${product.image_filename}`}
               alt={product.name}
-              className="object-contain w-full h-full"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-contain"
+              priority
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-gray-400">
