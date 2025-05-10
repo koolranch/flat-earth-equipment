@@ -150,6 +150,7 @@ export default function FeaturedParts() {
                     src={imageSrc}
                     alt={part.name}
                     fill
+                    unoptimized
                     className="object-contain"
                     loading="lazy"
                     onError={(e) => {

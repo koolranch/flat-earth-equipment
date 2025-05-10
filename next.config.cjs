@@ -9,6 +9,7 @@ const nextConfig = {
         pathname: '/storage/v1/object/public/**',
       },
     ],
+    unoptimized: true,
   },
   experimental: {
     serverActions: true,

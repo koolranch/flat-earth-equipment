@@ -121,6 +121,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
             src={imageSrc}
             alt={product.name}
             fill
+            unoptimized
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-contain"
             priority
