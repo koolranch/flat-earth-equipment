@@ -19,11 +19,15 @@ interface Product {
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const { data: product } = await supabase
+  console.log('Generating metadata for slug:', params.slug);
+  
+  const { data: product, error } = await supabase
     .from('parts')
     .select('name, description')
     .eq('slug', params.slug)
     .single();
+
+  console.log('Metadata query result:', { product, error });
 
   if (!product) {
     return {
@@ -39,11 +43,15 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function ProductPage({ params }: { params: { slug: string } }) {
+  console.log('Loading product page for slug:', params.slug);
+
   const { data: product, error } = await supabase
     .from('parts')
     .select('id, name, description, sku, price, brand, category, image_filename, image_url, slug')
     .eq('slug', params.slug)
     .single();
+
+  console.log('Product query result:', { product, error });
 
   if (error || !product) {
     console.error('Error fetching product:', error);
@@ -52,6 +60,11 @@ export default async function ProductPage({ params }: { params: { slug: string }
 
   // Clean up image URL by removing double slashes
   const cleanImageUrl = product.image_url?.replace(/([^:]\/)\/+/g, '$1');
+  console.log('Image URL details:', {
+    original: product.image_url,
+    cleaned: cleanImageUrl,
+    filename: product.image_filename
+  });
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-8">
@@ -114,6 +127,11 @@ export default async function ProductPage({ params }: { params: { slug: string }
               className="object-contain"
               priority
               onError={(e) => {
+                console.error('Product image failed to load:', {
+                  src: cleanImageUrl || `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/product-images/${product.image_filename}`,
+                  product: product.name,
+                  error: e
+                });
                 // If image fails to load, try the fallback
                 const img = e.target as HTMLImageElement;
                 img.src = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg';
