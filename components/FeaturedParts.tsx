@@ -154,7 +154,7 @@ export default function FeaturedParts() {
           return (
             <Link
               key={part.slug}
-              href={`/product/${part.slug}`}
+              href={`/parts/${part.slug}`}
               className="group"
             >
               <div className="bg-white rounded-lg shadow-sm overflow-hidden transition-transform hover:scale-[1.02]">

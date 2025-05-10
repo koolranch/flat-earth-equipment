@@ -117,7 +117,7 @@ export default async function PartsPage({
         {parts?.map((part) => (
           <Link
             key={part.slug}
-            href={`/product/${part.slug}`}
+            href={`/parts/${part.slug}`}
             className="block rounded-lg border p-4 hover:shadow-lg"
           >
             <h2 className="text-xl font-semibold">{part.name}</h2>

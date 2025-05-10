@@ -32,7 +32,7 @@ export default async function ProductGrid({ brand }: ProductGridProps) {
       {products.map((product) => (
         <Link
           key={product.id}
-          href={`/product/${product.slug}`}
+          href={`/parts/${product.slug}`}
           className="group"
         >
           <article className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-4">
