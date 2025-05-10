@@ -46,8 +46,12 @@ export default async function ProductPage({ params }: { params: { slug: string }
     .single();
 
   if (error || !product) {
+    console.error('Error fetching product:', error);
     notFound();
   }
+
+  // Clean up image URL by removing double slashes
+  const cleanImageUrl = product.image_url?.replace(/([^:]\/)\/+/g, '$1');
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-8">
@@ -57,9 +61,9 @@ export default async function ProductPage({ params }: { params: { slug: string }
           '@context': 'https://schema.org',
           '@type': 'Product',
           name: product.name,
-          image: product.image_filename 
+          image: cleanImageUrl || (product.image_filename 
             ? `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/product-images/${product.image_filename}`
-            : undefined,
+            : undefined),
           description: product.description?.substring(0, 150),
           brand: {
             '@type': 'Brand',
@@ -101,12 +105,9 @@ export default async function ProductPage({ params }: { params: { slug: string }
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         {/* Product Image */}
         <div className="relative aspect-square bg-gray-50 rounded-lg overflow-hidden">
-          {product.image_filename || product.image_url ? (
+          {cleanImageUrl || product.image_filename ? (
             <Image
-              src={product.image_filename 
-                ? `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/product-images/${product.image_filename}`
-                : product.image_url || ''
-              }
+              src={cleanImageUrl || `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/product-images/${product.image_filename}`}
               alt={product.name}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
