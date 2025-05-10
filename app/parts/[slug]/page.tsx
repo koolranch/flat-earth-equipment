@@ -20,6 +20,7 @@ interface Product {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const supabase = createClient();
   try {
+    console.log('Fetching metadata for product:', params.slug);
     const { data: product, error } = await supabase
       .from('parts')
       .select('name, description')
@@ -27,7 +28,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       .single();
 
     if (error) {
-      console.error('Error fetching product metadata:', error);
+      console.error('❌ Parts page fetch error:', {
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+        code: error.code
+      });
       return {
         title: 'Product Not Found | Flat Earth Equipment',
         description: 'The requested product could not be found.',
@@ -35,6 +41,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     }
 
     if (!product) {
+      console.error('❌ Parts page fetch error: No product found for slug:', params.slug);
       return {
         title: 'Product Not Found | Flat Earth Equipment',
         description: 'The requested product could not be found.',
@@ -46,7 +53,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       description: product.description,
     };
   } catch (err) {
-    console.error('Error in generateMetadata:', err);
+    console.error('❌ Parts page fetch error:', {
+      message: err instanceof Error ? err.message : 'Unknown error',
+      stack: err instanceof Error ? err.stack : undefined
+    });
     return {
       title: 'Error | Flat Earth Equipment',
       description: 'An error occurred while loading the product.',
@@ -57,7 +67,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function ProductPage({ params }: { params: { slug: string } }) {
   const supabase = createClient();
   let product;
+  
   try {
+    console.log('Fetching product details for:', params.slug);
     const { data, error } = await supabase
       .from('parts')
       .select('id, name, description, sku, price, brand, category, image_url, slug')
@@ -65,26 +77,84 @@ export default async function ProductPage({ params }: { params: { slug: string }
       .single();
 
     if (error) {
-      console.error('Error fetching product:', error);
-      throw new Error('Failed to fetch product');
+      console.error('❌ Parts page fetch error:', {
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+        code: error.code
+      });
+      throw new Error(`Failed to fetch product: ${error.message}`);
     }
 
     if (!data) {
-      console.error('No product found for slug:', params.slug);
-      notFound();
+      console.error('❌ Parts page fetch error: No product found for slug:', params.slug);
+      return (
+        <main className="max-w-6xl mx-auto px-4 py-8">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-slate-900 mb-4">Product Not Found</h1>
+            <p className="text-gray-600 mb-4">We couldn't find the product you're looking for.</p>
+            <div className="space-y-4">
+              <Link 
+                href="/parts" 
+                className="inline-block bg-canyon-rust text-white px-6 py-2 rounded-md hover:bg-orange-700 transition-colors"
+              >
+                Browse All Parts
+              </Link>
+              <div>
+                <Link 
+                  href="/contact" 
+                  className="text-canyon-rust hover:text-orange-700 transition-colors"
+                >
+                  Contact Us
+                </Link>
+                <span className="mx-2 text-gray-400">|</span>
+                <Link 
+                  href="/" 
+                  className="text-canyon-rust hover:text-orange-700 transition-colors"
+                >
+                  Return to Homepage
+                </Link>
+              </div>
+            </div>
+          </div>
+        </main>
+      );
     }
 
     product = data;
   } catch (err) {
-    console.error('Error in ProductPage:', err);
+    console.error('❌ Parts page fetch error:', {
+      message: err instanceof Error ? err.message : 'Unknown error',
+      stack: err instanceof Error ? err.stack : undefined
+    });
     return (
       <main className="max-w-6xl mx-auto px-4 py-8">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">An error occurred while loading the product.</h1>
-          <p className="text-gray-600 mb-4">Please try again later or contact support if the problem persists.</p>
-          <Link href="/" className="text-canyon-rust hover:text-orange-700">
-            Return to Homepage
-          </Link>
+          <h1 className="text-2xl font-bold text-red-600 mb-4">An Error Occurred</h1>
+          <p className="text-gray-600 mb-4">We're having trouble loading this product. Our team has been notified.</p>
+          <div className="space-y-4">
+            <Link 
+              href="/parts" 
+              className="inline-block bg-canyon-rust text-white px-6 py-2 rounded-md hover:bg-orange-700 transition-colors"
+            >
+              Browse All Parts
+            </Link>
+            <div>
+              <Link 
+                href="/contact" 
+                className="text-canyon-rust hover:text-orange-700 transition-colors"
+              >
+                Contact Support
+              </Link>
+              <span className="mx-2 text-gray-400">|</span>
+              <Link 
+                href="/" 
+                className="text-canyon-rust hover:text-orange-700 transition-colors"
+              >
+                Return to Homepage
+              </Link>
+            </div>
+          </div>
         </div>
       </main>
     );
