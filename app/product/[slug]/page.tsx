@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import Script from 'next/script';
 import Image from 'next/image';
 import { createClient } from '@supabase/supabase-js';
+import ProductImage from '@/app/components/ProductImage';
 
 interface Product {
   id: string;
@@ -35,27 +36,16 @@ export default async function ProductPage({ params }: { params: { slug: string }
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
   
-  let product;
-  
-  try {
-    const { data, error } = await supabase
-      .from("parts")
-      .select("id, name, description, sku, price, brand, category, image_url, slug")
-      .eq("slug", params.slug)
-      .maybeSingle();
+  const { data: product, error } = await supabase
+    .from('products')
+    .select('*')
+    .eq('slug', params.slug)
+    .single();
 
-    if (error) throw error;
-    if (!data) notFound();
-    
-    product = data;
-  } catch (err) {
-    console.error("❌ Product fetch error:", err);
-    throw err;
+  if (error || !product) {
+    console.error('Error fetching product:', error);
+    notFound();
   }
-
-  // Clean up image URL by removing double slashes
-  const cleanImageUrl = product.image_url?.replace(/([^:]\/)\/+/g, '$1');
-  const imageSrc = cleanImageUrl || 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg';
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-8">
@@ -65,7 +55,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
           '@context': 'https://schema.org',
           '@type': 'Product',
           name: product.name,
-          image: imageSrc,
+          image: product.image_url || 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg',
           description: product.description?.substring(0, 150),
           brand: {
             '@type': 'Brand',
@@ -106,19 +96,10 @@ export default async function ProductPage({ params }: { params: { slug: string }
       {/* Product Details */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         {/* Product Image */}
-        <div className="relative aspect-square bg-gray-50 rounded-lg overflow-hidden">
-          <Image
-            src={imageSrc}
-            alt={product.name}
-            fill
-            unoptimized
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-contain"
-            priority
-            onError={(e) => {
-              const img = e.target as HTMLImageElement;
-              img.src = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg';
-            }}
+        <div className="relative h-[400px] w-full">
+          <ProductImage 
+            src={product.image_url || 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg'} 
+            alt={product.name} 
           />
         </div>
 
