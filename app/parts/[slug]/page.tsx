@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
-import { supabase } from '@/lib/supabaseClient';
+import { createServerClient } from '@supabase/ssr';
+import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
@@ -18,6 +19,19 @@ interface Product {
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const cookieStore = cookies();
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value;
+        },
+      },
+    }
+  );
+  
   try {
     const { data: product, error } = await supabase
       .from('parts')
@@ -25,14 +39,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       .eq('slug', params.slug)
       .single();
 
-    if (error) {
-      return {
-        title: 'Product Not Found | Flat Earth Equipment',
-        description: 'The requested product could not be found.',
-      };
-    }
-
-    if (!product) {
+    if (error || !product) {
       return {
         title: 'Product Not Found | Flat Earth Equipment',
         description: 'The requested product could not be found.',
@@ -52,6 +59,19 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function ProductPage({ params }: { params: { slug: string } }) {
+  const cookieStore = cookies();
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value;
+        },
+      },
+    }
+  );
+  
   try {
     const { data: product, error } = await supabase
       .from('parts')
