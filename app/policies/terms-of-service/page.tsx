@@ -1,69 +1,60 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Flat Earth Equipment",
-  description: "Read the terms of service for Flat Earth Equipment. These terms govern your use of our website, parts catalog, and quote request process.",
+  title: 'Terms of Service | Flat Earth Equipment',
+  description: 'Read our terms of service and conditions for using Flat Earth Equipment\'s website and services.',
 };
 
 export default function TermsOfServicePage() {
   return (
-    <main className="max-w-3xl mx-auto px-4 py-16">
-      <h1 className="text-3xl font-bold text-slate-900 mb-6">Terms of Service</h1>
-
-      <p className="text-slate-700 mb-6">
-        These Terms of Service ("Terms") govern your access to and use of flatearthequipment.com, including all content, features, and quote request services (collectively, the "Site") provided by Flat Earth Equipment.
-      </p>
-
-      <section className="mb-10">
-        <h2 className="text-xl font-semibold text-slate-800 mb-2">1. Use of Site</h2>
-        <p className="text-slate-700">
-          You agree to use the Site for lawful business purposes only. You may not use the Site to transmit false quote requests, scrape data, or interfere with our operations.
-        </p>
+    <main className="max-w-4xl mx-auto px-4 py-12">
+      <h1 className="text-3xl font-bold mb-8">Terms of Service</h1>
+      
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">1. Acceptance of Terms</h2>
+        <div className="prose prose-slate">
+          <p>By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement.</p>
+        </div>
       </section>
 
-      <section className="mb-10">
-        <h2 className="text-xl font-semibold text-slate-800 mb-2">2. Product Information</h2>
-        <p className="text-slate-700">
-          We make every effort to provide accurate product information, but specifications, availability, and pricing may change without notice. All parts are aftermarket unless stated otherwise.
-        </p>
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">2. Use License</h2>
+        <div className="prose prose-slate">
+          <p>Permission is granted to temporarily download one copy of the materials (information or software) on Flat Earth Equipment's website for personal, non-commercial transitory viewing only.</p>
+          <p>This is the grant of a license, not a transfer of title, and under this license you may not:</p>
+          <ul>
+            <li>Modify or copy the materials</li>
+            <li>Use the materials for any commercial purpose</li>
+            <li>Attempt to decompile or reverse engineer any software contained on the website</li>
+            <li>Remove any copyright or other proprietary notations from the materials</li>
+          </ul>
+        </div>
       </section>
 
-      <section className="mb-10">
-        <h2 className="text-xl font-semibold text-slate-800 mb-2">3. Quotes & Orders</h2>
-        <p className="text-slate-700">
-          Submitted quote requests do not constitute a purchase agreement. Pricing, availability, and shipping timelines will be confirmed by our team before fulfillment.
-        </p>
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">3. Disclaimer</h2>
+        <div className="prose prose-slate">
+          <p>The materials on Flat Earth Equipment's website are provided on an 'as is' basis. Flat Earth Equipment makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+        </div>
       </section>
 
-      <section className="mb-10">
-        <h2 className="text-xl font-semibold text-slate-800 mb-2">4. Warranty</h2>
-        <p className="text-slate-700">
-          Unless otherwise stated, all parts are backed by a 6-month limited warranty against defects in materials or workmanship. Improper installation or misuse voids the warranty.
-        </p>
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">4. Limitations</h2>
+        <div className="prose prose-slate">
+          <p>In no event shall Flat Earth Equipment or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Flat Earth Equipment's website.</p>
+        </div>
       </section>
 
-      <section className="mb-10">
-        <h2 className="text-xl font-semibold text-slate-800 mb-2">5. Limitation of Liability</h2>
-        <p className="text-slate-700">
-          Flat Earth Equipment is not liable for indirect, incidental, or consequential damages resulting from the use or inability to use parts sold through our Site.
-        </p>
-      </section>
-
-      <section className="mb-10">
-        <h2 className="text-xl font-semibold text-slate-800 mb-2">6. Policy Changes</h2>
-        <p className="text-slate-700">
-          We reserve the right to update these Terms at any time. Continued use of the Site after changes are posted constitutes your acceptance.
-        </p>
-        <p className="text-slate-600 mt-2 text-sm">Last updated: May 2024</p>
-      </section>
-
-      <hr className="my-8" />
-
-      <section className="text-sm text-slate-600">
-        <p>Flat Earth Equipment – Corporate Office</p>
-        <p>30 N Gould St., Ste R<br />Sheridan, WY 82801</p>
-        <p className="mt-2">Email: <a href="mailto:contact@flatearthequipment.com" className="text-canyon-rust underline">contact@flatearthequipment.com</a></p>
-        <p>Phone: <a href="tel:+13073020043" className="text-canyon-rust underline">(307) 302-0043‬</a></p>
+      <section>
+        <h2 className="text-2xl font-semibold mb-4">5. Contact Information</h2>
+        <div className="prose prose-slate">
+          <p>If you have any questions about these Terms of Service, please contact us:</p>
+          <ul>
+            <li>Email: legal@flatearthequipment.com</li>
+            <li>Phone: (555) 123-4567</li>
+            <li>Address: 123 Business Street, City, State 12345</li>
+          </ul>
+        </div>
       </section>
     </main>
   );
