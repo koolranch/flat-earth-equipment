@@ -27,8 +27,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       .eq('slug', params.slug)
       .single();
 
-    console.log('Metadata query result:', { product, error });
-
     if (error) {
       console.error('Error fetching product metadata:', error);
       return {
@@ -61,17 +59,16 @@ export default async function ProductPage({ params }: { params: { slug: string }
   try {
     console.log('Loading product page for slug:', params.slug);
 
+    // First check if the product exists
     const { data: product, error } = await supabase
       .from('parts')
       .select('id, name, description, sku, price, brand, category, image_url, slug')
       .eq('slug', params.slug)
       .single();
 
-    console.log('Product query result:', { product, error });
-
     if (error) {
       console.error('Error fetching product:', error);
-      notFound();
+      throw new Error('Failed to fetch product');
     }
 
     if (!product) {
@@ -82,12 +79,6 @@ export default async function ProductPage({ params }: { params: { slug: string }
     // Clean up image URL by removing double slashes
     const cleanImageUrl = product.image_url?.replace(/([^:]\/)\/+/g, '$1');
     const imageSrc = cleanImageUrl || 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg';
-
-    console.log('Product image details:', {
-      original: product.image_url,
-      cleaned: cleanImageUrl,
-      final: imageSrc
-    });
 
     return (
       <main className="max-w-6xl mx-auto px-4 py-8">
@@ -153,7 +144,6 @@ export default async function ProductPage({ params }: { params: { slug: string }
                   product: product.name,
                   error: e
                 });
-                // If image fails to load, try the fallback
                 const img = e.target as HTMLImageElement;
                 img.src = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg';
               }}
@@ -225,7 +215,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
     console.error('Error in ProductPage:', err);
     return (
       <main className="max-w-6xl mx-auto px-4 py-8">
-        <h1>An error occurred while loading the product.</h1>
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-red-600 mb-4">An error occurred while loading the product.</h1>
+          <p className="text-gray-600 mb-4">Please try again later or contact support if the problem persists.</p>
+          <Link href="/" className="text-canyon-rust hover:text-orange-700">
+            Return to Homepage
+          </Link>
+        </div>
       </main>
     );
   }
