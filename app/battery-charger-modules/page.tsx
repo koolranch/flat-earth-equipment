@@ -55,7 +55,7 @@ export default async function ChargerModulesPage() {
             </p>
             <Link
               key={part.slug}
-              href={`/product/${part.slug}`}
+              href={`/parts/${part.slug}`}
               className="block rounded-lg border p-4 hover:shadow-lg"
             >
               View Details
