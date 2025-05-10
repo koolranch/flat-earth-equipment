@@ -13,7 +13,6 @@ interface Product {
   sku: string;
   brand: string;
   category: string;
-  image_filename?: string;
   image_url?: string;
   slug: string;
 }
@@ -47,7 +46,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
 
   const { data: product, error } = await supabase
     .from('parts')
-    .select('id, name, description, sku, price, brand, category, image_filename, image_url, slug')
+    .select('id, name, description, sku, price, brand, category, image_url, slug')
     .eq('slug', params.slug)
     .single();
 
@@ -62,8 +61,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
   const cleanImageUrl = product.image_url?.replace(/([^:]\/)\/+/g, '$1');
   console.log('Image URL details:', {
     original: product.image_url,
-    cleaned: cleanImageUrl,
-    filename: product.image_filename
+    cleaned: cleanImageUrl
   });
 
   return (
@@ -74,9 +72,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
           '@context': 'https://schema.org',
           '@type': 'Product',
           name: product.name,
-          image: cleanImageUrl || (product.image_filename 
-            ? `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/product-images/${product.image_filename}`
-            : undefined),
+          image: cleanImageUrl || 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg',
           description: product.description?.substring(0, 150),
           brand: {
             '@type': 'Brand',
@@ -118,9 +114,9 @@ export default async function ProductPage({ params }: { params: { slug: string }
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         {/* Product Image */}
         <div className="relative aspect-square bg-gray-50 rounded-lg overflow-hidden">
-          {cleanImageUrl || product.image_filename ? (
+          {cleanImageUrl ? (
             <Image
-              src={cleanImageUrl || `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/product-images/${product.image_filename}`}
+              src={cleanImageUrl}
               alt={product.name}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -128,7 +124,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
               priority
               onError={(e) => {
                 console.error('Product image failed to load:', {
-                  src: cleanImageUrl || `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/product-images/${product.image_filename}`,
+                  src: cleanImageUrl,
                   product: product.name,
                   error: e
                 });
