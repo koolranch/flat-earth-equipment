@@ -19,8 +19,6 @@ interface Product {
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   try {
-    console.log('Generating metadata for slug:', params.slug);
-    
     const { data: product, error } = await supabase
       .from('parts')
       .select('name, description')
@@ -28,7 +26,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       .single();
 
     if (error) {
-      console.error('Error fetching product metadata:', error);
       return {
         title: 'Product Not Found | Flat Earth Equipment',
         description: 'The requested product could not be found.',
@@ -47,7 +44,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       description: product.description,
     };
   } catch (err) {
-    console.error('Error in generateMetadata:', err);
     return {
       title: 'Error | Flat Earth Equipment',
       description: 'An error occurred while loading the product.',
@@ -57,9 +53,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 export default async function ProductPage({ params }: { params: { slug: string } }) {
   try {
-    console.log('Loading product page for slug:', params.slug);
-
-    // First check if the product exists
     const { data: product, error } = await supabase
       .from('parts')
       .select('id, name, description, sku, price, brand, category, image_url, slug')
@@ -67,12 +60,10 @@ export default async function ProductPage({ params }: { params: { slug: string }
       .single();
 
     if (error) {
-      console.error('Error fetching product:', error);
       throw new Error('Failed to fetch product');
     }
 
     if (!product) {
-      console.error('Product not found for slug:', params.slug);
       notFound();
     }
 
@@ -139,11 +130,6 @@ export default async function ProductPage({ params }: { params: { slug: string }
               className="object-contain"
               priority
               onError={(e) => {
-                console.error('Product image failed to load:', {
-                  src: imageSrc,
-                  product: product.name,
-                  error: e
-                });
                 const img = e.target as HTMLImageElement;
                 img.src = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg';
               }}
@@ -172,7 +158,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
             {/* Navigation Links */}
             <div className="flex flex-col space-y-3 mb-8">
               <Link
-                href={`/brand/${product.brand}`}
+                href={`/parts?brand=${encodeURIComponent(product.brand)}`}
                 className="text-canyon-rust hover:text-orange-700 transition-colors"
                 aria-label={`Back to ${product.brand} parts`}
               >
@@ -212,7 +198,6 @@ export default async function ProductPage({ params }: { params: { slug: string }
       </main>
     );
   } catch (err) {
-    console.error('Error in ProductPage:', err);
     return (
       <main className="max-w-6xl mx-auto px-4 py-8">
         <div className="text-center">
