@@ -6,21 +6,26 @@ import { brands } from "@/lib/data/brands";
 import CategoryProductGrid from "@/components/CategoryProductGrid";
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+// Create Supabase client with error handling
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error('Missing Supabase environment variables');
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 type CategorySlug = typeof categories[number]["slug"];
 
 export async function generateStaticParams() {
   return categories.map((category) => ({
-    categorySlug: category.slug,
+    slug: category.slug,
   }));
 }
 
-export async function generateMetadata({ params }: { params: { categorySlug: CategorySlug } }): Promise<Metadata> {
-  const category = categories.find((c) => c.slug === params.categorySlug);
+export async function generateMetadata({ params }: { params: { slug: CategorySlug } }): Promise<Metadata> {
+  const category = categories.find((c) => c.slug === params.slug);
   if (!category) return {};
 
   return {
@@ -30,11 +35,11 @@ export async function generateMetadata({ params }: { params: { categorySlug: Cat
 }
 
 export default function CategoryPage({
-  params: { slug: categorySlug },
+  params: { slug },
 }: {
   params: { slug: string };
 }) {
-  const category = categories.find((c) => c.slug === categorySlug);
+  const category = categories.find((c) => c.slug === slug);
   if (!category) return notFound();
 
   return (
@@ -54,7 +59,7 @@ export default function CategoryPage({
           {brands.slice(0, 5).map((brand) => (
             <Link
               key={brand.slug}
-              href={`/brand/${brand.slug}?category=${categorySlug}`}
+              href={`/brand/${brand.slug}?category=${slug}`}
               className="group flex items-center p-3 bg-white rounded-md border border-slate-200 hover:border-canyon-rust transition-colors"
               aria-label={`View ${brand.name} ${category.name.toLowerCase()}`}
             >
@@ -66,28 +71,28 @@ export default function CategoryPage({
         </div>
       </section>
 
-      <CategoryProductGrid categorySlug={categorySlug} />
+      <CategoryProductGrid categorySlug={slug} />
 
       {category.supportedBrandSlugs && category.supportedBrandSlugs.length > 0 && (
         <section className="mt-16 mb-12">
           <h2 className="text-xl font-semibold mb-4">Supported Brands</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-            {category.supportedBrandSlugs.map((slug) => {
-              const brand = brands.find((b) => b.slug === slug);
+            {category.supportedBrandSlugs.map((brandSlug) => {
+              const brand = brands.find((b) => b.slug === brandSlug);
               if (!brand) return null;
 
               // Normalize slug: lowercase, spaces & underscores → hyphens
-              const brandSlug = brand.slug.toLowerCase().replace(/[\s_]+/g, "-");
+              const normalizedSlug = brand.slug.toLowerCase().replace(/[\s_]+/g, "-");
 
               // Use .png for these brands, otherwise .webp
               const pngBrands = ["enersys", "liugong"];
-              const ext = pngBrands.includes(brandSlug) ? "png" : "webp";
+              const ext = pngBrands.includes(normalizedSlug) ? "png" : "webp";
 
               // Build path & get public URL
               const { data: { publicUrl: logoUrl } } = supabase
                 .storage
                 .from("brand-logos")
-                .getPublicUrl(`${brandSlug}.${ext}`);
+                .getPublicUrl(`${normalizedSlug}.${ext}`);
 
               return (
                 <Link
@@ -127,12 +132,12 @@ export default function CategoryPage({
         <section>
           <h2 className="text-xl font-semibold mt-12 mb-4">Explore Related Categories</h2>
           <ul className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {category.relatedSlugs.map((slug) => {
-              const related = categories.find((c) => c.slug === slug);
+            {category.relatedSlugs.map((relatedSlug) => {
+              const related = categories.find((c) => c.slug === relatedSlug);
               if (!related) return null;
               
               return (
-                <li key={slug}>
+                <li key={relatedSlug}>
                   <Link 
                     href={`/parts-category/${related.slug}`} 
                     className="block p-4 bg-white rounded-lg border border-slate-200 hover:border-canyon-rust transition-colors"
