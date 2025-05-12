@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { useState } from 'react';
 import { createClient } from '@/utils/supabase/server';
 
 interface Brand {
@@ -29,15 +28,27 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default function BrandPage({ params }: { params: { slug: string } }) {
-  const [brand, setBrand] = useState<Brand | null>(null);
-  
-  // ... existing code ...
+export default async function BrandPage({ params }: { params: { slug: string } }) {
+  const supabase = createClient();
+  const { data: brand } = await supabase
+    .from('brands')
+    .select('name, slug')
+    .eq('slug', params.slug)
+    .single();
+
+  if (!brand) {
+    return (
+      <main className="max-w-4xl mx-auto px-4 py-16">
+        <h1 className="text-3xl font-bold text-slate-900 mb-4">Brand Not Found</h1>
+        <p className="text-slate-600 mb-8">We couldn't find the brand you're looking for.</p>
+      </main>
+    );
+  }
 
   return (
-    <main>
-      <h1>{brand?.name} Parts</h1>
-      // ... existing code ...
+    <main className="max-w-4xl mx-auto px-4 py-16">
+      <h1 className="text-3xl font-bold text-slate-900 mb-4">{brand.name} Parts</h1>
+      {/* ...rest of the brand page content... */}
     </main>
   );
 } 

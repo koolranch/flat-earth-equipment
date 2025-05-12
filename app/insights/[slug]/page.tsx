@@ -1,10 +1,8 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { getBlogPost } from '@/lib/mdx';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
-import { useState } from 'react';
 
 interface Post {
   title: string;
@@ -26,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const supabase = createClient();
   const { data: post } = await supabase
     .from('insights')
-    .select('title, description, keywords, date, image')
+    .select('title, description, keywords, date, image, content')
     .eq('slug', params.slug)
     .single();
 
@@ -54,8 +52,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function BlogPost({ params }: Props) {
-  const [post, setPost] = useState<Post | null>(null);
+export default async function BlogPost({ params }: Props) {
+  const supabase = createClient();
+  const { data: post } = await supabase
+    .from('insights')
+    .select('title, description, keywords, date, image, content')
+    .eq('slug', params.slug)
+    .single();
 
   if (!post) {
     notFound();
@@ -68,7 +71,7 @@ export default function BlogPost({ params }: Props) {
     description: post.description,
     image: post.image,
     datePublished: post.date,
-    keywords: post.keywords.join(', '),
+    keywords: post.keywords?.join(', ') || '',
     author: {
       '@type': 'Organization',
       name: 'Flat Earth Equipment',
