@@ -5,6 +5,14 @@ import Script from 'next/script';
 import ProductImage from '../../components/ProductImage';
 import { createClient } from '@/utils/supabase/server';
 
+export async function generateStaticParams() {
+  const supabase = createClient();
+  const { data: products } = await supabase
+    .from('parts')
+    .select('slug');
+  return products?.map((p) => ({ slug: p.slug })) || [];
+}
+
 interface Product {
   id: string;
   name: string;
