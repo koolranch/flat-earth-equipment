@@ -9,9 +9,9 @@ import { createClient } from "@/utils/supabase/server";
 import Script from "next/script";
 
 export default async function CategoryPage({
-  params: { slug },
+  params: { slug, subcategory },
 }: {
-  params: { slug: string };
+  params: { slug: string; subcategory: string };
 }) {
   const category = categories.find((c) => c.slug === slug);
   if (!category) return notFound();
@@ -37,8 +37,8 @@ export default async function CategoryPage({
           "@context": "https://schema.org",
           "@type": "ItemList",
           "itemListElement": [
-            { "@type": "ListItem", "position": 1, "url": `https://flatearthequipment.com/category/${slug}#item1` },
-            { "@type": "ListItem", "position": 2, "url": `https://flatearthequipment.com/category/${slug}#item2` }
+            { "@type": "ListItem", "position": 1, "url": `https://flatearthequipment.com/category/${slug}/${subcategory}#item1` },
+            { "@type": "ListItem", "position": 2, "url": `https://flatearthequipment.com/category/${slug}/${subcategory}#item2` }
           ]
         })}
       </Script>
