@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { createClient } from '@/utils/supabase/server';
+import RelatedItems from '@/components/RelatedItems';
 
 interface Brand {
   name: string;
@@ -45,10 +46,27 @@ export default async function BrandPage({ params }: { params: { slug: string } }
     );
   }
 
+  // Fetch top parts for this brand
+  const { data: topParts } = await supabase
+    .from('parts')
+    .select('name, slug')
+    .eq('brand', brand.name)
+    .limit(3);
+
+  const relatedItems = topParts?.map(part => ({
+    title: part.name,
+    href: `/parts/${part.slug}`
+  })) || [];
+
   return (
     <main className="max-w-4xl mx-auto px-4 py-16">
       <h1 className="text-3xl font-bold text-slate-900 mb-4">{brand.name} Parts</h1>
       {/* ...rest of the brand page content... */}
+
+      {/* Add RelatedItems before closing main tag */}
+      {relatedItems.length > 0 && (
+        <RelatedItems items={relatedItems} />
+      )}
     </main>
   );
 } 
