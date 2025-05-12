@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
-import Image from 'next/image';
+import ProductImage from '../../components/ProductImage';
 import { createClient } from '@/utils/supabase/server';
 
 interface Product {
@@ -164,6 +164,12 @@ export default async function ProductPage({ params }: { params: { slug: string }
   const cleanImageUrl = product.image_url?.replace(/([^:]\/)\/+/g, '$1');
   const imageSrc = cleanImageUrl || 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg';
 
+  console.log('Product image details:', {
+    originalUrl: product.image_url,
+    cleanedUrl: cleanImageUrl,
+    finalSrc: imageSrc
+  });
+
   return (
     <main className="max-w-6xl mx-auto px-4 py-8">
       {/* JSON-LD Structured Data */}
@@ -214,18 +220,9 @@ export default async function ProductPage({ params }: { params: { slug: string }
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         {/* Product Image */}
         <div className="relative aspect-square bg-gray-50 rounded-lg overflow-hidden">
-          <Image
+          <ProductImage
             src={imageSrc}
             alt={product.name}
-            fill
-            unoptimized
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-contain"
-            priority
-            onError={(e) => {
-              const img = e.target as HTMLImageElement;
-              img.src = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg';
-            }}
           />
         </div>
 
