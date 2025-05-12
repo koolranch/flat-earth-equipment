@@ -5,13 +5,13 @@ import { categories } from "@/lib/data/categories";
 import { brands } from "@/lib/data/brands";
 import CategoryProductGrid from "@/components/CategoryProductGrid";
 import RelatedItems from "../../../components/RelatedItems";
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from "@/utils/supabase/server";
 import Script from "next/script";
 
 export default async function CategoryPage({
-  params: { slug, categorySlug },
+  params: { slug },
 }: {
-  params: { slug: string; categorySlug: string };
+  params: { slug: string };
 }) {
   const category = categories.find((c) => c.slug === slug);
   if (!category) return notFound();
