@@ -2,29 +2,26 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "OSHA Forklift Operator Training | Flat Earth Equipment",
-  description:
-    "Compliant forklift and aerial lift operator certification. Online and onsite OSHA training designed for warehouse and jobsite equipment operators.",
+  title: "OSHA Operator Training | Flat Earth Equipment",
+  description: "Get certified with OSHA-compliant operator training for forklifts, aerial lifts, and other industrial equipment.",
   alternates: {
     canonical: "/osha-operator-training",
   },
 };
 
-export default function OperatorTrainingPage() {
+export default function OSHAOperatorTrainingPage() {
   return (
     <main className="max-w-5xl mx-auto px-4 py-12">
-      <section className="mb-12">
-        <h1 className="text-4xl font-bold mb-4">OSHA Operator Training</h1>
-        <p className="text-lg text-gray-700 mb-4">
-          Flat Earth Equipment provides OSHA-compliant training for forklift, scissor lift, boom lift, and MEWP operators. Whether you're onboarding new team members or renewing expired certifications, we offer flexible online and onsite options tailored for busy fleets.
-        </p>
-        <Link
-          href="/quote?topic=training"
-          className="inline-block px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700"
-        >
-          Request Training Quote
-        </Link>
-      </section>
+      <h1 className="text-4xl font-bold mb-4">OSHA Operator Training</h1>
+      <p className="text-lg text-gray-700 mb-4">
+        Flat Earth Equipment provides OSHA-compliant training for forklift, scissor lift, boom lift, and MEWP operators. Whether you're onboarding new team members or renewing expired certifications, we offer flexible online and onsite options tailored for busy fleets.
+      </p>
+      <Link
+        href="/quote?topic=training"
+        className="inline-block px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700"
+      >
+        Request Training Quote
+      </Link>
 
       <section className="mb-16">
         <h2 className="text-2xl font-semibold mb-4">What We Cover</h2>

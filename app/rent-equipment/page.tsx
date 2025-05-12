@@ -3,9 +3,9 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Equipment Rentals | Forklifts, Scissor Lifts, Telehandlers & More",
+  title: "Equipment Rentals | Flat Earth Equipment",
   description:
-    "Rent forklifts, boom lifts, scissor lifts, telehandlers, compact utility loaders, and attachments nationwide. Top brands like Genie, JLG, Toyota & Skyjack.",
+    "Rent forklifts, boom lifts, scissor lifts, telehandlers, and more from top brands with fast availability.",
   alternates: { canonical: "/rent-equipment" },
 };
 

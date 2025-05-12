@@ -28,28 +28,13 @@ interface Product {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const supabase = createClient();
   try {
-    console.log('Fetching metadata for product:', params.slug);
-    const { data: product, error } = await supabase
+    const { data: product } = await supabase
       .from('parts')
       .select('name, description')
       .eq('slug', params.slug)
       .single();
 
-    if (error) {
-      console.error('❌ Parts page fetch error:', {
-        message: error.message,
-        details: error.details,
-        hint: error.hint,
-        code: error.code
-      });
-      return {
-        title: 'Product Not Found | Flat Earth Equipment',
-        description: 'The requested product could not be found.',
-      };
-    }
-
     if (!product) {
-      console.error('❌ Parts page fetch error: No product found for slug:', params.slug);
       return {
         title: 'Product Not Found | Flat Earth Equipment',
         description: 'The requested product could not be found.',
@@ -58,13 +43,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
     return {
       title: `${product.name} | Flat Earth Equipment`,
-      description: product.description,
+      description: product.description?.slice(0, 160) || 'High-quality replacement part for industrial equipment.',
+      alternates: { canonical: `/parts/${params.slug}` }
     };
   } catch (err) {
-    console.error('❌ Parts page fetch error:', {
-      message: err instanceof Error ? err.message : 'Unknown error',
-      stack: err instanceof Error ? err.stack : undefined
-    });
     return {
       title: 'Error | Flat Earth Equipment',
       description: 'An error occurred while loading the product.',

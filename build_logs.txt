@@ -1,0 +1,78 @@
+
+> flat-earth-equipment@1.0.0 build
+> next build
+
+   ▲ Next.js 14.1.0
+   - Environments: .env.production.local, .env.local, .env.production, .env
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/69) ...
+   Generating static pages (17/69) 
+   Generating static pages (34/69) 
+   Generating static pages (51/69) 
+Fetching parts for category: Forklift Parts
+Fetching parts for category: Skid Steer Parts
+Fetching parts for category: Telehandler Parts
+Fetching parts for category: Mini Excavator Parts
+Fetching parts for category: Mini Excavator Parts
+Fetching parts for category: Skid Steer Parts
+Fetching parts for category: Telehandler Parts
+Fetching parts for category: Forklift Parts
+Fetching parts for category: Buggy Parts
+Fetching parts for category: Buggy Parts
+Fetching parts for category: Battery Chargers
+Fetching parts for category: Battery Chargers
+ ✓ Generating static pages (69/69) 
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    61 kB           159 kB
+├ ○ /_not-found                          885 B          85.2 kB
+├ ○ /about                               196 B          91.2 kB
+├ ○ /battery-charger-modules             194 B          96.2 kB
+├ ● /brand/[brand]                       193 B          98.6 kB
+├   ├ /brand/case-construction
+├   ├ /brand/caterpillar
+├   ├ /brand/clark
+├   └ [+37 more paths]
+├ ○ /brands                              198 B          91.2 kB
+├ ● /category/[slug]                     194 B          96.2 kB
+├   ├ /category/forklift-parts
+├   ├ /category/skid-steer-parts
+├   ├ /category/telehandler-parts
+├   └ [+3 more paths]
+├ ○ /contact                             147 B          84.4 kB
+├ ○ /forks                               194 B          96.2 kB
+├ ○ /insights                            196 B          91.2 kB
+├ λ /insights/[slug]                     198 B          91.2 kB
+├ ○ /locations                           197 B          91.2 kB
+├ ● /locations/[city]                    196 B          91.2 kB
+├   ├ /locations/las-cruces-nm
+├   ├ /locations/pueblo-co
+├   ├ /locations/bozeman-mt
+├   └ /locations/cheyenne-wy
+├ ○ /osha-operator-training              196 B          91.2 kB
+├ λ /parts                               198 B          91.2 kB
+├ λ /parts/[slug]                        807 B          99.2 kB
+├ ○ /policies/privacy-policy             146 B          84.4 kB
+├ ○ /policies/shipping-and-returns       147 B          84.4 kB
+├ ○ /policies/terms-of-service           147 B          84.4 kB
+├ ○ /quote                               1.04 kB        85.3 kB
+├ ○ /rent-equipment                      201 B          91.3 kB
+├ λ /rentals/[slug]                      198 B          91.2 kB
+├ λ /rentals/[slug]/[equipment]          194 B          96.2 kB
+└ ○ /sitemap.xml                         0 B                0 B
++ First Load JS shared by all            84.3 kB
+  ├ chunks/69-9e7db31fbb0ce9f9.js        28.9 kB
+  ├ chunks/fd9d1056-9f958bb362bc6a33.js  53.4 kB
+  └ other shared chunks (total)          1.98 kB
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses getStaticProps)
+λ  (Dynamic)  server-rendered on demand using Node.js
+

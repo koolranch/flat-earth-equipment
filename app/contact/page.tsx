@@ -2,8 +2,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contact Us | Flat Earth Equipment",
-  description:
-    "Get in touch with Flat Earth Equipment. Request quotes, ask product questions, or get support from our U.S.-based team in Sheridan, Wyoming.",
+  description: "Get in touch with Flat Earth Equipment for parts inquiries, rentals, and support.",
+  alternates: { canonical: '/contact' }
 };
 
 export default function ContactPage() {

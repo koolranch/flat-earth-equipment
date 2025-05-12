@@ -2,6 +2,13 @@
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Request a Quote | Flat Earth Equipment',
+  description: 'Request a quote for industrial equipment parts and rentals from Flat Earth Equipment.',
+  alternates: { canonical: '/quote' }
+};
 
 function QuoteForm() {
   const searchParams = useSearchParams();

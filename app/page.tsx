@@ -8,6 +8,13 @@ import Testimonials from "@/components/Testimonials";
 import TrustPoints from "@/components/TrustPoints";
 import FeaturedRentals from "@/components/FeaturedRentals";
 import Script from 'next/script';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Flat Earth Equipment | Flat Earth Equipment',
+  description: 'Your one-stop shop for high-quality, precision-fit replacement industrial equipment parts and rentals.',
+  alternates: { canonical: '/' }
+};
 
 export default function Page() {
   return (

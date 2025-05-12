@@ -3,9 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Forklift Forks for Sale | Flat Earth Equipment",
-  description:
-    "Shop heavy-duty forklift forks online. Class II–IV forks, pallet forks, block forks & more. Fast shipping, built for lift trucks & telehandlers.",
+  title: "Forklift Forks | Flat Earth Equipment",
+  description: "High-quality forklift forks and attachments for all major brands and models.",
   alternates: {
     canonical: "/forks",
   },
