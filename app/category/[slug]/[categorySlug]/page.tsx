@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { categories } from "@/lib/data/categories";
 import { brands } from "@/lib/data/brands";
 import CategoryProductGrid from "@/components/CategoryProductGrid";
-import RelatedItems from "@/components/RelatedItems";
+import RelatedItems from "../../../components/RelatedItems";
 import { createClient } from "@supabase/supabase-js";
 import Script from "next/script";
 

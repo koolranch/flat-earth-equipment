@@ -2,7 +2,7 @@ import supabase from "@/lib/supabase";
 import { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
-import RelatedItems from "@/components/RelatedItems";
+import RelatedItems from "../../components/RelatedItems";
 
 interface PageProps {
   params: { slug: string };

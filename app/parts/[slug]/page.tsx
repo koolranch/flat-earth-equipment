@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
 import ProductImage from '../../components/ProductImage';
-import RelatedItems from '@/components/RelatedItems';
+import RelatedItems from '../../components/RelatedItems';
 import { createClient } from '@/utils/supabase/server';
 
 export async function generateStaticParams() {
