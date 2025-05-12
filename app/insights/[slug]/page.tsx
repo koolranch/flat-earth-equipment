@@ -4,6 +4,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
 import Script from 'next/script';
+import RelatedItems from '@/components/RelatedItems';
 
 interface Post {
   title: string;
@@ -65,6 +66,19 @@ export default async function BlogPost({ params }: Props) {
     notFound();
   }
 
+  // Fetch related posts based on keywords
+  const { data: relatedPosts } = await supabase
+    .from('insights')
+    .select('title, slug')
+    .neq('slug', params.slug)
+    .contains('keywords', post.keywords || [])
+    .limit(3);
+
+  const relatedItems = relatedPosts?.map(relatedPost => ({
+    title: relatedPost.title,
+    href: `/insights/${relatedPost.slug}`
+  })) || [];
+
   return (
     <main className="max-w-4xl mx-auto px-4 py-16">
       <Script id="blogposting-ld-json" type="application/ld+json">
@@ -109,6 +123,10 @@ export default async function BlogPost({ params }: Props) {
         </div>
         <MDXRemote source={post.content} />
       </article>
+
+      {relatedItems.length > 0 && (
+        <RelatedItems items={relatedItems} />
+      )}
     </main>
   );
 } 

@@ -2,6 +2,7 @@ import supabase from "@/lib/supabase";
 import { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
+import RelatedItems from "@/components/RelatedItems";
 
 interface PageProps {
   params: { slug: string };
@@ -42,6 +43,18 @@ export default async function RentalCategoryPage({ params }: PageProps) {
     );
   }
 
+  // Fetch related rental categories
+  const { data: relatedCategories } = await supabase
+    .from('rental_categories')
+    .select('name, slug')
+    .neq('slug', params.slug)
+    .limit(3);
+
+  const relatedItems = relatedCategories?.map(category => ({
+    title: `${category.name} Rentals`,
+    href: `/rentals/${category.slug}`
+  })) || [];
+
   return (
     <main className="max-w-7xl mx-auto px-4 py-12">
       {/* JSON-LD Structured Data */}
@@ -80,6 +93,11 @@ export default async function RentalCategoryPage({ params }: PageProps) {
           );
         })}
       </div>
+
+      {/* Add RelatedItems before closing main tag */}
+      {relatedItems.length > 0 && (
+        <RelatedItems items={relatedItems} />
+      )}
     </main>
   );
 } 

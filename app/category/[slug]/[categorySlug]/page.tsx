@@ -4,16 +4,30 @@ import { notFound } from "next/navigation";
 import { categories } from "@/lib/data/categories";
 import { brands } from "@/lib/data/brands";
 import CategoryProductGrid from "@/components/CategoryProductGrid";
+import RelatedItems from "@/components/RelatedItems";
 import { createClient } from "@supabase/supabase-js";
 import Script from "next/script";
 
-export default function CategoryPage({
-  params: { slug },
+export default async function CategoryPage({
+  params: { slug, categorySlug },
 }: {
-  params: { slug: string };
+  params: { slug: string; categorySlug: string };
 }) {
   const category = categories.find((c) => c.slug === slug);
   if (!category) return notFound();
+
+  // Fetch popular parts in this category
+  const supabase = createClient();
+  const { data: popularParts } = await supabase
+    .from('parts')
+    .select('name, slug')
+    .eq('category', category.name)
+    .limit(3);
+
+  const relatedItems = popularParts?.map(part => ({
+    title: part.name,
+    href: `/parts/${part.slug}`
+  })) || [];
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-16">
@@ -57,6 +71,11 @@ export default function CategoryPage({
       </section>
 
       <CategoryProductGrid categorySlug={slug} />
+
+      {/* Add RelatedItems before closing main tag */}
+      {relatedItems.length > 0 && (
+        <RelatedItems items={relatedItems} />
+      )}
     </main>
   );
 } 

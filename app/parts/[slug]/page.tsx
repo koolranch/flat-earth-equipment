@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
 import ProductImage from '../../components/ProductImage';
+import RelatedItems from '@/components/RelatedItems';
 import { createClient } from '@/utils/supabase/server';
 
 export async function generateStaticParams() {
@@ -57,6 +58,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function ProductPage({ params }: { params: { slug: string } }) {
   const supabase = createClient();
   let product;
+  let relatedProducts;
   
   try {
     console.log('Fetching product details for:', params.slug);
@@ -112,6 +114,20 @@ export default async function ProductPage({ params }: { params: { slug: string }
     }
 
     product = data;
+
+    // Fetch related products (same brand or category)
+    const { data: related } = await supabase
+      .from('parts')
+      .select('name, slug')
+      .or(`brand.eq.${product.brand},category.eq.${product.category}`)
+      .neq('slug', product.slug)
+      .limit(3);
+
+    relatedProducts = related?.map(p => ({
+      title: p.name,
+      href: `/parts/${p.slug}`
+    })) || [];
+
   } catch (err) {
     console.error('❌ Parts page fetch error:', {
       message: err instanceof Error ? err.message : 'Unknown error',
@@ -274,6 +290,11 @@ export default async function ProductPage({ params }: { params: { slug: string }
           </div>
         </div>
       </div>
+
+      {/* Add RelatedItems before closing main tag */}
+      {relatedProducts && relatedProducts.length > 0 && (
+        <RelatedItems items={relatedProducts} />
+      )}
     </main>
   );
 } 
