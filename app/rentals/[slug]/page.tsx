@@ -1,6 +1,7 @@
 import supabase from "@/lib/supabase";
 import { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 
 interface PageProps {
   params: { slug: string };
@@ -43,6 +44,20 @@ export default async function RentalCategoryPage({ params }: PageProps) {
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-12">
+      {/* JSON-LD Structured Data */}
+      <Script id="service-ld-json" type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "serviceType": `${params.slug.replace(/-/g, ' ')} Rental`,
+          "provider": {
+            "@type": "Organization",
+            "name": "Flat Earth Equipment"
+          },
+          "category": params.slug.replace(/-/g, ' ')
+        })}
+      </Script>
+
       <h1 className="text-4xl font-bold mb-6 capitalize">{params.slug.replace(/-/g, ' ')} Rentals</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {models.map((model) => {

@@ -165,23 +165,22 @@ export default async function ProductPage({ params }: { params: { slug: string }
       {/* JSON-LD Structured Data */}
       <Script id="product-ld-json" type="application/ld+json">
         {JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'Product',
-          name: product.name,
-          image: imageSrc,
-          description: product.description?.substring(0, 150),
-          brand: {
-            '@type': 'Brand',
-            name: product.brand,
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": product.name,
+          "description": product.description,
+          "image": [imageSrc],
+          "sku": product.sku,
+          "brand": {
+            "@type": "Brand",
+            "name": product.brand
           },
-          sku: product.sku || product.slug,
-          offers: {
-            '@type': 'Offer',
-            price: product.price?.toFixed(2),
-            priceCurrency: 'USD',
-            availability: 'https://schema.org/InStock',
-            url: `https://flatearthequipment.com/parts/${product.slug}`,
-          },
+          "offers": {
+            "@type": "Offer",
+            "url": `https://flatearthequipment.com/parts/${params.slug}`,
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+          }
         })}
       </Script>
 
