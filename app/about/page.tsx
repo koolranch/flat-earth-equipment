@@ -1,9 +1,10 @@
 import Link from "next/link";
+import { Metadata } from 'next';
 
-export const metadata = {
-  title: "About Flat Earth Equipment | Industrial Parts, Western Tough",
-  description:
-    "Learn about Flat Earth Equipment — your trusted partner for forklift, scissor lift, and construction equipment parts. Built Western tough. Shipped nationwide.",
+export const metadata: Metadata = {
+  title: 'About Flat Earth Equipment | Flat Earth Equipment',
+  description: 'Learn about Flat Earth Equipment, your trusted partner for industrial equipment parts and rentals.',
+  alternates: { canonical: '/about' }
 };
 
 export default function AboutPage() {

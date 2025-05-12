@@ -7,13 +7,13 @@ import { createClient } from '@/utils/supabase/server';
 
 export const metadata: Metadata = {
   title: "Battery Charger Modules | Flat Earth Equipment",
-  description: "Remanufactured charger modules for forklifts. In stock, tested to OEM specs. Save on replacements for Enersys & Hawker systems.",
+  description: "High-quality battery charger modules and replacement parts for industrial equipment.",
   alternates: {
     canonical: "/battery-charger-modules",
   },
 };
 
-export default async function ChargerModulesPage() {
+export default async function BatteryChargerModulesPage() {
   const supabase = createClient();
   const { data: parts } = await supabase
     .from('parts')

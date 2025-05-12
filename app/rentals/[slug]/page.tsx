@@ -7,10 +7,10 @@ interface PageProps {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const title = params.slug.replace(/-/g, ' ');
+  const formattedTitle = params.slug.replace(/-/g, ' ');
   return {
-    title: `${title} Rentals | Flat Earth Equipment`,
-    description: `Rent ${title} equipment nationwide from top brands and models.`,
+    title: `${formattedTitle} Rentals | Flat Earth Equipment`,
+    description: `Rent ${formattedTitle} equipment with fast availability and competitive rates.`,
     alternates: { canonical: `/rentals/${params.slug}` },
   };
 }

@@ -3,27 +3,46 @@ import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getBlogPost } from '@/lib/mdx';
 import { notFound } from 'next/navigation';
+import { createClient } from '@/utils/supabase/server';
+import { useState } from 'react';
+
+interface Post {
+  title: string;
+  description: string;
+  slug: string;
+  keywords?: string[];
+  date: string;
+  image: string;
+  content: string;
+}
 
 type Props = {
-  params: { slug: string };
+  params: {
+    slug: string;
+  };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = await getBlogPost(params.slug);
-  
+  const supabase = createClient();
+  const { data: post } = await supabase
+    .from('insights')
+    .select('title, description, keywords, date, image')
+    .eq('slug', params.slug)
+    .single();
+
   if (!post) {
     return {
       title: 'Post Not Found | Flat Earth Equipment',
-      description: 'The requested blog post could not be found.',
+      description: 'The requested post could not be found.',
     };
   }
 
   return {
     title: `${post.title} | Flat Earth Equipment`,
-    description: post.description,
+    description: post.description?.slice(0, 160) || 'Industry insights and equipment maintenance tips.',
     keywords: post.keywords,
     alternates: {
-      canonical: `/insights/${post.slug}`,
+      canonical: `/insights/${params.slug}`,
     },
     openGraph: {
       title: post.title,
@@ -35,8 +54,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function BlogPost({ params }: Props) {
-  const post = await getBlogPost(params.slug);
+export default function BlogPost({ params }: Props) {
+  const [post, setPost] = useState<Post | null>(null);
 
   if (!post) {
     notFound();
