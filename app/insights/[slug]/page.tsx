@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
+import Script from 'next/script';
 
 interface Post {
   title: string;
@@ -64,30 +65,32 @@ export default async function BlogPost({ params }: Props) {
     notFound();
   }
 
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: post.title,
-    description: post.description,
-    image: post.image,
-    datePublished: post.date,
-    keywords: post.keywords?.join(', ') || '',
-    author: {
-      '@type': 'Organization',
-      name: 'Flat Earth Equipment',
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Flat Earth Equipment',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://flatearthequipment.com/logo.png',
-      },
-    },
-  };
-
   return (
     <main className="max-w-4xl mx-auto px-4 py-16">
+      <Script id="blogposting-ld-json" type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": post.title,
+          "description": post.description,
+          "image": post.image,
+          "datePublished": post.date,
+          "keywords": post.keywords?.join(', ') || '',
+          "author": {
+            "@type": "Organization",
+            "name": "Flat Earth Equipment"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Flat Earth Equipment",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://flatearthequipment.com/logo.png"
+            }
+          }
+        })}
+      </Script>
+
       <Link
         href="/insights"
         className="inline-flex items-center text-canyon-rust hover:text-canyon-rust/80 mb-8"
@@ -106,11 +109,6 @@ export default async function BlogPost({ params }: Props) {
         </div>
         <MDXRemote source={post.content} />
       </article>
-
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      />
     </main>
   );
 } 

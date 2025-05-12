@@ -1,6 +1,7 @@
 import supabase from "@/lib/supabase";
 import { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Equipment Rentals | Flat Earth Equipment",
@@ -31,6 +32,24 @@ export default async function RentEquipmentPage() {
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-12">
+      {/* JSON-LD Structured Data */}
+      <Script id="service-ld-json" type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "serviceType": "Equipment Rental",
+          "provider": {
+            "@type": "Organization",
+            "name": "Flat Earth Equipment",
+            "url": "https://flatearthequipment.com"
+          },
+          "areaServed": {
+            "@type": "Country",
+            "name": "United States"
+          }
+        })}
+      </Script>
+
       <h1 className="text-4xl font-bold mb-6">Equipment Rentals</h1>
       <p className="mb-8 text-lg text-gray-700">
         We offer a wide selection of industrial rental equipment from trusted brands such as Genie, JLG, Skyjack, Toyota, and Bobcat. Select a category below to see available models, detailed specs, and request a rental quote.
