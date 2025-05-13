@@ -211,12 +211,6 @@ export default async function ProductPage({ params }: { params: { slug: string }
             <Link href="/parts" className="hover:underline text-canyon-rust">Parts</Link>
             <span className="mx-1">/</span>
           </li>
-          <li>
-            <Link href={`/parts?category=${encodeURIComponent(product.category)}`} className="hover:underline text-canyon-rust">
-              {product.category}
-            </Link>
-            <span className="mx-1">/</span>
-          </li>
           <li className="text-slate-700" aria-current="page">{product.name}</li>
         </ol>
       </nav>
