@@ -15,20 +15,32 @@ export default function BuyNowButton({ priceId, slug, priceCents }: BuyNowButton
   const router = useRouter();
 
   async function handleBuyNow() {
-    const stripe = await stripePromise;
-    const res = await fetch('/api/checkout/session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        priceId,
-        slug,
-      }),
+    console.log('👉 handleBuyNow called', {
+      priceId,
+      slug,
     });
-    const { url, error } = await res.json();
-    if (error) {
-      console.error('Checkout error:', error);
-    } else {
-      window.location.assign(url);
+    try {
+      const response = await fetch('/api/checkout/session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          priceId,
+          slug,
+        }),
+      });
+      console.log('📦 fetch response status:', response.status);
+      const data = await response.json();
+      console.log('📨 fetch response body:', data);
+      if (data.error) {
+        console.error('Stripe session error:', data.error);
+      } else if (data.url) {
+        console.log('🔗 redirecting to:', data.url);
+        window.location.assign(data.url);
+      } else {
+        console.warn('Unexpected response:', data);
+      }
+    } catch (err) {
+      console.error('‼️ handleBuyNow exception:', err);
     }
   }
 
