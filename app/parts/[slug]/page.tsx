@@ -5,6 +5,7 @@ import Script from 'next/script';
 import ProductImage from '../../components/ProductImage';
 import RelatedItems from '@/components/RelatedItems';
 import { createClient } from '@/utils/supabase/server';
+import BuyNowButton from '@/components/BuyNowButton';
 
 export async function generateStaticParams() {
   const supabase = createClient();
@@ -17,13 +18,15 @@ export async function generateStaticParams() {
 interface Product {
   id: string;
   name: string;
-  price: number;
   description: string;
   sku: string;
+  price: number;
+  price_cents: number;
   brand: string;
   category: string;
-  image_url?: string;
+  image_url: string;
   slug: string;
+  stripe_price_id: string;
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
@@ -57,114 +60,22 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 export default async function ProductPage({ params }: { params: { slug: string } }) {
   const supabase = createClient();
-  let product;
-  let relatedProducts;
-  
-  try {
-    console.log('Fetching product details for:', params.slug);
-    const { data, error } = await supabase
-      .from('parts')
-      .select('id, name, description, sku, price, brand, category, image_url, slug')
-      .eq('slug', params.slug)
-      .single();
+  const { data: product } = await supabase
+    .from('parts')
+    .select('*')
+    .eq('slug', params.slug)
+    .single();
 
-    if (error) {
-      console.error('❌ Parts page fetch error:', {
-        message: error.message,
-        details: error.details,
-        hint: error.hint,
-        code: error.code
-      });
-      throw new Error(`Failed to fetch product: ${error.message}`);
-    }
-
-    if (!data) {
-      console.error('❌ Parts page fetch error: No product found for slug:', params.slug);
-      return (
-        <main className="max-w-6xl mx-auto px-4 py-8">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-slate-900 mb-4">Product Not Found</h1>
-            <p className="text-gray-600 mb-4">We couldn't find the product you're looking for.</p>
-            <div className="space-y-4">
-              <Link 
-                href="/parts" 
-                className="inline-block bg-canyon-rust text-white px-6 py-2 rounded-md hover:bg-orange-700 transition-colors"
-              >
-                Browse All Parts
-              </Link>
-              <div>
-                <Link 
-                  href="/contact" 
-                  className="text-canyon-rust hover:text-orange-700 transition-colors"
-                >
-                  Contact Us
-                </Link>
-                <span className="mx-2 text-gray-400">|</span>
-                <Link 
-                  href="/" 
-                  className="text-canyon-rust hover:text-orange-700 transition-colors"
-                >
-                  Return to Homepage
-                </Link>
-              </div>
-            </div>
-          </div>
-        </main>
-      );
-    }
-
-    product = data;
-
-    // Fetch related products (same brand or category)
-    const { data: related } = await supabase
-      .from('parts')
-      .select('name, slug')
-      .or(`brand.eq.${product.brand},category.eq.${product.category}`)
-      .neq('slug', product.slug)
-      .limit(3);
-
-    relatedProducts = related?.map(p => ({
-      name: p.name,
-      href: `/parts/${p.slug}`
-    })) || [];
-
-  } catch (err) {
-    console.error('❌ Parts page fetch error:', {
-      message: err instanceof Error ? err.message : 'Unknown error',
-      stack: err instanceof Error ? err.stack : undefined
-    });
-    return (
-      <main className="max-w-6xl mx-auto px-4 py-8">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">An Error Occurred</h1>
-          <p className="text-gray-600 mb-4">We're having trouble loading this product. Our team has been notified.</p>
-          <div className="space-y-4">
-            <Link 
-              href="/parts" 
-              className="inline-block bg-canyon-rust text-white px-6 py-2 rounded-md hover:bg-orange-700 transition-colors"
-            >
-              Browse All Parts
-            </Link>
-            <div>
-              <Link 
-                href="/contact" 
-                className="text-canyon-rust hover:text-orange-700 transition-colors"
-              >
-                Contact Support
-              </Link>
-              <span className="mx-2 text-gray-400">|</span>
-              <Link 
-                href="/" 
-                className="text-canyon-rust hover:text-orange-700 transition-colors"
-              >
-                Return to Homepage
-              </Link>
-            </div>
-          </div>
-        </div>
-      </main>
-    );
+  if (!product) {
+    notFound();
   }
+
+  // Get related products
+  const { data: relatedProducts } = await supabase
+    .from('parts')
+    .select('*')
+    .neq('slug', params.slug)
+    .limit(3);
 
   // Clean up image URL by removing double slashes
   const cleanImageUrl = product.image_url?.replace(/([^:]\/)\/+/g, '$1');
@@ -228,7 +139,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
         {/* Product Info */}
         <div>
           <h1 className="text-3xl font-bold text-slate-900 mb-4">{product.name}</h1>
-          <p className="text-2xl font-semibold text-canyon-rust mb-4">${product.price.toFixed(2)}</p>
+          <p className="text-2xl font-semibold text-canyon-rust mb-4">${(product.price_cents / 100).toFixed(2)}</p>
           <p className="text-slate-600 mb-6">{product.description}</p>
           
           {/* Product Metadata */}
@@ -282,12 +193,23 @@ export default async function ProductPage({ params }: { params: { slug: string }
               </Link>
             </div>
           </div>
+
+          {product.stripe_price_id && (
+            <BuyNowButton
+              priceId={product.stripe_price_id}
+              slug={product.slug}
+              priceCents={product.price_cents}
+            />
+          )}
         </div>
       </div>
 
       {/* Add RelatedItems before closing main tag */}
       {relatedProducts && relatedProducts.length > 0 && (
-        <RelatedItems items={relatedProducts} />
+        <RelatedItems items={relatedProducts.map((p: Product) => ({
+          name: p.name,
+          href: `/parts/${p.slug}`
+        }))} />
       )}
     </main>
   );
