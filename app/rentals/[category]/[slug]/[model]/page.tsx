@@ -5,13 +5,13 @@ import { getRentalModel } from '@/lib/api'
 import { RentalModelPage } from '@/components/RentalModelPage'
 
 type Props = {
-  params: { category: string; model: string }
+  params: { category: string; slug: string }
 }
 
 export default async function RentalModelRoute({ params }: Props) {
-  const { category, model } = params
+  const { category, slug } = params
 
-  const rental = await getRentalModel(category, model)
+  const rental = await getRentalModel(category, slug)
 
   if (!rental) return notFound()
 
