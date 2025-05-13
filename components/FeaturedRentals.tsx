@@ -38,11 +38,18 @@ export default function FeaturedRentals() {
             <Link
               key={category.slug}
               href={`/rentals/${category.slug}`}
-              className="block bg-white shadow-sm rounded-lg p-4 text-center hover:shadow-md transition"
+              className="
+                group
+                block rounded-xl border border-gray-200 bg-white p-4
+                transition-transform transition-shadow
+                hover:shadow-lg hover:-translate-y-1 hover:bg-[#FFF5F0]
+              "
             >
               <img src={category.icon} alt={category.name} className="h-16 mx-auto mb-4" />
-              <h3 className="font-semibold text-slate-800">{category.name}</h3>
-              <p className="text-sm text-slate-600">{category.description}</p>
+              <h3 className="font-semibold text-slate-800 group-hover:text-canyon-rust">{category.name}</h3>
+              <p className="text-sm text-slate-600 group-hover:text-canyon-rust">
+                View available models
+              </p>
             </Link>
           ))}
         </div>

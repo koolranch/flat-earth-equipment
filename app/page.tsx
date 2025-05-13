@@ -9,6 +9,7 @@ import TrustPoints from "@/components/TrustPoints";
 import FeaturedRentals from "@/components/FeaturedRentals";
 import Script from 'next/script';
 import { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Flat Earth Equipment | Flat Earth Equipment',
@@ -51,6 +52,19 @@ export default function Page() {
 
       {/* 3.5) Featured Rentals */}
       <FeaturedRentals />
+
+      {/* Floating Quote Button */}
+      <div className="fixed bottom-4 right-4 z-50">
+        <Link
+          href="/rentals"
+          className="
+            bg-canyon-rust text-white px-5 py-3 rounded-full shadow-lg
+            hover:shadow-xl transition
+          "
+        >
+          Request Rental Quote
+        </Link>
+      </div>
 
       {/* 4) Featured Products grid */}
       <section className="py-12">
