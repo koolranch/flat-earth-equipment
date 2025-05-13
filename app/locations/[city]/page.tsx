@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { createClient } from '@/utils/supabase/server';
 
 interface Location {
   name: string;
@@ -167,11 +168,17 @@ export async function generateMetadata({ params }: { params: { city: string } })
   return metadata;
 }
 
-export default function LocationPage({ params }: { params: { city: string } }) {
+export default async function LocationPage({ params }: { params: { city: string } }) {
   const location = locations[params.city];
   if (!location) {
     notFound();
   }
+
+  const supabase = createClient();
+  const { data: rentals } = await supabase
+    .from('rental_equipment')
+    .select('*')
+    .eq('city_slug', params.city);
 
   return (
     <main className="max-w-4xl mx-auto px-4 py-12">
@@ -255,6 +262,44 @@ export default function LocationPage({ params }: { params: { city: string } }) {
             Quote Requests
           </li>
         </ul>
+      </section>
+
+      <section className="mt-12">
+        <h2 className="text-2xl font-semibold text-slate-800 mb-4">
+          Available Equipment in {params.city.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+        </h2>
+        {rentals && rentals.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {rentals.map((rental) => (
+              <Link
+                key={rental.slug}
+                href={`/rentals/${rental.category}/${rental.slug}`}
+                className="block rounded border bg-white hover:shadow-md p-4 transition"
+              >
+                <img
+                  src={rental.image_url}
+                  alt={rental.name}
+                  className="h-40 w-full object-contain mb-3 rounded"
+                  loading="lazy"
+                />
+                <h3 className="text-lg font-semibold text-slate-800 mb-1">
+                  {rental.name}
+                </h3>
+                <p className="text-sm text-slate-600">
+                  <strong>Capacity:</strong> {rental.weight_capacity_lbs} lbs
+                </p>
+                <p className="text-sm text-slate-600">
+                  <strong>Height:</strong> {rental.lift_height_ft} ft
+                </p>
+                <span className="inline-block text-sm font-medium text-canyon-rust mt-2">
+                  View Details →
+                </span>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <p className="text-sm text-slate-600">No equipment currently available.</p>
+        )}
       </section>
 
       {params.city === 'pueblo-co' && (
