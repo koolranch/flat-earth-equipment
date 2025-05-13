@@ -1,13 +1,17 @@
 import { NextResponse } from 'next/server';
-import Stripe from 'stripe';
-import dotenvFlow from 'dotenv-flow';
-
-dotenvFlow.config();
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-04-30.basil',
-});
 
 export async function POST(request: Request) {
+  // 1) Ensure secret key is set
+  const sk = process.env.STRIPE_SECRET_KEY;
+  if (!sk) {
+    console.error('Missing STRIPE_SECRET_KEY');
+    return NextResponse.json({ error: 'Stripe not configured' }, { status: 500 });
+  }
+
+  // 2) Dynamically import Stripe & instantiate
+  const { default: Stripe } = await import('stripe');
+  const stripe = new Stripe(sk, { apiVersion: '2025-04-30.basil' });
+
   try {
     const { priceId, slug } = await request.json();
     const origin = request.headers.get('origin')!;
