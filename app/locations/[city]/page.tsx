@@ -233,10 +233,7 @@ export default async function LocationPage({ params }: { params: { city: string 
             <h2 className="text-xl font-semibold mb-4">Contact Information</h2>
             <ul className="space-y-2">
               <li>
-                <strong>Address:</strong> {location.address}
-              </li>
-              <li>
-                <strong>Phone:</strong> {location.phone}
+                <strong>Phone:</strong> (307) 302-0043
               </li>
               <li>
                 <strong>Hours:</strong> {location.hours}
