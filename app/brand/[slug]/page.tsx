@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { createClient } from '@/utils/supabase/server';
-import RelatedItems from '../../components/RelatedItems';
+import RelatedItems from '@/components/RelatedItems';
 
 interface Brand {
   name: string;
