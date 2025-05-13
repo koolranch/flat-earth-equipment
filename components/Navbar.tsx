@@ -43,13 +43,13 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur shadow-sm h-16">
+    <header className="sticky top-0 z-50 bg-[#F5F1EC] shadow-sm h-20">
       <div className="flex items-center justify-between max-w-6xl mx-auto px-4 h-full">
         <Link href="/" className="flex items-center">
           <img
             src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp"
             alt="Flat Earth Equipment logo"
-            className="h-16 w-auto px-1"
+            className="h-20 w-auto px-2"
             loading="lazy"
             onError={(e) => {
               console.error('Logo failed to load:', e);
@@ -63,10 +63,10 @@ export default function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`${item.className} ${
+              className={`text-lg font-semibold text-slate-800 ${
                 pathname === item.href
                   ? "text-canyon-rust underline"
-                  : "text-slate-800"
+                  : "hover:text-canyon-rust"
               }`}
             >
               {item.label}
