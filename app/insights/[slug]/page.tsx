@@ -4,7 +4,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
 import Script from 'next/script';
-import RelatedItems from '../../components/RelatedItems';
+import RelatedItems from '@/components/RelatedItems';
 
 interface Post {
   title: string;
