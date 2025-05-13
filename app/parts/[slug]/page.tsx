@@ -124,7 +124,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
       .limit(3);
 
     relatedProducts = related?.map(p => ({
-      title: p.name,
+      name: p.name,
       href: `/parts/${p.slug}`
     })) || [];
 

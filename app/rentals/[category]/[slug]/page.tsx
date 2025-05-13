@@ -2,10 +2,10 @@ import supabase from "@/lib/supabase";
 import { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
-import RelatedItems from "../../components/RelatedItems";
+import RelatedItems from "@/components/RelatedItems";
 
 interface PageProps {
-  params: { category: string };
+  params: { category: string; slug: string };
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${formattedTitle} Rentals | Flat Earth Equipment`,
     description: `Rent ${formattedTitle} equipment with fast availability and competitive rates.`,
-    alternates: { canonical: `/rentals/${params.category}` },
+    alternates: { canonical: `/rentals/${params.category}/${params.slug}` },
   };
 }
 
@@ -51,7 +51,7 @@ export default async function RentalCategoryPage({ params }: PageProps) {
     .limit(3);
 
   const relatedItems = relatedCategories?.map(category => ({
-    title: `${category.name} Rentals`,
+    name: `${category.name} Rentals`,
     href: `/rentals/${category.slug}`
   })) || [];
 

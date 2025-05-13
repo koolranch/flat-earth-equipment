@@ -75,7 +75,7 @@ export default async function BlogPost({ params }: Props) {
     .limit(3);
 
   const relatedItems = relatedPosts?.map(relatedPost => ({
-    title: relatedPost.title,
+    name: relatedPost.title,
     href: `/insights/${relatedPost.slug}`
   })) || [];
 
