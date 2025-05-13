@@ -27,6 +27,8 @@ interface Product {
   image_url: string;
   slug: string;
   stripe_price_id: string;
+  has_core_charge?: boolean;
+  core_charge?: number;
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
@@ -196,9 +198,8 @@ export default async function ProductPage({ params }: { params: { slug: string }
 
           {product.stripe_price_id && (
             <BuyNowButton
-              priceId={product.stripe_price_id}
+              product={product}
               slug={product.slug}
-              priceCents={product.price_cents}
             />
           )}
         </div>

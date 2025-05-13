@@ -5,18 +5,26 @@ import { useRouter } from 'next/navigation';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
-interface BuyNowButtonProps {
-  priceId: string;
-  slug: string;
-  priceCents: number;
+interface Product {
+  id: string;
+  name: string;
+  stripe_price_id: string;
+  price_cents: number;
+  has_core_charge?: boolean;
+  core_charge?: number;
 }
 
-export default function BuyNowButton({ priceId, slug, priceCents }: BuyNowButtonProps) {
+interface BuyNowButtonProps {
+  product: Product;
+  slug: string;
+}
+
+export default function BuyNowButton({ product, slug }: BuyNowButtonProps) {
   const router = useRouter();
 
   async function handleBuyNow() {
     console.log('👉 handleBuyNow called', {
-      priceId,
+      product,
       slug,
     });
     try {
@@ -24,7 +32,7 @@ export default function BuyNowButton({ priceId, slug, priceCents }: BuyNowButton
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          priceId,
+          product,
           slug,
         }),
       });
@@ -44,12 +52,22 @@ export default function BuyNowButton({ priceId, slug, priceCents }: BuyNowButton
     }
   }
 
+  // Calculate total price including core charge if applicable
+  const totalPrice = product.has_core_charge && product.core_charge
+    ? product.price_cents + (product.core_charge * 100)
+    : product.price_cents;
+
   return (
     <button
       onClick={handleBuyNow}
       className="mt-6 bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition-colors"
     >
-      Buy Now — ${(priceCents / 100).toFixed(2)}
+      Buy Now — ${(totalPrice / 100).toFixed(2)}
+      {product.has_core_charge && product.core_charge && (
+        <span className="text-sm ml-2">
+          (includes ${product.core_charge.toFixed(2)} core charge)
+        </span>
+      )}
     </button>
   );
 } 
