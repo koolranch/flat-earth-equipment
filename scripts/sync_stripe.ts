@@ -20,7 +20,9 @@ async function run() {
 
   for (const part of parts) {
     // 1) Create Stripe Product
-    const product = await stripe.products.create({ name: part.name });
+    const product = await stripe.products.create({
+      name: part.name,
+    });
 
     // 2) Create Price (in cents, USD)
     const price = await stripe.prices.create({
