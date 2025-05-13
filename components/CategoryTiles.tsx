@@ -62,15 +62,28 @@ export default function CategoryTiles() {
         <h2 className="text-2xl font-semibold text-center text-slate-800 mb-6">
           Shop Popular Categories
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {categories.map((category) => (
             <Link
               key={category.slug}
-              href={`/category/${category.slug}`}
-              className="flex flex-col items-center justify-center text-center bg-slate-50 p-4 rounded-lg border border-slate-200 shadow-sm hover:border-canyon-rust transition"
+              href={`/parts?category=${category.slug}`}
+              className="
+                block
+                border border-gray-200 rounded-lg p-4
+                flex items-center space-x-2
+                hover:shadow-lg
+                hover:-translate-y-1
+                hover:border-gray-300
+                hover:text-canyon-rust
+                transition-transform transition-shadow ease-in-out
+                justify-center
+              "
             >
-              <category.icon className="h-6 w-6 mb-2 text-canyon-rust" />
-              <span className="text-sm font-medium text-slate-800">{category.name}</span>
+              <category.icon 
+                className="w-6 h-6 stroke-current" 
+                strokeWidth={2}
+              />
+              <span className="text-sm font-medium">{category.name}</span>
             </Link>
           ))}
         </div>
