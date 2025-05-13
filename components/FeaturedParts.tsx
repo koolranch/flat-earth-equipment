@@ -12,6 +12,7 @@ type Part = {
   image_url: string | null;
   category: string;
   brand: string;
+  isBestSeller?: boolean;
 };
 
 // Create a single supabase client for client-side rendering
@@ -42,7 +43,7 @@ export default function FeaturedParts() {
         // First, fetch the specific charger modules
         const { data: chargerModules, error: chargerError } = await supabase
           .from('parts')
-          .select('slug, name, price, image_url, category, brand')
+          .select('slug, name, price, image_url, category, brand, isBestSeller')
           .in('category', ['charger modules', 'battery chargers'])
           .limit(2);
 
@@ -57,7 +58,7 @@ export default function FeaturedParts() {
         // Then fetch 4 other recent parts
         const { data: recentParts, error: recentError } = await supabase
           .from('parts')
-          .select('slug, name, price, image_url, category, brand')
+          .select('slug, name, price, image_url, category, brand, isBestSeller')
           .neq('category', 'charger modules')
           .neq('category', 'battery chargers')
           .order('created_at', { ascending: false })
@@ -157,14 +158,19 @@ export default function FeaturedParts() {
               href={`/parts/${part.slug}`}
               className="group"
             >
-              <div className="bg-white rounded-lg shadow-sm overflow-hidden transition-transform hover:scale-[1.02]">
+              <div className="relative bg-white rounded-lg shadow-sm overflow-hidden transition-transform hover:scale-[1.02]">
+                {part.isBestSeller && (
+                  <span className="absolute top-2 left-2 bg-canyon-rust text-white text-xs font-semibold px-2 py-1 rounded">
+                    Best Seller
+                  </span>
+                )}
                 <div className="aspect-square relative bg-gray-100">
                   <Image
                     src={imageSrc}
                     alt={part.name}
                     fill
                     unoptimized
-                    className="object-contain"
+                    className="object-contain rounded-lg shadow-md"
                     loading="lazy"
                     onError={(e) => {
                       console.error('Image failed to load:', {
@@ -179,7 +185,7 @@ export default function FeaturedParts() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="font-medium text-gray-900 group-hover:text-brand">
+                  <h3 className="text-xl font-semibold text-gray-900 group-hover:text-brand group-hover:underline">
                     {part.name}
                   </h3>
                   <p className="mt-1 text-sm text-gray-500">{part.brand}</p>
