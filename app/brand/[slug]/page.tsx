@@ -54,7 +54,7 @@ export default async function BrandPage({ params }: { params: { slug: string } }
     .limit(3);
 
   const relatedItems = topParts?.map(part => ({
-    title: part.name,
+    name: part.name,
     href: `/parts/${part.slug}`
   })) || [];
 
