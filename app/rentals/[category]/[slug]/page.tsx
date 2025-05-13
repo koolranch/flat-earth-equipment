@@ -5,15 +5,15 @@ import Script from "next/script";
 import RelatedItems from "../../components/RelatedItems";
 
 interface PageProps {
-  params: { slug: string };
+  params: { category: string };
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const formattedTitle = params.slug.replace(/-/g, ' ');
+  const formattedTitle = params.category.replace(/-/g, ' ');
   return {
     title: `${formattedTitle} Rentals | Flat Earth Equipment`,
     description: `Rent ${formattedTitle} equipment with fast availability and competitive rates.`,
-    alternates: { canonical: `/rentals/${params.slug}` },
+    alternates: { canonical: `/rentals/${params.category}` },
   };
 }
 
@@ -33,11 +33,11 @@ async function fetchModelsByCategory(category: string) {
 }
 
 export default async function RentalCategoryPage({ params }: PageProps) {
-  const models = await fetchModelsByCategory(params.slug);
+  const models = await fetchModelsByCategory(params.category);
   if (!models.length) {
     return (
       <main className="max-w-7xl mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-6 capitalize">{params.slug.replace(/-/g, ' ')} Rentals</h1>
+        <h1 className="text-4xl font-bold mb-6 capitalize">{params.category.replace(/-/g, ' ')} Rentals</h1>
         <p className="text-lg text-gray-700">No equipment found for this category.</p>
       </main>
     );
@@ -47,7 +47,7 @@ export default async function RentalCategoryPage({ params }: PageProps) {
   const { data: relatedCategories } = await supabase
     .from('rental_categories')
     .select('name, slug')
-    .neq('slug', params.slug)
+    .neq('slug', params.category)
     .limit(3);
 
   const relatedItems = relatedCategories?.map(category => ({
@@ -62,23 +62,23 @@ export default async function RentalCategoryPage({ params }: PageProps) {
         {JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Service",
-          "serviceType": `${params.slug.replace(/-/g, ' ')} Rental`,
+          "serviceType": `${params.category.replace(/-/g, ' ')} Rental`,
           "provider": {
             "@type": "Organization",
             "name": "Flat Earth Equipment"
           },
-          "category": params.slug.replace(/-/g, ' ')
+          "category": params.category.replace(/-/g, ' ')
         })}
       </Script>
 
-      <h1 className="text-4xl font-bold mb-6 capitalize">{params.slug.replace(/-/g, ' ')} Rentals</h1>
+      <h1 className="text-4xl font-bold mb-6 capitalize">{params.category.replace(/-/g, ' ')} Rentals</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {models.map((model) => {
           const equipmentSlug = model.model.toLowerCase().replace(/\s+/g, '-');
           return (
             <Link
               key={model.id}
-              href={`/rentals/${params.slug}/${equipmentSlug}`}
+              href={`/rentals/${params.category}/${equipmentSlug}`}
               className="block bg-white rounded-xl shadow p-6 hover:shadow-md transition"
             >
               <h2 className="text-lg font-semibold">
