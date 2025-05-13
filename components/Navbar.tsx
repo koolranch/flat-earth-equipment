@@ -44,12 +44,12 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur shadow-sm h-16">
-      <div className="flex items-center justify-between max-w-6xl mx-auto px-4 py-4">
+      <div className="flex items-center justify-between max-w-6xl mx-auto px-4 h-full">
         <Link href="/" className="flex items-center">
           <img
             src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp"
             alt="Flat Earth Equipment logo"
-            className="h-12 w-auto px-2"
+            className="h-16 w-auto px-1"
             loading="lazy"
             onError={(e) => {
               console.error('Logo failed to load:', e);
@@ -58,7 +58,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6">
+        <nav className="hidden md:flex items-center space-x-6 h-full">
           {navItems.map((item) => (
             <Link
               key={item.href}
