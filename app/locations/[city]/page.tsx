@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
 
@@ -175,6 +176,12 @@ export default async function LocationPage({ params }: { params: { city: string 
   }
 
   const supabase = createClient();
+  const { data: locationData } = await supabase
+    .from('rental_equipment')
+    .select('location')
+    .eq('city_slug', params.city)
+    .single();
+
   const { data: rentals } = await supabase
     .from('rental_equipment')
     .select('*')
@@ -197,11 +204,11 @@ export default async function LocationPage({ params }: { params: { city: string 
             </Link>
           </li>
           <li className="text-gray-400">/</li>
-          <li className="text-gray-900">{location.name}</li>
+          <li className="text-gray-900">{locationData?.location || location.name}</li>
         </ol>
       </nav>
 
-      <h1 className="text-4xl font-bold mb-6">{location.name}</h1>
+      <h1 className="text-3xl font-bold">{locationData?.location || location.name}</h1>
       {params.city === 'pueblo-co' ? (
         <p className="text-lg text-slate-700 mb-6">
           Flat Earth Equipment proudly serves Pueblo and the southern Colorado Front Range with precision-fit parts, dispatch-ready rentals, and expert support. With fulfillment centers across the Western U.S., we deliver the equipment you need — fast — without the overhead of local storefronts.
@@ -219,6 +226,7 @@ export default async function LocationPage({ params }: { params: { city: string 
           Flat Earth Equipment proudly supports Cheyenne and southeastern Wyoming with same-day parts shipping and rental dispatch — all without relying on a local storefront. Our low-overhead model means fast service, lower costs, and rugged reliability.
         </p>
       ) : null}
+
       <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
         <div className="grid md:grid-cols-2 gap-8">
           <div>
@@ -276,10 +284,12 @@ export default async function LocationPage({ params }: { params: { city: string 
                 href={`/rentals/${rental.category}/${rental.slug}`}
                 className="block rounded border bg-white hover:shadow-md p-4 transition"
               >
-                <img
-                  src={rental.image_url}
+                <Image
+                  src={rental.image_url || '/site-assets/placeholder-equipment.webp'}
                   alt={rental.name}
-                  className="h-40 w-full object-contain mb-3 rounded"
+                  width={400}
+                  height={300}
+                  className="rounded mb-3 object-contain"
                   loading="lazy"
                 />
                 <h3 className="text-lg font-semibold text-slate-800 mb-1">
@@ -289,7 +299,7 @@ export default async function LocationPage({ params }: { params: { city: string 
                   <strong>Capacity:</strong> {rental.weight_capacity_lbs} lbs
                 </p>
                 <p className="text-sm text-slate-600">
-                  <strong>Height:</strong> {rental.lift_height_ft} ft
+                  <strong>Lift Height:</strong> {rental.lift_height_ft} ft
                 </p>
                 <span className="inline-block text-sm font-medium text-canyon-rust mt-2">
                   View Details →
@@ -302,161 +312,14 @@ export default async function LocationPage({ params }: { params: { city: string 
         )}
       </section>
 
-      {params.city === 'pueblo-co' && (
-        <div className="mt-10 space-y-2 text-sm text-slate-600">
-          <p><strong>Popular Services in Pueblo:</strong></p>
-          <ul className="list-disc list-inside">
-            <li><a href="/parts?category=forklift" className="text-canyon-rust hover:underline">Browse forklift parts</a></li>
-            <li><a href="/rentals" className="text-canyon-rust hover:underline">See available rental equipment</a></li>
-            <li><a href="/fleet" className="text-canyon-rust hover:underline">Explore fleet support</a></li>
-          </ul>
-          <p className="italic">Last updated May 2025</p>
-        </div>
-      )}
-
-      {params.city === 'pueblo-co' && (
-        <section className="mt-12 space-y-6">
-          <h2 className="text-xl font-semibold text-slate-800">Frequently Asked Questions</h2>
-
-          <div>
-            <h3 className="font-medium text-slate-700">Can I rent equipment locally in Pueblo?</h3>
-            <p className="text-slate-600">
-              Yes — we deliver equipment directly to job sites across Pueblo and southern Colorado. Forklifts, lifts, and compact machines are available for fast dispatch.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-medium text-slate-700">What parts do you stock for Pueblo customers?</h3>
-            <p className="text-slate-600">
-              We stock controllers, hydraulics, filters, motors, and other precision-fit parts for major brands like Doosan, CAT, and JLG.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-medium text-slate-700">Is support based in Colorado?</h3>
-            <p className="text-slate-600">
-              Our support team is U.S.-based and available Monday through Friday. We offer responsive help for rentals, quotes, and bulk orders.
-            </p>
-          </div>
-        </section>
-      )}
-
-      {params.city === 'bozeman-mt' && (
-        <div className="mt-10 space-y-2 text-sm text-slate-600">
-          <p><strong>Popular Services in Bozeman:</strong></p>
-          <ul className="list-disc list-inside">
-            <li><a href="/parts?category=mini-excavator" className="text-canyon-rust hover:underline">Browse mini excavator parts</a></li>
-            <li><a href="/rentals" className="text-canyon-rust hover:underline">View rental equipment</a></li>
-            <li><a href="/fleet" className="text-canyon-rust hover:underline">Learn about fleet partnerships</a></li>
-          </ul>
-          <p className="italic">Last updated May 2025</p>
-        </div>
-      )}
-
-      {params.city === 'bozeman-mt' && (
-        <section className="mt-12 space-y-6">
-          <h2 className="text-xl font-semibold text-slate-800">Frequently Asked Questions</h2>
-
-          <div>
-            <h3 className="font-medium text-slate-700">Do you deliver to job sites around Bozeman?</h3>
-            <p className="text-slate-600">
-              Yes — we ship directly to job sites in Bozeman, Belgrade, Livingston, Big Sky and surrounding areas. Most equipment is ready to dispatch same-day.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-medium text-slate-700">What kind of rentals are available in Montana?</h3>
-            <p className="text-slate-600">
-              We supply scissor lifts, rough-terrain forklifts, compact loaders, and telehandlers across the Gallatin Valley.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-medium text-slate-700">How do I request a rental quote?</h3>
-            <p className="text-slate-600">
-              Use our <a href="/quote" className="text-canyon-rust underline">quote request form</a> or call our team for fast support.
-            </p>
-          </div>
-        </section>
-      )}
-
-      {params.city === 'las-cruces-nm' && (
-        <div className="mt-10 space-y-2 text-sm text-slate-600">
-          <p><strong>Popular Services in Las Cruces:</strong></p>
-          <ul className="list-disc list-inside">
-            <li><a href="/parts?category=chargers" className="text-canyon-rust hover:underline">Browse battery chargers</a></li>
-            <li><a href="/rentals" className="text-canyon-rust hover:underline">Check rental availability</a></li>
-            <li><a href="/fleet" className="text-canyon-rust hover:underline">Fleet service inquiries</a></li>
-          </ul>
-          <p className="italic">Last updated May 2025</p>
-        </div>
-      )}
-
-      {params.city === 'las-cruces-nm' && (
-        <section className="mt-12 space-y-6">
-          <h2 className="text-xl font-semibold text-slate-800">Frequently Asked Questions</h2>
-
-          <div>
-            <h3 className="font-medium text-slate-700">Do you offer rentals in Las Cruces?</h3>
-            <p className="text-slate-600">
-              Yes — we supply scissor lifts, forklifts, telehandlers, and compact equipment to job sites across southern New Mexico. Most equipment is dispatch-ready.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-medium text-slate-700">Can you ship parts to New Mexico?</h3>
-            <p className="text-slate-600">
-              Absolutely. We stock thousands of compatible parts and ship fast to Las Cruces, Deming, Alamogordo, and surrounding areas.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-medium text-slate-700">Do you support municipal and facility operations?</h3>
-            <p className="text-slate-600">
-              We serve public works, utility contractors, facility managers, and industrial teams with flexible fulfillment and responsive support.
-            </p>
-          </div>
-        </section>
-      )}
-
-      {params.city === 'cheyenne-wy' && (
-        <div className="mt-10 space-y-2 text-sm text-slate-600">
-          <p><strong>Popular Services in Cheyenne:</strong></p>
-          <ul className="list-disc list-inside">
-            <li><a href="/parts?category=telehandler" className="text-canyon-rust hover:underline">Shop telehandler parts</a></li>
-            <li><a href="/rentals" className="text-canyon-rust hover:underline">See equipment for rent</a></li>
-            <li><a href="/fleet" className="text-canyon-rust hover:underline">Request fleet pricing</a></li>
-          </ul>
-          <p className="italic">Last updated May 2025</p>
-        </div>
-      )}
-
-      {params.city === 'cheyenne-wy' && (
-        <section className="mt-12 space-y-6">
-          <h2 className="text-xl font-semibold text-slate-800">Frequently Asked Questions</h2>
-
-          <div>
-            <h3 className="font-medium text-slate-700">Do you have a storefront in Cheyenne?</h3>
-            <p className="text-slate-600">
-              We don't operate a physical storefront, but we deliver fast from our nearby regional hubs. Most equipment and parts ship same-day.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-medium text-slate-700">What types of equipment are available near Cheyenne?</h3>
-            <p className="text-slate-600">
-              We offer forklifts, scissor lifts, telehandlers, and compact loaders for rent, plus thousands of compatible parts in stock.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-medium text-slate-700">Can I get bulk pricing?</h3>
-            <p className="text-slate-600">
-              Yes — we support fleet operators and large buyers with tiered pricing. <a href="/fleet" className="text-canyon-rust underline">Learn more here</a>.
-            </p>
-          </div>
-        </section>
-      )}
+      <section className="mt-8">
+        <h2 className="text-lg font-semibold mb-2">Popular Services in {locationData?.location || location.name}</h2>
+        <ul className="list-disc pl-5 space-y-1 text-sm text-slate-600">
+          <li><Link href="/parts">Browse Forklift Parts</Link></li>
+          <li><Link href="/rentals">View Rental Equipment</Link></li>
+          <li><Link href="/fleet">Learn About Fleet Partnerships</Link></li>
+        </ul>
+      </section>
     </main>
   );
 } 
