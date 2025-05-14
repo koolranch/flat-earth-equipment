@@ -1,5 +1,12 @@
 import Link from 'next/link'
-import { ForkliftIcon, LoaderIcon, EngineIcon, HydraulicIcon, ElectricalIcon, BrakeIcon } from '@/components/icons'
+import {
+  Warehouse as ForkliftIcon,
+  Construction as LoaderIcon,
+  GanttChartSquare as EngineIcon,
+  Droplets as HydraulicIcon,
+  CircuitBoard as ElectricalIcon,
+  Disc as BrakeIcon,
+} from 'lucide-react'
 
 const categories = [
   {
