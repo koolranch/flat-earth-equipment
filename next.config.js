@@ -3,6 +3,7 @@ const nextConfig = {
   images: {
     domains: ['mzsozezflbhebykncbmr.supabase.co'],
   },
+  reactStrictMode: true,
   async redirects() {
     return [
       // Example redirects for parts
@@ -13,4 +14,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig 
+export default nextConfig 
