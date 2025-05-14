@@ -45,6 +45,13 @@ const locations: LocationMap = {
     hours: 'Mon-Fri: 8am-5pm',
     description: 'Providing Wyoming with reliable equipment parts and service.',
   },
+  'albuquerque-nm': {
+    name: 'Albuquerque, NM',
+    address: '1001 Central Ave',
+    phone: '(505) 555-1234',
+    hours: 'Mon-Fri: 8am-5pm',
+    description: 'Our Albuquerque location serves central New Mexico with a full range of equipment parts and service.',
+  },
 };
 
 export async function generateStaticParams() {
@@ -224,6 +231,10 @@ export default async function LocationPage({ params }: { params: { city: string 
       ) : params.city === 'cheyenne-wy' ? (
         <p className="text-lg text-slate-700 mb-6">
           Flat Earth Equipment proudly supports Cheyenne and southeastern Wyoming with same-day parts shipping and rental dispatch — all without relying on a local storefront. Our low-overhead model means fast service, lower costs, and rugged reliability.
+        </p>
+      ) : params.city === 'albuquerque-nm' ? (
+        <p className="text-lg text-slate-700 mb-6">
+          Flat Earth Equipment serves central New Mexico with precision-fit parts and rugged rental gear — delivered fast from our Western regional hubs. We keep costs low and response times sharp by operating without local storefronts.
         </p>
       ) : null}
 
