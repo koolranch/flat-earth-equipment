@@ -22,8 +22,12 @@ async function fetchRentalCategories() {
 
   if (error) throw error;
 
-  // Get unique categories
-  const categories = Array.from(new Set(data.map((item: RentalEquipment) => item.category)));
+  // Get unique categories and convert to singular form
+  const categories = Array.from(new Set(data.map((item: RentalEquipment) => {
+    // Convert to singular form if it ends with 's'
+    const category = item.category.toLowerCase();
+    return category.endsWith('s') ? category.slice(0, -1) : category;
+  })));
   return categories;
 }
 
@@ -59,10 +63,10 @@ export default async function RentEquipmentPage() {
         {categories.map((category: string) => (
           <Link
             key={category}
-            href={`/rentals/${category.toLowerCase().replace(/\s+/g, "-")}`}
+            href={`/rentals/${category}`}
             className="block rounded-xl border shadow hover:shadow-md transition p-6 bg-white"
           >
-            <h2 className="text-xl font-semibold">{category}</h2>
+            <h2 className="text-xl font-semibold capitalize">{category}</h2>
             <p className="mt-2 text-sm text-gray-600">View available models & rental options</p>
           </Link>
         ))}

@@ -1,59 +1,68 @@
-import supabase from "@/lib/supabase";
-import { Metadata } from "next";
-import Link from "next/link";
-import Script from "next/script";
+import { createClient } from '@/utils/supabase/server'
+import { notFound } from 'next/navigation'
+import Link from 'next/link'
+import { Metadata } from 'next'
+import Script from 'next/script'
 import RelatedItems from "@/components/RelatedItems";
 
 interface PageProps {
-  params: { category: string; slug: string };
+  params: {
+    category: string
+    slug: string
+  }
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const formattedTitle = params.category.replace(/-/g, ' ');
+  const formattedTitle = params.category.charAt(0).toUpperCase() + params.category.slice(1)
   return {
     title: `${formattedTitle} Rentals | Flat Earth Equipment`,
     description: `Rent ${formattedTitle} equipment with fast availability and competitive rates.`,
     alternates: { canonical: `/rentals/${params.category}/${params.slug}` },
-  };
+  }
 }
 
 async function fetchModelsByCategory(category: string) {
   try {
-    const formatted = category.replace(/-/g, ' ');
+    const supabase = createClient()
+    // Convert category to singular form for database query
+    const categoryLower = category.toLowerCase()
+    const pluralCategory = categoryLower.endsWith('s') ? categoryLower : `${categoryLower}s`
+    
     const { data, error } = await supabase
       .from('rental_equipment')
       .select('*')
-      .ilike('category', `%${formatted}%`);
-    if (error) throw error;
-    return data || [];
+      .ilike('category', `%${pluralCategory}%`)
+    if (error) throw error
+    return data || []
   } catch (err) {
-    console.error('Error fetching models:', err);
-    return [];
+    console.error('Error fetching models:', err)
+    return []
   }
 }
 
 export default async function RentalCategoryPage({ params }: PageProps) {
-  const models = await fetchModelsByCategory(params.category);
+  const models = await fetchModelsByCategory(params.category)
   if (!models.length) {
     return (
       <main className="max-w-7xl mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-6 capitalize">{params.category.replace(/-/g, ' ')} Rentals</h1>
+        <h1 className="text-4xl font-bold mb-6 capitalize">{params.category}</h1>
         <p className="text-lg text-gray-700">No equipment found for this category.</p>
       </main>
-    );
+    )
   }
 
   // Fetch related rental categories
+  const supabase = createClient()
   const { data: relatedCategories } = await supabase
     .from('rental_categories')
     .select('name, slug')
     .neq('slug', params.category)
-    .limit(3);
+    .limit(3)
 
   const relatedItems = relatedCategories?.map(category => ({
     name: `${category.name} Rentals`,
     href: `/rentals/${category.slug}`
-  })) || [];
+  })) || []
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-12">
@@ -62,19 +71,19 @@ export default async function RentalCategoryPage({ params }: PageProps) {
         {JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Service",
-          "serviceType": `${params.category.replace(/-/g, ' ')} Rental`,
+          "serviceType": `${params.category.charAt(0).toUpperCase() + params.category.slice(1)} Rental`,
           "provider": {
             "@type": "Organization",
             "name": "Flat Earth Equipment"
           },
-          "category": params.category.replace(/-/g, ' ')
+          "category": params.category
         })}
       </Script>
 
-      <h1 className="text-4xl font-bold mb-6 capitalize">{params.category.replace(/-/g, ' ')} Rentals</h1>
+      <h1 className="text-4xl font-bold mb-6 capitalize">{params.category}</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {models.map((model) => {
-          const equipmentSlug = model.model.toLowerCase().replace(/\s+/g, '-');
+          const equipmentSlug = model.model.toLowerCase().replace(/\s+/g, '-')
           return (
             <Link
               key={model.id}
@@ -90,7 +99,7 @@ export default async function RentalCategoryPage({ params }: PageProps) {
                 Power: {model.power_source}
               </p>
             </Link>
-          );
+          )
         })}
       </div>
 
@@ -99,5 +108,5 @@ export default async function RentalCategoryPage({ params }: PageProps) {
         <RelatedItems items={relatedItems} />
       )}
     </main>
-  );
+  )
 } 

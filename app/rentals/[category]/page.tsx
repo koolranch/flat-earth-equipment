@@ -10,7 +10,7 @@ interface PageProps {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const formattedTitle = params.category.replace(/-/g, ' ')
+  const formattedTitle = params.category.charAt(0).toUpperCase() + params.category.slice(1)
   return {
     title: `${formattedTitle} Rentals | Flat Earth Equipment`,
     description: `Browse our selection of ${formattedTitle} equipment available for rent. Find the perfect machine for your project needs.`,
@@ -20,17 +20,22 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function RentalCategoryPage({ params }: PageProps) {
   const supabase = createClient()
+  
+  // Convert category to singular form for database query
+  const category = params.category.toLowerCase()
+  const pluralCategory = category.endsWith('s') ? category : `${category}s`
+  
   const { data: rentals } = await supabase
     .from('rental_equipment')
     .select('*')
-    .ilike('category', `%${params.category.replace(/-/g, ' ')}%`)
+    .ilike('category', `%${pluralCategory}%`)
     .order('brand')
 
   if (!rentals || rentals.length === 0) return notFound()
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold mb-6 capitalize">{params.category.replace(/-/g, ' ')}</h1>
+      <h1 className="text-3xl font-bold mb-6 capitalize">{params.category}</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {rentals.map((rental) => (
