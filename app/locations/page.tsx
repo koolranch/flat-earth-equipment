@@ -15,6 +15,14 @@ type LocationMap = {
 };
 
 const locations: LocationMap = {
+  'albuquerque-nm': {
+    name: 'Albuquerque, NM',
+    address: '123 Main St',
+    phone: '(555) 123-4567',
+    hours: 'Mon-Fri: 8am-5pm',
+    description: 'Our Albuquerque location serves central New Mexico with a full range of equipment parts and service.',
+    shortDescription: 'Serving central New Mexico contractors with parts and equipment.',
+  },
   'las-cruces-nm': {
     name: 'Las Cruces, NM',
     address: '123 Main St',
@@ -81,6 +89,10 @@ export default function LocationsPage() {
             <a href="/locations/pueblo-co" className="hover:text-canyon-rust transition">
               <div className="text-3xl mb-2">🏗️</div>
               Pueblo, CO
+            </a>
+            <a href="/locations/albuquerque-nm" className="hover:text-canyon-rust transition">
+              <div className="text-3xl mb-2">🌵</div>
+              Albuquerque, NM
             </a>
             <a href="/locations/las-cruces-nm" className="hover:text-canyon-rust transition">
               <div className="text-3xl mb-2">🌵</div>
