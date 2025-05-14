@@ -3,26 +3,26 @@ import Image from 'next/image';
 
 const rentalCategories = [
   {
-    name: 'Forklifts',
-    slug: 'forklifts',
+    name: 'Forklift',
+    slug: 'forklift',
     icon: '/rental-icons/forklift.svg',
     description: 'Electric & propane models available'
   },
   {
-    name: 'Scissor Lifts',
-    slug: 'scissor-lifts',
+    name: 'Scissor Lift',
+    slug: 'scissor-lift',
     icon: '/rental-icons/scissor.svg',
     description: 'Compact to rough-terrain lifts'
   },
   {
-    name: 'Telehandlers',
-    slug: 'telehandlers',
+    name: 'Telehandler',
+    slug: 'telehandler',
     icon: '/rental-icons/telehandler.svg',
     description: 'Heavy-duty reach forklifts'
   },
   {
-    name: 'Compact Utility Loaders',
-    slug: 'compact-utility-loaders',
+    name: 'Compact Utility Loader',
+    slug: 'compact-utility-loader',
     icon: '/rental-icons/dingo.svg',
     description: 'Toro Dingo-style tracked machines'
   }
