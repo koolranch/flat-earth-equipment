@@ -7,6 +7,7 @@ import QuickQuote from "@/components/QuickQuote";
 import Testimonials from "@/components/Testimonials";
 import TrustPoints from "@/components/TrustPoints";
 import FeaturedRentals from "@/components/FeaturedRentals";
+import FeaturedProducts from "@/components/FeaturedProducts";
 import Script from 'next/script';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -42,16 +43,19 @@ export default function Page() {
       {/* 1) Full-bleed Hero */}
       <Hero />
 
-      {/* 2) Popular Categories */}
-      <CategoryTiles />
-
       {/* 3) Quick Quote Form */}
       <div className="py-12">
         <QuickQuote />
       </div>
 
+      {/* 2) Popular Categories */}
+      <CategoryTiles />
+
       {/* 3.5) Featured Rentals */}
       <FeaturedRentals />
+
+      {/* Featured Products */}
+      <FeaturedProducts />
 
       {/* Floating Quote Button */}
       <div className="fixed bottom-4 right-4 z-50">
