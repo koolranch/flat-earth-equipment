@@ -1,49 +1,68 @@
 'use client'
 
-import { createClient } from '@/utils/supabase/server'
-import Image from 'next/image'
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { cookies } from 'next/headers'
 import Link from 'next/link'
 
+interface FeaturedProduct {
+  id: string
+  name: string
+  slug: string
+  price: number
+  image_url: string
+}
+
 export default async function FeaturedProducts() {
-  const supabase = createClient()
-  const { data: parts, error } = await supabase
+  const supabase = createServerComponentClient({ cookies })
+
+  const { data: products } = await supabase
     .from('parts')
-    .select('*')
-    .eq('featured', true)    // Make sure you have a `featured` boolean column
+    .select('id, name, slug, price, image_url')
+    .eq('featured', true)
+    .order('updated_at', { ascending: false })
     .limit(4)
 
-  if (error) {
-    console.error('Error loading featured products:', error)
-    return <p className="text-center text-sm text-red-500">Unable to load featured products.</p>
-  }
-  if (!parts || parts.length === 0) {
-    return <p className="text-center text-sm text-slate-600">No featured products at this time.</p>
+  if (!products || products.length === 0) {
+    return null
   }
 
   return (
     <section className="py-12">
-      <h2 className="text-2xl font-semibold text-center mb-8">Featured Products</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        {parts.map((p) => (
-          <Link
-            key={p.id}
-            href={`/parts/${p.slug}`}
-            className="block bg-white border rounded-lg p-4 hover:shadow-lg transition"
-          >
-            <div className="relative w-full h-40 mb-4">
-              <Image
-                src={p.image_url}
-                alt={p.name}
-                fill
-                className="object-contain"
-                loading="lazy"
-              />
-            </div>
-            <h3 className="text-lg font-medium text-slate-800 mb-1">{p.name}</h3>
-            <p className="text-sm text-slate-600 mb-2">{p.brand}</p>
-            <p className="text-sm font-semibold text-canyon-rust">${p.price?.toFixed(2)}</p>
-          </Link>
-        ))}
+      <div className="container mx-auto px-4">
+        <h2 className="text-2xl font-bold mb-8">Featured Products</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {products.map((product: FeaturedProduct) => (
+            <Link
+              key={product.id}
+              href={`/parts/${product.slug}`}
+              className="group"
+            >
+              <div className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+                <div className="aspect-w-16 aspect-h-9">
+                  {product.image_url ? (
+                    <img
+                      src={product.image_url}
+                      alt={product.name}
+                      className="object-cover w-full h-full"
+                    />
+                  ) : (
+                    <div className="bg-gray-200 w-full h-full flex items-center justify-center">
+                      <span className="text-gray-400">No image available</span>
+                    </div>
+                  )}
+                </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold mb-2 group-hover:text-canyon-rust transition-colors">
+                    {product.name}
+                  </h3>
+                  <p className="text-gray-800 font-medium">
+                    ${product.price.toFixed(2)}
+                  </p>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   )
