@@ -69,33 +69,33 @@ export async function generateMetadata({ params }: { params: { city: string } })
     };
   }
 
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    'name': 'Flat Earth Equipment',
-    'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
-    'url': `https://flatearthequipment.com/locations/${params.city}`,
-    'telephone': '+1-307-302-0043',
-    'address': {
-      '@type': 'PostalAddress',
-      'addressLocality': location.name.split(',')[0].trim(),
-      'addressRegion': location.name.split(',')[1].trim(),
-      'addressCountry': 'US'
-    },
-    'areaServed': {
-      '@type': 'Place',
-      'name': location.name
-    },
-    'description': location.description,
-    'openingHours': 'Mo-Fr 07:00-17:00',
-    'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support']
-  };
+  const [city, state] = location.name.split(',').map(part => part.trim());
 
   return {
     title: `${location.name} Location | Flat Earth Equipment`,
     description: location.description,
     other: {
-      'application/ld+json': JSON.stringify(structuredData)
+      'application/ld+json': JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'LocalBusiness',
+        'name': 'Flat Earth Equipment',
+        'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
+        'url': `https://flatearthequipment.com/locations/${params.city}`,
+        'telephone': '+1-307-302-0043',
+        'address': {
+          '@type': 'PostalAddress',
+          'addressLocality': city,
+          'addressRegion': state,
+          'addressCountry': 'US'
+        },
+        'areaServed': {
+          '@type': 'Place',
+          'name': location.name
+        },
+        'description': location.description,
+        'openingHours': 'Mo-Fr 07:00-17:00',
+        'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support']
+      })
     }
   };
 }
