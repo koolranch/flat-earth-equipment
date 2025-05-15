@@ -68,11 +68,16 @@ export default async function PartsPage({
 
   const distinctCategories = Array.from(new Set(categories?.map((c) => c.category) || []));
 
-  const { data: parts, error } = await supabase
+  let partsQuery = supabase
     .from('parts')
     .select('slug, name, price, category')
-    .order('name')
-    .eq('category', searchParams.category || '');
+    .order('name');
+
+  if (searchParams.category) {
+    partsQuery = partsQuery.eq('category', searchParams.category);
+  }
+
+  const { data: parts, error } = await partsQuery;
 
   if (error) {
     return <p className="p-8 text-red-600">Error: {error.message}</p>;
