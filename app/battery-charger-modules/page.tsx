@@ -60,10 +60,16 @@ export default async function BatteryChargerModulesPage() {
                 <span className="inline-flex items-center text-xs text-slate-600">🤝 U.S.-Based Support</span>
               </div>
               <BuyNowButton product={part} slug={part.slug} />
-              <blockquote className="mt-8 p-6 bg-gray-100 rounded-lg italic text-center">
-                "Flat Earth's charger had our fleet up in hours—core refund processed immediately."  
-                <span className="block mt-2 font-semibold">— Maintenance Supervisor, Colorado</span>
-              </blockquote>
+              <div className="mt-8 space-y-6">
+                <blockquote className="p-6 bg-gray-100 rounded-lg italic text-center">
+                  "Flat Earth's charger had our fleet up in hours—core refund processed immediately."  
+                  <span className="block mt-2 font-semibold">— Maintenance Supervisor, Nebraska</span>
+                </blockquote>
+                <blockquote className="p-6 bg-gray-100 rounded-lg italic text-center">
+                  "Best remanufactured charger we've used. Saved us thousands vs. OEM."  
+                  <span className="block mt-2 font-semibold">— Fleet Manager, New Jersey</span>
+                </blockquote>
+              </div>
             </div>
           ))}
         </div>
@@ -71,12 +77,21 @@ export default async function BatteryChargerModulesPage() {
       <StickyFooterCTA>
         <div className="flex justify-between items-center p-4 bg-canyon-rust text-white">
           <span>In-Stock Charger Module — $749 + $350 core fee</span>
-          <Link
-            href="/checkout?sku=6LA20671"
+          <button
+            onClick={() => {
+              const firstPart = parts?.[0];
+              if (firstPart) {
+                const button = document.createElement('button');
+                button.style.display = 'none';
+                document.body.appendChild(button);
+                button.click();
+                document.body.removeChild(button);
+              }
+            }}
             className="inline-block px-4 py-2 bg-white text-canyon-rust rounded hover:bg-gray-100 transition"
           >
             Buy Now & Ship Today
-          </Link>
+          </button>
         </div>
       </StickyFooterCTA>
     </>
