@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import FastQuoteForm from '@/components/FastQuoteForm';
 
 export default function QuickQuote() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -39,75 +40,7 @@ export default function QuickQuote() {
         We'll get back to you within 1 hour — no fluff, just parts.
       </p>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="make" className="block text-sm font-medium text-slate-700 mb-1">
-              Make
-            </label>
-            <input
-              type="text"
-              id="make"
-              name="make"
-              required
-              className="w-full border border-slate-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A0522D] focus:border-transparent"
-              placeholder="e.g., Toyota"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="model" className="block text-sm font-medium text-slate-700 mb-1">
-              Model
-            </label>
-            <input
-              type="text"
-              id="model"
-              name="model"
-              required
-              className="w-full border border-slate-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A0522D] focus:border-transparent"
-              placeholder="e.g., 8FGCU25"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label htmlFor="part" className="block text-sm font-medium text-slate-700 mb-1">
-            Part Number or Description
-          </label>
-          <input
-            type="text"
-            id="part"
-            name="part"
-            required
-            className="w-full border border-slate-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A0522D] focus:border-transparent"
-            placeholder="e.g., 12345-67890 or 'hydraulic pump'"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            className="w-full border border-slate-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A0522D] focus:border-transparent"
-            placeholder="your@email.com"
-          />
-        </div>
-
-        <div className="text-center">
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="bg-canyon-rust text-white px-6 py-3 rounded-md hover:bg-orange-700 transition font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isSubmitting ? 'Sending...' : 'Request a Fast Quote'}
-          </button>
-        </div>
-      </form>
+      <FastQuoteForm currentLocation="{yourLocationSlug}" />
     </section>
   );
 } 
