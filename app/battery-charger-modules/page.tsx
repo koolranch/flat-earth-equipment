@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CheckCircle, Package, Zap, Clock, CreditCard } from 'lucide-react';
 import Script from 'next/script';
 import { createClient } from '@/utils/supabase/server';
+import BuyNowButton from '@/components/BuyNowButton';
 
 export const metadata: Metadata = {
   title: "Battery Charger Modules | Flat Earth Equipment",
@@ -34,12 +35,12 @@ export default async function BatteryChargerModulesPage() {
         {parts?.map((part) => (
           <div
             key={part.id}
-            className="border rounded-lg p-4 bg-white shadow-sm hover:shadow-md transition"
+            className="border rounded-lg p-6 bg-white shadow-md flex flex-col items-center text-center"
           >
-            <div className="relative h-36 w-full mb-4">
+            <div className="relative w-full aspect-square mb-4">
               <Image
-                src={part.image_filename 
-                  ? `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/product-images/${part.image_filename}`
+                src={part.image_url 
+                  ? part.image_url
                   : 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/placeholders/default-product.jpg'
                 }
                 alt={part.name}
@@ -48,15 +49,22 @@ export default async function BatteryChargerModulesPage() {
                 loading="lazy"
               />
             </div>
-            <h3 className="font-semibold text-slate-800 text-lg mb-1">{part.name}</h3>
-            <p className="text-sm text-slate-600 mb-2">{part.brand}</p>
-            <p className="text-sm font-medium text-orange-600 mb-4">
-              ${part.price?.toFixed(2)}
-            </p>
+            <span className="text-sm text-slate-500 mb-1">{part.brand}</span>
+            <h3 className="font-bold text-lg mb-2">{part.name}</h3>
+            <p className="text-orange-700 font-semibold text-xl mb-2">${part.price?.toFixed(2)}</p>
+            {part.core_charge && (
+              <p className="text-xs text-slate-500 mb-2">Includes ${part.core_charge} core charge</p>
+            )}
+            <p className="text-sm text-slate-600 mb-4">{part.description?.slice(0, 100)}...</p>
+            <div className="flex gap-2 justify-center mb-4">
+              <span className="inline-flex items-center text-xs text-slate-600">🚚 Same-Day Dispatch</span>
+              <span className="inline-flex items-center text-xs text-slate-600">📦 Shipped Nationwide</span>
+              <span className="inline-flex items-center text-xs text-slate-600">🤝 U.S.-Based Support</span>
+            </div>
+            <BuyNowButton product={part} slug={part.slug} />
             <Link
-              key={part.slug}
               href={`/parts/${part.slug}`}
-              className="block rounded-lg border p-4 hover:shadow-lg"
+              className="block rounded-lg border px-4 py-2 mt-2 bg-canyon-rust text-white font-semibold hover:bg-orange-700 transition"
             >
               View Details
             </Link>
