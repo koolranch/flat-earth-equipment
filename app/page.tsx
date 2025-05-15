@@ -5,7 +5,7 @@ import CategoryTiles from "@/components/CategoryTiles";
 import EmailSignup from "@/components/EmailSignup";
 import QuickQuote from "@/components/QuickQuote";
 import Testimonials from "@/components/Testimonials";
-import TrustPoints from "@/components/TrustPoints";
+import WhyTrustUs from "./components/WhyTrustUs";
 import FeaturedRentals from "@/components/FeaturedRentals";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import Script from 'next/script';
@@ -122,7 +122,7 @@ export default function Page() {
       <Testimonials />
 
       {/* 8) Trust Points */}
-      <TrustPoints />
+      <WhyTrustUs />
 
       {/* 9) Geographic Coverage */}
       <section className="bg-slate-50 py-12 mt-16">
