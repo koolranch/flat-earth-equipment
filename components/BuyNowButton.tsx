@@ -60,14 +60,9 @@ export default function BuyNowButton({ product, slug }: BuyNowButtonProps) {
   return (
     <button
       onClick={handleBuyNow}
-      className="mt-6 bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition-colors"
+      className="mt-6 bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition-colors w-full"
     >
-      Buy Now — ${(totalPrice / 100).toFixed(2)}
-      {product.has_core_charge && product.core_charge && (
-        <span className="text-sm ml-2">
-          (includes ${product.core_charge.toFixed(2)} core charge)
-        </span>
-      )}
+      Buy Now & Ship Today — ${(product.price_cents / 100).toFixed(2)} + ${product.core_charge?.toFixed(2) || '0'} core fee
     </button>
   );
 } 
