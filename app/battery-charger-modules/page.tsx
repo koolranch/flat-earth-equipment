@@ -6,6 +6,7 @@ import Script from 'next/script';
 import { createClient } from '@/utils/supabase/server';
 import BuyNowButton from '@/components/BuyNowButton';
 import StickyFooterCTA from '@/components/StickyFooterCTA';
+import StickyFooterButton from '@/components/StickyFooterButton';
 
 export const metadata: Metadata = {
   title: "Battery Charger Modules | Flat Earth Equipment",
@@ -74,26 +75,14 @@ export default async function BatteryChargerModulesPage() {
           ))}
         </div>
       </main>
-      <StickyFooterCTA>
-        <div className="flex justify-between items-center p-4 bg-canyon-rust text-white">
-          <span>In-Stock Charger Module — $749 + $350 core fee</span>
-          <button
-            onClick={() => {
-              const firstPart = parts?.[0];
-              if (firstPart) {
-                const button = document.createElement('button');
-                button.style.display = 'none';
-                document.body.appendChild(button);
-                button.click();
-                document.body.removeChild(button);
-              }
-            }}
-            className="inline-block px-4 py-2 bg-white text-canyon-rust rounded hover:bg-gray-100 transition"
-          >
-            Buy Now & Ship Today
-          </button>
-        </div>
-      </StickyFooterCTA>
+      {parts && parts.length > 0 && (
+        <StickyFooterCTA>
+          <div className="flex justify-between items-center p-4 bg-canyon-rust text-white">
+            <span>In-Stock Charger Module — $749 + $350 core fee</span>
+            <StickyFooterButton product={parts[0]} slug={parts[0].slug} />
+          </div>
+        </StickyFooterCTA>
+      )}
     </>
   );
 } 
