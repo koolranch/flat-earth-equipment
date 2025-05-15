@@ -60,7 +60,7 @@ export default function Page() {
       {/* Floating Quote Button */}
       <div className="fixed bottom-4 right-4 z-50">
         <Link
-          href="/rentals"
+          href="/quote"
           className="
             bg-canyon-rust text-white px-5 py-3 rounded-full shadow-lg
             hover:shadow-xl transition
