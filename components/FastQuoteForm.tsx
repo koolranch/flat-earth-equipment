@@ -15,7 +15,7 @@ export default function FastQuoteForm({ currentLocation = '' }: FastQuoteFormPro
       <p className="mb-4 text-gray-700">
         Parts or equipment rental—with a reply in under 1 hour.
       </p>
-      <form action="https://formspree.io/f/xyz" method="POST" className="space-y-4">
+      <form action="https://formspree.io/f/mrbqkjke" method="POST" className="space-y-4">
         <label className="block">
           <span className="font-medium">I need a quote for:</span>
           <select
