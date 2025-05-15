@@ -69,111 +69,35 @@ export async function generateMetadata({ params }: { params: { city: string } })
     };
   }
 
-  const metadata: Metadata = {
-    title: `${location.name} Location | Flat Earth Equipment`,
-    description: location.description,
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    'name': 'Flat Earth Equipment',
+    'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
+    'url': `https://flatearthequipment.com/locations/${params.city}`,
+    'telephone': '+1-307-302-0043',
+    'address': {
+      '@type': 'PostalAddress',
+      'addressLocality': location.name.split(',')[0].trim(),
+      'addressRegion': location.name.split(',')[1].trim(),
+      'addressCountry': 'US'
+    },
+    'areaServed': {
+      '@type': 'Place',
+      'name': location.name
+    },
+    'description': location.description,
+    'openingHours': 'Mo-Fr 07:00-17:00',
+    'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support']
   };
 
-  // Add structured data for location pages
-  if (params.city === 'cheyenne-wy') {
-    metadata.other = {
-      'application/ld+json': JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'LocalBusiness',
-        'name': 'Flat Earth Equipment',
-        'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
-        'url': 'https://flatearthequipment.com/locations/cheyenne-wy',
-        'telephone': '+1-307-302-0043',
-        'address': {
-          '@type': 'PostalAddress',
-          'addressLocality': 'Cheyenne',
-          'addressRegion': 'WY',
-          'addressCountry': 'US'
-        },
-        'areaServed': {
-          '@type': 'Place',
-          'name': 'Cheyenne, WY'
-        },
-        'description': 'Flat Earth Equipment offers industrial parts and equipment rentals to contractors and facilities in Cheyenne, WY. Fast quotes, same-day shipping, and regional dispatch.',
-        'openingHours': 'Mo-Fr 07:00-17:00',
-        'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support']
-      })
-    };
-  } else if (params.city === 'bozeman-mt') {
-    metadata.other = {
-      'application/ld+json': JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'LocalBusiness',
-        'name': 'Flat Earth Equipment',
-        'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
-        'url': 'https://flatearthequipment.com/locations/bozeman-mt',
-        'telephone': '+1-307-302-0043',
-        'address': {
-          '@type': 'PostalAddress',
-          'addressLocality': 'Bozeman',
-          'addressRegion': 'MT',
-          'addressCountry': 'US'
-        },
-        'areaServed': {
-          '@type': 'Place',
-          'name': 'Bozeman, MT'
-        },
-        'description': 'Flat Earth Equipment provides rental equipment and parts to contractors, facilities, and municipalities in Bozeman, MT. Fast shipping from regional hubs.',
-        'openingHours': 'Mo-Fr 07:00-17:00',
-        'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support']
-      })
-    };
-  } else if (params.city === 'pueblo-co') {
-    metadata.other = {
-      'application/ld+json': JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'LocalBusiness',
-        'name': 'Flat Earth Equipment',
-        'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
-        'url': 'https://flatearthequipment.com/locations/pueblo-co',
-        'telephone': '+1-307-302-0043',
-        'address': {
-          '@type': 'PostalAddress',
-          'addressLocality': 'Pueblo',
-          'addressRegion': 'CO',
-          'addressCountry': 'US'
-        },
-        'areaServed': {
-          '@type': 'Place',
-          'name': 'Pueblo, CO'
-        },
-        'description': 'Flat Earth Equipment ships precision-fit parts and rugged rental equipment to contractors and industrial teams across Pueblo, Colorado. Same-day quotes and regional delivery.',
-        'openingHours': 'Mo-Fr 07:00-17:00',
-        'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support']
-      })
-    };
-  } else if (params.city === 'las-cruces-nm') {
-    metadata.other = {
-      'application/ld+json': JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'LocalBusiness',
-        'name': 'Flat Earth Equipment',
-        'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
-        'url': 'https://flatearthequipment.com/locations/las-cruces-nm',
-        'telephone': '+1-307-302-0043',
-        'address': {
-          '@type': 'PostalAddress',
-          'addressLocality': 'Las Cruces',
-          'addressRegion': 'NM',
-          'addressCountry': 'US'
-        },
-        'areaServed': {
-          '@type': 'Place',
-          'name': 'Las Cruces, NM'
-        },
-        'description': 'Flat Earth Equipment delivers parts and rental equipment to Las Cruces, Deming, and Alamogordo from regional hubs. Dispatch-ready gear and responsive fleet support.',
-        'openingHours': 'Mo-Fr 07:00-17:00',
-        'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support']
-      })
-    };
-  }
-
-  return metadata;
+  return {
+    title: `${location.name} Location | Flat Earth Equipment`,
+    description: location.description,
+    other: {
+      'application/ld+json': JSON.stringify(structuredData)
+    }
+  };
 }
 
 export default async function LocationPage({ params }: { params: { city: string } }) {
