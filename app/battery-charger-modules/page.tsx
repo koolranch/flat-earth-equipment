@@ -51,10 +51,6 @@ export default async function BatteryChargerModulesPage() {
             </div>
             <span className="text-sm text-slate-500 mb-1">{part.brand}</span>
             <h3 className="font-bold text-lg mb-2">{part.name}</h3>
-            <p className="text-orange-700 font-semibold text-xl mb-2">${part.price?.toFixed(2)}</p>
-            {part.core_charge && (
-              <p className="text-xs text-slate-500 mb-2">Includes ${part.core_charge} core charge</p>
-            )}
             <p className="text-sm text-slate-600 mb-4">{part.description?.slice(0, 100)}...</p>
             <div className="flex gap-2 justify-center mb-4">
               <span className="inline-flex items-center text-xs text-slate-600">🚚 Same-Day Dispatch</span>
