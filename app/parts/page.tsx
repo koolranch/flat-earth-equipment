@@ -12,6 +12,7 @@ import {
   CircleIcon,
   LucideIcon,
 } from "lucide-react";
+import { categories as canonicalCategories } from '@/lib/data/categories';
 
 export const metadata: Metadata = {
   title: 'Parts Catalog | Flat Earth Equipment',
@@ -68,6 +69,21 @@ export default async function PartsPage({
 
   const distinctCategories = Array.from(new Set(categories?.map((c) => c.category) || []));
 
+  // Helper to get canonical display name from slug
+  function getCategoryDisplayName(slugOrName: string) {
+    // Try to find by slug
+    const found = canonicalCategories.find(cat => cat.slug === slugOrName);
+    if (found) return found.name;
+    // Try to find by name (case-insensitive)
+    const foundByName = canonicalCategories.find(cat => cat.name.toLowerCase() === slugOrName.toLowerCase());
+    if (foundByName) return foundByName.name;
+    // Fallback to original
+    return slugOrName
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+
   let partsQuery = supabase
     .from('parts')
     .select('slug, name, price, category')
@@ -111,7 +127,7 @@ export default async function PartsPage({
                   : 'bg-slate-100 text-slate-800 hover:bg-slate-200'
               }`}
             >
-              {category}
+              {getCategoryDisplayName(category)}
             </Link>
           ))}
         </div>

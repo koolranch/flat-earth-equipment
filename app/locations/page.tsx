@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import AlbuquerqueIcon from '@/app/icons/locations/AlbuquerqueIcon.svg';
 
 interface Location {
@@ -93,7 +94,7 @@ export default function LocationsPage() {
             </a>
             <a href="/locations/albuquerque-nm" className="hover:text-canyon-rust transition">
               <div className="text-3xl mb-2">
-                <AlbuquerqueIcon className="w-6 h-6" />
+                <Image src={AlbuquerqueIcon} alt="Albuquerque" width={24} height={24} />
               </div>
               Albuquerque, NM
             </a>
