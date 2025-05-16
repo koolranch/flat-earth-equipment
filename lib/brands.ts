@@ -40,7 +40,7 @@ export const brands: BrandInfo[] = [
     slug: 'genie',
     name: 'Genie',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Genie.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//genie.webp',
     intro:
       'OEM-fit Genie lift parts plus job-ready Genie boom & scissor lift rentals.',
     seoTitle: 'Genie Lift Parts & Rentals | Flat Earth Equipment',
@@ -51,7 +51,7 @@ export const brands: BrandInfo[] = [
     slug: 'jlg',
     name: 'JLG',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/JLG.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//jlg.webp',
     intro:
       'We keep JLG lifts running with filters, joysticks, chargers, and more—plus on-demand JLG boom-lift rentals.',
     seoTitle: 'JLG Boom Lift Parts & Rentals | Flat Earth Equipment',
@@ -62,7 +62,7 @@ export const brands: BrandInfo[] = [
     slug: 'skyjack',
     name: 'Skyjack',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Skyjack.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//skyjack.webp',
     intro:
       'Skyjack scissor-lift parts shipped same-day and SJIII lift rentals available.',
     seoTitle: 'Skyjack Scissor-Lift Parts & Rentals | Flat Earth Equipment',
@@ -73,7 +73,7 @@ export const brands: BrandInfo[] = [
     slug: 'skytrak',
     name: 'Skytrak',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Skytrak.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//skytrak.webp',
     intro:
       'Skytrak telehandler parts, manuals, and 8042 / 10054 rentals in stock.',
     seoTitle: 'Skytrak Telehandler Parts & Rentals | Flat Earth Equipment',
@@ -84,7 +84,7 @@ export const brands: BrandInfo[] = [
     slug: 'toyota',
     name: 'Toyota',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Toyota.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//toyota.webp',
     intro:
       'Warehouse-ready Toyota forklift parts and LPG truck rentals.',
     seoTitle: 'Toyota Forklift Parts & Rentals | Flat Earth Equipment',
@@ -95,7 +95,7 @@ export const brands: BrandInfo[] = [
     slug: 'hyster',
     name: 'Hyster',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Hyster.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//hyster.webp',
     intro:
       'Top-quality Hyster forklift filters, chains, and fault-code parts shipped nationwide.',
     seoTitle: 'Hyster Forklift Parts | Flat Earth Equipment',
@@ -106,7 +106,7 @@ export const brands: BrandInfo[] = [
     slug: 'yale',
     name: 'Yale',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Yale.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//yale.webp',
     intro:
       'Precision-fit Yale forklift seats, tires, and safety-critical parts.',
     seoTitle: 'Yale Forklift Parts | Flat Earth Equipment',
@@ -117,7 +117,7 @@ export const brands: BrandInfo[] = [
     slug: 'doosan',
     name: 'Doosan',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Doosan.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//doosan.webp',
     intro:
       'Doosan dual-fuel forklift parts for fast fleet uptime.',
     seoTitle: 'Doosan Forklift Parts | Flat Earth Equipment',
@@ -139,7 +139,7 @@ export const brands: BrandInfo[] = [
     slug: 'john-deere',
     name: 'John Deere',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/John_Deere.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//john-deere.webp',
     intro:
       'OEM-fit John Deere skid-steer parts and compact equipment rentals.',
     seoTitle: 'John Deere Skid-Steer Parts & Rentals | Flat Earth Equipment',
@@ -150,7 +150,7 @@ export const brands: BrandInfo[] = [
     slug: 'kubota',
     name: 'Kubota',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Kubota.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//kubota.webp',
     intro:
       'We keep Kubota SVL track loaders running with tracks, filters, and hydraulic parts.',
     seoTitle: 'Kubota SVL Track Loader Parts | Flat Earth Equipment',
@@ -183,7 +183,7 @@ export const brands: BrandInfo[] = [
     slug: 'jcb',
     name: 'JCB',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/JCB.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//jcb.webp',
     intro:
       'Flat Earth Equipment stocks JCB telehandler parts plus popular JCB 510-56 rentals.',
     seoTitle: 'JCB Telehandler Parts & Rentals | Flat Earth Equipment',
@@ -194,7 +194,7 @@ export const brands: BrandInfo[] = [
     slug: 'snorkel',
     name: 'Snorkel',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Snorkel.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//snorkel.webp',
     intro:
       'Snorkel TB60/TB80 boom-lift parts and lift rentals available.',
     seoTitle: 'Snorkel Boom-Lift Parts & Rentals | Flat Earth Equipment',
@@ -216,7 +216,7 @@ export const brands: BrandInfo[] = [
     slug: 'ep',
     name: 'EP',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/EP.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//ep-equipment.webp',
     intro:
       'EP charger modules and golf cart parts with precision-fit replacements in stock.',
     seoTitle: 'EP Charger Modules & Parts | Flat Earth Equipment',
@@ -227,7 +227,7 @@ export const brands: BrandInfo[] = [
     slug: 'factory-cat',
     name: 'Factory Cat',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Factory_Cat.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//factorycat.webp',
     intro:
       'Factory Cat industrial scrubber parts and service kits ready to ship.',
     seoTitle: 'Factory Cat Scrubber Parts & Service Kits | Flat Earth Equipment',
@@ -238,7 +238,7 @@ export const brands: BrandInfo[] = [
     slug: 'enersys',
     name: 'EnerSys',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/EnerSys.png',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//enersys.png',
     intro:
       'EnerSys battery modules and charger components with guaranteed OEM fit.',
     seoTitle: 'EnerSys Battery Modules & Charger Parts | Flat Earth Equipment',
@@ -249,7 +249,7 @@ export const brands: BrandInfo[] = [
     slug: 'liugong',
     name: 'LiuGong',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/LiuGong.png',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//liugong.png',
     intro:
       'LiuGong loaders and mini-excavator parts stocked for quick fulfillment.',
     seoTitle: 'LiuGong Loader & Excavator Parts | Flat Earth Equipment',
@@ -260,7 +260,7 @@ export const brands: BrandInfo[] = [
     slug: 'clark',
     name: 'Clark',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Clark.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//clark.webp',
     intro:
       'Precision-fit Clark forklift parts and warehouse equipment components, in stock and ready to ship.',
     seoTitle: 'Clark Forklift Parts | Flat Earth Equipment',
@@ -271,7 +271,7 @@ export const brands: BrandInfo[] = [
     slug: 'crown',
     name: 'Crown',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Crown.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//crown.webp',
     intro:
       'Crown forklift parts and maintenance kits, with expert guidance from our team.',
     seoTitle: 'Crown Forklift Parts | Flat Earth Equipment',
@@ -282,7 +282,7 @@ export const brands: BrandInfo[] = [
     slug: 'gehl',
     name: 'Gehl',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Gehl.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//gehl.webp',
     intro:
       'High-quality Gehl loader and telehandler parts, tested for durability.',
     seoTitle: 'Gehl Loader & Telehandler Parts | Flat Earth Equipment',
@@ -293,7 +293,7 @@ export const brands: BrandInfo[] = [
     slug: 'hangcha',
     name: 'Hangcha',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Hangcha.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//hangcha.webp',
     intro:
       'Stocked Hangcha forklift parts and accessories for fast fleet uptime.',
     seoTitle: 'Hangcha Forklift Parts | Flat Earth Equipment',
@@ -304,7 +304,7 @@ export const brands: BrandInfo[] = [
     slug: 'heli',
     name: 'Heli',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Heli.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//heli.webp',
     intro:
       'Heli forklift parts and attachments in stock for quick fulfillment.',
     seoTitle: 'Heli Forklift Parts | Flat Earth Equipment',
@@ -315,7 +315,7 @@ export const brands: BrandInfo[] = [
     slug: 'hyundai',
     name: 'Hyundai',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Hyundai.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//hyundai.webp',
     intro:
       'Genuine Hyundai forklift parts, filters, and hydraulics ready to ship.',
     seoTitle: 'Hyundai Forklift Parts | Flat Earth Equipment',
@@ -326,7 +326,7 @@ export const brands: BrandInfo[] = [
     slug: 'karcher',
     name: 'Kärcher',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Karcher.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//karcher.webp',
     intro:
       'Kärcher pressure washer and cleaning equipment parts shipped nationwide.',
     seoTitle: 'Kärcher Cleaning Equipment Parts | Flat Earth Equipment',
@@ -337,7 +337,7 @@ export const brands: BrandInfo[] = [
     slug: 'komatsu',
     name: 'Komatsu',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Komatsu.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//komatsu.webp',
     intro:
       'Komatsu heavy-equipment parts, pins, bushings, and service kits in stock.',
     seoTitle: 'Komatsu Heavy Equipment Parts | Flat Earth Equipment',
@@ -348,7 +348,7 @@ export const brands: BrandInfo[] = [
     slug: 'lcmg',
     name: 'LCMG',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/LCMG.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//lcmg.webp',
     intro:
       'LCMG lift truck parts and components for durable performance.',
     seoTitle: 'LCMG Forklift Parts | Flat Earth Equipment',
@@ -359,7 +359,7 @@ export const brands: BrandInfo[] = [
     slug: 'linde',
     name: 'Linde',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Linde.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//linde.webp',
     intro:
       'Precision-fit Linde forklift parts, from motors to masts.',
     seoTitle: 'Linde Forklift Parts | Flat Earth Equipment',
@@ -367,87 +367,10 @@ export const brands: BrandInfo[] = [
       'Order Linde forklift components today—same-day dispatch.',
   },
   {
-    slug: 'lull',
-    name: 'Lull',
-    logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Lull.webp',
-    intro:
-      'Lull telehandler parts and service kits, in stock and ready to ship.',
-    seoTitle: 'Lull Telehandler Parts | Flat Earth Equipment',
-    seoDescription:
-      'Shop Lull telehandler replacement parts—fast delivery.',
-  },
-  {
-    slug: 'mec',
-    name: 'MEC',
-    logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/MEC.webp',
-    intro:
-      'MEC aerial and scissor-lift parts, tested for safety and durability.',
-    seoTitle: 'MEC Lift Parts | Flat Earth Equipment',
-    seoDescription:
-      'Buy MEC lift parts online—same-day shipping across the nation.',
-  },
-  {
-    slug: 'mitsubishi-forklift',
-    name: 'Mitsubishi Forklift',
-    logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Mitsubishi_Forklift.webp',
-    intro:
-      'Mitsubishi forklift parts, including transmissions and hydraulics.',
-    seoTitle: 'Mitsubishi Forklift Parts | Flat Earth Equipment',
-    seoDescription:
-      'Order Mitsubishi forklift components—fast, reliable delivery.',
-  },
-  {
-    slug: 'moffett',
-    name: 'Moffett',
-    logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Moffett.webp',
-    intro:
-      'Moffett truck-mounted forklift parts and service kits ready to ship.',
-    seoTitle: 'Moffett Forklift Parts | Flat Earth Equipment',
-    seoDescription:
-      'Buy Moffett forklift parts online—same-day shipping available.',
-  },
-  {
-    slug: 'nissan-forklift',
-    name: 'Nissan Forklift',
-    logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Nissan_Forklift.webp',
-    intro:
-      'Nissan forklift parts, including engines, forks, and electrical.',
-    seoTitle: 'Nissan Forklift Parts | Flat Earth Equipment',
-    seoDescription:
-      'Shop Nissan forklift components—nationwide shipping.',
-  },
-  {
-    slug: 'powerboss',
-    name: 'PowerBoss',
-    logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/PowerBoss.webp',
-    intro:
-      'PowerBoss floor-scrubber and sweeper parts in stock for fast fulfillment.',
-    seoTitle: 'PowerBoss Cleaning Equipment Parts | Flat Earth Equipment',
-    seoDescription:
-      'Order PowerBoss scrubber parts—same-day shipping.',
-  },
-  {
-    slug: 'raymond',
-    name: 'Raymond',
-    logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Raymond.webp',
-    intro:
-      'Raymond forklift parts, from controllers to chassis components.',
-    seoTitle: 'Raymond Forklift Parts | Flat Earth Equipment',
-    seoDescription:
-      'Get Raymond forklift parts with fast shipping across the USA.',
-  },
-  {
     slug: 'tailift',
     name: 'Tailift',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Tailift.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//tailift.webp',
     intro:
       'Tailift scissor- and boom-lift parts, tested for reliability.',
     seoTitle: 'Tailift Lift Parts | Flat Earth Equipment',
@@ -458,7 +381,7 @@ export const brands: BrandInfo[] = [
     slug: 'tcm',
     name: 'TCM',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/TCM.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//tcm.webp',
     intro:
       'TCM forklift parts, including hydraulics and electrics.',
     seoTitle: 'TCM Forklift Parts | Flat Earth Equipment',
@@ -469,7 +392,7 @@ export const brands: BrandInfo[] = [
     slug: 'tennant',
     name: 'Tennant',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Tennant.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//tennant.webp',
     intro:
       'Tennant industrial cleaner parts and brushes in stock for quick dispatch.',
     seoTitle: 'Tennant Cleaning Equipment Parts | Flat Earth Equipment',
@@ -480,7 +403,7 @@ export const brands: BrandInfo[] = [
     slug: 'unicarrriers',
     name: 'UniCarrriers',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/UniCarriers.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//unicarriers.webp',
     intro:
       'UniCarriers forklift parts and attachments, ready to ship.',
     seoTitle: 'UniCarriers Forklift Parts | Flat Earth Equipment',
@@ -491,11 +414,22 @@ export const brands: BrandInfo[] = [
     slug: 'xcmg',
     name: 'XCMG',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/XCMG.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//xcmg.webp',
     intro:
       'XCMG heavy-equipment parts for loaders, excavators, and more.',
     seoTitle: 'XCMG Equipment Parts | Flat Earth Equipment',
     seoDescription:
       'Order XCMG replacement parts—fast delivery to every state.',
+  },
+  {
+    slug: 'toro',
+    name: 'Toro',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//toro.webp',
+    intro:
+      'Toro forklift parts and attachments, ready to ship.',
+    seoTitle: 'Toro Forklift Parts | Flat Earth Equipment',
+    seoDescription:
+      'Shop Toro parts online—same-day shipping across the nation.',
   },
 ]; 
