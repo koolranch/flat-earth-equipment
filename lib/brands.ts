@@ -256,4 +256,246 @@ export const brands: BrandInfo[] = [
     seoDescription:
       'Shop LiuGong replacement parts for loaders and mini-excavators—nationwide delivery.'
   },
+  {
+    slug: 'clark',
+    name: 'Clark',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Clark.webp',
+    intro:
+      'Precision-fit Clark forklift parts and warehouse equipment components, in stock and ready to ship.',
+    seoTitle: 'Clark Forklift Parts | Flat Earth Equipment',
+    seoDescription:
+      'Shop Clark forklift parts and warehouse components with same-day dispatch across the USA',
+  },
+  {
+    slug: 'crown',
+    name: 'Crown',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Crown.webp',
+    intro:
+      'Crown forklift parts and maintenance kits, with expert guidance from our team.',
+    seoTitle: 'Crown Forklift Parts | Flat Earth Equipment',
+    seoDescription:
+      'Order Crown forklift parts and service components—fast, reliable shipping.',
+  },
+  {
+    slug: 'gehl',
+    name: 'Gehl',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Gehl.webp',
+    intro:
+      'High-quality Gehl loader and telehandler parts, tested for durability.',
+    seoTitle: 'Gehl Loader & Telehandler Parts | Flat Earth Equipment',
+    seoDescription:
+      'Buy Gehl loader and telehandler replacement parts—nationwide shipping.',
+  },
+  {
+    slug: 'hangcha',
+    name: 'Hangcha',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Hangcha.webp',
+    intro:
+      'Stocked Hangcha forklift parts and accessories for fast fleet uptime.',
+    seoTitle: 'Hangcha Forklift Parts | Flat Earth Equipment',
+    seoDescription:
+      'Shop Hangcha forklift parts online—same-day shipping.',
+  },
+  {
+    slug: 'heli',
+    name: 'Heli',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Heli.webp',
+    intro:
+      'Heli forklift parts and attachments in stock for quick fulfillment.',
+    seoTitle: 'Heli Forklift Parts | Flat Earth Equipment',
+    seoDescription:
+      'Order Heli forklift parts today—fast dispatch across the USA.',
+  },
+  {
+    slug: 'hyundai',
+    name: 'Hyundai',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Hyundai.webp',
+    intro:
+      'Genuine Hyundai forklift parts, filters, and hydraulics ready to ship.',
+    seoTitle: 'Hyundai Forklift Parts | Flat Earth Equipment',
+    seoDescription:
+      'Buy Hyundai forklift parts online—Western U.S. focus, nationwide shipping.',
+  },
+  {
+    slug: 'karcher',
+    name: 'Kärcher',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Karcher.webp',
+    intro:
+      'Kärcher pressure washer and cleaning equipment parts shipped nationwide.',
+    seoTitle: 'Kärcher Cleaning Equipment Parts | Flat Earth Equipment',
+    seoDescription:
+      'Order Kärcher washer parts and accessories—fast, reliable service.',
+  },
+  {
+    slug: 'komatsu',
+    name: 'Komatsu',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Komatsu.webp',
+    intro:
+      'Komatsu heavy-equipment parts, pins, bushings, and service kits in stock.',
+    seoTitle: 'Komatsu Heavy Equipment Parts | Flat Earth Equipment',
+    seoDescription:
+      'Shop Komatsu loader and excavator parts—same-day shipping.',
+  },
+  {
+    slug: 'lcmg',
+    name: 'LCMG',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/LCMG.webp',
+    intro:
+      'LCMG lift truck parts and components for durable performance.',
+    seoTitle: 'LCMG Forklift Parts | Flat Earth Equipment',
+    seoDescription:
+      'Buy LCMG forklift parts online—quick shipping across the USA.',
+  },
+  {
+    slug: 'linde',
+    name: 'Linde',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Linde.webp',
+    intro:
+      'Precision-fit Linde forklift parts, from motors to masts.',
+    seoTitle: 'Linde Forklift Parts | Flat Earth Equipment',
+    seoDescription:
+      'Order Linde forklift components today—same-day dispatch.',
+  },
+  {
+    slug: 'lull',
+    name: 'Lull',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Lull.webp',
+    intro:
+      'Lull telehandler parts and service kits, in stock and ready to ship.',
+    seoTitle: 'Lull Telehandler Parts | Flat Earth Equipment',
+    seoDescription:
+      'Shop Lull telehandler replacement parts—fast delivery.',
+  },
+  {
+    slug: 'mec',
+    name: 'MEC',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/MEC.webp',
+    intro:
+      'MEC aerial and scissor-lift parts, tested for safety and durability.',
+    seoTitle: 'MEC Lift Parts | Flat Earth Equipment',
+    seoDescription:
+      'Buy MEC lift parts online—same-day shipping across the nation.',
+  },
+  {
+    slug: 'mitsubishi-forklift',
+    name: 'Mitsubishi Forklift',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Mitsubishi_Forklift.webp',
+    intro:
+      'Mitsubishi forklift parts, including transmissions and hydraulics.',
+    seoTitle: 'Mitsubishi Forklift Parts | Flat Earth Equipment',
+    seoDescription:
+      'Order Mitsubishi forklift components—fast, reliable delivery.',
+  },
+  {
+    slug: 'moffett',
+    name: 'Moffett',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Moffett.webp',
+    intro:
+      'Moffett truck-mounted forklift parts and service kits ready to ship.',
+    seoTitle: 'Moffett Forklift Parts | Flat Earth Equipment',
+    seoDescription:
+      'Buy Moffett forklift parts online—same-day shipping available.',
+  },
+  {
+    slug: 'nissan-forklift',
+    name: 'Nissan Forklift',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Nissan_Forklift.webp',
+    intro:
+      'Nissan forklift parts, including engines, forks, and electrical.',
+    seoTitle: 'Nissan Forklift Parts | Flat Earth Equipment',
+    seoDescription:
+      'Shop Nissan forklift components—nationwide shipping.',
+  },
+  {
+    slug: 'powerboss',
+    name: 'PowerBoss',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/PowerBoss.webp',
+    intro:
+      'PowerBoss floor-scrubber and sweeper parts in stock for fast fulfillment.',
+    seoTitle: 'PowerBoss Cleaning Equipment Parts | Flat Earth Equipment',
+    seoDescription:
+      'Order PowerBoss scrubber parts—same-day shipping.',
+  },
+  {
+    slug: 'raymond',
+    name: 'Raymond',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Raymond.webp',
+    intro:
+      'Raymond forklift parts, from controllers to chassis components.',
+    seoTitle: 'Raymond Forklift Parts | Flat Earth Equipment',
+    seoDescription:
+      'Get Raymond forklift parts with fast shipping across the USA.',
+  },
+  {
+    slug: 'tailift',
+    name: 'Tailift',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Tailift.webp',
+    intro:
+      'Tailift scissor- and boom-lift parts, tested for reliability.',
+    seoTitle: 'Tailift Lift Parts | Flat Earth Equipment',
+    seoDescription:
+      'Shop Tailift lift parts online—Multiple USA DCs, fast delivery.',
+  },
+  {
+    slug: 'tcm',
+    name: 'TCM',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/TCM.webp',
+    intro:
+      'TCM forklift parts, including hydraulics and electrics.',
+    seoTitle: 'TCM Forklift Parts | Flat Earth Equipment',
+    seoDescription:
+      'Order TCM forklift components—same-day shipping available.',
+  },
+  {
+    slug: 'tennant',
+    name: 'Tennant',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Tennant.webp',
+    intro:
+      'Tennant industrial cleaner parts and brushes in stock for quick dispatch.',
+    seoTitle: 'Tennant Cleaning Equipment Parts | Flat Earth Equipment',
+    seoDescription:
+      'Buy Tennant cleaner parts online—fast shipping.',
+  },
+  {
+    slug: 'unicarrriers',
+    name: 'UniCarrriers',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/UniCarriers.webp',
+    intro:
+      'UniCarriers forklift parts and attachments, ready to ship.',
+    seoTitle: 'UniCarriers Forklift Parts | Flat Earth Equipment',
+    seoDescription:
+      'Shop UniCarriers parts online—same-day shipping across the nation.',
+  },
+  {
+    slug: 'xcmg',
+    name: 'XCMG',
+    logoUrl:
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/XCMG.webp',
+    intro:
+      'XCMG heavy-equipment parts for loaders, excavators, and more.',
+    seoTitle: 'XCMG Equipment Parts | Flat Earth Equipment',
+    seoDescription:
+      'Order XCMG replacement parts—fast delivery to every state.',
+  },
 ]; 
