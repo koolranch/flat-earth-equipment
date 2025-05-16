@@ -18,7 +18,7 @@ export const brands: BrandInfo[] = [
     slug: 'caterpillar',
     name: 'Caterpillar',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Caterpillar.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//caterpillar.webp',
     intro:
       'Flat Earth Equipment carries precision-fit Caterpillar replacement parts and selected Cat telehandler rentals across the West.',
     seoTitle: 'Caterpillar Parts & Rentals | Flat Earth Equipment',
@@ -128,7 +128,7 @@ export const brands: BrandInfo[] = [
     slug: 'case',
     name: 'Case',
     logoUrl:
-      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/Case.webp',
+      'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos//case-construction.webp',
     intro:
       'Flat Earth Equipment supplies Case skid-steer and backhoe parts, plus select Case loader rentals.',
     seoTitle: 'Case Construction Parts & Rentals | Flat Earth Equipment',
