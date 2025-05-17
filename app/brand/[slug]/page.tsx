@@ -1,13 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@/utils/supabase/server';
 import { brands, BrandInfo } from '@/lib/brands';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
 
 export async function generateStaticParams() {
   return brands.map((b) => ({ slug: b.slug }));
@@ -30,6 +25,7 @@ export default async function BrandPage({
   params: { slug: string };
 }) {
   const brand: BrandInfo = brands.find((b) => b.slug === params.slug)!;
+  const supabase = createClient();
 
   // ── Fetch top 6 rentals for this brand
   const { data: equipment = [] } = await supabase
