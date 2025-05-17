@@ -1,0 +1,163 @@
+import { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { AlertTriangle, CheckCircle, Phone, Mail, Search, Wrench, Settings, Zap } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: "Nissan K21 Forklift Engine Guide | Flat Earth Equipment",
+  description: "Complete guide to the Nissan K21 forklift engine. Learn about specifications, maintenance, common issues, and replacement parts.",
+  alternates: {
+    canonical: "/parts/forklift-parts/nissan-k21-forklift-engine",
+  },
+};
+
+export default function NissanK21EnginePage() {
+  return (
+    <main className="max-w-4xl mx-auto px-4 py-12">
+      <h1 className="text-3xl font-bold text-slate-900 mb-6">
+        Nissan K21 Forklift Engine Guide
+      </h1>
+      
+      <div className="prose prose-slate max-w-none">
+        <p className="text-lg text-slate-600 mb-8">
+          The Nissan K21 is a reliable and efficient engine commonly found in Nissan forklifts. 
+          This guide provides comprehensive information about the engine's specifications, maintenance requirements, 
+          and common issues.
+        </p>
+
+        <div className="bg-slate-50 p-6 rounded-lg mb-8">
+          <h2 className="text-xl font-semibold mb-4">Engine Specifications</h2>
+          <ul className="list-disc pl-6 space-y-2">
+            <li>Engine Type: 4-cylinder, water-cooled</li>
+            <li>Displacement: 2.1L (2,068 cc)</li>
+            <li>Power Output: 45-50 HP</li>
+            <li>Fuel Type: LPG/Propane</li>
+            <li>Cooling System: Liquid-cooled</li>
+            <li>Bore x Stroke: 85mm x 91mm</li>
+          </ul>
+        </div>
+
+        <div className="space-y-8">
+          <section>
+            <h2 className="text-2xl font-semibold mb-4">Common Applications</h2>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>Nissan FD30 Forklift</li>
+              <li>Nissan FD40 Forklift</li>
+              <li>Nissan FD50 Forklift</li>
+              <li>Nissan FD60 Forklift</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4">Maintenance Schedule</h2>
+            <div className="space-y-6">
+              <div className="border rounded-lg p-6">
+                <h3 className="text-lg font-semibold mb-2">Daily Checks</h3>
+                <ul className="list-disc pl-6">
+                  <li>Check engine oil level</li>
+                  <li>Inspect coolant level</li>
+                  <li>Check for leaks</li>
+                  <li>Listen for unusual noises</li>
+                </ul>
+              </div>
+
+              <div className="border rounded-lg p-6">
+                <h3 className="text-lg font-semibold mb-2">Every 250 Hours</h3>
+                <ul className="list-disc pl-6">
+                  <li>Change engine oil and filter</li>
+                  <li>Check and adjust valve clearance</li>
+                  <li>Inspect spark plugs</li>
+                  <li>Check ignition timing</li>
+                </ul>
+              </div>
+
+              <div className="border rounded-lg p-6">
+                <h3 className="text-lg font-semibold mb-2">Every 500 Hours</h3>
+                <ul className="list-disc pl-6">
+                  <li>Replace air filter</li>
+                  <li>Change fuel filter</li>
+                  <li>Check and adjust carburetor</li>
+                  <li>Inspect cooling system</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4">Common Issues and Solutions</h2>
+            <div className="space-y-6">
+              <div className="border rounded-lg p-6">
+                <h3 className="text-lg font-semibold mb-2">Hard Starting</h3>
+                <ul className="list-disc pl-6">
+                  <li>Check spark plugs and ignition system</li>
+                  <li>Verify fuel pressure and delivery</li>
+                  <li>Inspect carburetor for proper adjustment</li>
+                  <li>Check battery condition and connections</li>
+                </ul>
+              </div>
+
+              <div className="border rounded-lg p-6">
+                <h3 className="text-lg font-semibold mb-2">Overheating</h3>
+                <ul className="list-disc pl-6">
+                  <li>Check coolant level and condition</li>
+                  <li>Inspect radiator and cooling system</li>
+                  <li>Verify thermostat operation</li>
+                  <li>Check water pump function</li>
+                </ul>
+              </div>
+
+              <div className="border rounded-lg p-6">
+                <h3 className="text-lg font-semibold mb-2">Loss of Power</h3>
+                <ul className="list-disc pl-6">
+                  <li>Check air filter condition</li>
+                  <li>Inspect fuel system components</li>
+                  <li>Verify valve adjustment</li>
+                  <li>Check compression levels</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div className="mt-8 bg-blue-50 p-6 rounded-lg">
+          <h2 className="text-xl font-semibold mb-4">Need Professional Help?</h2>
+          <p className="mb-4">
+            Our certified Nissan technicians are available to help with engine maintenance, repairs, and replacements. 
+            Contact us for assistance:
+          </p>
+          <ul className="list-none space-y-2">
+            <li className="flex items-center">
+              <Phone className="w-5 h-5 mr-2" />
+              <span>1-800-XXX-XXXX</span>
+            </li>
+            <li className="flex items-center">
+              <Mail className="w-5 h-5 mr-2" />
+              <span>service@flatearthequipment.com</span>
+            </li>
+          </ul>
+        </div>
+
+        <div className="mt-8">
+          <h2 className="text-xl font-semibold mb-4">Related Resources</h2>
+          <ul className="list-disc pl-6">
+            <li>
+              <Link href="/parts/forklift-parts/nissan" className="text-blue-600 hover:underline">
+                Nissan Forklift Parts Catalog
+              </Link>
+            </li>
+            <li>
+              <Link href="/rental/forklifts/nissan" className="text-blue-600 hover:underline">
+                Nissan Forklift Rentals
+              </Link>
+            </li>
+            <li>
+              <Link href="/service/forklift-maintenance" className="text-blue-600 hover:underline">
+                Forklift Maintenance Services
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  );
+} 

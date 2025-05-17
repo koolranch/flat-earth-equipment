@@ -1,6 +1,7 @@
 import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
 import React from 'react';
+import { Analytics } from '@vercel/analytics/next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 // Import your global styles (Tailwind, custom resets)
@@ -32,6 +33,7 @@ export default function RootLayout({
           </div>
         </section>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
