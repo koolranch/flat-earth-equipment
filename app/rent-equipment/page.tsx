@@ -2,6 +2,7 @@ import supabase from "@/lib/supabase";
 import { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
+import slugify from "slugify";
 
 export const metadata: Metadata = {
   title: "Equipment Rentals | Flat Earth Equipment",
@@ -34,6 +35,14 @@ async function fetchRentalCategories() {
 export default async function RentEquipmentPage() {
   const categories = await fetchRentalCategories();
 
+  // Map Mini Skid Steer to Compact Utility Loader for display and slug
+  const displayCategories = categories.map((category: string) => {
+    if (category.toLowerCase() === 'mini skid steer') {
+      return 'Compact Utility Loader';
+    }
+    return category;
+  });
+
   return (
     <main className="max-w-7xl mx-auto px-4 py-12">
       {/* JSON-LD Structured Data */}
@@ -60,10 +69,10 @@ export default async function RentEquipmentPage() {
       </p>
 
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {categories.map((category: string) => (
+        {displayCategories.map((category: string) => (
           <Link
             key={category}
-            href={`/rentals/${category}`}
+            href={`/rentals/${slugify(category, { lower: true })}`}
             className="block rounded-xl border shadow hover:shadow-md transition p-6 bg-white"
           >
             <h2 className="text-xl font-semibold capitalize">{category}</h2>
