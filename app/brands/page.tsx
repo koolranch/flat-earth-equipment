@@ -1,11 +1,6 @@
 import { brands } from "@/lib/data/brands";
 import Link from "next/link";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+import { createClient } from "@/utils/supabase/server";
 
 export const metadata = {
   title: "Shop by Brand | Flat Earth Equipment",
@@ -13,7 +8,9 @@ export const metadata = {
     "Explore parts by top equipment brands like Genie, Doosan, Caterpillar, and more. 40+ supported brands with fast quotes and same-day shipping.",
 };
 
-export default function BrandsPage() {
+export default async function BrandsPage() {
+  const supabase = createClient();
+
   return (
     <main className="max-w-6xl mx-auto px-4 py-16">
       <h1 className="text-3xl font-bold text-slate-900 mb-8 text-center">
