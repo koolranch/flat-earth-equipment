@@ -18,7 +18,7 @@ export default async function CategoryPage({
 
   // Construct URLs for JSON-LD
   const baseUrl = 'https://flatearthequipment.com';
-  const categoryUrl = `${baseUrl}/category/${slug}/${subcategory}`;
+  const categoryUrl = baseUrl + '/category/' + slug + '/' + subcategory;
 
   // Fetch popular parts in this category
   const supabase = createClient();
@@ -30,7 +30,7 @@ export default async function CategoryPage({
 
   const relatedItems = popularParts?.map(part => ({
     title: part.name,
-    href: `/parts/${part.slug}`
+    href: '/parts/' + part.slug
   })) || [];
 
   return (
@@ -44,12 +44,12 @@ export default async function CategoryPage({
             { 
               "@type": "ListItem", 
               "position": 1, 
-              "url": `${categoryUrl}#item1` 
+              "url": categoryUrl + '#item1'
             },
             { 
               "@type": "ListItem", 
               "position": 2, 
-              "url": `${categoryUrl}#item2` 
+              "url": categoryUrl + '#item2'
             }
           ]
         })}
@@ -70,9 +70,9 @@ export default async function CategoryPage({
           {brands.slice(0, 5).map((brand) => (
             <Link
               key={brand.slug}
-              href={`/brand/${brand.slug}?category=${slug}`}
+              href={'/brand/' + brand.slug + '?category=' + slug}
               className="group flex items-center p-3 bg-white rounded-md border border-slate-200 hover:border-canyon-rust transition-colors"
-              aria-label={`View ${brand.name} ${category.name.toLowerCase()}`}
+              aria-label={'View ' + brand.name + ' ' + category.name.toLowerCase()}
             >
               <span className="text-slate-800 group-hover:text-canyon-rust transition-colors">
                 View {brand.name} {category.name.toLowerCase()}
