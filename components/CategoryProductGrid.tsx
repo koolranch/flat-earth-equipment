@@ -1,16 +1,6 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import Image from "next/image";
-
-// Create Supabase client with error handling
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error('Missing Supabase environment variables');
-}
-
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 type CategoryProductGridProps = {
   categorySlug: string;
@@ -18,6 +8,8 @@ type CategoryProductGridProps = {
 
 export default async function CategoryProductGrid({ categorySlug }: CategoryProductGridProps) {
   try {
+    const supabase = createClient();
+
     // Convert slug to category name format
     const formattedCategory = categorySlug
       .split('-')
