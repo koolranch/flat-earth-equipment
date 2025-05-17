@@ -40,12 +40,22 @@ export default async function RentalEquipmentGrid({ categorySlug }: RentalEquipm
               href={`/rentals/${categorySlug}/${model.slug}`}
               className="block bg-white rounded-xl shadow p-6 hover:shadow-md transition"
             >
-              <Image
-                {...getBrandLogoProps(brandSlug, model.brand)}
-                width={200}
-                height={100}
-                className="mx-auto mb-4"
-              />
+              {model.image_url ? (
+                <Image
+                  src={model.image_url}
+                  alt={model.brand}
+                  width={200}
+                  height={100}
+                  className="mx-auto mb-4 object-contain"
+                />
+              ) : (
+                <Image
+                  {...getBrandLogoProps(brandSlug, model.brand)}
+                  width={200}
+                  height={100}
+                  className="mx-auto mb-4"
+                />
+              )}
               <h2 className="text-lg font-semibold text-center">{model.brand}</h2>
               <p className="mt-2 text-sm text-gray-700 text-center">{model.name}</p>
             </Link>
