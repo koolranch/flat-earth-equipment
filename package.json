@@ -20,9 +20,11 @@
   "description": "",
   "devDependencies": {
     "@supabase/supabase-js": "^2.49.4",
+    "@types/jsdom": "^21.1.7",
     "@types/node": "^22.15.17",
     "@types/xml2js": "^0.4.14",
     "autoprefixer": "^10.4.17",
+    "jsdom": "^26.1.0",
     "json2csv": "^6.0.0-alpha.2",
     "postcss": "^8.4.35",
     "prisma": "^5.9.1",
