@@ -4,17 +4,7 @@ import { notFound } from "next/navigation";
 import { categories } from "@/lib/data/categories";
 import { brands } from "@/lib/data/brands";
 import CategoryProductGrid from "@/components/CategoryProductGrid";
-import { createClient } from "@supabase/supabase-js";
-
-// Create Supabase client with error handling
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error('Missing Supabase environment variables');
-}
-
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { createClient } from "@/utils/supabase/server";
 
 type CategorySlug = typeof categories[number]["slug"];
 
@@ -34,13 +24,15 @@ export async function generateMetadata({ params }: { params: { slug: CategorySlu
   };
 }
 
-export default function CategoryPage({
+export default async function CategoryPage({
   params: { slug },
 }: {
   params: { slug: string };
 }) {
   const category = categories.find((c) => c.slug === slug);
   if (!category) return notFound();
+
+  const supabase = createClient();
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-16">
