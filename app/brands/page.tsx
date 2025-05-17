@@ -54,6 +54,10 @@ export default function BrandsPage() {
         })}
       </div>
 
+      <p className="mt-4 text-center text-xs text-slate-500">
+        <strong>Not an Authorized Dealer.</strong> Flat Earth Equipment partners with trusted suppliers to deliver OEM-spec and remanufactured parts—fully warrantied and ready to ship.
+      </p>
+
       <p className="mt-12 text-center text-slate-500 text-sm">
         Don't see your brand?{" "}
         <Link href="/contact" className="text-canyon-rust underline">
