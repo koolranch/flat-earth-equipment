@@ -37,7 +37,7 @@ export default function QuickQuote() {
         Need a Fast Quote?
       </h2>
       <p className="text-slate-600 text-center mb-8">
-        We'll get back to you within 1 hour — no fluff, just parts.
+        We'll get back to you within 1 hour — straight talk on parts & rentals.
       </p>
 
       <FastQuoteForm currentLocation="{yourLocationSlug}" />
