@@ -63,7 +63,7 @@ export default function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`px-3 py-2 ${
+              className={`px-3 py-2 ${item.className} ${
                 pathname.startsWith(item.href)
                   ? 'text-canyon font-semibold'
                   : 'text-slate-700'
@@ -91,7 +91,7 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-3 py-2 ${
+                className={`px-3 py-2 ${item.className} ${
                   pathname.startsWith(item.href)
                     ? 'text-canyon font-semibold'
                     : 'text-slate-700'
