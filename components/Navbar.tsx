@@ -45,11 +45,11 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-[#F5F1EC] shadow-sm h-20">
       <div className="flex items-center justify-between max-w-6xl mx-auto px-4 h-full">
-        <Link href="/" className="flex items-center">
+        <Link href="/" className="flex items-center" aria-label="Home">
           <img
             src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp"
             alt="Flat Earth Equipment logo"
-            className="h-20 w-auto px-2"
+            className="h-12 w-auto px-2 hover:opacity-80 transition"
             loading="lazy"
             onError={(e) => {
               console.error('Logo failed to load:', e);
