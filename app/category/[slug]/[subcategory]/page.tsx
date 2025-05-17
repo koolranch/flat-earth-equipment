@@ -16,6 +16,10 @@ export default async function CategoryPage({
   const category = categories.find((c) => c.slug === slug);
   if (!category) return notFound();
 
+  // Construct URLs for JSON-LD
+  const baseUrl = 'https://flatearthequipment.com';
+  const categoryUrl = `${baseUrl}/category/${slug}/${subcategory}`;
+
   // Fetch popular parts in this category
   const supabase = createClient();
   const { data: popularParts } = await supabase
@@ -37,8 +41,16 @@ export default async function CategoryPage({
           "@context": "https://schema.org",
           "@type": "ItemList",
           "itemListElement": [
-            { "@type": "ListItem", "position": 1, "url": `https://flatearthequipment.com/category/${slug}/${subcategory}#item1` },
-            { "@type": "ListItem", "position": 2, "url": `https://flatearthequipment.com/category/${slug}/${subcategory}#item2` }
+            { 
+              "@type": "ListItem", 
+              "position": 1, 
+              "url": `${categoryUrl}#item1` 
+            },
+            { 
+              "@type": "ListItem", 
+              "position": 2, 
+              "url": `${categoryUrl}#item2` 
+            }
           ]
         })}
       </Script>
