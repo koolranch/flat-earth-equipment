@@ -63,11 +63,11 @@ export default function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`text-lg font-semibold text-slate-800 ${
-                pathname === item.href
-                  ? "text-canyon-rust underline"
-                  : "hover:text-canyon-rust"
-              }`}
+              className={`px-3 py-2 ${
+                pathname.startsWith(item.href)
+                  ? 'text-canyon font-semibold'
+                  : 'text-slate-700'
+              } hover:underline`}
             >
               {item.label}
             </Link>
@@ -91,11 +91,11 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`${item.className} ${
-                  pathname === item.href
-                    ? "text-canyon-rust underline"
-                    : "text-slate-800 hover:text-canyon-rust"
-                }`}
+                className={`px-3 py-2 ${
+                  pathname.startsWith(item.href)
+                    ? 'text-canyon font-semibold'
+                    : 'text-slate-700'
+                } hover:underline`}
                 onClick={() => setMobileOpen(false)}
               >
                 {item.label}
