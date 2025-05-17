@@ -2,19 +2,9 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
-import { createClient } from '@/utils/supabase/server';
+import { getBlogPost } from '@/lib/mdx';
 import Script from 'next/script';
 import RelatedItems from '@/components/RelatedItems';
-
-interface Post {
-  title: string;
-  description: string;
-  slug: string;
-  keywords?: string[];
-  date: string;
-  image: string;
-  content: string;
-}
 
 type Props = {
   params: {
@@ -23,12 +13,7 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const supabase = createClient();
-  const { data: post } = await supabase
-    .from('insights')
-    .select('title, description, keywords, date, image, content')
-    .eq('slug', params.slug)
-    .single();
+  const post = await getBlogPost(params.slug);
 
   if (!post) {
     return {
@@ -55,28 +40,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function BlogPost({ params }: Props) {
-  const supabase = createClient();
-  const { data: post } = await supabase
-    .from('insights')
-    .select('title, description, keywords, date, image, content')
-    .eq('slug', params.slug)
-    .single();
+  const post = await getBlogPost(params.slug);
 
   if (!post) {
     notFound();
   }
 
-  // Fetch related posts based on keywords
-  const { data: relatedPosts } = await supabase
-    .from('insights')
-    .select('title, slug')
-    .neq('slug', params.slug)
-    .contains('keywords', post.keywords || [])
-    .limit(3);
-
-  const relatedItems = relatedPosts?.map(relatedPost => ({
-    name: relatedPost.title,
-    href: `/insights/${relatedPost.slug}`
+  // Get related posts based on keywords
+  const relatedItems = post.keywords?.map(keyword => ({
+    name: keyword,
+    href: `/insights?keyword=${encodeURIComponent(keyword)}`
   })) || [];
 
   return (
