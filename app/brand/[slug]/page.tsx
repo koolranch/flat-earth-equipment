@@ -66,7 +66,7 @@ export default async function BrandPage({
             {equipmentList.map((item) => (
               <Link
                 key={item.id}
-                href={`/rentals/${item.slug}`}
+                href={`/quote?sku=${item.slug}&type=rental`}
                 className="group block rounded-lg overflow-hidden shadow hover:shadow-lg transition"
               >
                 <div className="aspect-w-16 aspect-h-9 bg-gray-100">
