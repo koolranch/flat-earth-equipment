@@ -1,0 +1,56 @@
+id,category,brand,model,lift_height_ft,weight_capacity_lbs,power_source,seo_slug,image_url,description,daily_price,city,created_at
+0019d732-79e5-41cb-8481-c41008b449c1,Telehandler,JCB,510-56,56,10000,diesel,jcb-510-56,,,,,2025-05-15 00:55:14.461028+00
+034c57c6-9cfb-4f6d-98da-3b59f80799ee,Telehandler,Genie,GTH-5519,19,5500,diesel,genie-gth-5519,,,,,2025-05-15 00:55:14.461028+00
+0b592781-4051-495b-9544-edc4f7ff0327,Attachments,Forklift Forks,Class III Forks,,,,forklift-forks-class-iii,,,,,2025-05-15 00:55:14.461028+00
+0bb7c672-23d8-4f30-a290-74b115d6503f,Forklift,Hyster,H80FT,,8000,LPG,hyster-h80ft,,,,,2025-05-15 00:55:14.461028+00
+125252ce-5422-4741-b747-3768023f2a84,Attachments,Buckets,Standard Bucket,,,,bucket-standard,,,,,2025-05-15 00:55:14.461028+00
+12ee5696-3a08-4547-a785-5504cc4f139e,Scissor Lift,Genie,GS-2632,26,500,electric,genie-gs-2632,,,,,2025-05-15 00:55:14.461028+00
+1500d1ce-cb82-4b50-b294-912620405efa,Attachments,Buckets,Grapple Bucket,,,,bucket-grapple,,,,,2025-05-15 00:55:14.461028+00
+17acdcb8-5298-4a73-aeef-b5d397e69af4,Scissor Lift,JLG,1930ES,19,500,electric,jlg-1930es,,,,,2025-05-15 00:55:14.461028+00
+2634b252-5e18-4cf9-be4a-c83803e9c517,Compact Utility Loader,Vermeer,CTX100,,,diesel,vermeer-ctx100,,,,,2025-05-15 00:55:14.461028+00
+264777ac-17b6-45d0-b1da-6060eb3c58cf,Attachments,Augers & Bits,Skid Steer Auger,,,,auger-skid-steer,,,,,2025-05-15 00:55:14.461028+00
+272a5310-d99c-4180-bd31-422851a3f81e,Boom Lift,Skyjack,SJ63AJ,63,500,diesel,skyjack-sj63aj,,,,,2025-05-15 00:55:14.461028+00
+2755e9d5-9e47-475e-a3a3-8ca0ef9fd3cb,Telehandler,JLG,G9-43A,43,9000,diesel,jlg-g9-43a,,,,,2025-05-15 00:55:14.461028+00
+27577855-ff11-4381-8e0a-e11e7b0a2c38,Boom Lift,Genie,S-65,65,500,diesel,genie-s-65,,,,,2025-05-15 00:55:14.461028+00
+47c01fe4-fc3f-4f89-8258-850ab4bc3434,Boom Lift,Snorkel,TB80,80,500,diesel,snorkel-tb80,,,,,2025-05-15 00:55:14.461028+00
+47c58584-38b8-4933-9d78-c337b6ace03c,Compact Utility Loader,Bobcat,T590,,5900,diesel,bobcat-t590,,,,,2025-05-15 00:55:14.461028+00
+4aee9cd3-f09c-4db0-bd99-9c50302df75c,Forklift,Yale,GLP050VX,,5000,LPG,yale-glp050vx,,,,,2025-05-15 00:55:14.461028+00
+4b083376-4a9b-4674-bad4-789e4c25f7db,Compact Utility Loader,Toro Dingo,TX1000,,1075,diesel,toro-dingo-tx1000,,,,,2025-05-15 00:55:14.461028+00
+4ba37c4f-ff62-41d5-962f-75944540c5e7,Compact Utility Loader,Caterpillar,259D,,2600,diesel,caterpillar-259d,,,,,2025-05-15 00:55:14.461028+00
+5145f23a-843e-4312-b1dd-f4c676304df1,Attachments,Fork Extensions,6-ft Fork Extension,,,,fork-extension-6ft,,,,,2025-05-15 00:55:14.461028+00
+5ac73580-07b7-4bb3-8023-42054761f84f,Telehandler,JCB,509-42,42,9000,diesel,jcb-509-42,,,,,2025-05-15 00:55:14.461028+00
+60570bfc-5ff8-4c44-9157-c63d29735a6c,Compact Utility Loader,Bobcat,S650,,6500,diesel,bobcat-s650,,,,,2025-05-15 00:55:14.461028+00
+62870a55-32fc-4f0e-a5d2-766cd08617c9,Telehandler,Caterpillar,TL943,43,9000,diesel,caterpillar-tl943,,,,,2025-05-15 00:55:14.461028+00
+63d06e64-6117-432f-a2e8-1b0bc5f5adb4,Telehandler,Skytrak,8042,42,8000,diesel,skytrak-8042,,,,,2025-05-15 00:55:14.461028+00
+674abad0-896d-4fad-874c-c41fdb290640,Scissor Lift,Skyjack,SJIII 3226,26,550,electric,skyjack-sjiii-3226,,,,,2025-05-15 00:55:14.461028+00
+68ce3452-bd72-4321-9aab-aa09ec89444a,Scissor Lift,JLG,2632ES,26,500,electric,jlg-2632es,,,,,2025-05-15 00:55:14.461028+00
+6954519c-c7c0-442b-ac0e-1829a40c7392,Boom Lift,JLG,800AJ,80,500,diesel,jlg-800aj,,,,,2025-05-15 00:55:14.461028+00
+69bc5854-fe3b-4915-b692-6ff116682153,Attachment,Fork Extensions,4-ft Fork Extension,,,,fork-extension-4ft,,,,,2025-05-15 00:55:14.461028+00
+69bf724a-5536-409d-8309-92f5c93f460b,Telehandler,JCB,512-56,56,12000,diesel,jcb-512-56,,,,,2025-05-15 00:55:14.461028+00
+6fe48ec2-f90f-4880-9c8a-d176dbea087a,Telehandler,Skytrak,10054,54,10000,diesel,skytrak-10054,,,,,2025-05-15 00:55:14.461028+00
+7bb6569b-1efc-4eb2-a703-5f027db9a2d0,Boom Lift,JLG,450AJ,45,500,diesel,jlg-450aj,,,,,2025-05-15 00:55:14.461028+00
+87ade505-3ad2-40bf-bd83-e4d0423c3fb7,Compact Utility Loader,Vermeer,S450,,,diesel,vermeer-s450,,,,,2025-05-15 00:55:14.461028+00
+8cd16465-d38d-4470-a1f0-ac3ddca4bbd7,Boom Lift,Snorkel,TB60,60,500,diesel,snorkel-tb60,,,,,2025-05-15 00:55:14.461028+00
+92345522-43e3-4421-b84b-f35a7e79cf64,Compact Utility Loader,Toro Dingo,TX525,,553,diesel,toro-dingo-tx525,,,,,2025-05-15 00:55:14.461028+00
+9b4d18ae-745f-4c43-ad6c-78b990dfe637,Compact Utility Loader,Takeuchi,TL12,,4000,diesel,takeuchi-tl12,,,,,2025-05-15 00:55:14.461028+00
+a8a14ff7-4563-49b8-b4dd-cb36d5ee578d,Scissor Lift,Skyjack,SJIII 3219,19,550,electric,skyjack-sjiii-3219,,,,,2025-05-15 00:55:14.461028+00
+aa0f25af-797b-4bff-9e5a-58133f7ce3c5,Compact Utility Loader,Kubota,SVL75,,7521,diesel,kubota-svl75,,,,,2025-05-15 00:55:14.461028+00
+b0d8b059-891b-4eb7-b2bd-7536d8c4ea99,Attachment,Forklift Forks,Class II Forks,,,,forklift-forks-class-ii,,,,,2025-05-15 00:55:14.461028+00
+b272660c-e0f8-4444-94cc-5ee396a5abf6,Compact Utility Loader,Takeuchi,TL8,,3700,diesel,takeuchi-tl8,,,,,2025-05-15 00:55:14.461028+00
+b3c49a6c-d752-4eaf-a596-5af81cfde29c,Boom Lift,JLG,600AJ,60,500,diesel,jlg-600aj,,,,,2025-05-15 00:55:14.461028+00
+b5d89c95-8365-4a5e-b44a-c3051a258f96,Compact Utility Loader,Kubota,SVL95,,9500,diesel,kubota-svl95,,,,,2025-05-15 00:55:14.461028+00
+c1f85b9c-8975-4cb7-8a89-c001dd628cad,Telehandler,JLG,G10-55A,55,10000,diesel,jlg-g10-55a,,,,,2025-05-15 00:55:14.461028+00
+c437f14f-1d1a-4996-9062-07e1700cd23e,Compact Utility Loader,Caterpillar,262D,,2600,diesel,caterpillar-262d,,,,,2025-05-15 00:55:14.461028+00
+c621ec2e-3a98-4356-b57a-8b613e2844a9,Forklift,Caterpillar,2C5000,,5000,LPG,caterpillar-2c5000,,,,,2025-05-15 00:55:14.461028+00
+ca94e419-9133-4a83-879c-d9ca188f800f,Telehandler,Caterpillar,TL642,42,6000,diesel,caterpillar-tl642,,,,,2025-05-15 00:55:14.461028+00
+cbc2f1ca-7e22-42b8-ab7a-7d18d59aa409,Compact Utility Loader,Bobcat,MT100,,,diesel,bobcat-mt100,,,,,2025-05-15 00:55:14.461028+00
+d1148d6b-33f3-4628-97fd-1b0238a1eed8,Boom Lift,Genie,S-85,85,500,diesel,genie-s-85,,,,,2025-05-15 00:55:14.461028+00
+d14ba66a-f5d2-42e9-99b7-37487f390701,Boom Lift,Genie,Z-45/25,45,500,diesel,genie-z-45-25,,,,,2025-05-15 00:55:14.461028+00
+d16aeeb6-8894-4805-bc90-10ec8135be1d,Forklifts,Toyota,8FGCU25,,5000,LPG,toyota-8fgcu25,,,,,2025-05-15 00:55:14.461028+00
+d3d7008c-b6e9-4d49-bffe-6fbe05db50e9,Attachments,Augers & Bits,Dingo Auger,,,,auger-dingo,,,,,2025-05-15 00:55:14.461028+00
+d770e9c6-fc28-485c-90c7-478c1ff9c597,Telehandlers,Genie,GTH-1056,56,10000,diesel,genie-gth-1056,,,,,2025-05-15 00:55:14.461028+00
+de95e71e-1e04-4698-9d04-596a67564514,Compact Utility Loader,Bobcat,MT85,,,diesel,bobcat-mt85,,,,,2025-05-15 00:55:14.461028+00
+df9cbb75-cd15-440d-9c8a-6a1b07266d0d,Compact Utility Loader,Takeuchi,TL10,,4000,diesel,takeuchi-tl10,,,,,2025-05-15 00:55:14.461028+00
+e7876416-b65a-4ff0-9c8c-efbbd36d1e3c,Boom Lift,Skyjack,SJ46AJ,46,500,diesel,skyjack-sj46aj,,,,,2025-05-15 00:55:14.461028+00
+ebec70e1-fdf9-4bd2-9065-c9ab70042cd3,Forklift,Hyster,H50FT,,5000,LPG,hyster-h50ft,,,,,2025-05-15 00:55:14.461028+00
+f789d5db-e06f-43a2-920f-98b83140616c,Scissor Lift,Genie,GS-1930,19,500,electric,genie-gs-1930,,,,,2025-05-15 00:55:14.461028+00
