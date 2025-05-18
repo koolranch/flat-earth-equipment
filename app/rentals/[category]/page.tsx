@@ -25,8 +25,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function RentalCategoryPage({ params }: PageProps) {
   const supabase = createClient()
   
-  // Convert category to database format
-  const dbCategory = params.category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+  // Map legacy and new slugs to the correct display and DB category
+  const slugToCategoryMap: Record<string, string> = {
+    'mini-skid-steer': 'Compact Utility Loader',
+    'compact-utility-loader': 'Compact Utility Loader',
+    // add more mappings as needed
+  };
+
+  // Use the mapping if available, otherwise convert slug to title case
+  const dbCategory = slugToCategoryMap[params.category] || params.category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+
   const { data: rentals } = await supabase
     .from('rental_equipment')
     .select('*')
@@ -45,9 +53,7 @@ export default async function RentalCategoryPage({ params }: PageProps) {
         ]}
       />
       <h1 className="text-3xl font-bold mb-6 capitalize">
-        {params.category.split('-').map(word => 
-          word.charAt(0).toUpperCase() + word.slice(1)
-        ).join(' ')}
+        {dbCategory}
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
