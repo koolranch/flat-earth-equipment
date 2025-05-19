@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import { getBlogPost } from '@/lib/mdx';
 import Script from 'next/script';
@@ -94,7 +93,7 @@ export default async function BlogPost({ params }: Props) {
             day: 'numeric',
           })}
         </div>
-        <MDXRemote source={post.content} />
+        {post.content}
       </article>
 
       {relatedItems.length > 0 && (
