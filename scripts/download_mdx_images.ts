@@ -21,8 +21,10 @@ async function downloadImage(url: string, filename: string): Promise<string> {
     responseType: 'stream',
   });
 
+  // Explicitly type response.data as NodeJS.ReadableStream for TypeScript
+  const stream = response.data as NodeJS.ReadableStream;
   const filePath = path.join(publicDir, filename);
-  await pipelineAsync(response.data, fs.createWriteStream(filePath));
+  await pipelineAsync(stream, fs.createWriteStream(filePath));
   return `/images/insights/${filename}`;
 }
 
