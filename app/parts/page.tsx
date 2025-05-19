@@ -1,3 +1,5 @@
+export const revalidate = 0;
+
 import { Metadata } from 'next';
 import { supabase } from '@/lib/supabaseClient';
 import Link from 'next/link';
