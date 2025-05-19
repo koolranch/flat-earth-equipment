@@ -10,8 +10,7 @@ export default function ShippingReturns() {
       <h2>Shipping</h2>
       <p>We offer same-day shipping on in-stock parts for orders placed by 3 PM MST. We ship nationwide via UPS and FedEx.</p>
       <ul>
-        <li>Free shipping on orders over $1,000</li>
-        <li>Flat-rate $25 shipping fee under $1,000</li>
+        <li>Flat-rate $25 shipping fee</li>
         <li>Expedited shipping options available at checkout</li>
       </ul>
       <h2>Returns & Exchanges</h2>
