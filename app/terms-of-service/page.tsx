@@ -19,6 +19,7 @@ export default function TermsOfService() {
       <p>See our <a href="/shipping-returns">Shipping & Returns</a> page for details.</p>
       <h2>4. Intellectual Property</h2>
       <p>All site content © 2025 Flat Earth Equipment.</p>
+      <p>All trademarks, logos and brand names are the property of their respective owners. All company, product and service names used in this website are for identification purposes only. Use of these names, trademarks and brands does not imply endorsement.</p>
       <h2>5. Limitation of Liability</h2>
       <p>We are not liable for indirect or consequential damages.</p>
       <h2>6. Governing Law</h2>
