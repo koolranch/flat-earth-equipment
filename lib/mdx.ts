@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { serialize } from 'next-mdx-remote/serialize';
 import { compileMDX } from 'next-mdx-remote/rsc';
 
 export interface BlogPost {
@@ -11,7 +10,7 @@ export interface BlogPost {
   description: string;
   keywords: string[];
   image: string;
-  content: any; // Changed from string to any to match MDXRemoteSerializeResult
+  content: any;
 }
 
 const insightsDirectory = path.join(process.cwd(), 'content/insights');
@@ -21,7 +20,10 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
     const filePath = path.join(process.cwd(), 'content/insights', `${slug}.mdx`);
     const fileContent = fs.readFileSync(filePath, 'utf8');
     const { data, content } = matter(fileContent);
-    const mdxSource = await serialize(content);
+    const { content: compiledContent } = await compileMDX({
+      source: content,
+      options: { parseFrontmatter: true }
+    });
 
     return {
       slug,
@@ -30,7 +32,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       description: data.description,
       keywords: data.keywords,
       image: data.image,
-      content: mdxSource,
+      content: compiledContent,
     };
   } catch (error) {
     console.error(`Error reading blog post ${slug}:`, error);
