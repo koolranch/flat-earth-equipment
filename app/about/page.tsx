@@ -33,7 +33,6 @@ export default function AboutPage() {
         <ul className="list-disc list-inside space-y-2 text-slate-700">
           <li>Parts in stock and ready to ship</li>
           <li>Same-day quotes with no middleman delays</li>
-          <li>Fitment expertise by real humans — no AI chatbots (unless you want one)</li>
           <li>Transparent pricing and responsive support</li>
         </ul>
       </section>
