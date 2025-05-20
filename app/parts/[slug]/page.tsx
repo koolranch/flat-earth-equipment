@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
+import { supabase } from '@/lib/supabaseClient';
 import Breadcrumbs from '@/components/Breadcrumbs'
 import ProductDetails from './ProductDetails'
 
@@ -9,14 +8,23 @@ export default async function PartPage({
 }: {
   params: { slug: string }
 }) {
-  const supabase = createServerComponentClient({ cookies })
-
-  const [{ data: part }, { data: variants }] = await Promise.all([
+  // Fetch part and variants in parallel
+  const [{ data: part, error: partError }, { data: variants, error: variantsError }] = await Promise.all([
     supabase.from('parts').select('*').eq('slug', params.slug).single(),
-    supabase.from('part_variants').select('*').in('part_id', [
-      (await supabase.from('parts').select('id').eq('slug', params.slug).single()).data?.id || ''
-    ])
+    supabase.from('part_variants')
+      .select('*')
+      .eq('part_id', (await supabase.from('parts').select('id').eq('slug', params.slug).single()).data?.id || '')
   ])
+
+  if (partError) {
+    console.error('Error fetching part:', partError);
+    throw new Error('Failed to fetch part details');
+  }
+
+  if (variantsError) {
+    console.error('Error fetching variants:', variantsError);
+    throw new Error('Failed to fetch part variants');
+  }
 
   if (!part) {
     notFound()

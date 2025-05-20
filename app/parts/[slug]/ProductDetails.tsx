@@ -29,59 +29,57 @@ interface ProductDetailsProps {
 
 export default function ProductDetails({ part, variants }: ProductDetailsProps) {
   const [selected, setSelected] = useState<Variant | null>(variants?.[0] || null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleCheckout = async () => {
-    // 1) Load Stripe
-    const stripe = await stripePromise;
-    if (!stripe) {
-      console.error('Stripe.js failed to load');
-      return;
-    }
-
     if (!selected?.stripe_price_id) {
       console.error('No price ID available for selected variant');
       return;
     }
 
+    setIsLoading(true);
+
     try {
-      // 2) Call your checkout API
-      const response = await fetch('/api/checkout/session', {
+      // 1) Load Stripe.js
+      const stripe = await stripePromise;
+      if (!stripe) {
+        throw new Error('Stripe.js failed to load');
+      }
+
+      // 2) Call checkout API
+      const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          product: selected,
-          slug: part.slug
+          priceId: selected.stripe_price_id,
+          coreCharge: selected.core_charge
         }),
       });
-      console.log('⚡️ /api/checkout/session status:', response.status);
 
-      // 3) Parse JSON
-      let payload;
-      try {
-        payload = await response.json();
-      } catch (e) {
-        const text = await response.text();
-        console.error('Malformed JSON from /api/checkout/session:', text);
-        return;
+      if (!response.ok) {
+        throw new Error(`Checkout API returned ${response.status}`);
       }
-      console.log('🎟️ /api/checkout/session payload:', payload);
 
-      // 4) Guard: ensure sessionId exists
+      // 3) Parse response
+      const payload = await response.json();
+      console.log('🎟️ /api/checkout payload:', payload);
+
+      // 4) Guard sessionId
       const sessionId = payload.sessionId;
       if (!sessionId) {
-        console.error('No sessionId in payload—aborting redirect');
-        return;
+        throw new Error('No sessionId returned from checkout API');
       }
 
       // 5) Redirect to Stripe
       const { error } = await stripe.redirectToCheckout({ sessionId });
       if (error) {
-        console.error('Stripe.redirectToCheckout error:', error.message);
-        alert('Checkout redirect failed. Please try again.');
+        throw error;
       }
     } catch (error) {
       console.error('Checkout error:', error);
-      alert('An error occurred. Please try again.');
+      alert('An error occurred during checkout. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -148,11 +146,14 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
           <div className="mt-8">
             <button
               onClick={handleCheckout}
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-150"
-              disabled={!selected?.stripe_price_id}
+              disabled={!selected?.stripe_price_id || isLoading}
+              className={`w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-150 ${
+                isLoading ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
             >
-              Buy & Ship Today — ${selected?.price?.toFixed(2) || part.price.toFixed(2)}
-              {selected?.has_core_charge && selected.core_charge && ` + $${selected.core_charge.toFixed(2)} core fee`}
+              {isLoading ? 'Processing...' : `Buy & Ship Today — $${selected?.price?.toFixed(2) || part.price.toFixed(2)}${
+                selected?.has_core_charge && selected.core_charge ? ` + $${selected.core_charge.toFixed(2)} core fee` : ''
+              }`}
             </button>
           </div>
         </div>
