@@ -1,6 +1,9 @@
 'use client';
 
+import { loadStripe } from '@stripe/stripe-js';
 import { useRouter } from 'next/navigation';
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 interface StickyFooterButtonProps {
   product: {
@@ -19,19 +22,26 @@ export default function StickyFooterButton({ product, slug }: StickyFooterButton
 
   async function handleBuyNow() {
     try {
-      const response = await fetch('/api/checkout/session', {
+      const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          product,
-          slug,
+          priceId: product.stripe_price_id,
+          coreCharge: product.has_core_charge ? product.core_charge : undefined
         }),
       });
       const data = await response.json();
       if (data.error) {
         console.error('Stripe session error:', data.error);
-      } else if (data.url) {
-        window.location.assign(data.url);
+      } else if (data.sessionId) {
+        const stripe = await stripePromise;
+        if (!stripe) {
+          throw new Error('Stripe failed to initialize');
+        }
+        const { error } = await stripe.redirectToCheckout({ sessionId: data.sessionId });
+        if (error) {
+          console.error('Stripe redirect error:', error);
+        }
       }
     } catch (err) {
       console.error('Checkout error:', err);

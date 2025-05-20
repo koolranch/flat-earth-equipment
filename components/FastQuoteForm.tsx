@@ -33,15 +33,33 @@ export default function FastQuoteForm({ currentLocation = '' }: FastQuoteFormPro
           <>
             <label className="block">
               <span className="font-medium">Make (e.g., Toyota):</span>
-              <input type="text" name="make" required className="mt-1 block w-full border border-gray-300 rounded px-3 py-2" />
+              <input 
+                type="text" 
+                name="make" 
+                required 
+                autoComplete="organization"
+                className="mt-1 block w-full border border-gray-300 rounded px-3 py-2" 
+              />
             </label>
             <label className="block">
               <span className="font-medium">Model (e.g., 8FGCU25):</span>
-              <input type="text" name="model" required className="mt-1 block w-full border border-gray-300 rounded px-3 py-2" />
+              <input 
+                type="text" 
+                name="model" 
+                required 
+                autoComplete="off"
+                className="mt-1 block w-full border border-gray-300 rounded px-3 py-2" 
+              />
             </label>
             <label className="block">
               <span className="font-medium">Part Number or Description:</span>
-              <input type="text" name="partNumber" required className="mt-1 block w-full border border-gray-300 rounded px-3 py-2" />
+              <input 
+                type="text" 
+                name="partNumber" 
+                required 
+                autoComplete="off"
+                className="mt-1 block w-full border border-gray-300 rounded px-3 py-2" 
+              />
             </label>
           </>
         ) : (
@@ -69,7 +87,13 @@ export default function FastQuoteForm({ currentLocation = '' }: FastQuoteFormPro
 
         <label className="block">
           <span className="font-medium">Email Address:</span>
-          <input type="email" name="email" required className="mt-1 block w-full border border-gray-300 rounded px-3 py-2" />
+          <input 
+            type="email" 
+            name="email" 
+            required 
+            autoComplete="email"
+            className="mt-1 block w-full border border-gray-300 rounded px-3 py-2" 
+          />
         </label>
 
         <button type="submit" className="w-full bg-canyon-rust text-white font-semibold rounded px-4 py-2 hover:bg-orange-700 transition">

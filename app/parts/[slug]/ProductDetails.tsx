@@ -8,13 +8,25 @@ let stripePromise: Promise<any> | null = null;
 const getStripe = () => {
   if (!stripePromise) {
     const stripeKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
-    console.log('🔑 Stripe key exists:', !!stripeKey);
-    console.log('🔑 Stripe key prefix:', stripeKey?.substring(0, 7));
+    console.log('🔑 Stripe initialization:', {
+      keyExists: !!stripeKey,
+      keyLength: stripeKey?.length,
+      keyPrefix: stripeKey?.substring(0, 7),
+      envKeys: Object.keys(process.env).filter(key => key.includes('STRIPE')),
+      key: stripeKey // Log the full key for debugging
+    });
+    
     if (!stripeKey) {
       console.error('Missing NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY');
       return null;
     }
-    stripePromise = loadStripe(stripeKey);
+    try {
+      stripePromise = loadStripe(stripeKey);
+      console.log('✅ Stripe promise created');
+    } catch (error) {
+      console.error('❌ Error creating Stripe promise:', error);
+      return null;
+    }
   }
   return stripePromise;
 };
@@ -37,25 +49,51 @@ interface ProductDetailsProps {
     image_url?: string;
     price: number;
     slug: string;
+    stripe_product_id?: string;
+    stripe_price_id?: string;
   };
   variants: Variant[];
 }
 
 export default function ProductDetails({ part, variants }: ProductDetailsProps) {
+  console.log('🎯 ProductDetails mounted with:', {
+    part: {
+      id: part.id,
+      name: part.name,
+      stripe_product_id: part.stripe_product_id,
+      stripe_price_id: part.stripe_price_id
+    },
+    variantsCount: variants?.length,
+    variants: variants?.map(v => ({
+      id: v.id,
+      firmware_version: v.firmware_version,
+      price: v.price,
+      stripe_price_id: v.stripe_price_id
+    }))
+  });
+
   const [selected, setSelected] = useState<Variant | null>(variants?.[0] || null);
   const [isLoading, setIsLoading] = useState(false);
   const [stripeError, setStripeError] = useState<string | null>(null);
 
   useEffect(() => {
+    console.log('🔄 Selected variant changed:', selected);
+  }, [selected]);
+
+  useEffect(() => {
     // Check Stripe initialization on component mount
     const checkStripe = async () => {
       try {
+        console.log('🔍 Checking Stripe initialization...');
         const stripe = await getStripe();
         if (!stripe) {
+          console.error('❌ Stripe initialization failed');
           setStripeError('Stripe is not properly configured. Please contact support.');
+        } else {
+          console.log('✅ Stripe initialized successfully');
         }
       } catch (error) {
-        console.error('Stripe initialization error:', error);
+        console.error('❌ Stripe initialization error:', error);
         setStripeError('Failed to initialize payment system. Please try again later.');
       }
     };
@@ -64,7 +102,7 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
 
   const handleCheckout = async () => {
     if (!selected?.stripe_price_id) {
-      console.error('No price ID available for selected variant');
+      console.error('No price ID available for selected variant:', selected);
       return;
     }
 
@@ -77,15 +115,24 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
 
     try {
       // 1) Load Stripe.js
+      console.log('🔄 Loading Stripe.js...');
       const stripe = await getStripe();
       if (!stripe) {
         throw new Error('Stripe.js failed to load. Please contact support.');
       }
+      console.log('✅ Stripe.js loaded successfully');
 
       // 2) Call checkout API
       console.log('🚀 Starting checkout with:', {
         priceId: selected.stripe_price_id,
-        coreCharge: selected.core_charge
+        coreCharge: selected.core_charge,
+        variant: {
+          id: selected.id,
+          firmware_version: selected.firmware_version,
+          price: selected.price,
+          has_core_charge: selected.has_core_charge,
+          core_charge: selected.core_charge
+        }
       });
 
       const response = await fetch('/api/checkout', {
@@ -102,7 +149,11 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
         console.error('❌ Checkout API error:', {
           status: response.status,
           statusText: response.statusText,
-          error: errorData
+          error: errorData,
+          requestBody: {
+            priceId: selected.stripe_price_id,
+            coreCharge: selected.core_charge
+          }
         });
         throw new Error(errorData?.error || `Checkout API returned ${response.status}`);
       }
@@ -118,9 +169,10 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
       }
 
       // 5) Redirect to Stripe
-      console.log('🔄 Redirecting to Stripe checkout...');
+      console.log('🔄 Redirecting to Stripe checkout...', { sessionId });
       const { error } = await stripe.redirectToCheckout({ sessionId });
       if (error) {
+        console.error('❌ Stripe redirect error:', error);
         throw error;
       }
     } catch (error) {

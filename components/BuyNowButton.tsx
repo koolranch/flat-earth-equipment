@@ -28,12 +28,12 @@ export default function BuyNowButton({ product, slug }: BuyNowButtonProps) {
       slug,
     });
     try {
-      const response = await fetch('/api/checkout/session', {
+      const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          product,
-          slug,
+          priceId: product.stripe_price_id,
+          coreCharge: product.has_core_charge ? product.core_charge : undefined
         }),
       });
       console.log('📦 fetch response status:', response.status);
@@ -41,9 +41,16 @@ export default function BuyNowButton({ product, slug }: BuyNowButtonProps) {
       console.log('📨 fetch response body:', data);
       if (data.error) {
         console.error('Stripe session error:', data.error);
-      } else if (data.url) {
-        console.log('🔗 redirecting to:', data.url);
-        window.location.assign(data.url);
+      } else if (data.sessionId) {
+        console.log('🔗 redirecting to Stripe checkout...', { sessionId: data.sessionId });
+        const stripe = await stripePromise;
+        if (!stripe) {
+          throw new Error('Stripe failed to initialize');
+        }
+        const { error } = await stripe.redirectToCheckout({ sessionId: data.sessionId });
+        if (error) {
+          console.error('Stripe redirect error:', error);
+        }
       } else {
         console.warn('Unexpected response:', data);
       }
