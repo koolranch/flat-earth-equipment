@@ -1,4 +1,5 @@
-import { Metadata } from 'next';
+'use client';
+
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
@@ -9,14 +10,7 @@ import BuyNowButton from '@/components/BuyNowButton';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import Breadcrumbs from '@/components/Breadcrumbs'
-
-export async function generateStaticParams() {
-  const supabase = createClient();
-  const { data: products } = await supabase
-    .from('parts')
-    .select('slug');
-  return products?.map((p) => ({ slug: p.slug })) || [];
-}
+import { useState } from 'react'
 
 interface Product {
   id: string;
@@ -33,37 +27,6 @@ interface Product {
   has_core_charge?: boolean;
   core_charge?: number;
 }
-
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const supabase = createClient();
-  try {
-    const { data: product } = await supabase
-      .from('parts')
-      .select('name, description')
-      .eq('slug', params.slug)
-      .single();
-
-    if (!product) {
-      return {
-        title: 'Product Not Found | Flat Earth Equipment',
-        description: 'The requested product could not be found.',
-      };
-    }
-
-    return {
-      title: `${product.name} | Flat Earth Equipment`,
-      description: product.description?.slice(0, 160) || 'High-quality replacement part for industrial equipment.',
-      alternates: { canonical: `/parts/${params.slug}` }
-    };
-  } catch (err) {
-    return {
-      title: 'Error | Flat Earth Equipment',
-      description: 'An error occurred while loading the product.',
-    };
-  }
-}
-
-export const dynamic = 'force-dynamic'
 
 interface Part {
   id: string
@@ -84,15 +47,18 @@ export default async function PartPage({
 }) {
   const supabase = createServerComponentClient({ cookies })
 
-  const { data: part } = await supabase
-    .from('parts')
-    .select('*')
-    .eq('slug', params.slug)
-    .single()
+  const [{ data: part }, { data: variants }] = await Promise.all([
+    supabase.from('parts').select('*').eq('slug', params.slug).single(),
+    supabase.from('part_variants').select('*').in('part_id', [
+      (await supabase.from('parts').select('id').eq('slug', params.slug).single()).data?.id || ''
+    ])
+  ])
 
   if (!part) {
     notFound()
   }
+
+  const [selected, setSelected] = useState(variants?.[0] || null)
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-12">
@@ -125,9 +91,33 @@ export default async function PartPage({
             <h1 className="text-3xl font-bold mb-2">{part.name}</h1>
             <p className="text-gray-600 mb-4">{part.brand}</p>
             
+            {variants && variants.length > 0 && (
+              <div className="mb-4">
+                <label htmlFor="firmware" className="block text-sm font-medium text-gray-700 mb-1">
+                  Firmware Version:
+                </label>
+                <select
+                  id="firmware"
+                  value={selected?.id || ''}
+                  onChange={e => {
+                    const v = variants.find(v => v.id === e.target.value);
+                    if (v) setSelected(v);
+                  }}
+                  className="border rounded p-2 w-full"
+                >
+                  {variants.map(v => (
+                    <option key={v.id} value={v.id}>
+                      {v.firmware_version}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+            
             <div className="mb-6">
               <p className="text-2xl font-semibold text-gray-900">
-                ${part.price.toFixed(2)}
+                ${selected?.price?.toFixed(2) || part.price.toFixed(2)}
+                {selected?.has_core_charge && ` + $${selected.core_charge.toFixed(2)} core fee`}
               </p>
             </div>
 
@@ -139,7 +129,23 @@ export default async function PartPage({
             )}
 
             <div className="mt-8">
-              <BuyNowButton product={part} slug={part.slug} />
+              <button
+                onClick={() => {
+                  if (!selected?.stripe_price_id) return;
+                  fetch('/api/checkout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      priceId: selected.stripe_price_id,
+                      coreCharge: selected.core_charge
+                    })
+                  })
+                }}
+                className="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
+                disabled={!selected?.stripe_price_id}
+              >
+                Rent / Buy Now
+              </button>
             </div>
           </div>
         </div>
