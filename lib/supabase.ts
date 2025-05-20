@@ -7,7 +7,14 @@ const key = (typeof window === "undefined")
   : process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!; // client: still anon
 
 // Create a single supabase client for interacting with your database
-const supabase = createClient(url, key);
+const supabase = createClient(url, key, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+    storageKey: 'flat-earth-equipment-auth'
+  }
+});
 
 export interface Part {
   id: string;

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle, Package, Zap, Clock, CreditCard } from 'lucide-react';
 import Script from 'next/script';
-import { createClient } from '@/utils/supabase/server';
+import supabase from '@/lib/supabase';
 import BuyNowButton from '@/components/BuyNowButton';
 import StickyFooterCTA from '@/components/StickyFooterCTA';
 import StickyFooterButton from '@/components/StickyFooterButton';
@@ -17,12 +17,16 @@ export const metadata: Metadata = {
 };
 
 export default async function BatteryChargerModulesPage() {
-  const supabase = createClient();
-  const { data: parts } = await supabase
+  const { data: parts, error } = await supabase
     .from('parts')
     .select('*')
-    .ilike('category', '%charger modules%')
+    .or('category.ilike.%charger modules%,category.ilike.%battery charger%')
     .limit(12);
+
+  if (error) {
+    console.error('Error fetching parts:', error);
+    return <div>Error loading parts</div>;
+  }
 
   return (
     <>
