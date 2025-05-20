@@ -23,7 +23,7 @@ export async function POST(request: Request) {
   }
 
   // 2) Initialize Stripe
-  const stripe = new Stripe(sk, { apiVersion: '2023-10-16' });
+  const stripe = new Stripe(sk, { apiVersion: '2025-04-30.basil' });
 
   try {
     // 3) Parse request body
