@@ -51,6 +51,8 @@ interface ProductDetailsProps {
     slug: string;
     stripe_product_id?: string;
     stripe_price_id?: string;
+    has_core_charge?: boolean;
+    core_charge?: number;
   };
   variants: Variant[];
 }
@@ -101,8 +103,22 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
   }, []);
 
   const handleCheckout = async () => {
-    if (!selected?.stripe_price_id) {
-      console.error('No price ID available for selected variant:', selected);
+    // Use variant's stripe_price_id if available, otherwise use product's stripe_price_id
+    const priceId = selected?.stripe_price_id || part.stripe_price_id;
+    console.log('🔍 Checkout details:', {
+      hasVariants: variants.length > 0,
+      selectedVariant: selected ? {
+        id: selected.id,
+        firmware_version: selected.firmware_version,
+        price: selected.price,
+        stripe_price_id: selected.stripe_price_id
+      } : null,
+      productPriceId: part.stripe_price_id,
+      finalPriceId: priceId
+    });
+
+    if (!priceId) {
+      console.error('No price ID available:', { selected, part });
       return;
     }
 
@@ -124,23 +140,23 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
 
       // 2) Call checkout API
       console.log('🚀 Starting checkout with:', {
-        priceId: selected.stripe_price_id,
-        coreCharge: selected.core_charge,
-        variant: {
+        priceId,
+        coreCharge: selected?.core_charge || (part.has_core_charge ? part.core_charge : undefined),
+        variant: selected ? {
           id: selected.id,
           firmware_version: selected.firmware_version,
           price: selected.price,
           has_core_charge: selected.has_core_charge,
           core_charge: selected.core_charge
-        }
+        } : undefined
       });
 
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          priceId: selected.stripe_price_id,
-          coreCharge: selected.core_charge
+          priceId,
+          coreCharge: selected?.core_charge || (part.has_core_charge ? part.core_charge : undefined)
         }),
       });
 
@@ -151,8 +167,8 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
           statusText: response.statusText,
           error: errorData,
           requestBody: {
-            priceId: selected.stripe_price_id,
-            coreCharge: selected.core_charge
+            priceId,
+            coreCharge: selected?.core_charge || (part.has_core_charge ? part.core_charge : undefined)
           }
         });
         throw new Error(errorData?.error || `Checkout API returned ${response.status}`);
@@ -246,13 +262,13 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
           <div className="mt-8">
             <button
               onClick={handleCheckout}
-              disabled={!selected?.stripe_price_id || isLoading || !!stripeError}
+              disabled={!selected?.stripe_price_id && !part.stripe_price_id || isLoading || !!stripeError}
               className={`w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-150 ${
                 (isLoading || !!stripeError) ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             >
               {isLoading ? 'Processing...' : stripeError ? 'Payment System Unavailable' : `Buy & Ship Today — $${selected?.price?.toFixed(2) || part.price.toFixed(2)}${
-                selected?.has_core_charge && selected.core_charge ? ` + $${selected.core_charge.toFixed(2)} core fee` : ''
+                (selected?.has_core_charge && selected.core_charge) || (part.has_core_charge && part.core_charge) ? ` + $${(selected?.core_charge || part.core_charge)?.toFixed(2)} core fee` : ''
               }`}
             </button>
             {stripeError && (
