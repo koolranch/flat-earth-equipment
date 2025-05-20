@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { createClient } from "@supabase/supabase-js";
 import Image from "next/image";
+import supabase from '@/lib/supabase';
 
 type Part = {
   slug: string;
@@ -14,19 +14,6 @@ type Part = {
   brand: string;
   isBestSeller?: boolean;
 };
-
-// Create a single supabase client for client-side rendering
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  {
-    auth: {
-      persistSession: false,
-      autoRefreshToken: false,
-      detectSessionInUrl: false
-    }
-  }
-);
 
 export default function FeaturedParts() {
   const [parts, setParts] = useState<Part[]>([]);
@@ -40,7 +27,7 @@ export default function FeaturedParts() {
         const { data: chargerModules, error: chargerError } = await supabase
           .from('parts')
           .select('slug, name, price, image_url, category, brand, isBestSeller')
-          .in('category', ['charger modules', 'battery chargers'])
+          .or('category.ilike.%charger modules%,category.ilike.%battery charger%')
           .limit(2);
 
         if (chargerError) {
