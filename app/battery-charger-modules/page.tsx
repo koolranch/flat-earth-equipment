@@ -20,7 +20,7 @@ export default async function BatteryChargerModulesPage() {
   const { data: parts, error } = await supabase
     .from('parts')
     .select('*')
-    .or('category.ilike.%charger modules%,category.ilike.%battery charger%')
+    .eq('category', 'battery-chargers')
     .limit(12);
 
   if (error) {

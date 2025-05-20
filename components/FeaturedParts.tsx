@@ -27,11 +27,12 @@ export default function FeaturedParts() {
         const { data: chargerModules, error: chargerError } = await supabase
           .from('parts')
           .select('slug, name, price, image_url, category, brand, isBestSeller')
-          .or('category.ilike.%charger modules%,category.ilike.%battery charger%')
+          .eq('category', 'battery-chargers')
           .limit(2);
 
         if (chargerError) {
           console.error('Error fetching charger modules:', chargerError);
+          setError('Failed to load charger modules');
           return;
         }
 
@@ -39,8 +40,7 @@ export default function FeaturedParts() {
         const { data: recentParts, error: recentError } = await supabase
           .from('parts')
           .select('slug, name, price, image_url, category, brand, isBestSeller')
-          .neq('category', 'charger modules')
-          .neq('category', 'battery chargers')
+          .neq('category', 'battery-chargers')
           .order('created_at', { ascending: false })
           .limit(4);
 
