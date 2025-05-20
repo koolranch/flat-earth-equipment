@@ -22,6 +22,7 @@ interface ProductDetailsProps {
     description?: string;
     image_url?: string;
     price: number;
+    slug: string;
   };
   variants: Variant[];
 }
@@ -30,35 +31,53 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
   const [selected, setSelected] = useState<Variant | null>(variants?.[0] || null);
 
   const handleCheckout = async () => {
+    // 1) Load Stripe
     const stripe = await stripePromise;
     if (!stripe) {
-      console.error('Stripe.js failed to load.');
+      console.error('Stripe.js failed to load');
       return;
     }
 
-    if (!selected?.stripe_price_id) return;
+    if (!selected?.stripe_price_id) {
+      console.error('No price ID available for selected variant');
+      return;
+    }
 
     try {
-      const response = await fetch('/api/checkout', {
+      // 2) Call your checkout API
+      const response = await fetch('/api/checkout/session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          priceId: selected.stripe_price_id,
-          coreCharge: selected.has_core_charge ? selected.core_charge : undefined
-        })
+          product: selected,
+          slug: part.slug
+        }),
       });
+      console.log('⚡️ /api/checkout/session status:', response.status);
 
-      if (!response.ok) {
-        console.error('Checkout API error:', await response.text());
+      // 3) Parse JSON
+      let payload;
+      try {
+        payload = await response.json();
+      } catch (e) {
+        const text = await response.text();
+        console.error('Malformed JSON from /api/checkout/session:', text);
+        return;
+      }
+      console.log('🎟️ /api/checkout/session payload:', payload);
+
+      // 4) Guard: ensure sessionId exists
+      const sessionId = payload.sessionId;
+      if (!sessionId) {
+        console.error('No sessionId in payload—aborting redirect');
         return;
       }
 
-      const { sessionId } = await response.json();
-      
+      // 5) Redirect to Stripe
       const { error } = await stripe.redirectToCheckout({ sessionId });
       if (error) {
-        console.error('Stripe redirect error:', error.message);
-        alert('Failed to start checkout. Please try again.');
+        console.error('Stripe.redirectToCheckout error:', error.message);
+        alert('Checkout redirect failed. Please try again.');
       }
     } catch (error) {
       console.error('Checkout error:', error);
