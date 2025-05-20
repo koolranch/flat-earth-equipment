@@ -14,7 +14,6 @@ async function getChargerModules() {
     .from('parts')
     .select('id,slug,name,brand,price,core_fee,image_url')
     .eq('category', 'charger-modules')
-    .eq('available', true)
     .order('brand')
   if (error) console.error(error)
   return data ?? []
