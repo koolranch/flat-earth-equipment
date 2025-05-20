@@ -49,6 +49,7 @@ export default function EmailSignup() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
             required
+            autoComplete="email"
             className="px-4 py-2 rounded-md text-black w-full sm:w-auto"
           />
           <button

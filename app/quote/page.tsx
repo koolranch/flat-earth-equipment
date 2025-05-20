@@ -32,11 +32,13 @@ function QuoteForm() {
           name="name"
           placeholder="Your Name"
           required
+          autoComplete="name"
           className="w-full border border-slate-300 px-4 py-2 rounded"
         />
         <input
           name="company"
           placeholder="Company (optional)"
+          autoComplete="organization"
           className="w-full border border-slate-300 px-4 py-2 rounded"
         />
         <input
@@ -44,12 +46,14 @@ function QuoteForm() {
           type="email"
           placeholder="Email"
           required
+          autoComplete="email"
           className="w-full border border-slate-300 px-4 py-2 rounded"
         />
         <input
           name="phone"
           type="tel"
           placeholder="Phone (optional)"
+          autoComplete="tel"
           className="w-full border border-slate-300 px-4 py-2 rounded"
         />
 
