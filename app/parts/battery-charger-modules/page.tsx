@@ -13,7 +13,7 @@ async function getChargerModules() {
   const { data, error } = await supabase
     .from('parts')
     .select('id,slug,name,brand,price,core_fee,image_url')
-    .eq('category', 'Charger Modules')
+    .eq('category', 'charger-modules')
     .eq('available', true)
     .order('brand')
   if (error) console.error(error)
