@@ -23,17 +23,22 @@ export async function POST(request: Request) {
   }
 
   // 2) Initialize Stripe
-  const stripe = new Stripe(sk, { apiVersion: '2025-04-30.basil' });
+  const stripe = new Stripe(sk, { apiVersion: '2023-10-16' });
 
   try {
     // 3) Parse request body
-    const { priceId, coreCharge } = await request.json();
+    const body = await request.json();
+    console.log('📦 Request body:', body);
+    
+    const { priceId, coreCharge } = body;
     if (!priceId) {
+      console.error('Missing priceId in request body');
       return NextResponse.json({ error: 'Missing priceId' }, { status: 400 });
     }
 
     // 4) Get origin for success/cancel URLs
     const origin = request.headers.get('origin') || 'http://localhost:3000';
+    console.log('🌐 Origin:', origin);
 
     // 5) Build line items
     const lineItems: LineItem[] = [
@@ -56,6 +61,8 @@ export async function POST(request: Request) {
         quantity: 1
       });
     }
+
+    console.log('🛒 Line items:', lineItems);
 
     // 6) Create checkout session
     const session = await stripe.checkout.sessions.create({
@@ -91,12 +98,14 @@ export async function POST(request: Request) {
       ],
     });
 
+    console.log('✅ Checkout session created:', session.id);
+
     // 7) Return session ID
     return NextResponse.json({ sessionId: session.id });
   } catch (err) {
-    console.error('Stripe checkout error:', err);
+    console.error('❌ Stripe checkout error:', err);
     return NextResponse.json(
-      { error: 'Failed to create checkout session' },
+      { error: 'Failed to create checkout session', details: err instanceof Error ? err.message : 'Unknown error' },
       { status: 500 }
     );
   }
