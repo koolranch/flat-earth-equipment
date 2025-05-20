@@ -12,7 +12,7 @@ async function getChargerModules() {
   const supabase = createClient()
   const { data, error } = await supabase
     .from('parts')
-    .select('id,slug,name,brand,price,core_fee,image_url')
+    .select('id,slug,name,brand,price,core_charge,image_url')
     .eq('category', 'Charger Modules')
     .order('brand')
   // Debug logging
@@ -61,9 +61,9 @@ export default async function ChargerModulesPage() {
               <div className="mt-auto space-y-2">
                 <p className="font-bold">
                   ${m.price.toFixed(2)}{' '}
-                  {m.core_fee && (
+                  {m.core_charge && (
                     <span className="text-xs text-slate-500">
-                      (+ ${m.core_fee.toFixed(0)} core fee)
+                      (+ ${m.core_charge.toFixed(0)} core fee)
                     </span>
                   )}
                 </p>
