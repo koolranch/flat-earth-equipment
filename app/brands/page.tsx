@@ -14,7 +14,7 @@ export default async function BrandsPage() {
   return (
     <main className="max-w-6xl mx-auto px-4 py-16">
       <h1 className="text-3xl font-bold text-slate-900 mb-8 text-center">
-        Browse Parts by Brand
+        Browse by Brand
       </h1>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
