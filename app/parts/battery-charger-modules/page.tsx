@@ -13,9 +13,11 @@ async function getChargerModules() {
   const { data, error } = await supabase
     .from('parts')
     .select('id,slug,name,brand,price,core_fee,image_url')
-    .eq('category', 'charger-modules')
+    .eq('category', 'Charger Modules')
     .order('brand')
-  if (error) console.error(error)
+  // Debug logging
+  console.log('Supabase charger modules data:', data)
+  if (error) console.error('Supabase error:', error)
   return data ?? []
 }
 
