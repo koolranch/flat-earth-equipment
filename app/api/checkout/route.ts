@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
+import { createClient } from '@supabase/supabase-js';
 
 type LineItem = 
   | { price: string; quantity: number }
@@ -13,6 +14,12 @@ type LineItem =
       };
       quantity: number;
     };
+
+// Initialize Supabase client
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
 export async function POST(request: Request) {
   // 1) Ensure secret key is set
@@ -76,25 +83,8 @@ export async function POST(request: Request) {
       },
       shipping_options: [
         {
-          shipping_rate_data: {
-            type: 'fixed_amount',
-            fixed_amount: {
-              amount: 0,
-              currency: 'usd',
-            },
-            display_name: 'Free Shipping',
-            delivery_estimate: {
-              minimum: {
-                unit: 'business_day',
-                value: 5,
-              },
-              maximum: {
-                unit: 'business_day',
-                value: 7,
-              },
-            },
-          },
-        },
+          shipping_rate: 'shr_1RQgxdHJI548rO8JorlRxCFQ'
+        }
       ],
     });
 
