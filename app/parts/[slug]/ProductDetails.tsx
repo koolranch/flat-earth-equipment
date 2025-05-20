@@ -1,6 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!);
 
 interface Variant {
   id: string;
@@ -25,6 +28,33 @@ interface ProductDetailsProps {
 
 export default function ProductDetails({ part, variants }: ProductDetailsProps) {
   const [selected, setSelected] = useState<Variant | null>(variants?.[0] || null);
+
+  const handleCheckout = async () => {
+    if (!selected?.stripe_price_id) return;
+    
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          priceId: selected.stripe_price_id,
+          coreCharge: selected.has_core_charge ? selected.core_charge : undefined
+        })
+      });
+
+      const { sessionId } = await response.json();
+      const stripe = await stripePromise;
+      
+      if (stripe) {
+        const { error } = await stripe.redirectToCheckout({ sessionId });
+        if (error) {
+          console.error('Stripe checkout error:', error);
+        }
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+    }
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -88,21 +118,11 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
 
           <div className="mt-8">
             <button
-              onClick={() => {
-                if (!selected?.stripe_price_id) return;
-                fetch('/api/checkout', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    priceId: selected.stripe_price_id,
-                    coreCharge: selected.has_core_charge ? selected.core_charge : undefined
-                  })
-                })
-              }}
-              className="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
+              onClick={handleCheckout}
+              className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={!selected?.stripe_price_id}
             >
-              Rent / Buy Now
+              Buy & Ship Today
             </button>
           </div>
         </div>
