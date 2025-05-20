@@ -30,8 +30,14 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
   const [selected, setSelected] = useState<Variant | null>(variants?.[0] || null);
 
   const handleCheckout = async () => {
+    const stripe = await stripePromise;
+    if (!stripe) {
+      console.error('Stripe.js failed to load.');
+      return;
+    }
+
     if (!selected?.stripe_price_id) return;
-    
+
     try {
       const response = await fetch('/api/checkout', {
         method: 'POST',
@@ -42,17 +48,21 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
         })
       });
 
+      if (!response.ok) {
+        console.error('Checkout API error:', await response.text());
+        return;
+      }
+
       const { sessionId } = await response.json();
-      const stripe = await stripePromise;
       
-      if (stripe) {
-        const { error } = await stripe.redirectToCheckout({ sessionId });
-        if (error) {
-          console.error('Stripe checkout error:', error);
-        }
+      const { error } = await stripe.redirectToCheckout({ sessionId });
+      if (error) {
+        console.error('Stripe redirect error:', error.message);
+        alert('Failed to start checkout. Please try again.');
       }
     } catch (error) {
       console.error('Checkout error:', error);
+      alert('An error occurred. Please try again.');
     }
   };
 
@@ -119,10 +129,11 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
           <div className="mt-8">
             <button
               onClick={handleCheckout}
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-150"
               disabled={!selected?.stripe_price_id}
             >
-              Buy & Ship Today
+              Buy & Ship Today — ${selected?.price?.toFixed(2) || part.price.toFixed(2)}
+              {selected?.has_core_charge && selected.core_charge && ` + $${selected.core_charge.toFixed(2)} core fee`}
             </button>
           </div>
         </div>
