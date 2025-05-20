@@ -1,9 +1,23 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!);
+// Initialize Stripe with error handling
+let stripePromise: Promise<any> | null = null;
+const getStripe = () => {
+  if (!stripePromise) {
+    const stripeKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+    console.log('🔑 Stripe key exists:', !!stripeKey);
+    console.log('🔑 Stripe key prefix:', stripeKey?.substring(0, 7));
+    if (!stripeKey) {
+      console.error('Missing NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY');
+      return null;
+    }
+    stripePromise = loadStripe(stripeKey);
+  }
+  return stripePromise;
+};
 
 interface Variant {
   id: string;
@@ -30,6 +44,23 @@ interface ProductDetailsProps {
 export default function ProductDetails({ part, variants }: ProductDetailsProps) {
   const [selected, setSelected] = useState<Variant | null>(variants?.[0] || null);
   const [isLoading, setIsLoading] = useState(false);
+  const [stripeError, setStripeError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Check Stripe initialization on component mount
+    const checkStripe = async () => {
+      try {
+        const stripe = await getStripe();
+        if (!stripe) {
+          setStripeError('Stripe is not properly configured. Please contact support.');
+        }
+      } catch (error) {
+        console.error('Stripe initialization error:', error);
+        setStripeError('Failed to initialize payment system. Please try again later.');
+      }
+    };
+    checkStripe();
+  }, []);
 
   const handleCheckout = async () => {
     if (!selected?.stripe_price_id) {
@@ -37,16 +68,26 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
       return;
     }
 
+    if (stripeError) {
+      alert(stripeError);
+      return;
+    }
+
     setIsLoading(true);
 
     try {
       // 1) Load Stripe.js
-      const stripe = await stripePromise;
+      const stripe = await getStripe();
       if (!stripe) {
-        throw new Error('Stripe.js failed to load');
+        throw new Error('Stripe.js failed to load. Please contact support.');
       }
 
       // 2) Call checkout API
+      console.log('🚀 Starting checkout with:', {
+        priceId: selected.stripe_price_id,
+        coreCharge: selected.core_charge
+      });
+
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -57,7 +98,13 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
       });
 
       if (!response.ok) {
-        throw new Error(`Checkout API returned ${response.status}`);
+        const errorData = await response.json().catch(() => null);
+        console.error('❌ Checkout API error:', {
+          status: response.status,
+          statusText: response.statusText,
+          error: errorData
+        });
+        throw new Error(errorData?.error || `Checkout API returned ${response.status}`);
       }
 
       // 3) Parse response
@@ -71,13 +118,14 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
       }
 
       // 5) Redirect to Stripe
+      console.log('🔄 Redirecting to Stripe checkout...');
       const { error } = await stripe.redirectToCheckout({ sessionId });
       if (error) {
         throw error;
       }
     } catch (error) {
-      console.error('Checkout error:', error);
-      alert('An error occurred during checkout. Please try again.');
+      console.error('❌ Checkout error:', error);
+      alert(error instanceof Error ? error.message : 'An error occurred during checkout. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -146,15 +194,18 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
           <div className="mt-8">
             <button
               onClick={handleCheckout}
-              disabled={!selected?.stripe_price_id || isLoading}
+              disabled={!selected?.stripe_price_id || isLoading || !!stripeError}
               className={`w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-150 ${
-                isLoading ? 'opacity-50 cursor-not-allowed' : ''
+                (isLoading || !!stripeError) ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             >
-              {isLoading ? 'Processing...' : `Buy & Ship Today — $${selected?.price?.toFixed(2) || part.price.toFixed(2)}${
+              {isLoading ? 'Processing...' : stripeError ? 'Payment System Unavailable' : `Buy & Ship Today — $${selected?.price?.toFixed(2) || part.price.toFixed(2)}${
                 selected?.has_core_charge && selected.core_charge ? ` + $${selected.core_charge.toFixed(2)} core fee` : ''
               }`}
             </button>
+            {stripeError && (
+              <p className="mt-2 text-sm text-red-600">{stripeError}</p>
+            )}
           </div>
         </div>
       </div>
