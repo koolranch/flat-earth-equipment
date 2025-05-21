@@ -43,6 +43,11 @@ export default function Page() {
       {/* 1) Full-bleed Hero */}
       <Hero />
 
+      {/* 3.5) Featured Rentals */}
+      <div className="py-12">
+        <FeaturedRentals />
+      </div>
+
       {/* 3) Quick Quote Form */}
       <div className="py-12">
         <QuickQuote />
@@ -50,9 +55,6 @@ export default function Page() {
 
       {/* 2) Popular Categories */}
       <CategoryTiles />
-
-      {/* 3.5) Featured Rentals */}
-      <FeaturedRentals />
 
       {/* Featured Products */}
       <FeaturedProducts />
