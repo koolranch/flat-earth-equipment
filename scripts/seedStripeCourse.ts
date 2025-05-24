@@ -41,11 +41,10 @@ async function seedStripeCourse() {
     
     console.log('✅ Created Stripe price:', price.id);
     
-    // Update course in Supabase with real Stripe IDs
+    // Update course in Supabase with real Stripe price ID
     const { error } = await supabase
       .from('courses')
       .update({
-        stripe_product: product.id,
         stripe_price: price.id
       })
       .eq('slug', 'forklift');
