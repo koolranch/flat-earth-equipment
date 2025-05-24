@@ -23,10 +23,6 @@ export async function POST(req: Request) {
           id,
           title,
           modules(id, order)
-        ),
-        user:users(
-          email,
-          raw_user_meta_data
         )
       `)
       .eq('id', enrollmentId)
@@ -40,6 +36,17 @@ export async function POST(req: Request) {
     if (!enrollment) {
       console.error('No enrollment found for ID:', enrollmentId)
       return NextResponse.json({ error: 'Enrollment not found', enrollmentId }, { status: 404 })
+    }
+
+    // Get user data separately
+    let userName = 'Student'
+    if (enrollment.user_id) {
+      const { data: userData } = await supabase
+        .auth.admin.getUserById(enrollment.user_id)
+      
+      if (userData?.user) {
+        userName = userData.user.user_metadata?.full_name || userData.user.email || 'Student'
+      }
     }
 
     // Calculate new progress
@@ -73,7 +80,7 @@ export async function POST(req: Request) {
       // Generate PDF certificate
       const pdfBytes = await buildCertPDF({
         certId,
-        userName: enrollment.user?.raw_user_meta_data?.full_name || enrollment.user?.email || 'Student',
+        userName,
         courseName: enrollment.course.title,
         completionDate: new Date().toLocaleDateString('en-US', { 
           year: 'numeric', 

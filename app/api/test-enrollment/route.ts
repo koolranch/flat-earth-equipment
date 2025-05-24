@@ -1,6 +1,12 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
+export async function GET() {
+  return NextResponse.json({ 
+    message: 'Test enrollment endpoint is working. Use POST with {"enrollmentId": "..."} to test.' 
+  })
+}
+
 export async function POST(req: Request) {
   try {
     const { enrollmentId } = await req.json()
