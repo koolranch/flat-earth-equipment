@@ -1,18 +1,32 @@
-# Support Macros – Flat Earth Safety
+# Flat Earth Safety – Support Macros
 
-## 1. Login Help
-**Subject:** Trouble Signing In  
-Hi {{customer.first_name}},  
-Click *Forgot Password* on the login screen, then follow the emailed link…
+---
 
-## 2. Resend Certificate
-**Subject:** Your Certificate PDF  
-Hi {{customer.first_name}},  
-Here's your certificate download link: {{cert_url}}. It's valid until {{expires}}…
+## Login Help
+**Shortcut:** /login  
+Hi {{first_name}},  
+Click **Continue with Email** on the login screen and enter the six-digit code we just sent.  
+No email? Check spam or search "Flat Earth Safety".  
+Still stuck? Reply here and we'll reset you manually.
 
-## 3. Employer Evaluation Sheet
-Link: https://www.flatearthequipment.com/evaluation.pdf
+---
 
-## 4. Refund Policy
-Digital courses are refundable within 7 days **provided the certificate has not been issued**.  
-To proceed, reply with the email used at purchase. 
+## Resend Certificate
+**Shortcut:** /cert  
+Hi {{first_name}},  
+Here's a fresh link to your certificate PDF: {{cert_url}}  
+It's valid until {{expires_at}}. Let us know if you need anything else.
+
+---
+
+## Employer Evaluation Sheet
+**Shortcut:** /eval  
+Your on-site evaluator can download the OSHA checklist here:  
+https://www.flatearthequipment.com/evaluation.pdf
+
+---
+
+## Refund Policy
+**Shortcut:** /refund  
+Digital courses are refundable within 7 days *provided the certificate has not been issued.*  
+Reply CONFIRM REFUND and we'll process it within one business day. 
