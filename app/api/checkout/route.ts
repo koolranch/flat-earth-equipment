@@ -37,7 +37,34 @@ export async function POST(request: Request) {
     const body = await request.json();
     console.log('📦 Request body:', body);
     
-    const { priceId, coreCharge } = body;
+    // Check if this is a course checkout
+    const { courseSlug, priceId, coreCharge } = body;
+    
+    if (courseSlug) {
+      // Handle course checkout
+      const { data: course } = await supabase
+        .from('courses')
+        .select('stripe_price')
+        .eq('slug', courseSlug)
+        .single();
+
+      if (!course || !course.stripe_price) {
+        return NextResponse.json({ error: 'Course not found' }, { status: 404 });
+      }
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        mode: 'payment',
+        line_items: [{ price: course.stripe_price, quantity: 1 }],
+        success_url: `${process.env.NEXT_PUBLIC_SITE_URL || request.headers.get('origin')}/dashboard?success=1`,
+        cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL || request.headers.get('origin')}/safety?canceled=1`,
+        metadata: { course_slug: courseSlug }
+      });
+      
+      return NextResponse.json({ url: session.url });
+    }
+    
+    // Handle regular product checkout (existing logic)
     if (!priceId) {
       console.error('Missing priceId in request body');
       return NextResponse.json({ error: 'Missing priceId' }, { status: 400 });
@@ -90,12 +117,14 @@ export async function POST(request: Request) {
 
     console.log('✅ Checkout session created:', session.id);
 
-    // 7) Return session ID
-    return NextResponse.json({ sessionId: session.id });
-  } catch (err) {
-    console.error('❌ Stripe checkout error:', err);
+    // 7) Return checkout URL
+    return NextResponse.json({ url: session.url });
+
+  } catch (error) {
+    console.error('Error creating checkout session:', error);
+    
     return NextResponse.json(
-      { error: 'Failed to create checkout session', details: err instanceof Error ? err.message : 'Unknown error' },
+      { error: 'Failed to create checkout session' },
       { status: 500 }
     );
   }
