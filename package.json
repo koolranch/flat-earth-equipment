@@ -12,7 +12,8 @@
     "import:to-supabase": "node scripts/import-to-supabase.mjs",
     "build-merchant-feed": "NODE_OPTIONS='--loader ts-node/esm' ts-node scripts/build-merchant-feed.ts",
     "verify-parts": "NODE_OPTIONS='--loader ts-node/esm' ts-node scripts/verify-parts.ts",
-    "add-image-url": "node scripts/add-image-url.mjs"
+    "add-image-url": "node scripts/add-image-url.mjs",
+    "seed:stripe": "npx tsx scripts/seedStripeCourse.ts"
   },
   "keywords": [],
   "author": "",

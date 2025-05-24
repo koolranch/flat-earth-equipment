@@ -1,0 +1,94 @@
+-- File: supabase/seed/20250524_stub_modules.sql
+
+-- First, get the course ID
+DO $$
+DECLARE
+  course_id_var UUID;
+BEGIN
+  SELECT id INTO course_id_var FROM public.courses WHERE slug = 'forklift' LIMIT 1;
+  
+  IF course_id_var IS NOT NULL THEN
+    -- Insert stub modules with placeholder videos
+    INSERT INTO public.modules (course_id, "order", title, video_url, quiz_json)
+    VALUES 
+      (
+        course_id_var,
+        1,
+        'Introduction to Forklift Safety',
+        'https://stream.mux.com/placeholder-video-1.m3u8',
+        '[
+          {
+            "q": "What OSHA standard covers powered industrial trucks?",
+            "choices": ["29 CFR 1910.178", "29 CFR 1910.147", "49 CFR 1926.50"],
+            "answer": 0
+          },
+          {
+            "q": "Minimum age to operate a forklift?",
+            "choices": ["16", "18", "21"],
+            "answer": 1
+          },
+          {
+            "q": "How often must forklift operators be re-evaluated?",
+            "choices": ["Every year", "Every 3 years", "Every 5 years"],
+            "answer": 1
+          },
+          {
+            "q": "What must be done before operating a forklift each shift?",
+            "choices": ["Check tire pressure", "Pre-operation inspection", "Clean the seat"],
+            "answer": 1
+          }
+        ]'::jsonb
+      ),
+      (
+        course_id_var,
+        2,
+        'Operating Procedures & Load Handling',
+        'https://stream.mux.com/placeholder-video-2.m3u8',
+        '[
+          {
+            "q": "What is the maximum travel speed in work areas?",
+            "choices": ["5 mph", "10 mph", "15 mph"],
+            "answer": 0
+          },
+          {
+            "q": "When traveling with a load, the forks should be:",
+            "choices": ["Raised high", "Tilted back and low", "Level with ground"],
+            "answer": 1
+          },
+          {
+            "q": "What is the ''stability triangle''?",
+            "choices": ["Three wheels touching ground", "The area between the three support points", "Three-point contact rule"],
+            "answer": 1
+          }
+        ]'::jsonb
+      ),
+      (
+        course_id_var,
+        3,
+        'Workplace Safety & Hazard Recognition',
+        'https://stream.mux.com/placeholder-video-3.m3u8',
+        '[
+          {
+            "q": "What percentage of forklift accidents involve pedestrians?",
+            "choices": ["10%", "25%", "36%"],
+            "answer": 2
+          },
+          {
+            "q": "When should you sound the horn?",
+            "choices": ["At intersections and blind spots", "Only in emergencies", "Every 30 seconds"],
+            "answer": 0
+          },
+          {
+            "q": "Safe distance from other forklifts:",
+            "choices": ["3 truck lengths", "1 truck length", "5 feet"],
+            "answer": 0
+          }
+        ]'::jsonb
+      )
+    ON CONFLICT DO NOTHING;
+    
+    RAISE NOTICE 'Modules inserted successfully for course %', course_id_var;
+  ELSE
+    RAISE NOTICE 'Course not found. Please run stub_course.sql first.';
+  END IF;
+END $$; 
