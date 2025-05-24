@@ -37,9 +37,9 @@ module.exports = {
         safety: '#F76511',
       },
       fontFamily: {
-        sans: ['Inter', ...defaultTheme.fontFamily.sans],
+        sans: ['var(--font-inter)', ...defaultTheme.fontFamily.sans],
         heading: ['"Roboto Slab"', 'serif'],
-        body: ['Inter', 'sans-serif'],
+        body: ['var(--font-inter)', 'sans-serif'],
       },
       borderRadius: {
         xl: '1.25rem',

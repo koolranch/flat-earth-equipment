@@ -53,6 +53,7 @@ export default function CheckoutButton({ courseSlug, price }: CheckoutButtonProp
         onClick={handleCheckout}
         disabled={isLoading}
         className="rounded bg-orange-600 px-6 py-3 font-medium text-white hover:bg-orange-700 disabled:opacity-50"
+        aria-label="Start forklift certification checkout"
       >
         {isLoading ? 'Loading...' : `Get Certified for $${price}`}
       </button>
