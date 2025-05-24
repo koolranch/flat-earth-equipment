@@ -5,11 +5,12 @@
  */
 
 async function checkSafetyPage() {
-  console.log('🔍 Checking safety page...\n');
+  const url = process.argv[2] || 'http://localhost:3000/safety';
+  console.log(`🔍 Checking safety page at: ${url}\n`);
 
   try {
     // Fetch the page
-    const response = await fetch('http://localhost:3000/safety');
+    const response = await fetch(url);
     const html = await response.text();
 
     const issues = [];
