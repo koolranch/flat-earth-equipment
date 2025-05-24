@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import Link from 'next/link'
+import { useSupabase } from '../providers'
 
 export default function SimpleDashboard() {
   const [user, setUser] = useState<any>(null)
@@ -10,7 +10,7 @@ export default function SimpleDashboard() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   
-  const supabase = createClientComponentClient()
+  const { supabase } = useSupabase()
 
   useEffect(() => {
     async function loadData() {

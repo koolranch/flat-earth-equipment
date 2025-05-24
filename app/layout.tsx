@@ -5,6 +5,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import SupabaseProvider from './providers';
 // Import your global styles (Tailwind, custom resets)
 import '../globals.css';
 
@@ -23,9 +24,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} font-sans text-gray-900 bg-gray-50 antialiased`}>
-        <Navbar />
-        {children}
-        <section className="bg-slate-100 py-6">
+        <SupabaseProvider>
+          <Navbar />
+          {children}
+          <section className="bg-slate-100 py-6">
           <div className="max-w-6xl mx-auto px-4 flex flex-wrap justify-center items-center gap-4 text-sm text-slate-700 text-center">
             <span className="bg-white rounded-md px-4 py-2 shadow-sm">🚚 Same-Day Dispatch</span>
             <span className="bg-white rounded-md px-4 py-2 shadow-sm">📦 Parts Shipped Nationwide</span>
@@ -36,6 +38,7 @@ export default function RootLayout({
         <Footer />
         <Analytics />
         <SpeedInsights />
+        </SupabaseProvider>
       </body>
     </html>
   );
