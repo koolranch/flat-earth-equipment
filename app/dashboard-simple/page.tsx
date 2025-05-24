@@ -71,8 +71,14 @@ export default function SimpleDashboard() {
 
   const handleQuizPass = async (moduleOrder: number) => {
     console.log('handleQuizPass called for module:', moduleOrder)
-    console.log('Enrollment ID:', enrollment.id)
-    console.log('Sending request to /api/progress with:', { enrollmentId: enrollment.id, moduleOrder })
+    console.log('Enrollment ID:', enrollment?.id)
+    console.log('Sending request to /api/progress with:', { enrollmentId: enrollment?.id, moduleOrder })
+    
+    if (!enrollment?.id) {
+      console.error('No enrollment ID found!')
+      alert('Error: No enrollment ID found. Please refresh the page.')
+      return
+    }
     
     try {
       const response = await fetch('/api/progress', {
@@ -91,12 +97,14 @@ export default function SimpleDashboard() {
         // Refresh the page to show updated progress
         window.location.reload()
       } else {
-        console.error('Failed to update progress:', response.status)
+        const errorText = await response.text()
+        console.error('Failed to update progress:', response.status, errorText)
+        alert(`Failed to update progress: ${response.status} - ${errorText}`)
       }
     } catch (error) {
       console.error('Error updating progress:', error)
+      alert(`Error updating progress: ${error}`)
     }
-    setShowQuiz(null)
   }
 
   const isModuleUnlocked = (index: number) => {

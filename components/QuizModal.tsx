@@ -8,6 +8,7 @@ export default function QuizModal({ questions, onPass }: { questions: Q[]; onPas
   const [score, setScore] = useState(0)
   const [showResult, setShowResult] = useState(false)
   const [finalScore, setFinalScore] = useState(0)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   
   console.log('QuizModal rendered with', questions.length, 'questions')
   console.log('Current state:', { idx, score, showResult, finalScore })
@@ -55,12 +56,16 @@ export default function QuizModal({ questions, onPass }: { questions: Q[]; onPas
               </p>
               <button 
                 onClick={() => {
-                  console.log('Continue button clicked, calling onPass()')
-                  onPass()
+                  if (!isSubmitting) {
+                    console.log('Continue button clicked, calling onPass()')
+                    setIsSubmitting(true)
+                    onPass()
+                  }
                 }}
-                className="w-full rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+                disabled={isSubmitting}
+                className="w-full rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Continue to Next Module
+                {isSubmitting ? 'Updating...' : 'Continue to Next Module'}
               </button>
             </>
           ) : (
