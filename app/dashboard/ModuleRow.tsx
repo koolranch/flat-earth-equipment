@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import QuizModal from '@/components/QuizModal'
+import VideoPlayer from '@/components/VideoPlayer'
 
 interface ModuleRowProps {
   module: {
@@ -63,11 +64,9 @@ export default function ModuleRow({ module, enrollmentId, isUnlocked, isComplete
             
             {isUnlocked && module.video_url && (
               <div className="mb-4">
-                <video 
-                  controls 
+                <VideoPlayer 
                   src={module.video_url} 
                   className="w-full rounded-lg" 
-                  preload="metadata"
                 />
               </div>
             )}

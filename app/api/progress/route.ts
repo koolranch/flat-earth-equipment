@@ -7,6 +7,8 @@ import QRCode from 'qrcode'
 export async function POST(req: Request) {
   try {
     const { enrollmentId, moduleOrder } = await req.json()
+    console.log('Progress API called:', { enrollmentId, moduleOrder })
+    
     const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!, 
       process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -37,6 +39,7 @@ export async function POST(req: Request) {
     // Calculate new progress
     const modulesCount = enrollment.course.modules.length
     const newPct = Math.min(100, (moduleOrder / modulesCount) * 100)
+    console.log(`Updating progress: ${modulesCount} modules, module ${moduleOrder} completed = ${newPct}%`)
     
     // Update progress
     const { error: updateError } = await supabase
@@ -48,7 +51,8 @@ export async function POST(req: Request) {
       .eq('id', enrollmentId)
 
     if (updateError) {
-      return NextResponse.json({ error: 'Failed to update progress' }, { status: 500 })
+      console.error('Database update error:', updateError)
+      return NextResponse.json({ error: 'Failed to update progress', details: updateError }, { status: 500 })
     }
 
     // If course completed, generate certificate
