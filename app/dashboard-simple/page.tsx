@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useSupabase } from '../providers'
+import QuizModal from '@/components/QuizModal'
 
 export default function SimpleDashboard() {
   const [user, setUser] = useState<any>(null)
@@ -9,6 +10,8 @@ export default function SimpleDashboard() {
   const [modules, setModules] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [showQuiz, setShowQuiz] = useState<number | null>(null)
+  const [expandedModule, setExpandedModule] = useState<number | null>(null)
   
   const { supabase } = useSupabase()
 
@@ -65,6 +68,35 @@ export default function SimpleDashboard() {
     loadData()
   }, [supabase])
 
+  const handleQuizPass = async (moduleOrder: number) => {
+    try {
+      const response = await fetch('/api/progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          enrollmentId: enrollment.id, 
+          moduleOrder 
+        })
+      })
+      
+      if (response.ok) {
+        // Refresh the page to show updated progress
+        window.location.reload()
+      }
+    } catch (error) {
+      console.error('Error updating progress:', error)
+    }
+    setShowQuiz(null)
+  }
+
+  const isModuleUnlocked = (index: number) => {
+    return index === 0 || (enrollment?.progress_pct || 0) >= (index * (100 / modules.length))
+  }
+
+  const isModuleCompleted = (index: number) => {
+    return (enrollment?.progress_pct || 0) > ((index + 1) * (100 / modules.length))
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 p-8">
@@ -105,7 +137,7 @@ export default function SimpleDashboard() {
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white shadow p-6">
-        <h1 className="text-2xl font-bold">Simple Dashboard</h1>
+        <h1 className="text-2xl font-bold">My Learning Dashboard</h1>
       </header>
       
       <main className="p-8">
@@ -113,10 +145,13 @@ export default function SimpleDashboard() {
           <h2 className="text-xl font-bold mb-4">{enrollment.course?.title || 'Course'}</h2>
           
           <div className="mb-6">
-            <p className="text-sm text-gray-600">Progress: {enrollment.progress_pct || 0}%</p>
-            <div className="w-full bg-gray-200 rounded-full h-3 mt-2">
+            <div className="flex justify-between text-sm text-gray-600 mb-2">
+              <span>Progress</span>
+              <span>{Math.round(enrollment.progress_pct || 0)}%</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-3">
               <div 
-                className="bg-orange-600 h-3 rounded-full"
+                className="bg-orange-600 h-3 rounded-full transition-all duration-300"
                 style={{ width: `${enrollment.progress_pct || 0}%` }}
               />
             </div>
@@ -124,18 +159,91 @@ export default function SimpleDashboard() {
           
           <div className="space-y-4">
             <h3 className="font-semibold">Modules ({modules.length})</h3>
-            {modules.map((module) => (
-              <div key={module.id} className="border rounded p-4">
-                <h4 className="font-medium">
-                  {module.order}. {module.title}
-                </h4>
-                <p className="text-sm text-gray-600 mt-1">
-                  {module.video_url ? 'Video available' : 'No video'}
-                  {module.quiz_json ? ' • Quiz available' : ''}
-                </p>
-              </div>
-            ))}
+            {modules.map((module, index) => {
+              const unlocked = isModuleUnlocked(index)
+              const completed = isModuleCompleted(index)
+              const expanded = expandedModule === index
+              
+              return (
+                <div 
+                  key={module.id} 
+                  className={`border rounded-lg p-4 ${!unlocked ? 'opacity-50' : ''} ${completed ? 'border-green-500 bg-green-50' : 'border-gray-200'}`}
+                >
+                  <div 
+                    className={`flex items-center justify-between ${unlocked ? 'cursor-pointer' : ''}`}
+                    onClick={() => unlocked && setExpandedModule(expanded ? null : index)}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-sm font-semibold">
+                        {module.order}
+                      </span>
+                      <h4 className="font-medium">{module.title}</h4>
+                      {completed && (
+                        <span className="text-green-600">
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                        </span>
+                      )}
+                    </div>
+                    {unlocked && (
+                      <svg 
+                        className={`w-5 h-5 transform transition-transform ${expanded ? 'rotate-180' : ''}`} 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    )}
+                  </div>
+                  
+                  {expanded && unlocked && (
+                    <div className="mt-4 space-y-4">
+                      {module.video_url && (
+                        <div>
+                          <h5 className="font-medium mb-2">Video Lesson</h5>
+                          <video 
+                            controls 
+                            src={module.video_url} 
+                            className="w-full rounded-lg" 
+                            preload="metadata"
+                          />
+                        </div>
+                      )}
+                      
+                      {!completed && (
+                        <button 
+                          onClick={() => setShowQuiz(index)}
+                          className="rounded bg-orange-600 px-4 py-2 text-white hover:bg-orange-700"
+                        >
+                          Take Quiz
+                        </button>
+                      )}
+                    </div>
+                  )}
+                  
+                  {!unlocked && (
+                    <p className="text-sm text-gray-500 mt-2">Complete previous modules to unlock</p>
+                  )}
+                </div>
+              )
+            })}
           </div>
+          
+          {enrollment.passed && enrollment.cert_url && (
+            <div className="mt-8 p-4 bg-green-50 rounded-lg">
+              <h3 className="font-semibold text-green-800 mb-2">🎉 Congratulations!</h3>
+              <p className="text-green-700 mb-3">You've successfully completed the course.</p>
+              <Link 
+                href={enrollment.cert_url} 
+                target="_blank"
+                className="inline-block rounded bg-green-700 px-6 py-3 font-medium text-white hover:bg-green-800"
+              >
+                Download Certificate
+              </Link>
+            </div>
+          )}
           
           <div className="mt-6 pt-6 border-t">
             <Link 
@@ -148,6 +256,13 @@ export default function SimpleDashboard() {
           </div>
         </div>
       </main>
+      
+      {showQuiz !== null && modules[showQuiz]?.quiz_json && (
+        <QuizModal
+          questions={modules[showQuiz].quiz_json}
+          onPass={() => handleQuizPass(modules[showQuiz].order)}
+        />
+      )}
     </div>
   )
 } 
