@@ -7,39 +7,80 @@ export default function QuizModal({ questions, onPass }: { questions: Q[]; onPas
   const [idx, setIdx] = useState(0)
   const [score, setScore] = useState(0)
   const [showResult, setShowResult] = useState(false)
+  const [finalScore, setFinalScore] = useState(0)
+  
+  console.log('QuizModal rendered with', questions.length, 'questions')
+  console.log('Current state:', { idx, score, showResult, finalScore })
   
   function submit(choice: number) {
-    if (choice === questions[idx].answer) setScore(s => s + 1)
+    console.log(`Question ${idx + 1}: selected choice ${choice}, correct answer is ${questions[idx].answer}`)
+    const isCorrect = choice === questions[idx].answer
+    if (isCorrect) setScore(s => s + 1)
+    
+    console.log(`Current question index: ${idx}, total questions: ${questions.length}`)
     
     if (idx + 1 < questions.length) {
+      console.log('Moving to next question')
       setIdx(i => i + 1)
     } else {
-      const pct = ((score + (choice === questions[idx].answer ? 1 : 0)) / questions.length) * 100
-      if (pct >= 80) {
-        onPass()
-      } else {
-        setShowResult(true)
-      }
+      console.log('Last question reached, calculating final score')
+      // Last question - calculate final score
+      const totalScore = score + (isCorrect ? 1 : 0)
+      setFinalScore(totalScore)
+      setShowResult(true)
+      console.log(`Quiz completed: ${totalScore}/${questions.length} = ${(totalScore / questions.length) * 100}%`)
+      console.log('showResult set to true')
     }
   }
   
   if (showResult) {
-    const finalPct = (score / questions.length) * 100
+    const finalPct = (finalScore / questions.length) * 100
+    const passed = finalPct >= 80
+    
     return (
       <div className="fixed inset-0 bg-black/60 grid place-content-center z-50">
         <div className="w-[320px] space-y-4 rounded-xl bg-white p-6 shadow-lg">
           <h3 className="font-semibold text-lg">Quiz Result</h3>
-          <p>You scored {finalPct.toFixed(0)}%. You need 80% to pass.</p>
-          <button 
-            onClick={() => {
-              setIdx(0)
-              setScore(0)
-              setShowResult(false)
-            }}
-            className="w-full rounded bg-orange-600 px-4 py-2 text-white hover:bg-orange-700"
-          >
-            Try Again
-          </button>
+          <div className="text-center">
+            <p className="text-2xl font-bold mb-2">{finalPct.toFixed(0)}%</p>
+            <p className="text-gray-600">
+              You scored {finalScore} out of {questions.length}
+            </p>
+          </div>
+          
+          {passed ? (
+            <>
+              <p className="text-green-600 font-medium text-center">
+                🎉 Congratulations! You passed!
+              </p>
+              <button 
+                onClick={() => {
+                  console.log('Continue button clicked, calling onPass()')
+                  onPass()
+                }}
+                className="w-full rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+              >
+                Continue to Next Module
+              </button>
+            </>
+          ) : (
+            <>
+              <p className="text-red-600 text-center">
+                You need 80% to pass. Please try again.
+              </p>
+              <button 
+                onClick={() => {
+                  setIdx(0)
+                  setScore(0)
+                  setShowResult(false)
+                  setFinalScore(0)
+                }}
+                className="w-full rounded bg-orange-600 px-4 py-2 text-white hover:bg-orange-700"
+              >
+                Try Again
+              </button>
+            </>
+          )}
         </div>
       </div>
     )
@@ -47,7 +88,14 @@ export default function QuizModal({ questions, onPass }: { questions: Q[]; onPas
   
   return (
     <div className="fixed inset-0 bg-black/60 grid place-content-center z-50">
-      <div className="w-[400px] space-y-4 rounded-xl bg-white p-6 shadow-lg">
+      <div className="w-[400px] space-y-4 rounded-xl bg-white p-6 shadow-lg relative">
+        <button 
+          onClick={() => window.location.reload()} 
+          className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+          title="Close quiz"
+        >
+          ✕
+        </button>
         <div className="flex justify-between items-center mb-2">
           <h3 className="font-semibold">Question {idx + 1} of {questions.length}</h3>
           <span className="text-sm text-gray-500">Score: {score}/{idx}</span>

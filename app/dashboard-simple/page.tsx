@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useSupabase } from '../providers'
 import QuizModal from '@/components/QuizModal'
+import VideoPlayer from '@/components/VideoPlayer'
 
 export default function SimpleDashboard() {
   const [user, setUser] = useState<any>(null)
@@ -69,6 +70,10 @@ export default function SimpleDashboard() {
   }, [supabase])
 
   const handleQuizPass = async (moduleOrder: number) => {
+    console.log('handleQuizPass called for module:', moduleOrder)
+    console.log('Enrollment ID:', enrollment.id)
+    console.log('Sending request to /api/progress with:', { enrollmentId: enrollment.id, moduleOrder })
+    
     try {
       const response = await fetch('/api/progress', {
         method: 'POST',
@@ -79,9 +84,14 @@ export default function SimpleDashboard() {
         })
       })
       
+      console.log('Progress API response:', response.status)
       if (response.ok) {
+        const data = await response.json()
+        console.log('Progress updated to:', data.progress)
         // Refresh the page to show updated progress
         window.location.reload()
+      } else {
+        console.error('Failed to update progress:', response.status)
       }
     } catch (error) {
       console.error('Error updating progress:', error)
@@ -90,11 +100,19 @@ export default function SimpleDashboard() {
   }
 
   const isModuleUnlocked = (index: number) => {
-    return index === 0 || (enrollment?.progress_pct || 0) >= (index * (100 / modules.length))
+    const requiredProgress = index * (100 / modules.length)
+    const currentProgress = enrollment?.progress_pct || 0
+    const unlocked = index === 0 || currentProgress >= requiredProgress
+    console.log(`Module ${index + 1} unlocked check: ${currentProgress}% >= ${requiredProgress}% = ${unlocked}`)
+    return unlocked
   }
 
   const isModuleCompleted = (index: number) => {
-    return (enrollment?.progress_pct || 0) > ((index + 1) * (100 / modules.length))
+    const completionProgress = ((index + 1) * (100 / modules.length))
+    const currentProgress = enrollment?.progress_pct || 0
+    const completed = currentProgress >= completionProgress
+    console.log(`Module ${index + 1} completed check: ${currentProgress}% >= ${completionProgress}% = ${completed}`)
+    return completed
   }
 
   if (loading) {
@@ -203,11 +221,9 @@ export default function SimpleDashboard() {
                       {module.video_url && (
                         <div>
                           <h5 className="font-medium mb-2">Video Lesson</h5>
-                          <video 
-                            controls 
+                          <VideoPlayer 
                             src={module.video_url} 
                             className="w-full rounded-lg" 
-                            preload="metadata"
                           />
                         </div>
                       )}
