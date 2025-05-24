@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import CheckoutButton from './CheckoutButton'
+import Link from 'next/link'
 
 export default async function SafetyHome() {
   const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
@@ -13,6 +14,12 @@ export default async function SafetyHome() {
         courseSlug="forklift" 
         price={course?.price_cents ? (course.price_cents / 100).toFixed(0) : '59'} 
       />
+      <div className="mt-8 text-sm text-gray-600">
+        <p className="mb-2">Includes online theory training + employer evaluation checklist</p>
+        <Link href="/evaluation.pdf" target="_blank" className="text-orange-600 hover:underline">
+          Preview Employer Evaluation Sheet
+        </Link>
+      </div>
     </section>
   )
 } 

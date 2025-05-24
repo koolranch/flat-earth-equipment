@@ -1,0 +1,100 @@
+'use client'
+import { useState } from 'react'
+import QuizModal from '@/components/QuizModal'
+
+interface ModuleRowProps {
+  module: {
+    id: string
+    order: number
+    title: string
+    video_url: string
+    quiz_json: any
+  }
+  enrollmentId: string
+  isUnlocked: boolean
+  isCompleted: boolean
+}
+
+export default function ModuleRow({ module, enrollmentId, isUnlocked, isCompleted }: ModuleRowProps) {
+  const [showQuiz, setShowQuiz] = useState(false)
+  const [isUpdating, setIsUpdating] = useState(false)
+  
+  const handleQuizPass = async () => {
+    setIsUpdating(true)
+    try {
+      const response = await fetch('/api/progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ enrollmentId, moduleOrder: module.order })
+      })
+      
+      if (response.ok) {
+        // Refresh the page to show updated progress
+        window.location.reload()
+      } else {
+        console.error('Failed to update progress')
+      }
+    } catch (error) {
+      console.error('Error updating progress:', error)
+    } finally {
+      setIsUpdating(false)
+      setShowQuiz(false)
+    }
+  }
+  
+  return (
+    <>
+      <div className={`rounded-lg border p-4 ${!isUnlocked ? 'opacity-50' : ''} ${isCompleted ? 'border-green-500 bg-green-50' : 'border-gray-200'}`}>
+        <div className="flex items-start justify-between">
+          <div className="flex-1">
+            <div className="flex items-center gap-3 mb-2">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-sm font-semibold">
+                {module.order}
+              </span>
+              <h3 className="font-semibold text-lg">{module.title}</h3>
+              {isCompleted && (
+                <span className="text-green-600">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                </span>
+              )}
+            </div>
+            
+            {isUnlocked && module.video_url && (
+              <div className="mb-4">
+                <video 
+                  controls 
+                  src={module.video_url} 
+                  className="w-full rounded-lg" 
+                  preload="metadata"
+                />
+              </div>
+            )}
+            
+            {isUnlocked && !isCompleted && (
+              <button 
+                onClick={() => setShowQuiz(true)} 
+                disabled={isUpdating}
+                className="rounded bg-orange-600 px-4 py-2 text-white hover:bg-orange-700 disabled:opacity-50"
+              >
+                {isUpdating ? 'Updating...' : 'Take Quiz'}
+              </button>
+            )}
+            
+            {!isUnlocked && (
+              <p className="text-sm text-gray-500">Complete previous modules to unlock</p>
+            )}
+          </div>
+        </div>
+      </div>
+      
+      {showQuiz && module.quiz_json && (
+        <QuizModal
+          questions={module.quiz_json}
+          onPass={handleQuizPass}
+        />
+      )}
+    </>
+  )
+} 
