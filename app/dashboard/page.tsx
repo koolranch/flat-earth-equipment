@@ -60,7 +60,7 @@ export default async function Dashboard() {
   }
   
   // Get enrollment data with course and modules
-  const { data: enrollment } = await supabase
+  const { data: enrollments } = await supabase
     .from('enrollments')
     .select(`
       *,
@@ -68,9 +68,8 @@ export default async function Dashboard() {
       modules:courses!inner(modules(*))
     `)
     .eq('user_id', user.id)
-    .single()
   
-  if (!enrollment) {
+  if (!enrollments || enrollments.length === 0) {
     return (
       <div className="min-h-screen bg-gray-50 py-12">
         <div className="max-w-4xl mx-auto px-4 text-center">
@@ -83,6 +82,8 @@ export default async function Dashboard() {
     )
   }
 
+  // Take the first enrollment (or most recent)
+  const enrollment = enrollments[0]
   const modules = enrollment.modules.modules || []
   
   return (
