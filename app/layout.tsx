@@ -22,8 +22,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} font-sans text-gray-900 bg-gray-50 antialiased`}>
+    <html lang="en" className={inter.className}>
+      <head>
+        <link rel="preconnect" href="https://stream.mux.com" />
+      </head>
+      <body className="font-sans text-gray-900 bg-gray-50 antialiased">
         <SupabaseProvider>
           <Navbar />
           {children}

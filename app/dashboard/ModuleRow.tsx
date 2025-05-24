@@ -66,15 +66,32 @@ export default function ModuleRow({ module, enrollmentId, isUnlocked, isComplete
             {module.video_url && (
               <div className="mb-4 relative">
                 {loading && (
-                  <div className="animate-pulse bg-gray-300 h-52 rounded-lg" />
+                  <div className="h-52 w-full animate-pulse rounded bg-gray-300" />
                 )}
                 <video
-                  src={module.video_url}
                   controls
-                  className="w-full rounded-lg"
+                  src={module.video_url}
+                  preload="metadata"
+                  className={`w-full rounded ${loading ? 'opacity-0' : 'opacity-100 transition'}`}
                   onLoadedData={() => setLoading(false)}
-                  style={{ display: loading ? 'none' : 'block' }}
-                />
+                  aria-label={`Training video for module ${module.order}: ${module.title}`}
+                >
+                  <track 
+                    kind="subtitles" 
+                    src={`/transcripts/module${module.order}.vtt`} 
+                    srcLang="en" 
+                    label="English" 
+                    default 
+                  />
+                </video>
+                <a
+                  href={`/transcripts/module${module.order}.vtt`}
+                  download
+                  className="mt-2 block text-sm underline"
+                  aria-label={`Download transcript for module ${module.order}`}
+                >
+                  Download transcript
+                </a>
                 {!isUnlocked && (
                   <div className="absolute inset-0 bg-white/60 grid place-content-center text-xl rounded-lg">
                     Complete previous module to unlock
@@ -88,6 +105,7 @@ export default function ModuleRow({ module, enrollmentId, isUnlocked, isComplete
                 onClick={() => setShowQuiz(true)} 
                 disabled={isUpdating}
                 className="rounded bg-orange-600 px-4 py-2 text-white hover:bg-orange-700 disabled:opacity-50"
+                aria-label={`Start quiz for module ${module.order}`}
               >
                 {isUpdating ? 'Updating...' : 'Take Quiz'}
               </button>
