@@ -15,6 +15,12 @@ const nextConfig = {
   reactStrictMode: true,
   async redirects() {
     return [
+      // Add the new redirect for forks
+      {
+        source: '/parts/attachments/forks',
+        destination: '/parts?category=Forks',
+        permanent: true,
+      },
       // Generic catch-all: /product/old-slug → /parts/old-slug
       {
         source: '/product/:slug',
