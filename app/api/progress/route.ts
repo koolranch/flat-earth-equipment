@@ -104,11 +104,17 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: 'Failed to upload certificate' }, { status: 500 })
       }
 
-      // Get public URL
-      const { data: { publicUrl } } = supabase
+      // Create a signed URL that expires in 3 years
+      const threeYearsInSeconds = 3 * 365 * 24 * 60 * 60
+      const { data: signedUrlData, error: signedUrlError } = await supabase
         .storage
         .from('certs')
-        .getPublicUrl(fileName)
+        .createSignedUrl(fileName, threeYearsInSeconds)
+      
+      if (signedUrlError) {
+        console.error('Error creating signed URL:', signedUrlError)
+        return NextResponse.json({ error: 'Failed to create certificate URL' }, { status: 500 })
+      }
 
       // Update enrollment with certificate info
       const expiresAt = new Date()
@@ -118,7 +124,7 @@ export async function POST(req: Request) {
         .from('enrollments')
         .update({ 
           passed: true, 
-          cert_url: publicUrl,
+          cert_url: signedUrlData.signedUrl,
           expires_at: expiresAt.toISOString()
         })
         .eq('id', enrollmentId)
