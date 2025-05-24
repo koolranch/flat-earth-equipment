@@ -17,24 +17,34 @@ export async function POST(req: Request) {
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object as Stripe.Checkout.Session
     const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
-    
-    // Check if this is a course purchase
-    if (session.metadata?.course_slug) {
-      const { data: course } = await supabase
-        .from('courses')
-        .select('id')
-        .eq('slug', session.metadata.course_slug)
-        .single()
-      
-      if (course) {
-        await supabase.from('orders').insert({
-          user_id: session.client_reference_id || null,
-          course_id: course.id,
-          stripe_session_id: session.id,
-          seats: 1,
-          amount_cents: session.amount_total
-        })
-      }
+
+    // look up course id
+    const { data: course } = await supabase
+      .from('courses')
+      .select('id')
+      .eq('slug', session.metadata!.course_slug)
+      .single()
+
+    // Get quantity from session metadata or line items
+    const quantity = session.metadata?.quantity ? parseInt(session.metadata.quantity) : 1
+
+    // single seat → auto-enroll
+    if (quantity === 1) {
+      await supabase.from('enrollments').insert({
+        user_id: session.client_reference_id,   // user UUID passed from checkout
+        course_id: course!.id,
+        progress_pct: 0
+      })
+    } else {
+      // multi-seat pack → create order & seat counter
+      await supabase.from('orders').insert({
+        user_id: session.client_reference_id,
+        course_id: course!.id,
+        stripe_session_id: session.id,
+        seats: quantity,
+        amount_cents: session.amount_total,
+        available_seats: quantity        // NEW COLUMN you'll add shortly
+      })
     }
   }
   
