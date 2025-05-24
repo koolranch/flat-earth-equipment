@@ -39,6 +39,12 @@ const nextConfig = {
         destination: '/parts/battery-charger-modules',
         permanent: true,
       },
+      // Toyota seat assembly redirect
+      {
+        source: '/parts/toyota-seat-assembly-53730-u117071',
+        destination: '/parts/toyota-seat-assembly-cloth-53730-u117071',
+        permanent: true,
+      },
       // Example redirects for parts
       { source: '/parts/Old-Slug', destination: '/parts/new-slug', permanent: true },
       { source: '/parts/another-old-slug', destination: '/parts/another-new-slug', permanent: true },

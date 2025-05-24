@@ -20,13 +20,14 @@ interface BuyNowButtonProps {
 }
 
 export default function BuyNowButton({ product, slug }: BuyNowButtonProps) {
+  // Debug log for product
+  console.log('BuyNowButton product:', product);
+
   const router = useRouter();
 
   async function handleBuyNow() {
-    console.log('👉 handleBuyNow called', {
-      product,
-      slug,
-    });
+    // Debug log for click
+    console.log('BuyNowButton clicked with:', product, slug);
     try {
       const response = await fetch('/api/checkout', {
         method: 'POST',
