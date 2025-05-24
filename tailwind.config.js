@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -32,8 +34,10 @@ module.exports = {
           dark: '#5D6D7E',         // slate-gray
         },
         'canyon-rust': '#C45A38',
+        safety: '#F76511',
       },
       fontFamily: {
+        sans: ['Inter', ...defaultTheme.fontFamily.sans],
         heading: ['"Roboto Slab"', 'serif'],
         body: ['Inter', 'sans-serif'],
       },

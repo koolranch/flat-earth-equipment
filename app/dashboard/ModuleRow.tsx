@@ -19,6 +19,7 @@ interface ModuleRowProps {
 export default function ModuleRow({ module, enrollmentId, isUnlocked, isCompleted }: ModuleRowProps) {
   const [showQuiz, setShowQuiz] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
+  const [loading, setLoading] = useState(true)
   
   const handleQuizPass = async () => {
     setIsUpdating(true)
@@ -62,12 +63,23 @@ export default function ModuleRow({ module, enrollmentId, isUnlocked, isComplete
               )}
             </div>
             
-            {isUnlocked && module.video_url && (
-              <div className="mb-4">
-                <VideoPlayer 
-                  src={module.video_url} 
-                  className="w-full rounded-lg" 
+            {module.video_url && (
+              <div className="mb-4 relative">
+                {loading && (
+                  <div className="animate-pulse bg-gray-300 h-52 rounded-lg" />
+                )}
+                <video
+                  src={module.video_url}
+                  controls
+                  className="w-full rounded-lg"
+                  onLoadedData={() => setLoading(false)}
+                  style={{ display: loading ? 'none' : 'block' }}
                 />
+                {!isUnlocked && (
+                  <div className="absolute inset-0 bg-white/60 grid place-content-center text-xl rounded-lg">
+                    Complete previous module to unlock
+                  </div>
+                )}
               </div>
             )}
             
@@ -79,10 +91,6 @@ export default function ModuleRow({ module, enrollmentId, isUnlocked, isComplete
               >
                 {isUpdating ? 'Updating...' : 'Take Quiz'}
               </button>
-            )}
-            
-            {!isUnlocked && (
-              <p className="text-sm text-gray-500">Complete previous modules to unlock</p>
             )}
           </div>
         </div>
