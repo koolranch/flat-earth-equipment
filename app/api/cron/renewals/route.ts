@@ -2,7 +2,7 @@ import { Resend } from 'resend'
 import { createClient } from '@supabase/supabase-js'
 import { NextResponse } from 'next/server'
 
-export const config = { runtime: 'edge' }
+export const runtime = 'edge'
 
 interface RenewalRow {
   enrollment_id: string
