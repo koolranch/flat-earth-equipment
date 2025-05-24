@@ -32,8 +32,14 @@ export async function POST(req: Request) {
       .eq('id', enrollmentId)
       .single()
 
-    if (enrollError || !enrollment) {
-      return NextResponse.json({ error: 'Enrollment not found' }, { status: 404 })
+    if (enrollError) {
+      console.error('Enrollment query error:', enrollError)
+      return NextResponse.json({ error: 'Enrollment not found', details: enrollError.message }, { status: 404 })
+    }
+    
+    if (!enrollment) {
+      console.error('No enrollment found for ID:', enrollmentId)
+      return NextResponse.json({ error: 'Enrollment not found', enrollmentId }, { status: 404 })
     }
 
     // Calculate new progress
