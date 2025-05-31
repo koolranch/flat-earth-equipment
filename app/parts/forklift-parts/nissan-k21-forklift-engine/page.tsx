@@ -119,22 +119,65 @@ export default function NissanK21EnginePage() {
           </section>
         </div>
 
-        <div className="mt-8 bg-blue-50 p-6 rounded-lg">
-          <h2 className="text-xl font-semibold mb-4">Need Professional Help?</h2>
-          <p className="mb-4">
-            Our certified Nissan technicians are available to help with engine maintenance, repairs, and replacements. 
-            Contact us for assistance:
-          </p>
-          <ul className="list-none space-y-2">
-            <li className="flex items-center">
-              <Phone className="w-5 h-5 mr-2" />
-              <span>1-800-XXX-XXXX</span>
-            </li>
-            <li className="flex items-center">
-              <Mail className="w-5 h-5 mr-2" />
-              <span>service@flatearthequipment.com</span>
-            </li>
-          </ul>
+        <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 mt-6">
+          <h3 className="text-xl font-semibold mb-4">Request a Quote for Nissan K21 Engine Parts</h3>
+          <form
+            method="POST"
+            action="https://formspree.io/f/mrbqkjke"
+            className="space-y-4"
+          >
+            <input type="hidden" name="_subject" value="Nissan K21 Engine Quote Request" />
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                name="name"
+                placeholder="Your Name"
+                required
+                autoComplete="name"
+                className="w-full border border-slate-300 px-4 py-2 rounded"
+              />
+              <input
+                name="email"
+                type="email"
+                placeholder="Email"
+                required
+                autoComplete="email"
+                className="w-full border border-slate-300 px-4 py-2 rounded"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                name="model"
+                placeholder="Forklift Model (e.g. FD30)"
+                className="w-full border border-slate-300 px-4 py-2 rounded"
+              />
+              <input
+                name="serial"
+                placeholder="Serial Number (optional)"
+                className="w-full border border-slate-300 px-4 py-2 rounded"
+              />
+            </div>
+
+            <textarea
+              name="message"
+              placeholder="What parts or service do you need? Include any specific details about your K21 engine."
+              rows={4}
+              required
+              className="w-full border border-slate-300 px-4 py-2 rounded"
+            />
+
+            <button
+              type="submit"
+              className="w-full bg-canyon-rust text-white px-6 py-3 rounded-md hover:bg-orange-700 transition"
+            >
+              Request Quote
+            </button>
+
+            <p className="text-sm text-slate-600 mt-2">
+              🚚 Same-day dispatch • 📦 Parts Shipped Nationwide • 🤝 U.S.-Based Support
+            </p>
+          </form>
         </div>
 
         <div className="mt-8">
