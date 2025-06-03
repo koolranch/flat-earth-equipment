@@ -242,7 +242,8 @@ export default function SimpleDashboard() {
                         <div>
                           <h5 className="font-medium mb-2">Cheyenne 3-Tap Check-off</h5>
                           <HybridModule 
-                            gameKey={module.game_asset_key} 
+                            gameKey={module.game_asset_key}
+                            introUrl={module.intro_url}
                             onComplete={() => handleGameComplete(module.order)} 
                           />
                           <div className="text-sm text-gray-600 mt-2 space-y-1">
