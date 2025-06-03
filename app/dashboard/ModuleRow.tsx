@@ -1,10 +1,7 @@
 'use client'
 import { useState } from 'react'
-import dynamic from 'next/dynamic'
 import QuizModal from '@/components/QuizModal'
 import VideoPlayer from '@/components/VideoPlayer'
-
-const Module1Game = dynamic(() => import('@/components/games/Module1Game'), { ssr: false })
 
 interface ModuleRowProps {
   module: {
@@ -50,8 +47,6 @@ export default function ModuleRow({ module, enrollmentId, isUnlocked, isComplete
 
   const handleQuizPass = handlePass
   
-  const isGame = module.type === 'game'
-  
   return (
     <>
       <div className={`rounded-lg border p-4 ${!isUnlocked ? 'opacity-50' : ''} ${isCompleted ? 'border-green-500 bg-green-50' : 'border-gray-200'}`}>
@@ -71,57 +66,44 @@ export default function ModuleRow({ module, enrollmentId, isUnlocked, isComplete
               )}
             </div>
             
-            {isGame ? (
+            {module.video_url && (
               <div className="mb-4 relative">
+                {loading && (
+                  <div className="h-52 w-full animate-pulse rounded bg-gray-300" />
+                )}
+                <video
+                  controls
+                  src={module.video_url}
+                  preload="metadata"
+                  className={`w-full rounded ${loading ? 'opacity-0' : 'opacity-100 transition'}`}
+                  onLoadedData={() => setLoading(false)}
+                  aria-label={`Training video for module ${module.order}: ${module.title}`}
+                >
+                  <track 
+                    kind="subtitles" 
+                    src={`/transcripts/module${module.order}.vtt`} 
+                    srcLang="en" 
+                    label="English" 
+                    default 
+                  />
+                </video>
+                <a
+                  href={`/transcripts/module${module.order}.vtt`}
+                  download
+                  className="mt-2 block text-sm underline"
+                  aria-label={`Download transcript for module ${module.order}`}
+                >
+                  Download transcript
+                </a>
                 {!isUnlocked && (
-                  <div className="absolute inset-0 bg-white/60 grid place-content-center text-xl rounded-lg z-10">
+                  <div className="absolute inset-0 bg-white/60 grid place-content-center text-xl rounded-lg">
                     Complete previous module to unlock
                   </div>
                 )}
-                {isUnlocked && (
-                  <Module1Game onComplete={() => handlePass()} />
-                )}
               </div>
-            ) : (
-              module.video_url && (
-                <div className="mb-4 relative">
-                  {loading && (
-                    <div className="h-52 w-full animate-pulse rounded bg-gray-300" />
-                  )}
-                  <video
-                    controls
-                    src={module.video_url}
-                    preload="metadata"
-                    className={`w-full rounded ${loading ? 'opacity-0' : 'opacity-100 transition'}`}
-                    onLoadedData={() => setLoading(false)}
-                    aria-label={`Training video for module ${module.order}: ${module.title}`}
-                  >
-                    <track 
-                      kind="subtitles" 
-                      src={`/transcripts/module${module.order}.vtt`} 
-                      srcLang="en" 
-                      label="English" 
-                      default 
-                    />
-                  </video>
-                  <a
-                    href={`/transcripts/module${module.order}.vtt`}
-                    download
-                    className="mt-2 block text-sm underline"
-                    aria-label={`Download transcript for module ${module.order}`}
-                  >
-                    Download transcript
-                  </a>
-                  {!isUnlocked && (
-                    <div className="absolute inset-0 bg-white/60 grid place-content-center text-xl rounded-lg">
-                      Complete previous module to unlock
-                    </div>
-                  )}
-                </div>
-              )
             )}
             
-            {isUnlocked && !isCompleted && !isGame && (
+            {isUnlocked && !isCompleted && (
               <button 
                 onClick={() => setShowQuiz(true)} 
                 disabled={isUpdating}

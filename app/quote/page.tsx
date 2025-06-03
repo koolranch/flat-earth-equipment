@@ -22,7 +22,7 @@ function QuoteForm() {
       <h1 className="text-3xl font-bold text-slate-900 mb-6">Request a Quote</h1>
       <form
         method="POST"
-        action="https://formspree.io/f/mrbqkjke"
+        action="https://formspree.io/f/xvgroloy"
         onSubmit={() => setSubmitted(true)}
         className="space-y-4"
       >
