@@ -2,10 +2,12 @@
 import { useState } from 'react'
 import Image from 'next/image'
 
+const CDN = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/game'
+
 const steps = [
-  { key: 'vest',     label: 'Tap vest to equip',      img: '/game/module1/vest.png' },
-  { key: 'fork',     label: 'Tap ↓ to lower forks',   img: '/game/module1/fork_down.png' },
-  { key: 'brake',    label: 'Tap brake to stop',      img: '/game/module1/brake.png' }
+  { key: 'vest',     label: 'Tap vest to equip',      img: `${CDN}/vest.png` },
+  { key: 'fork',     label: 'Tap ↓ to lower forks',   img: `${CDN}/fork_down.png` },
+  { key: 'brake',    label: 'Tap brake to stop',      img: `${CDN}/brake.png` }
 ]
 
 export default function MiniCheckoff({ onComplete }: { onComplete: () => void }) {
@@ -19,7 +21,7 @@ export default function MiniCheckoff({ onComplete }: { onComplete: () => void })
   return (
     <div
       className="relative aspect-video w-full max-w-md select-none overflow-hidden rounded-xl border bg-gray-100 shadow"
-      style={{ background: `url('/game/module1/bg.png') center/cover` }}
+      style={{ background: `url('${CDN}/bg.png') center/cover` }}
       onClick={handleTap}
     >
       {/* hint text */}
