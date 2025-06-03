@@ -4,6 +4,9 @@ import Link from 'next/link'
 import { useSupabase } from '../providers'
 import QuizModal from '@/components/QuizModal'
 import VideoPlayer from '@/components/VideoPlayer'
+import dynamic from 'next/dynamic'
+
+const Module1Game = dynamic(() => import('@/components/games/Module1Game'), { ssr: false })
 
 export default function SimpleDashboard() {
   const [user, setUser] = useState<any>(null)
@@ -107,6 +110,11 @@ export default function SimpleDashboard() {
     }
   }
 
+  // Handle game completion - same as quiz completion
+  const handleGameComplete = (moduleOrder: number) => {
+    handleQuizPass(moduleOrder)
+  }
+
   const isModuleUnlocked = (index: number) => {
     const requiredProgress = index * (100 / modules.length)
     const currentProgress = enrollment?.progress_pct || 0
@@ -189,6 +197,7 @@ export default function SimpleDashboard() {
               const unlocked = isModuleUnlocked(index)
               const completed = isModuleCompleted(index)
               const expanded = expandedModule === index
+              const isGame = module.type === 'game'
               
               return (
                 <div 
@@ -204,6 +213,11 @@ export default function SimpleDashboard() {
                         {module.order}
                       </span>
                       <h4 className="font-medium">{module.title}</h4>
+                      {isGame && (
+                        <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+                          Interactive Demo
+                        </span>
+                      )}
                       {completed && (
                         <span className="text-green-600">
                           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -226,17 +240,27 @@ export default function SimpleDashboard() {
                   
                   {expanded && unlocked && (
                     <div className="mt-4 space-y-4">
-                      {module.video_url && (
+                      {isGame ? (
                         <div>
-                          <h5 className="font-medium mb-2">Video Lesson</h5>
-                          <VideoPlayer 
-                            src={module.video_url} 
-                            className="w-full rounded-lg" 
-                          />
+                          <h5 className="font-medium mb-2">Forklift Driving Simulation</h5>
+                          <Module1Game onComplete={() => handleGameComplete(module.order)} />
+                          <p className="text-sm text-gray-600 mt-2">
+                            Navigate through all 3 cones without collision to complete this module!
+                          </p>
                         </div>
+                      ) : (
+                        module.video_url && (
+                          <div>
+                            <h5 className="font-medium mb-2">Video Lesson</h5>
+                            <VideoPlayer 
+                              src={module.video_url} 
+                              className="w-full rounded-lg" 
+                            />
+                          </div>
+                        )
                       )}
                       
-                      {!completed && (
+                      {!completed && !isGame && (
                         <button 
                           onClick={() => setShowQuiz(index)}
                           className="rounded bg-orange-600 px-4 py-2 text-white hover:bg-orange-700"
