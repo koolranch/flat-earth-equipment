@@ -1,6 +1,35 @@
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <ellipse cx="32" cy="28" rx="18" ry="16" fill="#ffd700" stroke="#333" stroke-width="2"/>
-  <rect x="14" y="40" width="36" height="6" rx="3" fill="#333"/>
-  <ellipse cx="32" cy="20" rx="12" ry="10" fill="#ffed4e"/>
-  <text x="32" y="58" text-anchor="middle" font-family="Arial" font-size="8" fill="#333">HAT</text>
+  <!-- Main helmet dome -->
+  <ellipse cx="32" cy="26" rx="20" ry="18" fill="#ffd900" stroke="#e6c200" stroke-width="1"/>
+  
+  <!-- Helmet top highlight -->
+  <ellipse cx="32" cy="22" rx="16" ry="12" fill="#ffed4a" opacity="0.7"/>
+  
+  <!-- Front visor/brim -->
+  <ellipse cx="32" cy="42" rx="22" ry="4" fill="#333333"/>
+  <ellipse cx="32" cy="41" rx="22" ry="3" fill="#555555"/>
+  
+  <!-- Side ventilation holes -->
+  <circle cx="18" cy="24" r="1.5" fill="#cc9900"/>
+  <circle cx="46" cy="24" r="1.5" fill="#cc9900"/>
+  <circle cx="20" cy="30" r="1.5" fill="#cc9900"/>
+  <circle cx="44" cy="30" r="1.5" fill="#cc9900"/>
+  
+  <!-- Top center ridge -->
+  <ellipse cx="32" cy="18" rx="8" ry="3" fill="#ffed4a"/>
+  <ellipse cx="32" cy="17" rx="6" ry="2" fill="#ffffff" opacity="0.4"/>
+  
+  <!-- Chin strap attachment points -->
+  <circle cx="22" cy="38" r="2" fill="#333333"/>
+  <circle cx="42" cy="38" r="2" fill="#333333"/>
+  <circle cx="22" cy="38" r="1" fill="#666666"/>
+  <circle cx="42" cy="38" r="1" fill="#666666"/>
+  
+  <!-- Suspension system indicator -->
+  <path d="M26 32 Q32 28 38 32" stroke="#cc9900" stroke-width="1" fill="none"/>
+  <path d="M28 35 Q32 31 36 35" stroke="#cc9900" stroke-width="1" fill="none"/>
+  
+  <!-- Safety certification mark -->
+  <circle cx="32" cy="26" r="3" fill="none" stroke="#cc9900" stroke-width="0.5"/>
+  <text x="32" y="28" text-anchor="middle" font-family="Arial" font-size="6" fill="#cc9900" font-weight="bold">CE</text>
 </svg> 

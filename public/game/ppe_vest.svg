@@ -1,8 +1,25 @@
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="16" y="12" width="32" height="40" rx="4" fill="#ff6600" stroke="#333" stroke-width="2"/>
-  <rect x="20" y="20" width="24" height="2" fill="#fff"/>
-  <rect x="20" y="26" width="24" height="2" fill="#fff"/>
-  <rect x="20" y="32" width="24" height="2" fill="#fff"/>
-  <rect x="20" y="38" width="24" height="2" fill="#fff"/>
-  <text x="32" y="58" text-anchor="middle" font-family="Arial" font-size="8" fill="#333">VEST</text>
+  <!-- Main vest body -->
+  <path d="M20 16 C20 14, 22 12, 24 12 L40 12 C42 12, 44 14, 44 16 L44 22 L48 24 L48 52 C48 54, 46 56, 44 56 L20 56 C18 56, 16 54, 16 52 L16 24 L20 22 Z" fill="#ff6b00" stroke="#cc5500" stroke-width="1"/>
+  
+  <!-- Shoulder straps -->
+  <path d="M20 16 L20 22 L16 24" fill="#ff6b00" stroke="#cc5500" stroke-width="1"/>
+  <path d="M44 16 L44 22 L48 24" fill="#ff6b00" stroke="#cc5500" stroke-width="1"/>
+  
+  <!-- Reflective stripes -->
+  <rect x="18" y="20" width="28" height="2" fill="#ffffff" opacity="0.9"/>
+  <rect x="18" y="26" width="28" height="2" fill="#ffffff" opacity="0.9"/>
+  <rect x="18" y="32" width="28" height="2" fill="#ffffff" opacity="0.9"/>
+  <rect x="18" y="38" width="28" height="2" fill="#ffffff" opacity="0.9"/>
+  
+  <!-- Cross stripes -->
+  <rect x="20" y="44" width="6" height="2" fill="#ffffff" opacity="0.9"/>
+  <rect x="38" y="44" width="6" height="2" fill="#ffffff" opacity="0.9"/>
+  
+  <!-- Chest pocket outline -->
+  <rect x="26" y="18" width="12" height="8" fill="none" stroke="#cc5500" stroke-width="1" rx="1"/>
+  
+  <!-- Side reflective panels -->
+  <rect x="16" y="28" width="2" height="16" fill="#ffffff" opacity="0.8"/>
+  <rect x="46" y="28" width="2" height="16" fill="#ffffff" opacity="0.8"/>
 </svg> 
