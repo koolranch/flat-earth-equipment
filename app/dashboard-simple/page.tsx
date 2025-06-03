@@ -108,9 +108,9 @@ export default function SimpleDashboard() {
     }
   }
 
-  // Handle game completion - same as quiz completion
+  // Handle game completion - opens quiz modal
   const handleGameComplete = (moduleOrder: number) => {
-    handleQuizPass(moduleOrder)
+    setShowQuiz(moduleOrder - 1)  // Open quiz modal for this module (array is 0-indexed)
   }
 
   const isModuleUnlocked = (index: number) => {
