@@ -11,7 +11,7 @@ export default function EmailSignup() {
     setStatus("loading");
 
     try {
-      const response = await fetch("https://formspree.io/f/mrbqkjke", {
+      const response = await fetch("https://formspree.io/f/xvgroloy", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -4,9 +4,7 @@ import Link from 'next/link'
 import { useSupabase } from '../providers'
 import QuizModal from '@/components/QuizModal'
 import VideoPlayer from '@/components/VideoPlayer'
-import dynamic from 'next/dynamic'
-
-const Module1Game = dynamic(() => import('@/components/games/Module1Game'), { ssr: false })
+import HybridModule from '@/components/HybridModule'
 
 export default function SimpleDashboard() {
   const [user, setUser] = useState<any>(null)
@@ -242,19 +240,19 @@ export default function SimpleDashboard() {
                     <div className="mt-4 space-y-4">
                       {isGame ? (
                         <div>
-                          <h5 className="font-medium mb-2">Forklift Safety Training Simulation</h5>
-                          <Module1Game onComplete={() => handleGameComplete(module.order)} />
+                          <h5 className="font-medium mb-2">Cheyenne 3-Tap Check-off</h5>
+                          <HybridModule 
+                            gameKey={module.game_asset_key} 
+                            onComplete={() => handleGameComplete(module.order)} 
+                          />
                           <div className="text-sm text-gray-600 mt-2 space-y-1">
                             <p><strong>Training Objectives:</strong></p>
                             <ul className="list-disc list-inside ml-2 space-y-1">
-                              <li>Complete PPE check-in (click vest, helmet, boots)</li>
-                              <li>Use arrow keys to drive safely</li>
-                              <li>Press H to sound horn at blind corners</li>
-                              <li>Press F/G to raise/lower forks</li>
-                              <li>Press SPACE for service brake at finish</li>
-                              <li>Avoid speed+turn combinations that cause skidding</li>
+                              <li>Tap vest to equip PPE</li>
+                              <li>Tap ↓ to lower forks</li>
+                              <li>Tap brake pedal to stop</li>
                             </ul>
-                            <p className="font-medium">Score: 0-100 points based on safety compliance</p>
+                            <p className="font-medium">Complete all 3 steps to pass this module</p>
                           </div>
                         </div>
                       ) : (

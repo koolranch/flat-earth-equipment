@@ -19,6 +19,14 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL('/dashboard', req.url))
   }
 
+  // Check if the request is for the old Cheyenne page
+  if (req.nextUrl.pathname === '/cheyenne-wy') {
+    // Create the new URL
+    const newUrl = new URL('/locations/cheyenne-wy', req.url)
+    // Return a permanent redirect
+    return NextResponse.redirect(newUrl, { status: 301 })
+  }
+
   return res
 }
 
@@ -26,5 +34,6 @@ export const config = {
   matcher: [
     '/dashboard/:path*',
     '/login',
+    '/cheyenne-wy',
   ]
 } 

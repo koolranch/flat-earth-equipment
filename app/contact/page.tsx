@@ -33,7 +33,7 @@ export default function ContactPage() {
         {/* Right: Contact Form */}
         <form
           method="POST"
-          action="https://formspree.io/f/mrbqkjke"
+          action="https://formspree.io/f/xvgroloy"
           className="space-y-4"
         >
           <input
