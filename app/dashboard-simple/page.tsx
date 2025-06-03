@@ -242,11 +242,20 @@ export default function SimpleDashboard() {
                     <div className="mt-4 space-y-4">
                       {isGame ? (
                         <div>
-                          <h5 className="font-medium mb-2">Forklift Driving Simulation</h5>
+                          <h5 className="font-medium mb-2">Forklift Safety Training Simulation</h5>
                           <Module1Game onComplete={() => handleGameComplete(module.order)} />
-                          <p className="text-sm text-gray-600 mt-2">
-                            Navigate through all 3 cones without collision to complete this module!
-                          </p>
+                          <div className="text-sm text-gray-600 mt-2 space-y-1">
+                            <p><strong>Training Objectives:</strong></p>
+                            <ul className="list-disc list-inside ml-2 space-y-1">
+                              <li>Complete PPE check-in (click vest, helmet, boots)</li>
+                              <li>Use arrow keys to drive safely</li>
+                              <li>Press H to sound horn at blind corners</li>
+                              <li>Press F/G to raise/lower forks</li>
+                              <li>Press SPACE for service brake at finish</li>
+                              <li>Avoid speed+turn combinations that cause skidding</li>
+                            </ul>
+                            <p className="font-medium">Score: 0-100 points based on safety compliance</p>
+                          </div>
                         </div>
                       ) : (
                         module.video_url && (

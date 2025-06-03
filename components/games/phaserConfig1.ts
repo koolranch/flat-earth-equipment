@@ -1,232 +1,192 @@
 import Phaser from 'phaser'
-import { sendGameComplete, phaserConfig } from './phaserBase'
+import { phaserConfig, sendGameComplete } from './phaserBase'
 
 export default function createConfig(parentId = 'phaser-module1') {
-  class DemoScene extends Phaser.Scene {
+  class Module1Scene extends Phaser.Scene {
     forklift!: Phaser.Physics.Arcade.Sprite
+    forks!: Phaser.GameObjects.Rectangle
     cones!: Phaser.Physics.Arcade.StaticGroup
-    timer!: Phaser.Time.TimerEvent
-    finished = false
+    blind!: Phaser.Physics.Arcade.Sprite
+    finish!: Phaser.GameObjects.Zone
+    cursors!: Phaser.Types.Input.Keyboard.CursorKeys
+    keys!: Record<string, Phaser.Input.Keyboard.Key>
+    voice!: Phaser.Sound.BaseSound
+    score = 100
+    ppeEquipped = 0
+    started = false
     startTime = 0
-    conesHit = 0
-    
-    // Mobile controls
-    controls = {
-      up: false,
-      down: false,
-      left: false,
-      right: false
-    }
-    mobileButtons: { [key: string]: Phaser.GameObjects.Graphics } = {}
 
     preload() {
       this.load.image('forklift', '/game/forklift.png')
       this.load.image('cone', '/game/cone.png')
+      this.load.image('vest', '/game/ppe_vest.png')
+      this.load.image('helmet', '/game/ppe_helmet.png')
+      this.load.image('boots', '/game/ppe_boots.png')
+      this.load.image('blind', '/game/blind_corner.png')
+
+      this.load.audio('vo_ppe', '/game/audio/vo_ppe.mp3')
+      this.load.audio('vo_horn', '/game/audio/vo_horn.mp3')
+      this.load.audio('vo_brake', '/game/audio/vo_brake.mp3')
+      this.load.audio('vo_finish', '/game/audio/vo_finish.mp3')
     }
 
     create() {
-      this.startTime = Date.now()
-      
-      // Create forklift sprite
-      this.forklift = this.physics.add.sprite(100, 225, 'forklift')
-      this.forklift.setCollideWorldBounds(true).setDrag(300).setMaxVelocity(200)
-
-      // Create cones to navigate through
-      this.cones = this.physics.add.staticGroup()
-      this.cones.create(400, 100, 'cone')
-      this.cones.create(650, 225, 'cone')
-      this.cones.create(400, 350, 'cone')
-
-      // Add collision detection - restart on collision
-      this.physics.add.collider(this.forklift, this.cones, () => {
-        if (!this.finished) {
-          this.add.text(400, 150, 'Collision! Restarting...', { 
-            fontFamily: 'Inter', 
-            fontSize: '24px',
-            color: '#ff0000' 
-          }).setOrigin(0.5)
-          
-          this.time.delayedCall(1000, () => {
-            this.scene.restart()
-          })
-        }
-      })
-
-      // Timer for 2 minutes (120 seconds)
-      this.timer = this.time.delayedCall(120_000, () => this.gameOver(false))
-
-      // Overlap detection for passing through cones
-      this.cones.children.iterate((child) => {
-        const cone = child as Phaser.Physics.Arcade.Sprite
-        this.physics.add.overlap(this.forklift, cone, () => {
-          if (!cone.getData('hit')) {
-            cone.setData('hit', true)
-            cone.setTint(0x00ff00) // Green tint when passed
-            this.conesHit++
-            
-            if (this.conesHit === 3) {
-              this.gameOver(true)
-            }
-          }
+      /* ---------- PPE GATE ---------- */
+      const overlay = this.add.rectangle(400, 225, 800, 450, 0x000000, 0.6)
+      const ppeGroup = this.add.group()
+      const icons = ['vest', 'helmet', 'boots']
+      icons.forEach((key, i) => {
+        const icon = this.add
+          .image(300 + i * 100, 225, key)
+          .setScale(0.8)
+          .setInteractive()
+        ppeGroup.add(icon)
+        icon.on('pointerup', () => {
+          icon.setAlpha(0.3)
+          this.ppeEquipped++
+          if (this.ppeEquipped === icons.length) this.startGame(overlay, ppeGroup)
         })
-        return true
       })
+      this.voice = this.sound.add('vo_ppe', { volume: 1 })
+      this.voice.play()
 
-      // Add instructions
-      this.add.text(400, 30, 'Navigate through all 3 cones without collision!', {
-        fontFamily: 'Inter',
-        fontSize: '18px',
-        color: '#374151'
-      }).setOrigin(0.5)
-
-      // Detect if mobile/touch device
-      const isMobile = this.input.manager.touch
-      const instructionText = isMobile ? 'Use touch controls below' : 'Use arrow keys to drive'
-      
-      this.add.text(400, 420, instructionText, {
-        fontFamily: 'Inter',
-        fontSize: '14px',
-        color: '#6b7280'
-      }).setOrigin(0.5)
-
-      // Create mobile touch controls if on mobile device
-      if (isMobile) {
-        this.createMobileControls()
+      /* ---------- INPUT ---------- */
+      this.cursors = this.input.keyboard!.createCursorKeys()
+      this.keys = {
+        horn: this.input.keyboard!.addKey('H'),
+        forksUp: this.input.keyboard!.addKey('F'),
+        forksDown: this.input.keyboard!.addKey('G'),
+        brake: this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
       }
     }
 
-    createMobileControls() {
-      const buttonSize = 50
-      const buttonSpacing = 10
-      const baseY = 370
-      
-      // Create mobile control buttons
-      // Left button
-      this.mobileButtons.left = this.add.graphics()
-      this.mobileButtons.left.fillStyle(0x374151, 0.7)
-      this.mobileButtons.left.fillRoundedRect(50, baseY, buttonSize, buttonSize, 8)
-      this.mobileButtons.left.lineStyle(2, 0x6b7280)
-      this.mobileButtons.left.strokeRoundedRect(50, baseY, buttonSize, buttonSize, 8)
-      this.mobileButtons.left.setInteractive(new Phaser.Geom.Rectangle(50, baseY, buttonSize, buttonSize), Phaser.Geom.Rectangle.Contains)
+    startGame(overlay: Phaser.GameObjects.Rectangle, ppeGroup: Phaser.GameObjects.Group) {
+      overlay.destroy()
+      ppeGroup.clear(true, true)
+      this.sound.play('vo_ppe', { seek: 1.5 }) // quick "Let's drive!" clip
 
-      // Right button  
-      this.mobileButtons.right = this.add.graphics()
-      this.mobileButtons.right.fillStyle(0x374151, 0.7)
-      this.mobileButtons.right.fillRoundedRect(110, baseY, buttonSize, buttonSize, 8)
-      this.mobileButtons.right.lineStyle(2, 0x6b7280)
-      this.mobileButtons.right.strokeRoundedRect(110, baseY, buttonSize, buttonSize, 8)
-      this.mobileButtons.right.setInteractive(new Phaser.Geom.Rectangle(110, baseY, buttonSize, buttonSize), Phaser.Geom.Rectangle.Contains)
+      /* ---------- PLAYFIELD ---------- */
+      this.forklift = this.physics.add
+        .sprite(100, 225, 'forklift')
+        .setCollideWorldBounds(true)
+        .setDrag(300)
+        .setMaxVelocity(220)
 
-      // Forward button
-      this.mobileButtons.up = this.add.graphics()
-      this.mobileButtons.up.fillStyle(0x059669, 0.8)
-      this.mobileButtons.up.fillRoundedRect(650, baseY - 60, buttonSize + 20, buttonSize, 8)
-      this.mobileButtons.up.lineStyle(2, 0x047857)
-      this.mobileButtons.up.strokeRoundedRect(650, baseY - 60, buttonSize + 20, buttonSize, 8)
-      this.mobileButtons.up.setInteractive(new Phaser.Geom.Rectangle(650, baseY - 60, buttonSize + 20, buttonSize), Phaser.Geom.Rectangle.Contains)
+      // invisible forks rect for height collision
+      this.forks = this.add
+        .rectangle(this.forklift.x, this.forklift.y + 16, 64, 8, 0xff0000, 0)
+      this.physics.add.existing(this.forks)
 
-      // Reverse button
-      this.mobileButtons.down = this.add.graphics()
-      this.mobileButtons.down.fillStyle(0xdc2626, 0.8)
-      this.mobileButtons.down.fillRoundedRect(650, baseY, buttonSize + 20, buttonSize, 8)
-      this.mobileButtons.down.lineStyle(2, 0xb91c1c)
-      this.mobileButtons.down.strokeRoundedRect(650, baseY, buttonSize + 20, buttonSize, 8)
-      this.mobileButtons.down.setInteractive(new Phaser.Geom.Rectangle(650, baseY, buttonSize + 20, buttonSize), Phaser.Geom.Rectangle.Contains)
+      this.cones = this.physics.add.staticGroup()
+      ;[
+        [400, 100],
+        [650, 225],
+        [400, 350]
+      ].forEach(pos => this.cones.create(pos[0], pos[1], 'cone'))
 
-      // Add button labels
-      this.add.text(75, baseY + 25, '⬅', { fontFamily: 'Inter', fontSize: '20px', color: '#ffffff' }).setOrigin(0.5)
-      this.add.text(135, baseY + 25, '➡', { fontFamily: 'Inter', fontSize: '20px', color: '#ffffff' }).setOrigin(0.5)
-      this.add.text(660, baseY - 35, 'Forward', { fontFamily: 'Inter', fontSize: '12px', color: '#ffffff' }).setOrigin(0.5)
-      this.add.text(660, baseY + 25, 'Reverse', { fontFamily: 'Inter', fontSize: '12px', color: '#ffffff' }).setOrigin(0.5)
+      /* blind corner */
+      this.blind = this.physics.add.staticSprite(500, 225, 'blind')
+      this.physics.add.overlap(this.forklift, this.blind, () => this.handleHorn(), undefined, this)
 
-      // Touch event handlers
-      this.mobileButtons.left.on('pointerdown', () => { this.controls.left = true })
-      this.mobileButtons.left.on('pointerup', () => { this.controls.left = false })
-      this.mobileButtons.left.on('pointerout', () => { this.controls.left = false })
+      /* finish zone */
+      this.finish = this.add.zone(750, 225, 40, 120)
+      this.physics.add.existing(this.finish)
+      this.physics.add.overlap(this.forklift, this.finish, () => this.handleBrake(), undefined, this)
 
-      this.mobileButtons.right.on('pointerdown', () => { this.controls.right = true })
-      this.mobileButtons.right.on('pointerup', () => { this.controls.right = false })
-      this.mobileButtons.right.on('pointerout', () => { this.controls.right = false })
+      /* collisions */
+      this.physics.add.collider(this.forks, this.cones, () => this.fail('Hit a cone'))
+      this.physics.add.collider(this.forklift, this.cones, () => this.fail('Hit a cone'))
 
-      this.mobileButtons.up.on('pointerdown', () => { this.controls.up = true })
-      this.mobileButtons.up.on('pointerup', () => { this.controls.up = false })
-      this.mobileButtons.up.on('pointerout', () => { this.controls.up = false })
-
-      this.mobileButtons.down.on('pointerdown', () => { this.controls.down = true })
-      this.mobileButtons.down.on('pointerup', () => { this.controls.down = false })
-      this.mobileButtons.down.on('pointerout', () => { this.controls.down = false })
+      this.started = true
+      this.startTime = this.time.now
     }
 
+    /* ---------- UPDATE LOOP ---------- */
     update() {
-      if (this.finished) return
-
-      // Get keyboard input
-      const cursors = this.input.keyboard?.createCursorKeys()
-      if (!this.forklift.body) return
-
+      if (!this.started) return
       const speed = 300
+      // steering
+      if (this.cursors?.up.isDown) this.physics.velocityFromRotation(this.forklift.rotation, speed, this.forklift.body!.velocity)
+      if (this.cursors?.down.isDown) this.physics.velocityFromRotation(this.forklift.rotation, -speed / 2, this.forklift.body!.velocity)
+      if (this.cursors?.left.isDown) this.forklift.setAngularVelocity(-150)
+      else if (this.cursors?.right.isDown) this.forklift.setAngularVelocity(150)
+      else this.forklift.setAngularVelocity(0)
+
+      // speed+turn penalty
       const body = this.forklift.body as Phaser.Physics.Arcade.Body
-      
-      // Combine keyboard and touch controls
-      const up = (cursors?.up.isDown) || this.controls.up
-      const down = (cursors?.down.isDown) || this.controls.down
-      const left = (cursors?.left.isDown) || this.controls.left
-      const right = (cursors?.right.isDown) || this.controls.right
-      
-      if (up) {
-        this.physics.velocityFromRotation(this.forklift.rotation, speed, body.velocity)
-      }
-      if (down) {
-        this.physics.velocityFromRotation(this.forklift.rotation, -speed / 2, body.velocity)
-      }
-      if (left) {
-        this.forklift.setAngularVelocity(-150)
-      } else if (right) {
-        this.forklift.setAngularVelocity(150)
-      } else {
-        this.forklift.setAngularVelocity(0)
+      if (body && body.speed > 180 && Math.abs(body.angularVelocity) > 0) {
+        this.fail('Skidded while turning fast')
       }
 
-      // Update timer display
-      const elapsed = Date.now() - this.startTime
-      const remaining = Math.max(0, 120000 - elapsed)
-      const seconds = Math.ceil(remaining / 1000)
-      
-      // Clear previous timer text
-      const existingTimer = this.children.getByName('timer')
-      if (existingTimer) {
-        existingTimer.destroy()
+      // fork height control
+      if (this.keys.forksUp.isDown && this.forks.y > this.forklift.y + 4) {
+        this.forks.y -= 0.5
       }
-      this.add.text(700, 30, `Time: ${seconds}s`, {
-        fontFamily: 'Inter',
-        fontSize: '16px',
-        color: '#374151'
-      }).setName('timer')
+      if (this.keys.forksDown.isDown && this.forks.y < this.forklift.y + 16) {
+        this.forks.y += 0.5
+      }
+      ;(this.forks.body as Phaser.Physics.Arcade.Body).updateFromGameObject() // keep collider
+
+      // horn pressed?
+      if (Phaser.Input.Keyboard.JustDown(this.keys.horn)) {
+        this.sound.play('vo_horn')
+        this.blind.destroy() // mark hazard cleared
+      }
     }
 
-    gameOver(passed: boolean) {
-      this.finished = true
-      this.timer.destroy()
-      
-      if (passed) {
-        const elapsed = Date.now() - this.startTime
-        this.add.text(400, 225, 'Success! Well done!', { 
-          fontFamily: 'Inter', 
-          fontSize: '32px',
-          color: '#10b981' 
-        }).setOrigin(0.5)
-        
-        // Send completion event
-        sendGameComplete({ score: 100, time: elapsed })
+    /* ---------- EVENT HANDLERS ---------- */
+    handleHorn() {
+      // if blind still exists and horn not pressed in 2s → penalty
+      this.time.delayedCall(2000, () => {
+        if (this.blind.active) this.fail('Failed to sound horn')
+      })
+    }
+
+    handleBrake() {
+      this.sound.play('vo_brake')
+      // require full stop inside zone
+      const body = this.forklift.body as Phaser.Physics.Arcade.Body
+      if (this.keys.brake.isDown && body && body.speed < 5) {
+        this.success()
       } else {
-        this.add.text(400, 225, 'Time up! Reload to retry.', { 
-          fontFamily: 'Inter', 
-          fontSize: '24px',
-          color: '#ef4444' 
-        }).setOrigin(0.5)
+        this.fail('Did not stop with service brake')
       }
+    }
+
+    fail(reason: string) {
+      if (!this.started) return
+      this.started = false
+      this.score -= 20
+      this.cameras.main.shake(200, 0.01)
+      this.add
+        .text(400, 200, `Oops!\n${reason}\nClick to replay`, {
+          fontFamily: 'Inter',
+          color: '#dc2626',
+          align: 'center'
+        })
+        .setOrigin(0.5)
+        .setInteractive()
+        .on('pointerup', () => this.scene.restart())
+    }
+
+    success() {
+      if (!this.started) return
+      this.started = false
+      const elapsed = (this.time.now - this.startTime) / 1000
+      const finalScore = Math.max(this.score - Math.floor(elapsed), 10)
+      this.sound.play('vo_finish')
+      this.add
+        .text(400, 200, `Score ${finalScore}/100\nGreat job!`, {
+          fontFamily: 'Inter',
+          color: '#16a34a',
+          align: 'center'
+        })
+        .setOrigin(0.5)
+      this.time.delayedCall(2000, () => {
+        sendGameComplete({ score: finalScore, time: elapsed })
+      })
     }
   }
 
-  return phaserConfig(parentId, new DemoScene())
+  return phaserConfig(parentId, new Module1Scene())
 } 

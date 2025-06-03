@@ -1,0 +1,7 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="12" y="35" width="16" height="20" rx="3" fill="#8B4513" stroke="#333" stroke-width="2"/>
+  <rect x="36" y="35" width="16" height="20" rx="3" fill="#8B4513" stroke="#333" stroke-width="2"/>
+  <rect x="10" y="50" width="20" height="8" rx="2" fill="#654321"/>
+  <rect x="34" y="50" width="20" height="8" rx="2" fill="#654321"/>
+  <text x="32" y="8" text-anchor="middle" font-family="Arial" font-size="8" fill="#333">BOOTS</text>
+</svg> 

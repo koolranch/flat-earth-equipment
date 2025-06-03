@@ -1,0 +1,6 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="32" cy="28" rx="18" ry="16" fill="#ffd700" stroke="#333" stroke-width="2"/>
+  <rect x="14" y="40" width="36" height="6" rx="3" fill="#333"/>
+  <ellipse cx="32" cy="20" rx="12" ry="10" fill="#ffed4e"/>
+  <text x="32" y="58" text-anchor="middle" font-family="Arial" font-size="8" fill="#333">HAT</text>
+</svg> 
