@@ -2,12 +2,14 @@
 import { useState } from 'react'
 import Image from 'next/image'
 
-const CDN = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/game'
+// Updated to use the new videos bucket for uploaded assets
+const CDN_VIDEOS = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos'
+const CDN_GAME = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/game'
 
 const steps = [
-  { key: 'vest',     label: 'Tap vest to equip',      img: `${CDN}/vest.png` },
-  { key: 'fork',     label: 'Tap ↓ to lower forks',   img: `${CDN}/fork_down.png` },
-  { key: 'brake',    label: 'Tap brake to stop',      img: `${CDN}/brake.png` }
+  { key: 'vest',     label: 'Tap vest to equip',      img: `${CDN_GAME}/vest.png` },
+  { key: 'fork',     label: 'Tap ↓ to lower forks',   img: `${CDN_GAME}/fork_down.png` },
+  { key: 'brake',    label: 'Tap brake to stop',      img: `${CDN_GAME}/brake.png` }
 ]
 
 export default function MiniCheckoff({ onComplete }: { onComplete: () => void }) {
@@ -21,7 +23,7 @@ export default function MiniCheckoff({ onComplete }: { onComplete: () => void })
   return (
     <div
       className="relative aspect-video w-full max-w-md select-none overflow-hidden rounded-xl border bg-gray-100 shadow cursor-pointer hover:scale-105 transition-transform"
-      style={{ background: `url('${CDN}/bg.png') center/cover` }}
+      style={{ background: `url('${CDN_VIDEOS}/bg.png') center/cover` }}
       onClick={handleTap}
     >
       {/* hint text */}

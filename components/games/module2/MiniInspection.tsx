@@ -2,7 +2,9 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
-const CDN = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/game'
+// Updated to use the new videos bucket for uploaded assets
+const CDN_VIDEOS = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos'
+const CDN_GAME = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/game'
 
 type Item = { id: string; label: string; x: number; y: number; img: string }
 
@@ -46,13 +48,23 @@ export default function MiniInspection({ onComplete }: { onComplete: () => void 
     if (typeof window !== 'undefined') {
       window.navigator.vibrate?.(100)
       try {
-        const audio = new Audio(`${CDN}/siren.wav`)
+        const audio = new Audio(`${CDN_GAME}/siren.wav`)
         audio.volume = 0.3
         audio.play().catch(() => {})
       } catch (e) {
         // Silent fail if audio doesn't load
       }
     }
+  }
+
+  // Helper function to get the correct CDN path for assets
+  const getAssetUrl = (filename: string) => {
+    // Use videos bucket for assets you uploaded (chain.png, bg.png)
+    if (filename === 'chain.png') {
+      return `${CDN_VIDEOS}/${filename}`
+    }
+    // Use game bucket for other assets
+    return `${CDN_GAME}/${filename}`
   }
 
   return (
@@ -64,7 +76,7 @@ export default function MiniInspection({ onComplete }: { onComplete: () => void 
       >
         {/* background warehouse image */}
         <Image
-          src={`${CDN}/bg2.png`}
+          src={`${CDN_GAME}/bg2.png`}
           alt="Warehouse"
           fill
           priority
@@ -76,7 +88,7 @@ export default function MiniInspection({ onComplete }: { onComplete: () => void 
         {items.map(it => (
           <Image
             key={it.id}
-            src={`${CDN}/${it.img}`}
+            src={getAssetUrl(it.img)}
             alt={it.label}
             width={48}
             height={48}
