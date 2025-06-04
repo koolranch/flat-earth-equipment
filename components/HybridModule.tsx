@@ -30,17 +30,19 @@ export default function HybridModule({ gameKey, introUrl, onComplete }: HybridMo
     console.log('📹 Showing intro video:', introUrl)
     return (
       <div className="space-y-4">
-        <video 
-          className="w-full rounded-lg" 
-          controls 
-          onEnded={() => {
-            console.log('📹 Video ended, switching to game phase')
-            setPhase('game')
-          }}
-        >
-          <source src={introUrl} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        <div className="w-full max-w-4xl mx-auto">
+          <video 
+            className="w-full h-auto max-h-[600px] rounded-lg" 
+            controls 
+            onEnded={() => {
+              console.log('📹 Video ended, switching to game phase')
+              setPhase('game')
+            }}
+          >
+            <source src={introUrl} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
       </div>
     )
   }
