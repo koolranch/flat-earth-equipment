@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video URLs Test - Flat Earth Equipment</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .video-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; border-radius: 8px; }
+        .video-section h3 { margin: 0 0 10px 0; color: #333; }
+        .status { font-weight: bold; }
+        .success { color: green; }
+        .error { color: red; }
+        .loading { color: orange; }
+        video { width: 100%; max-width: 400px; height: auto; }
+        img { max-width: 200px; height: auto; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Video & Asset URLs Test</h1>
+    <p>Testing the newly uploaded content in the videos bucket:</p>
+
+    <div class="video-section">
+        <h3>Module 4 Video</h3>
+        <p class="status loading" id="module4-status">Loading...</p>
+        <video id="module4-video" controls>
+            <source src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/modulefour.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="video-section">
+        <h3>Outro Video</h3>
+        <p class="status loading" id="outro-status">Loading...</p>
+        <video id="outro-video" controls>
+            <source src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/outro.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="video-section">
+        <h3>Game Assets</h3>
+        <p class="status loading" id="assets-status">Loading...</p>
+        <div>
+            <p>Background Image:</p>
+            <img id="bg-image" src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/bg.png" alt="Background Image">
+        </div>
+        <div>
+            <p>Chain Image:</p>
+            <img id="chain-image" src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/chain.png" alt="Chain Image">
+        </div>
+    </div>
+
+    <div class="video-section">
+        <h3>All Uploaded URLs</h3>
+        <ul>
+            <li><a href="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/modulefour.mp4" target="_blank">modulefour.mp4</a></li>
+            <li><a href="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/outro.mp4" target="_blank">outro.mp4</a></li>
+            <li><a href="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/bg.png" target="_blank">bg.png</a></li>
+            <li><a href="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/chain.png" target="_blank">chain.png</a></li>
+        </ul>
+    </div>
+
+    <script>
+        // Test video loading
+        const module4Video = document.getElementById('module4-video');
+        const outroVideo = document.getElementById('outro-video');
+        const bgImage = document.getElementById('bg-image');
+        const chainImage = document.getElementById('chain-image');
+
+        module4Video.addEventListener('loadeddata', () => {
+            document.getElementById('module4-status').innerHTML = '<span class="success">✅ Module 4 video loaded successfully</span>';
+        });
+        
+        module4Video.addEventListener('error', () => {
+            document.getElementById('module4-status').innerHTML = '<span class="error">❌ Module 4 video failed to load</span>';
+        });
+
+        outroVideo.addEventListener('loadeddata', () => {
+            document.getElementById('outro-status').innerHTML = '<span class="success">✅ Outro video loaded successfully</span>';
+        });
+        
+        outroVideo.addEventListener('error', () => {
+            document.getElementById('outro-status').innerHTML = '<span class="error">❌ Outro video failed to load</span>';
+        });
+
+        bgImage.addEventListener('load', () => {
+            document.getElementById('assets-status').innerHTML = '<span class="success">✅ Background image loaded successfully</span>';
+        });
+        
+        bgImage.addEventListener('error', () => {
+            document.getElementById('assets-status').innerHTML = '<span class="error">❌ Background image failed to load</span>';
+        });
+
+        chainImage.addEventListener('load', () => {
+            const currentStatus = document.getElementById('assets-status').innerHTML;
+            if (currentStatus.includes('Background image loaded')) {
+                document.getElementById('assets-status').innerHTML = '<span class="success">✅ Both images loaded successfully</span>';
+            }
+        });
+        
+        chainImage.addEventListener('error', () => {
+            document.getElementById('assets-status').innerHTML = '<span class="error">❌ Chain image failed to load</span>';
+        });
+    </script>
+</body>
+</html> 
