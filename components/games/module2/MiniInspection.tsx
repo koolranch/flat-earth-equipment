@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
-const CDN = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/game/module2'
+const CDN = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/game'
 
 type Item = { id: string; label: string; x: number; y: number; img: string }
 
@@ -64,7 +64,7 @@ export default function MiniInspection({ onComplete }: { onComplete: () => void 
       >
         {/* background warehouse image */}
         <Image
-          src={`${CDN}/bg.png`}
+          src={`${CDN}/bg2.png`}
           alt="Warehouse"
           fill
           priority
