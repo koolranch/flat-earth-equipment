@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
-// Updated to use the new videos bucket for uploaded assets
+// Updated to use the real forklift images uploaded to the videos bucket
 const CDN_VIDEOS = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos'
 const CDN_GAME = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/game'
 
@@ -59,12 +59,8 @@ export default function MiniInspection({ onComplete }: { onComplete: () => void 
 
   // Helper function to get the correct CDN path for assets
   const getAssetUrl = (filename: string) => {
-    // Use videos bucket for assets you uploaded (chain.png, bg.png)
-    if (filename === 'chain.png') {
-      return `${CDN_VIDEOS}/${filename}`
-    }
-    // Use game bucket for other assets
-    return `${CDN_GAME}/${filename}`
+    // All real forklift inspection images are now in the videos bucket
+    return `${CDN_VIDEOS}/${filename}`
   }
 
   return (
@@ -74,9 +70,9 @@ export default function MiniInspection({ onComplete }: { onComplete: () => void 
           isShaking ? 'animate-pulse scale-105' : ''
         }`}
       >
-        {/* background warehouse image */}
+        {/* background warehouse image - now using real image from videos bucket */}
         <Image
-          src={`${CDN_GAME}/bg2.png`}
+          src={`${CDN_VIDEOS}/bg2.png`}
           alt="Warehouse"
           fill
           priority
