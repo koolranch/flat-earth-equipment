@@ -5,6 +5,9 @@ import Image from 'next/image'
 /* New CDN root — videos bucket, no trailing slash */
 const CDN = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos'
 
+// Cache-busting timestamp
+const CACHE_BUST = '?v=' + Date.now()
+
 type Item = { id: string; label: string; x: number; y: number; img: string }
 
 const items: Item[] = [
@@ -46,7 +49,7 @@ export default function MiniInspection({ onComplete }: { onComplete: () => void 
     <div className="relative aspect-video w-full max-w-md select-none overflow-hidden rounded-xl border bg-gray-900 shadow">
       {/* Background with forklift silhouette */}
       <Image
-        src={`${CDN}/bg2.png`}
+        src={`${CDN}/bg2.png${CACHE_BUST}`}
         alt="Steel-mill bay"
         fill
         priority
@@ -61,7 +64,7 @@ export default function MiniInspection({ onComplete }: { onComplete: () => void 
       {items.map(it => (
         <Image
           key={it.id}
-          src={`${CDN}/${it.img}`}
+          src={`${CDN}/${it.img}${CACHE_BUST}`}
           alt={it.label}
           width={64}
           height={64}
