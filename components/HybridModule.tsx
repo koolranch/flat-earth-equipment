@@ -23,11 +23,11 @@ export default function HybridModule({ gameKey, introUrl, onComplete }: HybridMo
   // If we have an intro video and we're in the intro phase, show the video
   if (introUrl && phase === 'intro') {
     return (
-      <div className="w-full">
+      <div className="w-full max-w-2xl mx-auto">
         <video
           src={introUrl}
           controls
-          className="w-full rounded-lg"
+          className="w-full h-auto max-h-96 rounded-lg"
           playsInline
           onEnded={() => setPhase('game')}
         />
