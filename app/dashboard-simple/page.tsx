@@ -240,7 +240,11 @@ export default function SimpleDashboard() {
                     <div className="mt-4 space-y-4">
                       {isGame ? (
                         <div>
-                          <h5 className="font-medium mb-2">Cheyenne 3-Tap Check-off</h5>
+                          <h5 className="font-medium mb-2">
+                            {module.game_asset_key === 'module1' ? 'Cheyenne 3-Tap Check-off' : 
+                             module.game_asset_key === 'module2' ? '8-Point Inspection' : 
+                             'Interactive Demo'}
+                          </h5>
                           <HybridModule 
                             gameKey={module.game_asset_key}
                             introUrl={module.intro_url}
@@ -248,12 +252,29 @@ export default function SimpleDashboard() {
                           />
                           <div className="text-sm text-gray-600 mt-2 space-y-1">
                             <p><strong>Training Objectives:</strong></p>
-                            <ul className="list-disc list-inside ml-2 space-y-1">
-                              <li>Tap vest to equip PPE</li>
-                              <li>Tap ↓ to lower forks</li>
-                              <li>Tap brake pedal to stop</li>
-                            </ul>
-                            <p className="font-medium">Complete all 3 steps to pass this module</p>
+                            {module.game_asset_key === 'module1' ? (
+                              <ul className="list-disc list-inside ml-2 space-y-1">
+                                <li>Tap vest to equip PPE</li>
+                                <li>Tap ↓ to lower forks</li>
+                                <li>Tap brake pedal to stop</li>
+                              </ul>
+                            ) : module.game_asset_key === 'module2' ? (
+                              <ul className="list-disc list-inside ml-2 space-y-1">
+                                <li>Find and tap all 8 inspection points</li>
+                                <li>Complete inspection within 45 seconds</li>
+                                <li>Avoid wrong taps (5-second penalty)</li>
+                              </ul>
+                            ) : (
+                              <ul className="list-disc list-inside ml-2 space-y-1">
+                                <li>Follow the interactive prompts</li>
+                                <li>Complete all required tasks</li>
+                              </ul>
+                            )}
+                            <p className="font-medium">
+                              {module.game_asset_key === 'module1' ? 'Complete all 3 steps to pass this module' :
+                               module.game_asset_key === 'module2' ? 'Find all 8 inspection points to pass this module' :
+                               'Complete all tasks to pass this module'}
+                            </p>
                           </div>
                         </div>
                       ) : (
