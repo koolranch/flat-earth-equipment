@@ -108,9 +108,23 @@ export default function SimpleDashboard() {
     }
   }
 
-  // Handle game completion - opens quiz modal
+  // Handle game completion - opens quiz modal for the same module
   const handleGameComplete = (moduleOrder: number) => {
-    setShowQuiz(moduleOrder - 1)  // Open quiz modal for this module (array is 0-indexed)
+    console.log('🎮 Game completed for module order:', moduleOrder)
+    // Find the module index (modules array is 0-indexed, but order starts at 1)
+    const moduleIndex = modules.findIndex(m => m.order === moduleOrder)
+    console.log('📍 Found module at index:', moduleIndex, 'Module:', modules[moduleIndex]?.title)
+    
+    if (moduleIndex !== -1 && modules[moduleIndex]?.quiz_json) {
+      console.log('📝 Opening quiz for module:', modules[moduleIndex].title)
+      setShowQuiz(moduleIndex)  // Open quiz modal for this module
+    } else {
+      console.error('❌ No quiz found for module order:', moduleOrder)
+      console.log('Available modules with quiz:', modules.map(m => ({ order: m.order, title: m.title, hasQuiz: !!m.quiz_json })))
+      
+      // If no quiz, proceed directly to mark as complete
+      handleQuizPass(moduleOrder)
+    }
   }
 
   const isModuleUnlocked = (index: number) => {

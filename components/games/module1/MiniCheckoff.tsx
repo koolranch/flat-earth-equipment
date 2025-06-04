@@ -20,12 +20,12 @@ export default function MiniCheckoff({ onComplete }: { onComplete: () => void })
 
   return (
     <div
-      className="relative aspect-video w-full max-w-md select-none overflow-hidden rounded-xl border bg-gray-100 shadow"
+      className="relative aspect-video w-full max-w-md select-none overflow-hidden rounded-xl border bg-gray-100 shadow cursor-pointer hover:scale-105 transition-transform"
       style={{ background: `url('${CDN}/bg.png') center/cover` }}
       onClick={handleTap}
     >
       {/* hint text */}
-      <p className="absolute top-4 left-1/2 -translate-x-1/2 rounded bg-black/60 px-4 py-1 text-sm font-medium text-white">
+      <p className="absolute top-4 left-1/2 -translate-x-1/2 rounded-lg bg-black/80 px-4 py-2 text-sm font-bold text-white backdrop-blur-sm">
         {steps[idx].label}
       </p>
 
@@ -37,7 +37,7 @@ export default function MiniCheckoff({ onComplete }: { onComplete: () => void })
           width={128}
           height={128}
           priority
-          className="animate-bounce"
+          className="animate-bounce drop-shadow-lg"
         />
       </div>
 
@@ -46,9 +46,18 @@ export default function MiniCheckoff({ onComplete }: { onComplete: () => void })
         {steps.map((_, i) => (
           <span
             key={i}
-            className={`h-2 w-2 rounded-full ${i <= idx ? 'bg-orange-500' : 'bg-white/50'}`}
+            className={`h-3 w-3 rounded-full transition-all duration-300 ${
+              i <= idx 
+                ? 'bg-orange-500 scale-110' 
+                : 'bg-white/50'
+            }`}
           />
         ))}
+      </div>
+
+      {/* Click indicator */}
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-xs text-orange-600 font-medium animate-pulse">
+        Click to continue
       </div>
     </div>
   )
