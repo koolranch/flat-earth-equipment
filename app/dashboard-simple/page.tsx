@@ -130,16 +130,20 @@ export default function SimpleDashboard() {
   const isModuleUnlocked = (index: number) => {
     const requiredProgress = index * (100 / modules.length)
     const currentProgress = enrollment?.progress_pct || 0
-    const unlocked = index === 0 || currentProgress >= requiredProgress
-    console.log(`Module ${index + 1} unlocked check: ${currentProgress}% >= ${requiredProgress}% = ${unlocked}`)
+    // Add a small tolerance for floating-point precision issues
+    const tolerance = 0.01
+    const unlocked = index === 0 || currentProgress >= (requiredProgress - tolerance)
+    console.log(`Module ${index + 1} unlocked check: ${currentProgress}% >= ${requiredProgress}% (with tolerance) = ${unlocked}`)
     return unlocked
   }
 
   const isModuleCompleted = (index: number) => {
     const completionProgress = ((index + 1) * (100 / modules.length))
     const currentProgress = enrollment?.progress_pct || 0
-    const completed = currentProgress >= completionProgress
-    console.log(`Module ${index + 1} completed check: ${currentProgress}% >= ${completionProgress}% = ${completed}`)
+    // Add a small tolerance for floating-point precision issues
+    const tolerance = 0.01
+    const completed = currentProgress >= (completionProgress - tolerance)
+    console.log(`Module ${index + 1} completed check: ${currentProgress}% >= ${completionProgress}% (with tolerance) = ${completed}`)
     return completed
   }
 
