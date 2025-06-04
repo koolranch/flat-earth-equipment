@@ -35,11 +35,13 @@ export default function VideoPlayer({ src, className }: VideoPlayerProps) {
   }, [src])
 
   return (
-    <video
-      ref={videoRef}
-      controls
-      className={className}
-      playsInline
-    />
+    <div className="w-full max-w-2xl mx-auto">
+      <video
+        ref={videoRef}
+        controls
+        className={`w-full h-auto max-h-96 ${className || ''}`}
+        playsInline
+      />
+    </div>
   )
 } 

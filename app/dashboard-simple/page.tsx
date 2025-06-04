@@ -262,7 +262,7 @@ export default function SimpleDashboard() {
                             <h5 className="font-medium mb-2">Video Lesson</h5>
                             <VideoPlayer 
                               src={module.video_url} 
-                              className="w-full rounded-lg" 
+                              className="rounded-lg" 
                             />
                           </div>
                         )
