@@ -38,7 +38,13 @@ export default function HybridModule({ gameKey, introUrl, onComplete }: HybridMo
   // Otherwise, show the game
   const Game = dynamic(
     () =>
-      import(`@/components/games/${gameKey === 'module1' ? 'module1/MiniCheckoff' : gameKey}`),
+      import(
+        gameKey === 'module1'
+          ? '@/components/games/module1/MiniCheckoff'
+          : gameKey === 'module2'
+          ? '@/components/games/module2/MiniInspection'
+          : `@/components/games/${gameKey}`
+      ),
     { ssr: false }
   ) as ComponentType<GameComponentProps>
 
