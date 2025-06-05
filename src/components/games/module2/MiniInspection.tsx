@@ -25,6 +25,9 @@ export default function MiniInspection({ onComplete }: { onComplete: () => void 
   const [found, setFound] = useState<string[]>([])
   const [timeLeft, setTimeLeft] = useState(45)
 
+  // Debug the image URL
+  console.log('Background image URL:', `${CDN}/bg2.png${CACHE_BUST}`)
+
   /* Countdown */
   useEffect(() => {
     if (found.length === items.length || timeLeft === 0) return
@@ -48,12 +51,10 @@ export default function MiniInspection({ onComplete }: { onComplete: () => void 
   return (
     <div className="relative aspect-video w-full max-w-md select-none overflow-hidden rounded-xl border bg-gray-900 shadow">
       {/* Background with forklift silhouette */}
-      <Image
+      <img
         src={`${CDN}/bg2.png${CACHE_BUST}`}
         alt="Steel-mill bay"
-        fill
-        priority
-        className="object-cover opacity-80"
+        className="absolute inset-0 w-full h-full object-cover opacity-80"
         draggable={false}
       />
 
