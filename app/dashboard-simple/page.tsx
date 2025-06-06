@@ -215,6 +215,19 @@ export default function SimpleDashboard() {
               const expanded = expandedModule === index
               const isGame = module.type === 'game'
               
+              // Debug logging for Module 3
+              if (module.title && (module.title.toLowerCase().includes('module 3') || module.title.toLowerCase().includes('balance') || module.order === 3)) {
+                console.log('🔍 Module 3 Debug:', {
+                  title: module.title,
+                  type: module.type,
+                  game_asset_key: module.game_asset_key,
+                  intro_url: module.intro_url,
+                  video_url: module.video_url,
+                  order: module.order,
+                  isGame: isGame
+                })
+              }
+              
               return (
                 <div 
                   key={module.id} 
@@ -261,6 +274,8 @@ export default function SimpleDashboard() {
                           <h5 className="font-medium mb-2">
                             {module.game_asset_key === 'module1' ? 'Cheyenne 3-Tap Check-off' : 
                              module.game_asset_key === 'module2' ? '8-Point Inspection' : 
+                             module.game_asset_key === 'module3' ? 'Balloon-Fiesta Balance' :
+                             module.game_asset_key === 'module4' ? 'Hazard Hunt Game' :
                              'Interactive Demo'}
                           </h5>
                           <HybridModule 
@@ -282,6 +297,18 @@ export default function SimpleDashboard() {
                                 <li>Complete inspection within 45 seconds</li>
                                 <li>Avoid wrong taps (5-second penalty)</li>
                               </ul>
+                            ) : module.game_asset_key === 'module3' ? (
+                              <ul className="list-disc list-inside ml-2 space-y-1">
+                                <li>Drag and place all 3 boxes to center target</li>
+                                <li>Complete balance exercise within 60 seconds</li>
+                                <li>Maintain proper load positioning</li>
+                              </ul>
+                            ) : module.game_asset_key === 'module4' ? (
+                              <ul className="list-disc list-inside ml-2 space-y-1">
+                                <li>Identify and click on 10 workplace hazards</li>
+                                <li>Complete hazard hunt within 60 seconds</li>
+                                <li>Avoid clicking empty areas (3 misses = restart)</li>
+                              </ul>
                             ) : (
                               <ul className="list-disc list-inside ml-2 space-y-1">
                                 <li>Follow the interactive prompts</li>
@@ -291,6 +318,8 @@ export default function SimpleDashboard() {
                             <p className="font-medium">
                               {module.game_asset_key === 'module1' ? 'Complete all 3 steps to pass this module' :
                                module.game_asset_key === 'module2' ? 'Find all 8 inspection points to pass this module' :
+                               module.game_asset_key === 'module3' ? 'Place all 3 boxes in the center target to pass this module' :
+                               module.game_asset_key === 'module4' ? 'Catch all 10 hazards to pass this module' :
                                'Complete all tasks to pass this module'}
                             </p>
                           </div>

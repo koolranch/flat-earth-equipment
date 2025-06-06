@@ -49,22 +49,44 @@ export default function HybridModule({ gameKey, introUrl, onComplete }: HybridMo
     )
   }
 
-  // Game phase - use Next.js dynamic import with all four modules
+  // Game phase - use Next.js dynamic import with explicit module mapping
   console.log('🎮 Game phase - loading component for:', gameKey)
 
+  // Create a function to get the import path
+  const getImportPath = (key: string) => {
+    console.log('🔍 Getting import path for key:', key)
+    switch (key) {
+      case 'module1':
+        return () => import('./games/module1/MiniCheckoff')
+      case 'module2':
+        return () => import('./games/module2/MiniInspection')
+      case 'module3':
+        return () => import('./games/module3/MiniBalance')
+      case 'module4':
+        console.log('🎯 Loading module4 - MiniHazard')
+        return () => import('./games/module4/MiniHazard')
+      default:
+        console.error('❌ Unknown game key:', key)
+        throw new Error(`Unknown game key: ${key}`)
+    }
+  }
+
   const Game = dynamic(
-    () =>
-      import(
-        gameKey === 'module1'
-          ? './games/module1/MiniCheckoff'
-          : gameKey === 'module2'
-          ? './games/module2/MiniInspection'
-          : gameKey === 'module3'
-          ? './games/module3/MiniBalance'
-          : gameKey === 'module4'
-          ? './games/module4/MiniHazard'
-          : `./games/${gameKey}`
-      ).then((mod) => ({ default: mod.default })),
+    () => {
+      try {
+        const importFn = getImportPath(gameKey)
+        return importFn().then((mod) => {
+          console.log('✅ Successfully imported module:', gameKey, mod)
+          return { default: mod.default }
+        }).catch((error) => {
+          console.error('❌ Failed to import module:', gameKey, error)
+          throw error
+        })
+      } catch (error) {
+        console.error('❌ Error in dynamic import setup:', error)
+        throw error
+      }
+    },
     { 
       ssr: false,
       loading: () => (
