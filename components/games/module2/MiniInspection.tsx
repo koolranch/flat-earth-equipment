@@ -89,7 +89,7 @@ export default function MiniInspection({ onComplete }: { onComplete: () => void 
             width={48}
             height={48}
             draggable={false}
-            className={`absolute cursor-pointer transition-all duration-300 hover:scale-110 ${
+            className={`absolute cursor-pointer transition-all duration-300 hover:scale-110 z-20 ${
               found.includes(it.id) 
                 ? 'opacity-20 scale-75' 
                 : 'animate-pulse opacity-90 drop-shadow-lg'
@@ -110,7 +110,7 @@ export default function MiniInspection({ onComplete }: { onComplete: () => void 
 
         {/* catch wrong taps */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 z-10"
           onClick={handleWrongTap}
         />
 
