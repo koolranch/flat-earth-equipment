@@ -65,6 +65,9 @@ export default function HybridModule({ gameKey, introUrl, onComplete }: HybridMo
       case 'module4':
         console.log('🎯 Loading module4 - MiniHazard')
         return () => import('./games/module4/MiniHazard')
+      case 'module5':
+        console.log('🎯 Loading module5 - MiniShutdown')
+        return () => import('./games/module5/MiniShutdown')
       default:
         console.error('❌ Unknown game key:', key)
         throw new Error(`Unknown game key: ${key}`)
