@@ -5,6 +5,7 @@ import { useSupabase } from '../providers'
 import QuizModal from '@/components/QuizModal'
 import VideoPlayer from '@/components/VideoPlayer'
 import HybridModule from '@/components/HybridModule'
+import HandbookSection from '@/components/HandbookSection'
 
 export default function SimpleDashboard() {
   const [user, setUser] = useState<any>(null)
@@ -269,6 +270,11 @@ export default function SimpleDashboard() {
                   
                   {expanded && unlocked && (
                     <div className="mt-4 space-y-4">
+                      <HandbookSection 
+                        moduleOrder={module.order} 
+                        moduleTitle={module.title}
+                      />
+                      
                       {isGame ? (
                         <div>
                           <h5 className="font-medium mb-2">
