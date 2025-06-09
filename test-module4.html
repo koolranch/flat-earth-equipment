@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 4 Test</title>
+</head>
+<body>
+    <h1>Module 4 Asset Test</h1>
+    
+    <h2>Video Test</h2>
+    <video controls width="400">
+        <source src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/modulefour.mp4" type="video/mp4">
+        Your browser does not support video.
+    </video>
+    
+    <h2>Background Image Test</h2>
+    <img src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/bg4.png" 
+         alt="Module 4 background" 
+         style="max-width: 400px; border: 1px solid #ccc;">
+    
+    <h2>Hazard Sprites Test</h2>
+    <div style="display: flex; gap: 20px;">
+        <img src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/haz_pedestrian.png" 
+             alt="Pedestrian hazard" 
+             style="width: 64px; height: 64px; border: 1px solid #ccc;">
+        <img src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/haz_spill.png" 
+             alt="Spill hazard" 
+             style="width: 64px; height: 64px; border: 1px solid #ccc;">
+        <img src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/haz_blind.png" 
+             alt="Blind spot hazard" 
+             style="width: 64px; height: 64px; border: 1px solid #ccc;">
+    </div>
+    
+    <h2>Module 4 Status</h2>
+    <ul>
+        <li>Component: <code>components/games/module4/MiniHazard.tsx</code> ✅</li>
+        <li>HybridModule mapping: <code>module4 → MiniHazard</code> ✅</li>
+        <li>Game type: Hazard Hunt (catch 10 hazards) ✅</li>
+        <li>Database config: type=game, game_asset_key=module4 ✅</li>
+    </ul>
+    
+    <p>If all assets load above, Module 4 should be working correctly.</p>
+</body>
+</html> 
