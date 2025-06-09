@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import { createHash } from 'crypto'
 
 /* CDN for static images */
-const CDN = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand/'
+const CDN = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/'
 const LOGO_PNG = CDN + 'logo_128.png'
 const SEAL_PNG = CDN + 'seal_orange.png'
 
