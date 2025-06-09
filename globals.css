@@ -130,9 +130,8 @@
 }
 
 /* OSHA overlay animation */
-@keyframes fadeInOut {
-  0% { opacity: 0; transform: translateY(-4px); }
-  10%,80% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(-4px); }
+@keyframes fade-in-out {
+  0%,100% { opacity:0; transform:translateY(-4px) }
+  10%,90% { opacity:1; transform:translateY(0) }
 }
-.animate-fade-in-out { animation: fadeInOut 6s ease-out forwards; } 
+.animate-fade-in-out { animation: fade-in-out 4s ease-out forwards } 
