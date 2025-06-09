@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 /* ─── CDN paths ───────────────────────────────────────────── */
 const CDN = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/'
-const GAME = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/game/'
+const GAME = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/'
 
 /* ─── Shutdown sequence (7 clicks) ────────────────────────── */
 const STEPS: Step[] = [
