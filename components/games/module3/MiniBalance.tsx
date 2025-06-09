@@ -20,7 +20,7 @@ const startPos: Record<BoxId, { x: number; y: number }> = {
   heavy: { x: 46, y: 62 }
 }
 
-const TARGET = { x: 64, y: 56, r: 8 } // % + radius
+const TARGET = { x: 64, y: 56, r: 10 } // % + radius
 
 /* ─── COMPONENT ─────────────────────────────────────────────── */
 export default function MiniBalance({ onComplete }: { onComplete: () => void }) {
@@ -168,10 +168,15 @@ function DragBox({
     if (hidden) return
     setDragging(box.id)
     const startX=e.clientX; const startY=e.clientY
-    const move = (ev:PointerEvent)=>{
-      const dx = (ev.clientX-startX)/ref.current!.parentElement!.clientWidth*100
-      const dy = (ev.clientY-startY)/ref.current!.parentElement!.clientHeight*100
-      setPos(p=>({x:p.x+dx,y:p.y+dy}))
+    const startPos = pos
+    const containerW = ref.current!.parentElement!.clientWidth
+    const containerH = ref.current!.parentElement!.clientHeight
+    const move = (ev: PointerEvent) => {
+      const dxPct =
+        ((ev.clientX - startX) / containerW) * 100
+      const dyPct =
+        ((ev.clientY - startY) / containerH) * 100
+      setPos({ x: startPos.x + dxPct, y: startPos.y + dyPct })
     }
     const up = (ev:PointerEvent)=>{
       window.removeEventListener('pointermove',move)
@@ -191,25 +196,29 @@ function DragBox({
       aria-label={`Box ${box.id}`}
       tabIndex={0}
       style={{
-        position:'absolute',
-        left:`calc(${pos.x}% - 32px)`,
-        top:`calc(${pos.y}% - 32px)`,
-        touchAction:'none'
+        position: 'absolute',
+        /* 120 px virtual hit-box centred on sprite */
+        left: `calc(${pos.x}% - 60px)`,
+        top: `calc(${pos.y}% - 60px)`,
+        width: 120,
+        height: 120,
+        touchAction: 'none',      // disable iOS delay
+        cursor: 'grab'
       }}
       onPointerDown={down}
-      onKeyDown={e=>{
-        if(e.key==='Enter'||e.key===' ') down(e as any)
+      onKeyDown={e => {
+        if (e.key === 'Enter' || e.key === ' ') down(e as any)
       }}
-      className={`h-16 w-16 select-none active:scale-95
-        ${pulse?'before:absolute before:inset-0 before:rounded-full before:border-2 before:border-teal-400/80 before:animate-ping':''}`}
+      className={`${pulse ? 'before:absolute before:inset-0 before:rounded-full before:border-2 before:border-teal-400/80 before:animate-ping' : ''}`}
     >
+      {/* sprite centred in hit-box */}
       <Image
         src={CDN + box.img}
         alt=""
-        width={64}
-        height={64}
+        width={80}
+        height={80}
         draggable={false}
-        className="drop-shadow-lg"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 drop-shadow-lg select-none"
       />
     </div>
   )
