@@ -20,7 +20,7 @@ const startPos: Record<BoxId, { x: number; y: number }> = {
   heavy: { x: 46, y: 62 }
 }
 
-const TARGET = { x: 64, y: 56, r: 10 } // % + radius
+const TARGET = { x: 64, y: 56, r: 12 } // % + radius
 
 /* ─── COMPONENT ─────────────────────────────────────────────── */
 export default function MiniBalance({ onComplete }: { onComplete: () => void }) {
@@ -154,38 +154,45 @@ function DragBox({
   onDrop
 }: {
   box: (typeof BOXES)[number]
-  start: { x:number; y:number }
+  start: { x: number; y: number }
   hidden: boolean
   pulse: boolean
-  setDragging: (id: BoxId|null)=>void
-  onDrop: (xPct:number, yPct:number)=>void
+  setDragging: (id: BoxId | null) => void
+  onDrop: (xPct: number, yPct: number) => void
 }) {
   const ref = useRef<HTMLDivElement>(null)
-  const [pos,setPos] = useState(start)
+  const [pos, setPos] = useState(start) // pos is *center* in %
 
-  /* pointer handlers */
-  const down = (e: React.PointerEvent) => {
+  const onPointerDown = (e: React.PointerEvent) => {
     if (hidden) return
+    const sprite = ref.current!
+    const canvas = sprite.parentElement as HTMLElement // the aspect-video wrapper
+
+    const { clientWidth: cw, clientHeight: ch } = canvas
+    const startX = e.clientX
+    const startY = e.clientY
+    const startPos = { ...pos }
+
     setDragging(box.id)
-    const startX=e.clientX; const startY=e.clientY
-    const startPos = pos
-    const containerW = ref.current!.parentElement!.clientWidth
-    const containerH = ref.current!.parentElement!.clientHeight
+    sprite.setPointerCapture(e.pointerId)
+
     const move = (ev: PointerEvent) => {
-      const dxPct =
-        ((ev.clientX - startX) / containerW) * 100
-      const dyPct =
-        ((ev.clientY - startY) / containerH) * 100
+      const dxPct = ((ev.clientX - startX) / cw) * 100
+      const dyPct = ((ev.clientY - startY) / ch) * 100
       setPos({ x: startPos.x + dxPct, y: startPos.y + dyPct })
     }
-    const up = (ev:PointerEvent)=>{
-      window.removeEventListener('pointermove',move)
-      window.removeEventListener('pointerup',up)
-      onDrop(pos.x,pos.y)
+
+    const up = (ev: PointerEvent) => {
+      sprite.releasePointerCapture(ev.pointerId)
+      window.removeEventListener('pointermove', move)
+      window.removeEventListener('pointerup', up)
+      /* snap & notify parent */
+      onDrop(pos.x, pos.y)
       setDragging(null)
     }
-    window.addEventListener('pointermove',move)
-    window.addEventListener('pointerup',up)
+
+    window.addEventListener('pointermove', move)
+    window.addEventListener('pointerup', up)
   }
 
   if (hidden) return null
@@ -197,28 +204,26 @@ function DragBox({
       tabIndex={0}
       style={{
         position: 'absolute',
-        /* 120 px virtual hit-box centred on sprite */
         left: `calc(${pos.x}% - 60px)`,
         top: `calc(${pos.y}% - 60px)`,
         width: 120,
         height: 120,
-        touchAction: 'none',      // disable iOS delay
+        touchAction: 'none',
         cursor: 'grab'
       }}
-      onPointerDown={down}
+      onPointerDown={onPointerDown}
       onKeyDown={e => {
-        if (e.key === 'Enter' || e.key === ' ') down(e as any)
+        if (e.key === 'Enter' || e.key === ' ') onPointerDown(e as any)
       }}
-      className={`${pulse ? 'before:absolute before:inset-0 before:rounded-full before:border-2 before:border-teal-400/80 before:animate-ping' : ''}`}
+      className={`select-none ${pulse ? 'before:absolute before:inset-0 before:rounded-full before:border-2 before:border-teal-400/80 before:animate-ping' : ''}`}
     >
-      {/* sprite centred in hit-box */}
       <Image
         src={CDN + box.img}
         alt=""
         width={80}
         height={80}
         draggable={false}
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 drop-shadow-lg select-none"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 drop-shadow-lg pointer-events-none"
       />
     </div>
   )
