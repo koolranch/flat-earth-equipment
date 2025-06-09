@@ -6,7 +6,7 @@ import Image from 'next/image'
 const CDN_VIDEO =
   'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/'
 const CDN_GAME =
-  'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/game/'
+  'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/'
 
 /* ─── HOTSPOT DATA ────────────────────────────────────────────── */
 const HOTSPOTS: Hotspot[] = [
