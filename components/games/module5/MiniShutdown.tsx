@@ -1,84 +1,137 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 
-/* Supabase videos bucket — trailing slash important */
-const CDN =
-  'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/'
+/* ─── CDN paths ───────────────────────────────────────────── */
+const CDN = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/'
+const GAME = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/game/'
 
-/* ordered shutdown steps */
-const STEPS = [
-  { id: 'neutral', file: 'step_neutral.png', label: 'Shift to Neutral', x: 12, y: 68 },
-  { id: 'brake',   file: 'step_brake.png',   label: 'Parking Brake',    x: 30, y: 68 },
-  { id: 'forks',   file: 'step_forks.png',   label: 'Forks Down',       x: 48, y: 68 },
-  { id: 'keyoff',  file: 'step_keyoff.png',  label: 'Key Off',          x: 66, y: 68 },
-  { id: 'plug',    file: 'step_plug.png',    label: 'Plug Charger',     x: 48, y: 16 },
-  { id: 'chock',   file: 'step_chock.png',   label: 'Wheel Chock',      x: 30, y: 16 }
+/* ─── Shutdown sequence (7 clicks) ────────────────────────── */
+const STEPS: Step[] = [
+  { id: 'neutral',  img: 'step_neutral.png',  x: 12, y: 68, fact: 'Shift lever to NEUTRAL first.' },
+  { id: 'steer',    img: 'step_steer.png',    x: 21, y: 68, fact: 'Center steering wheel for straight exit.' },
+  { id: 'brake',    img: 'step_brake.png',    x: 30, y: 68, fact: 'Set parking brake firmly.' },
+  { id: 'forks',    img: 'step_forks.png',    x: 48, y: 68, fact: 'Lower forks flat on ground. Tilt mast fwd to relieve pressure.' },
+  { id: 'keyoff',   img: 'step_keyoff.png',   x: 66, y: 68, fact: 'Turn key OFF & pocket it.' },
+  { id: 'plug',     img: 'step_plug.png',     x: 48, y: 16, fact: 'Connect charger while wearing gloves & face shield.' },
+  { id: 'chock',    img: 'step_chock.png',    x: 30, y: 16, fact: 'Place wheel chock on downhill tire.' }
 ]
 
-export default function MiniShutdown({ onComplete }: { onComplete: () => void }) {
-  const [idx,  setIdx]  = useState(0)        // next expected step
-  const [done, setDone] = useState<string[]>([])
-  const [t,    setT]    = useState(45)       // timer seconds
+export type Step = { id:string; img:string; x:number; y:number; fact:string }
+
+/* ⏱ Config */
+const LIMIT = 45 // seconds
+
+export default function MiniShutdown({ onComplete }:{ onComplete:()=>void }) {
+  /* state */
+  const [idx,setIdx] = useState(0)             // current step index
+  const [time,setTime] = useState(LIMIT)
+  const [fails,setFails] = useState(0)         // run fails – for pulse help
+  const [tooltip,setTooltip] = useState<string|null>(null)
+  const [done,setDone]   = useState(false)
+  const [focus,setFocus] = useState(0)         // keyboard focus index
+
+  /* audio refs */
+  const stepAudio = useRef<HTMLAudioElement>()
+  const errorAudio= useRef<HTMLAudioElement>()
+  const winAudio  = useRef<HTMLAudioElement>()
+  useEffect(()=>{
+    stepAudio.current  = new Audio(GAME+'step.wav')
+    errorAudio.current = new Audio(GAME+'error.wav')
+    winAudio.current   = new Audio(GAME+'win.wav')
+  },[])
 
   /* countdown */
-  useEffect(() => {
-    if (idx === STEPS.length || t === 0) return
-    const id = setTimeout(() => setT(s => s - 1), 1000)
-    return () => clearTimeout(id)
-  }, [t, idx])
+  useEffect(()=>{
+    if(done) return
+    if(time===0){ resetFail() ; return }
+    const t = setTimeout(()=>setTime(t=>t-1),1000)
+    return ()=>clearTimeout(t)
+  },[time,done])
 
-  /* completion */
-  useEffect(() => {
-    if (idx === STEPS.length) onComplete()
-  }, [idx, onComplete])
-
-  const tap = (id: string) => {
-    if (id === STEPS[idx].id) {
-      setDone(d => [...d, id])
-      setIdx(i => i + 1)
-    } else {            // wrong order → reset
-      setDone([]); setIdx(0)
+  /* handle click */
+  const handle = (step:Step)=>{
+    if(done) return
+    if(STEPS[idx].id === step.id){
+      /* correct */
+      stepAudio.current?.play().catch(()=>{})
+      setTooltip(step.fact)
+      setTimeout(()=>setTooltip(null),1500)
+      // PPE overlay for charger step
+      if(step.id==='plug') setShowPPE(true)
+      setIdx(i=>i+1)
+      if(idx+1===STEPS.length){
+        winAudio.current?.play().catch(()=>{})
+        setDone(true)
+        setTimeout(onComplete,800)
+      }
+    } else {
+      /* wrong order */
+      errorAudio.current?.play().catch(()=>{})
+      resetFail()
     }
   }
 
+  const resetFail=()=>{
+    setIdx(0)
+    setFails(f=>f+1)
+    setTime(LIMIT)
+  }
+
+  /* PPE overlay state */
+  const [showPPE,setShowPPE] = useState(false)
+  useEffect(()=>{ if(showPPE) setTimeout(()=>setShowPPE(false),1200) },[showPPE])
+
+  /* keyboard navigation */
+  const keyNav=(e:React.KeyboardEvent)=>{
+    if(e.key==='ArrowRight') setFocus(f=>(f+1)%STEPS.length)
+    if(e.key==='ArrowLeft')  setFocus(f=>(f-1+STEPS.length)%STEPS.length)
+    if(e.key===' '||e.key==='Enter') handle(STEPS[focus])
+  }
+
+  /* helpers */
+  const pulseHelp = fails>=2 // pulse next icon after 2 failed runs
+
   return (
-    <div className="relative aspect-video w-full max-w-md select-none overflow-hidden rounded-xl border bg-gray-900 shadow">
-      {/* snowy Bozeman background */}
-      <Image
-        src={`${CDN}bg5.png`}
-        alt="Bozeman shutdown bay"
-        fill priority
-        className="object-cover opacity-80"
-        draggable={false}
-      />
-
-      {/* clickable step icons */}
-      {STEPS.map(s => (
-        <Image
-          key={s.id}
-          src={`${CDN}${s.file}`}
-          alt={s.label}
-          width={64} height={64}
-          draggable={false}
-          role="button" aria-label={s.label}
-          className={`absolute z-20 cursor-pointer transition duration-200 ${
-            done.includes(s.id)
-              ? 'opacity-20 drop-shadow-[0_0_6px_#4ade80]'
-              : idx === STEPS.findIndex(x => x.id === s.id)
-              ? 'animate-bounce'
-              : 'opacity-90'
-          }`}
-          style={{ left: `${s.x}%`, top: `${s.y}%` }}
-          onClick={() => tap(s.id)}
-        />
-      ))}
-
+    <div className="relative mx-auto max-w-md select-none" onKeyDown={keyNav} tabIndex={0}>
       {/* HUD */}
-      <div className="absolute top-2 left-1/2 -translate-x-1/2 z-30 flex gap-3 rounded bg-black/70 px-3 py-1 text-xs text-white">
-        <span>Step {idx}/{STEPS.length}</span>
-        <span>|</span>
-        <span className={t < 10 ? 'text-red-400' : ''}>{t}s</span>
+      <div className="mb-1 flex justify-between text-xs">
+        <span>✔ {idx}/{STEPS.length}</span>
+        <span className={time<10?'text-red-600 font-semibold':''}>⏱ {time}s</span>
+        <button className="underline" onClick={(e)=>{e.stopPropagation(); window.scrollTo({behavior:'smooth', top:0})}}>Replay&nbsp;0:29&nbsp;video</button>
+      </div>
+
+      {/* canvas */}
+      <div className="relative aspect-video w-full overflow-hidden rounded-xl border bg-gray-800/20">
+        <Image src={CDN+'bg5.png'} alt="Shutdown bay" fill className="object-cover" priority draggable={false}/>
+
+        {STEPS.map((s,i)=>(
+          <button
+            key={s.id}
+            aria-label={s.id}
+            onClick={(e)=>{e.stopPropagation(); handle(s)}}
+            style={{left:`${s.x}%`,top:`${s.y}%`}}
+            className={`absolute -translate-x-1/2 -translate-y-1/2 h-[100px] w-[100px] flex items-center justify-center
+              ${i<idx?'opacity-20':'hover:scale-105 active:scale-95'}
+              ${(pulseHelp && i===idx)?'before:absolute before:inset-0 before:rounded-full before:border-2 before:border-teal-400/80 before:animate-ping':''}`}
+          >
+            <Image src={GAME+s.img} alt="" width={64} height={64} draggable={false}/>
+          </button>
+        ))}
+
+        {/* PPE overlay */}
+        {showPPE && (
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/50">
+            <Image src={GAME+'ppe_gloves_face.png'} alt="PPE" width={96} height={96}/>
+          </div>
+        )}
+
+        {/* tooltip */}
+        {tooltip && (
+          <div className="pointer-events-none absolute bottom-3 left-1/2 w-11/12 -translate-x-1/2 rounded bg-black/80 px-3 py-2 text-center text-[13px] text-white">
+            {tooltip}
+          </div>
+        )}
       </div>
     </div>
   )
