@@ -5,105 +5,93 @@
  * • Auto-snap inside radius, gentle ease-out animation
  * • Live outline highlight when box enters radius
  */
+'use client'
 import { useState, useRef, useEffect } from 'react'
 import { clsx } from 'clsx'
 
-interface Box {
-  id: 'light' | 'medium' | 'heavy'
-  img: string
-  size: number // px
-  x: number    // %
-  y: number
-}
-
 const CDN = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/'
+
+type Box = { id: 'light' | 'medium' | 'heavy'; img: string; size: number; x: number; y: number }
+
 const BOXES: Box[] = [
   { id: 'light',  img: CDN + 'box_light.png',  size: 64, x: 8,  y: 62 },
   { id: 'medium', img: CDN + 'box_med.png',   size: 72, x: 26, y: 62 },
-  { id: 'heavy',  img: CDN + 'box_heavy.png', size: 80, x: 44, y: 62 },
+  { id: 'heavy',  img: CDN + 'box_heavy.png', size: 80, x: 44, y: 62 }
 ]
-// target centre (as % of container) + radius %
-const TARGET = { cx: 64, cy: 56, r: 15 } // r enlarged from 8 ➜ 15
+
+const TARGET = { cx: 64, cy: 56, r: 15 } // % coordinates + radius
 
 export default function MiniBalance({ onComplete }: { onComplete: () => void }) {
   const wrap = useRef<HTMLDivElement>(null)
   const [placed, setPlaced] = useState<Record<string, boolean>>({})
   const [dragId, setDragId] = useState<string | null>(null)
-  const [temp, setTemp] = useState<{ id: string; dx: number; dy: number } | null>(null)
-  // overlay state – fades out after first successful placement or 6 s
-  const [showInfo, setShowInfo] = useState(true)
+  const [positions, setPositions] = useState<Record<string, { x: number; y: number }>>(
+    Object.fromEntries(BOXES.map(b => [b.id, { x: b.x, y: b.y }]))
+  )
+  const [glow, setGlow] = useState(false)
+  const [banner, setBanner] = useState(true)
+
+  /* auto-hide banner after 4 s */
   useEffect(() => {
-    const t = setTimeout(() => setShowInfo(false), 6000)
+    const t = setTimeout(() => setBanner(false), 4000)
     return () => clearTimeout(t)
   }, [])
 
-  /** helper – converts % → px */
-  const pctToPx = (pct: number, dim: number) => (pct / 100) * dim
-  /** hit-test for current box centre */
-  const withinTarget = (xPx: number, yPx: number) => {
-    const box = wrap.current!.getBoundingClientRect()
-    const cxPx = pctToPx(TARGET.cx, box.width)
-    const cyPx = pctToPx(TARGET.cy, box.height)
-    const dist = Math.hypot(xPx - cxPx, yPx - cyPx)
-    return dist <= pctToPx(TARGET.r, box.width)
+  /* helper: % to px */
+  const pct = (p: number, dim: number) => (p / 100) * dim
+
+  /* hit test: centre of box inside circle radius */
+  const inside = (xPct: number, yPct: number) => {
+    const { width } = wrap.current!.getBoundingClientRect()
+    const dist = Math.hypot(xPct - TARGET.cx, yPct - TARGET.cy)
+    return dist <= TARGET.r
   }
 
   /* pointer handlers */
-  function startDrag(e: React.PointerEvent<HTMLImageElement>, id: string) {
-    if (placed[id]) return
-    const img = e.currentTarget
-    img.setPointerCapture(e.pointerId)
-    const rect = img.getBoundingClientRect()
-    setDragId(id)
-    setTemp({ id, dx: e.clientX - rect.left, dy: e.clientY - rect.top })
-  }
-  function moveDrag(e: React.PointerEvent<HTMLImageElement>) {
-    if (!dragId || !temp) return
-    const box = wrap.current!.getBoundingClientRect()
-    const xPx = e.clientX - temp.dx - box.left          // removed the + temp.dx
-    const yPx = e.clientY - temp.dy - box.top           // removed the + temp.dy
-    const img = e.currentTarget
-    img.style.left = `${xPx}px`
-    img.style.top  = `${yPx}px`
-    // highlight ring when inside radius
-    setRingGlow(withinTarget(xPx + temp.dx, yPx + temp.dy))
-  }
-  const [ringGlow, setRingGlow] = useState(false)
-
-  function endDrag(e: React.PointerEvent<HTMLImageElement>, boxData: Box) {
-    if (!dragId || !temp) return
+  const onPointerDown = (e: React.PointerEvent, id: Box) => {
+    if (placed[id.id]) return
     const wrapRect = wrap.current!.getBoundingClientRect()
-    // New: pointer-to-centre calculation is independent of temp.dx / dy
-    const xPx = e.clientX - wrapRect.left - boxData.size / 2
-    const yPx = e.clientY - wrapRect.top  - boxData.size / 2
-
-    if (withinTarget(xPx + boxData.size / 2, yPx + boxData.size / 2)) {
-      // snap to center
-      const img = e.currentTarget
-      img.style.transition = 'left 0.25s ease-out, top 0.25s ease-out'
-      img.style.left = `${pctToPx(TARGET.cx, wrapRect.width) - boxData.size / 2}px`
-      img.style.top  = `${pctToPx(TARGET.cy, wrapRect.height) - boxData.size / 2}px`
-      setPlaced(p => ({ ...p, [boxData.id]: true }))
-      // hide overlay after first correct drop
-      setShowInfo(false)
-      // ensure the element keeps its snapped position after transition
-      setTimeout(() => {
-        img.style.left = `${pctToPx(TARGET.cx, wrapRect.width) - boxData.size / 2}px`
-        img.style.top  = `${pctToPx(TARGET.cy, wrapRect.height) - boxData.size / 2}px`
-        img.style.transition = ''
-      }, 260)
-    } else {
-      // reset to origin
-      e.currentTarget.style.transition = 'left 0.25s, top 0.25s'
-      e.currentTarget.style.left = ''
-      e.currentTarget.style.top  = ''
+    const start = positions[id.id]
+    const startX = e.clientX
+    const startY = e.clientY
+    setDragId(id.id)
+    const move = (ev: PointerEvent) => {
+      const dxPct = ((ev.clientX - startX) / wrapRect.width) * 100
+      const dyPct = ((ev.clientY - startY) / wrapRect.height) * 100
+      const newPos = { x: start.x + dxPct, y: start.y + dyPct }
+      setPositions(p => ({ ...p, [id.id]: newPos }))
+      setGlow(inside(newPos.x + id.size / wrapRect.width * 50, newPos.y + id.size / wrapRect.height * 50))
     }
-    setRingGlow(false)
-    setDragId(null)
-    setTemp(null)
+    const up = (ev: PointerEvent) => {
+      window.removeEventListener('pointermove', move)
+      window.removeEventListener('pointerup', up)
+      const pos = positions[id.id]
+      /* centre of box (in %) */
+      const centreX = pos.x + (id.size / wrapRect.width)  * 50
+      const centreY = pos.y + (id.size / wrapRect.height) * 50
+      if (inside(centreX, centreY)) {
+        /* snap exactly to target centre */
+        setPositions(p => ({
+          ...p,
+          [id.id]: {
+            x: TARGET.cx - (id.size / wrapRect.width)  * 50,
+            y: TARGET.cy - (id.size / wrapRect.height) * 50
+          }
+        }))
+        setPlaced(pl => ({ ...pl, [id.id]: true }))
+        setBanner(false)
+      } else {
+        /* reset */
+        setPositions(p => ({ ...p, [id.id]: { x: id.x, y: id.y } }))
+      }
+      setGlow(false)
+      setDragId(null)
+    }
+    window.addEventListener('pointermove', move)
+    window.addEventListener('pointerup', up)
   }
 
-  /* complete check */
+  /* completion */
   useEffect(() => {
     if (Object.keys(placed).length === BOXES.length) {
       setTimeout(onComplete, 400)
@@ -111,25 +99,28 @@ export default function MiniBalance({ onComplete }: { onComplete: () => void }) 
   }, [placed])
 
   return (
-    <div ref={wrap} className="relative max-w-md mx-auto select-none">
-      {/* OSHA instruction overlay */}
-      {showInfo && (
-        <div className="absolute inset-x-0 top-2 mx-auto w-[90%] bg-amber-50/90 border-amber-300 border rounded-md px-3 py-2 text-sm leading-tight text-amber-900 shadow-sm backdrop-blur-md animate-fade-in-out">
-          <strong className="font-semibold">OSHA 29 CFR 1910.178(g)</strong> • Keep the load low & centered. Drag each box into the green circle — it will glow when positioned correctly.
+    <div ref={wrap} className="relative mx-auto max-w-md select-none">
+      {/* banner */}
+      {banner && (
+        <div className="absolute inset-x-0 top-2 mx-auto w-[94%] rounded-md bg-amber-50/90 px-3 py-2 text-center text-xs font-medium text-amber-900 shadow animate-fade-in-out">
+          OSHA 29 CFR 1910.178 (g) – Keep load low & centered. Drag each box into the green circle.
         </div>
       )}
-      
-      {/* bg */}
-      <img src={`${CDN}bg3.png`} alt="warehouse bg" className="w-full rounded-lg" draggable={false} />
+
+      {/* background */}
+      <img src={CDN + 'bg3.png'} alt="" className="w-full rounded-lg" draggable={false} />
 
       {/* target ring */}
       <div
-        className={clsx('absolute rounded-full border-2', ringGlow ? 'border-teal-400 animate-pulse' : 'border-green-600/60')}
+        className={clsx(
+          'absolute rounded-full',
+          glow ? 'border-2 border-teal-400 animate-pulse' : 'border border-green-600/60'
+        )}
         style={{
           width: `${TARGET.r * 2}%`,
           height: `${TARGET.r * 2}%`,
           left: `${TARGET.cx - TARGET.r}%`,
-          top: `${TARGET.cy - TARGET.r}%`,
+          top: `${TARGET.cy - TARGET.r}%`
         }}
       />
 
@@ -139,20 +130,18 @@ export default function MiniBalance({ onComplete }: { onComplete: () => void }) 
           key={b.id}
           src={b.img}
           alt={b.id}
-          className={clsx(
-            'absolute cursor-grab active:cursor-grabbing',
-            placed[b.id] && 'opacity-80'
-          )}
+          draggable={false}
           style={{
             width: b.size,
             height: b.size,
-            left: `${b.x}%`,
-            top: `${b.y}%`,
+            position: 'absolute',
+            left: `${positions[b.id].x}%`,
+            top: `${positions[b.id].y}%`,
+            transition: dragId === b.id ? 'none' : 'left 0.2s ease-out, top 0.2s ease-out',
+            opacity: placed[b.id] ? 0.3 : 1
           }}
-          onPointerDown={e => startDrag(e, b.id)}
-          onPointerMove={moveDrag}
-          onPointerUp={e => endDrag(e, b)}
-          onPointerCancel={e => endDrag(e, b)}
+          className="cursor-grab active:cursor-grabbing"
+          onPointerDown={e => onPointerDown(e, b)}
         />
       ))}
     </div>
