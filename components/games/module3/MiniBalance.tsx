@@ -67,8 +67,9 @@ export default function MiniBalance({ onComplete }: { onComplete: () => void }) 
   function endDrag(e: React.PointerEvent<HTMLImageElement>, boxData: Box) {
     if (!dragId || !temp) return
     const wrapRect = wrap.current!.getBoundingClientRect()
-    const xPx = e.clientX - temp.dx - wrapRect.left + temp.dx
-    const yPx = e.clientY - temp.dy - wrapRect.top + temp.dy
+    // New: pointer-to-centre calculation is independent of temp.dx / dy
+    const xPx = e.clientX - wrapRect.left - boxData.size / 2
+    const yPx = e.clientY - wrapRect.top  - boxData.size / 2
 
     if (withinTarget(xPx + boxData.size / 2, yPx + boxData.size / 2)) {
       // snap to center
@@ -77,6 +78,12 @@ export default function MiniBalance({ onComplete }: { onComplete: () => void }) 
       img.style.left = `${pctToPx(TARGET.cx, wrapRect.width) - boxData.size / 2}px`
       img.style.top  = `${pctToPx(TARGET.cy, wrapRect.height) - boxData.size / 2}px`
       setPlaced(p => ({ ...p, [boxData.id]: true }))
+      // ensure the element keeps its snapped position after transition
+      setTimeout(() => {
+        img.style.left = `${pctToPx(TARGET.cx, wrapRect.width) - boxData.size / 2}px`
+        img.style.top  = `${pctToPx(TARGET.cy, wrapRect.height) - boxData.size / 2}px`
+        img.style.transition = ''
+      }, 260)
     } else {
       // reset to origin
       e.currentTarget.style.transition = 'left 0.25s, top 0.25s'
