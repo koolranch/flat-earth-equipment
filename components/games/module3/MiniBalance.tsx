@@ -20,7 +20,7 @@ const startPos: Record<BoxId, { x: number; y: number }> = {
   heavy: { x: 46, y: 62 }
 }
 
-const TARGET = { x: 64, y: 56, r: 12 } // % + radius
+const TARGET = { x: 64, y: 56, r: 20 } // % + radius
 
 /* ─── COMPONENT ─────────────────────────────────────────────── */
 export default function MiniBalance({ onComplete }: { onComplete: () => void }) {
@@ -117,17 +117,18 @@ export default function MiniBalance({ onComplete }: { onComplete: () => void }) 
             hidden={placed.includes(box.id)}
             pulse={mode==='easy' && box.id===nextId}
             setDragging={setDragging}
-            onDrop={(x,y)=> {
-              if (inTarget(x,y) && (!placed.includes(box.id)) &&
-                  (mode==='free' || box.id===nextId)) {
-                setPlaced(p=>[...p, box.id])
+            onDrop={(x, y, resetStart) => {
+              if (inTarget(x, y)) {
+                /* inside generous radius → snap to center */
+                setPlaced(p => [...p, box.id])
                 setToast(box.fact)
-                setTimeout(()=>setToast(null),1400)
-                successRef.current?.play().catch(()=>{})
+                setTimeout(() => setToast(null), 1500)
+                successRef.current?.play().catch(() => {})
               } else {
-                /* wrong */
-                if (!inTarget(x,y)) thudRef.current?.play().catch(()=>{})
-                setWrong(w=>w+1)
+                /* miss → bounce back & count wrong */
+                thudRef.current?.play().catch(() => {})
+                setWrong(w => w + 1)
+                resetStart()               // send sprite home
               }
             }}
           />
@@ -158,7 +159,7 @@ function DragBox({
   hidden: boolean
   pulse: boolean
   setDragging: (id: BoxId | null) => void
-  onDrop: (xPct: number, yPct: number) => void
+  onDrop: (xPct: number, yPct: number, resetStart: () => void) => void
 }) {
   const ref = useRef<HTMLDivElement>(null)
   const [pos, setPos] = useState(start) // pos is *center* in %
@@ -187,7 +188,7 @@ function DragBox({
       window.removeEventListener('pointermove', move)
       window.removeEventListener('pointerup', up)
       /* snap & notify parent */
-      onDrop(pos.x, pos.y)
+      onDrop(pos.x, pos.y, () => setPos(start))
       setDragging(null)
     }
 
