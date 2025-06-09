@@ -2,146 +2,215 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 
-const CDN =
-  'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/'
+/* ─── CDN BASES ─────────────────────────────────────────────── */
+const CDN = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/'
 
-type Box = { id: string; file: string; x: number; y: number; w: number; h: number }
+/* ─── DATA ──────────────────────────────────────────────────── */
+const BOXES = [
+  { id: 'light', img: 'box_light.png', weight: 10, fact: 'Start with lighter loads – better stability.' },
+  { id: 'med',   img: 'box_med.png',   weight: 30, fact: 'Gradual weight increase builds confidence.' },
+  { id: 'heavy', img: 'box_heavy.png', weight: 50, fact: 'Heavy loads require extra care and precision.' }
+] as const
 
-const BOXES: Box[] = [
-  { id: 'light',  file: 'box_light.png',  x:  8, y: 62, w: 64, h: 64 },
-  { id: 'medium', file: 'box_med.png',    x: 26, y: 62, w: 72, h: 72 },
-  { id: 'heavy',  file: 'box_heavy.png',  x: 46, y: 62, w: 80, h: 80 }
-]
+type BoxId = (typeof BOXES)[number]['id']
 
-const TARGET = { x: 64, y: 56, r: 8 } // center & radius in %
+const startPos: Record<BoxId, { x: number; y: number }> = {
+  light: { x: 8,  y: 62 },
+  med:   { x: 26, y: 62 },
+  heavy: { x: 46, y: 62 }
+}
 
+const TARGET = { x: 64, y: 56, r: 8 } // % + radius
+
+/* ─── COMPONENT ─────────────────────────────────────────────── */
 export default function MiniBalance({ onComplete }: { onComplete: () => void }) {
-  const [pos, setPos]   = useState<Record<string,{x:number;y:number}>>(
-    Object.fromEntries(BOXES.map(b => [b.id, { x: b.x, y: b.y }]))
-  )
-  const [dragId, setDragId] = useState<string|null>(null)
-  const [placed, setPlaced] = useState<string[]>([])
-  const [time,   setTime]   = useState(60)
-  const frameRef            = useRef<HTMLDivElement>(null)
+  const [mode, setMode] = useState<'easy'|'free'>('easy')
+  const [placed, setPlaced] = useState<BoxId[]>([])
+  const [dragging, setDragging] = useState<BoxId | null>(null)
+  const [time, setTime] = useState(60)
+  const [wrong, setWrong] = useState(0)
+  const [toast, setToast]   = useState<string|null>(null)
 
-  /* Timer */
+  /* audio refs */
+  const successRef = useRef<HTMLAudioElement>()
+  const thudRef    = useRef<HTMLAudioElement>()
+
+  /* timer */
   useEffect(() => {
-    if (placed.length === BOXES.length || time === 0) return
-    const t = setTimeout(() => setTime(tl => tl - 1), 1000)
-    return () => clearTimeout(t)
+    if (time === 0 || placed.length === 3) return
+    const id = setTimeout(() => setTime(t => t - 1), 1_000)
+    return () => clearTimeout(id)
   }, [time, placed.length])
 
-  /* Success */
+  /* load audio once on mount */
   useEffect(() => {
-    if (placed.length === BOXES.length) {
-      // Try to play success audio, but don't block if it fails
-      try {
-        const audio = new Audio(`${CDN}success.wav`)
-        audio.volume = 0.3
-        audio.play().catch(() => {
-          console.log('Success audio not available')
-        })
-      } catch (e) {
-        console.log('Success audio failed to load')
-      }
-      onComplete()
-    }
-  }, [placed, onComplete])
+    successRef.current = new Audio(CDN + 'success.wav')
+    thudRef.current    = new Audio(CDN + 'thud.wav')
+  }, [])
 
-  /* Drag helpers */
-  const startDrag = (e: React.PointerEvent, id: string) => {
-    if (placed.includes(id)) return
-    setDragId(id)
-    ;(e.target as HTMLElement).setPointerCapture(e.pointerId)
-  }
-  const moveDrag = (e: React.PointerEvent) => {
-    if (!dragId) return
-    const rect = frameRef.current!.getBoundingClientRect()
-    setPos(p => ({
-      ...p,
-      [dragId]: {
-        x: ((e.clientX - rect.left) / rect.width)  * 100,
-        y: ((e.clientY - rect.top)  / rect.height) * 100
-      }
-    }))
-  }
-  const endDrag = () => {
-    if (!dragId) return
-    const { x, y } = pos[dragId]
-    const d = Math.hypot(x - TARGET.x, y - TARGET.y)
-    if (d <= TARGET.r) {
-      setPlaced(p => [...p, dragId])
-    } else {
-      const meta = BOXES.find(b => b.id === dragId)!
-      setPos(p => ({ ...p, [dragId]: { x: meta.x, y: meta.y } }))
-      // Try to play thud audio, but don't block if it fails
-      try {
-        const audio = new Audio(`${CDN}thud.wav`)
-        audio.volume = 0.3
-        audio.play().catch(() => {
-          console.log('Thud audio not available')
-        })
-      } catch (e) {
-        console.log('Thud audio failed to load')
-      }
+  /* complete */
+  useEffect(() => {
+    if (placed.length === 3) {
+      successRef.current?.play().catch(()=>{})
+      setTimeout(onComplete, 800)
     }
-    setDragId(null)
+  }, [placed.length, onComplete])
+
+  /* reset when mode toggles */
+  useEffect(() => {
+    setPlaced([])
+    setTime(60)
+    setWrong(0)
+  }, [mode])
+
+  /* order for sequential mode */
+  const nextId = BOXES[placed.length]?.id
+
+  /* helper: distance from pct coords to target center */
+  const inTarget = (xPct: number, yPct: number) =>
+    Math.hypot(xPct - TARGET.x, yPct - TARGET.y) <= TARGET.r
+
+  /* ─── RENDER ─────────────────────────────────────────────── */
+  return (
+    <div className="relative mx-auto max-w-md">
+      {/* ── HUD ── */}
+      <div className="mb-1 flex items-center justify-between text-xs">
+        <label className="flex items-center gap-1 select-none">
+          <input
+            type="checkbox"
+            className="accent-orange-600"
+            checked={mode === 'free'}
+            onChange={e => setMode(e.target.checked ? 'free' : 'easy')}
+          />
+          Hard&nbsp;(Free)
+        </label>
+        <div className="flex gap-3">
+          <span>✔ {placed.length}/3</span>
+          <span className={time < 10 ? 'text-red-600 font-semibold' : ''}>⏱ {time}s</span>
+          <span className="text-orange-500">✖ {wrong}</span>
+        </div>
+      </div>
+
+      {/* ── GAME CANVAS ── */}
+      <div className="relative aspect-video w-full overflow-hidden rounded-xl border bg-gray-900">
+        {/* background */}
+        <Image src={CDN + 'bg3.png'} alt="" fill className="object-cover" draggable={false} priority />
+
+        {/* target */}
+        <div
+          className="absolute rounded-full border-2 border-green-400/70 bg-green-400/10"
+          style={{
+            left: `calc(${TARGET.x}% - ${TARGET.r}%)`,
+            top:  `calc(${TARGET.y}% - ${TARGET.r}%)`,
+            width: `${TARGET.r * 2}%`,
+            height:`${TARGET.r * 2}%`,
+          }}
+          aria-hidden
+        />
+
+        {/* draggable boxes */}
+        {BOXES.map(box => (
+          <DragBox
+            key={box.id}
+            box={box}
+            start={startPos[box.id]}
+            hidden={placed.includes(box.id)}
+            pulse={mode==='easy' && box.id===nextId}
+            setDragging={setDragging}
+            onDrop={(x,y)=> {
+              if (inTarget(x,y) && (!placed.includes(box.id)) &&
+                  (mode==='free' || box.id===nextId)) {
+                setPlaced(p=>[...p, box.id])
+                setToast(box.fact)
+                setTimeout(()=>setToast(null),1400)
+                successRef.current?.play().catch(()=>{})
+              } else {
+                /* wrong */
+                if (!inTarget(x,y)) thudRef.current?.play().catch(()=>{})
+                setWrong(w=>w+1)
+              }
+            }}
+          />
+        ))}
+
+        {/* tooltip */}
+        {toast && (
+          <div className="pointer-events-none absolute bottom-3 left-1/2 w-11/12 -translate-x-1/2 rounded bg-black/80 px-3 py-2 text-center text-[13px] text-white">
+            {toast}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+/* ─── Single draggable sprite ──────────────────────────────── */
+function DragBox({
+  box,
+  start,
+  hidden,
+  pulse,
+  setDragging,
+  onDrop
+}: {
+  box: (typeof BOXES)[number]
+  start: { x:number; y:number }
+  hidden: boolean
+  pulse: boolean
+  setDragging: (id: BoxId|null)=>void
+  onDrop: (xPct:number, yPct:number)=>void
+}) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [pos,setPos] = useState(start)
+
+  /* pointer handlers */
+  const down = (e: React.PointerEvent) => {
+    if (hidden) return
+    setDragging(box.id)
+    const startX=e.clientX; const startY=e.clientY
+    const move = (ev:PointerEvent)=>{
+      const dx = (ev.clientX-startX)/ref.current!.parentElement!.clientWidth*100
+      const dy = (ev.clientY-startY)/ref.current!.parentElement!.clientHeight*100
+      setPos(p=>({x:p.x+dx,y:p.y+dy}))
+    }
+    const up = (ev:PointerEvent)=>{
+      window.removeEventListener('pointermove',move)
+      window.removeEventListener('pointerup',up)
+      onDrop(pos.x,pos.y)
+      setDragging(null)
+    }
+    window.addEventListener('pointermove',move)
+    window.addEventListener('pointerup',up)
   }
 
+  if (hidden) return null
   return (
     <div
-      ref={frameRef}
-      className="relative aspect-video w-full max-w-md select-none overflow-hidden rounded-xl border bg-gray-900 shadow"
-      onPointerMove={moveDrag}
-      onPointerUp={endDrag}
+      ref={ref}
+      role="button"
+      aria-label={`Box ${box.id}`}
+      tabIndex={0}
+      style={{
+        position:'absolute',
+        left:`calc(${pos.x}% - 32px)`,
+        top:`calc(${pos.y}% - 32px)`,
+        touchAction:'none'
+      }}
+      onPointerDown={down}
+      onKeyDown={e=>{
+        if(e.key==='Enter'||e.key===' ') down(e as any)
+      }}
+      className={`h-16 w-16 select-none active:scale-95
+        ${pulse?'before:absolute before:inset-0 before:rounded-full before:border-2 before:border-teal-400/80 before:animate-ping':''}`}
     >
-      {/* Background */}
       <Image
-        src={`${CDN}bg3.png`}
-        alt="Warehouse with forklift"
-        fill
-        priority
-        className="object-cover opacity-80"
+        src={CDN + box.img}
+        alt=""
+        width={64}
+        height={64}
         draggable={false}
+        className="drop-shadow-lg"
       />
-
-      {/* Target */}
-      <div
-        className="absolute z-10 rounded-full bg-green-400/40"
-        style={{
-          left: `${TARGET.x - TARGET.r}%`,
-          top:  `${TARGET.y - TARGET.r}%`,
-          width:`${TARGET.r*2}%`,
-          height:`${TARGET.r*2}%`
-        }}
-      />
-
-      {/* Boxes */}
-      {BOXES.map(b => (
-        <Image
-          key={b.id}
-          src={`${CDN}${b.file}`}
-          alt={b.id}
-          width={b.w}
-          height={b.h}
-          draggable={false}
-          className={`absolute z-20 cursor-grab ${
-            placed.includes(b.id) ? 'opacity-20' : ''
-          }`}
-          style={{
-            left:`calc(${pos[b.id].x}% - ${b.w/2}px)`,
-            top: `calc(${pos[b.id].y}% - ${b.h/2}px)`
-          }}
-          onPointerDown={e => startDrag(e, b.id)}
-        />
-      ))}
-
-      {/* HUD */}
-      <div className="absolute top-2 left-1/2 z-30 -translate-x-1/2 flex gap-3 rounded bg-black/70 px-3 py-1 text-xs text-white">
-        <span>Placed {placed.length}/{BOXES.length}</span>
-        <span>|</span>
-        <span className={time<10?'text-red-400':''}>{time}s</span>
-      </div>
     </div>
   )
 } 
