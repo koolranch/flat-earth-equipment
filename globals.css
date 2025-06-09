@@ -127,4 +127,12 @@
   body {
     @apply bg-background text-foreground;
   }
-} 
+}
+
+/* OSHA overlay animation */
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-4px); }
+  10%,80% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-4px); }
+}
+.animate-fade-in-out { animation: fadeInOut 6s ease-out forwards; } 

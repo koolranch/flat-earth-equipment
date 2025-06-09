@@ -30,6 +30,12 @@ export default function MiniBalance({ onComplete }: { onComplete: () => void }) 
   const [placed, setPlaced] = useState<Record<string, boolean>>({})
   const [dragId, setDragId] = useState<string | null>(null)
   const [temp, setTemp] = useState<{ id: string; dx: number; dy: number } | null>(null)
+  // overlay state – fades out after first successful placement or 6 s
+  const [showInfo, setShowInfo] = useState(true)
+  useEffect(() => {
+    const t = setTimeout(() => setShowInfo(false), 6000)
+    return () => clearTimeout(t)
+  }, [])
 
   /** helper – converts % → px */
   const pctToPx = (pct: number, dim: number) => (pct / 100) * dim
@@ -78,6 +84,8 @@ export default function MiniBalance({ onComplete }: { onComplete: () => void }) 
       img.style.left = `${pctToPx(TARGET.cx, wrapRect.width) - boxData.size / 2}px`
       img.style.top  = `${pctToPx(TARGET.cy, wrapRect.height) - boxData.size / 2}px`
       setPlaced(p => ({ ...p, [boxData.id]: true }))
+      // hide overlay after first correct drop
+      setShowInfo(false)
       // ensure the element keeps its snapped position after transition
       setTimeout(() => {
         img.style.left = `${pctToPx(TARGET.cx, wrapRect.width) - boxData.size / 2}px`
@@ -104,6 +112,13 @@ export default function MiniBalance({ onComplete }: { onComplete: () => void }) 
 
   return (
     <div ref={wrap} className="relative max-w-md mx-auto select-none">
+      {/* OSHA instruction overlay */}
+      {showInfo && (
+        <div className="absolute inset-x-0 top-2 mx-auto w-[90%] bg-amber-50/90 border-amber-300 border rounded-md px-3 py-2 text-sm leading-tight text-amber-900 shadow-sm backdrop-blur-md animate-fade-in-out">
+          <strong className="font-semibold">OSHA 29 CFR 1910.178(g)</strong> • Keep the load low & centered. Drag each box into the green circle — it will glow when positioned correctly.
+        </div>
+      )}
+      
       {/* bg */}
       <img src={`${CDN}bg3.png`} alt="warehouse bg" className="w-full rounded-lg" draggable={false} />
 
