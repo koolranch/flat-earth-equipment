@@ -60,8 +60,8 @@ export default function MiniBalance({ onComplete }: { onComplete: () => void }) 
   function moveDrag(e: React.PointerEvent<HTMLImageElement>) {
     if (!dragId || !temp) return
     const box = wrap.current!.getBoundingClientRect()
-    const xPx = e.clientX - temp.dx - box.left + temp!.dx
-    const yPx = e.clientY - temp.dy - box.top + temp!.dy
+    const xPx = e.clientX - temp.dx - box.left          // removed the + temp.dx
+    const yPx = e.clientY - temp.dy - box.top           // removed the + temp.dy
     const img = e.currentTarget
     img.style.left = `${xPx}px`
     img.style.top  = `${yPx}px`
