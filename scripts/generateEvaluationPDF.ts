@@ -31,9 +31,13 @@ export async function generateEvaluationPDF(data: {
   const bold = await pdf.embedFont(StandardFonts.HelveticaBold)
 
   /* logo */
-  const logoBytes = await fetch(LOGO_PNG).then(r => r.arrayBuffer())
-  const logo = await pdf.embedPng(logoBytes)
-  page.drawImage(logo, { x: 40, y: height - 100, width: 80, height: 80 })
+  try {
+    const logoBytes = await fetch('https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/logo_128.png').then(r => r.arrayBuffer())
+    const logo = await pdf.embedPng(logoBytes)
+    page.drawImage(logo, { x: 40, y: height - 100, width: 80, height: 80 })
+  } catch (e) {
+    console.warn('Logo not loaded:', e)
+  }
   page.drawRectangle({ x: 0, y: height - 110, width, height: 10, color: ORANGE })
 
   /* header labels */
@@ -62,7 +66,7 @@ export async function generateEvaluationPDF(data: {
   const rows: [string,string,string,string][] = [
     ['pre_fluid','Fluid levels, tires, forks, mast, devices','op_mount','Mount / Dismount (3-point)'],
     ['pre_belt','Seatbelt usage','op_load','Load handling & tilt back'],
-    ['op_speed','Travel speed ≤ 5 mph','op_horn','Horn use at intersections'],
+    ['op_speed','Travel speed <= 5 mph','op_horn','Horn use at intersections'],
     ['op_ped','Pedestrian awareness','op_ramp','Ramp parking technique'],
     ['park_proc','Parking procedure','op_control','Overall smooth control']
   ]
