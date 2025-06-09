@@ -30,6 +30,7 @@ export default function MiniBalance({ onComplete }: { onComplete: () => void }) 
   )
   const [glow, setGlow] = useState(false)
   const [banner, setBanner] = useState(true)
+  const [tip, setTip] = useState<string | null>(null)  // OSHA success tool-tip
 
   /* auto-hide banner after 4 s */
   useEffect(() => {
@@ -62,31 +63,44 @@ export default function MiniBalance({ onComplete }: { onComplete: () => void }) 
       setPositions(p => ({ ...p, [id.id]: newPos }))
       setGlow(inside(newPos.x + id.size / wrapRect.width * 50, newPos.y + id.size / wrapRect.height * 50))
     }
-    const up = (ev: PointerEvent) => {
-      window.removeEventListener('pointermove', move)
-      window.removeEventListener('pointerup', up)
-      const pos = positions[id.id]
-      /* centre of box (in %) */
-      const centreX = pos.x + (id.size / wrapRect.width)  * 50
-      const centreY = pos.y + (id.size / wrapRect.height) * 50
-      if (inside(centreX, centreY)) {
-        /* snap exactly to target centre */
-        setPositions(p => ({
-          ...p,
-          [id.id]: {
-            x: TARGET.cx - (id.size / wrapRect.width)  * 50,
-            y: TARGET.cy - (id.size / wrapRect.height) * 50
-          }
-        }))
-        setPlaced(pl => ({ ...pl, [id.id]: true }))
-        setBanner(false)
-      } else {
-        /* reset */
-        setPositions(p => ({ ...p, [id.id]: { x: id.x, y: id.y } }))
-      }
-      setGlow(false)
-      setDragId(null)
-    }
+         const up = (ev: PointerEvent) => {
+       window.removeEventListener('pointermove', move)
+       window.removeEventListener('pointerup', up)
+       /* calc latest position (%), independent of state latency */
+       const dxPct = ((ev.clientX - startX) / wrapRect.width) * 100
+       const dyPct = ((ev.clientY - startY) / wrapRect.height) * 100
+       const final = { x: start.x + dxPct, y: start.y + dyPct }
+       const centreX = final.x + (id.size / wrapRect.width)  * 50
+       const centreY = final.y + (id.size / wrapRect.height) * 50
+
+       if (inside(centreX, centreY)) {
+         /* snap exactly to target centre */
+         setPositions(p => ({
+           ...p,
+           [id.id]: {
+             x: TARGET.cx - (id.size / wrapRect.width)  * 50,
+             y: TARGET.cy - (id.size / wrapRect.height) * 50
+           }
+         }))
+         setPlaced(pl => ({ ...pl, [id.id]: true }))
+         setBanner(false)
+
+         /* success micro-tip */
+         const msg =
+           id.id === 'light'
+             ? 'Light box forward preserves visibility.'
+             : id.id === 'medium'
+             ? 'Medium box balances axle load.'
+             : 'Heavy box nearest mast lowers CG.'
+         setTip(msg + ' (OSHA § 1910.178 (g))')
+         setTimeout(() => setTip(null), 1600)
+       } else {
+         /* reset */
+         setPositions(p => ({ ...p, [id.id]: { x: id.x, y: id.y } }))
+       }
+       setGlow(false)
+       setDragId(null)
+     }
     window.addEventListener('pointermove', move)
     window.addEventListener('pointerup', up)
   }
@@ -124,26 +138,33 @@ export default function MiniBalance({ onComplete }: { onComplete: () => void }) 
         }}
       />
 
-      {/* boxes */}
-      {BOXES.map(b => (
-        <img
-          key={b.id}
-          src={b.img}
-          alt={b.id}
-          draggable={false}
-          style={{
-            width: b.size,
-            height: b.size,
-            position: 'absolute',
-            left: `${positions[b.id].x}%`,
-            top: `${positions[b.id].y}%`,
-            transition: dragId === b.id ? 'none' : 'left 0.2s ease-out, top 0.2s ease-out',
-            opacity: placed[b.id] ? 0.3 : 1
-          }}
-          className="cursor-grab active:cursor-grabbing"
-          onPointerDown={e => onPointerDown(e, b)}
-        />
-      ))}
-    </div>
-  )
-} 
+             {/* boxes */}
+       {BOXES.map(b => (
+         <img
+           key={b.id}
+           src={b.img}
+           alt={b.id}
+           draggable={false}
+           style={{
+             width: b.size,
+             height: b.size,
+             position: 'absolute',
+             left: `${positions[b.id].x}%`,
+             top: `${positions[b.id].y}%`,
+             transition: dragId === b.id ? 'none' : 'left 0.2s ease-out, top 0.2s ease-out',
+             opacity: placed[b.id] ? 0.3 : 1
+           }}
+           className="cursor-grab active:cursor-grabbing"
+           onPointerDown={e => onPointerDown(e, b)}
+         />
+       ))}
+
+       {/* success tip */}
+       {tip && (
+         <div className="pointer-events-none absolute bottom-3 left-1/2 w-11/12 -translate-x-1/2 rounded bg-black/80 px-3 py-2 text-center text-[13px] text-white shadow">
+           {tip}
+         </div>
+       )}
+     </div>
+   )
+ } 
