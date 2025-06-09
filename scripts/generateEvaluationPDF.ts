@@ -83,59 +83,67 @@ export async function generateEvaluationPDF(data?: {
   // table: two-column practical skills per OSHA
   y -= 40
   const colWidth = (width - 80) / 2
-  const skills = [
-    ['Pre-Operation: Fluid levels, tires, forks, mast, devices', 'Mount/Dismount: 3-point contact, face equipment'],
-    ['Seatbelt: Properly fastened before operation', 'Load Handling: Square approach, tilt back, low travel'],
-    ['Travel Speed: <=5 mph in work areas, slow at corners', 'Horn Usage: Sound at intersections, blind spots'],
-    ['Pedestrian Awareness: Safe distance, yield right-of-way', 'Ramp Operation: Load uphill, proper grade technique'],
-    ['Parking: Forks down, brake set, key out, wheel chock', 'Overall Control: Smooth operation, no unsafe acts']
-  ]
+  const tableTop = y
+  const form = pdf.getForm()
 
-  skills.forEach((row, i) => {
-    row.forEach((text, j) => {
-      const x = 40 + j * colWidth
-      // Large checkbox square (18pt = 0.25 inch)
-      page.drawRectangle({ 
-        x: x, y: y - 8, width: 18, height: 18, 
-        borderColor: rgb(0,0.545,0.553), borderWidth: 1.5 
-      })
-      // Skill text
-      const textLines = text.length > 45 ? [text.substring(0, 45) + '...', text.substring(45)] : [text]
-      textLines.forEach((line, lineIndex) => {
-        page.drawText(line, { 
-          x: x + 24, y: y - 4 - (lineIndex * 12), size: 10, font 
+  const rows = [
+    ['pre_fluid',  'Fluid levels, tires, forks, mast, devices',
+     'op_mount',   'Mount/Dismount: 3-point contact'],
+    ['pre_belt',   'Seatbelt usage',
+     'op_load',    'Load handling & tilt back'],
+    ['op_speed',   'Travel speed ≤ 5 mph in work areas',
+     'op_horn',    'Horn usage at intersections'],
+    ['op_ped',     'Pedestrian awareness',
+     'op_ramp',    'Ramp parking technique'],
+    ['park_proc',  'Parking procedure (forks down, brake set, key out)',
+     'op_control', 'Overall smooth control']
+  ] as const
+
+  y = tableTop
+  rows.forEach(row => {
+    row.forEach((cell, idx) => {
+      if (idx % 2 === 0) {
+        // field name
+        const fieldName = cell as string
+        const label     = row[idx + 1] as string
+        const col = idx === 0 ? 0 : 1
+        const xPos = 40 + col * colWidth
+
+        // interactive checkbox 18×18 pt
+        const cb = form.createCheckBox(fieldName)
+        cb.addToPage(page, {
+          x: xPos,
+          y: y - 12,
+          width: 18,
+          height: 18,
+          borderWidth: 1,
+          borderColor: rgb(0, 0.545, 0.553)
         })
-      })
+
+        // label text
+        page.drawText(label, {
+          x: xPos + 24,
+          y: y - 4,
+          size: 11,
+          font
+        })
+      }
     })
-    y -= 35
+    y -= 32                                  // more vertical breathing room
   })
 
   // certification statement
-  y -= 20
-  page.drawText('CERTIFICATION', { x: 40, y, size: 14, font: fontBold })
-  page.drawText('I certify that the above practical skills were evaluated in accordance with', { 
-    x: 40, y, size: 10, font 
-  })
-  page.drawText('29 CFR 1910.178(m). Any unchecked item requires remediation and retest.', { 
-    x: 40, y, size: 10, font 
-  })
+  const certY = y - 18
+  page.drawText(
+    'I certify that the above practical skills were evaluated in accordance with 29 CFR 1910.178(m). Any "No" requires remediation and retest.',
+    { x: 40, y: certY, size: 9, font }
+  )
 
-  // signature lines
-  y -= 50
-  page.drawLine({ 
-    start: { x: 40, y }, 
-    end: { x: width/2 - 20, y }, 
-    thickness: 1, color: rgb(0, 0, 0) 
-  })
-  page.drawLine({ 
-    start: { x: width/2 + 20, y }, 
-    end: { x: width - 40, y }, 
-    thickness: 1, color: rgb(0, 0, 0) 
-  })
-  
-  y -= 15
-  page.drawText('Evaluator Signature', { x: 40, y, size: 8, font })
-  page.drawText('Date', { x: width/2 + 20, y, size: 8, font })
+  const sigY = certY - 42                   // 24 pt gap before lines
+  page.drawLine({ start: { x: 40, y: sigY }, end: { x: width / 2 - 20, y: sigY } })
+  page.drawText('Evaluator signature', { x: 40, y: sigY - 15, size: 8, font })
+  page.drawLine({ start: { x: width / 2 + 20, y: sigY }, end: { x: width - 40, y: sigY } })
+  page.drawText('Date', { x: width / 2 + 20, y: sigY - 15, size: 8, font })
 
   // footer
   page.drawText(`Form v${formData.version} | Retain 3 years per OSHA 1910.178(m)(6)`, { 
