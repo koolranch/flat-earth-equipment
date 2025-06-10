@@ -24,6 +24,14 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
   )
   const [guideRead, setGuideRead] = useState(false)
 
+  // Update phase when MDX content becomes available
+  useEffect(() => {
+    if (guideMdx && phase === 'video' && !guideRead) {
+      console.log('📚 MDX content loaded, switching to guide phase...')
+      setPhase('guide')
+    }
+  }, [guideMdx, phase, guideRead])
+
   console.log('🎮 HybridModule render:', { 
     gameKey, 
     introUrl: !!introUrl, 
@@ -45,17 +53,25 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
     <>
       <Stepper current={stepperCurrent} />
 
-      {phase === 'guide' && guideMdx && enrollmentId && (
-        <GuidePane
-          mdx={<MDXRemote {...guideMdx} />}
-          enrollmentId={enrollmentId}
-          onReady={() => {
-            console.log('📖 Guide reading completed, transitioning to video phase...')
-            setGuideRead(true)
-            setPhase('video')
-          }}
-        />
-      )}
+      {phase === 'guide' && guideMdx && enrollmentId ? (
+        <div>
+          <p className="text-sm text-gray-600 mb-4">📚 Loading guide content...</p>
+          <GuidePane
+            mdx={<MDXRemote {...guideMdx} />}
+            enrollmentId={enrollmentId}
+            onReady={() => {
+              console.log('📖 Guide reading completed, transitioning to video phase...')
+              setGuideRead(true)
+              setPhase('video')
+            }}
+          />
+        </div>
+      ) : phase === 'guide' && !guideMdx ? (
+        <div className="text-center py-8">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600 mx-auto"></div>
+          <p className="mt-2 text-gray-600">Loading guide content...</p>
+        </div>
+      ) : null}
 
       {phase === 'video' && (
         <>
