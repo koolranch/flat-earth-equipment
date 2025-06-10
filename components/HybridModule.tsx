@@ -67,8 +67,8 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
         />
       )}
 
-      {/* Video container now always rendered when in video phase */}
-      {phase === 'video' && (
+      {/* Video container - show when guide is present and video exists */}
+      {introUrl && guideMdx && (
         <div className="relative mt-8">
           {!guideUnlocked && (
             <div
@@ -79,10 +79,9 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
             </div>
           )}
           {guideUnlocked ? (
-            introUrl ? (
-              <div className="space-y-4">
-                <div className="w-full max-w-4xl mx-auto">
-                  <video 
+            <div className="space-y-4">
+              <div className="w-full max-w-4xl mx-auto">
+                                  <video 
                     className="w-full h-auto max-h-[600px] rounded-lg" 
                     controls 
                     onEnded={() => {
@@ -96,19 +95,8 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
                     <source src={introUrl} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
-                </div>
               </div>
-            ) : (
-              <div className="text-center py-8">
-                <p className="text-gray-600">No video available for this module.</p>
-                <button 
-                  onClick={() => setPhase('game')}
-                  className="mt-4 px-6 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700"
-                >
-                  Continue to Practice
-                </button>
-              </div>
-            )
+            </div>
           ) : (
             /* Placeholder poster until unlocked */
             <img
@@ -118,6 +106,28 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
               draggable={false}
             />
           )}
+        </div>
+      )}
+
+      {/* Handle video-only modules (no guide) */}
+      {phase === 'video' && (!guideMdx) && introUrl && (
+        <div className="space-y-4 mt-8">
+          <div className="w-full max-w-4xl mx-auto">
+            <video 
+              className="w-full h-auto max-h-[600px] rounded-lg" 
+              controls 
+              onEnded={() => {
+                console.log('📹 Video ended, switching to game phase')
+                setPhase('game')
+              }}
+              onError={(e) => {
+                console.error('📹 Video error:', e)
+              }}
+            >
+              <source src={introUrl} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
         </div>
       )}
 
