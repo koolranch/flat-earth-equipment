@@ -24,6 +24,7 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
     guideMdx ? 'guide' : introUrl ? 'video' : 'game'
   )
   const [guideUnlocked, setGuideUnlocked] = useState(false)
+  const [secondsRemaining, setSecondsRemaining] = useState(90)
 
   // Update phase when MDX content becomes available
   useEffect(() => {
@@ -64,6 +65,7 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
             setGuideUnlocked(true)
             setPhase('video')
           }}
+          onTimerUpdate={(remaining) => setSecondsRemaining(remaining)}
         />
       )}
 
@@ -73,9 +75,19 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
           {!guideUnlocked && (
             <div
               aria-live="polite"
-              className="absolute inset-0 grid place-items-center rounded-lg bg-black/60 text-white text-sm z-10"
+              className="absolute inset-0 grid place-items-center rounded-lg bg-black/60 text-white z-10"
             >
-              Video unlocks when guide reading is complete
+              <div className="text-center">
+                <div className="text-lg font-medium mb-2">
+                  Video unlocks when guide reading is complete
+                </div>
+                <div className="text-2xl font-bold text-orange-300">
+                  {secondsRemaining}s
+                </div>
+                <div className="text-sm opacity-80 mt-1">
+                  OSHA compliance countdown
+                </div>
+              </div>
             </div>
           )}
           {guideUnlocked ? (
