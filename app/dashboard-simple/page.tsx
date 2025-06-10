@@ -15,8 +15,26 @@ export default function SimpleDashboard() {
   const [error, setError] = useState<string | null>(null)
   const [showQuiz, setShowQuiz] = useState<number | null>(null)
   const [expandedModule, setExpandedModule] = useState<number | null>(null)
+  const [moduleGuides, setModuleGuides] = useState<{[key: number]: any}>({})
   
   const { supabase } = useSupabase()
+
+  // Load MDX guide content for a module
+  const loadModuleGuide = async (moduleOrder: number) => {
+    if (moduleGuides[moduleOrder]) return // Already loaded
+    
+    try {
+      const response = await fetch(`/api/module-guide?moduleOrder=${moduleOrder}`)
+      if (response.ok) {
+        const { mdxContent } = await response.json()
+        setModuleGuides(prev => ({ ...prev, [moduleOrder]: mdxContent }))
+      } else {
+        console.warn(`No guide content found for module ${moduleOrder}`)
+      }
+    } catch (error) {
+      console.error(`Error loading guide for module ${moduleOrder}:`, error)
+    }
+  }
 
   useEffect(() => {
     async function loadData() {
@@ -236,7 +254,15 @@ export default function SimpleDashboard() {
                 >
                   <div 
                     className={`flex items-center justify-between ${unlocked ? 'cursor-pointer' : ''}`}
-                    onClick={() => unlocked && setExpandedModule(expanded ? null : index)}
+                    onClick={() => {
+                      if (!unlocked) return
+                      const newIndex = expanded ? null : index
+                      setExpandedModule(newIndex)
+                      // Load MDX guide content when expanding
+                      if (newIndex !== null) {
+                        loadModuleGuide(module.order)
+                      }
+                    }}
                   >
                     <div className="flex items-center gap-3">
                       <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-sm font-semibold">
@@ -287,6 +313,8 @@ export default function SimpleDashboard() {
                           <HybridModule 
                             gameKey={module.game_asset_key}
                             introUrl={module.intro_url}
+                            guideMdx={moduleGuides[module.order]}
+                            enrollmentId={enrollment?.id}
                             onComplete={() => handleGameComplete(module.order)} 
                           />
                           <div className="text-sm text-gray-600 mt-2 space-y-1">
