@@ -2,6 +2,9 @@
 import { useState, Suspense, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import { ComponentType } from 'react'
+import { MDXRemote } from 'next-mdx-remote'
+import { Stepper } from '@/components/Stepper'
+import GuidePane from '@/components/GuidePane'
 
 interface GameComponentProps {
   onComplete: () => void
@@ -10,46 +13,99 @@ interface GameComponentProps {
 interface HybridModuleProps {
   gameKey?: string
   introUrl?: string
+  guideMdx?: any // MDX source for guide content
+  enrollmentId?: string
   onComplete: () => void
 }
 
-export default function HybridModule({ gameKey, introUrl, onComplete }: HybridModuleProps) {
-  const [phase, setPhase] = useState<'intro' | 'game'>(introUrl ? 'intro' : 'game')
+export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId, onComplete }: HybridModuleProps) {
+  const [phase, setPhase] = useState<'guide' | 'video' | 'game' | 'quiz'>(
+    guideMdx ? 'guide' : introUrl ? 'video' : 'game'
+  )
+  const [guideRead, setGuideRead] = useState(false)
 
-  console.log('🎮 HybridModule render:', { gameKey, introUrl, phase, timestamp: new Date().toISOString() })
+  console.log('🎮 HybridModule render:', { gameKey, introUrl, phase, guideMdx: !!guideMdx, timestamp: new Date().toISOString() })
 
-  if (!gameKey) {
-    console.error('❌ No gameKey provided')
-    return <div className="text-red-500">No game specified</div>
+  if (!gameKey && !guideMdx) {
+    console.error('❌ No gameKey or guideMdx provided')
+    return <div className="text-red-500">No content specified</div>
   }
 
-  // If we have an intro video and we're in the intro phase, show the video
-  if (introUrl && phase === 'intro') {
-    console.log('📹 Showing intro video:', introUrl)
-    return (
-      <div className="space-y-4">
-        <div className="w-full max-w-4xl mx-auto">
-          <video 
-            className="w-full h-auto max-h-[600px] rounded-lg" 
-            controls 
-            onEnded={() => {
-              console.log('📹 Video ended, switching to game phase')
-              setPhase('game')
-              console.log('📹 Phase switched to game, component should reload')
-            }}
-            onError={(e) => {
-              console.error('📹 Video error:', e)
-            }}
-          >
-            <source src={introUrl} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+  const stepperCurrent = phase === 'guide' ? 'guide' : phase === 'video' ? 'video' : phase === 'game' ? 'game' : 'quiz'
+
+  return (
+    <>
+      <Stepper current={stepperCurrent} />
+
+      {phase === 'guide' && guideMdx && enrollmentId && (
+        <GuidePane
+          mdx={<MDXRemote {...guideMdx} />}
+          enrollmentId={enrollmentId}
+          onReady={() => {
+            setGuideRead(true)
+            setPhase('video')
+          }}
+        />
+      )}
+
+      {phase === 'video' && !guideRead && guideMdx ? (
+        <div className="relative">
+          <div className="absolute inset-0 grid place-items-center bg-black/60 text-white text-sm z-10 rounded-lg">
+            Read the guide to unlock the video
+          </div>
+          {introUrl && (
+            <video 
+              className="w-full h-auto max-h-[600px] rounded-lg opacity-50" 
+              controls={false}
+            >
+              <source src={introUrl} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          )}
         </div>
-      </div>
-    )
-  }
+      ) : phase === 'video' && introUrl ? (
+        <div className="space-y-4">
+          <div className="w-full max-w-4xl mx-auto">
+            <video 
+              className="w-full h-auto max-h-[600px] rounded-lg" 
+              controls 
+              onEnded={() => {
+                console.log('📹 Video ended, switching to game phase')
+                setPhase('game')
+              }}
+              onError={(e) => {
+                console.error('📹 Video error:', e)
+              }}
+            >
+              <source src={introUrl} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      ) : null}
 
-  // Game phase - use Next.js dynamic import with explicit module mapping
+      {phase === 'game' && gameKey ? (
+        <GameComponent gameKey={gameKey} onComplete={() => setPhase('quiz')} />
+      ) : null}
+
+      {phase === 'quiz' ? (
+        <div className="text-center py-8">
+          <p className="text-lg font-medium">Quiz time!</p>
+          <p className="text-gray-600 mt-2">Complete the quiz to finish this module.</p>
+          <button 
+            onClick={onComplete}
+            className="mt-4 px-6 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700"
+          >
+            Take Quiz
+          </button>
+        </div>
+      ) : null}
+    </>
+  )
+}
+
+// Game component with dynamic loading
+function GameComponent({ gameKey, onComplete }: { gameKey: string, onComplete: () => void }) {
   console.log('🎮 Game phase - loading component for:', gameKey)
 
   // Create a function to get the import path
