@@ -23,7 +23,7 @@ export default function GuidePane({
 
   /* unlock + record */
   useEffect(() => {
-    if (sec >= 15 && !hasUnlocked) {
+    if (sec >= 90 && !hasUnlocked) {
       console.log('🔓 Guide reading complete, unlocking video...')
       setHasUnlocked(true)
       onReady()
@@ -45,7 +45,7 @@ export default function GuidePane({
           OSHA §1910.178 (l)(2)(iii)
         </strong>{' '}
         requires written instruction. Read for{' '}
-        <span className="font-semibold text-orange-700">{Math.max(0, 15 - sec)}</span>{' '}
+        <span className="font-semibold text-orange-700">{Math.max(0, 90 - sec)}</span>{' '}
         seconds to unlock the video.
       </div>
       {mdx}
