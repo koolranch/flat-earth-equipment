@@ -12,6 +12,8 @@ export default function GuidePane({
 }) {
   const [sec, setSec] = useState(0)
   const [hasUnlocked, setHasUnlocked] = useState(false)
+  
+  console.log('📖 GuidePane rendering, enrollmentId:', enrollmentId)
 
   /* 15-s timer */
   useEffect(() => {
