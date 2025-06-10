@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react'
 export default function GuidePane({
   mdx,
   enrollmentId,
-  onUnlock            /* renamed for clarity */
+  onUnlock,            /* renamed for clarity */
+  onTimerUpdate        /* callback to share timer state */
 }: {
   mdx: React.ReactNode
   enrollmentId: string
   onUnlock: () => void
+  onTimerUpdate?: (secondsRemaining: number) => void
 }) {
   const [sec, setSec] = useState(0)
   const COUNT = 90      // ← 90-second minimum
@@ -21,6 +23,12 @@ export default function GuidePane({
     const id = setInterval(() => setSec(s => s + 1), 1000)
     return () => clearInterval(id)
   }, [])
+
+  /* share timer state with parent */
+  useEffect(() => {
+    const remaining = Math.max(0, COUNT - sec)
+    onTimerUpdate?.(remaining)
+  }, [sec, onTimerUpdate])
 
   /* unlock + record */
   useEffect(() => {
