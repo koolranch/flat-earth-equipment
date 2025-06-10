@@ -4,13 +4,14 @@ import { useEffect, useState } from 'react'
 export default function GuidePane({
   mdx,
   enrollmentId,
-  onReady
+  onUnlock            /* renamed for clarity */
 }: {
   mdx: React.ReactNode
   enrollmentId: string
-  onReady: () => void
+  onUnlock: () => void
 }) {
   const [sec, setSec] = useState(0)
+  const COUNT = 90      // ← 90-second minimum
   const [hasUnlocked, setHasUnlocked] = useState(false)
   
   console.log('📖 GuidePane rendering, enrollmentId:', enrollmentId)
@@ -23,19 +24,19 @@ export default function GuidePane({
 
   /* unlock + record */
   useEffect(() => {
-    if (sec >= 90 && !hasUnlocked) {
+    if (sec >= COUNT && !hasUnlocked) {
       console.log('🔓 Guide reading complete, unlocking video...')
       setHasUnlocked(true)
-      onReady()
+      onUnlock()
       fetch('/api/guide-read', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ enrollmentId, seconds: sec })
+        body: JSON.stringify({ enrollmentId, seconds: COUNT })
       }).catch(error => {
         console.error('Error recording guide reading time:', error)
       })
     }
-  }, [sec, enrollmentId, onReady, hasUnlocked])
+  }, [sec, enrollmentId, onUnlock, hasUnlocked])
 
   return (
     <div className="prose mx-auto pb-16">
@@ -44,9 +45,9 @@ export default function GuidePane({
         <strong className="text-orange-700">
           OSHA §1910.178 (l)(2)(iii)
         </strong>{' '}
-        requires written instruction. Read for{' '}
-        <span className="font-semibold text-orange-700">{Math.max(0, 90 - sec)}</span>{' '}
-        seconds to unlock the video.
+        requires written instruction. Video unlocks in{' '}
+        <span className="font-semibold text-orange-700">{Math.max(0, COUNT - sec)}</span>{' '}
+        seconds.
       </div>
       {mdx}
     </div>
