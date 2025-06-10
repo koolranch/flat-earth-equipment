@@ -11,6 +11,7 @@ export default function GuidePane({
   onReady: () => void
 }) {
   const [sec, setSec] = useState(0)
+  const [hasUnlocked, setHasUnlocked] = useState(false)
 
   /* 15-s timer */
   useEffect(() => {
@@ -20,15 +21,19 @@ export default function GuidePane({
 
   /* unlock + record */
   useEffect(() => {
-    if (sec >= 15) {
+    if (sec >= 15 && !hasUnlocked) {
+      console.log('🔓 Guide reading complete, unlocking video...')
+      setHasUnlocked(true)
       onReady()
       fetch('/api/guide-read', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ enrollmentId, seconds: sec })
+      }).catch(error => {
+        console.error('Error recording guide reading time:', error)
       })
     }
-  }, [sec, enrollmentId, onReady])
+  }, [sec, enrollmentId, onReady, hasUnlocked])
 
   return (
     <div className="prose mx-auto pb-16">

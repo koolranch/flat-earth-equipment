@@ -24,7 +24,15 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
   )
   const [guideRead, setGuideRead] = useState(false)
 
-  console.log('🎮 HybridModule render:', { gameKey, introUrl, phase, guideMdx: !!guideMdx, timestamp: new Date().toISOString() })
+  console.log('🎮 HybridModule render:', { 
+    gameKey, 
+    introUrl: !!introUrl, 
+    phase, 
+    guideRead,
+    guideMdx: !!guideMdx, 
+    enrollmentId: !!enrollmentId,
+    timestamp: new Date().toISOString() 
+  })
 
   if (!gameKey && !guideMdx) {
     console.error('❌ No gameKey or guideMdx provided')
@@ -42,47 +50,62 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
           mdx={<MDXRemote {...guideMdx} />}
           enrollmentId={enrollmentId}
           onReady={() => {
+            console.log('📖 Guide reading completed, transitioning to video phase...')
             setGuideRead(true)
             setPhase('video')
           }}
         />
       )}
 
-      {phase === 'video' && !guideRead && guideMdx ? (
-        <div className="relative">
-          <div className="absolute inset-0 grid place-items-center bg-black/60 text-white text-sm z-10 rounded-lg">
-            Read the guide to unlock the video
-          </div>
-          {introUrl && (
-            <video 
-              className="w-full h-auto max-h-[600px] rounded-lg opacity-50" 
-              controls={false}
-            >
-              <source src={introUrl} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+      {phase === 'video' && (
+        <>
+          {!guideRead && guideMdx ? (
+            <div className="relative">
+              <div className="absolute inset-0 grid place-items-center bg-black/60 text-white text-sm z-10 rounded-lg">
+                Read the guide to unlock the video
+              </div>
+              {introUrl && (
+                <video 
+                  className="w-full h-auto max-h-[600px] rounded-lg opacity-50" 
+                  controls={false}
+                >
+                  <source src={introUrl} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              )}
+            </div>
+          ) : introUrl ? (
+            <div className="space-y-4">
+              <div className="w-full max-w-4xl mx-auto">
+                <video 
+                  className="w-full h-auto max-h-[600px] rounded-lg" 
+                  controls 
+                  onEnded={() => {
+                    console.log('📹 Video ended, switching to game phase')
+                    setPhase('game')
+                  }}
+                  onError={(e) => {
+                    console.error('📹 Video error:', e)
+                  }}
+                >
+                  <source src={introUrl} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          ) : (
+            <div className="text-center py-8">
+              <p className="text-gray-600">No video available for this module.</p>
+              <button 
+                onClick={() => setPhase('game')}
+                className="mt-4 px-6 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700"
+              >
+                Continue to Practice
+              </button>
+            </div>
           )}
-        </div>
-      ) : phase === 'video' && introUrl ? (
-        <div className="space-y-4">
-          <div className="w-full max-w-4xl mx-auto">
-            <video 
-              className="w-full h-auto max-h-[600px] rounded-lg" 
-              controls 
-              onEnded={() => {
-                console.log('📹 Video ended, switching to game phase')
-                setPhase('game')
-              }}
-              onError={(e) => {
-                console.error('📹 Video error:', e)
-              }}
-            >
-              <source src={introUrl} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        </div>
-      ) : null}
+        </>
+      )}
 
       {phase === 'game' && gameKey ? (
         <GameComponent gameKey={gameKey} onComplete={() => setPhase('quiz')} />
