@@ -5,6 +5,7 @@ import { ComponentType } from 'react'
 import { MDXRemote } from 'next-mdx-remote'
 import { Stepper } from '@/components/Stepper'
 import GuidePane from '@/components/GuidePane'
+import Flash from '@/components/Flash'
 
 interface GameComponentProps {
   onComplete: () => void
@@ -57,7 +58,7 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
         <div>
           <p className="text-sm text-gray-600 mb-4">📚 Loading guide content...</p>
           <GuidePane
-            mdx={<MDXRemote {...guideMdx} />}
+            mdx={<MDXRemote {...guideMdx} components={{ Flash }} />}
             enrollmentId={enrollmentId}
             onReady={() => {
               console.log('📖 Guide reading completed, transitioning to video phase...')
