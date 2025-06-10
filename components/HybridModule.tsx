@@ -23,21 +23,21 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
   const [phase, setPhase] = useState<'guide' | 'video' | 'game' | 'quiz'>(
     guideMdx ? 'guide' : introUrl ? 'video' : 'game'
   )
-  const [guideRead, setGuideRead] = useState(false)
+  const [guideUnlocked, setGuideUnlocked] = useState(false)
 
   // Update phase when MDX content becomes available
   useEffect(() => {
-    if (guideMdx && phase === 'video' && !guideRead) {
+    if (guideMdx && phase === 'video' && !guideUnlocked) {
       console.log('📚 MDX content loaded, switching to guide phase...')
       setPhase('guide')
     }
-  }, [guideMdx, phase, guideRead])
+  }, [guideMdx, phase, guideUnlocked])
 
   console.log('🎮 HybridModule render:', { 
     gameKey, 
     introUrl: !!introUrl, 
     phase, 
-    guideRead,
+    guideUnlocked,
     guideMdx: !!guideMdx, 
     enrollmentId: !!enrollmentId,
     timestamp: new Date().toISOString() 
@@ -54,74 +54,71 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
     <>
       <Stepper current={stepperCurrent} />
 
-      {phase === 'guide' && guideMdx && enrollmentId ? (
-        <div>
-          <p className="text-sm text-gray-600 mb-4">📚 Loading guide content...</p>
-          <GuidePane
-            mdx={<MDXRemote {...guideMdx} components={{ Flash }} />}
-            enrollmentId={enrollmentId}
-            onReady={() => {
-              console.log('📖 Guide reading completed, transitioning to video phase...')
-              setGuideRead(true)
-              setPhase('video')
-            }}
-          />
-        </div>
-      ) : phase === 'guide' && !guideMdx ? (
-        <div className="text-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600 mx-auto"></div>
-          <p className="mt-2 text-gray-600">Loading guide content...</p>
-        </div>
-      ) : null}
+      {/* Guide stays visible always when present */}
+      {guideMdx && enrollmentId && (
+        <GuidePane
+          mdx={<MDXRemote {...guideMdx} components={{ Flash }} />}
+          enrollmentId={enrollmentId}
+          onUnlock={() => {
+            console.log('📖 Guide reading completed, unlocking video...')
+            setGuideUnlocked(true)
+            setPhase('video')
+          }}
+        />
+      )}
 
+      {/* Video container now always rendered when in video phase */}
       {phase === 'video' && (
-        <>
-          {!guideRead && guideMdx ? (
-            <div className="relative">
-              <div className="absolute inset-0 grid place-items-center bg-black/60 text-white text-sm z-10 rounded-lg">
-                Read the guide to unlock the video
-              </div>
-              {introUrl && (
-                <video 
-                  className="w-full h-auto max-h-[600px] rounded-lg opacity-50" 
-                  controls={false}
-                >
-                  <source src={introUrl} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              )}
-            </div>
-          ) : introUrl ? (
-            <div className="space-y-4">
-              <div className="w-full max-w-4xl mx-auto">
-                <video 
-                  className="w-full h-auto max-h-[600px] rounded-lg" 
-                  controls 
-                  onEnded={() => {
-                    console.log('📹 Video ended, switching to game phase')
-                    setPhase('game')
-                  }}
-                  onError={(e) => {
-                    console.error('📹 Video error:', e)
-                  }}
-                >
-                  <source src={introUrl} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-            </div>
-          ) : (
-            <div className="text-center py-8">
-              <p className="text-gray-600">No video available for this module.</p>
-              <button 
-                onClick={() => setPhase('game')}
-                className="mt-4 px-6 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700"
-              >
-                Continue to Practice
-              </button>
+        <div className="relative mt-8">
+          {!guideUnlocked && (
+            <div
+              aria-live="polite"
+              className="absolute inset-0 grid place-items-center rounded-lg bg-black/60 text-white text-sm z-10"
+            >
+              Video unlocks when guide reading is complete
             </div>
           )}
-        </>
+          {guideUnlocked ? (
+            introUrl ? (
+              <div className="space-y-4">
+                <div className="w-full max-w-4xl mx-auto">
+                  <video 
+                    className="w-full h-auto max-h-[600px] rounded-lg" 
+                    controls 
+                    onEnded={() => {
+                      console.log('📹 Video ended, switching to game phase')
+                      setPhase('game')
+                    }}
+                    onError={(e) => {
+                      console.error('📹 Video error:', e)
+                    }}
+                  >
+                    <source src={introUrl} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <p className="text-gray-600">No video available for this module.</p>
+                <button 
+                  onClick={() => setPhase('game')}
+                  className="mt-4 px-6 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700"
+                >
+                  Continue to Practice
+                </button>
+              </div>
+            )
+          ) : (
+            /* Placeholder poster until unlocked */
+            <img
+              src={`/thumbnails/module${gameKey?.replace('module', '') || '1'}.jpg`}
+              alt="Video locked"
+              className="w-full rounded-lg opacity-50"
+              draggable={false}
+            />
+          )}
+        </div>
       )}
 
       {phase === 'game' && gameKey ? (
