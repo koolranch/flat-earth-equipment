@@ -46,6 +46,11 @@ export async function GET() {
     'parts-category',
     'osha-operator-training',
     'battery-charger-modules',
+    'safety', // Main forklift course page
+    'safety/forklift', // State directory page
+    'training', // Marketing hub only
+    'training/safety-modules', // Stub page
+    // Note: /training/forklift-operator-certification excluded (redirects to /safety)
   ]
 
   // Generate URLs for categories
