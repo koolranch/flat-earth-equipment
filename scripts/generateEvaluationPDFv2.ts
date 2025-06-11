@@ -10,6 +10,9 @@ async function generateEvaluationPDF() {
   const pdfDoc = await PDFDocument.create();
   const page = pdfDoc.addPage([612, 792]); // 8.5" x 11" in points (72 DPI)
   
+  // Create form for interactive fields
+  const form = pdfDoc.getForm();
+  
   // Load fonts
   const helvetica = await pdfDoc.embedFont(StandardFonts.Helvetica);
   const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
@@ -69,6 +72,22 @@ async function generateEvaluationPDF() {
   const fieldHeight = 20;
   const fieldSpacing = 35;
 
+  // Helper function to create fillable text fields
+  const createTextField = (fieldName: string, x: number, y: number, width: number) => {
+    const textField = form.createTextField(fieldName);
+    textField.addToPage(page, {
+      x: x,
+      y: y - 5,
+      width: width,
+      height: fieldHeight,
+      borderWidth: 1,
+      borderColor: black,
+      backgroundColor: white,
+    });
+    textField.setFontSize(11);
+    return textField;
+  };
+
   // Left column
   page.drawText('Operator Name/ID:', {
     x: leftCol,
@@ -78,14 +97,7 @@ async function generateEvaluationPDF() {
     color: black,
   });
   
-  page.drawRectangle({
-    x: leftCol + 100,
-    y: formStartY - 5,
-    width: 160,
-    height: fieldHeight,
-    borderColor: black,
-    borderWidth: 1,
-  });
+  createTextField('operatorNameId', leftCol + 100, formStartY, 160);
 
   page.drawText('Date:', {
     x: leftCol,
@@ -95,14 +107,7 @@ async function generateEvaluationPDF() {
     color: black,
   });
   
-  page.drawRectangle({
-    x: leftCol + 100,
-    y: formStartY - fieldSpacing - 5,
-    width: 160,
-    height: fieldHeight,
-    borderColor: black,
-    borderWidth: 1,
-  });
+  createTextField('date', leftCol + 100, formStartY - fieldSpacing, 160);
 
   // Right column
   page.drawText('Evaluator Name/Title:', {
@@ -113,14 +118,7 @@ async function generateEvaluationPDF() {
     color: black,
   });
   
-  page.drawRectangle({
-    x: rightCol + 120,
-    y: formStartY - 5,
-    width: 160,
-    height: fieldHeight,
-    borderColor: black,
-    borderWidth: 1,
-  });
+  createTextField('evaluatorNameTitle', rightCol + 120, formStartY, 160);
 
   page.drawText('Equipment Type/ID:', {
     x: rightCol,
@@ -130,14 +128,7 @@ async function generateEvaluationPDF() {
     color: black,
   });
   
-  page.drawRectangle({
-    x: rightCol + 120,
-    y: formStartY - fieldSpacing - 5,
-    width: 160,
-    height: fieldHeight,
-    borderColor: black,
-    borderWidth: 1,
-  });
+  createTextField('equipmentTypeId', rightCol + 120, formStartY - fieldSpacing, 160);
 
   // CHECKLIST TABLE
   const checklistStartY = formStartY - 100;
@@ -160,19 +151,20 @@ async function generateEvaluationPDF() {
     color: black,
   });
 
-  // Draw checklist items
+  // Draw checklist items with interactive checkboxes
   checklistItems.forEach((item, index) => {
     const y = checklistStartY - (index * rowHeight);
     
-    // Checkbox with light gray fill
-    page.drawRectangle({
+    // Create interactive checkbox
+    const checkbox = form.createCheckBox(`checklist_${index}`);
+    checkbox.addToPage(page, {
       x: leftCol,
       y: y - checkboxSize/2,
       width: checkboxSize,
       height: checkboxSize,
-      color: lightGray,
-      borderColor: black,
       borderWidth: 1,
+      borderColor: black,
+      backgroundColor: lightGray,
     });
     
     // Item text
@@ -219,37 +211,47 @@ async function generateEvaluationPDF() {
     maxWidth: 500,
   });
 
-  // SIGNATURE LINES
+  // SIGNATURE FIELDS
   const sigY = certY - 90;
   const lineWidth = 252; // 3.5 inches in points
   
-  // Evaluator signature
-  page.drawLine({
-    start: { x: leftCol, y: sigY },
-    end: { x: leftCol + lineWidth, y: sigY },
-    thickness: 1,
-    color: black,
+  // Create fillable signature field for evaluator
+  const evaluatorSigField = form.createTextField('evaluatorSignature');
+  evaluatorSigField.addToPage(page, {
+    x: leftCol,
+    y: sigY - 15,
+    width: lineWidth,
+    height: 30,
+    borderWidth: 1,
+    borderColor: black,
+    backgroundColor: white,
   });
+  evaluatorSigField.setFontSize(12);
   
   page.drawText('Evaluator Signature', {
     x: leftCol,
-    y: sigY - 15,
+    y: sigY - 35,
     size: 9,
     font: helvetica,
     color: black,
   });
 
-  // Date line
-  page.drawLine({
-    start: { x: rightCol + 50, y: sigY },
-    end: { x: rightCol + 180, y: sigY },
-    thickness: 1,
-    color: black,
+  // Create fillable date field
+  const dateField = form.createTextField('signatureDate');
+  dateField.addToPage(page, {
+    x: rightCol + 50,
+    y: sigY - 15,
+    width: 130,
+    height: 30,
+    borderWidth: 1,
+    borderColor: black,
+    backgroundColor: white,
   });
+  dateField.setFontSize(12);
   
   page.drawText('Date', {
     x: rightCol + 50,
-    y: sigY - 15,
+    y: sigY - 35,
     size: 9,
     font: helvetica,
     color: black,
