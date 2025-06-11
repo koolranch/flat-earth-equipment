@@ -44,7 +44,7 @@ export default async function SafetyHome() {
           </div>
           <div className="relative">
             <Image
-              src="/site-assets/forklift-operator-hero.webp"
+              src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/safety-hero.png"
               alt="Forklift operator taking online certification on tablet"
               width={500}
               height={400}
