@@ -41,21 +41,21 @@ export default function Navbar() {
       label: "Training & Certification",
       href: "/training",
       className: "font-medium transition-colors hover:text-canyon-rust",
-      dropdown: [
-        { 
-          label: "Forklift Operator Certification", 
-          href: "/training/forklift-operator-certification", 
-          badge: "OSHA" 
-        },
-        { 
-          label: "Safety Micro-Modules", 
-          href: "/training/safety-modules" 
-        },
-        { 
-          label: "Corporate Plans (20+)", 
-          href: "/training/corporate" 
-        }
-      ]
+              dropdown: [
+          { 
+            label: "Forklift Operator Certification", 
+            href: "/safety/forklift", 
+            badge: "OSHA" 
+          },
+          { 
+            label: "Safety Micro-Modules", 
+            href: "/training/safety-modules" 
+          },
+          { 
+            label: "Corporate Plans (20+)", 
+            href: "/training/corporate" 
+          }
+        ]
     },
     { 
       label: "Locations", 
