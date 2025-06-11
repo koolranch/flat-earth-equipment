@@ -141,15 +141,7 @@ export default async function SafetyHome() {
         />
       </main>
 
-      {/* Sticky CTA Bar */}
-      <Link
-        href="#pricing"
-        className="fixed bottom-4 left-4 right-4 sm:right-6 sm:left-auto
-                   bg-canyon-rust text-white text-center py-3 rounded-lg shadow-lg
-                   hover:bg-canyon-rust/90 transition z-50"
-      >
-        Forklift Operator Cert — $59 • Start Now →
-      </Link>
+
     </>
   )
 } 
