@@ -111,8 +111,8 @@ export default async function SafetyHome() {
         <section className="bg-gray-50 rounded-lg p-6">
           <div className="text-center space-y-4">
             <p className="text-sm text-gray-600">Includes online theory training + employer evaluation checklist</p>
-            <Link href="/evaluation.pdf" target="_blank" className="text-orange-600 hover:underline text-sm">
-              Preview Employer Evaluation Sheet
+            <Link href="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/forklift-eval-v2.3.pdf" target="_blank" className="text-orange-600 hover:underline text-sm">
+              Download Employer Evaluation Sheet (PDF, v2.3)
             </Link>
           </div>
         </section>
