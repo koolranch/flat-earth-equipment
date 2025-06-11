@@ -44,7 +44,7 @@ export default function Navbar() {
               dropdown: [
           { 
             label: "Forklift Operator Certification", 
-            href: "/safety/forklift", 
+            href: "/safety", 
             badge: "OSHA" 
           },
           { 

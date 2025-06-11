@@ -24,7 +24,7 @@ export default function TrainingHome() {
       <section className="grid gap-10 md:grid-cols-2">
         <CourseCard
           title="Forklift Operator Certification"
-          href="/safety/forklift"
+          href="/safety"
           badge="OSHA"
           price="$59"
           img="/images/courses/forklift-cert.jpg"

@@ -18,7 +18,7 @@ const nextConfig = {
       // Marketing URL → canonical safety slug
       {
         source: '/training/forklift-operator-certification',
-        destination: '/safety/forklift',
+        destination: '/safety',
         permanent: true,
       },
       // future courses: copy pattern ↓
