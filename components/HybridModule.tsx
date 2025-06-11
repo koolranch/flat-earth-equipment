@@ -145,6 +145,18 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
 
       {phase === 'game' && gameKey ? (
         <GameComponent gameKey={gameKey} onComplete={() => setPhase('quiz')} />
+      ) : phase === 'game' && !gameKey ? (
+        // Handle modules with no game (like Course Completion) - go directly to quiz
+        <div className="text-center py-8">
+          <p className="text-lg font-medium">Ready for final assessment!</p>
+          <p className="text-gray-600 mt-2">Complete the quiz to finish the course.</p>
+          <button 
+            onClick={() => setPhase('quiz')}
+            className="mt-4 px-6 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700"
+          >
+            Take Final Quiz
+          </button>
+        </div>
       ) : null}
 
       {phase === 'quiz' ? (

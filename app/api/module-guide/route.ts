@@ -5,7 +5,7 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const moduleOrder = parseInt(searchParams.get('moduleOrder') || '0')
   
-  if (!moduleOrder || moduleOrder < 1 || moduleOrder > 6) {
+  if (!moduleOrder || moduleOrder < 1 || moduleOrder > 7) {
     return NextResponse.json({ error: 'Invalid module order' }, { status: 400 })
   }
   
