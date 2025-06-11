@@ -15,6 +15,15 @@ const nextConfig = {
   reactStrictMode: true,
   async redirects() {
     return [
+      // Marketing URL → canonical safety slug
+      {
+        source: '/training/forklift-operator-certification',
+        destination: '/safety/forklift',
+        permanent: true,
+      },
+      // future courses: copy pattern ↓
+      // { source: '/training/battery-safety', destination: '/safety/battery', permanent: true },
+      
       // Add the new redirect for forks
       {
         source: '/parts/attachments/forks',
