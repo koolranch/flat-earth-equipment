@@ -413,11 +413,11 @@ export default function SimpleDashboard() {
           
           <div className="mt-6 pt-6 border-t">
             <Link 
-              href="/evaluation.pdf" 
+              href="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/forklift-eval-v2.3.pdf" 
               target="_blank"
               className="text-sm text-gray-600 hover:text-orange-600 underline"
             >
-              Download Employer Evaluation Sheet
+              Download Employer Evaluation Sheet (PDF, v2.3)
             </Link>
           </div>
         </div>
