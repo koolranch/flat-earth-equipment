@@ -308,6 +308,7 @@ export default function SimpleDashboard() {
                              module.game_asset_key === 'module2' ? '8-Point Inspection' : 
                              module.game_asset_key === 'module3' ? 'Balloon-Fiesta Balance' :
                              module.game_asset_key === 'module4' ? 'Hazard Hunt Game' :
+                             module.game_asset_key === 'module5' ? 'Bozeman Shutdown Sequence' :
                              'Interactive Demo'}
                           </h5>
                           <HybridModule 
@@ -343,6 +344,12 @@ export default function SimpleDashboard() {
                                 <li>Complete hazard hunt within 60 seconds</li>
                                 <li>Avoid clicking empty areas (3 misses = restart)</li>
                               </ul>
+                            ) : module.game_asset_key === 'module5' ? (
+                              <ul className="list-disc list-inside ml-2 space-y-1">
+                                <li>Follow the 7-step shutdown sequence</li>
+                                <li>Click each step in the correct order</li>
+                                <li>Complete proper shutdown procedure</li>
+                              </ul>
                             ) : (
                               <ul className="list-disc list-inside ml-2 space-y-1">
                                 <li>Follow the interactive prompts</li>
@@ -354,6 +361,7 @@ export default function SimpleDashboard() {
                                module.game_asset_key === 'module2' ? 'Find all 8 inspection points to pass this module' :
                                module.game_asset_key === 'module3' ? 'Place all 3 boxes in the center target to pass this module' :
                                module.game_asset_key === 'module4' ? 'Catch all 10 hazards to pass this module' :
+                               module.game_asset_key === 'module5' ? 'Complete all 7 shutdown steps to pass this module' :
                                'Complete all tasks to pass this module'}
                             </p>
                           </div>
