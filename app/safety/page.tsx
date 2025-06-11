@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 import CheckoutButton from './CheckoutButton'
 import Link from 'next/link'
+import Image from 'next/image'
 import SafetyJsonLd from './SafetyJsonLd'
 import TrustBadges from '@/components/TrustBadges'
 import PriceCard from '@/components/PriceCard'
@@ -42,9 +43,13 @@ export default async function SafetyHome() {
             />
           </div>
           <div className="relative">
-            <div className="bg-gray-200 rounded-2xl aspect-[4/3] flex items-center justify-center">
-              <span className="text-gray-500">Course Hero Image</span>
-            </div>
+            <Image
+              src="/site-assets/forklift-operator-hero.webp"
+              alt="Forklift operator taking online certification on tablet"
+              width={500}
+              height={400}
+              className="rounded-2xl shadow-lg w-full h-auto"
+            />
           </div>
         </section>
 
@@ -135,6 +140,14 @@ export default async function SafetyHome() {
           }}
         />
       </main>
+
+      {/* Sticky CTA Bar */}
+      <Link
+        href="#pricing"
+        className="fixed bottom-4 inset-x-4 sm:inset-x-auto sm:right-6 bg-canyon-rust text-white text-center py-3 px-6 rounded-lg shadow-lg hover:bg-canyon-rust/90 transition-colors xl:hidden z-50"
+      >
+        Get Certified Today—$59
+      </Link>
     </>
   )
 } 
