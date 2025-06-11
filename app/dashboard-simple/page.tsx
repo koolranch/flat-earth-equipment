@@ -6,6 +6,7 @@ import QuizModal from '@/components/QuizModal'
 import VideoPlayer from '@/components/VideoPlayer'
 import HybridModule from '@/components/HybridModule'
 import HandbookSection from '@/components/HandbookSection'
+import CompletionActions from '@/components/CompletionActions'
 
 export default function SimpleDashboard() {
   const [user, setUser] = useState<any>(null)
@@ -401,13 +402,11 @@ export default function SimpleDashboard() {
             <div className="mt-8 p-4 bg-green-50 rounded-lg">
               <h3 className="font-semibold text-green-800 mb-2">🎉 Congratulations!</h3>
               <p className="text-green-700 mb-3">You've successfully completed the course.</p>
-              <Link 
-                href={enrollment.cert_url} 
-                target="_blank"
-                className="inline-block rounded bg-green-700 px-6 py-3 font-medium text-white hover:bg-green-800"
-              >
-                Download Certificate
-              </Link>
+              <CompletionActions 
+                certificateUrl={enrollment.cert_url}
+                courseId={enrollment.course_id}
+                user={user}
+              />
             </div>
           )}
           
