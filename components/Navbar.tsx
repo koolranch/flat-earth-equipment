@@ -24,14 +24,6 @@ export default function Navbar() {
     { name: 'Parts', href: '/parts' },
     { name: 'Rent Equipment', href: '/rent-equipment' },
     { name: 'Safety', href: '/safety' },
-    {
-      name: 'Training',
-      href: '/training',
-      dropdown: [
-        { name: 'Forklift Certification', href: '/training/forklift' },
-        { name: 'Safety Training', href: '/training/safety' },
-      ],
-    },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
   ];
