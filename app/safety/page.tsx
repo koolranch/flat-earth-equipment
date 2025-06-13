@@ -37,10 +37,18 @@ export default async function SafetyHome() {
               100% online, self-paced course. Pass the 30-question exam and print
               your wallet card today.
             </p>
-            <CheckoutButton 
-              courseSlug="forklift" 
-              price={course?.price_cents ? (course.price_cents / 100).toFixed(0) : '59'} 
-            />
+            <div className="flex flex-col sm:flex-row gap-4">
+              <CheckoutButton 
+                courseSlug="forklift" 
+                price={course?.price_cents ? (course.price_cents / 100).toFixed(0) : '59'} 
+              />
+              <Link 
+                href="/dashboard-simple" 
+                className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+              >
+                Access Training Dashboard
+              </Link>
+            </div>
           </div>
           <div className="relative">
             <Image
