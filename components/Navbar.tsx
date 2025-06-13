@@ -22,7 +22,7 @@ export default function Navbar() {
 
   const navItems: NavItem[] = [
     { name: 'Parts', href: '/parts' },
-    { name: 'Rent Equipment', href: '/rent' },
+    { name: 'Rent Equipment', href: '/rent-equipment' },
     { name: 'Safety', href: '/safety' },
     {
       name: 'Training',
