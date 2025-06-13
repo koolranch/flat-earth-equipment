@@ -85,7 +85,7 @@ export async function POST(req: Request) {
         to,
         from: {
           name: 'Flat Earth Safety Training',
-          email: 'training@flatearthequipment.com'
+          email: 'contact@flatearthequipment.com'
         },
         subject: `Forklift Training Complete - ${studentName}`,
         html: emailHtml,
