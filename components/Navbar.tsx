@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { Menu, X, ChevronDown, ShoppingCart } from 'lucide-react';
@@ -40,6 +41,13 @@ export default function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex">
             <Link href="/" className="flex items-center">
+              <Image
+                src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand/logo_128.png"
+                alt="Flat Earth Equipment"
+                width={32}
+                height={32}
+                className="mr-2"
+              />
               <span className="text-xl font-bold text-canyon-rust">Flat Earth Equipment</span>
             </Link>
           </div>
