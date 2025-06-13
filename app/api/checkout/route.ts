@@ -21,8 +21,11 @@ export async function POST(req: Request) {
     console.log('📦 Request body:', body);
     console.log('🌐 Origin:', origin);
 
+    // Check if any items are training products
+    const isTrainingProduct = items.some((item: any) => item.isTraining);
+
     // Create line items for the checkout session
-    const lineItems = items.map((item: { priceId: string; quantity: number; coreCharge?: number }) => {
+    const lineItems = items.map((item: { priceId: string; quantity: number; coreCharge?: number; isTraining?: boolean }) => {
       const lineItem: Stripe.Checkout.SessionCreateParams.LineItem = {
         price: item.priceId,
         quantity: item.quantity,
@@ -61,31 +64,35 @@ export async function POST(req: Request) {
     const sessionConfig: Stripe.Checkout.SessionCreateParams = {
       line_items: lineItems,
       mode: 'payment',
-      success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: isTrainingProduct 
+        ? `${origin}/training/dashboard?session_id={CHECKOUT_SESSION_ID}`
+        : `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/checkout/cancel`,
-      shipping_options: [
+      shipping_options: isTrainingProduct ? undefined : [
         {
           shipping_rate: shippingRateId,
         },
       ],
-      shipping_address_collection: {
+      shipping_address_collection: isTrainingProduct ? undefined : {
         allowed_countries: ['US'],
       },
     };
     console.log('DEBUG: Stripe session config:', JSON.stringify(sessionConfig, null, 2));
     
     try {
-      // Verify the shipping rate exists and is active
-      const shippingRate = await stripe.shippingRates.retrieve(shippingRateId);
-      console.log('DEBUG: Shipping rate details:', {
-        id: shippingRate.id,
-        active: shippingRate.active,
-        display_name: shippingRate.display_name,
-        amount: shippingRate.fixed_amount?.amount,
-      });
+      // Verify the shipping rate exists and is active (only for physical products)
+      if (!isTrainingProduct) {
+        const shippingRate = await stripe.shippingRates.retrieve(shippingRateId);
+        console.log('DEBUG: Shipping rate details:', {
+          id: shippingRate.id,
+          active: shippingRate.active,
+          display_name: shippingRate.display_name,
+          amount: shippingRate.fixed_amount?.amount,
+        });
 
-      if (!shippingRate.active) {
-        throw new Error(`Shipping rate ${shippingRateId} is not active`);
+        if (!shippingRate.active) {
+          throw new Error(`Shipping rate ${shippingRateId} is not active`);
+        }
       }
 
       const session = await stripe.checkout.sessions.create(sessionConfig);
