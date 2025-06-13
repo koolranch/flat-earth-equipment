@@ -16,6 +16,21 @@ export default function FastQuoteForm({ currentLocation = '' }: FastQuoteFormPro
         Parts or equipment rental—with a reply in under 1 hour.
       </p>
       <form action="https://formspree.io/f/xvgroloy" method="POST" className="space-y-4">
+        <input
+          type="hidden"
+          name="_subject"
+          value="Fast Quote Request"
+        />
+        <input
+          type="hidden"
+          name="_next"
+          value="https://www.flatearthequipment.com/quote/thank-you"
+        />
+        <input
+          type="text"
+          name="_gotcha"
+          style={{ display: 'none' }}
+        />
         <label className="block">
           <span className="font-medium">I need a quote for:</span>
           <select
