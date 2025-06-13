@@ -5,6 +5,16 @@ import { Metadata } from 'next'
 import Script from 'next/script'
 import RelatedItems from "@/components/RelatedItems";
 
+const TrainingRibbon = () => (
+  <Link
+    href="/training"
+    className="fixed bottom-4 left-1/2 -translate-x-1/2 z-20
+               rounded-full bg-primary-600 px-6 py-3 text-white font-semibold
+               shadow-lg hover:bg-primary-700 transition-colors">
+    Need OSHA Forklift Certification?  Finish Online in 90 min →
+  </Link>
+);
+
 interface PageProps {
   params: {
     category: string
@@ -47,6 +57,7 @@ export default async function RentalCategoryPage({ params }: PageProps) {
       <main className="max-w-7xl mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold mb-6 capitalize">{params.category}</h1>
         <p className="text-lg text-gray-700">No equipment found for this category.</p>
+        <TrainingRibbon />
       </main>
     )
   }
@@ -107,6 +118,8 @@ export default async function RentalCategoryPage({ params }: PageProps) {
       {relatedItems.length > 0 && (
         <RelatedItems items={relatedItems} />
       )}
+
+      <TrainingRibbon />
     </main>
   )
 } 
