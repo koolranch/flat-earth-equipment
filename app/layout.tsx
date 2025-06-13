@@ -9,6 +9,7 @@ import CrispChat from '@/components/CrispChat';
 import SupabaseProvider from './providers';
 // Import your global styles (Tailwind, custom resets)
 import '../globals.css';
+import { Toaster } from 'react-hot-toast';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -44,6 +45,7 @@ export default function RootLayout({
         <SpeedInsights />
         {/* Live chat widget */}
         <CrispChat />
+        <Toaster />
         </SupabaseProvider>
       </body>
     </html>

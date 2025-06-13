@@ -7,20 +7,32 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-05-28.basil'
 });
 
-async function updateStripePrice() {
+async function updateStripePrice(productId: string) {
   try {
-    // Example: Update price for a product with ID 'prod_old_id' to 2000 cents ($20.00)
     const newPrice = await stripe.prices.create({
-      product: 'prod_old_id', // Replace with actual product ID
-      unit_amount: 2000, // Replace with actual new price in cents
+      product: productId,
+      unit_amount: 100, // $1.00 in cents
       currency: 'usd',
     });
 
-    console.log('New Stripe price created:', newPrice.id);
+    console.log(`New Stripe price created for product ${productId}:`, newPrice.id);
   } catch (error) {
-    console.error('Error updating Stripe price:', error);
+    console.error(`Error updating Stripe price for product ${productId}:`, error);
     process.exit(1);
   }
 }
 
-updateStripePrice(); 
+// Update both test products
+async function updateAllPrices() {
+  // Replace these with your actual Stripe product IDs
+  const testProductIds = [
+    'prod_test_part_001', // Test Part 001
+    'prod_test_part_002'  // Test Part 002
+  ];
+
+  for (const productId of testProductIds) {
+    await updateStripePrice(productId);
+  }
+}
+
+updateAllPrices(); 

@@ -1,7 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useCart } from '@/hooks/useCart';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 
 interface Variant {
   id: string;
@@ -32,6 +34,7 @@ interface ProductDetailsProps {
 export default function ProductDetails({ part, variants }: ProductDetailsProps) {
   const [selected, setSelected] = useState<Variant | null>(variants?.[0] || null);
   const { addItem } = useCart();
+  const router = useRouter();
 
   const handleAddToCart = () => {
     const item = selected || part;
@@ -49,6 +52,23 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
       image_url: part.image_url,
       quantity: 1
     });
+    
+    // Show success toast
+    toast.success('Added to cart!', {
+      duration: 2000,
+      position: 'bottom-right',
+      style: {
+        background: '#059669',
+        color: '#fff',
+        padding: '16px',
+        borderRadius: '8px',
+      },
+    });
+    
+    // Redirect to cart page after a short delay
+    setTimeout(() => {
+      router.push('/cart');
+    }, 1000);
   };
 
   return (
@@ -63,59 +83,52 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
             />
           </div>
         )}
-
-        <div className="space-y-6">
-          <div>
-            <h1 className="text-3xl font-bold text-slate-900 mb-2">{part.name}</h1>
-            <p className="text-slate-600">{part.brand}</p>
+        <div>
+          <h1 className="text-3xl font-bold mb-2">{part.name}</h1>
+          <p className="text-gray-600 mb-4">{part.brand}</p>
+          {part.description && (
+            <p className="text-gray-700 mb-6">{part.description}</p>
+          )}
+          <div className="text-2xl font-bold mb-4">
+            ${selected?.price?.toFixed(2) || part.price.toFixed(2)}
+            {(selected?.has_core_charge && selected.core_charge) || (part.has_core_charge && part.core_charge) 
+              ? ` + $${(selected?.core_charge || part.core_charge)?.toFixed(2)} core fee` 
+              : ''}
           </div>
 
-          {variants.length > 0 && (
-            <div>
-              <h2 className="text-xl font-semibold text-slate-900 mb-3">Select Version</h2>
-              <div className="space-y-3">
+          {variants && variants.length > 0 && (
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Select Version
+              </label>
+              <select
+                value={selected?.id || ''}
+                onChange={(e) => {
+                  const variant = variants.find(v => v.id === e.target.value);
+                  setSelected(variant || null);
+                }}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-canyon-rust focus:border-canyon-rust"
+              >
                 {variants.map((variant) => (
-                  <button
-                    key={variant.id}
-                    onClick={() => setSelected(variant)}
-                    className={`w-full text-left p-4 border rounded-lg transition-all ${
-                      selected?.id === variant.id
-                        ? 'border-canyon-rust bg-orange-50'
-                        : 'border-slate-200 hover:border-slate-300'
-                    }`}
-                  >
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <p className="font-medium text-slate-900">Version {variant.firmware_version}</p>
-                        <p className="text-sm text-slate-600">
-                          ${variant.price.toFixed(2)}
-                          {variant.has_core_charge && variant.core_charge && (
-                            <span> + ${variant.core_charge.toFixed(2)} core fee</span>
-                          )}
-                        </p>
-                      </div>
-                      {selected?.id === variant.id && (
-                        <span className="text-canyon-rust">✓</span>
-                      )}
-                    </div>
-                  </button>
+                  <option key={variant.id} value={variant.id}>
+                    {variant.firmware_version} - ${variant.price.toFixed(2)}
+                    {variant.has_core_charge && variant.core_charge 
+                      ? ` + $${variant.core_charge.toFixed(2)} core fee` 
+                      : ''}
+                  </option>
                 ))}
-              </div>
-            </div>
-          )}
-
-          {part.description && (
-            <div>
-              <h2 className="text-xl font-semibold text-slate-900 mb-3">Description</h2>
-              <p className="text-slate-700">{part.description}</p>
+              </select>
             </div>
           )}
 
           <div className="pt-4">
             <button
               onClick={handleAddToCart}
-              className="w-full bg-canyon-rust hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-150"
+              className="w-full bg-canyon-rust hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-150 flex items-center justify-center gap-2"
             >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+              </svg>
               Add to Cart — ${selected?.price?.toFixed(2) || part.price.toFixed(2)}${
                 (selected?.has_core_charge && selected.core_charge) || (part.has_core_charge && part.core_charge) 
                   ? ` + $${(selected?.core_charge || part.core_charge)?.toFixed(2)} core fee` 
