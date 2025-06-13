@@ -55,7 +55,7 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
     <div className="max-w-7xl mx-auto px-4 py-16">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {part.image_url && (
-          <div className="relative aspect-square">
+          <div className="relative aspect-square bg-white rounded-lg shadow-sm p-4">
             <img
               src={part.image_url}
               alt={part.name}
@@ -64,28 +64,30 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
           </div>
         )}
 
-        <div>
-          <h1 className="text-3xl font-bold mb-2">{part.name}</h1>
-          <p className="text-gray-600 mb-4">{part.brand}</p>
+        <div className="space-y-6">
+          <div>
+            <h1 className="text-3xl font-bold text-slate-900 mb-2">{part.name}</h1>
+            <p className="text-slate-600">{part.brand}</p>
+          </div>
 
           {variants.length > 0 && (
-            <div className="mb-6">
-              <h2 className="text-xl font-semibold mb-2">Select Version</h2>
-              <div className="space-y-2">
+            <div>
+              <h2 className="text-xl font-semibold text-slate-900 mb-3">Select Version</h2>
+              <div className="space-y-3">
                 {variants.map((variant) => (
                   <button
                     key={variant.id}
                     onClick={() => setSelected(variant)}
-                    className={`w-full text-left p-4 border rounded-lg transition-colors ${
+                    className={`w-full text-left p-4 border rounded-lg transition-all ${
                       selected?.id === variant.id
-                        ? 'border-green-600 bg-green-50'
-                        : 'border-gray-200 hover:border-gray-300'
+                        ? 'border-canyon-rust bg-orange-50'
+                        : 'border-slate-200 hover:border-slate-300'
                     }`}
                   >
                     <div className="flex justify-between items-center">
                       <div>
-                        <p className="font-medium">Version {variant.firmware_version}</p>
-                        <p className="text-sm text-gray-600">
+                        <p className="font-medium text-slate-900">Version {variant.firmware_version}</p>
+                        <p className="text-sm text-slate-600">
                           ${variant.price.toFixed(2)}
                           {variant.has_core_charge && variant.core_charge && (
                             <span> + ${variant.core_charge.toFixed(2)} core fee</span>
@@ -93,7 +95,7 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
                         </p>
                       </div>
                       {selected?.id === variant.id && (
-                        <span className="text-green-600">✓</span>
+                        <span className="text-canyon-rust">✓</span>
                       )}
                     </div>
                   </button>
@@ -103,16 +105,16 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
           )}
 
           {part.description && (
-            <div className="mb-6">
-              <h2 className="text-xl font-semibold mb-2">Description</h2>
-              <p className="text-gray-700">{part.description}</p>
+            <div>
+              <h2 className="text-xl font-semibold text-slate-900 mb-3">Description</h2>
+              <p className="text-slate-700">{part.description}</p>
             </div>
           )}
 
-          <div className="mt-8">
+          <div className="pt-4">
             <button
               onClick={handleAddToCart}
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-150"
+              className="w-full bg-canyon-rust hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-150"
             >
               Add to Cart — ${selected?.price?.toFixed(2) || part.price.toFixed(2)}${
                 (selected?.has_core_charge && selected.core_charge) || (part.has_core_charge && part.core_charge) 
