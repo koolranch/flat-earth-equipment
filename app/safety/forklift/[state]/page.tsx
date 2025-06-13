@@ -1,4 +1,7 @@
-import Link from 'next/link'
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { forkliftStates, ForkliftStateInfo } from "../../../../src/data/forkliftStates";
+import CheckoutButton from "@/app/safety/CheckoutButton";
 
 // Disable dynamic params to ensure only pre-generated pages are served
 export const dynamicParams = false
@@ -57,11 +60,18 @@ const OSHA_FINES_BY_STATE: { [key: string]: { serious: number, willful: number, 
   'wy': { serious: 15625, willful: 156259, stateName: 'Wyoming' }
 }
 
-// Generate static params for all 50 states
+type Props = { params: { state: string } };
+
 export async function generateStaticParams() {
-  return Object.keys(OSHA_FINES_BY_STATE).map((state) => ({
-    state: state,
-  }))
+  return forkliftStates.map((s: ForkliftStateInfo) => ({ state: s.code }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const state = forkliftStates.find((s: ForkliftStateInfo) => s.code === params.state) ?? notFound();
+  return {
+    title: `${state.name} Online Forklift Certification | OSHA Approved`,
+    description: `Get OSHA-compliant forklift operator training in ${state.name}. 100% online – earn your card today.`,
+  };
 }
 
 // Breadcrumb component
@@ -85,86 +95,144 @@ function Breadcrumb({ stateName }: { stateName: string }) {
   )
 }
 
-interface PageProps {
-  params: {
-    state: string
-  }
-}
-
-export default function StateForkliftCertificationPage({ params }: PageProps) {
-  const stateData = OSHA_FINES_BY_STATE[params.state]
-  
-  if (!stateData) {
-    return <div>State not found</div>
-  }
+export default function StateForkliftPage({ params }: Props) {
+  const info = forkliftStates.find((s: ForkliftStateInfo) => s.code === params.state) ?? notFound();
 
   return (
-    <main className="max-w-4xl mx-auto px-4 py-12">
-      <Breadcrumb stateName={stateData.stateName} />
-      
-      <h1 className="text-4xl font-bold mb-8 text-gray-900">
-        How to Get Forklift Certified in {stateData.stateName}
-      </h1>
-      
-      <div className="mb-8 p-6 bg-orange-50 border border-orange-200 rounded-lg">
-        <h2 className="text-xl font-semibold mb-3 text-gray-800">
-          OSHA Fines in {stateData.stateName}
-        </h2>
-        <p className="text-gray-700 mb-2">
-          <strong>Serious Violations:</strong> Up to ${stateData.serious.toLocaleString()} per violation
+    <main className="container mx-auto px-4 lg:px-8 py-12 space-y-16">
+      {/* HERO */}
+      <section className="space-y-4 text-center">
+        <h1 className="text-4xl font-extrabold">
+          {info.name} Forklift Operator Certification (Online)
+        </h1>
+        <p className="max-w-2xl mx-auto text-gray-600">
+          Train the Western-tough way—OSHA CFR 1910.178-compliant, recognized in {info.name}.
+          Finish in under 90 minutes and download your wallet card instantly.
         </p>
-        <p className="text-gray-700">
-          <strong>Willful Violations:</strong> Up to ${stateData.willful.toLocaleString()} per violation
-        </p>
-      </div>
+        <CheckoutButton 
+          courseSlug="forklift"
+          price="59"
+          priceId="price_1RS834HJI548rO8JpJMyGhL3"
+        />
+      </section>
 
-      <section className="prose prose-lg max-w-none mb-12">
-        <p>
-          Getting forklift certified in {stateData.stateName} is essential for workplace safety and OSHA compliance. 
-          Employers in {stateData.stateName} are required to ensure all forklift operators receive proper training 
-          before operating powered industrial trucks.
+      {/* FINES TABLE */}
+      <section className="space-y-6">
+        <h2 className="text-2xl font-semibold">OSHA Penalties in {info.name}</h2>
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr className="border-b">
+              <th className="py-2">Violation Type</th>
+              <th className="py-2">Possible Fine</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b">
+              <td className="py-2">Serious / Other-Than-Serious</td>
+              <td className="py-2">
+                ${info.fines.min.toLocaleString()} – ${info.fines.max.toLocaleString()}
+              </td>
+            </tr>
+            <tr>
+              <td className="py-2">Willful / Repeat</td>
+              <td className="py-2">Up to ${info.fines.max.toLocaleString()}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p className="text-sm text-gray-500">
+          {info.hasStatePlan
+            ? `${info.name} operates its own OSHA-approved State Plan; fines may differ from federal maximums.`
+            : `${info.name} is regulated directly by Federal OSHA.`}
         </p>
-        
-        <h2>OSHA Requirements in {stateData.stateName}</h2>
-        <p>
-          The Occupational Safety and Health Administration (OSHA) mandates that all forklift operators must be 
-          certified under 29 CFR 1910.178. This applies to all employers in {stateData.stateName}, regardless of 
-          company size or industry.
-        </p>
-        
-        <h2>Steps to Get Certified</h2>
-        <ol>
-          <li>Complete online theory training covering OSHA regulations and safety procedures</li>
-          <li>Pass the knowledge assessment with at least 80% accuracy</li>
-          <li>Have your employer conduct a practical evaluation of your operating skills</li>
-          <li>Receive your certification documentation</li>
-        </ol>
-        
-        <h2>Why Choose Our Training?</h2>
-        <ul>
-          <li>100% OSHA-compliant curriculum</li>
-          <li>Available 24/7 from any device</li>
-          <li>Instant certificate upon completion</li>
-          <li>Employer evaluation checklist included</li>
-          <li>Valid for 3 years per OSHA guidelines</li>
+      </section>
+
+      {/* COURSE BENEFITS */}
+      <section className="space-y-4">
+        <h2 className="text-2xl font-semibold">Why Choose Flat Earth Equipment?</h2>
+        <ul className="list-disc pl-6 space-y-2 text-gray-700">
+          <li>100% online—train anywhere in {info.name}.</li>
+          <li>Instant printable certificate & wallet card.</li>
+          <li>Free retakes until you pass (30-question exam).</li>
+          <li>Bulk pricing for teams statewide.</li>
         </ul>
       </section>
 
-      <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 text-center">
-        <h3 className="text-2xl font-semibold mb-4">Ready to Get Certified?</h3>
-        <p className="text-gray-700 mb-6">
-          Join thousands of operators in {stateData.stateName} who have completed our OSHA-compliant training.
-        </p>
-        <Link 
-          href="/safety" 
-          className="inline-block bg-safety hover:bg-orange-700 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
-        >
-          Start Your Certification
-        </Link>
-        <p className="text-sm text-gray-600 mt-4">
-          Only $59 • Complete in under 2 hours • Certificate issued immediately
-        </p>
-      </div>
+      {/* FAQ */}
+      <section className="space-y-4">
+        <h2 className="text-2xl font-semibold">FAQs – {info.name}</h2>
+        <details className="rounded-lg bg-neutral-50 p-4">
+          <summary className="cursor-pointer font-medium">
+            Is this accepted by OSHA inspectors in {info.name}?
+          </summary>
+          <p className="mt-2">
+            Yes. Our curriculum follows 29 CFR 1910.178(l), recognized nationwide.
+            Be sure your operators complete hands-on evaluation per OSHA rules.
+          </p>
+        </details>
+        <details className="rounded-lg bg-neutral-50 p-4">
+          <summary className="cursor-pointer font-medium">How long is the card valid?</summary>
+          <p className="mt-2">Three years, or sooner if the operator is involved in an accident or switches truck type.</p>
+        </details>
+      </section>
+
+      {/* SCHEMA: Course + FAQPage */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "Course",
+                name: "Online Forklift Operator Certification",
+                description: "OSHA-compliant forklift training accepted in " + info.name,
+                provider: {
+                  "@type": "Organization",
+                  name: "Flat Earth Equipment",
+                  logo: "https://www.flatearthequipment.com/logo.png",
+                },
+                offers: {
+                  "@type": "Offer",
+                  price: "59",
+                  priceCurrency: "USD",
+                  url: `https://www.flatearthequipment.com/safety/forklift/${info.code}`,
+                },
+              },
+              {
+                "@type": "FAQPage",
+                mainEntity: [
+                  {
+                    "@type": "Question",
+                    name: `Is this accepted in ${info.name}?`,
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text:
+                        "Yes. Our curriculum follows 29 CFR 1910.178(l) and is recognized nationwide, including " +
+                        info.name +
+                        ".",
+                    },
+                  },
+                  {
+                    "@type": "Question",
+                    name: "How long is the forklift card valid?",
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text: "Three years under OSHA guidelines.",
+                    },
+                  },
+                ],
+              },
+            ],
+          }),
+        }}
+      />
+
+      {/* META tags */}
+      <meta name="robots" content="index,follow" />
+      <link
+        rel="canonical"
+        href={`https://www.flatearthequipment.com/safety/forklift/${info.code}`}
+      />
     </main>
-  )
+  );
 } 
