@@ -5,7 +5,7 @@ import { createClient } from '@supabase/supabase-js'
 export async function POST(req: Request) {
   const rawBody = await req.text()
   const signature = req.headers.get('stripe-signature')!
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2025-04-30.basil' })
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2025-05-28.basil' })
   
   let event
   try {

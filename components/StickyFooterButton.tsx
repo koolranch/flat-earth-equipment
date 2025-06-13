@@ -1,9 +1,6 @@
 'use client';
 
-import { loadStripe } from '@stripe/stripe-js';
-import { useRouter } from 'next/navigation';
-
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+import { useCart } from '@/hooks/useCart';
 
 interface StickyFooterButtonProps {
   product: {
@@ -13,47 +10,33 @@ interface StickyFooterButtonProps {
     price_cents: number;
     has_core_charge?: boolean;
     core_charge?: number;
+    image_url?: string;
   };
   slug: string;
 }
 
 export default function StickyFooterButton({ product, slug }: StickyFooterButtonProps) {
-  const router = useRouter();
+  const { addItem } = useCart();
 
-  async function handleBuyNow() {
-    try {
-      const response = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          priceId: product.stripe_price_id,
-          coreCharge: product.has_core_charge ? product.core_charge : undefined
-        }),
-      });
-      const data = await response.json();
-      if (data.error) {
-        console.error('Stripe session error:', data.error);
-      } else if (data.sessionId) {
-        const stripe = await stripePromise;
-        if (!stripe) {
-          throw new Error('Stripe failed to initialize');
-        }
-        const { error } = await stripe.redirectToCheckout({ sessionId: data.sessionId });
-        if (error) {
-          console.error('Stripe redirect error:', error);
-        }
-      }
-    } catch (err) {
-      console.error('Checkout error:', err);
-    }
-  }
+  const handleAddToCart = () => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price_cents / 100,
+      stripe_price_id: product.stripe_price_id,
+      has_core_charge: product.has_core_charge,
+      core_charge: product.core_charge,
+      image_url: product.image_url,
+      quantity: 1
+    });
+  };
 
   return (
     <button
-      onClick={handleBuyNow}
+      onClick={handleAddToCart}
       className="inline-block px-4 py-2 bg-white text-canyon-rust rounded hover:bg-gray-100 transition"
     >
-      Buy Now & Ship Today
+      Add to Cart
     </button>
   );
 } 

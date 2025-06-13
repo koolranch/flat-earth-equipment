@@ -1,9 +1,6 @@
 'use client';
 
-import { loadStripe } from '@stripe/stripe-js';
-import { useRouter } from 'next/navigation';
-
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+import { useCart } from '@/hooks/useCart';
 
 interface Product {
   id: string;
@@ -12,6 +9,7 @@ interface Product {
   price_cents: number;
   has_core_charge?: boolean;
   core_charge?: number;
+  image_url?: string;
 }
 
 interface BuyNowButtonProps {
@@ -20,45 +18,20 @@ interface BuyNowButtonProps {
 }
 
 export default function BuyNowButton({ product, slug }: BuyNowButtonProps) {
-  // Debug log for product
-  console.log('BuyNowButton product:', product);
+  const { addItem } = useCart();
 
-  const router = useRouter();
-
-  async function handleBuyNow() {
-    // Debug log for click
-    console.log('BuyNowButton clicked with:', product, slug);
-    try {
-      const response = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          priceId: product.stripe_price_id,
-          coreCharge: product.has_core_charge ? product.core_charge : undefined
-        }),
-      });
-      console.log('📦 fetch response status:', response.status);
-      const data = await response.json();
-      console.log('📨 fetch response body:', data);
-      if (data.error) {
-        console.error('Stripe session error:', data.error);
-      } else if (data.sessionId) {
-        console.log('🔗 redirecting to Stripe checkout...', { sessionId: data.sessionId });
-        const stripe = await stripePromise;
-        if (!stripe) {
-          throw new Error('Stripe failed to initialize');
-        }
-        const { error } = await stripe.redirectToCheckout({ sessionId: data.sessionId });
-        if (error) {
-          console.error('Stripe redirect error:', error);
-        }
-      } else {
-        console.warn('Unexpected response:', data);
-      }
-    } catch (err) {
-      console.error('‼️ handleBuyNow exception:', err);
-    }
-  }
+  const handleAddToCart = () => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price_cents / 100,
+      stripe_price_id: product.stripe_price_id,
+      has_core_charge: product.has_core_charge,
+      core_charge: product.core_charge,
+      image_url: product.image_url,
+      quantity: 1
+    });
+  };
 
   // Calculate total price including core charge if applicable
   const totalPrice = product.has_core_charge && product.core_charge
@@ -67,10 +40,10 @@ export default function BuyNowButton({ product, slug }: BuyNowButtonProps) {
 
   return (
     <button
-      onClick={handleBuyNow}
+      onClick={handleAddToCart}
       className="mt-6 bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition-colors w-full"
     >
-      Buy Now & Ship Today — ${(product.price_cents / 100).toFixed(2)} + ${product.core_charge?.toFixed(2) || '0'} core fee
+      Add to Cart — ${(product.price_cents / 100).toFixed(2)} + ${product.core_charge?.toFixed(2) || '0'} core fee
     </button>
   );
 } 
