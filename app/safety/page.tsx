@@ -88,19 +88,19 @@ export default async function SafetyHome() {
             tier="5-Pack"
             price="$275"
             description="Team training bundle"
-            sku="price_5PACK"
+            sku="price_1RSHWVHJI548rO8Jf9CJer6y"
           />
           <PriceCard
             tier="25-Pack"
             price="$1,375"
             description="Department-wide training"
-            sku="price_25PACK"
+            sku="price_1RSHWVHJI548rO8Jf9CJer6y"
           />
           <PriceCard
             tier="Unlimited"
             price="$1,999"
             description="Facility-wide license"
-            sku="price_UNLTD"
+            sku="price_1RSHWVHJI548rO8Jf9CJer6y"
           />
         </section>
 
