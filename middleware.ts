@@ -10,13 +10,13 @@ export async function middleware(req: NextRequest) {
   const { data: { session } } = await supabase.auth.getSession()
 
   // If trying to access dashboard without session, redirect to login
-  if (req.nextUrl.pathname.startsWith('/dashboard') && !session) {
+  if ((req.nextUrl.pathname.startsWith('/dashboard') || req.nextUrl.pathname.startsWith('/dashboard-simple')) && !session) {
     return NextResponse.redirect(new URL('/login', req.url))
   }
 
   // If logged in and trying to access login, redirect to dashboard
   if (req.nextUrl.pathname === '/login' && session) {
-    return NextResponse.redirect(new URL('/dashboard', req.url))
+    return NextResponse.redirect(new URL('/dashboard-simple', req.url))
   }
 
   // Check if the request is for the old Cheyenne page
