@@ -22,6 +22,7 @@ export default function Navbar() {
 
   const navItems: NavItem[] = [
     { name: 'Parts', href: '/parts' },
+    { name: 'Rent Equipment', href: '/rent' },
     { name: 'Safety', href: '/safety' },
     {
       name: 'Training',
@@ -42,11 +43,12 @@ export default function Navbar() {
           <div className="flex">
             <Link href="/" className="flex items-center">
               <Image
-                src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand/logo.png"
+                src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/logo.png"
                 alt="Flat Earth Equipment"
-                width={32}
-                height={32}
+                width={40}
+                height={40}
                 className="mr-2"
+                priority
               />
               <span className="text-xl font-bold text-canyon-rust">Flat Earth Equipment</span>
             </Link>
