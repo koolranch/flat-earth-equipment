@@ -25,6 +25,7 @@ export default function PriceCard({ tier, price, description, sku }: PriceCardPr
       <CheckoutButton 
         courseSlug="forklift"
         price={price.replace(/[$,]/g, '')}
+        priceId={sku}
       />
     </div>
   );
