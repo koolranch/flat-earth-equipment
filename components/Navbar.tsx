@@ -36,13 +36,13 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-white shadow-sm">
+    <nav className="bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+        <div className="flex justify-between h-20">
           <div className="flex">
             <Link href="/" className="flex items-center">
               <Image
-                src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand/logo_128.png"
+                src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand/logo.png"
                 alt="Flat Earth Equipment"
                 width={32}
                 height={32}
@@ -71,7 +71,7 @@ export default function Navbar() {
                             <Link
                               key={subItem.name}
                               href={subItem.href}
-                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                              className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                             >
                               {subItem.name}
                             </Link>
@@ -84,7 +84,7 @@ export default function Navbar() {
                   <Link
                     href={item.href}
                     className={`text-gray-600 hover:text-gray-900 ${
-                      pathname === item.href ? 'font-semibold' : ''
+                      pathname === item.href ? 'text-canyon-rust font-semibold' : ''
                     }`}
                   >
                     {item.name}
@@ -95,7 +95,7 @@ export default function Navbar() {
             <Link href="/cart" className="relative text-gray-600 hover:text-gray-900">
               <ShoppingCart className="w-6 h-6" />
               {itemCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-green-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-canyon-rust text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                   {itemCount}
                 </span>
               )}

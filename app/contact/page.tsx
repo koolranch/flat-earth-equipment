@@ -24,7 +24,7 @@ export default function ContactPage() {
 
           <div>
             <h2 className="font-semibold text-base text-slate-800 mb-1">Support</h2>
-            <p>Email: <a href="mailto:contat@flatearthequipment.com" className="text-canyon-rust underline">contat@flatearthequipment.com</a></p>
+            <p>Email: <a href="mailto:contact@flatearthequipment.com" className="text-canyon-rust underline">contact@flatearthequipment.com</a></p>
             <p>Phone: <a href="tel:+13073020043" className="text-canyon-rust underline">(307) 302-0043‬</a></p>
             <p>Hours: Monday–Friday, 7AM–5PM (Mountain Time)</p>
           </div>
@@ -40,6 +40,16 @@ export default function ContactPage() {
             type="hidden"
             name="_subject"
             value="Contact Form Submission"
+          />
+          <input
+            type="hidden"
+            name="_next"
+            value="https://www.flatearthequipment.com/contact/thank-you"
+          />
+          <input
+            type="text"
+            name="_gotcha"
+            style={{ display: 'none' }}
           />
           <input
             name="name"
