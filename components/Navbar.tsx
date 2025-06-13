@@ -43,7 +43,7 @@ export default function Navbar() {
           <div className="flex">
             <Link href="/" className="flex items-center">
               <Image
-                src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/logo.png"
+                src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge1.webp"
                 alt="Flat Earth Equipment"
                 width={40}
                 height={40}
