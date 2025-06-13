@@ -82,25 +82,25 @@ export default async function SafetyHome() {
             tier="Single Operator"
             price="$59"
             description="One seat, instant start"
-            sku="price_1RSHWVHJI548rO8Jf9CJer6y"
+            sku="price_1RS834HJI548rO8JpJMyGhL3"
           />
           <PriceCard
             tier="5-Pack"
             price="$275"
             description="Team training bundle"
-            sku="price_1RSHWVHJI548rO8Jf9CJer6y"
+            sku="price_1RS835HJI548rO8JkMXj7FMQ"
           />
           <PriceCard
             tier="25-Pack"
             price="$1,375"
             description="Department-wide training"
-            sku="price_1RSHWVHJI548rO8Jf9CJer6y"
+            sku="price_1RS835HJI548rO8JbvRrMwUv"
           />
           <PriceCard
             tier="Unlimited"
             price="$1,999"
             description="Facility-wide license"
-            sku="price_1RSHWVHJI548rO8Jf9CJer6y"
+            sku="price_1RS836HJI548rO8JwlCAzg7m"
           />
         </section>
 
