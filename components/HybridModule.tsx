@@ -7,6 +7,7 @@ import { Stepper } from '@/components/Stepper'
 import GuidePane from '@/components/GuidePane'
 import Flash from '@/components/Flash'
 import { Quiz } from '@/components/Quiz'
+import TrainingVideo from '@/components/TrainingVideo'
 
 interface GameComponentProps {
   onComplete: () => void
@@ -29,6 +30,9 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
   const [guideUnlocked, setGuideUnlocked] = useState(false)
   const [secondsRemaining, setSecondsRemaining] = useState(90)
 
+  // Derive moduleId from gameKey if not provided
+  const derivedModuleId = moduleId || (gameKey ? parseInt(gameKey.replace('module', '')) : 1)
+
   // Update phase when MDX content becomes available
   useEffect(() => {
     if (guideMdx && phase === 'video' && !guideUnlocked) {
@@ -45,7 +49,7 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
     guideMdx: !!guideMdx, 
     enrollmentId: !!enrollmentId,
     locale,
-    moduleId,
+    moduleId: derivedModuleId,
     timestamp: new Date().toISOString() 
   })
 
@@ -98,20 +102,18 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
           {guideUnlocked ? (
             <div className="space-y-4">
               <div className="w-full max-w-4xl mx-auto">
-                                  <video 
-                    className="w-full h-auto max-h-[600px] rounded-lg" 
-                    controls 
-                    onEnded={() => {
-                      console.log('📹 Video ended, switching to game phase')
-                      setPhase('game')
-                    }}
-                    onError={(e) => {
-                      console.error('📹 Video error:', e)
-                    }}
-                  >
-                    <source src={introUrl} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
+                <TrainingVideo
+                  src={introUrl}
+                  moduleId={derivedModuleId}
+                  locale={locale}
+                  onEnded={() => {
+                    console.log('📹 Video ended, switching to game phase')
+                    setPhase('game')
+                  }}
+                  onError={(e) => {
+                    console.error('📹 Video error:', e)
+                  }}
+                />
               </div>
             </div>
           ) : (
@@ -130,9 +132,10 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
       {phase === 'video' && (!guideMdx) && introUrl && (
         <div className="space-y-4 mt-8">
           <div className="w-full max-w-4xl mx-auto">
-            <video 
-              className="w-full h-auto max-h-[600px] rounded-lg" 
-              controls 
+            <TrainingVideo
+              src={introUrl}
+              moduleId={derivedModuleId}
+              locale={locale}
               onEnded={() => {
                 console.log('📹 Video ended, switching to game phase')
                 setPhase('game')
@@ -140,10 +143,7 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
               onError={(e) => {
                 console.error('📹 Video error:', e)
               }}
-            >
-              <source src={introUrl} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            />
           </div>
         </div>
       )}
@@ -164,8 +164,8 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
         </div>
       ) : null}
 
-      {phase === 'quiz' && moduleId ? (
-        <Quiz moduleId={moduleId} locale={locale} />
+      {phase === 'quiz' && derivedModuleId ? (
+        <Quiz moduleId={derivedModuleId} locale={locale} />
       ) : phase === 'quiz' ? (
         <div className="text-center py-8">
           <p className="text-lg font-medium">Quiz time!</p>
