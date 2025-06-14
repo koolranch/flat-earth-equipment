@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useCart } from '@/hooks/useCart';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
+import Link from 'next/link';
 
 interface Variant {
   id: string;
@@ -138,6 +139,14 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
           </div>
         </div>
       </div>
+
+      <footer className="mt-10 border-t pt-8">
+        <p className="text-center text-sm text-gray-600">
+          ⚠️  Operators untrained?  <Link href="/training" className="underline font-medium">
+            Get certified online&nbsp;now
+          </Link> & save 5% on parts with code <strong>CERTSAFE5</strong>.
+        </p>
+      </footer>
     </div>
   );
 } 
