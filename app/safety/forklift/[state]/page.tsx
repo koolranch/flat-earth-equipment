@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { forkliftStates, ForkliftStateInfo } from "../../../../src/data/forkliftStates";
 import CheckoutButton from "@/app/safety/CheckoutButton";
+import Link from "next/link";
 
 // Disable dynamic params to ensure only pre-generated pages are served
 export const dynamicParams = false
@@ -100,6 +101,7 @@ export default function StateForkliftPage({ params }: Props) {
 
   return (
     <main className="container mx-auto px-4 lg:px-8 py-12 space-y-16">
+      <Breadcrumb stateName={info.name} />
       {/* HERO */}
       <section className="space-y-4 text-center">
         <h1 className="text-4xl font-extrabold">
