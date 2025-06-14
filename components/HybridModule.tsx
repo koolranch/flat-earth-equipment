@@ -6,6 +6,7 @@ import { MDXRemote } from 'next-mdx-remote'
 import { Stepper } from '@/components/Stepper'
 import GuidePane from '@/components/GuidePane'
 import Flash from '@/components/Flash'
+import { Quiz } from '@/components/Quiz'
 
 interface GameComponentProps {
   onComplete: () => void
@@ -16,10 +17,12 @@ interface HybridModuleProps {
   introUrl?: string
   guideMdx?: any // MDX source for guide content
   enrollmentId?: string
+  locale?: 'en' | 'es'
+  moduleId?: number
   onComplete: () => void
 }
 
-export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId, onComplete }: HybridModuleProps) {
+export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId, locale = 'en', moduleId, onComplete }: HybridModuleProps) {
   const [phase, setPhase] = useState<'guide' | 'video' | 'game' | 'quiz'>(
     guideMdx ? 'guide' : introUrl ? 'video' : 'game'
   )
@@ -41,6 +44,8 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
     guideUnlocked,
     guideMdx: !!guideMdx, 
     enrollmentId: !!enrollmentId,
+    locale,
+    moduleId,
     timestamp: new Date().toISOString() 
   })
 
@@ -159,7 +164,9 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
         </div>
       ) : null}
 
-      {phase === 'quiz' ? (
+      {phase === 'quiz' && moduleId ? (
+        <Quiz moduleId={moduleId} locale={locale} />
+      ) : phase === 'quiz' ? (
         <div className="text-center py-8">
           <p className="text-lg font-medium">Quiz time!</p>
           <p className="text-gray-600 mt-2">Complete the quiz to finish this module.</p>
