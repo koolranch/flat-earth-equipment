@@ -20,17 +20,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  params               // Next.js injects route params (incl. locale segment)
 }: {
   children: React.ReactNode;
+  params?: { locale?: 'en' | 'es' }
 }) {
   return (
-    <html lang="en" className={inter.className}>
+    <html lang={params?.locale ?? 'en'} className={inter.className}>
       <head>
         <link rel="preconnect" href="https://stream.mux.com" />
       </head>
       <body className="font-sans text-gray-900 bg-gray-50 antialiased">
         <SupabaseProvider>
-          <Navbar />
+          {/* Navbar now receives locale */}
+          <Navbar locale={params?.locale ?? 'en'} />
           {children}
           <section className="bg-slate-100 py-6">
           <div className="max-w-6xl mx-auto px-4 flex flex-wrap justify-center items-center gap-4 text-sm text-slate-700 text-center">

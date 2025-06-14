@@ -2,7 +2,41 @@ import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
+const LOCALES = ['en', 'es'] as const
+
 export async function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl
+  
+  // Handle i18n routing first
+  // 1) Skip Next.js internals or static files
+  if (pathname.startsWith('/_next') || pathname.includes('.')) {
+    return NextResponse.next()
+  }
+
+  // 2) Skip if locale already in path
+  if (!LOCALES.some(l => pathname.startsWith(`/${l}/`))) {
+    // 3) Check cookie
+    const cookieLang = req.cookies.get('lang')?.value as 'en' | 'es' | undefined
+    if (cookieLang && cookieLang !== 'en') {
+      const url = req.nextUrl.clone()
+      url.pathname = `/${cookieLang}${pathname}`
+      return NextResponse.redirect(url, 307)
+    }
+
+    // 4) Optional: browser Accept-Language soft redirect (first visit only)
+    if (!cookieLang) {
+      const headerLang = req.headers.get('accept-language')?.split(',')[0].slice(0, 2)
+      if (headerLang === 'es') {
+        const url = req.nextUrl.clone()
+        url.pathname = `/es${pathname}`
+        const response = NextResponse.redirect(url, 307)
+        response.cookies.set('lang', 'es')
+        return response
+      }
+    }
+  }
+
+  // Continue with existing Supabase middleware logic
   const res = NextResponse.next()
   const supabase = createMiddlewareClient({ req, res })
 
@@ -32,8 +66,6 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    '/dashboard/:path*',
-    '/login',
-    '/cheyenne-wy',
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
   ]
 } 

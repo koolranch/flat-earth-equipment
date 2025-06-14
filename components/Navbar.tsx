@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { Menu, X, ChevronDown, ShoppingCart } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
+import LanguageToggle from '@/components/ui/LanguageToggle';
 
 interface NavItem {
   name: string;
@@ -13,7 +14,9 @@ interface NavItem {
   dropdown?: { name: string; href: string }[];
 }
 
-export default function Navbar() {
+type Props = { locale: 'en' | 'es' }
+
+export default function Navbar({ locale }: Props) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [trainingDropdownOpen, setTrainingDropdownOpen] = useState(false);
   const pathname = usePathname();
@@ -94,6 +97,8 @@ export default function Navbar() {
                 </span>
               )}
             </Link>
+            {/* Language Toggle */}
+            <LanguageToggle locale={locale} />
           </div>
 
           {/* Mobile menu button */}
@@ -152,6 +157,10 @@ export default function Navbar() {
             >
               Cart ({itemCount})
             </Link>
+            {/* Language Toggle for Mobile */}
+            <div className="px-3 py-2">
+              <LanguageToggle locale={locale} />
+            </div>
           </div>
         </div>
       )}
