@@ -1,4 +1,4 @@
-import { crisp } from '../lib/crisp/client';
+import crisp from '../lib/crisp/client';
 import * as dotenv from 'dotenv';
 
 // Load environment variables
