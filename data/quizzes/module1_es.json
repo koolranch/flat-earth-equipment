@@ -1,0 +1,12 @@
+[
+  {
+    "q": "¿Qué pieza de EPP es obligatoria antes de operar?",
+    "choices": ["Gorra", "Gafas de seguridad", "Guantes ligeros"],
+    "answer": 1
+  },
+  {
+    "q": "¿Cuántas longitudes de montacargas se deben mantener entre vehículos en movimiento?",
+    "choices": ["1", "2", "3"],
+    "answer": 2
+  }
+] 

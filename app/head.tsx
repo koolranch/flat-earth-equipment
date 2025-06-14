@@ -1,4 +1,8 @@
-export default function Head() {
+export default function Head({ params }: { params?: { locale?: 'en' | 'es', slug?: string } }) {
+  const url = 'https://www.flatearthequipment.com'
+  const currentPath = params?.slug || ''
+  const locale = params?.locale || 'en'
+  
   return (
     <>
       <title>Flat Earth Equipment | OEM Parts & Equipment Rentals</title>
@@ -13,6 +17,19 @@ export default function Head() {
       />
       <meta property="og:image" content="/og-image.png" />
       <link rel="icon" href="/favicon.ico" />
+      
+      {/* hreflang for SEO */}
+      <link
+        rel="alternate"
+        hrefLang="en"
+        href={`${url}${currentPath.replace(/^\/es/, '')}`}
+      />
+      <link
+        rel="alternate"
+        hrefLang="es"
+        href={`${url}/es${currentPath.replace(/^\/en/, '').replace(/^\/es/, '')}`}
+      />
+      
       {/* Tailwind CDN for immediate styling */}
       <link
         href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.7/dist/tailwind.min.css"
