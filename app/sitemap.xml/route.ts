@@ -1,4 +1,5 @@
 import { createClient } from '@/utils/supabase/server'
+import { forkliftStates, ForkliftStateInfo } from "@/src/data/forkliftStates"
 
 interface Category {
   category_slug: string
@@ -45,12 +46,8 @@ export async function GET() {
     'forks',
     'parts-category',
     'osha-operator-training',
-    'battery-charger-modules',
     'safety', // Main forklift course page
     'safety/forklift', // State directory page
-    'training', // Marketing hub only
-    'training/safety-modules', // Stub page
-    // Note: /training/forklift-operator-certification excluded (redirects to /safety)
   ]
 
   // Generate URLs for categories
@@ -59,7 +56,10 @@ export async function GET() {
   // Generate URLs for products
   const productUrls = products?.map((prod: Product) => `parts/${prod.slug}`) || []
 
-  const allUrls = [...staticPages, ...categoryUrls, ...productUrls]
+  // Generate URLs for state-specific forklift pages
+  const forkliftStateUrls = forkliftStates.map((state: ForkliftStateInfo) => `safety/forklift/${state.code}`)
+
+  const allUrls = [...staticPages, ...categoryUrls, ...productUrls, ...forkliftStateUrls]
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
@@ -69,7 +69,7 @@ export async function GET() {
     <url>
       <loc>https://flatearthequipment.com/${path}</loc>
       <changefreq>weekly</changefreq>
-      <priority>${path === '' ? '1.0' : path.startsWith('parts/') ? '0.9' : '0.8'}</priority>
+      <priority>${path === '' ? '1.0' : path.startsWith('parts/') ? '0.9' : path.startsWith('safety/forklift/') ? '0.8' : '0.7'}</priority>
     </url>`
     )
     .join('')}
