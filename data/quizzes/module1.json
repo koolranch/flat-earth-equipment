@@ -1,0 +1,12 @@
+[
+  {
+    "q": "What piece of PPE is mandatory before operating?",
+    "choices": ["Hard hat", "Safety glasses", "Light gloves"],
+    "answer": 1
+  },
+  {
+    "q": "How many forklift lengths should be maintained between moving vehicles?",
+    "choices": ["1", "2", "3"],
+    "answer": 2
+  }
+] 
