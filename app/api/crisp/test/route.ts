@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { crisp } from '@/lib/crisp/client';
+import crisp from '@/lib/crisp/client';
 
 export async function GET(req: NextRequest) {
   try {
