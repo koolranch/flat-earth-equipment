@@ -3,10 +3,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X, ChevronDown, ShoppingCart } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
-import LocaleSwitch from "./LocaleSwitch";
+import LocaleSwitch from './LocaleSwitch';
 
 interface NavItem {
   name: string;
@@ -98,7 +98,7 @@ export default function Navbar({ locale }: Props) {
               )}
             </Link>
             {/* Language Toggle */}
-            <LocaleSwitch className="ml-4" />
+            <LocaleSwitch />
           </div>
 
           {/* Mobile menu button */}
@@ -159,7 +159,7 @@ export default function Navbar({ locale }: Props) {
             </Link>
             {/* Language Toggle for Mobile */}
             <div className="px-3 py-2">
-              <LocaleSwitch className="py-4" />
+              <LocaleSwitch variant="mobile" />
             </div>
           </div>
         </div>
