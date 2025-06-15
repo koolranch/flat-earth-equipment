@@ -88,7 +88,7 @@ export default function Page() {
       </Script>
 
       {/* 1) Full-bleed Hero */}
-      <Hero />
+      <Hero locale={locale} />
 
       {/* 3.5) Featured Rentals */}
       <div className="py-12">
@@ -126,7 +126,7 @@ export default function Page() {
 
       {/* 5) Value-props Features */}
       <section className="py-12 bg-gray-50">
-        <Features />
+        <Features locale={locale} />
       </section>
 
       {/* 6) Brands grid */}
