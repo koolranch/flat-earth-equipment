@@ -93,7 +93,7 @@ export default function MiniBalance({ onComplete }: { onComplete: () => void }) 
              ? 'Medium box balances axle load.'
              : 'Heavy box nearest mast lowers CG.'
          setTip(msg + ' (OSHA § 1910.178 (g))')
-         setTimeout(() => setTip(null), 1600)
+         setTimeout(() => setTip(null), 4000)
        } else {
          /* reset */
          setPositions(p => ({ ...p, [id.id]: { x: id.x, y: id.y } }))

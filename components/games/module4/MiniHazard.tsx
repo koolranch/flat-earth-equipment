@@ -74,7 +74,7 @@ export default function MiniHazard({ onComplete }: { onComplete: () => void }) {
     setCaught(c=>c+1)
     clickSnd.current?.play().catch(()=>{})
     setTooltip(fact)
-    setTimeout(()=>setTooltip(null),1500)
+    setTimeout(()=>setTooltip(null),3200)
     if(caught+1 === TOTAL){ win() }
   }
 

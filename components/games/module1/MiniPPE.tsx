@@ -44,10 +44,10 @@ export default function MiniPPE({ onComplete, openGuide }: Props) {
   const [hint, setHint] = useState<string | null>(null)
   const wrapperRef = useRef<HTMLDivElement>(null)
 
-  /** show toast for 2.5 s */
+  /** show toast for 3.5 s */
   useEffect(() => {
     if (!toast) return
-    const id = setTimeout(() => setToast(null), 2500)
+    const id = setTimeout(() => setToast(null), 3500)
     return () => clearTimeout(id)
   }, [toast])
 

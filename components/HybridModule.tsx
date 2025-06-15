@@ -227,10 +227,36 @@ function GameComponent({ gameKey, onComplete }: { gameKey: string, onComplete: (
     { 
       ssr: false,
       loading: () => (
-        <div className="text-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600 mx-auto"></div>
-          <p className="mt-2 text-gray-600">Loading game...</p>
-          <p className="mt-1 text-xs text-gray-500">Game Key: {gameKey}</p>
+        <div className="text-center py-12 px-4">
+          {/* Mobile-optimized loading animation */}
+          <div className="relative mx-auto mb-6">
+            <div className="animate-spin rounded-full h-16 w-16 md:h-12 md:w-12 border-4 border-orange-200 border-t-orange-600 mx-auto"></div>
+            <div className="absolute inset-0 rounded-full border-4 border-transparent border-r-orange-400 animate-pulse"></div>
+          </div>
+          
+          {/* Mobile-friendly messaging */}
+          <div className="space-y-3">
+            <h3 className="text-lg md:text-base font-semibold text-gray-800">
+              🎮 Loading Interactive Training
+            </h3>
+            <p className="text-gray-600 text-base md:text-sm max-w-sm mx-auto leading-relaxed">
+              Preparing your hands-on learning experience...
+            </p>
+            
+            {/* Mobile progress dots */}
+            <div className="flex justify-center space-x-2 mt-4">
+              <div className="w-2 h-2 bg-orange-600 rounded-full animate-bounce"></div>
+              <div className="w-2 h-2 bg-orange-600 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+              <div className="w-2 h-2 bg-orange-600 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+            </div>
+            
+            {/* Touch-friendly tip for mobile */}
+            <div className="mt-6 p-3 bg-orange-50 rounded-lg border border-orange-200 max-w-xs mx-auto md:hidden">
+              <p className="text-xs text-orange-700 font-medium">
+                💡 Tip: Use touch gestures to interact with the training game
+              </p>
+            </div>
+          </div>
         </div>
       )
     }
@@ -241,10 +267,36 @@ function GameComponent({ gameKey, onComplete }: { gameKey: string, onComplete: (
   return (
     <div className="space-y-4">
       <Suspense fallback={
-        <div className="text-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600 mx-auto"></div>
-          <p className="mt-2 text-gray-600">Loading game...</p>
-          <p className="mt-1 text-xs text-gray-500">Game Key: {gameKey}</p>
+        <div className="text-center py-12 px-4">
+          {/* Mobile-optimized loading animation */}
+          <div className="relative mx-auto mb-6">
+            <div className="animate-spin rounded-full h-16 w-16 md:h-12 md:w-12 border-4 border-orange-200 border-t-orange-600 mx-auto"></div>
+            <div className="absolute inset-0 rounded-full border-4 border-transparent border-r-orange-400 animate-pulse"></div>
+          </div>
+          
+          {/* Mobile-friendly messaging */}
+          <div className="space-y-3">
+            <h3 className="text-lg md:text-base font-semibold text-gray-800">
+              🎮 Starting Interactive Training
+            </h3>
+            <p className="text-gray-600 text-base md:text-sm max-w-sm mx-auto leading-relaxed">
+              Get ready for hands-on learning...
+            </p>
+            
+            {/* Mobile progress dots */}
+            <div className="flex justify-center space-x-2 mt-4">
+              <div className="w-2 h-2 bg-orange-600 rounded-full animate-bounce"></div>
+              <div className="w-2 h-2 bg-orange-600 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+              <div className="w-2 h-2 bg-orange-600 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+            </div>
+            
+            {/* Touch-friendly tip for mobile */}
+            <div className="mt-6 p-3 bg-blue-50 rounded-lg border border-blue-200 max-w-xs mx-auto md:hidden">
+              <p className="text-xs text-blue-700 font-medium">
+                🎯 Ready to start? The game is almost loaded!
+              </p>
+            </div>
+          </div>
         </div>
       }>
         <Game onComplete={onComplete} />
