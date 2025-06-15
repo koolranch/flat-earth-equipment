@@ -17,15 +17,83 @@ export default function SimpleDashboard() {
   const [showQuiz, setShowQuiz] = useState<number | null>(null)
   const [expandedModule, setExpandedModule] = useState<number | null>(null)
   const [moduleGuides, setModuleGuides] = useState<{[key: number]: any}>({})
+  const [locale, setLocale] = useState<'en' | 'es'>('en')
   
   const { supabase } = useSupabase()
+
+  // Get locale from cookie on client side
+  useEffect(() => {
+    const cookieLocale = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('lang='))
+      ?.split('=')[1] as 'en' | 'es'
+    setLocale(cookieLocale || 'en')
+  }, [])
+
+  // Translation strings
+  const t = {
+    en: {
+      loading: 'Loading...',
+      accessRequired: 'Access Required',
+      notAuthenticated: 'Please sign in to access your training dashboard.',
+      signIn: 'Sign In',
+      noAccount: 'Don\'t have an account?',
+      purchaseTraining: 'Purchase training access',
+      noEnrollments: 'No enrollments found',
+      browseCourses: 'Browse courses',
+      progress: 'Progress',
+      completed: 'Completed',
+      unlocked: 'Unlocked',
+      locked: 'Locked',
+      startModule: 'Start Module',
+      continueModule: 'Continue Module',
+      reviewModule: 'Review Module',
+      takeQuiz: 'Take Quiz',
+      retakeQuiz: 'Retake Quiz',
+      moduleComplete: 'Module Complete',
+      courseComplete: 'Course Complete!',
+      downloadCertificate: 'Download Certificate',
+      congratulations: 'Congratulations!',
+      completedCourse: 'You have successfully completed',
+      printCertificate: 'Your certificate is ready to print.',
+      employerEvaluation: 'Remember: OSHA requires your employer to conduct a practical evaluation before you can operate independently.',
+      downloadEvalForm: 'Download Employer Evaluation Form'
+    },
+    es: {
+      loading: 'Cargando...',
+      accessRequired: 'Acceso Requerido',
+      notAuthenticated: 'Por favor inicie sesión para acceder a su panel de entrenamiento.',
+      signIn: 'Iniciar Sesión',
+      noAccount: '¿No tiene una cuenta?',
+      purchaseTraining: 'Comprar acceso de entrenamiento',
+      noEnrollments: 'No se encontraron inscripciones',
+      browseCourses: 'Explorar cursos',
+      progress: 'Progreso',
+      completed: 'Completado',
+      unlocked: 'Desbloqueado',
+      locked: 'Bloqueado',
+      startModule: 'Iniciar Módulo',
+      continueModule: 'Continuar Módulo',
+      reviewModule: 'Revisar Módulo',
+      takeQuiz: 'Tomar Cuestionario',
+      retakeQuiz: 'Repetir Cuestionario',
+      moduleComplete: 'Módulo Completo',
+      courseComplete: '¡Curso Completo!',
+      downloadCertificate: 'Descargar Certificado',
+      congratulations: '¡Felicitaciones!',
+      completedCourse: 'Ha completado exitosamente',
+      printCertificate: 'Su certificado está listo para imprimir.',
+      employerEvaluation: 'Recuerde: OSHA requiere que su empleador realice una evaluación práctica antes de que pueda operar independientemente.',
+      downloadEvalForm: 'Descargar Formulario de Evaluación del Empleador'
+    }
+  }[locale]
 
   // Load MDX guide content for a module
   const loadModuleGuide = async (moduleOrder: number) => {
     if (moduleGuides[moduleOrder]) return // Already loaded
     
     try {
-      const response = await fetch(`/api/module-guide?moduleOrder=${moduleOrder}`)
+      const response = await fetch(`/api/module-guide?moduleOrder=${moduleOrder}&locale=${locale}`)
       if (response.ok) {
         const { mdxContent } = await response.json()
         setModuleGuides(prev => ({ ...prev, [moduleOrder]: mdxContent }))
@@ -170,7 +238,7 @@ export default function SimpleDashboard() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 p-8">
-        <div className="text-center">Loading...</div>
+        <div className="text-center">{t.loading}</div>
       </div>
     )
   }
@@ -180,10 +248,10 @@ export default function SimpleDashboard() {
       <div className="min-h-screen bg-gray-50 p-8">
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Access Required</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">{t.accessRequired}</h2>
             <p className="text-gray-600 mb-6">
               {error === 'Not authenticated' 
-                ? 'Please sign in to access your training dashboard.'
+                ? t.notAuthenticated
                 : error}
             </p>
             <div className="space-y-4">
@@ -191,12 +259,12 @@ export default function SimpleDashboard() {
                 href="/login" 
                 className="inline-block w-full sm:w-auto px-6 py-3 bg-orange-600 text-white font-medium rounded-md hover:bg-orange-700 transition-colors"
               >
-                Sign In
+                {t.signIn}
               </Link>
               <div className="text-sm text-gray-500">
-                Don't have an account?{' '}
+                {t.noAccount} {' '}
                 <Link href="/safety" className="text-orange-600 hover:text-orange-700">
-                  Purchase training access
+                  {t.purchaseTraining}
                 </Link>
               </div>
             </div>
@@ -210,9 +278,9 @@ export default function SimpleDashboard() {
     return (
       <div className="min-h-screen bg-gray-50 p-8">
         <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">No enrollments found</h1>
+          <h1 className="text-2xl font-bold mb-4">{t.noEnrollments}</h1>
           <Link href="/safety" className="text-orange-600 hover:underline">
-            Browse courses
+            {t.browseCourses}
           </Link>
         </div>
       </div>
@@ -231,7 +299,7 @@ export default function SimpleDashboard() {
           
           <div className="mb-6">
             <div className="flex justify-between text-sm text-gray-600 mb-2">
-              <span>Progress</span>
+              <span>{t.progress}</span>
               <span>{Math.round(enrollment.progress_pct || 0)}%</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-3">
@@ -332,6 +400,8 @@ export default function SimpleDashboard() {
                             introUrl={module.intro_url}
                             guideMdx={moduleGuides[module.order]}
                             enrollmentId={enrollment?.id}
+                            locale={locale}
+                            moduleId={module.order}
                             onComplete={() => handleGameComplete(module.order)} 
                           />
                           <div className="text-sm text-gray-600 mt-2 space-y-1">
@@ -399,14 +469,14 @@ export default function SimpleDashboard() {
                           onClick={() => setShowQuiz(index)}
                           className="rounded bg-orange-600 px-4 py-2 text-white hover:bg-orange-700"
                         >
-                          Take Quiz
+                          {t.takeQuiz}
                         </button>
                       )}
                     </div>
                   )}
                   
                   {!unlocked && (
-                    <p className="text-sm text-gray-500 mt-2">Complete previous modules to unlock</p>
+                    <p className="text-sm text-gray-500 mt-2">{t.locked} previous modules to unlock</p>
                   )}
                 </div>
               )
@@ -415,8 +485,8 @@ export default function SimpleDashboard() {
           
           {enrollment.passed && enrollment.cert_url && (
             <div className="mt-8 p-4 bg-green-50 rounded-lg">
-              <h3 className="font-semibold text-green-800 mb-2">🎉 Congratulations!</h3>
-              <p className="text-green-700 mb-3">You've successfully completed the course.</p>
+              <h3 className="font-semibold text-green-800 mb-2">{t.congratulations}</h3>
+              <p className="text-green-700 mb-3">{t.completedCourse} the course.</p>
               <CompletionActions 
                 certificateUrl={enrollment.cert_url}
                 courseId={enrollment.course_id}
@@ -431,7 +501,7 @@ export default function SimpleDashboard() {
               target="_blank"
               className="text-sm text-gray-600 hover:text-orange-600 underline"
             >
-              Download Employer Evaluation Sheet (PDF, v2.3)
+              {t.downloadEvalForm}
             </Link>
           </div>
         </div>

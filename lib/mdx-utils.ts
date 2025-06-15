@@ -3,8 +3,9 @@ import path from 'path'
 import { serialize } from 'next-mdx-remote/serialize'
 
 const MDX_CONTENT_DIR = path.join(process.cwd(), 'content/modules')
+const MDX_ES_CONTENT_DIR = path.join(process.cwd(), 'content/es/modules')
 
-export async function getModuleGuideContent(moduleOrder: number) {
+export async function getModuleGuideContent(moduleOrder: number, locale: 'en' | 'es' = 'en') {
   try {
     // Map database order to file number (adjust for Introduction module offset)
     const fileNumber = moduleOrder - 1 // order 2 -> file 1, order 3 -> file 2, etc.
@@ -14,14 +15,22 @@ export async function getModuleGuideContent(moduleOrder: number) {
     }
     
     const fileName = `${fileNumber}-${getModuleSlug(moduleOrder)}.mdx`
-    const filePath = path.join(MDX_CONTENT_DIR, fileName)
+    const contentDir = locale === 'es' ? MDX_ES_CONTENT_DIR : MDX_CONTENT_DIR
+    const filePath = path.join(contentDir, fileName)
     
-    if (!fs.existsSync(filePath)) {
-      console.warn(`MDX file not found: ${filePath}`)
+    // If Spanish file doesn't exist, fallback to English
+    let actualFilePath = filePath
+    if (locale === 'es' && !fs.existsSync(filePath)) {
+      console.warn(`Spanish MDX file not found: ${filePath}, falling back to English`)
+      actualFilePath = path.join(MDX_CONTENT_DIR, fileName)
+    }
+    
+    if (!fs.existsSync(actualFilePath)) {
+      console.warn(`MDX file not found: ${actualFilePath}`)
       return null
     }
     
-    const fileContent = fs.readFileSync(filePath, 'utf8')
+    const fileContent = fs.readFileSync(actualFilePath, 'utf8')
     
     // Serialize the MDX content
     const mdxSource = await serialize(fileContent, {
