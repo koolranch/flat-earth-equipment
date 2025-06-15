@@ -1,6 +1,8 @@
 import { PDFDocument, StandardFonts, rgb, degrees } from 'pdf-lib'
 import dayjs from 'dayjs'
+import 'dayjs/locale/es'
 import { createHash } from 'crypto'
+import type { Locale } from '@/lib/getUserLocale'
 
 /* CDN for static images */
 const CDN = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/'
@@ -12,11 +14,37 @@ export async function generateCertificate(params: {
   student: string
   course: string
   completedAt: string // ISO
+  locale?: Locale
 }) {
-  const { certId, student, course, completedAt } = params
+  const { certId, student, course, completedAt, locale = 'en' } = params
+  
+  /* ───── translation strings ───── */
+  const t = {
+    en: {
+      certificate: 'CERTIFICATE OF COMPLETION',
+      hasCompleted: 'has successfully completed',
+      dateCompleted: 'Date completed:',
+      validThrough: 'Valid through:',
+      subjectsCovered: 'Subjects covered: 29 CFR 1910.178 (l)(3)(i–ii)',
+      evaluatorSig: 'On-truck evaluator signature',
+      evaluationDate: 'Evaluation date',
+      disclaimer: 'Formal instruction only. OSHA requires hands-on evaluation by employer before independent operation.'
+    },
+    es: {
+      certificate: 'CERTIFICADO DE FINALIZACIÓN',
+      hasCompleted: 'ha completado satisfactoriamente',
+      dateCompleted: 'Fecha de finalización:',
+      validThrough: 'Válido hasta:',
+      subjectsCovered: 'Temas cubiertos: 29 CFR 1910.178 (l)(3)(i–ii)',
+      evaluatorSig: 'Firma del evaluador en el equipo',
+      evaluationDate: 'Fecha de evaluación',
+      disclaimer: 'Solo instrucción formal. OSHA requiere evaluación práctica por el empleador antes de operación independiente.'
+    }
+  }[locale]
+  
   const pdf = await PDFDocument.create()
-  pdf.setTitle('Certificate of Completion')
-  pdf.setLanguage('en-US')
+  pdf.setTitle(t.certificate)
+  pdf.setLanguage(locale === 'es' ? 'es-ES' : 'en-US')
 
   const page = pdf.addPage([792, 612]) // landscape Letter
   const { width, height } = page.getSize()
@@ -52,9 +80,8 @@ export async function generateCertificate(params: {
   })
 
   /* header */
-  const headerText = 'CERTIFICATE OF COMPLETION'
-  const headerWidth = bold.widthOfTextAtSize(headerText, 28)
-  page.drawText(headerText, {
+  const headerWidth = bold.widthOfTextAtSize(t.certificate, 28)
+  page.drawText(t.certificate, {
     x: (width - headerWidth) / 2,
     y: height - 140,
     size: 28,
@@ -83,9 +110,8 @@ export async function generateCertificate(params: {
   })
 
   /* OSHA subjects line */
-  const oshaText = 'Subjects covered: 29 CFR 1910.178 (l)(3)(i–ii)'
-  const oshaWidth = font.widthOfTextAtSize(oshaText, 12)
-  page.drawText(oshaText, {
+  const oshaWidth = font.widthOfTextAtSize(t.subjectsCovered, 12)
+  page.drawText(t.subjectsCovered, {
     x: (width - oshaWidth) / 2,
     y: height - 255,
     size: 12,
@@ -93,16 +119,21 @@ export async function generateCertificate(params: {
   })
 
   /* dates */
-  const completed = dayjs(completedAt)
+  const completed = dayjs(completedAt).locale(locale)
   const expires = completed.add(3, 'year')
   const dateY = height - 300
-  page.drawText(`Date completed: ${completed.format('MMM D, YYYY')}`, {
+  
+  const dateFormat = locale === 'es' ? 'D [de] MMMM [de] YYYY' : 'MMM D, YYYY'
+  const completedText = `${t.dateCompleted} ${completed.format(dateFormat)}`
+  const expiresText = `${t.validThrough}  ${expires.format(dateFormat)}`
+  
+  page.drawText(completedText, {
     x: 60,
     y: dateY,
     size: 12,
     font
   })
-  page.drawText(`Valid through:  ${expires.format('MMM D, YYYY')}`, {
+  page.drawText(expiresText, {
     x: width / 2 + 20,
     y: dateY,
     size: 12,
@@ -116,7 +147,7 @@ export async function generateCertificate(params: {
     thickness: 0.5,
     color: rgb(0, 0, 0)
   })
-  page.drawText('On-truck evaluator signature', {
+  page.drawText(t.evaluatorSig, {
     x: 60,
     y: dateY - 55,
     size: 8,
@@ -128,7 +159,7 @@ export async function generateCertificate(params: {
     thickness: 0.5,
     color: rgb(0, 0, 0)
   })
-  page.drawText('Evaluation date', {
+  page.drawText(t.evaluationDate, {
     x: width / 2 + 20,
     y: dateY - 55,
     size: 8,
@@ -146,9 +177,8 @@ export async function generateCertificate(params: {
   page.drawImage(qr, { x: width - 140, y: height - 180, width: 100, height: 100 })
 
   /* footer disclaimer */
-  const disclaimerText = 'Formal instruction only. OSHA requires hands-on evaluation by employer before independent operation.'
-  const disclaimerWidth = font.widthOfTextAtSize(disclaimerText, 6)
-  page.drawText(disclaimerText, {
+  const disclaimerWidth = font.widthOfTextAtSize(t.disclaimer, 6)
+  page.drawText(t.disclaimer, {
     x: (width - disclaimerWidth) / 2,
     y: 40,
     size: 6,

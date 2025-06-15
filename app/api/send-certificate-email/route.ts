@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server'
+import { getUserLocale } from '@/lib/getUserLocale'
 
 export async function POST(req: Request) {
   try {
     const { to, certificateUrl, studentName } = await req.json()
+    const locale = getUserLocale(req)
     
     if (!to || !certificateUrl || !studentName) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
@@ -43,7 +45,7 @@ export async function POST(req: Request) {
         <div>
           <h4 style="margin: 0 0 5px 0; color: #dc2626;">📋 2. Employer Evaluation Checklist</h4>
           <p style="margin: 0; font-size: 14px; color: #6b7280;">Complete practical skills assessment (fillable PDF)</p>
-          <a href="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/forklift-eval-v2.3.pdf" style="display: inline-block; margin-top: 8px; background: #dc2626; color: white; padding: 8px 16px; text-decoration: none; border-radius: 4px; font-size: 14px;">Download Evaluation Form PDF</a>
+          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'}/api/evaluation-pdf" style="display: inline-block; margin-top: 8px; background: #dc2626; color: white; padding: 8px 16px; text-decoration: none; border-radius: 4px; font-size: 14px;">Download Evaluation Form PDF</a>
         </div>
       </div>
       
