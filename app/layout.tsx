@@ -7,6 +7,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CrispChat from '@/components/CrispChat';
 import SupabaseProvider from './providers';
+import { getUserLocale } from '@/lib/getUserLocale';
 // Import your global styles (Tailwind, custom resets)
 import '../globals.css';
 import { Toaster } from 'react-hot-toast';
@@ -20,20 +21,27 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  params               // Next.js injects route params (incl. locale segment)
 }: {
   children: React.ReactNode;
-  params?: { locale?: 'en' | 'es' }
 }) {
+  // Get locale from cookies on the server
+  const locale = getUserLocale();
+  
   return (
-    <html lang={params?.locale ?? 'en'} className={inter.className}>
+    <html lang={locale} className={inter.className}>
       <head>
         <link rel="preconnect" href="https://stream.mux.com" />
+        {/* SEO: Canonical URL to avoid duplicate content */}
+        <link rel="canonical" href="https://www.flatearthequipment.com" />
+        {/* SEO: hreflang tags for international SEO */}
+        <link rel="alternate" hrefLang="en" href="https://www.flatearthequipment.com" />
+        <link rel="alternate" hrefLang="es" href="https://www.flatearthequipment.com" />
+        <link rel="alternate" hrefLang="x-default" href="https://www.flatearthequipment.com" />
       </head>
       <body className="font-sans text-gray-900 bg-gray-50 antialiased">
         <SupabaseProvider>
           {/* Navbar now receives locale */}
-          <Navbar locale={params?.locale ?? 'en'} />
+          <Navbar locale={locale} />
           {children}
           <section className="bg-slate-100 py-6">
           <div className="max-w-6xl mx-auto px-4 flex flex-wrap justify-center items-center gap-4 text-sm text-slate-700 text-center">

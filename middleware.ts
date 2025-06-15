@@ -13,27 +13,15 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
-  // 2) Skip if locale already in path
-  if (!LOCALES.some(l => pathname.startsWith(`/${l}/`))) {
-    // 3) Check cookie
-    const cookieLang = req.cookies.get('lang')?.value as 'en' | 'es' | undefined
-    if (cookieLang && cookieLang !== 'en') {
-      const url = req.nextUrl.clone()
-      url.pathname = `/${cookieLang}${pathname}`
-      return NextResponse.redirect(url, 307)
-    }
-
-    // 4) Optional: browser Accept-Language soft redirect (first visit only) - TEMPORARILY DISABLED
-    /* if (!cookieLang) {
-      const headerLang = req.headers.get('accept-language')?.split(',')[0].slice(0, 2)
-      if (headerLang === 'es') {
-        const url = req.nextUrl.clone()
-        url.pathname = `/es${pathname}`
-        const response = NextResponse.redirect(url, 307)
-        response.cookies.set('lang', 'es')
-        return response
-      }
-    } */
+  // Simple cookie-based language detection without URL redirects
+  // This avoids duplicate content issues and 404s
+  const cookieLang = req.cookies.get('lang')?.value as 'en' | 'es' | undefined
+  
+  // Set default language cookie if none exists (but don't redirect)
+  if (!cookieLang) {
+    const response = NextResponse.next()
+    response.cookies.set('lang', 'en', { maxAge: 60 * 60 * 24 * 365 }) // 1 year
+    return response
   }
 
   // Continue with existing Supabase middleware logic

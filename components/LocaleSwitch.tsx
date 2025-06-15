@@ -10,18 +10,17 @@ export default function LocaleSwitch({
   const router = useRouter()
   const pathname = usePathname()
   
-  // Determine current language from URL path
+  // Get current language from cookie
   const getCurrentLang = () => {
-    if (pathname.startsWith('/es')) return 'es'
-    return 'en'
+    return Cookies.get('lang') || 'en'
   }
   
   const [lang, setLang] = useState<string>(getCurrentLang())
 
-  // Update lang when pathname changes
+  // Update lang when component mounts (client-side)
   useEffect(() => {
     setLang(getCurrentLang())
-  }, [pathname])
+  }, [])
 
   const toggle = () => {
     const next = lang === 'en' ? 'es' : 'en'
@@ -31,13 +30,9 @@ export default function LocaleSwitch({
     if (window?.gtag) {
       window.gtag('event', 'language_change', { from: lang, to: next })
     }
-    // soft-redirect: drop/enforce /es prefix
-    const newPath =
-      next === 'es'
-        ? pathname.startsWith('/es') ? pathname : `/es${pathname}`
-        : pathname.replace(/^\/es/, '') || '/'
+    // Same URL approach - just reload page to pick up new language
     setLang(next)
-    router.push(newPath)
+    router.refresh() // This will reload the page with the new language setting
   }
 
   return (
