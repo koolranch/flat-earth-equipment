@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import crypto from 'crypto'
 import { generateCertificate } from '@/lib/cert/generateCertificate'
+import { getUserLocale } from '@/lib/getUserLocale'
 
 export async function POST(req: Request) {
   try {
@@ -69,6 +70,7 @@ export async function POST(req: Request) {
 
     // If course completed, generate certificate
     if (newPct === 100) {
+      const locale = getUserLocale(req)
       const certId = crypto
         .createHmac('sha256', process.env.PDF_SECRET_SALT || 'default-salt')
         .update(enrollmentId)
@@ -81,11 +83,12 @@ export async function POST(req: Request) {
         certId,
         student: userName,
         course: enrollment.course.title,
-        completedAt: new Date().toISOString()
+        completedAt: new Date().toISOString(),
+        locale
       })
       
-      // Upload to Supabase storage
-      const fileName = `${certId}.pdf`
+      // Upload to Supabase storage with locale suffix
+      const fileName = `${certId}-${locale}.pdf`
       const { data: uploadData, error: uploadError } = await supabase
         .storage
         .from('certs')
