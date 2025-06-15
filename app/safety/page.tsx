@@ -10,7 +10,7 @@ import { getUserLocale } from '@/lib/getUserLocale'
 
 export const metadata = {
   title: "Online Forklift Operator Certification | OSHA-Compliant",
-  description: "Earn your OSHA forklift certification online in under 90 minutes. Western-tough training from Flat Earth Equipment.",
+  description: "Earn your OSHA forklift certification online in under 60 minutes. Western-tough training from Flat Earth Equipment.",
 }
 
 export default async function SafetyHome() {
@@ -40,7 +40,7 @@ export default async function SafetyHome() {
       },
       faq: [
         ['Is this OSHA-approved?', 'Yes – CFR 1910.178(l) compliant.'],
-        ['How long does it take?', 'Average completion time is 90 minutes.'],
+        ['How long does it take?', 'Most users complete it in under 60 minutes.'],
         ['Is Spanish available?', 'Sí, la versión en español se incluye.'],
         ['Do I need my employer to complete certification?', 'Yes, OSHA requires employers to conduct a practical evaluation of your forklift operation skills. We provide the evaluation checklist and instructions for your employer.'],
         ['What is included in the certification?', 'The certification includes comprehensive online theory training modules, quizzes to test your knowledge, a printable certificate upon completion, and an employer evaluation checklist for practical assessment.']
@@ -68,7 +68,7 @@ export default async function SafetyHome() {
       },
       faq: [
         ['¿Está aprobado por OSHA?', 'Sí – Cumple con CFR 1910.178(l).'],
-        ['¿Cuánto tiempo toma?', 'El tiempo promedio de finalización es de 90 minutos.'],
+        ['¿Cuánto tiempo toma?', 'La mayoría de los usuarios lo completan en menos de 60 minutos.'],
         ['¿Está disponible en español?', 'Sí, la versión en español está incluida.'],
         ['¿Necesito que mi empleador complete la certificación?', 'Sí, OSHA requiere que los empleadores realicen una evaluación práctica de sus habilidades de operación de montacargas. Proporcionamos la lista de verificación de evaluación e instrucciones para su empleador.'],
         ['¿Qué está incluido en la certificación?', 'La certificación incluye módulos completos de entrenamiento teórico en línea, cuestionarios para probar su conocimiento, un certificado imprimible al completar, y una lista de verificación de evaluación del empleador para la evaluación práctica.']
