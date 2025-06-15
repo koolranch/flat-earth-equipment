@@ -1,0 +1,17 @@
+[
+  {
+    "q": "¿Cuál es la forma correcta de acercarse a una carga?",
+    "choices": ["En ángulo", "Directamente con horquillas centradas", "Desde el lado"],
+    "answer": 1
+  },
+  {
+    "q": "Al apilar cargas, ¿qué debes asegurar?",
+    "choices": ["Apilar tan alto como sea posible", "Las cargas están estables y seguras", "Usar velocidad máxima para eficiencia"],
+    "answer": 1
+  },
+  {
+    "q": "¿Cómo maneja un montacargas cargado comparado con uno vacío?",
+    "choices": ["Exactamente igual", "Muy diferente - requiere operación ajustada", "Solo ligeramente diferente"],
+    "answer": 1
+  }
+] 

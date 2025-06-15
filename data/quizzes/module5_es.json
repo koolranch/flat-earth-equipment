@@ -1,0 +1,17 @@
+[
+  {
+    "q": "Al operar en rampas, ¿cuál es el procedimiento correcto?",
+    "choices": ["Conducir hacia atrás subiendo rampas", "Mantener la carga cuesta arriba cuando sea posible", "Usar velocidad máxima para impulso"],
+    "answer": 1
+  },
+  {
+    "q": "¿Qué debes hacer al encontrar peatones?",
+    "choices": ["Tocar la bocina y proceder", "Detenerse y esperar un camino despejado", "Conducir alrededor de ellos rápidamente"],
+    "answer": 1
+  },
+  {
+    "q": "En pasillos estrechos, ¿qué es más importante?",
+    "choices": ["Velocidad para pasar rápidamente", "Velocidad reducida y precaución extra", "Procedimientos operacionales normales"],
+    "answer": 1
+  }
+] 

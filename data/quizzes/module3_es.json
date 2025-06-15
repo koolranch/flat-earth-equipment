@@ -1,0 +1,17 @@
+[
+  {
+    "q": "¿El triángulo de estabilidad está formado por cuáles tres puntos?",
+    "choices": ["Ruedas delanteras y eje trasero", "Dos ruedas delanteras y centro del eje trasero", "Mástil, contrapeso y horquillas"],
+    "answer": 1
+  },
+  {
+    "q": "¿Cuándo debes reducir la velocidad de viaje?",
+    "choices": ["Solo cuando cargas cargas pesadas", "Al girar o en superficies mojadas", "Nunca, mantener velocidad constante"],
+    "answer": 1
+  },
+  {
+    "q": "¿Dónde puedes encontrar la capacidad de carga nominal de tu montacargas?",
+    "choices": ["Solo en el manual del propietario", "Placa de datos en el montacargas", "Oficina del supervisor"],
+    "answer": 1
+  }
+] 

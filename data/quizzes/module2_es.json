@@ -1,0 +1,17 @@
+[
+  {
+    "q": "¿Qué debes verificar primero durante la inspección pre-operacional?",
+    "choices": ["Horquillas por grietas y desgaste", "Nivel de combustible", "Ajuste del asiento"],
+    "answer": 0
+  },
+  {
+    "q": "¿Cuál es la velocidad máxima segura de viaje en áreas de trabajo?",
+    "choices": ["3 mph", "5 mph", "8 mph"],
+    "answer": 1
+  },
+  {
+    "q": "Al viajar con una carga, las horquillas deben estar:",
+    "choices": ["Elevadas alto", "Inclinadas ligeramente hacia atrás y bajas", "Perfectamente niveladas"],
+    "answer": 1
+  }
+] 

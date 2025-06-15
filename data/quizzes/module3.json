@@ -1,0 +1,17 @@
+[
+  {
+    "q": "The stability triangle is formed by which three points?",
+    "choices": ["Front wheels and rear axle", "Two front wheels and center of rear axle", "Mast, counterweight, and forks"],
+    "answer": 1
+  },
+  {
+    "q": "When should you reduce travel speed?",
+    "choices": ["Only when carrying heavy loads", "When turning or on wet surfaces", "Never, maintain constant speed"],
+    "answer": 1
+  },
+  {
+    "q": "Where can you find the rated load capacity of your forklift?",
+    "choices": ["Owner's manual only", "Data plate on the forklift", "Supervisor's office"],
+    "answer": 1
+  }
+] 
