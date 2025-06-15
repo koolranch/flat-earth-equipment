@@ -16,7 +16,7 @@ export default function SimpleDashboard() {
   const [error, setError] = useState<string | null>(null)
   const [showQuiz, setShowQuiz] = useState<number | null>(null)
   const [expandedModule, setExpandedModule] = useState<number | null>(null)
-  const [moduleGuides, setModuleGuides] = useState<{[key: number]: any}>({})
+  const [moduleGuides, setModuleGuides] = useState<{[key: string]: any}>({})
   const [locale, setLocale] = useState<'en' | 'es'>('en')
   
   const { supabase } = useSupabase()
@@ -29,6 +29,17 @@ export default function SimpleDashboard() {
       ?.split('=')[1] as 'en' | 'es'
     setLocale(cookieLocale || 'en')
   }, [])
+
+  // Reload MDX content when locale changes
+  useEffect(() => {
+    if (expandedModule !== null && modules.length > 0) {
+      const module = modules[expandedModule]
+      if (module) {
+        console.log(`🌐 Locale changed to ${locale}, reloading MDX for module ${module.order}`)
+        loadModuleGuide(module.order)
+      }
+    }
+  }, [locale, expandedModule, modules])
 
   // Translation strings
   const t = {
@@ -164,18 +175,22 @@ export default function SimpleDashboard() {
 
   // Load MDX guide content for a module
   const loadModuleGuide = async (moduleOrder: number) => {
-    if (moduleGuides[moduleOrder]) return // Already loaded
+    // Always reload when locale changes - don't use cache
+    const cacheKey = `${moduleOrder}-${locale}`
+    if (moduleGuides[cacheKey]) return // Already loaded for this locale
     
     try {
+      console.log(`🔄 Loading MDX guide for module ${moduleOrder} in locale ${locale}`)
       const response = await fetch(`/api/module-guide?moduleOrder=${moduleOrder}&locale=${locale}`)
       if (response.ok) {
         const { mdxContent } = await response.json()
-        setModuleGuides(prev => ({ ...prev, [moduleOrder]: mdxContent }))
+        console.log(`✅ Loaded MDX guide for module ${moduleOrder} in ${locale}:`, mdxContent.frontmatter?.title)
+        setModuleGuides(prev => ({ ...prev, [cacheKey]: mdxContent }))
       } else {
-        console.warn(`No guide content found for module ${moduleOrder}`)
+        console.warn(`No guide content found for module ${moduleOrder} in ${locale}`)
       }
     } catch (error) {
-      console.error(`Error loading guide for module ${moduleOrder}:`, error)
+      console.error(`Error loading guide for module ${moduleOrder} in ${locale}:`, error)
     }
   }
 
@@ -473,7 +488,7 @@ export default function SimpleDashboard() {
                           <HybridModule 
                             gameKey={module.game_asset_key}
                             introUrl={module.intro_url}
-                            guideMdx={moduleGuides[module.order]}
+                            guideMdx={moduleGuides[`${module.order}-${locale}`]}
                             enrollmentId={enrollment?.id}
                             locale={locale}
                             moduleId={module.order}
