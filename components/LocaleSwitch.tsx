@@ -1,6 +1,6 @@
 import { usePathname, useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function LocaleSwitch({
   className = ''
@@ -9,14 +9,24 @@ export default function LocaleSwitch({
 }) {
   const router = useRouter()
   const pathname = usePathname()
-  const [lang, setLang] = useState<string>(
-    Cookies.get('preferred_language') || 'en'
-  )
+  
+  // Determine current language from URL path
+  const getCurrentLang = () => {
+    if (pathname.startsWith('/es')) return 'es'
+    return 'en'
+  }
+  
+  const [lang, setLang] = useState<string>(getCurrentLang())
+
+  // Update lang when pathname changes
+  useEffect(() => {
+    setLang(getCurrentLang())
+  }, [pathname])
 
   const toggle = () => {
     const next = lang === 'en' ? 'es' : 'en'
-    // persist choice for 1 year
-    Cookies.set('preferred_language', next, { expires: 365, sameSite: 'Lax' })
+    // persist choice for 1 year - use 'lang' cookie name to match middleware
+    Cookies.set('lang', next, { expires: 365, sameSite: 'Lax' })
     // GA4
     if (window?.gtag) {
       window.gtag('event', 'language_change', { from: lang, to: next })
