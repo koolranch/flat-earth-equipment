@@ -14,7 +14,7 @@ export async function getModuleGuideContent(moduleOrder: number, locale: 'en' | 
       return null
     }
     
-    const fileName = `${fileNumber}-${getModuleSlug(moduleOrder)}.mdx`
+    const fileName = `${fileNumber}-${getModuleSlug(moduleOrder, locale)}.mdx`
     const contentDir = locale === 'es' ? MDX_ES_CONTENT_DIR : MDX_CONTENT_DIR
     const filePath = path.join(contentDir, fileName)
     
@@ -44,17 +44,30 @@ export async function getModuleGuideContent(moduleOrder: number, locale: 'en' | 
   }
 }
 
-function getModuleSlug(moduleOrder: number): string {
+function getModuleSlug(moduleOrder: number, locale: 'en' | 'es' = 'en'): string {
   // Adjust for Introduction module offset: database order 2 = Module 1, order 3 = Module 2, etc.
-  switch (moduleOrder) {
-    case 1: return 'introduction' // Introduction module (though no MDX file exists)
-    case 2: return 'pre-operation-inspection' // Module 1: Pre-Operation Inspection
-    case 3: return 'inspection' // Module 2: Daily Forklift Inspection Checklist  
-    case 4: return 'operating-procedures' // Module 3: Operating Procedures & Load Capacity
-    case 5: return 'load-handling-safety' // Module 4: Load Handling & Safety
-    case 6: return 'advanced-operations' // Module 5: Shutdown, Charging & Parking
-    case 7: return 'course-completion' // Course Completion: Certification & Compliance
-    default: return `module-${moduleOrder}`
+  if (locale === 'es') {
+    switch (moduleOrder) {
+      case 1: return 'introduction' // Introduction module (though no MDX file exists)
+      case 2: return 'controles-epp' // Module 1: Controles, EPP y Zonas de Seguridad
+      case 3: return 'inspection' // Module 2: Daily Forklift Inspection Checklist  
+      case 4: return 'operating-procedures' // Module 3: Operating Procedures & Load Capacity
+      case 5: return 'load-handling-safety' // Module 4: Load Handling & Safety
+      case 6: return 'advanced-operations' // Module 5: Shutdown, Charging & Parking
+      case 7: return 'course-completion' // Course Completion: Certification & Compliance
+      default: return `module-${moduleOrder}`
+    }
+  } else {
+    switch (moduleOrder) {
+      case 1: return 'introduction' // Introduction module (though no MDX file exists)
+      case 2: return 'pre-operation-inspection' // Module 1: Pre-Operation Inspection
+      case 3: return 'inspection' // Module 2: Daily Forklift Inspection Checklist  
+      case 4: return 'operating-procedures' // Module 3: Operating Procedures & Load Capacity
+      case 5: return 'load-handling-safety' // Module 4: Load Handling & Safety
+      case 6: return 'advanced-operations' // Module 5: Shutdown, Charging & Parking
+      case 7: return 'course-completion' // Course Completion: Certification & Compliance
+      default: return `module-${moduleOrder}`
+    }
   }
 }
 
