@@ -1,0 +1,17 @@
+[
+  {
+    "q": "When operating on ramps, what is the correct procedure?",
+    "choices": ["Drive backwards up ramps", "Keep load uphill when possible", "Use maximum speed for momentum"],
+    "answer": 1
+  },
+  {
+    "q": "What should you do when encountering pedestrians?",
+    "choices": ["Sound horn and proceed", "Stop and wait for clear path", "Drive around them quickly"],
+    "answer": 1
+  },
+  {
+    "q": "In narrow aisles, what is most important?",
+    "choices": ["Speed to get through quickly", "Reduced speed and extra caution", "Normal operating procedures"],
+    "answer": 1
+  }
+] 

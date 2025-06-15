@@ -1,0 +1,17 @@
+[
+  {
+    "q": "What should you check first during pre-operation inspection?",
+    "choices": ["Forks for cracks and wear", "Fuel level", "Seat adjustment"],
+    "answer": 0
+  },
+  {
+    "q": "What is the maximum safe travel speed in work areas?",
+    "choices": ["3 mph", "5 mph", "8 mph"],
+    "answer": 1
+  },
+  {
+    "q": "When traveling with a load, forks should be:",
+    "choices": ["Raised high", "Tilted back slightly and low", "Perfectly level"],
+    "answer": 1
+  }
+] 

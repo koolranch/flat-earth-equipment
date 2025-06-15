@@ -1,0 +1,17 @@
+[
+  {
+    "q": "What is the proper way to approach a load?",
+    "choices": ["At an angle", "Straight on with forks centered", "From the side"],
+    "answer": 1
+  },
+  {
+    "q": "When stacking loads, what should you ensure?",
+    "choices": ["Stack as high as possible", "Loads are stable and secure", "Use maximum speed for efficiency"],
+    "answer": 1
+  },
+  {
+    "q": "How does a loaded forklift handle compared to an empty one?",
+    "choices": ["Exactly the same", "Very differently - requires adjusted operation", "Only slightly different"],
+    "answer": 1
+  }
+] 
