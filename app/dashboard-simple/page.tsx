@@ -57,7 +57,44 @@ export default function SimpleDashboard() {
       completedCourse: 'You have successfully completed',
       printCertificate: 'Your certificate is ready to print.',
       employerEvaluation: 'Remember: OSHA requires your employer to conduct a practical evaluation before you can operate independently.',
-      downloadEvalForm: 'Download Employer Evaluation Form'
+      downloadEvalForm: 'Download Employer Evaluation Form',
+      myLearningDashboard: 'My Learning Dashboard',
+      modules: 'Modules',
+      interactiveDemo: 'Interactive Demo',
+      completePrevious: 'Complete previous modules to unlock',
+      videoLesson: 'Video Lesson',
+      trainingObjectives: 'Training Objectives:',
+      // Game-specific titles
+      cheyenneCheckoff: 'Cheyenne 3-Tap Check-off',
+      pointInspection: '8-Point Inspection',
+      balloonBalance: 'Balloon-Fiesta Balance',
+      hazardHunt: 'Hazard Hunt Game',
+      bozemanShutdown: 'Bozeman Shutdown Sequence',
+      // Training objectives
+      tapVest: 'Tap vest to equip PPE',
+      tapLower: 'Tap ↓ to lower forks',
+      tapBrake: 'Tap brake pedal to stop',
+      findInspection: 'Find and tap all 8 inspection points',
+      completeInspection: 'Complete inspection within 45 seconds',
+      avoidWrong: 'Avoid wrong taps (5-second penalty)',
+      dragBoxes: 'Drag and place all 3 boxes to center target',
+      completeBalance: 'Complete balance exercise within 60 seconds',
+      maintainLoad: 'Maintain proper load positioning',
+      identifyHazards: 'Identify and click on 10 workplace hazards',
+      completeHazards: 'Complete hazard hunt within 60 seconds',
+      avoidMisses: 'Avoid clicking empty areas (3 misses = restart)',
+      followSequence: 'Follow the 7-step shutdown sequence',
+      clickOrder: 'Click each step in the correct order',
+      completeShutdown: 'Complete proper shutdown procedure',
+      followPrompts: 'Follow the interactive prompts',
+      completeTasks: 'Complete all required tasks',
+      // Completion messages
+      complete3Steps: 'Complete all 3 steps to pass this module',
+      findAll8Points: 'Find all 8 inspection points to pass this module',
+      placeAll3Boxes: 'Place all 3 boxes in the center target to pass this module',
+      catchAll10Hazards: 'Catch all 10 hazards to pass this module',
+      completeAll7Steps: 'Complete all 7 shutdown steps to pass this module',
+      completeAllTasks: 'Complete all tasks to pass this module'
     },
     es: {
       loading: 'Cargando...',
@@ -84,7 +121,44 @@ export default function SimpleDashboard() {
       completedCourse: 'Ha completado exitosamente',
       printCertificate: 'Su certificado está listo para imprimir.',
       employerEvaluation: 'Recuerde: OSHA requiere que su empleador realice una evaluación práctica antes de que pueda operar independientemente.',
-      downloadEvalForm: 'Descargar Formulario de Evaluación del Empleador'
+      downloadEvalForm: 'Descargar Formulario de Evaluación del Empleador',
+      myLearningDashboard: 'Mi Panel de Aprendizaje',
+      modules: 'Módulos',
+      interactiveDemo: 'Demostración Interactiva',
+      completePrevious: 'Complete los módulos anteriores para desbloquear',
+      videoLesson: 'Lección en Video',
+      trainingObjectives: 'Objetivos de Entrenamiento:',
+      // Game-specific titles
+      cheyenneCheckoff: 'Verificación de 3 Toques Cheyenne',
+      pointInspection: 'Inspección de 8 Puntos',
+      balloonBalance: 'Equilibrio de Globos-Fiesta',
+      hazardHunt: 'Juego de Caza de Peligros',
+      bozemanShutdown: 'Secuencia de Apagado Bozeman',
+      // Training objectives
+      tapVest: 'Toque el chaleco para equipar EPP',
+      tapLower: 'Toque ↓ para bajar las horquillas',
+      tapBrake: 'Toque el pedal de freno para parar',
+      findInspection: 'Encuentre y toque todos los 8 puntos de inspección',
+      completeInspection: 'Complete la inspección en 45 segundos',
+      avoidWrong: 'Evite toques incorrectos (penalización de 5 segundos)',
+      dragBoxes: 'Arrastre y coloque las 3 cajas en el objetivo central',
+      completeBalance: 'Complete el ejercicio de equilibrio en 60 segundos',
+      maintainLoad: 'Mantenga el posicionamiento adecuado de la carga',
+      identifyHazards: 'Identifique y haga clic en 10 peligros del lugar de trabajo',
+      completeHazards: 'Complete la caza de peligros en 60 segundos',
+      avoidMisses: 'Evite hacer clic en áreas vacías (3 fallos = reiniciar)',
+      followSequence: 'Siga la secuencia de apagado de 7 pasos',
+      clickOrder: 'Haga clic en cada paso en el orden correcto',
+      completeShutdown: 'Complete el procedimiento de apagado adecuado',
+      followPrompts: 'Siga las indicaciones interactivas',
+      completeTasks: 'Complete todas las tareas requeridas',
+      // Completion messages
+      complete3Steps: 'Complete los 3 pasos para aprobar este módulo',
+      findAll8Points: 'Encuentre todos los 8 puntos de inspección para aprobar este módulo',
+      placeAll3Boxes: 'Coloque las 3 cajas en el objetivo central para aprobar este módulo',
+      catchAll10Hazards: 'Atrape todos los 10 peligros para aprobar este módulo',
+      completeAll7Steps: 'Complete todos los 7 pasos de apagado para aprobar este módulo',
+      completeAllTasks: 'Complete todas las tareas para aprobar este módulo'
     }
   }[locale]
 
@@ -290,7 +364,7 @@ export default function SimpleDashboard() {
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white shadow p-6">
-        <h1 className="text-2xl font-bold">My Learning Dashboard</h1>
+        <h1 className="text-2xl font-bold">{t.myLearningDashboard}</h1>
       </header>
       
       <main className="p-8">
@@ -311,7 +385,7 @@ export default function SimpleDashboard() {
           </div>
           
           <div className="space-y-4">
-            <h3 className="font-semibold">Modules ({modules.length})</h3>
+            <h3 className="font-semibold">{t.modules} ({modules.length})</h3>
             {modules.map((module, index) => {
               const unlocked = isModuleUnlocked(index)
               const completed = isModuleCompleted(index)
@@ -355,7 +429,7 @@ export default function SimpleDashboard() {
                       <h4 className="font-medium">{module.title}</h4>
                       {isGame && (
                         <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
-                          Interactive Demo
+                          {t.interactiveDemo}
                         </span>
                       )}
                       {completed && (
@@ -388,12 +462,12 @@ export default function SimpleDashboard() {
                       {isGame ? (
                         <div>
                           <h5 className="font-medium mb-2">
-                            {module.game_asset_key === 'module1' ? 'Cheyenne 3-Tap Check-off' : 
-                             module.game_asset_key === 'module2' ? '8-Point Inspection' : 
-                             module.game_asset_key === 'module3' ? 'Balloon-Fiesta Balance' :
-                             module.game_asset_key === 'module4' ? 'Hazard Hunt Game' :
-                             module.game_asset_key === 'module5' ? 'Bozeman Shutdown Sequence' :
-                             'Interactive Demo'}
+                            {module.game_asset_key === 'module1' ? t.cheyenneCheckoff : 
+                             module.game_asset_key === 'module2' ? t.pointInspection : 
+                             module.game_asset_key === 'module3' ? t.balloonBalance :
+                             module.game_asset_key === 'module4' ? t.hazardHunt :
+                             module.game_asset_key === 'module5' ? t.bozemanShutdown :
+                             t.interactiveDemo}
                           </h5>
                           <HybridModule 
                             gameKey={module.game_asset_key}
@@ -405,57 +479,57 @@ export default function SimpleDashboard() {
                             onComplete={() => handleGameComplete(module.order)} 
                           />
                           <div className="text-sm text-gray-600 mt-2 space-y-1">
-                            <p><strong>Training Objectives:</strong></p>
+                            <p><strong>{t.trainingObjectives}</strong></p>
                             {module.game_asset_key === 'module1' ? (
                               <ul className="list-disc list-inside ml-2 space-y-1">
-                                <li>Tap vest to equip PPE</li>
-                                <li>Tap ↓ to lower forks</li>
-                                <li>Tap brake pedal to stop</li>
+                                <li>{t.tapVest}</li>
+                                <li>{t.tapLower}</li>
+                                <li>{t.tapBrake}</li>
                               </ul>
                             ) : module.game_asset_key === 'module2' ? (
                               <ul className="list-disc list-inside ml-2 space-y-1">
-                                <li>Find and tap all 8 inspection points</li>
-                                <li>Complete inspection within 45 seconds</li>
-                                <li>Avoid wrong taps (5-second penalty)</li>
+                                <li>{t.findInspection}</li>
+                                <li>{t.completeInspection}</li>
+                                <li>{t.avoidWrong}</li>
                               </ul>
                             ) : module.game_asset_key === 'module3' ? (
                               <ul className="list-disc list-inside ml-2 space-y-1">
-                                <li>Drag and place all 3 boxes to center target</li>
-                                <li>Complete balance exercise within 60 seconds</li>
-                                <li>Maintain proper load positioning</li>
+                                <li>{t.dragBoxes}</li>
+                                <li>{t.completeBalance}</li>
+                                <li>{t.maintainLoad}</li>
                               </ul>
                             ) : module.game_asset_key === 'module4' ? (
                               <ul className="list-disc list-inside ml-2 space-y-1">
-                                <li>Identify and click on 10 workplace hazards</li>
-                                <li>Complete hazard hunt within 60 seconds</li>
-                                <li>Avoid clicking empty areas (3 misses = restart)</li>
+                                <li>{t.identifyHazards}</li>
+                                <li>{t.completeHazards}</li>
+                                <li>{t.avoidMisses}</li>
                               </ul>
                             ) : module.game_asset_key === 'module5' ? (
                               <ul className="list-disc list-inside ml-2 space-y-1">
-                                <li>Follow the 7-step shutdown sequence</li>
-                                <li>Click each step in the correct order</li>
-                                <li>Complete proper shutdown procedure</li>
+                                <li>{t.followSequence}</li>
+                                <li>{t.clickOrder}</li>
+                                <li>{t.completeShutdown}</li>
                               </ul>
                             ) : (
                               <ul className="list-disc list-inside ml-2 space-y-1">
-                                <li>Follow the interactive prompts</li>
-                                <li>Complete all required tasks</li>
+                                <li>{t.followPrompts}</li>
+                                <li>{t.completeTasks}</li>
                               </ul>
                             )}
                             <p className="font-medium">
-                              {module.game_asset_key === 'module1' ? 'Complete all 3 steps to pass this module' :
-                               module.game_asset_key === 'module2' ? 'Find all 8 inspection points to pass this module' :
-                               module.game_asset_key === 'module3' ? 'Place all 3 boxes in the center target to pass this module' :
-                               module.game_asset_key === 'module4' ? 'Catch all 10 hazards to pass this module' :
-                               module.game_asset_key === 'module5' ? 'Complete all 7 shutdown steps to pass this module' :
-                               'Complete all tasks to pass this module'}
+                              {module.game_asset_key === 'module1' ? t.complete3Steps :
+                               module.game_asset_key === 'module2' ? t.findAll8Points :
+                               module.game_asset_key === 'module3' ? t.placeAll3Boxes :
+                               module.game_asset_key === 'module4' ? t.catchAll10Hazards :
+                               module.game_asset_key === 'module5' ? t.completeAll7Steps :
+                               t.completeAllTasks}
                             </p>
                           </div>
                         </div>
                       ) : (
                         module.video_url && (
                           <div>
-                            <h5 className="font-medium mb-2">Video Lesson</h5>
+                            <h5 className="font-medium mb-2">{t.videoLesson}</h5>
                             <VideoPlayer 
                               src={module.video_url} 
                               className="rounded-lg" 
