@@ -15,6 +15,7 @@ import {
   LucideIcon,
 } from "lucide-react";
 import { categories as canonicalCategories } from '@/lib/data/categories';
+import { getUserLocale } from '@/lib/getUserLocale';
 
 export const metadata: Metadata = {
   title: 'Parts Catalog | Flat Earth Equipment',
@@ -64,6 +65,23 @@ export default async function PartsPage({
 }: {
   searchParams: { category?: string };
 }) {
+  const locale = getUserLocale()
+  
+  // Translation strings
+  const t = {
+    en: {
+      title: 'Parts Catalog',
+      filterTitle: 'Filter by Category',
+      allParts: 'All Parts',
+      error: 'Error:'
+    },
+    es: {
+      title: 'Catálogo de Partes',
+      filterTitle: 'Filtrar por Categoría',
+      allParts: 'Todas las Partes',
+      error: 'Error:'
+    }
+  }[locale]
   const { data: categories } = await supabase
     .from('parts')
     .select('category')
@@ -98,16 +116,16 @@ export default async function PartsPage({
   const { data: parts, error } = await partsQuery;
 
   if (error) {
-    return <p className="p-8 text-red-600">Error: {error.message}</p>;
+    return <p className="p-8 text-red-600">{t.error} {error.message}</p>;
   }
 
   return (
     <main className="container mx-auto px-4 py-16">
-      <h1 className="mb-8 text-3xl font-bold">Parts Catalog</h1>
+      <h1 className="mb-8 text-3xl font-bold">{t.title}</h1>
       
       {/* Category Filter */}
       <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">Filter by Category</h2>
+        <h2 className="text-xl font-semibold mb-4">{t.filterTitle}</h2>
         <div className="flex flex-wrap gap-2">
           <Link
             href="/parts"
@@ -117,7 +135,7 @@ export default async function PartsPage({
                 : 'bg-slate-100 text-slate-800 hover:bg-slate-200'
             }`}
           >
-            All Parts
+{t.allParts}
           </Link>
           {distinctCategories.map((category) => (
             <Link
