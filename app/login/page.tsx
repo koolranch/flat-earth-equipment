@@ -31,9 +31,6 @@ export default function LoginPage() {
       signingInButton: 'Signing in...',
       orText: 'Or',
       learnMoreLink: 'Learn about our safety training courses',
-      testCredentials: 'Test credentials for QA:',
-      email: 'Email:',
-      password: 'Password: (use your password)',
       unexpectedError: 'An unexpected error occurred'
     },
     es: {
@@ -45,9 +42,6 @@ export default function LoginPage() {
       signingInButton: 'Iniciando sesión...',
       orText: 'O',
       learnMoreLink: 'Conozca nuestros cursos de entrenamiento de seguridad',
-      testCredentials: 'Credenciales de prueba para QA:',
-      email: 'Correo electrónico:',
-      password: 'Contraseña: (use su contraseña)',
       unexpectedError: 'Ocurrió un error inesperado'
     }
   }[locale]
@@ -160,15 +154,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <div className="mt-6">
-            <p className="text-center text-sm text-gray-600">
-              {t.testCredentials}
-              <br />
-              {t.email} flatearthequip@gmail.com
-              <br />
-              {t.password}
-            </p>
-          </div>
+
         </div>
       </div>
     </div>
