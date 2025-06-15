@@ -172,7 +172,7 @@ export default async function SafetyHome() {
         <section className="bg-gray-50 rounded-lg p-6">
           <div className="text-center space-y-4">
             <p className="text-sm text-gray-600">{t.includes}</p>
-            <Link href="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/forklift-eval-v2.3.pdf" target="_blank" className="text-orange-600 hover:underline text-sm">
+            <Link href="/api/evaluation-pdf" target="_blank" className="text-orange-600 hover:underline text-sm">
               {t.downloadEval}
             </Link>
           </div>
