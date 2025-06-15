@@ -587,7 +587,7 @@ export default function SimpleDashboard() {
           
           <div className="mt-6 pt-6 border-t">
             <Link 
-              href="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/forklift-eval-v2.3.pdf" 
+              href="/api/evaluation-pdf" 
               target="_blank"
               className="text-sm text-gray-600 hover:text-orange-600 underline"
             >
