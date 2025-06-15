@@ -78,7 +78,38 @@ export default function HandbookSection({ moduleOrder, moduleTitle, locale = 'en
           ]
         }
       case 2:
-        return {
+        return locale === 'es' ? {
+          title: "Guía de Inspección Pre-Operacional",
+          sections: [
+            {
+              title: "Requisitos de EPP",
+              items: [
+                "Casco - ANSI Z89.1 Tipo I, Clase C mínimo",
+                "Chaleco de alta visibilidad - ANSI/ISEA 107 Clase 2 o 3",
+                "Botas con punta de acero - protección ASTM F2413",
+                "Gafas de seguridad - clasificación de impacto ANSI Z87.1"
+              ]
+            },
+            {
+              title: "Familiarización con Controles",
+              items: [
+                "Palanca de control de dirección (adelante/neutral/reversa)",
+                "Controles de elevación/descenso para operación del mástil",
+                "Controles de inclinación (adelante/atrás)",
+                "Ubicación del freno de servicio y freno de estacionamiento"
+              ]
+            },
+            {
+              title: "Lista de Verificación Pre-Operacional",
+              items: [
+                "Verificar niveles de fluidos (hidráulico, aceite del motor)",
+                "Inspeccionar neumáticos por daños e inflado adecuado",
+                "Probar sistemas de dirección y frenado",
+                "Verificar respaldo de carga y protección superior"
+              ]
+            }
+          ]
+        } : {
           title: "Pre-Operation Inspection Guide",
           sections: [
             {
@@ -111,7 +142,34 @@ export default function HandbookSection({ moduleOrder, moduleTitle, locale = 'en
           ]
         }
       case 3:
-        return {
+        return locale === 'es' ? {
+          title: "Inspección Diaria de 8 Puntos",
+          sections: [
+            {
+              title: "8 Puntos Críticos de Inspección",
+              items: [
+                "1. Neumáticos - Verificar cortes, desgaste, inflado adecuado",
+                "2. Horquillas - Inspeccionar grietas, desgaste del talón, rectitud", 
+                "3. Cadenas del mástil - Buscar eslabones secos, dobleces, daños",
+                "4. Hidráulicos - Verificar fugas en varillas de cilindros",
+                "5. Batería - Inspeccionar terminales, niveles de electrolito",
+                "6. Protección superior - Verificar postes doblados, grietas",
+                "7. Cinturón de seguridad - Probar función del pestillo, verificar correas",
+                "8. Placa de datos - Asegurar que esté presente y legible"
+              ]
+            },
+            {
+              title: "Procedimientos de Etiquetado",
+              items: [
+                "Retirar montacargas del servicio inmediatamente",
+                "Remover llave del encendido",
+                "Colocar etiqueta naranja 'NO OPERAR'",
+                "Completar reporte detallado de defectos",
+                "Notificar al supervisor y mantenimiento"
+              ]
+            }
+          ]
+        } : {
           title: "8-Point Daily Inspection",
           sections: [
             {
@@ -140,7 +198,38 @@ export default function HandbookSection({ moduleOrder, moduleTitle, locale = 'en
           ]
         }
       case 4:
-        return {
+        return locale === 'es' ? {
+          title: "Procedimientos de Operación y Manejo de Cargas",
+          sections: [
+            {
+              title: "Información de la Placa de Capacidad",
+              items: [
+                "Peso máximo de carga a 24 pulgadas del centro de carga",
+                "Restricciones de peso de accesorios",
+                "Limitaciones de distancia del centro de carga",
+                "Especificaciones de altura máxima de elevación"
+              ]
+            },
+            {
+              title: "Principios del Triángulo de Estabilidad",
+              items: [
+                "El eje delantero y las ruedas traseras forman el triángulo de estabilidad",
+                "El centro de carga afecta el punto de volcadura",
+                "Las cargas elevadas reducen la estabilidad",
+                "El radio de giro aumenta la inestabilidad"
+              ]
+            },
+            {
+              title: "Velocidades Seguras de Operación",
+              items: [
+                "Viaje con carga: 3-5 mph máximo",
+                "Viaje sin carga: 5-8 mph máximo", 
+                "Áreas peatonales: Solo velocidad de caminata",
+                "Rampas e inclinaciones: 3 mph máximo"
+              ]
+            }
+          ]
+        } : {
           title: "Operating Procedures & Load Handling",
           sections: [
             {
@@ -173,7 +262,40 @@ export default function HandbookSection({ moduleOrder, moduleTitle, locale = 'en
           ]
         }
       case 5:
-        return {
+        return locale === 'es' ? {
+          title: "Reconocimiento de Peligros y Seguridad",
+          sections: [
+            {
+              title: "Distancias de Seguridad Peatonal",
+              items: [
+                "Peatones caminando: 10 pies mínimo",
+                "Personal trabajando: 15 pies mínimo",
+                "Grupos de personas: 20 pies mínimo",
+                "Niños/visitantes: 25 pies mínimo"
+              ]
+            },
+            {
+              title: "Peligros Comunes del Lugar de Trabajo",
+              items: [
+                "Derrames de líquidos de cualquier tamaño",
+                "Paletas dañadas con clavos sobresalientes",
+                "Obstáculos aéreos y espacios libres bajos",
+                "Iluminación deficiente y esquinas ciegas",
+                "Salidas de emergencia bloqueadas",
+                "Cargas inestables o que se desplazan"
+              ]
+            },
+            {
+              title: "Procedimientos de Emergencia",
+              items: [
+                "Detener operación inmediatamente al detectar peligro",
+                "Sonar bocina para advertir a otros en el área",
+                "Bloquear acceso para prevenir que otros entren",
+                "Reportar peligro al supervisor inmediatamente"
+              ]
+            }
+          ]
+        } : {
           title: "Hazard Recognition & Safety",
           sections: [
             {
@@ -208,7 +330,40 @@ export default function HandbookSection({ moduleOrder, moduleTitle, locale = 'en
           ]
         }
       case 6:
-        return {
+        return locale === 'es' ? {
+          title: "Apagado y Operaciones Avanzadas",
+          sections: [
+            {
+              title: "Secuencia Adecuada de Apagado",
+              items: [
+                "1. Cambiar a NEUTRAL (primer paso)",
+                "2. Activar freno de estacionamiento firmemente",
+                "3. Bajar horquillas completamente al suelo",
+                "4. Apagar llave y remover",
+                "5. Conectar cargador (eléctrico) o recargar combustible",
+                "6. Calzar ruedas si está en pendiente"
+              ]
+            },
+            {
+              title: "EPP para Carga de Batería",
+              items: [
+                "Guantes aislantes de goma - protección eléctrica",
+                "Protector facial - protección contra salpicaduras de ácido", 
+                "Guantes de nitrilo - prevención de quemaduras químicas",
+                "Delantal resistente al ácido - protección de ropa"
+              ]
+            },
+            {
+              title: "Procedimientos de Clima Frío",
+              items: [
+                "Permitir período de calentamiento de 10-15 minutos",
+                "Verificar consistencia del fluido hidráulico",
+                "Probar efectividad de frenado en hielo",
+                "Reducir velocidades de operación en 50%"
+              ]
+            }
+          ]
+        } : {
           title: "Shutdown & Advanced Operations",
           sections: [
             {
