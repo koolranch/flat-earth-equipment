@@ -23,8 +23,8 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(url, 307)
     }
 
-    // 4) Optional: browser Accept-Language soft redirect (first visit only)
-    if (!cookieLang) {
+    // 4) Optional: browser Accept-Language soft redirect (first visit only) - TEMPORARILY DISABLED
+    /* if (!cookieLang) {
       const headerLang = req.headers.get('accept-language')?.split(',')[0].slice(0, 2)
       if (headerLang === 'es') {
         const url = req.nextUrl.clone()
@@ -33,7 +33,7 @@ export async function middleware(req: NextRequest) {
         response.cookies.set('lang', 'es')
         return response
       }
-    }
+    } */
   }
 
   // Continue with existing Supabase middleware logic
