@@ -4,16 +4,48 @@ import Link from 'next/link'
 interface HandbookSectionProps {
   moduleOrder: number
   moduleTitle: string
+  locale?: 'en' | 'es'
 }
 
-export default function HandbookSection({ moduleOrder, moduleTitle }: HandbookSectionProps) {
+export default function HandbookSection({ moduleOrder, moduleTitle, locale = 'en' }: HandbookSectionProps) {
   const [isExpanded, setIsExpanded] = useState(false)
   
   // Map module order to handbook content
-  const getHandbookContent = (order: number) => {
+  const getHandbookContent = (order: number, locale: 'en' | 'es') => {
     switch (order) {
       case 1:
-        return {
+        return locale === 'es' ? {
+          title: "Introducción y Descripción del Curso",
+          sections: [
+            {
+              title: "Propósito del Entrenamiento",
+              items: [
+                "Certificación de operador de montacargas conforme a OSHA",
+                "Cumplimiento de seguridad según 29 CFR 1910.178",
+                "Prevención de accidentes en el lugar de trabajo",
+                "Desarrollo de habilidades profesionales"
+              ]
+            },
+            {
+              title: "Estructura del Curso",
+              items: [
+                "Lecciones de video interactivas y demostraciones",
+                "Simulaciones de entrenamiento práctico",
+                "Cuestionarios de evaluación de conocimientos",
+                "Práctica de escenarios del mundo real"
+              ]
+            },
+            {
+              title: "Requisitos de Certificación",
+              items: [
+                "Completar todos los 5 módulos de entrenamiento",
+                "Aprobar todos los cuestionarios de módulos (80% mínimo)",
+                "Demostrar competencia práctica",
+                "Mantener validez de certificación por 3 años"
+              ]
+            }
+          ]
+        } : {
           title: "Course Introduction & Overview",
           sections: [
             {
@@ -215,7 +247,7 @@ export default function HandbookSection({ moduleOrder, moduleTitle }: HandbookSe
     }
   }
 
-  const handbookContent = getHandbookContent(moduleOrder)
+  const handbookContent = getHandbookContent(moduleOrder, locale)
   
   if (!handbookContent) return null
 
@@ -231,7 +263,9 @@ export default function HandbookSection({ moduleOrder, moduleTitle }: HandbookSe
           </svg>
           <div className="text-left">
             <h4 className="font-medium text-blue-900">{handbookContent.title}</h4>
-            <p className="text-sm text-blue-700">Reference guide for {moduleTitle}</p>
+            <p className="text-sm text-blue-700">
+              {locale === 'es' ? `Guía de referencia para ${moduleTitle}` : `Reference guide for ${moduleTitle}`}
+            </p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -241,7 +275,7 @@ export default function HandbookSection({ moduleOrder, moduleTitle }: HandbookSe
             onClick={(e) => e.stopPropagation()}
             className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700"
           >
-            Download PDF
+            {locale === 'es' ? 'Descargar PDF' : 'Download PDF'}
           </Link>
           <svg 
             className={`w-5 h-5 text-blue-600 transform transition-transform ${isExpanded ? 'rotate-180' : ''}`}
@@ -274,7 +308,9 @@ export default function HandbookSection({ moduleOrder, moduleTitle }: HandbookSe
           
           <div className="mt-4 pt-4 border-t border-gray-200">
             <p className="text-xs text-gray-500">
-              💡 <strong>Tip:</strong> Review this content before starting the interactive demo, then refer back as needed during practice.
+              💡 <strong>{locale === 'es' ? 'Consejo:' : 'Tip:'}</strong> {locale === 'es' 
+                ? 'Revise este contenido antes de comenzar la demostración interactiva, luego consulte según sea necesario durante la práctica.'
+                : 'Review this content before starting the interactive demo, then refer back as needed during practice.'}
             </p>
           </div>
         </div>

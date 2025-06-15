@@ -457,6 +457,7 @@ export default function SimpleDashboard() {
                       <HandbookSection 
                         moduleOrder={module.order} 
                         moduleTitle={module.title}
+                        locale={locale}
                       />
                       
                       {isGame ? (
