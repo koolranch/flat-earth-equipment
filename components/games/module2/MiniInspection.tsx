@@ -128,7 +128,7 @@ export default function MiniInspection({
     if (correct && !found.includes(h.id)) {
       setFound(f => [...f, h.id])
       setTooltip(h.fact)
-      setTimeout(() => setTooltip(null), 1_400)
+      setTimeout(() => setTooltip(null), 3_500)
     } else {
       setWrong(w => w + 1)
       setTime(t => Math.max(t - 5, 0))

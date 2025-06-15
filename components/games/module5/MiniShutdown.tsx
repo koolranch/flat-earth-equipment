@@ -56,7 +56,7 @@ export default function MiniShutdown({ onComplete }:{ onComplete:()=>void }) {
       /* correct */
       stepAudio.current?.play().catch(()=>{})
       setTooltip(step.fact)
-      setTimeout(()=>setTooltip(null),1500)
+      setTimeout(()=>setTooltip(null),3800)
       // PPE overlay for charger step
       if(step.id==='plug') setShowPPE(true)
       setIdx(i=>i+1)
