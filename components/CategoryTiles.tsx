@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { 
   Wrench, 
-  Scissors, 
-  Truck, 
+  ArrowUpDown, 
+  Construction, 
   Gauge, 
   Zap, 
   Cpu, 
@@ -21,12 +21,12 @@ const categories = [
   {
     name: 'Scissor Lift Parts',
     slug: 'scissor-lift-parts',
-    icon: Scissors
+    icon: ArrowUpDown
   },
   {
     name: 'Telehandler Parts',
     slug: 'telehandler-parts',
-    icon: Truck
+    icon: Construction
   },
   {
     name: 'Hydraulic Components',

@@ -20,7 +20,6 @@ export function Quiz({
     async function loadQuiz() {
       try {
         setIsLoading(true)
-        const base = `../../data/quizzes/`
         
         // Map module order to correct quiz files
         const getQuizFileName = (moduleId: number): string => {
@@ -37,30 +36,36 @@ export function Quiz({
         }
         
         const quizFileName = getQuizFileName(moduleId)
-        const path = locale === 'es'
-          ? `${base}${quizFileName}_es.json`
-          : `${base}${quizFileName}.json`
+        const fileName = locale === 'es' ? `${quizFileName}_es.json` : `${quizFileName}.json`
         
-        console.log(`🧩 Loading quiz for module ${moduleId}: ${path}`)
+        console.log(`🧩 Loading quiz for module ${moduleId}: ${fileName}`)
         
-        let quiz
+        let response
         try {
           // Try to load localized version first
-          quiz = await import(
-            /* webpackMode: "eager" */ /* @vite-ignore */ path
-          )
+          response = await fetch(`/api/quiz/${fileName}`)
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+          }
         } catch (localizedError) {
+          console.log(`Localized quiz not found for ${locale}, error:`, localizedError)
           // Fallback to English version if localized version doesn't exist
-          console.log(`Localized quiz not found for ${locale}, falling back to English`)
-          const fallbackPath = `${base}${quizFileName}.json`
-          quiz = await import(fallbackPath)
+          console.log(`Falling back to English version`)
+          const fallbackFileName = `${quizFileName}.json`
+          console.log(`Fallback file: ${fallbackFileName}`)
+          response = await fetch(`/api/quiz/${fallbackFileName}`)
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+          }
         }
         
-        setQuestions(quiz.default || quiz)
+        const quiz = await response.json()
+        console.log('Quiz loaded successfully:', quiz)
+        setQuestions(quiz)
         setError(null)
       } catch (err) {
-        console.error('Failed to load quiz:', err)
-        setError('Failed to load quiz')
+        console.error('Failed to load quiz - full error:', err)
+        setError(`Failed to load quiz: ${err instanceof Error ? err.message : 'Unknown error'}`)
       } finally {
         setIsLoading(false)
       }
