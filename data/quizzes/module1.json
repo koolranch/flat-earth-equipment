@@ -1,12 +1,27 @@
 [
   {
-    "q": "What piece of PPE is mandatory before operating?",
-    "choices": ["Hard hat", "Safety glasses", "Light gloves"],
+    "q": "Which PPE item is NOT optional when operating a forklift indoors?",
+    "choices": ["High-visibility vest", "Noise-cancelling earbuds", "Hard-hat", "Steel-toe boots"],
     "answer": 1
   },
   {
-    "q": "How many forklift lengths should be maintained between moving vehicles?",
-    "choices": ["1", "2", "3"],
-    "answer": 2
+    "q": "Forks should travel:",
+    "choices": ["Touching the floor", "4–6 inches above the floor", "At axle height", "At eye level"],
+    "answer": 1
+  },
+  {
+    "q": "During routine travel, what is the primary purpose of the service brake on a forklift?",
+    "choices": [
+      "Slowing and stopping the truck under normal conditions",
+      "Holding the truck stationary when parked",
+      "Sounding an audible alarm",
+      "Tilting the mast backward"
+    ],
+    "answer": 0
+  },
+  {
+    "q": "True / False — You may operate a forklift without a hi-vis vest as long as you stay in marked aisles.",
+    "choices": ["True", "False"],
+    "answer": 1
   }
 ] 

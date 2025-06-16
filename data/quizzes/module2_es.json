@@ -13,5 +13,30 @@
     "q": "Al viajar con una carga, las horquillas deben estar:",
     "choices": ["Elevadas alto", "Inclinadas ligeramente hacia atrás y bajas", "Perfectamente niveladas"],
     "answer": 1
+  },
+  {
+    "q": "¿Qué artículo es parte de la lista de verificación de inspección diaria de montacargas de OSHA?",
+    "choices": ["Tapicería del asiento", "Mangueras hidráulicas", "Portavasos", "Altavoces de la cabina"],
+    "answer": 1
+  },
+  {
+    "q": "Si descubres una manguera hidráulica con fuga debes:",
+    "choices": [
+      "Limpiarla y seguir trabajando",
+      "Etiquetar fuera de servicio y reportarlo",
+      "Ignorar a menos que gotee mucho",
+      "Apretar la cadena del mástil"
+    ],
+    "answer": 1
+  },
+  {
+    "q": "La placa de datos te dice:",
+    "choices": ["Peso del camión y capacidad de carga", "Fecha del último cambio de aceite", "Número de licencia del operador", "Longitud de las horquillas"],
+    "answer": 0
+  },
+  {
+    "q": "Verdadero / Falso — Una bocina funcional es opcional si el almacén tiene espejos en las intersecciones.",
+    "choices": ["Verdadero", "Falso"],
+    "answer": 1
   }
 ] 

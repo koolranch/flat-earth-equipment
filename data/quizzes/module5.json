@@ -1,17 +1,27 @@
 [
   {
-    "q": "When operating on ramps, what is the correct procedure?",
-    "choices": ["Drive backwards up ramps", "Keep load uphill when possible", "Use maximum speed for momentum"],
+    "q": "The proper shutdown sequence begins with:",
+    "choices": ["Forks down", "Shift to neutral", "Turn key off", "Set parking brake"],
     "answer": 1
   },
   {
-    "q": "What should you do when encountering pedestrians?",
-    "choices": ["Sound horn and proceed", "Stop and wait for clear path", "Drive around them quickly"],
+    "q": "When parking on a slight ramp you must:",
+    "choices": [
+      "Leave truck in gear",
+      "Chock at least one wheel",
+      "Rely on the service brake",
+      "Leave forks raised"
+    ],
     "answer": 1
   },
   {
-    "q": "In narrow aisles, what is most important?",
-    "choices": ["Speed to get through quickly", "Reduced speed and extra caution", "Normal operating procedures"],
+    "q": "For battery-electric forklifts, you should wear ______ when plugging in the charger.",
+    "choices": ["Leather gloves", "Rubber insulating gloves", "No gloves", "Welding gauntlets"],
+    "answer": 1
+  },
+  {
+    "q": "True / False — Forks may remain raised if the area is fenced and no pedestrians enter.",
+    "choices": ["True", "False"],
     "answer": 1
   }
 ] 
