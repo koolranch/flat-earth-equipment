@@ -159,7 +159,9 @@ export default function MiniInspection({
 
   /* game state */
   const [mode, setMode] = useState<'seq' | 'free'>('seq')
-  const [order, setOrder] = useState<string[]>(t.hotspots.map(h => h.id))
+  const [order, setOrder] = useState<string[]>([
+    'tires', 'forks', 'chain', 'horn', 'lights', 'hydraulic', 'leak', 'plate'
+  ])
   const [found, setFound] = useState<string[]>([])
   const [wrong, setWrong] = useState(0)
   const [time, setTime] = useState(45)
@@ -168,13 +170,17 @@ export default function MiniInspection({
 
   /* effect: shuffle order for free-mode */
   useEffect(() => {
-    if (mode === 'free') setOrder(shuffle(t.hotspots.map(h => h.id)))
-    else setOrder(t.hotspots.map(h => h.id))
+    console.log(`🔄 MODE CHANGED: ${mode}`)
+    const baseOrder = ['tires', 'forks', 'chain', 'horn', 'lights', 'hydraulic', 'leak', 'plate']
+    if (mode === 'free') setOrder(shuffle([...baseOrder]))
+    else setOrder([...baseOrder])
     setFound([])
     setWrong(0)
     setTime(45)
     setTooltip(null)
-  }, [mode, t.hotspots])
+    console.log(`🔄 Reset game state for mode: ${mode}`)
+    console.log(`🔄 New order:`, baseOrder)
+  }, [mode])
 
   /* countdown */
   useEffect(() => {
@@ -188,18 +194,33 @@ export default function MiniInspection({
     if (found.length === t.hotspots.length) onComplete()
   }, [found.length, onComplete, t.hotspots.length])
 
+  // Debug state changes
+  useEffect(() => {
+    console.log(`📊 STATE UPDATE: found=${JSON.stringify(found)}, order=${JSON.stringify(order)}, mode=${mode}`)
+  }, [found, order, mode])
+
   /* tap handler */
   const tap = (h: Hotspot) => {
+    console.log(`🎯 TAP HANDLER CALLED: clicked=${h.id}`)
+    console.log(`🎯 Current state: found=${JSON.stringify(found)}, order=${JSON.stringify(order)}`)
+    
     const nextId = order[found.length]
     const correct = mode === 'free' || h.id === nextId
+    const alreadyFound = found.includes(h.id)
 
-    console.log(`🎯 Tap handler: clicked=${h.id}, expected=${nextId}, correct=${correct}, mode=${mode}`)
+    console.log(`🎯 Logic check: nextId=${nextId}, correct=${correct}, alreadyFound=${alreadyFound}, mode=${mode}`)
 
-    if (correct && !found.includes(h.id)) {
-      setFound(f => [...f, h.id])
+    if (correct && !alreadyFound) {
+      console.log(`✅ CORRECT CLICK! Adding ${h.id} to found list`)
+      setFound(f => {
+        const newFound = [...f, h.id]
+        console.log(`✅ New found array:`, newFound)
+        return newFound
+      })
       setTooltip(h.fact)
       setTimeout(() => setTooltip(null), 3_500)
     } else {
+      console.log(`❌ INCORRECT CLICK! Reason: correct=${correct}, alreadyFound=${alreadyFound}`)
       setWrong(w => w + 1)
       setTime(t => Math.max(t - 5, 0))
       
@@ -277,7 +298,9 @@ export default function MiniInspection({
               `}
               style={{ left: `${h.x}%`, top: `${h.y}%` }}
               onClick={() => {
-                console.log(`🎯 Clicked: ${h.id}, Expected: ${order[found.length]}, Mode: ${mode}`)
+                console.log(`🖱️ BUTTON CLICKED: ${h.id}`)
+                console.log(`🖱️ Button state: done=${done}, next=${next}, mode=${mode}`)
+                console.log(`🎯 About to call tap handler...`)
                 tap(h)
               }}
             >
