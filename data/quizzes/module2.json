@@ -1,17 +1,27 @@
 [
   {
-    "q": "What should you check first during pre-operation inspection?",
-    "choices": ["Forks for cracks and wear", "Fuel level", "Seat adjustment"],
-    "answer": 0
-  },
-  {
-    "q": "What is the maximum safe travel speed in work areas?",
-    "choices": ["3 mph", "5 mph", "8 mph"],
+    "q": "Which item is part of OSHAs daily forklift inspection checklist?",
+    "choices": ["Seat upholstery", "Hydraulic hoses", "Coffee-cup holder", "Cab speakers"],
     "answer": 1
   },
   {
-    "q": "When traveling with a load, forks should be:",
-    "choices": ["Raised high", "Tilted back slightly and low", "Perfectly level"],
+    "q": "If you discover a leaking hydraulic hose you should:",
+    "choices": [
+      "Wipe it off and keep working",
+      "Tag-out the truck and report it",
+      "Ignore unless dripping heavily",
+      "Tighten the mast chain"
+    ],
+    "answer": 1
+  },
+  {
+    "q": "The data plate tells you:",
+    "choices": ["Truck weight & load capacity", "Last oil-change date", "Operators license number", "Fork length"],
+    "answer": 0
+  },
+  {
+    "q": "True / False — A working horn is optional if the warehouse has mirrors at intersections.",
+    "choices": ["True", "False"],
     "answer": 1
   }
 ] 

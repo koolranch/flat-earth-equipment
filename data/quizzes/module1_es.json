@@ -1,12 +1,27 @@
 [
   {
-    "q": "¿Qué pieza de EPP es obligatoria antes de operar?",
-    "choices": ["Gorra", "Gafas de seguridad", "Guantes ligeros"],
+    "q": "¿Qué artículo de EPP NO es opcional al operar un montacargas en interiores?",
+    "choices": ["Chaleco de alta visibilidad", "Auriculares con cancelación de ruido", "Casco", "Botas con puntera de acero"],
     "answer": 1
   },
   {
-    "q": "¿Cuántas longitudes de montacargas se deben mantener entre vehículos en movimiento?",
-    "choices": ["1", "2", "3"],
-    "answer": 2
+    "q": "Las horquillas deben viajar:",
+    "choices": ["Tocando el suelo", "4-6 pulgadas sobre el suelo", "A la altura del eje", "A la altura de los ojos"],
+    "answer": 1
+  },
+  {
+    "q": "Durante el viaje de rutina, ¿cuál es el propósito principal del freno de servicio en un montacargas?",
+    "choices": [
+      "Reducir la velocidad y parar el camión bajo condiciones normales",
+      "Mantener el camión inmóvil cuando está estacionado",
+      "Sonar una alarma audible",
+      "Inclinar el mástil hacia atrás"
+    ],
+    "answer": 0
+  },
+  {
+    "q": "Verdadero / Falso — Puedes operar un montacargas sin chaleco de alta visibilidad siempre que te mantengas en pasillos marcados.",
+    "choices": ["Verdadero", "Falso"],
+    "answer": 1
   }
 ] 

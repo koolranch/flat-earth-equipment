@@ -1,17 +1,32 @@
 [
   {
-    "q": "The stability triangle is formed by which three points?",
-    "choices": ["Front wheels and rear axle", "Two front wheels and center of rear axle", "Mast, counterweight, and forks"],
-    "answer": 1
+    "q": "What information does a capacity plate provide?",
+    "choices": [
+      "Maximum safe load weight at a given load center",
+      "Fork length",
+      "Fuel type",
+      "Tire pressure"
+    ],
+    "answer": 0
   },
   {
-    "q": "When should you reduce travel speed?",
-    "choices": ["Only when carrying heavy loads", "When turning or on wet surfaces", "Never, maintain constant speed"],
-    "answer": 1
+    "q": "Standard load-center distance used on most capacity plates is:",
+    "choices": ["12 inches", "18 inches", "24 inches", "36 inches"],
+    "answer": 2
   },
   {
-    "q": "Where can you find the rated load capacity of your forklift?",
-    "choices": ["Owner's manual only", "Data plate on the forklift", "Supervisor's office"],
-    "answer": 1
+    "q": "Tilting the mast forward while carrying a high load:",
+    "choices": [
+      "Lowers tip-over risk",
+      "Has no effect",
+      "Raises tip-over risk",
+      "Adds stability on ramps"
+    ],
+    "answer": 2
+  },
+  {
+    "q": "True / False — You should fully insert forks under the pallet before lifting.",
+    "choices": ["True", "False"],
+    "answer": 0
   }
 ] 
