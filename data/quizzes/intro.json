@@ -1,0 +1,17 @@
+[
+  {
+    "q": "What is the primary purpose of this forklift training?",
+    "choices": ["Entertainment", "Safety and compliance", "Speed testing", "Weight lifting"],
+    "answer": 1
+  },
+  {
+    "q": "Before operating a forklift, you must:",
+    "choices": ["Just start driving", "Complete proper training and certification", "Ask a friend for tips", "Watch one video"],
+    "answer": 1
+  },
+  {
+    "q": "OSHA requires forklift operators to be:",
+    "choices": ["At least 16 years old", "At least 18 years old", "Any age with permission", "At least 21 years old"],
+    "answer": 1
+  }
+] 

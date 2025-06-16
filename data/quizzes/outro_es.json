@@ -1,0 +1,17 @@
+[
+  {
+    "q": "¿Cuál es su responsabilidad como operador de montacargas certificado?",
+    "choices": ["Solo seguir órdenes directas", "Operar de manera segura y reportar peligros", "Trabajar lo más rápido posible", "Entrenar a otros operadores"],
+    "answer": 1
+  },
+  {
+    "q": "Su certificación de montacargas es válida por:",
+    "choices": ["1 año", "3 años", "5 años", "De por vida"],
+    "answer": 1
+  },
+  {
+    "q": "Después de completar este curso, ¿qué debe hacer su empleador antes de que pueda operar independientemente?",
+    "choices": ["Nada, está listo para trabajar", "Realizar una evaluación práctica", "Darle un examen escrito", "Invitarle a almorzar"],
+    "answer": 1
+  }
+] 

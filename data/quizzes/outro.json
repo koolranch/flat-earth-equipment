@@ -1,0 +1,17 @@
+[
+  {
+    "q": "What is your responsibility as a certified forklift operator?",
+    "choices": ["Only follow direct orders", "Operate safely and report hazards", "Work as fast as possible", "Train other operators"],
+    "answer": 1
+  },
+  {
+    "q": "Your forklift certification is valid for:",
+    "choices": ["1 year", "3 years", "5 years", "Lifetime"],
+    "answer": 1
+  },
+  {
+    "q": "After completing this course, what must your employer do before you can operate independently?",
+    "choices": ["Nothing, you're ready to work", "Conduct a practical evaluation", "Give you a written test", "Buy you lunch"],
+    "answer": 1
+  }
+] 

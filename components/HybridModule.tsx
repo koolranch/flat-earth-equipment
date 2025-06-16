@@ -10,6 +10,7 @@ import { Quiz } from '@/components/Quiz'
 import TrainingVideo from '@/components/TrainingVideo'
 
 interface GameComponentProps {
+  locale: 'en' | 'es'
   onComplete: () => void
 }
 
@@ -149,7 +150,7 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
       )}
 
       {phase === 'game' && gameKey ? (
-        <GameComponent gameKey={gameKey} onComplete={() => setPhase('quiz')} />
+        <GameComponent gameKey={gameKey} locale={locale} onComplete={() => setPhase('quiz')} />
       ) : phase === 'game' && !gameKey ? (
         // Handle modules with no game (like Course Completion) - go directly to quiz
         <div className="text-center py-8">
@@ -183,7 +184,7 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
 }
 
 // Game component with dynamic loading
-function GameComponent({ gameKey, onComplete }: { gameKey: string, onComplete: () => void }) {
+function GameComponent({ gameKey, locale, onComplete }: { gameKey: string, locale: 'en' | 'es', onComplete: () => void }) {
   console.log('🎮 Game phase - loading component for:', gameKey)
 
   // Create a function to get the import path
@@ -299,7 +300,7 @@ function GameComponent({ gameKey, onComplete }: { gameKey: string, onComplete: (
           </div>
         </div>
       }>
-        <Game onComplete={onComplete} />
+        <Game locale={locale} onComplete={onComplete} />
       </Suspense>
     </div>
   )
