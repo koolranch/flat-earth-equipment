@@ -8,66 +8,6 @@ const CDN_VIDEO =
 const CDN_GAME =
   'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/'
 
-/* ─── HOTSPOT DATA ────────────────────────────────────────────── */
-const HOTSPOTS: Hotspot[] = [
-  {
-    id: 'tires',
-    file: 'tires.png',
-    x: 10,
-    y: 60,
-    fact: 'Tires: Cuts or 25 % wear can cause blow-outs.'
-  },
-  {
-    id: 'forks',
-    file: 'forks.png',
-    x: 55,
-    y: 70,
-    fact: 'Forks: 10 % heel wear = remove from service.'
-  },
-  {
-    id: 'chain',
-    file: 'chain.png',
-    x: 78,
-    y: 25,
-    fact: 'Mast chains: 2 broken links require replacement.'
-  },
-  {
-    id: 'horn',
-    file: 'horn.png',
-    x: 32,
-    y: 20,
-    fact: 'Horn must be audible 50 ft away.'
-  },
-  {
-    id: 'lights',
-    file: 'lights.png',
-    x: 45,
-    y: 10,
-    fact: 'Lights: Replace cracked lenses immediately.'
-  },
-  {
-    id: 'hydraulic',
-    file: 'hydraulic.png',
-    x: 65,
-    y: 80,
-    fact: 'Hydraulic rods should be clean—no oil film.'
-  },
-  {
-    id: 'leak',
-    file: 'leak.png',
-    x: 22,
-    y: 85,
-    fact: 'Fluid under truck? Tag-out until fixed.'
-  },
-  {
-    id: 'plate',
-    file: 'plate.png',
-    x: 88,
-    y: 55,
-    fact: 'Data plate must be present & legible.'
-  }
-]
-
 type Hotspot = {
   id: string
   file: string
@@ -85,13 +25,141 @@ const shuffle = <T,>(arr: T[]) =>
 
 /* ─── COMPONENT ──────────────────────────────────────────────── */
 export default function MiniInspection({
+  locale = 'en',
   onComplete
 }: {
+  locale?: 'en' | 'es'
   onComplete: () => void
 }) {
+  /* Translations */
+  const t = {
+    en: {
+      hardMode: 'Hard (free-order)',
+      hotspots: [
+        {
+          id: 'tires',
+          file: 'tires.png',
+          x: 10,
+          y: 60,
+          fact: 'Tires: Cuts or 25% wear can cause blow-outs.'
+        },
+        {
+          id: 'forks',
+          file: 'forks.png',
+          x: 55,
+          y: 70,
+          fact: 'Forks: 10% heel wear = remove from service.'
+        },
+        {
+          id: 'chain',
+          file: 'chain.png',
+          x: 78,
+          y: 25,
+          fact: 'Mast chains: 2 broken links require replacement.'
+        },
+        {
+          id: 'horn',
+          file: 'horn.png',
+          x: 32,
+          y: 20,
+          fact: 'Horn must be audible 50 ft away.'
+        },
+        {
+          id: 'lights',
+          file: 'lights.png',
+          x: 45,
+          y: 10,
+          fact: 'Lights: Replace cracked lenses immediately.'
+        },
+        {
+          id: 'hydraulic',
+          file: 'hydraulic.png',
+          x: 65,
+          y: 80,
+          fact: 'Hydraulic rods should be clean—no oil film.'
+        },
+        {
+          id: 'leak',
+          file: 'leak.png',
+          x: 22,
+          y: 85,
+          fact: 'Fluid under truck? Tag-out until fixed.'
+        },
+        {
+          id: 'plate',
+          file: 'plate.png',
+          x: 88,
+          y: 55,
+          fact: 'Data plate must be present & legible.'
+        }
+      ]
+    },
+    es: {
+      hardMode: 'Difícil (orden libre)',
+      hotspots: [
+        {
+          id: 'tires',
+          file: 'tires.png',
+          x: 10,
+          y: 60,
+          fact: 'Neumáticos: Cortes o 25% de desgaste pueden causar reventones.'
+        },
+        {
+          id: 'forks',
+          file: 'forks.png',
+          x: 55,
+          y: 70,
+          fact: 'Horquillas: 10% de desgaste del talón = retirar del servicio.'
+        },
+        {
+          id: 'chain',
+          file: 'chain.png',
+          x: 78,
+          y: 25,
+          fact: 'Cadenas del mástil: 2 eslabones rotos requieren reemplazo.'
+        },
+        {
+          id: 'horn',
+          file: 'horn.png',
+          x: 32,
+          y: 20,
+          fact: 'Bocina debe ser audible a 50 pies de distancia.'
+        },
+        {
+          id: 'lights',
+          file: 'lights.png',
+          x: 45,
+          y: 10,
+          fact: 'Luces: Reemplazar lentes agrietados inmediatamente.'
+        },
+        {
+          id: 'hydraulic',
+          file: 'hydraulic.png',
+          x: 65,
+          y: 80,
+          fact: 'Varillas hidráulicas deben estar limpias—sin película de aceite.'
+        },
+        {
+          id: 'leak',
+          file: 'leak.png',
+          x: 22,
+          y: 85,
+          fact: '¿Fluido bajo el camión? Etiquetar fuera de servicio hasta reparar.'
+        },
+        {
+          id: 'plate',
+          file: 'plate.png',
+          x: 88,
+          y: 55,
+          fact: 'Placa de datos debe estar presente y legible.'
+        }
+      ]
+    }
+  }[locale]
+
   /* game state */
   const [mode, setMode] = useState<'seq' | 'free'>('seq')
-  const [order, setOrder] = useState<string[]>(HOTSPOTS.map(h => h.id))
+  const [order, setOrder] = useState<string[]>(t.hotspots.map(h => h.id))
   const [found, setFound] = useState<string[]>([])
   const [wrong, setWrong] = useState(0)
   const [time, setTime] = useState(45)
@@ -100,25 +168,25 @@ export default function MiniInspection({
 
   /* effect: shuffle order for free-mode */
   useEffect(() => {
-    if (mode === 'free') setOrder(shuffle(HOTSPOTS.map(h => h.id)))
-    else setOrder(HOTSPOTS.map(h => h.id))
+    if (mode === 'free') setOrder(shuffle(t.hotspots.map(h => h.id)))
+    else setOrder(t.hotspots.map(h => h.id))
     setFound([])
     setWrong(0)
     setTime(45)
     setTooltip(null)
-  }, [mode])
+  }, [mode, t.hotspots])
 
   /* countdown */
   useEffect(() => {
-    if (found.length === HOTSPOTS.length || time === 0) return
+    if (found.length === t.hotspots.length || time === 0) return
     const id = setTimeout(() => setTime(t => t - 1), 1_000)
     return () => clearTimeout(id)
-  }, [time, found.length])
+  }, [time, found.length, t.hotspots.length])
 
   /* win / lose */
   useEffect(() => {
-    if (found.length === HOTSPOTS.length) onComplete()
-  }, [found.length, onComplete])
+    if (found.length === t.hotspots.length) onComplete()
+  }, [found.length, onComplete, t.hotspots.length])
 
   /* tap handler */
   const tap = (h: Hotspot) => {
@@ -157,7 +225,7 @@ export default function MiniInspection({
             checked={mode === 'free'}
             onChange={e => setMode(e.target.checked ? 'free' : 'seq')}
           />
-          Hard&nbsp;(free-order)
+          {t.hardMode}
         </label>
       </div>
 
@@ -174,7 +242,7 @@ export default function MiniInspection({
         />
 
         {/* hotspots */}
-        {HOTSPOTS.map(h => {
+        {t.hotspots.map(h => {
           const done = found.includes(h.id)
           const next = order[found.length] === h.id
           return (

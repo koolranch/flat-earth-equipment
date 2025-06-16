@@ -1,0 +1,17 @@
+[
+  {
+    "q": "¿Cuál es el propósito principal de esta capacitación de montacargas?",
+    "choices": ["Entretenimiento", "Seguridad y cumplimiento", "Pruebas de velocidad", "Levantamiento de pesas"],
+    "answer": 1
+  },
+  {
+    "q": "Antes de operar un montacargas, debe:",
+    "choices": ["Simplemente empezar a conducir", "Completar capacitación y certificación adecuadas", "Pedir consejos a un amigo", "Ver un video"],
+    "answer": 1
+  },
+  {
+    "q": "OSHA requiere que los operadores de montacargas tengan:",
+    "choices": ["Al menos 16 años", "Al menos 18 años", "Cualquier edad con permiso", "Al menos 21 años"],
+    "answer": 1
+  }
+] 
