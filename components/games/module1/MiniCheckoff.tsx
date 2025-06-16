@@ -14,7 +14,7 @@ export default function MiniCheckoff({ locale = 'en', onComplete }: { locale?: '
       steps: [
         { key: 'vest',  label: 'Tap vest to equip',      img: `${CDN_GAME}/vest.png` },
         { key: 'fork',  label: 'Tap ↓ to lower forks',   img: `${CDN_GAME}/fork_down.png` },
-        { key: 'brake', label: 'Tap brake to stop',      img: `${CDN_GAME}/brake.png` }
+        { key: 'brake', label: 'Tap brake to stop',      img: `${CDN_VIDEOS}/step_brake.png` }
       ],
       clickToContinue: 'Click to continue'
     },
@@ -22,7 +22,7 @@ export default function MiniCheckoff({ locale = 'en', onComplete }: { locale?: '
       steps: [
         { key: 'vest',  label: 'Toque el chaleco para equipar',     img: `${CDN_GAME}/vest.png` },
         { key: 'fork',  label: 'Toque ↓ para bajar las horquillas', img: `${CDN_GAME}/fork_down.png` },
-        { key: 'brake', label: 'Toque el freno para parar',         img: `${CDN_GAME}/brake.png` }
+        { key: 'brake', label: 'Toque el freno para parar',         img: `${CDN_VIDEOS}/step_brake.png` }
       ],
       clickToContinue: 'Haga clic para continuar'
     }
