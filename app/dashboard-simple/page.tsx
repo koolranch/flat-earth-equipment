@@ -492,7 +492,7 @@ export default function SimpleDashboard() {
                             enrollmentId={enrollment?.id}
                             locale={locale}
                             moduleId={module.order}
-                            onComplete={() => handleGameComplete(module.order)} 
+                            onComplete={() => handleQuizPass(module.order)} 
                           />
                           <div className="text-sm text-gray-600 mt-2 space-y-1">
                             <p><strong>{t.trainingObjectives}</strong></p>
