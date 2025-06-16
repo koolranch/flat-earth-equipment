@@ -144,7 +144,7 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
         <p className="text-center text-sm text-gray-600">
           ⚠️  Operators untrained?  <Link href="/training" className="underline font-medium">
             Get certified online&nbsp;now
-          </Link> & save 5% on parts with code <strong>CERTSAFE5</strong>.
+          </Link>.
         </p>
       </footer>
     </div>
