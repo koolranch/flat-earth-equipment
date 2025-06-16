@@ -49,11 +49,23 @@ export default function MiniShutdown({ onComplete }:{ onComplete:()=>void }) {
     return ()=>clearTimeout(t)
   },[time,done])
 
+  // Debug state changes
+  useEffect(() => {
+    console.log(`🎯 Module 5 State: idx=${idx}, done=${done}, currentStep=${STEPS[idx]?.id || 'COMPLETE'}`)
+  }, [idx, done])
+
   /* handle click */
   const handle = (step:Step)=>{
-    if(done) return
+    console.log(`🖱️ Module 5 Click: clicked=${step.id}, expected=${STEPS[idx]?.id}, idx=${idx}`)
+    
+    if(done) {
+      console.log(`❌ Game already done, ignoring click`)
+      return
+    }
+    
     if(STEPS[idx].id === step.id){
       /* correct */
+      console.log(`✅ Correct step! Advancing from ${idx} to ${idx + 1}`)
       stepAudio.current?.play().catch(()=>{})
       setTooltip(step.fact)
       setTimeout(()=>setTooltip(null),3800)
@@ -61,13 +73,17 @@ export default function MiniShutdown({ onComplete }:{ onComplete:()=>void }) {
       if(step.id==='plug') setShowPPE(true)
       setIdx(i=>i+1)
       if(idx+1===STEPS.length){
+        console.log(`🎉 Game complete!`)
         winAudio.current?.play().catch(()=>{})
         setDone(true)
         setTimeout(onComplete,800)
       }
     } else {
       /* wrong order */
+      console.log(`❌ Wrong step! Expected ${STEPS[idx].id} but clicked ${step.id}`)
       errorAudio.current?.play().catch(()=>{})
+      setTooltip(`❌ Follow the sequence! Click ${STEPS[idx].id.toUpperCase()} next (step ${idx + 1}/7)`)
+      setTimeout(()=>setTooltip(null), 2000)
       resetFail()
     }
   }
@@ -94,6 +110,11 @@ export default function MiniShutdown({ onComplete }:{ onComplete:()=>void }) {
 
   return (
     <div className="relative mx-auto max-w-md select-none" onKeyDown={keyNav} tabIndex={0}>
+      {/* Instructions banner */}
+      <div className="mb-2 rounded-md bg-blue-50 px-3 py-2 text-center text-xs text-blue-800">
+        Sequential Shutdown: Follow OSHA procedure ({idx + 1}/7). Next: {STEPS[idx]?.id.toUpperCase() || 'COMPLETE'}
+      </div>
+
       {/* HUD */}
       <div className="mb-1 flex justify-between text-xs">
         <span>✔ {idx}/{STEPS.length}</span>
@@ -109,13 +130,24 @@ export default function MiniShutdown({ onComplete }:{ onComplete:()=>void }) {
           <button
             key={s.id}
             aria-label={s.id}
-            onClick={(e)=>{e.stopPropagation(); handle(s)}}
+            onClick={(e)=>{
+              console.log(`🖱️ Button clicked: ${s.id}`)
+              e.stopPropagation(); 
+              handle(s)
+            }}
             style={{left:`${s.x}%`,top:`${s.y}%`}}
-            className={`absolute -translate-x-1/2 -translate-y-1/2 h-[100px] w-[100px] flex items-center justify-center
+            className={`absolute -translate-x-1/2 -translate-y-1/2 h-[100px] w-[100px] flex items-center justify-center transition
               ${i<idx?'opacity-20':'hover:scale-105 active:scale-95'}
-              ${(pulseHelp && i===idx)?'before:absolute before:inset-0 before:rounded-full before:border-2 before:border-teal-400/80 before:animate-ping':''}`}
+              ${(pulseHelp && i===idx)?'before:absolute before:inset-0 before:rounded-full before:border-2 before:border-teal-400/80 before:animate-ping':''}
+              ${i===idx?'ring-4 ring-yellow-400/50 before:absolute before:inset-0 before:rounded-full before:border-2 before:border-yellow-400/80 before:animate-ping':''}`}
           >
             <Image src={GAME+s.img} alt="" width={64} height={64} draggable={false}/>
+            {/* Next step indicator */}
+            {i === idx && (
+              <div className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-yellow-400 text-xs font-bold text-black">
+                {i + 1}
+              </div>
+            )}
           </button>
         ))}
 
