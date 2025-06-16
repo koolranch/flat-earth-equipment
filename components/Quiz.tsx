@@ -6,10 +6,12 @@ type QuizQuestion = { q: string; choices: string[]; answer: number }
 
 export function Quiz({
   moduleId,
-  locale = 'en'
+  locale = 'en',
+  onComplete
 }: {
   moduleId: number
   locale?: 'en' | 'es'
+  onComplete?: () => void
 }) {
   const [questions, setQuestions] = useState<QuizQuestion[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -78,6 +80,9 @@ export function Quiz({
     setShowQuiz(false)
     // You can add completion logic here
     console.log('Quiz passed!')
+    if (onComplete) {
+      onComplete()
+    }
   }
 
   const t = {

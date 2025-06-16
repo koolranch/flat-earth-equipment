@@ -166,7 +166,7 @@ export default function HybridModule({ gameKey, introUrl, guideMdx, enrollmentId
       ) : null}
 
       {phase === 'quiz' && derivedModuleId ? (
-        <Quiz moduleId={derivedModuleId} locale={locale} />
+        <Quiz moduleId={derivedModuleId} locale={locale} onComplete={onComplete} />
       ) : phase === 'quiz' ? (
         <div className="text-center py-8">
           <p className="text-lg font-medium">Quiz time!</p>
