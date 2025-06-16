@@ -193,6 +193,8 @@ export default function MiniInspection({
     const nextId = order[found.length]
     const correct = mode === 'free' || h.id === nextId
 
+    console.log(`🎯 Tap handler: clicked=${h.id}, expected=${nextId}, correct=${correct}, mode=${mode}`)
+
     if (correct && !found.includes(h.id)) {
       setFound(f => [...f, h.id])
       setTooltip(h.fact)
@@ -200,6 +202,17 @@ export default function MiniInspection({
     } else {
       setWrong(w => w + 1)
       setTime(t => Math.max(t - 5, 0))
+      
+      // Show helpful error message
+      if (mode === 'seq') {
+        const expectedName = nextId?.charAt(0).toUpperCase() + nextId?.slice(1)
+        setTooltip(`❌ Wrong sequence! Click ${expectedName} next (step ${found.length + 1}/8)`)
+        setTimeout(() => setTooltip(null), 2_000)
+      } else {
+        setTooltip('❌ Already found or incorrect item')
+        setTimeout(() => setTooltip(null), 1_500)
+      }
+      
       /* play siren if available */
       if (!sirenRef.current) {
         const audio = new Audio(`${CDN_GAME}siren.wav`)
@@ -216,6 +229,14 @@ export default function MiniInspection({
 
   return (
     <div className="relative mx-auto max-w-md">
+      {/* Instructions banner */}
+      <div className="mb-2 rounded-md bg-blue-50 px-3 py-2 text-center text-xs text-blue-800">
+        {mode === 'seq' 
+          ? `Sequential Mode: Click hotspots in order (${found.length + 1}/8). Next: ${order[found.length]?.toUpperCase() || 'COMPLETE'}`
+          : 'Free Mode: Click any inspection point'
+        }
+      </div>
+
       {/* Mode toggle */}
       <div className="mb-2 flex items-center justify-end gap-2 text-xs">
         <label className="flex items-center gap-1">
@@ -252,10 +273,13 @@ export default function MiniInspection({
               disabled={done}
               className={`absolute z-20 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full transition
                 ${done ? 'opacity-20' : 'hover:scale-110 active:scale-95'}
-                ${!done && next && mode === 'seq' ? pulse : ''}
+                ${!done && next && mode === 'seq' ? pulse + ' ring-4 ring-yellow-400/50' : ''}
               `}
               style={{ left: `${h.x}%`, top: `${h.y}%` }}
-              onClick={() => tap(h)}
+              onClick={() => {
+                console.log(`🎯 Clicked: ${h.id}, Expected: ${order[found.length]}, Mode: ${mode}`)
+                tap(h)
+              }}
             >
               <Image
                 src={`${CDN_GAME}${h.file}`}
@@ -264,6 +288,12 @@ export default function MiniInspection({
                 height={64}
                 draggable={false}
               />
+              {/* Next indicator */}
+              {!done && next && mode === 'seq' && (
+                <div className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-yellow-400 text-xs font-bold text-black">
+                  {found.length + 1}
+                </div>
+              )}
             </button>
           )
         })}
