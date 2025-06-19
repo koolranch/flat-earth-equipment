@@ -28,7 +28,7 @@ export const CHARGER_MODULES: ChargerModule[] = [
         sku: "price_1RQJNjHJI548rO8JKJclmS56",
         price: 74900,
         coreInfo: "+ $350 refundable core deposit",
-        desc: "Ships today if ordered before 3 PM MT.",
+        desc: "Ships today if ordered before 3 PM EST.",
       },
       {
         label: "Repair & Return",
@@ -50,7 +50,7 @@ export const CHARGER_MODULES: ChargerModule[] = [
         sku: "price_1RQJNjHJI548rO8JFFATEXkd",
         price: 74900,
         coreInfo: "+ $350 refundable core deposit",
-        desc: "Ships today if ordered before 3 PM MT.",
+        desc: "Ships today if ordered before 3 PM EST.",
       },
       {
         label: "Repair & Return",
