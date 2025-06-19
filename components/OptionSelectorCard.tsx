@@ -53,7 +53,7 @@ export default function OptionSelectorCard({ module, locale = 'en' }: { module: 
           <label
             key={o.label}
             className={`flex items-start gap-3 p-3 rounded-lg border ${
-              choice === o.label ? "border-primary-600 bg-neutral-50" : "border-gray-300"
+              choice === o.label ? "border-canyon-rust bg-orange-50" : "border-gray-300"
             } cursor-pointer`}
           >
             <input
@@ -61,7 +61,7 @@ export default function OptionSelectorCard({ module, locale = 'en' }: { module: 
               value={o.label}
               checked={choice === o.label}
               onChange={() => setChoice(o.label as any)}
-              className="mt-1 h-4 w-4 text-primary-600"
+              className="mt-1 h-4 w-4 text-canyon-rust"
             />
             <div>
               <p className="font-semibold">
@@ -94,7 +94,7 @@ export default function OptionSelectorCard({ module, locale = 'en' }: { module: 
         sku={offer.sku}
         qty={1}
         meta={{ firmwareVersion: fw || "to-collect", moduleId: module.id, offer: choice }}
-        className="w-full bg-primary-600 py-3 rounded-lg text-white font-semibold hover:bg-primary-700"
+        className="w-full bg-canyon-rust py-3 rounded-lg text-white font-semibold hover:bg-canyon-rust/90"
       >
         {choice === "Reman Exchange" ? t.buyShipToday : t.startRepairOrder}
       </AddToCartButton>
