@@ -25,26 +25,46 @@ export async function POST(req: Request) {
     const isTrainingProduct = items.some((item: any) => item.isTraining);
 
     // Create line items for the checkout session
-    const lineItems = items.map((item: { priceId: string; quantity: number; coreCharge?: number; isTraining?: boolean }) => {
+    const lineItems = items.map((item: { 
+      priceId: string; 
+      quantity: number; 
+      coreCharge?: number; 
+      isTraining?: boolean;
+      metadata?: {
+        firmwareVersion?: string;
+        moduleId?: string;
+        offer?: string;
+        [key: string]: any;
+      };
+      name?: string;
+    }) => {
       const lineItem: Stripe.Checkout.SessionCreateParams.LineItem = {
         price: item.priceId,
         quantity: item.quantity,
       };
 
+      // Store metadata for later processing (will be added to session metadata)
+
       // Add core charge as a separate line item if applicable
       if (item.coreCharge) {
-        lineItem.price_data = {
-          currency: 'usd',
-          product_data: {
-            name: 'Core Charge',
-            description: 'Refundable core charge',
+        // If we already have price_data, we need to add core charge differently
+        // For now, keep the existing core charge logic separate
+        const coreChargeItem: Stripe.Checkout.SessionCreateParams.LineItem = {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Core Charge',
+              description: 'Refundable core charge',
+            },
+            unit_amount: Math.round(item.coreCharge * 100), // Convert to cents
           },
-          unit_amount: Math.round(item.coreCharge * 100), // Convert to cents
+          quantity: item.quantity,
         };
+        return [lineItem, coreChargeItem];
       }
 
       return lineItem;
-    });
+    }).flat();
 
     // Use free shipping for all products
     const shippingRateId = 'shr_1RZdQkHJI548rO8JQOmkLnwc';
@@ -58,6 +78,16 @@ export async function POST(req: Request) {
       shippingRateId,
       origin,
       items,
+    });
+
+    // Collect metadata from items
+    const sessionMetadata: Record<string, string> = {};
+    items.forEach((item: any, index: number) => {
+      if (item.metadata) {
+        Object.keys(item.metadata).forEach(key => {
+          sessionMetadata[`item_${index}_${key}`] = String(item.metadata[key]);
+        });
+      }
     });
 
     // Create the checkout session
@@ -76,6 +106,7 @@ export async function POST(req: Request) {
       shipping_address_collection: isTrainingProduct ? undefined : {
         allowed_countries: ['US'],
       },
+      metadata: sessionMetadata,
     };
     console.log('DEBUG: Stripe session config:', JSON.stringify(sessionConfig, null, 2));
     

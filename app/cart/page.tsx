@@ -62,7 +62,9 @@ export default function CartPage() {
           items: items.map(item => ({
             priceId: item.stripe_price_id,
             quantity: item.quantity,
-            coreCharge: item.has_core_charge ? item.core_charge : undefined
+            coreCharge: item.has_core_charge ? item.core_charge : undefined,
+            metadata: item.metadata,
+            name: item.name
           }))
         }),
       });
