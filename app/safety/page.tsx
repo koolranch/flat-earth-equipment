@@ -22,15 +22,15 @@ export default async function SafetyHome() {
   const t = {
     en: {
       title: 'OSHA Forklift Operator Certification',
-      description: '100% online, self-paced course. Pass the 30-question exam and print your wallet card today.',
+      description: '100% online, self-paced course. Pass the 30-question exam and download your certificate today.',
       accessDashboard: 'Access Training Dashboard',
       courseBreakdown: 'Course Breakdown',
       features: [
         '8 interactive video lessons',
         'Real-world hazard recognition demos',
-        'Instant printable certificate & wallet card',
+        'Instant printable certificate',
         'Free retakes until you pass',
-        'Employer evaluation checklist included'
+        'Mobile-friendly evaluation form (no printing required)'
       ],
       pricing: {
         single: { tier: 'Single Operator', description: 'One seat, instant start' },
@@ -50,15 +50,15 @@ export default async function SafetyHome() {
     },
     es: {
       title: 'Certificación de Operador de Montacargas OSHA',
-      description: 'Curso 100% en línea, a tu propio ritmo. Aprueba el examen de 30 preguntas e imprime tu tarjeta de billetera hoy.',
+      description: 'Curso 100% en línea, a tu propio ritmo. Aprueba el examen de 30 preguntas y descarga tu certificado hoy.',
       accessDashboard: 'Acceder al Panel de Entrenamiento',
       courseBreakdown: 'Desglose del Curso',
       features: [
         '8 lecciones interactivas en video',
         'Demostraciones de reconocimiento de peligros del mundo real',
-        'Certificado instantáneo imprimible y tarjeta de billetera',
+        'Certificado instantáneo imprimible',
         'Reintentos gratuitos hasta que apruebes',
-        'Lista de verificación de evaluación del empleador incluida'
+        'Formulario de evaluación móvil (no requiere impresión)'
       ],
       pricing: {
         single: { tier: 'Operador Individual', description: 'Un asiento, inicio instantáneo' },

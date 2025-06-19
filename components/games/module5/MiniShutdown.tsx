@@ -8,13 +8,13 @@ const GAME = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/
 
 /* ─── Shutdown sequence (7 clicks) ────────────────────────── */
 const STEPS: Step[] = [
-  { id: 'neutral',  img: 'step_neutral.png',  x: 12, y: 68, fact: 'Shift lever to NEUTRAL first.' },
-  { id: 'steer',    img: 'step_steer.png',    x: 21, y: 68, fact: 'Center steering wheel for straight exit.' },
-  { id: 'brake',    img: 'step_brake.png',    x: 30, y: 68, fact: 'Set parking brake firmly.' },
-  { id: 'forks',    img: 'step_forks.png',    x: 48, y: 68, fact: 'Lower forks flat on ground. Tilt mast fwd to relieve pressure.' },
-  { id: 'keyoff',   img: 'step_keyoff.png',   x: 66, y: 68, fact: 'Turn key OFF & pocket it.' },
-  { id: 'plug',     img: 'step_plug.png',     x: 48, y: 16, fact: 'Connect charger while wearing gloves & face shield.' },
-  { id: 'chock',    img: 'step_chock.png',    x: 30, y: 16, fact: 'Place wheel chock on downhill tire.' }
+  { id: 'neutral',  img: 'step_neutral.png',  x: 10, y: 68, fact: 'Shift lever to NEUTRAL first.' },
+  { id: 'steer',    img: 'step_steer.png',    x: 25, y: 68, fact: 'Center steering wheel for straight exit.' },
+  { id: 'brake',    img: 'step_brake.png',    x: 40, y: 68, fact: 'Set parking brake firmly.' },
+  { id: 'forks',    img: 'step_forks.png',    x: 55, y: 68, fact: 'Lower forks flat on ground. Tilt mast fwd to relieve pressure.' },
+  { id: 'keyoff',   img: 'step_keyoff.png',   x: 70, y: 68, fact: 'Turn key OFF & pocket it.' },
+  { id: 'plug',     img: 'step_plug.png',     x: 55, y: 16, fact: 'Connect charger while wearing gloves & face shield.' },
+  { id: 'chock',    img: 'step_chock.png',    x: 35, y: 16, fact: 'Place wheel chock on downhill tire.' }
 ]
 
 export type Step = { id:string; img:string; x:number; y:number; fact:string }

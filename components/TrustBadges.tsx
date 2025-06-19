@@ -16,7 +16,7 @@ export default function TrustBadges() {
           <Award className="h-8 w-8 text-canyon-rust mx-auto" />
           <h3 className="font-semibold text-sm">Instant Certificate</h3>
           <p className="text-xs text-gray-600 dark:text-gray-400">
-            Printable wallet card included
+            Printable PDF download
           </p>
         </div>
         
