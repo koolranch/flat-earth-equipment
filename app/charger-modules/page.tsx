@@ -36,11 +36,11 @@ export default function ChargersLanding() {
 
       <section className="grid gap-12 md:grid-cols-2">
         {CHARGER_MODULES.map((m) => (
-          <OptionSelectorCard key={m.id} module={m} />
+          <OptionSelectorCard key={m.id} module={m} locale={locale} />
         ))}
       </section>
 
-      <ChargerModuleTrustBadges />
+      <ChargerModuleTrustBadges locale={locale} />
     </main>
   );
 } 

@@ -1,8 +1,7 @@
 import { Truck, Shield, Wrench, Phone } from "lucide-react";
-import { getUserLocale } from "@/lib/getUserLocale";
+type Locale = 'en' | 'es';
 
-export default function ChargerModuleTrustBadges() {
-  const locale = getUserLocale();
+export default function ChargerModuleTrustBadges({ locale = 'en' }: { locale?: Locale }) {
 
   const t = {
     en: {

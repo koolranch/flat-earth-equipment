@@ -3,14 +3,14 @@ import { useState } from "react";
 import Image from "next/image";
 import { ChargerModule } from "../constants/chargerOptions";
 import AddToCartButton from "./AddToCartButton";
-import { getUserLocale } from "@/lib/getUserLocale";
 
-export default function OptionSelectorCard({ module }: { module: ChargerModule }) {
+type Locale = 'en' | 'es';
+
+export default function OptionSelectorCard({ module, locale = 'en' }: { module: ChargerModule; locale?: Locale }) {
   const [choice, setChoice] = useState<"Reman Exchange" | "Repair & Return">("Repair & Return");
   const offer = module.offers.find((o) => o.label === choice)!;
   const image = choice === "Repair & Return" ? module.imgRepair : module.imgExchange;
   const [fw, setFw] = useState("");
-  const locale = getUserLocale();
 
   const t = {
     en: {
