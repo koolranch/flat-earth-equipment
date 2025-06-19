@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import { ChargerModule } from "@/constants/chargerOptions";
-import AddToCartButton from "@/components/AddToCartButton";
+import { ChargerModule } from "../constants/chargerOptions";
+import AddToCartButton from "./AddToCartButton";
 
 export default function OptionSelectorCard({ module }: { module: ChargerModule }) {
-  const [choice, setChoice] = useState<"Reman Exchange" | "Repair & Return">("Reman Exchange");
+  const [choice, setChoice] = useState<"Reman Exchange" | "Repair & Return">("Repair & Return");
   const offer = module.offers.find((o) => o.label === choice)!;
   const image = choice === "Repair & Return" ? module.imgRepair : module.imgExchange;
   const [fw, setFw] = useState("");
@@ -40,7 +40,7 @@ export default function OptionSelectorCard({ module }: { module: ChargerModule }
             />
             <div>
               <p className="font-semibold">
-                {o.label} – ${(o.price / 100).toFixed(0)}
+                {o.label} – ${(o.price / 100).toFixed(2).replace('.00', '')}
                 {o.coreInfo && (
                   <span className="text-sm font-normal text-gray-500"> {o.coreInfo}</span>
                 )}
