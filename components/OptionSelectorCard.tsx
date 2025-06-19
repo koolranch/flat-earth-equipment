@@ -93,6 +93,7 @@ export default function OptionSelectorCard({ module, locale = 'en' }: { module: 
       <AddToCartButton
         sku={offer.sku}
         qty={1}
+        price={offer.price}
         meta={{ firmwareVersion: fw || "to-collect", moduleId: module.id, offer: choice }}
         className="w-full bg-canyon-rust py-3 rounded-lg text-white font-semibold hover:bg-canyon-rust/90"
       >

@@ -8,6 +8,7 @@ import { ReactNode } from 'react';
 interface AddToCartButtonProps {
   sku: string; // Stripe Price ID
   qty: number;
+  price?: number; // Price in cents
   meta?: {
     firmwareVersion?: string;
     moduleId?: string;
@@ -21,6 +22,7 @@ interface AddToCartButtonProps {
 export default function AddToCartButton({ 
   sku, 
   qty, 
+  price = 0,
   meta, 
   className = "", 
   children 
@@ -40,7 +42,7 @@ export default function AddToCartButton({
     addItem({
       id: itemId,
       name: displayName,
-      price: 0, // Will be determined by Stripe price
+      price: price / 100, // Convert cents to dollars for display
       stripe_price_id: sku,
       quantity: qty,
       metadata: meta, // Store metadata for checkout
