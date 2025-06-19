@@ -1,6 +1,6 @@
 import { CHARGER_MODULES } from "@/constants/chargerOptions";
 import OptionSelectorCard from "@/components/OptionSelectorCard";
-import TrustBar from "@/components/TrustBar";
+import TrustBadges from "@/components/TrustBadges";
 
 export const metadata = {
   title: "Reman Forklift Charger Modules | Flat Earth Equipment",
@@ -25,7 +25,7 @@ export default function ChargersLanding() {
         ))}
       </section>
 
-      <TrustBar className="mt-20" />
+      <TrustBadges />
     </main>
   );
 } 
