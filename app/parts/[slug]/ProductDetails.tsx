@@ -140,6 +140,24 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
         </div>
       </div>
 
+      {/* Add internal linking for charger modules */}
+      {(part.name.toLowerCase().includes('charger module') || part.name.toLowerCase().includes('enersys') || part.name.toLowerCase().includes('hawker')) && (
+        <div className="mt-8 bg-blue-50 border border-blue-200 rounded-xl p-6">
+          <h3 className="text-lg font-semibold text-blue-900 mb-2">
+            Compare All Charger Module Options
+          </h3>
+          <p className="text-blue-800 mb-4">
+            Looking for other charger modules? View our complete selection with interactive comparison and repair vs exchange options.
+          </p>
+          <Link 
+            href="/charger-modules"
+            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+          >
+            View All Charger Modules →
+          </Link>
+        </div>
+      )}
+
       <footer className="mt-10 border-t pt-8">
         <p className="text-center text-sm text-gray-600">
           ⚠️  Operators untrained?  <Link href="/training" className="underline font-medium">

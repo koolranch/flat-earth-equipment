@@ -1,10 +1,11 @@
-import { CHARGER_MODULES } from "@/constants/chargerOptions";
+import { CHARGER_MODULES } from "../../constants/chargerOptions";
 import OptionSelectorCard from "@/components/OptionSelectorCard";
 import TrustBadges from "@/components/TrustBadges";
 
 export const metadata = {
-  title: "Reman Forklift Charger Modules | Flat Earth Equipment",
-  description: "Exchange or Repair forklift charger modules online. Western-tough warranty.",
+  title: "Forklift Charger Modules | Enersys & Hawker | Exchange & Repair | Flat Earth Equipment",
+  description: "In-stock remanufactured forklift charger modules for Enersys & Hawker. Choose instant exchange or send-in repair service. 6-month warranty, same-day shipping.",
+  keywords: "forklift charger modules, enersys charger module, hawker charger module, forklift charger repair, charger module exchange",
 };
 
 export default function ChargersLanding() {

@@ -26,6 +26,20 @@ export default async function ChargerModulesPage() {
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-12">
+      {/* Transition notice banner */}
+      <div className="mb-6 bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
+        <div className="flex">
+          <div className="ml-3">
+            <p className="text-sm text-green-700">
+              <strong>New & Improved:</strong> We've upgraded our charger modules page with better comparison tools! 
+              <Link href="/charger-modules" className="font-medium underline hover:text-green-800 ml-1">
+                Try our new interactive selector →
+              </Link>
+            </p>
+          </div>
+        </div>
+      </div>
+
       <h1 className="text-3xl font-bold mb-2">
         In-Stock Reman Charger Modules—Ready to Ship
       </h1>

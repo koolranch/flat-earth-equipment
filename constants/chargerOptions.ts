@@ -21,7 +21,7 @@ export const CHARGER_MODULES: ChargerModule[] = [
     brand: "Enersys",
     name: "Enersys Forklift Charger Module – 6LA20671",
     imgExchange: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products//enersys.png",
-    imgRepair: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products//enersys_module_repair.png",
+    imgRepair: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products//enersys.png", // using same image for consistent formatting
     offers: [
       {
         label: "Reman Exchange",
