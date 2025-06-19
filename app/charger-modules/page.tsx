@@ -1,6 +1,6 @@
 import { CHARGER_MODULES } from "../../constants/chargerOptions";
 import OptionSelectorCard from "@/components/OptionSelectorCard";
-import TrustBadges from "@/components/TrustBadges";
+import ChargerModuleTrustBadges from "@/components/ChargerModuleTrustBadges";
 
 export const metadata = {
   title: "Forklift Charger Modules | Enersys & Hawker | Exchange & Repair | Flat Earth Equipment",
@@ -26,7 +26,7 @@ export default function ChargersLanding() {
         ))}
       </section>
 
-      <TrustBadges />
+      <ChargerModuleTrustBadges />
     </main>
   );
 } 
