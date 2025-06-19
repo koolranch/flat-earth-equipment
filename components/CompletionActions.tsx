@@ -81,7 +81,7 @@ export default function CompletionActions({ certificateUrl, courseId, user }: Co
         onClick={() => setOpen(true)}
         className="bg-slate-700 text-white px-6 py-3 rounded text-center hover:bg-slate-800 transition-colors"
       >
-        📧 Email Certificate & Eval to Supervisor
+        📧 Send Training Documents to Supervisor
       </button>
 
       {/* Modal */}
