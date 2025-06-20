@@ -9,7 +9,8 @@ export interface Offer {
 export interface ChargerModule {
   id: string;            // product UUID
   brand: "Enersys" | "Hawker";
-  name: string;
+  partNumber: string;    // part number (e.g., "6LA20671")
+  title: string;         // full marketing title
   imgExchange: string;
   imgRepair: string;
   offers: Offer[];
@@ -19,7 +20,8 @@ export const CHARGER_MODULES: ChargerModule[] = [
   {
     id: "7e1b5a1d-3b0a-42be-8ec2-dcd3670ec601",
     brand: "Enersys",
-    name: "Enersys Forklift Charger Module – 6LA20671",
+    partNumber: "6LA20671",
+    title: "Enersys Forklift Charger Module – 6LA20671",
     imgExchange: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products//enersys.png",
     imgRepair: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products//enersys.png", // using same image for consistent formatting
     offers: [
@@ -41,7 +43,8 @@ export const CHARGER_MODULES: ChargerModule[] = [
   {
     id: "4f9d4d95-2d86-4b65-a1d3-5726e5802b6a",
     brand: "Hawker",
-    name: "Hawker Forklift Charger Module – 6LA20671",
+    partNumber: "6LA20671",
+    title: "Hawker Forklift Charger Module – 6LA20671",
     imgExchange: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products//hawker.png",
     imgRepair: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products//hawker.png", // using same image for now
     offers: [
