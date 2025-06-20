@@ -3,6 +3,13 @@ import { useState } from "react";
 import Image from "next/image";
 import { ChargerModule } from "../constants/chargerOptions";
 import AddToCartButton from "./AddToCartButton";
+import InfoTooltip from "./InfoTooltip";
+
+const CORE_DEPOSIT = 35000; // cents ($350)
+
+function formatUsd(cents: number) {
+  return `$${(cents / 100).toLocaleString(undefined, { minimumFractionDigits: 0 })}`;
+}
 
 type Locale = 'en' | 'es';
 
@@ -15,9 +22,6 @@ export default function OptionSelectorCard({ module, locale = 'en' }: { module: 
   const t = {
     en: {
       chooseOption: "Choose option",
-      firmwareVersion: "Firmware / Version",
-      optional: "(optional)",
-      placeholder: "e.g. v2.12",
       buyShipToday: "Buy & Ship Today →",
       startRepairOrder: "Start Repair Order →", 
       coreRefundTitle: "How the core refund works",
@@ -25,9 +29,6 @@ export default function OptionSelectorCard({ module, locale = 'en' }: { module: 
     },
     es: {
       chooseOption: "Elegir opción",
-      firmwareVersion: "Firmware / Versión", 
-      optional: "(opcional)",
-      placeholder: "ej. v2.12",
       buyShipToday: "Comprar y Enviar Hoy →",
       startRepairOrder: "Iniciar Orden de Reparación →",
       coreRefundTitle: "Cómo funciona el reembolso del núcleo",
@@ -70,7 +71,7 @@ export default function OptionSelectorCard({ module, locale = 'en' }: { module: 
               onChange={() => setChoice(o.label as any)}
               className="mt-1 h-4 w-4 text-canyon-rust"
             />
-            <div>
+            <div className="flex-1">
               <p className="font-semibold">
                 {o.label} – ${(o.price / 100).toFixed(2).replace('.00', '')}
                 {o.coreInfo && (
@@ -78,24 +79,54 @@ export default function OptionSelectorCard({ module, locale = 'en' }: { module: 
                 )}
               </p>
               <p className="text-sm text-gray-600">{o.desc}</p>
+              {/** ★ Core-deposit math */}
+              {o.label === "Reman Exchange" && (
+                <p className="text-xs text-primary-700 font-medium">
+                  Net cost after core refund&nbsp;=&nbsp;
+                  {formatUsd(o.price - CORE_DEPOSIT)}
+                </p>
+              )}
             </div>
           </label>
         ))}
       </fieldset>
 
-      {/* Firmware field */}
+      {/* Firmware field with InfoTooltip */}
       <div className="flex flex-col gap-2">
-        <label htmlFor={`fw-${module.id}`} className="text-sm font-medium">
-          {t.firmwareVersion} <span className="text-gray-400">{t.optional}</span>
+        <label
+          htmlFor={`fw-${module.id}`}
+          className="text-sm font-medium flex items-center gap-1"
+        >
+          Firmware / Version
+          <InfoTooltip content="Unsure? Leave blank—our team will confirm by email before shipping." />
+          <span className="text-gray-400">(optional)</span>
         </label>
         <input
           id={`fw-${module.id}`}
           value={fw}
           onChange={(e) => setFw(e.target.value)}
-          placeholder={t.placeholder}
+          placeholder="e.g. v2.12"
           className="rounded-lg border border-gray-300 p-2"
         />
       </div>
+
+      {/* ★ Compare accordion */}
+      <details className="rounded-md bg-neutral-50 p-4 text-sm">
+        <summary className="cursor-pointer font-medium">Compare options</summary>
+        <table className="mt-3 w-full text-xs">
+          <thead>
+            <tr className="[&>th]:text-left [&>th]:py-1">
+              <th></th><th>Reman Exchange</th><th>Repair & Return</th>
+            </tr>
+          </thead>
+          <tbody className="[&>tr>*]:py-1">
+            <tr><td>Up-front&nbsp;cost</td><td>{formatUsd(74900)}</td><td>{formatUsd(60000)}</td></tr>
+            <tr><td>Core&nbsp;deposit</td><td>{formatUsd(CORE_DEPOSIT)} (refunded)</td><td>None</td></tr>
+            <tr><td>Ship out</td><td>Today (order ≤ 3 PM&nbsp;EST)</td><td>After we refurbish</td></tr>
+            <tr><td>Total&nbsp;turn-around</td><td>1-3 days (ground)</td><td>3-5 business days</td></tr>
+          </tbody>
+        </table>
+      </details>
 
       <AddToCartButton
         sku={offer.sku}
