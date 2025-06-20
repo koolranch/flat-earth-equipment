@@ -19,32 +19,7 @@ export const metadata: Metadata = {
   description: "Flat Earth Equipment delivers precision-fit industrial parts and rugged rental equipment — with same-day shipping across the Western U.S.",
 };
 
-// Client component to conditionally show trust badges
-function ConditionalTrustBadges() {
-  'use client';
-  
-  const [pathname, setPathname] = React.useState('');
-  
-  React.useEffect(() => {
-    setPathname(window.location.pathname);
-  }, []);
-  
-  // Hide on charger-modules page to avoid duplication
-  if (pathname.includes('/charger-modules')) {
-    return null;
-  }
-  
-  return (
-    <section className="bg-slate-100 py-6">
-      <div className="max-w-6xl mx-auto px-4 flex flex-wrap justify-center items-center gap-4 text-sm text-slate-700 text-center">
-        <span className="bg-white rounded-md px-4 py-2 shadow-sm">🚚 Same-Day Dispatch</span>
-        <span className="bg-white rounded-md px-4 py-2 shadow-sm">📦 Parts Shipped Nationwide</span>
-        <span className="bg-white rounded-md px-4 py-2 shadow-sm">📍 Western U.S. Focus</span>
-        <span className="bg-white rounded-md px-4 py-2 shadow-sm">🤝 U.S.-Based Support</span>
-      </div>
-    </section>
-  );
-}
+
 
 export default function RootLayout({
   children,
@@ -70,7 +45,6 @@ export default function RootLayout({
           {/* Navbar now receives locale */}
           <Navbar locale={locale} />
           {children}
-          <ConditionalTrustBadges />
           <Footer />
           <Analytics />
           <SpeedInsights />
