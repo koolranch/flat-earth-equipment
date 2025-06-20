@@ -1,6 +1,7 @@
 import { CHARGER_MODULES } from "@/constants/chargerOptions";
 import OptionSelectorCard from "@/components/OptionSelectorCard";
 import ChargerModuleTrustBadges from "@/components/ChargerModuleTrustBadges";
+import StickyBottomCTA from "@/components/StickyBottomCTA";
 import { getUserLocale } from "@/lib/getUserLocale";
 import Script from "next/script";
 
@@ -25,8 +26,9 @@ export default function ChargersLanding() {
   }[locale];
 
   return (
-    <main className="container mx-auto px-4 lg:px-8 py-12 space-y-16">
-      {/* JSON-LD Structured Data for SEO */}
+    <>
+      <main className="container mx-auto px-4 lg:px-8 py-12 space-y-16 pb-20 sm:pb-12">
+        {/* JSON-LD Structured Data for SEO */}
       <Script id="charger-modules-ld-json" type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org",
@@ -77,7 +79,10 @@ export default function ChargersLanding() {
         ))}
       </section>
 
-      <ChargerModuleTrustBadges locale={locale} />
-    </main>
+        <ChargerModuleTrustBadges locale={locale} />
+      </main>
+      
+      <StickyBottomCTA locale={locale} />
+    </>
   );
 } 
