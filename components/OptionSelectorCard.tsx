@@ -39,12 +39,19 @@ export default function OptionSelectorCard({ module, locale = 'en' }: { module: 
     <div className="flex flex-col rounded-2xl bg-white shadow-lg p-6 gap-6">
       <Image
         src={image}
-        alt={module.name}
+        alt={module.title}
         width={400}
         height={480}
         className="rounded-lg object-contain mx-auto"
         priority
       />
+
+      {/* Brand + Part Number Line */}
+      <div className="text-center space-y-1">
+        <p className="text-sm text-gray-500 font-medium">
+          {module.brand} • {module.partNumber}
+        </p>
+      </div>
 
       {/* Radio selector */}
       <fieldset className="space-y-3">
