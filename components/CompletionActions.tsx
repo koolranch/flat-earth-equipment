@@ -26,14 +26,43 @@ export default function CompletionActions({ certificateUrl, courseId, user }: Co
     setSending(true)
     
     try {
-      // 1. Store the share record
-      await supabase.from('training_shares').insert({
-        user_id: user.id,
-        course_id: courseId,
-        supervisor_email: email,
-      })
+      console.log('📧 Starting email send process...', { 
+        email, 
+        userId: user.id, 
+        courseId, 
+        certificateUrl 
+      });
       
-      // 2. Send email via our API endpoint
+      // 1. Try to store the share record first using API endpoint
+      console.log('📝 Attempting database insert via API...');
+      try {
+        const shareResponse = await fetch('/api/record-training-share', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: user.id,
+            courseId: courseId,
+            supervisorEmail: email,
+          }),
+        });
+        
+        const shareResult = await shareResponse.json();
+        
+        if (shareResponse.ok) {
+          console.log('✅ Database insert successful:', shareResult);
+        } else {
+          console.error('❌ Database insert failed:', shareResult);
+          console.log('⚠️ Continuing with email send despite database error...');
+        }
+      } catch (shareError) {
+        console.error('❌ Database insert request failed:', shareError);
+        console.log('⚠️ Continuing with email send despite database error...');
+      }
+      
+      // 2. Send email via our API endpoint (always attempt this)
+      console.log('📧 Attempting email send...');
       const response = await fetch('/api/send-certificate-email', {
         method: 'POST',
         headers: {
@@ -46,10 +75,15 @@ export default function CompletionActions({ certificateUrl, courseId, user }: Co
         }),
       })
       
+      const emailResult = await response.json();
+      console.log('📧 Email API response:', emailResult);
+      
       if (!response.ok) {
-        throw new Error('Failed to send email')
+        console.error('❌ Email API failed:', emailResult);
+        throw new Error(`Email sending failed: ${emailResult.error || 'Unknown error'}`);
       }
       
+      console.log('✅ Email sent successfully!');
       setSuccess(true)
       setEmail('')
       
@@ -60,8 +94,15 @@ export default function CompletionActions({ certificateUrl, courseId, user }: Co
       }, 2000)
       
     } catch (error) {
-      console.error('Error sending email:', error)
-      alert('Failed to send email. Please try again.')
+      console.error('❌ Error in email send process:', error)
+      
+      // Show more specific error message
+      let errorMessage = 'Failed to send email. Please try again.';
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      
+      alert(`Error: ${errorMessage}`)
     } finally {
       setSending(false)
     }
