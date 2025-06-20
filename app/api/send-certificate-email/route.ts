@@ -66,7 +66,7 @@ export async function POST(req: Request) {
       
       <div style="text-align: center; color: #6b7280; font-size: 12px;">
         <p>Flat Earth Safety™ | OSHA-Compliant Training Solutions</p>
-        <p>flatearthequipment.com | contact@flatearthequipment.com | (307) 302-0043</p>
+        <p>flatearthequipment.com | training@flatearthequipment.com | (307) 302-0043</p>
       </div>
     </body>
     </html>
@@ -87,7 +87,7 @@ export async function POST(req: Request) {
         to,
         from: {
           name: 'Flat Earth Safety Training',
-          email: 'contact@flatearthequipment.com'
+          email: 'training@flatearthequipment.com'
         },
         subject: `Forklift Training Complete - ${studentName}`,
         html: emailHtml,
