@@ -262,11 +262,11 @@ export default function EvaluationWizard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6 sm:mb-8">
           {certificate.operator_name.includes('Demo Operator') && (
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-4 mb-4">
               <div className="flex items-center justify-center">
                 <svg className="w-5 h-5 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -278,27 +278,33 @@ export default function EvaluationWizard() {
               </p>
             </div>
           )}
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
             Supervisor Evaluation Wizard
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 text-sm sm:text-base px-2">
             Complete the OSHA-required practical evaluation for <strong>{certificate.operator_name}</strong>
           </p>
         </div>
 
-        {/* Progress Bar */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-2">
+        {/* Progress Bar - Mobile Optimized */}
+        <div className="mb-6 sm:mb-8">
+          <div className="flex items-center justify-between mb-3">
             {[1, 2, 3, 4].map((i) => (
-              <div
-                key={i}
-                className={`flex items-center justify-center w-10 h-10 rounded-full text-sm font-medium ${
-                  i <= step
-                    ? 'bg-orange-600 text-white'
-                    : 'bg-gray-200 text-gray-600'
-                }`}
-              >
-                {i}
+              <div key={i} className="flex flex-col items-center flex-1">
+                <div
+                  className={`flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full text-xs sm:text-sm font-medium mb-1 ${
+                    i <= step
+                      ? 'bg-orange-600 text-white'
+                      : 'bg-gray-200 text-gray-600'
+                  }`}
+                >
+                  {i}
+                </div>
+                <span className={`text-xs font-medium ${
+                  i <= step ? 'text-orange-600' : 'text-gray-400'
+                }`}>
+                  {i === 1 ? 'Setup' : i === 2 ? 'Assess' : i === 3 ? 'Sign' : 'Submit'}
+                </span>
               </div>
             ))}
           </div>
@@ -310,30 +316,30 @@ export default function EvaluationWizard() {
           </div>
         </div>
 
-        {/* Step Content */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+        {/* Step Content - Mobile Optimized */}
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-6">
           {step === 1 && (
             <div>
-              <h2 className="text-xl font-semibold mb-4 text-teal-800">
+              <h2 className="text-lg sm:text-xl font-semibold mb-4 text-teal-800">
                 Step 1: Operator & Equipment Information
               </h2>
-              <div className="space-y-4">
+              <div className="space-y-4 sm:space-y-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     Operator Name
                   </label>
                   <input
                     type="text"
                     value={certificate.operator_name}
                     disabled
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-600"
+                    className="w-full px-3 py-3 text-base border border-gray-300 rounded-md bg-gray-50 text-gray-600"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-3">
                     Equipment Type *
                   </label>
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
                     {[
                       { 
                         id: 'sit-down-forklift', 
@@ -370,13 +376,13 @@ export default function EvaluationWizard() {
                         key={equipment.id}
                         type="button"
                         onClick={() => setEquipmentType(equipment.name)}
-                        className={`p-4 border-2 rounded-lg text-center transition-all hover:shadow-md ${
+                        className={`p-4 border-2 rounded-lg text-center transition-all hover:shadow-md touch-manipulation ${
                           equipmentType === equipment.name
                             ? 'border-orange-500 bg-orange-50 text-orange-800'
                             : 'border-gray-200 hover:border-gray-300'
                         }`}
                       >
-                        <div className="text-3xl mb-2">{equipment.icon}</div>
+                        <div className="text-2xl sm:text-3xl mb-2">{equipment.icon}</div>
                         <div className="text-sm font-medium">{equipment.name}</div>
                         <div className="text-xs text-gray-500 mt-1">{equipment.description}</div>
                       </button>
@@ -385,15 +391,15 @@ export default function EvaluationWizard() {
                   
                   {equipmentType && (
                     <div className="mt-4">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         Specific Model/Serial (Optional)
                       </label>
                       <input
                         type="text"
                         placeholder="e.g., Toyota 8FGCU25, Crown PE4500, Serial #12345"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500"
+                        className="w-full px-3 py-3 text-base border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500"
                       />
-                      <p className="text-sm text-gray-500 mt-1">
+                      <p className="text-sm text-gray-500 mt-2">
                         Add specific model number or serial if needed for documentation
                       </p>
                     </div>
@@ -406,14 +412,14 @@ export default function EvaluationWizard() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     Course Completed
                   </label>
                   <input
                     type="text"
                     value={certificate.course_title}
                     disabled
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-600"
+                    className="w-full px-3 py-3 text-base border border-gray-300 rounded-md bg-gray-50 text-gray-600"
                   />
                 </div>
               </div>
@@ -422,17 +428,17 @@ export default function EvaluationWizard() {
 
           {step === 2 && (
             <div>
-              <h2 className="text-xl font-semibold mb-4 text-teal-800">
+              <h2 className="text-lg sm:text-xl font-semibold mb-4 text-teal-800">
                 Step 2: Skill Assessment Checklist
               </h2>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-600 mb-6 text-sm sm:text-base">
                 Evaluate each skill based on OSHA 29 CFR 1910.178 requirements:
               </p>
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {EVALUATION_SKILLS.map((skill) => (
                   <div
                     key={skill.id}
-                    className={`p-4 rounded-lg border-2 transition-colors ${
+                    className={`p-3 sm:p-4 rounded-lg border-2 transition-colors ${
                       checks[skill.id] === 'pass'
                         ? 'border-emerald-500 bg-emerald-50'
                         : checks[skill.id] === 'retrain'
@@ -440,43 +446,59 @@ export default function EvaluationWizard() {
                         : 'border-gray-200 bg-white'
                     }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="font-medium text-gray-900">{skill.label}</span>
-                      <div className="flex gap-2">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                      <span className="font-medium text-gray-900 text-sm sm:text-base leading-relaxed">
+                        {skill.label}
+                      </span>
+                      <div className="flex gap-2 sm:flex-shrink-0">
                         <button
                           onClick={() => handleCheckChange(skill.id, 'pass')}
-                          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                          className={`flex-1 sm:flex-none px-4 py-3 rounded-md text-sm font-medium transition-colors touch-manipulation ${
                             checks[skill.id] === 'pass'
                               ? 'bg-emerald-600 text-white'
                               : 'bg-gray-100 text-gray-700 hover:bg-emerald-100'
                           }`}
                         >
-                          Pass
+                          ✓ Pass
                         </button>
                         <button
                           onClick={() => handleCheckChange(skill.id, 'retrain')}
-                          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                          className={`flex-1 sm:flex-none px-4 py-3 rounded-md text-sm font-medium transition-colors touch-manipulation ${
                             checks[skill.id] === 'retrain'
                               ? 'bg-rose-600 text-white'
                               : 'bg-gray-100 text-gray-700 hover:bg-rose-100'
                           }`}
                         >
-                          Retrain
+                          ⚠️ Retrain
                         </button>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
+              
+              {/* Progress indicator for mobile */}
+              <div className="mt-6 p-3 bg-gray-50 rounded-lg">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="font-medium text-gray-700">Progress:</span>
+                  <span className={`font-medium ${
+                    Object.keys(checks).length === EVALUATION_SKILLS.length 
+                      ? 'text-green-600' 
+                      : 'text-orange-600'
+                  }`}>
+                    {Object.keys(checks).length} of {EVALUATION_SKILLS.length} completed
+                  </span>
+                </div>
+              </div>
             </div>
           )}
 
           {step === 3 && (
             <div>
-              <h2 className="text-xl font-semibold mb-4 text-teal-800">
+              <h2 className="text-lg sm:text-xl font-semibold mb-4 text-teal-800">
                 Step 3: Evaluator Signature
               </h2>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-600 mb-6 text-sm sm:text-base">
                 Sign digitally to certify this evaluation per OSHA 29 CFR 1910.178(m):
               </p>
               <EvalSignature
@@ -488,12 +510,12 @@ export default function EvaluationWizard() {
 
           {step === 4 && (
             <div>
-              <h2 className="text-xl font-semibold mb-4 text-teal-800">
+              <h2 className="text-lg sm:text-xl font-semibold mb-4 text-teal-800">
                 Step 4: Review & Submit
               </h2>
               <div className="space-y-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     Your Email Address *
                   </label>
                   <input
@@ -501,22 +523,42 @@ export default function EvaluationWizard() {
                     value={supervisorEmail}
                     onChange={(e) => setSupervisorEmail(e.target.value)}
                     placeholder="supervisor@company.com"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full px-3 py-3 text-base border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500"
                   />
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-sm text-gray-500 mt-2">
                     You'll receive a copy of the completed evaluation
                   </p>
                 </div>
 
                 <div className="bg-gray-50 p-4 rounded-lg">
-                  <h3 className="font-medium mb-2">Evaluation Summary</h3>
-                  <div className="space-y-1 text-sm">
-                    <p><strong>Operator:</strong> {certificate.operator_name}</p>
-                    <p><strong>Equipment:</strong> {equipmentType}</p>
-                    <p><strong>Skills Assessed:</strong> {Object.keys(checks).length} of {EVALUATION_SKILLS.length}</p>
-                    <p><strong>Passed:</strong> {Object.values(checks).filter(v => v === 'pass').length}</p>
-                    <p><strong>Needs Retraining:</strong> {Object.values(checks).filter(v => v === 'retrain').length}</p>
-                    <p><strong>Signature:</strong> {signature?.data ? 'Provided' : 'Missing'}</p>
+                  <h3 className="font-medium mb-3 text-lg">Evaluation Summary</h3>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="font-medium">Operator:</span>
+                      <span className="text-right">{certificate.operator_name}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="font-medium">Equipment:</span>
+                      <span className="text-right">{equipmentType}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="font-medium">Skills Assessed:</span>
+                      <span className="text-right">{Object.keys(checks).length} of {EVALUATION_SKILLS.length}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="font-medium text-green-700">Passed:</span>
+                      <span className="text-right font-medium text-green-700">{Object.values(checks).filter(v => v === 'pass').length}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="font-medium text-red-700">Needs Retraining:</span>
+                      <span className="text-right font-medium text-red-700">{Object.values(checks).filter(v => v === 'retrain').length}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="font-medium">Signature:</span>
+                      <span className={`text-right font-medium ${signature?.data ? 'text-green-700' : 'text-red-700'}`}>
+                        {signature?.data ? '✅ Provided' : '❌ Missing'}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -524,47 +566,47 @@ export default function EvaluationWizard() {
           )}
         </div>
 
-        {/* Navigation */}
-        <div className="flex justify-between">
+        {/* Navigation - Mobile Optimized */}
+        <div className="flex flex-col sm:flex-row gap-3 sm:justify-between">
           <button
             onClick={() => setStep(Math.max(1, step - 1))}
             disabled={step === 1}
-            className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full sm:w-auto px-6 py-3 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
           >
-            Previous
+            ← Previous
           </button>
 
           {step < 4 ? (
             <button
               onClick={() => setStep(step + 1)}
               disabled={!isStepComplete(step)}
-              className="px-6 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full sm:w-auto px-6 py-3 bg-orange-600 text-white rounded-md hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
             >
-              Next
+              Next →
             </button>
           ) : (
             <button
               onClick={handleSubmit}
               disabled={!isStepComplete(4) || submitting}
-              className="px-6 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full sm:w-auto px-6 py-3 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
             >
-              {submitting ? 'Submitting...' : 'Submit Evaluation'}
+              {submitting ? '⏳ Submitting...' : '✅ Submit Evaluation'}
             </button>
           )}
         </div>
 
-        {/* Fallback Link */}
+        {/* Fallback Link - Mobile Optimized */}
         <div className="mt-8 text-center border-t pt-6">
-          <p className="text-sm text-gray-600 mb-2">
+          <p className="text-sm text-gray-600 mb-3">
             Need to use a paper form instead?
           </p>
           <a
             href="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/NEW-branded-eval.pdf"
-            className="text-sm text-orange-600 hover:text-orange-700 underline"
+            className="inline-flex items-center text-sm text-orange-600 hover:text-orange-700 underline touch-manipulation"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Download Branded PDF
+            📄 Download Branded PDF
           </a>
         </div>
       </div>
