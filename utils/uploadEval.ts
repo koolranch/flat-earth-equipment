@@ -19,6 +19,15 @@ export async function uploadEval(data: EvalSubmissionData) {
     
     // Upload signature if provided
     if (data.signature.data) {
+      console.log('📝 Attempting to upload signature...')
+      
+      // For now, skip actual file upload and just store signature data as text
+      // This bypasses the RLS policy issue temporarily
+      console.log('⚠️ Temporarily skipping file upload due to RLS policies')
+      signatureUrl = `data:${data.signature.type === 'typed' ? 'image/svg+xml' : 'image/png'};base64,${data.signature.data}`
+      
+      // TODO: Uncomment this section once storage policies are fixed
+      /*
       const timestamp = Date.now()
       const fileName = `eval-signature-${data.certificateId}-${timestamp}`
       
@@ -65,6 +74,7 @@ export async function uploadEval(data: EvalSubmissionData) {
         .getPublicUrl(fullFileName)
       
       signatureUrl = publicUrl
+      */
     }
     
     // Insert evaluation submission

@@ -164,6 +164,15 @@ export default function EvaluationWizard() {
 
     setSubmitting(true)
     try {
+      console.log('🚀 Starting evaluation submission...')
+      console.log('📋 Submission data:', {
+        certificateId: certificate.id,
+        supervisorEmail,
+        equipmentType,
+        checksCount: Object.keys(checks).length,
+        hasSignature: !!(signature && signature.data)
+      })
+
       const result = await uploadEval({
         certificateId: certificate.id,
         supervisorEmail,
@@ -172,23 +181,36 @@ export default function EvaluationWizard() {
         signature: signature || { type: 'typed', data: '' }
       })
 
+      console.log('📤 Upload result:', result)
+
       if (result.success) {
+        console.log('✅ Upload successful, sending email...')
+        
         // Call email API
-        await fetch('/api/email-eval', {
+        const emailResponse = await fetch('/api/email-eval', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(result.data)
         })
 
+        console.log('📧 Email response status:', emailResponse.status)
+        
+        if (!emailResponse.ok) {
+          const emailError = await emailResponse.text()
+          console.error('❌ Email API error:', emailError)
+          throw new Error(`Email failed: ${emailError}`)
+        }
+
         // Show success and redirect
         alert('Evaluation submitted successfully!')
         router.push('/')
       } else {
+        console.error('❌ Upload failed:', result.error)
         throw new Error(result.error)
       }
     } catch (error) {
-      console.error('Submission error:', error)
-      alert('Failed to submit evaluation. Please try again.')
+      console.error('💥 Submission error:', error)
+      alert(`Failed to submit evaluation: ${error instanceof Error ? error.message : 'Unknown error'}. Please check console for details.`)
     } finally {
       setSubmitting(false)
     }
