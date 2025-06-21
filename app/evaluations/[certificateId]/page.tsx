@@ -201,8 +201,9 @@ export default function EvaluationWizard() {
           throw new Error(`Email failed: ${emailError}`)
         }
 
-        // Show success and redirect
-        alert('Evaluation submitted successfully!')
+        // Show success with detailed message
+        const emailData = await emailResponse.json()
+        alert(`Evaluation submitted successfully!\n\nStatus: ${emailData.status || 'Completed'}\nScore: ${emailData.score || 'N/A'}\n\nEmail notification sent to supervisor.`)
         router.push('/')
       } else {
         console.error('❌ Upload failed:', result.error)
