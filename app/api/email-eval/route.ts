@@ -18,24 +18,40 @@ export async function POST(req: Request) {
       hasSignature: !!payload.signature_url
     })
 
-    // Get operator information from enrollments if it's a real certificate
+    // Get operator information and certificate from enrollments if it's a real certificate
     let operatorName = 'Demo Operator'
     let operatorEmail = null
+    let certificateUrl = null
+    let courseTitle = 'Forklift Operator Safety Training'
     
     if (!payload.certificate_id.includes('test') && !payload.certificate_id.includes('demo')) {
       const { data: enrollment } = await supabase
         .from('enrollments')
         .select(`
           user_id,
-          users!inner(email, first_name, last_name)
+          cert_url,
+          course_id,
+          users!inner(email, first_name, last_name),
+          courses!inner(title)
         `)
         .eq('id', payload.certificate_id)
         .single()
       
-      if (enrollment?.users && !Array.isArray(enrollment.users)) {
-        const user = enrollment.users as { email: string; first_name: string; last_name: string }
-        operatorName = `${user.first_name} ${user.last_name}`.trim()
-        operatorEmail = user.email
+      if (enrollment) {
+        if (enrollment.users && !Array.isArray(enrollment.users)) {
+          const user = enrollment.users as { email: string; first_name: string; last_name: string }
+          operatorName = `${user.first_name} ${user.last_name}`.trim()
+          operatorEmail = user.email
+        }
+        
+        if (enrollment.courses && !Array.isArray(enrollment.courses)) {
+          const course = enrollment.courses as { title: string }
+          courseTitle = course.title
+        }
+        
+        // Get the certificate URL if available
+        certificateUrl = enrollment.cert_url
+        console.log('📜 Certificate URL found:', certificateUrl ? 'Yes' : 'No')
       }
     }
 
@@ -87,6 +103,7 @@ export async function POST(req: Request) {
             <p style="margin: 5px 0;"><strong>Operator:</strong> ${operatorName}</p>
             <p style="margin: 5px 0;"><strong>Equipment:</strong> ${payload.equipment_type}</p>
             <p style="margin: 5px 0;"><strong>Supervisor:</strong> ${payload.supervisor_email}</p>
+            <p style="margin: 5px 0;"><strong>Course:</strong> ${courseTitle}</p>
           </div>
           <div>
             <p style="margin: 5px 0;"><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
@@ -95,6 +112,27 @@ export async function POST(req: Request) {
           </div>
         </div>
       </div>
+
+      ${certificateUrl ? `
+      <div style="background: #f0fdf4; border: 2px solid #059669; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+        <h3 style="color: #059669; margin-top: 0; display: flex; align-items: center;">
+          📜 Training Certificate Included
+        </h3>
+        <p style="margin: 10px 0; font-size: 14px; color: #14532d;">
+          <strong>${operatorName}</strong> has successfully completed the online virtual training modules for <strong>${courseTitle}</strong>. 
+          The attached certificate documents completion of the formal instruction requirements per OSHA 29 CFR 1910.178(l)(3)(i).
+        </p>
+        <div style="margin: 15px 0;">
+          <a href="${certificateUrl}" 
+             style="display: inline-block; background: #059669; color: white; padding: 12px 20px; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: bold;">
+            📄 Download Training Certificate
+          </a>
+        </div>
+        <p style="margin: 10px 0 0 0; font-size: 12px; color: #6b7280; font-style: italic;">
+          This certificate serves as proof of completed theoretical training and knowledge assessment.
+        </p>
+      </div>
+      ` : ''}
       
       <h3 style="color: #1f2937;">Skills Assessment Results</h3>
       <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin-bottom: 20px; overflow-x: auto;">
@@ -133,6 +171,23 @@ export async function POST(req: Request) {
         <p style="margin: 0; font-size: 14px; color: #6b7280;">Supervisor signature electronically recorded and stored securely.</p>
       </div>
       ` : ''}
+
+      <div style="background: #f0f9ff; border: 2px solid #0ea5e9; border-radius: 8px; padding: 20px; margin: 20px 0;">
+        <h4 style="margin: 0 0 15px 0; color: #0369a1;">📋 Complete OSHA Documentation Package</h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+          <div style="background: white; padding: 12px; border-radius: 6px; border: 1px solid #e0f2fe;">
+            <h5 style="margin: 0 0 8px 0; color: #0369a1; font-size: 14px;">✅ Formal Instruction</h5>
+            <p style="margin: 0; font-size: 12px; color: #0c4a6e;">Online training modules completed${certificateUrl ? ' (certificate attached)' : ''}</p>
+          </div>
+          <div style="background: white; padding: 12px; border-radius: 6px; border: 1px solid #e0f2fe;">
+            <h5 style="margin: 0 0 8px 0; color: #0369a1; font-size: 14px;">✅ Practical Evaluation</h5>
+            <p style="margin: 0; font-size: 12px; color: #0c4a6e;">Hands-on assessment completed (this document)</p>
+          </div>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #0369a1; font-weight: bold;">
+          This evaluation, combined with the training certificate, satisfies OSHA 29 CFR 1910.178(l)(6) requirements for powered industrial truck operator certification.
+        </p>
+      </div>
       
       <div style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 15px; margin: 20px 0;">
         <p style="margin: 0; font-weight: bold; color: #1d4ed8;">OSHA Compliance Documentation</p>
@@ -182,6 +237,7 @@ export async function POST(req: Request) {
       message: 'Evaluation completed and email notification sent successfully',
       status: evaluationStatus,
       score: `${passedChecks}/${totalChecks}`,
+      certificateIncluded: !!certificateUrl,
       // In development, include the email content for testing
       ...(process.env.NODE_ENV === 'development' && { emailHtml })
     })
