@@ -341,24 +341,6 @@ export default function EvaluationWizard() {
                         name: 'Pallet Truck', 
                         icon: '🛒',
                         description: 'Motorized pallet jack'
-                      },
-                      { 
-                        id: 'telehandler', 
-                        name: 'Telehandler', 
-                        icon: '🏗️',
-                        description: 'Telescopic handler'
-                      },
-                      { 
-                        id: 'side-loader', 
-                        name: 'Side Loader', 
-                        icon: '↔️',
-                        description: 'Side loading forklift'
-                      },
-                      { 
-                        id: 'narrow-aisle', 
-                        name: 'Narrow Aisle', 
-                        icon: '🎯',
-                        description: 'VNA/turret truck'
                       }
                     ].map((equipment) => (
                       <button
