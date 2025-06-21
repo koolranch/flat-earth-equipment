@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #C85B25; /* canyon-rust */
+  --color-pass-bg: #059669;  /* emerald-500 */
+  --color-retrain-bg: #EF4444; /* rose-500 */
+}
+
+/* Custom styles for signature canvas */
+.signature-canvas {
+  border-radius: 0.375rem;
+  cursor: crosshair;
+}
+
+.signature-canvas:active {
+  cursor: grab;
+} 

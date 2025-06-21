@@ -581,6 +581,7 @@ export default function SimpleDashboard() {
                 certificateUrl={enrollment.cert_url}
                 courseId={enrollment.course_id}
                 user={user}
+                enrollmentId={enrollment.id}
               />
             </div>
           )}
