@@ -7,6 +7,7 @@ interface CompletionActionsProps {
   certificateUrl: string
   courseId: string
   user: any
+  enrollmentId?: string
 }
 
 const supabase = createClient(
@@ -14,11 +15,26 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
-export default function CompletionActions({ certificateUrl, courseId, user }: CompletionActionsProps) {
+export default function CompletionActions({ certificateUrl, courseId, user, enrollmentId }: CompletionActionsProps) {
   const [open, setOpen] = useState(false)
   const [email, setEmail] = useState('')
   const [sending, setSending] = useState(false)
   const [success, setSuccess] = useState(false)
+
+  // Extract certificate ID from URL for the evaluation wizard
+  const getCertificateId = () => {
+    // Use enrollmentId if provided, otherwise try to extract from certificate URL
+    if (enrollmentId) return enrollmentId
+    
+    // Extract cert ID from URL pattern like /storage/.../certs/ABC123-en.pdf
+    const urlMatch = certificateUrl.match(/certs\/([A-Z0-9]+)(-[a-z]{2})?\.pdf/)
+    if (urlMatch) {
+      return urlMatch[1] // Return the cert ID part
+    }
+    
+    // Fallback to courseId (not ideal but better than nothing)
+    return courseId
+  }
 
   async function handleSend() {
     if (!email) return
@@ -109,21 +125,58 @@ export default function CompletionActions({ certificateUrl, courseId, user }: Co
   }
 
   return (
-    <div className="flex flex-col sm:flex-row gap-4 mt-6">
-      <a
-        href={certificateUrl}
-        className="bg-orange-600 text-white px-6 py-3 rounded text-center hover:bg-orange-700 transition-colors"
-        download
-      >
-        📜 Download Certificate
-      </a>
+    <div className="space-y-4">
+      {/* Digital Evaluation Option */}
+      <div className="bg-gradient-to-r from-teal-50 to-orange-50 border border-teal-200 rounded-lg p-4">
+        <h3 className="font-semibold text-teal-800 mb-2">
+          📱 Complete Supervisor Evaluation →
+        </h3>
+        <p className="text-sm text-gray-600 mb-3">
+          Mobile-first digital evaluation wizard with electronic signatures
+        </p>
+        <a
+          href={`/evaluations/${getCertificateId()}`}
+          className="inline-flex items-center px-4 py-2 bg-teal-600 text-white text-sm font-medium rounded-md hover:bg-teal-700 transition-colors"
+        >
+          Start Digital Evaluation
+          <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2M7 7h10l-4 4v6" />
+          </svg>
+        </a>
+      </div>
 
-      <button
-        onClick={() => setOpen(true)}
-        className="bg-slate-700 text-white px-6 py-3 rounded text-center hover:bg-slate-800 transition-colors"
-      >
-        📧 Send Training Documents to Supervisor
-      </button>
+      {/* Traditional Options */}
+      <div className="flex flex-col sm:flex-row gap-4">
+        <a
+          href={certificateUrl}
+          className="bg-orange-600 text-white px-6 py-3 rounded text-center hover:bg-orange-700 transition-colors"
+          download
+        >
+          📜 Download Certificate
+        </a>
+
+        <button
+          onClick={() => setOpen(true)}
+          className="bg-slate-700 text-white px-6 py-3 rounded text-center hover:bg-slate-800 transition-colors"
+        >
+          📧 Send Training Documents to Supervisor
+        </button>
+      </div>
+
+      {/* Fallback PDF Link */}
+      <div className="text-center pt-4 border-t">
+        <p className="text-sm text-gray-600 mb-2">
+          Need paper copy? 
+        </p>
+        <a
+          href="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/NEW-branded-eval.pdf"
+          className="text-sm text-orange-600 hover:text-orange-700 underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Download Branded PDF
+        </a>
+      </div>
 
       {/* Modal */}
       <Modal open={open} onClose={() => setOpen(false)}>
@@ -163,6 +216,15 @@ export default function CompletionActions({ certificateUrl, courseId, user }: Co
                 <li>Employer evaluation checklist (fillable PDF)</li>
                 <li>OSHA compliance requirements</li>
               </ul>
+            </div>
+            
+            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <p className="text-sm text-blue-800 mb-2">
+                <strong>🎯 New Digital Option Available!</strong>
+              </p>
+              <p className="text-xs text-blue-700">
+                Supervisors can now complete evaluations digitally with our mobile-first wizard.
+              </p>
             </div>
             
             <div className="flex gap-3">
