@@ -88,6 +88,7 @@ export default function CompletionActions({ certificateUrl, courseId, user, enro
           to: email,
           certificateUrl,
           studentName: user.user_metadata?.full_name || user.email,
+          enrollmentId: getCertificateId(), // Include enrollment ID for digital evaluation wizard
         }),
       })
       
