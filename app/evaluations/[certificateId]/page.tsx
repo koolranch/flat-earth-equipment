@@ -22,17 +22,195 @@ interface EvaluationChecks {
   [key: string]: 'pass' | 'retrain'
 }
 
+// Translation strings
+const translations = {
+  en: {
+    title: 'Supervisor Evaluation Wizard',
+    subtitle: 'Complete the OSHA-required practical evaluation for',
+    demoMode: 'Demo Mode',
+    demoDescription: 'This is a demo evaluation for testing purposes. Certificate ID:',
+    loading: 'Loading evaluation...',
+    errorTitle: 'Evaluation Not Available',
+    errorReturn: 'Return Home',
+    steps: {
+      setup: 'Setup',
+      assess: 'Assess', 
+      sign: 'Sign',
+      submit: 'Submit'
+    },
+    step1: {
+      title: 'Step 1: Operator & Equipment Information',
+      operatorName: 'Operator Name',
+      equipmentType: 'Equipment Type *',
+      equipmentTypes: {
+        'Sit-Down Forklift': { name: 'Sit-Down Forklift', description: 'Counterbalance forklift' },
+        'Stand-Up Forklift': { name: 'Stand-Up Forklift', description: 'Stand-up counterbalance' },
+        'Reach Truck': { name: 'Reach Truck', description: 'Pantograph reach' },
+        'Order Picker': { name: 'Order Picker', description: 'Vertical order selector' },
+        'Pallet Truck': { name: 'Pallet Truck', description: 'Motorized pallet jack' }
+      },
+      modelSerial: 'Specific Model/Serial (Optional)',
+      modelPlaceholder: 'e.g., Toyota 8FGCU25, Crown PE4500, Serial #12345',
+      modelHelp: 'Add specific model number or serial if needed for documentation',
+      selected: 'Selected:',
+      selectPrompt: 'Please select equipment type above',
+      courseCompleted: 'Course Completed'
+    },
+    step2: {
+      title: 'Step 2: Skill Assessment Checklist',
+      subtitle: 'Evaluate each skill based on OSHA 29 CFR 1910.178 requirements:',
+      pass: '✓ Pass',
+      retrain: '⚠️ Retrain',
+      progress: 'Progress:',
+      completed: 'completed'
+    },
+    step3: {
+      title: 'Step 3: Evaluator Signature',
+      subtitle: 'Sign digitally to certify this evaluation per OSHA 29 CFR 1910.178(m):'
+    },
+    step4: {
+      title: 'Step 4: Review & Submit',
+      emailLabel: 'Your Email Address *',
+      emailPlaceholder: 'supervisor@company.com',
+      emailHelp: 'You\'ll receive a copy of the completed evaluation',
+      summaryTitle: 'Evaluation Summary',
+      operator: 'Operator:',
+      equipment: 'Equipment:',
+      skillsAssessed: 'Skills Assessed:',
+      passed: 'Passed:',
+      needsRetraining: 'Needs Retraining:',
+      signature: 'Signature:',
+      provided: '✅ Provided',
+      missing: '❌ Missing'
+    },
+    navigation: {
+      previous: '← Previous',
+      next: 'Next →',
+      submitting: '⏳ Submitting...',
+      submit: '✅ Submit Evaluation'
+    },
+    fallback: {
+      title: 'Need to use a paper form instead?',
+      download: '📄 Download Branded PDF'
+    },
+    skills: {
+      'pre_fluid': 'Fluid levels, tires, forks, mast, devices',
+      'pre_belt': 'Seatbelt usage',
+      'op_mount': 'Mount / Dismount (3-point)',
+      'op_load': 'Load handling & tilt back',
+      'op_speed': 'Travel speed ≤ 5 mph',
+      'op_horn': 'Horn at intersections',
+      'op_ped': 'Pedestrian awareness',
+      'op_ramp': 'Ramp parking technique',
+      'park_proc': 'Parking procedure',
+      'op_control': 'Overall smooth control'
+    },
+    messages: {
+      submitSuccess: 'Evaluation submitted successfully!',
+      emailSent: 'Email notification sent to supervisor.',
+      submitError: 'Failed to submit evaluation:'
+    }
+  },
+  es: {
+    title: 'Asistente de Evaluación del Supervisor',
+    subtitle: 'Complete la evaluación práctica requerida por OSHA para',
+    demoMode: 'Modo Demo',
+    demoDescription: 'Esta es una evaluación de demostración para propósitos de prueba. ID del Certificado:',
+    loading: 'Cargando evaluación...',
+    errorTitle: 'Evaluación No Disponible',
+    errorReturn: 'Regresar al Inicio',
+    steps: {
+      setup: 'Configurar',
+      assess: 'Evaluar',
+      sign: 'Firmar',
+      submit: 'Enviar'
+    },
+    step1: {
+      title: 'Paso 1: Información del Operador y Equipo',
+      operatorName: 'Nombre del Operador',
+      equipmentType: 'Tipo de Equipo *',
+      equipmentTypes: {
+        'Sit-Down Forklift': { name: 'Montacargas Sentado', description: 'Montacargas de contrapeso' },
+        'Stand-Up Forklift': { name: 'Montacargas de Pie', description: 'Contrapeso de pie' },
+        'Reach Truck': { name: 'Reach Truck', description: 'Alcance pantógrafo' },
+        'Order Picker': { name: 'Selector de Pedidos', description: 'Selector vertical de pedidos' },
+        'Pallet Truck': { name: 'Transpaleta', description: 'Gato hidráulico motorizado' }
+      },
+      modelSerial: 'Modelo/Serie Específico (Opcional)',
+      modelPlaceholder: 'ej., Toyota 8FGCU25, Crown PE4500, Serie #12345',
+      modelHelp: 'Agregue el número de modelo específico o serie si es necesario para la documentación',
+      selected: 'Seleccionado:',
+      selectPrompt: 'Por favor seleccione el tipo de equipo arriba',
+      courseCompleted: 'Curso Completado'
+    },
+    step2: {
+      title: 'Paso 2: Lista de Verificación de Evaluación de Habilidades',
+      subtitle: 'Evalúe cada habilidad basada en los requisitos de OSHA 29 CFR 1910.178:',
+      pass: '✓ Aprobado',
+      retrain: '⚠️ Reentrenar',
+      progress: 'Progreso:',
+      completed: 'completado'
+    },
+    step3: {
+      title: 'Paso 3: Firma del Evaluador',
+      subtitle: 'Firme digitalmente para certificar esta evaluación según OSHA 29 CFR 1910.178(m):'
+    },
+    step4: {
+      title: 'Paso 4: Revisar y Enviar',
+      emailLabel: 'Su Dirección de Correo Electrónico *',
+      emailPlaceholder: 'supervisor@empresa.com',
+      emailHelp: 'Recibirá una copia de la evaluación completada',
+      summaryTitle: 'Resumen de la Evaluación',
+      operator: 'Operador:',
+      equipment: 'Equipo:',
+      skillsAssessed: 'Habilidades Evaluadas:',
+      passed: 'Aprobadas:',
+      needsRetraining: 'Necesita Reentrenamiento:',
+      signature: 'Firma:',
+      provided: '✅ Proporcionada',
+      missing: '❌ Faltante'
+    },
+    navigation: {
+      previous: '← Anterior',
+      next: 'Siguiente →',
+      submitting: '⏳ Enviando...',
+      submit: '✅ Enviar Evaluación'
+    },
+    fallback: {
+      title: '¿Necesita usar un formulario en papel?',
+      download: '📄 Descargar PDF con Marca'
+    },
+    skills: {
+      'pre_fluid': 'Niveles de fluidos, llantas, horquillas, mástil, dispositivos',
+      'pre_belt': 'Uso del cinturón de seguridad',
+      'op_mount': 'Subir / Bajar (3 puntos)',
+      'op_load': 'Manejo de carga e inclinación hacia atrás',
+      'op_speed': 'Velocidad de viaje ≤ 8 km/h',
+      'op_horn': 'Claxon en intersecciones',
+      'op_ped': 'Conciencia peatonal',
+      'op_ramp': 'Técnica de estacionamiento en rampa',
+      'park_proc': 'Procedimiento de estacionamiento',
+      'op_control': 'Control suave general'
+    },
+    messages: {
+      submitSuccess: '¡Evaluación enviada exitosamente!',
+      emailSent: 'Notificación por correo electrónico enviada al supervisor.',
+      submitError: 'Error al enviar la evaluación:'
+    }
+  }
+}
+
 const EVALUATION_SKILLS = [
-  { id: 'pre_fluid', label: 'Fluid levels, tires, forks, mast, devices' },
-  { id: 'pre_belt', label: 'Seatbelt usage' },
-  { id: 'op_mount', label: 'Mount / Dismount (3-point)' },
-  { id: 'op_load', label: 'Load handling & tilt back' },
-  { id: 'op_speed', label: 'Travel speed ≤ 5 mph' },
-  { id: 'op_horn', label: 'Horn at intersections' },
-  { id: 'op_ped', label: 'Pedestrian awareness' },
-  { id: 'op_ramp', label: 'Ramp parking technique' },
-  { id: 'park_proc', label: 'Parking procedure' },
-  { id: 'op_control', label: 'Overall smooth control' }
+  { id: 'pre_fluid', labelKey: 'pre_fluid' },
+  { id: 'pre_belt', labelKey: 'pre_belt' },
+  { id: 'op_mount', labelKey: 'op_mount' },
+  { id: 'op_load', labelKey: 'op_load' },
+  { id: 'op_speed', labelKey: 'op_speed' },
+  { id: 'op_horn', labelKey: 'op_horn' },
+  { id: 'op_ped', labelKey: 'op_ped' },
+  { id: 'op_ramp', labelKey: 'op_ramp' },
+  { id: 'park_proc', labelKey: 'park_proc' },
+  { id: 'op_control', labelKey: 'op_control' }
 ]
 
 export default function EvaluationWizard() {
@@ -45,6 +223,7 @@ export default function EvaluationWizard() {
   const [submitting, setSubmitting] = useState(false)
   const [certificate, setCertificate] = useState<CertificateData | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [language, setLanguage] = useState<'en' | 'es'>('en')
   
   // Form data
   const [equipmentType, setEquipmentType] = useState('')
@@ -52,7 +231,15 @@ export default function EvaluationWizard() {
   const [signature, setSignature] = useState<{ type: 'typed' | 'drawn', data: string } | null>(null)
   const [supervisorEmail, setSupervisorEmail] = useState('')
 
+  // Get current translations
+  const t = translations[language]
+
   useEffect(() => {
+    // Detect language from browser or URL
+    const browserLang = navigator.language.toLowerCase()
+    if (browserLang.startsWith('es')) {
+      setLanguage('es')
+    }
     fetchCertificate()
   }, [certificateId])
 
@@ -66,9 +253,9 @@ export default function EvaluationWizard() {
         setCertificate({
           id: certificateId,
           user_id: 'demo-user-id',
-          course_title: 'Forklift Operator Safety Training',
+          course_title: language === 'es' ? 'Entrenamiento de Seguridad para Operador de Montacargas' : 'Forklift Operator Safety Training',
           completed_at: new Date().toISOString(),
-          operator_name: 'Demo Operator (Test Certificate)'
+          operator_name: language === 'es' ? 'Operador Demo (Certificado de Prueba)' : 'Demo Operator (Test Certificate)'
         })
         setLoading(false)
         return
@@ -96,9 +283,9 @@ export default function EvaluationWizard() {
           setCertificate({
             id: certificateId,
             user_id: 'demo-user-id',
-            course_title: 'Forklift Operator Safety Training',
+            course_title: language === 'es' ? 'Entrenamiento de Seguridad para Operador de Montacargas' : 'Forklift Operator Safety Training',
             completed_at: new Date().toISOString(),
-            operator_name: 'Demo Operator (Test Certificate)'
+            operator_name: language === 'es' ? 'Operador Demo (Certificado de Prueba)' : 'Demo Operator (Test Certificate)'
           })
           setLoading(false)
           return
@@ -203,7 +390,7 @@ export default function EvaluationWizard() {
 
         // Show success with detailed message
         const emailData = await emailResponse.json()
-        alert(`Evaluation submitted successfully!\n\nStatus: ${emailData.status || 'Completed'}\nScore: ${emailData.score || 'N/A'}\n\nEmail notification sent to supervisor.`)
+        alert(`${t.messages.submitSuccess}\n\n${t.step4.operator} ${emailData.status || 'Completed'}\n${t.step4.skillsAssessed} ${emailData.score || 'N/A'}\n\n${t.messages.emailSent}`)
         router.push('/')
       } else {
         console.error('❌ Upload failed:', result.error)
@@ -211,7 +398,7 @@ export default function EvaluationWizard() {
       }
     } catch (error) {
       console.error('💥 Submission error:', error)
-      alert(`Failed to submit evaluation: ${error instanceof Error ? error.message : 'Unknown error'}. Please check console for details.`)
+      alert(`${t.messages.submitError} ${error instanceof Error ? error.message : 'Unknown error'}. Please check console for details.`)
     } finally {
       setSubmitting(false)
     }
@@ -222,7 +409,7 @@ export default function EvaluationWizard() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto"></div>
-          <p className="mt-2 text-gray-600">Loading evaluation...</p>
+          <p className="mt-2 text-gray-600">{t.loading}</p>
         </div>
       </div>
     )
@@ -237,13 +424,13 @@ export default function EvaluationWizard() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-red-700 mb-2">Evaluation Not Available</h1>
+          <h1 className="text-2xl font-bold text-red-700 mb-2">{t.errorTitle}</h1>
           <p className="text-red-600">{error || 'Certificate not found'}</p>
           <a
             href="/"
             className="mt-4 inline-block bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700"
           >
-            Return Home
+            {t.errorReturn}
           </a>
         </div>
       </div>
@@ -263,6 +450,32 @@ export default function EvaluationWizard() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+        {/* Language Toggle */}
+        <div className="flex justify-end mb-4">
+          <div className="bg-gray-100 rounded-lg p-1 flex">
+            <button
+              onClick={() => setLanguage('en')}
+              className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+                language === 'en' 
+                  ? 'bg-white text-gray-900 shadow-sm' 
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              English
+            </button>
+            <button
+              onClick={() => setLanguage('es')}
+              className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+                language === 'es' 
+                  ? 'bg-white text-gray-900 shadow-sm' 
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Español
+            </button>
+          </div>
+        </div>
+
         {/* Header */}
         <div className="text-center mb-6 sm:mb-8">
           {certificate.operator_name.includes('Demo Operator') && (
@@ -274,15 +487,15 @@ export default function EvaluationWizard() {
                 <span className="text-blue-800 font-medium">Demo Mode</span>
               </div>
               <p className="text-blue-700 text-sm mt-1">
-                This is a demo evaluation for testing purposes. Certificate ID: {certificateId}
+                {t.demoDescription} {certificateId}
               </p>
             </div>
           )}
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-            Supervisor Evaluation Wizard
+            {t.title}
           </h1>
           <p className="text-gray-600 text-sm sm:text-base px-2">
-            Complete the OSHA-required practical evaluation for <strong>{certificate.operator_name}</strong>
+            {t.subtitle} <strong>{certificate.operator_name}</strong>
           </p>
         </div>
 
@@ -303,7 +516,7 @@ export default function EvaluationWizard() {
                 <span className={`text-xs font-medium ${
                   i <= step ? 'text-orange-600' : 'text-gray-400'
                 }`}>
-                  {i === 1 ? 'Setup' : i === 2 ? 'Assess' : i === 3 ? 'Sign' : 'Submit'}
+                  {i === 1 ? t.steps.setup : i === 2 ? t.steps.assess : i === 3 ? t.steps.sign : t.steps.submit}
                 </span>
               </div>
             ))}
@@ -321,12 +534,12 @@ export default function EvaluationWizard() {
           {step === 1 && (
             <div>
               <h2 className="text-lg sm:text-xl font-semibold mb-4 text-teal-800">
-                Step 1: Operator & Equipment Information
+                {t.step1.title}
               </h2>
               <div className="space-y-4 sm:space-y-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Operator Name
+                    {t.step1.operatorName}
                   </label>
                   <input
                     type="text"
@@ -337,54 +550,53 @@ export default function EvaluationWizard() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-3">
-                    Equipment Type *
+                    {t.step1.equipmentType}
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
                     {[
                       { 
                         id: 'sit-down-forklift', 
-                        name: 'Sit-Down Forklift', 
-                        icon: '🚜',
-                        description: 'Counterbalance forklift'
+                        key: 'Sit-Down Forklift',
+                        icon: '🚜'
                       },
                       { 
                         id: 'stand-up-forklift', 
-                        name: 'Stand-Up Forklift', 
-                        icon: '🧍',
-                        description: 'Stand-up counterbalance'
+                        key: 'Stand-Up Forklift',
+                        icon: '🧍'
                       },
                       { 
                         id: 'reach-truck', 
-                        name: 'Reach Truck', 
-                        icon: '📏',
-                        description: 'Pantograph reach'
+                        key: 'Reach Truck',
+                        icon: '📏'
                       },
                       { 
                         id: 'order-picker', 
-                        name: 'Order Picker', 
-                        icon: '📦',
-                        description: 'Vertical order selector'
+                        key: 'Order Picker',
+                        icon: '📦'
                       },
                       { 
                         id: 'pallet-truck', 
-                        name: 'Pallet Truck', 
-                        icon: '🛒',
-                        description: 'Motorized pallet jack'
+                        key: 'Pallet Truck',
+                        icon: '🛒'
                       }
                     ].map((equipment) => (
                       <button
                         key={equipment.id}
                         type="button"
-                        onClick={() => setEquipmentType(equipment.name)}
+                        onClick={() => setEquipmentType(t.step1.equipmentTypes[equipment.key as keyof typeof t.step1.equipmentTypes]?.name || equipment.key)}
                         className={`p-4 border-2 rounded-lg text-center transition-all hover:shadow-md touch-manipulation ${
-                          equipmentType === equipment.name
+                          equipmentType === (t.step1.equipmentTypes[equipment.key as keyof typeof t.step1.equipmentTypes]?.name || equipment.key)
                             ? 'border-orange-500 bg-orange-50 text-orange-800'
                             : 'border-gray-200 hover:border-gray-300'
                         }`}
                       >
                         <div className="text-2xl sm:text-3xl mb-2">{equipment.icon}</div>
-                        <div className="text-sm font-medium">{equipment.name}</div>
-                        <div className="text-xs text-gray-500 mt-1">{equipment.description}</div>
+                        <div className="text-sm font-medium">
+                          {t.step1.equipmentTypes[equipment.key as keyof typeof t.step1.equipmentTypes]?.name || equipment.key}
+                        </div>
+                        <div className="text-xs text-gray-500 mt-1">
+                          {t.step1.equipmentTypes[equipment.key as keyof typeof t.step1.equipmentTypes]?.description || ''}
+                        </div>
                       </button>
                     ))}
                   </div>
@@ -392,28 +604,28 @@ export default function EvaluationWizard() {
                   {equipmentType && (
                     <div className="mt-4">
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Specific Model/Serial (Optional)
+                        {t.step1.modelSerial}
                       </label>
                       <input
                         type="text"
-                        placeholder="e.g., Toyota 8FGCU25, Crown PE4500, Serial #12345"
+                        placeholder={t.step1.modelPlaceholder}
                         className="w-full px-3 py-3 text-base border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500"
                       />
                       <p className="text-sm text-gray-500 mt-2">
-                        Add specific model number or serial if needed for documentation
+                        {t.step1.modelHelp}
                       </p>
                     </div>
                   )}
                   
                   <div className="mt-3 p-3 bg-blue-50 rounded-lg">
                     <p className="text-sm text-blue-800">
-                      <strong>Selected:</strong> {equipmentType || 'Please select equipment type above'}
+                      {t.step1.selected} {equipmentType || t.step1.selectPrompt}
                     </p>
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Course Completed
+                    {t.step1.courseCompleted}
                   </label>
                   <input
                     type="text"
@@ -429,10 +641,10 @@ export default function EvaluationWizard() {
           {step === 2 && (
             <div>
               <h2 className="text-lg sm:text-xl font-semibold mb-4 text-teal-800">
-                Step 2: Skill Assessment Checklist
+                {t.step2.title}
               </h2>
               <p className="text-gray-600 mb-6 text-sm sm:text-base">
-                Evaluate each skill based on OSHA 29 CFR 1910.178 requirements:
+                {t.step2.subtitle}
               </p>
               <div className="space-y-3 sm:space-y-4">
                 {EVALUATION_SKILLS.map((skill) => (
@@ -447,9 +659,9 @@ export default function EvaluationWizard() {
                     }`}
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                      <span className="font-medium text-gray-900 text-sm sm:text-base leading-relaxed">
-                        {skill.label}
-                      </span>
+                                              <span className="font-medium text-gray-900 text-sm sm:text-base leading-relaxed">
+                         {t.skills[skill.id as keyof typeof t.skills]}
+                        </span>
                       <div className="flex gap-2 sm:flex-shrink-0">
                         <button
                           onClick={() => handleCheckChange(skill.id, 'pass')}
@@ -459,7 +671,7 @@ export default function EvaluationWizard() {
                               : 'bg-gray-100 text-gray-700 hover:bg-emerald-100'
                           }`}
                         >
-                          ✓ Pass
+                          {t.step2.pass}
                         </button>
                         <button
                           onClick={() => handleCheckChange(skill.id, 'retrain')}
@@ -469,7 +681,7 @@ export default function EvaluationWizard() {
                               : 'bg-gray-100 text-gray-700 hover:bg-rose-100'
                           }`}
                         >
-                          ⚠️ Retrain
+                          {t.step2.retrain}
                         </button>
                       </div>
                     </div>
@@ -480,13 +692,15 @@ export default function EvaluationWizard() {
               {/* Progress indicator for mobile */}
               <div className="mt-6 p-3 bg-gray-50 rounded-lg">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="font-medium text-gray-700">Progress:</span>
+                  <span className="font-medium text-gray-700">
+                    {t.step2.progress}
+                  </span>
                   <span className={`font-medium ${
                     Object.keys(checks).length === EVALUATION_SKILLS.length 
                       ? 'text-green-600' 
                       : 'text-orange-600'
                   }`}>
-                    {Object.keys(checks).length} of {EVALUATION_SKILLS.length} completed
+                    {Object.keys(checks).length} of {EVALUATION_SKILLS.length} {t.step2.completed}
                   </span>
                 </div>
               </div>
@@ -496,10 +710,10 @@ export default function EvaluationWizard() {
           {step === 3 && (
             <div>
               <h2 className="text-lg sm:text-xl font-semibold mb-4 text-teal-800">
-                Step 3: Evaluator Signature
+                {t.step3.title}
               </h2>
               <p className="text-gray-600 mb-6 text-sm sm:text-base">
-                Sign digitally to certify this evaluation per OSHA 29 CFR 1910.178(m):
+                {t.step3.subtitle}
               </p>
               <EvalSignature
                 onSignatureChange={setSignature}
@@ -511,52 +725,66 @@ export default function EvaluationWizard() {
           {step === 4 && (
             <div>
               <h2 className="text-lg sm:text-xl font-semibold mb-4 text-teal-800">
-                Step 4: Review & Submit
+                {t.step4.title}
               </h2>
               <div className="space-y-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Your Email Address *
+                    {t.step4.emailLabel}
                   </label>
                   <input
                     type="email"
                     value={supervisorEmail}
                     onChange={(e) => setSupervisorEmail(e.target.value)}
-                    placeholder="supervisor@company.com"
+                    placeholder={t.step4.emailPlaceholder}
                     className="w-full px-3 py-3 text-base border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500"
                   />
                   <p className="text-sm text-gray-500 mt-2">
-                    You'll receive a copy of the completed evaluation
+                    {t.step4.emailHelp}
                   </p>
                 </div>
 
                 <div className="bg-gray-50 p-4 rounded-lg">
-                  <h3 className="font-medium mb-3 text-lg">Evaluation Summary</h3>
+                  <h3 className="font-medium mb-3 text-lg">
+                    {t.step4.summaryTitle}
+                  </h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="font-medium">Operator:</span>
+                      <span className="font-medium">
+                        {t.step4.operator}
+                      </span>
                       <span className="text-right">{certificate.operator_name}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="font-medium">Equipment:</span>
+                      <span className="font-medium">
+                        {t.step4.equipment}
+                      </span>
                       <span className="text-right">{equipmentType}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="font-medium">Skills Assessed:</span>
+                      <span className="font-medium">
+                        {t.step4.skillsAssessed}
+                      </span>
                       <span className="text-right">{Object.keys(checks).length} of {EVALUATION_SKILLS.length}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="font-medium text-green-700">Passed:</span>
+                      <span className="font-medium text-green-700">
+                        {t.step4.passed}
+                      </span>
                       <span className="text-right font-medium text-green-700">{Object.values(checks).filter(v => v === 'pass').length}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="font-medium text-red-700">Needs Retraining:</span>
+                      <span className="font-medium text-red-700">
+                        {t.step4.needsRetraining}
+                      </span>
                       <span className="text-right font-medium text-red-700">{Object.values(checks).filter(v => v === 'retrain').length}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="font-medium">Signature:</span>
+                      <span className="font-medium">
+                        {t.step4.signature}
+                      </span>
                       <span className={`text-right font-medium ${signature?.data ? 'text-green-700' : 'text-red-700'}`}>
-                        {signature?.data ? '✅ Provided' : '❌ Missing'}
+                        {signature?.data ? t.step4.provided : t.step4.missing}
                       </span>
                     </div>
                   </div>
@@ -573,7 +801,7 @@ export default function EvaluationWizard() {
             disabled={step === 1}
             className="w-full sm:w-auto px-6 py-3 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
           >
-            ← Previous
+            {t.navigation.previous}
           </button>
 
           {step < 4 ? (
@@ -582,7 +810,7 @@ export default function EvaluationWizard() {
               disabled={!isStepComplete(step)}
               className="w-full sm:w-auto px-6 py-3 bg-orange-600 text-white rounded-md hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
             >
-              Next →
+              {t.navigation.next}
             </button>
           ) : (
             <button
@@ -590,7 +818,7 @@ export default function EvaluationWizard() {
               disabled={!isStepComplete(4) || submitting}
               className="w-full sm:w-auto px-6 py-3 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
             >
-              {submitting ? '⏳ Submitting...' : '✅ Submit Evaluation'}
+              {t.navigation.submitting}
             </button>
           )}
         </div>
@@ -598,7 +826,7 @@ export default function EvaluationWizard() {
         {/* Fallback Link - Mobile Optimized */}
         <div className="mt-8 text-center border-t pt-6">
           <p className="text-sm text-gray-600 mb-3">
-            Need to use a paper form instead?
+            {t.fallback.title}
           </p>
           <a
             href="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/NEW-branded-eval.pdf"
@@ -606,7 +834,7 @@ export default function EvaluationWizard() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            📄 Download Branded PDF
+            {t.fallback.download}
           </a>
         </div>
       </div>

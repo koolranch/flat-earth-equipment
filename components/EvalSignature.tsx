@@ -7,12 +7,52 @@ interface EvalSignatureProps {
   value?: { type: 'typed' | 'drawn', data: string } | null
 }
 
+// Translation strings for signature component
+const signatureTranslations = {
+  en: {
+    typeTab: '✍️ Type Signature',
+    drawTab: '✏️ Draw Signature',
+    typeLabel: 'Type your full name',
+    typePlaceholder: 'John Smith',
+    preview: 'Preview:',
+    mobileTip: '📱 Mobile Tip: Use your finger to draw your signature below',
+    clearSignature: '🗑️ Clear Signature',
+    signatureStatus: 'Signature Status:',
+    complete: '✅ Complete',
+    required: '⏳ Required'
+  },
+  es: {
+    typeTab: '✍️ Escribir Firma',
+    drawTab: '✏️ Dibujar Firma',
+    typeLabel: 'Escriba su nombre completo',
+    typePlaceholder: 'Juan Pérez',
+    preview: 'Vista previa:',
+    mobileTip: '📱 Consejo móvil: Use su dedo para dibujar su firma abajo',
+    clearSignature: '🗑️ Borrar Firma',
+    signatureStatus: 'Estado de la Firma:',
+    complete: '✅ Completa',
+    required: '⏳ Requerida'
+  }
+}
+
 export default function EvalSignature({ onSignatureChange, value }: EvalSignatureProps) {
   const [activeTab, setActiveTab] = useState<'type' | 'draw'>('type')
   const [typedName, setTypedName] = useState(value?.type === 'typed' ? value.data : '')
   const [canvasSize, setCanvasSize] = useState({ width: 400, height: 150 })
+  const [language, setLanguage] = useState<'en' | 'es'>('en')
   const sigCanvasRef = useRef<SignatureCanvas>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+
+  // Get current translations
+  const t = signatureTranslations[language]
+
+  // Detect language from browser
+  useEffect(() => {
+    const browserLang = navigator.language.toLowerCase()
+    if (browserLang.startsWith('es')) {
+      setLanguage('es')
+    }
+  }, [])
 
   // Update canvas size based on container width
   useEffect(() => {
@@ -78,7 +118,7 @@ export default function EvalSignature({ onSignatureChange, value }: EvalSignatur
               : 'border-transparent text-gray-500 hover:text-gray-700'
           }`}
         >
-          ✍️ Type Signature
+          {t.typeTab}
         </button>
         <button
           onClick={() => setActiveTab('draw')}
@@ -88,7 +128,7 @@ export default function EvalSignature({ onSignatureChange, value }: EvalSignatur
               : 'border-transparent text-gray-500 hover:text-gray-700'
           }`}
         >
-          ✏️ Draw Signature
+          {t.drawTab}
         </button>
       </div>
 
@@ -96,20 +136,20 @@ export default function EvalSignature({ onSignatureChange, value }: EvalSignatur
         <div className="space-y-4">
           <label className="block">
             <span className="text-sm font-medium text-gray-700 mb-2 block">
-              Type your full name
+              {t.typeLabel}
             </span>
             <input
               type="text"
               value={typedName}
               onChange={(e) => handleTypedSignature(e.target.value)}
-              placeholder="John Smith"
+              placeholder={t.typePlaceholder}
               className="w-full px-4 py-3 text-base border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 touch-manipulation"
             />
           </label>
           
           {typedName.trim() && (
             <div className="p-4 bg-gray-50 rounded-md">
-              <p className="text-sm text-gray-600 mb-3">Preview:</p>
+              <p className="text-sm text-gray-600 mb-3">{t.preview}</p>
               <div 
                 className="h-16 flex items-center justify-center border-b border-gray-200"
                 style={{ fontFamily: 'cursive', fontSize: '20px', color: '#1f2937', fontStyle: 'italic' }}
@@ -125,7 +165,7 @@ export default function EvalSignature({ onSignatureChange, value }: EvalSignatur
         <div className="space-y-4">
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
             <p className="text-sm text-blue-800">
-              📱 <strong>Mobile Tip:</strong> Use your finger to draw your signature below
+              <strong>{t.mobileTip}</strong>
             </p>
           </div>
           
@@ -148,7 +188,7 @@ export default function EvalSignature({ onSignatureChange, value }: EvalSignatur
               onClick={clearSignature}
               className="px-6 py-3 text-sm text-orange-600 hover:text-orange-700 font-medium border border-orange-200 rounded-md hover:bg-orange-50 touch-manipulation"
             >
-              🗑️ Clear Signature
+              {t.clearSignature}
             </button>
           </div>
         </div>
@@ -157,13 +197,13 @@ export default function EvalSignature({ onSignatureChange, value }: EvalSignatur
       {/* Signature Status */}
       <div className="p-3 bg-gray-50 rounded-lg">
         <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-gray-700">Signature Status:</span>
+          <span className="text-sm font-medium text-gray-700">{t.signatureStatus}</span>
           <span className={`text-xs px-2 py-1 rounded-full font-medium ${
             value?.data 
               ? 'bg-green-100 text-green-800' 
               : 'bg-yellow-100 text-yellow-800'
           }`}>
-            {value?.data ? '✅ Complete' : '⏳ Required'}
+            {value?.data ? t.complete : t.required}
           </span>
         </div>
       </div>
