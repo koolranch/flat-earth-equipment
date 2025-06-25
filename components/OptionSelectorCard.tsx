@@ -83,7 +83,7 @@ export default function OptionSelectorCard({ module, locale = 'en' }: { module: 
               {o.label === "Reman Exchange" && (
                 <p className="text-xs text-primary-700 font-medium">
                   Net cost after core refund&nbsp;=&nbsp;
-                  {formatUsd(o.price - CORE_DEPOSIT)}
+                  {formatUsd(o.price)}
                 </p>
               )}
             </div>
