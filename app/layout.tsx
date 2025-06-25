@@ -32,6 +32,8 @@ export default function RootLayout({
   return (
     <html lang={locale} className={inter.className}>
       <head>
+        {/* Google Search Console Verification */}
+        <meta name="google-site-verification" content="O7ZIN2n38dDBmoeD1-7x92JUIMyo02CeMaPZMuoH7cE" />
         <link rel="preconnect" href="https://stream.mux.com" />
         {/* SEO: Canonical URL to avoid duplicate content */}
         <link rel="canonical" href="https://www.flatearthequipment.com" />
