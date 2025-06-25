@@ -53,15 +53,9 @@ const nextConfig = {
         destination: '/parts/enersys-forklift-charger-module-6la20671',
         permanent: true,
       },
-      // Add redirect for battery charger modules landing page
+      // Direct redirect to the optimized charger modules landing page
       {
         source: '/battery-charger-modules',
-        destination: '/parts/battery-charger-modules',
-        permanent: true,
-      },
-      // Redirect old battery charger modules page to new optimized landing page
-      {
-        source: '/parts/battery-charger-modules',
         destination: '/charger-modules',
         permanent: true,
       },
