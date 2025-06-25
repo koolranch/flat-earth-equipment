@@ -1,15 +1,20 @@
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
 import dayjs from 'dayjs'
-import 'dayjs/locale/es'
+import 'dayjs/locale/es.js'
 import fs from 'fs'
 import path from 'path'
 
 /* Brand assets & palette */
 const CDN  = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand/'
 const LOGO = CDN + 'logo_128.png'
-const ORANGE = rgb(1, 0.478, 0.133)
-const TEAL   = rgb(0, 0.545, 0.553)
-const GRAY   = rgb(0.55, 0.55, 0.55)
+const ORANGE = rgb(0.937, 0.384, 0.098) // #EF6219 - Primary brand orange
+const TEAL   = rgb(0.106, 0.624, 0.624) // #1B9F9F - Brand teal 
+const DARK_GRAY = rgb(0.25, 0.25, 0.25) // #404040 - Dark text
+const LIGHT_GRAY = rgb(0.6, 0.6, 0.6) // #999999 - Light text
+const BACKGROUND_GRAY = rgb(0.98, 0.98, 0.98) // #FAFAFA - Background
+const BORDER_GRAY = rgb(0.8, 0.8, 0.8) // #CCCCCC - Form borders
+const WHITE = rgb(1, 1, 1)
+const BLACK = rgb(0, 0, 0)
 
 type Locale = 'en' | 'es'
 
@@ -21,7 +26,7 @@ export async function generateEvaluationPDF(data: {
   evaluatorTitle?: string
   equipmentType?: string
   equipmentId?: string
-  version: string       // e.g. "2.2"
+  version: string       // e.g. "2.3"
   locale?: Locale
 }) {
   const locale = data.locale || 'en'
@@ -29,7 +34,8 @@ export async function generateEvaluationPDF(data: {
   /* ───── translation strings ───── */
   const t = {
     en: {
-      title: 'Flat Earth Equipment – Forklift Operator Practical Evaluation',
+      title: 'Forklift Operator Practical Evaluation',
+      company: 'Flat Earth Equipment',
       cfr: '29 CFR 1910.178',
       contact: 'www.flatearthequipment.com   |   contact@flatearthequipment.com   |   (307) 302-0043',
       operatorNameId: 'Operator Name / ID',
@@ -37,17 +43,20 @@ export async function generateEvaluationPDF(data: {
       evaluatorNameTitle: 'Evaluator Name / Title',
       equipmentTypeId: 'Equipment Type / ID',
       instructions: 'Mark "Yes" only when the operator demonstrates each action safely and unaided.',
-      certification: 'I certify that the above practical skills were evaluated in accordance with 29 CFR 1910.178(m). Any "No" requires remediation and retest.',
-      fillablePdf: 'This PDF is fill-able; tap boxes or fields on any phone or desktop.',
-      evaluatorSig: 'Evaluator signature',
+      certification: 'I certify that the above practical skills were evaluated in accordance with 29 CFR 1910.178(l). Any "No" requires remediation and retest.',
+      fillablePdf: 'This PDF is fillable; tap boxes or fields on any phone or desktop.',
+      evaluatorSig: 'Evaluator Signature',
       comments: 'Additional Comments / Corrective Actions',
-      footer: 'Flat Earth Safety™ · Built Western Tough',
+      footer: 'Flat Earth Safety™ - Built Western Tough',
       formVersion: 'Form v',
       retain: 'Retain 3 years',
-      page: 'Page 1 of 1'
+      page: 'Page 1 of 1',
+      evaluationChecklist: 'EVALUATION CHECKLIST',
+      certificationTitle: 'CERTIFICATION STATEMENT'
     },
     es: {
-      title: 'Flat Earth Equipment – Evaluación Práctica del Operador de Montacargas',
+      title: 'Evaluación Práctica del Operador de Montacargas',
+      company: 'Flat Earth Equipment',
       cfr: '29 CFR 1910.178',
       contact: 'www.flatearthequipment.com   |   contact@flatearthequipment.com   |   (307) 302-0043',
       operatorNameId: 'Nombre del Operador / ID',
@@ -55,20 +64,22 @@ export async function generateEvaluationPDF(data: {
       evaluatorNameTitle: 'Nombre del Evaluador / Título',
       equipmentTypeId: 'Tipo de Equipo / ID',
       instructions: 'Marque "Sí" solo cuando el operador demuestre cada acción de manera segura y sin ayuda.',
-      certification: 'Certifico que las habilidades prácticas anteriores fueron evaluadas de acuerdo con 29 CFR 1910.178(m). Cualquier "No" requiere corrección y repetición de la prueba.',
+      certification: 'Certifico que las habilidades prácticas anteriores fueron evaluadas de acuerdo con 29 CFR 1910.178(l). Cualquier "No" requiere corrección y repetición de la prueba.',
       fillablePdf: 'Este PDF es rellenable; toque las casillas o campos en cualquier teléfono o computadora.',
-      evaluatorSig: 'Firma del evaluador',
+      evaluatorSig: 'Firma del Evaluador',
       comments: 'Comentarios Adicionales / Acciones Correctivas',
-      footer: 'Flat Earth Safety™ · Construido Resistente del Oeste',
+      footer: 'Flat Earth Safety™ - Construido Resistente del Oeste',
       formVersion: 'Formulario v',
       retain: 'Conservar 3 años',
-      page: 'Página 1 de 1'
+      page: 'Página 1 de 1',
+      evaluationChecklist: 'LISTA DE VERIFICACIÓN DE EVALUACIÓN',
+      certificationTitle: 'DECLARACIÓN DE CERTIFICACIÓN'
     }
   }[locale]
   
   /* -- create document & metadata -- */
   const pdf = await PDFDocument.create()
-  pdf.setTitle(t.title)
+  pdf.setTitle(`${t.company} – ${t.title}`)
   pdf.setLanguage(locale === 'es' ? 'es-ES' : 'en-US')
   pdf.setAuthor('Flat Earth Equipment')
   pdf.setSubject(`OSHA ${t.cfr} Practical Evaluation Form`)
@@ -82,133 +93,524 @@ export async function generateEvaluationPDF(data: {
   const bold  = await pdf.embedFont(StandardFonts.HelveticaBold)
   const ital  = await pdf.embedFont(StandardFonts.HelveticaOblique)
 
-  /* -- header -- */
-  try {
-    const logoBytes = await fetch(LOGO).then(r => r.arrayBuffer())
-    const logo = await pdf.embedPng(logoBytes)
-    page.drawImage(logo, { x: 40, y: height - 100, width: 80, height: 80 })
-    
-    /* footer logo */
-    page.drawImage(logo,{ x:40, y:4, width:26, height:26 })
-  } catch (e) {
-    console.warn('Logo not loaded:', e)
-  }
+  /* ─────────────────────────────────────────────────────────────────────── */
+  /* HEADER SECTION - Enhanced with better branding */
+  /* ─────────────────────────────────────────────────────────────────────── */
+  
+  // Enhanced header with gradient effect
+  const headerHeight = 60
+  page.drawRectangle({ 
+    x: 0, 
+    y: height - headerHeight, 
+    width: width, 
+    height: headerHeight, 
+    color: ORANGE 
+  })
 
-  // orange accent bar
-  page.drawRectangle({ x: 0, y: height - 120, width, height: 10, color: ORANGE })
+  // Add subtle shadow effect
+  page.drawRectangle({ 
+    x: 0, 
+    y: height - headerHeight - 2, 
+    width: width, 
+    height: 2, 
+    color: rgb(0.8, 0.3, 0.05) // Darker orange for shadow
+  })
 
-  // main title (single instance)
-  const titleWidth = bold.widthOfTextAtSize(t.title, 16)
+  // Company name - enhanced styling
+  page.drawText(t.company, {
+    x: 30,
+    y: height - 28,
+    size: 20,
+    font: bold,
+    color: WHITE,
+  })
+
+  // Main title - better positioning
+  const titleSize = 18
+  const titleWidth = bold.widthOfTextAtSize(t.title, titleSize)
   page.drawText(t.title, {
     x: (width - titleWidth) / 2,
-    y: height - 138,
-    size: 16,
+    y: height - 45,
+    size: titleSize,
     font: bold,
-    color: rgb(0.12, 0.15, 0.25)
+    color: WHITE,
   })
 
-  // OSHA badge with spacing
-  const badgeW = 120, badgeH = 22
-  const badgeY = height - 160
-  page.drawRectangle({ x: width - badgeW - 40, y: badgeY, width: badgeW, height: badgeH, color: TEAL })
-  page.drawText(t.cfr, {
-    x: width - badgeW - 40 + 8,
-    y: badgeY + 6,
-    size: 9,
+  // Enhanced CFR badge
+  const badgeW = 110, badgeH = 24
+  const badgeX = width - badgeW - 30
+  const badgeY = height - 38
+  
+  // Badge shadow
+  page.drawRectangle({ 
+    x: badgeX + 2, 
+    y: badgeY - 2, 
+    width: badgeW, 
+    height: badgeH, 
+    color: rgb(0.05, 0.4, 0.4) // Dark teal shadow
+  })
+  
+  // Main badge
+  page.drawRectangle({ 
+    x: badgeX, 
+    y: badgeY, 
+    width: badgeW, 
+    height: badgeH, 
+    color: TEAL 
+  })
+  
+  const cfrText = t.cfr
+  const cfrWidth = bold.widthOfTextAtSize(cfrText, 10)
+  page.drawText(cfrText, {
+    x: badgeX + (badgeW - cfrWidth) / 2,
+    y: badgeY + 8,
+    size: 10,
     font: bold,
-    color: rgb(1,1,1)
+    color: WHITE
   })
 
-  /* contact line */
-  page.drawText(t.contact, { x: 40, y: height - 155, size: 9, font, color: GRAY })
+  // Contact information with better styling
+  page.drawText(t.contact, { 
+    x: 30, 
+    y: height - headerHeight - 18, 
+    size: 9, 
+    font, 
+    color: LIGHT_GRAY 
+  })
 
-  /* helper to add underline */
-  const underline = (x:number,y:number,w:number)=>page.drawLine({ start:{x,y}, end:{x:x+w,y}, thickness:0.5, color: GRAY })
+  /* ─────────────────────────────────────────────────────────────────────── */
+  /* FORM FIELDS SECTION - Enhanced with better styling */
+  /* ─────────────────────────────────────────────────────────────────────── */
 
-  /* header field labels */
-  page.drawText(t.operatorNameId, { x: 40, y: height - 185, size: 10, font: bold })
-  page.drawText(t.date,           { x: width/2 + 20, y: height - 185, size: 10, font: bold })
-  page.drawText(t.evaluatorNameTitle, { x: 40, y: height - 220, size: 10, font: bold })
-  page.drawText(t.equipmentTypeId,    { x: 40, y: height - 255, size: 10, font: bold })
+  const formStartY = height - headerHeight - 45
+  const leftMargin = 30
+  const fieldSpacing = 35
+  const labelSpacing = 12
 
-  /* text fields + visible underlines */
-  const tf = (name:string,x:number,y:number,w:number,value?:string)=>{
-    const f = form.createTextField(name)
-    f.addToPage(page,{ x, y, width:w, height:16, borderWidth:0 }) // invisible border
-    f.setFontSize(10)
-    if (value) f.setText(value)
-    underline(x, y-3, w)
-    return f
-  }
-  tf('operator_name',40,height-203,190,data.operatorName)
-  tf('operator_id',240,height-203,90,data.operatorId)
-  tf('eval_date', width/2+20, height-203, 110, data.date ? dayjs(data.date).locale(locale).format('YYYY-MM-DD') : '')
-  tf('evaluator_name',40,height-238,200,data.evaluatorName)
-  tf('evaluator_title',255,height-238,150,data.evaluatorTitle)
-  tf('equip_type',40,height-273,200,data.equipmentType)
-  tf('equip_id',255,height-273,150,data.equipmentId)
-
-  /* instructional blurb */
-  page.drawText(t.instructions, { x:40, y: height - 298, size:10, font: ital })
-
-  /* practical skills table (checkboxes) */
-  const colW = (width - 80)/2
-  const rows = locale === 'es' ? [
-    ['pre_fluid','Niveles de fluidos, llantas, horquillas, mástil, dispositivos','op_mount','Montar / Desmontar (3 puntos)'],
-    ['pre_belt','Uso del cinturón de seguridad','op_load','Manejo de carga e inclinación hacia atrás'],
-    ['op_speed','Velocidad de viaje <= 5 mph','op_horn','Bocina en intersecciones'],
-    ['op_ped','Conciencia peatonal','op_ramp','Técnica de estacionamiento en rampa'],
-    ['park_proc','Procedimiento de estacionamiento','op_control','Control general suave']
-  ] : [
-    ['pre_fluid','Fluid levels, tires, forks, mast, devices','op_mount','Mount / Dismount (3-point)'],
-    ['pre_belt','Seatbelt usage','op_load','Load handling & tilt back'],
-    ['op_speed','Travel speed <= 5 mph','op_horn','Horn at intersections'],
-    ['op_ped','Pedestrian awareness','op_ramp','Ramp parking technique'],
-    ['park_proc','Parking procedure','op_control','Overall smooth control']
-  ]
-  let tableY = height - 316
-  rows.forEach(r=>{
-    const [id1,txt1,id2,txt2]=r
-    ;[[id1,txt1,0],[id2,txt2,1]].forEach(([id,txt,col]:any)=>{
-      const x = 40 + col*colW
-      const cb = form.createCheckBox(id)
-      cb.addToPage(page,{ x, y: tableY-12, width:18, height:18, borderWidth:1, borderColor: TEAL })
-      page.drawText(txt,{ x:x+24, y:tableY-4, size:11, font })
+  // Helper function for enhanced form fields
+  const createFormField = (name: string, x: number, y: number, w: number, value?: string) => {
+    // Field background
+    page.drawRectangle({ 
+      x: x - 2, 
+      y: y - 20, 
+      width: w + 4, 
+      height: 22, 
+      color: BACKGROUND_GRAY,
+      borderWidth: 0
     })
-    tableY -= 32
+    
+    const field = form.createTextField(name)
+    field.addToPage(page, { 
+      x, 
+      y: y - 18, 
+      width: w, 
+      height: 18, 
+      borderWidth: 1.5,
+      borderColor: BORDER_GRAY,
+      backgroundColor: WHITE
+    })
+    field.setFontSize(10)
+    field.enableMultiline()
+    if (value) field.setText(value)
+    return field
+  }
+
+  // Section header for form fields
+  page.drawRectangle({ 
+    x: leftMargin - 10, 
+    y: formStartY + 15, 
+    width: width - 60, 
+    height: 25, 
+    color: BACKGROUND_GRAY,
+    borderWidth: 1,
+    borderColor: BORDER_GRAY
+  })
+  
+  page.drawText('OPERATOR & EQUIPMENT INFORMATION', { 
+    x: leftMargin, 
+    y: formStartY + 25, 
+    size: 11, 
+    font: bold, 
+    color: DARK_GRAY 
   })
 
-  /* certification blurb */
-  page.drawText(t.certification, { x:40, y:tableY-18, size:9, font })
-  page.drawText(t.fillablePdf, { x:40, y:tableY-35, size:8, font: ital, color: GRAY })
+  // Row 1: Operator Name/ID and Date
+  let currentY = formStartY - 10
+  
+  page.drawText(t.operatorNameId, { 
+    x: leftMargin, 
+    y: currentY, 
+    size: 10, 
+    font: bold, 
+    color: DARK_GRAY 
+  })
+  createFormField('operator_name', leftMargin, currentY - labelSpacing, 200, data.operatorName)
+  
+  page.drawText(t.date, { 
+    x: leftMargin + 240, 
+    y: currentY, 
+    size: 10, 
+    font: bold, 
+    color: DARK_GRAY 
+  })
+  createFormField('eval_date', leftMargin + 240, currentY - labelSpacing, 120, 
+    data.date ? dayjs(data.date).locale(locale).format('YYYY-MM-DD') : '')
 
-  /* signature block */
-  const sigY = tableY - 78
+  // Row 2: Evaluator Name/Title
+  currentY -= fieldSpacing
+  
+  page.drawText(t.evaluatorNameTitle, { 
+    x: leftMargin, 
+    y: currentY, 
+    size: 10, 
+    font: bold, 
+    color: DARK_GRAY 
+  })
+  createFormField('evaluator_name', leftMargin, currentY - labelSpacing, 180, data.evaluatorName)
+  createFormField('evaluator_title', leftMargin + 200, currentY - labelSpacing, 180, data.evaluatorTitle)
+
+  // Row 3: Equipment Type/ID
+  currentY -= fieldSpacing
+  
+  page.drawText(t.equipmentTypeId, { 
+    x: leftMargin, 
+    y: currentY, 
+    size: 10, 
+    font: bold, 
+    color: DARK_GRAY 
+  })
+  createFormField('equip_type', leftMargin, currentY - labelSpacing, 180, data.equipmentType)
+  createFormField('equip_id', leftMargin + 200, currentY - labelSpacing, 180, data.equipmentId)
+
+  /* ─────────────────────────────────────────────────────────────────────── */
+  /* EVALUATION CHECKLIST - Enhanced with larger checkboxes and better styling */
+  /* ─────────────────────────────────────────────────────────────────────── */
+
+  currentY -= 50
+
+  // Section header for checklist
+  page.drawRectangle({ 
+    x: leftMargin - 10, 
+    y: currentY - 5, 
+    width: width - 60, 
+    height: 25, 
+    color: TEAL,
+    borderWidth: 0
+  })
+  
+  page.drawText(t.evaluationChecklist, { 
+    x: leftMargin, 
+    y: currentY + 5, 
+    size: 12, 
+    font: bold, 
+    color: WHITE 
+  })
+
+  currentY -= 30
+
+  // Instructions with better styling
+  page.drawText(t.instructions, { 
+    x: leftMargin, 
+    y: currentY, 
+    size: 10, 
+    font: ital, 
+    color: DARK_GRAY,
+    maxWidth: width - 60
+  })
+
+  currentY -= 25
+
+     // Enhanced checklist items with better descriptions
+   const checklistItems = locale === 'es' ? [
+     'Inspección previa: Niveles de fluidos, llantas, horquillas, mástil, dispositivos de seguridad',
+     'Cinturón de seguridad y montaje/desmontaje adecuado (contacto de 3 puntos)',
+     'Velocidad de viaje <= 5 mph, apropiada para las condiciones del área',
+     'Conciencia peatonal: Uso de bocina en intersecciones, conocimiento del entorno',
+     'Manejo de carga: Inclinación hacia atrás adecuada, control suave, cumplimiento de capacidad'
+   ] : [
+     'Pre-operation inspection: Fluid levels, tires, forks, mast, safety devices',
+     'Seatbelt usage and proper mounting/dismounting (3-point contact)',
+     'Travel speed <= 5 mph, appropriate for area conditions',
+     'Pedestrian awareness: Horn use at intersections, situational awareness',
+     'Load handling: Proper tilt back, smooth control, load capacity compliance'
+   ]
+
+  const checkboxSize = 20 // Larger checkboxes for better digital interaction
+  const itemSpacing = 32
+
+  checklistItems.forEach((item, index) => {
+    const itemY = currentY - (index * itemSpacing)
+    
+    // Item background for better readability
+    page.drawRectangle({ 
+      x: leftMargin - 5, 
+      y: itemY - checkboxSize/2 - 5, 
+      width: width - 50, 
+      height: checkboxSize + 10, 
+      color: index % 2 === 0 ? BACKGROUND_GRAY : WHITE,
+      borderWidth: 0.5,
+      borderColor: BORDER_GRAY
+    })
+    
+    // Enhanced checkbox with better styling
+    const checkbox = form.createCheckBox(`checklist_${index}`)
+    checkbox.addToPage(page, { 
+      x: leftMargin, 
+      y: itemY - checkboxSize/2, 
+      width: checkboxSize, 
+      height: checkboxSize, 
+      borderWidth: 2, 
+      borderColor: TEAL,
+      backgroundColor: WHITE
+    })
+         // Checkbox is fillable by default
+    
+    // Item text with better typography
+    page.drawText(item, { 
+      x: leftMargin + checkboxSize + 15, 
+      y: itemY - 6, 
+      size: 10, 
+      font, 
+      color: DARK_GRAY,
+      maxWidth: width - leftMargin - checkboxSize - 50
+    })
+  })
+
+  /* ─────────────────────────────────────────────────────────────────────── */
+  /* CERTIFICATION SECTION - Enhanced with better visual prominence */
+  /* ─────────────────────────────────────────────────────────────────────── */
+
+  currentY -= (checklistItems.length * itemSpacing) + 30
+
+  // Enhanced certification header
+  page.drawRectangle({ 
+    x: leftMargin - 10, 
+    y: currentY - 5, 
+    width: width - 60, 
+    height: 25, 
+    color: ORANGE,
+    borderWidth: 0
+  })
+  
+  page.drawText(t.certificationTitle, { 
+    x: leftMargin, 
+    y: currentY + 5, 
+    size: 12, 
+    font: bold, 
+    color: WHITE 
+  })
+
+  currentY -= 35
+
+  // Certification statement with enhanced background
+  page.drawRectangle({ 
+    x: leftMargin - 5, 
+    y: currentY - 25, 
+    width: width - 50, 
+    height: 35, 
+    color: BACKGROUND_GRAY,
+    borderWidth: 1.5,
+    borderColor: ORANGE
+  })
+
+  page.drawText(t.certification, { 
+    x: leftMargin, 
+    y: currentY - 10, 
+    size: 9, 
+    font, 
+    color: DARK_GRAY,
+    maxWidth: width - 60,
+    lineHeight: 12
+  })
+
+  currentY -= 45
+
+     // Digital fill note
+   page.drawText(t.fillablePdf, { 
+     x: leftMargin, 
+     y: currentY, 
+     size: 8, 
+     font: ital, 
+     color: LIGHT_GRAY 
+   })
+
+  /* ─────────────────────────────────────────────────────────────────────── */
+  /* SIGNATURE SECTION - Enhanced for digital use */
+  /* ─────────────────────────────────────────────────────────────────────── */
+
+  currentY -= 40
+
+  // Signature section header
+  page.drawText('SIGNATURES & AUTHORIZATION', { 
+    x: leftMargin, 
+    y: currentY, 
+    size: 11, 
+    font: bold, 
+    color: DARK_GRAY 
+  })
+
+  currentY -= 20
+
+  // Enhanced signature fields
+  const sigWidth = 260
+  const sigHeight = 45
+  
+  // Signature field with better styling
+  page.drawRectangle({ 
+    x: leftMargin - 2, 
+    y: currentY - sigHeight - 2, 
+    width: sigWidth + 4, 
+    height: sigHeight + 4, 
+    color: BACKGROUND_GRAY,
+    borderWidth: 0
+  })
+  
   const sig = form.createTextField('sig_evaluator')
-  sig.addToPage(page,{ x:40, y:sigY, width: width/2 - 60, height:60, borderWidth:1, borderColor: rgb(0,0,0) })
-  sig.setFontSize(10)
-  tf('sig_date', width/2 + 20, sigY + 22, 120)
-  page.drawText(t.evaluatorSig, { x:40, y:sigY-18, size:8, font })
-  page.drawText(t.date, { x: width/2 + 20, y:sigY-18, size:8, font })
+  sig.addToPage(page, { 
+    x: leftMargin, 
+    y: currentY - sigHeight, 
+    width: sigWidth, 
+    height: sigHeight, 
+    borderWidth: 2, 
+    borderColor: DARK_GRAY,
+    backgroundColor: WHITE
+  })
+  sig.setFontSize(12)
+     sig.enableMultiline()
 
-  /* comments */
-  page.drawText(t.comments, { x:40, y:sigY-55, size:10, font: bold })
+  // Date field with better styling
+  const dateFieldWidth = 130
+  page.drawRectangle({ 
+    x: leftMargin + sigWidth + 28, 
+    y: currentY - 22, 
+    width: dateFieldWidth + 4, 
+    height: 24, 
+    color: BACKGROUND_GRAY,
+    borderWidth: 0
+  })
+  
+  const dateField = form.createTextField('sig_date')
+  dateField.addToPage(page, { 
+    x: leftMargin + sigWidth + 30, 
+    y: currentY - 20, 
+    width: dateFieldWidth, 
+    height: 20, 
+    borderWidth: 1.5, 
+    borderColor: BORDER_GRAY,
+    backgroundColor: WHITE
+  })
+  dateField.setFontSize(10)
+
+  // Enhanced labels
+  page.drawText(t.evaluatorSig, { 
+    x: leftMargin, 
+    y: currentY - sigHeight - 18, 
+    size: 9, 
+    font: bold, 
+    color: DARK_GRAY 
+  })
+  
+  page.drawText(t.date, { 
+    x: leftMargin + sigWidth + 30, 
+    y: currentY - sigHeight - 18, 
+    size: 9, 
+    font: bold, 
+    color: DARK_GRAY 
+  })
+
+  /* ─────────────────────────────────────────────────────────────────────── */
+  /* COMMENTS SECTION - Enhanced styling */
+  /* ─────────────────────────────────────────────────────────────────────── */
+
+  currentY -= 100
+
+  page.drawText(t.comments, { 
+    x: leftMargin, 
+    y: currentY, 
+    size: 11, 
+    font: bold, 
+    color: DARK_GRAY 
+  })
+  
+  currentY -= 15
+  
+  // Enhanced comments field
+  page.drawRectangle({ 
+    x: leftMargin - 2, 
+    y: currentY - 82, 
+    width: width - 56, 
+    height: 84, 
+    color: BACKGROUND_GRAY,
+    borderWidth: 0
+  })
+  
   const comments = form.createTextField('comments')
   comments.enableMultiline()
-  comments.addToPage(page,{ x:40, y:sigY-150, width:width-80, height:90, borderWidth:0 })
-  page.drawRectangle({ x:40, y:sigY-150, width:width-80, height:90, borderWidth:0.5, borderColor: GRAY })
+  comments.addToPage(page, { 
+    x: leftMargin, 
+    y: currentY - 80, 
+    width: width - 60, 
+    height: 80, 
+    borderWidth: 1.5, 
+    borderColor: BORDER_GRAY,
+    backgroundColor: WHITE
+  })
 
-  /* footer */
-  page.drawRectangle({ x:0, y:0, width, height:34, color: rgb(0.95,0.95,0.95) })
-  page.drawText(t.footer, { x:74, y:10, size:8, font, color: rgb(0.25,0.25,0.25) })
-  page.drawText(`${t.formVersion}${data.version} | ${t.retain}`, { x: width/2 - 48, y:10, size:8, font, color: GRAY })
-  page.drawText(t.page, { x: width - 90, y:10, size:8, font, color: GRAY })
+  /* ─────────────────────────────────────────────────────────────────────── */
+  /* FOOTER - Enhanced with better branding */
+  /* ─────────────────────────────────────────────────────────────────────── */
 
-  /* QR link */
+  const footerHeight = 30
+  page.drawRectangle({ 
+    x: 0, 
+    y: 0, 
+    width: width, 
+    height: footerHeight, 
+    color: BACKGROUND_GRAY,
+    borderWidth: 1,
+    borderColor: BORDER_GRAY
+  })
+
+  // Footer text with better styling
+  page.drawText(t.footer, { 
+    x: 30, 
+    y: 12, 
+    size: 9, 
+    font: bold, 
+    color: DARK_GRAY 
+  })
+
+  // Form version and retention - center
+  const versionText = `${t.formVersion}${data.version} | ${t.retain}`
+  const versionWidth = font.widthOfTextAtSize(versionText, 8)
+  page.drawText(versionText, { 
+    x: (width - versionWidth) / 2, 
+    y: 12, 
+    size: 8, 
+    font, 
+    color: LIGHT_GRAY 
+  })
+
+  // Page number - right aligned
+  page.drawText(t.page, { 
+    x: width - 80, 
+    y: 12, 
+    size: 8, 
+    font, 
+    color: LIGHT_GRAY 
+  })
+
+  /* Enhanced QR code for verification */
   try {
-    const qrBuf = await fetch(`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent('https://flatearthequipment.com/eval-help')}`).then(r=>r.arrayBuffer())
+    const qrSize = 25
+    const qrBuf = await fetch(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent('https://flatearthequipment.com/verify')}`).then(r=>r.arrayBuffer())
     const qr = await pdf.embedPng(qrBuf)
-    page.drawImage(qr,{ x: width - 150, y: 4, width:26, height:26 })
+    page.drawImage(qr, { 
+      x: width - 60, 
+      y: footerHeight + 10, 
+      width: qrSize, 
+      height: qrSize 
+    })
   } catch (e) {
     console.warn('QR code not loaded:', e)
   }
@@ -218,10 +620,10 @@ export async function generateEvaluationPDF(data: {
 
 // Generate static evaluation PDF for public download
 async function generateStaticEvaluationPDF() {
-  const pdfBytes = await generateEvaluationPDF({ version: '2.2' })
+  const pdfBytes = await generateEvaluationPDF({ version: '2.4' })
   const outputPath = path.join(process.cwd(), 'public', 'evaluation.pdf')
   fs.writeFileSync(outputPath, pdfBytes)
-  console.log('✅ Generated evaluation.pdf successfully!')
+  console.log('✅ Generated enhanced evaluation.pdf successfully!')
 }
 
 // Run if called directly
