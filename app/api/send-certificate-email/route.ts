@@ -59,7 +59,7 @@ export async function POST(req: Request) {
           </div>
           ` : ''}
           
-          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'}/api/evaluation-pdf" style="display: inline-block; margin-top: 8px; background: #dc2626; color: white; padding: 8px 16px; text-decoration: none; border-radius: 4px; font-size: 14px;">Download PDF Form (Alternative)</a>
+          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'}/pdfs/forklift-evaluation-form-v2.4.pdf" style="display: inline-block; margin-top: 8px; background: #dc2626; color: white; padding: 8px 16px; text-decoration: none; border-radius: 4px; font-size: 14px;">Download PDF Form (Alternative)</a>
         </div>
       </div>
       
