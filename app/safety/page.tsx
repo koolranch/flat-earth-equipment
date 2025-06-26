@@ -46,7 +46,7 @@ export default async function SafetyHome() {
         ['What is included in the certification?', 'The certification includes comprehensive online theory training modules, quizzes to test your knowledge, a printable certificate upon completion, and an employer evaluation checklist for practical assessment.']
       ],
       includes: 'Includes online theory training + employer evaluation checklist',
-      downloadEval: 'Download Employer Evaluation Sheet (PDF, v2.3)'
+      downloadEval: 'Download Employer Evaluation Sheet (PDF, v2.4)'
     },
     es: {
       title: 'Certificación de Operador de Montacargas OSHA',
@@ -74,7 +74,7 @@ export default async function SafetyHome() {
         ['¿Qué está incluido en la certificación?', 'La certificación incluye módulos completos de entrenamiento teórico en línea, cuestionarios para probar su conocimiento, un certificado imprimible al completar, y una lista de verificación de evaluación del empleador para la evaluación práctica.']
       ],
       includes: 'Incluye entrenamiento teórico en línea + lista de verificación de evaluación del empleador',
-      downloadEval: 'Descargar Hoja de Evaluación del Empleador (PDF, v2.3)'
+      downloadEval: 'Descargar Hoja de Evaluación del Empleador (PDF, v2.4)'
     }
   }[locale]
   
@@ -172,7 +172,7 @@ export default async function SafetyHome() {
         <section className="bg-gray-50 rounded-lg p-6">
           <div className="text-center space-y-4">
             <p className="text-sm text-gray-600">{t.includes}</p>
-            <Link href="/api/evaluation-pdf" target="_blank" className="text-orange-600 hover:underline text-sm">
+            <Link href="/pdfs/forklift-evaluation-form-v2.4.pdf" target="_blank" className="text-orange-600 hover:underline text-sm">
               {t.downloadEval}
             </Link>
           </div>
