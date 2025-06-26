@@ -170,7 +170,7 @@ export default function CompletionActions({ certificateUrl, courseId, user, enro
           Need paper copy? 
         </p>
         <a
-          href="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/NEW-branded-eval.pdf"
+                      href="/pdfs/forklift-evaluation-form-v2.4.pdf"
           className="text-sm text-orange-600 hover:text-orange-700 underline"
           target="_blank"
           rel="noopener noreferrer"

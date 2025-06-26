@@ -4,6 +4,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { createClient } from '@supabase/supabase-js'
 import EvalSignature from '@/components/EvalSignature'
 import { uploadEval } from '@/utils/uploadEval'
+import { Truck, User, Maximize2, Package, ShoppingCart } from 'lucide-react'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -49,7 +50,7 @@ const translations = {
         'Order Picker': { name: 'Order Picker', description: 'Vertical order selector' },
         'Pallet Truck': { name: 'Pallet Truck', description: 'Motorized pallet jack' }
       },
-      modelSerial: 'Specific Model/Serial (Optional)',
+      modelSerial: 'Specific Model or Asset Number',
       modelPlaceholder: 'e.g., Toyota 8FGCU25, Crown PE4500, Serial #12345',
       modelHelp: 'Add specific model number or serial if needed for documentation',
       selected: 'Selected:',
@@ -91,7 +92,7 @@ const translations = {
     },
     fallback: {
       title: 'Need to use a paper form instead?',
-      download: '📄 Download Branded PDF'
+      download: '📄 Download Printable Evaluation Form'
     },
     skills: {
       'pre_fluid': 'Fluid levels, tires, forks, mast, devices',
@@ -136,7 +137,7 @@ const translations = {
         'Order Picker': { name: 'Selector de Pedidos', description: 'Selector vertical de pedidos' },
         'Pallet Truck': { name: 'Transpaleta', description: 'Gato hidráulico motorizado' }
       },
-      modelSerial: 'Modelo/Serie Específico (Opcional)',
+      modelSerial: 'Modelo Específico o Número de Activo',
       modelPlaceholder: 'ej., Toyota 8FGCU25, Crown PE4500, Serie #12345',
       modelHelp: 'Agregue el número de modelo específico o serie si es necesario para la documentación',
       selected: 'Seleccionado:',
@@ -178,7 +179,7 @@ const translations = {
     },
     fallback: {
       title: '¿Necesita usar un formulario en papel?',
-      download: '📄 Descargar PDF con Marca'
+      download: '📄 Descargar Formulario de Evaluación Imprimible'
     },
     skills: {
       'pre_fluid': 'Niveles de fluidos, llantas, horquillas, mástil, dispositivos',
@@ -557,27 +558,32 @@ export default function EvaluationWizard() {
                       { 
                         id: 'sit-down-forklift', 
                         key: 'Sit-Down Forklift',
-                        icon: '🚜'
+                        IconComponent: Truck,
+                        iconColor: 'text-orange-600'
                       },
                       { 
                         id: 'stand-up-forklift', 
                         key: 'Stand-Up Forklift',
-                        icon: '🧍'
+                        IconComponent: User,
+                        iconColor: 'text-blue-600'
                       },
                       { 
                         id: 'reach-truck', 
                         key: 'Reach Truck',
-                        icon: '📏'
+                        IconComponent: Maximize2,
+                        iconColor: 'text-green-600'
                       },
                       { 
                         id: 'order-picker', 
                         key: 'Order Picker',
-                        icon: '📦'
+                        IconComponent: Package,
+                        iconColor: 'text-purple-600'
                       },
                       { 
                         id: 'pallet-truck', 
                         key: 'Pallet Truck',
-                        icon: '🛒'
+                        IconComponent: ShoppingCart,
+                        iconColor: 'text-teal-600'
                       }
                     ].map((equipment) => (
                       <button
@@ -590,7 +596,11 @@ export default function EvaluationWizard() {
                             : 'border-gray-200 hover:border-gray-300'
                         }`}
                       >
-                        <div className="text-2xl sm:text-3xl mb-2">{equipment.icon}</div>
+                        <div className="mb-2">
+                          <equipment.IconComponent 
+                            className={`w-8 h-8 sm:w-10 sm:h-10 mx-auto ${equipment.iconColor}`}
+                          />
+                        </div>
                         <div className="text-sm font-medium">
                           {t.step1.equipmentTypes[equipment.key as keyof typeof t.step1.equipmentTypes]?.name || equipment.key}
                         </div>
@@ -829,7 +839,7 @@ export default function EvaluationWizard() {
             {t.fallback.title}
           </p>
           <a
-            href="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/NEW-branded-eval.pdf"
+                            href="/pdfs/forklift-evaluation-form-v2.4.pdf"
             className="inline-flex items-center text-sm text-orange-600 hover:text-orange-700 underline touch-manipulation"
             target="_blank"
             rel="noopener noreferrer"
