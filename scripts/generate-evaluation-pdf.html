@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forklift Operator Evaluation Form</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.4;
+            color: #1f2937;
+            background: white;
+        }
+        
+        .container {
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.75in;
+            min-height: 11in;
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #0d9488;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .company-info h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0d9488;
+            margin-bottom: 0.25rem;
+        }
+        
+        .company-info p {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .form-title h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #0f766e;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-title p {
+            color: #6b7280;
+            font-size: 1rem;
+        }
+        
+        .demo-notice {
+            background: #dbeafe;
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .demo-notice strong {
+            color: #1d4ed8;
+        }
+        
+        .section {
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #0f766e;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #fed7aa;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: white;
+        }
+        
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .equipment-option {
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .equipment-option input[type="checkbox"] {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+        
+        .equipment-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #ea580c;
+        }
+        
+        .equipment-name {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+        
+        .equipment-desc {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        .skills-checklist {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+        }
+        
+        .skill-description {
+            font-weight: 500;
+            color: #1f2937;
+            flex: 1;
+        }
+        
+        .skill-options {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .skill-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .skill-option input[type="checkbox"] {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+        
+        .pass-label {
+            color: #059669;
+            font-weight: 500;
+        }
+        
+        .retrain-label {
+            color: #dc2626;
+            font-weight: 500;
+        }
+        
+        .signature-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .signature-box {
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            height: 120px;
+            position: relative;
+        }
+        
+        .signature-label {
+            position: absolute;
+            top: 0.5rem;
+            left: 1rem;
+            font-weight: 500;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+        
+        .signature-line {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            right: 1rem;
+            border-bottom: 2px solid #374151;
+        }
+        
+        .date-line {
+            position: absolute;
+            bottom: 0.25rem;
+            right: 1rem;
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+        
+        .footer {
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 2px solid #e5e7eb;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+        
+        .compliance-text {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: #92400e;
+        }
+        
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .container {
+                padding: 0.5in;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-section">
+                <div class="logo">
+                    <img src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp" alt="Flat Earth Equipment Logo" />
+                </div>
+                <div class="company-info">
+                    <h1>Flat Earth Equipment</h1>
+                    <p>Western-tough reliability • Nationwide shipping</p>
+                </div>
+            </div>
+            <div>
+                <p style="text-align: right; color: #6b7280; font-size: 0.9rem;">
+                    Form Version: v2.4<br>
+                    Generated: <span id="current-date"></span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Form Title -->
+        <div class="form-title">
+            <h2>Supervisor Evaluation Form</h2>
+            <p>Complete the OSHA-required practical evaluation for forklift operators</p>
+        </div>
+
+        <!-- Step 1: Operator & Equipment Information -->
+        <div class="section">
+            <h3 class="section-title">Step 1: Operator & Equipment Information</h3>
+            
+            <div class="form-group">
+                <label for="operator-name">Operator Name</label>
+                <input type="text" id="operator-name" class="form-input" />
+            </div>
+
+            <div class="form-group">
+                <label>Equipment Type *</label>
+                <div class="equipment-grid">
+                    <div class="equipment-option">
+                        <input type="checkbox" id="sit-down" />
+                        <div class="equipment-icon">🚛</div>
+                        <div class="equipment-name">Sit-Down Forklift</div>
+                        <div class="equipment-desc">Counterbalance forklift</div>
+                    </div>
+                    <div class="equipment-option">
+                        <input type="checkbox" id="stand-up" />
+                        <div class="equipment-icon">🧍</div>
+                        <div class="equipment-name">Stand-Up Forklift</div>
+                        <div class="equipment-desc">Stand-up counterbalance</div>
+                    </div>
+                    <div class="equipment-option">
+                        <input type="checkbox" id="reach-truck" />
+                        <div class="equipment-icon">⬌</div>
+                        <div class="equipment-name">Reach Truck</div>
+                        <div class="equipment-desc">Pantograph reach</div>
+                    </div>
+                    <div class="equipment-option">
+                        <input type="checkbox" id="order-picker" />
+                        <div class="equipment-icon">📦</div>
+                        <div class="equipment-name">Order Picker</div>
+                        <div class="equipment-desc">Vertical order selector</div>
+                    </div>
+                    <div class="equipment-option">
+                        <input type="checkbox" id="pallet-truck" />
+                        <div class="equipment-icon">🛒</div>
+                        <div class="equipment-name">Pallet Truck</div>
+                        <div class="equipment-desc">Motorized pallet jack</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="model-serial">Specific Model or Asset Number</label>
+                <input type="text" id="model-serial" class="form-input" placeholder="e.g., Toyota 8FGCU25, Crown PE4500, Asset #12345" />
+            </div>
+
+            <div class="form-group">
+                <label for="course-completed">Course Completed</label>
+                <input type="text" id="course-completed" class="form-input" value="Forklift Operator Safety Training" readonly />
+            </div>
+        </div>
+
+        <!-- Step 2: Skill Assessment Checklist -->
+        <div class="section">
+            <h3 class="section-title">Step 2: Skill Assessment Checklist</h3>
+            <p style="margin-bottom: 1.5rem; color: #6b7280;">Evaluate each skill based on OSHA 29 CFR 1910.178 requirements:</p>
+            
+            <div class="skills-checklist">
+                <div class="skill-item">
+                    <div class="skill-description">Fluid levels, tires, forks, mast, devices</div>
+                    <div class="skill-options">
+                        <div class="skill-option">
+                            <input type="checkbox" id="pre_fluid_pass" />
+                            <label for="pre_fluid_pass" class="pass-label">✓ Pass</label>
+                        </div>
+                        <div class="skill-option">
+                            <input type="checkbox" id="pre_fluid_retrain" />
+                            <label for="pre_fluid_retrain" class="retrain-label">⚠️ Retrain</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-description">Seatbelt usage</div>
+                    <div class="skill-options">
+                        <div class="skill-option">
+                            <input type="checkbox" id="pre_belt_pass" />
+                            <label for="pre_belt_pass" class="pass-label">✓ Pass</label>
+                        </div>
+                        <div class="skill-option">
+                            <input type="checkbox" id="pre_belt_retrain" />
+                            <label for="pre_belt_retrain" class="retrain-label">⚠️ Retrain</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-description">Mount / Dismount (3-point)</div>
+                    <div class="skill-options">
+                        <div class="skill-option">
+                            <input type="checkbox" id="op_mount_pass" />
+                            <label for="op_mount_pass" class="pass-label">✓ Pass</label>
+                        </div>
+                        <div class="skill-option">
+                            <input type="checkbox" id="op_mount_retrain" />
+                            <label for="op_mount_retrain" class="retrain-label">⚠️ Retrain</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-description">Load handling & tilt back</div>
+                    <div class="skill-options">
+                        <div class="skill-option">
+                            <input type="checkbox" id="op_load_pass" />
+                            <label for="op_load_pass" class="pass-label">✓ Pass</label>
+                        </div>
+                        <div class="skill-option">
+                            <input type="checkbox" id="op_load_retrain" />
+                            <label for="op_load_retrain" class="retrain-label">⚠️ Retrain</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-description">Travel speed ≤ 5 mph</div>
+                    <div class="skill-options">
+                        <div class="skill-option">
+                            <input type="checkbox" id="op_speed_pass" />
+                            <label for="op_speed_pass" class="pass-label">✓ Pass</label>
+                        </div>
+                        <div class="skill-option">
+                            <input type="checkbox" id="op_speed_retrain" />
+                            <label for="op_speed_retrain" class="retrain-label">⚠️ Retrain</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-description">Horn at intersections</div>
+                    <div class="skill-options">
+                        <div class="skill-option">
+                            <input type="checkbox" id="op_horn_pass" />
+                            <label for="op_horn_pass" class="pass-label">✓ Pass</label>
+                        </div>
+                        <div class="skill-option">
+                            <input type="checkbox" id="op_horn_retrain" />
+                            <label for="op_horn_retrain" class="retrain-label">⚠️ Retrain</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-description">Pedestrian awareness</div>
+                    <div class="skill-options">
+                        <div class="skill-option">
+                            <input type="checkbox" id="op_ped_pass" />
+                            <label for="op_ped_pass" class="pass-label">✓ Pass</label>
+                        </div>
+                        <div class="skill-option">
+                            <input type="checkbox" id="op_ped_retrain" />
+                            <label for="op_ped_retrain" class="retrain-label">⚠️ Retrain</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-description">Ramp parking technique</div>
+                    <div class="skill-options">
+                        <div class="skill-option">
+                            <input type="checkbox" id="op_ramp_pass" />
+                            <label for="op_ramp_pass" class="pass-label">✓ Pass</label>
+                        </div>
+                        <div class="skill-option">
+                            <input type="checkbox" id="op_ramp_retrain" />
+                            <label for="op_ramp_retrain" class="retrain-label">⚠️ Retrain</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-description">Parking procedure</div>
+                    <div class="skill-options">
+                        <div class="skill-option">
+                            <input type="checkbox" id="park_proc_pass" />
+                            <label for="park_proc_pass" class="pass-label">✓ Pass</label>
+                        </div>
+                        <div class="skill-option">
+                            <input type="checkbox" id="park_proc_retrain" />
+                            <label for="park_proc_retrain" class="retrain-label">⚠️ Retrain</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-description">Overall smooth control</div>
+                    <div class="skill-options">
+                        <div class="skill-option">
+                            <input type="checkbox" id="op_control_pass" />
+                            <label for="op_control_pass" class="pass-label">✓ Pass</label>
+                        </div>
+                        <div class="skill-option">
+                            <input type="checkbox" id="op_control_retrain" />
+                            <label for="op_control_retrain" class="retrain-label">⚠️ Retrain</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Signatures -->
+        <div class="section">
+            <h3 class="section-title">Step 3: Evaluator Signature</h3>
+            <div class="compliance-text">
+                <strong>OSHA Compliance:</strong> This evaluation certifies completion per OSHA 29 CFR 1910.178(m) requirements for powered industrial truck operator assessment.
+            </div>
+            
+            <div class="signature-section">
+                <div class="signature-box">
+                    <div class="signature-label">Evaluator Signature</div>
+                    <div class="signature-line"></div>
+                    <div class="date-line">Date: ___________</div>
+                </div>
+                <div class="signature-box">
+                    <div class="signature-label">Operator Signature</div>
+                    <div class="signature-line"></div>
+                    <div class="date-line">Date: ___________</div>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 2rem;">
+                <label for="evaluator-email">Evaluator Email Address</label>
+                <input type="email" id="evaluator-email" class="form-input" placeholder="supervisor@company.com" />
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Flat Earth Equipment</strong> • Forklift Operator Safety Training</p>
+            <p>This form must be completed for each operator and retained per OSHA requirements</p>
+            <p>Visit <strong>flatearthequipment.com/safety</strong> for digital evaluations and training</p>
+        </div>
+    </div>
+
+    <script>
+        // Set current date
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString();
+        
+        // Make checkboxes mutually exclusive for each skill
+        const skills = ['pre_fluid', 'pre_belt', 'op_mount', 'op_load', 'op_speed', 'op_horn', 'op_ped', 'op_ramp', 'park_proc', 'op_control'];
+        
+        skills.forEach(skill => {
+            const passCheckbox = document.getElementById(skill + '_pass');
+            const retrainCheckbox = document.getElementById(skill + '_retrain');
+            
+            passCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    retrainCheckbox.checked = false;
+                }
+            });
+            
+            retrainCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    passCheckbox.checked = false;
+                }
+            });
+        });
+        
+        // Make equipment selection mutually exclusive
+        const equipmentCheckboxes = document.querySelectorAll('.equipment-option input[type="checkbox"]');
+        equipmentCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    equipmentCheckboxes.forEach(other => {
+                        if (other !== this) {
+                            other.checked = false;
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
