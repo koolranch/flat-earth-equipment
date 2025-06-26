@@ -77,6 +77,7 @@ export default function OptionSelectorCard({ module, locale = 'en' }: { module: 
                 {o.coreInfo && (
                   <span className="text-sm font-normal text-gray-500"> {o.coreInfo}</span>
                 )}
+                <span className="text-sm font-normal text-green-600"> + FREE SHIPPING</span>
               </p>
               <p className="text-sm text-gray-600">{o.desc}</p>
               {/** ★ Core-deposit math */}
