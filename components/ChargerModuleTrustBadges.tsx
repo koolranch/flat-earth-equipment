@@ -1,4 +1,4 @@
-import { Truck, Shield, Wrench, Phone } from "lucide-react";
+import { Truck, Shield, Wrench, Phone, ShipIcon } from "lucide-react";
 type Locale = 'en' | 'es';
 
 export default function ChargerModuleTrustBadges({ locale = 'en' }: { locale?: Locale }) {
@@ -9,6 +9,10 @@ export default function ChargerModuleTrustBadges({ locale = 'en' }: { locale?: L
         {
           title: "Same-Day Dispatch",
           description: "Ships today if ordered before 3 PM EST"
+        },
+        {
+          title: "Free Shipping",
+          description: "No freight charges nationwide"
         },
         {
           title: "6-Month Warranty", 
@@ -31,6 +35,10 @@ export default function ChargerModuleTrustBadges({ locale = 'en' }: { locale?: L
           description: "Se envía hoy si se ordena antes de las 3 PM EST"
         },
         {
+          title: "Envío Gratuito",
+          description: "Sin cargos de flete a nivel nacional"
+        },
+        {
           title: "Garantía de 6 Meses",
           description: "Garantía de confiabilidad resistente del oeste"
         },
@@ -46,11 +54,11 @@ export default function ChargerModuleTrustBadges({ locale = 'en' }: { locale?: L
     }
   }[locale];
 
-  const icons = [Truck, Shield, Wrench, Phone];
+  const icons = [Truck, ShipIcon, Shield, Wrench, Phone];
 
   return (
     <section className="bg-gray-50 border border-gray-200 rounded-2xl p-8">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
         {t.badges.map((badge, index) => {
           const Icon = icons[index];
           return (
