@@ -15,7 +15,7 @@ const supabase = createClient(
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { items } = body;
+    const { items, coupon } = body;
     const origin = headers().get('origin') || 'http://localhost:3000';
 
     console.log('📦 Request body:', body);
@@ -78,6 +78,7 @@ export async function POST(req: Request) {
       shippingRateId,
       origin,
       items,
+      coupon
     });
 
     // Collect metadata from items
@@ -107,6 +108,8 @@ export async function POST(req: Request) {
         allowed_countries: ['US'],
       },
       metadata: sessionMetadata,
+      ...(coupon && { discounts: [{ coupon }] }),
+      ...(!coupon && { allow_promotion_codes: true })
     };
     console.log('DEBUG: Stripe session config:', JSON.stringify(sessionConfig, null, 2));
     
