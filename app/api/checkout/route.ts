@@ -90,6 +90,12 @@ export async function POST(req: Request) {
         });
       }
     });
+    
+    // Add course metadata for training products
+    if (isTrainingProduct) {
+      sessionMetadata.course_slug = 'forklift';
+      sessionMetadata.quantity = items[0]?.quantity?.toString() || '1';
+    }
 
     // Create the checkout session
     const sessionConfig: Stripe.Checkout.SessionCreateParams = {
@@ -99,6 +105,8 @@ export async function POST(req: Request) {
         ? `${origin}/dashboard-simple?session_id={CHECKOUT_SESSION_ID}`
         : `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/checkout/cancel`,
+      // Set a test client reference ID for training products (for webhook enrollment)
+      ...(isTrainingProduct && { client_reference_id: 'test-user-' + Date.now() }),
       shipping_options: isTrainingProduct ? undefined : [
         {
           shipping_rate: shippingRateId,
