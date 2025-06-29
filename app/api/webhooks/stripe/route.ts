@@ -32,9 +32,10 @@ export async function POST(req: Request) {
       const quantity = session.metadata?.quantity ? parseInt(session.metadata.quantity) : 1
       
       let userId = session.client_reference_id
+      const isTestPurchase = session.metadata?.is_test_purchase === 'true'
 
-      // Handle test user creation for test purchases
-      if (userId && userId.startsWith('test-user-')) {
+      // Handle test user creation ONLY for test purchases
+      if (isTestPurchase && userId && userId.startsWith('test-user-')) {
         console.log('🧪 Creating test user for enrollment:', userId)
         
         // Try to find existing test user or create new one
@@ -64,6 +65,12 @@ export async function POST(req: Request) {
             console.log('✅ Created new test user:', userId)
           }
         }
+      } else if (!isTestPurchase) {
+        // For regular training purchases without client_reference_id
+        console.log('📚 Regular training purchase without user ID - skipping enrollment creation')
+        console.log('ℹ️ User will need to contact support or use existing enrollment system')
+        // Leave existing behavior unchanged for now
+        userId = null
       }
 
       // single seat → auto-enroll
@@ -106,7 +113,10 @@ export async function POST(req: Request) {
           expand: ['shipping_details']
         })
 
-        if (fullSession.shipping_details?.address) {
+        // Type assertion to access shipping_details which is available when expanded
+        const sessionWithShipping = fullSession as any
+        
+        if (sessionWithShipping.shipping_details?.address) {
           // Extract order metadata from session
           const orderMetadata = {
             orderId: session.id,
@@ -117,12 +127,12 @@ export async function POST(req: Request) {
           // Customer shipping address
           const customerAddress = {
             name: fullSession.customer_details?.name || 'Customer',
-            street1: fullSession.shipping_details.address.line1 || '',
-            street2: fullSession.shipping_details.address.line2 || '',
-            city: fullSession.shipping_details.address.city || '',
-            state: fullSession.shipping_details.address.state || '',
-            zip: fullSession.shipping_details.address.postal_code || '',
-            country: fullSession.shipping_details.address.country || 'US',
+            street1: sessionWithShipping.shipping_details.address.line1 || '',
+            street2: sessionWithShipping.shipping_details.address.line2 || '',
+            city: sessionWithShipping.shipping_details.address.city || '',
+            state: sessionWithShipping.shipping_details.address.state || '',
+            zip: sessionWithShipping.shipping_details.address.postal_code || '',
+            country: sessionWithShipping.shipping_details.address.country || 'US',
             phone: fullSession.customer_details?.phone || '',
             email: fullSession.customer_details?.email || ''
           }
