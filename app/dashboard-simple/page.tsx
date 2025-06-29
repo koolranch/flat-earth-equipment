@@ -197,22 +197,48 @@ export default function SimpleDashboard() {
   useEffect(() => {
     async function loadData() {
       try {
+        // Check if this is a test session from checkout
+        const urlParams = new URLSearchParams(window.location.search)
+        const sessionId = urlParams.get('session_id')
+        
         // Get user
         const { data: { user } } = await supabase.auth.getUser()
         
-        if (!user) {
+        let userId = user?.id
+        
+        // Handle test user case - if no authenticated user but there's a session_id, 
+        // try to find enrollment for test user
+        if (!user && sessionId) {
+          console.log('🧪 No authenticated user but session_id found, checking for test enrollment')
+          
+          // Look for test user
+          const { data: testUser } = await supabase
+            .from('users')
+            .select('id')
+            .eq('email', 'test@flatearthequipment.com')
+            .single()
+          
+          if (testUser) {
+            userId = testUser.id
+            console.log('✅ Found test user:', userId)
+          }
+        }
+        
+        if (!userId) {
           setError('Not authenticated')
           setLoading(false)
           return
         }
         
-        setUser(user)
+        if (user) {
+          setUser(user)
+        }
         
         // Get enrollment
         const { data: enrollments, error: enrollError } = await supabase
           .from('enrollments')
           .select('*, course:courses(*)')
-          .eq('user_id', user.id)
+          .eq('user_id', userId)
         
         if (enrollError) {
           setError(`Enrollment error: ${enrollError.message}`)
