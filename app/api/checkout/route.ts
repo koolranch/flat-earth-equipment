@@ -96,7 +96,7 @@ export async function POST(req: Request) {
       line_items: lineItems,
       mode: 'payment',
       success_url: isTrainingProduct 
-        ? `${origin}/training/dashboard?session_id={CHECKOUT_SESSION_ID}`
+        ? `${origin}/dashboard-simple?session_id={CHECKOUT_SESSION_ID}`
         : `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/checkout/cancel`,
       shipping_options: isTrainingProduct ? undefined : [
