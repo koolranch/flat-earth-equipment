@@ -95,6 +95,10 @@ export async function POST(req: Request) {
     if (isTrainingProduct) {
       sessionMetadata.course_slug = 'forklift';
       sessionMetadata.quantity = items[0]?.quantity?.toString() || '1';
+      // Mark as test purchase if using discount code
+      if (coupon) {
+        sessionMetadata.is_test_purchase = 'true';
+      }
     }
 
     // Create the checkout session
@@ -105,8 +109,8 @@ export async function POST(req: Request) {
         ? `${origin}/dashboard-simple?session_id={CHECKOUT_SESSION_ID}`
         : `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/checkout/cancel`,
-      // Set a test client reference ID for training products (for webhook enrollment)
-      ...(isTrainingProduct && { client_reference_id: 'test-user-' + Date.now() }),
+      // Set a test client reference ID only for test purchases (with discount code)
+      ...(isTrainingProduct && coupon && { client_reference_id: 'test-user-' + Date.now() }),
       shipping_options: isTrainingProduct ? undefined : [
         {
           shipping_rate: shippingRateId,
