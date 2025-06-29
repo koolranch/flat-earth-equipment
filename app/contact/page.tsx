@@ -70,18 +70,18 @@ export default function ContactPage() {
         {/* Right: Contact Form */}
         <form
           method="POST"
-          action="https://formspree.io/f/xvgroloy"
+          action="https://usebasin.com/f/YOUR_BASIN_FORM_ID"
           className="space-y-4"
         >
           <input
             type="hidden"
-            name="_subject"
+            name="subject"
             value="Contact Form Submission"
           />
           <input
             type="hidden"
-            name="_next"
-            value="https://www.flatearthequipment.com/contact/thank-you"
+            name="form_name"
+            value="contact_form"
           />
           <input
             type="text"

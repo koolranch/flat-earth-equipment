@@ -104,10 +104,11 @@ export default function JohnDeerePINLookupPage() {
           <h3 className="text-xl font-semibold mb-4">Need Help Finding Your PIN?</h3>
           <form
             method="POST"
-            action="https://formspree.io/f/xvgroloy"
+            action="https://usebasin.com/f/YOUR_BASIN_FORM_ID"
             className="space-y-4"
           >
-            <input type="hidden" name="_subject" value="John Deere Skid Steer PIN Help Request" />
+            <input type="hidden" name="subject" value="John Deere Skid Steer PIN Help Request" />
+            <input type="hidden" name="form_name" value="john_deere_pin_help" />
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <input

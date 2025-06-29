@@ -15,16 +15,16 @@ export default function FastQuoteForm({ currentLocation = '' }: FastQuoteFormPro
       <p className="mb-4 text-gray-700">
         Parts or equipment rental—with a reply in under 1 hour.
       </p>
-      <form action="https://formspree.io/f/xvgroloy" method="POST" className="space-y-4">
+      <form action="https://usebasin.com/f/YOUR_BASIN_FORM_ID" method="POST" className="space-y-4">
         <input
           type="hidden"
-          name="_subject"
+          name="subject"
           value="Fast Quote Request"
         />
         <input
           type="hidden"
-          name="_next"
-          value="https://www.flatearthequipment.com/quote/thank-you"
+          name="form_name"
+          value="fast_quote"
         />
         <input
           type="text"

@@ -78,7 +78,7 @@ export default function CarpetPolesPage() {
         <div className="bg-white border rounded-lg p-6 mb-12">
           <h2 className="text-2xl font-semibold mb-6">Request a Quote</h2>
           <form 
-            action="https://formspree.io/f/xvgroloy" 
+            action="https://usebasin.com/f/YOUR_BASIN_FORM_ID" 
             method="POST"
             className="space-y-6"
           >
@@ -191,6 +191,7 @@ export default function CarpetPolesPage() {
             </div>
 
             <input type="hidden" name="subject" value="Forklift Carpet Pole Quote Request" />
+            <input type="hidden" name="form_name" value="carpet_pole_quote" />
 
             <div className="flex items-center justify-between">
               <button
