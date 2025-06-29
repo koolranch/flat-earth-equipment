@@ -70,11 +70,20 @@ function QuoteForm() {
       <h1 className="text-3xl font-bold text-slate-900 mb-6">{t.title}</h1>
       <form
         method="POST"
-        action="https://formspree.io/f/xvgroloy"
+        action="https://usebasin.com/f/YOUR_BASIN_FORM_ID"
         onSubmit={() => setSubmitted(true)}
         className="space-y-4"
       >
-        <input type="hidden" name="_subject" value="New Quote Request" />
+        <input
+          type="hidden"
+          name="subject"
+          value="Quote Request"
+        />
+        <input
+          type="hidden"
+          name="form_name"
+          value="quote_form"
+        />
 
         <input
           name="name"
