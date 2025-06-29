@@ -19,17 +19,42 @@ function SuccessContent() {
       </div>
 
       <div className="space-y-6">
+        {/* Training Course Instructions */}
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+          <h2 className="text-xl font-semibold text-blue-800 mb-3">📚 Purchased Training?</h2>
+          <div className="text-left text-blue-700 space-y-3">
+            <p className="font-medium">To access your training:</p>
+            <ol className="list-decimal list-inside space-y-1 ml-4">
+              <li>Create an account using the same email from your purchase</li>
+              <li>Sign in and visit your dashboard</li>
+              <li>Your training will be automatically activated</li>
+            </ol>
+            <div className="mt-4 p-3 bg-blue-100 rounded border">
+              <p className="text-sm">
+                <strong>Important:</strong> Use the same email address you used for this purchase 
+                when creating your account to automatically access your training.
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div className="bg-white border rounded-lg p-6">
           <h2 className="text-xl font-semibold mb-3">What's Next?</h2>
           <ul className="text-left space-y-2 text-gray-700">
             <li>• You'll receive an order confirmation email shortly</li>
-            <li>• We'll send tracking information once your order ships</li>
-            <li>• For training courses, check your dashboard for access</li>
+            <li>• For physical products, we'll send tracking information once shipped</li>
+            <li>• For repair services, we'll email you a prepaid return label</li>
             <li>• Questions? Contact us at support@flatearthequipment.com</li>
           </ul>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link
+            href="/login"
+            className="px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors font-medium"
+          >
+            Sign In / Create Account
+          </Link>
           <Link
             href="/dashboard"
             className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"

@@ -18,6 +18,8 @@ export default function SimpleDashboard() {
   const [expandedModule, setExpandedModule] = useState<number | null>(null)
   const [moduleGuides, setModuleGuides] = useState<{[key: string]: any}>({})
   const [locale, setLocale] = useState<'en' | 'es'>('en')
+  const [unclaimedPurchases, setUnclaimedPurchases] = useState<any[]>([])
+  const [showClaimPrompt, setShowClaimPrompt] = useState(false)
   
   const { supabase } = useSupabase()
 
@@ -232,6 +234,31 @@ export default function SimpleDashboard() {
         
         if (user) {
           setUser(user)
+          
+          // Check for unclaimed purchases for authenticated users
+          try {
+            const { data: { session } } = await supabase.auth.getSession()
+            if (session?.access_token) {
+              const response = await fetch('/api/claim-training', {
+                method: 'GET',
+                headers: {
+                  'Authorization': `Bearer ${session.access_token}`,
+                  'Content-Type': 'application/json'
+                }
+              })
+              
+              if (response.ok) {
+                const data = await response.json()
+                if (data.count > 0) {
+                  console.log(`Found ${data.count} unclaimed purchases`)
+                  setUnclaimedPurchases(data.purchases)
+                  setShowClaimPrompt(true)
+                }
+              }
+            }
+          } catch (error) {
+            console.error('Error checking unclaimed purchases:', error)
+          }
         }
         
         // Get enrollment
@@ -350,6 +377,39 @@ export default function SimpleDashboard() {
     return completed
   }
 
+  const handleClaimPurchases = async () => {
+    if (!user) return
+    
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session?.access_token) return
+      
+      const response = await fetch('/api/claim-training', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json'
+        }
+      })
+      
+      if (response.ok) {
+        const data = await response.json()
+        console.log('Claimed purchases:', data)
+        setShowClaimPrompt(false)
+        setUnclaimedPurchases([])
+        // Refresh the page to show new enrollments
+        window.location.reload()
+      } else {
+        const errorData = await response.json()
+        console.error('Failed to claim purchases:', errorData)
+        alert('Failed to claim purchases. Please try again or contact support.')
+      }
+    } catch (error) {
+      console.error('Error claiming purchases:', error)
+      alert('Error claiming purchases. Please try again or contact support.')
+    }
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 p-8">
@@ -407,6 +467,39 @@ export default function SimpleDashboard() {
       <header className="bg-white shadow p-6">
         <h1 className="text-2xl font-bold">{t.myLearningDashboard}</h1>
       </header>
+      
+      {/* Unclaimed Purchases Prompt */}
+      {showClaimPrompt && unclaimedPurchases.length > 0 && (
+        <div className="bg-green-50 border-l-4 border-green-400 p-4 m-6">
+          <div className="flex">
+            <div className="ml-3">
+              <h3 className="text-sm font-medium text-green-800">
+                Training Purchase Found!
+              </h3>
+              <div className="mt-2 text-sm text-green-700">
+                <p>
+                  We found {unclaimedPurchases.length} training purchase{unclaimedPurchases.length > 1 ? 's' : ''} for your email. 
+                  Click below to activate your training access.
+                </p>
+                <div className="mt-3 flex gap-3">
+                  <button
+                    onClick={handleClaimPurchases}
+                    className="bg-green-600 text-white px-4 py-2 rounded text-sm hover:bg-green-700"
+                  >
+                    Activate Training Access
+                  </button>
+                  <button
+                    onClick={() => setShowClaimPrompt(false)}
+                    className="bg-gray-200 text-gray-800 px-4 py-2 rounded text-sm hover:bg-gray-300"
+                  >
+                    Later
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       
       <main className="p-8">
         <div className="max-w-4xl mx-auto bg-white rounded-lg shadow p-6">

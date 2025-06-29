@@ -66,10 +66,32 @@ export async function POST(req: Request) {
           }
         }
       } else if (!isTestPurchase) {
-        // For regular training purchases without client_reference_id
-        console.log('📚 Regular training purchase without user ID - skipping enrollment creation')
-        console.log('ℹ️ User will need to contact support or use existing enrollment system')
-        // Leave existing behavior unchanged for now
+        // For regular training purchases, store purchase for later claim
+        console.log('📚 Regular training purchase - storing for customer to claim')
+        
+        try {
+          // Store the purchase information for customer to claim later
+          const { error: purchaseError } = await supabase
+            .from('unclaimed_purchases')
+            .insert({
+              stripe_session_id: session.id,
+              customer_email: session.customer_details?.email,
+              course_id: course!.id,
+              quantity: quantity,
+              amount_cents: session.amount_total,
+              purchase_date: new Date().toISOString(),
+              status: 'pending_claim'
+            })
+          
+          if (purchaseError) {
+            console.error('❌ Error storing unclaimed purchase:', purchaseError)
+          } else {
+            console.log('✅ Purchase stored for claiming by:', session.customer_details?.email)
+          }
+        } catch (error) {
+          console.error('❌ Error in unclaimed purchase storage:', error)
+        }
+        
         userId = null
       }
 
