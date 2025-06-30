@@ -1,7 +1,10 @@
+"use client";
+import { useState } from 'react';
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Search, Info, AlertTriangle, CheckCircle } from 'lucide-react';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: "Raymond Forklift Serial Number Lookup Guide | Flat Earth Equipment",
@@ -16,6 +19,140 @@ export const metadata: Metadata = {
     type: "website",
   },
 };
+
+function RaymondHelpForm() {
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    model: '',
+    serial: '',
+    message: ''
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+
+    try {
+      const response = await fetch('https://api.usebasin.com/v1/submissions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_BASIN_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          subject: 'Raymond Forklift Serial Number Help Request',
+          form_name: 'raymond_serial_help'
+        }),
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setFormData({ name: '', email: '', model: '', serial: '', message: '' });
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      setStatus('error');
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  if (status === 'success') {
+    return (
+      <div className="text-center py-6">
+        <h3 className="text-xl font-semibold text-green-600 mb-2">✅ Help Request Sent!</h3>
+        <p className="text-slate-600 mb-4">We'll get back to you soon with assistance.</p>
+        <button 
+          onClick={() => setStatus('idle')}
+          className="text-canyon-rust underline"
+        >
+          Send another request
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      {status === 'error' && (
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+          Failed to send request. Please try again.
+        </div>
+      )}
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Your Name"
+          required
+          disabled={status === 'loading'}
+          autoComplete="name"
+          className="w-full border border-slate-300 px-4 py-2 rounded disabled:opacity-50"
+        />
+        <input
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Email"
+          required
+          disabled={status === 'loading'}
+          autoComplete="email"
+          className="w-full border border-slate-300 px-4 py-2 rounded disabled:opacity-50"
+        />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input
+          name="model"
+          value={formData.model}
+          onChange={handleChange}
+          placeholder="Raymond Model (e.g. R30, R40)"
+          disabled={status === 'loading'}
+          className="w-full border border-slate-300 px-4 py-2 rounded disabled:opacity-50"
+        />
+        <input
+          name="serial"
+          value={formData.serial}
+          onChange={handleChange}
+          placeholder="Serial Number (if known)"
+          disabled={status === 'loading'}
+          className="w-full border border-slate-300 px-4 py-2 rounded disabled:opacity-50"
+        />
+      </div>
+
+      <textarea
+        name="message"
+        value={formData.message}
+        onChange={handleChange}
+        placeholder="Describe your forklift and where you've looked for the serial number. Include any photos if possible."
+        rows={4}
+        required
+        disabled={status === 'loading'}
+        className="w-full border border-slate-300 px-4 py-2 rounded disabled:opacity-50"
+      />
+
+      <button
+        type="submit"
+        disabled={status === 'loading'}
+        className="bg-canyon-rust text-white px-6 py-3 rounded-md hover:bg-orange-700 transition disabled:opacity-50"
+      >
+        {status === 'loading' ? 'Sending...' : 'Send Help Request'}
+      </button>
+    </form>
+  );
+}
 
 export default function RaymondSerialNumberPage() {
   return (
@@ -94,64 +231,7 @@ export default function RaymondSerialNumberPage() {
 
         <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 mt-8">
           <h3 className="text-xl font-semibold mb-4">Need Help Finding Your Serial Number?</h3>
-          <form
-            method="POST"
-            action="https://usebasin.com/f/YOUR_BASIN_FORM_ID"
-            className="space-y-4"
-          >
-            <input type="hidden" name="subject" value="Raymond Forklift Serial Number Help Request" />
-            <input type="hidden" name="form_name" value="raymond_serial_help" />
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input
-                name="name"
-                placeholder="Your Name"
-                required
-                autoComplete="name"
-                className="w-full border border-slate-300 px-4 py-2 rounded"
-              />
-              <input
-                name="email"
-                type="email"
-                placeholder="Email"
-                required
-                autoComplete="email"
-                className="w-full border border-slate-300 px-4 py-2 rounded"
-              />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input
-                name="model"
-                placeholder="Raymond Model (e.g. R30, R40)"
-                className="w-full border border-slate-300 px-4 py-2 rounded"
-              />
-              <input
-                name="serial"
-                placeholder="Serial Number (if known)"
-                className="w-full border border-slate-300 px-4 py-2 rounded"
-              />
-            </div>
-
-            <textarea
-              name="message"
-              placeholder="Describe your forklift and where you've looked for the serial number. Include any photos if possible."
-              rows={4}
-              required
-              className="w-full border border-slate-300 px-4 py-2 rounded"
-            />
-
-            <button
-              type="submit"
-              className="w-full bg-canyon-rust text-white px-6 py-3 rounded-md hover:bg-orange-700 transition"
-            >
-              Get Help Finding Serial Number
-            </button>
-
-            <p className="text-sm text-slate-600 mt-2">
-              🚚 Same-day response • 📦 Parts Shipped Nationwide • 🤝 U.S.-Based Support
-            </p>
-          </form>
+          <RaymondHelpForm />
         </div>
 
         <div className="mt-8">
