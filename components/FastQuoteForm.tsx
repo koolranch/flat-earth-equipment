@@ -25,7 +25,7 @@ export default function FastQuoteForm({ currentLocation = '' }: FastQuoteFormPro
       const response = await fetch('https://api.usebasin.com/v1/submissions', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_BASIN_API_KEY}`,
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_BASIN_API_KEY || 'fb0e195001565085399383d6996c0ab1'}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
