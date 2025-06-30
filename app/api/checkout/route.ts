@@ -95,10 +95,13 @@ export async function POST(req: Request) {
     if (isTrainingProduct) {
       sessionMetadata.course_slug = 'forklift';
       sessionMetadata.quantity = items[0]?.quantity?.toString() || '1';
-      // Mark as test purchase if using discount code
-      if (coupon) {
+      // Mark as test purchase if using ANY discount code (not just specific coupon)
+      if (coupon || body.discounts) {
         sessionMetadata.is_test_purchase = 'true';
+        console.log('🧪 Marking as test purchase due to discount code usage');
       }
+      // Also enable promotion codes for Stripe's built-in field
+      console.log('💡 Training product - enabling promotion codes for checkout');
     }
 
     // Create the checkout session

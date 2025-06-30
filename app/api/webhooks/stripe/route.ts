@@ -19,6 +19,18 @@ export async function POST(req: Request) {
     const session = event.data.object as Stripe.Checkout.Session
     const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
 
+    console.log(`🔍 Processing checkout session: ${session.id}`)
+    console.log(`💳 Payment status: ${session.payment_status}`)
+    console.log(`💰 Amount: $${(session.amount_total || 0) / 100}`)
+    console.log(`📧 Customer: ${session.customer_details?.email}`)
+
+    // **NEW: COMPREHENSIVE ORDER TRACKING FOR ALL PURCHASES**
+    try {
+      await processOrderAndSendConfirmation(session, supabase)
+    } catch (error) {
+      console.error('❌ Error processing order:', error)
+    }
+
     // Check if this is a training course enrollment
     if (session.metadata?.course_slug) {
       // Handle course enrollment (existing logic)
@@ -32,7 +44,16 @@ export async function POST(req: Request) {
       const quantity = session.metadata?.quantity ? parseInt(session.metadata.quantity) : 1
       
       let userId = session.client_reference_id
-      const isTestPurchase = session.metadata?.is_test_purchase === 'true'
+      const isTestPurchase = session.metadata?.is_test_purchase === 'true' || 
+                           (session.amount_total === 0 && session.metadata?.course_slug) // Free training = test
+      
+      console.log(`🔍 Purchase analysis:`)
+      console.log(`   Session ID: ${session.id}`)
+      console.log(`   Email: ${session.customer_details?.email}`)
+      console.log(`   Amount: $${(session.amount_total || 0) / 100}`)
+      console.log(`   Is Test Purchase: ${isTestPurchase}`)
+      console.log(`   Metadata: ${JSON.stringify(session.metadata)}`)
+      console.log(`   Client Ref ID: ${userId}`)
 
       // Handle test user creation ONLY for test purchases
       if (isTestPurchase && userId && userId.startsWith('test-user-')) {
@@ -50,6 +71,35 @@ export async function POST(req: Request) {
           console.log('✅ Using existing test user:', userId)
         } else {
           // Create test user
+          const { data: newUser } = await supabase
+            .from('users')
+            .insert({
+              email: 'test@flatearthequipment.com',
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            })
+            .select('id')
+            .single()
+          
+          if (newUser) {
+            userId = newUser.id
+            console.log('✅ Created new test user:', userId)
+          }
+        }
+      } else if (isTestPurchase && !userId) {
+        // Handle test purchases made through promotion codes (no client_reference_id)
+        console.log('🧪 Test purchase via promotion code - creating test user')
+        
+        const { data: existingUser } = await supabase
+          .from('users')
+          .select('id')
+          .eq('email', 'test@flatearthequipment.com')
+          .single()
+        
+        if (existingUser) {
+          userId = existingUser.id
+          console.log('✅ Using existing test user:', userId)
+        } else {
           const { data: newUser } = await supabase
             .from('users')
             .insert({
@@ -179,8 +229,6 @@ export async function POST(req: Request) {
             created_at: new Date().toISOString()
           })
 
-          // Send email to customer with shipping label
-          // You can integrate with your email service here
           console.log(`✅ Generated shipping label for repair order ${session.id}`)
           console.log(`📧 Label URL: ${shippingLabel.labelUrl}`)
           console.log(`📦 Tracking: ${shippingLabel.trackingNumber}`)
@@ -194,4 +242,159 @@ export async function POST(req: Request) {
   }
   
   return NextResponse.json({ received: true })
+}
+
+// **NEW: COMPREHENSIVE ORDER PROCESSING FUNCTION**
+async function processOrderAndSendConfirmation(session: any, supabase: any) {
+  console.log('📦 Starting comprehensive order processing...')
+  
+  // Retrieve full session with line items and shipping details
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2025-05-28.basil' })
+  const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
+    expand: ['line_items.data.price.product', 'shipping_details']
+  })
+  
+  // Determine order type
+  let orderType: 'parts' | 'training' | 'repair' = 'parts'
+  if (session.metadata?.course_slug) {
+    orderType = 'training'
+  } else if (Object.keys(session.metadata || {}).some(key => 
+    key.includes('offer') && session.metadata![key] === 'Repair & Return'
+  )) {
+    orderType = 'repair'
+  }
+  
+  console.log(`📝 Order type determined: ${orderType}`)
+  
+  // Create order record
+  const orderNumber = await generateOrderNumber()
+  const shippingDetails = (fullSession as any).shipping_details
+  
+  const orderData = {
+    stripe_session_id: session.id,
+    order_number: orderNumber,
+    customer_email: session.customer_details?.email,
+    customer_name: session.customer_details?.name,
+    customer_phone: session.customer_details?.phone,
+    subtotal_cents: session.amount_subtotal || session.amount_total,
+    shipping_cents: 0, // Stripe doesn't separate shipping in amount_total
+    tax_cents: 0, // Add if you collect tax
+    total_cents: session.amount_total,
+    status: 'confirmed',
+    order_type: orderType,
+    // Shipping address
+    shipping_name: shippingDetails?.name,
+    shipping_street1: shippingDetails?.address?.line1,
+    shipping_street2: shippingDetails?.address?.line2,
+    shipping_city: shippingDetails?.address?.city,
+    shipping_state: shippingDetails?.address?.state,
+    shipping_zip: shippingDetails?.address?.postal_code,
+    shipping_country: shippingDetails?.address?.country || 'US'
+  }
+  
+  // Insert order
+  const { data: order, error: orderError } = await supabase
+    .from('customer_orders')
+    .insert(orderData)
+    .select()
+    .single()
+  
+  if (orderError) {
+    console.error('❌ Error creating order:', orderError)
+    throw orderError
+  }
+  
+  console.log(`✅ Order created: ${orderNumber}`)
+  
+  // Create line items
+  const lineItems = fullSession.line_items?.data || []
+  const orderLineItems = []
+  
+  for (const lineItem of lineItems) {
+    const product = lineItem.price?.product
+    
+    // Type-safe product property access
+    const productName = typeof product === 'object' && product && 'name' in product 
+      ? product.name 
+      : lineItem.description || 'Unknown Product'
+    
+    const productSku = typeof product === 'object' && product && 'metadata' in product && product.metadata
+      ? (product.metadata as any)?.sku 
+      : undefined
+    
+    const lineItemData = {
+      order_id: order.id,
+      product_type: orderType === 'training' ? 'training_course' : orderType === 'repair' ? 'repair_service' : 'part',
+      product_name: productName,
+      product_sku: productSku,
+      quantity: lineItem.quantity,
+      unit_price_cents: lineItem.price?.unit_amount || 0,
+      total_price_cents: lineItem.amount_total,
+      metadata: session.metadata
+    }
+    
+    orderLineItems.push(lineItemData)
+  }
+  
+  if (orderLineItems.length > 0) {
+    const { error: lineItemsError } = await supabase
+      .from('order_line_items')
+      .insert(orderLineItems)
+    
+    if (lineItemsError) {
+      console.error('❌ Error creating line items:', lineItemsError)
+    } else {
+      console.log(`✅ Created ${orderLineItems.length} line items`)
+    }
+  }
+  
+  // Send order confirmation email
+  try {
+    const emailResponse = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'}/api/send-order-confirmation`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        order_number: orderNumber,
+        customer_email: orderData.customer_email,
+        customer_name: orderData.customer_name,
+        subtotal_cents: orderData.subtotal_cents,
+        shipping_cents: orderData.shipping_cents,
+        tax_cents: orderData.tax_cents,
+        total_cents: orderData.total_cents,
+        order_type: orderType,
+        line_items: orderLineItems.map(item => ({
+          product_name: item.product_name,
+          product_sku: item.product_sku,
+          quantity: item.quantity,
+          unit_price_cents: item.unit_price_cents,
+          total_price_cents: item.total_price_cents,
+          core_charge_cents: item.metadata?.core_charge_cents || 0
+        })),
+        shipping_address: shippingDetails ? {
+          name: orderData.shipping_name,
+          street1: orderData.shipping_street1,
+          street2: orderData.shipping_street2,
+          city: orderData.shipping_city,
+          state: orderData.shipping_state,
+          zip: orderData.shipping_zip,
+          country: orderData.shipping_country
+        } : undefined
+      })
+    })
+    
+    if (emailResponse.ok) {
+      console.log('✅ Order confirmation email sent successfully')
+    } else {
+      console.error('❌ Failed to send order confirmation email:', await emailResponse.text())
+    }
+  } catch (emailError) {
+    console.error('❌ Error sending order confirmation email:', emailError)
+  }
+}
+
+async function generateOrderNumber(): Promise<string> {
+  // Simple order number generation - you could make this more sophisticated
+  const timestamp = Date.now().toString().slice(-6)
+  const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0')
+  return `FEE-${timestamp}${random}`
 } 
