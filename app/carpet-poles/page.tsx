@@ -1,3 +1,5 @@
+"use client";
+import { useState } from 'react';
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -77,134 +79,7 @@ export default function CarpetPolesPage() {
 
         <div className="bg-white border rounded-lg p-6 mb-12">
           <h2 className="text-2xl font-semibold mb-6">Request a Quote</h2>
-          <form 
-            action="https://usebasin.com/f/YOUR_BASIN_FORM_ID" 
-            method="POST"
-            className="space-y-6"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-1">
-                  Name *
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  className="w-full px-4 py-2 border rounded-md focus:ring-canyon-rust focus:border-canyon-rust"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
-                  Email *
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  className="w-full px-4 py-2 border rounded-md focus:ring-canyon-rust focus:border-canyon-rust"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-1">
-                  Phone Number *
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  required
-                  className="w-full px-4 py-2 border rounded-md focus:ring-canyon-rust focus:border-canyon-rust"
-                />
-              </div>
-              <div>
-                <label htmlFor="company" className="block text-sm font-medium text-slate-700 mb-1">
-                  Company Name
-                </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  className="w-full px-4 py-2 border rounded-md focus:ring-canyon-rust focus:border-canyon-rust"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="quantity" className="block text-sm font-medium text-slate-700 mb-1">
-                  Quantity Needed
-                </label>
-                <input
-                  type="number"
-                  id="quantity"
-                  name="quantity"
-                  min="1"
-                  className="w-full px-4 py-2 border rounded-md focus:ring-canyon-rust focus:border-canyon-rust"
-                />
-              </div>
-              <div>
-                <label htmlFor="length" className="block text-sm font-medium text-slate-700 mb-1">
-                  Desired Length (feet)
-                </label>
-                <input
-                  type="number"
-                  id="length"
-                  name="length"
-                  min="8"
-                  max="14"
-                  step="2"
-                  className="w-full px-4 py-2 border rounded-md focus:ring-canyon-rust focus:border-canyon-rust"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="forklift" className="block text-sm font-medium text-slate-700 mb-1">
-                Forklift Make/Model
-              </label>
-              <input
-                type="text"
-                id="forklift"
-                name="forklift"
-                placeholder="e.g., Toyota 8FGCU25"
-                className="w-full px-4 py-2 border rounded-md focus:ring-canyon-rust focus:border-canyon-rust"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-1">
-                Additional Requirements
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={4}
-                className="w-full px-4 py-2 border rounded-md focus:ring-canyon-rust focus:border-canyon-rust"
-                placeholder="Please specify any special requirements or questions..."
-              />
-            </div>
-
-            <input type="hidden" name="subject" value="Forklift Carpet Pole Quote Request" />
-            <input type="hidden" name="form_name" value="carpet_pole_quote" />
-
-            <div className="flex items-center justify-between">
-              <button
-                type="submit"
-                className="bg-canyon-rust text-white px-6 py-3 rounded-md hover:bg-orange-700 transition"
-              >
-                Request Quote
-              </button>
-              <p className="text-sm text-slate-500">
-                * Required fields
-              </p>
-            </div>
-          </form>
+          <CarpetPoleQuoteForm />
         </div>
 
         <div className="mt-8 bg-slate-50 p-6 rounded-lg">
@@ -252,5 +127,261 @@ export default function CarpetPolesPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+function CarpetPoleQuoteForm() {
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    phone: '',
+    forkWidth: '',
+    carpetLength: '',
+    carpetWeight: '',
+    quantity: '',
+    message: ''
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+
+    try {
+      const response = await fetch('https://api.usebasin.com/v1/submissions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_BASIN_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          subject: 'Forklift Carpet Pole Quote Request',
+          form_name: 'carpet_pole_quote'
+        }),
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          phone: '',
+          forkWidth: '',
+          carpetLength: '',
+          carpetWeight: '',
+          quantity: '',
+          message: ''
+        });
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      setStatus('error');
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  if (status === 'success') {
+    return (
+      <div className="text-center py-8">
+        <h2 className="text-2xl font-semibold text-green-600 mb-4">✅ Quote Request Received!</h2>
+        <p className="text-slate-600 mb-4">We'll get back to you with a quote within 1 hour.</p>
+        <button 
+          onClick={() => setStatus('idle')}
+          className="text-canyon-rust underline"
+        >
+          Submit another request
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {status === 'error' && (
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+          Failed to send request. Please try again.
+        </div>
+      )}
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-1">
+            Name *
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            disabled={status === 'loading'}
+            className="w-full px-4 py-2 border rounded-md focus:ring-canyon-rust focus:border-canyon-rust disabled:opacity-50"
+          />
+        </div>
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
+            Email *
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            disabled={status === 'loading'}
+            className="w-full px-4 py-2 border rounded-md focus:ring-canyon-rust focus:border-canyon-rust disabled:opacity-50"
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label htmlFor="company" className="block text-sm font-medium text-slate-700 mb-1">
+            Company
+          </label>
+          <input
+            type="text"
+            id="company"
+            name="company"
+            value={formData.company}
+            onChange={handleChange}
+            disabled={status === 'loading'}
+            className="w-full px-4 py-2 border rounded-md focus:ring-canyon-rust focus:border-canyon-rust disabled:opacity-50"
+          />
+        </div>
+        <div>
+          <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-1">
+            Phone
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            disabled={status === 'loading'}
+            className="w-full px-4 py-2 border rounded-md focus:ring-canyon-rust focus:border-canyon-rust disabled:opacity-50"
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div>
+          <label htmlFor="forkWidth" className="block text-sm font-medium text-slate-700 mb-1">
+            Fork Width *
+          </label>
+          <select
+            id="forkWidth"
+            name="forkWidth"
+            value={formData.forkWidth}
+            onChange={handleChange}
+            required
+            disabled={status === 'loading'}
+            className="w-full px-4 py-2 border rounded-md focus:ring-canyon-rust focus:border-canyon-rust disabled:opacity-50"
+          >
+            <option value="">Select width</option>
+            <option value="4 inches">4 inches</option>
+            <option value="5 inches">5 inches</option>
+            <option value="5.5 inches">5.5 inches</option>
+            <option value="6 inches">6 inches</option>
+            <option value="7 inches">7 inches</option>
+            <option value="Other">Other (specify in notes)</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="carpetLength" className="block text-sm font-medium text-slate-700 mb-1">
+            Carpet Roll Length
+          </label>
+          <input
+            type="text"
+            id="carpetLength"
+            name="carpetLength"
+            value={formData.carpetLength}
+            onChange={handleChange}
+            placeholder="e.g. 12 ft"
+            disabled={status === 'loading'}
+            className="w-full px-4 py-2 border rounded-md focus:ring-canyon-rust focus:border-canyon-rust disabled:opacity-50"
+          />
+        </div>
+        <div>
+          <label htmlFor="carpetWeight" className="block text-sm font-medium text-slate-700 mb-1">
+            Typical Weight
+          </label>
+          <input
+            type="text"
+            id="carpetWeight"
+            name="carpetWeight"
+            value={formData.carpetWeight}
+            onChange={handleChange}
+            placeholder="e.g. 200 lbs"
+            disabled={status === 'loading'}
+            className="w-full px-4 py-2 border rounded-md focus:ring-canyon-rust focus:border-canyon-rust disabled:opacity-50"
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label htmlFor="quantity" className="block text-sm font-medium text-slate-700 mb-1">
+            Quantity Needed
+          </label>
+          <select
+            id="quantity"
+            name="quantity"
+            value={formData.quantity}
+            onChange={handleChange}
+            disabled={status === 'loading'}
+            className="w-full px-4 py-2 border rounded-md focus:ring-canyon-rust focus:border-canyon-rust disabled:opacity-50"
+          >
+            <option value="">Select quantity</option>
+            <option value="1 pair">1 pair</option>
+            <option value="2 pairs">2 pairs</option>
+            <option value="3+ pairs">3+ pairs</option>
+            <option value="Bulk order">Bulk order (10+ pairs)</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-1">
+          Additional Requirements
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          value={formData.message}
+          onChange={handleChange}
+          rows={4}
+          disabled={status === 'loading'}
+          className="w-full px-4 py-2 border rounded-md focus:ring-canyon-rust focus:border-canyon-rust disabled:opacity-50"
+          placeholder="Please specify any special requirements or questions..."
+        />
+      </div>
+
+      <div className="flex items-center justify-between">
+        <button
+          type="submit"
+          disabled={status === 'loading'}
+          className="bg-canyon-rust text-white px-6 py-3 rounded-md hover:bg-orange-700 transition disabled:opacity-50"
+        >
+          {status === 'loading' ? 'Sending...' : 'Request Quote'}
+        </button>
+        <p className="text-sm text-slate-500">
+          * Required fields
+        </p>
+      </div>
+    </form>
   );
 } 

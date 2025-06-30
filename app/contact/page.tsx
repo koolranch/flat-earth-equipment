@@ -1,3 +1,5 @@
+"use client";
+import { useState, useEffect } from "react";
 import { Metadata } from "next";
 import { getUserLocale } from '@/lib/getUserLocale';
 
@@ -8,7 +10,58 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  const locale = getUserLocale()
+  const [locale, setLocale] = useState<'en' | 'es'>('en');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  useEffect(() => {
+    // Get locale from cookie on client side
+    const cookieLocale = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('lang='))
+      ?.split('=')[1] as 'en' | 'es';
+    setLocale(cookieLocale || 'en');
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+
+    try {
+      const response = await fetch('https://api.usebasin.com/v1/submissions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_BASIN_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          subject: 'Contact Form Submission',
+          form_name: 'contact_form'
+        }),
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      setStatus('error');
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
   
   // Translation strings
   const t = {
@@ -24,8 +77,11 @@ export default function ContactPage() {
         name: 'Your Name',
         email: 'Email',
         message: 'How can we help you?',
-        submit: 'Send Message'
-      }
+        submit: 'Send Message',
+        sending: 'Sending...'
+      },
+      success: 'Message sent successfully! We\'ll get back to you soon.',
+      error: 'Failed to send message. Please try again.'
     },
     es: {
       title: 'Contáctanos',
@@ -39,10 +95,27 @@ export default function ContactPage() {
         name: 'Su Nombre',
         email: 'Correo Electrónico',
         message: '¿Como podemos ayudarle?',
-        submit: 'Enviar Mensaje'
-      }
+        submit: 'Enviar Mensaje',
+        sending: 'Enviando...'
+      },
+      success: '¡Mensaje enviado exitosamente! Nos pondremos en contacto pronto.',
+      error: 'Error al enviar mensaje. Por favor intente de nuevo.'
     }
   }[locale]
+
+  if (status === 'success') {
+    return (
+      <main className="max-w-4xl mx-auto px-4 py-16 text-center">
+        <h1 className="text-3xl font-bold text-green-600 mb-4">✅ {t.success}</h1>
+        <button 
+          onClick={() => setStatus('idle')}
+          className="text-canyon-rust underline"
+        >
+          Send another message
+        </button>
+      </main>
+    );
+  }
 
   return (
     <main className="max-w-4xl mx-auto px-4 py-16">
@@ -68,51 +141,48 @@ export default function ContactPage() {
         </div>
 
         {/* Right: Contact Form */}
-        <form
-          method="POST"
-          action="https://usebasin.com/f/YOUR_BASIN_FORM_ID"
-          className="space-y-4"
-        >
-          <input
-            type="hidden"
-            name="subject"
-            value="Contact Form Submission"
-          />
-          <input
-            type="hidden"
-            name="form_name"
-            value="contact_form"
-          />
-          <input
-            type="text"
-            name="_gotcha"
-            style={{ display: 'none' }}
-          />
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {status === 'error' && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+              {t.error}
+            </div>
+          )}
+          
           <input
             name="name"
+            value={formData.name}
+            onChange={handleChange}
             placeholder={t.form.name}
             required
-            className="w-full border border-slate-300 px-4 py-2 rounded"
+            disabled={status === 'loading'}
+            className="w-full border border-slate-300 px-4 py-2 rounded disabled:opacity-50"
           />
           <input
             name="email"
             type="email"
+            value={formData.email}
+            onChange={handleChange}
             placeholder={t.form.email}
             required
-            className="w-full border border-slate-300 px-4 py-2 rounded"
+            disabled={status === 'loading'}
+            className="w-full border border-slate-300 px-4 py-2 rounded disabled:opacity-50"
           />
           <textarea
             name="message"
+            value={formData.message}
+            onChange={handleChange}
             placeholder={t.form.message}
             rows={5}
             required
-            className="w-full border border-slate-300 px-4 py-2 rounded"
+            disabled={status === 'loading'}
+            className="w-full border border-slate-300 px-4 py-2 rounded disabled:opacity-50"
           />
           <button
             type="submit"
-            className="bg-canyon-rust text-white px-6 py-3 rounded-md hover:bg-orange-700 transition"
+            disabled={status === 'loading'}
+            className="bg-canyon-rust text-white px-6 py-3 rounded-md hover:bg-orange-700 transition disabled:opacity-50"
           >
-            {t.form.submit}
+            {status === 'loading' ? t.form.sending : t.form.submit}
           </button>
         </form>
       </div>
