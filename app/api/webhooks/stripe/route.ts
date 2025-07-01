@@ -31,295 +31,161 @@ export async function POST(req: Request) {
       console.error('❌ Error processing order:', error)
     }
 
-    // Check if this is a training course enrollment
+    // Handle training purchases
     if (session.metadata?.course_slug) {
-      // Handle course enrollment (existing logic)
-      const { data: course } = await supabase
-        .from('courses')
-        .select('id')
-        .eq('slug', session.metadata.course_slug)
-        .single()
-
-      // Get quantity from session metadata or line items
-      const quantity = session.metadata?.quantity ? parseInt(session.metadata.quantity) : 1
+      console.log('📚 Training purchase detected - auto-creating user and enrolling')
       
-      let userId = session.client_reference_id
-      const isTestPurchase = session.metadata?.is_test_purchase === 'true' || 
-                           (session.amount_total === 0 && session.metadata?.course_slug) // Free training = test
-      
-      console.log(`🔍 Purchase analysis:`)
-      console.log(`   Session ID: ${session.id}`)
-      console.log(`   Email: ${session.customer_details?.email}`)
-      console.log(`   Amount: $${(session.amount_total || 0) / 100}`)
-      console.log(`   Is Test Purchase: ${isTestPurchase}`)
-      console.log(`   Metadata: ${JSON.stringify(session.metadata)}`)
-      console.log(`   Client Ref ID: ${userId}`)
-
-      // Handle test user creation ONLY for test purchases
-      if (isTestPurchase && userId && userId.startsWith('test-user-')) {
-        console.log('🧪 Creating test user for enrollment:', userId)
+      try {
+        const customerEmail = session.customer_details?.email
+        const customerName = session.customer_details?.name || ''
         
-        // Find or create test user using auth.admin (not public.users table)
-        const testEmail = 'test@flatearthequipment.com'
+        if (!customerEmail) {
+          console.error('❌ No customer email found in session')
+          return
+        }
+
+        // Check if user already exists
         const { data: existingUsers } = await supabase.auth.admin.listUsers()
-        let testUser = existingUsers.users.find(u => u.email === testEmail)
+        let user = existingUsers.users.find(u => u.email === customerEmail)
         
-        if (testUser) {
-          userId = testUser.id
-          console.log('✅ Using existing test user:', userId)
+        if (user) {
+          console.log('✅ Using existing user:', user.email)
         } else {
-          // Create test user in auth.users using admin API
-          const { data: newUser, error: createError } = await supabase.auth.admin.createUser({
-            email: testEmail,
-            password: 'TestPassword123!',
+          // Create new user account
+          const temporaryPassword = Math.random().toString(36).slice(-12) + 'A1!'
+          console.log('🔐 Creating new user account...')
+          
+          const { data: newUser, error: userError } = await supabase.auth.admin.createUser({
+            email: customerEmail,
+            password: temporaryPassword,
             email_confirm: true,
             user_metadata: {
-              full_name: 'Test User'
+              full_name: customerName,
+              created_via: 'training_purchase'
             }
           })
           
-          if (createError) {
-            console.error('❌ Error creating test user:', createError)
-            userId = null
-          } else if (newUser.user) {
-            userId = newUser.user.id
-            console.log('✅ Created new test user:', userId)
-          } else {
-            console.error('❌ No user returned from creation')
-            userId = null
-          }
-        }
-      } else if (isTestPurchase && !userId) {
-        // Handle test purchases made through promotion codes (no client_reference_id)
-        console.log('🧪 Test purchase via promotion code - creating test user')
-        
-        const testEmail = 'test@flatearthequipment.com'
-        const { data: existingUsers } = await supabase.auth.admin.listUsers()
-        let testUser = existingUsers.users.find(u => u.email === testEmail)
-        
-        if (testUser) {
-          userId = testUser.id
-          console.log('✅ Using existing test user:', userId)
-        } else {
-          const { data: newUser, error: createError } = await supabase.auth.admin.createUser({
-            email: testEmail,
-            password: 'TestPassword123!',
-            email_confirm: true, 
-            user_metadata: {
-              full_name: 'Test User'
-            }
-          })
-          
-          if (createError) {
-            console.error('❌ Error creating test user:', createError)
-            userId = null
-          } else if (newUser.user) {
-            userId = newUser.user.id
-            console.log('✅ Created new test user:', userId)
-          } else {
-            console.error('❌ No user returned from creation')
-            userId = null
-          }
-        }
-      } else if (!isTestPurchase) {
-        // For regular training purchases, AUTO-CREATE USER AND ENROLL
-        console.log('📚 Regular training purchase - auto-creating user and enrolling')
-        
-        try {
-          const customerEmail = session.customer_details?.email
-          const customerName = session.customer_details?.name || ''
-          
-          if (!customerEmail) {
-            console.error('❌ No customer email found in session')
+          if (userError || !newUser.user) {
+            console.error('❌ Error creating user:', userError)
             return
           }
-
-          // Check if user already exists
-          const { data: existingUsers } = await supabase.auth.admin.listUsers()
-          let user = existingUsers.users.find(u => u.email === customerEmail)
           
-          if (user) {
-            console.log('✅ Using existing user:', customerEmail)
-            userId = user.id
-          } else {
-            // Auto-create user account for paid customer
-            const tempPassword = Math.random().toString(36).slice(-12) + 'A1!' // Secure temp password
-            
-            const { data: newUser, error: createError } = await supabase.auth.admin.createUser({
+          user = newUser.user
+          console.log('✅ Created new user:', user.email)
+          
+          // Send welcome email with login credentials
+          await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/send-training-welcome`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
               email: customerEmail,
-              password: tempPassword,
-              email_confirm: true,
-              user_metadata: {
-                full_name: customerName,
-                created_via: 'training_purchase',
-                stripe_session_id: session.id
+              name: customerName,
+              password: temporaryPassword,
+              courseTitle: 'Forklift Operator Certification'
+            })
+          })
+          console.log('📧 Training welcome email sent')
+        }
+
+        // Auto-enroll in the course
+        const courseSlug = session.metadata.course_slug
+        const quantity = parseInt(session.metadata.quantity || '1')
+        
+        console.log(`🎓 Auto-enrolling in course: ${courseSlug} (${quantity} seats)`)
+        
+        for (let i = 0; i < quantity; i++) {
+          const { error: enrollError } = await supabase
+            .from('enrollments')
+            .insert({
+              user_id: user.id,
+              course_id: courseSlug,
+              status: 'active',
+              enrolled_at: new Date().toISOString(),
+              payment_id: session.payment_intent,
+              metadata: {
+                stripe_session_id: session.id,
+                auto_enrolled: true
               }
             })
-            
-            if (createError) {
-              console.error('❌ Error creating user:', createError)
-              // Fallback to unclaimed purchase storage
-              const { error: purchaseError } = await supabase
-                .from('unclaimed_purchases')
-                .insert({
-                  stripe_session_id: session.id,
-                  customer_email: customerEmail,
-                  course_id: course!.id,
-                  quantity: quantity,
-                  amount_cents: session.amount_total,
-                  purchase_date: new Date().toISOString(),
-                  status: 'pending_claim'
-                })
-              
-              if (purchaseError) {
-                console.error('❌ Error storing unclaimed purchase:', purchaseError)
-              }
-              userId = null
-            } else if (newUser.user) {
-              userId = newUser.user.id
-              console.log('✅ Created new user:', customerEmail)
-              
-              // Send welcome email with login credentials
-              try {
-                await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'}/api/send-training-welcome`, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    email: customerEmail,
-                    name: customerName,
-                    password: tempPassword,
-                    courseTitle: 'Forklift Operator Certification'
-                  })
-                })
-                console.log('✅ Training welcome email sent')
-              } catch (emailError) {
-                console.error('⚠️ Failed to send welcome email:', emailError)
-              }
-            } else {
-              console.error('❌ No user returned from creation')
-              userId = null
-            }
-          }
-        } catch (error) {
-          console.error('❌ Error in user creation:', error)
-          userId = null
-        }
-      }
-
-      // single seat → auto-enroll
-      if (quantity === 1 && userId) {
-        console.log('📚 Creating enrollment for user:', userId, 'course:', course?.id)
-        
-        // Check if enrollment already exists
-        const { data: existingEnrollment } = await supabase
-          .from('enrollments')
-          .select('id')
-          .eq('user_id', userId)
-          .eq('course_id', course!.id)
-          .single()
-        
-        if (existingEnrollment) {
-          console.log('ℹ️ Enrollment already exists for this user and course')
-        } else {
-          const { error } = await supabase.from('enrollments').insert({
-            user_id: userId,
-            course_id: course!.id,
-            progress_pct: 0
-          })
-          if (error) {
-            console.error('❌ Error creating enrollment:', error)
-            console.error('❌ Error details:', JSON.stringify(error, null, 2))
+          
+          if (enrollError) {
+            console.error(`❌ Error enrolling user (seat ${i + 1}):`, enrollError)
           } else {
-            console.log('✅ Enrollment created successfully')
-            
-            // Log the successful test user setup for debugging
-            if (isTestPurchase) {
-              console.log('🎉 Test user setup complete!')
-              console.log('📧 Test login email: test@flatearthequipment.com')
-              console.log('🔑 Test login password: TestPassword123!')
-              console.log('🔗 Test login URL: https://flatearthequipment.com/login')
-            }
+            console.log(`✅ User enrolled successfully (seat ${i + 1})`)
           }
         }
-      } else if (userId) {
-        // multi-seat pack → create order & seat counter
-        await supabase.from('orders').insert({
-          user_id: userId,
-          course_id: course!.id,
-          stripe_session_id: session.id,
-          seats: quantity,
-          amount_cents: session.amount_total,
-          available_seats: quantity        
-        })
-      }
-    }
-
-    // Check if this is a charger module repair order
-    const isRepairOrder = Object.keys(session.metadata || {}).some(key => 
-      key.includes('offer') && session.metadata![key] === 'Repair & Return'
-    )
-
-    // Need to fetch full session data to get shipping details
-    if (isRepairOrder && session.customer_details?.email) {
-      try {
-        // Fetch complete session with shipping details
-        const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2025-05-28.basil' })
-        const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
-          expand: ['shipping_details']
-        })
-
-        // Type assertion to access shipping_details which is available when expanded
-        const sessionWithShipping = fullSession as any
         
-        if (sessionWithShipping.shipping_details?.address) {
-          // Extract order metadata from session
-          const orderMetadata = {
-            orderId: session.id,
-            moduleType: session.metadata?.item_0_moduleId || 'Unknown Module',
-            firmwareVersion: session.metadata?.item_0_firmwareVersion || undefined
-          }
+      } catch (error) {
+        console.error('❌ Error processing training purchase:', error)
+      }
+    } else {
+      // Check if this is a charger module repair order
+      const isRepairOrder = Object.keys(session.metadata || {}).some(key => 
+        key.includes('offer') && session.metadata![key] === 'Repair & Return'
+      )
 
-          // Customer shipping address
-          const customerAddress = {
-            name: fullSession.customer_details?.name || 'Customer',
-            street1: sessionWithShipping.shipping_details.address.line1 || '',
-            street2: sessionWithShipping.shipping_details.address.line2 || '',
-            city: sessionWithShipping.shipping_details.address.city || '',
-            state: sessionWithShipping.shipping_details.address.state || '',
-            zip: sessionWithShipping.shipping_details.address.postal_code || '',
-            country: sessionWithShipping.shipping_details.address.country || 'US',
-            phone: fullSession.customer_details?.phone || '',
-            email: fullSession.customer_details?.email || ''
-          }
-
-          // Generate prepaid return label
-          const shippingLabel = await createReturnLabel(customerAddress, orderMetadata)
-
-          // Store shipping label info in database
-          await supabase.from('repair_orders').insert({
-            stripe_session_id: session.id,
-            customer_email: fullSession.customer_details?.email,
-            customer_name: customerAddress.name,
-            module_type: orderMetadata.moduleType,
-            firmware_version: orderMetadata.firmwareVersion,
-            label_url: shippingLabel.labelUrl,
-            tracking_number: shippingLabel.trackingNumber,
-            tracking_url: shippingLabel.trackingUrl,
-            carrier: shippingLabel.carrier,
-            service_name: shippingLabel.serviceName,
-            shipping_cost: parseFloat(shippingLabel.cost),
-            status: 'label_generated',
-            created_at: new Date().toISOString()
+      // Need to fetch full session data to get shipping details
+      if (isRepairOrder && session.customer_details?.email) {
+        try {
+          // Fetch complete session with shipping details
+          const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2025-05-28.basil' })
+          const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
+            expand: ['shipping_details']
           })
 
-          console.log(`✅ Generated shipping label for repair order ${session.id}`)
-          console.log(`📧 Label URL: ${shippingLabel.labelUrl}`)
-          console.log(`📦 Tracking: ${shippingLabel.trackingNumber}`)
-        }
+          // Type assertion to access shipping_details which is available when expanded
+          const sessionWithShipping = fullSession as any
+          
+          if (sessionWithShipping.shipping_details?.address) {
+            // Extract order metadata from session
+            const orderMetadata = {
+              orderId: session.id,
+              moduleType: session.metadata?.item_0_moduleId || 'Unknown Module',
+              firmwareVersion: session.metadata?.item_0_firmwareVersion || undefined
+            }
 
-      } catch (error) {
-        console.error('❌ Error generating shipping label:', error)
-        // You might want to store this error and retry later
+            // Customer shipping address
+            const customerAddress = {
+              name: fullSession.customer_details?.name || 'Customer',
+              street1: sessionWithShipping.shipping_details.address.line1 || '',
+              street2: sessionWithShipping.shipping_details.address.line2 || '',
+              city: sessionWithShipping.shipping_details.address.city || '',
+              state: sessionWithShipping.shipping_details.address.state || '',
+              zip: sessionWithShipping.shipping_details.address.postal_code || '',
+              country: sessionWithShipping.shipping_details.address.country || 'US',
+              phone: fullSession.customer_details?.phone || '',
+              email: fullSession.customer_details?.email || ''
+            }
+
+            // Generate prepaid return label
+            const shippingLabel = await createReturnLabel(customerAddress, orderMetadata)
+
+            // Store shipping label info in database
+            await supabase.from('repair_orders').insert({
+              stripe_session_id: session.id,
+              customer_email: fullSession.customer_details?.email,
+              customer_name: customerAddress.name,
+              module_type: orderMetadata.moduleType,
+              firmware_version: orderMetadata.firmwareVersion,
+              label_url: shippingLabel.labelUrl,
+              tracking_number: shippingLabel.trackingNumber,
+              tracking_url: shippingLabel.trackingUrl,
+              carrier: shippingLabel.carrier,
+              service_name: shippingLabel.serviceName,
+              shipping_cost: parseFloat(shippingLabel.cost),
+              status: 'label_generated',
+              created_at: new Date().toISOString()
+            })
+
+            console.log(`✅ Generated shipping label for repair order ${session.id}`)
+            console.log(`📧 Label URL: ${shippingLabel.labelUrl}`)
+            console.log(`📦 Tracking: ${shippingLabel.trackingNumber}`)
+          }
+
+        } catch (error) {
+          console.error('❌ Error generating shipping label:', error)
+          // You might want to store this error and retry later
+        }
       }
     }
   }
