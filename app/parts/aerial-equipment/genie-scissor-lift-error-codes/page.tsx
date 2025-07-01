@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Genie Scissor Lift Error Codes: Understanding Common Issues and Solutions | Flat Earth Equipment",
@@ -83,11 +84,11 @@ export default function GenieScissorLiftErrorCodes() {
               </tr>
               <tr>
                 <td className="border p-2">E12</td>
-                <td className="border p-2">Platform control not communicating with ground control</td>
+                <td className="border p-2">Platform control not communicating with <Link href="/parts/genie-gen-6-ground-control-box" className="text-orange-600 hover:text-orange-700 underline">ground control</Link></td>
               </tr>
               <tr>
                 <td className="border p-2">E13</td>
-                <td className="border p-2">Ground control not communicating with platform control</td>
+                <td className="border p-2"><Link href="/parts/genie-gen-6-ground-control-box" className="text-orange-600 hover:text-orange-700 underline">Ground control</Link> not communicating with platform control</td>
               </tr>
               <tr>
                 <td className="border p-2">E14</td>
@@ -95,7 +96,7 @@ export default function GenieScissorLiftErrorCodes() {
               </tr>
               <tr>
                 <td className="border p-2">E15</td>
-                <td className="border p-2">Ground control system error</td>
+                <td className="border p-2"><Link href="/parts/genie-gen-6-ground-control-box" className="text-orange-600 hover:text-orange-700 underline">Ground control</Link> system error</td>
               </tr>
               <tr>
                 <td className="border p-2">E16</td>
@@ -133,6 +134,13 @@ export default function GenieScissorLiftErrorCodes() {
           <li>Test sensors and switches for proper operation</li>
           <li>Clear the error code after resolving the issue</li>
         </ol>
+
+        <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 my-6">
+          <h3 className="text-lg font-semibold text-orange-800 mb-2">💡 Ground Control Issues (E12, E13, E15)?</h3>
+          <p className="text-orange-700">
+            If you're experiencing persistent ground control communication errors, the issue may be with your control box hardware. Consider our <Link href="/parts/genie-gen-6-ground-control-box" className="text-orange-600 hover:text-orange-700 underline font-medium">Genie Gen 6 Ground Control Box replacement</Link> - a reliable solution for Gen 6 series vehicles with $250 core credit available.
+          </p>
+        </div>
 
         <h2>Reset Procedures</h2>
         <p>
@@ -176,6 +184,7 @@ export default function GenieScissorLiftErrorCodes() {
           <li>Multiple error codes appear simultaneously</li>
           <li>Safety systems are affected</li>
           <li>You're unsure about the cause or solution</li>
+          <li>Control box replacement is needed (we stock <Link href="/parts/genie-gen-6-ground-control-box" className="text-orange-600 hover:text-orange-700 underline">genuine Genie ground control boxes</Link> for fast delivery)</li>
         </ul>
 
         <h2>Conclusion</h2>
