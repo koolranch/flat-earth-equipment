@@ -23,16 +23,22 @@ function SuccessContent() {
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
           <h2 className="text-xl font-semibold text-blue-800 mb-3">📚 Purchased Training?</h2>
           <div className="text-left text-blue-700 space-y-3">
-            <p className="font-medium">To access your training:</p>
+            <p className="font-medium">Your training is being activated automatically:</p>
             <ol className="list-decimal list-inside space-y-1 ml-4">
-              <li>Create an account using the same email from your purchase</li>
-              <li>Sign in and visit your dashboard</li>
-              <li>Your training will be automatically activated</li>
+              <li>We're creating your account now (no signup needed!)</li>
+              <li>You'll receive login credentials in your email within 5 minutes</li>
+              <li>Click the "Start Training Now" button in that email</li>
             </ol>
             <div className="mt-4 p-3 bg-blue-100 rounded border">
               <p className="text-sm">
-                <strong>Important:</strong> Use the same email address you used for this purchase 
-                when creating your account to automatically access your training.
+                <strong>🚀 Coming Soon:</strong> Login credentials will be sent to your email address. 
+                No manual signup required - we've automated everything for you!
+              </p>
+            </div>
+            <div className="mt-4 p-3 bg-green-100 rounded border border-green-300">
+              <p className="text-sm text-green-800">
+                <strong>✅ Pro Tip:</strong> Check your spam folder if you don't see the email in 5 minutes. 
+                Your training will be immediately available once you log in.
               </p>
             </div>
           </div>
