@@ -59,60 +59,66 @@ export async function POST(req: Request) {
       if (isTestPurchase && userId && userId.startsWith('test-user-')) {
         console.log('🧪 Creating test user for enrollment:', userId)
         
-        // Try to find existing test user or create new one
-        const { data: existingUser } = await supabase
-          .from('users')
-          .select('id')
-          .eq('email', 'test@flatearthequipment.com')
-          .single()
+        // Find or create test user using auth.admin (not public.users table)
+        const testEmail = 'test@flatearthequipment.com'
+        const { data: existingUsers } = await supabase.auth.admin.listUsers()
+        let testUser = existingUsers.users.find(u => u.email === testEmail)
         
-        if (existingUser) {
-          userId = existingUser.id
+        if (testUser) {
+          userId = testUser.id
           console.log('✅ Using existing test user:', userId)
         } else {
-          // Create test user
-          const { data: newUser } = await supabase
-            .from('users')
-            .insert({
-              email: 'test@flatearthequipment.com',
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString()
-            })
-            .select('id')
-            .single()
+          // Create test user in auth.users using admin API
+          const { data: newUser, error: createError } = await supabase.auth.admin.createUser({
+            email: testEmail,
+            password: 'TestPassword123!',
+            email_confirm: true,
+            user_metadata: {
+              full_name: 'Test User'
+            }
+          })
           
-          if (newUser) {
-            userId = newUser.id
+          if (createError) {
+            console.error('❌ Error creating test user:', createError)
+            userId = null
+          } else if (newUser.user) {
+            userId = newUser.user.id
             console.log('✅ Created new test user:', userId)
+          } else {
+            console.error('❌ No user returned from creation')
+            userId = null
           }
         }
       } else if (isTestPurchase && !userId) {
         // Handle test purchases made through promotion codes (no client_reference_id)
         console.log('🧪 Test purchase via promotion code - creating test user')
         
-        const { data: existingUser } = await supabase
-          .from('users')
-          .select('id')
-          .eq('email', 'test@flatearthequipment.com')
-          .single()
+        const testEmail = 'test@flatearthequipment.com'
+        const { data: existingUsers } = await supabase.auth.admin.listUsers()
+        let testUser = existingUsers.users.find(u => u.email === testEmail)
         
-        if (existingUser) {
-          userId = existingUser.id
+        if (testUser) {
+          userId = testUser.id
           console.log('✅ Using existing test user:', userId)
         } else {
-          const { data: newUser } = await supabase
-            .from('users')
-            .insert({
-              email: 'test@flatearthequipment.com',
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString()
-            })
-            .select('id')
-            .single()
+          const { data: newUser, error: createError } = await supabase.auth.admin.createUser({
+            email: testEmail,
+            password: 'TestPassword123!',
+            email_confirm: true, 
+            user_metadata: {
+              full_name: 'Test User'
+            }
+          })
           
-          if (newUser) {
-            userId = newUser.id
+          if (createError) {
+            console.error('❌ Error creating test user:', createError)
+            userId = null
+          } else if (newUser.user) {
+            userId = newUser.user.id
             console.log('✅ Created new test user:', userId)
+          } else {
+            console.error('❌ No user returned from creation')
+            userId = null
           }
         }
       } else if (!isTestPurchase) {
@@ -148,15 +154,37 @@ export async function POST(req: Request) {
       // single seat → auto-enroll
       if (quantity === 1 && userId) {
         console.log('📚 Creating enrollment for user:', userId, 'course:', course?.id)
-        const { error } = await supabase.from('enrollments').insert({
-          user_id: userId,
-          course_id: course!.id,
-          progress_pct: 0
-        })
-        if (error) {
-          console.error('❌ Error creating enrollment:', error)
+        
+        // Check if enrollment already exists
+        const { data: existingEnrollment } = await supabase
+          .from('enrollments')
+          .select('id')
+          .eq('user_id', userId)
+          .eq('course_id', course!.id)
+          .single()
+        
+        if (existingEnrollment) {
+          console.log('ℹ️ Enrollment already exists for this user and course')
         } else {
-          console.log('✅ Enrollment created successfully')
+          const { error } = await supabase.from('enrollments').insert({
+            user_id: userId,
+            course_id: course!.id,
+            progress_pct: 0
+          })
+          if (error) {
+            console.error('❌ Error creating enrollment:', error)
+            console.error('❌ Error details:', JSON.stringify(error, null, 2))
+          } else {
+            console.log('✅ Enrollment created successfully')
+            
+            // Log the successful test user setup for debugging
+            if (isTestPurchase) {
+              console.log('🎉 Test user setup complete!')
+              console.log('📧 Test login email: test@flatearthequipment.com')
+              console.log('🔑 Test login password: TestPassword123!')
+              console.log('🔗 Test login URL: https://flatearthequipment.com/login')
+            }
+          }
         }
       } else if (userId) {
         // multi-seat pack → create order & seat counter

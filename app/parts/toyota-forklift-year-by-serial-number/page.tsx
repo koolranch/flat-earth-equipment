@@ -94,6 +94,45 @@ export default function ToyotaForkliftYearGuidePage() {
           </table>
         </div>
 
+        <div className="bg-orange-50 border border-orange-200 rounded-lg p-6 my-8">
+          <h3 className="text-xl font-semibold text-orange-800 mb-4">🔧 Common Toyota Forklift Replacement Parts</h3>
+          <p className="text-orange-700 mb-4">
+            Now that you've identified your Toyota forklift's year, you can order the correct replacement parts. Here are some of our most popular Toyota forklift components:
+          </p>
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="bg-white p-4 rounded border">
+              <h4 className="font-semibold text-gray-800 mb-2">
+                <Link href="/parts/toyota-seat-assembly-vinyl-53720-u224171" className="text-orange-600 hover:text-orange-700 underline">
+                  Vinyl Seat Assembly
+                </Link>
+              </h4>
+              <p className="text-sm text-gray-600 mb-2">Toyota 53720-U2241-71</p>
+              <p className="text-orange-600 font-medium">$750.00</p>
+            </div>
+            <div className="bg-white p-4 rounded border">
+              <h4 className="font-semibold text-gray-800 mb-2">
+                <Link href="/parts/toyota-seat-assembly-cloth-53730-u116271" className="text-orange-600 hover:text-orange-700 underline">
+                  Cloth Seat Assembly
+                </Link>
+              </h4>
+              <p className="text-sm text-gray-600 mb-2">Toyota 53730-U1162-71</p>
+              <p className="text-orange-600 font-medium">$850.00</p>
+            </div>
+            <div className="bg-white p-4 rounded border">
+              <h4 className="font-semibold text-gray-800 mb-2">
+                <Link href="/parts/toyota-seat-assembly-cloth-53730-u117071" className="text-orange-600 hover:text-orange-700 underline">
+                  Cloth Seat Assembly
+                </Link>
+              </h4>
+              <p className="text-sm text-gray-600 mb-2">Toyota 53730-U1170-71</p>
+              <p className="text-orange-600 font-medium">$520.00</p>
+            </div>
+          </div>
+          <p className="text-orange-700 mt-4 text-sm">
+            💡 <strong>Pro Tip:</strong> Worn seats can impact operator comfort and productivity. Consider upgrading to maintain peak performance.
+          </p>
+        </div>
+
         <div className="mt-8 bg-blue-50 p-6 rounded-lg">
           <h2 className="text-xl font-semibold mb-4">Need Help Finding Your Serial Number?</h2>
           <p className="mb-4">
@@ -114,23 +153,48 @@ export default function ToyotaForkliftYearGuidePage() {
 
         <div className="mt-8">
           <h2 className="text-xl font-semibold mb-4">Related Resources</h2>
-          <ul className="list-disc pl-6">
-            <li>
-              <Link href="/parts/toyota-forklift-parts" className="text-blue-600 hover:underline">
-                Toyota Forklift Parts Catalog
-              </Link>
-            </li>
-            <li>
-              <Link href="/parts/toyota-forklift-manuals" className="text-blue-600 hover:underline">
-                Toyota Forklift Manuals
-              </Link>
-            </li>
-            <li>
-              <Link href="/parts/toyota-forklift-maintenance" className="text-blue-600 hover:underline">
-                Toyota Forklift Maintenance Guide
-              </Link>
-            </li>
-          </ul>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="font-semibold mb-3">Toyota Parts & Maintenance</h3>
+              <ul className="list-disc pl-6 space-y-1">
+                <li>
+                  <Link href="/parts/toyota-forklift-parts" className="text-blue-600 hover:underline">
+                    Toyota Forklift Parts Catalog
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/parts/toyota-forklift-manuals" className="text-blue-600 hover:underline">
+                    Toyota Forklift Manuals
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/parts/toyota-forklift-maintenance" className="text-blue-600 hover:underline">
+                    Toyota Forklift Maintenance Guide
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-3">Popular Toyota Replacement Parts</h3>
+              <ul className="list-disc pl-6 space-y-1">
+                <li>
+                  <Link href="/parts/toyota-seat-assembly-vinyl-53720-u224171" className="text-blue-600 hover:underline">
+                    Toyota Vinyl Seat Assemblies
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/parts/toyota-seat-assembly-cloth-53730-u116271" className="text-blue-600 hover:underline">
+                    Toyota Cloth Seat Assemblies
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/brand/toyota" className="text-blue-600 hover:underline">
+                    All Toyota Forklift Parts
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </main>
