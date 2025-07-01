@@ -217,17 +217,27 @@ function getOrderTypeContent(order: OrderData): string {
     case 'training':
       return `
       <div style="background: #f0fdf4; border: 2px solid #059669; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
-        <h3 style="color: #059669; margin-top: 0;">🎓 Training Course Access</h3>
-        <p style="margin: 0; font-size: 14px; color: #14532d;">
-          Create an account using this email address to access your training materials. 
-          Visit your dashboard to start your OSHA-compliant forklift certification.
+        <h3 style="color: #059669; margin-top: 0;">🎓 Training Access - Automatically Activated!</h3>
+        <p style="margin: 0 0 15px 0; font-size: 14px; color: #14532d;">
+          Great news! Your training account has been automatically created and your course is ready to start.
         </p>
-        <div style="margin: 15px 0;">
+        <div style="background: white; padding: 15px; border-radius: 6px; margin: 15px 0; border-left: 4px solid #059669;">
+          <h4 style="margin: 0 0 10px 0; color: #059669; font-size: 16px;">📧 What Happens Next</h4>
+          <ol style="margin: 0; padding-left: 20px; font-size: 14px; color: #14532d;">
+            <li style="margin-bottom: 5px;">You'll receive login credentials within 5 minutes</li>
+            <li style="margin-bottom: 5px;">Click "Start Training Now" in that email</li>
+            <li style="margin-bottom: 5px;">Begin your OSHA-compliant forklift certification immediately</li>
+          </ol>
+        </div>
+        <div style="margin: 20px 0;">
           <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'}/login" 
              style="display: inline-block; background: #059669; color: white; padding: 12px 20px; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: bold;">
             Access Training Dashboard
           </a>
         </div>
+        <p style="margin: 10px 0 0 0; font-size: 12px; color: #6b7280; font-style: italic;">
+          💡 No manual signup required - your account is being created automatically!
+        </p>
       </div>`
       
     case 'repair':

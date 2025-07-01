@@ -122,33 +122,88 @@ export async function POST(req: Request) {
           }
         }
       } else if (!isTestPurchase) {
-        // For regular training purchases, store purchase for later claim
-        console.log('📚 Regular training purchase - storing for customer to claim')
+        // For regular training purchases, AUTO-CREATE USER AND ENROLL
+        console.log('📚 Regular training purchase - auto-creating user and enrolling')
         
         try {
-          // Store the purchase information for customer to claim later
-          const { error: purchaseError } = await supabase
-            .from('unclaimed_purchases')
-            .insert({
-              stripe_session_id: session.id,
-              customer_email: session.customer_details?.email,
-              course_id: course!.id,
-              quantity: quantity,
-              amount_cents: session.amount_total,
-              purchase_date: new Date().toISOString(),
-              status: 'pending_claim'
-            })
+          const customerEmail = session.customer_details?.email
+          const customerName = session.customer_details?.name || ''
           
-          if (purchaseError) {
-            console.error('❌ Error storing unclaimed purchase:', purchaseError)
+          if (!customerEmail) {
+            console.error('❌ No customer email found in session')
+            return
+          }
+
+          // Check if user already exists
+          const { data: existingUsers } = await supabase.auth.admin.listUsers()
+          let user = existingUsers.users.find(u => u.email === customerEmail)
+          
+          if (user) {
+            console.log('✅ Using existing user:', customerEmail)
+            userId = user.id
           } else {
-            console.log('✅ Purchase stored for claiming by:', session.customer_details?.email)
+            // Auto-create user account for paid customer
+            const tempPassword = Math.random().toString(36).slice(-12) + 'A1!' // Secure temp password
+            
+            const { data: newUser, error: createError } = await supabase.auth.admin.createUser({
+              email: customerEmail,
+              password: tempPassword,
+              email_confirm: true,
+              user_metadata: {
+                full_name: customerName,
+                created_via: 'training_purchase',
+                stripe_session_id: session.id
+              }
+            })
+            
+            if (createError) {
+              console.error('❌ Error creating user:', createError)
+              // Fallback to unclaimed purchase storage
+              const { error: purchaseError } = await supabase
+                .from('unclaimed_purchases')
+                .insert({
+                  stripe_session_id: session.id,
+                  customer_email: customerEmail,
+                  course_id: course!.id,
+                  quantity: quantity,
+                  amount_cents: session.amount_total,
+                  purchase_date: new Date().toISOString(),
+                  status: 'pending_claim'
+                })
+              
+              if (purchaseError) {
+                console.error('❌ Error storing unclaimed purchase:', purchaseError)
+              }
+              userId = null
+            } else if (newUser.user) {
+              userId = newUser.user.id
+              console.log('✅ Created new user:', customerEmail)
+              
+              // Send welcome email with login credentials
+              try {
+                await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'}/api/send-training-welcome`, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    email: customerEmail,
+                    name: customerName,
+                    password: tempPassword,
+                    courseTitle: 'Forklift Operator Certification'
+                  })
+                })
+                console.log('✅ Training welcome email sent')
+              } catch (emailError) {
+                console.error('⚠️ Failed to send welcome email:', emailError)
+              }
+            } else {
+              console.error('❌ No user returned from creation')
+              userId = null
+            }
           }
         } catch (error) {
-          console.error('❌ Error in unclaimed purchase storage:', error)
+          console.error('❌ Error in user creation:', error)
+          userId = null
         }
-        
-        userId = null
       }
 
       // single seat → auto-enroll
