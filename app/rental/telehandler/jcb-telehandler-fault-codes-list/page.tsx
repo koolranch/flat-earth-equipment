@@ -123,19 +123,19 @@ export default function JCBTelehandlerFaultCodesPage() {
         </div>
 
         <div className="mt-8 bg-blue-50 p-6 rounded-lg">
-          <h2 className="text-xl font-semibold mb-4">Need Professional Help?</h2>
+          <h2 className="text-xl font-semibold mb-4">Need JCB Replacement Parts?</h2>
           <p className="mb-4">
-            Our certified JCB technicians are available to help diagnose and repair your telehandler. 
-            Contact us for immediate assistance:
+            Our parts specialists can help you find the right JCB telehandler parts based on your fault code diagnosis. 
+            Contact us for parts inquiries and availability:
           </p>
           <ul className="list-none space-y-2">
             <li className="flex items-center">
               <Phone className="w-5 h-5 mr-2" />
-              <span>1-800-XXX-XXXX</span>
+              <span>(307) 302-0043</span>
             </li>
             <li className="flex items-center">
               <Mail className="w-5 h-5 mr-2" />
-              <span>service@flatearthequipment.com</span>
+              <span>parts@flatearthequipment.com</span>
             </li>
           </ul>
         </div>
