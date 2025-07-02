@@ -329,6 +329,104 @@ export default function StateForkliftPage({ params }: Props) {
         </section>
       )}
 
+      {/* ILLINOIS-SPECIFIC CONTENT */}
+      {info.code === 'il' && (
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold">Illinois Forklift Training for Major Industries</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🚛 Transportation & Logistics</h3>
+              <p className="text-sm text-gray-700">
+                Chicago is America's transportation hub with massive rail yards, trucking terminals, and distribution centers. 
+                Our training prepares operators for high-volume logistics operations throughout Illinois.
+              </p>
+            </div>
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🏭 Manufacturing & Steel</h3>
+              <p className="text-sm text-gray-700">
+                Illinois manufacturing includes automotive plants, machinery production, and steel mills. 
+                Our certification covers heavy-duty forklift operations in industrial settings.
+              </p>
+            </div>
+            <div className="bg-orange-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🌽 Agriculture & Food Processing</h3>
+              <p className="text-sm text-gray-700">
+                Illinois leads in corn and soybean production with extensive food processing facilities. 
+                Our training covers agricultural and food industry forklift safety requirements.
+              </p>
+            </div>
+            <div className="bg-purple-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">📦 Warehousing & Distribution</h3>
+              <p className="text-sm text-gray-700">
+                Major retailers and e-commerce companies operate massive distribution centers throughout Illinois. 
+                Our certification meets requirements for Amazon, Walmart, and other major employers.
+              </p>
+            </div>
+          </div>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-6">
+            <h3 className="text-lg font-semibold mb-3">Illinois Major Cities We Serve:</h3>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <ul className="space-y-1">
+                <li>• Chicago forklift certification</li>
+                <li>• Aurora forklift training</li>
+                <li>• Rockford forklift operators</li>
+                <li>• Joliet forklift certification</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Naperville warehouse training</li>
+                <li>• Springfield forklift operators</li>
+                <li>• Peoria manufacturing sites</li>
+                <li>• Elgin distribution centers</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Waukegan logistics hubs</li>
+                <li>• Cicero industrial areas</li>
+                <li>• Schaumburg warehouses</li>
+                <li>• Decatur food processing</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ADDITIONAL FAQ FOR ILLINOIS */}
+      {info.code === 'il' && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold">Illinois-Specific Forklift Training Questions</h2>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is this certification accepted at Chicago warehouses and distribution centers?
+            </summary>
+            <p className="mt-2">
+              Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Illinois, 
+              including Amazon, Walmart, UPS, FedEx, and other logistics companies operating in the Chicago area 
+              and throughout Illinois.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Do Illinois manufacturing plants require forklift certification?
+            </summary>
+            <p className="mt-2">
+              Yes, Illinois manufacturing facilities, including automotive plants, steel mills, and machinery manufacturers, 
+              require OSHA-compliant forklift certification. Our training covers the safety requirements for 
+              heavy industrial environments common in Illinois.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is special training needed for Illinois agricultural operations?
+            </summary>
+            <p className="mt-2">
+              Our comprehensive OSHA training covers forklift operations in agricultural settings, which is important 
+              for Illinois' significant farming and food processing industries. The certification is valid for 
+              agricultural applications throughout Illinois.
+            </p>
+          </details>
+        </section>
+      )}
+
       {/* SCHEMA: Course + FAQPage */}
       <script
         type="application/ld+json"
@@ -389,6 +487,24 @@ export default function StateForkliftPage({ params }: Props) {
                       acceptedAnswer: {
                         "@type": "Answer",
                         text: "Absolutely. Major California ports (LA, Long Beach, Oakland) and warehouse operations require certified forklift operators for faster onboarding in California's logistics industry.",
+                      },
+                    },
+                  ] : []),
+                  ...(info.code === 'il' ? [
+                    {
+                      "@type": "Question",
+                      name: "Is this certification accepted at Chicago warehouses and distribution centers?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Illinois, including Amazon, Walmart, UPS, FedEx, and other logistics companies.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Do Illinois manufacturing plants require forklift certification?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Yes, Illinois manufacturing facilities, including automotive plants, steel mills, and machinery manufacturers, require OSHA-compliant forklift certification.",
                       },
                     },
                   ] : []),
