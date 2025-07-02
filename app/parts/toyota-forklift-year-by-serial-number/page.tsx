@@ -142,7 +142,7 @@ export default function ToyotaForkliftYearGuidePage() {
           <ul className="list-none space-y-2">
             <li className="flex items-center">
               <Phone className="w-5 h-5 mr-2" />
-              <span>1-800-XXX-XXXX</span>
+              <span>(307) 302-0043</span>
             </li>
             <li className="flex items-center">
               <Mail className="w-5 h-5 mr-2" />
