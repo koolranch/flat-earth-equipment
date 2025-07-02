@@ -204,153 +204,101 @@ export async function POST(req: Request) {
   return NextResponse.json({ received: true })
 }
 
-// **NEW: COMPREHENSIVE ORDER PROCESSING FUNCTION**
+// **SIMPLIFIED ORDER PROCESSING FOR EXISTING TABLE**
 async function processOrderAndSendConfirmation(session: any, supabase: any) {
-  console.log('📦 Starting comprehensive order processing...')
+  console.log('📦 Starting order processing...')
   
-  // Retrieve full session with line items and shipping details
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2025-05-28.basil' })
-  const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
-    expand: ['line_items.data.price.product', 'shipping_details']
-  })
-  
-  // Determine order type
-  let orderType: 'parts' | 'training' | 'repair' = 'parts'
+  // For training orders, work with existing table structure
   if (session.metadata?.course_slug) {
-    orderType = 'training'
-  } else if (Object.keys(session.metadata || {}).some(key => 
-    key.includes('offer') && session.metadata![key] === 'Repair & Return'
-  )) {
-    orderType = 'repair'
-  }
-  
-  console.log(`📝 Order type determined: ${orderType}`)
-  
-  // Create order record
-  const orderNumber = await generateOrderNumber()
-  const shippingDetails = (fullSession as any).shipping_details
-  
-  const orderData = {
-    stripe_session_id: session.id,
-    order_number: orderNumber,
-    customer_email: session.customer_details?.email,
-    customer_name: session.customer_details?.name,
-    customer_phone: session.customer_details?.phone,
-    subtotal_cents: session.amount_subtotal || session.amount_total,
-    shipping_cents: 0, // Stripe doesn't separate shipping in amount_total
-    tax_cents: (session.total_details?.amount_tax || 0), // Capture actual tax amount from Stripe
-    total_cents: session.amount_total,
-    status: 'confirmed',
-    order_type: orderType,
-    // Shipping address
-    shipping_name: shippingDetails?.name,
-    shipping_street1: shippingDetails?.address?.line1,
-    shipping_street2: shippingDetails?.address?.line2,
-    shipping_city: shippingDetails?.address?.city,
-    shipping_state: shippingDetails?.address?.state,
-    shipping_zip: shippingDetails?.address?.postal_code,
-    shipping_country: shippingDetails?.address?.country || 'US'
-  }
-  
-  // Insert order
-  const { data: order, error: orderError } = await supabase
-    .from('orders')
-    .insert(orderData)
-    .select()
-    .single()
-  
-  if (orderError) {
-    console.error('❌ Error creating order:', orderError)
-    throw orderError
-  }
-  
-  console.log(`✅ Order created: ${orderNumber}`)
-  
-  // Create line items
-  const lineItems = fullSession.line_items?.data || []
-  const orderLineItems = []
-  
-  for (const lineItem of lineItems) {
-    const product = lineItem.price?.product
+    console.log('📚 Processing training order with existing table structure')
     
-    // Type-safe product property access
-    const productName = typeof product === 'object' && product && 'name' in product 
-      ? product.name 
-      : lineItem.description || 'Unknown Product'
+    const customerEmail = session.customer_details?.email
+    const customerName = session.customer_details?.name || ''
     
-    const productSku = typeof product === 'object' && product && 'metadata' in product && product.metadata
-      ? (product.metadata as any)?.sku 
-      : undefined
-    
-    const lineItemData = {
-      order_id: order.id,
-      product_type: orderType === 'training' ? 'training_course' : orderType === 'repair' ? 'repair_service' : 'part',
-      product_name: productName,
-      product_sku: productSku,
-      quantity: lineItem.quantity,
-      unit_price_cents: lineItem.price?.unit_amount || 0,
-      total_price_cents: lineItem.amount_total,
-      metadata: session.metadata
+    if (!customerEmail) {
+      console.error('❌ No customer email found in session')
+      return
     }
     
-    orderLineItems.push(lineItemData)
-  }
-  
-  // TODO: Temporarily disabled until order_line_items table is created
-  // if (orderLineItems.length > 0) {
-  //   const { error: lineItemsError } = await supabase
-  //     .from('order_line_items')
-  //     .insert(orderLineItems)
-  //   
-  //   if (lineItemsError) {
-  //     console.error('❌ Error creating line items:', lineItemsError)
-  //   } else {
-  //     console.log(`✅ Created ${orderLineItems.length} line items`)
-  //   }
-  // }
-  console.log(`📋 Order line items prepared (${orderLineItems.length} items) but not stored yet`)
-  
-  // Send order confirmation email
-  try {
-    const emailResponse = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'}/api/send-order-confirmation`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        order_number: orderNumber,
-        customer_email: orderData.customer_email,
-        customer_name: orderData.customer_name,
-        subtotal_cents: orderData.subtotal_cents,
-        shipping_cents: orderData.shipping_cents,
-        tax_cents: orderData.tax_cents,
-        total_cents: orderData.total_cents,
-        order_type: orderType,
-        line_items: orderLineItems.map(item => ({
-          product_name: item.product_name,
-          product_sku: item.product_sku,
-          quantity: item.quantity,
-          unit_price_cents: item.unit_price_cents,
-          total_price_cents: item.total_price_cents,
-          core_charge_cents: item.metadata?.core_charge_cents || 0
-        })),
-        shipping_address: shippingDetails ? {
-          name: orderData.shipping_name,
-          street1: orderData.shipping_street1,
-          street2: orderData.shipping_street2,
-          city: orderData.shipping_city,
-          state: orderData.shipping_state,
-          zip: orderData.shipping_zip,
-          country: orderData.shipping_country
-        } : undefined
+    // Get user by email
+    const { data: existingUsers } = await supabase.auth.admin.listUsers()
+    const user = existingUsers.users.find((u: any) => u.email === customerEmail)
+    
+    if (!user) {
+      console.error('❌ User not found for email:', customerEmail)
+      return
+    }
+    
+    // Get the course ID for forklift
+    const { data: course, error: courseError } = await supabase
+      .from('courses')
+      .select('id')
+      .eq('slug', session.metadata.course_slug)
+      .single()
+    
+    if (courseError || !course) {
+      console.error(`❌ Course not found for slug: ${session.metadata.course_slug}`)
+      return
+    }
+    
+    // Create order record in existing format
+    const orderData = {
+      user_id: user.id,
+      course_id: course.id,
+      stripe_session_id: session.id,
+      seats: parseInt(session.metadata.quantity || '1'),
+      amount_cents: session.amount_total || 0
+    }
+    
+    // Insert order using existing structure
+    const { data: order, error: orderError } = await supabase
+      .from('orders')
+      .insert(orderData)
+      .select()
+      .single()
+    
+    if (orderError) {
+      console.error('❌ Error creating order:', orderError)
+      throw orderError
+    }
+    
+    console.log(`✅ Training order created: ${order.id}`)
+    
+    // Send order confirmation email with simplified data
+    try {
+      const emailResponse = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'}/api/send-order-confirmation`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          order_number: `FEE-${order.id.slice(-8)}`, // Use order ID as order number
+          customer_email: customerEmail,
+          customer_name: customerName,
+          subtotal_cents: orderData.amount_cents,
+          shipping_cents: 0,
+          tax_cents: 0,
+          total_cents: orderData.amount_cents,
+          order_type: 'training',
+          line_items: [{
+            product_name: 'Forklift Operator Certification',
+            product_sku: 'FORKLIFT-CERT',
+            quantity: orderData.seats,
+            unit_price_cents: Math.floor(orderData.amount_cents / orderData.seats),
+            total_price_cents: orderData.amount_cents,
+            core_charge_cents: 0
+          }]
+        })
       })
-    })
-    
-    if (emailResponse.ok) {
-      console.log('✅ Order confirmation email sent successfully')
-    } else {
-      console.error('❌ Failed to send order confirmation email:', await emailResponse.text())
+      
+      if (emailResponse.ok) {
+        console.log('✅ Order confirmation email sent successfully')
+      } else {
+        console.error('❌ Failed to send order confirmation email:', await emailResponse.text())
+      }
+    } catch (emailError) {
+      console.error('❌ Error sending order confirmation email:', emailError)
     }
-  } catch (emailError) {
-    console.error('❌ Error sending order confirmation email:', emailError)
+  } else {
+    console.log('ℹ️ Non-training order detected - skipping order confirmation for now')
   }
 }
 
