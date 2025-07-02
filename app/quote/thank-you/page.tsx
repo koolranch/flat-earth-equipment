@@ -25,7 +25,7 @@ export default function QuoteThankYouPage() {
             Browse Parts
           </Link>
           <Link
-            href="/training"
+            href="/safety"
             className="bg-white text-canyon-rust border border-canyon-rust px-6 py-3 rounded-md hover:bg-orange-50 transition"
           >
             View Training

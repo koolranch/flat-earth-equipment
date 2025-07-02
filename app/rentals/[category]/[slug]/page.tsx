@@ -7,7 +7,7 @@ import RelatedItems from "@/components/RelatedItems";
 
 const TrainingRibbon = () => (
   <Link
-    href="/training"
+    href="/safety"
     className="fixed bottom-4 left-1/2 -translate-x-1/2 z-20
                rounded-full bg-primary-600 px-6 py-3 text-white font-semibold
                shadow-lg hover:bg-primary-700 transition-colors">
