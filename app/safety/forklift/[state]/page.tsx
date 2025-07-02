@@ -721,6 +721,104 @@ export default function StateForkliftPage({ params }: Props) {
         </section>
       )}
 
+      {/* NORTH CAROLINA-SPECIFIC CONTENT */}
+      {info.code === 'nc' && (
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold">North Carolina Forklift Training for Major Industries</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🏦 Banking & Financial Services</h3>
+              <p className="text-sm text-gray-700">
+                Charlotte is a major financial center with Bank of America headquarters and Wells Fargo operations. 
+                Our training covers warehouse and logistics operations for financial institutions and corporate facilities.
+              </p>
+            </div>
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">💻 Technology & Research</h3>
+              <p className="text-sm text-gray-700">
+                The Research Triangle (Raleigh-Durham-Chapel Hill) is a major tech hub with pharmaceutical, biotech, and software companies. 
+                Our certification covers high-tech manufacturing and clean room logistics operations.
+              </p>
+            </div>
+            <div className="bg-orange-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🏭 Manufacturing & Textiles</h3>
+              <p className="text-sm text-gray-700">
+                North Carolina's manufacturing includes furniture, textiles, automotive parts, and aerospace components. 
+                Our training covers industrial forklift safety for traditional and advanced manufacturing facilities.
+              </p>
+            </div>
+            <div className="bg-purple-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🎖️ Military & Defense</h3>
+              <p className="text-sm text-gray-700">
+                North Carolina hosts major military installations including Fort Liberty and Camp Lejeune. 
+                Our certification covers material handling for defense contractors and military logistics operations.
+              </p>
+            </div>
+          </div>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-6">
+            <h3 className="text-lg font-semibold mb-3">North Carolina Major Cities We Serve:</h3>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <ul className="space-y-1">
+                <li>• Charlotte forklift certification</li>
+                <li>• Raleigh forklift training</li>
+                <li>• Greensboro forklift operators</li>
+                <li>• Durham forklift certification</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Winston-Salem warehouse training</li>
+                <li>• Fayetteville forklift operators</li>
+                <li>• Cary manufacturing sites</li>
+                <li>• High Point distribution centers</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Wilmington logistics hubs</li>
+                <li>• Asheville manufacturing</li>
+                <li>• Gastonia textile operations</li>
+                <li>• Rocky Mount food processing</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ADDITIONAL FAQ FOR NORTH CAROLINA */}
+      {info.code === 'nc' && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold">North Carolina-Specific Forklift Training Questions</h2>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is this certification accepted at Charlotte financial institutions and Research Triangle tech companies?
+            </summary>
+            <p className="mt-2">
+              Absolutely! Our OSHA-compliant certification is accepted by major employers throughout North Carolina, 
+              including financial institutions in Charlotte, tech companies in the Research Triangle, and corporate 
+              facilities across the state's major business centers.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Do North Carolina manufacturing and defense facilities require forklift certification?
+            </summary>
+            <p className="mt-2">
+              Yes! North Carolina's manufacturing sector, including furniture makers, textile companies, automotive 
+              suppliers, and defense contractors serving military installations, require OSHA-compliant forklift 
+              certification. Our training meets defense industry and advanced manufacturing safety standards.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is additional training needed for North Carolina's pharmaceutical and biotech operations?
+            </summary>
+            <p className="mt-2">
+              Our comprehensive OSHA training covers forklift operations in controlled environments, which is 
+              important for North Carolina's significant pharmaceutical and biotech industries in the Research Triangle. 
+              The certification is valid for clean room logistics and high-tech manufacturing throughout North Carolina.
+            </p>
+          </details>
+        </section>
+      )}
+
       {/* SCHEMA: Course + FAQPage */}
       <script
         type="application/ld+json"
@@ -877,6 +975,32 @@ export default function StateForkliftPage({ params }: Props) {
                       acceptedAnswer: {
                         "@type": "Answer",
                         text: "Our comprehensive OSHA training covers forklift operations in food processing and agricultural settings, which is essential for Georgia's significant agriculture and food industry. The certification is valid for poultry operations, food processing plants, and agricultural facilities throughout Georgia.",
+                      },
+                    },
+                  ] : []),
+                  ...(info.code === 'nc' ? [
+                    {
+                      "@type": "Question",
+                      name: "Is this certification accepted at Charlotte financial institutions and Research Triangle tech companies?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Absolutely! Our OSHA-compliant certification is accepted by major employers throughout North Carolina, including financial institutions in Charlotte, tech companies in the Research Triangle, and corporate facilities across the state's major business centers.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Do North Carolina manufacturing and defense facilities require forklift certification?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Yes! North Carolina's manufacturing sector, including furniture makers, textile companies, automotive suppliers, and defense contractors serving military installations, require OSHA-compliant forklift certification. Our training meets defense industry and advanced manufacturing safety standards.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Is additional training needed for North Carolina's pharmaceutical and biotech operations?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Our comprehensive OSHA training covers forklift operations in controlled environments, which is important for North Carolina's significant pharmaceutical and biotech industries in the Research Triangle. The certification is valid for clean room logistics and high-tech manufacturing throughout North Carolina.",
                       },
                     },
                   ] : []),
