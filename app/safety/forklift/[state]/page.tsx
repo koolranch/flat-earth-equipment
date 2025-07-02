@@ -1015,6 +1015,104 @@ export default function StateForkliftPage({ params }: Props) {
         </section>
       )}
 
+      {/* NEW YORK-SPECIFIC CONTENT */}
+      {info.code === 'ny' && (
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold">New York Forklift Training for Major Industries</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🏦 Financial Services & Banking</h3>
+              <p className="text-sm text-gray-700">
+                New York City is the global financial capital with Wall Street, major banks, and corporate headquarters. 
+                Our training covers corporate warehouse operations, financial institution logistics, and high-security facility requirements.
+              </p>
+            </div>
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🚢 Port & Logistics Operations</h3>
+              <p className="text-sm text-gray-700">
+                The Port of New York/New Jersey is one of the largest container ports in North America. 
+                Our certification covers port logistics, container handling, intermodal operations, and maritime freight management.
+              </p>
+            </div>
+            <div className="bg-orange-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🏭 Manufacturing & Heavy Industry</h3>
+              <p className="text-sm text-gray-700">
+                Upstate New York's manufacturing includes automotive parts, electronics, machinery, and chemical production. 
+                Our training covers heavy industrial forklift operations and manufacturing safety requirements.
+              </p>
+            </div>
+            <div className="bg-purple-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🌾 Agriculture & Food Processing</h3>
+              <p className="text-sm text-gray-700">
+                New York's agriculture includes dairy, apples, wine production, and extensive food processing facilities. 
+                Our certification covers agricultural forklift safety and food industry compliance standards.
+              </p>
+            </div>
+          </div>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-6">
+            <h3 className="text-lg font-semibold mb-3">New York Major Cities We Serve:</h3>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <ul className="space-y-1">
+                <li>• New York City forklift certification</li>
+                <li>• Buffalo forklift training</li>
+                <li>• Rochester forklift operators</li>
+                <li>• Yonkers forklift certification</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Syracuse warehouse training</li>
+                <li>• Albany forklift operators</li>
+                <li>• New Rochelle port operations</li>
+                <li>• Mount Vernon logistics hubs</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Schenectady manufacturing</li>
+                <li>• Utica distribution centers</li>
+                <li>• White Plains corporate facilities</li>
+                <li>• Troy industrial operations</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ADDITIONAL FAQ FOR NEW YORK */}
+      {info.code === 'ny' && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold">New York-Specific Forklift Training Questions</h2>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is this certification accepted at NYC financial institutions and corporate facilities?
+            </summary>
+            <p className="mt-2">
+              Absolutely! Our OSHA-compliant certification is accepted by major employers throughout New York, 
+              including financial institutions on Wall Street, corporate headquarters in Manhattan, and logistics 
+              companies serving the NYC metropolitan area's extensive business operations.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Do New York port operations and manufacturing facilities require forklift certification?
+            </summary>
+            <p className="mt-2">
+              Yes! New York's port operations, including the Port of New York/New Jersey, and upstate manufacturing 
+              facilities require OSHA-compliant forklift certification. Our training covers maritime logistics, 
+              container handling, and heavy industrial safety requirements throughout New York State.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is additional training needed for New York's food processing and agricultural operations?
+            </summary>
+            <p className="mt-2">
+              Our comprehensive OSHA training covers forklift operations in food processing and agricultural 
+              environments, which is important for New York's significant agriculture and food industry. The 
+              certification is valid for dairy operations, food processing plants, and agricultural facilities throughout New York State.
+            </p>
+          </details>
+        </section>
+      )}
+
       {/* SCHEMA: Course + FAQPage */}
       <script
         type="application/ld+json"
@@ -1249,6 +1347,32 @@ export default function StateForkliftPage({ params }: Props) {
                       acceptedAnswer: {
                         "@type": "Answer",
                         text: "Our comprehensive OSHA training covers forklift operations in government and federal contracting environments, which is essential for Northern Virginia's extensive federal contractor base. The certification meets government facility requirements and federal contractor standards throughout Virginia.",
+                      },
+                    },
+                  ] : []),
+                  ...(info.code === 'ny' ? [
+                    {
+                      "@type": "Question",
+                      name: "Is this certification accepted at NYC financial institutions and corporate facilities?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Absolutely! Our OSHA-compliant certification is accepted by major employers throughout New York, including financial institutions on Wall Street, corporate headquarters in Manhattan, and logistics companies serving the NYC metropolitan area's extensive business operations.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Do New York port operations and manufacturing facilities require forklift certification?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Yes! New York's port operations, including the Port of New York/New Jersey, and upstate manufacturing facilities require OSHA-compliant forklift certification. Our training covers maritime logistics, container handling, and heavy industrial safety requirements throughout New York State.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Is additional training needed for New York's food processing and agricultural operations?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Our comprehensive OSHA training covers forklift operations in food processing and agricultural environments, which is important for New York's significant agriculture and food industry. The certification is valid for dairy operations, food processing plants, and agricultural facilities throughout New York State.",
                       },
                     },
                   ] : []),
