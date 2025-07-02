@@ -623,6 +623,104 @@ export default function StateForkliftPage({ params }: Props) {
         </section>
       )}
 
+      {/* GEORGIA-SPECIFIC CONTENT */}
+      {info.code === 'ga' && (
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold">Georgia Forklift Training for Major Industries</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🚛 Logistics & Distribution</h3>
+              <p className="text-sm text-gray-700">
+                Georgia is a major Southeast distribution hub with the Port of Savannah and Atlanta's logistics corridor. 
+                Our training prepares operators for high-volume container handling, cross-docking, and e-commerce fulfillment operations.
+              </p>
+            </div>
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🏭 Manufacturing & Automotive</h3>
+              <p className="text-sm text-gray-700">
+                Georgia's manufacturing sector includes automotive plants, aerospace facilities, and machinery production. 
+                Our certification covers industrial forklift safety requirements and lean manufacturing environments.
+              </p>
+            </div>
+            <div className="bg-orange-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🍑 Agriculture & Food Processing</h3>
+              <p className="text-sm text-gray-700">
+                Georgia's agriculture includes peaches, peanuts, poultry operations, and extensive food processing facilities. 
+                Our training covers agricultural forklift safety and food industry compliance requirements.
+              </p>
+            </div>
+            <div className="bg-purple-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">✈️ Aerospace & Defense</h3>
+              <p className="text-sm text-gray-700">
+                Georgia's aerospace and defense sector requires precision material handling in manufacturing and maintenance facilities. 
+                Our certification covers specialized forklift operations for aerospace components and defense contractors.
+              </p>
+            </div>
+          </div>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-6">
+            <h3 className="text-lg font-semibold mb-3">Georgia Major Cities We Serve:</h3>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <ul className="space-y-1">
+                <li>• Atlanta forklift certification</li>
+                <li>• Savannah forklift training</li>
+                <li>• Augusta forklift operators</li>
+                <li>• Columbus forklift certification</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Athens warehouse training</li>
+                <li>• Macon forklift operators</li>
+                <li>• Albany distribution centers</li>
+                <li>• Warner Robins aerospace facilities</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Roswell logistics hubs</li>
+                <li>• Sandy Springs manufacturing</li>
+                <li>• Marietta aerospace operations</li>
+                <li>• Valdosta food processing</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ADDITIONAL FAQ FOR GEORGIA */}
+      {info.code === 'ga' && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold">Georgia-Specific Forklift Training Questions</h2>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is this certification accepted at the Port of Savannah and Atlanta distribution centers?
+            </summary>
+            <p className="mt-2">
+              Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Georgia, 
+              including port operations in Savannah, logistics companies in Atlanta's distribution corridor, 
+              and warehouse facilities across Georgia's major transportation hubs.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Do Georgia manufacturing and aerospace facilities require forklift certification?
+            </summary>
+            <p className="mt-2">
+              Yes! Georgia's manufacturing sector, including automotive plants, aerospace facilities like those 
+              in Warner Robins, and defense contractors throughout the state, require OSHA-compliant forklift 
+              certification. Our training meets aerospace and automotive industry safety standards.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is additional training needed for Georgia's food processing and agricultural operations?
+            </summary>
+            <p className="mt-2">
+              Our comprehensive OSHA training covers forklift operations in food processing and agricultural 
+              settings, which is essential for Georgia's significant agriculture and food industry. The 
+              certification is valid for poultry operations, food processing plants, and agricultural facilities throughout Georgia.
+            </p>
+          </details>
+        </section>
+      )}
+
       {/* SCHEMA: Course + FAQPage */}
       <script
         type="application/ld+json"
@@ -753,6 +851,32 @@ export default function StateForkliftPage({ params }: Props) {
                       acceptedAnswer: {
                         "@type": "Answer",
                         text: "Our comprehensive OSHA training covers forklift operations in industrial environments, including Ohio's energy and chemical sectors. The certification is valid for coal operations, natural gas facilities, and chemical processing plants throughout Ohio.",
+                      },
+                    },
+                  ] : []),
+                  ...(info.code === 'ga' ? [
+                    {
+                      "@type": "Question",
+                      name: "Is this certification accepted at the Port of Savannah and Atlanta distribution centers?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Georgia, including port operations in Savannah, logistics companies in Atlanta's distribution corridor, and warehouse facilities across Georgia's major transportation hubs.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Do Georgia manufacturing and aerospace facilities require forklift certification?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Yes! Georgia's manufacturing sector, including automotive plants, aerospace facilities like those in Warner Robins, and defense contractors throughout the state, require OSHA-compliant forklift certification. Our training meets aerospace and automotive industry safety standards.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Is additional training needed for Georgia's food processing and agricultural operations?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Our comprehensive OSHA training covers forklift operations in food processing and agricultural settings, which is essential for Georgia's significant agriculture and food industry. The certification is valid for poultry operations, food processing plants, and agricultural facilities throughout Georgia.",
                       },
                     },
                   ] : []),
