@@ -427,6 +427,104 @@ export default function StateForkliftPage({ params }: Props) {
         </section>
       )}
 
+      {/* PENNSYLVANIA-SPECIFIC CONTENT */}
+      {info.code === 'pa' && (
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold">Pennsylvania Forklift Training for Major Industries</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🏭 Manufacturing & Steel</h3>
+              <p className="text-sm text-gray-700">
+                Pennsylvania's industrial legacy includes major steel production, machinery manufacturing, and chemical processing. 
+                Our training covers heavy-duty forklift operations in Pittsburgh's steel mills and statewide manufacturing facilities.
+              </p>
+            </div>
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🚢 Port & Logistics</h3>
+              <p className="text-sm text-gray-700">
+                Philadelphia's port operations and Pennsylvania's position as an East Coast logistics hub require thousands 
+                of certified forklift operators for container handling and warehouse operations.
+              </p>
+            </div>
+            <div className="bg-orange-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🌾 Agriculture & Food Processing</h3>
+              <p className="text-sm text-gray-700">
+                Pennsylvania's diverse agriculture includes dairy operations, mushroom farming, and food processing facilities. 
+                Our certification covers agricultural forklift safety for Pennsylvania's farming operations.
+              </p>
+            </div>
+            <div className="bg-purple-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">⚡ Energy & Utilities</h3>
+              <p className="text-sm text-gray-700">
+                Pennsylvania's energy sector includes natural gas operations, coal handling, and renewable energy facilities. 
+                Our training prepares operators for material handling in energy industry settings.
+              </p>
+            </div>
+          </div>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-6">
+            <h3 className="text-lg font-semibold mb-3">Pennsylvania Major Cities We Serve:</h3>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <ul className="space-y-1">
+                <li>• Philadelphia forklift certification</li>
+                <li>• Pittsburgh forklift training</li>
+                <li>• Allentown forklift operators</li>
+                <li>• Erie forklift certification</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Reading warehouse training</li>
+                <li>• Scranton forklift operators</li>
+                <li>• Bethlehem steel operations</li>
+                <li>• Lancaster agricultural sites</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Harrisburg distribution centers</li>
+                <li>• York manufacturing facilities</li>
+                <li>• Chester port operations</li>
+                <li>• Wilkes-Barre logistics hubs</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ADDITIONAL FAQ FOR PENNSYLVANIA */}
+      {info.code === 'pa' && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold">Pennsylvania-Specific Forklift Training Questions</h2>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is this certification accepted at Philadelphia port operations and warehouses?
+            </summary>
+            <p className="mt-2">
+              Yes! Our OSHA-compliant certification is accepted by major employers throughout Pennsylvania, 
+              including port operations in Philadelphia, logistics companies, and warehouse facilities 
+              across the state's major industrial corridors.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Do Pennsylvania steel mills and manufacturing plants require forklift certification?
+            </summary>
+            <p className="mt-2">
+              Absolutely. Pennsylvania's manufacturing sector, including steel mills in Pittsburgh, chemical plants, 
+              and machinery manufacturers throughout the state, require OSHA-compliant forklift certification. 
+              Our training covers heavy industrial safety requirements.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is additional training needed for Pennsylvania's energy sector operations?
+            </summary>
+            <p className="mt-2">
+              Our comprehensive OSHA training covers forklift operations in industrial settings, including 
+              Pennsylvania's energy sector. The certification is valid for natural gas facilities, coal operations, 
+              and renewable energy projects throughout Pennsylvania.
+            </p>
+          </details>
+        </section>
+      )}
+
       {/* SCHEMA: Course + FAQPage */}
       <script
         type="application/ld+json"
@@ -505,6 +603,32 @@ export default function StateForkliftPage({ params }: Props) {
                       acceptedAnswer: {
                         "@type": "Answer",
                         text: "Yes, Illinois manufacturing facilities, including automotive plants, steel mills, and machinery manufacturers, require OSHA-compliant forklift certification.",
+                      },
+                    },
+                  ] : []),
+                  ...(info.code === 'pa' ? [
+                    {
+                      "@type": "Question",
+                      name: "Is this certification accepted at Philadelphia port operations and warehouses?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Yes! Our OSHA-compliant certification is accepted by major employers throughout Pennsylvania, including port operations in Philadelphia, logistics companies, and warehouse facilities across the state's major industrial corridors.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Do Pennsylvania steel mills and manufacturing plants require forklift certification?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Absolutely. Pennsylvania's manufacturing sector, including steel mills in Pittsburgh, chemical plants, and machinery manufacturers throughout the state, require OSHA-compliant forklift certification.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Is additional training needed for Pennsylvania's energy sector operations?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Our comprehensive OSHA training covers forklift operations in industrial settings, including Pennsylvania's energy sector. The certification is valid for natural gas facilities, coal operations, and renewable energy projects throughout Pennsylvania.",
                       },
                     },
                   ] : []),
