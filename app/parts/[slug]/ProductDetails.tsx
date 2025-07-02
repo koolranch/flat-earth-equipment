@@ -160,7 +160,7 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
 
       <footer className="mt-10 border-t pt-8">
         <p className="text-center text-sm text-gray-600">
-          ⚠️  Operators untrained?  <Link href="/training" className="underline font-medium">
+          ⚠️  Operators untrained?  <Link href="/safety" className="underline font-medium">
             Get certified online&nbsp;now
           </Link>.
         </p>

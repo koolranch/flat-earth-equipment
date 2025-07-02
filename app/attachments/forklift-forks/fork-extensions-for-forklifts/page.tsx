@@ -262,7 +262,7 @@ export default function ForkExtensionsPage() {
               <p className="text-gray-600 text-sm">OEM and aftermarket forklift parts inventory</p>
             </div>
           </Link>
-          <Link href="/training" className="group">
+          <Link href="/safety" className="group">
             <div className="bg-white rounded-lg p-6 shadow hover:shadow-lg transition-shadow">
               <h3 className="font-semibold mb-2 group-hover:text-canyon-rust">Operator Training</h3>
               <p className="text-gray-600 text-sm">OSHA-compliant forklift certification courses</p>

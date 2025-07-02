@@ -72,6 +72,10 @@ export default function HysterSerialNumberLookup() {
           <li>Equipment registration</li>
         </ul>
 
+        <p>
+          <em>Tip: Electric Hyster forklift owners should also verify their <a href="/parts/hyster-remanufactured-24v-battery-charger-4092995" className="text-blue-600 hover:text-blue-800 underline">24V battery charger compatibility</a> when ordering electrical components.</em>
+        </p>
+
         <h2>Year Identification</h2>
         <p>
           The serial number can help identify your machine's year:

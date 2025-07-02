@@ -165,13 +165,13 @@ CREATE OR REPLACE TRIGGER update_parts_updated_at
       },
       {
         sku: '4092995',
-        name: 'Water Pump',
-        slug: 'water-pump-4092995',
+        name: 'Remanufactured - Hyster 24V Battery Charger',
+        slug: 'hyster-remanufactured-24v-battery-charger-4092995',
         price: 550.00,
         price_cents: 55000,
-        category: 'Cooling',
-        brand: 'Cummins',
-        description: 'Engine water pump',
+        category: 'Battery Chargers',
+        brand: 'Hyster',
+        description: 'Remanufactured 24V battery charger for Hyster electric forklifts',
         has_core_charge: true,
         core_charge: 200.00
       },
