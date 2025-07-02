@@ -115,9 +115,15 @@ export async function POST(req: Request) {
         allowed_countries: ['US'],
       },
       // Enable automatic tax calculation for all US states
-      // automatic_tax: {
-      //   enabled: true,
-      // },
+      automatic_tax: {
+        enabled: true,
+      },
+      // For new customers, automatically save shipping info when collecting shipping addresses
+      ...((!isTrainingProduct) && {
+        customer_update: {
+          shipping: 'auto',
+        },
+      }),
       metadata: sessionMetadata,
       ...(coupon && { discounts: [{ coupon }] }),
       ...(!coupon && { allow_promotion_codes: true })
