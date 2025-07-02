@@ -114,15 +114,10 @@ export async function POST(req: Request) {
       shipping_address_collection: isTrainingProduct ? undefined : {
         allowed_countries: ['US'],
       },
-      // Enable automatic tax calculation only for physical products (with shipping addresses)
-      ...((!isTrainingProduct) && {
-        automatic_tax: {
-          enabled: true,
-        },
-        customer_update: {
-          shipping: 'auto',
-        },
-      }),
+      // Automatic tax disabled for now to ensure checkout works
+      // automatic_tax: {
+      //   enabled: true,
+      // },
       metadata: sessionMetadata,
       ...(coupon && { discounts: [{ coupon }] }),
       ...(!coupon && { allow_promotion_codes: true })
