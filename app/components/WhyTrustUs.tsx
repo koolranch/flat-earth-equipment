@@ -1,6 +1,5 @@
 import {
   Truck,
-  ShieldCheck,
   Box,
   Users,
   Flag,
@@ -13,12 +12,7 @@ const trustItems = [
     desc: 'Fast fulfillment and delivery anywhere in the U.S.',
     ariaLabel: 'Same-day shipping and fast delivery anywhere in the U.S.'
   },
-  {
-    icon: ShieldCheck,
-    title: '6-Month Warranty',
-    desc: 'Comprehensive coverage on all parts.',
-    ariaLabel: '6-month warranty on all parts.'
-  },
+
   {
     icon: Box,
     title: '10,000+ SKUs In-Stock',
