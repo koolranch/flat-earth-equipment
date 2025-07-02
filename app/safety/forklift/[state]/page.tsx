@@ -231,6 +231,104 @@ export default function StateForkliftPage({ params }: Props) {
         </div>
       </section>
 
+      {/* CALIFORNIA-SPECIFIC CONTENT */}
+      {info.code === 'ca' && (
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold">California Forklift Training for Major Industries</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🚢 Port & Logistics Operations</h3>
+              <p className="text-sm text-gray-700">
+                California's massive ports (Los Angeles, Long Beach, Oakland) require thousands of certified forklift operators. 
+                Our training covers container handling, warehouse operations, and port-specific safety requirements.
+              </p>
+            </div>
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🏭 Manufacturing & Tech</h3>
+              <p className="text-sm text-gray-700">
+                From Silicon Valley tech companies to aerospace manufacturing, California's industrial sector demands 
+                certified operators for material handling in warehouses and production facilities.
+              </p>
+            </div>
+            <div className="bg-orange-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🌾 Agriculture & Food Processing</h3>
+              <p className="text-sm text-gray-700">
+                California's Central Valley agricultural operations rely on forklifts for loading, unloading, and 
+                warehouse operations. Our certification meets Cal/OSHA requirements for agricultural settings.
+              </p>
+            </div>
+            <div className="bg-purple-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🛒 E-commerce & Distribution</h3>
+              <p className="text-sm text-gray-700">
+                Major distribution centers in Los Angeles, San Francisco, San Diego, and Fresno areas require 
+                certified operators for Amazon, FedEx, UPS, and other logistics operations.
+              </p>
+            </div>
+          </div>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-6">
+            <h3 className="text-lg font-semibold mb-3">California Major Cities We Serve:</h3>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <ul className="space-y-1">
+                <li>• Los Angeles forklift certification</li>
+                <li>• San Francisco forklift training</li>
+                <li>• San Diego forklift operators</li>
+                <li>• Sacramento forklift certification</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Fresno forklift training</li>
+                <li>• Oakland port operations</li>
+                <li>• Long Beach forklift operators</li>
+                <li>• San Jose warehouse training</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Bakersfield agricultural sites</li>
+                <li>• Stockton distribution centers</li>
+                <li>• Riverside logistics hubs</li>
+                <li>• Anaheim manufacturing</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ADDITIONAL FAQ FOR CALIFORNIA */}
+      {info.code === 'ca' && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold">California-Specific Forklift Training Questions</h2>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Does this meet Cal/OSHA requirements for California?
+            </summary>
+            <p className="mt-2">
+              Yes! Our training meets both federal OSHA and Cal/OSHA requirements. California operates under its own 
+              state plan with standards that meet or exceed federal requirements. Our curriculum covers all necessary 
+              safety protocols for California workplaces.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is forklift certification required at California ports and warehouses?
+            </summary>
+            <p className="mt-2">
+              Absolutely. Major California ports (LA, Long Beach, Oakland) and warehouse operations require certified 
+              forklift operators. Many employers prefer online certification for faster onboarding of new workers 
+              in California's fast-paced logistics industry.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Do I need additional training for agricultural forklift work in California?
+            </summary>
+            <p className="mt-2">
+              Our OSHA-compliant training covers the fundamentals for all industries, including agriculture. However, 
+              some California agricultural employers may require additional site-specific training for handling 
+              agricultural products and working in outdoor conditions.
+            </p>
+          </details>
+        </section>
+      )}
+
       {/* SCHEMA: Course + FAQPage */}
       <script
         type="application/ld+json"
@@ -276,6 +374,24 @@ export default function StateForkliftPage({ params }: Props) {
                       text: "Three years under OSHA guidelines.",
                     },
                   },
+                  ...(info.code === 'ca' ? [
+                    {
+                      "@type": "Question",
+                      name: "Does this meet Cal/OSHA requirements for California?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Yes! Our training meets both federal OSHA and Cal/OSHA requirements. California operates under its own state plan with standards that meet or exceed federal requirements.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Is forklift certification required at California ports and warehouses?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Absolutely. Major California ports (LA, Long Beach, Oakland) and warehouse operations require certified forklift operators for faster onboarding in California's logistics industry.",
+                      },
+                    },
+                  ] : []),
                 ],
               },
             ],
