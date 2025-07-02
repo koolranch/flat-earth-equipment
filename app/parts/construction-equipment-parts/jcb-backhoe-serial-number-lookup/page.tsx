@@ -109,15 +109,15 @@ export default function JcbBackhoeSerialNumberPage() {
         </div>
 
         <div className="mt-8 bg-blue-50 p-6 rounded-lg">
-          <h2 className="text-xl font-semibold mb-4">Need Help Finding Your Serial Number?</h2>
+          <h2 className="text-xl font-semibold mb-4">Need JCB Backhoe Parts?</h2>
           <p className="mb-4">
-            Our parts specialists are available to help you locate your serial number and determine the correct year of manufacture. 
-            Contact us for assistance:
+            Our parts specialists can help you locate your serial number and find the exact JCB backhoe parts you need. 
+            Contact us for parts inquiries and pricing:
           </p>
           <ul className="list-none space-y-2">
             <li className="flex items-center">
               <Phone className="w-5 h-5 mr-2" />
-              <span>1-800-XXX-XXXX</span>
+              <span>(307) 302-0043</span>
             </li>
             <li className="flex items-center">
               <Mail className="w-5 h-5 mr-2" />
@@ -140,8 +140,8 @@ export default function JcbBackhoeSerialNumberPage() {
               </Link>
             </li>
             <li>
-              <Link href="/service/construction-equipment-maintenance" className="text-blue-600 hover:underline">
-                Construction Equipment Maintenance Services
+              <Link href="/brand/jcb" className="text-blue-600 hover:underline">
+                All JCB Parts & Components
               </Link>
             </li>
           </ul>

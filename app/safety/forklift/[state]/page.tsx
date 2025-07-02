@@ -70,8 +70,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const state = forkliftStates.find((s: ForkliftStateInfo) => s.code === params.state) ?? notFound();
   return {
-    title: `${state.name} Online Forklift Certification | OSHA Approved`,
-    description: `Get OSHA-compliant forklift operator training in ${state.name}. 100% online – earn your card today.`,
+    title: `How to Get Forklift Certified in ${state.name} | Online OSHA Training`,
+    description: `Learn how to get forklift certified in ${state.name}. Complete OSHA-compliant certification online in under 60 minutes. Instant certificate download for ${state.name} operators.`,
   };
 }
 
@@ -105,11 +105,11 @@ export default function StateForkliftPage({ params }: Props) {
       {/* HERO */}
       <section className="space-y-4 text-center">
         <h1 className="text-4xl font-extrabold">
-          {info.name} Forklift Operator Certification (Online)
+          How to Get Forklift Certified in {info.name} (Online)
         </h1>
         <p className="max-w-2xl mx-auto text-gray-600">
-          Train the Western-tough way—OSHA CFR 1910.178-compliant, recognized in {info.name}.
-          Finish in under 90 minutes and download your wallet card instantly.
+          Getting forklift certified in {info.name} is simple with our OSHA CFR 1910.178-compliant online course.
+          Complete your {info.name} forklift certification in under 60 minutes and download your wallet card instantly.
         </p>
         <CheckoutButton 
           courseSlug="forklift"
@@ -148,33 +148,87 @@ export default function StateForkliftPage({ params }: Props) {
         </p>
       </section>
 
-      {/* COURSE BENEFITS */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold">Why Choose Flat Earth Equipment?</h2>
+      {/* HOW TO GET CERTIFIED SECTION */}
+      <section className="space-y-6">
+        <h2 className="text-2xl font-semibold">How to Get Forklift Certified in {info.name}</h2>
+        <div className="bg-blue-50 p-6 rounded-lg">
+          <h3 className="text-xl font-semibold mb-4">Simple 3-Step Process:</h3>
+          <ol className="list-decimal pl-6 space-y-3 text-gray-700">
+            <li><strong>Enroll Online:</strong> Register for our OSHA-compliant forklift certification course from anywhere in {info.name}.</li>
+            <li><strong>Complete Training:</strong> Finish the online course in under 60 minutes at your own pace.</li>
+            <li><strong>Get Certified:</strong> Pass the 30-question exam and instantly download your printable certificate and wallet card.</li>
+          </ol>
+        </div>
+        <h3 className="text-xl font-semibold">Why Choose Our {info.name} Forklift Certification?</h3>
         <ul className="list-disc pl-6 space-y-2 text-gray-700">
           <li>100% online—train anywhere in {info.name}.</li>
           <li>Instant printable certificate & wallet card.</li>
           <li>Free retakes until you pass (30-question exam).</li>
           <li>Bulk pricing for teams statewide.</li>
+          <li>OSHA CFR 1910.178(l) compliant training.</li>
+          <li>Valid for 3 years throughout {info.name}.</li>
         </ul>
       </section>
 
       {/* FAQ */}
       <section className="space-y-4">
-        <h2 className="text-2xl font-semibold">FAQs – {info.name}</h2>
+        <h2 className="text-2xl font-semibold">Frequently Asked Questions - Forklift Certification in {info.name}</h2>
         <details className="rounded-lg bg-neutral-50 p-4">
           <summary className="cursor-pointer font-medium">
-            Is this accepted by OSHA inspectors in {info.name}?
+            How do I get forklift certified in {info.name}?
           </summary>
           <p className="mt-2">
-            Yes. Our curriculum follows 29 CFR 1910.178(l), recognized nationwide.
+            To get forklift certified in {info.name}, simply enroll in our online OSHA-compliant course, complete the training in under 60 minutes, 
+            and pass the exam. You'll instantly receive your printable certification valid throughout {info.name}.
+          </p>
+        </details>
+        <details className="rounded-lg bg-neutral-50 p-4">
+          <summary className="cursor-pointer font-medium">
+            Is this forklift certification accepted by OSHA inspectors in {info.name}?
+          </summary>
+          <p className="mt-2">
+            Yes. Our curriculum follows 29 CFR 1910.178(l), recognized nationwide and accepted by OSHA inspectors in {info.name}.
             Be sure your operators complete hands-on evaluation per OSHA rules.
           </p>
         </details>
         <details className="rounded-lg bg-neutral-50 p-4">
-          <summary className="cursor-pointer font-medium">How long is the card valid?</summary>
-          <p className="mt-2">Three years, or sooner if the operator is involved in an accident or switches truck type.</p>
+          <summary className="cursor-pointer font-medium">How long does it take to get forklift certified in {info.name}?</summary>
+          <p className="mt-2">
+            You can get forklift certified in {info.name} in under 60 minutes with our online course. 
+            The training is self-paced, so you can complete it faster if needed.
+          </p>
         </details>
+        <details className="rounded-lg bg-neutral-50 p-4">
+          <summary className="cursor-pointer font-medium">How long is my {info.name} forklift certification valid?</summary>
+          <p className="mt-2">
+            Your {info.name} forklift certification is valid for three years, or sooner if the operator is involved in an accident or switches truck type.
+          </p>
+        </details>
+        <details className="rounded-lg bg-neutral-50 p-4">
+          <summary className="cursor-pointer font-medium">
+            What are the requirements to get forklift certified in {info.name}?
+          </summary>
+          <p className="mt-2">
+            To get forklift certified in {info.name}, you must be at least 18 years old, complete OSHA-compliant training, 
+            pass a written exam, and receive hands-on evaluation from a qualified trainer at your workplace.
+          </p>
+        </details>
+      </section>
+
+      {/* ADDITIONAL CONTENT FOR SEO */}
+      <section className="space-y-6">
+        <h2 className="text-2xl font-semibold">{info.name} Forklift Certification Requirements</h2>
+        <p className="text-gray-700">
+          OSHA requires all forklift operators in {info.name} to complete formal training and evaluation before operating 
+          powered industrial trucks. Our online forklift certification course meets these federal requirements and provides 
+          the classroom instruction portion of your {info.name} forklift training.
+        </p>
+        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+          <p className="text-sm">
+            <strong>Important:</strong> After completing our online course, you must also receive hands-on training and 
+            evaluation from a qualified person at your workplace to be fully compliant with OSHA standards in {info.name}.
+          </p>
+        </div>
       </section>
 
       {/* SCHEMA: Course + FAQPage */}
@@ -186,8 +240,8 @@ export default function StateForkliftPage({ params }: Props) {
             "@graph": [
               {
                 "@type": "Course",
-                name: "Online Forklift Operator Certification",
-                description: "OSHA-compliant forklift training accepted in " + info.name,
+                name: "How to Get Forklift Certified in " + info.name + " - Online Training",
+                description: "Learn how to get forklift certified in " + info.name + " with our OSHA-compliant online course. Complete certification in under 60 minutes.",
                 provider: {
                   "@type": "Organization",
                   name: "Flat Earth Equipment",

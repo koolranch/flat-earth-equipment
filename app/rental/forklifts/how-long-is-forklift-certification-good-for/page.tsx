@@ -4,14 +4,14 @@ import Link from "next/link";
 import { Clock, AlertTriangle, CheckCircle, FileText } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: "How Long Does Forklift Certification Last? | 2024 OSHA Guide",
-  description: "How long does forklift certification last? Get the complete guide to forklift certification duration, OSHA requirements, and renewal process. Updated for 2024.",
+  title: "How Long Does OSHA Certification Last? | Forklift Training Guide 2024",
+  description: "How long does OSHA certification last? OSHA forklift certification is valid for 3 years. Complete guide to OSHA certification duration, renewal requirements, and training.",
   alternates: {
     canonical: "/rental/forklifts/how-long-is-forklift-certification-good-for",
   },
   openGraph: {
-    title: "How Long Does Forklift Certification Last? | 2024 OSHA Guide",
-    description: "How long does forklift certification last? Get the complete guide to forklift certification duration, OSHA requirements, and renewal process. Updated for 2024.",
+    title: "How Long Does OSHA Certification Last? | Forklift Training Guide 2024",
+    description: "How long does OSHA certification last? OSHA forklift certification is valid for 3 years. Complete guide to OSHA certification duration, renewal requirements, and training.",
     url: "https://www.flatearthequipment.com/rental/forklifts/how-long-is-forklift-certification-good-for",
     type: "article",
   },
@@ -21,29 +21,30 @@ export default function ForkliftCertificationDurationPage() {
   return (
     <main className="max-w-4xl mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold text-slate-900 mb-6">
-        How Long Does Forklift Certification Last? (2024 Guide)
+        How Long Does OSHA Certification Last? (2024 Guide)
       </h1>
       
       <div className="prose prose-slate max-w-none">
         <p className="text-lg text-slate-600 mb-8">
-          How long does forklift certification last? According to OSHA standards, forklift operator certifications 
-          are valid for three years from the date of training. This comprehensive guide explains everything you need 
-          to know about forklift certification duration, renewal requirements, and maintaining compliance.
+          How long does OSHA certification last? According to OSHA standards (CFR 1910.178), OSHA forklift certification 
+          is valid for three years from the date of training. This comprehensive guide explains everything you need 
+          to know about OSHA certification duration, renewal requirements, and maintaining compliance. Need to get certified? 
+          <Link href="/safety" className="text-blue-600 hover:underline font-semibold">Get your OSHA certification online for $59</Link>.
         </p>
 
         <div className="bg-slate-50 p-6 rounded-lg mb-8">
-          <h2 className="text-xl font-semibold mb-4">How Long Does Forklift Certification Last? OSHA Requirements</h2>
+          <h2 className="text-xl font-semibold mb-4">How Long Does OSHA Certification Last? Official Requirements</h2>
           <div className="space-y-4">
             <div className="flex items-start gap-4">
               <div className="bg-white p-3 rounded-lg shadow-sm">
                 <Clock className="w-6 h-6 text-canyon-rust" />
               </div>
               <div>
-                <h3 className="font-semibold">Standard Certification Duration</h3>
+                <h3 className="font-semibold">OSHA Certification Duration</h3>
                 <p className="mt-2">
-                  How long does forklift certification last? OSHA requires forklift operator certifications to be valid 
-                  for three years from the date of training. However, there are several circumstances that may require 
-                  earlier recertification.
+                  How long does OSHA certification last? <Link href="/safety" className="text-blue-600 hover:underline">OSHA requires forklift operator certifications</Link> to be valid 
+                  for three years from the date of training under CFR 1910.178(l)(4)(ii). However, there are several circumstances that may require 
+                  earlier OSHA recertification.
                 </p>
               </div>
             </div>
@@ -100,11 +101,11 @@ export default function ForkliftCertificationDurationPage() {
         </section>
 
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mt-8">
-          <h3 className="text-xl font-semibold mb-4 text-yellow-800">Important Safety Reminder</h3>
+          <h3 className="text-xl font-semibold mb-4 text-yellow-800">Important OSHA Safety Reminder</h3>
           <p className="text-yellow-700">
-            While certification is valid for three years, operators should continuously practice safe operation 
-            and stay updated on safety protocols. Regular training and evaluation are essential for maintaining 
-            a safe workplace.
+            While OSHA certification is valid for three years, operators should continuously practice safe operation 
+            and stay updated on OSHA safety protocols. Regular training and evaluation are essential for maintaining 
+            OSHA compliance and a safe workplace.
           </p>
         </div>
 
@@ -112,21 +113,21 @@ export default function ForkliftCertificationDurationPage() {
           <h2 className="text-xl font-semibold mb-4">Related Resources</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Link 
-              href="/safety/forklift-certification"
+              href="/safety"
               className="block p-6 border rounded-lg hover:border-canyon-rust transition"
             >
-              <h3 className="text-lg font-semibold mb-2">Forklift Certification Training</h3>
+              <h3 className="text-lg font-semibold mb-2">Online Forklift Certification ($59)</h3>
               <p className="text-slate-600">
-                Learn about our comprehensive forklift certification training programs and requirements.
+                Complete your OSHA-compliant forklift certification online in under 60 minutes. Instant certificate download.
               </p>
             </Link>
             <Link 
-              href="/safety/workplace-safety"
+              href="/safety"
               className="block p-6 border rounded-lg hover:border-canyon-rust transition"
             >
-              <h3 className="text-lg font-semibold mb-2">Workplace Safety Guidelines</h3>
+              <h3 className="text-lg font-semibold mb-2">Forklift Training Course</h3>
               <p className="text-slate-600">
-                Essential safety guidelines and best practices for forklift operation.
+                8 interactive video lessons with real-world hazard recognition demos and mobile-friendly evaluation.
               </p>
             </Link>
           </div>
@@ -136,25 +137,32 @@ export default function ForkliftCertificationDurationPage() {
           <h2 className="text-xl font-semibold mb-4">Frequently Asked Questions About Forklift Certification Duration</h2>
           <div className="space-y-4">
             <div>
-              <h3 className="font-semibold">How long does forklift certification last in different states?</h3>
+              <h3 className="font-semibold">How long does OSHA certification last for forklift operators?</h3>
               <p className="text-slate-600 mt-1">
-                While OSHA sets the standard at three years, some states may have additional requirements. However, 
-                the three-year duration is the minimum standard across all states. Always check with your local 
+                OSHA certification for forklift operators lasts exactly 3 years from the date of training completion. 
+                This is mandated by OSHA regulation CFR 1910.178(l)(4)(ii) and applies nationwide.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold">How long does OSHA forklift certification last in different states?</h3>
+              <p className="text-slate-600 mt-1">
+                While OSHA sets the federal standard at three years, some states may have additional requirements. However, 
+                the three-year OSHA certification duration is the minimum standard across all states. Always check with your local 
                 OSHA office for specific requirements.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold">Can I renew my certification before it expires?</h3>
+              <h3 className="font-semibold">Can I renew my OSHA certification before it expires?</h3>
               <p className="text-slate-600 mt-1">
-                Yes, you can renew your certification before the three-year period ends. It's recommended to plan for renewal 
-                at least one month before expiration to ensure continuous compliance.
+                Yes, you can renew your OSHA certification before the three-year period ends. It's recommended to plan for OSHA renewal 
+                at least one month before expiration to ensure continuous compliance with OSHA standards.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold">What happens if my certification expires?</h3>
+              <h3 className="font-semibold">What happens if my OSHA certification expires?</h3>
               <p className="text-slate-600 mt-1">
-                Operating a forklift with an expired certification is a violation of OSHA regulations. You must complete 
-                the full certification process again before resuming operation.
+                Operating a forklift with an expired OSHA certification is a violation of OSHA regulations. You must <Link href="/safety" className="text-blue-600 hover:underline">complete 
+                the full OSHA certification process</Link> again before resuming operation.
               </p>
             </div>
             <div>
@@ -175,16 +183,16 @@ export default function ForkliftCertificationDurationPage() {
         </div>
 
         <div className="mt-8 bg-slate-50 border border-slate-200 rounded-lg p-6">
-          <h3 className="text-xl font-semibold mb-4">Need Forklift Certification Training?</h3>
+          <h3 className="text-xl font-semibold mb-4">Need OSHA Certification Training?</h3>
           <p className="mb-4">
-            Flat Earth Equipment offers comprehensive forklift certification training programs. Our certified instructors 
-            provide both classroom and hands-on training to ensure you meet all OSHA requirements.
+            Get your OSHA-compliant forklift certification online for just $59. Complete in under 60 minutes at your own pace with instant certificate download. 
+            Over 10,000 operators OSHA certified nationwide.
           </p>
           <Link 
-            href="/safety/forklift-certification"
+            href="/safety"
             className="inline-block bg-canyon-rust text-white px-6 py-3 rounded-md hover:bg-orange-700 transition"
           >
-            Learn More About Our Training Programs
+            Get Certified for $59
           </Link>
         </div>
       </div>
