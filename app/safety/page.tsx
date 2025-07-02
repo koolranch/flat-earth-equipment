@@ -7,6 +7,7 @@ import TrustBadges from '@/components/TrustBadges'
 import PriceCard from '@/components/PriceCard'
 import FAQ from '@/components/FAQ'
 import { getUserLocale } from '@/lib/getUserLocale'
+import Script from 'next/script'
 
 export const metadata = {
   title: "Online Forklift Operator Certification | OSHA-Compliant",
@@ -42,6 +43,7 @@ export default async function SafetyHome() {
         ['Is this OSHA-approved?', 'Yes – CFR 1910.178(l) compliant.'],
         ['How long does it take?', 'Most users complete it in under 60 minutes.'],
         ['Is Spanish available?', 'Sí, la versión en español se incluye.'],
+        ['Can I get forklift certification near me online?', 'Yes! Our online forklift certification is available anywhere in the United States. You can complete the OSHA-compliant training from your location - whether you\'re in a major city, rural area, or remote worksite. The online certification is valid nationwide and accepted by employers across all industries.'],
         ['Do I need my employer to complete certification?', 'Yes, OSHA requires employers to conduct a practical evaluation of your forklift operation skills. We provide the evaluation checklist and instructions for your employer.'],
         ['What is included in the certification?', 'The certification includes comprehensive online theory training modules, quizzes to test your knowledge, a printable certificate upon completion, and an employer evaluation checklist for practical assessment.']
       ],
@@ -70,6 +72,7 @@ export default async function SafetyHome() {
         ['¿Está aprobado por OSHA?', 'Sí – Cumple con CFR 1910.178(l).'],
         ['¿Cuánto tiempo toma?', 'La mayoría de los usuarios lo completan en menos de 60 minutos.'],
         ['¿Está disponible en español?', 'Sí, la versión en español está incluida.'],
+        ['¿Puedo obtener certificación de montacargas cerca de mí en línea?', '¡Sí! Nuestra certificación de montacargas en línea está disponible en cualquier lugar de Estados Unidos. Puede completar el entrenamiento conforme a OSHA desde su ubicación - ya sea en una ciudad importante, área rural, o sitio de trabajo remoto. La certificación en línea es válida a nivel nacional y aceptada por empleadores en todas las industrias.'],
         ['¿Necesito que mi empleador complete la certificación?', 'Sí, OSHA requiere que los empleadores realicen una evaluación práctica de sus habilidades de operación de montacargas. Proporcionamos la lista de verificación de evaluación e instrucciones para su empleador.'],
         ['¿Qué está incluido en la certificación?', 'La certificación incluye módulos completos de entrenamiento teórico en línea, cuestionarios para probar su conocimiento, un certificado imprimible al completar, y una lista de verificación de evaluación del empleador para la evaluación práctica.']
       ],
@@ -87,6 +90,132 @@ export default async function SafetyHome() {
         rel="canonical"
         href="https://www.flatearthequipment.com/safety"
       />
+
+      {/* Local Business Schema for Forklift Training */}
+      <Script id="local-business-ld-json" type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "name": "Flat Earth Equipment",
+          "image": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp",
+          "url": "https://www.flatearthequipment.com/safety",
+          "telephone": "+1-307-302-0043",
+          "email": "contact@flatearthequipment.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "30 N Gould St., Ste R",
+            "addressLocality": "Sheridan",
+            "addressRegion": "WY",
+            "postalCode": "82801",
+            "addressCountry": "US"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 44.7969,
+            "longitude": -106.9561
+          },
+          "openingHours": "Mo-Fr 07:00-17:00",
+          "areaServed": [
+            {
+              "@type": "State",
+              "name": "Wyoming"
+            },
+            {
+              "@type": "State", 
+              "name": "Montana"
+            },
+            {
+              "@type": "State",
+              "name": "Colorado"
+            },
+            {
+              "@type": "State",
+              "name": "New Mexico"
+            }
+          ],
+          "serviceType": [
+            "Forklift Certification Training",
+            "OSHA Forklift Training", 
+            "Online Forklift Certification",
+            "Forklift Operator Training",
+            "Industrial Safety Training"
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Forklift Training Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Course",
+                  "name": "OSHA Forklift Operator Certification"
+                },
+                "price": "59",
+                "priceCurrency": "USD"
+              }
+            ]
+          },
+          "priceRange": "$59-$1999",
+          "paymentAccepted": "Credit Card, Debit Card",
+          "currenciesAccepted": "USD"
+        })}
+      </Script>
+
+      {/* Service Schema for Training */}
+      <Script id="service-ld-json" type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "serviceType": "Forklift Certification Training",
+          "provider": {
+            "@type": "LocalBusiness",
+            "name": "Flat Earth Equipment",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "30 N Gould St., Ste R",
+              "addressLocality": "Sheridan", 
+              "addressRegion": "WY",
+              "postalCode": "82801",
+              "addressCountry": "US"
+            },
+            "telephone": "+1-307-302-0043"
+          },
+          "areaServed": {
+            "@type": "Country",
+            "name": "United States"
+          },
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Forklift Training Programs",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "name": "Single Operator Certification",
+                "price": "59",
+                "priceCurrency": "USD"
+              },
+              {
+                "@type": "Offer", 
+                "name": "5-Pack Team Training",
+                "price": "275",
+                "priceCurrency": "USD"
+              },
+              {
+                "@type": "Offer",
+                "name": "25-Pack Department Training", 
+                "price": "1375",
+                "priceCurrency": "USD"
+              },
+              {
+                "@type": "Offer",
+                "name": "Unlimited Facility License",
+                "price": "1999", 
+                "priceCurrency": "USD"
+              }
+            ]
+          }
+        })}
+      </Script>
       
       <main className="container mx-auto px-4 lg:px-8 py-12 space-y-24">
         {/* HERO */}
@@ -161,6 +290,64 @@ export default async function SafetyHome() {
             description={t.pricing.unlimited.description}
             sku="price_1RS836HJI548rO8JwlCAzg7m"
           />
+        </section>
+
+        {/* LOCAL AVAILABILITY SECTION */}
+        <section className="space-y-8">
+          <div className="text-center space-y-4">
+            <h2 className="text-3xl font-bold">Forklift Certification Near Me</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Get your OSHA forklift certification online from anywhere in the United States. 
+              Our comprehensive training program is available 24/7, making it easy to find 
+              forklift certification near me, whether you're in a major city or rural area.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-white border rounded-lg p-6 shadow-sm">
+              <h3 className="font-semibold text-lg mb-3">Major Metropolitan Areas</h3>
+              <ul className="text-sm text-gray-600 space-y-1">
+                <li>• New York City & Tri-State Area</li>
+                <li>• Los Angeles & Southern California</li>
+                <li>• Chicago & Great Lakes Region</li>
+                <li>• Houston & Gulf Coast</li>
+                <li>• Phoenix & Southwest</li>
+              </ul>
+            </div>
+            
+            <div className="bg-white border rounded-lg p-6 shadow-sm">
+              <h3 className="font-semibold text-lg mb-3">Industrial Centers</h3>
+              <ul className="text-sm text-gray-600 space-y-1">
+                <li>• Detroit & Manufacturing Belt</li>
+                <li>• Atlanta & Southeast Logistics</li>
+                <li>• Dallas-Fort Worth Metroplex</li>
+                <li>• Denver & Mountain West</li>
+                <li>• Seattle & Pacific Northwest</li>
+              </ul>
+            </div>
+            
+            <div className="bg-white border rounded-lg p-6 shadow-sm">
+              <h3 className="font-semibold text-lg mb-3">Rural & Remote Areas</h3>
+              <ul className="text-sm text-gray-600 space-y-1">
+                <li>• Agricultural Communities</li>
+                <li>• Mining & Energy Regions</li>
+                <li>• Small Manufacturing Towns</li>
+                <li>• Distribution Centers</li>
+                <li>• Port Communities</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <p className="text-gray-600 mb-4">
+              No matter where you're located, our online forklift certification program 
+              provides the same high-quality OSHA-compliant training trusted by thousands of operators nationwide.
+            </p>
+            <CheckoutButton 
+              courseSlug="forklift" 
+              price={course?.price_cents ? (course.price_cents / 100).toFixed(0) : '59'} 
+            />
+          </div>
         </section>
 
         {/* FAQ */}
