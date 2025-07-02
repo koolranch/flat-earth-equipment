@@ -67,7 +67,7 @@ export async function POST(req: Request) {
     }).flat();
 
     // Use free shipping for all products
-    const shippingRateId = 'shr_1RZdQkHJI548rO8JQOmkLnwc';
+    const shippingRateId = 'shr_1RgEOfHJI548rO8JVTDbw8CD';
     console.log('Using free shipping rate for all products');
 
     console.log('🛒 Line items:', lineItems);
@@ -114,6 +114,10 @@ export async function POST(req: Request) {
       shipping_address_collection: isTrainingProduct ? undefined : {
         allowed_countries: ['US'],
       },
+      // Enable automatic tax calculation for all US states
+      // automatic_tax: {
+      //   enabled: true,
+      // },
       metadata: sessionMetadata,
       ...(coupon && { discounts: [{ coupon }] }),
       ...(!coupon && { allow_promotion_codes: true })
