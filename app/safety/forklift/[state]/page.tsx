@@ -525,6 +525,104 @@ export default function StateForkliftPage({ params }: Props) {
         </section>
       )}
 
+      {/* OHIO-SPECIFIC CONTENT */}
+      {info.code === 'oh' && (
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold">Ohio Forklift Training for Major Industries</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🚗 Automotive & Manufacturing</h3>
+              <p className="text-sm text-gray-700">
+                Ohio is a major automotive manufacturing hub with plants from Honda, Ford, GM, and suppliers throughout the state. 
+                Our training covers automotive industry forklift safety requirements and lean manufacturing environments.
+              </p>
+            </div>
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🚛 Logistics & Distribution</h3>
+              <p className="text-sm text-gray-700">
+                Ohio's central location makes it a major distribution hub for the Midwest and East Coast. 
+                Our certification prepares operators for high-volume warehouse operations and cross-docking facilities.
+              </p>
+            </div>
+            <div className="bg-orange-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🌾 Agriculture & Food Processing</h3>
+              <p className="text-sm text-gray-700">
+                Ohio's diverse agriculture includes corn, soybeans, and livestock operations with extensive food processing facilities. 
+                Our training covers agricultural forklift safety and food industry requirements.
+              </p>
+            </div>
+            <div className="bg-purple-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">⚡ Energy & Chemical Processing</h3>
+              <p className="text-sm text-gray-700">
+                Ohio's energy sector includes coal operations, natural gas processing, and renewable energy facilities. 
+                Our certification covers material handling safety in energy and chemical processing environments.
+              </p>
+            </div>
+          </div>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-6">
+            <h3 className="text-lg font-semibold mb-3">Ohio Major Cities We Serve:</h3>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <ul className="space-y-1">
+                <li>• Columbus forklift certification</li>
+                <li>• Cleveland forklift training</li>
+                <li>• Cincinnati forklift operators</li>
+                <li>• Toledo forklift certification</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Akron warehouse training</li>
+                <li>• Dayton forklift operators</li>
+                <li>• Parma manufacturing sites</li>
+                <li>• Canton distribution centers</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Youngstown steel operations</li>
+                <li>• Lorain automotive plants</li>
+                <li>• Hamilton logistics hubs</li>
+                <li>• Springfield food processing</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ADDITIONAL FAQ FOR OHIO */}
+      {info.code === 'oh' && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold">Ohio-Specific Forklift Training Questions</h2>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is this certification accepted at Ohio automotive plants and manufacturing facilities?
+            </summary>
+            <p className="mt-2">
+              Absolutely! Our OSHA-compliant certification is accepted by major Ohio automotive manufacturers 
+              including Honda, Ford, GM, and their suppliers throughout Ohio. The training meets automotive 
+              industry safety standards and lean manufacturing requirements.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Do Ohio distribution centers and logistics companies require forklift certification?
+            </summary>
+            <p className="mt-2">
+              Yes! Ohio's strategic location makes it a major distribution hub, and logistics companies like 
+              Amazon, FedEx, UPS, and DHL require certified forklift operators. Our certification is accepted 
+              at major distribution centers throughout Ohio.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is additional training needed for Ohio's energy and chemical processing industries?
+            </summary>
+            <p className="mt-2">
+              Our comprehensive OSHA training covers forklift operations in industrial environments, including 
+              Ohio's energy and chemical sectors. The certification is valid for coal operations, natural gas 
+              facilities, and chemical processing plants throughout Ohio.
+            </p>
+          </details>
+        </section>
+      )}
+
       {/* SCHEMA: Course + FAQPage */}
       <script
         type="application/ld+json"
@@ -629,6 +727,32 @@ export default function StateForkliftPage({ params }: Props) {
                       acceptedAnswer: {
                         "@type": "Answer",
                         text: "Our comprehensive OSHA training covers forklift operations in industrial settings, including Pennsylvania's energy sector. The certification is valid for natural gas facilities, coal operations, and renewable energy projects throughout Pennsylvania.",
+                      },
+                    },
+                  ] : []),
+                  ...(info.code === 'oh' ? [
+                    {
+                      "@type": "Question",
+                      name: "Is this certification accepted at Ohio automotive plants and manufacturing facilities?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Absolutely! Our OSHA-compliant certification is accepted by major Ohio automotive manufacturers including Honda, Ford, GM, and their suppliers throughout Ohio. The training meets automotive industry safety standards and lean manufacturing requirements.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Do Ohio distribution centers and logistics companies require forklift certification?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Yes! Ohio's strategic location makes it a major distribution hub, and logistics companies like Amazon, FedEx, UPS, and DHL require certified forklift operators. Our certification is accepted at major distribution centers throughout Ohio.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Is additional training needed for Ohio's energy and chemical processing industries?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Our comprehensive OSHA training covers forklift operations in industrial environments, including Ohio's energy and chemical sectors. The certification is valid for coal operations, natural gas facilities, and chemical processing plants throughout Ohio.",
                       },
                     },
                   ] : []),
