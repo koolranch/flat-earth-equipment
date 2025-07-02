@@ -45,7 +45,7 @@ export default function ForkliftOperatorAgeRequirementsPage() {
                 <h3 className="text-lg font-semibold mb-2">Federal Requirements</h3>
                 <ul className="list-disc pl-6">
                   <li>Minimum age: 18 years old</li>
-                  <li>OSHA certification required</li>
+                  <li><Link href="/safety" className="text-blue-600 hover:underline">OSHA certification required</Link></li>
                   <li>Valid driver's license (in most states)</li>
                   <li>No specific maximum age limit</li>
                 </ul>
@@ -117,17 +117,17 @@ export default function ForkliftOperatorAgeRequirementsPage() {
         <div className="mt-8 bg-blue-50 p-6 rounded-lg">
           <h2 className="text-xl font-semibold mb-4">Need Training or Certification?</h2>
           <p className="mb-4">
-            Our certified instructors can provide forklift operator training and certification. 
-            Contact us for more information:
+            Get your <Link href="/safety" className="text-blue-600 hover:underline font-semibold">OSHA-compliant forklift certification online</Link> for just $59. 
+            Complete in under 60 minutes at your own pace, or contact us for more information:
           </p>
           <ul className="list-none space-y-2">
             <li className="flex items-center">
               <Phone className="w-5 h-5 mr-2" />
-              <span>1-800-XXX-XXXX</span>
+              <span>(307) 302-0043</span>
             </li>
             <li className="flex items-center">
               <Mail className="w-5 h-5 mr-2" />
-              <span>training@flatearthequipment.com</span>
+              <span>contact@flatearthequipment.com</span>
             </li>
           </ul>
         </div>
@@ -141,8 +141,8 @@ export default function ForkliftOperatorAgeRequirementsPage() {
               </Link>
             </li>
             <li>
-              <Link href="/service/forklift-training" className="text-blue-600 hover:underline">
-                Forklift Training Services
+              <Link href="/safety" className="text-blue-600 hover:underline">
+                Online Forklift Certification ($59)
               </Link>
             </li>
             <li>
