@@ -917,6 +917,104 @@ export default function StateForkliftPage({ params }: Props) {
         </section>
       )}
 
+      {/* VIRGINIA-SPECIFIC CONTENT */}
+      {info.code === 'va' && (
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold">Virginia Forklift Training for Major Industries</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🎖️ Military & Defense</h3>
+              <p className="text-sm text-gray-700">
+                Virginia hosts major military installations including Norfolk Naval Base, Pentagon, Quantico, and Fort Belvoir. 
+                Our training covers defense contractor logistics, military base operations, and shipyard material handling requirements.
+              </p>
+            </div>
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🚢 Port & Maritime Operations</h3>
+              <p className="text-sm text-gray-700">
+                The Port of Virginia (Norfolk, Newport News) is a major East Coast shipping hub with container terminals and cargo operations. 
+                Our certification covers port logistics, container handling, and maritime freight operations.
+              </p>
+            </div>
+            <div className="bg-orange-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🏛️ Government & Federal Contracting</h3>
+              <p className="text-sm text-gray-700">
+                Northern Virginia's proximity to Washington DC creates extensive federal contracting and government facility operations. 
+                Our training covers government warehouse requirements and federal contractor logistics standards.
+              </p>
+            </div>
+            <div className="bg-purple-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🚀 Technology & Data Centers</h3>
+              <p className="text-sm text-gray-700">
+                Northern Virginia's technology corridor includes major data centers, tech companies, and telecommunications facilities. 
+                Our certification covers high-tech warehouse operations and precision equipment handling.
+              </p>
+            </div>
+          </div>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-6">
+            <h3 className="text-lg font-semibold mb-3">Virginia Major Cities We Serve:</h3>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <ul className="space-y-1">
+                <li>• Virginia Beach forklift certification</li>
+                <li>• Norfolk forklift training</li>
+                <li>• Chesapeake forklift operators</li>
+                <li>• Richmond forklift certification</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Newport News warehouse training</li>
+                <li>• Alexandria forklift operators</li>
+                <li>• Hampton port operations</li>
+                <li>• Portsmouth naval facilities</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Suffolk logistics hubs</li>
+                <li>• Roanoke manufacturing</li>
+                <li>• Fairfax federal contractors</li>
+                <li>• Lynchburg distribution centers</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ADDITIONAL FAQ FOR VIRGINIA */}
+      {info.code === 'va' && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold">Virginia-Specific Forklift Training Questions</h2>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is this certification accepted at Virginia military installations and defense contractors?
+            </summary>
+            <p className="mt-2">
+              Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Virginia, 
+              including defense contractors serving Norfolk Naval Base, Pentagon operations, Quantico, and other 
+              military installations. The training meets defense industry security and safety standards.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Do Virginia port operations and shipbuilding facilities require forklift certification?
+            </summary>
+            <p className="mt-2">
+              Yes! Virginia's port operations, including the Port of Virginia and Newport News Shipbuilding, 
+              require OSHA-compliant forklift certification. Our training covers maritime logistics, container 
+              handling, and shipyard safety requirements specific to Virginia's maritime industry.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is additional training needed for Virginia's federal contracting and government facilities?
+            </summary>
+            <p className="mt-2">
+              Our comprehensive OSHA training covers forklift operations in government and federal contracting 
+              environments, which is essential for Northern Virginia's extensive federal contractor base. The 
+              certification meets government facility requirements and federal contractor standards throughout Virginia.
+            </p>
+          </details>
+        </section>
+      )}
+
       {/* SCHEMA: Course + FAQPage */}
       <script
         type="application/ld+json"
@@ -1125,6 +1223,32 @@ export default function StateForkliftPage({ params }: Props) {
                       acceptedAnswer: {
                         "@type": "Answer",
                         text: "Our comprehensive OSHA training covers forklift operations in shipping and logistics environments, which is essential for Michigan's Great Lakes ports and shipping operations. The certification is valid for port operations, intermodal freight handling, and logistics centers throughout Michigan.",
+                      },
+                    },
+                  ] : []),
+                  ...(info.code === 'va' ? [
+                    {
+                      "@type": "Question",
+                      name: "Is this certification accepted at Virginia military installations and defense contractors?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Virginia, including defense contractors serving Norfolk Naval Base, Pentagon operations, Quantico, and other military installations. The training meets defense industry security and safety standards.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Do Virginia port operations and shipbuilding facilities require forklift certification?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Yes! Virginia's port operations, including the Port of Virginia and Newport News Shipbuilding, require OSHA-compliant forklift certification. Our training covers maritime logistics, container handling, and shipyard safety requirements specific to Virginia's maritime industry.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Is additional training needed for Virginia's federal contracting and government facilities?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Our comprehensive OSHA training covers forklift operations in government and federal contracting environments, which is essential for Northern Virginia's extensive federal contractor base. The certification meets government facility requirements and federal contractor standards throughout Virginia.",
                       },
                     },
                   ] : []),
