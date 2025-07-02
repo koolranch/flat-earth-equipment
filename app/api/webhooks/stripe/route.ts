@@ -93,19 +93,30 @@ export async function POST(req: Request) {
         
         console.log(`🎓 Auto-enrolling in course: ${courseSlug} (${quantity} seats)`)
         
+        // First, get the actual course UUID from the slug
+        const { data: course, error: courseError } = await supabase
+          .from('courses')
+          .select('id')
+          .eq('slug', courseSlug)
+          .single()
+        
+        if (courseError || !course) {
+          console.error(`❌ Course not found for slug: ${courseSlug}`, courseError)
+          return
+        }
+        
+        console.log(`✅ Found course ID: ${course.id} for slug: ${courseSlug}`)
+        
         for (let i = 0; i < quantity; i++) {
           const { error: enrollError } = await supabase
             .from('enrollments')
             .insert({
               user_id: user.id,
-              course_id: courseSlug,
-              status: 'active',
-              enrolled_at: new Date().toISOString(),
-              payment_id: session.payment_intent,
-              metadata: {
-                stripe_session_id: session.id,
-                auto_enrolled: true
-              }
+              course_id: course.id, // Use the actual UUID instead of slug
+              progress_pct: 0,
+              passed: false,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
             })
           
           if (enrollError) {
