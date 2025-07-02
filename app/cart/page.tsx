@@ -70,20 +70,34 @@ export default function CartPage() {
       });
 
       const data = await response.json();
+      
+      console.log('📊 Checkout API response:', {
+        status: response.status,
+        data: data
+      });
+      
       if (data.error) {
         console.error('Stripe session error:', data.error);
+        alert(`Checkout failed: ${data.error}`);
       } else if (data.sessionId) {
+        console.log('✅ Session ID received:', data.sessionId);
         const stripe = await stripePromise;
         if (!stripe) {
           throw new Error('Stripe failed to initialize');
         }
+        console.log('🔄 Redirecting to Stripe checkout...');
         const { error } = await stripe.redirectToCheckout({ sessionId: data.sessionId });
         if (error) {
           console.error('Stripe redirect error:', error);
+          alert(`Redirect failed: ${error.message}`);
         }
+      } else {
+        console.error('❌ Unexpected response:', data);
+        alert('Unexpected checkout response');
       }
     } catch (err) {
       console.error('Checkout error:', err);
+      alert(`Checkout error: ${err instanceof Error ? err.message : 'Unknown error'}`);
     }
   };
 

@@ -227,7 +227,7 @@ async function processOrderAndSendConfirmation(session: any, supabase: any) {
     customer_phone: session.customer_details?.phone,
     subtotal_cents: session.amount_subtotal || session.amount_total,
     shipping_cents: 0, // Stripe doesn't separate shipping in amount_total
-    tax_cents: 0, // Add if you collect tax
+    tax_cents: (session.total_details?.amount_tax || 0), // Capture actual tax amount from Stripe
     total_cents: session.amount_total,
     status: 'confirmed',
     order_type: orderType,
