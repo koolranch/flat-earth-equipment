@@ -24,13 +24,6 @@ export async function POST(req: Request) {
     console.log(`💰 Amount: $${(session.amount_total || 0) / 100}`)
     console.log(`📧 Customer: ${session.customer_details?.email}`)
 
-    // **NEW: COMPREHENSIVE ORDER TRACKING FOR ALL PURCHASES**
-    try {
-      await processOrderAndSendConfirmation(session, supabase)
-    } catch (error) {
-      console.error('❌ Error processing order:', error)
-    }
-
     // Handle training purchases
     if (session.metadata?.course_slug) {
       console.log('📚 Training purchase detected - auto-creating user and enrolling')
@@ -107,6 +100,63 @@ export async function POST(req: Request) {
         
         console.log(`✅ Found course ID: ${course.id} for slug: ${courseSlug}`)
         
+        // Create order record first
+        const orderData = {
+          user_id: user.id,
+          course_id: course.id,
+          stripe_session_id: session.id,
+          seats: quantity,
+          amount_cents: session.amount_total || 0
+        }
+        
+        console.log('📦 Creating order record...')
+        const { data: order, error: orderError } = await supabase
+          .from('orders')
+          .insert(orderData)
+          .select()
+          .single()
+        
+        if (orderError) {
+          console.error('❌ Error creating order:', orderError)
+        } else {
+          console.log(`✅ Order created: ${order.id}`)
+          
+          // Send order confirmation email
+          try {
+            const emailResponse = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'}/api/send-order-confirmation`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                order_number: `FEE-${order.id.slice(-8)}`,
+                customer_email: customerEmail,
+                customer_name: customerName,
+                subtotal_cents: orderData.amount_cents,
+                shipping_cents: 0,
+                tax_cents: 0,
+                total_cents: orderData.amount_cents,
+                order_type: 'training',
+                line_items: [{
+                  product_name: 'Forklift Operator Certification',
+                  product_sku: 'FORKLIFT-CERT',
+                  quantity: orderData.seats,
+                  unit_price_cents: Math.floor(orderData.amount_cents / orderData.seats),
+                  total_price_cents: orderData.amount_cents,
+                  core_charge_cents: 0
+                }]
+              })
+            })
+            
+            if (emailResponse.ok) {
+              console.log('✅ Order confirmation email sent successfully')
+            } else {
+              console.error('❌ Failed to send order confirmation email:', await emailResponse.text())
+            }
+          } catch (emailError) {
+            console.error('❌ Error sending order confirmation email:', emailError)
+          }
+        }
+
+        // Then enroll in the course
         for (let i = 0; i < quantity; i++) {
           const { error: enrollError } = await supabase
             .from('enrollments')
@@ -204,103 +254,7 @@ export async function POST(req: Request) {
   return NextResponse.json({ received: true })
 }
 
-// **SIMPLIFIED ORDER PROCESSING FOR EXISTING TABLE**
-async function processOrderAndSendConfirmation(session: any, supabase: any) {
-  console.log('📦 Starting order processing...')
-  
-  // For training orders, work with existing table structure
-  if (session.metadata?.course_slug) {
-    console.log('📚 Processing training order with existing table structure')
-    
-    const customerEmail = session.customer_details?.email
-    const customerName = session.customer_details?.name || ''
-    
-    if (!customerEmail) {
-      console.error('❌ No customer email found in session')
-      return
-    }
-    
-    // Get user by email
-    const { data: existingUsers } = await supabase.auth.admin.listUsers()
-    const user = existingUsers.users.find((u: any) => u.email === customerEmail)
-    
-    if (!user) {
-      console.error('❌ User not found for email:', customerEmail)
-      return
-    }
-    
-    // Get the course ID for forklift
-    const { data: course, error: courseError } = await supabase
-      .from('courses')
-      .select('id')
-      .eq('slug', session.metadata.course_slug)
-      .single()
-    
-    if (courseError || !course) {
-      console.error(`❌ Course not found for slug: ${session.metadata.course_slug}`)
-      return
-    }
-    
-    // Create order record in existing format
-    const orderData = {
-      user_id: user.id,
-      course_id: course.id,
-      stripe_session_id: session.id,
-      seats: parseInt(session.metadata.quantity || '1'),
-      amount_cents: session.amount_total || 0
-    }
-    
-    // Insert order using existing structure
-    const { data: order, error: orderError } = await supabase
-      .from('orders')
-      .insert(orderData)
-      .select()
-      .single()
-    
-    if (orderError) {
-      console.error('❌ Error creating order:', orderError)
-      throw orderError
-    }
-    
-    console.log(`✅ Training order created: ${order.id}`)
-    
-    // Send order confirmation email with simplified data
-    try {
-      const emailResponse = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'}/api/send-order-confirmation`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          order_number: `FEE-${order.id.slice(-8)}`, // Use order ID as order number
-          customer_email: customerEmail,
-          customer_name: customerName,
-          subtotal_cents: orderData.amount_cents,
-          shipping_cents: 0,
-          tax_cents: 0,
-          total_cents: orderData.amount_cents,
-          order_type: 'training',
-          line_items: [{
-            product_name: 'Forklift Operator Certification',
-            product_sku: 'FORKLIFT-CERT',
-            quantity: orderData.seats,
-            unit_price_cents: Math.floor(orderData.amount_cents / orderData.seats),
-            total_price_cents: orderData.amount_cents,
-            core_charge_cents: 0
-          }]
-        })
-      })
-      
-      if (emailResponse.ok) {
-        console.log('✅ Order confirmation email sent successfully')
-      } else {
-        console.error('❌ Failed to send order confirmation email:', await emailResponse.text())
-      }
-    } catch (emailError) {
-      console.error('❌ Error sending order confirmation email:', emailError)
-    }
-  } else {
-    console.log('ℹ️ Non-training order detected - skipping order confirmation for now')
-  }
-}
+
 
 async function generateOrderNumber(): Promise<string> {
   // Simple order number generation - you could make this more sophisticated
