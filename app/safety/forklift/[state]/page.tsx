@@ -819,6 +819,104 @@ export default function StateForkliftPage({ params }: Props) {
         </section>
       )}
 
+      {/* MICHIGAN-SPECIFIC CONTENT */}
+      {info.code === 'mi' && (
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold">Michigan Forklift Training for Major Industries</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🚗 Automotive Manufacturing</h3>
+              <p className="text-sm text-gray-700">
+                Michigan is the heart of American automotive manufacturing with Ford, GM, Chrysler headquarters and hundreds of suppliers. 
+                Our training covers automotive assembly line safety, parts warehousing, and lean manufacturing forklift operations.
+              </p>
+            </div>
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🏭 Heavy Manufacturing</h3>
+              <p className="text-sm text-gray-700">
+                Michigan's industrial base includes steel processing, machinery manufacturing, and chemical production. 
+                Our certification covers heavy-duty forklift operations in industrial manufacturing environments.
+              </p>
+            </div>
+            <div className="bg-orange-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🌾 Agriculture & Food Processing</h3>
+              <p className="text-sm text-gray-700">
+                Michigan's agriculture includes cherries, apples, corn, and extensive food processing facilities. 
+                Our training covers agricultural forklift safety and food industry compliance requirements.
+              </p>
+            </div>
+            <div className="bg-purple-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🚢 Logistics & Shipping</h3>
+              <p className="text-sm text-gray-700">
+                Michigan's Great Lakes shipping, ports in Detroit and Grand Haven, plus logistics centers require certified operators. 
+                Our certification covers port operations, cross-docking, and intermodal freight handling.
+              </p>
+            </div>
+          </div>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-6">
+            <h3 className="text-lg font-semibold mb-3">Michigan Major Cities We Serve:</h3>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <ul className="space-y-1">
+                <li>• Detroit forklift certification</li>
+                <li>• Grand Rapids forklift training</li>
+                <li>• Warren forklift operators</li>
+                <li>• Sterling Heights forklift certification</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Lansing warehouse training</li>
+                <li>• Ann Arbor forklift operators</li>
+                <li>• Livonia manufacturing sites</li>
+                <li>• Dearborn automotive plants</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Flint logistics hubs</li>
+                <li>• Kalamazoo manufacturing</li>
+                <li>• Troy automotive operations</li>
+                <li>• Pontiac distribution centers</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ADDITIONAL FAQ FOR MICHIGAN */}
+      {info.code === 'mi' && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold">Michigan-Specific Forklift Training Questions</h2>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is this certification accepted at Michigan automotive plants and assembly facilities?
+            </summary>
+            <p className="mt-2">
+              Absolutely! Our OSHA-compliant certification is accepted by major Michigan automotive manufacturers 
+              including Ford, GM, Chrysler, and their tier-one suppliers throughout Michigan. The training meets 
+              automotive industry safety standards and lean manufacturing requirements.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Do Michigan manufacturing and steel processing facilities require forklift certification?
+            </summary>
+            <p className="mt-2">
+              Yes! Michigan's heavy manufacturing sector, including steel processing, machinery manufacturers, 
+              and chemical plants throughout the state, require OSHA-compliant forklift certification. Our training 
+              covers heavy industrial safety requirements common in Michigan's manufacturing base.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is additional training needed for Michigan's Great Lakes shipping and port operations?
+            </summary>
+            <p className="mt-2">
+              Our comprehensive OSHA training covers forklift operations in shipping and logistics environments, 
+              which is essential for Michigan's Great Lakes ports and shipping operations. The certification is 
+              valid for port operations, intermodal freight handling, and logistics centers throughout Michigan.
+            </p>
+          </details>
+        </section>
+      )}
+
       {/* SCHEMA: Course + FAQPage */}
       <script
         type="application/ld+json"
@@ -1001,6 +1099,32 @@ export default function StateForkliftPage({ params }: Props) {
                       acceptedAnswer: {
                         "@type": "Answer",
                         text: "Our comprehensive OSHA training covers forklift operations in controlled environments, which is important for North Carolina's significant pharmaceutical and biotech industries in the Research Triangle. The certification is valid for clean room logistics and high-tech manufacturing throughout North Carolina.",
+                      },
+                    },
+                  ] : []),
+                  ...(info.code === 'mi' ? [
+                    {
+                      "@type": "Question",
+                      name: "Is this certification accepted at Michigan automotive plants and assembly facilities?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Absolutely! Our OSHA-compliant certification is accepted by major Michigan automotive manufacturers including Ford, GM, Chrysler, and their tier-one suppliers throughout Michigan. The training meets automotive industry safety standards and lean manufacturing requirements.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Do Michigan manufacturing and steel processing facilities require forklift certification?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Yes! Michigan's heavy manufacturing sector, including steel processing, machinery manufacturers, and chemical plants throughout the state, require OSHA-compliant forklift certification. Our training covers heavy industrial safety requirements common in Michigan's manufacturing base.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Is additional training needed for Michigan's Great Lakes shipping and port operations?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Our comprehensive OSHA training covers forklift operations in shipping and logistics environments, which is essential for Michigan's Great Lakes ports and shipping operations. The certification is valid for port operations, intermodal freight handling, and logistics centers throughout Michigan.",
                       },
                     },
                   ] : []),
