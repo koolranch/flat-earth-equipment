@@ -114,12 +114,11 @@ export async function POST(req: Request) {
       shipping_address_collection: isTrainingProduct ? undefined : {
         allowed_countries: ['US'],
       },
-      // Enable automatic tax calculation for all US states
-      automatic_tax: {
-        enabled: true,
-      },
-      // For new customers, automatically save shipping info when collecting shipping addresses
+      // Enable automatic tax calculation only for physical products (with shipping addresses)
       ...((!isTrainingProduct) && {
+        automatic_tax: {
+          enabled: true,
+        },
         customer_update: {
           shipping: 'auto',
         },
