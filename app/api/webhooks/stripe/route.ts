@@ -254,7 +254,7 @@ async function processOrderAndSendConfirmation(session: any, supabase: any) {
   
   // Insert order
   const { data: order, error: orderError } = await supabase
-    .from('customer_orders')
+    .from('orders')
     .insert(orderData)
     .select()
     .single()
@@ -296,17 +296,19 @@ async function processOrderAndSendConfirmation(session: any, supabase: any) {
     orderLineItems.push(lineItemData)
   }
   
-  if (orderLineItems.length > 0) {
-    const { error: lineItemsError } = await supabase
-      .from('order_line_items')
-      .insert(orderLineItems)
-    
-    if (lineItemsError) {
-      console.error('❌ Error creating line items:', lineItemsError)
-    } else {
-      console.log(`✅ Created ${orderLineItems.length} line items`)
-    }
-  }
+  // TODO: Temporarily disabled until order_line_items table is created
+  // if (orderLineItems.length > 0) {
+  //   const { error: lineItemsError } = await supabase
+  //     .from('order_line_items')
+  //     .insert(orderLineItems)
+  //   
+  //   if (lineItemsError) {
+  //     console.error('❌ Error creating line items:', lineItemsError)
+  //   } else {
+  //     console.log(`✅ Created ${orderLineItems.length} line items`)
+  //   }
+  // }
+  console.log(`📋 Order line items prepared (${orderLineItems.length} items) but not stored yet`)
   
   // Send order confirmation email
   try {
