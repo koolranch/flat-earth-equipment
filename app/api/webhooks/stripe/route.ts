@@ -44,8 +44,9 @@ export async function POST(req: Request) {
         if (user) {
           console.log('✅ Using existing user:', user.email)
         } else {
-          // Create new user account
-          const temporaryPassword = Math.random().toString(36).slice(-12) + 'A1!'
+          // Create new user account with a simple, user-friendly password
+          const randomNumber = Math.floor(1000 + Math.random() * 9000) // 4-digit number
+          const temporaryPassword = `Training${randomNumber}`
           console.log('🔐 Creating new user account...')
           
           const { data: newUser, error: userError } = await supabase.auth.admin.createUser({
@@ -67,7 +68,8 @@ export async function POST(req: Request) {
           console.log('✅ Created new user:', user.email)
           
           // Send welcome email with login credentials
-          await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/send-training-welcome`, {
+          const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'
+          await fetch(`${siteUrl}/api/send-training-welcome`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -123,7 +125,8 @@ export async function POST(req: Request) {
           
           // Send order confirmation email
           try {
-            const emailResponse = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'}/api/send-order-confirmation`, {
+            const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'
+            const emailResponse = await fetch(`${siteUrl}/api/send-order-confirmation`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({

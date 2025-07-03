@@ -208,21 +208,85 @@ export default function SimpleDashboard() {
         
         let userId = user?.id
         
-        // Handle test user case - if no authenticated user but there's a session_id, 
-        // try to find enrollment for test user
+        // Handle auto-login after purchase - if no authenticated user but there's a session_id
         if (!user && sessionId) {
-          console.log('🧪 No authenticated user but session_id found, checking for test enrollment')
+          console.log('🔐 No authenticated user but session_id found, attempting auto-login')
+          console.log('📋 Session ID:', sessionId)
           
-          // Look for test user
-          const { data: testUser } = await supabase
-            .from('users')
-            .select('id')
-            .eq('email', 'test@flatearthequipment.com')
-            .single()
-          
-          if (testUser) {
-            userId = testUser.id
-            console.log('✅ Found test user:', userId)
+          try {
+            const autoLoginResponse = await fetch('/api/auto-login', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ sessionId })
+            })
+            
+            console.log('📡 Auto-login API response status:', autoLoginResponse.status)
+            
+            if (autoLoginResponse.ok) {
+              const { tokens, user: userData, course, loginUrl } = await autoLoginResponse.json()
+              console.log('✅ Auto-login tokens received for:', userData.email)
+              console.log('📚 Course:', course)
+              console.log('🔑 Has tokens:', !!tokens?.access_token && !!tokens?.refresh_token)
+              
+              // Try to sign in directly with tokens if available
+              if (tokens?.access_token && tokens?.refresh_token) {
+                console.log('🔑 Signing in with tokens...')
+                
+                const { data: sessionData, error: sessionError } = await supabase.auth.setSession({
+                  access_token: tokens.access_token,
+                  refresh_token: tokens.refresh_token
+                })
+                
+                if (sessionError) {
+                  console.error('❌ Failed to set session with tokens:', sessionError)
+                  // Fall back to magic link redirect
+                  if (loginUrl) {
+                    console.log('🔄 Falling back to magic link redirect')
+                    window.location.href = loginUrl
+                    return
+                  }
+                } else {
+                  console.log('✅ Successfully signed in with tokens!')
+                  console.log('👤 User ID:', sessionData.user?.id)
+                  console.log('📧 User email:', sessionData.user?.email)
+                  // Set the user and continue with data loading
+                  if (sessionData.user) {
+                    setUser(sessionData.user)
+                    userId = sessionData.user.id
+                    
+                    // Remove the session_id from URL to clean up
+                    const newUrl = new URL(window.location.href)
+                    newUrl.searchParams.delete('session_id')
+                    window.history.replaceState({}, '', newUrl.toString())
+                    console.log('🧹 Cleaned up URL')
+                    
+                    // Continue with enrollment loading below
+                  } else {
+                    console.error('❌ No user data in session')
+                    // Fall back to magic link redirect
+                    if (loginUrl) {
+                      console.log('🔄 Falling back to magic link redirect')
+                      window.location.href = loginUrl
+                      return
+                    }
+                  }
+                }
+              } else {
+                console.log('🔄 No tokens available, using magic link redirect')
+                // Fall back to magic link redirect
+                if (loginUrl) {
+                  window.location.href = loginUrl
+                  return
+                }
+              }
+            } else {
+              const errorData = await autoLoginResponse.json()
+              console.log('⚠️ Auto-login failed:', errorData)
+              // Fall through to show login prompt
+            }
+          } catch (error) {
+            console.error('❌ Auto-login error:', error)
+            // Fall through to show login prompt
           }
         }
         
