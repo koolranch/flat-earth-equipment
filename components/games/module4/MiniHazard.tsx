@@ -8,7 +8,7 @@ const CDN_BG  = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/publ
 
 /* hazard catalogue */
 const HAZARDS: Hazard[] = [
-  { id: 'pedestrian', img: 'haz_pedestrian.png',  fact: 'Yield to pedestrians – keep 3 ft clearance.' },
+  { id: 'pedestrian', img: 'haz_pedestrian.png',  fact: 'Yield to pedestrians – keep 10 ft clearance.' },
   { id: 'blind',      img: 'haz_blind.png',       fact: 'Blind corner: sound horn, proceed slowly.' },
   { id: 'spill',      img: 'haz_spill.png',       fact: 'Oil spill: tag-out forklift until cleaned.' },
   { id: 'overhead',   img: 'haz_overhead.png',    fact: 'Low beam: lower mast to travel position.' },
