@@ -20,7 +20,7 @@ const BUSINESS_ADDRESS = {
 
 // Repair vendor address (where customers ship broken modules)
 const REPAIR_VENDOR_ADDRESS = {
-  name: "Flat Earth Equipment Repair Center",
+  name: "FS Repair Order",
   street1: "1015 Harrisburg Pike",
   street2: "",
   city: "Carlisle",
@@ -28,7 +28,7 @@ const REPAIR_VENDOR_ADDRESS = {
   zip: "17013",
   country: "US",
   phone: "", // Vendor phone number not shared for privacy
-  email: "repairs@flatearthequipment.com"
+  email: "" // No email on shipping label
 };
 
 interface ShippingAddress {
