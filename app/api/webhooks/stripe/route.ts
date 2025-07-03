@@ -250,6 +250,155 @@ export async function POST(req: Request) {
           console.error('❌ Error generating shipping label:', error)
           // You might want to store this error and retry later
         }
+      } else {
+        // Handle regular parts purchases (not training, not repair)
+        console.log('📦 Parts purchase detected - sending order confirmation')
+        
+        try {
+          const customerEmail = session.customer_details?.email
+          const customerName = session.customer_details?.name || ''
+          
+          if (!customerEmail) {
+            console.error('❌ No customer email found in session')
+            return
+          }
+
+          // Fetch complete session with shipping details and line items
+          const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2025-05-28.basil' })
+          const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
+            expand: ['shipping_details', 'line_items', 'line_items.data.price.product']
+          })
+
+          // Type assertion to access expanded properties
+          const sessionWithShipping = fullSession as any
+          
+          if (sessionWithShipping.shipping_details?.address && sessionWithShipping.line_items) {
+            // Generate unique order number
+            const orderNumber = await generateOrderNumber()
+            
+            // Customer shipping address
+            const shippingAddress = {
+              name: sessionWithShipping.shipping_details.name || customerName,
+              street1: sessionWithShipping.shipping_details.address.line1 || '',
+              street2: sessionWithShipping.shipping_details.address.line2 || '',
+              city: sessionWithShipping.shipping_details.address.city || '',
+              state: sessionWithShipping.shipping_details.address.state || '',
+              zip: sessionWithShipping.shipping_details.address.postal_code || '',
+              country: sessionWithShipping.shipping_details.address.country || 'US'
+            }
+
+            // Create customer_orders record
+            const orderData = {
+              stripe_session_id: session.id,
+              order_number: orderNumber,
+              customer_email: customerEmail,
+              customer_name: customerName,
+              customer_phone: fullSession.customer_details?.phone || '',
+              subtotal_cents: session.amount_subtotal || 0,
+              shipping_cents: session.shipping_cost?.amount_total || 0,
+              tax_cents: session.total_details?.amount_tax || 0,
+              total_cents: session.amount_total || 0,
+              status: 'confirmed',
+              order_type: 'parts',
+              shipping_name: shippingAddress.name,
+              shipping_street1: shippingAddress.street1,
+              shipping_street2: shippingAddress.street2,
+              shipping_city: shippingAddress.city,
+              shipping_state: shippingAddress.state,
+              shipping_zip: shippingAddress.zip,
+              shipping_country: shippingAddress.country
+            }
+
+            console.log('📦 Creating customer order record...')
+            const { data: order, error: orderError } = await supabase
+              .from('customer_orders')
+              .insert(orderData)
+              .select()
+              .single()
+
+            if (orderError) {
+              console.error('❌ Error creating customer order:', orderError)
+            } else {
+              console.log(`✅ Customer order created: ${order.id}`)
+
+              // Process line items for order confirmation email
+              const lineItems = []
+              if (sessionWithShipping.line_items && sessionWithShipping.line_items.data) {
+                for (const item of sessionWithShipping.line_items.data) {
+                  const product = item.price.product
+                  const productName = product.name || 'Unknown Product'
+                  const unitPrice = item.price.unit_amount || 0
+                  const quantity = item.quantity || 1
+                  const totalPrice = unitPrice * quantity
+
+                  // Create order line item record
+                  const lineItemData = {
+                    order_id: order.id,
+                    product_type: 'part',
+                    product_name: productName,
+                    product_sku: product.metadata?.sku || '',
+                    quantity: quantity,
+                    unit_price_cents: unitPrice,
+                    total_price_cents: totalPrice,
+                    core_charge_cents: 0, // Will be handled separately if needed
+                    metadata: product.metadata || {}
+                  }
+
+                  const { error: lineItemError } = await supabase
+                    .from('order_line_items')
+                    .insert(lineItemData)
+
+                  if (lineItemError) {
+                    console.error('❌ Error creating line item:', lineItemError)
+                  } else {
+                    console.log(`✅ Line item created: ${productName}`)
+                  }
+
+                  // Add to email line items
+                  lineItems.push({
+                    product_name: productName,
+                    product_sku: product.metadata?.sku || '',
+                    quantity: quantity,
+                    unit_price_cents: unitPrice,
+                    total_price_cents: totalPrice,
+                    core_charge_cents: 0
+                  })
+                }
+              }
+
+              // Send order confirmation email
+              try {
+                const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'
+                const emailResponse = await fetch(`${siteUrl}/api/send-order-confirmation`, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    order_number: orderNumber,
+                    customer_email: customerEmail,
+                    customer_name: customerName,
+                    subtotal_cents: orderData.subtotal_cents,
+                    shipping_cents: orderData.shipping_cents,
+                    tax_cents: orderData.tax_cents,
+                    total_cents: orderData.total_cents,
+                    order_type: 'parts',
+                    line_items: lineItems,
+                    shipping_address: shippingAddress
+                  })
+                })
+
+                if (emailResponse.ok) {
+                  console.log('✅ Parts order confirmation email sent successfully')
+                } else {
+                  console.error('❌ Failed to send parts order confirmation email:', await emailResponse.text())
+                }
+              } catch (emailError) {
+                console.error('❌ Error sending parts order confirmation email:', emailError)
+              }
+            }
+          }
+        } catch (error) {
+          console.error('❌ Error processing parts purchase:', error)
+        }
       }
     }
   }

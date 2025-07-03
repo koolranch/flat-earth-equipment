@@ -53,11 +53,16 @@ export async function POST(req: Request) {
       const sgMail = await import('@sendgrid/mail').then(m => m.default)
       sgMail.setApiKey(process.env.SENDGRID_API_KEY)
       
+      // Use different sender email based on order type
+      const senderEmail = orderData.order_type === 'parts' 
+        ? 'parts@flatearthequipment.com' 
+        : 'orders@flatearthequipment.com'
+
       await sgMail.send({
         to: orderData.customer_email,
         from: {
           name: 'Flat Earth Equipment',
-          email: 'orders@flatearthequipment.com'
+          email: senderEmail
         },
         subject,
         html: emailHtml,
