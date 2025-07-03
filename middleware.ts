@@ -32,7 +32,12 @@ export async function middleware(req: NextRequest) {
   const { data: { session } } = await supabase.auth.getSession()
 
   // If trying to access dashboard without session, redirect to login
+  // EXCEPT for dashboard-simple with session_id (for auto-login after purchase)
   if ((req.nextUrl.pathname.startsWith('/dashboard') || req.nextUrl.pathname.startsWith('/dashboard-simple')) && !session) {
+    // Allow auto-login flow for training purchases
+    if (req.nextUrl.pathname === '/dashboard-simple' && req.nextUrl.searchParams.get('session_id')) {
+      return NextResponse.next() // Allow the page to handle auto-login
+    }
     return NextResponse.redirect(new URL('/login', req.url))
   }
 

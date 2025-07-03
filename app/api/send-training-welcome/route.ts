@@ -34,7 +34,7 @@ export async function POST(req: Request) {
         <h3 style="color: #059669; margin-top: 0;">🔐 Your Login Credentials</h3>
         <div style="background: white; padding: 15px; border-radius: 6px; margin: 15px 0;">
           <p style="margin: 5px 0;"><strong>Email:</strong> ${email}</p>
-          <p style="margin: 5px 0;"><strong>Password:</strong> <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-family: monospace;">${password}</code></p>
+          <p style="margin: 5px 0;"><strong>Password:</strong> <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-family: monospace; font-size: 14px;">${password}</code></p>
         </div>
         <div style="margin: 20px 0;">
           <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'}/login" 
@@ -43,7 +43,7 @@ export async function POST(req: Request) {
           </a>
         </div>
         <p style="margin: 10px 0 0 0; font-size: 12px; color: #6b7280;">
-          💡 <strong>Tip:</strong> You can change your password after logging in
+          💡 <strong>Easy to remember:</strong> Your password is simple to type! You can change it anytime after logging in.
         </p>
       </div>
       
