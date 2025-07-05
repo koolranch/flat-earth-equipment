@@ -28,8 +28,6 @@ const translations = {
   en: {
     title: 'Supervisor Evaluation Wizard',
     subtitle: 'Complete the OSHA-required practical evaluation for',
-    demoMode: 'Demo Mode',
-    demoDescription: 'This is a demo evaluation for testing purposes. Certificate ID:',
     loading: 'Loading evaluation...',
     errorTitle: 'Evaluation Not Available',
     errorReturn: 'Return Home',
@@ -115,8 +113,6 @@ const translations = {
   es: {
     title: 'Asistente de Evaluación del Supervisor',
     subtitle: 'Complete la evaluación práctica requerida por OSHA para',
-    demoMode: 'Modo Demo',
-    demoDescription: 'Esta es una evaluación de demostración para propósitos de prueba. ID del Certificado:',
     loading: 'Cargando evaluación...',
     errorTitle: 'Evaluación No Disponible',
     errorReturn: 'Regresar al Inicio',
@@ -225,9 +221,11 @@ export default function EvaluationWizard() {
   const [certificate, setCertificate] = useState<CertificateData | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [language, setLanguage] = useState<'en' | 'es'>('en')
+  const [isOperatorNameEditable, setIsOperatorNameEditable] = useState(false)
   
   // Form data
   const [equipmentType, setEquipmentType] = useState('')
+  const [operatorName, setOperatorName] = useState('')
   const [checks, setChecks] = useState<EvaluationChecks>({})
   const [signature, setSignature] = useState<{ type: 'typed' | 'drawn', data: string } | null>(null)
   const [supervisorEmail, setSupervisorEmail] = useState('')
@@ -248,19 +246,7 @@ export default function EvaluationWizard() {
     try {
       console.log('🔍 Fetching certificate for ID:', certificateId)
       
-      // For demo/testing purposes, if certificate ID contains 'test' or 'demo', create a demo certificate
-      if (certificateId.toLowerCase().includes('test') || certificateId.toLowerCase().includes('demo')) {
-        console.log('🎭 Creating demo certificate for testing:', certificateId)
-        setCertificate({
-          id: certificateId,
-          user_id: 'demo-user-id',
-          course_title: language === 'es' ? 'Entrenamiento de Seguridad para Operador de Montacargas' : 'Forklift Operator Safety Training',
-          completed_at: new Date().toISOString(),
-          operator_name: language === 'es' ? 'Operador Demo (Certificado de Prueba)' : 'Demo Operator (Test Certificate)'
-        })
-        setLoading(false)
-        return
-      }
+      // Skip demo mode logic - treat all certificates as valid
       
       const { data: enrollment, error } = await supabase
         .from('enrollments')
@@ -278,16 +264,19 @@ export default function EvaluationWizard() {
       if (error) {
         console.error('❌ Supabase error:', error)
         
-        // If certificate not found, show a demo/test version
+        // If certificate not found, create a valid certificate for evaluation with editable operator name
         if (error.code === 'PGRST116' || error.message?.includes('No rows returned')) {
-          console.log('🎭 Certificate not found, creating demo certificate for:', certificateId)
+          console.log('✅ Creating valid certificate for evaluation:', certificateId)
+          const defaultName = language === 'es' ? 'Nombre del Empleado' : 'Employee Name'
           setCertificate({
             id: certificateId,
-            user_id: 'demo-user-id',
+            user_id: 'evaluation-user-id',
             course_title: language === 'es' ? 'Entrenamiento de Seguridad para Operador de Montacargas' : 'Forklift Operator Safety Training',
             completed_at: new Date().toISOString(),
-            operator_name: language === 'es' ? 'Operador Demo (Certificado de Prueba)' : 'Demo Operator (Test Certificate)'
+            operator_name: defaultName
           })
+          setOperatorName(defaultName)
+          setIsOperatorNameEditable(true)
           setLoading(false)
           return
         }
@@ -332,6 +321,8 @@ export default function EvaluationWizard() {
         completed_at: enrollment.created_at,
         operator_name: operatorName
       })
+      setOperatorName(operatorName)
+      setIsOperatorNameEditable(false)
     } catch (error) {
       console.error('❌ Certificate fetch error:', error)
       setError(`Failed to load certificate data: ${error instanceof Error ? error.message : 'Database connection issue'}`)
@@ -440,7 +431,7 @@ export default function EvaluationWizard() {
 
   const isStepComplete = (stepNum: number) => {
     switch (stepNum) {
-      case 1: return equipmentType.trim() !== ''
+      case 1: return equipmentType.trim() !== '' && operatorName.trim() !== ''
       case 2: return Object.keys(checks).length === EVALUATION_SKILLS.length
       case 3: return signature && signature.data !== ''
       case 4: return supervisorEmail.trim() !== ''
@@ -479,24 +470,11 @@ export default function EvaluationWizard() {
 
         {/* Header */}
         <div className="text-center mb-6 sm:mb-8">
-          {certificate.operator_name.includes('Demo Operator') && (
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-4 mb-4">
-              <div className="flex items-center justify-center">
-                <svg className="w-5 h-5 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span className="text-blue-800 font-medium">Demo Mode</span>
-              </div>
-              <p className="text-blue-700 text-sm mt-1">
-                {t.demoDescription} {certificateId}
-              </p>
-            </div>
-          )}
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
             {t.title}
           </h1>
           <p className="text-gray-600 text-sm sm:text-base px-2">
-            {t.subtitle} <strong>{certificate.operator_name}</strong>
+            {t.subtitle} <strong>{operatorName}</strong>
           </p>
         </div>
 
@@ -544,10 +522,21 @@ export default function EvaluationWizard() {
                   </label>
                   <input
                     type="text"
-                    value={certificate.operator_name}
-                    disabled
-                    className="w-full px-3 py-3 text-base border border-gray-300 rounded-md bg-gray-50 text-gray-600"
+                    value={operatorName}
+                    onChange={(e) => setOperatorName(e.target.value)}
+                    disabled={!isOperatorNameEditable}
+                    className={`w-full px-3 py-3 text-base border border-gray-300 rounded-md ${
+                      isOperatorNameEditable 
+                        ? 'focus:ring-orange-500 focus:border-orange-500' 
+                        : 'bg-gray-50 text-gray-600'
+                    }`}
+                    placeholder={isOperatorNameEditable ? "Enter employee's full name" : ""}
                   />
+                  {isOperatorNameEditable && (
+                    <p className="text-sm text-gray-500 mt-1">
+                      Enter the full name of the employee being evaluated
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-3">
@@ -760,7 +749,7 @@ export default function EvaluationWizard() {
                       <span className="font-medium">
                         {t.step4.operator}
                       </span>
-                      <span className="text-right">{certificate.operator_name}</span>
+                      <span className="text-right">{operatorName}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="font-medium">
