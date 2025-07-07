@@ -74,7 +74,7 @@ export default function ModuleRow({ module, enrollmentId, isUnlocked, isComplete
                 <video
                   controls
                   src={module.video_url}
-                  preload="metadata"
+                  preload={isUnlocked ? "metadata" : "none"}
                   className={`w-full rounded ${loading ? 'opacity-0' : 'opacity-100 transition'}`}
                   onLoadedData={() => setLoading(false)}
                   aria-label={`Training video for module ${module.order}: ${module.title}`}

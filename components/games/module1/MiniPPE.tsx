@@ -10,6 +10,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { clsx } from 'clsx'
 import Image from 'next/image'
+import { useLazyGameAssets } from '@/hooks/useLazyGameAssets'
 
 interface Props {
   onComplete: () => void
@@ -57,6 +58,12 @@ export default function MiniPPE({ onComplete, openGuide }: Props) {
   const [toast, setToast] = useState<string | null>(null)
   const [hint, setHint] = useState<string | null>(null)
   const wrapperRef = useRef<HTMLDivElement>(null)
+  
+  // Lazy load game assets
+  const { assetsLoaded, isVisible, ref } = useLazyGameAssets({
+    images: STEPS.map(s => s.image),
+    backgrounds: ['/game/cheyenne_bg.png']
+  })
 
   /** show toast for 3.5 s */
   useEffect(() => {
@@ -88,21 +95,30 @@ export default function MiniPPE({ onComplete, openGuide }: Props) {
   }, [progress])
 
   return (
-    <div ref={wrapperRef} className="relative max-w-md mx-auto select-none">
-      {/* progress banner */}
-      <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-sm px-3 py-1 rounded-full shadow z-10">
-        {progress < 4 ? `Step ${progress + 1}/4` : '✔ Completed'}
-      </div>
-
-      {/* hint tooltip */}
-      {hint && (
-        <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-red-600 text-white text-xs px-2 py-1 rounded shadow animate-pulse z-10">
-          {hint}
+    <div ref={ref} className="relative max-w-md mx-auto select-none">
+      {/* Loading state */}
+      {!assetsLoaded && (
+        <div className="aspect-video w-full overflow-hidden rounded-xl border bg-gray-100 flex items-center justify-center">
+          <div className="text-gray-500 text-sm">Loading PPE checklist...</div>
         </div>
       )}
 
-      {/* hotspot buttons overlayed on background */}
-      <div className="relative pt-[75%] bg-[url('/game/cheyenne_bg.png')] bg-cover rounded-lg overflow-hidden">
+      {assetsLoaded && (
+        <>
+          {/* progress banner */}
+          <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-sm px-3 py-1 rounded-full shadow z-10">
+            {progress < 4 ? `Step ${progress + 1}/4` : '✔ Completed'}
+          </div>
+
+          {/* hint tooltip */}
+          {hint && (
+            <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-red-600 text-white text-xs px-2 py-1 rounded shadow animate-pulse z-10">
+              {hint}
+            </div>
+          )}
+
+          {/* hotspot buttons overlayed on background */}
+          <div className="relative pt-[75%] bg-[url('/game/cheyenne_bg.png')] bg-cover rounded-lg overflow-hidden">
         {STEPS.map((step, idx) => (
           <button
             key={step.id}
@@ -146,14 +162,16 @@ export default function MiniPPE({ onComplete, openGuide }: Props) {
         </div>
       )}
 
-      {/* guide link after finish */}
-      {progress === 4 && (
-        <button
-          onClick={openGuide}
-          className="mt-3 w-full text-sm text-teal-700 underline underline-offset-2"
-        >
-          Review full 10-point inspection list →
-        </button>
+          {/* guide link after finish */}
+          {progress === 4 && (
+            <button
+              onClick={openGuide}
+              className="mt-3 w-full text-sm text-teal-700 underline underline-offset-2"
+            >
+              Review full 10-point inspection list →
+            </button>
+          )}
+        </>
       )}
     </div>
   )
