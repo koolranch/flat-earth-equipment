@@ -8,6 +8,7 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
 import { clsx } from 'clsx'
+import { useLazyGameAssets } from '@/hooks/useLazyGameAssets'
 
 const CDN = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/'
 
@@ -23,6 +24,12 @@ const TARGET = { cx: 64, cy: 56, r: 15 } // % coordinates + radius
 
 export default function MiniBalance({ onComplete }: { onComplete: () => void }) {
   const wrap = useRef<HTMLDivElement>(null)
+  
+  // Lazy load game assets
+  const { assetsLoaded, isVisible, ref } = useLazyGameAssets({
+    images: BOXES.map(b => b.img),
+    backgrounds: [CDN + 'bg3.png']
+  })
   const [placed, setPlaced] = useState<Record<string, boolean>>({})
   const [dragId, setDragId] = useState<string | null>(null)
   const [positions, setPositions] = useState<Record<string, { x: number; y: number }>>(
@@ -113,58 +120,71 @@ export default function MiniBalance({ onComplete }: { onComplete: () => void }) 
   }, [placed])
 
   return (
-    <div ref={wrap} className="relative mx-auto max-w-md select-none">
-      {/* banner */}
-      {banner && (
-        <div className="absolute inset-x-0 top-2 mx-auto w-[94%] rounded-md bg-amber-50/90 px-3 py-2 text-center text-xs font-medium text-amber-900 shadow animate-fade-in-out">
-          OSHA 29 CFR 1910.178 (g) – Keep load low & centered. Drag each box into the green circle.
+    <div ref={ref} className="relative mx-auto max-w-md select-none">
+      {/* Loading state */}
+      {!assetsLoaded && (
+        <div className="aspect-video w-full overflow-hidden rounded-xl border bg-gray-100 flex items-center justify-center">
+          <div className="text-gray-500 text-sm">Loading balance game...</div>
         </div>
       )}
 
-      {/* background */}
-      <img src={CDN + 'bg3.png'} alt="" className="w-full rounded-lg" draggable={false} />
+      {assetsLoaded && (
+        <>
+          {/* banner */}
+          {banner && (
+            <div className="absolute inset-x-0 top-2 mx-auto w-[94%] rounded-md bg-amber-50/90 px-3 py-2 text-center text-xs font-medium text-amber-900 shadow animate-fade-in-out">
+              OSHA 29 CFR 1910.178 (g) – Keep load low & centered. Drag each box into the green circle.
+            </div>
+          )}
 
-      {/* target ring */}
-      <div
-        className={clsx(
-          'absolute rounded-full',
-          glow ? 'border-2 border-teal-400 animate-pulse' : 'border border-green-600/60'
-        )}
-        style={{
-          width: `${TARGET.r * 2}%`,
-          height: `${TARGET.r * 2}%`,
-          left: `${TARGET.cx - TARGET.r}%`,
-          top: `${TARGET.cy - TARGET.r}%`
-        }}
-      />
+                    {/* background container with proper ref */}
+          <div ref={wrap} className="relative">
+            <img src={CDN + 'bg3.png'} alt="" className="w-full rounded-lg" draggable={false} />
 
-             {/* boxes */}
-       {BOXES.map(b => (
-         <img
-           key={b.id}
-           src={b.img}
-           alt={b.id}
-           draggable={false}
-           style={{
-             width: b.size,
-             height: b.size,
-             position: 'absolute',
-             left: `${positions[b.id].x}%`,
-             top: `${positions[b.id].y}%`,
-             transition: dragId === b.id ? 'none' : 'left 0.2s ease-out, top 0.2s ease-out',
-             opacity: placed[b.id] ? 0.3 : 1
-           }}
-           className="cursor-grab active:cursor-grabbing"
-           onPointerDown={e => onPointerDown(e, b)}
-         />
-       ))}
+            {/* target ring */}
+            <div
+              className={clsx(
+                'absolute rounded-full',
+                glow ? 'border-2 border-teal-400 animate-pulse' : 'border border-green-600/60'
+              )}
+              style={{
+                width: `${TARGET.r * 2}%`,
+                height: `${TARGET.r * 2}%`,
+                left: `${TARGET.cx - TARGET.r}%`,
+                top: `${TARGET.cy - TARGET.r}%`
+              }}
+            />
 
-       {/* success tip */}
-       {tip && (
-         <div className="pointer-events-none absolute bottom-3 left-1/2 w-11/12 -translate-x-1/2 rounded bg-black/80 px-3 py-2 text-center text-[13px] text-white shadow">
-           {tip}
-         </div>
-       )}
-     </div>
-   )
- } 
+            {/* boxes */}
+            {BOXES.map(b => (
+              <img
+                key={b.id}
+                src={b.img}
+                alt={b.id}
+                draggable={false}
+                style={{
+                  width: b.size,
+                  height: b.size,
+                  position: 'absolute',
+                  left: `${positions[b.id].x}%`,
+                  top: `${positions[b.id].y}%`,
+                  transition: dragId === b.id ? 'none' : 'left 0.2s ease-out, top 0.2s ease-out',
+                  opacity: placed[b.id] ? 0.3 : 1
+                }}
+                className="cursor-grab active:cursor-grabbing"
+                onPointerDown={e => onPointerDown(e, b)}
+              />
+            ))}
+
+            {/* success tip */}
+            {tip && (
+              <div className="pointer-events-none absolute bottom-3 left-1/2 w-11/12 -translate-x-1/2 rounded bg-black/80 px-3 py-2 text-center text-[13px] text-white shadow">
+                {tip}
+              </div>
+            )}
+          </div>
+        </>
+      )}
+    </div>
+  )
+} 

@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import { useLazyGameAssets } from '@/hooks/useLazyGameAssets'
 
 /* ─── ASSET BASES ─────────────────────────────────────────────── */
 const CDN_VIDEO =
@@ -166,7 +167,13 @@ export default function MiniInspection({
   const [wrong, setWrong] = useState(0)
   const [time, setTime] = useState(45)
   const [tooltip, setTooltip] = useState<string | null>(null)
-  const sirenRef = useRef<HTMLAudioElement | null>(null)
+  
+  // Lazy load game assets
+  const { assetsLoaded, isVisible, ref, playAudio } = useLazyGameAssets({
+    images: t.hotspots.map(h => CDN_GAME + h.file),
+    backgrounds: [CDN_VIDEO + 'bg2.png'],
+    audio: [CDN_GAME + 'siren.wav']
+  })
 
   /* effect: shuffle order for free-mode */
   useEffect(() => {
@@ -235,12 +242,7 @@ export default function MiniInspection({
       }
       
       /* play siren if available */
-      if (!sirenRef.current) {
-        const audio = new Audio(`${CDN_GAME}siren.wav`)
-        sirenRef.current = audio
-      }
-      sirenRef.current!.currentTime = 0
-      sirenRef.current!.play().catch(() => {}) // ignore any autoplay block
+      playAudio('siren')
     }
   }
 
@@ -249,7 +251,7 @@ export default function MiniInspection({
     'before:absolute before:inset-0 before:rounded-full before:border-2 before:border-teal-400/80 before:opacity-70 before:animate-ping'
 
   return (
-    <div className="relative mx-auto max-w-md">
+    <div ref={ref} className="relative mx-auto max-w-md">
       {/* Instructions banner */}
       <div className="mb-2 rounded-md bg-blue-50 px-3 py-2 text-center text-xs text-blue-800">
         {mode === 'seq' 
@@ -271,17 +273,24 @@ export default function MiniInspection({
         </label>
       </div>
 
+      {/* Loading state */}
+      {!assetsLoaded && (
+        <div className="aspect-video w-full overflow-hidden rounded-xl border bg-gray-100 flex items-center justify-center">
+          <div className="text-gray-500 text-sm">Loading inspection points...</div>
+        </div>
+      )}
+
       {/* game canvas */}
-      <div className="relative aspect-video w-full overflow-hidden rounded-xl border bg-gray-900">
-        {/* background */}
-        <Image
-          src={`${CDN_VIDEO}bg2.png`}
-          alt="Warehouse"
-          fill
-          priority
-          className="object-cover"
-          draggable={false}
-        />
+      {assetsLoaded && (
+        <div className="relative aspect-video w-full overflow-hidden rounded-xl border bg-gray-900">
+          {/* background */}
+          <Image
+            src={`${CDN_VIDEO}bg2.png`}
+            alt="Warehouse"
+            fill
+            className="object-cover"
+            draggable={false}
+          />
 
         {/* hotspots */}
         {t.hotspots.map(h => {
@@ -337,6 +346,7 @@ export default function MiniInspection({
           </div>
         )}
       </div>
+      )}
     </div>
   )
 } 

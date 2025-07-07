@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import { useLazyGameAssets } from '@/hooks/useLazyGameAssets'
 
 /* CDN bases */
 const CDN_IMG = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/'
@@ -33,16 +34,15 @@ export default function MiniHazard({ onComplete }: { onComplete: () => void }) {
   const [tooltip,setTooltip]   = useState<string|null>(null)
   const [done,setDone]         = useState(false)
 
-  const clickSnd = useRef<HTMLAudioElement>()
-  const errSnd   = useRef<HTMLAudioElement>()
-  const winSnd   = useRef<HTMLAudioElement>()
-
-  /* load audio once */
-  useEffect(()=>{
-    clickSnd.current = new Audio(CDN_IMG + 'success.wav')
-    errSnd.current   = new Audio(CDN_IMG + 'thud.wav')
-    winSnd.current   = new Audio(CDN_IMG + 'success.wav')
-  },[])
+  // Lazy load game assets
+  const { assetsLoaded, isVisible, ref, playAudio } = useLazyGameAssets({
+    images: HAZARDS.map(h => CDN_IMG + h.img),
+    backgrounds: [CDN_BG],
+    audio: [
+      CDN_IMG + 'success.wav',
+      CDN_IMG + 'thud.wav'
+    ]
+  })
 
   /* countdown */
   useEffect(()=>{
@@ -72,14 +72,14 @@ export default function MiniHazard({ onComplete }: { onComplete: () => void }) {
   const catchHaz = (key:number, fact:string)=>{
     setSpawned(arr=>arr.filter(h=>h.key!==key))
     setCaught(c=>c+1)
-    clickSnd.current?.play().catch(()=>{})
+    playAudio('success')
     setTooltip(fact)
     setTimeout(()=>setTooltip(null),3200)
     if(caught+1 === TOTAL){ win() }
   }
 
   const missClick = ()=>{
-    errSnd.current?.play().catch(()=>{})
+    playAudio('thud')
     setMiss(m=>m+1)
     if(miss+1 >= MISS_MAX) fail()
   }
@@ -90,13 +90,13 @@ export default function MiniHazard({ onComplete }: { onComplete: () => void }) {
   }
   const win = ()=>{
     setDone(true)
-    winSnd.current?.play().catch(()=>{})
+    playAudio('success')
     setTimeout(onComplete, 900)
   }
 
   /* render */
   return (
-    <div className="relative mx-auto max-w-md">
+    <div ref={ref} className="relative mx-auto max-w-md">
       {/* HUD */}
       <div className="mb-1 flex justify-between text-xs">
         <span>✔ {caught}/{TOTAL}</span>
@@ -104,12 +104,20 @@ export default function MiniHazard({ onComplete }: { onComplete: () => void }) {
         <span className="text-orange-500">✖ {miss}/{MISS_MAX}</span>
       </div>
 
+      {/* Loading state */}
+      {!assetsLoaded && (
+        <div className="aspect-video w-full overflow-hidden rounded-xl border bg-gray-100 flex items-center justify-center">
+          <div className="text-gray-500 text-sm">Loading hazard hunt...</div>
+        </div>
+      )}
+
       {/* canvas */}
-      <div
-        className="relative aspect-video w-full overflow-hidden rounded-xl border"
-        onClick={()=>!done && missClick()}
-      >
-        <Image src={CDN_BG} alt="" fill priority className="object-cover" draggable={false}/>
+      {assetsLoaded && (
+        <div
+          className="relative aspect-video w-full overflow-hidden rounded-xl border"
+          onClick={()=>!done && missClick()}
+        >
+          <Image src={CDN_BG} alt="" fill className="object-cover" draggable={false}/>
 
         {spawned.map(h=>(
           <button
@@ -129,7 +137,8 @@ export default function MiniHazard({ onComplete }: { onComplete: () => void }) {
             {tooltip}
           </div>
         )}
-      </div>
+        </div>
+      )}
     </div>
   )
 }

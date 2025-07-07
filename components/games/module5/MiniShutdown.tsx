@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import { useLazyGameAssets } from '@/hooks/useLazyGameAssets'
 
 /* ─── CDN paths ───────────────────────────────────────────── */
 const CDN = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/'
@@ -31,15 +32,18 @@ export default function MiniShutdown({ onComplete }:{ onComplete:()=>void }) {
   const [done,setDone]   = useState(false)
   const [focus,setFocus] = useState(0)         // keyboard focus index
 
-  /* audio refs */
-  const stepAudio = useRef<HTMLAudioElement>()
-  const errorAudio= useRef<HTMLAudioElement>()
-  const winAudio  = useRef<HTMLAudioElement>()
-  useEffect(()=>{
-    stepAudio.current  = new Audio(GAME+'step.wav')
-    errorAudio.current = new Audio(GAME+'error.wav')
-    winAudio.current   = new Audio(GAME+'win.wav')
-  },[])
+  // Lazy load game assets
+  const { assetsLoaded, isVisible, ref, playAudio } = useLazyGameAssets({
+    images: STEPS.map(s => GAME + s.img).concat([
+      GAME + 'ppe_gloves_face.png'
+    ]),
+    backgrounds: [CDN + 'bg5.png'],
+    audio: [
+      GAME + 'step.wav',
+      GAME + 'error.wav',
+      GAME + 'win.wav'
+    ]
+  })
 
   /* countdown */
   useEffect(()=>{
@@ -66,7 +70,7 @@ export default function MiniShutdown({ onComplete }:{ onComplete:()=>void }) {
     if(STEPS[idx].id === step.id){
       /* correct */
       console.log(`✅ Correct step! Advancing from ${idx} to ${idx + 1}`)
-      stepAudio.current?.play().catch(()=>{})
+      playAudio('step')
       setTooltip(step.fact)
       setTimeout(()=>setTooltip(null),3800)
       // PPE overlay for charger step
@@ -74,14 +78,14 @@ export default function MiniShutdown({ onComplete }:{ onComplete:()=>void }) {
       setIdx(i=>i+1)
       if(idx+1===STEPS.length){
         console.log(`🎉 Game complete!`)
-        winAudio.current?.play().catch(()=>{})
+        playAudio('win')
         setDone(true)
         setTimeout(onComplete,800)
       }
     } else {
       /* wrong order */
       console.log(`❌ Wrong step! Expected ${STEPS[idx].id} but clicked ${step.id}`)
-      errorAudio.current?.play().catch(()=>{})
+      playAudio('error')
       setTooltip(`❌ Follow the sequence! Click ${STEPS[idx].id.toUpperCase()} next (step ${idx + 1}/7)`)
       setTimeout(()=>setTooltip(null), 2000)
       resetFail()
@@ -109,7 +113,7 @@ export default function MiniShutdown({ onComplete }:{ onComplete:()=>void }) {
   const pulseHelp = fails>=2 // pulse next icon after 2 failed runs
 
   return (
-    <div className="relative mx-auto max-w-md select-none" onKeyDown={keyNav} tabIndex={0}>
+    <div ref={ref} className="relative mx-auto max-w-md select-none" onKeyDown={keyNav} tabIndex={0}>
       {/* Instructions banner */}
       <div className="mb-2 rounded-md bg-blue-50 px-3 py-2 text-center text-xs text-blue-800">
         Sequential Shutdown: Follow OSHA procedure ({idx + 1}/7). Next: {STEPS[idx]?.id.toUpperCase() || 'COMPLETE'}
@@ -122,9 +126,17 @@ export default function MiniShutdown({ onComplete }:{ onComplete:()=>void }) {
         <button className="underline" onClick={(e)=>{e.stopPropagation(); window.scrollTo({behavior:'smooth', top:0})}}>Replay&nbsp;0:29&nbsp;video</button>
       </div>
 
+      {/* Loading state */}
+      {!assetsLoaded && (
+        <div className="aspect-video w-full overflow-hidden rounded-xl border bg-gray-100 flex items-center justify-center">
+          <div className="text-gray-500 text-sm">Loading shutdown sequence...</div>
+        </div>
+      )}
+
       {/* canvas */}
-      <div className="relative aspect-video w-full overflow-hidden rounded-xl border bg-gray-800/20">
-        <Image src={CDN+'bg5.png'} alt="Shutdown bay" fill className="object-cover" priority draggable={false}/>
+      {assetsLoaded && (
+        <div className="relative aspect-video w-full overflow-hidden rounded-xl border bg-gray-800/20">
+          <Image src={CDN+'bg5.png'} alt="Shutdown bay" fill className="object-cover" draggable={false}/>
 
         {STEPS.map((s,i)=>(
           <button
@@ -164,7 +176,8 @@ export default function MiniShutdown({ onComplete }:{ onComplete:()=>void }) {
             {tooltip}
           </div>
         )}
-      </div>
+        </div>
+      )}
     </div>
   )
 } 
