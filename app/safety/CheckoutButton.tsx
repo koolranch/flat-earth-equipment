@@ -67,11 +67,14 @@ export default function CheckoutButton({ courseSlug, price, priceId, coupon }: C
     <div>
       <button
         onClick={handleCheckout}
-        disabled={isLoading}
-        className="rounded bg-orange-600 px-6 py-3 font-medium text-white hover:bg-orange-700 disabled:opacity-50"
-        aria-label="Start forklift certification checkout"
+        disabled={true} // Disabled for construction
+        className="rounded bg-gray-500 px-6 py-3 font-medium text-white cursor-not-allowed relative"
+        aria-label="Forklift certification coming soon"
       >
-        {isLoading ? 'Loading...' : `Get Certified for $${price}`}
+        <span className="flex flex-col items-center">
+          <span className="text-sm">🚧 Under Construction</span>
+          <span className="text-xs opacity-80">Certification Coming Soon - $${price}</span>
+        </span>
       </button>
       
       {error && (
