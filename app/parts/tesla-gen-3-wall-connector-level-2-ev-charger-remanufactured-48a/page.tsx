@@ -12,7 +12,7 @@ export const metadata = {
   openGraph: {
     title: "Tesla Gen 3 Wall Connector - Professional Level 2 EV Charging",
     description: "Fast 11.5kW Tesla charging with app integration. Remanufactured quality, weather-resistant design.",
-    type: "product",
+    type: "website",
   },
 };
 
