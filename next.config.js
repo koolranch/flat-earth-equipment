@@ -59,6 +59,27 @@ const nextConfig = {
         destination: '/charger-modules',
         permanent: true,
       },
+      // EV Charger redirects to new landing page
+      {
+        source: '/ev-chargers',
+        destination: '/electric-vehicle-chargers',
+        permanent: true,
+      },
+      {
+        source: '/electric-car-chargers',
+        destination: '/electric-vehicle-chargers',
+        permanent: true,
+      },
+      {
+        source: '/level-2-chargers',
+        destination: '/electric-vehicle-chargers',
+        permanent: true,
+      },
+      {
+        source: '/chargepoint-chargers',
+        destination: '/electric-vehicle-chargers',
+        permanent: true,
+      },
       // Toyota seat assembly redirect
       {
         source: '/parts/toyota-seat-assembly-53730-u117071',
