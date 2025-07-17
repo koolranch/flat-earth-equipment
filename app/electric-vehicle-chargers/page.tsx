@@ -311,11 +311,7 @@ const translations = {
   }
 };
 
-export const metadata = {
-  title: "Electric Vehicle Chargers | Level 2 EV Charging Stations | Flat Earth Equipment",
-  description: "Professional-grade electric vehicle chargers and EV charging stations. Remanufactured Level 2 chargers with smart features, weather-resistant design, and eco-friendly sustainability.",
-  keywords: "electric vehicle chargers, ev chargers, level 2 charging station, ev charging equipment, remanufactured ev chargers, chargepoint, electric car chargers",
-};
+// Metadata moved to layout.tsx since this is a client component
 
 export default function ElectricVehicleChargersPage() {
   const [language, setLanguage] = useState<'en' | 'es'>('en');
