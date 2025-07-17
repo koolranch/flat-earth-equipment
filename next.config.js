@@ -80,6 +80,37 @@ const nextConfig = {
         destination: '/electric-vehicle-chargers',
         permanent: true,
       },
+      // Spanish EV Charger redirects to main bilingual page
+      {
+        source: '/cargadores-ev',
+        destination: '/electric-vehicle-chargers',
+        permanent: true,
+      },
+      {
+        source: '/cargadores-electricos',
+        destination: '/electric-vehicle-chargers',
+        permanent: true,
+      },
+      {
+        source: '/cargadores-vehiculos-electricos',
+        destination: '/electric-vehicle-chargers',
+        permanent: true,
+      },
+      {
+        source: '/cargadores-autos-electricos',
+        destination: '/electric-vehicle-chargers',
+        permanent: true,
+      },
+      {
+        source: '/estaciones-carga-ev',
+        destination: '/electric-vehicle-chargers',
+        permanent: true,
+      },
+      {
+        source: '/cargadores-nivel-2',
+        destination: '/electric-vehicle-chargers',
+        permanent: true,
+      },
       // Toyota seat assembly redirect
       {
         source: '/parts/toyota-seat-assembly-53730-u117071',
