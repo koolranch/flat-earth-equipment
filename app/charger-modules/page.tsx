@@ -4,6 +4,8 @@ import ChargerModuleTrustBadges from "@/components/ChargerModuleTrustBadges";
 import StickyBottomCTA from "@/components/StickyBottomCTA";
 import { getUserLocale } from "@/lib/getUserLocale";
 import Script from "next/script";
+import Link from "next/link";
+import { Zap } from "lucide-react";
 
 export const metadata = {
   title: "Forklift Charger Modules | Enersys & Hawker | Exchange & Repair | Flat Earth Equipment",
@@ -80,6 +82,28 @@ export default function ChargersLanding() {
       </section>
 
         <ChargerModuleTrustBadges locale={locale} />
+
+        {/* Cross-promotion to EV Chargers */}
+        <section className="bg-blue-50 rounded-2xl p-8 text-center space-y-6">
+          <div className="inline-flex items-center gap-2 bg-blue-600/10 text-blue-800 px-4 py-2 rounded-full text-sm font-medium">
+            <Zap className="h-4 w-4" />
+            Also Available
+          </div>
+          <h2 className="text-2xl font-bold text-blue-900">
+            Need Electric Vehicle Chargers?
+          </h2>
+          <p className="text-blue-800 max-w-2xl mx-auto">
+            Discover our professional-grade Level 2 EV charging stations. Remanufactured ChargePoint and other premium brands 
+            with the same quality guarantee and environmental benefits.
+          </p>
+          <Link
+            href="/electric-vehicle-chargers"
+            className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+          >
+            <Zap className="h-5 w-5" />
+            Shop EV Chargers →
+          </Link>
+        </section>
       </main>
       
       <StickyBottomCTA locale={locale} />
