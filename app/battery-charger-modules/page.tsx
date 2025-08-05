@@ -72,7 +72,7 @@ export default async function BatteryChargerModulesPage() {
       {parts && parts.length > 0 && (
         <StickyFooterCTA>
           <div className="flex justify-between items-center p-4 bg-canyon-rust text-white">
-            <span>In-Stock Charger Module — $749 + $350 core fee</span>
+                            <span>In-Stock Charger Module — $849 + $350 core fee</span>
             <StickyFooterButton product={parts[0]} slug={parts[0].slug} />
           </div>
         </StickyFooterCTA>

@@ -121,7 +121,7 @@ export default function OptionSelectorCard({ module, locale = 'en' }: { module: 
             </tr>
           </thead>
           <tbody className="[&>tr>*]:py-1">
-            <tr><td>Up-front&nbsp;cost</td><td>{formatUsd(74900)}</td><td>{formatUsd(60000)}</td></tr>
+            <tr><td>Up-front&nbsp;cost</td><td>{formatUsd(84900)}</td><td>{formatUsd(70000)}</td></tr>
             <tr><td>Core&nbsp;deposit</td><td>{formatUsd(CORE_DEPOSIT)} (refunded)</td><td>None</td></tr>
             <tr><td>Ship out</td><td>Today (order ≤ 3 PM&nbsp;EST)</td><td>After we refurbish</td></tr>
             <tr><td>Total&nbsp;turn-around</td><td>1-3 days (ground)</td><td>3-5 business days</td></tr>
