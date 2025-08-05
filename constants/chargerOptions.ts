@@ -27,14 +27,14 @@ export const CHARGER_MODULES: ChargerModule[] = [
     offers: [
       {
         label: "Reman Exchange",
-        sku: "price_1RQJNjHJI548rO8JKJclmS56",
+        sku: "price_1RsZDCHJI548rO8JlVhsTFBT",
         price: 84900,
         coreInfo: "+ $350 refundable core deposit",
         desc: "Ships today if ordered before 3 PM EST.",
       },
       {
         label: "Repair & Return",
-        sku: "price_1Rbo2pHJI548rO8JJZBG5o7L",
+        sku: "price_1RsZDBHJI548rO8JhS1sUEAQ",
         price: 70000,
         desc: "Ship your unit in (prepaid label), we refurbish & return in 3-5 business days.",
       },
@@ -50,14 +50,14 @@ export const CHARGER_MODULES: ChargerModule[] = [
     offers: [
       {
         label: "Reman Exchange",
-        sku: "price_1RQJNjHJI548rO8JFFATEXkd",
+        sku: "price_1RsZDAHJI548rO8J7mw3OJhS",
         price: 84900,
         coreInfo: "+ $350 refundable core deposit",
         desc: "Ships today if ordered before 3 PM EST.",
       },
       {
         label: "Repair & Return",
-        sku: "price_1RboeIHJI548rO8JZloYhNta", // Hawker-specific repair price
+        sku: "price_1RsZDBHJI548rO8J6EAKJcSg", // Hawker-specific repair price
         price: 70000,
         desc: "Ship your unit in (prepaid label), we refurbish & return in 3-5 business days.",
       },
