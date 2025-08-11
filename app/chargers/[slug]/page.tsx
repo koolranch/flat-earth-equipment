@@ -4,7 +4,7 @@ import { currency, parseSpecsFromSlug, shortDesc } from "@/lib/chargers";
 import SpecTable from "@/components/SpecTable";
 import RelatedChargers from "@/components/RelatedChargers";
 import QuoteButton from "@/components/QuoteButton";
-import AddToCartButton from "@/components/AddToCartButton";
+import { BuyNowButton } from "@/components/AddToCartButton";
 
 export const revalidate = 60;
 
@@ -162,7 +162,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             <div className="text-xl font-semibold">
               {priceStr ? priceStr : <span className="text-neutral-500 text-base">Call for pricing</span>}
             </div>
-            <AddToCartButton priceId={(part as any).stripe_price_id} slug={part.slug} />
+            <BuyNowButton priceId={(part as any).stripe_price_id} slug={part.slug} />
             <QuoteButton product={{ name: part.name, slug: part.slug, sku: part.sku }} />
             <button
               onClick={() => navigator.clipboard.writeText(part.sku ?? "")}

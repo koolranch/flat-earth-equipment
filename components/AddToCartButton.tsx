@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 import { ReactNode, useState } from 'react';
 
-interface AddToCartButtonProps {
+interface LegacyAddToCartProps {
   sku: string; // Stripe Price ID
   qty: number;
   price?: number; // Price in cents
@@ -26,7 +26,7 @@ function AddToCartToCartLegacy({
   meta, 
   className = "", 
   children 
-}: AddToCartButtonProps) {
+}: LegacyAddToCartProps) {
   const { addItem } = useCart();
   const router = useRouter();
 
@@ -76,7 +76,7 @@ function AddToCartToCartLegacy({
   );
 } 
 
-export default function AddToCartButton({
+export function BuyNowButton({
   priceId,
   slug,
   quantity = 1,
@@ -119,4 +119,9 @@ export default function AddToCartButton({
       {loading ? "Redirecting…" : "Add to Cart"}
     </button>
   );
+}
+
+// Default export maintains backward compatibility for other pages still using the legacy cart button
+export default function AddToCartButton(props: LegacyAddToCartProps) {
+  return AddToCartToCartLegacy(props);
 }
