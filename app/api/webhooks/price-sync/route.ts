@@ -2,9 +2,7 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-05-28.basil'
-});
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -35,15 +33,36 @@ export async function POST(req: Request) {
     for (const update of updates) {
       try {
         console.log('Processing update:', update);
-        // Create a new price in Stripe
+        
+        // Get the part details to check for core charges
+        const { data: part, error: partError } = await supabase
+          .from('parts')
+          .select('sku, name, has_core_charge, core_charge')
+          .eq('id', update.part_id)
+          .single();
+
+        if (partError) {
+          console.error('Error fetching part details:', partError);
+          throw partError;
+        }
+
+        // Create a new price in Stripe for the main product only
+        // Core charges are handled dynamically in checkout, not as Stripe price IDs
         const newPrice = await stripe.prices.create({
           product: update.stripe_price_id.split('_')[0], // Extract product ID from price ID
           unit_amount: update.new_price_cents,
           currency: 'usd',
+          metadata: {
+            sku: part.sku,
+            has_core_charge: part.has_core_charge?.toString() || 'false',
+            core_charge_amount: part.core_charge?.toString() || '0'
+          }
         });
         console.log('Created new Stripe price:', newPrice.id);
 
         // Update the part with the new price ID
+        // NOTE: We only update the stripe_price_id, NOT the core charge fields
+        // Core charges are preserved and handled separately in checkout
         const { error: updateError } = await supabase
           .from('parts')
           .update({ stripe_price_id: newPrice.id })
@@ -60,10 +79,18 @@ export async function POST(req: Request) {
           .update({ processed_at: new Date().toISOString() })
           .eq('id', update.id);
 
+        console.log(`✅ Successfully processed price update for ${part.sku} (${part.name})`);
+        if (part.has_core_charge) {
+          console.log(`   💰 Core charge preserved: $${part.core_charge}`);
+        }
+
         results.push({
           id: update.id,
+          sku: part.sku,
           status: 'success',
-          new_price_id: newPrice.id
+          new_price_id: newPrice.id,
+          has_core_charge: part.has_core_charge,
+          core_charge: part.core_charge
         });
       } catch (error) {
         console.error('Error processing update:', update, error);
@@ -91,7 +118,7 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error('Error processing price updates (outer catch):', error);
     return NextResponse.json(
-      { error: 'Failed to process price updates', details: error instanceof Error ? error.message : error },
+      { error: 'Failed to process price updates' },
       { status: 500 }
     );
   }

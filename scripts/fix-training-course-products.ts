@@ -4,9 +4,7 @@ import dotenv from 'dotenv'
 // Load environment variables
 dotenv.config({ path: '.env.local' })
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-05-28.basil',
-})
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
 // Known training course price IDs from the codebase
 const trainingPriceIds = [
