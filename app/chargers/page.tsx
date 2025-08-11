@@ -19,7 +19,7 @@ async function fetchParts() {
   const sb = supabaseServer();
   const { data, error } = await sb
     .from("parts")
-    .select("name,slug,brand,description,image_url,price,price_cents,sku")
+    .select("name,slug,brand,description,image_url,price,price_cents,sku,stripe_price_id")
     .eq("category_slug", "battery-chargers")
     .eq("brand", "FSIP")
     .order("slug", { ascending: true })

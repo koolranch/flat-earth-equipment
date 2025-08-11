@@ -4,6 +4,7 @@ import { currency, parseSpecsFromSlug, shortDesc } from "@/lib/chargers";
 import SpecTable from "@/components/SpecTable";
 import RelatedChargers from "@/components/RelatedChargers";
 import QuoteButton from "@/components/QuoteButton";
+import AddToCartButton from "@/components/AddToCartButton";
 
 export const revalidate = 60;
 
@@ -17,13 +18,14 @@ type Part = {
   price_cents: number | null;
   sku: string | null;
   category_slug: string | null;
+  stripe_price_id?: string | null;
 };
 
 async function getPart(slug: string): Promise<Part | null> {
   const sb = supabaseServer();
   const { data, error } = await sb
     .from("parts")
-    .select("name,slug,brand,description,image_url,price,price_cents,sku,category_slug")
+    .select("name,slug,brand,description,image_url,price,price_cents,sku,category_slug,stripe_price_id")
     .eq("slug", slug)
     .limit(1)
     .single();
@@ -160,6 +162,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             <div className="text-xl font-semibold">
               {priceStr ? priceStr : <span className="text-neutral-500 text-base">Call for pricing</span>}
             </div>
+            <AddToCartButton priceId={(part as any).stripe_price_id} slug={part.slug} />
             <QuoteButton product={{ name: part.name, slug: part.slug, sku: part.sku }} />
             <button
               onClick={() => navigator.clipboard.writeText(part.sku ?? "")}

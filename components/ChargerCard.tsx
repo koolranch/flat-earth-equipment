@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Battery } from "lucide-react";
 import { Specs, currency, parseSpecsFromSlug, shortDesc } from "@/lib/chargers";
 import QuoteButton from "./QuoteButton";
+import AddToCartButton from "./AddToCartButton";
 
 type Props = {
   part: {
@@ -13,6 +14,7 @@ type Props = {
     price: string | null;
     price_cents: number | null;
     sku: string | null;
+    stripe_price_id?: string | null;
   };
 };
 
@@ -65,6 +67,7 @@ export default function ChargerCard({ part }: Props) {
             <Link href={`/chargers/${part.slug}`} className="rounded-xl border px-3 py-2 text-sm hover:bg-neutral-50">
               Details
             </Link>
+            <AddToCartButton priceId={(part as any).stripe_price_id} slug={part.slug} />
             <QuoteButton product={{ name: part.name, slug: part.slug, sku: part.sku }} />
           </div>
         </div>
