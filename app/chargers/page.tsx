@@ -1,6 +1,8 @@
 import { supabaseServer } from "@/lib/supabaseServer";
 import { parseSpecsFromSlug } from "@/lib/chargers";
 import ChargerFilters from "@/components/ChargerFilters";
+import BrandSection from "@/components/BrandSection";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import ChargerCard from "@/components/ChargerCard";
 import FilterChips from "@/components/FilterChips";
 import Pagination from "@/components/Pagination";
@@ -66,17 +68,11 @@ export default async function Page({ searchParams }: { searchParams: SearchParam
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
-      <header className="mb-6">
-        <h1 className="text-2xl font-bold tracking-tight">FSIP GREEN Series Battery Chargers</h1>
-        <p className="mt-1 text-neutral-600">
-          Industrial chargers for lead-acid, AGM, gel, and lithium batteries. Filter by family, voltage, and current.
-        </p>
-      </header>
-
-      <section className="mb-2 rounded-2xl border bg-white p-4">
+      <Breadcrumbs items={[{ href: "/", label: "Home" }, { href: "/chargers", label: "Chargers" }, { label: "FSIP GREEN Series" }]} />
+      <BrandSection title="FSIP GREEN Series Battery Chargers" subtitle="Rugged, fleet-ready industrial chargers. Filter by family, voltage, and current.">
         <ChargerFilters families={families} volts={volts} amps={amps} />
         <FilterChips />
-      </section>
+      </BrandSection>
 
       <section>
         {pageItems.length === 0 ? (

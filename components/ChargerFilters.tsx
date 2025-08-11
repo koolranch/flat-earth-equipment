@@ -42,9 +42,9 @@ export default function ChargerFilters({
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
       <label className="flex flex-col gap-1">
-        <span className="text-sm text-neutral-500">Family</span>
+        <span className="text-sm subtle">Family</span>
         <select
-          className="rounded-xl border p-2"
+          className="brand-select"
           value={family}
           onChange={(e) => {
             setFamily(e.target.value);
@@ -60,9 +60,9 @@ export default function ChargerFilters({
       </label>
 
       <label className="flex flex-col gap-1">
-        <span className="text-sm text-neutral-500">Voltage</span>
+        <span className="text-sm subtle">Voltage</span>
         <select
-          className="rounded-xl border p-2"
+          className="brand-select"
           value={v}
           onChange={(e) => {
             setV(e.target.value);
@@ -78,9 +78,9 @@ export default function ChargerFilters({
       </label>
 
       <label className="flex flex-col gap-1">
-        <span className="text-sm text-neutral-500">Current</span>
+        <span className="text-sm subtle">Current</span>
         <select
-          className="rounded-xl border p-2"
+          className="brand-select"
           value={a}
           onChange={(e) => {
             setA(e.target.value);
