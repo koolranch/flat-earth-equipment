@@ -6,7 +6,7 @@ import { createReturnLabel } from '@/lib/shippo'
 export async function POST(req: Request) {
   const rawBody = await req.text()
   const signature = req.headers.get('stripe-signature')!
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2025-05-28.basil' })
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
   
   let event
   try {
@@ -192,7 +192,7 @@ export async function POST(req: Request) {
       if (isRepairOrder && session.customer_details?.email) {
         try {
           // Fetch complete session with shipping details
-          const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2025-05-28.basil' })
+          const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
           const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
             expand: ['shipping_details']
           })
@@ -264,7 +264,7 @@ export async function POST(req: Request) {
           }
 
           // Fetch complete session with shipping details and line items
-          const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2025-05-28.basil' })
+          const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
           const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
             expand: ['shipping_details', 'line_items', 'line_items.data.price.product']
           })
