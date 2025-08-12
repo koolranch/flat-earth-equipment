@@ -28,6 +28,7 @@ export type RecommendedPart = {
   score: number; // total weighted score from backend
   reasons: RecommendReason[]; // short explanation points
   fallback?: boolean; // true when shown as 'closest available'
+  matchType: 'best' | 'alternate'; // indicates match quality tier
 };
 
 export type RecommendResponse = {

@@ -38,6 +38,7 @@ export async function POST(req: NextRequest) {
       const { score, reasons } = scoreItem(body, p);
       const s = parseSpecsFromSlug(p.slug);
       const fallback = score < 120; // arbitrary threshold for 'best match'
+      const matchType: 'best' | 'alternate' = score >= 150 ? 'best' : 'alternate'; // 150+ = best match, 120-149 = alternate, <120 = fallback
       return { 
         ...p, 
         dc_voltage_v: s.voltage, 
@@ -46,7 +47,8 @@ export async function POST(req: NextRequest) {
         chemistry_support: ['lead-acid','AGM','gel','lithium'], 
         score, 
         reasons, 
-        fallback 
+        fallback,
+        matchType
       };
     }).sort((a,b) => b.score - a.score).slice(0, body.limit ?? 6);
 
