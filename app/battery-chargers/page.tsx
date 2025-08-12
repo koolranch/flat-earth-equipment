@@ -3,6 +3,7 @@ import { supabaseServer } from "@/lib/supabaseServer";
 import BatteryChargerSelector from "./BatteryChargerSelector";
 import ChargerFAQ from "@/components/ChargerFAQ";
 import ChargerCard from "@/components/ChargerCard";
+import RecommendationsBlock from "@/components/RecommendationsBlock";
 import { type BatteryCharger, parseChargerSpecs } from "@/lib/batteryChargers";
 
 export const revalidate = 60;
@@ -233,6 +234,18 @@ export default async function Page({
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Interactive Selector Component */}
         <BatteryChargerSelector chargers={allParts} />
+
+        {/* Smart Recommendations Section */}
+        <RecommendationsBlock 
+          filters={{ 
+            voltage: searchParams.v ? Number(searchParams.v) : null, 
+            amps: searchParams.a ? Number(searchParams.a) : null, 
+            phase: (searchParams.phase as '1P' | '3P') ?? null,
+            chemistry: null,
+            limit: 6
+          }} 
+          fallbackItems={filteredParts} 
+        />
 
         {/* SSR Results for SEO (when filters are applied via URL) */}
         {hasFilters && (
