@@ -8,19 +8,18 @@
   --color-retrain-bg: #EF4444; /* rose-500 */
 }
 
-/* === Brand tokens (non-breaking) === */
+/* === Brand tokens (unified site colors) === */
 :root{
-  --brand-bg: #f7f7f5;             /* page background */
-  --brand-card: #ffffff;            /* card base */
-  --brand-ink: #0f1115;             /* primary text */
-  --brand-muted: #6b7280;           /* secondary text */
-  --brand-border: #e5e7eb;          /* borders */
-  --brand-accent: #0f766e;          /* buttons/accents (teal, rugged vibe) */
-  --brand-accent-ink: #ffffff;      /* on-accent text */
-  --brand-accent-hover: #0b5e58;    /* hover state */
-  --brand-chip: #f1f5f9;            /* spec badge bg */
+  --brand-bg: #F7F7F5;                 /* page background */
+  --brand-card: #FFFFFF;               /* card background */
+  --brand-ink: #0F1115;                /* primary text */
+  --brand-muted: #6B7280;              /* secondary text */
+  --brand-border: #E5E7EB;             /* borders */
+  --brand-accent: #D35400;             /* main brand orange from site */
+  --brand-accent-hover: #C45A38;       /* canyon-rust hover */
+  --brand-chip: #F1F5F9;               /* subtle pills */
+  --brand-radius: 1rem;                /* rounded-2xl vibe */
   --brand-shadow: 0 8px 20px rgba(15,17,21,0.08);
-  --brand-radius: 1rem;             /* 16px ~ rounded-2xl vibe */
 }
 
 html,body{
@@ -28,14 +27,19 @@ html,body{
   background: var(--brand-bg);
 }
 
-/***** Utility helpers *****/
+/* === Reusable utilities === */
 .brand-card{ background:var(--brand-card); border:1px solid var(--brand-border); border-radius:var(--brand-radius); box-shadow:var(--brand-shadow); }
 .brand-chip{ background:var(--brand-chip); border-radius:999px; padding:0.25rem 0.5rem; font-size:12px; }
-.brand-btn{ background:var(--brand-accent); color:var(--brand-accent-ink); border-radius:0.75rem; padding:0.5rem 0.75rem; font-weight:600; }
-.brand-btn:hover{ background:var(--brand-accent-hover); }
-.brand-btn-outline{ border:1px solid var(--brand-border); background:transparent; border-radius:0.75rem; padding:0.5rem 0.75rem; }
-.brand-select{ border:1px solid var(--brand-border); border-radius:0.75rem; padding:0.5rem; background:var(--brand-card); }
-.brand-section{ border:1px solid var(--brand-border); border-radius:var(--brand-radius); background:var(--brand-card); }
+.btn{ border-radius:0.75rem; padding:0.5rem 0.75rem; font-weight:600; transition: all 0.2s ease; }
+.btn-primary{ background:var(--brand-accent); color:#fff; }
+.btn-primary:hover{ background:var(--brand-accent-hover); }
+.btn-outline{ border:1px solid var(--brand-border); background:transparent; }
+.btn-outline:hover{ background:var(--brand-chip); }
+.badge-best{ background:#D1FAE5; color:#065F46; border-radius:999px; padding:0.25rem 0.5rem; font-size:12px; font-weight:500; }
+.badge-alt{ background:#FEEBC8; color:#9A5B06; border-radius:999px; padding:0.25rem 0.5rem; font-size:12px; font-weight:500; }
+
+/* Optional hero treatment to match site header gradient */
+.hero-gradient{ background:linear-gradient(180deg, color-mix(in srgb, var(--brand-accent) 15%, transparent) 0%, rgba(15,17,21,0.06) 60%, transparent 100%); }
 
 /***** Typography scale (kept subtle) *****/
 .h1{ font-size:1.5rem; line-height:1.2; font-weight:800; letter-spacing:-0.01em; }

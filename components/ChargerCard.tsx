@@ -39,9 +39,9 @@ export default function ChargerCard({ charger, onQuoteClick }: Props) {
   };
 
   return (
-    <div className="bg-white border border-neutral-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
+    <div className="brand-card transition hover:shadow-md">
       {/* Image */}
-      <div className="aspect-[4/3] w-full overflow-hidden bg-neutral-100 relative">
+      <div className="aspect-[4/3] w-full overflow-hidden rounded-t-brand bg-brand-chip relative">
         {quickShip && (
           <div className="absolute top-3 left-3 z-10 inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 border border-green-200">
             <Truck className="w-3 h-3" />
@@ -72,22 +72,22 @@ export default function ChargerCard({ charger, onQuoteClick }: Props) {
         {/* Spec Badges */}
         <div className="flex flex-wrap gap-1 mb-3">
           {specs.voltage && (
-            <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-full">
+            <span className="brand-chip">
               ⚡ {specs.voltage}V
             </span>
           )}
           {specs.current && (
-            <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">
+            <span className="brand-chip">
               ⏱ {specs.current}A
             </span>
           )}
           {specs.phase !== "unknown" && (
-            <span className="px-2 py-1 bg-orange-100 text-orange-700 text-xs font-medium rounded-full">
+            <span className="brand-chip">
               {specs.phase === "1P" ? "1-Phase" : "3-Phase"}
             </span>
           )}
           {specs.chemistry.length > 0 && specs.chemistry[0] && (
-            <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs font-medium rounded-full">
+            <span className="brand-chip">
               {specs.chemistry[0].includes("Lead") ? "Lead-Acid" : specs.chemistry[0]}
             </span>
           )}
@@ -95,13 +95,13 @@ export default function ChargerCard({ charger, onQuoteClick }: Props) {
 
         {/* Product Name & Brand */}
         <div className="mb-3">
-          <h3 className="font-semibold text-neutral-900 text-lg leading-tight">
-            <Link href={`/chargers/${charger.slug}`} className="hover:text-blue-600 transition-colors">
+          <h3 className="font-semibold text-brand-ink text-lg leading-tight">
+            <Link href={`/chargers/${charger.slug}`} className="hover:text-brand-accent transition-colors">
               {charger.name}
             </Link>
           </h3>
           {charger.brand && (
-            <p className="text-sm text-neutral-500 mt-1">{charger.brand}</p>
+            <p className="text-sm text-brand-muted mt-1">{charger.brand}</p>
           )}
         </div>
 
@@ -170,7 +170,7 @@ export default function ChargerCard({ charger, onQuoteClick }: Props) {
           ) : (
             <button
               onClick={handleQuoteClick}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-xl transition-colors"
+              className="w-full btn btn-primary font-medium py-3 px-4"
             >
               Request Quote
             </button>
@@ -180,7 +180,7 @@ export default function ChargerCard({ charger, onQuoteClick }: Props) {
           <div className="flex items-center justify-between">
             <Link
               href={`/chargers/${charger.slug}`}
-              className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+              className="text-sm text-brand-accent hover:text-brand-accentHover font-medium"
             >
               View details
             </Link>
@@ -190,7 +190,7 @@ export default function ChargerCard({ charger, onQuoteClick }: Props) {
               {charger.sku && (
                 <button
                   onClick={() => copyToClipboard(charger.sku!, "sku")}
-                  className="inline-flex items-center gap-1 text-xs text-neutral-500 hover:text-neutral-700"
+                  className="inline-flex items-center gap-1 text-xs text-brand-muted hover:text-brand-ink"
                   title="Copy SKU"
                 >
                   {copiedField === "sku" ? (
@@ -205,7 +205,7 @@ export default function ChargerCard({ charger, onQuoteClick }: Props) {
               {/* Quote Button */}
               <button
                 onClick={handleQuoteClick}
-                className="text-xs text-neutral-500 hover:text-neutral-700 font-medium"
+                className="text-xs text-brand-muted hover:text-brand-ink font-medium"
               >
                 Quote
               </button>

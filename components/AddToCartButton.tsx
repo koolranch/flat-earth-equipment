@@ -53,7 +53,7 @@ function AddToCartToCartLegacy({
       duration: 2000,
       position: 'bottom-right',
       style: {
-        background: '#059669',
+        background: 'var(--brand-accent)',
         color: '#fff',
         padding: '16px',
         borderRadius: '8px',
@@ -103,7 +103,7 @@ export function BuyNowButton({
       else throw new Error("No checkout URL");
     } catch (err) {
       console.error(err);
-      alert("Sorry, checkout couldn’t start. Please try again or request a quote.");
+      alert("Sorry, checkout couldn't start. Please try again or request a quote.");
       setLoading(false);
     }
   }
@@ -113,7 +113,7 @@ export function BuyNowButton({
       type="button"
       onClick={buyNow}
       disabled={disabled || loading}
-      className={`rounded-xl px-3 py-2 text-sm font-semibold text-white ${disabled ? "bg-neutral-300 cursor-not-allowed" : "bg-black hover:bg-neutral-800"}`}
+      className={`btn btn-primary ${disabled || loading ? 'opacity-50 cursor-not-allowed' : ''}`}
       title={disabled ? "Pricing not online yet—request a quote." : "Buy now"}
     >
       {loading ? "Redirecting…" : "Add to Cart"}
