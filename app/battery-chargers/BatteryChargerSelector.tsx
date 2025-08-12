@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { type BatteryCharger, type SelectorFilters, generateFilterOptions, filterChargers } from "@/lib/batteryChargers";
+import { type BatteryCharger, parseChargerSpecs } from "@/lib/batteryChargers";
 import ChargerSelector from "@/components/ChargerSelector";
 import ChargerCard from "@/components/ChargerCard";
 import ChargerHelpModal from "@/components/ChargerHelpModal";
@@ -11,25 +11,60 @@ type Props = {
   chargers: BatteryCharger[];
 };
 
+type SelectorFilters = {
+  voltage?: number | null;
+  amps?: number | null;
+  phase?: "1P" | "3P" | null;
+};
+
 export default function BatteryChargerSelector({ chargers }: Props) {
-  const [filters, setFilters] = useState<SelectorFilters>({
-    voltage: null,
-    current: null,
-    phase: null,
-    chemistry: [],
-  });
-  
+  const [uiFilters, setUiFilters] = useState<SelectorFilters>({});
   const [helpModalOpen, setHelpModalOpen] = useState(false);
   const [quoteModalOpen, setQuoteModalOpen] = useState(false);
   const [selectedCharger, setSelectedCharger] = useState<BatteryCharger | null>(null);
 
-  // Generate filter options from available chargers
-  const filterOptions = useMemo(() => generateFilterOptions(chargers), [chargers]);
-  
-  // Filter chargers based on current selections
+  // Filter chargers based on current selections with tolerance
   const filteredChargers = useMemo(() => {
-    return filterChargers(chargers, filters);
-  }, [chargers, filters]);
+    return chargers.filter((charger) => {
+      const specs = parseChargerSpecs(charger);
+
+      // Voltage filter (exact match)
+      if (uiFilters.voltage && specs.voltage !== uiFilters.voltage) {
+        return false;
+      }
+
+      // Phase filter (exact match if specified)
+      if (uiFilters.phase && specs.phase !== uiFilters.phase) {
+        return false;
+      }
+
+      // Amps filter with tolerance (±10A so we don't over-filter)
+      if (uiFilters.amps) {
+        const tolerance = 10;
+        const chargerAmps = specs.current || 0;
+        const targetAmps = uiFilters.amps;
+        if (!(chargerAmps >= (targetAmps - tolerance) && chargerAmps <= (targetAmps + tolerance))) {
+          return false;
+        }
+      }
+
+      return true;
+    });
+  }, [chargers, uiFilters]);
+
+  // Sort by closeness to recommended amps so the best match rises to the top
+  const sortedChargers = useMemo(() => {
+    if (!uiFilters.amps) return filteredChargers;
+
+    return [...filteredChargers].sort((a, b) => {
+      const specsA = parseChargerSpecs(a);
+      const specsB = parseChargerSpecs(b);
+      const targetAmps = uiFilters.amps || 0;
+      const deltaA = Math.abs((specsA.current || 0) - targetAmps);
+      const deltaB = Math.abs((specsB.current || 0) - targetAmps);
+      return deltaA - deltaB;
+    });
+  }, [filteredChargers, uiFilters.amps]);
 
   const handleQuoteClick = (charger: BatteryCharger) => {
     setSelectedCharger(charger);
@@ -59,32 +94,31 @@ export default function BatteryChargerSelector({ chargers }: Props) {
     <div className="space-y-8">
       {/* Selector Component */}
       <ChargerSelector
-        filterOptions={filterOptions}
-        filters={filters}
-        onFiltersChange={setFilters}
-        resultsCount={filteredChargers.length}
+        onFilterChange={setUiFilters}
+        resultsCount={sortedChargers.length}
         onNotSureClick={() => setHelpModalOpen(true)}
       />
 
       {/* Results Section */}
-      {filteredChargers.length > 0 ? (
+      {sortedChargers.length > 0 ? (
         <div>
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-neutral-900">
               Compatible Chargers
-              {filteredChargers.length <= 3 && (
+              {sortedChargers.length <= 3 && (
                 <span className="ml-3 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-700">
                   Best Match
                 </span>
               )}
             </h2>
             <p className="text-neutral-600 mt-1">
-              {filteredChargers.length} charger{filteredChargers.length !== 1 ? "s" : ""} match your requirements
+              {sortedChargers.length} charger{sortedChargers.length !== 1 ? "s" : ""} match your requirements
+              {uiFilters.amps && " (sorted by closest amp rating)"}
             </p>
           </div>
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {filteredChargers.map((charger) => (
+            {sortedChargers.map((charger) => (
               <ChargerCard
                 key={charger.id}
                 charger={charger}
@@ -116,7 +150,7 @@ export default function BatteryChargerSelector({ chargers }: Props) {
       )}
 
       {/* Initial State - Show All Chargers */}
-      {!filters.voltage && !filters.current && !filters.phase && filters.chemistry.length === 0 && (
+      {!uiFilters.voltage && !uiFilters.amps && !uiFilters.phase && (
         <div>
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-neutral-900">
