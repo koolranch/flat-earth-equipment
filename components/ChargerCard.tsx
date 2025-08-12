@@ -144,6 +144,16 @@ export default function ChargerCard({ charger, onQuoteClick }: Props) {
               + ${parseFloat(charger.core_charge).toFixed(2)} core
             </span>
           )}
+          
+          {/* Charge Time Estimate */}
+          {specs.current && (
+            <div className="text-xs text-neutral-500 mt-1">
+              {specs.current >= 100 
+                ? "Fast charging (~4–6h typical)" 
+                : "Overnight charging (~8–12h typical)"
+              }
+            </div>
+          )}
         </div>
 
         {/* Action Buttons */}
