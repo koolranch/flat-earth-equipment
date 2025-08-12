@@ -44,7 +44,7 @@ const TEST_CASES = [
 
 async function testRecommendationAPI() {
   console.log('🧪 Testing Enhanced Recommendation System');
-  console.log('=' * 50);
+  console.log('='.repeat(50));
   
   const baseUrl = 'http://localhost:3000';
   
