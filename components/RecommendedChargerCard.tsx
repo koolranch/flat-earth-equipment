@@ -12,15 +12,12 @@ export default function RecommendedChargerCard({ item }: { item: RecommendedPart
 
   return (
     <div className="brand-card transition hover:shadow-md relative">
-      {/* Match Type Badge */}
-      <MatchTypeBadge item={item} className="absolute top-2 left-2 z-10" />
-      
-      <div className="aspect-[4/3] w-full overflow-hidden rounded-t-[var(--brand-radius)] bg-[var(--brand-chip)]">
+      <div className="aspect-[4/3] w-full overflow-hidden rounded-t-brand bg-brand-chip">
         {item.image_url ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={item.image_url} alt={item.name} className="h-full w-full object-cover" />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-[var(--brand-muted)]"><Battery className="h-8 w-8" /></div>
+          <div className="flex h-full w-full items-center justify-center text-brand-muted"><Battery className="h-8 w-8" /></div>
         )}
       </div>
       <div className="p-4">
@@ -28,11 +25,7 @@ export default function RecommendedChargerCard({ item }: { item: RecommendedPart
           <h3 className="text-base sm:text-lg font-semibold tracking-tight">{item.name}</h3>
           <span 
             aria-label={item.matchType === 'best' ? 'Best match' : 'Alternate option'} 
-            className={`text-xs rounded-full px-2 py-0.5 ${
-              item.matchType === 'best' 
-                ? 'bg-emerald-100 text-emerald-800' 
-                : 'bg-amber-100 text-amber-800'
-            }`}
+            className={item.matchType === 'best' ? 'badge-best' : 'badge-alt'}
           >
             {item.matchType === 'best' ? 'Best Match' : 'Alternate Option'}
           </span>
@@ -57,10 +50,10 @@ export default function RecommendedChargerCard({ item }: { item: RecommendedPart
 
         <div className="mt-4 flex items-center justify-between">
           <div className="text-sm font-medium">
-            {priceStr ? priceStr : <span className="subtle">Call for pricing</span>}
+            {priceStr ? priceStr : <span className="text-brand-muted">Call for pricing</span>}
           </div>
           <div className="flex items-center gap-2">
-            <Link href={`/chargers/${item.slug}`} className="brand-btn-outline text-sm hover:bg-[var(--brand-chip)]">Details</Link>
+            <Link href={`/chargers/${item.slug}`} className="btn btn-outline text-sm">Details</Link>
             <BuyNowButton priceId={item.stripe_price_id} slug={item.slug} />
             <QuoteButton product={{ name: item.name, slug: item.slug, sku: item.sku || undefined }} />
           </div>

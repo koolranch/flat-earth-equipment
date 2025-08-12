@@ -61,12 +61,12 @@ export default function ChargerSelector({
   }, [voltage, recommendedAmps, phase, onFilterChange]);
 
   return (
-    <div className="bg-white border border-neutral-200 rounded-2xl p-6 shadow-sm">
+    <div className="brand-card p-6">
       <div className="mb-6">
-        <h2 className="text-xl font-semibold text-neutral-900 mb-2">
+        <h2 className="text-xl font-semibold text-brand-ink mb-2">
           Find Your Perfect Charger
         </h2>
-        <p className="text-neutral-600 text-sm">
+        <p className="text-brand-muted text-sm">
           Tell us your battery voltage and preferred charging speed. We'll recommend the perfect charger.
         </p>
       </div>
@@ -74,9 +74,9 @@ export default function ChargerSelector({
       <div className="space-y-6">
         {/* Step 1: Battery Voltage */}
         <div>
-          <label className="flex items-center gap-2 text-sm font-medium text-neutral-700 mb-3">
+          <label className="flex items-center gap-2 text-sm font-medium text-brand-ink mb-3">
             <span>
-              <span className="text-blue-600 font-semibold">Step 1:</span> Battery Voltage
+              <span className="text-brand-accent font-semibold">Step 1:</span> Battery Voltage
             </span>
             <HelpTooltip content="Your battery voltage determines charger compatibility. Most forklifts use 24V, 36V, 48V, or 80V batteries. Check your battery label, nameplate, or forklift manual." />
           </label>
@@ -84,7 +84,7 @@ export default function ChargerSelector({
           <select
             value={voltage}
             onChange={(e) => setVoltage(e.target.value)}
-            className="w-full rounded-xl border border-neutral-300 p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full rounded-xl border border-brand-border p-3 focus:ring-2 focus:ring-brand-accent focus:border-brand-accent bg-brand-card"
           >
             <option value="">Select voltage</option>
             {[24, 36, 48, 80].map((v) => (
@@ -93,16 +93,16 @@ export default function ChargerSelector({
               </option>
             ))}
           </select>
-          <p className="mt-2 text-xs text-neutral-500">
+          <p className="mt-2 text-xs text-brand-muted">
             If you're not sure, check the forklift battery label or manual.
           </p>
         </div>
 
         {/* Step 2: Charge Speed (beginner-friendly) */}
         <div>
-          <label className="flex items-center gap-2 text-sm font-medium text-neutral-700 mb-3">
+          <label className="flex items-center gap-2 text-sm font-medium text-brand-ink mb-3">
             <span>
-              <span className="text-blue-600 font-semibold">Step 2:</span> Charge Speed
+              <span className="text-brand-accent font-semibold">Step 2:</span> Charge Speed
             </span>
             <HelpTooltip content="Choose how fast you need charging. Overnight charging is gentler on batteries and most common. Faster charging reduces downtime but may impact battery lifespan." />
           </label>
@@ -113,8 +113,8 @@ export default function ChargerSelector({
               onClick={() => setSpeed("overnight")}
               className={`rounded-xl border-2 p-4 text-left transition-all ${
                 speed === "overnight"
-                  ? "border-blue-500 bg-blue-50 text-blue-700"
-                  : "border-neutral-200 bg-white text-neutral-700 hover:border-neutral-300"
+                  ? "border-brand-accent bg-brand-chip text-brand-accent"
+                  : "border-brand-border bg-brand-card text-brand-ink hover:border-brand-muted"
               }`}
             >
               <div className="font-semibold">Standard Overnight</div>
@@ -127,8 +127,8 @@ export default function ChargerSelector({
               onClick={() => setSpeed("fast")}
               className={`rounded-xl border-2 p-4 text-left transition-all ${
                 speed === "fast"
-                  ? "border-blue-500 bg-blue-50 text-blue-700"
-                  : "border-neutral-200 bg-white text-neutral-700 hover:border-neutral-300"
+                  ? "border-brand-accent bg-brand-chip text-brand-accent"
+                  : "border-brand-border bg-brand-card text-brand-ink hover:border-brand-muted"
               }`}
             >
               <div className="font-semibold">Faster Charge</div>
