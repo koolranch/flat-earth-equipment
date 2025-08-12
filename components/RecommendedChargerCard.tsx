@@ -24,8 +24,18 @@ export default function RecommendedChargerCard({ item }: { item: RecommendedPart
         )}
       </div>
       <div className="p-4">
-        <div className="mb-1">
+        <div className="mb-1 flex items-center justify-between">
           <h3 className="text-base sm:text-lg font-semibold tracking-tight">{item.name}</h3>
+          <span 
+            aria-label={item.matchType === 'best' ? 'Best match' : 'Alternate option'} 
+            className={`text-xs rounded-full px-2 py-0.5 ${
+              item.matchType === 'best' 
+                ? 'bg-emerald-100 text-emerald-800' 
+                : 'bg-amber-100 text-amber-800'
+            }`}
+          >
+            {item.matchType === 'best' ? 'Best Match' : 'Alternate Option'}
+          </span>
         </div>
 
         <div className="mt-2 flex flex-wrap gap-2 text-xs">

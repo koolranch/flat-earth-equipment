@@ -4,19 +4,77 @@ import type { RecommendInput, RecommendResponse } from '@/types/recommendations'
 import { supabaseServer } from '@/lib/supabaseServer';
 import { parseSpecsFromSlug } from '@/lib/chargers';
 
-// Minimal fallback recommender (replace with your production scorer if already implemented)
+// Configurable amp tolerance percentage
+const AMP_TOL = Number(process.env.RECS_AMP_TOLERANCE_PCT ?? '12');
+
+// Helper to check if actual value is within tolerance percentage of target
+function withinPct(target: number, actual: number, tolPct: number): boolean {
+  if (!target || !actual) return false;
+  const diffPct = Math.abs((actual - target) / target) * 100;
+  return diffPct <= tolPct;
+}
+
+// Enhanced recommender with explicit matchType determination
 function scoreItem(target: RecommendInput, p: any) {
   const s = parseSpecsFromSlug(p.slug);
-  let score = 0; const reasons: { label: string; weight?: number }[] = [];
-  if (target.voltage && s.voltage === target.voltage) { score += 100; reasons.push({ label: `For your ${s.voltage}V battery`, weight: 100 }); }
-  if (target.amps && s.current) {
-    const tol = 15; const diffPct = Math.abs((s.current - target.amps) / target.amps) * 100;
-    if (diffPct <= tol) { score += 50; reasons.push({ label: `Charge speed fit (~${s.current}A)`, weight: 50 }); }
-    else if (s.current > 0) { score += Math.max(0, 30 - diffPct); }
+  let score = 0; 
+  const reasons: { label: string; weight?: number }[] = [];
+  
+  // Check match criteria
+  const voltageMatch = target.voltage ? s.voltage === target.voltage : true;
+  const ampClose = target.amps && s.current ? withinPct(target.amps, s.current, AMP_TOL) : true;
+  const phaseMatch = target.phase && s.phase ? (target.phase === s.phase) : true; // if user picked 'Not sure', don't penalize
+  
+  // Determine matchType BEFORE scoring
+  let matchType: 'best' | 'alternate' = 'alternate';
+  if (voltageMatch && ampClose && phaseMatch) {
+    matchType = 'best';
   }
-  if (target.phase && s.phase === target.phase) { score += 20; reasons.push({ label: s.phase === '1P' ? 'Single-phase compatible' : 'Three-phase compatible', weight: 20 }); }
-  if (p.quick_ship) { score += 10; reasons.push({ label: 'Quick ship available', weight: 10 }); }
-  return { score, reasons };
+  
+  // Score based on match quality
+  if (target.voltage && s.voltage === target.voltage) { 
+    score += 100; 
+    reasons.push({ label: `For your ${s.voltage}V battery`, weight: 100 }); 
+  }
+  
+  if (target.amps && s.current) {
+    if (ampClose) { 
+      score += 50; 
+      reasons.push({ label: `Charge speed fit (~${s.current}A)`, weight: 50 }); 
+    } else if (s.current > 0) { 
+      const diffPct = Math.abs((s.current - target.amps) / target.amps) * 100;
+      score += Math.max(0, 30 - diffPct); 
+    }
+  }
+  
+  if (target.phase && s.phase === target.phase) { 
+    score += 20; 
+    reasons.push({ label: s.phase === '1P' ? 'Single-phase compatible' : 'Three-phase compatible', weight: 20 }); 
+  }
+  
+  if (p.quick_ship) { 
+    score += 10; 
+    reasons.push({ label: 'Quick ship available', weight: 10 }); 
+  }
+  
+  // Add best/alternate specific reasoning
+  if (matchType === 'best') {
+    reasons.unshift({ label: `Best match for your ${s.voltage}V / ~${s.current}A`, weight: 120 });
+  } else {
+    reasons.push({ label: 'Closest available match' });
+  }
+  
+  // Debug payload
+  const debug = { 
+    ampTolerancePct: AMP_TOL, 
+    requested: target, 
+    parsed: s, 
+    phaseMatch, 
+    ampClose,
+    voltageMatch
+  };
+  
+  return { score, reasons, matchType, debug };
 }
 
 export async function POST(req: NextRequest) {
@@ -35,10 +93,22 @@ export async function POST(req: NextRequest) {
     if (error) throw error;
 
     const items = (data ?? []).map((p) => {
-      const { score, reasons } = scoreItem(body, p);
+      const { score, reasons, matchType, debug } = scoreItem(body, p);
       const s = parseSpecsFromSlug(p.slug);
-      const fallback = score < 120; // arbitrary threshold for 'best match'
-      const matchType: 'best' | 'alternate' = score >= 150 ? 'best' : 'alternate'; // 150+ = best match, 120-149 = alternate, <120 = fallback
+      const fallback = matchType === 'alternate';
+      
+      // Server-side debug logging
+      console.log('[recs]', p.slug, { 
+        matchType, 
+        score, 
+        amp: s.current, 
+        reqAmp: body.amps, 
+        phase: s.phase, 
+        reqPhase: body.phase,
+        voltage: s.voltage,
+        reqVoltage: body.voltage
+      });
+      
       return { 
         ...p, 
         dc_voltage_v: s.voltage, 
@@ -48,9 +118,15 @@ export async function POST(req: NextRequest) {
         score, 
         reasons, 
         fallback,
-        matchType
+        matchType,
+        debug
       };
-    }).sort((a,b) => b.score - a.score).slice(0, body.limit ?? 6);
+    }).sort((a,b) => {
+      // Sort best matches first, then by score
+      if (a.matchType === 'best' && b.matchType === 'alternate') return -1;
+      if (a.matchType === 'alternate' && b.matchType === 'best') return 1;
+      return b.score - a.score;
+    }).slice(0, body.limit ?? 12); // Increased limit to show more options
 
     return NextResponse.json({ ok: true, items } satisfies RecommendResponse);
   } catch (e: any) {

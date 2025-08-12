@@ -26,38 +26,27 @@ export default function RecommendationsBlock({ filters, fallbackItems }: { filte
     return () => { ignore = true; ctl.abort(); };
   }, [payload]);
 
-  // Process items and fallback with matchType
-  const processedItems = useMemo(() => {
+
+
+  // Group items by match type from API response
+  const { bestMatches, alternateOptions } = useMemo(() => {
     if (items && items.length) {
-      return items;
+      const best = items.filter(item => item.matchType === 'best');
+      const alternate = items.filter(item => item.matchType === 'alternate');
+      return { bestMatches: best, alternateOptions: alternate };
     }
-    // Convert fallback items to have matchType
-    return (fallbackItems || []).slice(0, 8).map((p: any) => ({
-      id: p.id, 
-      slug: p.slug, 
-      name: p.name, 
-      image_url: p.image_url, 
-      price: p.price, 
-      price_cents: p.price_cents, 
-      stripe_price_id: p.stripe_price_id, 
-      sku: p.sku, 
+    
+    // Fallback items are all tagged as alternate
+    const processedFallbacks = (fallbackItems || []).slice(0, 8).map((p: any) => ({
+      ...p,
       score: 0, 
       reasons: [{ label: 'Closest available match' }], 
       fallback: true,
       matchType: 'alternate' as const
     }));
-  }, [items, fallbackItems]);
-
-  // Group items by match type
-  const { bestMatches, alternateOptions } = useMemo(() => {
-    const best = processedItems.filter(item => item.matchType === 'best');
-    const alternate = processedItems.filter(item => item.matchType === 'alternate');
     
-    return {
-      bestMatches: best,
-      alternateOptions: alternate
-    };
-  }, [processedItems]);
+    return { bestMatches: [], alternateOptions: processedFallbacks };
+  }, [items, fallbackItems]);
 
   return (
     <section className="mt-6">
@@ -72,16 +61,14 @@ export default function RecommendationsBlock({ filters, fallbackItems }: { filte
         </div>
       )}
       
-      {!loading && processedItems.length > 0 && (
+      {!loading && (bestMatches.length > 0 || alternateOptions.length > 0) && (
         <div className="space-y-8">
           {/* Best Matches Section */}
           {bestMatches.length > 0 && (
             <div>
-              <div className="mb-4">
-                <h3 className="text-lg font-semibold text-neutral-900 mb-1">Best Match</h3>
-                <p className="text-sm text-neutral-600">
-                  These chargers match your voltage, charge speed, and phase exactly.
-                </p>
+              <div className="mb-4 flex items-center justify-between">
+                <h2 className="text-lg font-semibold text-neutral-900">Best Match</h2>
+                <span className="text-xs text-neutral-500">Exact/near match to your voltage, charge speed and phase.</span>
               </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {bestMatches.map((item) => (
@@ -93,12 +80,10 @@ export default function RecommendationsBlock({ filters, fallbackItems }: { filte
 
           {/* Alternate Options Section */}
           {alternateOptions.length > 0 && (
-            <div>
-              <div className="mb-4">
-                <h3 className="text-lg font-semibold text-neutral-900 mb-1">Alternate Options</h3>
-                <p className="text-sm text-neutral-600">
-                  Close alternatives that may differ slightly in amperage or phase.
-                </p>
+            <div className={bestMatches.length > 0 ? "mt-8" : ""}>
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="text-base font-semibold text-neutral-900">Alternate Options</h3>
+                <span className="text-xs text-neutral-500">Close alternatives that may differ slightly in amperage or phase.</span>
               </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {alternateOptions.map((item) => (
@@ -110,7 +95,7 @@ export default function RecommendationsBlock({ filters, fallbackItems }: { filte
         </div>
       )}
       
-      {!loading && processedItems.length === 0 && (
+      {!loading && bestMatches.length === 0 && alternateOptions.length === 0 && (
         <div className="rounded-2xl border bg-white p-8 text-center text-neutral-600">
           No recommendations yet. Adjust your selections or request a quote and we'll confirm compatibility.
         </div>
