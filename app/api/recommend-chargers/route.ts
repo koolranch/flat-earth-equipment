@@ -38,7 +38,16 @@ export async function POST(req: NextRequest) {
       const { score, reasons } = scoreItem(body, p);
       const s = parseSpecsFromSlug(p.slug);
       const fallback = score < 120; // arbitrary threshold for 'best match'
-      return { ...p, dc_voltage_v: s.voltage, dc_current_a: s.current, input_phase: s.phase, chemistry_support: ['lead-acid','AGM','gel','lithium'], score, reasons, fallback };
+      return { 
+        ...p, 
+        dc_voltage_v: s.voltage, 
+        dc_current_a: s.current, 
+        input_phase: s.phase === 'unknown' ? null : s.phase, // Convert 'unknown' to null
+        chemistry_support: ['lead-acid','AGM','gel','lithium'], 
+        score, 
+        reasons, 
+        fallback 
+      };
     }).sort((a,b) => b.score - a.score).slice(0, body.limit ?? 6);
 
     return NextResponse.json({ ok: true, items } satisfies RecommendResponse);
