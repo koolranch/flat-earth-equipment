@@ -234,6 +234,13 @@ export default async function Page({
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Interactive Selector Component */}
         <BatteryChargerSelector chargers={allParts} hideResults={true} />
+        
+        {/* Debug Info for Development */}
+        {process.env.NODE_ENV !== 'production' && (
+          <div className="mb-4 p-2 bg-gray-50 rounded text-xs text-gray-600">
+            <strong>Debug:</strong> Amp tolerance: {process.env.NEXT_PUBLIC_RECS_AMP_TOLERANCE_PCT || process.env.RECS_AMP_TOLERANCE_PCT || '12'}%
+          </div>
+        )}
 
         {/* Smart Recommendations Section */}
         <RecommendationsBlock 
