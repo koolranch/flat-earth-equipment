@@ -3,7 +3,7 @@ import { parseSpecsFromSlug } from "@/lib/chargers";
 import ChargerFilters from "@/components/ChargerFilters";
 import BrandSection from "@/components/BrandSection";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import ChargerCard from "@/components/ChargerCard";
+import FSIPChargerCard from "@/components/FSIPChargerCard";
 import FilterChips from "@/components/FilterChips";
 import Pagination from "@/components/Pagination";
 
@@ -82,7 +82,7 @@ export default async function Page({ searchParams }: { searchParams: SearchParam
         ) : (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {pageItems.map(({ part }) => (
-              <ChargerCard key={part.slug} part={part as any} />
+              <FSIPChargerCard key={part.slug} part={part} />
             ))}
           </div>
         )}
