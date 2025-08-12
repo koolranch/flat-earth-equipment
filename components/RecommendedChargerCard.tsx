@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Battery } from 'lucide-react';
-import AddToCartButton from '@/components/AddToCartButton';
+import { BuyNowButton } from '@/components/AddToCartButton';
 import QuoteButton from '@/components/QuoteButton';
 import type { RecommendedPart } from '@/types/recommendations';
 import { currency, parseSpecsFromSlug } from '@/lib/chargers';
@@ -48,7 +48,7 @@ export default function RecommendedChargerCard({ item }: { item: RecommendedPart
           </div>
           <div className="flex items-center gap-2">
             <Link href={`/chargers/${item.slug}`} className="brand-btn-outline text-sm hover:bg-[var(--brand-chip)]">Details</Link>
-            <AddToCartButton priceId={item.stripe_price_id || undefined} slug={item.slug} />
+            <BuyNowButton priceId={item.stripe_price_id} slug={item.slug} />
             <QuoteButton product={{ name: item.name, slug: item.slug, sku: item.sku || undefined }} />
           </div>
         </div>
