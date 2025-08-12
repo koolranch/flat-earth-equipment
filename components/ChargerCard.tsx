@@ -69,6 +69,30 @@ export default function ChargerCard({ charger, onQuoteClick }: Props) {
 
       {/* Content */}
       <div className="p-5">
+        {/* Spec Badges */}
+        <div className="flex flex-wrap gap-1 mb-3">
+          {specs.voltage && (
+            <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-full">
+              ⚡ {specs.voltage}V
+            </span>
+          )}
+          {specs.current && (
+            <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">
+              ⏱ {specs.current}A
+            </span>
+          )}
+          {specs.phase !== "unknown" && (
+            <span className="px-2 py-1 bg-orange-100 text-orange-700 text-xs font-medium rounded-full">
+              {specs.phase === "1P" ? "1-Phase" : "3-Phase"}
+            </span>
+          )}
+          {specs.chemistry.length > 0 && specs.chemistry[0] && (
+            <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs font-medium rounded-full">
+              {specs.chemistry[0].includes("Lead") ? "Lead-Acid" : specs.chemistry[0]}
+            </span>
+          )}
+        </div>
+
         {/* Product Name & Brand */}
         <div className="mb-3">
           <h3 className="font-semibold text-neutral-900 text-lg leading-tight">
