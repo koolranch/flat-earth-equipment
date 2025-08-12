@@ -10,6 +10,10 @@
 
 import Stripe from "stripe";
 import { createClient } from "@supabase/supabase-js";
+import dotenv from "dotenv";
+
+// Load local env for CLI runs (non-production). Safe: affects only this script.
+dotenv.config({ path: ".env.local" });
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
@@ -18,7 +22,7 @@ type Part = {
   id: string;
   name: string;
   slug: string;
-  price: string | null;
+  price: string | number | null;
   price_cents: number | null;
   stripe_product_id: string | null;
   stripe_price_id: string | null;
@@ -28,7 +32,7 @@ type Part = {
 
 function centsFrom(p: Part): number {
   if (p.price_cents && p.price_cents > 0) return p.price_cents;
-  if (p.price && p.price.trim() !== "") {
+  if (p.price !== null && p.price !== undefined && String(p.price).trim() !== "") {
     const n = Math.round(Number(p.price) * 100);
     return Number.isNaN(n) ? 0 : n;
   }
