@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Battery } from 'lucide-react';
 import { BuyNowButton } from '@/components/AddToCartButton';
 import QuoteButton from '@/components/QuoteButton';
+import MatchTypeBadge from '@/components/MatchTypeBadge';
 import type { RecommendedPart } from '@/types/recommendations';
 import { currency, parseSpecsFromSlug } from '@/lib/chargers';
 
@@ -10,7 +11,10 @@ export default function RecommendedChargerCard({ item }: { item: RecommendedPart
   const priceStr = currency(item.price ?? item.price_cents);
 
   return (
-    <div className="brand-card transition hover:shadow-md">
+    <div className="brand-card transition hover:shadow-md relative">
+      {/* Match Type Badge */}
+      <MatchTypeBadge item={item} className="absolute top-2 left-2 z-10" />
+      
       <div className="aspect-[4/3] w-full overflow-hidden rounded-t-[var(--brand-radius)] bg-[var(--brand-chip)]">
         {item.image_url ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -20,9 +24,8 @@ export default function RecommendedChargerCard({ item }: { item: RecommendedPart
         )}
       </div>
       <div className="p-4">
-        <div className="mb-1 flex items-center justify-between">
+        <div className="mb-1">
           <h3 className="text-base sm:text-lg font-semibold tracking-tight">{item.name}</h3>
-          <span className={`text-xs ${item.fallback ? 'text-amber-700' : 'text-emerald-700'}`}>{item.fallback ? 'Closest match' : 'Best match'}</span>
         </div>
 
         <div className="mt-2 flex flex-wrap gap-2 text-xs">

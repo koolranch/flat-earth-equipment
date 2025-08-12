@@ -17,7 +17,7 @@ type SelectorFilters = {
   phase?: "1P" | "3P" | null;
 };
 
-export default function BatteryChargerSelector({ chargers }: Props) {
+export default function BatteryChargerSelector({ chargers, hideResults = false }: Props & { hideResults?: boolean }) {
   const [uiFilters, setUiFilters] = useState<SelectorFilters>({});
   const [helpModalOpen, setHelpModalOpen] = useState(false);
   const [quoteModalOpen, setQuoteModalOpen] = useState(false);
@@ -99,8 +99,8 @@ export default function BatteryChargerSelector({ chargers }: Props) {
         onNotSureClick={() => setHelpModalOpen(true)}
       />
 
-      {/* Results Section */}
-      {sortedChargers.length > 0 ? (
+      {/* Results Section - Hidden when using unified RecommendationsBlock */}
+      {!hideResults && sortedChargers.length > 0 ? (
         <div>
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-neutral-900">
@@ -127,7 +127,7 @@ export default function BatteryChargerSelector({ chargers }: Props) {
             ))}
           </div>
         </div>
-      ) : (
+      ) : !hideResults ? (
         <div className="text-center py-12">
           <div className="w-16 h-16 mx-auto mb-4 bg-neutral-100 rounded-full flex items-center justify-center">
             <svg className="w-8 h-8 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -147,10 +147,10 @@ export default function BatteryChargerSelector({ chargers }: Props) {
             Get Expert Recommendation
           </button>
         </div>
-      )}
+      ) : null}
 
       {/* Initial State - Show All Chargers */}
-      {!uiFilters.voltage && !uiFilters.amps && !uiFilters.phase && (
+      {!hideResults && !uiFilters.voltage && !uiFilters.amps && !uiFilters.phase && (
         <div>
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-neutral-900">
