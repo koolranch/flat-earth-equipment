@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Truck, Copy, Check } from "lucide-react";
 import { type BatteryCharger, parseChargerSpecs, formatPrice, isQuickShip, calculateChargeTime } from "@/lib/batteryChargers";
-import BuyNowButton from "./BuyNowButton";
+import { BuyNowButton } from "./AddToCartButton";
 import QuoteButton from "./QuoteButton";
 
 type Props = {
@@ -126,12 +126,13 @@ export default function ChargerCard({ charger, onQuoteClick }: Props) {
         <div className="space-y-3">
           {/* Primary CTA */}
           {charger.stripe_price_id && price !== "Call for pricing" ? (
-            <BuyNowButton
-              priceId={charger.stripe_price_id}
-              slug={charger.slug}
-              quantity={1}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-xl transition-colors"
-            />
+            <div className="w-full">
+              <BuyNowButton
+                priceId={charger.stripe_price_id}
+                slug={charger.slug}
+                quantity={1}
+              />
+            </div>
           ) : (
             <button
               onClick={handleQuoteClick}
