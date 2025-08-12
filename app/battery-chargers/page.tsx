@@ -1,20 +1,39 @@
 import { Metadata } from "next";
 import { supabaseServer } from "@/lib/supabaseServer";
 import BatteryChargerSelector from "./BatteryChargerSelector";
+import ChargerFAQ from "@/components/ChargerFAQ";
+import ChargerCard from "@/components/ChargerCard";
+import { type BatteryCharger, parseChargerSpecs } from "@/lib/batteryChargers";
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
-  title: "Forklift Battery Charger Selector – Find the Right Charger Fast",
-  description: "Easily find the right forklift battery charger by voltage, amps, and phase. Quick ship options available. Add to cart or request a quote today.",
-  openGraph: {
-    title: "Forklift Battery Charger Selector",
-    description: "Find the perfect charger for your forklift battery in 3 simple steps.",
-    type: "website",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const title = "Forklift Battery Charger Selector – Find the Right Charger Fast";
+  const description = "Easily find the right forklift battery charger by voltage, amps, and phase. Quick ship options available. Add to cart or request a quote today.";
+  
+  return {
+    title,
+    description,
+    alternates: { canonical: "/battery-chargers" },
+    openGraph: { 
+      title, 
+      description, 
+      type: "website",
+      url: "https://www.flatearthequipment.com/battery-chargers"
+    },
+    twitter: { 
+      card: "summary_large_image", 
+      title, 
+      description 
+    },
+    robots: {
+      index: true,
+      follow: true,
+    }
+  };
+}
 
-async function fetchAllChargers() {
+async function fetchParts(): Promise<BatteryCharger[]> {
   const sb = supabaseServer();
   const { data, error } = await sb
     .from("parts")
@@ -34,22 +53,150 @@ async function fetchAllChargers() {
       core_charge
     `)
     .eq("category_slug", "battery-chargers")
-    .order("name", { ascending: true })
+    .order("slug", { ascending: true })
     .limit(1000);
-
+    
   if (error) {
     console.error("Error fetching chargers:", error);
     return [];
   }
-
   return data ?? [];
 }
 
-export default async function BatteryChargersPage() {
-  const chargers = await fetchAllChargers();
+function ssrFilter(parts: BatteryCharger[], searchParams: Record<string, string | undefined>) {
+  const q = (searchParams.q || "").toLowerCase();
+  const family = (searchParams.family || "").toLowerCase();
+  const v = searchParams.v ? Number(searchParams.v) : undefined;
+  const a = searchParams.a ? Number(searchParams.a) : undefined;
+  const phase = searchParams.phase || ""; // "1P" | "3P"
+  
+  return parts.filter((p) => {
+    const specs = parseChargerSpecs(p);
+    
+    // Text search across name, sku, description
+    if (q && !(
+      p.name?.toLowerCase().includes(q) || 
+      p.sku?.toLowerCase().includes(q) || 
+      p.description?.toLowerCase().includes(q)
+    )) {
+      return false;
+    }
+    
+    // Family filter (green2, green4, etc.)
+    if (family && !p.slug.toLowerCase().includes(family)) {
+      return false;
+    }
+    
+    // Voltage filter
+    if (v && specs.voltage !== v) {
+      return false;
+    }
+    
+    // Current (amperage) filter
+    if (a && specs.current !== a) {
+      return false;
+    }
+    
+    // Phase filter
+    if (phase && specs.phase !== phase) {
+      return false;
+    }
+    
+    return true;
+  });
+}
+
+function itemListJsonLd(items: { name: string; slug: string }[]) {
+  const list = items.slice(0, 50); // Limit for performance
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": list.map((it, idx) => ({
+      "@type": "ListItem",
+      "position": idx + 1,
+      "url": `https://www.flatearthequipment.com/chargers/${it.slug}`,
+      "name": it.name
+    }))
+  };
+}
+
+function faqJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I pick the right forklift battery charger?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Match your battery voltage (24V/36V/48V/80V), choose an output current (amps) that fits your charge window, and confirm your facility input power (single-phase 208–240V or three-phase 480V/600V)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What amperage do I need?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "As a rough guide for lead-acid, charge time ≈ (battery Ah ÷ charger A) × 1.2. Example: 750Ah battery with a 75A charger ≈ 12 hours. Faster chargers reduce turnaround but may require different circuits."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use single-phase instead of three-phase?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If your facility doesn't have 3-phase, select a single-phase model (typically 208–240V). Three-phase units are usually more efficient at higher currents."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does chemistry matter (lead-acid vs lithium)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Most models here support lead-acid/AGM/gel. Lithium batteries may require specific profiles/BMS communication—verify your battery manufacturer's charger requirements."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What if I'm not sure?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the selector to narrow options, then click Request a Quote—tell us your forklift make/model, battery voltage and Ah, and we'll confirm compatibility before you buy."
+        }
+      }
+    ]
+  };
+}
+
+export default async function Page({ 
+  searchParams 
+}: { 
+  searchParams: Record<string, string | undefined> 
+}) {
+  const allParts = await fetchParts();
+  const filteredParts = ssrFilter(allParts, searchParams);
+  
+  const jsonLdList = itemListJsonLd(filteredParts.map(p => ({ name: p.name, slug: p.slug })));
+  const jsonLdFaq = faqJsonLd();
+  
+  // Check if this is a bot/crawler by looking for filters - if no client-side JS filters, show SSR results
+  const hasFilters = Object.keys(searchParams).some(key => 
+    ['q', 'family', 'v', 'a', 'phase'].includes(key) && searchParams[key]
+  );
 
   return (
     <div className="min-h-screen bg-neutral-50">
+      {/* JSON-LD Structured Data */}
+      <script 
+        type="application/ld+json" 
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdList) }} 
+      />
+      <script 
+        type="application/ld+json" 
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} 
+      />
+
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -84,7 +231,51 @@ export default async function BatteryChargersPage() {
 
       {/* Main Content */}
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <BatteryChargerSelector chargers={chargers} />
+        {/* Interactive Selector Component */}
+        <BatteryChargerSelector chargers={allParts} />
+
+        {/* SSR Results for SEO (when filters are applied via URL) */}
+        {hasFilters && (
+          <div className="mt-8">
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-neutral-900">
+                Search Results
+              </h2>
+              <p className="text-neutral-600 mt-1">
+                {filteredParts.length} charger{filteredParts.length !== 1 ? "s" : ""} match your criteria
+              </p>
+            </div>
+
+            {filteredParts.length === 0 ? (
+              <div className="text-center py-12">
+                <div className="w-16 h-16 mx-auto mb-4 bg-neutral-100 rounded-full flex items-center justify-center">
+                  <svg className="w-8 h-8 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.469-.742-6.21-2.002M6 9.5L5.5 9l-.5-.5L6 9.5z" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-semibold text-neutral-900 mb-2">
+                  No chargers match your criteria
+                </h3>
+                <p className="text-neutral-600 mb-4">
+                  Try adjusting your filters or browse all available chargers
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {filteredParts.map((charger) => (
+                  <ChargerCard
+                    key={charger.id}
+                    charger={charger}
+                    onQuoteClick={() => {}} // Server-side rendering - no interaction
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* FAQ Section */}
+        <ChargerFAQ />
       </div>
 
       {/* Benefits Section */}
