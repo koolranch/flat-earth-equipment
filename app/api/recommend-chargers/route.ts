@@ -8,7 +8,7 @@ import { parseSpecsFromSlug } from '@/lib/chargers';
 const AMP_TOL = Number(process.env.RECS_AMP_TOLERANCE_PCT ?? '12');
 
 // Helper to check if actual value is within tolerance percentage of target
-function withinPct(target: number, actual: number, tolPct: number): boolean {
+function withinPct(target: number | undefined | null, actual: number | undefined | null, tolPct: number): boolean {
   if (!target || !actual) return false;
   const diffPct = Math.abs((actual - target) / target) * 100;
   return diffPct <= tolPct;
@@ -20,10 +20,10 @@ function scoreItem(target: RecommendInput, p: any) {
   let score = 0; 
   const reasons: { label: string; weight?: number }[] = [];
   
-  // Check match criteria
+  // Check match criteria - be more explicit about requirements
   const voltageMatch = target.voltage ? s.voltage === target.voltage : true;
-  const ampClose = target.amps && s.current ? withinPct(target.amps, s.current, AMP_TOL) : true;
-  const phaseMatch = target.phase && s.phase ? (target.phase === s.phase) : true; // if user picked 'Not sure', don't penalize
+  const ampClose = target.amps && s.current ? withinPct(target.amps, s.current, AMP_TOL) : !target.amps; // if no amps specified, don't require
+  const phaseMatch = !target.phase || !s.phase || (target.phase === s.phase); // if user picked 'Not sure' (target.phase=null), don't penalize
   
   // Determine matchType BEFORE scoring
   let matchType: 'best' | 'alternate' = 'alternate';
@@ -98,15 +98,12 @@ export async function POST(req: NextRequest) {
       const fallback = matchType === 'alternate';
       
       // Server-side debug logging
-      console.log('[recs]', p.slug, { 
-        matchType, 
-        score, 
-        amp: s.current, 
-        reqAmp: body.amps, 
-        phase: s.phase, 
-        reqPhase: body.phase,
-        voltage: s.voltage,
-        reqVoltage: body.voltage
+      console.log('[recs]', p.slug, {
+        matchType,
+        score,
+        req: { v: body.voltage, a: body.amps, ph: body.phase },
+        got: { v: s.voltage, a: s.current, ph: s.phase },
+        tolPct: AMP_TOL
       });
       
       return { 
