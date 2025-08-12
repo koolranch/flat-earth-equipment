@@ -1,75 +1,183 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
-import { Battery } from "lucide-react";
-import { Specs, currency, parseSpecsFromSlug, shortDesc } from "@/lib/chargers";
+import { Truck, Copy, Check } from "lucide-react";
+import { type BatteryCharger, parseChargerSpecs, formatPrice, isQuickShip, calculateChargeTime } from "@/lib/batteryChargers";
+import BuyNowButton from "./BuyNowButton";
 import QuoteButton from "./QuoteButton";
-import { BuyNowButton } from "./AddToCartButton";
 
 type Props = {
-  part: {
-    name: string;
-    slug: string;
-    brand: string | null;
-    description: string | null;
-    image_url: string | null;
-    price: string | null;
-    price_cents: number | null;
-    sku: string | null;
-    stripe_price_id?: string | null;
-  };
+  charger: BatteryCharger;
+  onQuoteClick: (charger: BatteryCharger) => void;
 };
 
-export default function ChargerCard({ part }: Props) {
-  const specs: Specs = parseSpecsFromSlug(part.slug);
-  const priceStr = currency(part.price ?? part.price_cents);
+export default function ChargerCard({ charger, onQuoteClick }: Props) {
+  const [copiedField, setCopiedField] = useState<string | null>(null);
+  
+  const specs = parseChargerSpecs(charger);
+  const price = formatPrice(charger.price, charger.price_cents);
+  const quickShip = isQuickShip(charger);
+  
+  // Estimate charge time for common battery sizes
+  const estimatedChargeTime = specs.current 
+    ? calculateChargeTime(specs.voltage === 24 ? 460 : specs.voltage === 36 ? 750 : specs.voltage === 48 ? 1000 : 800, specs.current)
+    : "N/A";
 
-  const mailto = (() => {
-    const subject = `Quote Request — ${part.name}`;
-    const body = `Product: ${part.name}\nSlug: ${part.slug}\nSKU: ${part.sku ?? ""}\nQuantity: 1\nCompany: \nNotes: `;
-    return `mailto:sales@flatearthequipment.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  })();
+  const copyToClipboard = async (text: string, field: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedField(field);
+      setTimeout(() => setCopiedField(null), 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
+
+  const handleQuoteClick = () => {
+    onQuoteClick(charger);
+  };
 
   return (
-    <div className="brand-card transition hover:shadow-md">
-      <div className="aspect-[4/3] w-full overflow-hidden rounded-t-[var(--brand-radius)] bg-[var(--brand-chip)]">
-        {part.image_url ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={part.image_url} alt={part.name} className="h-full w-full object-cover" />
+    <div className="bg-white border border-neutral-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
+      {/* Image */}
+      <div className="aspect-[4/3] w-full overflow-hidden bg-neutral-100 relative">
+        {quickShip && (
+          <div className="absolute top-3 left-3 z-10 inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 border border-green-200">
+            <Truck className="w-3 h-3" />
+            Quick Ship
+          </div>
+        )}
+        
+        {charger.image_url ? (
+          <img
+            src={charger.image_url}
+            alt={charger.name}
+            className="w-full h-full object-cover"
+          />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-[var(--brand-muted)]">
-            <Battery className="h-8 w-8" />
+          <div className="flex items-center justify-center h-full text-neutral-400 text-sm">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-2 bg-neutral-200 rounded-lg flex items-center justify-center">
+                <span className="text-2xl">🔌</span>
+              </div>
+              No image
+            </div>
           </div>
         )}
       </div>
 
-      <div className="p-4">
-        <h3 className="text-base sm:text-lg font-semibold tracking-tight">{part.name}</h3>
-        <p className="mt-1 text-sm subtle">
-          {shortDesc(part.description, "Industrial battery charger from FSIP GREEN Series.")}
-        </p>
-
-        <div className="mt-3 flex flex-wrap gap-2 text-xs">
-          {specs.family !== "unknown" && <span className="brand-chip">{specs.family.toUpperCase()}</span>}
-          {specs.voltage && <span className="brand-chip">{specs.voltage} V</span>}
-          {specs.current && <span className="brand-chip">{specs.current} A</span>}
-          {specs.phase !== "unknown" && <span className="brand-chip">{specs.phase}</span>}
-          {part.sku && <span className="brand-chip">SKU: {part.sku}</span>}
+      {/* Content */}
+      <div className="p-5">
+        {/* Product Name & Brand */}
+        <div className="mb-3">
+          <h3 className="font-semibold text-neutral-900 text-lg leading-tight">
+            <Link href={`/chargers/${charger.slug}`} className="hover:text-blue-600 transition-colors">
+              {charger.name}
+            </Link>
+          </h3>
+          {charger.brand && (
+            <p className="text-sm text-neutral-500 mt-1">{charger.brand}</p>
+          )}
         </div>
 
-        <div className="mt-4 flex items-center justify-between">
-          <div className="text-sm font-medium">
-            {priceStr ? priceStr : <span className="subtle">Call for pricing</span>}
+        {/* Key Specs as Bullets */}
+        <div className="mb-4 space-y-2">
+          {/* Voltage + Chemistry */}
+          <div className="flex items-center gap-2 text-sm">
+            <span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></span>
+            <span className="text-neutral-700">
+              {specs.voltage ? `${specs.voltage}V` : "Variable V"} {specs.chemistry.join(" / ")}
+            </span>
           </div>
-          <div className="flex items-center gap-2">
-            <Link href={`/chargers/${part.slug}`} className="brand-btn-outline text-sm hover:bg-[var(--brand-chip)]">
-              Details
+          
+          {/* Output Current + Charge Time */}
+          <div className="flex items-center gap-2 text-sm">
+            <span className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></span>
+            <span className="text-neutral-700">
+              {specs.current ? `${specs.current}A` : "Variable A"} – {estimatedChargeTime} charge time
+            </span>
+          </div>
+          
+          {/* Input Phase/Voltage */}
+          <div className="flex items-center gap-2 text-sm">
+            <span className="w-2 h-2 bg-orange-500 rounded-full flex-shrink-0"></span>
+            <span className="text-neutral-700">
+              {specs.phase !== "unknown" ? (
+                specs.phase === "1P" ? "Single-phase 208-240V" : "Three-phase 480V"
+              ) : "Multi-input voltage"}
+            </span>
+          </div>
+        </div>
+
+        {/* Price */}
+        <div className="mb-4">
+          <span className="text-lg font-semibold text-neutral-900">
+            {price}
+          </span>
+          {charger.has_core_charge && charger.core_charge && parseFloat(charger.core_charge) > 0 && (
+            <span className="ml-2 text-sm text-neutral-600">
+              + ${parseFloat(charger.core_charge).toFixed(2)} core
+            </span>
+          )}
+        </div>
+
+        {/* Action Buttons */}
+        <div className="space-y-3">
+          {/* Primary CTA */}
+          {charger.stripe_price_id && price !== "Call for pricing" ? (
+            <BuyNowButton
+              priceId={charger.stripe_price_id}
+              slug={charger.slug}
+              quantity={1}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-xl transition-colors"
+            />
+          ) : (
+            <button
+              onClick={handleQuoteClick}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-xl transition-colors"
+            >
+              Request Quote
+            </button>
+          )}
+
+          {/* Secondary Actions */}
+          <div className="flex items-center justify-between">
+            <Link
+              href={`/chargers/${charger.slug}`}
+              className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+            >
+              View details
             </Link>
-            <BuyNowButton priceId={(part as any).stripe_price_id} slug={part.slug} />
-            <QuoteButton product={{ name: part.name, slug: part.slug, sku: part.sku }} />
+            
+            <div className="flex items-center gap-3">
+              {/* Copy SKU */}
+              {charger.sku && (
+                <button
+                  onClick={() => copyToClipboard(charger.sku!, "sku")}
+                  className="inline-flex items-center gap-1 text-xs text-neutral-500 hover:text-neutral-700"
+                  title="Copy SKU"
+                >
+                  {copiedField === "sku" ? (
+                    <Check className="w-3 h-3" />
+                  ) : (
+                    <Copy className="w-3 h-3" />
+                  )}
+                  <span>SKU</span>
+                </button>
+              )}
+              
+              {/* Quote Button */}
+              <button
+                onClick={handleQuoteClick}
+                className="text-xs text-neutral-500 hover:text-neutral-700 font-medium"
+              >
+                Quote
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
 }
-
-

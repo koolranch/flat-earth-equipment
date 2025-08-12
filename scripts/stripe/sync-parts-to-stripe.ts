@@ -21,6 +21,10 @@
 import Stripe from "stripe";
 import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
+import dotenv from "dotenv";
+
+// Load local env for CLI runs (non-production). Safe: affects only this script.
+dotenv.config({ path: ".env.local" });
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
@@ -37,7 +41,7 @@ const Part = z.object({
   brand: z.string().nullable(),
   description: z.string().nullable(),
   image_url: z.string().nullable(),
-  price: z.string().nullable(),
+  price: z.union([z.string(), z.number()]).nullable(),
   price_cents: z.number().nullable(),
   sku: z.string().nullable(),
   category_slug: z.string().nullable(),
@@ -48,8 +52,9 @@ type Part = z.infer<typeof Part>;
 
 function centsFrom(p: Part): number {
   if (p.price_cents && p.price_cents > 0) return p.price_cents;
-  if (p.price && p.price.trim() !== "") {
-    const n = Math.round(Number(p.price) * 100);
+  const priceVal = p.price;
+  if (priceVal !== null && priceVal !== undefined && String(priceVal).trim() !== "") {
+    const n = Math.round(Number(priceVal) * 100);
     return Number.isNaN(n) ? 0 : n;
   }
   return 0;
