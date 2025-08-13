@@ -2,33 +2,29 @@ import { NextRequest, NextResponse } from 'next/server';
 import type { RecommendInput, RecommendResponse } from '@/types/recommendations';
 // If your backend logic already exists elsewhere, import and call it here.
 import { supabaseServer } from '@/lib/supabaseServer';
-import { parseSpecsFromSlug } from '@/lib/chargers';
+import { parseSpecsFromSlugSafe, withinPct } from '@/lib/specsDebug';
 
-// Configurable amp tolerance percentage
-const AMP_TOL = Number(process.env.RECS_AMP_TOLERANCE_PCT ?? '12');
-
-// Helper to check if actual value is within tolerance percentage of target
-function withinPct(target: number | undefined | null, actual: number | undefined | null, tolPct: number): boolean {
-  if (!target || !actual) return false;
-  const diffPct = Math.abs((actual - target) / target) * 100;
-  return diffPct <= tolPct;
-}
+// Configurable amp tolerance percentage - widened to 15% to capture 36V 70A vs 75A
+const AMP_TOL = Number(process.env.RECS_AMP_TOLERANCE_PCT ?? '15');
 
 // Enhanced recommender with explicit matchType determination
 function scoreItem(target: RecommendInput, p: any) {
-  const s = parseSpecsFromSlug(p.slug);
+  const s = parseSpecsFromSlugSafe(p.slug);
   let score = 0; 
   const reasons: { label: string; weight?: number }[] = [];
   
   // Check match criteria - be more explicit about requirements
   const voltageMatch = target.voltage ? s.voltage === target.voltage : true;
-  const ampClose = target.amps && s.current ? withinPct(target.amps, s.current, AMP_TOL) : !target.amps; // if no amps specified, don't require
-  const phaseMatch = !target.phase || !s.phase || (target.phase === s.phase); // if user picked 'Not sure' (target.phase=null), don't penalize
+  const ampClose = target.amps ? withinPct(target.amps, s.current, AMP_TOL) : true; // if no target amps, don't filter out
+  const phaseMatch = target.phase ? (s.phase ? s.phase === target.phase : true) : true; // if user 'Not sure', don't penalize
   
   // Determine matchType BEFORE scoring
   let matchType: 'best' | 'alternate' = 'alternate';
   if (voltageMatch && ampClose && phaseMatch) {
     matchType = 'best';
+  }
+  if (!s.current && target.amps) { 
+    matchType = 'alternate'; // if charger has no current spec and we're looking for specific amps
   }
   
   // Score based on match quality
@@ -59,7 +55,7 @@ function scoreItem(target: RecommendInput, p: any) {
   
   // Add best/alternate specific reasoning
   if (matchType === 'best') {
-    reasons.unshift({ label: `Best match for your ${s.voltage}V / ~${s.current}A`, weight: 120 });
+    reasons.unshift({ label: `Best match for your ${s.voltage}V (~${s.current||'?'}A)`, weight: 120 });
   } else {
     reasons.push({ label: 'Closest available match' });
   }
@@ -94,23 +90,17 @@ export async function POST(req: NextRequest) {
 
     const items = (data ?? []).map((p) => {
       const { score, reasons, matchType, debug } = scoreItem(body, p);
-      const s = parseSpecsFromSlug(p.slug);
+      const s = parseSpecsFromSlugSafe(p.slug);
       const fallback = matchType === 'alternate';
       
-      // Server-side debug logging
-      console.log('[recs]', p.slug, {
-        matchType,
-        score,
-        req: { v: body.voltage, a: body.amps, ph: body.phase },
-        got: { v: s.voltage, a: s.current, ph: s.phase },
-        tolPct: AMP_TOL
-      });
+      // Attach diagnostics so we can see why items fail to be 'best'
+      (p as any)._debug = { req: body, got: s, voltMatch: debug.voltageMatch, ampClose: debug.ampClose, phaseMatch: debug.phaseMatch, AMP_TOL };
       
       return { 
         ...p, 
         dc_voltage_v: s.voltage, 
         dc_current_a: s.current, 
-        input_phase: s.phase === 'unknown' ? null : s.phase, // Convert 'unknown' to null
+        input_phase: s.phase, // Already returns '1P' | '3P' | null
         chemistry_support: ['lead-acid','AGM','gel','lithium'], 
         score, 
         reasons, 
@@ -124,6 +114,10 @@ export async function POST(req: NextRequest) {
       if (a.matchType === 'alternate' && b.matchType === 'best') return 1;
       return b.score - a.score;
     }).slice(0, body.limit ?? 12); // Increased limit to show more options
+
+    // Before returning, optionally log a couple of top candidates for the given request
+    console.log('[recs:req]', body);
+    items.slice(0,6).forEach(it => console.log('[recs:item]', it.slug, it.matchType, (it as any)._debug));
 
     return NextResponse.json({ ok: true, items } satisfies RecommendResponse);
   } catch (e: any) {
