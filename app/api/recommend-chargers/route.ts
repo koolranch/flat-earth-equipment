@@ -77,15 +77,16 @@ export async function POST(req: NextRequest){
     const usingGreenView = useGreenView();
 
     // Phase 1: Query GREEN-only view behind a flag, fallback to parts if disabled
-    const selectFields = 'id,name,slug,image_url,price,price_cents,stripe_price_id,sku,voltage,amperage,phase,description,brand';
+    // Use safe field selection that works with current schema
+    const selectFields = 'id,name,slug,image_url,price,price_cents,stripe_price_id,sku,category_slug,description';
     
     let query = sb.from(dataSource).select(selectFields);
     
     if (!usingGreenView) {
       // When using parts table, need to filter for battery chargers and GREEN products
       query = query
-        .eq('category_slug', 'battery-chargers')
-        .or('slug.ilike.green%,name.ilike.%green%');
+        .eq('category_slug', 'battery-chargers');
+        // Note: GREEN filtering will be applied by filterGreen() function below
     }
     
     const { data, error } = await query
