@@ -5,6 +5,7 @@ import { type BatteryCharger } from "@/lib/batteryChargers";
 import type { RecommendInput } from "@/types/recommendations";
 import BatteryChargerSelector from "./BatteryChargerSelector";
 import RecommendationsBlock from "@/components/RecommendationsBlock";
+import SelectorDebugPanel from "@/components/SelectorDebugPanel";
 
 type Props = {
   chargers: BatteryCharger[];
@@ -18,6 +19,7 @@ export default function ChargerSelectorWithRecommendations({
   fallbackItems 
 }: Props) {
   const [bestMatchCount, setBestMatchCount] = useState(0);
+  const [currentSpeed, setCurrentSpeed] = useState<'overnight' | 'fast'>('overnight');
   const [currentFilters, setCurrentFilters] = useState<RecommendInput>({
     voltage: initialFilters.voltage ?? null,
     amps: initialFilters.amps ?? null,
@@ -36,6 +38,9 @@ export default function ChargerSelectorWithRecommendations({
     phase?: '1P' | '3P' | null; 
     speed?: 'overnight' | 'fast' | null 
   }) => {
+    if (filters.speed) {
+      setCurrentSpeed(filters.speed);
+    }
     setCurrentFilters(prev => ({
       ...prev,
       voltage: filters.voltage,
@@ -53,6 +58,13 @@ export default function ChargerSelectorWithRecommendations({
         hideResults={true}
         bestMatchCount={bestMatchCount}
         onFilterChange={handleFilterChange}
+      />
+      
+      {/* Debug Panel for Selector Testing */}
+      <SelectorDebugPanel 
+        voltage={currentFilters.voltage} 
+        speed={currentSpeed} 
+        phase={currentFilters.phase} 
       />
       
       {/* Debug Info for Development */}
