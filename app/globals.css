@@ -38,6 +38,17 @@ html,body{
 .badge-best{ background:#D1FAE5; color:#065F46; border-radius:999px; padding:0.25rem 0.5rem; font-size:12px; font-weight:500; }
 .badge-alt{ background:#FEEBC8; color:#9A5B06; border-radius:999px; padding:0.25rem 0.5rem; font-size:12px; font-weight:500; }
 
+/* Selected state tokens */
+.sel-active{ background:var(--brand-accent); color:#fff; border-color:var(--brand-accent); box-shadow:0 0 0 3px color-mix(in srgb, var(--brand-accent) 25%, transparent); transform:translateY(-1px); }
+.sel-inactive{ background:#fff; color:var(--brand-ink); border-color:var(--brand-border); }
+.sel-hover{ background:color-mix(in srgb, var(--brand-accent) 6%, #fff); }
+.sel-btn{ border-radius:0.75rem; border-width:1px; padding:0.75rem; text-align:left; transition:background .15s ease, box-shadow .15s ease, transform .12s ease; }
+.sel-icon{ display:inline-flex; align-items:center; justify-content:center; width:1.25rem; height:1.25rem; border-radius:999px; margin-right:.5rem; }
+.sel-check{ background:#fff; color:var(--brand-accent); }
+.sel-empty{ background:var(--brand-chip); color:var(--brand-muted); }
+/* Sticky selection bar */
+.selection-sticky{ position:sticky; top:0; z-index:20; backdrop-filter:saturate(1.2) blur(6px); background:color-mix(in srgb, #fff 85%, var(--brand-chip)); border-bottom:1px solid var(--brand-border); }
+
 /* Optional hero treatment to match site header gradient */
 .hero-gradient{ background:linear-gradient(180deg, color-mix(in srgb, var(--brand-accent) 15%, transparent) 0%, rgba(15,17,21,0.06) 60%, transparent 100%); }
 

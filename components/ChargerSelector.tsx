@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Check } from 'lucide-react';
 import type { Speed } from '@/lib/recsUtil';
 import { ampsFrom } from '@/lib/recsUtil';
 
@@ -9,47 +10,70 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
 
   const computedAmps = useMemo(()=> ampsFrom(voltage ? Number(voltage) : null, speed), [voltage, speed]);
 
-  useEffect(() => {
-    onFilterChange({ voltage: voltage ? Number(voltage) : null, amps: computedAmps ?? null, phase: phase || null, speed });
-  }, [voltage, computedAmps, phase, speed, onFilterChange]);
+  useEffect(() => { onFilterChange({ voltage: voltage ? Number(voltage) : null, amps: computedAmps ?? null, phase: phase || null, speed }); }, [voltage, computedAmps, phase, speed, onFilterChange]);
 
-  const btnBase = 'rounded-lg border p-3 text-left transition';
-  const active = 'border-[var(--brand-accent)] ring-1 ring-[var(--brand-accent)] bg-[color:color-mix(in_srgb,var(--brand-accent)_6%,white)]';
-  const inactive = 'border-[var(--brand-border)] hover:bg-[var(--brand-chip)]';
+  function Tile({active, label, sub, onClick, ariaLabel}:{active:boolean; label:string; sub?:string; onClick:()=>void; ariaLabel:string}){
+    return (
+      <button type="button" onClick={onClick} aria-pressed={active} aria-label={ariaLabel}
+        className={`sel-btn ${active ? 'sel-active' : 'sel-inactive hover:sel-hover'}`}
+      >
+        <div className="flex items-start gap-2">
+          <span className={`sel-icon ${active ? 'sel-check' : 'sel-empty'}`}>{active ? <Check className="h-3.5 w-3.5"/> : null}</span>
+          <div>
+            <div className={`font-semibold ${active ? 'text-white' : ''}`}>{label}</div>
+            {sub && <div className={`text-xs ${active ? 'text-white/80' : 'text-[var(--brand-muted)]'}`}>{sub}</div>}
+          </div>
+        </div>
+      </button>
+    );
+  }
 
   return (
     <div className="space-y-4">
-      <div>
-        <label className="block text-sm font-medium">Step 1: Battery Voltage</label>
-        <select value={voltage} onChange={(e)=>setVoltage(e.target.value)} className="mt-1 w-full rounded-md border border-[var(--brand-border)] p-2">
-          <option value="">Select voltage</option>
-          {[24,36,48,80].map(v => <option key={v} value={String(v)}>{v}V</option>)}
-        </select>
-      </div>
-      <div>
-        <label className="block text-sm font-medium">Step 2: Charge Speed</label>
-        <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
-          <button type="button" onClick={()=>setSpeed('overnight')} className={`${btnBase} ${speed==='overnight' ? active : inactive}`} aria-pressed={speed==='overnight'}>
-            <div className="font-semibold">Standard Overnight</div>
-            <div className="text-xs text-[var(--brand-muted)]">Typical 8–12 hours</div>
-          </button>
-          <button type="button" onClick={()=>setSpeed('fast')} className={`${btnBase} ${speed==='fast' ? active : inactive}`} aria-pressed={speed==='fast'}>
-            <div className="font-semibold">Faster Charge</div>
-            <div className="text-xs text-[var(--brand-muted)]">Roughly 4–6 hours</div>
-          </button>
+      {/* Sticky summary (md+) */}
+      <div className="hidden md:block selection-sticky -mx-4 px-4 py-2 text-sm">
+        <div className="mx-auto max-w-6xl flex flex-wrap items-center gap-2">
+          <span className="text-[var(--brand-muted)]">Your selections:</span>
+          {voltage && <span className="brand-chip">{voltage}V</span>}
+          <span className="brand-chip">{speed==='overnight' ? 'Overnight' : 'Fast'}</span>
+          <span className="brand-chip">{phase==='1P' ? 'Single‑phase' : phase==='3P' ? 'Three‑phase' : 'Phase: Not sure'}</span>
+          {computedAmps && <span className="brand-chip">~{computedAmps} A</span>}
         </div>
       </div>
+
+      {/* Step 1 */}
       <div>
-        <label className="block text-sm font-medium">Step 3: Facility Power (optional)</label>
-        <div className="mt-2 flex flex-wrap gap-2">
-          {[{label:'Single‑phase (208–240V)', val:'1P'},{label:'Three‑phase (480/600V)', val:'3P'}].map(o => (
-            <button key={o.val} type="button" onClick={()=>setPhase(o.val as any)} className={`rounded-lg border px-3 py-2 text-sm transition ${phase===o.val ? active : inactive}`} aria-pressed={phase===o.val}>{o.label}</button>
+        <label className="block text-sm font-medium mb-1">Step 1: Battery Voltage</label>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          {[24,36,48,80].map(v => (
+            <Tile key={v} active={voltage===String(v)} label={`${v}V`} onClick={()=>setVoltage(String(v))} ariaLabel={`Select ${v} volt`} />
           ))}
-          <button type="button" onClick={()=>setPhase('' as any)} className={`rounded-lg border px-3 py-2 text-sm transition ${phase==='' ? active : inactive}`} aria-pressed={phase===''}>Not sure</button>
         </div>
       </div>
+
+      {/* Step 2 */}
+      <div>
+        <label className="block text-sm font-medium mb-1">Step 2: Charge Speed</label>
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+          <Tile active={speed==='overnight'} label="Standard Overnight" sub="Typical 8–12 hours" onClick={()=>setSpeed('overnight')} ariaLabel="Select standard overnight" />
+          <Tile active={speed==='fast'} label="Faster Charge" sub="Roughly 4–6 hours" onClick={()=>setSpeed('fast')} ariaLabel="Select faster charge" />
+        </div>
+      </div>
+
+      {/* Step 3 */}
+      <div>
+        <label className="block text-sm font-medium mb-1">Step 3: Facility Power (optional)</label>
+        <div className="flex flex-wrap gap-2">
+          <Tile active={phase==='1P'} label="Single‑phase (208–240V)" onClick={()=>setPhase('1P')} ariaLabel="Select single phase" />
+          <Tile active={phase==='3P'} label="Three‑phase (480/600V)" onClick={()=>setPhase('3P')} ariaLabel="Select three phase" />
+          <Tile active={phase===''} label="Not sure" onClick={()=>setPhase('' as any)} ariaLabel="Select not sure" />
+        </div>
+      </div>
+
+      {/* Summary card */}
       <div className="rounded-lg border border-[var(--brand-border)] bg-[var(--brand-chip)]/60 p-3 text-sm">
-        <span className="font-medium">Recommended charger output:</span> {computedAmps ? <span> {computedAmps} A</span> : <span className="text-[var(--brand-muted)]"> Select voltage & speed</span>}
+        <span className="font-medium">Recommended charger output:</span>{' '}
+        {computedAmps ? <span>~{computedAmps} A</span> : <span className="text-[var(--brand-muted)]">Select voltage & speed</span>}
       </div>
     </div>
   );
