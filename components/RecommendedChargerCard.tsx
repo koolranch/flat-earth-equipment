@@ -10,53 +10,98 @@ import { parseSpecsFromSlugSafe } from '@/lib/specsDebug';
 export default function RecommendedChargerCard({ item }: { item: RecommendedPart }) {
   const specs = parseSpecsFromSlugSafe(item.slug);
   const priceStr = currency(item.price ?? item.price_cents);
+  const isBestMatch = item.matchType === 'best';
 
   return (
-    <div className="brand-card transition hover:shadow-md relative">
-      <div className="aspect-[4/3] w-full overflow-hidden rounded-t-brand bg-brand-chip">
+    <div className={`brand-card transition-all duration-200 hover:shadow-lg hover:-translate-y-1 relative overflow-hidden ${isBestMatch ? 'ring-2 ring-green-200' : ''}`}>
+      {/* Match Type Indicator */}
+      <div className={`absolute top-0 right-0 z-10 px-3 py-1 text-xs font-semibold text-white ${isBestMatch ? 'bg-green-500' : 'bg-blue-500'}`}>
+        {isBestMatch ? '✓ Best Match' : '~ Alternative'}
+      </div>
+
+      <div className="aspect-[4/3] w-full overflow-hidden bg-brand-chip relative">
         {item.image_url ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={item.image_url} alt={item.name} className="h-full w-full object-cover" />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-brand-muted"><Battery className="h-8 w-8" /></div>
+          <div className="flex h-full w-full items-center justify-center text-brand-muted">
+            <Battery className="h-12 w-12" />
+          </div>
         )}
       </div>
-      <div className="p-4">
-        <div className="mb-1 flex items-center justify-between">
-          <h3 className="text-base sm:text-lg font-semibold tracking-tight">{item.name}</h3>
-          <span 
-            aria-label={item.matchType === 'best' ? 'Best match' : 'Alternate option'} 
-            className={item.matchType === 'best' ? 'badge-best' : 'badge-alt'}
-          >
-            {item.matchType === 'best' ? 'Best Match' : 'Alternate Option'}
-          </span>
+
+      <div className="p-5">
+        {/* Header */}
+        <div className="mb-3">
+          <h3 className="text-lg font-semibold tracking-tight text-brand-ink leading-tight">{item.name}</h3>
+          <div className="mt-1 text-sm text-brand-muted">{item.brand || 'FSIP'}</div>
         </div>
 
-        <div className="mt-2 flex flex-wrap gap-2 text-xs">
-          {specs.voltage && <span className="brand-chip">⚡ {specs.voltage} V</span>}
-          {specs.current && <span className="brand-chip">⏱ {specs.current} A</span>}
-          {specs.phase && <span className="brand-chip">{specs.phase}</span>}
+        {/* Key Specs - Prominent */}
+        <div className="mb-4 p-3 rounded-lg bg-gray-50 border">
+          <div className="grid grid-cols-3 gap-3 text-center">
+            {specs.voltage && (
+              <div>
+                <div className="text-lg font-bold text-brand-accent">{specs.voltage}V</div>
+                <div className="text-xs text-brand-muted">Voltage</div>
+              </div>
+            )}
+            {specs.current && (
+              <div>
+                <div className="text-lg font-bold text-brand-accent">{specs.current}A</div>
+                <div className="text-xs text-brand-muted">Current</div>
+              </div>
+            )}
+            {specs.phase && (
+              <div>
+                <div className="text-lg font-bold text-brand-accent">{specs.phase}</div>
+                <div className="text-xs text-brand-muted">Phase</div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Additional Features */}
+        <div className="mb-4 flex flex-wrap gap-1">
           {Array.isArray(item.chemistry_support) && item.chemistry_support.slice(0,2).map((c, i) => (
-            <span key={i} className="brand-chip">{c}</span>
+            <span key={i} className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-full">{c}</span>
           ))}
-          {item.quick_ship && <span className="brand-chip">🚚 Quick ship</span>}
+          {item.quick_ship && <span className="text-xs px-2 py-1 bg-green-100 text-green-700 rounded-full">🚚 Quick Ship</span>}
         </div>
 
-        {/* Explanation bullets */}
+        {/* Why This Match */}
         {item.reasons?.length ? (
-          <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-neutral-700">
-            {item.reasons.slice(0,3).map((r, i) => <li key={i}>{r.label}</li>)}
-          </ul>
+          <div className="mb-4 p-3 rounded-lg bg-amber-50 border border-amber-200">
+            <div className="text-xs font-semibold text-amber-800 mb-2">Why this charger:</div>
+            <ul className="space-y-1 text-xs text-amber-700">
+              {item.reasons.slice(0,2).map((r, i) => (
+                <li key={i} className="flex items-start gap-1">
+                  <span className="text-amber-500">•</span>
+                  <span>{r.label}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         ) : null}
 
-        <div className="mt-4 flex items-center justify-between">
-          <div className="text-sm font-medium">
-            {priceStr ? priceStr : <span className="text-brand-muted">Call for pricing</span>}
+        {/* Price and Actions */}
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="text-xl font-bold text-brand-accent">
+              {priceStr || <span className="text-base text-brand-muted">Call for pricing</span>}
+            </div>
+            {item.quick_ship && (
+              <div className="text-xs text-green-600 font-medium">Ships today</div>
+            )}
           </div>
-          <div className="flex items-center gap-2">
-            <Link href={`/chargers/${item.slug}`} className="btn btn-outline text-sm">Details</Link>
-            <BuyNowButton priceId={item.stripe_price_id} slug={item.slug} />
-            <QuoteButton product={{ name: item.name, slug: item.slug, sku: item.sku || undefined }} />
+          <div className="flex flex-col gap-2">
+            <Link href={`/chargers/${item.slug}`} className="btn btn-outline text-sm px-4 py-2">
+              View Details
+            </Link>
+            <div className="flex gap-1">
+              <BuyNowButton priceId={item.stripe_price_id} slug={item.slug} />
+              <QuoteButton product={{ name: item.name, slug: item.slug, sku: item.sku || undefined }} />
+            </div>
           </div>
         </div>
       </div>
