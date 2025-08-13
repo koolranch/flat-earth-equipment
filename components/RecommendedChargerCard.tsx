@@ -6,8 +6,14 @@ import MatchTypeBadge from '@/components/MatchTypeBadge';
 import type { RecommendedPart } from '@/types/recommendations';
 import { currency } from '@/lib/chargers';
 import { parseSpecsFromSlugSafe } from '@/lib/specsDebug';
+import { isGreenSlug } from '@/lib/greenFilter';
 
 export default function RecommendedChargerCard({ item }: { item: RecommendedPart }) {
+  // Defensive filter: hide non-GREEN items that might slip through
+  if (!isGreenSlug(item.slug)) {
+    return null;
+  }
+
   const specs = parseSpecsFromSlugSafe(item.slug);
   const priceStr = currency(item.price ?? item.price_cents);
   const isBestMatch = item.matchType === 'best';

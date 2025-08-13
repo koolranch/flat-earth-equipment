@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createClient } from '@supabase/supabase-js';
 import { parseSpecsFromSlugSafe, withinPct } from '@/lib/specsDebug';
+import { filterGreen } from '@/lib/greenFilter';
+import { getSpecs } from '@/lib/specsStruct';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -25,18 +27,30 @@ function sbServer(){
 }
 
 function scoreItem(body: z.infer<typeof Input>, row: any){
-  const s = parseSpecsFromSlugSafe(row.slug);
+  // Prefer structured fields; fallback to parsing only if missing
+  const specs = getSpecs(
+    row.voltage, 
+    row.amperage, 
+    row.phase, 
+    row.slug, 
+    row.name, 
+    row.description
+  );
+  
   let score = 0; const reasons: {label:string;weight?:number}[] = [];
-  const voltMatch = body.voltage ? s.voltage === body.voltage : true;
-  const ampClose  = body.amps ? withinPct(body.amps, s.current, AMP_TOL) : true;
-  const phaseMatch = body.phase ? (s.phase ? s.phase === body.phase : true) : true;
+  const voltMatch = body.voltage ? specs.voltage === body.voltage : true;
+  const ampClose  = body.amps ? withinPct(body.amps, specs.amperage, AMP_TOL) : true;
+  const phaseMatch = body.phase ? (specs.phase ? specs.phase === body.phase : true) : true;
+  
   if (voltMatch && body.voltage) { score += 100; reasons.push({label:`For your ${body.voltage}V battery`, weight:100}); }
-  if (ampClose && body.amps && s.current) { score += 50; reasons.push({label:`Charge speed fit (~${s.current}A)`, weight:50}); }
+  if (ampClose && body.amps && specs.amperage) { score += 50; reasons.push({label:`Charge speed fit (~${specs.amperage}A)`, weight:50}); }
   if (phaseMatch && body.phase) { score += 20; reasons.push({label: body.phase==='1P'?'Single‑phase compatible':'Three‑phase compatible', weight:20}); }
+  
   const matchType: 'best'|'alternate' = (voltMatch && ampClose && phaseMatch) ? 'best' : 'alternate';
-  if (matchType==='best') reasons.unshift({ label:`Best match for your ${s.voltage ?? '?'}V / ~${s.current ?? '?'}A`, weight:120 });
+  if (matchType==='best') reasons.unshift({ label:`Best match for your ${specs.voltage ?? '?'}V / ~${specs.amperage ?? '?'}A`, weight:120 });
   else reasons.push({ label:'Closest available match' });
-  return { score, reasons, matchType, specs: s };
+  
+  return { score, reasons, matchType, specs };
 }
 
 export async function GET(){
@@ -52,15 +66,28 @@ export async function POST(req: NextRequest){
     const sb = sbServer();
     const { data, error } = await sb
       .from('parts')
-      .select('id,name,slug,image_url,price,price_cents,stripe_price_id,sku,category_slug')
+      .select('id,name,slug,image_url,price,price_cents,stripe_price_id,sku,category_slug,description,voltage,amperage,phase')
       .eq('category_slug','battery-chargers')
       .order('slug', { ascending: true })
       .limit(1000);
     if (error) throw error;
 
-    const items = (data ?? []).map((p:any) => {
+    // Apply GREEN-only filter to restrict to FSIP GREEN Series (GREEN2/4/6/8/X)
+    const rawParts = data ?? [];
+    const greenOnlyParts = filterGreen(rawParts);
+
+    const items = greenOnlyParts.map((p:any) => {
       const { score, reasons, matchType, specs } = scoreItem(body, p);
-      return { ...p, dc_voltage_v: specs.voltage, dc_current_a: specs.current, input_phase: specs.phase, chemistry_support: ['lead-acid','AGM','gel','lithium'], score, reasons, matchType };
+      return { 
+        ...p, 
+        dc_voltage_v: specs.voltage, 
+        dc_current_a: specs.amperage, 
+        input_phase: specs.phase, 
+        chemistry_support: ['lead-acid','AGM','gel','lithium'], 
+        score, 
+        reasons, 
+        matchType 
+      };
     }).sort((a:any,b:any)=> b.score - a.score).slice(0, body.limit ?? 12);
 
     return NextResponse.json({ ok:true, items, debug:{ requested: body, count: items.length, ampTolerancePct: AMP_TOL } });
