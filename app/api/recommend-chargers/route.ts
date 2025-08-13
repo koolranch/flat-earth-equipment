@@ -4,6 +4,7 @@ import { createClient } from '@supabase/supabase-js';
 import { parseSpecsFromSlugSafe, withinPct } from '@/lib/specsDebug';
 import { filterGreen } from '@/lib/greenFilter';
 import { getSpecs } from '@/lib/specsStruct';
+import { useGreenView, getChargerSource } from '@/lib/greenView';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -54,7 +55,15 @@ function scoreItem(body: z.infer<typeof Input>, row: any){
 }
 
 export async function GET(){
-  return NextResponse.json({ ok:true, enabled: RECS_ENABLED, ampTolerancePct: AMP_TOL });
+  const usingGreenView = useGreenView();
+  const dataSource = getChargerSource();
+  return NextResponse.json({ 
+    ok: true, 
+    enabled: RECS_ENABLED, 
+    ampTolerancePct: AMP_TOL,
+    dataSource,
+    usingGreenView
+  });
 }
 
 export async function POST(req: NextRequest){
@@ -64,17 +73,29 @@ export async function POST(req: NextRequest){
     const body = Input.parse(json);
 
     const sb = sbServer();
-    const { data, error } = await sb
-      .from('parts')
-      .select('id,name,slug,image_url,price,price_cents,stripe_price_id,sku,category_slug,description,voltage,amperage,phase')
-      .eq('category_slug','battery-chargers')
+    const dataSource = getChargerSource();
+    const usingGreenView = useGreenView();
+
+    // Phase 1: Query GREEN-only view behind a flag, fallback to parts if disabled
+    const selectFields = 'id,name,slug,image_url,price,price_cents,stripe_price_id,sku,voltage,amperage,phase,description,brand';
+    
+    let query = sb.from(dataSource).select(selectFields);
+    
+    if (!usingGreenView) {
+      // When using parts table, need to filter for battery chargers and GREEN products
+      query = query
+        .eq('category_slug', 'battery-chargers')
+        .or('slug.ilike.green%,name.ilike.%green%');
+    }
+    
+    const { data, error } = await query
       .order('slug', { ascending: true })
       .limit(1000);
+      
     if (error) throw error;
 
-    // Apply GREEN-only filter to restrict to FSIP GREEN Series (GREEN2/4/6/8/X)
-    const rawParts = data ?? [];
-    const greenOnlyParts = filterGreen(rawParts);
+    // When using GREEN view, data is already filtered. When using parts, apply additional filtering
+    const greenOnlyParts = usingGreenView ? (data ?? []) : filterGreen(data ?? []);
 
     const items = greenOnlyParts.map((p:any) => {
       const { score, reasons, matchType, specs } = scoreItem(body, p);
@@ -90,7 +111,18 @@ export async function POST(req: NextRequest){
       };
     }).sort((a:any,b:any)=> b.score - a.score).slice(0, body.limit ?? 12);
 
-    return NextResponse.json({ ok:true, items, debug:{ requested: body, count: items.length, ampTolerancePct: AMP_TOL } });
+    return NextResponse.json({ 
+      ok: true, 
+      items, 
+      debug: { 
+        requested: body, 
+        count: items.length, 
+        ampTolerancePct: AMP_TOL,
+        dataSource,
+        usingGreenView,
+        rawCount: greenOnlyParts.length
+      } 
+    });
   } catch (err:any) {
     console.error('[recommend-chargers] error', err?.message);
     const hint = (!process.env.NEXT_PUBLIC_SUPABASE_URL || (!process.env.SUPABASE_SERVICE_ROLE_KEY && !process.env.SUPABASE_ANON_KEY)) ? 'Missing Supabase env vars' : undefined;

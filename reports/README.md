@@ -1,99 +1,158 @@
-# Recommendation Audit — How to Run
+# Phase 1 — GREEN Data Quality & View
 
-**Note: The audits now run GREEN Series only by default (GREEN2/4/6/8/X). Non-GREEN chargers are filtered out.**
+This phase implements structured data guardrails for GREEN Series chargers and provides a clean view for optimal query performance.
 
-## 1) Coverage audit (catalog sanity)
-```bash
-TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/audit/recs_coverage.ts
-```
-- See console for bucket counts and anomalies.
-- Open `reports/recs_coverage.csv` and scan for missing voltage/current/phase.
+## Overview
 
-## 2) Scenario batch test (user inputs → recs)
-```bash
-BASE_URL=https://YOUR_DOMAIN TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/audit/recs_scenarios.ts
-```
-- Produces `reports/recs_scenarios.csv` with Best/Alt counts and top reasons.
+- **Database Migration**: Adds constraints and triggers to enforce data quality for GREEN chargers
+- **GREEN View**: Creates `public.green_chargers` view with guaranteed structured specs
+- **Feature Flag**: `USE_GREEN_VIEW=1` enables the API to use the optimized view
+- **Backwards Compatible**: Falls back to `public.parts` table when flag is disabled
 
-## 3) One‑click export (browser)
-- Visit: `/api/debug/recs/export` (downloads `recs_export.csv`).
+## Deploy the Migration
 
-## What to share back for review
-- Paste the *first 20 lines* of each CSV, + the **bucket histogram** from step 1.
-- Note any rows where Best=0 but Alt>0 for common cases (36V/48V overnight, 1P).
-- Flag anomalies (e.g., GREEN2 showing 3P).
-
-## Quick Local Test
-```bash
-# Test locally first
-RECS_ENABLED=1 RECS_AMP_TOLERANCE_PCT=15 npm run dev
-
-# Then run coverage audit
-TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/audit/recs_coverage.ts
-
-# Then run scenarios (make sure dev server is running)
-BASE_URL=http://localhost:3000 TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/audit/recs_scenarios.ts
-```
-
-## Expected Outputs
-- `reports/recs_coverage.csv` - GREEN Series products only with parsed specs and bucket analysis
-- `reports/recs_scenarios.csv` - Test results for all voltage/speed/phase combinations (GREEN Series only)
-- Console output with bucket histogram and anomaly counts for GREEN Series chargers
-
-## GREEN Series Filtering
-All audit tools now automatically filter to show only FSIP GREEN Series chargers:
-- GREEN2 (1P low-current chargers)
-- GREEN4 (1P mid-current chargers) 
-- GREEN6 (3P high-current chargers)
-- GREEN8 (3P industrial chargers)
-- GREENX (3P maximum-power chargers)
-
-This excludes PowerWise, Hyster, EZGO, Club Car, and other brand-specific chargers.
-
-## Structured Fields Rollout (GREEN Series Only)
-
-The recommendation system now uses structured database fields instead of regex parsing for better performance and accuracy.
-
-### Migration Steps
-
-1. **Run SQL Migration**
-   Execute `sql/parts_add_charger_specs.sql` in Supabase SQL editor to add voltage, amperage, and phase columns.
-
-2. **Backfill GREEN Series Specs**
+1. Ensure Supabase CLI is installed and linked to your project:
    ```bash
-   TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/backfill/specs_backfill_green.ts
-   ```
-   This parses specs from text fields and populates the structured columns for GREEN chargers only.
-
-3. **Verify Results**
-   ```bash
-   TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/audit/recs_verify_after_backfill.ts
-   ```
-   Shows completion stats and any items needing manual attention.
-
-4. **Re-run Audits**
-   ```bash
-   # Coverage audit (now uses structured fields)
-   TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/audit/recs_coverage.ts
-   
-   # Scenarios test (should see improved accuracy)
-   BASE_URL=http://localhost:3000 TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/audit/recs_scenarios.ts
+   supabase --version
+   supabase status
    ```
 
-### Benefits
+2. Apply the migration:
+   ```bash
+   supabase db push
+   ```
+   This applies `supabase/migrations/20250812_green_data_quality.sql` to your database.
 
-- **Performance**: No regex parsing for products with structured specs
-- **Accuracy**: Explicit voltage/amperage/phase values vs text parsing
-- **Maintainability**: Easy to update specs via database instead of slug changes
-- **Backwards Compatible**: Falls back to parsing for missing structured fields
+## Enable API to Use the GREEN View
 
-### Database Schema
+Set environment variable `USE_GREEN_VIEW=1` (recommended):
+
+**Local Development (.env.local)**:
+```
+USE_GREEN_VIEW=1
+```
+
+**Production (Vercel)**:
+- Go to Project → Settings → Environment Variables
+- Add `USE_GREEN_VIEW=1`
+- Redeploy
+
+If unset or set to `0`, API falls back to `public.parts` table with filtering.
+
+## Quick SQL Sanity Checks
+
+Run these in Supabase SQL editor to verify data quality:
+
+### 1. Any GREEN rows missing specs?
+```sql
+SELECT slug, name, voltage, amperage, phase
+FROM public.parts
+WHERE (slug ILIKE 'green%' OR name ILIKE '%green%')
+  AND category_slug = 'battery-chargers'
+  AND (voltage IS NULL OR amperage IS NULL);
+```
+
+### 2. Phase-by-family rules violations?
+```sql
+SELECT slug, name, phase
+FROM public.parts
+WHERE slug ILIKE 'green%'
+  AND category_slug = 'battery-chargers'
+  AND ((slug ~* 'green(2|4)' AND phase <> '1P') 
+       OR (slug ~* 'green(6|8|x)' AND phase <> '3P'));
+```
+
+### 3. View performance check
+```sql
+-- Count via view (should be fast)
+SELECT COUNT(*) FROM public.green_chargers;
+
+-- Sample data from view
+SELECT slug, name, voltage, amperage, phase, specs_complete 
+FROM public.green_chargers 
+LIMIT 10;
+```
+
+### 4. Validate GREEN data helper
+```sql
+-- Check for any incomplete GREEN chargers
+SELECT * FROM public.validate_green_charger_specs();
+```
+
+## API Testing
+
+### Health Check (GET)
+```bash
+curl http://localhost:3000/api/recommend-chargers
+```
+
+Expected response includes:
+```json
+{
+  "ok": true,
+  "enabled": true,
+  "dataSource": "green_chargers",
+  "usingGreenView": true
+}
+```
+
+### Recommendation Test (POST)
+```bash
+curl -X POST http://localhost:3000/api/recommend-chargers \
+  -H "Content-Type: application/json" \
+  -d '{"voltage": 36, "amps": 75, "phase": "1P"}'
+```
+
+Expected response includes structured voltage/amperage/phase in items.
+
+### Fallback Test
+Temporarily set `USE_GREEN_VIEW=0` and test again - should work with `dataSource: "parts"`.
+
+## Data Quality Guarantees
+
+With the migration applied:
+
+1. **GREEN chargers** (slug contains 'green' or name contains 'green') in category 'battery-chargers' **must have**:
+   - `voltage` (INTEGER)
+   - `amperage` (INTEGER)
+   - `phase` ('1P' or '3P')
+
+2. **Phase rules enforced**:
+   - GREEN2/4: Must be '1P' (single-phase)
+   - GREEN6/8/X: Must be '3P' (three-phase)
+
+3. **Non-GREEN products**: Remain unaffected (can have NULL values)
+
+## Troubleshooting
+
+### Trigger Blocks Updates
+If you get an error like "GREEN chargers must have voltage and amperage", fill in the missing specs:
 
 ```sql
-ALTER TABLE public.parts
-  ADD COLUMN voltage INTEGER NULL,
-  ADD COLUMN amperage INTEGER NULL,
-  ADD COLUMN phase TEXT NULL CHECK (phase IN ('1P','3P') OR phase IS NULL);
+UPDATE public.parts 
+SET voltage = 36, amperage = 75, phase = '1P'
+WHERE slug = 'green2-problematic-slug';
 ```
 
-Non-charger products remain unaffected (NULL values).
+### Performance Issues
+Check if indexes are being used:
+
+```sql
+EXPLAIN ANALYZE 
+SELECT * FROM public.green_chargers 
+WHERE voltage = 36 AND amperage BETWEEN 70 AND 80;
+```
+
+### View Permissions
+If getting permission errors:
+
+```sql
+GRANT SELECT ON public.green_chargers TO anon, authenticated;
+```
+
+## Next Steps
+
+This sets the foundation for:
+- Phase 2: Enhanced UI with better filtering and display
+- Phase 3: Advanced matching algorithms using structured data
+- Phase 4: Analytics and reporting on charger usage patterns
