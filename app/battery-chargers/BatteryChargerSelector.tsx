@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { type BatteryCharger, parseChargerSpecs } from "@/lib/batteryChargers";
 import ChargerSelector from "@/components/ChargerSelector";
 import ChargerCard from "@/components/ChargerCard";
@@ -17,11 +17,27 @@ type SelectorFilters = {
   phase?: "1P" | "3P" | null;
 };
 
-export default function BatteryChargerSelector({ chargers, hideResults = false }: Props & { hideResults?: boolean }) {
+export default function BatteryChargerSelector({ 
+  chargers, 
+  hideResults = false, 
+  bestMatchCount,
+  onFilterChange: externalOnFilterChange 
+}: Props & { 
+  hideResults?: boolean;
+  bestMatchCount?: number;
+  onFilterChange?: (filters: SelectorFilters) => void;
+}) {
   const [uiFilters, setUiFilters] = useState<SelectorFilters>({});
   const [helpModalOpen, setHelpModalOpen] = useState(false);
   const [quoteModalOpen, setQuoteModalOpen] = useState(false);
   const [selectedCharger, setSelectedCharger] = useState<BatteryCharger | null>(null);
+
+  // Notify external handler of filter changes
+  useEffect(() => {
+    if (externalOnFilterChange) {
+      externalOnFilterChange(uiFilters);
+    }
+  }, [uiFilters, externalOnFilterChange]);
 
   // Filter chargers based on current selections with tolerance
   const filteredChargers = useMemo(() => {
@@ -95,8 +111,9 @@ export default function BatteryChargerSelector({ chargers, hideResults = false }
       {/* Selector Component */}
       <ChargerSelector
         onFilterChange={setUiFilters}
-        resultsCount={sortedChargers.length}
+        resultsCount={bestMatchCount !== undefined ? bestMatchCount : sortedChargers.length}
         onNotSureClick={() => setHelpModalOpen(true)}
+        showBestMatchLabel={bestMatchCount !== undefined && bestMatchCount > 0}
       />
 
       {/* Results Section - Hidden when using unified RecommendationsBlock */}
