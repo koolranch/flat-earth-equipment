@@ -3,9 +3,8 @@
 import { useState, useCallback } from "react";
 import { type BatteryCharger } from "@/lib/batteryChargers";
 import type { RecommendInput } from "@/types/recommendations";
-import BatteryChargerSelector from "./BatteryChargerSelector";
+import ChargerSelector from "@/components/ChargerSelector";
 import RecommendationsBlock from "@/components/RecommendationsBlock";
-import SelectorDebugPanel from "@/components/SelectorDebugPanel";
 
 type Props = {
   chargers: BatteryCharger[];
@@ -18,19 +17,13 @@ export default function ChargerSelectorWithRecommendations({
   initialFilters = {},
   fallbackItems 
 }: Props) {
-  const [bestMatchCount, setBestMatchCount] = useState(0);
-  const [currentSpeed, setCurrentSpeed] = useState<'overnight' | 'fast'>('overnight');
   const [currentFilters, setCurrentFilters] = useState<RecommendInput>({
     voltage: initialFilters.voltage ?? null,
     amps: initialFilters.amps ?? null,
     phase: initialFilters.phase ?? null,
     chemistry: initialFilters.chemistry ?? null,
-    limit: 6
+    limit: 12
   });
-
-  const handleBestMatchCountChange = useCallback((count: number) => {
-    setBestMatchCount(count);
-  }, []);
 
   const handleFilterChange = useCallback((filters: { 
     voltage?: number | null; 
@@ -38,47 +31,34 @@ export default function ChargerSelectorWithRecommendations({
     phase?: '1P' | '3P' | null; 
     speed?: 'overnight' | 'fast' | null 
   }) => {
-    if (filters.speed) {
-      setCurrentSpeed(filters.speed);
-    }
     setCurrentFilters(prev => ({
       ...prev,
       voltage: filters.voltage,
       amps: filters.amps,
       phase: filters.phase,
-      // Don't update chemistry and limit from this callback
     }));
   }, []);
 
   return (
     <div className="space-y-8">
-      {/* Selector Component with Best Match count */}
-      <BatteryChargerSelector 
-        chargers={chargers}
-        hideResults={true}
-        bestMatchCount={bestMatchCount}
-        onFilterChange={handleFilterChange}
-      />
-      
-      {/* Debug Panel for Selector Testing */}
-      <SelectorDebugPanel 
-        voltage={currentFilters.voltage} 
-        speed={currentSpeed} 
-        phase={currentFilters.phase} 
-      />
-      
-      {/* Debug Info for Development */}
-      {process.env.NODE_ENV !== 'production' && (
-        <div className="mb-4 p-2 bg-gray-50 rounded text-xs text-gray-600">
-          <strong>Debug:</strong> Amp tolerance: {process.env.NEXT_PUBLIC_RECS_AMP_TOLERANCE_PCT || process.env.RECS_AMP_TOLERANCE_PCT || '12'}% | Best Match Count: {bestMatchCount}
+      {/* Step-by-step Selector */}
+      <div className="bg-white rounded-2xl border border-gray-200 p-6">
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-gray-900">
+            Find Your Perfect Charger
+          </h2>
+          <p className="mt-2 text-gray-600">
+            Answer these questions to get personalized recommendations
+          </p>
         </div>
-      )}
+        
+        <ChargerSelector onFilterChange={handleFilterChange} />
+      </div>
 
       {/* Smart Recommendations Section */}
       <RecommendationsBlock 
         filters={currentFilters}
         fallbackItems={fallbackItems}
-        onBestMatchCountChange={handleBestMatchCountChange}
       />
     </div>
   );

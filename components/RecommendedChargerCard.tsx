@@ -4,10 +4,11 @@ import { BuyNowButton } from '@/components/AddToCartButton';
 import QuoteButton from '@/components/QuoteButton';
 import MatchTypeBadge from '@/components/MatchTypeBadge';
 import type { RecommendedPart } from '@/types/recommendations';
-import { currency, parseSpecsFromSlug } from '@/lib/chargers';
+import { currency } from '@/lib/chargers';
+import { parseSpecsFromSlugSafe } from '@/lib/specsDebug';
 
 export default function RecommendedChargerCard({ item }: { item: RecommendedPart }) {
-  const specs = parseSpecsFromSlug(item.slug);
+  const specs = parseSpecsFromSlugSafe(item.slug);
   const priceStr = currency(item.price ?? item.price_cents);
 
   return (
