@@ -5,7 +5,15 @@ import { fetchRecommendations } from '@/lib/fetchRecommendations';
 import RecommendedChargerCard from '@/components/RecommendedChargerCard';
 import RecommendationInfo from '@/components/RecommendationInfo';
 
-export default function RecommendationsBlock({ filters, fallbackItems }: { filters: RecommendInput; fallbackItems: any[] }) {
+export default function RecommendationsBlock({ 
+  filters, 
+  fallbackItems, 
+  onBestMatchCountChange 
+}: { 
+  filters: RecommendInput; 
+  fallbackItems: any[];
+  onBestMatchCountChange?: (count: number) => void;
+}) {
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState<RecommendedPart[] | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -64,6 +72,13 @@ export default function RecommendationsBlock({ filters, fallbackItems }: { filte
   }, [items, fallbackItems]);
 
   const hasAnyResults = bestMatches.length > 0 || alternateOptions.length > 0;
+
+  // Notify parent of best match count changes
+  useEffect(() => {
+    if (onBestMatchCountChange) {
+      onBestMatchCountChange(bestMatches.length);
+    }
+  }, [bestMatches.length, onBestMatchCountChange]);
 
   return (
     <section className="mt-6">

@@ -5,6 +5,7 @@ import ChargerFAQ from "@/components/ChargerFAQ";
 import ChargerCard from "@/components/ChargerCard";
 import RecommendationsBlock from "@/components/RecommendationsBlock";
 import { type BatteryCharger, parseChargerSpecs } from "@/lib/batteryChargers";
+import ChargerSelectorWithRecommendations from "./ChargerSelectorWithRecommendations";
 
 export const revalidate = 60;
 
@@ -232,26 +233,17 @@ export default async function Page({
 
       {/* Main Content */}
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Interactive Selector Component */}
-        <BatteryChargerSelector chargers={allParts} hideResults={true} />
-        
-        {/* Debug Info for Development */}
-        {process.env.NODE_ENV !== 'production' && (
-          <div className="mb-4 p-2 bg-gray-50 rounded text-xs text-gray-600">
-            <strong>Debug:</strong> Amp tolerance: {process.env.NEXT_PUBLIC_RECS_AMP_TOLERANCE_PCT || process.env.RECS_AMP_TOLERANCE_PCT || '12'}%
-          </div>
-        )}
-
-        {/* Smart Recommendations Section */}
-        <RecommendationsBlock 
-          filters={{ 
+        {/* Interactive Selector with Smart Recommendations */}
+        <ChargerSelectorWithRecommendations 
+          chargers={allParts}
+          initialFilters={{
             voltage: searchParams.v ? Number(searchParams.v) : null, 
             amps: searchParams.a ? Number(searchParams.a) : null, 
             phase: (searchParams.phase as '1P' | '3P') ?? null,
             chemistry: null,
             limit: 6
-          }} 
-          fallbackItems={filteredParts} 
+          }}
+          fallbackItems={filteredParts}
         />
 
         {/* SSR Results for SEO (when filters are applied via URL) */}

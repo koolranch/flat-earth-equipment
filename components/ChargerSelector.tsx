@@ -5,7 +5,8 @@ import { useEffect, useMemo, useState } from 'react';
 export default function ChargerSelector({ 
   onFilterChange,
   resultsCount,
-  onNotSureClick
+  onNotSureClick,
+  showBestMatchLabel = false
 }: { 
   onFilterChange: (f: { 
     voltage?: number | null; 
@@ -15,6 +16,7 @@ export default function ChargerSelector({
   }) => void;
   resultsCount: number;
   onNotSureClick: () => void;
+  showBestMatchLabel?: boolean;
 }) {
   const [voltage, setVoltage] = useState('');
   const [speed, setSpeed] = useState<'overnight' | 'fast'>('overnight');
@@ -122,8 +124,11 @@ export default function ChargerSelector({
         <div className="text-sm">
           <span className="font-medium text-brand-ink">
             Showing {resultsCount} compatible charger{resultsCount !== 1 ? "s" : ""}
+            {showBestMatchLabel && resultsCount > 0 && (
+              <span className="text-brand-muted"> (Best Match)</span>
+            )}
           </span>
-          {resultsCount > 0 && resultsCount <= 3 && (
+          {!showBestMatchLabel && resultsCount > 0 && resultsCount <= 3 && (
             <span className="ml-2 inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
               Best Match
             </span>
