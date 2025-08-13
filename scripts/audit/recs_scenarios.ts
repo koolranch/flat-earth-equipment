@@ -1,7 +1,6 @@
-/* Batch test the recommender across common scenarios. Output: reports/recs_scenarios.csv */
+/* Batch test the recommender across common scenarios (GREEN-only via API). */
 import fs from 'fs'; 
 import path from 'path';
-import { ampsFor, withinPct } from '../../lib/specsAudit';
 
 const BASE=process.env.BASE_URL||'http://localhost:3000';
 
@@ -14,8 +13,15 @@ async function post(body:any){
   return r.json(); 
 }
 
+function ampsFor(voltage:number, speed:'overnight'|'fast'){ 
+  const map:Record<number,number>={24:600,36:750,48:750,80:1000}; 
+  const ah=map[voltage]; 
+  const den=speed==='overnight'?10:5; 
+  return ah?Math.max(10,Math.round(ah/den)):null; 
+}
+
 (async()=>{
-  console.log('🧪 Starting scenario batch testing...\n');
+  console.log('🧪 Starting GREEN Series scenario testing...\n');
   console.log(`🌐 Testing against: ${BASE}\n`);
   
   const volts=[24,36,48,80] as const; 
@@ -23,7 +29,7 @@ async function post(body:any){
   const phases:('1P'|'3P'|null)[]=['1P','3P',null];
   
   const rows:any[]=[]; 
-  const header=['voltage','speed','phase','target_amps','count','best','alt','top_slug','top_score','top_reasons'];
+  const header=['voltage','speed','phase','target_amps','total','best','alt','top_slug'];
   
   let totalTests = 0;
   let successfulTests = 0;
@@ -33,81 +39,56 @@ async function post(body:any){
       const amps=ampsFor(v, sp as any); 
       for(const ph of phases){
         totalTests++;
-        console.log(`Testing: ${v}V ${sp} ${ph||'any-phase'} (~${amps}A)`);
+        const testName = `${v}V ${sp} ${ph||'any'}`;
+        console.log(`   Testing ${testName}...`);
         
         const body={ voltage:v, amps, phase:ph, limit:12 };
         
         try {
           const json=await post(body); 
           
-          if(!json.ok) {
-            console.log(`  ❌ Error: ${json.error}`);
-            rows.push([v,sp,ph??'—',amps,0,0,0,'ERROR',0,json.error||'Unknown error']);
-            continue;
+          if (json?.ok) {
+            successfulTests++;
+            const items=(json?.items)||[]; 
+            const best=items.filter((i:any)=>i.matchType==='best'); 
+            const alt=items.filter((i:any)=>i.matchType!=='best');
+            
+            console.log(`     ✅ ${items.length} total (${best.length} best, ${alt.length} alt)`);
+            rows.push([v,sp,ph??'—',amps,items.length,best.length,alt.length, items[0]?.slug||'']);
+          } else {
+            console.log(`     ❌ API Error: ${json?.error}`);
+            rows.push([v,sp,ph??'—',amps,0,0,0,'ERROR']);
           }
-          
-          const items=(json?.items)||[]; 
-          const best=items.filter((i:any)=>i.matchType==='best'); 
-          const alt=items.filter((i:any)=>i.matchType!=='best');
-          const top=items[0]; 
-          
-          console.log(`  ✅ ${items.length} results (${best.length} best, ${alt.length} alt)`);
-          
-          rows.push([
-            v,
-            sp,
-            ph??'—',
-            amps,
-            items.length,
-            best.length,
-            alt.length, 
-            top?.slug||'', 
-            top?.score||'', 
-            (top?.reasons||[]).slice(0,2).map((r:any)=>r.label).join(' | ')
-          ]);
-          
-          successfulTests++;
-        } catch (error: any) {
-          console.log(`  ❌ Request failed: ${error.message}`);
-          rows.push([v,sp,ph??'—',amps,0,0,0,'FAILED',0,error.message]);
+        } catch (e) {
+          console.log(`     💥 Request failed: ${e}`);
+          rows.push([v,sp,ph??'—',amps,0,0,0,'FAILED']);
         }
       }
     }
   }
   
-  // Create reports directory
+  console.log(`\n📊 Test Results: ${successfulTests}/${totalTests} successful\n`);
+  
+  // Write CSV report
   fs.mkdirSync('reports',{recursive:true});
+  const csvContent = [header.join(','), ...rows.map(r=>r.join(','))].join('\n');
+  fs.writeFileSync(path.join('reports','recs_scenarios.csv'), csvContent);
+  console.log('📄 Wrote reports/recs_scenarios.csv');
   
-  // Write CSV
-  fs.writeFileSync(
-    path.join('reports','recs_scenarios.csv'), 
-    [header.join(','), ...rows.map(r=>r.join(','))].join('\n')
-  );
+  // Quick analysis
+  const bestCounts = rows.map(r => r[5]).filter(count => count > 0);
+  const noBestCases = rows.filter(r => r[5] === 0);
   
-  console.log('\n📊 Test Results Summary:');
-  console.log(`   Total scenarios: ${totalTests}`);
-  console.log(`   Successful: ${successfulTests}`);
-  console.log(`   Failed: ${totalTests - successfulTests}`);
+  console.log(`\n📈 Quick Analysis:`);
+  console.log(`   Scenarios with BEST matches: ${bestCounts.length}/${rows.length}`);
+  console.log(`   Average BEST per scenario: ${bestCounts.length > 0 ? Math.round(bestCounts.reduce((a,b) => a+b, 0) / bestCounts.length) : 0}`);
   
-  // Analyze results
-  const noResults = rows.filter(r => r[4] === 0).length;
-  const noBestMatches = rows.filter(r => r[5] === 0 && r[6] > 0).length;
-  const perfectMatches = rows.filter(r => r[5] > 0).length;
-  
-  console.log(`   No results: ${noResults}`);
-  console.log(`   No best matches (but has alternates): ${noBestMatches}`);
-  console.log(`   Has best matches: ${perfectMatches}`);
-  
-  // Flag concerning scenarios
-  console.log('\n⚠️  Scenarios needing attention:');
-  rows.forEach(r => {
-    const [voltage, speed, phase, targetAmps, count, best, alt] = r;
-    if (count === 0) {
-      console.log(`  - ${voltage}V ${speed} ${phase}: NO RESULTS`);
-    } else if (best === 0 && alt > 0 && (voltage === 36 || voltage === 48)) {
-      console.log(`  - ${voltage}V ${speed} ${phase}: NO BEST MATCHES (${alt} alternates)`);
-    }
-  });
-  
-  console.log('\n✅ Wrote reports/recs_scenarios.csv');
+  if (noBestCases.length > 0) {
+    console.log(`\n⚠️  Scenarios with 0 BEST matches:`);
+    noBestCases.slice(0, 5).forEach(row => {
+      console.log(`   - ${row[0]}V ${row[1]} ${row[2]} (${row[4]} total items)`);
+    });
+  } else {
+    console.log(`\n✅ All scenarios found BEST matches!`);
+  }
 })();

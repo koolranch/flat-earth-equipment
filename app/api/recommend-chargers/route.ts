@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { createClient } from '@supabase/supabase-js';
 import { parseSpecsFromSlugSafe, withinPct } from '@/lib/specsDebug';
 import { filterGreen } from '@/lib/greenFilter';
-import { getSpecs } from '@/lib/specsStruct';
+import { parseFromText, withinPct as withinPctStruct } from '@/lib/specsStruct';
 import { useGreenView, getChargerSource } from '@/lib/greenView';
 
 export const runtime = 'nodejs';
@@ -28,27 +28,28 @@ function sbServer(){
 }
 
 function scoreItem(body: z.infer<typeof Input>, row: any){
-  // Prefer structured fields; fallback to parsing only if missing
-  const specs = getSpecs(
-    row.voltage, 
-    row.amperage, 
-    row.phase, 
-    row.slug, 
-    row.name, 
-    row.description
-  );
+  // Phase 2: Prefer structured fields; fallback to parsing only if needed
+  const v = row.voltage ?? null; 
+  const a = row.amperage ?? null; 
+  const ph = row.phase ?? null;
+  const parsed = (v && a) ? null : parseFromText(row.slug, row.name, row.description);
+  const specs = { 
+    voltage: v ?? parsed?.voltage ?? null, 
+    current: a ?? parsed?.amperage ?? null, 
+    phase: ph ?? parsed?.phase ?? null 
+  };
   
   let score = 0; const reasons: {label:string;weight?:number}[] = [];
   const voltMatch = body.voltage ? specs.voltage === body.voltage : true;
-  const ampClose  = body.amps ? withinPct(body.amps, specs.amperage, AMP_TOL) : true;
+  const ampClose  = body.amps ? withinPctStruct(body.amps, specs.current, AMP_TOL) : true;
   const phaseMatch = body.phase ? (specs.phase ? specs.phase === body.phase : true) : true;
   
   if (voltMatch && body.voltage) { score += 100; reasons.push({label:`For your ${body.voltage}V battery`, weight:100}); }
-  if (ampClose && body.amps && specs.amperage) { score += 50; reasons.push({label:`Charge speed fit (~${specs.amperage}A)`, weight:50}); }
+  if (ampClose && body.amps && specs.current) { score += 50; reasons.push({label:`Charge speed fit (~${specs.current}A)`, weight:50}); }
   if (phaseMatch && body.phase) { score += 20; reasons.push({label: body.phase==='1P'?'Single‑phase compatible':'Three‑phase compatible', weight:20}); }
   
   const matchType: 'best'|'alternate' = (voltMatch && ampClose && phaseMatch) ? 'best' : 'alternate';
-  if (matchType==='best') reasons.unshift({ label:`Best match for your ${specs.voltage ?? '?'}V / ~${specs.amperage ?? '?'}A`, weight:120 });
+  if (matchType==='best') reasons.unshift({ label:`Best match for your ${specs.voltage ?? '?'}V / ~${specs.current ?? '?'}A`, weight:120 });
   else reasons.push({ label:'Closest available match' });
   
   return { score, reasons, matchType, specs };
@@ -76,8 +77,7 @@ export async function POST(req: NextRequest){
     const dataSource = getChargerSource();
     const usingGreenView = useGreenView();
 
-    // Phase 1: Query GREEN-only view behind a flag, fallback to parts if disabled
-    // Use safe field selection that works with current schema
+    // Phase 2: Query with structured fields, prefer them over parsing (graceful fallback if columns don't exist)
     const selectFields = 'id,name,slug,image_url,price,price_cents,stripe_price_id,sku,category_slug,description';
     
     let query = sb.from(dataSource).select(selectFields);
@@ -103,7 +103,7 @@ export async function POST(req: NextRequest){
       return { 
         ...p, 
         dc_voltage_v: specs.voltage, 
-        dc_current_a: specs.amperage, 
+        dc_current_a: specs.current, 
         input_phase: specs.phase, 
         chemistry_support: ['lead-acid','AGM','gel','lithium'], 
         score, 

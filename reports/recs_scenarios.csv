@@ -1,25 +1,25 @@
-voltage,speed,phase,target_amps,count,best,alt,top_slug,top_score,top_reasons
-24,overnight,1P,60,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-24,overnight,3P,60,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-24,overnight,—,60,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-24,fast,1P,120,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-24,fast,3P,120,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-24,fast,—,120,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-36,overnight,1P,75,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-36,overnight,3P,75,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-36,overnight,—,75,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-36,fast,1P,150,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-36,fast,3P,150,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-36,fast,—,150,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-48,overnight,1P,75,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-48,overnight,3P,75,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-48,overnight,—,75,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-48,fast,1P,150,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-48,fast,3P,150,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-48,fast,—,150,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-80,overnight,1P,100,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-80,overnight,3P,100,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-80,overnight,—,100,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-80,fast,1P,200,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-80,fast,3P,200,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-80,fast,—,200,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+voltage,speed,phase,target_amps,total,best,alt,top_slug
+24,overnight,1P,60,12,0,12,green2-24v-20a
+24,overnight,3P,60,12,0,12,green6-24v-100a
+24,overnight,—,60,12,0,12,green2-24v-20a
+24,fast,1P,120,12,1,11,green4-24v-120a
+24,fast,3P,120,12,1,11,green8-24v-130a
+24,fast,—,120,12,2,10,green4-24v-120a
+36,overnight,1P,75,12,2,10,green2-36v-70a
+36,overnight,3P,75,12,0,12,green2-36v-70a
+36,overnight,—,75,12,2,10,green2-36v-70a
+36,fast,1P,150,12,0,12,green6-36v-150a
+36,fast,3P,150,12,2,10,green6-36v-150a
+36,fast,—,150,12,2,10,green6-36v-150a
+48,overnight,1P,75,12,2,10,green2-48v-70a
+48,overnight,3P,75,12,0,12,green2-48v-70a
+48,overnight,—,75,12,2,10,green2-48v-70a
+48,fast,1P,150,12,0,12,green6-48v-150a
+48,fast,3P,150,12,2,10,green6-48v-150a
+48,fast,—,150,12,2,10,green6-48v-150a
+80,overnight,1P,100,12,1,11,green4-80v-90a
+80,overnight,3P,100,12,1,11,green6-80v-100a
+80,overnight,—,100,12,2,10,green4-80v-90a
+80,fast,1P,200,12,0,12,green8-80v-200a
+80,fast,3P,200,12,2,10,green8-80v-200a
+80,fast,—,200,12,2,10,green8-80v-200a
