@@ -1,9 +1,7 @@
 import { Metadata } from "next";
 import { supabaseServer } from "@/lib/supabaseServer";
-import BatteryChargerSelector from "./BatteryChargerSelector";
 import ChargerFAQ from "@/components/ChargerFAQ";
 import ChargerCard from "@/components/ChargerCard";
-import RecommendationsBlock from "@/components/RecommendationsBlock";
 import { type BatteryCharger, parseChargerSpecs } from "@/lib/batteryChargers";
 import ChargerSelectorWithRecommendations from "./ChargerSelectorWithRecommendations";
 
