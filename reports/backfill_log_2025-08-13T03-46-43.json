@@ -1,0 +1,1432 @@
+[
+  {
+    "id": "272ccf49-476e-4807-a06d-bd87477e5a99",
+    "slug": "green2-36v-70a",
+    "name": "GREEN2 36V 70A",
+    "sku": "GREEN2-36V-70A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 36,
+      "amperage": 70,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 36",
+      "A: null → 70",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "270f313c-61c2-4cf1-8be9-189acd34811c",
+    "slug": "green2-36v-20a",
+    "name": "GREEN2 36V 20A",
+    "sku": "GREEN2-36V-20A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 36,
+      "amperage": 20,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 36",
+      "A: null → 20",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "aaf3b4d1-db22-4ac8-8231-9f8eea1ba9af",
+    "slug": "green2-36v-40a",
+    "name": "GREEN2 36V 40A",
+    "sku": "GREEN2-36V-40A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 36,
+      "amperage": 40,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 36",
+      "A: null → 40",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "5a393983-ec61-4aeb-94b5-b71eebf2bab7",
+    "slug": "green2-48v-45a",
+    "name": "GREEN2 48V 45A",
+    "sku": "GREEN2-48V-45A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 48,
+      "amperage": 45,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 48",
+      "A: null → 45",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "463943c9-ea3d-4abe-a442-162968bb88cc",
+    "slug": "green4-24v-35a",
+    "name": "GREEN4 24V 35A",
+    "sku": "GREEN4-24V-35A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 24,
+      "amperage": 35,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 24",
+      "A: null → 35",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "1d6ac6ed-1c04-4643-8c96-82c37690a58c",
+    "slug": "green2-80v-45a",
+    "name": "GREEN2 80V 45A",
+    "sku": "GREEN2-80V-45A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 80,
+      "amperage": 45,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 80",
+      "A: null → 45",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "06cf532b-c4c5-4764-a838-df88c574fa91",
+    "slug": "green2-80v-20a",
+    "name": "GREEN2 80V 20A",
+    "sku": "GREEN2-80V-20A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 80,
+      "amperage": 20,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 80",
+      "A: null → 20",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "5ab63e0a-75b3-48be-a4c7-da644672c297",
+    "slug": "green2-80v-40a",
+    "name": "GREEN2 80V 40A",
+    "sku": "GREEN2-80V-40A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 80,
+      "amperage": 40,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 80",
+      "A: null → 40",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "71c6f345-a451-4d5b-b276-2e30e833a0a4",
+    "slug": "green2-80v-70a",
+    "name": "GREEN2 80V 70A",
+    "sku": "GREEN2-80V-70A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 80,
+      "amperage": 70,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 80",
+      "A: null → 70",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "1e54f810-1bc0-4954-a63f-742dee37912d",
+    "slug": "green4-24v-40a",
+    "name": "GREEN4 24V 40A",
+    "sku": "GREEN4-24V-40A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 24,
+      "amperage": 40,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 24",
+      "A: null → 40",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "28268784-3476-4b19-a8ff-f3217a7497af",
+    "slug": "green4-24v-75a",
+    "name": "GREEN4 24V 75A",
+    "sku": "GREEN4-24V-75A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 24,
+      "amperage": 75,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 24",
+      "A: null → 75",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "596613d3-6d25-4794-a3b5-db51f437eb7d",
+    "slug": "green4-36v-120a",
+    "name": "GREEN4 36V 120A",
+    "sku": "GREEN4-36V-120A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 36,
+      "amperage": 120,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 36",
+      "A: null → 120",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "27a777f3-5bed-427b-be1e-3a879e0f5fc9",
+    "slug": "green4-36v-75a",
+    "name": "GREEN4 36V 75A",
+    "sku": "GREEN4-36V-75A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 36,
+      "amperage": 75,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 36",
+      "A: null → 75",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "d3d2df66-516d-44c3-9a8b-2b5800322624",
+    "slug": "green4-36v-40a",
+    "name": "GREEN4 36V 40A",
+    "sku": "GREEN4-36V-40A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 36,
+      "amperage": 40,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 36",
+      "A: null → 40",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "baab0227-eac2-4585-963c-e1c1a6ac3815",
+    "slug": "green4-48v-90a",
+    "name": "GREEN4 48V 90A",
+    "sku": "GREEN4-48V-90A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 48,
+      "amperage": 90,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 48",
+      "A: null → 90",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "f2ff7bdd-3a4d-4b54-9834-fda97fa7f9c7",
+    "slug": "green4-80v-90a",
+    "name": "GREEN4 80V 90A",
+    "sku": "GREEN4-80V-90A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 80,
+      "amperage": 90,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 80",
+      "A: null → 90",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "e709f5cf-98cb-4725-a044-32fc5fd6ca95",
+    "slug": "green4-48v-40a",
+    "name": "GREEN4 48V 40A",
+    "sku": "GREEN4-48V-40A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 48,
+      "amperage": 40,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 48",
+      "A: null → 40",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "df2a1408-d0d1-4be4-a681-9fc5cdea742b",
+    "slug": "green4-80v-120a",
+    "name": "GREEN4 80V 120A",
+    "sku": "GREEN4-80V-120A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 80,
+      "amperage": 120,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 80",
+      "A: null → 120",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "4f537f14-78ea-4418-bd1f-ca42894d8eaf",
+    "slug": "green4-48v-35a",
+    "name": "GREEN4 48V 35A",
+    "sku": "GREEN4-48V-35A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 48,
+      "amperage": 35,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 48",
+      "A: null → 35",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "4cf0b8de-9b57-4282-8e39-3dac6a31d2c8",
+    "slug": "green4-80v-40a",
+    "name": "GREEN4 80V 40A",
+    "sku": "GREEN4-80V-40A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 80,
+      "amperage": 40,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 80",
+      "A: null → 40",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "27a95598-83c4-463e-980d-9e3b41258822",
+    "slug": "green4-48v-75a",
+    "name": "GREEN4 48V 75A",
+    "sku": "GREEN4-48V-75A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 48,
+      "amperage": 75,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 48",
+      "A: null → 75",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "554aefba-79be-404f-ad1e-b833532fa9d2",
+    "slug": "green2-24v-40a",
+    "name": "GREEN2 24V 40A",
+    "sku": "GREEN2-24V-40A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 24,
+      "amperage": 40,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 24",
+      "A: null → 40",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "769caf9e-1a67-4d02-a98e-da3a12005223",
+    "slug": "green2-24v-45a",
+    "name": "GREEN2 24V 45A",
+    "sku": "GREEN2-24V-45A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 24,
+      "amperage": 45,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 24",
+      "A: null → 45",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "dce013d3-da8b-45cc-85d4-a4e14a4e2193",
+    "slug": "green2-24v-70a",
+    "name": "GREEN2 24V 70A",
+    "sku": "GREEN2-24V-70A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 24,
+      "amperage": 70,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 24",
+      "A: null → 70",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "6583f764-f238-4b8c-b49b-5366080e6bff",
+    "slug": "green2-24v-20a",
+    "name": "GREEN2 24V 20A",
+    "sku": "GREEN2-24V-20A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 24,
+      "amperage": 20,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 24",
+      "A: null → 20",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "5f63689b-67b2-4c7b-ab93-ffb340708ff4",
+    "slug": "green6-36v-100a",
+    "name": "GREEN6 36V 100A",
+    "sku": "GREEN6-36V-100A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 36,
+      "amperage": 100,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 36",
+      "A: null → 100",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "f3c5b7e5-85a3-4108-8b57-8c787a56797f",
+    "slug": "green4-96v-75a",
+    "name": "GREEN4 96V 75A",
+    "sku": "GREEN4-96V-75A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 96,
+      "amperage": 75,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 96",
+      "A: null → 75",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "c1dd6a90-67df-470c-a486-e4d06496121e",
+    "slug": "green6-48v-100a",
+    "name": "GREEN6 48V 100A",
+    "sku": "GREEN6-48V-100A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 48,
+      "amperage": 100,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 48",
+      "A: null → 100",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "077f7327-7581-49ff-85ef-e5573adb40f9",
+    "slug": "green6-36v-150a",
+    "name": "GREEN6 36V 150A",
+    "sku": "GREEN6-36V-150A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 36,
+      "amperage": 150,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 36",
+      "A: null → 150",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "95c12943-3b8f-4982-900e-6d3125ff0816",
+    "slug": "green6-80v-100a",
+    "name": "GREEN6 80V 100A",
+    "sku": "GREEN6-80V-100A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 80,
+      "amperage": 100,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 80",
+      "A: null → 100",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "a302a8c1-431b-4b9e-9100-b021d4eafb3e",
+    "slug": "green6-80v-150a",
+    "name": "GREEN6 80V 150A",
+    "sku": "GREEN6-80V-150A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 80,
+      "amperage": 150,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 80",
+      "A: null → 150",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "5aabb800-0859-4b3f-9813-044a368e142c",
+    "slug": "green8-24v-130a",
+    "name": "GREEN8 24V 130A",
+    "sku": "GREEN8-24V-130A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 24,
+      "amperage": 130,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 24",
+      "A: null → 130",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "8c827c09-d08f-47ff-a6f3-6970b286b1ef",
+    "slug": "green6-48v-150a",
+    "name": "GREEN6 48V 150A",
+    "sku": "GREEN6-48V-150A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 48,
+      "amperage": 150,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 48",
+      "A: null → 150",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "df0e21ea-3f15-4f97-8ef3-1e3e89e1e2b1",
+    "slug": "green4-96v-90a",
+    "name": "GREEN4 96V 90A",
+    "sku": "GREEN4-96V-90A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 96,
+      "amperage": 90,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 96",
+      "A: null → 90",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "202665ca-ed99-4d6d-bd1f-8c3a26db0b87",
+    "slug": "green8-24v-200a",
+    "name": "GREEN8 24V 200A",
+    "sku": "GREEN8-24V-200A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 24,
+      "amperage": 200,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 24",
+      "A: null → 200",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "e843b2e4-3767-4f96-a85e-98746ff66dff",
+    "slug": "green8-36v-130a",
+    "name": "GREEN8 36V 130A",
+    "sku": "GREEN8-36V-130A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 36,
+      "amperage": 130,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 36",
+      "A: null → 130",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "523506d2-5ece-4cc5-ae32-a55cb5ac6ef3",
+    "slug": "green8-80v-130a",
+    "name": "GREEN8 80V 130A",
+    "sku": "GREEN8-80V-130A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 80,
+      "amperage": 130,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 80",
+      "A: null → 130",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "9e23ade1-69f2-4dfa-b20f-e365b07af3df",
+    "slug": "greenx-24v-250a",
+    "name": "GREENX 24V 250A",
+    "sku": "GREENX-24V-250A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 24,
+      "amperage": 250,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 24",
+      "A: null → 250",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "409b5038-f1f5-4618-8dcf-926968aef7aa",
+    "slug": "green8-48v-130a",
+    "name": "GREEN8 48V 130A",
+    "sku": "GREEN8-48V-130A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 48,
+      "amperage": 130,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 48",
+      "A: null → 130",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "7ceb1e58-5106-4cd9-9204-74cb7c6e6438",
+    "slug": "greenx-24v-300a",
+    "name": "GREENX 24V 300A",
+    "sku": "GREENX-24V-300A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 24,
+      "amperage": 300,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 24",
+      "A: null → 300",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "43e43046-96f7-47ba-a0a8-6bc51db6ac7b",
+    "slug": "greenx-36v-300a",
+    "name": "GREENX 36V 300A",
+    "sku": "GREENX-36V-300A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 36,
+      "amperage": 300,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 36",
+      "A: null → 300",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "20ec15ac-98de-440e-af87-bed21ab4d58a",
+    "slug": "green4-96v-120a",
+    "name": "GREEN4 96V 120A",
+    "sku": "GREEN4-96V-120A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 96,
+      "amperage": 120,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 96",
+      "A: null → 120",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "49e2e9d2-2317-4547-a216-4c69a10ecb7e",
+    "slug": "greenx-48v-250a",
+    "name": "GREENX 48V 250A",
+    "sku": "GREENX-48V-250A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 48,
+      "amperage": 250,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 48",
+      "A: null → 250",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "cb232c20-9e58-4f0c-a6a4-44582b750058",
+    "slug": "greenx-48v-300a",
+    "name": "GREENX 48V 300A",
+    "sku": "GREENX-48V-300A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 48,
+      "amperage": 300,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 48",
+      "A: null → 300",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "04789328-412c-473d-a5bb-72354b94e85d",
+    "slug": "greenx-80v-160a",
+    "name": "GREENX 80V 160A",
+    "sku": "GREENX-80V-160A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 80,
+      "amperage": 160,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 80",
+      "A: null → 160",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "490589b7-20ee-4c08-aa69-2a4a5fd4e0f8",
+    "slug": "green6-24v-150a",
+    "name": "GREEN6 24V 150A",
+    "sku": "GREEN6-24V-150A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 24,
+      "amperage": 150,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 24",
+      "A: null → 150",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "c4652a95-dee3-4dda-853f-26f4bb30a3b7",
+    "slug": "green4-24v-90a",
+    "name": "GREEN4 24V 90A",
+    "sku": "GREEN4-24V-90A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 24,
+      "amperage": 90,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 24",
+      "A: null → 90",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "e56cba44-2395-470f-9b3a-e2f27e756b52",
+    "slug": "green2-48v-70a",
+    "name": "GREEN2 48V 70A",
+    "sku": "GREEN2-48V-70A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 48,
+      "amperage": 70,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 48",
+      "A: null → 70",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "1bb8d534-14c8-4a60-8452-22fb32bb4b9a",
+    "slug": "green4-36v-90a",
+    "name": "GREEN4 36V 90A",
+    "sku": "GREEN4-36V-90A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 36,
+      "amperage": 90,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 36",
+      "A: null → 90",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "8de92812-de2a-4514-8385-8ba2e95829d0",
+    "slug": "green4-48v-120a",
+    "name": "GREEN4 48V 120A",
+    "sku": "GREEN4-48V-120A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 48,
+      "amperage": 120,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 48",
+      "A: null → 120",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "08947e15-539f-4509-94b4-c6c079e52d73",
+    "slug": "green4-80v-35a",
+    "name": "GREEN4 80V 35A",
+    "sku": "GREEN4-80V-35A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 80,
+      "amperage": 35,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 80",
+      "A: null → 35",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "d8665455-14b0-43c3-83d2-603e44ee3783",
+    "slug": "green4-96v-35a",
+    "name": "GREEN4 96V 35A",
+    "sku": "GREEN4-96V-35A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 96,
+      "amperage": 35,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 96",
+      "A: null → 35",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "5d67791f-70e8-4f26-891a-0ec2a8c97312",
+    "slug": "green8-48v-200a",
+    "name": "GREEN8 48V 200A",
+    "sku": "GREEN8-48V-200A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 48,
+      "amperage": 200,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 48",
+      "A: null → 200",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "0588b8f8-0c56-4e3b-a5f9-160b001a6d22",
+    "slug": "green8-80v-200a",
+    "name": "GREEN8 80V 200A",
+    "sku": "GREEN8-80V-200A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 80,
+      "amperage": 200,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 80",
+      "A: null → 200",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "d812ad0c-e18a-4bbb-b447-b26f5710932f",
+    "slug": "greenx-36v-250a",
+    "name": "GREENX 36V 250A",
+    "sku": "GREENX-36V-250A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 36,
+      "amperage": 250,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 36",
+      "A: null → 250",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "87b155e4-6c7c-4409-9ab7-88abef4807b5",
+    "slug": "green2-36v-45a",
+    "name": "GREEN2 36V 45A",
+    "sku": "GREEN2-36V-45A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 36,
+      "amperage": 45,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 36",
+      "A: null → 45",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "3372ae14-e6c7-4969-945f-8ebad6712456",
+    "slug": "green2-48v-20a",
+    "name": "GREEN2 48V 20A",
+    "sku": "GREEN2-48V-20A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 48,
+      "amperage": 20,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 48",
+      "A: null → 20",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "cb0e9a62-62d8-445c-8a48-5f7872034ffc",
+    "slug": "green2-48v-40a",
+    "name": "GREEN2 48V 40A",
+    "sku": "GREEN2-48V-40A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 48,
+      "amperage": 40,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 48",
+      "A: null → 40",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "f6466510-e359-44af-9224-e87b847110a4",
+    "slug": "green4-24v-120a",
+    "name": "GREEN4 24V 120A",
+    "sku": "GREEN4-24V-120A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 24,
+      "amperage": 120,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 24",
+      "A: null → 120",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "21b9f13a-0926-4160-9ad4-0dd1b7bd2d3b",
+    "slug": "green4-36v-35a",
+    "name": "GREEN4 36V 35A",
+    "sku": "GREEN4-36V-35A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 36,
+      "amperage": 35,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 36",
+      "A: null → 35",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "10cade07-4b1e-40a6-bc58-f2c39e7eae93",
+    "slug": "green4-80v-75a",
+    "name": "GREEN4 80V 75A",
+    "sku": "GREEN4-80V-75A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 80,
+      "amperage": 75,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 80",
+      "A: null → 75",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "dcd7d045-64f8-43f1-9b3f-ac5581b535f4",
+    "slug": "green4-96v-40a",
+    "name": "GREEN4 96V 40A",
+    "sku": "GREEN4-96V-40A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 96,
+      "amperage": 40,
+      "phase": "1P"
+    },
+    "changes": [
+      "V: null → 96",
+      "A: null → 40",
+      "P: null → 1P"
+    ]
+  },
+  {
+    "id": "028643a7-6e72-47e6-a3f9-d264c5b37bed",
+    "slug": "green6-24v-100a",
+    "name": "GREEN6 24V 100A",
+    "sku": "GREEN6-24V-100A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 24,
+      "amperage": 100,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 24",
+      "A: null → 100",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "6053c27b-9a07-47c6-94b4-139337e5d83c",
+    "slug": "green8-36v-200a",
+    "name": "GREEN8 36V 200A",
+    "sku": "GREEN8-36V-200A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 36,
+      "amperage": 200,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 36",
+      "A: null → 200",
+      "P: null → 3P"
+    ]
+  },
+  {
+    "id": "6e0724c5-7c7e-4eb4-a665-4ad844d6c9a8",
+    "slug": "greenx-80v-200a",
+    "name": "GREENX 80V 200A",
+    "sku": "GREENX-80V-200A",
+    "brand": "FSIP",
+    "before": {
+      "voltage": null,
+      "amperage": null,
+      "phase": null
+    },
+    "after": {
+      "voltage": 80,
+      "amperage": 200,
+      "phase": "3P"
+    },
+    "changes": [
+      "V: null → 80",
+      "A: null → 200",
+      "P: null → 3P"
+    ]
+  }
+]
