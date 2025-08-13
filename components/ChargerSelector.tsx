@@ -20,8 +20,8 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
         <div className="flex items-start gap-2">
           <span className={`sel-icon ${active ? 'sel-check' : 'sel-empty'}`}>{active ? <Check className="h-3.5 w-3.5"/> : null}</span>
           <div>
-            <div className={`font-semibold ${active ? 'text-white' : ''}`}>{label}</div>
-            {sub && <div className={`text-xs ${active ? 'text-white/80' : 'text-[var(--brand-muted)]'}`}>{sub}</div>}
+            <div className="font-semibold">{label}</div>
+            {sub && <div className={`text-xs ${!active ? 'text-[var(--brand-muted)]' : ''}`}>{sub}</div>}
           </div>
         </div>
       </button>
