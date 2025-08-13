@@ -9,18 +9,59 @@ export default function RecommendationsBlock({ filters, fallbackItems }: { filte
   const [items, setItems] = useState<RecommendedPart[]|null>(null);
   const [error, setError] = useState<string|null>(null);
 
-  const payload = useMemo(()=> ({ ...filters, limit: 12 }), [filters]);
+  const payload = useMemo(() => {
+    return {
+      voltage: filters.voltage,
+      amps: filters.amps,
+      phase: filters.phase,
+      chemistry: filters.chemistry,
+      limit: 12
+    };
+  }, [filters.voltage, filters.amps, filters.phase, filters.chemistry]);
 
-  useEffect(()=>{
-    let ignore=false; const ctl = new AbortController();
-    (async()=>{
-      setLoading(true); setError(null);
-      const res = await fetchRecommendations(payload, ctl.signal);
-      if (ignore) return;
-      if (res.ok) setItems(res.items as any); else setError(res.error || 'Error');
+  useEffect(() => {
+    // Skip empty requests
+    if (!payload.voltage && !payload.amps) {
+      setItems(null);
       setLoading(false);
-    })();
-    return ()=>{ ignore=true; ctl.abort(); };
+      setError(null);
+      return;
+    }
+
+    let ignore = false;
+    const controller = new AbortController();
+    
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const res = await fetchRecommendations(payload, controller.signal);
+        
+        if (ignore) return;
+        
+        if (res.ok) {
+          setItems(res.items);
+        } else {
+          setError(res.error || 'Error loading recommendations');
+        }
+      } catch (err: any) {
+        if (!ignore && err?.name !== 'AbortError') {
+          setError('Failed to load recommendations');
+        }
+      } finally {
+        if (!ignore) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      ignore = true;
+      controller.abort();
+    };
   }, [payload]);
 
   const arr = items ?? [];
