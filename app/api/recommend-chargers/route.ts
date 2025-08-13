@@ -77,8 +77,8 @@ export async function POST(req: NextRequest){
     const dataSource = getChargerSource();
     const usingGreenView = useGreenView();
 
-    // Phase 2: Query with structured fields, prefer them over parsing (graceful fallback if columns don't exist)
-    const selectFields = 'id,name,slug,image_url,price,price_cents,stripe_price_id,sku,category_slug,description';
+    // Phase 2: Query with structured fields, prefer them over parsing
+    const selectFields = 'id,name,slug,image_url,price,price_cents,stripe_price_id,sku,category_slug,description,voltage,amperage,phase';
     
     let query = sb.from(dataSource).select(selectFields);
     
