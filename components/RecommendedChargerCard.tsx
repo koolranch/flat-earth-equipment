@@ -34,7 +34,7 @@ export default function RecommendedChargerCard({ item }: { item: RecommendedPart
         {/* Header */}
         <div className="mb-3">
           <h3 className="text-lg font-semibold tracking-tight text-brand-ink leading-tight">{item.name}</h3>
-          <div className="mt-1 text-sm text-brand-muted">{item.brand || 'FSIP'}</div>
+          <div className="mt-1 text-sm text-brand-muted">Flat Earth Equipment</div>
         </div>
 
         {/* Key Specs - Prominent */}
