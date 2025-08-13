@@ -1,0 +1,25 @@
+voltage,speed,phase,target_amps,count,best,alt,top_slug,top_score,top_reasons
+24,overnight,1P,60,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+24,overnight,3P,60,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+24,overnight,—,60,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+24,fast,1P,120,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+24,fast,3P,120,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+24,fast,—,120,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+36,overnight,1P,75,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+36,overnight,3P,75,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+36,overnight,—,75,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+36,fast,1P,150,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+36,fast,3P,150,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+36,fast,—,150,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+48,overnight,1P,75,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+48,overnight,3P,75,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+48,overnight,—,75,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+48,fast,1P,150,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+48,fast,3P,150,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+48,fast,—,150,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+80,overnight,1P,100,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+80,overnight,3P,100,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+80,overnight,—,100,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+80,fast,1P,200,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+80,fast,3P,200,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+80,fast,—,200,0,0,0,FAILED,0,Unexpected token '<', "<!DOCTYPE "... is not valid JSON

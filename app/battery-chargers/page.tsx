@@ -4,6 +4,7 @@ import ChargerFAQ from "@/components/ChargerFAQ";
 import ChargerCard from "@/components/ChargerCard";
 import { type BatteryCharger, parseChargerSpecs } from "@/lib/batteryChargers";
 import ChargerSelectorWithRecommendations from "./ChargerSelectorWithRecommendations";
+import { filterGreen } from "@/lib/greenFilter";
 
 export const revalidate = 60;
 
@@ -174,7 +175,9 @@ export default async function Page({
 }: { 
   searchParams: Record<string, string | undefined> 
 }) {
-  const allParts = await fetchParts();
+  const allPartsRaw = await fetchParts();
+  // Apply GREEN-only filter to restrict to FSIP GREEN Series (GREEN2/4/6/8/X)
+  const allParts = filterGreen(allPartsRaw);
   const filteredParts = ssrFilter(allParts, searchParams);
   
   const jsonLdList = itemListJsonLd(filteredParts.map(p => ({ name: p.name, slug: p.slug })));
@@ -206,8 +209,11 @@ export default async function Page({
               <span className="block text-blue-200">Battery Charger</span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-xl text-blue-100">
-              Answer 3 simple questions to find the ideal forklift battery charger 
+              Answer 3 simple questions to find the ideal FSIP GREEN Series charger 
               for your voltage, current, and facility requirements.
+            </p>
+            <p className="mt-2 text-blue-200/80 text-sm">
+              Featuring GREEN2/4/6/8/X industrial chargers only
             </p>
             <div className="mt-8 flex flex-col items-center gap-2 sm:flex-row sm:justify-center">
               <div className="flex items-center gap-4 text-sm text-blue-200">
