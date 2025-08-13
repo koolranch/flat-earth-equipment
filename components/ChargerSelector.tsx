@@ -28,53 +28,112 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
     );
   }
 
+  const hasSelections = voltage || speed !== 'overnight' || phase;
+  
   return (
-    <div className="space-y-4">
-      {/* Sticky summary (md+) */}
-      <div className="hidden md:block selection-sticky -mx-4 px-4 py-2 text-sm">
-        <div className="mx-auto max-w-6xl flex flex-wrap items-center gap-2">
-          <span className="text-[var(--brand-muted)]">Your selections:</span>
-          {voltage && <span className="brand-chip">{voltage}V</span>}
-          <span className="brand-chip">{speed==='overnight' ? 'Overnight' : 'Fast'}</span>
-          <span className="brand-chip">{phase==='1P' ? 'Single‑phase' : phase==='3P' ? 'Three‑phase' : 'Phase: Not sure'}</span>
-          {computedAmps && <span className="brand-chip">~{computedAmps} A</span>}
+    <div className="space-y-6">
+      {/* Enhanced Sticky Summary */}
+      <div className="selection-sticky -mx-4 px-4 py-3 sm:mx-0 sm:rounded-xl sm:px-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-full bg-brand-accent text-white text-sm font-bold flex items-center justify-center">
+                ⚡
+              </div>
+              <div>
+                <div className="font-semibold text-brand-ink">Finding Your Charger</div>
+                <div className="text-xs text-brand-muted">
+                  {voltage ? `${voltage}V battery` : 'Select voltage'} • 
+                  {speed === 'overnight' ? ' Overnight charge' : ' Fast charge'} • 
+                  {phase === '1P' ? ' Single-phase' : phase === '3P' ? ' Three-phase' : ' Any power type'}
+                  {computedAmps && ` • ~${computedAmps}A output`}
+                </div>
+              </div>
+            </div>
+          </div>
+          {hasSelections && (
+            <button 
+              onClick={() => { setVoltage(''); setSpeed('overnight'); setPhase(''); }}
+              className="text-xs text-brand-muted hover:text-brand-ink transition-colors px-2 py-1 rounded hover:bg-white/50"
+            >
+              Reset
+            </button>
+          )}
         </div>
       </div>
 
-      {/* Step 1 */}
-      <div>
-        <label className="block text-sm font-medium mb-1">Step 1: Battery Voltage</label>
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-          {[24,36,48,80].map(v => (
-            <Tile key={v} active={voltage===String(v)} label={`${v}V`} onClick={()=>setVoltage(String(v))} ariaLabel={`Select ${v} volt`} />
-          ))}
+      {/* Enhanced Step Grid */}
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+        {/* Step 1 - Enhanced */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <div className="w-7 h-7 rounded-full bg-brand-accent text-white text-sm font-bold flex items-center justify-center">1</div>
+            <div>
+              <h3 className="font-semibold text-brand-ink">Battery Voltage</h3>
+              <p className="text-xs text-brand-muted">What voltage is your forklift battery?</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {[24,36,48,80].map(v => (
+              <Tile key={v} active={voltage===String(v)} label={`${v}V`} onClick={()=>setVoltage(voltage===String(v) ? '' : String(v))} ariaLabel={`Select ${v} volt battery`} />
+            ))}
+          </div>
+        </div>
+
+        {/* Step 2 - Enhanced */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <div className="w-7 h-7 rounded-full bg-brand-accent text-white text-sm font-bold flex items-center justify-center">2</div>
+            <div>
+              <h3 className="font-semibold text-brand-ink">Charge Speed</h3>
+              <p className="text-xs text-brand-muted">How quickly do you need to charge?</p>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <Tile active={speed==='overnight'} label="Standard Overnight" sub="8–12 hours • Gentler on battery • Most common" onClick={()=>setSpeed('overnight')} ariaLabel="Select standard overnight charging" />
+            <Tile active={speed==='fast'} label="Fast Charge" sub="4–6 hours • Higher current • Quick turnaround" onClick={()=>setSpeed('fast')} ariaLabel="Select fast charging" />
+          </div>
+        </div>
+
+        {/* Step 3 - Enhanced */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <div className="w-7 h-7 rounded-full bg-brand-accent text-white text-sm font-bold flex items-center justify-center">3</div>
+            <div>
+              <h3 className="font-semibold text-brand-ink">Facility Power</h3>
+              <p className="text-xs text-brand-muted">What power input is available?</p>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <Tile active={phase==='1P'} label="Single-phase" sub="208–240V • Most common • Residential style" onClick={()=>setPhase(phase==='1P' ? '' : '1P')} ariaLabel="Select single phase power" />
+            <Tile active={phase==='3P'} label="Three-phase" sub="480V/600V • Industrial • More efficient" onClick={()=>setPhase(phase==='3P' ? '' : '3P')} ariaLabel="Select three phase power" />
+            <Tile active={phase===''} label="Not sure" sub="Show all compatible options" onClick={()=>setPhase('')} ariaLabel="Show all power options" />
+          </div>
         </div>
       </div>
 
-      {/* Step 2 */}
-      <div>
-        <label className="block text-sm font-medium mb-1">Step 2: Charge Speed</label>
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-          <Tile active={speed==='overnight'} label="Standard Overnight" sub="Typical 8–12 hours" onClick={()=>setSpeed('overnight')} ariaLabel="Select standard overnight" />
-          <Tile active={speed==='fast'} label="Faster Charge" sub="Roughly 4–6 hours" onClick={()=>setSpeed('fast')} ariaLabel="Select faster charge" />
+      {/* Enhanced Recommendation Summary */}
+      {voltage && (
+        <div className="rounded-xl border border-brand-accent/20 bg-gradient-to-r from-brand-accent/5 to-brand-accent/10 p-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-brand-accent/10 text-brand-accent flex items-center justify-center">
+              🎯
+            </div>
+            <div className="flex-1">
+              <div className="font-semibold text-brand-ink">Recommended Output</div>
+              <div className="text-sm text-brand-muted">
+                {computedAmps ? (
+                  <>
+                    <span className="font-medium text-brand-accent">~{computedAmps}A charger</span> for your {voltage}V battery with {speed} charging
+                  </>
+                ) : (
+                  'Select voltage and charge speed for personalized recommendation'
+                )}
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-
-      {/* Step 3 */}
-      <div>
-        <label className="block text-sm font-medium mb-1">Step 3: Facility Power (optional)</label>
-        <div className="flex flex-wrap gap-2">
-          <Tile active={phase==='1P'} label="Single‑phase (208–240V)" onClick={()=>setPhase('1P')} ariaLabel="Select single phase" />
-          <Tile active={phase==='3P'} label="Three‑phase (480/600V)" onClick={()=>setPhase('3P')} ariaLabel="Select three phase" />
-          <Tile active={phase===''} label="Not sure" onClick={()=>setPhase('' as any)} ariaLabel="Select not sure" />
-        </div>
-      </div>
-
-      {/* Summary card */}
-      <div className="rounded-lg border border-[var(--brand-border)] bg-[var(--brand-chip)]/60 p-3 text-sm">
-        <span className="font-medium">Recommended charger output:</span>{' '}
-        {computedAmps ? <span>~{computedAmps} A</span> : <span className="text-[var(--brand-muted)]">Select voltage & speed</span>}
-      </div>
+      )}
     </div>
   );
 }

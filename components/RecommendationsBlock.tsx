@@ -77,10 +77,17 @@ export default function RecommendationsBlock({ filters, fallbackItems }: { filte
         </div>
       )}
       {!loading && best.length > 0 && (
-        <div className="mt-2">
-          <div className="mb-2 flex items-center justify-between">
-            <h2 className="text-lg font-semibold">Best Match</h2>
-            <span className="text-xs text-neutral-500">Exact/near match to your voltage, charge speed and phase.</span>
+        <div className="mt-6">
+          <div className="mb-6 p-4 rounded-xl bg-green-50 border border-green-200">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center">
+                ✓
+              </div>
+              <div>
+                <h2 className="text-lg font-semibold text-green-900">Best Match ({best.length} {best.length === 1 ? 'charger' : 'chargers'})</h2>
+                <p className="text-sm text-green-700">Perfect matches for your {payload.voltage}V battery with optimal amperage and phase compatibility</p>
+              </div>
+            </div>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {best.map((it) => (<RecommendedChargerCard key={it.slug} item={it} />))}
@@ -88,10 +95,17 @@ export default function RecommendationsBlock({ filters, fallbackItems }: { filte
         </div>
       )}
       {!loading && alt.length > 0 && (
-        <div className="mt-8">
-          <div className="mb-2 flex items-center justify-between">
-            <h3 className="text-base font-semibold">Alternate Options</h3>
-            <span className="text-xs text-neutral-500">Close alternatives that may differ slightly in amperage or phase.</span>
+        <div className="mt-10">
+          <div className="mb-6 p-4 rounded-xl bg-blue-50 border border-blue-200">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center text-sm">
+                ~
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-blue-900">Alternate Options ({alt.length} {alt.length === 1 ? 'charger' : 'chargers'})</h3>
+                <p className="text-sm text-blue-700">Compatible chargers that may have different amperage or power input requirements</p>
+              </div>
+            </div>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {alt.map((it) => (<RecommendedChargerCard key={it.slug} item={it} />))}
