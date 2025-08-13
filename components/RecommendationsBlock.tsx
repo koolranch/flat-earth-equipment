@@ -17,6 +17,7 @@ export default function RecommendationsBlock({
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState<RecommendedPart[] | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [debug, setDebug] = useState<any>(null);
 
   const payload = useMemo(() => ({ ...filters, limit: 12 }), [filters]);
 
@@ -29,8 +30,9 @@ export default function RecommendationsBlock({
       setError(null);
       const res = await fetchRecommendations(payload, ctl.signal);
       if (ignore) return;
-      if (res.ok) {
-        setItems(res.items as any);
+      if (res.ok) { 
+        setItems(res.items as any); 
+        setDebug((res as any).debug ?? null); 
       } else {
         setError(res.error || 'Error');
       }
@@ -82,6 +84,11 @@ export default function RecommendationsBlock({
 
   return (
     <section className="mt-6">
+      {/* Dev banner to see what the backend thought (auto-hidden in prod) */}
+      {process.env.NODE_ENV !== 'production' && (
+        <pre className="mb-3 overflow-auto rounded-md border bg-white p-2 text-[11px] text-neutral-700">{JSON.stringify({payload, counts:{best:bestMatches.length, alt:alternateOptions.length}, error}, null, 2)}</pre>
+      )}
+
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-neutral-900">Battery Charger Results</h2>
         <RecommendationInfo />
@@ -132,7 +139,7 @@ export default function RecommendationsBlock({
       {/* Only show disabled notice when there are truly no results */}
       {!loading && !hasAnyResults && (
         <div className="rounded-2xl border bg-white p-8 text-center text-neutral-600">
-          <p>No recommendations available. Adjust your selections or request a quote and we'll confirm compatibility.</p>
+          <p>No compatible chargers found. Try widening charge speed or phase, or request a quote and we'll confirm compatibility.</p>
         </div>
       )}
 
