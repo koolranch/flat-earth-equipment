@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createClient } from '@supabase/supabase-js';
-import { parseSpecsFromSlugSafe, withinPct } from '@/lib/specsDebug';
-import { filterGreen } from '@/lib/greenFilter';
-import { parseFromText, withinPct as withinPctStruct } from '@/lib/specsStruct';
-import { useGreenView, getChargerSource } from '@/lib/greenView';
+import { parseSpecsFromSlugSafe, withinPct } from '../../../lib/specsDebug';
+import { filterGreen } from '../../../lib/greenFilter';
+import { parseFromText, withinPct as withinPctStruct } from '../../../lib/specsStruct';
+import { useGreenView } from '../../../lib/greenView';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -57,10 +57,10 @@ function scoreItem(body: z.infer<typeof Input>, row: any){
 
 export async function GET(){
   const usingGreenView = useGreenView();
-  const dataSource = getChargerSource();
-  return NextResponse.json({ 
-    ok: true, 
-    enabled: RECS_ENABLED, 
+  const dataSource = usingGreenView ? 'green_chargers' : 'parts';
+  return NextResponse.json({
+    ok: true,
+    enabled: RECS_ENABLED,
     ampTolerancePct: AMP_TOL,
     dataSource,
     usingGreenView
@@ -74,19 +74,15 @@ export async function POST(req: NextRequest){
     const body = Input.parse(json);
 
     const sb = sbServer();
-    const dataSource = getChargerSource();
     const usingGreenView = useGreenView();
-
-    // Phase 2: Query with structured fields, prefer them over parsing
-    const selectFields = 'id,name,slug,image_url,price,price_cents,stripe_price_id,sku,category_slug,description,voltage,amperage,phase';
+    const FROM = usingGreenView ? 'green_chargers' : 'parts';
+    const SELECT = 'id, name, slug, image_url, price, price_cents, stripe_price_id, sku, brand, description, voltage, amperage, phase';
     
-    let query = sb.from(dataSource).select(selectFields);
+    let query = sb.from(FROM).select(SELECT);
     
     if (!usingGreenView) {
       // When using parts table, need to filter for battery chargers and GREEN products
-      query = query
-        .eq('category_slug', 'battery-chargers');
-        // Note: GREEN filtering will be applied by filterGreen() function below
+      query = query.eq('category_slug', 'battery-chargers');
     }
     
     const { data, error } = await query
@@ -97,6 +93,13 @@ export async function POST(req: NextRequest){
 
     // When using GREEN view, data is already filtered. When using parts, apply additional filtering
     const greenOnlyParts = usingGreenView ? (data ?? []) : filterGreen(data ?? []);
+
+    // Lightweight monitoring: log if any item lacks structured specs (should not happen now)
+    (data ?? []).forEach((p: any) => {
+      if (p.slug?.startsWith('green') && (!p.voltage || !p.amperage || !p.phase)) {
+        console.warn('[recs] missing_struct', p.slug, { v: p.voltage, a: p.amperage, p: p.phase });
+      }
+    });
 
     const items = greenOnlyParts.map((p:any) => {
       const { score, reasons, matchType, specs } = scoreItem(body, p);
@@ -115,14 +118,14 @@ export async function POST(req: NextRequest){
     return NextResponse.json({ 
       ok: true, 
       items, 
-      debug: { 
-        requested: body, 
-        count: items.length, 
-        ampTolerancePct: AMP_TOL,
-        dataSource,
-        usingGreenView,
-        rawCount: greenOnlyParts.length
-      } 
+              debug: { 
+          requested: body, 
+          count: items.length, 
+          ampTolerancePct: AMP_TOL,
+          dataSource: FROM,
+          usingGreenView,
+          rawCount: greenOnlyParts.length
+        } 
     });
   } catch (err:any) {
     console.error('[recommend-chargers] error', err?.message);
