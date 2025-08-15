@@ -2,6 +2,21 @@
 
 This phase implements structured data guardrails for GREEN Series chargers and provides a clean view for optimal query performance.
 
+## Import resolution & health verification
+
+### 1) Local/CI import check
+```
+TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/audit/import_resolution_check.ts
+```
+
+### 2) Health (after deploy)
+- Visit `/api/recommend-chargers/health` and confirm `{ ok:true, enabled:true, source:"green_chargers" }`.
+
+### 3) Smoke POSTs (after deploy)
+```
+BASE_URL=https://flatearthequipment.com TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/audit/check_source.ts
+```
+
 ## Overview
 
 - **Database Migration**: Adds constraints and triggers to enforce data quality for GREEN chargers
@@ -200,3 +215,78 @@ Check `reports/recs_scenarios.csv` for non-zero BEST matches in common cases.
 - 48V fast 3P: 2 best matches
 
 **Phase 2 Ready**: The API now prefers structured fields when available and falls back gracefully to text parsing. After applying the database migration and running the backfill, performance and accuracy will improve further.
+
+## Phase 3 — Production optimization
+
+### 1) Create/refresh GREEN view
+Run this SQL in Supabase:
+```
+-- sql/create_green_view.sql (paste and run)
+```
+
+### 2) Enable view in API (environment)
+Set `USE_GREEN_VIEW=1` in production.
+
+### 3) Health check
+- GET `/api/recommend-chargers/health` → should return `{ ok: true, source: 'green_chargers', ampTolerancePct: 15 }`.
+
+### 4) Sanity scripts
+```
+TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/audit/check_green_view_vs_parts.ts
+BASE_URL=https://YOUR_DOMAIN TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/audit/recs_scenarios.ts
+```
+Confirm scenario CSV still shows >= 1 BEST for core cases (36V overnight 1P, 48V overnight 1P, 80V overnight 3P, 48V fast 3P).
+
+## Phase 4 — Post-deploy checks
+
+### Verify API source
+```
+GET /api/recommend-chargers/health
+# Expect: { ok:true, source:"green_chargers", ... }
+```
+
+### Quick spot checks
+```
+BASE_URL=https://YOUR_DOMAIN TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/audit/check_source.ts
+```
+
+### Full scenario sweep (writes CSV)
+```
+BASE_URL=https://YOUR_DOMAIN TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/audit/recs_scenarios_live.ts
+```
+Open `reports/recs_scenarios_live.csv` and confirm non-zero TOTAL and ≥1 BEST for core cases.
+
+## Phase 5 — Live verification report
+
+### 1) Run the live report (pasteable summary + CSV)
+```
+BASE_URL=https://YOUR_DOMAIN TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/audit/recs_report_live.ts
+```
+This prints a short summary and saves:
+- `reports/recs_scenarios_live.csv`
+- `reports/recs_report_live.md`
+
+### 2) Optional: GREEN inventory snapshot
+```
+NEXT_PUBLIC_SUPABASE_URL=... \
+SUPABASE_SERVICE_ROLE_KEY=... \
+TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/audit/green_inventory_snapshot.ts
+```
+Saves: `reports/green_inventory_snapshot.csv`
+
+### What to paste back for review
+- Console output from `recs_report_live.ts`
+- The first 10 lines of `reports/recs_scenarios_live.csv`
+- (Optional) The first 10 lines of `reports/green_inventory_snapshot.csv`
+
+## Production Smoke + Scenarios (flatearthequipment.com)
+
+### Run
+```
+BASE_URL=https://flatearthequipment.com \
+TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/audit/prod_smoke_and_scenarios.ts
+```
+
+### Paste back for review
+- The console lines starting with `Health:`, `Smoke:`, and `Summary:`
+- The first 10 lines of `reports/recs_scenarios_live.csv` (use `head -n 10 reports/recs_scenarios_live.csv`)
