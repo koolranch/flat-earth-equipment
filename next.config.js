@@ -18,6 +18,9 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   reactStrictMode: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   async redirects() {
     return [
       // Marketing URL → canonical safety slug

@@ -4,7 +4,7 @@ import { createClient } from '@supabase/supabase-js';
 import { parseSpecsFromSlugSafe, withinPct } from '../../../lib/specsDebug';
 import { filterGreen } from '../../../lib/greenFilter';
 import { parseFromText, withinPct as withinPctStruct } from '../../../lib/specsStruct';
-import { useGreenView } from '../../../lib/greenView';
+import { isGreenViewEnabled } from '../../../lib/greenView';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -56,7 +56,7 @@ function scoreItem(body: z.infer<typeof Input>, row: any){
 }
 
 export async function GET(){
-  const usingGreenView = useGreenView();
+  const usingGreenView = isGreenViewEnabled();
   const dataSource = usingGreenView ? 'green_chargers' : 'parts';
   return NextResponse.json({
     ok: true,
@@ -74,7 +74,7 @@ export async function POST(req: NextRequest){
     const body = Input.parse(json);
 
     const sb = sbServer();
-    const usingGreenView = useGreenView();
+    const usingGreenView = isGreenViewEnabled();
     const FROM = usingGreenView ? 'green_chargers' : 'parts';
     const SELECT = 'id, name, slug, image_url, price, price_cents, stripe_price_id, sku, brand, description, voltage, amperage, phase';
     
