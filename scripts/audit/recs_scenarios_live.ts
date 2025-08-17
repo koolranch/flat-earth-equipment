@@ -23,7 +23,7 @@ async function post(body: any) {
 (async () => {
   const volts = [24, 36, 48, 80] as const;
   const speeds = ['overnight', 'fast'] as const;
-  const phases: ['1P' | '3P' | null] = ['1P', '3P', null];
+  const phases: ('1P' | '3P' | null)[] = ['1P', '3P', null];
   const rows: any[] = [];
   const header = ['voltage', 'speed', 'phase', 'target_amps', 'total', 'best', 'alt', 'first_slug'];
 

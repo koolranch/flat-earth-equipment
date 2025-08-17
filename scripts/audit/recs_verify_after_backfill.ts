@@ -93,9 +93,9 @@ interface MissingSpecRecord {
         current_voltage: item.voltage,
         current_amperage: item.amperage,
         current_phase: item.phase,
-        parsed_voltage: parsed.voltage,
-        parsed_amperage: parsed.amperage,
-        parsed_phase: parsed.phase,
+        parsed_voltage: parsed.voltage ?? null,
+        parsed_amperage: parsed.amperage ?? null,
+        parsed_phase: parsed.phase ?? null,
         missing_fields: missing.join(', '),
         priority
       };
