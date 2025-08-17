@@ -20,20 +20,20 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
         aria-pressed={active}
         className={`group relative p-4 rounded-xl border-2 transition-all duration-200 ${
           active 
-            ? 'border-[var(--brand-accent)] bg-[var(--brand-accent)] text-white shadow-lg transform -translate-y-1 shadow-orange-200' 
+            ? 'border-blue-500 bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg transform -translate-y-1 shadow-blue-200' 
             : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5'
         }`}
       >
         <div className="flex flex-col items-center text-center">
-          <div className={`text-2xl font-bold mb-1 ${active ? 'text-white' : 'text-gray-900'}`}>
+          <div className={`text-3xl font-black mb-1 ${active ? 'text-white drop-shadow-sm' : 'text-gray-900'}`}>
             {voltage}V
           </div>
-          <div className={`text-xs ${active ? 'text-white/80' : 'text-gray-500'}`}>
+          <div className={`text-sm font-medium ${active ? 'text-white/90' : 'text-gray-500'}`}>
             Battery
           </div>
           {active && (
             <div className="absolute -top-2 -right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md">
-              <Check className="h-3.5 w-3.5 text-[var(--brand-accent)]" />
+              <Check className="h-3.5 w-3.5 text-blue-500" />
             </div>
           )}
         </div>
@@ -118,7 +118,7 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
   }
 
   const hasSelections = voltage || speed !== 'overnight' || phase;
-  const completedSteps = [voltage, speed !== 'overnight' || voltage, phase || voltage].filter(Boolean).length;
+  const completedSteps = [!!voltage, true, !!phase].filter(Boolean).length; // Step 2 (speed) always counts as completed since it has a default
   const progress = (completedSteps / 3) * 100;
   
   return (
@@ -185,10 +185,10 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
         {/* Step 1 - Battery Voltage */}
         <div className="space-y-6">
           <div className="flex items-center gap-4">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg ${
-              voltage ? 'bg-[var(--brand-accent)]' : 'bg-gray-400'
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg transition-all duration-200 ${
+              voltage ? 'bg-green-500' : 'bg-gray-400'
             }`}>
-              1
+              {voltage ? <Check className="h-5 w-5" /> : '1'}
             </div>
             <div>
               <h3 className="text-lg font-bold text-gray-900">Battery Voltage</h3>
@@ -210,10 +210,10 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
         {/* Step 2 - Charge Speed */}
         <div className="space-y-6">
           <div className="flex items-center gap-4">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg ${
-              voltage ? 'bg-[var(--brand-accent)]' : 'bg-gray-400'
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg transition-all duration-200 ${
+              voltage ? 'bg-green-500' : 'bg-gray-400'
             }`}>
-              2
+              {voltage ? <Check className="h-5 w-5" /> : '2'}
             </div>
             <div>
               <h3 className="text-lg font-bold text-gray-900">Charge Speed</h3>
@@ -243,10 +243,10 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
         {/* Step 3 - Facility Power */}
         <div className="space-y-6">
           <div className="flex items-center gap-4">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg ${
-              phase ? 'bg-[var(--brand-accent)]' : 'bg-gray-400'
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg transition-all duration-200 ${
+              phase ? 'bg-green-500' : 'bg-gray-400'
             }`}>
-              3
+              {phase ? <Check className="h-5 w-5" /> : '3'}
             </div>
             <div>
               <h3 className="text-lg font-bold text-gray-900">Facility Power</h3>
