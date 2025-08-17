@@ -68,7 +68,7 @@ export async function GET(){
 }
 
 export async function POST(req: NextRequest){
-  try{
+  try {
     if(!RECS_ENABLED) return NextResponse.json({ ok:false, error:'RECS_DISABLED' }, { status:503 });
     let json: unknown; try { json = await req.json(); } catch { return NextResponse.json({ ok:false, error:'INVALID_JSON' }, { status:400 }); }
     const body = Input.parse(json);
@@ -118,14 +118,14 @@ export async function POST(req: NextRequest){
     return NextResponse.json({ 
       ok: true, 
       items, 
-              debug: { 
-          requested: body, 
-          count: items.length, 
-          ampTolerancePct: AMP_TOL,
-          dataSource: FROM,
-          usingGreenView,
-          rawCount: greenOnlyParts.length
-        } 
+      debug: { 
+        requested: body, 
+        count: items.length, 
+        ampTolerancePct: AMP_TOL,
+        dataSource: FROM,
+        usingGreenView,
+        rawCount: greenOnlyParts.length
+      } 
     });
   } catch (err:any) {
     console.error('[recommend-chargers] error', err?.message);
