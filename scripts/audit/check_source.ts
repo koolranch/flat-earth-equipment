@@ -1,12 +1,12 @@
 /* Hit health + a couple of POST cases against your live site. */
-const BASE = process.env.BASE_URL || 'http://localhost:3000';
+const CHECK_SOURCE_BASE = process.env.BASE_URL || 'http://localhost:3000';
 
 async function main() {
-  const h = await fetch(`${BASE}/api/recommend-chargers/health`).then(r => r.json());
+  const h = await fetch(`${CHECK_SOURCE_BASE}/api/recommend-chargers/health`).then(r => r.json());
   console.log('Health:', h);
   
   async function post(body: any) {
-    const r = await fetch(`${BASE}/api/recommend-chargers`, {
+    const r = await fetch(`${CHECK_SOURCE_BASE}/api/recommend-chargers`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)

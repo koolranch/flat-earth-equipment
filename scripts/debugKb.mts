@@ -1,4 +1,4 @@
-import crisp from "../lib/crisp/client.ts";
+import crisp from "../lib/crisp/client.js";
 import { marked } from "marked";
 import * as dotenv from "dotenv";
 
