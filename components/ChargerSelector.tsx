@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Check } from 'lucide-react';
+import { Check, Zap, Clock, Power, HelpCircle } from 'lucide-react';
 import type { Speed } from '@/lib/recsUtil';
 import { ampsFrom } from '@/lib/recsUtil';
 
@@ -12,124 +12,313 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
 
   useEffect(() => { onFilterChange({ voltage: voltage ? Number(voltage) : null, amps: computedAmps ?? null, phase: phase || null, speed }); }, [voltage, computedAmps, phase, speed, onFilterChange]);
 
-  function Tile({active, label, sub, onClick, ariaLabel}:{active:boolean; label:string; sub?:string; onClick:()=>void; ariaLabel:string}){
+  function VoltageCard({active, voltage, onClick}: {active: boolean; voltage: number; onClick: () => void}) {
     return (
-      <button type="button" onClick={onClick} aria-pressed={active} aria-label={ariaLabel}
-        className={`sel-btn ${active ? 'sel-active' : 'sel-inactive hover:sel-hover'}`}
+      <button 
+        type="button" 
+        onClick={onClick} 
+        aria-pressed={active}
+        className={`group relative p-4 rounded-xl border-2 transition-all duration-200 ${
+          active 
+            ? 'border-[var(--brand-accent)] bg-[var(--brand-accent)] text-white shadow-lg transform -translate-y-1 shadow-orange-200' 
+            : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5'
+        }`}
       >
-        <div className="flex items-start gap-2">
-          <span className={`sel-icon ${active ? 'sel-check' : 'sel-empty'}`}>{active ? <Check className="h-3.5 w-3.5"/> : null}</span>
-          <div>
-            <div className="font-semibold">{label}</div>
-            {sub && <div className={`text-xs ${!active ? 'text-[var(--brand-muted)]' : ''}`}>{sub}</div>}
+        <div className="flex flex-col items-center text-center">
+          <div className={`text-2xl font-bold mb-1 ${active ? 'text-white' : 'text-gray-900'}`}>
+            {voltage}V
           </div>
+          <div className={`text-xs ${active ? 'text-white/80' : 'text-gray-500'}`}>
+            Battery
+          </div>
+          {active && (
+            <div className="absolute -top-2 -right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md">
+              <Check className="h-3.5 w-3.5 text-[var(--brand-accent)]" />
+            </div>
+          )}
+        </div>
+      </button>
+    );
+  }
+
+  function SpeedCard({active, speed, label, sub, icon, onClick}: {active: boolean; speed: Speed; label: string; sub: string; icon: React.ReactNode; onClick: () => void}) {
+    return (
+      <button 
+        type="button" 
+        onClick={onClick} 
+        aria-pressed={active}
+        className={`group p-4 rounded-xl border-2 transition-all duration-200 text-left ${
+          active 
+            ? 'border-[var(--brand-accent)] bg-gradient-to-r from-orange-50 to-orange-100 shadow-lg transform -translate-y-1' 
+            : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5'
+        }`}
+      >
+        <div className="flex items-start gap-3">
+          <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center ${
+            active ? 'bg-[var(--brand-accent)] text-white' : 'bg-gray-100 text-gray-600'
+          }`}>
+            {icon}
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className={`font-semibold mb-1 ${active ? 'text-[var(--brand-accent)]' : 'text-gray-900'}`}>
+              {label}
+            </div>
+            <div className={`text-sm leading-relaxed ${active ? 'text-orange-700' : 'text-gray-500'}`}>
+              {sub}
+            </div>
+          </div>
+          {active && (
+            <div className="flex-shrink-0">
+              <div className="w-5 h-5 bg-[var(--brand-accent)] rounded-full flex items-center justify-center">
+                <Check className="h-3 w-3 text-white" />
+              </div>
+            </div>
+          )}
+        </div>
+      </button>
+    );
+  }
+
+  function PhaseCard({active, phase, label, sub, icon, onClick}: {active: boolean; phase: string; label: string; sub: string; icon: React.ReactNode; onClick: () => void}) {
+    return (
+      <button 
+        type="button" 
+        onClick={onClick} 
+        aria-pressed={active}
+        className={`group p-4 rounded-xl border-2 transition-all duration-200 text-left ${
+          active 
+            ? 'border-[var(--brand-accent)] bg-gradient-to-r from-blue-50 to-indigo-50 shadow-lg transform -translate-y-1' 
+            : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5'
+        }`}
+      >
+        <div className="flex items-start gap-3">
+          <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center ${
+            active ? 'bg-[var(--brand-accent)] text-white' : 'bg-gray-100 text-gray-600'
+          }`}>
+            {icon}
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className={`font-semibold mb-1 ${active ? 'text-[var(--brand-accent)]' : 'text-gray-900'}`}>
+              {label}
+            </div>
+            <div className={`text-sm leading-relaxed ${active ? 'text-blue-700' : 'text-gray-500'}`}>
+              {sub}
+            </div>
+          </div>
+          {active && (
+            <div className="flex-shrink-0">
+              <div className="w-5 h-5 bg-[var(--brand-accent)] rounded-full flex items-center justify-center">
+                <Check className="h-3 w-3 text-white" />
+              </div>
+            </div>
+          )}
         </div>
       </button>
     );
   }
 
   const hasSelections = voltage || speed !== 'overnight' || phase;
+  const completedSteps = [voltage, speed !== 'overnight' || voltage, phase || voltage].filter(Boolean).length;
+  const progress = (completedSteps / 3) * 100;
   
   return (
-    <div className="space-y-6">
-      {/* Enhanced Sticky Summary */}
-      <div className="selection-sticky -mx-4 px-4 py-3 sm:mx-0 sm:rounded-xl sm:px-6">
-        <div className="flex items-center justify-between">
+    <div className="space-y-8">
+      {/* Enhanced Progress Header */}
+      <div className="bg-gradient-to-r from-orange-50 to-blue-50 rounded-2xl border border-orange-100 p-6">
+        <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-brand-accent text-white text-sm font-bold flex items-center justify-center">
-                ⚡
-              </div>
-              <div>
-                <div className="font-semibold text-brand-ink">Finding Your Charger</div>
-                <div className="text-xs text-brand-muted">
-                  {voltage ? `${voltage}V battery` : 'Select voltage'} • 
-                  {speed === 'overnight' ? ' Overnight charge' : ' Fast charge'} • 
-                  {phase === '1P' ? ' Single-phase' : phase === '3P' ? ' Three-phase' : ' Any power type'}
-                  {computedAmps && ` • ~${computedAmps}A output`}
-                </div>
-              </div>
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--brand-accent)] to-orange-600 text-white flex items-center justify-center shadow-lg">
+              <Zap className="h-6 w-6" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-gray-900">Finding Your Perfect Charger</h3>
+              <p className="text-gray-600">
+                Answer 3 questions • Step {completedSteps} of 3 complete
+              </p>
             </div>
           </div>
           {hasSelections && (
             <button 
               onClick={() => { setVoltage(''); setSpeed('overnight'); setPhase(''); }}
-              className="text-xs text-brand-muted hover:text-brand-ink transition-colors px-2 py-1 rounded hover:bg-white/50"
+              className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 bg-white/70 hover:bg-white rounded-lg border border-gray-200 transition-all duration-200 hover:shadow-md"
             >
-              Reset
+              Start Over
             </button>
+          )}
+        </div>
+        
+        {/* Progress Bar */}
+        <div className="mb-4">
+          <div className="flex justify-between text-sm text-gray-600 mb-2">
+            <span>Progress</span>
+            <span>{Math.round(progress)}% complete</span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2">
+            <div 
+              className="bg-gradient-to-r from-[var(--brand-accent)] to-orange-500 h-2 rounded-full transition-all duration-500 ease-out"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
+
+        {/* Current Selection Summary */}
+        <div className="flex flex-wrap gap-2 text-sm">
+          <span className={`px-3 py-1 rounded-full border ${voltage ? 'bg-orange-100 text-orange-700 border-orange-200' : 'bg-gray-100 text-gray-500 border-gray-200'}`}>
+            {voltage ? `${voltage}V battery` : 'Select voltage'}
+          </span>
+          <span className={`px-3 py-1 rounded-full border ${voltage ? (speed === 'overnight' ? 'bg-blue-100 text-blue-700 border-blue-200' : 'bg-green-100 text-green-700 border-green-200') : 'bg-gray-100 text-gray-500 border-gray-200'}`}>
+            {speed === 'overnight' ? 'Overnight charging' : 'Fast charging'}
+          </span>
+          <span className={`px-3 py-1 rounded-full border ${phase ? (phase === '1P' ? 'bg-purple-100 text-purple-700 border-purple-200' : 'bg-indigo-100 text-indigo-700 border-indigo-200') : 'bg-gray-100 text-gray-500 border-gray-200'}`}>
+            {phase === '1P' ? 'Single-phase' : phase === '3P' ? 'Three-phase' : 'Any power type'}
+          </span>
+          {computedAmps && (
+            <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200">
+              ~{computedAmps}A output
+            </span>
           )}
         </div>
       </div>
 
       {/* Enhanced Step Grid */}
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        {/* Step 1 - Enhanced */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded-full bg-brand-accent text-white text-sm font-bold flex items-center justify-center">1</div>
+      <div className="grid grid-cols-1 gap-8 xl:grid-cols-3">
+        {/* Step 1 - Battery Voltage */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-4">
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg ${
+              voltage ? 'bg-[var(--brand-accent)]' : 'bg-gray-400'
+            }`}>
+              1
+            </div>
             <div>
-              <h3 className="font-semibold text-brand-ink">Battery Voltage</h3>
-              <p className="text-xs text-brand-muted">What voltage is your forklift battery?</p>
+              <h3 className="text-lg font-bold text-gray-900">Battery Voltage</h3>
+              <p className="text-gray-600">What voltage is your forklift battery?</p>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-2">
-            {[24,36,48,80].map(v => (
-              <Tile key={v} active={voltage===String(v)} label={`${v}V`} onClick={()=>setVoltage(voltage===String(v) ? '' : String(v))} ariaLabel={`Select ${v} volt battery`} />
+          <div className="grid grid-cols-2 gap-3">
+            {[24, 36, 48, 80].map(v => (
+              <VoltageCard 
+                key={v}
+                active={voltage === String(v)}
+                voltage={v}
+                onClick={() => setVoltage(voltage === String(v) ? '' : String(v))}
+              />
             ))}
           </div>
         </div>
 
-        {/* Step 2 - Enhanced */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded-full bg-brand-accent text-white text-sm font-bold flex items-center justify-center">2</div>
+        {/* Step 2 - Charge Speed */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-4">
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg ${
+              voltage ? 'bg-[var(--brand-accent)]' : 'bg-gray-400'
+            }`}>
+              2
+            </div>
             <div>
-              <h3 className="font-semibold text-brand-ink">Charge Speed</h3>
-              <p className="text-xs text-brand-muted">How quickly do you need to charge?</p>
+              <h3 className="text-lg font-bold text-gray-900">Charge Speed</h3>
+              <p className="text-gray-600">How quickly do you need to charge?</p>
             </div>
           </div>
-          <div className="space-y-2">
-            <Tile active={speed==='overnight'} label="Standard Overnight" sub="8–12 hours • Gentler on battery • Most common" onClick={()=>setSpeed('overnight')} ariaLabel="Select standard overnight charging" />
-            <Tile active={speed==='fast'} label="Fast Charge" sub="4–6 hours • Higher current • Quick turnaround" onClick={()=>setSpeed('fast')} ariaLabel="Select fast charging" />
+          <div className="space-y-3">
+            <SpeedCard 
+              active={speed === 'overnight'}
+              speed="overnight"
+              label="Standard Overnight"
+              sub="8–12 hours • Gentler on battery • Most common"
+              icon={<Clock className="h-4 w-4" />}
+              onClick={() => setSpeed('overnight')}
+            />
+            <SpeedCard 
+              active={speed === 'fast'}
+              speed="fast"
+              label="Fast Charge"
+              sub="4–6 hours • Higher current • Quick turnaround"
+              icon={<Zap className="h-4 w-4" />}
+              onClick={() => setSpeed('fast')}
+            />
           </div>
         </div>
 
-        {/* Step 3 - Enhanced */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded-full bg-brand-accent text-white text-sm font-bold flex items-center justify-center">3</div>
+        {/* Step 3 - Facility Power */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-4">
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg ${
+              phase ? 'bg-[var(--brand-accent)]' : 'bg-gray-400'
+            }`}>
+              3
+            </div>
             <div>
-              <h3 className="font-semibold text-brand-ink">Facility Power</h3>
-              <p className="text-xs text-brand-muted">What power input is available?</p>
+              <h3 className="text-lg font-bold text-gray-900">Facility Power</h3>
+              <p className="text-gray-600">What power input is available?</p>
             </div>
           </div>
-          <div className="space-y-2">
-            <Tile active={phase==='1P'} label="Single-phase" sub="208–240V • Most common • Residential style" onClick={()=>setPhase(phase==='1P' ? '' : '1P')} ariaLabel="Select single phase power" />
-            <Tile active={phase==='3P'} label="Three-phase" sub="480V/600V • Industrial • More efficient" onClick={()=>setPhase(phase==='3P' ? '' : '3P')} ariaLabel="Select three phase power" />
-            <Tile active={phase===''} label="Not sure" sub="Show all compatible options" onClick={()=>setPhase('')} ariaLabel="Show all power options" />
+          <div className="space-y-3">
+            <PhaseCard 
+              active={phase === '1P'}
+              phase="1P"
+              label="Single-phase"
+              sub="208–240V • Most common • Residential style"
+              icon={<Power className="h-4 w-4" />}
+              onClick={() => setPhase(phase === '1P' ? '' : '1P')}
+            />
+            <PhaseCard 
+              active={phase === '3P'}
+              phase="3P"
+              label="Three-phase"
+              sub="480V/600V • Industrial • More efficient"
+              icon={<Zap className="h-4 w-4" />}
+              onClick={() => setPhase(phase === '3P' ? '' : '3P')}
+            />
+            <PhaseCard 
+              active={phase === ''}
+              phase=""
+              label="Not sure"
+              sub="Show all compatible options"
+              icon={<HelpCircle className="h-4 w-4" />}
+              onClick={() => setPhase('')}
+            />
           </div>
         </div>
       </div>
 
       {/* Enhanced Recommendation Summary */}
       {voltage && (
-        <div className="rounded-xl border border-brand-accent/20 bg-gradient-to-r from-brand-accent/5 to-brand-accent/10 p-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-brand-accent/10 text-brand-accent flex items-center justify-center">
-              🎯
+        <div className="bg-gradient-to-r from-emerald-50 to-green-50 rounded-2xl border border-emerald-200 p-6">
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-green-600 text-white flex items-center justify-center shadow-lg">
+              <Check className="h-6 w-6" />
             </div>
             <div className="flex-1">
-              <div className="font-semibold text-brand-ink">Recommended Output</div>
-              <div className="text-sm text-brand-muted">
-                {computedAmps ? (
-                  <>
-                    <span className="font-medium text-brand-accent">~{computedAmps}A charger</span> for your {voltage}V battery with {speed} charging
-                  </>
-                ) : (
-                  'Select voltage and charge speed for personalized recommendation'
-                )}
-              </div>
+              <h4 className="text-lg font-bold text-gray-900 mb-2">Ready to Find Your Charger</h4>
+              {computedAmps ? (
+                <div className="space-y-2">
+                  <p className="text-gray-700">
+                    Based on your selections, we recommend a{' '}
+                    <span className="font-bold text-emerald-700 bg-emerald-100 px-2 py-1 rounded">
+                      ~{computedAmps}A charger
+                    </span>{' '}
+                    for your {voltage}V battery with {speed} charging.
+                  </p>
+                  <div className="flex flex-wrap gap-2 text-sm">
+                    <span className="bg-white px-3 py-1 rounded-full border border-emerald-200 text-emerald-700">
+                      ⚡ {voltage}V Compatible
+                    </span>
+                    <span className="bg-white px-3 py-1 rounded-full border border-emerald-200 text-emerald-700">
+                      ⏱️ {speed === 'overnight' ? 'Overnight' : 'Fast'} Charging
+                    </span>
+                    {phase && (
+                      <span className="bg-white px-3 py-1 rounded-full border border-emerald-200 text-emerald-700">
+                        🔌 {phase === '1P' ? 'Single' : 'Three'}-phase
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <p className="text-gray-600">
+                  Complete your selections above to see personalized charger recommendations.
+                </p>
+              )}
             </div>
           </div>
         </div>

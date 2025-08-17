@@ -41,18 +41,20 @@ export default function ChargerSelectorWithRecommendations({
 
   return (
     <div className="space-y-8">
-      {/* Step-by-step Selector */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-6">
-        <div className="mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">
+      {/* Enhanced Step-by-step Selector */}
+      <div className="bg-white rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/50 overflow-hidden">
+        <div className="bg-gradient-to-r from-gray-50 to-blue-50/50 px-8 py-6 border-b border-gray-100">
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">
             Find Your Perfect Charger
           </h2>
-          <p className="mt-2 text-gray-600">
+          <p className="text-lg text-gray-600">
             Answer these questions to get personalized recommendations
           </p>
         </div>
         
-        <ChargerSelector onFilterChange={handleFilterChange} />
+        <div className="p-8">
+          <ChargerSelector onFilterChange={handleFilterChange} />
+        </div>
       </div>
 
       {/* Smart Recommendations Section */}
