@@ -5,7 +5,7 @@ import { ampsFrom } from '@/lib/recsUtil';
 
 export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f: { voltage?: number|null; amps?: number|null; phase?: '1P'|'3P'|null; speed?: Speed }) => void }){
   const [voltage, setVoltage] = useState('');
-  const [speed, setSpeed] = useState<Speed>('overnight');
+  const [speed, setSpeed] = useState<Speed | ''>('');
   const [phase, setPhase] = useState<'1P'|'3P'|''>('');
 
   const computedAmps = useMemo(()=> ampsFrom(voltage ? Number(voltage) : null, speed), [voltage, speed]);
@@ -117,9 +117,9 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
     );
   }
 
-  const hasSelections = voltage || speed !== 'overnight' || phase;
+  const hasSelections = voltage || speed || phase;
   // Count steps completed by user interaction
-  const completedSteps = (voltage ? 1 : 0) + (speed !== 'overnight' ? 1 : 0) + (phase ? 1 : 0);
+  const completedSteps = (voltage ? 1 : 0) + (speed ? 1 : 0) + (phase ? 1 : 0);
   const progress = (completedSteps / 3) * 100;
   
   return (
@@ -140,7 +140,7 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
           </div>
           {hasSelections && (
             <button 
-              onClick={() => { setVoltage(''); setSpeed('overnight'); setPhase(''); }}
+              onClick={() => { setVoltage(''); setSpeed(''); setPhase(''); }}
               className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 bg-white/70 hover:bg-white rounded-lg border border-gray-200 transition-all duration-200 hover:shadow-md"
             >
               Start Over
