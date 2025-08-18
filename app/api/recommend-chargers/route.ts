@@ -117,12 +117,25 @@ export async function POST(req: NextRequest){
       };
     }).sort((a:any,b:any)=> b.score - a.score).slice(0, body.limit ?? 12);
 
+    // Separate best matches from alternatives
+    const bestMatches = items.filter((item: any) => item.matchType === 'best');
+    const alternatives = items.filter((item: any) => item.matchType === 'alternate');
+    
+    // Identify top pick from best matches (highest scoring)
+    const topPick = bestMatches.length > 0 ? { ...bestMatches[0], isTopPick: true } : null;
+    const otherBestMatches = bestMatches.slice(1);
+
     return NextResponse.json({ 
       ok: true, 
-      items, 
+      items, // Keep for backward compatibility
+      topPick,
+      otherBestMatches,
+      alternatives,
       debug: { 
         requested: body, 
-        count: items.length, 
+        count: items.length,
+        bestMatchCount: bestMatches.length,
+        alternativeCount: alternatives.length,
         ampTolerancePct: AMP_TOL,
         dataSource: FROM,
         usingGreenView,
