@@ -45,10 +45,10 @@ export default function ChargerSelectorWithRecommendations({
       <div className="bg-white rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/50 overflow-hidden">
         <div className="bg-gradient-to-r from-gray-50 to-blue-50/50 px-8 py-6 border-b border-gray-100">
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            Find Your Perfect Charger
+            Forklift Charger Selector: Find Your Perfect Match
           </h2>
           <p className="text-lg text-gray-600">
-            Answer these questions to get personalized recommendations
+            Choose your battery voltage, charging speed, and facility power type for personalized forklift charger recommendations
           </p>
         </div>
         
