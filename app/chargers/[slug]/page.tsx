@@ -130,6 +130,30 @@ export default async function Page({ params }: { params: { slug: string } }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(part)) }}
       />
 
+      {/* Breadcrumb Navigation */}
+      <div className="mb-6">
+        <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
+          <a href="/" className="hover:text-gray-900 transition-colors">Home</a>
+          <span>›</span>
+          <a href="/parts" className="hover:text-gray-900 transition-colors">Parts</a>
+          <span>›</span>
+          <a href="/battery-chargers" className="hover:text-gray-900 transition-colors">Forklift Battery Chargers</a>
+          <span>›</span>
+          <span className="text-gray-900 font-medium">{part.name}</span>
+        </nav>
+        
+        {/* Back to Chargers Button */}
+        <a 
+          href="/battery-chargers"
+          className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Browse All Chargers
+        </a>
+      </div>
+
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {/* Image / Media */}
         <div className="rounded-2xl border bg-white p-4">
