@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { supabaseServer } from "@/lib/supabaseServer";
+import { createClient } from '@supabase/supabase-js';
 import { currency, parseSpecsFromSlug, shortDesc } from "@/lib/chargers";
 import SpecTable from "@/components/SpecTable";
 import RelatedChargers from "@/components/RelatedChargers";
@@ -7,6 +7,11 @@ import QuoteButton from "@/components/QuoteButton";
 import { BuyNowButton } from "@/components/AddToCartButton";
 
 export const revalidate = 60;
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 type Part = {
   name: string;
@@ -22,14 +27,16 @@ type Part = {
 };
 
 async function getPart(slug: string): Promise<Part | null> {
-  const sb = supabaseServer();
-  const { data, error } = await sb
+  const { data, error } = await supabase
     .from("parts")
     .select("name,slug,brand,description,image_url,price,price_cents,sku,category_slug,stripe_price_id")
     .eq("slug", slug)
     .limit(1)
     .single();
-  if (error) return null;
+  if (error) {
+    console.error('Error fetching charger:', error);
+    return null;
+  }
   return data as Part;
 }
 
