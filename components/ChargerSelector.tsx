@@ -8,9 +8,9 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
   const [speed, setSpeed] = useState<Speed | ''>('');
   const [phase, setPhase] = useState<'1P'|'3P'|''>('');
 
-  const computedAmps = useMemo(()=> ampsFrom(voltage ? Number(voltage) : null, speed), [voltage, speed]);
+  const computedAmps = useMemo(()=> ampsFrom(voltage ? Number(voltage) : null, speed || undefined), [voltage, speed]);
 
-  useEffect(() => { onFilterChange({ voltage: voltage ? Number(voltage) : null, amps: computedAmps ?? null, phase: phase || null, speed }); }, [voltage, computedAmps, phase, speed, onFilterChange]);
+  useEffect(() => { onFilterChange({ voltage: voltage ? Number(voltage) : null, amps: computedAmps ?? null, phase: phase || null, speed: speed || undefined }); }, [voltage, computedAmps, phase, speed, onFilterChange]);
 
   function VoltageCard({active, voltage, onClick}: {active: boolean; voltage: number; onClick: () => void}) {
     return (
