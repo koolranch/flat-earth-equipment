@@ -54,6 +54,26 @@ const config = {
       }
     }
     
+    // High priority for battery charger pages (key SEO target)
+    if (path === '/battery-chargers' || path.includes('/insights/forklift-charger') || path.includes('/insights/complete-guide-forklift')) {
+      return {
+        loc: path,
+        changefreq: 'weekly',
+        priority: 0.95,
+        lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
+      }
+    }
+    
+    // High priority for insights/guides
+    if (path.startsWith('/insights')) {
+      return {
+        loc: path,
+        changefreq: 'monthly',
+        priority: 0.8,
+        lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
+      }
+    }
+    
     // State-specific forklift pages
     if (path.includes('/safety/forklift/')) {
       return {

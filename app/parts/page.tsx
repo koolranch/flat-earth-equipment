@@ -45,7 +45,7 @@ const categories: Category[] = [
   { name: "Hydraulic Components", slug: "hydraulic", icon: "DropletIcon" },
   { name: "Electrical Systems", slug: "electrical", icon: "ZapIcon" },
   { name: "Controllers & Joysticks", slug: "controllers", icon: "Gamepad2Icon" },
-  { name: "Chargers & Batteries", slug: "chargers", icon: "BatteryChargingIcon" },
+  { name: "Battery Chargers", slug: "battery-chargers", icon: "BatteryChargingIcon" },
   { name: "Brakes & Wheels", slug: "brakes-wheels", icon: "CircleIcon" },
 ];
 
