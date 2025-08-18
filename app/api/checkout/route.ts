@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     
     // Handle both simple checkout (BuyNowButton) and cart checkout (cart page)
     let lineItems = [];
-    let metadata = {};
+    let metadata: Record<string, string> = {};
     let successSlug = "";
     
     if (body.items && Array.isArray(body.items)) {
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
         // Store metadata for each item
         if (item.metadata) {
           Object.keys(item.metadata).forEach(key => {
-            metadata[`item_${i}_${key}`] = item.metadata[key];
+            metadata[`item_${i}_${key}`] = String(item.metadata[key]);
           });
         }
       }
