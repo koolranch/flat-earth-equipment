@@ -41,7 +41,9 @@ function scoreItem(body: z.infer<typeof Input>, row: any){
   
   let score = 0; const reasons: {label:string;weight?:number}[] = [];
   const voltMatch = body.voltage ? specs.voltage === body.voltage : true;
-  const ampClose  = body.amps ? withinPctStruct(body.amps, specs.current, AMP_TOL) : true;
+  // Use higher tolerance for 3-phase chargers since they're typically higher amperage
+  const tolerance = (body.phase === '3P') ? Math.max(AMP_TOL, 40) : AMP_TOL;
+  const ampClose  = body.amps ? withinPctStruct(body.amps, specs.current, tolerance) : true;
   const phaseMatch = body.phase ? (specs.phase ? specs.phase === body.phase : true) : true;
   
   if (voltMatch && body.voltage) { score += 100; reasons.push({label:`For your ${body.voltage}V battery`, weight:100}); }
