@@ -60,17 +60,22 @@ export default function ChargerFAQ() {
         <h3 className="font-semibold text-gray-900 mb-3">Need More Detailed Information?</h3>
         <div className="space-y-2 text-sm">
           <div>
-            📖 <a href="/insights/how-to-choose-forklift-battery-charger" className="text-blue-600 hover:text-blue-800 font-medium">
-              Complete Forklift Charger Selection Guide
+            📚 <a href="/insights/complete-guide-forklift-battery-chargers" className="text-blue-600 hover:text-blue-800 font-medium">
+              Complete Guide to Forklift Battery Chargers (2025)
             </a>
           </div>
           <div>
-            ⚡ <a href="/insights/fast-vs-overnight-forklift-charging" className="text-green-600 hover:text-green-800 font-medium">
+            📖 <a href="/insights/how-to-choose-forklift-battery-charger" className="text-green-600 hover:text-green-800 font-medium">
+              How to Choose a Forklift Battery Charger
+            </a>
+          </div>
+          <div>
+            ⚡ <a href="/insights/fast-vs-overnight-forklift-charging" className="text-orange-600 hover:text-orange-800 font-medium">
               Fast vs Overnight Charging Comparison
             </a>
           </div>
           <div>
-            🔧 <a href="/insights/forklift-charger-voltage-comparison" className="text-orange-600 hover:text-orange-800 font-medium">
+            🔧 <a href="/insights/forklift-charger-voltage-comparison" className="text-purple-600 hover:text-purple-800 font-medium">
               24V vs 36V vs 48V vs 80V Voltage Guide
             </a>
           </div>

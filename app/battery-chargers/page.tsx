@@ -171,6 +171,52 @@ function productSchemaJsonLd() {
   };
 }
 
+function howToSchemaJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Choose a Forklift Battery Charger",
+    "description": "Step-by-step guide to selecting the right forklift battery charger based on voltage, amperage, and power requirements",
+    "image": "https://www.flatearthequipment.com/images/insights/forklift-charger-guide.jpg",
+    "totalTime": "PT15M",
+    "estimatedCost": {
+      "@type": "MonetaryAmount",
+      "currency": "USD",
+      "value": "1100-3700"
+    },
+    "tool": [
+      {
+        "@type": "HowToTool",
+        "name": "Forklift Battery Voltage Information"
+      },
+      {
+        "@type": "HowToTool", 
+        "name": "Facility Electrical Specifications"
+      }
+    ],
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Determine Battery Voltage",
+        "text": "Check your forklift battery label to find the voltage (24V, 36V, 48V, or 80V). This must match your charger exactly.",
+        "url": "https://www.flatearthequipment.com/battery-chargers#voltage-selection"
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Calculate Required Amperage", 
+        "text": "Determine charging amperage based on battery capacity and desired charging time. Use C/10 rate for overnight charging or C/5 for fast charging.",
+        "url": "https://www.flatearthequipment.com/battery-chargers#amperage-calculation"
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Verify Power Input Requirements",
+        "text": "Confirm your facility has appropriate power input (single-phase 208-240V or three-phase 480-600V) for your selected charger.",
+        "url": "https://www.flatearthequipment.com/battery-chargers#power-input"
+      }
+    ]
+  };
+}
+
 function faqJsonLd() {
   return {
     "@context": "https://schema.org",
@@ -241,6 +287,7 @@ export default async function Page({
   const jsonLdList = itemListJsonLd(filteredParts.map(p => ({ name: p.name, slug: p.slug })));
   const jsonLdFaq = faqJsonLd();
   const jsonLdProduct = productSchemaJsonLd();
+  const jsonLdHowTo = howToSchemaJsonLd();
   
   // Check if this is a bot/crawler by looking for filters - if no client-side JS filters, show SSR results
   const hasFilters = Object.keys(searchParams).some(key => 
@@ -261,6 +308,10 @@ export default async function Page({
       <script 
         type="application/ld+json" 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdProduct) }} 
+      />
+      <script 
+        type="application/ld+json" 
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdHowTo) }} 
       />
 
       {/* SEO-Optimized Hero Section */}
@@ -359,9 +410,17 @@ export default async function Page({
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Forklift Battery Chargers by Voltage
             </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-4">
               Choose the right charger for your forklift battery voltage. Each voltage requires specific amperage and power input configurations.
             </p>
+            <div className="flex justify-center">
+              <a href="/insights/complete-guide-forklift-battery-chargers" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                📖 Read the Complete Forklift Charger Guide
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -475,7 +534,37 @@ export default async function Page({
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white rounded-xl border border-blue-200 p-6 hover:shadow-lg transition-shadow lg:col-span-2">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-bold text-gray-900 mb-2">Complete Forklift Charger Guide (2025)</h3>
+                  <p className="text-gray-600 text-sm mb-4">
+                    The ultimate 15,000+ word resource covering everything about forklift battery chargers - from basic selection to advanced troubleshooting and maintenance.
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs">Voltage Selection</span>
+                    <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Brand Compatibility</span>
+                    <span className="bg-orange-100 text-orange-700 px-2 py-1 rounded text-xs">Installation Guide</span>
+                    <span className="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs">Troubleshooting</span>
+                  </div>
+                  <a href="/insights/complete-guide-forklift-battery-chargers" className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium text-sm">
+                    Read the complete guide
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
             <div className="bg-white rounded-xl border border-blue-200 p-6 hover:shadow-lg transition-shadow">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
