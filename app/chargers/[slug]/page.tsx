@@ -5,7 +5,6 @@ import SpecTable from "@/components/SpecTable";
 import RelatedChargers from "@/components/RelatedChargers";
 import QuoteButton from "@/components/QuoteButton";
 import { BuyNowButton } from "@/components/AddToCartButton";
-import CopyButtons from "@/components/CopyButtons";
 
 export const revalidate = 60;
 
@@ -172,7 +171,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
             </div>
             <BuyNowButton priceId={(part as any).stripe_price_id} slug={part.slug} />
             <QuoteButton product={{ name: part.name, slug: part.slug, sku: part.sku }} />
-            <CopyButtons sku={part.sku} slug={part.slug} />
           </div>
 
           <div className="mt-8">
