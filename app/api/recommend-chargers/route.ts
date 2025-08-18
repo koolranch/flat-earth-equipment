@@ -10,7 +10,7 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const RECS_ENABLED = (process.env.RECS_ENABLED ?? process.env.NEXT_PUBLIC_RECS_ENABLED ?? '0') === '1';
-const AMP_TOL = Number(process.env.RECS_AMP_TOLERANCE_PCT ?? '15');
+const AMP_TOL = Number(process.env.RECS_AMP_TOLERANCE_PCT ?? '25'); // Increased from 15% to 25% for better matches
 
 const Input = z.object({
   voltage: z.number().int().positive().optional().nullable(),
