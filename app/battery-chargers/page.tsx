@@ -217,6 +217,93 @@ function howToSchemaJsonLd() {
   };
 }
 
+function breadcrumbSchemaJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.flatearthequipment.com"
+      },
+      {
+        "@type": "ListItem", 
+        "position": 2,
+        "name": "Parts",
+        "item": "https://www.flatearthequipment.com/parts"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Forklift Battery Chargers",
+        "item": "https://www.flatearthequipment.com/battery-chargers"
+      }
+    ]
+  };
+}
+
+function organizationSchemaJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Flat Earth Equipment",
+    "url": "https://www.flatearthequipment.com",
+    "logo": "https://www.flatearthequipment.com/images/flat-earth-logo.png",
+    "description": "Professional forklift parts, battery chargers, and equipment rentals with expert technical support and same-day shipping.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "US",
+      "addressRegion": "Western United States"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+1-800-XXX-XXXX",
+      "contactType": "Customer Service",
+      "availableLanguage": ["English", "Spanish"]
+    },
+    "sameAs": [
+      "https://www.facebook.com/flatearthequipment",
+      "https://www.linkedin.com/company/flat-earth-equipment"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Forklift Battery Chargers",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Product",
+            "name": "24V Forklift Battery Chargers"
+          }
+        },
+        {
+          "@type": "Offer", 
+          "itemOffered": {
+            "@type": "Product",
+            "name": "36V Forklift Battery Chargers"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Product", 
+            "name": "48V Forklift Battery Chargers"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Product",
+            "name": "80V Forklift Battery Chargers"
+          }
+        }
+      ]
+    }
+  };
+}
+
 function faqJsonLd() {
   return {
     "@context": "https://schema.org",
@@ -288,6 +375,8 @@ export default async function Page({
   const jsonLdFaq = faqJsonLd();
   const jsonLdProduct = productSchemaJsonLd();
   const jsonLdHowTo = howToSchemaJsonLd();
+  const jsonLdBreadcrumb = breadcrumbSchemaJsonLd();
+  const jsonLdOrganization = organizationSchemaJsonLd();
   
   // Check if this is a bot/crawler by looking for filters - if no client-side JS filters, show SSR results
   const hasFilters = Object.keys(searchParams).some(key => 
@@ -295,7 +384,7 @@ export default async function Page({
   );
 
   return (
-    <div className="min-h-screen bg-neutral-50">
+    <div id="top" className="min-h-screen bg-neutral-50">
       {/* JSON-LD Structured Data */}
       <script 
         type="application/ld+json" 
@@ -313,6 +402,43 @@ export default async function Page({
         type="application/ld+json" 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdHowTo) }} 
       />
+      <script 
+        type="application/ld+json" 
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} 
+      />
+      <script 
+        type="application/ld+json" 
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrganization) }} 
+      />
+
+      {/* Breadcrumb Navigation */}
+      <div className="bg-gray-50 border-b border-gray-200">
+        <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
+          <nav className="flex" aria-label="Breadcrumb">
+            <ol className="flex items-center space-x-2 text-sm">
+              <li>
+                <a href="/" className="text-gray-500 hover:text-gray-700 transition-colors">
+                  Home
+                </a>
+              </li>
+              <li className="flex items-center">
+                <svg className="flex-shrink-0 h-4 w-4 text-gray-400 mx-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                </svg>
+                <a href="/parts" className="text-gray-500 hover:text-gray-700 transition-colors">
+                  Parts
+                </a>
+              </li>
+              <li className="flex items-center">
+                <svg className="flex-shrink-0 h-4 w-4 text-gray-400 mx-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                </svg>
+                <span className="text-gray-900 font-medium">Forklift Battery Chargers</span>
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
 
       {/* SEO-Optimized Hero Section */}
       <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white">
@@ -352,7 +478,8 @@ export default async function Page({
       {/* Main Content */}
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Interactive Selector with Smart Recommendations */}
-        <ChargerSelectorWithRecommendations 
+        <div id="charger-selector">
+          <ChargerSelectorWithRecommendations 
           chargers={allParts}
           initialFilters={{
             voltage: searchParams.v ? Number(searchParams.v) : null, 
@@ -362,7 +489,8 @@ export default async function Page({
             limit: 6
           }}
           fallbackItems={filteredParts}
-        />
+          />
+        </div>
 
         {/* SSR Results for SEO (when filters are applied via URL) */}
         {hasFilters && (
@@ -404,8 +532,31 @@ export default async function Page({
           </div>
         )}
 
+        {/* Quick Navigation Menu */}
+        <div className="mt-12 bg-blue-50 rounded-2xl border border-blue-100 p-6">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Quick Navigation</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+            <a href="#voltage-selection" className="flex items-center gap-2 p-3 bg-white rounded-lg border border-blue-200 hover:border-blue-300 transition-colors">
+              <span className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xs">1</span>
+              <span className="text-gray-700">Voltage Selection</span>
+            </a>
+            <a href="#charger-selector" className="flex items-center gap-2 p-3 bg-white rounded-lg border border-blue-200 hover:border-blue-300 transition-colors">
+              <span className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-bold text-xs">2</span>
+              <span className="text-gray-700">Charger Selector</span>
+            </a>
+            <a href="#resources" className="flex items-center gap-2 p-3 bg-white rounded-lg border border-blue-200 hover:border-blue-300 transition-colors">
+              <span className="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold text-xs">3</span>
+              <span className="text-gray-700">Expert Guides</span>
+            </a>
+            <a href="#faq" className="flex items-center gap-2 p-3 bg-white rounded-lg border border-blue-200 hover:border-blue-300 transition-colors">
+              <span className="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 font-bold text-xs">4</span>
+              <span className="text-gray-700">FAQ</span>
+            </a>
+          </div>
+        </div>
+
         {/* Voltage-Specific Sections for SEO */}
-        <div className="mt-16 space-y-12">
+        <div id="voltage-selection" className="mt-16 space-y-12">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Forklift Battery Chargers by Voltage
@@ -524,7 +675,7 @@ export default async function Page({
         </div>
 
         {/* Helpful Resources Section */}
-        <div className="mt-16 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100 p-8">
+        <div id="resources" className="mt-16 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100 p-8">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
               Forklift Charger Resources & Guides
@@ -626,6 +777,16 @@ export default async function Page({
 
         {/* FAQ Section */}
         <ChargerFAQ />
+
+        {/* Back to Top Navigation */}
+        <div className="mt-12 text-center">
+          <a href="#top" className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 11l5-5m0 0l5 5m-5-5v12" />
+            </svg>
+            Back to Top
+          </a>
+        </div>
       </div>
 
       {/* SEO-Enhanced Benefits Section */}

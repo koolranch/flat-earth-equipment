@@ -43,7 +43,7 @@ export default function ChargerFAQ() {
   ];
 
   return (
-    <section className="mt-12 rounded-2xl border bg-white p-6">
+    <section id="faq" className="mt-12 rounded-2xl border bg-white p-6">
       <h2 className="text-2xl font-bold text-gray-900 mb-2">Forklift Battery Charger FAQ</h2>
       <p className="text-gray-600 mb-6">Common questions about choosing, installing, and troubleshooting forklift battery chargers</p>
       <div className="mt-4 divide-y">
