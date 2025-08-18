@@ -133,7 +133,13 @@ export default function OptionSelectorCard({ module, locale = 'en' }: { module: 
         sku={offer.sku}
         qty={1}
         price={offer.price}
-        meta={{ firmwareVersion: fw || "to-collect", moduleId: module.id, offer: choice }}
+        meta={{ 
+          firmwareVersion: fw || "to-collect", 
+          moduleId: module.id, 
+          offer: choice,
+          coreCharge: offer.coreCharge || 0,
+          hasCore: offer.label === "Reman Exchange" && offer.coreCharge
+        }}
         className="w-full bg-canyon-rust py-3 rounded-lg text-white font-semibold hover:bg-canyon-rust/90"
       >
         {choice === "Reman Exchange" ? t.buyShipToday : t.startRepairOrder}

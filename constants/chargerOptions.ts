@@ -3,6 +3,7 @@ export interface Offer {
   sku: string;           // Stripe PriceID
   price: number;         // cents
   coreInfo?: string;     // explanatory text (for exchange)
+  coreCharge?: number;   // core charge amount in dollars
   desc: string;          // marketing sub-copy
 }
 
@@ -30,6 +31,7 @@ export const CHARGER_MODULES: ChargerModule[] = [
         sku: "price_1RQJNjHJI548rO8JKJclmS56", // Updated to match database
         price: 84900,
         coreInfo: "+ $350 refundable core deposit",
+        coreCharge: 350, // core charge amount in dollars
         desc: "Ships today if ordered before 3 PM EST.",
       },
       {
@@ -53,6 +55,7 @@ export const CHARGER_MODULES: ChargerModule[] = [
         sku: "price_1RQJNjHJI548rO8JFFATEXkd", // Updated to match database
         price: 84900,
         coreInfo: "+ $350 refundable core deposit",
+        coreCharge: 350, // core charge amount in dollars
         desc: "Ships today if ordered before 3 PM EST.",
       },
       {

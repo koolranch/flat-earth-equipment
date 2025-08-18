@@ -21,16 +21,35 @@ export async function POST(req: NextRequest) {
     let successSlug = "";
     
     if (body.items && Array.isArray(body.items)) {
-      // Cart checkout format: { items: [{ priceId, quantity, metadata, ... }] }
+      // Cart checkout format: { items: [{ priceId, quantity, metadata, coreCharge, ... }] }
       for (let i = 0; i < body.items.length; i++) {
         const item = body.items[i];
         if (!item.priceId || typeof item.priceId !== "string") {
           return NextResponse.json({ error: `Missing priceId for item ${i}` }, { status: 400 });
         }
+        
+        // Add main product line item
         lineItems.push({
           price: item.priceId,
           quantity: Math.max(1, Number(item.quantity) || 1)
         });
+        
+        // Add core charge as separate line item if applicable
+        if (item.coreCharge && Number(item.coreCharge) > 0) {
+          // Create a one-time price for the core charge
+          const coreChargeAmount = Math.round(Number(item.coreCharge) * 100); // Convert to cents
+          lineItems.push({
+            price_data: {
+              currency: 'usd',
+              product_data: {
+                name: `Core Charge - ${item.name || 'Charger Module'}`,
+                description: 'Refundable core deposit - refunded when old unit is returned'
+              },
+              unit_amount: coreChargeAmount
+            },
+            quantity: Math.max(1, Number(item.quantity) || 1)
+          });
+        }
         
         // Store metadata for each item
         if (item.metadata) {

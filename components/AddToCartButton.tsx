@@ -45,6 +45,8 @@ function AddToCartToCartLegacy({
       price: price / 100, // Convert cents to dollars for display
       stripe_price_id: sku,
       quantity: qty,
+      has_core_charge: meta?.hasCore || false,
+      core_charge: meta?.coreCharge || 0,
       metadata: meta, // Store metadata for checkout
     });
     
