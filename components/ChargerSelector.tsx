@@ -118,7 +118,8 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
   }
 
   const hasSelections = voltage || speed !== 'overnight' || phase;
-  const completedSteps = [!!voltage, true, !!phase].filter(Boolean).length; // Step 2 (speed) always counts as completed since it has a default
+  // Count steps completed by user interaction
+  const completedSteps = (voltage ? 1 : 0) + (speed !== 'overnight' ? 1 : 0) + (phase ? 1 : 0);
   const progress = (completedSteps / 3) * 100;
   
   return (
