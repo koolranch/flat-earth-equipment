@@ -72,7 +72,7 @@ export default function CategoryTiles() {
             return (
               <Link
                 key={category.slug}
-                href={category.slug === 'electric-vehicle-chargers' ? '/electric-vehicle-chargers' : `/category/${category.slug}`}
+                href={category.slug === 'electric-vehicle-chargers' ? '/electric-vehicle-chargers' : category.slug === 'chargers-batteries' ? '/battery-chargers' : `/category/${category.slug}`}
                 className="group flex flex-col items-center p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100 hover:border-canyon-rust/20"
               >
                 <div className="w-12 h-12 bg-canyon-rust/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-canyon-rust/20 transition-colors">
