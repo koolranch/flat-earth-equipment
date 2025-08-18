@@ -106,7 +106,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     openGraph: {
       title,
       description: desc,
-      type: "product",
+      type: "website",
       images: part.image_url ? [{ url: part.image_url }] : undefined,
     },
     alternates: { canonical: `/chargers/${part.slug}` },
