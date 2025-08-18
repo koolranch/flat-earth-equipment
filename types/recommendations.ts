@@ -6,4 +6,15 @@ export type RecommendedPart = {
   dc_voltage_v?: number|null; dc_current_a?: number|null; input_phase?: '1P'|'3P'|null; chemistry_support?: string[]|null; quick_ship?: boolean|null;
   score: number; reasons: RecommendReason[]; matchType?: 'best'|'alternate';
 };
-export type RecommendResponse = { ok: true; items: RecommendedPart[]; debug?: any } | { ok: false; error: string; hint?: string };
+export type RecommendResponse = { 
+  ok: true; 
+  items: RecommendedPart[]; 
+  topPick?: RecommendedPart | null;
+  otherBestMatches?: RecommendedPart[];
+  alternatives?: RecommendedPart[];
+  debug?: any 
+} | { 
+  ok: false; 
+  error: string; 
+  hint?: string 
+};
