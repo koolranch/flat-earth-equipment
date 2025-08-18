@@ -113,12 +113,61 @@ function itemListJsonLd(items: { name: string; slug: string }[]) {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
+    "name": "Forklift Battery Chargers",
+    "description": "Professional forklift battery chargers for 24V, 36V, 48V, and 80V batteries",
     "itemListElement": list.map((it, idx) => ({
       "@type": "ListItem",
       "position": idx + 1,
       "url": `https://www.flatearthequipment.com/chargers/${it.slug}`,
       "name": it.name
     }))
+  };
+}
+
+function productSchemaJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "FSIP GREEN Series Forklift Battery Chargers",
+    "description": "Professional industrial forklift battery chargers available in 24V, 36V, 48V, and 80V configurations with fast charging and overnight charging options",
+    "brand": {
+      "@type": "Brand",
+      "name": "FSIP"
+    },
+    "category": "Industrial Battery Chargers",
+    "offers": {
+      "@type": "AggregateOffer",
+      "lowPrice": "1100",
+      "highPrice": "3700",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "Organization",
+        "name": "Flat Earth Equipment"
+      }
+    },
+    "additionalProperty": [
+      {
+        "@type": "PropertyValue",
+        "name": "Voltage Options",
+        "value": "24V, 36V, 48V, 80V"
+      },
+      {
+        "@type": "PropertyValue", 
+        "name": "Charging Types",
+        "value": "Fast Charging, Overnight Charging"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Power Input",
+        "value": "Single-phase, Three-phase"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Compatible Brands",
+        "value": "Crown, Toyota, Yale, Hyster, Caterpillar"
+      }
+    ]
   };
 }
 
@@ -191,6 +240,7 @@ export default async function Page({
   
   const jsonLdList = itemListJsonLd(filteredParts.map(p => ({ name: p.name, slug: p.slug })));
   const jsonLdFaq = faqJsonLd();
+  const jsonLdProduct = productSchemaJsonLd();
   
   // Check if this is a bot/crawler by looking for filters - if no client-side JS filters, show SSR results
   const hasFilters = Object.keys(searchParams).some(key => 
@@ -208,6 +258,10 @@ export default async function Page({
         type="application/ld+json" 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} 
       />
+      <script 
+        type="application/ld+json" 
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdProduct) }} 
+      />
 
       {/* SEO-Optimized Hero Section */}
       <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white">
@@ -219,7 +273,7 @@ export default async function Page({
             </h1>
             <p className="mx-auto mt-6 max-w-3xl text-xl text-blue-100">
               Industrial-grade forklift chargers for Crown, Toyota, Yale, Hyster & all major brands. 
-              Fast charging and overnight options with single or three-phase power input.
+              <a href="/insights/fast-vs-overnight-forklift-charging" className="text-blue-200 hover:text-white underline">Fast charging and overnight options</a> with <a href="/insights/forklift-charger-voltage-comparison" className="text-blue-200 hover:text-white underline">single or three-phase power input</a>.
             </p>
             <p className="mt-2 text-blue-200/80 text-sm">
               FSIP GREEN Series • Professional Installation • Expert Technical Support
@@ -326,6 +380,11 @@ export default async function Page({
                   <div>• Input: 110V-240V single-phase</div>
                   <div>• Applications: Small warehouse forklifts</div>
                 </div>
+                <div className="mt-3">
+                  <a href="/insights/forklift-charger-voltage-comparison#24v-chargers" className="text-blue-600 hover:text-blue-800 text-xs font-medium">
+                    Learn more about 24V chargers →
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -343,6 +402,11 @@ export default async function Page({
                   <div>• Typical: 25A-75A output</div>
                   <div>• Input: 208V-240V single-phase</div>
                   <div>• Applications: Mid-size warehouse forklifts</div>
+                </div>
+                <div className="mt-3">
+                  <a href="/insights/forklift-charger-voltage-comparison#36v-chargers" className="text-green-600 hover:text-green-800 text-xs font-medium">
+                    Learn more about 36V chargers →
+                  </a>
                 </div>
               </div>
             </div>
@@ -362,10 +426,15 @@ export default async function Page({
                   <div>• Input: 208V-600V single/three-phase</div>
                   <div>• Applications: Most industrial forklifts</div>
                 </div>
-                <div className="mt-3">
+                <div className="mt-3 space-y-2">
                   <span className="bg-orange-100 text-orange-700 px-2 py-1 rounded-full text-xs font-medium">
                     Most Popular
                   </span>
+                  <div>
+                    <a href="/insights/forklift-charger-voltage-comparison#48v-chargers" className="text-orange-600 hover:text-orange-800 text-xs font-medium">
+                      Learn more about 48V chargers →
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -384,6 +453,82 @@ export default async function Page({
                   <div>• Typical: 75A-150A output</div>
                   <div>• Input: 480V-600V three-phase</div>
                   <div>• Applications: Heavy-duty forklifts</div>
+                </div>
+                <div className="mt-3">
+                  <a href="/insights/forklift-charger-voltage-comparison#80v-chargers" className="text-purple-600 hover:text-purple-800 text-xs font-medium">
+                    Learn more about 80V chargers →
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Helpful Resources Section */}
+        <div className="mt-16 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100 p-8">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              Forklift Charger Resources & Guides
+            </h2>
+            <p className="text-gray-600">
+              Expert guides to help you choose, install, and maintain your forklift battery chargers
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-white rounded-xl border border-blue-200 p-6 hover:shadow-lg transition-shadow">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.469-.742-6.21-2.002M6 9.5L5.5 9l-.5-.5L6 9.5z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-900 mb-2">Complete Selection Guide</h3>
+                  <p className="text-gray-600 text-sm mb-3">
+                    Step-by-step guide to choosing the perfect forklift charger for your specific needs and applications.
+                  </p>
+                  <a href="/insights/how-to-choose-forklift-battery-charger" className="text-blue-600 hover:text-blue-800 font-medium text-sm">
+                    Read the complete guide →
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-xl border border-green-200 p-6 hover:shadow-lg transition-shadow">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m0 0V1a1 1 0 011-1h2a1 1 0 011 1v16a1 1 0 01-1 1H3a1 1 0 01-1-1V1a1 1 0 011-1h2a1 1 0 011 1v3" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-900 mb-2">Voltage Comparison</h3>
+                  <p className="text-gray-600 text-sm mb-3">
+                    Compare 24V, 36V, 48V, and 80V chargers. Learn which voltage is right for your forklift brand and application.
+                  </p>
+                  <a href="/insights/forklift-charger-voltage-comparison" className="text-green-600 hover:text-green-800 font-medium text-sm">
+                    Compare voltages →
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-xl border border-orange-200 p-6 hover:shadow-lg transition-shadow">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-900 mb-2">Fast vs Overnight Charging</h3>
+                  <p className="text-gray-600 text-sm mb-3">
+                    Compare charging strategies. Learn the pros and cons of fast charging vs overnight charging for your fleet.
+                  </p>
+                  <a href="/insights/fast-vs-overnight-forklift-charging" className="text-orange-600 hover:text-orange-800 font-medium text-sm">
+                    Compare charging methods →
+                  </a>
                 </div>
               </div>
             </div>
