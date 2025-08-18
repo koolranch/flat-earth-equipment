@@ -2,7 +2,7 @@ export default function ChargerFAQ() {
   const faqs = [
     {
       q: "How do I choose the right forklift battery charger?",
-      a: "Match your battery voltage exactly (24V/36V/48V/80V), calculate required amperage based on your charging window, and confirm your facility's power input (single-phase 208–240V or three-phase 480V/600V). Consider your forklift brand compatibility and battery chemistry type."
+      a: "Match your battery voltage exactly (24V/36V/48V/80V), calculate required amperage based on your charging window, and confirm your facility's power input (single-phase 208–240V or three-phase 480V/600V). Consider your forklift brand compatibility and battery chemistry type. For detailed guidance, see our complete selection guide."
     },
     {
       q: "What amperage forklift charger do I need?",
@@ -53,6 +53,28 @@ export default function ChargerFAQ() {
             <p className="mt-2 text-sm text-neutral-700">{f.a}</p>
           </details>
         ))}
+      </div>
+      
+      {/* FAQ Resources */}
+      <div className="mt-8 p-4 bg-gray-50 rounded-xl border border-gray-200">
+        <h3 className="font-semibold text-gray-900 mb-3">Need More Detailed Information?</h3>
+        <div className="space-y-2 text-sm">
+          <div>
+            📖 <a href="/insights/how-to-choose-forklift-battery-charger" className="text-blue-600 hover:text-blue-800 font-medium">
+              Complete Forklift Charger Selection Guide
+            </a>
+          </div>
+          <div>
+            ⚡ <a href="/insights/fast-vs-overnight-forklift-charging" className="text-green-600 hover:text-green-800 font-medium">
+              Fast vs Overnight Charging Comparison
+            </a>
+          </div>
+          <div>
+            🔧 <a href="/insights/forklift-charger-voltage-comparison" className="text-orange-600 hover:text-orange-800 font-medium">
+              24V vs 36V vs 48V vs 80V Voltage Guide
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );
