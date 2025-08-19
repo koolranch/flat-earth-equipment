@@ -776,6 +776,63 @@ export default async function Page({
                 </div>
               </div>
             </div>
+
+            <div className="bg-white rounded-xl border border-purple-200 p-6 hover:shadow-lg transition-shadow">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-900 mb-2">Lithium Charger Guide</h3>
+                  <p className="text-gray-600 text-sm mb-3">
+                    Complete guide to lithium forklift battery chargers, BMS integration, and advanced charging technology.
+                  </p>
+                  <a href="/insights/lithium-forklift-battery-chargers-complete-guide" className="text-purple-600 hover:text-purple-800 font-medium text-sm">
+                    Learn about lithium →
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-xl border border-indigo-200 p-6 hover:shadow-lg transition-shadow">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 0v10a2 2 0 01-2 2H9a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-900 mb-2">Lead-Acid vs Lithium</h3>
+                  <p className="text-gray-600 text-sm mb-3">
+                    Compare charging technologies, costs, and ROI to choose the right charger type for your fleet.
+                  </p>
+                  <a href="/insights/lead-acid-vs-lithium-forklift-chargers" className="text-indigo-600 hover:text-indigo-800 font-medium text-sm">
+                    Compare technologies →
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-xl border border-teal-200 p-6 hover:shadow-lg transition-shadow">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-900 mb-2">BMS Integration Guide</h3>
+                  <p className="text-gray-600 text-sm mb-3">
+                    Technical guide to Battery Management System integration for lithium forklift chargers and compatibility.
+                  </p>
+                  <a href="/insights/bms-integration-lithium-forklift-chargers" className="text-teal-600 hover:text-teal-800 font-medium text-sm">
+                    Technical details →
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
