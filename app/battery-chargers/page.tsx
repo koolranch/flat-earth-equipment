@@ -469,6 +469,10 @@ export default async function Page({
                   <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
                   All Forklift Brands
                 </span>
+                <span className="flex items-center gap-1">
+                  <span className="w-2 h-2 bg-red-400 rounded-full"></span>
+                  🇺🇸 Made in USA
+                </span>
               </div>
             </div>
           </div>
@@ -801,7 +805,7 @@ export default async function Page({
             </p>
           </div>
           
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-5">
             <div className="text-center">
               <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
                 <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -847,6 +851,16 @@ export default async function Page({
               <h3 className="text-lg font-semibold text-neutral-900 mb-2">Expert Technical Support</h3>
               <p className="text-neutral-600 text-sm">
                 Professional installation assistance, troubleshooting support, and forklift charger maintenance guidance
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+                <div className="text-2xl">🇺🇸</div>
+              </div>
+              <h3 className="text-lg font-semibold text-neutral-900 mb-2">American Manufacturing</h3>
+              <p className="text-neutral-600 text-sm">
+                Made in USA with precision engineering, faster support, and reliable domestic supply chain
               </p>
             </div>
           </div>
