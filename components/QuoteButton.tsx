@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import ActiveCampaignQuoteModal from "./ActiveCampaignQuoteModal";
+import SimpleQuoteModal from "./SimpleQuoteModal";
 
 export default function QuoteButton({
   product,
@@ -18,7 +18,7 @@ export default function QuoteButton({
       >
         Quote
       </button>
-      <ActiveCampaignQuoteModal 
+      <SimpleQuoteModal 
         open={open} 
         onClose={() => setOpen(false)} 
         product={product} 
