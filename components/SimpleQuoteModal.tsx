@@ -16,9 +16,18 @@ export default function SimpleQuoteModal({ open, onClose, product }: Props) {
     function onEsc(e: KeyboardEvent) {
       if (e.key === "Escape") onClose();
     }
-    document.addEventListener("keydown", onEsc);
-    return () => document.removeEventListener("keydown", onEsc);
-  }, [onClose]);
+    
+    if (open) {
+      // Prevent body scroll when modal is open
+      document.body.style.overflow = 'hidden';
+      document.addEventListener("keydown", onEsc);
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+      document.removeEventListener("keydown", onEsc);
+    };
+  }, [open, onClose]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -66,10 +75,11 @@ export default function SimpleQuoteModal({ open, onClose, product }: Props) {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-      <div className="absolute left-1/2 top-1/2 w-[92vw] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-xl">
-        <div className="flex items-center justify-between mb-4">
+      <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-xl overflow-hidden max-h-[90vh] overflow-y-auto">
+        <div className="p-6">
+          <div className="flex items-center justify-between mb-4">
           <div>
             <h2 className="text-lg font-semibold text-gray-900">Request a Quote</h2>
             <p className="text-sm text-gray-600">{product.name}</p>
@@ -149,12 +159,13 @@ export default function SimpleQuoteModal({ open, onClose, product }: Props) {
           </form>
         )}
 
-        {/* ActiveCampaign Attribution */}
-        <div className="mt-4 text-center text-xs text-gray-500">
-          <span>Marketing by </span>
-          <a href="https://www.activecampaign.com" className="text-blue-600 hover:text-blue-800">
-            ActiveCampaign
-          </a>
+          {/* ActiveCampaign Attribution */}
+          <div className="mt-4 text-center text-xs text-gray-500">
+            <span>Marketing by </span>
+            <a href="https://www.activecampaign.com" className="text-blue-600 hover:text-blue-800">
+              ActiveCampaign
+            </a>
+          </div>
         </div>
       </div>
     </div>
