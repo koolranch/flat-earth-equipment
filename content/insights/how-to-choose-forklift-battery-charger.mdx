@@ -26,12 +26,25 @@ Selecting the right forklift battery charger is crucial for maintaining fleet pr
 - **48V:** Most industrial forklifts, counterbalance models
 - **80V:** Heavy-duty forklifts, high-capacity applications
 
+<QuickReferenceCard 
+  title="Voltage Quick Reference"
+  items={[
+    { label: "24V Equipment", value: "Pallet jacks, walkies" },
+    { label: "36V Equipment", value: "Order pickers, reach trucks" },
+    { label: "48V Equipment", value: "Counterbalance forklifts", highlight: true },
+    { label: "80V Equipment", value: "Heavy-duty industrial" },
+    { label: "How to Check", value: "Battery label or count cells (×2V)" }
+  ]}
+/>
+
 ## Step 2: Calculate Required Amperage
 
 ### Basic Amperage Formula
 **Charger Amps = Battery Ah ÷ Desired Charge Hours ÷ 0.85**
 
 The 0.85 factor accounts for charging efficiency losses.
+
+<AmperageCalculator />
 
 ### Charging Speed Options
 
@@ -267,3 +280,32 @@ Include this information when requesting quotes:
 Use our [forklift charger selector tool](/battery-chargers) to get personalized recommendations based on your specific requirements, or [contact our experts](/contact) for custom fleet solutions.
 
 **Expert Support Available:** Our technical team can help with charger selection, installation planning, and ongoing support for your forklift fleet.
+
+## Frequently Asked Questions
+
+<FAQSection faqs={[
+  {
+    question: "How do I know what voltage charger I need?",
+    answer: "Check your battery nameplate for voltage marking, or count the cells (each cell = 2V). Common voltages are 24V (12 cells), 36V (18 cells), 48V (24 cells), and 80V (40 cells). The charger voltage must match your battery voltage exactly - never use a different voltage."
+  },
+  {
+    question: "What happens if I use the wrong amperage charger?",
+    answer: "Too low amperage results in incomplete charging and reduced battery life. Too high amperage can overheat the battery and reduce its lifespan. For optimal battery life, use C/10 rate (10% of battery capacity) for overnight charging, or C/5 rate for faster charging."
+  },
+  {
+    question: "Can I use any charger brand with my forklift?",
+    answer: "Yes, most forklift brands use standard Anderson SB connectors and charging profiles. Aftermarket chargers are fully compatible with Crown, Toyota, Yale, Hyster, and other major brands. Just ensure voltage and amperage match your requirements."
+  },
+  {
+    question: "Do I need single-phase or three-phase power?",
+    answer: "Single-phase (208V-240V) works for smaller chargers under 100A output. Three-phase (480V-600V) is required for higher amperage chargers and provides 5-10% better efficiency. Choose based on your facility's available electrical infrastructure."
+  },
+  {
+    question: "How much should I expect to spend on a forklift charger?",
+    answer: "Prices range from $800-1,500 for 24V chargers, $1,000-2,000 for 36V, $1,200-3,500 for 48V, and $2,500-5,000+ for 80V chargers. Higher amperage and advanced features increase cost, but quality chargers pay for themselves through extended battery life."
+  },
+  {
+    question: "What's the difference between overnight and fast charging?",
+    answer: "Overnight charging (8-12 hours) uses lower amperage, extends battery life to 5-7 years, and requires standard electrical infrastructure. Fast charging (4-6 hours) uses higher amperage, reduces battery life to 3-5 years, but enables multi-shift operations with better productivity."
+  }
+]} />
