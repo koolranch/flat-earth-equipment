@@ -100,6 +100,17 @@ Forklift battery voltage is determined by the number of cells connected in serie
 - **Power input:** Standard 110V or 208V-240V single-phase
 - **Connector:** Anderson SB50 or SB175 typical
 
+<QuickReferenceCard 
+  title="24V Quick Reference"
+  items={[
+    { label: "Typical Equipment", value: "Pallet jacks, walkies" },
+    { label: "Battery Range", value: "200-600 Ah" },
+    { label: "Recommended Amps", value: "15A-50A", highlight: true },
+    { label: "Power Input", value: "110V-240V single-phase" },
+    { label: "Charge Time", value: "8-12 hours" }
+  ]}
+/>
+
 ### 36V Forklift Charger Applications
 
 #### **Typical Equipment**
@@ -165,6 +176,8 @@ Forklift battery voltage is determined by the number of cells connected in serie
 **Charger Amps = (Battery Ah ÷ Charge Hours) ÷ Efficiency Factor**
 
 Where efficiency factor = 0.85 (accounts for charging losses)
+
+<AmperageCalculator />
 
 ### Charging Rate Guidelines
 
@@ -820,6 +833,35 @@ Selecting the right forklift battery charger requires careful consideration of v
 5. **Professional help pays off** - expert consultation prevents costly mistakes
 
 For immediate assistance with charger selection, use our [interactive forklift charger selector tool](/battery-chargers) or [contact our technical experts](/contact) for personalized recommendations.
+
+## Frequently Asked Questions
+
+<FAQSection faqs={[
+  {
+    question: "What voltage charger do I need for my forklift?",
+    answer: "The charger voltage must match your battery voltage exactly. Check your battery nameplate or count the cells (each cell = 2V). Common voltages are 24V (12 cells), 36V (18 cells), 48V (24 cells), and 80V (40 cells). Never use a charger with different voltage than your battery."
+  },
+  {
+    question: "How do I calculate the right amperage for my forklift charger?",
+    answer: "Use this formula: Required Amps = (Battery Ah ÷ Desired Charge Hours) ÷ 0.85. For example, a 750Ah battery charged in 8 hours needs: (750 ÷ 8) ÷ 0.85 = 110A charger. For overnight charging, use C/10 rate (10% of battery capacity). For fast charging, use C/5 to C/3 rates."
+  },
+  {
+    question: "Can I use a higher amperage charger to charge faster?",
+    answer: "Yes, but with trade-offs. Higher amperage reduces charging time but also reduces battery life. C/10 rate (overnight) gives 5-7 years battery life, while C/3 rate (fast charging) gives 2-4 years. Also ensure your electrical system can handle the higher current draw."
+  },
+  {
+    question: "What's the difference between single-phase and three-phase chargers?",
+    answer: "Single-phase chargers use standard 208V-240V power, suitable for smaller chargers (under 100A output). Three-phase chargers use 480V-600V industrial power, offering 5-10% better efficiency and supporting higher amperages (200A+). Choose based on your facility's electrical infrastructure."
+  },
+  {
+    question: "Do I need special ventilation for forklift battery charging?",
+    answer: "Yes, lead-acid batteries produce hydrogen gas during charging, which is explosive at 4% concentration. Install exhaust fans providing 6-12 air changes per hour. Calculate CFM needed: (Number of batteries × Ah capacity × 0.05) ÷ 0.25. Lithium batteries don't require special ventilation."
+  },
+  {
+    question: "Can I use aftermarket chargers with my Crown/Toyota/Yale forklift?",
+    answer: "Yes, most forklift brands use standard Anderson SB connectors and charging profiles. Aftermarket chargers are fully compatible and often cost 30-50% less than OEM chargers. Ensure voltage matches exactly and amperage is appropriate for your battery capacity."
+  }
+]} />
 
 ---
 

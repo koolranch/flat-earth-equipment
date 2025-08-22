@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { compileMDX } from 'next-mdx-remote/rsc';
+import { AmperageCalculator, QuickReferenceCard } from '@/components/BasicInteractiveComponents';
+import { FAQSection } from '@/components/SEOComponents';
 
 export interface BlogPost {
   slug: string;
@@ -22,7 +24,12 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
     const { data, content } = matter(fileContent);
     const { content: compiledContent } = await compileMDX({
       source: content,
-      options: { parseFrontmatter: true }
+      options: { parseFrontmatter: true },
+      components: {
+        AmperageCalculator,
+        QuickReferenceCard,
+        FAQSection,
+      }
     });
 
     return {
@@ -66,7 +73,12 @@ export async function getMDXContent(slug: string) {
     const { data, content } = matter(fileContent);
     const { content: compiledContent } = await compileMDX({
       source: content,
-      options: { parseFrontmatter: true }
+      options: { parseFrontmatter: true },
+      components: {
+        AmperageCalculator,
+        QuickReferenceCard,
+        FAQSection,
+      }
     });
 
     return {
