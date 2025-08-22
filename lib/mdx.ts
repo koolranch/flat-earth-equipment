@@ -3,6 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import { AmperageCalculator, QuickReferenceCard, ChargingROICalculator, LithiumChargingCalculator } from '@/components/BasicInteractiveComponents';
+import { TCOComparisonCalculator } from '@/components/TCOCalculator';
 import { FAQSection } from '@/components/SEOComponents';
 
 export interface BlogPost {
@@ -30,6 +31,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
         QuickReferenceCard,
         ChargingROICalculator,
         LithiumChargingCalculator,
+        TCOComparisonCalculator,
         FAQSection,
       }
     });
@@ -81,6 +83,7 @@ export async function getMDXContent(slug: string) {
         QuickReferenceCard,
         ChargingROICalculator,
         LithiumChargingCalculator,
+        TCOComparisonCalculator,
         FAQSection,
       }
     });
