@@ -58,7 +58,8 @@ export default async function BlogPost({ params }: Props) {
                          params.slug === 'how-to-choose-forklift-battery-charger' ||
                          params.slug === 'forklift-charger-voltage-comparison' ||
                          params.slug === 'fast-vs-overnight-forklift-charging' ||
-                         params.slug === 'lithium-forklift-battery-chargers-complete-guide';
+                         params.slug === 'lithium-forklift-battery-chargers-complete-guide' ||
+                         params.slug === 'lead-acid-vs-lithium-forklift-chargers';
 
   // FAQ data for structured data - different for each guide
   const getChargerFAQs = (slug: string) => {
@@ -141,6 +142,33 @@ export default async function BlogPost({ params }: Props) {
         {
           question: "Do lithium forklift chargers require special installation?",
           answer: "Lithium chargers require adequate electrical capacity for fast charging and proper grounding, but they don't need special ventilation like lead-acid chargers. They're often easier to install due to no hydrogen gas ventilation requirements and smaller space needs."
+        }
+      ];
+    } else if (slug === 'lead-acid-vs-lithium-forklift-chargers') {
+      return [
+        {
+          question: "What's the main difference between lead-acid and lithium forklift chargers?",
+          answer: "Lead-acid chargers use simple voltage control and take 8-12 hours to charge, while lithium chargers use advanced BMS communication and charge in 1-3 hours. Lithium chargers are 95-98% efficient vs 80-85% for lead-acid, but cost 25-50% more initially."
+        },
+        {
+          question: "Which is more cost-effective: lead-acid or lithium forklift chargers?",
+          answer: "Lithium chargers have higher initial costs ($3,000-$8,000 vs $1,500-$4,000) but provide 20-40% lower total cost of ownership over 5 years through energy savings, reduced maintenance, and longer battery life. ROI typically occurs in 2-3 years."
+        },
+        {
+          question: "Can I upgrade from lead-acid to lithium chargers?",
+          answer: "Yes, but you'll need new chargers since lead-acid chargers cannot charge lithium batteries. The upgrade requires BMS-compatible chargers, updated charging stations, and staff training. Most forklifts can use lithium batteries with proper voltage matching."
+        },
+        {
+          question: "Which charging technology is better for multi-shift operations?",
+          answer: "Lithium chargers are strongly recommended for multi-shift operations. They enable opportunity charging between shifts, eliminate battery swapping, and support continuous 24/7 operations. Lead-acid requires multiple battery sets and complex rotation systems."
+        },
+        {
+          question: "Do lithium forklift chargers require special safety considerations?",
+          answer: "Lithium chargers are actually safer in many ways - no hydrogen gas emission, no acid spills, and no heavy battery handling. They do require thermal runaway prevention and Class D fire suppression, but eliminate the ventilation requirements of lead-acid charging."
+        },
+        {
+          question: "How long do lead-acid vs lithium forklift chargers last?",
+          answer: "Lead-acid chargers typically last 3-5 years and require weekly maintenance. Lithium chargers last 7-10 years with minimal monthly maintenance. The longer lifespan and reduced maintenance contribute significantly to lithium's lower total cost of ownership."
         }
       ];
     }
@@ -250,6 +278,26 @@ export default async function BlogPost({ params }: Props) {
                   <div className="text-center">
                     <div className="text-2xl font-bold text-canyon-rust">No Venting</div>
                     <div className="text-sm text-slate-300">Required</div>
+                  </div>
+                </>
+              ) : params.slug === 'lead-acid-vs-lithium-forklift-chargers' ? (
+                // Lead-acid vs Lithium comparison stats
+                <>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-canyon-rust">2 Technologies</div>
+                    <div className="text-sm text-slate-300">Lead-Acid vs Lithium</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-canyon-rust">28% Savings</div>
+                    <div className="text-sm text-slate-300">5-Year TCO</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-canyon-rust">2-3 Years</div>
+                    <div className="text-sm text-slate-300">ROI Timeline</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-canyon-rust">TCO Tool</div>
+                    <div className="text-sm text-slate-300">Cost Calculator</div>
                   </div>
                 </>
               ) : (
