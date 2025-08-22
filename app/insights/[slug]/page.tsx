@@ -55,7 +55,8 @@ export default async function BlogPost({ params }: Props) {
 
   // Check if this is a forklift charger guide for special treatment
   const isChargerGuide = params.slug === 'complete-guide-forklift-battery-chargers' || 
-                         params.slug === 'how-to-choose-forklift-battery-charger';
+                         params.slug === 'how-to-choose-forklift-battery-charger' ||
+                         params.slug === 'forklift-charger-voltage-comparison';
 
   // FAQ data for structured data - different for each guide
   const getChargerFAQs = (slug: string) => {
@@ -111,6 +112,33 @@ export default async function BlogPost({ params }: Props) {
         {
           question: "What's the difference between overnight and fast charging?",
           answer: "Overnight charging (8-12 hours) uses lower amperage, extends battery life to 5-7 years, and requires standard electrical infrastructure. Fast charging (4-6 hours) uses higher amperage, reduces battery life to 3-5 years, but enables multi-shift operations with better productivity."
+        }
+      ];
+    } else if (slug === 'forklift-charger-voltage-comparison') {
+      return [
+        {
+          question: "What's the difference between 24V, 36V, 48V, and 80V forklift chargers?",
+          answer: "The voltage determines the forklift's power and application: 24V for small pallet jacks, 36V for medium warehouse forklifts, 48V for most industrial applications (most common), and 80V for heavy-duty industrial forklifts. Higher voltage provides more power but requires different electrical infrastructure."
+        },
+        {
+          question: "Which forklift charger voltage is most common?",
+          answer: "48V is the most common voltage for industrial forklifts because it provides the optimal balance of power, efficiency, and compatibility. Most counterbalance forklifts, reach trucks, and industrial warehouse equipment use 48V systems."
+        },
+        {
+          question: "Can I use a different voltage charger than my battery?",
+          answer: "No, never use a different voltage charger than your battery. This can cause fires, explosions, or equipment damage. Always verify the battery voltage on the nameplate and ensure your charger matches exactly - 24V battery needs 24V charger, 48V battery needs 48V charger, etc."
+        },
+        {
+          question: "Do I need single-phase or three-phase power for different voltages?",
+          answer: "24V and 36V chargers typically use single-phase power (110V-240V). 48V chargers can use either single-phase (for lower amperage) or three-phase (for higher amperage). 80V chargers require three-phase power (480V-600V) due to their high power requirements."
+        },
+        {
+          question: "How do I know what voltage my forklift battery is?",
+          answer: "Check the battery nameplate which clearly shows the voltage, count the battery cells (each cell = 2V), or consult your forklift manual. Common configurations: 12 cells = 24V, 18 cells = 36V, 24 cells = 48V, 40 cells = 80V."
+        },
+        {
+          question: "Which voltage is best for my warehouse operation?",
+          answer: "For small warehouses and retail: 24V-36V. For standard distribution centers: 36V-48V. For manufacturing and heavy industry: 48V-80V. The choice depends on your forklift capacity, operating hours, and facility electrical infrastructure."
         }
       ];
     }
@@ -202,7 +230,7 @@ export default async function BlogPost({ params }: Props) {
                     <div className="text-sm text-slate-300">Selection Guide</div>
                   </div>
                 </>
-              ) : (
+              ) : params.slug === 'how-to-choose-forklift-battery-charger' ? (
                 <>
                   <div className="text-center">
                     <div className="text-2xl font-bold text-canyon-rust">6 Steps</div>
@@ -219,6 +247,26 @@ export default async function BlogPost({ params }: Props) {
                   <div className="text-center">
                     <div className="text-2xl font-bold text-canyon-rust">Calculator</div>
                     <div className="text-sm text-slate-300">Amperage Tool</div>
+                  </div>
+                </>
+              ) : (
+                // Voltage comparison guide stats
+                <>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-canyon-rust">4 Voltages</div>
+                    <div className="text-sm text-slate-300">24V to 80V</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-canyon-rust">48V Most</div>
+                    <div className="text-sm text-slate-300">Common Choice</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-canyon-rust">All Brands</div>
+                    <div className="text-sm text-slate-300">Crown, Toyota, Yale</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-canyon-rust">Quick Guide</div>
+                    <div className="text-sm text-slate-300">Easy Comparison</div>
                   </div>
                 </>
               )}
@@ -274,7 +322,7 @@ export default async function BlogPost({ params }: Props) {
                     <div className="text-slate-600">15 minutes reading, lifetime of proper charging</div>
                   </div>
                 </>
-              ) : (
+              ) : params.slug === 'how-to-choose-forklift-battery-charger' ? (
                 <>
                   <div>
                     <div className="font-medium text-slate-900">Step-by-Step Process</div>
@@ -287,6 +335,22 @@ export default async function BlogPost({ params }: Props) {
                   <div>
                     <div className="font-medium text-slate-900">Expert Support</div>
                     <div className="text-slate-600">Free consultation available for complex needs</div>
+                  </div>
+                </>
+              ) : (
+                // Voltage comparison guide summary
+                <>
+                  <div>
+                    <div className="font-medium text-slate-900">Voltage Comparison</div>
+                    <div className="text-slate-600">Side-by-side analysis of all 4 standard voltages</div>
+                  </div>
+                  <div>
+                    <div className="font-medium text-slate-900">Brand Compatibility</div>
+                    <div className="text-slate-600">Crown, Toyota, Yale, Hyster voltage requirements</div>
+                  </div>
+                  <div>
+                    <div className="font-medium text-slate-900">Quick Decision Tool</div>
+                    <div className="text-slate-600">Find the right voltage for your application</div>
                   </div>
                 </>
               )}
