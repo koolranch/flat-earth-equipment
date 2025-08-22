@@ -57,7 +57,8 @@ export default async function BlogPost({ params }: Props) {
   const isChargerGuide = params.slug === 'complete-guide-forklift-battery-chargers' || 
                          params.slug === 'how-to-choose-forklift-battery-charger' ||
                          params.slug === 'forklift-charger-voltage-comparison' ||
-                         params.slug === 'fast-vs-overnight-forklift-charging';
+                         params.slug === 'fast-vs-overnight-forklift-charging' ||
+                         params.slug === 'lithium-forklift-battery-chargers-complete-guide';
 
   // FAQ data for structured data - different for each guide
   const getChargerFAQs = (slug: string) => {
@@ -113,6 +114,33 @@ export default async function BlogPost({ params }: Props) {
         {
           question: "What's the difference between overnight and fast charging?",
           answer: "Overnight charging (8-12 hours) uses lower amperage, extends battery life to 5-7 years, and requires standard electrical infrastructure. Fast charging (4-6 hours) uses higher amperage, reduces battery life to 3-5 years, but enables multi-shift operations with better productivity."
+        }
+      ];
+    } else if (slug === 'lithium-forklift-battery-chargers-complete-guide') {
+      return [
+        {
+          question: "What makes lithium forklift chargers different from lead-acid chargers?",
+          answer: "Lithium chargers must communicate with the battery's BMS (Battery Management System) for cell balancing, temperature monitoring, and safety protection. They charge much faster (1-3 hours vs 8-12 hours), are more efficient (95-98% vs 80-85%), and don't require ventilation since lithium batteries don't produce hydrogen gas."
+        },
+        {
+          question: "Do I need a special charger for lithium forklift batteries?",
+          answer: "Yes, lithium batteries require chargers with BMS communication capability and lithium-specific charging profiles. Standard lead-acid chargers cannot properly charge lithium batteries and may damage them or create safety hazards."
+        },
+        {
+          question: "How fast can lithium forklift batteries charge?",
+          answer: "Lithium forklift batteries can charge in 1-3 hours depending on the charger amperage. Standard charging (2-4 hours) uses Battery Ah ÷ 3 amperage. Fast charging (1-2 hours) uses Battery Ah ÷ 2 amperage. Opportunity charging can add significant capacity in just 15-30 minutes."
+        },
+        {
+          question: "Are lithium forklift chargers more expensive?",
+          answer: "Yes, lithium chargers typically cost 25-50% more than lead-acid chargers ($3,000-$15,000 depending on features). However, they provide 20-40% lower total cost of ownership over 5 years through energy savings, reduced maintenance, and longer battery life."
+        },
+        {
+          question: "Can I use opportunity charging with lithium forklift batteries?",
+          answer: "Yes, lithium batteries are optimized for opportunity charging. You can charge during breaks, lunch periods, or any downtime without damaging the battery. This eliminates the need for battery swapping and enables continuous multi-shift operations."
+        },
+        {
+          question: "Do lithium forklift chargers require special installation?",
+          answer: "Lithium chargers require adequate electrical capacity for fast charging and proper grounding, but they don't need special ventilation like lead-acid chargers. They're often easier to install due to no hydrogen gas ventilation requirements and smaller space needs."
         }
       ];
     }
@@ -204,7 +232,28 @@ export default async function BlogPost({ params }: Props) {
                     <div className="text-sm text-slate-300">Selection Guide</div>
                   </div>
                 </>
+              ) : params.slug === 'lithium-forklift-battery-chargers-complete-guide' ? (
+                // Lithium guide stats
+                <>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-canyon-rust">1-3 Hours</div>
+                    <div className="text-sm text-slate-300">Fast Charging</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-canyon-rust">95-98%</div>
+                    <div className="text-sm text-slate-300">Efficiency</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-canyon-rust">3,000+</div>
+                    <div className="text-sm text-slate-300">Charge Cycles</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-canyon-rust">No Venting</div>
+                    <div className="text-sm text-slate-300">Required</div>
+                  </div>
+                </>
               ) : (
+                // Default for other guides
                 <>
                   <div className="text-center">
                     <div className="text-2xl font-bold text-canyon-rust">6 Steps</div>
@@ -276,7 +325,24 @@ export default async function BlogPost({ params }: Props) {
                     <div className="text-slate-600">15 minutes reading, lifetime of proper charging</div>
                   </div>
                 </>
+              ) : params.slug === 'lithium-forklift-battery-chargers-complete-guide' ? (
+                // Lithium guide summary
+                <>
+                  <div>
+                    <div className="font-medium text-slate-900">Advanced Technology</div>
+                    <div className="text-slate-600">BMS integration, smart charging profiles, efficiency gains</div>
+                  </div>
+                  <div>
+                    <div className="font-medium text-slate-900">Fast Charging</div>
+                    <div className="text-slate-600">1-3 hour charging, opportunity charging optimized</div>
+                  </div>
+                  <div>
+                    <div className="font-medium text-slate-900">ROI Benefits</div>
+                    <div className="text-slate-600">20-40% lower TCO, reduced maintenance</div>
+                  </div>
+                </>
               ) : (
+                // Default for other guides
                 <>
                   <div>
                     <div className="font-medium text-slate-900">Step-by-Step Process</div>

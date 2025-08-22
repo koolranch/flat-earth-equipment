@@ -307,3 +307,101 @@ export function ChargingROICalculator() {
     </div>
   )
 }
+
+// Lithium Charging Calculator
+export function LithiumChargingCalculator() {
+  const [batteryAh, setBatteryAh] = useState('')
+  const [chargingGoal, setChargingGoal] = useState('standard')
+  const [result, setResult] = useState<{
+    amperage: number
+    chargeTime: number
+    chargingType: string
+  } | null>(null)
+
+  const calculate = () => {
+    if (batteryAh) {
+      const ah = parseFloat(batteryAh)
+      let amperage = 0
+      let chargeTime = 0
+      let chargingType = ''
+
+      switch (chargingGoal) {
+        case 'standard':
+          amperage = Math.round(ah / 3)
+          chargeTime = 3
+          chargingType = 'Standard Charging'
+          break
+        case 'fast':
+          amperage = Math.round(ah / 2)
+          chargeTime = 2
+          chargingType = 'Fast Charging'
+          break
+        case 'opportunity':
+          amperage = Math.round(ah / 1.5)
+          chargeTime = 1.5
+          chargingType = 'Opportunity Charging'
+          break
+      }
+
+      setResult({ amperage, chargeTime, chargingType })
+    }
+  }
+
+  return (
+    <div className="bg-gradient-to-br from-green-50 to-emerald-100 border border-green-200 rounded-xl p-6 my-8">
+      <div className="flex items-center gap-3 mb-4">
+        <CalculatorIcon className="h-6 w-6 text-emerald-600" />
+        <h3 className="text-lg font-semibold text-slate-900">Lithium Charging Calculator</h3>
+      </div>
+      
+      <div className="grid md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-1">
+            Battery Capacity (Ah)
+          </label>
+          <input
+            type="number"
+            value={batteryAh}
+            onChange={(e) => setBatteryAh(e.target.value)}
+            placeholder="e.g., 400"
+            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+          />
+        </div>
+        
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-1">
+            Charging Goal
+          </label>
+          <select
+            value={chargingGoal}
+            onChange={(e) => setChargingGoal(e.target.value)}
+            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+          >
+            <option value="standard">Standard (2-4 hours)</option>
+            <option value="fast">Fast (1-2 hours)</option>
+            <option value="opportunity">Opportunity (15-30 min)</option>
+          </select>
+        </div>
+      </div>
+      
+      <button
+        onClick={calculate}
+        className="w-full bg-emerald-600 text-white py-2 px-4 rounded-lg hover:bg-emerald-700 transition-colors font-medium"
+      >
+        Calculate Lithium Charger Requirements
+      </button>
+      
+      {result && (
+        <div className="mt-4 p-4 bg-white rounded-lg border border-green-200">
+          <div className="text-center">
+            <div className="text-2xl font-bold text-emerald-600">{result.amperage}A</div>
+            <div className="text-sm text-slate-600">Recommended charger amperage</div>
+            <div className="text-xs text-slate-500 mt-2">
+              {result.chargingType}: ~{result.chargeTime} hour charge time for {batteryAh}Ah lithium battery
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
