@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation';
 import { getBlogPost } from '@/lib/mdx';
 import Script from 'next/script';
 import RelatedItems from '@/components/RelatedItems';
+import { TableOfContents, AmperageCalculator, QuickReferenceCard } from '@/components/BasicInteractiveComponents';
+import { StructuredData } from '@/components/SEOComponents';
 
 type Props = {
   params: {
@@ -51,8 +53,49 @@ export default async function BlogPost({ params }: Props) {
     href: `/insights?keyword=${encodeURIComponent(keyword)}`
   })) || [];
 
+  // Check if this is the forklift charger guide for special treatment
+  const isChargerGuide = params.slug === 'complete-guide-forklift-battery-chargers';
+
+  // FAQ data for structured data
+  const chargerFAQs = [
+    {
+      question: "What voltage charger do I need for my forklift?",
+      answer: "The charger voltage must match your battery voltage exactly. Check your battery nameplate or count the cells (each cell = 2V). Common voltages are 24V (12 cells), 36V (18 cells), 48V (24 cells), and 80V (40 cells). Never use a charger with different voltage than your battery."
+    },
+    {
+      question: "How do I calculate the right amperage for my forklift charger?",
+      answer: "Use this formula: Required Amps = (Battery Ah ÷ Desired Charge Hours) ÷ 0.85. For example, a 750Ah battery charged in 8 hours needs: (750 ÷ 8) ÷ 0.85 = 110A charger. For overnight charging, use C/10 rate (10% of battery capacity). For fast charging, use C/5 to C/3 rates."
+    },
+    {
+      question: "Can I use a higher amperage charger to charge faster?",
+      answer: "Yes, but with trade-offs. Higher amperage reduces charging time but also reduces battery life. C/10 rate (overnight) gives 5-7 years battery life, while C/3 rate (fast charging) gives 2-4 years. Also ensure your electrical system can handle the higher current draw."
+    },
+    {
+      question: "What's the difference between single-phase and three-phase chargers?",
+      answer: "Single-phase chargers use standard 208V-240V power, suitable for smaller chargers (under 100A output). Three-phase chargers use 480V-600V industrial power, offering 5-10% better efficiency and supporting higher amperages (200A+). Choose based on your facility's electrical infrastructure."
+    },
+    {
+      question: "Do I need special ventilation for forklift battery charging?",
+      answer: "Yes, lead-acid batteries produce hydrogen gas during charging, which is explosive at 4% concentration. Install exhaust fans providing 6-12 air changes per hour. Calculate CFM needed: (Number of batteries × Ah capacity × 0.05) ÷ 0.25. Lithium batteries don't require special ventilation."
+    },
+    {
+      question: "Can I use aftermarket chargers with my Crown/Toyota/Yale forklift?",
+      answer: "Yes, most forklift brands use standard Anderson SB connectors and charging profiles. Aftermarket chargers are fully compatible and often cost 30-50% less than OEM chargers. Ensure voltage matches exactly and amperage is appropriate for your battery capacity."
+    }
+  ];
+
   return (
-    <main className="max-w-4xl mx-auto px-4 py-16">
+    <div className="min-h-screen bg-white">
+      {/* Enhanced Structured Data for Charger Guide */}
+      {isChargerGuide && (
+        <StructuredData
+          title={post.title}
+          description={post.description}
+          publishDate={post.date}
+          faqs={chargerFAQs}
+        />
+      )}
+
       <Script id="blogposting-ld-json" type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org",
@@ -77,28 +120,227 @@ export default async function BlogPost({ params }: Props) {
         })}
       </Script>
 
-      <Link
-        href="/insights"
-        className="inline-flex items-center text-canyon-rust hover:text-canyon-rust/80 mb-8"
-      >
-        ← Back to Insights
-      </Link>
-
-      <article className="prose prose-slate max-w-none">
-        <h1 className="text-4xl font-bold text-slate-900 mb-4">{post.title}</h1>
-        <div className="text-slate-600 mb-8">
-          {new Date(post.date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
+      {/* Enhanced Hero Section for Charger Guide */}
+      {isChargerGuide ? (
+        <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white">
+          <div className="max-w-4xl mx-auto px-4 py-16">
+            <div className="flex items-center gap-4 text-sm text-slate-300 mb-4">
+              <time dateTime={post.date}>
+                {new Date(post.date).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </time>
+              <span>•</span>
+              <span>15 min read</span>
+              <span>•</span>
+              <span>Technical Guide</span>
+            </div>
+            
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+              {post.title}
+            </h1>
+            
+            <p className="text-xl text-slate-300 mb-8 max-w-3xl">
+              {post.description}
+            </p>
+            
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white/10 backdrop-blur-sm rounded-lg p-6">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-canyon-rust">24V-80V</div>
+                <div className="text-sm text-slate-300">Voltage Range</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-canyon-rust">15A-200A+</div>
+                <div className="text-sm text-slate-300">Amperage Range</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-canyon-rust">5+ Brands</div>
+                <div className="text-sm text-slate-300">Compatibility</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-canyon-rust">12 Steps</div>
+                <div className="text-sm text-slate-300">Selection Guide</div>
+              </div>
+            </div>
+          </div>
         </div>
-        {post.content}
-      </article>
-
-      {relatedItems.length > 0 && (
-        <RelatedItems items={relatedItems} />
+      ) : (
+        // Standard hero for other posts
+        <div className="max-w-4xl mx-auto px-4 pt-16">
+          <Link
+            href="/insights"
+            className="inline-flex items-center text-canyon-rust hover:text-canyon-rust/80 mb-8"
+          >
+            ← Back to Insights
+          </Link>
+        </div>
       )}
-    </main>
+
+      <main className="max-w-4xl mx-auto px-4 py-12">
+        {/* Breadcrumbs */}
+        <nav className="flex items-center gap-2 text-sm text-slate-600 mb-8">
+          <a href="/" className="hover:text-canyon-rust transition-colors">Home</a>
+          <span>/</span>
+          <a href="/insights" className="hover:text-canyon-rust transition-colors">Insights</a>
+          <span>/</span>
+          <span className="text-slate-900 truncate">{post.title}</span>
+        </nav>
+
+        {/* Table of Contents for Charger Guide */}
+        {isChargerGuide && (
+          <div className="lg:float-right lg:w-80 lg:ml-8 lg:mb-8">
+            <TableOfContents />
+          </div>
+        )}
+
+        {/* Quick Summary for Charger Guide */}
+        {isChargerGuide && (
+          <div className="bg-gradient-to-r from-canyon-rust/5 to-canyon-rust/10 border border-canyon-rust/20 rounded-xl p-6 mb-12">
+            <h2 className="text-lg font-semibold text-slate-900 mb-3">📋 Quick Summary</h2>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <div>
+                <div className="font-medium text-slate-900">What You'll Learn</div>
+                <div className="text-slate-600">Voltage selection, amperage calculation, installation requirements</div>
+              </div>
+              <div>
+                <div className="font-medium text-slate-900">Who This Is For</div>
+                <div className="text-slate-600">Fleet managers, facility operators, maintenance teams</div>
+              </div>
+              <div>
+                <div className="font-medium text-slate-900">Time Investment</div>
+                <div className="text-slate-600">15 minutes reading, lifetime of proper charging</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Standard title for non-charger guides */}
+        {!isChargerGuide && (
+          <div className="mb-12">
+            <h1 className="text-4xl font-bold text-slate-900 mb-4">{post.title}</h1>
+            <div className="text-slate-600 mb-8">
+              {new Date(post.date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Enhanced Article Content */}
+        <article className="prose prose-slate max-w-none prose-headings:font-bold prose-h1:text-4xl prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4 prose-p:text-slate-700 prose-li:text-slate-700 prose-strong:text-slate-900 prose-a:text-canyon-rust prose-a:no-underline hover:prose-a:underline">
+          {post.content}
+        </article>
+
+        {/* Call to Action for Charger Guide */}
+        {isChargerGuide && (
+          <div className="bg-gradient-to-r from-canyon-rust to-canyon-rust/90 text-white rounded-xl p-8 my-12">
+            <div className="text-center">
+              <h3 className="text-2xl font-bold mb-3">Need Help Selecting the Right Charger?</h3>
+              <p className="text-canyon-rust-100 mb-6 max-w-2xl mx-auto">
+                Our technical experts provide free consultation to help you choose the perfect charger for your specific requirements.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="/contact"
+                  className="bg-white text-canyon-rust px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                >
+                  Get Expert Consultation
+                </a>
+                
+                <a
+                  href="/battery-chargers"
+                  className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-canyon-rust transition-colors"
+                >
+                  Browse Chargers
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Related Items */}
+        {relatedItems.length > 0 && (
+          <div className="mt-16 pt-8 border-t border-slate-200">
+            <RelatedItems items={relatedItems} />
+          </div>
+        )}
+
+        {/* Enhanced Related Resources for Charger Guide */}
+        {isChargerGuide && (
+          <div className="mt-16 pt-8 border-t border-slate-200">
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">Related Resources</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                {
+                  title: "Forklift Charger Selector Tool",
+                  description: "Find your perfect charger in 3 easy steps",
+                  href: "/battery-chargers",
+                  type: "Tool"
+                },
+                {
+                  title: "24V vs 36V vs 48V Comparison",
+                  description: "Detailed voltage comparison guide",
+                  href: "/insights/forklift-charger-voltage-comparison",
+                  type: "Guide"
+                },
+                {
+                  title: "Fast vs Overnight Charging",
+                  description: "Complete charging strategy comparison",
+                  href: "/insights/fast-vs-overnight-forklift-charging",
+                  type: "Guide"
+                }
+              ].map((resource, index) => (
+                <a
+                  key={index}
+                  href={resource.href}
+                  className="group block bg-white border border-slate-200 rounded-lg p-4 hover:shadow-md hover:border-canyon-rust/30 transition-all"
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-xs font-medium text-canyon-rust bg-canyon-rust/10 px-2 py-1 rounded">
+                      {resource.type}
+                    </span>
+                  </div>
+                  <h3 className="font-semibold text-slate-900 group-hover:text-canyon-rust transition-colors mb-2">
+                    {resource.title}
+                  </h3>
+                  <p className="text-sm text-slate-600">{resource.description}</p>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Expert Support CTA */}
+        <div className="mt-12 bg-slate-50 border border-slate-200 rounded-xl p-8 text-center">
+          <h3 className="text-xl font-semibold text-slate-900 mb-3">
+            🔧 Expert Technical Support
+          </h3>
+          <p className="text-slate-600 mb-6 max-w-2xl mx-auto">
+            Our technical team provides free consultation for charger selection, installation planning, 
+            and fleet optimization. Get personalized recommendations based on your specific requirements.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="/contact"
+              className="bg-canyon-rust text-white px-6 py-3 rounded-lg font-semibold hover:bg-canyon-rust/90 transition-colors"
+            >
+              Contact Technical Team
+            </a>
+            <a
+              href="tel:+1-307-555-0123"
+              className="border-2 border-canyon-rust text-canyon-rust px-6 py-3 rounded-lg font-semibold hover:bg-canyon-rust hover:text-white transition-colors"
+            >
+              Call (307) 555-0123
+            </a>
+          </div>
+        </div>
+      </main>
+    </div>
   );
 } 
