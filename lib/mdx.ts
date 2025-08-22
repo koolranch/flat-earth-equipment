@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import { AmperageCalculator, QuickReferenceCard, ChargingROICalculator, LithiumChargingCalculator } from '@/components/BasicInteractiveComponents';
 import { TCOComparisonCalculator } from '@/components/TCOCalculator';
+import { BMSCompatibilityChecker } from '@/components/BMSCompatibilityChecker';
 import { FAQSection } from '@/components/SEOComponents';
 
 export interface BlogPost {
@@ -32,6 +33,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
         ChargingROICalculator,
         LithiumChargingCalculator,
         TCOComparisonCalculator,
+        BMSCompatibilityChecker,
         FAQSection,
       }
     });
@@ -84,6 +86,7 @@ export async function getMDXContent(slug: string) {
         ChargingROICalculator,
         LithiumChargingCalculator,
         TCOComparisonCalculator,
+        BMSCompatibilityChecker,
         FAQSection,
       }
     });

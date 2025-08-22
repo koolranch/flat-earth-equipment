@@ -59,7 +59,8 @@ export default async function BlogPost({ params }: Props) {
                          params.slug === 'forklift-charger-voltage-comparison' ||
                          params.slug === 'fast-vs-overnight-forklift-charging' ||
                          params.slug === 'lithium-forklift-battery-chargers-complete-guide' ||
-                         params.slug === 'lead-acid-vs-lithium-forklift-chargers';
+                         params.slug === 'lead-acid-vs-lithium-forklift-chargers' ||
+                         params.slug === 'bms-integration-lithium-forklift-chargers';
 
   // FAQ data for structured data - different for each guide
   const getChargerFAQs = (slug: string) => {
@@ -169,6 +170,33 @@ export default async function BlogPost({ params }: Props) {
         {
           question: "How long do lead-acid vs lithium forklift chargers last?",
           answer: "Lead-acid chargers typically last 3-5 years and require weekly maintenance. Lithium chargers last 7-10 years with minimal monthly maintenance. The longer lifespan and reduced maintenance contribute significantly to lithium's lower total cost of ownership."
+        }
+      ];
+    } else if (slug === 'bms-integration-lithium-forklift-chargers') {
+      return [
+        {
+          question: "What is BMS integration and why is it needed for lithium forklift chargers?",
+          answer: "BMS (Battery Management System) integration allows the charger to communicate with the battery's control unit for real-time monitoring and safety. Unlike lead-acid batteries, lithium batteries require dynamic charging adjustments based on cell conditions, temperature monitoring, and safety coordination to prevent damage and optimize performance."
+        },
+        {
+          question: "What communication protocols do lithium forklift chargers use?",
+          answer: "Most lithium forklift chargers use CAN bus communication (125 kbps to 1 Mbps) with twisted pair cables and 120Ω termination. Alternative protocols include RS485/Modbus for industrial applications and proprietary protocols for manufacturer-specific optimizations."
+        },
+        {
+          question: "Can any lithium charger work with any lithium forklift battery?",
+          answer: "No, the charger and BMS must use compatible communication protocols and data formats. While voltage must match exactly, compatibility also requires matching CAN bus message IDs, data structures, and timing requirements. Always verify compatibility before purchasing."
+        },
+        {
+          question: "How do I troubleshoot BMS communication errors?",
+          answer: "Start by checking physical connections and cable integrity, then verify termination resistors (120Ω at each CAN bus end). Check protocol settings like baud rate and message IDs. If issues persist, update firmware for both charger and BMS, and consult manufacturer documentation for specific fault codes."
+        },
+        {
+          question: "What safety features does BMS integration provide?",
+          answer: "BMS integration provides overvoltage/undervoltage protection, temperature monitoring with thermal shutoff, current limiting based on cell conditions, fault detection and reporting, and emergency stop coordination. This creates multiple layers of safety protection beyond what lead-acid chargers offer."
+        },
+        {
+          question: "Do I need special training for BMS-integrated lithium chargers?",
+          answer: "Yes, staff should understand BMS communication basics, fault code interpretation, proper connection procedures, and safety protocols specific to lithium technology. The complexity is higher than lead-acid chargers but the operational benefits justify the learning investment."
         }
       ];
     }
@@ -298,6 +326,26 @@ export default async function BlogPost({ params }: Props) {
                   <div className="text-center">
                     <div className="text-2xl font-bold text-canyon-rust">TCO Tool</div>
                     <div className="text-sm text-slate-300">Cost Calculator</div>
+                  </div>
+                </>
+              ) : params.slug === 'bms-integration-lithium-forklift-chargers' ? (
+                // BMS integration guide stats
+                <>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-canyon-rust">CAN Bus</div>
+                    <div className="text-sm text-slate-300">Communication</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-canyon-rust">Real-Time</div>
+                    <div className="text-sm text-slate-300">Monitoring</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-canyon-rust">Safety First</div>
+                    <div className="text-sm text-slate-300">Protection</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-canyon-rust">Technical</div>
+                    <div className="text-sm text-slate-300">Deep Dive</div>
                   </div>
                 </>
               ) : (
