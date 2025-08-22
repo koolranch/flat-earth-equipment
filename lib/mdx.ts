@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { compileMDX } from 'next-mdx-remote/rsc';
-import { AmperageCalculator, QuickReferenceCard } from '@/components/BasicInteractiveComponents';
+import { AmperageCalculator, QuickReferenceCard, ChargingROICalculator } from '@/components/BasicInteractiveComponents';
 import { FAQSection } from '@/components/SEOComponents';
 
 export interface BlogPost {
@@ -28,6 +28,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       components: {
         AmperageCalculator,
         QuickReferenceCard,
+        ChargingROICalculator,
         FAQSection,
       }
     });
@@ -77,6 +78,7 @@ export async function getMDXContent(slug: string) {
       components: {
         AmperageCalculator,
         QuickReferenceCard,
+        ChargingROICalculator,
         FAQSection,
       }
     });

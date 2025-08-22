@@ -152,3 +152,158 @@ export function QuickReferenceCard({
     </div>
   )
 }
+
+// ROI Calculator for Charging Strategy Comparison
+export function ChargingROICalculator() {
+  const [operatingHours, setOperatingHours] = useState('')
+  const [batteryCount, setBatteryCount] = useState('')
+  const [electricityRate, setElectricityRate] = useState('0.12')
+  const [results, setResults] = useState<{
+    overnight: { setup: number; annual: number; fiveYear: number }
+    fast: { setup: number; annual: number; fiveYear: number }
+    savings: number
+  } | null>(null)
+
+  const calculate = () => {
+    if (operatingHours && batteryCount) {
+      const hours = parseFloat(operatingHours)
+      const batteries = parseFloat(batteryCount)
+      const rate = parseFloat(electricityRate)
+
+      // Overnight charging costs
+      const overnightSetup = batteries * 2000 // $2,000 avg per charger
+      const overnightAnnual = batteries * (800 + rate * 2000) // Electricity + maintenance
+      const overnightFiveYear = overnightSetup + (overnightAnnual * 5) + (batteries * 8000) // Battery replacement
+
+      // Fast charging costs  
+      const fastSetup = batteries * 4000 + 3000 // Higher charger cost + electrical upgrades
+      const fastAnnual = batteries * (1200 + rate * 3000) // Higher electricity + maintenance
+      const fastFiveYear = fastSetup + (fastAnnual * 5) + (batteries * 12000) // Shorter battery life
+
+      // Calculate productivity savings for fast charging
+      const productivitySavings = hours > 16 ? (hours - 16) * 100 * 250 * batteries : 0 // Extra operating hours value
+
+      setResults({
+        overnight: {
+          setup: overnightSetup,
+          annual: overnightAnnual,
+          fiveYear: overnightFiveYear
+        },
+        fast: {
+          setup: fastSetup,
+          annual: fastAnnual,
+          fiveYear: fastFiveYear - productivitySavings
+        },
+        savings: productivitySavings
+      })
+    }
+  }
+
+  return (
+    <div className="bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 rounded-xl p-6 my-8">
+      <div className="flex items-center gap-3 mb-4">
+        <CalculatorIcon className="h-6 w-6 text-canyon-rust" />
+        <h3 className="text-lg font-semibold text-slate-900">Charging Strategy ROI Calculator</h3>
+      </div>
+      
+      <div className="grid md:grid-cols-3 gap-4 mb-4">
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-1">
+            Daily Operating Hours
+          </label>
+          <input
+            type="number"
+            value={operatingHours}
+            onChange={(e) => setOperatingHours(e.target.value)}
+            placeholder="e.g., 16"
+            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-canyon-rust focus:border-canyon-rust"
+          />
+        </div>
+        
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-1">
+            Number of Forklifts
+          </label>
+          <input
+            type="number"
+            value={batteryCount}
+            onChange={(e) => setBatteryCount(e.target.value)}
+            placeholder="e.g., 5"
+            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-canyon-rust focus:border-canyon-rust"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-1">
+            Electricity Rate ($/kWh)
+          </label>
+          <input
+            type="number"
+            step="0.01"
+            value={electricityRate}
+            onChange={(e) => setElectricityRate(e.target.value)}
+            placeholder="0.12"
+            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-canyon-rust focus:border-canyon-rust"
+          />
+        </div>
+      </div>
+      
+      <button
+        onClick={calculate}
+        className="w-full bg-canyon-rust text-white py-2 px-4 rounded-lg hover:bg-canyon-rust/90 transition-colors font-medium"
+      >
+        Calculate 5-Year ROI Comparison
+      </button>
+      
+      {results && (
+        <div className="mt-6 grid md:grid-cols-2 gap-4">
+          <div className="bg-white rounded-lg border border-slate-200 p-4">
+            <h4 className="font-semibold text-slate-900 mb-3">Overnight Charging</h4>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-slate-600">Setup Cost:</span>
+                <span className="font-medium">${results.overnight.setup.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-600">Annual Cost:</span>
+                <span className="font-medium">${results.overnight.annual.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between border-t pt-2">
+                <span className="text-slate-600">5-Year Total:</span>
+                <span className="font-bold text-lg">${results.overnight.fiveYear.toLocaleString()}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg border border-slate-200 p-4">
+            <h4 className="font-semibold text-slate-900 mb-3">Fast Charging</h4>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-slate-600">Setup Cost:</span>
+                <span className="font-medium">${results.fast.setup.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-600">Annual Cost:</span>
+                <span className="font-medium">${results.fast.annual.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between border-t pt-2">
+                <span className="text-slate-600">5-Year Total:</span>
+                <span className="font-bold text-lg">${results.fast.fiveYear.toLocaleString()}</span>
+              </div>
+            </div>
+          </div>
+
+          {results.savings > 0 && (
+            <div className="md:col-span-2 bg-green-50 border border-green-200 rounded-lg p-4">
+              <div className="text-center">
+                <div className="text-green-800 font-medium">Productivity Savings from Extended Hours</div>
+                <div className="text-2xl font-bold text-green-600">${results.savings.toLocaleString()}</div>
+                <div className="text-sm text-green-700">Fast charging enables {parseFloat(operatingHours) - 16} extra hours/day</div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
