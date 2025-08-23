@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "New Holland Skid Steer Serial Number Lookup Guide | Flat Earth Equipment",
@@ -16,9 +17,32 @@ export default function NewHollandSkidSteerSerialNumberLookup() {
         New Holland Skid Steer Serial Number Lookup Guide
       </h1>
 
+      {/* Interactive Tool Callout */}
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-6 mb-8">
+        <div className="flex items-start gap-4">
+          <div className="bg-blue-600 p-2 rounded-lg flex-shrink-0">
+            🛠️
+          </div>
+          <div>
+            <h3 className="text-xl font-bold text-slate-900 mb-2">🚀 Try Our Interactive New Holland Decoder</h3>
+            <p className="text-slate-700 mb-4">
+              Get instant plate location tips and (when available) year estimates with our new interactive tool. 
+              Just enter your serial number for immediate results covering all equipment types!
+            </p>
+            <Link 
+              href="/new-holland-serial-number-lookup"
+              className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition font-semibold"
+            >
+              🔍 Try Interactive New Holland Lookup Tool
+            </Link>
+          </div>
+        </div>
+      </div>
+
       <div className="prose prose-slate max-w-none">
         <p className="lead">
-          Finding and understanding your New Holland skid steer's serial number is crucial for ordering parts, maintenance, and equipment identification. This guide will help you locate and decode your machine's serial number.
+          Your skid steer's product identification plate (PIN) lists the serial and often the model year.
+          Use your serial for precise parts selection; year-only lookups can miss mid-series changes.
         </p>
 
         <h2>Where to Find Your Serial Number</h2>
@@ -71,6 +95,23 @@ export default function NewHollandSkidSteerSerialNumberLookup() {
           <li>Equipment registration</li>
         </ul>
 
+        {/* Quick Tool Reference */}
+        <div className="not-prose bg-white border border-slate-200 rounded-lg p-6 my-8">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="bg-blue-100 p-2 rounded-lg">
+              🔧
+            </div>
+            <h3 className="text-lg font-bold text-slate-900">Need a Quick Check?</h3>
+          </div>
+          <div className="text-sm text-slate-600 mb-3">Open the tool and enter your serial.</div>
+          <Link 
+            className="inline-block rounded-lg bg-blue-600 text-white px-4 py-2 text-sm font-semibold hover:bg-blue-700 transition" 
+            href="/new-holland-serial-number-lookup"
+          >
+            Open the New Holland Serial Number Lookup
+          </Link>
+        </div>
+
         <h2>Year Identification</h2>
         <p>
           The serial number can help identify your machine's year:
@@ -122,9 +163,19 @@ export default function NewHollandSkidSteerSerialNumberLookup() {
           <li>Check online parts catalogs</li>
         </ul>
 
+        <h2>Why Serial Beats "Model Year" for Parts</h2>
+        <p>
+          New Holland parts catalogs are serial-driven. Year-only lookups can be misleading due to mid-series changes. Use the serial for precise fit.
+        </p>
+
         <h2>Conclusion</h2>
         <p>
           Understanding your New Holland skid steer's serial number is essential for proper maintenance and parts ordering. Keep your serial number in a safe place and always reference it when ordering parts or seeking service. If you're unsure about your serial number or need assistance, don't hesitate to contact your dealer or equipment specialist.
+        </p>
+
+        <p className="text-xs text-slate-500">
+          Note: Year estimates are available only for models with published ranges or prefix patterns.
+          When in doubt, the plate is authoritative.
         </p>
       </div>
     </main>
