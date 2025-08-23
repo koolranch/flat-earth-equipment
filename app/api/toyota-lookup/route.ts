@@ -24,7 +24,6 @@ export async function POST(req: Request) {
 
     // Fetch all rows for the model; we'll sort and compute in memory to avoid DB casting tricks.
     const { data, error } = await admin
-      .schema("lookup")
       .from("toyota_serial_lookup")
       .select("year, beginning_serial")
       .eq("model_code", model);
