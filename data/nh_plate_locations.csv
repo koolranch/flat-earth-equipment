@@ -1,0 +1,10 @@
+equipment_type,series,location_notes,source_url
+Skid Steer,L/LS Series,"VIN/data plate on right cab post or right side near front tire; older units near operator's right knee.",
+Tractor,PowerStar/40 Series,"Data plate inside hood or on frame; many plates print the year.",
+Tractor,T8 Series,"PIN/data plate on frame/hood area; newer models may use year-coded prefixes.",
+Excavator,Modern,"Plate on upperstructure; serial on frame near track.",
+Combine,CR/CX,"Plate on main frame; check ladder/axle area depending on series.",
+Forage Harvester,FR,"Plate on chassis; some CNH docs include 9-digit code tables.",
+Track Loader,C Series,"Plate on left side of main frame; check near operator area.",
+Backhoe,B Series,"Plate on frame near operator station or rear stabilizer area.",
+Telehandler,LM Series,"Plate on frame; location varies by model series and year.",
