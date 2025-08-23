@@ -1,0 +1,7 @@
+code,example_note
+3CX/4CX,"Check right-hand side data plate / loader tower; verify axle/gearbox/engine plates if plate is missing."
+531-70,"Loadall: machine ID plate in specified positions; PIN encodes model/build spec."
+JS/220X,"Look for machine plate near cab/exterior; engine has its own plate; some JS docs show serial inscribed at rear frame."
+150T/190T/3TS,"Skid steer/CTL: ID plate plus stamped chassis number."
+411/427/457,"Wheel loader: chassis plate lists machine + component serials."
+TM320,"Telescopic wheel loader: ID plate on chassis; confirm stamped frame serial when needed."

@@ -1,0 +1,7 @@
+equipment_type,series,location_notes
+Backhoe Loader,3CX/4CX,"Machine identification plate on right-hand side/cab or loader tower; major units (axles/gearbox/engine) have their own serial plates; record PIN exactly as shown."
+Telehandler (Loadall),531-70/535-95/540-170,"Machine identification plate in one of the factory-specified positions (near cab/tower); PIN indicates model/build spec; components carry their own serials."
+Excavator,JS/220X,"Product & Component Identification plates on machine and engine; machine serial may be inscribed at rear frame baseplate; check cab/exterior plate and stamped frame."
+Skid Steer / CTL,150T/190T/3TS,"Identification plate on chassis; serial is also permanently stamped into the chassis/battery/engine bay area depending on model."
+Wheel Loader,411/427/457,"Typical JCB chassis plate lists machine and major component serials; check frame/chassis near front area; confirm against stamped frame digits where present."
+Telescopic Wheel Loader,TM320/321,"ID plate on chassis; engine/axles/gearbox carry their own plates; verify stamped serial on frame if plate unreadable."

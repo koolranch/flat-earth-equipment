@@ -1,1 +1,1 @@
-export const NO_EXTERNAL_CITATIONS = true; // keep DB/UI free of outbound links
+export const NO_EXTERNAL_CITATIONS = true; // keep DB/UI free of outbound links // keep DB/UI free of outbound links
