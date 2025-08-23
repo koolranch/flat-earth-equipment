@@ -1,0 +1,6 @@
+prefix,family,notes,example_models
+G,IC Gas Pneumatic,"IC LP/Gas pneumatic","G25E-5,G30E-5"
+D,IC Diesel Pneumatic,"IC Diesel pneumatic","D40S-5,D45S-5"
+GC,IC Gas Cushion,"IC LP/Gas cushion","GC25E-5,GC33E-5"
+B,Electric Counterbalance,"3/4-wheel electric (B...-7 series)","B18T-7,B20X-7"
+BR,Reach Truck,"Warehouse reach truck (BR...-7)",BR18JW-7

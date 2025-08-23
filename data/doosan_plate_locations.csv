@@ -1,0 +1,5 @@
+equipment_type,series,location_notes
+IC Pneumatic (G/D),5 / 7,"Identification/Capacity plate in operator compartment/cowl area; record serial exactly as shown; additional serials for engine/transmission listed in manual."
+IC Cushion (GC),5,"Name/serial plate near operator console; verify against chassis/frame stamped serial if plate is missing."
+Electric Counterbalance (B),5 / 7,"Serial/Name plate by operator seat/battery cover area; see 'Serial Number Locations' in B-series O&M; stamped serial on frame/battery compartment."
+Reach Truck (BR),7,"Serial plate on operator console/chassis area; verify frame stamp if plate unreadable."
