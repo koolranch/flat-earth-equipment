@@ -1,0 +1,9 @@
+equipment_type,series,location_notes
+Counterbalance (IC) (C-5),General,"Capacity/data plate on the overhead guard; includes truck serial."
+Counterbalance (4-Wheel Electric) (FC),General,"Capacity/data plate on the overhead guard; includes truck serial."
+Stand-Up Counterbalance (RC),3000,"Capacity plate on a console in the operator area; includes serial."
+Reach Truck (RR/RD),5200/5700,"Capacity plate on a console in the operator area; includes serial."
+Order Picker (SP),3400,"Capacity plate under the overhead guard; includes serial."
+Walkie Stacker (SH/SHR),General,"Capacity plate on the cylinder cover; includes serial."
+Walkie Stacker (ST/SX),3200,"Capacity plate on the mast cross brace; includes serial."
+Walkie Pallet (WP),3000,"Capacity plate on top of the power unit cover (serial is plate/frame dependent)."
