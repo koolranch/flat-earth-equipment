@@ -417,7 +417,7 @@ export default function ToyotaLookupPage() {
       {/* Related Links */}
       <div className="bg-white border border-slate-200 rounded-lg p-8 mt-8">
         <h2 className="text-2xl font-bold text-slate-900 mb-6">Related Resources</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Link href="/parts/forklift-parts" className="group">
             <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 hover:shadow-md transition-all group-hover:border-blue-300">
               <div className="flex items-center gap-3 mb-3">
@@ -426,6 +426,18 @@ export default function ToyotaLookupPage() {
               </div>
               <p className="text-sm text-slate-600">
                 Browse our complete inventory of Toyota forklift parts by model and year.
+              </p>
+            </div>
+          </Link>
+          
+          <Link href="/battery-chargers" className="group">
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 hover:shadow-md transition-all group-hover:border-orange-300">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="h-5 w-5 text-orange-600">⚡</div>
+                <h3 className="font-semibold text-slate-900 group-hover:text-orange-600">Toyota Battery Chargers</h3>
+              </div>
+              <p className="text-sm text-slate-600">
+                Professional 24V-80V chargers compatible with Toyota electric forklifts. Fast and overnight options.
               </p>
             </div>
           </Link>
@@ -442,14 +454,14 @@ export default function ToyotaLookupPage() {
             </div>
           </Link>
           
-          <Link href="/rental/forklifts" className="group">
-            <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 hover:shadow-md transition-all group-hover:border-orange-300">
+          <Link href="/safety/forklift" className="group">
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 hover:shadow-md transition-all group-hover:border-blue-300">
               <div className="flex items-center gap-3 mb-3">
-                <Calendar className="h-5 w-5 text-orange-600" />
-                <h3 className="font-semibold text-slate-900 group-hover:text-orange-600">Forklift Rentals</h3>
+                <div className="h-5 w-5 text-blue-600">🎓</div>
+                <h3 className="font-semibold text-slate-900 group-hover:text-blue-600">Forklift Training</h3>
               </div>
               <p className="text-sm text-slate-600">
-                Need a replacement while yours is being repaired? Check our rental options.
+                OSHA-compliant forklift operator training and certification programs.
               </p>
             </div>
           </Link>
