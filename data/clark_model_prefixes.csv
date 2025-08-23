@@ -1,0 +1,19 @@
+prefix,family,notes,example_models
+TMX,Electric Sit-Down,"3- or 4-wheel electric sit-down",TMX 12/15/17/20
+ECX,Electric Sit-Down,"Electric counterbalance",ECX 20/25/30/32
+GEX,Electric Sit-Down,"Electric pneumatic",GEX 16/20/30
+GTX,Electric Sit-Down,"3-wheel electric pneumatic",GTX 16/20s
+EPX,Electric Sit-Down,"Electric pneumatic series",EPX 20/30
+S,IC Counterbalance (Cushion),"S-Series cushion tire",S20/25/30/35C
+GTS,IC Counterbalance (Pneumatic),"IC pneumatic series",GTS 20–33
+C,IC Counterbalance (GEN2),"GEN2 cushion/pneumatic (C15/C18/C20 etc.)",C15/C18/C20
+SRX,Reach Truck,"Narrow-aisle reach",SRX 14/16
+OSX,Order Picker,"Order picker series",OSX 15
+OPX,Order Picker,"Horizontal order picker",OPX 20
+WP,Pallet,"Walkie pallet",WP 30/45
+WT,Pallet,"Platform walkie/rider",WT 3000
+PC,Pallet,"Center rider",PC 4500
+PE,Pallet,"End rider",PE 4500
+ST,Stacker,"Walkie stacker",ST 3000
+SX,Stacker,"Counterbalanced walkie stacker",SX 3000
+WSX,Stacker,"Heavy walkie stacker",WSX 12/14/16
