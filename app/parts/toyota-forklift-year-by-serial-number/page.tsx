@@ -19,10 +19,33 @@ export default function ToyotaForkliftYearGuidePage() {
       </h1>
       
       <div className="prose prose-slate max-w-none">
-        <p className="text-lg text-slate-600 mb-8">
+        <p className="text-lg text-slate-600 mb-6">
           Use this guide to determine your Toyota forklift's year of manufacture based on its serial number. 
           This information is crucial for ordering the correct replacement parts and maintaining your equipment.
         </p>
+
+        {/* Interactive Tool Callout */}
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-6 mb-8">
+          <div className="flex items-start gap-4">
+            <div className="bg-blue-600 p-2 rounded-lg flex-shrink-0">
+              <Zap className="h-6 w-6 text-white" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-slate-900 mb-2">🔧 Try Our Interactive Lookup Tool</h3>
+              <p className="text-slate-700 mb-4">
+                Get instant year estimation with our new interactive tool - just enter your model and serial number 
+                for immediate results with no manual table lookup required!
+              </p>
+              <Link 
+                href="/toyota-forklift-serial-lookup"
+                className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition font-semibold"
+              >
+                <Zap className="h-4 w-4" />
+                Try Interactive Lookup Tool
+              </Link>
+            </div>
+          </div>
+        </div>
 
         <div className="bg-slate-50 p-6 rounded-lg mb-8">
           <h2 className="text-xl font-semibold mb-4">How to Find Your Serial Number</h2>
