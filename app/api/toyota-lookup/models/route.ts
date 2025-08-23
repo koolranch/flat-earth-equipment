@@ -5,7 +5,6 @@ export async function GET() {
   try {
     const admin = supabaseAdmin();
     const { data, error } = await admin
-      .schema("lookup")
       .from("toyota_serial_lookup")
       .select("model_code");
 
