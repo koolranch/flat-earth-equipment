@@ -1,0 +1,2 @@
+rule_name,applies_from_year,model_digits,year_digits_start,year_digits_len,notes,source_url
+Post-1977 3-2-rest rule,1977,3,4,2,"Map YY: 77–99 → 1977–1999; 00–29 → 2000–2029. Choose decade by context (model line, equipment age, docs).",

@@ -1,15 +1,15 @@
 code,name,city,state_province,country,notes
 A,Irvine,North Ayrshire,Scotland,UK,Historic plant
 B,Craigavon,County Armagh,Northern Ireland,UK,European plant
-D,Danville,Illinois,USA,Legacy facility
-E,Nijmegen,Gelderland,Netherlands,EU facility
-F,Flemington,New Jersey,USA,Historic
+D,Danville,Illinois,USA,Legacy facility,
+E,Nijmegen,Gelderland,Netherlands,EU facility,
+F,Flemington,New Jersey,USA,Historic,
 G,Government Contracts,,,,
-L,Lenoir,North Carolina,USA,Historic
-N,Greenville,North Carolina,USA,Major US facility (HYG)
-R,Obu,Aichi,Japan,OBU-SHI plant
-S,Sulligent,Alabama,USA,Historic
-T,Masate,Lombardy,Italy,EU plant
-V,Berea,Kentucky,USA,Common Yale code
-W,Sioux City,Iowa,USA,Schaeff
-X,Modena,Emilia-Romagna,Italy,EU plant
+L,Lenoir,North Carolina,USA,Historic,
+N,Greenville,North Carolina,USA,Major US facility (HYG),
+R,Obu,Aichi,Japan,OBU-SHI plant,
+S,Sulligent,Alabama,USA,Historic,
+T,Masate,Lombardy,Italy,EU plant,
+V,Berea,Kentucky,USA,Common Yale code,
+W,Sioux City,Iowa,USA,Schaeff,
+X,Modena,Emilia-Romagna,Italy,EU plant,
