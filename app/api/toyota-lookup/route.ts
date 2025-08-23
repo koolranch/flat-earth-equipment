@@ -46,15 +46,11 @@ export async function POST(req: Request) {
       .filter(r => r.begin > 0) // Remove invalid serials
       .sort((a, b) => a.begin - b.begin);
 
-    console.log('Debug - Serial:', serialNum, 'Model:', model);
-    console.log('Debug - Available rows:', rows);
-
     // Find the latest year with begin <= serialNum
     let best: { year: number; begin: number; begin_raw: string } | null = null;
     for (const r of rows) {
       if (serialNum >= r.begin) {
         best = r;
-        console.log('Debug - Found match:', r);
       } else {
         break;
       }
