@@ -1,0 +1,29 @@
+cue,family,notes,example_models
+580SN WT,Backhoe Loader,"Wide-track variant",580SN WT
+590SN,Backhoe Loader,"High-capacity backhoe",590SN
+580N,Backhoe Loader,"N-Series backhoe",580N
+SR,Skid Steer / CTL,"Skid steer SR-series","SR210, SR240"
+SV,Skid Steer / CTL,"Skid steer SV-series","SV280, SV340"
+TR,Skid Steer / CTL,"Compact track loader TR-series","TR270, TR310"
+TV,Skid Steer / CTL,"Compact track loader TV-series",TV370
+CX210D,Crawler Excavator,"D-series crawler excavator",CX210D
+CX145D,Crawler Excavator,"D-series short radius",CX145D
+CX,Crawler Excavator,"Generic CX family","CX130D, CX210D"
+521G,Wheel Loader,"G-series wheel loader",521G
+621G,Wheel Loader,"G-series wheel loader",621G
+721G,Wheel Loader,"G-series wheel loader",721G
+821G,Wheel Loader,"G-series wheel loader",821G
+921G,Wheel Loader,"G-series wheel loader",921G
+1021G,Wheel Loader,"G-series wheel loader",1021G
+1121G,Wheel Loader,"G-series wheel loader",1121G
+650M,Crawler Dozer,"M-series dozer",650M
+750M,Crawler Dozer,"M-series dozer",750M
+850M,Crawler Dozer,"M-series dozer",850M
+1150M,Crawler Dozer,"M-series dozer",1150M
+1650M,Crawler Dozer,"M-series dozer",1650M
+2050M,Crawler Dozer,"M-series dozer",2050M
+CX17C,Mini Excavator,"C-series mini",CX17C
+CX26C,Mini Excavator,"C-series mini",CX26C
+CX37C,Mini Excavator,"C-series mini",CX37C
+CX57C,Mini Excavator,"C-series mini",CX57C
+CX60C,Mini Excavator,"C-series mini",CX60C
