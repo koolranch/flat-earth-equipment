@@ -1,0 +1,9 @@
+prefix,family,notes,example_models
+AF,IC Pneumatic,"Platinum II Nomad / compact pneumatic (indoor-outdoor)",AF50
+PF,IC Pneumatic,"Mid/large IC pneumatic, 8k–12k lb","PF(D)80–120"
+CF,IC Cushion,"Platinum II cushion (indoor)","CF50, CF100–155"
+BX,Electric Sit-Down,"4-wheel electric; BX/BX(C) lines",BX50
+BXC,Electric Sit-Down,"4-wheel electric cushion","BXC30N–BXC80N"
+TX,Electric Sit-Down,"3-wheel electric sit-down","TX30M–TX40M"
+SCX,Stand-up CB,"Stand-up counterbalanced","SCX30N2–SCX40N2"
+SRX,Reach Truck,"Single/Double reach trucks","SRX35–SRX45"
