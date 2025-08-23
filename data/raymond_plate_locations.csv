@@ -1,0 +1,5 @@
+truck_family,location_notes,source_url
+Reach / Orderpicker,"Specification tag near the operator platform; model & serial shown on the nameplate.",
+Stand-up Counterbalance,"Nameplate typically on the counterweight or near operator compartment.",
+Pallet Jack,"Data plate on the handle assembly or main body; check both sides if unclear.",
+Any (fallback),"If the tag is missing, check for a chassis stamp in the power section under the controller. Do not confuse shop work-order numbers for the serial.",

@@ -1,0 +1,6 @@
+code,family,example_models,notes,source_url
+EASI,EASI Reach,"EASI RYOTT; EASI RYOTH","Nomenclature widely used ~1994+.",
+7400-Series,Reach,"7400, 7420, 7440, 7600","Current reach family (for UX copy).",
+5200/5400/5600,Orderpicker,"5200, 5400, 5600","Use for labels/autocomplete.",
+020-Series,Older Reach,"020 models","Legacy series with documented ranges.",
+010-Series,Walkies,"010 Walkie models","Historic walkie series.",

@@ -1,0 +1,6 @@
+series_or_model,year,serial_start,serial_end,source_url,notes
+010 Walkies,1956,8,108,,"Example public range"
+812 (020),1966,812014,812017,,"Example block"
+071 Sideloaders,1964,001,005,,"Example block"
+020 Series,1977,02077001,02077999,,"Post-1977 example"
+020 Series,1978,02078001,02078999,,"Post-1977 example"
