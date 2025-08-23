@@ -1,0 +1,14 @@
+position,code,meaning
+1,FG,"Gasoline forklift (includes LP)"
+1,FD,Diesel forklift
+2,15,"3000 lb capacity (model number in lbs)"
+2,18,3500 lb capacity
+2,20,4000 lb capacity
+2,25,5000 lb capacity
+2,30,6000 lb capacity
+3,S,"Cushion tire (no S = Pneumatic)"
+3,H,High performance
+3,C,"Clutch-type manual transmission (dry single-disc)"
+3,T,TORQFLOW power-shift transmission with torque converter
+4,US,"Anti-Spark Gas or Diesel Special (per fuel type)"
+4,LS,Anti-Spark Liquid Propane Special

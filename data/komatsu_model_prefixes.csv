@@ -1,0 +1,4 @@
+prefix,family,notes,example_models
+FG,IC Counterbalance (Gas/LP),"Includes LP; see model code key","FG25T-14; FG30HTUS"
+FD,IC Counterbalance (Diesel),"Common in BX/other series","FD30-10; FD25-14"
+FB,Electric Counterbalance,"3/4-wheel electric series","FB15; FB18; FB20"
