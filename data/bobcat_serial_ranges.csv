@@ -1,0 +1,7 @@
+model,serial_start,serial_end,year,source_url,notes
+843,11001,11681,1981,,"Public range example"
+843,11682,13169,1982,,"Public range example"
+843,13170,14500,1983,,"Public range example"
+843,14501,16200,1984,,"Public range example"
+S650,515011001,515012000,2014,,"Example S-series range"
+S650,515012001,515013500,2015,,"Example S-series range"

@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Your Bobcat Serial Number: How to Find and Use It | Flat Earth Equipment",
@@ -16,9 +17,33 @@ export default function BobcatSerialNumberGuide() {
         Your Bobcat Serial Number: How to Find and Use It
       </h1>
 
+      {/* Interactive Tool Callout */}
+      <div className="bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 rounded-lg p-6 mb-8">
+        <div className="flex items-start gap-4">
+          <div className="bg-red-600 p-2 rounded-lg flex-shrink-0">
+            🛠️
+          </div>
+          <div>
+            <h3 className="text-xl font-bold text-slate-900 mb-2">🚀 Try Our Interactive Bobcat Decoder</h3>
+            <p className="text-slate-700 mb-4">
+              Get instant decoding with our new interactive tool - just enter your serial number 
+              for immediate module code identification, production sequence, and plate location tips!
+            </p>
+            <Link 
+              href="/bobcat-serial-number-lookup"
+              className="inline-flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition font-semibold"
+            >
+              🔍 Try Interactive Bobcat Lookup Tool
+            </Link>
+          </div>
+        </div>
+      </div>
+
       <div className="prose prose-slate max-w-none">
         <p className="lead">
-          Ever found yourself scratching your head, wondering where on earth your Bobcat's serial number is hiding? It's a common dilemma for many Bobcat owners, but discovering this little alphanumeric code is easier than you might think. This number is more than just a series of letters and digits; it's your ticket to understanding your machine better and keeping it in top shape.
+          Bobcat machines print the <strong>model year on the product identification plate</strong>. The serial itself typically follows a
+          <strong> 9-digit (4+5)</strong> structure: the first 4 digits identify the module (model/engine combination) and the last 5 digits are the
+          production sequence. For parts accuracy, use your <strong>serial number</strong>—not just model year.
         </p>
 
         <p>
@@ -133,6 +158,28 @@ export default function BobcatSerialNumberGuide() {
         <h3>Insurance and Registration</h3>
         <p>
           Think of the serial number as the VIP pass to Bobcat Club—it's what you need to insure your machine, handle claims efficiently, and show that you're the legit owner. Without it, you're just another person with a cool-looking but unidentified piece of metal.
+        </p>
+
+        {/* Quick Tool Reference */}
+        <div className="not-prose bg-white border border-slate-200 rounded-lg p-6 my-8">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="bg-red-100 p-2 rounded-lg">
+              🔧
+            </div>
+            <h3 className="text-lg font-bold text-slate-900">Quick Tool</h3>
+          </div>
+          <div className="text-sm text-slate-600 mb-3">Have your serial ready?</div>
+          <Link 
+            className="inline-block rounded-lg bg-red-600 text-white px-4 py-2 text-sm font-semibold hover:bg-red-700 transition" 
+            href="/bobcat-serial-number-lookup"
+          >
+            Open the Bobcat Serial Number Lookup
+          </Link>
+        </div>
+
+        <h2>Why Serial Beats "Model Year" for Parts</h2>
+        <p>
+          Bobcat parts catalogs are serial-driven. Year-only lookups can be misleading due to mid-series changes. Use the serial for precise fit.
         </p>
 
         <h2>Conclusion</h2>
