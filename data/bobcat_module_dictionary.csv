@@ -1,0 +1,11 @@
+module_code,likely_model,engine,notes,source_url
+5150,S650,Kubota V2607,"Example mapping for S650 skid steer loader",
+5160,S660,Kubota V2607,"Example mapping for S660 skid steer loader",
+5700,S770,Doosan DL06,"Example mapping for S770 skid steer loader",
+5850,S850,Doosan DL06,"Example mapping for S850 skid steer loader",
+4630,T630,Kubota V2607,"Example mapping for T630 compact track loader",
+4650,T650,Kubota V2607,"Example mapping for T650 compact track loader",
+4770,T770,Doosan DL06,"Example mapping for T770 compact track loader",
+3310,331,Kubota D1105,"Example mapping for 331 mini excavator",
+4140,414,Yanmar 3TNV76,"Example mapping for 414 mini excavator",
+8430,843,Various,"Legacy 843 skid steer loader",

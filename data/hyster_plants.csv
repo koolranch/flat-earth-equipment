@@ -1,11 +1,11 @@
 code,name,city,state_province,country,notes
 A,Irvine,North Ayrshire,Scotland,UK,Historic European plant
 B,Craigavon,County Armagh,Northern Ireland,UK,European manufacturing
-D,Danville,Illinois,USA,Legacy facility
-E,Nijmegen,Gelderland,Netherlands,Europe production history
-F,Flemington,New Jersey,USA,Historic
-L,Lenoir,North Carolina,USA,Historic
-N,Greenville,North Carolina,USA,Modern major US plant
-S,Sulligent,Alabama,USA,Historic
-T,Masate,Lombardy,Italy,European plant
-V,Berea,Kentucky,USA,Common in Hyster serials
+D,Danville,Illinois,USA,Legacy facility,
+E,Nijmegen,Gelderland,Netherlands,Europe production history,
+F,Flemington,New Jersey,USA,Historic,
+L,Lenoir,North Carolina,USA,Historic,
+N,Greenville,North Carolina,USA,Modern major US plant,
+S,Sulligent,Alabama,USA,Historic,
+T,Masate,Lombardy,Italy,European plant,
+V,Berea,Kentucky,USA,Common in Hyster serials,
