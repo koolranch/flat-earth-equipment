@@ -1,0 +1,5 @@
+prefix,family,notes,example_models
+GP,LP Gas Pneumatic,"IC LP gas pneumatic tire series","GP15-35N, GP40-55(C)N"
+DP,Diesel Pneumatic,"IC diesel pneumatic tire series","DP20-35N3, DP60-100N3"
+EC,Electric Cushion,"4-wheel electric cushion series","EC25N/EC25N2"
+EP,Electric Pneumatic,"4-wheel electric pneumatic series","EP25-35A(C)N, EP14-20(C)N2"
