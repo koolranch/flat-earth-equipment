@@ -1,0 +1,10 @@
+prefix,family,notes,example_models,source_url
+S,Boom,"Telescopic stick booms","S-40; S-60; S-65; S-80; S-85; S-100; S-125",https://www.genielift.com/en/serial-plates
+Z,Boom,"Articulated booms","Z-30/20N; Z-45/25; Z-60/37; Z-80",https://www.genielift.com/en/serial-plates
+GS,Scissor,"Slab & rough-terrain scissors","GS-1930; GS-2032; GS-2632; GS-3246; GS-4047",https://www.genielift.com/en/serial-plates
+GTH,Telehandler,"Genie telehandlers","GTH-5519; GTH-844; GTH-1056",https://www.genielift.com/en/serial-plates
+AWP,Vertical Lift,"Aerial Work Platform","AWP-30S",https://www.genielift.com/en/serial-plates
+GR,Vertical Lift,"Runabout","GR-20",https://www.genielift.com/en/serial-plates
+IWP,Vertical Lift,"Industrial Work Platform","IWP-25S",https://www.genielift.com/en/serial-plates
+DPL,Vertical Lift,"Dual Personnel Lift","DPL-25S",https://www.genielift.com/en/serial-plates
+TZ,Boom,"Trailer-mounted boom","TZ-50/30",https://www.genielift.com/en/serial-plates
