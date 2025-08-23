@@ -1,0 +1,11 @@
+prefix,series,marketed_model,notes
+A187,XM,H50XM,Example mapping for XM family
+C187,XL/H,H60XL,Example mapping for XL/H family
+E010,J,J40-60,Electric J-series example
+G004,S,S50-60,Classic cushion example
+J160,J,J1.6-2.0XN,Modern electric example
+K005,FT/XT,H70FT,FT/XT family example
+H177,H,H80-120XM,Heavy capacity example
+B024,E,E30-50XN,Electric counterbalance
+F187,XL,H155XL,Large capacity XL series
+P005,P,P60Z,Pallet truck example
