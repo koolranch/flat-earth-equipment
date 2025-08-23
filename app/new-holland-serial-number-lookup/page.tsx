@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
 import Script from "next/script";
 import { Search, CheckCircle, AlertTriangle, MapPin, Wrench, Settings, Calendar, Tractor } from "lucide-react";
@@ -28,6 +28,15 @@ export default function NewHollandLookupPage() {
   const [serial, setSerial] = useState<string>("");
   const [data, setData] = useState<ApiResponse | null>(null);
   const [loading, setLoading] = useState(false);
+
+  // Debug logging
+  useEffect(() => {
+    if (data) {
+      console.log('New Holland State Updated:', data);
+      console.log('data.result specifically:', data.result);
+      console.log('Type of data.result:', typeof data.result);
+    }
+  }, [data]);
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -240,7 +249,6 @@ export default function NewHollandLookupPage() {
                 </div>
 
                 {/* Year Estimate */}
-                {console.log('data.result:', data.result)}
                 {data.result ? (
                   <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                     <div className="flex items-center gap-2 mb-2">
