@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
 function toInt(input: string) {
-  const m = (input || "").match(/\d+/g);
-  if (!m) return null;
-  return Number(m.join(""));
+  const cleaned = String(input || "").replace(/\D/g, '');
+  if (!cleaned) return null;
+  return Number(cleaned);
 }
 
 export async function POST(req: Request) {
@@ -40,16 +40,24 @@ export async function POST(req: Request) {
     const rows = data
       .map((r) => ({
         year: r.year as number,
-        begin: toInt(String(r.beginning_serial)) ?? Number.MAX_SAFE_INTEGER,
+        begin: toInt(String(r.beginning_serial)) ?? 0,
         begin_raw: r.beginning_serial
       }))
+      .filter(r => r.begin > 0) // Remove invalid serials
       .sort((a, b) => a.begin - b.begin);
+
+    console.log('Debug - Serial:', serialNum, 'Model:', model);
+    console.log('Debug - Available rows:', rows);
 
     // Find the latest year with begin <= serialNum
     let best: { year: number; begin: number; begin_raw: string } | null = null;
     for (const r of rows) {
-      if (serialNum >= r.begin) best = r;
-      else break;
+      if (serialNum >= r.begin) {
+        best = r;
+        console.log('Debug - Found match:', r);
+      } else {
+        break;
+      }
     }
 
     return NextResponse.json({
