@@ -1,0 +1,12 @@
+prefix,family,notes,example_models
+S,Telescopic Boom,"Straight boom S-series","600S, 860SJ"
+SJ,Telescopic Boom,"Straight boom w/ jib SJ-series",660SJ
+A,Articulating Boom,"A-series",400A
+AJ,Articulating Boom,"Articulating w/ jib AJ-series","450AJ, 800AJ"
+E,Articulating Boom,"Electric/hybrid prefix on some A-series","E450AJ, M450AJ"
+ES,Electric Scissor (Slab),"ES scissor family","1930ES, 3246ES"
+AE,Electric Scissor (Slab),"DaVinci AE series",AE1932
+RT,RT Scissor,"Rough-terrain scissor","3394RT, 4394RT"
+R,RT Scissor,"R-series scissor","R1932, R3245"
+T,Mast/Toucan,"Toucan vertical mast","T26E, T32E"
+TOUCAN,Mast/Toucan,"Explicit Toucan naming","Toucan 26E"
