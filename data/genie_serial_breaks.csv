@@ -1,0 +1,20 @@
+model,serial_note,note,source_url
+S-80 / S-85,"from serial number 101 to 785","Older units; separate manual coverage",https://manuals.genielift.com/parts%20and%20service%20manuals/data/Service/Stick%20Booms/122985.pdf
+S-80 / S-85,"from S8003-3738 to S8007-5380","Later range (Rev C1, June 2015)",https://manuals.genielift.com/parts%20and%20service%20manuals/data/Service/Stick%20Booms/111165.pdf
+GS-2046 / GS-2646 / GS-3246,"before serial number 17408","Earlier schematics/procedures",https://manuals.genielift.com/parts%20and%20service%20manuals/data/Service/Scissors/72972.pdf
+GS-2046 / GS-2646 / GS-3246,"from serial number 8932 to 17407","Electrical schematic coverage block",https://manuals.genielift.com/parts%20and%20service%20manuals/data/service/scissors/48339.pdf
+GS-2046 / GS-2646 / GS-3246,"after serial number 17407","Electrical schematic after 17407",https://manuals.genielift.com/parts%20and%20service%20manuals/data/service/scissors/48339.pdf
+GS-2046 / GS-2646 / GS-3246,"hydraulic schematic before serial number 17482","Hydraulic differences noted",https://manuals.genielift.com/parts%20and%20service%20manuals/data/service/scissors/48339.pdf
+GS-3246,"after serial number 21919","Hydraulic oil type note",https://manuals.genielift.com/parts%20and%20service%20manuals/data/service/scissors/48339.pdf
+GS-2032 / GS-2632,"after serial number GS04-52788","Operator procedure change (drive/brake)",https://manuals.genielift.com/operators/english/97552.pdf
+GS-1530 / GS-1532 / GS-1930 / GS-1932,"from serial number GS3003-60000 to GS3005-74999","Electrical schematics block",https://manuals.genielift.com/parts%20and%20service%20manuals/data/Service/Scissors/96316.pdf
+GS-1530 / GS-1532 / GS-1930 / GS-1932,"from serial number GS3004-65105 to 66986","Hydraulic schematic block",https://manuals.genielift.com/parts%20and%20service%20manuals/data/Service/Scissors/96316.pdf
+GS-2032 / GS-2632,"from serial number GS3204-60000 to GS3205-74999","Electrical schematics block",https://manuals.genielift.com/parts%20and%20service%20manuals/data/Service/Scissors/96316.pdf
+GS-2032 / GS-2632,"from serial number GS3204-60000 to GS3205-75406","Hydraulic schematic block",https://manuals.genielift.com/parts%20and%20service%20manuals/data/Service/Scissors/96316.pdf
+GS-2046 / GS-2646 / GS-3246,"from serial number GS4612A-110000 to GS4614A-117177","2023 Service & Repair coverage",https://manuals.genielift.com/parts%20and%20service%20manuals/data/Service/Scissors/1272217.pdf
+GS-2032 / GS-2632 / GS-3232,"from serial number GS3211A-110000 to GS3214A-119070; GS3212C-10000 to GS3214C-11873","2023 Service & Repair coverage",https://manuals.genielift.com/parts%20and%20service%20manuals/data/Service/Scissors/1272217.pdf
+Z-30/20N,"from serial number 3084-101 to 3090-2213","Service manual coverage block",https://manuals.genielift.com/parts%20and%20service%20manuals/data/Service/Z%20Booms/IO/139381.pdf
+Z-30/20N,"before serial number 5934","Older manual set",https://manuals.genielift.com/Parts%20And%20Service%20Manuals/data/Service/Z%20Booms/106373.pdf
+Z-30/20N / Z-30/20N RJ,"from Z30N14-15222 to Z30N16F-18899","Service & Repair PN 1268498 coverage",https://manuals.genielift.com/parts%20and%20service%20manuals/data/Service/Z%20Booms/1268498.pdf
+Z-34/22N,"from Z34N14-10984 to Z34N16F-13999","Service & Repair PN 1268498 coverage",https://manuals.genielift.com/parts%20and%20service%20manuals/data/Service/Z%20Booms/1268498.pdf
+Z-34/22DC,"from Z34N15D-102 to Z34N16D-279","Service & Repair PN 1268498 coverage",https://manuals.genielift.com/parts%20and%20service%20manuals/data/Service/Z%20Booms/1268498.pdf
