@@ -1,0 +1,5 @@
+equipment_type,series,location_notes
+IC Pneumatic (FG/FD),N / N3,"Name/Serial (Capacity/Data) plate in operator compartment or cowl/instrument area; record serial exactly as shown."
+IC Pneumatic (FG/FD),N / N3,"Chassis serial stamped on frame (common frame-side or near cowl); engine serial on block (gas/diesel positions differ)."
+IC Cushion (FGC),N / N2,"Name/Serial plate near operator controls; verify against chassis/frame stamp if plate is missing."
+Electric Counterbalance (FB),EDiA EX,"Serial/Name plate by the operator seat/console area; embossed/stamped serial on frame or battery area; mast has its own serial plate."

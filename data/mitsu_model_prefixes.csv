@@ -1,0 +1,5 @@
+prefix,family,notes,example_models
+FG,IC Gas/LP (Pneumatic),"Gas/LP pneumatic N/N3 series",FG15N–FG35N
+FD,IC Diesel (Pneumatic),"Diesel pneumatic N/N3 series",FD20N–FD35N
+FGC,IC Gas/LP (Cushion),"Gas/LP cushion series",FGC15N–FGC40CN
+FB,Electric Counterbalance,"EDiA EX electric counterbalance",FB25–35A(C)N
