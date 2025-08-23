@@ -29,14 +29,7 @@ export default function NewHollandLookupPage() {
   const [data, setData] = useState<ApiResponse | null>(null);
   const [loading, setLoading] = useState(false);
 
-  // Debug logging
-  useEffect(() => {
-    if (data) {
-      console.log('New Holland State Updated:', data);
-      console.log('data.result specifically:', data.result);
-      console.log('Type of data.result:', typeof data.result);
-    }
-  }, [data]);
+
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -70,7 +63,6 @@ export default function NewHollandLookupPage() {
         body: JSON.stringify({ serial, equipmentType, model: model || undefined })
       });
       const json = (await res.json()) as ApiResponse;
-      console.log('New Holland API Response:', json);
       setData(json);
     } finally {
       setLoading(false);
@@ -176,7 +168,7 @@ export default function NewHollandLookupPage() {
                 </p>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Model (optional)</label>
+                <label className="block text-sm font-medium text-slate-700 mb-2">Model (required for year estimate)</label>
                 <input
                   className="w-full rounded-lg border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="e.g., L170, 5030, 7740, T8.350"
@@ -184,7 +176,7 @@ export default function NewHollandLookupPage() {
                   onChange={(e) => setModel(e.target.value.trim())}
                 />
                 <p className="mt-1 text-xs text-slate-500">
-                  Adding a model lets us use known ranges/prefixes for a year estimate
+                  <strong>Required for year estimation.</strong> We have ranges for L170, T8.350, 5030, 7740, 7840 models.
                 </p>
               </div>
             </div>
