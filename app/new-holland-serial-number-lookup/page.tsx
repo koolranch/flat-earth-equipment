@@ -61,6 +61,7 @@ export default function NewHollandLookupPage() {
         body: JSON.stringify({ serial, equipmentType, model: model || undefined })
       });
       const json = (await res.json()) as ApiResponse;
+      console.log('New Holland API Response:', json);
       setData(json);
     } finally {
       setLoading(false);
@@ -239,6 +240,7 @@ export default function NewHollandLookupPage() {
                 </div>
 
                 {/* Year Estimate */}
+                {console.log('data.result:', data.result)}
                 {data.result ? (
                   <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                     <div className="flex items-center gap-2 mb-2">
