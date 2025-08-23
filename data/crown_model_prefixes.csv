@@ -1,0 +1,19 @@
+prefix,family,notes,example_models
+FC,Counterbalance (4-Wheel Electric),Sit-down electric counterbalance,FC 5200; FC 5700
+SC,Counterbalance (3-Wheel Electric),Sit-down 3-wheel,SC 4500; SC 6000
+RC,Stand-Up Counterbalance,Stand-up rider counterbalance,RC 5500; RC 3000
+C5,Counterbalance (IC),C-5 internal combustion line,C-5 1000/1050
+CG,Counterbalance (IC),Alternate IC designation,CGC35-55
+RR,Reach Truck (Single/Deep),Narrow-aisle reach,RR 5200/5700
+RD,Reach Truck (Double-Deep),Deep-reach variant,RD 5200
+RM,MonoLift Reach,MonoLift mast,RM 6000
+SP,Order Picker (Stockpicker),Man-up order picker,SP 3400/3500
+TSP,Very Narrow Aisle (Turret),Man-up turret,TSP 7000
+WP,Walkie Pallet,Walk-behind pallet truck,WP 3000
+PE,Rider Pallet (End Rider),Rider pallet truck,PE 4500
+PC,Center Rider Pallet,Center rider,PC 4500
+WT,Rider Pallet (Platform),Platform walkie/rider,WT 3000
+ST,Walkie Stacker,Walkie stacker,ST 3000
+SX,Walkie Stacker (Counterbalance),Counterbalanced walkie stacker,SX 3000
+TR,Tugger (Rider),Tow tractor,RTR
+TC,Tugger (Walkie),Walkie tugger,TC 3000
