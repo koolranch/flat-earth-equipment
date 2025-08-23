@@ -1,0 +1,7 @@
+equipment_type,series,location_notes
+IC Counterbalance (Cushion/Pneumatic),S-Series / GEN2 / GTS,"Serial/data plate in the operator compartment (hood/instrument panel). If missing, check frame/cowl/fender stamp."
+Electric Sit-Down (TMX/ECX/GEX/GTX/EPX),General,"Serial/data plate in operator area; serial is also stamped on the frame."
+Reach (SRX),General,"Serial/data plate in operator compartment; verify against frame stamp if plate is missing."
+Order Picker (OSX/OPX),General,"Serial/data plate under/near overhead guard or console area; check frame if missing."
+Pallet (WP/WT/PC/PE),General,"Serial/data plate on/near power unit cover or operator area; check frame if missing."
+Stacker (ST/SX/WSX),General,"Serial/data plate on mast/cylinder cover area; check frame stamp if plate missing."
