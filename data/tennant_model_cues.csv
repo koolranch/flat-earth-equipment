@@ -1,0 +1,12 @@
+cue,family,notes,example_models
+T300,Scrubber (Walk-behind/Stand-on),"Walk-behind scrubber (T300/T300e); manuals include 'Serial Number Location' section.","T300, T300e"
+T350,Scrubber (Walk-behind/Stand-on),"Stand-on scrubber; manuals list 'Machine Serial Number Location'.","T350"
+T7,Scrubber (Rider),"Compact rider scrubber (T7/T7+).","T7, T7+"
+T12,Scrubber (Rider),"Mid-size rider scrubber.","T12"
+T16,Scrubber (Rider),"Rider scrubber; parts manuals instruct to quote serial from data plate.","T16"
+T20,Scrubber (Rider),"Large rider scrubber; manuals show S/N-based changes in service sections.","T20"
+S20,Sweeper (Rider),"Rider sweeper; parts manuals instruct to identify serial from data plate.","S20"
+S30,Sweeper (Rider),"Rider sweeper; service/OPM show S/N break examples.","S30"
+M20,Sweeper-Scrubber (Rider),"Rider sweeper–scrubber; service/parts show S/N breaks.","M20"
+M30,Sweeper-Scrubber (Rider),"Rider sweeper–scrubber.","M30"
+B10,Burnisher,"Battery burnisher (for completeness).","B10"

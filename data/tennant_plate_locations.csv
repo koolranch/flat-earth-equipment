@@ -1,0 +1,12 @@
+equipment_type,series,location_notes
+Scrubber (Walk-behind/Stand-on),T300/T300e,"Operator manual includes a 'Serial Number Location' section; record the serial from the machine data plate exactly as shown."
+Scrubber (Walk-behind/Stand-on),T350,"Operator manual lists 'Machine Serial Number Location'; capture serial from the machine plate exactly as shown."
+Scrubber (Rider),T7/T7+,"Use the machine data/ID plate; quote full serial when requesting parts/service."
+Scrubber (Rider),T12,"Use the machine data/ID plate; quote full serial when requesting parts/service."
+Scrubber (Rider),T16,"Parts manuals: identify model and serial from the data plate before ordering parts."
+Scrubber (Rider),T20,"Operator/parts manuals require model + serial from the data plate; some service procedures reference S/N breaks."
+Sweeper (Rider),S20,"Identify the serial number from the machine data plate; parts manuals depend on correct S/N."
+Sweeper (Rider),S30,"Identify the serial number from the data plate; service sections show S/N-related changes."
+Sweeper-Scrubber (Rider),M20,"Use the machine data plate; service/parts content includes S/N-based differences."
+Sweeper-Scrubber (Rider),M30,"Use the machine data plate; quote serial for parts/service."
+Burnisher,B10,"Use the machine data plate; quote serial for parts/service."
