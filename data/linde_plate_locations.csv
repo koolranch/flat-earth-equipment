@@ -1,0 +1,7 @@
+equipment_type,series,location_notes
+Electric Counterbalance,E-series,"Data plate/nameplate affixed to truck body/frame; commonly near the mast or by the operator's compartment. Record the full truck serial exactly as shown."
+Electric Counterbalance,X-series,"Data plate affixed to truck body/frame; check around mast/counterweight or operator area. Record full serial."
+IC Counterbalance,H-series,"Data plate on body/frame; typical spots include near the mast or on/near the counterweight; also check dashboard/console area. Record full serial."
+Reach Truck,R-series,"Truck identification plate mounted on the overhead guard or in the operator area; quote the full serial when ordering parts."
+Pallet Stacker,L-series,"Use the identification/data plate on the truck body; record the full serial."
+Order Picker,V-series,"Data plate present; pre-op checks require data plate present/legible—record the full serial."

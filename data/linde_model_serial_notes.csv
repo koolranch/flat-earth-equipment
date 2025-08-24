@@ -1,0 +1,5 @@
+model_code,note
+R14–R20,"Manuals reference a Truck Identification Plate; always quote the full serial for parts/service."
+V10,"Operating instructions and pre-op checklists reference the data/capacity plate; ensure plate is present/legible and record the serial."
+E16–E20 / E18–E20,"Operator/service docs reference the type/identification plate with Serial No.; record it exactly."
+H20–H35 / H35–H50,"IC trucks follow the same data-plate convention; record full truck serial for service/parts."
