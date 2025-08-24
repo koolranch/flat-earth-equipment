@@ -1,0 +1,10 @@
+model_code,serial_range,notes
+SJIII 3219,"22,057,772–22,999,999","Parts manual range"
+SJIII 3226,"27,004,500–27,006,431","Parts manual range"
+SJ63 AJ,"95,300,481 & above","Operator manual range"
+SJ40 T / SJ45 T,"98,001,767 & above","Operator manual range"
+SJ61 T / SJ66 T,"97,001,833 & above","Operator manual range"
+SJ8831 RT,"36,000,302 & above","Operator manual range"
+SJ8841 RT,"40,001,481 & above","Operator manual range"
+SJ9250 RT,"50,001,321 & above","Operator manual range"
+SJ6826/6832 RT,"A200,000,001–A200,999,999","Service manual range"
