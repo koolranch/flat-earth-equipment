@@ -1,0 +1,7 @@
+equipment_type,series,location_notes
+Electric Counterbalance,BT/B/BC-9/9U,"Use the truck data/ID plate in the operator area; record the full truck serial. Manuals note the serial is shown on the front-right side of the truck and is also stamped on the frame."
+IC Counterbalance,D-9,"Truck serial shown on the front of the right-side frame; engine serial on the engine nameplate. Record both when ordering parts."
+IC Counterbalance,L-7A/9A,"Use the data plate in the operator area; record the full truck serial exactly as shown (frame-stamped on many units)."
+Reach Truck,BR/BRJ/BRP/BR-X,"Use the truck data plate; record the full serial/PIN (frame-stamped). Model selection and parts queries require quoting the serial."
+Order Picker,BOP-9,"Use the truck data plate; record the full serial as printed."
+Pallet/Stacker,EPR/EST,"Use the machine identification plate; record the full serial."

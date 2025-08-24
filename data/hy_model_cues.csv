@@ -1,0 +1,11 @@
+cue,family,notes,example_models
+15/18/20BT-9U,Electric Counterbalance,"3-wheel electric CB (9U series)","15BT-9U, 18BT-9U, 20BT-9U"
+25/30/32/35B-9U,Electric Counterbalance,"4-wheel electric CB (9U series)","25B-9U, 30B-9U, 32B-9U, 35B-9U"
+25/30/32BC-9U,Electric Counterbalance,"4-wheel electric CB (Li-ion capable variant)","25BC-9U, 30BC-9U, 32BC-9U"
+25/30/33L-9A,IC Counterbalance,"LPG sit-down (9A series)","25L-9A, 30L-9A, 33LN-9A"
+50/60/70/80D-9,IC Counterbalance,"Diesel sit-down (9 series)","50D-9, 60D-9, 70D-9, 80D-9"
+15/18/20/25BRJ-9,Reach Truck,"Sit-in moving-mast reach (9 series)","15BRJ-9, 20BRJ-9, 25BRJ-9"
+15/18/20/23BRP-9,Reach Truck,"Stand-in reach (9 series)","15BRP-9, 18BRP-9, 23BRP-9"
+15/18/20/25BR-X,Reach Truck,"BR-X reach series","15BR-X, 25BR-X"
+13BOP-9,Order Picker,"Electric order picker (selector)",13BOP-9
+20/25EPR,Pallet/Stacker,"Electric pallet truck (EPR)","20EPR, 25EPR"
