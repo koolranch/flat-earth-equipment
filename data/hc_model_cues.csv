@@ -1,0 +1,8 @@
+cue,family,notes,example_models
+CPD,Electric Counterbalance,"Electric counterbalance (A/X/XC/XH series incl. Li-ion)","CPD25-XC, CPD35-XC, CPD20-A"
+CPCD,IC Counterbalance,"Diesel counterbalance (XF/R series)","CPCD30-XF, CPCD35-R"
+CPQ,IC Counterbalance,"LPG counterbalance (XF/R series)","CPQ30-XF"
+CQD,Reach Truck,"Electric reach trucks (A/XC series)","CQD16-AC5, CQD20-XC"
+CBD,Pallet Truck,"Electric pallet trucks (A/Mini/Hi ranges)","CBD20-AC, CBD15-A2"
+CDD,Stacker,"Electric stackers (A/Mini ranges)","CDD16-ES, CDD12-A2MJ"
+CJD,Order Picker,"A Series order pickers (low/medium/high level)","CJD12-AC1-H, CJD07-AC1-M"

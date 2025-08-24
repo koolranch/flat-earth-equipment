@@ -1,0 +1,8 @@
+model_code,note
+CPD (A/X/XC/XH),"Manuals state each forklift has a unique frame series number marked on the front right side of the frame; also present on the data plate. Quote serial for parts."
+CPCD (XF/R),"'Serial number printing position' shown in manuals: unique chassis serial at the front right of the chassis or right middle of truck body (hydraulic tank); quote serial for parts."
+CPQ (XF/R),"LPG variant follows the same chassis-serial and data-plate conventions; record truck serial and engine serial."
+CQD Reach,"Hangcha reach manuals show truck data plate; use serial when ordering spare parts."
+CBD Pallet,"Manuals include model coding with 'Product serial number' field; use data plate and quote serial for parts/service."
+CDD Stacker,"Manuals explicitly: 'For queries regarding the stacker or ordering spare parts please quote the stacker serial number.'"
+CJD Order Picker,"A Series order picker manuals follow data-plate + serial workflow; record serial exactly as shown."
