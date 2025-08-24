@@ -1,0 +1,20 @@
+cue,family,notes,example_models
+XE210C,Excavator,"XE series hydraulic excavator; manual instructs recording machine and engine identification numbers",XE210C
+XE55U,Excavator,"Mini/compact excavator; parts docs reference PIN + engine number",XE55U
+XE35U,Excavator,"Mini excavator",XE35U
+XE155UCR,Excavator,"Reduced tail-swing excavator",XE155UCR
+ZL50GN,Wheel Loader,"50-class loader (legacy naming)",ZL50GN
+XC958U,Wheel Loader,"US lineup wheel loader",XC958U
+XS183,Roller (Single Drum),"Soil compactor (XS series)",XS183
+XS223,Roller (Single Drum),"Soil compactor (XS series)",XS223
+XD120,Roller (Tandem),"Light tandem roller (XD series)",XD120
+XD83,Roller (Tandem),"Tandem vibratory roller",XD83
+XP165U,Roller (Pneumatic),"Pneumatic tyre roller (XP series)",XP165U
+GR165,Motor Grader,"Motor grader family (GR)",GR165
+XG1930AC,MEWP (Scissor),"Electric scissor (XG series)",XG1930AC
+XG1930DC,MEWP (Scissor),"Electric scissor (XG series)",XG1930DC
+XG0807AC,MEWP (Scissor),"Narrow scissor (XG series)",XG0807AC
+XGS50E,MEWP (Telescopic),"Telescopic boom (XGS)",XGS50E
+XGS58E,MEWP (Telescopic),"Telescopic boom (XGS)",XGS58E
+XGS28E,MEWP (Telescopic),"Telescopic boom (XGS)",XGS28E
+XGA16,MEWP (Articulated),"Articulated boom (XGA)",XGA16

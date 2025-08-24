@@ -1,0 +1,10 @@
+equipment_type,series,location_notes
+Excavator,XE series,"Use the machine nameplate/PIN (complete machine number) and the engine manufacturing number; record both for parts and support as manuals instruct."
+Wheel Loader,XC/ZL series,"Use the machine nameplate/PIN on the machine; also capture engine serial from the engine plate when available."
+Roller (Single Drum),XS series,"Use the machine nameplate for the machine serial/PIN; engine has its own type/serial plate—record both where accessible."
+Roller (Tandem),XD series,"Use the machine nameplate for the machine serial/PIN; record engine serial from engine plate as needed."
+Roller (Pneumatic),XP series,"Use the machine nameplate for the machine serial/PIN; record engine serial from engine plate as needed."
+Motor Grader,GR series,"Use the machine nameplate/PIN and, when available, engine serial from the engine plate."
+MEWP (Scissor),XG series,"Record the machine serial/PIN from the identification label on the machine; treat the label as the authoritative serial for parts/service."
+MEWP (Telescopic),XGS series,"Record the machine serial/PIN from the identification label; manuals tie documentation to the machine's serial."
+MEWP (Articulated),XGA series,"Record the machine serial/PIN from the identification label; keep the manual with the unit and note the serial in service records."
