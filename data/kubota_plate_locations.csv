@@ -1,0 +1,7 @@
+equipment_type,series,location_notes
+Compact Excavator,KX-series,"Data tag on the front of the upper structure; record the full Product Identification Number (PIN) and engine serial."
+Compact Excavator,U-series,"Data tag on the front of the upper structure; record the full PIN and engine serial."
+Wheel Loader,R-series,"Data tag on the right side of the front frame; record the full PIN and engine serial."
+Tractor Loader Backhoe,TLB-series,"Data tag on the left side of the main frame; record the full PIN and engine serial."
+Compact Track Loader,SVL-series,"Plate at the left front outside the cab, approximately 3 inches below the door sill; record the full PIN and engine serial."
+Skid Steer Loader,SSV-series,"Use the machine identification plate; record the full PIN and engine serial as shown in the operator's manual."
