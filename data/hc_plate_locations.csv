@@ -1,0 +1,7 @@
+equipment_type,series,location_notes
+Electric Counterbalance,A/X/XC/XH,"Truck serial number/series is printed on the front right side of the frame/chassis; also shown on the truck data plate. Record the full serial exactly as shown."
+IC Counterbalance,XF/R,"Truck body/chassis serial is printed on the right side/front-right of the frame (some manuals: right middle on hydraulic tank). Engine serial appears on engine plate. Record both when ordering parts."
+Reach Truck,CQD (A/XC),"Use the truck data plate; record the full serial/PIN. Manuals follow 'quote serial for parts' convention."
+Pallet Truck,CBD (Mini/Hi/Basic),"Use the machine data plate. Product label includes 'Serial No.'; record it exactly as shown before requesting parts."
+Stacker,CDD (Mini/ES),"Use the stacker data plate; manuals direct: 'For queries or ordering spare parts please quote the stacker serial number'."
+Order Picker,CJD (A Series),"Use the data plate on the truck; quote the serial number for queries/parts. Low/medium/high-level order pickers share this convention."
