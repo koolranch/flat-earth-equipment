@@ -1,0 +1,7 @@
+cue,family,notes,example_models
+HA,Articulating Boom,"Engine/electric articulating booms (RTJ range, classic PX/SPX).","HA16 RTJ PRO, HA61 RTJ PRO, HA20 RTJ PRO"
+HT,Telescopic Boom,"Engine telescopic booms (RTJ).","HT43 RTJ PRO, HT67 RTJ PRO, HT85 RTJ PRO"
+COMPACT,Scissor (Electric/RT),"Electric and RT scissors (DX/H/SX).","COMPACT 10, COMPACT 12, COMPACT 14, COMPACT 12DX, H15SX"
+OPTIMUM,Scissor (Electric),"Narrow electric scissors.","OPTIMUM 1931E, OPTIMUM 8"
+STAR,Vertical Mast,"Masts incl. STAR 10/26J.","STAR 10, STAR 26J"
+HTA,Trailer Boom,"Trailer-mounted booms (e.g., 3522A/4527A/5533A).","3522A, HTA16P, 5533A"
