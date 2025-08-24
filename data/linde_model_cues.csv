@@ -1,0 +1,26 @@
+cue,family,notes,example_models
+X35,Electric Counterbalance,"High-performance electric (X-series)",X35
+X30,Electric Counterbalance,"High-performance electric (X-series)",X30
+X25,Electric Counterbalance,"High-performance electric (X-series)",X25
+X20,Electric Counterbalance,"High-performance electric (X-series)",X20
+E50,Electric Counterbalance,"E-series",E35–E50
+E35,Electric Counterbalance,"E-series",E35–E50
+E30,Electric Counterbalance,"E-series",E25–E35
+E25,Electric Counterbalance,"E-series",E25–E35
+E20,Electric Counterbalance,"E-series",E16–E20 / E18–E20
+E18,Electric Counterbalance,"E-series",E18–E20
+E16,Electric Counterbalance,"E-series",E16–E20
+H50,IC Counterbalance,"IC H-series",H35–H50
+H45,IC Counterbalance,"IC H-series",H35–H50
+H40,IC Counterbalance,"IC H-series",H35–H50
+H35,IC Counterbalance,"IC H-series",H20–H35 / H35–H50
+H30,IC Counterbalance,"IC H-series",H20–H35
+H25,IC Counterbalance,"IC H-series",H20–H35
+H20,IC Counterbalance,"IC H-series",H20–H35
+R20,Reach Truck,"R-series (reach)",R14–R20
+R16,Reach Truck,"R-series (reach)",R14–R20
+R14,Reach Truck,"R-series (reach)",R14–R20
+L20,Pallet Stacker,"L-series (stacker)",L14–L20
+L16,Pallet Stacker,"L-series (stacker)",L14–L20
+L14,Pallet Stacker,"L-series (stacker)",L14–L20
+V10,Order Picker,"Vertical order picker (V-series)",V10
