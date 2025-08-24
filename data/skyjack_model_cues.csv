@@ -1,0 +1,29 @@
+cue,family,notes,example_models
+SJ3219,Scissor Lift,"Compact electric scissor",SJ3219
+SJ3226,Scissor Lift,"Compact electric scissor",SJ3226
+SJ4632,Scissor Lift,"Conventional electric scissor",SJ4632
+SJ4740,Scissor Lift,"Conventional electric scissor",SJ4740
+SJ3215,Scissor Lift,"Compact scissor",SJ3215
+SJ3220,Scissor Lift,"Compact scissor",SJ3220
+SJIII 3219,Scissor Lift,"Legacy naming",SJIII 3219
+SJIII 3226,Scissor Lift,"Legacy naming",SJIII 3226
+SJ6826 RT,Rough-Terrain Scissor,"RT scissor",SJ6826 RT
+SJ6832 RT,Rough-Terrain Scissor,"RT scissor",SJ6832 RT
+SJ8831 RT,Rough-Terrain Scissor,"Large RT scissor",SJ8831 RT
+SJ8841 RT,Rough-Terrain Scissor,"Large RT scissor",SJ8841 RT
+SJ9233 RT,Rough-Terrain Scissor,"Full-size RT scissor",SJ9233 RT
+SJ9243 RT,Rough-Terrain Scissor,"Full-size RT scissor",SJ9243 RT
+SJ9253 RT,Rough-Terrain Scissor,"Full-size RT scissor",SJ9253 RT
+SJ9664 RT,Rough-Terrain Scissor,"Full-size RT scissor",SJ9664 RT
+SJ46 AJ,Articulating Boom,"Articulating boom",SJ46 AJ
+SJ51 AJ,Articulating Boom,"Articulating boom",SJ51 AJ
+SJ63 AJ,Articulating Boom,"Articulating boom",SJ63 AJ
+SJ85 AJ,Articulating Boom,"Articulating boom",SJ85 AJ
+SJ40 T,Telescopic Boom,"Telescopic boom",SJ40 T
+SJ45 T,Telescopic Boom,"Telescopic boom",SJ45 T
+SJ61 T,Telescopic Boom,"Telescopic boom",SJ61 T
+SJ66 T,Telescopic Boom,"Telescopic boom",SJ66 T
+SJ86 T,Telescopic Boom,"Telescopic boom",SJ86 T
+SJ12,Vertical Mast,"Vertical mast",SJ12
+SJ16,Vertical Mast,"Vertical mast",SJ16
+SJ20 E,Vertical Mast,"Vertical mast (E-Drive)",SJ20 E
