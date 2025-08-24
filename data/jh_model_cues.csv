@@ -1,0 +1,13 @@
+cue,family,notes,example_models
+EFG,Electric Counterbalance,"Electric CB truck family",EFG 213–220/316k/320
+DFG,IC Counterbalance,"Diesel CB truck family",DFG 316–550
+TFG,IC Counterbalance,"LPG CB truck family",TFG 316–550
+ETV,Reach Truck,"Stand-on/seat reach trucks",ETV 110–116/320–325
+ETM,Reach Truck,"Stand-in reach/moving-mast",ETM 214–216
+ETVQ,Four-Way Reach,"4-way reach for long loads",ETV Q20/Q25
+EJE,Pallet Truck,"Electric pedestrian pallet",EJE 114/116/118/120/225
+EJC,Stacker,"Pedestrian stacker",EJC 110/112/214
+EJD,Stacker,"Double stacker",EJD 220
+ERC,Stacker,"Ride-on stacker",ERC 214/216
+EKS,Order Picker,"High/medium-level order pickers",EKS 110/310/314/515
+EKX,VNA (Turret),"Very narrow aisle (turret)",EKX 410/513/515

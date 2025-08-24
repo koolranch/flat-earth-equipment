@@ -1,0 +1,9 @@
+equipment_type,series,location_notes
+Electric Counterbalance,EFG,"Use the truck data/identification plate on the truck body; quote the full truck serial for queries/parts. Serial is also engraved on the chassis (location varies by model)."
+IC Counterbalance,DFG/TFG,"Use the truck data plate on the body/frame; record the full serial exactly as shown. Typical locations are in the operator area or chassis; match attachments to capacity plates."
+Reach Truck,ETV/ETM,"Truck data plate present; manuals show the truck serial engraved on the chassis—record it exactly."
+Four-Way Reach,ETVQ,"Manuals include 'serial number position'; record the full serial from the truck data plate or engraved chassis."
+Pallet Truck,EJE,"Identification points & data plate section present in manuals; record the full serial from the plate."
+Stacker,EJC/EJD/ERC,"Use the truck data plate; record full serial for parts/service."
+Order Picker,EKS,"Manuals show 'Serial number engraved on chassis under the battery cover'; record full serial."
+VNA (Turret),EKX,"Identification points & data plates section present; quote the truck serial number for parts/service."
