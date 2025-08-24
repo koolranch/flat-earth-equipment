@@ -1,0 +1,5 @@
+model_code,serial_range,notes
+U35,SN 20000–29999,"Dealer catalog shows this range for U35"
+KX057-4,From 25001,"Workshop manual serial header"
+KX080-4,From 30666 (component group),"Parts page shows S.No FROM for subassemblies"
+U35-4,Component S/N break: PIN <=11010 (meter assy),"Official shop page shows S/N gating for part"
