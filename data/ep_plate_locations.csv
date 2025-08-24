@@ -1,0 +1,8 @@
+equipment_type,series,location_notes
+Counterbalance Forklift,EFL-series,"Use the truck data/specification plate and the frame marking; record the full serial/PIN exactly as shown."
+Counterbalance Forklift,CPD-series,"Serial/PIN is on the specification plate and marked on the frame; quote the serial when requesting parts/service."
+Reach Truck,CQD/CQE,"Truck data plate lists Serial no.; for parts/service, quote the truck serial number."
+Pallet Truck,EPT-series,"Ordering parts requires the vehicle body serial number; record the serial from the identification label/plate."
+Stacker,ES/ESR,"Use the machine identification plate; record the full serial/PIN (and battery info where applicable)."
+Order Picker,JX-series,"Use the truck data plate; record the full serial/PIN exactly as shown."
+Tow Tractor,QDD-series,"Use the identification/data plate; record the full serial/PIN."

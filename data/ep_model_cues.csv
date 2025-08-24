@@ -1,0 +1,24 @@
+cue,family,notes,example_models
+EFL302,Counterbalance Forklift,"Li-ion EFL",EFL302
+EFL352,Counterbalance Forklift,"Li-ion EFL",EFL352
+EFL252,Counterbalance Forklift,"Li-ion EFL",EFL252
+EFL253,Counterbalance Forklift,"Li-ion EFL (new gen)",EFL253
+EFL303,Counterbalance Forklift,"Li-ion EFL (new gen)",EFL303
+EFL353,Counterbalance Forklift,"Li-ion EFL (new gen)",EFL353
+EFL181,Counterbalance Forklift,"Entry-level EFL",EFL181
+CPD50L1,Counterbalance Forklift,"Li-ion CPD 5.0t",CPD50L1
+CPD35L1,Counterbalance Forklift,"Li-ion CPD 3.5t",CPD35L1
+CPD30L1,Counterbalance Forklift,"Li-ion CPD 3.0t",CPD30L1
+CPD25L1,Counterbalance Forklift,"Li-ion CPD 2.5t",CPD25L1
+CPD20L1,Counterbalance Forklift,"Li-ion CPD 2.0t",CPD20L1
+CQD20,Reach Truck,"Reach truck (CQD series)",CQD20
+CQD16,Reach Truck,"Reach truck (CQD series)",CQD16
+CQE15S,Reach Truck,"Stand-in reach (CQE series)",CQE15S
+EPT12-EZ,Pallet Truck,"Light electric pallet truck",EPT12-EZ
+EPT20-15ET2L,Pallet Truck,"Walkie pallet truck",EPT20-15ET2L
+ES12-12WA,Stacker,"Walkie stacker (WA)",ES12-12WA
+ESR151,Stacker,"Ride stacker",ESR151
+JX0,Order Picker,"Low-level OP",JX0
+JX1,Order Picker,"Mid-level OP",JX1
+QDD10,Tow Tractor,"Tow tractor",QDD10
+QDD301T,Tow Tractor,"Tow tractor",QDD301T
