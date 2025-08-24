@@ -1,0 +1,16 @@
+cue,family,notes,example_models
+R260,Skid Steer,"Radial lift skid steer",R260
+R220,Skid Steer,"Radial lift skid steer",R220
+R190,Skid Steer,"Radial lift skid steer",R190
+R165,Skid Steer,"Radial lift skid steer",R165
+R135,Skid Steer,"Radial lift skid steer",R135
+V330,Skid Steer,"Vertical lift skid steer",V330
+V270,Skid Steer,"Vertical lift skid steer",V270
+RT255,Track Loader,"Compact track loader",RT255
+RT215,Track Loader,"Compact track loader",RT215
+RT210,Track Loader,"Compact track loader",RT210
+RT175,Track Loader,"Compact track loader",RT175
+RT105,Track Loader,"Compact track loader",RT105
+RS6-42,Telehandler,"Telescopic handler",RS6-42
+RS6-34,Telehandler,"Telescopic handler",RS6-34
+AL650,Articulated Loader,"Articulated loader",AL650

@@ -1,0 +1,7 @@
+model_code,serial_range,notes
+RT175,"275000 & above","Operator manual range"
+RT210,"GHL320001 & above","Parts manual range"
+RT215,"GHL350001 & above","Parts manual range"
+RS6-42,"RS642001 & above","Service manual range"
+RS6-34,"RS634001 & above","Service manual range"
+AL650,"AL650001 & above","Parts manual range"
