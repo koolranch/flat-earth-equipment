@@ -1,0 +1,7 @@
+model_code,note
+STAR 10,"Manual states the identification plate is fixed to the right rear of the chassis; a constructor's plate is at the rear of the mast. Provide type + serial for parts/service."
+OPTIMUM 1931E,"Operator/maintenance docs specify the manufacturer's identification plate is fixed on the chassis; quote the serial number for any request."
+COMPACT 12,"Scissor manuals (COMPACT series) indicate the manufacturer's identification plate on chassis; serial on plate must be quoted for parts."
+HA16 RTJ PRO,"Boom manuals state a plate on the chassis contains machine identification (type/serial). Supply serial for inquiries/parts."
+HT67 RTJ PRO,"Telescopic boom manuals require model + serial when communicating with service; use the chassis identification plate to capture the serial."
+3522A / HTA16P,"Trailer boom operator manuals require quoting the serial number from the manufacturer/data plate on the chassis."
