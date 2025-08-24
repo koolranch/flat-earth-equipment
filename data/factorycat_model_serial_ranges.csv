@@ -1,0 +1,5 @@
+model_code,serial_range,notes
+GTX,≤56483,"Front Wheel Assembly coverage 'Serial Number #56483 and Lower' (example parts split)."
+GTX,≥56484,"Front Wheel Assembly coverage 'Serial Number #56484 and Greater' (example parts split)."
+MICROMAG,≥94937,"Tank Assembly applies at 'Serial Number 94937 and greater' in parts manual."
+TR,≥57313,"Main Broom Driver/Idler Arm 'Serial Number 57313 and Higher' parts coverage example."

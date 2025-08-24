@@ -1,0 +1,10 @@
+model_code,note
+MICROMAG,"Operator/parts manuals call out the serial location on the control panel; parts books use S/N breaks for assemblies. Quote serial when ordering."
+MICROMINI,"Operator manual: serial on lower half of control panel; quote serial for support/parts."
+MAG-HD,"Operator manual: 'Locate Serial Number' on lower half of control panel; quote serial for parts/service."
+XR,"Operator manual: serial on lower half of control panel; provide model + serial for parts/service."
+GTX,"Operator/parts manuals: serial on steering pedestal; parts lists split by S/N (e.g., ≤56483 vs ≥56484)."
+GTR,"Operator manual: serial on lower half of steering column; provide full serial for any request."
+34,"Operator manual: serial on the control panel; quote serial for parts."
+TR,"Operator manual: serial on lower half of steering pedestal; parts lists often show S/N-based sections."
+PILOT,"Product line uses the same plate conventions (control/column); quote serial for parts."

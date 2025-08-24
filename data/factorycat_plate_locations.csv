@@ -1,0 +1,11 @@
+equipment_type,series,location_notes
+Walk-behind Scrubber,MICROMAG,"Serial number on the lower half of the control panel; record the serial exactly as shown."
+Walk-behind Scrubber,MICROMINI,"Serial number on the lower half of the control panel; record the serial exactly as shown."
+Walk-behind Scrubber,MINI-HD,"Serial number on the lower half of the control panel; record the serial exactly as shown."
+Walk-behind Scrubber,MAG-HD,"Serial number on the lower half of the control panel; record the serial exactly as shown."
+Rider Scrubber,XR,"Serial number on the lower half of the control panel (some manuals: steering column area). Capture full serial before parts/service."
+Rider Scrubber,GTX,"Serial number on the lower steering pedestal of the steering column; capture full serial from plate."
+Rider Scrubber,GTR,"Serial number on the lower half of the steering column; capture full serial from plate."
+Rider Scrubber,PILOT,"Serial number on the control/steering column area; capture full serial from plate."
+Walk-behind Sweeper,34,"Serial number on the lower half of the control panel; record full serial."
+Rider Sweeper,TR,"Serial number on the lower half of the steering pedestal/steering column; record full serial."

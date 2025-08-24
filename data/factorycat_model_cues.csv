@@ -1,0 +1,11 @@
+cue,family,notes,example_models
+MICROMAG,Walk-behind Scrubber,"Micro walk-behind scrubber.",MICROMAG
+MICROMINI,Walk-behind Scrubber,"Compact walk-behind scrubber.",MICROMINI
+MINI-HD,Walk-behind Scrubber,"Mid-size walk-behind scrubber.",MINI-HD
+MAG-HD,Walk-behind Scrubber,"Large walk-behind scrubber.",MAG-HD
+GTX,Rider Scrubber,"Compact rider scrubber.",GTX
+GTR,Rider Scrubber,"Mid-size rider scrubber.",GTR
+XR,Rider Scrubber,"Large rider scrubber.",XR
+PILOT,Rider Scrubber,"Pilot/Pilot-HD rider scrubber line.",PILOT
+34,Walk-behind Sweeper,"Walk-behind sweeper.",34
+TR,Rider Sweeper,"Rider sweeper.",TR
