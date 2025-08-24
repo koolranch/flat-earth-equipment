@@ -1,150 +1,141 @@
-import { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import { AlertTriangle, CheckCircle, Phone, Mail, Search } from 'lucide-react';
+"use client";
+import { useState, useMemo } from "react";
 
-export const metadata: Metadata = {
-  title: "Gehl Equipment Serial Number Lookup | Flat Earth Equipment",
-  description: "Find your Gehl equipment's year of manufacture using our comprehensive serial number guide. Includes model years from 1980 to present.",
-  alternates: {
-    canonical: "/parts/construction-equipment-parts/gehl-serial-number-lookup",
-  },
+type PlateTip = { equipment_type:string; series:string|null; location_notes:string; };
+type RangeRow = { model_code:string; serial_range:string; notes:string|null };
+type ModelNote = { model_code:string; note:string };
+type ApiResp = {
+  input?: { serial:string; model:string|null };
+  parsed?: { family:string|null };
+  plate?: { guidance: PlateTip[] };
+  serialRanges?: RangeRow[];
+  modelNotes?: ModelNote[];
+  notes?: string[];
+  error?: string;
 };
 
-export default function GehlSerialNumberPage() {
+export default function Page(){
+  const [serial, setSerial] = useState("");
+  const [model, setModel] = useState("");
+  const [data, setData] = useState<ApiResp|null>(null);
+  const [loading, setLoading] = useState(false);
+
+  // Minimal CLS: reserve result panel height once user types
+  const reserve = useMemo(() => (serial || model) ? "min-h-[320px]" : "", [serial, model]);
+
+  async function onSubmit(e: React.FormEvent){
+    e.preventDefault(); setLoading(true); setData(null);
+    const res = await fetch("/api/gehl-lookup",{
+      method:"POST", headers:{ "content-type":"application/json" },
+      body: JSON.stringify({ serial, model: model || undefined })
+    });
+    const json = await res.json(); setData(json); setLoading(false);
+  }
+
   return (
-    <main className="max-w-4xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold text-slate-900 mb-6">
-        Gehl Equipment Serial Number Lookup Guide
-      </h1>
-      
-      <div className="prose prose-slate max-w-none">
-        <p className="text-lg text-slate-600 mb-8">
-          Use this guide to determine your Gehl equipment's year of manufacture based on its serial number. 
-          This information is crucial for ordering the correct replacement parts and maintaining your equipment.
-        </p>
+    <div className="mx-auto max-w-3xl px-4 py-10">
+      {/* Preserve keyphrase & heading pattern */}
+      <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">Gehl Serial Number Lookup</h1>
 
-        <div className="bg-slate-50 p-6 rounded-lg mb-8">
-          <h2 className="text-xl font-semibold mb-4">How to Find Your Serial Number</h2>
-          <p className="mb-4">
-            The serial number on Gehl equipment is typically located in one of these locations:
-          </p>
-          <ul className="list-disc pl-6 mb-4">
-            <li>On the frame near the right front wheel</li>
-            <li>On the data plate mounted to the overhead guard</li>
-            <li>On the frame near the hydraulic tank</li>
-            <li>On the engine block (for engine serial number)</li>
-          </ul>
-          <p>
-            The serial number is usually 8-10 digits long and may be preceded by letters indicating the model series.
-          </p>
-        </div>
+      {/* Preserve an intro paragraph above the tool (keep wording close to legacy if available) */}
+      <p className="mt-2 text-slate-700">
+        Find your Gehl Product Identification Number (PIN) and match it to the correct documentation. Enter your serial/PIN and optional model (e.g., R190/R220/R260, V270, RT175/RT210/RT215, RS6-42, AL650).
+      </p>
 
-        <h2 className="text-2xl font-semibold mb-4">Serial Number Year Guide</h2>
-        
-        <div className="overflow-x-auto">
-          <table className="min-w-full border-collapse">
-            <thead>
-              <tr className="bg-slate-100">
-                <th className="border p-3 text-left">Year</th>
-                <th className="border p-3 text-left">Serial Number Range</th>
-                <th className="border p-3 text-left">Model Series</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="border p-3">2023</td>
-                <td className="border p-3">GHL0000001+</td>
-                <td className="border p-3">V Series</td>
-              </tr>
-              <tr>
-                <td className="border p-3">2022</td>
-                <td className="border p-3">GHL0000001+</td>
-                <td className="border p-3">V Series</td>
-              </tr>
-              <tr>
-                <td className="border p-3">2021</td>
-                <td className="border p-3">GHL0000001+</td>
-                <td className="border p-3">V Series</td>
-              </tr>
-              <tr>
-                <td className="border p-3">2020</td>
-                <td className="border p-3">GHL0000001+</td>
-                <td className="border p-3">V Series</td>
-              </tr>
-              <tr>
-                <td className="border p-3">2019</td>
-                <td className="border p-3">GHL0000001+</td>
-                <td className="border p-3">V Series</td>
-              </tr>
-              <tr>
-                <td className="border p-3">2018</td>
-                <td className="border p-3">GHL0000001+</td>
-                <td className="border p-3">V Series</td>
-              </tr>
-              <tr>
-                <td className="border p-3">2017</td>
-                <td className="border p-3">GHL0000001+</td>
-                <td className="border p-3">V Series</td>
-              </tr>
-              <tr>
-                <td className="border p-3">2016</td>
-                <td className="border p-3">GHL0000001+</td>
-                <td className="border p-3">V Series</td>
-              </tr>
-              <tr>
-                <td className="border p-3">2015</td>
-                <td className="border p-3">GHL0000001+</td>
-                <td className="border p-3">V Series</td>
-              </tr>
-              <tr>
-                <td className="border p-3">2014</td>
-                <td className="border p-3">GHL0000001+</td>
-                <td className="border p-3">V Series</td>
-              </tr>
-            </tbody>
-          </table>
+      {/* Tool */}
+      <form onSubmit={onSubmit} className="mt-6 space-y-4 bg-white rounded-2xl p-5 shadow">
+        <div>
+          <label className="block text-sm font-medium mb-1">Serial / PIN</label>
+          <input className="w-full rounded-xl border px-3 py-2" placeholder="e.g., R190 … • RT210 … • RS6-42 …" value={serial} onChange={(e)=>setSerial(e.target.value)} required />
         </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Model (optional)</label>
+          <input className="w-full rounded-xl border px-3 py-2" placeholder="R135–R260 • V270/V330 • RT105–RT255 • RS6-34/42 • AL650" value={model} onChange={(e)=>setModel(e.target.value)} />
+          <p className="mt-1 text-xs text-slate-500">Tip: Parts/manuals often use serial-number ranges—match your serial for accuracy.</p>
+        </div>
+        <button type="submit" className="rounded-2xl bg-black text-white px-4 py-2 text-sm disabled:opacity-50" disabled={loading}>
+          {loading ? "Checking…" : "Check Serial"}
+        </button>
+      </form>
 
-        <div className="mt-8 bg-blue-50 p-6 rounded-lg">
-          <h2 className="text-xl font-semibold mb-4">Need Help Finding Your Serial Number?</h2>
-          <p className="mb-4">
-            Our parts specialists are available to help you locate your serial number and determine the correct year of manufacture. 
-            Contact us for assistance:
-          </p>
-          <ul className="list-none space-y-2">
-            <li className="flex items-center">
-              <Phone className="w-5 h-5 mr-2" />
-              <span>(307) 302-0043</span>
-            </li>
-            <li className="flex items-center">
-              <Mail className="w-5 h-5 mr-2" />
-              <span>parts@flatearthequipment.com</span>
-            </li>
-          </ul>
-        </div>
+      {/* Results + preserve layout to avoid CLS */}
+      <div className={`mt-6 rounded-2xl border p-5 bg-slate-50 ${reserve}`}>
+        {!data ? (
+          <p className="text-sm text-slate-500">Results will appear here after you submit your serial.</p>
+        ) : "error" in data && data.error ? (
+          <p className="text-red-600">Error: {data.error}</p>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+              <div className="rounded-xl bg-white p-3 border">
+                <div className="text-slate-500">Family</div>
+                <div className="font-medium">{data.parsed?.family || "—"}</div>
+              </div>
+              <div className="rounded-xl bg-white p-3 border">
+                <div className="text-slate-500">Serial ranges</div>
+                <div className="font-medium">{data.serialRanges?.length ? data.serialRanges.length : "—"}</div>
+              </div>
+              <div className="rounded-xl bg-white p-3 border">
+                <div className="text-slate-500">Inputs</div>
+                <div className="font-medium truncate">{data.input?.model || "—"} · {data.input?.serial}</div>
+              </div>
+            </div>
 
-        <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-4">Related Resources</h2>
-          <ul className="list-disc pl-6">
-            <li>
-              <Link href="/parts/construction-equipment-parts/gehl" className="text-blue-600 hover:underline">
-                Gehl Equipment Parts Catalog
-              </Link>
-            </li>
-            <li>
-              <Link href="/rental/construction-equipment/gehl" className="text-blue-600 hover:underline">
-                Gehl Equipment Rentals
-              </Link>
-            </li>
-            <li>
-              <Link href="/service/construction-equipment-maintenance" className="text-blue-600 hover:underline">
-                Construction Equipment Maintenance Services
-              </Link>
-            </li>
-          </ul>
-        </div>
+            <div className="mt-5">
+              <h3 className="font-semibold mb-2">Where to find it / What to record</h3>
+              <ul className="list-disc pl-6 mt-2 text-slate-700">
+                {data.plate?.guidance?.length ? data.plate.guidance.map((t,i)=>(
+                  <li key={i}>
+                    <span className="font-medium">{t.equipment_type}{t.series ? ` — ${t.series}` : ""}:</span> {t.location_notes}
+                  </li>
+                )) : <li>Use the machine's Product/ID plate; record the full serial exactly as shown.</li>}
+              </ul>
+            </div>
+
+            {data.serialRanges?.length ? (
+              <div className="mt-5">
+                <h3 className="font-semibold mb-2">Published serial-range notes</h3>
+                <ul className="list-disc pl-6 text-slate-700">
+                  {data.serialRanges.map((r,i)=>(
+                    <li key={i}><span className="font-medium">{r.model_code}</span>: {r.serial_range}{r.notes ? ` — ${r.notes}` : ""}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+
+            {data.modelNotes?.length ? (
+              <div className="mt-5">
+                <h3 className="font-semibold mb-2">Model-specific serial notes</h3>
+                <ul className="list-disc pl-6 text-slate-700">
+                  {data.modelNotes.map((r,i)=>(
+                    <li key={i}><span className="font-medium">{r.model_code}</span>: {r.note}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+
+            {data.notes?.length ? (
+              <div className="mt-4 text-xs text-slate-500 space-y-1">
+                {data.notes.map((n,i)=>(<p key={i}>• {n}</p>))}
+              </div>
+            ) : null}
+          </>
+        )}
       </div>
-    </main>
+
+      {/* Preserve/support legacy copy below the tool to keep topical depth & rankings */}
+      <section className="prose prose-slate mt-10">
+        {/* If you have legacy content on this page, keep its headings and internal anchors.
+           Replace this placeholder with your existing explanatory guide content and FAQs. */}
+        <h2>Where is my Gehl serial number?</h2>
+        <p>On skid steers (R/V), the model & serial decal is commonly on the left chassis upright. Track loaders (RT) and telehandlers (RS) use product plates and stamped serials as documented in their manuals.</p>
+
+        <h2>FAQs</h2>
+        <ul>
+          <li><strong>Do I get a model year from the serial?</strong> No—use the serial to select the correct parts/manuals.</li>
+          <li><strong>What else should I record?</strong> Engine serial (from the engine plate) and attachments where applicable.</li>
+        </ul>
+      </section>
+    </div>
   );
-} 
+}

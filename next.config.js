@@ -124,6 +124,13 @@ const nextConfig = {
       { source: '/parts/Old-Slug', destination: '/parts/new-slug', permanent: true },
       { source: '/parts/another-old-slug', destination: '/parts/another-new-slug', permanent: true },
       // Add more redirects as needed
+      
+      // Gehl serial lookup redirect to canonical ranking URL
+      {
+        source: "/gehl-serial-number-lookup",
+        destination: "/parts/construction-equipment-parts/gehl-serial-number-lookup",
+        permanent: true,
+      },
     ]
   },
 }
