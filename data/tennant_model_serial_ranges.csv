@@ -1,0 +1,6 @@
+model_code,serial_range,notes
+S30,"S/N 000000–006500; S/N 006501 and above","Service procedures reference changes to cyclonic chamber/dust tray flaps at 006501+."
+T20 (Gas/LPG),"S/N 001499 and below; S/N 001500 and above","Fuel filter location differs across this break in operator manual."
+M20 (Gas/LPG),"S/N 001999 and below; S/N 002000 and above","Fuel filter location differs across this break in operator manual."
+T300/T300e,"S/N 10000000–20000000 (example parts-manual coverage)","Parts catalog ranges; use your exact S/N to select the correct section."
+M20,"S/N 008000 and up (later parts-manual coverage)","Later manuals/coversets apply starting at 008000+; use exact S/N."

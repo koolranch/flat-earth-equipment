@@ -1,0 +1,10 @@
+model_code,note
+T300,"Operator manual includes 'SERIAL NUMBER LOCATION' page; use the machine data plate and record the serial exactly as shown."
+T300e,"Operator manual includes 'SERIAL NUMBER LOCATION' page; use the machine data plate and record the serial exactly as shown."
+T350,"Operator manual includes 'MACHINE SERIAL NUMBER LOCATION'; record serial from plate."
+T16,"Parts manual instructs: identify the machine serial number from the data plate before ordering parts."
+S20,"Parts manual instructs: identify the machine serial number from the data plate before ordering parts."
+S30,"Service/OPM content demonstrates S/N-based maintenance differences; always quote serial from plate."
+M20,"Parts/OPM content references S/N-based differences; quote serial from plate."
+T20,"Parts/OPM content references S/N-based differences; quote serial from plate."
+5700 (legacy),"Manual specifies: 'The serial number of your machine is printed on the machine data plate located as shown.'"
