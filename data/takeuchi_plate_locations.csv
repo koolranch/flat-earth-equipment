@@ -1,0 +1,6 @@
+equipment_type,series,location_notes
+Compact Excavator,TB-series,"Use the machine nameplate for the machine serial (PIN) and record the engine serial from its plate; manuals explicitly instruct recording both."
+Compact Track Loader,TL-series,"Use the machine identification/nameplate for the machine serial; also record engine serial when accessible; manuals say 'Do not remove the machine name plate.'"
+Wheel Loader,TW-series,"Use the machine nameplate for the serial; record engine serial from the engine type plate where available."
+Skid Steer Loader,TS-series,"Use the machine nameplate for the machine serial; record engine serial when accessible."
+Crawler Dumper,TCR-series,"Use the machine nameplate for the machine serial; record engine serial from its plate as recommended."

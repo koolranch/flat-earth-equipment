@@ -1,0 +1,7 @@
+model_code,serial_range,notes
+TL230 Series 2,Serial Number begins with 223100002,"Printed on official TL230 Series 2 spec sheet"
+TL12V2,S/N 412000006–,"Parts manual BR0Z001-4-0 shows this start"
+TL8,S/N 200800002–,"Parts manual BU8Z002-0-0 shows this start"
+TB290,S/N 190000001–,"Parts manual BM0Z001-2 notation"
+TB290,S/N 185100001–,"Parts manual BM3Z001-11-C notation"
+TB216,S/N 216100002–,"Operator's manual edition label indicates range"
