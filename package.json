@@ -24,6 +24,8 @@
     "seed:faults": "tsx scripts/seedFaultCodes.ts",
     "seed:faults:validate": "tsx scripts/seedFaultCodes.ts --brand=all --validate-only",
     "scaffold:es": "tsx scripts/scaffold-es-brand-content.ts",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
     "test:smoke": "tsx scripts/smoke-test.ts",
     "lh": "lighthouse http://localhost:3000/safety --quiet --preset=desktop --only-categories=performance,accessibility,seo",
     "axe": "axe http://localhost:3000/safety",
@@ -39,6 +41,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@playwright/test": "^1.55.0",
     "@supabase/supabase-js": "^2.54.0",
     "@types/axios": "^0.9.36",
     "@types/jsdom": "^21.1.7",
