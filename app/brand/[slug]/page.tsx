@@ -15,7 +15,7 @@ interface Brand {
   name: string;
   logo_url?: string;
   description?: string;
-  equipment_types: string[];
+  equipment_types?: string[];
   has_serial_lookup: boolean;
   has_fault_codes: boolean;
   website_url?: string;
@@ -66,7 +66,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     };
   }
 
-  const equipmentList = brand.equipment_types.join(', ');
+  const equipmentList = brand.equipment_types?.join(', ') || 'equipment';
   
   return {
     title: `${brand.name} Parts, Serial Lookup & Fault Codes | Flat Earth Equipment`,
@@ -120,7 +120,7 @@ export default async function BrandPage({ params }: { params: { slug: string } }
                 {brand.name} Equipment Support
               </h1>
               <p className="text-lg text-slate-600 mt-1">
-                Serial lookup, fault codes, and parts for {brand.equipment_types.join(', ')}
+                Serial lookup, fault codes, and parts for {brand.equipment_types?.join(', ') || 'equipment'}
               </p>
             </div>
           </div>
