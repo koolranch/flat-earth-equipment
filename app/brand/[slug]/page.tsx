@@ -12,6 +12,7 @@ import BrandFaqJsonLd from '@/components/brand/BrandFaqJsonLd';
 import SerialToolJsonLd from '@/components/seo/SerialToolJsonLd';
 import JsonLd from '@/components/seo/JsonLd';
 import BrandGuideBlock from '@/components/brand/BrandGuideBlock';
+import BrandFAQBlock from '@/components/brand/BrandFAQBlock';
 
 const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
 
@@ -237,6 +238,9 @@ export default async function BrandPage({ params }: { params: { slug: string } }
 
         {/* Brand Guide Section */}
         <BrandGuideBlock slug={brand.slug} name={brand.name} />
+
+        {/* Brand FAQ Section */}
+        <BrandFAQBlock slug={brand.slug} name={brand.name} url={`https://www.flatearthequipment.com/brand/${brand.slug}`} />
 
         {/* Additional Resources */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
