@@ -69,7 +69,7 @@ async function seedFaultsForBrand(brand: string, rows: FaultRow[]) {
   const chunkSize = 400;
   for (let i=0; i<items.length; i+=chunkSize) {
     const chunk = items.slice(i, i+chunkSize);
-    const { error } = await supabase.from('svc_fault_codes').insert(chunk, { returning: 'minimal' });
+    const { error } = await supabase.from('svc_fault_codes').insert(chunk);
     if (error) throw new Error(`[${brand}] insert chunk failed: ${error.message}`);
     console.log(`[${brand}] inserted ${Math.min(i+chunkSize, items.length)}/${items.length}`);
   }
@@ -87,7 +87,7 @@ async function seedRetrieval(brand: string, rows: { brand: string; model_pattern
     if (error) throw new Error(`[${brand}] delete retrieval failed: ${error.message}`);
   }
   if (items.length) {
-    const { error } = await supabase.from('svc_code_retrieval').insert(items, { returning: 'minimal' });
+    const { error } = await supabase.from('svc_code_retrieval').insert(items);
     if (error) throw new Error(`[${brand}] insert retrieval failed: ${error.message}`);
   }
 }
