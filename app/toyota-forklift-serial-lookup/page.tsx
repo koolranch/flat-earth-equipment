@@ -5,6 +5,7 @@ import Link from "next/link";
 import Script from "next/script";
 import { Search, CheckCircle, AlertTriangle, Calendar, Wrench } from "lucide-react";
 import BrandHubBanner from '@/components/brand/BrandHubBanner';
+import SerialToolJsonLd from '@/components/seo/SerialToolJsonLd';
 
 type LookupResponse = {
   input?: { model: string; serial: string; serialNum: number | null };
@@ -117,6 +118,10 @@ export default function ToyotaLookupPage() {
 
   return (
     <>
+      <SerialToolJsonLd 
+        name="Toyota Forklift Serial Number Lookup" 
+        url="/toyota-forklift-serial-lookup" 
+      />
       <Script id="toyota-lookup-structured-data" type="application/ld+json">
         {JSON.stringify(structuredData)}
       </Script>

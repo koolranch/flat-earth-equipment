@@ -5,6 +5,7 @@ import Link from "next/link";
 import Script from "next/script";
 import { Search, CheckCircle, AlertTriangle, MapPin, Wrench, Settings, Calendar } from "lucide-react";
 import BrandHubBanner from '@/components/brand/BrandHubBanner';
+import SerialToolJsonLd from '@/components/seo/SerialToolJsonLd';
 
 type ApiResponse = {
   input?: { serial: string; cleaned: string };
@@ -71,6 +72,10 @@ export default function HysterLookupPage() {
 
   return (
     <>
+      <SerialToolJsonLd 
+        name="Hyster Forklift Serial Number Lookup" 
+        url="/hyster-serial-number-lookup" 
+      />
       <Script id="hyster-lookup-structured-data" type="application/ld+json">
         {JSON.stringify(structuredData)}
       </Script>

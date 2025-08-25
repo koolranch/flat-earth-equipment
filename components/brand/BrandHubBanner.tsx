@@ -1,32 +1,36 @@
 'use client';
 
 import Link from 'next/link';
-import { track } from '@vercel/analytics/react';
-import { Card } from '@/components/ui/card';
 
 interface BrandHubBannerProps {
   slug: string;
-  brandName: string;
+  name: string;
 }
 
-export default function BrandHubBanner({ slug, brandName }: BrandHubBannerProps) {
+export default function BrandHubBanner({ slug, name }: BrandHubBannerProps) {
+  const handleClick = () => {
+    try {
+      // Fire Vercel Analytics event
+      (window as any).va?.('brand_hub_banner_click', { brand: slug });
+    } catch (error) {
+      // Silent fail for analytics
+      console.debug('Analytics tracking failed:', error);
+    }
+  };
+
   return (
-    <Card className="p-4 my-4 border-brand-border/60">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <div>
-          <div className="font-semibold">Explore the {brandName} Brand Hub</div>
-          <p className="text-sm text-muted-foreground">
-            Serial lookup, fault codes, and parts help — all in one place.
-          </p>
-        </div>
-        <Link
-          href={`/brand/${slug}?tab=serial`}
-          onClick={() => track('brand_hub_banner_click', { brand: slug })}
-          className="inline-flex items-center px-3 py-2 rounded-xl border hover:bg-accent transition"
-        >
-          Open {brandName} Hub
-        </Link>
-      </div>
-    </Card>
+    <div className="my-4 rounded-xl border p-4 bg-card">
+      <div className="font-semibold">Looking for more {name} help?</div>
+      <p className="text-sm text-muted-foreground">
+        Open the {name} Brand Hub to see serial lookup, fault codes, and parts assistance in one place.
+      </p>
+      <Link 
+        href={`/brand/${slug}`} 
+        className="inline-block mt-2 px-3 py-2 rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition-opacity" 
+        onClick={handleClick}
+      >
+        Open {name} Hub
+      </Link>
+    </div>
   );
 }

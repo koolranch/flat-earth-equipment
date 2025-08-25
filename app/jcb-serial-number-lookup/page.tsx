@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import BrandHubBanner from '@/components/brand/BrandHubBanner';
+import SerialToolJsonLd from '@/components/seo/SerialToolJsonLd';
 
 type PlateTip = { equipment_type: string; series: string | null; location_notes: string; };
 type Series = { code: string; example_note: string };
@@ -49,10 +50,15 @@ export default function Page() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10">
-      <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">JCB Serial Number Lookup</h1>
-      
-      <BrandHubBanner slug="jcb" brandName="JCB" />
+    <>
+      <SerialToolJsonLd 
+        name="JCB Serial Number Lookup" 
+        url="/jcb-serial-number-lookup" 
+      />
+      <div className="mx-auto max-w-3xl px-4 py-10">
+        <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">JCB Serial Number Lookup</h1>
+        
+        <BrandHubBanner slug="jcb" brandName="JCB" />
       
       <p className="mt-2 text-slate-600">
         Enter a JCB serial/PIN (and optional model). We'll show plate/stamped-frame locations by family,
@@ -200,6 +206,7 @@ export default function Page() {
           )}
         </div>
       )}
-    </div>
+      </div>
+    </>
   );
 }

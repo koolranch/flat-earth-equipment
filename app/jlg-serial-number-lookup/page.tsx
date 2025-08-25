@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import BrandHubBanner from '@/components/brand/BrandHubBanner';
+import SerialToolJsonLd from '@/components/seo/SerialToolJsonLd';
 
 type PlateTip = { equipment_type:string; series:string|null; location_notes:string; };
 type ApiResp = {
@@ -43,10 +44,15 @@ export default function Page(){
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10">
-      <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">JLG Serial Number Lookup</h1>
-      
-      <BrandHubBanner slug="jlg" brandName="JLG" />
+    <>
+      <SerialToolJsonLd 
+        name="JLG Serial Number Lookup" 
+        url="/jlg-serial-number-lookup" 
+      />
+      <div className="mx-auto max-w-3xl px-4 py-10">
+        <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">JLG Serial Number Lookup</h1>
+        
+        <BrandHubBanner slug="jlg" brandName="JLG" />
       
       <p className="mt-2 text-slate-600">
         Enter a JLG serial/PIN (and optional model). We'll show plate/stamped-frame locations by family,
@@ -173,6 +179,7 @@ export default function Page(){
           )}
         </div>
       )}
-    </div>
+      </div>
+    </>
   );
 }
