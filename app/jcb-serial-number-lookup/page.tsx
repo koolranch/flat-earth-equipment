@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import BrandHubBanner from '@/components/brand/BrandHubBanner';
 
 type PlateTip = { equipment_type: string; series: string | null; location_notes: string; };
 type Series = { code: string; example_note: string };
@@ -50,6 +51,9 @@ export default function Page() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
       <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">JCB Serial Number Lookup</h1>
+      
+      <BrandHubBanner slug="jcb" brandName="JCB" />
+      
       <p className="mt-2 text-slate-600">
         Enter a JCB serial/PIN (and optional model). We'll show plate/stamped-frame locations by family,
         infer the family from common JCB cues (3CX/4CX, Loadall 531-70/535-95/540-170, JS/220X, 150T/190T/3TS, 411/427/457, TM),

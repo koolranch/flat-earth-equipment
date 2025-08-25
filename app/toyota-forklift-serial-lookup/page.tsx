@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Script from "next/script";
 import { Search, CheckCircle, AlertTriangle, Calendar, Wrench } from "lucide-react";
+import BrandHubBanner from '@/components/brand/BrandHubBanner';
 
 type LookupResponse = {
   input?: { model: string; serial: string; serialNum: number | null };
@@ -144,6 +145,9 @@ export default function ToyotaLookupPage() {
             <h1 className="text-4xl font-bold text-slate-900 mb-2">
               Toyota Forklift Serial Number Lookup
             </h1>
+            
+            <BrandHubBanner slug="toyota" brandName="Toyota" />
+            
             <p className="text-xl text-slate-600">
               Find your Toyota forklift&apos;s estimated build year instantly
             </p>
