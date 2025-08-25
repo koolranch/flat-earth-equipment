@@ -8,9 +8,10 @@ export default function ShippingReturns() {
     <main className="mx-auto max-w-3xl px-4 py-12 prose prose-slate">
       <h1>Shipping & Returns</h1>
       <h2>Shipping</h2>
-      <p>We offer same-day shipping on in-stock parts for orders placed by 3 PM MST. We ship nationwide via UPS and FedEx.</p>
+      <p>We offer same-day shipping on in-stock parts for orders placed by 3 PM EST. We ship nationwide via UPS and FedEx.</p>
       <ul>
-        <li>Flat-rate $25 shipping fee</li>
+        <li>Free shipping on standard items</li>
+        <li>Large items requiring freight delivery ship at cost</li>
         <li>Expedited shipping options available at checkout</li>
       </ul>
       <h2>Returns & Exchanges</h2>
