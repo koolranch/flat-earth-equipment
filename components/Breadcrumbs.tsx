@@ -1,23 +1,44 @@
-import Link from "next/link";
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
-type Item = { href?: string; label: string };
-type Props = { items?: Item[]; trail?: { href: string; label: string }[] };
+interface BreadcrumbItem {
+  label: string;
+  href: string;
+  current?: boolean;
+}
 
-export default function Breadcrumbs({ items, trail }: Props){
-  const list: Item[] = items ?? trail ?? [];
+interface BreadcrumbsProps {
+  items: BreadcrumbItem[];
+}
+
+export function Breadcrumbs({ items }: BreadcrumbsProps) {
   return (
-    <nav aria-label="Breadcrumb" className="mb-4 text-sm">
-      <ol className="flex flex-wrap items-center gap-1 text-[var(--brand-muted)]">
-        {list.map((it, i) => (
-          <li key={i} className="flex items-center gap-1">
-            {it.href ? (
-              <Link href={it.href} className="hover:underline">{it.label}</Link>
-            ) : (
-              <span className="text-[var(--brand-ink)] font-medium">{it.label}</span>
-            )}
-            {i < list.length - 1 && <span className="mx-1">/</span>}
-          </li>
-        ))}
+    <nav className="flex" aria-label="Breadcrumb">
+      <ol className="flex items-center space-x-2">
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
+          
+          return (
+            <li key={item.href} className="flex items-center">
+              {index > 0 && (
+                <ChevronRight className="w-4 h-4 text-slate-400 mx-2" />
+              )}
+              
+              {isLast ? (
+                <span className="text-sm font-medium text-slate-900" aria-current="page">
+                  {item.label}
+                </span>
+              ) : (
+                <Link 
+                  href={item.href}
+                  className="text-sm font-medium text-slate-500 hover:text-slate-700 transition-colors"
+                >
+                  {item.label}
+                </Link>
+              )}
+            </li>
+          );
+        })}
       </ol>
     </nav>
   );

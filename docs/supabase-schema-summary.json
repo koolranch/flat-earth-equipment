@@ -1,0 +1,840 @@
+{
+  "migrationFiles": [
+    "/supabase/migrations/20240321000000_update_part_prices.sql",
+    "/supabase/migrations/20240326_create_parts_table.sql",
+    "/supabase/migrations/20240327_add_brand_logo_url.sql",
+    "/supabase/migrations/20240327_add_price_to_rental_equipment.sql",
+    "/supabase/migrations/20240327_create_rental_equipment_table.sql",
+    "/supabase/migrations/20240328_add_core_charge.sql",
+    "/supabase/migrations/20240328_add_price_sync_trigger.sql",
+    "/supabase/migrations/20240328_add_skid_steer_rentals.sql",
+    "/supabase/migrations/20240328_update_featured_parts.sql",
+    "/supabase/migrations/20240329_update_price_trigger.sql",
+    "/supabase/migrations/20240330_create_part_variants.sql",
+    "/supabase/migrations/20240331000000_fix_part_prices.sql",
+    "/supabase/migrations/20240331000001_create_fix_prices_function.sql",
+    "/supabase/migrations/20250105_fix_module1_complete.sql",
+    "/supabase/migrations/20250108_fix_eval_submissions_certificate_id.sql",
+    "/supabase/migrations/20250109_add_charger_specs.sql",
+    "/supabase/migrations/20250115_create_eval_submissions.sql",
+    "/supabase/migrations/20250124_karcher_lookup.sql",
+    "/supabase/migrations/20250523_module_rls.sql",
+    "/supabase/migrations/20250523_operatorsafety.sql",
+    "/supabase/migrations/20250524122152_add_available_seats_to_orders.sql",
+    "/supabase/migrations/20250524_create_get_renewals_due_function.sql",
+    "/supabase/migrations/20250603091332_add_module_type.sql",
+    "/supabase/migrations/20250603_add_game_asset_key.sql",
+    "/supabase/migrations/20250604_add_intro_url_module1.sql",
+    "/supabase/migrations/20250604_add_introduction_module.sql",
+    "/supabase/migrations/20250604_cleanup_duplicate_introductions.sql",
+    "/supabase/migrations/20250604_cleanup_duplicate_introductions_fixed.sql",
+    "/supabase/migrations/20250604_fix_module1_quiz_question.sql",
+    "/supabase/migrations/20250604_fix_module1_video.sql",
+    "/supabase/migrations/20250702155546_add_orders_system.sql",
+    "/supabase/migrations/20250702160302_create_customer_orders.sql",
+    "/supabase/migrations/20250812_green_data_quality.sql",
+    "/supabase/migrations/20250823133959_20250823_lookup_toyota_serial.sql",
+    "/supabase/migrations/20250823141419_20250823_public_hyster_lookup.sql",
+    "/supabase/migrations/20250823143402_20250823_public_bobcat_lookup.sql",
+    "/supabase/migrations/20250823144951_20250823_public_newholland_lookup.sql",
+    "/supabase/migrations/20250823152614_20250823_public_yale_lookup.sql",
+    "/supabase/migrations/20250823162017_20250823_public_raymond_lookup.sql",
+    "/supabase/migrations/20250823164851_20250823_genie_unique_indexes.sql",
+    "/supabase/migrations/20250823170259_20250823_toyota_lookup_unique.sql",
+    "/supabase/migrations/20250823171118_20250823_public_crown_lookup.sql",
+    "/supabase/migrations/20250823173951_20250823_public_clark_lookup.sql",
+    "/supabase/migrations/20250823174746_20250823_public_komatsu_lookup.sql",
+    "/supabase/migrations/20250823175602_20250823_public_cat_lookup.sql",
+    "/supabase/migrations/20250823181434_20250823_public_mitsubishi_lookup.sql",
+    "/supabase/migrations/20250823182533_20250823_public_doosan_lookup.sql",
+    "/supabase/migrations/20250823183443_20250823_public_unicarriers_lookup.sql",
+    "/supabase/migrations/20250823184457_20250823_public_jlg_lookup.sql",
+    "/supabase/migrations/20250823185904_20250823_public_jcb_lookup.sql",
+    "/supabase/migrations/20250823191322_20250823_public_case_lookup.sql",
+    "/supabase/migrations/20250823192227_20250823_public_toro_lookup.sql",
+    "/supabase/migrations/20250824010427_20250823_public_xcmg_lookup.sql",
+    "/supabase/migrations/20250824011651_20250823_public_sinoboom_lookup.sql",
+    "/supabase/migrations/20250824014201_20250823_public_takeuchi_lookup.sql",
+    "/supabase/migrations/20250824015628_20250823_public_kubota_lookup.sql",
+    "/supabase/migrations/20250824021002_20250823_public_ep_lookup.sql",
+    "/supabase/migrations/20250824022351_20250823_public_linde_lookup.sql",
+    "/supabase/migrations/20250824025344_20250823_public_skyjack_lookup.sql",
+    "/supabase/migrations/20250824131316_20250823_public_jh_lookup.sql",
+    "/supabase/migrations/20250824132539_20250823_public_gehl_lookup.sql",
+    "/supabase/migrations/20250824134854_20250824_public_hy_lookup.sql",
+    "/supabase/migrations/20250824140312_20250824_snl_manitou.sql",
+    "/supabase/migrations/20250824141603_20250824_public_hc_lookup.sql",
+    "/supabase/migrations/20250824212918_20250824_public_haulotte.sql",
+    "/supabase/migrations/20250824214415_20250824_public_lull.sql",
+    "/supabase/migrations/20250824215811_20250824_public_tennant.sql",
+    "/supabase/migrations/20250824_public_factorycat.sql",
+    "/supabase/migrations/add_repair_orders_table.sql",
+    "/supabase/migrations/add_unclaimed_purchases.sql",
+    "/supabase/migrations/training_shares.sql",
+    "/supabase/migrations/update_forklift_course_remove_beta.sql"
+  ],
+  "tables": [
+    "price_update_queue",
+    "parts",
+    "rental_equipment",
+    "part_variants",
+    "eval_submissions",
+    "karcher_models",
+    "karcher_plate_locations",
+    "karcher_serial_patterns",
+    "courses",
+    "modules",
+    "orders",
+    "enrollments",
+    "company_seats",
+    "customer_orders",
+    "order_line_items",
+    "lookup",
+    "hyster_plants",
+    "hyster_model_prefixes",
+    "bobcat_plate_locations",
+    "bobcat_serial_ranges",
+    "bobcat_module_dictionary",
+    "nh_plate_locations",
+    "nh_serial_ranges",
+    "nh_prefix_patterns",
+    "yale_plants",
+    "yale_model_prefixes",
+    "raymond_plate_locations",
+    "raymond_serial_rules",
+    "raymond_serial_ranges",
+    "raymond_model_families",
+    "genie_model_prefixes",
+    "genie_plate_locations",
+    "genie_serial_breaks",
+    "crown_model_prefixes",
+    "crown_plate_locations",
+    "crown_vin_year_map",
+    "clark_model_prefixes",
+    "clark_plate_locations",
+    "clark_vin_year_map",
+    "clark_legacy_year_map",
+    "clark_legacy_month_map",
+    "komatsu_model_prefixes",
+    "komatsu_plate_locations",
+    "komatsu_ic_model_code_key",
+    "komatsu_vin_year_map",
+    "cat_model_prefixes",
+    "cat_plate_locations",
+    "cat_vin_year_map",
+    "mitsu_model_prefixes",
+    "mitsu_plate_locations",
+    "mitsu_capacity_map",
+    "mitsu_vin_year_map",
+    "doosan_model_prefixes",
+    "doosan_plate_locations",
+    "doosan_capacity_map",
+    "doosan_vin_year_map",
+    "uc_model_prefixes",
+    "uc_plate_locations",
+    "uc_capacity_map",
+    "uc_vin_year_map",
+    "uc_series_examples",
+    "jlg_model_prefixes",
+    "jlg_plate_locations",
+    "jlg_es_country_prefix",
+    "jlg_vin_year_map",
+    "jcb_model_cues",
+    "jcb_plate_locations",
+    "jcb_vin_year_map",
+    "jcb_series_examples",
+    "case_model_cues",
+    "case_plate_locations",
+    "case_vin_year_map",
+    "case_series_examples",
+    "toro_model_cues",
+    "toro_plate_locations",
+    "toro_model_serial_ranges",
+    "xcmg_model_cues",
+    "xcmg_plate_locations",
+    "xcmg_model_serial_ranges",
+    "sinoboom_model_cues",
+    "sinoboom_plate_locations",
+    "sinoboom_model_serial_ranges",
+    "takeuchi_model_cues",
+    "takeuchi_plate_locations",
+    "takeuchi_model_serial_ranges",
+    "kubota_model_cues",
+    "kubota_plate_locations",
+    "kubota_model_serial_ranges",
+    "ep_model_cues",
+    "ep_plate_locations",
+    "ep_model_serial_notes",
+    "linde_model_cues",
+    "linde_plate_locations",
+    "linde_model_serial_notes",
+    "skyjack_model_cues",
+    "skyjack_plate_locations",
+    "skyjack_model_serial_ranges",
+    "jh_model_cues",
+    "jh_plate_locations",
+    "jh_model_serial_notes",
+    "gehl_model_cues",
+    "gehl_plate_locations",
+    "gehl_model_serial_ranges",
+    "gehl_model_serial_notes",
+    "hy_model_cues",
+    "hy_plate_locations",
+    "hy_model_serial_notes",
+    "hy_model_serial_ranges",
+    "manitou_serial_lookup",
+    "manitou_model_aliases",
+    "manitou_plate_locations",
+    "manitou_user_submissions",
+    "hc_model_cues",
+    "hc_plate_locations",
+    "hc_model_serial_notes",
+    "hc_model_serial_ranges",
+    "haulotte_model_cues",
+    "haulotte_plate_locations",
+    "haulotte_model_serial_notes",
+    "haulotte_user_submissions",
+    "lull_model_cues",
+    "lull_plate_locations",
+    "lull_model_serial_notes",
+    "lull_model_serial_ranges",
+    "lull_user_submissions",
+    "tennant_model_cues",
+    "tennant_plate_locations",
+    "tennant_model_serial_notes",
+    "tennant_model_serial_ranges",
+    "tennant_user_submissions",
+    "factorycat_model_cues",
+    "factorycat_plate_locations",
+    "factorycat_model_serial_notes",
+    "factorycat_model_serial_ranges",
+    "factorycat_user_submissions",
+    "repair_orders",
+    "unclaimed_purchases",
+    "training_shares"
+  ],
+  "serialTables": [
+    "karcher_serial_patterns",
+    "lookup",
+    "bobcat_serial_ranges",
+    "nh_serial_ranges",
+    "raymond_serial_rules",
+    "raymond_serial_ranges",
+    "genie_serial_breaks",
+    "toro_model_serial_ranges",
+    "xcmg_model_serial_ranges",
+    "sinoboom_model_serial_ranges",
+    "takeuchi_model_serial_ranges",
+    "kubota_model_serial_ranges",
+    "ep_model_serial_notes",
+    "linde_model_serial_notes",
+    "skyjack_model_serial_ranges",
+    "jh_model_serial_notes",
+    "gehl_model_serial_ranges",
+    "gehl_model_serial_notes",
+    "hy_model_serial_notes",
+    "hy_model_serial_ranges",
+    "manitou_serial_lookup",
+    "hc_model_serial_notes",
+    "hc_model_serial_ranges",
+    "haulotte_model_serial_notes",
+    "lull_model_serial_notes",
+    "lull_model_serial_ranges",
+    "tennant_model_serial_notes",
+    "tennant_model_serial_ranges",
+    "factorycat_model_serial_notes",
+    "factorycat_model_serial_ranges"
+  ],
+  "brandTables": [],
+  "partsTables": [
+    "parts"
+  ],
+  "rlsEnabled": [
+    {
+      "file": "/supabase/migrations/20240327_create_rental_equipment_table.sql",
+      "tables": [
+        "rental_equipment"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20240330_create_part_variants.sql",
+      "tables": [
+        "part_variants"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250115_create_eval_submissions.sql",
+      "tables": [
+        "eval_submissions"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250124_karcher_lookup.sql",
+      "tables": [
+        "karcher_models",
+        "karcher_plate_locations",
+        "karcher_serial_patterns"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250523_operatorsafety.sql",
+      "tables": [
+        "courses",
+        "modules",
+        "orders",
+        "enrollments",
+        "company_seats"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250702155546_add_orders_system.sql",
+      "tables": [
+        "customer_orders",
+        "order_line_items"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250702160302_create_customer_orders.sql",
+      "tables": [
+        "customer_orders"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250823141419_20250823_public_hyster_lookup.sql",
+      "tables": [
+        "hyster_plants",
+        "hyster_model_prefixes"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250823143402_20250823_public_bobcat_lookup.sql",
+      "tables": [
+        "bobcat_plate_locations",
+        "bobcat_serial_ranges",
+        "bobcat_module_dictionary"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250823144951_20250823_public_newholland_lookup.sql",
+      "tables": [
+        "nh_plate_locations",
+        "nh_serial_ranges",
+        "nh_prefix_patterns"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250823152614_20250823_public_yale_lookup.sql",
+      "tables": [
+        "yale_plants",
+        "yale_model_prefixes"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250823162017_20250823_public_raymond_lookup.sql",
+      "tables": [
+        "raymond_plate_locations",
+        "raymond_serial_rules",
+        "raymond_serial_ranges",
+        "raymond_model_families"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250823164851_20250823_genie_unique_indexes.sql",
+      "tables": [
+        "genie_model_prefixes",
+        "genie_plate_locations",
+        "genie_serial_breaks"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250823171118_20250823_public_crown_lookup.sql",
+      "tables": [
+        "crown_model_prefixes",
+        "crown_plate_locations",
+        "crown_vin_year_map"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250823173951_20250823_public_clark_lookup.sql",
+      "tables": [
+        "clark_model_prefixes",
+        "clark_plate_locations",
+        "clark_vin_year_map",
+        "clark_legacy_year_map",
+        "clark_legacy_month_map"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250823174746_20250823_public_komatsu_lookup.sql",
+      "tables": [
+        "komatsu_model_prefixes",
+        "komatsu_plate_locations",
+        "komatsu_ic_model_code_key",
+        "komatsu_vin_year_map"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250823175602_20250823_public_cat_lookup.sql",
+      "tables": [
+        "cat_model_prefixes",
+        "cat_plate_locations",
+        "cat_vin_year_map"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250823181434_20250823_public_mitsubishi_lookup.sql",
+      "tables": [
+        "mitsu_model_prefixes",
+        "mitsu_plate_locations",
+        "mitsu_capacity_map",
+        "mitsu_vin_year_map"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250823182533_20250823_public_doosan_lookup.sql",
+      "tables": [
+        "doosan_model_prefixes",
+        "doosan_plate_locations",
+        "doosan_capacity_map",
+        "doosan_vin_year_map"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250823183443_20250823_public_unicarriers_lookup.sql",
+      "tables": [
+        "uc_model_prefixes",
+        "uc_plate_locations",
+        "uc_capacity_map",
+        "uc_vin_year_map",
+        "uc_series_examples"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250823184457_20250823_public_jlg_lookup.sql",
+      "tables": [
+        "jlg_model_prefixes",
+        "jlg_plate_locations",
+        "jlg_es_country_prefix",
+        "jlg_vin_year_map"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250823185904_20250823_public_jcb_lookup.sql",
+      "tables": [
+        "jcb_model_cues",
+        "jcb_plate_locations",
+        "jcb_vin_year_map",
+        "jcb_series_examples"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250823191322_20250823_public_case_lookup.sql",
+      "tables": [
+        "case_model_cues",
+        "case_plate_locations",
+        "case_vin_year_map",
+        "case_series_examples"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250823192227_20250823_public_toro_lookup.sql",
+      "tables": [
+        "toro_model_cues",
+        "toro_plate_locations",
+        "toro_model_serial_ranges"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250824010427_20250823_public_xcmg_lookup.sql",
+      "tables": [
+        "xcmg_model_cues",
+        "xcmg_plate_locations",
+        "xcmg_model_serial_ranges"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250824011651_20250823_public_sinoboom_lookup.sql",
+      "tables": [
+        "sinoboom_model_cues",
+        "sinoboom_plate_locations",
+        "sinoboom_model_serial_ranges"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250824014201_20250823_public_takeuchi_lookup.sql",
+      "tables": [
+        "takeuchi_model_cues",
+        "takeuchi_plate_locations",
+        "takeuchi_model_serial_ranges"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250824015628_20250823_public_kubota_lookup.sql",
+      "tables": [
+        "kubota_model_cues",
+        "kubota_plate_locations",
+        "kubota_model_serial_ranges"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250824021002_20250823_public_ep_lookup.sql",
+      "tables": [
+        "ep_model_cues",
+        "ep_plate_locations",
+        "ep_model_serial_notes"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250824022351_20250823_public_linde_lookup.sql",
+      "tables": [
+        "linde_model_cues",
+        "linde_plate_locations",
+        "linde_model_serial_notes"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250824025344_20250823_public_skyjack_lookup.sql",
+      "tables": [
+        "skyjack_model_cues",
+        "skyjack_plate_locations",
+        "skyjack_model_serial_ranges"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250824131316_20250823_public_jh_lookup.sql",
+      "tables": [
+        "jh_model_cues",
+        "jh_plate_locations",
+        "jh_model_serial_notes"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250824132539_20250823_public_gehl_lookup.sql",
+      "tables": [
+        "gehl_model_cues",
+        "gehl_plate_locations",
+        "gehl_model_serial_ranges",
+        "gehl_model_serial_notes"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250824134854_20250824_public_hy_lookup.sql",
+      "tables": [
+        "hy_model_cues",
+        "hy_plate_locations",
+        "hy_model_serial_notes",
+        "hy_model_serial_ranges"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250824140312_20250824_snl_manitou.sql",
+      "tables": [
+        "manitou_serial_lookup",
+        "manitou_model_aliases",
+        "manitou_plate_locations",
+        "manitou_user_submissions"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250824141603_20250824_public_hc_lookup.sql",
+      "tables": [
+        "hc_model_cues",
+        "hc_plate_locations",
+        "hc_model_serial_notes",
+        "hc_model_serial_ranges"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250824212918_20250824_public_haulotte.sql",
+      "tables": [
+        "haulotte_model_cues",
+        "haulotte_plate_locations",
+        "haulotte_model_serial_notes",
+        "haulotte_user_submissions"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250824214415_20250824_public_lull.sql",
+      "tables": [
+        "lull_model_cues",
+        "lull_plate_locations",
+        "lull_model_serial_notes",
+        "lull_model_serial_ranges",
+        "lull_user_submissions"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250824215811_20250824_public_tennant.sql",
+      "tables": [
+        "tennant_model_cues",
+        "tennant_plate_locations",
+        "tennant_model_serial_notes",
+        "tennant_model_serial_ranges",
+        "tennant_user_submissions"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/20250824_public_factorycat.sql",
+      "tables": [
+        "factorycat_model_cues",
+        "factorycat_plate_locations",
+        "factorycat_model_serial_notes",
+        "factorycat_model_serial_ranges",
+        "factorycat_user_submissions"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/add_repair_orders_table.sql",
+      "tables": [
+        "repair_orders"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/add_unclaimed_purchases.sql",
+      "tables": [
+        "unclaimed_purchases"
+      ]
+    },
+    {
+      "file": "/supabase/migrations/training_shares.sql",
+      "tables": [
+        "training_shares"
+      ]
+    }
+  ],
+  "policies": [
+    "allow_anon_select_rental_equipment",
+    "allow_anon_select_part_variants",
+    "eval_submissions_create",
+    "eval_submissions_view_own",
+    "karcher_models_read",
+    "karcher_plate_locations_read",
+    "karcher_serial_patterns_read",
+    "module_read_enrolled",
+    "courses_read",
+    "modules_read",
+    "orders_owner",
+    "enroll_owner",
+    "service_role_full_access_customer_orders",
+    "ro_hyster_plants",
+    "ro_hyster_model_prefixes",
+    "ro_bobcat_plate_locations",
+    "ro_bobcat_serial_ranges",
+    "ro_bobcat_module_dictionary",
+    "ro_nh_plate_locations",
+    "ro_nh_serial_ranges",
+    "ro_nh_prefix_patterns",
+    "ro_yale_plants",
+    "ro_yale_model_prefixes",
+    "ro_raymond_plate_locations",
+    "ro_raymond_serial_rules",
+    "ro_raymond_serial_ranges",
+    "ro_raymond_model_families",
+    "ro_genie_model_prefixes",
+    "ro_genie_plate_locations",
+    "ro_genie_serial_breaks",
+    "ro_crown_prefixes",
+    "ro_crown_plates",
+    "ro_crown_vinmap",
+    "ro_clark_prefixes",
+    "ro_clark_plates",
+    "ro_clark_vinmap",
+    "ro_clark_legacy_y",
+    "ro_clark_legacy_m",
+    "ro_komatsu_prefixes",
+    "ro_komatsu_plates",
+    "ro_komatsu_ic_key",
+    "ro_komatsu_vinmap",
+    "ro_cat_prefixes",
+    "ro_cat_plates",
+    "ro_cat_vinmap",
+    "ro_mitsu_prefixes",
+    "ro_mitsu_plates",
+    "ro_mitsu_caps",
+    "ro_mitsu_vinmap",
+    "ro_doosan_prefixes",
+    "ro_doosan_plates",
+    "ro_doosan_caps",
+    "ro_doosan_vinmap",
+    "ro_uc_prefixes",
+    "ro_uc_plates",
+    "ro_uc_caps",
+    "ro_uc_vinmap",
+    "ro_uc_series",
+    "ro_jlg_prefixes",
+    "ro_jlg_plates",
+    "ro_jlg_es_cp",
+    "ro_jlg_vinmap",
+    "ro_jcb_cues",
+    "ro_jcb_plates",
+    "ro_jcb_vinmap",
+    "ro_jcb_series",
+    "ro_case_cues",
+    "ro_case_plates",
+    "ro_case_vinmap",
+    "ro_case_series",
+    "ro_toro_cues",
+    "ro_toro_plates",
+    "ro_toro_ranges",
+    "ro_xcmg_cues",
+    "ro_xcmg_plates",
+    "ro_xcmg_ranges",
+    "ro_sinoboom_cues",
+    "ro_sinoboom_plates",
+    "ro_sinoboom_ranges",
+    "ro_takeuchi_cues",
+    "ro_takeuchi_plates",
+    "ro_takeuchi_ranges",
+    "ro_kubota_cues",
+    "ro_kubota_plates",
+    "ro_kubota_ranges",
+    "ro_ep_cues",
+    "ro_ep_plates",
+    "ro_ep_notes",
+    "ro_linde_cues",
+    "ro_linde_plates",
+    "ro_linde_notes",
+    "ro_sj_cues",
+    "ro_sj_plates",
+    "ro_sj_ranges",
+    "ro_jh_cues",
+    "ro_jh_plates",
+    "ro_jh_notes",
+    "ro_gehl_cues",
+    "ro_gehl_plates",
+    "ro_gehl_ranges",
+    "ro_gehl_notes",
+    "ro_hy_cues",
+    "ro_hy_plates",
+    "ro_hy_notes",
+    "ro_hy_ranges",
+    "ro_serial",
+    "ro_aliases",
+    "ro_plates",
+    "ro_subs",
+    "ro_hc_cues",
+    "ro_hc_plates",
+    "ro_hc_notes",
+    "ro_hc_ranges",
+    "ro_hl_cues",
+    "ro_hl_plates",
+    "ro_hl_notes",
+    "ro_hl_subs",
+    "ro_lull_cues",
+    "ro_lull_plates",
+    "ro_lull_notes",
+    "ro_lull_ranges",
+    "ro_lull_subs",
+    "ro_tn_cues",
+    "ro_tn_plates",
+    "ro_tn_notes",
+    "ro_tn_ranges",
+    "ro_tn_subs",
+    "ro_fc_cues",
+    "ro_fc_plates",
+    "ro_fc_notes",
+    "ro_fc_ranges",
+    "ro_fc_subs",
+    "unclaimed_purchases_view_own_email",
+    "unclaimed_purchases_claim_own_email",
+    "unclaimed_purchases_service_role",
+    "training_shares_owner"
+  ],
+  "apiRelevantTables": [
+    "karcher_models",
+    "karcher_plate_locations",
+    "karcher_serial_patterns",
+    "hyster_plants",
+    "hyster_model_prefixes",
+    "bobcat_plate_locations",
+    "bobcat_serial_ranges",
+    "bobcat_module_dictionary",
+    "yale_plants",
+    "yale_model_prefixes",
+    "raymond_plate_locations",
+    "raymond_serial_rules",
+    "raymond_serial_ranges",
+    "raymond_model_families",
+    "crown_model_prefixes",
+    "crown_plate_locations",
+    "crown_vin_year_map",
+    "clark_model_prefixes",
+    "clark_plate_locations",
+    "clark_vin_year_map",
+    "clark_legacy_year_map",
+    "clark_legacy_month_map",
+    "cat_model_prefixes",
+    "cat_plate_locations",
+    "cat_vin_year_map",
+    "doosan_model_prefixes",
+    "doosan_plate_locations",
+    "doosan_capacity_map",
+    "doosan_vin_year_map",
+    "jlg_model_prefixes",
+    "jlg_plate_locations",
+    "jlg_es_country_prefix",
+    "jlg_vin_year_map",
+    "case_model_cues",
+    "case_plate_locations",
+    "case_vin_year_map",
+    "case_series_examples",
+    "toro_model_cues",
+    "toro_plate_locations",
+    "toro_model_serial_ranges",
+    "xcmg_model_cues",
+    "xcmg_plate_locations",
+    "xcmg_model_serial_ranges",
+    "sinoboom_model_cues",
+    "sinoboom_plate_locations",
+    "sinoboom_model_serial_ranges",
+    "takeuchi_model_cues",
+    "takeuchi_plate_locations",
+    "takeuchi_model_serial_ranges",
+    "ep_model_cues",
+    "ep_plate_locations",
+    "ep_model_serial_notes",
+    "linde_model_cues",
+    "linde_plate_locations",
+    "linde_model_serial_notes",
+    "skyjack_model_cues",
+    "skyjack_plate_locations",
+    "skyjack_model_serial_ranges",
+    "gehl_model_cues",
+    "gehl_plate_locations",
+    "gehl_model_serial_ranges",
+    "gehl_model_serial_notes",
+    "manitou_serial_lookup",
+    "manitou_model_aliases",
+    "manitou_plate_locations",
+    "manitou_user_submissions",
+    "haulotte_model_cues",
+    "haulotte_plate_locations",
+    "haulotte_model_serial_notes",
+    "haulotte_user_submissions",
+    "tennant_model_cues",
+    "tennant_plate_locations",
+    "tennant_model_serial_notes",
+    "tennant_model_serial_ranges",
+    "tennant_user_submissions",
+    "factorycat_model_cues",
+    "factorycat_plate_locations",
+    "factorycat_model_serial_notes",
+    "factorycat_model_serial_ranges",
+    "factorycat_user_submissions"
+  ],
+  "stats": {
+    "totalMigrations": 72,
+    "totalTables": 138,
+    "serialTables": 30,
+    "brandTables": 0,
+    "partsTables": 1,
+    "apiRelevantTables": 80,
+    "totalPolicies": 136,
+    "rlsEnabledFiles": 43
+  },
+  "environment": {
+    "hasSupabaseUrl": true,
+    "hasServiceKey": true,
+    "urlPreview": "https://mzsozezflbhebykncbmr.s..."
+  }
+}
