@@ -1,169 +1,145 @@
-import fs from 'node:fs/promises';
-import fsSync from 'node:fs';
-import path from 'node:path';
-import { parse } from 'csv-parse/sync';
+import * as fs from 'fs';
+import * as path from 'path';
+import Papa from 'papaparse';
 import { createClient } from '@supabase/supabase-js';
+import dotenv from 'dotenv-flow';
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
-const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY as string;
+dotenv.config();
 
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 if (!SUPABASE_URL || !SERVICE_KEY) {
   console.error('Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY');
   process.exit(1);
 }
 
 const supabase = createClient(SUPABASE_URL, SERVICE_KEY);
-const DATA_DIR = path.join(process.cwd(), 'data', 'faults');
+const ROOT = process.cwd();
+const DATA_DIR = path.join(ROOT, 'data', 'faults');
+const DRY_RUN = /--dry-run/.test(process.argv.join(' '));
+const BRAND_ARG = (process.argv.find(a => a.startsWith('--brand=')) || '').split('=')[1];
 
-function splitArr(v?: string) {
-  if (!v) return null;
-  const a = v.split('|').map(s => s.trim()).filter(Boolean);
-  return a.length ? a : null;
+function parseCsv(file: string) {
+  const csv = fs.readFileSync(file, 'utf8');
+  const { data, errors } = Papa.parse<Record<string, string>>(csv, { header: true, skipEmptyLines: true });
+  if (errors?.length) {
+    console.warn(`Papaparse warnings for ${path.basename(file)}`, errors.slice(0,3));
+  }
+  return data.filter(r => r && Object.keys(r).length > 0);
 }
 
-async function seedFaultFile(csvPath: string) {
-  console.log(`📁 Processing ${path.basename(csvPath)}...`);
-  
-  const txt = await fs.readFile(csvPath, 'utf8');
-  const rows = parse(txt, { columns: true, skip_empty_lines: true });
-  
-  if (!rows.length) return { brand: 'unknown', inserted: 0 };
-  
-  const brand = String(rows[0].brand || '').trim().toLowerCase();
-  if (!brand) throw new Error(`Brand missing in ${path.basename(csvPath)}`);
+function toArray(field?: string | null) {
+  if (!field) return null;
+  const s = String(field).trim();
+  if (!s) return null;
+  // allow both '|' and ';' delimiters
+  return s.split(/\s*[|;]\s*/).filter(Boolean);
+}
 
-  // Replace-by-brand: clear existing data for this brand
-  console.log(`🗑️  Clearing existing ${brand} fault codes...`);
-  const del = await supabase.from('fault_codes').delete().eq('brand_slug', brand);
-  if (del.error) {
-    if (del.error.message.includes('relation') && del.error.message.includes('does not exist')) {
-      console.log(`ℹ️  fault_codes table doesn't exist yet - will create records when table is available`);
-      return { brand, inserted: 0, tableExists: false };
-    }
-    console.warn(`Warning: Could not delete existing ${brand} codes:`, del.error.message);
-  }
+type FaultRow = {
+  brand: string; model_pattern?: string | null; code: string; title?: string | null; meaning?: string | null; severity?: 'info'|'warn'|'fault'|'stop'|string; likely_causes?: string | null; checks?: string | null; fixes?: string | null; provenance?: string | null;
+};
 
-  // Transform CSV rows to database format
-  const payload = rows.map((r: any) => ({
-    brand_slug: String(r.brand).trim().toLowerCase(),
-    model_pattern: (r.model_pattern ?? '').trim() || null,
+async function seedFaultsForBrand(brand: string, rows: FaultRow[]) {
+  const items = rows.map(r => ({
+    brand: brand,
+    model_pattern: r.model_pattern?.trim() || null,
     code: String(r.code).trim(),
-    description: r.title ?? null,
-    category: null, // Will be categorized later if needed
-    severity: (r.severity ?? 'fault').toLowerCase(),
-    solution: r.meaning ?? null,
-    manual_reference: r.provenance ?? null,
-    source_url: null,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString()
+    title: r.title?.trim() || null,
+    meaning: r.meaning?.trim() || null,
+    severity: (['info','warn','fault','stop'].includes(String(r.severity||'').toLowerCase()) ? String(r.severity).toLowerCase() : 'fault') as 'info'|'warn'|'fault'|'stop',
+    likely_causes: toArray(r.likely_causes),
+    checks: toArray(r.checks),
+    fixes: toArray(r.fixes),
+    provenance: r.provenance?.trim() || 'seed'
   }));
 
-  // Insert in chunks for reliability
-  const chunkSize = 500;
-  let inserted = 0;
-  
-  for (let i = 0; i < payload.length; i += chunkSize) {
-    const chunk = payload.slice(i, i + chunkSize);
-    const ins = await supabase.from('fault_codes').insert(chunk);
-    
-    if (ins.error) {
-      if (ins.error.message.includes('relation') && ins.error.message.includes('does not exist')) {
-        console.log(`ℹ️  fault_codes table doesn't exist yet - ready to seed when table is created`);
-        return { brand, inserted: 0, tableExists: false };
-      }
-      console.error(`Error inserting ${brand} fault codes:`, ins.error.message);
-      throw ins.error;
-    }
-    
-    inserted += chunk.length;
-    console.log(`  ✓ Inserted ${chunk.length} ${brand} fault codes`);
+  console.log(`\n[${brand}] ${items.length} fault rows`);
+  if (DRY_RUN) {
+    console.log('DRY RUN — skipping DB writes');
+    return;
   }
-  
-  return { brand, inserted };
+
+  // Replace-by-brand: delete then insert in chunks
+  {
+    const { error } = await supabase.from('svc_fault_codes').delete().eq('brand', brand);
+    if (error) throw new Error(`[${brand}] delete failed: ${error.message}`);
+  }
+
+  const chunkSize = 400;
+  for (let i=0; i<items.length; i+=chunkSize) {
+    const chunk = items.slice(i, i+chunkSize);
+    const { error } = await supabase.from('svc_fault_codes').insert(chunk, { returning: 'minimal' });
+    if (error) throw new Error(`[${brand}] insert chunk failed: ${error.message}`);
+    console.log(`[${brand}] inserted ${Math.min(i+chunkSize, items.length)}/${items.length}`);
+  }
 }
 
-async function seedRetrieval(csvPath: string) {
-  console.log(`📋 Processing ${path.basename(csvPath)}...`);
-  
-  const txt = await fs.readFile(csvPath, 'utf8');
-  const rows = parse(txt, { columns: true, skip_empty_lines: true });
-  
-  // For now, we'll store retrieval steps in a simple way
-  // Since we don't have svc.svc_code_retrieval table yet, we'll just log them
-  console.log('📝 Retrieval steps found:');
-  
-  const brandSteps: Record<string, string[]> = {};
-  
-  for (const row of rows) {
-    const brand = String(row.brand).trim().toLowerCase();
-    const modelPattern = row.model_pattern ? String(row.model_pattern).trim() : 'generic';
-    const steps = String(row.steps).trim();
-    
-    if (!brandSteps[brand]) brandSteps[brand] = [];
-    brandSteps[brand].push(`${modelPattern}: ${steps}`);
+async function seedRetrieval(brand: string, rows: { brand: string; model_pattern?: string | null; steps: string }[]) {
+  const items = rows.map(r => ({ brand, model_pattern: r.model_pattern?.trim() || null, steps: String(r.steps||'').trim() }));
+  console.log(`\n[${brand}] ${items.length} retrieval rows`);
+  if (DRY_RUN) {
+    console.log('DRY RUN — skipping DB writes');
+    return;
   }
-  
-  for (const [brand, steps] of Object.entries(brandSteps)) {
-    console.log(`  🔧 ${brand.toUpperCase()}:`);
-    steps.forEach(step => console.log(`    - ${step}`));
+  {
+    const { error } = await supabase.from('svc_code_retrieval').delete().eq('brand', brand);
+    if (error) throw new Error(`[${brand}] delete retrieval failed: ${error.message}`);
   }
-  
-  return { brands: Object.keys(brandSteps), steps: rows.length };
+  if (items.length) {
+    const { error } = await supabase.from('svc_code_retrieval').insert(items, { returning: 'minimal' });
+    if (error) throw new Error(`[${brand}] insert retrieval failed: ${error.message}`);
+  }
 }
 
 async function main() {
-  console.log('🚀 Starting fault code seeding from', DATA_DIR);
-  console.log('');
-  
-  try {
-    const entries = await fs.readdir(DATA_DIR);
-    const files = entries.filter(f => f.endsWith('.csv'));
-    const retrievalPath = files.find(f => f.toLowerCase() === 'retrieval.csv');
-    const faultFiles = files.filter(f => f !== retrievalPath);
-
-    let total = 0;
-    const results: any[] = [];
-
-    // Process fault code files
-    for (const f of faultFiles) {
-      const r = await seedFaultFile(path.join(DATA_DIR, f));
-      results.push(r);
-      total += r.inserted;
-    }
-
-    // Process retrieval steps
-    if (retrievalPath) {
-      const r = await seedRetrieval(path.join(DATA_DIR, retrievalPath));
-      console.log(`\n📋 Retrieval steps: ${r.steps} entries across ${r.brands.length} brands`);
-    }
-
-    console.log('\n📊 Seeding Summary:');
-    console.table(results);
-    
-    const tablesExist = results.some(r => r.tableExists !== false);
-    
-    if (tablesExist) {
-      console.log(`\n✅ Complete! Inserted ${total} fault code rows.`);
-      
-      // Verification query suggestion
-      console.log('\n🔍 Verify with:');
-      console.log('   SELECT brand_slug, COUNT(*) FROM fault_codes GROUP BY brand_slug ORDER BY brand_slug;');
-    } else {
-      console.log(`\n📋 Ready to seed! ${results.length} brands prepared with fault code data.`);
-      console.log('ℹ️  Run this seeder again after creating the fault_codes table.');
-      console.log('\n📁 CSV files processed:');
-      results.forEach(r => {
-        const csvPath = path.join(DATA_DIR, `${r.brand}.csv`);
-        const csv = fsSync.readFileSync(csvPath, 'utf8');
-        const rows = parse(csv, { columns: true, skip_empty_lines: true });
-        console.log(`   - ${r.brand}.csv: ${rows.length} fault codes ready`);
-      });
-    }
-    
-  } catch (error) {
-    console.error('\n❌ Seeding failed:', error);
+  if (!fs.existsSync(DATA_DIR)) {
+    console.error('No data/faults directory found — nothing to seed.');
     process.exit(1);
   }
+  const files = fs.readdirSync(DATA_DIR).filter(f => f.endsWith('.csv'));
+  const retrievalFile = files.find(f => f.toLowerCase() === 'retrieval.csv');
+  const brandFiles = files.filter(f => f !== retrievalFile);
+
+  // Load brand faults
+  const brandBuckets = new Map<string, FaultRow[]>();
+  for (const file of brandFiles) {
+    const abs = path.join(DATA_DIR, file);
+    const rows = parseCsv(abs) as any as FaultRow[];
+    for (const row of rows) {
+      const brand = (row.brand || '').trim().toLowerCase();
+      if (!brand) continue;
+      if (BRAND_ARG && brand !== BRAND_ARG.toLowerCase()) continue;
+      if (!brandBuckets.has(brand)) brandBuckets.set(brand, []);
+      brandBuckets.get(brand)!.push(row);
+    }
+  }
+
+  // Seed faults per brand
+  for (const [brand, rows] of brandBuckets) {
+    await seedFaultsForBrand(brand, rows);
+  }
+
+  // Seed retrieval steps
+  if (retrievalFile) {
+    const abs = path.join(DATA_DIR, retrievalFile);
+    const rows = parseCsv(abs) as any as { brand: string; model_pattern?: string; steps: string }[];
+    const byBrand = new Map<string, { brand: string; model_pattern?: string; steps: string }[]>();
+    for (const r of rows) {
+      const b = (r.brand || '').trim().toLowerCase();
+      if (!b) continue;
+      if (BRAND_ARG && b !== BRAND_ARG.toLowerCase()) continue;
+      if (!byBrand.has(b)) byBrand.set(b, []);
+      byBrand.get(b)!.push(r);
+    }
+    for (const [brand, list] of byBrand) {
+      await seedRetrieval(brand, list);
+    }
+  }
+  console.log('\nDone.');
 }
 
-main();
+main().catch(err => {
+  console.error(err);
+  process.exit(1);
+});

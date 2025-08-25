@@ -17,6 +17,8 @@
     "add-image-url": "node scripts/add-image-url.mjs",
     "seed:stripe": "npx tsx scripts/seedStripeCourse.ts",
     "seed:faults": "tsx scripts/seed-faults.ts",
+    "seed:faults:brand": "tsx scripts/seed-faults.ts --brand=jlg",
+    "find:brand-links": "tsx scripts/find-brand-link-opps.ts",
     "test:smoke": "tsx scripts/smoke-test.ts",
     "lh": "lighthouse http://localhost:3000/safety --quiet --preset=desktop --only-categories=performance,accessibility,seo",
     "axe": "axe http://localhost:3000/safety",

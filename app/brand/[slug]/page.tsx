@@ -11,6 +11,7 @@ import { HubQuickLinks } from '@/components/brand/HubQuickLinks';
 import BrandFaqJsonLd from '@/components/brand/BrandFaqJsonLd';
 import SerialToolJsonLd from '@/components/seo/SerialToolJsonLd';
 import JsonLd from '@/components/seo/JsonLd';
+import BrandGuideBlock from '@/components/brand/BrandGuideBlock';
 
 const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
 
@@ -233,6 +234,9 @@ export default async function BrandPage({ params }: { params: { slug: string } }
             />
           </TabContent>
         </BrandTabs>
+
+        {/* Brand Guide Section */}
+        <BrandGuideBlock slug={brand.slug} name={brand.name} />
 
         {/* Additional Resources */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
