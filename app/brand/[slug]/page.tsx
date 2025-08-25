@@ -6,8 +6,32 @@ import FaultCodeSearch from '@/components/brand/FaultCodeSearch';
 import SerialLookupEmbed from '@/components/brand/SerialLookupEmbed';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { BrandSchemas } from '@/components/seo/BrandSchemas';
+import { BreadcrumbsLite } from '@/components/brand/BreadcrumbsLite';
+import { HubQuickLinks } from '@/components/brand/HubQuickLinks';
+import BrandFaqJsonLd from '@/components/brand/BrandFaqJsonLd';
+import SerialToolJsonLd from '@/components/seo/SerialToolJsonLd';
+import JsonLd from '@/components/seo/JsonLd';
 
 const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+
+// Map brand slugs to their serial lookup URLs
+function getSerialToolUrl(slug: string): string {
+  const serialToolMap: Record<string, string> = {
+    'jlg': '/jlg-serial-number-lookup',
+    'toyota': '/toyota-forklift-serial-lookup',
+    'jcb': '/jcb-serial-number-lookup',
+    'hyster': '/hyster-serial-number-lookup',
+    'genie': '/genie-serial-number-lookup',
+    'cat': '/cat-serial-number-lookup',
+    'crown': '/crown-serial-number-lookup',
+    'clark': '/clark-serial-number-lookup',
+    'bobcat': '/bobcat-serial-number-lookup',
+    'case': '/case-serial-number-lookup',
+    // Add more mappings as needed
+  };
+  
+  return serialToolMap[slug] || `/brand/${slug}?tab=serial`;
+}
 
 interface Brand {
   id: number;
@@ -98,14 +122,42 @@ export default async function BrandPage({ params }: { params: { slug: string } }
     { label: brand.name, href: `/brand/${brand.slug}` }
   ];
 
+  const serialToolUrl = getSerialToolUrl(brand.slug);
+
+  // BreadcrumbList JSON-LD
+  const breadcrumbListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Brands',
+        item: 'https://www.flatearthequipment.com/brands'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: brand.name,
+        item: `https://www.flatearthequipment.com/brand/${brand.slug}`
+      }
+    ]
+  };
+
   return (
     <>
       <BrandSchemas brand={brand} />
+      <BrandFaqJsonLd brandName={brand.name} />
+      <SerialToolJsonLd 
+        name={`${brand.name} Serial Number Lookup`} 
+        url={serialToolUrl} 
+      />
+      <JsonLd json={breadcrumbListSchema} />
       <main className="min-h-screen bg-slate-50">
       {/* Header */}
       <div className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <Breadcrumbs items={breadcrumbItems} />
+          <BreadcrumbsLite slug={brand.slug} name={brand.name} />
           
           <div className="mt-4 flex items-center gap-4">
             {brand.logo_url && (
@@ -135,6 +187,9 @@ export default async function BrandPage({ params }: { params: { slug: string } }
             <p className="text-slate-700">{brand.description}</p>
           </div>
         )}
+
+        {/* Quick Links */}
+        <HubQuickLinks slug={brand.slug} serialToolUrl={serialToolUrl} />
 
         {/* Tabs Interface */}
         <BrandTabs 

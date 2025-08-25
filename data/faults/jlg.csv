@@ -1,0 +1,4 @@
+brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,provenance
+jlg,E450%,223,Drive Enable Timeout,Controller detected no drive enable,fault,"low battery|loose drive connector|contactor stuck","measure pack voltage|inspect drive contactor|check harness","charge battery|replace contactor if welded|repair wiring","Starter set; verify with manual"
+jlg,ES%,E045,Platform Height Sensor Fault,Signal out of range,warn,"sensor misaligned|damaged cable","visual inspect sensor & linkage|wiggle test","realign/replace sensor|repair cable","Starter set; verify with manual"
+jlg,,C027,Charger Communication,No comm with onboard charger,warn,"charger AC missing|charger CAN unplugged","verify AC at charger|inspect CAN lead","restore AC|reseat/replace CAN","Starter set; verify with manual"

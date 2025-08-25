@@ -1,0 +1,4 @@
+brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,provenance
+hyster,H50%,524251-4,Accelerator Supply Fault,APS supply error,fault,"5V ref short|sensor short","check 5V ref at pedal|isolate shorts","repair short|replace APS","Starter set; verify with manual"
+hyster,J%N%,100-1,Drive Overtemp,Motor/controller temp high,warn,"blocked cooling|overload","read temp PIDs|inspect fan","clear debris|allow cool|service fan","Starter set; verify with manual"
+hyster,,524265-1,Seat Switch Fault,Operator presence circuit fault,warn,"open switch|damaged loom","seat switch continuity|wiggle test","replace switch|repair loom","Starter set; verify with manual"

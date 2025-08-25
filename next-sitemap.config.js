@@ -74,6 +74,26 @@ const config = {
       }
     }
     
+    // High priority for brand hub pages
+    if (path.startsWith('/brand/') || path === '/brands') {
+      return {
+        loc: path,
+        changefreq: 'weekly',
+        priority: 0.85,
+        lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
+      }
+    }
+    
+    // High priority for serial lookup tools
+    if (path.includes('-serial-number-lookup') || path.includes('-serial-lookup')) {
+      return {
+        loc: path,
+        changefreq: 'monthly',
+        priority: 0.8,
+        lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
+      }
+    }
+    
     // State-specific forklift pages
     if (path.includes('/safety/forklift/')) {
       return {

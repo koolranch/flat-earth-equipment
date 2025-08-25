@@ -1,0 +1,4 @@
+brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,provenance
+toyota,8F%,E-BO,Brake Output Fault,Electric brake output abnormal,fault,"worn brake|open coil","measure brake coil ohms|check 12V feed","replace brake|repair wiring","Starter set; verify with manual"
+toyota,7F%,E-A5-1,Accelerator Sensor,Accelerator signal mismatch,fault,"dual hall mismatch|damaged pedal","scan live values|wiggle pedal harness","replace pedal|repair harness","Starter set; verify with manual"
+toyota,,E-31,Steering Angle Sensor,Signal out of range,warn,"sensor offset|loose coupler","center wheels & re-zero|inspect coupler","re-zero|replace sensor","Starter set; verify with manual"

@@ -1,0 +1,4 @@
+brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,provenance
+genie,GS%,02,Low Battery Voltage,Under-voltage detected,fault,"discharged pack|bad cell|loose lugs","measure pack voltage under load|inspect lugs","charge/replace battery|clean/tighten lugs","Starter set; verify with manual"
+genie,S%,31,Drive Pot Error,Potentiometer out of range,fault,"pot wear|broken wire","ohm sweep test|inspect wiring","replace pot|repair harness","Starter set; verify with manual"
+genie,,45,Steer Sensor Fault,No/invalid steer feedback,warn,"sensor unplugged|magnet missing","visual check sensor & magnet","reinstall magnet|replace sensor","Starter set; verify with manual"

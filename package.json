@@ -16,7 +16,7 @@
     "verify-parts": "NODE_OPTIONS='--loader ts-node/esm' ts-node scripts/verify-parts.ts",
     "add-image-url": "node scripts/add-image-url.mjs",
     "seed:stripe": "npx tsx scripts/seedStripeCourse.ts",
-    "seed:faults": "NODE_OPTIONS='--loader ts-node/esm' ts-node scripts/seed-faults.ts",
+    "seed:faults": "tsx scripts/seed-faults.ts",
     "test:smoke": "tsx scripts/smoke-test.ts",
     "lh": "lighthouse http://localhost:3000/safety --quiet --preset=desktop --only-categories=performance,accessibility,seo",
     "axe": "axe http://localhost:3000/safety",
