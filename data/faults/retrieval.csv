@@ -1,8 +1,8 @@
 brand,model_pattern,steps
 jlg,,"Key ON (no start), hold UP+DOWN 3s on platform; use DATA/ENTER to scroll codes."
 jlg,E450%,"From ground, press MENU then DIAG; read last 5 codes; note hours."
-genie,,"GS: Hold UP & DOWN then power ON; 7-segment shows last code."
-genie,S%,"Handset via CAN port under platform; menu DIAGNOSTICS → FAULTS."
-toyota,,"IG ON; press and hold DIAG then power; read E-codes on dash."
-jcb,,"Use dash menu → Diagnostics → Active/Stored; confirm with OK."
-hyster,,"Service menu: Key ON, press Info 5s; navigate to DTCs."
+genie,,"GS: Hold UP & DOWN then power ON; 7-seg shows last code. S-boom: DIAGNOSTICS menu."
+genie,GS-1930%,"Hold both joystick toggles, power ON; read display."
+toyota,,"IG ON; hold DIAG then power; read E-codes on dash."
+jcb,,"Dash → Diagnostics → Active/Stored; confirm with OK."
+hyster,,"Service menu: Key ON, hold Info 5s; navigate to DTCs."
