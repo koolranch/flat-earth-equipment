@@ -151,7 +151,7 @@ export default function ToyotaLookupPage() {
               Toyota Forklift Serial Number Lookup
             </h1>
             
-            <BrandHubBanner slug="toyota" brandName="Toyota" />
+            <BrandHubBanner slug="toyota" name="Toyota" />
             
             <p className="text-xl text-slate-600">
               Find your Toyota forklift&apos;s estimated build year instantly

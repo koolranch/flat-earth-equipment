@@ -30,10 +30,10 @@ interface BrandFaqJsonLdProps {
 export default function BrandFaqJsonLd({ brandName }: BrandFaqJsonLdProps) {
   const mainEntity = Q.map(({ q, a }) => ({
     '@type': 'Question',
-    name: q.replaceAll('{brand}', brandName),
+    name: q.replace(/{brand}/g, brandName),
     acceptedAnswer: {
       '@type': 'Answer',
-      text: a.replaceAll('{brand}', brandName)
+      text: a.replace(/{brand}/g, brandName)
     }
   }));
 
