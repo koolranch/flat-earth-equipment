@@ -1,4 +1,5 @@
 brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,provenance
-jcb,535%,E524,Transmission Pressure Low,Main pressure below spec,stop,"low oil|suction leak|worn pump","check oil level/grade|vac test suction","top up oil|fix suction|replace pump","Starter set; verify with manual"
-jcb,540%,E105,Coolant Temp High,Over-temperature,fault,"blocked radiator|failed fan","infrared radiator scan|fan command test","clean core|replace fan/relay","Starter set; verify with manual"
-jcb,,E485,AdBlue Quality,DEF quality out of range,warn,"old DEF|sensor issue","measure urea %|scan NOx","replace DEF|service sensor","Starter set; verify with manual"
+jcb,535%,E524,Transmission Pressure Low,Main pressure below spec,stop,"low oil|suction leak|worn pump","check oil level/grade|vac test suction","top up oil|fix suction|replace pump","Starter set; verify with official procedures"
+jcb,540%,E105,Coolant Temp High,Over-temperature,fault,"blocked radiator|failed fan","infrared radiator scan|fan command test","clean core|replace fan/relay","Starter set; verify with official procedures"
+jcb,,E485,AdBlue Quality,DEF quality out of range,warn,"old DEF|sensor issue","measure urea %|scan NOx","replace DEF|service sensor","Starter set; verify with official procedures"
+jcb,,E412,Throttle Position Fault,TP sensor out of range,fault,"sensor wear|5V ref issue","check TP volts sweep|verify 5V","replace sensor|repair harness","Starter set; verify with official procedures"

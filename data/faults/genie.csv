@@ -1,4 +1,6 @@
 brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,provenance
-genie,GS%,02,Low Battery Voltage,Under-voltage detected,fault,"discharged pack|bad cell|loose lugs","measure pack voltage under load|inspect lugs","charge/replace battery|clean/tighten lugs","Starter set; verify with manual"
-genie,S%,31,Drive Pot Error,Potentiometer out of range,fault,"pot wear|broken wire","ohm sweep test|inspect wiring","replace pot|repair harness","Starter set; verify with manual"
-genie,,45,Steer Sensor Fault,No/invalid steer feedback,warn,"sensor unplugged|magnet missing","visual check sensor & magnet","reinstall magnet|replace sensor","Starter set; verify with manual"
+genie,GS%,02,Low Battery Voltage,Under-voltage detected,fault,"discharged pack|bad cell|loose lugs","measure pack voltage under load|inspect lugs","charge/replace battery|clean/tighten lugs","Starter set; verify with official procedures"
+genie,S%,31,Drive Pot Error,Potentiometer out of range,fault,"pot wear|broken wire","ohm sweep test|inspect wiring","replace pot|repair harness","Starter set; verify with official procedures"
+genie,,45,Steer Sensor Fault,No/invalid steer feedback,warn,"sensor unplugged|magnet missing","visual check sensor & magnet","reinstall magnet|replace sensor","Starter set; verify with official procedures"
+genie,GS-1930%,36,Drive Enable Timeout,No drive enable signal,fault,"interlock open|enable line issue","check enable interlocks|verify command","repair interlock|wiring repair","Starter set; verify with official procedures"
+genie,,77,Hydraulic Overtemp,Oil temperature high,warn,"blocked cooler|overload","infrared check|fan command","clean cooler|service fan","Starter set; verify with official procedures"

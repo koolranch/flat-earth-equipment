@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
 import BrandTabs, { TabContent } from '@/components/brand/BrandTabs';
 import PartsLeadForm from '@/components/brand/PartsLeadForm';
-import FaultCodeSearch from '@/components/brand/FaultCodeSearch';
+import FaultSearch from '@/components/faults/FaultSearch';
 import SerialLookupEmbed from '@/components/brand/SerialLookupEmbed';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { BrandSchemas } from '@/components/seo/BrandSchemas';
@@ -210,10 +210,18 @@ export default async function BrandPage({ params }: { params: { slug: string } }
           {/* Fault Codes Tab */}
           {brand.has_fault_codes && (
             <TabContent tabId="fault-codes">
-              <FaultCodeSearch 
-                brandSlug={brand.slug} 
-                brandName={brand.name}
-              />
+              <div className="space-y-4">
+                <div className="mb-4">
+                  <h3 className="text-lg font-semibold text-slate-900 mb-2">
+                    {brand.name} Fault Code Database
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Search our database of common {brand.name} fault codes and diagnostic guidance. 
+                    Use these as a starting point - always confirm with official service procedures.
+                  </p>
+                </div>
+                <FaultSearch brand={brand.slug} />
+              </div>
             </TabContent>
           )}
 
