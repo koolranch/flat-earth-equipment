@@ -2,7 +2,7 @@ import { createClient } from '@/utils/supabase/server'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { Metadata } from 'next'
-import Breadcrumbs from '@/components/Breadcrumbs'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 
 interface PageProps {
   params: {
@@ -46,7 +46,7 @@ export default async function RentalCategoryPage({ params }: PageProps) {
   return (
     <main className="max-w-6xl mx-auto px-4 py-12">
       <Breadcrumbs
-        trail={[
+        items={[
           { href: '/', label: 'Home' },
           { href: '/rent-equipment', label: 'Rent Equipment' },
           { href: `/rentals/${params.category}`, label: dbCategory },

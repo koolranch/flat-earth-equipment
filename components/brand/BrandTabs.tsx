@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search, Wrench, ShoppingCart } from 'lucide-react';
 
 interface BrandTabsProps {

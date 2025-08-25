@@ -5,7 +5,7 @@ interface Brand {
   name: string;
   logo_url?: string;
   description?: string;
-  equipment_types: string[];
+  equipment_types?: string[];
   website_url?: string;
 }
 
@@ -14,7 +14,7 @@ interface BrandSchemasProps {
 }
 
 export function BrandSchemas({ brand }: BrandSchemasProps) {
-  const equipmentList = brand.equipment_types.join(', ');
+  const equipmentList = brand.equipment_types?.join(', ') || 'equipment';
   
   // Organization Schema for the brand
   const organizationSchema = {
