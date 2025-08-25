@@ -191,6 +191,10 @@ export default function GenieScissorLiftErrorCodes() {
         <p>
           Understanding Genie scissor lift error codes is crucial for maintaining safe and efficient operation. Regular maintenance, proper troubleshooting, and timely repairs can help minimize downtime and ensure reliable performance. Always prioritize safety and consult with qualified technicians when needed.
         </p>
+
+        {/* auto:brand-links */}
+        <p className="mt-4 text-sm text-muted-foreground">Looking for Genie diagnostics or serial help? Try our <a className="underline" href="/brand/genie/serial-lookup">Serial Lookup</a>, <a className="underline" href="/brand/genie/fault-codes">Fault Codes</a>, and <a className="underline" href="/brand/genie/guide">Service Guide</a>.</p>
+        {/* /auto:brand-links */}
       </div>
     </main>
   );

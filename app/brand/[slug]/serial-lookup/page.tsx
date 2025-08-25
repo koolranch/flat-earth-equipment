@@ -1,6 +1,7 @@
 import { resolveCanonical } from '@/lib/brandCanon';
 import BrandHubPage from '@/components/brand/BrandHubPage';
 import BreadcrumbsBrand from '@/components/nav/BreadcrumbsBrand';
+import SerialToolJsonLd from '@/components/seo/SerialToolJsonLd';
 import { getBrand } from '@/lib/brands';
 import { notFound } from 'next/navigation';
 
@@ -22,10 +23,13 @@ export default async function Page({ params }: { params: { slug: string } }){
   const brand = await getBrand(params.slug);
   if (!brand) notFound();
   
+  const url = `https://www.flatearthequipment.com/brand/${brand.slug}/serial-lookup`;
+  
   return (
-    <div>
+    <>
       <BreadcrumbsBrand slug={brand.slug} name={brand.name} />
+      <SerialToolJsonLd brand={brand} url={url} />
       <BrandHubPage brand={brand} defaultTab="serial" />
-    </div>
+    </>
   );
 }

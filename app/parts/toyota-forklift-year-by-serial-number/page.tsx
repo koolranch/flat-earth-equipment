@@ -219,6 +219,12 @@ export default function ToyotaForkliftYearGuidePage() {
             </div>
           </div>
         </div>
+
+        {/* auto:brand-links */}
+        <div className="mt-8 p-4 bg-gray-50 rounded-lg">
+          <p className="text-sm text-muted-foreground">Looking for Toyota diagnostics or serial help? Try our <a className="underline" href="/brand/toyota/serial-lookup">Serial Lookup</a>, <a className="underline" href="/brand/toyota/fault-codes">Fault Codes</a>, and <a className="underline" href="/brand/toyota/guide">Service Guide</a>.</p>
+        </div>
+        {/* /auto:brand-links */}
       </div>
     </main>
   );
