@@ -63,6 +63,14 @@ export default function FaultSearch({ brand }: FaultSearchProps) {
       } catch {}
     } catch (e: any) {
       setError(e.message);
+      try { 
+        (window as any).va?.('fault_search_error', { 
+          brand, 
+          error: e.message,
+          code: code || null, 
+          model: model || null 
+        }); 
+      } catch {}
     } finally {
       setLoading(false);
     }

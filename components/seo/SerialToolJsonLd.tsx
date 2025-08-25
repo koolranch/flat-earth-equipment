@@ -1,29 +1,23 @@
-import JsonLd from '@/components/seo/JsonLd';
+'use client';
 
 interface SerialToolJsonLdProps {
-  name: string;
+  brand?: { slug: string; name: string };
   url: string;
+  name?: string; // Legacy support
 }
 
-export default function SerialToolJsonLd({ name, url }: SerialToolJsonLdProps) {
-  const webAppSchema = {
+export default function SerialToolJsonLd({ brand, url, name }: SerialToolJsonLdProps){
+  const toolName = name || (brand ? `${brand.name} Serial Number Lookup` : 'Serial Number Lookup');
+  
+  const json = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name,
-    applicationCategory: 'Utility',
-    url: `https://www.flatearthequipment.com${url}`,
-    publisher: {
-      '@type': 'Organization',
-      name: 'Flat Earth Equipment',
-      url: 'https://www.flatearthequipment.com'
-    },
-    operatingSystem: 'Web Browser',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD'
-    }
+    'name': toolName,
+    'url': url,
+    'applicationCategory': 'BusinessApplication',
+    'operatingSystem': 'Web',
+    'offers': { '@type': 'Offer', 'price': 0, 'priceCurrency': 'USD' },
+    'provider': { '@type': 'Organization', 'name': 'Flat Earth Equipment', 'url': 'https://www.flatearthequipment.com' }
   };
-
-  return <JsonLd json={webAppSchema} />;
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(json) }} />;
 }

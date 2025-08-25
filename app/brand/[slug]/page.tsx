@@ -9,7 +9,6 @@ import { BrandSchemas } from '@/components/seo/BrandSchemas';
 import { BreadcrumbsLite } from '@/components/brand/BreadcrumbsLite';
 import { HubQuickLinks } from '@/components/brand/HubQuickLinks';
 import BrandFaqJsonLd from '@/components/brand/BrandFaqJsonLd';
-import SerialToolJsonLd from '@/components/seo/SerialToolJsonLd';
 import JsonLd from '@/components/seo/JsonLd';
 import BrandGuideBlock from '@/components/brand/BrandGuideBlock';
 import BrandFAQBlock from '@/components/brand/BrandFAQBlock';
@@ -150,10 +149,6 @@ export default async function BrandPage({ params }: { params: { slug: string } }
     <>
       <BrandSchemas brand={brand} />
       <BrandFaqJsonLd brandName={brand.name} />
-      <SerialToolJsonLd 
-        name={`${brand.name} Serial Number Lookup`} 
-        url={serialToolUrl} 
-      />
       <JsonLd json={breadcrumbListSchema} />
       <main className="min-h-screen bg-slate-50">
       {/* Header */}

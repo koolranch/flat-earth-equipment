@@ -52,6 +52,12 @@ export default function SerialLookupEmbed({ brandSlug, brandName }: SerialLookup
 
   const handleOpenLookupTool = () => {
     if (serialLookupUrl) {
+      try { 
+        (window as any).va?.('serial_submit', { 
+          brand: brandSlug, 
+          source: 'brand_hub'
+        }); 
+      } catch {}
       window.open(serialLookupUrl, '_blank', 'noopener,noreferrer');
     }
   };
@@ -112,6 +118,9 @@ export default function SerialLookupEmbed({ brandSlug, brandName }: SerialLookup
             
             <p className="text-xs text-slate-500">
               Opens in a new tab with our full-featured lookup interface
+            </p>
+            <p className="text-xs text-amber-600 mt-2">
+              ⚠️ Serial decoding provides best-effort estimates. Always verify with manufacturer documentation for critical specifications.
             </p>
           </div>
         </div>
