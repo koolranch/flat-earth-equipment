@@ -1,89 +1,233 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { Metadata } from 'next';
-import { createClient } from '@/utils/supabase/server';
-import { brands, BrandInfo } from '@/lib/brands';
+import { notFound } from 'next/navigation';
+import { createClient } from '@supabase/supabase-js';
+import BrandTabs, { TabContent } from '@/components/brand/BrandTabs';
+import PartsLeadForm from '@/components/brand/PartsLeadForm';
+import FaultCodeSearch from '@/components/brand/FaultCodeSearch';
+import SerialLookupEmbed from '@/components/brand/SerialLookupEmbed';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { BrandSchemas } from '@/components/seo/BrandSchemas';
 
-export async function generateStaticParams() {
-  return brands.map((b) => ({ slug: b.slug }));
+const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+
+interface Brand {
+  id: number;
+  slug: string;
+  name: string;
+  logo_url?: string;
+  description?: string;
+  equipment_types: string[];
+  has_serial_lookup: boolean;
+  has_fault_codes: boolean;
+  website_url?: string;
 }
 
-export async function generateMetadata(
-  { params }: { params: { slug: string } }
-): Promise<Metadata> {
-  const brand = brands.find((b) => b.slug === params.slug)!;
+async function getBrand(slug: string): Promise<Brand | null> {
+  try {
+    const { data, error } = await supabase
+      .from('brands')
+      .select('*')
+      .eq('slug', slug)
+      .single();
+
+    if (error || !data) {
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Failed to fetch brand:', error);
+    return null;
+  }
+}
+
+// Generate static params for existing brands
+export async function generateStaticParams() {
+  try {
+    const { data: brands } = await supabase
+      .from('brands')
+      .select('slug');
+
+    return brands?.map((brand) => ({
+      slug: brand.slug,
+    })) || [];
+  } catch (error) {
+    console.error('Failed to generate static params:', error);
+    return [];
+  }
+}
+
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const brand = await getBrand(params.slug);
+  
+  if (!brand) {
+    return {
+      title: 'Brand Not Found | Flat Earth Equipment',
+      description: 'The requested brand page could not be found.'
+    };
+  }
+
+  const equipmentList = brand.equipment_types.join(', ');
+  
   return {
-    title: brand.seoTitle,
-    description: brand.seoDescription,
-    alternates: { canonical: `/brand/${brand.slug}` },
+    title: `${brand.name} Parts, Serial Lookup & Fault Codes | Flat Earth Equipment`,
+    description: `Complete ${brand.name} support: serial number lookup, fault code database, and parts sourcing for ${equipmentList}. Expert technical guidance and fast shipping.`,
+    keywords: `${brand.name}, ${brand.name} parts, ${brand.name} serial number, ${brand.name} fault codes, ${equipmentList}`,
+    openGraph: {
+      title: `${brand.name} Equipment Support`,
+      description: `Serial lookup, fault codes, and parts for ${brand.name} ${equipmentList}`,
+      type: 'website',
+      url: `/brand/${brand.slug}`,
+      images: brand.logo_url ? [{ url: brand.logo_url, alt: `${brand.name} logo` }] : undefined
+    },
+    alternates: {
+      canonical: `/brand/${brand.slug}`
+    }
   };
 }
 
-export default async function BrandPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const brand: BrandInfo = brands.find((b) => b.slug === params.slug)!;
-  const supabase = createClient();
+export default async function BrandPage({ params }: { params: { slug: string } }) {
+  const brand = await getBrand(params.slug);
 
-  // ── Fetch top 6 rentals for this brand
-  const { data: equipment = [] } = await supabase
-    .from('rental_equipment')
-    .select('id,slug,name,image_url,weight_capacity_lbs')
-    .eq('brand', brand.name)
-    .order('weight_capacity_lbs', { ascending: false })
-    .limit(6);
+  if (!brand) {
+    notFound();
+  }
 
-  const equipmentList = equipment || [];
+  const breadcrumbItems = [
+    { label: 'Home', href: '/' },
+    { label: 'Brands', href: '/brands' },
+    { label: brand.name, href: `/brand/${brand.slug}` }
+  ];
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-16 space-y-12">
-      {/* Hero + Intro (Phase 1) */}
-      <div className="flex flex-col items-center text-center space-y-6">
-        <Image
-          src={brand.logoUrl}
-          alt={`${brand.name} logo`}
-          width={200}
-          height={80}
-          priority
-        />
-        <h1 className="text-4xl font-bold">{brand.name} Parts</h1>
-        <p className="max-w-2xl text-lg text-gray-700">{brand.intro}</p>
+    <>
+      <BrandSchemas brand={brand} />
+      <main className="min-h-screen bg-slate-50">
+      {/* Header */}
+      <div className="bg-white border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          <Breadcrumbs items={breadcrumbItems} />
+          
+          <div className="mt-4 flex items-center gap-4">
+            {brand.logo_url && (
+              <img 
+                src={brand.logo_url} 
+                alt={`${brand.name} logo`}
+                className="w-16 h-16 object-contain"
+              />
+            )}
+            <div>
+              <h1 className="text-3xl font-bold text-slate-900">
+                {brand.name} Equipment Support
+              </h1>
+              <p className="text-lg text-slate-600 mt-1">
+                Serial lookup, fault codes, and parts for {brand.equipment_types.join(', ')}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Phase 2: Popular Models Grid */}
-      {equipmentList.length > 0 && (
-        <section>
-          <h2 className="text-2xl font-semibold mb-6">
-            Popular {brand.name} Equipment
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {equipmentList.map((item) => (
-              <Link
-                key={item.id}
-                href={`/quote?sku=${item.slug}&type=rental`}
-                className="group block rounded-lg overflow-hidden shadow hover:shadow-lg transition"
-              >
-                <div className="aspect-w-16 aspect-h-9 bg-gray-100">
-                  <Image
-                    src={item.image_url}
-                    alt={item.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-medium">{item.name}</h3>
-                  <p className="text-sm text-gray-500">
-                    {item.weight_capacity_lbs?.toLocaleString()} lbs
-                  </p>
-                </div>
-              </Link>
-            ))}
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        {/* Brand Description */}
+        {brand.description && (
+          <div className="mb-8 p-6 bg-white rounded-lg border border-slate-200">
+            <p className="text-slate-700">{brand.description}</p>
           </div>
-        </section>
-      )}
+        )}
+
+        {/* Tabs Interface */}
+        <BrandTabs 
+          brandSlug={brand.slug}
+          hasSerialLookup={brand.has_serial_lookup}
+          hasFaultCodes={brand.has_fault_codes}
+        >
+          {/* Serial Lookup Tab */}
+          {brand.has_serial_lookup && (
+            <TabContent tabId="serial">
+              <SerialLookupEmbed 
+                brandSlug={brand.slug} 
+                brandName={brand.name}
+              />
+            </TabContent>
+          )}
+
+          {/* Fault Codes Tab */}
+          {brand.has_fault_codes && (
+            <TabContent tabId="fault-codes">
+              <FaultCodeSearch 
+                brandSlug={brand.slug} 
+                brandName={brand.name}
+              />
+            </TabContent>
+          )}
+
+          {/* Parts Request Tab */}
+          <TabContent tabId="parts">
+            <PartsLeadForm 
+              brandSlug={brand.slug} 
+              brandName={brand.name}
+            />
+          </TabContent>
+        </BrandTabs>
+
+        {/* Additional Resources */}
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-white p-6 rounded-lg border border-slate-200">
+            <h3 className="font-semibold text-slate-900 mb-3">Expert Support</h3>
+            <p className="text-slate-600 text-sm mb-4">
+              Our technical team has decades of experience with {brand.name} equipment.
+            </p>
+            <a 
+              href="/contact" 
+              className="text-brand-accent hover:underline text-sm font-medium"
+            >
+              Contact Technical Support →
+            </a>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg border border-slate-200">
+            <h3 className="font-semibold text-slate-900 mb-3">Fast Shipping</h3>
+            <p className="text-slate-600 text-sm mb-4">
+              Free shipping on standard items with same-day processing for orders by 3 PM EST.
+            </p>
+            <a 
+              href="/shipping-returns" 
+              className="text-brand-accent hover:underline text-sm font-medium"
+            >
+              View Shipping Info →
+            </a>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg border border-slate-200">
+            <h3 className="font-semibold text-slate-900 mb-3">Quality Guarantee</h3>
+            <p className="text-slate-600 text-sm mb-4">
+              All parts come with our quality guarantee and 30-day return policy.
+            </p>
+            <a 
+              href="/warranty" 
+              className="text-brand-accent hover:underline text-sm font-medium"
+            >
+              Learn About Warranty →
+            </a>
+          </div>
+        </div>
+
+        {/* Related Brands */}
+        <div className="mt-12">
+          <h3 className="text-xl font-semibold text-slate-900 mb-4">Other Brands We Support</h3>
+          <div className="flex flex-wrap gap-2">
+            {/* These would be dynamically loaded from other brands */}
+            <a href="/brand/toyota" className="px-3 py-1 bg-white border border-slate-200 rounded-full text-sm text-slate-700 hover:bg-slate-50">Toyota</a>
+            <a href="/brand/hyster" className="px-3 py-1 bg-white border border-slate-200 rounded-full text-sm text-slate-700 hover:bg-slate-50">Hyster</a>
+            <a href="/brand/crown" className="px-3 py-1 bg-white border border-slate-200 rounded-full text-sm text-slate-700 hover:bg-slate-50">Crown</a>
+            <a href="/brand/clark" className="px-3 py-1 bg-white border border-slate-200 rounded-full text-sm text-slate-700 hover:bg-slate-50">Clark</a>
+            <a href="/brand/cat" className="px-3 py-1 bg-white border border-slate-200 rounded-full text-sm text-slate-700 hover:bg-slate-50">CAT</a>
+            <a href="/brands" className="px-3 py-1 bg-brand-accent text-white rounded-full text-sm hover:bg-brand-accent-hover">View All Brands →</a>
+          </div>
+        </div>
+      </div>
     </main>
+    </>
   );
-} 
+}

@@ -1,0 +1,344 @@
+[
+  {
+    "path": "/app/bobcat-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "\n                Bobcat Serial Number Lookup\n              ",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "bobcat"
+  },
+  {
+    "path": "/app/case-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "CASE Serial Number Lookup",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "case"
+  },
+  {
+    "path": "/app/cat-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "\n            CAT Forklift Serial Number Lookup\n          ",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "cat"
+  },
+  {
+    "path": "/app/clark-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "\n            Clark Forklift Serial Number Lookup\n          ",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "clark"
+  },
+  {
+    "path": "/app/crown-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "\n            Crown Forklift Serial Number Lookup\n          ",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "crown"
+  },
+  {
+    "path": "/app/doosan-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "Doosan Forklift Serial Number Lookup",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "doosan"
+  },
+  {
+    "path": "/app/ep-forklift-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "\n        EP Forklift Serial Number Lookup\n      ",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "ep"
+  },
+  {
+    "path": "/app/factory-cat-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "\n                Factory Cat Serial Number Lookup\n              ",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "factory-cat"
+  },
+  {
+    "path": "/app/hangcha-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "Hangcha Serial Number Lookup",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "hangcha"
+  },
+  {
+    "path": "/app/haulotte-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "Haulotte Serial Number Lookup",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "haulotte"
+  },
+  {
+    "path": "/app/hyster-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "\n                Hyster Forklift Serial Number Lookup\n              ",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "hyster"
+  },
+  {
+    "path": "/app/hyundai-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "Hyundai Serial Number Lookup",
+      "title": null,
+      "canonical": null
+    },
+    "brand": null
+  },
+  {
+    "path": "/app/jcb-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "JCB Serial Number Lookup",
+      "title": null,
+      "canonical": null
+    },
+    "brand": null
+  },
+  {
+    "path": "/app/jlg-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "JLG Serial Number Lookup",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "jlg"
+  },
+  {
+    "path": "/app/jungheinrich-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "Jungheinrich Serial Number Lookup",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "jungheinrich"
+  },
+  {
+    "path": "/app/karcher-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "\n                Kärcher Serial Number Lookup\n              ",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "karcher"
+  },
+  {
+    "path": "/app/komatsu-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "\n            Komatsu Forklift Serial Number Lookup\n          ",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "komatsu"
+  },
+  {
+    "path": "/app/kubota-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "\n        Kubota Serial Number Lookup\n      ",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "kubota"
+  },
+  {
+    "path": "/app/linde-forklift-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "\n        Linde Forklift Serial Number Lookup\n      ",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "linde"
+  },
+  {
+    "path": "/app/lull-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "Lull Serial Number Lookup",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "lull"
+  },
+  {
+    "path": "/app/manitou-forklift-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "Manitou Forklift Serial Number Lookup",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "manitou"
+  },
+  {
+    "path": "/app/mitsubishi-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "Mitsubishi Forklift Serial Number Lookup",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "mitsubishi"
+  },
+  {
+    "path": "/app/new-holland-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "\n                New Holland Serial Number Lookup\n              ",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "new-holland"
+  },
+  {
+    "path": "/app/parts/construction-equipment-parts/case-loader-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "\n        Case Loader Serial Number Lookup Guide\n      ",
+      "title": "Case Loader Serial Number Lookup | Flat Earth Equipment",
+      "canonical": "/parts/construction-equipment-parts/case-loader-serial-number-lookup"
+    },
+    "brand": "case"
+  },
+  {
+    "path": "/app/parts/construction-equipment-parts/gehl-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "Gehl Serial Number Lookup",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "gehl"
+  },
+  {
+    "path": "/app/parts/construction-equipment-parts/jcb-backhoe-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "\n        JCB Backhoe Serial Number Lookup Guide\n      ",
+      "title": "JCB Backhoe Serial Number Lookup | Flat Earth Equipment",
+      "canonical": "/parts/construction-equipment-parts/jcb-backhoe-serial-number-lookup"
+    },
+    "brand": null
+  },
+  {
+    "path": "/app/parts/construction-equipment-parts/new-holland-skid-steer-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "\n        New Holland Skid Steer Serial Number Lookup Guide\n      ",
+      "title": "New Holland Skid Steer Serial Number Lookup Guide | Flat Earth Equipment",
+      "canonical": "/parts/construction-equipment-parts/new-holland-skid-steer-serial-number-lookup"
+    },
+    "brand": "new-holland"
+  },
+  {
+    "path": "/app/raymond-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "\n                Raymond Forklift Serial Number Lookup\n              ",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "raymond"
+  },
+  {
+    "path": "/app/rental/forklifts/hyster-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "\n        Hyster Forklift Serial Number Lookup Guide\n      ",
+      "title": "Hyster Forklift Serial Number Lookup Guide | Flat Earth Equipment",
+      "canonical": "/rental/forklifts/hyster-serial-number-lookup"
+    },
+    "brand": "hyster"
+  },
+  {
+    "path": "/app/sinoboom-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "\n        Sinoboom Serial Number Lookup\n      ",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "sinoboom"
+  },
+  {
+    "path": "/app/skyjack-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "Skyjack Serial Number Lookup",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "skyjack"
+  },
+  {
+    "path": "/app/takeuchi-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "\n        Takeuchi Serial Number Lookup\n      ",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "takeuchi"
+  },
+  {
+    "path": "/app/tennant-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "Tennant Serial Number Lookup",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "tennant"
+  },
+  {
+    "path": "/app/toro-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "Toro Serial Number Lookup",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "toro"
+  },
+  {
+    "path": "/app/toyota-forklift-serial-lookup/page.tsx",
+    "meta": {
+      "h1": "\n              Toyota Forklift Serial Number Lookup\n            ",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "toyota"
+  },
+  {
+    "path": "/app/unicarriers-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "UniCarriers Forklift Serial Number Lookup",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "unicarriers"
+  },
+  {
+    "path": "/app/xcmg-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "XCMG Serial Number Lookup",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "xcmg"
+  },
+  {
+    "path": "/app/yale-serial-number-lookup/page.tsx",
+    "meta": {
+      "h1": "\n                Yale Forklift Serial Number Lookup\n              ",
+      "title": null,
+      "canonical": null
+    },
+    "brand": "yale"
+  }
+]
