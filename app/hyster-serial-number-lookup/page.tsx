@@ -101,7 +101,7 @@ export default function HysterLookupPage() {
                 Hyster Forklift Serial Number Lookup
               </h1>
               
-              <BrandHubBanner slug="hyster" brandName="Hyster" />
+              <BrandHubBanner slug="hyster" name="Hyster" />
               
               <p className="text-xl text-slate-600">
                 Decode your Hyster serial number instantly
