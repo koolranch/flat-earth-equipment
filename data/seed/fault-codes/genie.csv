@@ -1,0 +1,4 @@
+brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,retrieval,provenance
+genie,,31,Drive Enable Inhibit,Drive prevented by safety interlock,warn,"platform not stowed;tilt active","verify stow;check tilt sensor","stow platform;reset tilt/alarm","Display → Service → Faults","Paraphrased from public Genie sources"
+genie,,45,Steer Sensor Fault,Out-of-range steer sensor,fault,"sensor drift;connector corrosion","measure reference voltage;wiggle test","replace sensor;clean connector","Display → Service → Faults","Paraphrased from public Genie sources"
+genie,,72,Battery Voltage Low,Pack voltage below threshold,info,"weak batteries;high load","measure pack voltage;load test","charge/replace batteries","Display → Service → Faults","Paraphrased from public Genie sources"

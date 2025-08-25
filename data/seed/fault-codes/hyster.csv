@@ -1,0 +1,4 @@
+brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,retrieval,provenance
+hyster,E%,524195-3,Traction Controller Overtemp,Controller over-temperature,stop,"blocked airflow;heavy duty","inspect cooling;read temps","clear ducts;reduce load","Dash → Events","Paraphrased from public Hyster sources"
+hyster,H%,T-117,Seat Switch Open,Seat/OPS not detected,warn,"bad switch;open circuit","check seat circuit;jumper test","replace switch;repair wiring","Dash → Events","Paraphrased from public Hyster sources"
+hyster,,A-36,Accelerator Pot Fault,Out-of-range accel pot,fault,"wear;wiring","measure signal;calibrate","replace pot;repair wiring","Dash → Events","Paraphrased from public Hyster sources"

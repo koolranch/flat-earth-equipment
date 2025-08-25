@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import Script from "next/script";
 import { Search, CheckCircle, AlertTriangle, MapPin, Wrench, Settings, Calendar } from "lucide-react";
+import BrandHubBanner from '@/components/brand/BrandHubBanner';
 
 type ApiResponse = {
   input?: { serial: string; cleaned: string };
@@ -94,6 +95,9 @@ export default function HysterLookupPage() {
               <h1 className="text-4xl font-bold text-slate-900 mb-2">
                 Hyster Forklift Serial Number Lookup
               </h1>
+              
+              <BrandHubBanner slug="hyster" brandName="Hyster" />
+              
               <p className="text-xl text-slate-600">
                 Decode your Hyster serial number instantly
               </p>

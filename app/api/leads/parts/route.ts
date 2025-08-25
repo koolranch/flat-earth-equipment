@@ -1,143 +1,157 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import { z } from 'zod';
 
-const supabase = () => createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const key = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+const ADMIN_TO = process.env.LEADS_TO_EMAIL; // e.g., 'sales@flatearthequipment.com'
+const FROM = process.env.LEADS_FROM_EMAIL || 'noreply@flatearthequipment.com';
+const SENDGRID_KEY = process.env.SENDGRID_API_KEY || '';
 
-// Validation schema for parts lead submission
-const partsLeadSchema = z.object({
-  brand_slug: z.string().min(1, 'Brand is required'),
-  equipment_type: z.string().optional(),
-  model: z.string().optional(),
-  serial_number: z.string().optional(),
-  part_description: z.string().min(1, 'Part description is required'),
-  contact_name: z.string().min(1, 'Name is required'),
-  contact_email: z.string().email('Valid email is required'),
-  contact_phone: z.string().optional(),
-  company_name: z.string().optional(),
-  notes: z.string().optional(),
-  urgency: z.enum(['low', 'medium', 'high', 'emergency']).default('medium'),
-  utm_source: z.string().optional(),
-  utm_medium: z.string().optional(),
-  utm_campaign: z.string().optional()
-});
-
-export async function POST(request: Request) {
+// Dynamic import to avoid build issues if @sendgrid/mail is not installed
+let sgMail: any = null;
+if (SENDGRID_KEY) {
   try {
-    const body = await request.json();
-    
-    // Validate input
-    const validationResult = partsLeadSchema.safeParse(body);
-    if (!validationResult.success) {
-      return NextResponse.json({ 
-        error: 'Validation failed', 
-        details: validationResult.error.errors 
-      }, { status: 400 });
-    }
-
-    const leadData = validationResult.data;
-    const db = supabase();
-
-    // Get request metadata
-    const userAgent = request.headers.get('user-agent') || '';
-    const forwarded = request.headers.get('x-forwarded-for');
-    const ip = forwarded ? forwarded.split(',')[0] : request.headers.get('x-real-ip');
-
-    // Insert lead into database
-    const { data: lead, error } = await db
-      .from('parts_leads')
-      .insert({
-        ...leadData,
-        user_agent: userAgent,
-        ip_address: ip,
-        submitted_at: new Date().toISOString()
-      })
-      .select()
-      .single();
-
-    if (error) {
-      console.error('Parts lead insertion error:', error);
-      return NextResponse.json({ error: 'Failed to submit lead' }, { status: 500 });
-    }
-
-    // TODO: Add email notification logic here
-    // await sendLeadNotification(lead);
-
-    return NextResponse.json({ 
-      success: true, 
-      message: 'Parts request submitted successfully! We\'ll contact you within 24 hours.',
-      lead_id: lead.id 
-    });
-
-  } catch (error: any) {
-    console.error('Parts lead API error:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    sgMail = await import('@sendgrid/mail').then(m => m.default);
+    sgMail.setApiKey(SENDGRID_KEY);
+  } catch (e) {
+    console.warn('SendGrid not available:', e);
   }
 }
 
-export async function GET(request: Request) {
+export async function POST(req: Request) {
   try {
-    // This endpoint is for admin/internal use only
-    const { searchParams } = new URL(request.url);
-    const brand_slug = searchParams.get('brand_slug');
-    const status = searchParams.get('status');
-    const limit = parseInt(searchParams.get('limit') || '50');
-    const offset = parseInt(searchParams.get('offset') || '0');
+    const body = await req.json();
+    const {
+      email, name, phone, zip, model, serial, fault_code, notes,
+      brand_slug, page_source, utm_source, utm_medium, utm_campaign,
+      hp, startedAt
+    } = body || {};
 
-    const db = supabase();
-    let query = db
-      .from('parts_leads')
-      .select('*')
-      .order('submitted_at', { ascending: false })
-      .range(offset, offset + limit - 1);
-
-    if (brand_slug) {
-      query = query.eq('brand_slug', brand_slug);
+    // Basic validation
+    if (!email || !brand_slug) {
+      return NextResponse.json({ ok: false, error: 'Missing email or brand' }, { status: 400 });
     }
 
-    if (status) {
-      query = query.eq('status', status);
+    if (!notes || notes.trim().length < 5) {
+      return NextResponse.json({ ok: false, error: 'Please describe what parts you need' }, { status: 400 });
     }
 
-    const { data: leads, error } = await query;
+    // Honeypot check - if filled, silently accept (likely bot)
+    if (hp && String(hp).trim() !== '') {
+      console.log('Honeypot triggered, silently accepting');
+      return NextResponse.json({ ok: true });
+    }
 
+    // Dwell-time check - prevent too-fast submissions (likely bot)
+    const minMillis = 3000; // 3 seconds minimum
+    const now = Date.now();
+    if (!startedAt || (now - Number(startedAt)) < minMillis) {
+      console.log('Fast submit detected, silently accepting');
+      return NextResponse.json({ ok: true });
+    }
+
+    const supabase = createClient(url, key);
+
+    // Insert lead into database
+    const leadData = {
+      brand_slug,
+      equipment_type: null, // Will be added later if needed
+      model: model || null,
+      serial_number: serial || null,
+      part_description: notes,
+      contact_name: name || null,
+      contact_email: email,
+      contact_phone: phone || null,
+      company_name: null, // Not collected in this form
+      notes: fault_code ? `Fault Code: ${fault_code}\n\n${notes}` : notes,
+      urgency: 'medium',
+      status: 'new',
+      user_agent: req.headers.get('user-agent') || null,
+      ip_address: req.headers.get('x-forwarded-for')?.split(',')[0] || req.headers.get('x-real-ip') || null,
+      utm_source: utm_source || null,
+      utm_medium: utm_medium || null,
+      utm_campaign: utm_campaign || null
+    };
+
+    const { error } = await supabase.from('parts_leads').insert([leadData]);
     if (error) {
-      console.error('Parts leads GET error:', error);
-      return NextResponse.json({ error: 'Failed to load leads' }, { status: 500 });
+      console.error('Database insert error:', error);
+      throw error;
     }
 
-    // Get summary statistics
-    const { data: stats } = await db
-      .from('parts_leads')
-      .select('status, urgency')
-      .eq('brand_slug', brand_slug || '');
+    // Email notifications (best-effort, don't fail if email fails)
+    if (sgMail) {
+      try {
+        const subject = `Parts Lead — ${brand_slug}${model ? ' ' + model : ''}${serial ? ' / ' + serial : ''}`;
+        const adminText = `New parts lead for ${brand_slug}
 
-    const statusCounts = stats?.reduce((acc, lead) => {
-      acc[lead.status] = (acc[lead.status] || 0) + 1;
-      return acc;
-    }, {} as Record<string, number>) || {};
+Email: ${email}
+Name: ${name || 'Not provided'}
+Phone: ${phone || 'Not provided'}
+ZIP: ${zip || 'Not provided'}
+Model: ${model || 'Not provided'}
+Serial: ${serial || 'Not provided'}
+Fault Code: ${fault_code || 'None'}
 
-    const urgencyCounts = stats?.reduce((acc, lead) => {
-      acc[lead.urgency] = (acc[lead.urgency] || 0) + 1;
-      return acc;
-    }, {} as Record<string, number>) || {};
+Parts Needed:
+${notes}
 
-    return NextResponse.json({
-      leads: leads || [],
-      stats: {
-        by_status: statusCounts,
-        by_urgency: urgencyCounts,
-        total: stats?.length || 0
-      },
-      pagination: {
-        limit,
-        offset,
-        has_more: (leads?.length || 0) === limit
+Submitted: ${new Date().toLocaleString()}`;
+
+        const customerText = `Thanks for reaching out about ${brand_slug} parts!
+
+We received your request and our team will follow up within 24 hours with pricing and availability.
+
+Your request details:
+${model ? `Model: ${model}` : ''}
+${serial ? `Serial: ${serial}` : ''}
+${fault_code ? `Fault Code: ${fault_code}` : ''}
+
+Parts needed: ${notes}
+
+Need immediate assistance? Call us at (307) 302-0043.
+
+Best regards,
+Flat Earth Equipment Team`;
+
+        const emails: any[] = [];
+        
+        // Send notification to admin
+        if (ADMIN_TO) {
+          emails.push({ 
+            to: ADMIN_TO, 
+            from: FROM, 
+            subject, 
+            text: adminText 
+          });
+        }
+        
+        // Send acknowledgment to customer
+        emails.push({ 
+          to: email, 
+          from: FROM, 
+          subject: `We received your parts request (${brand_slug})`, 
+          text: customerText 
+        });
+
+        if (emails.length > 0) {
+          await sgMail.send(emails);
+          console.log(`Sent ${emails.length} email(s) for parts lead`);
+        }
+      } catch (emailError) {
+        // Don't fail the request if email fails
+        console.error('Email send error (non-fatal):', emailError);
       }
-    });
+    } else {
+      console.log('SendGrid not configured, skipping email notifications');
+    }
 
-  } catch (error: any) {
-    console.error('Parts leads API error:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ ok: true });
+  } catch (e: any) {
+    console.error('Parts lead API error:', e);
+    return NextResponse.json({ 
+      ok: false, 
+      error: e.message || 'Server error' 
+    }, { status: 500 });
   }
 }

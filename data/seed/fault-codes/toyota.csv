@@ -1,0 +1,4 @@
+brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,retrieval,provenance
+toyota,E%,E A5-1,Accelerator Sensor Range,Out-of-range accelerator signal,fault,"miscalibration;wiring","calibrate;check connector","recalibrate;repair wiring","Dash → Diagnostics → Events","Paraphrased from public Toyota sources"
+toyota,8FG%,E 51,Power Steering Fault,PS controller fault,stop,"low voltage;controller issue","check battery;read DTCs","charge battery;service controller","Dash → Diagnostics → Events","Paraphrased from public Toyota sources"
+toyota,7F%,E 30,Travel Inhibit,Travel disabled by interlock,warn,"seat switch;OPS","verify seat/OPS inputs","replace faulty switch","Dash → Diagnostics → Events","Paraphrased from public Toyota sources"

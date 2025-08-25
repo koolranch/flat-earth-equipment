@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Search, Wrench, ShoppingCart } from 'lucide-react';
+import { track } from '@vercel/analytics/react';
 
 interface BrandTabsProps {
   brandSlug: string;
@@ -21,6 +22,7 @@ interface Tab {
 
 export default function BrandTabs({ brandSlug, hasSerialLookup, hasFaultCodes, children }: BrandTabsProps) {
   const [activeTab, setActiveTab] = useState<TabType>('serial');
+  const hasTrackedInitialView = useRef(false);
 
   const tabs: Tab[] = [
     {
@@ -43,8 +45,15 @@ export default function BrandTabs({ brandSlug, hasSerialLookup, hasFaultCodes, c
     }
   ];
 
-  // Track tab view for analytics
+  // Track tab view for analytics (Vercel Analytics + API)
   useEffect(() => {
+    // Track with Vercel Analytics
+    if (hasTrackedInitialView.current || activeTab) {
+      track('brand_tab_view', { brand: brandSlug, tab: activeTab });
+      hasTrackedInitialView.current = true;
+    }
+
+    // Track with internal API for detailed analytics
     const trackView = async () => {
       try {
         await fetch(`/api/brands/${brandSlug}`, {

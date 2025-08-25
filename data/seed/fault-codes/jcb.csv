@@ -1,0 +1,4 @@
+brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,retrieval,provenance
+jcb,,E045,Hydraulic Pressure Sensor Fault,Out-of-range pressure sensor signal,fault,"sensor;wiring;low supply","check 5V ref;inspect harness","replace sensor;repair wiring","Dash → Diagnostics → Faults","Paraphrased from public JCB sources"
+jcb,,E090,Engine CAN Timeout,Lost communication with engine ECU,fault,"CAN wiring;battery low","inspect CAN;measure voltage","repair CAN;charge battery","Dash → Diagnostics → Faults","Paraphrased from public JCB sources"
+jcb,,E154,Transmission Overheat,Transmission temperature high,stop,"blocked cooler;low fluid","check cooler;verify level","clear blockage;refill/repair","Dash → Diagnostics → Faults","Paraphrased from public JCB sources"

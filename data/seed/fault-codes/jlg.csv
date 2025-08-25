@@ -1,0 +1,4 @@
+brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,retrieval,provenance
+jlg,,223,Platform Height Sensor,Out-of-range height sensor signal,fault,"sensor misaligned;connector damage","inspect linkage;check 5V reference","reseat connector;replace sensor","Menu → Diagnostics → Faults","Paraphrased from public JLG sources"
+jlg,,435,Steer Potentiometer Fault,Invalid or noisy steer pot signal,warn,"wiring issue;miscalibration","verify wiring;calibrate pot","repair wiring;recalibrate","Menu → Diagnostics → Faults","Paraphrased from public JLG sources"
+jlg,,683,Drive Enable Interlock,Drive inhibited by interlock,input,"platform not stowed;tilt sensor", "verify stow;check tilt input","stow properly;replace faulty switch","Menu → Diagnostics → Faults","Paraphrased from public JLG sources"
