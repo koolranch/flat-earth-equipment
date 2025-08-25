@@ -50,12 +50,13 @@ export default function PartsLeadForm({ brandSlug, brandName }: PartsLeadFormPro
       }
       
       setOk(true);
-      track('parts_lead_submit', { 
-        brand: brandSlug, 
-        model: form.model || undefined, 
-        serial: form.serial || undefined, 
-        fault_code: form.fault_code || undefined 
-      });
+      // Track successful submission - only include properties with values
+      const trackingData: Record<string, string> = { brand: brandSlug };
+      if (form.model) trackingData.model = form.model;
+      if (form.serial) trackingData.serial = form.serial;
+      if (form.fault_code) trackingData.fault_code = form.fault_code;
+      
+      track('parts_lead_submit', trackingData);
       setForm({ email: '', name: '', phone: '', zip: '', model: '', serial: '', fault_code: '', notes: '', hp: '' });
     } catch (e: any) {
       setOk(false);
