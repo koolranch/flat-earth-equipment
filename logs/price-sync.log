@@ -2141,3 +2141,4 @@
 /bin/bash: ./scripts/sync-prices.sh: Operation not permitted
 /bin/bash: ./scripts/sync-prices.sh: Operation not permitted
 /bin/bash: ./scripts/sync-prices.sh: Operation not permitted
+/bin/bash: ./scripts/sync-prices.sh: Operation not permitted
