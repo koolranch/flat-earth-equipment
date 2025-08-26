@@ -1,6 +1,9 @@
 export interface Brand {
   name: string;
   slug: string;
+  colors?: {
+    primary?: string;
+  };
 }
 
 export const brands: Brand[] = [
@@ -21,11 +24,12 @@ export const brands: Brand[] = [
   { name: "JCB", slug: "jcb" },
   { name: "JLG", slug: "jlg" },
   { name: "John Deere", slug: "john-deere" },
+  { name: "Jungheinrich", slug: "jungheinrich", colors: { primary: 'var(--brand-accent)' } },
   { name: "Kärcher", slug: "karcher" },
   { name: "Komatsu", slug: "komatsu" },
   { name: "Kubota", slug: "kubota" },
   { name: "LCMG", slug: "lcmg" },
-  { name: "Linde", slug: "linde" },
+  { name: "Linde", slug: "linde", colors: { primary: 'var(--brand-accent)' } },
   { name: "LiuGong", slug: "liugong" },
   { name: "Lull", slug: "lull" },
   { name: "MEC", slug: "mec" },

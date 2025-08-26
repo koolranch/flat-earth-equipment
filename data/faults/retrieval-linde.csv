@@ -1,3 +1,3 @@
-brand,method,steps
-linde,display,"Power ON equipment; access diagnostic menu from main control display; navigate to fault code section; read active and stored diagnostic codes; document codes and operating conditions"
-linde,diagnostic,"Turn key to ON position; locate diagnostic port on main controller; connect Linde-compatible diagnostic tool; retrieve active/stored fault codes; record fault context"
+brand,method,steps,notes,source,last_verified
+linde,display,"Power ON; open the service/diagnostic menu on the display; navigate to Faults/Alarms to view active and stored codes; record the code and conditions.","Menu names vary by series; verify with manual.","internal:baseline","2024-08-26"
+linde,diagnostic,"Turn key to ON position; locate diagnostic port on main controller; connect Linde-compatible diagnostic tool; retrieve active/stored fault codes; record fault context","Use manufacturer-approved scan tools","internal:baseline","2024-08-26"

@@ -21,6 +21,7 @@
     "smoke:brands": "tsx scripts/smoke-brand-hubs.ts",
     "smoke:brands:05": "tsx scripts/smoke-brand-hubs-05.ts",
     "smoke:brands:06": "tsx scripts/smoke-brand-hubs-06.ts",
+    "smoke:brands:linde-jh": "tsx scripts/smoke-brand-hubs-linde-jh.ts",
     "find:brand-links": "tsx scripts/find-brand-link-opps.ts",
     "codemod:brand-links": "tsx scripts/codemod-internal-links.ts",
     "scaffold:brands": "tsx scripts/brand-scaffold.ts",

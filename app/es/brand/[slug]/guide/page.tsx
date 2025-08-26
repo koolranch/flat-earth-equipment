@@ -10,6 +10,7 @@ import { getBrand } from '@/lib/brands';
 import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-static';
+export const dynamicParams = true;
 
 export async function generateMetadata({ params }: { params: { slug: string } }){
   const brand = await getBrand(params.slug);

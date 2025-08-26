@@ -1,0 +1,115 @@
+{
+  "problem_summary": "Two brands (linde, jungheinrich) are returning 404 errors in production despite having all the required infrastructure in place. Three other brands from the same batch (komatsu, doosan, mitsubishi) work perfectly.",
+  
+  "current_status": {
+    "working_brands": {
+      "komatsu": "https://flatearthequipment.com/brand/komatsu/serial-lookup - HTTP/2 200 ✅",
+      "doosan": "https://flatearthequipment.com/brand/doosan/serial-lookup - HTTP/2 200 ✅", 
+      "mitsubishi": "https://flatearthequipment.com/brand/mitsubishi/serial-lookup - HTTP/2 200 ✅"
+    },
+    "broken_brands": {
+      "linde": "https://flatearthequipment.com/brand/linde/serial-lookup - HTTP/2 404 ❌",
+      "jungheinrich": "https://flatearthequipment.com/brand/jungheinrich/serial-lookup - HTTP/2 404 ❌"
+    }
+  },
+
+  "database_investigation": {
+    "seeding_script_verification": {
+      "found_brands": [
+        "Yale (yale)",
+        "Crown (crown)", 
+        "Clark (clark)",
+        "CAT (cat)",
+        "Mitsubishi Forklift (mitsubishi)",
+        "Raymond (raymond)",
+        "Doosan (doosan)",
+        "Komatsu (komatsu)"
+      ],
+      "missing_brands": ["linde", "jungheinrich"],
+      "note": "Only 8/10 brands found in verification query"
+    },
+    
+    "sql_migration_file": {
+      "file": "docs/phase-9-brands.sql",
+      "content": "INSERT INTO public.brands (slug, name) VALUES\n ('yale','Yale'),('crown','Crown'),('clark','Clark'),('cat','CAT'),\n ('komatsu','Komatsu'),('mitsubishi','Mitsubishi'),('doosan','Doosan'),\n ('linde','Linde'),('jungheinrich','Jungheinrich'),('unicarriers','UniCarriers'),\n ('raymond','Raymond'),('bobcat','Bobcat')\nON CONFLICT (slug) DO NOTHING;",
+      "note": "Both linde and jungheinrich are included in SQL"
+    },
+
+    "static_data_file": {
+      "file": "lib/data/brands.ts",
+      "linde_present": true,
+      "jungheinrich_present": false,
+      "note": "Inconsistent data sources - jungheinrich missing from static file"
+    }
+  },
+
+  "infrastructure_status": {
+    "required_files_exist": {
+      "mdx_guides": [
+        "content/brand-guides/linde.mdx ✅",
+        "content/brand-guides/jungheinrich.mdx ✅",
+        "content/es/brand-guides/linde.mdx ✅", 
+        "content/es/brand-guides/jungheinrich.mdx ✅"
+      ],
+      "fault_data": [
+        "data/faults/linde.csv ✅",
+        "data/faults/retrieval-linde.csv ✅",
+        "data/faults/jungheinrich.csv ✅",
+        "data/faults/retrieval-jungheinrich.csv ✅"
+      ]
+    },
+    "api_endpoints_created": [
+      "/api/linde-lookup ✅",
+      "/api/jungheinrich-lookup ✅"
+    ],
+    "app_router_structure": "Uses dynamic route /brand/[slug]/serial-lookup/page.tsx - same component for all brands"
+  },
+
+  "key_discrepancies": {
+    "database_seeding_issue": {
+      "description": "SQL file includes linde and jungheinrich but seeding script verification only finds 8/10 brands",
+      "verification_missing": ["linde", "jungheinrich"]
+    },
+    "static_data_mismatch": {
+      "description": "jungheinrich missing from lib/data/brands.ts while linde is present",
+      "suggests": "inconsistent data sources"
+    },
+    "database_insert_errors": {
+      "error_example": {
+        "code": "PGRST204",
+        "message": "Could not find the 'equipment_types' column of 'brands' in the schema cache",
+        "description": "Schema mismatch during brand seeding"
+      }
+    }
+  },
+
+  "hypothesis": "The issue appears to be a database schema mismatch. The seeding script is trying to insert into columns that don't exist in the current brands table schema. While some brands succeed with basic (slug, name) inserts, others fail due to schema constraints or table structure differences.",
+
+  "recommended_investigation": {
+    "database_queries": [
+      {
+        "purpose": "Check actual database schema",
+        "query": "\\d+ public.brands"
+      },
+      {
+        "purpose": "Verify which brands actually exist in database", 
+        "query": "SELECT slug, name FROM public.brands WHERE slug IN ('linde', 'jungheinrich', 'komatsu', 'doosan');"
+      },
+      {
+        "purpose": "Check for database constraints",
+        "query": "SELECT conname, contype FROM pg_constraint WHERE conrelid = 'public.brands'::regclass;"
+      }
+    ],
+    "additional_checks": [
+      "Check for database constraints or foreign key issues",
+      "Consider if brand lookup depends on additional tables/relationships",
+      "Investigate if working vs broken brands were inserted differently"
+    ]
+  },
+
+  "working_vs_broken_pattern": {
+    "working": ["komatsu", "doosan", "mitsubishi"],
+    "broken": ["linde", "jungheinrich"],
+    "note": "Working brands might have been inserted differently or there could be additional database constraints preventing proper brand resolution in the Next.js application"
+  }
+}
