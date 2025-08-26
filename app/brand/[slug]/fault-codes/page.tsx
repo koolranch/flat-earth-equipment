@@ -24,12 +24,15 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function Page({ params }: { params: { slug: string } }){
+export default async function Page({ params, searchParams }: { params: { slug: string }; searchParams?: { notes_limit?: string } }){
   const brand = await getBrand(params.slug);
   if (!brand) notFound();
   
   const svcEnabled = process.env.NEXT_PUBLIC_FEATURE_SVC_SUBMISSIONS !== 'false';
   const canonical = resolveCanonical(params.slug, 'fault-codes');
+  
+  // Allow larger list via search param (?notes_limit=50) when you want to see more
+  const limit = Math.min(Number(searchParams?.notes_limit) || 10, 100);
   
   return (
     <>
@@ -56,11 +59,11 @@ export default async function Page({ params }: { params: { slug: string } }){
           {/* Brand FAQ Section */}
           <BrandFAQBlock slug={brand.slug} name={brand.name} url={canonical} />
 
-          {/* UGC Sections - Fault Codes Tab */}
+          {/* UGC Sections - Always show all notes with 'fault' highlighting */}
           {svcEnabled && (
             <>
               <SubmissionForm brand={brand} />
-              <CommunityNotes brandSlug={brand.slug} category='fault' />
+              <CommunityNotes brandSlug={brand.slug} tabCategory='fault' limit={limit} />
             </>
           )}
 

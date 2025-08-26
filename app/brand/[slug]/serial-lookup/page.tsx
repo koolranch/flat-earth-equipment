@@ -25,12 +25,15 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function Page({ params }: { params: { slug: string } }){
+export default async function Page({ params, searchParams }: { params: { slug: string }; searchParams?: { notes_limit?: string } }){
   const brand = await getBrand(params.slug);
   if (!brand) notFound();
   
   const svcEnabled = process.env.NEXT_PUBLIC_FEATURE_SVC_SUBMISSIONS !== 'false';
   const url = `https://www.flatearthequipment.com/brand/${brand.slug}/serial-lookup`;
+  
+  // Allow larger list via search param (?notes_limit=50) when you want to see more
+  const limit = Math.min(Number(searchParams?.notes_limit) || 10, 100);
   
   return (
     <>
@@ -49,11 +52,11 @@ export default async function Page({ params }: { params: { slug: string } }){
           {/* Brand FAQ Section */}
           <BrandFAQBlock slug={brand.slug} name={brand.name} url={url} />
 
-          {/* UGC Sections - Serial Lookup Tab */}
+          {/* UGC Sections - Always show all notes with 'serial' highlighting */}
           {svcEnabled && (
             <>
               <SubmissionForm brand={brand} />
-              <CommunityNotes brandSlug={brand.slug} category='serial' />
+              <CommunityNotes brandSlug={brand.slug} tabCategory='serial' limit={limit} />
             </>
           )}
 
