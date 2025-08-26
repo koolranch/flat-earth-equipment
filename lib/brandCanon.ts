@@ -5,8 +5,8 @@ export type Canon = { serial?: string; faults?: string; guide?: string };
 export const brandCanonMap: Record<string, Canon> = {
   toyota: { serial: '/toyota-forklift-serial-lookup' },
   hyster: { serial: '/rental/forklifts/hyster-serial-number-lookup' },
+  genie: { serial: '/genie-serial-number-lookup' },
   jlg: {},
-  genie: {},
   jcb: {},
 };
 
@@ -15,4 +15,14 @@ export function resolveCanonical(slug: string, tab: 'serial'|'fault-codes'|'guid
   if (tab === 'serial') return m.serial || `/brand/${slug}/serial-lookup`;
   if (tab === 'fault-codes') return m.faults || `/brand/${slug}/fault-codes`;
   return m.guide || `/brand/${slug}/guide`;
+}
+
+// Utility function for consistent brand URLs across the hub
+export function canonForBrand(slug: string) {
+  const m = brandCanonMap[slug] || {};
+  return {
+    serial: m.serial || `/brand/${slug}/serial-lookup`,
+    faults: m.faults || `/brand/${slug}/fault-codes`, 
+    guide: m.guide || `/brand/${slug}/guide`
+  };
 }

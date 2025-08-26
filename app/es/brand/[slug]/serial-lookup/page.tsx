@@ -1,6 +1,10 @@
-import BrandHubPage from '@/components/brand/BrandHubPage';
+import BrandTabs from '@/components/brand/BrandTabs';
 import BreadcrumbsBrand from '@/components/nav/BreadcrumbsBrand';
 import SerialToolJsonLd from '@/components/seo/SerialToolJsonLd';
+import SerialLookupEmbed from '@/components/brand/SerialLookupEmbed';
+import BrandFAQBlock from '@/components/brand/BrandFAQBlock';
+import BrandPartsFormSection from '@/components/brand/BrandPartsFormSection';
+import PartsLeadForm from '@/components/brand/PartsLeadForm';
 import { getBrand } from '@/lib/brands';
 import { notFound } from 'next/navigation';
 
@@ -32,7 +36,25 @@ export default async function Page({ params }: { params: { slug: string } }){
     <>
       <BreadcrumbsBrand slug={brand.slug} name={brand.name} />
       <SerialToolJsonLd brand={brand} url={url} />
-      <BrandHubPage brand={brand} defaultTab="serial" />
+      <main className="min-h-screen bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          {/* Tab Navigation */}
+          <BrandTabs slug={brand.slug} />
+          
+          {/* Serial Lookup Content */}
+          <div className="space-y-6">
+            <SerialLookupEmbed brandSlug={brand.slug} brandName={brand.name} />
+          </div>
+
+          {/* Brand FAQ Section */}
+          <BrandFAQBlock slug={brand.slug} name={brand.name} url={url} />
+
+          {/* Parts Request Section with Anchor */}
+          <BrandPartsFormSection>
+            <PartsLeadForm brandSlug={brand.slug} brandName={brand.name} />
+          </BrandPartsFormSection>
+        </div>
+      </main>
     </>
   );
 }
