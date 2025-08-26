@@ -2,6 +2,9 @@
 "use client";
 import React from "react";
 import { useT } from "@/lib/i18n";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 interface Certificate {
   id: string;
@@ -40,27 +43,40 @@ export default function RecordsContent({ enrollments, certificates }: RecordsCon
           <h2 className="text-xl font-semibold text-[#0F172A] mb-4">{t('records.certificates', 'Certificates')}</h2>
           <div className="grid gap-4">
             {certificates.map((cert, i) => (
-              <div key={i} className="rounded-2xl border border-green-200 bg-green-50 p-4 shadow-lg">
-                <h3 className="text-lg font-semibold text-green-800">{cert.courseTitle}</h3>
-                <p className="text-sm text-green-700">{t('records.score', 'Score')}: {cert.score}%</p>
-                <p className="text-sm text-green-700">{t('records.issued', 'Issued')}: {new Date(cert.issueDate).toLocaleDateString()}</p>
-                <div className="mt-3 flex gap-2">
-                  <button 
-                    disabled
-                    className="rounded-lg bg-gray-300 text-gray-500 px-3 py-1 text-sm cursor-not-allowed"
-                  >
-                    {t('records.download_pdf', 'Download PDF (Coming Soon)')}
-                  </button>
-                  <a 
-                    href={`/verify/${cert.verifierCode}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-lg bg-green-600 text-white px-3 py-1 text-sm hover:bg-green-700 transition-colors"
-                  >
-                    {t('records.verify_certificate', 'Verify Certificate')}
-                  </a>
-                </div>
-              </div>
+              <Card key={i} className="rounded-2xl border-green-200 bg-green-50 shadow-lg">
+                <CardHeader>
+                  <CardTitle className="text-lg text-green-800">{cert.courseTitle}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="space-y-1">
+                    <p className="text-sm text-green-700">{t('records.score', 'Score')}: {cert.score}%</p>
+                    <p className="text-sm text-green-700">{t('records.issued', 'Issued')}: {new Date(cert.issueDate).toLocaleDateString()}</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button 
+                      disabled
+                      variant="secondary"
+                      size="sm"
+                      className="rounded-lg"
+                    >
+                      {t('records.download_pdf', 'Download PDF (Coming Soon)')}
+                    </Button>
+                    <Button
+                      asChild
+                      size="sm"
+                      className="rounded-lg bg-green-600 hover:bg-green-700"
+                    >
+                      <a 
+                        href={`/verify/${cert.verifierCode}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {t('records.verify_certificate', 'Verify Certificate')}
+                      </a>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </section>
@@ -79,35 +95,46 @@ export default function RecordsContent({ enrollments, certificates }: RecordsCon
         ) : (
           <div className="grid gap-4">
             {enrollments.map((e, i) => (
-              <div key={i} className="rounded-2xl border border-slate-200 p-4 shadow-lg">
-                <h3 className="text-lg font-semibold text-[#0F172A]">{e.courseTitle}</h3>
-                <p className="text-sm text-slate-600">{t('records.progress', 'Progress')}: {e.progressPct ?? 0}%</p>
-                {e.examScore != null && (
-                  <p className="text-sm text-slate-600">{t('records.exam_score', 'Exam score')}: {e.examScore}%</p>
-                )}
-                <div className="mt-2">
-                  <span className="text-sm font-medium">{t('records.employer_evaluation', 'Employer Evaluation')}:</span>{" "}
-                  {e.eval ? (
-                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                      e.eval.practical_pass 
-                        ? 'bg-green-100 text-green-800' 
-                        : 'bg-red-100 text-red-800'
-                    }`}>
-                      {e.eval.practical_pass ? t('records.passed', 'Passed') : t('records.failed', 'Failed')}
-                      {e.eval.evaluation_date && ` on ${new Date(e.eval.evaluation_date).toLocaleDateString()}`}
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                      {t('records.pending', 'Pending')}
-                    </span>
+              <Card key={i} className="rounded-2xl border-slate-200 shadow-lg">
+                <CardHeader>
+                  <CardTitle className="text-lg text-[#0F172A]">{e.courseTitle}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="space-y-1">
+                    <p className="text-sm text-slate-600">{t('records.progress', 'Progress')}: {e.progressPct ?? 0}%</p>
+                    {e.examScore != null && (
+                      <p className="text-sm text-slate-600">{t('records.exam_score', 'Exam score')}: {e.examScore}%</p>
+                    )}
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium">{t('records.employer_evaluation', 'Employer Evaluation')}:</span>
+                    {e.eval ? (
+                      <Badge
+                        variant={e.eval.practical_pass ? "default" : "destructive"}
+                        className={`${
+                          e.eval.practical_pass 
+                            ? 'bg-green-100 text-green-800 hover:bg-green-100' 
+                            : 'bg-red-100 text-red-800 hover:bg-red-100'
+                        }`}
+                      >
+                        {e.eval.practical_pass ? t('records.passed', 'Passed') : t('records.failed', 'Failed')}
+                        {e.eval.evaluation_date && ` on ${new Date(e.eval.evaluation_date).toLocaleDateString()}`}
+                      </Badge>
+                    ) : (
+                      <Badge variant="secondary" className="bg-yellow-100 text-yellow-800 hover:bg-yellow-100">
+                        {t('records.pending', 'Pending')}
+                      </Badge>
+                    )}
+                  </div>
+                  
+                  {e.eval?.evaluator_name && (
+                    <p className="text-xs text-slate-500">
+                      Evaluated by: {e.eval.evaluator_name}
+                    </p>
                   )}
-                </div>
-                {e.eval?.evaluator_name && (
-                  <p className="text-xs text-slate-500 mt-1">
-                    Evaluated by: {e.eval.evaluator_name}
-                  </p>
-                )}
-              </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         )}
