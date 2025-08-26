@@ -1,0 +1,4 @@
+brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,provenance
+yale,,Y01,System Alert,General system alert condition,info,Low voltage|Temperature issue|Sensor fault,Check voltage levels|Monitor temperature|Test sensors,Charge battery|Ventilate area|Replace sensors,internal:baseline
+yale,,Y02,Drive Alert,Drive system alert,warn,Controller fault|Motor issue|Brake problem,Test drive controller|Check motor operation|Inspect brake system,Replace controller|Repair motor|Adjust brakes,internal:baseline
+yale,,Y03,Hydraulic Alert,Hydraulic system alert,warn,Fluid level low|Pump fault|Filter clog,Check fluid level|Test pump operation|Inspect filter,Add hydraulic fluid|Replace pump|Replace filter,internal:baseline
