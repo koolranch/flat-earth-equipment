@@ -8,6 +8,7 @@ import Footer from '@/components/Footer';
 import CrispChat from '@/components/CrispChat';
 import SupabaseProvider from './providers';
 import { getUserLocale } from '@/lib/getUserLocale';
+import { I18nProvider } from '@/lib/i18n';
 // Import your global styles (Tailwind, custom resets)
 import '../globals.css';
 import { Toaster } from 'react-hot-toast';
@@ -44,15 +45,17 @@ export default function RootLayout({
       </head>
       <body className="font-sans text-gray-900 bg-gray-50 antialiased">
         <SupabaseProvider>
-          {/* Navbar now receives locale */}
-          <Navbar locale={locale} />
-          {children}
-          <Footer />
-          <Analytics />
-          <SpeedInsights />
-          {/* Live chat widget */}
-          <CrispChat />
-          <Toaster />
+          <I18nProvider locale={locale}>
+            {/* Navbar now receives locale */}
+            <Navbar locale={locale} />
+            {children}
+            <Footer />
+            <Analytics />
+            <SpeedInsights />
+            {/* Live chat widget */}
+            <CrispChat />
+            <Toaster />
+          </I18nProvider>
         </SupabaseProvider>
       </body>
     </html>
