@@ -7,6 +7,7 @@
  *  • ARIA labels for a11y
  *  • Success screen linking back to 10-point guide
  */
+"use client";
 import { useState, useRef, useEffect } from 'react'
 import { clsx } from 'clsx'
 import Image from 'next/image'

@@ -1,4 +1,5 @@
 // app/module/inspection/demo/hotspots/page.tsx
+"use client";
 import { DemoPanel } from "@/components/DemoPanel";
 import { HotspotsEight } from "@/components/games/module2/HotspotsEight";
 

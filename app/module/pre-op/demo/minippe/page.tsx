@@ -1,4 +1,5 @@
 // app/module/pre-op/demo/minippe/page.tsx (example wrapper)
+"use client";
 import { DemoPanel } from "@/components/DemoPanel";
 import MiniPPE from "@/components/games/module1/MiniPPE";
 
@@ -18,7 +19,10 @@ export default function MiniPPEPage() {
           console.log("MiniPPE demo completed");
         }}
       >
-        <MiniPPE onComplete={() => { /* unlock Continue UI, toast, etc. */ }} />
+        <MiniPPE 
+          onComplete={() => { /* unlock Continue UI, toast, etc. */ }} 
+          openGuide={() => { console.log("Open guide requested"); }}
+        />
       </DemoPanel>
     </main>
   );

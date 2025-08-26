@@ -51,7 +51,7 @@ async function getUserEnrollmentsWithEvals() {
   }
 
   // Transform data to match expected interface
-  return enrollments?.map(enrollment => ({
+  return enrollments?.map((enrollment: any) => ({
     courseTitle: enrollment.courses?.title || 'Unknown Course',
     progressPct: Math.round(enrollment.progress_pct || 0),
     examScore: enrollment.passed ? 100 : null, // Since we only have pass/fail
