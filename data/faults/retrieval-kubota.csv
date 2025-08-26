@@ -1,0 +1,3 @@
+brand,method,steps,notes,source,last_verified
+kubota,display,"Power ON; access Diagnostic menu via panel buttons; review current and history codes; note code format.","Exact menu labels differ; verify per model.","internal:baseline","2024-08-26"
+kubota,diagnostic,"Key ON; locate diagnostic port; connect Kubota compatible diagnostic tool; read active/stored fault codes; document operating conditions","Follow Kubota diagnostic procedures","internal:baseline","2024-08-26"

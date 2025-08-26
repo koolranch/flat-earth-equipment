@@ -1,0 +1,3 @@
+brand,method,steps,notes,source,last_verified
+new-holland,display,"Power ON; enter diagnostic/service menu on the cluster; open Faults/Errors; capture code(s) and when they occurred.","Skid steers vs loaders may differ; check the operator manual.","internal:baseline","2024-08-26"
+new-holland,diagnostic,"Key ON; locate diagnostic connector; connect New Holland compatible scan tool; retrieve active/stored codes; record fault conditions","Menu sequences may vary by model year","internal:baseline","2024-08-26"

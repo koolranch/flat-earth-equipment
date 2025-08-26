@@ -1,0 +1,4 @@
+brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,provenance
+bobcat,,E01,System Fault,General system error detected,warn,Low voltage|Controller malfunction|Sensor issue,Check battery voltage|Inspect wiring connections|Test sensors,Charge battery|Replace controller|Repair wiring,internal:baseline
+bobcat,,E02,Engine Fault,Engine system error detected,critical,Engine overheating|Low oil pressure|Air filter restriction,Check coolant level|Verify oil level|Inspect air filter,Add coolant|Change oil|Replace air filter,internal:baseline
+bobcat,,E03,Hydraulic Fault,Hydraulic system error,warn,Low hydraulic fluid|Pump overheating|Filter restriction,Check fluid level|Inspect hydraulic pump|Replace filters,Add hydraulic fluid|Cool pump|Replace filters,internal:baseline

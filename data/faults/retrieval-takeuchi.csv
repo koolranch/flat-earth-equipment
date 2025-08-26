@@ -1,0 +1,3 @@
+brand,method,steps,notes,source,last_verified
+takeuchi,display,"Power ON; press menu/diag key sequence; open Faults/Alarms; record active and stored codes.","Key sequences differ by model/year; confirm with manual.","internal:baseline","2024-08-26"
+takeuchi,diagnostic,"Key ON; locate diagnostic connector; connect compatible scan tool; retrieve fault codes; note conditions when fault occurred","Refer to service manual for specific procedures","internal:baseline","2024-08-26"

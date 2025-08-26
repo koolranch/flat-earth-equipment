@@ -1,0 +1,3 @@
+brand,method,steps,notes,source,last_verified
+case,display,"Power ON; from the instrument panel menu, enter diagnostics; view Active/Stored codes; note code, subsystem, and conditions.","Steps vary by series; verify with official service literature.","internal:baseline","2024-08-26"
+case,diagnostic,"Key ON; locate diagnostic port; connect compatible scan tool; read active/stored fault codes; document fault context and conditions","Use manufacturer-approved diagnostic equipment","internal:baseline","2024-08-26"

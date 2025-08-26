@@ -7,6 +7,8 @@ export interface Brand {
 }
 
 export const brands: Brand[] = [
+  { name: "Bobcat", slug: "bobcat", colors: { primary: 'var(--brand-accent)' } },
+  { name: "Case", slug: "case", colors: { primary: 'var(--brand-accent)' } },
   { name: "Case Construction", slug: "case-construction" },
   { name: "Caterpillar", slug: "caterpillar" },
   { name: "Clark", slug: "clark" },
@@ -27,7 +29,7 @@ export const brands: Brand[] = [
   { name: "Jungheinrich", slug: "jungheinrich", colors: { primary: 'var(--brand-accent)' } },
   { name: "Kärcher", slug: "karcher" },
   { name: "Komatsu", slug: "komatsu" },
-  { name: "Kubota", slug: "kubota" },
+  { name: "Kubota", slug: "kubota", colors: { primary: 'var(--brand-accent)' } },
   { name: "LCMG", slug: "lcmg" },
   { name: "Linde", slug: "linde", colors: { primary: 'var(--brand-accent)' } },
   { name: "LiuGong", slug: "liugong" },
@@ -35,6 +37,7 @@ export const brands: Brand[] = [
   { name: "MEC", slug: "mec" },
   { name: "Mitsubishi Forklift", slug: "mitsubishi" },
   { name: "Moffett", slug: "moffett" },
+  { name: "New Holland", slug: "new-holland", colors: { primary: 'var(--brand-accent)' } },
   { name: "Nissan Forklift", slug: "nissan" },
   { name: "PowerBoss", slug: "powerboss" },
   { name: "Raymond", slug: "raymond" },
@@ -42,6 +45,7 @@ export const brands: Brand[] = [
   { name: "SkyTrak", slug: "skytrak" },
   { name: "Snorkel", slug: "snorkel" },
   { name: "Tailift", slug: "tailift" },
+  { name: "Takeuchi", slug: "takeuchi", colors: { primary: 'var(--brand-accent)' } },
   { name: "TCM", slug: "tcm" },
   { name: "Tennant", slug: "tennant" },
   { name: "Toro", slug: "toro" },

@@ -1,0 +1,4 @@
+brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,provenance
+new-holland,,E01,System Fault,General system error or malfunction,warn,ECM communication error|Sensor fault|Wiring harness issue,Check ECM connections|Test sensors|Inspect wiring,Repair ECM connection|Replace sensors|Repair wiring,internal:baseline
+new-holland,,E02,Engine Overheat,Engine temperature exceeding safe operating limits,critical,Low coolant level|Blocked radiator|Cooling fan failure,Check coolant level|Clean radiator fins|Test cooling fan,Add coolant|Clean radiator|Replace cooling fan,internal:baseline
+new-holland,,E03,Hydraulic System Fault,Hydraulic system error or low pressure,warn,Low hydraulic fluid|Filter clogged|Pump malfunction,Check fluid level|Replace hydraulic filter|Inspect pump,Add hydraulic fluid|Replace filter|Repair pump,internal:baseline
