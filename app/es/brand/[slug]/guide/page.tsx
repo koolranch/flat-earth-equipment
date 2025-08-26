@@ -27,12 +27,15 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function Page({ params }: { params: { slug: string } }){
+export default async function Page({ params, searchParams }: { params: { slug: string }; searchParams?: { notes_limit?: string } }){
   const brand = await getBrand(params.slug);
   if (!brand) notFound();
   
   const svcEnabled = process.env.NEXT_PUBLIC_FEATURE_SVC_SUBMISSIONS !== 'false';
   const canonicalUrl = `https://www.flatearthequipment.com/es/brand/${brand.slug}/guide`;
+  
+  // Allow larger list via search param (?notes_limit=50) when you want to see more
+  const limit = Math.min(Number(searchParams?.notes_limit) || 10, 100);
   
   return (
     <>
@@ -50,11 +53,11 @@ export default async function Page({ params }: { params: { slug: string } }){
             {/* Brand FAQ Section */}
             <BrandFAQBlock slug={brand.slug} name={brand.name} url={canonicalUrl} />
 
-            {/* UGC Sections - Guide Tab (shows all categories) */}
+            {/* UGC Sections - Always show all notes (no specific highlighting) */}
             {svcEnabled && (
               <>
                 <SubmissionForm brand={brand} />
-                <CommunityNotes brandSlug={brand.slug} />
+                <CommunityNotes brandSlug={brand.slug} limit={limit} />
               </>
             )}
 
