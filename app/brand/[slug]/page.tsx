@@ -110,7 +110,13 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function BrandPage({ params }: { params: { slug: string } }) {
+export default async function BrandPage({ 
+  params, 
+  searchParams 
+}: { 
+  params: { slug: string };
+  searchParams?: { tab?: string };
+}) {
   const brand = await getBrand(params.slug);
 
   if (!brand) {
@@ -193,6 +199,7 @@ export default async function BrandPage({ params }: { params: { slug: string } }
           brandSlug={brand.slug}
           hasSerialLookup={brand.has_serial_lookup}
           hasFaultCodes={brand.has_fault_codes}
+          defaultTab={searchParams?.tab}
         >
           {/* Serial Lookup Tab */}
           {brand.has_serial_lookup && (
