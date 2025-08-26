@@ -59,7 +59,7 @@ export default async function Page({ params }: { params: { slug: string } }){
           {/* Brand FAQ Section */}
           <BrandFAQBlock slug={brand.slug} name={brand.name} url={canonicalUrl} />
 
-          {/* UGC Sections - Only on Fault Codes Tab */}
+          {/* UGC Sections - Fault Codes Tab */}
           {svcEnabled && (
             <>
               <SubmissionForm brand={brand} />

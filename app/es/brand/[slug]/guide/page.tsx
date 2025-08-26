@@ -50,7 +50,7 @@ export default async function Page({ params }: { params: { slug: string } }){
             {/* Brand FAQ Section */}
             <BrandFAQBlock slug={brand.slug} name={brand.name} url={canonicalUrl} />
 
-            {/* UGC Sections - Only on Guide Tab */}
+            {/* UGC Sections - Guide Tab (shows all categories) */}
             {svcEnabled && (
               <>
                 <SubmissionForm brand={brand} />

@@ -6,6 +6,8 @@ import SerialLookupEmbed from '@/components/brand/SerialLookupEmbed';
 import BrandFAQBlock from '@/components/brand/BrandFAQBlock';
 import BrandPartsFormSection from '@/components/brand/BrandPartsFormSection';
 import PartsLeadForm from '@/components/brand/PartsLeadForm';
+import SubmissionForm from '@/components/brand/SubmissionForm';
+import CommunityNotes from '@/components/brand/CommunityNotes';
 import { getBrand } from '@/lib/brands';
 import { notFound } from 'next/navigation';
 
@@ -27,6 +29,7 @@ export default async function Page({ params }: { params: { slug: string } }){
   const brand = await getBrand(params.slug);
   if (!brand) notFound();
   
+  const svcEnabled = process.env.NEXT_PUBLIC_FEATURE_SVC_SUBMISSIONS !== 'false';
   const url = `https://www.flatearthequipment.com/brand/${brand.slug}/serial-lookup`;
   
   return (
@@ -45,6 +48,14 @@ export default async function Page({ params }: { params: { slug: string } }){
 
           {/* Brand FAQ Section */}
           <BrandFAQBlock slug={brand.slug} name={brand.name} url={url} />
+
+          {/* UGC Sections - Serial Lookup Tab */}
+          {svcEnabled && (
+            <>
+              <SubmissionForm brand={brand} />
+              <CommunityNotes brandSlug={brand.slug} category='serial' />
+            </>
+          )}
 
           {/* Parts Request Section with Anchor */}
           <BrandPartsFormSection>
