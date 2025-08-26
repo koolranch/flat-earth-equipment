@@ -50,9 +50,10 @@ export default async function Page({ params, searchParams }: { params: { slug: s
             {/* Brand FAQ Section */}
             <BrandFAQBlock slug={brand.slug} name={brand.name} url={canonical} />
 
-            {/* UGC Section - Recent tips + guided submission form */}
-            {svcEnabled && (
-              <div className='mt-8 grid gap-6 lg:grid-cols-2'>
+                      {/* UGC Section - Recent tips + guided submission form */}
+          {svcEnabled && (
+            <div className="mt-8">
+              <div className='grid gap-6 md:grid-cols-2'>
                 <div>
                   <RecentCommunityNotes brandSlug={brand.slug} />
                 </div>
@@ -60,7 +61,8 @@ export default async function Page({ params, searchParams }: { params: { slug: s
                   <SubmissionFormV2 brand={brand} />
                 </div>
               </div>
-            )}
+            </div>
+          )}
 
             {/* Parts Request Section with Anchor */}
             <BrandPartsFormSection>
