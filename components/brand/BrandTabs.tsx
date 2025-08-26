@@ -31,15 +31,18 @@ function Tab({ href, children, active }: { href: string; children: React.ReactNo
 
 export default function BrandTabs({ slug }: { slug: string }) {
   const pathname = usePathname();
-  const canon = canonForBrand(slug);
+  
+  // TEMP FIX: Use direct paths instead of canonForBrand to avoid any redirect loops
+  const serialPath = `/brand/${slug}/serial-lookup`;
+  const faultsPath = `/brand/${slug}/fault-codes`;
   const isActive = (p: string) => pathname === p;
   
   return (
     <div className='flex flex-wrap gap-3 mt-4 mb-6'>
-      <Tab href={canon.serial} active={isActive(canon.serial)}>
+      <Tab href={serialPath} active={isActive(serialPath)}>
         Open Serial Lookup
       </Tab>
-      <Tab href={canon.faults} active={isActive(canon.faults)}>
+      <Tab href={faultsPath} active={isActive(faultsPath)}>
         Fault Codes & Retrieval
       </Tab>
       {/* Parts goes to an in-page anchor for smooth scroll to the form */}
