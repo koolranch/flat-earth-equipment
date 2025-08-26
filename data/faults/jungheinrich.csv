@@ -1,0 +1,4 @@
+brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,provenance
+jungheinrich,,J01,System Fault,General system error detected,warn,Low battery voltage|Controller malfunction|Wiring issue,Check battery voltage|Inspect wiring connections|Test controller,Charge battery|Replace controller|Repair wiring,internal:baseline
+jungheinrich,,J02,Drive Fault,Drive system error,fault,Motor overheating|Drive controller fault|Speed sensor issue,Check motor temperature|Test drive controller|Inspect speed sensor,Cool motor|Replace drive controller|Replace speed sensor,internal:baseline
+jungheinrich,,J03,Hydraulic Fault,Hydraulic system error,warn,Low hydraulic fluid|Pump failure|Valve malfunction,Check fluid level|Test hydraulic pump|Inspect valve operation,Add hydraulic fluid|Replace pump|Replace valve,internal:baseline

@@ -1,0 +1,3 @@
+brand,method,steps
+mitsubishi,display,"Power ON equipment; access service/diagnostic menu through main display; navigate to diagnostic codes section; view active and stored fault codes; record codes and operational conditions"
+mitsubishi,diagnostic,"Key ON; locate diagnostic connector near control module; use appropriate scan tool for Mitsubishi equipment; read active/stored codes; note conditions when fault was detected"

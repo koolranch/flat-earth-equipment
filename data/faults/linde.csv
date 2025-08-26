@@ -1,0 +1,4 @@
+brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,provenance
+linde,,L01,Control Fault,Control system fault detected,warn,Controller error|Communication loss|Software issue,Reset controller|Check communication cables|Update software,Replace controller|Repair cables|Update firmware,internal:baseline
+linde,,L02,Motor Fault,Drive motor fault,fault,Motor overload|Temperature sensor fault|Encoder failure,Check motor load|Test temperature sensor|Inspect encoder connections,Reduce load|Replace sensor|Repair encoder,internal:baseline
+linde,,L03,Battery Fault,Battery system fault,warn,Low voltage|Cell imbalance|Charging fault,Test battery voltage|Check cell balance|Inspect charging system,Charge battery|Balance cells|Repair charger,internal:baseline

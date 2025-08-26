@@ -1,0 +1,4 @@
+brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,provenance
+doosan,,D01,Controller Error,Main controller fault detected,fault,Controller overheating|Software corruption|Hardware failure,Check controller temperature|Reset controller|Run diagnostics,Cool controller|Reload software|Replace controller,internal:baseline
+doosan,,D02,Drive System Fault,Drive system error,warn,Motor overheating|Drive controller fault|Speed sensor issue,Check motor temperature|Test drive controller|Inspect speed sensor,Cool motor|Replace drive controller|Replace speed sensor,internal:baseline
+doosan,,D03,Battery System Fault,Battery system error,warn,Low charge|Cell failure|Charger malfunction,Test battery voltage|Check individual cells|Inspect charger operation,Charge battery|Replace cells|Repair charger,internal:baseline
