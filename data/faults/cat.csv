@@ -1,0 +1,4 @@
+brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,provenance
+cat,,C01,Engine Fault,Engine system fault,fault,Engine overheating|Fuel system issue|Sensor failure,Check engine temperature|Test fuel system|Inspect sensors,Cool engine|Repair fuel system|Replace sensors,internal:baseline
+cat,,C02,Hydraulic Fault,Hydraulic system fault,warn,Low fluid level|Pump failure|Filter blockage,Check fluid level|Test hydraulic pump|Inspect hydraulic filter,Add hydraulic fluid|Replace pump|Replace filter,internal:baseline
+cat,,C03,Electrical Fault,Electrical system fault,warn,Battery voltage low|Alternator fault|Wiring issue,Test battery|Check alternator output|Inspect wiring harness,Charge battery|Replace alternator|Repair wiring,internal:baseline

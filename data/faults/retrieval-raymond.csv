@@ -1,0 +1,3 @@
+brand,method,steps
+raymond,display,"Power ON equipment; access diagnostic menu from main control display; navigate to fault code section; read active and stored diagnostic codes; document codes and operating conditions"
+raymond,diagnostic,"Turn key to ON position; locate diagnostic port on main controller; connect Raymond-compatible diagnostic tool; retrieve active/stored fault codes; record fault context"

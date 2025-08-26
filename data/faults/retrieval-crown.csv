@@ -1,0 +1,3 @@
+brand,method,steps
+crown,display,"Power ON equipment; access service/diagnostic menu from main display; navigate to fault code section; view active and stored codes; record code and conditions"
+crown,diagnostic,"Key ON; locate diagnostic connector near main controller; use appropriate scan tool; read active/stored fault codes; note operating conditions when fault occurred"

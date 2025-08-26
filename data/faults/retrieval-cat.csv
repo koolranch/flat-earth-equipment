@@ -1,0 +1,3 @@
+brand,method,steps
+cat,display,"Power ON equipment; access service/diagnostic menu from main display panel; navigate to fault code section; view active and stored codes; record fault codes and operating conditions"
+cat,diagnostic,"Key ON; locate diagnostic connector near main controller; connect CAT ET (Electronic Technician) or compatible tool; read active/stored fault codes; document fault conditions"
