@@ -2,6 +2,7 @@ import BrandGuideBlock from '@/components/brand/BrandGuideBlock';
 import BrandFAQBlock from '@/components/brand/BrandFAQBlock';
 import BrandHubCTA from '@/components/brand/BrandHubCTA';
 import SubmissionForm from '@/components/brand/SubmissionForm';
+import CommunityNotes from '@/components/brand/CommunityNotes';
 import BrandTabs, { TabContent } from '@/components/brand/BrandTabs';
 import FaultSearch from '@/components/faults/FaultSearch';
 import SerialLookupEmbed from '@/components/brand/SerialLookupEmbed';
@@ -38,6 +39,9 @@ export default function BrandHubPage({ brand, defaultTab }: { brand: { slug: str
       </BrandTabs>
       
       <BrandFAQBlock slug={brand.slug} name={brand.name} url={`https://www.flatearthequipment.com/brand/${brand.slug}`} />
+      
+      {/* Community Notes */}
+      <CommunityNotes brandSlug={brand.slug} />
       
       {/* User Submission Form */}
       <SubmissionForm brand={brand} />
