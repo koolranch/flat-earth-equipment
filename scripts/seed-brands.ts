@@ -60,13 +60,13 @@ async function seedBrands() {
 
     console.log('\n✅ Brand seeding completed!');
 
-    // Verify our target brands exist
+    // Verify all target brands exist (previous + new batch)
     const { data: targetBrands } = await supabase
       .from('brands')
       .select('slug, name')
-      .in('slug', ['crown', 'clark', 'yale', 'raymond', 'cat']);
+      .in('slug', ['crown', 'clark', 'yale', 'raymond', 'cat', 'komatsu', 'doosan', 'mitsubishi', 'linde', 'jungheinrich']);
 
-    console.log('\nTarget brands verification:');
+    console.log('\nTarget brands verification (all batches):');
     targetBrands?.forEach(brand => {
       console.log(`✓ ${brand.name} (${brand.slug})`);
     });
