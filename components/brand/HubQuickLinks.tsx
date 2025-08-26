@@ -47,7 +47,7 @@ export function HubQuickLinks({ slug, serialToolUrl }: HubQuickLinksProps) {
         slug={slug} 
       />
       <Item 
-        href={`/brand/${slug}?tab=fault`} 
+        href={`/brand/${slug}?tab=fault-codes`} 
         label="Fault Codes & Retrieval" 
         event="fault" 
         slug={slug} 

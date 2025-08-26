@@ -9,6 +9,7 @@ interface BrandTabsProps {
   hasSerialLookup: boolean;
   hasFaultCodes: boolean;
   children: React.ReactNode;
+  defaultTab?: string;
 }
 
 type TabType = 'serial' | 'fault-codes' | 'parts';
@@ -20,7 +21,7 @@ interface Tab {
   enabled: boolean;
 }
 
-export default function BrandTabs({ brandSlug, hasSerialLookup, hasFaultCodes, children }: BrandTabsProps) {
+export default function BrandTabs({ brandSlug, hasSerialLookup, hasFaultCodes, children, defaultTab }: BrandTabsProps) {
   const [activeTab, setActiveTab] = useState<TabType>('serial');
   const hasTrackedInitialView = useRef(false);
 
@@ -70,13 +71,23 @@ export default function BrandTabs({ brandSlug, hasSerialLookup, hasFaultCodes, c
     trackView();
   }, [activeTab, brandSlug]);
 
-  // Set default tab to first enabled tab
+  // Set initial tab based on URL parameter or first enabled tab
   useEffect(() => {
+    // Check if defaultTab from URL is valid
+    if (defaultTab) {
+      const validTab = tabs.find(tab => tab.id === defaultTab && tab.enabled);
+      if (validTab) {
+        setActiveTab(validTab.id);
+        return;
+      }
+    }
+    
+    // Fallback to first enabled tab
     const firstEnabledTab = tabs.find(tab => tab.enabled);
     if (firstEnabledTab && !tabs.find(tab => tab.id === activeTab)?.enabled) {
       setActiveTab(firstEnabledTab.id);
     }
-  }, [hasSerialLookup, hasFaultCodes]);
+  }, [hasSerialLookup, hasFaultCodes, defaultTab]);
 
   return (
     <div className="w-full">
