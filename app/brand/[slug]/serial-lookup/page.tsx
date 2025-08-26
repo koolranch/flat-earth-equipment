@@ -54,11 +54,11 @@ export default async function Page({ params, searchParams }: { params: { slug: s
 
           {/* UGC Section - Recent tips + guided submission form */}
           {svcEnabled && (
-            <div className='mt-8 grid gap-6 md:grid-cols-5'>
-              <div className='md:col-span-2'>
+            <div className='mt-8 grid gap-6 lg:grid-cols-2'>
+              <div>
                 <RecentCommunityNotes brandSlug={brand.slug} />
               </div>
-              <div className='md:col-span-3'>
+              <div>
                 <SubmissionFormV2 brand={brand} />
               </div>
             </div>
