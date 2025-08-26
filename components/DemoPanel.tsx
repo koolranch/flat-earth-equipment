@@ -2,6 +2,7 @@
 "use client";
 import React from "react";
 import { analytics } from "@/lib/analytics";
+import { useT } from "@/lib/i18n";
 
 type DemoPanelProps = {
   title: string;
@@ -13,6 +14,8 @@ type DemoPanelProps = {
 };
 
 export function DemoPanel({ title, objective, steps, onStart, onComplete, children }: DemoPanelProps) {
+  const t = useT();
+  
   const handleStart = () => {
     analytics.track("demo_start", { demo: title });
     onStart?.();
@@ -32,7 +35,7 @@ export function DemoPanel({ title, objective, steps, onStart, onComplete, childr
       <ol className="list-decimal ml-5 mb-3 text-sm text-slate-700">
         {steps.map((s,i)=>(<li key={i}>{s}</li>))}
       </ol>
-      <div role="region" aria-label={`${title} interactive`} className="mb-3">
+      <div role="region" aria-label={`${title} ${t('demo.interactive_label', 'interactive')}`} className="mb-3">
         {children}
       </div>
       <div className="flex gap-2">
@@ -40,13 +43,13 @@ export function DemoPanel({ title, objective, steps, onStart, onComplete, childr
           className="rounded-2xl bg-[#F76511] text-white px-4 py-2 focus:ring-2 focus:ring-[#F76511]"
           onClick={handleStart}
         >
-          Start
+          {t('demo.start', 'Start')}
         </button>
         <button
           className="rounded-2xl border px-4 py-2 focus:ring-2 focus:ring-[#F76511]"
           onClick={()=>handleComplete()}
         >
-          Continue
+          {t('demo.continue', 'Continue')}
         </button>
       </div>
     </section>
