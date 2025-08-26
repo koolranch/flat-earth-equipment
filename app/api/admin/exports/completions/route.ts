@@ -91,11 +91,12 @@ export async function GET(req: Request) {
     // Create a lookup map for evaluations by learner_id + course_id
     const evalMap = new Map<string, any>();
     if (evaluations) {
-      evaluations.forEach(eval => {
-        const key = `${eval.enrollments.user_id}-${eval.enrollments.course_id}`;
+      evaluations.forEach((evaluation: any) => {
+        const enrollment = evaluation.enrollments;
+        const key = `${enrollment.user_id}-${enrollment.course_id}`;
         evalMap.set(key, {
-          evaluation_date: eval.evaluation_date,
-          practical_pass: eval.practical_pass
+          evaluation_date: evaluation.evaluation_date,
+          practical_pass: evaluation.practical_pass
         });
       });
     }
