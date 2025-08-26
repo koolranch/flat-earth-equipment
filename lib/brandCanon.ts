@@ -8,6 +8,12 @@ export const brandCanonMap: Record<string, Canon> = {
   genie: { serial: '/genie-serial-number-lookup' },
   jlg: {},
   jcb: {},
+  // Construction brands - preserve legacy rankings
+  bobcat: { serial: '/parts/construction-equipment-parts/your-bobcat-serial-number-how-to-find-and-use-it' },
+  case: { serial: '/case-serial-number-lookup' },
+  'new-holland': { serial: '/parts/construction-equipment-parts/new-holland-skid-steer-serial-number-lookup' },
+  kubota: { serial: '/kubota-serial-number-lookup' },
+  takeuchi: { serial: '/takeuchi-serial-number-lookup' },
 };
 
 export function resolveCanonical(slug: string, tab: 'serial'|'fault-codes'|'guide'){

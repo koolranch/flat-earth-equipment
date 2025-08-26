@@ -1,0 +1,4 @@
+brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,provenance
+takeuchi,,E01,System Error,General system error detected,warn,ECM communication fault|Sensor malfunction|Power supply issue,Check ECM power and ground|Test sensors|Inspect harness connections,Repair ECM power|Replace sensors|Repair harness,internal:baseline
+takeuchi,,E02,Engine Warning,Engine system warning or fault,critical,Low oil pressure|High engine temperature|Air filter restriction,Check engine oil level|Verify coolant level|Inspect air filter,Change oil|Add coolant|Replace air filter,internal:baseline
+takeuchi,,E03,Hydraulic Fault,Hydraulic system malfunction,warn,Low hydraulic fluid|Filter clogged|Pump overheating,Check hydraulic fluid level|Replace filter|Allow pump to cool,Add hydraulic fluid|Replace filter|Cool pump,internal:baseline

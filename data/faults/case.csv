@@ -1,0 +1,4 @@
+brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,provenance
+case,,E01,System Error,General electronic system fault,warn,Sensor malfunction|Wiring issue|ECM fault,Check sensor connections|Inspect wiring harness|Test ECM,Replace sensors|Repair wiring|Replace ECM,internal:baseline
+case,,E02,Hydraulic Pressure Low,Insufficient hydraulic system pressure,critical,Low fluid level|Pump wear|Relief valve stuck,Check hydraulic fluid level|Inspect pump|Test relief valve,Add hydraulic fluid|Replace pump|Repair relief valve,internal:baseline
+case,,E03,Engine Temperature High,Engine operating temperature exceeding limits,critical,Low coolant|Radiator blockage|Thermostat failure,Check coolant level|Clean radiator|Test thermostat,Add coolant|Clean radiator|Replace thermostat,internal:baseline

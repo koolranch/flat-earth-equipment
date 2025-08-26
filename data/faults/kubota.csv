@@ -1,0 +1,4 @@
+brand,model_pattern,code,title,meaning,severity,likely_causes,checks,fixes,provenance
+kubota,,E01,System Error,General electronic system fault,warn,Sensor malfunction|Wiring issue|Controller fault,Check all sensor connections|Inspect wiring harness|Test controller,Replace faulty sensor|Repair wiring|Replace controller,internal:baseline
+kubota,,E02,Hydraulic Pressure Low,Insufficient hydraulic pressure,critical,Low fluid level|Pump wear|Relief valve stuck,Check hydraulic fluid level|Inspect pump for leaks|Test relief valve,Top up fluid|Replace pump|Clean/replace valve,internal:baseline
+kubota,,E03,Engine Overheat,Engine temperature exceeding limits,critical,Low coolant|Radiator blockage|Fan malfunction,Check coolant level|Inspect radiator fins|Test cooling fan,Add coolant|Clean radiator|Repair/replace fan,internal:baseline

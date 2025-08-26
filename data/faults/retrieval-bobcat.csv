@@ -1,0 +1,3 @@
+brand,method,steps,notes,source,last_verified
+bobcat,display,"Power ON; open the service/diagnostic menu on the machine display; navigate to Faults/Alarms to view active/stored codes; record the code and conditions.","Menu names vary by model; confirm with the manual.","internal:baseline","2024-08-26"
+bobcat,diagnostic,"Key ON; locate diagnostic connector; use appropriate diagnostic tool; retrieve active/stored fault codes; note operating conditions when fault occurred","Follow manufacturer procedures for tool selection","internal:baseline","2024-08-26"
