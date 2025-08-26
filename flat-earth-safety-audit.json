@@ -1,0 +1,371 @@
+{
+  "title": "Flat Earth Safety — Training Content & UX Audit (Interactive-First Readiness)",
+  "audit_date": "2024-08-26",
+  "overview": {
+    "purpose": "Read-only audit to inventory existing forklift certification content, structure, and data models, highlighting opportunities to move from video→quiz to interactive-first training",
+    "tech_stack": "Next.js App Router + React + Tailwind + Supabase + shadcn/ui + Mux",
+    "brand_cues": "safety orange #F76511, slate #0F172A, western rugged, no-BS"
+  },
+  "repo_overview_routing": {
+    "app_routes": {
+      "/training": "Training overview page",
+      "/safety": "Main forklift certification landing page with pricing",
+      "/osha-operator-training": "OSHA compliance information",
+      "/forklift-recertification-online": "Renewal training",
+      "/dashboard": "Legacy module-based dashboard",
+      "/dashboard-simple": "Modern hybrid module viewer (current active)",
+      "/api/progress": "Progress tracking API",
+      "/api/claim-training": "Training purchase claiming",
+      "/api/quiz/[filename]": "Quiz JSON file serving"
+    },
+    "page_components": {
+      "SafetyHome": ["CheckoutButton", "PriceCard", "FAQ", "TrustBadges"],
+      "SimpleDashboard": ["HybridModule", "Quiz", "TrainingVideo"],
+      "HybridModule": ["GameComponent (dynamic)", "Quiz", "TrainingVideo", "GuidePane"]
+    },
+    "auth_middleware": {
+      "auth_system": "Supabase Auth integration",
+      "middleware_guards": "None detected",
+      "login_flow": "Through purchase flow with auto-enroll"
+    }
+  },
+  "content_inventory": {
+    "modules": [
+      {
+        "module": 1,
+        "title": "Pre-Operation Inspection & Controls",
+        "path": "content/modules/1-pre-operation-inspection.mdx",
+        "est_duration_min": 8,
+        "content_type": "MDX + Flash",
+        "interactivity_found": ["Flash cards", "MiniPPE game"],
+        "video_assets": ["intro video"],
+        "gaps_ideas": ["Add hotspots for control identification", "drag-drop PPE sequence"]
+      },
+      {
+        "module": 2,
+        "title": "Daily Inspection Checklist",
+        "path": "content/modules/2-inspection.mdx",
+        "est_duration_min": 8,
+        "content_type": "MDX + Flash",
+        "interactivity_found": ["Flash cards", "MiniInspection game"],
+        "video_assets": ["8-point diagram"],
+        "gaps_ideas": ["Interactive 8-point checklist", "tap-to-inspect game"]
+      },
+      {
+        "module": 3,
+        "title": "Operating Procedures",
+        "path": "content/modules/3-operating-procedures.mdx",
+        "est_duration_min": 12,
+        "content_type": "MDX + Flash",
+        "interactivity_found": ["Flash cards"],
+        "video_assets": ["stability triangle"],
+        "gaps_ideas": ["Stability triangle simulation", "load capacity calculator"]
+      },
+      {
+        "module": 4,
+        "title": "Load Handling & Safety",
+        "path": "content/modules/4-load-handling-safety.mdx",
+        "est_duration_min": 15,
+        "content_type": "MDX + Flash",
+        "interactivity_found": ["Flash cards", "MiniHazard game"],
+        "video_assets": ["hazard scenarios"],
+        "gaps_ideas": ["Decision tree for load assessment", "pedestrian safety sim"]
+      },
+      {
+        "module": 5,
+        "title": "Advanced Operations",
+        "path": "content/modules/5-advanced-operations.mdx",
+        "est_duration_min": 8,
+        "content_type": "MDX + Flash",
+        "interactivity_found": ["Flash cards"],
+        "video_assets": ["shutdown sequence"],
+        "gaps_ideas": ["Step-by-step shutdown trainer", "parking scenario choice"]
+      },
+      {
+        "module": 6,
+        "title": "Course Completion",
+        "path": "content/modules/6-course-completion.mdx",
+        "est_duration_min": 6,
+        "content_type": "MDX + Flash",
+        "interactivity_found": ["Flash cards"],
+        "video_assets": ["none"],
+        "gaps_ideas": ["Final assessment dashboard", "employer evaluation form"]
+      }
+    ],
+    "assets_summary": {
+      "videos": "Stored in Supabase storage, HLS support via VideoPlayer",
+      "captions": "VTT files available (EN/ES) at /captions/moduleX.{en|es}.vtt",
+      "images": "CDN-hosted via Supabase storage (https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/)"
+    }
+  },
+  "demo_game_components": [
+    {
+      "component": "MiniPPE",
+      "file_path": "components/games/module1/MiniPPE.tsx",
+      "purpose": "PPE sequence training",
+      "props_state": "onComplete, openGuide",
+      "success_criteria": "4-step completion (vest→hardhat→forks→brake)",
+      "accessibility": "ARIA labels, keyboard support",
+      "reusability": "High - follows consistent pattern"
+    },
+    {
+      "component": "MiniInspection",
+      "file_path": "components/games/module2/MiniInspection.tsx",
+      "purpose": "8-point inspection",
+      "props_state": "locale, onComplete",
+      "success_criteria": "Complete inspection checklist",
+      "accessibility": "Touch-friendly, screen reader support",
+      "reusability": "High - templatable pattern"
+    },
+    {
+      "component": "MiniHazard",
+      "file_path": "components/games/module4/MiniHazard.tsx",
+      "purpose": "Hazard recognition",
+      "props_state": "onComplete",
+      "success_criteria": "Identify workplace hazards",
+      "accessibility": "Visual focus indicators",
+      "reusability": "High - DemoPanel pattern ready"
+    },
+    {
+      "component": "MiniCheckoff",
+      "file_path": "components/games/module1/MiniCheckoff.tsx",
+      "purpose": "Basic safety steps",
+      "props_state": "locale, onComplete",
+      "success_criteria": "3-step safety sequence",
+      "accessibility": "Keyboard navigation",
+      "reusability": "High - consistent callback pattern"
+    }
+  ],
+  "quiz_exam_mechanics": {
+    "components": ["Quiz.tsx", "QuizModal.tsx"],
+    "format": "One question per screen with instant feedback",
+    "pass_score": "80% (explicitly stated in completion module)",
+    "attempt_limits": "Unlimited retakes (Free retakes until you pass)",
+    "autosave": "On quiz completion via /api/progress",
+    "review_support": "No incorrect answer review currently",
+    "question_types": "Multiple choice only",
+    "quiz_loading": "Dynamic loading from /api/quiz/{moduleId}.json with EN/ES fallback",
+    "end_of_module_pattern": "Every module has quiz requirement for progression"
+  },
+  "compliance_mapping_osha": [
+    {
+      "osha_element": "§1910.178(l)(1) Training elements",
+      "covered_in": "Modules 1-5",
+      "evidence": "Pre-op, controls, load handling",
+      "gap_risk": "✅ Complete"
+    },
+    {
+      "osha_element": "§1910.178(l)(3) Operator competency",
+      "covered_in": "Module 6",
+      "evidence": "80% pass requirement",
+      "gap_risk": "✅ Complete"
+    },
+    {
+      "osha_element": "§1910.178(l)(4) Refresher training",
+      "covered_in": "/forklift-recertification-online",
+      "evidence": "3-year renewal",
+      "gap_risk": "✅ Complete"
+    },
+    {
+      "osha_element": "§1910.178(l)(6) Training records",
+      "covered_in": "Progress API, certificates",
+      "evidence": "Digital certificates",
+      "gap_risk": "❌ Gap: Missing employer evaluation component"
+    }
+  ],
+  "critical_gap": "Need employer evaluation form and record-keeping for practical assessment per §1910.178(l)(6)",
+  "supabase_data_models": {
+    "core_training_tables": {
+      "courses": "id, slug, title, description, price_cents, stripe_price",
+      "modules": "id, course_id, order, title, video_url, intro_url, type, game_asset_key, quiz_json",
+      "enrollments": "id, user_id, course_id, progress_pct, passed, created_at",
+      "orders": "id, user_id, course_id, stripe_session_id, seats, amount_cents"
+    },
+    "missing_recommended_fields": {
+      "employer_evaluations": "id, enrollment_id, evaluator_name, evaluator_title, site_location, evaluation_date, practical_pass, evaluator_signature, notes"
+    },
+    "rls_policies": "Basic read access for courses/modules, owner-only access for enrollments/orders"
+  },
+  "accessibility_localization": {
+    "wcag_compliance": {
+      "color_contrast": "✅ Meets requirements (safety orange #F76511 on white)",
+      "focus_states": "✅ Visible on interactive elements",
+      "keyboard_navigation": "✅ Available in games",
+      "aria_labels": "✅ Present on game components",
+      "captions": "✅ Available for videos (EN/ES)"
+    },
+    "localization": {
+      "spanish_content": "✅ Available (content/es/modules/)",
+      "dynamic_locale_switching": "✅ getUserLocale()",
+      "hardcoded_strings": "❌ Some in components need extraction"
+    }
+  },
+  "brand_ui_system": {
+    "tailwind_tokens": {
+      "primary": "orange-600 (#F76511 - safety orange)",
+      "secondary": "slate-900 (#0F172A)",
+      "radius": "rounded-lg, rounded-2xl",
+      "spacing": "p-4, p-6, gap-4"
+    },
+    "shadcn_ui_usage": "Limited usage detected, primarily custom components",
+    "brand_alignment": "Strong safety orange presence, western rugged aesthetic with generous spacing"
+  },
+  "top_interactive_opportunities": [
+    {
+      "rank": 1,
+      "component": "8-Point Inspection",
+      "pattern": "Hotspots",
+      "why_it_fits": "Visual spatial learning",
+      "complexity": "M",
+      "dev_estimate": "1-2d",
+      "acceptance_criteria": ["Tap 8 points in sequence", "Visual feedback on defects", "Pass/fail state"]
+    },
+    {
+      "rank": 2,
+      "component": "PPE Sequence",
+      "pattern": "Drag-n-Drop",
+      "why_it_fits": "Muscle memory training",
+      "complexity": "S",
+      "dev_estimate": "0.5-1d",
+      "acceptance_criteria": ["Drag PPE items to operator", "Correct sequence required", "Safety reminders"]
+    },
+    {
+      "rank": 3,
+      "component": "Stability Triangle",
+      "pattern": "Physics Sim",
+      "why_it_fits": "Critical safety concept",
+      "complexity": "L",
+      "dev_estimate": "3-5d",
+      "acceptance_criteria": ["Interactive load positioning", "Real-time stability calc", "Tip-over warnings"]
+    },
+    {
+      "rank": 4,
+      "component": "Load Capacity",
+      "pattern": "Calculator",
+      "why_it_fits": "Math application",
+      "complexity": "S",
+      "dev_estimate": "1d",
+      "acceptance_criteria": ["Input load specs", "Visual capacity warnings", "OSHA limit enforcement"]
+    },
+    {
+      "rank": 5,
+      "component": "Hazard Spotting",
+      "pattern": "Hotspots",
+      "why_it_fits": "Risk recognition",
+      "complexity": "M",
+      "dev_estimate": "1-2d",
+      "acceptance_criteria": ["Click hazards in scene", "Explain consequences", "Score tracking"]
+    },
+    {
+      "rank": 6,
+      "component": "Shutdown Sequence",
+      "pattern": "Checklist",
+      "why_it_fits": "Procedural memory",
+      "complexity": "S",
+      "dev_estimate": "0.5-1d",
+      "acceptance_criteria": ["Step-by-step validation", "Error correction", "Time tracking"]
+    },
+    {
+      "rank": 7,
+      "component": "Control Identification",
+      "pattern": "Hotspots",
+      "why_it_fits": "Equipment familiarity",
+      "complexity": "M",
+      "dev_estimate": "1-2d",
+      "acceptance_criteria": ["Label control points", "Function explanation", "Model variations"]
+    },
+    {
+      "rank": 8,
+      "component": "Traffic Patterns",
+      "pattern": "Path Drawing",
+      "why_it_fits": "Workplace navigation",
+      "complexity": "M",
+      "dev_estimate": "2d",
+      "acceptance_criteria": ["Draw safe routes", "Intersection rules", "Pedestrian zones"]
+    },
+    {
+      "rank": 9,
+      "component": "Pre-Op Checklist",
+      "pattern": "Decision Tree",
+      "why_it_fits": "Systematic thinking",
+      "complexity": "M",
+      "dev_estimate": "1-2d",
+      "acceptance_criteria": ["If/then scenarios", "Defect responses", "Documentation"]
+    },
+    {
+      "rank": 10,
+      "component": "Emergency Response",
+      "pattern": "Decision Tree",
+      "why_it_fits": "Crisis management",
+      "complexity": "L",
+      "dev_estimate": "3d",
+      "acceptance_criteria": ["Scenario branching", "Time pressure", "Multi-outcome paths"]
+    }
+  ],
+  "analytics_events": {
+    "current_events": [
+      "Progress tracking via /api/progress",
+      "Module completion logging",
+      "Certificate generation"
+    ],
+    "recommended_minimal_funnel": [
+      "lesson_start",
+      "demo_start", 
+      "demo_complete",
+      "quiz_item_answered",
+      "quiz_passed",
+      "module_complete",
+      "exam_passed",
+      "certificate_downloaded",
+      "employer_eval_saved"
+    ],
+    "implementation_locations": {
+      "HybridModule.tsx": "lesson_start, demo events",
+      "QuizModal.tsx": "quiz events",
+      "CompletionActions.tsx": "certificate events"
+    }
+  },
+  "immediate_next_steps": [
+    {
+      "priority": 1,
+      "task": "Implement employer evaluation form",
+      "reason": "Critical OSHA compliance gap"
+    },
+    {
+      "priority": 2,
+      "task": "Convert 8-point inspection to interactive hotspots",
+      "reason": "Highest ROI interactive element"
+    },
+    {
+      "priority": 3,
+      "task": "Add missing analytics events",
+      "reason": "Essential for optimization"
+    },
+    {
+      "priority": 4,
+      "task": "Extract hardcoded strings for i18n",
+      "reason": "Complete localization"
+    },
+    {
+      "priority": 5,
+      "task": "Create stability triangle physics simulation",
+      "reason": "High-impact safety training"
+    },
+    {
+      "priority": 6,
+      "task": "Design reusable interactive component pattern",
+      "reason": "Scale development efficiency"
+    },
+    {
+      "priority": 7,
+      "task": "Implement progress autosave on demo interactions",
+      "reason": "Improve completion rates"
+    }
+  ],
+  "technical_note": "The codebase shows strong interactive foundation with HybridModule architecture. Focus on expanding game components rather than rebuilding core systems.",
+  "complexity_key": {
+    "S": "Small (0.5-1 day)",
+    "M": "Medium (1-2 days)", 
+    "L": "Large (3-5 days)"
+  }
+}
