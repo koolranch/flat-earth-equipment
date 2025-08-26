@@ -4,8 +4,8 @@ import BrandGuideBlock from '@/components/brand/BrandGuideBlock';
 import BrandFAQBlock from '@/components/brand/BrandFAQBlock';
 import BrandPartsFormSection from '@/components/brand/BrandPartsFormSection';
 import PartsLeadForm from '@/components/brand/PartsLeadForm';
-import SubmissionForm from '@/components/brand/SubmissionForm';
-import CommunityNotes from '@/components/brand/CommunityNotes';
+import RecentCommunityNotes from '@/components/brand/RecentCommunityNotes';
+import SubmissionFormV2 from '@/components/brand/SubmissionFormV2';
 import BreadcrumbsBrand from '@/components/nav/BreadcrumbsBrand';
 import { getBrand } from '@/lib/brands';
 import { notFound } from 'next/navigation';
@@ -50,12 +50,16 @@ export default async function Page({ params, searchParams }: { params: { slug: s
             {/* Brand FAQ Section */}
             <BrandFAQBlock slug={brand.slug} name={brand.name} url={canonical} />
 
-            {/* UGC Sections - Always show all notes (no specific highlighting) */}
+            {/* UGC Section - Recent tips + guided submission form */}
             {svcEnabled && (
-              <>
-                <SubmissionForm brand={brand} />
-                <CommunityNotes brandSlug={brand.slug} limit={limit} />
-              </>
+              <div className='mt-8 grid gap-6 md:grid-cols-5'>
+                <div className='md:col-span-2'>
+                  <RecentCommunityNotes brandSlug={brand.slug} />
+                </div>
+                <div className='md:col-span-3'>
+                  <SubmissionFormV2 brand={brand} />
+                </div>
+              </div>
             )}
 
             {/* Parts Request Section with Anchor */}

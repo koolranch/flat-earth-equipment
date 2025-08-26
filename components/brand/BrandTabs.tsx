@@ -38,17 +38,25 @@ export default function BrandTabs({ slug }: { slug: string }) {
   const isActive = (p: string) => pathname === p;
   
   return (
-    <div className='flex flex-wrap gap-3 mt-4 mb-6'>
-      <Tab href={serialPath} active={isActive(serialPath)}>
-        Open Serial Lookup
-      </Tab>
-      <Tab href={faultsPath} active={isActive(faultsPath)}>
-        Fault Codes & Retrieval
-      </Tab>
-      {/* Parts goes to an in-page anchor for smooth scroll to the form */}
-      <Tab href={`/brand/${slug}#parts-request`} active={pathname === `/brand/${slug}`}>
-        Request Parts Help
-      </Tab>
-    </div>
+    <>
+      <div className='flex flex-wrap gap-3 mt-4 mb-6'>
+        <Tab href={serialPath} active={isActive(serialPath)}>
+          Open Serial Lookup
+        </Tab>
+        <Tab href={faultsPath} active={isActive(faultsPath)}>
+          Fault Codes & Retrieval
+        </Tab>
+        {/* Parts goes to an in-page anchor for smooth scroll to the form */}
+        <Tab href={`/brand/${slug}#parts-request`} active={pathname === `/brand/${slug}`}>
+          Request Parts Help
+        </Tab>
+      </div>
+      {/* CTA for tips submission */}
+      <div className='w-full text-right -mt-2 mb-2'>
+        <a href='#tips' onClick={() => (window as any)?.va?.track?.('cta_scroll_tips')} className='text-sm underline hover:no-underline'>
+          Got a tip for this brand?
+        </a>
+      </div>
+    </>
   );
 }
