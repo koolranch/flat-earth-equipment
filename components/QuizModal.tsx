@@ -1,9 +1,20 @@
 'use client'
 import { useState } from 'react'
+import { analytics } from '@/lib/analytics'
 
 type Q = { q: string; choices: string[]; answer: number }
 
-export default function QuizModal({ questions, onPass }: { questions: Q[]; onPass: () => void }) {
+export default function QuizModal({ 
+  questions, 
+  onPass, 
+  enrollmentId, 
+  moduleId 
+}: { 
+  questions: Q[]; 
+  onPass: () => void;
+  enrollmentId?: string;
+  moduleId?: number;
+}) {
   const [idx, setIdx] = useState(0)
   const [score, setScore] = useState(0)
   const [showResult, setShowResult] = useState(false)
@@ -13,10 +24,38 @@ export default function QuizModal({ questions, onPass }: { questions: Q[]; onPas
   console.log('QuizModal rendered with', questions.length, 'questions')
   console.log('Current state:', { idx, score, showResult, finalScore })
   
-  function submit(choice: number) {
+  async function submit(choice: number) {
     console.log(`Question ${idx + 1}: selected choice ${choice}, correct answer is ${questions[idx].answer}`)
     const isCorrect = choice === questions[idx].answer
     if (isCorrect) setScore(s => s + 1)
+    
+    // Track quiz item answer
+    analytics.track("quiz_item_answered", {
+      questionIndex: idx + 1,
+      totalQuestions: questions.length,
+      selectedChoice: choice,
+      correctAnswer: questions[idx].answer,
+      isCorrect,
+      question: questions[idx].q
+    });
+    
+    // Autosave per-item answer (non-blocking)
+    if (enrollmentId) {
+      const itemId = `m${moduleId || 0}_q${idx + 1}`;
+      fetch("/api/progress", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          enrollmentId,
+          itemId,
+          correct: isCorrect,
+          choice,
+          ts: Date.now()
+        }),
+      }).catch((error) => {
+        console.debug("[autosave] Failed to save quiz answer:", error);
+      });
+    }
     
     console.log(`Current question index: ${idx}, total questions: ${questions.length}`)
     
@@ -31,6 +70,14 @@ export default function QuizModal({ questions, onPass }: { questions: Q[]; onPas
       setShowResult(true)
       console.log(`Quiz completed: ${totalScore}/${questions.length} = ${(totalScore / questions.length) * 100}%`)
       console.log('showResult set to true')
+      
+      // Track quiz completion
+      analytics.track("quiz_completed", {
+        finalScore: totalScore,
+        totalQuestions: questions.length,
+        percentage: (totalScore / questions.length) * 100,
+        passed: (totalScore / questions.length) * 100 >= 80
+      });
     }
   }
   

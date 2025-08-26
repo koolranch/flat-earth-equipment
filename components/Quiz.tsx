@@ -7,11 +7,13 @@ type QuizQuestion = { q: string; choices: string[]; answer: number }
 export function Quiz({
   moduleId,
   locale = 'en',
-  onComplete
+  onComplete,
+  enrollmentId
 }: {
   moduleId: number
   locale?: 'en' | 'es'
   onComplete?: () => void
+  enrollmentId?: string
 }) {
   const [questions, setQuestions] = useState<QuizQuestion[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -133,6 +135,8 @@ export function Quiz({
         <QuizModal
           questions={questions}
           onPass={handleQuizPass}
+          enrollmentId={enrollmentId}
+          moduleId={moduleId}
         />
       )}
     </>
