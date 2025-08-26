@@ -24,7 +24,7 @@ const config = {
     lastmod: new Date().toISOString(),
   }),
   additionalPaths: async (config) => {
-    const base = ['jlg','genie','toyota','jcb','hyster', ...scaled];
+    const base = ['jlg','genie','toyota','jcb','hyster','crown','clark','yale','raymond','cat','komatsu','doosan','mitsubishi','linde','jungheinrich', ...scaled];
     const items = [];
     for (const slug of base){
       items.push({ loc: `/brand/${slug}/serial-lookup` });
