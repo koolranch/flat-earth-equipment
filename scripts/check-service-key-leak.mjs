@@ -8,6 +8,7 @@ const keyPrefix = (process.env.SUPABASE_SERVICE_ROLE_KEY || '').slice(0, 8);
 const needleName = 'SUPABASE_SERVICE_ROLE_KEY';
 const needleModule = '@/lib/supabase/service'; // legacy path
 const needleServer = '@/lib/supabase/service.server';
+const needleServicePath = '/lib/supabase/service';
 
 function scan(dir) {
   if (!fs.existsSync(dir)) return;
@@ -17,10 +18,10 @@ function scan(dir) {
     if (stat.isDirectory()) scan(p);
     else if (/\.(js|txt|html|json)$/.test(entry)) {
       const txt = fs.readFileSync(p, 'utf8');
-      const hit = (keyPrefix && txt.includes(keyPrefix)) || txt.includes(needleName) || txt.includes(needleModule) || txt.includes(needleServer);
+      const hit = (keyPrefix && txt.includes(keyPrefix)) || txt.includes(needleName) || txt.includes(needleModule) || txt.includes(needleServer) || txt.includes(needleServicePath);
       if (hit) {
         const line = txt.split(/\n/).find(l => (
-          (keyPrefix && l.includes(keyPrefix)) || l.includes(needleName) || l.includes(needleModule) || l.includes(needleServer)
+          (keyPrefix && l.includes(keyPrefix)) || l.includes(needleName) || l.includes(needleModule) || l.includes(needleServer) || l.includes(needleServicePath)
         )) || '';
         offenders.push({ file: p, line: line.trim().slice(0, 200) });
       }
