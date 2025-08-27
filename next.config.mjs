@@ -23,12 +23,14 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // force fresh build IDs so old chunks aren't reused
+  // CRITICAL: Force completely fresh build IDs to prevent ANY cache reuse
   generateBuildId: async () => {
     const sha = process.env.VERCEL_GIT_COMMIT_SHA || 'local';
     const timestamp = Date.now();
     const random = Math.random().toString(36).substring(2);
-    return `${sha}-${timestamp}-${random}`;
+    const nonce = Buffer.from(Date.now().toString()).toString('base64').replace(/[^a-zA-Z0-9]/g, '');
+    console.log('[CACHE-BUST] Generating completely unique build ID to force fresh chunks');
+    return `SECURITY-FIX-${sha}-${timestamp}-${random}-${nonce}`;
   },
   // clean dist dir each build
   cleanDistDir: true,
