@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { supabaseServer } from "@/lib/supabaseServer";
+import { supabaseServer } from "@/lib/supabase/server";
 import { parseSpecsFromSlug, currency } from "@/lib/chargers";
 
 // Simple related logic: same family; fallback to same voltage; exclude current

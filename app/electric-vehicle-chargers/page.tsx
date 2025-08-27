@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { CheckCircle, Zap, Shield, Truck, Recycle, Smartphone, Clock, Gauge, MapPin, Leaf, Battery } from 'lucide-react';
 import Script from 'next/script';
-import { createClient } from '@/utils/supabase/server';
+import { supabaseBrowser } from '@/lib/supabase/client';
 import AddToCartButton from '@/components/AddToCartButton';
 import { useState, useEffect } from 'react';
 
@@ -331,7 +331,7 @@ export default function ElectricVehicleChargersPage() {
     // Fetch EV chargers
     async function fetchChargers() {
       try {
-        const supabase = createClient();
+        const supabase = supabaseBrowser;
         const { data, error } = await supabase
           .from('parts')
           .select('*')

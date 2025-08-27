@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { supabase } from "@/lib/supabaseClient";
+import { supabaseBrowser } from "@/lib/supabase/client";
 import Filter from "@/components/Filter";
 import Link from "next/link";
 
@@ -34,7 +34,7 @@ export default function CategoryParts({
       const filterSystems = selectedSystem
         ? [selectedSystem]
         : systems.map((s) => s.system);
-      const { data, error } = await supabase
+      const { data, error } = await supabaseBrowser
         .from("parts")
         .select("slug,name,price,image_filename,category,brand")
         .eq("category", category)
