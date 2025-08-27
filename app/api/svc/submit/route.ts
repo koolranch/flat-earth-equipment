@@ -1,9 +1,6 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { supabaseService } from '@/lib/supabase/service';
 import { notifySubmission } from '@/lib/notify';
-
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const key = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 
 export async function POST(req: Request){
   try{
@@ -19,7 +16,7 @@ export async function POST(req: Request){
                req.headers.get('x-real-ip') || 
                '0.0.0.0';
     
-    const supabase = createClient(url, key, { auth: { persistSession:false } });
+    const supabase = supabaseService();
     
     // 2) Check rate limit: count submissions for same IP within last hour; block if > 5
     const oneHourAgo = new Date(Date.now() - 60*60*1000).toISOString();

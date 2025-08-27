@@ -1,8 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const key = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+import { supabaseService } from '@/lib/supabase/service';
 
 function checkAuth(req: Request){
   const hdr = req.headers.get('x-admin-key');
@@ -12,7 +9,7 @@ function checkAuth(req: Request){
 export async function POST(req: Request, { params }: { params: { id: string }}){
   if (!checkAuth(req)) return NextResponse.json({error:'Unauthorized'},{status:401});
   
-  const supabase = createClient(url, key, { auth: { persistSession:false } });
+  const supabase = supabaseService();
   
   // Get the original submission
   const { data, error } = await supabase
