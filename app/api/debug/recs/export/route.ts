@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { supabaseService } from '@/lib/supabase/service';
 import { parseSpecsFromSlugAudit, bucketKey } from '@/lib/specsAudit';
 import { filterGreen } from '@/lib/greenFilter';
 
@@ -7,9 +7,7 @@ export const runtime='nodejs';
 
 export async function GET(_req: NextRequest){
   try {
-    const url=process.env.NEXT_PUBLIC_SUPABASE_URL!; 
-    const key=(process.env.SUPABASE_SERVICE_ROLE_KEY||process.env.SUPABASE_ANON_KEY)!;
-    const sb=createClient(url,key,{ auth:{ persistSession:false }});
+    const sb = supabaseService();
     
     const { data, error } = await sb
       .from('parts')

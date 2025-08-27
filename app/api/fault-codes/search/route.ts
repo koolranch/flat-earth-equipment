@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { supabaseService } from '@/lib/supabase/service';
 import { z } from 'zod';
 
 const qSchema = z.object({
@@ -27,12 +27,7 @@ export async function GET(req: Request) {
   if (!parse.success) return NextResponse.json({ error: 'Invalid query', issues: parse.error.flatten() }, { status: 400 });
   const { brand, code, model, limit } = parse.data;
 
-  const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY; // server-only
-  if (!SUPABASE_URL || !SERVICE_KEY) {
-    return NextResponse.json({ error: 'Supabase env vars missing' }, { status: 500 });
-  }
-  const supabase = createClient(SUPABASE_URL, SERVICE_KEY);
+  const supabase = supabaseService();
 
   // 1) Fetch faults for brand (filter code server-side; model filter applied in-memory for proper LIKE semantics)
   let q = supabase.from('svc.svc_fault_codes').select('*').eq('brand', brand).limit(limit);
