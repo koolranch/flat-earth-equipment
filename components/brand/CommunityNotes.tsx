@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { supabaseServer } from '@/lib/supabase/server';
 
 // Show ALL notes by default (no category filter).
 // Props:
@@ -6,7 +6,7 @@ import { createClient } from '@supabase/supabase-js';
 // - tabCategory?: 'serial'|'fault'|'retrieval'|'plate'|'guide' (optional, only used to visually highlight matching notes)
 // - limit?: number (default 10; bump via search param when needed)
 export default async function CommunityNotes({ brandSlug, tabCategory, limit = 10 }: { brandSlug: string; tabCategory?: string; limit?: number }){
-  const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, { auth: { persistSession: false } });
+  const supabase = supabaseServer();
   const { data, error } = await supabase
     .from('svc_public_notes')
     .select('*')
