@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle, Package, Zap, Clock, CreditCard } from 'lucide-react';
 import Script from 'next/script';
-import supabase from '@/lib/supabase';
+import { supabaseServer } from '@/lib/supabase/server';
 import BuyNowButton from '@/components/BuyNowButton';
 import StickyFooterCTA from '@/components/StickyFooterCTA';
 import StickyFooterButton from '@/components/StickyFooterButton';
@@ -17,6 +17,7 @@ export const metadata: Metadata = {
 };
 
 export default async function BatteryChargerModulesPage() {
+  const supabase = supabaseServer();
   const { data: parts, error } = await supabase
     .from('parts')
     .select('*')

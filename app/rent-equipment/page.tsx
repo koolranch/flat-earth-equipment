@@ -1,4 +1,4 @@
-import supabase from "@/lib/supabase";
+import { supabaseServer } from "@/lib/supabase/server";
 import { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
@@ -17,6 +17,7 @@ interface RentalEquipment {
 }
 
 async function fetchRentalCategories() {
+  const supabase = supabaseServer();
   const { data, error } = await supabase
     .from("rental_equipment")
     .select("category")

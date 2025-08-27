@@ -1,4 +1,4 @@
-import supabase from "@/lib/supabase";
+import { supabaseServer } from "@/lib/supabase/server";
 import Link from "next/link";
 import Image from "next/image";
 import { getBrandLogoProps } from "@/lib/utils/brand-logos";
@@ -8,6 +8,7 @@ type RentalEquipmentGridProps = {
 };
 
 export default async function RentalEquipmentGrid({ categorySlug }: RentalEquipmentGridProps) {
+  const supabase = supabaseServer();
   const { data: equipment, error } = await supabase
     .from("rental_equipment")
     .select("*")
