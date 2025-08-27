@@ -35,10 +35,10 @@ export default function SimpleDashboard() {
   // Reload MDX content when locale changes
   useEffect(() => {
     if (expandedModule !== null && modules.length > 0) {
-      const module = modules[expandedModule]
-      if (module) {
-        console.log(`🌐 Locale changed to ${locale}, reloading MDX for module ${module.order}`)
-        loadModuleGuide(module.order)
+      const moduleData = modules[expandedModule]
+      if (moduleData) {
+        console.log(`🌐 Locale changed to ${locale}, reloading MDX for module ${moduleData.order}`)
+        loadModuleGuide(moduleData.order)
       }
     }
   }, [locale, expandedModule, modules])
