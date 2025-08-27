@@ -1,8 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const key = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+import { supabaseService } from '@/lib/supabase/service';
 
 function checkAuth(req: Request){
   const hdr = req.headers.get('x-admin-key');
@@ -14,7 +11,7 @@ export async function POST(req: Request, { params }: { params: { id: string }}){
   const body = await req.json();
   const { action, actor, notes } = body;
   if (!['approve','reject','flag','note'].includes(action)) return NextResponse.json({error:'Invalid action'},{status:400});
-  const supabase = createClient(url, key, { auth: { persistSession:false } });
+  const supabase = supabaseService();
   if (action==='note'){
     const { error } = await supabase.from('svc_mod_audit').insert([{ suggestion_id: Number(params.id), action, actor: actor||'admin', notes: notes||null }]);
     if (error) return NextResponse.json({error:error.message},{status:500});
