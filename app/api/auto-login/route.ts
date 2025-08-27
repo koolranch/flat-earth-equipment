@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
+import { supabaseService } from '@/lib/supabase/service'
 
 export async function POST(req: Request) {
   try {
@@ -9,10 +9,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Session ID is required' }, { status: 400 })
     }
     
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    )
+    const supabase = supabaseService()
     
     // Look up the order by Stripe session ID
     const { data: order, error: orderError } = await supabase
