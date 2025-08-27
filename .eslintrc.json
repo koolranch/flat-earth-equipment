@@ -15,7 +15,7 @@
   "overrides": [
     {
       "files": ["**/*.ts", "**/*.tsx"],
-      "excludedFiles": ["app/api/**", "lib/supabaseAdmin.ts"],
+      "excludedFiles": ["app/api/**", "lib/**/*.server.ts", "app/**/server/**", "lib/supabaseAdmin.ts"],
       "rules": {
         "no-restricted-imports": ["error", {
           "paths": [
@@ -25,7 +25,7 @@
             },
             {
               "name": "@/lib/supabase/service.server",
-              "message": "The service.server client is only allowed in app/api/** routes and server-only modules. For client components use @/lib/supabase/client, for server components use @/lib/supabase/server."
+              "message": "Use the service client only in server-only files (e.g., app/api/**, lib/**/*.server.ts, app/**/server/**). For client components use @/lib/supabase/client, for server components use @/lib/supabase/server."
             }
           ]
         }]
