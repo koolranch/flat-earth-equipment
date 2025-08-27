@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js'
+import { supabaseServer } from '@/lib/supabase/server'
 import CheckoutButton from './CheckoutButton'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -15,7 +15,7 @@ export const metadata = {
 }
 
 export default async function SafetyHome() {
-  const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
+  const supabase = supabaseServer()
   const { data: course } = await supabase.from('courses').select('*').eq('slug', 'forklift').single()
   const locale = getUserLocale()
   
