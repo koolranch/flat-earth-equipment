@@ -43,7 +43,8 @@
     "stripe:sync:dry": "DRY_RUN=1 ts-node scripts/stripe/sync-parts-to-stripe.ts",
     "stripe:sync": "DRY_RUN=0 ts-node scripts/stripe/sync-parts-to-stripe.ts",
     "qa:cert": "node scripts/e2e_cert_verify.mjs",
-    "qa:i18n": "node scripts/scan_i18n.mjs"
+    "qa:i18n": "node scripts/scan_i18n.mjs",
+    "qa:howto": "node scripts/print-test-instructions.mjs"
   },
   "keywords": [],
   "author": "",
