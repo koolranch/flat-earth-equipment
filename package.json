@@ -132,6 +132,7 @@
     "react-icons": "^5.0.1",
     "react-signature-canvas": "^1.1.0-alpha.2",
     "resend": "^4.5.1",
+    "server-only": "^0.0.1",
     "sharp": "^0.34.2",
     "shippo": "^2.15.0",
     "supabase": "^2.22.12",
