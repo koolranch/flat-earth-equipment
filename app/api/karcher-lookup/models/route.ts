@@ -1,11 +1,11 @@
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = () => createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+import { supabaseService } from '@/lib/supabase/service';
 
 export async function GET() {
   try {
-    const db = supabase();
+    const db = supabaseService();
     
     const { data, error } = await db
       .from('karcher_models')

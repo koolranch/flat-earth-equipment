@@ -1,20 +1,3 @@
-import { createClient } from '@supabase/supabase-js';
-
-if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
-  throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL');
-}
-
-if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
-  throw new Error('Missing SUPABASE_SERVICE_ROLE_KEY');
-}
-
-export const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
-  {
-    auth: {
-      autoRefreshToken: false,
-      persistSession: false
-    }
-  }
-); 
+// DEPRECATED: This client used service role key which was a security risk
+// Use specific clients from @/lib/supabase/ instead
+export { supabaseBrowser as supabase } from '@/lib/supabase/client'; 

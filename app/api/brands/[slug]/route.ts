@@ -1,7 +1,7 @@
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = () => createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+import { supabaseService } from '@/lib/supabase/service';
 
 export async function GET(
   request: Request,
@@ -9,7 +9,7 @@ export async function GET(
 ) {
   try {
     const { slug } = params;
-    const db = supabase();
+    const db = supabaseService();
 
     // Get brand information
     const { data: brand, error: brandError } = await db
@@ -59,7 +59,7 @@ export async function POST(
     const { action, tab } = await request.json();
 
     if (action === 'track_view') {
-      const db = supabase();
+      const db = supabaseService();
       
       // Track page view for analytics
       const userAgent = request.headers.get('user-agent') || '';

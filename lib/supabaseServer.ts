@@ -1,9 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
-
-export function supabaseServer() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY!; // server-only usage
-  return createClient(url, key, { auth: { persistSession: false } });
-}
+// DEPRECATED: Use specific clients from @/lib/supabase/ instead
+export { supabaseServer } from '@/lib/supabase/server';
 
 

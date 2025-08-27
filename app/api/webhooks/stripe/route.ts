@@ -1,6 +1,8 @@
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
-import { createClient } from '@supabase/supabase-js'
+import { supabaseService } from '@/lib/supabase/service'
 import { createReturnLabel } from '@/lib/shippo'
 
 export async function POST(req: Request) {
@@ -17,7 +19,7 @@ export async function POST(req: Request) {
 
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object as Stripe.Checkout.Session
-    const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+    const supabase = supabaseService()
 
     console.log(`🔍 Processing checkout session: ${session.id}`)
     console.log(`💳 Payment status: ${session.payment_status}`)
