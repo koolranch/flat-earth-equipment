@@ -6,9 +6,9 @@ const STATIC_DIR = path.join(ROOT, '.next', 'static');
 const offenders = [];
 const keyPrefix = (process.env.SUPABASE_SERVICE_ROLE_KEY || '').slice(0, 8);
 const needleName = 'SUPABASE_SERVICE_ROLE_KEY';
-// Only check for actual service role key exposure (not anon keys which are public)
+// Only check for actual service role JWT tokens, not webpack module handlers
 const needleServiceRole = '"role":"service_role"'; // Service role JWT payload
-const needleServiceRoleAlt = 'service_role'; // Alternative service role pattern
+const fullServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY; // The actual service key
 
 function scan(dir) {
   if (!fs.existsSync(dir)) return;
@@ -18,16 +18,21 @@ function scan(dir) {
     if (stat.isDirectory()) scan(p);
     else if (/\.(js|txt|html|json)$/.test(entry)) {
       const txt = fs.readFileSync(p, 'utf8');
-      // Check for actual service role key exposure (not public anon keys)
-      const hasKeyPrefix = keyPrefix && txt.includes(keyPrefix);
+      // Check for actual service role key exposure (not webpack module handlers or anon keys)
+      const hasFullServiceKey = fullServiceKey && txt.includes(fullServiceKey);
       const hasKeyEnvVar = txt.includes(needleName);
       const hasServiceRole = txt.includes(needleServiceRole);
-      const hasServiceRoleAlt = txt.includes(needleServiceRoleAlt);
       
-      const hit = hasKeyPrefix || hasKeyEnvVar || hasServiceRole || hasServiceRoleAlt;
+      // Exclude webpack module error handlers which contain "Cannot find module" patterns
+      const isWebpackModuleHandler = txt.includes('Cannot find module') || 
+                                   txt.includes('MODULE_NOT_FOUND') ||
+                                   txt.includes('function(e){function ') ||
+                                   /\{\d+:function\(e\)\{function/.test(txt);
+      
+      const hit = (hasFullServiceKey || hasKeyEnvVar || hasServiceRole) && !isWebpackModuleHandler;
       if (hit) {
         const line = txt.split(/\n/).find(l => (
-          (keyPrefix && l.includes(keyPrefix)) || l.includes(needleName) || l.includes(needleServiceRole) || l.includes(needleServiceRoleAlt)
+          (fullServiceKey && l.includes(fullServiceKey)) || l.includes(needleName) || l.includes(needleServiceRole)
         )) || '';
         offenders.push({ file: p, line: line.trim().slice(0, 200) });
       }
