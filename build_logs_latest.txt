@@ -1,0 +1,1408 @@
+
+> flat-earth-equipment@1.0.0 build
+> next build
+
+🔥 [NUCLEAR-CACHE-BUST] Build ID: SECURITY-local-1756309951144-a3zw6nkglno-production
+   ▲ Next.js 14.1.0
+   - Environments: .env.production.local, .env.local, .env.production, .env
+
+   Creating an optimized production build ...
+🔥 [NUCLEAR-CACHE-BUST] Forcing unique chunk filenames with timestamp: 1756309951640
+ ⚠ Compiled with warnings
+
+./node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+./node_modules/@supabase/realtime-js/dist/module/index.js
+./node_modules/@supabase/supabase-js/dist/module/index.js
+./lib/supabase/server.ts
+./app/sitemap.ts
+./node_modules/next/dist/build/webpack/loaders/next-metadata-route-loader.js?page=%2Fsitemap.xml%2Froute&isDynamic=1!./app/sitemap.ts?__next_metadata_route__
+
+./node_modules/keyv/src/index.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./node_modules/keyv/src/index.js
+./node_modules/cacheable-request/src/index.js
+./node_modules/got/dist/source/core/index.js
+./node_modules/got/dist/source/create.js
+./node_modules/got/dist/source/index.js
+./node_modules/crisp-api/lib/crisp.js
+./lib/crisp/client.ts
+./app/api/crisp/test/route.ts
+
+   Linting and checking validity of types ...
+
+./app/attachments/forklift-forks/fork-extensions-for-forklifts/page.tsx
+29:31  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+110:47  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+110:52  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+110:57  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+110:62  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+110:67  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+111:45  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+111:49  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+111:53  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+112:50  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+112:58  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+119:83  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+194:97  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+196:51  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+197:43  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+205:52  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+212:109  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+229:78  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/bobcat-serial-number-lookup/page.tsx
+187:60  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/brands/page.tsx
+41:15  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+59:12  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/carpet-poles/CarpetPolesContent.tsx
+70:46  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+303:55  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+303:60  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+303:65  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+303:70  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/case-serial-number-lookup/page.tsx
+54:57  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/cat-serial-number-lookup/page.tsx
+101:58  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+135:25  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+135:74  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/category/[slug]/page.tsx
+95:19  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+113:14  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+113:30  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/certificacion-montacargas-espanol/page.tsx
+162:67  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+162:81  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+
+./app/checkout/success/page.tsx
+28:21  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+29:22  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+30:29  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+30:48  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+35:47  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+40:78  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+48:58  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+50:22  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+51:44  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+52:42  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/clark-serial-number-lookup/page.tsx
+104:66  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+139:27  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/components/FeaturedProducts.tsx
+15:1  Warning: Prevent client components from being async functions. See: https://nextjs.org/docs/messages/no-async-client-component  @next/next/no-async-client-component
+43:21  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/construction-equipment/do-skid-steers-have-titles/page.tsx
+63:39  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+66:29  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+147:32  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/contact/thank-you/page.tsx
+14:11  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/crown-serial-number-lookup/page.tsx
+102:68  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/dashboard-simple/page.tsx
+44:6  Warning: React Hook useEffect has a missing dependency: 'loadModuleGuide'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./app/diagnostic-codes/cat-forklift-fault-codes/page.tsx
+34:23  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/diagnostic-codes/e-a5-1-code-on-toyota-forklift-2/page.tsx
+17:25  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+19:134  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+20:20  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+33:172  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+42:37  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+43:72  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+45:53  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+60:85  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+62:128  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+63:12  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+63:120  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+71:224  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+76:39  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+76:150  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+84:45  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+89:71  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+93:48  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+98:46  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+98:49  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+106:42  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+110:145  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+110:267  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+113:127  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+121:74  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+135:49  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+136:63  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+153:48  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+160:159  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+174:164  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+180:196  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/diagnostic-codes/e43-code-nissan-forklift/page.tsx
+34:23  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+45:66  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/doosan-serial-number-lookup/page.tsx
+47:76  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/ep-forklift-serial-number-lookup/page.tsx
+57:11  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/evaluations/[certificateId]/page.tsx
+240:6  Warning: React Hook useEffect has a missing dependency: 'fetchCertificate'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./app/factory-cat-serial-number-lookup/page.tsx
+301:75  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/forklift-recertification-online/page.tsx
+115:17  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+130:31  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+130:41  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+190:63  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/forks/page.tsx
+37:28  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+37:34  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+38:26  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+38:32  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+68:70  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+68:101  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+68:120  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+
+./app/hangcha-serial-number-lookup/page.tsx
+35:149  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/haulotte-serial-number-lookup/page.tsx
+31:164  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/hyster-serial-number-lookup/page.tsx
+345:36  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/hyundai-serial-number-lookup/page.tsx
+37:11  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+83:41  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/insights/[slug]/page.tsx
+412:73  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/insights/page.tsx
+41:15  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/jcb-serial-number-lookup/page.tsx
+64:56  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/jlg-serial-number-lookup/page.tsx
+58:56  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/jungheinrich-serial-number-lookup/page.tsx
+35:11  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+47:74  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/karcher-serial-number-lookup/page.tsx
+200:15  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+299:85  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+300:31  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+300:44  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+324:40  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+324:53  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+324:75  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+414:64  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+414:77  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+450:42  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+454:36  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+454:54  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+454:67  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/komatsu-serial-number-lookup/page.tsx
+121:64  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+155:81  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/kubota-serial-number-lookup/page.tsx
+58:11  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/linde-forklift-serial-number-lookup/page.tsx
+57:11  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/lull-serial-number-lookup/page.tsx
+33:131  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+65:87  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/manitou-forklift-serial-number-lookup/page.tsx
+32:147  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+42:152  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+74:45  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/mitsubishi-serial-number-lookup/page.tsx
+45:63  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/new-holland-serial-number-lookup/page.tsx
+140:67  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/new-mexico/albuquerque/page.tsx
+72:532  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+145:62  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+145:397  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+156:119  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+160:192  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+351:34  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/osha-operator-training/page.tsx
+17:133  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+83:28  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/page.tsx
+152:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/parts/[slug]/ProductDetails.tsx
+80:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/parts/aerial-equipment/genie-scissor-lift-error-codes/page.tsx
+141:19  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+150:49  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+175:38  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+186:18  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/parts/battery-charger-modules/page.tsx
+34:50  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/parts/category/[category_slug]/page.tsx
+112:19  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/parts/clippercreek-hcs40-level-2-ev-charging-station-remanufactured-32a/page.tsx
+289:102  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/parts/construction-equipment-parts/case-loader-serial-number-lookup/page.tsx
+23:55  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/parts/construction-equipment-parts/gehl-serial-number-lookup/page.tsx
+91:41  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/parts/construction-equipment-parts/jcb-backhoe-serial-number-lookup/page.tsx
+23:55  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/parts/construction-equipment-parts/john-deere-skid-steer-product-identification-number-lookup/page.tsx
+29:50  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+29:161  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+44:41  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+46:42  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+190:49  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+202:58  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+204:27  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/parts/construction-equipment-parts/new-holland-skid-steer-serial-number-lookup/page.tsx
+44:26  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+53:71  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+54:33  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+56:30  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+57:29  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+65:56  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+65:58  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+66:38  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+66:41  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+67:38  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+67:41  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+74:47  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+74:52  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+75:47  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+75:52  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+76:47  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+76:52  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+81:48  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+81:54  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+82:48  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+82:54  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+83:48  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+83:54  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+117:59  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+151:42  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+166:30  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+166:41  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+173:52  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+173:235  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+173:294  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/parts/construction-equipment-parts/your-bobcat-serial-number-how-to-find-and-use-it/page.tsx
+50:22  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+50:100  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+53:38  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+66:17  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+66:198  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+71:264  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+71:361  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+71:406  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+71:421  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+86:81  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+86:154  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+86:304  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+96:165  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+96:194  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+143:46  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+145:36  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+145:126  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+145:151  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+150:66  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+155:45  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+155:140  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+160:71  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+160:156  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+160:192  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+180:30  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+180:41  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+187:198  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+191:141  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/parts/raymond-forklift-serial-number/RaymondSerialContent.tsx
+58:46  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+151:139  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+167:58  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+247:58  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+249:27  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/parts/tesla-gen-3-wall-connector-level-2-ev-charger-remanufactured-48a/page.tsx
+264:54  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+317:20  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+337:72  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+509:17  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/parts/toyota-forklift-year-by-serial-number/page.tsx
+23:59  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+123:25  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+123:60  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/parts/wallbox-pulsar-plus-40a-level-2-ev-charging-station-remanufactured/page.tsx
+355:101  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/parts/wallbox-pulsar-plus-48a-level-2-ev-charging-station-remanufactured/page.tsx
+391:105  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/quote/thank-you/page.tsx
+14:11  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/raymond-serial-number-lookup/page.tsx
+139:15  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+140:55  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+176:94  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+303:68  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/rental/forklifts/how-long-is-forklift-certification-good-for/page.tsx
+311:121  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+311:131  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+421:97  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+442:118  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+455:187  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+455:197  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+
+./app/rental/forklifts/how-old-must-you-be-to-operate-a-forklift-2/page.tsx
+49:35  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/rental/forklifts/hyster-forklift-fault-codes-list/page.tsx
+34:23  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/rental/forklifts/hyster-serial-number-lookup/page.tsx
+21:57  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+21:205  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+30:33  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+32:30  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+33:29  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+41:40  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+41:43  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+42:40  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+42:43  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+43:40  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+43:43  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+44:40  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+44:43  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+81:59  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+115:42  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+132:45  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+132:228  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+132:287  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/rental/telehandler/jcb-telehandler-battery-location/page.tsx
+29:33  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+105:17  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/rental/telehandler/jcb-telehandler-fault-codes-list/page.tsx
+34:23  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/rentals/[category]/page.tsx
+67:15  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/safety/forklift/[state]/page.tsx
+182:35  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+242:27  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+249:90  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+256:27  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+316:28  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+340:35  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+423:27  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+438:29  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+439:81  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+445:29  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+445:64  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+452:29  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+453:87  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+459:29  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+502:31  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+510:39  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+517:61  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+521:27  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+543:21  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+550:21  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+557:21  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+608:24  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+615:53  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+619:19  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+634:100  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+641:24  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+648:24  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+655:24  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+697:84  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+698:54  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+706:27  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+713:56  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+717:55  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+746:31  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+796:42  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+804:34  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+811:63  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+815:43  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+837:25  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+844:25  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+851:25  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+902:28  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+904:77  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+909:57  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+913:46  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+942:34  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+949:34  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+1000:28  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+1002:78  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+1007:57  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+1011:69  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+1040:33  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+1047:25  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+1090:58  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+1098:28  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+1105:57  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+1109:60  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/safety/page.tsx
+302:58  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+343:34  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/shipping-returns/page.tsx
+25:58  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/sinoboom-serial-number-lookup/page.tsx
+58:11  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/skyjack-serial-number-lookup/page.tsx
+35:11  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+83:43  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/takeuchi-serial-number-lookup/page.tsx
+58:11  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/tennant-serial-number-lookup/page.tsx
+33:146  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/test-auto-login/page.tsx
+151:63  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+151:79  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+152:37  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/toro-serial-number-lookup/page.tsx
+52:11  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+67:125  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+67:131  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+
+./app/unicarriers-serial-number-lookup/page.tsx
+50:11  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/warranty/page.tsx
+11:15  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+16:15  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+22:150  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/xcmg-serial-number-lookup/page.tsx
+40:11  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./app/yale-serial-number-lookup/page.tsx
+171:65  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./components/BrandsCarouselClient.tsx
+23:15  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+23:15  Warning: img elements must have an alt prop, either with meaningful text, or an empty string for decorative images.  jsx-a11y/alt-text
+
+./components/CategoryParts.tsx
+74:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/ChargerCard.tsx
+53:11  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/ChargerHelpModal.tsx
+90:49  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+112:19  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./components/CompletionActions.tsx
+202:77  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./components/EmailSignup.tsx
+67:35  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./components/FSIPChargerCard.tsx
+48:11  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/FastQuoteForm.tsx
+70:45  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./components/FeaturedProducts.tsx
+6:1  Warning: Prevent client components from being async functions. See: https://nextjs.org/docs/messages/no-async-client-component  @next/next/no-async-client-component
+
+./components/FeaturedRentalEquipment.tsx
+7:1  Warning: Prevent client components from being async functions. See: https://nextjs.org/docs/messages/no-async-client-component  @next/next/no-async-client-component
+
+./components/FeaturedRentals.tsx
+48:15  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/Hero.tsx
+24:83  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./components/HybridModule.tsx
+122:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/ImageWithFallback.tsx
+29:5  Warning: Image elements must have an alt prop, either with meaningful text, or an empty string for decorative images.  jsx-a11y/alt-text
+
+./components/PartImage.tsx
+12:7  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/QuickQuote.tsx
+27:15  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+40:11  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./components/RecommendationInfo.tsx
+21:69  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./components/RelatedChargers.tsx
+69:19  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/RentalEquipmentGrid.tsx
+53:17  Warning: Image elements must have an alt prop, either with meaningful text, or an empty string for decorative images.  jsx-a11y/alt-text
+
+./components/SimpleQuoteModal.tsx
+106:44  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./components/Testimonials.tsx
+30:67  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+30:136  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+35:67  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+35:162  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+40:67  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+40:133  Warning: `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.  react/no-unescaped-entities
+
+./components/TopPickCard.tsx
+41:15  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/brand/FaultCodeSearch.tsx
+49:6  Warning: React Hook useEffect has a missing dependency: 'loadInitialData'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+282:71  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+303:14  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+303:40  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+304:68  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./components/brand/PartsLeadForm.tsx
+77:60  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+84:27  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./components/brand/SerialLookupEmbed.tsx
+74:15  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+92:42  Warning: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities
+
+./components/games/module1/MiniPPE.tsx
+96:6  Warning: React Hook useEffect has a missing dependency: 'onComplete'. Either include it or remove the dependency array. If 'onComplete' changes too often, find the parent component that defines it and wrap that definition in useCallback.  react-hooks/exhaustive-deps
+
+./components/games/module3/MiniBalance.tsx
+120:6  Warning: React Hook useEffect has a missing dependency: 'onComplete'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+142:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+160:15  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/games/module4/MiniHazard.tsx
+61:5  Warning: React Hook useEffect has a missing dependency: 'spawn'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./components/ui/Hero.tsx
+27:7  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+   Collecting page data ...
+ ⚠ Using edge runtime on a page currently disables static generation for that page
+   Generating static pages (0/235) ...
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+
+ ⚠ metadata.metadataBase is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+
+ ⚠ metadata.metadataBase is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+Could not access cookies in getUserLocale
+   Generating static pages (58/235) 
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+
+ ⚠ metadata.metadataBase is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+
+ ⚠ metadata.metadataBase is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+
+ ⚠ metadata.metadataBase is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Fetching parts for category: Forklift Parts
+Fetching parts for category: Forklift Parts
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Fetching parts for category: Skid Steer Parts
+Fetching parts for category: Skid Steer Parts
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Fetching parts for category: Telehandler Parts
+Fetching parts for category: Telehandler Parts
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Fetching parts for category: Mini Excavator Parts
+Fetching parts for category: Mini Excavator Parts
+Fetching parts for category: Buggy Parts
+Fetching parts for category: Buggy Parts
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Fetching parts for category: Battery Chargers
+Fetching parts for category: Battery Chargers
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+
+ ⚠ metadata.metadataBase is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+
+ ⚠ metadata.metadataBase is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+   Generating static pages (117/235) 
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Supabase charger modules data: [
+  {
+    id: '530901e5-d31a-4601-a6b0-ee1351dfffe8',
+    slug: 'enersys-forklift-charger-module-6la20671-repair-return',
+    name: 'Enersys Forklift Charger Module – 6LA20671 (Repair and Return)',
+    brand: 'Enersys',
+    price: 700,
+    core_charge: 0,
+    image_url: 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products//enersys.png'
+  },
+  {
+    id: '7e1b5a1d-3b0a-42be-8ec2-dcd3670ec601',
+    slug: 'enersys-forklift-charger-module-6la20671',
+    name: 'Enersys Forklift Charger Module – 6LA20671',
+    brand: 'Enersys',
+    price: 849,
+    core_charge: 350,
+    image_url: 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products//enersys.png'
+  },
+  {
+    id: '4f9d4d95-2d86-4b65-a1d3-5726e5802b6a',
+    slug: 'hawker-forklift-charger-module-6la20671',
+    name: 'Hawker Forklift Charger Module – 6LA20671',
+    brand: 'Hawker',
+    price: 849,
+    core_charge: 350,
+    image_url: 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products//hawker.png'
+  },
+  {
+    id: 'ff723014-63ef-4593-9a23-a608fe222315',
+    slug: 'hawker-forklift-charger-module-6la20671-repair',
+    name: 'Hawker Forklift Charger Module – 6LA20671 (Repair and Return)',
+    brand: 'Hawker',
+    price: 700,
+    core_charge: 350,
+    image_url: 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products//hawker.png'
+  }
+]
+Supabase charger modules data: [
+  {
+    id: '530901e5-d31a-4601-a6b0-ee1351dfffe8',
+    slug: 'enersys-forklift-charger-module-6la20671-repair-return',
+    name: 'Enersys Forklift Charger Module – 6LA20671 (Repair and Return)',
+    brand: 'Enersys',
+    price: 700,
+    core_charge: 0,
+    image_url: 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products//enersys.png'
+  },
+  {
+    id: '7e1b5a1d-3b0a-42be-8ec2-dcd3670ec601',
+    slug: 'enersys-forklift-charger-module-6la20671',
+    name: 'Enersys Forklift Charger Module – 6LA20671',
+    brand: 'Enersys',
+    price: 849,
+    core_charge: 350,
+    image_url: 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products//enersys.png'
+  },
+  {
+    id: '4f9d4d95-2d86-4b65-a1d3-5726e5802b6a',
+    slug: 'hawker-forklift-charger-module-6la20671',
+    name: 'Hawker Forklift Charger Module – 6LA20671',
+    brand: 'Hawker',
+    price: 849,
+    core_charge: 350,
+    image_url: 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products//hawker.png'
+  },
+  {
+    id: 'ff723014-63ef-4593-9a23-a608fe222315',
+    slug: 'hawker-forklift-charger-module-6la20671-repair',
+    name: 'Hawker Forklift Charger Module – 6LA20671 (Repair and Return)',
+    brand: 'Hawker',
+    price: 700,
+    core_charge: 350,
+    image_url: 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products//hawker.png'
+  }
+]
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+   Generating static pages (176/235) 
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+Could not access cookies in getUserLocale
+ ✓ Generating static pages (235/235) 
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                                                                         Size     First Load JS
+┌ λ /                                                                                               26.8 kB         166 kB
+├ λ /_not-found                                                                                     894 B          85.5 kB
+├ λ /about                                                                                          255 B          91.6 kB
+├ λ /admin/brand-analytics                                                                          316 B          84.9 kB
+├ λ /admin/service                                                                                  1.33 kB        85.9 kB
+├ λ /api/admin/exports/completions                                                                  0 B                0 B
+├ λ /api/admin/fix-prices                                                                           0 B                0 B
+├ λ /api/admin/svc/submissions                                                                      0 B                0 B
+├ λ /api/admin/svc/submissions/[id]/moderate                                                        0 B                0 B
+├ λ /api/admin/svc/submissions/[id]/publish-note                                                    0 B                0 B
+├ λ /api/auto-login                                                                                 0 B                0 B
+├ λ /api/bobcat-lookup                                                                              0 B                0 B
+├ λ /api/brands/[slug]                                                                              0 B                0 B
+├ λ /api/case-lookup                                                                                0 B                0 B
+├ λ /api/cat-lookup                                                                                 0 B                0 B
+├ λ /api/certificates                                                                               0 B                0 B
+├ λ /api/certificates/pdf/[id]                                                                      0 B                0 B
+├ λ /api/checkout                                                                                   0 B                0 B
+├ λ /api/claim-training                                                                             0 B                0 B
+├ λ /api/clark-lookup                                                                               0 B                0 B
+├ λ /api/crisp/test                                                                                 0 B                0 B
+├ ℇ /api/cron/renewals                                                                              0 B                0 B
+├ λ /api/crown-lookup                                                                               0 B                0 B
+├ ○ /api/debug/parts                                                                                0 B                0 B
+├ λ /api/debug/recommend                                                                            0 B                0 B
+├ ○ /api/debug/recs/export                                                                          0 B                0 B
+├ λ /api/doosan-lookup                                                                              0 B                0 B
+├ λ /api/email-eval                                                                                 0 B                0 B
+├ λ /api/employer-evaluations                                                                       0 B                0 B
+├ λ /api/ep-lookup                                                                                  0 B                0 B
+├ λ /api/evaluation-pdf                                                                             0 B                0 B
+├ λ /api/factorycat-lookup                                                                          0 B                0 B
+├ λ /api/fault-codes/search                                                                         0 B                0 B
+├ λ /api/gehl-lookup                                                                                0 B                0 B
+├ λ /api/guide-read                                                                                 0 B                0 B
+├ λ /api/hangcha-lookup                                                                             0 B                0 B
+├ λ /api/haulotte-lookup                                                                            0 B                0 B
+├ λ /api/hyster-lookup                                                                              0 B                0 B
+├ λ /api/hyundai-lookup                                                                             0 B                0 B
+├ λ /api/jcb-lookup                                                                                 0 B                0 B
+├ λ /api/jlg-lookup                                                                                 0 B                0 B
+├ λ /api/jungheinrich-lookup                                                                        0 B                0 B
+├ λ /api/karcher-lookup                                                                             0 B                0 B
+├ λ /api/karcher-lookup/models                                                                      0 B                0 B
+├ λ /api/komatsu-lookup                                                                             0 B                0 B
+├ λ /api/kubota-lookup                                                                              0 B                0 B
+├ λ /api/leads/parts                                                                                0 B                0 B
+├ λ /api/linde-lookup                                                                               0 B                0 B
+├ λ /api/lull-lookup                                                                                0 B                0 B
+├ λ /api/manitou-lookup                                                                             0 B                0 B
+├ ○ /api/manitou-lookup/models                                                                      0 B                0 B
+├ λ /api/mitsubishi-lookup                                                                          0 B                0 B
+├ λ /api/module-guide                                                                               0 B                0 B
+├ λ /api/newholland-lookup                                                                          0 B                0 B
+├ λ /api/progress                                                                                   0 B                0 B
+├ λ /api/quiz/[filename]                                                                            0 B                0 B
+├ λ /api/quote-charger                                                                              0 B                0 B
+├ λ /api/raymond-lookup                                                                             0 B                0 B
+├ λ /api/recommend-chargers                                                                         0 B                0 B
+├ λ /api/recommend-chargers/health                                                                  0 B                0 B
+├ λ /api/record-training-share                                                                      0 B                0 B
+├ λ /api/redeem-seat                                                                                0 B                0 B
+├ λ /api/send-certificate-email                                                                     0 B                0 B
+├ λ /api/send-order-confirmation                                                                    0 B                0 B
+├ λ /api/send-training-welcome                                                                      0 B                0 B
+├ λ /api/sinoboom-lookup                                                                            0 B                0 B
+├ λ /api/skyjack-lookup                                                                             0 B                0 B
+├ λ /api/svc/submit                                                                                 0 B                0 B
+├ λ /api/takeuchi-lookup                                                                            0 B                0 B
+├ λ /api/tennant-lookup                                                                             0 B                0 B
+├ λ /api/test-enrollment                                                                            0 B                0 B
+├ ○ /api/test-progress                                                                              0 B                0 B
+├ λ /api/test-shippo                                                                                0 B                0 B
+├ λ /api/toro-lookup                                                                                0 B                0 B
+├ λ /api/toyota-lookup                                                                              0 B                0 B
+├ ○ /api/toyota-lookup/models                                                                       0 B                0 B
+├ λ /api/unicarriers-lookup                                                                         0 B                0 B
+├ λ /api/verify/[code]                                                                              0 B                0 B
+├ λ /api/webhooks/price-sync                                                                        0 B                0 B
+├ λ /api/webhooks/shippo                                                                            0 B                0 B
+├ λ /api/webhooks/stripe                                                                            0 B                0 B
+├ λ /api/xcmg-lookup                                                                                0 B                0 B
+├ λ /api/yale-lookup                                                                                0 B                0 B
+├ λ /attachments/forklift-forks/fork-extensions-for-forklifts                                       207 B          96.5 kB
+├ λ /auth-test                                                                                      2.14 kB         132 kB
+├ λ /battery-charger-modules                                                                        1.15 kB        92.1 kB
+├ λ /battery-chargers                                                                               9.01 kB         110 kB
+├ λ /bobcat-serial-number-lookup                                                                    5.36 kB        99.1 kB
+├ λ /brand/[slug]                                                                                   316 B          84.9 kB
+├ ○ /brand/[slug]/fault-codes                                                                       2.41 kB        97.6 kB
+├ ○ /brand/[slug]/guide                                                                             1.45 kB        96.7 kB
+├ ○ /brand/[slug]/serial-lookup                                                                     153 B           108 kB
+├ λ /brand/toyota                                                                                   254 B          91.6 kB
+├ λ /brands                                                                                         255 B          91.6 kB
+├ λ /carpet-poles                                                                                   4.65 kB          96 kB
+├ λ /cart                                                                                           3.6 kB          101 kB
+├ λ /case-serial-number-lookup                                                                      2.41 kB          87 kB
+├ λ /cat-serial-number-lookup                                                                       3.11 kB        90.1 kB
+├ ● /category/[slug]                                                                                207 B          96.5 kB
+├   ├ /category/forklift-parts
+├   ├ /category/skid-steer-parts
+├   ├ /category/telehandler-parts
+├   └ [+3 more paths]
+├ λ /category/[slug]/[subcategory]                                                                  202 B          98.9 kB
+├ λ /certificacion-montacargas-espanol                                                              210 B            94 kB
+├ λ /charger-modules                                                                                3.95 kB         109 kB
+├ λ /chargers                                                                                       2.36 kB         104 kB
+├ λ /chargers/[slug]                                                                                2.85 kB         101 kB
+├ λ /checkout/cancel                                                                                983 B          92.3 kB
+├ λ /checkout/success                                                                               255 B          91.6 kB
+├ λ /cheyenne-wy                                                                                    314 B          84.9 kB
+├ λ /clark-serial-number-lookup                                                                     3.18 kB        90.2 kB
+├ λ /construction-equipment/do-skid-steers-have-titles                                              316 B          84.9 kB
+├ λ /contact                                                                                        2.8 kB         87.4 kB
+├ λ /contact/thank-you                                                                              254 B          91.6 kB
+├ λ /counterbalance-forklift-certification-online                                                   212 B            94 kB
+├ λ /crown-serial-number-lookup                                                                     3.1 kB         90.1 kB
+├ λ /dashboard                                                                                      313 B          84.9 kB
+├ λ /dashboard-simple                                                                               179 kB          324 kB
+├ λ /diagnostic-codes/cat-forklift-fault-codes                                                      255 B          91.6 kB
+├ λ /diagnostic-codes/e-a5-1-code-on-toyota-forklift-2                                              316 B          84.9 kB
+├ λ /diagnostic-codes/e43-code-nissan-forklift                                                      256 B          91.6 kB
+├ λ /doosan-serial-number-lookup                                                                    2.37 kB        93.7 kB
+├ λ /electric-vehicle-chargers                                                                      11.4 kB         157 kB
+├ λ /ep-forklift-serial-number-lookup                                                               2.31 kB        86.9 kB
+├ λ /es/brand/[slug]                                                                                316 B          84.9 kB
+├ ○ /es/brand/[slug]/fault-codes                                                                    2.4 kB         97.6 kB
+├ ○ /es/brand/[slug]/guide                                                                          1.45 kB        96.7 kB
+├ ○ /es/brand/[slug]/serial-lookup                                                                  152 B           108 kB
+├ λ /evaluations/[certificateId]                                                                    16.3 kB         141 kB
+├ λ /factory-cat-serial-number-lookup                                                               4.27 kB          98 kB
+├ λ /forklift-recertification-online                                                                212 B            94 kB
+├ λ /forks                                                                                          207 B          96.5 kB
+├ λ /hangcha-serial-number-lookup                                                                   1.87 kB        86.4 kB
+├ λ /haulotte-serial-number-lookup                                                                  1.83 kB        86.4 kB
+├ λ /hyster-serial-number-lookup                                                                    5.5 kB         99.3 kB
+├ λ /hyundai-serial-number-lookup                                                                   1.97 kB        86.5 kB
+├ λ /insights                                                                                       214 B           100 kB
+├ λ /insights/[slug]                                                                                220 B           100 kB
+├ λ /insights/nissan-k21-forklift-engine                                                            532 B          93.6 kB
+├ λ /jcb-serial-number-lookup                                                                       3.04 kB        94.4 kB
+├ λ /jlg-serial-number-lookup                                                                       3.09 kB        94.5 kB
+├ λ /jungheinrich-serial-number-lookup                                                              1.9 kB         86.5 kB
+├ λ /karcher-serial-number-lookup                                                                   5.12 kB        98.9 kB
+├ λ /komatsu-serial-number-lookup                                                                   3.21 kB        90.2 kB
+├ λ /kubota-serial-number-lookup                                                                    2.34 kB        86.9 kB
+├ λ /linde-forklift-serial-number-lookup                                                            2.33 kB        86.9 kB
+├ λ /locations                                                                                      300 B          96.6 kB
+├ ● /locations/[city]                                                                               207 B          96.5 kB
+├   ├ /locations/las-cruces-nm
+├   ├ /locations/pueblo-co
+├   ├ /locations/bozeman-mt
+├   └ [+2 more paths]
+├ λ /login                                                                                          3.47 kB         140 kB
+├ λ /lull-serial-number-lookup                                                                      1.84 kB        86.4 kB
+├ λ /manitou-forklift-serial-number-lookup                                                          1.73 kB        86.3 kB
+├ λ /mitsubishi-serial-number-lookup                                                                2.32 kB        93.7 kB
+├ λ /module/inspection/demo/hotspots                                                                1.93 kB         101 kB
+├ λ /module/load-capacity                                                                           2.57 kB         102 kB
+├ λ /module/pre-op/demo/minippe                                                                     3.13 kB         107 kB
+├ λ /module/stability/sim                                                                           2.84 kB         102 kB
+├ λ /new-holland-serial-number-lookup                                                               5.37 kB        99.1 kB
+├ λ /new-mexico                                                                                     256 B          91.6 kB
+├ λ /new-mexico/albuquerque                                                                         203 B          98.9 kB
+├ λ /osha-operator-training                                                                         256 B          91.6 kB
+├ λ /parts                                                                                          257 B          91.6 kB
+├ λ /parts/[slug]                                                                                   2.2 kB         99.9 kB
+├ λ /parts/aerial-equipment/genie-scissor-lift-error-codes                                          256 B          91.6 kB
+├ λ /parts/battery-charger-modules                                                                  208 B          96.5 kB
+├ λ /parts/category/[category_slug]                                                                 210 B            94 kB
+├ λ /parts/category/forklift-parts                                                                  256 B          91.6 kB
+├ λ /parts/chargepoint-home-flex-level-2-ev-charger-remanufactured-40a                              1.68 kB         100 kB
+├ λ /parts/clippercreek-hcs40-level-2-ev-charging-station-remanufactured-32a                        1.68 kB         100 kB
+├ λ /parts/construction-equipment-parts/case-loader-serial-number-lookup                            256 B          91.6 kB
+├ λ /parts/construction-equipment-parts/gehl-serial-number-lookup                                   2.09 kB        86.7 kB
+├ λ /parts/construction-equipment-parts/jcb-backhoe-serial-number-lookup                            256 B          91.6 kB
+├ λ /parts/construction-equipment-parts/john-deere-skid-steer-product-identification-number-lookup  256 B          91.6 kB
+├ λ /parts/construction-equipment-parts/new-holland-skid-steer-serial-number-lookup                 256 B          91.6 kB
+├ λ /parts/construction-equipment-parts/your-bobcat-serial-number-how-to-find-and-use-it            208 B          96.5 kB
+├ λ /parts/forklift-parts/nissan-k21-forklift-engine                                                212 B            94 kB
+├ λ /parts/raymond-forklift-serial-number                                                           3.97 kB        95.3 kB
+├ λ /parts/tesla-gen-3-wall-connector-level-2-ev-charger-remanufactured-48a                         1.34 kB         106 kB
+├ λ /parts/toyota-forklift-year-by-serial-number                                                    256 B          91.6 kB
+├ λ /parts/wallbox-pulsar-plus-40a-level-2-ev-charging-station-remanufactured                       1.68 kB         100 kB
+├ λ /parts/wallbox-pulsar-plus-48a-level-2-ev-charging-station-remanufactured                       1.68 kB         100 kB
+├ λ /policies/privacy-policy                                                                        314 B          84.9 kB
+├ λ /policies/shipping-and-returns                                                                  316 B          84.9 kB
+├ λ /policies/terms-of-service                                                                      315 B          84.9 kB
+├ λ /privacy-policy                                                                                 317 B          84.9 kB
+├ λ /quiz-demo                                                                                      8.21 kB        92.8 kB
+├ λ /quote                                                                                          2.81 kB        87.4 kB
+├ λ /quote/thank-you                                                                                256 B          91.6 kB
+├ λ /raymond-serial-number-lookup                                                                   5.8 kB         99.6 kB
+├ λ /records                                                                                        6.48 kB        99.6 kB
+├ λ /rent-equipment                                                                                 213 B            94 kB
+├ λ /rental/forklifts/how-long-is-forklift-certification-good-for                                   255 B          91.6 kB
+├ λ /rental/forklifts/how-old-must-you-be-to-operate-a-forklift-2                                   256 B          91.6 kB
+├ λ /rental/forklifts/hyster-forklift-fault-codes-list                                              256 B          91.6 kB
+├ λ /rental/forklifts/hyster-serial-number-lookup                                                   317 B          84.9 kB
+├ λ /rental/telehandler/jcb-telehandler-battery-location                                            313 B          84.9 kB
+├ λ /rental/telehandler/jcb-telehandler-fault-codes-list                                            256 B          91.6 kB
+├ λ /rental/telehandler/jcb-telehandler-joystick-controls                                           255 B          91.6 kB
+├ λ /rentals/[category]                                                                             254 B          91.6 kB
+├ λ /rentals/[category]/[slug]                                                                      212 B            94 kB
+├ ○ /robots.txt                                                                                     0 B                0 B
+├ λ /safety                                                                                         4.88 kB         104 kB
+├ λ /safety/forklift                                                                                256 B          91.6 kB
+├ ● /safety/forklift/[state]                                                                        2.1 kB         93.5 kB
+├   ├ /safety/forklift/al
+├   ├ /safety/forklift/ak
+├   ├ /safety/forklift/az
+├   └ [+47 more paths]
+├ λ /shipping-returns                                                                               315 B          84.9 kB
+├ λ /sinoboom-serial-number-lookup                                                                  2.24 kB        86.8 kB
+├ ○ /sitemap.xml                                                                                    0 B                0 B
+├ λ /skyjack-serial-number-lookup                                                                   1.96 kB        86.5 kB
+├ λ /takeuchi-serial-number-lookup                                                                  2.31 kB        86.9 kB
+├ λ /tennant-serial-number-lookup                                                                   1.85 kB        86.4 kB
+├ λ /terms-of-service                                                                               317 B          84.9 kB
+├ λ /test-auto-login                                                                                2.11 kB        93.5 kB
+├ λ /test-training                                                                                  2.1 kB         93.5 kB
+├ λ /toro-serial-number-lookup                                                                      2.38 kB          87 kB
+├ λ /toyota-forklift-serial-lookup                                                                  5.5 kB         99.3 kB
+├ λ /training                                                                                       256 B          91.6 kB
+├ λ /training/safety-modules                                                                        316 B          84.9 kB
+├ λ /unicarriers-serial-number-lookup                                                               2.46 kB        93.8 kB
+├ λ /verify/[code]                                                                                  6.77 kB        91.3 kB
+├ λ /warranty                                                                                       316 B          84.9 kB
+├ λ /xcmg-serial-number-lookup                                                                      2.11 kB        86.7 kB
+└ λ /yale-serial-number-lookup                                                                      5.39 kB        99.2 kB
++ First Load JS shared by all                                                                       84.6 kB
+  ├ chunks/8069-309c7cc8adb7cad9-1756309951640.js                                                   29.1 kB
+  ├ chunks/fd9d1056-651a89129124b3ca-1756309951640.js                                               53.4 kB
+  └ other shared chunks (total)                                                                     2.12 kB
+
+
+ƒ Middleware                                                                                        41.4 kB
+
+○  (Static)        prerendered as static content
+●  (SSG)           prerendered as static HTML (uses getStaticProps)
+λ  (Dynamic)       server-rendered on demand using Node.js
+ℇ  (Edge Runtime)  server-rendered on demand using the Edge Runtime
+
+
+> flat-earth-equipment@1.0.0 postbuild
+> next-sitemap && node scripts/check-service-key-leak.mjs
+
+✨ [next-sitemap] Loading next-sitemap config: file:///Users/christopherray/Documents/flat-earth-equipment/next-sitemap.config.js
+✅ [next-sitemap] Generation completed
+┌───────────────┬────────┐
+│ (index)       │ Values │
+├───────────────┼────────┤
+│ indexSitemaps │ 1      │
+│ sitemaps      │ 1      │
+└───────────────┴────────┘
+-----------------------------------------------------
+ SITEMAP INDICES 
+-----------------------------------------------------
+
+   ○ https://www.flatearthequipment.com/sitemap.xml
+
+
+-----------------------------------------------------
+ SITEMAPS 
+-----------------------------------------------------
+
+   ○ https://www.flatearthequipment.com/sitemap-0.xml
+
+
+[OK] No service-role key references detected in client bundle.
