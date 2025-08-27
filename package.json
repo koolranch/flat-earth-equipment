@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "next-sitemap",
+    "postbuild": "next-sitemap && node scripts/check-service-key-leak.mjs",
     "start": "next start",
     "lint": "next lint",
     "build:handbooks": "cp content/modules/*.mdx public/handbooks/",
