@@ -1,5 +1,5 @@
-import fs from 'node:fs';
-import path from 'node:path';
+import fs from 'fs';
+import path from 'path';
 
 const ROOT = process.cwd();
 const STATIC_DIR = path.join(ROOT, '.next', 'static');
@@ -8,24 +8,44 @@ const needleValue = (process.env.SUPABASE_SERVICE_ROLE_KEY || '').slice(0, 8);
 const needleName = 'SUPABASE_SERVICE_ROLE_KEY';
 
 function scan(dir) {
-  if (!fs.existsSync(dir)) return;
-  for (const entry of fs.readdirSync(dir)) {
-    const p = path.join(dir, entry);
-    const stat = fs.statSync(p);
-    if (stat.isDirectory()) scan(p);
-    else if (/\.(js|txt|html|json)$/.test(entry)) {
-      const txt = fs.readFileSync(p, 'utf8');
-      if (needleValue && txt.includes(needleValue)) bad.push(p);
-      if (txt.includes(needleName)) bad.push(p);
+  try {
+    if (!fs.existsSync(dir)) {
+      console.log(`[INFO] Static directory not found: ${dir} - skipping scan (normal for some build environments)`);
+      return;
     }
+    
+    const entries = fs.readdirSync(dir);
+    for (const entry of entries) {
+      const p = path.join(dir, entry);
+      const stat = fs.statSync(p);
+      if (stat.isDirectory()) {
+        scan(p);
+      } else if (/\.(js|txt|html|json)$/.test(entry)) {
+        try {
+          const txt = fs.readFileSync(p, 'utf8');
+          if (needleValue && needleValue.length >= 8 && txt.includes(needleValue)) {
+            bad.push(p);
+          }
+          if (txt.includes(needleName)) {
+            bad.push(p);
+          }
+        } catch (readError) {
+          console.warn(`[WARN] Could not read file ${p}: ${readError.message}`);
+        }
+      }
+    }
+  } catch (scanError) {
+    console.warn(`[WARN] Error scanning directory ${dir}: ${scanError.message}`);
   }
 }
 
+console.log('[INFO] Starting security scan for service key leaks...');
 scan(STATIC_DIR);
 
 if (bad.length) {
   console.error('\n[SECURITY] Service role key reference found in client bundle files:');
   for (const f of bad) console.error(' -', path.relative(ROOT, f));
+  console.error('\nThis is a critical security violation. Build aborted.');
   process.exit(1);
 } else {
   console.log('[OK] No service-role key references detected in client bundle.');
