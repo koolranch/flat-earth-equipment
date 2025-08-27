@@ -1,7 +1,7 @@
 export const revalidate = 0;
 
 import { Metadata } from 'next';
-import { supabase } from '@/lib/supabaseClient';
+import { supabaseServer } from '@/lib/supabase/server';
 import Link from 'next/link';
 import {
   TruckIcon,
@@ -82,6 +82,7 @@ export default async function PartsPage({
       error: 'Error:'
     }
   }[locale]
+  const supabase = supabaseServer();
   const { data: categories } = await supabase
     .from('parts')
     .select('category')

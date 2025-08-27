@@ -1,5 +1,7 @@
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 import { NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { supabaseService } from "@/lib/supabase/service";
 
 function clean(input: string) {
   return (input || "").trim().toUpperCase();
@@ -12,7 +14,7 @@ async function decodeVinYear(serial: string) {
   if (vin.length !== 17) return null;
   
   const code = vin[9];
-  const admin = supabaseAdmin();
+  const admin = supabaseService();
   
   const { data, error } = await admin
     .from("komatsu_vin_year_map")
@@ -32,7 +34,7 @@ async function decodeVinYear(serial: string) {
 async function decodeIcModel(model: string | undefined) {
   if (!model) return null;
   
-  const admin = supabaseAdmin();
+  const admin = supabaseService();
   const s = clean(model);
   const match = s.match(/\b(FG|FD)\s*([0-9]{2})([A-Z]{0,2})/);
   if (!match) return null;
@@ -109,7 +111,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Missing serial/PIN" }, { status: 400 });
     }
 
-    const admin = supabaseAdmin();
+    const admin = supabaseService();
     const normalized = clean(serial);
     const vinYear = await decodeVinYear(normalized);
 

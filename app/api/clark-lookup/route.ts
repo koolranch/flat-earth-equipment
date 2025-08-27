@@ -1,5 +1,7 @@
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 import { NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { supabaseService } from "@/lib/supabase/service";
 
 function clean(input: string) {
   return (input || "").trim().toUpperCase();
@@ -26,7 +28,7 @@ async function vinYear(serial: string) {
   if (vin.length !== 17) return null;
   
   const code = vin[9];
-  const admin = supabaseAdmin();
+  const admin = supabaseService();
   
   const { data, error } = await admin
     .from("clark_vin_year_map")
@@ -47,7 +49,7 @@ async function vinYear(serial: string) {
 // Pattern 2 (1949–1957): later in the serial two letters: first=year, second=month (C/L/A/R/K/E/Q/U/I/P/M/T)
 async function legacyYear(serial: string) {
   const s = clean(serial).replace(/\s+/g, " ");
-  const admin = supabaseAdmin();
+  const admin = supabaseService();
   
   // Pattern 1: two-digit year directly following "CL" (or other early model code)
   const m1 = s.match(/\bCL\s*([0-9]{2})\b/);
@@ -104,7 +106,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Missing serial/PIN" }, { status: 400 });
     }
 
-    const admin = supabaseAdmin();
+    const admin = supabaseService();
     const normalized = clean(serial);
     const prefix = inferPrefix(model || normalized);
 

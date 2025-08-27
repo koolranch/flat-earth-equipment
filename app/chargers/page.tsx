@@ -1,4 +1,4 @@
-import { supabaseServer } from "@/lib/supabaseServer";
+import { supabaseServer } from "@/lib/supabase/server";
 import { parseSpecsFromSlug } from "@/lib/chargers";
 import ChargerFilters from "@/components/ChargerFilters";
 import BrandSection from "@/components/BrandSection";
