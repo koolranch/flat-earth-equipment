@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "start": "next start -p 3000",
     "postbuild": "next-sitemap && node scripts/check-service-key-leak.mjs",
-    "start": "next start",
     "lint": "next lint",
     "build:handbooks": "cp content/modules/*.mdx public/handbooks/",
     "convert:json-to-csv": "node scripts/convert-json-to-csv.mjs",
