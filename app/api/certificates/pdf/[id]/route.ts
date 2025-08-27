@@ -2,7 +2,7 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 import { NextResponse } from 'next/server';
-import { supabaseService } from '@/lib/supabase/service';
+import { supabaseService } from '@/lib/supabase/service.server';
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 
 export async function GET(_: Request, { params }: { params: { id: string } }) {

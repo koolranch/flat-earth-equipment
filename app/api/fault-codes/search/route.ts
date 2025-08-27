@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabaseService } from '@/lib/supabase/service';
+import { supabaseService } from '@/lib/supabase/service.server';
 import { z } from 'zod';
 
 const qSchema = z.object({

@@ -2,7 +2,7 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 import { NextResponse } from 'next/server';
-import { supabaseService } from '@/lib/supabase/service';
+import { supabaseService } from '@/lib/supabase/service.server';
 
 function csv(rows: any[]): string {
   if (!rows.length) return 'learner_id,course_id,issue_date,score,verifier_code,eval_date,practical_pass\n';

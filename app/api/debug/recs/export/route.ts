@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabaseService } from '@/lib/supabase/service';
+import { supabaseService } from '@/lib/supabase/service.server';
 import { parseSpecsFromSlugAudit, bucketKey } from '@/lib/specsAudit';
 import { filterGreen } from '@/lib/greenFilter';
 

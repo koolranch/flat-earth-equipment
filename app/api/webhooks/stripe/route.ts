@@ -2,7 +2,7 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
-import { supabaseService } from '@/lib/supabase/service'
+import { supabaseService } from '@/lib/supabase/service.server'
 import { createReturnLabel } from '@/lib/shippo'
 
 export async function POST(req: Request) {
