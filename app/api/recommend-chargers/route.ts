@@ -141,7 +141,7 @@ export async function POST(req: NextRequest){
     });
   } catch (err:any) {
     console.error('[recommend-chargers] error', err?.message);
-    const hint = (!process.env.NEXT_PUBLIC_SUPABASE_URL || (!process.env.SUPABASE_SERVICE_ROLE_KEY && !process.env.SUPABASE_ANON_KEY)) ? 'Missing Supabase env vars' : undefined;
-    return NextResponse.json({ ok:false, error:'SERVER_ERROR', hint }, { status:500 });
+    // Note: Supabase connection validated through service helper, no direct env check needed
+    return NextResponse.json({ ok:false, error:'SERVER_ERROR' }, { status:500 });
   }
 }
