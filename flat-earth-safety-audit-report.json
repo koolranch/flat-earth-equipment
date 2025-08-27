@@ -1,0 +1,504 @@
+{
+  "audit_metadata": {
+    "platform": "Flat Earth Safety",
+    "audit_date": "2024-12-19",
+    "audit_scope": "Post-Phase 3 UX, Compliance, Security & DX",
+    "auditor_role": "Senior UX + Accessibility + Compliance + Security + DX Reviewer",
+    "overall_readiness": {
+      "score": "YELLOW",
+      "rationale": "Platform shows strong foundation but requires security hardening and accessibility improvements before production deployment"
+    }
+  },
+  "technical_context": {
+    "brand": "Flat Earth Safety (western rugged, no-BS)",
+    "colors": {
+      "primary": "#F76511",
+      "secondary": "#0F172A"
+    },
+    "tech_stack": [
+      "Next.js App Router",
+      "React",
+      "Tailwind CSS",
+      "Supabase",
+      "shadcn/ui",
+      "MDX content"
+    ],
+    "features_implemented": [
+      "employer evaluations table & API",
+      "certificates table + verify API + PDF",
+      "DemoPanel component",
+      "hotspot games",
+      "quiz per-item autosave + review incorrect",
+      "i18n scaffold",
+      "stability triangle simulation",
+      "load capacity tool",
+      "admin CSV export with token",
+      "verify page QR/share"
+    ]
+  },
+  "audit_sections": {
+    "osha_compliance": {
+      "section_id": 1,
+      "title": "OSHA Compliance",
+      "reference": "§1910.178(l)",
+      "findings": [
+        {
+          "severity": "High",
+          "issue": "Missing evaluator identity fields in employer_evaluations table per §1910.178(l)(6)",
+          "description": "Current schema lacks evaluator_title and evaluator_certification which are required for compliance documentation",
+          "file": "supabase/migrations/01_create_employer_evaluations.sql",
+          "fix": {
+            "type": "sql",
+            "code": "-- Add required OSHA evaluator fields\nALTER TABLE public.employer_evaluations ADD COLUMN evaluator_certification text;\nALTER TABLE public.employer_evaluations ADD COLUMN evaluator_license_number text;"
+          }
+        },
+        {
+          "severity": "Med",
+          "issue": "Records page shows evaluator name but missing formal evaluation documentation link",
+          "description": "OSHA requires accessible practical evaluation records",
+          "file": "app/records/RecordsContent.tsx:132",
+          "fix": {
+            "type": "diff",
+            "code": "+ <a href={`/evaluation/${e.eval.id}`} className=\"text-blue-600 underline\">View Evaluation Form</a>"
+          }
+        },
+        {
+          "severity": "Low",
+          "issue": "Verification page provides minimal learner identification",
+          "description": "Consider adding training date for better compliance tracking",
+          "file": "app/verify/[code]/page.tsx"
+        }
+      ]
+    },
+    "accessibility": {
+      "section_id": 2,
+      "title": "Accessibility (WCAG 2.2 AA)",
+      "findings": [
+        {
+          "severity": "High",
+          "issue": "Quiz modal buttons lack proper focus trapping and aria-live announcements",
+          "description": "Choice buttons missing keyboard navigation and screen reader support",
+          "file": "components/QuizModal.tsx:226-235",
+          "fix": {
+            "type": "diff",
+            "code": "- className=\"block w-full rounded border p-3 text-left hover:bg-gray-50 hover:border-orange-600 transition\"\n+ className=\"block w-full rounded border p-3 text-left hover:bg-gray-50 hover:border-orange-600 transition focus:outline-none focus:ring-2 focus:ring-[#F76511]\"\n+ aria-describedby=\"quiz-instructions\""
+          }
+        },
+        {
+          "severity": "High",
+          "issue": "Interactive games lack sufficient keyboard navigation",
+          "description": "Tap handlers present but incomplete keyboard equivalents",
+          "file": "components/games/module2/MiniInspection.tsx:210-246",
+          "fix": {
+            "type": "diff",
+            "code": "+ onKeyDown={(e) => {\n+   if (e.key === 'Enter' || e.key === ' ') {\n+     e.preventDefault();\n+     tap(h);\n+   }\n+ }}\n+ tabIndex={0}"
+          }
+        },
+        {
+          "severity": "Med",
+          "issue": "Orange brand color (#F76511) has insufficient contrast ratio",
+          "description": "Minimum 4.5:1 required for AA compliance on white backgrounds",
+          "fix": {
+            "type": "color_adjustment",
+            "code": "Use darker orange variant #D35400 for text on light backgrounds"
+          }
+        },
+        {
+          "severity": "Med",
+          "issue": "Missing aria-live regions for dynamic feedback in games",
+          "description": "HotspotsEight has aria-live but many other games don't",
+          "file": "components/games/module2/HotspotsEight.tsx:109-111"
+        },
+        {
+          "severity": "Low",
+          "issue": "Focus rings inconsistently applied across interactive elements",
+          "description": "DemoPanel has proper focus states but Quiz components need updates"
+        }
+      ]
+    },
+    "security_secrets": {
+      "section_id": 3,
+      "title": "Security & Secrets",
+      "findings": [
+        {
+          "severity": "High",
+          "issue": "Service role key exposed on client-side in multiple API routes",
+          "description": "Service role key conditionally used but several lookup routes directly expose it",
+          "file": "lib/supabase.ts:5-7",
+          "fix": {
+            "type": "diff",
+            "code": "+ export const runtime = \"nodejs\";\n+ export const dynamic = \"force-dynamic\";"
+          }
+        },
+        {
+          "severity": "High",
+          "issue": "Admin export endpoint lacks rate limiting",
+          "description": "Only checks token but no IP/request limiting",
+          "file": "app/api/admin/exports/completions/route.ts:24-38",
+          "fix": {
+            "type": "diff",
+            "code": "+ const ip = req.headers.get('x-forwarded-for')?.split(',')[0] || 'unknown';\n+ // Add rate limiting logic similar to svc/submit/route.ts:24-39"
+          }
+        },
+        {
+          "severity": "Med",
+          "issue": "PII exposure in admin CSV exports",
+          "description": "Route returns learner IDs directly without proper anonymization",
+          "file": "app/api/admin/exports/completions/route.ts"
+        },
+        {
+          "severity": "Low",
+          "issue": "Missing CSP headers for API routes",
+          "description": "Consider adding Content-Security-Policy for XSS protection"
+        }
+      ]
+    },
+    "rls_data_access": {
+      "section_id": 4,
+      "title": "RLS & Data Access",
+      "findings": [
+        {
+          "severity": "Med",
+          "issue": "Missing RLS policy for verification API",
+          "description": "Uses service role without restrictions, potentially exposing all certificate data",
+          "file": "app/api/verify/[code]/route.ts",
+          "fix": {
+            "type": "sql",
+            "code": "create policy verify_public_access on public.certificates\nfor select to anon, authenticated using (true);"
+          }
+        },
+        {
+          "severity": "Med",
+          "issue": "eval_submissions table allows unrestricted INSERT",
+          "description": "Permits any anonymous creation without validation",
+          "file": "supabase/migrations/20250115_create_eval_submissions.sql:18-20",
+          "fix": {
+            "type": "sql",
+            "code": "create policy eval_submissions_create on public.eval_submissions\nfor insert with check (\n  length(supervisor_email) > 5 AND \n  supervisor_email ~ '^[^@]+@[^@]+\\.[^@]+$'\n);"
+          }
+        },
+        {
+          "severity": "Low",
+          "issue": "Certificates table RLS correctly implemented",
+          "description": "Learner-only access and service role permissions properly configured"
+        }
+      ]
+    },
+    "api_error_handling": {
+      "section_id": 5,
+      "title": "APIs & Error Handling",
+      "findings": [
+        {
+          "severity": "High",
+          "issue": "Missing input validation in progress API",
+          "description": "Lacks Zod schema validation for autosave data",
+          "file": "app/api/progress/route.ts",
+          "fix": {
+            "type": "diff",
+            "code": "+ const ProgressSchema = z.object({\n+   enrollmentId: z.string().uuid(),\n+   itemId: z.string().min(1),\n+   correct: z.boolean(),\n+   choice: z.union([z.number(), z.string()]),\n+   ts: z.number()\n+ });"
+          }
+        },
+        {
+          "severity": "Med",
+          "issue": "Certificate PDF generation missing error boundaries",
+          "description": "Could fail silently on PDF generation errors",
+          "file": "app/api/certificates/pdf/[id]/route.ts"
+        },
+        {
+          "severity": "Med",
+          "issue": "Employer evaluations API doesn't validate enrollment ownership",
+          "description": "Should verify user owns enrollment before inserting evaluation",
+          "file": "app/api/employer-evaluations/route.ts"
+        },
+        {
+          "severity": "Low",
+          "issue": "Most APIs have proper Zod validation and error responses",
+          "description": "Good pattern consistency across endpoints"
+        }
+      ]
+    },
+    "interactive_ux": {
+      "section_id": 6,
+      "title": "Interactive UX Quality",
+      "findings": [
+        {
+          "severity": "Med",
+          "issue": "DemoPanel Continue button triggers completion without user interaction validation",
+          "description": "Should require actual demo engagement",
+          "file": "components/DemoPanel.tsx",
+          "fix": {
+            "type": "diff",
+            "code": "+ const [hasInteracted, setHasInteracted] = useState(false);\n+ // Pass setHasInteracted to children and disable Continue until interaction"
+          }
+        },
+        {
+          "severity": "Med",
+          "issue": "Quiz review-incorrect gating works but lacks clear progress indication",
+          "description": "Users may not understand they must review before retaking"
+        },
+        {
+          "severity": "Low",
+          "issue": "HotspotsEight provides good visual feedback",
+          "description": "Checkmarks and progress counter work well"
+        },
+        {
+          "severity": "Low",
+          "issue": "Consistency across games is good",
+          "description": "Proper completion callbacks and state management"
+        }
+      ]
+    },
+    "analytics_coverage": {
+      "section_id": 7,
+      "title": "Analytics Coverage",
+      "findings": [
+        {
+          "severity": "High",
+          "issue": "Missing critical learning analytics events",
+          "description": "No tracking for lesson_start/complete, sim_param_change, certificate_issued/downloaded, employer_eval_saved",
+          "missing_events": [
+            "lesson_start",
+            "lesson_complete",
+            "sim_param_change",
+            "certificate_issued",
+            "certificate_downloaded",
+            "employer_eval_saved"
+          ],
+          "fix": {
+            "type": "diff",
+            "code": "+ analytics.track(\"lesson_start\", { moduleId, userId });\n+ analytics.track(\"certificate_issued\", { certificateId, score });"
+          }
+        },
+        {
+          "severity": "Med",
+          "issue": "Analytics implementation is minimal console.debug",
+          "description": "Production needs real analytics service integration",
+          "file": "lib/analytics.ts:3-12"
+        },
+        {
+          "severity": "Low",
+          "issue": "Basic events tracked in DemoPanel and Quiz",
+          "description": "demo_start/demo_complete and quiz_item_answered events present"
+        }
+      ]
+    },
+    "localization": {
+      "section_id": 8,
+      "title": "Localization Readiness",
+      "findings": [
+        {
+          "severity": "Med",
+          "issue": "Extensive hardcoded strings throughout codebase",
+          "examples": [
+            {
+              "file": "components/QuizModal.tsx:157-187",
+              "issue": "Hardcoded success/failure messages"
+            },
+            {
+              "file": "components/games/module5/MiniShutdown.tsx:89",
+              "issue": "Error messages not localized"
+            },
+            {
+              "file": "app/records/RecordsContent.tsx:132",
+              "issue": "\"Evaluated by:\" hardcoded"
+            }
+          ],
+          "fix": {
+            "type": "diff",
+            "code": "- <p className=\"text-green-600 font-medium text-center\">🎉 Congratulations! You passed!</p>\n+ <p className=\"text-green-600 font-medium text-center\">{t('quiz.passed_title', '🎉 Congratulations! You passed!')}</p>"
+          }
+        },
+        {
+          "severity": "Low",
+          "issue": "Good foundation with useT() hook and JSON dictionaries",
+          "description": "ES locale partially implemented, infrastructure ready"
+        }
+      ]
+    },
+    "performance": {
+      "section_id": 9,
+      "title": "Performance",
+      "findings": [
+        {
+          "severity": "Med",
+          "issue": "Heavy SVG/image assets in games not optimized",
+          "description": "References CDN but no lazy loading",
+          "file": "components/games/module1/MiniPPE.tsx:22",
+          "fix": {
+            "type": "diff",
+            "code": "+ import dynamic from 'next/dynamic';\n+ const LazyMiniPPE = dynamic(() => import('./MiniPPE'), { ssr: false });"
+          }
+        },
+        {
+          "severity": "Med",
+          "issue": "Quiz questions fetch on every mount without caching",
+          "description": "Reloads data unnecessarily",
+          "file": "components/Quiz.tsx:23-79"
+        },
+        {
+          "severity": "Low",
+          "issue": "Proper usage of next/image in most components",
+          "description": "Good optimization pattern"
+        },
+        {
+          "severity": "Low",
+          "issue": "Good bundle size optimization",
+          "description": "Dynamic imports used where appropriate"
+        }
+      ]
+    },
+    "dx_tests": {
+      "section_id": 10,
+      "title": "DX & Tests",
+      "recommendations": {
+        "playwright_tests": [
+          {
+            "name": "HotspotsEight keyboard accessibility",
+            "code": "test('HotspotsEight keyboard accessibility', async ({ page }) => {\n  await page.goto('/module/inspection/demo/hotspots');\n  await page.keyboard.press('Tab');\n  await page.keyboard.press('Enter');\n  await expect(page.locator('[aria-live=\"polite\"]')).toContainText('Complete');\n});"
+          },
+          {
+            "name": "Verify page QR copy",
+            "code": "test('Verify page QR copy', async ({ page }) => {\n  await page.goto('/verify/test-code');\n  await page.click('text=Copy Link');\n  await expect(page.locator('text=Copied!')).toBeVisible();\n});"
+          }
+        ],
+        "api_tests": [
+          {
+            "name": "Employer evaluation creation",
+            "method": "POST",
+            "endpoint": "/api/employer-evaluations",
+            "curl": "curl -X POST /api/employer-evaluations \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"enrollmentId\":\"uuid\",\"evaluatorName\":\"Test\",\"evaluationDate\":\"2024-01-01\",\"practicalPass\":true}'"
+          },
+          {
+            "name": "Certificate verification",
+            "method": "GET",
+            "endpoint": "/api/verify/ABC123DEF456",
+            "curl": "curl /api/verify/ABC123DEF456",
+            "expected": "{\"courseId\":\"uuid\",\"learnerInitials\":\"J.D.\",\"issueDate\":\"2024-01-01\",\"score\":85}"
+          }
+        ]
+      }
+    }
+  },
+  "compliance_checklist": {
+    "osha_compliance": {
+      "employer_evaluation_stored": true,
+      "evaluator_identity": false,
+      "evaluation_date": true,
+      "pass_fail_recorded": true,
+      "visible_on_records": true,
+      "verify_minimal_pii": true
+    },
+    "mobile_first": {
+      "tap_targets_40px": true,
+      "content_zoom_allowed": true,
+      "sticky_progress_clear": true
+    },
+    "two_click_resume": {
+      "hub_to_module": false,
+      "comment": "Needs UX flow verification"
+    },
+    "quiz_ux": {
+      "one_question_per_screen": true,
+      "instant_feedback": true,
+      "autosave_per_item": true,
+      "review_incorrect_before_retake": true
+    }
+  },
+  "top_10_issues": [
+    {
+      "rank": 1,
+      "severity": "High",
+      "issue": "Service role key client exposure",
+      "file": "lib/supabase.ts:5-7",
+      "fix": "Add runtime flags",
+      "impact": "Security vulnerability"
+    },
+    {
+      "rank": 2,
+      "severity": "High",
+      "issue": "Quiz accessibility gaps",
+      "file": "components/QuizModal.tsx:226-235",
+      "fix": "Add focus management",
+      "impact": "WCAG compliance"
+    },
+    {
+      "rank": 3,
+      "severity": "High",
+      "issue": "Missing critical analytics",
+      "file": "Multiple files",
+      "fix": "Add tracking events",
+      "impact": "Learning effectiveness measurement"
+    },
+    {
+      "rank": 4,
+      "severity": "High",
+      "issue": "Admin export security",
+      "file": "app/api/admin/exports/completions/route.ts:24-38",
+      "fix": "Add rate limiting",
+      "impact": "API abuse prevention"
+    },
+    {
+      "rank": 5,
+      "severity": "High",
+      "issue": "Game keyboard navigation",
+      "file": "components/games/module2/MiniInspection.tsx:210-246",
+      "fix": "Add keyboard handlers",
+      "impact": "Accessibility compliance"
+    },
+    {
+      "rank": 6,
+      "severity": "Med",
+      "issue": "OSHA evaluator fields",
+      "file": "supabase/migrations/01_create_employer_evaluations.sql",
+      "fix": "Add required columns",
+      "impact": "Regulatory compliance"
+    },
+    {
+      "rank": 7,
+      "severity": "Med",
+      "issue": "Color contrast issues",
+      "file": "Multiple components",
+      "fix": "Use darker orange variants",
+      "impact": "Accessibility compliance"
+    },
+    {
+      "rank": 8,
+      "severity": "Med",
+      "issue": "Hardcoded strings",
+      "file": "components/QuizModal.tsx:157-187",
+      "fix": "Extract to locales",
+      "impact": "Internationalization"
+    },
+    {
+      "rank": 9,
+      "severity": "Med",
+      "issue": "RLS verification policy",
+      "file": "app/api/verify/[code]/route.ts",
+      "fix": "Add proper policies",
+      "impact": "Data access control"
+    },
+    {
+      "rank": 10,
+      "severity": "Med",
+      "issue": "Input validation gaps",
+      "file": "app/api/progress/route.ts",
+      "fix": "Add Zod schemas",
+      "impact": "Data integrity"
+    }
+  ],
+  "recommendation": {
+    "status": "NO-GO",
+    "rationale": "Platform has strong educational content and user experience but requires security hardening and accessibility compliance before deployment",
+    "estimated_fix_time": "2-3 weeks",
+    "critical_blockers": [
+      "Client-side service role exposure",
+      "Accessibility gaps",
+      "Missing analytics tracking"
+    ],
+    "impact_areas": [
+      "Security posture",
+      "Learning effectiveness measurement",
+      "Regulatory compliance"
+    ]
+  }
+}
