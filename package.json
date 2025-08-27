@@ -40,7 +40,9 @@
     "generate-eval-pdf": "node scripts/generate-pdf.js",
     "stripe:audit": "ts-node scripts/stripe/audit-parts-vs-stripe.ts",
     "stripe:sync:dry": "DRY_RUN=1 ts-node scripts/stripe/sync-parts-to-stripe.ts",
-    "stripe:sync": "DRY_RUN=0 ts-node scripts/stripe/sync-parts-to-stripe.ts"
+    "stripe:sync": "DRY_RUN=0 ts-node scripts/stripe/sync-parts-to-stripe.ts",
+    "qa:cert": "node scripts/e2e_cert_verify.mjs",
+    "qa:i18n": "node scripts/scan_i18n.mjs"
   },
   "keywords": [],
   "author": "",
