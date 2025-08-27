@@ -11,5 +11,19 @@
     "react/no-unescaped-entities": "warn",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "excludedFiles": ["app/api/**"],
+      "rules": {
+        "no-restricted-imports": ["error", {
+          "paths": [{
+            "name": "@/lib/supabase/service",
+            "message": "Use the service client only inside app/api/** routes. For client components use @/lib/supabase/client, for server components use @/lib/supabase/server."
+          }]
+        }]
+      }
+    }
+  ]
 }
