@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabaseServer } from '@/lib/supabaseServer';
+import { supabaseServer } from '@/lib/supabase/server';
 import { parseSpecsFromSlugSafe } from '@/lib/specsDebug';
 
 export async function GET() {

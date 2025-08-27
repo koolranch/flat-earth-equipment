@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { supabaseServer } from "@/lib/supabaseServer";
+import { supabaseServer } from "@/lib/supabase/server";
 import ChargerFAQ from "@/components/ChargerFAQ";
 import ChargerCard from "@/components/ChargerCard";
 import { type BatteryCharger, parseChargerSpecs } from "@/lib/batteryChargers";

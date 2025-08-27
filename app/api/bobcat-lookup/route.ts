@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { supabaseService } from '@/lib/supabase/service.server';
 
 type PlateLoc = {
   equipment_type: string;
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
     const parsed = parseBobcatSerial(serial);
     if ("error" in parsed) return NextResponse.json({ error: parsed.error }, { status: 400 });
 
-    const admin = supabaseAdmin();
+    const admin = supabaseService();
 
     // Optional: lookup module dictionary
     const { data: moduleRow, error: moduleError } = await admin

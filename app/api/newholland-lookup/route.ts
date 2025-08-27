@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { supabaseService } from '@/lib/supabase/service.server';
 
 function clean(s: string) {
   return (s || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     if (!serial) return NextResponse.json({ error: "Missing serial number" }, { status: 400 });
 
     const cleaned = clean(serial);
-    const admin = supabaseAdmin();
+    const admin = supabaseService();
 
     // Plate tips
     let plate = { 
