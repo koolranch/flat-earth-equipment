@@ -18,10 +18,16 @@
       "excludedFiles": ["app/api/**"],
       "rules": {
         "no-restricted-imports": ["error", {
-          "paths": [{
-            "name": "@/lib/supabase/service",
-            "message": "Use the service client only inside app/api/** routes. For client components use @/lib/supabase/client, for server components use @/lib/supabase/server."
-          }]
+          "paths": [
+            {
+              "name": "@/lib/supabase/service",
+              "message": "DEPRECATED: Use @/lib/supabase/service.server for API routes, @/lib/supabase/client for client components, or @/lib/supabase/server for server components."
+            },
+            {
+              "name": "@/lib/supabase/service.server",
+              "message": "The service.server client is only allowed in app/api/** routes and server-only modules. For client components use @/lib/supabase/client, for server components use @/lib/supabase/server."
+            }
+          ]
         }]
       }
     }
