@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
+import { supabaseService } from '@/lib/supabase/service'
 import crypto from 'crypto'
 import { generateCertificate } from '@/lib/cert/generateCertificate'
 import { getUserLocale } from '@/lib/getUserLocale'
@@ -9,10 +9,7 @@ export async function POST(req: Request) {
     const { enrollmentId, moduleOrder } = await req.json()
     console.log('Progress API called:', { enrollmentId, moduleOrder })
     
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!, 
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    )
+    const supabase = supabaseService()
 
     // Get enrollment with course and modules info
     const { data: enrollment, error: enrollError } = await supabase

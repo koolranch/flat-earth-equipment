@@ -1,8 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const key = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+import { supabaseService } from '@/lib/supabase/service';
 const ADMIN_TO = process.env.LEADS_TO_EMAIL; // e.g., 'sales@flatearthequipment.com'
 const FROM = process.env.LEADS_FROM_EMAIL || 'noreply@flatearthequipment.com';
 const SENDGRID_KEY = process.env.SENDGRID_API_KEY || '';
@@ -50,7 +47,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: true });
     }
 
-    const supabase = createClient(url, key);
+    const supabase = supabaseService();
 
     // Insert lead into database
     const leadData = {
