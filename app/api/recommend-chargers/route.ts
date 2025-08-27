@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { supabaseService } from '@/lib/supabase/service';
+import { supabaseService } from '@/lib/supabase/service.server';
 import { parseSpecsFromSlugSafe, withinPct } from '../../../lib/specsDebug';
 import { filterGreen } from '../../../lib/greenFilter';
 import { parseFromText, withinPct as withinPctStruct } from '../../../lib/specsStruct';

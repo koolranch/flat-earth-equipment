@@ -39,7 +39,7 @@ const nextConfig = {
       // On the client, replace any import of the service client with a stub that contains no env refs
       config.resolve.alias = {
         ...(config.resolve.alias || {}),
-        '@/lib/supabase/service': path.resolve(process.cwd(), 'lib/supabase/service.client-stub.ts')
+        '@/lib/supabase/service.server': path.resolve(process.cwd(), 'lib/supabase/service.client-stub.ts')
       };
     }
     return config;

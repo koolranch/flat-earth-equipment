@@ -1,7 +1,7 @@
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 import { NextResponse } from "next/server";
-import { supabaseService } from "@/lib/supabase/service";
+import { supabaseService } from "@/lib/supabase/service.server";
 
 const YEAR_CODES = "ABCDEFGHJKLMNPRSTUVWXYZ"; // skip I,O,Q
 const START_YEAR = 1957;

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabaseService } from '@/lib/supabase/service';
+import { supabaseService } from '@/lib/supabase/service.server';
 import { notifySubmission } from '@/lib/notify';
 
 export async function POST(req: Request){

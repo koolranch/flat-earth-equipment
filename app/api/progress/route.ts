@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { supabaseService } from '@/lib/supabase/service'
+import { supabaseService } from '@/lib/supabase/service.server'
 import crypto from 'crypto'
 import { generateCertificate } from '@/lib/cert/generateCertificate'
 import { getUserLocale } from '@/lib/getUserLocale'

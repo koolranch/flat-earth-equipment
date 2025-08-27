@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabaseService } from '@/lib/supabase/service';
+import { supabaseService } from '@/lib/supabase/service.server';
 const ADMIN_TO = process.env.LEADS_TO_EMAIL; // e.g., 'sales@flatearthequipment.com'
 const FROM = process.env.LEADS_FROM_EMAIL || 'noreply@flatearthequipment.com';
 const SENDGRID_KEY = process.env.SENDGRID_API_KEY || '';

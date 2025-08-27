@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic';
 
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { supabaseService } from "@/lib/supabase/service";
+import { supabaseService } from "@/lib/supabase/service.server";
 import crypto from "crypto";
 
 const Body = z.object({

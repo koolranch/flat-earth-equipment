@@ -1,4 +1,4 @@
-import { supabaseService } from '@/lib/supabase/service';
+import { supabaseService } from '@/lib/supabase/service.server';
 import { NextResponse } from 'next/server';
 
 const supabase = supabaseService();

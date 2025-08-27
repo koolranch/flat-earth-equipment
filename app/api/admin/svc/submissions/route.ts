@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabaseService } from '@/lib/supabase/service';
+import { supabaseService } from '@/lib/supabase/service.server';
 
 function checkAuth(req: Request){
   const hdr = req.headers.get('x-admin-key');
