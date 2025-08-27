@@ -33,6 +33,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# compiled scripts (contains service keys)
+/scripts/dist/
+
 # sitemap
 /public/sitemap*.xml
 /public/robots.txt
