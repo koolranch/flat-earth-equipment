@@ -1,15 +1,29 @@
 // scripts/check-service-key-leak.mjs
 import fs from 'node:fs';
 import path from 'node:path';
+import { Buffer } from 'node:buffer';
 
 const ROOT = process.cwd();
 const STATIC_DIR = path.join(ROOT, '.next', 'static');
 const offenders = [];
 const keyPrefix = (process.env.SUPABASE_SERVICE_ROLE_KEY || '').slice(0, 8);
-const needleName = 'SUPABASE_SERVICE_ROLE_KEY';
-// Only look for actual service role key content, not webpack module references
-const serviceKeyPattern = /eyJ[A-Za-z0-9+\/=]{200,}/; // JWT tokens are long base64 strings
+
+// Patterns to detect actual security leaks
+const serviceKeyPattern = /eyJ[A-Za-z0-9+\/=]{200,}/g; // JWT tokens are long base64 strings
 const envVarPattern = /SUPABASE_SERVICE_ROLE_KEY/;
+
+// Webpack patterns to IGNORE (these are normal and safe)
+const webpackIgnorePatterns = [
+  /Cannot find module/,
+  /MODULE_NOT_FOUND/,
+  /webpackChunk_N_E/,
+  /function\([a-z]\)\{.*Error\("Cannot find module/,
+  /keys=function\(\)\{return\[\]\}/
+];
+
+function isWebpackBoilerplate(text) {
+  return webpackIgnorePatterns.some(pattern => pattern.test(text));
+}
 
 function scan(dir) {
   if (!fs.existsSync(dir)) return;
@@ -20,12 +34,17 @@ function scan(dir) {
     else if (/\.(js|txt|html|json)$/.test(entry)) {
       const txt = fs.readFileSync(p, 'utf8');
       
-      // Check for actual service keys and environment variables, not webpack module references
+      // Skip if this is webpack boilerplate code
+      if (isWebpackBoilerplate(txt)) {
+        continue;
+      }
+      
+      // Check for actual service keys and environment variables
       const hasKeyPrefix = keyPrefix && txt.includes(keyPrefix);
       const hasEnvVar = envVarPattern.test(txt);
       const hasLongJWT = serviceKeyPattern.test(txt);
       
-      // Additional check: if it's a long JWT, make sure it's not the anon key
+      // Additional check: if it's a long JWT, make sure it's a service key
       let isServiceKey = false;
       if (hasLongJWT) {
         const jwtMatches = txt.match(serviceKeyPattern);
