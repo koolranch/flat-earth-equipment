@@ -1,5 +1,7 @@
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 import { NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { supabaseService } from "@/lib/supabase/service";
 
 const YEAR_CODES = "ABCDEFGHJKLMNPRSTUVWXYZ"; // skip I,O,Q
 const START_YEAR = 1957;
@@ -54,7 +56,7 @@ export async function POST(req: Request) {
     const parsed = parseHysterSerial(serial);
     if ("error" in parsed) return NextResponse.json({ error: parsed.error }, { status: 400 });
 
-    const admin = supabaseAdmin();
+    const admin = supabaseService();
 
     // Fetch plant information
     const { data: plantRows, error: plantError } = await admin

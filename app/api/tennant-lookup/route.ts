@@ -1,7 +1,7 @@
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = () => createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+import { supabaseService } from '@/lib/supabase/service';
 
 function clean(s:string){ return (s||'').trim(); }
 function up(s:string){ return clean(s).toUpperCase(); }
@@ -23,7 +23,7 @@ export async function POST(req: Request){
       return NextResponse.json({ error: 'Provide at least a serial/PIN or a model.' }, { status: 400 });
     }
 
-    const db = supabase();
+    const db = supabaseService();
     const family = inferFamily(model) || inferFamily(serial || '');
 
     // Plate guidance

@@ -1,5 +1,7 @@
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 import { NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { supabaseService } from "@/lib/supabase/service";
 
 function toInt(input: string) {
   const cleaned = String(input || "").replace(/\D/g, '');
@@ -20,7 +22,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid serial format" }, { status: 400 });
     }
 
-    const admin = supabaseAdmin();
+    const admin = supabaseService();
 
     // Fetch all rows for the model; we'll sort and compute in memory to avoid DB casting tricks.
     const { data, error } = await admin
