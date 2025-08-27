@@ -47,7 +47,7 @@ export default function BrandTabs({ slug }: { slug: string }) {
           Fault Codes & Retrieval
         </Tab>
         {/* Parts goes to an in-page anchor for smooth scroll to the form */}
-        <Tab href={`/brand/${slug}#parts-request`} active={pathname === `/brand/${slug}`}>
+        <Tab href={`/brand/${slug}/serial-lookup#parts-request`} active={pathname === `/brand/${slug}/serial-lookup`}>
           Request Parts Help
         </Tab>
       </div>
