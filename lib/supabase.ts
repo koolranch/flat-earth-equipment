@@ -16,59 +16,12 @@ const supabase = createClient(url, key, {
   }
 });
 
-export interface Part {
-  id: string;
-  slug: string;
-  name: string;
-  description: string | null;
-  price: number;
-  category: string | null;
-  brand: string | null;
-  created_at: string;
-}
+// DEPRECATED: Parts helpers moved to lib/parts.server.ts for RLS compliance
+// Use the new server-only helpers that respect Row Level Security
 
-export async function getAllParts(): Promise<Part[]> {
-  const { data, error } = await supabase
-    .from('parts')
-    .select('*')
-    .order('name');
-  
-  if (error) {
-    console.error('Error fetching parts:', error);
-    return [];
-  }
-  
-  return data || [];
-}
-
-export async function getPartsByCategory(category: string): Promise<Part[]> {
-  const { data, error } = await supabase
-    .from('parts')
-    .select('*')
-    .eq('category', category)
-    .order('name');
-  
-  if (error) {
-    console.error(`Error fetching parts in category ${category}:`, error);
-    return [];
-  }
-  
-  return data || [];
-}
-
-export async function getPartBySlug(slug: string): Promise<Part | null> {
-  const { data, error } = await supabase
-    .from('parts')
-    .select('*')
-    .eq('slug', slug)
-    .single();
-  
-  if (error) {
-    console.error(`Error fetching part with slug ${slug}:`, error);
-    return null;
-  }
-  
-  return data;
-}
-
+// DEPRECATED: This shared client with conditional service role is a security risk
+// Use the specific clients from /lib/supabase/ instead:
+// - supabaseBrowser for client components
+// - supabaseServer() for server components
+// - supabaseService() for API routes only
 export default supabase; 
