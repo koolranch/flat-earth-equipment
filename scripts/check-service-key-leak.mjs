@@ -45,10 +45,8 @@ scan(STATIC_DIR);
 if (bad.length) {
   console.error('\n[SECURITY] Service role key reference found in client bundle files:');
   for (const f of bad) console.error(' -', path.relative(ROOT, f));
-  console.error('\n⚠️  [EMERGENCY] Security check temporarily bypassed - deployment allowed');
-  console.error('🚨 CRITICAL: This MUST be investigated and fixed immediately!');
-  console.error('Local builds pass but Vercel environment shows persistent leaks');
-  // process.exit(1); // Temporarily disabled for emergency deployment
+  console.error('\nThis is a critical security violation. Build aborted.');
+  process.exit(1);
 } else {
   console.log('[OK] No service-role key references detected in client bundle.');
 }
