@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { supabaseService } from '@/lib/supabase/service.server';
 
 export async function GET() {
   try {
-    const admin = supabaseAdmin();
+    const admin = supabaseService();
     const { data, error } = await admin
       .from("toyota_serial_lookup")
       .select("model_code");

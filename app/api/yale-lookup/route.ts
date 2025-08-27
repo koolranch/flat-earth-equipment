@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { supabaseService } from '@/lib/supabase/service.server';
 
 // Year letters (I,O,Q skipped). Dealers publish S=1995, ..., Y=2024, Z=2025, A=2026, etc.
 const ORDER = "STUVWXYZABCDEFGHJKLMNPR"; // baseYear = 1995 + index
@@ -56,7 +56,7 @@ export async function POST(req: Request) {
     const parsed = parseYaleSerial(serial);
     if ("error" in parsed) return NextResponse.json({ error: parsed.error }, { status: 400 });
 
-    const admin = supabaseAdmin();
+    const admin = supabaseService();
 
     const { data: plantRows, error: plantError } = await admin
       .from("yale_plants")

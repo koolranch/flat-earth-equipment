@@ -5,12 +5,12 @@
 // MIGRATION GUIDE:
 // - Client components: import { supabaseBrowser } from '@/lib/supabase/client'
 // - Server components: import { supabaseServer } from '@/lib/supabase/server'
-// - API routes only: import { supabaseService } from '@/lib/supabase/service.server'
+// - API routes only: import { supabaseService } from secure server module
 // - Parts helpers: import from '@/lib/parts.server'
 //
 // DO NOT RESTORE THE PREVIOUS IMPLEMENTATION - IT WAS A SECURITY VULNERABILITY
 
 throw new Error(
   'DEPRECATED: lib/supabase.ts has been removed for security reasons. ' +
-  'Use context-specific clients from @/lib/supabase/client, @/lib/supabase/server, or @/lib/supabase/service.server'
+  'Use context-specific clients from secure modules'
 ); 

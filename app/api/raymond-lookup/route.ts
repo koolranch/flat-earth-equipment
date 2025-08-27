@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { supabaseService } from '@/lib/supabase/service.server';
 
 function clean(input: string) {
   return (input || "").toUpperCase().trim();
@@ -67,7 +67,7 @@ export async function POST(req: Request) {
     const parsed = parseRaymondSerial(serial);
     if ("error" in parsed) return NextResponse.json({ error: parsed.error }, { status: 400 });
 
-    const admin = supabaseAdmin();
+    const admin = supabaseService();
 
     // Plate guidance
     let plateTips: { truck_family: string; location_notes: string; source_url: string | null }[] = [];
