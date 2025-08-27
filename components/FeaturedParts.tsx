@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import supabase from '@/lib/supabase';
+import { supabaseBrowser } from '@/lib/supabase/client';
 
 type Part = {
   slug: string;
@@ -24,7 +24,7 @@ export default function FeaturedParts() {
     async function fetchFeaturedParts() {
       try {
         // First, fetch the specific charger modules
-        const { data: chargerModules, error: chargerError } = await supabase
+        const { data: chargerModules, error: chargerError } = await supabaseBrowser
           .from('parts')
           .select('slug, name, price, image_url, category, brand, isBestSeller')
           .eq('category', 'battery-chargers')
@@ -37,7 +37,7 @@ export default function FeaturedParts() {
         }
 
         // Then fetch 4 other recent parts
-        const { data: recentParts, error: recentError } = await supabase
+        const { data: recentParts, error: recentError } = await supabaseBrowser
           .from('parts')
           .select('slug, name, price, image_url, category, brand, isBestSeller')
           .neq('category', 'battery-chargers')
