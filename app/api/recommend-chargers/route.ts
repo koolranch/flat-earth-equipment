@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { createClient } from '@supabase/supabase-js';
+import { supabaseService } from '@/lib/supabase/service';
 import { parseSpecsFromSlugSafe, withinPct } from '../../../lib/specsDebug';
 import { filterGreen } from '../../../lib/greenFilter';
 import { parseFromText, withinPct as withinPctStruct } from '../../../lib/specsStruct';
@@ -21,10 +21,7 @@ const Input = z.object({
 });
 
 function sbServer(){
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
-  if(!url || !key) throw new Error('Missing Supabase env');
-  return createClient(url, key, { auth: { persistSession: false } });
+  return supabaseService();
 }
 
 function scoreItem(body: z.infer<typeof Input>, row: any){
