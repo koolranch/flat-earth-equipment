@@ -1,6 +1,5 @@
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+import 'server-only';
+import { supabaseServer } from '@/lib/supabase/server';
 
 export interface Brand {
   id: number;
@@ -16,6 +15,7 @@ export interface Brand {
 
 export async function getBrand(slug: string): Promise<Brand | null> {
   try {
+    const supabase = supabaseServer();
     const { data, error } = await supabase
       .from('brands')
       .select('*')
@@ -35,6 +35,7 @@ export async function getBrand(slug: string): Promise<Brand | null> {
 
 export async function getAllBrands(): Promise<Brand[]> {
   try {
+    const supabase = supabaseServer();
     const { data: brands } = await supabase
       .from('brands')
       .select('*')

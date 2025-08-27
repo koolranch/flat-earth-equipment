@@ -1,7 +1,7 @@
-import { createClient } from '@supabase/supabase-js';
+import { supabaseServer } from '@/lib/supabase/server';
 
 export default async function RecentCommunityNotes({ brandSlug, limit = 3 }: { brandSlug: string; limit?: number }) {
-  const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, { auth: { persistSession: false } });
+  const supabase = supabaseServer();
   const { data } = await supabase
     .from('svc_public_notes')
     .select('id,category,model,code,content,created_at')
