@@ -1,4 +1,4 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { supabaseServer } from '@/lib/supabase/server'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -20,7 +20,7 @@ interface Part {
 }
 
 export async function generateMetadata({ params }: { params: { category_slug: string } }): Promise<Metadata> {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = supabaseServer()
   
   const { data: parts } = await supabase
     .from('parts')
@@ -49,7 +49,7 @@ export default async function CategoryPage({
 }: {
   params: { category_slug: string }
 }) {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = supabaseServer()
 
   const { data: parts } = await supabase
     .from('parts')

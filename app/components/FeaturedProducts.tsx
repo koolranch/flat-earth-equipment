@@ -1,7 +1,6 @@
 'use client'
 
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
+import { supabaseBrowser } from '@/lib/supabase/client'
 import Link from 'next/link'
 
 interface FeaturedProduct {
@@ -13,7 +12,8 @@ interface FeaturedProduct {
 }
 
 export default async function FeaturedProducts() {
-  const supabase = createServerComponentClient({ cookies })
+  // Note: This should be moved to server-side for static generation
+  const supabase = supabaseBrowser
 
   const { data: products } = await supabase
     .from('parts')
