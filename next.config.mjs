@@ -26,7 +26,9 @@ const nextConfig = {
   // force fresh build IDs so old chunks aren't reused
   generateBuildId: async () => {
     const sha = process.env.VERCEL_GIT_COMMIT_SHA || 'local';
-    return `${sha}-${Date.now()}`;
+    const timestamp = Date.now();
+    const random = Math.random().toString(36).substring(2);
+    return `${sha}-${timestamp}-${random}`;
   },
   // clean dist dir each build
   cleanDistDir: true,
