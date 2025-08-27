@@ -1,7 +1,9 @@
-// app/api/certificates/route.ts
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { createClient } from "@supabase/supabase-js";
+import { supabaseService } from "@/lib/supabase/service";
 import crypto from "crypto";
 
 const Body = z.object({
@@ -21,10 +23,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     const data = Body.parse(body);
 
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    );
+    const supabase = supabaseService();
 
     const verifier_code = makeCode(12);
 

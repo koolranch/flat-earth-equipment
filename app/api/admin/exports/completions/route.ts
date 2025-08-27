@@ -1,9 +1,8 @@
-// app/api/admin/exports/completions/route.ts
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { supabaseService } from '@/lib/supabase/service';
 
 function csv(rows: any[]): string {
   if (!rows.length) return 'learner_id,course_id,issue_date,score,verifier_code,eval_date,practical_pass\n';
@@ -32,10 +31,7 @@ export async function GET(req: Request) {
   const from = url.searchParams.get('from');
   const to = url.searchParams.get('to');
 
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  const supabase = supabaseService();
 
   try {
     // Get certificates with date filtering
