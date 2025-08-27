@@ -8,5 +8,10 @@
   "crons": [{
     "path": "/api/cron/renewals",
     "schedule": "0 13 * * *"
-  }]
+  }],
+  "build": {
+    "env": {
+      "VERCEL_FORCE_NO_BUILD_CACHE": "1"
+    }
+  }
 } 
