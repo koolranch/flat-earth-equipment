@@ -1,0 +1,197 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main"
+  - navigation [ref=e3]:
+    - generic [ref=e5]:
+      - link "Flat Earth Equipment Flat Earth Equipment" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img "Flat Earth Equipment" [ref=e8] [cursor=pointer]
+        - generic [ref=e9] [cursor=pointer]: Flat Earth Equipment
+      - generic [ref=e10]:
+        - link "Parts" [ref=e12] [cursor=pointer]:
+          - /url: /parts
+        - link "Rent Equipment" [ref=e14] [cursor=pointer]:
+          - /url: /rent-equipment
+        - link "Safety" [ref=e16] [cursor=pointer]:
+          - /url: /safety
+        - link "About" [ref=e18] [cursor=pointer]:
+          - /url: /about
+        - link "Contact" [ref=e20] [cursor=pointer]:
+          - /url: /contact
+        - link [ref=e21] [cursor=pointer]:
+          - /url: /cart
+          - img [ref=e22] [cursor=pointer]
+        - button "Change language to Español" [ref=e26] [cursor=pointer]:
+          - img [ref=e27] [cursor=pointer]: 🇺🇸
+          - generic [ref=e28] [cursor=pointer]: EN
+          - generic [ref=e29] [cursor=pointer]: / ES
+  - main [ref=e30]:
+    - navigation [ref=e31]:
+      - list [ref=e32]:
+        - listitem [ref=e33]:
+          - link "Brands" [ref=e34] [cursor=pointer]:
+            - /url: /brands
+        - listitem [ref=e35]: /
+        - listitem [ref=e36]:
+          - link "JLG" [ref=e37] [cursor=pointer]:
+            - /url: /brand/jlg
+    - main [ref=e38]:
+      - generic [ref=e39]:
+        - generic [ref=e40]:
+          - link "Open Serial Lookup" [ref=e41] [cursor=pointer]:
+            - /url: /brand/jlg/serial-lookup
+          - link "Fault Codes & Retrieval" [ref=e42] [cursor=pointer]:
+            - /url: /brand/jlg/fault-codes
+          - link "Request Parts Help" [ref=e43] [cursor=pointer]:
+            - /url: /brand/jlg/serial-lookup#parts-request
+        - link "Got a tip for this brand?" [ref=e45] [cursor=pointer]:
+          - /url: "#tips"
+        - generic [ref=e46]:
+          - generic [ref=e47]:
+            - heading "JLG Fault Code Database" [level=3] [ref=e48]
+            - paragraph [ref=e49]: Search our database of common JLG fault codes and diagnostic guidance. Use these as a starting point - always confirm with official service procedures.
+          - generic [ref=e51]:
+            - textbox "Fault code (e.g., 223, E045)" [ref=e52]
+            - textbox "Model (optional, e.g., E450AJ, GS-1930)" [ref=e53]
+            - button "Search Faults" [ref=e54] [cursor=pointer]
+        - generic [ref=e55]:
+          - heading "JLG FAQs" [level=2] [ref=e56]
+          - generic [ref=e57]:
+            - paragraph [ref=e58]: "Q: Where can I find the JLG serial plate? A: Commonly on the chassis near ground controls or inside the platform control box cover."
+            - paragraph [ref=e59]: "Q: Does the JLG serial encode the model year? A: Generally, treat serial as an identifier; use our lookup and parts team to confirm running changes."
+            - paragraph [ref=e60]: "Q: How do I read active/stored JLG fault codes? A: Use the service/diagnostic menu; see the Fault tab for quick steps."
+        - generic [ref=e65]:
+          - generic [ref=e66]:
+            - heading "Help improve this page" [level=3] [ref=e67]
+            - paragraph [ref=e68]: Share a quick tip (2–3 minutes). Your note helps other techs. We review before publishing.
+          - generic [ref=e69]:
+            - generic [ref=e70]:
+              - button "Serial note" [ref=e71] [cursor=pointer]
+              - button "Fault tip" [ref=e72] [cursor=pointer]
+              - button "Plate location" [ref=e73] [cursor=pointer]
+              - button "Guide note" [ref=e74] [cursor=pointer]
+            - paragraph [ref=e75]: Help decode year/series changes or serial patterns.
+            - generic [ref=e77]:
+              - generic [ref=e78]: Model
+              - textbox "e.g., 8FGCU25, SJ3219" [ref=e79]
+            - generic [ref=e80]:
+              - generic [ref=e81]:
+                - generic [ref=e82]:
+                  - text: Title
+                  - generic [ref=e83]: (optional)
+                - textbox "Short summary" [ref=e84]
+              - generic [ref=e85]:
+                - generic [ref=e86]:
+                  - text: Photo URLs
+                  - generic [ref=e87]: (optional)
+                - textbox "http://, http://..." [ref=e88]
+            - generic [ref=e89]:
+              - generic [ref=e90]: Details
+              - textbox "What did you learn? Serial pattern, year break, guide tip." [ref=e91]
+            - generic [ref=e92]:
+              - generic [ref=e93]:
+                - generic [ref=e94]:
+                  - text: Contact Email
+                  - generic [ref=e95]: (optional; for follow-up)
+                - textbox "you@company.com" [ref=e96]
+              - generic [ref=e97]: No sensitive/customer data. Submissions are reviewed and may be edited for clarity.
+            - button "Submit tip" [ref=e98] [cursor=pointer]
+        - generic [ref=e101]:
+          - generic [ref=e102]:
+            - heading "Request JLG Parts" [level=3] [ref=e103]
+            - paragraph [ref=e104]: Need a specific part? Fill out this form and we'll get back to you within 24 hours with pricing and availability.
+          - generic [ref=e105]:
+            - generic [ref=e106]:
+              - generic [ref=e107]:
+                - generic [ref=e108]:
+                  - text: Email
+                  - generic [ref=e109]: "*"
+                - textbox [ref=e110]
+              - generic [ref=e111]:
+                - generic [ref=e112]: Name
+                - textbox [ref=e113]
+              - generic [ref=e114]:
+                - generic [ref=e115]: Phone
+                - textbox [ref=e116]
+              - generic [ref=e117]:
+                - generic [ref=e118]: ZIP Code
+                - textbox [ref=e119]
+            - generic [ref=e120]:
+              - generic [ref=e121]:
+                - generic [ref=e122]: Model
+                - textbox "e.g., 8FGU25, SJ3219" [ref=e123]
+              - generic [ref=e124]:
+                - generic [ref=e125]: Serial Number
+                - textbox "Equipment serial number" [ref=e126]
+            - generic [ref=e127]:
+              - generic [ref=e128]: Fault Code (optional)
+              - textbox "e.g., E001, A-36, 524195-3" [ref=e129]
+            - generic [ref=e130]:
+              - generic [ref=e131]:
+                - text: What parts do you need?
+                - generic [ref=e132]: "*"
+              - textbox "Describe the parts you need (e.g., hydraulic pump, brake pads, engine filter, etc.)" [ref=e133]
+            - button "Request Parts Help" [ref=e134] [cursor=pointer]
+          - paragraph [ref=e136]:
+            - text: Need immediate assistance? Call us at
+            - link "(307) 302-0043" [ref=e137] [cursor=pointer]:
+              - /url: tel:+1-307-302-0043
+  - contentinfo [ref=e138]:
+    - generic [ref=e139]:
+      - generic [ref=e140]:
+        - generic [ref=e141]:
+          - generic [ref=e142]: Flat Earth Equipment
+          - paragraph [ref=e143]: Flat Earth Equipment is built Western tough — precision-fit industrial parts and dispatch-ready rentals, shipped nationwide.
+        - generic [ref=e144]:
+          - heading "Quick Links" [level=3] [ref=e145]
+          - list [ref=e146]:
+            - listitem [ref=e147]:
+              - link "Insights & Guides" [ref=e148] [cursor=pointer]:
+                - /url: /insights
+            - listitem [ref=e149]:
+              - link "About Us" [ref=e150] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e151]:
+              - link "Shipping & Returns" [ref=e152] [cursor=pointer]:
+                - /url: /shipping-returns
+            - listitem [ref=e153]:
+              - link "Warranty" [ref=e154] [cursor=pointer]:
+                - /url: /warranty
+            - listitem [ref=e155]:
+              - link "Contact" [ref=e156] [cursor=pointer]:
+                - /url: /contact
+            - listitem [ref=e157]:
+              - link "Terms of Service" [ref=e158] [cursor=pointer]:
+                - /url: /terms-of-service
+            - listitem [ref=e159]:
+              - link "Privacy Policy" [ref=e160] [cursor=pointer]:
+                - /url: /privacy-policy
+            - listitem [ref=e161]:
+              - link "Service Areas" [ref=e162] [cursor=pointer]:
+                - /url: /locations
+            - listitem [ref=e163]:
+              - link "Cheyenne, WY" [ref=e164] [cursor=pointer]:
+                - /url: /locations/cheyenne-wy
+            - listitem [ref=e165]:
+              - link "Bozeman, MT" [ref=e166] [cursor=pointer]:
+                - /url: /locations/bozeman-mt
+            - listitem [ref=e167]:
+              - link "Pueblo, CO" [ref=e168] [cursor=pointer]:
+                - /url: /locations/pueblo-co
+            - listitem [ref=e169]:
+              - link "Albuquerque, NM" [ref=e170] [cursor=pointer]:
+                - /url: /locations/albuquerque-nm
+            - listitem [ref=e171]:
+              - link "Las Cruces, NM" [ref=e172] [cursor=pointer]:
+                - /url: /locations/las-cruces-nm
+        - generic [ref=e173]:
+          - heading "Stay Updated" [level=3] [ref=e174]
+          - generic [ref=e175]:
+            - textbox "Your email" [ref=e176]
+            - button "Sign Up" [ref=e177] [cursor=pointer]
+      - paragraph [ref=e179]: © 2025 Flat Earth Equipment. All rights reserved.
+  - alert [ref=e180]
+```
