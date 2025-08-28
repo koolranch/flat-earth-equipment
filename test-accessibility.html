@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility Test Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Screen reader only content */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Show screen reader content on focus */
+        .sr-only.focus\:not-sr-only:focus {
+            position: static;
+            width: auto;
+            height: auto;
+            padding: inherit;
+            margin: inherit;
+            overflow: visible;
+            clip: auto;
+            white-space: normal;
+        }
+
+        /* Enhanced focus styles */
+        *:focus-visible {
+            outline: 2px solid #F76511;
+            outline-offset: 2px;
+        }
+
+        /* Reduced motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-900 bg-gray-50 antialiased">
+    <!-- Skip to content link -->
+    <a href="#main" class="sr-only focus:not-sr-only fixed left-2 top-2 bg-white border px-3 py-2 rounded-2xl shadow z-[9999] focus:outline-none focus:ring-2 focus:ring-[#F76511] focus:ring-offset-2">
+        Skip to content
+    </a>
+
+    <!-- Navigation -->
+    <nav class="bg-white border-b p-4">
+        <div class="container mx-auto">
+            <h1 class="text-xl font-bold">Accessibility Test</h1>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main id="main" class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-6">Accessibility Features Test</h1>
+
+        <!-- Skip link test -->
+        <section class="mb-8 p-4 border rounded-lg">
+            <h2 class="text-lg font-semibold mb-4">Skip Link Test</h2>
+            <p class="mb-4">Press Tab to see the "Skip to content" link appear. It should be visible and focusable.</p>
+            <div class="bg-yellow-100 p-3 rounded">
+                <strong>Test:</strong> Tab to the skip link, then press Enter. It should jump to the main content.
+            </div>
+        </section>
+
+        <!-- Live region test -->
+        <section class="mb-8 p-4 border rounded-lg">
+            <h2 class="text-lg font-semibold mb-4">Live Region Test</h2>
+            <div aria-live="polite" class="sr-only" role="status" id="live-region"></div>
+            <p class="mb-4">Click the button below to test aria-live announcements:</p>
+            <button 
+                onclick="updateLiveRegion()" 
+                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+                Test Live Region
+            </button>
+            <div class="mt-4 bg-blue-100 p-3 rounded">
+                <strong>Test:</strong> Use a screen reader and click the button. You should hear the announcement.
+            </div>
+        </section>
+
+        <!-- Focus management test -->
+        <section class="mb-8 p-4 border rounded-lg">
+            <h2 class="text-lg font-semibold mb-4">Focus Management Test</h2>
+            <p class="mb-4">Test keyboard navigation with Tab, Shift+Tab, and Enter:</p>
+            <div class="space-y-2">
+                <button class="block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    Button 1
+                </button>
+                <button class="block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    Button 2
+                </button>
+                <a href="#" class="block text-blue-600 underline hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    Link Example
+                </a>
+            </div>
+            <div class="mt-4 bg-green-100 p-3 rounded">
+                <strong>Test:</strong> Navigate using only the keyboard. Focus should be clearly visible.
+            </div>
+        </section>
+
+        <!-- Reduced motion test -->
+        <section class="mb-8 p-4 border rounded-lg">
+            <h2 class="text-lg font-semibold mb-4">Reduced Motion Test</h2>
+            <p class="mb-4">Enable "Reduce motion" in your OS accessibility settings, then test:</p>
+            <div class="animate-bounce bg-purple-600 text-white p-4 rounded mb-4">
+                This should not bounce if reduce motion is enabled
+            </div>
+            <div class="bg-purple-100 p-3 rounded">
+                <strong>Test:</strong> With reduce motion enabled, animations should be minimal or disabled.
+            </div>
+        </section>
+
+        <!-- Interactive demo simulation -->
+        <section class="mb-8 p-4 border rounded-lg">
+            <h2 class="text-lg font-semibold mb-4">Interactive Demo Simulation</h2>
+            <div aria-live="polite" class="sr-only" role="status" id="demo-status"></div>
+            <p class="mb-4">Simulates the control hotspots demo with accessibility features:</p>
+            <div class="relative w-full max-w-md aspect-video bg-slate-100 rounded-xl mb-4">
+                <button 
+                    onclick="findControl('horn')"
+                    aria-label="Horn control"
+                    class="absolute h-6 w-6 rounded-full border-2 bg-white border-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    style="left: 20%; top: 30%;"
+                    id="horn-btn"
+                >
+                </button>
+                <button 
+                    onclick="findControl('tilt')"
+                    aria-label="Tilt control"
+                    class="absolute h-6 w-6 rounded-full border-2 bg-white border-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    style="left: 60%; top: 50%;"
+                    id="tilt-btn"
+                >
+                </button>
+            </div>
+            <div class="text-sm" id="progress">0 of 2 controls found</div>
+            <div class="mt-4 bg-orange-100 p-3 rounded">
+                <strong>Test:</strong> Use keyboard or mouse to find controls. Progress should be announced to screen readers.
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let liveRegionCounter = 0;
+        let foundControls = [];
+
+        function updateLiveRegion() {
+            liveRegionCounter++;
+            const liveRegion = document.getElementById('live-region');
+            liveRegion.textContent = `Live region test ${liveRegionCounter}. This message should be announced by screen readers.`;
+        }
+
+        function findControl(controlId) {
+            if (!foundControls.includes(controlId)) {
+                foundControls.push(controlId);
+                const button = document.getElementById(controlId + '-btn');
+                button.className = button.className.replace('bg-white border-slate-400', 'bg-emerald-500 border-emerald-600');
+                
+                const progress = document.getElementById('progress');
+                const demoStatus = document.getElementById('demo-status');
+                
+                const message = foundControls.length === 2 
+                    ? 'All controls found' 
+                    : `${foundControls.length} of 2 controls found`;
+                
+                progress.textContent = message;
+                demoStatus.textContent = message;
+            }
+        }
+
+        // Test reduced motion detection
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            console.log('Reduced motion is preferred');
+            document.body.classList.add('reduce-motion');
+        }
+    </script>
+</body>
+</html>
