@@ -328,7 +328,7 @@ export default function SimpleDashboard() {
         // Get enrollment
         const { data: enrollments, error: enrollError } = await supabase
           .from('enrollments')
-          .select('*, course:courses(*)')
+          .select('id, user_id, course_id, progress_pct, passed, cert_url, expires_at, created_at')
           .eq('user_id', userId)
         
         if (enrollError) {
@@ -338,13 +338,33 @@ export default function SimpleDashboard() {
         }
         
         if (enrollments && enrollments.length > 0) {
-          setEnrollment(enrollments[0])
+          const enrollment = enrollments[0]
+          
+          // Get course information separately
+          const { data: courseData, error: courseError } = await supabase
+            .from('courses')
+            .select('id, title, slug, description, price_cents')
+            .eq('id', enrollment.course_id)
+            .single()
+          
+          if (courseError) {
+            setError(`Course error: ${courseError.message}`)
+            setLoading(false)
+            return
+          }
+          
+          // Combine enrollment with course data
+          const enrollmentWithCourse = {
+            ...enrollment,
+            course: courseData
+          }
+          setEnrollment(enrollmentWithCourse)
           
           // Get modules
           const { data: moduleData, error: moduleError } = await supabase
             .from('modules')
             .select('*')
-            .eq('course_id', enrollments[0].course_id)
+            .eq('course_id', enrollment.course_id)
             .order('order')
           
           if (moduleError) {
