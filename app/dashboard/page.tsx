@@ -1,5 +1,3 @@
 // app/dashboard/page.tsx
-import { redirect } from "next/navigation";
-export default function LegacyDashboard() {
-  redirect("/dashboard-simple");
-}
+// Render the same UI as the simple dashboard, without redirecting the URL.
+export { default } from "../dashboard-simple/page";
