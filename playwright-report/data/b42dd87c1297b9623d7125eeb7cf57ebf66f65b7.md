@@ -1,0 +1,90 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main"
+  - navigation [ref=e3]:
+    - generic [ref=e5]:
+      - link "Flat Earth Equipment Flat Earth Equipment" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img "Flat Earth Equipment" [ref=e8] [cursor=pointer]
+        - generic [ref=e9] [cursor=pointer]: Flat Earth Equipment
+      - generic [ref=e10]:
+        - link "Parts" [ref=e12] [cursor=pointer]:
+          - /url: /parts
+        - link "Rent Equipment" [ref=e14] [cursor=pointer]:
+          - /url: /rent-equipment
+        - link "Safety" [ref=e16] [cursor=pointer]:
+          - /url: /safety
+        - link "About" [ref=e18] [cursor=pointer]:
+          - /url: /about
+        - link "Contact" [ref=e20] [cursor=pointer]:
+          - /url: /contact
+        - link [ref=e21] [cursor=pointer]:
+          - /url: /cart
+          - img [ref=e22] [cursor=pointer]
+        - button "Change language to Español" [ref=e26] [cursor=pointer]:
+          - img [ref=e27] [cursor=pointer]: 🇺🇸
+          - generic [ref=e28] [cursor=pointer]: EN
+          - generic [ref=e29] [cursor=pointer]: / ES
+  - main [ref=e30]:
+    - generic [ref=e32]:
+      - heading "404" [level=1] [ref=e33]
+      - heading "This page could not be found." [level=2] [ref=e35]
+  - contentinfo [ref=e36]:
+    - generic [ref=e37]:
+      - generic [ref=e38]:
+        - generic [ref=e39]:
+          - generic [ref=e40]: Flat Earth Equipment
+          - paragraph [ref=e41]: Flat Earth Equipment is built Western tough — precision-fit industrial parts and dispatch-ready rentals, shipped nationwide.
+        - generic [ref=e42]:
+          - heading "Quick Links" [level=3] [ref=e43]
+          - list [ref=e44]:
+            - listitem [ref=e45]:
+              - link "Insights & Guides" [ref=e46] [cursor=pointer]:
+                - /url: /insights
+            - listitem [ref=e47]:
+              - link "About Us" [ref=e48] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e49]:
+              - link "Shipping & Returns" [ref=e50] [cursor=pointer]:
+                - /url: /shipping-returns
+            - listitem [ref=e51]:
+              - link "Warranty" [ref=e52] [cursor=pointer]:
+                - /url: /warranty
+            - listitem [ref=e53]:
+              - link "Contact" [ref=e54] [cursor=pointer]:
+                - /url: /contact
+            - listitem [ref=e55]:
+              - link "Terms of Service" [ref=e56] [cursor=pointer]:
+                - /url: /terms-of-service
+            - listitem [ref=e57]:
+              - link "Privacy Policy" [ref=e58] [cursor=pointer]:
+                - /url: /privacy-policy
+            - listitem [ref=e59]:
+              - link "Service Areas" [ref=e60] [cursor=pointer]:
+                - /url: /locations
+            - listitem [ref=e61]:
+              - link "Cheyenne, WY" [ref=e62] [cursor=pointer]:
+                - /url: /locations/cheyenne-wy
+            - listitem [ref=e63]:
+              - link "Bozeman, MT" [ref=e64] [cursor=pointer]:
+                - /url: /locations/bozeman-mt
+            - listitem [ref=e65]:
+              - link "Pueblo, CO" [ref=e66] [cursor=pointer]:
+                - /url: /locations/pueblo-co
+            - listitem [ref=e67]:
+              - link "Albuquerque, NM" [ref=e68] [cursor=pointer]:
+                - /url: /locations/albuquerque-nm
+            - listitem [ref=e69]:
+              - link "Las Cruces, NM" [ref=e70] [cursor=pointer]:
+                - /url: /locations/las-cruces-nm
+        - generic [ref=e71]:
+          - heading "Stay Updated" [level=3] [ref=e72]
+          - generic [ref=e73]:
+            - textbox "Your email" [ref=e74]
+            - button "Sign Up" [ref=e75] [cursor=pointer]
+      - paragraph [ref=e77]: © 2025 Flat Earth Equipment. All rights reserved.
+  - alert [ref=e78]
+```
