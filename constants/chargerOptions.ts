@@ -23,8 +23,8 @@ export const CHARGER_MODULES: ChargerModule[] = [
     brand: "Enersys",
     partNumber: "6LA20671",
     title: "Enersys Forklift Charger Module – 6LA20671",
-    imgExchange: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products//enersys.png",
-    imgRepair: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products//enersys.png", // using same image for consistent formatting
+    imgExchange: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/enersys.png",
+    imgRepair: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/enersys.png", // using same image for consistent formatting
     offers: [
       {
         label: "Reman Exchange",
@@ -47,8 +47,8 @@ export const CHARGER_MODULES: ChargerModule[] = [
     brand: "Hawker",
     partNumber: "6LA20671",
     title: "Hawker Forklift Charger Module – 6LA20671",
-    imgExchange: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products//hawker.png",
-    imgRepair: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products//hawker.png", // using same image for now
+    imgExchange: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/hawker.png",
+    imgRepair: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/hawker.png", // using same image for now
     offers: [
       {
         label: "Reman Exchange",
