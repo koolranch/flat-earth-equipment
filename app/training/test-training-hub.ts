@@ -75,7 +75,7 @@ async function testRealProgress() {
     // console.log('Real progress:', progress);
     console.log('⚠️  Skipping real progress test (requires auth + DB)');
   } catch (error) {
-    console.log('⚠️  Real progress test skipped:', error.message);
+    console.log('⚠️  Real progress test skipped:', error instanceof Error ? error.message : String(error));
   }
 }
 
