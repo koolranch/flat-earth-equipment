@@ -325,11 +325,12 @@ export default function SimpleDashboard() {
           }
         }
         
-        // Get enrollment
+        // Get enrollment - simplified query to avoid RLS issues
         const { data: enrollments, error: enrollError } = await supabase
           .from('enrollments')
-          .select('id, user_id, course_id, progress_pct, passed, cert_url, expires_at, created_at')
+          .select('id, user_id, course_id, progress_pct, passed')
           .eq('user_id', userId)
+          .limit(1)
         
         if (enrollError) {
           setError(`Enrollment error: ${enrollError.message}`)
@@ -360,10 +361,10 @@ export default function SimpleDashboard() {
           }
           setEnrollment(enrollmentWithCourse)
           
-          // Get modules
+          // Get modules - simplified query to avoid RLS issues
           const { data: moduleData, error: moduleError } = await supabase
             .from('modules')
-            .select('*')
+            .select('id, course_id, order, title, video_url, quiz_json')
             .eq('course_id', enrollment.course_id)
             .order('order')
           
