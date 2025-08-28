@@ -32,6 +32,7 @@
     "scaffold:es": "tsx scripts/scaffold-es-brand-content.ts",
     "test": "playwright test",
     "test:e2e": "playwright test",
+    "qa:i18n:audit": "node scripts/i18n_audit.mjs",
     "test:e2e:ui": "playwright test --ui",
     "test:smoke": "tsx scripts/smoke-test.ts",
     "lh": "lighthouse http://localhost:3000/safety --quiet --preset=desktop --only-categories=performance,accessibility,seo",
