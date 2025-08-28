@@ -32,6 +32,27 @@ export default function SimpleDashboard() {
     setLocale(cookieLocale || 'en')
   }, [])
 
+  // Load MDX guide content for a module
+  const loadModuleGuide = useCallback(async (moduleOrder: number) => {
+    // Always reload when locale changes - don't use cache
+    const cacheKey = `${moduleOrder}-${locale}`
+    if (moduleGuides[cacheKey]) return // Already loaded for this locale
+    
+    try {
+      console.log(`🔄 Loading MDX guide for module ${moduleOrder} in locale ${locale}`)
+      const response = await fetch(`/api/module-guide?moduleOrder=${moduleOrder}&locale=${locale}`)
+      if (response.ok) {
+        const { mdxContent } = await response.json()
+        console.log(`✅ Loaded MDX guide for module ${moduleOrder} in ${locale}:`, mdxContent.frontmatter?.title)
+        setModuleGuides(prev => ({ ...prev, [cacheKey]: mdxContent }))
+      } else {
+        console.warn(`No guide content found for module ${moduleOrder} in ${locale}`)
+      }
+    } catch (error) {
+      console.error(`Error loading guide for module ${moduleOrder} in ${locale}:`, error)
+    }
+  }, [locale, moduleGuides])
+
   // Reload MDX content when locale changes
   useEffect(() => {
     if (expandedModule !== null && modules.length > 0) {
@@ -174,27 +195,6 @@ export default function SimpleDashboard() {
       completeAllTasks: 'Complete todas las tareas para aprobar este módulo'
     }
   }[locale]
-
-  // Load MDX guide content for a module
-  const loadModuleGuide = useCallback(async (moduleOrder: number) => {
-    // Always reload when locale changes - don't use cache
-    const cacheKey = `${moduleOrder}-${locale}`
-    if (moduleGuides[cacheKey]) return // Already loaded for this locale
-    
-    try {
-      console.log(`🔄 Loading MDX guide for module ${moduleOrder} in locale ${locale}`)
-      const response = await fetch(`/api/module-guide?moduleOrder=${moduleOrder}&locale=${locale}`)
-      if (response.ok) {
-        const { mdxContent } = await response.json()
-        console.log(`✅ Loaded MDX guide for module ${moduleOrder} in ${locale}:`, mdxContent.frontmatter?.title)
-        setModuleGuides(prev => ({ ...prev, [cacheKey]: mdxContent }))
-      } else {
-        console.warn(`No guide content found for module ${moduleOrder} in ${locale}`)
-      }
-    } catch (error) {
-      console.error(`Error loading guide for module ${moduleOrder} in ${locale}:`, error)
-    }
-  }, [locale, moduleGuides])
 
   useEffect(() => {
     async function loadData() {
