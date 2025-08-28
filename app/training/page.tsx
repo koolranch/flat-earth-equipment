@@ -1,4 +1,3 @@
-// app/training/page.tsx
 import 'server-only';
 import { cookies } from 'next/headers';
 import { getCourseProgress } from '@/lib/learner/progress.server';

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Hub - Mobile Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Test container to simulate 320px mobile width */
+        .mobile-test {
+            max-width: 320px;
+            margin: 0 auto;
+            border: 2px solid #e2e8f0;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="mobile-test">
+        <main class="container mx-auto p-4">
+            <!-- Sticky Progress Header -->
+            <header class="sticky top-0 z-10 bg-white/90 backdrop-blur border-b py-3">
+                <div class="flex items-center justify-between">
+                    <h1 class="text-xl font-bold text-[#0F172A]">Training Hub</h1>
+                    <div class="min-w-[140px]">
+                        <div class="text-xs text-slate-600">Progress: 65%</div>
+                        <div class="h-2 bg-slate-200 rounded-full overflow-hidden">
+                            <div class="h-2 bg-[#F76511]" style="width: 65%"></div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <section class="mt-4 space-y-3">
+                <!-- Resume CTA -->
+                <a class="inline-flex items-center justify-center rounded-2xl bg-[#F76511] text-white px-4 py-3 shadow-lg w-full" href="/module/safety-basics">
+                    Resume training
+                </a>
+
+                <!-- What's Left Section -->
+                <div class="rounded-2xl border p-4">
+                    <h2 class="text-lg font-semibold text-[#0F172A]">What's left</h2>
+                    <ul class="mt-2 space-y-2">
+                        <li class="flex items-center justify-between">
+                            <span class="text-sm">Pre-Operation Inspection</span>
+                            <a class="rounded-xl border px-3 py-1 text-sm" href="/module/pre-op">Open</a>
+                        </li>
+                        <li class="flex items-center justify-between">
+                            <span class="text-sm">Load Capacity & Stability</span>
+                            <a class="rounded-xl border px-3 py-1 text-sm" href="/module/stability">Open</a>
+                        </li>
+                        <li class="flex items-center justify-between">
+                            <span class="text-sm">Final Assessment</span>
+                            <a class="rounded-xl border px-3 py-1 text-sm" href="/module/assessment">Open</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Test scroll content -->
+                <div class="space-y-4 pb-8">
+                    <div class="h-32 bg-gray-100 rounded-lg flex items-center justify-center">
+                        <span class="text-gray-500">Scroll test content</span>
+                    </div>
+                    <div class="h-32 bg-gray-100 rounded-lg flex items-center justify-center">
+                        <span class="text-gray-500">Header should stick</span>
+                    </div>
+                    <div class="h-32 bg-gray-100 rounded-lg flex items-center justify-center">
+                        <span class="text-gray-500">More content</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Test resume button functionality
+        document.querySelector('a[href="/module/safety-basics"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Resume training clicked! Would navigate to: ' + this.href);
+        });
+
+        // Test "Open" button functionality
+        document.querySelectorAll('a[href^="/module/"]').forEach(link => {
+            if (link.textContent.trim() === 'Open') {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Open clicked! Would navigate to: ' + this.href);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
