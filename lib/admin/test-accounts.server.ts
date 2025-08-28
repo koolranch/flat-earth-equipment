@@ -137,9 +137,9 @@ export async function createMagicLink(email: string, redirectTo?: string) {
   
   console.log(`[TEST-ACCOUNTS] Generated magic link for ${email}, redirects to ${finalRedirectTo}`);
   
-  // `data.action_link` opens GoTrue and then redirects with tokens to redirectTo;
+  // `data.properties.action_link` opens GoTrue and then redirects with tokens to redirectTo;
   // your client is already set with detectSessionInUrl: true, so session will be picked up.
-  return data.action_link;
+  return data.properties.action_link;
 }
 
 // Helper to validate org exists
