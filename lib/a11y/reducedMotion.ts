@@ -7,13 +7,14 @@ export function prefersReducedMotion() {
 
 // Hook version for React components
 export function useReducedMotion() {
-  if (typeof window === 'undefined') return false;
-  
-  const [prefersReduced, setPrefersReduced] = React.useState(() => 
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  );
+  const [prefersReduced, setPrefersReduced] = React.useState(() => {
+    if (typeof window === 'undefined') return false;
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  });
 
   React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     const handleChange = () => setPrefersReduced(mediaQuery.matches);
     
