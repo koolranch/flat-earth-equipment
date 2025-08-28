@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { useSupabase } from '../providers'
 import QuizModal from '@/components/QuizModal'
@@ -41,7 +41,7 @@ export default function SimpleDashboard() {
         loadModuleGuide(moduleData.order)
       }
     }
-  }, [locale, expandedModule, modules])
+  }, [locale, expandedModule, modules, loadModuleGuide])
 
   // Translation strings
   const t = {
@@ -176,7 +176,7 @@ export default function SimpleDashboard() {
   }[locale]
 
   // Load MDX guide content for a module
-  const loadModuleGuide = async (moduleOrder: number) => {
+  const loadModuleGuide = useCallback(async (moduleOrder: number) => {
     // Always reload when locale changes - don't use cache
     const cacheKey = `${moduleOrder}-${locale}`
     if (moduleGuides[cacheKey]) return // Already loaded for this locale
@@ -194,7 +194,7 @@ export default function SimpleDashboard() {
     } catch (error) {
       console.error(`Error loading guide for module ${moduleOrder} in ${locale}:`, error)
     }
-  }
+  }, [locale, moduleGuides])
 
   useEffect(() => {
     async function loadData() {
