@@ -382,9 +382,9 @@ export default function SimpleDashboard() {
     }
     
     loadData()
-  }, [supabase])
+  }, []) // Remove supabase dependency to prevent infinite loops
 
-  const handleQuizPass = async (moduleOrder: number) => {
+  const handleQuizPass = useCallback(async (moduleOrder: number) => {
     console.log('handleQuizPass called for module:', moduleOrder)
     console.log('Enrollment ID:', enrollment?.id)
     console.log('Sending request to /api/progress with:', { enrollmentId: enrollment?.id, moduleOrder })
@@ -420,10 +420,10 @@ export default function SimpleDashboard() {
       console.error('Error updating progress:', error)
       alert(`Error updating progress: ${error}`)
     }
-  }
+  }, [enrollment])
 
   // Handle game completion - opens quiz modal for the same module
-  const handleGameComplete = (moduleOrder: number) => {
+  const handleGameComplete = useCallback((moduleOrder: number) => {
     console.log('🎮 Game completed for module order:', moduleOrder)
     // Find the module index (modules array is 0-indexed, but order starts at 1)
     const moduleIndex = modules.findIndex(m => m.order === moduleOrder)
@@ -439,9 +439,9 @@ export default function SimpleDashboard() {
       // If no quiz, proceed directly to mark as complete
       handleQuizPass(moduleOrder)
     }
-  }
+  }, [modules, handleQuizPass])
 
-  const isModuleUnlocked = (index: number) => {
+  const isModuleUnlocked = useCallback((index: number) => {
     const requiredProgress = index * (100 / modules.length)
     const currentProgress = enrollment?.progress_pct || 0
     // Add a small tolerance for floating-point precision issues
@@ -449,9 +449,9 @@ export default function SimpleDashboard() {
     const unlocked = index === 0 || currentProgress >= (requiredProgress - tolerance)
     console.log(`Module ${index + 1} unlocked check: ${currentProgress}% >= ${requiredProgress}% (with tolerance) = ${unlocked}`)
     return unlocked
-  }
+  }, [modules.length, enrollment?.progress_pct])
 
-  const isModuleCompleted = (index: number) => {
+  const isModuleCompleted = useCallback((index: number) => {
     const completionProgress = ((index + 1) * (100 / modules.length))
     const currentProgress = enrollment?.progress_pct || 0
     // Add a small tolerance for floating-point precision issues
@@ -459,7 +459,7 @@ export default function SimpleDashboard() {
     const completed = currentProgress >= (completionProgress - tolerance)
     console.log(`Module ${index + 1} completed check: ${currentProgress}% >= ${completionProgress}% (with tolerance) = ${completed}`)
     return completed
-  }
+  }, [modules.length, enrollment?.progress_pct])
 
   const handleClaimPurchases = async () => {
     if (!user) return
