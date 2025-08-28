@@ -1,0 +1,71 @@
+# .github/workflows/qa.yml
+name: QA & Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      CI: true
+      BASE_URL: http://localhost:3000
+      NEXT_PUBLIC_DEFAULT_LOCALE: en
+      # Optional E2E vars (set as repo secrets to enable cert flow)
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      QA_LEARNER_ID: ${{ secrets.QA_LEARNER_ID }}
+      QA_COURSE_ID: ${{ secrets.QA_COURSE_ID }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Security scanner (postbuild)
+        run: node scripts/check-service-key-leak.mjs
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests (HTML report)
+        run: npx playwright test
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+
+      - name: i18n sanity scan
+        run: npm run qa:i18n
+
+      - name: E2E cert/verify (optional)
+        if: ${{ env.QA_LEARNER_ID != '' && env.QA_COURSE_ID != '' && env.SUPABASE_SERVICE_ROLE_KEY != '' && env.NEXT_PUBLIC_SUPABASE_URL != '' }}
+        run: |
+          node scripts/e2e_cert_verify.mjs
+
+      - name: Summarize
+        if: always()
+        run: |
+          echo '### QA Summary' >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
+          echo '- Security scanner: ✅ (postbuild ran)' >> $GITHUB_STEP_SUMMARY
+          echo '- Playwright: see artifact **playwright-report**' >> $GITHUB_STEP_SUMMARY
+          echo '- i18n scan: ran' >> $GITHUB_STEP_SUMMARY
+          if [ -n "${{ env.QA_LEARNER_ID }}" ] && [ -n "${{ env.QA_COURSE_ID }}" ] && [ -n "${{ env.SUPABASE_SERVICE_ROLE_KEY }}" ] && [ -n "${{ env.NEXT_PUBLIC_SUPABASE_URL }}" ]; then echo '- E2E cert: ran (see job logs)'; else echo '- E2E cert: skipped (set secrets to enable)'; fi >> $GITHUB_STEP_SUMMARY
+

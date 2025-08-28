@@ -7,7 +7,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CrispChat from '@/components/CrispChat';
 import SupabaseProvider from './providers';
-import { getUserLocale } from '@/lib/getUserLocale';
+import { cookies } from 'next/headers';
 import { I18nProvider } from '@/lib/i18n';
 // Import your global styles (Tailwind, custom resets)
 import '../globals.css';
@@ -28,7 +28,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   // Get locale from cookies on the server
-  const locale = getUserLocale();
+  const cookieLocale = cookies().get('locale')?.value;
+  const envDefault = (process.env.NEXT_PUBLIC_DEFAULT_LOCALE === 'es' ? 'es' : 'en') as 'en' | 'es';
+  const locale: 'en' | 'es' = (cookieLocale === 'es' || cookieLocale === 'en') ? cookieLocale : envDefault;
   
   return (
     <html lang={locale} className={inter.className}>
