@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { useSupabase } from '../providers'
 import Cookies from 'js-cookie'
@@ -12,6 +12,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [locale, setLocale] = useState<'en' | 'es'>('en')
   const router = useRouter()
+  const searchParams = useSearchParams()
   const { supabase } = useSupabase()
 
   // Get locale from cookie on client side
@@ -60,7 +61,8 @@ export default function LoginPage() {
       if (error) {
         setError(error.message)
       } else {
-        router.push('/dashboard')
+        const nextUrl = searchParams?.get('next') || '/dashboard'
+        router.push(nextUrl)
         router.refresh()
       }
     } catch (err) {
