@@ -41,6 +41,11 @@ export default function QuizModal({
   
   // Initialize quiz attempt with pooling
   useEffect(() => {
+    // Prevent re-initialization if already initialized with same questions
+    if (orderedQuestions.length > 0 && orderedQuestions.length === questions.length) {
+      return;
+    }
+    
     async function initializeQuiz() {
       try {
         setIsInitializing(true);
@@ -96,8 +101,10 @@ export default function QuizModal({
       }
     }
     
-    initializeQuiz();
-  }, [questions, moduleId]);
+    if (questions.length > 0) {
+      initializeQuiz();
+    }
+  }, [questions.length, moduleId, orderedQuestions.length]); // Add orderedQuestions.length to prevent re-initialization
   
   async function submit(choice: number) {
     const currentQuestion = orderedQuestions[idx];

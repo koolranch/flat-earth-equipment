@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Dashboard Simple</title>
+</head>
+<body>
+    <h1>Dashboard Simple Test</h1>
+    <p>Testing if we can access the dashboard without errors...</p>
+    
+    <script>
+        // Test accessing the dashboard
+        fetch('/dashboard-simple')
+            .then(response => {
+                console.log('Dashboard response status:', response.status);
+                if (response.ok) {
+                    console.log('✅ Dashboard accessible');
+                } else {
+                    console.log('❌ Dashboard error:', response.status);
+                }
+                return response.text();
+            })
+            .then(html => {
+                console.log('HTML length:', html.length);
+                if (html.includes('stack depth limit exceeded')) {
+                    console.log('❌ Found stack depth error in HTML');
+                } else {
+                    console.log('✅ No stack depth error found');
+                }
+            })
+            .catch(error => {
+                console.error('❌ Fetch error:', error);
+            });
+    </script>
+</body>
+</html>

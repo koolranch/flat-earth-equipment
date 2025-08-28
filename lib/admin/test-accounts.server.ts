@@ -146,11 +146,22 @@ export async function createMagicLink(email: string, redirectTo?: string) {
 export async function validateOrg(orgId: string) {
   const sb = supabaseService();
   
-  const { data: org } = await sb
+  // Try 'organizations' table first, then 'orgs' table
+  let { data: org } = await sb
     .from('organizations')
     .select('id, name')
     .eq('id', orgId)
     .maybeSingle();
+  
+  if (!org) {
+    // Try 'orgs' table
+    const { data: orgData } = await sb
+      .from('orgs')
+      .select('id, name')
+      .eq('id', orgId)
+      .maybeSingle();
+    org = orgData;
+  }
   
   if (!org) {
     throw new Error(`Organization ${orgId} not found`);
