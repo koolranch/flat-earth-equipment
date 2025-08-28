@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useT } from '@/lib/i18n';
+import LiveRegion from '@/components/a11y/LiveRegion';
 
 type Node = { id: string; promptEn: string; promptEs: string; yes?: string; no?: string; end?: { ok: boolean; tipEn: string; tipEs: string } };
 const FLOW: Record<string, Node> = {
@@ -17,10 +18,16 @@ export default function PreOpDecisionTree({ locale }: { locale: 'en'|'es' }) {
   useEffect(() => { if (FLOW[id].end) console.debug('[analytics] demo_complete', { demo: 'preop_decision', ok: FLOW[id].end?.ok }); }, [id]);
 
   const node = FLOW[id];
+  const currentPrompt = locale === 'es' ? node.promptEs : node.promptEn;
+  const statusMessage = node.end 
+    ? (node.end.ok ? 'Pre-operation check completed successfully' : 'Pre-operation check failed - equipment needs attention')
+    : `Pre-operation check: ${currentPrompt}`;
+    
   return (
     <section className="rounded-2xl border p-4 shadow-lg">
+      <LiveRegion message={statusMessage} />
       <h2 className="text-lg font-semibold text-[#0F172A]">{t('demo.objectives', 'Objectives')}</h2>
-      <p className="mt-2 text-base">{locale==='es'?node.promptEs:node.promptEn}</p>
+      <p className="mt-2 text-base">{currentPrompt}</p>
       {node.end ? (
         <div className={`mt-3 text-sm ${node.end.ok?'text-emerald-700':'text-red-700'}`}>{locale==='es'?node.end.tipEs:node.end.tipEn}</div>
       ) : (

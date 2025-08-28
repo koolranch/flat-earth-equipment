@@ -9,6 +9,7 @@ import CrispChat from '@/components/CrispChat';
 import SupabaseProvider from './providers';
 import { cookies } from 'next/headers';
 import { I18nProvider } from '@/lib/i18n';
+import SkipToContent from '@/components/a11y/SkipToContent';
 // Import your global styles (Tailwind, custom resets)
 import '../globals.css';
 import { Toaster } from 'react-hot-toast';
@@ -46,11 +47,15 @@ export default function RootLayout({
         <link rel="alternate" hrefLang="x-default" href="https://www.flatearthequipment.com" />
       </head>
       <body className="font-sans text-gray-900 bg-gray-50 antialiased">
+        {/* A11y - Skip to content link */}
+        <SkipToContent />
         <SupabaseProvider>
           <I18nProvider locale={locale}>
             {/* Navbar now receives locale */}
             <Navbar locale={locale} />
-            {children}
+            <main id="main">
+              {children}
+            </main>
             <Footer />
             <Analytics />
             <SpeedInsights />
