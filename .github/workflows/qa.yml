@@ -69,3 +69,4 @@ jobs:
           echo '- i18n scan: ran' >> $GITHUB_STEP_SUMMARY
           if [ -n "${{ env.QA_LEARNER_ID }}" ] && [ -n "${{ env.QA_COURSE_ID }}" ] && [ -n "${{ env.SUPABASE_SERVICE_ROLE_KEY }}" ] && [ -n "${{ env.NEXT_PUBLIC_SUPABASE_URL }}" ]; then echo '- E2E cert: ran (see job logs)'; else echo '- E2E cert: skipped (set secrets to enable)'; fi >> $GITHUB_STEP_SUMMARY
 
+

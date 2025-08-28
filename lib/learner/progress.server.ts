@@ -10,11 +10,21 @@ export async function getCourseProgress(courseId: string): Promise<CourseProgres
   const { data: user } = await sb.auth.getUser();
   if (!user?.user) throw new Error('Not authenticated');
 
-  // naive example: infer from completed modules/quizzes/demos
-  const { data: modules } = await sb.from('modules').select('id, title, slug').eq('course_id', courseId).order('order');
-  const { data: enroll } = await sb.from('enrollments').select('id, progress_pct, resume_state').eq('user_id', user.user.id).eq('course_id', courseId).maybeSingle();
+  // naive: list modules for the course
+  const { data: modules } = await sb
+    .from('modules')
+    .select('id, title, order')
+    .eq('course_id', courseId)
+    .order('order');
 
-  const stepsLeft = (modules||[]).map(m => ({ route: `/module/${m.slug}`, label: m.title }));
+  const { data: enroll } = await sb
+    .from('enrollments')
+    .select('id, progress_pct, resume_state')
+    .eq('user_id', user.user.id)
+    .eq('course_id', courseId)
+    .maybeSingle();
+
+  const stepsLeft = (modules||[]).map(m => ({ route: `/module/${m.id}`, label: m.title }));
   const pct = enroll?.progress_pct ?? 0;
   const resume = (enroll?.resume_state as any)?.next_route as string | undefined;
   const next: NextStep = resume ? { nextRoute: resume, label: 'Resume training' } : (stepsLeft[0] ? { nextRoute: stepsLeft[0].route, label: stepsLeft[0].label } : null);

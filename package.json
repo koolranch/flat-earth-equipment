@@ -43,9 +43,13 @@
     "stripe:audit": "ts-node scripts/stripe/audit-parts-vs-stripe.ts",
     "stripe:sync:dry": "DRY_RUN=1 ts-node scripts/stripe/sync-parts-to-stripe.ts",
     "stripe:sync": "DRY_RUN=0 ts-node scripts/stripe/sync-parts-to-stripe.ts",
-    "qa:cert": "node scripts/e2e_cert_verify.mjs",
+    "qa:cert": "node scripts/run-cert-e2e.mjs",
+    "qa:cert:prod": "node scripts/run-cert-e2e.mjs --base-url=https://www.flatearthequipment.com",
+    "qa:cert:local": "node scripts/run-cert-e2e.mjs --base-url=http://localhost:3000",
     "qa:i18n": "node scripts/scan_i18n.mjs",
-    "qa:howto": "node scripts/print-test-instructions.mjs"
+    "qa:all": "npm run qa:i18n && npm run qa:cert && npm run test:e2e",
+    "qa:howto": "node scripts/print-test-instructions.mjs",
+    "build-and-qa": "node scripts/build-and-qa.mjs"
   },
   "keywords": [],
   "author": "",
