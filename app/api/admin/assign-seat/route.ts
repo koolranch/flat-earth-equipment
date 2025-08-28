@@ -28,6 +28,7 @@ export async function POST(req: Request) {
 
     // Audit
     await sb.from('audit_events').insert({ org_id: orgId, action: 'seat.assign', target: userId, meta: { courseId } });
+    console.debug('[analytics]', 'seat.assign', { orgId, userId, courseId });
 
     return NextResponse.json({ ok: true });
   } catch (e: any) {

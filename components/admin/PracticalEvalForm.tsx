@@ -23,6 +23,7 @@ export default function PracticalEvalForm({ enrollmentId }: { enrollmentId: stri
       evaluationDate: new Date().toISOString(), practicalPass: pass, evaluatorSignature: sig, notes
     };
     const res = await fetch('/api/employer-evaluations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    console.debug('[analytics]', 'eval.save', { enrollmentId, pass });
     if (!res.ok) alert('Save failed');
     start(() => router.push('/admin/roster'));
   }

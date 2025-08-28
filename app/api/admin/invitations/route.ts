@@ -10,6 +10,7 @@ export async function POST(req: Request) {
   try {
     const body = Body.parse(await req.json());
     const { token } = await createInvitation(body.orgId, body.email, (body.role as any) || 'learner');
+    console.debug('[analytics]', 'invite.create', { orgId: body.orgId });
     // Return a link (email sending can be added later)
     return NextResponse.json({ token }, { status: 201 });
   } catch (e: any) {

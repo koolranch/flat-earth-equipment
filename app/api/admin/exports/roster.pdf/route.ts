@@ -32,5 +32,6 @@ export async function GET(req: Request) {
     draw(line, y); y -= 14; if (y < 48) { y = 740; pdf.addPage([612,792]); }
   }
   const bytes = await pdf.save();
+  console.debug('[analytics]', 'export.pdf', { orgId });
   return new NextResponse(Buffer.from(bytes), { status: 200, headers: { 'Content-Type': 'application/pdf', 'Content-Disposition': 'attachment; filename=roster.pdf' }});
 }
