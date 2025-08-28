@@ -10,6 +10,7 @@ export async function POST(req: Request) {
   try {
     const { token } = Body.parse(await req.json());
     const ok = await acceptInvitation(token);
+    if (ok) console.debug('[analytics]', 'invite.accept', {});
     return NextResponse.json({ ok });
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 400 });

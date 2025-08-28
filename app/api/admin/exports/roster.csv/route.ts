@@ -34,5 +34,6 @@ export async function GET(req: Request) {
   }
   const csv = rows.map(r=> r.map(v => typeof v==='string' && v.includes(',') ? `"${v.replace(/"/g,'""')}"` : v).join(',')).join('\n');
 
+  console.debug('[analytics]', 'export.csv', { orgId });
   return new NextResponse(csv, { status: 200, headers: { 'Content-Type': 'text/csv', 'Content-Disposition': 'attachment; filename=roster.csv' }});
 }
