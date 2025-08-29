@@ -25,10 +25,28 @@ export default function DynamicQuiz({
       try {
         setIsLoading(true)
         
-        // Use slug directly as the filename base
-        const fileName = locale === 'es' ? `${slug}_es.json` : `${slug}.json`
+        // Map numeric IDs to slugs for quiz files
+        const getQuizSlug = (id: string): string => {
+          // If it's already a string slug, use it directly
+          if (isNaN(Number(id))) {
+            return id
+          }
+          
+          // Map numeric IDs to quiz slugs
+          switch (Number(id)) {
+            case 1: return 'pre-operation-inspection'  // Module 1: Pre-Op
+            case 2: return 'eight-point-inspection'    // Module 2: 8-Point
+            case 3: return 'module3'                   // Module 3: Operating Procedures
+            case 4: return 'module4'                   // Module 4: Load Handling
+            case 5: return 'module5'                   // Module 5: Advanced Operations
+            default: return `module${id}`              // Fallback pattern
+          }
+        }
         
-        console.log(`🧩 Loading quiz for slug ${slug}: ${fileName}`)
+        const quizSlug = getQuizSlug(slug)
+        const fileName = locale === 'es' ? `${quizSlug}_es.json` : `${quizSlug}.json`
+        
+        console.log(`🧩 Loading quiz for ID/slug ${slug} → ${quizSlug}: ${fileName}`)
         
         let response
         try {
@@ -41,7 +59,7 @@ export default function DynamicQuiz({
           console.log(`Localized quiz not found for ${locale}, error:`, localizedError)
           // Fallback to English version if localized version doesn't exist
           console.log(`Falling back to English version`)
-          const fallbackFileName = `${slug}.json`
+          const fallbackFileName = `${quizSlug}.json`
           console.log(`Fallback file: ${fallbackFileName}`)
           response = await fetch(`/api/quiz/${fallbackFileName}`)
           if (!response.ok) {
@@ -96,10 +114,23 @@ export default function DynamicQuiz({
   }
 
   if (error) {
+    // Map the slug for error display
+    const getQuizSlug = (id: string): string => {
+      if (isNaN(Number(id))) return id
+      switch (Number(id)) {
+        case 1: return 'pre-operation-inspection'
+        case 2: return 'eight-point-inspection'
+        case 3: return 'module3'
+        case 4: return 'module4'
+        case 5: return 'module5'
+        default: return `module${id}`
+      }
+    }
+    
     return (
       <div className="text-center py-8">
         <p className="text-red-600">{error}</p>
-        <p className="text-sm text-gray-500 mt-2">Looking for quiz file: {slug}.json</p>
+        <p className="text-sm text-gray-500 mt-2">Looking for quiz file: {getQuizSlug(slug)}.json</p>
       </div>
     )
   }
