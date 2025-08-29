@@ -7,7 +7,7 @@ export default function GuideCard({ title, items, cite }: { title: string; items
     <article className='rounded-2xl border p-4 md:p-6 shadow-lg bg-white dark:bg-slate-900 dark:border-slate-700'>
       <header className='flex items-center justify-between'>
         <h3 className='text-lg font-semibold text-[#0F172A] dark:text-white'>{title}</h3>
-        <button onClick={() => setOpen(o => !o)} className='rounded-xl border px-3 py-1 text-sm'>
+        <button onClick={() => { const next = !open; setOpen(next); try { window.dispatchEvent(new CustomEvent('analytics', { detail: { evt: 'guide_toggle', title, open: next } })); } catch {} }} className='rounded-xl border px-3 py-1 text-sm'>
           {open ? 'Hide' : 'Show'}
         </button>
       </header>
