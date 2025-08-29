@@ -4,8 +4,10 @@ import { DemoPanel } from "@/components/DemoPanel";
 import { HotspotsEight } from "@/components/games/module2/HotspotsEight";
 import GuideSection from '@/components/guides/GuideSection';
 import { moduleGuides } from '@/content/guides/modules';
+import { useT } from '@/lib/i18n';
 
 export default function HotspotsEightPage() {
+  const t = useT();
   const guides = moduleGuides['eight-point-inspection']?.guides || [];
 
   return (
@@ -35,7 +37,7 @@ export default function HotspotsEightPage() {
       {/* OSHA Guide Cards */}
       {guides.length > 0 && (
         <section className='space-y-2'>
-          <h2 className='text-lg font-semibold text-[#0F172A] dark:text-white'>Guides</h2>
+          <h2 className='text-lg font-semibold text-[#0F172A] dark:text-white'>{t('guides.heading')}</h2>
           <GuideSection guides={guides} />
         </section>
       )}
