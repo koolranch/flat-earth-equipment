@@ -21,6 +21,10 @@ export default async function Page({ searchParams }: { searchParams?: Record<str
         </div>
       </header>
 
+      <div className="mb-3">
+        <a href="/orientation" className="inline-flex rounded-2xl border px-3 py-2 text-sm">Orientation</a>
+      </div>
+
       <section className='mt-4 space-y-3'>
         {prog.next ? (
           <a className='inline-flex items-center justify-center rounded-2xl bg-[#F76511] text-white px-4 py-3 shadow-lg' href={prog.next.nextRoute}>
