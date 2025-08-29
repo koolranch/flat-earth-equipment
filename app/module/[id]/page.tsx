@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 import { supabaseServer } from '@/lib/supabase/server';
+import QuizGate from '@/components/module/QuizGate';
 
 // Map module orders to their content routes
 const MODULE_ROUTES: Record<number, string> = {
@@ -9,6 +10,18 @@ const MODULE_ROUTES: Record<number, string> = {
   4: '/module/load-capacity', // Module 3: Balance & Load Handling - load capacity calculator
   5: '/module/pre-op/controls', // Module 4: Hazard Hunt - controls demo (placeholder)
 };
+
+// Map module IDs to slugs for QuizGate
+function getModuleSlug(id: string): string {
+  switch (Number(id)) {
+    case 1: return 'pre-operation-inspection'
+    case 2: return 'eight-point-inspection'
+    case 3: return 'balance-load-handling'
+    case 4: return 'hazard-hunt'
+    case 5: return 'shutdown-sequence'
+    default: return `module${id}`
+  }
+}
 
 export default async function ModulePage({ params }: { params: { id: string } }) {
   const sb = supabaseServer();
@@ -54,12 +67,8 @@ export default async function ModulePage({ params }: { params: { id: string } })
               <h2 className='text-lg font-semibold'>Check your knowledge</h2>
               <p className='text-sm text-slate-600 dark:text-slate-300'>5–7 quick questions. Pass ≥80%.</p>
             </div>
-            <a 
-              className='inline-flex items-center justify-center rounded-2xl bg-[#F76511] text-white px-4 py-2 shadow-lg' 
-              href={`/module/${params.id}/quiz`}
-            >
-              Start quiz
-            </a>
+            {/* env-controlled soft gating */}
+            <QuizGate slug={getModuleSlug(params.id)} moduleId={params.id} />
           </div>
         </section>
 
