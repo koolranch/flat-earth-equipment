@@ -6,7 +6,7 @@ import MiniShutdown from '@/components/games/module5/MiniShutdown';
 // Registry mapping module slugs to demo components
 const REGISTRY: Record<string, React.FC<{locale:'en'|'es'; moduleSlug?: string}>[]> = {
   'pre-operation-inspection': [
-    ({ locale, moduleSlug }) => <MiniPPE onComplete={() => {}} openGuide={() => {}} />
+    ({ locale, moduleSlug }) => <MiniPPE locale={locale} moduleSlug={moduleSlug} />
   ],
   'eight-point-inspection': [
     ({ locale, moduleSlug }) => <MiniInspection locale={locale} onComplete={() => {}} />
