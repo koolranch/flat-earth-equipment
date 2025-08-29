@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import QuizModal from '../QuizModal'
+import ResultsToast from './ResultsToast'
 
 type QuizQuestion = { q: string; choices: string[]; answer: number }
 
@@ -19,6 +20,9 @@ export default function DynamicQuiz({
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [showQuiz, setShowQuiz] = useState(false)
+  const [finished, setFinished] = useState(false)
+  const [scorePct, setScorePct] = useState(0)
+  const passMark = 80
 
   useEffect(() => {
     async function loadQuiz() {
@@ -82,10 +86,13 @@ export default function DynamicQuiz({
     loadQuiz()
   }, [slug, locale])
 
-  const handleQuizPass = () => {
+  const handleQuizPass = (score: number, total: number, passed: boolean) => {
     setShowQuiz(false)
-    console.log('Quiz passed!')
-    if (onComplete) {
+    const pct = total ? (score / total) * 100 : 0
+    setScorePct(pct)
+    setFinished(true)
+    console.log(`Quiz completed: ${score}/${total} = ${pct}% (${passed ? 'PASSED' : 'FAILED'})`)
+    if (passed && onComplete) {
       onComplete()
     }
   }
@@ -135,6 +142,10 @@ export default function DynamicQuiz({
     )
   }
 
+  if (finished) {
+    return <ResultsToast pass={scorePct >= passMark} scorePct={scorePct} nextHref={getNextHref(slug)} />
+  }
+
   return (
     <>
       <div className="text-center py-8">
@@ -158,4 +169,32 @@ export default function DynamicQuiz({
       )}
     </>
   )
+}
+
+function getNextHref(slug: string): string | undefined {
+  // Map numeric IDs to slugs first
+  const getQuizSlug = (id: string): string => {
+    if (isNaN(Number(id))) return id
+    switch (Number(id)) {
+      case 1: return 'pre-operation-inspection'
+      case 2: return 'eight-point-inspection'
+      case 3: return 'module3'
+      case 4: return 'module4'
+      case 5: return 'module5'
+      default: return `module${id}`
+    }
+  }
+
+  const currentSlug = getQuizSlug(slug)
+  const order = ['pre-operation-inspection', 'eight-point-inspection', 'module3', 'module4', 'module5']
+  
+  const idx = order.indexOf(currentSlug)
+  if (idx === -1 || idx === order.length - 1) {
+    return '/training' // Go back to training hub if last module or not found
+  }
+  
+  // Return the next module ID (convert back from slug to ID for the route)
+  const nextSlug = order[idx + 1]
+  const nextId = order.indexOf(nextSlug) + 1
+  return `/module/${nextId}`
 }
