@@ -40,7 +40,7 @@ export default function DynamicQuiz({
           switch (Number(id)) {
             case 1: return 'pre-operation-inspection'  // Module 1: Pre-Op
             case 2: return 'eight-point-inspection'    // Module 2: 8-Point
-            case 3: return 'module3'                   // Module 3: Operating Procedures
+            case 3: return 'balance-load-handling'     // Module 3: Balance & Load Handling
             case 4: return 'module4'                   // Module 4: Load Handling
             case 5: return 'module5'                   // Module 5: Advanced Operations
             default: return `module${id}`              // Fallback pattern
@@ -127,7 +127,7 @@ export default function DynamicQuiz({
       switch (Number(id)) {
         case 1: return 'pre-operation-inspection'
         case 2: return 'eight-point-inspection'
-        case 3: return 'module3'
+        case 3: return 'balance-load-handling'
         case 4: return 'module4'
         case 5: return 'module5'
         default: return `module${id}`
@@ -178,7 +178,7 @@ function getNextHref(slug: string): string | undefined {
     switch (Number(id)) {
       case 1: return 'pre-operation-inspection'
       case 2: return 'eight-point-inspection'
-      case 3: return 'module3'
+      case 3: return 'balance-load-handling'
       case 4: return 'module4'
       case 5: return 'module5'
       default: return `module${id}`
@@ -186,7 +186,7 @@ function getNextHref(slug: string): string | undefined {
   }
 
   const currentSlug = getQuizSlug(slug)
-  const order = ['pre-operation-inspection', 'eight-point-inspection', 'module3', 'module4', 'module5']
+  const order = ['pre-operation-inspection', 'eight-point-inspection', 'balance-load-handling', 'module4', 'module5']
   
   const idx = order.indexOf(currentSlug)
   if (idx === -1 || idx === order.length - 1) {
