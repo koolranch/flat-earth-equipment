@@ -36,7 +36,7 @@ export default function LoadCapacityPage() {
       {/* OSHA Guide Cards */}
       {guides.length > 0 && (
         <section className='space-y-2'>
-          <h2 className='text-lg font-semibold text-[#0F172A] dark:text-white'>Guides</h2>
+          <h2 className='text-lg font-semibold text-[#0F172A] dark:text-white'>{t('guides.heading')}</h2>
           <GuideSection guides={guides} />
         </section>
       )}
