@@ -9,7 +9,7 @@ const REGISTRY: Record<string, React.FC<{locale:'en'|'es'; moduleSlug?: string}>
     ({ locale, moduleSlug }) => <MiniPPE locale={locale} moduleSlug={moduleSlug} />
   ],
   'eight-point-inspection': [
-    ({ locale, moduleSlug }) => <MiniInspection locale={locale} onComplete={() => {}} />
+    ({ locale, moduleSlug }) => <MiniInspection locale={locale} moduleSlug={moduleSlug} />
   ],
   'balance-load-handling': [
     // Placeholder until MiniBalance is implemented
@@ -17,7 +17,7 @@ const REGISTRY: Record<string, React.FC<{locale:'en'|'es'; moduleSlug?: string}>
   ],
   'hazard-hunt': [
     // Placeholder until MiniHazard is implemented  
-    ({ locale, moduleSlug }) => <MiniInspection locale={locale} onComplete={() => {}} />
+    ({ locale, moduleSlug }) => <MiniInspection locale={locale} moduleSlug={moduleSlug} />
   ],
   'shutdown-sequence': [
     ({ locale, moduleSlug }) => <MiniShutdown onComplete={() => {}} />
