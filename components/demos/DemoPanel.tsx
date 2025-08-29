@@ -28,6 +28,7 @@ export default function DemoPanel({
   function markComplete() {
     setDone(true);
     fire('demo_complete', { done: true });
+    try { if (moduleSlug) localStorage.setItem(`demo:${moduleSlug}:complete`, '1'); } catch {}
     // best-effort autosave
     try {
       fetch('/api/demo-progress', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ kind: 'demo', slug: moduleSlug, demoId, status: 'complete' }) });
