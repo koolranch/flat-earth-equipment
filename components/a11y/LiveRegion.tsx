@@ -1,20 +1,8 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function LiveRegion({ message }: { message: string }) {
-  const [msg, setMsg] = useState('');
-  
-  useEffect(() => { 
-    setMsg(message); 
-  }, [message]);
-  
-  return (
-    <div 
-      aria-live="polite" 
-      className="sr-only" 
-      role="status"
-    >
-      {msg}
-    </div>
-  );
+  const ref = useRef<HTMLDivElement|null>(null);
+  useEffect(() => { if (ref.current) ref.current.textContent = message; }, [message]);
+  return <div ref={ref} className="sr-only" aria-live="polite" aria-atomic="true"/>;
 }
