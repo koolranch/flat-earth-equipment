@@ -13,6 +13,7 @@ import SkipToContent from '@/components/a11y/SkipToContent';
 // Import your global styles (Tailwind, custom resets)
 import '../globals.css';
 import { Toaster } from 'react-hot-toast';
+import QAEventListener from '@/components/dev/QAEventListener';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -51,6 +52,7 @@ export default function RootLayout({
         <SkipToContent />
         <SupabaseProvider>
           <I18nProvider locale={locale}>
+            {process.env.NODE_ENV !== 'production' ? <QAEventListener /> : null}
             {/* Navbar now receives locale */}
             <Navbar locale={locale} />
             <main id="main">
