@@ -42,7 +42,7 @@ export default function DynamicQuiz({
             case 2: return 'eight-point-inspection'    // Module 2: 8-Point
             case 3: return 'balance-load-handling'     // Module 3: Balance & Load Handling
             case 4: return 'hazard-hunt'               // Module 4: Hazard Recognition
-            case 5: return 'module5'                   // Module 5: Advanced Operations
+            case 5: return 'shutdown-sequence'         // Module 5: Shutdown Sequence
             default: return `module${id}`              // Fallback pattern
           }
         }
@@ -129,7 +129,7 @@ export default function DynamicQuiz({
         case 2: return 'eight-point-inspection'
         case 3: return 'balance-load-handling'
         case 4: return 'hazard-hunt'
-        case 5: return 'module5'
+        case 5: return 'shutdown-sequence'
         default: return `module${id}`
       }
     }
@@ -180,13 +180,13 @@ function getNextHref(slug: string): string | undefined {
       case 2: return 'eight-point-inspection'
       case 3: return 'balance-load-handling'
       case 4: return 'hazard-hunt'
-      case 5: return 'module5'
+      case 5: return 'shutdown-sequence'
       default: return `module${id}`
     }
   }
 
   const currentSlug = getQuizSlug(slug)
-  const order = ['pre-operation-inspection', 'eight-point-inspection', 'balance-load-handling', 'hazard-hunt', 'module5']
+  const order = ['pre-operation-inspection', 'eight-point-inspection', 'balance-load-handling', 'hazard-hunt', 'shutdown-sequence']
   
   const idx = order.indexOf(currentSlug)
   if (idx === -1 || idx === order.length - 1) {
