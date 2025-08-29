@@ -3,12 +3,15 @@ import React from 'react';
 import StabilityTriangle from '@/components/sim/StabilityTriangle';
 import { DemoPanel } from '@/components/DemoPanel';
 import { useT } from '@/lib/i18n';
+import GuideSection from '@/components/guides/GuideSection';
+import { moduleGuides } from '@/content/guides/modules';
 
 export default function StabilitySimPage() {
   const t = useT();
+  const guides = moduleGuides['balance-load-handling']?.guides || [];
 
   return (
-    <main className="container mx-auto p-4 md:p-6">
+    <main className="container mx-auto p-4 md:p-6 space-y-4">
       <DemoPanel
         title={t('stability.sim_title', 'Stability Triangle Simulation')}
         objective={t('stability.sim_objective', 'Learn how load weight, position, and mast tilt affect forklift stability.')}
@@ -28,6 +31,14 @@ export default function StabilitySimPage() {
       >
         <StabilityTriangle />
       </DemoPanel>
+
+      {/* OSHA Guide Cards */}
+      {guides.length > 0 && (
+        <section className='space-y-2'>
+          <h2 className='text-lg font-semibold text-[#0F172A] dark:text-white'>Guides</h2>
+          <GuideSection guides={guides} />
+        </section>
+      )}
     </main>
   );
 }
