@@ -2,6 +2,7 @@
 import MiniPPE from '@/components/games/module1/MiniPPE';
 import MiniInspection from '@/components/games/module2/MiniInspection';
 import MiniShutdown from '@/components/games/module5/MiniShutdown';
+import HazardSpotting from '@/components/demos/HazardSpotting';
 
 // Registry mapping module slugs to demo components
 const REGISTRY: Record<string, React.FC<{locale:'en'|'es'; moduleSlug?: string}>[]> = {
@@ -16,8 +17,7 @@ const REGISTRY: Record<string, React.FC<{locale:'en'|'es'; moduleSlug?: string}>
     ({ locale, moduleSlug }) => <div className="text-center py-8 text-slate-600">Balance demo coming soon...</div>
   ],
   'hazard-hunt': [
-    // Placeholder until MiniHazard is implemented  
-    ({ locale, moduleSlug }) => <MiniInspection locale={locale} moduleSlug={moduleSlug} />
+    ({ locale, moduleSlug }) => <HazardSpotting locale={locale} moduleSlug={moduleSlug} />
   ],
   'shutdown-sequence': [
     ({ locale, moduleSlug }) => <MiniShutdown onComplete={() => {}} />
