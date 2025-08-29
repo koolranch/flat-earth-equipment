@@ -28,25 +28,49 @@ export default async function ModulePage({ params }: { params: { id: string } })
     // Map module order to content route
     const contentRoute = MODULE_ROUTES[module.order];
     
-    if (contentRoute) {
-      redirect(contentRoute);
-    } else {
-      // Fallback for unmapped modules - show a placeholder
-      return (
-        <main className="container mx-auto p-4">
-          <div className="text-center py-12">
-            <h1 className="text-2xl font-bold mb-4">{module.title}</h1>
-            <p className="text-gray-600 mb-6">This module content is coming soon.</p>
+    return (
+      <main className='container mx-auto p-4 space-y-4'>
+        <header>
+          <h1 className='text-2xl font-bold text-[#0F172A] dark:text-white'>{module.title}</h1>
+          <p className='text-sm text-slate-600 dark:text-slate-300'>Do the demo. Read the quick Guides. Take the short quiz.</p>
+        </header>
+
+        {contentRoute && (
+          <section className='rounded-2xl border p-4 md:p-6 bg-white dark:bg-slate-900 dark:border-slate-700'>
+            <h2 className='text-lg font-semibold mb-2'>Interactive Demo</h2>
+            <p className='text-sm text-slate-600 dark:text-slate-300 mb-3'>Learn by doing with hands-on practice.</p>
             <a 
-              href="/dashboard" 
-              className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className='inline-flex items-center justify-center rounded-2xl bg-[#F76511] text-white px-4 py-2 shadow-lg' 
+              href={contentRoute}
             >
-              ← Back to Dashboard
+              Start Demo
+            </a>
+          </section>
+        )}
+
+        <section className='rounded-2xl border p-4 md:p-6 bg-white dark:bg-slate-900 dark:border-slate-700'>
+          <div className='flex items-center justify-between gap-2'>
+            <div>
+              <h2 className='text-lg font-semibold'>Check your knowledge</h2>
+              <p className='text-sm text-slate-600 dark:text-slate-300'>5–7 quick questions. Pass ≥80%.</p>
+            </div>
+            <a 
+              className='inline-flex items-center justify-center rounded-2xl bg-[#F76511] text-white px-4 py-2 shadow-lg' 
+              href={`/module/${params.id}/quiz`}
+            >
+              Start quiz
             </a>
           </div>
-        </main>
-      );
-    }
+        </section>
+
+        {!contentRoute && (
+          <section className='rounded-2xl border p-4 md:p-6 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700'>
+            <h2 className='text-lg font-semibold text-slate-600 dark:text-slate-400'>Coming Soon</h2>
+            <p className='text-sm text-slate-500 dark:text-slate-400'>This module content is being prepared.</p>
+          </section>
+        )}
+      </main>
+    );
   } catch (error) {
     console.error('Module route error:', error);
     redirect('/dashboard');
