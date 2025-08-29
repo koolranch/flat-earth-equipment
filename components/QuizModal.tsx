@@ -19,7 +19,7 @@ export default function QuizModal({
   moduleId 
 }: { 
   questions: Q[]; 
-  onPass: () => void;
+  onPass: (score: number, total: number, passed: boolean) => void;
   enrollmentId?: string;
   moduleId?: number;
 }) {
@@ -352,7 +352,9 @@ export default function QuizModal({
                   if (!isSubmitting) {
                     console.log('Continue button clicked, calling onPass()')
                     setIsSubmitting(true)
-                    onPass()
+                    const finalPct = (lastAttempt.score / orderedQuestions.length) * 100
+                    const passed = finalPct >= 80
+                    onPass(lastAttempt.score, orderedQuestions.length, passed)
                   }
                 }}
                 disabled={isSubmitting}
