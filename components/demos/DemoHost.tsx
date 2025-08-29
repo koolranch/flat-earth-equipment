@@ -1,7 +1,7 @@
 'use client';
 import MiniPPE from '@/components/games/module1/MiniPPE';
 import MiniInspection from '@/components/games/module2/MiniInspection';
-import MiniShutdown from '@/components/games/module5/MiniShutdown';
+import MiniShutdown from '@/components/demos/MiniShutdown';
 import HazardSpotting from '@/components/demos/HazardSpotting';
 
 // Registry mapping module slugs to demo components
@@ -20,7 +20,7 @@ const REGISTRY: Record<string, React.FC<{locale:'en'|'es'; moduleSlug?: string}>
     ({ locale, moduleSlug }) => <HazardSpotting locale={locale} moduleSlug={moduleSlug} />
   ],
   'shutdown-sequence': [
-    ({ locale, moduleSlug }) => <MiniShutdown onComplete={() => {}} />
+    ({ locale, moduleSlug }) => <MiniShutdown locale={locale} moduleSlug={moduleSlug} />
   ]
 };
 
