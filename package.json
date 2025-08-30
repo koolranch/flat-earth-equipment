@@ -51,7 +51,9 @@
     "qa:all": "npm run qa:i18n && npm run qa:cert && npm run test:e2e",
     "qa:now": "node scripts/qa-run-now.mjs",
     "qa:howto": "node scripts/print-test-instructions.mjs",
-    "build-and-qa": "node scripts/build-and-qa.mjs"
+    "build-and-qa": "node scripts/build-and-qa.mjs",
+    "lint:a11y": "eslint --ext .js,.jsx,.ts,.tsx --max-warnings=0 --report-unused-disable-directives .",
+    "qa:a11y": "npm run lint:a11y"
   },
   "keywords": [],
   "author": "",
@@ -68,6 +70,7 @@
     "crisp-api": "^9.10.0",
     "csv-stringify": "^6.6.0",
     "dotenv": "^16.6.1",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
     "jsdom": "^26.1.0",
     "json2csv": "^6.0.0-alpha.2",
     "marked": "^15.0.12",

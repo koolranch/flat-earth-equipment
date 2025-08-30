@@ -1,5 +1,6 @@
 {
-  "extends": ["next/core-web-vitals"],
+  "extends": ["next/core-web-vitals", "plugin:jsx-a11y/recommended"],
+  "plugins": ["jsx-a11y"],
   "settings": {
     "import/resolver": {
       "typescript": {
@@ -10,7 +11,11 @@
   "rules": {
     "react/no-unescaped-entities": "warn",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "jsx-a11y/label-has-associated-control": [2, { "depth": 3 }],
+    "jsx-a11y/anchor-is-valid": 2,
+    "jsx-a11y/no-autofocus": 1,
+    "jsx-a11y/media-has-caption": 2
   },
   "overrides": [
     {
