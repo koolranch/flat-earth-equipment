@@ -1,14 +1,28 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Hls from 'hls.js'
+import TranscriptAccordion from '@/components/media/TranscriptAccordion'
 
 interface VideoPlayerProps {
   src: string
   className?: string
+  slug?: string
+  poster?: string
+  showTranscript?: boolean
 }
 
-export default function VideoPlayer({ src, className }: VideoPlayerProps) {
+export default function VideoPlayer({ src, className, slug, poster, showTranscript = true }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [locale, setLocale] = useState<'en' | 'es'>('en')
+
+  // Get locale from cookie on client side
+  useEffect(() => {
+    const cookieLocale = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('locale='))
+      ?.split('=')[1] as 'en' | 'es' || 'en'
+    setLocale(cookieLocale)
+  }, [])
 
   useEffect(() => {
     const video = videoRef.current
@@ -34,14 +48,46 @@ export default function VideoPlayer({ src, className }: VideoPlayerProps) {
     }
   }, [src])
 
+  // Generate caption track URLs based on slug and locale
+  const captionUrl = slug ? `/captions/${slug}.${locale}.vtt` : null
+  const captionFallbackUrl = slug ? `/captions/${slug}.en.vtt` : null
+
   return (
     <div className="w-full max-w-4xl mx-auto">
-      <video
-        ref={videoRef}
-        controls
-        className={`w-full h-auto max-h-[600px] ${className || ''}`}
-        playsInline
-      />
+      <div className="rounded-2xl overflow-hidden border bg-black">
+        <video
+          ref={videoRef}
+          controls
+          className={`w-full h-auto max-h-[600px] ${className || ''}`}
+          playsInline
+          poster={poster}
+          crossOrigin="anonymous"
+        >
+          {/* Add caption tracks if slug is provided */}
+          {captionUrl && (
+            <track 
+              kind="captions" 
+              srcLang={locale} 
+              src={captionUrl} 
+              label={locale.toUpperCase()} 
+              default={locale === 'en'}
+            />
+          )}
+          {captionFallbackUrl && locale !== 'en' && (
+            <track 
+              kind="captions" 
+              srcLang="en" 
+              src={captionFallbackUrl} 
+              label="EN" 
+            />
+          )}
+        </video>
+        
+        {/* Add transcript accordion if slug is provided and transcripts are enabled */}
+        {slug && showTranscript && (
+          <TranscriptAccordion slug={slug} locale={locale as 'en' | 'es'} />
+        )}
+      </div>
     </div>
   )
 } 
