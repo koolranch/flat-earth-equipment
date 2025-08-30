@@ -156,5 +156,12 @@
   "cert.issued": "Issued",
   "cert.score": "Score",
   "cert.verify_code": "Verify Code",
-  "brand.no_bs": "No-BS safety training."
+  "brand.no_bs": "No-BS safety training.",
+  "exam.check": "Check",
+  "exam.back": "Back",
+  "exam.next": "Next",
+  "exam.finish": "Finish",
+  "exam.passed": "Passed",
+  "exam.try_again": "Try again",
+  "exam.view_cert": "View certificate"
 }

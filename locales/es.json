@@ -156,5 +156,12 @@
   "cert.issued": "Emitido",
   "cert.score": "Puntuación",
   "cert.verify_code": "Código de verificación",
-  "brand.no_bs": "Capacitación de seguridad sin rodeos."
+  "brand.no_bs": "Capacitación de seguridad sin rodeos.",
+  "exam.check": "Comprobar",
+  "exam.back": "Atrás",
+  "exam.next": "Siguiente",
+  "exam.finish": "Terminar",
+  "exam.passed": "Aprobado",
+  "exam.try_again": "Inténtalo de nuevo",
+  "exam.view_cert": "Ver certificado"
 }
