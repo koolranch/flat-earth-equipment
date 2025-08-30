@@ -118,24 +118,24 @@ export default function DynamicExam({ slug = 'final-exam' }: { slug?: string }){
 
       <div id={`q_${current.id}_label`} className="text-base font-medium mb-3">{current.prompt}</div>
 
-      {current.type === 'mcq' && (
-        <ul role="group" aria-labelledby={`q_${current.id}_label`} className="grid gap-2">
+              {current.type === 'mcq' && (
+                    <div role="group" aria-labelledby={`q_${current.id}_label`} className="grid gap-2">
           {current.options.map(o => (
-            <li key={o.id}>
+            <div key={o.id}>
               <label className={`w-full inline-flex items-center gap-2 rounded-xl border px-3 py-2 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 ${answers[current.id]===o.id ? 'border-slate-900 dark:border-slate-100' : ''}`}>
                 <input 
                   type="radio" 
                   name={current.id} 
                   value={o.id} 
                   checked={answers[current.id]===o.id} 
-                  onChange={()=>setAnswers(a=>({...a,[current.id]:o.id}))} 
+                  onChange={()=>setAnswers(a=>({...a,[current.id]:o.id}))}
                   aria-describedby={`q_${current.id}_label`}
                 />
                 <span>{o.label}</span>
               </label>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
 
             {current.type === 'numeric' && (
