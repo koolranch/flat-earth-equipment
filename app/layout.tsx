@@ -14,6 +14,7 @@ import SkipLink from '@/components/a11y/SkipLink';
 import ReducedMotionProvider from '@/components/a11y/ReducedMotionProvider';
 import ReducedMotionToggle from '@/components/a11y/ReducedMotionToggle';
 import LanguageSwitch from '@/components/i18n/LanguageSwitch';
+import { getAdminStatus } from '@/lib/admin/guard';
 // Import your global styles (Tailwind, custom resets)
 import '../globals.css';
 import { Toaster } from 'react-hot-toast';
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
 
 
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -37,6 +38,14 @@ export default function RootLayout({
   const cookieLocale = cookies().get('locale')?.value;
   const envDefault = (process.env.NEXT_PUBLIC_DEFAULT_LOCALE === 'es' ? 'es' : 'en') as 'en' | 'es';
   const locale: 'en' | 'es' = (cookieLocale === 'es' || cookieLocale === 'en') ? cookieLocale : envDefault;
+  
+  // Check admin status for conditional header link (non-blocking)
+  let adminStatus = { isAdmin: false };
+  try {
+    adminStatus = await getAdminStatus();
+  } catch {
+    // Silently fail - admin link just won't show
+  }
   
   return (
     <html lang={locale} className={inter.className}>
@@ -68,6 +77,9 @@ export default function RootLayout({
                 <nav aria-label="Global navigation" className="flex items-center gap-3">
                   <a className="text-sm underline hover:no-underline" href="/training">Training</a>
                   <a className="text-sm underline hover:no-underline" href="/records">Records</a>
+                  {adminStatus.isAdmin && (
+                    <a className="text-sm underline hover:no-underline text-blue-600 dark:text-blue-400" href="/admin/roster">Admin</a>
+                  )}
                   <LanguageSwitch />
                 </nav>
               </div>
