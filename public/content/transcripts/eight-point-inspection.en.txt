@@ -1,0 +1,49 @@
+Eight-Point Inspection - Full Transcript
+
+Eight points, every time: tires, forks, chains, horn, lights, hydraulics, leaks, data plate. If it's not right, don't drive it.
+
+The eight-point inspection is your systematic check of critical forklift components. This inspection must be completed every shift, every time, no exceptions.
+
+The Eight Points:
+
+1. Tires and Wheels
+   - Check for proper inflation
+   - Look for cuts, bulges, or excessive wear
+   - Ensure wheels are properly secured
+
+2. Forks and Carriage
+   - Inspect for cracks, bends, or excessive wear
+   - Check fork positioning and locking mechanisms
+   - Verify carriage moves smoothly
+
+3. Lift Chains and Mast
+   - Look for stretched, kinked, or damaged links
+   - Check chain anchors and attachments
+   - Inspect mast for damage or wear
+
+4. Horn and Warning Devices
+   - Test horn functionality
+   - Check backup alarms if equipped
+   - Verify all warning lights work
+
+5. Lights and Visibility
+   - Test headlights and work lights
+   - Check mirrors and visibility aids
+   - Ensure all lights are clean and functional
+
+6. Hydraulic System
+   - Check fluid levels in reservoir
+   - Inspect hoses and connections
+   - Test lift and tilt functions
+
+7. Leaks and Fluids
+   - Look under the truck for any leaks
+   - Check engine oil, coolant, brake fluid
+   - Inspect for hydraulic fluid leaks
+
+8. Data Plate and Documentation
+   - Verify data plate is readable and attached
+   - Check that capacity ratings are visible
+   - Ensure inspection records are current
+
+If ANY point fails inspection, tag the forklift out of service immediately. No shortcuts, no exceptions.
