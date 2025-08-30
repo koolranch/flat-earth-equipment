@@ -1,6 +1,21 @@
 import { redirect } from 'next/navigation';
 import { supabaseServer } from '@/lib/supabase/server';
+import { cookies } from 'next/headers';
 import QuizGate from '@/components/module/QuizGate';
+
+const L = (k: string, locale: string) => {
+  const en: any = { 
+    'hub.modules_intro': 'Do the demo. Read the quick Guides. Take the short quiz.',
+    'quiz.check_knowledge': 'Check your knowledge',
+    'quiz.quick_questions': '5–7 quick questions. Pass ≥80%.'
+  };
+  const es: any = { 
+    'hub.modules_intro': 'Haz la demo. Lee las guías. Responde el mini-quiz.',
+    'quiz.check_knowledge': 'Verifica tu conocimiento',
+    'quiz.quick_questions': '5–7 preguntas rápidas. Aprobar ≥80%.'
+  };
+  return (locale==='es'?es:en)[k];
+};
 
 // Map module orders to their content routes
 const MODULE_ROUTES: Record<number, string> = {
@@ -25,6 +40,7 @@ function getModuleSlug(id: string): string {
 
 export default async function ModulePage({ params }: { params: { id: string } }) {
   const sb = supabaseServer();
+  const locale = (cookies().get('locale')?.value === 'es') ? 'es' : 'en';
   
   try {
     // Get module details by ID
@@ -45,7 +61,7 @@ export default async function ModulePage({ params }: { params: { id: string } })
       <main className='container mx-auto p-4 space-y-4'>
         <header>
           <h1 className='text-2xl font-bold text-[#0F172A] dark:text-white'>{module.title}</h1>
-          <p className='text-sm text-slate-600 dark:text-slate-300'>Do the demo. Read the quick Guides. Take the short quiz.</p>
+          <p className='text-sm text-slate-600 dark:text-slate-300'>{L('hub.modules_intro', locale)}</p>
         </header>
 
         {contentRoute && (
@@ -64,8 +80,8 @@ export default async function ModulePage({ params }: { params: { id: string } })
         <section className='rounded-2xl border p-4 md:p-6 bg-white dark:bg-slate-900 dark:border-slate-700'>
           <div className='flex items-center justify-between gap-2'>
             <div>
-              <h2 className='text-lg font-semibold'>Check your knowledge</h2>
-              <p className='text-sm text-slate-600 dark:text-slate-300'>5–7 quick questions. Pass ≥80%.</p>
+              <h2 className='text-lg font-semibold'>{L('quiz.check_knowledge', locale)}</h2>
+              <p className='text-sm text-slate-600 dark:text-slate-300'>{L('quiz.quick_questions', locale)}</p>
             </div>
             {/* env-controlled soft gating */}
             <QuizGate slug={getModuleSlug(params.id)} moduleId={params.id} />

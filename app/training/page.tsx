@@ -2,6 +2,24 @@ import 'server-only';
 import { cookies } from 'next/headers';
 import { getCourseProgress } from '@/lib/learner/progress.server';
 
+const L = (k: string, locale: string) => {
+  const en: any = { 
+    'hub.title': 'Training Hub',
+    'hub.orientation': 'Orientation', 
+    'hub.final_exam': 'Final exam',
+    'hub.supervisor_eval': 'Supervisor Practical Evaluation',
+    'hub.start': 'Start'
+  };
+  const es: any = { 
+    'hub.title': 'Centro de Formación',
+    'hub.orientation': 'Orientación',
+    'hub.final_exam': 'Examen final', 
+    'hub.supervisor_eval': 'Evaluación práctica del supervisor',
+    'hub.start': 'Comenzar'
+  };
+  return (locale==='es'?es:en)[k];
+};
+
 export default async function Page({ searchParams }: { searchParams?: Record<string,string> }) {
   const courseId = searchParams?.courseId || '';
   if (!courseId) return <main className='container mx-auto p-4'>Provide ?courseId=...</main>;
@@ -11,7 +29,7 @@ export default async function Page({ searchParams }: { searchParams?: Record<str
     <main className='container mx-auto p-4'>
       <header className='sticky top-0 z-10 bg-white/90 backdrop-blur border-b py-3'>
         <div className='flex items-center justify-between'>
-          <h1 className='text-xl font-bold text-[#0F172A]'>Training Hub</h1>
+          <h1 className='text-xl font-bold text-[#0F172A]'>{L('hub.title', locale)}</h1>
           <div className='min-w-[140px]'>
             <div className='text-xs text-slate-600'>Progress: {prog.pct}%</div>
             <div className='h-2 bg-slate-200 rounded-full overflow-hidden'>
@@ -22,7 +40,7 @@ export default async function Page({ searchParams }: { searchParams?: Record<str
       </header>
 
       <div className="mb-3">
-        <a href="/orientation" className="inline-flex rounded-2xl border px-3 py-2 text-sm">Orientation</a>
+        <a href="/orientation" className="inline-flex rounded-2xl border px-3 py-2 text-sm">{L('hub.orientation', locale)}</a>
       </div>
 
       <section className='mt-4 space-y-3'>
@@ -48,10 +66,10 @@ export default async function Page({ searchParams }: { searchParams?: Record<str
         <section className="mt-4 rounded-2xl border p-4 md:p-6 bg-white dark:bg-slate-900 dark:border-slate-700">
           <div className="flex items-center justify-between gap-2">
             <div>
-              <h2 className="text-lg font-semibold">Final exam</h2>
+              <h2 className="text-lg font-semibold">{L('hub.final_exam', locale)}</h2>
               <p className="text-sm text-slate-600 dark:text-slate-300">12 scenario questions. Pass ≥80% to get certified.</p>
             </div>
-            <a href="/final-exam" className="inline-flex rounded-2xl bg-[#F76511] text-white px-4 py-2 shadow-lg">Start</a>
+            <a href="/final-exam" className="inline-flex rounded-2xl bg-[#F76511] text-white px-4 py-2 shadow-lg">{L('hub.start', locale)}</a>
           </div>
         </section>
 
@@ -59,10 +77,10 @@ export default async function Page({ searchParams }: { searchParams?: Record<str
         <section className="mt-4 rounded-2xl border p-4 md:p-6 bg-white dark:bg-slate-900 dark:border-slate-700">
           <div className="flex items-center justify-between gap-2">
             <div>
-              <h2 className="text-lg font-semibold">Supervisor Practical Evaluation</h2>
+              <h2 className="text-lg font-semibold">{L('hub.supervisor_eval', locale)}</h2>
               <p className="text-sm text-slate-600 dark:text-slate-300">Checklist + signature with your supervisor.</p>
             </div>
-            <a href="/practical/start" className="inline-flex rounded-2xl bg-[#F76511] text-white px-4 py-2 shadow-lg">Start</a>
+            <a href="/practical/start" className="inline-flex rounded-2xl bg-[#F76511] text-white px-4 py-2 shadow-lg">{L('hub.start', locale)}</a>
           </div>
         </section>
       </section>
