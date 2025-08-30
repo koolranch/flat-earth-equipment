@@ -16,14 +16,32 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
   const { data: cert, error } = await supabase
     .from('certificates')
-    .select('id, learner_id, course_id, issue_date, score, verifier_code, pdf_url')
+    .select('id, learner_id, course_id, issue_date, score, verifier_code, pdf_url, practical_pass, evaluation_date, evaluator_name')
     .eq('id', params.id)
     .maybeSingle();
   if (error || !cert) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 
   const L = (k: string) => {
-    const en: Record<string,string> = { title: 'Forklift Operator Certificate', course: 'Course', issued: 'Issued', score: 'Score', verify: 'Verify Code', footer: 'This certificate confirms successful completion of the formal knowledge assessment and training.' };
-    const es: Record<string,string> = { title: 'Certificado de Operador de Montacargas', course: 'Curso', issued: 'Emitido', score: 'Puntuación', verify: 'Código de verificación', footer: 'Este certificado confirma la finalización exitosa de la evaluación de conocimientos y la capacitación formal.' };
+    const en: Record<string,string> = { 
+      title: 'Forklift Operator Certificate', 
+      course: 'Course', 
+      issued: 'Issued', 
+      score: 'Score', 
+      verify: 'Verify Code', 
+      footer: 'This certificate confirms successful completion of the formal knowledge assessment and training.',
+      practical: 'PRACTICAL VERIFIED',
+      practicalBy: 'Evaluated by'
+    };
+    const es: Record<string,string> = { 
+      title: 'Certificado de Operador de Montacargas', 
+      course: 'Curso', 
+      issued: 'Emitido', 
+      score: 'Puntuación', 
+      verify: 'Código de verificación', 
+      footer: 'Este certificado confirma la finalización exitosa de la evaluación de conocimientos y la capacitación formal.',
+      practical: 'PRÁCTICA VERIFICADA',
+      practicalBy: 'Evaluado por'
+    };
     return (locale === 'es' ? es : en)[k];
   };
 
@@ -38,7 +56,19 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   draw(`${L('score')}: ${cert.score}%`, 622);
   draw(`${L('verify')}: ${cert.verifier_code}`, 598);
   draw('Learner: ** (masked)', 574);
-  draw(L('footer'), 520);
+  
+  // Add practical verification badge if evaluation passed
+  if (cert.practical_pass) {
+    page.drawText(L('practical'), { x: 72, y: 550, size: 16, font, color: rgb(0.0, 0.6, 0.0) }); // Green color
+    if (cert.evaluator_name) {
+      draw(`${L('practicalBy')}: ${cert.evaluator_name}`, 526, 12);
+    }
+    if (cert.evaluation_date) {
+      draw(`Date: ${cert.evaluation_date}`, 506, 12);
+    }
+  }
+  
+  draw(L('footer'), 460);
 
   const pdfBytes = await pdfDoc.save();
   const filePath = `${cert.id}.pdf`;
