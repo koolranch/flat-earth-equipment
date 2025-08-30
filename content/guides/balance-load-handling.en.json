@@ -1,0 +1,8 @@
+{
+  "title": "Balance & Load Handling — Quick Guides",
+  "cards": [
+    { "heading": "Load low, mast back", "body": "Keep load low and mast tilted back when traveling." },
+    { "heading": "Capacity matters", "body": "Load center increases = capacity decreases." },
+    { "heading": "Stability triangle", "body": "Keep combined center of gravity inside the triangle." }
+  ]
+}

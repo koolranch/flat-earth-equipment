@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { supabaseServer } from '@/lib/supabase/server';
 import { cookies } from 'next/headers';
 import QuizGate from '@/components/module/QuizGate';
+import GuidesPanel from '@/components/guides/GuidesPanel';
 
 const L = (k: string, locale: string) => {
   const en: any = { 
@@ -76,6 +77,9 @@ export default async function ModulePage({ params }: { params: { id: string } })
             </a>
           </section>
         )}
+
+        {/* Guides Panel */}
+        <GuidesPanel slug={getModuleSlug(params.id)} />
 
         <section className='rounded-2xl border p-4 md:p-6 bg-white dark:bg-slate-900 dark:border-slate-700'>
           <div className='flex items-center justify-between gap-2'>
