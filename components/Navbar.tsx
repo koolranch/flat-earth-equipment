@@ -89,7 +89,7 @@ export default function Navbar({ locale }: Props) {
                 )}
               </div>
             ))}
-            <Link href="/cart" className="relative text-gray-600 hover:text-gray-900">
+            <Link href="/cart" className="relative text-gray-600 hover:text-gray-900" aria-label={`Shopping cart${itemCount > 0 ? ` (${itemCount} items)` : ''}`}>
               <ShoppingCart className="w-6 h-6" />
               {itemCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-canyon-rust text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">

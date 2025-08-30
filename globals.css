@@ -31,6 +31,12 @@
     scroll-behavior: auto !important; 
   }
 
+  /* Improved brand colors for better accessibility contrast */
+  :root {
+    --brand-orange: #E85D04; /* Darker orange for better contrast (4.52:1 with white) */
+    --brand-orange-light: #F76511; /* Original orange for backgrounds with dark text */
+  }
+
   /* Screen reader only content */
   .sr-only {
     position: absolute;

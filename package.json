@@ -53,13 +53,15 @@
     "qa:howto": "node scripts/print-test-instructions.mjs",
     "build-and-qa": "node scripts/build-and-qa.mjs",
     "lint:a11y": "eslint --config .eslintrc.a11y.json --ext .js,.jsx,.ts,.tsx --max-warnings=0 --report-unused-disable-directives .",
-    "qa:a11y": "npm run lint:a11y"
+    "test:a11y": "playwright test tests/e2e/axe.spec.ts",
+    "qa:a11y": "npm run lint:a11y && npm run test:a11y"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
     "@playwright/test": "^1.55.0",
     "@supabase/supabase-js": "^2.54.0",
     "@types/axios": "^0.9.36",
