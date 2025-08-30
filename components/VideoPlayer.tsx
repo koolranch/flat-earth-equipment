@@ -64,22 +64,27 @@ export default function VideoPlayer({ src, className, slug, poster, showTranscri
           crossOrigin="anonymous"
         >
           {/* Add caption tracks if slug is provided */}
-          {captionUrl && (
-            <track 
-              kind="captions" 
-              srcLang={locale} 
-              src={captionUrl} 
-              label={locale.toUpperCase()} 
-              default={locale === 'en'}
-            />
-          )}
-          {captionFallbackUrl && locale !== 'en' && (
-            <track 
-              kind="captions" 
-              srcLang="en" 
-              src={captionFallbackUrl} 
-              label="EN" 
-            />
+          {slug ? (
+            <>
+              <track 
+                kind="captions" 
+                srcLang={locale} 
+                src={captionUrl || ''} 
+                label={locale.toUpperCase()} 
+                default={locale === 'en'}
+              />
+              {locale !== 'en' && (
+                <track 
+                  kind="captions" 
+                  srcLang="en" 
+                  src={captionFallbackUrl || ''} 
+                  label="EN" 
+                />
+              )}
+            </>
+          ) : (
+            // Always provide at least one track for accessibility compliance
+            <track kind="captions" srcLang="en" src="" label="No captions available" />
           )}
         </video>
         

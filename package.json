@@ -52,7 +52,7 @@
     "qa:now": "node scripts/qa-run-now.mjs",
     "qa:howto": "node scripts/print-test-instructions.mjs",
     "build-and-qa": "node scripts/build-and-qa.mjs",
-    "lint:a11y": "eslint --ext .js,.jsx,.ts,.tsx --max-warnings=0 --report-unused-disable-directives .",
+    "lint:a11y": "eslint --config .eslintrc.a11y.json --ext .js,.jsx,.ts,.tsx --max-warnings=0 --report-unused-disable-directives .",
     "qa:a11y": "npm run lint:a11y"
   },
   "keywords": [],
