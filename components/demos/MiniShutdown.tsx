@@ -1,6 +1,6 @@
 'use client';
 import { useMemo, useState } from 'react';
-import DemoPanel from '@/components/demos/DemoPanel';
+import { DemoPanel } from '@/components/DemoPanel';
 import LiveRegion from '@/components/a11y/LiveRegion';
 import { useDemoAnalytics } from '@/lib/analytics/useDemoAnalytics';
 
@@ -48,14 +48,12 @@ export default function MiniShutdown({ locale, moduleSlug }: { locale: 'en'|'es'
 
   return (
     <DemoPanel 
-      demoId="MiniShutdown" 
-      moduleSlug={moduleSlug} 
       title="Shutdown sequence (strict order)" 
-      objectives={[
+      objective="Park and secure in sequence and apply branch actions for fuel type"
+      steps={[
         'Park and secure in sequence',
         'Apply branch actions for fuel type'
-      ]} 
-      successText="Truck secured — shutdown complete."
+      ]}
     >
       <LiveRegion message={complete ? 'Shutdown complete' : `${doneIds.length} of ${steps.length} steps`} />
 

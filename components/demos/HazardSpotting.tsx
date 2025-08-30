@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
-import DemoPanel from '@/components/demos/DemoPanel';
+import { DemoPanel } from '@/components/DemoPanel';
 import LiveRegion from '@/components/a11y/LiveRegion';
 
 const ALL = [
@@ -44,14 +44,12 @@ export default function HazardSpotting({ locale, moduleSlug }: { locale: 'en'|'e
 
   return (
     <DemoPanel 
-      demoId="MiniHazard" 
-      moduleSlug={moduleSlug} 
       title="Hazard hunt (find them all)" 
-      objectives={[
+      objective="Identify common hazards and know the immediate action"
+      steps={[
         'Identify common hazards', 
         'Know the immediate action'
-      ]} 
-      successText="Hazards identified — keep the horn handy and eyes up."
+      ]}
     >
       <LiveRegion message={allDone ? 'All hazards found' : `${found.length} of ${set.length} hazards found`} />
       

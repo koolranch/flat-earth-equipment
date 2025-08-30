@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import DemoPanel from '@/components/demos/DemoPanel';
+import { DemoPanel } from '@/components/DemoPanel';
 import LiveRegion from '@/components/a11y/LiveRegion';
 
 const TARGETS = [
@@ -28,14 +28,12 @@ export default function InspectionHotspots({ locale, moduleSlug }: { locale: 'en
 
   return (
     <DemoPanel 
-      demoId="MiniInspection" 
-      moduleSlug={moduleSlug} 
       title="8-Point Daily Inspection" 
-      objectives={[
+      objective="Tap each point as you inspect and log defects before operating"
+      steps={[
         'Tap each point as you inspect',
         'Log defects before operating'
-      ]} 
-      successText="Inspection complete — log any defects before operating."
+      ]}
     >
       <LiveRegion message={allDone ? 'All points inspected' : `${found.length} of ${TARGETS.length} inspected`} />
       
