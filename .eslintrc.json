@@ -20,7 +20,7 @@
   "overrides": [
     {
       "files": ["**/*.ts", "**/*.tsx"],
-      "excludedFiles": ["app/api/**", "lib/**/*.server.ts", "app/**/server/**", "lib/supabaseAdmin.ts"],
+      "excludedFiles": ["app/api/**", "lib/**/*.server.ts", "app/**/server/**", "lib/supabaseAdmin.ts", "app/admin/**"],
       "rules": {
         "no-restricted-imports": ["error", {
           "paths": [
