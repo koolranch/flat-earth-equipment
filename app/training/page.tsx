@@ -54,6 +54,17 @@ export default async function Page({ searchParams }: { searchParams?: Record<str
             <a href="/final-exam" className="inline-flex rounded-2xl bg-[#F76511] text-white px-4 py-2 shadow-lg">Start</a>
           </div>
         </section>
+
+        {/* Supervisor Practical Evaluation CTA */}
+        <section className="mt-4 rounded-2xl border p-4 md:p-6 bg-white dark:bg-slate-900 dark:border-slate-700">
+          <div className="flex items-center justify-between gap-2">
+            <div>
+              <h2 className="text-lg font-semibold">Supervisor Practical Evaluation</h2>
+              <p className="text-sm text-slate-600 dark:text-slate-300">Checklist + signature with your supervisor.</p>
+            </div>
+            <a href="/practical/start" className="inline-flex rounded-2xl bg-[#F76511] text-white px-4 py-2 shadow-lg">Start</a>
+          </div>
+        </section>
       </section>
     </main>
   );
