@@ -63,6 +63,7 @@ export default async function ModulePage({ params }: { params: { id: string } })
         <header>
           <h1 className='text-2xl font-bold text-[#0F172A] dark:text-white'>{module.title}</h1>
           <p className='text-sm text-slate-600 dark:text-slate-300'>{L('hub.modules_intro', locale)}</p>
+          <p className='text-xs text-slate-500 mt-1'>Hands on first. Quiz is short.</p>
         </header>
 
         {contentRoute && (
