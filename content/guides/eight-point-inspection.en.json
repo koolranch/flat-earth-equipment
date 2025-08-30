@@ -1,0 +1,8 @@
+{
+  "title": "8-Point Inspection — Quick Guides",
+  "cards": [
+    { "heading": "Leaks & tires", "body": "No leaks. Tires in good shape." },
+    { "heading": "Controls & horn", "body": "Everything works before rolling." },
+    { "heading": "Data plate", "body": "Readable and correct attachments." }
+  ]
+}

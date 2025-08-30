@@ -1,0 +1,8 @@
+{
+  "title": "Hazard Recognition — Quick Guides",
+  "cards": [
+    { "heading": "Horn at corners", "body": "Sound horn and slow down at blind spots." },
+    { "heading": "Pedestrians first", "body": "Yield right-of-way. Maintain safe distance." },
+    { "heading": "Stop for leaks", "body": "Any fluid leak = stop work, tag out, clean up." }
+  ]
+}

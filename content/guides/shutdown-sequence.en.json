@@ -1,0 +1,9 @@
+{
+  "title": "Shutdown Sequence — Quick Guides",
+  "cards": [
+    { "heading": "Neutral first", "body": "Shift to neutral before anything else." },
+    { "heading": "Forks down", "body": "Lower forks completely to floor." },
+    { "heading": "LPG valve closed", "body": "Close tank valve on LPG trucks." },
+    { "heading": "Plug in electric", "body": "Connect charger after key off." }
+  ]
+}
