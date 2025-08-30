@@ -116,10 +116,10 @@ export default function DynamicExam({ slug = 'final-exam' }: { slug?: string }){
 
       <LiveRegion message={revealed[current?.id||''] ? (isCorrect(current) ? 'Correct' : 'Incorrect') : ''} />
 
-      <div className="text-base font-medium mb-3">{current.prompt}</div>
+      <div id={`q_${current.id}_label`} className="text-base font-medium mb-3">{current.prompt}</div>
 
       {current.type === 'mcq' && (
-        <ul className="grid gap-2">
+        <ul role="group" aria-labelledby={`q_${current.id}_label`} className="grid gap-2">
           {current.options.map(o => (
             <li key={o.id}>
               <label className={`w-full inline-flex items-center gap-2 rounded-xl border px-3 py-2 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 ${answers[current.id]===o.id ? 'border-slate-900 dark:border-slate-100' : ''}`}>
@@ -129,6 +129,7 @@ export default function DynamicExam({ slug = 'final-exam' }: { slug?: string }){
                   value={o.id} 
                   checked={answers[current.id]===o.id} 
                   onChange={()=>setAnswers(a=>({...a,[current.id]:o.id}))} 
+                  aria-describedby={`q_${current.id}_label`}
                 />
                 <span>{o.label}</span>
               </label>
@@ -137,13 +138,15 @@ export default function DynamicExam({ slug = 'final-exam' }: { slug?: string }){
         </ul>
       )}
 
-      {current.type === 'numeric' && (
+            {current.type === 'numeric' && (
         <div className="space-y-2">
+          <label htmlFor={`num_${current.id}`} className="text-sm">Answer (number)</label>
           <input 
+            id={`num_${current.id}`}
             inputMode="numeric" 
             pattern="[0-9]*" 
-            className="rounded-xl border px-3 py-2 w-40 dark:bg-slate-800 dark:border-slate-600" 
-            aria-label="Answer (number)" 
+            className="rounded-xl border px-3 py-2 w-40 dark:bg-slate-800 dark:border-slate-600"
+            aria-describedby={`q_${current.id}_label`} 
             placeholder="Enter number"
             value={answers[current.id] ?? ''} 
             onChange={e=>{
@@ -159,7 +162,7 @@ export default function DynamicExam({ slug = 'final-exam' }: { slug?: string }){
       {current.type === 'hotspot-grid' && (
         <div>
           <div className="mb-2 text-xs text-slate-500">Scene: {current.scene || 'Grid'}</div>
-          <div role="group" aria-label="Select the correct area" className="grid grid-cols-2 gap-2 max-w-sm">
+          <div role="group" aria-labelledby={`q_${current.id}_label`} className="grid grid-cols-2 gap-2 max-w-sm">
             {current.grid.cells.map(c => (
               <button 
                 key={c} 
@@ -175,7 +178,7 @@ export default function DynamicExam({ slug = 'final-exam' }: { slug?: string }){
       )}
 
       {revealed[current.id] && (
-        <div className={`mt-3 text-sm ${isCorrect(current)?'text-emerald-700 dark:text-emerald-400':'text-rose-700 dark:text-rose-400'}`}>
+        <div aria-live="polite" className={`mt-3 text-sm ${isCorrect(current)?'text-emerald-700 dark:text-emerald-400':'text-rose-700 dark:text-rose-400'}`}>
           {isCorrect(current) ? 'Correct.' : 'Incorrect.'}
         </div>
       )}
