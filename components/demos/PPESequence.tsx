@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import DemoPanel from '@/components/demos/DemoPanel';
+import { DemoPanel } from '@/components/DemoPanel';
 import LiveRegion from '@/components/a11y/LiveRegion';
 
 const STEPS = [
@@ -25,14 +25,12 @@ export default function PPESequence({ locale, moduleSlug }: { locale: 'en'|'es';
 
   return (
     <DemoPanel 
-      demoId="MiniPPE" 
-      moduleSlug={moduleSlug} 
       title="PPE & Safe State (strict order)" 
-      objectives={[
+      objective="Equip PPE and safe state in order to understand pre-op readiness"
+      steps={[
         'Equip PPE and safe state in order',
         'Understand pre-op readiness',
-      ]} 
-      successText="Sequence complete — you're set to operate."
+      ]}
     >
       <LiveRegion message={done ? 'Sequence complete' : `${placed.length} of ${STEPS.length} placed`} />
       
