@@ -54,6 +54,7 @@
     "build-and-qa": "node scripts/build-and-qa.mjs",
     "lint:a11y": "eslint --config .eslintrc.a11y.json --ext .js,.jsx,.ts,.tsx --max-warnings=0 --report-unused-disable-directives .",
     "test:a11y": "playwright test tests/e2e/axe.spec.ts",
+    "dx:seed:captions": "node scripts/seed-captions-transcripts.mjs",
     "qa:a11y": "npm run lint:a11y && npm run test:a11y"
   },
   "keywords": [],
