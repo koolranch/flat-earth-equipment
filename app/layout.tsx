@@ -10,6 +10,7 @@ import SupabaseProvider from './providers';
 import { cookies } from 'next/headers';
 import { I18nProvider } from '@/lib/i18n';
 import SkipToContent from '@/components/a11y/SkipToContent';
+import SkipLink from '@/components/a11y/SkipLink';
 import LanguageSwitch from '@/components/i18n/LanguageSwitch';
 // Import your global styles (Tailwind, custom resets)
 import '../globals.css';
@@ -49,22 +50,33 @@ export default function RootLayout({
         <link rel="alternate" hrefLang="x-default" href="https://www.flatearthequipment.com" />
       </head>
       <body className="font-sans text-gray-900 bg-gray-50 antialiased">
-        {/* A11y - Skip to content link */}
-        <SkipToContent />
         <SupabaseProvider>
           <I18nProvider locale={locale}>
+            {/* A11y - Skip to main content link */}
+            <SkipLink />
+            <SkipToContent />
+            
             {process.env.NODE_ENV !== 'production' ? <QAEventListener /> : null}
-            {/* Global language switcher */}
-            <div className="container mx-auto p-4">
-              <div className="flex items-center justify-end mb-3">
-                <LanguageSwitch />
+            
+            {/* Global header with navigation and language switcher */}
+            <header role="banner" className="border-b bg-white">
+              <div className="container mx-auto p-4 flex items-center justify-between">
+                <a href="/training" className="font-bold tracking-tight text-[#0F172A]">Flat Earth Safety</a>
+                <nav aria-label="Global navigation" className="flex items-center gap-3">
+                  <a className="text-sm underline hover:no-underline" href="/training">Training</a>
+                  <a className="text-sm underline hover:no-underline" href="/records">Records</a>
+                  <LanguageSwitch />
+                </nav>
               </div>
-            </div>
-            {/* Navbar now receives locale */}
+            </header>
+            
+            {/* Main Navbar */}
             <Navbar locale={locale} />
-            <main id="main">
+            
+            <main id="main-content" role="main">
               {children}
             </main>
+            
             <Footer />
             <Analytics />
             <SpeedInsights />
