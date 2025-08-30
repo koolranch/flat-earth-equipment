@@ -48,7 +48,7 @@
     "qa:cert:prod": "node scripts/run-cert-e2e.mjs --base-url=https://www.flatearthequipment.com",
     "qa:cert:local": "node scripts/run-cert-e2e.mjs --base-url=http://localhost:3000",
     "qa:i18n": "node scripts/scan_i18n.mjs",
-    "qa:all": "npm run qa:i18n && npm run qa:cert && npm run test:e2e",
+    "qa:all": "npm run qa:i18n && npm run qa:a11y && npm run qa:cert && npm run test:e2e",
     "qa:now": "node scripts/qa-run-now.mjs",
     "qa:howto": "node scripts/print-test-instructions.mjs",
     "build-and-qa": "node scripts/build-and-qa.mjs",
