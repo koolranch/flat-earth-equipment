@@ -4,16 +4,28 @@ import { createClient } from '@supabase/supabase-js';
 
 const L = (k: string, locale: string) => {
   const en: any = { 
-    'records.title': 'Your Training Records', 
+    'records.title': 'Records', 
     'records.certificate': 'Certificate', 
     'records.download': 'Download PDF', 
-    'records.verify': 'Verify' 
+    'records.verify': 'Verify',
+    'records.eval': 'Supervisor Evaluation',
+    'records.status': 'Status',
+    'records.date': 'Date', 
+    'records.supervisor': 'Supervisor',
+    'records.none': 'No practical evaluation on file yet.',
+    'records.start_now': 'Start now'
   };
   const es: any = { 
-    'records.title': 'Tus registros de capacitación', 
+    'records.title': 'Registros', 
     'records.certificate': 'Certificado', 
     'records.download': 'Descargar PDF', 
-    'records.verify': 'Verificar' 
+    'records.verify': 'Verificar',
+    'records.eval': 'Evaluación del supervisor',
+    'records.status': 'Estado',
+    'records.date': 'Fecha',
+    'records.supervisor': 'Supervisor', 
+    'records.none': 'Aún no hay evaluación práctica.',
+    'records.start_now': 'Iniciar ahora'
   };
   return (locale==='es'?es:en)[k];
 };
@@ -41,16 +53,16 @@ export default async function Page() {
       
       {/* Supervisor Evaluation Status */}
       <section className="rounded-2xl border p-4 bg-white dark:bg-slate-900 dark:border-slate-700">
-        <h2 className="text-lg font-semibold mb-2">Supervisor Evaluation</h2>
+        <h2 className="text-lg font-semibold mb-2">{L('records.eval', locale)}</h2>
         {evalRow ? (
           <div className="text-sm">
-            <div>Status: <span className={evalRow.practical_pass ? 'text-emerald-700' : 'text-rose-700'}>{evalRow.practical_pass ? 'Passed' : 'Failed'}</span></div>
-            <div>Date: {evalRow.evaluation_date}</div>
-            <div>Supervisor: {evalRow.evaluator_name}</div>
+            <div>{L('records.status', locale)}: <span className={evalRow.practical_pass ? 'text-emerald-700' : 'text-rose-700'}>{evalRow.practical_pass ? 'Passed' : 'Failed'}</span></div>
+            <div>{L('records.date', locale)}: {evalRow.evaluation_date}</div>
+            <div>{L('records.supervisor', locale)}: {evalRow.evaluator_name}</div>
             {evalRow.signature_url ? <div className="mt-2"><img src={evalRow.signature_url} alt="Supervisor signature" className="h-16"/></div> : null}
           </div>
         ) : (
-          <div className="text-sm text-slate-600 dark:text-slate-300">No practical evaluation on file yet. <a className="underline" href="/practical/start">Start now</a>.</div>
+          <div className="text-sm text-slate-600 dark:text-slate-300">{L('records.none', locale)} <a className="underline" href="/practical/start">{L('records.start_now', locale)}</a>.</div>
         )}
       </section>
 
