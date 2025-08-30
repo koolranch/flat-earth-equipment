@@ -60,10 +60,11 @@ export function TCOComparisonCalculator() {
       
       <div className="grid md:grid-cols-2 gap-4 mb-4">
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">
+          <label htmlFor="forklifts-count" className="block text-sm font-medium text-slate-700 mb-1">
             Number of Forklifts
           </label>
           <input
+            id="forklifts-count"
             type="number"
             value={forklifts}
             onChange={(e) => setForklifts(e.target.value)}
@@ -73,10 +74,11 @@ export function TCOComparisonCalculator() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">
+          <label htmlFor="electricity-rate" className="block text-sm font-medium text-slate-700 mb-1">
             Electricity Rate ($/kWh)
           </label>
           <input
+            id="electricity-rate"
             type="number"
             step="0.01"
             value={electricityRate}

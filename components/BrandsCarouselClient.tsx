@@ -22,6 +22,7 @@ export default function BrandsCarouselClient({ brands }: BrandsCarouselProps) {
             >
               <img
                 {...getBrandLogoProps(brand.slug, brand.name)}
+                alt={`${brand.name} logo`}
                 width={120}
                 height={60}
                 className="h-12 w-auto object-contain group-hover:opacity-80 transition-opacity"
