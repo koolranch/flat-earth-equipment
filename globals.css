@@ -6,6 +6,22 @@
 
 /* Accessibility Enhancements */
 @layer base {
+  :root {
+    --focus-ring: 3px solid #0F172A; /* dark slate */
+    --focus-offset: 2px;
+  }
+
+  /* Only show strong outlines for keyboard users */
+  *:focus { outline: none; }
+  *:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+
+  .skip-link {
+    position: absolute; left: 0.5rem; top: -100rem; z-index: 50;
+    background: white; color: #0F172A; padding: 0.5rem 0.75rem; border-radius: 0.75rem;
+    border: 2px solid #0F172A; box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  }
+  .skip-link:focus-visible { top: 0.5rem; }
+
   /* Screen reader only content */
   .sr-only {
     position: absolute;
