@@ -5,7 +5,7 @@ export default function Page(){
     <main className="container mx-auto p-4 space-y-4">
       <header className="space-y-1">
         <h1 className="text-2xl font-bold text-[#0F172A] dark:text-white">Orientation</h1>
-        <p className="text-sm text-slate-600 dark:text-slate-300">Get certified. Do it right the first time. No fluff — learn by doing.</p>
+        <p className="text-sm text-slate-600 dark:text-slate-300">Get certified. No fluff. Learn by doing.</p>
       </header>
       <section className="rounded-2xl border p-4 md:p-6 bg-white dark:bg-slate-900 dark:border-slate-700">
         <h2 className="text-lg font-semibold">How this works</h2>
