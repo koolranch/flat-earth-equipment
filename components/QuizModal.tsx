@@ -447,13 +447,14 @@ export default function QuizModal({
           <h3 className="font-semibold">Question {idx + 1} of {orderedQuestions.length}</h3>
           <span className="text-sm text-gray-500">Score: {score}/{idx}</span>
         </div>
-        <p className="font-medium text-lg">{currentQuestion.q}</p>
-        <div className="space-y-2">
+        <p id={`quiz_q_${currentQuestion.id}_label`} className="font-medium text-lg">{currentQuestion.q}</p>
+        <div role="group" aria-labelledby={`quiz_q_${currentQuestion.id}_label`} className="space-y-2">
           {currentQuestion.choices.map((c, i) => (
             <button 
               key={i} 
               onClick={() => submit(i)} 
               className="block w-full rounded border p-3 text-left hover:bg-gray-50 hover:border-orange-600 transition"
+              aria-describedby={`quiz_q_${currentQuestion.id}_label`}
             >
               {c}
             </button>
