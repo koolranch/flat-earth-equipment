@@ -11,6 +11,8 @@ import { cookies } from 'next/headers';
 import { I18nProvider } from '@/lib/i18n';
 import SkipToContent from '@/components/a11y/SkipToContent';
 import SkipLink from '@/components/a11y/SkipLink';
+import ReducedMotionProvider from '@/components/a11y/ReducedMotionProvider';
+import ReducedMotionToggle from '@/components/a11y/ReducedMotionToggle';
 import LanguageSwitch from '@/components/i18n/LanguageSwitch';
 // Import your global styles (Tailwind, custom resets)
 import '../globals.css';
@@ -50,8 +52,9 @@ export default function RootLayout({
         <link rel="alternate" hrefLang="x-default" href="https://www.flatearthequipment.com" />
       </head>
       <body className="font-sans text-gray-900 bg-gray-50 antialiased">
-        <SupabaseProvider>
-          <I18nProvider locale={locale}>
+        <ReducedMotionProvider>
+          <SupabaseProvider>
+            <I18nProvider locale={locale}>
             {/* A11y - Skip to main content link */}
             <SkipLink />
             <SkipToContent />
@@ -78,13 +81,22 @@ export default function RootLayout({
             </main>
             
             <Footer />
+            
+            {/* Simple footer with reduced motion toggle */}
+            <footer role="contentinfo" className="mt-10 border-t text-xs text-slate-500 bg-white">
+              <div className="container mx-auto p-4 flex items-center justify-between">
+                <span>© Flat Earth Safety</span>
+                <ReducedMotionToggle />
+              </div>
+            </footer>
             <Analytics />
             <SpeedInsights />
             {/* Live chat widget */}
             <CrispChat />
             <Toaster />
-          </I18nProvider>
-        </SupabaseProvider>
+            </I18nProvider>
+          </SupabaseProvider>
+        </ReducedMotionProvider>
       </body>
     </html>
   );
