@@ -27,6 +27,15 @@ export async function POST(req: Request) {
 
     const verifier_code = makeCode(12);
 
+    // Fetch latest practical evaluation for this learner to include in certificate
+    const { data: lastEval } = await supabase
+      .from('employer_evaluations')
+      .select('practical_pass,evaluation_date,evaluator_name')
+      .eq('trainee_user_id', data.learnerId)
+      .order('evaluation_date', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
     const { data: row, error } = await supabase
       .from("certificates")
       .insert({
@@ -35,6 +44,9 @@ export async function POST(req: Request) {
         score: data.score,
         verifier_code,
         module_ids: data.moduleIds ?? null,
+        practical_pass: !!lastEval?.practical_pass,
+        evaluation_date: lastEval?.evaluation_date || null,
+        evaluator_name: lastEval?.evaluator_name || null,
       })
       .select("id, verifier_code")
       .single();
