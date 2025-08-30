@@ -22,6 +22,15 @@
   }
   .skip-link:focus-visible { top: 0.5rem; }
 
+  /* Disable motion when data-reduce-motion=1 */
+  body[data-reduce-motion='1'] *,
+  body[data-reduce-motion='1'] *::before,
+  body[data-reduce-motion='1'] *::after { 
+    transition: none !important; 
+    animation: none !important; 
+    scroll-behavior: auto !important; 
+  }
+
   /* Screen reader only content */
   .sr-only {
     position: absolute;
