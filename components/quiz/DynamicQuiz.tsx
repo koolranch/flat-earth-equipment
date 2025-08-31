@@ -74,7 +74,7 @@ export default function DynamicQuiz({
         }
         
         const quizSlug = getQuizSlug(slug)
-        const fileName = locale === 'es' ? `${quizSlug}_es.json` : `${quizSlug}.json`
+        const fileName = `${quizSlug}.json`
         
         console.log(`🧩 Loading quiz for ID/slug ${slug} → ${quizSlug}: ${fileName}`)
         

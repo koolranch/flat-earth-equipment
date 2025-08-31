@@ -1,66 +1,54 @@
-{
-  "title": "Apagado — Estacionamiento seguro",
-  "pass_pct": 80,
+{ 
+  "title": "Apagado — Chequeo rápido", 
+  "pass_pct": 80, 
   "items": [
-    {
-      "id": "q1",
-      "type": "mcq",
-      "prompt": "La secuencia correcta de apagado comienza con:",
+    { 
+      "id": "q1", 
+      "type": "mcq", 
+      "prompt": "Las horquillas deben quedar…", 
       "options": [
-        { "id": "a", "label": "Apagar el motor inmediatamente" },
-        { "id": "b", "label": "Estacionar en un área segura y designada" },
-        { "id": "c", "label": "Quitar la llave primero" }
-      ],
-      "answer": "b",
-      "explain": "Siempre estacionar en un área segura y designada antes de comenzar el apagado."
+        { "id": "a", "label": "Un poco levantadas" },
+        { "id": "b", "label": "En el suelo" },
+        { "id": "c", "label": "Donde sea" }
+      ], 
+      "answer": "b", 
+      "explain": "Déjalas en el suelo al estacionar." 
     },
-    {
-      "id": "q2",
-      "type": "mcq",
-      "prompt": "Las horquillas deben posicionarse:",
+    { 
+      "id": "q2", 
+      "type": "mcq", 
+      "prompt": "Para montacargas eléctricos, debes…", 
       "options": [
-        { "id": "a", "label": "Planas en el suelo con ligera inclinación hacia adelante" },
-        { "id": "b", "label": "Ligeramente elevadas del suelo" },
-        { "id": "c", "label": "Inclinadas hacia atrás para drenaje" }
-      ],
-      "answer": "a",
-      "explain": "Horquillas planas en el suelo con ligera inclinación hacia adelante previene uso no autorizado."
+        { "id": "a", "label": "Desconectar para enfriar" },
+        { "id": "b", "label": "Conectar el cargador" },
+        { "id": "c", "label": "Quitar la batería" }
+      ], 
+      "answer": "b", 
+      "explain": "Conecta después del uso (según política del sitio)." 
     },
-    {
-      "id": "q3",
-      "type": "mcq",
-      "prompt": "El freno de estacionamiento debe:",
+    { 
+      "id": "q3", 
+      "type": "mcq", 
+      "prompt": "Antes de dejar el montacargas:", 
       "options": [
-        { "id": "a", "label": "Ponerse antes de bajar las horquillas" },
-        { "id": "b", "label": "Ponerse después de apagar el motor" },
-        { "id": "c", "label": "Ponerse inmediatamente después de parar" }
-      ],
-      "answer": "c",
-      "explain": "El freno de estacionamiento debe ponerse inmediatamente al parar."
+        { "id": "a", "label": "Activar freno de estacionamiento y quitar llave" },
+        { "id": "b", "label": "Solo quitar la llave" },
+        { "id": "c", "label": "Dejarlo encendido para el siguiente operador" }
+      ], 
+      "answer": "a", 
+      "explain": "Siempre activa freno y quita llave por seguridad." 
     },
-    {
-      "id": "q4",
-      "type": "mcq",
-      "prompt": "Para montacargas eléctricos, después del apagado debes:",
+    { 
+      "id": "q4", 
+      "type": "mcq", 
+      "prompt": "En una pendiente, también debes:", 
       "options": [
-        { "id": "a", "label": "Dejar conectado al cargador toda la noche" },
-        { "id": "b", "label": "Desconectar batería y guardar llave por separado" },
-        { "id": "c", "label": "Conectar al cargador si la batería está baja" }
-      ],
-      "answer": "c",
-      "explain": "Conectar al cargador cuando la batería esté baja para mantener niveles adecuados de carga."
-    },
-    {
-      "id": "q5",
-      "type": "mcq",
-      "prompt": "La llave debe:",
-      "options": [
-        { "id": "a", "label": "Dejarse en el encendido para el siguiente operador" },
-        { "id": "b", "label": "Quitarse y asegurarse o devolverse al supervisor" },
-        { "id": "c", "label": "Esconderse en algún lugar del montacargas" }
-      ],
-      "answer": "b",
-      "explain": "Las llaves deben asegurarse para prevenir uso no autorizado."
+        { "id": "a", "label": "Girar ruedas alejándolas de la pendiente" },
+        { "id": "b", "label": "Usar calzos para ruedas" },
+        { "id": "c", "label": "Estacionar solo cuesta arriba" }
+      ], 
+      "answer": "b", 
+      "explain": "Los calzos previenen rodamiento en pendientes." 
     }
-  ]
+  ] 
 }
