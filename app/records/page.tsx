@@ -37,7 +37,7 @@ export default async function Page() {
   // Get current user for evaluation lookup
   const { data: { user } } = await supabase.auth.getUser();
   
-  const { data: certs } = await supabase.from('certificates').select('id,issue_date,score,verifier_code,pdf_url').order('issue_date', { ascending: false }).limit(20);
+  const { data: certs } = await supabase.from('certificates').select('id,issue_date,score,verifier_code,pdf_url,verification_code').order('issue_date', { ascending: false }).limit(20);
   
   // Get latest practical evaluation if user is authenticated
   const { data: evalRow } = user ? await supabase
@@ -71,9 +71,19 @@ export default async function Page() {
         {(certs||[]).map(c => (
           <div key={c.id} className="rounded-2xl border p-4 shadow-lg">
             <div className="text-sm text-slate-700 dark:text-slate-200">{L('records.certificate', locale)} — {c.issue_date} — {c.score}%</div>
+            {c.verification_code && (
+              <div className="mt-2 text-xs text-slate-600 dark:text-slate-400">
+                <span className="text-slate-500">Verification Code: </span>
+                <span className="font-mono">{c.verification_code}</span>
+              </div>
+            )}
             <div className="mt-2 flex gap-2">
               {c.pdf_url ? <a className="rounded-2xl bg-[#F76511] text-white px-3 py-2" href={c.pdf_url} target="_blank" rel="noopener noreferrer">{L('records.download', locale)}</a> : null}
-              <a className="rounded-2xl border px-3 py-2" href={`/verify/${c.verifier_code}`}>{L('records.verify', locale)}</a>
+              {c.verification_code ? (
+                <a className="rounded-2xl border px-3 py-2" href={`/verify/${c.verification_code}`} target="_blank">{L('records.verify', locale)}</a>
+              ) : c.verifier_code ? (
+                <a className="rounded-2xl border px-3 py-2" href={`/verify/${c.verifier_code}`}>{L('records.verify', locale)}</a>
+              ) : null}
             </div>
           </div>
         ))}
