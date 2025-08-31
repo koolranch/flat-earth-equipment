@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { track } from '@/lib/analytics/track'
 import QuizModal from '../QuizModal'
 import ResultsToast from './ResultsToast'
 
@@ -75,6 +76,15 @@ export default function DynamicQuiz({
         console.log('Quiz loaded successfully:', quiz)
         setQuestions(quiz)
         setError(null)
+        
+        // Track quiz load analytics
+        track('quiz_loaded', {
+          slug: slug,
+          locale: locale,
+          total_questions: quiz.items?.length || quiz.length || 0,
+          fallback_used: quiz._meta?.fallback_used || false,
+          enrollment_id: enrollmentId
+        });
       } catch (err) {
         console.error('Failed to load quiz - full error:', err)
         setError(`Failed to load quiz: ${err instanceof Error ? err.message : 'Unknown error'}`)
@@ -92,6 +102,18 @@ export default function DynamicQuiz({
     setScorePct(pct)
     setFinished(true)
     console.log(`Quiz completed: ${score}/${total} = ${pct}% (${passed ? 'PASSED' : 'FAILED'})`)
+    
+    // Track quiz completion with enhanced analytics
+    track(passed ? 'quiz_passed' : 'quiz_failed', {
+      slug: slug,
+      score_pct: Math.round(pct),
+      score: score,
+      total_questions: total,
+      incorrect_count: total - score,
+      locale: locale,
+      enrollment_id: enrollmentId
+    });
+    
     if (passed && onComplete) {
       onComplete()
     }

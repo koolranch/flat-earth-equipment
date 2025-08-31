@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { track } from '@/lib/analytics/track'
 import QuizModal from './QuizModal'
 
 type QuizQuestion = { q: string; choices: string[]; answer: number }
@@ -78,11 +79,23 @@ export function Quiz({
     loadQuiz()
   }, [moduleId, locale])
 
-  const handleQuizPass = () => {
+  const handleQuizPass = (score: number, total: number, passed: boolean) => {
     setShowQuiz(false)
-    // You can add completion logic here
-    console.log('Quiz passed!')
-    if (onComplete) {
+    const pct = total ? (score / total) * 100 : 0
+    
+    // Track quiz completion with enhanced analytics
+    track(passed ? 'quiz_passed' : 'quiz_failed', {
+      slug: `module-${moduleId}`,
+      score_pct: Math.round(pct),
+      score: score,
+      total_questions: total,
+      incorrect_count: total - score,
+      locale: locale,
+      enrollment_id: enrollmentId
+    });
+    
+    console.log(`Quiz completed: ${score}/${total} = ${pct}% (${passed ? 'PASSED' : 'FAILED'})`)
+    if (passed && onComplete) {
       onComplete()
     }
   }
