@@ -3,10 +3,62 @@ import React from 'react';
 export const dynamic = 'force-dynamic';
 
 async function getVerify(code: string) {
-  const base = process.env.NEXT_PUBLIC_BASE_URL?.replace(/\/$/, '') || '';
-  const res = await fetch(`${base}/api/verify?code=${encodeURIComponent(code)}`, { cache: 'no-store' });
-  if (!res.ok) return null;
-  return res.json();
+  // Use the verification API directly via import instead of fetch
+  try {
+    const { supabaseService } = await import('@/lib/supabase/service.server');
+    const { verifyPayload } = await import('@/lib/certs/sign');
+    
+    const sb = supabaseService();
+    const { data: cert } = await sb
+      .from('certificates')
+      .select('enrollment_id, pdf_url, issued_at, verification_code, signature, signed_payload')
+      .eq('verification_code', code)
+      .maybeSingle();
+      
+    if (!cert) return { ok: false, error: 'not_found' };
+
+    // Validate signature
+    const payload = cert.signed_payload as any;
+    const json = JSON.stringify(payload);
+    const valid = verifyPayload(json, cert.signature);
+
+    // Check expiration
+    const now = Date.now();
+    const expired = payload?.expires_at ? (now > Date.parse(payload.expires_at)) : false;
+
+    // Check practical status
+    let practical_verified = !!payload?.practical_verified;
+    try {
+      const { data: ev } = await sb
+        .from('employer_evaluations')
+        .select('practical_pass')
+        .eq('enrollment_id', cert.enrollment_id)
+        .order('evaluation_date', { ascending: false })
+        .limit(1);
+      if (ev && ev[0]?.practical_pass) practical_verified = true;
+    } catch {
+      // Practical evaluation check is optional
+    }
+
+    return {
+      ok: true,
+      valid,
+      expired,
+      details: {
+        enrollment_id: cert.enrollment_id,
+        pdf_url: cert.pdf_url,
+        issued_at: cert.issued_at,
+        name: payload?.name,
+        email: payload?.email,
+        course_title: payload?.course_title,
+        expires_at: payload?.expires_at,
+        practical_verified
+      }
+    };
+  } catch (error) {
+    console.error('Verification error:', error);
+    return null;
+  }
 }
 
 export default async function Page({ params }: { params: { code: string } }) {
