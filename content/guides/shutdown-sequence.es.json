@@ -1,9 +1,17 @@
-{
-  "title": "Secuencia de apagado — Guías rápidas",
+{ 
+  "title": "Apagado — Guías rápidas", 
   "cards": [
-    { "heading": "Neutral primero", "body": "Cambia a neutral antes que nada." },
-    { "heading": "Horquillas abajo", "body": "Baja las horquillas completamente al suelo." },
-    { "heading": "Válvula LPG cerrada", "body": "Cierra la válvula del tanque en montacargas LPG." },
-    { "heading": "Conecta eléctrico", "body": "Conecta el cargador después de apagar." }
-  ]
+    { 
+      "heading": "Horquillas abajo, freno puesto", 
+      "body": "Deja las horquillas en el suelo y activa el freno." 
+    },
+    { 
+      "heading": "Energía segura", 
+      "body": "Apaga llave. Conecta cargador (eléctrico) / corta combustible (ICE)." 
+    },
+    { 
+      "heading": "Estabilidad al estacionar", 
+      "body": "Ruedas rectas. Calzo en pendiente." 
+    }
+  ] 
 }

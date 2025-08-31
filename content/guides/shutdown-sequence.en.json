@@ -1,9 +1,17 @@
-{
-  "title": "Shutdown Sequence — Quick Guides",
+{ 
+  "title": "Shutdown — Quick Guides", 
   "cards": [
-    { "heading": "Neutral first", "body": "Shift to neutral before anything else." },
-    { "heading": "Forks down", "body": "Lower forks completely to floor." },
-    { "heading": "LPG valve closed", "body": "Close tank valve on LPG trucks." },
-    { "heading": "Plug in electric", "body": "Connect charger after key off." }
-  ]
+    { 
+      "heading": "Forks down, brake on", 
+      "body": "Always leave forks on the floor and set the brake." 
+    },
+    { 
+      "heading": "Power safe", 
+      "body": "Key off. Plug charger for electric; fuel off for ICE." 
+    },
+    { 
+      "heading": "Stability parked", 
+      "body": "Wheels straight. Chock on a grade." 
+    }
+  ] 
 }
