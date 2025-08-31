@@ -1,0 +1,307 @@
+{
+  "title": "Forklift Operator — Final Exam",
+  "pass_pct": 80,
+  "num_items": 20,
+  "bank": [
+    { 
+      "id": "b1", 
+      "type": "mcq", 
+      "prompt": "Stability triangle points are:", 
+      "options": [
+        { "id": "a", "label": "Seat, mast, load" },
+        { "id": "b", "label": "Front wheels and rear axle pivot" },
+        { "id": "c", "label": "Forks, load, ground" }
+      ], 
+      "answer": "b", 
+      "explain": "Counterbalance basics." 
+    },
+    { 
+      "id": "b2", 
+      "type": "mcq", 
+      "prompt": "Travel position:", 
+      "options": [
+        { "id": "a", "label": "Forks high, tilt forward" },
+        { "id": "b", "label": "Forks low, slight back tilt" },
+        { "id": "c", "label": "Forks scraping floor" }
+      ], 
+      "answer": "b", 
+      "explain": "Low + slight back tilt." 
+    },
+    { 
+      "id": "b3", 
+      "type": "mcq", 
+      "prompt": "Pedestrian blind corner:", 
+      "options": [
+        { "id": "a", "label": "Accelerate through" },
+        { "id": "b", "label": "Slow, sound horn, peek" },
+        { "id": "c", "label": "Turn wide at speed" }
+      ], 
+      "answer": "b", 
+      "explain": "Slow and horn." 
+    },
+    { 
+      "id": "b4", 
+      "type": "mcq", 
+      "prompt": "PPE sequence starts with:", 
+      "options": [
+        { "id": "a", "label": "Hard hat" },
+        { "id": "b", "label": "Safety vest" },
+        { "id": "c", "label": "Steel-toed boots" }
+      ], 
+      "answer": "b", 
+      "explain": "Vest first for visibility." 
+    },
+    { 
+      "id": "b5", 
+      "type": "mcq", 
+      "prompt": "8-point inspection includes:", 
+      "options": [
+        { "id": "a", "label": "Tires, brakes, steering" },
+        { "id": "b", "label": "All safety systems" },
+        { "id": "c", "label": "Just the engine" }
+      ], 
+      "answer": "b", 
+      "explain": "Complete safety check." 
+    },
+    { 
+      "id": "b6", 
+      "type": "mcq", 
+      "prompt": "Load capacity decreases when:", 
+      "options": [
+        { "id": "a", "label": "Forks are raised higher" },
+        { "id": "b", "label": "Load center moves forward" },
+        { "id": "c", "label": "Both A and B" }
+      ], 
+      "answer": "c", 
+      "explain": "Height and distance both reduce capacity." 
+    },
+    { 
+      "id": "b7", 
+      "type": "mcq", 
+      "prompt": "Spill response:", 
+      "options": [
+        { "id": "a", "label": "Drive around carefully" },
+        { "id": "b", "label": "Stop, secure area, report" },
+        { "id": "c", "label": "Clean quickly yourself" }
+      ], 
+      "answer": "b", 
+      "explain": "Stop and secure first." 
+    },
+    { 
+      "id": "b8", 
+      "type": "mcq", 
+      "prompt": "Shutdown sequence ends with:", 
+      "options": [
+        { "id": "a", "label": "Key off only" },
+        { "id": "b", "label": "Forks up, key off" },
+        { "id": "c", "label": "Forks down, brake, key off" }
+      ], 
+      "answer": "c", 
+      "explain": "Complete shutdown procedure." 
+    },
+    { 
+      "id": "b9", 
+      "type": "mcq", 
+      "prompt": "When turning with load:", 
+      "options": [
+        { "id": "a", "label": "Turn quickly to minimize time" },
+        { "id": "b", "label": "Make wide, slow turns" },
+        { "id": "c", "label": "Lean into the turn" }
+      ], 
+      "answer": "b", 
+      "explain": "Wide turns prevent load shift." 
+    },
+    { 
+      "id": "b10", 
+      "type": "mcq", 
+      "prompt": "Overhead obstacles require:", 
+      "options": [
+        { "id": "a", "label": "Lower load, watch mast height" },
+        { "id": "b", "label": "Raise load to clear" },
+        { "id": "c", "label": "Drive faster" }
+      ], 
+      "answer": "a", 
+      "explain": "Lower load and check clearance." 
+    },
+    { 
+      "id": "b11", 
+      "type": "mcq", 
+      "prompt": "Unstable loads should be:", 
+      "options": [
+        { "id": "a", "label": "Moved carefully at low speed" },
+        { "id": "b", "label": "Secured before moving" },
+        { "id": "c", "label": "Tilted back for stability" }
+      ], 
+      "answer": "b", 
+      "explain": "Never move unstable loads." 
+    },
+    { 
+      "id": "b12", 
+      "type": "mcq", 
+      "prompt": "Electric forklift charging:", 
+      "options": [
+        { "id": "a", "label": "Plug in after each use" },
+        { "id": "b", "label": "Only when battery is dead" },
+        { "id": "c", "label": "Unplug to cool down" }
+      ], 
+      "answer": "a", 
+      "explain": "Charge after use per policy." 
+    },
+    { 
+      "id": "b13", 
+      "type": "mcq", 
+      "prompt": "LPG shutdown requires:", 
+      "options": [
+        { "id": "a", "label": "Leave valve open" },
+        { "id": "b", "label": "Close tank valve" },
+        { "id": "c", "label": "Remove tank" }
+      ], 
+      "answer": "b", 
+      "explain": "Close valve for safety." 
+    },
+    { 
+      "id": "b14", 
+      "type": "mcq", 
+      "prompt": "Grade parking requires:", 
+      "options": [
+        { "id": "a", "label": "Wheel chocks" },
+        { "id": "b", "label": "Parking uphill only" },
+        { "id": "c", "label": "Extra brake pressure" }
+      ], 
+      "answer": "a", 
+      "explain": "Chocks prevent rolling." 
+    },
+    { 
+      "id": "b15", 
+      "type": "mcq", 
+      "prompt": "Data plate capacity:", 
+      "options": [
+        { "id": "a", "label": "Never changes" },
+        { "id": "b", "label": "Changes with height and attachments" },
+        { "id": "c", "label": "Only for new operators" }
+      ], 
+      "answer": "b", 
+      "explain": "Height and attachments affect capacity." 
+    },
+    { 
+      "id": "b16", 
+      "type": "mcq", 
+      "prompt": "Hydraulic leak response:", 
+      "options": [
+        { "id": "a", "label": "Continue operating" },
+        { "id": "b", "label": "Tag out and report" },
+        { "id": "c", "label": "Add more fluid" }
+      ], 
+      "answer": "b", 
+      "explain": "Tag out for safety." 
+    },
+    { 
+      "id": "b17", 
+      "type": "mcq", 
+      "prompt": "Pre-operation inspection:", 
+      "options": [
+        { "id": "a", "label": "Optional if forklift looks good" },
+        { "id": "b", "label": "Required every shift" },
+        { "id": "c", "label": "Only for new equipment" }
+      ], 
+      "answer": "b", 
+      "explain": "Daily inspection required." 
+    },
+    { 
+      "id": "b18", 
+      "type": "mcq", 
+      "prompt": "Blind spot safety:", 
+      "options": [
+        { "id": "a", "label": "Use mirrors only" },
+        { "id": "b", "label": "Sound horn and proceed slowly" },
+        { "id": "c", "label": "Assume clear" }
+      ], 
+      "answer": "b", 
+      "explain": "Horn and slow approach." 
+    },
+    { 
+      "id": "b19", 
+      "type": "mcq", 
+      "prompt": "Load center forward means:", 
+      "options": [
+        { "id": "a", "label": "Higher capacity" },
+        { "id": "b", "label": "Lower capacity" },
+        { "id": "c", "label": "No change" }
+      ], 
+      "answer": "b", 
+      "explain": "Forward load center reduces capacity." 
+    },
+    { 
+      "id": "b20", 
+      "type": "mcq", 
+      "prompt": "Parking brake must be:", 
+      "options": [
+        { "id": "a", "label": "Set before leaving forklift" },
+        { "id": "b", "label": "Optional on level ground" },
+        { "id": "c", "label": "Only for overnight parking" }
+      ], 
+      "answer": "a", 
+      "explain": "Always set brake when parking." 
+    },
+    { 
+      "id": "b21", 
+      "type": "mcq", 
+      "prompt": "Hazard identification priority:", 
+      "options": [
+        { "id": "a", "label": "Speed over safety" },
+        { "id": "b", "label": "Safety over speed" },
+        { "id": "c", "label": "Equal importance" }
+      ], 
+      "answer": "b", 
+      "explain": "Safety always comes first." 
+    },
+    { 
+      "id": "b22", 
+      "type": "mcq", 
+      "prompt": "Mast tilt affects:", 
+      "options": [
+        { "id": "a", "label": "Stability only" },
+        { "id": "b", "label": "Load security only" },
+        { "id": "c", "label": "Both stability and load security" }
+      ], 
+      "answer": "c", 
+      "explain": "Tilt affects both factors." 
+    },
+    { 
+      "id": "b23", 
+      "type": "mcq", 
+      "prompt": "Equipment inspection finds damage:", 
+      "options": [
+        { "id": "a", "label": "Continue if minor" },
+        { "id": "b", "label": "Tag out immediately" },
+        { "id": "c", "label": "Report at end of shift" }
+      ], 
+      "answer": "b", 
+      "explain": "Tag out damaged equipment immediately." 
+    },
+    { 
+      "id": "b24", 
+      "type": "mcq", 
+      "prompt": "Pedestrian right-of-way:", 
+      "options": [
+        { "id": "a", "label": "Forklifts have priority" },
+        { "id": "b", "label": "Pedestrians always have right-of-way" },
+        { "id": "c", "label": "Depends on the situation" }
+      ], 
+      "answer": "b", 
+      "explain": "Always yield to pedestrians." 
+    },
+    { 
+      "id": "b25", 
+      "type": "mcq", 
+      "prompt": "Load exceeds capacity plate:", 
+      "options": [
+        { "id": "a", "label": "Proceed if experienced" },
+        { "id": "b", "label": "Do not lift" },
+        { "id": "c", "label": "Lift slowly" }
+      ], 
+      "answer": "b", 
+      "explain": "Never exceed rated capacity." 
+    }
+  ]
+}

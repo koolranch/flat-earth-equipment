@@ -1,0 +1,307 @@
+{ 
+  "title": "Operador de montacargas — Examen final", 
+  "pass_pct": 80, 
+  "num_items": 20, 
+  "bank": [
+    { 
+      "id": "b1", 
+      "type": "mcq", 
+      "prompt": "El triángulo de estabilidad se forma por:", 
+      "options": [
+        { "id": "a", "label": "Asiento, mástil, carga" },
+        { "id": "b", "label": "Ruedas delanteras y pivote del eje trasero" },
+        { "id": "c", "label": "Horquillas, carga, suelo" }
+      ], 
+      "answer": "b", 
+      "explain": "Básico de contrapesada." 
+    },
+    { 
+      "id": "b2", 
+      "type": "mcq", 
+      "prompt": "Posición de viaje:", 
+      "options": [
+        { "id": "a", "label": "Horquillas altas, inclinadas hacia adelante" },
+        { "id": "b", "label": "Horquillas bajas, ligera inclinación hacia atrás" },
+        { "id": "c", "label": "Horquillas raspando el suelo" }
+      ], 
+      "answer": "b", 
+      "explain": "Baja + ligera inclinación hacia atrás." 
+    },
+    { 
+      "id": "b3", 
+      "type": "mcq", 
+      "prompt": "Esquina ciega con peatones:", 
+      "options": [
+        { "id": "a", "label": "Acelerar para pasar" },
+        { "id": "b", "label": "Reducir velocidad, sonar bocina, asomarse" },
+        { "id": "c", "label": "Girar amplio a velocidad" }
+      ], 
+      "answer": "b", 
+      "explain": "Lento y bocina." 
+    },
+    { 
+      "id": "b4", 
+      "type": "mcq", 
+      "prompt": "Secuencia de EPP comienza con:", 
+      "options": [
+        { "id": "a", "label": "Casco" },
+        { "id": "b", "label": "Chaleco de seguridad" },
+        { "id": "c", "label": "Botas de acero" }
+      ], 
+      "answer": "b", 
+      "explain": "Chaleco primero para visibilidad." 
+    },
+    { 
+      "id": "b5", 
+      "type": "mcq", 
+      "prompt": "Inspección de 8 puntos incluye:", 
+      "options": [
+        { "id": "a", "label": "Neumáticos, frenos, dirección" },
+        { "id": "b", "label": "Todos los sistemas de seguridad" },
+        { "id": "c", "label": "Solo el motor" }
+      ], 
+      "answer": "b", 
+      "explain": "Verificación completa de seguridad." 
+    },
+    { 
+      "id": "b6", 
+      "type": "mcq", 
+      "prompt": "La capacidad de carga disminuye cuando:", 
+      "options": [
+        { "id": "a", "label": "Las horquillas se elevan más" },
+        { "id": "b", "label": "El centro de carga se mueve hacia adelante" },
+        { "id": "c", "label": "Ambos A y B" }
+      ], 
+      "answer": "c", 
+      "explain": "Altura y distancia reducen capacidad." 
+    },
+    { 
+      "id": "b7", 
+      "type": "mcq", 
+      "prompt": "Respuesta a derrames:", 
+      "options": [
+        { "id": "a", "label": "Conducir alrededor con cuidado" },
+        { "id": "b", "label": "Parar, asegurar área, reportar" },
+        { "id": "c", "label": "Limpiar rápidamente tú mismo" }
+      ], 
+      "answer": "b", 
+      "explain": "Parar y asegurar primero." 
+    },
+    { 
+      "id": "b8", 
+      "type": "mcq", 
+      "prompt": "Secuencia de apagado termina con:", 
+      "options": [
+        { "id": "a", "label": "Solo quitar llave" },
+        { "id": "b", "label": "Horquillas arriba, quitar llave" },
+        { "id": "c", "label": "Horquillas abajo, freno, quitar llave" }
+      ], 
+      "answer": "c", 
+      "explain": "Procedimiento completo de apagado." 
+    },
+    { 
+      "id": "b9", 
+      "type": "mcq", 
+      "prompt": "Al girar con carga:", 
+      "options": [
+        { "id": "a", "label": "Girar rápido para minimizar tiempo" },
+        { "id": "b", "label": "Hacer giros amplios y lentos" },
+        { "id": "c", "label": "Inclinarse hacia el giro" }
+      ], 
+      "answer": "b", 
+      "explain": "Giros amplios previenen desplazamiento de carga." 
+    },
+    { 
+      "id": "b10", 
+      "type": "mcq", 
+      "prompt": "Obstáculos superiores requieren:", 
+      "options": [
+        { "id": "a", "label": "Bajar carga, vigilar altura del mástil" },
+        { "id": "b", "label": "Subir carga para librar" },
+        { "id": "c", "label": "Conducir más rápido" }
+      ], 
+      "answer": "a", 
+      "explain": "Bajar carga y verificar espacio libre." 
+    },
+    { 
+      "id": "b11", 
+      "type": "mcq", 
+      "prompt": "Las cargas inestables deben ser:", 
+      "options": [
+        { "id": "a", "label": "Movidas con cuidado a baja velocidad" },
+        { "id": "b", "label": "Aseguradas antes de mover" },
+        { "id": "c", "label": "Inclinadas hacia atrás para estabilidad" }
+      ], 
+      "answer": "b", 
+      "explain": "Nunca muevas cargas inestables." 
+    },
+    { 
+      "id": "b12", 
+      "type": "mcq", 
+      "prompt": "Carga de montacargas eléctrico:", 
+      "options": [
+        { "id": "a", "label": "Conectar después de cada uso" },
+        { "id": "b", "label": "Solo cuando la batería esté agotada" },
+        { "id": "c", "label": "Desconectar para enfriar" }
+      ], 
+      "answer": "a", 
+      "explain": "Cargar después del uso según política." 
+    },
+    { 
+      "id": "b13", 
+      "type": "mcq", 
+      "prompt": "Apagado de GLP requiere:", 
+      "options": [
+        { "id": "a", "label": "Dejar válvula abierta" },
+        { "id": "b", "label": "Cerrar válvula del tanque" },
+        { "id": "c", "label": "Quitar tanque" }
+      ], 
+      "answer": "b", 
+      "explain": "Cerrar válvula por seguridad." 
+    },
+    { 
+      "id": "b14", 
+      "type": "mcq", 
+      "prompt": "Estacionamiento en pendiente requiere:", 
+      "options": [
+        { "id": "a", "label": "Calzos para ruedas" },
+        { "id": "b", "label": "Estacionar solo cuesta arriba" },
+        { "id": "c", "label": "Presión extra del freno" }
+      ], 
+      "answer": "a", 
+      "explain": "Calzos previenen rodamiento." 
+    },
+    { 
+      "id": "b15", 
+      "type": "mcq", 
+      "prompt": "Capacidad de la placa de datos:", 
+      "options": [
+        { "id": "a", "label": "Nunca cambia" },
+        { "id": "b", "label": "Cambia con altura y accesorios" },
+        { "id": "c", "label": "Solo para operadores nuevos" }
+      ], 
+      "answer": "b", 
+      "explain": "Altura y accesorios afectan capacidad." 
+    },
+    { 
+      "id": "b16", 
+      "type": "mcq", 
+      "prompt": "Respuesta a fuga hidráulica:", 
+      "options": [
+        { "id": "a", "label": "Continuar operando" },
+        { "id": "b", "label": "Etiquetar y reportar" },
+        { "id": "c", "label": "Agregar más fluido" }
+      ], 
+      "answer": "b", 
+      "explain": "Etiquetar por seguridad." 
+    },
+    { 
+      "id": "b17", 
+      "type": "mcq", 
+      "prompt": "Inspección pre-operacional:", 
+      "options": [
+        { "id": "a", "label": "Opcional si el montacargas se ve bien" },
+        { "id": "b", "label": "Requerida cada turno" },
+        { "id": "c", "label": "Solo para equipo nuevo" }
+      ], 
+      "answer": "b", 
+      "explain": "Inspección diaria requerida." 
+    },
+    { 
+      "id": "b18", 
+      "type": "mcq", 
+      "prompt": "Seguridad en punto ciego:", 
+      "options": [
+        { "id": "a", "label": "Usar solo espejos" },
+        { "id": "b", "label": "Sonar bocina y proceder lentamente" },
+        { "id": "c", "label": "Asumir que está despejado" }
+      ], 
+      "answer": "b", 
+      "explain": "Bocina y aproximación lenta." 
+    },
+    { 
+      "id": "b19", 
+      "type": "mcq", 
+      "prompt": "Centro de carga hacia adelante significa:", 
+      "options": [
+        { "id": "a", "label": "Mayor capacidad" },
+        { "id": "b", "label": "Menor capacidad" },
+        { "id": "c", "label": "Sin cambio" }
+      ], 
+      "answer": "b", 
+      "explain": "Centro de carga hacia adelante reduce capacidad." 
+    },
+    { 
+      "id": "b20", 
+      "type": "mcq", 
+      "prompt": "El freno de estacionamiento debe ser:", 
+      "options": [
+        { "id": "a", "label": "Activado antes de dejar el montacargas" },
+        { "id": "b", "label": "Opcional en terreno plano" },
+        { "id": "c", "label": "Solo para estacionamiento nocturno" }
+      ], 
+      "answer": "a", 
+      "explain": "Siempre activar freno al estacionar." 
+    },
+    { 
+      "id": "b21", 
+      "type": "mcq", 
+      "prompt": "Prioridad en identificación de peligros:", 
+      "options": [
+        { "id": "a", "label": "Velocidad sobre seguridad" },
+        { "id": "b", "label": "Seguridad sobre velocidad" },
+        { "id": "c", "label": "Igual importancia" }
+      ], 
+      "answer": "b", 
+      "explain": "La seguridad siempre es primero." 
+    },
+    { 
+      "id": "b22", 
+      "type": "mcq", 
+      "prompt": "La inclinación del mástil afecta:", 
+      "options": [
+        { "id": "a", "label": "Solo estabilidad" },
+        { "id": "b", "label": "Solo seguridad de carga" },
+        { "id": "c", "label": "Tanto estabilidad como seguridad de carga" }
+      ], 
+      "answer": "c", 
+      "explain": "La inclinación afecta ambos factores." 
+    },
+    { 
+      "id": "b23", 
+      "type": "mcq", 
+      "prompt": "Inspección de equipo encuentra daño:", 
+      "options": [
+        { "id": "a", "label": "Continuar si es menor" },
+        { "id": "b", "label": "Etiquetar inmediatamente" },
+        { "id": "c", "label": "Reportar al final del turno" }
+      ], 
+      "answer": "b", 
+      "explain": "Etiquetar equipo dañado inmediatamente." 
+    },
+    { 
+      "id": "b24", 
+      "type": "mcq", 
+      "prompt": "Derecho de paso de peatones:", 
+      "options": [
+        { "id": "a", "label": "Montacargas tienen prioridad" },
+        { "id": "b", "label": "Peatones siempre tienen derecho de paso" },
+        { "id": "c", "label": "Depende de la situación" }
+      ], 
+      "answer": "b", 
+      "explain": "Siempre ceder a peatones." 
+    },
+    { 
+      "id": "b25", 
+      "type": "mcq", 
+      "prompt": "Carga excede placa de capacidad:", 
+      "options": [
+        { "id": "a", "label": "Proceder si tienes experiencia" },
+        { "id": "b", "label": "No levantar" },
+        { "id": "c", "label": "Levantar lentamente" }
+      ], 
+      "answer": "b", 
+      "explain": "Nunca exceder capacidad nominal." 
+    }
+  ] 
+}
