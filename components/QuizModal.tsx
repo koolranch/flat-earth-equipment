@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { analytics } from '@/lib/analytics'
+import { track } from '@/lib/analytics/track'
 import { ReviewIncorrect } from './quiz/ReviewIncorrect'
 
 type Q = { q: string; choices: string[]; answer: number; id?: string }
@@ -87,6 +88,14 @@ export default function QuizModal({
         setOrderedQuestions(ordered);
         setIsInitializing(false);
         
+        // Track quiz start analytics
+        track('quiz_started', {
+          slug: moduleId ? `module-${moduleId}` : 'unknown',
+          total_questions: ordered.length,
+          enrollment_id: enrollmentId,
+          attempt_id: newAttemptId
+        });
+        
         console.log('Quiz attempt initialized:', { attemptId: newAttemptId, order, totalQuestions: ordered.length });
         
       } catch (error) {
@@ -126,7 +135,21 @@ export default function QuizModal({
       setIncorrectAnswers(prev => [...prev, incorrectAnswer]);
     }
     
-    // Track quiz item answer
+    // Track quiz item answer with enhanced analytics
+    track('quiz_item_answered', {
+      slug: moduleId ? `module-${moduleId}` : 'unknown',
+      question_id: currentQuestion.id || `q${idx + 1}`,
+      option_id: choice.toString(),
+      question_index: idx + 1,
+      total_questions: orderedQuestions.length,
+      selected_choice: choice,
+      correct_answer: currentQuestion.answer,
+      is_correct: isCorrect,
+      question_text: currentQuestion.q,
+      enrollment_id: enrollmentId
+    });
+    
+    // Legacy analytics for backward compatibility
     analytics.track("quiz_item_answered", {
       questionIndex: idx + 1,
       totalQuestions: orderedQuestions.length,
@@ -237,6 +260,15 @@ export default function QuizModal({
   }
 
   function handleRetake() {
+    // Track quiz retry analytics
+    track('quiz_retake_full', {
+      slug: moduleId ? `module-${moduleId}` : 'unknown',
+      previous_score: lastAttempt?.score || 0,
+      total_questions: orderedQuestions.length,
+      enrollment_id: enrollmentId,
+      attempt_id: attemptId
+    });
+    
     setIdx(0);
     setScore(0);
     setShowResult(false);
@@ -257,6 +289,16 @@ export default function QuizModal({
   
   async function handleRetryIncorrect() {
     if (!lastAttempt?.incorrectIds?.length) return;
+    
+    // Track incorrect retry analytics
+    track('quiz_retry_incorrect', {
+      slug: moduleId ? `module-${moduleId}` : 'unknown',
+      previous_score: lastAttempt.score,
+      incorrect_count: lastAttempt.incorrectIds.length,
+      total_questions: orderedQuestions.length,
+      enrollment_id: enrollmentId,
+      attempt_id: attemptId
+    });
     
     try {
       setIsInitializing(true);
@@ -354,6 +396,18 @@ export default function QuizModal({
                     setIsSubmitting(true)
                     const finalPct = (lastAttempt.score / orderedQuestions.length) * 100
                     const passed = finalPct >= 80
+                    
+                    // Track quiz completion with enhanced analytics
+                    track(passed ? 'quiz_passed' : 'quiz_failed', {
+                      slug: moduleId ? `module-${moduleId}` : 'unknown',
+                      score_pct: Math.round(finalPct),
+                      score: lastAttempt.score,
+                      total_questions: orderedQuestions.length,
+                      incorrect_count: lastAttempt.incorrect.length,
+                      enrollment_id: enrollmentId,
+                      attempt_id: attemptId
+                    });
+                    
                     onPass(lastAttempt.score, orderedQuestions.length, passed)
                   }
                 }}
