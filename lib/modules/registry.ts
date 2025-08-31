@@ -7,7 +7,7 @@ export type ModuleDef = {
   order: number;
   slug: string;
   title: string;
-  demoKey: 'MiniPPE' | 'HotspotsEight' | 'StabilityLite' | 'HazardHunt';
+  demoKey: 'MiniPPE' | 'HotspotsEight' | 'StabilityLite' | 'HazardHunt' | 'ShutdownChecklist';
   guidesSlug: string; // for /api/guides/[slug]
   quizSlug: string;   // for /api/quiz/[slug]
   estMin: number;
@@ -74,6 +74,21 @@ export const MODULES: ModuleDef[] = [
       'Recognize common workplace hazards',
       'Understand proper hazard response procedures',
       'Practice situational awareness skills'
+    ]
+  },
+  {
+    order: 5,
+    slug: 'shutdown-sequence',
+    title: 'Shutdown Sequence',
+    demoKey: 'ShutdownChecklist',
+    guidesSlug: 'shutdown-sequence',
+    quizSlug: 'shutdown-sequence',
+    estMin: 6,
+    description: 'Learn proper forklift shutdown and securing procedures',
+    objectives: [
+      'Complete shutdown steps in correct sequence',
+      'Apply fuel-specific shutdown procedures',
+      'Secure forklift safely for next operator'
     ]
   }
 ];

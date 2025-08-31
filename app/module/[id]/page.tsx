@@ -24,7 +24,7 @@ const MODULE_ROUTES: Record<number, string> = {
   2: '/module/inspection/demo/hotspots', // Module 1: Pre-Operation Inspection - 8-point inspection
   3: '/module/stability/sim', // Module 2: 8-Point Inspection - stability simulation  
   4: '/module/load-capacity', // Module 3: Balance & Load Handling - load capacity calculator
-  5: '/module/pre-op/controls', // Module 4: Hazard Hunt - controls demo (placeholder)
+  5: '/module/shutdown-sequence', // Module 5: Shutdown Sequence - shutdown checklist demo
 };
 
 // Map module IDs to slugs for QuizGate
