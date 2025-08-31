@@ -1,0 +1,66 @@
+{
+  "title": "8-Point — Quick Check",
+  "pass_pct": 80,
+  "items": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "prompt": "Pick the pair from the 8-point list.",
+      "options": [
+        { "id": "a", "label": "Chains & horn" },
+        { "id": "b", "label": "Seat & mirrors" },
+        { "id": "c", "label": "Windshield & wipers" }
+      ],
+      "answer": "a",
+      "explain": "Chains and horn are part of the set."
+    },
+    {
+      "id": "q2",
+      "type": "mcq",
+      "prompt": "What should you check on the forks during inspection?",
+      "options": [
+        { "id": "a", "label": "Paint condition only" },
+        { "id": "b", "label": "Cracks, wear, and proper alignment" },
+        { "id": "c", "label": "Weight capacity stickers" }
+      ],
+      "answer": "b",
+      "explain": "Structural integrity is critical for safe operation."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "prompt": "Hydraulic fluid levels should be checked:",
+      "options": [
+        { "id": "a", "label": "Only when the system fails" },
+        { "id": "b", "label": "During daily pre-operation inspection" },
+        { "id": "c", "label": "Once per week" }
+      ],
+      "answer": "b",
+      "explain": "Daily checks prevent system failures and unsafe conditions."
+    },
+    {
+      "id": "q4",
+      "type": "mcq",
+      "prompt": "If you find a defect during inspection:",
+      "options": [
+        { "id": "a", "label": "Note it and continue operating carefully" },
+        { "id": "b", "label": "Tag out the equipment and report immediately" },
+        { "id": "c", "label": "Fix it yourself if it's minor" }
+      ],
+      "answer": "b",
+      "explain": "Any defect requires immediate removal from service and reporting."
+    },
+    {
+      "id": "q5",
+      "type": "mcq",
+      "prompt": "Tire inspection includes checking for:",
+      "options": [
+        { "id": "a", "label": "Proper inflation and visible wear" },
+        { "id": "b", "label": "Cuts, cracks, and foreign objects" },
+        { "id": "c", "label": "Both A and B" }
+      ],
+      "answer": "c",
+      "explain": "Comprehensive tire inspection covers all safety aspects."
+    }
+  ]
+}

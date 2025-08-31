@@ -1,0 +1,66 @@
+{
+  "title": "Shutdown — Safe Parking",
+  "pass_pct": 80,
+  "items": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "prompt": "The correct shutdown sequence starts with:",
+      "options": [
+        { "id": "a", "label": "Turning off the engine immediately" },
+        { "id": "b", "label": "Parking in a safe, designated area" },
+        { "id": "c", "label": "Removing the key first" }
+      ],
+      "answer": "b",
+      "explain": "Always park in a safe, designated area before beginning shutdown."
+    },
+    {
+      "id": "q2",
+      "type": "mcq",
+      "prompt": "Forks should be positioned:",
+      "options": [
+        { "id": "a", "label": "Flat on the ground with slight forward tilt" },
+        { "id": "b", "label": "Raised slightly off the ground" },
+        { "id": "c", "label": "Tilted back for drainage" }
+      ],
+      "answer": "a",
+      "explain": "Forks flat on ground with slight forward tilt prevents unauthorized use."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "prompt": "The parking brake should be:",
+      "options": [
+        { "id": "a", "label": "Set before lowering forks" },
+        { "id": "b", "label": "Set after turning off engine" },
+        { "id": "c", "label": "Set immediately after stopping" }
+      ],
+      "answer": "c",
+      "explain": "Parking brake should be set immediately upon stopping."
+    },
+    {
+      "id": "q4",
+      "type": "mcq",
+      "prompt": "For electric forklifts, after shutdown you should:",
+      "options": [
+        { "id": "a", "label": "Leave connected to charger overnight" },
+        { "id": "b", "label": "Disconnect battery and store key separately" },
+        { "id": "c", "label": "Connect to charger if battery is low" }
+      ],
+      "answer": "c",
+      "explain": "Connect to charger when battery is low to maintain proper charge levels."
+    },
+    {
+      "id": "q5",
+      "type": "mcq",
+      "prompt": "The key should be:",
+      "options": [
+        { "id": "a", "label": "Left in the ignition for the next operator" },
+        { "id": "b", "label": "Removed and secured or returned to supervisor" },
+        { "id": "c", "label": "Hidden somewhere on the forklift" }
+      ],
+      "answer": "b",
+      "explain": "Keys must be secured to prevent unauthorized use."
+    }
+  ]
+}
