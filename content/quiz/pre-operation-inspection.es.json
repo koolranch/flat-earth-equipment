@@ -1,0 +1,66 @@
+{
+  "title": "Pre-op — Chequeo rápido",
+  "pass_pct": 80,
+  "items": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "prompt": "¿Qué va primero antes de mover la carretilla?",
+      "options": [
+        { "id": "a", "label": "Bajar horquillas y poner freno" },
+        { "id": "b", "label": "EPP puesto y revisión rápida" },
+        { "id": "c", "label": "Soplar la bocina repetidamente" }
+      ],
+      "answer": "b",
+      "explain": "EPP primero y chequeos antes de mover."
+    },
+    {
+      "id": "q2",
+      "type": "mcq",
+      "prompt": "¿Cuándo están las horquillas en posición segura de viaje?",
+      "options": [
+        { "id": "a", "label": "Elevadas a la altura del pecho" },
+        { "id": "b", "label": "Bajas con ligera inclinación hacia atrás" },
+        { "id": "c", "label": "Apoyadas en el suelo mientras viaja" }
+      ],
+      "answer": "b",
+      "explain": "Bajas y ligeramente inclinadas mantiene estabilidad."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "prompt": "La placa de datos…",
+      "options": [
+        { "id": "a", "label": "Es opcional si conoces el montacargas" },
+        { "id": "b", "label": "Debe ser legible y coincidir con accesorios" },
+        { "id": "c", "label": "Solo necesaria para operadores nuevos" }
+      ],
+      "answer": "b",
+      "explain": "OSHA requiere placas de datos legibles y precisas."
+    },
+    {
+      "id": "q4",
+      "type": "mcq",
+      "prompt": "Antes de arrancar el motor, debes:",
+      "options": [
+        { "id": "a", "label": "Verificar que el freno de estacionamiento esté puesto" },
+        { "id": "b", "label": "Asegurar que el cinturón de seguridad esté abrochado" },
+        { "id": "c", "label": "Ambos A y B" }
+      ],
+      "answer": "c",
+      "explain": "Tanto el freno de estacionamiento como el cinturón son requeridos."
+    },
+    {
+      "id": "q5",
+      "type": "mcq",
+      "prompt": "La protección superior protege contra:",
+      "options": [
+        { "id": "a", "label": "Lluvia y clima" },
+        { "id": "b", "label": "Objetos que caen y desplazamiento de carga" },
+        { "id": "c", "label": "Problemas de visibilidad" }
+      ],
+      "answer": "b",
+      "explain": "La protección superior es crítica contra objetos que caen."
+    }
+  ]
+}

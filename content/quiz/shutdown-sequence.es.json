@@ -1,0 +1,66 @@
+{
+  "title": "Apagado — Estacionamiento seguro",
+  "pass_pct": 80,
+  "items": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "prompt": "La secuencia correcta de apagado comienza con:",
+      "options": [
+        { "id": "a", "label": "Apagar el motor inmediatamente" },
+        { "id": "b", "label": "Estacionar en un área segura y designada" },
+        { "id": "c", "label": "Quitar la llave primero" }
+      ],
+      "answer": "b",
+      "explain": "Siempre estacionar en un área segura y designada antes de comenzar el apagado."
+    },
+    {
+      "id": "q2",
+      "type": "mcq",
+      "prompt": "Las horquillas deben posicionarse:",
+      "options": [
+        { "id": "a", "label": "Planas en el suelo con ligera inclinación hacia adelante" },
+        { "id": "b", "label": "Ligeramente elevadas del suelo" },
+        { "id": "c", "label": "Inclinadas hacia atrás para drenaje" }
+      ],
+      "answer": "a",
+      "explain": "Horquillas planas en el suelo con ligera inclinación hacia adelante previene uso no autorizado."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "prompt": "El freno de estacionamiento debe:",
+      "options": [
+        { "id": "a", "label": "Ponerse antes de bajar las horquillas" },
+        { "id": "b", "label": "Ponerse después de apagar el motor" },
+        { "id": "c", "label": "Ponerse inmediatamente después de parar" }
+      ],
+      "answer": "c",
+      "explain": "El freno de estacionamiento debe ponerse inmediatamente al parar."
+    },
+    {
+      "id": "q4",
+      "type": "mcq",
+      "prompt": "Para montacargas eléctricos, después del apagado debes:",
+      "options": [
+        { "id": "a", "label": "Dejar conectado al cargador toda la noche" },
+        { "id": "b", "label": "Desconectar batería y guardar llave por separado" },
+        { "id": "c", "label": "Conectar al cargador si la batería está baja" }
+      ],
+      "answer": "c",
+      "explain": "Conectar al cargador cuando la batería esté baja para mantener niveles adecuados de carga."
+    },
+    {
+      "id": "q5",
+      "type": "mcq",
+      "prompt": "La llave debe:",
+      "options": [
+        { "id": "a", "label": "Dejarse en el encendido para el siguiente operador" },
+        { "id": "b", "label": "Quitarse y asegurarse o devolverse al supervisor" },
+        { "id": "c", "label": "Esconderse en algún lugar del montacargas" }
+      ],
+      "answer": "b",
+      "explain": "Las llaves deben asegurarse para prevenir uso no autorizado."
+    }
+  ]
+}

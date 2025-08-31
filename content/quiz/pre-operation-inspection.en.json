@@ -1,0 +1,66 @@
+{
+  "title": "Pre-Op — Quick Check",
+  "pass_pct": 80,
+  "items": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "prompt": "What's first before moving the forklift?",
+      "options": [
+        { "id": "a", "label": "Lower forks and set brake" },
+        { "id": "b", "label": "PPE on and quick look-around" },
+        { "id": "c", "label": "Sound horn repeatedly" }
+      ],
+      "answer": "b",
+      "explain": "PPE first, then pre-op checks before moving."
+    },
+    {
+      "id": "q2",
+      "type": "mcq",
+      "prompt": "When are forks considered at a safe travel position?",
+      "options": [
+        { "id": "a", "label": "Raised chest-high" },
+        { "id": "b", "label": "Low with slight tilt back" },
+        { "id": "c", "label": "Resting on the floor while traveling" }
+      ],
+      "answer": "b",
+      "explain": "Low and slightly back maintains stability."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "prompt": "Data plate…",
+      "options": [
+        { "id": "a", "label": "Is optional if you know the truck" },
+        { "id": "b", "label": "Must be readable and match attachments" },
+        { "id": "c", "label": "Only needed for new operators" }
+      ],
+      "answer": "b",
+      "explain": "OSHA requires readable and accurate data plates."
+    },
+    {
+      "id": "q4",
+      "type": "mcq",
+      "prompt": "Before starting the engine, you should:",
+      "options": [
+        { "id": "a", "label": "Check that the parking brake is set" },
+        { "id": "b", "label": "Ensure the seat belt is fastened" },
+        { "id": "c", "label": "Both A and B" }
+      ],
+      "answer": "c",
+      "explain": "Both parking brake and seat belt are required before starting."
+    },
+    {
+      "id": "q5",
+      "type": "mcq",
+      "prompt": "The overhead guard protects against:",
+      "options": [
+        { "id": "a", "label": "Rain and weather" },
+        { "id": "b", "label": "Falling objects and load shift" },
+        { "id": "c", "label": "Visibility issues" }
+      ],
+      "answer": "b",
+      "explain": "Overhead guard is critical protection against falling objects."
+    }
+  ]
+}

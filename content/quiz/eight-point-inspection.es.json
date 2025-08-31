@@ -1,0 +1,66 @@
+{
+  "title": "8 puntos — Chequeo rápido",
+  "pass_pct": 80,
+  "items": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "prompt": "Elige una pareja de la lista de 8 puntos.",
+      "options": [
+        { "id": "a", "label": "Cadenas y bocina" },
+        { "id": "b", "label": "Asiento y espejos" },
+        { "id": "c", "label": "Parabrisas y limpiaparabrisas" }
+      ],
+      "answer": "a",
+      "explain": "Cadenas y bocina están en la lista."
+    },
+    {
+      "id": "q2",
+      "type": "mcq",
+      "prompt": "¿Qué debes verificar en las horquillas durante la inspección?",
+      "options": [
+        { "id": "a", "label": "Solo la condición de la pintura" },
+        { "id": "b", "label": "Grietas, desgaste y alineación adecuada" },
+        { "id": "c", "label": "Etiquetas de capacidad de peso" }
+      ],
+      "answer": "b",
+      "explain": "La integridad estructural es crítica para operación segura."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "prompt": "Los niveles de fluido hidráulico deben verificarse:",
+      "options": [
+        { "id": "a", "label": "Solo cuando falla el sistema" },
+        { "id": "b", "label": "Durante la inspección diaria pre-operacional" },
+        { "id": "c", "label": "Una vez por semana" }
+      ],
+      "answer": "b",
+      "explain": "Chequeos diarios previenen fallas y condiciones inseguras."
+    },
+    {
+      "id": "q4",
+      "type": "mcq",
+      "prompt": "Si encuentras un defecto durante la inspección:",
+      "options": [
+        { "id": "a", "label": "Anotarlo y continuar operando con cuidado" },
+        { "id": "b", "label": "Etiquetar el equipo y reportar inmediatamente" },
+        { "id": "c", "label": "Repararlo tú mismo si es menor" }
+      ],
+      "answer": "b",
+      "explain": "Cualquier defecto requiere remoción inmediata del servicio y reporte."
+    },
+    {
+      "id": "q5",
+      "type": "mcq",
+      "prompt": "La inspección de neumáticos incluye verificar:",
+      "options": [
+        { "id": "a", "label": "Inflado adecuado y desgaste visible" },
+        { "id": "b", "label": "Cortes, grietas y objetos extraños" },
+        { "id": "c", "label": "Ambos A y B" }
+      ],
+      "answer": "c",
+      "explain": "Inspección completa de neumáticos cubre todos los aspectos de seguridad."
+    }
+  ]
+}
