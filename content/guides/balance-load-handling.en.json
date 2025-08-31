@@ -1,8 +1,29 @@
 {
-  "title": "Balance & Load Handling — Quick Guides",
+  "title": "Balance & Load — Quick Guides",
   "cards": [
-    { "heading": "Load low, mast back", "body": "Keep load low and mast tilted back when traveling." },
-    { "heading": "Capacity matters", "body": "Load center increases = capacity decreases." },
-    { "heading": "Stability triangle", "body": "Keep combined center of gravity inside the triangle." }
+    {
+      "heading": "Know the plate",
+      "body": "Capacity changes with attachments and lift height. Always check the data plate before lifting."
+    },
+    {
+      "heading": "Low & tilted back",
+      "body": "Travel with forks low; slight back tilt for stability. Never travel with elevated loads."
+    },
+    {
+      "heading": "Keep center inside",
+      "body": "Combined center of gravity must stay in the triangle. Forward loads reduce stability."
+    },
+    {
+      "heading": "Height reduces capacity",
+      "body": "The higher you lift, the less weight you can safely carry. Check capacity charts."
+    },
+    {
+      "heading": "Load center matters",
+      "body": "Distance from fork face to load center affects capacity. Closer is safer."
+    },
+    {
+      "heading": "Wide turns only",
+      "body": "Make wide, slow turns to prevent load shift. Never take sharp corners with a load."
+    }
   ]
 }

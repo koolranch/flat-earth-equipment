@@ -1,8 +1,29 @@
 {
-  "title": "Balance y manejo de carga — Guías rápidas",
+  "title": "Equilibrio y carga — Guías rápidas",
   "cards": [
-    { "heading": "Carga baja, mástil atrás", "body": "Mantén la carga baja y el mástil inclinado hacia atrás al viajar." },
-    { "heading": "La capacidad importa", "body": "Centro de carga aumenta = capacidad disminuye." },
-    { "heading": "Triángulo de estabilidad", "body": "Mantén el centro de gravedad combinado dentro del triángulo." }
+    {
+      "heading": "Conoce la placa",
+      "body": "La capacidad cambia con accesorios y altura. Siempre revisa la placa antes de levantar."
+    },
+    {
+      "heading": "Bajo y ligeramente atrás",
+      "body": "Viaja con horquillas bajas; leve inclinación hacia atrás para estabilidad. Nunca viajes con cargas elevadas."
+    },
+    {
+      "heading": "Centro adentro",
+      "body": "El centro de gravedad combinado debe quedar en el triángulo. Cargas hacia adelante reducen estabilidad."
+    },
+    {
+      "heading": "Altura reduce capacidad",
+      "body": "Mientras más alto levantes, menos peso puedes cargar con seguridad. Revisa tablas de capacidad."
+    },
+    {
+      "heading": "Centro de carga importa",
+      "body": "Distancia desde cara de horquilla al centro de carga afecta capacidad. Más cerca es más seguro."
+    },
+    {
+      "heading": "Solo giros amplios",
+      "body": "Haz giros amplios y lentos para prevenir desplazamiento. Nunca tomes esquinas cerradas con carga."
+    }
   ]
 }

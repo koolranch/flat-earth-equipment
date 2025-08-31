@@ -1,8 +1,29 @@
 {
-  "title": "Reconocimiento de peligros — Guías rápidas",
+  "title": "Búsqueda de riesgos — Guías rápidas",
   "cards": [
-    { "heading": "Bocina en esquinas", "body": "Toca la bocina y reduce velocidad en puntos ciegos." },
-    { "heading": "Peatones primero", "body": "Cede el paso. Mantén distancia segura." },
-    { "heading": "Para por fugas", "body": "Cualquier fuga de fluido = parar trabajo, etiquetar, limpiar." }
+    {
+      "heading": "Mirada arriba, bocina lista",
+      "body": "Peatones, esquinas ciegas, cruces: despacio y toca bocina. Siempre cede el paso a personas."
+    },
+    {
+      "heading": "Piso y encima",
+      "body": "Derrames, basura, tuberías bajas, estanterías dañadas. Detente si dudas y reporta peligros inmediatamente."
+    },
+    {
+      "heading": "Integridad de la carga",
+      "body": "Nada inclinado, bandas flojas o tarimas dañadas. Asegura cargas antes de mover."
+    },
+    {
+      "heading": "Zonas de velocidad",
+      "body": "Reduce velocidad en pasillos estrechos, rampas y áreas de mucho tráfico. Mantén control siempre."
+    },
+    {
+      "heading": "Seguridad de batería",
+      "body": "Áreas de carga requieren EPP y ventilación adecuada. Sigue protocolos de seguridad eléctrica."
+    },
+    {
+      "heading": "Si dudas, detente",
+      "body": "Etiqueta condiciones inseguras. Reporta peligros a supervisión. Seguridad primero, siempre."
+    }
   ]
 }

@@ -1,8 +1,29 @@
 {
-  "title": "Hazard Recognition — Quick Guides",
+  "title": "Hazard Hunt — Quick Guides",
   "cards": [
-    { "heading": "Horn at corners", "body": "Sound horn and slow down at blind spots." },
-    { "heading": "Pedestrians first", "body": "Yield right-of-way. Maintain safe distance." },
-    { "heading": "Stop for leaks", "body": "Any fluid leak = stop work, tag out, clean up." }
+    {
+      "heading": "Eyes up, horn ready",
+      "body": "Pedestrians, blind corners, intersections: slow down and sound horn. Always yield to people."
+    },
+    {
+      "heading": "Floor & overhead",
+      "body": "Spills, debris, low pipes, damaged racking. Stop if unsure and report hazards immediately."
+    },
+    {
+      "heading": "Load integrity",
+      "body": "No leaning stacks, loose bands, or tilted pallets. Secure loads before moving."
+    },
+    {
+      "heading": "Speed zones",
+      "body": "Reduce speed in narrow aisles, ramps, and high-traffic areas. Maintain control always."
+    },
+    {
+      "heading": "Battery safety",
+      "body": "Charging areas require PPE and proper ventilation. Follow electrical safety protocols."
+    },
+    {
+      "heading": "When in doubt, stop",
+      "body": "Tag out unsafe conditions. Report hazards to supervision. Safety first, always."
+    }
   ]
 }
