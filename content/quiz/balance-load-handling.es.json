@@ -1,66 +1,54 @@
 {
-  "title": "Balance y carga — Chequeo de seguridad",
+  "title": "Equilibrio — Chequeo rápido",
   "pass_pct": 80,
   "items": [
     {
       "id": "q1",
       "type": "mcq",
-      "prompt": "El concepto del triángulo de estabilidad significa:",
+      "prompt": "El triángulo de estabilidad se forma por:",
       "options": [
-        { "id": "a", "label": "Tres ruedas deben tocar siempre el suelo" },
-        { "id": "b", "label": "El centro de carga debe mantenerse dentro del triángulo formado por los puntos de contacto de las ruedas" },
-        { "id": "c", "label": "Las horquillas deben formar una forma triangular" }
+        { "id": "a", "label": "Asiento, mástil y carga" },
+        { "id": "b", "label": "Dos ruedas delanteras y pivote del eje trasero" },
+        { "id": "c", "label": "Horquillas, carga y suelo" }
       ],
       "answer": "b",
-      "explain": "Mantener el centro de carga dentro del triángulo de estabilidad previene volcaduras."
+      "explain": "Triángulo clásico de contrapesada."
     },
     {
       "id": "q2",
       "type": "mcq",
-      "prompt": "Al viajar con carga, las horquillas deben estar:",
+      "prompt": "Mejor posición de viaje:",
       "options": [
-        { "id": "a", "label": "Elevadas alto para mejor visibilidad" },
-        { "id": "b", "label": "Inclinadas hacia adelante para asegurar la carga" },
-        { "id": "c", "label": "Bajas e inclinadas ligeramente hacia atrás" }
+        { "id": "a", "label": "Horquillas altas, inclinadas hacia adelante" },
+        { "id": "b", "label": "Horquillas bajas, ligera inclinación hacia atrás" },
+        { "id": "c", "label": "Horquillas raspando el piso" }
       ],
-      "answer": "c",
-      "explain": "Posición baja con ligera inclinación hacia atrás proporciona máxima estabilidad."
+      "answer": "b",
+      "explain": "Baja con ligera inclinación hacia atrás mejora estabilidad."
     },
     {
       "id": "q3",
       "type": "mcq",
-      "prompt": "La capacidad de carga disminuye cuando:",
+      "prompt": "Capacidad en la placa de datos:",
       "options": [
-        { "id": "a", "label": "Las horquillas se elevan más alto" },
-        { "id": "b", "label": "El centro de carga se mueve hacia adelante" },
-        { "id": "c", "label": "Ambos A y B" }
+        { "id": "a", "label": "Nunca cambia" },
+        { "id": "b", "label": "Puede cambiar con accesorios y altura" },
+        { "id": "c", "label": "Solo es para operadores nuevos" }
       ],
-      "answer": "c",
-      "explain": "Tanto la altura como el centro de carga hacia adelante reducen la capacidad segura."
+      "answer": "b",
+      "explain": "Accesorios y altura de elevación afectan capacidad."
     },
     {
       "id": "q4",
       "type": "mcq",
-      "prompt": "Antes de levantar una carga, debes:",
+      "prompt": "Cuando el centro de carga se mueve hacia adelante:",
       "options": [
-        { "id": "a", "label": "Estimar el peso visualmente" },
-        { "id": "b", "label": "Verificar el peso de la carga contra la tabla de capacidad" },
-        { "id": "c", "label": "Probar levantando lentamente y sentir la estabilidad" }
+        { "id": "a", "label": "La capacidad aumenta" },
+        { "id": "b", "label": "La capacidad permanece igual" },
+        { "id": "c", "label": "La capacidad disminuye" }
       ],
-      "answer": "b",
-      "explain": "Siempre verificar el peso de la carga contra la tabla de capacidad antes de levantar."
-    },
-    {
-      "id": "q5",
-      "type": "mcq",
-      "prompt": "Al girar con carga:",
-      "options": [
-        { "id": "a", "label": "Girar rápido para minimizar tiempo de exposición" },
-        { "id": "b", "label": "Hacer giros amplios y lentos para mantener estabilidad" },
-        { "id": "c", "label": "Inclinarse hacia el giro para contrabalancear" }
-      ],
-      "answer": "b",
-      "explain": "Giros amplios y lentos previenen desplazamiento de carga y mantienen estabilidad."
+      "answer": "c",
+      "explain": "Centro de carga hacia adelante reduce capacidad de elevación segura."
     }
   ]
 }

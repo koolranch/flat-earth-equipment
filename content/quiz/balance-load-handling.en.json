@@ -1,66 +1,54 @@
 {
-  "title": "Balance & Load — Safety Check",
+  "title": "Balance — Quick Check",
   "pass_pct": 80,
   "items": [
     {
       "id": "q1",
       "type": "mcq",
-      "prompt": "The stability triangle concept means:",
+      "prompt": "The stability triangle is formed by:",
       "options": [
-        { "id": "a", "label": "Three wheels must always touch the ground" },
-        { "id": "b", "label": "Load center must stay within the triangle formed by wheel contact points" },
-        { "id": "c", "label": "Forks should form a triangle shape" }
+        { "id": "a", "label": "Seat, mast, and load" },
+        { "id": "b", "label": "Two front wheels and rear axle pivot" },
+        { "id": "c", "label": "Forks, load, and ground" }
       ],
       "answer": "b",
-      "explain": "Keeping the load center within the stability triangle prevents tipping."
+      "explain": "Classic counterbalance triangle."
     },
     {
       "id": "q2",
       "type": "mcq",
-      "prompt": "When traveling with a load, forks should be:",
+      "prompt": "Best travel position:",
       "options": [
-        { "id": "a", "label": "Raised high for better visibility" },
-        { "id": "b", "label": "Tilted forward to secure the load" },
-        { "id": "c", "label": "Low and tilted slightly back" }
+        { "id": "a", "label": "Forks high, tilt forward" },
+        { "id": "b", "label": "Forks low, slight back tilt" },
+        { "id": "c", "label": "Forks scraping the floor" }
       ],
-      "answer": "c",
-      "explain": "Low position with slight back tilt provides maximum stability."
+      "answer": "b",
+      "explain": "Low with slight back tilt improves stability."
     },
     {
       "id": "q3",
       "type": "mcq",
-      "prompt": "Load capacity decreases when:",
+      "prompt": "Capacity on the data plate:",
       "options": [
-        { "id": "a", "label": "Forks are raised higher" },
-        { "id": "b", "label": "Load center moves forward" },
-        { "id": "c", "label": "Both A and B" }
+        { "id": "a", "label": "Never changes" },
+        { "id": "b", "label": "Can change with attachments and height" },
+        { "id": "c", "label": "Is only for new operators" }
       ],
-      "answer": "c",
-      "explain": "Both height and forward load center reduce safe capacity."
+      "answer": "b",
+      "explain": "Attachments and lift height affect capacity."
     },
     {
       "id": "q4",
       "type": "mcq",
-      "prompt": "Before lifting a load, you should:",
+      "prompt": "When the load center moves forward:",
       "options": [
-        { "id": "a", "label": "Estimate the weight visually" },
-        { "id": "b", "label": "Check the load weight against capacity chart" },
-        { "id": "c", "label": "Test lift slowly and feel for stability" }
+        { "id": "a", "label": "Capacity increases" },
+        { "id": "b", "label": "Capacity stays the same" },
+        { "id": "c", "label": "Capacity decreases" }
       ],
-      "answer": "b",
-      "explain": "Always verify load weight against the capacity chart before lifting."
-    },
-    {
-      "id": "q5",
-      "type": "mcq",
-      "prompt": "When turning with a load:",
-      "options": [
-        { "id": "a", "label": "Turn quickly to minimize exposure time" },
-        { "id": "b", "label": "Make wide, slow turns to maintain stability" },
-        { "id": "c", "label": "Lean into the turn to counterbalance" }
-      ],
-      "answer": "b",
-      "explain": "Wide, slow turns prevent load shift and maintain stability."
+      "answer": "c",
+      "explain": "Forward load center reduces safe lifting capacity."
     }
   ]
 }
