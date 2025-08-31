@@ -1,66 +1,54 @@
-{
-  "title": "Shutdown — Safe Parking",
-  "pass_pct": 80,
+{ 
+  "title": "Shutdown — Quick Check", 
+  "pass_pct": 80, 
   "items": [
-    {
-      "id": "q1",
-      "type": "mcq",
-      "prompt": "The correct shutdown sequence starts with:",
+    { 
+      "id": "q1", 
+      "type": "mcq", 
+      "prompt": "Forks should be left…", 
       "options": [
-        { "id": "a", "label": "Turning off the engine immediately" },
-        { "id": "b", "label": "Parking in a safe, designated area" },
-        { "id": "c", "label": "Removing the key first" }
-      ],
-      "answer": "b",
-      "explain": "Always park in a safe, designated area before beginning shutdown."
+        { "id": "a", "label": "Raised slightly" },
+        { "id": "b", "label": "On the floor" },
+        { "id": "c", "label": "Anywhere" }
+      ], 
+      "answer": "b", 
+      "explain": "Leave forks on the floor when parked." 
     },
-    {
-      "id": "q2",
-      "type": "mcq",
-      "prompt": "Forks should be positioned:",
+    { 
+      "id": "q2", 
+      "type": "mcq", 
+      "prompt": "For electric trucks, you should…", 
       "options": [
-        { "id": "a", "label": "Flat on the ground with slight forward tilt" },
-        { "id": "b", "label": "Raised slightly off the ground" },
-        { "id": "c", "label": "Tilted back for drainage" }
-      ],
-      "answer": "a",
-      "explain": "Forks flat on ground with slight forward tilt prevents unauthorized use."
+        { "id": "a", "label": "Unplug to cool" },
+        { "id": "b", "label": "Plug the charger" },
+        { "id": "c", "label": "Remove the battery" }
+      ], 
+      "answer": "b", 
+      "explain": "Plug in after use (per site policy)." 
     },
-    {
-      "id": "q3",
-      "type": "mcq",
-      "prompt": "The parking brake should be:",
+    { 
+      "id": "q3", 
+      "type": "mcq", 
+      "prompt": "Before leaving the forklift:", 
       "options": [
-        { "id": "a", "label": "Set before lowering forks" },
-        { "id": "b", "label": "Set after turning off engine" },
-        { "id": "c", "label": "Set immediately after stopping" }
-      ],
-      "answer": "c",
-      "explain": "Parking brake should be set immediately upon stopping."
+        { "id": "a", "label": "Set parking brake and key off" },
+        { "id": "b", "label": "Just turn the key off" },
+        { "id": "c", "label": "Leave it running for the next operator" }
+      ], 
+      "answer": "a", 
+      "explain": "Always set brake and remove key for security." 
     },
-    {
-      "id": "q4",
-      "type": "mcq",
-      "prompt": "For electric forklifts, after shutdown you should:",
+    { 
+      "id": "q4", 
+      "type": "mcq", 
+      "prompt": "On a grade, you must also:", 
       "options": [
-        { "id": "a", "label": "Leave connected to charger overnight" },
-        { "id": "b", "label": "Disconnect battery and store key separately" },
-        { "id": "c", "label": "Connect to charger if battery is low" }
-      ],
-      "answer": "c",
-      "explain": "Connect to charger when battery is low to maintain proper charge levels."
-    },
-    {
-      "id": "q5",
-      "type": "mcq",
-      "prompt": "The key should be:",
-      "options": [
-        { "id": "a", "label": "Left in the ignition for the next operator" },
-        { "id": "b", "label": "Removed and secured or returned to supervisor" },
-        { "id": "c", "label": "Hidden somewhere on the forklift" }
-      ],
-      "answer": "b",
-      "explain": "Keys must be secured to prevent unauthorized use."
+        { "id": "a", "label": "Turn wheels away from the slope" },
+        { "id": "b", "label": "Use wheel chocks" },
+        { "id": "c", "label": "Park facing uphill only" }
+      ], 
+      "answer": "b", 
+      "explain": "Wheel chocks prevent rolling on grades." 
     }
-  ]
+  ] 
 }
