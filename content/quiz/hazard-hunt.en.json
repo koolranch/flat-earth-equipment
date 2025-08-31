@@ -1,66 +1,54 @@
 {
-  "title": "Hazard Hunt — Safety Awareness",
+  "title": "Hazards — Quick Check",
   "pass_pct": 80,
   "items": [
     {
       "id": "q1",
       "type": "mcq",
-      "prompt": "When approaching a blind corner, you should:",
+      "prompt": "Pick a true hazard:",
       "options": [
-        { "id": "a", "label": "Speed up to get through quickly" },
-        { "id": "b", "label": "Sound horn, slow down, and look carefully" },
-        { "id": "c", "label": "Assume the path is clear" }
+        { "id": "a", "label": "Marked pedestrian path" },
+        { "id": "b", "label": "Blind corner" },
+        { "id": "c", "label": "Clear aisle" }
       ],
       "answer": "b",
-      "explain": "Horn, slow speed, and visual confirmation prevent collisions."
+      "explain": "Blind corners need caution and horn."
     },
     {
       "id": "q2",
       "type": "mcq",
-      "prompt": "If you see a spill on the floor:",
+      "prompt": "On a spill you should…",
       "options": [
-        { "id": "a", "label": "Drive around it carefully" },
-        { "id": "b", "label": "Stop, tag the area, and report/contain the spill" },
-        { "id": "c", "label": "Clean it up quickly yourself" }
+        { "id": "a", "label": "Drive through slowly" },
+        { "id": "b", "label": "Avoid and report/clean" },
+        { "id": "c", "label": "Speed up to pass quickly" }
       ],
       "answer": "b",
-      "explain": "Spills create slip hazards and must be properly contained and reported."
+      "explain": "Avoid, secure, and address the spill."
     },
     {
       "id": "q3",
       "type": "mcq",
-      "prompt": "When pedestrians are in your work area:",
+      "prompt": "When pedestrians are nearby:",
       "options": [
-        { "id": "a", "label": "They should stay alert and move out of your way" },
-        { "id": "b", "label": "You must yield right-of-way and maintain safe clearance" },
-        { "id": "c", "label": "Sound the horn continuously until they move" }
+        { "id": "a", "label": "They must move out of your way" },
+        { "id": "b", "label": "You must yield and maintain clearance" },
+        { "id": "c", "label": "Sound horn until they move" }
       ],
       "answer": "b",
-      "explain": "Forklift operators must always yield to pedestrians and maintain safe distances."
+      "explain": "Always yield to pedestrians and keep safe distance."
     },
     {
       "id": "q4",
       "type": "mcq",
-      "prompt": "An overhead obstacle requires:",
+      "prompt": "Unstable loads should be:",
       "options": [
-        { "id": "a", "label": "Lowering the load and being mindful of mast height" },
-        { "id": "b", "label": "Raising the load to clear the obstacle" },
-        { "id": "c", "label": "Driving faster to minimize exposure time" }
-      ],
-      "answer": "a",
-      "explain": "Lower the load and watch both load and mast clearance."
-    },
-    {
-      "id": "q5",
-      "type": "mcq",
-      "prompt": "If the forklift data plate is illegible:",
-      "options": [
-        { "id": "a", "label": "Continue operating if you know the specifications" },
-        { "id": "b", "label": "Do not operate; tag out and request service" },
-        { "id": "c", "label": "Estimate the capacity based on similar models" }
+        { "id": "a", "label": "Moved carefully at low speed" },
+        { "id": "b", "label": "Secured or re-stacked before moving" },
+        { "id": "c", "label": "Tilted back to improve stability" }
       ],
       "answer": "b",
-      "explain": "Illegible data plates make capacity verification impossible; equipment must be serviced."
+      "explain": "Never move unstable loads — secure them first."
     }
   ]
 }

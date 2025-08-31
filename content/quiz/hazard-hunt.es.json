@@ -1,66 +1,54 @@
 {
-  "title": "Caza de peligros — Conciencia de seguridad",
+  "title": "Riesgos — Chequeo rápido",
   "pass_pct": 80,
   "items": [
     {
       "id": "q1",
       "type": "mcq",
-      "prompt": "Al acercarse a una esquina ciega, debes:",
+      "prompt": "Elige un riesgo real:",
       "options": [
-        { "id": "a", "label": "Acelerar para pasar rápidamente" },
-        { "id": "b", "label": "Sonar la bocina, reducir velocidad y mirar cuidadosamente" },
-        { "id": "c", "label": "Asumir que el camino está despejado" }
+        { "id": "a", "label": "Senda peatonal marcada" },
+        { "id": "b", "label": "Esquina ciega" },
+        { "id": "c", "label": "Pasillo despejado" }
       ],
       "answer": "b",
-      "explain": "Bocina, velocidad lenta y confirmación visual previenen colisiones."
+      "explain": "Esquinas ciegas requieren precaución y bocina."
     },
     {
       "id": "q2",
       "type": "mcq",
-      "prompt": "Si ves un derrame en el piso:",
+      "prompt": "En un derrame debes…",
       "options": [
-        { "id": "a", "label": "Conducir alrededor con cuidado" },
-        { "id": "b", "label": "Parar, etiquetar el área y reportar/contener el derrame" },
-        { "id": "c", "label": "Limpiarlo rápidamente tú mismo" }
+        { "id": "a", "label": "Conducir a través lentamente" },
+        { "id": "b", "label": "Evitar y reportar/limpiar" },
+        { "id": "c", "label": "Acelerar para pasar rápido" }
       ],
       "answer": "b",
-      "explain": "Los derrames crean peligros de resbalones y deben ser contenidos y reportados adecuadamente."
+      "explain": "Evita, asegura y atiende el derrame."
     },
     {
       "id": "q3",
       "type": "mcq",
-      "prompt": "Cuando hay peatones en tu área de trabajo:",
+      "prompt": "Cuando hay peatones cerca:",
       "options": [
-        { "id": "a", "label": "Deben mantenerse alerta y salirse de tu camino" },
-        { "id": "b", "label": "Debes ceder el paso y mantener distancia segura" },
-        { "id": "c", "label": "Sonar la bocina continuamente hasta que se muevan" }
+        { "id": "a", "label": "Deben salirse de tu camino" },
+        { "id": "b", "label": "Debes ceder y mantener distancia" },
+        { "id": "c", "label": "Sonar bocina hasta que se muevan" }
       ],
       "answer": "b",
-      "explain": "Los operadores de montacargas deben siempre ceder a peatones y mantener distancias seguras."
+      "explain": "Siempre cede a peatones y mantén distancia segura."
     },
     {
       "id": "q4",
       "type": "mcq",
-      "prompt": "Un obstáculo superior requiere:",
+      "prompt": "Las cargas inestables deben ser:",
       "options": [
-        { "id": "a", "label": "Bajar la carga y estar atento a la altura del mástil" },
-        { "id": "b", "label": "Elevar la carga para librar el obstáculo" },
-        { "id": "c", "label": "Conducir más rápido para minimizar tiempo de exposición" }
-      ],
-      "answer": "a",
-      "explain": "Bajar la carga y vigilar tanto la carga como la altura del mástil."
-    },
-    {
-      "id": "q5",
-      "type": "mcq",
-      "prompt": "Si la placa de datos del montacargas es ilegible:",
-      "options": [
-        { "id": "a", "label": "Continuar operando si conoces las especificaciones" },
-        { "id": "b", "label": "No operar; etiquetar y solicitar servicio" },
-        { "id": "c", "label": "Estimar la capacidad basándote en modelos similares" }
+        { "id": "a", "label": "Movidas con cuidado a baja velocidad" },
+        { "id": "b", "label": "Aseguradas o re-apiladas antes de mover" },
+        { "id": "c", "label": "Inclinadas hacia atrás para mejorar estabilidad" }
       ],
       "answer": "b",
-      "explain": "Placas de datos ilegibles hacen imposible verificar capacidad; el equipo debe ser reparado."
+      "explain": "Nunca muevas cargas inestables — asegúralas primero."
     }
   ]
 }
