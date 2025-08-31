@@ -1,38 +1,106 @@
 'use client';
+import { useEffect, useState } from 'react';
 
 export default function AssignSeatsPanel() {
+  const [courses, setCourses] = useState<any[]>([]);
+  const [courseId, setCourseId] = useState<string>('');
+  const [raw, setRaw] = useState('');
+  const [emails, setEmails] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<any | null>(null);
+
+  useEffect(() => { 
+    (async () => {
+      const r = await fetch('/api/courses');
+      if (r.ok) { 
+        const j = await r.json(); 
+        setCourses(j?.data || []); 
+        if (j?.data?.[0]) setCourseId(j.data[0].id); 
+      }
+    })(); 
+  }, []);
+
+  function parseRaw(value: string) {
+    const parts = value.split(/\n|,|;|\s+/).map(s => s.trim().toLowerCase()).filter(Boolean);
+    const uniq = Array.from(new Set(parts.filter(x => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(x))));
+    setEmails(uniq);
+  }
+
+  async function onCSV(file: File) {
+    const text = await file.text();
+    // simple CSV parse: find emails by regex; keeps DX minimal
+    const found = Array.from(new Set((text.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi) || []).map(x => x.toLowerCase())));
+    setRaw(found.join('\n'));
+    setEmails(found);
+  }
+
+  async function submit() {
+    if (!courseId || emails.length === 0) return;
+    setLoading(true);
+    const r = await fetch('/api/trainer/assign-seats', { 
+      method: 'POST', 
+      headers: { 'Content-Type': 'application/json' }, 
+      body: JSON.stringify({ course_id: courseId, emails }) 
+    });
+    const j = await r.json();
+    setResult(j);
+    setLoading(false);
+  }
+
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold">Assign Seats</h2>
-        <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
-          Coming Soon
-        </span>
+    <section className="space-y-3">
+      <h2 className="text-lg font-semibold">Assign Seats</h2>
+      <div className="grid sm:grid-cols-3 gap-3">
+        <label className="text-sm">Course
+          <select 
+            value={courseId} 
+            onChange={e => setCourseId(e.target.value)} 
+            className="block w-full rounded-xl border px-3 py-2 mt-1"
+          >
+            {courses.map((c: any) => <option key={c.id} value={c.id}>{c.title}</option>)}
+          </select>
+        </label>
+        <label className="text-sm sm:col-span-2">Paste emails (one per line)
+          <textarea 
+            value={raw} 
+            onChange={e => { setRaw(e.target.value); parseRaw(e.target.value); }} 
+            rows={6} 
+            className="block w-full rounded-xl border px-3 py-2 mt-1 font-mono" 
+            placeholder="worker1@example.com&#10;worker2@example.com"
+          />
+        </label>
       </div>
-      
-      <div className="rounded-xl border border-dashed border-slate-300 p-8 text-center">
-        <div className="mx-auto w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center mb-3">
-          <svg className="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-          </svg>
+      <div className="flex items-center gap-2">
+        <input 
+          type="file" 
+          accept=".csv,text/csv" 
+          onChange={e => e.target.files && onCSV(e.target.files[0])} 
+        />
+        <span className="text-xs text-slate-500">Or upload a CSV with an email column.</span>
+      </div>
+      <div className="text-sm">Parsed emails: <span className="font-medium">{emails.length}</span></div>
+      <button 
+        onClick={submit} 
+        disabled={loading || !courseId || emails.length === 0} 
+        className="rounded-2xl bg-[#F76511] text-white px-4 py-2 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {loading ? 'Assigning…' : 'Assign seats'}
+      </button>
+
+      {result && (
+        <div className="mt-3 rounded-xl border p-3 text-sm">
+          <div className="font-semibold mb-1">Results</div>
+          <ul className="space-y-1">
+            {result.results?.map((r: any, i: number) => (
+              <li key={i} className="flex items-center justify-between gap-2">
+                <span className="font-mono">{r.email}</span>
+                <span className="text-slate-600">{r.status}{r.reason ? ` — ${r.reason}` : ''}</span>
+                {r.enrollment_id && <span className="text-xs text-slate-500">{r.enrollment_id}</span>}
+              </li>
+            ))}
+          </ul>
         </div>
-        <h3 className="text-sm font-medium text-slate-900 mb-1">Assign Training Seats</h3>
-        <p className="text-xs text-slate-500 mb-4">
-          Assign available training seats to learners and manage enrollment capacity.
-        </p>
-        <button 
-          className="text-xs bg-slate-100 text-slate-600 px-3 py-1 rounded-lg cursor-not-allowed"
-          disabled
-        >
-          Component Loading...
-        </button>
-      </div>
-      
-      <div className="text-xs text-slate-500 space-y-1">
-        <p>• Assign seats to specific learners</p>
-        <p>• Manage training capacity and availability</p>
-        <p>• Track seat utilization and enrollment status</p>
-      </div>
-    </div>
+      )}
+    </section>
   );
 }
