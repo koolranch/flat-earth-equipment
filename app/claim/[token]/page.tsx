@@ -1,4 +1,3 @@
-import { supabaseService } from '@/lib/supabase/service.server';
 import { supabaseServer } from '@/lib/supabase/server';
 import AcceptClaim from '@/components/claim/AcceptClaim';
 import Link from 'next/link';
@@ -11,19 +10,18 @@ export const metadata = {
 };
 
 export default async function ClaimPage({ params }: { params: { token: string } }) {
-  const svc = supabaseService();
   const sb = supabaseServer();
   const token = params.token;
 
-  // Fetch invitation details using the token
-  const { data: inv, error: invError } = await svc
+  // Get current user
+  const { data: { user } } = await sb.auth.getUser();
+
+  // Fetch invitation details using the token (using server client with RLS)
+  const { data: inv, error: invError } = await sb
     .from('seat_invites')
     .select('id, email, course_id, status, expires_at, claimed_at, note, courses(title)')
     .eq('invite_token', token)
     .maybeSingle();
-
-  // Get current user
-  const { data: { user } } = await sb.auth.getUser();
 
   // Handle various error states
   if (invError || !inv) {
