@@ -1,0 +1,129 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#content"
+  - link "Skip to content" [ref=e3] [cursor=pointer]:
+    - /url: "#content"
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "Flat Earth Safety" [ref=e6] [cursor=pointer]:
+        - /url: /training
+      - navigation "Global navigation" [ref=e7]:
+        - link "Training" [ref=e8] [cursor=pointer]:
+          - /url: /training
+        - link "Records" [ref=e9] [cursor=pointer]:
+          - /url: /records
+        - combobox "Language" [ref=e10]:
+          - option "English" [selected]
+          - option "Español"
+  - navigation [ref=e11]:
+    - generic [ref=e13]:
+      - link "Flat Earth Equipment Flat Earth Equipment" [ref=e15] [cursor=pointer]:
+        - /url: /
+        - img "Flat Earth Equipment" [ref=e16] [cursor=pointer]
+        - generic [ref=e17] [cursor=pointer]: Flat Earth Equipment
+      - generic [ref=e18]:
+        - link "Parts" [ref=e20] [cursor=pointer]:
+          - /url: /parts
+        - link "Rent Equipment" [ref=e22] [cursor=pointer]:
+          - /url: /rent-equipment
+        - link "Safety" [ref=e24] [cursor=pointer]:
+          - /url: /safety
+        - link "About" [ref=e26] [cursor=pointer]:
+          - /url: /about
+        - link "Contact" [ref=e28] [cursor=pointer]:
+          - /url: /contact
+        - link "Shopping cart" [ref=e29] [cursor=pointer]:
+          - /url: /cart
+          - img [ref=e30] [cursor=pointer]
+        - button "Change language to Español" [ref=e34] [cursor=pointer]:
+          - img [ref=e35] [cursor=pointer]: 🇺🇸
+          - generic [ref=e36] [cursor=pointer]: EN
+          - generic [ref=e37] [cursor=pointer]: / ES
+  - main [ref=e38]:
+    - main [ref=e39]:
+      - generic [ref=e40]:
+        - heading "Orientation" [level=1] [ref=e41]
+        - paragraph [ref=e42]: Get certified. No fluff. Learn by doing.
+      - generic [ref=e43]:
+        - heading "How this works" [level=2] [ref=e44]
+        - list [ref=e45]:
+          - listitem [ref=e46]: Hands-on demos first. Short quizzes after each module.
+          - listitem [ref=e47]: Pass the final exam. Your supervisor completes the practical evaluation.
+          - listitem [ref=e48]: Certificates are issued instantly and saved to Records.
+      - generic [ref=e49]:
+        - heading "10-second warm-up" [level=2] [ref=e50]
+        - paragraph [ref=e51]: Tap each step. This is how the demos feel.
+        - list [ref=e52]:
+          - listitem [ref=e53]:
+            - button "Tap the horn at a corner" [ref=e54] [cursor=pointer]
+          - listitem [ref=e55]:
+            - button "Lower the forks" [ref=e56] [cursor=pointer]
+          - listitem [ref=e57]:
+            - button "Set the parking brake" [ref=e58] [cursor=pointer]
+      - link "Start training" [ref=e60] [cursor=pointer]:
+        - /url: /training
+  - contentinfo [ref=e61]:
+    - generic [ref=e62]:
+      - generic [ref=e63]:
+        - generic [ref=e64]:
+          - generic [ref=e65]: Flat Earth Equipment
+          - paragraph [ref=e66]: Flat Earth Equipment is built Western tough — precision-fit industrial parts and dispatch-ready rentals, shipped nationwide.
+        - generic [ref=e67]:
+          - heading "Quick Links" [level=3] [ref=e68]
+          - list [ref=e69]:
+            - listitem [ref=e70]:
+              - link "Insights & Guides" [ref=e71] [cursor=pointer]:
+                - /url: /insights
+            - listitem [ref=e72]:
+              - link "About Us" [ref=e73] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e74]:
+              - link "Shipping & Returns" [ref=e75] [cursor=pointer]:
+                - /url: /shipping-returns
+            - listitem [ref=e76]:
+              - link "Warranty" [ref=e77] [cursor=pointer]:
+                - /url: /warranty
+            - listitem [ref=e78]:
+              - link "Contact" [ref=e79] [cursor=pointer]:
+                - /url: /contact
+            - listitem [ref=e80]:
+              - link "Terms of Service" [ref=e81] [cursor=pointer]:
+                - /url: /terms-of-service
+            - listitem [ref=e82]:
+              - link "Privacy Policy" [ref=e83] [cursor=pointer]:
+                - /url: /privacy-policy
+            - listitem [ref=e84]:
+              - link "Service Areas" [ref=e85] [cursor=pointer]:
+                - /url: /locations
+            - listitem [ref=e86]:
+              - link "Cheyenne, WY" [ref=e87] [cursor=pointer]:
+                - /url: /locations/cheyenne-wy
+            - listitem [ref=e88]:
+              - link "Bozeman, MT" [ref=e89] [cursor=pointer]:
+                - /url: /locations/bozeman-mt
+            - listitem [ref=e90]:
+              - link "Pueblo, CO" [ref=e91] [cursor=pointer]:
+                - /url: /locations/pueblo-co
+            - listitem [ref=e92]:
+              - link "Albuquerque, NM" [ref=e93] [cursor=pointer]:
+                - /url: /locations/albuquerque-nm
+            - listitem [ref=e94]:
+              - link "Las Cruces, NM" [ref=e95] [cursor=pointer]:
+                - /url: /locations/las-cruces-nm
+        - generic [ref=e96]:
+          - heading "Stay Updated" [level=3] [ref=e97]
+          - generic [ref=e98]:
+            - textbox "Your email" [ref=e99]
+            - button "Sign Up" [ref=e100] [cursor=pointer]
+      - paragraph [ref=e102]: © 2025 Flat Earth Equipment. All rights reserved.
+  - contentinfo [ref=e103]:
+    - generic [ref=e104]:
+      - generic [ref=e105]: © Flat Earth Safety
+      - generic [ref=e106]:
+        - checkbox "Reduce motion" [ref=e107]
+        - text: Reduce motion
+  - alert [ref=e108]
+```
