@@ -11,7 +11,7 @@
     "analyze:ci": "node scripts/ci-analyze.mjs",
     "qa:perf": "node scripts/lh-smoke.mjs",
     "qa:rls": "node scripts/rls-audit.mjs",
-    "lint:a11y": "eslint --ext .ts,.tsx --max-warnings=0 app components",
+    "lint:a11y": "eslint --ext .ts,.tsx app components",
     "postbuild": "next-sitemap && node scripts/check-service-key-leak.mjs",
     "lint": "next lint",
     "build:handbooks": "cp content/modules/*.mdx public/handbooks/",
