@@ -196,7 +196,7 @@ function GameComponent({ gameKey, locale, onComplete }: { gameKey: string, local
       case 'module2':
         return () => import('./games/module2/MiniInspection')
       case 'module3':
-        return () => import('./games/module3/MiniBalance')
+        return () => import('./games/module3/StabilityTriangleSim')
       case 'module4':
         console.log('🎯 Loading module4 - MiniHazard')
         return () => import('./games/module4/MiniHazard')

@@ -1,6 +1,7 @@
 'use client';
 import MiniPPE from '@/components/games/module1/MiniPPE';
 import MiniInspection from '@/components/games/module2/MiniInspection';
+import StabilityTriangleSim from '@/components/games/module3/StabilityTriangleSim';
 import MiniShutdown from '@/components/demos/MiniShutdown';
 import HazardSpotting from '@/components/demos/HazardSpotting';
 
@@ -13,8 +14,7 @@ const REGISTRY: Record<string, React.FC<{locale:'en'|'es'; moduleSlug?: string}>
     ({ locale, moduleSlug }) => <MiniInspection locale={locale} moduleSlug={moduleSlug} />
   ],
   'balance-load-handling': [
-    // Placeholder until MiniBalance is implemented
-    ({ locale, moduleSlug }) => <div className="text-center py-8 text-slate-600">Balance demo coming soon...</div>
+    ({ locale, moduleSlug }) => <StabilityTriangleSim onComplete={() => console.log('Demo completed')} />
   ],
   'hazard-hunt': [
     ({ locale, moduleSlug }) => <HazardSpotting locale={locale} moduleSlug={moduleSlug} />
