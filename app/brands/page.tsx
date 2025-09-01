@@ -8,6 +8,8 @@ export const metadata = {
     "Explore parts by top equipment brands like Genie, Doosan, Caterpillar, and more. 40+ supported brands with fast quotes and same-day shipping.",
 };
 
+export const revalidate = 3600;
+
 export default async function BrandsPage() {
   const supabase = createClient();
 
