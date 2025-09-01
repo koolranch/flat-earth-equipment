@@ -163,6 +163,7 @@
     "sharp": "^0.34.2",
     "shippo": "^2.15.0",
     "signature_pad": "^4.2.0",
+    "@react-email/components": "^0.0.22",
     "supabase": "^2.22.12",
     "tailwind-merge": "^2.2.1",
     "undici": "^7.8.0",
