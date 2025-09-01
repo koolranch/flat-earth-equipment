@@ -19,7 +19,6 @@ export default async function Page({ params }: { params: { enrollmentId: string 
   return (
     <main className="container mx-auto p-4">
       <h1 className="text-2xl font-bold">Practical Evaluation</h1>
-      {/* @ts-expect-error Server → Client */}
       <EvalForm enrollmentId={params.enrollmentId} initial={evalRow || null} />
     </main>
   );
