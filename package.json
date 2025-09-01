@@ -159,6 +159,7 @@
     "server-only": "^0.0.1",
     "sharp": "^0.34.2",
     "shippo": "^2.15.0",
+    "signature_pad": "^4.2.0",
     "supabase": "^2.22.12",
     "tailwind-merge": "^2.2.1",
     "undici": "^7.8.0",
