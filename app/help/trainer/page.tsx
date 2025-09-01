@@ -1,45 +1,46 @@
-import { cookies } from 'next/headers';
-import { getTrainerHelpDict, type Locale } from '@/i18n';
+import tEN from '@/i18n/help.trainer.en';
+import tES from '@/i18n/help.trainer.es';
+import LanguageToggle from '@/components/LanguageToggle';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
+export const metadata = {
+  title: 'Trainer Help Guide | Flat Earth Safety',
+  description: 'Complete guide for trainers to assign seats, evaluate practical skills, and export records.',
+};
+
+function getDict() {
+  const defaultLocale = process.env.NEXT_PUBLIC_DEFAULT_LOCALE || 'en';
+  return defaultLocale === 'es' ? tES : tEN;
+}
 
 export default function TrainerHelpPage() {
-  const locCookie = cookies().get('locale')?.value || process.env.NEXT_PUBLIC_DEFAULT_LOCALE || 'en';
-  const locale = ['en', 'es'].includes(locCookie) ? locCookie as Locale : 'en';
-  
-  const t = getTrainerHelpDict(locale);
+  const dict = getDict();
 
   return (
-    <main className="container mx-auto p-4 max-w-4xl">
-      <header className="mb-6">
-        <h1 className="text-2xl font-bold text-[#0F172A]">{t.title}</h1>
-        <p className="text-slate-600 mt-2">{t.intro}</p>
+    <main className="container mx-auto p-4 space-y-4">
+      <header className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">{dict.title}</h1>
+          <p className="text-sm text-slate-700 dark:text-slate-300">{dict.intro}</p>
+        </div>
+        <LanguageToggle />
       </header>
 
-      <div className="space-y-6">
-        {t.sections.map((section, index) => (
-          <section key={index} className="rounded-2xl border p-4 bg-white dark:bg-slate-900">
-            <h2 className="text-lg font-semibold text-[#0F172A] mb-3">{section.h}</h2>
-            <p className="text-slate-700 dark:text-slate-300 mb-4">{section.p}</p>
-            
-            {section.tips.length > 0 && (
-              <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3">
-                <h3 className="text-sm font-medium text-blue-900 dark:text-blue-100 mb-2">
-                  💡 {locale === 'es' ? 'Consejos' : 'Tips'}
-                </h3>
-                <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
-                  {section.tips.map((tip, tipIndex) => (
-                    <li key={tipIndex} className="flex items-start gap-2">
-                      <span className="text-blue-500 mt-0.5">•</span>
-                      <span>{tip}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </section>
-        ))}
-      </div>
+      {dict.sections.map((s: any, i: number) => (
+        <section key={i} className="rounded-2xl border p-4 bg-white dark:bg-slate-900">
+          <h2 className="text-lg font-semibold">{s.h}</h2>
+          <p className="text-sm text-slate-700 dark:text-slate-300 mt-1">{s.p}</p>
+          {s.tips?.length ? (
+            <ul className="list-disc pl-5 mt-2 text-sm text-slate-600 dark:text-slate-400 space-y-1">
+              {s.tips.map((tip: string, j: number) => (
+                <li key={j}>{tip}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ))}
 
       <footer className="mt-8 text-center">
         <div className="inline-flex gap-3">
@@ -47,13 +48,13 @@ export default function TrainerHelpPage() {
             href="/trainer" 
             className="rounded-2xl bg-[#F76511] text-white px-4 py-2 shadow-lg hover:bg-[#E55A0C] transition-colors"
           >
-            {locale === 'es' ? 'Ir a herramientas' : 'Go to Trainer Tools'}
+            Go to Trainer Tools
           </a>
           <a 
             href="/training" 
-            className="rounded-xl border px-4 py-2 hover:bg-slate-50 transition-colors"
+            className="rounded-xl border px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
           >
-            {locale === 'es' ? 'Capacitación' : 'Training Hub'}
+            Training Hub
           </a>
         </div>
       </footer>
