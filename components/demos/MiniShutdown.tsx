@@ -55,7 +55,7 @@ export default function MiniShutdown({ locale, moduleSlug }: { locale: 'en'|'es'
         'Apply branch actions for fuel type'
       ]}
     >
-      <LiveRegion message={complete ? 'Shutdown complete' : `${doneIds.length} of ${steps.length} steps`} />
+      <LiveRegion text={complete ? 'Shutdown complete' : `${doneIds.length} of ${steps.length} steps`} />
 
       <div className="flex gap-2 mb-2">
         <button 

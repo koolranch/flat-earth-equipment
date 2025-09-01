@@ -114,7 +114,7 @@ export default function DynamicExam({ slug = 'final-exam' }: { slug?: string }){
         <div className="text-sm">{idx+1} / {order.length}</div>
       </header>
 
-      <LiveRegion message={revealed[current?.id||''] ? (isCorrect(current) ? 'Correct' : 'Incorrect') : ''} />
+      <LiveRegion text={revealed[current?.id||''] ? (isCorrect(current) ? 'Correct' : 'Incorrect') : ''} />
 
       <div id={`q_${current.id}_label`} className="text-base font-medium mb-3">{current.prompt}</div>
 

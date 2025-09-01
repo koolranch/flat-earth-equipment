@@ -1,8 +1,26 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useRef, useEffect } from 'react';
 
-export default function LiveRegion({ message }: { message: string }) {
-  const ref = useRef<HTMLDivElement|null>(null);
-  useEffect(() => { if (ref.current) ref.current.textContent = message; }, [message]);
-  return <div ref={ref} className="sr-only" aria-live="polite" aria-atomic="true"/>;
+interface LiveRegionProps {
+  text: string;
+  polite?: boolean;
+}
+
+export default function LiveRegion({ text, polite = true }: LiveRegionProps) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.textContent = text;
+    }
+  }, [text]);
+  
+  return (
+    <div 
+      ref={ref} 
+      className="sr-only" 
+      aria-live={polite ? 'polite' : 'assertive'} 
+      aria-atomic="true"
+    />
+  );
 }

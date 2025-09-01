@@ -51,7 +51,7 @@ export default function HazardSpotting({ locale, moduleSlug }: { locale: 'en'|'e
         'Know the immediate action'
       ]}
     >
-      <LiveRegion message={allDone ? 'All hazards found' : `${found.length} of ${set.length} hazards found`} />
+      <LiveRegion text={allDone ? 'All hazards found' : `${found.length} of ${set.length} hazards found`} />
       
       <ul className="grid grid-cols-2 gap-2">
         {set.map(h => {

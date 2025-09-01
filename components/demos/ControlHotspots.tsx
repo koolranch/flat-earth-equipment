@@ -18,7 +18,7 @@ export default function ControlHotspots({ locale }: { locale: 'en'|'es' }) {
 
   return (
     <section className="rounded-2xl border p-4 shadow-lg">
-      <LiveRegion message={allDone ? 'All controls found' : `${found.length} of ${TARGETS.length} found`} />
+      <LiveRegion text={allDone ? 'All controls found' : `${found.length} of ${TARGETS.length} found`} />
       <h2 className="text-lg font-semibold text-[#0F172A]">{t('demo.objectives', 'Objectives')}</h2>
       <p className="text-sm text-slate-600">Identify key controls by tapping hotspots.</p>
       <div className="mt-3 relative w-full max-w-md aspect-video bg-slate-100 rounded-xl">

@@ -25,7 +25,7 @@ export default function PreOpDecisionTree({ locale }: { locale: 'en'|'es' }) {
     
   return (
     <section className="rounded-2xl border p-4 shadow-lg">
-      <LiveRegion message={statusMessage} />
+      <LiveRegion text={statusMessage} />
       <h2 className="text-lg font-semibold text-[#0F172A]">{t('demo.objectives', 'Objectives')}</h2>
       <p className="mt-2 text-base">{currentPrompt}</p>
       {node.end ? (
