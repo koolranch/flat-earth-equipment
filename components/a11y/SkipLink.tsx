@@ -1,7 +1,5 @@
-'use client';
-
-export default function SkipLink(){
+export default function SkipLink() {
   return (
-    <a href="#main-content" className="skip-link">Skip to main</a>
+    <a href="#content" className="skip-link">Skip to content</a>
   );
 }
