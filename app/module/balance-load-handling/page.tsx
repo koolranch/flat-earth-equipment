@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 import StandardDemoPanel from '@/components/demos/StandardDemoPanel';
-import StabilityLite from '@/components/demos/StabilityLite';
+import StabilityTriangleSim from '@/components/games/module3/StabilityTriangleSim';
 import GuidesPanel from '@/components/guides/GuidesPanel';
 import QuizGate from '@/components/module/QuizGate';
 
@@ -54,7 +54,7 @@ export default async function BalanceLoadHandlingPage() {
           objective={L('demo.objective', locale)}
           estMin={10}
         >
-          <StabilityLite />
+          <StabilityTriangleSim onComplete={() => console.log('Demo completed from balance-load-handling page')} />
         </StandardDemoPanel>
       </section>
 
