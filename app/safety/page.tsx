@@ -7,6 +7,7 @@ import TrustBadges from '@/components/TrustBadges'
 import PriceCard from '@/components/PriceCard'
 import FAQ from '@/components/FAQ'
 import { getUserLocale } from '@/lib/getUserLocale'
+import { getMarketingDict, type Locale } from '@/i18n'
 import Script from 'next/script'
 
 export const revalidate = 3600;
@@ -19,9 +20,12 @@ export const metadata = {
 export default async function SafetyHome() {
   const supabase = supabaseServer()
   const { data: course } = await supabase.from('courses').select('*').eq('slug', 'forklift').single()
-  const locale = getUserLocale()
+  const locale = getUserLocale() as Locale
   
-  // Translation strings
+  // Use marketing dictionary for i18n
+  const marketing = getMarketingDict(locale)
+  
+  // Legacy translation strings (keeping for backward compatibility)
   const t = {
     en: {
       title: 'OSHA Forklift Operator Certification',
