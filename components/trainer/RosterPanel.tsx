@@ -95,6 +95,7 @@ export default function RosterPanel() {
               <th className="text-left p-2">Progress</th>
               <th className="text-left p-2">Passed</th>
               <th className="text-left p-2">Certificate</th>
+              <th className="text-left p-2">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -134,11 +135,19 @@ export default function RosterPanel() {
                     </div>
                   ) : '—'}
                 </td>
+                <td className="p-2">
+                  <a 
+                    className="rounded-xl border px-3 py-1 text-sm hover:bg-slate-50" 
+                    href={`/evaluate/${r.enrollment_id}`}
+                  >
+                    Evaluate
+                  </a>
+                </td>
               </tr>
             ))}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={5} className="p-8 text-center text-slate-500">
+                <td colSpan={6} className="p-8 text-center text-slate-500">
                   {rows.length === 0 ? 'No enrollments found for this course.' : 'No results match your search.'}
                 </td>
               </tr>
