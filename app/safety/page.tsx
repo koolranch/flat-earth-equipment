@@ -9,6 +9,8 @@ import FAQ from '@/components/FAQ'
 import { getUserLocale } from '@/lib/getUserLocale'
 import Script from 'next/script'
 
+export const revalidate = 3600;
+
 export const metadata = {
   title: "Online Forklift Operator Certification | OSHA-Compliant",
   description: "Earn your OSHA forklift certification online in under 60 minutes. Western-tough training from Flat Earth Equipment.",
