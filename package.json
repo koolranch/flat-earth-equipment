@@ -40,6 +40,7 @@
     "test:a11y": "playwright test tests/e2e/a11y.smoke.spec.ts",
     "test:marketing": "playwright test tests/e2e/marketing.smoke.spec.ts",
     "test:claim": "playwright test tests/e2e/claim.smoke.spec.ts",
+    "test:exam": "playwright test tests/e2e/exam.smoke.spec.ts",
     "qa:i18n:audit": "node scripts/i18n_audit.mjs",
     "test:e2e:ui": "playwright test --ui",
     "test:smoke": "tsx scripts/smoke-test.ts",
