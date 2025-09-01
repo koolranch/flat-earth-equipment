@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { track } from '@/lib/analytics/track'
 import QuizModal from '../QuizModal'
 import ResultsToast from './ResultsToast'
@@ -363,17 +363,45 @@ function NewQuizInterface({
 }) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [userAnswers, setUserAnswers] = useState<Record<string, string>>({})
-  const [showResult, setShowResult] = useState(false)
+  const [selectedAnswer, setSelectedAnswer] = useState<string>('')
+  const [feedback, setFeedback] = useState<string>('')
+  const [showingFeedback, setShowingFeedback] = useState(false)
+  const liveRef = useRef<HTMLDivElement | null>(null)
+  const nextButtonRef = useRef<HTMLButtonElement | null>(null)
 
   const currentItem = quizData.items[currentIndex]
   const isLastQuestion = currentIndex === quizData.items.length - 1
 
-  const handleAnswer = (answerId: string) => {
-    const newAnswers = { ...userAnswers, [currentItem.id]: answerId }
+  const handleAnswerSelection = (answerId: string) => {
+    setSelectedAnswer(answerId)
+  }
+
+  const checkAnswer = () => {
+    if (!selectedAnswer) return
+
+    const isCorrect = selectedAnswer === currentItem.answer
+    const feedbackText = isCorrect ? 'Correct' : 'Incorrect'
+    
+    setFeedback(feedbackText)
+    setShowingFeedback(true)
+    
+    // Announce feedback via aria-live
+    if (liveRef.current) {
+      liveRef.current.textContent = feedbackText
+    }
+
+    // Focus next button after short delay
+    setTimeout(() => {
+      nextButtonRef.current?.focus()
+    }, 100)
+  }
+
+  const handleNext = () => {
+    const newAnswers = { ...userAnswers, [currentItem.id]: selectedAnswer }
     setUserAnswers(newAnswers)
 
     if (isLastQuestion) {
-      // Calculate results
+      // Calculate final results
       let score = 0
       const incorrectItems: IncorrectItem[] = []
 
@@ -399,7 +427,11 @@ function NewQuizInterface({
 
       onComplete(score, quizData.items.length, incorrectItems)
     } else {
+      // Move to next question
       setCurrentIndex(prev => prev + 1)
+      setSelectedAnswer('')
+      setFeedback('')
+      setShowingFeedback(false)
     }
   }
 
@@ -415,30 +447,97 @@ function NewQuizInterface({
   }[locale]
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-      <div className="flex justify-between items-center mb-4">
+    <section aria-label="Quiz" className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg space-y-4">
+      <header className="flex justify-between items-center">
         <h3 className="font-semibold text-lg">
           {t.question} {currentIndex + 1} {t.of} {quizData.items.length}
         </h3>
         <div className="text-sm text-gray-500">
-          {Object.keys(userAnswers).length}/{currentIndex}
+          Progress: {currentIndex + 1}/{quizData.items.length}
         </div>
-      </div>
+      </header>
       
-      <div className="mb-6">
-        <p className="text-lg font-medium mb-4">{currentItem.prompt}</p>
-        <div className="space-y-2">
+      <div className="space-y-4">
+        <h4 id={`question-${currentItem.id}`} className="text-lg font-medium">
+          {currentItem.prompt}
+        </h4>
+        
+        <div role="radiogroup" aria-labelledby={`question-${currentItem.id}`} className="space-y-2">
           {currentItem.options.map((option) => (
-            <button
-              key={option.id}
-              onClick={() => handleAnswer(option.id)}
-              className="w-full text-left p-3 rounded-lg border hover:border-orange-600 hover:bg-gray-50 transition-colors"
+            <label 
+              key={option.id} 
+              className="flex items-center gap-3 p-3 rounded-lg border hover:border-orange-600 hover:bg-gray-50 transition-colors cursor-pointer focus-ring"
             >
-              {option.label}
-            </button>
+              <input
+                type="radio"
+                name={`question-${currentItem.id}`}
+                value={option.id}
+                checked={selectedAnswer === option.id}
+                onChange={() => handleAnswerSelection(option.id)}
+                className="w-4 h-4 text-orange-600 focus:ring-orange-500 focus:ring-2"
+              />
+              <span className="text-left flex-1">{option.label}</span>
+            </label>
           ))}
         </div>
+
+        {/* Live region for feedback announcements */}
+        <div 
+          ref={liveRef} 
+          aria-live="polite" 
+          aria-atomic="true" 
+          className="sr-only"
+        >
+          {feedback}
+        </div>
+
+        {/* Visible feedback */}
+        {showingFeedback && (
+          <div className={`p-3 rounded-lg text-center font-medium ${
+            feedback === 'Correct' 
+              ? 'bg-green-100 text-green-800' 
+              : 'bg-red-100 text-red-800'
+          }`}>
+            {feedback}
+            {feedback === 'Incorrect' && currentItem.explain && (
+              <div className="text-sm mt-1 opacity-90">{currentItem.explain}</div>
+            )}
+          </div>
+        )}
+
+        <div className="flex gap-2 pt-2">
+          {!showingFeedback ? (
+            <button 
+              onClick={checkAnswer}
+              disabled={!selectedAnswer}
+              className="rounded-2xl bg-[#F76511] text-white px-4 py-2 shadow-lg hover:bg-[#E55A0C] disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Check Answer
+            </button>
+          ) : (
+            <button 
+              ref={nextButtonRef}
+              onClick={handleNext}
+              className="rounded-2xl bg-[#F76511] text-white px-4 py-2 shadow-lg hover:bg-[#E55A0C]"
+            >
+              {isLastQuestion ? 'Finish Quiz' : 'Next Question'}
+            </button>
+          )}
+          
+          <button 
+            onClick={() => {
+              setCurrentIndex(Math.max(0, currentIndex - 1))
+              setSelectedAnswer('')
+              setFeedback('')
+              setShowingFeedback(false)
+            }}
+            disabled={currentIndex === 0}
+            className="rounded-xl border px-4 py-2 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Back
+          </button>
+        </div>
       </div>
-    </div>
+    </section>
   )
 }
