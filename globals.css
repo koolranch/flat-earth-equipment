@@ -4,6 +4,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Accessible focus rings */
+:root { --ring: 2px; --ring-color: #2563eb; }
+:focus { outline: none; }
+:focus-visible { outline: var(--ring) solid var(--ring-color); outline-offset: 2px; }
+.focus-ring:focus-visible { box-shadow: 0 0 0 3px rgba(37,99,235,.35); }
+
+/* Skip link */
+.skip-link { position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+.skip-link:focus { position:fixed; left:1rem; top:1rem; width:auto; height:auto; padding:.5rem .75rem; background:#0F172A; color:#fff; border-radius:.75rem; z-index:10000; }
+
 /* Accessibility Enhancements */
 @layer base {
   :root {
