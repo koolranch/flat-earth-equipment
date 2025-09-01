@@ -7,8 +7,44 @@ export const dynamic = 'force-static';
 export const revalidate = 3600;
 
 export const metadata = {
-  title: "Online Forklift Operator Certification | OSHA-Compliant",
-  description: "Interactive forklift training that isn't stuck in the 90s. No long lectures. Hands-on demos, quick checks, real records.",
+  title: 'Forklift Operator Training — Flat Earth Safety',
+  description: 'Interactive forklift certification training with demos, micro-quizzes, final exam, and QR-verifiable certificates. OSHA 29 CFR 1910.178(l) aligned.',
+  keywords: 'forklift training, forklift certification, OSHA compliance, forklift operator, industrial truck training, workplace safety',
+  openGraph: {
+    title: 'Forklift Operator Training — Flat Earth Safety',
+    description: 'Interactive training, modern UI, real records. OSHA-compliant forklift certification with hands-on demos.',
+    type: 'website',
+    url: '/safety',
+    siteName: 'Flat Earth Safety',
+    images: [
+      {
+        url: '/og-forklift-training.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Flat Earth Safety Forklift Training Platform'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Forklift Operator Training — Flat Earth Safety',
+    description: 'Interactive OSHA-compliant forklift certification with modern demos and QR-verifiable certificates.',
+    images: ['/og-forklift-training.jpg']
+  },
+  alternates: {
+    canonical: '/safety'
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  }
 }
 
 function getLocaleForStatic(): Locale {
