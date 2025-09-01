@@ -32,7 +32,7 @@ export default function PPESequence({ locale, moduleSlug }: { locale: 'en'|'es';
         'Understand pre-op readiness',
       ]}
     >
-      <LiveRegion message={done ? 'Sequence complete' : `${placed.length} of ${STEPS.length} placed`} />
+      <LiveRegion text={done ? 'Sequence complete' : `${placed.length} of ${STEPS.length} placed`} />
       
       <div className="grid grid-cols-2 gap-2">
         {STEPS.map(s => {

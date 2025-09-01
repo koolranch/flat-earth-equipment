@@ -35,7 +35,7 @@ export default function InspectionHotspots({ locale, moduleSlug }: { locale: 'en
         'Log defects before operating'
       ]}
     >
-      <LiveRegion message={allDone ? 'All points inspected' : `${found.length} of ${TARGETS.length} inspected`} />
+      <LiveRegion text={allDone ? 'All points inspected' : `${found.length} of ${TARGETS.length} inspected`} />
       
       <ul className="grid grid-cols-2 gap-2">
         {TARGETS.map(t => {
