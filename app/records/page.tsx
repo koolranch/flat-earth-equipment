@@ -37,7 +37,11 @@ export default async function Page() {
   // Get current user for evaluation lookup
   const { data: { user } } = await supabase.auth.getUser();
   
-  const { data: certs } = await supabase.from('certificates').select('id,issue_date,score,verifier_code,pdf_url,verification_code').order('issue_date', { ascending: false }).limit(20);
+  const { data: certs } = await supabase
+    .from('certificates')
+    .select('id,issue_date,score,verifier_code,pdf_url,verification_code,enrollment_id,employer_evaluations(practical_pass)')
+    .order('issue_date', { ascending: false })
+    .limit(20);
   
   // Get latest practical evaluation if user is authenticated
   const { data: evalRow } = user ? await supabase
@@ -70,7 +74,14 @@ export default async function Page() {
       <div className="grid gap-3">
         {(certs||[]).map(c => (
           <div key={c.id} className="rounded-2xl border p-4 shadow-lg">
-            <div className="text-sm text-slate-700 dark:text-slate-200">{L('records.certificate', locale)} — {c.issue_date} — {c.score}%</div>
+            <div className="flex items-center justify-between">
+              <div className="text-sm text-slate-700 dark:text-slate-200">{L('records.certificate', locale)} — {c.issue_date} — {c.score}%</div>
+              {c.employer_evaluations?.[0]?.practical_pass ? (
+                <span className="inline-flex items-center rounded-full bg-emerald-100 text-emerald-800 px-2 py-0.5 text-xs">Practical ✓</span>
+              ) : (
+                <span className="inline-flex items-center rounded-full bg-slate-100 text-slate-700 px-2 py-0.5 text-xs">Practical —</span>
+              )}
+            </div>
             {c.verification_code && (
               <div className="mt-2 text-xs text-slate-600 dark:text-slate-400">
                 <span className="text-slate-500">Verification Code: </span>
