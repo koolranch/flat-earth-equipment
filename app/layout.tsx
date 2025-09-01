@@ -76,6 +76,8 @@ export default async function RootLayout({
                 <a href="/training" className="font-bold tracking-tight text-[#0F172A]">Flat Earth Safety</a>
                 <nav aria-label="Global navigation" className="flex items-center gap-3">
                   <a className="text-sm underline hover:no-underline" href="/training">Training</a>
+                  <a className="text-sm underline hover:no-underline" href="/safety">Safety</a>
+                  <a className="text-sm underline hover:no-underline" href="/trainer">Trainer</a>
                   <a className="text-sm underline hover:no-underline" href="/records">Records</a>
                   {adminStatus.isAdmin && (
                     <a className="text-sm underline hover:no-underline text-blue-600 dark:text-blue-400" href="/admin/roster">Admin</a>
