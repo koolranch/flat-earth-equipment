@@ -7,6 +7,29 @@ const withAnalyzer = bundleAnalyzer({ enabled: process.env.ANALYZE === '1' });
 const baseConfig = {
   reactStrictMode: true,
   cleanDistDir: true,
+  async headers() {
+    const csp = [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",  // Next dev needs inline/eval; tighten later
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data: blob: https:",
+      "font-src 'self' data: https:",
+      "connect-src 'self' https://*.supabase.co",
+      "frame-ancestors 'self'",
+    ].join('; ');
+    
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          { key: 'Permissions-Policy', value: 'geolocation=(), microphone=(), camera=()' },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'Content-Security-Policy-Report-Only', value: csp }
+        ]
+      }
+    ];
+  },
   images: {
     remotePatterns: [
       {
