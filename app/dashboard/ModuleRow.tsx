@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import QuizModal from '@/components/QuizModal'
 import VideoPlayer from '@/components/VideoPlayer'
+import TranscriptToggle from '@/components/TranscriptToggle'
 
 interface ModuleRowProps {
   module: {
@@ -87,13 +88,19 @@ export default function ModuleRow({ module, enrollmentId, isUnlocked, isComplete
                     default 
                   />
                 </video>
+                
+                {/* Transcript toggle for accessibility */}
+                <TranscriptToggle 
+                  url={`/content/transcripts/module${module.order}.en.txt`}
+                />
+                
                 <a
                   href={`/transcripts/module${module.order}.vtt`}
                   download
                   className="mt-2 block text-sm underline"
                   aria-label={`Download transcript for module ${module.order}`}
                 >
-                  Download transcript
+                  Download VTT file
                 </a>
                 {!isUnlocked && (
                   <div className="absolute inset-0 bg-white/60 grid place-content-center text-xl rounded-lg">

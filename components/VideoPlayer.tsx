@@ -68,19 +68,18 @@ export default function VideoPlayer({ src, className, slug, poster, showTranscri
             <>
               <track 
                 kind="captions" 
-                srcLang={locale} 
-                src={captionUrl || ''} 
-                label={locale.toUpperCase()} 
+                srcLang="en" 
+                src={captionFallbackUrl || ''} 
+                label="English" 
                 default={locale === 'en'}
               />
-              {locale !== 'en' && (
-                <track 
-                  kind="captions" 
-                  srcLang="en" 
-                  src={captionFallbackUrl || ''} 
-                  label="EN" 
-                />
-              )}
+              <track 
+                kind="captions" 
+                srcLang="es" 
+                src={slug ? `/captions/${slug}.es.vtt` : ''} 
+                label="Español" 
+                default={locale === 'es'}
+              />
             </>
           ) : (
             // Always provide at least one track for accessibility compliance
