@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import TranscriptToggle from './TranscriptToggle'
 
 interface TrainingVideoProps {
   src: string
@@ -82,41 +83,50 @@ export default function TrainingVideo({
   }, [locale, moduleId, subtitleModuleId])
 
   return (
-    <video
-      ref={videoRef}
-      controls
-      crossOrigin="anonymous"
-      className={`w-full h-auto max-h-[600px] rounded-lg ${className}`}
-      poster={poster}
-      onEnded={onEnded}
-      onError={onError}
-    >
-      <source src={src} type="video/mp4" />
+    <div className="w-full max-w-4xl mx-auto">
+      <video
+        ref={videoRef}
+        controls
+        crossOrigin="anonymous"
+        className={`w-full h-auto max-h-[600px] rounded-lg ${className}`}
+        poster={poster}
+        onEnded={onEnded}
+        onError={onError}
+      >
+        <source src={src} type="video/mp4" />
 
-      {/* Only add tracks if subtitles exist for this module */}
+        {/* Only add tracks if subtitles exist for this module */}
+        {subtitleModuleId && (
+          <>
+            {/* English captions track */}
+            <track
+              kind="captions"
+              srcLang="en"
+              label="English"
+              src={`/captions/${typeof subtitleModuleId === 'string' ? subtitleModuleId : `module${subtitleModuleId}`}.en.vtt`}
+              default={locale === 'en'}
+            />
+
+            {/* Spanish captions track */}
+            <track
+              kind="captions"
+              srcLang="es"
+              label="Español"
+              src={`/captions/${typeof subtitleModuleId === 'string' ? subtitleModuleId : `module${subtitleModuleId}`}.es.vtt`}
+              default={locale === 'es'}
+            />
+          </>
+        )}
+
+        Your browser does not support the video tag.
+      </video>
+      
+      {/* Add transcript toggle if subtitles exist for this module */}
       {subtitleModuleId && (
-        <>
-          {/* English captions track */}
-          <track
-            kind="captions"
-            srcLang="en"
-            label="English"
-            src={`/captions/${typeof subtitleModuleId === 'string' ? subtitleModuleId : `module${subtitleModuleId}`}.en.vtt`}
-            default={locale === 'en'}
-          />
-
-          {/* Spanish captions track */}
-          <track
-            kind="captions"
-            srcLang="es"
-            label="Español"
-            src={`/captions/${typeof subtitleModuleId === 'string' ? subtitleModuleId : `module${subtitleModuleId}`}.es.vtt`}
-            default={locale === 'es'}
-          />
-        </>
+        <TranscriptToggle 
+          url={`/content/transcripts/${typeof subtitleModuleId === 'string' ? subtitleModuleId : `module${subtitleModuleId}`}.${locale}.txt`}
+        />
       )}
-
-      Your browser does not support the video tag.
-    </video>
+    </div>
   )
 } 
