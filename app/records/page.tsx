@@ -42,6 +42,36 @@ export default async function Page() {
     .select('id,issue_date,score,verifier_code,pdf_url,verification_code,enrollment_id,employer_evaluations(practical_pass)')
     .order('issue_date', { ascending: false })
     .limit(20);
+
+  // Fetch exam attempts for each enrollment to show scores and attempt counts
+  const examByEnroll: Record<string, { score_pct: number; attempts: number }> = {};
+  if (certs?.length) {
+    const enrollmentIds = certs.map(c => c.enrollment_id).filter(Boolean);
+    const { data: attempts } = await supabase
+      .from('exam_attempts')
+      .select('enrollment_id, score_pct, created_at, passed')
+      .in('enrollment_id', enrollmentIds)
+      .order('created_at', { ascending: false });
+    
+    if (attempts) {
+      const counts: Record<string, number> = {};
+      for (const attempt of attempts) {
+        const enrollId = attempt.enrollment_id;
+        counts[enrollId] = (counts[enrollId] || 0) + 1;
+        
+        // Store the latest (first due to DESC order) attempt details
+        if (!(enrollId in examByEnroll)) {
+          examByEnroll[enrollId] = { 
+            score_pct: attempt.score_pct, 
+            attempts: counts[enrollId] 
+          };
+        } else {
+          // Update attempt count for this enrollment
+          examByEnroll[enrollId].attempts = counts[enrollId];
+        }
+      }
+    }
+  }
   
   // Get latest practical evaluation if user is authenticated
   const { data: evalRow } = user ? await supabase
@@ -70,35 +100,114 @@ export default async function Page() {
         )}
       </section>
 
-      {/* Certificates */}
-      <div className="grid gap-3">
-        {(certs||[]).map(c => (
-          <div key={c.id} className="rounded-2xl border p-4 shadow-lg">
-            <div className="flex items-center justify-between">
-              <div className="text-sm text-slate-700 dark:text-slate-200">{L('records.certificate', locale)} — {c.issue_date} — {c.score}%</div>
-              {c.employer_evaluations?.[0]?.practical_pass ? (
-                <span className="inline-flex items-center rounded-full bg-emerald-100 text-emerald-800 px-2 py-0.5 text-xs">Practical ✓</span>
-              ) : (
-                <span className="inline-flex items-center rounded-full bg-slate-100 text-slate-700 px-2 py-0.5 text-xs">Practical —</span>
+      {/* Certificates Table */}
+      <section className="rounded-2xl border bg-white dark:bg-slate-900 overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="bg-slate-50 dark:bg-slate-800 border-b">
+              <tr>
+                <th className="text-left p-3 font-medium">Certificate</th>
+                <th className="text-left p-3 font-medium">Issued</th>
+                <th className="text-left p-3 font-medium">Practical</th>
+                <th className="text-left p-3 font-medium">Exam Score</th>
+                <th className="text-left p-3 font-medium">Verification</th>
+                <th className="text-left p-3 font-medium">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {(certs && certs.length > 0) ? certs.map(c => (
+                <tr key={c.id} className="border-b last:border-b-0 hover:bg-slate-50 dark:hover:bg-slate-800">
+                  <td className="p-3">
+                    <div className="font-medium text-slate-900 dark:text-slate-100">
+                      {L('records.certificate', locale)}
+                    </div>
+                    <div className="text-xs text-slate-600 dark:text-slate-400">
+                      ID: {c.id.slice(0, 8)}...
+                    </div>
+                  </td>
+                  <td className="p-3">
+                    <div className="text-slate-700 dark:text-slate-300">
+                      {new Date(c.issue_date).toLocaleDateString()}
+                    </div>
+                  </td>
+                  <td className="p-3">
+                    {c.employer_evaluations?.[0]?.practical_pass ? (
+                      <span className="inline-flex items-center rounded-full bg-emerald-100 text-emerald-800 px-2 py-1 text-xs font-medium">
+                        ✓ Passed
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center rounded-full bg-slate-100 text-slate-600 px-2 py-1 text-xs">
+                        — Pending
+                      </span>
+                    )}
+                  </td>
+                  <td className="p-3">
+                    {examByEnroll[c.enrollment_id] ? (
+                      <div className="space-y-1">
+                        <div className={`font-medium ${examByEnroll[c.enrollment_id].score_pct >= 80 ? 'text-emerald-600' : 'text-red-600'}`}>
+                          {examByEnroll[c.enrollment_id].score_pct}%
+                        </div>
+                        <div className="text-xs text-slate-500">
+                          {examByEnroll[c.enrollment_id].attempts} attempt{examByEnroll[c.enrollment_id].attempts > 1 ? 's' : ''}
+                        </div>
+                      </div>
+                    ) : (
+                      <span className="text-slate-400">—</span>
+                    )}
+                  </td>
+                  <td className="p-3">
+                    {c.verification_code && (
+                      <div className="space-y-1">
+                        <div className="font-mono text-xs text-slate-600 dark:text-slate-400">
+                          {c.verification_code}
+                        </div>
+                        <a 
+                          className="text-xs text-blue-600 hover:text-blue-800 underline" 
+                          href={`/verify/${c.verification_code}`} 
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {L('records.verify', locale)}
+                        </a>
+                      </div>
+                    )}
+                  </td>
+                  <td className="p-3">
+                    <div className="flex flex-col gap-1">
+                      {c.pdf_url && (
+                        <a 
+                          className="rounded-lg bg-[#F76511] text-white px-3 py-1 text-xs text-center hover:bg-[#E55A0F] transition-colors" 
+                          href={c.pdf_url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                        >
+                          {L('records.download', locale)}
+                        </a>
+                      )}
+                      {c.verification_code && (
+                        <a 
+                          className="rounded-lg border border-slate-300 px-3 py-1 text-xs text-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" 
+                          href={`/verify/${c.verification_code}`} 
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          View Online
+                        </a>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              )) : (
+                <tr>
+                  <td colSpan={6} className="p-8 text-center text-slate-500 dark:text-slate-400">
+                    No certificates found. Complete your training and pass the final exam to earn your certificate.
+                  </td>
+                </tr>
               )}
-            </div>
-            {c.verification_code && (
-              <div className="mt-2 text-xs text-slate-600 dark:text-slate-400">
-                <span className="text-slate-500">Verification Code: </span>
-                <span className="font-mono">{c.verification_code}</span>
-              </div>
-            )}
-            <div className="mt-2 flex gap-2">
-              {c.pdf_url ? <a className="rounded-2xl bg-[#F76511] text-white px-3 py-2" href={c.pdf_url} target="_blank" rel="noopener noreferrer">{L('records.download', locale)}</a> : null}
-              {c.verification_code ? (
-                <a className="rounded-2xl border px-3 py-2" href={`/verify/${c.verification_code}`} target="_blank">{L('records.verify', locale)}</a>
-              ) : c.verifier_code ? (
-                <a className="rounded-2xl border px-3 py-2" href={`/verify/${c.verifier_code}`}>{L('records.verify', locale)}</a>
-              ) : null}
-            </div>
-          </div>
-        ))}
-      </div>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </main>
   );
 }
