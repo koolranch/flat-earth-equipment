@@ -1,6 +1,7 @@
 // app/records/page.tsx
 import { cookies } from 'next/headers';
 import { createClient } from '@supabase/supabase-js';
+import CertificateActions from '@/components/records/CertificateActions';
 
 const L = (k: string, locale: string) => {
   const en: any = { 
@@ -173,28 +174,13 @@ export default async function Page() {
                     )}
                   </td>
                   <td className="p-3">
-                    <div className="flex flex-col gap-1">
-                      {c.pdf_url && (
-                        <a 
-                          className="rounded-lg bg-[#F76511] text-white px-3 py-1 text-xs text-center hover:bg-[#E55A0F] transition-colors" 
-                          href={c.pdf_url} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                        >
-                          {L('records.download', locale)}
-                        </a>
-                      )}
-                      {c.verification_code && (
-                        <a 
-                          className="rounded-lg border border-slate-300 px-3 py-1 text-xs text-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" 
-                          href={`/verify/${c.verification_code}`} 
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          View Online
-                        </a>
-                      )}
-                    </div>
+                    {c.verification_code && (
+                      <CertificateActions
+                        verificationCode={c.verification_code}
+                        pdfUrl={c.pdf_url}
+                        baseUrl={process.env.NEXT_PUBLIC_BASE_URL || 'https://flatearthequipment.com'}
+                      />
+                    )}
                   </td>
                 </tr>
               )) : (
