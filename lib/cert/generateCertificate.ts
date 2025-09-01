@@ -323,31 +323,42 @@ export async function generateCertificate(params: {
 
   /* QR code for verification */
   try {
-    const certUrl = `https://flatearthequipment.com/verify/${certId}`
-    const qrBuf = await fetch(
-      `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(
-        `${certUrl}|sha256:${sha256(certUrl + completedAt)}`
-      )}`
-    ).then(r => r.arrayBuffer())
-    const qr = await pdf.embedPng(qrBuf)
+    const { generateVerificationQRBuffer, getVerificationUrl } = await import('./qrcode');
+    const verifyUrl = getVerificationUrl(certId);
+    const qrBuffer = await generateVerificationQRBuffer(certId, undefined, { 
+      width: 120,
+      margin: 1,
+      errorCorrectionLevel: 'M'
+    });
+    
+    const qr = await pdf.embedPng(qrBuffer);
     
     page.drawImage(qr, { 
       x: width - 160, 
       y: height - 160, 
       width: 80, 
       height: 80 
-    })
+    });
     
-    // QR verification text
+    // QR verification text with URL
     page.drawText(t.verify, {
       x: width - 160,
       y: height - 175,
       size: 7,
       font,
       color: mediumGray
-    })
+    });
+    
+    // Add verification code below QR
+    page.drawText(`Code: ${certId}`, {
+      x: width - 160,
+      y: height - 190,
+      size: 7,
+      font: bold,
+      color: darkBlue
+    });
   } catch (e) {
-    console.warn('QR code not generated:', e)
+    console.warn('QR code not generated:', e);
   }
 
   /* diagonal watermark ID */

@@ -84,10 +84,14 @@ export async function POST(req: Request) {
   page.drawText(`Expires: ${new Date(expires_at).toLocaleDateString()}`, { x: 60, y: 575, size: 12, font });
   if (practical_verified) page.drawText('Practical: VERIFIED', { x: 60, y: 555, size: 12, font: fontB, color: rgb(0.12, 0.65, 0.37) });
 
-  // QR code (verify URL)
-  const qrDataUrl = await QRCode.toDataURL(verifyUrl, { margin: 1, width: 240 });
-  const pngBytes = Buffer.from(qrDataUrl.split(',')[1], 'base64');
-  const png = await pdf.embedPng(pngBytes);
+  // QR code (verify URL) - using improved QR utility
+  const { generateVerificationQRBuffer } = await import('@/lib/cert/qrcode');
+  const qrBuffer = await generateVerificationQRBuffer(verification_code, base, {
+    width: 240,
+    margin: 1,
+    errorCorrectionLevel: 'M'
+  });
+  const png = await pdf.embedPng(qrBuffer);
   page.drawImage(png, { x: 390, y: 540, width: 160, height: 160 });
   page.drawText(`Verify: ${verifyUrl}`, { x: 390, y: 510, size: 10, font, color: rgb(0.06, 0.09, 0.16) });
   page.drawText(`Code: ${verification_code}`, { x: 390, y: 495, size: 10, font });
