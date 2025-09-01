@@ -11,6 +11,8 @@
     "analyze:ci": "node scripts/ci-analyze.mjs",
     "qa:perf": "node scripts/lh-smoke.mjs",
     "qa:rls": "node scripts/rls-audit.mjs",
+    "qa:trainer": "npx playwright test tests/e2e/trainer.smoke.spec.ts",
+    "test:csv": "node scripts/test-csv-endpoint.mjs",
     "lint:a11y": "eslint --ext .ts,.tsx app components",
     "postbuild": "next-sitemap && node scripts/check-service-key-leak.mjs",
     "lint": "next lint",
