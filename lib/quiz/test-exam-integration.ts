@@ -26,7 +26,7 @@ async function testExamIntegration() {
 
     // Test submitExam with proper typing
     const result: ExamSubmitResult = await submitExam({
-      paper_id: examPaper.id,
+      session_id: examPaper.session_id || 'test-session-id',
       answers: mockAnswers
     });
     

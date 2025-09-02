@@ -15,7 +15,7 @@ async function testClientFunctions() {
 
     // Test submitExam with proper typing
     const result: ExamSubmitResult = await submitExam({
-      paper_id: examPaper.id,
+      session_id: examPaper.session_id || 'test-session-id',
       answers: [0, 1, 2] // example answers
     });
     console.log('Exam submitted:', result.passed, result.scorePct);
