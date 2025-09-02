@@ -1,129 +1,44 @@
 'use client';
-import { useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 
-interface LoadCapacityCalcProps {
-  onComplete?: () => void;
-  locale?: 'en' | 'es';
-  moduleSlug?: string;
-}
+export default function LoadCapacityCalc(){
+  const [ratedCap, setRatedCap] = useState(4000);
+  const [ratedLC, setRatedLC] = useState(24);
+  const [weight, setWeight] = useState(2500);
+  const [lc, setLC] = useState(24);
 
-export default function LoadCapacityCalc({ onComplete, locale = 'en', moduleSlug }: LoadCapacityCalcProps) {
-  const [loadWeight, setLoadWeight] = useState<number>(0);
-  const [loadCenter, setLoadCenter] = useState<number>(24); // inches
-  const [forkLength, setForkLength] = useState<number>(42); // inches
-  const [result, setResult] = useState<string>('');
+  // Simple proportional model: allowable = ratedCap * (ratedLC / actualLC)
+  const allowable = useMemo(()=> Math.max(0, Math.round(ratedCap * (ratedLC / Math.max(lc, 1)))), [ratedCap, ratedLC, lc]);
+  const pct = useMemo(()=> Math.min(200, Math.round((weight / Math.max(allowable,1)) * 100)), [weight, allowable]);
+  const state = pct <= 85 ? 'PASS' : pct <= 100 ? 'CAUTION' : 'FAIL';
+  const bar = state==='PASS' ? 'bg-green-600' : state==='CAUTION' ? 'bg-amber-600' : 'bg-red-600';
 
-  const t = {
-    en: {
-      title: 'Load Capacity Calculator',
-      loadWeight: 'Load Weight (lbs)',
-      loadCenter: 'Load Center (inches)',
-      forkLength: 'Fork Length (inches)', 
-      calculate: 'Calculate',
-      result: 'Result',
-      safe: 'SAFE - Within capacity',
-      unsafe: 'UNSAFE - Exceeds capacity',
-      instructions: 'Enter load details to check if it\'s within forklift capacity limits.',
-      complete: 'Complete Exercise'
-    },
-    es: {
-      title: 'Calculadora de Capacidad de Carga',
-      loadWeight: 'Peso de Carga (lbs)',
-      loadCenter: 'Centro de Carga (pulgadas)',
-      forkLength: 'Longitud de Horquilla (pulgadas)',
-      calculate: 'Calcular',
-      result: 'Resultado',
-      safe: 'SEGURO - Dentro de la capacidad',
-      unsafe: 'INSEGURO - Excede la capacidad',
-      instructions: 'Ingrese los detalles de la carga para verificar si está dentro de los límites de capacidad.',
-      complete: 'Completar Ejercicio'
-    }
-  }[locale];
-
-  function calculate() {
-    // Simplified capacity calculation (normally would use forklift specs)
-    const baseCapacity = 5000; // lbs at 24" load center
-    const adjustedCapacity = baseCapacity * (24 / Math.max(loadCenter, 24));
-    const isSafe = loadWeight <= adjustedCapacity;
-    
-    setResult(isSafe ? t.safe : t.unsafe);
-    
-    // Track interaction
-    (window as any).analytics?.track?.('load_capacity_calculated', {
-      loadWeight,
-      loadCenter,
-      forkLength,
-      isSafe,
-      moduleSlug,
-      locale
-    });
-  }
+  useEffect(()=>{ (window as any)?.analytics?.track?.('sim_param_change', { sim:'LoadCapacity', ratedCap, ratedLC, weight, lc }); }, [ratedCap, ratedLC, weight, lc]);
 
   return (
-    <div className="rounded-2xl border p-4 bg-white dark:bg-slate-900 space-y-4">
-      <h3 className="text-lg font-semibold">{t.title}</h3>
-      <p className="text-sm text-slate-600">{t.instructions}</p>
-      
-      <div className="grid gap-3">
-        <div>
-          <label className="block text-sm font-medium mb-1">{t.loadWeight}</label>
-          <input
-            type="number"
-            value={loadWeight}
-            onChange={(e) => setLoadWeight(Number(e.target.value))}
-            className="w-full border rounded-lg px-3 py-2"
-            placeholder="0"
-          />
-        </div>
-        
-        <div>
-          <label className="block text-sm font-medium mb-1">{t.loadCenter}</label>
-          <input
-            type="number"
-            value={loadCenter}
-            onChange={(e) => setLoadCenter(Number(e.target.value))}
-            className="w-full border rounded-lg px-3 py-2"
-            placeholder="24"
-          />
-        </div>
-        
-        <div>
-          <label className="block text-sm font-medium mb-1">{t.forkLength}</label>
-          <input
-            type="number"
-            value={forkLength}
-            onChange={(e) => setForkLength(Number(e.target.value))}
-            className="w-full border rounded-lg px-3 py-2"
-            placeholder="42"
-          />
-        </div>
+    <section className='grid gap-3'>
+      <div className='rounded-2xl border p-3 bg-white dark:bg-slate-900'>
+        <div className='text-sm'>Allowable at current load center</div>
+        <div className='text-xl font-semibold'>{allowable.toLocaleString()} lb</div>
+        <div className='h-2 rounded bg-slate-200 mt-2 overflow-hidden'><div className={`h-2 ${bar}`} style={{ width: `${Math.min(100,pct)}%` }} /></div>
+        <div className='text-xs mt-1'>State: <b>{state}</b> • Demand {weight.toLocaleString()} lb / Allowable {allowable.toLocaleString()} lb</div>
       </div>
-      
-      <button
-        onClick={calculate}
-        className="w-full rounded-xl bg-[#F76511] text-white py-2 font-medium"
-      >
-        {t.calculate}
-      </button>
-      
-      {result && (
-        <div className={`rounded-lg p-3 text-center font-medium ${
-          result.includes('SAFE') || result.includes('SEGURO') 
-            ? 'bg-green-50 text-green-800 border border-green-200' 
-            : 'bg-red-50 text-red-800 border border-red-200'
-        }`}>
-          {t.result}: {result}
-        </div>
-      )}
-      
-      {result && onComplete && (
-        <button
-          onClick={onComplete}
-          className="w-full rounded-xl border border-[#F76511] text-[#F76511] py-2 font-medium"
-        >
-          {t.complete}
-        </button>
-      )}
-    </div>
+      <div className='grid grid-cols-2 gap-2'>
+        <Num label='Rated capacity (lb)' val={ratedCap} setVal={setRatedCap} step={250} />
+        <Num label='Rated load center (in)' val={ratedLC} setVal={setRatedLC} step={1} />
+        <Num label='Actual load (lb)' val={weight} setVal={setWeight} step={100} />
+        <Num label='Actual load center (in)' val={lc} setVal={setLC} step={1} />
+      </div>
+      <p className='text-xs text-slate-600'>Rule of thumb: Capacity decreases as load center increases. Always check the truck's data plate.</p>
+    </section>
+  );
+}
+
+function Num({ label, val, setVal, step=1 }:{ label:string; val:number; setVal:(n:number)=>void; step?:number }){
+  return (
+    <label className='grid rounded-xl border p-2 text-sm'>
+      <span className='text-xs text-slate-600'>{label}</span>
+      <input type='number' className='border rounded-lg p-2' value={val} onChange={e=> setVal(Number(e.target.value||0))} step={step} />
+    </label>
   );
 }

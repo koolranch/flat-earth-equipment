@@ -1,0 +1,53 @@
+# Load Capacity Training
+
+Understanding load capacity is critical for safe forklift operation.
+
+<Objectives>
+- Learn how load center affects capacity
+- Practice capacity calculations
+- Understand PASS/CAUTION/FAIL states
+</Objectives>
+
+## Key Concepts
+
+The farther the load center extends from the forks, the less weight the forklift can safely carry.
+
+<Callout type="warn">
+Always check the forklift's data plate for rated capacity and load center specifications.
+</Callout>
+
+## Interactive Calculator
+
+Try adjusting the values below to see how capacity changes:
+
+<DemoBlock demo="LoadCapacityCalc" title="Live Load Capacity Calculator" />
+
+## Safety Guidelines
+
+<Checklist items={[
+  'Check data plate before lifting any load',
+  'Measure actual load center distance', 
+  'Never exceed calculated allowable capacity',
+  'Use CAUTION zone as warning threshold'
+]} />
+
+<Hr />
+
+## Quick Knowledge Check
+
+<MicroQuiz id="load-capacity-basics" items={[
+  {
+    q: "What happens to allowable capacity as load center increases?",
+    choices: ["Increases", "Decreases", "Stays the same", "Doubles"],
+    correct: 1,
+    explain: "Capacity decreases as load center increases - this is fundamental to forklift physics."
+  },
+  {
+    q: "What should you do if the calculator shows FAIL state?",
+    choices: ["Proceed carefully", "Reduce load weight or move load closer", "Ignore the warning", "Increase speed"],
+    correct: 1,
+    explain: "Either reduce the load weight or move it closer to the forks to get back into safe operating range."
+  }
+]} />
+
+For detailed specifications, check your forklift's <ResourceLink href="/resources/data-plate-guide.pdf">data plate guide</ResourceLink>.
