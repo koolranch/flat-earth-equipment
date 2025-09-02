@@ -6,7 +6,16 @@ export const en = {
     hub_title: 'Your Training', modules_complete_to_unlock_exam: 'Complete all modules to unlock the exam.', final_exam: 'Final Exam', pass_to_generate_cert: 'Pass to generate your certificate', progress_label: 'Progress', module: 'Module', demo: 'Demo', quiz: 'Quiz', minutes: 'min', resume_training: 'Resume training', continue: 'Continue', start_module: 'Start module'
   },
   exam: {
-    title: 'Final Exam', results_title: 'Final Exam — Results', passed_title: 'Passed', failed_title: 'Try again', review_incorrect: 'Review incorrect answers', score_label: 'Score', retake_exam: 'Retake exam', view_records: 'View records'
+    title: 'Final Exam', results_title: 'Final Exam — Results', passed_title: 'Passed', failed_title: 'Try again', review_incorrect: 'Review incorrect answers', score_label: 'Score', retake_exam: 'Retake exam', view_records: 'View records',
+    time_remaining: 'Time remaining',
+    continue_saved_exam: 'Continue saved exam',
+    start_new_exam: 'Start new exam',
+    exam_in_progress: 'You have an exam in progress.',
+    auto_saved: 'Auto-saved',
+    paused: 'Paused',
+    resume: 'Resume',
+    submit_now: 'Submit now',
+    time_up: 'Time is up. Submitting your answers…'
   },
   records: {
     title: 'Records & Certificates', verification: 'Verification', exam_col: 'Exam', attempts: 'attempts', certificate_downloaded: 'Certificate downloaded', no_records: 'No records yet'
