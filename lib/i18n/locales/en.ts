@@ -17,11 +17,42 @@ export const en = {
     submit_now: 'Submit now',
     time_up: 'Time is up. Submitting your answers…'
   },
+  certificate: {
+    title: 'Certification',
+    view_pdf: 'View PDF',
+    download_pdf: 'Download PDF',
+    copy_link: 'Copy verify link',
+    copied: 'Copied',
+    verify_id: 'Verification ID',
+    issued: 'Issued',
+    expires: 'Expires',
+    course: 'Course',
+    trainee: 'Trainee',
+    trainer: 'Trainer',
+    status_valid: 'Valid',
+    status_expired: 'Expired',
+    add_wallet_apple: 'Add to Apple Wallet',
+    add_wallet_google: 'Save to Google Wallet',
+    coming_soon: 'Coming soon',
+    brand: 'Flat Earth Safety',
+    footer_note: 'Keep this certificate with your employer records per OSHA §1910.178(l).',
+    qr_hint: 'Scan to verify'
+  },
   records: {
     title: 'Records & Certificates', verification: 'Verification', exam_col: 'Exam', attempts: 'attempts', certificate_downloaded: 'Certificate downloaded', no_records: 'No records yet'
   },
   verify: {
-    page_title: 'Certificate Verification', learner: 'Learner', issued: 'Issued', expires: 'Expires', practical: 'Practical', verification_code: 'Verification code', certificate_not_found: 'Certificate not found.'
+    title: 'Certificate Verification',
+    not_found: 'Certificate not found',
+    found: 'Certificate is valid',
+    code_label: 'Verification ID',
+    view_pdf: 'View PDF',
+    trainee: 'Trainee',
+    course: 'Course',
+    issued: 'Issued',
+    expires: 'Expires',
+    employer_notice: 'Employers: retain practical evaluation with this record (§1910.178(l)(6)).',
+    page_title: 'Certificate Verification', learner: 'Learner', practical: 'Practical', verification_code: 'Verification code', certificate_not_found: 'Certificate not found.'
   },
   eval: {
     title: 'Practical Evaluation', competencies: 'Competencies (OSHA 1910.178(l))', result: 'Result', pass_label: 'Pass', needs_refresher: 'Needs refresher', undecided: 'Undecided', evaluator_name: 'Evaluator name', evaluator_title: 'Evaluator title', site: 'Site/location', date: 'Date', notes: 'Notes', evaluator_signature: 'Evaluator signature', trainee_signature: 'Trainee signature', save_evaluation: 'Save evaluation', save_signature: 'Save signature', print: 'Print',

@@ -17,11 +17,42 @@ export const es = {
     submit_now: 'Enviar ahora',
     time_up: 'Se acabó el tiempo. Enviando tus respuestas…'
   },
+  certificate: {
+    title: 'Certificación',
+    view_pdf: 'Ver PDF',
+    download_pdf: 'Descargar PDF',
+    copy_link: 'Copiar enlace de verificación',
+    copied: 'Copiado',
+    verify_id: 'ID de verificación',
+    issued: 'Emitido',
+    expires: 'Vence',
+    course: 'Curso',
+    trainee: 'Operador',
+    trainer: 'Instructor',
+    status_valid: 'Válida',
+    status_expired: 'Vencida',
+    add_wallet_apple: 'Añadir a Apple Wallet',
+    add_wallet_google: 'Guardar en Google Wallet',
+    coming_soon: 'Muy pronto',
+    brand: 'Flat Earth Safety',
+    footer_note: 'Guarde este certificado con los registros del empleador (§1910.178(l)).',
+    qr_hint: 'Escanear para verificar'
+  },
   records: {
     title: 'Registros y certificados', verification: 'Verificación', exam_col: 'Examen', attempts: 'intentos', certificate_downloaded: 'Certificado descargado', no_records: 'Aún no hay registros'
   },
   verify: {
-    page_title: 'Verificación de certificado', learner: 'Alumno', issued: 'Emitido', expires: 'Vence', practical: 'Práctico', verification_code: 'Código de verificación', certificate_not_found: 'Certificado no encontrado.'
+    title: 'Verificación de certificado',
+    not_found: 'Certificado no encontrado',
+    found: 'El certificado es válido',
+    code_label: 'ID de verificación',
+    view_pdf: 'Ver PDF',
+    trainee: 'Operador',
+    course: 'Curso',
+    issued: 'Emitido',
+    expires: 'Vence',
+    employer_notice: 'Empleadores: conserve la evaluación práctica con este registro (§1910.178(l)(6)).',
+    page_title: 'Verificación de certificado', learner: 'Alumno', practical: 'Práctico', verification_code: 'Código de verificación', certificate_not_found: 'Certificado no encontrado.'
   },
   eval: {
     title: 'Evaluación práctica', competencies: 'Competencias (OSHA 1910.178(l))', result: 'Resultado', pass_label: 'Aprobado', needs_refresher: 'Reforzamiento necesario', undecided: 'Sin decidir', evaluator_name: 'Nombre del evaluador', evaluator_title: 'Cargo del evaluador', site: 'Sitio/ubicación', date: 'Fecha', notes: 'Notas', evaluator_signature: 'Firma del evaluador', trainee_signature: 'Firma del alumno', save_evaluation: 'Guardar evaluación', save_signature: 'Guardar firma', print: 'Imprimir',
