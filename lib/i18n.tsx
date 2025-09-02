@@ -1,26 +1,10 @@
-'use client';
-import React, { createContext, useContext } from 'react';
-import en from '@/locales/en.json';
-import es from '@/locales/es.json';
+// Re-export from the new typed i18n system
+export { I18nProvider, useI18n } from './i18n/I18nProvider';
+export { getDict, tFrom, dictionaries } from './i18n/index';
+export type { Locales, Dict } from './i18n/index';
 
-const DICTS: Record<string, any> = { en, es };
-
-const I18nCtx = createContext<{ t: (k: string, f?: string) => string }>({ 
-  t: (k, f) => f ?? k 
-});
-
-export function I18nProvider({ 
-  children, 
-  locale 
-}: { 
-  children: React.ReactNode; 
-  locale?: string;
-}) {
-  const dict = DICTS[locale ?? process.env.NEXT_PUBLIC_DEFAULT_LOCALE ?? 'en'] ?? en;
-  const t = (k: string, f?: string) => (dict[k] ?? f ?? k);
-  return <I18nCtx.Provider value={{ t }}>{children}</I18nCtx.Provider>;
-}
-
-export function useT() { 
-  return useContext(I18nCtx).t; 
-}
+// Backward compatibility
+export const useT = () => {
+  const { t } = require('./i18n/I18nProvider').useI18n();
+  return t;
+};

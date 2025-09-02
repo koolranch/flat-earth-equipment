@@ -63,7 +63,7 @@ export default async function RootLayout({
       <body className="font-sans text-gray-900 bg-gray-50 antialiased">
         <ReducedMotionProvider>
           <SupabaseProvider>
-            <I18nProvider locale={locale}>
+            <I18nProvider>
             {/* A11y - Skip to main content link */}
             <SkipLink />
             <SkipToContent />
