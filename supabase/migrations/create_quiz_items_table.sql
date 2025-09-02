@@ -16,6 +16,9 @@ create table if not exists public.quiz_items (
   tags jsonb default '[]'::jsonb,
   is_exam_candidate boolean default false,
   active boolean default true,
+  content_hash text unique, -- for deduplication
+  source text default 'manual', -- 'manual' | 'import' | 'seed'
+  created_by uuid references auth.users(id),
   created_at timestamptz default now(),
   updated_at timestamptz default now()
 );
@@ -25,6 +28,8 @@ create index if not exists quiz_items_module_locale_idx on public.quiz_items(mod
 create index if not exists quiz_items_active_idx on public.quiz_items(active);
 create index if not exists quiz_items_exam_candidate_idx on public.quiz_items(is_exam_candidate);
 create index if not exists quiz_items_difficulty_idx on public.quiz_items(difficulty);
+create index if not exists quiz_items_content_hash_idx on public.quiz_items(content_hash);
+create index if not exists quiz_items_created_by_idx on public.quiz_items(created_by);
 
 -- Enable Row Level Security
 alter table public.quiz_items enable row level security;
