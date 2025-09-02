@@ -12,6 +12,7 @@
     "qa:perf": "node scripts/lh-smoke.mjs",
     "qa:rls": "node scripts/rls-audit.mjs",
     "qa:trainer": "npx playwright test tests/e2e/trainer.smoke.spec.ts",
+    "qa:i18n:audit": "node scripts/i18n-audit.mjs",
     "test:csv": "node scripts/test-csv-endpoint.mjs",
     "test:verify": "node scripts/test-verify-endpoint.mjs",
     "test:qr": "node scripts/test-qr-generation.mjs",
