@@ -1,10 +1,12 @@
 'use client';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useI18n } from '@/lib/i18n/I18nProvider';
 
 type Params = { weight:number; lc:number; tilt:number; speed:number };
 function clamp(n:number, a:number, b:number){ return Math.max(a, Math.min(b, n)); }
 
 export default function StabilityTriangleSim({ onComplete }:{ onComplete?:()=>void }){
+  const { t } = useI18n();
   const [p, setP] = useState<Params>({ weight: 2500, lc: 24, tilt: 0, speed: 3 });
   const [holdMs, setHoldMs] = useState(0);
   const timer = useRef<number | null>(null);
@@ -45,7 +47,7 @@ export default function StabilityTriangleSim({ onComplete }:{ onComplete?:()=>vo
     <div className="grid gap-3">
       <div className="rounded-2xl border p-4 bg-white dark:bg-slate-900">
         <div className="flex items-center justify-between">
-          <div className="text-sm">Stability score</div>
+          <div className="text-sm">{t('games.stability_score')}</div>
           <div className={`text-lg font-semibold ${stateCls}`}>{state} • {score}%</div>
         </div>
         {/* SVG stability triangle (simple) */}
@@ -64,19 +66,19 @@ export default function StabilityTriangleSim({ onComplete }:{ onComplete?:()=>vo
       </div>
 
       <div className="rounded-2xl border p-4 bg-white dark:bg-slate-900 grid gap-3">
-        <Label name="Load weight (lb)" /><input type="range" min={0} max={6000} value={p.weight} onChange={e=>set('weight', Number(e.target.value))} />
-        <Row val={p.weight} unit="lb" hint="Keep under rated capacity" />
-        <Label name="Load center (in)" /><input type="range" min={12} max={36} value={p.lc} onChange={e=>set('lc', Number(e.target.value))} />
-        <Row val={p.lc} unit="in" hint="Closer to mast is more stable" />
-        <Label name="Mast tilt (°)" /><input type="range" min={-6} max={6} value={p.tilt} onChange={e=>set('tilt', Number(e.target.value))} />
-        <Row val={p.tilt} unit="°" hint="Excessive tilt reduces stability" />
-        <Label name="Speed (mph)" /><input type="range" min={0} max={10} value={p.speed} onChange={e=>set('speed', Number(e.target.value))} />
-        <Row val={p.speed} unit="mph" hint="Lower speed near hazards" />
+        <Label name={t('games.load_weight')} /><input type="range" min={0} max={6000} value={p.weight} onChange={e=>set('weight', Number(e.target.value))} />
+        <Row val={p.weight} unit="lb" hint={t('games.hint_weight')} />
+        <Label name={t('games.load_center')} /><input type="range" min={12} max={36} value={p.lc} onChange={e=>set('lc', Number(e.target.value))} />
+        <Row val={p.lc} unit="in" hint={t('games.hint_lc')} />
+        <Label name={t('games.mast_tilt')} /><input type="range" min={-6} max={6} value={p.tilt} onChange={e=>set('tilt', Number(e.target.value))} />
+        <Row val={p.tilt} unit="°" hint={t('games.hint_tilt')} />
+        <Label name={t('games.speed')} /><input type="range" min={0} max={10} value={p.speed} onChange={e=>set('speed', Number(e.target.value))} />
+        <Row val={p.speed} unit="mph" hint={t('games.hint_speed')} />
         <div className="flex gap-2 mt-2">
-          <button className="rounded-2xl border px-3 py-2" onClick={()=> setP({ weight:2500, lc:24, tilt:0, speed:3 })}>Reset</button>
-          <button className="rounded-2xl bg-[#F76511] text-white px-3 py-2" onClick={()=>{ onComplete?.(); (window as any)?.analytics?.track?.('demo_complete', { demo:'StabilityTriangle', score }); }}>Mark Complete</button>
+          <button className="rounded-2xl border px-3 py-2" onClick={()=> setP({ weight:2500, lc:24, tilt:0, speed:3 })}>{t('games.reset')}</button>
+          <button className="rounded-2xl bg-[#F76511] text-white px-3 py-2" onClick={()=>{ onComplete?.(); (window as any)?.analytics?.track?.('demo_complete', { demo:'StabilityTriangle', score }); }}>{t('games.mark_complete')}</button>
         </div>
-        {holdMs>0 && <div className="text-xs text-slate-600">Holding PASS… {Math.floor(holdMs/1000)}s</div>}
+        {holdMs>0 && <div className="text-xs text-slate-600">{t('games.holding_pass', { s: Math.floor(holdMs/1000) })}</div>}
       </div>
     </div>
   );
