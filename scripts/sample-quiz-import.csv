@@ -1,0 +1,8 @@
+module_slug,locale,question,choice_0,choice_1,choice_2,choice_3,choice_4,choice_5,correct_index,explain,difficulty,tags,is_exam_candidate,active
+pre-operation-inspection,en,"Which PPE item should be put on first?",Hard hat,High-visibility vest,Safety boots,Gloves,,,1,"High-visibility vest should be put on first for visibility",2,"m1,ppe,safety",true,true
+pre-operation-inspection,en,"What should you check before starting the forklift?",Fuel level,Brake operation,Tire condition,All of the above,,,3,"All components should be checked during pre-operation inspection",1,"m1,inspection",true,true
+eight-point-inspection,en,"How many points are in the daily inspection?",6,7,8,9,,,2,"The daily inspection covers 8 critical points",1,"m2,inspection",true,true
+eight-point-inspection,en,"What should you do if you find a hydraulic leak?",Clean it up,Report and tag out,Ignore if small,Continue working,,,1,"Any hydraulic leak should be reported and the equipment tagged out",3,"m2,hydraulics,safety",true,true
+stability-and-load-handling,en,"What happens to capacity as load center increases?",Increases,Decreases,Stays same,Doubles,,,1,"Capacity decreases as load center moves forward from the forks",2,"m3,capacity,physics",true,true
+safe-operation-and-hazards,en,"At blind corners you should...",Speed up,Sound horn and slow,Turn lights off,Reverse quickly,,,1,"Always sound horn and reduce speed at blind corners",2,"m4,safety,visibility",true,true
+shutdown-and-parking,en,"What is the first step in shutdown sequence?",Set brake,Lower forks,Shift to neutral,Turn off key,,,2,"Always shift to neutral first to prevent unexpected movement",1,"m5,shutdown,sequence",true,true
