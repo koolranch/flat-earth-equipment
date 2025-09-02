@@ -1,10 +1,13 @@
 // next.config.js
 import bundleAnalyzer from '@next/bundle-analyzer';
+import createMDX from '@next/mdx';
 
 const withAnalyzer = bundleAnalyzer({ enabled: process.env.ANALYZE === '1' });
+const withMDX = createMDX({ extension: /\.mdx?$/ });
 
 /** @type {import('next').NextConfig} */
 const baseConfig = {
+  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   reactStrictMode: true,
   cleanDistDir: true,
   async headers() {
@@ -67,4 +70,4 @@ const baseConfig = {
   }
 };
 
-export default withAnalyzer(baseConfig);
+export default withAnalyzer(withMDX(baseConfig));
