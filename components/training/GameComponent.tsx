@@ -8,8 +8,13 @@ const LoadCapacityCalc = dynamic(()=> import('@/components/games/common/LoadCapa
 const ShutdownTrainer = dynamic(()=> import('@/components/games/module5/ShutdownTrainer'), { ssr:false });
 // MiniHazard may already exist; if not, fallback placeholder
 const MiniHazard = dynamic(async ()=> {
-  try { return (await import('@/components/games/module4/MiniHazard')).default; }
-  catch { return () => <div className='text-sm text-slate-600'>Coming soon.</div>; }
+  try { 
+    return (await import('@/components/games/module4/MiniHazard')).default; 
+  } catch { 
+    const Fallback = () => <div className='text-sm text-slate-600'>Coming soon.</div>;
+    Fallback.displayName = 'MiniHazardFallback';
+    return Fallback;
+  }
 }, { ssr:false });
 
 // Legacy components for compatibility
@@ -29,6 +34,8 @@ export default function GameComponent({ name }: { name: string }){
     'MiniPPE': MiniPPE,
     'MiniInspection': MiniInspection
   };
-  const Cmp = map[name] || (()=> <div className='text-sm text-slate-600'>Unknown demo: {name}</div>);
+  const UnknownDemo = () => <div className='text-sm text-slate-600'>Unknown demo: {name}</div>;
+  UnknownDemo.displayName = `UnknownDemo_${name}`;
+  const Cmp = map[name] || UnknownDemo;
   return <Cmp />;
 }
