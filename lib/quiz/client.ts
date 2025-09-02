@@ -21,3 +21,19 @@ export async function submitExam(payload: ExamSubmitPayload): Promise<ExamSubmit
   if (!res.ok) throw new Error('exam_submit_failed');
   return await res.json();
 }
+
+export async function resumeExam(){
+  const res = await fetch('/api/exam/resume', { cache:'no-store' });
+  if (!res.ok) throw new Error('exam_resume_failed');
+  return await res.json();
+}
+
+export async function saveExamProgress(payload: { session_id: string; answers: number[]; remaining_sec: number }){
+  const res = await fetch('/api/exam/save-progress', { 
+    method:'POST', 
+    headers:{ 'Content-Type':'application/json' }, 
+    body: JSON.stringify(payload) 
+  });
+  if (!res.ok) throw new Error('exam_save_failed');
+  return await res.json();
+}

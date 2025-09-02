@@ -16,14 +16,33 @@ export type QuizItem = {
 
 export type ExamPaper = {
   id: string;          // server-issued paper id (nonce)
+  session_id?: string; // session id for progress tracking
   locale: Locale;
+  pass_score?: number; // configurable pass threshold
+  time_limit_sec?: number; // exam time limit
   items: Array<Pick<QuizItem,'id'|'question'|'choices'>>; // no answers leaked
   meta?: { count: number };
 };
 
-export type ExamSubmitPayload = {
+export type ExamSession = {
+  id: string;
   paper_id: string;
+  remaining_sec: number;
+  answers: number[];
+  locale: Locale;
+  items: Array<Pick<QuizItem,'id'|'question'|'choices'>>;
+};
+
+export type ExamResumeResponse = {
+  ok: boolean;
+  found: boolean;
+  session?: ExamSession;
+};
+
+export type ExamSubmitPayload = {
+  session_id: string;
   answers: number[]; // same order as paper.items
+  course_id?: string;
 };
 
 export type ExamSubmitResult = {
