@@ -65,7 +65,7 @@ export async function getCourseProgress(courseId: string): Promise<CourseProgres
 
   // Build module progress using registry
   const moduleProgress: ModuleProgress[] = MODULES.map(module => {
-    const route = `/module/${module.order}`;
+    const route = `/training/modules/${module.slug}`;
     return {
       slug: module.slug,
       title: module.title,
