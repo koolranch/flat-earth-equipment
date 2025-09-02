@@ -16,6 +16,6 @@ export function tFrom(dict: Dict, path: string, params?: Record<string, string|n
   for (const p of parts) cur = cur?.[p];
   if (cur == null) return path; // fallback to key
   let out = String(cur);
-  if (params) for (const [k,v] of Object.entries(params)) out = out.replaceAll(`{${k}}`, String(v));
+  if (params) for (const [k,v] of Object.entries(params)) out = out.replace(new RegExp(`\\{${k}\\}`, 'g'), String(v));
   return out;
 }
