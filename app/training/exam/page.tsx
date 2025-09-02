@@ -7,6 +7,7 @@ import type { ExamPaper, ExamSubmitResult } from '@/lib/quiz/types';
 export default function ExamPage(){
   const { t, locale } = useI18n();
   const [paper, setPaper] = useState<ExamPaper | null>(null);
+  const [sessionId, setSessionId] = useState<string | null>(null);
   const [i, setI] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
   const [result, setResult] = useState<ExamSubmitResult | null>(null);
@@ -15,6 +16,7 @@ export default function ExamPage(){
   useEffect(()=>{ (async()=>{ 
     const p = await generateExam(locale); 
     setPaper(p); 
+    setSessionId(p.session_id || null);
     const count = p.meta?.count || p.items.length;
     setAnswers(Array(count).fill(-1)); 
     (window as any).analytics?.track?.('exam_start', { count, locale }); 
@@ -43,7 +45,7 @@ export default function ExamPage(){
           </details>
         )}
         <div className="flex gap-2">
-          <button className="rounded-2xl bg-[#F76511] text-white px-4 py-2" onClick={()=>{ setPaper(null); setResult(null); setI(0); }}>{t('exam.retake_exam')}</button>
+          <button className="rounded-2xl bg-[#F76511] text-white px-4 py-2" onClick={()=>{ setPaper(null); setSessionId(null); setResult(null); setI(0); }}>{t('exam.retake_exam')}</button>
           <a className="rounded-2xl border px-4 py-2" href="/records">{t('exam.view_records')}</a>
         </div>
       </main>
@@ -57,10 +59,10 @@ export default function ExamPage(){
   }
   
   async function submit(){
-    if (isSubmitting || !paper) return;
+    if (isSubmitting || !paper || !sessionId) return;
     setIsSubmitting(true);
     try {
-      const r = await submitExam({ paper_id: paper.id, answers });
+      const r = await submitExam({ session_id: sessionId, answers });
       setResult(r);
       (window as any).analytics?.track?.(r.passed ? 'exam_passed' : 'exam_failed', { scorePct: r.scorePct, locale });
     } catch (error) {
