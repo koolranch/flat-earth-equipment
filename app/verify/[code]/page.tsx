@@ -1,7 +1,10 @@
 import { supabaseServer } from '@/lib/supabase/server';
 import { Metadata } from 'next';
+import { cookies } from 'next/headers';
 import QR from '@/components/verify/QR';
 import ShareButtons from '@/components/verify/ShareButtons';
+import { VerifyPageTitle, VerifyNotFoundTitle } from '@/components/verify/VerifyLabels';
+import { getDict, tFrom, type Locales } from '@/lib/i18n';
 
 export const dynamic = 'force-dynamic';
 
@@ -146,15 +149,16 @@ export async function generateMetadata({ params }: { params: { code: string } })
 
 export default async function VerificationPage({ params }: { params: { code: string } }) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://flatearthequipment.com';
+  const locale = (cookies().get('locale')?.value === 'es') ? 'es' : 'en';
+  const dict = getDict(locale as Locales);
+  const t = (path: string, params?: Record<string, any>) => tFrom(dict, path, params);
   const certificate = await fetchCertificate(params.code);
 
   if (!certificate) {
     return (
       <main className="container mx-auto p-4">
         <div className="text-center py-12">
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-2">
-            Certificate Not Found
-          </h1>
+          <VerifyNotFoundTitle />
           <p className="text-slate-600 dark:text-slate-400 mb-6">
             The verification code you entered could not be found or may be invalid.
           </p>
@@ -187,9 +191,7 @@ export default async function VerificationPage({ params }: { params: { code: str
       {/* Header */}
       <header className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-            Certificate Verification
-          </h1>
+          <VerifyPageTitle />
           <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
             Official certificate authenticity verification
           </p>
@@ -241,28 +243,28 @@ export default async function VerificationPage({ params }: { params: { code: str
               {/* Certificate Details */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                 <div>
-                  <div className="font-medium text-slate-700 dark:text-slate-300">Issue Date</div>
+                  <div className="font-medium text-slate-700 dark:text-slate-300">{t('verify.issued')}</div>
                   <div className="text-slate-600 dark:text-slate-400">{issuedDate}</div>
                 </div>
                 <div>
-                  <div className="font-medium text-slate-700 dark:text-slate-300">Expiry Date</div>
+                  <div className="font-medium text-slate-700 dark:text-slate-300">{t('verify.expires')}</div>
                   <div className={`${isExpired ? 'text-red-600' : 'text-slate-600 dark:text-slate-400'}`}>
                     {expiryDate}
                     {isExpired && ' (Expired)'}
                   </div>
                 </div>
                 <div>
-                  <div className="font-medium text-slate-700 dark:text-slate-300">Practical Evaluation</div>
+                  <div className="font-medium text-slate-700 dark:text-slate-300">{t('verify.practical')}</div>
                   <div className="flex items-center gap-1">
                     {certificate.practical_pass === true ? (
                       <span className="inline-flex items-center gap-1 text-emerald-600">
                         <span className="w-2 h-2 bg-emerald-500 rounded-full"></span>
-                        Pass
+                        {t('common.pass')}
                       </span>
                     ) : certificate.practical_pass === false ? (
                       <span className="inline-flex items-center gap-1 text-red-600">
                         <span className="w-2 h-2 bg-red-500 rounded-full"></span>
-                        Fail
+                        {t('common.fail')}
                       </span>
                     ) : (
                       <span className="inline-flex items-center gap-1 text-slate-500">
@@ -273,7 +275,7 @@ export default async function VerificationPage({ params }: { params: { code: str
                   </div>
                 </div>
                 <div>
-                  <div className="font-medium text-slate-700 dark:text-slate-300">Verification Code</div>
+                  <div className="font-medium text-slate-700 dark:text-slate-300">{t('verify.verification_code')}</div>
                   <div className="font-mono text-sm bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">
                     {certificate.code}
                   </div>
