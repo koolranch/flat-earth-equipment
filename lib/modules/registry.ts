@@ -48,11 +48,11 @@ export const MODULES: ModuleDef[] = [
   },
   {
     order: 3,
-    slug: 'balance-load-handling',
-    title: 'Balance & Load Handling',
+    slug: 'stability-and-load-handling',
+    title: 'Stability & Load Handling',
     demoKey: 'StabilityLite',
-    guidesSlug: 'balance-load-handling',
-    quizSlug: 'balance-load-handling',
+    guidesSlug: 'stability-and-load-handling',
+    quizSlug: 'stability-and-load-handling',
     estMin: 10,
     description: 'Understand stability principles and safe load handling',
     objectives: [
@@ -63,11 +63,11 @@ export const MODULES: ModuleDef[] = [
   },
   {
     order: 4,
-    slug: 'hazard-hunt',
-    title: 'Hazard Hunt',
+    slug: 'safe-operation-and-hazards',
+    title: 'Safe Operation & Hazards',
     demoKey: 'HazardHunt',
-    guidesSlug: 'hazard-hunt',
-    quizSlug: 'hazard-hunt',
+    guidesSlug: 'safe-operation-and-hazards',
+    quizSlug: 'safe-operation-and-hazards',
     estMin: 8,
     description: 'Identify and respond to workplace hazards',
     objectives: [
@@ -78,11 +78,11 @@ export const MODULES: ModuleDef[] = [
   },
   {
     order: 5,
-    slug: 'shutdown-sequence',
-    title: 'Shutdown Sequence',
+    slug: 'shutdown-and-parking',
+    title: 'Shutdown & Parking',
     demoKey: 'ShutdownChecklist',
-    guidesSlug: 'shutdown-sequence',
-    quizSlug: 'shutdown-sequence',
+    guidesSlug: 'shutdown-and-parking',
+    quizSlug: 'shutdown-and-parking',
     estMin: 6,
     description: 'Learn proper forklift shutdown and securing procedures',
     objectives: [
