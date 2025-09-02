@@ -15,8 +15,9 @@ export default function ExamPage(){
   useEffect(()=>{ (async()=>{ 
     const p = await generateExam(locale); 
     setPaper(p); 
-    setAnswers(Array(p.meta.count).fill(-1)); 
-    (window as any).analytics?.track?.('exam_start', { count: p.meta.count, locale }); 
+    const count = p.meta?.count || p.items.length;
+    setAnswers(Array(count).fill(-1)); 
+    (window as any).analytics?.track?.('exam_start', { count, locale }); 
   })(); }, [locale]);
 
   if (!paper) return <main className="container mx-auto p-4">{t('common.loading')}</main>;
@@ -56,7 +57,7 @@ export default function ExamPage(){
   }
   
   async function submit(){
-    if (isSubmitting) return;
+    if (isSubmitting || !paper) return;
     setIsSubmitting(true);
     try {
       const r = await submitExam({ paper_id: paper.id, answers });
@@ -73,7 +74,7 @@ export default function ExamPage(){
     <main className="container mx-auto p-4 space-y-3">
       <h1 className="text-2xl font-bold">{t('exam.title')}</h1>
       <section className="rounded-2xl border p-4 bg-white dark:bg-slate-900">
-        <div className="text-sm text-slate-600 mb-2">Q{i+1} / {paper.meta.count}</div>
+        <div className="text-sm text-slate-600 mb-2">Q{i+1} / {paper.meta?.count || paper.items.length}</div>
         <div className="text-base font-medium mb-2">{item.question}</div>
         <div className="grid gap-2">
           {item.choices.map((c,idx)=> (
@@ -82,8 +83,8 @@ export default function ExamPage(){
         </div>
         <div className="flex items-center justify-between mt-3">
           <button className="rounded-2xl border px-4 py-2" disabled={i===0} onClick={()=> setI(n=> Math.max(0, n-1))}>{t('common.back')}</button>
-          {i < paper.meta.count-1 ? (
-            <button className="rounded-2xl bg-[#F76511] text-white px-4 py-2" onClick={()=> setI(n=> Math.min(paper.meta.count-1, n+1))}>{t('common.next')}</button>
+          {i < (paper.meta?.count || paper.items.length)-1 ? (
+            <button className="rounded-2xl bg-[#F76511] text-white px-4 py-2" onClick={()=> setI(n=> Math.min((paper.meta?.count || paper.items.length)-1, n+1))}>{t('common.next')}</button>
           ) : (
             <button 
               className="rounded-2xl bg-[#F76511] text-white px-4 py-2" 
