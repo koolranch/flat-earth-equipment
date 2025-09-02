@@ -23,22 +23,26 @@ export async function POST(req: Request) {
   const { data: prof } = await sb.from('profiles').select('full_name, email').eq('id', enr.user_id).maybeSingle();
   const { data: course } = await sb.from('courses').select('title').eq('id', enr.course_id).maybeSingle();
 
-  // Check practical eval (optional)
+  // Check practical eval (required unless override is set)
+  const allowExamOnly = process.env.ALLOW_EXAM_ONLY_CERT === '1';
   let practical_verified = false; 
   let evaluation_date: string | null = null;
-  try {
-    const { data: ev } = await sb
-      .from('employer_evaluations')
-      .select('practical_pass, evaluation_date')
-      .eq('enrollment_id', enrollment_id)
-      .order('evaluation_date', { ascending: false })
-      .limit(1);
-    if (ev && ev[0]?.practical_pass) { 
-      practical_verified = true; 
-      evaluation_date = ev[0].evaluation_date; 
-    }
-  } catch {
-    // Practical evaluation is optional
+  
+  const { data: ev } = await sb
+    .from('employer_evaluations')
+    .select('practical_pass, evaluation_date')
+    .eq('enrollment_id', enrollment_id)
+    .order('evaluation_date', { ascending: false })
+    .limit(1);
+  
+  if (ev && ev[0]?.practical_pass) { 
+    practical_verified = true; 
+    evaluation_date = ev[0].evaluation_date; 
+  }
+
+  // Gate certificate issuance on practical evaluation
+  if (!allowExamOnly && !practical_verified) {
+    return NextResponse.json({ ok: false, error: 'practical_evaluation_required' }, { status: 400 });
   }
 
   // Prepare payload
