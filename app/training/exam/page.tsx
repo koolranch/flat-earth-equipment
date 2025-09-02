@@ -2,6 +2,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import { FINAL_EXAM } from '@/lib/training/exam.items';
 import { track } from '@/lib/analytics/track';
+import { useI18n } from '@/lib/i18n/I18nProvider';
 
 interface ExamResult {
   ok: boolean;
@@ -24,6 +25,7 @@ interface ExamResult {
 }
 
 export default function ExamPage() {
+  const { t, locale } = useI18n();
   const items = useMemo(() => FINAL_EXAM.items.en, []);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -36,7 +38,8 @@ export default function ExamPage() {
     track('exam_start', { 
       exam_type: 'final', 
       total_questions: items.length,
-      pass_threshold: FINAL_EXAM.passPct
+      pass_threshold: FINAL_EXAM.passPct,
+      locale
     });
   }, [items.length]);
 
@@ -72,7 +75,8 @@ export default function ExamPage() {
       exam_type: 'final',
       total_questions: items.length,
       answered_questions: Object.keys(answers).length,
-      duration_seconds: examDuration
+      duration_seconds: examDuration,
+      locale
     });
 
     try {
@@ -81,7 +85,7 @@ export default function ExamPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
           answers,
-          locale: 'en',
+          locale,
           exam_id: crypto.randomUUID() // Generate unique exam session ID
         })
       });
@@ -94,14 +98,16 @@ export default function ExamPage() {
         track('exam_passed', { 
           score_pct: examResult.score_pct,
           duration_seconds: examResult.duration_seconds,
-          attempt_id: examResult.attempt_id
+          attempt_id: examResult.attempt_id,
+          locale
         });
       } else {
         track('exam_failed', { 
           score_pct: examResult.score_pct,
           incorrect_count: examResult.incorrect?.length || 0,
           duration_seconds: examResult.duration_seconds,
-          attempt_id: examResult.attempt_id
+          attempt_id: examResult.attempt_id,
+          locale
         });
       }
     } catch (error) {
@@ -132,7 +138,8 @@ export default function ExamPage() {
     // Track retake attempt
     track('exam_retake_started', { 
       exam_type: 'final',
-      previous_score: result?.score_pct || 0
+      previous_score: result?.score_pct || 0,
+      locale
     });
   }
 
@@ -141,7 +148,7 @@ export default function ExamPage() {
     return (
       <main className="container mx-auto p-4 max-w-2xl">
         <header className="mb-6">
-          <h1 className="text-2xl font-bold">Final Exam — Results</h1>
+          <h1 className="text-2xl font-bold">{t('exam.results_title')}</h1>
           <p className="text-sm text-slate-600 mt-1">
             Completed in {result.duration_seconds} seconds
           </p>
@@ -151,10 +158,10 @@ export default function ExamPage() {
           {/* Score Summary */}
           <div className="text-center">
             <div className={`text-3xl font-bold mb-2 ${result.passed ? 'text-emerald-600' : 'text-red-600'}`}>
-              {result.passed ? '✅ Passed' : '❌ Not Passed'}
+              {result.passed ? `✅ ${t('exam.passed_title')}` : `❌ ${t('exam.failed_title')}`}
             </div>
             <div className="text-lg">
-              Score: <span className="font-semibold">{result.score_pct}%</span>
+              {t('exam.score_label')}: <span className="font-semibold">{result.score_pct}%</span>
             </div>
             <div className="text-sm text-slate-600">
               {result.items_correct} of {result.items_total} questions correct
@@ -185,7 +192,7 @@ export default function ExamPage() {
           {!result.passed && result.incorrect && result.incorrect.length > 0 && (
             <details className="rounded-xl border p-4 bg-slate-50 dark:bg-slate-800">
               <summary className="cursor-pointer font-medium text-slate-900 dark:text-slate-100 hover:text-[#F76511]">
-                Review Incorrect Answers ({result.incorrect.length})
+                {t('exam.review_incorrect')} ({result.incorrect.length})
               </summary>
               <div className="mt-3 space-y-3">
                 {result.incorrect.map((item, index) => (
@@ -215,20 +222,20 @@ export default function ExamPage() {
                 onClick={handleRetake}
                 className="rounded-2xl bg-[#F76511] text-white px-6 py-3 shadow-lg hover:bg-[#E55A0F] transition-colors"
               >
-                Retake Exam
+                {t('exam.retake_exam')}
               </button>
             )}
             <a 
               href="/training"
               className="rounded-2xl border border-slate-300 px-6 py-3 text-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
             >
-              Back to Training
+              {t('common.back')} to {t('training.hub_title')}
             </a>
             <a 
               href="/records"
               className="rounded-2xl border border-slate-300 px-6 py-3 text-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
             >
-              View Records
+              {t('exam.view_records')}
             </a>
           </div>
         </section>
@@ -240,7 +247,7 @@ export default function ExamPage() {
   return (
     <main className="container mx-auto p-4 max-w-2xl">
       <header className="mb-6">
-        <h1 className="text-2xl font-bold">Final Exam</h1>
+        <h1 className="text-2xl font-bold">{t('exam.title')}</h1>
         <div className="flex items-center justify-between mt-2">
           <p className="text-sm text-slate-600">
             Question {currentIndex + 1} of {items.length}
@@ -306,7 +313,7 @@ export default function ExamPage() {
               disabled={currentIndex === 0}
               className="rounded-2xl border border-slate-300 px-4 py-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
             >
-              Back
+                              {t('common.back')}
             </button>
 
             <div className="text-xs text-slate-500">
@@ -319,7 +326,7 @@ export default function ExamPage() {
                 disabled={!canProceed || isSubmitting}
                 className="rounded-2xl bg-[#F76511] text-white px-6 py-2 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#E55A0F] transition-colors"
               >
-                {isSubmitting ? 'Submitting...' : 'Submit Exam'}
+                {isSubmitting ? t('common.loading') : t('common.submit')}
               </button>
             ) : (
               <button
@@ -327,7 +334,7 @@ export default function ExamPage() {
                 disabled={!canProceed}
                 className="rounded-2xl bg-[#F76511] text-white px-4 py-2 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#E55A0F] transition-colors"
               >
-                Next
+                {t('common.next')}
               </button>
             )}
           </div>
