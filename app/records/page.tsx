@@ -2,37 +2,12 @@
 import { cookies } from 'next/headers';
 import { createClient } from '@supabase/supabase-js';
 import CertificateActions from '@/components/records/CertificateActions';
-
-const L = (k: string, locale: string) => {
-  const en: any = { 
-    'records.title': 'Records', 
-    'records.certificate': 'Certificate', 
-    'records.download': 'Download PDF', 
-    'records.verify': 'Verify',
-    'records.eval': 'Supervisor Evaluation',
-    'records.status': 'Status',
-    'records.date': 'Date', 
-    'records.supervisor': 'Supervisor',
-    'records.none': 'No practical evaluation on file yet.',
-    'records.start_now': 'Start now'
-  };
-  const es: any = { 
-    'records.title': 'Registros', 
-    'records.certificate': 'Certificado', 
-    'records.download': 'Descargar PDF', 
-    'records.verify': 'Verificar',
-    'records.eval': 'Evaluación del supervisor',
-    'records.status': 'Estado',
-    'records.date': 'Fecha',
-    'records.supervisor': 'Supervisor', 
-    'records.none': 'Aún no hay evaluación práctica.',
-    'records.start_now': 'Iniciar ahora'
-  };
-  return (locale==='es'?es:en)[k];
-};
+import { getDict, tFrom, type Locales } from '@/lib/i18n';
 
 export default async function Page() {
   const locale = (cookies().get('locale')?.value === 'es') ? 'es' : 'en';
+  const dict = getDict(locale as Locales);
+  const t = (path: string, params?: Record<string, any>) => tFrom(dict, path, params);
   const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
   
   // Get current user for evaluation lookup
@@ -84,20 +59,20 @@ export default async function Page() {
     .maybeSingle() : { data: null };
   return (
     <main className="container mx-auto p-4 space-y-4">
-      <h1 className="text-2xl font-bold text-[#0F172A] dark:text-white">{L('records.title', locale)}</h1>
+      <h1 className="text-2xl font-bold text-[#0F172A] dark:text-white">{t('records.title')}</h1>
       
       {/* Supervisor Evaluation Status */}
       <section className="rounded-2xl border p-4 bg-white dark:bg-slate-900 dark:border-slate-700">
-        <h2 className="text-lg font-semibold mb-2">{L('records.eval', locale)}</h2>
+        <h2 className="text-lg font-semibold mb-2">{t('eval.title')}</h2>
         {evalRow ? (
           <div className="text-sm">
-            <div>{L('records.status', locale)}: <span className={evalRow.practical_pass ? 'text-emerald-700' : 'text-rose-700'}>{evalRow.practical_pass ? 'Passed' : 'Failed'}</span></div>
-            <div>{L('records.date', locale)}: {evalRow.evaluation_date}</div>
-            <div>{L('records.supervisor', locale)}: {evalRow.evaluator_name}</div>
+            <div>{t('eval.result')}: <span className={evalRow.practical_pass ? 'text-emerald-700' : 'text-rose-700'}>{evalRow.practical_pass ? t('eval.pass_label') : t('eval.needs_refresher')}</span></div>
+            <div>{t('eval.date')}: {evalRow.evaluation_date}</div>
+            <div>{t('eval.evaluator_name')}: {evalRow.evaluator_name}</div>
             {evalRow.signature_url ? <div className="mt-2"><img src={evalRow.signature_url} alt="Supervisor signature" className="h-16"/></div> : null}
           </div>
         ) : (
-          <div className="text-sm text-slate-600 dark:text-slate-300">{L('records.none', locale)} <a className="underline" href="/practical/start">{L('records.start_now', locale)}</a>.</div>
+          <div className="text-sm text-slate-600 dark:text-slate-300">{t('records.no_records')} <a className="underline" href="/practical/start">{t('common.start')}</a>.</div>
         )}
       </section>
 
@@ -107,12 +82,12 @@ export default async function Page() {
           <table className="w-full text-sm">
             <thead className="bg-slate-50 dark:bg-slate-800 border-b">
               <tr>
-                <th className="text-left p-3 font-medium">Certificate</th>
-                <th className="text-left p-3 font-medium">Issued</th>
-                <th className="text-left p-3 font-medium">Practical</th>
-                <th className="text-left p-3 font-medium">Exam Score</th>
-                <th className="text-left p-3 font-medium">Verification</th>
-                <th className="text-left p-3 font-medium">Actions</th>
+                <th className="text-left p-3 font-medium">{t('records.title')}</th>
+                <th className="text-left p-3 font-medium">{t('verify.issued')}</th>
+                <th className="text-left p-3 font-medium">{t('verify.practical')}</th>
+                <th className="text-left p-3 font-medium">{t('records.exam_col')}</th>
+                <th className="text-left p-3 font-medium">{t('records.verification')}</th>
+                <th className="text-left p-3 font-medium">{t('common.submit')}</th>
               </tr>
             </thead>
             <tbody>
@@ -120,7 +95,7 @@ export default async function Page() {
                 <tr key={c.id} className="border-b last:border-b-0 hover:bg-slate-50 dark:hover:bg-slate-800">
                   <td className="p-3">
                     <div className="font-medium text-slate-900 dark:text-slate-100">
-                      {L('records.certificate', locale)}
+                      {t('records.title')}
                     </div>
                     <div className="text-xs text-slate-600 dark:text-slate-400">
                       ID: {c.id.slice(0, 8)}...
@@ -149,7 +124,7 @@ export default async function Page() {
                           {examByEnroll[c.enrollment_id].score_pct}%
                         </div>
                         <div className="text-xs text-slate-500">
-                          {examByEnroll[c.enrollment_id].attempts} attempt{examByEnroll[c.enrollment_id].attempts > 1 ? 's' : ''}
+                          {examByEnroll[c.enrollment_id].attempts} {t('records.attempts')}
                         </div>
                       </div>
                     ) : (
@@ -168,7 +143,7 @@ export default async function Page() {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          {L('records.verify', locale)}
+                          {t('records.verification')}
                         </a>
                       </div>
                     )}
@@ -186,7 +161,7 @@ export default async function Page() {
               )) : (
                 <tr>
                   <td colSpan={6} className="p-8 text-center text-slate-500 dark:text-slate-400">
-                    No certificates found. Complete your training and pass the final exam to earn your certificate.
+                    {t('records.no_records')}
                   </td>
                 </tr>
               )}

@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import SignaturePad from 'signature_pad';
+import { useI18n } from '@/lib/i18n/I18nProvider';
 
 const defaultCompetencies = {
   preop: false, controls: false, travel: false, loadHandling: false, pedestrians: false,
@@ -15,6 +16,7 @@ type EvalRow = {
 };
 
 export default function EvalForm({ enrollmentId, initial }: { enrollmentId: string; initial: EvalRow | null }) {
+  const { t } = useI18n();
   const [data, setData] = useState<EvalRow>({ enrollment_id: enrollmentId, ...initial });
   const [competencies, setCompetencies] = useState<Record<string, boolean>>({ ...defaultCompetencies, ...(initial?.competencies || {}) });
   const [saving, setSaving] = useState(false);
@@ -47,11 +49,12 @@ export default function EvalForm({ enrollmentId, initial }: { enrollmentId: stri
     (window as any)?.analytics?.track?.('eval_signed', { enrollmentId, role });
   }
 
-  function Check({ k, label }: { k: keyof typeof defaultCompetencies; label: string }) {
+  function Check({ k }: { k: keyof typeof defaultCompetencies }) {
+    const labels = t('eval.competencies_labels') as any;
     return (
       <label className="flex items-center gap-2">
         <input type="checkbox" checked={!!competencies[k]} onChange={e => setCompetencies(c => ({ ...c, [k]: e.target.checked }))} />
-        <span>{label}</span>
+        <span>{labels[k]}</span>
       </label>
     );
   }
@@ -60,59 +63,59 @@ export default function EvalForm({ enrollmentId, initial }: { enrollmentId: stri
     <section className="grid gap-4">
       <div className="rounded-2xl border p-4 bg-white dark:bg-slate-900 grid gap-3">
         <div className="grid md:grid-cols-2 gap-3">
-          <input className="border rounded-xl p-2" placeholder="Evaluator name" value={data.evaluator_name || ''} onChange={e => setField('evaluator_name', e.target.value)} />
-          <input className="border rounded-xl p-2" placeholder="Evaluator title" value={data.evaluator_title || ''} onChange={e => setField('evaluator_title', e.target.value)} />
-          <input className="border rounded-xl p-2" placeholder="Site/location" value={data.site_location || ''} onChange={e => setField('site_location', e.target.value)} />
+          <input className="border rounded-xl p-2" placeholder={t('eval.evaluator_name')} value={data.evaluator_name || ''} onChange={e => setField('evaluator_name', e.target.value)} />
+          <input className="border rounded-xl p-2" placeholder={t('eval.evaluator_title')} value={data.evaluator_title || ''} onChange={e => setField('evaluator_title', e.target.value)} />
+          <input className="border rounded-xl p-2" placeholder={t('eval.site')} value={data.site_location || ''} onChange={e => setField('site_location', e.target.value)} />
           <input className="border rounded-xl p-2" type="date" value={(data.evaluation_date || '').slice(0, 10)} onChange={e => setField('evaluation_date', e.target.value)} />
         </div>
-        <textarea className="border rounded-xl p-2" rows={3} placeholder="Notes" value={data.notes || ''} onChange={e => setField('notes', e.target.value)} />
+        <textarea className="border rounded-xl p-2" rows={3} placeholder={t('eval.notes')} value={data.notes || ''} onChange={e => setField('notes', e.target.value)} />
       </div>
 
       <div className="rounded-2xl border p-4 bg-white dark:bg-slate-900 grid gap-2">
-        <div className="font-semibold">Competencies (OSHA 1910.178(l))</div>
+        <div className="font-semibold">{t('eval.competencies')}</div>
         <div className="grid md:grid-cols-2 gap-2">
-          <Check k="preop" label="Pre-operation inspection" />
-          <Check k="controls" label="Controls & instrument use" />
-          <Check k="travel" label="Safe travel (speed, visibility, horn)" />
-          <Check k="loadHandling" label="Load handling & stacking" />
-          <Check k="pedestrians" label="Pedestrian safety" />
-          <Check k="ramps" label="Ramps & inclines" />
-          <Check k="stability" label="Stability triangle awareness" />
-          <Check k="refuel" label="Refueling/charging procedures" />
-          <Check k="shutdown" label="Parking & shutdown" />
+          <Check k="preop" />
+          <Check k="controls" />
+          <Check k="travel" />
+          <Check k="loadHandling" />
+          <Check k="pedestrians" />
+          <Check k="ramps" />
+          <Check k="stability" />
+          <Check k="refuel" />
+          <Check k="shutdown" />
         </div>
       </div>
 
       <div className="rounded-2xl border p-4 bg-white dark:bg-slate-900">
         <div className="flex items-center gap-3">
-          <label className="flex items-center gap-2"><input type="radio" name="pass" checked={data.practical_pass === true} onChange={() => setField('practical_pass', true)} /> Pass</label>
-          <label className="flex items-center gap-2"><input type="radio" name="pass" checked={data.practical_pass === false} onChange={() => setField('practical_pass', false)} /> Needs refresher</label>
-          <label className="flex items-center gap-2"><input type="radio" name="pass" checked={data.practical_pass == null} onChange={() => setField('practical_pass', null)} /> Undecided</label>
+          <label className="flex items-center gap-2"><input type="radio" name="pass" checked={data.practical_pass === true} onChange={() => setField('practical_pass', true)} /> {t('eval.pass_label')}</label>
+          <label className="flex items-center gap-2"><input type="radio" name="pass" checked={data.practical_pass === false} onChange={() => setField('practical_pass', false)} /> {t('eval.needs_refresher')}</label>
+          <label className="flex items-center gap-2"><input type="radio" name="pass" checked={data.practical_pass == null} onChange={() => setField('practical_pass', null)} /> {t('eval.undecided')}</label>
         </div>
       </div>
 
       <div className="grid md:grid-cols-2 gap-4">
         <div className="rounded-2xl border p-4 bg-white dark:bg-slate-900">
-          <div className="font-medium mb-2">Evaluator signature</div>
+          <div className="font-medium mb-2">{t('eval.evaluator_signature')}</div>
           <canvas id="sig-evaluator" width={480} height={160} className="border rounded-xl bg-white w-full h-40"></canvas>
           <div className="flex gap-2 mt-2">
-            <button className="rounded-2xl border px-3 py-2" onClick={() => sign('evaluator')}>Save signature</button>
+            <button className="rounded-2xl border px-3 py-2" onClick={() => sign('evaluator')}>{t('eval.save_signature')}</button>
             {data.evaluator_signature_url && <a className="rounded-2xl border px-3 py-2" target="_blank" href={data.evaluator_signature_url}>View</a>}
           </div>
         </div>
         <div className="rounded-2xl border p-4 bg-white dark:bg-slate-900">
-          <div className="font-medium mb-2">Trainee signature</div>
+          <div className="font-medium mb-2">{t('eval.trainee_signature')}</div>
           <canvas id="sig-trainee" width={480} height={160} className="border rounded-xl bg-white w-full h-40"></canvas>
           <div className="flex gap-2 mt-2">
-            <button className="rounded-2xl border px-3 py-2" onClick={() => sign('trainee')}>Save signature</button>
+            <button className="rounded-2xl border px-3 py-2" onClick={() => sign('trainee')}>{t('eval.save_signature')}</button>
             {data.trainee_signature_url && <a className="rounded-2xl border px-3 py-2" target="_blank" href={data.trainee_signature_url}>View</a>}
           </div>
         </div>
       </div>
 
       <div className="flex gap-2">
-        <button disabled={saving} className="rounded-2xl bg-[#F76511] text-white px-4 py-2" onClick={save}>{saving ? 'Saving…' : 'Save evaluation'}</button>
-        <a className="rounded-2xl border px-4 py-2" target="_blank" href={`/trainer/evaluations/${enrollmentId}/print`}>Print</a>
+        <button disabled={saving} className="rounded-2xl bg-[#F76511] text-white px-4 py-2" onClick={save}>{saving ? t('common.loading') : t('eval.save_evaluation')}</button>
+        <a className="rounded-2xl border px-4 py-2" target="_blank" href={`/trainer/evaluations/${enrollmentId}/print`}>{t('eval.print')}</a>
       </div>
     </section>
   );
