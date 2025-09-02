@@ -1,84 +1,38 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
-import crypto from 'crypto';
 
+function dataUrlToBuffer(dataUrl:string){
+  const m = dataUrl.match(/^data:image\/(png|jpeg);base64,(.+)$/);
+  if (!m) throw new Error('invalid_data_url');
+  return Buffer.from(m[2], 'base64');
+}
+
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-export async function POST(req: NextRequest) {
-  try {
-    const sb = supabaseServer();
-    const svc = supabaseService();
-    const { data: { user } } = await sb.auth.getUser();
-    
-    if (!user) {
-      return NextResponse.json({ ok: false, error: 'Not authenticated' }, { status: 401 });
-    }
+export async function POST(req: Request){
+  const sb = supabaseServer();
+  const svc = supabaseService();
+  const { data: { user } } = await sb.auth.getUser();
+  if (!user) return NextResponse.json({ ok:false, error:'unauthorized' }, { status:401 });
+  const { data: prof } = await sb.from('profiles').select('role').eq('id', user.id).maybeSingle();
+  if (!prof || !['trainer','admin'].includes(prof.role)) return NextResponse.json({ ok:false, error:'forbidden' }, { status:403 });
 
-    // Check if user has trainer/admin role
-    const { data: profile } = await sb
-      .from('profiles')
-      .select('role')
-      .eq('id', user.id)
-      .maybeSingle();
+  const body = await req.json();
+  const { enrollment_id, role, dataUrl } = body || {};
+  if (!enrollment_id || !['evaluator','trainee'].includes(role)) return NextResponse.json({ ok:false, error:'bad_request' }, { status:400 });
 
-    if (!profile || !['trainer', 'admin'].includes(profile.role)) {
-      return NextResponse.json({ ok: false, error: 'Trainer access required' }, { status: 403 });
-    }
+  const buf = dataUrlToBuffer(dataUrl);
+  const path = `${enrollment_id}/${role}.png`;
+  const { error: upErr } = await svc.storage.from('eval-signatures').upload(path, buf, { contentType:'image/png', upsert:true });
+  if (upErr) return NextResponse.json({ ok:false, error: upErr.message }, { status:500 });
 
-    const body = await req.json();
-    const { enrollment_id, role, dataUrl } = body;
+  const { data: pub } = await svc.storage.from('eval-signatures').getPublicUrl(path);
+  const field = role === 'evaluator' ? 'evaluator_signature_url' : 'trainee_signature_url';
+  const update: any = {}; update[field] = pub.publicUrl;
+  const { error: uErr } = await svc.from('employer_evaluations').update(update).eq('enrollment_id', enrollment_id);
+  if (uErr) return NextResponse.json({ ok:false, error: uErr.message }, { status:500 });
 
-    if (!enrollment_id || !role || !dataUrl) {
-      return NextResponse.json({ ok: false, error: 'Missing required fields' }, { status: 400 });
-    }
-
-    if (!['evaluator', 'trainee'].includes(role)) {
-      return NextResponse.json({ ok: false, error: 'Invalid role' }, { status: 400 });
-    }
-
-    if (!dataUrl.startsWith('data:image/')) {
-      return NextResponse.json({ ok: false, error: 'Invalid image data' }, { status: 400 });
-    }
-
-    const bucket = 'eval-signatures';
-    
-    // Ensure bucket exists & is public
-    try { 
-      await svc.storage.createBucket(bucket, { public: true }); 
-    } catch {
-      // Bucket might already exist, continue
-    }
-    
-    // Convert base64 to buffer
-    const base64 = dataUrl.split(',')[1];
-    const bytes = Buffer.from(base64, 'base64');
-    const key = `${enrollment_id}-${role}-${crypto.randomUUID()}.png`;
-    
-    // Upload to Supabase Storage
-    const { error: uploadError } = await svc.storage
-      .from(bucket)
-      .upload(key, bytes, { 
-        contentType: 'image/png', 
-        upsert: false 
-      });
-    
-    if (uploadError) {
-      console.error('Signature upload error:', uploadError);
-      return NextResponse.json({ ok: false, error: uploadError.message }, { status: 500 });
-    }
-    
-    // Get public URL
-    const { data: pub } = svc.storage.from(bucket).getPublicUrl(key);
-    
-    if (!pub?.publicUrl) {
-      return NextResponse.json({ ok: false, error: 'Failed to get public URL' }, { status: 500 });
-    }
-
-    return NextResponse.json({ ok: true, url: pub.publicUrl, key });
-
-  } catch (error) {
-    console.error('Error in eval/signature:', error);
-    return NextResponse.json({ ok: false, error: 'Internal server error' }, { status: 500 });
-  }
+  return NextResponse.json({ ok:true, url: pub.publicUrl });
 }
