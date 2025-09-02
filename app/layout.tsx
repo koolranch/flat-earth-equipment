@@ -13,7 +13,7 @@ import SkipToContent from '@/components/a11y/SkipToContent';
 import SkipLink from '@/components/a11y/SkipLink';
 import ReducedMotionProvider from '@/components/a11y/ReducedMotionProvider';
 import ReducedMotionToggle from '@/components/a11y/ReducedMotionToggle';
-import LanguageSwitch from '@/components/i18n/LanguageSwitch';
+import LocaleSwitcher from '@/components/i18n/LocaleSwitcher';
 import { getAdminStatus } from '@/lib/admin/guard';
 // Import your global styles (Tailwind, custom resets)
 import '../globals.css';
@@ -82,7 +82,7 @@ export default async function RootLayout({
                   {adminStatus.isAdmin && (
                     <a className="text-sm underline hover:no-underline text-blue-600 dark:text-blue-400" href="/admin/roster">Admin</a>
                   )}
-                  <LanguageSwitch />
+                  <LocaleSwitcher />
                 </nav>
               </div>
             </header>
