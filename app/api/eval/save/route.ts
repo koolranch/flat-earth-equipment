@@ -1,94 +1,37 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabase/server';
+import { supabaseService } from '@/lib/supabase/service.server';
 
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-export async function POST(req: NextRequest) {
-  try {
-    const sb = supabaseServer();
-    const { data: { user } } = await sb.auth.getUser();
-    
-    if (!user) {
-      return NextResponse.json({ ok: false, error: 'Not authenticated' }, { status: 401 });
-    }
+export async function POST(req: Request){
+  const sb = supabaseServer();
+  const svc = supabaseService();
+  const { data: { user } } = await sb.auth.getUser();
+  if (!user) return NextResponse.json({ ok:false, error:'unauthorized' }, { status:401 });
+  const { data: prof } = await sb.from('profiles').select('role').eq('id', user.id).maybeSingle();
+  if (!prof || !['trainer','admin'].includes(prof.role)) return NextResponse.json({ ok:false, error:'forbidden' }, { status:403 });
 
-    // Check if user has trainer/admin role
-    const { data: profile } = await sb
-      .from('profiles')
-      .select('role')
-      .eq('id', user.id)
-      .maybeSingle();
+  const body = await req.json();
+  const payload = {
+    enrollment_id: body.enrollment_id,
+    evaluator_name: body.evaluator_name || null,
+    evaluator_title: body.evaluator_title || null,
+    site_location: body.site_location || null,
+    evaluation_date: body.evaluation_date || null,
+    practical_pass: typeof body.practical_pass === 'boolean' ? body.practical_pass : null,
+    notes: body.notes || null,
+    competencies: body.competencies || null
+  };
+  if (!payload.enrollment_id) return NextResponse.json({ ok:false, error:'missing_enrollment_id' }, { status:400 });
 
-    if (!profile || !['trainer', 'admin'].includes(profile.role)) {
-      return NextResponse.json({ ok: false, error: 'Trainer access required' }, { status: 403 });
-    }
+  const { data: row, error } = await svc
+    .from('employer_evaluations')
+    .upsert(payload, { onConflict: 'enrollment_id' })
+    .select('*')
+    .maybeSingle();
+  if (error) return NextResponse.json({ ok:false, error: error.message }, { status:500 });
 
-    const body = await req.json();
-    const {
-      id,
-      enrollment_id,
-      evaluator_name,
-      evaluator_title,
-      site_location,
-      evaluation_date,
-      practical_pass,
-      notes,
-      evaluator_signature_url,
-      trainee_signature_url,
-      competencies
-    } = body;
-
-    const evalData = {
-      enrollment_id,
-      evaluator_name,
-      evaluator_title,
-      site_location,
-      evaluation_date: evaluation_date || null,
-      practical_pass: practical_pass === null ? null : Boolean(practical_pass),
-      notes,
-      evaluator_signature_url,
-      trainee_signature_url,
-      competencies: competencies || {},
-      updated_at: new Date().toISOString()
-    };
-
-    let result;
-
-    if (id) {
-      // Update existing evaluation
-      const { data, error } = await sb
-        .from('employer_evaluations')
-        .update(evalData)
-        .eq('id', id)
-        .select()
-        .single();
-
-      if (error) {
-        console.error('Error updating evaluation:', error);
-        return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
-      }
-
-      result = data;
-    } else {
-      // Create new evaluation
-      const { data, error } = await sb
-        .from('employer_evaluations')
-        .insert({ ...evalData, created_at: new Date().toISOString() })
-        .select()
-        .single();
-
-      if (error) {
-        console.error('Error creating evaluation:', error);
-        return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
-      }
-
-      result = data;
-    }
-
-    return NextResponse.json({ ok: true, row: result });
-
-  } catch (error) {
-    console.error('Error in eval/save:', error);
-    return NextResponse.json({ ok: false, error: 'Internal server error' }, { status: 500 });
-  }
+  return NextResponse.json({ ok:true, row });
 }
