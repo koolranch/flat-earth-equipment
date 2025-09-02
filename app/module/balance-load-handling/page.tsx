@@ -54,7 +54,7 @@ export default async function BalanceLoadHandlingPage() {
           objective={L('demo.objective', locale)}
           estMin={10}
         >
-          <StabilityTriangleSim onComplete={() => console.log('Demo completed from balance-load-handling page')} />
+          <StabilityTriangleSim />
         </StandardDemoPanel>
       </section>
 
