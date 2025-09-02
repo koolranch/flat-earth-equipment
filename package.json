@@ -66,7 +66,8 @@
     "qa:howto": "node scripts/print-test-instructions.mjs",
     "build-and-qa": "node scripts/build-and-qa.mjs",
     "dx:seed:captions": "node scripts/seed-captions-transcripts.mjs",
-    "qa:a11y": "npm run lint:a11y && npm run test:a11y"
+    "qa:a11y": "npm run lint:a11y && npm run test:a11y",
+    "seed:quiz": "node scripts/seed-quiz-items.mjs"
   },
   "keywords": [],
   "author": "",
