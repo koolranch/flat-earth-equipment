@@ -1,0 +1,74 @@
+[
+  {
+    "module_slug": "pre-operation-inspection",
+    "locale": "en",
+    "question": "What is the first step in pre-operation safety?",
+    "choices": ["Start the engine", "Put on PPE", "Check fuel", "Sound horn"],
+    "correct_index": 1,
+    "explain": "Personal protective equipment must be worn before any other steps.",
+    "difficulty": 1,
+    "tags": ["m1", "ppe", "safety"],
+    "is_exam_candidate": true,
+    "active": true
+  },
+  {
+    "module_slug": "pre-operation-inspection",
+    "locale": "es",
+    "question": "¿Cuál es el primer paso en la seguridad pre-operacional?",
+    "choices": ["Arrancar el motor", "Ponerse EPP", "Verificar combustible", "Tocar bocina"],
+    "correct_index": 1,
+    "explain": "El equipo de protección personal debe usarse antes de cualquier otro paso.",
+    "difficulty": 1,
+    "tags": ["m1", "epp", "seguridad"],
+    "is_exam_candidate": true,
+    "active": true
+  },
+  {
+    "module_slug": "eight-point-inspection",
+    "locale": "en",
+    "question": "Which component is NOT part of the 8-point inspection?",
+    "choices": ["Tires", "Forks", "Radio", "Mast"],
+    "correct_index": 2,
+    "explain": "Radio is not part of the standard 8-point safety inspection.",
+    "difficulty": 2,
+    "tags": ["m2", "inspection"],
+    "is_exam_candidate": true,
+    "active": true
+  },
+  {
+    "module_slug": "stability-and-load-handling",
+    "locale": "en",
+    "question": "The stability triangle is formed by which points?",
+    "choices": ["Front wheels and rear axle", "Front axle and steer wheels", "Mast and counterweight", "Load and forks"],
+    "correct_index": 1,
+    "explain": "The stability triangle is formed by the front axle and the center point of the steer axle.",
+    "difficulty": 3,
+    "tags": ["m3", "stability", "physics"],
+    "is_exam_candidate": true,
+    "active": true
+  },
+  {
+    "module_slug": "safe-operation-and-hazards",
+    "locale": "en",
+    "question": "When approaching a pedestrian, you should:",
+    "choices": ["Speed up to pass quickly", "Sound horn continuously", "Slow down and yield right-of-way", "Maintain current speed"],
+    "correct_index": 2,
+    "explain": "Always slow down and yield right-of-way to pedestrians for safety.",
+    "difficulty": 2,
+    "tags": ["m4", "pedestrian", "safety"],
+    "is_exam_candidate": true,
+    "active": true
+  },
+  {
+    "module_slug": "shutdown-and-parking",
+    "locale": "en",
+    "question": "What is the last step in the shutdown sequence?",
+    "choices": ["Turn off key", "Set brake", "Apply wheel chock", "Lower forks"],
+    "correct_index": 2,
+    "explain": "Wheel chock is the final step to secure the forklift.",
+    "difficulty": 1,
+    "tags": ["m5", "shutdown", "parking"],
+    "is_exam_candidate": false,
+    "active": true
+  }
+]
