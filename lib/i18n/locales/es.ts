@@ -6,7 +6,16 @@ export const es = {
     hub_title: 'Tu capacitación', modules_complete_to_unlock_exam: 'Completa todos los módulos para desbloquear el examen.', final_exam: 'Examen final', pass_to_generate_cert: 'Aprueba para generar tu certificado', progress_label: 'Progreso', module: 'Módulo', demo: 'Demostración', quiz: 'Cuestionario', minutes: 'min', resume_training: 'Reanudar capacitación', continue: 'Continuar', start_module: 'Iniciar módulo'
   },
   exam: {
-    title: 'Examen final', results_title: 'Examen final — Resultados', passed_title: 'Aprobado', failed_title: 'Inténtalo de nuevo', review_incorrect: 'Revisar respuestas incorrectas', score_label: 'Puntaje', retake_exam: 'Repetir examen', view_records: 'Ver registros'
+    title: 'Examen final', results_title: 'Examen final — Resultados', passed_title: 'Aprobado', failed_title: 'Inténtalo de nuevo', review_incorrect: 'Revisar respuestas incorrectas', score_label: 'Puntaje', retake_exam: 'Repetir examen', view_records: 'Ver registros',
+    time_remaining: 'Tiempo restante',
+    continue_saved_exam: 'Continuar examen guardado',
+    start_new_exam: 'Iniciar nuevo examen',
+    exam_in_progress: 'Tienes un examen en curso.',
+    auto_saved: 'Guardado automático',
+    paused: 'Pausado',
+    resume: 'Reanudar',
+    submit_now: 'Enviar ahora',
+    time_up: 'Se acabó el tiempo. Enviando tus respuestas…'
   },
   records: {
     title: 'Registros y certificados', verification: 'Verificación', exam_col: 'Examen', attempts: 'intentos', certificate_downloaded: 'Certificado descargado', no_records: 'Aún no hay registros'
