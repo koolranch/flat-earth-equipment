@@ -10,8 +10,8 @@ export default async function ContentPage({ slug, locale }:{ slug:string; locale
   const { content } = await compileMDX({
     source,
     components: {
-      h2: (props:any)=> props.children ? <h2 className="text-xl font-semibold mt-4 mb-2" {...props} /> : null,
-      h3: (props:any)=> props.children ? <h3 className="text-lg font-semibold mt-3 mb-1" {...props} /> : null,
+      h2: (props:any)=> <h2 className="text-xl font-semibold mt-4 mb-2" {...props}>{props.children || ' '}</h2>,
+      h3: (props:any)=> <h3 className="text-lg font-semibold mt-3 mb-1" {...props}>{props.children || ' '}</h3>,
       Callout: Lib.Callout,
       Objectives: Lib.Objectives,
       Checklist: Lib.Checklist,
