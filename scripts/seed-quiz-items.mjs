@@ -35,7 +35,8 @@ async function run(){
       explain: s.explain,
       tags: s.tags, 
       is_exam_candidate: s.is_exam_candidate, 
-      active: true
+      active: true,
+      source: 'seed'
     }).select('id');
     
     if (enError) {
@@ -57,7 +58,8 @@ async function run(){
         explain: s.explain,
         tags: s.tags, 
         is_exam_candidate: s.is_exam_candidate, 
-        active: true
+        active: true,
+        source: 'seed'
       }).select('id');
       
       if (esError) {
