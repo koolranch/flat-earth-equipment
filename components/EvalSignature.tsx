@@ -177,11 +177,16 @@ export default function EvalSignature({ onSignatureChange, value }: EvalSignatur
                 height: canvasSize.height,
                 className: 'signature-canvas w-full touch-manipulation'
               }}
-              onEnd={handleDrawnSignature}
             />
           </div>
           
-          <div className="flex justify-center">
+          <div className="flex justify-center gap-2">
+            <button
+              onClick={handleDrawnSignature}
+              className="px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            >
+              Save Signature
+            </button>
             <button
               onClick={clearSignature}
               className="px-6 py-3 text-sm text-orange-600 hover:text-orange-700 font-medium border border-orange-200 rounded-md hover:bg-orange-50 touch-manipulation"
