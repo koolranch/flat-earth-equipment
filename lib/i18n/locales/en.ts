@@ -39,7 +39,7 @@ export const en = {
     qr_hint: 'Scan to verify'
   },
   records: {
-    title: 'Records & Certificates', verification: 'Verification', exam_col: 'Exam', attempts: 'attempts', certificate_downloaded: 'Certificate downloaded', no_records: 'No records yet'
+    title: 'Records & Certificates', verification: 'Verification', exam_col: 'Exam', attempts: 'attempts', certificate_downloaded: 'Certificate downloaded', no_records: 'No records yet', eval_present: 'Practical evaluation PDF on file', eval_missing: 'No employer evaluation on file'
   },
   verify: {
     title: 'Certificate Verification',
@@ -53,6 +53,48 @@ export const en = {
     expires: 'Expires',
     employer_notice: 'Employers: retain practical evaluation with this record (§1910.178(l)(6)).',
     page_title: 'Certificate Verification', learner: 'Learner', practical: 'Practical', verification_code: 'Verification code', certificate_not_found: 'Certificate not found.'
+  },
+  evaluation: {
+    title: 'Practical Evaluation',
+    start_new: 'Start evaluation',
+    trainee_email: 'Trainee email',
+    course: 'Course',
+    evaluator_name: 'Evaluator name',
+    evaluator_title: 'Evaluator title',
+    site_location: 'Site/location',
+    evaluation_date: 'Evaluation date',
+    truck_type: 'Truck type',
+    checklist: 'Checklist',
+    notes: 'Notes (optional)',
+    signature: 'Evaluator signature',
+    save_draft: 'Save draft',
+    submit_and_generate_pdf: 'Submit & generate PDF',
+    on_file: 'Employer practical evaluation on file',
+    view_pdf: 'View evaluation PDF',
+    pdf_title: 'Forklift Operator — Practical Evaluation',
+    pdf_subtitle: 'Employer record per OSHA §1910.178(l)(6)',
+    status_pass: 'Pass',
+    status_fail: 'Fail',
+    pass_toggle: 'Overall result',
+    attest_line: 'I attest that the operator demonstrated competence in these tasks.',
+    required_fields: 'Please complete required fields',
+    uploaded_signature: 'Signature uploaded',
+    upload_signature: 'Upload signature',
+    capture_signature: 'Capture signature',
+    checklist_items: {
+      preop: 'Pre-operation inspection',
+      seatbelt: 'Seat belt use',
+      start: 'Safe start/controls',
+      travel: 'Traveling with load low/back-tilt',
+      pedestrians: 'Pedestrian awareness / horn at corners',
+      ramps: 'Ramps & grades (orientation)',
+      stacking: 'Stacking/unstacking (square, stop, lift)',
+      visibility: 'Maintain visibility / reverse if obstructed',
+      speed: 'Safe speed / turning control',
+      attachments: 'Attachment use (if applicable)',
+      battery: 'Charging/refueling safety',
+      shutdown: 'Shutdown & parking (neutral, brake, forks down)'
+    }
   },
   eval: {
     title: 'Practical Evaluation', competencies: 'Competencies (OSHA 1910.178(l))', result: 'Result', pass_label: 'Pass', needs_refresher: 'Needs refresher', undecided: 'Undecided', evaluator_name: 'Evaluator name', evaluator_title: 'Evaluator title', site: 'Site/location', date: 'Date', notes: 'Notes', evaluator_signature: 'Evaluator signature', trainee_signature: 'Trainee signature', save_evaluation: 'Save evaluation', save_signature: 'Save signature', print: 'Print',

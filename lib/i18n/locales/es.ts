@@ -39,7 +39,7 @@ export const es = {
     qr_hint: 'Escanear para verificar'
   },
   records: {
-    title: 'Registros y certificados', verification: 'Verificación', exam_col: 'Examen', attempts: 'intentos', certificate_downloaded: 'Certificado descargado', no_records: 'Aún no hay registros'
+    title: 'Registros y certificados', verification: 'Verificación', exam_col: 'Examen', attempts: 'intentos', certificate_downloaded: 'Certificado descargado', no_records: 'Aún no hay registros', eval_present: 'PDF de evaluación práctica archivado', eval_missing: 'No hay evaluación del empleador'
   },
   verify: {
     title: 'Verificación de certificado',
@@ -53,6 +53,48 @@ export const es = {
     expires: 'Vence',
     employer_notice: 'Empleadores: conserve la evaluación práctica con este registro (§1910.178(l)(6)).',
     page_title: 'Verificación de certificado', learner: 'Alumno', practical: 'Práctico', verification_code: 'Código de verificación', certificate_not_found: 'Certificado no encontrado.'
+  },
+  evaluation: {
+    title: 'Evaluación práctica',
+    start_new: 'Iniciar evaluación',
+    trainee_email: 'Correo del operador',
+    course: 'Curso',
+    evaluator_name: 'Nombre del evaluador',
+    evaluator_title: 'Cargo del evaluador',
+    site_location: 'Sitio/ubicación',
+    evaluation_date: 'Fecha de evaluación',
+    truck_type: 'Tipo de montacargas',
+    checklist: 'Lista de verificación',
+    notes: 'Notas (opcional)',
+    signature: 'Firma del evaluador',
+    save_draft: 'Guardar borrador',
+    submit_and_generate_pdf: 'Enviar y generar PDF',
+    on_file: 'Evaluación práctica del empleador archivada',
+    view_pdf: 'Ver PDF de evaluación',
+    pdf_title: 'Operador de montacargas — Evaluación práctica',
+    pdf_subtitle: 'Registro del empleador según OSHA §1910.178(l)(6)',
+    status_pass: 'Aprobado',
+    status_fail: 'Reprobado',
+    pass_toggle: 'Resultado general',
+    attest_line: 'Certifico que el operador demostró competencia en estas tareas.',
+    required_fields: 'Complete los campos obligatorios',
+    uploaded_signature: 'Firma cargada',
+    upload_signature: 'Subir firma',
+    capture_signature: 'Capturar firma',
+    checklist_items: {
+      preop: 'Inspección previa a la operación',
+      seatbelt: 'Uso del cinturón',
+      start: 'Arranque seguro/controles',
+      travel: 'Desplazamiento con carga baja/inclinación posterior',
+      pedestrians: 'Peatones / bocina en esquinas',
+      ramps: 'Rampas y pendientes',
+      stacking: 'Apilado/desapilado (alinear, detener, elevar)',
+      visibility: 'Mantener visibilidad / retroceder si obstruido',
+      speed: 'Velocidad segura / giros',
+      attachments: 'Uso de aditamentos (si aplica)',
+      battery: 'Carga/combustible seguro',
+      shutdown: 'Apagado y estacionamiento (neutro, freno, uñas abajo)'
+    }
   },
   eval: {
     title: 'Evaluación práctica', competencies: 'Competencias (OSHA 1910.178(l))', result: 'Resultado', pass_label: 'Aprobado', needs_refresher: 'Reforzamiento necesario', undecided: 'Sin decidir', evaluator_name: 'Nombre del evaluador', evaluator_title: 'Cargo del evaluador', site: 'Sitio/ubicación', date: 'Fecha', notes: 'Notas', evaluator_signature: 'Firma del evaluador', trainee_signature: 'Firma del alumno', save_evaluation: 'Guardar evaluación', save_signature: 'Guardar firma', print: 'Imprimir',
