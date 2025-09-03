@@ -68,7 +68,8 @@
     "dx:seed:captions": "node scripts/seed-captions-transcripts.mjs",
     "qa:a11y": "npm run lint:a11y && npm run test:a11y",
     "seed:quiz": "node scripts/seed-quiz-items.mjs",
-    "import:quiz:json": "node scripts/import-quiz-json.mjs"
+    "import:quiz:json": "node scripts/import-quiz-json.mjs",
+    "cert:regen": "node --loader ts-node/esm scripts/cert-regenerate-recent.mjs 50"
   },
   "keywords": [],
   "author": "",
