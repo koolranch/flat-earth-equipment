@@ -15,7 +15,7 @@ export default async function Page() {
   
   const { data: certs } = await supabase
     .from('certificates')
-    .select('id,issue_date,score,verifier_code,pdf_url,verification_code,enrollment_id,employer_evaluations(practical_pass)')
+    .select('id,issue_date,score,verifier_code,pdf_url,verification_code,enrollment_id,employer_evaluations(practical_pass,pdf_url)')
     .order('issue_date', { ascending: false })
     .limit(20);
 
@@ -169,6 +169,28 @@ export default async function Page() {
           </table>
         </div>
       </section>
+
+      {/* Evaluation Cards */}
+      {certs && certs.some(c => c.employer_evaluations?.[0]?.pdf_url) && (
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold text-[#0F172A] dark:text-white">{t('evaluation.title')}</h2>
+          {certs.map(c => 
+            c.employer_evaluations?.[0]?.pdf_url ? (
+              <article key={`eval-${c.id}`} className="rounded-2xl border p-4 bg-white dark:bg-slate-900 dark:border-slate-700 grid gap-2">
+                <div className="text-sm text-slate-700 dark:text-slate-300">{t('evaluation.on_file')}</div>
+                <a 
+                  className="rounded-2xl bg-[#F76511] text-white px-3 py-1 text-sm w-fit hover:bg-[#e55a0e] transition-colors" 
+                  href={c.employer_evaluations[0].pdf_url} 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t('evaluation.view_pdf')}
+                </a>
+              </article>
+            ) : null
+          )}
+        </section>
+      )}
     </main>
   );
 }

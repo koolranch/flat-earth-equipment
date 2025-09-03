@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 async function getCert(code:string){
   const svc = supabaseServer();
   const { data } = await svc.from('certificates')
-    .select('id, trainee_name, course_title, pdf_url, verification_code, issued_at, expires_at, status')
+    .select('id, trainee_name, course_title, pdf_url, verification_code, issued_at, expires_at, status, employer_evaluations(practical_pass)')
     .eq('verification_code', code)
     .maybeSingle();
   return data;
@@ -40,6 +40,9 @@ export default async function Page({ params, searchParams }:{ params:{ code:stri
           <div className='text-xs text-slate-700'><b>{t('verify.issued')}:</b> {new Date(cert.issued_at).toLocaleDateString()} • <b>{t('verify.expires')}:</b> {cert.expires_at ? new Date(cert.expires_at).toLocaleDateString() : '—'}</div>
           {cert.pdf_url && (<a className='rounded-2xl bg-[#F76511] text-white px-3 py-1 text-sm w-fit' href={cert.pdf_url} target='_blank'>{t('verify.view_pdf')}</a>)}
           <div className='text-[11px] text-slate-500 mt-2'>{t('verify.employer_notice')}</div>
+          {cert.employer_evaluations?.[0]?.practical_pass !== undefined && (
+            <div className='text-xs text-green-700 mt-2'>• {t('evaluation.on_file')}</div>
+          )}
         </article>
       )}
       <Script id='vfy-analytics' dangerouslySetInnerHTML={{ __html: `window.analytics?.track?.('certificate_verify_view', { code: ${JSON.stringify(params.code)}, src: ${JSON.stringify(src)} });` }} />
