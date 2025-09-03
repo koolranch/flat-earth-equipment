@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import QRCode from 'qrcode.react';
+import { QRCodeSVG as QRCode } from 'qrcode.react';
 import { useI18n } from '@/lib/i18n/I18nProvider';
 
 export default function CertificateCard({ cert }:{ cert: { id:string; trainee_name:string; course_title:string; pdf_url?:string|null; verification_code:string; issued_at:string; expires_at:string|null; status:'valid'|'expired'; locale?:'en'|'es' } }){
