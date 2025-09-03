@@ -49,15 +49,17 @@ export async function POST(req: Request){
     const missedIdx = new Set(incorrect);
     const tagMap = new Map<string, number>();
     const tagToModule = new Map<string, string>();
-    for (let idx=0; idx<itemsMeta.length; idx++){
+    if (itemsMeta && itemsMeta.length > 0) {
+      for (let idx=0; idx<itemsMeta.length; idx++){
       if (!missedIdx.has(idx)) continue;
       const it = itemsMeta[idx];
       const tags = (it.tags?.length ? it.tags : ['general']);
       for (const tg of tags){ tagMap.set(tg, (tagMap.get(tg)||0)+1); if (!tagToModule.has(tg) && it.module_slug) tagToModule.set(tg, it.module_slug); }
+      }
+      weak = Array.from(tagMap.entries()).map(([tag, missed])=>({tag, missed})).sort((a,b)=> b.missed-a.missed).slice(0,3);
+      const recs = weak.map(w=> ({ tag: w.tag, slug: tagToModule.get(w.tag) || null, href: tagToModule.get(w.tag) ? `/training/modules/${tagToModule.get(w.tag)}` : null }));
+      return NextResponse.json({ ok:true, passed, scorePct, correct: got, total, incorrectIndices: incorrect, weak_tags: weak, recommendations: recs });
     }
-    weak = Array.from(tagMap.entries()).map(([tag, missed])=>({tag, missed})).sort((a,b)=> b.missed-a.missed).slice(0,3);
-    const recs = weak.map(w=> ({ tag: w.tag, slug: tagToModule.get(w.tag) || null, href: tagToModule.get(w.tag) ? `/training/modules/${tagToModule.get(w.tag)}` : null }));
-    return NextResponse.json({ ok:true, passed, scorePct, correct: got, total, incorrectIndices: incorrect, weak_tags: weak, recommendations: recs });
   }
   return NextResponse.json({ ok:true, passed, scorePct, correct: got, total, incorrectIndices: incorrect, weak_tags: [], recommendations: [] });
 }
