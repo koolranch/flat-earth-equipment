@@ -1,10 +1,10 @@
-import { supabaseService } from '@/lib/supabase/service.server';
+import { supabaseServer } from '@/lib/supabase/server';
 import Script from 'next/script';
 
 export const dynamic = 'force-dynamic';
 
 async function getCert(code:string){
-  const svc = supabaseService();
+  const svc = supabaseServer();
   const { data } = await svc.from('certificates')
     .select('id, trainee_name, course_title, pdf_url, verification_code, issued_at, expires_at, status')
     .eq('verification_code', code)
