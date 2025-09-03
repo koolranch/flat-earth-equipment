@@ -177,8 +177,6 @@ export default function EvalSignature({ onSignatureChange, value }: EvalSignatur
                 height: canvasSize.height,
                 className: 'signature-canvas w-full touch-manipulation'
               }}
-              backgroundColor="white"
-              penColor="#1f2937"
               onEnd={handleDrawnSignature}
             />
           </div>
