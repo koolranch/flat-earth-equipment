@@ -34,5 +34,30 @@ export async function POST(req: Request){
   await svc.from('exam_sessions').update({ status:'completed' }).eq('id', session_id);
   await svc.from('exam_attempts').insert({ user_id: user.id, course_id: course_id||null, paper_id: sess.paper_id, answers, score_pct: scorePct, passed });
 
-  return NextResponse.json({ ok:true, passed, scorePct, correct: got, total, incorrectIndices: incorrect });
+  // load item tags for this paper
+  const { data: paperFull } = await svc
+    .from('exam_papers')
+    .select('item_ids')
+    .eq('id', sess.paper_id)
+    .maybeSingle();
+  let weak: {tag:string; missed:number}[] = [];
+  if (paperFull?.item_ids?.length){
+    const { data: itemsMeta } = await svc
+      .from('quiz_items')
+      .select('id,tags,module_slug')
+      .in('id', paperFull.item_ids as string[]);
+    const missedIdx = new Set(incorrect);
+    const tagMap = new Map<string, number>();
+    const tagToModule = new Map<string, string>();
+    for (let idx=0; idx<itemsMeta.length; idx++){
+      if (!missedIdx.has(idx)) continue;
+      const it = itemsMeta[idx];
+      const tags = (it.tags?.length ? it.tags : ['general']);
+      for (const tg of tags){ tagMap.set(tg, (tagMap.get(tg)||0)+1); if (!tagToModule.has(tg) && it.module_slug) tagToModule.set(tg, it.module_slug); }
+    }
+    weak = Array.from(tagMap.entries()).map(([tag, missed])=>({tag, missed})).sort((a,b)=> b.missed-a.missed).slice(0,3);
+    const recs = weak.map(w=> ({ tag: w.tag, slug: tagToModule.get(w.tag) || null, href: tagToModule.get(w.tag) ? `/training/modules/${tagToModule.get(w.tag)}` : null }));
+    return NextResponse.json({ ok:true, passed, scorePct, correct: got, total, incorrectIndices: incorrect, weak_tags: weak, recommendations: recs });
+  }
+  return NextResponse.json({ ok:true, passed, scorePct, correct: got, total, incorrectIndices: incorrect, weak_tags: [], recommendations: [] });
 }
