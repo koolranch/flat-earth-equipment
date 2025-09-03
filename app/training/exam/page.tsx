@@ -14,6 +14,10 @@ export default function ExamPage(){
   const [loading, setLoading] = useState(true);
   const saveTick = useRef<number>(0);
 
+  // Analytics for retake tips - must be at component top level
+  const weak = (result?.weak_tags || []) as { tag:string; missed:number }[];
+  useEffect(()=>{ if(result && weak.length){ (window as any)?.analytics?.track?.('exam_retake_tips_shown', { weak }); } }, [result, weak]);
+
   // Try to resume
   useEffect(()=>{(async()=>{
     try {
@@ -57,8 +61,10 @@ export default function ExamPage(){
 
   if (loading) return <main className="container mx-auto p-4">{t('common.loading')}</main>;
   if (!paper) return <main className="container mx-auto p-4">No exam available.</main>;
+  
   if (result){
     const incorrect = result.incorrectIndices as number[];
+    const recs = (result.recommendations || []) as { tag:string; slug?:string|null; href?:string|null }[];
     return (
       <main className="container mx-auto p-4 space-y-3">
         <h1 className="text-2xl font-bold">{t('exam.results_title')}</h1>
@@ -70,6 +76,23 @@ export default function ExamPage(){
           <details className="rounded-2xl border p-3"><summary className="font-medium cursor-pointer">{t('exam.review_incorrect')}</summary>
             <ul className="list-disc pl-5 mt-2 text-sm">{incorrect.map((k:number)=> (<li key={k}><span className="font-mono">Q{k+1}</span>: {paper.items[k]?.question}</li>))}</ul>
           </details>
+        )}
+        {!!weak.length && (
+          <section className="rounded-2xl border p-3">
+            <div className="text-sm font-semibold mb-2">Focus areas</div>
+            <ul className="text-sm grid gap-1">
+              {weak.map(w=> {
+                const R = recs.find(r=> r.tag===w.tag);
+                return (
+                  <li key={w.tag}>
+                    <span className="font-mono">#{w.tag}</span> — {w.missed} missed{R?.href && (<>
+                      {' · '}<a className="underline" href={R.href}>Review module</a>
+                    </>)}
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
         )}
         <div className="flex gap-2">
           <button className="rounded-2xl bg-[#F76511] text-white px-4 py-2" onClick={()=> { location.reload(); }}>{t('exam.retake_exam')}</button>
