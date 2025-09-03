@@ -29,25 +29,25 @@ export default function CertificateCard({ cert }:{ cert: { id:string; trainee_na
           <div className='text-xs'><b>{t('certificate.verify_id')}:</b> <span className='font-mono'>{cert.verification_code}</span></div>
         </div>
         <div className='flex flex-wrap gap-2 pt-1'>
-          {cert.pdf_url && (<a className='rounded-2xl bg-[#F76511] text-white px-3 py-1 text-sm' href={cert.pdf_url} target='_blank' onClick={onView}>{t('certificate.view_pdf')}</a>)}
-          {cert.pdf_url && (<a className='rounded-2xl border px-3 py-1 text-sm' href={cert.pdf_url} download onClick={onDownload}>{t('certificate.download_pdf')}</a>)}
-          <button className='rounded-2xl border px-3 py-1 text-sm' onClick={copy}>{copied? t('certificate.copied') : t('certificate.copy_link')}</button>
+          {cert.pdf_url && (<a data-testid='cert-view-pdf' className='rounded-2xl bg-[#F76511] text-white px-3 py-1 text-sm' href={cert.pdf_url} target='_blank' onClick={onView}>{t('certificate.view_pdf')}</a>)}
+          {cert.pdf_url && (<a data-testid='cert-download-pdf' className='rounded-2xl border px-3 py-1 text-sm' href={cert.pdf_url} download onClick={onDownload}>{t('certificate.download_pdf')}</a>)}
+          <button data-testid='cert-copy-link' className='rounded-2xl border px-3 py-1 text-sm' onClick={copy}>{copied? t('certificate.copied') : t('certificate.copy_link')}</button>
           {walletEnabled ? (
             <>
-              <button className='rounded-2xl border px-3 py-1 text-sm'>{t('certificate.add_wallet_apple')}</button>
-              <button className='rounded-2xl border px-3 py-1 text-sm'>{t('certificate.add_wallet_google')}</button>
+              <button data-testid='cert-wallet-apple' className='rounded-2xl border px-3 py-1 text-sm'>{t('certificate.add_wallet_apple')}</button>
+              <button data-testid='cert-wallet-google' className='rounded-2xl border px-3 py-1 text-sm'>{t('certificate.add_wallet_google')}</button>
             </>
           ) : (
             <>
-              <button className='rounded-2xl border px-3 py-1 text-sm opacity-60 cursor-not-allowed' title={t('certificate.coming_soon')}>{t('certificate.add_wallet_apple')}</button>
-              <button className='rounded-2xl border px-3 py-1 text-sm opacity-60 cursor-not-allowed' title={t('certificate.coming_soon')}>{t('certificate.add_wallet_google')}</button>
+              <button data-testid='cert-wallet-apple-disabled' className='rounded-2xl border px-3 py-1 text-sm opacity-60 cursor-not-allowed' title={t('certificate.coming_soon')}>{t('certificate.add_wallet_apple')}</button>
+              <button data-testid='cert-wallet-google-disabled' className='rounded-2xl border px-3 py-1 text-sm opacity-60 cursor-not-allowed' title={t('certificate.coming_soon')}>{t('certificate.add_wallet_google')}</button>
             </>
           )}
         </div>
         <div className='text-[11px] text-slate-500'>{t('certificate.footer_note')}</div>
       </div>
       <div className='justify-self-end text-center'>
-        <QRCode value={`${verifyUrl}?src=qr`} size={112} includeMargin aria-label={t('certificate.qr_hint')} />
+        <QRCode data-testid='cert-qr-code' value={`${verifyUrl}?src=qr`} size={112} includeMargin aria-label={t('certificate.qr_hint')} />
         <div className='text-[10px] text-slate-500 mt-1'>{t('certificate.qr_hint')}</div>
       </div>
     </article>
