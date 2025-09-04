@@ -17,11 +17,11 @@ export async function GET(req: Request) {
   if (!user || !(await isStaff(user.id))) return NextResponse.json({ ok: false, error: 'forbidden' }, { status: 403 });
 
   const url = new URL(req.url);
-  const module = url.searchParams.get('module') || undefined;
+  const moduleSlug = url.searchParams.get('module') || undefined;
   const locale = url.searchParams.get('locale') || undefined;
   const q = url.searchParams.get('q') || undefined;
   let query = svc.from('quiz_items').select('*').order('updated_at', { ascending: false }).limit(200);
-  if (module) query = query.eq('module_slug', module);
+  if (moduleSlug) query = query.eq('module_slug', moduleSlug);
   if (locale) query = query.eq('locale', locale);
   if (q) query = query.ilike('question', `%${q}%`);
   const { data, error } = await query;
