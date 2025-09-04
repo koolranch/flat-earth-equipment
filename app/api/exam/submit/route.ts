@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
+import { sendMail } from '@/lib/email/mailer';
+import { T } from '@/lib/email/templates';
 
 export const dynamic = 'force-dynamic';
 
@@ -58,8 +60,36 @@ export async function POST(req: Request){
       }
       weak = Array.from(tagMap.entries()).map(([tag, missed])=>({tag, missed})).sort((a,b)=> b.missed-a.missed).slice(0,3);
       const recs = weak.map(w=> ({ tag: w.tag, slug: tagToModule.get(w.tag) || null, href: tagToModule.get(w.tag) ? `/training/modules/${tagToModule.get(w.tag)}` : null }));
+      
+      // Email hooks (best-effort)
+      try {
+        const { data: prof } = await svc.from('profiles').select('email,full_name').eq('id', user.id).maybeSingle();
+        const email = prof?.email;
+        const name = prof?.full_name || 'Operator';
+        if (email) {
+          const template = passed ? T.exam_pass(name) : T.exam_fail(name);
+          await sendMail({ to: email, ...template });
+        }
+      } catch (err) {
+        console.warn('[email] Failed to send exam result email:', err);
+      }
+      
       return NextResponse.json({ ok:true, passed, scorePct, correct: got, total, incorrectIndices: incorrect, weak_tags: weak, recommendations: recs });
     }
   }
+  
+  // Email hooks (best-effort) - for case without item metadata
+  try {
+    const { data: prof } = await svc.from('profiles').select('email,full_name').eq('id', user.id).maybeSingle();
+    const email = prof?.email;
+    const name = prof?.full_name || 'Operator';
+    if (email) {
+      const template = passed ? T.exam_pass(name) : T.exam_fail(name);
+      await sendMail({ to: email, ...template });
+    }
+  } catch (err) {
+    console.warn('[email] Failed to send exam result email:', err);
+  }
+  
   return NextResponse.json({ ok:true, passed, scorePct, correct: got, total, incorrectIndices: incorrect, weak_tags: [], recommendations: [] });
 }

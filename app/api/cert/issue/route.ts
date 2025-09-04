@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { supabaseService } from '@/lib/supabase/service.server';
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
+import { sendMail } from '@/lib/email/mailer';
+import { T } from '@/lib/email/templates';
 import QRCode from 'qrcode';
 import { randomCode } from '@/lib/certs/code';
 import { signPayload } from '@/lib/certs/sign';
@@ -143,6 +145,18 @@ export async function POST(req: Request) {
     }); 
   } catch {
     // Audit logging is optional
+  }
+
+  // Email hooks (best-effort)
+  try {
+    const email = prof?.email;
+    const name = prof?.full_name || 'Operator';
+    if (email && verification_code) {
+      const template = T.cert_issued(name, verification_code);
+      await sendMail({ to: email, ...template });
+    }
+  } catch (err) {
+    console.warn('[email] Failed to send certificate issued email:', err);
   }
 
   return NextResponse.json({ 
