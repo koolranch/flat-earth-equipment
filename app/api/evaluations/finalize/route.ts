@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
 import { renderEvaluationPdf } from '@/lib/eval/pdf';
+import { sendMail } from '@/lib/email/mailer';
+import { T } from '@/lib/email/templates';
 
 export const dynamic = 'force-dynamic';
 
@@ -63,6 +65,16 @@ export async function POST(req: Request){
   // optional marker on certificates
   if (ev.trainee_user_id && ev.course_id){
     await svc.from('certificates').update({ practical_eval_on_file: true }).eq('user_id', ev.trainee_user_id).eq('course_id', ev.course_id);
+  }
+
+  // Email hooks (best-effort)
+  try {
+    if (ev.trainee_email) {
+      const template = T.eval_finalized(ev.trainee_email, pub.publicUrl);
+      await sendMail({ to: ev.trainee_email, ...template });
+    }
+  } catch (err) {
+    console.warn('[email] Failed to send evaluation finalized email:', err);
   }
 
   return NextResponse.json({ ok:true, pdf_url: pub.publicUrl });
