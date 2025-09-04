@@ -59,6 +59,8 @@ export default async function RootLayout({
         <link rel="alternate" hrefLang="en" href="https://www.flatearthequipment.com" />
         <link rel="alternate" hrefLang="es" href="https://www.flatearthequipment.com" />
         <link rel="alternate" hrefLang="x-default" href="https://www.flatearthequipment.com" />
+        {/* Client-side error monitoring */}
+        <script src="/monitor.js" async />
       </head>
       <body className="font-sans text-gray-900 bg-gray-50 antialiased">
         <ReducedMotionProvider>

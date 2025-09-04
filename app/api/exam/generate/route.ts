@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
+import { logServerError } from '@/lib/monitor/log.server';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -87,13 +88,19 @@ export async function POST(req: Request){
     .insert({ user_id: user.id, locale, item_ids, correct_indices: correct, ttl_at: new Date(Date.now() + timeLimitMin*60*1000) })
     .select('id')
     .maybeSingle();
-  if (pErr || !paperRow) return NextResponse.json({ ok:false, error: pErr?.message||'paper_fail' }, { status:500 });
+  if (pErr || !paperRow) {
+    await logServerError('exam_generate', 'paper_fail', { error: pErr?.message });
+    return NextResponse.json({ ok:false, error: pErr?.message||'paper_fail' }, { status:500 });
+  }
   const { data: sess, error: sErr } = await svc
     .from('exam_sessions')
     .insert({ user_id: user.id, paper_id: paperRow.id, answers: new Array(item_ids.length).fill(-1), remaining_sec: timeLimitMin*60, status: 'in_progress' })
     .select('id,remaining_sec')
     .maybeSingle();
-  if (sErr || !sess) return NextResponse.json({ ok:false, error: sErr?.message||'session_fail' }, { status:500 });
+  if (sErr || !sess) {
+    await logServerError('exam_generate', 'session_fail', { error: sErr?.message, paper_id: paperRow.id });
+    return NextResponse.json({ ok:false, error: sErr?.message||'session_fail' }, { status:500 });
+  }
 
   return NextResponse.json({ ok:true, id: paperRow.id, session_id: sess.id, locale, pass_score: passScore, time_limit_sec: timeLimitMin*60, items: chosen.map(i=> ({ id:i.id, question:i.question, choices:i.choices, tags:i.tags||[] })), meta:{ count: item_ids.length } }, { headers:{ 'Cache-Control':'no-store' } });
 }

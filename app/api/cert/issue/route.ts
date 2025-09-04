@@ -3,6 +3,7 @@ import { supabaseService } from '@/lib/supabase/service.server';
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 import { sendMail } from '@/lib/email/mailer';
 import { T } from '@/lib/email/templates';
+import { logServerError } from '@/lib/monitor/log.server';
 import QRCode from 'qrcode';
 import { randomCode } from '@/lib/certs/code';
 import { signPayload } from '@/lib/certs/sign';
@@ -110,7 +111,10 @@ export async function POST(req: Request) {
   // Upload to storage
   const path = `${enrollment_id}.pdf`;
   const up = await sb.storage.from('certificates').upload(path, pdfBytes, { upsert: true, contentType: 'application/pdf' });
-  if (up.error) return NextResponse.json({ ok: false, error: up.error.message }, { status: 500 });
+  if (up.error) {
+    await logServerError('cert_issue', 'upload_error', { error: up.error.message, enrollment_id });
+    return NextResponse.json({ ok: false, error: up.error.message }, { status: 500 });
+  }
   const { data: pub } = sb.storage.from('certificates').getPublicUrl(path);
   const pdf_url = pub?.publicUrl || '';
 
