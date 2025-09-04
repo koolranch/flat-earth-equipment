@@ -90,7 +90,7 @@ export default async function RootLayout({
             {/* Main Navbar */}
             <Navbar locale={locale} />
             
-            <main id="content" role="main">
+            <main id="main" role="main">
               {children}
             </main>
             
