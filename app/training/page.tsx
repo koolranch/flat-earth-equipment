@@ -35,7 +35,7 @@ export default async function Page({ searchParams }: { searchParams?: Record<str
 
       <section className='mt-4 space-y-3'>
         {prog.next ? (
-          <a className='inline-flex items-center justify-center rounded-2xl bg-[#F76511] text-white px-4 py-3 shadow-lg' href={prog.next.nextRoute}>
+          <a className='btn inline-flex items-center justify-center bg-[#F76511] text-white shadow-lg' href={prog.next.nextRoute} aria-label={`Resume training: ${prog.next.label || 'next module'}`}>
             {t('training.resume_training')}
           </a>
         ) : <div className='text-sm text-emerald-700'>{t('training.continue')}</div>}
@@ -56,8 +56,9 @@ export default async function Page({ searchParams }: { searchParams?: Record<str
                 </div>
                 {!module.quiz_passed && (
                   <a 
-                    className='rounded-xl border border-[#F76511] text-[#F76511] px-3 py-1 text-sm hover:bg-[#F76511] hover:text-white transition-colors' 
+                    className='btn border border-[#F76511] text-[#F76511] text-sm hover:bg-[#F76511] hover:text-white transition-colors' 
                     href={module.route}
+                    aria-label={`Start ${module.title} module`}
                   >
                     {t('common.start')}
                   </a>
