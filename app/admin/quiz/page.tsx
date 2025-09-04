@@ -37,12 +37,12 @@ export default function AdminQuiz() {
   async function save(it: Q) {
     const r = await fetch('/api/admin/quiz/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(it) });
     const j = await r.json();
-    if (j.ok) { (window as any)?.analytics?.track?.('quiz_item_edited', { id: it.id }); await load(); }
+    if (j.ok) { (window as any)?.analytics?.track?.('quiz_item_edited', { id: it.id, module: it.module_slug, locale: it.locale }); await load(); }
   }
   async function publish(it: Q) {
     const r = await fetch('/api/admin/quiz/publish', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: it.id }) });
     const j = await r.json();
-    if (j.ok) { (window as any)?.analytics?.track?.('quiz_item_published', { id: it.id }); await load(); }
+    if (j.ok) { (window as any)?.analytics?.track?.('quiz_item_published', { id: it.id, module: it.module_slug, locale: it.locale }); await load(); }
   }
   async function revert(question_id: string, revision_id: string) {
     const r = await fetch('/api/admin/quiz/revert', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question_id, revision_id }) });
