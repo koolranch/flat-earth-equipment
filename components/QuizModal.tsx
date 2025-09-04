@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { analytics } from '@/lib/analytics'
 import { track } from '@/lib/analytics/track'
 import { ReviewIncorrect } from './quiz/ReviewIncorrect'
+import AccessibleModal from '@/components/ui/AccessibleModal'
 
 type Q = { q: string; choices: string[]; answer: number; id?: string }
 type IncorrectAnswer = {
@@ -459,46 +460,46 @@ export default function QuizModal({
   // Show loading state while initializing
   if (isInitializing || orderedQuestions.length === 0) {
     return (
-      <div className="fixed inset-0 bg-black/60 grid place-content-center z-50">
-        <div className="w-[320px] space-y-4 rounded-xl bg-white p-6 shadow-lg text-center">
-          <h3 className="font-semibold text-lg">Preparing Quiz...</h3>
+      <AccessibleModal open={true} onClose={() => {}} titleId="quiz-loading-title">
+        <div className="space-y-4 text-center">
+          <h3 id="quiz-loading-title" className="font-semibold text-lg">Preparing Quiz...</h3>
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600 mx-auto"></div>
           <p className="text-gray-600 text-sm">Setting up your questions</p>
         </div>
-      </div>
+      </AccessibleModal>
     );
   }
 
   const currentQuestion = orderedQuestions[idx];
   if (!currentQuestion) {
     return (
-      <div className="fixed inset-0 bg-black/60 grid place-content-center z-50">
-        <div className="w-[320px] space-y-4 rounded-xl bg-white p-6 shadow-lg text-center">
-          <h3 className="font-semibold text-lg text-red-600">Error</h3>
+      <AccessibleModal open={true} onClose={() => window.location.reload()} titleId="quiz-error-title">
+        <div className="space-y-4 text-center">
+          <h3 id="quiz-error-title" className="font-semibold text-lg text-red-600">Error</h3>
           <p className="text-gray-600">Unable to load quiz questions. Please try again.</p>
           <button 
             onClick={() => window.location.reload()}
-            className="w-full rounded bg-gray-600 px-4 py-2 text-white hover:bg-gray-700"
+            className="w-full rounded bg-gray-600 px-4 py-2 text-white hover:bg-gray-700 tappable"
           >
             Reload
           </button>
         </div>
-      </div>
+      </AccessibleModal>
     );
   }
 
   return (
-    <div className="fixed inset-0 bg-black/60 grid place-content-center z-50">
-      <div className="w-[400px] space-y-4 rounded-xl bg-white p-6 shadow-lg relative">
+    <AccessibleModal open={true} onClose={() => window.location.reload()} titleId="quiz-question-title">
+      <div className="space-y-4 relative">
         <button 
           onClick={() => window.location.reload()} 
-          className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-          title="Close quiz"
+          className="absolute top-0 right-0 text-gray-500 hover:text-gray-700 tappable"
+          aria-label="Close quiz"
         >
           ✕
         </button>
-        <div className="flex justify-between items-center mb-2">
-          <h3 className="font-semibold">Question {idx + 1} of {orderedQuestions.length}</h3>
+        <div className="flex justify-between items-center mb-2 pr-8">
+          <h3 id="quiz-question-title" className="font-semibold">Question {idx + 1} of {orderedQuestions.length}</h3>
           <span className="text-sm text-gray-500">Score: {score}/{idx}</span>
         </div>
         <p id={`quiz_q_${currentQuestion.id}_label`} className="font-medium text-lg">{currentQuestion.q}</p>
@@ -507,7 +508,7 @@ export default function QuizModal({
             <button 
               key={i} 
               onClick={() => submit(i)} 
-              className="block w-full rounded border p-3 text-left hover:bg-gray-50 hover:border-orange-600 transition"
+              className="block w-full rounded border p-3 text-left hover:bg-gray-50 hover:border-orange-600 transition tappable"
               aria-describedby={`quiz_q_${currentQuestion.id}_label`}
             >
               {c}
@@ -515,6 +516,6 @@ export default function QuizModal({
           ))}
         </div>
       </div>
-    </div>
+    </AccessibleModal>
   )
 } 
