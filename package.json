@@ -44,6 +44,7 @@
     "test:e2e": "playwright test",
     "test:a11y": "playwright test tests/e2e/axe.spec.ts",
     "qa:a11y": "playwright test tests/e2e/a11y.axe.spec.ts",
+    "qa:lh": "node scripts/run-lighthouse.mjs",
     "test:marketing": "playwright test tests/e2e/marketing.smoke.spec.ts",
     "test:claim": "playwright test tests/e2e/claim.smoke.spec.ts",
     "test:exam": "playwright test tests/e2e/exam.smoke.spec.ts",
