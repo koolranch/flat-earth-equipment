@@ -30,7 +30,12 @@ export default function DemoHost({ moduleSlug, locale }: { moduleSlug: string; l
   return (
     <div className='space-y-4'>
       {demos.length ? demos.map((Demo, i) => (
-        <div key={i} className='rounded-2xl border p-4 md:p-6 shadow-lg bg-white dark:bg-slate-900 dark:border-slate-700'>
+        <div 
+          key={i} 
+          role="region" 
+          aria-label={`Demo ${i + 1} for ${moduleSlug}`}
+          className='rounded-2xl border p-4 md:p-6 shadow-lg bg-white dark:bg-slate-900 dark:border-slate-700'
+        >
           {/* Pass moduleSlug down for analytics/progress */}
           <Demo locale={locale} moduleSlug={moduleSlug} />
         </div>

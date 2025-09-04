@@ -32,7 +32,7 @@ export function DemoPanel({ title, objective, steps, onStart, onComplete, childr
     <Card className="rounded-2xl shadow-lg border-slate-200">
       <CardHeader>
         <CardTitle className="text-lg text-[#0F172A]">{title}</CardTitle>
-        <p className="text-sm text-slate-600">{objective}</p>
+        <p id={`demo-objective-${title.replace(/\s+/g, '-').toLowerCase()}`} className="text-sm text-slate-600">{objective}</p>
       </CardHeader>
       
       <CardContent className="space-y-4">
@@ -47,7 +47,7 @@ export function DemoPanel({ title, objective, steps, onStart, onComplete, childr
         
         <div 
           role="region" 
-          aria-label={`${title} ${t('demo.interactive_label', 'interactive')}`}
+          aria-label={`Interactive demo: ${title}`}
           className="border-t pt-4"
         >
           {children}
@@ -57,14 +57,15 @@ export function DemoPanel({ title, objective, steps, onStart, onComplete, childr
       <CardFooter className="flex gap-2">
         <Button
           onClick={handleStart}
-          className="rounded-2xl bg-[#F76511] hover:bg-[#F76511]/90 focus:ring-2 focus:ring-[#F76511]"
+          className="rounded-2xl bg-[#F76511] hover:bg-[#F76511]/90 focus:ring-2 focus:ring-[#F76511] tappable"
+          aria-describedby={`demo-objective-${title.replace(/\s+/g, '-').toLowerCase()}`}
         >
           {t('demo.start', 'Start')}
         </Button>
         <Button
           variant="outline"
           onClick={() => handleComplete()}
-          className="rounded-2xl focus:ring-2 focus:ring-[#F76511]"
+          className="rounded-2xl focus:ring-2 focus:ring-[#F76511] tappable"
         >
           {t('demo.continue', 'Continue')}
         </Button>
