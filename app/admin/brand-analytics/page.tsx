@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 export default function Page(){
   // Keep simple: instruct where to check metrics in Vercel Analytics, and show helpful deep links.
   return (

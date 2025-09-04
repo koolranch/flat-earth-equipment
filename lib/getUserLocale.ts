@@ -19,18 +19,19 @@ export function getUserLocale(req?: Request): Locale {
     const acceptLanguage = req.headers.get('accept-language')
     if (acceptLanguage?.includes('es')) return 'es'
   } else {
-    // For server components with cookies()
+    // For server components with cookies() - only in dynamic context
     try {
       const cookieStore = cookies()
       const langCookie = cookieStore.get('lang')?.value
       if (langCookie === 'es') return 'es'
     } catch (error) {
-      // cookies() might not be available in all contexts
-      console.warn('Could not access cookies in getUserLocale')
+      // cookies() not available during static generation - use default
+      // This is expected behavior during build time
+      return process.env.NEXT_PUBLIC_DEFAULT_LOCALE as Locale || 'en'
     }
   }
   
-  return 'en' // default
+  return process.env.NEXT_PUBLIC_DEFAULT_LOCALE as Locale || 'en' // default
 }
 
 export function getLocaleFromHeaders(headers: Headers): Locale {

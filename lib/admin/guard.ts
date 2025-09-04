@@ -87,16 +87,26 @@ export async function requireAdminRole(requiredRole: string): Promise<AdminCheck
 /**
  * Utility function to get admin user info without throwing
  * Useful for conditional admin features
+ * Safe for use during static generation - returns false if cookies unavailable
  * 
  * @returns Promise<{ isAdmin: boolean; user: any | null; role?: string }>
  */
 export async function getAdminStatus() {
-  const result = await requireAdminServer();
-  return {
-    isAdmin: result.ok,
-    user: result.user,
-    role: result.ok ? result.role : undefined
-  };
+  try {
+    const result = await requireAdminServer();
+    return {
+      isAdmin: result.ok,
+      user: result.user,
+      role: result.ok ? result.role : undefined
+    };
+  } catch (error) {
+    // During static generation, auth calls will fail - return safe default
+    return {
+      isAdmin: false,
+      user: null,
+      role: undefined
+    };
+  }
 }
 
 /**

@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { requireAdminServer } from '@/lib/admin/guard';
 import { redirect } from 'next/navigation';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   // Protect the entire admin section
   const adminCheck = await requireAdminServer();

@@ -2,6 +2,8 @@
 import 'server-only';
 import PracticalEvalForm from '@/components/admin/PracticalEvalForm';
 
+export const dynamic = 'force-dynamic';
+
 export default function Page({ params }: { params: { enrollmentId: string } }) {
   return (<main className='container mx-auto p-4'>
     <h1 className='text-2xl font-bold text-[#0F172A]'>Practical Evaluation</h1>
