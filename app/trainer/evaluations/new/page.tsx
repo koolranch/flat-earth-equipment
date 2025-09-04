@@ -51,8 +51,8 @@ export default function NewEval(){
             <label className="grid gap-1 text-sm"><span>{t('evaluation.truck_type')}</span><input className="border rounded-xl p-2" value={form.truck_type} onChange={e=> up('truck_type', e.target.value)} /></label>
           </div>
           <div className="flex gap-2 justify-end">
-            <button className="rounded-2xl border px-4 py-2" disabled={loading} onClick={saveDraft}>{t('evaluation.save_draft')}</button>
-            <button className="rounded-2xl bg-[#F76511] text-white px-4 py-2" disabled={loading} onClick={()=> { (window as any)?.analytics?.track?.('employer_eval_started'); setStep(2); }}>Next</button>
+            <button data-testid="eval-save-step1" className="rounded-2xl border px-4 py-2" disabled={loading} onClick={saveDraft}>{t('evaluation.save_draft')}</button>
+            <button data-testid="eval-next" className="rounded-2xl bg-[#F76511] text-white px-4 py-2" disabled={loading} onClick={()=> { (window as any)?.analytics?.track?.('employer_eval_started'); setStep(2); }}>Next</button>
           </div>
         </section>
       )}
@@ -78,10 +78,10 @@ export default function NewEval(){
               <input type="checkbox" checked={form.overall_pass} onChange={e=> up('overall_pass', e.target.checked)} /></label>
           </div>
           <div className="flex gap-2 justify-between">
-            <button className="rounded-2xl border px-4 py-2" disabled={loading} onClick={()=> setStep(1)}>Back</button>
+            <button data-testid="eval-back" className="rounded-2xl border px-4 py-2" disabled={loading} onClick={()=> setStep(1)}>Back</button>
             <div className="flex gap-2">
-              <button className="rounded-2xl border px-4 py-2" disabled={loading} onClick={saveDraft}>{t('evaluation.save_draft')}</button>
-              <button className="rounded-2xl bg-[#F76511] text-white px-4 py-2" disabled={loading} onClick={finalize}>{t('evaluation.submit_and_generate_pdf')}</button>
+              <button data-testid="eval-save" className="rounded-2xl border px-4 py-2" disabled={loading} onClick={saveDraft}>{t('evaluation.save_draft')}</button>
+              <button data-testid="eval-finalize" className="rounded-2xl bg-[#F76511] text-white px-4 py-2" disabled={loading} onClick={finalize}>{t('evaluation.submit_and_generate_pdf')}</button>
             </div>
           </div>
         </section>
