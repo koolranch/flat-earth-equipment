@@ -1,12 +1,35 @@
 'use client';
-import { useI18n } from '@/lib/i18n/I18nProvider';
-export default function LocaleSwitcher(){
-  const { locale, setLocale } = useI18n();
+
+export default function LocaleSwitcher() {
+  async function setLocale(locale: 'en' | 'es') {
+    try {
+      await fetch('/api/i18n/set-locale', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ locale })
+      });
+      window.location.reload();
+    } catch (err) {
+      console.error('Failed to set locale:', err);
+    }
+  }
+
   return (
-    <div className="flex gap-1 text-xs">
-      {(['en','es'] as const).map(l => (
-        <button key={l} onClick={()=> setLocale(l)} className={`rounded-xl border px-2 py-1 ${locale===l?'bg-slate-900 text-white':''}`}>{l.toUpperCase()}</button>
-      ))}
+    <div className="inline-flex rounded-2xl border overflow-hidden" aria-label="Language selector">
+      <button 
+        className="px-3 py-2 text-sm hover:bg-gray-50 transition-colors" 
+        onClick={() => setLocale('en')} 
+        aria-label="Switch to English"
+      >
+        EN
+      </button>
+      <button 
+        className="px-3 py-2 text-sm hover:bg-gray-50 border-l transition-colors" 
+        onClick={() => setLocale('es')} 
+        aria-label="Cambiar a español"
+      >
+        ES
+      </button>
     </div>
   );
 }
