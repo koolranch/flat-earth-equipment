@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     .eq('id', enrollment_id).single();
   if (e1 || !enr) return NextResponse.json({ ok: false, error: 'enrollment not found' }, { status: 404 });
 
-  const { data: prof } = await sb.from('profiles').select('full_name, email').eq('id', enr.user_id).maybeSingle();
+  const { data: prof } = await sb.from('profiles').select('full_name, email, locale').eq('id', enr.user_id).maybeSingle();
   const { data: course } = await sb.from('courses').select('title').eq('id', enr.course_id).maybeSingle();
 
   // Check practical eval (required unless override is set)
@@ -156,7 +156,8 @@ export async function POST(req: Request) {
     const email = prof?.email;
     const name = prof?.full_name || 'Operator';
     if (email && verification_code) {
-      const template = T.cert_issued(name, verification_code);
+      const L = prof?.locale || 'en';
+      const template = T.cert_issued(name, verification_code, L);
       await sendMail({ to: email, ...template });
     }
   } catch (err) {

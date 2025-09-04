@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
 import { sendMail } from '@/lib/email/mailer';
@@ -80,11 +81,12 @@ export async function POST(req: Request){
   
   // Email hooks (best-effort) - for case without item metadata
   try {
-    const { data: prof } = await svc.from('profiles').select('email,full_name').eq('id', user.id).maybeSingle();
+    const { data: prof } = await svc.from('profiles').select('email,full_name,locale').eq('id', user.id).maybeSingle();
     const email = prof?.email;
     const name = prof?.full_name || 'Operator';
     if (email) {
-      const template = passed ? T.exam_pass(name) : T.exam_fail(name);
+      const L = prof?.locale || cookies().get('locale')?.value || 'en';
+      const template = passed ? T.exam_pass(name, L) : T.exam_fail(name, L);
       await sendMail({ to: email, ...template });
     }
   } catch (err) {

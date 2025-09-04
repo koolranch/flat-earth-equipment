@@ -74,7 +74,7 @@ export async function POST(req: Request){
   // Email hooks (best-effort)
   try {
     if (ev.trainee_email) {
-      const template = T.eval_finalized(ev.trainee_email, pub.publicUrl);
+      const template = T.eval_finalized(ev.trainee_email, pub.publicUrl, ev.locale || 'en');
       await sendMail({ to: ev.trainee_email, ...template });
     }
   } catch (err) {
