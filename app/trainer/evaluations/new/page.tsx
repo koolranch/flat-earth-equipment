@@ -42,17 +42,17 @@ export default function NewEval(){
       {step===1 && (
         <section className="rounded-2xl border p-4 grid gap-3 bg-white">
           <div className="grid md:grid-cols-2 gap-3">
-            <label className="grid gap-1 text-sm"><span>{t('evaluation.trainee_email')}</span><input className="border rounded-xl p-2" value={form.trainee_email} onChange={e=> up('trainee_email', e.target.value)} /></label>
-            <label className="grid gap-1 text-sm"><span>{t('evaluation.course')}</span><input className="border rounded-xl p-2" value={form.course_title} onChange={e=> up('course_title', e.target.value)} /></label>
-            <label className="grid gap-1 text-sm"><span>{t('evaluation.evaluator_name')}</span><input className="border rounded-xl p-2" value={form.evaluator_name} onChange={e=> up('evaluator_name', e.target.value)} /></label>
-            <label className="grid gap-1 text-sm"><span>{t('evaluation.evaluator_title')}</span><input className="border rounded-xl p-2" value={form.evaluator_title} onChange={e=> up('evaluator_title', e.target.value)} /></label>
-            <label className="grid gap-1 text-sm"><span>{t('evaluation.site_location')}</span><input className="border rounded-xl p-2" value={form.site_location} onChange={e=> up('site_location', e.target.value)} /></label>
-            <label className="grid gap-1 text-sm"><span>{t('evaluation.evaluation_date')}</span><input type="date" className="border rounded-xl p-2" value={form.evaluation_date} onChange={e=> up('evaluation_date', e.target.value)} /></label>
-            <label className="grid gap-1 text-sm"><span>{t('evaluation.truck_type')}</span><input className="border rounded-xl p-2" value={form.truck_type} onChange={e=> up('truck_type', e.target.value)} /></label>
+            <label className="grid gap-1 text-sm"><span>{t('evaluation.trainee_email')}</span><input className="border rounded-xl p-2 tappable" value={form.trainee_email} onChange={e=> up('trainee_email', e.target.value)} /></label>
+            <label className="grid gap-1 text-sm"><span>{t('evaluation.course')}</span><input className="border rounded-xl p-2 tappable" value={form.course_title} onChange={e=> up('course_title', e.target.value)} /></label>
+            <label className="grid gap-1 text-sm"><span>{t('evaluation.evaluator_name')}</span><input className="border rounded-xl p-2 tappable" value={form.evaluator_name} onChange={e=> up('evaluator_name', e.target.value)} /></label>
+            <label className="grid gap-1 text-sm"><span>{t('evaluation.evaluator_title')}</span><input className="border rounded-xl p-2 tappable" value={form.evaluator_title} onChange={e=> up('evaluator_title', e.target.value)} /></label>
+            <label className="grid gap-1 text-sm"><span>{t('evaluation.site_location')}</span><input className="border rounded-xl p-2 tappable" value={form.site_location} onChange={e=> up('site_location', e.target.value)} /></label>
+            <label className="grid gap-1 text-sm"><span>{t('evaluation.evaluation_date')}</span><input type="date" className="border rounded-xl p-2 tappable" value={form.evaluation_date} onChange={e=> up('evaluation_date', e.target.value)} /></label>
+            <label className="grid gap-1 text-sm"><span>{t('evaluation.truck_type')}</span><input className="border rounded-xl p-2 tappable" value={form.truck_type} onChange={e=> up('truck_type', e.target.value)} /></label>
           </div>
           <div className="flex gap-2 justify-end">
-            <button data-testid="eval-save-step1" className="rounded-2xl border px-4 py-2" disabled={loading} onClick={saveDraft}>{t('evaluation.save_draft')}</button>
-            <button data-testid="eval-next" className="rounded-2xl bg-[#F76511] text-white px-4 py-2" disabled={loading} onClick={()=> { (window as any)?.analytics?.track?.('employer_eval_started'); setStep(2); }}>Next</button>
+            <button data-testid="eval-save-step1" className="btn border" disabled={loading} onClick={saveDraft} aria-label="Save evaluation as draft">{t('evaluation.save_draft')}</button>
+            <button data-testid="eval-next" className="btn bg-[#F76511] text-white" disabled={loading} onClick={()=> { (window as any)?.analytics?.track?.('employer_eval_started'); setStep(2); }} aria-label="Continue to checklist and signature">Next</button>
           </div>
         </section>
       )}
@@ -67,7 +67,7 @@ export default function NewEval(){
               ))}
             </div>
           </div>
-          <label className="grid gap-1 text-sm"><span>{t('evaluation.notes')}</span><textarea className="border rounded-xl p-2 min-h-[100px]" value={form.notes} onChange={e=> up('notes', e.target.value)} /></label>
+          <label className="grid gap-1 text-sm"><span>{t('evaluation.notes')}</span><textarea className="border rounded-xl p-2 min-h-[100px] tappable" value={form.notes} onChange={e=> up('notes', e.target.value)} /></label>
           <div className="grid gap-2">
             <div className="text-sm font-semibold">{t('evaluation.signature')}</div>
             <EvalSignature onSignatureChange={setSignature} value={signature} />
@@ -78,10 +78,10 @@ export default function NewEval(){
               <input type="checkbox" checked={form.overall_pass} onChange={e=> up('overall_pass', e.target.checked)} /></label>
           </div>
           <div className="flex gap-2 justify-between">
-            <button data-testid="eval-back" className="rounded-2xl border px-4 py-2" disabled={loading} onClick={()=> setStep(1)}>Back</button>
+            <button data-testid="eval-back" className="btn border" disabled={loading} onClick={()=> setStep(1)} aria-label="Go back to basic information">Back</button>
             <div className="flex gap-2">
-              <button data-testid="eval-save" className="rounded-2xl border px-4 py-2" disabled={loading} onClick={saveDraft}>{t('evaluation.save_draft')}</button>
-              <button data-testid="eval-finalize" className="rounded-2xl bg-[#F76511] text-white px-4 py-2" disabled={loading} onClick={finalize}>{t('evaluation.submit_and_generate_pdf')}</button>
+              <button data-testid="eval-save" className="btn border" disabled={loading} onClick={saveDraft} aria-label="Save evaluation as draft">{t('evaluation.save_draft')}</button>
+              <button data-testid="eval-finalize" className="btn bg-[#F76511] text-white" disabled={loading} onClick={finalize} aria-label="Submit evaluation and generate PDF">{t('evaluation.submit_and_generate_pdf')}</button>
             </div>
           </div>
         </section>

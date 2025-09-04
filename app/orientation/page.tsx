@@ -17,7 +17,7 @@ export default function Page(){
       </section>
       <Warmup />
       <div>
-        <a href="/training" className="inline-flex rounded-2xl bg-[#F76511] text-white px-4 py-2 shadow-lg">Start training</a>
+        <a href="/training" className="btn inline-flex bg-[#F76511] text-white shadow-lg" aria-label="Start safety training course">Start training</a>
       </div>
     </main>
   );

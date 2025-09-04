@@ -95,8 +95,8 @@ export default function ExamPage(){
           </section>
         )}
         <div className="flex gap-2">
-          <button className="rounded-2xl bg-[#F76511] text-white px-4 py-2" onClick={()=> { location.reload(); }}>{t('exam.retake_exam')}</button>
-          <a className="rounded-2xl border px-4 py-2" href="/records">{t('exam.view_records')}</a>
+          <button className="btn bg-[#F76511] text-white" onClick={()=> { location.reload(); }} aria-label="Retake exam with new questions">{t('exam.retake_exam')}</button>
+          <a className="btn border" href="/records" aria-label="View your certification records">{t('exam.view_records')}</a>
         </div>
       </main>
     );
@@ -118,15 +118,15 @@ export default function ExamPage(){
         <div className="text-base font-medium mb-2">{item.question}</div>
         <div className="grid gap-2">
           {item.choices.map((c:string,idx:number)=> (
-            <button key={idx} disabled={remaining===0} className={`text-left border rounded-xl p-3 text-sm ${answers[i]===idx?'border-slate-900':''}`} onClick={()=> pick(idx)}>{c}</button>
+            <button key={idx} disabled={remaining===0} className={`text-left border rounded-xl p-3 text-sm tappable ${answers[i]===idx?'border-slate-900':''}`} onClick={()=> pick(idx)}>{c}</button>
           ))}
         </div>
         <div className="flex items-center justify-between mt-3">
-          <button className="rounded-2xl border px-4 py-2" disabled={i===0} onClick={()=> setI(n=> Math.max(0, n-1))}>{t('common.back')}</button>
+          <button className="btn border" disabled={i===0} onClick={()=> setI(n=> Math.max(0, n-1))} aria-label={`Go to previous question (${i} of ${paper.items.length})`}>{t('common.back')}</button>
           {i < paper.items.length-1 ? (
-            <button className="rounded-2xl bg-[#F76511] text-white px-4 py-2" onClick={()=> setI(n=> Math.min(paper.items.length-1, n+1))}>{t('common.next')}</button>
+            <button className="btn bg-[#F76511] text-white" onClick={()=> setI(n=> Math.min(paper.items.length-1, n+1))} aria-label={`Go to next question (${i + 2} of ${paper.items.length})`}>{t('common.next')}</button>
           ) : (
-            <button className="rounded-2xl bg-[#F76511] text-white px-4 py-2" onClick={submit}>{t('common.submit')}</button>
+            <button className="btn bg-[#F76511] text-white" onClick={submit} aria-label="Submit exam for grading">{t('common.submit')}</button>
           )}
         </div>
         <div className="text-xs text-slate-500 mt-2">{t('exam.auto_saved')}</div>
