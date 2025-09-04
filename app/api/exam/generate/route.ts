@@ -17,7 +17,7 @@ export async function POST(req: Request){
   if (!user) return NextResponse.json({ ok:false, error:'unauthorized' }, { status:401 });
 
   const body = await req.json().catch(()=>({}));
-  const locale = (body.locale || process.env.NEXT_PUBLIC_DEFAULT_LOCALE || 'en') as 'en'|'es';
+  const locale = (body?.locale === 'es' ? 'es' : 'en');
   const count = clamp(Number(body.count||24), 10, 40);
 
   // settings
@@ -26,15 +26,28 @@ export async function POST(req: Request){
   const timeLimitMin = cfg?.time_limit_min ?? 30;
 
   // pool by locale + fallback
-  const locales: ('en'|'es')[] = locale==='es' ? ['es','en'] : ['en','es'];
-  let pool:any[] = [];
-  for (const loc of locales){
-    const { data } = await svc.from('quiz_items')
+  const base = svc.from('quiz_items')
+    .select('id,question,choices,correct_index,tags,difficulty')
+    .eq('locale', locale)
+    .eq('is_exam_candidate', true)
+    .eq('active', true)
+    .eq('status', 'published');
+  
+  const { data } = await base;
+  const need = count;
+  let pool: any[] = [];
+  
+  if (!data || data.length < need) {
+    // Fallback to EN if ES pool is insufficient
+    const fb = await svc.from('quiz_items')
       .select('id,question,choices,correct_index,tags,difficulty')
-      .eq('locale', loc)
+      .eq('locale', 'en')
       .eq('is_exam_candidate', true)
-      .eq('active', true);
-    if (data?.length){ pool = data; break; }
+      .eq('active', true)
+      .eq('status', 'published');
+    pool = (data || []).concat((fb.data || []));
+  } else {
+    pool = data;
   }
   if (!pool.length) return NextResponse.json({ ok:false, error:'no_items' }, { status:400 });
 
