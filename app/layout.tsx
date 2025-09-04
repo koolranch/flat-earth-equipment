@@ -98,10 +98,17 @@ export default async function RootLayout({
             
             <Footer />
             
-            {/* Simple footer with reduced motion toggle */}
+            {/* Footer with legal links and accessibility toggle */}
             <footer role="contentinfo" className="mt-10 border-t text-xs text-slate-500 bg-white">
-              <div className="container mx-auto p-4 flex items-center justify-between">
-                <span>© Flat Earth Safety</span>
+              <div className="container mx-auto p-4 flex items-center justify-between flex-wrap gap-4">
+                <div className="flex items-center gap-4 flex-wrap">
+                  <span>© Flat Earth Safety</span>
+                  <nav aria-label="Legal and support links" className="flex gap-4">
+                    <a href="/legal/terms" className="hover:text-slate-700 underline hover:no-underline">Terms</a>
+                    <a href="/legal/privacy" className="hover:text-slate-700 underline hover:no-underline">Privacy</a>
+                    <a href="/contact" className="hover:text-slate-700 underline hover:no-underline">Contact</a>
+                  </nav>
+                </div>
                 <ReducedMotionToggle />
               </div>
             </footer>
