@@ -14,6 +14,7 @@ import SkipLink from '@/components/a11y/SkipLink';
 import ReducedMotionProvider from '@/components/a11y/ReducedMotionProvider';
 import ReducedMotionToggle from '@/components/a11y/ReducedMotionToggle';
 import LocaleSwitcher from '@/components/i18n/LocaleSwitcher';
+import { getUserLocale } from '@/lib/getUserLocale';
 import { getAdminStatus } from '@/lib/admin/guard';
 // Import your global styles (Tailwind, custom resets)
 import '../globals.css';
@@ -34,10 +35,8 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Get locale from cookies on the server
-  const cookieLocale = cookies().get('locale')?.value;
-  const envDefault = (process.env.NEXT_PUBLIC_DEFAULT_LOCALE === 'es' ? 'es' : 'en') as 'en' | 'es';
-  const locale: 'en' | 'es' = (cookieLocale === 'es' || cookieLocale === 'en') ? cookieLocale : envDefault;
+  // Get active locale from cookie with fallback
+  const locale = getUserLocale();
   
   // Check admin status for conditional header link (non-blocking)
   let adminStatus = { isAdmin: false };
