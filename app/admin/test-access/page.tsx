@@ -2,6 +2,8 @@ import 'server-only';
 import { requireAdminServer, getAdminStatus } from '@/lib/admin/guard';
 import { redirect } from 'next/navigation';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminTestPage() {
   // Example 1: Require admin access (redirect if not admin)
   const adminCheck = await requireAdminServer();

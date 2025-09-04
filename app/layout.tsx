@@ -35,16 +35,11 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Get active locale from cookie with fallback
+  // Get active locale from cookie with fallback (safe for static generation)
   const locale = getUserLocale();
   
-  // Check admin status for conditional header link (non-blocking)
-  let adminStatus = { isAdmin: false };
-  try {
-    adminStatus = await getAdminStatus();
-  } catch {
-    // Silently fail - admin link just won't show
-  }
+  // Check admin status for conditional header link (safe for static generation)
+  const adminStatus = await getAdminStatus();
   
   return (
     <html lang={locale} className={inter.className}>
