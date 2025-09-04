@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
 import { logServerError } from '@/lib/monitor/log.server';
+import crypto from 'crypto';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -17,83 +18,73 @@ export async function POST(req: Request){
   if (!user) return NextResponse.json({ ok:false, error:'unauthorized' }, { status:401 });
 
   const body = await req.json().catch(()=>({}));
+  const count = Math.max(1, Math.min(50, Number(body?.count) || 20));
   const locale = (body?.locale === 'es' ? 'es' : 'en');
-  const count = clamp(Number(body.count||24), 10, 40);
+
+  // 1) Load active blueprint for locale; fallback to EN; fallback to hardcoded defaults
+  const defBp = { count, difficulty_weights: { '1':0.1,'2':0.25,'3':0.4,'4':0.2,'5':0.05 }, tag_targets: { preop:0.2, inspection:0.2, stability:0.25, hazards:0.2, shutdown:0.15 } };
+  async function fetchBp(loc: string) {
+    const { data } = await svc.from('exam_blueprints').select('*').eq('locale', loc).eq('active', true).maybeSingle();
+    return data ? { count: data.count || defBp.count, difficulty_weights: data.difficulty_weights || defBp.difficulty_weights, tag_targets: data.tag_targets || defBp.tag_targets } : null;
+  }
+  let bp = await fetchBp(locale) || (locale === 'es' ? (await fetchBp('en')) : null) || defBp;
+  const need = Math.max(1, Number(bp.count) || count);
 
   // settings
   const { data: cfg } = await svc.from('exam_settings').select('pass_score, time_limit_min').maybeSingle();
   const passScore = cfg?.pass_score ?? 80;
   const timeLimitMin = cfg?.time_limit_min ?? 30;
 
-  // pool by locale + fallback
-  const base = svc.from('quiz_items')
-    .select('id,question,choices,correct_index,tags,difficulty')
-    .eq('locale', locale)
-    .eq('is_exam_candidate', true)
-    .eq('active', true)
-    .eq('status', 'published');
-  
-  const { data } = await base;
-  const need = count;
-  let pool: any[] = [];
-  
-  if (!data || data.length < need) {
-    // Fallback to EN if ES pool is insufficient
-    const fb = await svc.from('quiz_items')
-      .select('id,question,choices,correct_index,tags,difficulty')
-      .eq('locale', 'en')
+  // 2) Fetch candidate pools for locale and EN fallback
+  async function fetchPool(loc: string) {
+    const { data, error } = await svc
+      .from('quiz_items')
+      .select('*')
+      .eq('locale', loc)
       .eq('is_exam_candidate', true)
       .eq('active', true)
       .eq('status', 'published');
-    pool = (data || []).concat((fb.data || []));
-  } else {
-    pool = data;
+    if (error) throw new Error(error.message);
+    return data || [];
   }
-  if (!pool.length) return NextResponse.json({ ok:false, error:'no_items' }, { status:400 });
+  const poolLoc = await fetchPool(locale);
+  const poolEN = locale === 'es' ? await fetchPool('en') : [];
+  const poolAll = [...poolLoc, ...poolEN.filter(en => !poolLoc.some(l => l.id === en.id))];
+  if (!poolAll.length) return NextResponse.json({ ok:false, error:'no_items' }, { status:404 });
 
-  // Difficulty mix
-  const easy = pool.filter(i=> (i.difficulty??3) <= 2);
-  const med  = pool.filter(i=> (i.difficulty??3) === 3);
-  const hard = pool.filter(i=> (i.difficulty??3) >= 4);
-  const nEasy = Math.round(count*0.2);
-  const nHard = Math.round(count*0.2);
-  const nMed  = count - nEasy - nHard;
-  let chosen = [
-    ...sample(easy, nEasy),
-    ...sample(med,  nMed),
-    ...sample(hard, nHard)
-  ];
-
-  // Tag balance cap: no more than 40% same tag
-  const tagCount = new Map<string,number>();
-  const cap = Math.floor(count*0.4);
-  const ensureTagBalance = ()=>{
-    const out:any[] = [];
-    tagCount.clear();
-    for (const it of chosen){
-      const tags = (it.tags?.length ? it.tags : ['__untagged']) as string[];
-      const tag = tags[0];
-      const used = tagCount.get(tag)||0;
-      if (used < cap){ out.push(it); tagCount.set(tag, used+1); }
-    }
+  // 3) Weighted sampling by tag_targets and difficulty_weights
+  function pickWeighted(list: any[], n: number, tag?: string) {
+    const difW = bp.difficulty_weights || {};
+    const candidates = list.filter(it => tag ? (Array.isArray(it.tags) && it.tags.includes(tag)) : true);
+    if (!candidates.length) return [];
+    // score each item by difficulty weight and a small random jitter
+    const scored = candidates.map(it => ({ it, score: (difW[String(it.difficulty || 3)] ?? 0.2) * (0.75 + Math.random() * 0.5) }));
+    // stable shuffle by hash + score
+    scored.sort((a, b) => b.score - a.score);
+    const out: any[] = [];
+    for (const s of scored) { if (out.length >= n) break; if (!out.find(x => x.id === s.it.id)) out.push(s.it); }
     return out;
-  };
-  chosen = ensureTagBalance();
-  // If we lost too many to the cap, top-up with under-represented tags
-  if (chosen.length < count){
-    const byTag = bucket(pool, i=> (i.tags?.[0] || '__untagged'));
-    for (const [tg, arr] of byTag){
-      while ((tagCount.get(tg)||0) < cap && chosen.length < count && arr.length){
-        const pick = arr.splice(Math.floor(Math.random()*arr.length),1)[0];
-        if (!chosen.find(x=> x.id===pick.id)) { chosen.push(pick); tagCount.set(tg,(tagCount.get(tg)||0)+1); }
-      }
-      if (chosen.length>=count) break;
-    }
   }
-  chosen = chosen.slice(0, count);
 
-  const item_ids = chosen.map(i=> i.id);
-  const correct = chosen.map(i=> i.correct_index);
+  const selections: any[] = [];
+  const tagKeys = Object.keys(bp.tag_targets || {});
+  for (const t of tagKeys) {
+    const share = Math.max(0, Math.floor((bp.tag_targets[t] || 0) * need));
+    if (!share) continue;
+    const picked = pickWeighted(poolAll, share, t);
+    selections.push(...picked);
+  }
+  // Fill remainder to reach count
+  const remaining = need - selections.length;
+  if (remaining > 0) {
+    const more = pickWeighted(poolAll.filter(it => !selections.some(s => s.id === it.id)), remaining);
+    selections.push(...more);
+  }
+  // final trim and shuffle
+  const items = selections.slice(0, need).sort(() => Math.random() - 0.5);
+
+  const item_ids = items.map(i => i.id);
+  const correct = items.map(i => i.correct_index);
 
   // Create paper + session
   const { data: paperRow, error: pErr } = await svc
@@ -115,5 +106,8 @@ export async function POST(req: Request){
     return NextResponse.json({ ok:false, error: sErr?.message||'session_fail' }, { status:500 });
   }
 
-  return NextResponse.json({ ok:true, id: paperRow.id, session_id: sess.id, locale, pass_score: passScore, time_limit_sec: timeLimitMin*60, items: chosen.map(i=> ({ id:i.id, question:i.question, choices:i.choices, tags:i.tags||[] })), meta:{ count: item_ids.length } }, { headers:{ 'Cache-Control':'no-store' } });
+  // blueprint echo for analytics/debug
+  const blueprint_used = { locale_requested: locale, count: need, difficulty_weights: bp.difficulty_weights, tag_targets: bp.tag_targets };
+  const seed = crypto.randomUUID();
+  return NextResponse.json({ ok:true, id: paperRow.id, session_id: sess.id, locale, pass_score: passScore, time_limit_sec: timeLimitMin*60, items: items.map(i => ({ id:i.id, question:i.question, choices:i.choices, tags:i.tags||[] })), meta:{ count: item_ids.length, generated_at: new Date().toISOString(), blueprint_used, seed } }, { headers:{ 'Cache-Control':'no-store' } });
 }
