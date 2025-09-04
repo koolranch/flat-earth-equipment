@@ -179,10 +179,12 @@ export default async function Page() {
               <article key={`eval-${c.id}`} className="rounded-2xl border p-4 bg-white dark:bg-slate-900 dark:border-slate-700 grid gap-2">
                 <div className="text-sm text-slate-700 dark:text-slate-300">{t('evaluation.on_file')}</div>
                 <a 
+                  data-testid="eval-view-pdf"
                   className="rounded-2xl bg-[#F76511] text-white px-3 py-1 text-sm w-fit hover:bg-[#e55a0e] transition-colors" 
                   href={c.employer_evaluations[0].pdf_url} 
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={()=> (window as any)?.analytics?.track?.('employer_eval_pdf_viewed', { id: c.id })}
                 >
                   {t('evaluation.view_pdf')}
                 </a>
