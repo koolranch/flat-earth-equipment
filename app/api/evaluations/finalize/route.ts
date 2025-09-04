@@ -4,6 +4,7 @@ import { supabaseService } from '@/lib/supabase/service.server';
 import { renderEvaluationPdf } from '@/lib/eval/pdf';
 import { sendMail } from '@/lib/email/mailer';
 import { T } from '@/lib/email/templates';
+import { logServerError } from '@/lib/monitor/log.server';
 
 export const dynamic = 'force-dynamic';
 
@@ -57,7 +58,10 @@ export async function POST(req: Request){
 
   const path = `eval-${id}.pdf`;
   const up = await svc.storage.from('evaluations').upload(path, pdfBytes, { contentType: 'application/pdf', upsert: true });
-  if (up.error) return NextResponse.json({ ok:false, error: up.error.message }, { status:500 });
+  if (up.error) {
+    await logServerError('eval_finalize', 'upload_error', { error: up.error.message, evaluation_id: id });
+    return NextResponse.json({ ok:false, error: up.error.message }, { status:500 });
+  }
   const { data: pub } = svc.storage.from('evaluations').getPublicUrl(path);
 
   await svc.from('employer_evaluations').update({ pdf_url: pub.publicUrl, finalized: true }).eq('id', id);
