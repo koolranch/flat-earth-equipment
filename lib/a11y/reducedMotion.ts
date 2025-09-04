@@ -1,33 +1,35 @@
+'use client';
 import React from 'react';
 
-export function prefersReducedMotion() {
+export function prefersReducedMotion(): boolean {
   if (typeof window === 'undefined') return false;
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-// Hook version for React components
-export function useReducedMotion() {
-  const [prefersReduced, setPrefersReduced] = React.useState(() => {
-    if (typeof window === 'undefined') return false;
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  });
-
+// Hook for React components
+export function useReducedMotion(): boolean {
+  // For SSR compatibility, return false initially
+  const [reducedMotion, setReducedMotion] = React.useState(false);
+  
   React.useEffect(() => {
     if (typeof window === 'undefined') return;
     
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const handleChange = () => setPrefersReduced(mediaQuery.matches);
+    setReducedMotion(mediaQuery.matches);
     
+    const handleChange = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
     mediaQuery.addEventListener('change', handleChange);
+    
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
-
-  return prefersReduced;
+  
+  return reducedMotion;
 }
 
-// CSS class helper for conditional animations
-export function getMotionClass(animationClass: string, reducedClass: string = '') {
-  if (typeof window === 'undefined') return animationClass;
-  
-  return prefersReducedMotion() ? reducedClass : animationClass;
+// Utility for conditional animation classes
+export function motionSafe(animationClasses: string, reducedClasses: string = ''): string {
+  if (prefersReducedMotion()) {
+    return reducedClasses;
+  }
+  return animationClasses;
 }

@@ -1,5 +1,5 @@
 // Accessibility utilities and helpers
-export { prefersReducedMotion, useReducedMotion, getMotionClass } from './reducedMotion';
+export { prefersReducedMotion, useReducedMotion, motionSafe } from './reducedMotion';
 
 // Focus management utilities
 export function trapFocus(element: HTMLElement) {
