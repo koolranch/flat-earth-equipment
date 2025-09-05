@@ -84,7 +84,7 @@ export async function GET(req: Request) {
     const successfulClaims = statusCounts.claimed;
     const claimRate = totalInvites > 0 ? Math.round((successfulClaims / totalInvites) * 100) : 0;
 
-    return NextResponse.json({
+    const res = NextResponse.json({
       ok: true,
       course_id,
       total_count: totalInvites,
@@ -102,6 +102,8 @@ export async function GET(req: Request) {
         claim_rate_percent: claimRate
       }
     });
+    res.headers.set('Cache-Control', 'no-store');
+    return res;
 
   } catch (error) {
     console.error('Trainer invites API error:', error);

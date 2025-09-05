@@ -100,5 +100,7 @@ export async function GET(req: Request) {
   const start = (f.page! - 1) * f.pageSize!;
   const paged = rows.slice(start, start + f.pageSize!);
 
-  return NextResponse.json({ ok: true, items: paged, total, page: f.page, pageSize: f.pageSize });
+  const res = NextResponse.json({ ok: true, items: paged, total, page: f.page, pageSize: f.pageSize });
+  res.headers.set('Cache-Control', 'no-store');
+  return res;
 }
