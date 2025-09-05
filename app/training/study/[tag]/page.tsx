@@ -6,6 +6,7 @@ type Card = { id: string; tag: string; locale: string; kind: 'fact' | 'tip' | 'd
 export default function StudyByTag({ params }: { params: { tag: string } }) {
   const tag = (params.tag || '').toLowerCase();
   const [cards, setCards] = useState<Card[]>([]);
+  const [questSlug, setQuestSlug] = useState<string>('');
   const [i, setI] = useState(0);
   const [loading, setLoading] = useState(true);
 
@@ -16,6 +17,10 @@ export default function StudyByTag({ params }: { params: { tag: string } }) {
         const r = await fetch(`/api/study/by-tag?tag=${encodeURIComponent(tag)}&locale=${locale}`);
         const j = await r.json();
         if (j.ok) { setCards(j.cards || []); (window as any)?.analytics?.track?.('study_open', { tag, locale: j.locale, count: j.count }); }
+        
+        const q = await fetch(`/api/quests/list?tag=${encodeURIComponent(tag)}&locale=${locale}`);
+        const jq = await q.json();
+        if (jq.ok && (jq.items || []).length) { setQuestSlug(jq.items[0].slug); }
       } finally { setLoading(false); }
     })();
   }, [tag]);
@@ -43,6 +48,10 @@ export default function StudyByTag({ params }: { params: { tag: string } }) {
         <h1 className="text-xl font-bold capitalize">Study — {tag}</h1>
         <div className="ml-auto text-sm text-slate-600" aria-live="polite">{i + 1} / {total}</div>
       </header>
+
+      {questSlug && (
+        <a href={`/training/quests/${questSlug}`} className="rounded-2xl border px-4 py-2 w-fit">Practice drill →</a>
+      )}
 
       <article className="rounded-2xl border bg-white p-4 grid gap-3" role="region" aria-label="Study card">
         {current && (
