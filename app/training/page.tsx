@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useI18n } from '@/lib/i18n/I18nProvider';
 
 type Progress = {
   pct: number;
@@ -18,6 +19,7 @@ type RecertStatus = {
 };
 
 function TrainingContent() {
+  const { t } = useI18n();
   const searchParams = useSearchParams();
   const courseId = searchParams?.get('courseId') || '';
   const [prog, setProg] = useState<Progress | null>(null);
@@ -58,14 +60,14 @@ function TrainingContent() {
     })();
   }, [courseId]);
 
-  if (!courseId) return <main className='container mx-auto p-4'>Provide ?courseId=...</main>;
-  if (loading) return <main className='container mx-auto p-4'>Loading...</main>;
-  if (!prog) return <main className='container mx-auto p-4'>Failed to load progress.</main>;
+  if (!courseId) return <main id="main" className='container mx-auto p-4'>Provide ?courseId=...</main>;
+  if (loading) return <main id="main" className='container mx-auto p-4' aria-busy="true">Loading...</main>;
+  if (!prog) return <main id="main" className='container mx-auto p-4'>Failed to load progress.</main>;
 
   const canTakeExam = prog.canTakeExam;
   
   return (
-    <main className='container mx-auto p-4'>
+    <main id="main" className='container mx-auto p-4' role="main" aria-label="Training Hub">
       <header className='sticky top-0 z-10 bg-white/90 backdrop-blur border-b py-3'>
         <div className='flex items-center justify-between'>
           <h1 className='text-xl font-bold text-[#0F172A]'>Forklift Operator Training</h1>
@@ -84,12 +86,11 @@ function TrainingContent() {
             <div className="text-sm">
               {recert.due ? (
                 <>
-                  <b>Recertification due.</b> It&apos;s been over 3 years since your last certificate.
-                  <a className="ml-2 underline" href="/courses/forklift_recert">Start recert flow →</a>
+                  {t('hub.recert_due')}
                 </>
               ) : (
                 <>
-                  <b>You&apos;re current.</b> Valid until {new Date(recert.current_until || '').toLocaleDateString()}.
+                  {t('hub.recert_current', { date: new Date(recert.current_until || '').toLocaleDateString() })}
                 </>
               )}
             </div>
@@ -100,7 +101,7 @@ function TrainingContent() {
                 setDismissed(true); 
               }}
             >
-              Dismiss
+              {t('common.dismiss')}
             </button>
           </div>
         </div>

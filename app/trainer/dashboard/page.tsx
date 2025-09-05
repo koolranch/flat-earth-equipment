@@ -1,9 +1,11 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
+import { useI18n } from '@/lib/i18n/I18nProvider';
 
 type Row = { enrollment_id: string; learner_id: string; learner_name: string; learner_email: string; course_slug: string; progress_pct: number; status: 'not_started' | 'in_progress' | 'passed'; passed: boolean; cert_pdf_url: string | null; cert_issued_at: string | null; updated_at?: string; created_at?: string };
 
 export default function TrainerDashboard() {
+  const { t } = useI18n();
   const [rows, setRows] = useState<Row[]>([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
@@ -44,32 +46,32 @@ export default function TrainerDashboard() {
   }), [rows, total]);
 
   return (
-    <main className="container mx-auto p-4 grid gap-4">
-      <h1 className="text-xl font-bold">Trainer Dashboard</h1>
+    <main id="main" className="container mx-auto p-4 grid gap-4" role="main" aria-label={t('trainer.title')}>
+      <h1 className="text-xl font-bold">{t('trainer.title')}</h1>
 
       <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        <Stat label="Total" value={summary.total} />
-        <Stat label="Passed" value={summary.passed} />
-        <Stat label="In progress" value={summary.in_progress} />
-        <Stat label="Not started" value={summary.not_started} />
+        <Stat label={t('trainer.total')} value={summary.total} />
+        <Stat label={t('trainer.passed')} value={summary.passed} />
+        <Stat label={t('trainer.in_progress')} value={summary.in_progress} />
+        <Stat label={t('trainer.not_started')} value={summary.not_started} />
       </section>
 
       <section className="rounded-2xl border bg-white p-3 grid gap-2">
         <div className="grid md:grid-cols-5 gap-2">
-          <input className="border rounded-xl p-2" placeholder="Search name/email" value={q} onChange={e => setQ(e.target.value)} />
+          <input className="border rounded-xl p-2" placeholder={t('trainer.filters.q')} value={q} onChange={e => setQ(e.target.value)} />
           <select className="border rounded-xl p-2" value={status} onChange={e => setStatus(e.target.value as any)}>
             <option value="all">All</option>
-            <option value="not_started">Not started</option>
-            <option value="in_progress">In progress</option>
-            <option value="passed">Passed</option>
+            <option value="not_started">{t('trainer.not_started')}</option>
+            <option value="in_progress">{t('trainer.in_progress')}</option>
+            <option value="passed">{t('trainer.passed')}</option>
           </select>
-          <input className="border rounded-xl p-2" placeholder="Course slug (optional)" value={course} onChange={e => setCourse(e.target.value)} />
+          <input className="border rounded-xl p-2" placeholder={t('trainer.filters.course')} value={course} onChange={e => setCourse(e.target.value)} />
           <input className="border rounded-xl p-2" type="date" value={from} onChange={e => setFrom(e.target.value)} />
           <input className="border rounded-xl p-2" type="date" value={to} onChange={e => setTo(e.target.value)} />
         </div>
         <div className="flex gap-2 justify-end">
-          <button className="rounded-2xl border px-4 py-2" onClick={() => { (window as any)?.analytics?.track?.('trainer_filter_change', { q, status, course, from, to }); load(1); }}>Apply</button>
-          <a className="rounded-2xl bg-[#F76511] text-white px-4 py-2" href={exportHref({ q, status, course, from, to })} onClick={() => (window as any)?.analytics?.track?.('export_roster', { q, status, course, from, to })}>Export CSV</a>
+          <button className="rounded-2xl border px-4 py-2" onClick={() => { (window as any)?.analytics?.track?.('trainer_filter_change', { q, status, course, from, to }); load(1); }}>{t('common.apply')}</button>
+          <a className="rounded-2xl bg-[#F76511] text-white px-4 py-2" href={exportHref({ q, status, course, from, to })} onClick={() => (window as any)?.analytics?.track?.('export_roster', { q, status, course, from, to })}>{t('common.export')}</a>
         </div>
       </section>
 
