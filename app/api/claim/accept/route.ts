@@ -26,7 +26,7 @@ export async function POST(req: Request) {
     // Fetch invitation details
     const { data: inv, error: invError } = await svc
       .from('seat_invites')
-      .select('id, email, course_id, status, expires_at, claimed_at, courses(title)')
+      .select('id, email, course_id, status, expires_at, claimed_at, created_by, courses(title)')
       .eq('invite_token', token)
       .maybeSingle();
 
@@ -115,6 +115,33 @@ export async function POST(req: Request) {
         ok: false, 
         error: 'failed_to_claim_invitation' 
       }, { status: 500 });
+    }
+
+    // Persist claim in seat_claims (idempotent)
+    try {
+      // Find the order for this trainer and course
+      const { data: order } = await svc
+        .from('orders')
+        .select('id')
+        .eq('user_id', inv.created_by)
+        .eq('course_id', inv.course_id)
+        .maybeSingle();
+
+      if (order) {
+        await svc
+          .from('seat_claims')
+          .upsert({ 
+            order_id: order.id, 
+            user_id: user.id,
+            created_at: new Date().toISOString()
+          }, { 
+            onConflict: 'order_id,user_id', 
+            ignoreDuplicates: false 
+          });
+      }
+    } catch (e) {
+      console.error('seat_claims upsert failed', e);
+      // Don't fail the request if seat_claims fails
     }
 
     // Get course details for welcome email
