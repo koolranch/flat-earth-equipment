@@ -15,6 +15,7 @@
     "qa:i18n:audit": "node scripts/i18n_audit.mjs",
     "qa:i18n:es": "playwright test tests/e2e/i18n.es.spec.ts",
     "qa:admin:quiz": "playwright test tests/e2e/admin.quiz.spec.ts",
+    "qa:exam:adaptive": "playwright test tests/e2e/exam.adaptive.spec.ts",
     "test:csv": "node scripts/test-csv-endpoint.mjs",
     "test:verify": "node scripts/test-verify-endpoint.mjs",
     "test:qr": "node scripts/test-qr-generation.mjs",
