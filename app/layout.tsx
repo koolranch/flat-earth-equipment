@@ -1,3 +1,4 @@
+import '../sentry.client.config';
 import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
 import React from 'react';
