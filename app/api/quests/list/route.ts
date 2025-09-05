@@ -1,10 +1,10 @@
-import { NextResponse } from 'next/server';
-import { supabaseService } from '@/lib/supabase/service.server';
+import { supabaseEdgeAnon } from '@/lib/supabase/edgeAnon';
 
-export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
+export const preferredRegion = 'iad1';
 
 export async function GET(req: Request) {
-  const svc = supabaseService();
+  const svc = supabaseEdgeAnon();
   const url = new URL(req.url);
   const tag = url.searchParams.get('tag')?.toLowerCase();
   const locale = (url.searchParams.get('locale') === 'es' ? 'es' : 'en');
@@ -14,11 +14,24 @@ export async function GET(req: Request) {
   
   const { data } = await q;
   
+  let items = data || [];
+  
   // EN fallback when ES empty
-  if ((!data || !data.length) && locale === 'es') {
+  if (!items.length && locale === 'es') {
     const fb = await svc.from('micro_quests').select('*').eq('active', true).eq('locale', 'en').order('order_index', { ascending: true }).eq('tag', tag || '');
-    return NextResponse.json({ ok: true, items: fb.data || [], locale: 'en' });
+    items = fb.data || [];
+    return new Response(JSON.stringify({ ok: true, items, locale: 'en' }), { 
+      headers: { 
+        'Content-Type': 'application/json',
+        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=600'
+      } 
+    });
   }
   
-  return NextResponse.json({ ok: true, items: data || [], locale });
+  return new Response(JSON.stringify({ ok: true, items, locale }), { 
+    headers: { 
+      'Content-Type': 'application/json',
+      'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=600'
+    } 
+  });
 }
