@@ -43,7 +43,7 @@ export default function ExamReview() {
           {r.explain && <div className="text-sm text-slate-700">Why: {r.explain}</div>}
           <div className="flex flex-wrap gap-2 pt-2">
             {(r.tags || []).map(t => (
-              <a key={t} href={`/training/modules/${tagToModule(t)}#${t}`} className="rounded-xl border px-3 py-1 text-sm" onClick={() => (window as any)?.analytics?.track?.('study_launch', { tag: t })}>Study: {t}</a>
+              <a key={t} href={`/training/study/${encodeURIComponent(t)}`} className="rounded-xl border px-3 py-1 text-sm" onClick={() => (window as any)?.analytics?.track?.('study_launch', { tag: t })}>Study: {t}</a>
             ))}
           </div>
         </article>
@@ -52,7 +52,4 @@ export default function ExamReview() {
   );
 }
 
-function tagToModule(tag: string) {
-  const map: Record<string, string> = { preop: 'pre-operation-inspection', inspection: 'eight-point-inspection', stability: 'stability-and-load-handling', hazards: 'safe-operation-and-hazards', shutdown: 'shutdown-and-parking' };
-  return map[tag] || 'pre-operation-inspection';
-}
+// module anchor mapping no longer needed; Study uses tag routing.
