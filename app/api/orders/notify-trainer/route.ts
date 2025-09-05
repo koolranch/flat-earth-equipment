@@ -1,11 +1,14 @@
 import { NextResponse } from 'next/server';
 import { supabaseService } from '@/lib/supabase/service.server';
+import { supabaseServer } from '@/lib/supabase/server';
+import { auditLog } from '@/lib/audit/log.server';
 
 export const dynamic = 'force-dynamic';
 
 function site() { return process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'; }
 
 export async function POST(req: Request) {
+  const { data: { user } } = await supabaseServer().auth.getUser();
   const svc = supabaseService();
   const body = await req.json().catch(() => ({}));
   const order_id = body?.order_id as string;
@@ -27,6 +30,7 @@ export async function POST(req: Request) {
       const { Resend } = await import('resend');
       const resend = new Resend(process.env.RESEND_API_KEY as string);
       await resend.emails.send({ from: 'Flat Earth Safety <no-reply@flatearthequipment.com>', to: email, subject, html });
+      if (user?.id) await auditLog({ actor_id: user.id, action:'trainer_email_sent', entity:'orders', entity_id: order_id });
       return NextResponse.json({ ok: true, sent: true });
     } catch (e: any) {
       console.error('Resend error', e);
@@ -34,6 +38,7 @@ export async function POST(req: Request) {
     }
   } else {
     console.log('[DRYRUN email]', { to: email, subject, html });
+    if (user?.id) await auditLog({ actor_id: user.id, action:'trainer_email_dryrun', entity:'orders', entity_id: order_id });
     return NextResponse.json({ ok: true, sent: false, dryrun: true });
   }
 }

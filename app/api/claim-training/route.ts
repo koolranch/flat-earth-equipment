@@ -98,7 +98,7 @@ export async function POST(req: Request) {
           claimedCount++
           console.log('✅ Purchase marked as claimed')
 
-          // Persist claim in seat_claims (idempotent)
+          // Persist claim in seat_claims (idempotent) + audit
           try {
             // Find the order by stripe_session_id
             const { data: order } = await supabase
@@ -118,6 +118,7 @@ export async function POST(req: Request) {
                   onConflict: 'order_id,user_id', 
                   ignoreDuplicates: false 
                 });
+              try { const { auditLog } = await import('@/lib/audit/log.server'); await auditLog({ actor_id: user.id, action:'seat_claimed', entity:'seat_claims', meta:{ order_id: order.id } }); } catch {}
             }
           } catch (e) {
             console.error('seat_claims upsert failed', e);
