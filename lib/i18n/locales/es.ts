@@ -110,6 +110,7 @@ export const es = {
     load_weight: 'Peso de la carga (lb)', load_center: 'Centro de carga (in)', mast_tilt: 'Inclinación del mástil (°)', speed: 'Velocidad (mph)',
     hint_weight: 'Mantén por debajo de la capacidad nominal', hint_lc: 'Más cerca del mástil es más estable', hint_tilt: 'Demasiada inclinación reduce estabilidad', hint_speed: 'Menor velocidad cerca de riesgos'
   },
+  study: { title: 'Estudiar', next: 'Siguiente', prev: 'Anterior', complete: 'Completar', none: 'No hay tarjetas de estudio para este tema.' },
   errors: { unauthorized: 'Inicia sesión para continuar.', forbidden: 'Acceso denegado.', not_found: 'No encontrado.' },
   admin: { quiz: { title: 'Admin — Editor de cuestionario', filter: 'Filtrar', edit: 'Editar', publish: 'Publicar', save: 'Guardar', close: 'Cerrar', revisions: 'Revisiones', add_choice: 'Agregar opción', remove: 'Quitar', correct: 'Correcta' } }
 } as const;
