@@ -1,7 +1,10 @@
 export const es = {
   common: {
-    app_title: 'Flat Earth Safety', resume: 'Reanudar', start: 'Comenzar', next: 'Siguiente', back: 'Atrás', submit: 'Enviar', save: 'Guardar', cancel: 'Cancelar', copy_link: 'Copiar enlace', open_pdf: 'Abrir PDF', view_qr: 'QR', locked: 'Bloqueado', unlocked: 'Desbloqueado', pass: 'Aprobado', fail: 'Reprobado', try_again: 'Inténtalo de nuevo', loading: 'Cargando…'
+    app_title: 'Flat Earth Safety', resume: 'Reanudar', start: 'Comenzar', next: 'Siguiente', back: 'Atrás', submit: 'Enviar', save: 'Guardar', cancel: 'Cancelar', copy_link: 'Copiar enlace', open_pdf: 'Abrir PDF', view_qr: 'QR', locked: 'Bloqueado', unlocked: 'Desbloqueado', pass: 'Aprobado', fail: 'Reprobado', try_again: 'Inténtalo de nuevo', loading: 'Cargando…',
+    previous: 'Anterior', apply: 'Aplicar', export: 'Exportar CSV', dismiss: 'Descartar', open: 'Abrir', practice: 'Ejercicio', search: 'Buscar', status: 'Estado'
   },
+  a11y: { skip_to_content: 'Saltar al contenido principal', study_region: 'Tarjeta de estudio', quest_region: 'Ejercicio práctico' },
+  hub: { title: 'Centro de Formación', recert_current: 'Estás vigente. Válido hasta {{date}}.', recert_due: 'Recertificación pendiente. Iniciar →' },
   training: {
     hub_title: 'Tu capacitación', modules_complete_to_unlock_exam: 'Completa todos los módulos para desbloquear el examen.', final_exam: 'Examen final', pass_to_generate_cert: 'Aprueba para generar tu certificado', progress_label: 'Progreso', module: 'Módulo', demo: 'Demostración', quiz: 'Cuestionario', minutes: 'min', resume_training: 'Reanudar capacitación', continue: 'Continuar', start_module: 'Iniciar módulo'
   },
@@ -103,14 +106,17 @@ export const es = {
     }
   },
   trainer: {
-    tools_title: 'Herramientas del instructor', roster: 'Lista', invites: 'Invitaciones', export_csv: 'Exportar CSV', status_counts: 'Conteos'
+    tools_title: 'Herramientas del instructor', roster: 'Lista', invites: 'Invitaciones', export_csv: 'Exportar CSV', status_counts: 'Conteos',
+    title: 'Panel del instructor', total: 'Total', passed: 'Aprobado', in_progress:'En curso', not_started:'No iniciado', filters: { q:'Buscar nombre/correo', course:'Curso', from:'Desde', to:'Hasta' }
   },
+  seats: { title: 'Plazas', roster: 'Lista', invites: 'Gestionar invitaciones', columns: { order:'Pedido', course:'Curso', seats:'Plazas', claimed:'Reclamadas', remaining:'Restantes', actions:'Acciones' }, invite:'Invitar', export:'Exportar', empty:'Sin pedidos' },
   games: {
     stability_title: 'Triángulo de estabilidad', stability_score: 'Puntaje de estabilidad', holding_pass: 'Manteniendo APROBADO… {s}s', reset: 'Restablecer', mark_complete: 'Marcar como completo',
     load_weight: 'Peso de la carga (lb)', load_center: 'Centro de carga (in)', mast_tilt: 'Inclinación del mástil (°)', speed: 'Velocidad (mph)',
     hint_weight: 'Mantén por debajo de la capacidad nominal', hint_lc: 'Más cerca del mástil es más estable', hint_tilt: 'Demasiada inclinación reduce estabilidad', hint_speed: 'Menor velocidad cerca de riesgos'
   },
-  study: { title: 'Estudiar', next: 'Siguiente', prev: 'Anterior', complete: 'Completar', none: 'No hay tarjetas de estudio para este tema.' },
+  study: { title: 'Estudiar — {{tag}}', next: 'Siguiente', prev: 'Anterior', complete: 'Completar', none: 'No hay tarjetas de estudio para este tema.', card_kind: { fact:'Dato', tip:'Consejo', do:'Hacer', dont:'No hacer', definition:'Definición', step:'Paso' }, progress: '{{i}} / {{total}}' },
+  quests: { title: 'Práctica — {{title}}', hotspots_hint: 'Encuentra todos los elementos ({{hit}}/{{total}})', mark_step_done: 'Marcar paso como hecho', complete: 'Completado ✓' },
   errors: { unauthorized: 'Inicia sesión para continuar.', forbidden: 'Acceso denegado.', not_found: 'No encontrado.' },
   admin: { quiz: { title: 'Admin — Editor de cuestionario', filter: 'Filtrar', edit: 'Editar', publish: 'Publicar', save: 'Guardar', close: 'Cerrar', revisions: 'Revisiones', add_choice: 'Agregar opción', remove: 'Quitar', correct: 'Correcta' } }
 } as const;
