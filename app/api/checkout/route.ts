@@ -1,8 +1,11 @@
 // app/api/checkout/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { supabaseServer } from '@/lib/supabase/server';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+function gaOpen() { return process.env.FEATURE_GA === '1'; }
 
 function siteUrlFrom(req: NextRequest) {
   const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
@@ -12,6 +15,13 @@ function siteUrlFrom(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  if (!gaOpen()) {
+    // allow staff to test while GA is off
+    const { data: { user } } = await supabaseServer().auth.getUser();
+    const isStaff = !!user && (await fetch(process.env.NEXT_PUBLIC_SITE_URL + '/api/is-staff', { headers: { cookie: req.headers.get('cookie')||'' } })).ok;
+    if (!isStaff) return new Response(JSON.stringify({ ok:false, error:'not_open' }), { status: 503 });
+  }
+
   try {
     const body = await req.json().catch(() => ({}));
     
