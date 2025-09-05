@@ -33,7 +33,7 @@ export default function TrainerDashboard() {
     setLoading(false);
   }
 
-  useEffect(() => { load(1); }, []);
+  useEffect(() => { (window as any)?.analytics?.track?.('trainer_dashboard_open'); load(1); }, []);
 
   const pages = Math.max(1, Math.ceil(total / pageSize));
   const summary = useMemo(() => ({
@@ -68,8 +68,8 @@ export default function TrainerDashboard() {
           <input className="border rounded-xl p-2" type="date" value={to} onChange={e => setTo(e.target.value)} />
         </div>
         <div className="flex gap-2 justify-end">
-          <button className="rounded-2xl border px-4 py-2" onClick={() => load(1)}>Apply</button>
-          <a className="rounded-2xl bg-[#F76511] text-white px-4 py-2" href={exportHref({ q, status, course, from, to })}>Export CSV</a>
+          <button className="rounded-2xl border px-4 py-2" onClick={() => { (window as any)?.analytics?.track?.('trainer_filter_change', { q, status, course, from, to }); load(1); }}>Apply</button>
+          <a className="rounded-2xl bg-[#F76511] text-white px-4 py-2" href={exportHref({ q, status, course, from, to })} onClick={() => (window as any)?.analytics?.track?.('export_roster', { q, status, course, from, to })}>Export CSV</a>
         </div>
       </section>
 
