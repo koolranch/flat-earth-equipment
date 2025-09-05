@@ -16,7 +16,7 @@ export default function QuestEngine({ slug }: { slug: string }) {
       setQuest(j.quest);
       const s = await fetch('/api/quests/attempt/start', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ quest_id: j.quest.id }) });
       const sj = await s.json();
-      if (sj.ok) { setAttempt(sj.attempt_id); (window as any)?.analytics?.track?.('quest_start', { slug, quest_id: j.quest.id }); }
+      if (sj.ok) { setAttempt(sj.attempt_id); import('@/lib/analytics/track').then(m => m.track('quest_start', { slug, quest_id: j.quest.id })); }
     } finally { setLoading(false); }
   })(); }, [slug]);
 
@@ -44,10 +44,10 @@ function Hotspots({ quest, attempt }: { quest: Quest, attempt: string }) {
     if (hit.includes(id)) return;
     const next = [...hit, id]; 
     setHit(next);
-    (window as any)?.analytics?.track?.('quest_step', { type: 'hotspots', id });
+    import('@/lib/analytics/track').then(m => m.track('quest_step', { type: 'hotspots', id }));
     await fetch('/api/quests/attempt/step', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ attempt_id: attempt, patch: { hit: next }, step_delta: 1 }) });
     if (next.length === total) {
-      (window as any)?.analytics?.track?.('quest_complete', { slug: quest.slug, pass: true });
+      import('@/lib/analytics/track').then(m => m.track('quest_complete', { slug: quest.slug, pass: true }));
       await fetch('/api/quests/attempt/complete', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ attempt_id: attempt, pass: true, score: 100, final_progress: { hit: next } }) });
     }
   }
@@ -85,10 +85,10 @@ function Sequence({ quest, attempt }: { quest: Quest, attempt: string }) {
   async function next() {
     const n = idx + 1; 
     setIdx(n);
-    (window as any)?.analytics?.track?.('quest_step', { type: 'sequence', index: n });
+    import('@/lib/analytics/track').then(m => m.track('quest_step', { type: 'sequence', index: n }));
     await fetch('/api/quests/attempt/step', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ attempt_id: attempt, patch: { idx: n }, step_delta: 1 }) });
     if (n >= (cfg.steps || []).length) {
-      (window as any)?.analytics?.track?.('quest_complete', { slug: quest.slug, pass: true });
+      import('@/lib/analytics/track').then(m => m.track('quest_complete', { slug: quest.slug, pass: true }));
       await fetch('/api/quests/attempt/complete', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ attempt_id: attempt, pass: true, score: 100, final_progress: { idx: n } }) });
     }
   }
