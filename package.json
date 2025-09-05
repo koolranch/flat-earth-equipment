@@ -12,6 +12,7 @@
     "qa:perf": "node scripts/lh-smoke.mjs",
     "perf:lh": "node scripts/run-lighthouse.mjs",
     "qa:rls": "node scripts/rls-audit.mjs",
+    "qa:security": "playwright test tests/e2e/security.spec.ts",
     "qa:i18n:audit": "node scripts/i18n_audit.mjs",
     "qa:i18n:es": "playwright test tests/e2e/i18n.es.spec.ts",
     "qa:i18n-a11y": "playwright test tests/e2e/i18n_a11y.spec.ts",
