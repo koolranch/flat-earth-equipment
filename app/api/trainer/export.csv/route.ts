@@ -1,8 +1,11 @@
 import { NextResponse } from 'next/server';
+import { supabaseServer } from '@/lib/supabase/server';
+import { auditLog } from '@/lib/audit/log.server';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: Request) {
+  const { data: { user } } = await supabaseServer().auth.getUser();
   const url = new URL(req.url);
   // call internal roster endpoint with pageSize=5000
   url.pathname = '/api/trainer/roster';
@@ -28,6 +31,8 @@ export async function GET(req: Request) {
   ].join(',')));
   
   const body = lines.join('\n');
+  
+  if (user?.id) await auditLog({ actor_id: user.id, action:'export_roster', entity:'trainer_roster', meta:{ count: rows.length } });
   
   return new Response(body, {
     status: 200,

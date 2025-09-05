@@ -7,6 +7,7 @@ import { logServerError } from '@/lib/monitor/log.server';
 import QRCode from 'qrcode';
 import { randomCode } from '@/lib/certs/code';
 import { signPayload } from '@/lib/certs/sign';
+import { auditLog } from '@/lib/audit/log.server';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -140,16 +141,8 @@ export async function POST(req: Request) {
     }).select();
   }
 
-  // Optional: audit
-  try { 
-    await sb.from('audit_log').insert({ 
-      actor_id: enr.user_id, 
-      action: 'certificate_issued', 
-      notes: { enrollment_id, verification_code } 
-    }); 
-  } catch {
-    // Audit logging is optional
-  }
+  // Audit log certificate issuance
+  await auditLog({ actor_id: enr.user_id, action: 'certificate_issued', entity: 'certificates', entity_id: enrollment_id, meta: { verification_code, course_title: course?.title } });
 
   // Email hooks (best-effort)
   try {
