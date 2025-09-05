@@ -1,9 +1,11 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useI18n } from '@/lib/i18n/I18nProvider';
 
 type Quest = { id: string; slug: string; title: string; tag: string; locale: string; type: 'hotspots' | 'sequence'; config: any; pass_criteria: any };
 
 export default function QuestEngine({ slug }: { slug: string }) {
+  const { t } = useI18n();
   const [quest, setQuest] = useState<Quest | null>(null);
   const [attempt, setAttempt] = useState<string>('');
   const [loading, setLoading] = useState(true);
@@ -20,12 +22,12 @@ export default function QuestEngine({ slug }: { slug: string }) {
     } finally { setLoading(false); }
   })(); }, [slug]);
 
-  if (loading) return <div className="p-4">Loading…</div>;
-  if (!quest) return <div className="p-4">Not found.</div>;
+  if (loading) return <div className="p-4">{t('common.loading')}</div>;
+  if (!quest) return <div className="p-4">{t('errors.not_found')}</div>;
 
   return (
     <section className="grid gap-3">
-      <h1 className="text-xl font-bold">{quest.title}</h1>
+      <h1 className="text-xl font-bold">{t('quests.title', { title: quest.title })}</h1>
       {quest.type === 'hotspots' ? (
         <Hotspots quest={quest} attempt={attempt} />
       ) : (
@@ -36,6 +38,7 @@ export default function QuestEngine({ slug }: { slug: string }) {
 }
 
 function Hotspots({ quest, attempt }: { quest: Quest, attempt: string }) {
+  const { t } = useI18n();
   const [hit, setHit] = useState<string[]>([]);
   const cfg = quest.config as { hotspots: { id: string; label: string }[] };
   const total = (cfg.hotspots || []).length;
@@ -54,7 +57,7 @@ function Hotspots({ quest, attempt }: { quest: Quest, attempt: string }) {
   
   return (
     <div className="rounded-2xl border bg-white p-4">
-      <div className="text-sm text-slate-600">Find all items ({hit.length}/{total})</div>
+      <div className="text-sm text-slate-600">{t('quests.hotspots_hint', { hit: hit.length, total })}</div>
       <ul className="grid gap-2 mt-2">
         {(cfg.hotspots || []).map(h => (
           <li key={h.id}>
@@ -70,7 +73,7 @@ function Hotspots({ quest, attempt }: { quest: Quest, attempt: string }) {
       </ul>
       {hit.length === total && (
         <div className="mt-4 p-3 rounded-xl bg-green-50 border border-green-200 text-green-800 font-medium">
-          🎉 Quest Complete! All items found.
+          🎉 {t('quests.complete')}
         </div>
       )}
     </div>
@@ -78,6 +81,7 @@ function Hotspots({ quest, attempt }: { quest: Quest, attempt: string }) {
 }
 
 function Sequence({ quest, attempt }: { quest: Quest, attempt: string }) {
+  const { t } = useI18n();
   const [idx, setIdx] = useState(0);
   const cfg = quest.config as { steps: { id: string; text: string }[] };
   const done = idx >= (cfg.steps || []).length;
@@ -103,13 +107,13 @@ function Sequence({ quest, attempt }: { quest: Quest, attempt: string }) {
           <div className="text-lg font-medium">{cfg.steps[idx].text}</div>
           <div className="flex justify-end">
             <button className="rounded-2xl bg-[#F76511] text-white px-4 py-2" onClick={next}>
-              Mark step done
+              {t('quests.mark_step_done')}
             </button>
           </div>
         </>
       ) : (
         <div className="text-green-700 font-medium text-center py-4">
-          🎉 Quest Complete! ✓
+          🎉 {t('quests.complete')}
         </div>
       )}
     </div>
