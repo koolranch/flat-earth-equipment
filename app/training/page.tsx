@@ -3,6 +3,7 @@ import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useI18n } from '@/lib/i18n/I18nProvider';
 import { flags } from '@/lib/flags';
+import PrelaunchBanner from '@/components/PrelaunchBanner';
 
 type Progress = {
   pct: number;
@@ -80,6 +81,8 @@ function TrainingContent() {
           </div>
         </div>
       </header>
+
+      {!flags.GA && <PrelaunchBanner />}
 
       {recert && !dismissed && recert.has_certificate && (
         <div className={`rounded-2xl border p-3 ${recert.due ? 'border-amber-300 bg-amber-50' : 'border-green-300 bg-green-50'}`}>
