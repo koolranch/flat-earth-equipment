@@ -1,6 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useI18n } from '@/lib/i18n/I18nProvider';
+import * as Sentry from '@sentry/nextjs';
+import { withSpan } from '@/lib/obs/withSpan';
 
 type Quest = { id: string; slug: string; title: string; tag: string; locale: string; type: 'hotspots' | 'sequence'; config: any; pass_criteria: any };
 
@@ -16,7 +18,9 @@ export default function QuestEngine({ slug }: { slug: string }) {
       const j = await r.json();
       if (!j.ok) return;
       setQuest(j.quest);
-      const s = await fetch('/api/quests/attempt/start', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ quest_id: j.quest.id }) });
+      const s = await withSpan('Quest Start', 'ui.click', async () => {
+        return fetch('/api/quests/attempt/start', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ quest_id: j.quest.id }) });
+      }, { questSlug: slug });
       const sj = await s.json();
       if (sj.ok) { setAttempt(sj.attempt_id); import('@/lib/analytics/track').then(m => m.track('quest_start', { slug, quest_id: j.quest.id })); }
     } finally { setLoading(false); }
@@ -47,11 +51,17 @@ function Hotspots({ quest, attempt }: { quest: Quest, attempt: string }) {
     if (hit.includes(id)) return;
     const next = [...hit, id]; 
     setHit(next);
-    import('@/lib/analytics/track').then(m => m.track('quest_step', { type: 'hotspots', id }));
-    await fetch('/api/quests/attempt/step', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ attempt_id: attempt, patch: { hit: next }, step_delta: 1 }) });
+    
+    await withSpan('Quest Hotspot', 'ui.interaction', async () => {
+      import('@/lib/analytics/track').then(m => m.track('quest_step', { type: 'hotspots', id }));
+      await fetch('/api/quests/attempt/step', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ attempt_id: attempt, patch: { hit: next }, step_delta: 1 }) });
+    }, { questSlug: quest.slug, hotspotId: id });
+    
     if (next.length === total) {
-      import('@/lib/analytics/track').then(m => m.track('quest_complete', { slug: quest.slug, pass: true }));
-      await fetch('/api/quests/attempt/complete', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ attempt_id: attempt, pass: true, score: 100, final_progress: { hit: next } }) });
+      await withSpan('Quest Complete', 'business.event', async () => {
+        import('@/lib/analytics/track').then(m => m.track('quest_complete', { slug: quest.slug, pass: true }));
+        await fetch('/api/quests/attempt/complete', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ attempt_id: attempt, pass: true, score: 100, final_progress: { hit: next } }) });
+      }, { questSlug: quest.slug });
     }
   }
   

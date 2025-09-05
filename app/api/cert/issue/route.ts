@@ -8,6 +8,7 @@ import QRCode from 'qrcode';
 import { randomCode } from '@/lib/certs/code';
 import { signPayload } from '@/lib/certs/sign';
 import { auditLog } from '@/lib/audit/log.server';
+import { withSpan } from '@/lib/obs/withSpan';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -109,37 +110,41 @@ export async function POST(req: Request) {
 
   const pdfBytes = await pdf.save();
 
-  // Upload to storage
-  const path = `${enrollment_id}.pdf`;
-  const up = await sb.storage.from('certificates').upload(path, pdfBytes, { upsert: true, contentType: 'application/pdf' });
-  if (up.error) {
-    await logServerError('cert_issue', 'upload_error', { error: up.error.message, enrollment_id });
-    return NextResponse.json({ ok: false, error: up.error.message }, { status: 500 });
-  }
-  const { data: pub } = sb.storage.from('certificates').getPublicUrl(path);
-  const pdf_url = pub?.publicUrl || '';
+  // Upload to storage and save certificate record
+  const { pdf_url } = await withSpan('Certificate Issue', 'http.server', async () => {
+    const path = `${enrollment_id}.pdf`;
+    const up = await sb.storage.from('certificates').upload(path, pdfBytes, { upsert: true, contentType: 'application/pdf' });
+    if (up.error) {
+      await logServerError('cert_issue', 'upload_error', { error: up.error.message, enrollment_id });
+      throw new Error(up.error.message);
+    }
+    const { data: pub } = sb.storage.from('certificates').getPublicUrl(path);
+    const pdf_url = pub?.publicUrl || '';
 
-  // Upsert certificates row
-  try {
-    await sb.from('certificates').upsert({
-      enrollment_id,
-      pdf_url,
-      issued_at,
-      verification_code,
-      signature,
-      signed_payload: payload
-    }, { onConflict: 'enrollment_id' });
-  } catch (e: any) {
-    // Fallback insert then update
-    await sb.from('certificates').insert({ 
-      enrollment_id, 
-      pdf_url, 
-      issued_at, 
-      verification_code, 
-      signature, 
-      signed_payload: payload 
-    }).select();
-  }
+    // Upsert certificates row
+    try {
+      await sb.from('certificates').upsert({
+        enrollment_id,
+        pdf_url,
+        issued_at,
+        verification_code,
+        signature,
+        signed_payload: payload
+      }, { onConflict: 'enrollment_id' });
+    } catch (e: any) {
+      // Fallback insert then update
+      await sb.from('certificates').insert({ 
+        enrollment_id, 
+        pdf_url, 
+        issued_at, 
+        verification_code, 
+        signature, 
+        signed_payload: payload 
+      }).select();
+    }
+    
+    return { pdf_url };
+  }, { enrollment_id });
 
   // Audit log certificate issuance
   await auditLog({ actor_id: enr.user_id, action: 'certificate_issued', entity: 'certificates', entity_id: enrollment_id, meta: { verification_code, course_title: course?.title } });
