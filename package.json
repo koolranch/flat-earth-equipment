@@ -14,6 +14,7 @@
     "qa:i18n:audit": "node scripts/i18n_audit.mjs",
     "qa:i18n:es": "playwright test tests/e2e/i18n.es.spec.ts",
     "qa:i18n-a11y": "playwright test tests/e2e/i18n_a11y.spec.ts",
+    "qa:i18n:enforce": "node scripts/qa-i18n-enforce.mjs",
     "qa:admin:quiz": "playwright test tests/e2e/admin.quiz.spec.ts",
     "qa:exam:adaptive": "playwright test tests/e2e/exam.adaptive.spec.ts",
     "qa:study": "playwright test tests/e2e/study.spec.ts",
