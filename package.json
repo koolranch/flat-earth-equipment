@@ -21,6 +21,7 @@
     "set:sentry:local:quiet": "node scripts/set-sentry-env.mjs --dsn=\"https://c445cae860c16ba90d3a800f0035a0ca@o4509967388704768.ingest.us.sentry.io/4509967403909120\" --public=1",
     "verify:sentry:setup": "node scripts/verify-sentry-setup.mjs",
     "verify:sentry:release": "VERIFY_SENTRY_TEST_RELEASE=1 node scripts/verify-sentry-setup.mjs",
+    "verify:stripe": "node scripts/verify-stripe-readonly.mjs",
     "qa:i18n:audit": "node scripts/i18n_audit.mjs",
     "qa:i18n:es": "playwright test tests/e2e/i18n.es.spec.ts",
     "qa:i18n-a11y": "playwright test tests/e2e/i18n_a11y.spec.ts",
