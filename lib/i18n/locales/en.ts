@@ -1,7 +1,10 @@
 export const en = {
   common: {
-    app_title: 'Flat Earth Safety', resume: 'Resume', start: 'Start', next: 'Next', back: 'Back', submit: 'Submit', save: 'Save', cancel: 'Cancel', copy_link: 'Copy link', open_pdf: 'Open PDF', view_qr: 'QR', locked: 'Locked', unlocked: 'Unlocked', pass: 'Pass', fail: 'Fail', try_again: 'Try again', loading: 'Loading…'
+    app_title: 'Flat Earth Safety', resume: 'Resume', start: 'Start', next: 'Next', back: 'Back', submit: 'Submit', save: 'Save', cancel: 'Cancel', copy_link: 'Copy link', open_pdf: 'Open PDF', view_qr: 'QR', locked: 'Locked', unlocked: 'Unlocked', pass: 'Pass', fail: 'Fail', try_again: 'Try again', loading: 'Loading…',
+    previous: 'Previous', apply: 'Apply', export: 'Export CSV', dismiss: 'Dismiss', open: 'Open', practice: 'Practice drill', search: 'Search', status: 'Status'
   },
+  a11y: { skip_to_content: 'Skip to main content', study_region: 'Study card', quest_region: 'Practice drill' },
+  hub: { title: 'Training Hub', recert_current: "You're current. Valid until {{date}}.", recert_due: 'Recertification due. Start recert →' },
   training: {
     hub_title: 'Your Training', modules_complete_to_unlock_exam: 'Complete all modules to unlock the exam.', final_exam: 'Final Exam', pass_to_generate_cert: 'Pass to generate your certificate', progress_label: 'Progress', module: 'Module', demo: 'Demo', quiz: 'Quiz', minutes: 'min', resume_training: 'Resume training', continue: 'Continue', start_module: 'Start module'
   },
@@ -103,14 +106,17 @@ export const en = {
     }
   },
   trainer: {
-    tools_title: 'Trainer Tools', roster: 'Roster', invites: 'Invites', export_csv: 'Export CSV', status_counts: 'Counts'
+    tools_title: 'Trainer Tools', roster: 'Roster', invites: 'Invites', export_csv: 'Export CSV', status_counts: 'Counts',
+    title: 'Trainer Dashboard', total: 'Total', passed: 'Passed', in_progress:'In progress', not_started:'Not started', filters: { q:'Search name/email', course:'Course', from:'From', to:'To' }
   },
+  seats: { title: 'Seats', roster: 'Roster', invites: 'Manage invites', columns: { order:'Order', course:'Course', seats:'Seats', claimed:'Claimed', remaining:'Remaining', actions:'Actions' }, invite:'Invite', export:'Export', empty:'No orders yet' },
   games: {
     stability_title: 'Stability Triangle', stability_score: 'Stability score', holding_pass: 'Holding PASS… {s}s', reset: 'Reset', mark_complete: 'Mark Complete',
     load_weight: 'Load weight (lb)', load_center: 'Load center (in)', mast_tilt: 'Mast tilt (°)', speed: 'Speed (mph)',
     hint_weight: 'Keep under rated capacity', hint_lc: 'Closer to mast is more stable', hint_tilt: 'Excessive tilt reduces stability', hint_speed: 'Lower speed near hazards'
   },
-  study: { title: 'Study', next: 'Next', prev: 'Previous', complete: 'Complete', none: 'No study cards for this topic yet.' },
+  study: { title: 'Study — {{tag}}', next: 'Next', prev: 'Previous', complete: 'Complete', none: 'No study cards for this topic yet.', card_kind: { fact:'Fact', tip:'Tip', do:'Do', dont:"Don't", definition:'Definition', step:'Step' }, progress: '{{i}} / {{total}}' },
+  quests: { title: 'Practice — {{title}}', hotspots_hint: 'Find all items ({{hit}}/{{total}})', mark_step_done: 'Mark step done', complete: 'Complete ✓' },
   errors: { unauthorized: 'Sign in to continue.', forbidden: 'Access denied.', not_found: 'Not found.' },
   admin: { quiz: { title: 'Admin — Quiz Editor', filter: 'Filter', edit: 'Edit', publish: 'Publish', save: 'Save', close: 'Close', revisions: 'Revisions', add_choice: 'Add choice', remove: 'Remove', correct: 'Correct' } }
 } as const;
