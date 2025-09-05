@@ -110,6 +110,7 @@ export const en = {
     load_weight: 'Load weight (lb)', load_center: 'Load center (in)', mast_tilt: 'Mast tilt (°)', speed: 'Speed (mph)',
     hint_weight: 'Keep under rated capacity', hint_lc: 'Closer to mast is more stable', hint_tilt: 'Excessive tilt reduces stability', hint_speed: 'Lower speed near hazards'
   },
+  study: { title: 'Study', next: 'Next', prev: 'Previous', complete: 'Complete', none: 'No study cards for this topic yet.' },
   errors: { unauthorized: 'Sign in to continue.', forbidden: 'Access denied.', not_found: 'Not found.' },
   admin: { quiz: { title: 'Admin — Quiz Editor', filter: 'Filter', edit: 'Edit', publish: 'Publish', save: 'Save', close: 'Close', revisions: 'Revisions', add_choice: 'Add choice', remove: 'Remove', correct: 'Correct' } }
 } as const;
