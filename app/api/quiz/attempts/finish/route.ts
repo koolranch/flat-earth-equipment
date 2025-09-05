@@ -3,6 +3,7 @@ export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { finishAttempt } from '@/lib/quiz/attempts.server';
+import { withSpan } from '@/lib/obs/withSpan';
 
 const Body = z.object({ 
   attemptId: z.string().uuid(), 
@@ -12,7 +13,7 @@ const Body = z.object({
 export async function POST(req: Request) {
   try { 
     const b = Body.parse(await req.json()); 
-    const out = await finishAttempt(b.attemptId, b.correctIds); 
+    const out = await withSpan('Quiz Answer', 'http.server', () => finishAttempt(b.attemptId, b.correctIds), { attempt_id: b.attemptId, correct_count: b.correctIds.length }); 
     return NextResponse.json(out); 
   }
   catch(e: any) { 
