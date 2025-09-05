@@ -1,5 +1,6 @@
 'use client';
-import QuestEngine from '@/components/quests/QuestEngine';
+import dynamic from 'next/dynamic';
+const QuestEngine = dynamic(() => import('@/components/quests/QuestEngine'), { ssr: false });
 
 export default function QuestPage({ params }: { params: { slug: string } }) {
   return (
