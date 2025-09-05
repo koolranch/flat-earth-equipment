@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useI18n } from '@/lib/i18n/I18nProvider';
 
 type Row = { enrollment_id: string; learner_id: string; learner_name: string; learner_email: string; course_slug: string; progress_pct: number; status: 'not_started' | 'in_progress' | 'passed'; passed: boolean; cert_pdf_url: string | null; cert_issued_at: string | null; updated_at?: string; created_at?: string };
@@ -18,7 +18,7 @@ export default function DashboardInner() {
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
 
-  async function load(p = page) {
+  const load = useCallback(async (p = page) => {
     setLoading(true);
     const u = new URL('/api/trainer/roster', window.location.origin);
     if (q) u.searchParams.set('q', q);
@@ -33,9 +33,9 @@ export default function DashboardInner() {
     const j = await r.json();
     if (j.ok) { setRows(j.items || []); setTotal(j.total || 0); setPage(j.page || 1); setPageSize(j.pageSize || 50); }
     setLoading(false);
-  }
+  }, [page, q, status, course, from, to, pageSize]);
 
-  useEffect(() => { (window as any)?.analytics?.track?.('trainer_dashboard_open'); load(1); }, []);
+  useEffect(() => { (window as any)?.analytics?.track?.('trainer_dashboard_open'); load(1); }, [load]);
 
   const pages = Math.max(1, Math.ceil(total / pageSize));
   const summary = useMemo(() => ({
