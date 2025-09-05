@@ -11,6 +11,7 @@ export default function ExamReview() {
 
   useEffect(() => {
     (async () => {
+      (window as any)?.analytics?.track?.('exam_review_opened', { attempt });
       try {
         const r = await fetch(`/api/exam/review?attempt=${attempt}`);
         const j = await r.json();
