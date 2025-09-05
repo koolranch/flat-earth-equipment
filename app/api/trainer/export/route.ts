@@ -32,5 +32,10 @@ export async function GET(req: Request) {
     lines.push(row.join(','));
   }
   const csv = lines.join('\n');
-  return new NextResponse(csv, { headers: { 'Content-Type': 'text/csv; charset=utf-8' } });
+  return new NextResponse(csv, { 
+    headers: { 
+      'Content-Type': 'text/csv; charset=utf-8',
+      'Cache-Control': 'no-store'
+    } 
+  });
 }
