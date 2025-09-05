@@ -46,7 +46,14 @@ export default async function RootLayout({
       <head>
         {/* Google Search Console Verification */}
         <meta name="google-site-verification" content="O7ZIN2n38dDBmoeD1-7x92JUIMyo02CeMaPZMuoH7cE" />
+        
+        {/* Perf: preconnect/dns-prefetch to Supabase and Mux (if used) */}
+        <link rel="preconnect" href="https://mzsozezflbhebykncbmr.supabase.co" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="//mzsozezflbhebykncbmr.supabase.co" />
+        <link rel="preconnect" href="https://image.mux.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="//image.mux.com" />
         <link rel="preconnect" href="https://stream.mux.com" />
+        
         {/* SEO: Canonical URL to avoid duplicate content */}
         <link rel="canonical" href="https://www.flatearthequipment.com" />
         {/* SEO: hreflang tags for international SEO */}
