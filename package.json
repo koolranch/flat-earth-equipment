@@ -17,6 +17,7 @@
     "qa:admin:quiz": "playwright test tests/e2e/admin.quiz.spec.ts",
     "qa:exam:adaptive": "playwright test tests/e2e/exam.adaptive.spec.ts",
     "qa:study": "playwright test tests/e2e/study.spec.ts",
+    "qa:quests": "playwright test tests/e2e/quests.spec.ts",
     "test:csv": "node scripts/test-csv-endpoint.mjs",
     "test:verify": "node scripts/test-verify-endpoint.mjs",
     "test:qr": "node scripts/test-qr-generation.mjs",
