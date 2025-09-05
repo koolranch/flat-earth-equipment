@@ -2,6 +2,7 @@
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useI18n } from '@/lib/i18n/I18nProvider';
+import { flags } from '@/lib/flags';
 
 type Progress = {
   pct: number;
@@ -110,6 +111,18 @@ function TrainingContent() {
       <div className="mb-3">
         <a href="/orientation" className="inline-flex rounded-2xl border px-3 py-2 text-sm">Start</a>
       </div>
+
+      {/* Feature-gated Buy/Claim CTAs */}
+      {flags.GA ? (
+        <div className="mt-4 flex gap-3">
+          <a href="/checkout" className="btn btn-primary rounded-2xl">Buy seat</a>
+          {flags.SHOW_INVITES && (
+            <a href="/training/claim" className="btn btn-ghost rounded-2xl">Have a code?</a>
+          )}
+        </div>
+      ) : (
+        <div className="mt-4 text-sm text-slate-600">Purchasing opens soon. Training preview is available.</div>
+      )}
 
       <section className='mt-4 space-y-3'>
         {prog.next ? (
