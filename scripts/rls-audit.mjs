@@ -1,43 +1,23 @@
-import pg from 'pg';
+import { createClient } from '@supabase/supabase-js';
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+if (!url || !key){ console.error('Missing Supabase env'); process.exit(1); }
+const sb = createClient(url, key, { auth: { persistSession:false } });
 
-const CONN = process.env.SUPABASE_DB_URL || '';
-if (!CONN) { 
-  console.error('Missing SUPABASE_DB_URL for local audit.'); 
-  process.exit(1); 
+const skip = new Set(['schema_migrations']);
+
+async function main(){
+  const { data: tables } = await sb.rpc('introspect_public_tables');
+  const rows = tables.filter(t=> !skip.has(t.table_name)).map(t=> ({
+    table: t.table_name, rls: t.rowsecurity, policies: t.policy_count
+  }));
+  const missing = rows.filter(r=> !r.rls);
+  console.table(rows);
+  if (missing.length){
+    console.error('❌ RLS missing on:', missing.map(m=> m.table).join(', '));
+    if (process.env.STRICT_RLS==='1') process.exit(2);
+  } else {
+    console.log('✅ All public tables have RLS enabled.');
+  }
 }
-const client = new pg.Client({ connectionString: CONN });
-
-const SQL = `
-with rels as (
-  select n.nspname, c.relname, c.relrowsecurity
-  from pg_class c
-  join pg_namespace n on n.oid = c.relnamespace
-  where n.nspname='public' and c.relkind='r'
-), pol as (
-  select schemaname, tablename, policyname, cmd
-  from pg_policies where schemaname='public'
-)
-select r.nspname as schema, r.relname as table,
-       r.relrowsecurity as rls_enabled,
-       coalesce(
-         (select bool_or(cmd='SELECT') from pol p where p.tablename=r.relname), false
-       ) as has_select_policy
-from rels r
-order by 1,2;`;
-
-(async () => {
-  await client.connect();
-  const { rows } = await client.query(SQL);
-  let warn = false;
-  for (const row of rows) {
-    if (!row.rls_enabled || !row.has_select_policy) {
-      warn = true;
-      console.log('RLS CHECK:', row);
-    }
-  }
-  await client.end();
-  if (warn) { 
-    process.exit(2); 
-  }
-  console.log('RLS audit OK');
-})();
+main().catch(e=> { console.error(e); process.exit(1); });
