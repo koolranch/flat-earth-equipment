@@ -35,7 +35,36 @@ export async function POST(req: Request){
 
   // finish session
   await svc.from('exam_sessions').update({ status:'completed' }).eq('id', session_id);
-  await svc.from('exam_attempts').insert({ user_id: user.id, course_id: course_id||null, paper_id: sess.paper_id, answers, score_pct: scorePct, passed });
+  const { data: attemptRow } = await svc.from('exam_attempts').insert({ user_id: user.id, course_id: course_id||null, paper_id: sess.paper_id, answers, score_pct: scorePct, passed }).select('id').maybeSingle();
+  const attempt_id = attemptRow?.id;
+
+  // 1) Fetch question rows for metadata (tags,difficulty,locale)
+  const qids = (answers||[]).map((a:any)=> a.question_id).filter(Boolean);
+  const { data: qrows } = await svc.from('quiz_items').select('id,tags,difficulty,locale,correct_index').in('id', qids);
+  const byId = Object.fromEntries((qrows||[]).map((r:any)=> [r.id, r]));
+
+  // 2) Build per-item records
+  const items = (answers||[]).map((a:any)=>{
+    const q = byId[a.question_id] || {};
+    const correct = typeof q.correct_index==='number' ? (a.selected_index===q.correct_index) : false;
+    return { attempt_id, question_id: a.question_id, correct, selected_index: a.selected_index ?? null, tags: q.tags||[], difficulty: q.difficulty||3, locale: q.locale||'en' };
+  }).filter(it => it.question_id);
+  if (items.length && attempt_id){ await svc.from('exam_attempt_items').insert(items); }
+
+  // 3) Update aggregate stats
+  for (const it of items){
+    await svc.rpc('upsert_exam_item_stats', { p_question_id: it.question_id, p_was_correct: it.correct });
+  }
+
+  // 4) Weak tag calc: tags with <70% correctness within this attempt
+  const tagTallies: Record<string,{ seen:number; correct:number }> = {};
+  for (const it of items){
+    for (const tag of (it.tags||[])){
+      tagTallies[tag] = tagTallies[tag] || { seen:0, correct:0 };
+      tagTallies[tag].seen += 1; if (it.correct) tagTallies[tag].correct += 1;
+    }
+  }
+  const weak_tags = Object.entries(tagTallies).filter(([_,v])=> v.seen>0 && (v.correct/v.seen) < 0.7).map(([k])=> k);
 
   // load item tags for this paper
   const { data: paperFull } = await svc
@@ -75,7 +104,7 @@ export async function POST(req: Request){
         console.warn('[email] Failed to send exam result email:', err);
       }
       
-      return NextResponse.json({ ok:true, passed, scorePct, correct: got, total, incorrectIndices: incorrect, weak_tags: weak, recommendations: recs });
+      return NextResponse.json({ ok:true, passed, scorePct, correct: got, total, incorrectIndices: incorrect, weak_tags, recommendations: recs });
     }
   }
   
@@ -93,5 +122,5 @@ export async function POST(req: Request){
     console.warn('[email] Failed to send exam result email:', err);
   }
   
-  return NextResponse.json({ ok:true, passed, scorePct, correct: got, total, incorrectIndices: incorrect, weak_tags: [], recommendations: [] });
+  return NextResponse.json({ ok:true, passed, scorePct, correct: got, total, incorrectIndices: incorrect, weak_tags, recommendations: [] });
 }
