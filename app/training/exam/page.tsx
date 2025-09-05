@@ -96,6 +96,7 @@ export default function ExamPage(){
         )}
         <div className="flex gap-2">
           <button className="btn bg-[#F76511] text-white" onClick={()=> { location.reload(); }} aria-label="Retake exam with new questions">{t('exam.retake_exam')}</button>
+          {incorrect?.length > 0 && <a className="btn border" href={`/training/exam/review?attempt=${result.attempt_id || ''}`}>{t('exam.review_incorrect')}</a>}
           <a className="btn border" href="/records" aria-label="View your certification records">{t('exam.view_records')}</a>
         </div>
       </main>
