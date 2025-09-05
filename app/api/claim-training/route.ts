@@ -97,6 +97,32 @@ export async function POST(req: Request) {
         } else {
           claimedCount++
           console.log('✅ Purchase marked as claimed')
+
+          // Persist claim in seat_claims (idempotent)
+          try {
+            // Find the order by stripe_session_id
+            const { data: order } = await supabase
+              .from('orders')
+              .select('id, user_id')
+              .eq('stripe_session_id', purchase.stripe_session_id)
+              .maybeSingle();
+
+            if (order) {
+              await supabase
+                .from('seat_claims')
+                .upsert({ 
+                  order_id: order.id, 
+                  user_id: user.id,
+                  created_at: new Date().toISOString()
+                }, { 
+                  onConflict: 'order_id,user_id', 
+                  ignoreDuplicates: false 
+                });
+            }
+          } catch (e) {
+            console.error('seat_claims upsert failed', e);
+            // Don't fail the request if seat_claims fails
+          }
         }
 
       } catch (error) {
