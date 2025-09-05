@@ -18,6 +18,7 @@
     "qa:study": "playwright test tests/e2e/study.spec.ts",
     "qa:quests": "playwright test tests/e2e/quests.spec.ts",
     "qa:trainer": "playwright test tests/e2e/trainer.dashboard.spec.ts",
+    "qa:seats": "playwright test tests/e2e/seats_recert.spec.ts",
     "test:csv": "node scripts/test-csv-endpoint.mjs",
     "test:verify": "node scripts/test-verify-endpoint.mjs",
     "test:qr": "node scripts/test-qr-generation.mjs",
