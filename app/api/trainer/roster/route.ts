@@ -2,140 +2,103 @@ import { NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
 
-export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-export async function GET(req: Request) {
-  const url = new URL(req.url);
-  const course_id = url.searchParams.get('course_id') || '';
-  if (!course_id) return NextResponse.json({ ok: false, error: 'missing_course_id' }, { status: 400 });
+type Filters = { q?: string; status?: 'all' | 'not_started' | 'in_progress' | 'passed'; course_slug?: string; from?: string; to?: string; page?: number; pageSize?: number };
 
+async function isStaff(uid: string) {
+  const svc = supabaseService();
+  const { data } = await svc.from('profiles').select('role').eq('id', uid).maybeSingle();
+  return !!data && ['admin', 'trainer'].includes((data as any).role);
+}
+
+export async function GET(req: Request) {
   const sb = supabaseServer();
   const svc = supabaseService();
-  
-  // Authentication check
   const { data: { user } } = await sb.auth.getUser();
-  if (!user) return NextResponse.json({ ok: false, error: 'unauthorized' }, { status: 401 });
+  if (!user) return NextResponse.json({ ok: false, error: 'auth_required' }, { status: 401 });
+  if (!(await isStaff(user.id))) return NextResponse.json({ ok: false, error: 'forbidden' }, { status: 403 });
 
-  // Role authorization check
-  const { data: prof } = await sb.from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!prof || !['trainer', 'admin'].includes(prof.role)) {
-    return NextResponse.json({ ok: false, error: 'forbidden' }, { status: 403 });
-  }
+  const url = new URL(req.url);
+  const f: Filters = {
+    q: url.searchParams.get('q') || undefined,
+    status: (url.searchParams.get('status') as any) || 'all',
+    course_slug: url.searchParams.get('course_slug') || undefined,
+    from: url.searchParams.get('from') || undefined,
+    to: url.searchParams.get('to') || undefined,
+    page: Number(url.searchParams.get('page') || '1') || 1,
+    pageSize: Math.min(200, Number(url.searchParams.get('pageSize') || '50') || 50),
+  };
 
-  // Get enrollments for the course
-  const { data: enrollments, error: enrollmentError } = await svc
-    .from('enrollments')
-    .select('id, user_id, progress_pct, created_at, passed')
-    .eq('course_id', course_id)
-    .order('created_at', { ascending: false });
+  // 1) Trainer orders
+  let ordersQ = svc.from('orders').select('id, course_id, course_slug').eq('user_id', user.id);
+  if (f.course_slug) ordersQ = ordersQ.eq('course_slug', f.course_slug);
+  const { data: orders } = await ordersQ;
+  const orderIds = (orders || []).map(o => o.id);
+  if (!orderIds.length) return NextResponse.json({ ok: true, items: [], total: 0, page: f.page, pageSize: f.pageSize });
 
-  if (enrollmentError) {
-    return NextResponse.json({ ok: false, error: enrollmentError.message }, { status: 500 });
-  }
+  // 2) Seats claimed under those orders
+  const { data: claims } = await svc.from('seat_claims').select('id, order_id, user_id, created_at');
+  const claimsByOrder = (claims || []).filter(c => orderIds.includes((c as any).order_id));
+  const learnerIds = Array.from(new Set(claimsByOrder.map(c => (c as any).user_id)));
+  if (!learnerIds.length) return NextResponse.json({ ok: true, items: [], total: 0, page: f.page, pageSize: f.pageSize });
 
-  if (!enrollments || enrollments.length === 0) {
-    return NextResponse.json({ ok: true, count: 0, rows: [] });
-  }
+  // 3) Learner profiles
+  const { data: learners } = await svc.from('profiles').select('id, full_name, email').in('id', learnerIds);
+  const learnerById: Record<string, any> = Object.fromEntries((learners || []).map(l => [l.id, l]));
 
-  const userIds = Array.from(new Set(enrollments.map(e => e.user_id)));
-  const enrollmentIds = Array.from(new Set(enrollments.map(e => e.id)));
+  // 4) Enrollments for those learners and these courses
+  const courseIds = Array.from(new Set((orders || []).map(o => (o as any).course_id).filter(Boolean)));
+  let enrollQ = svc.from('enrollments').select('id, user_id, course_id, course_slug, progress_pct, passed, created_at, updated_at').in('user_id', learnerIds);
+  if (f.course_slug) enrollQ = enrollQ.eq('course_slug', f.course_slug);
+  const { data: enrollments } = await enrollQ;
+  const enrollmentIds = (enrollments || []).map(e => e.id);
 
-  // Get user profiles
-  const { data: profiles } = await svc
-    .from('profiles')
-    .select('id, full_name, email')
-    .in('id', userIds);
-  const profileByUserId = Object.fromEntries((profiles || []).map(p => [p.id, p]));
+  // 5) Latest certificates per enrollment
+  let certs: any[] = [];
+  try {
+    const { data } = await svc.from('certificates').select('id, enrollment_id, pdf_url, issued_at, revoked').in('enrollment_id', enrollmentIds).order('issued_at', { ascending: false });
+    certs = data || [];
+  } catch { certs = []; }
+  const latestCertByEnroll: Record<string, any> = {};
+  for (const c of certs) { const eid = (c as any).enrollment_id; if (!latestCertByEnroll[eid]) latestCertByEnroll[eid] = c; }
 
-  // Get latest exam attempts per enrollment
-  const { data: attempts } = await svc
-    .from('exam_attempts')
-    .select('enrollment_id, score_pct, created_at, passed')
-    .in('enrollment_id', enrollmentIds)
-    .order('created_at', { ascending: false });
-
-  const latestExamByEnrollment: Record<string, { score_pct: number | null; attempts: number; passed: boolean | null }> = {};
-  if (attempts) {
-    const attemptCounts: Record<string, number> = {};
-    const seenEnrollments = new Set<string>();
-    
-    for (const attempt of attempts) {
-      const enrollId = attempt.enrollment_id;
-      attemptCounts[enrollId] = (attemptCounts[enrollId] || 0) + 1;
-      
-      // Store the latest (first due to DESC order) attempt details
-      if (!seenEnrollments.has(enrollId)) {
-        latestExamByEnrollment[enrollId] = {
-          score_pct: attempt.score_pct,
-          attempts: attemptCounts[enrollId],
-          passed: attempt.passed
-        };
-        seenEnrollments.add(enrollId);
-      }
-    }
-    
-    // Update attempt counts for all enrollments
-    for (const enrollId of Object.keys(latestExamByEnrollment)) {
-      latestExamByEnrollment[enrollId].attempts = attemptCounts[enrollId] || 1;
-    }
-  }
-
-  // Get certificates
-  const { data: certificates } = await svc
-    .from('certificates')
-    .select('enrollment_id, pdf_url, verification_code, issued_at')
-    .in('enrollment_id', enrollmentIds);
-  const certificateByEnrollment = Object.fromEntries((certificates || []).map(c => [c.enrollment_id, c]));
-
-  // Get employer evaluations (practical assessments)
-  const { data: evaluations } = await svc
-    .from('employer_evaluations')
-    .select('enrollment_id, practical_pass, evaluation_date, evaluator_name')
-    .in('enrollment_id', enrollmentIds)
-    .order('evaluation_date', { ascending: false });
-
-  const evaluationByEnrollment = Object.fromEntries((evaluations || []).map(e => [e.enrollment_id, e]));
-
-  // Build comprehensive roster rows
-  const rows = enrollments.map(enrollment => {
-    const profile = profileByUserId[enrollment.user_id];
-    const exam = latestExamByEnrollment[enrollment.id] || { score_pct: null, attempts: 0, passed: null };
-    const certificate = certificateByEnrollment[enrollment.id] || null;
-    const evaluation = evaluationByEnrollment[enrollment.id] || null;
-
+  // Compose rows
+  let rows = (enrollments || []).map(e => {
+    const p = learnerById[(e as any).user_id] || {};
+    const cert = latestCertByEnroll[(e as any).id];
+    const status = (e as any).passed ? 'passed' : ((e as any).progress_pct >= 5 ? 'in_progress' : 'not_started');
     return {
-      enrollment_id: enrollment.id,
-      user_id: enrollment.user_id,
-      learner: {
-        name: profile?.full_name || '',
-        email: profile?.email || ''
-      },
-      progress_pct: enrollment.progress_pct || 0,
-      enrollment_passed: enrollment.passed || false,
-      exam: {
-        latest_score_pct: exam.score_pct,
-        total_attempts: exam.attempts,
-        exam_passed: exam.passed
-      },
-      certificate: certificate ? {
-        pdf_url: certificate.pdf_url,
-        verification_code: certificate.verification_code,
-        issued_at: certificate.issued_at
-      } : null,
-      evaluation: evaluation ? {
-        practical_pass: evaluation.practical_pass,
-        evaluation_date: evaluation.evaluation_date,
-        evaluator_name: evaluation.evaluator_name
-      } : null,
-      enrolled_at: enrollment.created_at
+      enrollment_id: e.id,
+      learner_id: (e as any).user_id,
+      learner_name: p.full_name || '—',
+      learner_email: p.email || '—',
+      course_slug: (e as any).course_slug || 'forklift_operator',
+      progress_pct: (e as any).progress_pct ?? 0,
+      passed: !!(e as any).passed,
+      status,
+      cert_pdf_url: cert?.pdf_url || null,
+      cert_issued_at: cert?.issued_at || null,
+      updated_at: (e as any).updated_at,
+      created_at: (e as any).created_at,
     };
   });
 
-  return NextResponse.json({ 
-    ok: true, 
-    count: rows.length, 
-    rows,
-    course_id 
-  });
+  // 6) Filter: q and date range and status
+  if (f.q) {
+    const q = f.q.toLowerCase();
+    rows = rows.filter(r => (r.learner_name || '').toLowerCase().includes(q) || (r.learner_email || '').toLowerCase().includes(q));
+  }
+  if (f.status && f.status !== 'all') rows = rows.filter(r => r.status === f.status);
+  if (f.from) { const d = new Date(f.from); rows = rows.filter(r => new Date(r.created_at) >= d); }
+  if (f.to) { const d = new Date(f.to); rows = rows.filter(r => new Date(r.created_at) <= d); }
+
+  // 7) Sort (newest first by updated_at)
+  rows.sort((a, b) => new Date(b.updated_at || b.created_at).getTime() - new Date(a.updated_at || a.created_at).getTime());
+
+  const total = rows.length;
+  const start = (f.page! - 1) * f.pageSize!;
+  const paged = rows.slice(start, start + f.pageSize!);
+
+  return NextResponse.json({ ok: true, items: paged, total, page: f.page, pageSize: f.pageSize });
 }
