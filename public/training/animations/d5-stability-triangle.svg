@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" focusable="false" width="640" height="360" viewBox="0 0 640 360">
+  <title>Stability triangle center of gravity animation</title>
+  <desc>Dashed stability triangle with a small dot moving safely within; brief red warning flash when exiting bounds</desc>
+  <defs>
+    <style>
+      .st{stroke:#0F172A;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+
+  <!-- Wheelbase baseline and contact markers -->
+  <g id="wheelbase">
+    <line x1="120" y1="250" x2="520" y2="250" stroke="#CBD5E1" class="st"/>
+    <!-- Front wheel contact points -->
+    <circle cx="240" cy="250" r="5" fill="#E5E7EB" stroke="#94A3B8" class="st"/>
+    <circle cx="420" cy="250" r="5" fill="#E5E7EB" stroke="#94A3B8" class="st"/>
+    <!-- Rear axle pivot indicator -->
+    <circle cx="320" cy="170" r="6" fill="#E5E7EB" stroke="#94A3B8" class="st"/>
+  </g>
+
+  <!-- Stability triangle (two front contact points to rear pivot) -->
+  <g id="triangle">
+    <polygon points="240,250 420,250 320,170" fill="none" stroke="#F76511" stroke-dasharray="8 8" class="st"/>
+  </g>
+
+  <!-- Warning overlay: subtle tint over the triangle area -->
+  <g id="warning" opacity="0">
+    <polygon points="240,250 420,250 320,170" fill="#F76511" opacity="0">
+      <!-- Fade in/out during out-of-bounds window (0.2s) -->
+      <animate attributeName="opacity" values="0;0.12;0" dur="0.2s" begin="motion.begin+1.2s"/>
+    </polygon>
+  </g>
+
+  <!-- COG dot moving along path -->
+  <g id="cog">
+    <!-- Motion path (invisible helper) -->
+    <path id="cog-path" d="M320,205 C 342,194 360,210 342,226 S 290,226 305,205 C 318,195 330,204 336,208 L 455,250 L 330,205 C 322,200 316,200 320,205" fill="none" stroke="none"/>
+    <!-- Dot -->
+    <circle id="cog-dot" r="6" fill="#CBD5E1" stroke="#0F172A" class="st">
+      <!-- Follow the path: inside (1.2s), briefly outside (0.3s), back inside (0.6s) -->
+      <animateMotion id="motion" dur="2.1s" begin="0s; idle.end" rotate="0" fill="freeze" keyTimes="0;0.571;0.714;1" keyPoints="0;0.45;0.55;1" calcMode="linear">
+        <mpath href="#cog-path"/>
+      </animateMotion>
+      <!-- Change color to accent during outside window (0.2s) -->
+      <animate attributeName="fill" values="#CBD5E1;#F76511;#CBD5E1" keyTimes="0;0.5;1" dur="0.2s" begin="motion.begin+1.2s"/>
+    </circle>
+  </g>
+
+  <!-- Idle delay between cycles (0.8s after motion ends) -->
+  <rect x="-10" y="-10" width="1" height="1" fill="none" opacity="0">
+    <animate id="idle" attributeName="opacity" values="0;0" dur="0.8s" begin="motion.end"/>
+  </rect>
+</svg>

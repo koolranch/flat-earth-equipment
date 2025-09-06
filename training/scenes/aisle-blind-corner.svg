@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <style>
+      .st { stroke:#0F172A; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    </style>
+  </defs>
+
+  <!-- Scene -->
+  <g id="scene">
+    <rect x="0" y="0" width="1200" height="800" fill="#FFFFFF"/>
+    <!-- Soft ground shadow to anchor scene -->
+    <ellipse cx="600" cy="710" rx="520" ry="56" fill="#0F172A" fill-opacity="0.04"/>
+  </g>
+
+  <!-- Aisle (long run toward a T-intersection) -->
+  <g id="aisle">
+    <!-- Main aisle floor -->
+    <rect x="120" y="540" width="960" height="160" fill="#E5E7EB" class="st"/>
+    <!-- Side curbs/guards -->
+    <rect x="160" y="540" width="12" height="160" fill="#CBD5E1" class="st"/>
+    <rect x="1028" y="540" width="12" height="160" fill="#CBD5E1" class="st"/>
+    <!-- Upper cross-corridor floor (T) -->
+    <rect x="220" y="380" width="760" height="110" fill="#E5E7EB" class="st"/>
+  </g>
+
+  <!-- Corner (structures that create the blind corner at the T) -->
+  <g id="corner">
+    <!-- Left endcap wall creating the blind corner -->
+    <rect x="220" y="360" width="40" height="130" fill="#CBD5E1" class="st"/>
+    <!-- Right endcap wall creating the blind corner -->
+    <rect x="940" y="360" width="40" height="130" fill="#CBD5E1" class="st"/>
+    <!-- Short center island to suggest limited visibility -->
+    <rect x="570" y="395" width="60" height="80" rx="6" fill="#E5E7EB" class="st"/>
+  </g>
+
+  <!-- Convex mirror at the corner -->
+  <g id="mirror">
+    <!-- Mounting arm to wall -->
+    <line x1="980" y1="330" x2="940" y2="350" stroke="#94A3B8" class="st"/>
+    <!-- Mirror housing -->
+    <circle cx="990" cy="325" r="26" fill="#E5E7EB" stroke="#94A3B8" class="st"/>
+    <!-- Subtle orange accent rim -->
+    <circle cx="990" cy="325" r="22" fill="none" stroke="#F76511" class="st"/>
+  </g>
+
+  <!-- Floor markings (arrows/lines) -->
+  <g id="floor-markings">
+    <!-- Center dashed line in aisle -->
+    <line x1="600" y1="544" x2="600" y2="698" stroke="#CBD5E1" stroke-dasharray="14 14" class="st"/>
+    <!-- Forward arrow (bottom center) -->
+    <rect x="590" y="620" width="20" height="46" fill="#94A3B8" class="st"/>
+    <polygon points="600,600 572,632 628,632" fill="#94A3B8" class="st"/>
+    <!-- Left-turn arrow at T -->
+    <rect x="420" y="420" width="46" height="16" fill="#94A3B8" class="st"/>
+    <polygon points="410,428 432,410 432,446" fill="#94A3B8" class="st"/>
+    <!-- Right-turn arrow at T -->
+    <rect x="734" y="420" width="46" height="16" fill="#94A3B8" class="st"/>
+    <polygon points="790,428 768,410 768,446" fill="#94A3B8" class="st"/>
+    <!-- Aisle edge lines -->
+    <line x1="172" y1="540" x2="172" y2="700" stroke="#CBD5E1" class="st"/>
+    <line x1="1034" y1="540" x2="1034" y2="700" stroke="#CBD5E1" class="st"/>
+  </g>
+
+  <!-- Hotspot: Blind corner risk -->
+  <g id="hazard-blind-corner">
+    <ellipse cx="960" cy="420" rx="110" ry="60" fill="#F76511" fill-opacity="0.07" stroke="#F76511" class="st"/>
+    <path d="M940 360 C 980 360, 1000 380, 1000 410" fill="none" stroke="#F76511" stroke-dasharray="10 10" class="st"/>
+  </g>
+
+  <!-- Hotspot: Pedestrian area near intersection -->
+  <g id="hazard-pedestrian">
+    <rect x="520" y="430" width="160" height="60" rx="10" fill="#F76511" fill-opacity="0.06" stroke="#F76511" class="st"/>
+  </g>
+
+  <!-- Hotspot: Speed zone in lower aisle -->
+  <g id="hazard-speed-zone">
+    <rect x="320" y="600" width="560" height="70" rx="12" fill="#F76511" fill-opacity="0.06" stroke="#F76511" stroke-dasharray="12 12" class="st"/>
+  </g>
+
+  <!-- Hotspot: Spill area -->
+  <g id="hazard-spill">
+    <path d="M270 650 C 300 642, 344 646, 372 654 C 392 660, 388 674, 356 678 C 326 682, 288 676, 270 666 Z" fill="#F76511" fill-opacity="0.10" stroke="#F76511" class="st"/>
+  </g>
+</svg>

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <style>
+      .st { stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    </style>
+  </defs>
+
+  <!-- Minimal warehouse backdrop -->
+  <g id="floor-markings">
+    <!-- Floor line -->
+    <line x1="80" y1="640" x2="1120" y2="640" stroke="#CBD5E1" class="st" />
+    <!-- Bollard near charger -->
+    <rect x="250" y="560" width="24" height="80" fill="#CBD5E1" stroke="#94A3B8" class="st"/>
+    <rect x="250" y="550" width="24" height="12" fill="#F76511" stroke="#F76511" class="st"/>
+    <!-- Subtle ground shadow under forklift -->
+    <ellipse cx="690" cy="660" rx="360" ry="50" fill="#0F172A" fill-opacity="0.05"/>
+  </g>
+
+  <!-- Wall-mounted charger -->
+  <g id="charger">
+    <!-- Wall plate -->
+    <rect x="180" y="420" width="90" height="160" rx="10" fill="#E5E7EB" stroke="#0F172A" class="st"/>
+    <!-- Accent bar -->
+    <rect x="180" y="420" width="90" height="16" fill="#F76511" stroke="#F76511" class="st"/>
+    <!-- Status ring -->
+    <circle cx="225" cy="500" r="12" fill="#FFFFFF" stroke="#94A3B8" class="st"/>
+    <!-- Cable grommet -->
+    <circle cx="225" cy="560" r="8" fill="#94A3B8" stroke="#0F172A" class="st"/>
+  </g>
+
+  <!-- Forklift -->
+  <g id="forklift">
+    <!-- Chassis -->
+    <path d="M520 560 L820 560 L820 600 L540 600 Q520 600 520 580 Z" fill="#0F172A" stroke="#0F172A" class="st"/>
+    <!-- Battery compartment side panel -->
+    <rect x="560" y="500" width="160" height="60" fill="#0F172A" stroke="#0F172A" class="st"/>
+    <!-- Operator area -->
+    <path d="M600 500 L680 500 L680 460 L740 460 L740 560 L600 560 Z" fill="#0F172A" stroke="#0F172A" class="st"/>
+    <!-- Overhead guard -->
+    <path d="M700 460 L700 420 L760 420 L760 560" fill="none" stroke="#0F172A" class="st"/>
+    <path d="M700 420 L785 420" fill="none" stroke="#0F172A" class="st"/>
+    <!-- Wheels -->
+    <circle cx="560" cy="610" r="42" fill="#0F172A" stroke="#0F172A" class="st"/>
+    <circle cx="760" cy="610" r="60" fill="#0F172A" stroke="#0F172A" class="st"/>
+    <!-- Mast -->
+    <rect x="840" y="440" width="26" height="200" fill="#0F172A" stroke="#0F172A" class="st"/>
+    <rect x="868" y="440" width="12" height="190" fill="#0F172A" stroke="#0F172A" class="st"/>
+    <!-- Fork carriage -->
+    <rect x="880" y="600" width="10" height="58" fill="#0F172A" stroke="#0F172A" class="st"/>
+  </g>
+
+  <!-- Forks -->
+  <g id="forks">
+    <rect x="890" y="636" width="210" height="10" fill="#0F172A" stroke="#0F172A" class="st"/>
+    <rect x="890" y="656" width="230" height="10" fill="#0F172A" stroke="#0F172A" class="st"/>
+  </g>
+
+  <!-- Charge port on forklift -->
+  <g id="charge-port">
+    <!-- Port ring (accent) -->
+    <circle cx="610" cy="530" r="16" fill="#FFFFFF" stroke="#F76511" class="st"/>
+    <!-- Inner port -->
+    <circle cx="610" cy="530" r="8" fill="#94A3B8" stroke="#0F172A" class="st"/>
+  </g>
+
+  <!-- Battery icon on side panel -->
+  <g id="battery-icon">
+    <!-- Body -->
+    <rect x="575" y="472" width="70" height="34" rx="5" fill="none" stroke="#94A3B8" class="st"/>
+    <!-- Cap -->
+    <rect x="645" y="480" width="8" height="18" rx="2" fill="#CBD5E1" stroke="#94A3B8" class="st"/>
+    <!-- Charge bars -->
+    <rect x="583" y="478" width="12" height="22" fill="#F76511" stroke="#F76511" class="st"/>
+    <rect x="599" y="478" width="12" height="22" fill="#F76511" stroke="#F76511" class="st"/>
+    <rect x="615" y="478" width="12" height="22" fill="#CBD5E1" stroke="#94A3B8" class="st"/>
+  </g>
+
+  <!-- Cable from charger to port -->
+  <g id="cable">
+    <path d="M225 568 C 300 610, 420 585, 520 560 C 560 550, 585 545, 602 536" fill="none" stroke="#0F172A" class="st"/>
+    <!-- Connector at port (accent) -->
+    <circle cx="606" cy="534" r="6" fill="#F76511" stroke="#F76511" class="st"/>
+    <!-- Strain relief at charger -->
+    <path d="M220 560 C 222 566, 228 570, 235 570" fill="none" stroke="#94A3B8" class="st"/>
+  </g>
+</svg>

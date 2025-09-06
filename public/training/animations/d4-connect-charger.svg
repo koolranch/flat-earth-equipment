@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" focusable="false" width="760" height="300" viewBox="0 0 760 300">
+  <title>Connect charger animation</title>
+  <desc>Cable draws from wall unit into forklift charge port; status ring turns on</desc>
+  <defs>
+    <style>
+      .st{stroke:#0F172A;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+
+  <!-- Wall charger (left) -->
+  <g id="wall-unit">
+    <rect x="70" y="100" width="80" height="120" rx="10" fill="#E5E7EB" class="st"/>
+    <rect x="70" y="100" width="80" height="16" fill="#F76511" stroke="#F76511" class="st"/>
+    <circle cx="110" cy="190" r="10" fill="#CBD5E1" class="st"/>
+  </g>
+
+  <!-- Forklift panel + port (right) -->
+  <g id="port">
+    <!-- Side panel -->
+    <rect x="520" y="90" width="150" height="130" rx="8" fill="#E5E7EB" class="st"/>
+    <!-- Port bezel -->
+    <circle cx="595" cy="155" r="22" fill="#FFFFFF" class="st"/>
+    <!-- Inner port -->
+    <circle cx="595" cy="155" r="10" fill="#CBD5E1" class="st"/>
+  </g>
+
+  <!-- Status ring around the port (animates after cable draws) -->
+  <g id="status" transform="translate(595 155)">
+    <!-- Neutral ring (stroke animates toward accent) -->
+    <circle r="28" fill="none" stroke="#CBD5E1" class="st">
+      <animate attributeName="stroke" values="#CBD5E1;#F76511" dur="0.25s" begin="drawAnim.end" fill="freeze"/>
+      <animate attributeName="opacity" values="0.4;1" dur="0.25s" begin="drawAnim.end" fill="freeze"/>
+    </circle>
+    <!-- Soft scale pulse -->
+    <animateTransform attributeName="transform" type="scale"
+      values="1;1.08;1" keyTimes="0;0.5;1" dur="0.35s" begin="drawAnim.end+0.25s"/>
+  </g>
+
+  <!-- Cable path (drawn with dash) -->
+  <g id="cable">
+    <!-- The cable draws from charger grommet to the port center -->
+    <path id="cable-path"
+      d="M110,190 C 210,210 380,170 520,155 C 550,152 570,152 595,155"
+      fill="none" stroke="#0F172A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+      pathLength="300" stroke-dasharray="300" stroke-dashoffset="300">
+      <!-- Draw-in animation -->
+      <animate id="drawAnim" attributeName="stroke-dashoffset" values="300;0" dur="0.8s" begin="0s; reset.end" fill="freeze"/>
+      <!-- Fade during reset cycle -->
+      <animate id="cableFade" attributeName="opacity" values="1;0;1" dur="0.4s" begin="pulseHold.end" />
+    </path>
+  </g>
+
+  <!-- Timeline helpers: hold after pulse, then reset dash while fading -->
+  <!-- A tiny invisible rect just to host a timed animation for hold window -->
+  <rect x="-10" y="-10" width="1" height="1" fill="none" opacity="0">
+    <!-- Pulse ended at drawAnim.end+0.25s+0.35s; start a 1.0s hold from there -->
+    <animate id="pulseHold" attributeName="opacity" values="0;0" dur="1s" begin="drawAnim.end+0.6s"/>
+  </rect>
+
+  <!-- Reset dashoffset back to hidden during cable fade -->
+  <animate id="reset" xlink:href="#cable-path" attributeName="stroke-dashoffset"
+    values="0;300" dur="0.001s" begin="cableFade.begin+0.2s" fill="freeze"/>
+</svg>

@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <style>
+      .st{stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+
+  <!-- Forklift silhouette -->
+  <g id="forklift-body">
+    <!-- Chassis -->
+    <path class="st" d="M440 520 H820 L820 580 H460 Z" fill="#0F172A" stroke="#0F172A"/>
+    <!-- Cab / counterweight hint -->
+    <path class="st" d="M460 520 L520 520 L520 470 L640 470 L640 520 L700 520 L700 540 L460 540 Z" fill="#0F172A" stroke="#0F172A"/>
+    <!-- Mast -->
+    <rect x="840" y="420" width="24" height="230" fill="#0F172A" stroke="#0F172A" class="st"/>
+    <rect x="860" y="420" width="10" height="210" fill="#0F172A" stroke="#0F172A" class="st"/>
+    <!-- Wheels -->
+    <circle cx="470" cy="600" r="48" fill="#0F172A" stroke="#0F172A" class="st"/>
+    <circle cx="760" cy="590" r="58" fill="#0F172A" stroke="#0F172A" class="st"/>
+  </g>
+
+  <!-- Forks -->
+  <g id="forks">
+    <!-- Carriage backplate -->
+    <rect x="858" y="600" width="8" height="56" fill="#0F172A" stroke="#0F172A" class="st"/>
+    <!-- Upper tine -->
+    <rect x="866" y="636" width="200" height="10" fill="#0F172A" stroke="#0F172A" class="st"/>
+    <!-- Lower tine -->
+    <rect x="866" y="656" width="220" height="10" fill="#0F172A" stroke="#0F172A" class="st"/>
+  </g>
+
+  <!-- Wheelbase baseline and front contact markers -->
+  <g id="wheelbase">
+    <line x1="380" y1="648" x2="1100" y2="648" stroke="#94A3B8" fill="none" class="st"/>
+    <circle cx="735" cy="648" r="4.5" fill="#E5E7EB" stroke="#94A3B8" class="st"/>
+    <circle cx="785" cy="648" r="4.5" fill="#E5E7EB" stroke="#94A3B8" class="st"/>
+  </g>
+
+  <!-- Rear axle pivot (indicator) -->
+  <g id="rear-axle-pivot">
+    <circle cx="500" cy="560" r="7" fill="#F76511" stroke="#F76511" class="st"/>
+  </g>
+
+  <!-- Stability triangle (indicators) -->
+  <g id="triangle">
+    <polygon points="735,648 785,648 500,560" fill="none" stroke="#F76511" stroke-dasharray="8 8" class="st"/>
+  </g>
+
+  <!-- Load center line and box -->
+  <g id="load-center-line">
+    <!-- Generic load box -->
+    <rect x="970" y="540" width="120" height="90" fill="none" stroke="#94A3B8" class="st"/>
+    <!-- Load center line from fork heel to box center -->
+    <line x1="866" y1="646" x2="1030" y2="585" stroke="#F76511" class="st"/>
+  </g>
+
+  <!-- Center of gravity dot -->
+  <g id="cog-dot">
+    <circle cx="618" cy="600" r="7" fill="#F76511" stroke="#F76511" class="st"/>
+  </g>
+</svg>
