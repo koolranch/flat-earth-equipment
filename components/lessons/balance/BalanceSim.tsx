@@ -2,7 +2,7 @@
 import * as React from 'react';
 import AnimatedSvg from '@/components/lessons/AnimatedSvg';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Slider } from '@/components/ui/slider';
+// Using native range input instead of Slider component
 import { Button } from '@/components/ui/button';
 
 function track(name: string, data?: Record<string, any>) {
@@ -34,12 +34,28 @@ export default function BalanceSim() {
         <div className="grid gap-6 md:grid-cols-2">
           <div>
             <div className="mb-2 text-sm text-slate-700">Load distance from fork heel (in)</div>
-            <Slider defaultValue={[dist]} min={12} max={48} step={1} onValueChange={onDist} />
+            <input 
+              type="range" 
+              min={12} 
+              max={48} 
+              step={1} 
+              value={dist}
+              onChange={(e) => onDist([Number(e.target.value)])}
+              className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer slider"
+            />
             <div className="mt-1 text-xs text-slate-500">{dist}"</div>
           </div>
           <div>
             <div className="mb-2 text-sm text-slate-700">Box weight (lb)</div>
-            <Slider defaultValue={[weight]} min={200} max={2000} step={50} onValueChange={onWeight} />
+            <input 
+              type="range" 
+              min={200} 
+              max={2000} 
+              step={50} 
+              value={weight}
+              onChange={(e) => onWeight([Number(e.target.value)])}
+              className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer slider"
+            />
             <div className="mt-1 text-xs text-slate-500">{weight} lb</div>
           </div>
         </div>
