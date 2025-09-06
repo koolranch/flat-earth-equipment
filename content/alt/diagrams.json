@@ -1,0 +1,13 @@
+{
+  "training/diagrams/forklift-controls.svg": "Forklift controls diagram showing steering wheel, hydraulic lift/lower and tilt levers, horn button, parking brake, ignition/key, seatbelt latch, mast, and forks.",
+  "training/diagrams/stability-triangle.svg": "Side-profile forklift with stability triangle overlay showing wheelbase, rear axle pivot, load center, and a center-of-gravity indicator.",
+  "training/diagrams/charging-schematic-electric.svg": "Electric forklift connected to a charging station with visible connector and battery indicator; neutral warehouse backdrop shapes.",
+  "training/scenes/warehouse-bay-1.svg": "Neutral warehouse bay with racks, pallets, pedestrian walkway, and floor markings—clear areas for safety hotspots such as spill, pedestrian crossing, overhead obstruction, and unstable load.",
+  "training/scenes/aisle-blind-corner.svg": "Warehouse aisle with a T-intersection blind corner, floor arrows, convex mirror shape, and clear space for hotspots like blind corner risk, pedestrian crossing, and speed zone.",
+  "training/scenes/loading-ramp.svg": "Warehouse loading area with a gentle ramp/slope to a dock edge, wheel-chock area, and clear markings—space for hotspots like ramp/slope risk, dock edge fall, unstable load, and pedestrian.",
+  "training/icons/ppe-icons.svg": "Sprite sheet of PPE icons: hi-vis vest, hard hat, safety boots, safety goggles, hearing protection, and seatbelt.",
+  "training/icons/hazard-icons.svg": "Sprite sheet of safety hazard icons: liquid spill, pedestrian, overhead obstruction, unstable load, blind corner, speed zone, ramp/slope, dock edge, and battery/charging.",
+  "training/icons/control-icons.svg": "Sprite sheet of forklift control icons: horn, parking brake, ignition key, lift up/down, tilt forward/back, level forks, lights, reverse beeper.",
+  "training/icons/shutdown-steps.svg": "Sprite sheet for forklift shutdown steps: 1 Neutral, 2 Steer straight, 3 Set parking brake, 4 Forks down, 5 Key off, 6 Connect charger, 7 Wheel chock.",
+  "training/icons/inspection-icons.svg": "Daily inspection icons: tires, forks, chains, horn, lights, hydraulics, leaks, data plate."
+}

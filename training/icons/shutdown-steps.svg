@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <style>
+      .st{stroke:#0F172A;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+
+    <!-- STEP 1: Neutral -->
+    <symbol id="shutdown-step-1-neutral" viewBox="0 0 160 120">
+      <rect x="2" y="2" width="156" height="116" rx="10" fill="#FFFFFF" class="st"/>
+      <rect x="24" y="86" width="68" height="18" rx="4" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <circle cx="44" cy="102" r="8" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <circle cx="82" cy="100" r="9" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <rect x="96" y="70" width="8" height="34" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <rect x="104" y="96" width="30" height="6" rx="2" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <rect x="108" y="18" width="36" height="36" rx="6" fill="#E5E7EB" class="st"/>
+      <rect x="123" y="22" width="6" height="28" rx="3" fill="#CBD5E1" class="st"/>
+      <circle cx="126" cy="36" r="8" fill="#F76511" stroke="#F76511" class="st"/>
+      <line x1="112" y1="36" x2="120" y2="36" stroke="#94A3B8" class="st"/>
+      <line x1="132" y1="36" x2="140" y2="36" stroke="#94A3B8" class="st"/>
+    </symbol>
+
+    <!-- STEP 2: Steer Straight -->
+    <symbol id="shutdown-step-2-steer-straight" viewBox="0 0 160 120">
+      <rect x="2" y="2" width="156" height="116" rx="10" fill="#FFFFFF" class="st"/>
+      <rect x="24" y="86" width="68" height="18" rx="4" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <circle cx="44" cy="102" r="8" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <circle cx="82" cy="100" r="9" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <rect x="96" y="70" width="8" height="34" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <rect x="104" y="96" width="30" height="6" rx="2" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <circle cx="126" cy="34" r="16" fill="#FFFFFF" class="st"/>
+      <circle cx="126" cy="34" r="12" fill="none" stroke="#F76511" class="st"/>
+      <line x1="126" y1="22" x2="126" y2="46" stroke="#0F172A" class="st"/>
+      <polygon points="126,14 116,26 136,26" fill="#94A3B8" class="st"/>
+    </symbol>
+
+    <!-- STEP 3: Brake Set -->
+    <symbol id="shutdown-step-3-brake-set" viewBox="0 0 160 120">
+      <rect x="2" y="2" width="156" height="116" rx="10" fill="#FFFFFF" class="st"/>
+      <rect x="24" y="86" width="68" height="18" rx="4" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <circle cx="44" cy="102" r="8" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <circle cx="82" cy="100" r="9" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <rect x="96" y="70" width="8" height="34" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <rect x="104" y="96" width="30" height="6" rx="2" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <rect x="20" y="78" width="40" height="6" rx="3" fill="#CBD5E1" class="st"/>
+      <line x1="36" y1="78" x2="64" y2="50" stroke="#0F172A" class="st"/>
+      <circle cx="66" cy="48" r="8" fill="#F76511" stroke="#F76511" class="st"/>
+      <circle cx="120" cy="76" r="10" fill="#E5E7EB" class="st"/>
+    </symbol>
+
+    <!-- STEP 4: Forks Down -->
+    <symbol id="shutdown-step-4-forks-down" viewBox="0 0 160 120">
+      <rect x="2" y="2" width="156" height="116" rx="10" fill="#FFFFFF" class="st"/>
+      <rect x="24" y="86" width="68" height="18" rx="4" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <circle cx="44" cy="102" r="8" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <circle cx="82" cy="100" r="9" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <rect x="96" y="70" width="8" height="34" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <rect x="104" y="96" width="30" height="6" rx="2" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <polygon points="118,64 108,76 128,76" fill="#F76511" stroke="#F76511" class="st"/>
+      <polygon points="118,78 108,90 128,90" fill="#F76511" stroke="#F76511" class="st"/>
+      <line x1="20" y1="104" x2="140" y2="104" stroke="#94A3B8" class="st"/>
+    </symbol>
+
+    <!-- STEP 5: Key Off -->
+    <symbol id="shutdown-step-5-key-off" viewBox="0 0 160 120">
+      <rect x="2" y="2" width="156" height="116" rx="10" fill="#FFFFFF" class="st"/>
+      <rect x="24" y="86" width="68" height="18" rx="4" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <circle cx="44" cy="102" r="8" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <circle cx="82" cy="100" r="9" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <rect x="96" y="70" width="8" height="34" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <rect x="104" y="96" width="30" height="6" rx="2" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <circle cx="124" cy="34" r="14" fill="#FFFFFF" class="st"/>
+      <circle cx="124" cy="34" r="8" fill="none" stroke="#F76511" class="st"/>
+      <rect x="124" y="32" width="22" height="6" rx="3" transform="rotate(35 124 35)" fill="#CBD5E1" class="st"/>
+      <polygon points="142,40 136,46 132,42" fill="#E5E7EB" class="st"/>
+      <path d="M112 22 A16 16 0 0 1 135 18" fill="none" stroke="#94A3B8" class="st"/>
+    </symbol>
+
+    <!-- STEP 6: Connect Charger -->
+    <symbol id="shutdown-step-6-connect-charger" viewBox="0 0 160 120">
+      <rect x="2" y="2" width="156" height="116" rx="10" fill="#FFFFFF" class="st"/>
+      <rect x="24" y="86" width="68" height="18" rx="4" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <circle cx="44" cy="102" r="8" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <circle cx="82" cy="100" r="9" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <rect x="96" y="70" width="8" height="34" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <rect x="104" y="96" width="30" height="6" rx="2" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <circle cx="54" cy="86" r="7" fill="#FFFFFF" class="st"/>
+      <circle cx="54" cy="86" r="4" fill="#94A3B8" class="st"/>
+      <rect x="114" y="16" width="28" height="44" rx="6" fill="#E5E7EB" class="st"/>
+      <rect x="114" y="16" width="28" height="8" fill="#F76511" stroke="#F76511" class="st"/>
+      <circle cx="128" cy="50" r="5" fill="#CBD5E1" class="st"/>
+      <path d="M128 55 C 112 64, 90 76, 68 84" fill="none" stroke="#0F172A" class="st"/>
+      <rect x="66" y="82" width="8" height="10" rx="2" fill="#F76511" stroke="#F76511" class="st"/>
+    </symbol>
+
+    <!-- STEP 7: Wheel Chock -->
+    <symbol id="shutdown-step-7-wheel-chock" viewBox="0 0 160 120">
+      <rect x="2" y="2" width="156" height="116" rx="10" fill="#FFFFFF" class="st"/>
+      <rect x="24" y="86" width="68" height="18" rx="4" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <circle cx="44" cy="102" r="8" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <circle cx="82" cy="100" r="9" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <rect x="96" y="70" width="8" height="34" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <rect x="104" y="96" width="30" height="6" rx="2" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <circle cx="82" cy="100" r="11" fill="none" class="st"/>
+      <polygon points="96,106 112,102 112,112 96,114" fill="#F76511" stroke="#F76511" class="st"/>
+      <line x1="20" y1="104" x2="140" y2="104" stroke="#94A3B8" class="st"/>
+    </symbol>
+  </defs>
+</svg>
