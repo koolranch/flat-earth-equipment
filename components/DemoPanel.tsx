@@ -1,7 +1,7 @@
 // components/DemoPanel.tsx
 "use client";
 import React from "react";
-import { analytics } from "@/lib/analytics";
+import { track } from "@/lib/analytics";
 import { useT } from "@/lib/i18n";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -19,12 +19,12 @@ export function DemoPanel({ title, objective, steps, onStart, onComplete, childr
   const t = useT();
   
   const handleStart = () => {
-    analytics.track("demo_start", { demo: title });
+    track("demo_start", { demo: title });
     onStart?.();
   };
 
   const handleComplete = (result?: unknown) => {
-    analytics.track("demo_complete", { demo: title, result });
+    track("demo_complete", { demo: title, result });
     onComplete?.(result);
   };
 

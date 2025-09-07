@@ -1,7 +1,7 @@
 'use client';
 import React, { useMemo, useState, useEffect } from 'react';
 import { useT } from '@/lib/i18n';
-import { analytics } from '@/lib/analytics';
+import { track } from '@/lib/analytics';
 
 export default function LoadCapacity() {
   const t = useT();
@@ -25,13 +25,13 @@ export default function LoadCapacity() {
   // Track usage analytics
   useEffect(() => {
     if (!hasStarted) {
-      analytics.track('tool_start', { tool: 'load_capacity' });
+      track('tool_start', { tool: 'load_capacity' });
       setHasStarted(true);
     }
   }, [hasStarted]);
 
   const handleInputChange = (param: string, value: number) => {
-    analytics.track('tool_param_change', {
+    track('tool_param_change', {
       tool: 'load_capacity',
       param,
       value,
@@ -40,7 +40,7 @@ export default function LoadCapacity() {
     });
 
     if (!safe && param === 'load') {
-      analytics.track('tool_warning', {
+      track('tool_warning', {
         tool: 'load_capacity',
         warning_type: 'overload',
         load_weight: value,

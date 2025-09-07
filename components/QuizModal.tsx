@@ -1,6 +1,5 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { analytics } from '@/lib/analytics'
 import { track } from '@/lib/analytics/track'
 import { ReviewIncorrect } from './quiz/ReviewIncorrect'
 import AccessibleModal from '@/components/ui/AccessibleModal'
@@ -151,7 +150,7 @@ export default function QuizModal({
     });
     
     // Legacy analytics for backward compatibility
-    analytics.track("quiz_item_answered", {
+    track("quiz_item_answered", {
       questionIndex: idx + 1,
       totalQuestions: orderedQuestions.length,
       selectedChoice: choice,
@@ -251,7 +250,7 @@ export default function QuizModal({
       console.log(`Quiz completed: ${totalScore}/${orderedQuestions.length} = ${finalPct}%`)
       
       // Track quiz completion
-      analytics.track("quiz_completed", {
+      track("quiz_completed", {
         finalScore: totalScore,
         totalQuestions: orderedQuestions.length,
         percentage: finalPct,
