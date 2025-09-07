@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import InspectionEight from '@/components/demos/module2/InspectionEight';
 

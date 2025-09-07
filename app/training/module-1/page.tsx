@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import PPESequence from '@/components/demos/module1/PPESequence';
 import ControlsIdentify from '@/components/demos/module1/ControlsIdentify';

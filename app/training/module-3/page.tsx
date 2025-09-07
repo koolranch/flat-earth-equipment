@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import StabilityPlayground from '@/components/demos/module3/StabilityPlayground';
 
