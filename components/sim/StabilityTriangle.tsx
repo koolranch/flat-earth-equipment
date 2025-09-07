@@ -1,6 +1,6 @@
 'use client';
 import React, { useMemo, useState, useEffect } from 'react';
-import { analytics } from '@/lib/analytics';
+import { track } from '@/lib/analytics';
 import { useT } from '@/lib/i18n';
 
 function calcState(load: number, center: number, tiltDeg: number) {
@@ -25,7 +25,7 @@ export default function StabilityTriangle() {
   // Track sim start on first interaction
   useEffect(() => {
     if (!hasStarted) {
-      analytics.track('sim_start', { sim: 'stability' });
+      track('sim_start', { sim: 'stability' });
       setHasStarted(true);
     }
   }, [hasStarted]);
@@ -33,7 +33,7 @@ export default function StabilityTriangle() {
   // Track warnings
   useEffect(() => {
     if (state === 'warn') {
-      analytics.track('sim_warning', { 
+      track('sim_warning', { 
         sim: 'stability', 
         load, 
         center, 
@@ -45,7 +45,7 @@ export default function StabilityTriangle() {
 
   const handleLoadChange = (value: number) => {
     setLoad(value);
-    analytics.track('sim_param_change', { 
+    track('sim_param_change', { 
       sim: 'stability', 
       param: 'load',
       value,
@@ -55,7 +55,7 @@ export default function StabilityTriangle() {
 
   const handleCenterChange = (value: number) => {
     setCenter(value);
-    analytics.track('sim_param_change', { 
+    track('sim_param_change', { 
       sim: 'stability', 
       param: 'center',
       value,
@@ -65,7 +65,7 @@ export default function StabilityTriangle() {
 
   const handleTiltChange = (value: number) => {
     setTilt(value);
-    analytics.track('sim_param_change', { 
+    track('sim_param_change', { 
       sim: 'stability', 
       param: 'tilt',
       value,

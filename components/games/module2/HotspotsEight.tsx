@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { analytics } from "@/lib/analytics";
+import { track } from "@/lib/analytics";
 
 const SPOTS = [
   { id: "mast", label: "Mast", x: "20%", y: "25%", tip: "Check for cracks, bends, and welds." },
@@ -24,7 +24,7 @@ export function HotspotsEight({ onComplete }: { onComplete: () => void }) {
   useEffect(() => {
     if (allDone && !completionNotified) {
       setCompletionNotified(true);
-      analytics.track("inspection_complete", {
+      track("inspection_complete", {
         component: "HotspotsEight",
         spotsInspected: Object.keys(visited).length,
         totalSpots: SPOTS.length
@@ -41,7 +41,7 @@ export function HotspotsEight({ onComplete }: { onComplete: () => void }) {
     setTip(tipText);
     
     // Track hotspot interaction
-    analytics.track("inspection_hotspot_clicked", {
+    track("inspection_hotspot_clicked", {
       component: "HotspotsEight",
       hotspotId: id,
       hotspotLabel: label,
