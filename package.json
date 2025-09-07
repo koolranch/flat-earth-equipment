@@ -115,7 +115,8 @@
     "alt:c2": "node scripts/svg-tools/upsert-alt.mjs training/icons/hazard-icons.svg 'Sprite sheet of safety hazard icons: liquid spill, pedestrian, overhead obstruction, unstable load, blind corner, speed zone, ramp/slope, dock edge, and battery/charging.'",
     "alt:c3": "node scripts/svg-tools/upsert-alt.mjs training/icons/control-icons.svg 'Sprite sheet of forklift control icons: horn, parking brake, ignition key, lift up/down, tilt forward/back, level forks, lights, reverse beeper.'",
     "alt:c4": "node scripts/svg-tools/upsert-alt.mjs training/icons/shutdown-steps.svg 'Sprite sheet for forklift shutdown steps: 1 Neutral, 2 Steer straight, 3 Set parking brake, 4 Forks down, 5 Key off, 6 Connect charger, 7 Wheel chock.'",
-    "alt:c5": "node scripts/svg-tools/upsert-alt.mjs training/icons/inspection-icons.svg 'Daily inspection icons: tires, forks, chains, horn, lights, hydraulics, leaks, data plate.'"
+    "alt:c5": "node scripts/svg-tools/upsert-alt.mjs training/icons/inspection-icons.svg 'Daily inspection icons: tires, forks, chains, horn, lights, hydraulics, leaks, data plate.'",
+    "qa:assets:preflight": "node scripts/qa-assets-preflight.mjs"
   },
   "keywords": [],
   "author": "",

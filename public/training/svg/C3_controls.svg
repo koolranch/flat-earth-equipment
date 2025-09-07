@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <style>
+      .st { stroke:#0F172A; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    </style>
+
+    <!-- Horn -->
+    <symbol id="icon-control-horn" viewBox="0 0 128 128">
+      <path d="M24 64 H48 L72 48 L108 44 V84 L72 80 L48 64 Z" fill="#E5E7EB" class="st"/>
+      <rect x="20" y="58" width="6" height="12" rx="2" fill="#CBD5E1" class="st"/>
+      <path d="M108 54 q12 10 0 20" fill="none" stroke="#F76511" class="st"/>
+      <path d="M112 50 q18 16 0 28" fill="none" stroke="#F76511" class="st"/>
+    </symbol>
+
+    <!-- Parking Brake -->
+    <symbol id="icon-control-parking-brake" viewBox="0 0 128 128">
+      <rect x="26" y="84" width="76" height="10" rx="3" fill="#CBD5E1" class="st"/>
+      <path d="M40 84 L72 52" fill="none" class="st"/>
+      <circle cx="74" cy="50" r="8" fill="#F76511" stroke="#F76511" class="st"/>
+      <path d="M46 80 l6 -6 M52 74 l6 -6 M58 68 l6 -6" fill="none" class="st"/>
+      <circle cx="96" cy="72" r="10" fill="#E5E7EB" class="st"/>
+    </symbol>
+
+    <!-- Ignition Key -->
+    <symbol id="icon-control-ignition" viewBox="0 0 128 128">
+      <circle cx="48" cy="64" r="14" fill="#FFFFFF" class="st"/>
+      <rect x="48" y="62" width="30" height="6" rx="3" fill="#CBD5E1" class="st"/>
+      <path d="M78 62 h8 v6 h-5 l-3 4 h-4" fill="#E5E7EB" class="st"/>
+      <circle cx="48" cy="64" r="6" fill="none" stroke="#F76511" class="st"/>
+    </symbol>
+
+    <!-- Lift Up/Down -->
+    <symbol id="icon-control-lift" viewBox="0 0 128 128">
+      <rect x="28" y="28" width="12" height="72" fill="#E5E7EB" class="st"/>
+      <rect x="40" y="54" width="40" height="24" rx="3" fill="#CBD5E1" class="st"/>
+      <rect x="40" y="78" width="44" height="6" rx="2" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <polygon points="92,46 80,58 104,58" fill="#F76511" stroke="#F76511" class="st"/>
+      <rect x="92" y="58" width="4" height="12" fill="#F76511" stroke="#F76511" class="st"/>
+      <polygon points="92,90 80,78 104,78" fill="#F76511" stroke="#F76511" class="st"/>
+      <rect x="92" y="66" width="4" height="12" fill="#F76511" stroke="#F76511" class="st"/>
+    </symbol>
+
+    <!-- Tilt Forward/Back -->
+    <symbol id="icon-control-tilt" viewBox="0 0 128 128">
+      <rect x="28" y="28" width="12" height="72" fill="#E5E7EB" class="st"/>
+      <polygon points="44,50 86,54 86,72 44,68" fill="#CBD5E1" class="st"/>
+      <rect x="54" y="72" width="40" height="6" rx="2" transform="rotate(-6 74 75)" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <path d="M94 60 a14 14 0 0 1 0 20" fill="none" stroke="#F76511" class="st"/>
+      <path d="M94 80 a14 14 0 0 1 0 -20" fill="none" stroke="#F76511" stroke-dasharray="5 5" class="st"/>
+    </symbol>
+
+    <!-- Level Forks -->
+    <symbol id="icon-control-level-forks" viewBox="0 0 128 128">
+      <rect x="28" y="52" width="56" height="24" rx="3" fill="#CBD5E1" class="st"/>
+      <rect x="28" y="76" width="64" height="6" rx="2" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <rect x="38" y="40" width="44" height="8" rx="4" fill="#E5E7EB" class="st"/>
+      <circle cx="60" cy="44" r="3.5" fill="#F76511" stroke="#F76511" class="st"/>
+      <line x1="60" y1="36" x2="60" y2="40" stroke="#94A3B8" class="st"/>
+    </symbol>
+
+    <!-- Lights -->
+    <symbol id="icon-control-lights" viewBox="0 0 128 128">
+      <rect x="32" y="44" width="28" height="24" rx="6" fill="#E5E7EB" class="st"/>
+      <rect x="42" y="68" width="8" height="14" rx="2" fill="#CBD5E1" class="st"/>
+      <rect x="38" y="82" width="16" height="6" rx="3" fill="#CBD5E1" class="st"/>
+      <path d="M64 52 H100" fill="none" stroke="#F76511" class="st"/>
+      <path d="M64 60 H96" fill="none" stroke="#F76511" class="st"/>
+      <path d="M64 44 H92" fill="none" stroke="#F76511" class="st"/>
+    </symbol>
+
+    <!-- Reverse Beeper -->
+    <symbol id="icon-control-reverse" viewBox="0 0 128 128">
+      <rect x="28" y="50" width="32" height="28" rx="4" fill="#E5E7EB" class="st"/>
+      <circle cx="44" cy="64" r="6" fill="#CBD5E1" class="st"/>
+      <polygon points="92,64 76,52 76,60 60,60 60,68 76,68 76,76" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <path d="M100 56 q10 8 0 16" fill="none" stroke="#F76511" class="st"/>
+      <path d="M106 52 q16 12 0 24" fill="none" stroke="#F76511" class="st"/>
+    </symbol>
+  </defs>
+
+  <!-- Optional preview grid -->
+  <g id="preview">
+    <use href="#icon-control-horn" x="120" y="140" width="160" height="160"/>
+    <use href="#icon-control-parking-brake" x="420" y="140" width="160" height="160"/>
+    <use href="#icon-control-ignition" x="700" y="140" width="160" height="160"/>
+    <use href="#icon-control-lift" x="980" y="140" width="160" height="160"/>
+    <use href="#icon-control-tilt" x="120" y="420" width="160" height="160"/>
+    <use href="#icon-control-level-forks" x="420" y="420" width="160" height="160"/>
+    <use href="#icon-control-lights" x="700" y="420" width="160" height="160"/>
+    <use href="#icon-control-reverse" x="980" y="420" width="160" height="160"/>
+  </g>
+</svg>
