@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" focusable="false" width="600" height="220" viewBox="0 0 600 220">
+  <title>Seatbelt latch animation</title>
+  <desc>Industrial seatbelt buckle with strap sliding into buckle and a confirming pulse</desc>
+  <defs>
+    <style>
+      .st{stroke:#0F172A;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+
+  <!-- Base / ground reference -->
+  <g id="base">
+    <line x1="40" y1="180" x2="560" y2="180" class="st" stroke="#CBD5E1"/>
+    <rect x="40" y="186" width="520" height="6" fill="#E5E7EB" class="st"/>
+  </g>
+
+  <!-- Strap (slides into buckle: 0.8s move, 0.4s pause) -->
+  <g id="strap" transform="translate(-120 0)">
+    <!-- Belt strap -->
+    <rect x="160" y="98" width="310" height="24" rx="12" fill="#CBD5E1" class="st"/>
+    <!-- Edge seam -->
+    <line x1="170" y1="110" x2="458" y2="110" class="st" stroke="#94A3B8"/>
+    <!-- Tongue tip (metal) -->
+    <rect x="452" y="100" width="16" height="20" rx="3" fill="#E5E7EB" class="st"/>
+    <!-- Slide in over 0.8s, hold 0.4s, then idle until loop end (total cycle 2.55s) -->
+    <animateTransform attributeName="transform" type="translate"
+      values="-120 0; 0 0; 0 0; 0 0"
+      keyTimes="0;0.3137;0.4706;1"
+      dur="2.55s" repeatCount="indefinite"/>
+  </g>
+
+  <!-- Buckle (pulse at 1.2s -> 1.55s of the 2.55s loop, then 1.0s rest) -->
+  <g id="buckle" transform="translate(500 110)">
+    <!-- Housing centered on (0,0) so scale pulses around center -->
+    <rect x="-34" y="-28" width="68" height="56" rx="8" fill="#E5E7EB" class="st"/>
+    <!-- Insert slot -->
+    <rect x="-36" y="-10" width="24" height="20" rx="3" fill="#FFFFFF" class="st"/>
+    <!-- Catch plate -->
+    <rect x="-6" y="-8" width="18" height="16" rx="3" fill="#CBD5E1" class="st"/>
+    <!-- Accent indicator (blink during pulse) -->
+    <rect x="20" y="-22" width="10" height="10" rx="2" fill="#F76511" stroke="#F76511" class="st">
+      <animate attributeName="opacity"
+        values="1;1;0;1;1"
+        keyTimes="0;0.4706;0.54;0.6078;1"
+        dur="2.55s" repeatCount="indefinite"/>
+    </rect>
+    <!-- Scale pulse synced inside the cycle window -->
+    <animateTransform attributeName="transform" type="scale" additive="sum"
+      values="1;1;1.12;1"
+      keyTimes="0;0.4706;0.6078;1"
+      dur="2.55s" repeatCount="indefinite"/>
+  </g>
+</svg>
