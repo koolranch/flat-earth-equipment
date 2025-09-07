@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <style>
+      .st { stroke:#0F172A; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    </style>
+  </defs>
+
+  <!-- Scene -->
+  <g id="scene">
+    <rect x="0" y="0" width="1200" height="800" fill="#FFFFFF"/>
+    <!-- Soft ground shadow -->
+    <ellipse cx="600" cy="710" rx="520" ry="56" fill="#0F172A" fill-opacity="0.04"/>
+  </g>
+
+  <!-- Ramp -->
+  <g id="ramp">
+    <!-- Sloped ramp surface (trapezoid rising to dock) -->
+    <polygon points="180,628 780,628 900,560 300,560" fill="#E5E7EB" class="st"/>
+    <!-- Ramp side curb -->
+    <path d="M300 560 L180 628" fill="none" class="st"/>
+    <path d="M900 560 L780 628" fill="none" class="st"/>
+  </g>
+
+  <!-- Dock edge & door -->
+  <g id="dock-edge">
+    <!-- Platform top surface -->
+    <rect x="900" y="540" width="220" height="88" fill="#E5E7EB" class="st"/>
+    <!-- Edge face -->
+    <rect x="900" y="628" width="14" height="32" fill="#CBD5E1" class="st"/>
+    <!-- Vertical edge line -->
+    <line x1="900" y1="540" x2="900" y2="660" stroke="#0F172A" class="st"/>
+    <!-- Dock door outline -->
+    <rect x="955" y="380" width="170" height="160" fill="none" class="st"/>
+    <rect x="955" y="370" width="170" height="18" fill="#CBD5E1" class="st"/>
+    <!-- Door threshold line -->
+    <line x1="900" y1="540" x2="1120" y2="540" stroke="#94A3B8" class="st"/>
+  </g>
+
+  <!-- Wheel chock zone (with wheel silhouette and chock) -->
+  <g id="wheel-chock-zone">
+    <!-- Wheel silhouette (parked) -->
+    <circle cx="320" cy="610" r="44" fill="#0F172A" stroke="#0F172A" class="st"/>
+    <!-- Axle hint -->
+    <rect x="300" y="598" width="40" height="12" fill="#0F172A" stroke="#0F172A" class="st"/>
+    <!-- Chock wedge -->
+    <polygon points="360,620 380,615 380,630 360,634" fill="#CBD5E1" class="st"/>
+    <!-- Highlight zone (dashed) -->
+    <rect x="286" y="570" width="120" height="90" rx="10" fill="#F76511" fill-opacity="0.06" stroke="#F76511" stroke-dasharray="10 10" class="st"/>
+  </g>
+
+  <!-- Floor markings -->
+  <g id="floor-markings">
+    <!-- Aisle center line -->
+    <line x1="140" y1="660" x2="840" y2="660" stroke="#CBD5E1" stroke-dasharray="14 14" class="st"/>
+    <!-- Parking/approach lines near dock -->
+    <line x1="920" y1="628" x2="1120" y2="628" stroke="#CBD5E1" class="st"/>
+    <line x1="920" y1="660" x2="1120" y2="660" stroke="#CBD5E1" class="st"/>
+    <!-- Directional arrow up the ramp -->
+    <rect x="520" y="600" width="20" height="40" fill="#94A3B8" class="st"/>
+    <polygon points="530,584 506,608 554,608" fill="#94A3B8" class="st"/>
+  </g>
+
+  <!-- Hazard: Ramp/Slope -->
+  <g id="hazard-ramp-slope">
+    <polygon points="220,616 760,616 882,556 320,556" fill="#F76511" fill-opacity="0.06" stroke="#F76511" stroke-dasharray="12 12" class="st"/>
+  </g>
+
+  <!-- Hazard: Dock Edge -->
+  <g id="hazard-dock-edge">
+    <rect x="892" y="536" width="24" height="128" rx="6" fill="#F76511" fill-opacity="0.08" stroke="#F76511" class="st"/>
+  </g>
+
+  <!-- Hazard: Unstable Load (on platform) -->
+  <g id="hazard-unstable-load">
+    <!-- Neutral tilted box -->
+    <polygon points="1000,548 1078,548 1068,602 990,602" fill="#E5E7EB" class="st"/>
+    <!-- Highlight ellipse -->
+    <ellipse cx="1034" cy="576" rx="90" ry="38" fill="#F76511" fill-opacity="0.06" stroke="#F76511" class="st"/>
+    <!-- Dashed outline accent -->
+    <polygon points="1000,548 1078,548 1068,602 990,602" fill="none" stroke="#F76511" stroke-dasharray="8 8" class="st"/>
+  </g>
+
+  <!-- Hazard: Pedestrian Zone -->
+  <g id="hazard-pedestrian">
+    <rect x="420" y="668" width="200" height="64" rx="12" fill="#F76511" fill-opacity="0.06" stroke="#F76511" class="st"/>
+  </g>
+</svg>

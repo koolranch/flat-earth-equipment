@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <style>
+      .st { stroke:#0F172A; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    </style>
+
+    <!-- Spill -->
+    <symbol id="icon-hazard-spill" viewBox="0 0 128 128">
+      <path d="M20 96 C36 88, 62 90, 80 96 C96 100, 94 112, 72 116 C52 120, 28 116, 20 106 Z" fill="#E5E7EB" class="st"/>
+      <ellipse cx="58" cy="106" rx="44" ry="16" fill="none" stroke="#F76511" stroke-dasharray="6 6" class="st"/>
+      <path d="M58 76 C58 72, 66 70, 66 78 C66 82, 58 82, 58 76 Z" fill="#F76511" stroke="#F76511" class="st"/>
+    </symbol>
+
+    <!-- Pedestrian -->
+    <symbol id="icon-hazard-pedestrian" viewBox="0 0 128 128">
+      <circle cx="64" cy="64" r="52" fill="none" stroke="#F76511" class="st"/>
+      <circle cx="64" cy="38" r="8" fill="#E5E7EB" class="st"/>
+      <path d="M64 48 L60 64 L72 72" fill="none" class="st"/>
+      <path d="M60 56 L48 52" fill="none" class="st"/>
+      <path d="M66 56 L78 50" fill="none" class="st"/>
+      <path d="M60 64 L50 84" fill="none" class="st"/>
+      <path d="M72 72 L76 92" fill="none" class="st"/>
+      <line x1="40" y1="96" x2="88" y2="96" stroke="#94A3B8" class="st"/>
+    </symbol>
+
+    <!-- Overhead Obstruction -->
+    <symbol id="icon-hazard-overhead" viewBox="0 0 128 128">
+      <rect x="24" y="24" width="80" height="12" rx="3" fill="#CBD5E1" class="st"/>
+      <circle cx="64" cy="78" r="7" fill="#E5E7EB" class="st"/>
+      <path d="M64 85 L64 98" fill="none" class="st"/>
+      <polygon points="64,54 56,66 72,66" fill="#F76511" stroke="#F76511" class="st"/>
+      <polygon points="64,42 58,50 70,50" fill="#F76511" stroke="#F76511" class="st"/>
+    </symbol>
+
+    <!-- Unstable Load -->
+    <symbol id="icon-hazard-unstable-load" viewBox="0 0 128 128">
+      <rect x="30" y="92" width="68" height="10" rx="2" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <polygon points="44,60 88,50 92,76 48,86" fill="#E5E7EB" class="st"/>
+      <line x1="44" y1="60" x2="92" y2="76" stroke="#F76511" stroke-dasharray="6 6" class="st"/>
+    </symbol>
+
+    <!-- Blind Corner -->
+    <symbol id="icon-hazard-blind-corner" viewBox="0 0 128 128">
+      <rect x="74" y="24" width="10" height="80" fill="#CBD5E1" class="st"/>
+      <rect x="24" y="94" width="60" height="10" fill="#CBD5E1" class="st"/>
+      <path d="M76 74 q20 6 20 24" fill="none" stroke="#F76511" class="st"/>
+      <path d="M76 66 q28 10 28 32" fill="none" stroke="#F76511" stroke-dasharray="6 6" class="st"/>
+      <ellipse cx="88" cy="92" rx="18" ry="10" fill="#F76511" fill-opacity="0.08" stroke="#F76511" class="st"/>
+    </symbol>
+
+    <!-- Speed Zone -->
+    <symbol id="icon-hazard-speed-zone" viewBox="0 0 128 128">
+      <path d="M28 80 A36 36 0 0 1 100 80" fill="none" class="st"/>
+      <line x1="64" y1="80" x2="86" y2="60" stroke="#0F172A" class="st"/>
+      <path d="M84 80 A20 20 0 0 0 100 80" fill="none" stroke="#F76511" class="st"/>
+      <rect x="56" y="80" width="16" height="8" rx="2" fill="#CBD5E1" class="st"/>
+    </symbol>
+
+    <!-- Ramp / Slope -->
+    <symbol id="icon-hazard-ramp-slope" viewBox="0 0 128 128">
+      <polygon points="24,88 100,88 84,72 40,72" fill="#E5E7EB" class="st"/>
+      <circle cx="72" cy="84" r="6" fill="#0F172A" stroke="#0F172A" class="st"/>
+      <line x1="40" y1="72" x2="84" y2="72" stroke="#F76511" class="st"/>
+    </symbol>
+
+    <!-- Dock Edge -->
+    <symbol id="icon-hazard-dock-edge" viewBox="0 0 128 128">
+      <rect x="26" y="72" width="60" height="20" fill="#E5E7EB" class="st"/>
+      <rect x="86" y="60" width="10" height="44" fill="#CBD5E1" class="st"/>
+      <rect x="84" y="60" width="4" height="44" fill="#F76511" stroke="#F76511" class="st"/>
+      <rect x="50" y="58" width="20" height="14" fill="#E5E7EB" class="st"/>
+    </symbol>
+
+    <!-- Battery / Charging -->
+    <symbol id="icon-hazard-battery" viewBox="0 0 128 128">
+      <rect x="28" y="44" width="64" height="36" rx="6" fill="none" class="st"/>
+      <rect x="92" y="52" width="8" height="20" rx="2" fill="#CBD5E1" class="st"/>
+      <polygon points="58,48 48,68 62,68 54,84 80,56 66,56 74,48" fill="#F76511" stroke="#F76511" class="st"/>
+    </symbol>
+  </defs>
+
+  <!-- Optional preview grid -->
+  <g id="preview">
+    <use href="#icon-hazard-spill" x="120" y="120" width="160" height="160"/>
+    <use href="#icon-hazard-pedestrian" x="420" y="120" width="160" height="160"/>
+    <use href="#icon-hazard-overhead" x="720" y="120" width="160" height="160"/>
+    <use href="#icon-hazard-unstable-load" x="120" y="360" width="160" height="160"/>
+    <use href="#icon-hazard-blind-corner" x="420" y="360" width="160" height="160"/>
+    <use href="#icon-hazard-speed-zone" x="720" y="360" width="160" height="160"/>
+    <use href="#icon-hazard-ramp-slope" x="120" y="600" width="160" height="160"/>
+    <use href="#icon-hazard-dock-edge" x="420" y="600" width="160" height="160"/>
+    <use href="#icon-hazard-battery" x="720" y="600" width="160" height="160"/>
+  </g>
+</svg>
