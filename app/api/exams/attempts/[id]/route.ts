@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabase/server';
-import { supabaseService } from '@/lib/supabase/service';
+import { supabaseService } from '@/lib/supabase/service.server';
 import { sanitizeQuestion } from '@/lib/exam';
 
 export async function GET(_: Request, { params }: { params: { id: string } }) {
