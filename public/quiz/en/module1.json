@@ -1,0 +1,9 @@
+{
+  "module": 1,
+  "pass_score": 80,
+  "questions": [
+    {"id":"m1q1","type":"mc","prompt":"Put PPE in the correct order before operating:","choices":["Hard hat → Vest → Set brake → Lower forks","Vest → Hard hat → Lower forks → Set brake","Lower forks → Vest → Hard hat → Set brake"],"answer":1},
+    {"id":"m1q2","type":"mc","prompt":"Which control sounds a warning to pedestrians?","choices":["Ignition","Horn","Tilt lever"],"answer":1},
+    {"id":"m1q3","type":"mc","prompt":"Before moving, where should the forks be?","choices":["Raised high","Just off the ground and level","Dragging on the floor"],"answer":1}
+  ]
+}

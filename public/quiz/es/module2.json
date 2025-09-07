@@ -1,0 +1,9 @@
+{
+  "module": 2,
+  "pass_score": 80,
+  "questions": [
+    {"id":"m2q1","type":"mc","prompt":"La inspección diaria incluye:","choices":["Neumáticos, horquillas, cadenas, bocina, luces, hidráulicos, fugas, placa","Solo color del asiento","Solo estación de carga"],"answer":0},
+    {"id":"m2q2","type":"mc","prompt":"Si encuentra una fuga hidráulica:","choices":["Limpiar y seguir","Retirar de servicio y reportar","Conducir con cuidado"],"answer":1},
+    {"id":"m2q3","type":"mc","prompt":"La placa de datos indica:","choices":["Capacidad máxima nominal","Código de radio","Contraseña"],"answer":0}
+  ]
+}

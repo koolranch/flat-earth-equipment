@@ -1,0 +1,9 @@
+{
+  "module": 3,
+  "pass_score": 80,
+  "questions": [
+    {"id":"m3q1","type":"mc","prompt":"El triángulo de estabilidad se forma por:","choices":["Tres puntos aleatorios","Dos contactos de ruedas delanteras y pivote del eje trasero","Puntas de horquilla y mástil"],"answer":1},
+    {"id":"m3q2","type":"mc","prompt":"Aumentar inclinación hacia adelante con carga pesada:","choices":["Aumenta riesgo de vuelco","Mejora estabilidad","No afecta"],"answer":0},
+    {"id":"m3q3","type":"mc","prompt":"Para mantenerse estable, mantenga el COG:","choices":["Dentro del triángulo","Fuera del triángulo","En las horquillas"],"answer":0}
+  ]
+}
