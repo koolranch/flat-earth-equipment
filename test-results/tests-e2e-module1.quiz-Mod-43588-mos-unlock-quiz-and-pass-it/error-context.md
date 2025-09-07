@@ -1,0 +1,160 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main"
+  - link "Skip to content" [ref=e3] [cursor=pointer]:
+    - /url: "#main"
+  - link "Skip to content" [ref=e4] [cursor=pointer]:
+    - /url: "#content"
+  - banner [ref=e5]:
+    - generic [ref=e6]:
+      - link "Flat Earth Safety" [ref=e7] [cursor=pointer]:
+        - /url: /training
+      - navigation "Global navigation" [ref=e8]:
+        - link "Training" [ref=e9] [cursor=pointer]:
+          - /url: /training
+        - link "Safety" [ref=e10] [cursor=pointer]:
+          - /url: /safety
+        - link "Trainer" [ref=e11] [cursor=pointer]:
+          - /url: /trainer
+        - link "Records" [ref=e12] [cursor=pointer]:
+          - /url: /records
+        - generic "Language selector" [ref=e13]:
+          - button "Switch to English" [ref=e14] [cursor=pointer]: EN
+          - button "Cambiar a español" [ref=e15] [cursor=pointer]: ES
+  - navigation [ref=e16]:
+    - generic [ref=e18]:
+      - link "Flat Earth Equipment Flat Earth Equipment" [ref=e20] [cursor=pointer]:
+        - /url: /
+        - img "Flat Earth Equipment" [ref=e21] [cursor=pointer]
+        - generic [ref=e22] [cursor=pointer]: Flat Earth Equipment
+      - generic [ref=e23]:
+        - link "Parts" [ref=e25] [cursor=pointer]:
+          - /url: /parts
+        - link "Rent Equipment" [ref=e27] [cursor=pointer]:
+          - /url: /rent-equipment
+        - link "Safety" [ref=e29] [cursor=pointer]:
+          - /url: /safety
+        - link "About" [ref=e31] [cursor=pointer]:
+          - /url: /about
+        - link "Contact" [ref=e33] [cursor=pointer]:
+          - /url: /contact
+        - link "Shopping cart" [ref=e34] [cursor=pointer]:
+          - /url: /cart
+          - img [ref=e35] [cursor=pointer]
+        - button "Change language to Español" [ref=e39] [cursor=pointer]:
+          - img [ref=e40] [cursor=pointer]: 🇺🇸
+          - generic [ref=e41] [cursor=pointer]: EN
+          - generic [ref=e42] [cursor=pointer]: / ES
+  - main [ref=e43]:
+    - main [ref=e44]:
+      - generic [ref=e45]:
+        - 'heading "Module 1 — Pre-Operation: PPE & Controls" [level=1] [ref=e46]'
+        - paragraph [ref=e47]: Suit up in the right order and locate critical controls before you roll.
+      - generic [ref=e48]:
+        - heading "PPE Sequence" [level=2] [ref=e49]
+        - generic [ref=e50]:
+          - img "Forklift controls diagram" [ref=e52]
+          - generic [ref=e53]:
+            - button "✓ Hi-vis vest" [disabled] [ref=e54]:
+              - img [ref=e55]
+              - generic [ref=e56]: ✓ Hi-vis vest
+            - button "✓ Hard hat" [disabled] [ref=e57]:
+              - img [ref=e58]
+              - generic [ref=e59]: ✓ Hard hat
+            - button "✓ Set brake" [disabled] [ref=e60]:
+              - img [ref=e61]
+              - generic [ref=e62]: ✓ Set brake
+            - 'button "Lower forks Tap next: Lower forks" [disabled] [ref=e63]':
+              - img [ref=e64]
+              - generic [ref=e65]: Lower forks
+              - generic [ref=e66]: "Tap next: Lower forks"
+          - generic [ref=e67]: Sequence complete. Nice work.
+      - generic [ref=e68]:
+        - heading "Find the Controls" [level=2] [ref=e69]
+        - generic [ref=e70]:
+          - generic [ref=e71]:
+            - img "Diagram with forklift controls" [ref=e72]
+            - button "Steering wheel" [active] [ref=e73] [cursor=pointer]
+            - button "Horn button" [ref=e74] [cursor=pointer]
+            - button "Ignition" [ref=e75] [cursor=pointer]
+            - button "Parking brake" [ref=e76] [cursor=pointer]
+          - list [ref=e77]:
+            - listitem [ref=e78]: ✓ Steering wheel
+            - listitem [ref=e79]: ✓ Horn button
+            - listitem [ref=e80]: ✓ Ignition
+            - listitem [ref=e81]: ✓ Parking brake
+          - generic [ref=e82]: All controls identified.
+  - contentinfo [ref=e83]:
+    - generic [ref=e84]:
+      - generic [ref=e85]:
+        - generic [ref=e86]:
+          - generic [ref=e87]: Flat Earth Equipment
+          - paragraph [ref=e88]: Flat Earth Equipment is built Western tough — precision-fit industrial parts and dispatch-ready rentals, shipped nationwide.
+        - generic [ref=e89]:
+          - heading "Quick Links" [level=3] [ref=e90]
+          - list [ref=e91]:
+            - listitem [ref=e92]:
+              - link "Insights & Guides" [ref=e93] [cursor=pointer]:
+                - /url: /insights
+            - listitem [ref=e94]:
+              - link "About Us" [ref=e95] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e96]:
+              - link "Shipping & Returns" [ref=e97] [cursor=pointer]:
+                - /url: /shipping-returns
+            - listitem [ref=e98]:
+              - link "Warranty" [ref=e99] [cursor=pointer]:
+                - /url: /warranty
+            - listitem [ref=e100]:
+              - link "Contact" [ref=e101] [cursor=pointer]:
+                - /url: /contact
+            - listitem [ref=e102]:
+              - link "Terms of Service" [ref=e103] [cursor=pointer]:
+                - /url: /terms-of-service
+            - listitem [ref=e104]:
+              - link "Privacy Policy" [ref=e105] [cursor=pointer]:
+                - /url: /privacy-policy
+            - listitem [ref=e106]:
+              - link "Service Areas" [ref=e107] [cursor=pointer]:
+                - /url: /locations
+            - listitem [ref=e108]:
+              - link "Cheyenne, WY" [ref=e109] [cursor=pointer]:
+                - /url: /locations/cheyenne-wy
+            - listitem [ref=e110]:
+              - link "Bozeman, MT" [ref=e111] [cursor=pointer]:
+                - /url: /locations/bozeman-mt
+            - listitem [ref=e112]:
+              - link "Pueblo, CO" [ref=e113] [cursor=pointer]:
+                - /url: /locations/pueblo-co
+            - listitem [ref=e114]:
+              - link "Albuquerque, NM" [ref=e115] [cursor=pointer]:
+                - /url: /locations/albuquerque-nm
+            - listitem [ref=e116]:
+              - link "Las Cruces, NM" [ref=e117] [cursor=pointer]:
+                - /url: /locations/las-cruces-nm
+        - generic [ref=e118]:
+          - heading "Stay Updated" [level=3] [ref=e119]
+          - generic [ref=e120]:
+            - textbox "Your email" [ref=e121]
+            - button "Sign Up" [ref=e122] [cursor=pointer]
+      - paragraph [ref=e124]: © 2025 Flat Earth Equipment. All rights reserved.
+  - contentinfo [ref=e125]:
+    - generic [ref=e126]:
+      - generic [ref=e127]:
+        - generic [ref=e128]: © Flat Earth Safety
+        - navigation "Legal and support links" [ref=e129]:
+          - link "Terms" [ref=e130] [cursor=pointer]:
+            - /url: /legal/terms
+          - link "Privacy" [ref=e131] [cursor=pointer]:
+            - /url: /legal/privacy
+          - link "Contact" [ref=e132] [cursor=pointer]:
+            - /url: /contact
+      - generic [ref=e133]:
+        - checkbox "Reduce motion" [ref=e134]
+        - text: Reduce motion
+  - alert [ref=e135]
+  - button "Open chat" [ref=e136] [cursor=pointer]
+```
