@@ -5,6 +5,7 @@
 ```bash
 npm run dev
 # visit /trainer/practical/new, paste trainee user id (UUID), start
+# this navigates to /practical/eval/[id] for the evaluation interface
 ```
 
 **Runner**
