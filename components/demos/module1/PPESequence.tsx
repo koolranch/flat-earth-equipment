@@ -1,51 +1,59 @@
+'use client';
 import React from 'react';
+import { useAsset } from '@/lib/useAsset';
+import AnimatedSvg from '@/components/common/AnimatedSvg';
+import { track } from '@/lib/track';
 
-interface Props { onComplete?: () => void; onEvent?: (name: string, props?: Record<string, any>) => void }
-
-const steps = [
-  { id: 'vest', label: 'Hi-vis vest', href: '/training/icons/ppe-sprite.svg#icon-ppe-vest' },
-  { id: 'hardhat', label: 'Hard hat', href: '/training/icons/ppe-sprite.svg#icon-ppe-hardhat' },
-  { id: 'brake', label: 'Set brake', href: '/training/icons/control-sprite.svg#icon-control-parking-brake' },
-  { id: 'forks', label: 'Lower forks', href: '/training/icons/control-sprite.svg#icon-control-lift' }
-];
-
-export default function PPESequence({ onComplete, onEvent }: Props) {
+type Props = { onComplete?: () => void };
+export default function PPESequence({ onComplete }: Props) {
+  const steps = [
+    { key: 'ppe_vest' as const, label: 'Hi-vis vest' },
+    { key: 'ppe_hardhat' as const, label: 'Hard hat' },
+    { key: 'ppe_goggles' as const, label: 'Eye protection' },
+    { key: 'ppe_seatbelt' as const, label: 'Seatbelt' }
+  ];
   const [idx, setIdx] = React.useState(0);
-  const [done, setDone] = React.useState(false);
+  const done = idx >= steps.length;
+  const firedRef = React.useRef(false);
 
-  const handlePick = (id: string) => {
-    const expected = steps[idx].id;
-    const correct = id === expected;
-    onEvent?.('sim_param_change', { sim: 'module1_ppe', step_attempt: id, expected, correct });
-    if (!correct) return;
-    const next = idx + 1;
-    if (next >= steps.length) {
-      setDone(true);
-      onEvent?.('demo_complete', { demo: 'module1_ppe' });
+  React.useEffect(() => {
+    if (done && !firedRef.current) {
+      firedRef.current = true; // guarantee single fire
+      track('demo_complete', { module: 1, demo: 'ppe_sequence' });
       onComplete?.();
-    } else {
-      setIdx(next);
     }
-  };
+  }, [done, onComplete]);
+
+  const current = steps[Math.min(idx, steps.length - 1)];
+  const sprite = useAsset(current.key, { sprite: true });
 
   return (
-    <div className="grid gap-6">
-      <div className="flex items-center gap-3 text-slate-700">
-        <img src="/training/diagrams/controls.svg" alt="Forklift controls diagram" className="w-full max-w-2xl rounded-lg border" />
+    <div className="grid gap-4">
+      <div className="text-sm text-slate-600">Tap the correct PPE in order.</div>
+      <div className="flex flex-wrap gap-8 items-center">
+        {steps.map((s, i) => {
+          const a = useAsset(s.key, { sprite: true });
+          const selected = i < idx;
+          return (
+            <button key={s.key} aria-label={s.label} disabled={selected || done}
+              onClick={() => { if (i === idx) setIdx(v => v + 1); track('sim_param_change', { module: 1, name: 'ppe_step', value: i }); }}
+              className={`group grid place-items-center rounded-xl border px-4 py-3 ${selected ? 'border-green-400 bg-green-50' : 'border-slate-200 hover:bg-slate-50'}`}>
+              <svg width="88" height="88" role="img" aria-hidden="true">
+                <use href={`${a.file}${a.frag}`} />
+              </svg>
+              <span className="mt-2 text-xs">{s.label}</span>
+            </button>
+          );
+        })}
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {steps.map((s, i) => (
-          <button key={s.id} onClick={() => handlePick(s.id)} disabled={done}
-            className={`group rounded-xl border p-4 text-left hover:shadow ${i < idx ? 'bg-green-50 border-green-300' : i === idx ? 'bg-orange-50 border-orange-300' : 'bg-white'}`}>
-            <svg width="64" height="64" aria-hidden>
-              <use href={s.href} />
-            </svg>
-            <div className="mt-2 font-medium">{i < idx ? '✓ ' : ''}{s.label}</div>
-            {i === idx && <div className="text-xs text-slate-500">Tap next: {s.label}</div>}
-          </button>
-        ))}
+      {done && (
+        <div className="flex items-center gap-3 text-green-700 text-sm">
+          <span className="i-lucide-check-circle" aria-hidden /> PPE complete.
+        </div>
+      )}
+      <div className="mt-4">
+        <AnimatedSvg src={useAsset('anim_seatbelt').file} title="Seatbelt latch" />
       </div>
-      {done && <div className="rounded-lg bg-green-50 border border-green-300 p-4">Sequence complete. Nice work.</div>}
     </div>
   );
 }
