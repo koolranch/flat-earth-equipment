@@ -1,0 +1,9 @@
+{
+  "module": 2,
+  "pass_score": 80,
+  "questions": [
+    {"id":"m2q1","type":"mc","prompt":"The daily inspection includes:","choices":["Tires, forks, chains, horn, lights, hydraulics, leaks, data plate","Seat color and paint chips only","Charging station only"],"answer":0},
+    {"id":"m2q2","type":"mc","prompt":"If you find a hydraulic leak, you should:","choices":["Wipe and ignore","Tag out and report per policy","Drive carefully and recheck later"],"answer":1},
+    {"id":"m2q3","type":"mc","prompt":"Data plate tells you:","choices":["Max rated capacity","Radio code","Battery password"],"answer":0}
+  ]
+}

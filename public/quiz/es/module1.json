@@ -1,0 +1,9 @@
+{
+  "module": 1,
+  "pass_score": 80,
+  "questions": [
+    {"id":"m1q1","type":"mc","prompt":"Orden correcto de EPP antes de operar:","choices":["Casco → Chaleco → Freno → Bajar horquillas","Chaleco → Casco → Bajar horquillas → Freno","Bajar horquillas → Chaleco → Casco → Freno"],"answer":1},
+    {"id":"m1q2","type":"mc","prompt":"¿Qué control advierte a los peatones?","choices":["Encendido","Bocina","Palanca de inclinación"],"answer":1},
+    {"id":"m1q3","type":"mc","prompt":"Antes de moverse, las horquillas deben estar:","choices":["Altas","Apenas sobre el suelo y niveladas","Arrastrándose"],"answer":1}
+  ]
+}
