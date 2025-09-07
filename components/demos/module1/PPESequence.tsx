@@ -24,22 +24,32 @@ export default function PPESequence({ onComplete }: Props) {
     }
   }, [done, onComplete]);
 
-  const current = steps[Math.min(idx, steps.length - 1)];
-  const sprite = useAsset(current.key, { sprite: true });
+  // Pre-compute all assets at component level
+  const vestAsset = useAsset('ppe_vest', { sprite: true });
+  const hatAsset = useAsset('ppe_hardhat', { sprite: true });
+  const gogglesAsset = useAsset('ppe_goggles', { sprite: true });
+  const seatbeltStepAsset = useAsset('ppe_seatbelt', { sprite: true });
+  const seatbeltAnimAsset = useAsset('anim_seatbelt');
+  
+  const assets = [
+    { ...steps[0], asset: vestAsset },
+    { ...steps[1], asset: hatAsset },
+    { ...steps[2], asset: gogglesAsset },
+    { ...steps[3], asset: seatbeltStepAsset }
+  ];
 
   return (
     <div className="grid gap-4">
       <div className="text-sm text-slate-600">Tap the correct PPE in order.</div>
       <div className="flex flex-wrap gap-8 items-center">
-        {steps.map((s, i) => {
-          const a = useAsset(s.key, { sprite: true });
+        {assets.map((s, i) => {
           const selected = i < idx;
           return (
             <button key={s.key} aria-label={s.label} disabled={selected || done}
               onClick={() => { if (i === idx) setIdx(v => v + 1); track('sim_param_change', { module: 1, name: 'ppe_step', value: i }); }}
               className={`group grid place-items-center rounded-xl border px-4 py-3 ${selected ? 'border-green-400 bg-green-50' : 'border-slate-200 hover:bg-slate-50'}`}>
               <svg width="88" height="88" role="img" aria-hidden="true">
-                <use href={`${a.file}${a.frag}`} />
+                <use href={`${s.asset.file}${s.asset.frag}`} />
               </svg>
               <span className="mt-2 text-xs">{s.label}</span>
             </button>
@@ -52,7 +62,7 @@ export default function PPESequence({ onComplete }: Props) {
         </div>
       )}
       <div className="mt-4">
-        <AnimatedSvg src={useAsset('anim_seatbelt').file} title="Seatbelt latch" />
+        <AnimatedSvg src={seatbeltAnimAsset.file} title="Seatbelt latch" />
       </div>
     </div>
   );

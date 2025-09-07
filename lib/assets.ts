@@ -57,3 +57,16 @@ export const ASSETS: Record<AssetKey, string> = {
   anim_connect: base('training/animations/d4-connect-charger.svg'),
   anim_cog: base('training/animations/d5-stability-triangle.svg')
 };
+
+// Legacy compatibility function for existing Asset component
+export function getAsset(key: AssetKey): { src: string; alt: string } {
+  const src = ASSETS[key];
+  if (!src) {
+    console.warn(`Asset not found: ${key}`);
+    return { src: '', alt: `Missing asset: ${key}` };
+  }
+  return {
+    src,
+    alt: `Asset: ${key}` // Basic alt text, could be enhanced with proper alt text mapping
+  };
+}
