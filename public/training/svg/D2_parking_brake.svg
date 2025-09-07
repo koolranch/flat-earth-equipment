@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" focusable="false" width="600" height="220" viewBox="0 0 600 220">
+  <title>Parking brake set animation</title>
+  <desc>Lever rotates up to set brake; subtle ratchet ticks and accent pulse confirm engagement</desc>
+  <defs>
+    <style>
+      .st{stroke:#0F172A;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+
+  <!-- Base plate and ground -->
+  <g id="base">
+    <rect x="40" y="170" width="520" height="12" fill="#E5E7EB" class="st"/>
+    <line x1="40" y1="182" x2="560" y2="182" stroke="#CBD5E1" class="st"/>
+    <!-- Pivot mount -->
+    <circle cx="200" cy="150" r="16" fill="#E5E7EB" class="st"/>
+    <circle cx="200" cy="150" r="8" fill="#CBD5E1" class="st"/>
+  </g>
+
+  <!-- Ratchet notches and arc near lever path -->
+  <g id="ratchet">
+    <!-- Arc indicating lever travel -->
+    <path d="M200 150 A64 64 0 0 1 244 105" fill="none" stroke="#CBD5E1" class="st"/>
+    <!-- Notch 1 -->
+    <rect x="230" y="118" width="12" height="4" rx="2" transform="rotate(-25 236 120)" fill="#E5E7EB" class="st" opacity="0">
+      <animate attributeName="opacity" values="0;1;0" dur="0.25s" begin="leverAnim.begin+0.78s; leverAnim.repeatEvent+0.78s" />
+    </rect>
+    <!-- Notch 2 (staggered) -->
+    <rect x="238" y="111" width="12" height="4" rx="2" transform="rotate(-32 244 113)" fill="#E5E7EB" class="st" opacity="0">
+      <animate attributeName="opacity" values="0;1;0" dur="0.25s" begin="leverAnim.begin+0.95s; leverAnim.repeatEvent+0.95s" />
+    </rect>
+  </g>
+
+  <!-- Lever assembly (rotates about pivot at 200,150) -->
+  <g id="lever">
+    <!-- Lever body -->
+    <rect x="200" y="144" width="170" height="12" rx="6" fill="#E5E7EB" class="st"/>
+    <!-- Handle tip -->
+    <circle cx="372" cy="150" r="10" fill="#CBD5E1" class="st"/>
+    <!-- Decorative slot near base -->
+    <rect x="212" y="146" width="26" height="8" rx="3" fill="#FFFFFF" class="st"/>
+    <!-- Rotation animation: 10° → 45° (0.7s ease-out), hold 0.4s, back to 10° (0.5s), rest 0.6s -->
+    <animateTransform id="leverAnim" attributeName="transform" type="rotate"
+      values="10 200 150; 45 200 150; 45 200 150; 10 200 150; 10 200 150"
+      keyTimes="0; 0.3182; 0.5; 0.7273; 1"
+      calcMode="spline"
+      keySplines="0 0 0.2 1; 0 0 1 1; 0.4 0 1 1; 0 0 1 1"
+      dur="2.2s" repeatCount="indefinite"/>
+  </g>
+
+  <!-- Accent pulse at the pivot (confirmation) -->
+  <g transform="translate(200 150)">
+    <circle r="4.5" fill="#F76511" stroke="#F76511" class="st"/>
+    <animateTransform attributeName="transform" type="scale"
+      values="1;1.12;1" keyTimes="0;0.5;1"
+      dur="0.3s" begin="leverAnim.begin+0.7s; leverAnim.repeatEvent+0.7s" />
+  </g>
+</svg>
