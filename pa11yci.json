@@ -1,0 +1,12 @@
+{
+  "defaults": { "standard": "WCAG2AA", "timeout": 60000 },
+  "urls": [
+    "${BASE_URL}/",
+    "${BASE_URL}/training",
+    "${BASE_URL}/training/module/preop",
+    "${BASE_URL}/training/module/inspection",
+    "${BASE_URL}/training/module/stability",
+    "${BASE_URL}/training/module/hazards",
+    "${BASE_URL}/training/module/shutdown"
+  ]
+}

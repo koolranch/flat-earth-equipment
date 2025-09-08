@@ -2,6 +2,7 @@ import '../sentry.client.config';
 import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
 import React from 'react';
+import { seoDefaults } from './seo-defaults';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Navbar from '@/components/Navbar';
@@ -25,6 +26,8 @@ import QAEventListener from '@/components/dev/QAEventListener';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  ...seoDefaults,
+  // Override with existing specific metadata
   title: "Flat Earth Equipment | Parts & Rentals for Forklifts, Scissor Lifts & More",
   description: "Flat Earth Equipment delivers precision-fit industrial parts and rugged rental equipment — with same-day shipping across the Western U.S.",
 };

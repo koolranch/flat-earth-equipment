@@ -1,0 +1,1 @@
+console.log(`\nFlip to CDN complete (local).\n\nNext (Prod / Vercel):\n1) Add env var: NEXT_PUBLIC_USE_ASSET_CDN=1\n2) Ensure NEXT_PUBLIC_ASSET_BUCKET=public-assets\n3) Redeploy on Vercel\n\nSanity check in UI: hero image and icons should load from Supabase /storage/v1/object/public URLs.\n`);
