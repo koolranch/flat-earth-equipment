@@ -26,6 +26,15 @@
       "width": 1200,
       "height": 630,
       "template": "og-default.svg"
+    },
+    {
+      "id": "og-training",
+      "outPath": "public/og/training.jpg",
+      "uploadPath": "og/training.jpg",
+      "format": "jpg",
+      "width": 1200,
+      "height": 630,
+      "template": "og-training.svg"
     }
   ]
 }
