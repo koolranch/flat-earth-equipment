@@ -1,0 +1,10 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'>
+  <rect width='1200' height='630' fill='white'/>
+  <!-- Layered cards -->
+  <rect x='260' y='160' width='640' height='320' rx='16' fill='{G200}'/>
+  <rect x='290' y='190' width='640' height='320' rx='16' fill='white' stroke='{G300}'/>
+  <!-- Certificate outline -->
+  <rect x='330' y='230' width='560' height='220' rx='12' fill='none' stroke='{SLATE}' stroke-width='3'/>
+  <circle cx='360' cy='260' r='14' fill='{ORANGE}'/>
+  <rect x='520' y='420' width='120' height='8' fill='{G300}'/>
+</svg>

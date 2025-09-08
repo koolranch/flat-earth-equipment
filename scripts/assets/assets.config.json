@@ -35,6 +35,15 @@
       "width": 1200,
       "height": 630,
       "template": "og-training.svg"
+    },
+    {
+      "id": "og-records",
+      "outPath": "public/og/records.jpg",
+      "uploadPath": "og/records.jpg",
+      "format": "jpg",
+      "width": 1200,
+      "height": 630,
+      "template": "og-records.svg"
     }
   ]
 }
