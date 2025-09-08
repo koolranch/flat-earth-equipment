@@ -8,14 +8,14 @@ export async function POST(req: Request){
     const svc = supabaseService();
     const { data: cert, error } = await svc
       .from('certificates')
-      .select('id, user_id, verify_code, trainer_signature_url, trainee_signature_url, issued_at, course_slug, pdf_url, users(full_name)')
+      .select('id, user_id, verify_code, trainer_signature_url, trainee_signature_url, issued_at, course_slug, pdf_url, users!inner(full_name)')
       .eq('id', certificate_id)
       .single();
     if(error) throw error;
 
     const verifyUrl = `${process.env.NEXT_PUBLIC_BASE_URL || ''}/verify/${cert.verify_code}`;
     const pdfNode = await renderCertificatePDF({
-      fullName: cert.users?.full_name || 'Learner',
+      fullName: (cert.users as any)?.full_name || 'Learner',
       issuedAt: cert.issued_at || new Date().toISOString(),
       verifyUrl,
       trainerSignatureUrl: cert.trainer_signature_url,
