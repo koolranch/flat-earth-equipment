@@ -9,7 +9,7 @@ if (!TOKEN) {
 }
 
 const payload = {
-  course_slug: process.env.QA_COURSE || 'forklift_operator',
+  course_slug: process.env.QA_COURSE || 'forklift',
   locale: process.env.QA_LOCALE || 'en',
   email_domain: process.env.QA_EMAIL_DOMAIN || 'example.test',
   prefix: process.env.QA_PREFIX || 'qa'
