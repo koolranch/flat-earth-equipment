@@ -1,40 +1,32 @@
-'use client';
-import React from 'react';
+import { supabaseServer } from '@/lib/supabase/server';
+import { WalletCardButton } from '@/components/certificates/CertificateActions';
 
-export default function Records(){
-  const [rows, setRows] = React.useState<any[]>([]);
-  const [err, setErr] = React.useState<string | null>(null);
-
-  React.useEffect(()=>{(async()=>{
-    try{
-      setErr(null);
-      const r = await fetch('/api/records', { cache: 'no-store' }); // assume you have this; else swap to your existing fetch
-      const j = await r.json();
-      setRows(j?.items || []);
-    }catch(e:any){ setErr(e.message); }
-  })();},[]);
+export default async function RecordsPage() {
+  const s = supabaseServer();
+  const { data: certs } = await s
+    .from('certificates')
+    .select('id, verify_code, pdf_url, wallet_pdf_url, issued_at, expires_at')
+    .order('issued_at', { ascending: false });
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-8 grid gap-6">
+    <div className="max-w-4xl mx-auto p-6 space-y-6">
       <h1 className="text-2xl font-semibold">Your Records</h1>
-      {err && <p className="text-sm text-red-600">{err}</p>}
-      <div className="grid gap-3">
-        {rows.map((c) => {
-          const verifyUrl = c.verify_code ? `${location.origin}/verify/${c.verify_code}` : null;
-          return (
-            <div key={c.id} className="rounded border p-4 flex items-center justify-between gap-4">
-              <div className="min-w-0">
-                <div className="font-medium truncate">{c.course_slug}</div>
-                <div className="text-sm text-slate-600">Issued: {c.issued_at ? new Date(c.issued_at).toLocaleDateString() : '—'}</div>
-              </div>
-              <div className="flex items-center gap-2">
-                {c.pdf_url && <a href={c.pdf_url} target="_blank" rel="noreferrer" className="rounded border px-3 py-2 text-sm bg-white">PDF</a>}
-                {verifyUrl && <a href={verifyUrl} className="rounded bg-slate-900 text-white px-3 py-2 text-sm">Verify</a>}
-              </div>
+      <div className="space-y-4">
+        {(certs || []).map((c) => (
+          <div key={c.id} className="rounded-xl border p-4 flex items-center justify-between">
+            <div className="text-sm">
+              <div className="font-medium">Certificate {c.verify_code}</div>
+              <div className="text-xs opacity-70">Issued {c.issued_at ? new Date(c.issued_at).toLocaleDateString() : '—'} · Expires {c.expires_at ? new Date(c.expires_at).toLocaleDateString() : '—'}</div>
             </div>
-          );
-        })}
+            <div className="flex gap-2">
+              {c.pdf_url && (
+                <a href={c.pdf_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center rounded-lg border px-3 py-2 text-sm">Certificate PDF</a>
+              )}
+              <WalletCardButton certificateId={c.id} url={c.wallet_pdf_url} />
+            </div>
+          </div>
+        ))}
       </div>
-    </main>
+    </div>
   );
 }
