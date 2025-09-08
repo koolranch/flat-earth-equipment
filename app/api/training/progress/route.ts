@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
 export async function GET(req: Request) {
@@ -14,42 +15,72 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: 'courseId required' }, { status: 400 });
     }
 
-    // Get the user's session from cookies (same pattern as dashboard-data)
+    // Get the user's session from cookies - try multiple cookie patterns
     const cookieStore = cookies();
-    const accessToken = cookieStore.get('sb-access-token')?.value;
-    const refreshToken = cookieStore.get('sb-refresh-token')?.value;
+    
+    // Try the dashboard-data pattern first
+    let accessToken = cookieStore.get('sb-access-token')?.value;
+    let refreshToken = cookieStore.get('sb-refresh-token')?.value;
+    
+    // If not found, try the standard Supabase SSR pattern
+    if (!accessToken) {
+      // Look for standard Supabase auth cookies
+      const authCookies = Array.from(cookieStore.getAll()).filter(cookie => 
+        cookie.name.includes('supabase') || cookie.name.includes('sb-')
+      );
+      
+      console.log('[training/progress] Available cookies:', authCookies.map(c => c.name));
+      
+      // Try to find any auth-related cookies
+      for (const cookie of authCookies) {
+        console.log('[training/progress] Cookie:', cookie.name, 'has value:', !!cookie.value);
+      }
+    }
 
     console.log('[training/progress] Auth cookies:', { 
       hasAccessToken: !!accessToken, 
-      hasRefreshToken: !!refreshToken 
+      hasRefreshToken: !!refreshToken,
+      totalCookies: cookieStore.getAll().length
     });
 
-    if (!accessToken) {
-      console.log('[training/progress] No access token found');
-      return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
-    }
-
-    // Create regular client to get user info
-    const supabaseClient = createClient(
+    // Try using supabaseServer as fallback
+    const supabaseServer = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return cookieStore.get(name)?.value;
+          },
+          set() {},
+          remove() {},
+        },
+      }
     );
-    
-    // Set session for regular client
-    const { data: { user }, error: userError } = await supabaseClient.auth.setSession({
-      access_token: accessToken,
-      refresh_token: refreshToken || ''
+
+    const { data: { user }, error: userError } = await supabaseServer.auth.getUser();
+    console.log('[training/progress] Supabase server auth result:', { 
+      hasUser: !!user, 
+      userId: user?.id, 
+      email: user?.email,
+      error: userError?.message 
     });
 
-    console.log('[training/progress] User auth:', user ? `${user.id} (${user.email})` : 'none', userError?.message);
-    
     if (userError || !user) {
-      console.log('[training/progress] Invalid session');
-      return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+      console.log('[training/progress] No valid user session found');
+      return NextResponse.json({ 
+        error: 'unauthorized',
+        debug: {
+          hasAccessToken: !!accessToken,
+          hasRefreshToken: !!refreshToken,
+          userError: userError?.message,
+          totalCookies: cookieStore.getAll().length
+        }
+      }, { status: 401 });
     }
 
     // Get enrollment for this user and course
-    const { data: enrollment, error: enrollError } = await supabaseClient
+    const { data: enrollment, error: enrollError } = await supabaseServer
       .from('enrollments')
       .select('id, progress_pct, passed, resume_state')
       .eq('user_id', user.id)
@@ -64,7 +95,7 @@ export async function GET(req: Request) {
     }
 
     // Get modules for this course
-    const { data: modules, error: modulesError } = await supabaseClient
+    const { data: modules, error: modulesError } = await supabaseServer
       .from('modules')
       .select('id, title, order, type')
       .eq('course_id', courseId)
