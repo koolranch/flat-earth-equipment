@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 
 async function fetchVerification(code: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ''}/api/verify/${code}`, { cache: 'no-store' });
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const res = await fetch(`${baseUrl}/api/verify/${code}`, { cache: 'no-store' });
   if (!res.ok) return null;
   return res.json();
 }
@@ -38,7 +39,8 @@ function CopyButton({ url }: { url: string }) {
 
 export default async function VerifyPage({ params }: { params: { code: string } }) {
   const data = await fetchVerification(params.code);
-  const url = `${process.env.NEXT_PUBLIC_BASE_URL || ''}/verify/${params.code}`;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const url = `${baseUrl}/verify/${params.code}`;
 
   if (!data?.ok) {
     return (
