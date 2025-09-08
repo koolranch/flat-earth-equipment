@@ -66,6 +66,76 @@ export async function GET(req: Request) {
       error: userError?.message 
     });
 
+    // If SSR auth failed but we have cookies, try manual session validation
+    if ((!user || userError) && accessToken && refreshToken) {
+      console.log('[training/progress] SSR auth failed, trying manual session validation');
+      
+      const manualClient = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      );
+      
+      const { data: sessionData, error: sessionError } = await manualClient.auth.setSession({
+        access_token: accessToken,
+        refresh_token: refreshToken
+      });
+      
+      console.log('[training/progress] Manual session result:', {
+        hasUser: !!sessionData.user,
+        userId: sessionData.user?.id,
+        email: sessionData.user?.email,
+        error: sessionError?.message
+      });
+      
+      if (sessionData.user && !sessionError) {
+        // Use the manually validated user
+        const validatedUser = sessionData.user;
+        
+        // Get enrollment for this user and course using manual client
+        const { data: enrollment, error: enrollError } = await manualClient
+          .from('enrollments')
+          .select('id, progress_pct, passed, resume_state')
+          .eq('user_id', validatedUser.id)
+          .eq('course_id', courseId)
+          .single();
+
+        console.log('[training/progress] Manual enrollment lookup:', enrollment ? `found ${enrollment.id}` : 'none', enrollError?.message);
+
+        if (enrollError || !enrollment) {
+          console.log('[training/progress] No enrollment found for user:', validatedUser.id, 'course:', courseId);
+          return NextResponse.json({ error: 'No enrollment found', details: enrollError?.message }, { status: 404 });
+        }
+
+        // Get modules for this course
+        const { data: modules, error: modulesError } = await manualClient
+          .from('modules')
+          .select('id, title, order, type')
+          .eq('course_id', courseId)
+          .order('order');
+
+        if (modulesError) {
+          return NextResponse.json({ error: 'Failed to load modules' }, { status: 500 });
+        }
+
+        // Build progress response
+        const stepsLeft = (modules || []).map(m => ({
+          route: `/module/${m.id}`,
+          label: m.title
+        }));
+
+        const progress = {
+          pct: enrollment.progress_pct || 0,
+          stepsLeft,
+          next: stepsLeft[0] || null,
+          canTakeExam: (enrollment.progress_pct || 0) >= 80,
+          modules: modules || []
+        };
+
+        console.log('[training/progress] Manual auth success, returning progress:', { pct: progress.pct, moduleCount: modules?.length });
+        return NextResponse.json(progress);
+      }
+    }
+
     if (userError || !user) {
       console.log('[training/progress] No valid user session found');
       return NextResponse.json({ 
