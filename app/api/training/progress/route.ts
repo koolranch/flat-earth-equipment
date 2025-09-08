@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabaseService } from '@/lib/supabase/service.server';
+import { supabaseServer } from '@/lib/supabase/server';
 
 export async function GET(req: Request) {
   try {
@@ -10,9 +10,9 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: 'courseId required' }, { status: 400 });
     }
 
-    const supabase = supabaseService();
+    const supabase = supabaseServer();
     
-    // Get current user
+    // Get current user from session
     const { data: { user }, error: userError } = await supabase.auth.getUser();
     if (userError || !user) {
       return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
