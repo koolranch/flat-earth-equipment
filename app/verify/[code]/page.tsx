@@ -1,51 +1,119 @@
-import { supabaseServer } from '@/lib/supabase/server';
-import Script from 'next/script';
+import type { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-
-async function getCert(code:string){
-  const svc = supabaseServer();
-  const { data } = await svc.from('certificates')
-    .select('id, trainee_name, course_title, pdf_url, verification_code, issued_at, expires_at, status, employer_evaluations(practical_pass)')
-    .eq('verification_code', code)
-    .maybeSingle();
-  return data;
+async function fetchVerification(code: string) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ''}/api/verify/${code}`, { cache: 'no-store' });
+  if (!res.ok) return null;
+  return res.json();
 }
 
-export default async function Page({ params, searchParams }:{ params:{ code:string }, searchParams: { src?: string } }){
-  const { cookies } = await import('next/headers');
-  const { getDict, tFrom } = await import('@/lib/i18n');
-  
-  const locale = (cookies().get('locale')?.value === 'es') ? 'es' : 'en';
-  const dict = getDict(locale as 'en'|'es');
-  const t = (path: string) => tFrom(dict, path);
-  
-  const cert = await getCert(params.code);
-  const src = searchParams?.src || 'direct';
-  const pillCls = (cert?.status==='valid') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
-  
+export async function generateMetadata({ params }: { params: { code: string } }): Promise<Metadata> {
+  const data = await fetchVerification(params.code);
+  const titleBase = 'Forklift Certification Verification';
+  if (!data?.ok) return { title: `${titleBase} · Not found` };
+  const name = data.certificate?.full_name || 'Learner';
+  const valid = data.status === 'valid';
+  const title = `${titleBase} · ${valid ? 'Valid' : 'Revoked'} · ${name}`;
+  return {
+    title,
+    openGraph: {
+      title,
+      description: valid ? `Valid certificate for ${name}` : `Certificate revoked for ${name}`,
+      type: 'website'
+    },
+    twitter: { card: 'summary', title }
+  };
+}
+
+function CopyButton({ url }: { url: string }) {
+  'use client';
+  const [copied, setCopied] = require('react').useState(false);
   return (
-    <main className='container mx-auto p-4'>
-      <h1 className='text-2xl font-bold mb-3'>{t('verify.title')}</h1>
-      {!cert ? (
-        <div className='rounded-2xl border p-4'>{t('verify.not_found')}</div>
-      ):(
-        <article className='rounded-2xl border p-4 grid gap-2 bg-white'>
-          <div className='flex items-center gap-2'>
-            <span className={`text-xs px-2 py-0.5 rounded-full ${pillCls}`}>{cert.status==='valid'? t('certificate.status_valid') : t('certificate.status_expired')}</span>
-            <span className='text-xs text-slate-500'>{t('verify.code_label')}: <span className='font-mono'>{cert.verification_code}</span></span>
+    <button
+      onClick={async () => { await navigator.clipboard.writeText(url); setCopied(true); setTimeout(()=>setCopied(false), 1500); }}
+      className="rounded bg-slate-900 text-white px-3 py-2 text-sm">
+      {copied ? 'Copied' : 'Copy link'}
+    </button>
+  );
+}
+
+export default async function VerifyPage({ params }: { params: { code: string } }) {
+  const data = await fetchVerification(params.code);
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL || ''}/verify/${params.code}`;
+
+  if (!data?.ok) {
+    return (
+      <main className="mx-auto max-w-3xl px-4 py-12 grid gap-6">
+        <h1 className="text-2xl font-semibold">Certificate Verification</h1>
+        <div className="rounded border border-rose-500 p-4">
+          <div className="font-medium text-rose-700">Not found</div>
+          <p className="text-sm text-slate-700">We couldn't find a certificate for code <span className="font-mono">{params.code}</span>.</p>
+        </div>
+      </main>
+    );
+  }
+
+  const c = data.certificate;
+  const valid = data.status === 'valid';
+
+  return (
+    <main className="mx-auto max-w-3xl px-4 py-12 grid gap-8">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-semibold">Certificate Verification</h1>
+        <CopyButton url={url} />
+      </div>
+
+      <section className={`rounded border p-5 ${valid ? 'border-green-600' : 'border-amber-600'}`}>
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <div className="text-sm uppercase tracking-wide text-slate-500">Status</div>
+            <div className={`text-lg font-semibold ${valid ? 'text-green-700' : 'text-amber-700'}`}>{valid ? 'Valid' : 'Revoked'}</div>
           </div>
-          <div className='text-sm'><b>{t('verify.trainee')}:</b> {cert.trainee_name}</div>
-          <div className='text-sm'><b>{t('verify.course')}:</b> {cert.course_title}</div>
-          <div className='text-xs text-slate-700'><b>{t('verify.issued')}:</b> {new Date(cert.issued_at).toLocaleDateString()} • <b>{t('verify.expires')}:</b> {cert.expires_at ? new Date(cert.expires_at).toLocaleDateString() : '—'}</div>
-          {cert.pdf_url && (<a className='rounded-2xl bg-[#F76511] text-white px-3 py-1 text-sm w-fit' href={cert.pdf_url} target='_blank'>{t('verify.view_pdf')}</a>)}
-          <div className='text-[11px] text-slate-500 mt-2'>{t('verify.employer_notice')}</div>
-          {cert.employer_evaluations?.[0]?.practical_pass !== undefined && (
-            <div className='text-xs text-green-700 mt-2'>• {t('evaluation.on_file')}</div>
+          <div>
+            <div className="text-sm uppercase tracking-wide text-slate-500">Verify Code</div>
+            <div className="font-mono text-slate-800">{c.verify_code}</div>
+          </div>
+          <div>
+            <div className="text-sm uppercase tracking-wide text-slate-500">Issued</div>
+            <div className="text-slate-800">{c.issued_at ? new Date(c.issued_at).toLocaleDateString() : '—'}</div>
+          </div>
+        </div>
+        <div className="mt-4 grid gap-1">
+          <div className="text-sm uppercase tracking-wide text-slate-500">Learner</div>
+          <div className="text-lg text-slate-900">{c.full_name || 'Learner'}</div>
+          <div className="text-sm text-slate-600">Course: {c.course_slug}</div>
+        </div>
+
+        {(!valid && c.revoked_reason) && (
+          <p className="mt-3 text-sm text-amber-800">Reason: {c.revoked_reason}</p>
+        )}
+
+        {(c.trainer_signature_url || c.trainee_signature_url) && (
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {c.trainee_signature_url && (
+              <div>
+                <div className="text-sm text-slate-500 mb-1">Trainee Signature</div>
+                <img src={c.trainee_signature_url} alt="Trainee signature" className="max-h-24 object-contain border rounded p-2 bg-white" />
+              </div>
+            )}
+            {c.trainer_signature_url && (
+              <div>
+                <div className="text-sm text-slate-500 mb-1">Trainer Signature</div>
+                <img src={c.trainer_signature_url} alt="Trainer signature" className="max-h-24 object-contain border rounded p-2 bg-white" />
+              </div>
+            )}
+          </div>
+        )}
+
+        <div className="mt-6 flex items-center gap-3">
+          {c.pdf_url && (
+            <a href={c.pdf_url} className="rounded bg-white border px-3 py-2 text-sm" target="_blank" rel="noreferrer">Download full certificate PDF</a>
           )}
-        </article>
-      )}
-      <Script id='vfy-analytics' dangerouslySetInnerHTML={{ __html: `window.analytics?.track?.('certificate_verify_view', { code: ${JSON.stringify(params.code)}, src: ${JSON.stringify(src)} });` }} />
+          <form action="/api/certificates/wallet" method="post">
+            <input type="hidden" name="code" value={c.verify_code} />
+            <button className="rounded bg-slate-900 text-white px-3 py-2 text-sm" type="submit">Get wallet card PDF</button>
+          </form>
+        </div>
+      </section>
     </main>
   );
 }
