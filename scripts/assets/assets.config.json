@@ -1,0 +1,13 @@
+{
+  "assets": [
+    {
+      "id": "sample-badge",
+      "template": "badge.svg",
+      "outPath": "public/generated/sample-badge.png",
+      "uploadPath": "generated/sample-badge.png",
+      "format": "png",
+      "width": 200,
+      "height": 200
+    }
+  ]
+}
