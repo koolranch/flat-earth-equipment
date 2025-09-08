@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json().catch(() => ({}));
-    const course_slug = (body.course_slug || 'forklift_operator') as string;
+    const course_slug = (body.course_slug || 'forklift') as string;
     const locale = (body.locale || process.env.NEXT_PUBLIC_DEFAULT_LOCALE || 'en') as string;
     const emailDomain = (body.email_domain || 'example.test') as string; // you can override when calling
 
@@ -52,19 +52,41 @@ export async function POST(req: Request) {
 
     const userId = created.user.id;
 
-    // Optional: create an enrollment if your schema uses it
+    // Look up the course by slug to get course_id
+    let courseId: string | null = null;
     try {
-      const { error: enrollErr } = await supabase
-        .from('enrollments')
-        .insert({ user_id: userId, course_slug, status: 'active', locale })
-        .select()
+      const { data: course, error: courseErr } = await supabase
+        .from('courses')
+        .select('id')
+        .eq('slug', course_slug)
         .single();
-      if (enrollErr) {
-        // Non-fatal; return creds even if enrollment insert fails
-        console.warn('Enrollment insert warning:', enrollErr.message);
+      
+      if (course && !courseErr) {
+        courseId = course.id;
       }
     } catch (e) {
-      console.warn('Enrollment insert exception:', (e as Error).message);
+      console.warn('Course lookup failed:', (e as Error).message);
+    }
+
+    // Create enrollment if we found the course
+    if (courseId) {
+      try {
+        const { error: enrollErr } = await supabase
+          .from('enrollments')
+          .insert({ 
+            user_id: userId, 
+            course_id: courseId,
+            progress_pct: 0,
+            passed: false
+          })
+          .select()
+          .single();
+        if (enrollErr) {
+          console.warn('Enrollment insert warning:', enrollErr.message);
+        }
+      } catch (e) {
+        console.warn('Enrollment insert exception:', (e as Error).message);
+      }
     }
 
     return NextResponse.json({

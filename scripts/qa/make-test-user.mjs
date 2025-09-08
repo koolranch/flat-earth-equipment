@@ -19,7 +19,7 @@ const args = Object.fromEntries(process.argv.slice(2).map(a => {
   return m ? [m[1], m[2]] : [a.replace(/^--/, ''), true];
 }));
 
-const course = args.course || 'forklift_operator';
+const course = args.course || 'forklift';
 const locale = args.locale || 'en';
 const prefix = args.prefix || 'qa';
 const domain = args.domain || 'example.test';
@@ -58,14 +58,23 @@ try {
 
 // 3) Best-effort: enroll user in the default course if table exists
 try {
-  await supabase.from('enrollments').insert({
-    user_id: user.id,
-    course_slug: course,
-    status: 'active',
-    source: 'qa-script'
-  });
+  // Look up course_id by slug
+  const { data: courseData } = await supabase
+    .from('courses')
+    .select('id')
+    .eq('slug', course)
+    .single();
+  
+  if (courseData?.id) {
+    await supabase.from('enrollments').insert({
+      user_id: user.id,
+      course_id: courseData.id,
+      progress_pct: 0,
+      passed: false
+    });
+  }
 } catch (e) {
-  // ignore if table not present
+  // ignore if table not present or course not found
 }
 
 const creds = {

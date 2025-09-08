@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export default function QAMakeUserPage() {
   const [token, setToken] = useState('');
-  const [course, setCourse] = useState('forklift_operator');
+  const [course, setCourse] = useState('forklift');
   const [locale, setLocale] = useState(process.env.NEXT_PUBLIC_DEFAULT_LOCALE || 'en');
   const [prefix, setPrefix] = useState('qa');
   const [domain, setDomain] = useState('example.test');
