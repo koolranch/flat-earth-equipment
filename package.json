@@ -116,7 +116,9 @@
     "alt:c3": "node scripts/svg-tools/upsert-alt.mjs training/icons/control-icons.svg 'Sprite sheet of forklift control icons: horn, parking brake, ignition key, lift up/down, tilt forward/back, level forks, lights, reverse beeper.'",
     "alt:c4": "node scripts/svg-tools/upsert-alt.mjs training/icons/shutdown-steps.svg 'Sprite sheet for forklift shutdown steps: 1 Neutral, 2 Steer straight, 3 Set parking brake, 4 Forks down, 5 Key off, 6 Connect charger, 7 Wheel chock.'",
     "alt:c5": "node scripts/svg-tools/upsert-alt.mjs training/icons/inspection-icons.svg 'Daily inspection icons: tires, forks, chains, horn, lights, hydraulics, leaks, data plate.'",
-    "qa:assets:preflight": "node scripts/qa-assets-preflight.mjs"
+    "qa:assets:preflight": "node scripts/qa-assets-preflight.mjs",
+    "go-live:audit": "node scripts/go-live-audit.mjs",
+    "go-live": "npm run build-and-qa && BASE_URL=$NEXT_PUBLIC_BASE_URL npm run go-live:audit"
   },
   "keywords": [],
   "author": "",
@@ -226,7 +228,7 @@
     "shippo": "^2.15.0",
     "signature_pad": "^5.0.10",
     "tailwind-merge": "^2.2.1",
-    "undici": "^7.8.0",
+    "undici": "^7.15.0",
     "uuid": "^11.1.0",
     "zustand": "^5.0.5"
   }
