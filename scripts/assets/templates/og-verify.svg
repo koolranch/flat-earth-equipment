@@ -1,0 +1,14 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'>
+  <rect width='1200' height='630' fill='white'/>
+  <!-- Shield + QR hint -->
+  <path d='M600 150 l120 60 v120 c0 90 -120 150 -120 150 s-120 -60 -120 -150 V210z' fill='none' stroke='{SLATE}' stroke-width='6'/>
+  <!-- QR-ish blocks -->
+  <g fill='{SLATE}'>
+    <rect x='520' y='240' width='28' height='28'/>
+    <rect x='560' y='240' width='14' height='14'/>
+    <rect x='560' y='260' width='14' height='14'/>
+    <rect x='600' y='240' width='28' height='28'/>
+    <rect x='600' y='280' width='14' height='14'/>
+  </g>
+  <circle cx='720' cy='220' r='18' fill='{ORANGE}'/>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='2550' height='3300'>
+  <rect width='2550' height='3300' fill='white'/>
+  <!-- Border -->
+  <rect x='90' y='90' width='2370' height='3120' fill='none' stroke='{SLATE}' stroke-width='6'/>
+  <!-- Accent rule -->
+  <rect x='90' y='260' width='2370' height='10' fill='{ORANGE}'/>
+  <!-- Watermark -->
+  <g opacity='0.06' stroke='{SLATE}' fill='none'>
+    <rect x='800' y='1600' width='950' height='160' rx='20'/>
+    <circle cx='950' cy='1750' r='40'/>
+    <circle cx='1180' cy='1740' r='50'/>
+    <rect x='1550' y='1620' width='30' height='140'/>
+  </g>
+</svg>
