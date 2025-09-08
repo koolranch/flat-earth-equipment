@@ -1,4 +1,5 @@
 import 'server-only';
+import OrientationChips from '@/components/training/OrientationChips';
 
 export default function Page(){
   return (
@@ -15,29 +16,14 @@ export default function Page(){
           <li>Certificates are issued instantly and saved to Records.</li>
         </ul>
       </section>
-      <Warmup />
+      <section className="rounded-2xl border p-4 md:p-6 bg-white dark:bg-slate-900 dark:border-slate-700">
+        <h2 className="text-lg font-semibold">10-second warm-up</h2>
+        <p className="text-sm text-slate-600 dark:text-slate-300 mb-3 md:mb-4">Tap each step. This is how the demos feel.</p>
+        <OrientationChips />
+      </section>
       <div>
         <a href="/training" className="btn inline-flex bg-[#F76511] text-white shadow-lg" aria-label="Start safety training course">Start training</a>
       </div>
     </main>
-  );
-}
-
-function Warmup(){
-  const steps = [
-    'Tap the horn at a corner',
-    'Lower the forks',
-    'Set the parking brake'
-  ];
-  return (
-    <section className="rounded-2xl border p-4 md:p-6 bg-white dark:bg-slate-900 dark:border-slate-700">
-      <h2 className="text-lg font-semibold">10-second warm-up</h2>
-      <p className="text-sm text-slate-600 dark:text-slate-300">Tap each step. This is how the demos feel.</p>
-      <ul className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2">
-        {steps.map((s,i)=> (
-          <li key={i}><button className="w-full rounded-xl border px-3 py-2 text-left">{s}</button></li>
-        ))}
-      </ul>
-    </section>
   );
 }
