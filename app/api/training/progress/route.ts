@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { supabaseServer } from '@/lib/supabase/server';
+import { createClient } from '@supabase/supabase-js';
+import { cookies } from 'next/headers';
 
 export async function GET(req: Request) {
   try {
@@ -13,18 +14,42 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: 'courseId required' }, { status: 400 });
     }
 
-    const supabase = supabaseServer();
+    // Get the user's session from cookies (same pattern as dashboard-data)
+    const cookieStore = cookies();
+    const accessToken = cookieStore.get('sb-access-token')?.value;
+    const refreshToken = cookieStore.get('sb-refresh-token')?.value;
+
+    console.log('[training/progress] Auth cookies:', { 
+      hasAccessToken: !!accessToken, 
+      hasRefreshToken: !!refreshToken 
+    });
+
+    if (!accessToken) {
+      console.log('[training/progress] No access token found');
+      return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+    }
+
+    // Create regular client to get user info
+    const supabaseClient = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
     
-    // Get current user from session
-    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    // Set session for regular client
+    const { data: { user }, error: userError } = await supabaseClient.auth.setSession({
+      access_token: accessToken,
+      refresh_token: refreshToken || ''
+    });
+
     console.log('[training/progress] User auth:', user ? `${user.id} (${user.email})` : 'none', userError?.message);
     
     if (userError || !user) {
+      console.log('[training/progress] Invalid session');
       return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
     }
 
     // Get enrollment for this user and course
-    const { data: enrollment, error: enrollError } = await supabase
+    const { data: enrollment, error: enrollError } = await supabaseClient
       .from('enrollments')
       .select('id, progress_pct, passed, resume_state')
       .eq('user_id', user.id)
@@ -34,11 +59,12 @@ export async function GET(req: Request) {
     console.log('[training/progress] Enrollment lookup:', enrollment ? `found ${enrollment.id}` : 'none', enrollError?.message);
 
     if (enrollError || !enrollment) {
+      console.log('[training/progress] No enrollment found for user:', user.id, 'course:', courseId);
       return NextResponse.json({ error: 'No enrollment found', details: enrollError?.message }, { status: 404 });
     }
 
     // Get modules for this course
-    const { data: modules, error: modulesError } = await supabase
+    const { data: modules, error: modulesError } = await supabaseClient
       .from('modules')
       .select('id, title, order, type')
       .eq('course_id', courseId)
