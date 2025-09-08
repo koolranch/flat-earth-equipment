@@ -126,7 +126,10 @@
     "assets:upload:min": "node scripts/assets/upload.min.mjs",
     "qa:prod:smoke": "node scripts/qa/prod-smoke.mjs",
     "qa:links": "linkinator ${BASE_URL} --recurse --skip 'mailto:|tel:|.*supabase\\.co/storage/.*' --verbosity error",
-    "qa:prod": "npm run qa:prod:smoke && npm run qa:links && npm run qa:a11y"
+    "qa:prod": "npm run qa:prod:smoke && npm run qa:links && npm run qa:a11y",
+    "qa:user:new": "node scripts/qa/make-test-user.mjs --course=forklift_operator --locale=en --prefix=qa --domain=example.test",
+    "qa:user:new:file": "mkdir -p tmp && node scripts/qa/make-test-user.mjs --course=forklift_operator --locale=en --prefix=qa --domain=example.test > tmp/qa-last-user.json && cat tmp/qa-last-user.json",
+    "qa:live-user": "node scripts/qa/create-live-user.mjs"
   },
   "keywords": [],
   "author": "",
