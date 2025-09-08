@@ -49,15 +49,20 @@ function TrainingContent() {
     if (!courseId) return;
     (async () => {
       try {
+        console.log('🔍 Fetching progress for courseId:', courseId);
         const r = await fetch(`/api/training/progress?courseId=${encodeURIComponent(courseId)}`);
+        console.log('📡 Progress API response status:', r.status);
+        
         if (r.ok) {
           const data = await r.json();
+          console.log('✅ Progress data received:', data);
           setProg(data);
         } else {
-          console.error('Progress API error:', r.status, await r.text());
+          const errorText = await r.text();
+          console.error('❌ Progress API error:', r.status, errorText);
         }
       } catch (e) {
-        console.error('Progress fetch error:', e);
+        console.error('❌ Progress fetch error:', e);
       } finally {
         setLoading(false);
       }
