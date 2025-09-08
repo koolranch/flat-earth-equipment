@@ -121,7 +121,9 @@
     "go-live": "npm run build-and-qa && BASE_URL=$NEXT_PUBLIC_BASE_URL npm run go-live:audit",
     "qa:email": "node scripts/email-deliverability-audit.mjs",
     "gen:asset": "node scripts/assets/gen.mjs",
-    "gen:asset:upload": "ASSET_UPLOAD=1 node scripts/assets/gen.mjs"
+    "gen:asset:upload": "ASSET_UPLOAD=1 node scripts/assets/gen.mjs",
+    "qa:assets:where": "node scripts/assets/where.mjs",
+    "assets:upload:min": "node scripts/assets/upload.min.mjs"
   },
   "keywords": [],
   "author": "",

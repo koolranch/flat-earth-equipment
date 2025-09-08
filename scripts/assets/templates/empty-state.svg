@@ -1,0 +1,18 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='900'>
+  <rect width='1200' height='900' fill='white'/>
+  <ellipse cx='600' cy='640' rx='360' ry='40' fill='{G200}'/>
+  <g fill='none' stroke='{SLATE}' stroke-width='6'>
+    <rect x='420' y='540' width='320' height='56' rx='10'/>
+    <circle cx='470' cy='596' r='24'/>
+    <circle cx='688' cy='592' r='32'/>
+  </g>
+  <g>
+    <rect x='710' y='540' width='18' height='120' fill='{SLATE}'/>
+    <rect x='732' y='540' width='12' height='110' fill='{SLATE}'/>
+  </g>
+  <g>
+    <rect x='600' y='380' width='22' height='22' fill='{ORANGE}'/>
+    <rect x='630' y='380' width='22' height='22' fill='{SLATE}'/>
+    <rect x='600' y='410' width='22' height='22' fill='{SLATE}'/>
+  </g>
+</svg>

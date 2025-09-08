@@ -1,0 +1,12 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1280' height='720'>
+  <rect width='1280' height='720' fill='white'/>
+  <g stroke='{G300}' stroke-width='2'>
+    <line x1='120' y1='560' x2='1160' y2='560'/>
+  </g>
+  <g fill='none' stroke='{SLATE}' stroke-width='6'>
+    <rect x='360' y='420' width='360' height='56' rx='12'/>
+    <circle cx='420' cy='476' r='26'/>
+    <circle cx='640' cy='472' r='34'/>
+  </g>
+  <circle cx='940' cy='340' r='20' fill='{ORANGE}'/>
+</svg>
