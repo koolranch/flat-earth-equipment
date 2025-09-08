@@ -53,9 +53,11 @@ function TrainingContent() {
         if (r.ok) {
           const data = await r.json();
           setProg(data);
+        } else {
+          console.error('Progress API error:', r.status, await r.text());
         }
-      } catch {
-        // Handle error
+      } catch (e) {
+        console.error('Progress fetch error:', e);
       } finally {
         setLoading(false);
       }

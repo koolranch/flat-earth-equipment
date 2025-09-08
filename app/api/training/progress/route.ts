@@ -6,7 +6,10 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const courseId = searchParams.get('courseId');
     
+    console.log('[training/progress] Request for courseId:', courseId);
+    
     if (!courseId) {
+      console.log('[training/progress] Missing courseId');
       return NextResponse.json({ error: 'courseId required' }, { status: 400 });
     }
 
@@ -14,6 +17,8 @@ export async function GET(req: Request) {
     
     // Get current user from session
     const { data: { user }, error: userError } = await supabase.auth.getUser();
+    console.log('[training/progress] User auth:', user ? `${user.id} (${user.email})` : 'none', userError?.message);
+    
     if (userError || !user) {
       return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
     }
@@ -26,8 +31,10 @@ export async function GET(req: Request) {
       .eq('course_id', courseId)
       .single();
 
+    console.log('[training/progress] Enrollment lookup:', enrollment ? `found ${enrollment.id}` : 'none', enrollError?.message);
+
     if (enrollError || !enrollment) {
-      return NextResponse.json({ error: 'No enrollment found' }, { status: 404 });
+      return NextResponse.json({ error: 'No enrollment found', details: enrollError?.message }, { status: 404 });
     }
 
     // Get modules for this course
