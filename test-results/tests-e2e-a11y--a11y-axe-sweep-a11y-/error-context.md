@@ -1,0 +1,357 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main"
+  - link "Skip to content" [ref=e3] [cursor=pointer]:
+    - /url: "#main"
+  - link "Skip to content" [ref=e4] [cursor=pointer]:
+    - /url: "#content"
+  - banner [ref=e5]:
+    - generic [ref=e6]:
+      - link "Flat Earth Safety" [ref=e7] [cursor=pointer]:
+        - /url: /training
+      - navigation "Global navigation" [ref=e8]:
+        - link "Training" [ref=e9] [cursor=pointer]:
+          - /url: /training
+        - link "Safety" [ref=e10] [cursor=pointer]:
+          - /url: /safety
+        - link "Trainer" [ref=e11] [cursor=pointer]:
+          - /url: /trainer
+        - link "Records" [ref=e12] [cursor=pointer]:
+          - /url: /records
+        - generic "Language selector" [ref=e13]:
+          - button "Switch to English" [ref=e14] [cursor=pointer]: EN
+          - button "Cambiar a español" [ref=e15] [cursor=pointer]: ES
+  - navigation [ref=e16]:
+    - generic [ref=e18]:
+      - link "Flat Earth Equipment Flat Earth Equipment" [ref=e20] [cursor=pointer]:
+        - /url: /
+        - img "Flat Earth Equipment" [ref=e21] [cursor=pointer]
+        - generic [ref=e22] [cursor=pointer]: Flat Earth Equipment
+      - generic [ref=e23]:
+        - link "Parts" [ref=e25] [cursor=pointer]:
+          - /url: /parts
+        - link "Rent Equipment" [ref=e27] [cursor=pointer]:
+          - /url: /rent-equipment
+        - link "Safety" [ref=e29] [cursor=pointer]:
+          - /url: /safety
+        - link "About" [ref=e31] [cursor=pointer]:
+          - /url: /about
+        - link "Contact" [ref=e33] [cursor=pointer]:
+          - /url: /contact
+        - link "Shopping cart" [ref=e34] [cursor=pointer]:
+          - /url: /cart
+          - img [ref=e35] [cursor=pointer]
+        - button "Change language to Español" [ref=e39] [cursor=pointer]:
+          - img [ref=e40] [cursor=pointer]: 🇺🇸
+          - generic [ref=e41] [cursor=pointer]: EN
+          - generic [ref=e42] [cursor=pointer]: / ES
+  - main [ref=e43]:
+    - main [ref=e44]:
+      - generic [ref=e45]:
+        - img "Western mountain range background representing rugged industrial service region" [ref=e46]
+        - generic [ref=e49]:
+          - heading "Industrial Parts & Rentals Western Tough." [level=1] [ref=e50]:
+            - text: Industrial Parts & Rentals
+            - generic [ref=e51]: Western Tough.
+          - paragraph [ref=e52]: Precision-fit components and dispatch-ready equipment — fast quotes, same-day shipping, and no runaround.
+          - generic [ref=e53]:
+            - generic [ref=e57]:
+              - combobox "Search by SKU or part name" [ref=e58]
+              - generic:
+                - img
+              - button [ref=e59] [cursor=pointer]:
+                - img [ref=e60] [cursor=pointer]
+            - link "View All Parts" [ref=e62] [cursor=pointer]:
+              - /url: /parts
+      - generic [ref=e65]:
+        - heading "Available for Rent" [level=2] [ref=e66]
+        - generic [ref=e67]:
+          - link "Forklift Forklift View available models" [ref=e68] [cursor=pointer]:
+            - /url: /rentals/forklift
+            - img "Forklift" [ref=e69] [cursor=pointer]
+            - heading "Forklift" [level=3] [ref=e70] [cursor=pointer]
+            - paragraph [ref=e71] [cursor=pointer]: View available models
+          - link "Scissor Lift Scissor Lift View available models" [ref=e72] [cursor=pointer]:
+            - /url: /rentals/scissor-lift
+            - img "Scissor Lift" [ref=e73] [cursor=pointer]
+            - heading "Scissor Lift" [level=3] [ref=e74] [cursor=pointer]
+            - paragraph [ref=e75] [cursor=pointer]: View available models
+          - link "Telehandler Telehandler View available models" [ref=e76] [cursor=pointer]:
+            - /url: /rentals/telehandler
+            - img "Telehandler" [ref=e77] [cursor=pointer]
+            - heading "Telehandler" [level=3] [ref=e78] [cursor=pointer]
+            - paragraph [ref=e79] [cursor=pointer]: View available models
+          - link "Compact Utility Loader Compact Utility Loader View available models" [ref=e80] [cursor=pointer]:
+            - /url: /rentals/compact-utility-loader
+            - img "Compact Utility Loader" [ref=e81] [cursor=pointer]
+            - heading "Compact Utility Loader" [level=3] [ref=e82] [cursor=pointer]
+            - paragraph [ref=e83] [cursor=pointer]: View available models
+        - link "Request Rental Quote" [ref=e85] [cursor=pointer]:
+          - /url: /quote
+      - generic [ref=e87]:
+        - heading "Need a Fast Quote?" [level=2] [ref=e88]
+        - paragraph [ref=e89]: We'll get back to you within 1 hour — straight talk on parts & rentals.
+        - region "Need a Fast Quote?" [ref=e90]:
+          - heading "Need a Fast Quote?" [level=2] [ref=e91]
+          - paragraph [ref=e92]: Parts or equipment rental—with a reply in under 1 hour.
+          - generic [ref=e93]:
+            - generic [ref=e94]:
+              - generic [ref=e95]: "I need a quote for:"
+              - combobox "I need a quote for:" [ref=e96]:
+                - option "Parts" [selected]
+                - option "Rental Equipment"
+            - generic [ref=e97]:
+              - generic [ref=e98]: "Make (e.g., Toyota):"
+              - textbox "Make (e.g., Toyota):" [ref=e99]
+            - generic [ref=e100]:
+              - generic [ref=e101]: "Model (e.g., 8FGCU25):"
+              - textbox "Model (e.g., 8FGCU25):" [ref=e102]
+            - generic [ref=e103]:
+              - generic [ref=e104]: "Part Number or Description:"
+              - textbox "Part Number or Description:" [ref=e105]
+            - generic [ref=e106]:
+              - generic [ref=e107]: "Email Address:"
+              - textbox "Email Address:" [ref=e108]
+            - button "Request a Fast Quote" [ref=e109] [cursor=pointer]
+            - paragraph [ref=e110]: 🚚 Same-day dispatch • 📦 Shipped Nationwide • 🤠 Western U.S. Focus
+      - generic [ref=e112]:
+        - heading "Shop by Category" [level=2] [ref=e113]
+        - generic [ref=e114]:
+          - link "Forklift Parts" [ref=e115] [cursor=pointer]:
+            - /url: /category/forklift-parts
+            - img [ref=e117] [cursor=pointer]
+            - heading "Forklift Parts" [level=3] [ref=e119] [cursor=pointer]
+          - link "Scissor Lift Parts" [ref=e120] [cursor=pointer]:
+            - /url: /category/scissor-lift-parts
+            - img [ref=e122] [cursor=pointer]
+            - heading "Scissor Lift Parts" [level=3] [ref=e125] [cursor=pointer]
+          - link "Telehandler Parts" [ref=e126] [cursor=pointer]:
+            - /url: /category/telehandler-parts
+            - img [ref=e128] [cursor=pointer]
+            - heading "Telehandler Parts" [level=3] [ref=e133] [cursor=pointer]
+          - link "Hydraulic Components" [ref=e134] [cursor=pointer]:
+            - /url: /category/hydraulic-components
+            - img [ref=e136] [cursor=pointer]
+            - heading "Hydraulic Components" [level=3] [ref=e139] [cursor=pointer]
+          - link "Electrical Systems" [ref=e140] [cursor=pointer]:
+            - /url: /category/electrical-systems
+            - img [ref=e142] [cursor=pointer]
+            - heading "Electrical Systems" [level=3] [ref=e144] [cursor=pointer]
+          - link "Controllers" [ref=e145] [cursor=pointer]:
+            - /url: /category/controllers
+            - img [ref=e147] [cursor=pointer]
+            - heading "Controllers" [level=3] [ref=e150] [cursor=pointer]
+          - link "Chargers & Batteries" [ref=e151] [cursor=pointer]:
+            - /url: /battery-chargers
+            - img [ref=e153] [cursor=pointer]
+            - heading "Chargers & Batteries" [level=3] [ref=e155] [cursor=pointer]
+          - link "EV Chargers" [ref=e156] [cursor=pointer]:
+            - /url: /electric-vehicle-chargers
+            - img [ref=e158] [cursor=pointer]
+            - heading "EV Chargers" [level=3] [ref=e162] [cursor=pointer]
+          - link "Tires & Wheels" [ref=e163] [cursor=pointer]:
+            - /url: /category/tires-wheels
+            - img [ref=e165] [cursor=pointer]
+            - heading "Tires & Wheels" [level=3] [ref=e168] [cursor=pointer]
+      - link "Request Rental Quote" [ref=e170] [cursor=pointer]:
+        - /url: /quote
+      - generic [ref=e173]:
+        - heading "Why Choose Us" [level=2] [ref=e174]
+        - generic [ref=e175]:
+          - generic [ref=e176]:
+            - img [ref=e178]
+            - heading "Precision-Fit Parts" [level=3] [ref=e180]
+            - paragraph [ref=e181]: Built for uptime and fitment accuracy — no guesswork.
+          - generic [ref=e182]:
+            - img [ref=e184]
+            - heading "Same-Day Shipping" [level=3] [ref=e186]
+            - paragraph [ref=e187]: Fast fulfillment and delivery anywhere in the U.S.
+          - generic [ref=e188]:
+            - img [ref=e190]
+            - heading "Western Tough Support" [level=3] [ref=e192]
+            - paragraph [ref=e193]: We're technicians, not ticket bots. Real answers, fast.
+      - generic [ref=e195]:
+        - heading "Trusted Brands We Support" [level=2] [ref=e196]
+        - generic [ref=e197]:
+          - generic [ref=e198]:
+            - img "Genie equipment parts and rentals" [ref=e199]
+            - generic [ref=e200]: Genie
+          - generic [ref=e201]:
+            - img "Gehl equipment parts and rentals" [ref=e202]
+            - generic [ref=e203]: Gehl
+          - generic [ref=e204]:
+            - img "Hyster equipment parts and rentals" [ref=e205]
+            - generic [ref=e206]: Hyster
+          - generic [ref=e207]:
+            - img "JCB equipment parts and rentals" [ref=e208]
+            - generic [ref=e209]: JCB
+          - generic [ref=e210]:
+            - img "Hangcha equipment parts and rentals" [ref=e211]
+            - generic [ref=e212]: Hangcha
+          - generic [ref=e213]:
+            - img "JLG equipment parts and rentals" [ref=e214]
+            - generic [ref=e215]: JLG
+          - generic [ref=e216]:
+            - img "Kubota equipment parts and rentals" [ref=e217]
+            - generic [ref=e218]: Kubota
+          - generic [ref=e219]:
+            - img "MEC equipment parts and rentals" [ref=e220]
+            - generic [ref=e221]: MEC
+          - generic [ref=e222]:
+            - img "Skyjack equipment parts and rentals" [ref=e223]
+            - generic [ref=e224]: Skyjack
+          - generic [ref=e225]:
+            - img "Snorkel equipment parts and rentals" [ref=e226]
+            - generic [ref=e227]: Snorkel
+          - generic [ref=e228]:
+            - img "Toro equipment parts and rentals" [ref=e229]
+            - generic [ref=e230]: Toro
+          - generic [ref=e231]:
+            - img "Toyota equipment parts and rentals" [ref=e232]
+            - generic [ref=e233]: Toyota
+        - link "View All Brands →" [ref=e235] [cursor=pointer]:
+          - /url: /brands
+      - generic [ref=e237]:
+        - heading "What Our Customers Say" [level=2] [ref=e238]
+        - generic [ref=e239]:
+          - generic [ref=e240]:
+            - paragraph [ref=e241]: "\"Flat Earth got us Genie parts overnight. No backorders, no nonsense.\""
+            - paragraph [ref=e242]: – Fleet Manager, Montana
+          - generic [ref=e243]:
+            - paragraph [ref=e244]: "\"Our warehouse lift was down. These guys had the joystick in stock and on a truck within hours.\""
+            - paragraph [ref=e245]: – Maintenance Supervisor, Wyoming
+          - generic [ref=e246]:
+            - paragraph [ref=e247]: "\"Parts arrived in 24 hours, fit perfectly, and cost less than OEM.\""
+            - paragraph [ref=e248]: – Service Director, Colorado
+      - region "Why Buyers Trust Flat Earth Equipment" [ref=e249]:
+        - generic [ref=e250]:
+          - heading "Why Buyers Trust Flat Earth Equipment" [level=2] [ref=e251]
+          - generic [ref=e252]:
+            - generic "Same-day shipping and fast delivery anywhere in the U.S." [ref=e253]:
+              - img [ref=e254]
+              - paragraph [ref=e259]: Same-Day Shipping
+              - paragraph [ref=e260]: Fast fulfillment and delivery anywhere in the U.S.
+            - generic "Over 10,000 SKUs in stock across every major brand." [ref=e261]:
+              - img [ref=e262]
+              - paragraph [ref=e265]: 10,000+ SKUs In-Stock
+              - paragraph [ref=e266]: Broad inventory across every major brand.
+            - generic "Local rental resources in WY, MT, NM & CO." [ref=e267]:
+              - img [ref=e268]
+              - paragraph [ref=e273]: Regional Rental Partner Network
+              - paragraph [ref=e274]: Local rental resources in WY, MT, NM & CO.
+            - generic "Partnering with American suppliers for quality and speed." [ref=e275]:
+              - img [ref=e276]
+              - paragraph [ref=e278]: Prioritized U.S. Parts Vendors
+              - paragraph [ref=e279]: Partnering with American suppliers for quality and speed.
+      - generic [ref=e281]:
+        - heading "Serving the Western U.S." [level=2] [ref=e282]
+        - paragraph [ref=e283]: From Wyoming to New Mexico, we deliver rugged rentals and precision-fit parts to contractors, fleets, and facilities across the West.
+        - generic [ref=e284]:
+          - link "Cheyenne, WY" [ref=e285] [cursor=pointer]:
+            - /url: /locations/cheyenne-wy
+            - generic [ref=e286] [cursor=pointer]: 📍
+            - text: Cheyenne, WY
+          - link "Bozeman, MT" [ref=e287] [cursor=pointer]:
+            - /url: /locations/bozeman-mt
+            - generic [ref=e288] [cursor=pointer]: 🏔️
+            - text: Bozeman, MT
+          - link "Pueblo, CO" [ref=e289] [cursor=pointer]:
+            - /url: /locations/pueblo-co
+            - generic [ref=e290] [cursor=pointer]: 🏗️
+            - text: Pueblo, CO
+          - link "Las Cruces, NM" [ref=e291] [cursor=pointer]:
+            - /url: /locations/las-cruces-nm
+            - generic [ref=e292] [cursor=pointer]: 🌵
+            - text: Las Cruces, NM
+      - generic [ref=e294]:
+        - heading "Join the Flat Earth Fleet — Get Insider Access & Priority Service" [level=2] [ref=e295]
+        - paragraph [ref=e296]: Sign up to receive special access to bulk pricing, rental availability, and fleet-focused support from the Flat Earth Equipment crew.
+        - generic [ref=e297]:
+          - textbox "Enter your email" [ref=e298]
+          - button "Join the Fleet" [ref=e299] [cursor=pointer]
+      - generic [ref=e300]:
+        - heading "Need Help Choosing the Right Part?" [level=3] [ref=e301]
+        - list [ref=e302]:
+          - listitem [ref=e303]:
+            - text: •
+            - emphasis [ref=e304]: Not sure if a controller fits your Genie lift? We'll help you confirm compatibility.
+          - listitem [ref=e305]:
+            - text: •
+            - emphasis [ref=e306]: Need fast forklift parts in Wyoming or Montana? We ship same-day from regional hubs.
+          - listitem [ref=e307]:
+            - text: •
+            - emphasis [ref=e308]: Looking for a reliable scissor lift rental near you? Request a quote in 60 seconds.
+      - paragraph [ref=e309]: "Page last updated: May 2025"
+  - contentinfo [ref=e310]:
+    - generic [ref=e311]:
+      - generic [ref=e312]:
+        - generic [ref=e313]:
+          - generic [ref=e314]: Flat Earth Equipment
+          - paragraph [ref=e315]: Flat Earth Equipment is built Western tough — precision-fit industrial parts and dispatch-ready rentals, shipped nationwide.
+        - generic [ref=e316]:
+          - heading "Quick Links" [level=3] [ref=e317]
+          - list [ref=e318]:
+            - listitem [ref=e319]:
+              - link "Insights & Guides" [ref=e320] [cursor=pointer]:
+                - /url: /insights
+            - listitem [ref=e321]:
+              - link "About Us" [ref=e322] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e323]:
+              - link "Shipping & Returns" [ref=e324] [cursor=pointer]:
+                - /url: /shipping-returns
+            - listitem [ref=e325]:
+              - link "Warranty" [ref=e326] [cursor=pointer]:
+                - /url: /warranty
+            - listitem [ref=e327]:
+              - link "Contact" [ref=e328] [cursor=pointer]:
+                - /url: /contact
+            - listitem [ref=e329]:
+              - link "Terms of Service" [ref=e330] [cursor=pointer]:
+                - /url: /terms-of-service
+            - listitem [ref=e331]:
+              - link "Privacy Policy" [ref=e332] [cursor=pointer]:
+                - /url: /privacy-policy
+            - listitem [ref=e333]:
+              - link "Service Areas" [ref=e334] [cursor=pointer]:
+                - /url: /locations
+            - listitem [ref=e335]:
+              - link "Cheyenne, WY" [ref=e336] [cursor=pointer]:
+                - /url: /locations/cheyenne-wy
+            - listitem [ref=e337]:
+              - link "Bozeman, MT" [ref=e338] [cursor=pointer]:
+                - /url: /locations/bozeman-mt
+            - listitem [ref=e339]:
+              - link "Pueblo, CO" [ref=e340] [cursor=pointer]:
+                - /url: /locations/pueblo-co
+            - listitem [ref=e341]:
+              - link "Albuquerque, NM" [ref=e342] [cursor=pointer]:
+                - /url: /locations/albuquerque-nm
+            - listitem [ref=e343]:
+              - link "Las Cruces, NM" [ref=e344] [cursor=pointer]:
+                - /url: /locations/las-cruces-nm
+        - generic [ref=e345]:
+          - heading "Stay Updated" [level=3] [ref=e346]
+          - generic [ref=e347]:
+            - textbox "Your email" [ref=e348]
+            - button "Sign Up" [ref=e349] [cursor=pointer]
+      - paragraph [ref=e351]: © 2025 Flat Earth Equipment. All rights reserved.
+  - contentinfo [ref=e352]:
+    - generic [ref=e353]:
+      - generic [ref=e354]:
+        - generic [ref=e355]: © Flat Earth Safety
+        - navigation "Legal and support links" [ref=e356]:
+          - link "Terms" [ref=e357] [cursor=pointer]:
+            - /url: /legal/terms
+          - link "Privacy" [ref=e358] [cursor=pointer]:
+            - /url: /legal/privacy
+          - link "Contact" [ref=e359] [cursor=pointer]:
+            - /url: /contact
+      - generic [ref=e360]:
+        - checkbox "Reduce motion" [ref=e361]
+        - text: Reduce motion
+  - alert [ref=e362]
+```
