@@ -2,11 +2,6 @@
 
 import { useState } from 'react';
 
-export const metadata = {
-  title: 'QA: Create Test User',
-  robots: { index: false, follow: false }
-};
-
 export default function QAMakeUserPage() {
   const [token, setToken] = useState('');
   const [course, setCourse] = useState('forklift_operator');
