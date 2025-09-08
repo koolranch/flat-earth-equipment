@@ -116,6 +116,42 @@
       "width": 600,
       "height": 600,
       "template": "cert-seal.svg"
+    },
+    {
+      "id": "empty-state",
+      "outPath": "public/illustrations/empty-state.svg",
+      "uploadPath": "illustrations/empty-state.svg",
+      "format": "svg",
+      "width": 1200,
+      "height": 900,
+      "template": "empty-state.svg"
+    },
+    {
+      "id": "poster-intro",
+      "outPath": "public/posters/intro.jpg",
+      "uploadPath": "posters/intro.jpg",
+      "format": "jpg",
+      "width": 1280,
+      "height": 720,
+      "template": "poster-intro.svg"
+    },
+    {
+      "id": "stripe-product",
+      "outPath": "public/store/forklift-operator-card.jpg",
+      "uploadPath": "store/forklift-operator-card.jpg",
+      "format": "jpg",
+      "width": 1200,
+      "height": 800,
+      "template": "stripe-product.svg"
+    },
+    {
+      "id": "avatar-1024",
+      "outPath": "public/brand/avatar-1024.png",
+      "uploadPath": "brand/avatar-1024.png",
+      "format": "png",
+      "width": 1024,
+      "height": 1024,
+      "template": "avatar-1024.svg"
     }
   ]
 }

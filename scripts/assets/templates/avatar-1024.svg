@@ -1,0 +1,7 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1024' height='1024'>
+  <rect width='1024' height='1024' fill='white'/>
+  <circle cx='512' cy='512' r='360' fill='none' stroke='{SLATE}' stroke-width='30'/>
+  <rect x='390' y='420' width='60' height='320' fill='{SLATE}'/>
+  <rect x='390' y='420' width='260' height='50' fill='{SLATE}'/>
+  <rect x='650' y='650' width='220' height='50' rx='12' fill='{ORANGE}'/>
+</svg>
