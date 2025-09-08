@@ -4,6 +4,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { supabaseBrowser } from '@/lib/supabase/client'
 import EvalSignature from '@/components/EvalSignature'
 import { uploadEval } from '@/utils/uploadEval'
+import { WalletCardButton } from '@/components/certificates/CertificateActions'
 import { Truck, User, Maximize2, Package, ShoppingCart } from 'lucide-react'
 
 const supabase = supabaseBrowser
