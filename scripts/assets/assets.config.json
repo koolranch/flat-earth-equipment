@@ -17,6 +17,15 @@
       "width": 1024,
       "height": 1024,
       "template": "brand-icon-master.svg"
+    },
+    {
+      "id": "og-default",
+      "outPath": "public/og/default.jpg",
+      "uploadPath": "og/default.jpg",
+      "format": "jpg",
+      "width": 1200,
+      "height": 630,
+      "template": "og-default.svg"
     }
   ]
 }
