@@ -1,0 +1,15 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1024' height='1024' viewBox='0 0 1024 1024'>
+  <rect width='1024' height='1024' fill='{G100}'/>
+  <!-- Outer ring -->
+  <circle cx='512' cy='512' r='380' fill='none' stroke='{SLATE}' stroke-width='28'/>
+  <!-- Inner accent -->
+  <circle cx='512' cy='512' r='320' fill='none' stroke='{ORANGE}' stroke-width='10'/>
+  <!-- Minimal forklift monogram: F/E with tine -->
+  <g transform='translate(352 352)'>
+    <rect x='0' y='0' width='40' height='320' fill='{SLATE}'/>
+    <rect x='0' y='0' width='200' height='40' fill='{SLATE}'/>
+    <rect x='0' y='140' width='160' height='36' fill='{SLATE}'/>
+    <!-- Tine -->
+    <rect x='160' y='240' width='220' height='36' rx='8' fill='{ORANGE}'/>
+  </g>
+</svg>

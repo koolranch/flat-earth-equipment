@@ -8,6 +8,15 @@
       "format": "png",
       "width": 200,
       "height": 200
+    },
+    {
+      "id": "brand-icon-master",
+      "outPath": "public/brand/brand-icon-master.png",
+      "uploadPath": "brand/brand-icon-master.png",
+      "format": "png",
+      "width": 1024,
+      "height": 1024,
+      "template": "brand-icon-master.svg"
     }
   ]
 }
