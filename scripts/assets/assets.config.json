@@ -44,6 +44,78 @@
       "width": 1200,
       "height": 630,
       "template": "og-records.svg"
+    },
+    {
+      "id": "og-verify",
+      "outPath": "public/og/verify.jpg",
+      "uploadPath": "og/verify.jpg",
+      "format": "jpg",
+      "width": 1200,
+      "height": 630,
+      "template": "og-verify.svg"
+    },
+    {
+      "id": "email-logo-light",
+      "outPath": "public/emails/logo.png",
+      "uploadPath": "emails/logo.png",
+      "format": "png",
+      "width": 800,
+      "height": 160,
+      "template": "email-logo-light.svg"
+    },
+    {
+      "id": "email-logo-dark",
+      "outPath": "public/emails/logo-dark.png",
+      "uploadPath": "emails/logo-dark.png",
+      "format": "png",
+      "width": 800,
+      "height": 160,
+      "template": "email-logo-dark.svg"
+    },
+    {
+      "id": "wallet-icon",
+      "outPath": "public/wallet/icon@3x.png",
+      "uploadPath": "wallet/icon@3x.png",
+      "format": "png",
+      "width": 87,
+      "height": 87,
+      "template": "wallet-icon.svg"
+    },
+    {
+      "id": "wallet-logo",
+      "outPath": "public/wallet/logo@2x.png",
+      "uploadPath": "wallet/logo@2x.png",
+      "format": "png",
+      "width": 320,
+      "height": 100,
+      "template": "wallet-logo.svg"
+    },
+    {
+      "id": "wallet-bg",
+      "outPath": "public/wallet/background.png",
+      "uploadPath": "wallet/background.png",
+      "format": "png",
+      "width": 660,
+      "height": 400,
+      "template": "wallet-bg.svg"
+    },
+    {
+      "id": "cert-bg",
+      "outPath": "public/cert/certificate-bg.png",
+      "uploadPath": "cert/certificate-bg.png",
+      "format": "png",
+      "width": 2550,
+      "height": 3300,
+      "template": "cert-bg.svg"
+    },
+    {
+      "id": "cert-seal",
+      "outPath": "public/cert/seal.png",
+      "uploadPath": "cert/seal.png",
+      "format": "png",
+      "width": 600,
+      "height": 600,
+      "template": "cert-seal.svg"
     }
   ]
 }

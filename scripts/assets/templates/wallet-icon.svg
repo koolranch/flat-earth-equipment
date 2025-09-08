@@ -1,0 +1,7 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='87' height='87'>
+  <rect width='87' height='87' fill='white'/>
+  <circle cx='43.5' cy='43.5' r='32' fill='none' stroke='{SLATE}' stroke-width='6'/>
+  <rect x='30' y='36' width='15' height='15' fill='{SLATE}'/>
+  <rect x='30' y='36' width='28' height='6' fill='{SLATE}'/>
+  <rect x='45' y='54' width='22' height='6' rx='2' fill='{ORANGE}'/>
+</svg>
