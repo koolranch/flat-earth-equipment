@@ -4,6 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "pwa:icons": "node scripts/gen-pwa-icons.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 3000",
@@ -136,6 +137,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "sharp": "^0.33.2",
     "@axe-core/playwright": "^4.10.2",
     "@next/bundle-analyzer": "^14.2.32",
     "@playwright/test": "^1.55.0",
