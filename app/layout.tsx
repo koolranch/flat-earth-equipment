@@ -66,6 +66,10 @@ export default async function RootLayout({
         <link rel="alternate" hrefLang="x-default" href="https://www.flatearthequipment.com" />
         {/* Client-side error monitoring */}
         <script src="/monitor.js" async />
+        
+        {/* PWA Manifest and Icons */}
+        <link rel="manifest" href="/manifest.webmanifest" />
+        <link rel="apple-touch-icon" href="/icons/app-icon-192.png" />
       </head>
       <body className="font-sans text-gray-900 bg-gray-50 antialiased">
         <ReducedMotionProvider>
