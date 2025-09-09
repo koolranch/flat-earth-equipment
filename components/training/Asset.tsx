@@ -1,13 +1,17 @@
 import React from 'react';
-import { getAsset } from '@/lib/assets';
+import { assetUrl } from '@/lib/assets';
 
-type Props = { id: keyof ReturnType<typeof Object>; className?: string; preferPng?: boolean; alt?: string } & React.ImgHTMLAttributes<HTMLImageElement>;
+type Props = { 
+  id?: string; 
+  src?: string; 
+  className?: string; 
+  alt?: string; 
+  preferPng?: boolean;
+} & React.ImgHTMLAttributes<HTMLImageElement>;
 
-export default function Asset({ id, className, preferPng = false, alt, ...imgProps }: Props) {
-  const meta = getAsset(id as any);
-  const src = (() => {
-    if (!preferPng) return meta.src;
-    return meta.src.toLowerCase().endsWith('.svg') ? meta.src.replace(/\.svg$/i, '.png') : meta.src;
-  })();
-  return <img src={src} alt={alt ?? meta.alt} className={className} loading="lazy" {...imgProps} />;
+export default function Asset({ id, src, className, alt, preferPng = false, ...imgProps }: Props) {
+  // Handle both old (id) and new (src) prop formats
+  const assetPath = src || (id ? `assets/${id}.svg` : '');
+  const url = assetUrl(assetPath);
+  return <img src={url} alt={alt || ''} className={className} loading="lazy" {...imgProps} />;
 }

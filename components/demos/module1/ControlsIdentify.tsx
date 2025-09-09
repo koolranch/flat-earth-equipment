@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAsset } from '@/lib/useAsset';
+import { assetUrl } from '@/lib/assets';
 
 interface Props { onComplete?: () => void; onEvent?: (name: string, props?: Record<string, any>) => void }
 
@@ -28,7 +28,7 @@ export default function ControlsIdentify({ onComplete, onEvent }: Props) {
   return (
     <div className="grid gap-4">
       <div className="relative w-full max-w-2xl">
-        <img src={useAsset('diag_controls').file} alt="Diagram with forklift controls" className="w-full rounded-lg border" />
+        <img src={assetUrl('assets/diag_controls.svg')} alt="Diagram with forklift controls" className="w-full rounded-lg border" />
         {targets.map(t => (
           <button key={t.id} aria-label={t.label}
             onClick={() => onHit(t.id)}
