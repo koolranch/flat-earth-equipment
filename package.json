@@ -64,6 +64,7 @@
     "scaffold:es": "tsx scripts/scaffold-es-brand-content.ts",
     "test": "playwright test",
     "test:e2e": "playwright test",
+    "test:e2e:orientation": "playwright test e2e/orientation-chips.spec.ts",
     "test:a11y": "playwright test tests/e2e/axe.spec.ts",
     "test:modules": "playwright test tests/e2e/training-modules.spec.ts",
     "qa:lh": "node scripts/run-lighthouse.mjs",
