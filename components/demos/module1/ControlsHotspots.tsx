@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { useAsset } from '@/lib/useAsset';
+import { assetUrl } from '@/lib/assets';
 import { track } from '@/lib/track';
 
 type Props = { onComplete?: () => void };
@@ -24,16 +24,11 @@ export default function ControlsHotspots({ onComplete }: Props) {
   }, [done, onComplete]);
 
   // Pre-compute all assets at component level
-  const hornAsset = useAsset('ctrl_horn', { sprite: true });
-  const brakeAsset = useAsset('ctrl_parking', { sprite: true });
-  const ignitionAsset = useAsset('ctrl_ignition', { sprite: true });
-  const liftAsset = useAsset('ctrl_lift', { sprite: true });
-  
   const assets = [
-    { ...targets[0], asset: hornAsset },
-    { ...targets[1], asset: brakeAsset },
-    { ...targets[2], asset: ignitionAsset },
-    { ...targets[3], asset: liftAsset }
+    { ...targets[0], asset: { file: assetUrl('assets/ctrl_horn.svg'), frag: '#icon', href: assetUrl('assets/ctrl_horn.svg') + '#icon' } },
+    { ...targets[1], asset: { file: assetUrl('assets/ctrl_parking.svg'), frag: '#icon', href: assetUrl('assets/ctrl_parking.svg') + '#icon' } },
+    { ...targets[2], asset: { file: assetUrl('assets/ctrl_ignition.svg'), frag: '#icon', href: assetUrl('assets/ctrl_ignition.svg') + '#icon' } },
+    { ...targets[3], asset: { file: assetUrl('assets/ctrl_lift.svg'), frag: '#icon', href: assetUrl('assets/ctrl_lift.svg') + '#icon' } }
   ];
 
   return (

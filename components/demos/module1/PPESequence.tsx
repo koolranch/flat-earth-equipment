@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { useAsset } from '@/lib/useAsset';
+import { assetUrl } from '@/lib/assets';
 import AnimatedSvg from '@/components/common/AnimatedSvg';
 import { track } from '@/lib/track';
 
@@ -25,17 +25,11 @@ export default function PPESequence({ onComplete }: Props) {
   }, [done, onComplete]);
 
   // Pre-compute all assets at component level
-  const vestAsset = useAsset('ppe_vest', { sprite: true });
-  const hatAsset = useAsset('ppe_hardhat', { sprite: true });
-  const gogglesAsset = useAsset('ppe_goggles', { sprite: true });
-  const seatbeltStepAsset = useAsset('ppe_seatbelt', { sprite: true });
-  const seatbeltAnimAsset = useAsset('anim_seatbelt');
-  
   const assets = [
-    { ...steps[0], asset: vestAsset },
-    { ...steps[1], asset: hatAsset },
-    { ...steps[2], asset: gogglesAsset },
-    { ...steps[3], asset: seatbeltStepAsset }
+    { ...steps[0], asset: { file: assetUrl('assets/ppe_vest.svg'), frag: '#icon', href: assetUrl('assets/ppe_vest.svg') + '#icon' } },
+    { ...steps[1], asset: { file: assetUrl('assets/ppe_hardhat.svg'), frag: '#icon', href: assetUrl('assets/ppe_hardhat.svg') + '#icon' } },
+    { ...steps[2], asset: { file: assetUrl('assets/ppe_goggles.svg'), frag: '#icon', href: assetUrl('assets/ppe_goggles.svg') + '#icon' } },
+    { ...steps[3], asset: { file: assetUrl('assets/ppe_seatbelt.svg'), frag: '#icon', href: assetUrl('assets/ppe_seatbelt.svg') + '#icon' } }
   ];
 
   return (
@@ -62,7 +56,7 @@ export default function PPESequence({ onComplete }: Props) {
         </div>
       )}
       <div className="mt-4">
-        <AnimatedSvg src={seatbeltAnimAsset.file} title="Seatbelt latch" />
+        <AnimatedSvg src={assetUrl('assets/anim_seatbelt.svg')} title="Seatbelt latch" />
       </div>
     </div>
   );
