@@ -3,6 +3,7 @@ import { useEffect, useState, Suspense } from 'react';
 import { useI18n } from '@/lib/i18n/I18nProvider';
 import { flags } from '@/lib/flags';
 import PrelaunchBanner from '@/components/PrelaunchBanner';
+import * as Sentry from '@sentry/nextjs';
 
 type Progress = {
   pct: number;
@@ -47,7 +48,10 @@ function TrainingContent({ courseId }: { courseId: string }) {
     (async () => {
       try {
         console.log('🔍 Fetching progress for courseId:', courseId);
-        const r = await fetch(`/api/training/progress?courseId=${encodeURIComponent(courseId)}`);
+        const r = await fetch(`/api/training/progress?courseId=${encodeURIComponent(courseId)}`, { 
+          credentials: 'include', 
+          cache: 'no-store' 
+        });
         console.log('📡 Progress API response status:', r.status);
         
         if (r.ok) {
@@ -57,9 +61,41 @@ function TrainingContent({ courseId }: { courseId: string }) {
         } else {
           const errorText = await r.text();
           console.error('❌ Progress API error:', r.status, errorText);
+          
+          // Log to Sentry but don't block the UI
+          try {
+            Sentry.captureException(new Error(`Progress API ${r.status}: ${errorText}`), { 
+              tags: { area: 'training-progress' }, 
+              extra: { courseId, status: r.status, response: errorText } 
+            });
+          } catch {}
+          
+          // Set safe fallback progress
+          setProg({
+            pct: 0,
+            canTakeExam: false,
+            modules: [],
+            stepsLeft: []
+          });
         }
       } catch (e) {
         console.error('❌ Progress fetch error:', e);
+        
+        // Log to Sentry but don't block the UI
+        try {
+          Sentry.captureException(e, { 
+            tags: { area: 'training-progress' }, 
+            extra: { courseId } 
+          });
+        } catch {}
+        
+        // Set safe fallback progress
+        setProg({
+          pct: 0,
+          canTakeExam: false,
+          modules: [],
+          stepsLeft: []
+        });
       } finally {
         setLoading(false);
       }
@@ -68,7 +104,17 @@ function TrainingContent({ courseId }: { courseId: string }) {
 
   if (!courseId) return <main id="main" className='container mx-auto p-4'>Provide ?courseId=...</main>;
   if (loading) return <main id="main" className='container mx-auto p-4' aria-busy="true">Loading...</main>;
-  if (!prog) return <main id="main" className='container mx-auto p-4'>Failed to load progress.</main>;
+  
+  // Always render the UI, even if progress failed to load (with safe defaults)
+  if (!prog) {
+    setProg({
+      pct: 0,
+      canTakeExam: false,
+      modules: [],
+      stepsLeft: []
+    });
+    return <main id="main" className='container mx-auto p-4' aria-busy="true">Loading...</main>;
+  }
 
   const canTakeExam = prog.canTakeExam;
   
