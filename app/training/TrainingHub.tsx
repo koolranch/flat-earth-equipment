@@ -4,6 +4,7 @@ import { useI18n } from '@/lib/i18n/I18nProvider';
 import { flags } from '@/lib/flags';
 import PrelaunchBanner from '@/components/PrelaunchBanner';
 import * as Sentry from '@sentry/nextjs';
+import { FORKLIFT_MODULES_FALLBACK } from '@/lib/courses';
 
 type Progress = {
   pct: number;
@@ -188,30 +189,39 @@ function TrainingContent({ courseId }: { courseId: string }) {
         <div className='rounded-2xl border p-4'>
           <h2 className='text-lg font-semibold text-[#0F172A] mb-3'>Modules</h2>
           <div className='space-y-2'>
-            {prog.modules.map(module => (
-              <div key={module.slug} className='flex items-center justify-between p-2 rounded-lg border bg-slate-50 dark:bg-slate-800'>
-                <div className='flex items-center gap-2'>
-                  <span className={`text-sm ${module.quiz_passed ? 'text-emerald-600' : 'text-slate-600'}`}>
-                    {module.quiz_passed ? '✅' : '⭕'}
-                  </span>
-                  <span className={`text-sm ${module.quiz_passed ? 'text-emerald-800 line-through' : 'text-slate-900 dark:text-slate-100'}`}>
-                    {module.title}
-                  </span>
+            {/* Use fallback modules if API modules are empty */}
+            {(prog.modules && prog.modules.length > 0 ? prog.modules : FORKLIFT_MODULES_FALLBACK).map((module, idx) => {
+              const isAPIModule = prog.modules && prog.modules.length > 0;
+              const title = isAPIModule ? (module as any).title : (module as any).title;
+              const href = isAPIModule ? (module as any).route : (module as any).href;
+              const completed = isAPIModule ? (module as any).quiz_passed : false;
+              const key = isAPIModule ? (module as any).slug : (module as any).key;
+              
+              return (
+                <div key={key} className='flex items-center justify-between p-2 rounded-lg border bg-slate-50 dark:bg-slate-800'>
+                  <div className='flex items-center gap-2'>
+                    <span className={`text-sm ${completed ? 'text-emerald-600' : 'text-slate-600'}`}>
+                      {completed ? '✅' : '⭕'}
+                    </span>
+                    <span className={`text-sm ${completed ? 'text-emerald-800 line-through' : 'text-slate-900 dark:text-slate-100'}`}>
+                      {title}
+                    </span>
+                  </div>
+                  {!completed && (
+                    <a 
+                      className='btn border border-[#F76511] text-[#F76511] text-sm hover:bg-[#F76511] hover:text-white transition-colors' 
+                      href={href}
+                      aria-label={`Start ${title} module`}
+                    >
+                      Start
+                    </a>
+                  )}
                 </div>
-                {!module.quiz_passed && (
-                  <a 
-                    className='btn border border-[#F76511] text-[#F76511] text-sm hover:bg-[#F76511] hover:text-white transition-colors' 
-                    href={module.route}
-                    aria-label={`Start ${module.title} module`}
-                  >
-                    Start
-                  </a>
-                )}
-              </div>
-            ))}
+              );
+            })}
           </div>
           
-          {prog.stepsLeft.length > 0 && (
+          {prog.stepsLeft && prog.stepsLeft.length > 0 && (
             <div className='mt-3 p-3 rounded-lg bg-amber-50 border border-amber-200'>
               <p className='text-sm text-amber-800'>
                 <strong>{prog.stepsLeft.length} modules remaining</strong> — Complete all modules to unlock the exam
