@@ -72,15 +72,39 @@ function PpeSequenceDemo({ onComplete }: { onComplete: () => void }) {
 
 function FindHazardDemo({ onComplete }: { onComplete: () => void }) {
   return (
-    <div className="relative aspect-[16/9] w-full rounded-xl border border-slate-200 bg-white">
-      {/* Simple aisle scene */}
-      <div className="absolute inset-x-6 bottom-6 h-12 rounded bg-slate-200"/>
-      {/* Clickable hazard zone */}
-      <button
-        aria-label="Hazard spill hotspot"
-        className="absolute left-1/2 top-1/2 h-14 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dashed border-orange-500/60 bg-orange-500/10 hover:bg-orange-500/20"
-        onClick={onComplete}
-      />
+    <div>
+      <p className="mb-3 text-slate-600">Find and tap the <span className="font-medium text-orange-700">orange spill hazard</span>.</p>
+      <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-slate-200 bg-white">
+        {/* Minimal aisle scene background */}
+        <svg viewBox="0 0 800 450" className="absolute inset-0 h-full w-full" aria-hidden>
+          <rect x="0" y="0" width="800" height="450" fill="#FFFFFF"/>
+          {/* Aisle strip */}
+          <rect x="80" y="330" width="640" height="60" fill="#E5E7EB"/>
+          {/* Left rack uprights */}
+          <rect x="80" y="120" width="14" height="200" fill="#CBD5E1"/>
+          <rect x="220" y="120" width="14" height="200" fill="#CBD5E1"/>
+          {/* Right rack uprights */}
+          <rect x="566" y="110" width="14" height="210" fill="#CBD5E1"/>
+          <rect x="706" y="110" width="14" height="210" fill="#CBD5E1"/>
+          {/* Beam hints */}
+          <rect x="94" y="160" width="126" height="10" fill="#E5E7EB"/>
+          <rect x="580" y="150" width="126" height="10" fill="#E5E7EB"/>
+          {/* Spill shape (for visual) – button sits on top */}
+          <path d="M430 350 C460 342, 500 346, 530 354 C550 360, 546 374, 514 378 C484 382, 446 376, 430 366 Z" fill="#F76511" fillOpacity="0.18" stroke="#F76511" strokeWidth="2"/>
+        </svg>
+
+        {/* Clickable hotspot (big, obvious, with pulsing ring) */}
+        <button
+          aria-label="Hazard spill hotspot"
+          className="group absolute left-1/2 top-1/2 h-16 w-48 -translate-x-[10%] -translate-y-[5%] rounded-full border-2 border-dashed border-orange-500/80 bg-orange-500/20 outline-none transition hover:bg-orange-500/30 focus:ring-4 focus:ring-orange-300"
+          onClick={onComplete}
+          title="Tap hazard"
+        >
+          <span className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-orange-500/30 opacity-75 blur-[2px] group-hover:opacity-90"/>
+          <span className="pointer-events-none absolute inset-0 rounded-full animate-ping bg-orange-500/25"/>
+          <span className="relative text-sm font-semibold text-orange-800">Tap hazard</span>
+        </button>
+      </div>
     </div>
   );
 }
