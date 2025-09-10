@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test';
 // Assumes the test user is already authenticated and on the preop page.
 
 test('preop continue navigates to course modules', async ({ page }) => {
-  // Go directly to Module 1 pre-op page
+  // Go directly to Module 1 pre-op page (the URL the dashboard actually uses)
   await page.goto('/training/modules/pre-op');
   
   // Complete all the pre-op steps by clicking each card
