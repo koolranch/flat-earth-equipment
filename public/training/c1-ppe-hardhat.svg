@@ -1,0 +1,6 @@
+<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hard hat -->
+  <ellipse cx="64" cy="70" rx="45" ry="35" fill="#F76511" stroke="#0F172A" strokeWidth="1.8"/>
+  <ellipse cx="64" cy="45" rx="35" ry="25" fill="#F76511" stroke="#0F172A" strokeWidth="1.8"/>
+  <rect x="59" y="30" width="10" height="15" rx="2" fill="#0F172A"/>
+</svg>
