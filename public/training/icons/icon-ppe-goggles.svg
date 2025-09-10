@@ -1,0 +1,8 @@
+<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Safety goggles -->
+  <ellipse cx="40" cy="64" rx="25" ry="20" fill="none" stroke="#0F172A" strokeWidth="3"/>
+  <ellipse cx="88" cy="64" rx="25" ry="20" fill="none" stroke="#0F172A" strokeWidth="3"/>
+  <path d="M15 64 Q32 50, 40 64" fill="none" stroke="#0F172A" strokeWidth="2"/>
+  <path d="M88 64 Q96 50, 113 64" fill="none" stroke="#0F172A" strokeWidth="2"/>
+  <path d="M65 64 Q70 60, 75 64" fill="none" stroke="#0F172A" strokeWidth="2"/>
+</svg>

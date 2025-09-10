@@ -1,0 +1,9 @@
+<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Lights control -->
+  <circle cx="64" cy="64" r="35" fill="#E5E7EB" stroke="#0F172A" strokeWidth="2"/>
+  <circle cx="64" cy="64" r="20" fill="#F76511"/>
+  <path d="M64 30 L70 50 L64 45 L58 50 Z" fill="#F76511"/>
+  <path d="M98 64 L78 70 L83 64 L78 58 Z" fill="#F76511"/>
+  <path d="M64 98 L58 78 L64 83 L70 78 Z" fill="#F76511"/>
+  <path d="M30 64 L50 58 L45 64 L50 70 Z" fill="#F76511"/>
+</svg>
