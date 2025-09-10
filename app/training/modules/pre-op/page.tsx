@@ -1,17 +1,19 @@
 "use client";
 import React from 'react';
-import Asset from '@/components/training/Asset';
+import Image from 'next/image';
 import SvgEmbed from '@/components/training/SvgEmbed';
 import { track } from '@/lib/analytics/track';
+import { assetUrl } from '@/lib/assets';
+import { resolveAsset } from '@/lib/asset-manifest';
 
 const steps = [
-  { key: 'ppe_vest', label: 'Hi-vis vest', icon: 'C1_ppe' },
-  { key: 'ppe_hardhat', label: 'Hard hat', icon: 'C1_ppe' },
-  { key: 'ppe_boots', label: 'Safety boots', icon: 'C1_ppe' },
-  { key: 'ppe_eyes_ears', label: 'Eye/Ear protection', icon: 'C1_ppe' },
-  { key: 'horn_test', label: 'Horn test', icon: 'C3_controls' },
-  { key: 'lights_test', label: 'Lights test', icon: 'C3_controls' },
-  { key: 'data_plate', label: 'Data plate present/legible', icon: 'C5_inspection' }
+  { key: 'ppe_vest', label: 'Hi-vis vest', iconKey: 'ppeVest' },
+  { key: 'ppe_hardhat', label: 'Hard hat', iconKey: 'ppeHardhat' },
+  { key: 'ppe_boots', label: 'Safety boots', iconKey: 'ppeBoots' },
+  { key: 'ppe_eyes_ears', label: 'Eye/Ear protection', iconKey: 'ppeGoggles' },
+  { key: 'horn_test', label: 'Horn test', iconKey: 'controlHorn' },
+  { key: 'lights_test', label: 'Lights test', iconKey: 'controlLights' },
+  { key: 'data_plate', label: 'Data plate present/legible', iconKey: 'dataPlate' }
 ] as const;
 
 export default function PreOpModule() {
@@ -43,7 +45,13 @@ export default function PreOpModule() {
             className={`flex items-center gap-4 rounded-2xl border p-4 text-left transition ${done[s.key] ? 'border-emerald-500 ring-1 ring-emerald-200' : 'border-slate-200 hover:border-slate-300'}`}
             aria-pressed={!!done[s.key]}
           >
-            <Asset id={s.icon as any} alt={s.label} className="w-16 h-16" />
+            <Image 
+              src={assetUrl(resolveAsset(s.iconKey))} 
+              alt={s.label} 
+              width={48} 
+              height={48} 
+              className="w-12 h-12 rounded-md" 
+            />
             <div className="flex-1">
               <div className="font-medium">{s.label}</div>
               <div className="text-sm text-slate-500">Tap to mark {done[s.key] ? 'complete' : 'complete this step'}.</div>
