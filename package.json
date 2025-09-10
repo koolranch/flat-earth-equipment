@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "pwa:icons": "node scripts/gen-pwa-icons.mjs",
+    "qa:assets:preop": "node scripts/assets/audit-preop-icons.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 3000",
