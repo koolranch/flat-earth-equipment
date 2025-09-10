@@ -63,7 +63,11 @@ export default function PreOpModule() {
 
       <section className="border rounded-2xl p-4">
         <h2 className="font-medium mb-2">Seatbelt reminder</h2>
-        <SvgEmbed id={'D1_seatbelt' as any} />
+        <img 
+          src={assetUrl(resolveAsset('seatbeltReminder'))} 
+          alt="Seatbelt latch animation" 
+          className="w-full max-w-lg mx-auto"
+        />
       </section>
 
       <footer className="pt-2">

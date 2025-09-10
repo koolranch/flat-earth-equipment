@@ -5,6 +5,7 @@ import { createClient } from '@supabase/supabase-js';
 const BUCKET = process.env.ASSET_BUCKET || 'public-assets';
 const LOCAL_DIR = path.resolve('public/training');
 const REQUIRED = [
+  { key: 'seatbeltReminder', file: 'd1-seatbelt.svg', alt: 'Seatbelt reminder animation' },
   { key: 'ppeVest',       file: 'c1-ppe-vest.svg',       alt: 'Hi-vis vest icon' },
   { key: 'ppeHardhat',    file: 'c1-ppe-hardhat.svg',    alt: 'Hard hat icon' },
   { key: 'ppeBoots',      file: 'c1-ppe-boots.svg',      alt: 'Safety boots icon' },
