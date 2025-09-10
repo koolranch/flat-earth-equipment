@@ -1,10 +1,12 @@
 "use client";
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import SvgEmbed from '@/components/training/SvgEmbed';
 import { track } from '@/lib/analytics/track';
 import { assetUrl } from '@/lib/assets';
 import { resolveAsset } from '@/lib/asset-manifest';
+import { recordStepCompleteSafe } from '@/lib/progress/client';
 
 const steps = [
   { key: 'ppe_vest', label: 'Hi-vis vest', iconKey: 'ppeVest' },
@@ -17,6 +19,7 @@ const steps = [
 ] as const;
 
 export default function PreOpModule() {
+  const router = useRouter();
   const [done, setDone] = React.useState<Record<string, boolean>>({});
 
   function toggle(k: string) {
@@ -73,7 +76,17 @@ export default function PreOpModule() {
       <footer className="pt-2">
         <button
           disabled={!allDone}
-          onClick={() => track('preop_complete', { allDone })}
+          data-testid="preop-continue"
+          onClick={async () => {
+            try {
+              await recordStepCompleteSafe({course:'forklift_operator', module:1, step:'preop'});
+              track('preop_complete', { allDone });
+            } catch(_) {
+              /* no-op */
+            }
+            // Navigate back to course modules list
+            router.push('/training?courseId=forklift_operator');
+          }}
           className={`px-5 py-3 rounded-xl font-semibold ${allDone ? 'bg-black text-white' : 'bg-slate-200 text-slate-500 cursor-not-allowed'}`}
         >
           {allDone ? 'Continue' : 'Complete all steps to continue'}
