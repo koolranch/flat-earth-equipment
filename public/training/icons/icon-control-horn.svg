@@ -1,0 +1,6 @@
+<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Horn control -->
+  <circle cx="64" cy="64" r="35" fill="#E5E7EB" stroke="#0F172A" strokeWidth="2"/>
+  <path d="M35 64 H55 L75 50 L95 48 V80 L75 78 L55 64 Z" fill="#0F172A"/>
+  <path d="M95 58 Q105 64, 95 70" fill="none" stroke="#F76511" strokeWidth="2"/>
+</svg>

@@ -22,6 +22,27 @@ export function FlashDeck({ cards, className }: { cards: Card[]; className?: str
   function next(){ setFlipped(false); setIdx(i => Math.min(i+1, total-1)); }
   function prev(){ setFlipped(false); setIdx(i => Math.max(i-1, 0)); }
 
+  const Icon = () => {
+    const src = card.icon || '';
+    const alt = card.front;
+    const [ok, setOk] = React.useState(true);
+    React.useEffect(() => { setOk(true); }, [src]);
+    return ok && src ? (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={src}
+        alt={alt}
+        className="w-24 h-24 object-contain"
+        onError={() => setOk(false)}
+        loading="lazy"
+      />
+    ) : (
+      <div className="w-24 h-24 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center text-slate-400">
+        <span className="text-2xl" aria-hidden>📘</span>
+      </div>
+    );
+  };
+
   return (
     <div className={cn('w-full max-w-3xl mx-auto', className)}>
       <div className='text-sm text-slate-500 mb-2'>{idx+1} / {total}</div>
@@ -30,22 +51,15 @@ export function FlashDeck({ cards, className }: { cards: Card[]; className?: str
         onClick={() => setFlipped(v => !v)}
         className='w-full aspect-[16/9] rounded-2xl border border-slate-200 bg-white shadow-sm flex items-center justify-center p-6 text-left transition-[transform] duration-300 hover:shadow-md'
       >
-        <div className='grid grid-cols-[88px_1fr] gap-4 items-center w-full h-full'>
-          {card.icon ? (
-            <div className='relative w-20 h-20'>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={card.icon} alt='' className='w-20 h-20 object-contain' />
-            </div>
-          ) : (
-            <div />
-          )}
+        <div className='grid grid-cols-[112px_1fr] gap-5 items-center w-full h-full'>
+          <Icon />
           <div className='text-slate-800 text-lg leading-relaxed'>
             {flipped ? (
               <span className='block'>{card.back}</span>
             ) : (
               <span className='block font-medium'>{card.front}</span>
             )}
-            <div className='mt-3 text-xs text-slate-500'>(Tap/press space to flip)</div>
+            <div className='mt-3 text-xs text-slate-500'>(Tap or press space to flip)</div>
           </div>
         </div>
       </button>

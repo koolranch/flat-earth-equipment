@@ -1,0 +1,7 @@
+<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Data plate -->
+  <rect x="20" y="35" width="88" height="58" rx="4" fill="#E5E7EB" stroke="#0F172A" strokeWidth="2"/>
+  <text x="64" y="55" textAnchor="middle" fontSize="10" fill="#0F172A">MODEL</text>
+  <text x="64" y="68" textAnchor="middle" fontSize="8" fill="#0F172A">SERIAL#</text>
+  <text x="64" y="81" textAnchor="middle" fontSize="8" fill="#0F172A">CAPACITY</text>
+</svg>
