@@ -22,7 +22,7 @@ export default function Module1OSHA(props: Props) {
         ]}
         tip={'This is a plain-language summary to help you pass and operate safely. Always follow your site policy and the manufacturer\'s manual.'}
         ctaLabel="Continue to Module 2"
-        onContinue={props?.onContinue}
+        onContinue={() => { try { props?.onContinue?.(); } catch {} }}
         testId="osha-m1"
       />
     </main>

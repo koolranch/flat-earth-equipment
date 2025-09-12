@@ -21,7 +21,7 @@ export default function Module2OSHA(props: Props) {
           { text: 'Safety devices: parking brake, deadman, alarms.' }
         ]}
         tip={'Checklist: inspect at start of shift and after any incident or repair.'}
-        onContinue={props?.onContinue}
+        onContinue={() => { try { props?.onContinue?.(); } catch {} }}
         testId="osha-m2"
       />
     </main>

@@ -19,7 +19,7 @@ export default function Module4OSHA(props: Props) {
           { text: 'Unstable loads: wrap/strap or re-stack; never move a swaying or leaning stack.' }
         ]}
         tip={'Report and tag out unsafe conditions. Use spotters where visibility is limited.'}
-        onContinue={props?.onContinue}
+        onContinue={() => { try { props?.onContinue?.(); } catch {} }}
         testId="osha-m4"
       />
     </main>
