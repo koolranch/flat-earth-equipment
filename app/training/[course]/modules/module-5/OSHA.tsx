@@ -19,7 +19,7 @@ export default function Module5OSHA(props: Props) {
           { text: 'After incidents: stop, secure, report; do not return to service until inspected.' }
         ]}
         tip={'These practices augment manufacturer instructions and your site policy; where rules differ, follow the stricter requirement.'}
-        onContinue={props?.onContinue}
+        onContinue={() => { try { props?.onContinue?.(); } catch {} }}
         testId="osha-m5"
       />
     </main>

@@ -19,7 +19,7 @@ export default function Module3OSHA(props: Props) {
           { text: 'Observe load center values on the data plate; attachments change capacity.' }
         ]}
         tip={'If the truck or load becomes unstable, lower the load, stop, and re-evaluate. Do not jump from a tipping truck — lean away and hold on.'}
-        onContinue={props?.onContinue}
+        onContinue={() => { try { props?.onContinue?.(); } catch {} }}
         testId="osha-m3"
       />
     </main>
