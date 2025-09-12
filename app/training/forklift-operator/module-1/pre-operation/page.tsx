@@ -77,7 +77,7 @@ export default function Page(){
           className={`px-3 py-1.5 rounded-md border ${tab==='flash'?'bg-white border-blue-500':'bg-slate-50 border-slate-200'}`} 
           onClick={() => { setTab('flash'); setFlashTouched(true); }}
         >
-          Flash Cards <StatusDot state={flashTouched ? 'done':'todo'} />
+          Flash Cards (8) <StatusDot state={flashTouched ? 'done':'todo'} />
         </button>
         <button
           className={`px-3 py-1.5 rounded-md border ${tab==='quiz'?'bg-white border-blue-500':'bg-slate-50 border-slate-200'} ${!prereqsMet && 'opacity-50 cursor-not-allowed'}`}
@@ -190,7 +190,7 @@ export default function Page(){
             <div className='flex items-center justify-between'>
               <div>
                 <h3 className='font-medium'>Module 1 Quiz</h3>
-                <p className='text-sm text-slate-600'>8 questions · pass ≥ 80%</p>
+                <p className='text-sm text-slate-600'>8 questions · pass ≥ 80% to unlock next module</p>
               </div>
               <button className='px-4 py-2 rounded-md border' onClick={() => setOpenQuiz(true)}>Take quiz</button>
             </div>

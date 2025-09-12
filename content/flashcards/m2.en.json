@@ -1,0 +1,10 @@
+[
+  {"id":"m2-fc-01","front":"Forks — rejection criteria","back":"Cracks, bends, wear (heel/thickness), locking pins seated.","tag":"inspection","image":null},
+  {"id":"m2-fc-02","front":"Chains & hoses — what to spot","back":"Frays, kinks, leaks, improper tension; replace if damaged.","tag":"inspection","image":null},
+  {"id":"m2-fc-03","front":"Tires & wheels — check for","back":"Wear, cuts, embedded debris, low pressure (pneumatic), loose lugs.","tag":"inspection","image":null},
+  {"id":"m2-fc-04","front":"Horn & lights — rule","back":"Must function; reverse beeper required where used.","tag":"inspection","image":null},
+  {"id":"m2-fc-05","front":"Seatbelt & plate — verify","back":"Belt latches/retracts; data plate readable.","tag":"inspection","image":null},
+  {"id":"m2-fc-06","front":"Leaks — look here","back":"Under mast, pump, cylinders, lines; undercarriage; around axle.","tag":"inspection","image":null},
+  {"id":"m2-fc-07","front":"Battery/LP secure — why it matters","back":"Unsecured power source can shift and cause loss of control.","tag":"inspection","image":null},
+  {"id":"m2-fc-08","front":"Safety devices — examples","back":"Parking brake, deadman, alarms. Inoperative = out of service.","tag":"inspection","image":null}
+]

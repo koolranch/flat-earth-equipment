@@ -1,18 +1,50 @@
 [
   {
-    "q": "Define the stability triangle.",
-    "a": "Two front wheels and the rear axle pivot."
+    "id": "m3-fc-01",
+    "front": "Stability triangle — points",
+    "back": "Front tire contacts + rear axle pivot.",
+    "icon": null
   },
   {
-    "q": "Load travel position?",
-    "a": "Low and tilted back ~4–6 inches off floor."
+    "id": "m3-fc-02",
+    "front": "Load center — definition",
+    "back": "Distance from the face of forks to load's center of gravity (often 24 in / 600 mm unless specified).",
+    "icon": null
   },
   {
-    "q": "What is load center?",
-    "a": "Distance from the face of forks to load CG (e.g., 24 in)."
+    "id": "m3-fc-03",
+    "front": "Travel position of forks",
+    "back": "Low (4–6 in / 10–15 cm) and slightly tilted back.",
+    "icon": null
   },
   {
-    "q": "Before entering a pallet?",
-    "a": "Level forks and enter squarely."
+    "id": "m3-fc-04",
+    "front": "Ramps — travel rule",
+    "back": "Up ramp with load uphill; down ramp with load downhill; go slow and straight.",
+    "icon": null
+  },
+  {
+    "id": "m3-fc-05",
+    "front": "Blind corners — what to do",
+    "back": "Slow, sound horn, ensure clear path, maintain visibility.",
+    "icon": null
+  },
+  {
+    "id": "m3-fc-06",
+    "front": "No elevated travel",
+    "back": "Never drive with an elevated load; lower to travel height first.",
+    "icon": null
+  },
+  {
+    "id": "m3-fc-07",
+    "front": "Pedestrians — priority",
+    "back": "Pedestrians always have right of way; make eye contact; stop if unsure.",
+    "icon": null
+  },
+  {
+    "id": "m3-fc-08",
+    "front": "Stacking basics",
+    "back": "Level the forks, square to load, place gently, back out slowly.",
+    "icon": null
   }
 ]

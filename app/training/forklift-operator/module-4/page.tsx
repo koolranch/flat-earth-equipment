@@ -12,6 +12,7 @@ export default function Page(){
       title='Module 4: Hazard Hunt'
       nextHref='/training/forklift-operator/module-5'
       flashModuleKey="module-4"
+      flashCardCount={8}
       osha={<OSHAContentModule4 />}
       practice={({onComplete}) => <Module4Practice onComplete={onComplete} />}
       quizMeta={{ questions: 8, passPct: 80 }}
