@@ -2,6 +2,7 @@
 import React from 'react';
 import { FlashDeck } from '@/components/training/FlashDeck';
 import { normalizeFlashCards } from '@/lib/training/normalizeFlashCards';
+import { useFlashCards } from '@/lib/training/useFlashCards';
 import SimpleQuizModal from '@/components/quiz/SimpleQuizModal';
 
 type Props = {
@@ -9,7 +10,9 @@ type Props = {
   moduleSlug: string;
   title: string;
   nextHref: string;
-  flashCards: any[];
+  flashCards?: any[];
+  flashModuleKey?: string; // NEW: runtime fetch key like 'module-2'
+  onFlashSeen?: () => void;
   osha: React.ReactNode;
   practice: (opts: { onComplete: () => void }) => React.ReactNode;
   quizMeta?: { questions: number; passPct: number };
@@ -22,7 +25,7 @@ function StatusDot({ state }: { state: 'locked' | 'todo' | 'done' }) {
 }
 
 export default function TabbedModuleLayout({
-  courseSlug, moduleSlug, title, nextHref, flashCards, osha, practice,
+  courseSlug, moduleSlug, title, nextHref, flashCards, flashModuleKey, onFlashSeen, osha, practice,
   quizMeta = { questions: 8, passPct: 80 }
 }: Props) {
   const [tab, setTab] = React.useState<'osha'|'practice'|'flash'|'quiz'>('osha');
@@ -73,7 +76,7 @@ export default function TabbedModuleLayout({
         <button className={`px-3 py-1.5 rounded-md border ${tab==='practice'?'bg-white':'bg-slate-50'}`} onClick={() => setTab('practice')}>
           Practice <StatusDot state={practiceDone?'done':'todo'} />
         </button>
-        <button className={`px-3 py-1.5 rounded-md border ${tab==='flash'?'bg-white':'bg-slate-50'}`} onClick={() => { setTab('flash'); setFlashTouched(true); }}>
+        <button className={`px-3 py-1.5 rounded-md border ${tab==='flash'?'bg-white':'bg-slate-50'}`} onClick={() => { setTab('flash'); setFlashTouched(true); if (onFlashSeen) onFlashSeen(); }}>
           Flash Cards <StatusDot state={flashTouched?'done':'todo'} />
         </button>
         <button
@@ -90,20 +93,18 @@ export default function TabbedModuleLayout({
       {tab==='flash' && (
         <section className='rounded-2xl border bg-white p-4 mb-4'>
           {(() => {
-            const normalized = normalizeFlashCards(flashCards as any);
-            if (normalized.length === 0) {
-              if (typeof window !== 'undefined') {
-                // Helpful debug so you can see what's arriving
-                // @ts-ignore
-                console.warn('[FlashCards] No cards found for', { flashCards });
-              }
-              return (
-                <div className='text-sm text-slate-600'>
-                  No flash cards found for this module yet.
-                </div>
-              );
+            const runtime = flashModuleKey ? useFlashCards(flashModuleKey) : { cards: null, loading: false, error: null };
+            const data = (runtime.cards ?? flashCards ?? []) as any[];
+            const loading = runtime.loading;
+            const error = runtime.error as string | null;
+            if (loading) return <div className='text-sm text-slate-600'>Loading flash cards…</div>;
+            if (error) return <div className='text-sm text-red-600'>Failed to load cards: {error}</div>;
+            if (!data.length) return <div className='text-sm text-slate-600'>No flash cards found for this module yet.</div>;
+            if (typeof window !== 'undefined') {
+              try { localStorage.setItem(`flashcards:seen:${courseSlug ?? 'forklift'}:${flashModuleKey ?? '-'}`, '1'); } catch {}
+              if (onFlashSeen) onFlashSeen();
             }
-            return <FlashDeck cards={normalized as any} />;
+            return <FlashDeck cards={data as any} />;
           })()}
           <div className='text-xs text-slate-500 mt-2'>Tip: open each card before taking the quiz.</div>
         </section>
