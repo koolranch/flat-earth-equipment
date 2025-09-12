@@ -12,6 +12,7 @@ type Props = {
   nextHref: string;
   flashCards?: any[];
   flashModuleKey?: string; // NEW: runtime fetch key like 'module-2'
+  flashCardCount?: number; // NEW: show count in tab label
   onFlashSeen?: () => void;
   osha: React.ReactNode;
   practice: (opts: { onComplete: () => void }) => React.ReactNode;
@@ -25,7 +26,7 @@ function StatusDot({ state }: { state: 'locked' | 'todo' | 'done' }) {
 }
 
 export default function TabbedModuleLayout({
-  courseSlug, moduleSlug, title, nextHref, flashCards, flashModuleKey, onFlashSeen, osha, practice,
+  courseSlug, moduleSlug, title, nextHref, flashCards, flashModuleKey, flashCardCount, onFlashSeen, osha, practice,
   quizMeta = { questions: 8, passPct: 80 }
 }: Props) {
   const [tab, setTab] = React.useState<'osha'|'practice'|'flash'|'quiz'>('osha');
@@ -80,14 +81,14 @@ export default function TabbedModuleLayout({
           Practice <StatusDot state={practiceDone?'done':'todo'} />
         </button>
         <button className={`px-3 py-1.5 rounded-md border ${tab==='flash'?'bg-white':'bg-slate-50'}`} onClick={() => { setTab('flash'); setFlashTouched(true); if (onFlashSeen) onFlashSeen(); }}>
-          Flash Cards <StatusDot state={flashTouched?'done':'todo'} />
+          Flash Cards{flashCardCount ? ` (${flashCardCount})` : ''} <StatusDot state={flashTouched?'done':'todo'} />
         </button>
         <button
           className={`px-3 py-1.5 rounded-md border ${tab==='quiz'?'bg-white':'bg-slate-50'} ${!prereqsMet && 'opacity-50 cursor-not-allowed'}`}
           onClick={() => prereqsMet && setTab('quiz')}
           aria-disabled={!prereqsMet}
         >
-          Quiz <StatusDot state={quizPassed ? 'done' : (prereqsMet ? 'todo' : 'locked')} />
+          Quiz ({quizMeta.questions}) <StatusDot state={quizPassed ? 'done' : (prereqsMet ? 'todo' : 'locked')} />
         </button>
       </div>
 
@@ -125,7 +126,7 @@ export default function TabbedModuleLayout({
             <div className='flex items-center justify-between'>
               <div>
                 <h3 className='font-medium'>Module Quiz</h3>
-                <p className='text-sm text-slate-600'>{quizMeta.questions} questions · pass ≥ {quizMeta.passPct}%</p>
+                <p className='text-sm text-slate-600'>{quizMeta.questions} questions · pass ≥ {quizMeta.passPct}% to unlock next module</p>
               </div>
               <button className='px-4 py-2 rounded-md border' onClick={() => setOpenQuiz(true)}>Take quiz</button>
             </div>

@@ -1,14 +1,50 @@
 [
   {
-    "q": "Using attachments means…",
-    "a": "Capacity changes; update data plate."
+    "id": "m5-fc-01",
+    "front": "Charging area — requirements",
+    "back": "Eyewash, ventilation, fire protection, spill neutralizer; no ignition sources.",
+    "icon": null
   },
   {
-    "q": "Battery charging PPE?",
-    "a": "Eye/face protection; ventilate; no smoking."
+    "id": "m5-fc-02",
+    "front": "Connecting charger — sequence",
+    "back": "Park, brake, power OFF, plug in per SOP; check cables and connectors.",
+    "icon": null
   },
   {
-    "q": "Shutdown steps?",
-    "a": "Neutral, steer straight, brake set, forks down, key off."
+    "id": "m5-fc-03",
+    "front": "LP cylinder change — key steps",
+    "back": "Close valve, engine OFF, cool, disconnect carefully, leak check after install.",
+    "icon": null
+  },
+  {
+    "id": "m5-fc-04",
+    "front": "Parking — when leaving truck",
+    "back": "Forks down, neutral, brake set, power OFF; chock if required.",
+    "icon": null
+  },
+  {
+    "id": "m5-fc-05",
+    "front": "Shutdown — after shift",
+    "back": "Inspect, report defects, connect charger/fuel per policy, secure truck.",
+    "icon": null
+  },
+  {
+    "id": "m5-fc-06",
+    "front": "Records — certification",
+    "back": "Keep operator name, training & evaluation dates, evaluator identity; refreshers per triggers.",
+    "icon": null
+  },
+  {
+    "id": "m5-fc-07",
+    "front": "When refresher training is required",
+    "back": "After incidents/near-misses, unsafe operation, workplace/equipment changes, or 3-year eval shows need.",
+    "icon": null
+  },
+  {
+    "id": "m5-fc-08",
+    "front": "No-charge rules",
+    "back": "No smoking or open flames; keep vent caps in place; handle electrolytes with PPE.",
+    "icon": null
   }
 ]

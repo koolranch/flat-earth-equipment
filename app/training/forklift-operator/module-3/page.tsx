@@ -12,6 +12,7 @@ export default function Page(){
       title='Module 3: Balance & Load Handling'
       nextHref='/training/forklift-operator/module-4'
       flashModuleKey="module-3"
+      flashCardCount={8}
       osha={<OSHAContentModule3 />}
       practice={({onComplete}) => <Module3Practice onComplete={onComplete} />}
       quizMeta={{ questions: 8, passPct: 80 }}

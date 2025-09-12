@@ -1,22 +1,50 @@
 [
   {
-    "q": "What should you check on forks?",
-    "a": "Cracks, bends, locking pins seated."
+    "id": "m2-fc-01",
+    "front": "Forks — rejection criteria",
+    "back": "Cracks, bends, wear (heel/thickness), locking pins seated.",
+    "icon": null
   },
   {
-    "q": "What indicates hose/chain issues?",
-    "a": "Frays, kinks, leaks, improper tension."
+    "id": "m2-fc-02",
+    "front": "Chains & hoses — what to spot",
+    "back": "Frays, kinks, leaks, improper tension; replace if damaged.",
+    "icon": null
   },
   {
-    "q": "Two quick horn checks?",
-    "a": "Horn sounds; reverse beeper works."
+    "id": "m2-fc-03",
+    "front": "Tires & wheels — check for",
+    "back": "Wear, cuts, embedded debris, low pressure (pneumatic), loose lugs.",
+    "icon": null
   },
   {
-    "q": "Tire check includes?",
-    "a": "Wear, damage, inflation (pneumatic)."
+    "id": "m2-fc-04",
+    "front": "Horn & lights — rule",
+    "back": "Must function; reverse beeper required where used.",
+    "icon": null
   },
   {
-    "q": "Must-have documentation?",
-    "a": "Data plate present and legible."
+    "id": "m2-fc-05",
+    "front": "Seatbelt & plate — verify",
+    "back": "Belt latches/retracts; data plate readable.",
+    "icon": null
+  },
+  {
+    "id": "m2-fc-06",
+    "front": "Leaks — look here",
+    "back": "Under mast, pump, cylinders, lines; undercarriage; around axle.",
+    "icon": null
+  },
+  {
+    "id": "m2-fc-07",
+    "front": "Battery/LP secure — why it matters",
+    "back": "Unsecured power source can shift and cause loss of control.",
+    "icon": null
+  },
+  {
+    "id": "m2-fc-08",
+    "front": "Safety devices — examples",
+    "back": "Parking brake, deadman, alarms. Inoperative = out of service.",
+    "icon": null
   }
 ]
