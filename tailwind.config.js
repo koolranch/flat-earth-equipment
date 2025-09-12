@@ -22,12 +22,20 @@ module.exports = {
         'secondary-foreground': 'var(--secondary-foreground)',
         muted: 'var(--muted)',
         'muted-foreground': 'var(--muted-foreground)',
-        accent: 'var(--accent)',
+        accent: {
+          DEFAULT: "#F76511",
+          hover: "#E05E12", 
+          active: "#C24E0D",
+          soft: "#FEE7DA",
+        },
         'accent-foreground': 'var(--accent-foreground)',
         destructive: 'var(--destructive)',
         border: 'var(--border)',
         input: 'var(--input)',
         ring: 'var(--ring)',
+        ink: "#0F172A",
+        success: { DEFAULT: "#16A34A", soft: "#DCFCE7" },
+        danger: { DEFAULT: "#DC2626", soft: "#FEE2E2" },
         // Unified brand token system
         brand: {
           bg: 'var(--brand-bg)',
@@ -48,15 +56,17 @@ module.exports = {
       },
       fontFamily: {
         sans: ['var(--font-inter)', ...defaultTheme.fontFamily.sans],
-        heading: ['"Roboto Slab"', 'serif'],
+        heading: ["Barlow Semi Condensed", "Inter", "system-ui", "sans-serif"],
         body: ['var(--font-inter)', 'sans-serif'],
       },
       borderRadius: {
-        xl: '1.25rem',
+        xl: "14px",
+        "2xl": "18px",
         brand: 'var(--brand-radius)',
       },
       boxShadow: {
-        card: '0 4px 6px rgba(0,0,0,0.1)',
+        card: "0 1px 2px rgba(15,23,42,.06), 0 8px 24px rgba(15,23,42,.06)",
+        ring: "0 0 0 3px rgba(247,101,17,.25)",
         brand: 'var(--brand-shadow)',
       },
       backgroundImage: {

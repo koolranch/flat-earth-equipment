@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 export function TabCompleteButton(props: {
   label: string;
@@ -12,20 +12,14 @@ export function TabCompleteButton(props: {
 }) {
   const { label, onClick, className, disabled, ...rest } = props;
   return (
-    <button
-      type="button"
+    <Button
+      variant="secondary"
       onClick={onClick}
       disabled={disabled}
       aria-label={rest["aria-label"] ?? label}
-      className={cn(
-        "inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium",
-        disabled
-          ? "bg-slate-200 text-slate-500 cursor-not-allowed"
-          : "bg-amber-700 text-white hover:bg-amber-800",
-        className
-      )}
+      className={className}
     >
       {label} <ArrowRight size={16} />
-    </button>
+    </Button>
   );
 }

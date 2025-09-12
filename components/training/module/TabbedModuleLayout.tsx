@@ -89,33 +89,33 @@ export default function TabbedModuleLayout({
 
   return (
     <div className='max-w-5xl mx-auto'>
-      <h2 className='text-xl font-semibold'>{title}</h2>
+      <h2 className='h2'>{title}</h2>
       <p className='text-sm text-slate-600 mb-4'>Work through OSHA basics, practice, and flash cards — then pass the quiz to continue.</p>
 
       <div className='flex gap-2 mb-4'>
         <button 
-          className={`px-3 py-1.5 rounded-md border ${tab==='osha'?'bg-white':'bg-slate-50'}`} 
+          className={`px-3 py-1.5 rounded-xl border transition-colors ${tab==='osha'?'bg-gray-100 border-gray-300 text-ink':'bg-white border-gray-200 text-gray-700 hover:bg-gray-100'}`} 
           onClick={() => setTab('osha')}
           data-testid="tab-osha"
         >
           OSHA Basics <StatusDot state={done.osha ? 'done' : 'todo'} />
         </button>
         <button 
-          className={`px-3 py-1.5 rounded-md border ${tab==='practice'?'bg-white':'bg-slate-50'}`} 
+          className={`px-3 py-1.5 rounded-xl border transition-colors ${tab==='practice'?'bg-gray-100 border-gray-300 text-ink':'bg-white border-gray-200 text-gray-700 hover:bg-gray-100'}`} 
           onClick={() => setTab('practice')}
           data-testid="tab-practice"
         >
           Practice <StatusDot state={done.practice ? 'done' : 'todo'} />
         </button>
         <button 
-          className={`px-3 py-1.5 rounded-md border ${tab==='flash'?'bg-white':'bg-slate-50'}`} 
+          className={`px-3 py-1.5 rounded-xl border transition-colors ${tab==='flash'?'bg-gray-100 border-gray-300 text-ink':'bg-white border-gray-200 text-gray-700 hover:bg-gray-100'}`} 
           onClick={() => { setTab('flash'); if (onFlashSeen) onFlashSeen(); }}
           data-testid="tab-flash"
         >
           Flash Cards{flashCardCount ? ` (${flashCardCount})` : ''} <StatusDot state={done.cards ? 'done' : 'todo'} />
         </button>
         <button
-          className={`px-3 py-1.5 rounded-md border ${tab==='quiz'?'bg-white':'bg-slate-50'} ${!prereqsMet && 'opacity-50 cursor-not-allowed'}`}
+          className={`px-3 py-1.5 rounded-xl border transition-colors ${tab==='quiz'?'bg-gray-100 border-gray-300 text-ink':'bg-white border-gray-200 text-gray-700 hover:bg-gray-100'} ${!prereqsMet && 'opacity-50 cursor-not-allowed'}`}
           onClick={() => prereqsMet && setTab('quiz')}
           aria-disabled={!prereqsMet}
           data-testid="tab-quiz"
@@ -125,7 +125,7 @@ export default function TabbedModuleLayout({
       </div>
 
       {tab==='osha' && (
-        <section className='rounded-2xl border bg-white p-4 mb-4'>
+        <section className='rounded-2xl border bg-white p-4 mb-4 shadow-card'>
           {osha}
           <div className="mt-4 flex justify-end">
             <TabCompleteButton
@@ -140,7 +140,7 @@ export default function TabbedModuleLayout({
         </section>
       )}
       {tab==='practice' && (
-        <section className='rounded-2xl border bg-white p-4 mb-4'>
+        <section className='rounded-2xl border bg-white p-4 mb-4 shadow-card'>
           {practice({ onComplete: () => setPracticeDone(true) })}
           <div className="mt-4 flex justify-end">
             <TabCompleteButton
@@ -155,7 +155,7 @@ export default function TabbedModuleLayout({
         </section>
       )}
       {tab==='flash' && (
-        <section className='rounded-2xl border bg-white p-4 mb-4'>
+        <section className='rounded-2xl border bg-white p-4 mb-4 shadow-card'>
           {(() => {
             const data = runtime.cards ?? (flashCards ? normalizeFlashCards(flashCards) : []);
             const loading = runtime.loading;
@@ -187,7 +187,7 @@ export default function TabbedModuleLayout({
         </section>
       )}
       {tab==='quiz' && (
-        <section className='rounded-2xl border bg-white p-4 mb-4'>
+        <section className='rounded-2xl border bg-white p-4 mb-4 shadow-card'>
           {!prereqsMet ? (
             <div className='text-sm text-slate-600'>
               <p className='mb-2 flex items-center gap-2'><span>🔒</span> The quiz unlocks after:</p>
