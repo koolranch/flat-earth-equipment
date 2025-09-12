@@ -6,6 +6,9 @@ import { useFlashCards } from '@/lib/training/useFlashCards';
 import SimpleQuizModal from '@/components/quiz/SimpleQuizModal';
 import { useModuleTabs } from '@/hooks/useModuleTabs';
 import { isStepDone } from '@/lib/trainingProgress';
+import { useModuleGate } from '@/components/training/useModuleGate';
+import { TabCompleteButton } from '@/components/training/TabCompleteButton';
+import { ModuleFooterCTA } from '@/components/training/ModuleFooterCTA';
 
 type Props = {
   courseSlug: string;
@@ -37,16 +40,22 @@ export default function TabbedModuleLayout({
   const tab = activeTab;
   const setTab = setActiveTab;
 
-  const [practiceDone, setPracticeDone] = React.useState(false);
-  const [flashTouched, setFlashTouched] = React.useState(false);
-  const [quizPassed, setQuizPassed] = React.useState(false);
+  // Use new progress tracking system
+  const { done, markDone, allDone } = useModuleGate({
+    courseId: courseSlug,
+    moduleKey: moduleKey || 'unknown',
+    initial: { osha: false, practice: false, cards: false, quiz: false }
+  });
+
   const [openQuiz, setOpenQuiz] = React.useState(false);
 
   // Runtime flashcards hook - must be called unconditionally
   const runtime = useFlashCards(flashModuleKey || '');
 
-  // Check progress completion
-  const oshaDone = typeof window !== 'undefined' && moduleKey && isStepDone(courseSlug, moduleKey, 'osha');
+  // Legacy state for backward compatibility
+  const [practiceDone, setPracticeDone] = React.useState(false);
+  const [flashTouched, setFlashTouched] = React.useState(false);
+  const [quizPassed, setQuizPassed] = React.useState(false);
 
   const key = `mstate:${courseSlug}:${moduleSlug}`;
   React.useEffect(() => {
@@ -63,7 +72,7 @@ export default function TabbedModuleLayout({
     } catch {}
   }, [practiceDone, flashTouched, quizPassed]);
 
-  const prereqsMet = oshaDone && practiceDone && flashTouched;
+  const prereqsMet = done.osha && done.practice && done.cards;
 
   async function markModuleComplete() {
     try {
@@ -89,21 +98,21 @@ export default function TabbedModuleLayout({
           onClick={() => setTab('osha')}
           data-testid="tab-osha"
         >
-          OSHA Basics <StatusDot state={oshaDone ? 'done' : 'todo'} />
+          OSHA Basics <StatusDot state={done.osha ? 'done' : 'todo'} />
         </button>
         <button 
           className={`px-3 py-1.5 rounded-md border ${tab==='practice'?'bg-white':'bg-slate-50'}`} 
           onClick={() => setTab('practice')}
           data-testid="tab-practice"
         >
-          Practice <StatusDot state={practiceDone?'done':'todo'} />
+          Practice <StatusDot state={done.practice ? 'done' : 'todo'} />
         </button>
         <button 
           className={`px-3 py-1.5 rounded-md border ${tab==='flash'?'bg-white':'bg-slate-50'}`} 
-          onClick={() => { setTab('flash'); setFlashTouched(true); if (onFlashSeen) onFlashSeen(); }}
+          onClick={() => { setTab('flash'); if (onFlashSeen) onFlashSeen(); }}
           data-testid="tab-flash"
         >
-          Flash Cards{flashCardCount ? ` (${flashCardCount})` : ''} <StatusDot state={flashTouched?'done':'todo'} />
+          Flash Cards{flashCardCount ? ` (${flashCardCount})` : ''} <StatusDot state={done.cards ? 'done' : 'todo'} />
         </button>
         <button
           className={`px-3 py-1.5 rounded-md border ${tab==='quiz'?'bg-white':'bg-slate-50'} ${!prereqsMet && 'opacity-50 cursor-not-allowed'}`}
@@ -115,8 +124,36 @@ export default function TabbedModuleLayout({
         </button>
       </div>
 
-      {tab==='osha' && (<section className='rounded-2xl border bg-white p-4 mb-4'>{osha}</section>)}
-      {tab==='practice' && (<section className='rounded-2xl border bg-white p-4 mb-4'>{practice({ onComplete: () => setPracticeDone(true) })}</section>)}
+      {tab==='osha' && (
+        <section className='rounded-2xl border bg-white p-4 mb-4'>
+          {osha}
+          <div className="mt-4 flex justify-end">
+            <TabCompleteButton
+              label="Mark OSHA Basics done → Practice"
+              aria-label="Mark OSHA Basics complete and go to Practice"
+              onClick={async () => {
+                await markDone("osha");
+                setTab("practice");
+              }}
+            />
+          </div>
+        </section>
+      )}
+      {tab==='practice' && (
+        <section className='rounded-2xl border bg-white p-4 mb-4'>
+          {practice({ onComplete: () => setPracticeDone(true) })}
+          <div className="mt-4 flex justify-end">
+            <TabCompleteButton
+              label="Mark Practice done → Flash Cards"
+              aria-label="Mark Practice complete and go to Flash Cards"
+              onClick={async () => {
+                await markDone("practice");
+                setTab("flash");
+              }}
+            />
+          </div>
+        </section>
+      )}
       {tab==='flash' && (
         <section className='rounded-2xl border bg-white p-4 mb-4'>
           {(() => {
@@ -130,9 +167,23 @@ export default function TabbedModuleLayout({
               try { localStorage.setItem(`flashcards:seen:${courseSlug ?? 'forklift'}:${flashModuleKey ?? '-'}`, '1'); } catch {}
               if (onFlashSeen) onFlashSeen();
             }
-            return <FlashDeck cards={data} />;
+            return (
+              <div>
+                <FlashDeck cards={data} />
+                <div className='text-xs text-slate-500 mt-2'>Tip: open each card before taking the quiz.</div>
+                <div className="mt-4 flex justify-end">
+                  <TabCompleteButton
+                    label="Mark Flash Cards done → Quiz"
+                    aria-label="Mark Flash Cards complete and go to Quiz"
+                    onClick={async () => {
+                      await markDone("cards");
+                      setTab("quiz");
+                    }}
+                  />
+                </div>
+              </div>
+            );
           })()}
-          <div className='text-xs text-slate-500 mt-2'>Tip: open each card before taking the quiz.</div>
         </section>
       )}
       {tab==='quiz' && (
@@ -158,21 +209,21 @@ export default function TabbedModuleLayout({
         </section>
       )}
 
-      <div className='mt-4 flex justify-end'>
-        <button
-          className={`px-4 py-2 rounded-md border ${quizPassed ? '' : 'opacity-50 cursor-not-allowed'}`}
-          disabled={!quizPassed}
-          onClick={() => { window.location.href = nextHref; }}
-        >
-          {quizPassed ? 'Continue' : 'Complete all steps to continue'}
-        </button>
-      </div>
+      <ModuleFooterCTA
+        nextHref={allDone ? nextHref : ""}
+        enabled={allDone}
+        isLast={nextHref.includes('exam') || nextHref.includes('final')}
+      />
 
       {openQuiz && (
         <SimpleQuizModal
           module={parseInt(moduleSlug.match(/\d+/)?.[0] || '1')}
           onClose={() => setOpenQuiz(false)}
-          onPassed={() => { setOpenQuiz(false); setQuizPassed(true); }}
+          onPassed={async () => { 
+            setOpenQuiz(false); 
+            setQuizPassed(true); 
+            await markDone("quiz");
+          }}
         />
       )}
     </div>
