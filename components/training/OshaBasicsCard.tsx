@@ -62,7 +62,16 @@ export default function OshaBasicsCard({
         </div>
       )}
 
-      <div className="mt-4 flex justify-end">
+      <div className="mt-4 flex items-center justify-between">
+        <a
+          href="https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.178"
+          target="_blank"
+          rel="noopener"
+          aria-label="View OSHA 1910.178"
+          className="text-xs text-slate-500 hover:text-slate-700 underline"
+        >
+          OSHA ref
+        </a>
         <button
           type="button"
           onClick={onContinue}
