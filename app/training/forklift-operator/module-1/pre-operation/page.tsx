@@ -4,6 +4,7 @@ import { FlashDeck } from '@/components/training/FlashDeck';
 import { StatusDot } from '@/components/training/StatusDot';
 import flashData from '@/content/training/forklift-operator/module-1/preop-flashcards.json';
 import SimpleQuizModal from '@/components/quiz/SimpleQuizModal';
+import Module1OSHA from '@/app/training/[course]/modules/module-1/OSHA';
 
 export default function Page(){
   // Lightweight client state for gating the Quiz tab and "Continue" button
@@ -91,34 +92,7 @@ export default function Page(){
       {/* Panels */}
       {tab==='osha' && (
         <section className='rounded-2xl border bg-white p-4 mb-4'>
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold">OSHA 1910.178 — Pre-Operation Requirements</h2>
-            
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-              <h3 className="font-medium text-amber-900">Daily Inspection Required</h3>
-              <p className="text-sm text-amber-800 mt-1">
-                Powered industrial trucks must be inspected at least daily and when used on each shift.
-              </p>
-            </div>
-
-            <div className="space-y-3">
-              <h3 className="font-medium">Safety Requirements:</h3>
-              <ul className="space-y-2 text-sm">
-                <li>• Remove trucks from service if any condition adversely affects safety</li>
-                <li>• Verify the <strong>data plate</strong> matches the truck and any attachments in use</li>
-                <li>• Wear <strong>seatbelts</strong> and required <strong>PPE</strong> as posted</li>
-                <li>• Test <strong>horn</strong> before moving; use at intersections and blind corners</li>
-                <li>• Confirm <strong>lights</strong>/beacons work where required</li>
-                <li>• Check tires, forks, chains, hydraulics, and look for leaks</li>
-              </ul>
-            </div>
-
-            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
-              <p className="text-sm text-slate-600">
-                <em>This is a plain-language summary to help you pass and operate safely. Always follow your site policy and the manufacturer's manual.</em>
-              </p>
-            </div>
-          </div>
+          <Module1OSHA />
         </section>
       )}
 
