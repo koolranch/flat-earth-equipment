@@ -1,6 +1,6 @@
 'use client';
 import TabbedModuleLayout from '@/components/training/module/TabbedModuleLayout';
-import { OSHAContentModule3 } from '@/components/training/osha/Module3';
+import Module3OSHA from '@/app/training/[course]/modules/module-3/OSHA';
 import { Module3Practice } from '@/components/training/practice/Module3Practice';
 // Removed flashCards import - now using runtime fetch
 
@@ -13,7 +13,7 @@ export default function Page(){
       nextHref='/training/forklift-operator/module-4'
       flashModuleKey="module-3"
       flashCardCount={8}
-      osha={<OSHAContentModule3 />}
+      osha={<Module3OSHA />}
       practice={({onComplete}) => <Module3Practice onComplete={onComplete} />}
       quizMeta={{ questions: 8, passPct: 80 }}
     />
