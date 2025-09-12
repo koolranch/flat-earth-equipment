@@ -9,6 +9,7 @@ export default function Page(){
     <TabbedModuleLayout
       courseSlug='forklift_operator'
       moduleSlug='module_5_advanced'
+      moduleKey='m5'
       title='Module 5: Advanced Operations'
       nextHref='/training/forklift-operator/exam'
       flashModuleKey="module-5"
