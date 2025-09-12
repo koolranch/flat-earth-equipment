@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { FlashDeck } from '@/components/training/FlashDeck';
+import { normalizeFlashCards } from '@/lib/training/normalizeFlashCards';
 import SimpleQuizModal from '@/components/quiz/SimpleQuizModal';
 
 type Props = {
@@ -88,7 +89,22 @@ export default function TabbedModuleLayout({
       {tab==='practice' && (<section className='rounded-2xl border bg-white p-4 mb-4'>{practice({ onComplete: () => setPracticeDone(true) })}</section>)}
       {tab==='flash' && (
         <section className='rounded-2xl border bg-white p-4 mb-4'>
-          <FlashDeck cards={flashCards} />
+          {(() => {
+            const normalized = normalizeFlashCards(flashCards as any);
+            if (normalized.length === 0) {
+              if (typeof window !== 'undefined') {
+                // Helpful debug so you can see what's arriving
+                // @ts-ignore
+                console.warn('[FlashCards] No cards found for', { flashCards });
+              }
+              return (
+                <div className='text-sm text-slate-600'>
+                  No flash cards found for this module yet.
+                </div>
+              );
+            }
+            return <FlashDeck cards={normalized as any} />;
+          })()}
           <div className='text-xs text-slate-500 mt-2'>Tip: open each card before taking the quiz.</div>
         </section>
       )}
