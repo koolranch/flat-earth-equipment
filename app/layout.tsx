@@ -22,6 +22,7 @@ import { getAdminStatus } from '@/lib/admin/guard';
 import '../globals.css';
 import { Toaster } from 'react-hot-toast';
 import QAEventListener from '@/components/dev/QAEventListener';
+import SafetyTopbar from '@/components/safety/SafetyTopbar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -82,22 +83,9 @@ export default async function RootLayout({
             
             {process.env.NODE_ENV !== 'production' ? <QAEventListener /> : null}
             
-            {/* Global header with navigation and language switcher */}
-            <header role="banner" className="border-b bg-white">
-              <div className="container mx-auto p-4 flex items-center justify-between">
-                <a href="/training" className="font-bold tracking-tight text-[#0F172A]">Flat Earth Safety</a>
-                <nav aria-label="Global navigation" className="flex items-center gap-3">
-                  <a className="text-sm underline hover:no-underline" href="/training">Training</a>
-                  <a className="text-sm underline hover:no-underline" href="/safety">Safety</a>
-                  <a className="text-sm underline hover:no-underline" href="/trainer">Trainer</a>
-                  <a className="text-sm underline hover:no-underline" href="/records">Records</a>
-                  {adminStatus.isAdmin && (
-                    <a className="text-sm underline hover:no-underline text-blue-600 dark:text-blue-400" href="/admin/roster">Admin</a>
-                  )}
-                  <LocaleSwitcher />
-                </nav>
-              </div>
-            </header>
+            {/* Safety sub-nav moved to components/safety/SafetyTopbar.tsx */}
+            {/* Render the gated safety/training micro header ONLY on training routes */}
+            <SafetyTopbar />
             
             {/* Main Navbar */}
             <Navbar locale={locale} />
