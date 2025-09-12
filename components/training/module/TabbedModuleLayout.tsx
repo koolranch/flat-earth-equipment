@@ -34,6 +34,9 @@ export default function TabbedModuleLayout({
   const [quizPassed, setQuizPassed] = React.useState(false);
   const [openQuiz, setOpenQuiz] = React.useState(false);
 
+  // Runtime flashcards hook - must be called unconditionally
+  const runtime = useFlashCards(flashModuleKey || '');
+
   const key = `mstate:${courseSlug}:${moduleSlug}`;
   React.useEffect(() => {
     try {
@@ -93,7 +96,6 @@ export default function TabbedModuleLayout({
       {tab==='flash' && (
         <section className='rounded-2xl border bg-white p-4 mb-4'>
           {(() => {
-            const runtime = flashModuleKey ? useFlashCards(flashModuleKey) : { cards: null, loading: false, error: null };
             const data = (runtime.cards ?? flashCards ?? []) as any[];
             const loading = runtime.loading;
             const error = runtime.error as string | null;

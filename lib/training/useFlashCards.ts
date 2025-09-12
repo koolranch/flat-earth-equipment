@@ -1,5 +1,5 @@
 "use client";
-import * React from 'react';
+import * as React from 'react';
 
 export type DeckCard = { q: string; a: string; img?: string };
 
@@ -9,6 +9,13 @@ export function useFlashCards(moduleKey: string){
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
+    if (!moduleKey) {
+      setCards([]);
+      setError(null);
+      setLoading(false);
+      return;
+    }
+    
     let alive = true;
     setLoading(true);
     setError(null);
