@@ -1,0 +1,92 @@
+{
+  "module": 4,
+  "pass_score": 80,
+  "questions": [
+    {
+      "id": "m4-q-01",
+      "type": "mc",
+      "prompt": "Approaching a blind corner you should:",
+      "choices": [
+        "Sound horn and slow",
+        "Hug the inside at speed",
+        "Assume it's clear"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "m4-q-02",
+      "type": "mc",
+      "prompt": "It's okay to drive through a small spill.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "m4-q-03",
+      "type": "mc",
+      "prompt": "You notice an unstable pallet on a rack.",
+      "choices": [
+        "Push it into place",
+        "Restack/secure before moving",
+        "Carry slowly anyway"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "m4-q-04",
+      "type": "mc",
+      "prompt": "Best practice near a dock edge:",
+      "choices": [
+        "Turn close to the edge for clearance",
+        "Keep safe distance and go straight",
+        "Approach fast then brake"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "m4-q-05",
+      "type": "mc",
+      "prompt": "Overhead obstructions are managed by:",
+      "choices": [
+        "Lowering mast/forks and verifying clearance",
+        "Raising load for view",
+        "Driving faster"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "m4-q-06",
+      "type": "mc",
+      "prompt": "Pedestrians must yield to forklifts.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "m4-q-07",
+      "type": "mc",
+      "prompt": "Speed management is most critical:",
+      "choices": [
+        "At intersections and pedestrian areas",
+        "Only on straight aisles",
+        "Only outdoors"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "m4-q-08",
+      "type": "mc",
+      "prompt": "Congested aisle with limited clearance. You should:",
+      "choices": [
+        "Squeeze past",
+        "Wait or use a spotter",
+        "Honk and proceed"
+      ],
+      "answer": 1
+    }
+  ]
+}

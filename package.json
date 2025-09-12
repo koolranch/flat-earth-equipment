@@ -134,7 +134,8 @@
     "qa:user:new": "node scripts/qa/make-test-user.mjs --course=forklift --locale=en --prefix=qa --domain=example.test",
     "qa:user:new:file": "mkdir -p tmp && node scripts/qa/make-test-user.mjs --course=forklift --locale=en --prefix=qa --domain=example.test > tmp/qa-last-user.json && cat tmp/qa-last-user.json",
     "qa:live-user": "node scripts/qa/create-live-user.mjs",
-    "migrate:flashcards": "node scripts/flashcards/migrate.mjs"
+    "migrate:flashcards": "node scripts/flashcards/migrate.mjs",
+    "migrate:quizzes": "node scripts/quizzes/migrate.mjs"
   },
   "keywords": [],
   "author": "",

@@ -1,0 +1,92 @@
+{
+  "module": 5,
+  "pass_score": 80,
+  "questions": [
+    {
+      "id": "m5-q-01",
+      "type": "mc",
+      "prompt": "Before connecting a charger you must:",
+      "choices": [
+        "Leave truck ON to power fans",
+        "Turn power OFF and set brake",
+        "Raise forks for access"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "m5-q-02",
+      "type": "mc",
+      "prompt": "Open flames are prohibited in charging areas.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "m5-q-03",
+      "type": "mc",
+      "prompt": "After installing an LP cylinder you should:",
+      "choices": [
+        "Open valve fully and drive off",
+        "Leak-check connections",
+        "Purge by cracking the line"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "m5-q-04",
+      "type": "mc",
+      "prompt": "Parking and leaving the truck unattended requires:",
+      "choices": [
+        "Forks down, neutral, brake set, power OFF",
+        "Forks raised to be seen",
+        "Neutral only"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "m5-q-05",
+      "type": "mc",
+      "prompt": "Certification records must include:",
+      "choices": [
+        "Operator name, training date, evaluation date, evaluator",
+        "Only the trainer's name",
+        "Production metrics"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "m5-q-06",
+      "type": "mc",
+      "prompt": "Refresher training is required when:",
+      "choices": [
+        "Operator changes shifts",
+        "Workplace/equipment changes or unsafe operation",
+        "Every month"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "m5-q-07",
+      "type": "mc",
+      "prompt": "Vent caps may be removed to speed charging.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "m5-q-08",
+      "type": "mc",
+      "prompt": "End-of-shift best practice:",
+      "choices": [
+        "Connect charger/fuel per policy and report defects",
+        "Park anywhere",
+        "Leave key on for next shift"
+      ],
+      "answer": 0
+    }
+  ]
+}
