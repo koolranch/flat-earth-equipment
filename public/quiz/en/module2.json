@@ -2,8 +2,91 @@
   "module": 2,
   "pass_score": 80,
   "questions": [
-    {"id":"m2q1","type":"mc","prompt":"The daily inspection includes:","choices":["Tires, forks, chains, horn, lights, hydraulics, leaks, data plate","Seat color and paint chips only","Charging station only"],"answer":0},
-    {"id":"m2q2","type":"mc","prompt":"If you find a hydraulic leak, you should:","choices":["Wipe and ignore","Tag out and report per policy","Drive carefully and recheck later"],"answer":1},
-    {"id":"m2q3","type":"mc","prompt":"Data plate tells you:","choices":["Max rated capacity","Radio code","Battery password"],"answer":0}
+    {
+      "id": "m2-q-01",
+      "type": "mc",
+      "prompt": "Forks should be removed from service if:",
+      "choices": [
+        "Minor paint chips",
+        "Cracks or bent tines",
+        "Surface rust"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "m2-q-02",
+      "type": "mc",
+      "prompt": "A mast chain shows broken links. Best action:",
+      "choices": [
+        "Lubricate and recheck",
+        "Operate at reduced speed",
+        "Tag out for replacement"
+      ],
+      "answer": 2
+    },
+    {
+      "id": "m2-q-03",
+      "type": "mc",
+      "prompt": "Missing locking pins are acceptable if the load is light.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "m2-q-04",
+      "type": "mc",
+      "prompt": "Which item is NOT a normal check?",
+      "choices": [
+        "Lights and reverse beeper",
+        "Seatbelt operation",
+        "Radio presets"
+      ],
+      "answer": 2
+    },
+    {
+      "id": "m2-q-05",
+      "type": "mc",
+      "prompt": "Pneumatic tire looks low. You should:",
+      "choices": [
+        "Top off to spec before use",
+        "Ignore if driving slowly",
+        "Operate only without a load"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "m2-q-06",
+      "type": "mc",
+      "prompt": "You find fresh oil on the floor under the truck.",
+      "choices": [
+        "Wipe and monitor",
+        "Tag out and report",
+        "Place a pad and continue"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "m2-q-07",
+      "type": "mc",
+      "prompt": "An unreadable data plate is acceptable if the supervisor knows capacity.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "m2-q-08",
+      "type": "mc",
+      "prompt": "Battery is not clamped fully. Best action:",
+      "choices": [
+        "Add a strap temporarily",
+        "Secure per spec before operation",
+        "Operate carefully"
+      ],
+      "answer": 1
+    }
   ]
 }

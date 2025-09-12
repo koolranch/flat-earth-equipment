@@ -2,8 +2,91 @@
   "module": 3,
   "pass_score": 80,
   "questions": [
-    {"id":"m3q1","type":"mc","prompt":"The stability triangle is formed by:","choices":["Three random points","Two front wheel contacts and rear axle pivot","Fork tips and mast"],"answer":1},
-    {"id":"m3q2","type":"mc","prompt":"Increasing mast tilt forward with heavy load:","choices":["Increases tip risk","Improves stability","Has no effect"],"answer":0},
-    {"id":"m3q3","type":"mc","prompt":"To stay stable, keep the combined COG:","choices":["Inside the triangle","Outside the triangle","On the forks"],"answer":0}
+    {
+      "id": "m3-q-01",
+      "type": "mc",
+      "prompt": "The stability triangle is formed by:",
+      "choices": [
+        "Both front wheels and the rear axle pivot",
+        "Three points on the chassis",
+        "Mast rollers"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "m3-q-02",
+      "type": "mc",
+      "prompt": "Traveling with a load, forks should be:",
+      "choices": [
+        "Low and slightly tilted back",
+        "High to see under the load",
+        "Level at chest height"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "m3-q-03",
+      "type": "mc",
+      "prompt": "It's acceptable to travel with an elevated load for short distances.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "m3-q-04",
+      "type": "mc",
+      "prompt": "On a ramp with a load you should:",
+      "choices": [
+        "Keep the load uphill",
+        "Turn diagonally",
+        "Coast in neutral"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "m3-q-05",
+      "type": "mc",
+      "prompt": "Which increases the chance of tip-over?",
+      "choices": [
+        "Lowering forks to travel height",
+        "Turning fast with a high load",
+        "Tilting back before moving"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "m3-q-06",
+      "type": "mc",
+      "prompt": "Load center increases from 24\" to 36\" at same weight. Capacity effect?",
+      "choices": [
+        "Capacity increases",
+        "Capacity decreases",
+        "No change"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "m3-q-07",
+      "type": "mc",
+      "prompt": "Pedestrians have right of way.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "m3-q-08",
+      "type": "mc",
+      "prompt": "Before placing a load in a rack you should:",
+      "choices": [
+        "Level forks and square to the slot",
+        "Raise quickly and push to seat",
+        "Turn slightly while setting"
+      ],
+      "answer": 0
+    }
   ]
 }

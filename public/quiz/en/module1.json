@@ -2,8 +2,91 @@
   "module": 1,
   "pass_score": 80,
   "questions": [
-    {"id":"m1q1","type":"mc","prompt":"Put PPE in the correct order before operating:","choices":["Hard hat → Vest → Set brake → Lower forks","Vest → Hard hat → Lower forks → Set brake","Lower forks → Vest → Hard hat → Set brake"],"answer":1},
-    {"id":"m1q2","type":"mc","prompt":"Which control sounds a warning to pedestrians?","choices":["Ignition","Horn","Tilt lever"],"answer":1},
-    {"id":"m1q3","type":"mc","prompt":"Before moving, where should the forks be?","choices":["Raised high","Just off the ground and level","Dragging on the floor"],"answer":1}
+    {
+      "id": "m1-q-01",
+      "type": "mc",
+      "prompt": "When must you complete the pre-operation inspection?",
+      "choices": [
+        "At least once per shift before use",
+        "Once per week",
+        "Only if the truck feels unsafe"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "m1-q-02",
+      "type": "mc",
+      "prompt": "The nameplate is scuffed and unreadable. You should:",
+      "choices": [
+        "Operate carefully under capacity",
+        "Operate only with light loads",
+        "Tag out and remove from service until replaced"
+      ],
+      "answer": 2
+    },
+    {
+      "id": "m1-q-03",
+      "type": "mc",
+      "prompt": "You approach a blind corner. Best action:",
+      "choices": [
+        "Sound the horn and slow down",
+        "Proceed if no one is visible",
+        "Speed up to clear the corner"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "m1-q-04",
+      "type": "mc",
+      "prompt": "Seatbelts are optional indoors.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "m1-q-05",
+      "type": "mc",
+      "prompt": "Which finding requires removing the truck from service?",
+      "choices": [
+        "Dim headlight",
+        "Missing reverse beeper",
+        "Scuffed paint"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "m1-q-06",
+      "type": "mc",
+      "prompt": "Proper footwear for operators is:",
+      "choices": [
+        "Steel/composite toe, slip-resistant",
+        "Canvas sneakers",
+        "Open-toe sandals"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "m1-q-07",
+      "type": "mc",
+      "prompt": "If you find a hydraulic leak:",
+      "choices": [
+        "Wipe and continue",
+        "Tag out and report for repair",
+        "Top off fluid only"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "m1-q-08",
+      "type": "mc",
+      "prompt": "Testing horn and lights is part of the daily check.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": 0
+    }
   ]
 }
