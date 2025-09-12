@@ -1,7 +1,8 @@
 "use client";
 import * as React from 'react';
+import { normalizeFlashCards } from './normalizeFlashCards';
 
-export type DeckCard = { q: string; a: string; img?: string };
+export type DeckCard = { id: string; front: string; back: string; icon?: string };
 
 export function useFlashCards(moduleKey: string){
   const [cards, setCards] = React.useState<DeckCard[] | null>(null);
@@ -24,7 +25,7 @@ export function useFlashCards(moduleKey: string){
         if (!r.ok) throw new Error(`${r.status} ${r.statusText}`);
         return r.json();
       })
-      .then((data) => { if (!alive) return; setCards(Array.isArray(data) ? data : []); })
+      .then((data) => { if (!alive) return; setCards(normalizeFlashCards(data)); })
       .catch((e) => { if (!alive) return; setError(e.message); setCards([]); })
       .finally(() => alive && setLoading(false));
     return () => { alive = false; };

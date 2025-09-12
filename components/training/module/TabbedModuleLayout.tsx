@@ -96,7 +96,7 @@ export default function TabbedModuleLayout({
       {tab==='flash' && (
         <section className='rounded-2xl border bg-white p-4 mb-4'>
           {(() => {
-            const data = (runtime.cards ?? flashCards ?? []) as any[];
+            const data = runtime.cards ?? (flashCards ? normalizeFlashCards(flashCards) : []);
             const loading = runtime.loading;
             const error = runtime.error as string | null;
             if (loading) return <div className='text-sm text-slate-600'>Loading flash cards…</div>;
@@ -106,7 +106,7 @@ export default function TabbedModuleLayout({
               try { localStorage.setItem(`flashcards:seen:${courseSlug ?? 'forklift'}:${flashModuleKey ?? '-'}`, '1'); } catch {}
               if (onFlashSeen) onFlashSeen();
             }
-            return <FlashDeck cards={data as any} />;
+            return <FlashDeck cards={data} />;
           })()}
           <div className='text-xs text-slate-500 mt-2'>Tip: open each card before taking the quiz.</div>
         </section>
