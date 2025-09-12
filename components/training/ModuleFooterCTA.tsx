@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 export function ModuleFooterCTA(props: {
   nextHref: string; // or "" if last module
@@ -14,12 +14,9 @@ export function ModuleFooterCTA(props: {
   if (!nextHref) {
     return (
       <div className="mt-6">
-        <button
-          disabled
-          className="rounded-md bg-slate-200 px-4 py-2 text-slate-500 cursor-not-allowed"
-        >
+        <Button disabled variant="secondary">
           {label}
-        </button>
+        </Button>
       </div>
     );
   }
@@ -27,21 +24,19 @@ export function ModuleFooterCTA(props: {
   return (
     <div className="mt-6">
       {enabled ? (
-        <Link
-          href={nextHref}
-          className="inline-flex items-center rounded-md bg-amber-700 px-4 py-2 text-white hover:bg-amber-800"
-          aria-label={label}
-        >
-          {label}
+        <Link href={nextHref} className="inline-block">
+          <Button variant="primary" aria-label={label}>
+            {label}
+          </Button>
         </Link>
       ) : (
-        <button
+        <Button
           disabled
-          className="rounded-md bg-slate-200 px-4 py-2 text-slate-500 cursor-not-allowed"
+          variant="secondary"
           aria-label={`${label} (locked until all steps complete)`}
         >
           {label}
-        </button>
+        </Button>
       )}
     </div>
   );

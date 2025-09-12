@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap');
 @import "tw-animate-css";
 
 @tailwind base;
@@ -247,4 +248,19 @@
   0%,100% { opacity:0; transform:translateY(-4px) }
   10%,90% { opacity:1; transform:translateY(0) }
 }
-.animate-fade-in-out { animation: fade-in-out 4s ease-out forwards } 
+.animate-fade-in-out { animation: fade-in-out 4s ease-out forwards }
+
+/* Brand typography utilities */
+@layer utilities {
+  .h1{ font-size:30px; line-height:36px; font-weight:700; font-family: theme(fontFamily.heading); letter-spacing:-0.01em; }
+  .h2{ font-size:24px; line-height:32px; font-weight:700; font-family: theme(fontFamily.heading); letter-spacing:-0.01em; }
+  .h3{ font-size:20px; line-height:28px; font-weight:600; font-family: theme(fontFamily.heading); letter-spacing:-0.01em; }
+  
+  /* Utilities for lists on dark cards */
+  .list-on-dark li{ color: #E5E7EB; }
+  .list-on-dark li::marker{ color: #F76511; }
+  
+  /* Generic tokens for SVG strokes/fills if needed */
+  .accent-stroke { stroke: #F76511; }
+  .accent-fill { fill: #F76511; }
+} 

@@ -24,7 +24,7 @@ export default function OshaBasicsCard({
 }: OshaBasicsCardProps) {
   return (
     <section className="rounded-lg border border-slate-200 bg-white p-4 sm:p-6" data-testid={testId}>
-      <h3 className="text-sm font-semibold tracking-tight text-slate-800 sm:text-base">{title}</h3>
+      <h3 className="h3">{title}</h3>
 
       {calloutBody && (
         <div className="mt-3 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-[13px] text-slate-800">
