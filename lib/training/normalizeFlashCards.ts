@@ -4,13 +4,14 @@ export type RawCard = {
   front?: string; back?: string;
 };
 
-export type DeckCard = { q: string; a: string; img?: string };
+export type DeckCard = { id: string; front: string; back: string; icon?: string };
 
 export function normalizeFlashCards(cards: RawCard[] | undefined | null): DeckCard[] {
   if (!cards || !Array.isArray(cards)) return [];
-  return cards.map((c) => ({
-    q: c.q ?? c.question ?? c.front ?? '',
-    a: c.a ?? c.answer ?? c.back ?? '',
-    img: c.img
-  })).filter(c => c.q && c.a);
+  return cards.map((c, index) => ({
+    id: `card-${index}`,
+    front: c.q ?? c.question ?? c.front ?? '',
+    back: c.a ?? c.answer ?? c.back ?? '',
+    icon: c.img
+  })).filter(c => c.front && c.back);
 }
