@@ -14,6 +14,7 @@ export type OshaBasicsCardProps = {
   ctaLabel?: string;           // button label, default "Continue"
   onContinue?: () => void;     // fires when Continue is pressed
   testId?: string;             // data-testid hook
+  continueTestId?: string;     // data-testid for continue button
 };
 
 export default function OshaBasicsCard({
@@ -24,7 +25,8 @@ export default function OshaBasicsCard({
   tip,
   ctaLabel = 'Continue',
   onContinue,
-  testId
+  testId,
+  continueTestId
 }: OshaBasicsCardProps) {
   return (
     <section className="rounded-lg border border-slate-200 bg-white p-4 sm:p-6" data-testid={testId}>
@@ -75,6 +77,7 @@ export default function OshaBasicsCard({
         <button
           type="button"
           onClick={onContinue}
+          data-testid={continueTestId}
           className="inline-flex items-center rounded-md bg-amber-700 px-3 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-amber-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
         >
           {ctaLabel}

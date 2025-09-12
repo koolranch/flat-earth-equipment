@@ -4,10 +4,13 @@ import { FlashDeck } from '@/components/training/FlashDeck';
 import { normalizeFlashCards } from '@/lib/training/normalizeFlashCards';
 import { useFlashCards } from '@/lib/training/useFlashCards';
 import SimpleQuizModal from '@/components/quiz/SimpleQuizModal';
+import { useModuleTabs } from '@/hooks/useModuleTabs';
+import { isStepDone } from '@/lib/trainingProgress';
 
 type Props = {
   courseSlug: string;
   moduleSlug: string;
+  moduleKey?: 'm1'|'m2'|'m3'|'m4'|'m5'; // NEW: for progress tracking
   title: string;
   nextHref: string;
   flashCards?: any[];
@@ -26,10 +29,14 @@ function StatusDot({ state }: { state: 'locked' | 'todo' | 'done' }) {
 }
 
 export default function TabbedModuleLayout({
-  courseSlug, moduleSlug, title, nextHref, flashCards, flashModuleKey, flashCardCount, onFlashSeen, osha, practice,
+  courseSlug, moduleSlug, moduleKey, title, nextHref, flashCards, flashModuleKey, flashCardCount, onFlashSeen, osha, practice,
   quizMeta = { questions: 8, passPct: 80 }
 }: Props) {
-  const [tab, setTab] = React.useState<'osha'|'practice'|'flash'|'quiz'>('osha');
+  // Use URL-based tab state
+  const { activeTab, setActiveTab } = useModuleTabs('osha');
+  const tab = activeTab;
+  const setTab = setActiveTab;
+
   const [practiceDone, setPracticeDone] = React.useState(false);
   const [flashTouched, setFlashTouched] = React.useState(false);
   const [quizPassed, setQuizPassed] = React.useState(false);
@@ -37,6 +44,9 @@ export default function TabbedModuleLayout({
 
   // Runtime flashcards hook - must be called unconditionally
   const runtime = useFlashCards(flashModuleKey || '');
+
+  // Check progress completion
+  const oshaDone = typeof window !== 'undefined' && moduleKey && isStepDone(courseSlug, moduleKey, 'osha');
 
   const key = `mstate:${courseSlug}:${moduleSlug}`;
   React.useEffect(() => {
@@ -53,7 +63,7 @@ export default function TabbedModuleLayout({
     } catch {}
   }, [practiceDone, flashTouched, quizPassed]);
 
-  const prereqsMet = practiceDone && flashTouched;
+  const prereqsMet = oshaDone && practiceDone && flashTouched;
 
   async function markModuleComplete() {
     try {
@@ -74,19 +84,32 @@ export default function TabbedModuleLayout({
       <p className='text-sm text-slate-600 mb-4'>Work through OSHA basics, practice, and flash cards — then pass the quiz to continue.</p>
 
       <div className='flex gap-2 mb-4'>
-        <button className={`px-3 py-1.5 rounded-md border ${tab==='osha'?'bg-white':'bg-slate-50'}`} onClick={() => setTab('osha')}>
-          OSHA Basics <StatusDot state={(practiceDone||flashTouched||quizPassed)?'done':'todo'} />
+        <button 
+          className={`px-3 py-1.5 rounded-md border ${tab==='osha'?'bg-white':'bg-slate-50'}`} 
+          onClick={() => setTab('osha')}
+          data-testid="tab-osha"
+        >
+          OSHA Basics <StatusDot state={oshaDone ? 'done' : 'todo'} />
         </button>
-        <button className={`px-3 py-1.5 rounded-md border ${tab==='practice'?'bg-white':'bg-slate-50'}`} onClick={() => setTab('practice')}>
+        <button 
+          className={`px-3 py-1.5 rounded-md border ${tab==='practice'?'bg-white':'bg-slate-50'}`} 
+          onClick={() => setTab('practice')}
+          data-testid="tab-practice"
+        >
           Practice <StatusDot state={practiceDone?'done':'todo'} />
         </button>
-        <button className={`px-3 py-1.5 rounded-md border ${tab==='flash'?'bg-white':'bg-slate-50'}`} onClick={() => { setTab('flash'); setFlashTouched(true); if (onFlashSeen) onFlashSeen(); }}>
+        <button 
+          className={`px-3 py-1.5 rounded-md border ${tab==='flash'?'bg-white':'bg-slate-50'}`} 
+          onClick={() => { setTab('flash'); setFlashTouched(true); if (onFlashSeen) onFlashSeen(); }}
+          data-testid="tab-flash"
+        >
           Flash Cards{flashCardCount ? ` (${flashCardCount})` : ''} <StatusDot state={flashTouched?'done':'todo'} />
         </button>
         <button
           className={`px-3 py-1.5 rounded-md border ${tab==='quiz'?'bg-white':'bg-slate-50'} ${!prereqsMet && 'opacity-50 cursor-not-allowed'}`}
           onClick={() => prereqsMet && setTab('quiz')}
           aria-disabled={!prereqsMet}
+          data-testid="tab-quiz"
         >
           Quiz ({quizMeta.questions}) <StatusDot state={quizPassed ? 'done' : (prereqsMet ? 'todo' : 'locked')} />
         </button>
@@ -118,6 +141,7 @@ export default function TabbedModuleLayout({
             <div className='text-sm text-slate-600'>
               <p className='mb-2 flex items-center gap-2'><span>🔒</span> The quiz unlocks after:</p>
               <ul className='list-disc ml-6 space-y-1'>
+                <li>Complete the OSHA Basics</li>
                 <li>Complete the Practice checklist</li>
                 <li>Open the Flash Cards</li>
               </ul>
