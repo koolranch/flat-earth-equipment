@@ -88,7 +88,7 @@ export function FlashCard({
           e.preventDefault();
           onFlip();
         }
-      })}
+      }}
       className={[
         "relative w-full overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 text-left shadow-sm",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-400",
