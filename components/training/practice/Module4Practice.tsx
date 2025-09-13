@@ -1,14 +1,21 @@
+"use client";
 import React from 'react';
+import { Checklist, type ChecklistItem } from '@/components/practice/Checklist';
+
 export function Module4Practice({ onComplete }: { onComplete: () => void }){
-  const [found, setFound] = React.useState(0);
-  const total = 3;
-  React.useEffect(() => { if (found >= total) onComplete(); }, [found]);
+  const items: ChecklistItem[] = [
+    { id: "spill", label: "Identify spill hazard" },
+    { id: "corner", label: "Identify blind corner hazard" },
+    { id: "overhead", label: "Identify overhead obstruction" },
+  ];
+
   return (
-    <div className='space-y-3'>
-      <h4 className='font-medium'>Hazard hunt</h4>
-      <p className='text-sm'>Find 3 hazards: spill, blind corner, overhead obstruction.</p>
-      <button className='px-3 py-1.5 rounded-md border' onClick={()=>setFound(f=>Math.min(total, f+1))}>Mark hazard found ({found}/{total})</button>
-    </div>
+    <Checklist
+      moduleId="m4"
+      sectionKey="practice"
+      items={items}
+      onAllDone={onComplete}
+    />
   );
 }
 

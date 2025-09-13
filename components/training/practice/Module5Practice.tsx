@@ -1,13 +1,21 @@
+"use client";
 import React from 'react';
+import { Checklist, type ChecklistItem } from '@/components/practice/Checklist';
+
 export function Module5Practice({ onComplete }: { onComplete: () => void }){
-  const [done, setDone] = React.useState(false);
-  React.useEffect(() => { if (done) onComplete(); }, [done]);
+  const items: ChecklistItem[] = [
+    { id: "shutdown", label: "Review shutdown procedures" },
+    { id: "attachments", label: "Review attachment safety" },
+    { id: "charging", label: "Review charging safety protocols" },
+  ];
+
   return (
-    <div className='space-y-3'>
-      <h4 className='font-medium'>Advanced operations</h4>
-      <p className='text-sm'>Review shutdown, attachments, and charging safety. When finished, mark complete.</p>
-      <button className='px-3 py-1.5 rounded-md border' onClick={()=>setDone(true)}>Mark complete</button>
-    </div>
+    <Checklist
+      moduleId="m5"
+      sectionKey="practice"
+      items={items}
+      onAllDone={onComplete}
+    />
   );
 }
 
