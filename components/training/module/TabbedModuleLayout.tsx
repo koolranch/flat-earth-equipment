@@ -187,7 +187,9 @@ export default function TabbedModuleLayout({
                   markDone("cards").catch(console.error);
                 }}
                 ctaRight={RightCTA}
-                autoAdvanceMs={600}
+                autoMode="content"
+                defaultSeconds={9}
+                flipMode="fade"
               />
             );
           })()}
