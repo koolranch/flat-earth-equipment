@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { FlashDeck } from '@/components/flash/FlashDeck';
+import FlashCardDeck, { type CardItem } from '@/components/training/FlashCardDeck';
 import { normalizeFlashCards } from '@/lib/training/normalizeFlashCards';
 import { useFlashCards } from '@/lib/training/useFlashCards';
 import SimpleQuizModal from '@/components/quiz/SimpleQuizModal';
@@ -167,29 +167,27 @@ export default function TabbedModuleLayout({
               try { localStorage.setItem(`flashcards:seen:${courseSlug ?? 'forklift'}:${flashModuleKey ?? '-'}`, '1'); } catch {}
               if (onFlashSeen) onFlashSeen();
             }
-            const RightCTA = (
-              <TabCompleteButton
-                label="Mark Flash Cards done → Quiz"
-                aria-label="Mark Flash Cards done and open quiz"
-                onClick={async () => {
-                  await markDone("cards");
-                  setTab("quiz");
-                }}
-              />
-            );
+            
+            // Convert data to CardItem format
+            const cardItems: CardItem[] = data.map((card: any) => ({
+              id: card.id,
+              front: <span>{card.front}</span>,
+              back: <span>{card.back}</span>,
+              media: card.icon ? <img src={card.icon} alt="" className="h-10 w-10" /> : undefined
+            }));
             
             return (
-              <FlashDeck
-                moduleId={moduleKey || moduleSlug}
-                cards={data}
-                onAllDone={() => {
+              <FlashCardDeck
+                items={cardItems}
+                autoAdvanceMs={8000}
+                onComplete={() => {
                   // Auto-mark as done when all cards viewed
                   markDone("cards").catch(console.error);
                 }}
-                ctaRight={RightCTA}
-                autoMode="content"
-                defaultSeconds={9}
-                flipMode="fade"
+                onCtaClick={async () => {
+                  await markDone("cards");
+                  setTab("quiz");
+                }}
               />
             );
           })()}
