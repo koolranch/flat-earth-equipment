@@ -100,7 +100,7 @@ export default function Page(){
         <section className='rounded-2xl border bg-white p-4 mb-4'>
           <div className="space-y-6">
             <div>
-              <h3 className="font-medium mb-4">Pre-Operation Checklist</h3>
+              <h3 className="font-medium mb-4">PPE & pre-operation checks</h3>
               <p className="text-sm text-slate-600 mb-4">Complete each step to mark the practice section as done.</p>
               <div className="space-y-3">
                 {[

@@ -11,6 +11,7 @@ export function Module4Practice({ onComplete }: { onComplete: () => void }){
 
   return (
     <Checklist
+      title="Hazard hunt — mark each hazard"
       moduleId="m4"
       sectionKey="practice"
       items={items}
