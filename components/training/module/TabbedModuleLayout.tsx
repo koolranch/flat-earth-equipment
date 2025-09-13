@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { FlashDeck } from '@/components/training/FlashDeck';
+import { FlashDeck } from '@/components/flash/FlashDeck';
 import { normalizeFlashCards } from '@/lib/training/normalizeFlashCards';
 import { useFlashCards } from '@/lib/training/useFlashCards';
 import SimpleQuizModal from '@/components/quiz/SimpleQuizModal';
@@ -167,21 +167,28 @@ export default function TabbedModuleLayout({
               try { localStorage.setItem(`flashcards:seen:${courseSlug ?? 'forklift'}:${flashModuleKey ?? '-'}`, '1'); } catch {}
               if (onFlashSeen) onFlashSeen();
             }
+            const RightCTA = (
+              <TabCompleteButton
+                label="Mark Flash Cards done → Quiz"
+                aria-label="Mark Flash Cards complete and go to Quiz"
+                onClick={async () => {
+                  await markDone("cards");
+                  setTab("quiz");
+                }}
+              />
+            );
+            
             return (
-              <div>
-                <FlashDeck cards={data} />
-                <div className='text-xs text-slate-500 mt-2'>Tip: open each card before taking the quiz.</div>
-                <div className="mt-4 flex justify-end">
-                  <TabCompleteButton
-                    label="Mark Flash Cards done → Quiz"
-                    aria-label="Mark Flash Cards complete and go to Quiz"
-                    onClick={async () => {
-                      await markDone("cards");
-                      setTab("quiz");
-                    }}
-                  />
-                </div>
-              </div>
+              <FlashDeck
+                moduleId={moduleKey || moduleSlug}
+                cards={data}
+                onAllDone={() => {
+                  // Auto-mark as done when all cards viewed
+                  markDone("cards").catch(console.error);
+                }}
+                ctaRight={RightCTA}
+                autoAdvanceMs={600}
+              />
             );
           })()}
         </section>
