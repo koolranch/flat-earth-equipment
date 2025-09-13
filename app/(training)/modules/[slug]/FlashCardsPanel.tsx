@@ -19,8 +19,9 @@ export default function FlashCardsPanel({ moduleId }: { moduleId: string }) {
       type="button"
       disabled={!allDone}
       onClick={() => document.querySelector<HTMLButtonElement>("[data-tab='quiz']")?.click()}
+      aria-label="Mark Flash Cards done and open quiz"
       className={[
-        "inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition",
+        "inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition w-full sm:w-auto",
         allDone ? "bg-[#F76511] text-white hover:brightness-95" : "bg-slate-200 text-slate-600 cursor-not-allowed"
       ].join(" ")}
     >
@@ -37,8 +38,8 @@ export default function FlashCardsPanel({ moduleId }: { moduleId: string }) {
         autoMode="content"       // content-aware timing
         defaultSeconds={9}       // fallback for cards without hints
         flipMode="fade"          // use fade to avoid mirrored text
+        ctaRight={RightCTA}
       />
-      <div className="mt-3 md:hidden">{RightCTA}</div>
     </div>
   );
 }

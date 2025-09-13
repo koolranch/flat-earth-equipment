@@ -170,7 +170,7 @@ export default function TabbedModuleLayout({
             const RightCTA = (
               <TabCompleteButton
                 label="Mark Flash Cards done → Quiz"
-                aria-label="Mark Flash Cards complete and go to Quiz"
+                aria-label="Mark Flash Cards done and open quiz"
                 onClick={async () => {
                   await markDone("cards");
                   setTab("quiz");
