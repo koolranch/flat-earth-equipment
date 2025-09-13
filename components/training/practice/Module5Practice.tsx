@@ -11,6 +11,7 @@ export function Module5Practice({ onComplete }: { onComplete: () => void }){
 
   return (
     <Checklist
+      title="Advanced operations checks"
       moduleId="m5"
       sectionKey="practice"
       items={items}

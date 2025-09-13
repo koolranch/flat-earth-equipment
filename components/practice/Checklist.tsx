@@ -5,6 +5,7 @@ import { CheckChip } from "./CheckChip";
 export type ChecklistItem = { id: string; label: string };
 
 type ChecklistProps = {
+  title: string;                      // module-specific practice title
   moduleId: string | number;
   sectionKey: "practice";             // ready for reuse later if needed
   items: ChecklistItem[];
@@ -16,6 +17,7 @@ type ChecklistProps = {
 };
 
 export function Checklist({
+  title,
   moduleId,
   sectionKey,
   items,
@@ -72,7 +74,7 @@ export function Checklist({
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-3">
         <div className="font-medium text-slate-800">
-          Run the 8-point inspection{" "}
+          {title}{" "}
           <span className="ml-1 rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
             {checkedIds.length}/{items.length}
           </span>

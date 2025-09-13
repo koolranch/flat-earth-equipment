@@ -10,6 +10,7 @@ export function Module3Practice({ onComplete }: { onComplete: () => void }){
 
   return (
     <Checklist
+      title="Balance & load handling checks"
       moduleId="m3"
       sectionKey="practice"
       items={items}
