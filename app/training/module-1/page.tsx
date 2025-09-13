@@ -6,7 +6,7 @@ import ErrorBoundary from '@/components/common/ErrorBoundary';
 import SafeLoader from '@/components/common/SafeLoader';
 import SimpleQuizModal from '@/components/quiz/SimpleQuizModal';
 import { StatusDot } from '@/components/training/StatusDot';
-import { FlashDeck } from '@/components/training/FlashDeck';
+import FlashCardDeck, { type CardItem } from '@/components/training/FlashCardDeck';
 import flashData from '@/content/training/forklift-operator/module-1/preop-flashcards.json';
 import { track } from '@/lib/track';
 
@@ -156,8 +156,30 @@ export default function Page() {
 
       {tab==='flash' && (
         <section className='rounded-2xl border bg-white p-6 mb-4'>
-          <FlashDeck cards={(flashData as any).cards || []} />
-          <div className='text-xs text-slate-500 mt-2'>Tip: open each card once before taking the quiz.</div>
+          {(() => {
+            const cards = (flashData as any).cards || [];
+            // Convert to CardItem format
+            const cardItems: CardItem[] = cards.map((card: any, index: number) => ({
+              id: card.id || `card-${index}`,
+              front: <span>{card.front}</span>,
+              back: <span>{card.back}</span>,
+              media: card.icon ? <img src={card.icon} alt="" className="h-10 w-10" /> : undefined
+            }));
+            
+            return (
+              <FlashCardDeck
+                items={cardItems}
+                autoAdvanceMs={8000}
+                onComplete={() => {
+                  setFlashTouched(true);
+                }}
+                onCtaClick={() => {
+                  setFlashTouched(true);
+                  setTab("quiz");
+                }}
+              />
+            );
+          })()}
         </section>
       )}
 
