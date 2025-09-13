@@ -3,14 +3,14 @@ import { FlashDeck, type Card } from "@/components/flash/FlashDeck";
 
 export default function FlashCardsPanel({ moduleId }: { moduleId: string }) {
   const cards: Card[] = [
-    { id: "forks",   front: <>Forks — rejection criteria</>, back: <>Reject if cracks, excessive heel wear, bent/deflected, locking pins missing, or uneven tips.</> },
-    { id: "chains",  front: <>Chains & hoses — OK?</>, back: <>No frays/kinks; equal tension; no leaks; lube per manual.</> },
-    { id: "tires", front: <>Tire inspection points</>, back: <>Check for proper inflation, excessive wear, cuts, punctures, or embedded objects. Verify tread depth.</> },
-    { id: "fluids", front: <>Fluid level checks</>, back: <>Engine oil, hydraulic fluid, coolant, and fuel levels. Look for leaks under the forklift.</> },
-    { id: "controls", front: <>Control system test</>, back: <>Test all controls for proper operation: steering, brakes, lift, tilt, and horn functionality.</> },
-    { id: "safety", front: <>Safety equipment check</>, back: <>Verify seatbelt, overhead guard, load backrest, and warning lights are present and functional.</> },
-    { id: "capacity", front: <>Load capacity verification</>, back: <>Check data plate for maximum load capacity and center of gravity requirements for safe operation.</> },
-    { id: "environment", front: <>Work area assessment</>, back: <>Survey for overhead obstructions, floor conditions, pedestrian traffic, and adequate lighting.</> }
+    { id: "forks", front: <>Forks — rejection criteria</>, back: <>Reject if cracks, excessive heel wear, bent/deflected, locking pins missing, or uneven tips.</>, readSecondsHint: 8 },
+    { id: "chains", front: <>Chains & hoses — OK?</>, back: <>No frays/kinks; equal tension; no leaks; lube per manual.</>, readSecondsHint: 6 },
+    { id: "tires", front: <>Tire inspection points</>, back: <>Check for proper inflation, excessive wear, cuts, punctures, or embedded objects. Verify tread depth.</>, readSecondsHint: 10 },
+    { id: "fluids", front: <>Fluid level checks</>, back: <>Engine oil, hydraulic fluid, coolant, and fuel levels. Look for leaks under the forklift.</>, readSecondsHint: 9 },
+    { id: "controls", front: <>Control system test</>, back: <>Test all controls for proper operation: steering, brakes, lift, tilt, and horn functionality.</>, readSecondsHint: 8 },
+    { id: "safety", front: <>Safety equipment check</>, back: <>Verify seatbelt, overhead guard, load backrest, and warning lights are present and functional.</>, readSecondsHint: 8 },
+    { id: "capacity", front: <>Load capacity verification</>, back: <>Check data plate for maximum load capacity and center of gravity requirements for safe operation.</>, readSecondsHint: 10 },
+    { id: "environment", front: <>Work area assessment</>, back: <>Survey for overhead obstructions, floor conditions, pedestrian traffic, and adequate lighting.</>, readSecondsHint: 8 }
   ];
 
   const [allDone, setAllDone] = React.useState(false);
@@ -34,7 +34,8 @@ export default function FlashCardsPanel({ moduleId }: { moduleId: string }) {
         moduleId={moduleId}
         cards={cards}
         onAllDone={() => setAllDone(true)}
-        autoAdvanceMs={3500}     // was 600 — now ~3.5s
+        autoMode="content"       // content-aware timing
+        defaultSeconds={9}       // fallback for cards without hints
         flipMode="fade"          // use fade to avoid mirrored text
       />
       <div className="mt-3 md:hidden">{RightCTA}</div>
