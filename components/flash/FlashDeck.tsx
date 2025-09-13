@@ -8,9 +8,10 @@ type FlashDeckProps = {
   moduleId: string | number;
   cards: Card[];
   onAllDone?: () => void;
-  persistUrl?: string; // optional API endpoint
-  ctaRight?: React.ReactNode; // "Mark Flash Cards done → Quiz"
-  autoAdvanceMs?: number;     // default 600
+  persistUrl?: string;
+  ctaRight?: React.ReactNode;
+  autoAdvanceMs?: number;        // default 3500 (was 600)
+  flipMode?: "fade" | "3d";      // default "fade"
 };
 
 export function FlashDeck({
@@ -19,7 +20,8 @@ export function FlashDeck({
   onAllDone,
   persistUrl = "/api/progress/section",
   ctaRight,
-  autoAdvanceMs = 600
+  autoAdvanceMs = 3500,
+  flipMode = "fade"
 }: FlashDeckProps) {
   const storageKey = `feq:${moduleId}:flash`;
   const [idx, setIdx] = React.useState(0);
@@ -63,10 +65,10 @@ export function FlashDeck({
 
   const onFlip = () => {
     setFlipped((f) => !f);
-    // when first time flipping this card, mark visited and schedule auto-advance
     if (!visited.includes(current.id)) {
       markVisited(current.id);
     }
+    // Slow down auto-advance for readability; allow turning off by passing 0
     if (!flipped && autoAdvanceMs > 0) {
       const next = idx + 1;
       if (next < cards.length) {
@@ -110,12 +112,12 @@ export function FlashDeck({
         <div className="hidden md:block">{ctaRight}</div>
       </div>
 
-      {/* Card */}
       <FlashCard
         front={current.front}
         back={current.back}
         isFlipped={flipped}
         onFlip={onFlip}
+        mode={flipMode}      // NEW
       />
 
       {/* Controls */}
@@ -174,7 +176,9 @@ export function FlashDeck({
       {/* Mobile CTA */}
       <div className="md:hidden pt-1">{ctaRight}</div>
 
-      {!allDone ? (
+      {!visited.length ? (
+        <p className="text-xs text-slate-500">Tap a card to flip.</p>
+      ) : !allDone ? (
         <p className="text-xs text-slate-500">You've opened {visited.length} of {cards.length} cards.</p>
       ) : (
         <p className="text-xs text-green-700">All cards viewed — you're ready for the quiz.</p>
