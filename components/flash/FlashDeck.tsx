@@ -167,12 +167,11 @@ export function FlashDeck({
       onMouseEnter={pauseTimer}
       onMouseLeave={() => { if (flipped && autoMode === "content") resumeTimer(); }}
     >
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-center">
         <span className="inline-flex items-center gap-2 text-sm text-slate-600">
           <span className="rounded-full bg-slate-100 px-2 py-0.5">{progress}</span>
           <span>Open each card before taking the quiz.</span>
         </span>
-        <div className="hidden md:block">{ctaRight}</div>
       </div>
 
       <div className="relative">
@@ -193,44 +192,58 @@ export function FlashDeck({
         )}
       </div>
 
-      <div className="flex items-center justify-between gap-3">
-        <button onClick={() => go(idx - 1)} disabled={idx === 0}
-          className={["rounded-lg border px-3 py-2 text-sm transition",
-            idx === 0 ? "border-slate-200 text-slate-400 cursor-not-allowed"
-                      : "border-slate-300 text-slate-700 hover:bg-slate-50"].join(" ")}
-        >Back</button>
+      {/* Progress dots */}
+      <div className="flex items-center justify-center gap-1.5">
+        {cards.map((c, i) => (
+          <button key={c.id} onClick={() => go(i)} aria-label={`Go to card ${i+1}`}
+            className={[
+              "h-2.5 w-2.5 rounded-full transition",
+              i === idx ? "bg-[#F76511]"
+              : visited.includes(c.id) ? "bg-slate-400"
+              : "bg-slate-200 hover:bg-slate-300"
+            ].join(" ")}
+          />
+        ))}
+      </div>
 
-        <div className="flex items-center gap-1.5">
-          {cards.map((c, i) => (
-            <button key={c.id} onClick={() => go(i)} aria-label={`Go to card ${i+1}`}
-              className={[
-                "h-2.5 w-2.5 rounded-full transition",
-                i === idx ? "bg-[#F76511]"
-                : visited.includes(c.id) ? "bg-slate-400"
-                : "bg-slate-200 hover:bg-slate-300"
-              ].join(" ")}
-            />
-          ))}
-        </div>
-
+      {/* Footer with controls and CTA */}
+      <div className="mt-4 border-t border-slate-200 pt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-2">
-          <button onClick={onFlip}
-            className="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">
+          <button 
+            onClick={() => go(idx - 1)} 
+            disabled={idx === 0}
+            aria-label="Back card"
+            className={["rounded-lg border px-3 py-2 text-sm transition",
+              idx === 0 ? "border-slate-200 text-slate-400 cursor-not-allowed"
+                        : "border-slate-300 text-slate-700 hover:bg-slate-50"].join(" ")}
+          >
+            Back
+          </button>
+          <button 
+            onClick={onFlip}
+            aria-label="Flip card"
+            className="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 hover:bg-slate-50"
+          >
             {flipped ? "Show question" : "Flip"}
           </button>
-          <button onClick={() => go(idx + 1)}
+          <button 
+            onClick={() => go(idx + 1)}
             disabled={idx >= cards.length - 1 || !canNext}
+            aria-label="Next card"
             className={[
               "rounded-lg px-3 py-2 text-sm font-medium transition",
               idx >= cards.length - 1 || !canNext
                 ? "bg-slate-200 text-slate-500 cursor-not-allowed"
                 : "bg-[#F76511] text-white hover:brightness-95"
             ].join(" ")}
-          >Next</button>
+          >
+            Next
+          </button>
+        </div>
+        <div className="w-full sm:w-auto sm:ml-auto">
+          {ctaRight}
         </div>
       </div>
-
-      <div className="md:hidden pt-1">{ctaRight}</div>
 
       {!visited.length
         ? <p className="text-xs text-slate-500">Tap a card to flip.</p>
