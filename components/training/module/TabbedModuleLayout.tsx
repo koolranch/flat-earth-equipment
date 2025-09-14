@@ -1,8 +1,7 @@
 'use client';
 import React from 'react';
-import FlashCardDeck, { type CardItem } from '@/components/training/FlashCardDeck';
-import { normalizeFlashCards } from '@/lib/training/normalizeFlashCards';
-import { useFlashCards } from '@/lib/training/useFlashCards';
+import FlashCardDeck, { type FlashCard } from '@/components/training/FlashCardDeck';
+import { getModuleFlashcards } from '@/lib/training/flashcards';
 import SimpleQuizModal from '@/components/quiz/SimpleQuizModal';
 import { useModuleTabs } from '@/hooks/useModuleTabs';
 import { isStepDone } from '@/lib/trainingProgress';
@@ -49,8 +48,11 @@ export default function TabbedModuleLayout({
 
   const [openQuiz, setOpenQuiz] = React.useState(false);
 
-  // Runtime flashcards hook - must be called unconditionally
-  const runtime = useFlashCards(flashModuleKey || '');
+  // Get curated flashcards for this module
+  const moduleCards = React.useMemo(() => {
+    const moduleSlugForCards = moduleKey ? `module-${moduleKey.replace('m', '')}` : 'module-1';
+    return getModuleFlashcards(moduleSlugForCards);
+  }, [moduleKey]);
 
   // Legacy state for backward compatibility
   const [practiceDone, setPracticeDone] = React.useState(false);
@@ -157,34 +159,17 @@ export default function TabbedModuleLayout({
       {tab==='flash' && (
         <section className='rounded-2xl border bg-white p-4 mb-4 shadow-card'>
           {(() => {
-            const data = runtime.cards ?? (flashCards ? normalizeFlashCards(flashCards) : []);
-            const loading = runtime.loading;
-            const error = runtime.error as string | null;
-            if (loading) return <div className='text-sm text-slate-600'>Loading flash cards…</div>;
-            if (error) return <div className='text-sm text-red-600'>Failed to load cards: {error}</div>;
-            if (!data.length) return <div className='text-sm text-slate-600'>No flash cards found for this module yet.</div>;
+            if (!moduleCards.length) return <div className='text-sm text-slate-600'>No flash cards found for this module yet.</div>;
             if (typeof window !== 'undefined') {
               try { localStorage.setItem(`flashcards:seen:${courseSlug ?? 'forklift'}:${flashModuleKey ?? '-'}`, '1'); } catch {}
               if (onFlashSeen) onFlashSeen();
             }
             
-            // Convert data to CardItem format
-            const cardItems: CardItem[] = data.map((card: any) => ({
-              id: card.id,
-              front: <span>{card.front}</span>,
-              back: <span>{card.back}</span>,
-              media: card.icon ? <img src={card.icon} alt="" className="h-10 w-10" /> : undefined
-            }));
-            
             return (
               <FlashCardDeck
-                items={cardItems}
-                autoAdvanceMs={8000}
-                onComplete={() => {
-                  // Auto-mark as done when all cards viewed
-                  markDone("cards").catch(console.error);
-                }}
-                onCtaClick={async () => {
+                cards={moduleCards}
+                title="Flash Cards"
+                onDone={async () => {
                   await markDone("cards");
                   setTab("quiz");
                 }}
