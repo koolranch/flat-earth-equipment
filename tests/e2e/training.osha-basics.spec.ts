@@ -32,13 +32,38 @@ test.describe('OSHA Basics Content', () => {
     await expect(page.locator('text=Safety devices: Parking brake')).toBeVisible();
   });
 
-  test('All modules have OSHA Basics content', async ({ page }) => {
+  test('All modules have comprehensive OSHA Basics content', async ({ page }) => {
     const modules = [
-      { path: '/training/forklift-operator/module-1/pre-operation', title: 'OSHA 1910.178 — Pre-Operation Requirements' },
-      { path: '/training/forklift-operator/module-2', title: 'OSHA Basics — 8-Point Inspection' },
-      { path: '/training/forklift-operator/module-3', title: 'OSHA Basics — Balance & Load Handling' },
-      { path: '/training/forklift-operator/module-4', title: 'OSHA Basics — Workplace Hazards' },
-      { path: '/training/forklift-operator/module-5', title: 'OSHA Basics — Charging/Fueling & Care' }
+      { 
+        path: '/training/forklift-operator/module-1/pre-operation', 
+        title: 'OSHA 1910.178 — Pre-Operation Requirements',
+        expectedBullets: 9,
+        keyContent: 'PPE & seat belt'
+      },
+      { 
+        path: '/training/forklift-operator/module-2', 
+        title: 'OSHA Basics — 8-Point Inspection',
+        expectedBullets: 9, // 8 points + intro
+        keyContent: 'Forks: No cracks or bends'
+      },
+      { 
+        path: '/training/forklift-operator/module-3', 
+        title: 'OSHA Basics — Balance & Load Handling',
+        expectedBullets: 7,
+        keyContent: 'Stability triangle'
+      },
+      { 
+        path: '/training/forklift-operator/module-4', 
+        title: 'OSHA Basics — Workplace Hazards',
+        expectedBullets: 9,
+        keyContent: 'Blind corners & aisles'
+      },
+      { 
+        path: '/training/forklift-operator/module-5', 
+        title: 'OSHA Basics — Charging/Fueling & Care',
+        expectedBullets: 9,
+        keyContent: 'Battery charging'
+      }
     ];
 
     for (const module of modules) {
@@ -53,9 +78,15 @@ test.describe('OSHA Basics Content', () => {
       // Assert the module has OSHA content
       await expect(page.locator(`text=${module.title}`)).toBeVisible();
       
-      // Assert there are bullet points
+      // Assert there are the expected number of bullet points
       const listItems = page.locator('li');
-      await expect(listItems.first()).toBeVisible();
+      await expect(listItems).toHaveCount(module.expectedBullets);
+      
+      // Assert key content is present
+      await expect(page.locator(`text=${module.keyContent}`)).toBeVisible();
+      
+      // Assert regulatory references are present
+      await expect(page.locator('text=29 CFR 1910.178')).toBeVisible();
     }
   });
 });
