@@ -1,139 +1,116 @@
-import * as React from "react";
+// components/training/FlashCardDeck.tsx
+// Question → Answer deck with safer timing, badges, and bottom CTA.
+'use client';
+import React from 'react';
+import clsx from 'clsx';
 
-export type CardItem = {
-  id: string;
-  front: React.ReactNode;
-  back: React.ReactNode;
-  media?: React.ReactNode; // optional img/svg above text
-};
-
-type Props = {
-  items: CardItem[];
-  onComplete?: () => void;            // fires once when all viewed
-  onCtaClick: () => void;              // go-to-quiz action
-  autoAdvanceMs?: number;              // default 8000
-  ctaLabel?: string;                   // customizable label
-  className?: string;
+export type FlashCard = {
+  id: string | number;
+  front: React.ReactNode;   // QUESTION
+  back: React.ReactNode;    // ANSWER
+  img?: React.ReactNode;    // optional illustration (SVG/IMG component)
 };
 
 export default function FlashCardDeck({
-  items,
-  onComplete,
-  onCtaClick,
-  autoAdvanceMs = 8000,
-  ctaLabel = "Mark Flash Cards done → Quiz",
-  className,
-}: Props) {
-  const [index, setIndex] = React.useState(0);
-  const [flipped, setFlipped] = React.useState(false);
-  const [viewed, setViewed] = React.useState<Set<string>>(
-    () => (items[0]?.id ? new Set([items[0].id]) : new Set())
-  );
+  cards,
+  onDone,
+  title = 'Flash Cards',
+  autoAdvanceMs = 12000,          // 12s dwell
+  revealHoldMs = 4500,            // 4.5s min hold after reveal
+  allowAuto = true
+}: {
+  cards: FlashCard[];
+  onDone?: () => void;
+  title?: string;
+  autoAdvanceMs?: number;
+  revealHoldMs?: number;
+  allowAuto?: boolean;
+}) {
+  const [idx, setIdx] = React.useState(0);
+  const [revealed, setRevealed] = React.useState(false);
+  const [auto, setAuto] = React.useState(allowAuto);
+  const [visited, setVisited] = React.useState(() => new Set<number>());
+  const total = cards.length;
 
-  const current = items[index];
-  const allViewed = viewed.size >= items.length && items.length > 0;
+  React.useEffect(() => { if (revealed) setVisited(p => new Set(p).add(idx)); }, [revealed, idx]);
 
-  // mark current viewed
   React.useEffect(() => {
-    if (!current) return;
-    setViewed((s) => {
-      if (s.has(current.id)) return s;
-      const next = new Set(s);
-      next.add(current.id);
-      return next;
-    });
-  }, [current]);
-
-  // notify once all viewed (only once)
-  const hasNotifiedRef = React.useRef(false);
-  React.useEffect(() => {
-    if (allViewed && onComplete && !hasNotifiedRef.current) {
-      hasNotifiedRef.current = true;
-      onComplete();
-    }
-  }, [allViewed, onComplete]);
-
-  // auto-advance; pause while flipped
-  React.useEffect(() => {
-    if (!current) return;
-    const t = setTimeout(() => {
-      if (flipped) { setFlipped(false); return; }
-      setIndex((i) => Math.min(i + 1, items.length - 1));
-    }, autoAdvanceMs);
+    if (!auto || !revealed) return;
+    const t = setTimeout(() => { next(); }, Math.max(revealHoldMs, autoAdvanceMs));
     return () => clearTimeout(t);
-  }, [index, flipped, current, autoAdvanceMs, items.length]);
+  }, [auto, revealed, idx, autoAdvanceMs, revealHoldMs]);
 
-  // keyboard controls
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.code === "Space") { e.preventDefault(); setFlipped((f) => !f); }
-      if (e.key === "ArrowRight") setIndex((i) => Math.min(i + 1, items.length - 1));
-      if (e.key === "ArrowLeft")  setIndex((i) => Math.max(i - 1, 0));
+      if (e.key === ' ') { e.preventDefault(); toggleReveal(); }
+      if (e.key === 'ArrowRight') next();
+      if (e.key === 'ArrowLeft') prev();
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [items.length]);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [idx, revealed]);
 
-  if (!current) return null;
+  function toggleReveal() { setRevealed(v => !v); }
+  function prev() { setIdx(i => Math.max(0, i - 1)); setRevealed(false); }
+  function next() {
+    setRevealed(false);
+    setIdx(i => {
+      if (i === total - 1) { onDone?.(); return i; }
+      return i + 1;
+    });
+  }
+
+  const card = cards[idx];
+  const allViewed = visited.size >= total;
 
   return (
-    <div className={`flex flex-col gap-4 ${className ?? ""}`}>
-      {/* Card */}
-      <button
-        type="button"
-        aria-label={flipped ? "Show question" : "Show answer"}
-        onClick={() => setFlipped((f) => !f)}
-        className="w-full rounded-xl border border-slate-200 bg-white shadow-sm p-6 text-left transition active:scale-[0.997] focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
-        style={{ minHeight: 260 }}
-      >
-        {current.media && (
-          <div className="mb-3 flex items-center justify-center">{current.media}</div>
-        )}
-        <div className="text-slate-900 leading-relaxed">
-          {flipped ? current.back : current.front}
-        </div>
-        <div className="mt-3 text-xs text-slate-500">(Tap/click or press Space to flip)</div>
-      </button>
-
-      {/* Controls + pager */}
+    <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
+        <h3 className="text-sm font-medium text-slate-600">{title}</h3>
         <div className="flex items-center gap-2">
+          <span className="text-xs text-slate-500">{idx + 1} / {total}</span>
           <button
-            className="h-11 px-4 rounded-lg border border-slate-300 text-slate-700 disabled:opacity-40"
-            onClick={() => setIndex((i) => Math.max(i - 1, 0))}
-            disabled={index === 0}
-          >Back</button>
-
-          <button
-            className="h-11 px-4 rounded-lg border border-slate-300 text-slate-700"
-            onClick={() => setFlipped((f) => !f)}
-          >{flipped ? "Show question" : "Show answer"}</button>
-
-          <button
-            className="h-11 px-4 rounded-lg bg-slate-900 text-white disabled:bg-slate-300"
-            onClick={() => setIndex((i) => Math.min(i + 1, items.length - 1))}
-            disabled={index === items.length - 1}
-          >Next</button>
+            type="button"
+            onClick={() => setAuto(a => !a)}
+            className={clsx('rounded-full px-2.5 py-1 text-xs border', auto ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-slate-50 border-slate-200 text-slate-600')}
+            aria-pressed={auto}
+          >{auto ? 'Auto: On' : 'Auto: Off'}</button>
         </div>
-
-        <div className="flex items-center gap-1">
-          {items.map((_, i) => (
-            <span key={i} className={`h-2 w-2 rounded-full ${i === index ? "bg-orange-500" : "bg-slate-300"}`} />
-          ))}
-        </div>
-
-        <div className="w-[140px]" aria-hidden />
       </div>
 
-      {/* Footer CTA (single location) */}
-      <div className="mt-2 flex justify-end">
+      <div className="relative w-full rounded-xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm">
+        <span className={clsx('absolute left-3 top-3 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] border', revealed ? 'border-emerald-300 text-emerald-700 bg-emerald-50' : 'border-sky-300 text-sky-700 bg-sky-50')}>
+          {revealed ? 'Answer' : 'Question'}
+        </span>
+
+        <div className="mt-5 grid gap-4 sm:grid-cols-[auto,1fr] items-start">
+          {card.img && (<div className="mx-auto sm:mx-0 sm:mt-1">{card.img}</div>)}
+          <div className="min-h-[144px] text-[15px] leading-relaxed text-slate-800">
+            {revealed ? (<div aria-live="polite">{card.back}</div>) : (<div>{card.front}</div>)}
+          </div>
+        </div>
+
+        <div className="mt-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <button type="button" onClick={prev} className="rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50" disabled={idx === 0}>Back</button>
+            <button type="button" onClick={toggleReveal} className="rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">{revealed ? 'Hide answer' : 'Reveal answer'}</button>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="hidden sm:flex items-center gap-1">
+              {Array.from({ length: total }).map((_, i) => (<span key={i} className={clsx('h-2 w-2 rounded-full', i === idx ? 'bg-slate-900' : 'bg-slate-300')} />))}
+            </div>
+            <button type="button" onClick={next} className="rounded-md bg-orange-600 px-3 py-1.5 text-sm text-white hover:bg-orange-700">{idx === total - 1 ? 'Finish' : 'Next card'}</button>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex justify-end">
         <button
-          className="h-11 px-4 rounded-lg bg-orange-600 text-white disabled:opacity-40"
-          onClick={onCtaClick}
+          type="button"
+          onClick={() => onDone?.()}
           disabled={!allViewed}
-        >
-          {ctaLabel}
-        </button>
+          className={clsx('rounded-lg px-4 py-2 text-sm font-medium', allViewed ? 'bg-slate-900 text-white hover:bg-black' : 'bg-slate-200 text-slate-500 cursor-not-allowed')}
+        >{allViewed ? 'Mark Flash Cards done → Quiz' : 'Open each card to continue'}</button>
       </div>
     </div>
   );

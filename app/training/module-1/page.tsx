@@ -6,8 +6,8 @@ import ErrorBoundary from '@/components/common/ErrorBoundary';
 import SafeLoader from '@/components/common/SafeLoader';
 import SimpleQuizModal from '@/components/quiz/SimpleQuizModal';
 import { StatusDot } from '@/components/training/StatusDot';
-import FlashCardDeck, { type CardItem } from '@/components/training/FlashCardDeck';
-import flashData from '@/content/training/forklift-operator/module-1/preop-flashcards.json';
+import FlashCardDeck, { type FlashCard } from '@/components/training/FlashCardDeck';
+import { getModuleFlashcards } from '@/lib/training/flashcards';
 import { track } from '@/lib/track';
 
 export default function Page() {
@@ -156,30 +156,14 @@ export default function Page() {
 
       {tab==='flash' && (
         <section className='rounded-2xl border bg-white p-6 mb-4'>
-          {(() => {
-            const cards = (flashData as any).cards || [];
-            // Convert to CardItem format
-            const cardItems: CardItem[] = cards.map((card: any, index: number) => ({
-              id: card.id || `card-${index}`,
-              front: <span>{card.front}</span>,
-              back: <span>{card.back}</span>,
-              media: card.icon ? <img src={card.icon} alt="" className="h-10 w-10" /> : undefined
-            }));
-            
-            return (
-              <FlashCardDeck
-                items={cardItems}
-                autoAdvanceMs={8000}
-                onComplete={() => {
-                  setFlashTouched(true);
-                }}
-                onCtaClick={() => {
-                  setFlashTouched(true);
-                  setTab("quiz");
-                }}
-              />
-            );
-          })()}
+          <FlashCardDeck
+            cards={getModuleFlashcards('module-1')}
+            title="Flash Cards"
+            onDone={() => {
+              setFlashTouched(true);
+              setTab("quiz");
+            }}
+          />
         </section>
       )}
 
