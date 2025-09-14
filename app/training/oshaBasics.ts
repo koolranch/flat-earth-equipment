@@ -10,9 +10,17 @@ export const OSHA_BASICS: Record<string, { title: string; bullets: string[]; not
   m2: {
     title: "OSHA Basics — 8-Point Inspection",
     bullets: [
-      "Run the full inspection and record defects.",
-      "Any crack, leak, inoperative horn/beeper/light, unreadable plate, or unsecured battery/LP = do not operate."
-    ]
+      "Run the full inspection each shift and record defects. Remove trucks from service if any condition adversely affects safety (29 CFR 1910.178(q)(7)). Repairs must be by authorized personnel.",
+      "Forks: No cracks or bends; matched pair; lock pins in place; heel wear within limit.",
+      "Chains & hoses: No kinks, tight/broken links, frays, or leaks; proper tension/lube; guards in place.",
+      "Tires & wheels: Adequate tread/inflation (pneumatic); no chunks/splits; lugs tight; rims undamaged.",
+      "Horn & lights: Horn works (use at blind corners); head/taillights, beacon, and reverse beeper functional.",
+      "Seat belt & data plate: Seat belt present/working; data plate present, legible, and matches attachments/capacity.",
+      "Leaks/undercarriage: No hydraulic, fuel, or coolant leaks; mast/undercarriage clear; clean spills per procedure.",
+      "Battery/LP system: Cables/connectors intact and secure; charger leads OK; LP cylinder secured, no leaks/odor.",
+      "Safety devices: Parking brake, deadman, brakes, and steering respond correctly; alarms present and working."
+    ],
+    note: "References: 29 CFR 1910.178 (p), (q); ANSI/ITSDF B56.1."
   },
   m3: {
     title: "OSHA Basics — Balance & Load Handling",
