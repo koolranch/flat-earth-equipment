@@ -250,11 +250,46 @@
 }
 .animate-fade-in-out { animation: fade-in-out 4s ease-out forwards }
 
-/* Brand typography utilities */
+/* Enhanced brand typography and component utilities */
 @layer utilities {
-  .h1{ font-size:30px; line-height:36px; font-weight:700; font-family: theme(fontFamily.heading); letter-spacing:-0.01em; }
-  .h2{ font-size:24px; line-height:32px; font-weight:700; font-family: theme(fontFamily.heading); letter-spacing:-0.01em; }
-  .h3{ font-size:20px; line-height:28px; font-weight:600; font-family: theme(fontFamily.heading); letter-spacing:-0.01em; }
+  .h1{ font-size:30px; line-height:36px; font-weight:700; font-family: "Barlow Semi Condensed", "Inter", system-ui, sans-serif; letter-spacing:-0.01em; }
+  .h2{ font-size:24px; line-height:32px; font-weight:700; font-family: "Barlow Semi Condensed", "Inter", system-ui, sans-serif; letter-spacing:-0.01em; }
+  .h3{ font-size:20px; line-height:28px; font-weight:600; font-family: "Barlow Semi Condensed", "Inter", system-ui, sans-serif; letter-spacing:-0.01em; }
+  
+  /* Readable width constraint */
+  .prose-readable { max-width: 65ch; }
+  
+  /* Enhanced button styles */
+  .btn-primary {
+    background: var(--btn-bg, #D05A27);
+    color: white;
+    border-radius: 12px;
+    padding: 12px 18px;
+    font-weight: 600;
+    box-shadow: 0 6px 18px rgba(15,23,42,.14);
+    transition: transform 0.2s ease;
+  }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-primary:focus-visible {
+    outline: 2px solid #F76511;
+    outline-offset: 3px;
+  }
+  
+  /* Panel styles for better contrast */
+  .panel {
+    background: #1F2937;
+    color: #F1F5F9;
+    border-radius: 16px;
+  }
+  .panel-soft {
+    background: #111827;
+    color: #F1F5F9;
+  }
+  
+  /* Section spacing */
+  .section {
+    padding-block: 56px;
+  }
   
   /* Utilities for lists on dark cards */
   .list-on-dark li{ color: #E5E7EB; }

@@ -102,7 +102,7 @@ export default function SafetyPage() {
   };
 
   return (
-    <main className="container mx-auto p-4 space-y-6 max-w-4xl">
+    <main className="section">
       {/* JSON-LD structured data */}
       <script 
         type="application/ld+json" 
@@ -113,131 +113,138 @@ export default function SafetyPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(certificateJsonLd) }} 
       />
       
-      {/* Hero Section */}
-      <header className="rounded-2xl border p-6 bg-white dark:bg-slate-900 text-center">
-        <div className="mb-3">
-          <div className="text-sm font-medium text-[#F76511] mb-1">{t.brand.name}</div>
-          <div className="text-xs text-slate-600 dark:text-slate-400">{t.brand.tagline}</div>
+      <div className="container mx-auto px-4">
+        {/* Hero Section */}
+        <header className="panel shadow-card px-6 py-10 md:px-10 md:py-12 text-center">
+          <div className="mb-4">
+            <p className="text-xs uppercase tracking-wide text-brand-orangeBright/80 mb-2">{t.brand.name}</p>
+            <div className="text-xs text-brand-onPanel/70">{t.brand.tagline}</div>
+          </div>
+          <h1 className="text-display font-semibold mb-4 text-brand-onPanel">
+            {t.hero.h1}
+          </h1>
+          <p className="text-lg text-brand-onPanel/90 prose-readable mx-auto mb-6">
+            {t.hero.sub}
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
+            <Link 
+              href="/training" 
+              className="btn-primary tappable"
+            >
+              {t.hero.cta_primary}
+            </Link>
+            <a 
+              href="#how" 
+              className="tappable rounded-xl border border-brand-onPanel/20 px-4 py-2 text-brand-onPanel/90 hover:bg-white/5 transition-colors"
+            >
+              {t.hero.cta_secondary}
+            </a>
+          </div>
+        </header>
+
+        {/* Value Propositions */}
+        <div className="mt-8">
+          <ValueGrid t={t} />
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A] dark:text-white mb-3">
-          {t.hero.h1}
-        </h1>
-        <p className="text-slate-700 dark:text-slate-300 mt-2 max-w-2xl mx-auto mb-4">
-          {t.hero.sub}
-        </p>
-        <div className="flex items-center justify-center gap-3 mt-4">
-          <Link 
-            href="/training" 
-            className="rounded-2xl bg-[#F76511] text-white px-6 py-3 shadow-lg hover:bg-[#E55A0C] transition-colors font-semibold"
-          >
-            {t.hero.cta_primary}
-          </Link>
-          <a 
-            href="#how" 
-            className="rounded-2xl border border-slate-300 dark:border-slate-600 px-6 py-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
-          >
-            {t.hero.cta_secondary}
-          </a>
+
+        {/* How It Works */}
+        <section id="how" className="mt-8 panel-soft shadow-card px-6 py-6">
+          <h2 className="text-2xl font-semibold mb-4 text-brand-onPanel">
+            {locale === 'es' ? 'Cómo funciona' : 'How it works'}
+          </h2>
+          <ol className="list-decimal pl-6 text-base leading-7 text-brand-onPanel/90 space-y-3">
+            <li>
+              {locale === 'es' 
+                ? 'Aprenda con demos interactivas cortas (puntos activos, listas de verificación, simulaciones).'
+                : 'Learn with short interactive demos (hotspots, checklists, simulations).'
+              }
+            </li>
+            <li>
+              {locale === 'es' 
+                ? 'Responda micro-cuestionarios de 3-7 preguntas para consolidar conceptos.'
+                : 'Answer 3–7 question micro-quizzes to lock in concepts.'
+              }
+            </li>
+            <li>
+              {locale === 'es' 
+                ? 'Apruebe el examen final para generar su certificado.'
+                : 'Pass the final exam to generate your certificate.'
+              }
+            </li>
+            <li>
+              {locale === 'es' 
+                ? 'Su supervisor completa la evaluación práctica y firma en el sitio.'
+                : 'Your supervisor completes the practical evaluation and signature on site.'
+              }
+            </li>
+          </ol>
+        </section>
+
+        {/* Compliance Block */}
+        <div className="mt-8">
+          <ComplianceBlock t={t} />
         </div>
-      </header>
 
-      {/* Value Propositions */}
-      <ValueGrid t={t} />
+        {/* FAQ Section */}
+        <section className="mt-8 panel-soft shadow-card px-6 py-6">
+          <h2 className="text-2xl font-semibold mb-6 text-brand-onPanel">{t.faq.title}</h2>
+          <div className="divide-y divide-brand-onPanel/10">
+            {t.faq.items.map((f: any, i: number) => (
+              <details key={i} className="py-4 group">
+                <summary className="cursor-pointer font-medium text-brand-onPanel hover:text-brand-orangeBright transition-colors list-none tappable">
+                  <div className="flex items-center justify-between">
+                    <span className="text-base leading-7">{f.q}</span>
+                    <span className="text-brand-onPanel/60 group-open:rotate-180 transition-transform ml-2">
+                      ▼
+                    </span>
+                  </div>
+                </summary>
+                <p className="text-base leading-7 text-brand-onPanel/90 mt-3 prose-readable">
+                  {f.a}
+                </p>
+              </details>
+            ))}
+          </div>
+        </section>
 
-      {/* How It Works */}
-      <section id="how" className="rounded-2xl border p-4 bg-white dark:bg-slate-900">
-        <h2 className="text-xl font-bold mb-3">
-          {locale === 'es' ? 'Cómo funciona' : 'How it works'}
-        </h2>
-        <ol className="mt-2 list-decimal pl-5 text-sm space-y-2">
-          <li>
+        {/* Call to Action */}
+        <section className="mt-10 rounded-2xl bg-brand-orange text-white px-6 py-8 text-center shadow-card">
+          <h2 className="text-2xl font-semibold mb-2">
+            {locale === 'es' ? 'Comience hoy' : 'Get started today'}
+          </h2>
+          <p className="prose-readable mx-auto opacity-95 text-lg leading-7 mb-5">
             {locale === 'es' 
-              ? 'Aprenda con demos interactivas cortas (puntos activos, listas de verificación, simulaciones).'
-              : 'Learn with short interactive demos (hotspots, checklists, simulations).'
+              ? 'Capacitación interactiva que cumple con OSHA. Sin videos largos.'
+              : 'Interactive training that meets OSHA requirements. No long videos.'
             }
-          </li>
-          <li>
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link 
+              href="/training" 
+              className="btn-primary tappable" 
+              style={{ ['--btn-bg' as any]: '#F76511' }}
+            >
+              {t.cta.start_training}
+            </Link>
+            <Link 
+              href="/quote" 
+              className="tappable rounded-xl bg-white/10 px-4 py-2 text-white hover:bg-white/15 transition-colors"
+            >
+              {t.cta.buy_now}
+            </Link>
+          </div>
+        </section>
+
+        {/* Footer Note */}
+        <footer className="mt-8 text-center text-sm text-brand-inkMuted">
+          <p className="prose-readable mx-auto">
             {locale === 'es' 
-              ? 'Responda micro-cuestionarios de 3-7 preguntas para consolidar conceptos.'
-              : 'Answer 3–7 question micro-quizzes to lock in concepts.'
+              ? 'Cumple con los requisitos de OSHA 29 CFR 1910.178 para capacitación formal de operadores.'
+              : 'Meets OSHA 29 CFR 1910.178 requirements for formal operator training.'
             }
-          </li>
-          <li>
-            {locale === 'es' 
-              ? 'Apruebe el examen final para generar su certificado.'
-              : 'Pass the final exam to generate your certificate.'
-            }
-          </li>
-          <li>
-            {locale === 'es' 
-              ? 'Su supervisor completa la evaluación práctica y firma en el sitio.'
-              : 'Your supervisor completes the practical evaluation and signature on site.'
-            }
-          </li>
-        </ol>
-      </section>
-
-      {/* Compliance Block */}
-      <ComplianceBlock t={t} />
-
-      {/* FAQ Section */}
-      <section className="rounded-2xl border p-4 bg-white dark:bg-slate-900">
-        <h2 className="text-xl font-bold mb-4">{t.faq.title}</h2>
-        <div className="divide-y divide-slate-200 dark:divide-slate-700">
-          {t.faq.items.map((f: any, i: number) => (
-            <details key={i} className="py-3 group">
-              <summary className="cursor-pointer font-medium text-slate-900 dark:text-slate-100 hover:text-[#F76511] transition-colors list-none">
-                <div className="flex items-center justify-between">
-                  <span>{f.q}</span>
-                  <span className="text-slate-400 group-open:rotate-180 transition-transform">
-                    ▼
-                  </span>
-                </div>
-              </summary>
-              <p className="text-sm text-slate-700 dark:text-slate-300 mt-2 leading-relaxed">
-                {f.a}
-              </p>
-            </details>
-          ))}
-        </div>
-      </section>
-
-      {/* Call to Action */}
-      <section className="rounded-2xl border p-6 bg-gradient-to-r from-[#F76511] to-[#E55A0C] text-white text-center">
-        <h2 className="text-xl font-bold mb-2">
-          {locale === 'es' ? 'Comience hoy' : 'Get started today'}
-        </h2>
-        <p className="text-orange-100 mb-4">
-          {locale === 'es' 
-            ? 'Capacitación interactiva que cumple con OSHA. Sin videos largos.'
-            : 'Interactive training that meets OSHA requirements. No long videos.'
-          }
-        </p>
-        <div className="flex items-center justify-center gap-3">
-          <Link 
-            href="/training" 
-            className="rounded-2xl bg-white text-[#F76511] px-6 py-3 font-semibold hover:bg-orange-50 transition-colors"
-          >
-            {t.cta.start_training}
-          </Link>
-          <Link 
-            href="/quote" 
-            className="rounded-2xl border border-orange-300 text-white px-6 py-3 hover:bg-orange-600 transition-colors"
-          >
-            {t.cta.buy_now}
-          </Link>
-        </div>
-      </section>
-
-      {/* Footer Note */}
-      <footer className="text-center text-xs text-slate-500 dark:text-slate-400">
-        <p>
-          {locale === 'es' 
-            ? 'Cumple con los requisitos de OSHA 29 CFR 1910.178 para capacitación formal de operadores.'
-            : 'Meets OSHA 29 CFR 1910.178 requirements for formal operator training.'
-          }
-        </p>
-      </footer>
+          </p>
+        </footer>
+      </div>
     </main>
   );
 }
