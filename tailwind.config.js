@@ -36,11 +36,17 @@ module.exports = {
         ink: "#0F172A",
         success: { DEFAULT: "#16A34A", soft: "#DCFCE7" },
         danger: { DEFAULT: "#DC2626", soft: "#FEE2E2" },
-        // Unified brand token system
+        // Enhanced brand token system for better readability
         brand: {
+          ink: '#0F172A',
+          inkMuted: '#334155',
+          panel: '#1F2937',
+          panelSoft: '#111827',
+          onPanel: '#F1F5F9',
+          orange: '#D05A27',
+          orangeBright: '#F76511',
           bg: 'var(--brand-bg)',
           card: 'var(--brand-card)',
-          ink: 'var(--brand-ink)',
           muted: 'var(--brand-muted)',
           border: 'var(--brand-border)',
           accent: 'var(--brand-accent)',
@@ -65,9 +71,17 @@ module.exports = {
         brand: 'var(--brand-radius)',
       },
       boxShadow: {
-        card: "0 1px 2px rgba(15,23,42,.06), 0 8px 24px rgba(15,23,42,.06)",
+        card: '0 6px 18px rgba(15,23,42,0.12)',
         ring: "0 0 0 3px rgba(247,101,17,.25)",
         brand: 'var(--brand-shadow)',
+      },
+      maxWidth: {
+        prose: '65ch'
+      },
+      fontSize: {
+        base: ['1rem', { lineHeight: '1.7' }],
+        lg: ['1.125rem', { lineHeight: '1.7' }],
+        display: ['clamp(1.75rem,3.2vw,2.5rem)', { lineHeight: '1.2', letterSpacing: '-0.01em' }]
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
