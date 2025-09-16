@@ -30,7 +30,7 @@ export default async function Page({ params, searchParams }: { params: { slug: s
   const brand = await getBrand(params.slug);
   if (!brand) notFound();
   
-  const svcEnabled = process.env.NEXT_PUBLIC_FEATURE_SVC_SUBMISSIONS !== 'false';
+  https://www.flatearthequipment.com/training/forklift-operator/module-2  const ipsvcEnabled = process.env.NEXT_PUBLIC_FEATURE_SVC_SUBMISSIONS !== 'false';
   const url = `https://www.flatearthequipment.com/brand/${brand.slug}/serial-lookup`;
   
   // Allow larger list via search param (?notes_limit=50) when you want to see more

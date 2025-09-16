@@ -145,20 +145,28 @@ export default function OrientationInteractiveChips() {
     close();
   };
   return (
-    <div className="mt-4">
-      <div className="mb-3 text-slate-500">Tap each step. This is how the demos feel.</div>
+    <div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <button onClick={() => setOpen("ppe")} className="flex items-center gap-3 rounded-2xl border border-slate-700 bg-slate-800/90 p-4 text-left text-slate-100 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500">
-          <div className="grid h-10 w-10 place-items-center rounded-xl bg-white/90 text-slate-900"><VestIcon/></div>
-          <div className="font-medium">PPE sequence demo</div>
+        <button 
+          onClick={() => setOpen("ppe")} 
+          className="tappable flex items-center gap-4 rounded-xl bg-brand-onPanel/5 border border-brand-onPanel/10 p-4 text-left text-brand-onPanel hover:bg-brand-onPanel/10 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-orangeBright focus:ring-offset-2"
+        >
+          <div className="grid h-12 w-12 place-items-center rounded-xl bg-brand-orangeBright/20 text-brand-orangeBright"><VestIcon/></div>
+          <div className="font-medium text-base">PPE sequence demo</div>
         </button>
-        <button onClick={() => setOpen("hazard")} className="flex items-center gap-3 rounded-2xl border border-slate-700 bg-slate-800/90 p-4 text-left text-slate-100 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500">
-          <div className="grid h-10 w-10 place-items-center rounded-xl bg-white/90 text-slate-900"><HazardIcon/></div>
-          <div className="font-medium">Find a hazard</div>
+        <button 
+          onClick={() => setOpen("hazard")} 
+          className="tappable flex items-center gap-4 rounded-xl bg-brand-onPanel/5 border border-brand-onPanel/10 p-4 text-left text-brand-onPanel hover:bg-brand-onPanel/10 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-orangeBright focus:ring-offset-2"
+        >
+          <div className="grid h-12 w-12 place-items-center rounded-xl bg-brand-orangeBright/20 text-brand-orangeBright"><HazardIcon/></div>
+          <div className="font-medium text-base">Find a hazard</div>
         </button>
-        <button onClick={() => setOpen("control")} className="flex items-center gap-3 rounded-2xl border border-slate-700 bg-slate-800/90 p-4 text-left text-slate-100 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500">
-          <div className="grid h-10 w-10 place-items-center rounded-xl bg-white/90 text-slate-900"><ControlIcon/></div>
-          <div className="font-medium">Identify a control</div>
+        <button 
+          onClick={() => setOpen("control")} 
+          className="tappable flex items-center gap-4 rounded-xl bg-brand-onPanel/5 border border-brand-onPanel/10 p-4 text-left text-brand-onPanel hover:bg-brand-onPanel/10 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-orangeBright focus:ring-offset-2"
+        >
+          <div className="grid h-12 w-12 place-items-center rounded-xl bg-brand-orangeBright/20 text-brand-orangeBright"><ControlIcon/></div>
+          <div className="font-medium text-base">Identify a control</div>
         </button>
       </div>
 
