@@ -30,7 +30,7 @@ export default async function Page({ params, searchParams }: { params: { slug: s
   const brand = await getBrand(params.slug);
   if (!brand) notFound();
   
-  https://www.flatearthequipment.com/training/forklift-operator/module-2  const ipsvcEnabled = process.env.NEXT_PUBLIC_FEATURE_SVC_SUBMISSIONS !== 'false';
+  const ipsvcEnabled = process.env.NEXT_PUBLIC_FEATURE_SVC_SUBMISSIONS !== 'false';
   const url = `https://www.flatearthequipment.com/brand/${brand.slug}/serial-lookup`;
   
   // Allow larger list via search param (?notes_limit=50) when you want to see more
@@ -54,7 +54,7 @@ export default async function Page({ params, searchParams }: { params: { slug: s
           <BrandFAQBlock slug={brand.slug} name={brand.name} url={url} />
 
           {/* UGC Section - Recent tips + guided submission form */}
-          {svcEnabled && (
+          {ipsvcEnabled && (
             <div className="mt-8">
               <div className='grid gap-6 md:grid-cols-2'>
                 <div>
