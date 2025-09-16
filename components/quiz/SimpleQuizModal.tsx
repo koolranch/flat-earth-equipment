@@ -45,6 +45,11 @@ export default function SimpleQuizModal({ module, locale = 'en', onClose, onPass
       const state = JSON.parse(localStorage.getItem(key) || '{}');
       state[`module_${module}`] = { quiz: { score, passed, at: Date.now() } };
       localStorage.setItem(key, JSON.stringify(state));
+      
+      // Dispatch custom event to update progress bar immediately
+      window.dispatchEvent(new CustomEvent('module_complete', { 
+        detail: { module, score, passed } 
+      }));
     } catch {}
 
     if (passed) onPassed?.(score);

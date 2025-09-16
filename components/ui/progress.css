@@ -1,0 +1,3 @@
+.progress{display:flex;align-items:center;gap:.5rem}
+.progress-bar{height:6px;min-width:2px;background:var(--brand-500);border-radius:999px;transition:width .35s ease}
+.progress-text{font-variant-numeric:tabular-nums;opacity:.8;font-size:.875rem}
