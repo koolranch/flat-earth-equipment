@@ -11,7 +11,7 @@ export default function Page(){
       moduleSlug='module_5_advanced'
       moduleKey='m5'
       title='Module 5: Advanced Operations'
-      nextHref='/training/forklift-operator/exam'
+      nextHref='/training/exam'
       flashModuleKey="module-5"
       flashCardCount={8}
       osha={<Module5OSHA />}
