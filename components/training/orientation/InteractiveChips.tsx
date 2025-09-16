@@ -47,7 +47,7 @@ function PpeSequenceDemo({ onComplete }: { onComplete: () => void }) {
   const [idx, setIdx] = React.useState(0);
   return (
     <div>
-      <p className="mb-3 text-slate-600">Tap items in order: Vest → Hard hat → Seatbelt</p>
+      <p className="mb-4 text-base text-slate-800 font-medium">Tap items in order: Vest → Hard hat → Seatbelt</p>
       <div className="grid grid-cols-3 gap-3">
         {steps.map((s, i) => (
           <button
@@ -59,7 +59,7 @@ function PpeSequenceDemo({ onComplete }: { onComplete: () => void }) {
                 if (next === steps.length) onComplete();
               }
             }}
-            className={`flex h-20 items-center justify-center rounded-xl border p-3 text-sm font-medium transition ${i < idx ? "border-green-500 bg-green-50 text-green-700" : i === idx ? "border-slate-300 hover:bg-slate-50" : "border-slate-200 opacity-60"}`}
+            className={`tappable flex h-20 items-center justify-center rounded-xl border p-3 text-base font-semibold transition ${i < idx ? "border-green-500 bg-green-100 text-green-800" : i === idx ? "border-brand-orangeBright bg-brand-orangeBright/10 text-brand-ink hover:bg-brand-orangeBright/20" : "border-slate-300 bg-slate-100 text-slate-700"}`}
             aria-pressed={i < idx}
           >
             {i < idx ? "✓ " : ""}{s}
@@ -73,7 +73,7 @@ function PpeSequenceDemo({ onComplete }: { onComplete: () => void }) {
 function FindHazardDemo({ onComplete }: { onComplete: () => void }) {
   return (
     <div>
-      <p className="mb-3 text-slate-600">Find and tap the <span className="font-medium text-orange-700">orange spill hazard</span>.</p>
+      <p className="mb-4 text-base text-slate-800 font-medium">Find and tap the <span className="font-semibold text-orange-700">orange spill hazard</span>.</p>
       <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-slate-200 bg-white">
         {/* Minimal aisle scene background */}
         <svg viewBox="0 0 800 450" className="absolute inset-0 h-full w-full" aria-hidden>
@@ -117,7 +117,7 @@ function IdentifyControlDemo({ onComplete }: { onComplete: () => void }) {
   ];
   return (
     <div>
-      <p className="mb-3 text-slate-600">Which one is the horn control?</p>
+      <p className="mb-4 text-base text-slate-800 font-medium">Which one is the horn control?</p>
       <div className="grid grid-cols-3 gap-3">
         {CHOICES.map((c) => (
           <button
