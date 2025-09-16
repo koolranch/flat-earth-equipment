@@ -5,6 +5,8 @@ import { flags } from '@/lib/flags';
 import PrelaunchBanner from '@/components/PrelaunchBanner';
 import * as Sentry from '@sentry/nextjs';
 import { FORKLIFT_MODULES_FALLBACK } from '@/lib/courses';
+import { HeaderProgress } from '@/components/training/HeaderProgress';
+import type { CourseModule } from '@/lib/progress';
 
 type Progress = {
   pct: number;
@@ -58,6 +60,17 @@ function TrainingContent({ courseId }: { courseId: string }) {
         if (r.ok) {
           const data = await r.json();
           console.log('✅ Progress data received:', data);
+          
+          // Debug: Log module completion status
+          if (process.env.NODE_ENV === 'development') {
+            console.log('📊 Module completion status:', data.modules?.map((m: any) => ({
+              id: m.slug,
+              title: m.title,
+              quiz_passed: m.quiz_passed,
+              status: m.status
+            })));
+          }
+          
           setProg(data);
         } else {
           const errorText = await r.text();
@@ -129,12 +142,14 @@ function TrainingContent({ courseId }: { courseId: string }) {
               <h1 className='text-display font-semibold text-brand-onPanel mb-2'>Forklift Operator Training</h1>
               <p className="text-brand-onPanel/70 text-sm">Complete all modules and pass the final exam to earn your certificate</p>
             </div>
-            <div className='min-w-[160px]'>
-              <div className='text-sm font-medium text-brand-onPanel mb-2'>Progress: {prog.pct}%</div>
-              <div className='h-3 bg-brand-onPanel/20 rounded-full overflow-hidden'>
-                <div className='h-3 bg-brand-orangeBright rounded-full transition-all duration-300' style={{ width: `${prog.pct}%` }} />
-              </div>
-            </div>
+            <HeaderProgress 
+              modules={prog.modules?.map(m => ({ 
+                id: m.slug, 
+                title: m.title, 
+                quiz_passed: m.quiz_passed 
+              }))} 
+              fallbackPercent={prog.pct} 
+            />
           </div>
         </header>
 
