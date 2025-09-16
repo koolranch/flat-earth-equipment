@@ -120,157 +120,174 @@ function TrainingContent({ courseId }: { courseId: string }) {
   const canTakeExam = prog.canTakeExam;
   
   return (
-    <main id="main" className='container mx-auto p-4' role="main" aria-label="Training Hub">
-      <header className='sticky top-0 z-10 bg-white/90 backdrop-blur border-b py-3'>
-        <div className='flex items-center justify-between'>
-          <h1 className='text-xl font-bold text-[#0F172A]'>Forklift Operator Training</h1>
-          <div className='min-w-[140px]'>
-            <div className='text-xs text-slate-600'>Progress: {prog.pct}%</div>
-            <div className='h-2 bg-slate-200 rounded-full overflow-hidden'>
-              <div className='h-2 bg-[#F76511]' style={{ width: `${prog.pct}%` }} />
+    <main id="main" className='section' role="main" aria-label="Training Hub">
+      <div className="container mx-auto px-4">
+        <header className='panel shadow-card px-6 py-6 mb-8'>
+          <div className='flex flex-col md:flex-row md:items-center justify-between gap-4'>
+            <div>
+              <p className="text-xs uppercase tracking-wide text-brand-orangeBright/80 mb-1">Flat Earth Safety</p>
+              <h1 className='text-display font-semibold text-brand-onPanel mb-2'>Forklift Operator Training</h1>
+              <p className="text-brand-onPanel/70 text-sm">Complete all modules and pass the final exam to earn your certificate</p>
+            </div>
+            <div className='min-w-[160px]'>
+              <div className='text-sm font-medium text-brand-onPanel mb-2'>Progress: {prog.pct}%</div>
+              <div className='h-3 bg-brand-onPanel/20 rounded-full overflow-hidden'>
+                <div className='h-3 bg-brand-orangeBright rounded-full transition-all duration-300' style={{ width: `${prog.pct}%` }} />
+              </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
       {!flags.GA && <PrelaunchBanner />}
 
-      {recert && !dismissed && recert.has_certificate && (
-        <div className={`rounded-2xl border p-3 ${recert.due ? 'border-amber-300 bg-amber-50' : 'border-green-300 bg-green-50'}`}>
-          <div className="flex items-start gap-3">
-            <div className="text-sm">
-              {recert.due ? (
-                <>
-                  {t('hub.recert_due')}
-                </>
-              ) : (
-                <>
-                  {t('hub.recert_current', { date: new Date(recert.current_until || '').toLocaleDateString() })}
-                </>
-              )}
+        {recert && !dismissed && recert.has_certificate && (
+          <div className={`rounded-2xl border p-4 mb-6 ${recert.due ? 'border-amber-300 bg-amber-50' : 'border-green-300 bg-green-50'}`}>
+            <div className="flex items-start gap-3">
+              <div className="text-base leading-7">
+                {recert.due ? (
+                  <>
+                    {t('hub.recert_due')}
+                  </>
+                ) : (
+                  <>
+                    {t('hub.recert_current', { date: new Date(recert.current_until || '').toLocaleDateString() })}
+                  </>
+                )}
+              </div>
+              <button 
+                className="ml-auto rounded-xl border px-3 py-2 text-sm hover:bg-white/20 transition-colors tappable" 
+                onClick={() => { 
+                  localStorage.setItem('recert_banner_dismissed', '1'); 
+                  setDismissed(true); 
+                }}
+              >
+                {t('common.dismiss')}
+              </button>
             </div>
-            <button 
-              className="ml-auto rounded-xl border px-2 py-1 text-xs" 
-              onClick={() => { 
-                localStorage.setItem('recert_banner_dismissed', '1'); 
-                setDismissed(true); 
-              }}
-            >
-              {t('common.dismiss')}
-            </button>
           </div>
-        </div>
-      )}
+        )}
 
-      <div className="mb-3">
-        <a href="/orientation" className="inline-flex rounded-2xl border px-3 py-2 text-sm">Start</a>
-      </div>
-
-      {/* Feature-gated Buy/Claim CTAs */}
-      {flags.GA ? (
-        <div className="mt-4 flex gap-3">
-          <a href="/checkout" className="btn btn-primary rounded-2xl">Buy seat</a>
-          {flags.SHOW_INVITES && (
-            <a href="/training/claim" className="btn btn-ghost rounded-2xl">Have a code?</a>
-          )}
-        </div>
-      ) : (
-        <div className="mt-4 text-sm text-slate-600">Purchasing opens soon. Training preview is available.</div>
-      )}
-
-      <section className='mt-4 space-y-3'>
-        {prog.next ? (
-          <a className='btn inline-flex items-center justify-center bg-[#F76511] text-white shadow-lg' href={prog.next.nextRoute} aria-label={`Resume training: ${prog.next.label || 'next module'}`}>
-            Resume training
-          </a>
-        ) : <div className='text-sm text-emerald-700'>Continue</div>}
-
-        {/* Module Progress Overview */}
-        <div className='rounded-2xl border p-4'>
-          <h2 className='text-lg font-semibold text-[#0F172A] mb-3'>Modules</h2>
-          <div className='space-y-2'>
-            {/* Use fallback modules if API modules are empty */}
-            {(prog.modules && prog.modules.length > 0 ? prog.modules : FORKLIFT_MODULES_FALLBACK).map((module, idx) => {
-              const isAPIModule = prog.modules && prog.modules.length > 0;
-              const title = isAPIModule ? (module as any).title : (module as any).title;
-              const href = isAPIModule ? (module as any).route : (module as any).href;
-              const completed = isAPIModule ? (module as any).quiz_passed : false;
-              const key = isAPIModule ? (module as any).slug : (module as any).key;
-              
-              return (
-                <div key={key} className='flex items-center justify-between p-2 rounded-lg border bg-slate-50 dark:bg-slate-800'>
-                  <div className='flex items-center gap-2'>
-                    <span className={`text-sm ${completed ? 'text-emerald-600' : 'text-slate-600'}`}>
-                      {completed ? '✅' : '⭕'}
-                    </span>
-                    <span className={`text-sm ${completed ? 'text-emerald-800 line-through' : 'text-slate-900 dark:text-slate-100'}`}>
-                      {title}
-                    </span>
-                  </div>
-                  {!completed && (
-                    <a 
-                      className='btn border border-[#F76511] text-[#F76511] text-sm hover:bg-[#F76511] hover:text-white transition-colors' 
-                      href={href}
-                      aria-label={`Start ${title} module`}
-                    >
-                      Start
-                    </a>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-          
-          {prog.stepsLeft && prog.stepsLeft.length > 0 && (
-            <div className='mt-3 p-3 rounded-lg bg-amber-50 border border-amber-200'>
-              <p className='text-sm text-amber-800'>
-                <strong>{prog.stepsLeft.length} modules remaining</strong> — Complete all modules to unlock the exam
-              </p>
-            </div>
-          )}
-        </div>
-
-        {/* Final Exam CTA */}
-        <article className="rounded-2xl border p-4 bg-white dark:bg-slate-900">
-          <header className="mb-2">
-            <h3 className="text-lg font-semibold">Final Exam</h3>
-            <p className="text-sm text-slate-600">Pass to generate certificate</p>
-            {!canTakeExam && (
-              <p className="text-xs text-amber-700 mt-1 flex items-center gap-1">
-                <span>🔒</span>
-                Complete all modules to unlock the exam
-              </p>
+        {/* Feature-gated Buy/Claim CTAs */}
+        {flags.GA ? (
+          <div className="mb-6 flex flex-wrap gap-3">
+            <a href="/checkout" className="btn-primary tappable">Buy seat</a>
+            {flags.SHOW_INVITES && (
+              <a href="/training/claim" className="tappable rounded-xl border border-brand-onPanel/20 px-4 py-2 text-brand-onPanel/90 hover:bg-white/5 transition-colors">Have a code?</a>
             )}
-          </header>
-          {canTakeExam ? (
-            <a 
-              href="/training/exam" 
-              className="inline-flex rounded-2xl bg-[#F76511] text-white px-4 py-2 shadow-lg hover:bg-[#E55A0F] transition-colors"
-            >
-              Final Exam
-            </a>
-          ) : (
-            <button 
-              disabled
-              className="inline-flex rounded-2xl border border-slate-300 text-slate-500 px-4 py-2 opacity-60 cursor-not-allowed"
-              aria-label="Final exam locked until all modules are completed"
-            >
-              🔒 Locked
-            </button>
-          )}
-        </article>
-
-        {/* Supervisor Practical Evaluation CTA */}
-        <section className="mt-4 rounded-2xl border p-4 md:p-6 bg-white dark:bg-slate-900 dark:border-slate-700">
-          <div className="flex items-center justify-between gap-2">
-            <div>
-              <h2 className="text-lg font-semibold">Practical Evaluation</h2>
-              <p className="text-sm text-slate-600 dark:text-slate-300">Competencies</p>
-            </div>
-            <a href="/practical/start" className="inline-flex rounded-2xl bg-[#F76511] text-white px-4 py-2 shadow-lg">Start</a>
           </div>
+        ) : (
+          <div className="mb-6 panel-soft px-4 py-3 rounded-xl">
+            <p className="text-brand-onPanel/90 text-sm">Purchasing opens soon. Training preview is available.</p>
+          </div>
+        )}
+
+        <section className='space-y-6'>
+          {prog.next ? (
+            <div className="text-center">
+              <a className='btn-primary tappable inline-flex items-center justify-center' href={prog.next.nextRoute} aria-label={`Resume training: ${prog.next.label || 'next module'}`}>
+                Resume training
+              </a>
+            </div>
+          ) : (
+            <div className='panel-soft px-4 py-3 rounded-xl text-center'>
+              <p className='text-brand-onPanel text-sm'>✅ All modules completed! Ready for final exam.</p>
+            </div>
+          )}
+
+          {/* Module Progress Overview */}
+          <div className='panel-soft shadow-card px-6 py-6'>
+            <h2 className='text-2xl font-semibold text-brand-onPanel mb-6'>Modules</h2>
+            <div className='space-y-3'>
+              {/* Use fallback modules if API modules are empty */}
+              {(prog.modules && prog.modules.length > 0 ? prog.modules : FORKLIFT_MODULES_FALLBACK).map((module, idx) => {
+                const isAPIModule = prog.modules && prog.modules.length > 0;
+                const title = isAPIModule ? (module as any).title : (module as any).title;
+                const href = isAPIModule ? (module as any).route : (module as any).href;
+                const completed = isAPIModule ? (module as any).quiz_passed : false;
+                const key = isAPIModule ? (module as any).slug : (module as any).key;
+                
+                return (
+                  <div key={key} className='flex items-center justify-between p-4 rounded-xl bg-brand-onPanel/5 border border-brand-onPanel/10'>
+                    <div className='flex items-center gap-3'>
+                      <span className={`text-lg ${completed ? 'text-emerald-400' : 'text-brand-onPanel/40'}`}>
+                        {completed ? '✅' : '⭕'}
+                      </span>
+                      <div>
+                        <span className={`text-base font-medium ${completed ? 'text-emerald-300 line-through' : 'text-brand-onPanel'}`}>
+                          {title}
+                        </span>
+                        {completed && (
+                          <div className="text-xs text-emerald-400 mt-1">Completed</div>
+                        )}
+                      </div>
+                    </div>
+                    {!completed && (
+                      <a 
+                        className='btn-primary tappable text-sm' 
+                        href={href}
+                        aria-label={`Start ${title} module`}
+                      >
+                        Start
+                      </a>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+            
+            {prog.stepsLeft && prog.stepsLeft.length > 0 && (
+              <div className='mt-6 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20'>
+                <p className='text-base leading-7 text-amber-300'>
+                  <strong>{prog.stepsLeft.length} modules remaining</strong> — Complete all modules to unlock the exam
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Final Exam CTA */}
+          <article className="panel shadow-card px-6 py-6">
+            <header className="mb-4">
+              <h3 className="text-2xl font-semibold text-brand-onPanel mb-2">Final Exam</h3>
+              <p className="text-base leading-7 text-brand-onPanel/90">Pass to generate certificate</p>
+              {!canTakeExam && (
+                <div className="mt-3 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                  <p className="text-sm text-amber-300 flex items-center gap-2">
+                    <span>🔒</span>
+                    Complete all modules to unlock the exam
+                  </p>
+                </div>
+              )}
+            </header>
+            {canTakeExam ? (
+              <a 
+                href="/training/exam" 
+                className="btn-primary tappable"
+              >
+                Take Final Exam
+              </a>
+            ) : (
+              <button 
+                disabled
+                className="tappable rounded-xl border border-brand-onPanel/20 text-brand-onPanel/50 px-4 py-2 opacity-60 cursor-not-allowed"
+                aria-label="Final exam locked until all modules are completed"
+              >
+                🔒 Locked
+              </button>
+            )}
+          </article>
+
+          {/* Supervisor Practical Evaluation CTA */}
+          <section className="panel shadow-card px-6 py-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div>
+                <h2 className="text-2xl font-semibold text-brand-onPanel mb-2">Practical Evaluation</h2>
+                <p className="text-base leading-7 text-brand-onPanel/90">Competencies assessment with your supervisor</p>
+              </div>
+              <a href="/practical/start" className="btn-primary tappable">Start</a>
+            </div>
+          </section>
         </section>
-      </section>
+      </div>
     </main>
   );
 }
