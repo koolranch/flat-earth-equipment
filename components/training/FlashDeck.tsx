@@ -2,7 +2,7 @@ import * as React from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
-type Card = { id: string; front: string; back: string; icon?: string };
+type Card = { id?: string; front?: string; back?: string; q?: string; a?: string; icon?: string };
 export function FlashDeck({ cards, className }: { cards: Card[]; className?: string }) {
   const [idx, setIdx] = React.useState(0);
   const [flipped, setFlipped] = React.useState(false);
@@ -24,7 +24,7 @@ export function FlashDeck({ cards, className }: { cards: Card[]; className?: str
 
   const Icon = () => {
     const src = card.icon || '';
-    const alt = card.front;
+    const alt = card.front || card.q || 'Flash card';
     const [ok, setOk] = React.useState(true);
     React.useEffect(() => { setOk(true); }, [src]);
     return ok && src ? (
@@ -55,9 +55,9 @@ export function FlashDeck({ cards, className }: { cards: Card[]; className?: str
           <Icon />
           <div className='text-slate-800 text-lg leading-relaxed'>
             {flipped ? (
-              <span className='block'>{card.back}</span>
+              <span className='block'>{card.back || card.a}</span>
             ) : (
-              <span className='block font-medium'>{card.front}</span>
+              <span className='block font-medium'>{card.front || card.q}</span>
             )}
             <div className='mt-3 text-xs text-slate-500'>(Tap or press space to flip)</div>
           </div>

@@ -1,53 +1,10 @@
-{
-  "title": "Pre-Operation: PPE & Basic Checks",
-  "cards": [
-    {
-      "id": "ppe-vest",
-      "front": "Hi-vis vest — when?",
-      "back": "Always on the floor. Improves visibility around moving equipment.",
-      "icon": "/training/icons/icon-ppe-vest.svg"
-    },
-    {
-      "id": "ppe-hardhat",
-      "front": "Hard hat — where?",
-      "back": "Any area with overhead guards, racks, or suspended loads.",
-      "icon": "/training/icons/icon-ppe-hardhat.svg"
-    },
-    {
-      "id": "ppe-boots",
-      "front": "Safety boots — why?",
-      "back": "Toe protection + slip resistance on dusty/wet warehouse floors.",
-      "icon": "/training/icons/icon-ppe-boots.svg"
-    },
-    {
-      "id": "ppe-eyes-ears",
-      "front": "Eye/Ear protection — when?",
-      "back": "Grinding, battery rooms, loud docks, or as posted by site policy.",
-      "icon": "/training/icons/icon-ppe-goggles.svg"
-    },
-    {
-      "id": "horn-test",
-      "front": "Horn test — what are you checking?",
-      "back": "Audible warning works before moving. Use at intersections and blind corners.",
-      "icon": "/training/icons/icon-control-horn.svg"
-    },
-    {
-      "id": "lights-test",
-      "front": "Lights test — what must be lit?",
-      "back": "Headlights + rear/blue spot if equipped. Replace failed bulbs before operation.",
-      "icon": "/training/icons/icon-control-lights.svg"
-    },
-    {
-      "id": "data-plate",
-      "front": "Data plate — what to verify?",
-      "back": "Rated capacity, mast/attachments, and that it matches your forklift/attachment combo.",
-      "icon": "/training/icons/inspect-data-plate.svg"
-    },
-    {
-      "id": "seatbelt",
-      "front": "Seatbelt — when to latch?",
-      "back": "Before moving. Prevents ejection in tip-overs; stay in the protective zone.",
-      "icon": "/training/anim/D1_seatbelt.svg"
-    }
-  ]
-}
+[
+  {"q":"Hi-vis vest — when?","a":"Always on the floor. Improves visibility around moving equipment.","icon":"/training/icons/icon-ppe-vest.svg"},
+  {"q":"Hard hat — where?","a":"Any area with overhead guards, racks, or suspended loads.","icon":"/training/icons/icon-ppe-hardhat.svg"},
+  {"q":"Safety boots — why?","a":"Toe protection + slip resistance on dusty/wet warehouse floors.","icon":"/training/icons/icon-ppe-boots.svg"},
+  {"q":"Eye/Ear protection — when?","a":"Grinding, battery rooms, loud docks, or as posted by site policy.","icon":"/training/icons/icon-ppe-goggles.svg"},
+  {"q":"Horn test — what are you checking?","a":"Audible warning works before moving. Use at intersections and blind corners.","icon":"/training/icons/icon-control-horn.svg"},
+  {"q":"Lights test — what must be lit?","a":"Headlights + rear/blue spot if equipped. Replace failed bulbs before operation.","icon":"/training/icons/icon-control-lights.svg"},
+  {"q":"Data plate — what to verify?","a":"Rated capacity, mast/attachments, and that it matches your forklift/attachment combo.","icon":"/training/icons/inspect-data-plate.svg"},
+  {"q":"Seatbelt — when to latch?","a":"Before moving. Prevents ejection in tip-overs; stay in the protective zone.","icon":"/training/anim/D1_seatbelt.svg"}
+]

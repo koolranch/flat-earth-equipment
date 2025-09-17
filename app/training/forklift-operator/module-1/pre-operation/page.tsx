@@ -145,7 +145,7 @@ export default function Page(){
 
       {tab==='flash' && (
         <section className='rounded-2xl border bg-white p-4 mb-4'>
-          <FlashDeck cards={(flashData as any).cards || []} />
+          <FlashDeck cards={flashData} />
           <div className='text-xs text-slate-500 mt-2'>Tip: open each card once before taking the quiz.</div>
         </section>
       )}
