@@ -172,11 +172,14 @@ export default function PreOpModule() {
 
             <section className="border rounded-2xl p-4">
               <h2 className="font-medium mb-2">Seatbelt reminder</h2>
-              <img 
-                src={assetUrl(resolveAsset('seatbeltReminder'))} 
-                alt="Seatbelt latch animation" 
-                className="w-full max-w-lg mx-auto"
-              />
+              <div className="flex justify-center">
+                <img 
+                  src="/training/d1-seatbelt.svg" 
+                  alt="Seatbelt latch animation" 
+                  className="w-full max-w-lg"
+                />
+              </div>
+              <p className="text-sm text-slate-600 mt-2 text-center">Always buckle your seatbelt before moving the forklift</p>
             </section>
 
             {allDone && (
