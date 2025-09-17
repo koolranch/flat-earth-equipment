@@ -2,15 +2,15 @@
 import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { FlashDeck } from '@/components/training/FlashDeck';
 import { StatusDot } from '@/components/training/StatusDot';
 import SvgEmbed from '@/components/training/SvgEmbed';
 import SimpleQuizModal from '@/components/quiz/SimpleQuizModal';
+import FlashCardDeck from '@/components/training/FlashCardDeck';
+import { getModuleFlashcards } from '@/lib/training/flashcards';
 import { track } from '@/lib/analytics/track';
 import { assetUrl } from '@/lib/assets';
 import { resolveAsset } from '@/lib/asset-manifest';
 import { recordStepCompleteSafe } from '@/lib/progress/client';
-import flashData from '@/content/training/forklift-operator/module-1/preop-flashcards.json';
 
 const steps = [
   { key: 'ppe_vest', label: 'Hi-vis vest', iconKey: 'ppeVest' },
@@ -193,7 +193,11 @@ export default function PreOpModule() {
 
       {tab==='flash' && (
         <section className='rounded-2xl border bg-white p-4 mb-4'>
-          <FlashDeck cards={flashData} />
+          <FlashCardDeck
+            cards={getModuleFlashcards('module-1')}
+            title="Flash Cards"
+            onDone={() => setFlashTouched(true)}
+          />
           <div className='text-xs text-slate-500 mt-2'>Tip: open each card once before taking the quiz.</div>
         </section>
       )}
