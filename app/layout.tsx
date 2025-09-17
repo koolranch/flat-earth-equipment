@@ -22,7 +22,7 @@ import { getAdminStatus } from '@/lib/admin/guard';
 import '../globals.css';
 import { Toaster } from 'react-hot-toast';
 import QAEventListener from '@/components/dev/QAEventListener';
-import SafetyTopbar from '@/components/safety/SafetyTopbar';
+import SafetyRouteGate from '@/components/safety/SafetyRouteGate';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -83,12 +83,11 @@ export default async function RootLayout({
             
             {process.env.NODE_ENV !== 'production' ? <QAEventListener /> : null}
             
-            {/* Safety sub-nav moved to components/safety/SafetyTopbar.tsx */}
-            {/* Render the gated safety/training micro header ONLY on training routes */}
-            <SafetyTopbar />
-            
             {/* Main Navbar */}
             <Navbar locale={locale} />
+            
+            {/* Safety sub-nav appears BELOW main navbar on training/safety routes only */}
+            <SafetyRouteGate />
             
             <main id="main" role="main">
               {children}
