@@ -2,9 +2,10 @@ import { getMarketingDict, type Locale } from '@/i18n';
 import ValueGrid from '@/components/marketing/ValueGrid';
 import ComplianceBlock from '@/components/marketing/ComplianceBlock';
 import Link from 'next/link';
+import { detectUserServer } from '@/lib/auth/detectUserServer';
 
-export const dynamic = 'force-static';
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
+export const revalidate = 60; // Cache for 1 minute to reduce build time
 
 export const metadata = {
   title: 'Forklift Operator Training — Flat Earth Safety',
@@ -53,9 +54,10 @@ function getLocaleForStatic(): Locale {
   return ['en', 'es'].includes(defaultLocale) ? defaultLocale as Locale : 'en';
 }
 
-export default function SafetyPage() {
+export default async function SafetyPage() {
   const locale = getLocaleForStatic();
   const t = getMarketingDict(locale);
+  const { isAuthed } = await detectUserServer();
   
   // JSON-LD structured data for SEO
   const jsonLd = {
@@ -220,9 +222,11 @@ export default function SafetyPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Link 
-              href="/training" 
+              href={isAuthed ? '/training' : `/login?next=${encodeURIComponent('/training')}`}
               className="btn-primary tappable" 
               style={{ ['--btn-bg' as any]: '#F76511' }}
+              aria-label="Get started with training"
+              data-testid="get-started-cta"
             >
               {t.cta.start_training}
             </Link>

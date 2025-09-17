@@ -160,16 +160,15 @@ export default function TabbedModuleLayout({
         <section className='rounded-2xl border bg-white p-4 mb-4 shadow-card'>
           {(() => {
             if (!moduleCards.length) return <div className='text-sm text-slate-600'>No flash cards found for this module yet.</div>;
-            if (typeof window !== 'undefined') {
-              try { localStorage.setItem(`flashcards:seen:${courseSlug ?? 'forklift'}:${flashModuleKey ?? '-'}`, '1'); } catch {}
-              if (onFlashSeen) onFlashSeen();
-            }
+            // DB is source of truth for flashcard completion
+            if (onFlashSeen) onFlashSeen();
             
             return (
               <FlashCardDeck
                 cards={moduleCards}
                 title="Flash Cards"
                 onDone={async () => {
+                  // DB-only persistence; localStorage removed to avoid drift
                   await markDone("cards");
                   setTab("quiz");
                 }}
