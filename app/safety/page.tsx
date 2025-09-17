@@ -2,10 +2,11 @@ import { getMarketingDict, type Locale } from '@/i18n';
 import ValueGrid from '@/components/marketing/ValueGrid';
 import ComplianceBlock from '@/components/marketing/ComplianceBlock';
 import Link from 'next/link';
+import { unstable_noStore as noStore } from 'next/cache';
 import { detectUserServer } from '@/lib/auth/detectUserServer';
 
 export const dynamic = 'force-dynamic';
-export const revalidate = 60; // Cache for 1 minute to reduce build time
+export const revalidate = 0; // no ISR
 
 export const metadata = {
   title: 'Forklift Operator Training — Flat Earth Safety',
@@ -55,6 +56,7 @@ function getLocaleForStatic(): Locale {
 }
 
 export default async function SafetyPage() {
+  noStore(); // make this request-only; prevents build-time rendering
   const locale = getLocaleForStatic();
   const t = getMarketingDict(locale);
   const { isAuthed } = await detectUserServer();
