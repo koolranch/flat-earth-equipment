@@ -43,6 +43,10 @@ export default async function TrainingPricing() {
       <p className="mt-6 text-xs text-muted-foreground text-center">
         Prices shown for convenience. Final price is determined at Stripe checkout.
       </p>
+      
+      <p className="mt-6 text-sm text-center">
+        Already invited? <a className="underline hover:text-gray-900" href="/redeem">Redeem your code</a>
+      </p>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { requireOrgRoleServer } from '@/lib/orgs/requireOrgRoleServer';
 import { getCourseBySlug } from '@/lib/training/getCourseBySlug';
 import { getSeatSummary } from '@/lib/orgs/seats';
 import { supabaseServer } from '@/lib/supabase/server';
+import CopyButton from '@/components/trainer/CopyButton';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -71,8 +72,9 @@ export default async function TrainerInvites() {
                   <span>{i.email} · {i.role}</span>
                   <span className="text-muted-foreground">{i.accepted_at ? 'Accepted' : 'Pending'}</span>
                 </div>
-                <div className="text-xs break-all">
-                  Invite link: <code>{url}</code>
+                <div className="flex items-center gap-2 text-xs">
+                  <code className="flex-1 break-all">{url}</code>
+                  <CopyButton text={url} data-testid="copy-invite" />
                 </div>
                 <div className="text-xs text-muted-foreground">Expires: {new Date(i.expires_at).toLocaleString()}</div>
               </li>
