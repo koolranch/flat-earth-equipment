@@ -1,18 +1,12 @@
-import { getUserAndRole, isTrainerOrAdmin } from '@/lib/auth/roles';
-import Link from 'next/link';
+import type { ReactNode } from 'react';
+import { unstable_noStore as noStore } from 'next/cache';
+import { requireOrgRoleServer } from '@/lib/orgs/requireOrgRoleServer';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
-export default async function Layout({ children }: { children: React.ReactNode }) {
-  const { user, role } = await getUserAndRole();
-  if (!user || !isTrainerOrAdmin(role)) {
-    return (
-      <main className="container mx-auto p-4">
-        <h1 className="text-xl font-bold">Access denied</h1>
-        <p className="text-sm mt-1">You need trainer or admin access.</p>
-        <p className="text-sm mt-2"><Link href="/training" className="underline">Back to training</Link></p>
-      </main>
-    );
-  }
+export default async function TrainerLayout({ children }: { children: ReactNode }) {
+  noStore();
+  await requireOrgRoleServer(['owner','trainer']); // Only owners/trainers allowed
   return <>{children}</>;
 }
