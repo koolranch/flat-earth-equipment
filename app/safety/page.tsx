@@ -261,6 +261,9 @@ export default async function SafetyPage() {
             >
               {t.cta.start_training}
             </Link>
+            <p className="mt-3 text-sm text-white/80">
+              Have a code? <a href="/redeem" className="underline hover:text-white">Redeem</a>
+            </p>
             <Link 
               href="/quote" 
               className="tappable rounded-xl bg-white/10 px-4 py-2 text-white hover:bg-white/15 transition-colors"
