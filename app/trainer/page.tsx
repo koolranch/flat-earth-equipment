@@ -81,9 +81,13 @@ export default async function TrainerHome() {
         </div>
       </section>
 
-      <div className="text-sm text-muted-foreground">
-        Invite & seat assignment coming next.
-      </div>
+      <section className="rounded-2xl p-4 border">
+        <h2 className="text-lg font-medium">Actions</h2>
+        <div className="mt-3 flex gap-3">
+          <a href="/trainer/invites" className="btn-primary">Manage Invites</a>
+          <span className="text-sm text-muted-foreground">More tools coming soon</span>
+        </div>
+      </section>
     </div>
   );
 }
