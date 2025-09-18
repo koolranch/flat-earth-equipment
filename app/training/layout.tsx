@@ -1,12 +1,16 @@
 import { ReactNode } from 'react';
+import { unstable_noStore as noStore } from 'next/cache';
+import { requireAuthServer } from '@/lib/auth/requireAuthServer';
 
-// 2 minutes for mostly-static hub content
-export const revalidate = 120;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
-export default function TrainingLayout({
+export default async function TrainingLayout({
   children,
 }: {
   children: ReactNode;
 }) {
+  noStore();
+  await requireAuthServer('/training'); // redirects anon → /login?next=/training
   return <>{children}</>;
 }
