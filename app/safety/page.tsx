@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { unstable_noStore as noStore } from 'next/cache';
 import { detectUserServer } from '@/lib/auth/detectUserServer';
 import { safeNext } from '@/lib/auth/nextParam';
+import { supabaseServer } from '@/lib/supabase/server';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; // no ISR
@@ -60,11 +61,34 @@ export default async function SafetyPage() {
   noStore(); // make this request-only; prevents build-time rendering
   const locale = getLocaleForStatic();
   const t = getMarketingDict(locale);
-  const { isAuthed } = await detectUserServer();
+  const { isAuthed, userId } = await detectUserServer();
   
-  // Secure next parameter handling
-  const desired = safeNext('/training');
-  const ctaHref = isAuthed ? desired : `/login?next=${encodeURIComponent(desired)}`;
+  // Determine CTA destination based on auth + enrollment status
+  let ctaHref = `/login?next=${encodeURIComponent('/training')}`;
+  
+  if (isAuthed && userId) {
+    // Check enrollment status
+    const supabase = supabaseServer();
+    const { data: course } = await supabase
+      .from('courses')
+      .select('id')
+      .eq('slug', 'forklift')
+      .single();
+      
+    if (course) {
+      const { data: enrollment } = await supabase
+        .from('enrollments')
+        .select('id')
+        .eq('user_id', userId)
+        .eq('course_id', course.id)
+        .limit(1)
+        .maybeSingle();
+        
+      ctaHref = enrollment ? '/training' : '/training/checkout';
+    } else {
+      ctaHref = '/training/checkout'; // No course found, send to checkout
+    }
+  }
   
   // JSON-LD structured data for SEO
   const jsonLd = {
