@@ -4,6 +4,7 @@ import ComplianceBlock from '@/components/marketing/ComplianceBlock';
 import Link from 'next/link';
 import { unstable_noStore as noStore } from 'next/cache';
 import { detectUserServer } from '@/lib/auth/detectUserServer';
+import { safeNext } from '@/lib/auth/nextParam';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; // no ISR
@@ -60,6 +61,10 @@ export default async function SafetyPage() {
   const locale = getLocaleForStatic();
   const t = getMarketingDict(locale);
   const { isAuthed } = await detectUserServer();
+  
+  // Secure next parameter handling
+  const desired = safeNext('/training');
+  const ctaHref = isAuthed ? desired : `/login?next=${encodeURIComponent(desired)}`;
   
   // JSON-LD structured data for SEO
   const jsonLd = {
@@ -224,7 +229,7 @@ export default async function SafetyPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Link 
-              href={isAuthed ? '/training' : `/login?next=${encodeURIComponent('/training')}`}
+              href={ctaHref}
               className="btn-primary tappable" 
               style={{ ['--btn-bg' as any]: '#F76511' }}
               aria-label="Get started with training"
