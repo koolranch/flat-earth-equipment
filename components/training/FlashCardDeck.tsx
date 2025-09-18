@@ -93,13 +93,13 @@ export default function FlashCardDeck({
         <div className="mt-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <button type="button" onClick={prev} className="rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50" disabled={idx === 0}>Back</button>
-            <button type="button" onClick={toggleReveal} className="rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">{revealed ? 'Hide answer' : 'Reveal answer'}</button>
+            <button type="button" onClick={toggleReveal} className="rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50" data-testid="flashcard-reveal">{revealed ? 'Hide answer' : 'Reveal answer'}</button>
           </div>
           <div className="flex items-center gap-2">
             <div className="hidden sm:flex items-center gap-1">
               {Array.from({ length: total }).map((_, i) => (<span key={i} className={clsx('h-2 w-2 rounded-full', i === idx ? 'bg-slate-900' : 'bg-slate-300')} />))}
             </div>
-            <button type="button" onClick={next} className="rounded-md bg-orange-600 px-3 py-1.5 text-sm text-white hover:bg-orange-700">{idx === total - 1 ? 'Finish' : 'Next card'}</button>
+            <button type="button" onClick={next} className="rounded-md bg-orange-600 px-3 py-1.5 text-sm text-white hover:bg-orange-700" data-testid="flashcard-next">{idx === total - 1 ? 'Finish' : 'Next card'}</button>
           </div>
         </div>
       </div>
@@ -110,6 +110,7 @@ export default function FlashCardDeck({
           onClick={() => onDone?.()}
           disabled={!allViewed}
           className={clsx('rounded-lg px-4 py-2 text-sm font-medium', allViewed ? 'bg-slate-900 text-white hover:bg-black' : 'bg-slate-200 text-slate-500 cursor-not-allowed')}
+          data-testid="flashcard-complete"
         >{allViewed ? 'Mark Flash Cards done → Quiz' : 'Open each card to continue'}</button>
       </div>
     </div>
