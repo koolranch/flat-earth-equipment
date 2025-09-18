@@ -64,7 +64,7 @@ export default async function SafetyPage() {
   const { isAuthed, userId } = await detectUserServer();
   
   // Determine CTA destination based on auth + enrollment status
-  let ctaHref = `/login?next=${encodeURIComponent('/training')}`;
+  let ctaHref = `/login?next=${encodeURIComponent('/training/pricing')}`;
   
   if (isAuthed && userId) {
     // Check enrollment status
@@ -84,9 +84,9 @@ export default async function SafetyPage() {
         .limit(1)
         .maybeSingle();
         
-      ctaHref = enrollment ? '/training' : '/training/checkout';
+      ctaHref = enrollment ? '/training' : '/training/pricing';
     } else {
-      ctaHref = '/training/checkout'; // No course found, send to checkout
+      ctaHref = '/training/pricing'; // No course found, send to pricing
     }
   }
   
