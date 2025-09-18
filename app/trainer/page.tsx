@@ -1,71 +1,89 @@
+import { unstable_noStore as noStore } from 'next/cache';
 import { supabaseServer } from '@/lib/supabase/server';
-import AssignSeatsPanel from '@/components/trainer/AssignSeatsPanel';
-import TrainerTabs from '@/components/trainer/TrainerTabs';
+import { requireOrgRoleServer } from '@/lib/orgs/requireOrgRoleServer';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
-export default async function Page() {
-  const sb = supabaseServer();
-  const { data: { user } } = await sb.auth.getUser();
-  
-  if (!user) {
-    return (
-      <main className="container mx-auto p-4">
-        <h1 className="text-xl font-bold">Sign in required</h1>
-        <p className="text-sm mt-1">Please sign in to access trainer tools.</p>
-      </main>
-    );
-  }
-  
-  const { data: prof } = await sb.from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!prof || !['trainer', 'admin'].includes(prof.role)) {
-    return (
-      <main className="container mx-auto p-4">
-        <h1 className="text-xl font-bold">Trainer access required</h1>
-        <p className="text-sm mt-1">You need trainer or admin permissions to access this page.</p>
-      </main>
-    );
-  }
+export default async function TrainerHome() {
+  noStore();
+  const { orgId, role } = await requireOrgRoleServer(['owner','trainer']);
+  const supabase = supabaseServer();
 
-  // Get default course (forklift course)
-  const { data: course } = await sb
-    .from('courses')
-    .select('id, title')
-    .ilike('slug', '%forklift%')
-    .limit(1)
+  // Try to load org (may or may not have a name column — handle gracefully)
+  const { data: org } = await supabase
+    .from('orgs')
+    .select('id, name')
+    .eq('id', orgId)
     .maybeSingle();
 
-  if (!course) {
-    return (
-      <main className="container mx-auto p-4">
-        <h1 className="text-xl font-bold">No course found</h1>
-        <p className="text-sm mt-1">Please contact an administrator to set up courses.</p>
-      </main>
-    );
+  // Members in this org (email comes from profiles; fall back if not joinable)
+  const { data: members } = await supabase
+    .from('org_members')
+    .select('user_id, role')
+    .eq('org_id', orgId);
+
+  let emails: Record<string, string> = {};
+  if (members && members.length) {
+    const ids = members.map(m => m.user_id);
+    const { data: profs } = await supabase
+      .from('profiles')
+      .select('id, email')
+      .in('id', ids);
+    for (const p of profs || []) emails[p.id] = p.email || '';
   }
 
+  // Counts for invites and seats (RLS will enforce visibility)
+  const [{ count: inviteCount }, { count: orgSeatCount }, { count: companySeatCount }] = await Promise.all([
+    supabase.from('invitations').select('id', { count: 'exact', head: true }).eq('org_id', orgId),
+    supabase.from('org_seats').select('id', { count: 'exact', head: true }).eq('org_id', orgId),
+    supabase.from('company_seats').select('id', { count: 'exact', head: true })
+  ]);
+
   return (
-    <main className="container mx-auto p-4 space-y-4">
-      <header className="flex items-center justify-between">
+    <div className="mx-auto max-w-3xl py-10 space-y-6">
+      <div>
+        <h1 className="text-2xl font-semibold">Trainer Dashboard</h1>
+        <p className="text-sm text-muted-foreground">Role: {role}</p>
+      </div>
+
+      <section className="rounded-2xl p-4 border">
+        <h2 className="text-lg font-medium">Organization</h2>
+        <div className="mt-2 text-sm">ID: <code>{org?.id || orgId}</code></div>
+        {org?.name && <div className="text-sm">Name: {org.name}</div>}
+      </section>
+
+      <section className="rounded-2xl p-4 border">
+        <h2 className="text-lg font-medium">Members</h2>
+        <ul className="mt-2 space-y-1 text-sm">
+          {(members || []).map(m => (
+            <li key={m.user_id} className="flex items-center justify-between">
+              <span>{emails[m.user_id] || m.user_id}</span>
+              <span className="text-muted-foreground">{m.role}</span>
+            </li>
+          ))}
+          {(!members || members.length === 0) && <li className="text-muted-foreground">No members yet.</li>}
+        </ul>
+      </section>
+
+      <section className="rounded-2xl p-4 border grid grid-cols-3 gap-4">
         <div>
-          <h1 className="text-2xl font-bold">Trainer Tools</h1>
-          <p className="text-sm text-slate-600">Manage learners and track progress for {course.title}</p>
+          <div className="text-2xl font-semibold">{inviteCount ?? 0}</div>
+          <div className="text-sm text-muted-foreground">Pending Invites</div>
         </div>
-        <a 
-          className="rounded-2xl border border-[#F76511] text-[#F76511] px-4 py-2 text-sm hover:bg-[#F76511] hover:text-white transition-colors" 
-          href={`/api/trainer/export.csv?course_id=${course.id}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          📊 Export CSV
-        </a>
-      </header>
-      
-      {/* Assign Seats Panel */}
-      <AssignSeatsPanel />
-      
-      {/* Tabbed Interface for Roster and Invites */}
-      <TrainerTabs courseId={course.id} />
-    </main>
+        <div>
+          <div className="text-2xl font-semibold">{orgSeatCount ?? 0}</div>
+          <div className="text-sm text-muted-foreground">Org Seats</div>
+        </div>
+        <div>
+          <div className="text-2xl font-semibold">{companySeatCount ?? 0}</div>
+          <div className="text-sm text-muted-foreground">Company Seats</div>
+        </div>
+      </section>
+
+      <div className="text-sm text-muted-foreground">
+        Invite & seat assignment coming next.
+      </div>
+    </div>
   );
 }
