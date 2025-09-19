@@ -176,7 +176,7 @@ export default async function SafetyPage() {
           </div>
         </header>
 
-        <PricingStrip />
+        <PricingStrip disableBuy />
 
         {/* Value Propositions */}
         <div className="mt-8">
