@@ -1,7 +1,5 @@
 import { unstable_noStore as noStore } from 'next/cache';
-import { redirect } from 'next/navigation';
-import { supabaseServer } from '@/lib/supabase/server';
-import { safeNext } from '@/lib/auth/nextParam';
+import { signInWithPasswordAction } from './actions';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -10,23 +8,6 @@ export default async function LoginPage({ searchParams }: { searchParams: { next
   noStore();
   const next = searchParams?.next || '/training';
   const error = searchParams?.error;
-
-  async function handleSignIn(formData: FormData) {
-    'use server';
-    const email = String(formData.get('email') || '').trim();
-    const password = String(formData.get('password') || '');
-    const nextRaw = String(formData.get('next') || '/training');
-    const nextPath = safeNext(nextRaw) || '/training';
-
-    const supabase = supabaseServer();
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    
-    if (error) {
-      redirect(`/login?error=${encodeURIComponent(error.message)}&next=${encodeURIComponent(nextPath)}`);
-    }
-    
-    redirect(nextPath);
-  }
 
   return (
     <div className="mx-auto max-w-sm py-12">
@@ -39,7 +20,7 @@ export default async function LoginPage({ searchParams }: { searchParams: { next
         </div>
       )}
       
-      <form action={handleSignIn} className="mt-6 grid gap-3">
+      <form action={signInWithPasswordAction} className="mt-6 grid gap-3">
         <input type="hidden" name="next" value={next} />
         <label className="grid gap-1">
           <span className="text-sm">Email</span>
