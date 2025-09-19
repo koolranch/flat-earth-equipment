@@ -1,16 +1,10 @@
 import { unstable_noStore as noStore } from 'next/cache';
 import { supabaseServer } from '@/lib/supabase/server';
 import { createTrainingCheckoutSessionFromForm } from '@/app/training/checkout/actions';
+import { PLANS } from '@/lib/training/plans';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
-
-const PLANS = [
-  { key: 'single', title: 'Forklift Certification – Single',    priceText: '$59',      priceId: 'price_1RS834HJI548rO8JpJMyGhL3', blurb: '1 seat for one learner' },
-  { key: 'five',   title: 'Forklift Certification – 5 Pack',    priceText: '$275',     priceId: 'price_1RS835HJI548rO8JkMXj7FMQ', blurb: '5 seats for your team' },
-  { key: 'twenty5',title: 'Forklift Certification – 25 Pack',   priceText: '$1,375',   priceId: 'price_1RS835HJI548rO8JbvRrMwUv', blurb: '25 seats for your team' },
-  { key: 'unlim',  title: 'Forklift Certification – Facility Unlimited', priceText: '$1,999', priceId: 'price_1RS836HJI548rO8JwlCAzg7m', blurb: 'Unlimited seats for one facility' }
-];
 
 export default async function TrainingPricing() {
   noStore();
