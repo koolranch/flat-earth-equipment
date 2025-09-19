@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/payments/stripeServer';
 import { isTrainingPrice, TRAINING_COURSE_SLUG } from '@/lib/payments/trainingStripeConfig';
 import { supabaseService } from '@/lib/supabase/service.server';
+import { sendMail } from '@/lib/email/mailer';
+import { learnerWelcomeEmail, trainerNotificationEmail } from '@/lib/email/templates/training';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -82,6 +84,86 @@ export async function POST(req: NextRequest) {
     if (upsertErr) {
       console.error('Enrollment upsert error:', upsertErr);
       return NextResponse.json({ ok: false, error: upsertErr.message }, { status: 500 });
+    }
+
+    // Send welcome emails (graceful failure - don't block enrollment)
+    try {
+      // Get user details for email
+      const { data: userData } = await supabaseAdmin.auth.admin.getUserById(uid);
+      const learnerName = userData?.user?.user_metadata?.full_name || email || 'Learner';
+      const learnerEmail = userData?.user?.email || email || '';
+      
+      if (learnerEmail) {
+        // Send learner welcome email
+        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com';
+        const welcomeTemplate = learnerWelcomeEmail({
+          learnerName,
+          courseTitle: course.title || 'Forklift Operator Certification',
+          loginUrl: `${baseUrl}/training`,
+          locale: 'en' // Could be enhanced to detect locale from user metadata
+        });
+        
+        await sendMail({
+          to: learnerEmail,
+          subject: welcomeTemplate.subject,
+          html: welcomeTemplate.html
+        });
+        
+        console.log('✅ Sent welcome email to learner:', learnerEmail);
+      }
+
+      // Send trainer notification if this is an org purchase
+      const orgId = session.metadata?.org_id;
+      if (orgId) {
+        // Find org trainers/owners to notify
+        const { data: orgMembers } = await supabaseAdmin
+          .from('org_members')
+          .select('user_id, role')
+          .eq('org_id', orgId)
+          .in('role', ['owner', 'trainer']);
+
+        if (orgMembers && orgMembers.length > 0) {
+          // Get trainer emails
+          const trainerIds = orgMembers.map(m => m.user_id);
+          const { data: trainerProfiles } = await supabaseAdmin
+            .from('profiles')
+            .select('id, email')
+            .in('id', trainerIds);
+
+          // Get org name for context
+          const { data: org } = await supabaseAdmin
+            .from('orgs')
+            .select('name')
+            .eq('id', orgId)
+            .maybeSingle();
+
+          // Send notification to each trainer
+          for (const profile of trainerProfiles || []) {
+            if (profile.email) {
+              const notificationTemplate = trainerNotificationEmail({
+                trainerEmail: profile.email,
+                learnerName,
+                learnerEmail,
+                courseTitle: course.title || 'Forklift Operator Certification',
+                orgName: org?.name,
+                locale: 'en'
+              });
+              
+              await sendMail({
+                to: profile.email,
+                subject: notificationTemplate.subject,
+                html: notificationTemplate.html
+              });
+              
+              console.log('✅ Sent trainer notification to:', profile.email);
+            }
+          }
+        }
+      }
+      
+    } catch (emailError) {
+      console.warn('⚠️ Email sending failed (non-blocking):', emailError);
+      // Don't fail the webhook - enrollment is still successful
     }
     
     return NextResponse.json({ ok: true, enrolled: true, course: course.slug });
