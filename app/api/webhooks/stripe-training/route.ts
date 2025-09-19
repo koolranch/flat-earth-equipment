@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
     // Load course ID by slug
     const { data: course, error: courseErr } = await supabaseAdmin
       .from('courses')
-      .select('id, slug')
+      .select('id, slug, title')
       .eq('slug', TRAINING_COURSE_SLUG)
       .maybeSingle();
     if (courseErr || !course) return NextResponse.json({ ok: false, error: 'course_not_found' }, { status: 500 });
