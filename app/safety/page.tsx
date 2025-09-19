@@ -176,6 +176,8 @@ export default async function SafetyPage() {
           </div>
         </header>
 
+        <PricingStrip />
+
         {/* Value Propositions */}
         <div className="mt-8">
           <ValueGrid t={t} />
@@ -280,8 +282,6 @@ export default async function SafetyPage() {
             Have a code? <a href="/redeem" className="underline hover:text-white">Redeem</a>
           </p>
         </section>
-
-        <PricingStrip />
 
         {/* Footer Note */}
         <footer className="mt-8 text-center text-sm text-brand-inkMuted">
