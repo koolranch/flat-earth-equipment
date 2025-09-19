@@ -6,8 +6,7 @@ import { unstable_noStore as noStore } from 'next/cache';
 import { detectUserServer } from '@/lib/auth/detectUserServer';
 import { safeNext } from '@/lib/auth/nextParam';
 import { supabaseServer } from '@/lib/supabase/server';
-import { PLANS } from '@/lib/training/plans';
-import { createTrainingCheckoutSessionFromForm } from '@/app/training/checkout/actions';
+import PricingStrip from '@/components/training/PricingStrip';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; // no ISR
@@ -263,9 +262,13 @@ export default async function SafetyPage() {
             >
               {t.cta.start_training}
             </Link>
-            <p className="mt-3 text-sm text-white/80">
-              Have a code? <a href="/redeem" className="underline hover:text-white">Redeem</a>
-            </p>
+            <a 
+              href="#pricing" 
+              className="tappable rounded-xl bg-white/10 px-4 py-2 text-white hover:bg-white/15 transition-colors"
+              data-testid="hero-see-pricing"
+            >
+              See pricing
+            </a>
             <Link 
               href="/quote" 
               className="tappable rounded-xl bg-white/10 px-4 py-2 text-white hover:bg-white/15 transition-colors"
@@ -273,32 +276,12 @@ export default async function SafetyPage() {
               {t.cta.buy_now}
             </Link>
           </div>
+          <p className="mt-3 text-sm text-white/80">
+            Have a code? <a href="/redeem" className="underline hover:text-white">Redeem</a>
+          </p>
         </section>
 
-        {/* Pricing Strip */}
-        <section className="mt-10 mx-auto max-w-6xl">
-          <h2 className="text-2xl font-semibold text-center">Pricing</h2>
-          <p className="text-center text-sm text-muted-foreground mt-1">Choose a plan and checkout securely.</p>
-          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {PLANS.map(p => (
-              <div key={p.key} className="border rounded-2xl p-5 flex flex-col justify-between bg-white shadow-sm">
-                <div>
-                  <h3 className="text-lg font-medium">{p.title}</h3>
-                  <div className="text-3xl font-semibold mt-2">{p.priceText}</div>
-                  <p className="text-sm text-muted-foreground mt-1">{p.blurb}</p>
-                </div>
-                <form action={createTrainingCheckoutSessionFromForm} className="mt-6">
-                  <input type="hidden" name="priceId" value={p.priceId} />
-                  <button type="submit" className="btn-primary w-full" data-testid={`safety-buy-${p.key}`}>
-                    Buy now
-                  </button>
-                </form>
-              </div>
-            ))}
-          </div>
-          <p className="mt-4 text-xs text-center text-muted-foreground">Already have a code? <a href="/redeem" className="underline">Redeem</a></p>
-          <p className="mt-1 text-xs text-center text-muted-foreground">Want more details? <a href="/training/pricing" className="underline">See full pricing</a></p>
-        </section>
+        <PricingStrip />
 
         {/* Footer Note */}
         <footer className="mt-8 text-center text-sm text-brand-inkMuted">
