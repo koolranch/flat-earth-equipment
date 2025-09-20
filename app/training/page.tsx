@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { unstable_noStore as noStore } from 'next/cache';
 import { coerceCourseId, DEFAULT_COURSE_SLUG } from "@/lib/courses";
+import { canonicalizeCourseParam } from '@/lib/training/courses';
 import { requireEnrollmentServer } from '@/lib/training/requireEnrollmentServer';
 import TrainingHub from './TrainingHub';
 
@@ -11,12 +12,22 @@ export default async function TrainingIndex({ searchParams }: { searchParams?: R
   noStore();
   await requireEnrollmentServer({ checkoutPath: '/training/checkout' });
   
-  const raw = (searchParams?.courseId as string) || null;
-  const courseId = coerceCourseId(raw);
+  // Handle both legacy courseId and new course params
+  const rawCourse = (searchParams?.course as string) || null;
+  const rawCourseId = (searchParams?.courseId as string) || null;
+  const raw = rawCourse || rawCourseId;
+  
+  const normalized = canonicalizeCourseParam(raw);
+  const courseId = coerceCourseId(normalized);
 
+  // Redirect if we have legacy params or need normalization
+  if (raw && raw !== normalized) {
+    redirect(`/training?course=${encodeURIComponent(normalized)}`);
+  }
+  
   // If param missing, normalize the URL so bookmarks look right
   if (!raw) {
-    redirect(`/training?courseId=${encodeURIComponent(courseId)}`);
+    redirect(`/training?course=${encodeURIComponent(normalized)}`);
   }
 
   // Render the training hub with the courseId

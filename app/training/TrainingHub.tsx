@@ -200,17 +200,42 @@ function TrainingContent({ courseId }: { courseId: string }) {
         )}
 
         <section className='space-y-6'>
-          {prog.next ? (
-            <div className="text-center">
-              <a className='btn-primary tappable inline-flex items-center justify-center' href={prog.next.nextRoute} aria-label={`Resume training: ${prog.next.label || 'next module'}`}>
-                Resume training
-              </a>
-            </div>
-          ) : (
-            <div className='panel-soft px-4 py-3 rounded-xl text-center'>
-              <p className='text-brand-onPanel text-sm'>✅ All modules completed! Ready for final exam.</p>
-            </div>
-          )}
+          {(() => {
+            // Defensive completion logic - only show "All modules completed" when we're certain
+            const modulesList = prog.modules && prog.modules.length > 0 ? prog.modules : FORKLIFT_MODULES_FALLBACK;
+            const totalRaw = Array.isArray(modulesList) ? modulesList.length : Number(modulesList || 0);
+            const total = Number.isFinite(totalRaw) && totalRaw > 0 ? totalRaw : 0;
+            
+            let completedRaw = 0;
+            if (Array.isArray(modulesList)) {
+              completedRaw = modulesList.filter(m => {
+                const isAPIModule = prog.modules && prog.modules.length > 0;
+                return isAPIModule ? (m as any).quiz_passed : false;
+              }).length;
+            }
+            const completed = Math.min(Math.max(0, Number.isFinite(completedRaw) ? completedRaw : 0), Math.max(0, total));
+            
+            const allDone = total > 0 && completed === total && completed > 0;
+            
+            if (prog.next) {
+              return (
+                <div className="text-center">
+                  <a className='btn-primary tappable inline-flex items-center justify-center' href={prog.next.nextRoute} aria-label={`Resume training: ${prog.next.label || 'next module'}`}>
+                    Resume training
+                  </a>
+                </div>
+              );
+            } else if (allDone) {
+              return (
+                <div className='panel-soft px-4 py-3 rounded-xl text-center' role="status" data-testid="all-done-banner">
+                  <p className='text-brand-onPanel text-sm'>✅ All modules completed! Ready for final exam.</p>
+                </div>
+              );
+            } else {
+              // No next step and not all done - could be a fresh account or incomplete data
+              return null;
+            }
+          })()}
 
           {/* Module Progress Overview */}
           <div className='panel-soft shadow-card px-6 py-6'>
