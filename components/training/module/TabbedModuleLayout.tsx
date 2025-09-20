@@ -7,6 +7,7 @@ import { useModuleTabs } from '@/hooks/useModuleTabs';
 import { isStepDone } from '@/lib/trainingProgress';
 import { useModuleGate } from '@/components/training/useModuleGate';
 import { TabCompleteButton } from '@/components/training/TabCompleteButton';
+import StepContinue from '@/components/training/module/StepContinue';
 import { ModuleFooterCTA } from '@/components/training/ModuleFooterCTA';
 
 type Props = {
@@ -129,31 +130,25 @@ export default function TabbedModuleLayout({
       {tab==='osha' && (
         <section className='rounded-2xl border bg-white p-4 mb-4 shadow-card'>
           {osha}
-          <div className="mt-4 flex justify-end">
-            <TabCompleteButton
-              label="Mark OSHA Basics done → Practice"
-              aria-label="Mark OSHA Basics complete and go to Practice"
-              onClick={async () => {
-                await markDone("osha");
-                setTab("practice");
-              }}
-            />
-          </div>
+          <StepContinue
+            step="osha"
+            nextTab="practice"
+            markDone={markDone}
+            onSwitchTab={setTab}
+            alreadyDone={done.osha}
+          />
         </section>
       )}
       {tab==='practice' && (
         <section className='rounded-2xl border bg-white p-4 mb-4 shadow-card'>
           {practice({ onComplete: () => setPracticeDone(true) })}
-          <div className="mt-4 flex justify-end">
-            <TabCompleteButton
-              label="Mark Practice done → Flash Cards"
-              aria-label="Mark Practice complete and go to Flash Cards"
-              onClick={async () => {
-                await markDone("practice");
-                setTab("flash");
-              }}
-            />
-          </div>
+          <StepContinue
+            step="practice"
+            nextTab="flash"
+            markDone={markDone}
+            onSwitchTab={setTab}
+            alreadyDone={done.practice}
+          />
         </section>
       )}
       {tab==='flash' && (
