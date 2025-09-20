@@ -9,19 +9,28 @@ async function fetchForkliftModuleSlugs(supabase: ReturnType<typeof createServer
       await supabase.from('courses').select('id').eq('slug', 'forklift').maybeSingle()
     ).data?.id || '');
   const fromModules = (mods || []).map(m => m.content_slug).filter((s): s is string => !!s);
+  const baseSet = new Set(fromModules);
 
   // Include orphan slug(s) detected in your data: 'shutdown-and-parking'
-  // We only add it if quiz_items actually uses it.
+  // Only add if NOT already covered by modules and quiz_items actually uses it.
   const orphanCandidates = ['shutdown-and-parking'];
   const { data: orphanFound } = await supabase
     .from('quiz_items')
     .select('module_slug')
     .in('module_slug', orphanCandidates)
-    .limit(1);
+    .limit(10);
 
-  const extra = orphanFound && orphanFound.length ? orphanCandidates : [];
-  // De-dupe
-  return Array.from(new Set([...fromModules, ...extra]));
+  const extras: string[] = [];
+  for (const row of orphanFound || []) {
+    if (!baseSet.has(row.module_slug)) {
+      extras.push(row.module_slug);
+      if (process.env.NEXT_PUBLIC_TRAINING_DEBUG === 'true') {
+        console.log('[exam] including orphan slug', row.module_slug);
+      }
+    }
+  }
+  
+  return Array.from(new Set([...fromModules, ...extras]));
 }
 
 async function fetchExamSettings(supabase: ReturnType<typeof createServerClient>) {
