@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 type Step = 'osha' | 'practice' | 'cards' | 'quiz';
+type TabKey = 'osha' | 'practice' | 'flash' | 'quiz';
 
 export default function StepContinue({
   step,
@@ -11,9 +12,9 @@ export default function StepContinue({
   alreadyDone
 }: {
   step: Extract<Step, 'osha' | 'practice'>;
-  nextTab: Extract<Step, 'practice' | 'cards' | 'quiz'>;
+  nextTab: Extract<TabKey, 'practice' | 'flash' | 'quiz'>;
   markDone: (s: Step) => Promise<void>;
-  onSwitchTab: (next: Step) => void;
+  onSwitchTab: (next: TabKey) => void;
   alreadyDone?: boolean;
 }) {
   const [submitting, setSubmitting] = useState(false);
