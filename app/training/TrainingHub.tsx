@@ -2,6 +2,7 @@
 import { useEffect, useState, Suspense } from 'react';
 import { useI18n } from '@/lib/i18n/I18nProvider';
 import { flags } from '@/lib/flags';
+import { PRELAUNCH_PREVIEW } from '@/lib/training/flags';
 import PrelaunchBanner from '@/components/PrelaunchBanner';
 import * as Sentry from '@sentry/nextjs';
 import { FORKLIFT_MODULES_FALLBACK } from '@/lib/courses';
@@ -191,9 +192,11 @@ function TrainingContent({ courseId }: { courseId: string }) {
             )}
           </div>
         ) : (
-          <div className="mb-6 panel-soft px-4 py-3 rounded-xl">
-            <p className="text-brand-onPanel/90 text-sm">Purchasing opens soon. Training preview is available.</p>
-          </div>
+          PRELAUNCH_PREVIEW && (
+            <div className="mb-6 panel-soft px-4 py-3 rounded-xl">
+              <p className="text-brand-onPanel/90 text-sm">Purchasing opens soon. Training preview is available.</p>
+            </div>
+          )
         )}
 
         <section className='space-y-6'>
