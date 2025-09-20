@@ -5,7 +5,7 @@ async function fetchForkliftModuleSlugs(supabase: ReturnType<typeof createServer
   const courseId = courseRow?.id;
   const { data: mods } = await supabase.from('modules').select('content_slug').eq('course_id', courseId);
   const slugs = (mods || []).map(m => m.content_slug).filter(Boolean) as string[];
-  // orphan protection no longer needed if Module 5 slug fixed; keep as fallback
+  // Fallback orphan slug only if present in quiz_items
   const orphan = 'shutdown-and-parking';
   if (!slugs.includes(orphan)) {
     const { data: exists } = await supabase.from('quiz_items').select('id').eq('module_slug', orphan).limit(1);
@@ -36,7 +36,7 @@ function pickRandom<T>(arr: T[], n: number): T[] {
 export async function getOrCreateFinalExamForUser(userId: string) {
   const supabase = createServerClient();
 
-  // 1) Resume
+  // 1) Resume existing in-progress session
   const { data: existing } = await supabase
     .from('exam_sessions')
     .select('id, status, paper_id, remaining_sec')
@@ -47,7 +47,7 @@ export async function getOrCreateFinalExamForUser(userId: string) {
     return { ok: true as const, mode: 'resume' as const, session: existing[0] };
   }
 
-  // 2) Pool
+  // 2) Build pool
   const [slugs, settings] = await Promise.all([
     fetchForkliftModuleSlugs(supabase),
     fetchExamSettings(supabase)
@@ -63,8 +63,8 @@ export async function getOrCreateFinalExamForUser(userId: string) {
   const itemIds = picked.map(i => i.id);
   const correctIndices = picked.map(i => Number(i.correct_index ?? 0));
 
-  // 3) Create paper with required columns
-  const ttl = new Date(Date.now() + (settings.timeLimitSec + 300) * 1000).toISOString(); // +5 min cushion
+  // 3) Create exam_paper (required NOT NULLs)
+  const ttl = new Date(Date.now() + (settings.timeLimitSec + 300) * 1000).toISOString(); // +5m cushion
   const { data: paper, error: paperErr } = await supabase
     .from('exam_papers')
     .insert({
@@ -78,10 +78,17 @@ export async function getOrCreateFinalExamForUser(userId: string) {
     .single();
   if (paperErr || !paper) return { ok: false as const, reason: 'paper-create-failed' };
 
-  // 4) Create session
+  // 4) Create session (answers is int[] NOT NULL → prefill with -1)
+  const initialAnswers = new Array(itemIds.length).fill(-1);
   const { data: session, error: sessErr } = await supabase
     .from('exam_sessions')
-    .insert({ user_id: userId, paper_id: paper.id, status: 'in_progress', remaining_sec: settings.timeLimitSec })
+    .insert({
+      user_id: userId,
+      paper_id: paper.id,
+      answers: initialAnswers,
+      remaining_sec: settings.timeLimitSec,
+      status: 'in_progress'
+    })
     .select('id, status, paper_id, remaining_sec')
     .single();
   if (sessErr || !session) return { ok: false as const, reason: 'session-create-failed' };
