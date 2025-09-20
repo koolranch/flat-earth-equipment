@@ -1,9 +1,7 @@
 import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
 import { requireEnrollmentServer } from '@/lib/training/requireEnrollmentServer';
 import { getOrCreateFinalExam, checkModuleCompletion } from '@/lib/training/final-exam';
 import ExamWrapper from '@/components/training/ExamWrapper';
-import { createServerClient } from '@/lib/supabase/server';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;

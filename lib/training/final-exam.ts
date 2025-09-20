@@ -1,9 +1,8 @@
-import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 
 // Attempts to resume an existing exam session for this user+course; else creates a new one
 export async function getOrCreateFinalExam(courseSlug: string) {
-  const supabase = createServerClient(cookies());
+  const supabase = createServerClient();
   
   // Get the current user
   const { data: { user } } = await supabase.auth.getUser();
@@ -63,7 +62,7 @@ export async function getOrCreateFinalExam(courseSlug: string) {
 
 // Check if user has completed all required modules for the course
 export async function checkModuleCompletion(courseSlug: string) {
-  const supabase = createServerClient(cookies());
+  const supabase = createServerClient();
   
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { ok: false as const, reason: 'unauthorized' };
