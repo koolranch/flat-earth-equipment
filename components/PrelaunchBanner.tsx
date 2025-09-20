@@ -1,10 +1,11 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { PRELAUNCH_PREVIEW } from '@/lib/training/flags';
 
 export default function PrelaunchBanner() {
   const [hidden, setHidden] = useState(false);
   useEffect(() => { setHidden(sessionStorage.getItem('prelaunch.dismissed') === '1'); }, []);
-  if (hidden) return null;
+  if (!PRELAUNCH_PREVIEW || hidden) return null;
   return (
     <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 md:p-5 flex items-center justify-between gap-3">
       <div className="text-sm md:text-base text-slate-700">

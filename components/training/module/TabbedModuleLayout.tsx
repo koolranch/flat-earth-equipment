@@ -194,7 +194,7 @@ export default function TabbedModuleLayout({
                 <h3 className='font-medium'>Module Quiz</h3>
                 <p className='text-sm text-slate-600'>{quizMeta.questions} questions · pass ≥ {quizMeta.passPct}% to unlock next module</p>
               </div>
-              <button className='px-4 py-2 rounded-md border' onClick={() => setOpenQuiz(true)}>Take quiz</button>
+              <button className='px-4 py-2 rounded-md border' onClick={() => setOpenQuiz(true)} data-testid="take-quiz">Take quiz</button>
             </div>
           )}
         </section>
