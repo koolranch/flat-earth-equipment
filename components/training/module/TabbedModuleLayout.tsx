@@ -38,7 +38,22 @@ export default function TabbedModuleLayout({
   // Use URL-based tab state
   const { activeTab, setActiveTab } = useModuleTabs('osha');
   const tab = activeTab;
-  const setTab = setActiveTab;
+  const setTab = (newTab: typeof activeTab) => {
+    setActiveTab(newTab);
+    // Persist resume state when tab changes
+    try {
+      const moduleOrder = parseInt(moduleSlug.match(/\d+/)?.[0] || '1') - 1; // Convert to 0-based
+      fetch('/api/training/progress/resume', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          courseSlug: courseSlug || 'forklift', 
+          moduleIndex: moduleOrder, 
+          tab: newTab 
+        })
+      }).catch(() => {}); // Non-blocking
+    } catch {}
+  };
 
   // Use new progress tracking system
   const { done, markDone, allDone } = useModuleGate({
