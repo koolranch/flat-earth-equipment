@@ -221,38 +221,51 @@ export async function PATCH(req: Request) {
     const body = await req.json().catch(() => ({}));
     const moduleSlug: string = body?.moduleSlug;
     const stepKey: 'osha' | 'practice' | 'cards' | 'quiz' = body?.stepKey;
-    
+    // allow optional course identifier from client (uuid OR slug)
+    const courseIdOrSlug: string | undefined = body?.courseId || body?.courseSlug || undefined;
+
     if (!moduleSlug || !stepKey) {
       return NextResponse.json({ ok: false, error: 'missing_params' }, { status: 400 });
     }
 
-    const courseId = await getForkliftCourseId(supabase);
-    if (!courseId) {
+    const course = await resolveCourseForUser({ supabase, userId: user.id, courseIdOrSlug });
+    if (!course.id) {
       return NextResponse.json({ ok: false, error: 'course_missing' }, { status: 422 });
     }
 
-    // 1) Load current enrollment
-    const { data: enrRow } = await supabase
-      .from('enrollments')
-      .select('id, resume_state')
-      .eq('user_id', user.id)
-      .eq('course_id', courseId)
-      .order('created_at', { ascending: false })
-      .limit(1);
-    const enrollment = enrRow?.[0];
-    if (!enrollment) {
-      return NextResponse.json({ ok: false, error: 'not_enrolled' }, { status: 403 });
+    // Load enrollment by course_id (preferred) or by course_slug (fallback)
+    let enrollment: any = null;
+    {
+      const { data: enrById } = await supabase
+        .from('enrollments')
+        .select('id, resume_state, progress_pct')
+        .eq('user_id', user.id)
+        .eq('course_id', course.id)
+        .order('created_at', { ascending: false })
+        .limit(1);
+      enrollment = enrById?.[0] || null;
+    }
+    if (!enrollment && course.slug) {
+      const { data: enrBySlug } = await supabase
+        .from('enrollments')
+        .select('id, resume_state, progress_pct')
+        .eq('user_id', user.id)
+        .eq('course_slug', course.slug)
+        .order('created_at', { ascending: false })
+        .limit(1);
+      enrollment = enrBySlug?.[0] || null;
     }
 
-    // 2) Merge the gate state
+    if (!enrollment) {
+      return NextResponse.json({ ok: false, error: 'not_enrolled' }, { status: 404 });
+    }
+
     const state = (enrollment.resume_state || {}) as any;
     state[moduleSlug] = { ...(state[moduleSlug] || {}), [stepKey]: true };
 
-    // 3) Recompute percent based on current modules
-    const slugs = await getForkliftModuleSlugs(supabase);
-    const pct = computePercentFractional(state, slugs);
+    const moduleSlugs = await getModuleSlugsForCourse(course.id, supabase);
+    const pct = computePercentFractional(state, moduleSlugs);
 
-    // 4) Persist resume_state + progress_pct
     const { error: updErr } = await supabase
       .from('enrollments')
       .update({ resume_state: state, progress_pct: pct, updated_at: new Date().toISOString() })
