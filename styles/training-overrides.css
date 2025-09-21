@@ -1,0 +1,4 @@
+/* Safety override to hide any legacy 'modules remaining' UI if some other component still adds it. */
+[data-testid='modules-remaining'],
+[data-remaining-banner],
+.modules-remaining-banner { display: none !important; }

@@ -318,14 +318,6 @@ function TrainingContent({ courseId, resumeHref }: { courseId: string; resumeHre
                 );
               })}
             </div>
-            
-            {prog.stepsLeft && prog.stepsLeft.length > 0 && (
-              <div className='mt-6 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20'>
-                <p className='text-base leading-7 text-amber-300'>
-                  <strong>{prog.stepsLeft.length} modules remaining</strong> — Complete all modules to unlock the exam
-                </p>
-              </div>
-            )}
           </div>
 
           {/* Final Exam CTA */}
