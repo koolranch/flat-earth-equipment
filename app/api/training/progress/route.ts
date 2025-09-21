@@ -198,85 +198,79 @@ export async function GET(req: Request) {
 }
 
 export async function PATCH(req: Request) {
-  try {
-    const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      {
-        cookies: {
-          get(name: string) {
-            return cookies().get(name)?.value;
-          },
-          set() {},
-          remove() {},
-        },
-      }
-    );
-
-    const { data: { user }, error: userError } = await supabase.auth.getUser();
-    if (userError || !user) {
-      return NextResponse.json({ ok: false, error: 'unauthorized' }, { status: 401 });
-    }
-
-    const body = await req.json().catch(() => ({}));
-    const moduleSlug: string = body?.moduleSlug;
-    const stepKey: 'osha' | 'practice' | 'cards' | 'quiz' = body?.stepKey;
-    // allow optional course identifier from client (uuid OR slug)
-    const courseIdOrSlug: string | undefined = body?.courseId || body?.courseSlug || undefined;
-
-    if (!moduleSlug || !stepKey) {
-      return NextResponse.json({ ok: false, error: 'missing_params' }, { status: 400 });
-    }
-
-    const course = await resolveCourseForUser({ supabase, userId: user.id, courseIdOrSlug });
-    if (!course.id) {
-      return NextResponse.json({ ok: false, error: 'course_missing' }, { status: 422 });
-    }
-
-    // Load enrollment by course_id (preferred) or by course_slug (fallback)
-    let enrollment: any = null;
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
-      const { data: enrById } = await supabase
-        .from('enrollments')
-        .select('id, resume_state, progress_pct')
-        .eq('user_id', user.id)
-        .eq('course_id', course.id)
-        .order('created_at', { ascending: false })
-        .limit(1);
-      enrollment = enrById?.[0] || null;
+      cookies: {
+        get(name: string) {
+          return cookies().get(name)?.value;
+        },
+        set() {},
+        remove() {},
+      },
     }
-    if (!enrollment && course.slug) {
-      const { data: enrBySlug } = await supabase
-        .from('enrollments')
-        .select('id, resume_state, progress_pct')
-        .eq('user_id', user.id)
-        .eq('course_slug', course.slug)
-        .order('created_at', { ascending: false })
-        .limit(1);
-      enrollment = enrBySlug?.[0] || null;
-    }
+  );
 
-    if (!enrollment) {
-      return NextResponse.json({ ok: false, error: 'not_enrolled' }, { status: 404 });
-    }
-
-    const state = (enrollment.resume_state || {}) as any;
-    state[moduleSlug] = { ...(state[moduleSlug] || {}), [stepKey]: true };
-
-    const moduleSlugs = await getModuleSlugsForCourse(course.id, supabase);
-    const pct = computePercentFractional(state, moduleSlugs);
-
-    const { error: updErr } = await supabase
-      .from('enrollments')
-      .update({ resume_state: state, progress_pct: pct, updated_at: new Date().toISOString() })
-      .eq('id', enrollment.id);
-    if (updErr) {
-      return NextResponse.json({ ok: false, error: 'update_failed' }, { status: 500 });
-    }
-
-    return NextResponse.json({ ok: true, progress_pct: pct, resume_state: state });
-  } catch (error: any) {
-    console.error('Training progress PATCH error:', error);
-    return NextResponse.json({ ok: false, error: error.message || 'Internal error' }, { status: 500 });
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+  if (userError || !user) {
+    return NextResponse.json({ ok: false, error: 'unauthorized' }, { status: 401 });
   }
+
+  const body = await req.json().catch(() => ({}));
+  const moduleSlug: string = body?.moduleSlug;
+  const stepKey: 'osha' | 'practice' | 'cards' | 'quiz' = body?.stepKey;
+  const courseIdOrSlug: string | undefined = body?.courseId || body?.courseSlug || undefined;
+
+  if (!moduleSlug || !stepKey) {
+    return NextResponse.json({ ok: false, error: 'missing_params' }, { status: 400 });
+  }
+
+  const course = await resolveCourseForUser({ supabase, userId: user.id, courseIdOrSlug });
+  if (!course.id) {
+    return NextResponse.json({ ok: false, error: 'course_missing' }, { status: 422 });
+  }
+
+  // Load enrollment by course_id (preferred) or by course_slug (fallback)
+  let enrollment: any = null;
+  {
+    const { data: enrById } = await supabase
+      .from('enrollments')
+      .select('id, resume_state, progress_pct')
+      .eq('user_id', user.id)
+      .eq('course_id', course.id)
+      .order('created_at', { ascending: false })
+      .limit(1);
+    enrollment = enrById?.[0] || null;
+  }
+  if (!enrollment && course.slug) {
+    const { data: enrBySlug } = await supabase
+      .from('enrollments')
+      .select('id, resume_state, progress_pct')
+      .eq('user_id', user.id)
+      .eq('course_slug', course.slug)
+      .order('created_at', { ascending: false })
+      .limit(1);
+    enrollment = enrBySlug?.[0] || null;
+  }
+
+  if (!enrollment) {
+    return NextResponse.json({ ok: false, error: 'not_enrolled' }, { status: 404 });
+  }
+
+  const state = (enrollment.resume_state || {}) as any;
+  state[moduleSlug] = { ...(state[moduleSlug] || {}), [stepKey]: true };
+
+  const moduleSlugs = await getModuleSlugsForCourse(course.id, supabase);
+  const pct = Math.max(0, Math.min(100, computePercentFractional(state, moduleSlugs)));
+
+  const { error: updErr } = await supabase
+    .from('enrollments')
+    .update({ resume_state: state, progress_pct: pct, updated_at: new Date().toISOString() })
+    .eq('id', enrollment.id);
+  if (updErr) {
+    return NextResponse.json({ ok: false, error: 'update_failed' }, { status: 500 });
+  }
+
+  return NextResponse.json({ ok: true, progress_pct: pct, resume_state: state });
 }

@@ -1,3 +1,4 @@
+import { cookies, headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { extractLegacyProgressPayload, updateProgressForModule } from '@/lib/training/progress-write';
@@ -8,14 +9,17 @@ export async function POST(req: Request) {
   if (!user) return NextResponse.json({ ok: false, error: 'unauthorized' }, { status: 401 });
 
   const body = await req.json().catch(() => ({}));
-  const p = extractLegacyProgressPayload(body);
+  const referer = headers().get('referer');
+  const p = extractLegacyProgressPayload(body, referer);
+
   const res = await updateProgressForModule({
     userId: user.id,
     courseIdOrSlug: p.courseIdOrSlug,
     moduleSlug: p.moduleSlug || null,
     moduleId: p.moduleId || null,
     gate: (p.complete ? null : (p.gate ?? null)) as any,
-    complete: p.complete
+    complete: p.complete,
+    referer: p.referer
   });
 
   if (!res.ok) return NextResponse.json({ ok: false, error: res.error }, { status: res.status || 400 });
