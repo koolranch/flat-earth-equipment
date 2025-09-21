@@ -3,10 +3,12 @@ import { unstable_noStore as noStore } from 'next/cache';
 import { coerceCourseId, DEFAULT_COURSE_SLUG } from "@/lib/courses";
 import { canonicalizeCourseParam } from '@/lib/training/courses';
 import { requireEnrollmentServer } from '@/lib/training/requireEnrollmentServer';
+import { resolveResumeHref } from '@/lib/training/resolveResumeHref';
 import TrainingHub from './TrainingHub';
 import dynamicImport from 'next/dynamic';
 
 const ClickShieldProbe = dynamicImport(() => import('@/components/debug/ClickShieldProbe'), { ssr: false });
+const CTADebugProbe = dynamicImport(() => import('@/components/debug/CTADebugProbe'), { ssr: false });
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -33,11 +35,15 @@ export default async function TrainingIndex({ searchParams }: { searchParams?: R
     redirect(`/training?course=${encodeURIComponent(normalized)}`);
   }
 
+  // Resolve resume href for reliable navigation
+  const resumeHref = await resolveResumeHref(normalized);
+
   // Render the training hub with the courseId
   return (
     <>
       <ClickShieldProbe />
-      <TrainingHub courseId={courseId} />
+      <CTADebugProbe />
+      <TrainingHub courseId={courseId} resumeHref={resumeHref} />
     </>
   );
 }
