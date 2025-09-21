@@ -276,6 +276,10 @@ function TrainingContent({ courseId, resumeHref }: { courseId: string; resumeHre
                 const completed = isAPIModule ? (module as any).quiz_passed : false;
                 const key = isAPIModule ? (module as any).slug : (module as any).key;
                 
+                // Simple unlock logic: allow access to current and previous modules
+                // You can enhance this based on your actual progress tracking
+                const unlocked = true; // For now, allow access to all modules
+                
                 return (
                   <div key={key} className='flex items-center justify-between p-4 rounded-xl bg-brand-onPanel/5 border border-brand-onPanel/10'>
                     <div className='flex items-center gap-3'>
@@ -291,14 +295,24 @@ function TrainingContent({ courseId, resumeHref }: { courseId: string; resumeHre
                         )}
                       </div>
                     </div>
-                    {!completed && (
+                    {!completed && unlocked && (
                       <a 
                         className='btn-primary tappable text-sm' 
                         href={href}
+                        data-testid={`start-module-${idx + 1}`}
                         aria-label={`Start ${title} module`}
                       >
                         Start
                       </a>
+                    )}
+                    {!completed && !unlocked && (
+                      <button 
+                        className='btn-secondary opacity-50 cursor-not-allowed text-sm' 
+                        aria-disabled
+                        aria-label={`${title} module locked`}
+                      >
+                        🔒 Locked
+                      </button>
                     )}
                   </div>
                 );
