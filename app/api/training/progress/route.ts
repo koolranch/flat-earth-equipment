@@ -7,14 +7,9 @@ import { getForkliftCourseId, getForkliftModuleSlugs, computePercentFractional, 
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    const courseId = searchParams.get('courseId');
+    const courseParam = searchParams.get('courseId') || searchParams.get('courseSlug') || 'forklift';
     
-    console.log('[training/progress] Request for courseId:', courseId);
-    
-    if (!courseId) {
-      console.log('[training/progress] Missing courseId');
-      return NextResponse.json({ error: 'courseId required' }, { status: 400 });
-    }
+    console.log('[training/progress] Request for courseParam:', courseParam);
 
     // Get the user's session from cookies - try multiple cookie patterns
     const cookieStore = cookies();
@@ -92,26 +87,51 @@ export async function GET(req: Request) {
         // Use the manually validated user
         const validatedUser = sessionData.user;
         
-        // Get enrollment for this user and course using manual client
-        const { data: enrollment, error: enrollError } = await manualClient
-          .from('enrollments')
-          .select('id, progress_pct, passed, resume_state')
-          .eq('user_id', validatedUser.id)
-          .eq('course_id', courseId)
-          .single();
+        // Use the new resolver to avoid UUID casting errors
+        const course = await resolveCourseForUser({ 
+          supabase: manualClient, 
+          userId: validatedUser.id, 
+          courseIdOrSlug: courseParam 
+        });
+        if (!course.id) {
+          return NextResponse.json({ error: 'Course not found' }, { status: 404 });
+        }
 
-        console.log('[training/progress] Manual enrollment lookup:', enrollment ? `found ${enrollment.id}` : 'none', enrollError?.message);
+        // Get enrollment by course_id or course_slug
+        let enrollment: any = null;
+        {
+          const { data: enrById } = await manualClient
+            .from('enrollments')
+            .select('id, progress_pct, passed, resume_state')
+            .eq('user_id', validatedUser.id)
+            .eq('course_id', course.id)
+            .order('created_at', { ascending: false })
+            .limit(1);
+          enrollment = enrById?.[0] || null;
+        }
+        if (!enrollment && course.slug) {
+          const { data: enrBySlug } = await manualClient
+            .from('enrollments')
+            .select('id, progress_pct, passed, resume_state')
+            .eq('user_id', validatedUser.id)
+            .eq('course_slug', course.slug)
+            .order('created_at', { ascending: false })
+            .limit(1);
+          enrollment = enrBySlug?.[0] || null;
+        }
 
-        if (enrollError || !enrollment) {
-          console.log('[training/progress] No enrollment found for user:', validatedUser.id, 'course:', courseId);
-          return NextResponse.json({ error: 'No enrollment found', details: enrollError?.message }, { status: 404 });
+        console.log('[training/progress] Manual enrollment lookup:', enrollment ? `found ${enrollment.id}` : 'none');
+
+        if (!enrollment) {
+          console.log('[training/progress] No enrollment found for user:', validatedUser.id, 'course:', course.id);
+          return NextResponse.json({ error: 'No enrollment found' }, { status: 404 });
         }
 
         // Get modules for this course
         const { data: modules, error: modulesError } = await manualClient
           .from('modules')
           .select('id, title, order, type')
-          .eq('course_id', courseId)
+          .eq('course_id', course.id)
           .order('order');
 
         if (modulesError) {
@@ -150,26 +170,51 @@ export async function GET(req: Request) {
       }, { status: 401 });
     }
 
-    // Get enrollment for this user and course
-    const { data: enrollment, error: enrollError } = await supabaseServer
-      .from('enrollments')
-      .select('id, progress_pct, passed, resume_state')
-      .eq('user_id', user.id)
-      .eq('course_id', courseId)
-      .single();
+    // Use the new resolver to avoid UUID casting errors
+    const course = await resolveCourseForUser({ 
+      supabase: supabaseServer, 
+      userId: user.id, 
+      courseIdOrSlug: courseParam 
+    });
+    if (!course.id) {
+      return NextResponse.json({ error: 'Course not found' }, { status: 404 });
+    }
 
-    console.log('[training/progress] Enrollment lookup:', enrollment ? `found ${enrollment.id}` : 'none', enrollError?.message);
+    // Get enrollment by course_id or course_slug
+    let enrollment: any = null;
+    {
+      const { data: enrById } = await supabaseServer
+        .from('enrollments')
+        .select('id, progress_pct, passed, resume_state')
+        .eq('user_id', user.id)
+        .eq('course_id', course.id)
+        .order('created_at', { ascending: false })
+        .limit(1);
+      enrollment = enrById?.[0] || null;
+    }
+    if (!enrollment && course.slug) {
+      const { data: enrBySlug } = await supabaseServer
+        .from('enrollments')
+        .select('id, progress_pct, passed, resume_state')
+        .eq('user_id', user.id)
+        .eq('course_slug', course.slug)
+        .order('created_at', { ascending: false })
+        .limit(1);
+      enrollment = enrBySlug?.[0] || null;
+    }
 
-    if (enrollError || !enrollment) {
-      console.log('[training/progress] No enrollment found for user:', user.id, 'course:', courseId);
-      return NextResponse.json({ error: 'No enrollment found', details: enrollError?.message }, { status: 404 });
+    console.log('[training/progress] Enrollment lookup:', enrollment ? `found ${enrollment.id}` : 'none');
+
+    if (!enrollment) {
+      console.log('[training/progress] No enrollment found for user:', user.id, 'course:', course.id);
+      return NextResponse.json({ error: 'No enrollment found' }, { status: 404 });
     }
 
     // Get modules for this course
     const { data: modules, error: modulesError } = await supabaseServer
       .from('modules')
       .select('id, title, order, type')
-      .eq('course_id', courseId)
+      .eq('course_id', course.id)
       .order('order');
 
     if (modulesError) {

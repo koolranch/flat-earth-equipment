@@ -11,6 +11,16 @@ const baseConfig = {
   reactStrictMode: true,
   cleanDistDir: true,
   poweredByHeader: false,
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.flatearthequipment.com' }],
+        destination: 'https://flatearthequipment.com/:path*',
+        permanent: true
+      }
+    ];
+  },
   async headers() {
     const csp = [
       "default-src 'self'",
