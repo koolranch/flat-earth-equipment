@@ -1,3 +1,4 @@
+import React from 'react';
 import { ReactNode } from 'react';
 import { unstable_noStore as noStore } from 'next/cache';
 import { requireAuthServer } from '@/lib/auth/requireAuthServer';
@@ -12,5 +13,9 @@ export default async function TrainingLayout({
 }) {
   noStore();
   await requireAuthServer('/training'); // redirects anon → /login?next=/training
-  return <>{children}</>;
+  return (
+    <div className="training-layout" style={{ paddingTop: 'calc(var(--subnav-h,56px) + 0px)' }}>
+      {children}
+    </div>
+  );
 }

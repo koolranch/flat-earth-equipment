@@ -4,6 +4,9 @@ import { coerceCourseId, DEFAULT_COURSE_SLUG } from "@/lib/courses";
 import { canonicalizeCourseParam } from '@/lib/training/courses';
 import { requireEnrollmentServer } from '@/lib/training/requireEnrollmentServer';
 import TrainingHub from './TrainingHub';
+import dynamicImport from 'next/dynamic';
+
+const ClickShieldProbe = dynamicImport(() => import('@/components/debug/ClickShieldProbe'), { ssr: false });
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -31,5 +34,10 @@ export default async function TrainingIndex({ searchParams }: { searchParams?: R
   }
 
   // Render the training hub with the courseId
-  return <TrainingHub courseId={courseId} />;
+  return (
+    <>
+      <ClickShieldProbe />
+      <TrainingHub courseId={courseId} />
+    </>
+  );
 }

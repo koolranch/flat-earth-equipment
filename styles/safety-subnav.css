@@ -1,0 +1,2 @@
+.safety-subnav .decorative, .safety-subnav .bg, .safety-subnav [aria-hidden] { pointer-events: none; }
+.safety-subnav a, .safety-subnav button { pointer-events: auto; }
