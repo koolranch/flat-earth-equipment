@@ -24,7 +24,7 @@ type RecertStatus = {
   last_issued_at?: string;
 };
 
-function TrainingContent({ courseId }: { courseId: string }) {
+function TrainingContent({ courseId, resumeHref }: { courseId: string; resumeHref?: string }) {
   const { t } = useI18n();
   const [prog, setProg] = useState<Progress | null>(null);
   const [loading, setLoading] = useState(true);
@@ -217,10 +217,17 @@ function TrainingContent({ courseId }: { courseId: string }) {
             
             const allDone = total > 0 && completed === total && completed > 0;
             
-            if (prog.next) {
+            if (prog.next || resumeHref) {
+              const href = resumeHref || prog.next?.nextRoute || '/training/modules/pre-op';
+              const label = prog.next?.label || 'next module';
               return (
                 <div className="text-center">
-                  <a className='btn-primary tappable inline-flex items-center justify-center' href={prog.next.nextRoute} aria-label={`Resume training: ${prog.next.label || 'next module'}`}>
+                  <a 
+                    className='btn-primary tappable inline-flex items-center justify-center' 
+                    href={href}
+                    data-testid="resume-training"
+                    aria-label={`Resume training: ${label}`}
+                  >
                     Resume training
                   </a>
                 </div>
@@ -335,10 +342,10 @@ function TrainingContent({ courseId }: { courseId: string }) {
   );
 }
 
-export default function TrainingHub({ courseId }: { courseId: string }) {
+export default function TrainingHub({ courseId, resumeHref }: { courseId: string; resumeHref?: string }) {
   return (
     <Suspense fallback={<main className='container mx-auto p-4'>Loading...</main>}>
-      <TrainingContent courseId={courseId} />
+      <TrainingContent courseId={courseId} resumeHref={resumeHref} />
     </Suspense>
   );
 }
