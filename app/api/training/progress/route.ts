@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
-import { getForkliftCourseId, getForkliftModuleSlugs, computePercentFractional } from '@/lib/training/progress-utils';
+import { getForkliftCourseId, getForkliftModuleSlugs, computePercentFractional, resolveCourseForUser, getModuleSlugsForCourse } from '@/lib/training/progress-utils';
 
 export async function GET(req: Request) {
   try {
