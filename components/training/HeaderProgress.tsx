@@ -63,21 +63,30 @@ export function HeaderProgress({ modules, fallbackPercent = 0, className = '' }:
   const { percent } = useCourseProgress(enhancedModules);
   const value = Number.isFinite(percent) && percent > 0 ? percent : fallbackPercent;
   
+  // Calculate X/Y completion from modules
+  const totalModules = enhancedModules?.length || 0;
+  const completedModules = enhancedModules?.filter(m => m.quiz_passed).length || 0;
+  
   return (
     <div className={`min-w-[160px] ${className}`}>
-      <div className='text-sm font-medium text-brand-onPanel mb-2'>Progress: {value}%</div>
+      <div className='text-sm font-medium text-brand-onPanel mb-2'>
+        {completedModules}/{totalModules} complete
+      </div>
       <div 
-        className='h-3 bg-brand-onPanel/20 rounded-full overflow-hidden'
+        className='h-2 bg-brand-onPanel/20 rounded-full overflow-hidden'
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={value}
-        aria-label="Course progress"
+        aria-label={`Course progress: ${completedModules} of ${totalModules} modules complete`}
       >
         <div 
-          className='h-3 bg-brand-orangeBright rounded-full transition-all duration-300' 
+          className='h-2 bg-brand-orangeBright rounded-full transition-all duration-300' 
           style={{ width: `${value}%` }} 
         />
+      </div>
+      <div className='text-xs text-brand-onPanel/60 mt-1'>
+        {value}% overall
       </div>
     </div>
   );
