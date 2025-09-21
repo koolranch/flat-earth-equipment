@@ -44,6 +44,7 @@ export default function TabbedModuleLayout({
   const { done, markDone, allDone } = useModuleGate({
     courseId: courseSlug,
     moduleKey: moduleKey || 'unknown',
+    moduleSlug: moduleSlug, // Pass content_slug for proper gate tracking
     initial: { osha: false, practice: false, cards: false, quiz: false }
   });
 

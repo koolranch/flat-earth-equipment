@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
-import { getForkliftCourseId, getForkliftModuleSlugs, computePercentFromState } from '@/lib/training/progress-utils';
+import { getForkliftCourseId, getForkliftModuleSlugs, computePercentFractional } from '@/lib/training/progress-utils';
 
 export async function GET(req: Request) {
   try {
@@ -250,7 +250,7 @@ export async function PATCH(req: Request) {
 
     // 3) Recompute percent based on current modules
     const slugs = await getForkliftModuleSlugs(supabase);
-    const pct = computePercentFromState(state, slugs);
+    const pct = computePercentFractional(state, slugs);
 
     // 4) Persist resume_state + progress_pct
     const { error: updErr } = await supabase

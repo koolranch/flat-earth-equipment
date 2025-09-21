@@ -18,7 +18,7 @@ export async function getForkliftModuleSlugs(supabase = createServerClient()): P
   return (data || []).map(m => m.content_slug).filter(Boolean) as string[];
 }
 
-export function computePercentFromState(state: ResumeState, moduleSlugs: string[]): number {
+export function computePercentAllGates(state: ResumeState, moduleSlugs: string[]): number {
   if (!moduleSlugs.length) return 0;
   let done = 0;
   for (const slug of moduleSlugs) {
@@ -27,3 +27,18 @@ export function computePercentFromState(state: ResumeState, moduleSlugs: string[
   }
   return Math.round((done / moduleSlugs.length) * 100);
 }
+
+export function computePercentFractional(state: ResumeState, moduleSlugs: string[]): number {
+  if (!moduleSlugs.length) return 0;
+  const gates: (keyof NonNullable<ResumeState[string]>)[] = ['osha', 'practice', 'cards', 'quiz'];
+  let sum = 0;
+  for (const slug of moduleSlugs) {
+    const g = state?.[slug] || {};
+    for (const k of gates) sum += g[k] ? 1 : 0;
+  }
+  const totalGates = moduleSlugs.length * gates.length;
+  return Math.round((sum / totalGates) * 100);
+}
+
+// Legacy alias for backward compatibility
+export const computePercentFromState = computePercentFractional;
