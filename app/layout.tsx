@@ -21,6 +21,7 @@ import { getAdminStatus } from '@/lib/admin/guard';
 // Import your global styles (Tailwind, custom resets)
 import '../globals.css';
 import '../styles/safety-subnav.css';
+import '../styles/training-polish.css';
 import { Toaster } from 'react-hot-toast';
 import QAEventListener from '@/components/dev/QAEventListener';
 import SafetyRouteGate from '@/components/safety/SafetyRouteGate';
