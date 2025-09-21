@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+import { getForkliftCourseId, getForkliftModuleSlugs, computePercentFromState } from '@/lib/training/progress-utils';
 
 export async function GET(req: Request) {
   try {
@@ -193,5 +194,76 @@ export async function GET(req: Request) {
   } catch (error: any) {
     console.error('Training progress API error:', error);
     return NextResponse.json({ error: error.message || 'Internal error' }, { status: 500 });
+  }
+}
+
+export async function PATCH(req: Request) {
+  try {
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return cookies().get(name)?.value;
+          },
+          set() {},
+          remove() {},
+        },
+      }
+    );
+
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (userError || !user) {
+      return NextResponse.json({ ok: false, error: 'unauthorized' }, { status: 401 });
+    }
+
+    const body = await req.json().catch(() => ({}));
+    const moduleSlug: string = body?.moduleSlug;
+    const stepKey: 'osha' | 'practice' | 'cards' | 'quiz' = body?.stepKey;
+    
+    if (!moduleSlug || !stepKey) {
+      return NextResponse.json({ ok: false, error: 'missing_params' }, { status: 400 });
+    }
+
+    const courseId = await getForkliftCourseId(supabase);
+    if (!courseId) {
+      return NextResponse.json({ ok: false, error: 'course_missing' }, { status: 422 });
+    }
+
+    // 1) Load current enrollment
+    const { data: enrRow } = await supabase
+      .from('enrollments')
+      .select('id, resume_state')
+      .eq('user_id', user.id)
+      .eq('course_id', courseId)
+      .order('created_at', { ascending: false })
+      .limit(1);
+    const enrollment = enrRow?.[0];
+    if (!enrollment) {
+      return NextResponse.json({ ok: false, error: 'not_enrolled' }, { status: 403 });
+    }
+
+    // 2) Merge the gate state
+    const state = (enrollment.resume_state || {}) as any;
+    state[moduleSlug] = { ...(state[moduleSlug] || {}), [stepKey]: true };
+
+    // 3) Recompute percent based on current modules
+    const slugs = await getForkliftModuleSlugs(supabase);
+    const pct = computePercentFromState(state, slugs);
+
+    // 4) Persist resume_state + progress_pct
+    const { error: updErr } = await supabase
+      .from('enrollments')
+      .update({ resume_state: state, progress_pct: pct, updated_at: new Date().toISOString() })
+      .eq('id', enrollment.id);
+    if (updErr) {
+      return NextResponse.json({ ok: false, error: 'update_failed' }, { status: 500 });
+    }
+
+    return NextResponse.json({ ok: true, progress_pct: pct, resume_state: state });
+  } catch (error: any) {
+    console.error('Training progress PATCH error:', error);
+    return NextResponse.json({ ok: false, error: error.message || 'Internal error' }, { status: 500 });
   }
 }
