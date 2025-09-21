@@ -156,6 +156,26 @@ function TrainingContent({ courseId, resumeHref }: { courseId: string; resumeHre
 
       {!flags.GA && <PrelaunchBanner />}
 
+        {/* Next up section */}
+        {resumeHref && (
+          <div className="mb-6 rounded-xl bg-blue-50 border border-blue-200 p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-sm font-medium text-blue-900">Next up</h2>
+                <p className="text-xs text-blue-700 mt-1">Continue your training progress</p>
+              </div>
+              <a 
+                href={resumeHref}
+                className="btn-primary"
+                data-testid="resume-training"
+                aria-label="Continue training from where you left off"
+              >
+                Continue
+              </a>
+            </div>
+          </div>
+        )}
+
         {recert && !dismissed && recert.has_certificate && (
           <div className={`rounded-2xl border p-4 mb-6 ${recert.due ? 'border-amber-300 bg-amber-50' : 'border-green-300 bg-green-50'}`}>
             <div className="flex items-start gap-3">
