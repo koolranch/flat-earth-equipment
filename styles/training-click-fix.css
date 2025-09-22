@@ -1,0 +1,23 @@
+/* Safety net: if any container overlays the action cell, make it non-blocking */
+[data-training-overlay] { pointer-events: none; }
+
+/* Ensure action cell can be clicked */
+.training-action-cell { 
+  position: relative; 
+  z-index: 10; 
+  pointer-events: auto; 
+}
+
+/* Fix for any accidental overlays in training components */
+.training-module-row {
+  position: relative;
+}
+
+.training-module-row > * {
+  position: relative;
+  z-index: 1;
+}
+
+.training-module-row .training-action-cell {
+  z-index: 10;
+}
