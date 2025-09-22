@@ -33,11 +33,18 @@ export async function resolveResumeHref(courseSlug: string = 'forklift') {
     enrollment = data?.[0] || null;
   }
 
+  // If resume_state points at a module index, use 0-based routing
+  const resumeState = enrollment?.resume_state as any;
+  if (resumeState?.moduleIndex !== undefined) {
+    const moduleIndex = Math.max(0, Number(resumeState.moduleIndex) || 0);
+    return `/training/module/${moduleIndex}`;
+  }
+
   // If resume_state points at a module slug, use it
-  const slugFromState = (enrollment?.resume_state?.nextSlug || enrollment?.resume_state?.moduleSlug || '').trim();
+  const slugFromState = (resumeState?.nextSlug || resumeState?.moduleSlug || '').trim();
   if (slugFromState) return `/training/modules/${encodeURIComponent(slugFromState)}`;
 
-  // Otherwise, pick the first module for the course
+  // Otherwise, pick the first module for the course using 0-based index
   if (courseId) {
     const { data: first } = await supabase
       .from('modules')
@@ -45,9 +52,12 @@ export async function resolveResumeHref(courseSlug: string = 'forklift') {
       .eq('course_id', courseId)
       .order('order', { ascending: true })
       .limit(1);
-    const slug = first?.[0]?.content_slug;
-    if (slug) return `/training/modules/${encodeURIComponent(slug)}`;
+    if (first?.[0]) {
+      // Convert DB order (1-based) to route index (0-based)
+      const routeIndex = Math.max(0, (first[0].order || 1) - 1);
+      return `/training/module/${routeIndex}`;
+    }
   }
-  // Fallback
-  return '/training/modules/pre-op';
+  // Fallback to Introduction (index 0)
+  return '/training/module/0';
 }

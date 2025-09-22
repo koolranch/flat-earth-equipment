@@ -9,6 +9,7 @@ import { useModuleGate } from '@/components/training/useModuleGate';
 import { TabCompleteButton } from '@/components/training/TabCompleteButton';
 import StepContinue from '@/components/training/module/StepContinue';
 import { ModuleFooterCTA } from '@/components/training/ModuleFooterCTA';
+import { toRouteIndex, nextRouteIndexFromCurrent } from '@/lib/training/routeIndex';
 
 type Props = {
   courseSlug: string;
