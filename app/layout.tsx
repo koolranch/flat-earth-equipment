@@ -23,6 +23,7 @@ import '../globals.css';
 import '../styles/safety-subnav.css';
 import '../styles/training-polish.css';
 import '../styles/training-overrides.css';
+import '../styles/training-click-fix.css';
 import { Toaster } from 'react-hot-toast';
 import QAEventListener from '@/components/dev/QAEventListener';
 import SafetyRouteGate from '@/components/safety/SafetyRouteGate';

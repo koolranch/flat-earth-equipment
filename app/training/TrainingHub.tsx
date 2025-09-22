@@ -4,6 +4,7 @@ import { useI18n } from '@/lib/i18n/I18nProvider';
 import { flags } from '@/lib/flags';
 import { PRELAUNCH_PREVIEW } from '@/lib/training/flags';
 import PrelaunchBanner from '@/components/PrelaunchBanner';
+import StartModuleButton from '@/components/training/StartModuleButton';
 import * as Sentry from '@sentry/nextjs';
 import { FORKLIFT_MODULES_FALLBACK } from '@/lib/courses';
 import { HeaderProgress } from '@/components/training/HeaderProgress';
@@ -295,25 +296,16 @@ function TrainingContent({ courseId, resumeHref }: { courseId: string; resumeHre
                         )}
                       </div>
                     </div>
-                    {!completed && unlocked && (
-                      <a 
-                        className='btn-primary tappable text-sm' 
-                        href={href}
-                        data-testid={`start-module-${idx + 1}`}
-                        aria-label={`Start ${title} module`}
-                      >
-                        Start
-                      </a>
-                    )}
-                    {!completed && !unlocked && (
-                      <button 
-                        className='btn-secondary opacity-50 cursor-not-allowed text-sm' 
-                        aria-disabled
-                        aria-label={`${title} module locked`}
-                      >
-                        🔒 Locked
-                      </button>
-                    )}
+                    <div className="training-action-cell">
+                      {!completed && (
+                        <StartModuleButton 
+                          order={idx + 1}
+                          isUnlocked={unlocked}
+                          href={href}
+                          className="text-sm"
+                        />
+                      )}
+                    </div>
                   </div>
                 );
               })}
