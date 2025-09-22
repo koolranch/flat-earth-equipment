@@ -5,6 +5,7 @@ import { flags } from '@/lib/flags';
 import { PRELAUNCH_PREVIEW } from '@/lib/training/flags';
 import PrelaunchBanner from '@/components/PrelaunchBanner';
 import StartModuleButton from '@/components/training/StartModuleButton';
+import { toRouteIndex } from '@/lib/training/routeIndex';
 import * as Sentry from '@sentry/nextjs';
 import { FORKLIFT_MODULES_FALLBACK } from '@/lib/courses';
 import { HeaderProgress } from '@/components/training/HeaderProgress';
@@ -277,6 +278,10 @@ function TrainingContent({ courseId, resumeHref }: { courseId: string; resumeHre
                 const completed = isAPIModule ? (module as any).quiz_passed : false;
                 const key = isAPIModule ? (module as any).slug : (module as any).key;
                 
+                // Get the DB order and convert to 0-based route index
+                const dbOrder = isAPIModule ? (module as any).order : (module as any).order || (idx + 1);
+                const routeIndex = toRouteIndex(dbOrder, idx);
+                
                 // Simple unlock logic: allow access to current and previous modules
                 // You can enhance this based on your actual progress tracking
                 const unlocked = true; // For now, allow access to all modules
@@ -299,9 +304,8 @@ function TrainingContent({ courseId, resumeHref }: { courseId: string; resumeHre
                     <div className="training-action-cell">
                       {!completed && (
                         <StartModuleButton 
-                          order={idx + 1}
+                          routeIndex={routeIndex}
                           isUnlocked={unlocked}
-                          href={href}
                           className="text-sm"
                         />
                       )}
