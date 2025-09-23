@@ -17,6 +17,7 @@
     "qa:rls": "node scripts/rls-audit.mjs",
     "qa:security": "playwright test tests/e2e/security.spec.ts",
     "go:preflight": "node scripts/release-preflight.mjs",
+    "diag:training": "ts-node scripts/diagnostics/training-map.ts forklift",
     "qa:health": "playwright test tests/e2e/health_version.spec.ts",
     "qa:ga": "playwright test tests/e2e/ga_guard.spec.ts",
     "gen:cron": "node scripts/generate-cron-secret.mjs",
