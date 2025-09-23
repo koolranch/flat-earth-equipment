@@ -17,7 +17,7 @@ export default function StartModuleButton({
   const sp = useSearchParams();
   const courseId = sp.get('courseId') || 'forklift';
 
-  const idx = typeof routeIndex === 'number' ? routeIndex : toRouteIndex(order, 0);
+  const idx = typeof routeIndex === 'number' ? routeIndex : (order || 1);
 
   const go = () => {
     if (!isUnlocked) return;

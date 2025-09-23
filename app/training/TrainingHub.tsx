@@ -278,9 +278,8 @@ function TrainingContent({ courseId, resumeHref }: { courseId: string; resumeHre
                 const completed = isAPIModule ? (module as any).quiz_passed : false;
                 const key = isAPIModule ? (module as any).slug : (module as any).key;
                 
-                // Get the DB order and convert to 0-based route index
+                // Use the actual DB order for navigation (1-based as stored)
                 const dbOrder = isAPIModule ? (module as any).order : (module as any).order || (idx + 1);
-                const routeIndex = toRouteIndex(dbOrder, idx);
                 
                 // Simple unlock logic: allow access to current and previous modules
                 // You can enhance this based on your actual progress tracking
@@ -304,7 +303,7 @@ function TrainingContent({ courseId, resumeHref }: { courseId: string; resumeHre
                     <div className="training-action-cell">
                       {!completed && (
                         <StartModuleButton 
-                          routeIndex={routeIndex}
+                          order={dbOrder}
                           isUnlocked={unlocked}
                           className="text-sm"
                         />
@@ -354,8 +353,24 @@ function TrainingContent({ courseId, resumeHref }: { courseId: string; resumeHre
               <div>
                 <h2 className="text-2xl font-semibold text-brand-onPanel mb-2">Practical Evaluation</h2>
                 <p className="text-base leading-7 text-brand-onPanel/90">Competencies assessment with your supervisor</p>
+                {!canTakeExam && (
+                  <p className="text-sm text-amber-600 mt-2">
+                    🔒 Complete all modules and pass the final exam to unlock
+                  </p>
+                )}
               </div>
-              <a href="/practical/start" className="btn-primary tappable">Start</a>
+              {canTakeExam ? (
+                <a href="/practical/start" className="btn-primary tappable">Start</a>
+              ) : (
+                <button 
+                  disabled
+                  className="btn-secondary opacity-50 cursor-not-allowed"
+                  aria-disabled
+                  aria-label="Practical evaluation locked until final exam is passed"
+                >
+                  🔒 Locked
+                </button>
+              )}
             </div>
           </section>
         </section>
