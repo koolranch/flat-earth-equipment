@@ -1,87 +1,85 @@
 import { notFound } from 'next/navigation';
 import { getModuleByOrder, toModuleHref } from '@/lib/training/getModuleByOrder';
 import { getCourseModules } from '@/lib/training/getCourseModules';
-import { firstContentOrder, hrefForOrder } from '@/lib/training/moduleNav';
+import { firstContentOrder, hrefForOrder, sortByOrder } from '@/lib/training/moduleNav';
 import { INTRO_TABBED } from '@/lib/training/flags';
 import TabbedModuleLayout from '@/components/training/module/TabbedModuleLayout';
 import { IntroOrOutro } from '@/components/training/module/IntroOrOutro';
 
 export const dynamic = 'force-dynamic';
 
-export default async function ModulePage({ params, searchParams }: { params: { order: string }, searchParams: { courseId?: string } }) {
+export default async function ModulePage({ params, searchParams }: any) {
+  const courseSlug = (searchParams?.courseId as string) || 'forklift';
   const order = Number(params.order);
-  const courseSlug = (searchParams.courseId || 'forklift').toString();
   if (!Number.isFinite(order) || order < 1) return notFound();
 
   try {
     const { course, module } = await getModuleByOrder(courseSlug, order);
     const { modules } = await getCourseModules(courseSlug);
     
-    // Check module type for routing logic
-    const isIntro = /intro/i.test(module.title || '');
-    const isOutro = /completion|finish/i.test(module.title || '');
-    
-    // If there's no content_slug, handle intro/outro routing
-    if (!module.content_slug) {
-      if (isIntro) {
-        // Introduction routing
-        const uiModules = modules.map(m => ({ 
-          id: m.id, 
-          order: m.order, 
-          title: m.title, 
-          content_slug: m.content_slug 
-        }));
-        const firstContent = firstContentOrder(uiModules);
-        const nextHref = firstContent ? hrefForOrder(firstContent, course.slug) : '/training';
-        
-        return (
-          <div className="mx-auto max-w-3xl py-10 px-4">
-            <h1 className="text-2xl font-semibold mb-4">{module.title}</h1>
-            {module.video_url ? (
-              <video className="w-full rounded-xl mb-6" controls preload="metadata" src={module.video_url} />
-            ) : (
-              <p className="text-muted-foreground mb-6">Welcome! Review the introduction, then continue to the first module.</p>
-            )}
-            <a className="btn-primary" href={nextHref}>Continue to Module</a>
-          </div>
-        );
-      }
-      
-      if (isOutro) {
-        // Course completion routing
-        return (
-          <div className="mx-auto max-w-3xl py-10 px-4">
-            <h1 className="text-2xl font-semibold mb-4">{module.title}</h1>
-            <p className="text-muted-foreground mb-6">Congratulations! You've completed all modules. You can now take the final exam.</p>
-            <a className="btn-primary" href="/training/exam">Start Final Exam</a>
-          </div>
-        );
-      }
-      
-      // Fallback for other modules without content_slug
+    const isIntro = !module.content_slug && /intro/i.test(module.title || '');
+    const isOutro = !module.content_slug && /(completion|finish)/i.test(module.title || '');
+
+    // Optional: allow Intro to be tabbed if flag set and content exists under 'introduction'
+    const effectiveSlug = module.content_slug || (INTRO_TABBED && isIntro ? 'introduction' : null);
+
+    if (effectiveSlug) {
+      const sorted = sortByOrder(modules);
+      const next = sorted.find(m => m.order > module.order);
+      const nextHref = next ? hrefForOrder(next.order, courseSlug) : '/training';
       return (
-        <IntroOrOutro
-          courseSlug={course.slug}
-          order={module.order}
+        <TabbedModuleLayout
+          courseSlug={courseSlug}
+          contentSlug={effectiveSlug}
+          // Map for progress badges, if you use them
+          moduleKey={
+            effectiveSlug === 'pre-operation-inspection' ? 'm1' :
+            effectiveSlug === 'eight-point-inspection' ? 'm2' :
+            effectiveSlug === 'stability-and-load-handling' ? 'm3' :
+            effectiveSlug === 'safe-operation-and-hazards' ? 'm4' :
+            effectiveSlug === 'shutdown-and-parking' ? 'm5' : undefined
+          }
           title={module.title}
-          videoUrl={module.video_url}
+          order={module.order}
+          nextHref={nextHref}
         />
       );
     }
 
-    // Handle optional tabbed intro
-    const effectiveContentSlug = module.content_slug || (INTRO_TABBED && isIntro ? 'introduction' : null);
-    
-    // Standard learning module → render existing tabbed layout
-    return (
-      <TabbedModuleLayout
-        title={module.title}
-        order={module.order}
-        contentSlug={effectiveContentSlug}
-        courseSlug={course.slug}
-        nextHref={toModuleHref(course.slug, module.order + 1)}
-      />
-    );
+    // Simple Intro / Completion pages
+    if (isIntro) {
+      const uiModules = modules.map(m => ({ 
+        id: m.id, 
+        order: m.order, 
+        title: m.title, 
+        content_slug: m.content_slug 
+      }));
+      const fco = firstContentOrder(uiModules);
+      const nextHref = fco ? hrefForOrder(fco, courseSlug) : '/training';
+      return (
+        <div className="mx-auto max-w-3xl py-10 px-4">
+          <h1 className="text-2xl font-semibold mb-4">{module.title}</h1>
+          {module.video_url ? (
+            <video className="w-full rounded-xl mb-6" controls preload="metadata" src={module.video_url} />
+          ) : (
+            <p className="text-muted-foreground mb-6">Welcome! Review the intro, then continue.</p>
+          )}
+          <a className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-white mt-6" href={nextHref}>Continue</a>
+        </div>
+      );
+    }
+
+    if (isOutro) {
+      return (
+        <div className="mx-auto max-w-3xl py-10 px-4">
+          <h1 className="text-2xl font-semibold mb-4">{module.title}</h1>
+          <p className="text-muted-foreground mb-6">Great work! Continue to your final exam.</p>
+          <a className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-white mt-6" href="/training/exam">Start Final Exam</a>
+        </div>
+      );
+    }
+
+    return notFound();
   } catch (e) {
     return notFound();
   }
