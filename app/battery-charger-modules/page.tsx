@@ -5,7 +5,6 @@ import { CheckCircle, Package, Zap, Clock, CreditCard } from 'lucide-react';
 import Script from 'next/script';
 import { supabaseServer } from '@/lib/supabase/server';
 import AddToCartButton from '@/components/AddToCartButton';
-import StickyFooterCTA from '@/components/StickyFooterCTA';
 
 export const metadata: Metadata = {
   title: "Battery Charger Modules | Flat Earth Equipment",
@@ -81,26 +80,6 @@ export default async function BatteryChargerModulesPage() {
           ))}
         </div>
       </main>
-      {parts && parts.length > 0 && (
-        <StickyFooterCTA>
-          <div className="flex justify-between items-center p-4 bg-orange-600 text-white">
-            <span>In-Stock Charger Module — ${parts[0].price?.toFixed(0)} + ${parts[0].core_charge?.toFixed(0) || '0'} core fee</span>
-            <AddToCartButton
-              sku={parts[0].sku}
-              qty={1}
-              price={parts[0].price * 100}
-              meta={{ 
-                productId: parts[0].id,
-                hasCore: parts[0].has_core_charge || false,
-                coreCharge: parts[0].core_charge || 0
-              }}
-              className="inline-block px-4 py-2 bg-white text-orange-600 rounded hover:bg-gray-100 transition font-medium"
-            >
-              Add to Cart
-            </AddToCartButton>
-          </div>
-        </StickyFooterCTA>
-      )}
     </>
   );
 } 
