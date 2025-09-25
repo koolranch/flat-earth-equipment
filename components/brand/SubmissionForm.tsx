@@ -26,47 +26,59 @@ export default function SubmissionForm({ brand }: { brand: { slug:string; name:s
   }
   
   return (
-    <form onSubmit={submit} className='rounded-2xl border p-4 space-y-3 bg-card'>
-      <div className='text-sm text-muted-foreground'>Help improve our {brand.name} data. Submit plate locations, serial/fault tips, or corrections.</div>
-      <div className='grid sm:grid-cols-2 gap-3'>
-        <label className='text-sm'>Type
-          <select name='suggestion_type' className='w-full border rounded p-2' required>
+    <form onSubmit={submit} className='bg-white border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm'>
+      <div className='text-sm text-slate-600 leading-relaxed mb-4'>Help improve our {brand.name} data. Submit plate locations, serial/fault tips, or corrections.</div>
+      <div className='grid sm:grid-cols-2 gap-4'>
+        <div>
+          <label className='block text-sm font-medium text-slate-700 mb-1'>Type</label>
+          <select name='suggestion_type' className='w-full border border-slate-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:border-orange-500' required>
             <option value='serial_note'>Serial note</option>
             <option value='fault_code'>Fault code tip</option>
             <option value='retrieval'>How to read codes</option>
             <option value='plate_location'>Plate location</option>
             <option value='guide_feedback'>Guide feedback</option>
           </select>
-        </label>
-        <label className='text-sm'>Model
-          <input name='model' className='w-full border rounded p-2' placeholder='e.g., 8FGCU25' />
-        </label>
-        <label className='text-sm'>Serial
-          <input name='serial' className='w-full border rounded p-2' placeholder='optional' />
-        </label>
-        <label className='text-sm'>Fault Code
-          <input name='code' className='w-full border rounded p-2' placeholder='e.g., E-43' />
-        </label>
+        </div>
+        <div>
+          <label className='block text-sm font-medium text-slate-700 mb-1'>Model</label>
+          <input name='model' className='w-full border border-slate-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:border-orange-500' placeholder='e.g., 8FGCU25' />
+        </div>
+        <div>
+          <label className='block text-sm font-medium text-slate-700 mb-1'>Serial <span className='text-slate-500 font-normal'>(optional)</span></label>
+          <input name='serial' className='w-full border border-slate-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:border-orange-500' placeholder='Equipment serial number' />
+        </div>
+        <div>
+          <label className='block text-sm font-medium text-slate-700 mb-1'>Fault Code <span className='text-slate-500 font-normal'>(optional)</span></label>
+          <input name='code' className='w-full border border-slate-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:border-orange-500' placeholder='e.g., E-43' />
+        </div>
       </div>
-      <label className='text-sm block'>Title
-        <input name='title' className='w-full border rounded p-2' placeholder='Short summary (optional)' />
-      </label>
-      <label className='text-sm block'>Details
-        <textarea name='details' className='w-full border rounded p-2 min-h-[120px]' required placeholder='What did you find? Where is the plate? Steps to retrieve codes? Include context.'></textarea>
-      </label>
-      <div className='grid sm:grid-cols-2 gap-3'>
-        <label className='text-sm'>Photo URLs
-          <input name='photos' className='w-full border rounded p-2' placeholder='http://... | http://...' />
-        </label>
-        <label className='text-sm'>Contact Email
-          <input name='contact_email' type='email' className='w-full border rounded p-2' placeholder='optional, for follow-up' />
-        </label>
+      <div>
+        <label className='block text-sm font-medium text-slate-700 mb-1'>Title <span className='text-slate-500 font-normal'>(optional)</span></label>
+        <input name='title' className='w-full border border-slate-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:border-orange-500' placeholder='Short summary' />
       </div>
-      <button disabled={loading} className='px-4 py-2 rounded bg-primary text-primary-foreground'>
-        {loading?'Submitting…':'Submit tip'}
-      </button>
-      {ok && <p className='text-green-600 text-sm'>{ok}</p>}
-      {err && <p className='text-red-600 text-sm'>{err}</p>}
+      <div>
+        <label className='block text-sm font-medium text-slate-700 mb-1'>Details</label>
+        <textarea name='details' className='w-full border border-slate-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 min-h-[120px]' required placeholder='What did you find? Where is the plate? Steps to retrieve codes? Include context.'></textarea>
+      </div>
+      <div className='grid sm:grid-cols-2 gap-4'>
+        <div>
+          <label className='block text-sm font-medium text-slate-700 mb-1'>Photo URLs <span className='text-slate-500 font-normal'>(optional)</span></label>
+          <input name='photos' className='w-full border border-slate-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:border-orange-500' placeholder='http://... | http://...' />
+        </div>
+        <div>
+          <label className='block text-sm font-medium text-slate-700 mb-1'>Contact Email <span className='text-slate-500 font-normal'>(optional)</span></label>
+          <input name='contact_email' type='email' className='w-full border border-slate-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:border-orange-500' placeholder='for follow-up' />
+        </div>
+      </div>
+      
+      {ok && <div className='text-sm text-green-700 bg-green-50 border border-green-200 rounded-md p-3'>{ok}</div>}
+      {err && <div className='text-sm text-red-600 bg-red-50 border border-red-200 rounded-md p-3'>{err}</div>}
+      
+      <div className='pt-2'>
+        <button disabled={loading} className='px-6 py-3 rounded-2xl bg-orange-600 text-white font-medium hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors'>
+          {loading?'Submitting…':'Submit tip'}
+        </button>
+      </div>
     </form>
   );
 }
