@@ -17,54 +17,43 @@ export default async function ModulePage({ params, searchParams }: any) {
     const { course, module } = await getModuleByOrder(courseSlug, order);
     const { modules } = await getCourseModules(courseSlug);
     
-    const isIntro = !module.content_slug && /intro/i.test(module.title || '');
-    const isOutro = !module.content_slug && /(completion|finish)/i.test(module.title || '');
+    const sorted = sortByOrder(modules);
+    const next = sorted.find(m => m.order > order);
+    const nextHref = next ? hrefForOrder(next.order, courseSlug) : '/training';
 
-    // Optional: allow Intro to be tabbed if flag set and content exists under 'introduction'
-    const effectiveSlug = module.content_slug || (INTRO_TABBED && isIntro ? 'introduction' : null);
-
-    if (effectiveSlug) {
-      const sorted = sortByOrder(modules);
-      const next = sorted.find(m => m.order > module.order);
-      const nextHref = next ? hrefForOrder(next.order, courseSlug) : '/training';
+    // If we have a content slug, ALWAYS render the tabbed UI.
+    if (module.content_slug) {
       return (
         <TabbedModuleLayout
           courseSlug={courseSlug}
-          contentSlug={effectiveSlug}
-          // Map for progress badges, if you use them
-          moduleKey={
-            effectiveSlug === 'pre-operation-inspection' ? 'm1' :
-            effectiveSlug === 'eight-point-inspection' ? 'm2' :
-            effectiveSlug === 'stability-and-load-handling' ? 'm3' :
-            effectiveSlug === 'safe-operation-and-hazards' ? 'm4' :
-            effectiveSlug === 'shutdown-and-parking' ? 'm5' : undefined
-          }
+          contentSlug={module.content_slug}
           title={module.title}
           order={module.order}
           nextHref={nextHref}
+          // Optional mapping to your progress keys
+          moduleKey={
+            module.content_slug === 'pre-operation-inspection' ? 'm1' :
+            module.content_slug === 'eight-point-inspection' ? 'm2' :
+            module.content_slug === 'stability-and-load-handling' ? 'm3' :
+            module.content_slug === 'safe-operation-and-hazards' ? 'm4' :
+            module.content_slug === 'shutdown-and-parking' ? 'm5' : undefined
+          }
         />
       );
     }
 
-    // Simple Intro / Completion pages
+    // Simple Intro / Completion pages for rows WITHOUT a content_slug
+    const isIntro = /intro/i.test(module.title || '');
+    const isOutro = /(completion|finish)/i.test(module.title || '');
+
     if (isIntro) {
-      const uiModules = modules.map(m => ({ 
-        id: m.id, 
-        order: m.order, 
-        title: m.title, 
-        content_slug: m.content_slug 
-      }));
-      const fco = firstContentOrder(uiModules);
-      const nextHref = fco ? hrefForOrder(fco, courseSlug) : '/training';
+      const firstContent = sorted.find((m:any) => !!m.content_slug);
+      const contHref = firstContent ? hrefForOrder(firstContent.order, courseSlug) : '/training';
       return (
         <div className="mx-auto max-w-3xl py-10 px-4">
           <h1 className="text-2xl font-semibold mb-4">{module.title}</h1>
-          {module.video_url ? (
-            <video className="w-full rounded-xl mb-6" controls preload="metadata" src={module.video_url} />
-          ) : (
-            <p className="text-muted-foreground mb-6">Welcome! Review the intro, then continue.</p>
-          )}
-          <a className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-white mt-6" href={nextHref}>Continue</a>
+          <p className="text-muted-foreground mb-6">Welcome! Continue to your first module.</p>
+          <a className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-white mt-6" href={contHref}>Continue</a>
         </div>
       );
     }
