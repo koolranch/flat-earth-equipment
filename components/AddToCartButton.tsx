@@ -39,24 +39,6 @@ function AddToCartToCartLegacy({
       ? `Charger Module (${meta.offer})`
       : 'Charger Module';
 
-    // Debug logging
-    console.log('🛒 AddToCart Debug:', {
-      sku,
-      price,
-      meta,
-      hasCore: meta?.hasCore,
-      coreCharge: meta?.coreCharge,
-      finalItem: {
-        id: itemId,
-        name: displayName,
-        price: price / 100,
-        stripe_price_id: sku,
-        quantity: qty,
-        has_core_charge: meta?.hasCore || false,
-        core_charge: meta?.coreCharge || 0,
-      }
-    });
-
     addItem({
       id: itemId,
       name: displayName,
