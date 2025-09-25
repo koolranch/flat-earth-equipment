@@ -3,14 +3,14 @@ import Link from 'next/link';
 import React from 'react';
 
 const items = [
-  { order: 1, title: 'Pre-Op: PPE & Controls', href: '/training/module-1' },
-  { order: 2, title: 'Daily Inspection (8-Point)', href: '/training/module-2' },
-  { order: 3, title: 'Balance & Load Handling', href: '/training/module-3' },
-  { order: 4, title: 'Hazard Hunt', href: '/training/module-4' },
-  { order: 5, title: 'Shutdown Sequence', href: '/training/module-5' }
+  { order: 1, title: 'Pre-Op: PPE & Controls' },
+  { order: 2, title: 'Daily Inspection (8-Point)' },
+  { order: 3, title: 'Balance & Load Handling' },
+  { order: 4, title: 'Hazard Hunt' },
+  { order: 5, title: 'Shutdown Sequence' }
 ];
 
-export default function ModuleList() {
+export default function ModuleList({ courseSlug = 'forklift' }: { courseSlug?: string } = {}) {
   const [done, setDone] = React.useState<Record<number, boolean>>({});
 
   React.useEffect(() => {
@@ -45,7 +45,7 @@ export default function ModuleList() {
           </div>
           <div className="flex items-center gap-3">
             {done[i.order] && <span className="inline-flex items-center rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700">✓ Completed</span>}
-            <Link className="rounded bg-slate-900 text-white px-3 py-2" href={i.href}>Open</Link>
+            <Link className="rounded bg-slate-900 text-white px-3 py-2" href={`/training/module/${i.order}?courseId=${courseSlug}`}>Open</Link>
           </div>
         </li>
       ))}

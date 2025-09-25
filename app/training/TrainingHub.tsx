@@ -26,7 +26,13 @@ type RecertStatus = {
   last_issued_at?: string;
 };
 
-function TrainingContent({ courseId, resumeHref }: { courseId: string; resumeHref?: string }) {
+function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }: { 
+  courseId: string; 
+  resumeHref?: string;
+  course?: any;
+  modules?: any[];
+  resumeOrder?: number;
+}) {
   const { t } = useI18n();
   const [prog, setProg] = useState<Progress | null>(null);
   const [loading, setLoading] = useState(true);
@@ -270,19 +276,17 @@ function TrainingContent({ courseId, resumeHref }: { courseId: string; resumeHre
           <div className='panel-soft shadow-card px-6 py-6'>
             <h2 className='text-2xl font-semibold text-brand-onPanel mb-6'>Modules</h2>
             <div className='space-y-3'>
-              {/* Use fallback modules if API modules are empty */}
-              {(prog.modules && prog.modules.length > 0 ? prog.modules : FORKLIFT_MODULES_FALLBACK).map((module, idx) => {
-                const isAPIModule = prog.modules && prog.modules.length > 0;
-                const title = isAPIModule ? (module as any).title : (module as any).title;
-                const href = isAPIModule ? (module as any).route : (module as any).href;
-                const completed = isAPIModule ? (module as any).quiz_passed : false;
-                const key = isAPIModule ? (module as any).slug : (module as any).key;
+              {/* Use passed modules data or fallback */}
+              {(modules && modules.length > 0 ? modules : FORKLIFT_MODULES_FALLBACK).map((module, idx) => {
+                const isDBModule = modules && modules.length > 0;
+                const title = isDBModule ? (module as any).title : (module as any).title;
+                const completed = false; // TODO: get completion status from progress API
+                const key = isDBModule ? (module as any).id : (module as any).key;
                 
                 // Use the actual DB order for navigation (1-based as stored)
-                const dbOrder = isAPIModule ? (module as any).order : (module as any).order || (idx + 1);
+                const dbOrder = isDBModule ? (module as any).order : (module as any).order || (idx + 1);
                 
                 // Simple unlock logic: allow access to current and previous modules
-                // You can enhance this based on your actual progress tracking
                 const unlocked = true; // For now, allow access to all modules
                 
                 return (
@@ -301,12 +305,14 @@ function TrainingContent({ courseId, resumeHref }: { courseId: string; resumeHre
                       </div>
                     </div>
                     <div className="training-action-cell">
-                      {!completed && (
-                        <StartModuleButton 
-                          order={dbOrder}
-                          isUnlocked={unlocked}
-                          className="text-sm"
-                        />
+                      {!completed && course && (
+                        <a 
+                          href={`/training/module/${dbOrder}?courseId=${course.slug}`}
+                          className="relative z-10 pointer-events-auto select-none rounded-md px-3 py-2 text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 transition-colors"
+                          data-testid="start-module"
+                        >
+                          Start
+                        </a>
                       )}
                     </div>
                   </div>
@@ -379,10 +385,22 @@ function TrainingContent({ courseId, resumeHref }: { courseId: string; resumeHre
   );
 }
 
-export default function TrainingHub({ courseId, resumeHref }: { courseId: string; resumeHref?: string }) {
+export default function TrainingHub({ courseId, resumeHref, course, modules, resumeOrder }: { 
+  courseId: string; 
+  resumeHref?: string;
+  course?: any;
+  modules?: any[];
+  resumeOrder?: number;
+}) {
   return (
     <Suspense fallback={<main className='container mx-auto p-4'>Loading...</main>}>
-      <TrainingContent courseId={courseId} resumeHref={resumeHref} />
+      <TrainingContent 
+        courseId={courseId} 
+        resumeHref={resumeHref}
+        course={course}
+        modules={modules}
+        resumeOrder={resumeOrder}
+      />
     </Suspense>
   );
 }
