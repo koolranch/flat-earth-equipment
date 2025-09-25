@@ -71,21 +71,25 @@ export default async function TrainingIndex({ searchParams }: { searchParams?: R
 
   // Enhance modules with proper navigation hrefs
   const enhancedModules = modules.map(m => {
-    let href = hrefForOrder(m.order, course.slug);
-    
-    // Special cases for modules without content_slug
-    if (!m.content_slug) {
-      const isIntro = /intro/i.test(m.title || '');
-      const isOutro = /completion|finish/i.test(m.title || '');
-      
-      if (isIntro && firstContent) {
-        href = hrefForOrder(firstContent, course.slug);
-      } else if (isOutro) {
-        href = '/training/exam'; // Course completion leads to exam
-      }
+    // Default href for modules with content_slug
+    if (m.content_slug) {
+      return { ...m, href: hrefForOrder(m.order, course.slug) };
     }
     
-    return { ...m, href };
+    // Special routing for modules without content_slug
+    const isIntro = /intro/i.test(m.title || '');
+    const isOutro = /completion|finish/i.test(m.title || '');
+    
+    if (isIntro && firstContent) {
+      // Introduction Start button goes to first content module
+      return { ...m, href: hrefForOrder(firstContent, course.slug) };
+    } else if (isOutro) {
+      // Course completion goes to exam (but may be locked)
+      return { ...m, href: '/training/exam' };
+    }
+    
+    // Fallback for other modules without content_slug
+    return { ...m, href: hrefForOrder(m.order, course.slug) };
   });
 
   // Render the training hub with enhanced data
