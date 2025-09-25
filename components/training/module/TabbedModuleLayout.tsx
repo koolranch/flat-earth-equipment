@@ -39,8 +39,14 @@ export default function TabbedModuleLayout({
   courseSlug, moduleSlug, contentSlug, moduleKey, title, order, nextHref, flashCards, flashModuleKey, flashCardCount, onFlashSeen, osha, practice,
   quizMeta = { questions: 8, passPct: 80 }, children
 }: Props) {
-  // Use contentSlug override if provided, otherwise fall back to moduleSlug
-  const effectiveContentSlug = contentSlug || moduleSlug;
+  // Computed slug: prefer DB contentSlug, fall back to moduleSlug or legacy mapping
+  const effectiveContentSlug = React.useMemo(() => {
+    if (contentSlug) return contentSlug;
+    if (moduleSlug) return moduleSlug;
+    // Legacy fallback: if there was an existing mapping, keep it
+    if (moduleKey) return `module-${moduleKey.replace('m', '')}`;
+    return undefined;
+  }, [contentSlug, moduleSlug, moduleKey]);
   
   // Always call hooks at the top level
   const { activeTab, setActiveTab } = useModuleTabs('osha');
@@ -57,26 +63,30 @@ export default function TabbedModuleLayout({
 
   // Get curated flashcards for this module
   const moduleCards = React.useMemo(() => {
+    if (!effectiveContentSlug && !flashModuleKey && !moduleKey) return [];
     const moduleSlugForCards = flashModuleKey || (moduleKey ? `module-${moduleKey.replace('m', '')}` : effectiveContentSlug || 'module-1');
     return getModuleFlashcards(moduleSlugForCards);
   }, [moduleKey, flashModuleKey, effectiveContentSlug]);
 
-  const key = `mstate:${courseSlug}:${effectiveContentSlug}`;
+  const key = `mstate:${courseSlug}:${effectiveContentSlug || 'unknown'}`;
   React.useEffect(() => {
+    if (!effectiveContentSlug) return;
     try {
       const saved = JSON.parse(localStorage.getItem(key) || '{}');
       if (saved.practiceDone) setPracticeDone(true);
       if (saved.flashTouched) setFlashTouched(true);
       if (saved.quizPassed) setQuizPassed(true);
     } catch {}
-  }, [key]);
+  }, [key, effectiveContentSlug]);
   React.useEffect(() => {
+    if (!effectiveContentSlug) return;
     try {
       localStorage.setItem(key, JSON.stringify({ practiceDone, flashTouched, quizPassed }));
     } catch {}
-  }, [key, practiceDone, flashTouched, quizPassed]);
+  }, [key, effectiveContentSlug, practiceDone, flashTouched, quizPassed]);
 
   async function markModuleComplete() {
+    if (!effectiveContentSlug) return;
     try {
       await fetch('/api/progress/complete-module', {
         method: 'POST',
@@ -89,17 +99,13 @@ export default function TabbedModuleLayout({
     if (quizPassed) markModuleComplete();
   }, [quizPassed]);
 
-  // If no content slug, render children or fallback
-  if (!effectiveContentSlug) {
-    return children || <div className="p-8 text-center text-muted-foreground">No content available for this module.</div>;
-  }
 
   const tab = activeTab;
   const setTab = (newTab: typeof activeTab) => {
     setActiveTab(newTab);
     // Persist resume state when tab changes
     try {
-      const moduleOrder = order ? order - 1 : parseInt(effectiveContentSlug.match(/\d+/)?.[0] || '1') - 1; // Convert to 0-based
+      const moduleOrder = order ? order - 1 : parseInt((effectiveContentSlug || '').match(/\d+/)?.[0] || '1') - 1; // Convert to 0-based
       fetch('/api/training/progress/resume', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
