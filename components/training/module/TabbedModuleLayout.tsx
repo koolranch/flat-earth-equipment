@@ -13,17 +13,20 @@ import { toRouteIndex, nextRouteIndexFromCurrent } from '@/lib/training/routeInd
 
 type Props = {
   courseSlug: string;
-  moduleSlug: string;
+  moduleSlug?: string; // Optional now, can be overridden by contentSlug
+  contentSlug?: string; // NEW: explicit content slug override
   moduleKey?: 'm1'|'m2'|'m3'|'m4'|'m5'; // NEW: for progress tracking
   title: string;
-  nextHref: string;
+  order?: number; // NEW: module order for routing
+  nextHref?: string; // Optional now, can be computed from order
   flashCards?: any[];
   flashModuleKey?: string; // NEW: runtime fetch key like 'module-2'
   flashCardCount?: number; // NEW: show count in tab label
   onFlashSeen?: () => void;
-  osha: React.ReactNode;
-  practice: (opts: { onComplete: () => void }) => React.ReactNode;
+  osha?: React.ReactNode; // Optional for intro/outro
+  practice?: (opts: { onComplete: () => void }) => React.ReactNode; // Optional
   quizMeta?: { questions: number; passPct: number };
+  children?: React.ReactNode; // For fallback content when no contentSlug
 };
 
 function StatusDot({ state }: { state: 'locked' | 'todo' | 'done' }) {
@@ -33,17 +36,70 @@ function StatusDot({ state }: { state: 'locked' | 'todo' | 'done' }) {
 }
 
 export default function TabbedModuleLayout({
-  courseSlug, moduleSlug, moduleKey, title, nextHref, flashCards, flashModuleKey, flashCardCount, onFlashSeen, osha, practice,
-  quizMeta = { questions: 8, passPct: 80 }
+  courseSlug, moduleSlug, contentSlug, moduleKey, title, order, nextHref, flashCards, flashModuleKey, flashCardCount, onFlashSeen, osha, practice,
+  quizMeta = { questions: 8, passPct: 80 }, children
 }: Props) {
-  // Use URL-based tab state
+  // Use contentSlug override if provided, otherwise fall back to moduleSlug
+  const effectiveContentSlug = contentSlug || moduleSlug;
+  
+  // Always call hooks at the top level
   const { activeTab, setActiveTab } = useModuleTabs('osha');
+  const { done, markDone, allDone } = useModuleGate({
+    courseId: courseSlug,
+    moduleKey: moduleKey || 'unknown',
+    moduleSlug: effectiveContentSlug, // Pass effective content_slug for proper gate tracking
+    initial: { osha: false, practice: false, cards: false, quiz: false }
+  });
+  const [openQuiz, setOpenQuiz] = React.useState(false);
+  const [practiceDone, setPracticeDone] = React.useState(false);
+  const [flashTouched, setFlashTouched] = React.useState(false);
+  const [quizPassed, setQuizPassed] = React.useState(false);
+
+  // Get curated flashcards for this module
+  const moduleCards = React.useMemo(() => {
+    const moduleSlugForCards = flashModuleKey || (moduleKey ? `module-${moduleKey.replace('m', '')}` : effectiveContentSlug || 'module-1');
+    return getModuleFlashcards(moduleSlugForCards);
+  }, [moduleKey, flashModuleKey, effectiveContentSlug]);
+
+  const key = `mstate:${courseSlug}:${effectiveContentSlug}`;
+  React.useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(key) || '{}');
+      if (saved.practiceDone) setPracticeDone(true);
+      if (saved.flashTouched) setFlashTouched(true);
+      if (saved.quizPassed) setQuizPassed(true);
+    } catch {}
+  }, [key]);
+  React.useEffect(() => {
+    try {
+      localStorage.setItem(key, JSON.stringify({ practiceDone, flashTouched, quizPassed }));
+    } catch {}
+  }, [key, practiceDone, flashTouched, quizPassed]);
+
+  async function markModuleComplete() {
+    try {
+      await fetch('/api/progress/complete-module', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ course: courseSlug, module: effectiveContentSlug })
+      });
+    } catch {}
+  }
+  React.useEffect(() => {
+    if (quizPassed) markModuleComplete();
+  }, [quizPassed]);
+
+  // If no content slug, render children or fallback
+  if (!effectiveContentSlug) {
+    return children || <div className="p-8 text-center text-muted-foreground">No content available for this module.</div>;
+  }
+
   const tab = activeTab;
   const setTab = (newTab: typeof activeTab) => {
     setActiveTab(newTab);
     // Persist resume state when tab changes
     try {
-      const moduleOrder = parseInt(moduleSlug.match(/\d+/)?.[0] || '1') - 1; // Convert to 0-based
+      const moduleOrder = order ? order - 1 : parseInt(effectiveContentSlug.match(/\d+/)?.[0] || '1') - 1; // Convert to 0-based
       fetch('/api/training/progress/resume', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -56,56 +112,7 @@ export default function TabbedModuleLayout({
     } catch {}
   };
 
-  // Use new progress tracking system
-  const { done, markDone, allDone } = useModuleGate({
-    courseId: courseSlug,
-    moduleKey: moduleKey || 'unknown',
-    moduleSlug: moduleSlug, // Pass content_slug for proper gate tracking
-    initial: { osha: false, practice: false, cards: false, quiz: false }
-  });
-
-  const [openQuiz, setOpenQuiz] = React.useState(false);
-
-  // Get curated flashcards for this module
-  const moduleCards = React.useMemo(() => {
-    const moduleSlugForCards = moduleKey ? `module-${moduleKey.replace('m', '')}` : 'module-1';
-    return getModuleFlashcards(moduleSlugForCards);
-  }, [moduleKey]);
-
-  // Legacy state for backward compatibility
-  const [practiceDone, setPracticeDone] = React.useState(false);
-  const [flashTouched, setFlashTouched] = React.useState(false);
-  const [quizPassed, setQuizPassed] = React.useState(false);
-
-  const key = `mstate:${courseSlug}:${moduleSlug}`;
-  React.useEffect(() => {
-    try {
-      const saved = JSON.parse(localStorage.getItem(key) || '{}');
-      if (saved.practiceDone) setPracticeDone(true);
-      if (saved.flashTouched) setFlashTouched(true);
-      if (saved.quizPassed) setQuizPassed(true);
-    } catch {}
-  }, []);
-  React.useEffect(() => {
-    try {
-      localStorage.setItem(key, JSON.stringify({ practiceDone, flashTouched, quizPassed }));
-    } catch {}
-  }, [practiceDone, flashTouched, quizPassed]);
-
   const prereqsMet = done.osha && done.practice && done.cards;
-
-  async function markModuleComplete() {
-    try {
-      await fetch('/api/progress/complete-module', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ course: courseSlug, module: moduleSlug })
-      });
-    } catch {}
-  }
-  React.useEffect(() => {
-    if (quizPassed) markModuleComplete();
-  }, [quizPassed]);
 
   return (
     <div className='max-w-5xl mx-auto'>
@@ -146,7 +153,7 @@ export default function TabbedModuleLayout({
 
       {tab==='osha' && (
         <section className='rounded-2xl border bg-white p-4 mb-4 shadow-card'>
-          {osha}
+          {osha || <div className="text-sm text-slate-600">OSHA content not available for this module.</div>}
           <StepContinue
             step="osha"
             nextTab="practice"
@@ -158,7 +165,7 @@ export default function TabbedModuleLayout({
       )}
       {tab==='practice' && (
         <section className='rounded-2xl border bg-white p-4 mb-4 shadow-card'>
-          {practice({ onComplete: () => setPracticeDone(true) })}
+          {practice ? practice({ onComplete: () => setPracticeDone(true) }) : <div className="text-sm text-slate-600">Practice content not available for this module.</div>}
           <StepContinue
             step="practice"
             nextTab="flash"
@@ -213,14 +220,14 @@ export default function TabbedModuleLayout({
       )}
 
       <ModuleFooterCTA
-        nextHref={allDone ? nextHref : ""}
+        nextHref={allDone ? (nextHref || "") : ""}
         enabled={allDone}
-        isLast={nextHref.includes('exam') || nextHref.includes('final')}
+        isLast={(nextHref || "").includes('exam') || (nextHref || "").includes('final')}
       />
 
       {openQuiz && (
         <SimpleQuizModal
-          module={parseInt(moduleSlug.match(/\d+/)?.[0] || '1')}
+          module={parseInt((effectiveContentSlug || '').match(/\d+/)?.[0] || '1')}
           onClose={() => setOpenQuiz(false)}
           onPassed={async () => { 
             setOpenQuiz(false); 

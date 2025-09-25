@@ -3,7 +3,8 @@ import { unstable_noStore as noStore } from 'next/cache';
 import { coerceCourseId, DEFAULT_COURSE_SLUG } from "@/lib/courses";
 import { canonicalizeCourseParam } from '@/lib/training/courses';
 import { requireEnrollmentServer } from '@/lib/training/requireEnrollmentServer';
-import { resolveResumeHref } from '@/lib/training/resolveResumeHref';
+import { getCourseModules, toModuleHref } from '@/lib/training/getCourseModules';
+import { getResumeOrder } from '@/lib/training/getResumeOrder';
 import TrainingHub from './TrainingHub';
 import dynamicImport from 'next/dynamic';
 
@@ -24,6 +25,7 @@ export default async function TrainingIndex({ searchParams }: { searchParams?: R
   
   const normalized = canonicalizeCourseParam(raw);
   const courseId = coerceCourseId(normalized);
+  const courseSlug = normalized || 'forklift';
 
   // Redirect if we have legacy params or need normalization
   if (raw && raw !== normalized) {
@@ -35,15 +37,23 @@ export default async function TrainingIndex({ searchParams }: { searchParams?: R
     redirect(`/training?course=${encodeURIComponent(normalized)}`);
   }
 
-  // Resolve resume href for reliable navigation
-  const resumeHref = await resolveResumeHref(normalized);
+  // Load course modules and compute resume order using new utilities
+  const { course, modules } = await getCourseModules(courseSlug);
+  const resumeOrder = await getResumeOrder(courseSlug);
+  const resumeHref = toModuleHref(course.slug, resumeOrder);
 
-  // Render the training hub with the courseId
+  // Render the training hub with the courseId and new data
   return (
     <>
       <ClickShieldProbe />
       <CTADebugProbe />
-      <TrainingHub courseId={courseId} resumeHref={resumeHref} />
+      <TrainingHub 
+        courseId={courseId} 
+        resumeHref={resumeHref}
+        course={course}
+        modules={modules}
+        resumeOrder={resumeOrder}
+      />
     </>
   );
 }
