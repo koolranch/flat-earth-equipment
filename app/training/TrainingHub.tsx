@@ -305,9 +305,9 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
                       </div>
                     </div>
                     <div className="training-action-cell">
-                      {!completed && course && (
+                      {!completed && (
                         <a 
-                          href={`/training/module/${dbOrder}?courseId=${course.slug}`}
+                          href={(module as any).href || `/training/module/${dbOrder}?courseId=${course?.slug || 'forklift'}`}
                           className="relative z-10 pointer-events-auto select-none rounded-md px-3 py-2 text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 transition-colors"
                           data-testid="start-module"
                         >

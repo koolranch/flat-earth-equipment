@@ -5,6 +5,8 @@ import { canonicalizeCourseParam } from '@/lib/training/courses';
 import { requireEnrollmentServer } from '@/lib/training/requireEnrollmentServer';
 import { getCourseModules, toModuleHref } from '@/lib/training/getCourseModules';
 import { getResumeOrder } from '@/lib/training/getResumeOrder';
+import { firstContentOrder, nextPlayableOrder, hrefForOrder } from '@/lib/training/moduleNav';
+import { createServerClient } from '@/lib/supabase/server';
 import TrainingHub from './TrainingHub';
 import dynamicImport from 'next/dynamic';
 
@@ -37,12 +39,56 @@ export default async function TrainingIndex({ searchParams }: { searchParams?: R
     redirect(`/training?course=${encodeURIComponent(normalized)}`);
   }
 
-  // Load course modules and compute resume order using new utilities
+  // Load course modules and compute navigation using new utilities
   const { course, modules } = await getCourseModules(courseSlug);
-  const resumeOrder = await getResumeOrder(courseSlug);
-  const resumeHref = toModuleHref(course.slug, resumeOrder);
+  
+  // Get enrollment data for progress tracking
+  const supabase = createServerClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  let enrollment: any = null;
+  if (user) {
+    const { data: enr } = await supabase
+      .from('enrollments')
+      .select('resume_state')
+      .eq('user_id', user.id)
+      .eq('course_id', course.id)
+      .maybeSingle();
+    enrollment = enr;
+  }
 
-  // Render the training hub with the courseId and new data
+  // Compute navigation targets using moduleNav helpers
+  const uiModules = modules.map(m => ({ 
+    id: m.id, 
+    order: m.order, 
+    title: m.title, 
+    content_slug: m.content_slug 
+  }));
+  const doneOrders: number[] = (enrollment?.resume_state?.doneOrders ?? []) as number[];
+  const firstContent = firstContentOrder(uiModules);
+  const nextOrder = nextPlayableOrder(uiModules, doneOrders) ?? firstContent;
+  const resumeOrder = enrollment?.resume_state?.lastOrder ?? nextOrder ?? firstContent;
+  const resumeHref = resumeOrder ? hrefForOrder(resumeOrder, course.slug) : undefined;
+
+  // Enhance modules with proper navigation hrefs
+  const enhancedModules = modules.map(m => {
+    let href = hrefForOrder(m.order, course.slug);
+    
+    // Special cases for modules without content_slug
+    if (!m.content_slug) {
+      const isIntro = /intro/i.test(m.title || '');
+      const isOutro = /completion|finish/i.test(m.title || '');
+      
+      if (isIntro && firstContent) {
+        href = hrefForOrder(firstContent, course.slug);
+      } else if (isOutro) {
+        href = '/training/exam'; // Course completion leads to exam
+      }
+    }
+    
+    return { ...m, href };
+  });
+
+  // Render the training hub with enhanced data
   return (
     <>
       <ClickShieldProbe />
@@ -51,7 +97,7 @@ export default async function TrainingIndex({ searchParams }: { searchParams?: R
         courseId={courseId} 
         resumeHref={resumeHref}
         course={course}
-        modules={modules}
+        modules={enhancedModules}
         resumeOrder={resumeOrder}
       />
     </>
