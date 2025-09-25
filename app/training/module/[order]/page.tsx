@@ -1,10 +1,11 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { getModuleByOrder, toModuleHref } from '@/lib/training/getModuleByOrder';
 import { getCourseModules } from '@/lib/training/getCourseModules';
 import { firstContentOrder, hrefForOrder, sortByOrder } from '@/lib/training/moduleNav';
 import { INTRO_TABBED } from '@/lib/training/flags';
 import TabbedModuleLayout from '@/components/training/module/TabbedModuleLayout';
 import { IntroOrOutro } from '@/components/training/module/IntroOrOutro';
+import SimpleQuizModal from '@/components/quiz/SimpleQuizModal';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,54 +22,44 @@ export default async function ModulePage({ params, searchParams }: any) {
     const next = sorted.find(m => m.order > order);
     const nextHref = next ? hrefForOrder(next.order, courseSlug) : '/training';
 
-    // If we have a content slug, ALWAYS render the tabbed UI.
-    if (module.content_slug) {
-      return (
-        <TabbedModuleLayout
-          courseSlug={courseSlug}
-          contentSlug={module.content_slug}
-          title={module.title}
-          order={module.order}
-          nextHref={nextHref}
-          // Optional mapping to your progress keys
-          moduleKey={
-            module.content_slug === 'pre-operation-inspection' ? 'm1' :
-            module.content_slug === 'eight-point-inspection' ? 'm2' :
-            module.content_slug === 'stability-and-load-handling' ? 'm3' :
-            module.content_slug === 'safe-operation-and-hazards' ? 'm4' :
-            module.content_slug === 'shutdown-and-parking' ? 'm5' : undefined
-          }
-        />
-      );
+    // Route Intro (no content_slug, first row) and Course Completion (no content_slug, last row) to explicit pages
+    if (!module.content_slug) {
+      // If this is the first ordered row, treat as Intro
+      if (order === 1) redirect(`/training/intro?courseId=${courseSlug}`);
+      // If it isn't the first, it's our completion row
+      if (order > 1) redirect(`/training/complete?courseId=${courseSlug}`);
     }
 
-    // Simple Intro / Completion pages for rows WITHOUT a content_slug
-    const isIntro = /intro/i.test(module.title || '');
-    const isOutro = /(completion|finish)/i.test(module.title || '');
+    // Render the original Tabbed layout for real modules (with content_slug)
+    const contentSlug = module.content_slug!;
+    const moduleKeyMap: Record<string, 'm1'|'m2'|'m3'|'m4'|'m5'> = {
+      'pre-operation-inspection': 'm1',
+      'eight-point-inspection': 'm2', 
+      'stability-and-load-handling': 'm3',
+      'safe-operation-and-hazards': 'm4',
+      'shutdown-and-parking': 'm5'
+    };
+    const moduleKey = moduleKeyMap[contentSlug];
 
-    if (isIntro) {
-      const firstContent = sorted.find((m:any) => !!m.content_slug);
-      const contHref = firstContent ? hrefForOrder(firstContent.order, courseSlug) : '/training';
-      return (
-        <div className="mx-auto max-w-3xl py-10 px-4">
-          <h1 className="text-2xl font-semibold mb-4">{module.title}</h1>
-          <p className="text-muted-foreground mb-6">Welcome! Continue to your first module.</p>
-          <a className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-white mt-6" href={contHref}>Continue</a>
-        </div>
-      );
-    }
-
-    if (isOutro) {
-      return (
-        <div className="mx-auto max-w-3xl py-10 px-4">
-          <h1 className="text-2xl font-semibold mb-4">{module.title}</h1>
-          <p className="text-muted-foreground mb-6">Great work! Continue to your final exam.</p>
-          <a className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-white mt-6" href="/training/exam">Start Final Exam</a>
-        </div>
-      );
-    }
-
-    return notFound();
+    return (
+      <TabbedModuleLayout
+        courseSlug={courseSlug}
+        title={module.title}
+        order={module.order}
+        contentSlug={contentSlug}
+        moduleKey={moduleKey}
+        flashModuleKey={`module-${order - 1}`}
+        // Pass a Practice renderer that uses your existing components
+        practice={({ onComplete }) => (
+          <div className="space-y-4">
+            <p>Practice content for {module.title}</p>
+            <button onClick={onComplete} className="btn-primary">Mark Practice Complete</button>
+          </div>
+        )}
+        quizMeta={{ questions: 5, passPct: 80 }}
+        nextHref={nextHref}
+      />
+    );
   } catch (e) {
     return notFound();
   }
