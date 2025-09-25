@@ -68,7 +68,11 @@ export default async function BatteryChargerModulesPage() {
                 sku={part.sku}
                 qty={1}
                 price={part.price * 100} // Convert to cents
-                meta={{ productId: part.id }}
+                meta={{ 
+                  productId: part.id,
+                  hasCore: part.has_core_charge || false,
+                  coreCharge: part.core_charge || 0
+                }}
                 className="mt-6 bg-orange-600 text-white px-6 py-3 rounded-2xl hover:bg-orange-700 transition-colors w-full font-medium"
               >
                 Add to Cart — ${part.price?.toFixed(2)} + ${part.core_charge?.toFixed(2) || '0.00'} core fee
@@ -85,7 +89,11 @@ export default async function BatteryChargerModulesPage() {
               sku={parts[0].sku}
               qty={1}
               price={parts[0].price * 100}
-              meta={{ productId: parts[0].id }}
+              meta={{ 
+                productId: parts[0].id,
+                hasCore: parts[0].has_core_charge || false,
+                coreCharge: parts[0].core_charge || 0
+              }}
               className="inline-block px-4 py-2 bg-white text-orange-600 rounded hover:bg-gray-100 transition font-medium"
             >
               Add to Cart
