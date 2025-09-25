@@ -3,3 +3,5 @@ export const PRELAUNCH_PREVIEW = (() => {
   const v = (process.env.NEXT_PUBLIC_TRAINING_PRELAUNCH ?? 'false').toString().trim().toLowerCase();
   return v === '1' || v === 'true' || v === 'yes';
 })();
+
+export const INTRO_TABBED = process.env.NEXT_PUBLIC_INTRO_TABBED === 'true';
