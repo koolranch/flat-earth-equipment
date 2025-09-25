@@ -69,28 +69,19 @@ export default async function TrainingIndex({ searchParams }: { searchParams?: R
   const resumeOrder = enrollment?.resume_state?.lastOrder ?? nextOrder ?? firstContent;
   const resumeHref = resumeOrder ? hrefForOrder(resumeOrder, course.slug) : undefined;
 
+  // Helper function to build correct href for each row
+  function hrefForRow(row: { order: number; title: string; content_slug: string | null }) {
+    const courseId = course.slug;
+    if (row.order === 1 || /^Introduction/i.test(row.title)) return `/training/intro?courseId=${courseId}`;
+    if (!row.content_slug) return `/training/complete?courseId=${courseId}`;
+    return `/training/module/${row.order}?courseId=${courseId}`;
+  }
+
   // Enhance modules with proper navigation hrefs
-  const enhancedModules = modules.map(m => {
-    // Default href for modules with content_slug
-    if (m.content_slug) {
-      return { ...m, href: hrefForOrder(m.order, course.slug) };
-    }
-    
-    // Special routing for modules without content_slug
-    const isIntro = /intro/i.test(m.title || '');
-    const isOutro = /completion|finish/i.test(m.title || '');
-    
-    if (isIntro && firstContent) {
-      // Introduction Start button goes to first content module
-      return { ...m, href: hrefForOrder(firstContent, course.slug) };
-    } else if (isOutro) {
-      // Course completion goes to exam (but may be locked)
-      return { ...m, href: '/training/exam' };
-    }
-    
-    // Fallback for other modules without content_slug
-    return { ...m, href: hrefForOrder(m.order, course.slug) };
-  });
+  const enhancedModules = modules.map(m => ({
+    ...m,
+    href: hrefForRow(m)
+  }));
 
   // Render the training hub with enhanced data
   return (
