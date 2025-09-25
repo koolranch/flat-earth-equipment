@@ -105,6 +105,18 @@ export default function CartPage() {
   const coreCharges = items.reduce((sum, item) => 
     sum + ((item.has_core_charge && item.core_charge) ? item.core_charge * item.quantity : 0), 0);
 
+  // Debug logging for cart items
+  useEffect(() => {
+    if (items.length > 0) {
+      console.log('🛒 Cart Debug:', {
+        items,
+        total,
+        coreCharges,
+        itemsWithCoreCharges: items.filter(item => item.has_core_charge)
+      });
+    }
+  }, [items, total, coreCharges]);
+
   if (items.length === 0) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
