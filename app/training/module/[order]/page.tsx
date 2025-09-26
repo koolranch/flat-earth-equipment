@@ -46,6 +46,8 @@ export default async function ModulePage({ params, searchParams }: any) {
         courseSlug={courseSlug}
         title={module.title}
         order={module.order}
+        // Pass BOTH for back-compat and debug visibility
+        moduleSlug={contentSlug}
         contentSlug={contentSlug}
         moduleKey={moduleKey}
         flashModuleKey={`module-${order - 1}`}
@@ -58,6 +60,7 @@ export default async function ModulePage({ params, searchParams }: any) {
         )}
         quizMeta={{ questions: 5, passPct: 80 }}
         nextHref={nextHref}
+        forceTabbed={!!module.content_slug}
       />
     );
   } catch (e) {

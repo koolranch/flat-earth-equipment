@@ -27,6 +27,7 @@ type Props = {
   practice?: (opts: { onComplete: () => void }) => React.ReactNode; // Optional
   quizMeta?: { questions: number; passPct: number };
   children?: React.ReactNode; // For fallback content when no contentSlug
+  forceTabbed?: boolean; // NEW: force tabbed UI if we have any slug
 };
 
 function StatusDot({ state }: { state: 'locked' | 'todo' | 'done' }) {
@@ -37,8 +38,12 @@ function StatusDot({ state }: { state: 'locked' | 'todo' | 'done' }) {
 
 export default function TabbedModuleLayout({
   courseSlug, moduleSlug, contentSlug, moduleKey, title, order, nextHref, flashCards, flashModuleKey, flashCardCount, onFlashSeen, osha, practice,
-  quizMeta = { questions: 8, passPct: 80 }, children
+  quizMeta = { questions: 8, passPct: 80 }, children, forceTabbed
 }: Props) {
+  // Import useSearchParams for debug overlay
+  const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams();
+  const debug = searchParams.get('debugTabs') === '1';
+
   // Computed slug: prefer DB contentSlug, fall back to moduleSlug or legacy mapping
   const effectiveContentSlug = React.useMemo(() => {
     if (contentSlug) return contentSlug;
@@ -47,6 +52,8 @@ export default function TabbedModuleLayout({
     if (moduleKey) return `module-${moduleKey.replace('m', '')}`;
     return undefined;
   }, [contentSlug, moduleSlug, moduleKey]);
+
+  const canRenderTabs = !!effectiveContentSlug || !!forceTabbed;
   
   // Always call hooks at the top level
   const { activeTab, setActiveTab } = useModuleTabs('osha');
@@ -122,6 +129,17 @@ export default function TabbedModuleLayout({
 
   return (
     <div className='max-w-5xl mx-auto'>
+      {debug && (
+        <div className="mb-4 rounded-md border border-dashed border-blue-300 bg-blue-50 p-3 text-xs text-blue-800">
+          <div><strong>TabbedModuleLayout Debug</strong></div>
+          <div>moduleKey: {String(moduleKey || 'undefined')}</div>
+          <div>moduleSlug: {String(moduleSlug || 'undefined')}</div>
+          <div>contentSlug: {String(contentSlug || 'undefined')}</div>
+          <div>effectiveContentSlug: {String(effectiveContentSlug || 'undefined')}</div>
+          <div>forceTabbed: {String(forceTabbed || false)}</div>
+          <div>canRenderTabs: {String(canRenderTabs)}</div>
+        </div>
+      )}
       <h2 className='h2'>{title}</h2>
       <p className='text-sm text-slate-600 mb-4'>Work through OSHA basics, practice, and flash cards — then pass the quiz to continue.</p>
 
