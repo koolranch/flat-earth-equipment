@@ -5,7 +5,6 @@ import { flags } from '@/lib/flags';
 import { PRELAUNCH_PREVIEW } from '@/lib/training/flags';
 import PrelaunchBanner from '@/components/PrelaunchBanner';
 import StartModuleButton from '@/components/training/StartModuleButton';
-import { toRouteIndex } from '@/lib/training/routeIndex';
 import * as Sentry from '@sentry/nextjs';
 import { FORKLIFT_MODULES_FALLBACK } from '@/lib/courses';
 import { HeaderProgress } from '@/components/training/HeaderProgress';

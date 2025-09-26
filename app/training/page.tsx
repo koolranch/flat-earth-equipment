@@ -6,6 +6,7 @@ import { requireEnrollmentServer } from '@/lib/training/requireEnrollmentServer'
 import { getCourseModules, toModuleHref } from '@/lib/training/getCourseModules';
 import { getResumeOrder } from '@/lib/training/getResumeOrder';
 import { firstContentOrder, nextPlayableOrder, hrefForOrder } from '@/lib/training/moduleNav';
+import { buildModuleHref, buildIntroHref, buildCompleteHref, readCourseSlug } from '@/lib/training/routeIndex';
 import { createServerClient } from '@/lib/supabase/server';
 import TrainingHub from './TrainingHub';
 import dynamicImport from 'next/dynamic';
@@ -67,14 +68,13 @@ export default async function TrainingIndex({ searchParams }: { searchParams?: R
   const firstContent = firstContentOrder(uiModules);
   const nextOrder = nextPlayableOrder(uiModules, doneOrders) ?? firstContent;
   const resumeOrder = enrollment?.resume_state?.lastOrder ?? nextOrder ?? firstContent;
-  const resumeHref = resumeOrder ? hrefForOrder(resumeOrder, course.slug) : undefined;
+  const resumeHref = resumeOrder ? buildModuleHref(resumeOrder, course.slug) : undefined;
 
-  // Helper function to build correct href for each row
+  // Helper function to build correct href for each row using normalized route helpers
   function hrefForRow(row: { order: number; title: string; content_slug: string | null }) {
-    const courseId = course.slug;
-    if (row.order === 1 || /^Introduction/i.test(row.title)) return `/training/intro?courseId=${courseId}`;
-    if (!row.content_slug) return `/training/complete?courseId=${courseId}`;
-    return `/training/module/${row.order}?courseId=${courseId}`;
+    if (row.order === 1 || /^Introduction/i.test(row.title)) return buildIntroHref(course.slug);
+    if (!row.content_slug) return buildCompleteHref(course.slug);
+    return buildModuleHref(row.order, course.slug);
   }
 
   // Enhance modules with proper navigation hrefs
