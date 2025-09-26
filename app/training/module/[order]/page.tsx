@@ -1,3 +1,4 @@
+import React from 'react';
 import { notFound, redirect } from 'next/navigation';
 import { getModuleByOrder, toModuleHref } from '@/lib/training/getModuleByOrder';
 import { getCourseModules } from '@/lib/training/getCourseModules';
@@ -52,12 +53,28 @@ export default async function ModulePage({ params, searchParams }: any) {
         moduleKey={moduleKey}
         flashModuleKey={`module-${order - 1}`}
         // Pass a Practice renderer that uses your existing components
-        practice={({ onComplete }) => (
-          <div className="space-y-4">
-            <p>Practice content for {module.title}</p>
-            <button onClick={onComplete} className="btn-primary">Mark Practice Complete</button>
-          </div>
-        )}
+        practice={({ onComplete }) => {
+          // Check if this is a game module and render appropriate content
+          const assetKey = module.game_asset_key || `module${order}` || 'module4';
+          
+          // For Module 4 (Hazard Hunt), render the MiniHazard component
+          if (moduleKey === 'm4' || contentSlug === 'safe-operation-and-hazards') {
+            const MiniHazard = React.lazy(() => import('@/components/games/module4/MiniHazard'));
+            return (
+              <React.Suspense fallback={<div>Loading hazard hunt...</div>}>
+                <MiniHazard onComplete={onComplete} assetKey={assetKey} />
+              </React.Suspense>
+            );
+          }
+          
+          // Default practice content for other modules
+          return (
+            <div className="space-y-4">
+              <p>Practice content for {module.title}</p>
+              <button onClick={onComplete} className="btn-primary">Mark Practice Complete</button>
+            </div>
+          );
+        }}
         quizMeta={{ questions: 5, passPct: 80 }}
         nextHref={nextHref}
         forceTabbed={!!module.content_slug}

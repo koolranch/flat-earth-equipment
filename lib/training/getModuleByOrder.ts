@@ -11,7 +11,7 @@ export async function getModuleByOrder(courseSlug: string, order: number) {
 
   const { data: mod, error: mErr } = await supabase
     .from('modules')
-    .select('id, order, title, content_slug, type, video_url')
+    .select('id, order, title, content_slug, type, video_url, game_asset_key')
     .eq('course_id', course.id)
     .eq('order', order)
     .maybeSingle();

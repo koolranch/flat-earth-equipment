@@ -3,10 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useLazyGameAssets } from '@/hooks/useLazyGameAssets'
 import LiveRegion from '@/components/a11y/LiveRegion'
-
-/* CDN bases */
-const CDN_IMG = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/'
-const CDN_BG  = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/bg4.png'
+import { gameAssetUrl } from '@/lib/training/assets'
 
 /* hazard catalogue */
 const HAZARDS: Hazard[] = [
@@ -26,7 +23,7 @@ const TOTAL = 10         // must clear 10 hazards
 const TIME  = 60         // seconds
 const MISS_MAX = 3       // 3 misses = fail
 
-export default function MiniHazard({ onComplete }: { onComplete: () => void }) {
+export default function MiniHazard({ onComplete, assetKey = 'module4' }: { onComplete: () => void; assetKey?: string }) {
   /* state */
   const [spawned,setSpawned]   = useState<Spawn[]>([])
   const [caught,setCaught]     = useState(0)
@@ -37,13 +34,13 @@ export default function MiniHazard({ onComplete }: { onComplete: () => void }) {
   const [announce, setAnnounce] = useState('')
   const [focusedIndex, setFocusedIndex] = useState(0)
 
-  // Lazy load game assets
+  // Lazy load game assets using resolver
   const { assetsLoaded, isVisible, ref, playAudio } = useLazyGameAssets({
-    images: HAZARDS.map(h => CDN_IMG + h.img),
-    backgrounds: [CDN_BG],
+    images: HAZARDS.map(h => gameAssetUrl(assetKey, h.img)),
+    backgrounds: [gameAssetUrl(assetKey, 'bg4.png')],
     audio: [
-      CDN_IMG + 'success.wav',
-      CDN_IMG + 'thud.wav'
+      gameAssetUrl(assetKey, 'success.wav'),
+      gameAssetUrl(assetKey, 'thud.wav')
     ]
   })
 
@@ -189,7 +186,7 @@ export default function MiniHazard({ onComplete }: { onComplete: () => void }) {
           tabIndex={done ? -1 : 0}
           disabled={done}
         >
-          <Image src={CDN_BG} alt="Warehouse background scene" fill className="object-cover" draggable={false}/>
+          <Image src={gameAssetUrl(assetKey, 'bg4.png')} alt="Warehouse background scene" fill className="object-cover" draggable={false}/>
 
         {spawned.map((h, index)=>(
           <button
@@ -210,7 +207,7 @@ export default function MiniHazard({ onComplete }: { onComplete: () => void }) {
             disabled={done}
           >
             <Image 
-              src={CDN_IMG + h.img} 
+              src={gameAssetUrl(assetKey, h.img)} 
               alt={`${h.id} hazard icon`} 
               width={64} 
               height={64} 
