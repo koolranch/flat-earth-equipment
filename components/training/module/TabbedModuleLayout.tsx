@@ -9,7 +9,6 @@ import { useModuleGate } from '@/components/training/useModuleGate';
 import { TabCompleteButton } from '@/components/training/TabCompleteButton';
 import StepContinue from '@/components/training/module/StepContinue';
 import { ModuleFooterCTA } from '@/components/training/ModuleFooterCTA';
-import { toRouteIndex, nextRouteIndexFromCurrent } from '@/lib/training/routeIndex';
 
 type Props = {
   courseSlug: string;
@@ -125,7 +124,7 @@ export default function TabbedModuleLayout({
     } catch {}
   };
 
-  const prereqsMet = done.osha && done.practice && done.cards;
+  const prereqsMet = done.osha && done.cards && (typeof practice === 'function' ? done.practice : true);
 
   return (
     <div className='max-w-5xl mx-auto'>

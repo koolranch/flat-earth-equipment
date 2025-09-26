@@ -3,15 +3,21 @@ import { notFound, redirect } from 'next/navigation';
 import { getModuleByOrder, toModuleHref } from '@/lib/training/getModuleByOrder';
 import { getCourseModules } from '@/lib/training/getCourseModules';
 import { firstContentOrder, hrefForOrder, sortByOrder } from '@/lib/training/moduleNav';
+import { readCourseSlug, buildIntroHref, buildCompleteHref } from '@/lib/training/routeIndex';
 import { INTRO_TABBED } from '@/lib/training/flags';
 import TabbedModuleLayout from '@/components/training/module/TabbedModuleLayout';
 import { IntroOrOutro } from '@/components/training/module/IntroOrOutro';
+import DefaultPractice from '@/components/training/module/DefaultPractice';
 import SimpleQuizModal from '@/components/quiz/SimpleQuizModal';
 
 export const dynamic = 'force-dynamic';
 
 export default async function ModulePage({ params, searchParams }: any) {
-  const courseSlug = (searchParams?.courseId as string) || 'forklift';
+  // Use normalized parameter reading (accepts both courseId and course)
+  const urlParams = new URLSearchParams();
+  if (searchParams?.courseId) urlParams.set('courseId', searchParams.courseId as string);
+  if (searchParams?.course) urlParams.set('course', searchParams.course as string);
+  const courseSlug = readCourseSlug(urlParams);
   const order = Number(params.order);
   if (!Number.isFinite(order) || order < 1) return notFound();
 
@@ -26,9 +32,9 @@ export default async function ModulePage({ params, searchParams }: any) {
     // Route Intro (no content_slug, first row) and Course Completion (no content_slug, last row) to explicit pages
     if (!module.content_slug) {
       // If this is the first ordered row, treat as Intro
-      if (order === 1) redirect(`/training/intro?courseId=${courseSlug}`);
+      if (order === 1) redirect(buildIntroHref(courseSlug));
       // If it isn't the first, it's our completion row
-      if (order > 1) redirect(`/training/complete?courseId=${courseSlug}`);
+      if (order > 1) redirect(buildCompleteHref(courseSlug));
     }
 
     // Render the original Tabbed layout for real modules (with content_slug)
@@ -68,12 +74,7 @@ export default async function ModulePage({ params, searchParams }: any) {
           }
           
           // Default practice content for other modules
-          return (
-            <div className="space-y-4">
-              <p>Practice content for {module.title}</p>
-              <button onClick={onComplete} className="btn-primary">Mark Practice Complete</button>
-            </div>
-          );
+          return <DefaultPractice onComplete={onComplete} />;
         }}
         quizMeta={{ questions: 5, passPct: 80 }}
         nextHref={nextHref}
