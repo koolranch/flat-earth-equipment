@@ -1,12 +1,9 @@
 import Link from 'next/link';
-import { readCourseSlug } from '@/lib/training/routeIndex';
+import { readCourseSlugFromSearchParams } from '@/lib/training/routeIndex';
 
 export default function CompletionPage({ searchParams }: { searchParams?: Record<string, string | string[] | undefined> }) {
   // Use normalized parameter reading
-  const urlParams = new URLSearchParams();
-  if (searchParams?.courseId) urlParams.set('courseId', searchParams.courseId as string);
-  if (searchParams?.course) urlParams.set('course', searchParams.course as string);
-  const courseSlug = readCourseSlug(urlParams);
+  const courseSlug = readCourseSlugFromSearchParams(searchParams);
 
   return (
     <div className="mx-auto max-w-3xl py-10">

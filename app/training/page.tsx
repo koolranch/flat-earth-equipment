@@ -6,7 +6,7 @@ import { requireEnrollmentServer } from '@/lib/training/requireEnrollmentServer'
 import { getCourseModules, toModuleHref } from '@/lib/training/getCourseModules';
 import { getResumeOrder } from '@/lib/training/getResumeOrder';
 import { firstContentOrder, nextPlayableOrder, hrefForOrder } from '@/lib/training/moduleNav';
-import { buildModuleHref, buildIntroHref, buildCompleteHref, readCourseSlug } from '@/lib/training/routeIndex';
+import { buildModuleHref, buildIntroHref, buildCompleteHref, readCourseSlugFromSearchParams } from '@/lib/training/routeIndex';
 import { createServerClient } from '@/lib/supabase/server';
 import TrainingHub from './TrainingHub';
 import dynamicImport from 'next/dynamic';
@@ -28,7 +28,7 @@ export default async function TrainingIndex({ searchParams }: { searchParams?: R
   
   const normalized = canonicalizeCourseParam(raw);
   const courseId = coerceCourseId(normalized);
-  const courseSlug = normalized || 'forklift';
+  const courseSlug = readCourseSlugFromSearchParams(searchParams);
 
   // Redirect if we have legacy params or need normalization
   if (raw && raw !== normalized) {

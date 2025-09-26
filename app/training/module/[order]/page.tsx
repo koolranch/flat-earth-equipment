@@ -1,87 +1,80 @@
-import React from 'react';
-import { notFound, redirect } from 'next/navigation';
-import { getModuleByOrder, toModuleHref } from '@/lib/training/getModuleByOrder';
-import { getCourseModules } from '@/lib/training/getCourseModules';
-import { firstContentOrder, hrefForOrder, sortByOrder } from '@/lib/training/moduleNav';
-import { readCourseSlug, buildIntroHref, buildCompleteHref } from '@/lib/training/routeIndex';
-import { INTRO_TABBED } from '@/lib/training/flags';
+import { cookies } from 'next/headers';
+import { createServerClient } from '@/lib/supabase/server';
 import TabbedModuleLayout from '@/components/training/module/TabbedModuleLayout';
-import { IntroOrOutro } from '@/components/training/module/IntroOrOutro';
 import DefaultPractice from '@/components/training/module/DefaultPractice';
-import SimpleQuizModal from '@/components/quiz/SimpleQuizModal';
+import ModuleDebugOverlay from '@/components/training/module/ModuleDebugOverlay';
+import { readCourseSlugFromSearchParams, moduleKeyFromOrder } from '@/lib/training/routeIndex';
 
-export const dynamic = 'force-dynamic';
-
-export default async function ModulePage({ params, searchParams }: any) {
-  // Use normalized parameter reading (accepts both courseId and course)
-  const urlParams = new URLSearchParams();
-  if (searchParams?.courseId) urlParams.set('courseId', searchParams.courseId as string);
-  if (searchParams?.course) urlParams.set('course', searchParams.course as string);
-  const courseSlug = readCourseSlug(urlParams);
+export default async function ModulePage({ params, searchParams }: { params: { order: string }, searchParams: Record<string, string | string[] | undefined> }) {
+  const c = cookies();
+  const supabase = createServerClient();
   const order = Number(params.order);
-  if (!Number.isFinite(order) || order < 1) return notFound();
+  const courseSlug = readCourseSlugFromSearchParams(searchParams);
+  const __debug = searchParams['debug'] === '1' || searchParams['debug'] === 'true';
 
-  try {
-    const { course, module } = await getModuleByOrder(courseSlug, order);
-    const { modules } = await getCourseModules(courseSlug);
-    
-    const sorted = sortByOrder(modules);
-    const next = sorted.find(m => m.order > order);
-    const nextHref = next ? hrefForOrder(next.order, courseSlug) : '/training';
-
-    // Route Intro (no content_slug, first row) and Course Completion (no content_slug, last row) to explicit pages
-    if (!module.content_slug) {
-      // If this is the first ordered row, treat as Intro
-      if (order === 1) redirect(buildIntroHref(courseSlug));
-      // If it isn't the first, it's our completion row
-      if (order > 1) redirect(buildCompleteHref(courseSlug));
-    }
-
-    // Render the original Tabbed layout for real modules (with content_slug)
-    const contentSlug = module.content_slug!;
-    const moduleKeyMap: Record<string, 'm1'|'m2'|'m3'|'m4'|'m5'> = {
-      'pre-operation-inspection': 'm1',
-      'eight-point-inspection': 'm2', 
-      'stability-and-load-handling': 'm3',
-      'safe-operation-and-hazards': 'm4',
-      'shutdown-and-parking': 'm5'
-    };
-    const moduleKey = moduleKeyMap[contentSlug];
-
+  // 1) Resolve course by slug
+  const { data: course, error: cErr } = await supabase
+    .from('courses')
+    .select('id, slug, title')
+    .eq('slug', courseSlug)
+    .maybeSingle();
+  if (cErr || !course) {
     return (
-      <TabbedModuleLayout
-        courseSlug={courseSlug}
-        title={module.title}
-        order={module.order}
-        // Pass BOTH for back-compat and debug visibility
-        moduleSlug={contentSlug}
-        contentSlug={contentSlug}
-        moduleKey={moduleKey}
-        flashModuleKey={`module-${order - 1}`}
-        // Pass a Practice renderer that uses your existing components
-        practice={({ onComplete }) => {
-          // Check if this is a game module and render appropriate content
-          const assetKey = module.game_asset_key || `module${order}` || 'module4';
-          
-          // For Module 4 (Hazard Hunt), render the MiniHazard component
-          if (moduleKey === 'm4' || contentSlug === 'safe-operation-and-hazards') {
-            const MiniHazard = React.lazy(() => import('@/components/games/module4/MiniHazard'));
-            return (
-              <React.Suspense fallback={<div>Loading hazard hunt...</div>}>
-                <MiniHazard onComplete={onComplete} assetKey={assetKey} />
-              </React.Suspense>
-            );
-          }
-          
-          // Default practice content for other modules
-          return <DefaultPractice onComplete={onComplete} />;
-        }}
-        quizMeta={{ questions: 5, passPct: 80 }}
-        nextHref={nextHref}
-        forceTabbed={!!module.content_slug}
-      />
+      <div className="mx-auto max-w-3xl py-10">
+        <h1 className="text-2xl font-semibold">Module</h1>
+        <p className="mt-2 text-red-600">Course not found for slug: {courseSlug}</p>
+      </div>
     );
-  } catch (e) {
-    return notFound();
   }
+
+  // 2) Load module by order + course_id
+  const { data: moduleRow, error: mErr } = await supabase
+    .from('modules')
+    .select('id, order, title, type, content_slug')
+    .eq('course_id', course.id)
+    .eq('order', order)
+    .maybeSingle();
+  if (mErr || !moduleRow) {
+    return (
+      <div className="mx-auto max-w-3xl py-10">
+        <h1 className="text-2xl font-semibold">Module</h1>
+        <p className="mt-2 text-red-600">Module not found for order {order}.</p>
+      </div>
+    );
+  }
+
+  const contentSlug = moduleRow.content_slug || null;
+  const moduleKey = moduleKeyFromOrder(order);
+
+  // 3) Intro/Complete (no content_slug) -> keep simple path (existing intro/complete pages)
+  if (!contentSlug) {
+    return (
+      <div className="mx-auto max-w-3xl py-10">
+        <h1 className="text-2xl font-semibold">{moduleRow.title}</h1>
+        <p className="mt-2 text-muted-foreground">This step does not have structured tabs. Use the Continue button below.</p>
+        {/* Keep whatever you previously render here (video/continue). */}
+        <ModuleDebugOverlay __debug={__debug} order={order} courseSlug={courseSlug} forcedTabbed={false} contentSlug={contentSlug} moduleKey={moduleKey} title={moduleRow.title} type={moduleRow.type} />
+      </div>
+    );
+  }
+
+  // 4) FORCE Tabbed layout for content_slug modules (ignore type-based short-circuits)
+  const practice = ({ onComplete }: { onComplete: () => void }) => <DefaultPractice onComplete={onComplete} />;
+
+  return (
+    <>
+      <TabbedModuleLayout
+        title={moduleRow.title}
+        courseSlug={courseSlug}
+        contentSlug={contentSlug}
+        // Provide both in case the flashcard loader expects moduleKey semantics
+        moduleSlug={contentSlug}
+        moduleKey={moduleKey || undefined}
+        order={order}
+        practice={practice}
+        quizMeta={{ questions: 8, passPct: 80 }}
+      />
+      <ModuleDebugOverlay __debug={__debug} order={order} courseSlug={courseSlug} forcedTabbed={true} contentSlug={contentSlug} moduleKey={moduleKey} title={moduleRow.title} type={moduleRow.type} />
+    </>
+  );
 }
