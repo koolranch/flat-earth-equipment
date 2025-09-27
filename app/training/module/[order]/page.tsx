@@ -1,4 +1,3 @@
-import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import ForceTabbedModule from '@/components/training/module/ForceTabbedModule';
 import { getCourseSlugFromSearch } from '@/lib/training/getCourseSlug';
@@ -6,8 +5,7 @@ import StableModuleRenderer from '@/components/training/module/StableModuleRende
 import { readCourseSlugFromSearchParams } from '@/lib/training/routeIndex';
 
 export default async function ModulePage({ params, searchParams }: { params: { order: string }, searchParams: Record<string, string | string[] | undefined> }) {
-  const cookieStore = cookies();
-  const supabase = createServerClient(cookieStore);
+  const supabase = createServerClient();
 
   // Normalize course slug (support both ?courseId and ?course)
   const sp = new URLSearchParams(Object.entries(searchParams).flatMap(([k, v]) => v === undefined ? [] : (Array.isArray(v) ? v.map(x => [k, x]) : [[k, v]])) as any);
