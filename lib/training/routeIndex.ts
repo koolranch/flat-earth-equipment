@@ -4,7 +4,7 @@ export function buildModuleHref(order: number, courseSlug: string): string {
 }
 
 export function buildIntroHref(courseSlug: string): string {
-  return `/training/orientation`;
+  return `/training/intro`;
 }
 
 export function buildCompleteHref(courseSlug: string): string {
