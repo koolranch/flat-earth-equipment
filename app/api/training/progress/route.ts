@@ -271,7 +271,7 @@ export async function PATCH(req: Request) {
     return NextResponse.json({ ok: false, error: 'missing_params' }, { status: 400 });
   }
 
-  const course = await resolveCourseForUser({ supabase, userId: user.id, courseIdOrSlug });
+  const course = await resolveCourseForUser({ supabase, userId: user.id!, courseIdOrSlug: courseIdOrSlug || 'forklift' });
   if (!course.id) {
     return NextResponse.json({ ok: false, error: 'course_missing' }, { status: 422 });
   }

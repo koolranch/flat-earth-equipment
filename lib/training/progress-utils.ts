@@ -20,8 +20,12 @@ export function computePercentFractional(completed: number, total: number): numb
   return total > 0 ? completed / total : 0;
 }
 
-export function resolveCourseForUser(userId: string): Promise<string> {
-  return Promise.resolve('forklift');
+export function resolveCourseForUser(params: { supabase: any; userId: string; courseIdOrSlug: string }): Promise<{ id: string; slug: string; title: string }> {
+  return Promise.resolve({
+    id: 'forklift',
+    slug: params.courseIdOrSlug || 'forklift',
+    title: 'Forklift Operator Training'
+  });
 }
 
 export function getModuleSlugsForCourse(courseId: string): string[] {
