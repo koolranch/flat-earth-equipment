@@ -4,6 +4,7 @@ export async function markGateClient(gateId: string, completed: boolean = true):
   console.log(`Marking gate ${gateId} as ${completed ? 'completed' : 'incomplete'}`);
 }
 
-export async function markGateDone(gateId: string): Promise<void> {
+export async function markGateDone(gateId: string, step?: string): Promise<void> {
+  console.log(`Marking gate ${gateId} step ${step || 'default'} as completed`);
   return markGateClient(gateId, true);
 }

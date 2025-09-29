@@ -11,3 +11,8 @@ export async function getCourseModules(courseSlug: string) {
     ]
   };
 }
+
+export function toModuleHref(courseSlug: string, order: number): string {
+  if (order === 1) return `/training/${courseSlug}/intro`;
+  return `/training/${courseSlug}/module/${order}`;
+}

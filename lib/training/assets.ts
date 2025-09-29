@@ -3,7 +3,7 @@ export function getAssetUrl(path: string): string {
   return `/training/${path}`;
 }
 
-export function gameAssetUrl(path: string): string {
+export function gameAssetUrl(assetKey: string, path: string): string {
   return `/training/${path}`;
 }
 
