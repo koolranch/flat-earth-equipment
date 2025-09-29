@@ -7,26 +7,21 @@ import { useModuleTabs } from '@/hooks/useModuleTabs';
 import { isStepDone } from '@/lib/trainingProgress';
 import { useModuleGate } from '@/components/training/useModuleGate';
 import { TabCompleteButton } from '@/components/training/TabCompleteButton';
-import StepContinue from '@/components/training/module/StepContinue';
 import { ModuleFooterCTA } from '@/components/training/ModuleFooterCTA';
 
 type Props = {
   courseSlug: string;
-  moduleSlug?: string; // Optional now, can be overridden by contentSlug
-  contentSlug?: string; // NEW: explicit content slug override
+  moduleSlug: string;
   moduleKey?: 'm1'|'m2'|'m3'|'m4'|'m5'; // NEW: for progress tracking
   title: string;
-  order?: number; // NEW: module order for routing
-  nextHref?: string; // Optional now, can be computed from order
+  nextHref: string;
   flashCards?: any[];
   flashModuleKey?: string; // NEW: runtime fetch key like 'module-2'
   flashCardCount?: number; // NEW: show count in tab label
   onFlashSeen?: () => void;
-  osha?: React.ReactNode; // Optional for intro/outro
-  practice?: (opts: { onComplete: () => void }) => React.ReactNode; // Optional
+  osha: React.ReactNode;
+  practice: (opts: { onComplete: () => void }) => React.ReactNode;
   quizMeta?: { questions: number; passPct: number };
-  children?: React.ReactNode; // For fallback content when no contentSlug
-  forceTabbed?: boolean; // NEW: force tabbed UI if we have any slug
 };
 
 function StatusDot({ state }: { state: 'locked' | 'todo' | 'done' }) {
@@ -36,68 +31,57 @@ function StatusDot({ state }: { state: 'locked' | 'todo' | 'done' }) {
 }
 
 export default function TabbedModuleLayout({
-  courseSlug, moduleSlug, contentSlug, moduleKey, title, order, nextHref, flashCards, flashModuleKey, flashCardCount, onFlashSeen, osha, practice,
-  quizMeta = { questions: 8, passPct: 80 }, children, forceTabbed
+  courseSlug, moduleSlug, moduleKey, title, nextHref, flashCards, flashModuleKey, flashCardCount, onFlashSeen, osha, practice,
+  quizMeta = { questions: 8, passPct: 80 }
 }: Props) {
-  // Import useSearchParams for debug overlay
-  const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams();
-  const debug = searchParams.get('debugTabs') === '1';
-
-  // Computed slug: prefer DB contentSlug, fall back to moduleSlug or legacy mapping
-  const effectiveContentSlug = React.useMemo(() => {
-    if (contentSlug) return contentSlug;
-    if (moduleSlug) return moduleSlug;
-    // Legacy fallback: if there was an existing mapping, keep it
-    if (moduleKey) return `module-${moduleKey.replace('m', '')}`;
-    return undefined;
-  }, [contentSlug, moduleSlug, moduleKey]);
-
-  const canRenderTabs = !!effectiveContentSlug || !!forceTabbed;
-  
-  // Always call hooks at the top level
+  // Use URL-based tab state
   const { activeTab, setActiveTab } = useModuleTabs('osha');
+  const tab = activeTab;
+  const setTab = setActiveTab;
+
+  // Use new progress tracking system
   const { done, markDone, allDone } = useModuleGate({
     courseId: courseSlug,
     moduleKey: moduleKey || 'unknown',
-    moduleSlug: effectiveContentSlug, // Pass effective content_slug for proper gate tracking
     initial: { osha: false, practice: false, cards: false, quiz: false }
   });
+
   const [openQuiz, setOpenQuiz] = React.useState(false);
+
+  // Get curated flashcards for this module
+  const moduleCards = React.useMemo(() => {
+    const moduleSlugForCards = moduleKey ? `module-${moduleKey.replace('m', '')}` : 'module-1';
+    return getModuleFlashcards(moduleSlugForCards);
+  }, [moduleKey]);
+
+  // Legacy state for backward compatibility
   const [practiceDone, setPracticeDone] = React.useState(false);
   const [flashTouched, setFlashTouched] = React.useState(false);
   const [quizPassed, setQuizPassed] = React.useState(false);
 
-  // Get curated flashcards for this module
-  const moduleCards = React.useMemo(() => {
-    if (!effectiveContentSlug && !flashModuleKey && !moduleKey) return [];
-    const moduleSlugForCards = flashModuleKey || (moduleKey ? `module-${moduleKey.replace('m', '')}` : effectiveContentSlug || 'module-1');
-    return getModuleFlashcards(moduleSlugForCards);
-  }, [moduleKey, flashModuleKey, effectiveContentSlug]);
-
-  const key = `mstate:${courseSlug}:${effectiveContentSlug || 'unknown'}`;
+  const key = `mstate:${courseSlug}:${moduleSlug}`;
   React.useEffect(() => {
-    if (!effectiveContentSlug) return;
     try {
       const saved = JSON.parse(localStorage.getItem(key) || '{}');
       if (saved.practiceDone) setPracticeDone(true);
       if (saved.flashTouched) setFlashTouched(true);
       if (saved.quizPassed) setQuizPassed(true);
     } catch {}
-  }, [key, effectiveContentSlug]);
+  }, []);
   React.useEffect(() => {
-    if (!effectiveContentSlug) return;
     try {
       localStorage.setItem(key, JSON.stringify({ practiceDone, flashTouched, quizPassed }));
     } catch {}
-  }, [key, effectiveContentSlug, practiceDone, flashTouched, quizPassed]);
+  }, [practiceDone, flashTouched, quizPassed]);
+
+  const prereqsMet = done.osha && done.practice && done.cards;
 
   async function markModuleComplete() {
-    if (!effectiveContentSlug) return;
     try {
       await fetch('/api/progress/complete-module', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ course: courseSlug, module: effectiveContentSlug })
+        body: JSON.stringify({ course: courseSlug, module: moduleSlug })
       });
     } catch {}
   }
@@ -105,40 +89,8 @@ export default function TabbedModuleLayout({
     if (quizPassed) markModuleComplete();
   }, [quizPassed]);
 
-
-  const tab = activeTab;
-  const setTab = (newTab: typeof activeTab) => {
-    setActiveTab(newTab);
-    // Persist resume state when tab changes
-    try {
-      const moduleOrder = order ? order - 1 : parseInt((effectiveContentSlug || '').match(/\d+/)?.[0] || '1') - 1; // Convert to 0-based
-      fetch('/api/training/progress/resume', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          courseSlug: courseSlug || 'forklift', 
-          moduleIndex: moduleOrder, 
-          tab: newTab 
-        })
-      }).catch(() => {}); // Non-blocking
-    } catch {}
-  };
-
-  const prereqsMet = done.osha && done.cards && (typeof practice === 'function' ? done.practice : true);
-
   return (
     <div className='max-w-5xl mx-auto'>
-      {debug && (
-        <div className="mb-4 rounded-md border border-dashed border-blue-300 bg-blue-50 p-3 text-xs text-blue-800">
-          <div><strong>TabbedModuleLayout Debug</strong></div>
-          <div>moduleKey: {String(moduleKey || 'undefined')}</div>
-          <div>moduleSlug: {String(moduleSlug || 'undefined')}</div>
-          <div>contentSlug: {String(contentSlug || 'undefined')}</div>
-          <div>effectiveContentSlug: {String(effectiveContentSlug || 'undefined')}</div>
-          <div>forceTabbed: {String(forceTabbed || false)}</div>
-          <div>canRenderTabs: {String(canRenderTabs)}</div>
-        </div>
-      )}
       <h2 className='h2'>{title}</h2>
       <p className='text-sm text-slate-600 mb-4'>Work through OSHA basics, practice, and flash cards — then pass the quiz to continue.</p>
 
@@ -176,41 +128,48 @@ export default function TabbedModuleLayout({
 
       {tab==='osha' && (
         <section className='rounded-2xl border bg-white p-4 mb-4 shadow-card'>
-          {osha || <div className="text-sm text-slate-600">OSHA content not available for this module.</div>}
-          <StepContinue
-            step="osha"
-            nextTab="practice"
-            markDone={markDone}
-            onSwitchTab={setTab}
-            alreadyDone={done.osha}
-          />
+          {osha}
+          <div className="mt-4 flex justify-end">
+            <TabCompleteButton
+              label="Mark OSHA Basics done → Practice"
+              aria-label="Mark OSHA Basics complete and go to Practice"
+              onClick={async () => {
+                await markDone("osha");
+                setTab("practice");
+              }}
+            />
+          </div>
         </section>
       )}
       {tab==='practice' && (
         <section className='rounded-2xl border bg-white p-4 mb-4 shadow-card'>
-          {practice ? practice({ onComplete: () => setPracticeDone(true) }) : <div className="text-sm text-slate-600">Practice content not available for this module.</div>}
-          <StepContinue
-            step="practice"
-            nextTab="flash"
-            markDone={markDone}
-            onSwitchTab={setTab}
-            alreadyDone={done.practice}
-          />
+          {practice({ onComplete: () => setPracticeDone(true) })}
+          <div className="mt-4 flex justify-end">
+            <TabCompleteButton
+              label="Mark Practice done → Flash Cards"
+              aria-label="Mark Practice complete and go to Flash Cards"
+              onClick={async () => {
+                await markDone("practice");
+                setTab("flash");
+              }}
+            />
+          </div>
         </section>
       )}
       {tab==='flash' && (
         <section className='rounded-2xl border bg-white p-4 mb-4 shadow-card'>
           {(() => {
             if (!moduleCards.length) return <div className='text-sm text-slate-600'>No flash cards found for this module yet.</div>;
-            // DB is source of truth for flashcard completion
-            if (onFlashSeen) onFlashSeen();
+            if (typeof window !== 'undefined') {
+              try { localStorage.setItem(`flashcards:seen:${courseSlug ?? 'forklift'}:${flashModuleKey ?? '-'}`, '1'); } catch {}
+              if (onFlashSeen) onFlashSeen();
+            }
             
             return (
               <FlashCardDeck
                 cards={moduleCards}
                 title="Flash Cards"
                 onDone={async () => {
-                  // DB-only persistence; localStorage removed to avoid drift
                   await markDone("cards");
                   setTab("quiz");
                 }}
@@ -236,21 +195,21 @@ export default function TabbedModuleLayout({
                 <h3 className='font-medium'>Module Quiz</h3>
                 <p className='text-sm text-slate-600'>{quizMeta.questions} questions · pass ≥ {quizMeta.passPct}% to unlock next module</p>
               </div>
-              <button className='px-4 py-2 rounded-md border' onClick={() => setOpenQuiz(true)} data-testid="take-quiz">Take quiz</button>
+              <button className='px-4 py-2 rounded-md border' onClick={() => setOpenQuiz(true)}>Take quiz</button>
             </div>
           )}
         </section>
       )}
 
       <ModuleFooterCTA
-        nextHref={allDone ? (nextHref || "") : ""}
+        nextHref={allDone ? nextHref : ""}
         enabled={allDone}
-        isLast={(nextHref || "").includes('exam') || (nextHref || "").includes('final')}
+        isLast={nextHref.includes('exam') || nextHref.includes('final')}
       />
 
       {openQuiz && (
         <SimpleQuizModal
-          module={parseInt((effectiveContentSlug || '').match(/\d+/)?.[0] || '1')}
+          module={parseInt(moduleSlug.match(/\d+/)?.[0] || '1')}
           onClose={() => setOpenQuiz(false)}
           onPassed={async () => { 
             setOpenQuiz(false); 
