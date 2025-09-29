@@ -11,11 +11,11 @@ export default function FinalGate() {
   async function start() {
     try {
       setBusy(true); setError(null);
-      const res = await fetch('/api/exams/attempts', { method: 'POST', headers: { 'Content-Type':'application/json' }, body: JSON.stringify({ courseSlug: 'forklift_operator', locale: process.env.NEXT_PUBLIC_DEFAULT_LOCALE || 'en' }) });
+      const res = await fetch('/api/exam/final', { method: 'GET' });
       const json = await res.json();
       if (!res.ok) throw new Error(json?.error || 'Failed to start');
       track('exam_started', { course: 'forklift_operator' });
-      r.push(`/exam/${json.attempt_id}`);
+      r.push(`/training/exam`);
     } catch (e: any) {
       setError(e.message);
     } finally { setBusy(false); }
