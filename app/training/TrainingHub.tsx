@@ -307,7 +307,19 @@ function TrainingContent({ courseId }: { courseId: string }) {
   );
 }
 
-export default function TrainingHub({ courseId }: { courseId: string }) {
+export default function TrainingHub({ 
+  courseId, 
+  resumeHref, 
+  course, 
+  modules, 
+  resumeOrder 
+}: { 
+  courseId: string;
+  resumeHref?: string;
+  course?: any;
+  modules?: any[];
+  resumeOrder?: number;
+}) {
   return (
     <Suspense fallback={<main className='container mx-auto p-4'>Loading...</main>}>
       <TrainingContent courseId={courseId} />
