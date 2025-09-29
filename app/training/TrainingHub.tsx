@@ -2,9 +2,7 @@
 import { useEffect, useState, Suspense } from 'react';
 import { useI18n } from '@/lib/i18n/I18nProvider';
 import { flags } from '@/lib/flags';
-import { PRELAUNCH_PREVIEW } from '@/lib/training/flags';
 import PrelaunchBanner from '@/components/PrelaunchBanner';
-import StartModuleButton from '@/components/training/StartModuleButton';
 import * as Sentry from '@sentry/nextjs';
 import { FORKLIFT_MODULES_FALLBACK } from '@/lib/courses';
 import { HeaderProgress } from '@/components/training/HeaderProgress';
@@ -25,13 +23,7 @@ type RecertStatus = {
   last_issued_at?: string;
 };
 
-function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }: { 
-  courseId: string; 
-  resumeHref?: string;
-  course?: any;
-  modules?: any[];
-  resumeOrder?: number;
-}) {
+function TrainingContent({ courseId }: { courseId: string }) {
   const { t } = useI18n();
   const [prog, setProg] = useState<Progress | null>(null);
   const [loading, setLoading] = useState(true);
@@ -163,26 +155,6 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
 
       {!flags.GA && <PrelaunchBanner />}
 
-        {/* Next up section */}
-        {resumeHref && (
-          <div className="mb-6 rounded-xl bg-blue-50 border border-blue-200 p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-sm font-medium text-blue-900">Next up</h2>
-                <p className="text-xs text-blue-700 mt-1">Continue your training progress</p>
-              </div>
-              <a 
-                href={resumeHref}
-                className="btn-primary"
-                data-testid="resume-training"
-                aria-label="Continue training from where you left off"
-              >
-                Continue
-              </a>
-            </div>
-          </div>
-        )}
-
         {recert && !dismissed && recert.has_certificate && (
           <div className={`rounded-2xl border p-4 mb-6 ${recert.due ? 'border-amber-300 bg-amber-50' : 'border-green-300 bg-green-50'}`}>
             <div className="flex items-start gap-3">
@@ -219,74 +191,35 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
             )}
           </div>
         ) : (
-          PRELAUNCH_PREVIEW && (
-            <div className="mb-6 panel-soft px-4 py-3 rounded-xl">
-              <p className="text-brand-onPanel/90 text-sm">Purchasing opens soon. Training preview is available.</p>
-            </div>
-          )
+          <div className="mb-6 panel-soft px-4 py-3 rounded-xl">
+            <p className="text-brand-onPanel/90 text-sm">Purchasing opens soon. Training preview is available.</p>
+          </div>
         )}
 
         <section className='space-y-6'>
-          {(() => {
-            // Defensive completion logic - only show "All modules completed" when we're certain
-            const modulesList = prog.modules && prog.modules.length > 0 ? prog.modules : FORKLIFT_MODULES_FALLBACK;
-            const totalRaw = Array.isArray(modulesList) ? modulesList.length : Number(modulesList || 0);
-            const total = Number.isFinite(totalRaw) && totalRaw > 0 ? totalRaw : 0;
-            
-            let completedRaw = 0;
-            if (Array.isArray(modulesList)) {
-              completedRaw = modulesList.filter(m => {
-                const isAPIModule = prog.modules && prog.modules.length > 0;
-                return isAPIModule ? (m as any).quiz_passed : false;
-              }).length;
-            }
-            const completed = Math.min(Math.max(0, Number.isFinite(completedRaw) ? completedRaw : 0), Math.max(0, total));
-            
-            const allDone = total > 0 && completed === total && completed > 0;
-            
-            if (prog.next || resumeHref) {
-              const href = resumeHref || prog.next?.nextRoute || '/training/modules/pre-op';
-              const label = prog.next?.label || 'next module';
-              return (
-                <div className="text-center">
-                  <a 
-                    className='btn-primary tappable inline-flex items-center justify-center' 
-                    href={href}
-                    data-testid="resume-training"
-                    aria-label={`Resume training: ${label}`}
-                  >
-                    Resume training
-                  </a>
-                </div>
-              );
-            } else if (allDone) {
-              return (
-                <div className='panel-soft px-4 py-3 rounded-xl text-center' role="status" data-testid="all-done-banner">
-                  <p className='text-brand-onPanel text-sm'>✅ All modules completed! Ready for final exam.</p>
-                </div>
-              );
-            } else {
-              // No next step and not all done - could be a fresh account or incomplete data
-              return null;
-            }
-          })()}
+          {prog.next ? (
+            <div className="text-center">
+              <a className='btn-primary tappable inline-flex items-center justify-center' href={prog.next.nextRoute} aria-label={`Resume training: ${prog.next.label || 'next module'}`}>
+                Resume training
+              </a>
+            </div>
+          ) : (
+            <div className='panel-soft px-4 py-3 rounded-xl text-center'>
+              <p className='text-brand-onPanel text-sm'>✅ All modules completed! Ready for final exam.</p>
+            </div>
+          )}
 
           {/* Module Progress Overview */}
           <div className='panel-soft shadow-card px-6 py-6'>
             <h2 className='text-2xl font-semibold text-brand-onPanel mb-6'>Modules</h2>
             <div className='space-y-3'>
-              {/* Use passed modules data or fallback */}
-              {(modules && modules.length > 0 ? modules : FORKLIFT_MODULES_FALLBACK).map((module, idx) => {
-                const isDBModule = modules && modules.length > 0;
-                const title = isDBModule ? (module as any).title : (module as any).title;
-                const completed = false; // TODO: get completion status from progress API
-                const key = isDBModule ? (module as any).id : (module as any).key;
-                
-                // Use the actual DB order for navigation (1-based as stored)
-                const dbOrder = isDBModule ? (module as any).order : (module as any).order || (idx + 1);
-                
-                // Simple unlock logic: allow access to current and previous modules
-                const unlocked = true; // For now, allow access to all modules
+              {/* Use fallback modules if API modules are empty */}
+              {(prog.modules && prog.modules.length > 0 ? prog.modules : FORKLIFT_MODULES_FALLBACK).map((module, idx) => {
+                const isAPIModule = prog.modules && prog.modules.length > 0;
+                const title = isAPIModule ? (module as any).title : (module as any).title;
+                const href = isAPIModule ? (module as any).route : (module as any).href;
+                const completed = isAPIModule ? (module as any).quiz_passed : false;
+                const key = isAPIModule ? (module as any).slug : (module as any).key;
                 
                 return (
                   <div key={key} className='flex items-center justify-between p-4 rounded-xl bg-brand-onPanel/5 border border-brand-onPanel/10'>
@@ -303,21 +236,27 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
                         )}
                       </div>
                     </div>
-                    <div className="training-action-cell">
-                      {!completed && (
-                        <a 
-                          href={(module as any).href || `/training/module/${dbOrder}?courseId=${course?.slug || 'forklift'}`}
-                          className="relative z-10 pointer-events-auto select-none rounded-md px-3 py-2 text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 transition-colors"
-                          data-testid="start-module"
-                        >
-                          Start
-                        </a>
-                      )}
-                    </div>
+                    {!completed && (
+                      <a 
+                        className='btn-primary tappable text-sm' 
+                        href={href}
+                        aria-label={`Start ${title} module`}
+                      >
+                        Start
+                      </a>
+                    )}
                   </div>
                 );
               })}
             </div>
+            
+            {prog.stepsLeft && prog.stepsLeft.length > 0 && (
+              <div className='mt-6 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20'>
+                <p className='text-base leading-7 text-amber-300'>
+                  <strong>{prog.stepsLeft.length} modules remaining</strong> — Complete all modules to unlock the exam
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Final Exam CTA */}
@@ -358,24 +297,8 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
               <div>
                 <h2 className="text-2xl font-semibold text-brand-onPanel mb-2">Practical Evaluation</h2>
                 <p className="text-base leading-7 text-brand-onPanel/90">Competencies assessment with your supervisor</p>
-                {!canTakeExam && (
-                  <p className="text-sm text-amber-600 mt-2">
-                    🔒 Complete all modules and pass the final exam to unlock
-                  </p>
-                )}
               </div>
-              {canTakeExam ? (
-                <a href="/practical/start" className="btn-primary tappable">Start</a>
-              ) : (
-                <button 
-                  disabled
-                  className="btn-secondary opacity-50 cursor-not-allowed"
-                  aria-disabled
-                  aria-label="Practical evaluation locked until final exam is passed"
-                >
-                  🔒 Locked
-                </button>
-              )}
+              <a href="/practical/start" className="btn-primary tappable">Start</a>
             </div>
           </section>
         </section>
@@ -384,22 +307,10 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
   );
 }
 
-export default function TrainingHub({ courseId, resumeHref, course, modules, resumeOrder }: { 
-  courseId: string; 
-  resumeHref?: string;
-  course?: any;
-  modules?: any[];
-  resumeOrder?: number;
-}) {
+export default function TrainingHub({ courseId }: { courseId: string }) {
   return (
     <Suspense fallback={<main className='container mx-auto p-4'>Loading...</main>}>
-      <TrainingContent 
-        courseId={courseId} 
-        resumeHref={resumeHref}
-        course={course}
-        modules={modules}
-        resumeOrder={resumeOrder}
-      />
+      <TrainingContent courseId={courseId} />
     </Suspense>
   );
 }
