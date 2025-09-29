@@ -16,8 +16,10 @@ export function getForkliftModuleSlugs(): string[] {
   return ['intro', 'inspection', 'safety', 'hazards', 'operations'];
 }
 
-export function computePercentFractional(completed: number, total: number): number {
-  return total > 0 ? completed / total : 0;
+export function computePercentFractional(state: any, moduleSlugs: string[]): number {
+  if (!state || !moduleSlugs) return 0;
+  const completedCount = moduleSlugs.filter(slug => state[slug] && Object.keys(state[slug]).length > 0).length;
+  return moduleSlugs.length > 0 ? completedCount / moduleSlugs.length : 0;
 }
 
 export function resolveCourseForUser(params: { supabase: any; userId: string; courseIdOrSlug: string }): Promise<{ id: string; slug: string; title: string }> {
@@ -28,6 +30,6 @@ export function resolveCourseForUser(params: { supabase: any; userId: string; co
   });
 }
 
-export function getModuleSlugsForCourse(courseId: string): string[] {
+export function getModuleSlugsForCourse(courseId: string, supabase?: any): string[] {
   return ['intro', 'inspection', 'safety', 'hazards', 'operations'];
 }
