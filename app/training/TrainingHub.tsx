@@ -237,15 +237,11 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
         )}
 
         <section className='space-y-6'>
-          {prog.next ? (
+          {prog.next && (
             <div className="text-center">
               <a className='btn-primary tappable inline-flex items-center justify-center' href={prog.next.nextRoute} aria-label={`Resume training: ${prog.next.label || 'next module'}`}>
                 Resume training
               </a>
-            </div>
-          ) : (
-            <div className='panel-soft px-4 py-3 rounded-xl text-center'>
-              <p className='text-brand-onPanel text-sm'>✅ All modules completed! Ready for final exam.</p>
             </div>
           )}
 
