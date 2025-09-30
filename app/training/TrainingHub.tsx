@@ -23,7 +23,13 @@ type RecertStatus = {
   last_issued_at?: string;
 };
 
-function TrainingContent({ courseId }: { courseId: string }) {
+function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }: { 
+  courseId: string; 
+  resumeHref?: string;
+  course?: any;
+  modules?: any[];
+  resumeOrder?: number;
+}) {
   const { t } = useI18n();
   const [prog, setProg] = useState<Progress | null>(null);
   const [loading, setLoading] = useState(true);
@@ -47,6 +53,26 @@ function TrainingContent({ courseId }: { courseId: string }) {
   }, []);
 
   useEffect(() => {
+    // If we have server-side modules, use them directly
+    if (modules && modules.length > 0) {
+      console.log('✅ Using server-side modules:', modules);
+      const formattedModules = modules.map((m: any) => ({
+        slug: m.content_slug || `module-${m.order}`,
+        title: m.title,
+        route: m.href,
+        quiz_passed: false // Default to not passed, will be updated by progress API if available
+      }));
+      
+      setProg({
+        pct: 0,
+        canTakeExam: false,
+        modules: formattedModules,
+        stepsLeft: formattedModules
+      });
+      setLoading(false);
+      return;
+    }
+
     if (!courseId) return;
     (async () => {
       try {
@@ -84,12 +110,19 @@ function TrainingContent({ courseId }: { courseId: string }) {
             });
           } catch {}
           
-          // Set safe fallback progress
+          // Use fallback modules instead of empty array
+          const formattedFallback = FORKLIFT_MODULES_FALLBACK.map((m: any) => ({
+            slug: m.key,
+            title: m.title,
+            route: m.href,
+            quiz_passed: false
+          }));
+          
           setProg({
             pct: 0,
             canTakeExam: false,
-            modules: [],
-            stepsLeft: []
+            modules: formattedFallback,
+            stepsLeft: formattedFallback
           });
         }
       } catch (e) {
@@ -103,18 +136,25 @@ function TrainingContent({ courseId }: { courseId: string }) {
           });
         } catch {}
         
-        // Set safe fallback progress
+        // Use fallback modules instead of empty array
+        const formattedFallback = FORKLIFT_MODULES_FALLBACK.map((m: any) => ({
+          slug: m.key,
+          title: m.title,
+          route: m.href,
+          quiz_passed: false
+        }));
+        
         setProg({
           pct: 0,
           canTakeExam: false,
-          modules: [],
-          stepsLeft: []
+          modules: formattedFallback,
+          stepsLeft: formattedFallback
         });
       } finally {
         setLoading(false);
       }
     })();
-  }, [courseId]);
+  }, [courseId, modules]);
 
   if (!courseId) return <main id="main" className='container mx-auto p-4'>Provide ?courseId=...</main>;
   if (loading) return <main id="main" className='container mx-auto p-4' aria-busy="true">Loading...</main>;
@@ -322,7 +362,13 @@ export default function TrainingHub({
 }) {
   return (
     <Suspense fallback={<main className='container mx-auto p-4'>Loading...</main>}>
-      <TrainingContent courseId={courseId} />
+      <TrainingContent 
+        courseId={courseId} 
+        resumeHref={resumeHref}
+        course={course}
+        modules={modules}
+        resumeOrder={resumeOrder}
+      />
     </Suspense>
   );
 }
