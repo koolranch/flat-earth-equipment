@@ -114,12 +114,12 @@ export default function ExamPage(){
         <div className="text-sm"><span className="font-medium">{t('exam.time_remaining')}:</span> {mm}:{ss}</div>
       </header>
 
-      <section className="rounded-2xl border p-4 bg-white dark:bg-slate-900">
+      <section className="rounded-2xl border border-slate-200 p-4 bg-white">
         <div className="text-sm text-slate-600 mb-2">Q{i+1} / {paper.items.length}</div>
-        <div className="text-base font-medium mb-2">{item.question}</div>
+        <div className="text-base font-medium mb-2 text-slate-900">{item.question}</div>
         <div className="grid gap-2">
           {item.choices.map((c:string,idx:number)=> (
-            <button key={idx} disabled={remaining===0} className={`text-left border rounded-xl p-3 text-sm tappable ${answers[i]===idx?'border-slate-900':''}`} onClick={()=> pick(idx)}>{c}</button>
+            <button key={idx} disabled={remaining===0} className={`text-left border rounded-xl p-3 text-sm tappable text-slate-900 bg-white hover:bg-slate-50 ${answers[i]===idx?'border-blue-500 bg-blue-50':'border-slate-200'}`} onClick={()=> pick(idx)}>{c}</button>
           ))}
         </div>
         <div className="flex items-center justify-between mt-3">
