@@ -13,6 +13,7 @@ function getInitialLocale(): Locales {
     if (cookieLocale === 'en' || cookieLocale === 'es') return cookieLocale;
   }
   const envLocale = process.env.NEXT_PUBLIC_DEFAULT_LOCALE;
+  // Default to English if no locale is set
   return (envLocale === 'es' ? 'es' : 'en');
 }
 
