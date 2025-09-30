@@ -70,17 +70,16 @@ export default async function TrainingIndex({ searchParams }: { searchParams?: R
   const resumeOrder = enrollment?.resume_state?.lastOrder ?? nextOrder ?? firstContent;
   const resumeHref = resumeOrder ? buildModuleHref(resumeOrder, course.slug) : undefined;
 
-  // Helper function to build correct href for each row using normalized route helpers
-  function hrefForRow(row: { order: number; title: string; content_slug: string | null }) {
-    if (row.order === 1 || /^Introduction/i.test(row.title)) return buildIntroHref(course.slug);
-    if (!row.content_slug) return buildCompleteHref(course.slug);
-    return buildModuleHref(row.order, course.slug);
-  }
-
   // Enhance modules with proper navigation hrefs
+  // Use the href already set in getCourseModules instead of recalculating
   const enhancedModules = modules.map(m => ({
     ...m,
-    href: hrefForRow(m)
+    // If module already has href, use it; otherwise calculate it
+    href: (m as any).href || (() => {
+      if (row.order === 0 || /^Introduction/i.test(m.title)) return buildIntroHref(course.slug);
+      if (!m.content_slug) return buildCompleteHref(course.slug);
+      return buildModuleHref(m.order, course.slug);
+    })()
   }));
 
   // Render the training hub with enhanced data
