@@ -3,11 +3,13 @@ export async function getCourseModules(courseSlug: string) {
   return {
     course: { id: 'forklift', slug: courseSlug, title: 'Forklift Operator Training' },
     modules: [
-      { id: 1, order: 1, title: 'Introduction', content_slug: null },
-      { id: 2, order: 2, title: 'Module 2: 8-Point Inspection', content_slug: 'inspection' },
-      { id: 3, order: 3, title: 'Module 3: Safety Guidelines', content_slug: 'safety' },
-      { id: 4, order: 4, title: 'Module 4: Hazard Recognition', content_slug: 'hazards' },
-      { id: 5, order: 5, title: 'Module 5: Operations', content_slug: 'operations' },
+      { id: 0, order: 1, title: 'Introduction', content_slug: null, href: '/training/intro' },
+      { id: 1, order: 2, title: 'Module 1: Pre-Operation Inspection', content_slug: 'preop', href: '/training/modules/pre-op' },
+      { id: 2, order: 3, title: 'Module 2: 8-Point Inspection', content_slug: 'inspection', href: '/training/forklift-operator/module-2' },
+      { id: 3, order: 4, title: 'Module 3: Balance & Load Handling', content_slug: 'balance', href: '/training/forklift-operator/module-3' },
+      { id: 4, order: 5, title: 'Module 4: Hazard Hunt', content_slug: 'hazards', href: '/training/forklift-operator/module-4' },
+      { id: 5, order: 6, title: 'Module 5: Advanced Operations', content_slug: 'operations', href: '/training/forklift-operator/module-5' },
+      { id: 6, order: 7, title: 'Course Completion', content_slug: null, href: '/training/final' },
     ]
   };
 }
