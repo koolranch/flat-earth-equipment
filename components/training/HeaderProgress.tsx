@@ -47,11 +47,12 @@ export function HeaderProgress({ modules, fallbackPercent = 0, className = '' }:
   const enhancedModules = React.useMemo(() => {
     if (!modules) return modules;
     
-    return modules.map((module, index) => {
-      // Try multiple ways to match localStorage keys
-      const moduleNum = index + 1; // 1-based indexing
-      const localStorageKey = `module_${moduleNum}`;
-      const isCompleted = module.quiz_passed || !!localProgress[localStorageKey]?.quiz?.passed;
+    return modules.map((module) => {
+      // Use the module's actual order, not array index
+      // This handles filtered arrays correctly
+      const moduleOrder = (module as any).order;
+      const localStorageKey = moduleOrder ? `module_${moduleOrder}` : null;
+      const isCompleted = module.quiz_passed || (localStorageKey && !!localProgress[localStorageKey]?.quiz?.passed);
       
       return {
         ...module,
