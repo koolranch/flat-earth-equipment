@@ -273,8 +273,15 @@ was export async function GET(req: Request) {
       .order('order');
 
     if (modulesError) {
+      console.error('[training/progress] Error loading modules:', modulesError);
       return NextResponse.json({ error: 'Failed to load modules' }, { status: 500 });
     }
+
+    console.log('[training/progress] Raw modules from DB:', modules?.map(m => ({ 
+      title: m.title, 
+      order: m.order, 
+      type: m.type 
+    })));
 
     // Get quiz attempts to determine which modules are completed
     const { data: quizAttempts } = await supabaseServer
