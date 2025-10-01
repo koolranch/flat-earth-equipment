@@ -16,6 +16,7 @@ const CTADebugProbe = dynamicImport(() => import('@/components/debug/CTADebugPro
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
+// Force rebuild: v2
 
 export default async function TrainingIndex({ searchParams }: { searchParams?: Record<string, string | string[] | undefined> }) {
   noStore();
