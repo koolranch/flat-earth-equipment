@@ -61,6 +61,7 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
       const formattedModules = modules.map((m: any) => ({
         slug: m.content_slug || `module-${m.order}`,
         title: m.title,
+        order: m.order, // Include order for filtering
         route: m.href,
         quiz_passed: false // Default to not passed, will be updated by progress API if available
       }));
