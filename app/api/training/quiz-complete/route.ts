@@ -34,27 +34,46 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Get the forklift course first
+    const { data: course } = await supabase
+      .from('courses')
+      .select('id, slug')
+      .eq('slug', 'forklift')
+      .single();
+    
+    if (!course) {
+      console.error('[quiz-complete] Forklift course not found');
+      return NextResponse.json({ error: 'Course not found' }, { status: 404 });
+    }
+    
     // Get the module - try by UUID first, then by order number
     let moduleData: any = null;
     
-    console.log('[quiz-complete] Looking up module with identifier:', moduleId, 'type:', typeof moduleId);
+    console.log('[quiz-complete] Looking up module with identifier:', moduleId, 'type:', typeof moduleId, 'courseId:', course.id);
     
-    const { data: moduleById, error: byIdError } = await supabase
-      .from('modules')
-      .select('id, course_id, title, order, type')
-      .eq('id', moduleId)
-      .maybeSingle();
+    // Try by UUID first (only if moduleId looks like a UUID)
+    if (typeof moduleId === 'string' && moduleId.includes('-')) {
+      const { data: moduleById, error: byIdError } = await supabase
+        .from('modules')
+        .select('id, course_id, title, order, type')
+        .eq('id', moduleId)
+        .eq('course_id', course.id)
+        .maybeSingle();
+      
+      console.log('[quiz-complete] Lookup by UUID result:', moduleById ? 'found' : 'not found', byIdError?.message);
+      
+      if (moduleById) {
+        moduleData = moduleById;
+      }
+    }
     
-    console.log('[quiz-complete] Lookup by ID result:', moduleById ? 'found' : 'not found', byIdError?.message);
-    
-    if (moduleById) {
-      moduleData = moduleById;
-    } else {
-      // If not found by UUID, try by order number (for numeric moduleId)
+    // If not found by UUID, try by order number
+    if (!moduleData) {
       const { data: moduleByOrder, error: byOrderError } = await supabase
         .from('modules')
         .select('id, course_id, title, order, type')
-        .eq('order', moduleId)
+        .eq('course_id', course.id)
+        .eq('order', Number(moduleId))
         .maybeSingle();
       
       console.log('[quiz-complete] Lookup by order result:', moduleByOrder ? 'found' : 'not found', byOrderError?.message);
