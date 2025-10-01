@@ -66,11 +66,17 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
         quiz_passed: false // Default to not passed, will be updated by progress API if available
       }));
       
+      // Only count training modules (order 1-5)
+      const trainingModules = formattedModules.filter(m => m.order >= 1 && m.order <= 5);
+      const incompleteModules = trainingModules.filter(m => !m.quiz_passed);
+      
       setProg({
         pct: 0,
         canTakeExam: false,
         modules: formattedModules,
-        stepsLeft: formattedModules
+        stepsLeft: incompleteModules.map(m => ({ route: m.route, label: m.title })),
+        completedCount: 0,
+        totalCount: trainingModules.length
       });
       setLoading(false);
       return;
