@@ -48,40 +48,34 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Course not found', details: courseError?.message }, { status: 404 });
     }
     
-    // Get the module - try by UUID first, then by order number
-    let moduleData: any = null;
-    
+    // Get ALL modules for this course and filter in JavaScript
+    // (Avoids potential Supabase query issues with numeric comparison)
     console.log('[quiz-complete] Looking up module with identifier:', moduleId, 'type:', typeof moduleId, 'courseId:', course.id);
     
-    // Try by UUID first (only if moduleId looks like a UUID)
-    if (typeof moduleId === 'string' && moduleId.includes('-')) {
-      const { data: moduleById, error: byIdError } = await supabase
-        .from('modules')
-        .select('id, course_id, title, order, type')
-        .eq('id', moduleId)
-        .eq('course_id', course.id)
-        .maybeSingle();
-      
-      console.log('[quiz-complete] Lookup by UUID result:', moduleById ? 'found' : 'not found', byIdError?.message);
-      
-      if (moduleById) {
-        moduleData = moduleById;
-      }
+    const { data: allModules, error: modulesError } = await supabase
+      .from('modules')
+      .select('id, course_id, title, order, type')
+      .eq('course_id', course.id);
+    
+    console.log('[quiz-complete] Loaded all modules:', allModules?.length, 'modules');
+    
+    if (modulesError) {
+      console.error('[quiz-complete] Error loading modules:', modulesError);
+      return NextResponse.json({ error: 'Error loading modules', details: modulesError.message }, { status: 500 });
     }
     
-    // If not found by UUID, try by order number
-    if (!moduleData) {
-      const { data: moduleByOrder, error: byOrderError } = await supabase
-        .from('modules')
-        .select('id, course_id, title, order, type')
-        .eq('course_id', course.id)
-        .eq('order', Number(moduleId))
-        .maybeSingle();
+    // Find the module by ID or order
+    let moduleData: any = null;
+    
+    if (allModules) {
+      // Try UUID match first
+      moduleData = allModules.find(m => m.id === moduleId);
       
-      console.log('[quiz-complete] Lookup by order result:', moduleByOrder ? 'found' : 'not found', byOrderError?.message);
-      
-      if (moduleByOrder) {
-        moduleData = moduleByOrder;
+      // If not found, try order match
+      if (!moduleData) {
+        const orderNum = Number(moduleId);
+        moduleData = allModules.find(m => m.order === orderNum);
+        console.log('[quiz-complete] Searching for order:', orderNum, 'found:', !!moduleData);
       }
     }
 
