@@ -55,33 +55,8 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
   }, []);
 
   useEffect(() => {
-    // If we have server-side modules, use them directly
-    if (modules && modules.length > 0) {
-      console.log('✅ Using server-side modules:', modules);
-      const formattedModules = modules.map((m: any) => ({
-        slug: m.content_slug || `module-${m.order}`,
-        title: m.title,
-        order: m.order, // Include order for filtering
-        route: m.href,
-        quiz_passed: false // Default to not passed, will be updated by progress API if available
-      }));
-      
-      // Only count training modules (order 1-5)
-      const trainingModules = formattedModules.filter(m => m.order >= 1 && m.order <= 5);
-      const incompleteModules = trainingModules.filter(m => !m.quiz_passed);
-      
-      setProg({
-        pct: 0,
-        canTakeExam: false,
-        modules: formattedModules,
-        stepsLeft: incompleteModules.map(m => ({ route: m.route, label: m.title })),
-        completedCount: 0,
-        totalCount: trainingModules.length
-      });
-      setLoading(false);
-      return;
-    }
-
+    // Always fetch real progress from API, even if we have server-side modules
+    // Server-side modules are just for structure, not completion status
     if (!courseId) return;
     (async () => {
       try {
