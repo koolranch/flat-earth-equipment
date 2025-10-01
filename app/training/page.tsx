@@ -70,10 +70,13 @@ export default async function TrainingIndex({ searchParams }: { searchParams?: R
   const resumeOrder = enrollment?.resume_state?.lastOrder ?? nextOrder ?? firstContent;
   const resumeHref = resumeOrder ? buildModuleHref(resumeOrder, course.slug) : undefined;
 
-  // Enhance modules with proper navigation hrefs
-  // Use the href already set in getCourseModules instead of recalculating
+  // Enhance modules with proper navigation hrefs and ensure order is included
   const enhancedModules = modules.map(m => ({
-    ...m,
+    id: m.id,
+    order: m.order, // CRITICAL: Must include order for filtering
+    title: m.title,
+    type: m.type,
+    content_slug: m.content_slug,
     // If module already has href, use it; otherwise calculate it
     href: (m as any).href || (() => {
       if (m.order === 0 || /^Introduction/i.test(m.title)) return buildIntroHref(course.slug);
