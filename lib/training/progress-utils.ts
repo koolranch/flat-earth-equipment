@@ -22,12 +22,25 @@ export function computePercentFractional(state: any, moduleSlugs: string[]): num
   return moduleSlugs.length > 0 ? completedCount / moduleSlugs.length : 0;
 }
 
-export function resolveCourseForUser(params: { supabase: any; userId: string; courseIdOrSlug: string }): Promise<{ id: string; slug: string; title: string }> {
-  return Promise.resolve({
-    id: 'forklift',
-    slug: params.courseIdOrSlug || 'forklift',
-    title: 'Forklift Operator Training'
-  });
+export async function resolveCourseForUser(params: { supabase: any; userId: string; courseIdOrSlug: string }): Promise<{ id: string; slug: string; title: string }> {
+  // Query the actual course from database
+  const { data: course, error } = await params.supabase
+    .from('courses')
+    .select('id, slug, title')
+    .eq('slug', params.courseIdOrSlug || 'forklift')
+    .single();
+  
+  if (error || !course) {
+    console.error('[resolveCourseForUser] Error finding course:', error?.message);
+    // Fallback to prevent total failure
+    return {
+      id: params.courseIdOrSlug || 'forklift',
+      slug: params.courseIdOrSlug || 'forklift',
+      title: 'Forklift Operator Training'
+    };
+  }
+  
+  return course;
 }
 
 export function getModuleSlugsForCourse(courseId: string, supabase?: any): string[] {
