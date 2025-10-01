@@ -24,6 +24,31 @@ export default function TrainingVideo({
 }: TrainingVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
 
+  // Handle video completion
+  const handleVideoEnded = async () => {
+    console.log('📹 Video ended for module:', moduleId)
+    
+    // Save video completion to database for video-only modules (like introduction)
+    try {
+      const response = await fetch('/api/training/video-complete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ moduleId })
+      })
+      
+      if (response.ok) {
+        console.log('✅ Video completion saved for module:', moduleId)
+      } else {
+        console.warn('⚠️ Failed to save video completion:', await response.text())
+      }
+    } catch (error) {
+      console.error('❌ Error saving video completion:', error)
+    }
+    
+    // Call the parent onEnded callback
+    onEnded?.()
+  }
+
   // Map module order to correct subtitle files
   const getSubtitleModuleId = (moduleId: number): number | string | null => {
     // Module mapping based on the database structure:
@@ -90,7 +115,7 @@ export default function TrainingVideo({
         crossOrigin="anonymous"
         className={`w-full h-auto max-h-[600px] rounded-lg ${className}`}
         poster={poster}
-        onEnded={onEnded}
+        onEnded={handleVideoEnded}
         onError={onError}
       >
         <source src={src} type="video/mp4" />
