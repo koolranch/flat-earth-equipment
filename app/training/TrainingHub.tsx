@@ -58,6 +58,7 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
     // Initialize with server-side modules first (for immediate display)
     if (modules && modules.length > 0) {
       console.log('✅ Initializing with server-side modules:', modules);
+      console.log('📍 Module hrefs:', modules.map((m: any) => ({ order: m.order, title: m.title, href: m.href })));
       const formattedModules = modules.map((m: any) => ({
         slug: m.content_slug || `module-${m.order}`,
         title: m.title,
