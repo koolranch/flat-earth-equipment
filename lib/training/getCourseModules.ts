@@ -30,11 +30,11 @@ export async function getCourseModules(courseSlug: string) {
     console.error('[getCourseModules] Error loading modules:', modulesError);
   }
   
-  // Build hrefs for each module - use specific module pages
+  // Build hrefs for each module - use full module pages with tabs
   const modulesWithHrefs = (modules || []).map(m => {
     let href = '';
     
-    // Map to actual module page routes
+    // Map to actual module page routes (full experience with tabs, quiz, etc.)
     if (m.order === 0 || /^Introduction/i.test(m.title)) {
       href = '/training/orientation';
     } else if (m.order === 99 || m.title.includes('Course Completion')) {
@@ -42,13 +42,13 @@ export async function getCourseModules(courseSlug: string) {
     } else if (m.order === 1) {
       href = '/training/modules/pre-op';
     } else if (m.order === 2) {
-      href = '/training/module/2'; // 8-Point Inspection
+      href = '/training/forklift-operator/module-2'; // Full 8-Point Inspection page
     } else if (m.order === 3) {
-      href = '/training/module/3'; // Balance & Load
+      href = '/training/forklift-operator/module-3'; // Full Balance page
     } else if (m.order === 4) {
-      href = '/training/module/4'; // Hazard Hunt
+      href = '/training/forklift-operator/module-4'; // Full Hazard Hunt page
     } else if (m.order === 5) {
-      href = '/training/module/5'; // Advanced Operations
+      href = '/training/forklift-operator/module-5'; // Full Advanced Operations page
     } else {
       href = `/training/module/${m.order}`;
     }
