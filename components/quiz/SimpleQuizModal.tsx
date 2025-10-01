@@ -36,10 +36,22 @@ export default function SimpleQuizModal({ module, locale = 'en', onClose, onPass
     const passed = score >= quiz.pass_score;
     track(passed ? 'quiz_passed' : 'quiz_failed', { module, score, pass_mark: quiz.pass_score });
 
-    // Try to persist via API; fall back to localStorage
+    // Save quiz completion to database via new API
     try {
-      await fetch('/api/progress', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ module, kind: 'quiz', score, passed }) });
-    } catch {}
+      const response = await fetch('/api/training/quiz-complete', { 
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify({ moduleId: module, score, passed }) 
+      });
+      
+      if (response.ok) {
+        console.log('✅ Quiz completion saved to database');
+      } else {
+        console.warn('⚠️ Failed to save quiz completion to database');
+      }
+    } catch (error) {
+      console.error('❌ Error saving quiz completion:', error);
+    }
     try {
       const key = 'training:progress:v1';
       const state = JSON.parse(localStorage.getItem(key) || '{}');
