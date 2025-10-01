@@ -300,18 +300,29 @@ export async function GET(req: Request) {
     }
 
     // Enhance modules with completion status and proper routes
+    // Use same routing logic as getCourseModules (by order, NOT content_slug)
     const enhancedModules = (modules || []).map(m => {
       const isPassed = completedModules.get(m.id) || false;
       const slug = m.content_slug || `module-${m.order}`;
       let route = '';
       
-      // Build proper route based on module order/type
+      // Map by ORDER to actual module page routes (same as getCourseModules)
       if (m.order === 0 || /^introduction/i.test(m.title)) {
-        route = `/training?courseId=${course.id}#intro`;
-      } else if (m.title === 'Course Completion') {
-        route = `/training/complete?courseId=${course.id}`;
+        route = '/training/orientation';
+      } else if (m.order === 99 || m.title.includes('Course Completion')) {
+        route = '/training/final';
+      } else if (m.order === 1) {
+        route = '/training/modules/pre-op';
+      } else if (m.order === 2) {
+        route = '/training/forklift-operator/module-2';
+      } else if (m.order === 3) {
+        route = '/training/forklift-operator/module-3';
+      } else if (m.order === 4) {
+        route = '/training/forklift-operator/module-4';
+      } else if (m.order === 5) {
+        route = '/training/forklift-operator/module-5';
       } else {
-        route = `/training/modules/${slug}?courseId=${course.id}`;
+        route = `/training/module/${m.order}`;
       }
 
       return {
