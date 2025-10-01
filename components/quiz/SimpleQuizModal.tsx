@@ -38,6 +38,7 @@ export default function SimpleQuizModal({ module, locale = 'en', onClose, onPass
 
     // Save quiz completion to database via new API
     try {
+      console.log('🔄 Saving quiz completion for module:', module, { score, passed });
       const response = await fetch('/api/training/quiz-complete', { 
         method: 'POST', 
         headers: { 'Content-Type': 'application/json' }, 
@@ -45,9 +46,11 @@ export default function SimpleQuizModal({ module, locale = 'en', onClose, onPass
       });
       
       if (response.ok) {
-        console.log('✅ Quiz completion saved to database');
+        const result = await response.json();
+        console.log('✅ Quiz completion saved to database:', result);
       } else {
-        console.warn('⚠️ Failed to save quiz completion to database');
+        const errorText = await response.text();
+        console.error('⚠️ Failed to save quiz completion:', response.status, errorText);
       }
     } catch (error) {
       console.error('❌ Error saving quiz completion:', error);

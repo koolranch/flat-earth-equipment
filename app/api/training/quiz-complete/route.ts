@@ -34,24 +34,30 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Get the module - try by UUID first, then by order
+    // Get the module - try by UUID first, then by order number
     let moduleData: any = null;
     
-    const { data: moduleById } = await supabase
+    console.log('[quiz-complete] Looking up module with identifier:', moduleId, 'type:', typeof moduleId);
+    
+    const { data: moduleById, error: byIdError } = await supabase
       .from('modules')
       .select('id, course_id, title, order, type')
       .eq('id', moduleId)
       .maybeSingle();
     
+    console.log('[quiz-complete] Lookup by ID result:', moduleById ? 'found' : 'not found', byIdError?.message);
+    
     if (moduleById) {
       moduleData = moduleById;
     } else {
-      // If not found by UUID, try by order number
-      const { data: moduleByOrder } = await supabase
+      // If not found by UUID, try by order number (for numeric moduleId)
+      const { data: moduleByOrder, error: byOrderError } = await supabase
         .from('modules')
         .select('id, course_id, title, order, type')
         .eq('order', moduleId)
         .maybeSingle();
+      
+      console.log('[quiz-complete] Lookup by order result:', moduleByOrder ? 'found' : 'not found', byOrderError?.message);
       
       if (moduleByOrder) {
         moduleData = moduleByOrder;
