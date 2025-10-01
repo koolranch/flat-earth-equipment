@@ -12,8 +12,10 @@ type Progress = {
   pct: number;
   canTakeExam: boolean;
   next?: { nextRoute: string; label?: string };
-  modules: Array<{ slug: string; title: string; route: string; quiz_passed: boolean }>;
+  modules: Array<{ slug: string; title: string; route: string; quiz_passed: boolean; order?: number }>;
   stepsLeft: Array<any>;
+  completedCount?: number;
+  totalCount?: number;
 };
 
 type RecertStatus = {
@@ -247,10 +249,24 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
 
           {/* Module Progress Overview */}
           <div className='panel-soft shadow-card px-6 py-6'>
-            <h2 className='text-2xl font-semibold text-brand-onPanel mb-6'>Modules</h2>
+            <div className='flex items-center justify-between mb-6'>
+              <h2 className='text-2xl font-semibold text-brand-onPanel'>Training Modules</h2>
+              {prog.completedCount !== undefined && prog.totalCount !== undefined && (
+                <div className='text-sm text-brand-onPanel/70'>
+                  <span className='font-semibold text-brand-onPanel'>{prog.completedCount}/{prog.totalCount}</span> complete
+                </div>
+              )}
+            </div>
             <div className='space-y-3'>
-              {/* Use fallback modules if API modules are empty */}
-              {(prog.modules && prog.modules.length > 0 ? prog.modules : FORKLIFT_MODULES_FALLBACK).map((module, idx) => {
+              {/* Filter out intro and completion modules, show only training content */}
+              {(prog.modules && prog.modules.length > 0 ? prog.modules : FORKLIFT_MODULES_FALLBACK)
+                .filter((module: any) => {
+                  const title = module.title || '';
+                  const order = module.order || 0;
+                  // Only show actual training modules (not intro or completion)
+                  return order > 0 && !title.includes('Introduction') && !title.includes('Course Completion');
+                })
+                .map((module, idx) => {
                 const isAPIModule = prog.modules && prog.modules.length > 0;
                 const title = isAPIModule ? (module as any).title : (module as any).title;
                 const href = isAPIModule ? (module as any).route : (module as any).href;
@@ -258,29 +274,31 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
                 const key = isAPIModule ? (module as any).slug : (module as any).key;
                 
                 return (
-                  <div key={key} className='flex items-center justify-between p-4 rounded-xl bg-brand-onPanel/5 border border-brand-onPanel/10'>
+                  <div key={key} className='flex items-center justify-between p-4 rounded-xl bg-brand-onPanel/5 border border-brand-onPanel/10 hover:border-brand-onPanel/20 transition-colors'>
                     <div className='flex items-center gap-3'>
-                      <span className={`text-lg ${completed ? 'text-emerald-400' : 'text-brand-onPanel/40'}`}>
-                        {completed ? '✅' : '⭕'}
+                      <span className={`text-xl ${completed ? 'text-emerald-400' : 'text-brand-onPanel/40'}`}>
+                        {completed ? '✓' : '○'}
                       </span>
                       <div>
-                        <span className={`text-base font-medium ${completed ? 'text-emerald-300 line-through' : 'text-brand-onPanel'}`}>
+                        <span className={`text-base font-medium ${completed ? 'text-brand-onPanel/60' : 'text-brand-onPanel'}`}>
                           {title}
                         </span>
                         {completed && (
-                          <div className="text-xs text-emerald-400 mt-1">Completed</div>
+                          <div className="text-xs text-emerald-400 mt-1">✓ Completed</div>
                         )}
                       </div>
                     </div>
-                    {!completed && (
-                      <a 
-                        className='btn-primary tappable text-sm' 
-                        href={href}
-                        aria-label={`Start ${title} module`}
-                      >
-                        Start
-                      </a>
-                    )}
+                    <a 
+                      className={`tappable text-sm px-4 py-2 rounded-lg transition-colors ${
+                        completed 
+                          ? 'border border-brand-onPanel/20 text-brand-onPanel/70 hover:bg-brand-onPanel/5' 
+                          : 'btn-primary'
+                      }`}
+                      href={href}
+                      aria-label={completed ? `Review ${title}` : `Start ${title} module`}
+                    >
+                      {completed ? 'Review' : 'Start'}
+                    </a>
                   </div>
                 );
               })}
@@ -289,7 +307,15 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
             {prog.stepsLeft && prog.stepsLeft.length > 0 && (
               <div className='mt-6 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20'>
                 <p className='text-base leading-7 text-amber-300'>
-                  <strong>{prog.stepsLeft.length} modules remaining</strong> — Complete all modules to unlock the exam
+                  <strong>{prog.stepsLeft.length} {prog.stepsLeft.length === 1 ? 'module' : 'modules'} remaining</strong> — Complete all modules to unlock the exam
+                </p>
+              </div>
+            )}
+            
+            {prog.stepsLeft && prog.stepsLeft.length === 0 && prog.totalCount && prog.totalCount > 0 && (
+              <div className='mt-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20'>
+                <p className='text-base leading-7 text-emerald-300'>
+                  <strong>🎉 All modules complete!</strong> You can now take the final exam.
                 </p>
               </div>
             )}
