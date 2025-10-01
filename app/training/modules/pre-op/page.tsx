@@ -246,10 +246,10 @@ export default function PreOpModule() {
             disabled={!quizPassed}
             onClick={async () => {
               try {
-                await recordStepCompleteSafe({course:'forklift_operator', module:1, step:'preop'});
+                await recordStepCompleteSafe({course:'forklift', module:1, step:'preop'});
                 track('preop_complete', { allDone: true, quizPassed: true });
               } catch {}
-              router.push('/training?courseId=forklift_operator');
+              router.push('/training?course=forklift');
             }}
           >
             {quizPassed ? 'Continue to Module 2 →' : 'Locked'}
