@@ -182,19 +182,20 @@ export async function GET(req: Request) {
           };
         });
 
-        // Filter to only incomplete modules for stepsLeft
-        const incompleteModules = enhancedModules.filter(m => !m.quiz_passed);
-        const stepsLeft = incompleteModules.map(m => ({
-          route: m.route,
-          label: m.title
-        }));
-
         // Calculate if all content modules are complete (for exam unlock)
+        // Only count the 5 main training modules (exclude Introduction and Course Completion)
         const contentModules = enhancedModules.filter(m => 
           m.order > 0 && !m.title.includes('Complete') && !m.title.includes('Introduction')
         );
         const completedCount = contentModules.filter(m => m.quiz_passed).length;
         const allModulesComplete = contentModules.length > 0 && completedCount === contentModules.length;
+        
+        // Filter to only incomplete CONTENT modules for stepsLeft (not intro/completion)
+        const incompleteContentModules = contentModules.filter(m => !m.quiz_passed);
+        const stepsLeft = incompleteContentModules.map(m => ({
+          route: m.route,
+          label: m.title
+        }));
 
         const progress = {
           pct: enrollment.progress_pct || 0,
@@ -319,19 +320,20 @@ export async function GET(req: Request) {
       };
     });
 
-    // Filter to only incomplete modules for stepsLeft
-    const incompleteModules = enhancedModules.filter(m => !m.quiz_passed);
-    const stepsLeft = incompleteModules.map(m => ({
-      route: m.route,
-      label: m.title
-    }));
-
     // Calculate if all content modules are complete (for exam unlock)
+    // Only count the 5 main training modules (exclude Introduction and Course Completion)
     const contentModules = enhancedModules.filter(m => 
       m.order > 0 && !m.title.includes('Complete') && !m.title.includes('Introduction')
     );
     const completedCount = contentModules.filter(m => m.quiz_passed).length;
     const allModulesComplete = contentModules.length > 0 && completedCount === contentModules.length;
+    
+    // Filter to only incomplete CONTENT modules for stepsLeft (not intro/completion)
+    const incompleteContentModules = contentModules.filter(m => !m.quiz_passed);
+    const stepsLeft = incompleteContentModules.map(m => ({
+      route: m.route,
+      label: m.title
+    }));
 
     const progress = {
       pct: enrollment.progress_pct || 0,
