@@ -182,17 +182,15 @@ export async function GET(req: Request) {
           };
         });
 
-        // Calculate if all content modules are complete (for exam unlock)
-        // Only count the 5 main training modules (exclude Introduction and Course Completion)
-        const contentModules = enhancedModules.filter(m => 
-          m.order > 0 && !m.title.includes('Complete') && !m.title.includes('Introduction')
-        );
-        const completedCount = contentModules.filter(m => m.quiz_passed).length;
-        const allModulesComplete = contentModules.length > 0 && completedCount === contentModules.length;
+        // Calculate if all training modules are complete (for exam unlock)
+        // Only count modules with order 1-5 (training modules)
+        const trainingModules = enhancedModules.filter(m => m.order >= 1 && m.order <= 5);
+        const completedCount = trainingModules.filter(m => m.quiz_passed).length;
+        const allModulesComplete = trainingModules.length > 0 && completedCount === trainingModules.length;
         
-        // Filter to only incomplete CONTENT modules for stepsLeft (not intro/completion)
-        const incompleteContentModules = contentModules.filter(m => !m.quiz_passed);
-        const stepsLeft = incompleteContentModules.map(m => ({
+        // Filter to only incomplete training modules for stepsLeft
+        const incompleteModules = trainingModules.filter(m => !m.quiz_passed);
+        const stepsLeft = incompleteModules.map(m => ({
           route: m.route,
           label: m.title
         }));
@@ -204,10 +202,10 @@ export async function GET(req: Request) {
           canTakeExam: allModulesComplete,
           modules: enhancedModules,
           completedCount,
-          totalCount: contentModules.length
+          totalCount: trainingModules.length
         };
 
-        console.log('[training/progress] Manual auth success, returning progress:', { pct: progress.pct, moduleCount: modules?.length, completedCount, totalCount: contentModules.length });
+        console.log('[training/progress] Manual auth success, returning progress:', { pct: progress.pct, moduleCount: modules?.length, completedCount, totalCount: trainingModules.length });
         return NextResponse.json(progress);
       }
     }
@@ -327,32 +325,26 @@ export async function GET(req: Request) {
       };
     });
 
-    // Calculate if all content modules are complete (for exam unlock)
-    // Only count the 5 main training modules (exclude Introduction and Course Completion)
+    // Calculate if all training modules are complete (for exam unlock)
+    // Only count modules with order 1-5 (training modules)
+    // Order 0 = Introduction (not counted)
+    // Order 99 = Course Completion (not counted)
     console.log('[training/progress] Enhanced modules:', enhancedModules.map(m => ({ 
       title: m.title, 
       order: m.order, 
       type: m.type 
     })));
     
-    const contentModules = enhancedModules.filter(m => {
-      const shouldInclude = m.order > 0 && !m.title.includes('Complete') && !m.title.includes('Introduction');
-      console.log('[training/progress] Filter module:', { 
-        title: m.title, 
-        order: m.order, 
-        shouldInclude 
-      });
-      return shouldInclude;
-    });
+    const trainingModules = enhancedModules.filter(m => m.order >= 1 && m.order <= 5);
     
-    console.log('[training/progress] Content modules count:', contentModules.length);
+    console.log('[training/progress] Training modules (1-5):', trainingModules.length);
     
-    const completedCount = contentModules.filter(m => m.quiz_passed).length;
-    const allModulesComplete = contentModules.length > 0 && completedCount === contentModules.length;
+    const completedCount = trainingModules.filter(m => m.quiz_passed).length;
+    const allModulesComplete = trainingModules.length > 0 && completedCount === trainingModules.length;
     
-    // Filter to only incomplete CONTENT modules for stepsLeft (not intro/completion)
-    const incompleteContentModules = contentModules.filter(m => !m.quiz_passed);
-    const stepsLeft = incompleteContentModules.map(m => ({
+    // Filter to only incomplete training modules for stepsLeft
+    const incompleteModules = trainingModules.filter(m => !m.quiz_passed);
+    const stepsLeft = incompleteModules.map(m => ({
       route: m.route,
       label: m.title
     }));
@@ -361,10 +353,10 @@ export async function GET(req: Request) {
       pct: enrollment.progress_pct || 0,
       stepsLeft,
       next: stepsLeft[0] || null,
-      canTakeExam: allModulesComplete, // All content modules must be complete
-      modules: enhancedModules,
+      canTakeExam: allModulesComplete, // All 5 training modules must be complete
+      modules: enhancedModules, // Return all modules for display
       completedCount,
-      totalCount: contentModules.length
+      totalCount: trainingModules.length // Should be 5
     };
 
     return NextResponse.json(progress);

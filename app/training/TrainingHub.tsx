@@ -187,10 +187,9 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
             <HeaderProgress 
               modules={prog.modules
                 ?.filter(m => {
-                  // Only include the 5 main training modules (not intro/completion)
+                  // Only include training modules (order 1-5)
                   const order = m.order || 0;
-                  const title = m.title || '';
-                  return order > 0 && !title.includes('Introduction') && !title.includes('Course Completion');
+                  return order >= 1 && order <= 5;
                 })
                 .map(m => ({ 
                   id: m.slug, 
@@ -265,19 +264,16 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
               )}
             </div>
             <div className='space-y-3'>
-              {/* Filter out intro and completion modules, show only training content */}
+              {/* Show only training modules (order 1-5) */}
               {(() => {
                 const allModules = (prog.modules && prog.modules.length > 0 ? prog.modules : FORKLIFT_MODULES_FALLBACK);
-                const filteredModules = allModules.filter((module: any) => {
-                  const title = module.title || '';
+                const trainingModules = allModules.filter((module: any) => {
                   const order = module.order || 0;
-                  // Only show actual training modules (not intro or completion)
-                  const shouldShow = order > 0 && !title.includes('Introduction') && !title.includes('Course Completion');
-                  console.log('[TrainingHub] Module filter:', { title, order, shouldShow });
-                  return shouldShow;
+                  // Only show training modules (order 1-5)
+                  return order >= 1 && order <= 5;
                 });
-                console.log('[TrainingHub] Total modules:', allModules.length, 'Filtered:', filteredModules.length);
-                return filteredModules;
+                console.log('[TrainingHub] Total modules:', allModules.length, 'Training modules (1-5):', trainingModules.length);
+                return trainingModules;
               })()
                 .map((module, idx) => {
                 const isAPIModule = prog.modules && prog.modules.length > 0;
