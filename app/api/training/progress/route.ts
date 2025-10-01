@@ -130,7 +130,7 @@ export async function GET(req: Request) {
         // Get modules for this course
         const { data: modules, error: modulesError } = await manualClient
           .from('modules')
-          .select('id, title, order, type')
+          .select('id, title, order, type, content_slug')
           .eq('course_id', course.id)
           .order('order');
 
@@ -138,21 +138,75 @@ export async function GET(req: Request) {
           return NextResponse.json({ error: 'Failed to load modules' }, { status: 500 });
         }
 
-        // Build progress response
-        const stepsLeft = (modules || []).map(m => ({
-          route: `/module/${m.id}`,
+        // Get quiz attempts to determine which modules are completed
+        const { data: quizAttempts } = await manualClient
+          .from('quiz_attempts')
+          .select('module_id, passed')
+          .eq('user_id', validatedUser.id)
+          .eq('course_id', course.id)
+          .order('created_at', { ascending: false });
+
+        // Create a map of completed modules (only the most recent attempt per module)
+        const completedModules = new Map<string, boolean>();
+        if (quizAttempts) {
+          for (const attempt of quizAttempts) {
+            if (attempt.module_id && !completedModules.has(attempt.module_id)) {
+              completedModules.set(attempt.module_id, attempt.passed || false);
+            }
+          }
+        }
+
+        // Enhance modules with completion status and proper routes
+        const enhancedModules = (modules || []).map(m => {
+          const isPassed = completedModules.get(m.id) || false;
+          const slug = m.content_slug || `module-${m.order}`;
+          let route = '';
+          
+          // Build proper route based on module order/type
+          if (m.order === 0 || /^introduction/i.test(m.title)) {
+            route = `/training?courseId=${course.id}#intro`;
+          } else if (m.title === 'Course Completion') {
+            route = `/training/complete?courseId=${course.id}`;
+          } else {
+            route = `/training/modules/${slug}?courseId=${course.id}`;
+          }
+
+          return {
+            id: m.id,
+            title: m.title,
+            order: m.order,
+            type: m.type,
+            slug: slug,
+            route: route,
+            quiz_passed: isPassed
+          };
+        });
+
+        // Filter to only incomplete modules for stepsLeft
+        const incompleteModules = enhancedModules.filter(m => !m.quiz_passed);
+        const stepsLeft = incompleteModules.map(m => ({
+          route: m.route,
           label: m.title
         }));
+
+        // Calculate if all content modules are complete (for exam unlock)
+        const contentModules = enhancedModules.filter(m => 
+          m.order > 0 && !m.title.includes('Complete') && !m.title.includes('Introduction')
+        );
+        const completedCount = contentModules.filter(m => m.quiz_passed).length;
+        const allModulesComplete = contentModules.length > 0 && completedCount === contentModules.length;
 
         const progress = {
           pct: enrollment.progress_pct || 0,
           stepsLeft,
           next: stepsLeft[0] || null,
-          canTakeExam: (enrollment.progress_pct || 0) >= 80,
-          modules: modules || []
+          canTakeExam: allModulesComplete,
+          modules: enhancedModules,
+          completedCount,
+          totalCount: contentModules.length
         };
 
-        console.log('[training/progress] Manual auth success, returning progress:', { pct: progress.pct, moduleCount: modules?.length });
+        console.log('[training/progress] Manual auth success, returning progress:', { pct: progress.pct, moduleCount: modules?.length, completedCount, totalCount: contentModules.length });
         return NextResponse.json(progress);
       }
     }
@@ -213,7 +267,7 @@ export async function GET(req: Request) {
     // Get modules for this course
     const { data: modules, error: modulesError } = await supabaseServer
       .from('modules')
-      .select('id, title, order, type')
+      .select('id, title, order, type, content_slug')
       .eq('course_id', course.id)
       .order('order');
 
@@ -221,18 +275,72 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: 'Failed to load modules' }, { status: 500 });
     }
 
-    // Build progress response
-    const stepsLeft = (modules || []).map(m => ({
-      route: `/module/${m.id}`,
+    // Get quiz attempts to determine which modules are completed
+    const { data: quizAttempts } = await supabaseServer
+      .from('quiz_attempts')
+      .select('module_id, passed')
+      .eq('user_id', user.id)
+      .eq('course_id', course.id)
+      .order('created_at', { ascending: false });
+
+    // Create a map of completed modules (only the most recent attempt per module)
+    const completedModules = new Map<string, boolean>();
+    if (quizAttempts) {
+      for (const attempt of quizAttempts) {
+        if (attempt.module_id && !completedModules.has(attempt.module_id)) {
+          completedModules.set(attempt.module_id, attempt.passed || false);
+        }
+      }
+    }
+
+    // Enhance modules with completion status and proper routes
+    const enhancedModules = (modules || []).map(m => {
+      const isPassed = completedModules.get(m.id) || false;
+      const slug = m.content_slug || `module-${m.order}`;
+      let route = '';
+      
+      // Build proper route based on module order/type
+      if (m.order === 0 || /^introduction/i.test(m.title)) {
+        route = `/training?courseId=${course.id}#intro`;
+      } else if (m.title === 'Course Completion') {
+        route = `/training/complete?courseId=${course.id}`;
+      } else {
+        route = `/training/modules/${slug}?courseId=${course.id}`;
+      }
+
+      return {
+        id: m.id,
+        title: m.title,
+        order: m.order,
+        type: m.type,
+        slug: slug,
+        route: route,
+        quiz_passed: isPassed
+      };
+    });
+
+    // Filter to only incomplete modules for stepsLeft
+    const incompleteModules = enhancedModules.filter(m => !m.quiz_passed);
+    const stepsLeft = incompleteModules.map(m => ({
+      route: m.route,
       label: m.title
     }));
+
+    // Calculate if all content modules are complete (for exam unlock)
+    const contentModules = enhancedModules.filter(m => 
+      m.order > 0 && !m.title.includes('Complete') && !m.title.includes('Introduction')
+    );
+    const completedCount = contentModules.filter(m => m.quiz_passed).length;
+    const allModulesComplete = contentModules.length > 0 && completedCount === contentModules.length;
 
     const progress = {
       pct: enrollment.progress_pct || 0,
       stepsLeft,
       next: stepsLeft[0] || null,
-      canTakeExam: (enrollment.progress_pct || 0) >= 80, // 80% completion required for exam
-      modules: modules || []
+      canTakeExam: allModulesComplete, // All content modules must be complete
+      modules: enhancedModules,
+      completedCount,
+      totalCount: contentModules.length
     };
 
     return NextResponse.json(progress);
