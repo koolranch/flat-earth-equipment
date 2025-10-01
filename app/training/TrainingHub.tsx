@@ -87,17 +87,17 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
         
         if (r.ok) {
           const data = await r.json();
-          console.log('✅ Progress data received:', data);
-          
-          // Debug: Log module completion status
-          if (process.env.NODE_ENV === 'development') {
-            console.log('📊 Module completion status:', data.modules?.map((m: any) => ({
-              id: m.slug,
-              title: m.title,
-              quiz_passed: m.quiz_passed,
-              status: m.status
-            })));
-          }
+          console.log('✅ Progress data received:', {
+            completedCount: data.completedCount,
+            totalCount: data.totalCount,
+            stepsLeftCount: data.stepsLeft?.length,
+            modulesCount: data.modules?.length,
+            modules: data.modules?.map((m: any) => ({ 
+              title: m.title, 
+              order: m.order, 
+              quiz_passed: m.quiz_passed 
+            }))
+          });
           
           setProg(data);
         } else {
@@ -266,13 +266,19 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
             </div>
             <div className='space-y-3'>
               {/* Filter out intro and completion modules, show only training content */}
-              {(prog.modules && prog.modules.length > 0 ? prog.modules : FORKLIFT_MODULES_FALLBACK)
-                .filter((module: any) => {
+              {(() => {
+                const allModules = (prog.modules && prog.modules.length > 0 ? prog.modules : FORKLIFT_MODULES_FALLBACK);
+                const filteredModules = allModules.filter((module: any) => {
                   const title = module.title || '';
                   const order = module.order || 0;
                   // Only show actual training modules (not intro or completion)
-                  return order > 0 && !title.includes('Introduction') && !title.includes('Course Completion');
-                })
+                  const shouldShow = order > 0 && !title.includes('Introduction') && !title.includes('Course Completion');
+                  console.log('[TrainingHub] Module filter:', { title, order, shouldShow });
+                  return shouldShow;
+                });
+                console.log('[TrainingHub] Total modules:', allModules.length, 'Filtered:', filteredModules.length);
+                return filteredModules;
+              })()
                 .map((module, idx) => {
                 const isAPIModule = prog.modules && prog.modules.length > 0;
                 const title = isAPIModule ? (module as any).title : (module as any).title;
