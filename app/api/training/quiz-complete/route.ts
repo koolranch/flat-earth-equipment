@@ -35,15 +35,17 @@ export async function POST(req: Request) {
     }
 
     // Get the forklift course first
-    const { data: course } = await supabase
+    const { data: course, error: courseError } = await supabase
       .from('courses')
       .select('id, slug')
       .eq('slug', 'forklift')
       .single();
     
+    console.log('[quiz-complete] Course lookup result:', course ? `found: ${course.id}` : 'not found', courseError?.message);
+    
     if (!course) {
       console.error('[quiz-complete] Forklift course not found');
-      return NextResponse.json({ error: 'Course not found' }, { status: 404 });
+      return NextResponse.json({ error: 'Course not found', details: courseError?.message }, { status: 404 });
     }
     
     // Get the module - try by UUID first, then by order number
@@ -84,8 +86,21 @@ export async function POST(req: Request) {
     }
 
     if (!moduleData) {
-      console.log('[quiz-complete] Module not found:', moduleId);
-      return NextResponse.json({ error: 'Module not found' }, { status: 404 });
+      // Debug: List all modules in the course to see what's available
+      const { data: allModules } = await supabase
+        .from('modules')
+        .select('id, order, title')
+        .eq('course_id', course.id)
+        .order('order');
+      
+      console.error('[quiz-complete] Module not found. Searched for:', moduleId);
+      console.error('[quiz-complete] Available modules:', allModules?.map(m => ({ order: m.order, title: m.title })));
+      
+      return NextResponse.json({ 
+        error: 'Module not found', 
+        searched: moduleId,
+        available: allModules?.map(m => m.order)
+      }, { status: 404 });
     }
 
     console.log('[quiz-complete] Found module:', { 
