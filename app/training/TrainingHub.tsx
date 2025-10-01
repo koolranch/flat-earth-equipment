@@ -185,11 +185,18 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
               <p className="text-brand-onPanel/70 text-sm">Complete all modules and pass the final exam to earn your certificate</p>
             </div>
             <HeaderProgress 
-              modules={prog.modules?.map(m => ({ 
-                id: m.slug, 
-                title: m.title, 
-                quiz_passed: m.quiz_passed 
-              }))} 
+              modules={prog.modules
+                ?.filter(m => {
+                  // Only include the 5 main training modules (not intro/completion)
+                  const order = m.order || 0;
+                  const title = m.title || '';
+                  return order > 0 && !title.includes('Introduction') && !title.includes('Course Completion');
+                })
+                .map(m => ({ 
+                  id: m.slug, 
+                  title: m.title, 
+                  quiz_passed: m.quiz_passed 
+                }))} 
               fallbackPercent={prog.pct} 
             />
           </div>
