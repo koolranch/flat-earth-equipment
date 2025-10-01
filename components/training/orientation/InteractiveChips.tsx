@@ -138,11 +138,40 @@ function IdentifyControlDemo({ onComplete }: { onComplete: () => void }) {
 export default function OrientationInteractiveChips() {
   const [open, setOpen] = React.useState<DemoKey>(null);
   const [toast, setToast] = React.useState<string | null>(null);
+  const [completed, setCompleted] = React.useState<Set<DemoKey>>(new Set());
+  
   const close = () => setOpen(null);
-  const onDone = () => {
+  
+  const onDone = async (demoKey: DemoKey) => {
+    setCompleted(prev => new Set([...prev, demoKey]));
     setToast("Nice! Demo complete.");
     setTimeout(() => setToast(null), 1500);
     close();
+    
+    // Save completion if all demos are done
+    const allDemos: DemoKey[] = ["ppe", "hazard", "control"];
+    const newCompleted = new Set([...completed, demoKey]);
+    const allDone = allDemos.every(d => newCompleted.has(d));
+    
+    if (allDone) {
+      console.log('🎉 All orientation demos complete, saving to database...');
+      try {
+        // Save orientation completion (using order 0 or a special identifier)
+        const response = await fetch('/api/training/orientation-complete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' }
+        });
+        
+        if (response.ok) {
+          console.log('✅ Orientation completion saved');
+          setToast("🎉 Orientation complete! Ready to start training.");
+        } else {
+          console.warn('⚠️ Failed to save orientation completion');
+        }
+      } catch (error) {
+        console.error('❌ Error saving orientation completion:', error);
+      }
+    }
   };
   return (
     <div>
@@ -177,13 +206,13 @@ export default function OrientationInteractiveChips() {
 
       {/* Modals */}
       <Modal open={open === "ppe"} onClose={close} title="PPE sequence">
-        <PpeSequenceDemo onComplete={onDone} />
+        <PpeSequenceDemo onComplete={() => onDone("ppe")} />
       </Modal>
       <Modal open={open === "hazard"} onClose={close} title="Find a hazard">
-        <FindHazardDemo onComplete={onDone} />
+        <FindHazardDemo onComplete={() => onDone("hazard")} />
       </Modal>
       <Modal open={open === "control"} onClose={close} title="Identify a control">
-        <IdentifyControlDemo onComplete={onDone} />
+        <IdentifyControlDemo onComplete={() => onDone("control")} />
       </Modal>
     </div>
   );
