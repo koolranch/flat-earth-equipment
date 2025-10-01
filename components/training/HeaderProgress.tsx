@@ -52,7 +52,7 @@ export function HeaderProgress({ modules, fallbackPercent = 0, className = '' }:
       // This handles filtered arrays correctly
       const moduleOrder = (module as any).order;
       const localStorageKey = moduleOrder ? `module_${moduleOrder}` : null;
-      const isCompleted = module.quiz_passed || (localStorageKey && !!localProgress[localStorageKey]?.quiz?.passed);
+      const isCompleted = !!(module.quiz_passed || (localStorageKey && localProgress[localStorageKey]?.quiz?.passed));
       
       return {
         ...module,
