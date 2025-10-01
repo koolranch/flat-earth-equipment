@@ -224,21 +224,37 @@ export default function PreOpModule() {
         </section>
       )}
 
-      {/* Footer CTA */}
-      <div className='mt-4 flex justify-end'>
-        <button
-          className={`px-4 py-2 rounded-md border ${quizPassed ? 'bg-blue-600 text-white border-blue-600' : 'opacity-50 cursor-not-allowed bg-slate-100 border-slate-200'}`}
-          disabled={!quizPassed}
-          onClick={async () => {
-            try {
-              await recordStepCompleteSafe({course:'forklift_operator', module:1, step:'preop'});
-              track('preop_complete', { allDone: true, quizPassed: true });
-            } catch {}
-            router.push('/training?courseId=forklift_operator');
-          }}
-        >
-          {quizPassed ? 'Continue to Module 2' : 'Complete all steps to continue'}
-        </button>
+      {/* Footer CTA - Always visible for clarity */}
+      <div className='mt-8 p-6 rounded-xl border-2 bg-slate-50'>
+        <div className='flex items-center justify-between'>
+          <div>
+            <h3 className='font-semibold text-lg mb-1'>
+              {quizPassed ? '✅ Module 1 Complete!' : '📋 Complete Module 1'}
+            </h3>
+            <p className='text-sm text-slate-600'>
+              {quizPassed 
+                ? 'Great job! Click to continue to the next module.' 
+                : 'Finish all tabs above, then pass the quiz to continue.'}
+            </p>
+          </div>
+          <button
+            className={`px-6 py-3 rounded-lg font-medium transition-all ${
+              quizPassed 
+                ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg' 
+                : 'bg-slate-300 text-slate-500 cursor-not-allowed'
+            }`}
+            disabled={!quizPassed}
+            onClick={async () => {
+              try {
+                await recordStepCompleteSafe({course:'forklift_operator', module:1, step:'preop'});
+                track('preop_complete', { allDone: true, quizPassed: true });
+              } catch {}
+              router.push('/training?courseId=forklift_operator');
+            }}
+          >
+            {quizPassed ? 'Continue to Module 2 →' : 'Locked'}
+          </button>
+        </div>
       </div>
 
       {/* Quiz modal */}
