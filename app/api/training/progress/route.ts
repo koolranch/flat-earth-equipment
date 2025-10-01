@@ -4,7 +4,7 @@ import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { getForkliftCourseId, getForkliftModuleSlugs, computePercentFractional, resolveCourseForUser, getModuleSlugsForCourse } from '@/lib/training/progress-utils';
 
-export async function GET(req: Request) {
+was export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const courseParam = searchParams.get('courseId') || searchParams.get('courseSlug') || 'forklift';
@@ -322,9 +322,24 @@ export async function GET(req: Request) {
 
     // Calculate if all content modules are complete (for exam unlock)
     // Only count the 5 main training modules (exclude Introduction and Course Completion)
-    const contentModules = enhancedModules.filter(m => 
-      m.order > 0 && !m.title.includes('Complete') && !m.title.includes('Introduction')
-    );
+    console.log('[training/progress] Enhanced modules:', enhancedModules.map(m => ({ 
+      title: m.title, 
+      order: m.order, 
+      type: m.type 
+    })));
+    
+    const contentModules = enhancedModules.filter(m => {
+      const shouldInclude = m.order > 0 && !m.title.includes('Complete') && !m.title.includes('Introduction');
+      console.log('[training/progress] Filter module:', { 
+        title: m.title, 
+        order: m.order, 
+        shouldInclude 
+      });
+      return shouldInclude;
+    });
+    
+    console.log('[training/progress] Content modules count:', contentModules.length);
+    
     const completedCount = contentModules.filter(m => m.quiz_passed).length;
     const allModulesComplete = contentModules.length > 0 && completedCount === contentModules.length;
     
