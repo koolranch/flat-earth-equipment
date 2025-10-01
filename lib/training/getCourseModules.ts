@@ -1,16 +1,46 @@
-// Stub file for getting course modules
+import { createServerClient } from '@/lib/supabase/server';
+
+// Get course modules from database
 export async function getCourseModules(courseSlug: string) {
+  const supabase = createServerClient();
+  
+  // Get course
+  const { data: course } = await supabase
+    .from('courses')
+    .select('id, slug, title')
+    .eq('slug', courseSlug)
+    .single();
+  
+  if (!course) {
+    throw new Error(`Course not found: ${courseSlug}`);
+  }
+  
+  // Get modules from database
+  const { data: modules } = await supabase
+    .from('modules')
+    .select('id, order, title, type, content_slug, video_url, intro_url')
+    .eq('course_id', course.id)
+    .order('order');
+  
+  // Build hrefs for each module
+  const modulesWithHrefs = (modules || []).map(m => {
+    let href = '';
+    if (m.order === 0 || /^Introduction/i.test(m.title)) {
+      href = '/training/orientation';
+    } else if (m.order === 99 || m.title.includes('Course Completion')) {
+      href = '/training/final';
+    } else if (m.content_slug) {
+      href = `/training/modules/${m.content_slug}`;
+    } else {
+      href = `/training/module/${m.order}`;
+    }
+    
+    return { ...m, href };
+  });
+  
   return {
-    course: { id: 'forklift', slug: courseSlug, title: 'Forklift Operator Training' },
-    modules: [
-      { id: 0, order: 0, title: 'Introduction', content_slug: null, href: '/training/orientation' },
-      { id: 1, order: 1, title: 'Module 1: Pre-Operation Inspection', content_slug: 'preop', href: '/training/forklift-operator/module-1/pre-operation' },
-      { id: 2, order: 2, title: 'Module 2: 8-Point Inspection', content_slug: 'inspection', href: '/training/forklift-operator/module-2' },
-      { id: 3, order: 3, title: 'Module 3: Balance & Load Handling', content_slug: 'balance', href: '/training/forklift-operator/module-3' },
-      { id: 4, order: 4, title: 'Module 4: Hazard Hunt', content_slug: 'hazards', href: '/training/forklift-operator/module-4' },
-      { id: 5, order: 5, title: 'Module 5: Advanced Operations', content_slug: 'operations', href: '/training/forklift-operator/module-5' },
-      { id: 6, order: 6, title: 'Course Completion', content_slug: null, href: '/training/final' },
-    ]
+    course,
+    modules: modulesWithHrefs
   };
 }
 
