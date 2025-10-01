@@ -321,7 +321,8 @@ export async function GET(req: Request) {
         type: m.type,
         slug: slug,
         route: route,
-        quiz_passed: isPassed
+        quiz_passed: isPassed,
+        href: route // Add href as alias for compatibility
       };
     });
 
