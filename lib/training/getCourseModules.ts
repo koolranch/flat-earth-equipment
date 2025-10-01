@@ -4,6 +4,8 @@ import { createServerClient } from '@/lib/supabase/server';
 export async function getCourseModules(courseSlug: string) {
   const supabase = createServerClient();
   
+  console.log('[getCourseModules] Fetching modules for:', courseSlug, 'at', new Date().toISOString());
+  
   // Get course
   const { data: course } = await supabase
     .from('courses')
@@ -16,11 +18,17 @@ export async function getCourseModules(courseSlug: string) {
   }
   
   // Get modules from database
-  const { data: modules } = await supabase
+  const { data: modules, error: modulesError } = await supabase
     .from('modules')
     .select('id, order, title, type, content_slug, video_url, intro_url')
     .eq('course_id', course.id)
     .order('order');
+  
+  console.log('[getCourseModules] Loaded modules:', modules?.map(m => ({ title: m.title, order: m.order })));
+  
+  if (modulesError) {
+    console.error('[getCourseModules] Error loading modules:', modulesError);
+  }
   
   // Build hrefs for each module
   const modulesWithHrefs = (modules || []).map(m => {
