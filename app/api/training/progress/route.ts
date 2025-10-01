@@ -4,7 +4,7 @@ import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { getForkliftCourseId, getForkliftModuleSlugs, computePercentFractional, resolveCourseForUser, getModuleSlugsForCourse } from '@/lib/training/progress-utils';
 
-was export async function GET(req: Request) {
+export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const courseParam = searchParams.get('courseId') || searchParams.get('courseSlug') || 'forklift';
