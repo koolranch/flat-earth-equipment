@@ -118,20 +118,8 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
             });
           } catch {}
           
-          // Use fallback modules instead of empty array
-          const formattedFallback = FORKLIFT_MODULES_FALLBACK.map((m: any) => ({
-            slug: m.key,
-            title: m.title,
-            route: m.href,
-            quiz_passed: false
-          }));
-          
-          setProg({
-            pct: 0,
-            canTakeExam: false,
-            modules: formattedFallback,
-            stepsLeft: formattedFallback
-          });
+          // Don't replace server-side modules - just log the error
+          console.log('⚠️ API error - keeping server-side modules visible');
         }
       } catch (e) {
         console.error('❌ Progress fetch error:', e);
@@ -144,20 +132,8 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
           });
         } catch {}
         
-        // Use fallback modules instead of empty array
-        const formattedFallback = FORKLIFT_MODULES_FALLBACK.map((m: any) => ({
-          slug: m.key,
-          title: m.title,
-          route: m.href,
-          quiz_passed: false
-        }));
-        
-        setProg({
-          pct: 0,
-          canTakeExam: false,
-          modules: formattedFallback,
-          stepsLeft: formattedFallback
-        });
+        // Don't replace server-side modules - just log the error
+        console.log('⚠️ API error - keeping server-side modules visible');
       } finally {
         setLoading(false);
       }
