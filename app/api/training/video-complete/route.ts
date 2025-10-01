@@ -35,7 +35,7 @@ export async function POST(req: Request) {
     }
 
     // Get the module by ID or order number
-    let module: any = null;
+    let moduleData: any = null;
     
     // First try to find by UUID
     const { data: moduleById } = await supabase
@@ -45,7 +45,7 @@ export async function POST(req: Request) {
       .maybeSingle();
     
     if (moduleById) {
-      module = moduleById;
+      moduleData = moduleById;
     } else {
       // If not found by UUID, try by order number
       const { data: moduleByOrder } = await supabase
@@ -55,20 +55,20 @@ export async function POST(req: Request) {
         .maybeSingle();
       
       if (moduleByOrder) {
-        module = moduleByOrder;
+        moduleData = moduleByOrder;
       }
     }
 
-    if (!module) {
+    if (!moduleData) {
       console.log('[video-complete] Module not found:', moduleId);
       return NextResponse.json({ error: 'Module not found' }, { status: 404 });
     }
 
     console.log('[video-complete] Found module:', { 
-      id: module.id, 
-      title: module.title, 
-      order: module.order,
-      courseId: module.course_id
+      id: moduleData.id, 
+      title: moduleData.title, 
+      order: moduleData.order,
+      courseId: moduleData.course_id
     });
 
     // Check if this module already has a passing quiz attempt
@@ -76,7 +76,7 @@ export async function POST(req: Request) {
       .from('quiz_attempts')
       .select('id, passed')
       .eq('user_id', user.id)
-      .eq('module_id', module.id)
+      .eq('module_id', moduleData.id)
       .eq('passed', true)
       .maybeSingle();
 
@@ -90,8 +90,8 @@ export async function POST(req: Request) {
       .from('quiz_attempts')
       .insert({
         user_id: user.id,
-        course_id: module.course_id,
-        module_id: module.id,
+        course_id: moduleData.course_id,
+        module_id: moduleData.id,
         mode: 'full',
         seed: 'video-complete',
         question_ids: [],
@@ -112,7 +112,7 @@ export async function POST(req: Request) {
       .from('enrollments')
       .select('id, course_id, progress_pct')
       .eq('user_id', user.id)
-      .eq('course_id', module.course_id)
+      .eq('course_id', moduleData.course_id)
       .maybeSingle();
 
     if (enrollment) {
@@ -120,14 +120,14 @@ export async function POST(req: Request) {
       const { data: allModules } = await supabase
         .from('modules')
         .select('id')
-        .eq('course_id', module.course_id)
+        .eq('course_id', moduleData.course_id)
         .gt('order', 0); // Exclude intro if order 0
 
       const { data: completedAttempts } = await supabase
         .from('quiz_attempts')
         .select('module_id')
         .eq('user_id', user.id)
-        .eq('course_id', module.course_id)
+        .eq('course_id', moduleData.course_id)
         .eq('passed', true);
 
       if (allModules && completedAttempts) {
