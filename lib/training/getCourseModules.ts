@@ -4,7 +4,7 @@ import { createServerClient } from '@/lib/supabase/server';
 export async function getCourseModules(courseSlug: string) {
   const supabase = createServerClient();
   
-  console.log('[getCourseModules] Fetching modules for:', courseSlug, 'at', new Date().toISOString());
+  console.log('[getCourseModules] Fetching modules for:', courseSlug, 'at', new Date().toISOString(), '- v2');
   
   // Get course
   const { data: course } = await supabase
