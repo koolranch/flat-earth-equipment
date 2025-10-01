@@ -30,15 +30,25 @@ export async function getCourseModules(courseSlug: string) {
     console.error('[getCourseModules] Error loading modules:', modulesError);
   }
   
-  // Build hrefs for each module
+  // Build hrefs for each module - use specific module pages
   const modulesWithHrefs = (modules || []).map(m => {
     let href = '';
+    
+    // Map to actual module page routes
     if (m.order === 0 || /^Introduction/i.test(m.title)) {
       href = '/training/orientation';
     } else if (m.order === 99 || m.title.includes('Course Completion')) {
       href = '/training/final';
-    } else if (m.content_slug) {
-      href = `/training/modules/${m.content_slug}`;
+    } else if (m.order === 1) {
+      href = '/training/modules/pre-op';
+    } else if (m.order === 2) {
+      href = '/training/module/2'; // 8-Point Inspection
+    } else if (m.order === 3) {
+      href = '/training/module/3'; // Balance & Load
+    } else if (m.order === 4) {
+      href = '/training/module/4'; // Hazard Hunt
+    } else if (m.order === 5) {
+      href = '/training/module/5'; // Advanced Operations
     } else {
       href = `/training/module/${m.order}`;
     }
