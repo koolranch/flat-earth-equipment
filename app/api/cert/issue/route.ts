@@ -14,16 +14,22 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
-  const sb = supabaseService();
-  const { enrollment_id } = await req.json();
-  if (!enrollment_id) return NextResponse.json({ ok: false, error: 'missing enrollment_id' }, { status: 400 });
+  try {
+    const sb = supabaseService();
+    const { enrollment_id } = await req.json();
+    if (!enrollment_id) return NextResponse.json({ ok: false, error: 'missing enrollment_id' }, { status: 400 });
 
-  // Load enrollment + profile + course
-  const { data: enr, error: e1 } = await sb
-    .from('enrollments')
-    .select('id, user_id, course_id, created_at, passed')
-    .eq('id', enrollment_id).single();
-  if (e1 || !enr) return NextResponse.json({ ok: false, error: 'enrollment not found' }, { status: 404 });
+    console.log('[cert/issue] Starting certificate generation for enrollment:', enrollment_id);
+
+    // Load enrollment + profile + course
+    const { data: enr, error: e1 } = await sb
+      .from('enrollments')
+      .select('id, user_id, course_id, created_at, passed')
+      .eq('id', enrollment_id).single();
+    if (e1 || !enr) {
+      console.error('[cert/issue] Enrollment not found:', e1?.message);
+      return NextResponse.json({ ok: false, error: 'enrollment not found' }, { status: 404 });
+    }
 
   const { data: prof } = await sb.from('profiles').select('full_name, email, locale').eq('id', enr.user_id).maybeSingle();
   const { data: course } = await sb.from('courses').select('title').eq('id', enr.course_id).maybeSingle();
