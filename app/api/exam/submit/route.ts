@@ -35,7 +35,27 @@ export async function POST(req: Request){
 
   // finish session
   await svc.from('exam_sessions').update({ status:'completed' }).eq('id', session_id);
-  const { data: attemptRow } = await svc.from('exam_attempts').insert({ user_id: user.id, course_id: course_id||null, paper_id: sess.paper_id, answers, score_pct: scorePct, passed }).select('id').maybeSingle();
+  
+  // Insert exam attempt with correct column names
+  const { data: attemptRow, error: attemptError } = await svc
+    .from('exam_attempts')
+    .insert({ 
+      user_id: user.id, 
+      exam_slug: 'final-exam',
+      paper_id: sess.paper_id, 
+      answers: answers, 
+      score_pct: scorePct, 
+      passed: passed,
+      items_total: total,
+      items_correct: got
+    })
+    .select('id')
+    .maybeSingle();
+  
+  if (attemptError) {
+    console.error('[exam/submit] Failed to insert exam attempt:', attemptError);
+  }
+  
   const attempt_id = attemptRow?.id;
 
   // Update enrollment to passed if exam was passed
