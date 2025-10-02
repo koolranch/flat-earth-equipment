@@ -66,12 +66,65 @@ export default function ExamPage(){
     const incorrect = result.incorrectIndices as number[];
     const recs = (result.recommendations || []) as { tag:string; slug?:string|null; href?:string|null }[];
     return (
-      <main className="container mx-auto p-4 space-y-3">
-        <h1 className="text-2xl font-bold">{t('exam.results_title')}</h1>
-        <div className="rounded-2xl border p-3">
-          <div className="text-lg font-semibold">{result.passed ? t('exam.passed_title') : t('exam.failed_title')}</div>
-          <div className="text-sm text-slate-700">{t('exam.score_label')}: {result.scorePct}% ({result.correct}/{result.total})</div>
+      <main className="container mx-auto max-w-3xl p-6 space-y-6">
+        <h1 className="text-3xl font-bold">{t('exam.results_title')}</h1>
+        
+        <div className={`rounded-2xl border-2 p-6 ${result.passed ? 'border-emerald-500 bg-emerald-50' : 'border-amber-500 bg-amber-50'}`}>
+          <div className="text-2xl font-bold mb-2">{result.passed ? '🎉 ' + t('exam.passed_title') : t('exam.failed_title')}</div>
+          <div className="text-lg text-slate-700">{t('exam.score_label')}: {result.scorePct}% ({result.correct}/{result.total})</div>
         </div>
+        
+        {result.passed && (
+          <div className="rounded-2xl border-2 border-blue-500 bg-blue-50 p-6 space-y-4">
+            <h2 className="text-xl font-semibold">📜 Your Certificate</h2>
+            <p className="text-slate-700">Congratulations! Your certificate has been generated and is ready to download.</p>
+            
+            <div className="flex flex-wrap gap-3">
+              <a 
+                href="/api/certificates/pdf" 
+                download
+                className="btn-primary tappable px-6 py-3"
+              >
+                📥 Download Certificate (PDF)
+              </a>
+              <a 
+                href="/api/certificates/wallet" 
+                download
+                className="tappable rounded-xl border-2 border-blue-600 bg-white px-6 py-3 text-blue-600 font-medium hover:bg-blue-50 transition-colors"
+              >
+                🎫 Download Wallet Card
+              </a>
+            </div>
+            
+            <div className="mt-4 p-4 bg-blue-100 rounded-lg">
+              <p className="text-sm text-blue-900">
+                <strong>Email sent!</strong> Your certificate has been sent to your email address on file.
+              </p>
+            </div>
+          </div>
+        )}
+        
+        {result.passed && (
+          <div className="rounded-2xl border-2 border-amber-500 bg-amber-50 p-6 space-y-4">
+            <h2 className="text-xl font-semibold">⚠️ Important: OSHA Compliance</h2>
+            <p className="text-slate-700">
+              While you've passed the written exam, <strong>OSHA requires a practical evaluation</strong> by your supervisor before you can operate a forklift independently.
+            </p>
+            
+            <a 
+              href="/practical" 
+              className="inline-flex items-center gap-2 btn-primary tappable px-6 py-3"
+            >
+              Complete Practical Evaluation →
+            </a>
+            
+            <p className="text-sm text-slate-600">
+              Your supervisor will evaluate your hands-on skills and sign off on your competency.
+            </p>
+          </div>
+        )}
+        
+        
         {incorrect?.length>0 && (
           <details className="rounded-2xl border p-3"><summary className="font-medium cursor-pointer">{t('exam.review_incorrect')}</summary>
             <ul className="list-disc pl-5 mt-2 text-sm">{incorrect.map((k:number)=> (<li key={k}><span className="font-mono">Q{k+1}</span>: {paper.items[k]?.question}</li>))}</ul>
