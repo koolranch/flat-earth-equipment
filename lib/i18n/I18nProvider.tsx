@@ -12,9 +12,9 @@ function getInitialLocale(): Locales {
     const cookieLocale = document.cookie.match(/(?:^|; )locale=([^;]+)/)?.[1];
     if (cookieLocale === 'en' || cookieLocale === 'es') return cookieLocale;
   }
-  const envLocale = process.env.NEXT_PUBLIC_DEFAULT_LOCALE;
-  // Default to English if no locale is set
-  return (envLocale === 'es' ? 'es' : 'en');
+  // Always default to English unless explicitly set
+  // Environment variable should not override user preference
+  return 'en';
 }
 
 export function I18nProvider({ children, defaultLocale }:{ children: any; defaultLocale?: Locales }){

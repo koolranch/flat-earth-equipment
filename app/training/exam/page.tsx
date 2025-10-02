@@ -5,7 +5,9 @@ import { useI18n } from '@/lib/i18n/I18nProvider';
 async function api(path:string, init?:RequestInit){ const r = await fetch(path, { cache:'no-store', ...init }); if (!r.ok) throw new Error(path); return r.json(); }
 
 export default function ExamPage(){
-  const { t, locale } = useI18n();
+  const { t, locale: i18nLocale } = useI18n();
+  // Default to English for exam unless user explicitly changed language
+  const locale = i18nLocale || 'en';
   const [paper, setPaper] = useState<any>(null); // {id, session_id, items[], time_limit_sec, pass_score}
   const [i, setI] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
