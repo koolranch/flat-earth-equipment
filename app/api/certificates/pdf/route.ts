@@ -11,19 +11,25 @@ export async function GET(req: Request){
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Find user's most recent certificate
+    // Find user's most recent enrollment first
     const svc = supabaseService();
+    const { data: enrollment, error: enrollmentError } = await svc
+      .from('enrollments')
+      .select('id')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (enrollmentError || !enrollment) {
+      return NextResponse.json({ error: 'No enrollment found' }, { status: 404 });
+    }
+
+    // Find certificate for this enrollment
     const { data: cert, error } = await svc
       .from('certificates')
       .select('id, enrollment_id, pdf_url, issued_at, verification_code')
-      .eq('enrollment_id', (
-        await svc.from('enrollments')
-          .select('id')
-          .eq('user_id', user.id)
-          .order('created_at', { ascending: false })
-          .limit(1)
-          .single()
-      ).data.id)
+      .eq('enrollment_id', enrollment.id)
       .maybeSingle();
 
     if (error || !cert) {
