@@ -38,6 +38,16 @@ export async function POST(req: Request){
   const { data: attemptRow } = await svc.from('exam_attempts').insert({ user_id: user.id, course_id: course_id||null, paper_id: sess.paper_id, answers, score_pct: scorePct, passed }).select('id').maybeSingle();
   const attempt_id = attemptRow?.id;
 
+  // Update enrollment to passed if exam was passed
+  if (passed && course_id) {
+    console.log('[exam/submit] Updating enrollment to passed for user:', user.id, 'course:', course_id);
+    await svc
+      .from('enrollments')
+      .update({ passed: true, progress_pct: 100, updated_at: new Date().toISOString() })
+      .eq('user_id', user.id)
+      .eq('course_id', course_id);
+  }
+
   // 1) Fetch question rows for metadata (tags,difficulty,locale)
   const qids = (answers||[]).map((a:any)=> a.question_id).filter(Boolean);
   const { data: qrows } = await svc.from('quiz_items').select('id,tags,difficulty,locale,correct_index').in('id', qids);
