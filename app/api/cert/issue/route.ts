@@ -28,8 +28,8 @@ export async function POST(req: Request) {
   const { data: prof } = await sb.from('profiles').select('full_name, email, locale').eq('id', enr.user_id).maybeSingle();
   const { data: course } = await sb.from('courses').select('title').eq('id', enr.course_id).maybeSingle();
 
-  // Check practical eval (required unless override is set)
-  const allowExamOnly = process.env.ALLOW_EXAM_ONLY_CERT === '1';
+  // Check practical eval (optional - certificate is issued after exam pass)
+  // Practical evaluation is tracked separately but doesn't gate certificate issuance
   let practical_verified = false; 
   let evaluation_date: string | null = null;
   
@@ -45,10 +45,9 @@ export async function POST(req: Request) {
     evaluation_date = ev[0].evaluation_date; 
   }
 
-  // Gate certificate issuance on practical evaluation
-  if (!allowExamOnly && !practical_verified) {
-    return NextResponse.json({ ok: false, error: 'practical_evaluation_required' }, { status: 400 });
-  }
+  // Note: Certificate is issued immediately upon exam pass
+  // Practical evaluation is a separate compliance requirement tracked independently
+  console.log('[cert/issue] Issuing certificate for enrollment:', enrollment_id, 'practical verified:', practical_verified);
 
   // Prepare payload
   const issued_at = new Date().toISOString();
