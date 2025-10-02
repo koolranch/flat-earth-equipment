@@ -39,13 +39,32 @@ export async function POST(req: Request){
   const attempt_id = attemptRow?.id;
 
   // Update enrollment to passed if exam was passed
-  if (passed && course_id) {
-    console.log('[exam/submit] Updating enrollment to passed for user:', user.id, 'course:', course_id);
-    await svc
+  if (passed) {
+    console.log('[exam/submit] Exam passed, finding enrollment for user:', user.id);
+    
+    // Find user's enrollment (use course_id if provided, otherwise find most recent)
+    const enrollmentQuery = svc
       .from('enrollments')
-      .update({ passed: true, progress_pct: 100, updated_at: new Date().toISOString() })
+      .select('id, course_id')
       .eq('user_id', user.id)
-      .eq('course_id', course_id);
+      .order('created_at', { ascending: false })
+      .limit(1);
+    
+    if (course_id) {
+      enrollmentQuery.eq('course_id', course_id);
+    }
+    
+    const { data: enrollment } = await enrollmentQuery.maybeSingle();
+    
+    if (enrollment) {
+      console.log('[exam/submit] Updating enrollment to passed:', enrollment.id);
+      await svc
+        .from('enrollments')
+        .update({ passed: true, progress_pct: 100, updated_at: new Date().toISOString() })
+        .eq('id', enrollment.id);
+    } else {
+      console.error('[exam/submit] No enrollment found for user:', user.id);
+    }
   }
 
   // 1) Fetch question rows for metadata (tags,difficulty,locale)
