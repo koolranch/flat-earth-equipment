@@ -122,5 +122,31 @@ export async function POST(req: Request){
     console.warn('[email] Failed to send exam result email:', err);
   }
   
+  // Trigger certificate generation if passed
+  if (passed) {
+    try {
+      // Find enrollment for this user
+      const { data: enr } = await svc
+        .from('enrollments')
+        .select('id')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      
+      if (enr) {
+        console.log('[exam/submit] Triggering certificate generation for enrollment:', enr.id);
+        await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'https://flatearthequipment.com'}/api/cert/issue`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ enrollment_id: enr.id })
+        });
+        console.log('[exam/submit] Certificate generation triggered');
+      }
+    } catch (certError) {
+      console.error('[exam/submit] Failed to trigger certificate:', certError);
+    }
+  }
+  
   return NextResponse.json({ ok:true, passed, scorePct, correct: got, total, incorrectIndices: incorrect, weak_tags, recommendations: [] });
 }
