@@ -185,12 +185,21 @@ export async function POST(req: Request){
       
       if (enr) {
         console.log('[exam/submit] Triggering certificate generation for enrollment:', enr.id);
-        await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'https://flatearthequipment.com'}/api/cert/issue`, {
+        const certResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'https://flatearthequipment.com'}/api/cert/issue`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ enrollment_id: enr.id })
         });
-        console.log('[exam/submit] Certificate generation triggered');
+        
+        if (certResponse.ok) {
+          const certData = await certResponse.json();
+          console.log('[exam/submit] Certificate generation succeeded:', certData);
+        } else {
+          const certError = await certResponse.text();
+          console.error('[exam/submit] Certificate generation failed:', certResponse.status, certError);
+        }
+      } else {
+        console.error('[exam/submit] No enrollment found for certificate generation');
       }
     } catch (certError) {
       console.error('[exam/submit] Failed to trigger certificate:', certError);
