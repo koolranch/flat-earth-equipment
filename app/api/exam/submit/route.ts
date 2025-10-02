@@ -58,7 +58,8 @@ export async function POST(req: Request){
   
   const attempt_id = attemptRow?.id;
 
-  // Update enrollment to passed if exam was passed
+  // Update enrollment to passed if exam was passed AND trigger certificate generation
+  let enrollmentId: string | null = null;
   if (passed) {
     console.log('[exam/submit] Exam passed, finding enrollment for user:', user.id);
     
@@ -77,11 +78,32 @@ export async function POST(req: Request){
     const { data: enrollment } = await enrollmentQuery.maybeSingle();
     
     if (enrollment) {
+      enrollmentId = enrollment.id;
       console.log('[exam/submit] Updating enrollment to passed:', enrollment.id);
       await svc
         .from('enrollments')
         .update({ passed: true, progress_pct: 100, updated_at: new Date().toISOString() })
         .eq('id', enrollment.id);
+      
+      // Trigger certificate generation immediately
+      try {
+        console.log('[exam/submit] Triggering certificate generation for enrollment:', enrollment.id);
+        const certResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'https://flatearthequipment.com'}/api/cert/issue`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ enrollment_id: enrollment.id })
+        });
+        
+        if (certResponse.ok) {
+          const certData = await certResponse.json();
+          console.log('[exam/submit] Certificate generation succeeded:', certData);
+        } else {
+          const certError = await certResponse.text();
+          console.error('[exam/submit] Certificate generation failed:', certResponse.status, certError);
+        }
+      } catch (certError) {
+        console.error('[exam/submit] Failed to trigger certificate:', certError);
+      }
     } else {
       console.error('[exam/submit] No enrollment found for user:', user.id);
     }
@@ -171,40 +193,7 @@ export async function POST(req: Request){
     console.warn('[email] Failed to send exam result email:', err);
   }
   
-  // Trigger certificate generation if passed
-  if (passed) {
-    try {
-      // Find enrollment for this user
-      const { data: enr } = await svc
-        .from('enrollments')
-        .select('id')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false })
-        .limit(1)
-        .maybeSingle();
-      
-      if (enr) {
-        console.log('[exam/submit] Triggering certificate generation for enrollment:', enr.id);
-        const certResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'https://flatearthequipment.com'}/api/cert/issue`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ enrollment_id: enr.id })
-        });
-        
-        if (certResponse.ok) {
-          const certData = await certResponse.json();
-          console.log('[exam/submit] Certificate generation succeeded:', certData);
-        } else {
-          const certError = await certResponse.text();
-          console.error('[exam/submit] Certificate generation failed:', certResponse.status, certError);
-        }
-      } else {
-        console.error('[exam/submit] No enrollment found for certificate generation');
-      }
-    } catch (certError) {
-      console.error('[exam/submit] Failed to trigger certificate:', certError);
-    }
-  }
+  // Certificate generation now happens earlier (above) to avoid being skipped by early returns
   
   return NextResponse.json({ ok:true, passed, scorePct, correct: got, total, incorrectIndices: incorrect, weak_tags, recommendations: [] });
 }
