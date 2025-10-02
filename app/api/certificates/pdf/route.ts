@@ -1,31 +1,45 @@
 import { NextResponse } from 'next/server';
+import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
-import { renderCertificatePDF } from '@/lib/pdf/certificateTemplate';
 
-export async function POST(req: Request){
+export async function GET(req: Request){
   try{
-    const { certificate_id } = await req.json();
+    // Get current user
+    const sb = supabaseServer();
+    const { data: { user }, error: userError } = await sb.auth.getUser();
+    if (userError || !user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Find user's most recent certificate
     const svc = supabaseService();
     const { data: cert, error } = await svc
       .from('certificates')
-      .select('id, user_id, verify_code, trainer_signature_url, trainee_signature_url, issued_at, course_slug, pdf_url, users!inner(full_name)')
-      .eq('id', certificate_id)
-      .single();
-    if(error) throw error;
+      .select('id, enrollment_id, pdf_url, issued_at, verification_code')
+      .eq('enrollment_id', (
+        await svc.from('enrollments')
+          .select('id')
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false })
+          .limit(1)
+          .single()
+      ).data.id)
+      .maybeSingle();
 
-    const verifyUrl = `${process.env.NEXT_PUBLIC_BASE_URL || ''}/verify/${cert.verify_code}`;
-    const pdfNode = await renderCertificatePDF({
-      fullName: (cert.users as any)?.full_name || 'Learner',
-      issuedAt: cert.issued_at || new Date().toISOString(),
-      verifyUrl,
-      trainerSignatureUrl: cert.trainer_signature_url,
-      traineeSignatureUrl: cert.trainee_signature_url
-    });
+    if (error || !cert) {
+      console.error('[certificates/pdf] Certificate not found for user:', user.id);
+      return NextResponse.json({ error: 'Certificate not found. Please contact support.' }, { status: 404 });
+    }
 
-    // TODO: your existing PDF renderer (e.g., renderToStream) & upload to storage.
-    // Keep your existing implementation; the important part is the new props.
+    // If PDF URL already exists in database, redirect to it
+    if (cert.pdf_url) {
+      return NextResponse.redirect(cert.pdf_url);
+    }
 
-    return NextResponse.json({ ok: true });
+    // Otherwise, need to generate it - redirect to cert/issue endpoint
+    return NextResponse.json({ 
+      error: 'Certificate not yet generated. Please wait a moment and try again.' 
+    }, { status: 404 });
   }catch(e){
     console.error('cert/pdf', e);
     return NextResponse.json({ error: 'server_error' }, { status: 500 });
