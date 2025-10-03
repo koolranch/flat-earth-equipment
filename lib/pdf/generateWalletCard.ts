@@ -28,79 +28,115 @@ function hexToRgb(hex: string) {
 }
 
 export async function generateWalletCardPDF(input: WalletCardInput): Promise<Uint8Array> {
-  const brand = hexToRgb(input.brandHex || '#F76511');
-  const slate = rgb(0.059, 0.090, 0.165); // slate-900
-  const gray = rgb(0.83, 0.87, 0.92);     // ~slate-300
+  const brandOrange = hexToRgb(input.brandHex || '#F76511');
+  const darkBlue = rgb(0.06, 0.09, 0.16);
+  const mediumGray = rgb(0.38, 0.38, 0.42);
+  const lightGray = rgb(0.95, 0.95, 0.95);
 
   const pdf = await PDFDocument.create();
   const font = await pdf.embedFont(StandardFonts.Helvetica);
   const fontBold = await pdf.embedFont(StandardFonts.HelveticaBold);
 
   const verifyUrl = `${input.baseUrl.replace(/\/$/, '')}/verify/${encodeURIComponent(input.verifyCode)}`;
-  const qrPng = await QRCode.toBuffer(verifyUrl, { width: 180, margin: 0 });
+  const qrPng = await QRCode.toBuffer(verifyUrl, { width: 200, margin: 0 });
   const qrImg = await pdf.embedPng(qrPng);
 
-  // FRONT
+  // FRONT - Professional Design
   {
     const page = pdf.addPage([CARD_W, CARD_H]);
-    // background frame
-    page.drawRectangle({ x: 6, y: 6, width: CARD_W - 12, height: CARD_H - 12, borderColor: slate, borderWidth: 1, color: rgb(1,1,1) });
+    
+    // Double border for professional look
+    page.drawRectangle({ x: 4, y: 4, width: CARD_W - 8, height: CARD_H - 8, borderColor: darkBlue, borderWidth: 2 });
+    page.drawRectangle({ x: 7, y: 7, width: CARD_W - 14, height: CARD_H - 14, borderColor: brandOrange, borderWidth: 0.5 });
 
-    // header bar
-    page.drawRectangle({ x: 6, y: CARD_H - 28, width: CARD_W - 12, height: 22, color: brand });
-    page.drawText(`${input.orgName} — Operator Card`, { x: 14, y: CARD_H - 22, size: 10, font: fontBold, color: rgb(1,1,1) });
+    // Header bar with gradient effect (simulated)
+    page.drawRectangle({ x: 7, y: CARD_H - 32, width: CARD_W - 14, height: 25, color: brandOrange });
+    
+    // OSHA badge in corner
+    page.drawText('OSHA', { x: 12, y: CARD_H - 20, size: 7, font: fontBold, color: rgb(1, 1, 1) });
+    page.drawText('Certified', { x: 12, y: CARD_H - 28, size: 5, font, color: rgb(1, 1, 1) });
+    
+    // Title
+    page.drawText('FORKLIFT OPERATOR', { x: 52, y: CARD_H - 18, size: 9, font: fontBold, color: rgb(1, 1, 1) });
+    page.drawText('CERTIFICATION CARD', { x: 52, y: CARD_H - 28, size: 7, font, color: rgb(1, 1, 1) });
 
-    // Name (big)
-    page.drawText(input.traineeName, { x: 14, y: CARD_H - 52, size: 14, font: fontBold, color: slate });
+    // Name section with underline
+    const nameY = CARD_H - 48;
+    page.drawText(input.traineeName, { x: 12, y: nameY, size: 12, font: fontBold, color: darkBlue });
+    page.drawLine({ start: { x: 12, y: nameY - 2 }, end: { x: 140, y: nameY - 2 }, thickness: 0.5, color: brandOrange });
 
-    // Employer / Equipment lines
-    const lineY1 = CARD_H - 72;
-    const lineY2 = CARD_H - 88;
-    page.drawText(`Employer: ${input.employer || '—'}`, { x: 14, y: lineY1, size: 9, font, color: slate });
-    page.drawText(`Equipment: ${input.equipment || 'Powered Industrial Truck'}`, { x: 14, y: lineY2, size: 9, font, color: slate });
+    // Details section
+    let detailY = CARD_H - 66;
+    const detailSize = 7.5;
+    
+    page.drawText('Equipment:', { x: 12, y: detailY, size: detailSize - 0.5, font: fontBold, color: mediumGray });
+    page.drawText(input.equipment || 'Powered Industrial Truck', { x: 48, y: detailY, size: detailSize, font, color: darkBlue });
+    
+    detailY -= 12;
+    if (input.employer) {
+      page.drawText('Employer:', { x: 12, y: detailY, size: detailSize - 0.5, font: fontBold, color: mediumGray });
+      page.drawText(input.employer, { x: 48, y: detailY, size: detailSize, font, color: darkBlue });
+      detailY -= 12;
+    }
+    
+    // Dates in bordered box
+    page.drawRectangle({ x: 10, y: 28, width: 130, height: 24, borderWidth: 0.5, borderColor: mediumGray, color: lightGray });
+    page.drawText('Issued:', { x: 13, y: 42, size: 7, font: fontBold, color: darkBlue });
+    page.drawText(input.issuedAt ? new Date(input.issuedAt).toLocaleDateString() : '—', { x: 13, y: 33, size: 7, font, color: darkBlue });
+    page.drawText('Expires:', { x: 75, y: 42, size: 7, font: fontBold, color: darkBlue });
+    page.drawText(input.expiresAt ? new Date(input.expiresAt).toLocaleDateString() : '—', { x: 75, y: 33, size: 7, font, color: darkBlue });
 
-    // Dates
-    const lineY3 = CARD_H - 106;
-    page.drawText(`Issued: ${input.issuedAt ? new Date(input.issuedAt).toLocaleDateString() : '—'}`, { x: 14, y: lineY3, size: 9, font, color: slate });
-    const expText = `Expires: ${input.expiresAt ? new Date(input.expiresAt).toLocaleDateString() : '—'}`;
-    const expWidth = font.widthOfTextAtSize(expText, 9);
-    page.drawText(expText, { x: CARD_W - 14 - expWidth, y: lineY3, size: 9, font, color: slate });
+    // Verification code
+    page.drawText(`Code: ${input.verifyCode}`, { x: 12, y: 14, size: 6.5, font: fontBold, color: mediumGray });
 
-    // Verify code (human)
-    const codeY = 18;
-    const codeLabel = `Verify: ${input.verifyCode}`;
-    page.drawText(codeLabel, { x: 14, y: codeY, size: 9, font: fontBold, color: slate });
-
-    // QR (right)
-    const qrSize = 84; // pt
-    page.drawImage(qrImg, { x: CARD_W - qrSize - 14, y: 18, width: qrSize, height: qrSize });
+    // QR code (right side, bordered)
+    const qrSize = 90;
+    page.drawRectangle({ x: CARD_W - qrSize - 18, y: 20, width: qrSize + 6, height: qrSize + 14, borderWidth: 1, borderColor: mediumGray });
+    page.drawText('VERIFY', { x: CARD_W - qrSize - 1, y: qrSize + 28, size: 6, font: fontBold, color: darkBlue });
+    page.drawImage(qrImg, { x: CARD_W - qrSize - 15, y: 23, width: qrSize, height: qrSize });
   }
 
-  // BACK (simple instructions + verification URL)
+  // BACK - OSHA Compliance Information
   {
     const page = pdf.addPage([CARD_W, CARD_H]);
-    page.drawRectangle({ x: 6, y: 6, width: CARD_W - 12, height: CARD_H - 12, borderColor: slate, borderWidth: 1, color: rgb(1,1,1) });
+    
+    // Matching borders
+    page.drawRectangle({ x: 4, y: 4, width: CARD_W - 8, height: CARD_H - 8, borderColor: darkBlue, borderWidth: 2 });
+    page.drawRectangle({ x: 7, y: 7, width: CARD_W - 14, height: CARD_H - 14, borderColor: brandOrange, borderWidth: 0.5 });
 
-    page.drawText('Employer Evaluation:', { x: 14, y: CARD_H - 28, size: 11, font: fontBold, color: slate });
-    const bullets = [
-      'This card is valid only with onsite evaluation.',
-      'Operator must follow site-specific rules.',
-      'Scan QR to verify status or revoke.'
+    // Header section
+    page.drawRectangle({ x: 7, y: CARD_H - 32, width: CARD_W - 14, height: 25, color: lightGray });
+    page.drawRectangle({ x: 7, y: CARD_H - 32, width: CARD_W - 14, height: 2, color: brandOrange });
+    page.drawText('OSHA COMPLIANCE REQUIREMENTS', { x: 24, y: CARD_H - 22, size: 9, font: fontBold, color: darkBlue });
+
+    // OSHA Requirements
+    page.drawText('29 CFR 1910.178(l)', { x: 12, y: CARD_H - 42, size: 7, font: fontBold, color: brandOrange });
+    
+    const requirements = [
+      '✓ Formal training completed',
+      '✓ Workplace evaluation required',
+      '✓ Equipment-specific training',
+      '✓ Valid for 3 years from issue date'
     ];
-    let y = CARD_H - 48;
-    bullets.forEach((b) => {
-      page.drawCircle({ x: 16, y: y + 3.2, size: 1.8, color: slate });
-      page.drawText(b, { x: 22, y, size: 9, font, color: slate });
-      y -= 14;
+    let y = CARD_H - 56;
+    requirements.forEach((req) => {
+      page.drawText(req, { x: 12, y, size: 7, font, color: darkBlue });
+      y -= 12;
     });
 
-    // Light brand stripe bottom
-    page.drawRectangle({ x: 6, y: 10, width: CARD_W - 12, height: 8, color: brand });
+    // Important notice box
+    page.drawRectangle({ x: 10, y: 32, width: CARD_W - 20, height: 28, borderWidth: 0.5, borderColor: brandOrange, color: rgb(1, 0.98, 0.95) });
+    page.drawText('IMPORTANT:', { x: 13, y: 52, size: 7, font: fontBold, color: darkBlue });
+    page.drawText('Employer must verify and document', { x: 13, y: 44, size: 6.5, font, color: darkBlue });
+    page.drawText('practical skills before operation.', { x: 13, y: 37, size: 6.5, font, color: darkBlue });
 
-    // Verify URL (short)
+    // Footer with brand
+    page.drawRectangle({ x: 7, y: 7, width: CARD_W - 14, height: 16, color: brandOrange });
+    page.drawText('Flat Earth Equipment', { x: 52, y: 13, size: 8, font: fontBold, color: rgb(1, 1, 1) });
+    
+    // Verify URL
     const url = verifyUrl.replace(/^https?:\/\//, '');
-    const urlW = font.widthOfTextAtSize(url, 9);
-    page.drawText(url, { x: (CARD_W - urlW) / 2, y: 22, size: 9, font: fontBold, color: slate });
+    page.drawText(`Verify: ${url}`, { x: 12, y: 13, size: 5.5, font, color: rgb(1, 1, 1) });
   }
 
   const bytes = await pdf.save();
