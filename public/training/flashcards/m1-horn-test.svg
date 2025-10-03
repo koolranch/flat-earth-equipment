@@ -1,0 +1,24 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Horn/alert icon -->
+  <rect width="96" height="96" fill="transparent"/>
+  
+  <!-- Horn/speaker -->
+  <path d="M25 40 L35 35 L55 35 L55 61 L35 61 L25 56 Z" 
+        fill="#0F172A" opacity="0.8"/>
+  
+  <!-- Speaker cone -->
+  <path d="M55 35 L75 25 L75 71 L55 61 Z" 
+        fill="#F76511" opacity="0.9"/>
+  
+  <!-- Sound waves -->
+  <path d="M78 38 Q82 48 78 58" stroke="#F76511" stroke-width="2.5" fill="none" opacity="0.7"/>
+  <path d="M82 33 Q88 48 82 63" stroke="#F76511" stroke-width="2" fill="none" opacity="0.5"/>
+  <path d="M86 28 Q93 48 86 68" stroke="#F76511" stroke-width="1.5" fill="none" opacity="0.3"/>
+  
+  <!-- Button/grill detail -->
+  <circle cx="45" cy="48" r="4" fill="#6B7280" opacity="0.6"/>
+  <line x1="30" y1="44" x2="30" y2="52" stroke="#FFF" stroke-width="1" opacity="0.3"/>
+  <line x1="35" y1="44" x2="35" y2="52" stroke="#FFF" stroke-width="1" opacity="0.3"/>
+  <line x1="40" y1="44" x2="40" y2="52" stroke="#FFF" stroke-width="1" opacity="0.3"/>
+</svg>
+
