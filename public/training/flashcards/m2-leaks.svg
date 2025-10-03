@@ -1,0 +1,32 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hydraulic leak detection -->
+  <rect width="96" height="96" fill="transparent"/>
+  
+  <!-- Forklift mast (simplified) -->
+  <rect x="35" y="15" width="26" height="70" rx="2" fill="#0F172A" opacity="0.3"/>
+  
+  <!-- Hydraulic cylinder -->
+  <rect x="38" y="25" width="20" height="40" rx="2" fill="#6B7280" opacity="0.8"/>
+  <rect x="40" y="27" width="16" height="36" rx="1" fill="#9CA3AF"/>
+  
+  <!-- Leak point (drip source) -->
+  <circle cx="48" cy="55" r="4" fill="#DC2626" opacity="0.7"/>
+  
+  <!-- Dripping fluid -->
+  <ellipse cx="48" cy="64" rx="2" ry="3" fill="#DC2626" opacity="0.8"/>
+  <ellipse cx="47" cy="70" rx="2.5" ry="3.5" fill="#DC2626" opacity="0.7"/>
+  <ellipse cx="49" cy="75" rx="2" ry="3" fill="#DC2626" opacity="0.6"/>
+  
+  <!-- Puddle on ground -->
+  <ellipse cx="48" cy="82" rx="12" ry="4" fill="#DC2626" opacity="0.4"/>
+  
+  <!-- Warning sign -->
+  <circle cx="75" cy="30" r="12" fill="#F76511"/>
+  <path d="M75 24 L78 34 L72 34 Z" fill="#FFF"/>
+  <circle cx="75" cy="36" r="1.5" fill="#FFF"/>
+  
+  <!-- Inspection magnifier -->
+  <circle cx="22" cy="60" r="10" stroke="#10B981" stroke-width="2" fill="none"/>
+  <line x1="29" y1="67" x2="35" y2="73" stroke="#10B981" stroke-width="2" stroke-linecap="round"/>
+</svg>
+

@@ -1,0 +1,37 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Training records/certification -->
+  <rect width="96" height="96" fill="transparent"/>
+  
+  <!-- Certificate document -->
+  <rect x="22" y="18" width="52" height="60" rx="3" fill="#FFF" stroke="#F76511" stroke-width="2"/>
+  
+  <!-- Header decoration -->
+  <rect x="22" y="18" width="52" height="12" rx="3" fill="#F76511" opacity="0.9"/>
+  <text x="48" y="27" font-size="8" font-weight="bold" text-anchor="middle" fill="#FFF">CERTIFICATION</text>
+  
+  <!-- Operator name line -->
+  <line x1="28" y1="38" x2="66" y2="38" stroke="#0F172A" stroke-width="1.5" opacity="0.3"/>
+  <text x="48" y="36" font-size="6" text-anchor="middle" fill="#0F172A" opacity="0.5">Name</text>
+  
+  <!-- Training date -->
+  <line x1="28" y1="48" x2="50" y2="48" stroke="#0F172A" stroke-width="1" opacity="0.3"/>
+  <text x="28" y="46" font-size="5" fill="#0F172A" opacity="0.5">Training Date:</text>
+  
+  <!-- Evaluation date -->
+  <line x1="28" y1="56" x2="50" y2="56" stroke="#0F172A" stroke-width="1" opacity="0.3"/>
+  <text x="28" y="54" font-size="5" fill="#0F172A" opacity="0.5">Eval Date:</text>
+  
+  <!-- Evaluator signature -->
+  <line x1="28" y1="64" x2="66" y2="64" stroke="#0F172A" stroke-width="1" opacity="0.3"/>
+  <text x="28" y="62" font-size="5" fill="#0F172A" opacity="0.5">Evaluator:</text>
+  <path d="M30 64 Q35 62 40 64 Q45 66 50 64" stroke="#0F172A" stroke-width="1.5" opacity="0.4" fill="none"/>
+  
+  <!-- Stamp/seal -->
+  <circle cx="58" cy="60" r="10" fill="none" stroke="#F76511" stroke-width="1.5" opacity="0.7"/>
+  <text x="58" y="63" font-size="7" font-weight="bold" text-anchor="middle" fill="#F76511">OSHA</text>
+  
+  <!-- File cabinet icon -->
+  <rect x="10" y="55" width="8" height="18" rx="1" fill="#6B7280" opacity="0.6"/>
+  <rect x="11" y="62" width="6" height="2" rx="0.5" fill="#F76511"/>
+</svg>
+
