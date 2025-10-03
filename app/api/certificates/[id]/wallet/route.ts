@@ -15,7 +15,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
   // Load certificate + profile + employer
   const { data: cert, error: certErr } = await s
     .from('certificates')
-    .select('id, verify_code, issued_at, expires_at, wallet_pdf_url, enrollment_id')
+    .select('id, verification_code, verifier_code, issued_at, expires_at, wallet_pdf_url, enrollment_id')
     .eq('id', certificateId)
     .single();
   if (certErr || !cert) return NextResponse.json({ error: 'Certificate not found' }, { status: 404 });
@@ -39,7 +39,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
     traineeName: profile?.full_name || 'Operator',
     employer: enrollment?.employer_name || null,
     certificateId: cert.id,
-    verifyCode: cert.verify_code,
+    verifyCode: cert.verification_code || cert.verifier_code || 'N/A',
     issuedAt: cert.issued_at,
     expiresAt: cert.expires_at,
     equipment: 'Powered Industrial Truck',
