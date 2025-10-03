@@ -19,7 +19,7 @@ export async function POST(req: Request){
   // load session + paper
   const { data: sess } = await svc.from('exam_sessions').select('id, paper_id, status').eq('id', session_id).eq('user_id', user.id).maybeSingle();
   if (!sess || sess.status !== 'in_progress') return NextResponse.json({ ok:false, error:'invalid_session' }, { status:400 });
-  const { data: paper } = await svc.from('exam_papers').select('id, correct_indices').eq('id', sess.paper_id).maybeSingle();
+  const { data: paper } = await svc.from('exam_papers').select('id, correct_indices, item_ids').eq('id', sess.paper_id).maybeSingle();
   if (!paper) return NextResponse.json({ ok:false, error:'paper_missing' }, { status:400 });
 
   // settings
@@ -52,13 +52,14 @@ export async function POST(req: Request){
   // finish session
   await svc.from('exam_sessions').update({ status:'completed' }).eq('id', session_id);
   
-  // Insert exam attempt with correct column names
+  // Insert exam attempt with correct column names including selected_ids
   const { data: attemptRow, error: attemptError } = await svc
     .from('exam_attempts')
     .insert({ 
       user_id: user.id, 
       exam_slug: 'final-exam',
-      paper_id: sess.paper_id, 
+      paper_id: sess.paper_id,
+      selected_ids: paper.item_ids || [], // REQUIRED: the question IDs in this exam
       answers: answers, 
       score_pct: scorePct, 
       passed: passed,
