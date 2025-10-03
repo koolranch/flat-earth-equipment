@@ -30,24 +30,16 @@ export async function POST(req: Request){
   const total = correct.length;
   let got = 0; const incorrect: number[] = [];
   
-  console.log('[exam/submit] === GRADING DEBUG ===');
-  console.log('[exam/submit] Total questions:', total);
-  console.log('[exam/submit] Answers received:', answers);
-  console.log('[exam/submit] Correct indices:', correct);
-  
   for (let i=0;i<total;i++){ 
     const a = typeof answers[i]==='number'? answers[i] : -1; 
-    const isCorrect = a===correct[i];
-    console.log(`[exam/submit] Q${i}: user=${a}, correct=${correct[i]}, match=${isCorrect}`);
-    if (isCorrect) got++; 
+    if (a===correct[i]) got++; 
     else incorrect.push(i); 
   }
   
   const scorePct = Math.round((got/total)*100);
   const passed = scorePct >= passScore;
   
-  console.log('[exam/submit] Final: ${got}/${total} = ${scorePct}% (pass=${passed})');
-  console.log('[exam/submit] === END GRADING DEBUG ===');
+  console.log(`[exam/submit] Exam graded: ${got}/${total} (${scorePct}%) - ${passed ? 'PASSED' : 'FAILED'}`);
 
   // finish session
   await svc.from('exam_sessions').update({ status:'completed' }).eq('id', session_id);

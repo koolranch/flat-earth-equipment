@@ -22,8 +22,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error: 'missing enrollment_id' }, { status: 400 });
     }
 
-    console.log('[cert/issue] ===== CERTIFICATE GENERATION START =====');
-    console.log('[cert/issue] Enrollment ID:', enrollment_id);
+    console.log('[cert/issue] Generating certificate for enrollment:', enrollment_id);
 
     // Load enrollment + profile + course
     const { data: enr, error: e1 } = await sb
@@ -57,9 +56,6 @@ export async function POST(req: Request) {
 
   // Note: Certificate is issued immediately upon exam pass
   // Practical evaluation is a separate compliance requirement tracked independently
-    console.log('[cert/issue] User:', prof?.full_name || prof?.email || enr.user_id);
-    console.log('[cert/issue] Course:', course?.title || enr.course_id);
-    console.log('[cert/issue] Practical verified:', practical_verified);
 
   // Prepare payload
   const issued_at = new Date().toISOString();
@@ -131,12 +127,10 @@ export async function POST(req: Request) {
   page.drawText(`Signature: ${signature.slice(0, 16)}…`, { x: 60, y: 90, size: 8, font, color: rgb(0.38, 0.38, 0.42) });
 
   const pdfBytes = await pdf.save();
-  console.log('[cert/issue] PDF generated, size:', pdfBytes.length, 'bytes');
 
   // Upload to storage and save certificate record
   const { pdf_url } = await withSpan('Certificate Issue', 'http.server', async () => {
     const path = `${enrollment_id}.pdf`;
-    console.log('[cert/issue] Uploading to storage path:', path);
     
     const up = await sb.storage.from('certificates').upload(path, pdfBytes, { upsert: true, contentType: 'application/pdf' });
     if (up.error) {
@@ -145,14 +139,10 @@ export async function POST(req: Request) {
       throw new Error(up.error.message);
     }
     
-    console.log('[cert/issue] Upload successful');
     const { data: pub } = sb.storage.from('certificates').getPublicUrl(path);
     const pdf_url = pub?.publicUrl || '';
-    console.log('[cert/issue] Public URL:', pdf_url);
 
     // Insert/upsert certificates row with all required fields
-    console.log('[cert/issue] Saving certificate to database...');
-    
     const certData = {
       learner_id: enr.user_id, // REQUIRED
       enrollment_id,
@@ -167,8 +157,6 @@ export async function POST(req: Request) {
       signed_payload: payload
     };
     
-    console.log('[cert/issue] Certificate data:', certData);
-    
     // Try insert first
     const { data: insertResult, error: insertError } = await sb
       .from('certificates')
@@ -176,11 +164,8 @@ export async function POST(req: Request) {
       .select();
     
     if (insertError) {
-      console.error('[cert/issue] Insert failed:', insertError);
-      
       // If insert fails due to duplicate, try update
       if (insertError.code === '23505') { // duplicate key
-        console.log('[cert/issue] Certificate exists, updating...');
         const { data: updateResult, error: updateError } = await sb
           .from('certificates')
           .update(certData)
@@ -188,15 +173,13 @@ export async function POST(req: Request) {
           .select();
         
         if (updateError) {
-          console.error('[cert/issue] Update also failed:', updateError);
+          console.error('[cert/issue] Failed to save certificate:', updateError);
           throw new Error(`Failed to save certificate: ${updateError.message}`);
         }
-        console.log('[cert/issue] Certificate updated successfully');
       } else {
+        console.error('[cert/issue] Failed to insert certificate:', insertError);
         throw new Error(`Failed to insert certificate: ${insertError.message}`);
       }
-    } else {
-      console.log('[cert/issue] Certificate inserted successfully:', insertResult);
     }
     
     return { pdf_url };
@@ -218,9 +201,7 @@ export async function POST(req: Request) {
     console.warn('[email] Failed to send certificate issued email:', err);
   }
 
-    console.log('[cert/issue] ===== CERTIFICATE GENERATION SUCCESS =====');
-    console.log('[cert/issue] Verification code:', verification_code);
-    console.log('[cert/issue] PDF URL:', pdf_url);
+    console.log('[cert/issue] Certificate generated successfully:', verification_code);
     
     return NextResponse.json({ 
       ok: true, 
@@ -230,9 +211,7 @@ export async function POST(req: Request) {
       practical_verified 
     });
   } catch (error: any) {
-    console.error('[cert/issue] ===== CERTIFICATE GENERATION FAILED =====');
-    console.error('[cert/issue] Error:', error);
-    console.error('[cert/issue] Stack:', error.stack);
+    console.error('[cert/issue] Certificate generation failed:', error.message);
     return NextResponse.json({ 
       ok: false, 
       error: 'Certificate generation failed', 
