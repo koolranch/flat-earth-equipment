@@ -178,11 +178,19 @@ export async function POST(req: Request) {
     console.warn('[email] Failed to send certificate issued email:', err);
   }
 
-  return NextResponse.json({ 
-    ok: true, 
-    enrollment_id, 
-    pdf_url, 
-    verification_code, 
-    practical_verified 
-  });
+    return NextResponse.json({ 
+      ok: true, 
+      enrollment_id, 
+      pdf_url, 
+      verification_code, 
+      practical_verified 
+    });
+  } catch (error: any) {
+    console.error('[cert/issue] Error generating certificate:', error);
+    return NextResponse.json({ 
+      ok: false, 
+      error: 'Certificate generation failed', 
+      details: error.message 
+    }, { status: 500 });
+  }
 }
