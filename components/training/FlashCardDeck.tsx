@@ -91,7 +91,7 @@ export default function FlashCardDeck({
                 // eslint-disable-next-line @next/next/no-img-element
                 <img 
                   src={card.icon} 
-                  alt={card.front || 'Flashcard icon'} 
+                  alt={typeof card.front === 'string' ? card.front : 'Flashcard icon'} 
                   className="w-24 h-24 object-contain"
                   loading="lazy"
                 />
