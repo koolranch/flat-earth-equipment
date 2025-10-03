@@ -39,9 +39,14 @@ export async function POST(req: Request) {
     const { data: cert, error: certError } = await sb
       .from('certificates')
       .insert({
+        learner_id: enr.user_id, // REQUIRED field
         enrollment_id: enr.id,
+        course_id: enr.course_id,
         verification_code: verification_code,
+        verifier_code: verification_code, // Legacy field name
         issued_at: issued_at,
+        issue_date: new Date().toISOString().split('T')[0], // Date only
+        score: 80, // Default passing score
         pdf_url: null // Will be generated separately
       })
       .select('id, verification_code')
