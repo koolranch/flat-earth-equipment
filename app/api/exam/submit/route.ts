@@ -78,53 +78,84 @@ export async function POST(req: Request){
 
   // Update enrollment to passed if exam was passed AND trigger certificate generation
   let enrollmentId: string | null = null;
+  console.log('[exam/submit] Checking if exam passed:', { passed, scorePct, passScore });
+  
   if (passed) {
+    console.log('[exam/submit] ===== CERTIFICATE GENERATION START =====');
     console.log('[exam/submit] Exam passed, finding enrollment for user:', user.id);
     
     // Find user's enrollment (use course_id if provided, otherwise find most recent)
     const enrollmentQuery = svc
       .from('enrollments')
-      .select('id, course_id')
+      .select('id, course_id, user_id')
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .limit(1);
     
     if (course_id) {
+      console.log('[exam/submit] Filtering by course_id:', course_id);
       enrollmentQuery.eq('course_id', course_id);
     }
     
-    const { data: enrollment } = await enrollmentQuery.maybeSingle();
+    const { data: enrollment, error: enrollmentError } = await enrollmentQuery.maybeSingle();
+    
+    console.log('[exam/submit] Enrollment lookup result:', { 
+      found: !!enrollment, 
+      enrollment_id: enrollment?.id,
+      error: enrollmentError?.message 
+    });
     
     if (enrollment) {
       enrollmentId = enrollment.id;
       console.log('[exam/submit] Updating enrollment to passed:', enrollment.id);
-      await svc
+      
+      const { error: updateError } = await svc
         .from('enrollments')
         .update({ passed: true, progress_pct: 100, updated_at: new Date().toISOString() })
         .eq('id', enrollment.id);
       
+      if (updateError) {
+        console.error('[exam/submit] Failed to update enrollment:', updateError);
+      } else {
+        console.log('[exam/submit] Enrollment updated successfully');
+      }
+      
       // Trigger certificate generation immediately with FULL PDF generation
       try {
-        console.log('[exam/submit] Triggering certificate generation for enrollment:', enrollment.id);
-        const certResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'https://flatearthequipment.com'}/api/cert/issue`, {
+        const certApiUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://flatearthequipment.com'}/api/cert/issue`;
+        console.log('[exam/submit] Triggering certificate generation...');
+        console.log('[exam/submit] Certificate API URL:', certApiUrl);
+        console.log('[exam/submit] Enrollment ID:', enrollment.id);
+        
+        const certResponse = await fetch(certApiUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ enrollment_id: enrollment.id })
         });
         
+        console.log('[exam/submit] Certificate API responded:', certResponse.status, certResponse.statusText);
+        
         if (certResponse.ok) {
           const certData = await certResponse.json();
-          console.log('[exam/submit] Certificate generation succeeded:', certData);
+          console.log('[exam/submit] ✅ Certificate generation succeeded!');
+          console.log('[exam/submit] Certificate data:', certData);
         } else {
           const certError = await certResponse.text();
-          console.error('[exam/submit] Certificate generation failed:', certResponse.status, certError);
+          console.error('[exam/submit] ❌ Certificate generation failed!');
+          console.error('[exam/submit] Status:', certResponse.status);
+          console.error('[exam/submit] Error:', certError);
         }
-      } catch (certError) {
-        console.error('[exam/submit] Failed to trigger certificate:', certError);
+      } catch (certError: any) {
+        console.error('[exam/submit] ❌ Exception during certificate generation:', certError.message);
+        console.error('[exam/submit] Stack:', certError.stack);
       }
+      
+      console.log('[exam/submit] ===== CERTIFICATE GENERATION END =====');
     } else {
-      console.error('[exam/submit] No enrollment found for user:', user.id);
+      console.error('[exam/submit] ❌ No enrollment found for user:', user.id);
     }
+  } else {
+    console.log('[exam/submit] Exam not passed, skipping certificate generation');
   }
 
   // 1) Fetch question rows for metadata (tags,difficulty,locale)
