@@ -1,0 +1,37 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Blind corner hazard -->
+  <rect width="96" height="96" fill="transparent"/>
+  
+  <!-- Walls creating blind corner -->
+  <rect x="10" y="30" width="35" height="8" fill="#9CA3AF" opacity="0.7"/>
+  <rect x="42" y="10" width="8" height="35" fill="#9CA3AF" opacity="0.7"/>
+  
+  <!-- Forklift approaching -->
+  <g transform="translate(18, 52)">
+    <rect x="0" y="0" width="18" height="14" rx="1" fill="#F76511" opacity="0.8"/>
+    <rect x="-3" y="2" width="4" height="10" fill="#0F172A" opacity="0.6"/>
+    <circle cx="4" cy="16" r="3" fill="#0F172A"/>
+    <circle cx="14" cy="16" r="3" fill="#0F172A"/>
+  </g>
+  
+  <!-- Pedestrian (hidden around corner) -->
+  <circle cx="58" cy="25" r="6" fill="#0F172A" opacity="0.5"/>
+  <rect x="53" y="30" width="10" height="14" rx="2" fill="#0F172A" opacity="0.5"/>
+  
+  <!-- Horn/alert indicator -->
+  <circle cx="25" cy="45" r="12" fill="#F76511"/>
+  <path d="M20 45 L25 40 L25 50 Z" fill="#FFF"/>
+  
+  <!-- Sound waves -->
+  <path d="M32 40 Q36 45 32 50" stroke="#FFF" stroke-width="2" fill="none"/>
+  <path d="M36 37 Q41 45 36 53" stroke="#FFF" stroke-width="1.5" fill="none" opacity="0.7"/>
+  
+  <!-- Eye contact/visibility icon -->
+  <circle cx="75" cy="65" r="11" fill="#10B981"/>
+  <ellipse cx="75" cy="65" rx="5" ry="3" fill="#FFF"/>
+  <circle cx="75" cy="65" r="2" fill="#0F172A"/>
+  
+  <!-- Slow sign -->
+  <text x="70" y="88" font-size="10" font-weight="bold" fill="#F76511">SLOW</text>
+</svg>
+

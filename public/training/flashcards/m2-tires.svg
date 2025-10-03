@@ -1,0 +1,36 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Tire inspection -->
+  <rect width="96" height="96" fill="transparent"/>
+  
+  <!-- Tire outer -->
+  <circle cx="48" cy="48" r="32" fill="#0F172A" opacity="0.9"/>
+  
+  <!-- Tire rim -->
+  <circle cx="48" cy="48" r="24" fill="#6B7280"/>
+  <circle cx="48" cy="48" r="20" fill="#9CA3AF"/>
+  <circle cx="48" cy="48" r="12" fill="#0F172A" opacity="0.7"/>
+  
+  <!-- Tread pattern -->
+  <g opacity="0.6">
+    <rect x="14" y="46" width="8" height="4" fill="#0F172A"/>
+    <rect x="74" y="46" width="8" height="4" fill="#0F172A"/>
+    <rect x="46" y="14" width="4" height="8" fill="#0F172A"/>
+    <rect x="46" y="74" width="4" height="8" fill="#0F172A"/>
+    <rect x="22" y="22" width="6" height="4" fill="#0F172A" transform="rotate(45 25 24)"/>
+    <rect x="68" y="22" width="6" height="4" fill="#0F172A" transform="rotate(-45 71 24)"/>
+  </g>
+  
+  <!-- Damage/wear indicator -->
+  <path d="M75 20 L85 10" stroke="#DC2626" stroke-width="3" opacity="0.8"/>
+  <circle cx="80" cy="15" r="2" fill="#DC2626"/>
+  
+  <!-- Inspection checkmarks -->
+  <circle cx="20" cy="20" r="10" fill="#10B981" opacity="0.9"/>
+  <path d="M16 20 L19 23 L24 18" stroke="#FFF" stroke-width="2" stroke-linecap="round" fill="none"/>
+  
+  <!-- Pressure gauge -->
+  <circle cx="72" cy="72" r="10" stroke="#F76511" stroke-width="2" fill="#FFF"/>
+  <path d="M72 72 L76 68" stroke="#F76511" stroke-width="1.5"/>
+  <text x="72" y="82" font-size="6" text-anchor="middle" fill="#0F172A" opacity="0.6">PSI</text>
+</svg>
+

@@ -1,0 +1,32 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Spill hazard -->
+  <rect width="96" height="96" fill="transparent"/>
+  
+  <!-- Floor -->
+  <rect x="10" y="60" width="76" height="20" fill="#D1D5DB" opacity="0.3"/>
+  
+  <!-- Spill puddle -->
+  <ellipse cx="48" cy="68" rx="28" ry="12" fill="#FDE68A" opacity="0.7"/>
+  <ellipse cx="48" cy="68" rx="24" ry="10" fill="#F76511" opacity="0.4"/>
+  
+  <!-- Drip source (leaking container) -->
+  <rect x="40" y="35" width="16" height="20" rx="2" fill="#6B7280" opacity="0.7"/>
+  <path d="M46 55 L48 60 L50 55" fill="#F76511" opacity="0.7"/>
+  <ellipse cx="48" cy="62" rx="2" ry="3" fill="#F76511" opacity="0.8"/>
+  
+  <!-- Warning cone/barrier -->
+  <path d="M20 75 L25 55 L30 75 Z" fill="#F76511" stroke="#FFF" stroke-width="1.5"/>
+  <rect x="18" y="75" width="14" height="3" fill="#0F172A" opacity="0.7"/>
+  
+  <path d="M66 75 L71 55 L76 75 Z" fill="#F76511" stroke="#FFF" stroke-width="1.5"/>
+  <rect x="64" y="75" width="14" height="3" fill="#0F172A" opacity="0.7"/>
+  
+  <!-- Stop sign -->
+  <circle cx="75" cy="25" r="13" fill="#DC2626"/>
+  <text x="75" y="31" font-size="14" font-weight="bold" text-anchor="middle" fill="#FFF">STOP</text>
+  
+  <!-- Caution tape -->
+  <rect x="15" y="48" width="66" height="4" fill="#FDE68A"/>
+  <path d="M15 50 L81 50" stroke="#0F172A" stroke-width="1" stroke-dasharray="8,4"/>
+</svg>
+

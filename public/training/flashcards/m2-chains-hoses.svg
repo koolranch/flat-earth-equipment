@@ -1,0 +1,36 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Chains and hoses -->
+  <rect width="96" height="96" fill="transparent"/>
+  
+  <!-- Chain links -->
+  <g opacity="0.9">
+    <ellipse cx="30" cy="30" rx="6" ry="10" fill="none" stroke="#6B7280" stroke-width="2.5"/>
+    <ellipse cx="30" cy="48" rx="6" ry="10" fill="none" stroke="#6B7280" stroke-width="2.5"/>
+    <ellipse cx="30" cy="66" rx="6" ry="10" fill="none" stroke="#6B7280" stroke-width="2.5"/>
+  </g>
+  
+  <!-- Hydraulic hose -->
+  <path d="M55 25 Q60 35 55 45 Q50 55 55 65 Q60 75 55 85" 
+        stroke="#0F172A" stroke-width="8" fill="none" opacity="0.7"/>
+  <path d="M55 25 Q60 35 55 45 Q50 55 55 65 Q60 75 55 85" 
+        stroke="#F76511" stroke-width="4" fill="none" opacity="0.5"/>
+  
+  <!-- Hose fittings -->
+  <rect x="50" y="20" width="10" height="8" rx="1" fill="#6B7280"/>
+  <rect x="50" y="82" width="10" height="8" rx="1" fill="#6B7280"/>
+  
+  <!-- Leak drops -->
+  <ellipse cx="56" cy="50" rx="3" ry="4" fill="#DC2626" opacity="0.7"/>
+  <ellipse cx="53" cy="58" rx="2" ry="3" fill="#DC2626" opacity="0.6"/>
+  <ellipse cx="58" cy="56" rx="2" ry="3" fill="#DC2626" opacity="0.5"/>
+  
+  <!-- Fray on chain -->
+  <path d="M24 38 L20 38" stroke="#DC2626" stroke-width="1" opacity="0.7"/>
+  <path d="M36 38 L40 38" stroke="#DC2626" stroke-width="1" opacity="0.7"/>
+  
+  <!-- Warning indicator -->
+  <circle cx="75" cy="48" r="12" fill="#F76511"/>
+  <path d="M75 42 L78 52 L72 52 Z" fill="#FFF"/>
+  <circle cx="75" cy="54" r="1.5" fill="#FFF"/>
+</svg>
+

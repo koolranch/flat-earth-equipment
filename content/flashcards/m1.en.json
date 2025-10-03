@@ -3,8 +3,8 @@
   {"id":"m1-fc-02","front":"Hard hat — when is it required?","back":"Where overhead hazards may exist (racks, loads, docks) or per site policy — default to wear unless posted otherwise.","tag":"ppe","image":"/training/flashcards/m1-hard-hat.svg"},
   {"id":"m1-fc-03","front":"Safety boots — key requirement","back":"ANSI-rated toe; slip-resistant. Laces tied; no open-toe shoes on the floor.","tag":"ppe","image":"/training/flashcards/m1-safety-boots.svg"},
   {"id":"m1-fc-04","front":"Horn test — where to use it","back":"At intersections, blind corners, doorways, and before moving when visibility is limited.","tag":"inspection","image":"/training/flashcards/m1-horn-test.svg"},
-  {"id":"m1-fc-05","front":"Lights test — what to check","back":"Headlights, tail/marker lights, and reverse beeper; replace/repair before operating.","tag":"inspection","image":null},
-  {"id":"m1-fc-06","front":"Data plate — what must be legible","back":"Capacity, load center, attachments. If unreadable, do not operate until replaced.","tag":"inspection","image":null},
+  {"id":"m1-fc-05","front":"Lights test — what to check","back":"Headlights, tail/marker lights, and reverse beeper; replace/repair before operating.","tag":"inspection","image":"/training/flashcards/m1-lights.svg"},
+  {"id":"m1-fc-06","front":"Data plate — what must be legible","back":"Capacity, load center, attachments. If unreadable, do not operate until replaced.","tag":"inspection","image":"/training/flashcards/m1-data-plate.svg"},
   {"id":"m1-fc-07","front":"Seatbelt — OSHA expectation","back":"Wear it whenever operating; no exceptions. Belt must latch and retract properly.","tag":"ppe","image":"/training/flashcards/m1-seatbelt.svg"},
-  {"id":"m1-fc-08","front":"Daily inspection — frequency","back":"At least once each shift, before use; tag out and remove from service if unsafe.","tag":"inspection","image":null}
+  {"id":"m1-fc-08","front":"Daily inspection — frequency","back":"At least once each shift, before use; tag out and remove from service if unsafe.","tag":"inspection","image":"/training/flashcards/m1-inspection-checklist.svg"}
 ]

@@ -1,0 +1,36 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Load center diagram -->
+  <rect width="96" height="96" fill="transparent"/>
+  
+  <!-- Fork blades (side view) -->
+  <rect x="15" y="50" width="40" height="8" rx="1" fill="#6B7280" opacity="0.9"/>
+  
+  <!-- Load/pallet -->
+  <rect x="40" y="28" width="30" height="20" rx="2" fill="#F76511" opacity="0.3" stroke="#F76511" stroke-width="2"/>
+  
+  <!-- Pallet detail -->
+  <line x1="45" y1="28" x2="45" y2="48" stroke="#F76511" stroke-width="1" opacity="0.5"/>
+  <line x1="55" y1="28" x2="55" y2="48" stroke="#F76511" stroke-width="1" opacity="0.5"/>
+  <line x1="65" y1="28" x2="65" y2="48" stroke="#F76511" stroke-width="1" opacity="0.5"/>
+  
+  <!-- Load center line (vertical) -->
+  <line x1="55" y1="48" x2="55" y2="65" stroke="#DC2626" stroke-width="2" stroke-dasharray="2,2"/>
+  
+  <!-- Distance measurement (24 inches) -->
+  <line x1="15" y1="62" x2="55" y2="62" stroke="#0F172A" stroke-width="1.5"/>
+  <line x1="15" y1="59" x2="15" y2="65" stroke="#0F172A" stroke-width="1.5"/>
+  <line x1="55" y1="59" x2="55" y2="65" stroke="#0F172A" stroke-width="1.5"/>
+  
+  <!-- 24" label -->
+  <rect x="28" y="67" width="20" height="10" rx="2" fill="#F76511"/>
+  <text x="38" y="74" font-size="8" font-weight="bold" text-anchor="middle" fill="#FFF">24"</text>
+  
+  <!-- Center of gravity marker -->
+  <circle cx="55" cy="38" r="8" fill="#10B981" opacity="0.9"/>
+  <text x="55" y="41" font-size="8" font-weight="bold" text-anchor="middle" fill="#FFF">CG</text>
+  
+  <!-- Arrow indicating measurement -->
+  <path d="M15 62 L18 59 L18 65 Z" fill="#0F172A"/>
+  <path d="M55 62 L52 59 L52 65 Z" fill="#0F172A"/>
+</svg>
+
