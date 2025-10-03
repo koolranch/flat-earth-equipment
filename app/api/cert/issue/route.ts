@@ -34,8 +34,31 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error: 'enrollment not found' }, { status: 404 });
     }
 
+  // Get profile and also fetch auth user metadata as fallback
   const { data: prof } = await sb.from('profiles').select('full_name, email, locale').eq('id', enr.user_id).maybeSingle();
   const { data: course } = await sb.from('courses').select('title').eq('id', enr.course_id).maybeSingle();
+  
+  // Try to get user's full name from multiple sources
+  let fullName = prof?.full_name;
+  
+  // If profile doesn't have full_name, try auth user_metadata
+  if (!fullName || fullName.trim() === '') {
+    try {
+      const { data: authUser } = await sb.auth.admin.getUserById(enr.user_id);
+      fullName = authUser?.user?.user_metadata?.full_name || null;
+      
+      // If we found a name in user_metadata, update the profile for future use
+      if (fullName && fullName.trim() !== '') {
+        await sb.from('profiles').upsert({
+          id: enr.user_id,
+          full_name: fullName,
+          email: prof?.email || authUser?.user?.email
+        }).select();
+      }
+    } catch (e) {
+      console.warn('[cert/issue] Could not fetch user metadata:', e);
+    }
+  }
 
   // Check practical eval (optional - certificate is issued after exam pass)
   // Practical evaluation is tracked separately but doesn't gate certificate issuance
@@ -68,7 +91,7 @@ export async function POST(req: Request) {
     cert_version: 1,
     enrollment_id: enr.id,
     user_id: enr.user_id,
-    name: prof?.full_name || '',
+    name: fullName || prof?.email || 'Operator',
     email: prof?.email || '',
     course_title: course?.title || 'Forklift Operator',
     issued_at,
