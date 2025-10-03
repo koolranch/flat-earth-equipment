@@ -88,7 +88,7 @@ export async function POST(req: Request){
       // Trigger certificate generation immediately
       try {
         console.log('[exam/submit] Triggering certificate generation for enrollment:', enrollment.id);
-        const certResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'https://flatearthequipment.com'}/api/cert/issue`, {
+        const certResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'https://flatearthequipment.com'}/api/cert/simple-issue`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ enrollment_id: enrollment.id })
