@@ -32,18 +32,26 @@ export async function POST(req: Request) {
   
   for (const id of selected_ids) {
     const item = dict.get(id); 
-    if (!item) continue;
+    if (!item) {
+      console.warn(`[exam/final/submit] Question ${id} not found in bank`);
+      continue;
+    }
     const chosen = answers[id];
-    if (chosen === (item as any).answer) {
+    const correctAnswer = (item as any).answer;
+    
+    if (chosen === correctAnswer) {
       correct++;
     } else {
       incorrect.push({ 
         id, 
-        correct: (item as any).answer, 
+        correct: correctAnswer, 
+        chosen: chosen,
         explain: (item as any).explain || '' 
       });
     }
   }
+  
+  console.log(`[exam/final/submit] Graded exam: ${correct}/${total} (${Math.round((correct/total)*100)}%) - ${correct >= total * 0.8 ? 'PASSED' : 'FAILED'}`);
   
   const score_pct = total ? Math.round((correct / total) * 100) : 0;
   const passed = score_pct >= passPct;
@@ -63,6 +71,9 @@ export async function POST(req: Request) {
   }
 
   // Update enrollment (most recent for this user)
+  let certificateIssued = false;
+  let certificateError = null;
+  
   try {
     const { data: enrs } = await sb
       .from('enrollments')
@@ -73,24 +84,52 @@ export async function POST(req: Request) {
       
     const enr = enrs?.[0];
     if (enr && passed) {
+      console.log('[exam/final/submit] Updating enrollment to passed:', enr.id);
       await sb
         .from('enrollments')
         .update({ passed: true, progress_pct: 100 })
         .eq('id', enr.id);
         
-      // Optional: try to trigger certificate issuance endpoint if present
+      // Trigger certificate issuance
       try {
-        await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ''}/api/cert/issue`, { 
+        console.log('[exam/final/submit] Triggering certificate generation for enrollment:', enr.id);
+        
+        // Construct the certificate API URL
+        // In development, use localhost; in production, construct from headers
+        let certApiUrl = '/api/cert/issue';
+        if (typeof window === 'undefined') {
+          // Server-side: try to get the origin from environment or request
+          const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
+                         process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
+                         'http://localhost:3000';
+          certApiUrl = `${baseUrl}/api/cert/issue`;
+        }
+        
+        console.log('[exam/final/submit] Certificate API URL:', certApiUrl);
+        const certResponse = await fetch(certApiUrl, { 
           method: 'POST', 
           headers: { 'Content-Type': 'application/json' }, 
           body: JSON.stringify({ enrollment_id: enr.id }) 
         });
-      } catch (certError) {
-        console.log('Certificate issuance endpoint not available or failed:', certError);
+        
+        if (certResponse.ok) {
+          const certData = await certResponse.json();
+          console.log('[exam/final/submit] Certificate generation succeeded:', certData);
+          certificateIssued = true;
+        } else {
+          const errorText = await certResponse.text();
+          console.error('[exam/final/submit] Certificate generation failed:', certResponse.status, errorText);
+          certificateError = `Certificate generation failed with status ${certResponse.status}`;
+        }
+      } catch (certError: any) {
+        console.error('[exam/final/submit] Certificate issuance error:', certError);
+        certificateError = certError.message || 'Certificate generation failed';
       }
+    } else if (!enr) {
+      console.error('[exam/final/submit] No enrollment found for user:', user.id);
     }
   } catch (enrollmentError) {
-    console.error('Failed to update enrollment:', enrollmentError);
+    console.error('[exam/final/submit] Failed to update enrollment:', enrollmentError);
   }
 
   // Audit (optional)
@@ -110,6 +149,8 @@ export async function POST(req: Request) {
     score_pct, 
     correct,
     total,
-    incorrect 
+    incorrect,
+    certificate_issued: certificateIssued,
+    certificate_error: certificateError
   });
 }
