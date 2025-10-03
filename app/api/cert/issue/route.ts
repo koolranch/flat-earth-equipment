@@ -59,6 +59,9 @@ export async function POST(req: Request) {
   const issued_at = new Date().toISOString();
   const expires_at = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365 * 3).toISOString(); // ~3 years
   const verification_code = randomCode(10);
+  
+  console.log('[cert/issue] Prepared cert data:', { enrollment_id: enr.id, verification_code });
+  
   const payload = {
     cert_version: 1,
     enrollment_id: enr.id,
@@ -71,7 +74,15 @@ export async function POST(req: Request) {
     practical_verified,
     evaluation_date
   };
-  const { json: signed_payload, signature } = signPayload(payload);
+  
+  let signature = '';
+  try {
+    const signed = signPayload(payload);
+    signature = signed.signature;
+  } catch (signError) {
+    console.error('[cert/issue] Signing failed, using empty signature:', signError);
+    signature = 'unsigned';
+  }
 
   const base = process.env.NEXT_PUBLIC_BASE_URL?.replace(/\/$/, '') || '';
   const verifyUrl = `${base}/verify/${verification_code}`;
