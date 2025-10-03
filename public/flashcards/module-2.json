@@ -3,48 +3,48 @@
     "id": "m2-fc-01",
     "front": "Forks — rejection criteria",
     "back": "Cracks, bends, wear (heel/thickness), locking pins seated.",
-    "icon": null
+    "icon": "/training/flashcards/m2-forks-damage.svg"
   },
   {
     "id": "m2-fc-02",
     "front": "Chains & hoses — what to spot",
     "back": "Frays, kinks, leaks, improper tension; replace if damaged.",
-    "icon": null
+    "icon": "/training/flashcards/m2-chains-hoses.svg"
   },
   {
     "id": "m2-fc-03",
     "front": "Tires & wheels — check for",
     "back": "Wear, cuts, embedded debris, low pressure (pneumatic), loose lugs.",
-    "icon": null
+    "icon": "/training/flashcards/m2-tires.svg"
   },
   {
     "id": "m2-fc-04",
     "front": "Horn & lights — rule",
     "back": "Must function; reverse beeper required where used.",
-    "icon": null
+    "icon": "/training/flashcards/m1-lights.svg"
   },
   {
     "id": "m2-fc-05",
     "front": "Seatbelt & plate — verify",
     "back": "Belt latches/retracts; data plate readable.",
-    "icon": null
+    "icon": "/training/flashcards/m1-data-plate.svg"
   },
   {
     "id": "m2-fc-06",
     "front": "Leaks — look here",
     "back": "Under mast, pump, cylinders, lines; undercarriage; around axle.",
-    "icon": null
+    "icon": "/training/flashcards/m2-leaks.svg"
   },
   {
     "id": "m2-fc-07",
     "front": "Battery/LP secure — why it matters",
     "back": "Unsecured power source can shift and cause loss of control.",
-    "icon": null
+    "icon": "/training/flashcards/m2-battery-secure.svg"
   },
   {
     "id": "m2-fc-08",
     "front": "Safety devices — examples",
     "back": "Parking brake, deadman, alarms. Inoperative = out of service.",
-    "icon": null
+    "icon": "/training/flashcards/m2-safety-devices.svg"
   }
 ]

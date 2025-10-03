@@ -3,48 +3,48 @@
     "id": "m3-fc-01",
     "front": "Stability triangle — points",
     "back": "Front tire contacts + rear axle pivot.",
-    "icon": null
+    "icon": "/training/flashcards/m3-stability-triangle.svg"
   },
   {
     "id": "m3-fc-02",
     "front": "Load center — definition",
     "back": "Distance from the face of forks to load's center of gravity (often 24 in / 600 mm unless specified).",
-    "icon": null
+    "icon": "/training/flashcards/m3-load-center.svg"
   },
   {
     "id": "m3-fc-03",
     "front": "Travel position of forks",
     "back": "Low (4–6 in / 10–15 cm) and slightly tilted back.",
-    "icon": null
+    "icon": "/training/flashcards/m3-fork-travel-position.svg"
   },
   {
     "id": "m3-fc-04",
     "front": "Ramps — travel rule",
     "back": "Up ramp with load uphill; down ramp with load downhill; go slow and straight.",
-    "icon": null
+    "icon": "/training/flashcards/m3-ramps.svg"
   },
   {
     "id": "m3-fc-05",
     "front": "Blind corners — what to do",
     "back": "Slow, sound horn, ensure clear path, maintain visibility.",
-    "icon": null
+    "icon": "/training/flashcards/m3-blind-corner.svg"
   },
   {
     "id": "m3-fc-06",
     "front": "No elevated travel",
     "back": "Never drive with an elevated load; lower to travel height first.",
-    "icon": null
+    "icon": "/training/flashcards/m3-no-elevated-travel.svg"
   },
   {
     "id": "m3-fc-07",
     "front": "Pedestrians — priority",
     "back": "Pedestrians always have right of way; make eye contact; stop if unsure.",
-    "icon": null
+    "icon": "/training/flashcards/m3-pedestrian-priority.svg"
   },
   {
     "id": "m3-fc-08",
     "front": "Stacking basics",
     "back": "Level the forks, square to load, place gently, back out slowly.",
-    "icon": null
+    "icon": "/training/flashcards/m3-stacking.svg"
   }
 ]
