@@ -192,7 +192,17 @@ export async function POST(req: Request){
         console.warn('[email] Failed to send exam result email:', err);
       }
       
-      return NextResponse.json({ ok:true, passed, scorePct, correct: got, total, incorrectIndices: incorrect, weak_tags, recommendations: recs });
+      return NextResponse.json({ 
+        ok: true, 
+        passed, 
+        scorePct, 
+        correct: got, 
+        total, 
+        incorrectIndices: incorrect, 
+        weak_tags, 
+        recommendations: recs,
+        attempt_id: attemptRow?.id || null 
+      });
     }
   }
   
@@ -212,5 +222,15 @@ export async function POST(req: Request){
   
   // Certificate generation now happens earlier (above) to avoid being skipped by early returns
   
-  return NextResponse.json({ ok:true, passed, scorePct, correct: got, total, incorrectIndices: incorrect, weak_tags, recommendations: [] });
+  return NextResponse.json({ 
+    ok: true, 
+    passed, 
+    scorePct, 
+    correct: got, 
+    total, 
+    incorrectIndices: incorrect, 
+    weak_tags, 
+    recommendations: [],
+    attempt_id: attemptRow?.id || null 
+  });
 }
