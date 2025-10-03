@@ -1,0 +1,25 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hi-vis vest icon -->
+  <rect width="96" height="96" fill="transparent"/>
+  
+  <!-- Vest body -->
+  <path d="M32 28 L32 75 L64 75 L64 28 L58 20 L52 28 L44 28 L38 20 Z" 
+        fill="#F76511" opacity="0.9"/>
+  
+  <!-- Reflective stripes -->
+  <rect x="30" y="40" width="36" height="4" fill="#FFF" opacity="0.95"/>
+  <rect x="30" y="55" width="36" height="4" fill="#FFF" opacity="0.95"/>
+  
+  <!-- Shoulders/straps -->
+  <path d="M38 20 L32 28 L32 35 L38 32 Z" fill="#F76511" opacity="0.7"/>
+  <path d="M58 20 L64 28 L64 35 L58 32 Z" fill="#F76511" opacity="0.7"/>
+  
+  <!-- Collar -->
+  <ellipse cx="48" cy="22" rx="8" ry="4" fill="#0F172A" opacity="0.3"/>
+  
+  <!-- Warning symbol on chest -->
+  <circle cx="48" cy="50" r="8" fill="#FFF" opacity="0.9"/>
+  <path d="M48 44 L52 54 L44 54 Z" fill="#F76511"/>
+  <circle cx="48" cy="56" r="1" fill="#F76511"/>
+</svg>
+
