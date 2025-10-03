@@ -3,48 +3,48 @@
     "id": "m4-fc-01",
     "front": "Blind corner — control",
     "back": "Horn, slow speed, mirror checks, stop if not clear.",
-    "icon": null
+    "icon": "/training/flashcards/m3-blind-corner.svg"
   },
   {
     "id": "m4-fc-02",
     "front": "Pedestrian aisle — control",
     "back": "Walkway separation, right-of-way, eye contact, spotter if needed.",
-    "icon": null
+    "icon": "/training/flashcards/m3-pedestrian-priority.svg"
   },
   {
     "id": "m4-fc-03",
     "front": "Spill on floor — control",
     "back": "Stop, cordon, clean per SOP; no travel through spills.",
-    "icon": null
+    "icon": "/training/flashcards/m4-spill.svg"
   },
   {
     "id": "m4-fc-04",
     "front": "Overhead obstruction — control",
     "back": "Lower mast/forks; verify clearance before moving.",
-    "icon": null
+    "icon": "/training/flashcards/m4-overhead-obstruction.svg"
   },
   {
     "id": "m4-fc-05",
     "front": "Unstable load — control",
     "back": "Restack/secure; do not move until stable within capacity.",
-    "icon": null
+    "icon": "/training/flashcards/m4-unstable-load.svg"
   },
   {
     "id": "m4-fc-06",
     "front": "Speed zone — control",
     "back": "Observe posted limits; slow near pedestrians and intersections.",
-    "icon": null
+    "icon": "/training/flashcards/m4-speed-zone.svg"
   },
   {
     "id": "m4-fc-07",
     "front": "Ramp/dock edge — control",
     "back": "Use chocks/dock plates; keep distance from edges; slow/straight.",
-    "icon": null
+    "icon": "/training/flashcards/m4-dock-edge.svg"
   },
   {
     "id": "m4-fc-08",
     "front": "Aisle congestion — control",
     "back": "Wait or use spotter; maintain clearances; no squeezing loads.",
-    "icon": null
+    "icon": "/training/flashcards/m4-aisle-congestion.svg"
   }
 ]
