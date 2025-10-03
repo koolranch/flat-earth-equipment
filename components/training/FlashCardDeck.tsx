@@ -9,6 +9,7 @@ export type FlashCard = {
   front: React.ReactNode;   // QUESTION
   back: React.ReactNode;    // ANSWER
   img?: React.ReactNode;    // optional illustration (SVG/IMG component)
+  icon?: string;            // optional icon URL (for SVG images)
 };
 
 export default function FlashCardDeck({
@@ -84,7 +85,19 @@ export default function FlashCardDeck({
         </span>
 
         <div className="mt-5 grid gap-4 sm:grid-cols-[auto,1fr] items-start">
-          {card.img && (<div className="mx-auto sm:mx-0 sm:mt-1">{card.img}</div>)}
+          {(card.img || card.icon) && (
+            <div className="mx-auto sm:mx-0 sm:mt-1">
+              {card.img || (card.icon && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img 
+                  src={card.icon} 
+                  alt={card.front || 'Flashcard icon'} 
+                  className="w-24 h-24 object-contain"
+                  loading="lazy"
+                />
+              ))}
+            </div>
+          )}
           <div className="min-h-[144px] text-[15px] leading-relaxed text-slate-800">
             {revealed ? (<div aria-live="polite">{card.back}</div>) : (<div>{card.front}</div>)}
           </div>
