@@ -137,23 +137,33 @@ export async function POST(req: Request) {
     const { data: pub } = sb.storage.from('certificates').getPublicUrl(path);
     const pdf_url = pub?.publicUrl || '';
 
-    // Upsert certificates row
+    // Upsert certificates row with all required fields
     try {
       await sb.from('certificates').upsert({
+        learner_id: enr.user_id, // REQUIRED
         enrollment_id,
+        course_id: enr.course_id, // REQUIRED
         pdf_url,
         issued_at,
+        issue_date: new Date().toISOString().split('T')[0], // REQUIRED: date only
+        score: 80, // REQUIRED: default passing score
         verification_code,
+        verifier_code: verification_code, // Legacy field
         signature,
         signed_payload: payload
       }, { onConflict: 'enrollment_id' });
     } catch (e: any) {
-      // Fallback insert then update
+      // Fallback insert with all required fields
       await sb.from('certificates').insert({ 
+        learner_id: enr.user_id,
         enrollment_id, 
+        course_id: enr.course_id,
         pdf_url, 
-        issued_at, 
-        verification_code, 
+        issued_at,
+        issue_date: new Date().toISOString().split('T')[0],
+        score: 80,
+        verification_code,
+        verifier_code: verification_code,
         signature, 
         signed_payload: payload 
       }).select();

@@ -85,10 +85,10 @@ export async function POST(req: Request){
         .update({ passed: true, progress_pct: 100, updated_at: new Date().toISOString() })
         .eq('id', enrollment.id);
       
-      // Trigger certificate generation immediately
+      // Trigger certificate generation immediately with FULL PDF generation
       try {
         console.log('[exam/submit] Triggering certificate generation for enrollment:', enrollment.id);
-        const certResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'https://flatearthequipment.com'}/api/cert/simple-issue`, {
+        const certResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'https://flatearthequipment.com'}/api/cert/issue`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ enrollment_id: enrollment.id })
