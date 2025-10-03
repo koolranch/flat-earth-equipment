@@ -150,36 +150,53 @@ export async function POST(req: Request) {
     const pdf_url = pub?.publicUrl || '';
     console.log('[cert/issue] Public URL:', pdf_url);
 
-    // Upsert certificates row with all required fields
-    try {
-      await sb.from('certificates').upsert({
-        learner_id: enr.user_id, // REQUIRED
-        enrollment_id,
-        course_id: enr.course_id, // REQUIRED
-        pdf_url,
-        issued_at,
-        issue_date: new Date().toISOString().split('T')[0], // REQUIRED: date only
-        score: 80, // REQUIRED: default passing score
-        verification_code,
-        verifier_code: verification_code, // Legacy field
-        signature,
-        signed_payload: payload
-      }, { onConflict: 'enrollment_id' });
-    } catch (e: any) {
-      // Fallback insert with all required fields
-      await sb.from('certificates').insert({ 
-        learner_id: enr.user_id,
-        enrollment_id, 
-        course_id: enr.course_id,
-        pdf_url, 
-        issued_at,
-        issue_date: new Date().toISOString().split('T')[0],
-        score: 80,
-        verification_code,
-        verifier_code: verification_code,
-        signature, 
-        signed_payload: payload 
-      }).select();
+    // Insert/upsert certificates row with all required fields
+    console.log('[cert/issue] Saving certificate to database...');
+    
+    const certData = {
+      learner_id: enr.user_id, // REQUIRED
+      enrollment_id,
+      course_id: enr.course_id, // REQUIRED
+      pdf_url,
+      issued_at,
+      issue_date: new Date().toISOString().split('T')[0], // REQUIRED: date only
+      score: 80, // REQUIRED: default passing score
+      verification_code,
+      verifier_code: verification_code, // Legacy field
+      signature,
+      signed_payload: payload
+    };
+    
+    console.log('[cert/issue] Certificate data:', certData);
+    
+    // Try insert first
+    const { data: insertResult, error: insertError } = await sb
+      .from('certificates')
+      .insert(certData)
+      .select();
+    
+    if (insertError) {
+      console.error('[cert/issue] Insert failed:', insertError);
+      
+      // If insert fails due to duplicate, try update
+      if (insertError.code === '23505') { // duplicate key
+        console.log('[cert/issue] Certificate exists, updating...');
+        const { data: updateResult, error: updateError } = await sb
+          .from('certificates')
+          .update(certData)
+          .eq('enrollment_id', enrollment_id)
+          .select();
+        
+        if (updateError) {
+          console.error('[cert/issue] Update also failed:', updateError);
+          throw new Error(`Failed to save certificate: ${updateError.message}`);
+        }
+        console.log('[cert/issue] Certificate updated successfully');
+      } else {
+        throw new Error(`Failed to insert certificate: ${insertError.message}`);
+      }
+    } else {
+      console.log('[cert/issue] Certificate inserted successfully:', insertResult);
     }
     
     return { pdf_url };
