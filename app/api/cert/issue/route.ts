@@ -17,9 +17,13 @@ export async function POST(req: Request) {
   try {
     const sb = supabaseService();
     const { enrollment_id } = await req.json();
-    if (!enrollment_id) return NextResponse.json({ ok: false, error: 'missing enrollment_id' }, { status: 400 });
+    if (!enrollment_id) {
+      console.error('[cert/issue] No enrollment_id provided in request');
+      return NextResponse.json({ ok: false, error: 'missing enrollment_id' }, { status: 400 });
+    }
 
-    console.log('[cert/issue] Starting certificate generation for enrollment:', enrollment_id);
+    console.log('[cert/issue] ===== CERTIFICATE GENERATION START =====');
+    console.log('[cert/issue] Enrollment ID:', enrollment_id);
 
     // Load enrollment + profile + course
     const { data: enr, error: e1 } = await sb
@@ -53,7 +57,9 @@ export async function POST(req: Request) {
 
   // Note: Certificate is issued immediately upon exam pass
   // Practical evaluation is a separate compliance requirement tracked independently
-  console.log('[cert/issue] Issuing certificate for enrollment:', enrollment_id, 'practical verified:', practical_verified);
+    console.log('[cert/issue] User:', prof?.full_name || prof?.email || enr.user_id);
+    console.log('[cert/issue] Course:', course?.title || enr.course_id);
+    console.log('[cert/issue] Practical verified:', practical_verified);
 
   // Prepare payload
   const issued_at = new Date().toISOString();
@@ -125,17 +131,24 @@ export async function POST(req: Request) {
   page.drawText(`Signature: ${signature.slice(0, 16)}…`, { x: 60, y: 90, size: 8, font, color: rgb(0.38, 0.38, 0.42) });
 
   const pdfBytes = await pdf.save();
+  console.log('[cert/issue] PDF generated, size:', pdfBytes.length, 'bytes');
 
   // Upload to storage and save certificate record
   const { pdf_url } = await withSpan('Certificate Issue', 'http.server', async () => {
     const path = `${enrollment_id}.pdf`;
+    console.log('[cert/issue] Uploading to storage path:', path);
+    
     const up = await sb.storage.from('certificates').upload(path, pdfBytes, { upsert: true, contentType: 'application/pdf' });
     if (up.error) {
+      console.error('[cert/issue] Storage upload error:', up.error);
       await logServerError('cert_issue', 'upload_error', { error: up.error.message, enrollment_id });
       throw new Error(up.error.message);
     }
+    
+    console.log('[cert/issue] Upload successful');
     const { data: pub } = sb.storage.from('certificates').getPublicUrl(path);
     const pdf_url = pub?.publicUrl || '';
+    console.log('[cert/issue] Public URL:', pdf_url);
 
     // Upsert certificates row with all required fields
     try {
@@ -188,6 +201,10 @@ export async function POST(req: Request) {
     console.warn('[email] Failed to send certificate issued email:', err);
   }
 
+    console.log('[cert/issue] ===== CERTIFICATE GENERATION SUCCESS =====');
+    console.log('[cert/issue] Verification code:', verification_code);
+    console.log('[cert/issue] PDF URL:', pdf_url);
+    
     return NextResponse.json({ 
       ok: true, 
       enrollment_id, 
@@ -196,7 +213,9 @@ export async function POST(req: Request) {
       practical_verified 
     });
   } catch (error: any) {
-    console.error('[cert/issue] Error generating certificate:', error);
+    console.error('[cert/issue] ===== CERTIFICATE GENERATION FAILED =====');
+    console.error('[cert/issue] Error:', error);
+    console.error('[cert/issue] Stack:', error.stack);
     return NextResponse.json({ 
       ok: false, 
       error: 'Certificate generation failed', 
