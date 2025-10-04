@@ -76,7 +76,7 @@ export default function PracticalInviteForm({ enrollmentId, userId }: { enrollme
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="supervisor-name" className="block text-sm font-medium text-blue-900 mb-1">
+        <label htmlFor="supervisor-name" className="block text-sm font-medium text-orange-900 mb-1">
           Safety Manager / Supervisor Name *
         </label>
         <input
@@ -86,12 +86,12 @@ export default function PracticalInviteForm({ enrollmentId, userId }: { enrollme
           value={supervisorName}
           onChange={(e) => setSupervisorName(e.target.value)}
           placeholder="e.g., John Smith"
-          className="w-full rounded-lg border border-blue-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full rounded-lg border-2 border-orange-200 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F76511] focus:border-[#F76511]"
         />
       </div>
 
       <div>
-        <label htmlFor="supervisor-email" className="block text-sm font-medium text-blue-900 mb-1">
+        <label htmlFor="supervisor-email" className="block text-sm font-medium text-orange-900 mb-1">
           Their Email Address *
         </label>
         <input
@@ -101,12 +101,12 @@ export default function PracticalInviteForm({ enrollmentId, userId }: { enrollme
           value={supervisorEmail}
           onChange={(e) => setSupervisorEmail(e.target.value)}
           placeholder="supervisor@company.com"
-          className="w-full rounded-lg border border-blue-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full rounded-lg border-2 border-orange-200 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F76511] focus:border-[#F76511]"
         />
       </div>
 
       <div>
-        <label htmlFor="company" className="block text-sm font-medium text-blue-900 mb-1">
+        <label htmlFor="company" className="block text-sm font-medium text-orange-900 mb-1">
           Company / Site Name (Optional)
         </label>
         <input
@@ -115,7 +115,7 @@ export default function PracticalInviteForm({ enrollmentId, userId }: { enrollme
           value={company}
           onChange={(e) => setCompany(e.target.value)}
           placeholder="e.g., ABC Warehousing"
-          className="w-full rounded-lg border border-blue-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full rounded-lg border-2 border-orange-200 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#F76511] focus:border-[#F76511]"
         />
       </div>
 
@@ -128,12 +128,12 @@ export default function PracticalInviteForm({ enrollmentId, userId }: { enrollme
       <button
         type="submit"
         disabled={sending}
-        className="w-full rounded-xl bg-blue-600 text-white px-6 py-3 font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full rounded-xl bg-[#F76511] text-white px-6 py-3 font-semibold hover:bg-orange-600 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {sending ? 'Sending Invite...' : 'Send Evaluation Invite →'}
       </button>
 
-      <p className="text-xs text-blue-700">
+      <p className="text-xs text-orange-700">
         Your supervisor will receive an email with a secure link to complete your hands-on evaluation.
       </p>
     </form>

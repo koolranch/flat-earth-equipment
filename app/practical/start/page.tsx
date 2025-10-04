@@ -56,19 +56,19 @@ export default async function Page(){
           OSHA requires workplace evaluation by a qualified person before independent forklift operation.
         </p>
         
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-6">
-          <h2 className="text-lg font-semibold text-blue-900 mb-3">📋 What's Required</h2>
-          <ul className="space-y-2 text-sm text-blue-900">
+        <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
+          <h2 className="text-lg font-semibold text-orange-900 mb-3">📋 What's Required</h2>
+          <ul className="space-y-2 text-sm text-orange-900">
             <li className="flex items-start gap-2">
-              <span className="text-blue-600 font-bold">•</span>
+              <span className="text-[#F76511] font-bold">•</span>
               <span><strong>Qualified evaluator:</strong> Supervisor, safety manager, or experienced operator</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-blue-600 font-bold">•</span>
+              <span className="text-[#F76511] font-bold">•</span>
               <span><strong>On-site assessment:</strong> Demonstrates competency on actual equipment</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-blue-600 font-bold">•</span>
+              <span className="text-[#F76511] font-bold">•</span>
               <span><strong>Documentation:</strong> Evaluator signs off on specific competencies per 29 CFR 1910.178(l)</span>
             </li>
           </ul>
@@ -90,9 +90,9 @@ export default async function Page(){
           <h2 className="text-xl font-semibold text-[#0F172A]">Two Easy Options:</h2>
           
           {/* Option 1: Invite Supervisor */}
-          <div className="rounded-xl border-2 border-blue-500 bg-blue-50 p-6">
-            <h3 className="text-lg font-semibold text-blue-900 mb-2">Option 1: Invite Your Safety Manager</h3>
-            <p className="text-sm text-blue-800 mb-4">
+          <div className="rounded-xl border-2 border-[#F76511] bg-orange-50 p-6">
+            <h3 className="text-lg font-semibold text-orange-900 mb-2">Option 1: Invite Your Safety Manager</h3>
+            <p className="text-sm text-orange-800 mb-4">
               Send an email invite to your supervisor or safety manager. They'll receive a link to complete the evaluation.
             </p>
             
