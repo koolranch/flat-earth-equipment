@@ -338,7 +338,7 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
             {canTakeExam ? (
               <a 
                 href="/training/exam" 
-                className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
+                className="inline-flex items-center gap-2 bg-[#F76511] text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors shadow-md hover:shadow-xl"
               >
                 Take Final Exam →
               </a>
