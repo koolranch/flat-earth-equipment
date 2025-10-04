@@ -108,18 +108,6 @@ export default function Page() {
       {/* Featured Products */}
       <FeaturedProducts />
 
-      {/* Floating Quote Button */}
-      <div className="fixed bottom-4 right-4 z-50">
-        <Link
-          href="/quote"
-          className="
-            bg-canyon-rust text-white px-5 py-3 rounded-full shadow-lg
-            hover:shadow-xl transition
-          "
-        >
-{t.quoteButton}
-        </Link>
-      </div>
 
       {/* 4) Featured Products grid */}
       <section className="py-12">
