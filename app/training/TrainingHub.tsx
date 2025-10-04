@@ -268,31 +268,31 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
                 return (
                   <div key={key} className={`group flex items-center justify-between p-5 rounded-2xl transition-all duration-200 ${
                     completed 
-                      ? 'bg-gradient-to-r from-emerald-50 to-white border-2 border-emerald-200 shadow-sm hover:shadow-md' 
-                      : 'bg-white border-2 border-slate-200 shadow-sm hover:shadow-md hover:border-blue-300'
+                      ? 'bg-gradient-to-r from-orange-50 via-amber-50 to-white border-2 border-orange-200 shadow-sm hover:shadow-lg' 
+                      : 'bg-white border-2 border-slate-200 shadow-sm hover:shadow-lg hover:border-blue-400'
                   }`}>
                     <div className='flex items-center gap-4'>
-                      <div className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-2xl transition-transform group-hover:scale-110 ${
+                      <div className={`flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center text-2xl font-bold transition-all duration-300 group-hover:scale-110 ${
                         completed 
-                          ? 'bg-emerald-500 text-white shadow-lg' 
-                          : 'bg-slate-100 text-slate-400'
+                          ? 'bg-gradient-to-br from-[#F76511] to-orange-600 text-white shadow-lg shadow-orange-200' 
+                          : 'bg-blue-100 text-blue-600 border-2 border-blue-200'
                       }`}>
                         {completed ? '✓' : idx + 1}
                       </div>
                       <div>
-                        <span className={`text-lg font-semibold ${completed ? 'text-slate-700' : 'text-slate-900'}`}>
+                        <span className={`text-lg font-bold ${completed ? 'text-slate-800' : 'text-slate-900'}`}>
                           {title}
                         </span>
                         {completed && (
-                          <div className="text-sm text-emerald-600 mt-0.5 font-medium">Module Complete</div>
+                          <div className="text-sm text-orange-600 mt-0.5 font-semibold">✓ Complete</div>
                         )}
                       </div>
                     </div>
                     <a 
-                      className={`tappable text-sm font-medium px-6 py-2.5 rounded-xl transition-all ${
+                      className={`tappable text-sm font-semibold px-6 py-3 rounded-xl transition-all ${
                         completed 
-                          ? 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300' 
-                          : 'bg-[#F76511] text-white hover:bg-orange-600 shadow-md hover:shadow-lg'
+                          ? 'bg-orange-100 text-orange-700 hover:bg-orange-200 border-2 border-orange-300 hover:shadow-md' 
+                          : 'bg-[#F76511] text-white hover:bg-orange-600 shadow-md hover:shadow-xl'
                       }`}
                       href={href}
                       aria-label={completed ? `Review ${title}` : `Start ${title} module`}
