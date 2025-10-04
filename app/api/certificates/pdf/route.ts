@@ -8,18 +8,27 @@ export async function GET(req: Request){
     const sb = supabaseServer();
     const { data: { user }, error: userError } = await sb.auth.getUser();
     if (userError || !user) {
+      console.error('[certificates/pdf] User not authenticated:', userError?.message);
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Find user's most recent enrollment first
+    console.log('[certificates/pdf] User authenticated:', user.id);
+
+    // Find user's most recent enrollment first - use SERVICE role for reliable query
     const svc = supabaseService();
     const { data: enrollment, error: enrollmentError } = await svc
       .from('enrollments')
-      .select('id')
+      .select('id, user_id')
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .limit(1)
       .maybeSingle();
+    
+    console.log('[certificates/pdf] Enrollment query:', { 
+      found: !!enrollment, 
+      id: enrollment?.id,
+      error: enrollmentError?.message 
+    });
 
     if (enrollmentError || !enrollment) {
       return NextResponse.json({ error: 'No enrollment found' }, { status: 404 });
