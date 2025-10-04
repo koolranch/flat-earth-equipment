@@ -120,32 +120,45 @@ export default async function PartsPage({
     return <p className="p-8 text-red-600">{t.error} {error.message}</p>;
   }
 
+  // Build pagination URLs
+  const buildPageUrl = (page: number) => {
+    const params = new URLSearchParams();
+    if (searchParams.category) params.set('category', searchParams.category);
+    if (page > 1) params.set('page', page.toString());
+    return `/parts${params.toString() ? '?' + params.toString() : ''}`;
+  };
+
   return (
-    <main className="container mx-auto px-4 py-16">
-      <h1 className="mb-8 text-3xl font-bold">{t.title}</h1>
+    <main className="container mx-auto px-4 py-12">
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold text-slate-900 mb-2">{t.title}</h1>
+        <p className="text-slate-600">
+          {count ? `${count.toLocaleString()} ${t.parts}` : ''}
+        </p>
+      </div>
       
       {/* Category Filter */}
-      <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">{t.filterTitle}</h2>
+      <div className="mb-8 bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+        <h2 className="text-lg font-bold text-slate-900 mb-4">{t.filterTitle}</h2>
         <div className="flex flex-wrap gap-2">
           <Link
             href="/parts"
-            className={`px-4 py-2 rounded-md ${
+            className={`px-4 py-2 rounded-xl font-medium transition-all ${
               !searchParams.category
-                ? 'bg-canyon-rust text-white'
-                : 'bg-slate-100 text-slate-800 hover:bg-slate-200'
+                ? 'bg-[#F76511] text-white shadow-md'
+                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
             }`}
           >
-{t.allParts}
+            {t.allParts}
           </Link>
           {distinctCategories.map((category) => (
             <Link
               key={category}
               href={`/parts?category=${encodeURIComponent(category)}`}
-              className={`px-4 py-2 rounded-md ${
+              className={`px-4 py-2 rounded-xl font-medium transition-all ${
                 searchParams.category === category
-                  ? 'bg-canyon-rust text-white'
-                  : 'bg-slate-100 text-slate-800 hover:bg-slate-200'
+                  ? 'bg-[#F76511] text-white shadow-md'
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               }`}
             >
               {getCategoryDisplayName(category)}
@@ -154,20 +167,98 @@ export default async function PartsPage({
         </div>
       </div>
 
+      {/* Results count and pagination info */}
+      {count && count > 0 && (
+        <div className="mb-4 text-sm text-slate-600">
+          {t.showing} {offset + 1}–{Math.min(offset + ITEMS_PER_PAGE, count)} {t.of} {count.toLocaleString()} {t.parts}
+        </div>
+      )}
+
       {/* Parts Grid */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-8">
         {parts?.map((part) => (
           <Link
             key={part.slug}
             href={`/parts/${part.slug}`}
-            className="block rounded-lg border p-4 hover:shadow-lg"
+            className="group bg-white rounded-xl border-2 border-slate-200 p-5 hover:border-[#F76511] hover:shadow-lg transition-all"
           >
-            <h2 className="text-xl font-semibold">{part.name}</h2>
-            <p className="mt-2 text-lg">${part.price.toFixed(2)}</p>
-            <p className="text-sm text-slate-600">{part.category}</p>
+            {part.image_url && (
+              <div className="aspect-square mb-3 rounded-lg overflow-hidden bg-slate-100">
+                <img 
+                  src={part.image_url} 
+                  alt={part.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            )}
+            <h2 className="text-base font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-[#F76511] transition-colors">
+              {part.name}
+            </h2>
+            <p className="text-sm text-slate-600 mb-2">{part.brand}</p>
+            <p className="text-lg font-bold text-[#F76511]">
+              ${part.price.toFixed(2)}
+            </p>
+            <p className="text-xs text-slate-500 mt-1">{part.category}</p>
           </Link>
         ))}
       </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <nav className="flex items-center justify-center gap-2" aria-label="Pagination">
+          {currentPage > 1 && (
+            <Link
+              href={buildPageUrl(currentPage - 1)}
+              className="px-4 py-2 rounded-xl bg-white border-2 border-slate-200 text-slate-700 font-medium hover:border-[#F76511] hover:text-[#F76511] transition-all"
+            >
+              ← {t.previous}
+            </Link>
+          )}
+          
+          <div className="flex gap-1">
+            {Array.from({ length: totalPages }, (_, i) => i + 1)
+              .filter(page => {
+                // Show first page, last page, current page, and pages around current
+                return page === 1 || 
+                       page === totalPages || 
+                       Math.abs(page - currentPage) <= 2;
+              })
+              .map((page, idx, arr) => {
+                // Add ellipsis between gaps
+                const prevPage = arr[idx - 1];
+                const showEllipsis = prevPage && page - prevPage > 1;
+                
+                return (
+                  <div key={page} className="flex gap-1">
+                    {showEllipsis && (
+                      <span className="px-3 py-2 text-slate-400">...</span>
+                    )}
+                    <Link
+                      href={buildPageUrl(page)}
+                      className={`px-4 py-2 rounded-xl font-medium transition-all ${
+                        page === currentPage
+                          ? 'bg-[#F76511] text-white shadow-md'
+                          : 'bg-white border-2 border-slate-200 text-slate-700 hover:border-[#F76511]'
+                      }`}
+                      aria-current={page === currentPage ? 'page' : undefined}
+                    >
+                      {page}
+                    </Link>
+                  </div>
+                );
+              })}
+          </div>
+
+          {currentPage < totalPages && (
+            <Link
+              href={buildPageUrl(currentPage + 1)}
+              className="px-4 py-2 rounded-xl bg-white border-2 border-slate-200 text-slate-700 font-medium hover:border-[#F76511] hover:text-[#F76511] transition-all"
+            >
+              {t.next} →
+            </Link>
+          )}
+        </nav>
+      )}
     </main>
   );
-} 
+}
