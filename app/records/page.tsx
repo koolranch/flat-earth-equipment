@@ -26,11 +26,19 @@ export default async function RecordsPage() {
   const enrollmentIds = (enrollments || []).map(e => e.id);
   
   // Get certificates for user's enrollments (handles multiple per enrollment)
-  const { data: certs } = await s
+  const { data: certs, error: certsError } = await s
     .from('certificates')
     .select('id, enrollment_id, verification_code, verifier_code, pdf_url, wallet_pdf_url, issued_at, expires_at, learner_id')
     .eq('learner_id', user.id)
     .order('issued_at', { ascending: false });
+  
+  // Debug: log what we got
+  console.log('[records] Certificates query:', {
+    user_id: user.id,
+    enrollment_count: enrollments?.length,
+    cert_count: certs?.length,
+    error: certsError?.message
+  });
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6">
