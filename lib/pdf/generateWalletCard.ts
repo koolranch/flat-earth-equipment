@@ -113,10 +113,10 @@ export async function generateWalletCardPDF(input: WalletCardInput): Promise<Uin
     page.drawText('29 CFR 1910.178(l)', { x: 12, y: CARD_H - 42, size: 7, font: fontBold, color: brandOrange });
     
     const requirements = [
-      '✓ Formal training completed',
-      '✓ Workplace evaluation required',
-      '✓ Equipment-specific training',
-      '✓ Valid for 3 years from issue date'
+      '* Formal training completed',
+      '* Workplace evaluation required',
+      '* Equipment-specific training',
+      '* Valid for 3 years from issue date'
     ];
     let y = CARD_H - 56;
     requirements.forEach((req) => {
