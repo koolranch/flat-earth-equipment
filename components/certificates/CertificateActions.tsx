@@ -21,15 +21,29 @@ export function WalletCardButton({ certificateId, url }: { certificateId: string
 
   if (url) {
     return (
-      <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center rounded-lg border px-3 py-2 text-sm">
-        Wallet card (PDF)
+      <a 
+        href={url} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="inline-flex items-center gap-2 bg-slate-100 text-slate-700 px-5 py-2.5 rounded-xl font-semibold hover:bg-slate-200 transition-all border-2 border-slate-300"
+      >
+        <span>💳</span> Wallet Card
       </a>
     );
   }
 
   return (
-    <button onClick={handleGenerate} disabled={busy} className="inline-flex items-center rounded-lg border px-3 py-2 text-sm">
-      {busy ? 'Generating…' : 'Generate wallet card'}
+    <button 
+      onClick={handleGenerate} 
+      disabled={busy} 
+      className="inline-flex items-center gap-2 bg-slate-100 text-slate-700 px-5 py-2.5 rounded-xl font-semibold hover:bg-slate-200 transition-all border-2 border-slate-300 disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      {busy ? 'Generating…' : (
+        <>
+          <span>💳</span> Generate Wallet Card
+        </>
+      )}
     </button>
   );
+}
 }
