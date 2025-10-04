@@ -60,9 +60,12 @@ export async function generateWalletCardPDF(input: WalletCardInput): Promise<Uin
     page.drawText('FORKLIFT OPERATOR', { x: 52, y: CARD_H - 18, size: 9, font: fontBold, color: rgb(1, 1, 1) });
     page.drawText('CERTIFICATION CARD', { x: 52, y: CARD_H - 28, size: 7, font, color: rgb(1, 1, 1) });
 
-    // Name section with underline
+    // Name section with underline (truncate long user IDs)
     const nameY = CARD_H - 48;
-    page.drawText(input.traineeName, { x: 12, y: nameY, size: 12, font: fontBold, color: darkBlue });
+    const displayName = input.traineeName.length > 30 
+      ? 'Certified Operator' 
+      : input.traineeName;
+    page.drawText(displayName, { x: 12, y: nameY, size: 11, font: fontBold, color: darkBlue });
     page.drawLine({ start: { x: 12, y: nameY - 2 }, end: { x: 140, y: nameY - 2 }, thickness: 0.5, color: brandOrange });
 
     // Details section
@@ -80,11 +83,11 @@ export async function generateWalletCardPDF(input: WalletCardInput): Promise<Uin
     }
     
     // Dates in bordered box
-    page.drawRectangle({ x: 10, y: 28, width: 130, height: 24, borderWidth: 0.5, borderColor: mediumGray, color: lightGray });
-    page.drawText('Issued:', { x: 13, y: 42, size: 7, font: fontBold, color: darkBlue });
-    page.drawText(input.issuedAt ? new Date(input.issuedAt).toLocaleDateString() : '-', { x: 13, y: 33, size: 7, font, color: darkBlue });
-    page.drawText('Expires:', { x: 75, y: 42, size: 7, font: fontBold, color: darkBlue });
-    page.drawText(input.expiresAt ? new Date(input.expiresAt).toLocaleDateString() : '-', { x: 75, y: 33, size: 7, font, color: darkBlue });
+    page.drawRectangle({ x: 10, y: 26, width: 132, height: 26, borderWidth: 0.5, borderColor: mediumGray, color: lightGray });
+    page.drawText('Issued:', { x: 13, y: 43, size: 7, font: fontBold, color: darkBlue });
+    page.drawText(input.issuedAt ? new Date(input.issuedAt).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' }) : '-', { x: 13, y: 33, size: 7.5, font, color: darkBlue });
+    page.drawText('Expires:', { x: 77, y: 43, size: 7, font: fontBold, color: darkBlue });
+    page.drawText(input.expiresAt ? new Date(input.expiresAt).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' }) : '-', { x: 77, y: 33, size: 7.5, font, color: darkBlue });
 
     // Verification code
     page.drawText(`Code: ${input.verifyCode}`, { x: 12, y: 14, size: 6.5, font: fontBold, color: mediumGray });
@@ -125,10 +128,11 @@ export async function generateWalletCardPDF(input: WalletCardInput): Promise<Uin
     });
 
     // Important notice box
-    page.drawRectangle({ x: 10, y: 32, width: CARD_W - 20, height: 28, borderWidth: 0.5, borderColor: brandOrange, color: rgb(1, 0.98, 0.95) });
-    page.drawText('IMPORTANT:', { x: 13, y: 52, size: 7, font: fontBold, color: darkBlue });
-    page.drawText('Employer must verify and document', { x: 13, y: 44, size: 6.5, font, color: darkBlue });
-    page.drawText('practical skills before operation.', { x: 13, y: 37, size: 6.5, font, color: darkBlue });
+    page.drawRectangle({ x: 10, y: 30, width: CARD_W - 20, height: 32, borderWidth: 0.5, borderColor: brandOrange, color: rgb(1, 0.98, 0.95) });
+    page.drawText('IMPORTANT:', { x: 13, y: 54, size: 7.5, font: fontBold, color: darkBlue });
+    page.drawText('Employer must verify and document', { x: 13, y: 45, size: 6.5, font, color: darkBlue });
+    page.drawText('practical skills before independent', { x: 13, y: 38, size: 6.5, font, color: darkBlue });
+    page.drawText('operation.', { x: 13, y: 31, size: 6.5, font, color: darkBlue });
 
     // Footer with brand
     page.drawRectangle({ x: 7, y: 7, width: CARD_W - 14, height: 16, color: brandOrange });
