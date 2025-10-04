@@ -77,14 +77,31 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
     issuedAt: !!payload.issuedAt 
   });
 
-  const pdfBytes = await generateWalletCardPDF(payload);
+  let pdfBytes;
+  try {
+    console.log('[wallet] Calling generateWalletCardPDF...');
+    pdfBytes = await generateWalletCardPDF(payload);
+    console.log('[wallet] PDF generated successfully, size:', pdfBytes.length, 'bytes');
+  } catch (pdfError: any) {
+    console.error('[wallet] PDF generation failed:', pdfError.message);
+    console.error('[wallet] Stack:', pdfError.stack);
+    return NextResponse.json({ error: 'PDF generation failed', details: pdfError.message }, { status: 500 });
+  }
 
   const path = `wallet-cards/${cert.id}-wallet.pdf`;
+  console.log('[wallet] Uploading to:', path);
+  
   const { data: up, error: upErr } = await s.storage.from('certificates').upload(path, pdfBytes, {
     contentType: 'application/pdf',
     upsert: true,
   });
-  if (upErr) return NextResponse.json({ error: 'Upload failed', detail: upErr.message }, { status: 500 });
+  
+  if (upErr) {
+    console.error('[wallet] Upload failed:', upErr);
+    return NextResponse.json({ error: 'Upload failed', detail: upErr.message }, { status: 500 });
+  }
+  
+  console.log('[wallet] Upload successful');
 
   const { data: pub } = s.storage.from('certificates').getPublicUrl(path);
 
