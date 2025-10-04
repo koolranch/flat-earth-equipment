@@ -12,8 +12,6 @@ export async function GET(req: Request){
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    console.log('[certificates/pdf] User authenticated:', user.id);
-
     // Find user's most recent enrollment first - use SERVICE role for reliable query
     const svc = supabaseService();
     const { data: enrollment, error: enrollmentError } = await svc
@@ -23,20 +21,12 @@ export async function GET(req: Request){
       .order('created_at', { ascending: false })
       .limit(1)
       .maybeSingle();
-    
-    console.log('[certificates/pdf] Enrollment query:', { 
-      found: !!enrollment, 
-      id: enrollment?.id,
-      error: enrollmentError?.message 
-    });
 
     if (enrollmentError || !enrollment) {
       return NextResponse.json({ error: 'No enrollment found' }, { status: 404 });
     }
 
     // Find certificate for this enrollment (most recent if multiple exist)
-    console.log('[certificates/pdf] Looking for certificate for enrollment:', enrollment.id);
-    
     const { data: certs, error } = await svc
       .from('certificates')
       .select('id, enrollment_id, pdf_url, issued_at, verification_code, verifier_code, learner_id')
@@ -46,16 +36,9 @@ export async function GET(req: Request){
     
     const cert = certs?.[0] || null;
 
-    console.log('[certificates/pdf] Certificate lookup result:', { 
-      found: !!cert, 
-      has_pdf: !!cert?.pdf_url,
-      error: error?.message 
-    });
-
     if (error || !cert) {
-      console.error('[certificates/pdf] Certificate not found for user:', user.id, 'enrollment:', enrollment.id);
-      console.error('[certificates/pdf] Error:', error);
-      return NextResponse.json({ error: 'Certificate not found. Please contact support.', debug: { enrollment_id: enrollment.id, user_id: user.id } }, { status: 404 });
+      console.error('[certificates/pdf] Certificate not found for user:', user.id);
+      return NextResponse.json({ error: 'Certificate not found. Please contact support.' }, { status: 404 });
     }
 
     // If PDF URL already exists in database, redirect to it
