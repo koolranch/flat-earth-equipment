@@ -163,20 +163,20 @@ export default async function SafetyPage() {
           <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
             <Link 
               href="/training" 
-              className="btn-primary tappable"
+              className="inline-flex items-center gap-2 bg-[#F76511] text-white px-8 py-4 rounded-xl font-bold hover:bg-orange-600 transition-colors shadow-lg hover:shadow-xl"
             >
-              {t.hero.cta_primary}
+              {t.hero.cta_primary} →
             </Link>
             <a 
               href="#how" 
-              className="tappable rounded-xl border border-brand-onPanel/20 px-4 py-2 text-brand-onPanel/90 hover:bg-white/5 transition-colors"
+              className="inline-flex items-center gap-2 rounded-xl border-2 border-brand-onPanel/20 px-6 py-3 text-brand-onPanel/90 hover:bg-white/5 transition-colors font-medium"
             >
               {t.hero.cta_secondary}
             </a>
           </div>
         </header>
 
-        <PricingStrip disableBuy />
+        <PricingStrip />
 
         {/* Value Propositions */}
         <div className="mt-8">
