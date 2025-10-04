@@ -8,7 +8,6 @@ function cn(...c: (string | undefined | null | boolean)[]): string {
 
 const items = [
   { href: "/training", label: "Training" },
-  { href: "/safety", label: "Safety" },
   { href: "/trainer", label: "Trainer" },
   { href: "/records", label: "Records" }
 ];
