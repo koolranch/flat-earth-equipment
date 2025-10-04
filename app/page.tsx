@@ -92,17 +92,12 @@ export default function Page() {
       {/* 1) Full-bleed Hero */}
       <Hero locale={locale} />
 
-      {/* 3.5) Featured Rentals */}
+      {/* Featured Rentals */}
       <div className="py-12">
         <FeaturedRentals />
       </div>
 
-      {/* 3) Quick Quote Form */}
-      <div className="py-12">
-        <QuickQuote />
-      </div>
-
-      {/* 2) Popular Categories */}
+      {/* Popular Categories */}
       <CategoryTiles />
 
       {/* Featured Products */}
