@@ -34,14 +34,17 @@ export async function GET(req: Request){
       return NextResponse.json({ error: 'No enrollment found' }, { status: 404 });
     }
 
-    // Find certificate for this enrollment
+    // Find certificate for this enrollment (most recent if multiple exist)
     console.log('[certificates/pdf] Looking for certificate for enrollment:', enrollment.id);
     
-    const { data: cert, error } = await svc
+    const { data: certs, error } = await svc
       .from('certificates')
       .select('id, enrollment_id, pdf_url, issued_at, verification_code, verifier_code, learner_id')
       .eq('enrollment_id', enrollment.id)
-      .maybeSingle();
+      .order('issued_at', { ascending: false })
+      .limit(1);
+    
+    const cert = certs?.[0] || null;
 
     console.log('[certificates/pdf] Certificate lookup result:', { 
       found: !!cert, 

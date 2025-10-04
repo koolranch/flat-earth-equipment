@@ -25,11 +25,14 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: 'No enrollment found' }, { status: 404 });
     }
 
-    const { data: cert, error } = await svc
+    const { data: certs, error } = await svc
       .from('certificates')
-      .select('id, enrollment_id, pdf_url, issued_at, verification_code')
+      .select('id, enrollment_id, pdf_url, issued_at, verification_code, verifier_code')
       .eq('enrollment_id', enrollment.id)
-      .maybeSingle();
+      .order('issued_at', { ascending: false })
+      .limit(1);
+    
+    const cert = certs?.[0] || null;
 
     if (error || !cert) {
       console.error('[certificates/wallet] Certificate not found for user:', user.id);
