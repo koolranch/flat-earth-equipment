@@ -60,12 +60,16 @@ const iconMap: Record<CategoryIcon, LucideIcon> = {
   CircleIcon,
 };
 
+const ITEMS_PER_PAGE = 24;
+
 export default async function PartsPage({
   searchParams,
 }: {
-  searchParams: { category?: string };
+  searchParams: { category?: string; page?: string };
 }) {
   const locale = getUserLocale()
+  const currentPage = parseInt(searchParams.page || '1', 10);
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   
   // Translation strings
   const t = {
@@ -73,13 +77,23 @@ export default async function PartsPage({
       title: 'Parts Catalog',
       filterTitle: 'Filter by Category',
       allParts: 'All Parts',
-      error: 'Error:'
+      error: 'Error:',
+      showing: 'Showing',
+      of: 'of',
+      parts: 'parts',
+      previous: 'Previous',
+      next: 'Next'
     },
     es: {
       title: 'Catálogo de Partes',
       filterTitle: 'Filtrar por Categoría',
       allParts: 'Todas las Partes',
-      error: 'Error:'
+      error: 'Error:',
+      showing: 'Mostrando',
+      of: 'de',
+      parts: 'partes',
+      previous: 'Anterior',
+      next: 'Siguiente'
     }
   }[locale]
   const supabase = supabaseServer();
@@ -107,14 +121,16 @@ export default async function PartsPage({
 
   let partsQuery = supabase
     .from('parts')
-    .select('slug, name, price, category')
-    .order('name');
+    .select('slug, name, price, category, brand, image_url', { count: 'exact' })
+    .order('name')
+    .range(offset, offset + ITEMS_PER_PAGE - 1);
 
   if (searchParams.category) {
     partsQuery = partsQuery.eq('category', searchParams.category);
   }
 
-  const { data: parts, error } = await partsQuery;
+  const { data: parts, error, count } = await partsQuery;
+  const totalPages = count ? Math.ceil(count / ITEMS_PER_PAGE) : 1;
 
   if (error) {
     return <p className="p-8 text-red-600">{t.error} {error.message}</p>;
