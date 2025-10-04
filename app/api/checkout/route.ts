@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     let successSlug = "";
     
     if (body.items && Array.isArray(body.items)) {
-      // Cart checkout format: { items: [{ priceId, quantity, metadata, coreCharge, ... }] }
+      // Cart checkout format: { items: [{ priceId, quantity, metadata, coreCharge, isTraining, ... }] }
       for (let i = 0; i < body.items.length; i++) {
         const item = body.items[i];
         if (!item.priceId || typeof item.priceId !== "string") {
@@ -43,6 +43,11 @@ export async function POST(req: NextRequest) {
           price: item.priceId,
           quantity: Math.max(1, Number(item.quantity) || 1)
         });
+        
+        // If this is a training purchase, add course_slug for webhook
+        if (item.isTraining) {
+          metadata.course_slug = 'forklift';
+        }
         
         // Add core charge as separate line item if applicable
         if (item.coreCharge && Number(item.coreCharge) > 0) {
