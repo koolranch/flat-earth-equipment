@@ -225,23 +225,34 @@ export default function PreOpModule() {
       )}
 
       {/* Footer CTA - Always visible for clarity */}
-      <div className='mt-8 p-6 rounded-xl border-2 bg-slate-50'>
-        <div className='flex items-center justify-between'>
-          <div>
-            <h3 className='font-semibold text-lg mb-1'>
-              {quizPassed ? '✅ Module 1 Complete!' : '📋 Complete Module 1'}
-            </h3>
-            <p className='text-sm text-slate-600'>
-              {quizPassed 
-                ? 'Great job! Click to continue to the next module.' 
-                : 'Finish all tabs above, then pass the quiz to continue.'}
-            </p>
+      <div className={`mt-8 p-6 rounded-2xl border-2 transition-all ${
+        quizPassed 
+          ? 'bg-gradient-to-r from-orange-50 to-amber-50 border-orange-200 shadow-md' 
+          : 'bg-slate-50 border-slate-200'
+      }`}>
+        <div className='flex items-center justify-between gap-4'>
+          <div className='flex items-center gap-4'>
+            {quizPassed && (
+              <div className='flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-[#F76511] to-orange-600 text-white flex items-center justify-center text-2xl font-bold shadow-lg'>
+                ✓
+              </div>
+            )}
+            <div>
+              <h3 className='font-bold text-lg mb-1'>
+                {quizPassed ? 'Module 1 Complete!' : '📋 Complete Module 1'}
+              </h3>
+              <p className='text-sm text-slate-600'>
+                {quizPassed 
+                  ? 'Great job! Click to continue to the next module.' 
+                  : 'Finish all tabs above, then pass the quiz to continue.'}
+              </p>
+            </div>
           </div>
           <button
-            className={`px-6 py-3 rounded-lg font-medium transition-all ${
+            className={`px-6 py-3 rounded-xl font-semibold transition-all whitespace-nowrap ${
               quizPassed 
-                ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg' 
-                : 'bg-slate-300 text-slate-500 cursor-not-allowed'
+                ? 'bg-[#F76511] text-white hover:bg-orange-600 shadow-md hover:shadow-xl' 
+                : 'bg-slate-200 text-slate-400 cursor-not-allowed'
             }`}
             disabled={!quizPassed}
             onClick={async () => {
