@@ -254,6 +254,16 @@ export async function POST(req: Request){
   
   // Certificate generation now happens earlier (above) to avoid being skipped by early returns
   
+  // DEBUG: Include detailed grading info in response for troubleshooting
+  const debug_grading = answers.slice(0, 5).map((ans: any, idx: number) => ({
+    question_index: idx,
+    user_answer: ans,
+    correct_answer: correct[idx],
+    match: ans === correct[idx],
+    user_type: typeof ans,
+    correct_type: typeof correct[idx]
+  }));
+
   return NextResponse.json({ 
     ok: true, 
     passed, 
@@ -263,6 +273,7 @@ export async function POST(req: Request){
     incorrectIndices: incorrect, 
     weak_tags, 
     recommendations: [],
-    attempt_id: attemptRow?.id || null 
+    attempt_id: attemptRow?.id || null,
+    debug_first_5_questions: debug_grading // Temporary debug info
   });
 }
