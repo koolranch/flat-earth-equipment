@@ -184,11 +184,11 @@ export default async function SafetyPage() {
         </div>
 
         {/* How It Works */}
-        <section id="how" className="mt-8 panel-soft shadow-card px-6 py-6">
-          <h2 className="text-2xl font-semibold mb-4 text-brand-onPanel">
+        <section id="how" className="mt-8 bg-white rounded-2xl border border-slate-200 shadow-sm px-8 py-8">
+          <h2 className="text-2xl font-bold mb-6 text-slate-900">
             {locale === 'es' ? 'Cómo funciona' : 'How it works'}
           </h2>
-          <ol className="list-decimal pl-6 text-base leading-7 text-brand-onPanel/90 space-y-3">
+          <ol className="list-decimal pl-6 text-base leading-7 text-slate-700 space-y-4">
             <li>
               {locale === 'es' 
                 ? 'Aprenda con demos interactivas cortas (puntos activos, listas de verificación, simulaciones).'
@@ -222,20 +222,20 @@ export default async function SafetyPage() {
         </div>
 
         {/* FAQ Section */}
-        <section className="mt-8 panel-soft shadow-card px-6 py-6">
-          <h2 className="text-2xl font-semibold mb-6 text-brand-onPanel">{t.faq.title}</h2>
-          <div className="divide-y divide-brand-onPanel/10">
+        <section className="mt-8 bg-white rounded-2xl border border-slate-200 shadow-sm px-8 py-8">
+          <h2 className="text-2xl font-bold mb-6 text-slate-900">{t.faq.title}</h2>
+          <div className="divide-y divide-slate-200">
             {t.faq.items.map((f: any, i: number) => (
-              <details key={i} className="py-4 group">
-                <summary className="cursor-pointer font-medium text-brand-onPanel hover:text-brand-orangeBright transition-colors list-none tappable">
+              <details key={i} className="py-5 group">
+                <summary className="cursor-pointer font-semibold text-slate-900 hover:text-[#F76511] transition-colors list-none tappable">
                   <div className="flex items-center justify-between">
                     <span className="text-base leading-7">{f.q}</span>
-                    <span className="text-brand-onPanel/60 group-open:rotate-180 transition-transform ml-2">
+                    <span className="text-slate-500 group-open:rotate-180 transition-transform ml-2">
                       ▼
                     </span>
                   </div>
                 </summary>
-                <p className="text-base leading-7 text-brand-onPanel/90 mt-3 prose-readable">
+                <p className="text-base leading-7 text-slate-700 mt-3">
                   {f.a}
                 </p>
               </details>
@@ -257,12 +257,11 @@ export default async function SafetyPage() {
           <div className="flex flex-wrap justify-center gap-3">
             <Link 
               href={ctaHref}
-              className="btn-primary tappable" 
-              style={{ ['--btn-bg' as any]: '#F76511' }}
+              className="inline-flex items-center gap-2 bg-white text-[#F76511] px-8 py-4 rounded-xl font-bold hover:bg-orange-50 transition-colors shadow-lg hover:shadow-xl" 
               aria-label="Get started with training"
               data-testid="get-started-cta"
             >
-              {t.cta.start_training}
+              {t.cta.start_training} →
             </Link>
             <a 
               href="#pricing" 

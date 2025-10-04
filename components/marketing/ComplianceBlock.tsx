@@ -4,16 +4,23 @@ interface ComplianceBlockProps {
 
 export default function ComplianceBlock({ t }: ComplianceBlockProps) {
   return (
-    <section className="panel-soft shadow-card px-6 py-6">
-      <h2 className="text-2xl font-semibold mb-4 text-brand-onPanel">{t.compliance.title}</h2>
-      <ul className="list-disc pl-6 space-y-3 text-base leading-7 text-brand-onPanel/90">
+    <section className="bg-white rounded-2xl border border-slate-200 shadow-sm px-8 py-8">
+      <h2 className="text-2xl font-bold mb-6 text-slate-900">{t.compliance.title}</h2>
+      <ul className="space-y-4 text-base leading-7 text-slate-700">
         {t.compliance.bullets.map((b: string, i: number) => (
-          <li key={i} className="prose-readable">{b}</li>
+          <li key={i} className="flex items-start gap-3">
+            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-100 text-[#F76511] flex items-center justify-center text-sm font-bold mt-0.5">
+              ✓
+            </span>
+            <span>{b}</span>
+          </li>
         ))}
       </ul>
-      <p className="text-sm text-brand-onPanel/70 mt-4 prose-readable border-l-2 border-brand-orangeBright/30 pl-4">
-        <strong>Important:</strong> {t.compliance.note}
-      </p>
+      <div className="mt-6 p-4 rounded-xl bg-amber-50 border-2 border-amber-200">
+        <p className="text-sm text-amber-900">
+          <strong className="text-amber-800">Important:</strong> {t.compliance.note}
+        </p>
+      </div>
     </section>
   );
 }
