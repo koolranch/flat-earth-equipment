@@ -26,15 +26,24 @@ export async function GET(req: Request){
     }
 
     // Find certificate for this enrollment
+    console.log('[certificates/pdf] Looking for certificate for enrollment:', enrollment.id);
+    
     const { data: cert, error } = await svc
       .from('certificates')
-      .select('id, enrollment_id, pdf_url, issued_at, verification_code')
+      .select('id, enrollment_id, pdf_url, issued_at, verification_code, verifier_code, learner_id')
       .eq('enrollment_id', enrollment.id)
       .maybeSingle();
 
+    console.log('[certificates/pdf] Certificate lookup result:', { 
+      found: !!cert, 
+      has_pdf: !!cert?.pdf_url,
+      error: error?.message 
+    });
+
     if (error || !cert) {
-      console.error('[certificates/pdf] Certificate not found for user:', user.id);
-      return NextResponse.json({ error: 'Certificate not found. Please contact support.' }, { status: 404 });
+      console.error('[certificates/pdf] Certificate not found for user:', user.id, 'enrollment:', enrollment.id);
+      console.error('[certificates/pdf] Error:', error);
+      return NextResponse.json({ error: 'Certificate not found. Please contact support.', debug: { enrollment_id: enrollment.id, user_id: user.id } }, { status: 404 });
     }
 
     // If PDF URL already exists in database, redirect to it
