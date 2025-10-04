@@ -12,6 +12,7 @@ export const TRAINING_PLANS = {
     features: ['5 Interactive Modules', 'Final Exam', 'QR-Verifiable Certificate', 'OSHA Compliant'],
     seats: 1,
     popular: false,
+    savings: undefined,
   },
   pack5: {
     id: 'pack5',
