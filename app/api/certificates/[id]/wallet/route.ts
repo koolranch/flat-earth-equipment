@@ -5,23 +5,29 @@ import { supabaseService } from '@/lib/supabase/service.server';
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
-  const certificateId = params.id;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  const orgName = process.env.NEXT_PUBLIC_BRAND_NAME || 'Flat Earth Equipment';
-  const brand = process.env.NEXT_PUBLIC_BRAND_PRIMARY || '#F76511';
+  try {
+    const certificateId = params.id;
+    console.log('[wallet] Generating wallet card for certificate:', certificateId);
+    
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const orgName = process.env.NEXT_PUBLIC_BRAND_NAME || 'Flat Earth Equipment';
+    const brand = process.env.NEXT_PUBLIC_BRAND_PRIMARY || '#F76511';
 
-  const s = supabaseService();
+    const s = supabaseService();
 
-  // Load certificate + profile + employer
-  const { data: cert, error: certErr } = await s
-    .from('certificates')
-    .select('id, verification_code, verifier_code, issued_at, wallet_pdf_url, enrollment_id')
-    .eq('id', certificateId)
-    .single();
-  if (certErr || !cert) {
-    console.error('[wallet/route] Certificate not found:', certErr);
-    return NextResponse.json({ error: 'Certificate not found' }, { status: 404 });
-  }
+    // Load certificate + profile + employer
+    const { data: cert, error: certErr } = await s
+      .from('certificates')
+      .select('id, verification_code, verifier_code, issued_at, wallet_pdf_url, enrollment_id')
+      .eq('id', certificateId)
+      .single();
+    
+    console.log('[wallet] Certificate lookup:', { found: !!cert, error: certErr?.message });
+    
+    if (certErr || !cert) {
+      console.error('[wallet] Certificate not found for ID:', certificateId, 'Error:', certErr);
+      return NextResponse.json({ error: 'Certificate not found', details: certErr?.message }, { status: 404 });
+    }
 
   // Get learner profile and employer via enrollment
   const { data: enrollment, error: enrErr } = await s
@@ -73,5 +79,10 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
     .eq('id', cert.id);
   if (updErr) return NextResponse.json({ error: 'DB update failed', detail: updErr.message }, { status: 500 });
 
-  return NextResponse.json({ ok: true, url: pub?.publicUrl });
+    console.log('[wallet] Wallet card generated successfully:', pub?.publicUrl);
+    return NextResponse.json({ ok: true, url: pub?.publicUrl });
+  } catch (error: any) {
+    console.error('[wallet] Error generating wallet card:', error);
+    return NextResponse.json({ error: 'Generation failed', details: error.message }, { status: 500 });
+  }
 }
