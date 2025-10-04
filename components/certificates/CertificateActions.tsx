@@ -46,4 +46,3 @@ export function WalletCardButton({ certificateId, url }: { certificateId: string
     </button>
   );
 }
-}
