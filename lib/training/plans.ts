@@ -11,6 +11,7 @@ export const TRAINING_PLANS = {
     blurb: 'One forklift operator certification',
     features: ['5 Interactive Modules', 'Final Exam', 'QR-Verifiable Certificate', 'OSHA Compliant'],
     seats: 1,
+    popular: false,
   },
   pack5: {
     id: 'pack5',
@@ -24,6 +25,7 @@ export const TRAINING_PLANS = {
     features: ['5 Training Seats', 'Trainer Dashboard', 'Progress Tracking', 'Bulk Certificates'],
     seats: 5,
     savings: '$20 per seat',
+    popular: false,
   },
   pack25: {
     id: 'pack25',
@@ -51,6 +53,7 @@ export const TRAINING_PLANS = {
     features: ['Unlimited Seats', 'Dedicated Support', 'Custom Branding', 'API Access'],
     seats: 999,
     savings: 'Best value',
+    popular: false,
   },
 } as const;
 
