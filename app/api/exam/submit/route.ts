@@ -30,25 +30,16 @@ export async function POST(req: Request){
   const total = correct.length;
   let got = 0; const incorrect: number[] = [];
   
-  console.log('[exam/submit] ===== DETAILED GRADING =====');
-  console.log('[exam/submit] Total questions:', total);
-  console.log('[exam/submit] Answers array:', answers);
-  console.log('[exam/submit] Correct indices:', correct);
-  console.log('[exam/submit] Paper ID:', paper.id);
-  
   for (let i=0;i<total;i++){ 
     const a = typeof answers[i]==='number'? answers[i] : -1; 
-    const isMatch = a===correct[i];
-    console.log(`[exam/submit] Q${i}: user_answered=${a} (type=${typeof answers[i]}), correct=${correct[i]} (type=${typeof correct[i]}), MATCH=${isMatch}`);
-    if (isMatch) got++; 
+    if (a===correct[i]) got++; 
     else incorrect.push(i); 
   }
   
   const scorePct = Math.round((got/total)*100);
   const passed = scorePct >= passScore;
   
-  console.log(`[exam/submit] FINAL SCORE: ${got}/${total} (${scorePct}%) - ${passed ? 'PASSED' : 'FAILED'}`);
-  console.log('[exam/submit] ===== END GRADING =====');
+  console.log(`[exam/submit] Exam graded: ${got}/${total} (${scorePct}%) - ${passed ? 'PASSED' : 'FAILED'}`);
 
   // finish session
   await svc.from('exam_sessions').update({ status:'completed' }).eq('id', session_id);
@@ -78,10 +69,8 @@ export async function POST(req: Request){
 
   // Update enrollment to passed if exam was passed AND trigger certificate generation
   let enrollmentId: string | null = null;
-  console.log('[exam/submit] Checking if exam passed:', { passed, scorePct, passScore });
   
   if (passed) {
-    console.log('[exam/submit] ===== CERTIFICATE GENERATION START =====');
     console.log('[exam/submit] Exam passed, finding enrollment for user:', user.id);
     
     // Find user's enrollment (use course_id if provided, otherwise find most recent)
@@ -93,69 +82,42 @@ export async function POST(req: Request){
       .limit(1);
     
     if (course_id) {
-      console.log('[exam/submit] Filtering by course_id:', course_id);
       enrollmentQuery.eq('course_id', course_id);
     }
     
     const { data: enrollment, error: enrollmentError } = await enrollmentQuery.maybeSingle();
     
-    console.log('[exam/submit] Enrollment lookup result:', { 
-      found: !!enrollment, 
-      enrollment_id: enrollment?.id,
-      error: enrollmentError?.message 
-    });
-    
     if (enrollment) {
       enrollmentId = enrollment.id;
       console.log('[exam/submit] Updating enrollment to passed:', enrollment.id);
       
-      const { error: updateError } = await svc
+      await svc
         .from('enrollments')
         .update({ passed: true, progress_pct: 100, updated_at: new Date().toISOString() })
         .eq('id', enrollment.id);
       
-      if (updateError) {
-        console.error('[exam/submit] Failed to update enrollment:', updateError);
-      } else {
-        console.log('[exam/submit] Enrollment updated successfully');
-      }
-      
-      // Trigger certificate generation immediately with FULL PDF generation
+      // Trigger certificate generation
       try {
         const certApiUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://flatearthequipment.com'}/api/cert/issue`;
-        console.log('[exam/submit] Triggering certificate generation...');
-        console.log('[exam/submit] Certificate API URL:', certApiUrl);
-        console.log('[exam/submit] Enrollment ID:', enrollment.id);
-        
         const certResponse = await fetch(certApiUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ enrollment_id: enrollment.id })
         });
         
-        console.log('[exam/submit] Certificate API responded:', certResponse.status, certResponse.statusText);
-        
         if (certResponse.ok) {
           const certData = await certResponse.json();
-          console.log('[exam/submit] ✅ Certificate generation succeeded!');
-          console.log('[exam/submit] Certificate data:', certData);
+          console.log('[exam/submit] Certificate generated:', certData.verification_code);
         } else {
           const certError = await certResponse.text();
-          console.error('[exam/submit] ❌ Certificate generation failed!');
-          console.error('[exam/submit] Status:', certResponse.status);
-          console.error('[exam/submit] Error:', certError);
+          console.error('[exam/submit] Certificate generation failed:', certResponse.status, certError);
         }
       } catch (certError: any) {
-        console.error('[exam/submit] ❌ Exception during certificate generation:', certError.message);
-        console.error('[exam/submit] Stack:', certError.stack);
+        console.error('[exam/submit] Certificate error:', certError.message);
       }
-      
-      console.log('[exam/submit] ===== CERTIFICATE GENERATION END =====');
     } else {
-      console.error('[exam/submit] ❌ No enrollment found for user:', user.id);
+      console.error('[exam/submit] No enrollment found for user:', user.id);
     }
-  } else {
-    console.log('[exam/submit] Exam not passed, skipping certificate generation');
   }
 
   // 1) Fetch question rows for metadata (tags,difficulty,locale)
@@ -254,16 +216,6 @@ export async function POST(req: Request){
   
   // Certificate generation now happens earlier (above) to avoid being skipped by early returns
   
-  // DEBUG: Include detailed grading info in response for troubleshooting
-  const debug_grading = answers.slice(0, 5).map((ans: any, idx: number) => ({
-    question_index: idx,
-    user_answer: ans,
-    correct_answer: correct[idx],
-    match: ans === correct[idx],
-    user_type: typeof ans,
-    correct_type: typeof correct[idx]
-  }));
-
   return NextResponse.json({ 
     ok: true, 
     passed, 
@@ -273,7 +225,6 @@ export async function POST(req: Request){
     incorrectIndices: incorrect, 
     weak_tags, 
     recommendations: [],
-    attempt_id: attemptRow?.id || null,
-    debug_first_5_questions: debug_grading // Temporary debug info
+    attempt_id: attemptRow?.id || null
   });
 }
