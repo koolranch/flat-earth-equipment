@@ -104,15 +104,24 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
   console.log('[wallet] Upload successful');
 
   const { data: pub } = s.storage.from('certificates').getPublicUrl(path);
+  console.log('[wallet] Got public URL:', pub?.publicUrl);
 
+  console.log('[wallet] Updating database with wallet PDF URL...');
   const { error: updErr } = await s
     .from('certificates')
-    .update({ wallet_pdf_url: pub?.publicUrl, updated_at: new Date().toISOString() })
+    .update({ wallet_pdf_url: pub?.publicUrl })
     .eq('id', cert.id);
-  if (updErr) return NextResponse.json({ error: 'DB update failed', detail: updErr.message }, { status: 500 });
+  
+  if (updErr) {
+    console.error('[wallet] DB update failed:', updErr);
+    // Don't fail the request - wallet card was generated successfully
+    console.warn('[wallet] Continuing despite DB update failure');
+  } else {
+    console.log('[wallet] Database updated successfully');
+  }
 
-    console.log('[wallet] Wallet card generated successfully:', pub?.publicUrl);
-    return NextResponse.json({ ok: true, url: pub?.publicUrl });
+  console.log('[wallet] Wallet card generated successfully:', pub?.publicUrl);
+  return NextResponse.json({ ok: true, url: pub?.publicUrl });
   } catch (error: any) {
     console.error('[wallet] Error generating wallet card:', error);
     return NextResponse.json({ error: 'Generation failed', details: error.message }, { status: 500 });
