@@ -35,14 +35,23 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
     .select('id, user_id, employer_name')
     .eq('id', cert.enrollment_id)
     .single();
-  if (enrErr || !enrollment) return NextResponse.json({ error: 'Enrollment not found' }, { status: 404 });
+  
+  console.log('[wallet] Enrollment lookup:', { found: !!enrollment, error: enrErr?.message });
+  if (enrErr || !enrollment) {
+    console.error('[wallet] Enrollment not found for cert enrollment_id:', cert.enrollment_id, 'Error:', enrErr);
+    return NextResponse.json({ error: 'Enrollment not found' }, { status: 404 });
+  }
 
   const { data: profile, error: profErr } = await s
     .from('profiles')
     .select('full_name')
     .eq('id', enrollment.user_id)
-    .single();
-  if (profErr) return NextResponse.json({ error: 'Profile not found' }, { status: 404 });
+    .maybeSingle();
+  
+  console.log('[wallet] Profile lookup:', { found: !!profile, name: profile?.full_name, error: profErr?.message });
+  
+  // Don't fail if profile is missing - use fallback name
+  const traineeName = profile?.full_name || enrollment.user_id;
 
   // Calculate expiration (3 years from issue)
   const expiresAt = cert.issued_at 
@@ -50,7 +59,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
     : null;
 
   const payload = {
-    traineeName: profile?.full_name || 'Operator',
+    traineeName: traineeName,
     employer: enrollment?.employer_name || null,
     certificateId: cert.id,
     verifyCode: cert.verification_code || cert.verifier_code || 'N/A',
@@ -61,6 +70,12 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
     orgName,
     brandHex: brand,
   };
+  
+  console.log('[wallet] Generating PDF with payload:', { 
+    traineeName, 
+    verifyCode: payload.verifyCode,
+    issuedAt: !!payload.issuedAt 
+  });
 
   const pdfBytes = await generateWalletCardPDF(payload);
 
