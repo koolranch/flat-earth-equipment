@@ -24,8 +24,8 @@ export default function Navbar({ locale }: Props) {
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   const navItems: NavItem[] = [
-    { name: 'Parts', href: '/parts' },
     { name: 'Rent Equipment', href: '/rent-equipment' },
+    { name: 'Parts', href: '/parts' },
     { name: 'Safety', href: '/safety' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
