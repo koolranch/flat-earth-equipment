@@ -1,5 +1,4 @@
 import { supabaseServer } from '@/lib/supabase/server';
-import { supabaseService } from '@/lib/supabase/service.server';
 import { WalletCardButton } from '@/components/certificates/CertificateActions';
 
 export default async function RecordsPage() {
@@ -18,26 +17,20 @@ export default async function RecordsPage() {
   }
   
   // Get user's enrollments and their certificates
-  const svc = supabaseService();
-  const { data: enrollments } = await svc
+  const { data: enrollments } = await s
     .from('enrollments')
     .select('id, course_id, passed, progress_pct, created_at')
     .eq('user_id', user.id)
     .order('created_at', { ascending: false });
   
-  console.log('[records] User:', user.id, 'Enrollments found:', enrollments?.length);
-  
   const enrollmentIds = (enrollments || []).map(e => e.id);
   
-  // Get certificates for user's enrollments - use SERVICE role for reliable query
-  const { data: certs, error: certsError } = await svc
+  // Get certificates for user's enrollments (handles multiple per enrollment)
+  const { data: certs } = await s
     .from('certificates')
-    .select('id, enrollment_id, verification_code, verifier_code, pdf_url, wallet_pdf_url, issued_at, expires_at')
-    .in('enrollment_id', enrollmentIds.length > 0 ? enrollmentIds : [''])
+    .select('id, enrollment_id, verification_code, verifier_code, pdf_url, wallet_pdf_url, issued_at, expires_at, learner_id')
+    .eq('learner_id', user.id)
     .order('issued_at', { ascending: false });
-  
-  console.log('[records] Certificates found:', certs?.length);
-  if (certsError) console.error('[records] Certificate query error:', certsError);
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6">
