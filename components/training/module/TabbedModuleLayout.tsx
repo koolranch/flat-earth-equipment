@@ -192,10 +192,15 @@ export default function TabbedModuleLayout({
           ) : (
             <div className='flex items-center justify-between'>
               <div>
-                <h3 className='font-medium'>Module Quiz</h3>
+                <h3 className='font-semibold text-lg'>Module Quiz</h3>
                 <p className='text-sm text-slate-600'>{quizMeta.questions} questions · pass ≥ {quizMeta.passPct}% to unlock next module</p>
               </div>
-              <button className='px-4 py-2 rounded-md border' onClick={() => setOpenQuiz(true)}>Take quiz</button>
+              <button 
+                className='px-6 py-3 rounded-xl font-semibold bg-[#F76511] text-white hover:bg-orange-600 shadow-md hover:shadow-lg transition-all' 
+                onClick={() => setOpenQuiz(true)}
+              >
+                Take Quiz →
+              </button>
             </div>
           )}
         </section>
