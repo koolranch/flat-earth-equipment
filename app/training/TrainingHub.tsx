@@ -266,30 +266,38 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
                 const key = isAPIModule ? (module as any).slug : (module as any).key;
                 
                 return (
-                  <div key={key} className='flex items-center justify-between p-4 rounded-xl bg-brand-onPanel/5 border border-brand-onPanel/10 hover:border-brand-onPanel/20 transition-colors'>
-                    <div className='flex items-center gap-3'>
-                      <span className={`text-xl ${completed ? 'text-emerald-400' : 'text-brand-onPanel/40'}`}>
-                        {completed ? '✓' : '○'}
-                      </span>
+                  <div key={key} className={`group flex items-center justify-between p-5 rounded-2xl transition-all duration-200 ${
+                    completed 
+                      ? 'bg-gradient-to-r from-emerald-50 to-white border-2 border-emerald-200 shadow-sm hover:shadow-md' 
+                      : 'bg-white border-2 border-slate-200 shadow-sm hover:shadow-md hover:border-blue-300'
+                  }`}>
+                    <div className='flex items-center gap-4'>
+                      <div className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-2xl transition-transform group-hover:scale-110 ${
+                        completed 
+                          ? 'bg-emerald-500 text-white shadow-lg' 
+                          : 'bg-slate-100 text-slate-400'
+                      }`}>
+                        {completed ? '✓' : idx + 1}
+                      </div>
                       <div>
-                        <span className={`text-base font-medium ${completed ? 'text-brand-onPanel/60' : 'text-brand-onPanel'}`}>
+                        <span className={`text-lg font-semibold ${completed ? 'text-slate-700' : 'text-slate-900'}`}>
                           {title}
                         </span>
                         {completed && (
-                          <div className="text-xs text-emerald-400 mt-1">✓ Completed</div>
+                          <div className="text-sm text-emerald-600 mt-0.5 font-medium">Module Complete</div>
                         )}
                       </div>
                     </div>
                     <a 
-                      className={`tappable text-sm px-4 py-2 rounded-lg transition-colors ${
+                      className={`tappable text-sm font-medium px-6 py-2.5 rounded-xl transition-all ${
                         completed 
-                          ? 'border border-brand-onPanel/20 text-brand-onPanel/70 hover:bg-brand-onPanel/5' 
-                          : 'btn-primary'
+                          ? 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300' 
+                          : 'bg-[#F76511] text-white hover:bg-orange-600 shadow-md hover:shadow-lg'
                       }`}
                       href={href}
                       aria-label={completed ? `Review ${title}` : `Start ${title} module`}
                     >
-                      {completed ? 'Review' : 'Start'}
+                      {completed ? 'Review' : 'Start →'}
                     </a>
                   </div>
                 );
@@ -314,15 +322,15 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
           </div>
 
           {/* Final Exam CTA */}
-          <article className="panel shadow-card px-6 py-6">
-            <header className="mb-4">
-              <h3 className="text-2xl font-semibold text-brand-onPanel mb-2">Final Exam</h3>
-              <p className="text-base leading-7 text-brand-onPanel/90">Pass to generate certificate</p>
+          <article className="bg-white rounded-2xl border-2 border-slate-200 shadow-md p-6 hover:shadow-lg transition-shadow">
+            <header className="mb-5">
+              <h3 className="text-2xl font-bold text-slate-900 mb-2">Final Exam</h3>
+              <p className="text-base text-slate-600">Pass to generate your official certificate</p>
               {!canTakeExam && (
-                <div className="mt-3 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20">
-                  <p className="text-sm text-amber-300 flex items-center gap-2">
-                    <span>🔒</span>
-                    Complete all modules to unlock the exam
+                <div className="mt-4 p-4 rounded-xl bg-amber-50 border-2 border-amber-200">
+                  <p className="text-sm text-amber-800 flex items-center gap-2 font-medium">
+                    <span className="text-lg">🔒</span>
+                    Complete all 5 modules to unlock the exam
                   </p>
                 </div>
               )}
@@ -330,29 +338,31 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
             {canTakeExam ? (
               <a 
                 href="/training/exam" 
-                className="btn-primary tappable"
+                className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
               >
-                Take Final Exam
+                Take Final Exam →
               </a>
             ) : (
               <button 
                 disabled
-                className="tappable rounded-xl border border-brand-onPanel/20 text-brand-onPanel/50 px-4 py-2 opacity-60 cursor-not-allowed"
+                className="inline-flex items-center gap-2 bg-slate-100 text-slate-400 px-6 py-3 rounded-xl font-semibold cursor-not-allowed"
                 aria-label="Final exam locked until all modules are completed"
               >
-                🔒 Locked
+                <span>🔒</span> Locked
               </button>
             )}
           </article>
 
           {/* Supervisor Practical Evaluation CTA */}
-          <section className="panel shadow-card px-6 py-6">
+          <section className="bg-white rounded-2xl border-2 border-slate-200 shadow-md p-6 hover:shadow-lg transition-shadow">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
-                <h2 className="text-2xl font-semibold text-brand-onPanel mb-2">Practical Evaluation</h2>
-                <p className="text-base leading-7 text-brand-onPanel/90">Competencies assessment with your supervisor</p>
+                <h2 className="text-2xl font-bold text-slate-900 mb-2">Practical Evaluation</h2>
+                <p className="text-base text-slate-600">Hands-on competency assessment with your safety manager</p>
               </div>
-              <a href="/practical/start" className="btn-primary tappable">Start</a>
+              <a href="/practical/start" className="inline-flex items-center gap-2 bg-[#F76511] text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors shadow-md hover:shadow-lg whitespace-nowrap">
+                Start →
+              </a>
             </div>
           </section>
         </section>
