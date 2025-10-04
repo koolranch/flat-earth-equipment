@@ -82,9 +82,9 @@ export async function generateWalletCardPDF(input: WalletCardInput): Promise<Uin
     // Dates in bordered box
     page.drawRectangle({ x: 10, y: 28, width: 130, height: 24, borderWidth: 0.5, borderColor: mediumGray, color: lightGray });
     page.drawText('Issued:', { x: 13, y: 42, size: 7, font: fontBold, color: darkBlue });
-    page.drawText(input.issuedAt ? new Date(input.issuedAt).toLocaleDateString() : '—', { x: 13, y: 33, size: 7, font, color: darkBlue });
+    page.drawText(input.issuedAt ? new Date(input.issuedAt).toLocaleDateString() : '-', { x: 13, y: 33, size: 7, font, color: darkBlue });
     page.drawText('Expires:', { x: 75, y: 42, size: 7, font: fontBold, color: darkBlue });
-    page.drawText(input.expiresAt ? new Date(input.expiresAt).toLocaleDateString() : '—', { x: 75, y: 33, size: 7, font, color: darkBlue });
+    page.drawText(input.expiresAt ? new Date(input.expiresAt).toLocaleDateString() : '-', { x: 75, y: 33, size: 7, font, color: darkBlue });
 
     // Verification code
     page.drawText(`Code: ${input.verifyCode}`, { x: 12, y: 14, size: 6.5, font: fontBold, color: mediumGray });
