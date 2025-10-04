@@ -7,7 +7,7 @@ function cn(...c: (string | undefined | null | boolean)[]): string {
 }
 
 const items = [
-  { href: "/training", label: "Get Certified" },
+  { href: "/training", label: "Certification" },
   { href: "/trainer", label: "Trainer" },
   { href: "/records", label: "Records" }
 ];
