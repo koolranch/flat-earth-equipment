@@ -1,5 +1,7 @@
-// Stub file for checkout actions
+// Training checkout actions
 'use server'
+
+import { redirect } from 'next/navigation';
 
 export async function createCheckoutSession(planId: string) {
   return {
@@ -9,9 +11,35 @@ export async function createCheckoutSession(planId: string) {
 }
 
 export async function createTrainingCheckoutSessionFromForm(formData: FormData): Promise<void> {
-  const planId = formData.get('planId') as string;
-  // In a real implementation, this would redirect to checkout
-  console.log('Creating checkout session for plan:', planId);
+  const priceId = formData.get('priceId') as string;
+  
+  if (!priceId) {
+    throw new Error('Missing priceId');
+  }
+  
+  // Create Stripe checkout session via API
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com';
+  
+  const response = await fetch(`${baseUrl}/api/checkout`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      items: [{
+        priceId: priceId,
+        quantity: 1,
+        isTraining: true
+      }]
+    })
+  });
+  
+  const data = await response.json();
+  
+  if (data.url) {
+    // Redirect to Stripe Checkout
+    redirect(data.url);
+  } else {
+    throw new Error(data.error || 'Failed to create checkout session');
+  }
 }
 
 export async function processPayment(paymentData: any) {
