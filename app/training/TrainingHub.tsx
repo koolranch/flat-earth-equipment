@@ -237,12 +237,12 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
           )}
 
           {/* Module Progress Overview */}
-          <div className='panel-soft shadow-card px-6 py-6'>
+          <div className='bg-white rounded-2xl border border-slate-200 shadow-sm px-6 py-6'>
             <div className='flex items-center justify-between mb-6'>
-              <h2 className='text-2xl font-semibold text-brand-onPanel'>Training Modules</h2>
+              <h2 className='text-2xl font-bold text-slate-900'>Training Modules</h2>
               {prog.completedCount !== undefined && prog.totalCount !== undefined && (
-                <div className='text-sm text-brand-onPanel/70'>
-                  <span className='font-semibold text-brand-onPanel'>{prog.completedCount}/{prog.totalCount}</span> complete
+                <div className='text-sm text-slate-600'>
+                  <span className='font-semibold text-slate-900'>{prog.completedCount}/{prog.totalCount}</span> complete
                 </div>
               )}
             </div>
