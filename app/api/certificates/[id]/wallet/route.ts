@@ -32,7 +32,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
   // Get learner profile and employer via enrollment
   const { data: enrollment, error: enrErr } = await s
     .from('enrollments')
-    .select('id, user_id, employer_name')
+    .select('id, user_id')
     .eq('id', cert.enrollment_id)
     .single();
   
@@ -60,7 +60,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
 
   const payload = {
     traineeName: traineeName,
-    employer: enrollment?.employer_name || null,
+    employer: null, // employer_name column doesn't exist in enrollments table
     certificateId: cert.id,
     verifyCode: cert.verification_code || cert.verifier_code || 'N/A',
     issuedAt: cert.issued_at,
