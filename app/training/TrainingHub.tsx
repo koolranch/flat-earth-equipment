@@ -214,7 +214,7 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
         )}
 
         {/* Feature-gated Buy/Claim CTAs */}
-        {flags.GA ? (
+        {flags.GA && (
           <div className="mb-6 flex flex-wrap gap-3">
             <a href="/checkout" className="btn-primary tappable">Buy seat</a>
             {flags.SHOW_INVITES && (
