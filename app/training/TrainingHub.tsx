@@ -221,10 +221,6 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
               <a href="/training/claim" className="tappable rounded-xl border border-brand-onPanel/20 px-4 py-2 text-brand-onPanel/90 hover:bg-white/5 transition-colors">Have a code?</a>
             )}
           </div>
-        ) : (
-          <div className="mb-6 panel-soft px-4 py-3 rounded-xl">
-            <p className="text-brand-onPanel/90 text-sm">Purchasing opens soon. Training preview is available.</p>
-          </div>
         )}
 
         <section className='space-y-6'>
@@ -313,8 +309,8 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
             )}
             
             {prog.stepsLeft && prog.stepsLeft.length === 0 && prog.totalCount && prog.totalCount > 0 && (
-              <div className='mt-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20'>
-                <p className='text-base leading-7 text-emerald-300'>
+              <div className='mt-6 p-5 rounded-2xl bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-orange-200 shadow-md'>
+                <p className='text-base leading-7 text-orange-700 font-semibold'>
                   <strong>🎉 All modules complete!</strong> You can now take the final exam.
                 </p>
               </div>
