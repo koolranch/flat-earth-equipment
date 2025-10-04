@@ -28,7 +28,7 @@ export default async function RecordsPage() {
   // Get certificates for user's enrollments (handles multiple per enrollment)
   const { data: certs, error: certsError } = await s
     .from('certificates')
-    .select('id, enrollment_id, verification_code, verifier_code, pdf_url, wallet_pdf_url, issued_at, expires_at, learner_id')
+    .select('id, enrollment_id, verification_code, verifier_code, pdf_url, wallet_pdf_url, issued_at, learner_id')
     .eq('learner_id', user.id)
     .order('issued_at', { ascending: false });
   
@@ -58,7 +58,7 @@ export default async function RecordsPage() {
           <div key={c.id} className="rounded-xl border p-4 flex items-center justify-between">
             <div className="text-sm">
               <div className="font-medium">Certificate {c.verification_code || c.verifier_code || 'N/A'}</div>
-              <div className="text-xs opacity-70">Issued {c.issued_at ? new Date(c.issued_at).toLocaleDateString() : '—'} · Expires {c.expires_at ? new Date(c.expires_at).toLocaleDateString() : '—'}</div>
+              <div className="text-xs opacity-70">Issued {c.issued_at ? new Date(c.issued_at).toLocaleDateString() : '—'} · Valid for 3 years</div>
             </div>
             <div className="flex gap-2">
               {c.pdf_url && (
