@@ -46,7 +46,7 @@ export default function SubmissionFormV2({ brand }: { brand: { slug: string; nam
         <h3 className='text-lg font-semibold text-slate-900 mb-2'>Help improve this page</h3>
         <p className='text-sm text-slate-600 leading-relaxed'>Share a quick tip (2–3 minutes). Your note helps other techs. We review before publishing.</p>
       </div>
-      <form onSubmit={onSubmit} className='space-y-4'>
+      <form onSubmit={onSubmit} className='space-y-5'>
         {/* Type pills */}
         <div>
           <label className='block text-sm font-medium text-slate-700 mb-2'>What type of tip are you sharing?</label>
@@ -69,54 +69,54 @@ export default function SubmissionFormV2({ brand }: { brand: { slug: string; nam
           <p className='text-xs text-slate-500 leading-relaxed'>{TYPES.find(t=>t.key===type)?.help}</p>
         </div>
 
-        <div className='grid gap-3 md:grid-cols-2'>
+        <div className='grid gap-4 md:grid-cols-2'>
           <div>
-            <label className='block text-sm font-medium text-slate-700 mb-1'>Model</label>
-            <input name='model' placeholder='e.g., 8FGCU25, SJ3219' className='w-full border border-slate-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:border-orange-500' />
+            <label className='block text-sm font-medium text-slate-700 mb-2'>Model</label>
+            <input name='model' placeholder='e.g., 8FGCU25, SJ3219' className='w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500' />
           </div>
           {/* Fault code field visible when type=fault */}
           {type === 'fault' && (
             <div>
-              <label className='block text-sm font-medium text-slate-700 mb-1'>Fault Code</label>
-              <input name='code' placeholder='e.g., E-43, A-36' className='w-full border border-slate-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:border-orange-500' />
+              <label className='block text-sm font-medium text-slate-700 mb-2'>Fault Code</label>
+              <input name='code' placeholder='e.g., E-43, A-36' className='w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500' />
             </div>
           )}
         </div>
 
-        <div className='grid gap-3 md:grid-cols-2'>
+        <div className='grid gap-4 md:grid-cols-2'>
           <div>
-            <label className='block text-sm font-medium text-slate-700 mb-1'>
+            <label className='block text-sm font-medium text-slate-700 mb-2'>
               Title <span className='text-slate-500 font-normal'>(optional)</span>
             </label>
-            <input name='title' placeholder='Short summary' className='w-full border border-slate-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:border-orange-500' />
+            <input name='title' placeholder='Short summary' className='w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500' />
           </div>
           <div>
-            <label className='block text-sm font-medium text-slate-700 mb-1'>
+            <label className='block text-sm font-medium text-slate-700 mb-2'>
               Photo URLs <span className='text-slate-500 font-normal'>(optional)</span>
             </label>
-            <input name='photos' placeholder='http://, http://...' className='w-full border border-slate-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:border-orange-500' />
+            <input name='photos' placeholder='http://, http://...' className='w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500' />
           </div>
         </div>
 
         <div>
-          <label className='block text-sm font-medium text-slate-700 mb-1'>Details</label>
+          <label className='block text-sm font-medium text-slate-700 mb-2'>Details</label>
           <textarea 
             name='details' 
             required 
             rows={4} 
             placeholder={type==='plate' ? 'Where exactly is the plate? Panel/cover to remove? Orientation?' : type==='fault' ? 'Symptoms, steps to retrieve codes, what fixed it, cautions.' : 'What did you learn? Serial pattern, year break, guide tip.'} 
-            className='w-full border border-slate-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:border-orange-500'
+            className='w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500'
           ></textarea>
         </div>
 
-        <div className='grid gap-3 md:grid-cols-2 md:items-start'>
+        <div className='grid gap-4 md:grid-cols-2 md:items-start'>
           <div>
-            <label className='block text-sm font-medium text-slate-700 mb-1'>
+            <label className='block text-sm font-medium text-slate-700 mb-2'>
               Contact Email <span className='text-slate-500 font-normal'>(optional; for follow-up)</span>
             </label>
-            <input name='email' type='email' placeholder='you@company.com' className='w-full border border-slate-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:border-orange-500' />
+            <input name='email' type='email' placeholder='you@company.com' className='w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500' />
           </div>
-          <div className='text-xs text-slate-500 md:pt-7 leading-relaxed'>
+          <div className='text-xs text-slate-500 md:pt-8 leading-relaxed'>
             No sensitive/customer data. Submissions are reviewed and may be edited for clarity.
           </div>
         </div>
