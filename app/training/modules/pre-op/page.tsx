@@ -111,40 +111,127 @@ export default function PreOpModule() {
 
       {/* Panels */}
       {tab==='osha' && (
-        <section className='rounded-2xl border bg-white p-4 mb-4'>
-          <div className="space-y-4 max-w-3xl">
-            <h2 className="text-xl font-semibold">OSHA 1910.178 — Pre-Operation Requirements</h2>
+        <section className='rounded-2xl border bg-white p-6 mb-4'>
+          <div className="space-y-6 max-w-4xl mx-auto">
+            <header className="text-center">
+              <h2 className="text-2xl font-bold text-slate-900">OSHA 1910.178 — Pre-Operation Requirements</h2>
+              <p className="text-slate-600 mt-2">Essential safety checks before operating powered industrial trucks</p>
+            </header>
             
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-              <h3 className="font-medium text-amber-900">Daily Inspection Required</h3>
-              <p className="text-sm text-amber-800 mt-1">
-                Powered industrial trucks must be inspected at least daily and when used on each shift.
-              </p>
+            <div className="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-300 rounded-xl p-5">
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-amber-500 text-white flex items-center justify-center text-xl font-bold">
+                  !
+                </div>
+                <div>
+                  <h3 className="font-bold text-amber-900">Daily Inspection Required</h3>
+                  <p className="text-sm text-amber-800 mt-1">
+                    Powered industrial trucks must be inspected at least daily and when used on each shift.
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <div className="space-y-3">
-              <h3 className="font-medium">Safety Requirements:</h3>
-              <ul className="space-y-2 text-sm">
-                <li>• Remove trucks from service if any condition adversely affects safety</li>
-                <li>• Verify the <strong>data plate</strong> matches the truck and any attachments in use</li>
-                <li>• Wear <strong>seatbelts</strong> and required <strong>PPE</strong> as posted</li>
-                <li>• Test <strong>horn</strong> before moving; use at intersections and blind corners</li>
-                <li>• Confirm <strong>lights</strong>/beacons work where required</li>
-                <li>• Check tires, forks, chains, hydraulics, and look for leaks</li>
-              </ul>
+            <div>
+              <h3 className="font-bold text-lg text-slate-900 mb-4">Key Safety Requirements:</h3>
+              <div className="grid gap-4 sm:grid-cols-2">
+                
+                {/* PPE Card */}
+                <div className="group bg-white rounded-xl border-2 border-slate-200 hover:border-[#F76511] transition-all p-4 relative overflow-hidden">
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#F76511]"></div>
+                  <div className="flex items-start gap-3">
+                    <img src="/training/flashcards/m1-hivis-vest.svg" alt="PPE" className="w-12 h-12 flex-shrink-0" />
+                    <div className="flex-1">
+                      <h4 className="font-bold text-slate-900 mb-1">PPE & Seatbelts</h4>
+                      <p className="text-sm text-slate-700">Wear seatbelts and required PPE as posted by your facility</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Data Plate Card */}
+                <div className="group bg-white rounded-xl border-2 border-slate-200 hover:border-[#F76511] transition-all p-4 relative overflow-hidden">
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#F76511]"></div>
+                  <div className="flex items-start gap-3">
+                    <img src="/training/flashcards/m1-data-plate.svg" alt="Data plate" className="w-12 h-12 flex-shrink-0" />
+                    <div className="flex-1">
+                      <h4 className="font-bold text-slate-900 mb-1">Data Plate Verification</h4>
+                      <p className="text-sm text-slate-700">Verify data plate matches truck and any attachments in use</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Horn Card */}
+                <div className="group bg-white rounded-xl border-2 border-slate-200 hover:border-[#F76511] transition-all p-4 relative overflow-hidden">
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#F76511]"></div>
+                  <div className="flex items-start gap-3">
+                    <img src="/training/flashcards/m1-horn-test.svg" alt="Horn" className="w-12 h-12 flex-shrink-0" />
+                    <div className="flex-1">
+                      <h4 className="font-bold text-slate-900 mb-1">Horn Test</h4>
+                      <p className="text-sm text-slate-700">Test horn before moving; use at intersections and blind corners</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Lights Card */}
+                <div className="group bg-white rounded-xl border-2 border-slate-200 hover:border-[#F76511] transition-all p-4 relative overflow-hidden">
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#F76511]"></div>
+                  <div className="flex items-start gap-3">
+                    <img src="/training/flashcards/m1-lights.svg" alt="Lights" className="w-12 h-12 flex-shrink-0" />
+                    <div className="flex-1">
+                      <h4 className="font-bold text-slate-900 mb-1">Lights & Beacons</h4>
+                      <p className="text-sm text-slate-700">Confirm lights and beacons work where required</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Inspection Card */}
+                <div className="group bg-white rounded-xl border-2 border-slate-200 hover:border-[#F76511] transition-all p-4 relative overflow-hidden">
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#F76511]"></div>
+                  <div className="flex items-start gap-3">
+                    <img src="/training/flashcards/m1-inspection-checklist.svg" alt="Inspection" className="w-12 h-12 flex-shrink-0" />
+                    <div className="flex-1">
+                      <h4 className="font-bold text-slate-900 mb-1">Equipment Inspection</h4>
+                      <p className="text-sm text-slate-700">Check tires, forks, chains, hydraulics, and look for leaks</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Service Removal Card */}
+                <div className="group bg-white rounded-xl border-2 border-slate-200 hover:border-[#F76511] transition-all p-4 relative overflow-hidden">
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#F76511]"></div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-12 h-12 flex-shrink-0 rounded-full bg-red-100 flex items-center justify-center text-2xl">
+                      ⚠️
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-bold text-slate-900 mb-1">Service Removal</h4>
+                      <p className="text-sm text-slate-700">Remove trucks from service if any condition adversely affects safety</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
 
-            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
-              <p className="text-sm text-slate-600">
-                <em>This is a plain-language summary to help you pass and operate safely. Always follow your site policy and the manufacturer's manual.</em>
-              </p>
+            <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-5">
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center text-xl">
+                  💡
+                </div>
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">Remember</h4>
+                  <p className="text-sm text-blue-800">
+                    This is a plain-language summary to help you pass and operate safely. Always follow your site policy and the manufacturer's manual.
+                  </p>
+                </div>
+              </div>
             </div>
             
             {/* Continue to Practice button */}
-            <div className="flex justify-end mt-6">
+            <div className="flex justify-end">
               <button
                 onClick={() => setTab('practice')}
-                className="inline-flex items-center gap-2 bg-slate-100 text-slate-700 px-5 py-2 rounded-lg font-medium hover:bg-slate-200 transition-colors"
+                className="inline-flex items-center gap-2 bg-[#F76511] text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-all shadow-md hover:shadow-lg"
               >
                 Mark OSHA Basics done → Practice
               </button>
