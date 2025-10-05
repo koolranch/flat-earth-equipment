@@ -321,6 +321,39 @@ export default function StateForkliftPage({ params }: Props) {
           powered industrial trucks. Our online forklift certification course meets these federal requirements and provides 
           the classroom instruction portion of your {info.name} forklift training.
         </p>
+        
+        {/* Industry Keywords for States Without Custom Content */}
+        {!['ca', 'il', 'pa', 'oh', 'ga', 'nc', 'mi', 'va', 'ny'].includes(info.code) && (
+          <div className="grid md:grid-cols-2 gap-6 my-6">
+            <div className="bg-blue-50 p-6 rounded-xl border border-blue-200">
+              <h3 className="text-lg font-semibold mb-3 text-blue-900">💼 Top Forklift Employers in {info.name}</h3>
+              <p className="text-sm text-gray-700 mb-3">
+                Major companies hiring certified forklift operators throughout {info.name}:
+              </p>
+              <ul className="text-sm text-gray-700 space-y-1">
+                <li>• Amazon distribution centers</li>
+                <li>• Walmart and Target warehouses</li>
+                <li>• FedEx and UPS logistics facilities</li>
+                <li>• Local manufacturing plants</li>
+                <li>• Food processing and agriculture</li>
+              </ul>
+            </div>
+            <div className="bg-green-50 p-6 rounded-xl border border-green-200">
+              <h3 className="text-lg font-semibold mb-3 text-green-900">🎓 Get Certified in {info.name}</h3>
+              <p className="text-sm text-gray-700 mb-3">
+                Finding "forklift certification near me" in {info.name}? Our 100% online training means you can get certified from anywhere:
+              </p>
+              <ul className="text-sm text-gray-700 space-y-1">
+                <li>• Train from home or workplace</li>
+                <li>• No travel to training centers</li>
+                <li>• Instant certificate download</li>
+                <li>• Valid at all {info.name} job sites</li>
+                <li>• Accepted by major employers</li>
+              </ul>
+            </div>
+          </div>
+        )}
+        
         <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
           <p className="text-sm">
             <strong>Important:</strong> After completing our online course, you must also receive hands-on training and 
@@ -328,6 +361,26 @@ export default function StateForkliftPage({ params }: Props) {
           </p>
         </div>
       </section>
+
+      {/* Related States - Internal Linking */}
+      <section className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
+        <h3 className="text-lg font-semibold mb-4">Forklift Certification in Other States</h3>
+        <p className="text-sm text-slate-600 mb-4">
+          Our OSHA-compliant training is accepted nationwide. Browse certification information for nearby states:
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <Link href="/safety/forklift" className="text-sm px-4 py-2 bg-white border border-orange-200 rounded-lg hover:bg-orange-50 hover:border-orange-400 transition-colors">
+            View All 50 States →
+          </Link>
+        </div>
+      </section>
+
+      {/* Last Updated Date */}
+      <div className="text-center py-4 border-t border-slate-200">
+        <p className="text-xs text-slate-500">
+          Last updated: January 2025 | Information current as of publish date
+        </p>
+      </div>
 
       {/* CALIFORNIA-SPECIFIC CONTENT */}
       {info.code === 'ca' && (
