@@ -72,6 +72,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `How to Get Forklift Certified in ${state.name} | Online OSHA Training`,
     description: `Learn how to get forklift certified in ${state.name}. Complete OSHA-compliant certification online in under 60 minutes. Instant certificate download for ${state.name} operators.`,
+    openGraph: {
+      title: `Forklift Certification in ${state.name} | OSHA Compliant`,
+      description: `Get certified in under 60 minutes. OSHA-compliant online training for ${state.name} operators. Instant certificate download.`,
+      url: `https://www.flatearthequipment.com/safety/forklift/${state.code}`,
+      siteName: 'Flat Earth Equipment',
+      images: [
+        {
+          url: 'https://www.flatearthequipment.com/og-safety-training.png',
+          width: 1200,
+          height: 630,
+          alt: `Forklift Certification Training in ${state.name}`,
+        },
+      ],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `Forklift Certification in ${state.name}`,
+      description: `Get OSHA-compliant forklift certification online in under 60 minutes. Valid in ${state.name}.`,
+      images: ['https://www.flatearthequipment.com/og-safety-training.png'],
+    },
   };
 }
 
@@ -121,94 +142,171 @@ export default function StateForkliftPage({ params }: Props) {
       {/* FINES TABLE */}
       <section className="space-y-6">
         <h2 className="text-2xl font-semibold">OSHA Penalties in {info.name}</h2>
-        <table className="w-full text-left border-collapse">
-          <thead>
-            <tr className="border-b">
-              <th className="py-2">Violation Type</th>
-              <th className="py-2">Possible Fine</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="border-b">
-              <td className="py-2">Serious / Other-Than-Serious</td>
-              <td className="py-2">
-                ${info.fines.min.toLocaleString()} – ${info.fines.max.toLocaleString()}
-              </td>
-            </tr>
-            <tr>
-              <td className="py-2">Willful / Repeat</td>
-              <td className="py-2">Up to ${info.fines.max.toLocaleString()}</td>
-            </tr>
-          </tbody>
-        </table>
-        <p className="text-sm text-gray-500">
+        <div className="bg-white rounded-2xl border-2 border-orange-200 shadow-lg overflow-hidden">
+          <table className="w-full text-left">
+            <thead>
+              <tr className="bg-gradient-to-r from-orange-500 to-orange-600 text-white">
+                <th className="py-4 px-6 font-semibold">Violation Type</th>
+                <th className="py-4 px-6 font-semibold">Possible Fine</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-orange-100">
+                <td className="py-4 px-6 text-gray-900">Serious / Other-Than-Serious</td>
+                <td className="py-4 px-6 font-semibold text-orange-600">
+                  ${info.fines.min.toLocaleString()} – ${info.fines.max.toLocaleString()}
+                </td>
+              </tr>
+              <tr className="bg-orange-50">
+                <td className="py-4 px-6 text-gray-900">Willful / Repeat</td>
+                <td className="py-4 px-6 font-semibold text-red-600">Up to ${info.fines.max.toLocaleString()}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="text-sm text-gray-600 bg-amber-50 border-l-4 border-amber-400 p-4 rounded">
           {info.hasStatePlan
-            ? `${info.name} operates its own OSHA-approved State Plan; fines may differ from federal maximums.`
-            : `${info.name} is regulated directly by Federal OSHA.`}
+            ? `💡 ${info.name} operates its own OSHA-approved State Plan; fines may differ from federal maximums.`
+            : `💡 ${info.name} is regulated directly by Federal OSHA.`}
         </p>
       </section>
 
       {/* HOW TO GET CERTIFIED SECTION */}
       <section className="space-y-6">
         <h2 className="text-2xl font-semibold">How to Get Forklift Certified in {info.name}</h2>
-        <div className="bg-blue-50 p-6 rounded-lg">
-          <h3 className="text-xl font-semibold mb-4">Simple 3-Step Process:</h3>
-          <ol className="list-decimal pl-6 space-y-3 text-gray-700">
-            <li><strong>Enroll Online:</strong> Register for our OSHA-compliant forklift certification course from anywhere in {info.name}.</li>
-            <li><strong>Complete Training:</strong> Finish the online course in under 60 minutes at your own pace.</li>
-            <li><strong>Get Certified:</strong> Pass the 30-question exam and instantly download your printable certificate and wallet card.</li>
+        <div className="bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-200 p-8 rounded-2xl shadow-lg">
+          <h3 className="text-xl font-bold mb-6 text-orange-900">Simple 3-Step Process:</h3>
+          <ol className="space-y-4">
+            <li className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 text-white flex items-center justify-center font-bold text-lg flex-shrink-0">1</div>
+              <div>
+                <strong className="text-gray-900">Enroll Online:</strong>
+                <span className="text-gray-700"> Register for our OSHA-compliant forklift certification course from anywhere in {info.name}.</span>
+              </div>
+            </li>
+            <li className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 text-white flex items-center justify-center font-bold text-lg flex-shrink-0">2</div>
+              <div>
+                <strong className="text-gray-900">Complete Training:</strong>
+                <span className="text-gray-700"> Finish the online course in under 60 minutes at your own pace.</span>
+              </div>
+            </li>
+            <li className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 text-white flex items-center justify-center font-bold text-lg flex-shrink-0">3</div>
+              <div>
+                <strong className="text-gray-900">Get Certified:</strong>
+                <span className="text-gray-700"> Pass the 30-question exam and instantly download your printable certificate and wallet card.</span>
+              </div>
+            </li>
           </ol>
         </div>
         <h3 className="text-xl font-semibold">Why Choose Our {info.name} Forklift Certification?</h3>
-        <ul className="list-disc pl-6 space-y-2 text-gray-700">
-          <li>100% online—train anywhere in {info.name}.</li>
-          <li>Instant printable certificate & wallet card.</li>
-          <li>Free retakes until you pass (30-question exam).</li>
-          <li>Bulk pricing for teams statewide.</li>
-          <li>OSHA CFR 1910.178(l) compliant training.</li>
-          <li>Valid for 3 years throughout {info.name}.</li>
-        </ul>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-orange-200 hover:shadow-md transition-shadow">
+            <div className="text-orange-500 text-xl">✓</div>
+            <span className="text-gray-700">100% online—train anywhere in {info.name}</span>
+          </div>
+          <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-orange-200 hover:shadow-md transition-shadow">
+            <div className="text-orange-500 text-xl">✓</div>
+            <span className="text-gray-700">Instant printable certificate & wallet card</span>
+          </div>
+          <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-orange-200 hover:shadow-md transition-shadow">
+            <div className="text-orange-500 text-xl">✓</div>
+            <span className="text-gray-700">Free retakes until you pass (30-question exam)</span>
+          </div>
+          <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-orange-200 hover:shadow-md transition-shadow">
+            <div className="text-orange-500 text-xl">✓</div>
+            <span className="text-gray-700">Bulk pricing for teams statewide</span>
+          </div>
+          <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-orange-200 hover:shadow-md transition-shadow">
+            <div className="text-orange-500 text-xl">✓</div>
+            <span className="text-gray-700">OSHA CFR 1910.178(l) compliant training</span>
+          </div>
+          <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-orange-200 hover:shadow-md transition-shadow">
+            <div className="text-orange-500 text-xl">✓</div>
+            <span className="text-gray-700">Valid for 3 years throughout {info.name}</span>
+          </div>
+        </div>
+      </section>
+
+      {/* TRUST BADGES */}
+      <section className="bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl p-8 text-center space-y-4">
+        <h2 className="text-3xl font-bold">Ready to Get Certified in {info.name}?</h2>
+        <p className="text-lg text-orange-100">Join thousands of operators who've certified with Flat Earth Equipment</p>
+        <div className="flex flex-wrap justify-center gap-8 py-4">
+          <div className="text-center">
+            <div className="text-4xl font-bold">5,000+</div>
+            <div className="text-sm text-orange-100">Certified Operators</div>
+          </div>
+          <div className="text-center">
+            <div className="text-4xl font-bold">&lt;60</div>
+            <div className="text-sm text-orange-100">Minutes to Complete</div>
+          </div>
+          <div className="text-center">
+            <div className="text-4xl font-bold">100%</div>
+            <div className="text-sm text-orange-100">OSHA Compliant</div>
+          </div>
+        </div>
+        <div className="pt-4">
+          <CheckoutButton 
+            courseSlug="forklift"
+            price="59"
+            priceId="price_1RS834HJI548rO8JpJMyGhL3"
+          />
+          <Link href="/safety" className="inline-block mt-3 text-orange-100 hover:text-white underline">
+            View all plans and pricing →
+          </Link>
+        </div>
       </section>
 
       {/* FAQ */}
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold">Frequently Asked Questions - Forklift Certification in {info.name}</h2>
-        <details className="rounded-lg bg-neutral-50 p-4">
-          <summary className="cursor-pointer font-medium">
+        <details className="group rounded-xl bg-white border-2 border-orange-200 p-5 hover:shadow-lg transition-all">
+          <summary className="cursor-pointer font-semibold text-gray-900 flex items-center gap-3">
+            <span className="text-orange-500 text-xl">❓</span>
             How do I get forklift certified in {info.name}?
           </summary>
-          <p className="mt-2">
+          <p className="mt-3 pl-8 text-gray-700">
             To get forklift certified in {info.name}, simply enroll in our online OSHA-compliant course, complete the training in under 60 minutes, 
             and pass the exam. You'll instantly receive your printable certification valid throughout {info.name}.
           </p>
         </details>
-        <details className="rounded-lg bg-neutral-50 p-4">
-          <summary className="cursor-pointer font-medium">
+        <details className="group rounded-xl bg-white border-2 border-orange-200 p-5 hover:shadow-lg transition-all">
+          <summary className="cursor-pointer font-semibold text-gray-900 flex items-center gap-3">
+            <span className="text-orange-500 text-xl">✓</span>
             Is this forklift certification accepted by OSHA inspectors in {info.name}?
           </summary>
-          <p className="mt-2">
+          <p className="mt-3 pl-8 text-gray-700">
             Yes. Our curriculum follows 29 CFR 1910.178(l), recognized nationwide and accepted by OSHA inspectors in {info.name}.
             Be sure your operators complete hands-on evaluation per OSHA rules.
           </p>
         </details>
-        <details className="rounded-lg bg-neutral-50 p-4">
-          <summary className="cursor-pointer font-medium">How long does it take to get forklift certified in {info.name}?</summary>
-          <p className="mt-2">
+        <details className="group rounded-xl bg-white border-2 border-orange-200 p-5 hover:shadow-lg transition-all">
+          <summary className="cursor-pointer font-semibold text-gray-900 flex items-center gap-3">
+            <span className="text-orange-500 text-xl">⏱️</span>
+            How long does it take to get forklift certified in {info.name}?
+          </summary>
+          <p className="mt-3 pl-8 text-gray-700">
             You can get forklift certified in {info.name} in under 60 minutes with our online course. 
             The training is self-paced, so you can complete it faster if needed.
           </p>
         </details>
-        <details className="rounded-lg bg-neutral-50 p-4">
-          <summary className="cursor-pointer font-medium">How long is my {info.name} forklift certification valid?</summary>
-          <p className="mt-2">
+        <details className="group rounded-xl bg-white border-2 border-orange-200 p-5 hover:shadow-lg transition-all">
+          <summary className="cursor-pointer font-semibold text-gray-900 flex items-center gap-3">
+            <span className="text-orange-500 text-xl">📅</span>
+            How long is my {info.name} forklift certification valid?
+          </summary>
+          <p className="mt-3 pl-8 text-gray-700">
             Your {info.name} forklift certification is valid for three years, or sooner if the operator is involved in an accident or switches truck type.
           </p>
         </details>
-        <details className="rounded-lg bg-neutral-50 p-4">
-          <summary className="cursor-pointer font-medium">
+        <details className="group rounded-xl bg-white border-2 border-orange-200 p-5 hover:shadow-lg transition-all">
+          <summary className="cursor-pointer font-semibold text-gray-900 flex items-center gap-3">
+            <span className="text-orange-500 text-xl">📋</span>
             What are the requirements to get forklift certified in {info.name}?
           </summary>
-          <p className="mt-2">
+          <p className="mt-3 pl-8 text-gray-700">
             To get forklift certified in {info.name}, you must be at least 18 years old, complete OSHA-compliant training, 
             pass a written exam, and receive hands-on evaluation from a qualified trainer at your workplace.
           </p>
