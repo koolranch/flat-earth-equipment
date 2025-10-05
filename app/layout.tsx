@@ -56,6 +56,26 @@ export default async function RootLayout({
         {/* Google Search Console Verification */}
         <meta name="google-site-verification" content="O7ZIN2n38dDBmoeD1-7x92JUIMyo02CeMaPZMuoH7cE" />
         
+        {/* Google Analytics 4 - Add your measurement ID to env vars */}
+        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+          <>
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}></script>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}', {
+                    page_path: window.location.pathname,
+                  });
+                  ${process.env.NEXT_PUBLIC_GOOGLE_ADS_ID ? `gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ADS_ID}');` : ''}
+                `,
+              }}
+            />
+          </>
+        )}
+        
         {/* Perf: preconnect/dns-prefetch to Supabase and Mux (if used) */}
         <link rel="preconnect" href="https://mzsozezflbhebykncbmr.supabase.co" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="//mzsozezflbhebykncbmr.supabase.co" />

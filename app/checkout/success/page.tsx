@@ -1,13 +1,37 @@
-import { Suspense } from 'react'
+'use client';
+import { Suspense, useEffect } from 'react'
 import Link from 'next/link'
-import { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'Payment Successful | Flat Earth Equipment',
-  description: 'Your payment has been processed successfully.',
-}
+import { useSearchParams } from 'next/navigation'
+import { trackPurchase } from '@/lib/analytics/gtag'
 
 function SuccessContent() {
+  const searchParams = useSearchParams();
+  const sessionId = searchParams?.get('session_id');
+
+  useEffect(() => {
+    // Track conversion when page loads
+    if (sessionId) {
+      // You can fetch session details from your API if needed
+      // For now, track with basic info
+      trackPurchase({
+        transactionId: sessionId,
+        value: 59, // Default to single operator price
+        currency: 'USD',
+        items: [{
+          item_id: 'forklift_cert_single',
+          item_name: 'Forklift Operator Certification',
+          price: 59,
+          quantity: 1,
+        }],
+      });
+
+      // Also track as a custom event for Vercel Analytics
+      if (typeof window !== 'undefined' && (window as any).va) {
+        (window as any).va('track', 'Purchase', { value: 59, currency: 'USD' });
+      }
+    }
+  }, [sessionId]);
+
   return (
     <main className="max-w-2xl mx-auto px-4 py-16 text-center">
       <div className="bg-green-50 border border-green-200 rounded-lg p-8 mb-8">
@@ -90,4 +114,10 @@ export default function CheckoutSuccessPage() {
       <SuccessContent />
     </Suspense>
   )
-} 
+}
+
+// Export metadata separately for Next.js
+export const metadata = {
+  title: 'Payment Successful | Flat Earth Equipment',
+  description: 'Your payment has been processed successfully.',
+}; 
