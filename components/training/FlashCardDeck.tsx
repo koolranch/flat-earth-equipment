@@ -151,12 +151,16 @@ export default function FlashCardDeck({
           </div>
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex items-center gap-1.5">
-              {Array.from({ length: total }).map((_, i) => (
-                <span 
-                  key={i} 
-                  className={clsx('h-2.5 w-2.5 rounded-full transition-all', i === idx ? 'bg-[#F76511] scale-125' : visited.has(String(cards[i].id)) ? 'bg-orange-300' : 'bg-slate-300')} 
-                />
-              ))}
+              {Array.from({ length: total }).map((_, i) => {
+                const cardId = cards[i]?.id;
+                const isVisited = cardId ? visited.has(String(cardId)) : false;
+                return (
+                  <span 
+                    key={i} 
+                    className={clsx('h-2.5 w-2.5 rounded-full transition-all', i === idx ? 'bg-[#F76511] scale-125' : isVisited ? 'bg-orange-300' : 'bg-slate-300')} 
+                  />
+                );
+              })}
             </div>
             <button 
               type="button" 
