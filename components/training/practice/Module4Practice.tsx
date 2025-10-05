@@ -7,6 +7,11 @@ export function Module4Practice({ onComplete }: { onComplete: () => void }){
     { id: "spill", label: "Identify spill hazard" },
     { id: "corner", label: "Identify blind corner hazard" },
     { id: "overhead", label: "Identify overhead obstruction" },
+    { id: "pedestrian", label: "Identify pedestrian crossing area" },
+    { id: "dock", label: "Identify dock edge/ramp hazard" },
+    { id: "speed", label: "Identify speed zone violation" },
+    { id: "unstable", label: "Identify unstable load hazard" },
+    { id: "congestion", label: "Identify congested aisle hazard" },
   ];
 
   return (
