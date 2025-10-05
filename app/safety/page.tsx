@@ -282,6 +282,27 @@ export default async function SafetyPage() {
           </p>
         </section>
 
+        {/* Browse by State - Internal Linking */}
+        <section className="mt-12 bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-8 border-2 border-orange-200">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-4 text-slate-900">
+              {locale === 'es' ? 'Certificación por Estado' : 'Forklift Certification by State'}
+            </h2>
+            <p className="text-slate-700 max-w-2xl mx-auto mb-6">
+              {locale === 'es' 
+                ? 'Obtenga información específica del estado sobre requisitos de OSHA, multas y certificación. Nuestra capacitación es aceptada en los 50 estados.'
+                : 'Get state-specific information about OSHA requirements, penalties, and certification. Our training is accepted in all 50 states.'
+              }
+            </p>
+            <Link 
+              href="/safety/forklift" 
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-[#F76511] to-orange-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-xl transition-all"
+            >
+              {locale === 'es' ? 'Ver los 50 Estados →' : 'Browse All 50 States →'}
+            </Link>
+          </div>
+        </section>
+
         {/* Footer Note */}
         <footer className="mt-8 text-center text-sm text-brand-inkMuted">
           <p className="prose-readable mx-auto">
