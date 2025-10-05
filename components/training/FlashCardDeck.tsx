@@ -30,10 +30,10 @@ export default function FlashCardDeck({
   const [idx, setIdx] = React.useState(0);
   const [revealed, setRevealed] = React.useState(false);
   const [auto, setAuto] = React.useState(allowAuto);
-  const [visited, setVisited] = React.useState(() => new Set<number>());
+  const [visited, setVisited] = React.useState(() => new Set<string>());
   const total = cards.length;
 
-  React.useEffect(() => { if (revealed) setVisited(p => new Set(p).add(idx)); }, [revealed, idx]);
+  React.useEffect(() => { if (revealed && cards[idx]) setVisited(p => new Set(p).add(String(cards[idx].id))); }, [revealed, idx, cards]);
 
   React.useEffect(() => {
     if (!auto || !revealed) return;
