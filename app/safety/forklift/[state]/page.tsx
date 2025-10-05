@@ -87,8 +87,8 @@ function Breadcrumb({ stateName }: { stateName: string }) {
         Safety Training
       </Link>
       <span>/</span>
-      <Link href="/safety" className="hover:text-safety transition-colors">
-        Forklift
+      <Link href="/safety/forklift" className="hover:text-safety transition-colors">
+        Forklift Certification
       </Link>
       <span>/</span>
       <span className="text-gray-900">{stateName}</span>
