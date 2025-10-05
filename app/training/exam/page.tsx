@@ -161,31 +161,107 @@ export default function ExamPage(){
   const item = paper.items[i];
   const mm = Math.floor(remaining/60).toString().padStart(2,'0');
   const ss = (remaining%60).toString().padStart(2,'0');
+  const progressPct = ((i + 1) / paper.items.length) * 100;
 
   return (
     <main className="container mx-auto p-4 space-y-3">
-      <header className="sticky top-0 z-10 bg-white/80 backdrop-blur border-b p-2 flex items-center justify-between">
-        <h1 className="text-xl font-bold">{t('exam.title')}</h1>
-        <div className="text-sm"><span className="font-medium">{t('exam.time_remaining')}:</span> {mm}:{ss}</div>
+      {/* Orange Progress Bar */}
+      <div className="sticky top-0 z-20 bg-white shadow-md">
+        <div className="h-2 bg-slate-200">
+          <div 
+            className="h-full bg-gradient-to-r from-[#F76511] to-orange-600 transition-all duration-300"
+            style={{ width: `${progressPct}%` }}
+          />
+        </div>
+      </div>
+
+      <header className="sticky top-2 z-10 bg-white/95 backdrop-blur-sm rounded-2xl border-2 border-orange-200 shadow-lg p-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#F76511] to-orange-600 text-white flex items-center justify-center font-bold text-lg">
+            {i + 1}
+          </div>
+          <div>
+            <h1 className="text-xl font-bold text-slate-900">{t('exam.title')}</h1>
+            <p className="text-sm text-slate-600">{t('exam.question')} {i+1} {t('common.of')} {paper.items.length}</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 rounded-xl font-semibold shadow-md">
+          <span className="text-xl">⏱️</span>
+          <span>{mm}:{ss}</span>
+        </div>
       </header>
 
-      <section className="rounded-2xl border border-slate-200 p-4 bg-white">
-        <div className="text-sm text-slate-600 mb-2">Q{i+1} / {paper.items.length}</div>
-        <div className="text-base font-medium mb-2 text-slate-900">{item.question}</div>
-        <div className="grid gap-2">
+      <section className="rounded-2xl border-2 border-orange-200 p-6 bg-white shadow-lg">
+        <div className="text-lg font-semibold mb-6 text-slate-900 leading-relaxed">{item.question}</div>
+        <div className="grid gap-3 mb-6">
           {item.choices.map((c:string,idx:number)=> (
-            <button key={idx} disabled={remaining===0} className={`text-left border rounded-xl p-3 text-sm tappable text-slate-900 bg-white hover:bg-slate-50 ${answers[i]===idx?'border-blue-500 bg-blue-50':'border-slate-200'}`} onClick={()=> pick(idx)}>{c}</button>
+            <button 
+              key={idx} 
+              disabled={remaining===0} 
+              className={`
+                relative text-left border-2 rounded-xl p-4 text-sm tappable transition-all
+                ${answers[i]===idx
+                  ?'border-[#F76511] bg-orange-50 shadow-md' 
+                  :'border-slate-200 bg-white hover:border-orange-300 hover:bg-orange-50/50'
+                }
+                ${remaining===0 ? 'opacity-50 cursor-not-allowed' : ''}
+              `}
+              onClick={()=> pick(idx)}
+            >
+              <div className="flex items-center gap-3">
+                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${answers[i]===idx ? 'border-[#F76511] bg-[#F76511]' : 'border-slate-300'}`}>
+                  {answers[i]===idx && <span className="text-white text-xs font-bold">✓</span>}
+                </div>
+                <span className="flex-1 text-slate-900">{c}</span>
+              </div>
+            </button>
           ))}
         </div>
-        <div className="flex items-center justify-between mt-3">
-          <button className="btn border" disabled={i===0} onClick={()=> setI(n=> Math.max(0, n-1))} aria-label={`Go to previous question (${i} of ${paper.items.length})`}>{t('common.back')}</button>
+        
+        {/* Visual Progress Dots */}
+        <div className="flex items-center justify-center gap-1 mb-4 pb-4 border-t border-slate-200 pt-4">
+          {Array.from({ length: paper.items.length }).map((_, idx) => (
+            <div 
+              key={idx} 
+              className={`h-2 rounded-full transition-all ${
+                idx < i ? 'bg-emerald-500 w-2' : 
+                idx === i ? 'bg-[#F76511] w-8' : 
+                'bg-slate-300 w-2'
+              }`}
+            />
+          ))}
+        </div>
+
+        <div className="flex items-center justify-between">
+          <button 
+            className="rounded-xl border-2 border-slate-300 bg-white px-5 py-2.5 font-semibold text-slate-700 hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" 
+            disabled={i===0} 
+            onClick={()=> setI(n=> Math.max(0, n-1))} 
+            aria-label={`Go to previous question (${i} of ${paper.items.length})`}
+          >
+            ← {t('common.back')}
+          </button>
           {i < paper.items.length-1 ? (
-            <button className="btn bg-[#F76511] text-white" onClick={()=> setI(n=> Math.min(paper.items.length-1, n+1))} aria-label={`Go to next question (${i + 2} of ${paper.items.length})`}>{t('common.next')}</button>
+            <button 
+              className="rounded-xl bg-gradient-to-r from-[#F76511] to-orange-600 px-6 py-2.5 font-semibold text-white hover:shadow-lg transition-all" 
+              onClick={()=> setI(n=> Math.min(paper.items.length-1, n+1))} 
+              aria-label={`Go to next question (${i + 2} of ${paper.items.length})`}
+            >
+              {t('common.next')} →
+            </button>
           ) : (
-            <button className="btn bg-[#F76511] text-white" onClick={submit} aria-label="Submit exam for grading">{t('common.submit')}</button>
+            <button 
+              className="rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 px-6 py-2.5 font-semibold text-white hover:shadow-lg transition-all" 
+              onClick={submit} 
+              aria-label="Submit exam for grading"
+            >
+              ✓ {t('common.submit')}
+            </button>
           )}
         </div>
-        <div className="text-xs text-slate-500 mt-2">{t('exam.auto_saved')}</div>
+        <div className="text-xs text-slate-500 mt-3 text-center bg-slate-50 py-2 rounded-lg">
+          💾 {t('exam.auto_saved')}
+        </div>
       </section>
     </main>
   );
