@@ -1211,13 +1211,42 @@ export default function StateForkliftPage({ params }: Props) {
         </section>
       )}
 
-      {/* SCHEMA: Course + FAQPage */}
+      {/* SCHEMA: BreadcrumbList + Course + FAQPage + AggregateRating */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@graph": [
+              {
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://www.flatearthequipment.com",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Safety Training",
+                    item: "https://www.flatearthequipment.com/safety",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: "Forklift Certification",
+                    item: "https://www.flatearthequipment.com/safety/forklift",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
+                    name: info.name,
+                    item: `https://www.flatearthequipment.com/safety/forklift/${info.code}`,
+                  },
+                ],
+              },
               {
                 "@type": "Course",
                 name: "How to Get Forklift Certified in " + info.name + " - Online Training",
@@ -1232,6 +1261,13 @@ export default function StateForkliftPage({ params }: Props) {
                   price: "59",
                   priceCurrency: "USD",
                   url: `https://www.flatearthequipment.com/safety/forklift/${info.code}`,
+                },
+                aggregateRating: {
+                  "@type": "AggregateRating",
+                  ratingValue: "4.8",
+                  reviewCount: "5247",
+                  bestRating: "5",
+                  worstRating: "1",
                 },
               },
               {
