@@ -139,6 +139,16 @@ export default function PreOpModule() {
                 <em>This is a plain-language summary to help you pass and operate safely. Always follow your site policy and the manufacturer's manual.</em>
               </p>
             </div>
+            
+            {/* Continue to Practice button */}
+            <div className="flex justify-end mt-6">
+              <button
+                onClick={() => setTab('practice')}
+                className="inline-flex items-center gap-2 bg-slate-100 text-slate-700 px-5 py-2 rounded-lg font-medium hover:bg-slate-200 transition-colors"
+              >
+                Mark OSHA Basics done → Practice
+              </button>
+            </div>
           </div>
         </section>
       )}
