@@ -162,7 +162,7 @@ export default async function SafetyPage() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
             <Link 
-              href="/training" 
+              href={ctaHref}
               className="inline-flex items-center gap-2 bg-[#F76511] text-white px-8 py-4 rounded-xl font-bold hover:bg-orange-600 transition-colors shadow-lg hover:shadow-xl"
             >
               {t.hero.cta_primary} →
