@@ -36,12 +36,6 @@ export default function Page() {
         pueblo: 'Pueblo, CO',
         lasCruces: 'Las Cruces, NM'
       },
-      helpSection: 'Need Help Choosing the Right Part?',
-      helpItems: [
-        'Not sure if a controller fits your Genie lift? We\'ll help you confirm compatibility.',
-        'Need fast forklift parts in Wyoming or Montana? We ship same-day from regional hubs.',
-        'Looking for a reliable scissor lift rental near you? Request a quote in 60 seconds.'
-      ],
       quoteButton: 'Request Rental Quote',
       lastUpdated: 'Page last updated: May 2025'
     },
@@ -56,12 +50,6 @@ export default function Page() {
         pueblo: 'Pueblo, CO', 
         lasCruces: 'Las Cruces, NM'
       },
-      helpSection: '¿Necesita Ayuda para Elegir la Parte Correcta?',
-      helpItems: [
-        '¿No está seguro si un controlador se ajusta a su elevador Genie? Le ayudaremos a confirmar la compatibilidad.',
-        '¿Necesita partes de montacargas rápido en Wyoming o Montana? Enviamos el mismo día desde centros regionales.',
-        '¿Busca un alquiler de elevador de tijera confiable cerca de usted? Solicite una cotización en 60 segundos.'
-      ],
       quoteButton: 'Solicitar Cotización de Alquiler',
       lastUpdated: 'Página actualizada por última vez: Mayo 2025'
     }
@@ -234,15 +222,6 @@ export default function Page() {
         </div>
       </section>
 
-      {/* 11) LLM-Friendly Q&A Section */}
-      <section className="mt-12 max-w-4xl mx-auto px-4">
-        <h3 className="text-lg font-semibold mb-4">{t.helpSection}</h3>
-        <ul className="space-y-2 text-sm text-slate-700">
-          {t.helpItems.map((item, index) => (
-            <li key={index}>• <em>{item}</em></li>
-          ))}
-        </ul>
-      </section>
 
       {/* 12) Page Freshness Signal */}
       <p className="text-center text-xs text-slate-500 mt-8">
