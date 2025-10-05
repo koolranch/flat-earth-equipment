@@ -65,15 +65,15 @@ export async function generateWalletCardPDF(input: WalletCardInput): Promise<Uin
     const displayName = input.traineeName.length > 30 
       ? 'Certified Operator' 
       : input.traineeName;
-    page.drawText(displayName, { x: 12, y: nameY, size: 11, font: fontBold, color: darkBlue });
-    page.drawLine({ start: { x: 12, y: nameY - 2 }, end: { x: 140, y: nameY - 2 }, thickness: 0.5, color: brandOrange });
+    page.drawText(displayName, { x: 12, y: nameY, size: 13, font: fontBold, color: darkBlue });
+    page.drawLine({ start: { x: 12, y: nameY - 2 }, end: { x: 140, y: nameY - 2 }, thickness: 1, color: brandOrange });
 
-    // Details section
-    let detailY = CARD_H - 66;
-    const detailSize = 7.5;
+    // Details section (better spacing)
+    let detailY = CARD_H - 68;
+    const detailSize = 8;
     
-    page.drawText('Equipment:', { x: 12, y: detailY, size: detailSize - 0.5, font: fontBold, color: mediumGray });
-    page.drawText(input.equipment || 'Powered Industrial Truck', { x: 48, y: detailY, size: detailSize, font, color: darkBlue });
+    page.drawText('Equipment:', { x: 12, y: detailY, size: 7, font: fontBold, color: mediumGray });
+    page.drawText(input.equipment || 'Powered Industrial Truck', { x: 12, y: detailY - 10, size: detailSize, font: fontBold, color: darkBlue });
     
     detailY -= 12;
     if (input.employer) {
@@ -82,20 +82,20 @@ export async function generateWalletCardPDF(input: WalletCardInput): Promise<Uin
       detailY -= 12;
     }
     
-    // Dates in bordered box
-    page.drawRectangle({ x: 10, y: 26, width: 132, height: 26, borderWidth: 0.5, borderColor: mediumGray, color: lightGray });
-    page.drawText('Issued:', { x: 13, y: 43, size: 7, font: fontBold, color: darkBlue });
-    page.drawText(input.issuedAt ? new Date(input.issuedAt).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' }) : '-', { x: 13, y: 33, size: 7.5, font, color: darkBlue });
-    page.drawText('Expires:', { x: 77, y: 43, size: 7, font: fontBold, color: darkBlue });
-    page.drawText(input.expiresAt ? new Date(input.expiresAt).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' }) : '-', { x: 77, y: 33, size: 7.5, font, color: darkBlue });
+    // Dates in bordered box (cleaner styling)
+    page.drawRectangle({ x: 10, y: 24, width: 135, height: 28, borderWidth: 1, borderColor: brandOrange, color: lightGray });
+    page.drawText('Issued:', { x: 14, y: 44, size: 7, font: fontBold, color: mediumGray });
+    page.drawText(input.issuedAt ? new Date(input.issuedAt).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' }) : '-', { x: 14, y: 32, size: 8, font: fontBold, color: darkBlue });
+    page.drawText('Expires:', { x: 80, y: 44, size: 7, font: fontBold, color: mediumGray });
+    page.drawText(input.expiresAt ? new Date(input.expiresAt).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' }) : '-', { x: 80, y: 32, size: 8, font: fontBold, color: darkBlue });
 
     // Verification code
     page.drawText(`Code: ${input.verifyCode}`, { x: 12, y: 14, size: 6.5, font: fontBold, color: mediumGray });
 
     // QR code (right side, bordered)
     const qrSize = 90;
-    page.drawRectangle({ x: CARD_W - qrSize - 18, y: 20, width: qrSize + 6, height: qrSize + 14, borderWidth: 1, borderColor: mediumGray });
-    page.drawText('VERIFY', { x: CARD_W - qrSize - 1, y: qrSize + 28, size: 6, font: fontBold, color: darkBlue });
+    page.drawRectangle({ x: CARD_W - qrSize - 18, y: 20, width: qrSize + 6, height: qrSize + 14, borderWidth: 1.5, borderColor: brandOrange });
+    page.drawText('VERIFY', { x: CARD_W - qrSize + 5, y: qrSize + 30, size: 7, font: fontBold, color: brandOrange });
     page.drawImage(qrImg, { x: CARD_W - qrSize - 15, y: 23, width: qrSize, height: qrSize });
   }
 
@@ -127,20 +127,20 @@ export async function generateWalletCardPDF(input: WalletCardInput): Promise<Uin
       y -= 12;
     });
 
-    // Important notice box
-    page.drawRectangle({ x: 10, y: 30, width: CARD_W - 20, height: 32, borderWidth: 0.5, borderColor: brandOrange, color: rgb(1, 0.98, 0.95) });
-    page.drawText('IMPORTANT:', { x: 13, y: 54, size: 7.5, font: fontBold, color: darkBlue });
-    page.drawText('Employer must verify and document', { x: 13, y: 45, size: 6.5, font, color: darkBlue });
-    page.drawText('practical skills before independent', { x: 13, y: 38, size: 6.5, font, color: darkBlue });
-    page.drawText('operation.', { x: 13, y: 31, size: 6.5, font, color: darkBlue });
+    // Important notice box (more prominent)
+    page.drawRectangle({ x: 10, y: 28, width: CARD_W - 20, height: 36, borderWidth: 1.5, borderColor: brandOrange, color: rgb(1, 0.98, 0.95) });
+    page.drawText('IMPORTANT:', { x: 14, y: 56, size: 8, font: fontBold, color: brandOrange });
+    page.drawText('Employer must verify and document', { x: 14, y: 46, size: 6.5, font: fontBold, color: darkBlue });
+    page.drawText('practical skills before independent', { x: 14, y: 38, size: 6.5, font, color: darkBlue });
+    page.drawText('operation.', { x: 14, y: 30, size: 6.5, font, color: darkBlue });
 
     // Footer with brand
-    page.drawRectangle({ x: 7, y: 7, width: CARD_W - 14, height: 16, color: brandOrange });
-    page.drawText('Flat Earth Equipment', { x: 52, y: 13, size: 8, font: fontBold, color: rgb(1, 1, 1) });
+    page.drawRectangle({ x: 7, y: 7, width: CARD_W - 14, height: 18, color: brandOrange });
+    page.drawText('Flat Earth Equipment', { x: 55, y: 15, size: 9, font: fontBold, color: rgb(1, 1, 1) });
     
-    // Verify URL
+    // Verify URL (larger, more visible)
     const url = verifyUrl.replace(/^https?:\/\//, '');
-    page.drawText(`Verify: ${url}`, { x: 12, y: 13, size: 5.5, font, color: rgb(1, 1, 1) });
+    page.drawText(`Verify: ${url}`, { x: 12, y: 15, size: 6, font: fontBold, color: rgb(1, 1, 1) });
   }
 
   const bytes = await pdf.save();
