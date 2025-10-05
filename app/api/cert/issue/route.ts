@@ -148,49 +148,59 @@ export async function POST(req: Request) {
   page.drawText('OSHA', { x: 80, y: 470, size: 10, font: fontB, color: mediumGray });
   page.drawText('Compliant', { x: 70, y: 456, size: 8, font, color: mediumGray });
   
-  // Main body - Centered layout
+  // Main body - Centered layout with better spacing
   page.drawText('This certifies that', { 
-    x: 320, y: 440, size: 14, font: fontI, color: darkBlue 
+    x: 320, y: 455, size: 16, font: fontI, color: mediumGray 
   });
 
-  // Recipient name (large, prominent)
+  // Recipient name (larger, more prominent, better centered)
   const name = payload.name || payload.email || payload.user_id;
-  const nameWidth = fontB.widthOfTextAtSize(name, 26);
+  const nameWidth = fontB.widthOfTextAtSize(name, 32);
   page.drawText(name, { 
-    x: (792 - nameWidth) / 2, y: 400, size: 26, font: fontB, color: darkBlue 
+    x: (792 - nameWidth) / 2, y: 410, size: 32, font: fontB, color: darkBlue 
   });
   
-  // Decorative line under name
+  // Elegant decorative line under name (longer, thicker)
+  const lineY = 402;
   page.drawLine({
-    start: { x: 200, y: 395 },
-    end: { x: 592, y: 395 },
-    thickness: 1,
+    start: { x: 180, y: lineY },
+    end: { x: 612, y: lineY },
+    thickness: 2,
     color: brandOrange
   });
 
   page.drawText('has successfully completed the OSHA-compliant training program:', { 
-    x: 190, y: 370, size: 12, font, color: darkBlue 
+    x: 175, y: 370, size: 13, font, color: darkBlue 
   });
 
-  // Course title
-  page.drawText(payload.course_title, { 
-    x: 260, y: 345, size: 16, font: fontB, color: brandOrange 
+  // Course title (larger, more prominent)
+  const courseTitle = payload.course_title || 'Online Forklift Operator Certification';
+  const courseTitleWidth = fontB.widthOfTextAtSize(courseTitle, 18);
+  page.drawText(courseTitle, { 
+    x: (792 - courseTitleWidth) / 2, y: 340, size: 18, font: fontB, color: brandOrange 
   });
 
   // Training details
   page.drawText('In accordance with 29 CFR 1910.178(l) - Powered Industrial Trucks', { 
-    x: 190, y: 315, size: 10, font, color: mediumGray 
+    x: 200, y: 310, size: 10, font, color: mediumGray 
   });
 
-  // Dates section
+  // Dates section (better spacing and formatting)
   const issuedDate = new Date(issued_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   const expiresDate = new Date(expires_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   
-  page.drawText(`Issue Date: ${issuedDate}`, { 
-    x: 120, y: 270, size: 11, font, color: darkBlue 
+  page.drawText(`Issue Date:`, { 
+    x: 120, y: 265, size: 10, font: fontB, color: mediumGray 
   });
-  page.drawText(`Expiration Date: ${expiresDate}`, { 
-    x: 450, y: 270, size: 11, font, color: darkBlue 
+  page.drawText(issuedDate, { 
+    x: 120, y: 250, size: 12, font, color: darkBlue 
+  });
+  
+  page.drawText(`Expiration Date:`, { 
+    x: 480, y: 265, size: 10, font: fontB, color: mediumGray 
+  });
+  page.drawText(expiresDate, { 
+    x: 480, y: 250, size: 12, font, color: darkBlue 
   });
 
   // Practical verification badge (if applicable)
@@ -245,15 +255,15 @@ export async function POST(req: Request) {
     });
   });
 
-  // Signature section
+  // Signature section (more prominent)
   page.drawLine({
-    start: { x: 120, y: 200 },
-    end: { x: 280, y: 200 },
-    thickness: 1,
-    color: mediumGray
+    start: { x: 120, y: 195 },
+    end: { x: 300, y: 195 },
+    thickness: 1.5,
+    color: darkBlue
   });
   page.drawText('Authorized Signature', { 
-    x: 150, y: 185, size: 9, font, color: mediumGray 
+    x: 160, y: 180, size: 10, font: fontB, color: darkBlue 
   });
   
   // Digital signature hash
