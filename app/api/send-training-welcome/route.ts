@@ -104,7 +104,7 @@ export async function POST(req: Request) {
         to: email,
         from: {
           name: 'Flat Earth Safety Training',
-          email: 'training@flatearthequipment.com'
+          email: 'contact@flatearthequipment.com' // Use verified sender email
         },
         subject: `🎓 Welcome ${firstName}! Your Forklift Training is Ready`,
         html: emailHtml,
