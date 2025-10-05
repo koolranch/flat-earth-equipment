@@ -68,7 +68,7 @@ export default function CheckoutButton({ courseSlug, price, priceId, coupon }: C
       <button
         onClick={handleCheckout}
         disabled={isLoading}
-        className="inline-flex items-center gap-2 bg-gradient-to-r from-[#F76511] to-orange-600 text-white px-8 py-4 rounded-xl font-bold hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-wait"
+        className="inline-flex items-center gap-2 bg-white text-canyon-rust px-8 py-4 rounded-xl font-bold hover:bg-gray-50 hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-wait border-2 border-white"
         aria-label={`Get forklift certified for $${price}`}
       >
         {isLoading ? (
