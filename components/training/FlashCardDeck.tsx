@@ -65,23 +65,45 @@ export default function FlashCardDeck({
   const allViewed = visited.size >= total;
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-6 max-w-4xl mx-auto">
+      {/* Header with Progress */}
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-medium text-slate-600">{title}</h3>
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-slate-500">{idx + 1} / {total}</span>
-          <button
-            type="button"
-            onClick={() => setAuto(a => !a)}
-            className={clsx('rounded-full px-2.5 py-1 text-xs border', auto ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-slate-50 border-slate-200 text-slate-600')}
-            aria-pressed={auto}
-          >{auto ? 'Auto: On' : 'Auto: Off'}</button>
+        <div>
+          <h3 className="text-2xl font-bold text-slate-900">{title}</h3>
+          <p className="text-sm text-slate-600 mt-1">Review key concepts - open each card once</p>
+        </div>
+        <div className="text-right">
+          <div className="text-3xl font-bold text-[#F76511]">{idx + 1}</div>
+          <div className="text-xs text-slate-600">of {total}</div>
         </div>
       </div>
 
-      <div className="relative w-full rounded-xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm">
-        <span className={clsx('absolute left-3 top-3 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] border', revealed ? 'border-emerald-300 text-emerald-700 bg-emerald-50' : 'border-sky-300 text-sky-700 bg-sky-50')}>
-          {revealed ? 'Answer' : 'Question'}
+      {/* Progress Bar */}
+      <div className="flex items-center gap-3">
+        <div className="flex-1 bg-slate-200 rounded-full h-2 overflow-hidden">
+          <div 
+            className="h-full bg-gradient-to-r from-[#F76511] to-orange-600 transition-all duration-300"
+            style={{ width: `${((idx + 1) / total) * 100}%` }}
+          ></div>
+        </div>
+        <button
+          type="button"
+          onClick={() => setAuto(a => !a)}
+          className={clsx(
+            'rounded-xl px-4 py-2 text-sm font-semibold border-2 transition-all',
+            auto 
+              ? 'bg-[#F76511] border-orange-600 text-white shadow-md' 
+              : 'bg-white border-slate-300 text-slate-700 hover:border-[#F76511]'
+          )}
+          aria-pressed={auto}
+        >
+          {auto ? '⏯️ Auto: On' : '⏸️ Auto: Off'}
+        </button>
+      </div>
+
+      <div className="relative w-full rounded-2xl border-2 border-slate-200 bg-white p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow">
+        <span className={clsx('absolute left-4 top-4 inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-semibold border-2', revealed ? 'border-orange-300 text-orange-700 bg-orange-50' : 'border-blue-300 text-blue-700 bg-blue-50')}>
+          {revealed ? '💡 Answer' : '❓ Question'}
         </span>
 
         <div className="mt-5 grid gap-4 sm:grid-cols-[auto,1fr] items-start">
@@ -92,7 +114,7 @@ export default function FlashCardDeck({
                 <img 
                   src={card.icon} 
                   alt={typeof card.front === 'string' ? card.front : 'Flashcard icon'} 
-                  className="w-24 h-24 object-contain"
+                  className="w-28 h-28 object-contain drop-shadow-md"
                   loading="lazy"
                 />
               ))}
@@ -103,28 +125,80 @@ export default function FlashCardDeck({
           </div>
         </div>
 
-        <div className="mt-4 flex items-center justify-between">
+        <div className="mt-6 flex items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <button type="button" onClick={prev} className="rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50" disabled={idx === 0}>Back</button>
-            <button type="button" onClick={toggleReveal} className="rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50" data-testid="flashcard-reveal">{revealed ? 'Hide answer' : 'Reveal answer'}</button>
+            <button 
+              type="button" 
+              onClick={prev} 
+              className="rounded-xl border-2 border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-400 transition-all disabled:opacity-50 disabled:cursor-not-allowed" 
+              disabled={idx === 0}
+            >
+              ← Back
+            </button>
+            <button 
+              type="button" 
+              onClick={toggleReveal} 
+              className={clsx(
+                'rounded-xl px-5 py-2 text-sm font-semibold transition-all shadow-md',
+                revealed 
+                  ? 'bg-slate-100 border-2 border-slate-300 text-slate-700 hover:bg-slate-200' 
+                  : 'bg-blue-600 text-white hover:bg-blue-700'
+              )}
+              data-testid="flashcard-reveal"
+            >
+              {revealed ? 'Hide Answer' : '🔍 Reveal Answer'}
+            </button>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="hidden sm:flex items-center gap-1">
-              {Array.from({ length: total }).map((_, i) => (<span key={i} className={clsx('h-2 w-2 rounded-full', i === idx ? 'bg-slate-900' : 'bg-slate-300')} />))}
+          <div className="flex items-center gap-3">
+            <div className="hidden sm:flex items-center gap-1.5">
+              {Array.from({ length: total }).map((_, i) => (
+                <span 
+                  key={i} 
+                  className={clsx('h-2.5 w-2.5 rounded-full transition-all', i === idx ? 'bg-[#F76511] scale-125' : visited.has(cards[i].id) ? 'bg-orange-300' : 'bg-slate-300')} 
+                />
+              ))}
             </div>
-            <button type="button" onClick={next} className="rounded-md bg-orange-600 px-3 py-1.5 text-sm text-white hover:bg-orange-700" data-testid="flashcard-next">{idx === total - 1 ? 'Finish' : 'Next card'}</button>
+            <button 
+              type="button" 
+              onClick={next} 
+              className="rounded-xl bg-[#F76511] px-5 py-2 text-sm font-semibold text-white hover:bg-orange-600 transition-all shadow-md hover:shadow-lg" 
+              data-testid="flashcard-next"
+            >
+              {idx === total - 1 ? 'Finish →' : 'Next →'}
+            </button>
           </div>
         </div>
       </div>
+
+      {allViewed && (
+        <div className="bg-gradient-to-r from-emerald-50 to-green-50 border-2 border-emerald-300 rounded-xl p-5">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center text-2xl">
+              ✓
+            </div>
+            <div>
+              <h3 className="font-bold text-emerald-900 text-lg">All Cards Reviewed!</h3>
+              <p className="text-sm text-emerald-700">You've reviewed all flashcards. Ready for the quiz?</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="flex justify-end">
         <button
           type="button"
           onClick={() => onDone?.()}
           disabled={!allViewed}
-          className={clsx('rounded-lg px-4 py-2 text-sm font-medium', allViewed ? 'bg-slate-900 text-white hover:bg-black' : 'bg-slate-200 text-slate-500 cursor-not-allowed')}
+          className={clsx(
+            'rounded-xl px-6 py-3 text-sm font-semibold transition-all shadow-md',
+            allViewed 
+              ? 'bg-[#F76511] text-white hover:bg-orange-600 hover:shadow-lg' 
+              : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+          )}
           data-testid="flashcard-complete"
-        >{allViewed ? 'Mark Flash Cards done → Quiz' : 'Open each card to continue'}</button>
+        >
+          {allViewed ? 'Mark Flash Cards done → Quiz' : 'View all cards to continue'}
+        </button>
       </div>
     </div>
   );
