@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
+import { trackEvent } from '@/lib/analytics/gtag'
 
 interface CheckoutButtonProps {
   courseSlug: string
@@ -16,6 +17,19 @@ export default function CheckoutButton({ courseSlug, price, priceId, coupon }: C
 
   const handleCheckout = async () => {
     console.log('Checkout button clicked')
+    
+    // Track button click
+    trackEvent('begin_checkout', {
+      course: courseSlug,
+      value: parseFloat(price),
+      currency: 'USD',
+      items: [{
+        item_id: priceId || 'unknown',
+        item_name: `${courseSlug} certification`,
+        price: parseFloat(price),
+      }]
+    });
+    
     setIsLoading(true)
     setError(null)
     
