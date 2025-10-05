@@ -323,7 +323,7 @@ export default function StateForkliftPage({ params }: Props) {
         </p>
         
         {/* Industry Keywords for States Without Custom Content */}
-        {!['ca', 'il', 'pa', 'oh', 'ga', 'nc', 'mi', 'va', 'ny'].includes(info.code) && (
+        {!['ca', 'il', 'pa', 'oh', 'ga', 'nc', 'mi', 'va', 'ny', 'tx', 'fl', 'az', 'tn', 'nj', 'in', 'wa'].includes(info.code) && (
           <div className="grid md:grid-cols-2 gap-6 my-6">
             <div className="bg-blue-50 p-6 rounded-xl border border-blue-200">
               <h3 className="text-lg font-semibold mb-3 text-blue-900">💼 Top Forklift Employers in {info.name}</h3>
@@ -1264,6 +1264,692 @@ export default function StateForkliftPage({ params }: Props) {
         </section>
       )}
 
+      {/* TEXAS-SPECIFIC CONTENT */}
+      {info.code === 'tx' && (
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold">Texas Forklift Training for Major Industries</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">⚡ Energy & Oil/Gas</h3>
+              <p className="text-sm text-gray-700">
+                Texas leads the nation in energy production with extensive oil refineries, natural gas facilities, and renewable energy operations. 
+                Our training covers material handling safety in energy sector environments, including Houston's petrochemical corridor.
+              </p>
+            </div>
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🚛 Logistics & Distribution</h3>
+              <p className="text-sm text-gray-700">
+                Texas's central location and major ports (Houston, Corpus Christi) make it a logistics powerhouse. 
+                Our certification covers warehouse operations, cross-docking, and container handling for Texas's massive distribution sector.
+              </p>
+            </div>
+            <div className="bg-orange-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🏭 Manufacturing & Technology</h3>
+              <p className="text-sm text-gray-700">
+                From Austin's tech corridor to aerospace in Fort Worth, Texas manufacturing is diverse and growing. 
+                Our training covers high-tech manufacturing, semiconductor facilities, and automotive production environments.
+              </p>
+            </div>
+            <div className="bg-purple-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🌾 Agriculture & Food Processing</h3>
+              <p className="text-sm text-gray-700">
+                Texas's vast agriculture sector includes cattle, cotton, and extensive food processing facilities. 
+                Our certification covers agricultural forklift operations and food industry compliance requirements throughout Texas.
+              </p>
+            </div>
+          </div>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-6">
+            <h3 className="text-lg font-semibold mb-3">Texas Major Cities We Serve:</h3>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <ul className="space-y-1">
+                <li>• Houston forklift certification</li>
+                <li>• Dallas forklift training</li>
+                <li>• Austin forklift operators</li>
+                <li>• San Antonio forklift certification</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Fort Worth warehouse training</li>
+                <li>• El Paso forklift operators</li>
+                <li>• Arlington distribution centers</li>
+                <li>• Corpus Christi port operations</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Plano logistics hubs</li>
+                <li>• Laredo border facilities</li>
+                <li>• Irving manufacturing</li>
+                <li>• Lubbock agricultural operations</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ADDITIONAL FAQ FOR TEXAS */}
+      {info.code === 'tx' && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold">Texas-Specific Forklift Training Questions</h2>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is this certification accepted at Houston energy facilities and petrochemical plants?
+            </summary>
+            <p className="mt-2">
+              Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Texas, 
+              including energy companies in Houston's petrochemical corridor, oil refineries, and natural gas facilities. 
+              The training meets energy sector safety requirements.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Do Texas logistics companies and distribution centers require forklift certification?
+            </summary>
+            <p className="mt-2">
+              Yes! Texas's massive logistics sector, including Amazon, FedEx, UPS facilities in Dallas-Fort Worth, 
+              Houston, and San Antonio, require OSHA-compliant forklift certification. Our training is accepted 
+              at major distribution centers throughout Texas.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is additional training needed for Texas's technology and semiconductor manufacturing?
+            </summary>
+            <p className="mt-2">
+              Our comprehensive OSHA training covers forklift operations in high-tech environments, which is 
+              essential for Austin's tech corridor and semiconductor facilities. The certification is valid 
+              for clean room logistics and advanced manufacturing throughout Texas.
+            </p>
+          </details>
+        </section>
+      )}
+
+      {/* FLORIDA-SPECIFIC CONTENT */}
+      {info.code === 'fl' && (
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold">Florida Forklift Training for Major Industries</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🚢 Port & Maritime Operations</h3>
+              <p className="text-sm text-gray-700">
+                Florida's extensive port system (Miami, Tampa, Jacksonville, Port Everglades) handles massive cargo volumes. 
+                Our training covers container handling, cruise line logistics, and maritime freight operations throughout Florida.
+              </p>
+            </div>
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">✈️ Tourism & Hospitality</h3>
+              <p className="text-sm text-gray-700">
+                Florida's tourism industry requires extensive warehouse operations for theme parks, hotels, and convention centers. 
+                Our certification covers hospitality logistics, theme park operations, and resort facility material handling.
+              </p>
+            </div>
+            <div className="bg-orange-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🌴 Agriculture & Food Distribution</h3>
+              <p className="text-sm text-gray-700">
+                Florida's agriculture includes citrus, vegetables, and extensive food distribution networks. 
+                Our training covers agricultural forklift safety and temperature-controlled warehouse operations for produce distribution.
+              </p>
+            </div>
+            <div className="bg-purple-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">📦 E-commerce & Logistics</h3>
+              <p className="text-sm text-gray-700">
+                Florida's strategic location for Latin American trade and growing e-commerce presence require certified operators. 
+                Our certification covers distribution center operations, cross-border logistics, and fulfillment centers.
+              </p>
+            </div>
+          </div>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-6">
+            <h3 className="text-lg font-semibold mb-3">Florida Major Cities We Serve:</h3>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <ul className="space-y-1">
+                <li>• Miami forklift certification</li>
+                <li>• Jacksonville forklift training</li>
+                <li>• Tampa forklift operators</li>
+                <li>• Orlando forklift certification</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• St. Petersburg warehouse training</li>
+                <li>• Fort Lauderdale port operations</li>
+                <li>• Hialeah distribution centers</li>
+                <li>• Port St. Lucie logistics</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Tallahassee government facilities</li>
+                <li>• Cape Coral manufacturing</li>
+                <li>• Pembroke Pines warehouses</li>
+                <li>• Hollywood logistics hubs</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ADDITIONAL FAQ FOR FLORIDA */}
+      {info.code === 'fl' && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold">Florida-Specific Forklift Training Questions</h2>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is this certification accepted at Florida ports and cruise line operations?
+            </summary>
+            <p className="mt-2">
+              Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Florida, 
+              including port operations in Miami, Tampa, Jacksonville, and cruise line logistics companies. 
+              The training meets maritime industry safety requirements.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Do Florida theme parks and hospitality facilities require forklift certification?
+            </summary>
+            <p className="mt-2">
+              Yes! Florida's tourism and hospitality sector, including theme parks, hotels, and convention centers 
+              throughout Orlando, Miami, and Tampa, require OSHA-compliant forklift certification for warehouse 
+              and logistics operations. Our training meets hospitality industry standards.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is additional training needed for Florida's agricultural and food distribution operations?
+            </summary>
+            <p className="mt-2">
+              Our comprehensive OSHA training covers forklift operations in agricultural and temperature-controlled 
+              environments, which is essential for Florida's citrus industry and produce distribution. The certification 
+              is valid for agricultural operations and cold storage facilities throughout Florida.
+            </p>
+          </details>
+        </section>
+      )}
+
+      {/* ARIZONA-SPECIFIC CONTENT */}
+      {info.code === 'az' && (
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold">Arizona Forklift Training for Major Industries</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">📦 Logistics & Distribution</h3>
+              <p className="text-sm text-gray-700">
+                Arizona's strategic location for Southwest distribution makes Phoenix a major logistics hub. 
+                Our training covers warehouse operations, cross-docking, and e-commerce fulfillment for Amazon, Walmart, and regional distributors.
+              </p>
+            </div>
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🏭 Manufacturing & Electronics</h3>
+              <p className="text-sm text-gray-700">
+                Arizona's growing manufacturing sector includes semiconductor facilities, electronics, and aerospace components. 
+                Our certification covers high-tech manufacturing and precision equipment handling requirements.
+              </p>
+            </div>
+            <div className="bg-orange-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">⛏️ Mining & Construction</h3>
+              <p className="text-sm text-gray-700">
+                Arizona's copper mining and construction industries require heavy equipment material handling. 
+                Our training covers industrial forklift operations in mining support facilities and construction supply warehouses.
+              </p>
+            </div>
+            <div className="bg-purple-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🌵 Agriculture & Food Processing</h3>
+              <p className="text-sm text-gray-700">
+                Arizona's agriculture includes lettuce, cotton, and cattle operations with extensive food processing facilities. 
+                Our certification covers agricultural forklift safety and temperature-controlled warehouse operations.
+              </p>
+            </div>
+          </div>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-6">
+            <h3 className="text-lg font-semibold mb-3">Arizona Major Cities We Serve:</h3>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <ul className="space-y-1">
+                <li>• Phoenix forklift certification</li>
+                <li>• Tucson forklift training</li>
+                <li>• Mesa forklift operators</li>
+                <li>• Chandler forklift certification</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Scottsdale warehouse training</li>
+                <li>• Glendale distribution centers</li>
+                <li>• Gilbert logistics facilities</li>
+                <li>• Tempe manufacturing sites</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Peoria logistics hubs</li>
+                <li>• Surprise warehouses</li>
+                <li>• Goodyear industrial parks</li>
+                <li>• Avondale manufacturing</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ADDITIONAL FAQ FOR ARIZONA */}
+      {info.code === 'az' && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold">Arizona-Specific Forklift Training Questions</h2>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is this certification accepted at Phoenix distribution centers and logistics facilities?
+            </summary>
+            <p className="mt-2">
+              Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Arizona, 
+              including Amazon, Walmart, and regional distributors in the Phoenix metro area. The training meets 
+              e-commerce and warehouse industry safety standards.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Do Arizona semiconductor and electronics manufacturers require forklift certification?
+            </summary>
+            <p className="mt-2">
+              Yes! Arizona's growing semiconductor and electronics manufacturing sector requires OSHA-compliant 
+              forklift certification. Our training covers high-tech manufacturing environments and precision 
+              material handling requirements for Arizona's tech industry.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is additional training needed for Arizona's mining and construction support operations?
+            </summary>
+            <p className="mt-2">
+              Our comprehensive OSHA training covers forklift operations in industrial environments, including 
+              Arizona's mining support facilities and construction supply warehouses. The certification is valid 
+              for heavy industrial operations throughout Arizona.
+            </p>
+          </details>
+        </section>
+      )}
+
+      {/* TENNESSEE-SPECIFIC CONTENT */}
+      {info.code === 'tn' && (
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold">Tennessee Forklift Training for Major Industries</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🚗 Automotive Manufacturing</h3>
+              <p className="text-sm text-gray-700">
+                Tennessee is home to Nissan, Volkswagen, and GM plants with hundreds of automotive suppliers. 
+                Our training covers automotive assembly operations, parts warehousing, and lean manufacturing environments throughout Tennessee.
+              </p>
+            </div>
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🚛 Logistics & Distribution</h3>
+              <p className="text-sm text-gray-700">
+                Nashville and Memphis are major logistics hubs with FedEx headquarters and extensive distribution networks. 
+                Our certification covers high-volume warehouse operations, package handling, and freight distribution.
+              </p>
+            </div>
+            <div className="bg-orange-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🎸 Manufacturing & Production</h3>
+              <p className="text-sm text-gray-700">
+                Tennessee's diverse manufacturing includes chemicals, plastics, and consumer goods production. 
+                Our training covers industrial forklift safety for Tennessee's varied manufacturing environments.
+              </p>
+            </div>
+            <div className="bg-purple-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🌾 Agriculture & Food Processing</h3>
+              <p className="text-sm text-gray-700">
+                Tennessee's agriculture and food processing industries require certified forklift operators for warehouse operations. 
+                Our certification covers agricultural and food industry safety requirements throughout Tennessee.
+              </p>
+            </div>
+          </div>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-6">
+            <h3 className="text-lg font-semibold mb-3">Tennessee Major Cities We Serve:</h3>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <ul className="space-y-1">
+                <li>• Nashville forklift certification</li>
+                <li>• Memphis forklift training</li>
+                <li>• Knoxville forklift operators</li>
+                <li>• Chattanooga forklift certification</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Clarksville warehouse training</li>
+                <li>• Murfreesboro distribution centers</li>
+                <li>• Franklin logistics facilities</li>
+                <li>• Jackson manufacturing sites</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Johnson City operations</li>
+                <li>• Smyrna automotive plants</li>
+                <li>• Kingsport manufacturing</li>
+                <li>• Spring Hill production facilities</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ADDITIONAL FAQ FOR TENNESSEE */}
+      {info.code === 'tn' && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold">Tennessee-Specific Forklift Training Questions</h2>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is this certification accepted at Tennessee automotive plants and manufacturing facilities?
+            </summary>
+            <p className="mt-2">
+              Absolutely! Our OSHA-compliant certification is accepted by major Tennessee automotive manufacturers 
+              including Nissan, Volkswagen, GM, and their suppliers. The training meets automotive industry 
+              safety standards and lean manufacturing requirements.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Do Memphis logistics companies and FedEx facilities require forklift certification?
+            </summary>
+            <p className="mt-2">
+              Yes! Tennessee's logistics sector, including FedEx headquarters in Memphis and major distribution 
+              centers throughout Nashville and Memphis, require OSHA-compliant forklift certification. Our training 
+              is accepted at major logistics and package handling facilities.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is additional training needed for Tennessee's manufacturing and chemical processing industries?
+            </summary>
+            <p className="mt-2">
+              Our comprehensive OSHA training covers forklift operations in industrial manufacturing environments, 
+              which is essential for Tennessee's chemical, plastics, and consumer goods production. The certification 
+              is valid for heavy industrial operations throughout Tennessee.
+            </p>
+          </details>
+        </section>
+      )}
+
+      {/* NEW JERSEY-SPECIFIC CONTENT */}
+      {info.code === 'nj' && (
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold">New Jersey Forklift Training for Major Industries</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🚢 Port & Logistics Operations</h3>
+              <p className="text-sm text-gray-700">
+                New Jersey shares the Port of New York/New Jersey, one of the largest container ports in North America. 
+                Our training covers port logistics, container handling, and intermodal freight operations throughout New Jersey.
+              </p>
+            </div>
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">💊 Pharmaceutical & Life Sciences</h3>
+              <p className="text-sm text-gray-700">
+                New Jersey is a global pharmaceutical hub with major companies like Johnson & Johnson, Merck, and Bristol Myers Squibb. 
+                Our certification covers clean room logistics, controlled substance handling, and pharmaceutical warehouse operations.
+              </p>
+            </div>
+            <div className="bg-orange-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🏭 Manufacturing & Chemical Processing</h3>
+              <p className="text-sm text-gray-700">
+                New Jersey's industrial corridor includes chemical processing, food production, and consumer goods manufacturing. 
+                Our training covers heavy industrial forklift safety and chemical facility material handling requirements.
+              </p>
+            </div>
+            <div className="bg-purple-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">📦 E-commerce & Distribution</h3>
+              <p className="text-sm text-gray-700">
+                New Jersey's proximity to NYC makes it a major e-commerce fulfillment and distribution center location. 
+                Our certification covers high-volume warehouse operations for Amazon, Walmart, and regional distributors.
+              </p>
+            </div>
+          </div>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-6">
+            <h3 className="text-lg font-semibold mb-3">New Jersey Major Cities We Serve:</h3>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <ul className="space-y-1">
+                <li>• Newark forklift certification</li>
+                <li>• Jersey City forklift training</li>
+                <li>• Paterson forklift operators</li>
+                <li>• Elizabeth forklift certification</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Edison warehouse training</li>
+                <li>• Woodbridge distribution centers</li>
+                <li>• Lakewood logistics facilities</li>
+                <li>• Toms River operations</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Hamilton pharmaceutical sites</li>
+                <li>• Trenton manufacturing</li>
+                <li>• Camden port operations</li>
+                <li>• Clifton industrial facilities</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ADDITIONAL FAQ FOR NEW JERSEY */}
+      {info.code === 'nj' && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold">New Jersey-Specific Forklift Training Questions</h2>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is this certification accepted at New Jersey pharmaceutical and biotech facilities?
+            </summary>
+            <p className="mt-2">
+              Absolutely! Our OSHA-compliant certification is accepted by major pharmaceutical and life sciences 
+              employers throughout New Jersey, including clean room operations, controlled substance warehouses, 
+              and biotech manufacturing facilities. The training meets pharmaceutical industry safety standards.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Do New Jersey port operations and logistics companies require forklift certification?
+            </summary>
+            <p className="mt-2">
+              Yes! New Jersey's port operations and logistics sector, including operations at the Port of 
+              New York/New Jersey, require OSHA-compliant forklift certification. Our training covers maritime 
+              logistics and distribution center operations throughout New Jersey.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is additional training needed for New Jersey's chemical processing and manufacturing industries?
+            </summary>
+            <p className="mt-2">
+              Our comprehensive OSHA training covers forklift operations in chemical and heavy industrial 
+              environments, which is essential for New Jersey's significant chemical processing and manufacturing 
+              sectors. The certification is valid for industrial operations throughout New Jersey.
+            </p>
+          </details>
+        </section>
+      )}
+
+      {/* INDIANA-SPECIFIC CONTENT */}
+      {info.code === 'in' && (
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold">Indiana Forklift Training for Major Industries</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🚗 Automotive & Manufacturing</h3>
+              <p className="text-sm text-gray-700">
+                Indiana is a major automotive and RV manufacturing hub with plants from Toyota, Honda, Subaru, and major RV manufacturers. 
+                Our training covers automotive assembly, parts warehousing, and lean manufacturing environments throughout Indiana.
+              </p>
+            </div>
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">📦 Logistics & Distribution</h3>
+              <p className="text-sm text-gray-700">
+                Indiana's central location makes Indianapolis a major distribution hub for the Midwest and national networks. 
+                Our certification covers warehouse operations, cross-docking, and e-commerce fulfillment throughout Indiana.
+              </p>
+            </div>
+            <div className="bg-orange-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🏭 Steel & Heavy Manufacturing</h3>
+              <p className="text-sm text-gray-700">
+                Indiana's steel industry and heavy manufacturing sector in Gary, Hammond, and throughout northern Indiana require certified operators. 
+                Our training covers heavy-duty forklift operations and industrial safety requirements.
+              </p>
+            </div>
+            <div className="bg-purple-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🌽 Agriculture & Food Processing</h3>
+              <p className="text-sm text-gray-700">
+                Indiana's agriculture includes corn, soybeans, and extensive food processing facilities. 
+                Our certification covers agricultural forklift safety and food industry compliance requirements throughout Indiana.
+              </p>
+            </div>
+          </div>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-6">
+            <h3 className="text-lg font-semibold mb-3">Indiana Major Cities We Serve:</h3>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <ul className="space-y-1">
+                <li>• Indianapolis forklift certification</li>
+                <li>• Fort Wayne forklift training</li>
+                <li>• Evansville forklift operators</li>
+                <li>• South Bend forklift certification</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Carmel warehouse training</li>
+                <li>• Fishers distribution centers</li>
+                <li>• Bloomington logistics facilities</li>
+                <li>• Hammond steel operations</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Gary manufacturing sites</li>
+                <li>• Lafayette operations</li>
+                <li>• Muncie industrial facilities</li>
+                <li>• Elkhart RV manufacturing</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ADDITIONAL FAQ FOR INDIANA */}
+      {info.code === 'in' && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold">Indiana-Specific Forklift Training Questions</h2>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is this certification accepted at Indiana automotive and RV manufacturing plants?
+            </summary>
+            <p className="mt-2">
+              Absolutely! Our OSHA-compliant certification is accepted by major Indiana automotive manufacturers 
+              including Toyota, Honda, Subaru, and major RV manufacturers in Elkhart. The training meets automotive 
+              and RV industry safety standards.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Do Indianapolis logistics companies and distribution centers require forklift certification?
+            </summary>
+            <p className="mt-2">
+              Yes! Indiana's central location makes it a major distribution hub, and logistics companies like 
+              Amazon, FedEx, and regional distributors require OSHA-compliant forklift certification. Our training 
+              is accepted at major warehouses and distribution centers throughout Indiana.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is additional training needed for Indiana's steel and heavy manufacturing industries?
+            </summary>
+            <p className="mt-2">
+              Our comprehensive OSHA training covers forklift operations in heavy industrial environments, 
+              which is essential for Indiana's steel industry and heavy manufacturing sector. The certification 
+              is valid for industrial operations throughout Indiana.
+            </p>
+          </details>
+        </section>
+      )}
+
+      {/* WASHINGTON-SPECIFIC CONTENT */}
+      {info.code === 'wa' && (
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold">Washington Forklift Training for Major Industries</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">💻 Technology & E-commerce</h3>
+              <p className="text-sm text-gray-700">
+                Washington is home to Amazon, Microsoft, and major tech companies with extensive warehouse and data center operations. 
+                Our training covers e-commerce fulfillment, high-tech warehouse operations, and precision equipment handling.
+              </p>
+            </div>
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">✈️ Aerospace & Manufacturing</h3>
+              <p className="text-sm text-gray-700">
+                Boeing and aerospace suppliers throughout Washington require certified forklift operators for aircraft component handling. 
+                Our certification covers aerospace manufacturing environments and precision material handling requirements.
+              </p>
+            </div>
+            <div className="bg-orange-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🚢 Port & Maritime Operations</h3>
+              <p className="text-sm text-gray-700">
+                Seattle and Tacoma ports are major Pacific trade gateways handling container traffic and international freight. 
+                Our training covers port logistics, container operations, and maritime material handling throughout Washington.
+              </p>
+            </div>
+            <div className="bg-purple-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">🌲 Agriculture & Food Processing</h3>
+              <p className="text-sm text-gray-700">
+                Washington's agriculture includes apples, cherries, wine production, and seafood processing. 
+                Our certification covers agricultural forklift operations and food industry safety requirements throughout Washington.
+              </p>
+            </div>
+          </div>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-6">
+            <h3 className="text-lg font-semibold mb-3">Washington Major Cities We Serve:</h3>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <ul className="space-y-1">
+                <li>• Seattle forklift certification</li>
+                <li>• Spokane forklift training</li>
+                <li>• Tacoma forklift operators</li>
+                <li>• Vancouver forklift certification</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Bellevue warehouse training</li>
+                <li>• Kent distribution centers</li>
+                <li>• Everett aerospace facilities</li>
+                <li>• Renton manufacturing sites</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Yakima agricultural operations</li>
+                <li>• Federal Way logistics hubs</li>
+                <li>• Spokane Valley warehouses</li>
+                <li>• Bellingham port operations</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ADDITIONAL FAQ FOR WASHINGTON */}
+      {info.code === 'wa' && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold">Washington-Specific Forklift Training Questions</h2>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is this certification accepted at Washington tech companies and Amazon facilities?
+            </summary>
+            <p className="mt-2">
+              Absolutely! Our OSHA-compliant certification is accepted by major Washington employers including 
+              Amazon fulfillment centers, Microsoft facilities, and tech companies throughout the Seattle area. 
+              The training meets e-commerce and high-tech warehouse safety standards.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Do Washington aerospace facilities and Boeing plants require forklift certification?
+            </summary>
+            <p className="mt-2">
+              Yes! Washington's aerospace industry, including Boeing manufacturing facilities and suppliers 
+              throughout Everett, Renton, and surrounding areas, require OSHA-compliant forklift certification. 
+              Our training covers aerospace material handling and precision equipment operations.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is additional training needed for Washington's port operations and maritime logistics?
+            </summary>
+            <p className="mt-2">
+              Our comprehensive OSHA training covers forklift operations in port and maritime environments, 
+              which is essential for Seattle and Tacoma port operations. The certification is valid for 
+              container handling, intermodal freight, and maritime logistics throughout Washington.
+            </p>
+          </details>
+        </section>
+      )}
+
       {/* SCHEMA: BreadcrumbList + Course + FAQPage + AggregateRating */}
       <script
         type="application/ld+json"
@@ -1560,6 +2246,76 @@ export default function StateForkliftPage({ params }: Props) {
                       acceptedAnswer: {
                         "@type": "Answer",
                         text: "Our comprehensive OSHA training covers forklift operations in food processing and agricultural environments, which is important for New York's significant agriculture and food industry. The certification is valid for dairy operations, food processing plants, and agricultural facilities throughout New York State.",
+                      },
+                    },
+                  ] : []),
+                  ...(info.code === 'tx' ? [
+                    {
+                      "@type": "Question",
+                      name: "Is this certification accepted at Houston energy facilities and petrochemical plants?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Texas, including energy companies in Houston's petrochemical corridor, oil refineries, and natural gas facilities.",
+                      },
+                    },
+                  ] : []),
+                  ...(info.code === 'fl' ? [
+                    {
+                      "@type": "Question",
+                      name: "Is this certification accepted at Florida ports and cruise line operations?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Florida, including port operations in Miami, Tampa, Jacksonville, and cruise line logistics companies.",
+                      },
+                    },
+                  ] : []),
+                  ...(info.code === 'az' ? [
+                    {
+                      "@type": "Question",
+                      name: "Is this certification accepted at Phoenix distribution centers and logistics facilities?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Arizona, including Amazon, Walmart, and regional distributors in the Phoenix metro area.",
+                      },
+                    },
+                  ] : []),
+                  ...(info.code === 'tn' ? [
+                    {
+                      "@type": "Question",
+                      name: "Is this certification accepted at Tennessee automotive plants and manufacturing facilities?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Absolutely! Our OSHA-compliant certification is accepted by major Tennessee automotive manufacturers including Nissan, Volkswagen, GM, and their suppliers.",
+                      },
+                    },
+                  ] : []),
+                  ...(info.code === 'nj' ? [
+                    {
+                      "@type": "Question",
+                      name: "Is this certification accepted at New Jersey pharmaceutical and biotech facilities?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Absolutely! Our OSHA-compliant certification is accepted by major pharmaceutical and life sciences employers throughout New Jersey, including clean room operations and biotech manufacturing facilities.",
+                      },
+                    },
+                  ] : []),
+                  ...(info.code === 'in' ? [
+                    {
+                      "@type": "Question",
+                      name: "Is this certification accepted at Indiana automotive and RV manufacturing plants?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Absolutely! Our OSHA-compliant certification is accepted by major Indiana automotive manufacturers including Toyota, Honda, Subaru, and major RV manufacturers in Elkhart.",
+                      },
+                    },
+                  ] : []),
+                  ...(info.code === 'wa' ? [
+                    {
+                      "@type": "Question",
+                      name: "Is this certification accepted at Washington tech companies and Amazon facilities?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Absolutely! Our OSHA-compliant certification is accepted by major Washington employers including Amazon fulfillment centers, Microsoft facilities, and tech companies throughout the Seattle area.",
                       },
                     },
                   ] : []),
