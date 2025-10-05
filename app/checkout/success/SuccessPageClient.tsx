@@ -1,24 +1,37 @@
-import { Suspense } from 'react'
-import { Metadata } from 'next'
-import SuccessPageClient from './SuccessPageClient'
+'use client';
+import { useEffect } from 'react'
+import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
+import { trackPurchase } from '@/lib/analytics/gtag'
 
-export const metadata: Metadata = {
-  title: 'Payment Successful | Flat Earth Equipment',
-  description: 'Your payment has been processed successfully.',
-}
+export default function SuccessPageClient() {
+  const searchParams = useSearchParams();
+  const sessionId = searchParams?.get('session_id');
 
-export default function CheckoutSuccessPage() {
+  useEffect(() => {
+    // Track conversion when page loads
+    if (sessionId) {
+      trackPurchase({
+        transactionId: sessionId,
+        value: 59, // Default to single operator price
+        currency: 'USD',
+        items: [{
+          item_id: 'forklift_cert_single',
+          item_name: 'Forklift Operator Certification',
+          price: 59,
+          quantity: 1,
+        }],
+      });
+
+      // Also track as a custom event for Vercel Analytics
+      if (typeof window !== 'undefined' && (window as any).va) {
+        (window as any).va('track', 'Purchase', { value: 59, currency: 'USD' });
+      }
+    }
+  }, [sessionId]);
+
   return (
-    <Suspense fallback={
-      <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-        <p className="mt-2 text-gray-600">Loading...</p>
-      </div>
-    }>
-      <SuccessPageClient />
-    </Suspense>
-  )
-}
+    <main className="max-w-2xl mx-auto px-4 py-16 text-center">
       <div className="bg-green-50 border border-green-200 rounded-lg p-8 mb-8">
         <div className="text-green-600 text-6xl mb-4">✓</div>
         <h1 className="text-3xl font-bold text-green-800 mb-4">Payment Successful!</h1>
@@ -87,3 +100,4 @@ export default function CheckoutSuccessPage() {
     </main>
   )
 }
+
