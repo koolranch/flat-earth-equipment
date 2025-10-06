@@ -1,0 +1,10 @@
+[
+  {"id":"m4-fc-01","front":"Esquina ciega — control","back":"Bocina, velocidad lenta, verificar espejos, parar si no está despejado.","tag":"peligro","image":"/training/flashcards/m3-blind-corner.svg"},
+  {"id":"m4-fc-02","front":"Pasillo peatonal — control","back":"Separación de pasillo, derecho de paso, contacto visual, guía si es necesario.","tag":"peligro","image":"/training/flashcards/m3-pedestrian-priority.svg"},
+  {"id":"m4-fc-03","front":"Derrame en el piso — control","back":"Parar, acordonar, limpiar según SOP; no viajar a través de derrames.","tag":"peligro","image":"/training/flashcards/m4-spill.svg"},
+  {"id":"m4-fc-04","front":"Obstrucción aérea — control","back":"Bajar mástil/horquillas; verificar espacio libre antes de moverse.","tag":"peligro","image":"/training/flashcards/m4-overhead-obstruction.svg"},
+  {"id":"m4-fc-05","front":"Carga inestable — control","back":"Reapilar/asegurar; no mover hasta que esté estable dentro de capacidad.","tag":"peligro","image":"/training/flashcards/m4-unstable-load.svg"},
+  {"id":"m4-fc-06","front":"Zona de velocidad — control","back":"Observar límites señalizados; despacio cerca de peatones e intersecciones.","tag":"peligro","image":"/training/flashcards/m4-speed-zone.svg"},
+  {"id":"m4-fc-07","front":"Rampa/borde de muelle — control","back":"Usar calzas/placas de muelle; mantener distancia de bordes; despacio/derecho.","tag":"peligro","image":"/training/flashcards/m4-dock-edge.svg"},
+  {"id":"m4-fc-08","front":"Congestión de pasillo — control","back":"Esperar o usar guía; mantener espacios libres; no apretar cargas.","tag":"peligro","image":"/training/flashcards/m4-aisle-congestion.svg"}
+]

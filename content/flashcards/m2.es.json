@@ -1,0 +1,10 @@
+[
+  {"id":"m2-fc-01","front":"Horquillas — criterios de rechazo","back":"Grietas, dobleces, desgaste (talón/grosor), pasadores de bloqueo asentados.","tag":"inspeccion","image":"/training/flashcards/m2-forks-damage.svg"},
+  {"id":"m2-fc-02","front":"Cadenas y mangueras — qué detectar","back":"Deshilachado, torceduras, fugas, tensión incorrecta; reemplazar si está dañado.","tag":"inspeccion","image":"/training/flashcards/m2-chains-hoses.svg"},
+  {"id":"m2-fc-03","front":"Llantas y ruedas — verificar","back":"Desgaste, cortes, escombros incrustados, baja presión (neumáticas), tuercas flojas.","tag":"inspeccion","image":"/training/flashcards/m2-tires.svg"},
+  {"id":"m2-fc-04","front":"Bocina y luces — regla","back":"Deben funcionar; pitido de reversa requerido donde se use.","tag":"inspeccion","image":"/training/flashcards/m1-lights.svg"},
+  {"id":"m2-fc-05","front":"Cinturón y placa — verificar","back":"Cinturón engancha/retrae; placa de datos legible.","tag":"inspeccion","image":"/training/flashcards/m1-data-plate.svg"},
+  {"id":"m2-fc-06","front":"Fugas — buscar aquí","back":"Bajo mástil, bomba, cilindros, líneas; tren de rodaje; alrededor del eje.","tag":"inspeccion","image":"/training/flashcards/m2-leaks.svg"},
+  {"id":"m2-fc-07","front":"Batería/LP segura — por qué importa","back":"Fuente de energía no asegurada puede moverse y causar pérdida de control.","tag":"inspeccion","image":"/training/flashcards/m2-battery-secure.svg"},
+  {"id":"m2-fc-08","front":"Dispositivos de seguridad — ejemplos","back":"Freno de estacionamiento, hombre muerto, alarmas. Inoperativo = fuera de servicio.","tag":"inspeccion","image":"/training/flashcards/m2-safety-devices.svg"}
+]

@@ -1,0 +1,10 @@
+[
+  {"id":"m1-fc-01","front":"Chaleco de alta visibilidad — ¿cuándo?","back":"Siempre durante operaciones en la instalación o patio; requerido cada vez que opere o trabaje alrededor de equipo móvil.","tag":"epp","image":"/training/flashcards/m1-hivis-vest.svg"},
+  {"id":"m1-fc-02","front":"Casco — ¿cuándo es requerido?","back":"Donde puedan existir peligros aéreos (estantes, cargas, muelles) o según política del sitio — por defecto usar a menos que se indique lo contrario.","tag":"epp","image":"/training/flashcards/m1-hard-hat.svg"},
+  {"id":"m1-fc-03","front":"Botas de seguridad — requisito clave","back":"Punta certificada ANSI; antideslizantes. Cordones atados; no zapatos abiertos en el piso.","tag":"epp","image":"/training/flashcards/m1-safety-boots.svg"},
+  {"id":"m1-fc-04","front":"Prueba de bocina — dónde usarla","back":"En intersecciones, esquinas ciegas, puertas, y antes de moverse cuando la visibilidad es limitada.","tag":"inspeccion","image":"/training/flashcards/m1-horn-test.svg"},
+  {"id":"m1-fc-05","front":"Prueba de luces — qué verificar","back":"Faros delanteros, luces traseras/marcadoras, y pitido de reversa; reemplazar/reparar antes de operar.","tag":"inspeccion","image":"/training/flashcards/m1-lights.svg"},
+  {"id":"m1-fc-06","front":"Placa de datos — qué debe ser legible","back":"Capacidad, centro de carga, aditamentos. Si no es legible, no operar hasta reemplazar.","tag":"inspeccion","image":"/training/flashcards/m1-data-plate.svg"},
+  {"id":"m1-fc-07","front":"Cinturón de seguridad — expectativa OSHA","back":"Usarlo siempre al operar; sin excepciones. El cinturón debe enganchar y retraerse correctamente.","tag":"epp","image":"/training/flashcards/m1-seatbelt.svg"},
+  {"id":"m1-fc-08","front":"Inspección diaria — frecuencia","back":"Al menos una vez por turno, antes del uso; etiquetar y retirar del servicio si no es seguro.","tag":"inspeccion","image":"/training/flashcards/m1-inspection-checklist.svg"}
+]
