@@ -41,8 +41,10 @@ export function FlashCard({
         }}
         className={[
           "relative w-full rounded-2xl border border-slate-200 bg-white p-6 text-left shadow-sm",
-          "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-400",
+          "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-canyon-rust",
           "min-h-[280px] md:min-h-[320px] select-none",
+          "hover:shadow-md hover:border-canyon-rust/30 transition-all duration-200",
+          "active:scale-[0.98] touch-manipulation",
           animated ? "transition-transform [transform-style:preserve-3d]" : ""
         ].join(" ")}
         style={
@@ -59,9 +61,12 @@ export function FlashCard({
           style={{ transform: "rotateY(0deg)" }}
         >
           {front}
-          <p className="pointer-events-none mt-4 text-xs text-slate-500">
-            Tap or press space to flip
-          </p>
+          <div className="pointer-events-none mt-4 flex items-center justify-center">
+            <div className="bg-canyon-rust/10 text-canyon-rust px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+              <span>👆</span>
+              <span>Tap to reveal answer</span>
+            </div>
+          </div>
         </div>
         <div
           className={[
@@ -91,8 +96,10 @@ export function FlashCard({
       }}
       className={[
         "relative w-full overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 text-left shadow-sm",
-        "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-400",
-        "min-h-[280px] md:min-h-[320px] select-none"
+        "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-canyon-rust",
+        "min-h-[280px] md:min-h-[320px] select-none",
+        "hover:shadow-md hover:border-canyon-rust/30 transition-all duration-200",
+        "active:scale-[0.98] touch-manipulation" // Better mobile feedback
       ].join(" ")}
     >
       <div
@@ -103,9 +110,12 @@ export function FlashCard({
         ].join(" ")}
       >
         {front}
-        <p className="pointer-events-none mt-4 text-xs text-slate-500">
-          Tap or press space to flip
-        </p>
+        <div className="pointer-events-none mt-4 flex items-center justify-center">
+          <div className="bg-canyon-rust/10 text-canyon-rust px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+            <span>👆</span>
+            <span>Tap to reveal answer</span>
+          </div>
+        </div>
       </div>
       <div
         className={[
