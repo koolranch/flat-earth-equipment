@@ -193,69 +193,72 @@ export default function TabbedModuleLayout({
           </div>
         </div>
 
-        {/* Enhanced Tabs with Better Styling */}
+        {/* Enhanced Tabs with Better Mobile Styling */}
         <div className="bg-white rounded-xl border border-slate-200 p-2 shadow-sm">
-          <div className='flex gap-1'>
+          <div className='flex flex-col sm:flex-row gap-1'>
             <button 
-              className={`flex-1 px-4 py-3 rounded-lg font-medium text-sm transition-all ${
+              className={`flex-1 px-4 py-4 sm:py-3 rounded-lg font-medium text-sm sm:text-sm transition-all touch-manipulation ${
                 tab==='osha'
                   ? 'bg-canyon-rust text-white shadow-md' 
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 active:bg-slate-100'
               }`} 
               onClick={() => setTab('osha')}
               data-testid="tab-osha"
             >
-              <div className="flex items-center justify-center gap-2">
+              <div className="flex items-center justify-center gap-2 min-h-[20px]">
                 <span>📋</span>
                 <span>OSHA Basics</span>
                 <StatusDot state={done.osha ? 'done' : 'todo'} />
               </div>
             </button>
             <button 
-              className={`flex-1 px-4 py-3 rounded-lg font-medium text-sm transition-all ${
+              className={`flex-1 px-4 py-4 sm:py-3 rounded-lg font-medium text-sm transition-all touch-manipulation ${
                 tab==='practice'
                   ? 'bg-canyon-rust text-white shadow-md' 
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 active:bg-slate-100'
               }`} 
               onClick={() => setTab('practice')}
               data-testid="tab-practice"
             >
-              <div className="flex items-center justify-center gap-2">
+              <div className="flex items-center justify-center gap-2 min-h-[20px]">
                 <span>🎯</span>
                 <span>Practice</span>
                 <StatusDot state={done.practice ? 'done' : 'todo'} />
               </div>
             </button>
             <button 
-              className={`flex-1 px-4 py-3 rounded-lg font-medium text-sm transition-all ${
+              className={`flex-1 px-4 py-4 sm:py-3 rounded-lg font-medium text-sm transition-all touch-manipulation ${
                 tab==='flash'
                   ? 'bg-canyon-rust text-white shadow-md' 
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 active:bg-slate-100'
               }`} 
               onClick={() => { setTab('flash'); if (onFlashSeen) onFlashSeen(); }}
               data-testid="tab-flash"
             >
-              <div className="flex items-center justify-center gap-2">
+              <div className="flex items-center justify-center gap-2 min-h-[20px]">
                 <span>🗂️</span>
-                <span>Flash Cards{flashCardCount ? ` (${flashCardCount})` : ''}</span>
+                <span className="hidden xs:inline">Flash Cards</span>
+                <span className="xs:hidden">Cards</span>
+                {flashCardCount && <span className="text-xs opacity-75">({flashCardCount})</span>}
                 <StatusDot state={done.cards ? 'done' : 'todo'} />
               </div>
             </button>
             <button
-              className={`flex-1 px-4 py-3 rounded-lg font-medium text-sm transition-all ${
+              className={`flex-1 px-4 py-4 sm:py-3 rounded-lg font-medium text-sm transition-all touch-manipulation ${
                 tab==='quiz'
                   ? 'bg-canyon-rust text-white shadow-md' 
                   : prereqsMet 
-                    ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-50' 
+                    ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 active:bg-slate-100' 
                     : 'text-slate-400 cursor-not-allowed'
               }`}
               onClick={() => prereqsMet && setTab('quiz')}
               aria-disabled={!prereqsMet}
               data-testid="tab-quiz"
             >
-              <div className="flex items-center justify-center gap-2">
+              <div className="flex items-center justify-center gap-2 min-h-[20px]">
                 <span>{prereqsMet ? '✅' : '🔒'}</span>
-                <span>Quiz ({quizMeta.questions})</span>
+                <span>Quiz</span>
+                <span className="text-xs opacity-75">({quizMeta.questions})</span>
                 <StatusDot state={quizPassed ? 'done' : (prereqsMet ? 'todo' : 'locked')} />
               </div>
             </button>
