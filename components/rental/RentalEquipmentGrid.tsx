@@ -4,11 +4,11 @@ import { useState, useMemo } from 'react';
 import Link from 'next/link';
 
 type RentalEquipment = {
-  slug: string;
+  seo_slug: string;
   category: string;
   brand: string;
   model: string;
-  name: string;
+  name?: string;
   lift_height_ft?: number;
   weight_capacity_lbs?: number;
   power_source?: string;
@@ -174,8 +174,8 @@ export default function RentalEquipmentGrid({ rentals, categorySlug }: Props) {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredRentals.map((rental) => (
             <Link
-              key={rental.slug}
-              href={`/rentals/${categorySlug}/${rental.slug}`}
+              key={rental.seo_slug}
+              href={`/rentals/${categorySlug}/${rental.seo_slug}`}
               className="group block rounded-xl border-2 border-slate-200 bg-white hover:border-canyon-rust hover:shadow-lg transition-all duration-200 overflow-hidden"
             >
               {/* Image Section */}
