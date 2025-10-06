@@ -1,3 +1,4 @@
+// English OSHA content (existing)
 export const OSHA_BASICS: Record<string, { title: string; bullets: string[]; note?: string }> = {
   m1: {
     title: "OSHA 1910.178 — Pre-Operation Requirements",
@@ -73,3 +74,90 @@ export const OSHA_BASICS: Record<string, { title: string; bullets: string[]; not
     note: "Reference: OSHA 29 CFR 1910.178(g), (l); manufacturer manuals; SDS."
   }
 };
+
+// Spanish OSHA content (new - safe addition)
+export const OSHA_BASICS_ES: Record<string, { title: string; bullets: string[]; note?: string }> = {
+  m1: {
+    title: "OSHA 1910.178 — Requisitos de Pre-Operación",
+    bullets: [
+      "Inspeccionar el montacargas antes de cada turno y retirar del servicio si cualquier condición afecta adversamente la seguridad (29 CFR 1910.178(q)). Solo personal autorizado realiza reparaciones.",
+      "EPP y cinturón de seguridad: Usar EPP requerido (chaleco de alta visibilidad, casco, protección ocular/auditiva, botas de seguridad) y usar el cinturón de seguridad.",
+      "Placa de datos: Presente, legible, y refleja todos los aditamentos; conocer capacidad y centro de carga.",
+      "Controles y alertas: Probar bocina, luces/baliza, pitido de reversa, y alarmas; sonar bocina en esquinas ciegas e intersecciones.",
+      "Horquillas, cadenas, mangueras: Horquillas emparejadas, pasadores en lugar, sin grietas/dobleces; cadenas lubricadas sin torceduras/eslabones rotos; mangueras/cilindros libres de fugas.",
+      "Frenos y dirección: Freno de servicio, freno de estacionamiento, y dirección responden correctamente.",
+      "Llantas y ruedas: Banda de rodadura/inflado adecuado, sin cortes/pedazos; tuercas apretadas; rines sin daño.",
+      "Limpieza: Mantener pasillos despejados; limpiar o acordonar derrames prontamente.",
+      "Etiquetar montacargas inseguros: Reportar defectos; no operar hasta reparar y verificar seguridad."
+    ],
+    note: "Referencia: OSHA 29 CFR 1910.178."
+  },
+  m2: {
+    title: "Básicos OSHA — Inspección de 8 Puntos",
+    bullets: [
+      "Ejecutar la inspección completa cada turno y registrar defectos. Retirar montacargas del servicio si cualquier condición afecta adversamente la seguridad (29 CFR 1910.178(q)(7)). Las reparaciones deben ser por personal autorizado.",
+      "Horquillas: Sin grietas o dobleces; par emparejado; pasadores de bloqueo en lugar; desgaste del talón dentro del límite.",
+      "Cadenas y mangueras: Sin torceduras, eslabones rotos, deshilachado, o fugas; tensión/lubricación adecuada; guardas en lugar.",
+      "Llantas y ruedas: Banda de rodadura/inflado adecuado (neumáticas), sin cortes/pedazos; tuercas apretadas; rines sin daño.",
+      "Bocina y luces: La bocina funciona (usar en esquinas ciegas); faros/luces traseras/baliza, pitido de reversa funcional.",
+      "Cinturón de seguridad y placa de datos: Cinturón presente/funcionando; placa de datos presente, legible, y coincide con aditamentos/capacidad.",
+      "Fugas/tren de rodaje: Sin fugas hidráulicas, combustible, o refrigerante; mástil/tren de rodaje despejado; limpiar derrames según procedimiento.",
+      "Batería/sistema LP: Cables/conectores intactos y seguros; cargador lleva OK; cilindro LP asegurado, sin fugas/olor.",
+      "Dispositivos de seguridad: Freno de estacionamiento, hombre muerto, frenos, y dirección responden correctamente; alarmas presentes y funcionando."
+    ],
+    note: "Referencia: OSHA 29 CFR 1910.178(q), (a); ANSI/ITSDF B56.1."
+  },
+  m3: {
+    title: "Básicos OSHA — Equilibrio y Manejo de Carga",
+    bullets: [
+      "Triángulo de estabilidad: dos ruedas delanteras + pivote del eje trasero.",
+      "Mantener carga baja e inclinada hacia atrás; viajar con horquillas ~4–6 pulg.",
+      "Conocer centro de carga y capacidad nominal de la placa de datos.",
+      "Girar despacio con carga elevada u descentrada; sin giros bruscos.",
+      "Nivelar horquillas antes de entrada/salida; usar bocina en intersecciones."
+    ],
+    note: "Referencia: OSHA 29 CFR 1910.178(n), (o); manuales del fabricante."
+  },
+  m4: {
+    title: "Básicos OSHA — Conciencia de Peligros",
+    bullets: [
+      "Esquinas ciegas: despacio, sonar bocina, avanzar lentamente en intersecciones.",
+      "Zonas peatonales: contacto visual, derecho de paso, guías.",
+      "Obstrucciones aéreas: espacio libre del mástil, marcos de puertas, rociadores.",
+      "Rampas y muelles: aproximarse derecho; calzar ruedas.",
+      "Limpieza: derrames y escombros son peligros de control."
+    ],
+    note: "Referencia: OSHA 29 CFR 1910.178(n); políticas del sitio."
+  },
+  m5: {
+    title: "Básicos OSHA — Operaciones Avanzadas",
+    bullets: [
+      "Área de carga: lavaojos, ventilación, protección contra incendios, neutralizador de derrames disponible.",
+      "Conectar cargador: estacionar, freno, energía APAGADA, enchufar según SOP; verificar cables/conectores.",
+      "Cambio de cilindro LP: cerrar válvula, motor APAGADO, enfriar, desconectar cuidadosamente, verificar fugas después de instalar.",
+      "Estacionamiento: horquillas abajo, neutral, freno puesto, energía APAGADA; calzar si es requerido.",
+      "Reconectar; abrir válvula despacio; verificar fugas; si olor/fuga—apagar y reportar.",
+      "Cuidado y registros: Solo personal autorizado repara/ajusta montacargas; montacargas defectuosos se retiran del servicio.",
+      "Los registros de certificación del operador incluyen nombre, fecha de entrenamiento, fecha de evaluación, y entrenador/evaluador. Proporcionar entrenamiento de repaso después de incidentes/operación insegura/cambios en el lugar de trabajo, y evaluar cada operador al menos cada 3 años."
+    ],
+    note: "Referencia: OSHA 29 CFR 1910.178(g), (l); manuales del fabricante; SDS."
+  }
+};
+
+// Safe helper function to get OSHA content with locale support
+export function getOSHABasics(moduleKey: string, locale?: 'en' | 'es') {
+  // Safe locale detection
+  const targetLocale = locale || (() => {
+    if (typeof window === 'undefined') return 'en';
+    try {
+      const cookie = document.cookie.match(/(?:^|; )locale=([^;]+)/);
+      return cookie?.[1] === 'es' ? 'es' : 'en';
+    } catch {
+      return 'en';
+    }
+  })();
+  
+  // Return Spanish content if available, otherwise fallback to English
+  const content = targetLocale === 'es' ? OSHA_BASICS_ES[moduleKey] : OSHA_BASICS[moduleKey];
+  return content || OSHA_BASICS[moduleKey]; // Double fallback for safety
+}
