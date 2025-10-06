@@ -9,9 +9,9 @@ const TrainingRibbon = () => (
   <Link
     href="/safety"
     className="fixed bottom-4 left-1/2 -translate-x-1/2 z-20
-               rounded-full bg-primary-600 px-6 py-3 text-white font-semibold
-               shadow-lg hover:bg-primary-700 transition-colors">
-    Need OSHA Forklift Certification?  Finish Online in 90 min →
+               rounded-full bg-slate-900 text-white px-6 py-3 font-semibold
+               shadow-lg hover:bg-slate-800 transition-colors border-2 border-white">
+    Need OSHA Forklift Certification? Finish Online in 90 min →
   </Link>
 );
 
