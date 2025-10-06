@@ -89,42 +89,178 @@ export default function TabbedModuleLayout({
     if (quizPassed) markModuleComplete();
   }, [quizPassed]);
 
-  return (
-    <div className='max-w-5xl mx-auto'>
-      <h2 className='h2'>{title}</h2>
-      <p className='text-sm text-slate-600 mb-4'>Work through OSHA basics, practice, and flash cards — then pass the quiz to continue.</p>
+  // Extract module number from title for better display
+  const moduleMatch = title.match(/Module (\d+)/);
+  const moduleNumber = moduleMatch ? moduleMatch[1] : '?';
+  const moduleTitle = title.replace(/Module \d+:\s*/, '');
+  
+  // Get learning objectives based on module
+  const getLearningObjectives = (moduleNum: string) => {
+    switch(moduleNum) {
+      case '2':
+        return [
+          'Complete systematic 8-point safety inspection',
+          'Identify critical safety defects and hazards',
+          'Understand OSHA inspection requirements'
+        ];
+      case '3':
+        return [
+          'Master load stability and weight distribution',
+          'Calculate safe load capacities and limits',
+          'Understand center of gravity principles'
+        ];
+      case '4':
+        return [
+          'Identify workplace hazards and risks',
+          'Practice hazard recognition techniques',
+          'Apply safety protocols in various scenarios'
+        ];
+      case '5':
+        return [
+          'Execute proper shutdown procedures',
+          'Secure equipment safely after operation',
+          'Complete end-of-shift safety protocols'
+        ];
+      default:
+        return [
+          'Master essential safety requirements',
+          'Complete hands-on practice exercises',
+          'Demonstrate OSHA compliance knowledge'
+        ];
+    }
+  };
 
-      <div className='flex gap-2 mb-4'>
-        <button 
-          className={`px-3 py-1.5 rounded-xl border transition-colors ${tab==='osha'?'bg-gray-100 border-gray-300 text-ink':'bg-white border-gray-200 text-gray-700 hover:bg-gray-100'}`} 
-          onClick={() => setTab('osha')}
-          data-testid="tab-osha"
-        >
-          OSHA Basics <StatusDot state={done.osha ? 'done' : 'todo'} />
-        </button>
-        <button 
-          className={`px-3 py-1.5 rounded-xl border transition-colors ${tab==='practice'?'bg-gray-100 border-gray-300 text-ink':'bg-white border-gray-200 text-gray-700 hover:bg-gray-100'}`} 
-          onClick={() => setTab('practice')}
-          data-testid="tab-practice"
-        >
-          Practice <StatusDot state={done.practice ? 'done' : 'todo'} />
-        </button>
-        <button 
-          className={`px-3 py-1.5 rounded-xl border transition-colors ${tab==='flash'?'bg-gray-100 border-gray-300 text-ink':'bg-white border-gray-200 text-gray-700 hover:bg-gray-100'}`} 
-          onClick={() => { setTab('flash'); if (onFlashSeen) onFlashSeen(); }}
-          data-testid="tab-flash"
-        >
-          Flash Cards{flashCardCount ? ` (${flashCardCount})` : ''} <StatusDot state={done.cards ? 'done' : 'todo'} />
-        </button>
-        <button
-          className={`px-3 py-1.5 rounded-xl border transition-colors ${tab==='quiz'?'bg-gray-100 border-gray-300 text-ink':'bg-white border-gray-200 text-gray-700 hover:bg-gray-100'} ${!prereqsMet && 'opacity-50 cursor-not-allowed'}`}
-          onClick={() => prereqsMet && setTab('quiz')}
-          aria-disabled={!prereqsMet}
-          data-testid="tab-quiz"
-        >
-          Quiz ({quizMeta.questions}) <StatusDot state={quizPassed ? 'done' : (prereqsMet ? 'todo' : 'locked')} />
-        </button>
-      </div>
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      <div className='max-w-5xl mx-auto px-4 py-8 space-y-8'>
+        {/* Enhanced Header with Progress */}
+        <header className="text-center space-y-4">
+          <div className="inline-flex items-center gap-2 bg-canyon-rust/10 text-canyon-rust px-4 py-2 rounded-full text-sm font-semibold mb-4">
+            <span>📚</span> Module {moduleNumber} of 5
+          </div>
+          <h1 className="text-4xl font-bold text-slate-900">{moduleTitle}</h1>
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+            Work through OSHA basics, practice, and flash cards — then pass the quiz to continue.
+          </p>
+          
+          {/* Learning Objectives Preview */}
+          <div className="bg-white rounded-xl border border-slate-200 p-6 mt-6 text-left max-w-2xl mx-auto">
+            <h3 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
+              <span className="text-canyon-rust">🎯</span> What You'll Learn
+            </h3>
+            <ul className="space-y-2 text-sm text-slate-700">
+              {getLearningObjectives(moduleNumber).map((objective, index) => (
+                <li key={index} className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-canyon-rust rounded-full"></span>
+                  {objective}
+                </li>
+              ))}
+            </ul>
+          </div>
+          
+          {/* Progress Indicator */}
+          <div className="flex items-center justify-center gap-4 mt-6">
+            <div className="flex items-center gap-2 text-sm text-slate-600">
+              <span className="text-canyon-rust font-semibold">⏱️ Estimated Time:</span>
+              <span>15-20 minutes</span>
+            </div>
+            <div className="w-px h-4 bg-slate-300"></div>
+            <div className="flex items-center gap-2 text-sm text-slate-600">
+              <span className="text-canyon-rust font-semibold">📋 Format:</span>
+              <span>Interactive + Practice</span>
+            </div>
+          </div>
+        </header>
+
+        {/* Navigation Instructions */}
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
+          <div className="flex items-start gap-3">
+            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center">
+              ℹ️
+            </div>
+            <div>
+              <h3 className="font-semibold text-blue-900 mb-2">How to Navigate This Module</h3>
+              <p className="text-sm text-blue-800 mb-3">
+                Work through each tab in order. Complete OSHA Basics and Practice before accessing Flash Cards and Quiz.
+              </p>
+              <div className="flex flex-wrap gap-2 text-xs">
+                <span className="bg-white px-2 py-1 rounded text-blue-700">1️⃣ Start with OSHA Basics</span>
+                <span className="bg-white px-2 py-1 rounded text-blue-700">2️⃣ Complete Practice</span>
+                <span className="bg-white px-2 py-1 rounded text-blue-700">3️⃣ Review Flash Cards</span>
+                <span className="bg-white px-2 py-1 rounded text-blue-700">4️⃣ Pass Quiz (80%)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Enhanced Tabs with Better Styling */}
+        <div className="bg-white rounded-xl border border-slate-200 p-2 shadow-sm">
+          <div className='flex gap-1'>
+            <button 
+              className={`flex-1 px-4 py-3 rounded-lg font-medium text-sm transition-all ${
+                tab==='osha'
+                  ? 'bg-canyon-rust text-white shadow-md' 
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+              }`} 
+              onClick={() => setTab('osha')}
+              data-testid="tab-osha"
+            >
+              <div className="flex items-center justify-center gap-2">
+                <span>📋</span>
+                <span>OSHA Basics</span>
+                <StatusDot state={done.osha ? 'done' : 'todo'} />
+              </div>
+            </button>
+            <button 
+              className={`flex-1 px-4 py-3 rounded-lg font-medium text-sm transition-all ${
+                tab==='practice'
+                  ? 'bg-canyon-rust text-white shadow-md' 
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+              }`} 
+              onClick={() => setTab('practice')}
+              data-testid="tab-practice"
+            >
+              <div className="flex items-center justify-center gap-2">
+                <span>🎯</span>
+                <span>Practice</span>
+                <StatusDot state={done.practice ? 'done' : 'todo'} />
+              </div>
+            </button>
+            <button 
+              className={`flex-1 px-4 py-3 rounded-lg font-medium text-sm transition-all ${
+                tab==='flash'
+                  ? 'bg-canyon-rust text-white shadow-md' 
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+              }`} 
+              onClick={() => { setTab('flash'); if (onFlashSeen) onFlashSeen(); }}
+              data-testid="tab-flash"
+            >
+              <div className="flex items-center justify-center gap-2">
+                <span>🗂️</span>
+                <span>Flash Cards{flashCardCount ? ` (${flashCardCount})` : ''}</span>
+                <StatusDot state={done.cards ? 'done' : 'todo'} />
+              </div>
+            </button>
+            <button
+              className={`flex-1 px-4 py-3 rounded-lg font-medium text-sm transition-all ${
+                tab==='quiz'
+                  ? 'bg-canyon-rust text-white shadow-md' 
+                  : prereqsMet 
+                    ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-50' 
+                    : 'text-slate-400 cursor-not-allowed'
+              }`}
+              onClick={() => prereqsMet && setTab('quiz')}
+              aria-disabled={!prereqsMet}
+              data-testid="tab-quiz"
+            >
+              <div className="flex items-center justify-center gap-2">
+                <span>{prereqsMet ? '✅' : '🔒'}</span>
+                <span>Quiz ({quizMeta.questions})</span>
+                <StatusDot state={quizPassed ? 'done' : (prereqsMet ? 'todo' : 'locked')} />
+              </div>
+            </button>
+          </div>
+        </div>
 
       {tab==='osha' && (
         <section className='rounded-2xl border bg-white p-4 mb-4 shadow-card'>
@@ -223,6 +359,7 @@ export default function TabbedModuleLayout({
           }}
         />
       )}
+      </div>
     </div>
   );
 }
