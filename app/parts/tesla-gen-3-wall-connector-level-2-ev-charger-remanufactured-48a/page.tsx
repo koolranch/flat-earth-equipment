@@ -190,9 +190,9 @@ export default async function TeslaGen3WallConnectorPage() {
                 <div className="text-3xl font-bold text-canyon-rust">
                   ${product.price.toFixed(0)}
                 </div>
-                {product.has_core_charge && (
+                {(product.has_core_charge || (product.core_charge && product.core_charge > 0)) && (
                   <div className="text-sm text-gray-600">
-                    + ${product.core_charge.toFixed(0)} refundable core deposit
+                    + ${(product.core_charge || 0).toFixed(0)} refundable core deposit
                   </div>
                 )}
                 <div className="text-sm text-green-600 font-medium">

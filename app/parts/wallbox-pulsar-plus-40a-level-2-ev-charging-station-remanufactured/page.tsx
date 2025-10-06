@@ -155,7 +155,9 @@ export default async function WallboxPulsar40APage() {
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <div className="text-3xl font-bold text-canyon-rust">${product.price}</div>
-                  <div className="text-sm text-gray-600">+ ${product.core_charge} refundable core deposit</div>
+                  {(product.has_core_charge || (product.core_charge && product.core_charge > 0)) && (
+                    <div className="text-sm text-gray-600">+ ${(product.core_charge || 0)} refundable core deposit</div>
+                  )}
                 </div>
                 <div className="text-right">
                   <div className="text-sm font-medium text-gray-700">Smart EV Charging</div>
@@ -352,7 +354,7 @@ export default async function WallboxPulsar40APage() {
         <section className="bg-gray-50 rounded-2xl p-8 space-y-6">
           <h2 className="text-2xl font-bold text-center">Simple Core Return Process</h2>
           <p className="text-center text-gray-600 max-w-2xl mx-auto">
-            Your Wallbox Pulsar Plus includes a ${product.core_charge} refundable core deposit. Here's our hassle-free return process:
+            Your Wallbox Pulsar Plus includes a ${(product.core_charge || 0)} refundable core deposit. Here's our hassle-free return process:
           </p>
           
           <div className="grid md:grid-cols-3 gap-6">
