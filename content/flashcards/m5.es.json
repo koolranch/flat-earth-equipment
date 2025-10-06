@@ -1,0 +1,10 @@
+[
+  {"id":"m5-fc-01","front":"Área de carga — requisitos","back":"Lavaojos, ventilación, protección contra incendios, neutralizador de derrames; sin fuentes de ignición.","tag":"carga","image":"/training/flashcards/m5-charging-area.svg"},
+  {"id":"m5-fc-02","front":"Conectar cargador — secuencia","back":"Estacionar, freno, energía APAGADA, enchufar según SOP; verificar cables y conectores.","tag":"carga","image":"/training/flashcards/m5-charger-connect.svg"},
+  {"id":"m5-fc-03","front":"Cambio de cilindro LP — pasos clave","back":"Cerrar válvula, motor APAGADO, enfriar, desconectar cuidadosamente, verificar fugas después de instalar.","tag":"operaciones","image":"/training/flashcards/m5-lp-cylinder.svg"},
+  {"id":"m5-fc-04","front":"Estacionamiento — al dejar el montacargas","back":"Horquillas abajo, neutral, freno puesto, energía APAGADA; calzar si es requerido.","tag":"operaciones","image":"/training/flashcards/m5-parking.svg"},
+  {"id":"m5-fc-05","front":"Apagado — después del turno","back":"Inspeccionar, reportar defectos, conectar cargador/combustible según política, asegurar montacargas.","tag":"operaciones","image":"/training/flashcards/m5-shutdown.svg"},
+  {"id":"m5-fc-06","front":"Registros — certificación","back":"Mantener nombre del operador, fechas de entrenamiento y evaluación, identidad del evaluador; repasos según activadores.","tag":"operaciones","image":"/training/flashcards/m5-records-cert.svg"},
+  {"id":"m5-fc-07","front":"Cuándo se requiere entrenamiento de repaso","back":"Después de incidentes/casi accidentes, operación insegura, cambios de lugar de trabajo/equipo, o evaluación de 3 años muestra necesidad.","tag":"operaciones","image":"/training/flashcards/m5-refresher.svg"},
+  {"id":"m5-fc-08","front":"Reglas de no-carga","back":"No fumar o llamas abiertas; mantener tapas de ventilación en su lugar; manejar electrolitos con EPP.","tag":"carga","image":"/training/flashcards/m5-no-charging-hazards.svg"}
+]

@@ -1,0 +1,10 @@
+[
+  {"id":"m3-fc-01","front":"Triángulo de estabilidad — puntos","back":"Contactos de llantas delanteras + pivote del eje trasero.","tag":"operaciones","image":"/training/flashcards/m3-stability-triangle.svg"},
+  {"id":"m3-fc-02","front":"Centro de carga — definición","back":"Distancia desde la cara de las horquillas al centro de gravedad de la carga (a menudo 24 pulg / 600 mm a menos que se especifique).","tag":"operaciones","image":"/training/flashcards/m3-load-center.svg"},
+  {"id":"m3-fc-03","front":"Posición de viaje de horquillas","back":"Bajas (4–6 pulg / 10–15 cm) y ligeramente inclinadas hacia atrás.","tag":"operaciones","image":"/training/flashcards/m3-fork-travel-position.svg"},
+  {"id":"m3-fc-04","front":"Rampas — regla de viaje","back":"Subir rampa con carga cuesta arriba; bajar rampa con carga cuesta abajo; ir despacio y derecho.","tag":"operaciones","image":"/training/flashcards/m3-ramps.svg"},
+  {"id":"m3-fc-05","front":"Esquinas ciegas — qué hacer","back":"Despacio, tocar bocina, asegurar camino libre, mantener visibilidad.","tag":"operaciones","image":"/training/flashcards/m3-blind-corner.svg"},
+  {"id":"m3-fc-06","front":"No viaje elevado","back":"Nunca conduzca con carga elevada; bajar a altura de viaje primero.","tag":"operaciones","image":"/training/flashcards/m3-no-elevated-travel.svg"},
+  {"id":"m3-fc-07","front":"Peatones — prioridad","back":"Peatones siempre tienen derecho de paso; hacer contacto visual; parar si no está seguro.","tag":"operaciones","image":"/training/flashcards/m3-pedestrian-priority.svg"},
+  {"id":"m3-fc-08","front":"Básicos de apilamiento","back":"Nivelar horquillas, cuadrar a la carga, colocar suavemente, retroceder despacio.","tag":"operaciones","image":"/training/flashcards/m3-stacking.svg"}
+]
