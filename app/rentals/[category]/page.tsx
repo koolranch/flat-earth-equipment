@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
+import RentalEquipmentGrid from '@/components/rental/RentalEquipmentGrid'
 
 interface PageProps {
   params: {
@@ -137,95 +138,7 @@ export default async function RentalCategoryPage({ params }: PageProps) {
         {dbCategory}
       </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {rentals.map((rental) => (
-          <Link
-            key={rental.slug}
-            href={`/rentals/${params.category}/${rental.slug}`}
-            className="group block rounded-xl border-2 border-slate-200 bg-white hover:border-canyon-rust hover:shadow-lg transition-all duration-200 overflow-hidden"
-          >
-            {/* Image Section */}
-            <div className="relative bg-slate-50 h-48 flex items-center justify-center p-4">
-              {rental.image_url ? (
-                <img
-                  src={rental.image_url}
-                  alt={rental.name}
-                  className="h-full w-full object-contain"
-                  loading="lazy"
-                />
-              ) : (
-                <div className="text-6xl text-slate-300">
-                  {rental.category.toLowerCase().includes('boom') ? '🏗️' : 
-                   rental.category.toLowerCase().includes('scissor') ? '✂️' :
-                   rental.category.toLowerCase().includes('forklift') ? '🏭' :
-                   rental.category.toLowerCase().includes('telehandler') ? '🚜' :
-                   rental.category.toLowerCase().includes('skid') ? '🚧' : '🏗️'}
-                </div>
-              )}
-              {/* Brand Badge */}
-              <div className="absolute top-3 right-3 bg-white px-3 py-1 rounded-full text-xs font-semibold text-slate-700 shadow-sm">
-                {rental.brand}
-              </div>
-            </div>
-            
-            {/* Content Section */}
-            <div className="p-6 space-y-4">
-              <div>
-                <h2 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-canyon-rust transition-colors">
-                  {rental.model || rental.name}
-                </h2>
-                <p className="text-sm text-slate-500 uppercase tracking-wide font-medium">
-                  {rental.brand}
-                </p>
-              </div>
-              
-              {/* Specifications */}
-              <div className="space-y-2">
-                {rental.weight_capacity_lbs && (
-                  <div className="flex items-center gap-2 text-sm">
-                    <svg className="w-4 h-4 text-canyon-rust flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
-                    </svg>
-                    <span className="text-slate-700">
-                      <span className="font-semibold">Capacity:</span> {rental.weight_capacity_lbs.toLocaleString()} lbs
-                    </span>
-                  </div>
-                )}
-                {rental.lift_height_ft && (
-                  <div className="flex items-center gap-2 text-sm">
-                    <svg className="w-4 h-4 text-canyon-rust flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                    </svg>
-                    <span className="text-slate-700">
-                      <span className="font-semibold">Lift Height:</span> {rental.lift_height_ft} ft
-                    </span>
-                  </div>
-                )}
-                {rental.power_source && (
-                  <div className="flex items-center gap-2 text-sm">
-                    <svg className="w-4 h-4 text-canyon-rust flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                    <span className="text-slate-700">
-                      <span className="font-semibold">Power:</span> {rental.power_source.toUpperCase()}
-                    </span>
-                  </div>
-                )}
-              </div>
-              
-              {/* CTA */}
-              <div className="pt-4 border-t border-slate-100">
-                <span className="inline-flex items-center gap-2 text-sm font-semibold text-canyon-rust group-hover:gap-3 transition-all">
-                  View Details & Request Quote
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </span>
-              </div>
-            </div>
-          </Link>
-        ))}
-      </div>
+      <RentalEquipmentGrid rentals={rentals} categorySlug={params.category} />
     </main>
   )
 } 
