@@ -262,7 +262,7 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
                 const key = isAPIModule ? (module as any).slug : (module as any).key;
                 
                 return (
-                  <div key={key} className={`group flex items-center justify-between p-5 rounded-2xl transition-all duration-200 ${
+                  <div key={key} className={`group flex flex-col sm:flex-row sm:items-center justify-between p-6 sm:p-5 rounded-2xl transition-all duration-200 gap-4 sm:gap-0 ${
                     completed 
                       ? 'bg-gradient-to-r from-orange-50 via-amber-50 to-white border-2 border-orange-200 shadow-sm hover:shadow-lg' 
                       : 'bg-white border-2 border-slate-200 shadow-sm hover:shadow-lg hover:border-blue-400'
@@ -285,7 +285,7 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
                       </div>
                     </div>
                     <a 
-                      className={`tappable text-sm font-semibold px-6 py-3 rounded-xl transition-all ${
+                      className={`tappable text-sm font-semibold px-8 py-4 sm:px-6 sm:py-3 rounded-xl transition-all touch-manipulation active:scale-[0.98] min-h-[44px] flex items-center justify-center w-full sm:w-auto ${
                         completed 
                           ? 'bg-orange-100 text-orange-700 hover:bg-orange-200 border-2 border-orange-300 hover:shadow-md' 
                           : 'bg-[#F76511] text-white hover:bg-orange-600 shadow-md hover:shadow-xl'
@@ -334,14 +334,14 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
             {canTakeExam ? (
               <a 
                 href="/training/exam" 
-                className="inline-flex items-center gap-2 bg-[#F76511] text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors shadow-md hover:shadow-xl"
+                className="inline-flex items-center justify-center gap-2 bg-[#F76511] text-white px-8 py-4 sm:px-6 sm:py-3 rounded-xl font-semibold hover:bg-orange-600 transition-all shadow-md hover:shadow-xl touch-manipulation active:scale-[0.98] min-h-[44px] w-full sm:w-auto"
               >
                 Take Final Exam →
               </a>
             ) : (
               <button 
                 disabled
-                className="inline-flex items-center gap-2 bg-slate-100 text-slate-400 px-6 py-3 rounded-xl font-semibold cursor-not-allowed"
+                className="inline-flex items-center justify-center gap-2 bg-slate-100 text-slate-400 px-8 py-4 sm:px-6 sm:py-3 rounded-xl font-semibold cursor-not-allowed min-h-[44px] w-full sm:w-auto"
                 aria-label="Final exam locked until all modules are completed"
               >
                 <span>🔒</span> Locked
@@ -356,7 +356,7 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
                 <h2 className="text-2xl font-bold text-slate-900 mb-2">Practical Evaluation</h2>
                 <p className="text-base text-slate-600">Hands-on competency assessment with your safety manager</p>
               </div>
-              <a href="/practical/start" className="inline-flex items-center gap-2 bg-[#F76511] text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors shadow-md hover:shadow-lg whitespace-nowrap">
+              <a href="/practical/start" className="inline-flex items-center justify-center gap-2 bg-[#F76511] text-white px-8 py-4 sm:px-6 sm:py-3 rounded-xl font-semibold hover:bg-orange-600 transition-all shadow-md hover:shadow-lg touch-manipulation active:scale-[0.98] min-h-[44px] w-full sm:w-auto whitespace-nowrap">
                 Start →
               </a>
             </div>
