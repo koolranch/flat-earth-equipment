@@ -14,7 +14,7 @@ export default function LocaleSwitch({
   
   // Get current language from cookie
   const getCurrentLang = () => {
-    return Cookies.get('lang') || 'en'
+    return Cookies.get('locale') || 'en'
   }
   
   const [lang, setLang] = useState<string>(getCurrentLang())
@@ -26,8 +26,8 @@ export default function LocaleSwitch({
 
   const toggle = () => {
     const next = lang === 'en' ? 'es' : 'en'
-    // persist choice for 1 year - use 'lang' cookie name to match middleware
-    Cookies.set('lang', next, { expires: 365, sameSite: 'Lax' })
+    // persist choice for 1 year - use 'locale' cookie name to match training system
+    Cookies.set('locale', next, { expires: 365, sameSite: 'Lax' })
     // GA4
     if (window?.gtag) {
       window.gtag('event', 'language_change', { from: lang, to: next })
