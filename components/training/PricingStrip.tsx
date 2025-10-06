@@ -32,7 +32,7 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
             </div>
             {disableBuy ? (
               <Link 
-                href="/training/pricing" 
+                href="/safety#pricing" 
                 className="mt-6 w-full text-center px-4 py-3 rounded-xl border-2 border-slate-300 text-slate-700 font-medium hover:bg-slate-50 transition-colors" 
                 data-testid={`safety-see-${p.key}`}
               >
@@ -61,7 +61,7 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
         Already have a code? <a href="/redeem" className="text-[#F76511] underline hover:text-orange-600">Redeem</a>
       </p>
       <p className="mt-2 text-sm text-center text-slate-600">
-        Want details? <a href="/training/pricing" className="text-[#F76511] underline hover:text-orange-600">See full pricing</a>
+        Want details? <a href="/safety#pricing" className="text-[#F76511] underline hover:text-orange-600">See full pricing</a>
       </p>
     </section>
   );

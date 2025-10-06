@@ -194,7 +194,7 @@ export default function Page() {
               Start Training →
             </Link>
             <Link
-              href="/training/pricing"
+              href="/safety#pricing"
               className="inline-flex items-center gap-2 bg-white/10 backdrop-blur text-white border-2 border-white/30 px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/20 transition-all"
             >
               See Pricing

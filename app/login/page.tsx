@@ -38,7 +38,7 @@ export default async function LoginPage({ searchParams }: { searchParams: { next
       </p>
       
       <p className="text-xs text-muted-foreground mt-2">
-        Need an account? <a className="underline" href="/training/pricing">Get training access</a>
+        Need an account? <a className="underline" href="/safety">Get training access</a>
       </p>
     </div>
   );
