@@ -15,9 +15,34 @@ export default async function BrandsPage() {
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-16">
-      <h1 className="text-3xl font-bold text-slate-900 mb-8 text-center">
-        Browse by Brand
-      </h1>
+      <div className="text-center mb-12">
+        <h1 className="text-4xl font-bold text-slate-900 mb-4">
+          Browse by Brand
+        </h1>
+        <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+          Explore parts, serial number lookup tools, and fault code databases for 45+ equipment brands. 
+          Click any brand to access comprehensive resources.
+        </p>
+      </div>
+
+      {/* Feature Highlights */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
+        <div className="text-center p-4 bg-slate-50 rounded-lg">
+          <div className="text-2xl mb-2">🔍</div>
+          <div className="font-semibold text-slate-900">Serial Lookup</div>
+          <div className="text-sm text-slate-600">Find year & plate locations</div>
+        </div>
+        <div className="text-center p-4 bg-slate-50 rounded-lg">
+          <div className="text-2xl mb-2">⚠️</div>
+          <div className="font-semibold text-slate-900">Fault Codes</div>
+          <div className="text-sm text-slate-600">Diagnostic guidance</div>
+        </div>
+        <div className="text-center p-4 bg-slate-50 rounded-lg">
+          <div className="text-2xl mb-2">📖</div>
+          <div className="font-semibold text-slate-900">Service Guides</div>
+          <div className="text-sm text-slate-600">Maintenance tips</div>
+        </div>
+      </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
         {brands.map((brand) => {
