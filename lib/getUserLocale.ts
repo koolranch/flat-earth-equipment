@@ -9,20 +9,21 @@ export function getUserLocale(req?: Request): Locale {
     if (cookieHeader) {
       const langCookie = cookieHeader
         .split(';')
-        .find(c => c.trim().startsWith('lang='))
+        .find(c => c.trim().startsWith('locale='))
         ?.split('=')[1]
       
       if (langCookie === 'es') return 'es'
     }
     
-    // Check Accept-Language header as fallback
+    // Check Accept-Language header as fallback (more conservative)
     const acceptLanguage = req.headers.get('accept-language')
-    if (acceptLanguage?.includes('es')) return 'es'
+    // Only auto-detect Spanish if it's the primary language preference
+    if (acceptLanguage?.toLowerCase().startsWith('es')) return 'es'
   } else {
     // For server components with cookies() - only in dynamic context
     try {
       const cookieStore = cookies()
-      const langCookie = cookieStore.get('lang')?.value
+      const langCookie = cookieStore.get('locale')?.value
       if (langCookie === 'es') return 'es'
     } catch (error) {
       // cookies() not available during static generation - use default
@@ -39,14 +40,15 @@ export function getLocaleFromHeaders(headers: Headers): Locale {
   if (cookieHeader) {
     const langCookie = cookieHeader
       .split(';')
-      .find(c => c.trim().startsWith('lang='))
+      .find(c => c.trim().startsWith('locale='))
       ?.split('=')[1]
     
     if (langCookie === 'es') return 'es'
   }
   
   const acceptLanguage = headers.get('accept-language')
-  if (acceptLanguage?.includes('es')) return 'es'
+  // Only auto-detect Spanish if it's the primary language preference
+  if (acceptLanguage?.toLowerCase().startsWith('es')) return 'es'
   
   return 'en'
 }
@@ -58,7 +60,7 @@ export function getClientLocale(): Locale {
   // Check cookie first
   const langCookie = document.cookie
     .split(';')
-    .find(c => c.trim().startsWith('lang='))
+    .find(c => c.trim().startsWith('locale='))
     ?.split('=')[1]
   
   if (langCookie === 'es') return 'es'
