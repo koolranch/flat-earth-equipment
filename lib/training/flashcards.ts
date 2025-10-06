@@ -1,7 +1,5 @@
 // lib/training/flashcards.ts
 import type { FlashCard } from '@/components/training/FlashCardDeck';
-import fs from 'fs';
-import path from 'path';
 
 // Safe function to get locale from browser cookies (client-side only)
 function getClientLocale(): 'en' | 'es' {
@@ -19,27 +17,28 @@ export function getModuleFlashcards(slug: string, locale?: 'en' | 'es'): FlashCa
   // Determine locale safely
   const targetLocale = locale || getClientLocale();
   
-  // Map module slug to module number for JSON files
-  const moduleMap: Record<string, string> = {
-    'module-1': 'm1',
-    'module-2': 'm2', 
-    'module-3': 'm3',
-    'module-4': 'm4',
-    'module-5': 'm5'
-  };
-  
-  const moduleNum = moduleMap[slug];
-  
-  // Try to load Spanish JSON files first (if Spanish locale and files exist)
-  if (targetLocale === 'es' && moduleNum) {
+  // Try to load Spanish content via dynamic import (safe for client-side)
+  if (targetLocale === 'es') {
     try {
-      const jsonPath = path.join(process.cwd(), 'content', 'flashcards', `${moduleNum}.es.json`);
-      if (fs.existsSync(jsonPath)) {
-        const content = fs.readFileSync(jsonPath, 'utf8');
-        return JSON.parse(content) as FlashCard[];
+      // Map module slug to module number
+      const moduleMap: Record<string, string> = {
+        'module-1': 'm1',
+        'module-2': 'm2', 
+        'module-3': 'm3',
+        'module-4': 'm4',
+        'module-5': 'm5'
+      };
+      
+      const moduleNum = moduleMap[slug];
+      if (moduleNum) {
+        // Try to dynamically require Spanish content
+        const spanishContent = require(`@/content/flashcards/${moduleNum}.es.json`);
+        if (spanishContent && Array.isArray(spanishContent)) {
+          return spanishContent as FlashCard[];
+        }
       }
     } catch (error) {
-      console.warn(`Failed to load Spanish flashcards for ${slug}, falling back to English:`, error);
+      console.warn(`Spanish flashcards not available for ${slug}, using English:`, error);
     }
   }
   
