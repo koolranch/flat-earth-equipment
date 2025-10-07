@@ -3,6 +3,7 @@ import React from 'react';
 interface Bullet {
   text: string;
   sub?: string[];
+  details?: React.ReactNode; // NEW: expandable "Learn More" content
 }
 
 export type OshaBasicsCardProps = {
@@ -65,6 +66,16 @@ export default function OshaBasicsCard({
                         </li>
                       ))}
                     </ul>
+                  )}
+                  {b.details && (
+                    <details className="mt-3">
+                      <summary className="cursor-pointer text-sm text-orange-600 font-medium hover:text-orange-700">
+                        📖 Learn More
+                      </summary>
+                      <div className="mt-3 text-sm text-slate-700 space-y-2 pl-4 border-l-2 border-orange-200">
+                        {b.details}
+                      </div>
+                    </details>
                   )}
                 </div>
               </div>
