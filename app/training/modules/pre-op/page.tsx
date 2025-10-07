@@ -434,15 +434,27 @@ export default function PreOpModule() {
             </section>
 
             {allDone && (
-              <div className="bg-gradient-to-r from-emerald-50 to-green-50 border-2 border-emerald-300 rounded-xl p-5">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center text-2xl">
-                    ✓
+              <div className="space-y-4">
+                <div className="bg-gradient-to-r from-emerald-50 to-green-50 border-2 border-emerald-300 rounded-xl p-5">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center text-2xl">
+                      ✓
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-emerald-900 text-lg">Practice Section Completed!</h3>
+                      <p className="text-sm text-emerald-700">Great job! Continue to Flash Cards to reinforce your learning.</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-bold text-emerald-900 text-lg">Practice Section Completed!</h3>
-                    <p className="text-sm text-emerald-700">Great job! Continue to Flash Cards to reinforce your learning.</p>
-                  </div>
+                </div>
+                
+                {/* Continue to Flash Cards button */}
+                <div className="flex justify-end">
+                  <button
+                    onClick={() => setTab('flash')}
+                    className="inline-flex items-center gap-2 bg-[#F76511] text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-all shadow-md hover:shadow-lg"
+                  >
+                    Mark Practice done → Flash Cards
+                  </button>
                 </div>
               </div>
             )}
