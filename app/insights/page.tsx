@@ -30,6 +30,14 @@ export default async function InsightsPage() {
     ),
   };
 
+  // Helper function to check if image exists and is valid
+  const hasValidImage = (post: any) => {
+    return post.image && 
+           post.image !== '/images/insights/.jpg' && 
+           post.image.length > 10 && 
+           !post.image.includes('undefined');
+  };
+
   // Get featured posts (most recent or most important)
   const featuredPosts = posts.slice(0, 3);
   const remainingPosts = posts.slice(3);
@@ -103,7 +111,7 @@ export default async function InsightsPage() {
                   }`}
                 >
                   <div className={`relative overflow-hidden ${index === 0 ? 'aspect-[2/1]' : 'aspect-video'}`}>
-                    {post.image ? (
+                    {hasValidImage(post) ? (
                       <img
                         src={post.image}
                         alt={post.title}
@@ -172,7 +180,7 @@ export default async function InsightsPage() {
                     className="group block bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-200 border border-slate-200 hover:border-canyon-rust/50 overflow-hidden"
                   >
                     <div className="aspect-video relative overflow-hidden">
-                      {post.image ? (
+                      {hasValidImage(post) ? (
                         <img
                           src={post.image}
                           alt={post.title}
@@ -234,7 +242,7 @@ export default async function InsightsPage() {
                   className="group block bg-white rounded-lg shadow-sm hover:shadow-md transition-all border border-slate-200 hover:border-canyon-rust/50"
                 >
                   <div className="aspect-video relative overflow-hidden rounded-t-lg">
-                    {post.image ? (
+                    {hasValidImage(post) ? (
                       <img
                         src={post.image}
                         alt={post.title}
