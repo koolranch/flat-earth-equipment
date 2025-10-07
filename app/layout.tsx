@@ -56,6 +56,9 @@ export default async function RootLayout({
         {/* Google Search Console Verification */}
         <meta name="google-site-verification" content="O7ZIN2n38dDBmoeD1-7x92JUIMyo02CeMaPZMuoH7cE" />
         
+        {/* Pinterest Domain Verification */}
+        <meta name="p:domain_verify" content="31d2150c1d8a86c95b938c37f0838eff" />
+        
         {/* Google Analytics 4 - Add your measurement ID to env vars */}
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
           <>
