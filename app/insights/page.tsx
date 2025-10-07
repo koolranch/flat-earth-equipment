@@ -103,11 +103,25 @@ export default async function InsightsPage() {
                   }`}
                 >
                   <div className={`relative overflow-hidden ${index === 0 ? 'aspect-[2/1]' : 'aspect-video'}`}>
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
-                    />
+                    {post.image ? (
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                        className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-canyon-rust/20 to-canyon-rust/5 flex items-center justify-center">
+                        <div className="text-center text-canyon-rust/60">
+                          <div className="text-4xl mb-2">
+                            {post.title.toLowerCase().includes('forklift') ? '🏭' :
+                             post.title.toLowerCase().includes('charger') || post.title.toLowerCase().includes('battery') ? '🔋' :
+                             post.title.toLowerCase().includes('safety') ? '🛡️' :
+                             post.title.toLowerCase().includes('maintenance') ? '🔧' : '📄'}
+                          </div>
+                          <div className="text-sm font-medium">Article</div>
+                        </div>
+                      </div>
+                    )}
                     <div className="absolute top-4 left-4 bg-canyon-rust text-white px-3 py-1 rounded-full text-xs font-semibold">
                       Featured
                     </div>
@@ -158,11 +172,24 @@ export default async function InsightsPage() {
                     className="group block bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-200 border border-slate-200 hover:border-canyon-rust/50 overflow-hidden"
                   >
                     <div className="aspect-video relative overflow-hidden">
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
-                      />
+                      {post.image ? (
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-canyon-rust/15 to-canyon-rust/5 flex items-center justify-center">
+                          <div className="text-center text-canyon-rust/50">
+                            <div className="text-3xl mb-1">
+                              {post.title.toLowerCase().includes('forklift') ? '🏭' :
+                               post.title.toLowerCase().includes('charger') || post.title.toLowerCase().includes('battery') ? '🔋' :
+                               post.title.toLowerCase().includes('safety') ? '🛡️' :
+                               post.title.toLowerCase().includes('maintenance') ? '🔧' : '📄'}
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                     <div className="p-5">
                       <h3 className="text-lg font-semibold text-slate-900 group-hover:text-canyon-rust transition-colors mb-2 line-clamp-2">
@@ -207,11 +234,24 @@ export default async function InsightsPage() {
                   className="group block bg-white rounded-lg shadow-sm hover:shadow-md transition-all border border-slate-200 hover:border-canyon-rust/50"
                 >
                   <div className="aspect-video relative overflow-hidden rounded-t-lg">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
-                    />
+                    {post.image ? (
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                        className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-canyon-rust/10 to-slate-50 flex items-center justify-center">
+                        <div className="text-center text-canyon-rust/40">
+                          <div className="text-2xl">
+                            {post.title.toLowerCase().includes('forklift') ? '🏭' :
+                             post.title.toLowerCase().includes('charger') || post.title.toLowerCase().includes('battery') ? '🔋' :
+                             post.title.toLowerCase().includes('safety') ? '🛡️' :
+                             post.title.toLowerCase().includes('maintenance') ? '🔧' : '📄'}
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                   <div className="p-4">
                     <h3 className="text-base font-semibold text-slate-900 group-hover:text-canyon-rust transition-colors line-clamp-2 mb-2">
