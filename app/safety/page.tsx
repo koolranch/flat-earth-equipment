@@ -65,7 +65,10 @@ export default async function SafetyPage() {
   const { isAuthed, userId } = await detectUserServer();
   
   // Determine CTA destination based on auth + enrollment status
-  let ctaHref = `/login?next=${encodeURIComponent('/training')}`;
+  // For non-authenticated users, direct to pricing (better for ads)
+  // For authenticated users, check enrollment and route accordingly
+  let ctaHref = '/safety#pricing';
+  let ctaText = locale === 'es' ? 'Ver Precios' : 'View Pricing';
   
   if (isAuthed && userId) {
     // Check enrollment status
@@ -85,9 +88,13 @@ export default async function SafetyPage() {
         .limit(1)
         .maybeSingle();
         
-      ctaHref = enrollment ? '/training' : '/safety'; // Redirect to safety page for pricing info
-    } else {
-      ctaHref = '/safety'; // No course found, stay on safety page
+      if (enrollment) {
+        ctaHref = '/training';
+        ctaText = locale === 'es' ? 'Continuar Entrenamiento' : 'Continue Training';
+      } else {
+        ctaHref = '/safety#pricing';
+        ctaText = locale === 'es' ? 'Ver Precios' : 'View Pricing';
+      }
     }
   }
   
@@ -165,15 +172,23 @@ export default async function SafetyPage() {
               href={ctaHref}
               className="inline-flex items-center gap-2 bg-[#F76511] text-white px-8 py-4 rounded-xl font-bold hover:bg-orange-600 transition-colors shadow-lg hover:shadow-xl"
             >
-              {t.hero.cta_primary} →
+              {ctaText} →
             </Link>
             <a 
-              href="#how" 
+              href="#how-it-works" 
               className="inline-flex items-center gap-2 rounded-xl border-2 border-brand-onPanel/20 px-6 py-3 text-brand-onPanel/90 hover:bg-white/5 transition-colors font-medium"
             >
               {t.hero.cta_secondary}
             </a>
           </div>
+          {!isAuthed && (
+            <p className="mt-4 text-sm text-brand-onPanel/70">
+              {locale === 'es' ? '¿Ya estás certificado? ' : 'Already certified? '}
+              <Link href="/login" className="text-[#F76511] hover:text-orange-600 underline font-medium">
+                {locale === 'es' ? 'Inicia sesión aquí' : 'Login here'}
+              </Link>
+            </p>
+          )}
         </header>
 
         <PricingStrip />
@@ -184,7 +199,7 @@ export default async function SafetyPage() {
         </div>
 
         {/* How It Works */}
-        <section id="how" className="mt-8 bg-white rounded-2xl border border-slate-200 shadow-sm px-8 py-8">
+        <section id="how-it-works" className="mt-8 bg-white rounded-2xl border border-slate-200 shadow-sm px-8 py-8">
           <h2 className="text-2xl font-bold mb-6 text-slate-900">
             {locale === 'es' ? 'Cómo funciona' : 'How it works'}
           </h2>
@@ -222,7 +237,7 @@ export default async function SafetyPage() {
         </div>
 
         {/* FAQ Section */}
-        <section className="mt-8 bg-white rounded-2xl border border-slate-200 shadow-sm px-8 py-8">
+        <section id="faq" className="mt-8 bg-white rounded-2xl border border-slate-200 shadow-sm px-8 py-8">
           <h2 className="text-2xl font-bold mb-6 text-slate-900">{t.faq.title}</h2>
           <div className="divide-y divide-slate-200">
             {t.faq.items.map((f: any, i: number) => (
@@ -256,29 +271,30 @@ export default async function SafetyPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Link 
-              href={ctaHref}
+              href="/safety#pricing"
               className="inline-flex items-center gap-2 bg-white text-[#F76511] px-8 py-4 rounded-xl font-bold hover:bg-orange-50 transition-colors shadow-lg hover:shadow-xl" 
-              aria-label="Get started with training"
+              aria-label="View pricing and buy training"
               data-testid="get-started-cta"
             >
-              {t.cta.start_training} →
+              {locale === 'es' ? 'Ver Precios' : 'View Pricing'} →
             </Link>
             <a 
-              href="#pricing" 
+              href="#how-it-works" 
               className="tappable rounded-xl bg-white/10 px-4 py-2 text-white hover:bg-white/15 transition-colors"
-              data-testid="hero-see-pricing"
             >
-              See pricing
+              {locale === 'es' ? 'Cómo funciona' : 'How it works'}
             </a>
-            <Link 
-              href="/quote" 
-              className="tappable rounded-xl bg-white/10 px-4 py-2 text-white hover:bg-white/15 transition-colors"
-            >
-              {t.cta.buy_now}
-            </Link>
           </div>
           <p className="mt-3 text-sm text-white/80">
-            Have a code? <a href="/redeem" className="underline hover:text-white">Redeem</a>
+            {locale === 'es' ? '¿Tienes un código? ' : 'Have a code? '}
+            <a href="/redeem" className="underline hover:text-white">
+              {locale === 'es' ? 'Canjear' : 'Redeem'}
+            </a>
+            {' • '}
+            {locale === 'es' ? '¿Ya estás certificado? ' : 'Already certified? '}
+            <a href="/login" className="underline hover:text-white">
+              {locale === 'es' ? 'Inicia sesión' : 'Login'}
+            </a>
           </p>
         </section>
 
