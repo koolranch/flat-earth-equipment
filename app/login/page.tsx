@@ -34,10 +34,6 @@ export default async function LoginPage({ searchParams }: { searchParams: { next
       </form>
       
       <p className="text-xs text-muted-foreground mt-4">
-        If you loop back here, visit <a className="underline" href="/debug/auth">/debug/auth</a> to verify your session.
-      </p>
-      
-      <p className="text-xs text-muted-foreground mt-2">
         Need an account? <a className="underline" href="/safety">Get training access</a>
       </p>
     </div>
