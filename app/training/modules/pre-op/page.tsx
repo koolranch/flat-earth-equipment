@@ -243,6 +243,24 @@ export default function PreOpModule() {
                     <div className="flex-1">
                       <h4 className="font-bold text-slate-900 mb-1">PPE & Seatbelts</h4>
                       <p className="text-sm text-slate-700">Wear seatbelts and required PPE as posted by your facility</p>
+                      
+                      <details className="mt-3">
+                        <summary className="cursor-pointer text-sm text-orange-600 font-medium hover:text-orange-700">
+                          📖 Learn More
+                        </summary>
+                        <div className="mt-3 text-sm text-slate-700 space-y-2 pl-4 border-l-2 border-orange-200">
+                          <p className="font-semibold">Required PPE typically includes:</p>
+                          <ul className="list-disc pl-5 space-y-1">
+                            <li>Hard hat meeting ANSI Z89.1 standard</li>
+                            <li>Safety shoes with toe protection (ASTM F2413)</li>
+                            <li>High-visibility vest in areas with mixed traffic or low light</li>
+                            <li>Eye and hearing protection where conditions require</li>
+                          </ul>
+                          <p className="font-semibold mt-3">Seatbelt Requirements (OSHA 1910.178(l)(1)(ii)):</p>
+                          <p>When your forklift is equipped with a seatbelt, you MUST wear it at all times during operation. Seatbelts prevent ejection during tip-overs, which account for a significant percentage of forklift fatalities. A secured operator has a much higher survival rate if the forklift tips.</p>
+                          <p className="text-orange-600 font-medium">⚠️ Never jump from a tipping forklift - stay seated, brace yourself, and lean away from impact.</p>
+                        </div>
+                      </details>
                     </div>
                   </div>
                 </div>
@@ -255,6 +273,24 @@ export default function PreOpModule() {
                     <div className="flex-1">
                       <h4 className="font-bold text-slate-900 mb-1">Data Plate Verification</h4>
                       <p className="text-sm text-slate-700">Verify data plate matches truck and any attachments in use</p>
+                      
+                      <details className="mt-3">
+                        <summary className="cursor-pointer text-sm text-orange-600 font-medium hover:text-orange-700">
+                          📖 Learn More
+                        </summary>
+                        <div className="mt-3 text-sm text-slate-700 space-y-2 pl-4 border-l-2 border-orange-200">
+                          <p className="font-semibold">The data plate (capacity plate) provides critical information:</p>
+                          <ul className="list-disc pl-5 space-y-1">
+                            <li><strong>Load capacity:</strong> Maximum weight the forklift can lift at a specific load center</li>
+                            <li><strong>Load center:</strong> Distance from forks to center of gravity (typically 24 inches)</li>
+                            <li><strong>Manufacturer information:</strong> Make, model, serial number</li>
+                            <li><strong>Fuel type:</strong> Electric, LPG, diesel, gasoline</li>
+                          </ul>
+                          <p className="font-semibold mt-3">Why Verification Matters:</p>
+                          <p>Operating beyond rated capacity or with unapproved attachments can cause tip-overs. Attachments shift the center of gravity and reduce capacity. OSHA requires capacity plates to be legible and operators to work within rated limits (1910.178(o)(1)).</p>
+                          <p className="text-orange-600 font-medium">⚠️ Attachment weight reduces available lifting capacity. Always verify deductions before loading.</p>
+                        </div>
+                      </details>
                     </div>
                   </div>
                 </div>
@@ -267,6 +303,24 @@ export default function PreOpModule() {
                     <div className="flex-1">
                       <h4 className="font-bold text-slate-900 mb-1">Horn Test</h4>
                       <p className="text-sm text-slate-700">Test horn before moving; use at intersections and blind corners</p>
+                      
+                      <details className="mt-3">
+                        <summary className="cursor-pointer text-sm text-orange-600 font-medium hover:text-orange-700">
+                          📖 Learn More
+                        </summary>
+                        <div className="mt-3 text-sm text-slate-700 space-y-2 pl-4 border-l-2 border-orange-200">
+                          <p className="font-semibold">Horn Usage Requirements (OSHA 1910.178(l)(1)(i)):</p>
+                          <ul className="list-disc pl-5 space-y-1">
+                            <li><strong>Before operation:</strong> Test horn to ensure it's audible and functioning</li>
+                            <li><strong>At intersections:</strong> Sound horn when approaching blind corners or doorways</li>
+                            <li><strong>Near pedestrians:</strong> Alert others before passing or when visibility is limited</li>
+                            <li><strong>Backing up:</strong> Sound horn to warn anyone behind you</li>
+                          </ul>
+                          <p className="font-semibold mt-3">Why It Matters:</p>
+                          <p>The horn is your primary warning device. Many forklift accidents involve pedestrians who didn't hear the truck approaching. A functioning, properly used horn is a critical safety control that can prevent collisions and injuries.</p>
+                          <p className="text-orange-600 font-medium">⚠️ If the horn is inoperative, tag the truck out of service immediately.</p>
+                        </div>
+                      </details>
                     </div>
                   </div>
                 </div>
@@ -279,6 +333,24 @@ export default function PreOpModule() {
                     <div className="flex-1">
                       <h4 className="font-bold text-slate-900 mb-1">Lights & Beacons</h4>
                       <p className="text-sm text-slate-700">Confirm lights and beacons work where required</p>
+                      
+                      <details className="mt-3">
+                        <summary className="cursor-pointer text-sm text-orange-600 font-medium hover:text-orange-700">
+                          📖 Learn More
+                        </summary>
+                        <div className="mt-3 text-sm text-slate-700 space-y-2 pl-4 border-l-2 border-orange-200">
+                          <p className="font-semibold">Lighting Requirements (OSHA 1910.178(h)):</p>
+                          <ul className="list-disc pl-5 space-y-1">
+                            <li><strong>Headlights:</strong> Required in areas with insufficient lighting (less than 2 lumens per square foot)</li>
+                            <li><strong>Blue safety lights:</strong> Rear-projected light that alerts pedestrians 15-20 feet ahead of the truck</li>
+                            <li><strong>Amber warning beacons:</strong> Rotating or flashing lights for visibility in high-traffic areas</li>
+                            <li><strong>Brake lights:</strong> Indicate when truck is stopping (if equipped)</li>
+                          </ul>
+                          <p className="font-semibold mt-3">Pre-Operation Check:</p>
+                          <p>Test all lights before use. Verify headlights illuminate adequately, safety lights project clearly, and beacons are visible from all angles. Poor visibility significantly increases collision risk, especially in mixed pedestrian-vehicle environments.</p>
+                          <p className="text-orange-600 font-medium">⚠️ In low-light areas or where required by your facility, inoperative lights mean immediate removal from service.</p>
+                        </div>
+                      </details>
                     </div>
                   </div>
                 </div>
@@ -291,6 +363,26 @@ export default function PreOpModule() {
                     <div className="flex-1">
                       <h4 className="font-bold text-slate-900 mb-1">Equipment Inspection</h4>
                       <p className="text-sm text-slate-700">Check tires, forks, chains, hydraulics, and look for leaks</p>
+                      
+                      <details className="mt-3">
+                        <summary className="cursor-pointer text-sm text-orange-600 font-medium hover:text-orange-700">
+                          📖 Learn More
+                        </summary>
+                        <div className="mt-3 text-sm text-slate-700 space-y-2 pl-4 border-l-2 border-orange-200">
+                          <p className="font-semibold">Daily Pre-Operation Inspection (OSHA 1910.178(q)(7)):</p>
+                          <p>Forklifts must be inspected before use each day or at the start of each shift. Focus on these critical components:</p>
+                          <ul className="list-disc pl-5 space-y-1">
+                            <li><strong>Tires:</strong> Check for proper inflation, excessive wear, cuts, or missing chunks</li>
+                            <li><strong>Forks:</strong> Look for cracks, bends, uneven height, excessive wear on heels or tips</li>
+                            <li><strong>Mast and chains:</strong> Check for loose or damaged chains, bent mast sections, smooth operation</li>
+                            <li><strong>Hydraulic system:</strong> Test lift/tilt functions, check for leaks or low fluid levels</li>
+                            <li><strong>Fluid leaks:</strong> Inspect ground under truck, check hoses and connections</li>
+                            <li><strong>Controls:</strong> Verify steering, brakes, accelerator, and all controls function properly</li>
+                            <li><strong>Overhead guard:</strong> Check for damage, loose bolts, or structural issues</li>
+                          </ul>
+                          <p className="text-orange-600 font-medium mt-3">⚠️ Document any defects and notify your supervisor immediately. Never operate equipment with safety-related defects.</p>
+                        </div>
+                      </details>
                     </div>
                   </div>
                 </div>
@@ -305,6 +397,28 @@ export default function PreOpModule() {
                     <div className="flex-1">
                       <h4 className="font-bold text-slate-900 mb-1">Service Removal</h4>
                       <p className="text-sm text-slate-700">Remove trucks from service if any condition adversely affects safety</p>
+                      
+                      <details className="mt-3">
+                        <summary className="cursor-pointer text-sm text-orange-600 font-medium hover:text-orange-700">
+                          📖 Learn More
+                        </summary>
+                        <div className="mt-3 text-sm text-slate-700 space-y-2 pl-4 border-l-2 border-orange-200">
+                          <p className="font-semibold">When to Remove from Service (OSHA 1910.178(q)(1)):</p>
+                          <p>If inspection reveals any condition that could adversely affect safety, the forklift must be removed from service until repaired. Examples include:</p>
+                          <ul className="list-disc pl-5 space-y-1">
+                            <li>Malfunctioning brakes or steering</li>
+                            <li>Inoperative horn, lights, or backup alarm</li>
+                            <li>Damaged or bent forks</li>
+                            <li>Hydraulic leaks or system failures</li>
+                            <li>Structural damage to mast, overhead guard, or frame</li>
+                            <li>Worn or damaged tires that affect stability</li>
+                            <li>Missing or illegible data plate</li>
+                          </ul>
+                          <p className="font-semibold mt-3">Your Responsibilities:</p>
+                          <p>As an operator, you must report all defects immediately and not operate defective equipment. Tag or lock out the truck to prevent use. Only qualified maintenance personnel can return equipment to service after repairs.</p>
+                          <p className="text-red-600 font-bold">⚠️ Operating defective equipment violates OSHA standards and puts you and others at risk.</p>
+                        </div>
+                      </details>
                     </div>
                   </div>
                 </div>
