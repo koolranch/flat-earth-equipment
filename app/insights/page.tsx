@@ -117,12 +117,6 @@ export default async function InsightsPage() {
                           src={post.image}
                           alt={post.title}
                           className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
-                          onError={(e) => {
-                            // Hide broken image and show fallback
-                            (e.target as HTMLImageElement).style.display = 'none';
-                            const fallback = (e.target as HTMLImageElement).nextElementSibling;
-                            if (fallback) (fallback as HTMLElement).style.display = 'flex';
-                          }}
                         />
                       )}
                       <div className={`absolute inset-0 bg-gradient-to-br from-canyon-rust/20 to-canyon-rust/5 flex items-center justify-center ${hasValidImage(post) ? 'hidden' : 'flex'}`}>
