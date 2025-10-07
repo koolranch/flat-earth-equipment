@@ -12,29 +12,32 @@ export function TabCompleteButton(props: {
 }) {
   const { label, onClick, className, disabled, ...rest } = props;
   return (
-    <Button
-      variant="secondary"
+    <button
+      type="button"
       onClick={onClick}
       disabled={disabled}
       aria-label={rest["aria-label"] ?? label}
       className={`
-        px-6 py-3 sm:px-4 sm:py-2 
+        inline-flex items-center gap-3
+        px-6 py-4 sm:px-5 sm:py-3
         bg-canyon-rust text-white 
         hover:bg-canyon-rust/90 
+        disabled:bg-slate-300 disabled:text-slate-500
         rounded-xl font-semibold 
-        shadow-md hover:shadow-lg 
+        shadow-lg hover:shadow-xl 
         transition-all duration-200
         touch-manipulation
         active:scale-[0.98]
-        text-sm sm:text-sm
-        min-h-[44px] sm:min-h-auto
+        text-base sm:text-sm
+        min-h-[48px] sm:min-h-[44px]
+        border-2 border-canyon-rust hover:border-canyon-rust/90
+        focus:outline-none focus:ring-2 focus:ring-canyon-rust focus:ring-offset-2
+        ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}
         ${className}
       `}
     >
-      <div className="flex items-center gap-2">
-        <span>{label}</span>
-        <ArrowRight size={16} />
-      </div>
-    </Button>
+      <span className="font-semibold">{label}</span>
+      <ArrowRight size={18} className="flex-shrink-0" />
+    </button>
   );
 }
