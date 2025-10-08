@@ -14,9 +14,10 @@ export default function QuoteButton({
     <>
       <button
         onClick={() => setOpen(true)}
-        className="rounded-xl bg-black px-3 py-2 text-sm font-semibold text-white hover:bg-neutral-800"
+        className="rounded-xl bg-black px-4 py-2 text-sm font-semibold text-white hover:bg-neutral-800 transition-colors"
+        title="Request quote for bulk orders and purchase orders"
       >
-        Quote
+        Get Quote
       </button>
       <SimpleQuoteModal 
         open={open} 
