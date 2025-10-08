@@ -94,9 +94,9 @@ export default async function RentEquipmentPage() {
               </h1>
               
               <p className="text-xl text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-                {t.intro}
-              </p>
-              
+        {t.intro}
+      </p>
+
               {/* Quick Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-8">
                 <div className="text-center">
@@ -197,26 +197,71 @@ export default async function RentEquipmentPage() {
                   (category.toLowerCase() === 'compact utility loader' && cat.toLowerCase() === 'mini skid steer')
                 ).length;
                 
-                // Get category icon
+                // Get category icon (professional SVG)
                 const getIcon = (cat: string) => {
                   const lower = cat.toLowerCase();
-                  if (lower.includes('boom')) return '🏗️';
-                  if (lower.includes('scissor')) return '✂️';
-                  if (lower.includes('forklift')) return '🏭';
-                  if (lower.includes('telehandler')) return '🚜';
-                  if (lower.includes('skid') || lower.includes('compact')) return '🚧';
-                  if (lower.includes('attachment')) return '🔧';
-                  return '🏗️';
+                  const iconClass = "w-12 h-12 text-canyon-rust mx-auto mb-4";
+                  
+                  if (lower.includes('boom')) {
+                    return (
+                      <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3l7 7-7-7z" />
+                      </svg>
+                    );
+                  }
+                  if (lower.includes('scissor')) {
+                    return (
+                      <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12V7a5 5 0 0110 0v5" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12h18" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16h10" />
+                      </svg>
+                    );
+                  }
+                  if (lower.includes('forklift')) {
+                    return (
+                      <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    );
+                  }
+                  if (lower.includes('telehandler')) {
+                    return (
+                      <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    );
+                  }
+                  if (lower.includes('skid') || lower.includes('compact')) {
+                    return (
+                      <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    );
+                  }
+                  if (lower.includes('attachment')) {
+                    return (
+                      <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4" />
+                      </svg>
+                    );
+                  }
+                  return (
+                    <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                    </svg>
+                  );
                 };
 
                 return (
-                  <Link
-                    key={category}
-                    href={`/rentals/${slugify(category, { lower: true })}`}
+          <Link
+            key={category}
+            href={`/rentals/${slugify(category, { lower: true })}`}
                     className="group block rounded-xl border-2 border-slate-200 bg-white hover:border-canyon-rust hover:shadow-lg transition-all duration-200 p-8"
                   >
                     <div className="text-center">
-                      <div className="text-5xl mb-4">{getIcon(category)}</div>
+                      <div className="mb-4">{getIcon(category)}</div>
                       <h2 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-canyon-rust transition-colors">
                         {category}
                       </h2>
@@ -247,7 +292,7 @@ export default async function RentEquipmentPage() {
                 className="bg-white text-canyon-rust px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
               >
                 Request Custom Quote
-              </Link>
+          </Link>
               
               <a
                 href="tel:+1-307-555-0123"
@@ -256,9 +301,9 @@ export default async function RentEquipmentPage() {
                 Call (307) 555-0123
               </a>
             </div>
-          </section>
+      </section>
         </div>
-      </main>
+    </main>
     </>
   );
 } 
