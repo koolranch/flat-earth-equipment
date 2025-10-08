@@ -189,12 +189,17 @@ export default async function Page({ params }: { params: { slug: string } }) {
             {part.sku && <span className="rounded-full bg-neutral-100 px-3 py-1">SKU: {part.sku}</span>}
           </div>
 
-          <div className="mt-5 flex items-center gap-4">
-            <div className="text-xl font-semibold">
-              {priceStr ? priceStr : <span className="text-neutral-500 text-base">Call for pricing</span>}
+          <div className="mt-5">
+            <div className="flex items-center gap-4">
+              <div className="text-xl font-semibold">
+                {priceStr ? priceStr : <span className="text-neutral-500 text-base">Call for pricing</span>}
+              </div>
+              <BuyNowButton priceId={(part as any).stripe_price_id} slug={part.slug} />
+              <QuoteButton product={{ name: part.name, slug: part.slug, sku: part.sku }} />
             </div>
-            <BuyNowButton priceId={(part as any).stripe_price_id} slug={part.slug} />
-            <QuoteButton product={{ name: part.name, slug: part.slug, sku: part.sku }} />
+            <p className="mt-3 text-sm text-gray-600">
+              💼 <strong>Bulk orders or purchase order?</strong> Get volume pricing and NET-30 terms with a custom quote.
+            </p>
           </div>
 
           <div className="mt-8">
