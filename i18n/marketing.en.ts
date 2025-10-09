@@ -14,7 +14,7 @@ export default {
       { title: 'Interactive, not passive', body: 'Hotspots, checklists, and short simulations replace hour-long videos.' },
       { title: 'Mobile-first', body: 'Works great on phones. Clear progress and a simple Resume button.' },
       { title: 'Records that matter', body: 'Certificates with QR verification plus employer evaluation and exports.' },
-      { title: 'Bilingual ready', body: 'English now, Spanish second — layouts and captions built-in.' }
+      { title: 'Bilingual (coming soon)', body: 'Currently available in English. Spanish language support with full translations coming soon.' }
     ]
   },
   compliance: {

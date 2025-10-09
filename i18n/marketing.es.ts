@@ -11,7 +11,7 @@ export default {
       { title: 'Interactivo, no pasivo', body: 'Puntos activos, listas y simulaciones cortas reemplazan videos largos.' },
       { title: 'Diseño móvil', body: 'Funciona excelente en teléfonos. Progreso claro y botón Reanudar.' },
       { title: 'Registros útiles', body: 'Certificados con verificación por QR + evaluación del empleador y exportaciones.' },
-      { title: 'Listo para bilingüe', body: 'Inglés ahora, español después — diseños y subtítulos incluidos.' }
+      { title: 'Bilingüe (próximamente)', body: 'Actualmente disponible en inglés. Soporte en español con traducciones completas próximamente.' }
     ]
   },
   compliance: {
