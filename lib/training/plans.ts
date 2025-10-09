@@ -25,8 +25,8 @@ export const TRAINING_PLANS = {
     blurb: 'Five operator certifications',
     features: ['5 Training Seats', 'Trainer Dashboard', 'Progress Tracking', 'Bulk Certificates'],
     seats: 5,
-    savings: '$20 per seat',
-    popular: false,
+    savings: '$20 total',
+    popular: true,
   },
   pack25: {
     id: 'pack25',
@@ -39,8 +39,8 @@ export const TRAINING_PLANS = {
     blurb: 'Twenty-five operator certifications',
     features: ['25 Training Seats', 'Trainer Dashboard', 'Priority Support', 'Compliance Reports'],
     seats: 25,
-    savings: '$55 per seat',
-    popular: true,
+    savings: '$100 total',
+    popular: false,
   },
   unlimited: {
     id: 'unlimited',
