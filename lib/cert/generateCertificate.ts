@@ -115,9 +115,10 @@ export async function generateCertificate(params: {
     console.warn('Seal not loaded:', e)
   }
 
-  /* company header */
+  /* company header - centered for better alignment */
+  const companyNameWidth = bold.widthOfTextAtSize(t.companyName, 16)
   page.drawText(t.companyName, {
-    x: 140,
+    x: (width - companyNameWidth) / 2,
     y: height - 90,
     size: 16,
     font: bold,

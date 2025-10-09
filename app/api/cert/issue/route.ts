@@ -136,12 +136,25 @@ export async function POST(req: Request) {
   page.drawRectangle({ x: 36, y: 516, width: 720, height: 60, color: lightGray });
   page.drawRectangle({ x: 36, y: 516, width: 720, height: 4, color: brandOrange });
 
-  // Header
-  page.drawText('FLAT EARTH SAFETY TRAINING', { 
-    x: 260, y: 545, size: 18, font: fontB, color: darkBlue 
+  // Header - Properly centered for better visual alignment
+  const headerText = 'FLAT EARTH SAFETY TRAINING';
+  const headerWidth = fontB.widthOfTextAtSize(headerText, 16);
+  page.drawText(headerText, { 
+    x: (792 - headerWidth) / 2, 
+    y: 547, 
+    size: 16, 
+    font: fontB, 
+    color: darkBlue 
   });
-  page.drawText('CERTIFICATE OF COMPLETION', { 
-    x: 240, y: 525, size: 24, font: fontB, color: brandOrange 
+  
+  const certificateText = 'CERTIFICATE OF COMPLETION';
+  const certificateWidth = fontB.widthOfTextAtSize(certificateText, 22);
+  page.drawText(certificateText, { 
+    x: (792 - certificateWidth) / 2, 
+    y: 526, 
+    size: 22, 
+    font: fontB, 
+    color: brandOrange 
   });
 
   // OSHA Compliance Badge
