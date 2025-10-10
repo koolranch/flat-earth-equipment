@@ -28,6 +28,7 @@ export default function Page() {
 
   const practiceDone = ppeDone && ctrlDone;
   const prereqsMet = done.osha && done.practice && done.cards;
+  const quizPassed = done.quiz;
 
   async function markModuleComplete() {
     try {
