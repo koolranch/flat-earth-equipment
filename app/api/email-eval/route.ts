@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { supabaseService } from '@/lib/supabase/service.server'
+import { sendMail } from '@/lib/email/mailer'
 
 const supabase = supabaseService()
 
@@ -202,31 +203,26 @@ export async function POST(req: Request) {
     </html>
     `
     
-    // Send email using SendGrid
-    if (!process.env.SENDGRID_API_KEY) {
-      console.warn('⚠️ SENDGRID_API_KEY not configured - email will not be sent')
-      console.log('📧 Email would be sent to:', payload.supervisor_email)
-      if (operatorEmail) console.log('📧 CC would be sent to operator:', operatorEmail)
-    } else {
-      const sgMail = await import('@sendgrid/mail').then(m => m.default)
-      sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-      
-      const subject = `Supervisor Evaluation ${evaluationStatus} - ${operatorName} (${payload.equipment_type})`
-      
-      // Send to supervisor (primary recipient)
-      await sgMail.send({
-        to: payload.supervisor_email,
-        ...(operatorEmail && { cc: operatorEmail }), // CC operator if available
-        from: {
-          name: 'Flat Earth Safety Training',
-          email: 'training@flatearthequipment.com'
-        },
+    // Send email using Resend
+    const subject = `Supervisor Evaluation ${evaluationStatus} - ${operatorName} (${payload.equipment_type})`
+    
+    // Send to supervisor
+    await sendMail({
+      to: payload.supervisor_email,
+      subject,
+      html: emailHtml
+    })
+    
+    console.log('✅ Evaluation email sent via Resend to:', payload.supervisor_email)
+    
+    // Also send copy to operator if available
+    if (operatorEmail) {
+      await sendMail({
+        to: operatorEmail,
         subject,
-        html: emailHtml,
+        html: emailHtml
       })
-      
-      console.log('✅ Evaluation email sent successfully via SendGrid to:', payload.supervisor_email)
-      if (operatorEmail) console.log('✅ Operator CC sent to:', operatorEmail)
+      console.log('✅ Evaluation email also sent to operator:', operatorEmail)
     }
     
     return NextResponse.json({ 
