@@ -7,9 +7,56 @@ import SafeLoader from '@/components/common/SafeLoader';
 import SimpleQuizModal from '@/components/quiz/SimpleQuizModal';
 import { StatusDot } from '@/components/training/StatusDot';
 import SwipeableFlashCards from '@/components/training/SwipeableFlashCards';
+import InteractiveChecklist, { ChecklistItem } from '@/components/training/InteractiveChecklist';
 import { getModuleFlashcards } from '@/lib/training/flashcards';
 import { track } from '@/lib/track';
 import { useModuleGate } from '@/components/training/useModuleGate';
+
+// OSHA Basics checklist items
+const oshaChecklistItems: ChecklistItem[] = [
+  {
+    id: 'daily-inspection',
+    title: 'Daily Inspection Required',
+    description: 'Powered industrial trucks must be inspected at least daily and when used on each shift.',
+    icon: '🔍'
+  },
+  {
+    id: 'remove-unsafe',
+    title: 'Remove Unsafe Trucks from Service',
+    description: 'Remove trucks from service if any condition adversely affects safety.',
+    icon: '🚨'
+  },
+  {
+    id: 'data-plate',
+    title: 'Verify Data Plate',
+    description: 'Verify the data plate matches the truck and any attachments in use.',
+    icon: '📋'
+  },
+  {
+    id: 'ppe-seatbelt',
+    title: 'Wear Seatbelts & Required PPE',
+    description: 'Wear seatbelts and required PPE as posted for your site.',
+    icon: '🦺'
+  },
+  {
+    id: 'horn-test',
+    title: 'Test Horn Before Moving',
+    description: 'Test horn before moving; use at intersections and blind corners.',
+    icon: '📢'
+  },
+  {
+    id: 'lights-beacons',
+    title: 'Confirm Lights/Beacons Work',
+    description: 'Confirm lights/beacons work where required for visibility.',
+    icon: '💡'
+  },
+  {
+    id: 'physical-checks',
+    title: 'Check Tires, Forks, Chains, Hydraulics',
+    description: 'Check tires, forks, chains, hydraulics, and look for leaks.',
+    icon: '🔧'
+  }
+];
 
 export default function Page() {
   const [tab, setTab] = React.useState<'osha'|'practice'|'flash'|'quiz'>('osha');
@@ -111,46 +158,17 @@ export default function Page() {
       {/* Panels */}
       {tab==='osha' && (
         <section className='rounded-2xl border bg-white p-6 mb-4'>
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold">OSHA 1910.178 — Pre-Operation Requirements</h2>
-            
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-              <h3 className="font-medium text-amber-900">Daily Inspection Required</h3>
-              <p className="text-sm text-amber-800 mt-1">
-                Powered industrial trucks must be inspected at least daily and when used on each shift.
-              </p>
-            </div>
-
-            <div className="space-y-3">
-              <h3 className="font-medium">Safety Requirements:</h3>
-              <ul className="space-y-2 text-sm">
-                <li>• Remove trucks from service if any condition adversely affects safety</li>
-                <li>• Verify the <strong>data plate</strong> matches the truck and any attachments in use</li>
-                <li>• Wear <strong>seatbelts</strong> and required <strong>PPE</strong> as posted</li>
-                <li>• Test <strong>horn</strong> before moving; use at intersections and blind corners</li>
-                <li>• Confirm <strong>lights</strong>/beacons work where required</li>
-                <li>• Check tires, forks, chains, hydraulics, and look for leaks</li>
-              </ul>
-            </div>
-
-            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
-              <p className="text-sm text-slate-600">
-                <em>This is a plain-language summary to help you pass and operate safely. Always follow your site policy and the manufacturer's manual.</em>
-              </p>
-            </div>
-          </div>
-          <div className="mt-4 flex justify-end">
-            <button
-              type="button"
-              onClick={async () => {
-                await markDone("osha");
-                setTab("practice");
-              }}
-              className="rounded-xl bg-[#F76511] px-6 py-3 text-sm font-semibold text-white hover:bg-orange-600 transition-all shadow-md"
-            >
-              Mark OSHA Basics done → Practice
-            </button>
-          </div>
+          <InteractiveChecklist
+            title="OSHA 1910.178 — Pre-Operation Requirements"
+            subtitle="Master essential safety checks before operating any forklift."
+            items={oshaChecklistItems}
+            requireAllChecked={true}
+            onComplete={async () => {
+              console.log('✅ OSHA checklist complete');
+              await markDone("osha");
+              setTab("practice");
+            }}
+          />
         </section>
       )}
 
