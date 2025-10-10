@@ -176,7 +176,10 @@ export default function Page() {
             <button
               type="button"
               onClick={() => {
+                console.log('🔘 Flash Cards Continue clicked');
+                console.log('Practice done?', practiceDone, '(PPE:', ppeDone, 'Controls:', ctrlDone, ')');
                 setFlashTouched(true);
+                console.log('✅ Set flashTouched=true, navigating to quiz tab');
                 setTab("quiz");
               }}
               className="rounded-xl bg-[#F76511] px-8 py-3 text-base font-semibold text-white hover:bg-orange-600 transition-all shadow-md hover:shadow-lg"
