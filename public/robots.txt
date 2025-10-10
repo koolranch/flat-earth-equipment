@@ -1,0 +1,29 @@
+# Allow legitimate search engine crawlers
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: Slurp
+User-agent: DuckDuckBot
+Allow: /
+
+# Block aggressive SEO/scraper bots
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: MJ12bot
+User-agent: DotBot
+User-agent: BLEXBot
+User-agent: PetalBot
+User-agent: DataForSeoBot
+Disallow: /
+
+# Default rules for all other bots
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /admin/
+Disallow: /trainer/
+Disallow: /training/
+Disallow: /checkout/
+
+# Sitemap
+Sitemap: https://flatearthequipment.com/sitemap.xml
