@@ -6,45 +6,32 @@ import ErrorBoundary from '@/components/common/ErrorBoundary';
 import SafeLoader from '@/components/common/SafeLoader';
 import SimpleQuizModal from '@/components/quiz/SimpleQuizModal';
 import { StatusDot } from '@/components/training/StatusDot';
-import FlashCardDeck, { type FlashCard } from '@/components/training/FlashCardDeck';
+import FlashCardDeck from '@/components/training/FlashCardDeck';
 import { getModuleFlashcards } from '@/lib/training/flashcards';
 import { track } from '@/lib/track';
+import { useModuleGate } from '@/components/training/useModuleGate';
 
 export default function Page() {
-  // New tab-based state management
+  // Use same progress tracking system as other modules
+  const { done, markDone } = useModuleGate({
+    courseId: 'forklift',
+    moduleKey: 'm1',
+    initial: { osha: false, practice: false, cards: false, quiz: false }
+  });
+  
   const [tab, setTab] = React.useState<'osha'|'practice'|'flash'|'quiz'>('osha');
   const [ppeDone, setPpeDone] = React.useState(false);
   const [ctrlDone, setCtrlDone] = React.useState(false);
-  const [flashTouched, setFlashTouched] = React.useState(false);
-  const [quizPassed, setQuizPassed] = React.useState(false);
   const [showQuiz, setShowQuiz] = React.useState(false);
   
   React.useEffect(() => { track('lesson_start', { module: 1 }); }, []);
 
-  // Persist state for preview sessions
-  React.useEffect(() => {
-    try {
-      const key = 'm1-main-preview';
-      const saved = JSON.parse(localStorage.getItem(key) || '{}');
-      if (saved.ppeDone) setPpeDone(true);
-      if (saved.ctrlDone) setCtrlDone(true);
-      if (saved.flashTouched) setFlashTouched(true);
-      if (saved.quizPassed) setQuizPassed(true);
-    } catch {}
-  }, []);
-  
-  React.useEffect(() => {
-    try {
-      const key = 'm1-main-preview';
-      localStorage.setItem(key, JSON.stringify({ ppeDone, ctrlDone, flashTouched, quizPassed }));
-    } catch {}
-  }, [ppeDone, ctrlDone, flashTouched, quizPassed]);
-
   const practiceDone = ppeDone && ctrlDone;
-  const prereqsMet = practiceDone && flashTouched;
+  const prereqsMet = done.osha && done.practice && done.cards;
 
   async function markModuleComplete() {
     try {
+      await markDone("quiz");
       await fetch('/api/progress', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -57,10 +44,6 @@ export default function Page() {
       });
     } catch {}
   }
-
-  React.useEffect(() => {
-    if (quizPassed) markModuleComplete();
-  }, [quizPassed]);
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-8 space-y-6">
@@ -75,26 +58,26 @@ export default function Page() {
           className={`px-3 py-1.5 rounded-md border ${tab==='osha'?'bg-white border-blue-500':'bg-slate-50 border-slate-200'}`} 
           onClick={() => setTab('osha')}
         >
-          OSHA Basics <StatusDot state={practiceDone||flashTouched||quizPassed ? 'done':'todo'} />
+          OSHA Basics <StatusDot state={done.osha ? 'done':'todo'} />
         </button>
         <button 
           className={`px-3 py-1.5 rounded-md border ${tab==='practice'?'bg-white border-blue-500':'bg-slate-50 border-slate-200'}`} 
           onClick={() => setTab('practice')}
         >
-          Practice <StatusDot state={practiceDone ? 'done':'todo'} />
+          Practice <StatusDot state={done.practice ? 'done':'todo'} />
         </button>
         <button 
           className={`px-3 py-1.5 rounded-md border ${tab==='flash'?'bg-white border-blue-500':'bg-slate-50 border-slate-200'}`} 
-          onClick={() => { setTab('flash'); setFlashTouched(true); }}
+          onClick={() => setTab('flash')}
         >
-          Flash Cards <StatusDot state={flashTouched ? 'done':'todo'} />
+          Flash Cards <StatusDot state={done.cards ? 'done':'todo'} />
         </button>
         <button
           className={`px-3 py-1.5 rounded-md border ${tab==='quiz'?'bg-white border-blue-500':'bg-slate-50 border-slate-200'} ${!prereqsMet && 'opacity-50 cursor-not-allowed'}`}
           onClick={() => prereqsMet && setTab('quiz')}
           aria-disabled={!prereqsMet}
         >
-          Quiz <StatusDot state={quizPassed ? 'done' : (prereqsMet ? 'todo' : 'locked')} />
+          Quiz <StatusDot state={done.quiz ? 'done' : (prereqsMet ? 'todo' : 'locked')} />
         </button>
       </div>
 
@@ -129,6 +112,18 @@ export default function Page() {
               </p>
             </div>
           </div>
+          <div className="mt-4 flex justify-end">
+            <button
+              type="button"
+              onClick={async () => {
+                await markDone("osha");
+                setTab("practice");
+              }}
+              className="rounded-xl bg-[#F76511] px-6 py-3 text-sm font-semibold text-white hover:bg-orange-600 transition-all shadow-md"
+            >
+              Mark OSHA Basics done → Practice
+            </button>
+          </div>
         </section>
       )}
 
@@ -151,6 +146,19 @@ export default function Page() {
               </div>
             )}
           </div>
+          <div className="mt-4 flex justify-end">
+            <button
+              type="button"
+              onClick={async () => {
+                await markDone("practice");
+                setTab("flash");
+              }}
+              disabled={!practiceDone}
+              className="rounded-xl bg-[#F76511] px-6 py-3 text-sm font-semibold text-white hover:bg-orange-600 transition-all shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Mark Practice done → Flash Cards
+            </button>
+          </div>
         </section>
       )}
 
@@ -162,18 +170,18 @@ export default function Page() {
               <p className="text-sm text-slate-600 mt-1">Review key concepts before the quiz</p>
             </div>
             
-            <FlashCardDeck
-              cards={getModuleFlashcards('module-1')}
-              title=""
-              hideCompletionButton={true}
-              onDone={() => {
-                setFlashTouched(true);
-                setTab("quiz");
-              }}
-            />
+          <FlashCardDeck
+            cards={getModuleFlashcards('module-1')}
+            title=""
+            hideCompletionButton={true}
+            onDone={async () => {
+              await markDone("cards");
+              setTab("quiz");
+            }}
+          />
           </section>
           
-          {/* Continue button OUTSIDE FlashCardDeck container to avoid any event blocking */}
+          {/* Continue button using same pattern as other modules */}
           <section className='rounded-2xl border bg-gradient-to-r from-orange-50 to-orange-100 border-orange-200 p-6 mb-4'>
             <div className="flex items-center justify-between">
               <div>
@@ -182,13 +190,12 @@ export default function Page() {
               </div>
               <button
                 type="button"
-                onClick={(e) => {
+                onClick={async (e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  console.log('🔘 Flash Cards Continue clicked');
-                  console.log('Practice done?', practiceDone, '(PPE:', ppeDone, 'Controls:', ctrlDone, ')');
-                  setFlashTouched(true);
-                  console.log('✅ Set flashTouched=true, navigating to quiz tab');
+                  console.log('🔘 Continue to Quiz clicked');
+                  await markDone("cards");
+                  console.log('✅ Marked cards done, navigating to quiz');
                   setTab("quiz");
                 }}
                 className="rounded-xl bg-[#F76511] px-8 py-3 text-base font-semibold text-white hover:bg-orange-600 transition-all shadow-lg hover:shadow-xl active:scale-95"
@@ -242,7 +249,7 @@ export default function Page() {
           onClose={() => setShowQuiz(false)} 
           onPassed={async (score) => {
             track('lesson_complete', { module: 1, score });
-            setQuizPassed(true);
+            await markModuleComplete();
             setShowQuiz(false);
           }} 
         />
