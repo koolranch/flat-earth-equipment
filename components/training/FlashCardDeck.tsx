@@ -165,11 +165,10 @@ export default function FlashCardDeck({
             <button 
               type="button" 
               onClick={next} 
-              className="rounded-xl bg-[#F76511] px-5 py-2 text-sm font-semibold text-white hover:bg-orange-600 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" 
+              className="rounded-xl bg-[#F76511] px-5 py-2 text-sm font-semibold text-white hover:bg-orange-600 transition-all shadow-md hover:shadow-lg" 
               data-testid="flashcard-next"
-              disabled={idx === total - 1}
             >
-              Next →
+              {idx === total - 1 ? 'Finish →' : 'Next →'}
             </button>
           </div>
         </div>
