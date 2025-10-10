@@ -18,7 +18,8 @@ export default function FlashCardDeck({
   title = 'Flash Cards',
   autoAdvanceMs = 12000,          // 12s dwell
   revealHoldMs = 4500,            // 4.5s min hold after reveal
-  allowAuto = true
+  allowAuto = true,
+  hideCompletionButton = false    // Hide the bottom "Mark Flash Cards done" button
 }: {
   cards: FlashCard[];
   onDone?: () => void;
@@ -26,6 +27,7 @@ export default function FlashCardDeck({
   autoAdvanceMs?: number;
   revealHoldMs?: number;
   allowAuto?: boolean;
+  hideCompletionButton?: boolean;
 }) {
   const [idx, setIdx] = React.useState(0);
   const [revealed, setRevealed] = React.useState(false);
@@ -165,45 +167,50 @@ export default function FlashCardDeck({
             <button 
               type="button" 
               onClick={next} 
-              className="rounded-xl bg-[#F76511] px-5 py-2 text-sm font-semibold text-white hover:bg-orange-600 transition-all shadow-md hover:shadow-lg" 
+              disabled={idx === total - 1}
+              className="rounded-xl bg-[#F76511] px-5 py-2 text-sm font-semibold text-white hover:bg-orange-600 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" 
               data-testid="flashcard-next"
             >
-              {idx === total - 1 ? 'Finish →' : 'Next →'}
+              Next →
             </button>
           </div>
         </div>
       </div>
 
-      {allViewed && (
-        <div className="bg-gradient-to-r from-emerald-50 to-green-50 border-2 border-emerald-300 rounded-xl p-5">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center text-2xl">
-              ✓
+      {!hideCompletionButton && (
+        <>
+          {allViewed && (
+            <div className="bg-gradient-to-r from-emerald-50 to-green-50 border-2 border-emerald-300 rounded-xl p-5">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center text-2xl">
+                  ✓
+                </div>
+                <div>
+                  <h3 className="font-bold text-emerald-900 text-lg">All Cards Reviewed!</h3>
+                  <p className="text-sm text-emerald-700">You've reviewed all flashcards. Ready for the quiz?</p>
+                </div>
+              </div>
             </div>
-            <div>
-              <h3 className="font-bold text-emerald-900 text-lg">All Cards Reviewed!</h3>
-              <p className="text-sm text-emerald-700">You've reviewed all flashcards. Ready for the quiz?</p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      <div className="flex justify-end">
-        <button
-          type="button"
-          onClick={() => onDone?.()}
-          disabled={!allViewed}
-          className={clsx(
-            'rounded-xl px-6 py-3 text-sm font-semibold transition-all shadow-md',
-            allViewed 
-              ? 'bg-[#F76511] text-white hover:bg-orange-600 hover:shadow-lg' 
-              : 'bg-slate-200 text-slate-400 cursor-not-allowed'
           )}
-          data-testid="flashcard-complete"
-        >
-          {allViewed ? 'Mark Flash Cards done → Quiz' : 'View all cards to continue'}
-        </button>
-      </div>
+
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={() => onDone?.()}
+              disabled={!allViewed}
+              className={clsx(
+                'rounded-xl px-6 py-3 text-sm font-semibold transition-all shadow-md',
+                allViewed 
+                  ? 'bg-[#F76511] text-white hover:bg-orange-600 hover:shadow-lg' 
+                  : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+              )}
+              data-testid="flashcard-complete"
+            >
+              {allViewed ? 'Mark Flash Cards done → Quiz' : 'View all cards to continue'}
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 }

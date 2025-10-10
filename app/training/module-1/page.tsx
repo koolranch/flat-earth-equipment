@@ -164,6 +164,7 @@ export default function Page() {
           <FlashCardDeck
             cards={getModuleFlashcards('module-1')}
             title=""
+            hideCompletionButton={true}
             onDone={() => {
               setFlashTouched(true);
               setTab("quiz");
