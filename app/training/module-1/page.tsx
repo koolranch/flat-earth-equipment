@@ -156,23 +156,29 @@ export default function Page() {
 
       {tab==='flash' && (
         <section className='rounded-2xl border bg-white p-6 mb-4'>
+          <div className="mb-4">
+            <h3 className="text-2xl font-bold text-slate-900">Flash Cards</h3>
+            <p className="text-sm text-slate-600 mt-1">Review key concepts before the quiz</p>
+          </div>
+          
           <FlashCardDeck
             cards={getModuleFlashcards('module-1')}
-            title="Flash Cards"
+            title=""
             onDone={() => {
               setFlashTouched(true);
               setTab("quiz");
             }}
           />
-          {/* Simplified continue button - just mark done and move to quiz */}
-          <div className="mt-6 flex justify-end">
+          
+          {/* Simple continue button - always works after viewing cards */}
+          <div className="mt-8 pt-6 border-t border-slate-200 flex justify-end">
             <button
               type="button"
               onClick={() => {
                 setFlashTouched(true);
                 setTab("quiz");
               }}
-              className="rounded-xl bg-[#F76511] px-6 py-3 text-sm font-semibold text-white hover:bg-orange-600 transition-all shadow-md hover:shadow-lg"
+              className="rounded-xl bg-[#F76511] px-8 py-3 text-base font-semibold text-white hover:bg-orange-600 transition-all shadow-md hover:shadow-lg"
             >
               Continue to Quiz →
             </button>
