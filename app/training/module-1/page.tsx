@@ -201,10 +201,7 @@ export default function Page() {
             cards={getModuleFlashcards('module-1')}
             title=""
             hideCompletionButton={true}
-            onDone={async () => {
-              await markDone("cards");
-              setTab("quiz");
-            }}
+            onDone={() => {}} // Disabled - using manual button below instead
           />
           </section>
           
