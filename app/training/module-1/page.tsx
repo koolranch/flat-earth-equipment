@@ -164,6 +164,19 @@ export default function Page() {
               setTab("quiz");
             }}
           />
+          {/* Simplified continue button - just mark done and move to quiz */}
+          <div className="mt-6 flex justify-end">
+            <button
+              type="button"
+              onClick={() => {
+                setFlashTouched(true);
+                setTab("quiz");
+              }}
+              className="rounded-xl bg-[#F76511] px-6 py-3 text-sm font-semibold text-white hover:bg-orange-600 transition-all shadow-md hover:shadow-lg"
+            >
+              Continue to Quiz →
+            </button>
+          </div>
         </section>
       )}
 
