@@ -155,39 +155,49 @@ export default function Page() {
       )}
 
       {tab==='flash' && (
-        <section className='rounded-2xl border bg-white p-6 mb-4'>
-          <div className="mb-4">
-            <h3 className="text-2xl font-bold text-slate-900">Flash Cards</h3>
-            <p className="text-sm text-slate-600 mt-1">Review key concepts before the quiz</p>
-          </div>
-          
-          <FlashCardDeck
-            cards={getModuleFlashcards('module-1')}
-            title=""
-            hideCompletionButton={true}
-            onDone={() => {
-              setFlashTouched(true);
-              setTab("quiz");
-            }}
-          />
-          
-          {/* Simple continue button - always works after viewing cards */}
-          <div className="mt-8 pt-6 border-t border-slate-200 flex justify-end">
-            <button
-              type="button"
-              onClick={() => {
-                console.log('🔘 Flash Cards Continue clicked');
-                console.log('Practice done?', practiceDone, '(PPE:', ppeDone, 'Controls:', ctrlDone, ')');
+        <>
+          <section className='rounded-2xl border bg-white p-6 mb-4'>
+            <div className="mb-4">
+              <h3 className="text-2xl font-bold text-slate-900">Flash Cards</h3>
+              <p className="text-sm text-slate-600 mt-1">Review key concepts before the quiz</p>
+            </div>
+            
+            <FlashCardDeck
+              cards={getModuleFlashcards('module-1')}
+              title=""
+              hideCompletionButton={true}
+              onDone={() => {
                 setFlashTouched(true);
-                console.log('✅ Set flashTouched=true, navigating to quiz tab');
                 setTab("quiz");
               }}
-              className="rounded-xl bg-[#F76511] px-8 py-3 text-base font-semibold text-white hover:bg-orange-600 transition-all shadow-md hover:shadow-lg"
-            >
-              Continue to Quiz →
-            </button>
-          </div>
-        </section>
+            />
+          </section>
+          
+          {/* Continue button OUTSIDE FlashCardDeck container to avoid any event blocking */}
+          <section className='rounded-2xl border bg-gradient-to-r from-orange-50 to-orange-100 border-orange-200 p-6 mb-4'>
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="font-semibold text-slate-900">Ready for the quiz?</h3>
+                <p className="text-sm text-slate-600">Test your knowledge of pre-operation safety</p>
+              </div>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  console.log('🔘 Flash Cards Continue clicked');
+                  console.log('Practice done?', practiceDone, '(PPE:', ppeDone, 'Controls:', ctrlDone, ')');
+                  setFlashTouched(true);
+                  console.log('✅ Set flashTouched=true, navigating to quiz tab');
+                  setTab("quiz");
+                }}
+                className="rounded-xl bg-[#F76511] px-8 py-3 text-base font-semibold text-white hover:bg-orange-600 transition-all shadow-lg hover:shadow-xl active:scale-95"
+              >
+                Continue to Quiz →
+              </button>
+            </div>
+          </section>
+        </>
       )}
 
       {tab==='quiz' && (
