@@ -12,17 +12,43 @@ import { track } from '@/lib/track';
 import { useModuleGate } from '@/components/training/useModuleGate';
 
 export default function Page() {
-  // Use same progress tracking system as other modules
-  const { done, markDone } = useModuleGate({
-    courseId: 'forklift',
-    moduleKey: 'm1',
-    initial: { osha: false, practice: false, cards: false, quiz: false }
-  });
-  
   const [tab, setTab] = React.useState<'osha'|'practice'|'flash'|'quiz'>('osha');
   const [ppeDone, setPpeDone] = React.useState(false);
   const [ctrlDone, setCtrlDone] = React.useState(false);
   const [showQuiz, setShowQuiz] = React.useState(false);
+  
+  // Load saved progress from localStorage for Module 1
+  const [loadedInitialState, setLoadedInitialState] = React.useState(false);
+  const [initialGateState, setInitialGateState] = React.useState<any>({ 
+    osha: false, practice: false, cards: false, quiz: false 
+  });
+  
+  React.useEffect(() => {
+    try {
+      const key = 'm1-gate-state';
+      const saved = JSON.parse(localStorage.getItem(key) || '{}');
+      if (Object.keys(saved).length > 0) {
+        setInitialGateState(saved);
+      }
+      setLoadedInitialState(true);
+    } catch {}
+  }, []);
+  
+  // Use same progress tracking system as other modules
+  const { done, markDone } = useModuleGate({
+    courseId: 'forklift',
+    moduleKey: 'm1',
+    initial: initialGateState
+  });
+  
+  // Persist gate state to localStorage
+  React.useEffect(() => {
+    if (loadedInitialState) {
+      try {
+        localStorage.setItem('m1-gate-state', JSON.stringify(done));
+      } catch {}
+    }
+  }, [done, loadedInitialState]);
   
   React.useEffect(() => { track('lesson_start', { module: 1 }); }, []);
 
