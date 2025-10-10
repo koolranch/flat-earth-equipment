@@ -12,6 +12,10 @@ import { getModuleFlashcards } from '@/lib/training/flashcards';
 import { track } from '@/lib/track';
 import { useModuleGate } from '@/components/training/useModuleGate';
 
+// Force dynamic rendering and prevent caching
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 // OSHA Basics checklist items
 const oshaChecklistItems: ChecklistItem[] = [
   {
