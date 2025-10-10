@@ -224,14 +224,6 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
         )}
 
         <section className='space-y-6'>
-          {prog.next && (
-            <div className="text-center">
-              <a className='btn-primary tappable inline-flex items-center justify-center' href={prog.next.nextRoute} aria-label={`Resume training: ${prog.next.label || 'next module'}`}>
-                Resume training
-              </a>
-            </div>
-          )}
-
           {/* Module Progress Overview */}
           <div className='bg-white rounded-2xl border border-slate-200 shadow-sm px-6 py-6'>
             <div className='flex items-center justify-between mb-6'>
