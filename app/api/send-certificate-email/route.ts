@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { getUserLocale } from '@/lib/getUserLocale'
+import { sendMail } from '@/lib/email/mailer'
 
 export async function POST(req: Request) {
   try {
@@ -90,29 +91,14 @@ export async function POST(req: Request) {
     </html>
     `
     
-    // Send email using SendGrid (FREE: 100 emails/day, 3000/month)
-    if (!process.env.SENDGRID_API_KEY) {
-      console.warn('⚠️ SENDGRID_API_KEY not configured - email will not be sent')
-      console.log('📧 Email would be sent to:', to)
-      console.log('📧 Subject: Forklift Training Complete -', studentName)
-      console.log('📧 Certificate URL:', certificateUrl)
-    } else {
-      // Dynamic import to avoid build issues if not installed
-      const sgMail = await import('@sendgrid/mail').then(m => m.default)
-      sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-      
-      await sgMail.send({
-        to,
-        from: {
-          name: 'Flat Earth Safety Training',
-          email: 'training@flatearthequipment.com'
-        },
-        subject: `Forklift Training Complete - ${studentName}`,
-        html: emailHtml,
-      })
-      
-      console.log('✅ Email sent successfully via SendGrid to:', to)
-    }
+    // Send email using Resend
+    await sendMail({
+      to,
+      subject: `Forklift Training Complete - ${studentName}`,
+      html: emailHtml
+    })
+    
+    console.log('✅ Certificate email sent via Resend to:', to)
     
     return NextResponse.json({ 
       success: true, 

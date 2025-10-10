@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { sendMail } from '@/lib/email/mailer'
 
 interface OrderLineItem {
   product_name: string
@@ -43,29 +44,14 @@ export async function POST(req: Request) {
     // Generate email content based on order type
     const { subject, emailHtml } = generateOrderEmail(orderData)
     
-    // Send email using SendGrid
-    if (!process.env.SENDGRID_API_KEY) {
-      console.warn('⚠️ SENDGRID_API_KEY not configured - email will not be sent')
-      console.log('📧 Order confirmation email would be sent to:', orderData.customer_email)
-      console.log('📧 Subject:', subject)
-      console.log('📧 Order:', orderData.order_number)
-    } else {
-      const sgMail = await import('@sendgrid/mail').then(m => m.default)
-      sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-      
-      // Use verified sender email
-      await sgMail.send({
-        to: orderData.customer_email,
-        from: {
-          name: 'Flat Earth Equipment',
-          email: 'contact@flatearthequipment.com' // Use verified sender email
-        },
-        subject,
-        html: emailHtml,
-      })
-      
-      console.log('✅ Order confirmation email sent via SendGrid to:', orderData.customer_email)
-    }
+    // Send email using Resend
+    await sendMail({
+      to: orderData.customer_email,
+      subject,
+      html: emailHtml
+    })
+    
+    console.log('✅ Order confirmation email sent via Resend to:', orderData.customer_email)
     
     return NextResponse.json({ 
       success: true, 
