@@ -68,7 +68,7 @@ export default async function SafetyPage() {
   // For non-authenticated users, direct to pricing (better for ads)
   // For authenticated users, check enrollment and route accordingly
   let ctaHref = '/safety#pricing';
-  let ctaText = locale === 'es' ? 'Ver Precios' : 'View Pricing';
+  let ctaText = locale === 'es' ? 'Certificarse Ahora - $59' : 'Get Certified Now - $59';
   
   if (isAuthed && userId) {
     // Check enrollment status
@@ -93,7 +93,7 @@ export default async function SafetyPage() {
         ctaText = locale === 'es' ? 'Continuar Entrenamiento' : 'Continue Training';
       } else {
         ctaHref = '/safety#pricing';
-        ctaText = locale === 'es' ? 'Ver Precios' : 'View Pricing';
+        ctaText = locale === 'es' ? 'Certificarse Ahora - $59' : 'Get Certified Now - $59';
       }
     }
   }
@@ -268,6 +268,41 @@ export default async function SafetyPage() {
             </p>
           </div>
         </section>
+
+        {/* Authority & Compliance Section */}
+        <section className="mt-8 grid sm:grid-cols-3 gap-4">
+          <div className="bg-white rounded-xl border-2 border-green-200 p-6 text-center shadow-sm">
+            <div className="text-4xl mb-3">📋</div>
+            <h3 className="font-bold text-slate-900 mb-2">OSHA 29 CFR 1910.178</h3>
+            <p className="text-sm text-slate-600">
+              Meets all required formal instruction topics for powered industrial trucks
+            </p>
+          </div>
+          <div className="bg-white rounded-xl border-2 border-blue-200 p-6 text-center shadow-sm">
+            <div className="text-4xl mb-3">🗺️</div>
+            <h3 className="font-bold text-slate-900 mb-2">Accepted in All 50 States</h3>
+            <p className="text-sm text-slate-600">
+              Valid nationwide. Recognized by employers across the United States
+            </p>
+          </div>
+          <div className="bg-white rounded-xl border-2 border-orange-200 p-6 text-center shadow-sm">
+            <div className="text-4xl mb-3">✅</div>
+            <h3 className="font-bold text-slate-900 mb-2">Instant Verification</h3>
+            <p className="text-sm text-slate-600">
+              QR code on certificate allows instant verification by employers
+            </p>
+          </div>
+        </section>
+
+        {/* Urgency Element */}
+        <div className="mt-8 bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-orange-200 rounded-xl p-6 text-center">
+          <p className="text-lg font-bold text-slate-900 mb-2">
+            🚀 Start Today, Get Certified Today
+          </p>
+          <p className="text-sm text-slate-700">
+            Complete your training in under an hour and download your certificate immediately. Don't wait for scheduled classes - get job-ready now.
+          </p>
+        </div>
 
         <PricingStrip />
 
