@@ -8,10 +8,10 @@ export const TRAINING_PLANS = {
     price: 59,
     priceText: '$59',
     priceId: 'price_1RS834HJI548rO8JpJMyGhL3',
-    blurb: 'One forklift operator certification',
-    features: ['5 Interactive Modules', 'Final Exam', 'QR-Verifiable Certificate', 'OSHA Compliant'],
+    blurb: 'Perfect for job seekers and individual operators',
+    features: ['Complete in under 60 minutes', 'Instant certificate download', 'Valid for 3 years', 'Accepted by all employers', 'Unlimited exam retakes'],
     seats: 1,
-    popular: false,
+    popular: true,
     savings: undefined,
   },
   pack5: {
@@ -26,7 +26,7 @@ export const TRAINING_PLANS = {
     features: ['5 Training Seats', 'Trainer Dashboard', 'Progress Tracking', 'Bulk Certificates'],
     seats: 5,
     savings: '$20 total',
-    popular: true,
+    popular: false,
   },
   pack25: {
     id: 'pack25',
