@@ -167,6 +167,17 @@ export default async function SafetyPage() {
           <p className="text-lg text-brand-onPanel/90 prose-readable mx-auto mb-6">
             {t.hero.sub}
           </p>
+          {/* Authority Badges */}
+          <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-brand-onPanel/80 mb-6">
+            <span className="flex items-center gap-1">✅ Complete in under 60 minutes</span>
+            <span className="hidden sm:inline">•</span>
+            <span className="flex items-center gap-1">✅ Instant certificate download</span>
+            <span className="hidden sm:inline">•</span>
+            <span className="flex items-center gap-1">✅ Valid for 3 years</span>
+            <span className="hidden sm:inline">•</span>
+            <span className="flex items-center gap-1">✅ Accepted nationwide</span>
+          </div>
+
           <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
             <Link 
               href={ctaHref}
@@ -175,12 +186,16 @@ export default async function SafetyPage() {
               {ctaText} →
             </Link>
             <a 
-              href="#how-it-works" 
+              href="/training/module-1-new" 
               className="inline-flex items-center gap-2 rounded-xl border-2 border-brand-onPanel/20 px-6 py-3 text-brand-onPanel/90 hover:bg-white/5 transition-colors font-medium"
             >
               {t.hero.cta_secondary}
             </a>
           </div>
+          
+          <p className="mt-4 text-sm text-brand-onPanel/70">
+            ⚡ Most operators complete in 45-60 minutes
+          </p>
           {!isAuthed && (
             <p className="mt-4 text-sm text-brand-onPanel/70">
               {locale === 'es' ? '¿Ya estás certificado? ' : 'Already certified? '}
@@ -191,6 +206,69 @@ export default async function SafetyPage() {
           )}
         </header>
 
+        {/* Comparison Table - Online vs In-Person */}
+        <section className="mt-8 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-200 p-6 sm:p-8">
+          <h2 className="text-2xl font-bold text-center text-slate-900 mb-6">
+            Online vs. In-Person: Same Certification, Better Experience
+          </h2>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b-2 border-blue-300">
+                  <th className="pb-3 text-slate-700 font-semibold"></th>
+                  <th className="pb-3 text-slate-700 font-semibold">Traditional Classroom</th>
+                  <th className="pb-3 text-[#F76511] font-bold">Flat Earth Safety Online</th>
+                </tr>
+              </thead>
+              <tbody className="text-sm">
+                <tr className="border-b border-blue-100">
+                  <td className="py-3 font-medium text-slate-700">⏰ Time Required</td>
+                  <td className="py-3 text-slate-600">8 hours (full day)</td>
+                  <td className="py-3 text-[#F76511] font-semibold">Under 60 minutes ⚡</td>
+                </tr>
+                <tr className="border-b border-blue-100">
+                  <td className="py-3 font-medium text-slate-700">💵 Cost</td>
+                  <td className="py-3 text-slate-600">$200-$500</td>
+                  <td className="py-3 text-[#F76511] font-semibold">$59</td>
+                </tr>
+                <tr className="border-b border-blue-100">
+                  <td className="py-3 font-medium text-slate-700">📍 Location</td>
+                  <td className="py-3 text-slate-600">Must travel to center</td>
+                  <td className="py-3 text-[#F76511] font-semibold">Train anywhere</td>
+                </tr>
+                <tr className="border-b border-blue-100">
+                  <td className="py-3 font-medium text-slate-700">📅 Schedule</td>
+                  <td className="py-3 text-slate-600">Fixed class times</td>
+                  <td className="py-3 text-[#F76511] font-semibold">24/7 - Start now</td>
+                </tr>
+                <tr className="border-b border-blue-100">
+                  <td className="py-3 font-medium text-slate-700">📜 Certificate</td>
+                  <td className="py-3 text-slate-600">Mail in 1-2 weeks</td>
+                  <td className="py-3 text-[#F76511] font-semibold">Instant download</td>
+                </tr>
+                <tr className="border-b border-blue-100">
+                  <td className="py-3 font-medium text-slate-700">✅ OSHA Compliance</td>
+                  <td className="py-3 text-slate-600">29 CFR 1910.178</td>
+                  <td className="py-3 text-[#F76511] font-semibold">29 CFR 1910.178</td>
+                </tr>
+                <tr>
+                  <td className="py-3 font-medium text-slate-700">🔄 Retakes</td>
+                  <td className="py-3 text-slate-600">Pay again</td>
+                  <td className="py-3 text-[#F76511] font-semibold">Free unlimited</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="mt-6 text-center p-4 bg-white rounded-xl border border-blue-200">
+            <p className="text-lg font-bold text-slate-900">
+              💰 You save: $141-$441 + 7 hours of your time
+            </p>
+            <p className="text-sm text-slate-600 mt-1">
+              Same OSHA certification. Just faster and more convenient.
+            </p>
+          </div>
+        </section>
+
         <PricingStrip />
 
         {/* Value Propositions */}
@@ -200,35 +278,74 @@ export default async function SafetyPage() {
 
         {/* How It Works */}
         <section id="how-it-works" className="mt-8 bg-white rounded-2xl border border-slate-200 shadow-sm px-8 py-8">
-          <h2 className="text-2xl font-bold mb-6 text-slate-900">
+          <h2 className="text-2xl font-bold mb-2 text-slate-900 text-center">
             {locale === 'es' ? 'Cómo funciona' : 'How it works'}
           </h2>
+          <p className="text-center text-[#F76511] font-semibold mb-6">
+            Complete in Under 60 Minutes
+          </p>
           <ol className="list-decimal pl-6 text-base leading-7 text-slate-700 space-y-4">
             <li>
+              <strong className="text-slate-900">
+                {locale === 'es' 
+                  ? 'Completa 5 módulos interactivos (35-45 minutos)'
+                  : 'Complete 5 Interactive Modules (35-45 minutes)'
+                }
+              </strong>
+              <br />
               {locale === 'es' 
-                ? 'Aprenda con demos interactivas cortas (puntos activos, listas de verificación, simulaciones).'
-                : 'Learn with short interactive demos (hotspots, checklists, simulations).'
+                ? 'Aprenda con demos interactivas cortas, listas de verificación y simulaciones.'
+                : 'Learn with short interactive demos, checklists, and simulations. Engaging content keeps you focused.'
               }
             </li>
             <li>
+              <strong className="text-slate-900">
+                {locale === 'es' 
+                  ? 'Apruebe el examen final (5-10 minutos)'
+                  : 'Pass the Final Exam (5-10 minutes)'
+                }
+              </strong>
+              <br />
               {locale === 'es' 
-                ? 'Responda micro-cuestionarios de 3-7 preguntas para consolidar conceptos.'
-                : 'Answer 3–7 question micro-quizzes to lock in concepts.'
+                ? 'Responda micro-cuestionarios para demostrar conocimiento. Reintentos ilimitados.'
+                : 'Demonstrate your knowledge with the final exam. Unlimited retakes included at no extra cost.'
               }
             </li>
             <li>
+              <strong className="text-slate-900">
+                {locale === 'es' 
+                  ? 'Descargue su certificado (instantáneo)'
+                  : 'Download Your Certificate (Instant)'
+                }
+              </strong>
+              <br />
               {locale === 'es' 
-                ? 'Apruebe el examen final para generar su certificado.'
-                : 'Pass the final exam to generate your certificate.'
+                ? 'Credencial verificable por QR lista para mostrar a su empleador.'
+                : 'QR-verifiable credential ready to show your employer. Start applying for jobs immediately.'
               }
             </li>
             <li>
+              <strong className="text-slate-900">
+                {locale === 'es' 
+                  ? 'El empleador completa la evaluación práctica (en el sitio)'
+                  : 'Employer Completes Practical Evaluation (On-Site)'
+                }
+              </strong>
+              <br />
               {locale === 'es' 
-                ? 'Su supervisor completa la evaluación práctica y firma en el sitio.'
-                : 'Your supervisor completes the practical evaluation and signature on site.'
+                ? 'Proporcionamos el formulario de evaluación y las instrucciones.'
+                : 'We provide the evaluation form and instructions. Your supervisor confirms hands-on competency.'
               }
             </li>
           </ol>
+          <div className="mt-6 text-center p-4 bg-green-50 rounded-xl border border-green-200">
+            <p className="text-lg font-bold text-green-800">
+              ⏱️ Total time: 45-60 minutes average
+            </p>
+            <p className="text-sm text-green-700 mt-1">
+              Get job-ready today. No need to wait for scheduled classes.
+            </p>
+          </div>
         </section>
 
         {/* Compliance Block */}
