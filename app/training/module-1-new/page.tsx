@@ -99,14 +99,14 @@ export default function Page() {
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-8 space-y-6">
-      {/* Test Banner */}
-      <div className="bg-blue-600 text-white p-4 rounded-xl text-center">
-        <p className="font-bold">🧪 TEST VERSION - Mobile-Optimized Module 1</p>
-        <p className="text-sm mt-1">Testing new interactive checklist + swipeable flashcards</p>
+      {/* Preview Badge */}
+      <div className="bg-green-50 border-2 border-green-200 rounded-xl p-4 text-center">
+        <p className="font-bold text-green-800">🎓 FREE PREVIEW - Module 1</p>
+        <p className="text-sm text-green-700 mt-1">Experience our interactive training before you buy. No credit card required.</p>
       </div>
 
       <header className="grid gap-2">
-        <h1 className="text-2xl font-semibold">Module 1 — Pre-Operation (Mobile Optimized)</h1>
+        <h1 className="text-2xl font-semibold">Module 1 — Pre-Operation</h1>
         <p className="text-slate-600">Equip PPE and complete basic safety checks before you move the truck.</p>
       </header>
 
