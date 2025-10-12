@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import FlashCardDeck, { type FlashCard } from '@/components/training/FlashCardDeck';
+import SwipeableFlashCards from '@/components/training/SwipeableFlashCards';
 import { getModuleFlashcards } from '@/lib/training/flashcards';
 import SimpleQuizModal from '@/components/quiz/SimpleQuizModal';
 import { useModuleTabs } from '@/hooks/useModuleTabs';
@@ -296,7 +296,7 @@ export default function TabbedModuleLayout({
         </section>
       )}
       {tab==='flash' && (
-        <section className='rounded-2xl border bg-white p-4 mb-4 shadow-card'>
+        <section className='rounded-2xl border bg-white p-6 mb-4 shadow-card'>
           {(() => {
             if (!moduleCards.length) return <div className='text-sm text-slate-600'>No flash cards found for this module yet.</div>;
             if (typeof window !== 'undefined') {
@@ -305,10 +305,11 @@ export default function TabbedModuleLayout({
             }
             
             return (
-              <FlashCardDeck
+              <SwipeableFlashCards
                 cards={moduleCards}
                 title="Flash Cards"
-                onDone={async () => {
+                autoAdvanceDelay={5}
+                onComplete={async () => {
                   await markDone("cards");
                   setTab("quiz");
                 }}
