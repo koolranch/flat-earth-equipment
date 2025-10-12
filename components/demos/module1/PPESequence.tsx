@@ -26,10 +26,10 @@ export default function PPESequence({ onComplete }: Props) {
 
   // Pre-compute all assets at component level
   const assets = [
-    { ...steps[0], asset: { file: assetUrl('assets/ppe_vest.svg'), frag: '#icon', href: assetUrl('assets/ppe_vest.svg') + '#icon' } },
-    { ...steps[1], asset: { file: assetUrl('assets/ppe_hardhat.svg'), frag: '#icon', href: assetUrl('assets/ppe_hardhat.svg') + '#icon' } },
-    { ...steps[2], asset: { file: assetUrl('assets/ppe_goggles.svg'), frag: '#icon', href: assetUrl('assets/ppe_goggles.svg') + '#icon' } },
-    { ...steps[3], asset: { file: assetUrl('assets/ppe_seatbelt.svg'), frag: '#icon', href: assetUrl('assets/ppe_seatbelt.svg') + '#icon' } }
+    { ...steps[0], asset: { file: assetUrl('training/c1-ppe-vest.svg'), frag: '#icon', href: assetUrl('training/c1-ppe-vest.svg') + '#icon' } },
+    { ...steps[1], asset: { file: assetUrl('training/c1-ppe-hardhat.svg'), frag: '#icon', href: assetUrl('training/c1-ppe-hardhat.svg') + '#icon' } },
+    { ...steps[2], asset: { file: assetUrl('training/c1-ppe-goggles.svg'), frag: '#icon', href: assetUrl('training/c1-ppe-goggles.svg') + '#icon' } },
+    { ...steps[3], asset: { file: assetUrl('training/animations/d1-seatbelt.svg'), frag: '#icon', href: assetUrl('training/animations/d1-seatbelt.svg') + '#icon' } }
   ];
 
   return (
@@ -56,7 +56,7 @@ export default function PPESequence({ onComplete }: Props) {
         </div>
       )}
       <div className="mt-4">
-        <AnimatedSvg src={assetUrl('assets/anim_seatbelt.svg')} title="Seatbelt latch" />
+        <AnimatedSvg src={assetUrl('training/animations/d1-seatbelt.svg')} title="Seatbelt latch" />
       </div>
     </div>
   );
