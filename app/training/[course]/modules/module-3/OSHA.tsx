@@ -1,8 +1,8 @@
 import React from 'react';
-import OshaBasicsCard from '@/components/training/OshaBasicsCard';
+import InteractiveChecklist, { ChecklistItem } from '@/components/training/InteractiveChecklist';
 
 export default function Module3OSHA() {
-  const bullets = [
+  const checklistItems: ChecklistItem[] = [
     {
       text: "Capacity & attachments: Never exceed nameplate capacity; attachments change capacity and load center—use the data plate.",
       details: (
@@ -143,14 +143,22 @@ export default function Module3OSHA() {
         </>
       )
     },
-  ];
+  ].map((item, index) => ({
+    id: item.text.split(':')[0].toLowerCase().replace(/[^a-z0-9]/g, '-'),
+    title: item.text.split(':')[0],
+    description: item.text.split(':').slice(1).join(':').trim(),
+    icon: ['⚖️', '📏', '🔺', '👁️', '⛰️', '📦', '🚶'][index]
+  }));
 
   return (
-    <OshaBasicsCard
-      title="OSHA Basics — Balance & Load Handling"
-      bullets={bullets}
-      tip="Reference: OSHA 29 CFR 1910.178(n); ANSI/ITSDF B56.1."
-      testId="osha-m3"
+    <InteractiveChecklist
+      title="OSHA 1910.178 — Balance & Load Handling"
+      subtitle="Master load stability and safe travel procedures."
+      items={checklistItems}
+      requireAllChecked={true}
+      onComplete={() => {
+        console.log('Module 3 OSHA checklist completed');
+      }}
     />
   );
 }

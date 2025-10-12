@@ -1,8 +1,8 @@
 import React from 'react';
-import OshaBasicsCard from '@/components/training/OshaBasicsCard';
+import InteractiveChecklist, { ChecklistItem } from '@/components/training/InteractiveChecklist';
 
 export default function Module4OSHA() {
-  const bullets = [
+  const checklistItems: ChecklistItem[] = [
     {
       text: "Train for your facility's hazards and use the scene hotspots to practice. Control hazards before operating.",
       details: (
@@ -182,14 +182,22 @@ export default function Module4OSHA() {
         </>
       )
     },
-  ];
+  ].map((item, index) => ({
+    id: item.text.split(':')[0].toLowerCase().replace(/[^a-z0-9]/g, '-'),
+    title: item.text.split(':')[0],
+    description: item.text.split(':').slice(1).join(':').trim(),
+    icon: ['⚠️', '🚧', '🚶‍♂️', '⛰️', '🚪', '⚡', '🔥'][index]
+  }));
 
   return (
-    <OshaBasicsCard
-      title="OSHA Basics — Workplace Hazards"
-      bullets={bullets}
-      tip="Reference: OSHA 29 CFR 1910.178(n), (o), (p)."
-      testId="osha-m4"
+    <InteractiveChecklist
+      title="OSHA 1910.178 — Workplace Hazards"
+      subtitle="Identify and control hazards in your facility."
+      items={checklistItems}
+      requireAllChecked={true}
+      onComplete={() => {
+        console.log('Module 4 OSHA checklist completed');
+      }}
     />
   );
 }
