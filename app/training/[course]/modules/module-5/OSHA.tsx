@@ -1,8 +1,8 @@
 import React from 'react';
-import OshaBasicsCard from '@/components/training/OshaBasicsCard';
+import InteractiveChecklist, { ChecklistItem } from '@/components/training/InteractiveChecklist';
 
 export default function Module5OSHA() {
-  const bullets = [
+  const checklistItems: ChecklistItem[] = [
     {
       text: "Battery charging: Park, set brake, forks down, power off; ventilated area; no smoking/open flames.",
       details: (
@@ -198,14 +198,22 @@ export default function Module5OSHA() {
         </>
       )
     },
-  ];
+  ].map((item, index) => ({
+    id: item.text.split(':')[0].toLowerCase().replace(/[^a-z0-9]/g, '-'),
+    title: item.text.split(':')[0],
+    description: item.text.split(':').slice(1).join(':').trim(),
+    icon: ['🔋', '🦺', '🔌', '🔍', '🔧', '📋'][index]
+  }));
 
   return (
-    <OshaBasicsCard
-      title="OSHA Basics — Charging/Fueling & Care"
-      bullets={bullets}
-      tip="Reference: OSHA 29 CFR 1910.178(g), (l); manufacturer manuals; SDS."
-      testId="osha-m5"
+    <InteractiveChecklist
+      title="OSHA 1910.178 — Charging/Fueling & Care"
+      subtitle="Safe battery charging and maintenance procedures."
+      items={checklistItems}
+      requireAllChecked={true}
+      onComplete={() => {
+        console.log('Module 5 OSHA checklist completed');
+      }}
     />
   );
 }
