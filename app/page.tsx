@@ -29,11 +29,14 @@ export default function Page() {
       trustedBrands: 'Trusted Brands We Support',
       viewAllBrands: 'View All Brands →',
       servingWest: 'Serving the Western U.S.',
-      servingDescription: 'From Wyoming to New Mexico, we deliver rugged rentals and precision-fit parts to contractors, fleets, and facilities across the West.',
+      servingDescription: 'From Wyoming to Texas, we deliver rugged rentals and precision-fit parts to contractors, fleets, and facilities across the West.',
       locations: {
         cheyenne: 'Cheyenne, WY',
         bozeman: 'Bozeman, MT', 
         pueblo: 'Pueblo, CO',
+        dallasFortWorth: 'Dallas-Fort Worth, TX',
+        elPaso: 'El Paso, TX',
+        albuquerque: 'Albuquerque, NM',
         lasCruces: 'Las Cruces, NM'
       },
       quoteButton: 'Request Rental Quote',
@@ -43,11 +46,14 @@ export default function Page() {
       trustedBrands: 'Marcas de Confianza que Apoyamos',
       viewAllBrands: 'Ver Todas las Marcas →',
       servingWest: 'Sirviendo el Oeste de EE.UU.',
-      servingDescription: 'Desde Wyoming hasta Nuevo México, entregamos alquileres resistentes y partes de ajuste preciso a contratistas, flotas e instalaciones en todo el Oeste.',
+      servingDescription: 'Desde Wyoming hasta Texas, entregamos alquileres resistentes y partes de ajuste preciso a contratistas, flotas e instalaciones en todo el Oeste.',
       locations: {
         cheyenne: 'Cheyenne, WY',
         bozeman: 'Bozeman, MT',
-        pueblo: 'Pueblo, CO', 
+        pueblo: 'Pueblo, CO',
+        dallasFortWorth: 'Dallas-Fort Worth, TX',
+        elPaso: 'El Paso, TX',
+        albuquerque: 'Albuquerque, NM',
         lasCruces: 'Las Cruces, NM'
       },
       quoteButton: 'Solicitar Cotización de Alquiler',
@@ -149,20 +155,32 @@ export default function Page() {
           <p className="text-slate-600 text-sm mb-10 max-w-xl mx-auto">
             {t.servingDescription}
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm text-slate-700">
-            <a href="/locations/cheyenne-wy" className="hover:text-canyon-rust transition">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-6 text-sm text-slate-700">
+            <a href="/wyoming/cheyenne" className="hover:text-canyon-rust transition">
               <div className="text-3xl mb-2" aria-hidden="true">📍</div>
               {t.locations.cheyenne}
             </a>
-            <a href="/locations/bozeman-mt" className="hover:text-canyon-rust transition">
+            <a href="/montana/bozeman" className="hover:text-canyon-rust transition">
               <div className="text-3xl mb-2" aria-hidden="true">🏔️</div>
               {t.locations.bozeman}
             </a>
-            <a href="/locations/pueblo-co" className="hover:text-canyon-rust transition">
+            <a href="/colorado/pueblo" className="hover:text-canyon-rust transition">
               <div className="text-3xl mb-2" aria-hidden="true">🏗️</div>
               {t.locations.pueblo}
             </a>
-            <a href="/locations/las-cruces-nm" className="hover:text-canyon-rust transition">
+            <a href="/texas/dallas-fort-worth" className="hover:text-canyon-rust transition">
+              <div className="text-3xl mb-2" aria-hidden="true">🏙️</div>
+              {t.locations.dallasFortWorth}
+            </a>
+            <a href="/texas/el-paso" className="hover:text-canyon-rust transition">
+              <div className="text-3xl mb-2" aria-hidden="true">🌄</div>
+              {t.locations.elPaso}
+            </a>
+            <a href="/new-mexico/albuquerque" className="hover:text-canyon-rust transition">
+              <div className="text-3xl mb-2" aria-hidden="true">🎈</div>
+              {t.locations.albuquerque}
+            </a>
+            <a href="/new-mexico/las-cruces" className="hover:text-canyon-rust transition">
               <div className="text-3xl mb-2" aria-hidden="true">🌵</div>
               {t.locations.lasCruces}
             </a>
