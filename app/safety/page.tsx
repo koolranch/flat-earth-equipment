@@ -489,6 +489,32 @@ export default async function SafetyPage() {
                 : 'Get state-specific information about OSHA requirements, penalties, and certification. Our training is accepted in all 50 states.'
               }
             </p>
+            
+            {/* Quick Links to Popular States */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-6 max-w-4xl mx-auto">
+              {[
+                { code: 'tx', name: 'Texas', icon: '🤠' },
+                { code: 'ca', name: 'California', icon: '☀️' },
+                { code: 'fl', name: 'Florida', icon: '🌴' },
+                { code: 'ny', name: 'New York', icon: '🗽' },
+                { code: 'pa', name: 'Pennsylvania', icon: '🏛️' },
+                { code: 'oh', name: 'Ohio', icon: '🏭' },
+                { code: 'il', name: 'Illinois', icon: '🌆' },
+                { code: 'nc', name: 'North Carolina', icon: '🌲' },
+                { code: 'ga', name: 'Georgia', icon: '🍑' },
+                { code: 'mi', name: 'Michigan', icon: '🚗' },
+              ].map(state => (
+                <Link
+                  key={state.code}
+                  href={`/safety/forklift/${state.code}`}
+                  className="bg-white hover:bg-orange-50 border border-orange-200 rounded-lg p-3 transition-all hover:shadow-md"
+                >
+                  <div className="text-2xl mb-1">{state.icon}</div>
+                  <div className="text-sm font-medium text-slate-800">{state.name}</div>
+                </Link>
+              ))}
+            </div>
+            
             <Link 
               href="/safety/forklift" 
               className="inline-flex items-center gap-2 bg-gradient-to-r from-[#F76511] to-orange-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-xl transition-all"
