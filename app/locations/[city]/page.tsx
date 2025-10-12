@@ -52,6 +52,13 @@ const locations: LocationMap = {
     hours: 'Mon-Fri: 8am-5pm',
     description: 'Our Albuquerque location serves central New Mexico with a full range of equipment parts and service.',
   },
+  'dallas-fort-worth-tx': {
+    name: 'Dallas-Fort Worth, TX',
+    address: 'DFW Metroplex',
+    phone: '(307) 302-0043',
+    hours: 'Mon-Fri: 8am-5pm',
+    description: 'Serving the Dallas-Fort Worth Metroplex with fast shipping and equipment rental support.',
+  },
 };
 
 export async function generateStaticParams() {
@@ -159,6 +166,10 @@ export default async function LocationPage({ params }: { params: { city: string 
       ) : params.city === 'albuquerque-nm' ? (
         <p className="text-lg text-slate-700 mb-6">
           Flat Earth Equipment serves central New Mexico with precision-fit parts and rugged rental gear — delivered fast from our Western regional hubs. We keep costs low and response times sharp by operating without local storefronts.
+        </p>
+      ) : params.city === 'dallas-fort-worth-tx' ? (
+        <p className="text-lg text-slate-700 mb-6">
+          Flat Earth Equipment serves the Dallas-Fort Worth Metroplex and North Texas with precision-fit parts and rugged rental gear — delivered fast from our regional distribution network. We keep costs low and response times sharp by leveraging strategic partnerships across Texas.
         </p>
       ) : null}
 
