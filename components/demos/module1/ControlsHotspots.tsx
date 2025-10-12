@@ -23,12 +23,12 @@ export default function ControlsHotspots({ onComplete }: Props) {
     }
   }, [done, onComplete]);
 
-  // Pre-compute all assets at component level
+  // Pre-compute all assets at component level  
   const assets = [
-    { ...targets[0], asset: { file: assetUrl('assets/ctrl_horn.svg'), frag: '#icon', href: assetUrl('assets/ctrl_horn.svg') + '#icon' } },
-    { ...targets[1], asset: { file: assetUrl('assets/ctrl_parking.svg'), frag: '#icon', href: assetUrl('assets/ctrl_parking.svg') + '#icon' } },
-    { ...targets[2], asset: { file: assetUrl('assets/ctrl_ignition.svg'), frag: '#icon', href: assetUrl('assets/ctrl_ignition.svg') + '#icon' } },
-    { ...targets[3], asset: { file: assetUrl('assets/ctrl_lift.svg'), frag: '#icon', href: assetUrl('assets/ctrl_lift.svg') + '#icon' } }
+    { ...targets[0], asset: { file: assetUrl('training/c3-control-horn.svg'), frag: '#icon', href: assetUrl('training/c3-control-horn.svg') + '#icon' } },
+    { ...targets[1], asset: { file: assetUrl('training/animations/d2-parking-brake.svg'), frag: '#icon', href: assetUrl('training/animations/d2-parking-brake.svg') + '#icon' } },
+    { ...targets[2], asset: { file: assetUrl('training/c3-control-horn.svg'), frag: '#icon', href: assetUrl('training/c3-control-horn.svg') + '#icon' } },
+    { ...targets[3], asset: { file: assetUrl('training/c3-control-lights.svg'), frag: '#icon', href: assetUrl('training/c3-control-lights.svg') + '#icon' } }
   ];
 
   return (
