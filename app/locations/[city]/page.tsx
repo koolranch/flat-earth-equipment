@@ -66,6 +66,27 @@ const locations: LocationMap = {
     hours: 'Mon-Fri: 8am-5pm',
     description: 'Serving El Paso and West Texas with precision-fit parts and cross-border logistics support.',
   },
+  'bozeman-mt-full': {
+    name: 'Bozeman, MT',
+    address: 'Gallatin Valley',
+    phone: '(307) 302-0043',
+    hours: 'Mon-Fri: 8am-5pm',
+    description: 'Serving Bozeman and the Gallatin Valley with fast-shipped industrial parts.',
+  },
+  'pueblo-co-full': {
+    name: 'Pueblo, CO',
+    address: 'Southern Colorado',
+    phone: '(307) 302-0043',
+    hours: 'Mon-Fri: 8am-5pm',
+    description: 'Serving Pueblo and southern Colorado Front Range with precision parts.',
+  },
+  'las-cruces-nm-full': {
+    name: 'Las Cruces, NM',
+    address: 'Mesilla Valley',
+    phone: '(307) 302-0043',
+    hours: 'Mon-Fri: 8am-5pm',
+    description: 'Serving Las Cruces and the Mesilla Valley with fast delivery.',
+  },
 };
 
 export async function generateStaticParams() {
