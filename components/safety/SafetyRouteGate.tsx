@@ -2,7 +2,8 @@
 import { usePathname } from "next/navigation";
 import SafetySubnav from "@/components/safety/SafetySubnav";
 
-const SAFETY_PATHS = ["/training", "/safety", "/trainer", "/records"];
+// Only show navigation on training dashboard/tools pages, NOT on marketing landing page
+const SAFETY_PATHS = ["/training", "/trainer", "/records"];
 
 export function SafetyRouteGate() {
   const pathname = usePathname() || "/";
