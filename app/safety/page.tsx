@@ -167,15 +167,12 @@ export default async function SafetyPage() {
           <p className="text-lg text-brand-onPanel/90 prose-readable mx-auto mb-6">
             {t.hero.sub}
           </p>
-          {/* Authority Badges */}
-          <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-brand-onPanel/80 mb-6">
-            <span className="flex items-center gap-1">✅ Complete in under 60 minutes</span>
-            <span className="hidden sm:inline">•</span>
-            <span className="flex items-center gap-1">✅ Instant certificate download</span>
-            <span className="hidden sm:inline">•</span>
-            <span className="flex items-center gap-1">✅ Valid for 3 years</span>
-            <span className="hidden sm:inline">•</span>
-            <span className="flex items-center gap-1">✅ Accepted nationwide</span>
+          {/* Authority Badges - Mobile Optimized */}
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-3 sm:gap-4 text-sm text-brand-onPanel/80 mb-6 max-w-2xl mx-auto">
+            <span className="flex items-center gap-1 justify-center bg-white/10 px-3 py-2 rounded-lg">✅ Under 60 min</span>
+            <span className="flex items-center gap-1 justify-center bg-white/10 px-3 py-2 rounded-lg">✅ Instant cert</span>
+            <span className="flex items-center gap-1 justify-center bg-white/10 px-3 py-2 rounded-lg">✅ 3 years valid</span>
+            <span className="flex items-center gap-1 justify-center bg-white/10 px-3 py-2 rounded-lg">✅ All 50 states</span>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
@@ -206,12 +203,41 @@ export default async function SafetyPage() {
           )}
         </header>
 
-        {/* Comparison Table - Online vs In-Person */}
+        {/* Comparison - Mobile-First Card Design */}
         <section className="mt-8 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-200 p-6 sm:p-8">
-          <h2 className="text-2xl font-bold text-center text-slate-900 mb-6">
-            Online vs. In-Person: Same Certification, Better Experience
+          <h2 className="text-2xl sm:text-3xl font-bold text-center text-slate-900 mb-6">
+            Why Choose Online Training?
           </h2>
-          <div className="overflow-x-auto">
+          
+          {/* Mobile: Stacked comparison cards */}
+          <div className="space-y-4 sm:hidden">
+            {[
+              { icon: '⏰', label: 'Time', old: '8 hours', new: 'Under 60 min' },
+              { icon: '💵', label: 'Cost', old: '$200-$500', new: '$59' },
+              { icon: '📍', label: 'Location', old: 'Travel required', new: 'Anywhere' },
+              { icon: '📜', label: 'Certificate', old: '1-2 weeks', new: 'Instant' },
+            ].map((item, i) => (
+              <div key={i} className="bg-white rounded-xl p-4 border-2 border-blue-200">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-2xl">{item.icon}</span>
+                  <span className="text-xs font-semibold text-slate-500">{item.label}</span>
+                </div>
+                <div className="grid grid-cols-2 gap-3 text-sm">
+                  <div>
+                    <div className="text-xs text-slate-500 mb-1">Classroom</div>
+                    <div className="font-medium text-slate-700">{item.old}</div>
+                  </div>
+                  <div className="border-l-2 border-[#F76511] pl-3">
+                    <div className="text-xs text-[#F76511] font-semibold mb-1">Online</div>
+                    <div className="font-bold text-[#F76511]">{item.new}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop: Table view */}
+          <div className="hidden sm:block overflow-x-auto">
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b-2 border-blue-300">
@@ -259,12 +285,13 @@ export default async function SafetyPage() {
               </tbody>
             </table>
           </div>
+          
           <div className="mt-6 text-center p-4 bg-white rounded-xl border border-blue-200">
-            <p className="text-lg font-bold text-slate-900">
-              💰 You save: $141-$441 + 7 hours of your time
+            <p className="text-base sm:text-lg font-bold text-slate-900">
+              💰 You save: $141-$441 + 7 hours
             </p>
             <p className="text-sm text-slate-600 mt-1">
-              Same OSHA certification. Just faster and more convenient.
+              Same OSHA certification. Faster and more convenient.
             </p>
           </div>
         </section>
