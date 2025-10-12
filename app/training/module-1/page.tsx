@@ -68,38 +68,12 @@ export default function Page() {
   const [ctrlDone, setCtrlDone] = React.useState(false);
   const [showQuiz, setShowQuiz] = React.useState(false);
   
-  // Load saved progress from localStorage for Module 1
-  const [loadedInitialState, setLoadedInitialState] = React.useState(false);
-  const [initialGateState, setInitialGateState] = React.useState<any>({ 
-    osha: false, practice: false, cards: false, quiz: false 
-  });
-  
-  React.useEffect(() => {
-    try {
-      const key = 'm1-gate-state';
-      const saved = JSON.parse(localStorage.getItem(key) || '{}');
-      if (Object.keys(saved).length > 0) {
-        setInitialGateState(saved);
-      }
-      setLoadedInitialState(true);
-    } catch {}
-  }, []);
-  
   // Use same progress tracking system as other modules
   const { done, markDone } = useModuleGate({
     courseId: 'forklift',
     moduleKey: 'm1',
-    initial: initialGateState
+    initial: { osha: false, practice: false, cards: false, quiz: false }
   });
-  
-  // Persist gate state to localStorage
-  React.useEffect(() => {
-    if (loadedInitialState) {
-      try {
-        localStorage.setItem('m1-gate-state', JSON.stringify(done));
-      } catch {}
-    }
-  }, [done, loadedInitialState]);
   
   React.useEffect(() => { track('lesson_start', { module: 1 }); }, []);
 
@@ -232,8 +206,9 @@ export default function Page() {
             <div className='text-sm text-slate-600'>
               <p className='mb-2 flex items-center gap-2'><span>🔒</span> The quiz unlocks after:</p>
               <ul className='list-disc ml-6 space-y-1'>
+                <li>Complete the OSHA Checklist</li>
                 <li>Complete the Practice section (PPE + Controls)</li>
-                <li>Open the Flash Cards</li>
+                <li>Review the Flash Cards</li>
               </ul>
             </div>
           ) : (
@@ -276,3 +251,4 @@ export default function Page() {
     </main>
   );
 }
+
