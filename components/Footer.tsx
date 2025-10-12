@@ -60,13 +60,13 @@ export default function Footer() {
               <li><Link href="/terms-of-service">Terms of Service</Link></li>
               <li><Link href="/privacy-policy">Privacy Policy</Link></li>
               <li><Link href="/locations" className="text-canyon-rust hover:underline">Service Areas</Link></li>
-              <li><Link href="/locations/cheyenne-wy">Cheyenne, WY</Link></li>
-              <li><Link href="/locations/bozeman-mt">Bozeman, MT</Link></li>
-              <li><Link href="/locations/pueblo-co">Pueblo, CO</Link></li>
+              <li><Link href="/wyoming/cheyenne">Cheyenne, WY</Link></li>
+              <li><Link href="/montana/bozeman">Bozeman, MT</Link></li>
+              <li><Link href="/colorado/pueblo">Pueblo, CO</Link></li>
               <li><Link href="/texas/dallas-fort-worth">Dallas-Fort Worth, TX</Link></li>
               <li><Link href="/texas/el-paso">El Paso, TX</Link></li>
-              <li><Link href="/locations/albuquerque-nm">Albuquerque, NM</Link></li>
-              <li><Link href="/locations/las-cruces-nm">Las Cruces, NM</Link></li>
+              <li><Link href="/new-mexico/albuquerque">Albuquerque, NM</Link></li>
+              <li><Link href="/new-mexico/las-cruces">Las Cruces, NM</Link></li>
             </ul>
           </div>
 
