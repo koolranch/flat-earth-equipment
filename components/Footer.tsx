@@ -64,6 +64,7 @@ export default function Footer() {
               <li><Link href="/locations/bozeman-mt">Bozeman, MT</Link></li>
               <li><Link href="/locations/pueblo-co">Pueblo, CO</Link></li>
               <li><Link href="/texas/dallas-fort-worth">Dallas-Fort Worth, TX</Link></li>
+              <li><Link href="/texas/el-paso">El Paso, TX</Link></li>
               <li><Link href="/locations/albuquerque-nm">Albuquerque, NM</Link></li>
               <li><Link href="/locations/las-cruces-nm">Las Cruces, NM</Link></li>
             </ul>

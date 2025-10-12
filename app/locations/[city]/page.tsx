@@ -59,6 +59,13 @@ const locations: LocationMap = {
     hours: 'Mon-Fri: 8am-5pm',
     description: 'Serving the Dallas-Fort Worth Metroplex with fast shipping and equipment rental support.',
   },
+  'el-paso-tx': {
+    name: 'El Paso, TX',
+    address: 'West Texas',
+    phone: '(307) 302-0043',
+    hours: 'Mon-Fri: 8am-5pm',
+    description: 'Serving El Paso and West Texas with precision-fit parts and cross-border logistics support.',
+  },
 };
 
 export async function generateStaticParams() {
@@ -170,6 +177,10 @@ export default async function LocationPage({ params }: { params: { city: string 
       ) : params.city === 'dallas-fort-worth-tx' ? (
         <p className="text-lg text-slate-700 mb-6">
           Flat Earth Equipment serves the Dallas-Fort Worth Metroplex and North Texas with precision-fit parts and rugged rental gear — delivered fast from our regional distribution network. We keep costs low and response times sharp by leveraging strategic partnerships across Texas.
+        </p>
+      ) : params.city === 'el-paso-tx' ? (
+        <p className="text-lg text-slate-700 mb-6">
+          Flat Earth Equipment serves El Paso and West Texas with precision-fit parts and rugged rental gear — delivered fast from our regional distribution network. Strategically positioned to serve both Texas and Southern New Mexico, including the Santa Teresa logistics corridor.
         </p>
       ) : null}
 
