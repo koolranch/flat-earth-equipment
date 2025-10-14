@@ -134,13 +134,31 @@ export async function generateWalletCardPDF(input: WalletCardInput): Promise<Uin
     page.drawText('practical skills before independent', { x: 14, y: 38, size: 6.5, font, color: darkBlue });
     page.drawText('operation.', { x: 14, y: 30, size: 6.5, font, color: darkBlue });
 
-    // Footer with brand
+    // Footer with brand and verification - centered layout
     page.drawRectangle({ x: 7, y: 7, width: CARD_W - 14, height: 18, color: brandOrange });
-    page.drawText('Flat Earth Equipment', { x: 55, y: 15, size: 9, font: fontBold, color: rgb(1, 1, 1) });
     
-    // Verify URL (larger, more visible)
-    const url = verifyUrl.replace(/^https?:\/\//, '');
-    page.drawText(`Verify: ${url}`, { x: 12, y: 15, size: 6, font: fontBold, color: rgb(1, 1, 1) });
+    // Centered organization name
+    const orgText = 'Flat Earth Equipment';
+    const orgWidth = font.widthOfTextAtSize(orgText, 8);
+    page.drawText(orgText, { 
+      x: (CARD_W - orgWidth) / 2, 
+      y: 15, 
+      size: 8, 
+      font: fontBold, 
+      color: rgb(1, 1, 1) 
+    });
+    
+    // Verify URL - centered below brand (removed to avoid overlap)
+    const url = verifyUrl.replace(/^https?:\/\//, '').replace('www.', '');
+    const urlText = `Verify: ${url}`;
+    const urlWidth = font.widthOfTextAtSize(urlText, 5.5);
+    page.drawText(urlText, { 
+      x: (CARD_W - urlWidth) / 2, 
+      y: 9, 
+      size: 5.5, 
+      font, 
+      color: rgb(1, 1, 1) 
+    });
   }
 
   const bytes = await pdf.save();
