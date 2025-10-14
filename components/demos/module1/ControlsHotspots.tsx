@@ -23,12 +23,12 @@ export default function ControlsHotspots({ onComplete }: Props) {
     }
   }, [done, onComplete]);
 
-  // Pre-compute all assets at component level  
+  // Direct SVG paths (no fragments - SVGs don't have symbol IDs)
   const assets = [
-    { ...targets[0], asset: { file: assetUrl('training/c3-control-horn.svg'), frag: '#icon', href: assetUrl('training/c3-control-horn.svg') + '#icon' } },
-    { ...targets[1], asset: { file: assetUrl('training/animations/d2-parking-brake.svg'), frag: '#icon', href: assetUrl('training/animations/d2-parking-brake.svg') + '#icon' } },
-    { ...targets[2], asset: { file: assetUrl('training/c3-control-horn.svg'), frag: '#icon', href: assetUrl('training/c3-control-horn.svg') + '#icon' } },
-    { ...targets[3], asset: { file: assetUrl('training/c3-control-lights.svg'), frag: '#icon', href: assetUrl('training/c3-control-lights.svg') + '#icon' } }
+    { ...targets[0], svgPath: assetUrl('training/c3-control-horn.svg') },
+    { ...targets[1], svgPath: assetUrl('training/animations/d2-parking-brake.svg') },
+    { ...targets[2], svgPath: assetUrl('training/c3-control-horn.svg') },
+    { ...targets[3], svgPath: assetUrl('training/c3-control-lights.svg') }
   ];
 
   return (
@@ -41,9 +41,13 @@ export default function ControlsHotspots({ onComplete }: Props) {
             <button key={t.key} aria-label={t.label}
               className={`grid place-items-center rounded-xl border px-4 py-3 ${hit ? 'border-green-400 bg-green-50' : 'border-slate-200 hover:bg-slate-50'}`}
               onClick={() => setFound(s => ({ ...s, [t.key]: true }))}>
-              <svg width="88" height="88" role="img" aria-hidden="true">
-                <use href={`${t.asset.file}${t.asset.frag}`} />
-              </svg>
+              <img 
+                src={t.svgPath} 
+                alt={t.label}
+                width="88" 
+                height="88"
+                className="w-[88px] h-[88px]"
+              />
               <span className="mt-2 text-xs">{t.label}</span>
             </button>
           );
