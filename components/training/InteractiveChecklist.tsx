@@ -16,6 +16,7 @@ interface InteractiveChecklistProps {
   items: ChecklistItem[];
   onComplete: () => void;
   requireAllChecked?: boolean;
+  storageKey?: string; // Unique key per module
 }
 
 export default function InteractiveChecklist({
@@ -23,32 +24,43 @@ export default function InteractiveChecklist({
   subtitle,
   items,
   onComplete,
-  requireAllChecked = true
+  requireAllChecked = true,
+  storageKey = 'osha-checklist'
 }: InteractiveChecklistProps) {
   const [checkedItems, setCheckedItems] = useState<Set<string>>(new Set());
   const [showConfetti, setShowConfetti] = useState(false);
 
   const totalItems = items.length;
-  const checkedCount = checkedItems.size;
+  // Only count items that exist in current module
+  const validCheckedItems = Array.from(checkedItems).filter(id => 
+    items.some(item => item.id === id)
+  );
+  const checkedCount = validCheckedItems.length;
   const progress = Math.round((checkedCount / totalItems) * 100);
   const allChecked = checkedCount === totalItems;
 
-  // Load saved progress from localStorage
+  // Load saved progress from localStorage (module-specific key)
   useEffect(() => {
     try {
-      const saved = localStorage.getItem('module-1-osha-checklist');
+      const saved = localStorage.getItem(storageKey);
       if (saved) {
-        setCheckedItems(new Set(JSON.parse(saved)));
+        const savedIds = JSON.parse(saved);
+        // Only restore IDs that exist in current items
+        const validIds = savedIds.filter((id: string) => 
+          items.some(item => item.id === id)
+        );
+        setCheckedItems(new Set(validIds));
       }
     } catch {}
-  }, []);
+  }, [storageKey, items]);
 
   // Save progress to localStorage
   useEffect(() => {
     try {
-      localStorage.setItem('module-1-osha-checklist', JSON.stringify(Array.from(checkedItems)));
+      // Only save valid items for current module
+      localStorage.setItem(storageKey, JSON.stringify(validCheckedItems));
     } catch {}
-  }, [checkedItems]);
+  }, [checkedItems, storageKey, validCheckedItems]);
 
   // Show confetti when all items checked
   useEffect(() => {

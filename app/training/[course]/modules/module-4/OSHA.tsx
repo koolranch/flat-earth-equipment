@@ -195,6 +195,7 @@ export default function Module4OSHA() {
       subtitle="Identify and control hazards in your facility."
       items={checklistItems}
       requireAllChecked={true}
+      storageKey="module-4-osha-checklist"
       onComplete={() => {
         console.log('Module 4 OSHA checklist completed');
       }}
