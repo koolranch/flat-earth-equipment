@@ -17,6 +17,7 @@ interface InteractiveChecklistProps {
   onComplete: () => void;
   requireAllChecked?: boolean;
   storageKey?: string; // Unique key per module
+  hideButton?: boolean; // Hide the completion button (when parent handles it)
 }
 
 export default function InteractiveChecklist({
@@ -25,7 +26,8 @@ export default function InteractiveChecklist({
   items,
   onComplete,
   requireAllChecked = true,
-  storageKey = 'osha-checklist'
+  storageKey = 'osha-checklist',
+  hideButton = false
 }: InteractiveChecklistProps) {
   const [checkedItems, setCheckedItems] = useState<Set<string>>(new Set());
   const [showConfetti, setShowConfetti] = useState(false);
@@ -238,43 +240,45 @@ export default function InteractiveChecklist({
         })}
       </div>
 
-      {/* Completion CTA */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className={`rounded-xl p-6 border-2 ${
-          allChecked
-            ? 'bg-gradient-to-r from-green-50 to-emerald-50 border-emerald-300'
-            : 'bg-slate-50 border-slate-200'
-        }`}
-      >
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-center sm:text-left">
-            <h3 className="font-bold text-slate-900 text-lg">
-              {allChecked ? '✅ All Requirements Reviewed!' : '📋 Review All Requirements'}
-            </h3>
-            <p className="text-sm text-slate-600 mt-1">
-              {allChecked 
-                ? 'Great job! Continue to the practice section.' 
-                : requireAllChecked 
-                  ? `Check ${totalItems - checkedCount} more item${totalItems - checkedCount === 1 ? '' : 's'} to continue`
-                  : 'You can continue anytime'
-              }
-            </p>
+      {/* Completion CTA - Only show if not hidden by parent */}
+      {!hideButton && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className={`rounded-xl p-6 border-2 ${
+            allChecked
+              ? 'bg-gradient-to-r from-green-50 to-emerald-50 border-emerald-300'
+              : 'bg-slate-50 border-slate-200'
+          }`}
+        >
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="text-center sm:text-left">
+              <h3 className="font-bold text-slate-900 text-lg">
+                {allChecked ? '✅ All Requirements Reviewed!' : '📋 Review All Requirements'}
+              </h3>
+              <p className="text-sm text-slate-600 mt-1">
+                {allChecked 
+                  ? 'Great job! Continue to the practice section.' 
+                  : requireAllChecked 
+                    ? `Check ${totalItems - checkedCount} more item${totalItems - checkedCount === 1 ? '' : 's'} to continue`
+                    : 'You can continue anytime'
+                }
+              </p>
+            </div>
+            <button
+              onClick={onComplete}
+              disabled={requireAllChecked && !allChecked}
+              className={`w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg active:scale-95 ${
+                allChecked || !requireAllChecked
+                  ? 'bg-[#F76511] text-white hover:bg-orange-600 hover:shadow-xl'
+                  : 'bg-slate-300 text-slate-500 cursor-not-allowed opacity-60'
+              }`}
+            >
+              {allChecked ? 'Continue to Practice →' : 'Mark OSHA Complete'}
+            </button>
           </div>
-          <button
-            onClick={onComplete}
-            disabled={requireAllChecked && !allChecked}
-            className={`w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg active:scale-95 ${
-              allChecked || !requireAllChecked
-                ? 'bg-[#F76511] text-white hover:bg-orange-600 hover:shadow-xl'
-                : 'bg-slate-300 text-slate-500 cursor-not-allowed opacity-60'
-            }`}
-          >
-            {allChecked ? 'Continue to Practice →' : 'Mark OSHA Complete'}
-          </button>
-        </div>
-      </motion.div>
+        </motion.div>
+      )}
 
       {/* Info Note */}
       <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">

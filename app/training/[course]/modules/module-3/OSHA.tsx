@@ -157,6 +157,7 @@ export default function Module3OSHA() {
       items={checklistItems}
       requireAllChecked={true}
       storageKey="module-3-osha-checklist"
+      hideButton={true}
       onComplete={() => {
         console.log('Module 3 OSHA checklist completed');
       }}
