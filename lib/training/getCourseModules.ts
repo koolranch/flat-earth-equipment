@@ -41,7 +41,7 @@ export async function getCourseModules(courseSlug: string) {
     } else if (m.order === 99 || m.title.includes('Course Completion')) {
       href = '/training/final';
     } else if (m.order === 1) {
-      href = '/training/modules/pre-op';
+      href = '/training/module-1';
     } else if (m.order === 2) {
       href = '/training/forklift-operator/module-2';
     } else if (m.order === 3) {
