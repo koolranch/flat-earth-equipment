@@ -282,7 +282,7 @@ export default function Page() {
                 <h3 className='font-medium'>Module 1 Quiz</h3>
                 <p className='text-sm text-slate-600'>8 questions · pass ≥ 80%</p>
               </div>
-              <button className='px-4 py-2 rounded-md border bg-blue-600 text-white border-blue-600' onClick={() => setShowQuiz(true)}>Take quiz</button>
+              <button className='px-6 py-3 rounded-xl font-semibold bg-[#F76511] text-white hover:bg-orange-600 shadow-md hover:shadow-lg transition-all' onClick={() => setShowQuiz(true)}>Take Quiz →</button>
             </div>
           )}
         </section>
@@ -291,7 +291,7 @@ export default function Page() {
       {/* Footer CTA */}
       <div className='mt-6 flex justify-end'>
         <button
-          className={`px-4 py-2 rounded-md border ${quizPassed ? 'bg-blue-600 text-white border-blue-600' : 'opacity-50 cursor-not-allowed bg-slate-100 border-slate-200'}`}
+          className={`px-6 py-3 rounded-xl font-semibold transition-all ${quizPassed ? 'bg-[#F76511] text-white hover:bg-orange-600 shadow-md' : 'opacity-50 cursor-not-allowed bg-slate-200 text-slate-500'}`}
           disabled={!quizPassed}
           onClick={() => {
             window.location.href = '/training/forklift-operator/module-2';
