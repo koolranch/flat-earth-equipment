@@ -78,8 +78,8 @@ export default async function TrainingIndex({ searchParams }: { searchParams?: R
     title: m.title,
     type: m.type,
     content_slug: m.content_slug,
-    // If module already has href, use it; otherwise calculate it
-    href: (m as any).href || (() => {
+    // ALWAYS calculate href fresh (don't trust database href field)
+    href: (() => {
       if (m.order === 0 || /^Introduction/i.test(m.title)) return buildIntroHref(course.slug);
       if (!m.content_slug) return buildCompleteHref(course.slug);
       return buildModuleHref(m.order, course.slug);
