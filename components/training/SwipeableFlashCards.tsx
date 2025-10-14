@@ -218,13 +218,11 @@ export default function SwipeableFlashCards({
             custom={direction}
             initial={{ 
               x: direction === 'left' ? 300 : direction === 'right' ? -300 : 0,
-              opacity: 0,
-              rotateY: 0
+              opacity: 0
             }}
             animate={{ 
               x: 0, 
-              opacity: 1,
-              rotateY: isFlipped ? 180 : 0
+              opacity: 1
             }}
             exit={{ 
               x: direction === 'left' ? -300 : 300,
@@ -243,42 +241,55 @@ export default function SwipeableFlashCards({
               {/* Card */}
               <div 
                 className="bg-white rounded-2xl shadow-2xl border-2 border-slate-200 p-8 sm:p-12 min-h-[400px] sm:min-h-[500px] flex flex-col items-center justify-center"
-                style={{ transformStyle: 'preserve-3d' }}
               >
                 {/* Question/Answer Badge */}
-                <div className={`absolute top-4 left-4 px-4 py-2 rounded-full text-sm font-bold ${
-                  isFlipped 
-                    ? 'bg-emerald-100 text-emerald-700 border-2 border-emerald-300' 
-                    : 'bg-blue-100 text-blue-700 border-2 border-blue-300'
-                }`}>
+                <motion.div 
+                  key={isFlipped ? 'answer' : 'question'}
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className={`absolute top-4 left-4 px-4 py-2 rounded-full text-sm font-bold ${
+                    isFlipped 
+                      ? 'bg-emerald-100 text-emerald-700 border-2 border-emerald-300' 
+                      : 'bg-blue-100 text-blue-700 border-2 border-blue-300'
+                  }`}
+                >
                   {isFlipped ? '💡 Answer' : '❓ Question'}
-                </div>
+                </motion.div>
 
-                {/* Card Content */}
-                <div className="text-center space-y-6 w-full">
-                  {/* Icon/Image */}
-                  {(currentCard.img || currentCard.icon) && !isFlipped && (
-                    <div className="mb-4">
-                      {currentCard.img || (currentCard.icon && (
-                        <img 
-                          src={currentCard.icon} 
-                          alt="Flashcard illustration" 
-                          className="w-32 h-32 sm:w-40 sm:h-40 mx-auto object-contain drop-shadow-lg"
-                        />
-                      ))}
+                {/* Card Content with Flip Animation */}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={isFlipped ? 'back' : 'front'}
+                    initial={{ opacity: 0, scale: 0.9, rotateX: -10 }}
+                    animate={{ opacity: 1, scale: 1, rotateX: 0 }}
+                    exit={{ opacity: 0, scale: 0.9, rotateX: 10 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-center space-y-6 w-full"
+                  >
+                    {/* Icon/Image */}
+                    {(currentCard.img || currentCard.icon) && !isFlipped && (
+                      <div className="mb-4">
+                        {currentCard.img || (currentCard.icon && (
+                          <img 
+                            src={currentCard.icon} 
+                            alt="Flashcard illustration" 
+                            className="w-32 h-32 sm:w-40 sm:h-40 mx-auto object-contain drop-shadow-lg"
+                          />
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Text Content */}
+                    <div className="text-xl sm:text-2xl font-medium text-slate-800 leading-relaxed px-4">
+                      {isFlipped ? currentCard.back : currentCard.front}
                     </div>
-                  )}
 
-                  {/* Text Content */}
-                  <div className="text-xl sm:text-2xl font-medium text-slate-800 leading-relaxed px-4">
-                    {isFlipped ? currentCard.back : currentCard.front}
-                  </div>
-
-                  {/* Flip Hint */}
-                  <p className="text-sm text-slate-500 mt-6">
-                    👆 Tap card to {isFlipped ? 'see question' : 'reveal answer'}
-                  </p>
-                </div>
+                    {/* Flip Hint */}
+                    <p className="text-sm text-slate-500 mt-6">
+                      👆 Tap card to {isFlipped ? 'see question' : 'reveal answer'}
+                    </p>
+                  </motion.div>
+                </AnimatePresence>
               </div>
 
               {/* Swipe indicators */}
