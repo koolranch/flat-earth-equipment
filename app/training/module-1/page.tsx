@@ -294,7 +294,7 @@ export default function Page() {
           className={`px-4 py-2 rounded-md border ${quizPassed ? 'bg-blue-600 text-white border-blue-600' : 'opacity-50 cursor-not-allowed bg-slate-100 border-slate-200'}`}
           disabled={!quizPassed}
           onClick={() => {
-            window.location.href = '/training/module-2';
+            window.location.href = '/training/forklift-operator/module-2';
           }}
         >
           {quizPassed ? 'Continue to Module 2' : 'Complete all steps to continue'}
