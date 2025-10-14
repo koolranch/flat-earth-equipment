@@ -324,7 +324,7 @@ export async function GET(req: Request) {
       } else if (m.order === 99 || m.title.includes('Course Completion')) {
         route = '/training/final';
       } else if (m.order === 1) {
-        route = '/training/modules/pre-op';
+        route = '/training/module-1';
       } else if (m.order === 2) {
         route = '/training/forklift-operator/module-2';
       } else if (m.order === 3) {
