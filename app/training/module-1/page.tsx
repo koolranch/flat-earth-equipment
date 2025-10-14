@@ -206,6 +206,7 @@ export default function Page() {
             subtitle="Master essential safety checks before operating any forklift."
             items={oshaChecklistItems}
             requireAllChecked={true}
+            storageKey="module-1-osha-checklist"
             onComplete={async () => {
               console.log('✅ OSHA checklist complete');
               await markDone("osha");

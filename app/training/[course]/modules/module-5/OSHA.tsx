@@ -211,6 +211,7 @@ export default function Module5OSHA() {
       subtitle="Safe battery charging and maintenance procedures."
       items={checklistItems}
       requireAllChecked={true}
+      storageKey="module-5-osha-checklist"
       onComplete={() => {
         console.log('Module 5 OSHA checklist completed');
       }}

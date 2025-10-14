@@ -65,6 +65,7 @@ export default function Module2OSHA() {
       subtitle="Master the daily safety inspection checklist."
       items={checklistItems}
       requireAllChecked={true}
+      storageKey="module-2-osha-checklist"
       onComplete={() => {
         // This will be called by TabbedModuleLayout's button
         console.log('Module 2 OSHA checklist completed');

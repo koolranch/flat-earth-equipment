@@ -156,6 +156,7 @@ export default function Module3OSHA() {
       subtitle="Master load stability and safe travel procedures."
       items={checklistItems}
       requireAllChecked={true}
+      storageKey="module-3-osha-checklist"
       onComplete={() => {
         console.log('Module 3 OSHA checklist completed');
       }}
