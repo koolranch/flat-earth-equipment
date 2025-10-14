@@ -24,12 +24,12 @@ export default function PPESequence({ onComplete }: Props) {
     }
   }, [done, onComplete]);
 
-  // Pre-compute all assets at component level
+  // Direct SVG paths (no fragments - SVGs don't have symbol IDs)
   const assets = [
-    { ...steps[0], asset: { file: assetUrl('training/c1-ppe-vest.svg'), frag: '#icon', href: assetUrl('training/c1-ppe-vest.svg') + '#icon' } },
-    { ...steps[1], asset: { file: assetUrl('training/c1-ppe-hardhat.svg'), frag: '#icon', href: assetUrl('training/c1-ppe-hardhat.svg') + '#icon' } },
-    { ...steps[2], asset: { file: assetUrl('training/c1-ppe-goggles.svg'), frag: '#icon', href: assetUrl('training/c1-ppe-goggles.svg') + '#icon' } },
-    { ...steps[3], asset: { file: assetUrl('training/animations/d1-seatbelt.svg'), frag: '#icon', href: assetUrl('training/animations/d1-seatbelt.svg') + '#icon' } }
+    { ...steps[0], svgPath: assetUrl('training/c1-ppe-vest.svg') },
+    { ...steps[1], svgPath: assetUrl('training/c1-ppe-hardhat.svg') },
+    { ...steps[2], svgPath: assetUrl('training/c1-ppe-goggles.svg') },
+    { ...steps[3], svgPath: assetUrl('training/animations/d1-seatbelt.svg') }
   ];
 
   return (
@@ -42,9 +42,13 @@ export default function PPESequence({ onComplete }: Props) {
             <button key={s.key} aria-label={s.label} disabled={selected || done}
               onClick={() => { if (i === idx) setIdx(v => v + 1); track('sim_param_change', { module: 1, name: 'ppe_step', value: i }); }}
               className={`group grid place-items-center rounded-xl border px-4 py-3 ${selected ? 'border-green-400 bg-green-50' : 'border-slate-200 hover:bg-slate-50'}`}>
-              <svg width="88" height="88" role="img" aria-hidden="true">
-                <use href={`${s.asset.file}${s.asset.frag}`} />
-              </svg>
+              <img 
+                src={s.svgPath} 
+                alt={s.label}
+                width="88" 
+                height="88"
+                className="w-[88px] h-[88px]"
+              />
               <span className="mt-2 text-xs">{s.label}</span>
             </button>
           );
