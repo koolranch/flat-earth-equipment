@@ -66,8 +66,9 @@ export default function Module2OSHA() {
       items={checklistItems}
       requireAllChecked={true}
       storageKey="module-2-osha-checklist"
+      hideButton={true}
       onComplete={() => {
-        // This will be called by TabbedModuleLayout's button
+        // TabbedModuleLayout handles the button and navigation
         console.log('Module 2 OSHA checklist completed');
       }}
     />
