@@ -18,10 +18,30 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!brand) return { title: 'Brand Not Found' };
   
   const canonical = resolveCanonical(params.slug, 'guide');
+  const fullUrl = `https://www.flatearthequipment.com${canonical}`;
+  
   return { 
     title: `${brand.name} Service & Serial Guide | Flat Earth Equipment`, 
     description: `Complete ${brand.name} service guide covering serial plate locations, troubleshooting tips, and maintenance procedures for your equipment.`,
-    alternates: { canonical } 
+    alternates: { canonical },
+    openGraph: {
+      title: `${brand.name} Service & Serial Guide`,
+      description: `Complete ${brand.name} service guide covering serial plate locations and troubleshooting tips.`,
+      url: fullUrl,
+      type: 'website',
+      siteName: 'Flat Earth Equipment'
+    },
+    twitter: {
+      card: 'summary',
+      title: `${brand.name} Service & Serial Guide`,
+      description: `Complete ${brand.name} service guide covering serial plate locations and troubleshooting tips.`
+    },
+    robots: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    }
   };
 }
 

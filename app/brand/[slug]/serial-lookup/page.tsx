@@ -19,10 +19,36 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!brand) return { title: 'Brand Not Found' };
   
   const canonical = resolveCanonical(params.slug, 'serial');
+  const fullUrl = `https://www.flatearthequipment.com${canonical}`;
+  
   return { 
     title: `${brand.name} Serial Number Lookup | Flat Earth Equipment`, 
     description: `Find your ${brand.name} equipment serial number location and decode your serial for parts identification and service history.`,
-    alternates: { canonical } 
+    alternates: { 
+      canonical,
+      languages: {
+        'en-US': canonical,
+        'es-US': `/es/brand/${params.slug}/serial-lookup`
+      }
+    },
+    openGraph: {
+      title: `${brand.name} Serial Number Lookup`,
+      description: `Find your ${brand.name} equipment serial number location and decode your serial for parts identification.`,
+      url: fullUrl,
+      type: 'website',
+      siteName: 'Flat Earth Equipment'
+    },
+    twitter: {
+      card: 'summary',
+      title: `${brand.name} Serial Number Lookup`,
+      description: `Find your ${brand.name} equipment serial number location and decode your serial.`
+    },
+    robots: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    }
   };
 }
 
