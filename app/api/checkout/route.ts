@@ -89,6 +89,10 @@ export async function POST(req: NextRequest) {
     }
 
     const base = siteUrlFrom(req);
+    
+    // For training purchases, return to /safety on cancel instead of /cart
+    const isTrainingPurchase = metadata.course_slug === 'forklift';
+    const cancelUrl = isTrainingPurchase ? `${base}/safety#pricing` : `${base}/cart`;
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
@@ -97,7 +101,7 @@ export async function POST(req: NextRequest) {
       billing_address_collection: "required",
       shipping_address_collection: { allowed_countries: ["US", "CA"] },
       success_url: `${base}/checkout/success?slug=${encodeURIComponent(successSlug)}&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${base}/cart`,
+      cancel_url: cancelUrl,
       metadata: metadata,
     });
 
