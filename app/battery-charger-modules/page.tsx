@@ -60,7 +60,7 @@ export default async function BatteryChargerModulesPage() {
               <p className="text-sm text-slate-600 mb-4">{part.description?.slice(0, 100)}...</p>
               <div className="flex gap-2 justify-center mb-4">
                 <span className="inline-flex items-center text-xs text-slate-600">🚚 Same-Day Dispatch</span>
-                <span className="inline-flex items-center text-xs text-slate-600">📦 Shipped Nationwide</span>
+                <span className="inline-flex items-center text-xs text-slate-600">📦 Free Shipping</span>
                 <span className="inline-flex items-center text-xs text-slate-600">🤝 U.S.-Based Support</span>
               </div>
               <AddToCartButton 
