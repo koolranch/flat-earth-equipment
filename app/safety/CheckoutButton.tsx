@@ -57,7 +57,10 @@ export default function CheckoutButton({ courseSlug, price, priceId, coupon }: C
         console.log('Redirecting to Stripe Checkout')
         const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
         if (stripe) {
-          const { error } = await stripe.redirectToCheckout({ sessionId: data.sessionId })
+          // Use replace() to prevent empty cart page in browser history
+          const { error } = await stripe.redirectToCheckout({ 
+            sessionId: data.sessionId,
+          })
           if (error) {
             throw error
           }
