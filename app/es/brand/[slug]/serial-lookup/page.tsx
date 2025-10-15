@@ -1,3 +1,4 @@
+import { resolveCanonical } from '@/lib/brandCanon';
 import BrandTabs from '@/components/brand/BrandTabs';
 import BreadcrumbsBrand from '@/components/nav/BreadcrumbsBrand';
 import SerialToolJsonLd from '@/components/seo/SerialToolJsonLd';
@@ -17,15 +18,25 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const brand = await getBrand(params.slug);
   if (!brand) return { title: 'Marca no encontrada' };
   
+  // Use the English canonical as the primary canonical (Spanish is alternate)
+  const canonicalEn = resolveCanonical(params.slug, 'serial');
+  
   return { 
     title: `${brand.name} — Búsqueda por número de serie | Flat Earth Equipment`, 
     description: `Encuentra la ubicación del número de serie de tu equipo ${brand.name} y decodifica tu serie para identificación de partes e historial de servicio.`,
     alternates: { 
+      canonical: canonicalEn, // Point to English version as primary
       languages: { 
-        'en-US': `/brand/${params.slug}/serial-lookup`, 
+        'en-US': canonicalEn, 
         'es-US': `/es/brand/${params.slug}/serial-lookup` 
       } 
-    } 
+    },
+    robots: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    }
   };
 }
 

@@ -20,6 +20,15 @@ import { getUserLocale } from '@/lib/getUserLocale';
 export const metadata: Metadata = {
   title: 'Parts Catalog | Flat Earth Equipment',
   description: 'Browse our complete catalog of industrial parts and components.',
+  alternates: {
+    canonical: '/parts'
+  },
+  robots: {
+    index: true,
+    follow: true,
+    'max-image-preview': 'large',
+    'max-snippet': -1,
+  }
 };
 
 type CategoryIcon = 

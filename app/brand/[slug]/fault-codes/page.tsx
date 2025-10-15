@@ -18,10 +18,30 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!brand) return { title: 'Brand Not Found' };
   
   const canonical = resolveCanonical(params.slug, 'fault-codes');
+  const fullUrl = `https://www.flatearthequipment.com${canonical}`;
+  
   return { 
     title: `${brand.name} Fault Codes & Diagnostics | Flat Earth Equipment`, 
     description: `Search ${brand.name} error codes and diagnostic trouble codes with solutions, causes, and troubleshooting steps for your equipment.`,
-    alternates: { canonical } 
+    alternates: { canonical },
+    openGraph: {
+      title: `${brand.name} Fault Codes & Diagnostics`,
+      description: `Search ${brand.name} error codes and diagnostic trouble codes with solutions and troubleshooting steps.`,
+      url: fullUrl,
+      type: 'website',
+      siteName: 'Flat Earth Equipment'
+    },
+    twitter: {
+      card: 'summary',
+      title: `${brand.name} Fault Codes & Diagnostics`,
+      description: `Search ${brand.name} error codes and diagnostic trouble codes with solutions.`
+    },
+    robots: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    }
   };
 }
 

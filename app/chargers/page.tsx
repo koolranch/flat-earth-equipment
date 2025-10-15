@@ -13,6 +13,15 @@ export const metadata = {
   title: "FSIP GREEN Series Battery Chargers | Flat Earth Equipment",
   description:
     "Browse FSIP GREEN Series industrial battery chargers. Filter by family, voltage, and current. Request a quote.",
+  alternates: {
+    canonical: "/chargers"
+  },
+  robots: {
+    index: true,
+    follow: true,
+    'max-image-preview': 'large',
+    'max-snippet': -1,
+  }
 };
 
 type SearchParams = { family?: string; v?: string; a?: string; page?: string };

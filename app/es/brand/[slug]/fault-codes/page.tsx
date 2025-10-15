@@ -1,3 +1,4 @@
+import { resolveCanonical } from '@/lib/brandCanon';
 import BrandTabs from '@/components/brand/BrandTabs';
 import BreadcrumbsBrand from '@/components/nav/BreadcrumbsBrand';
 import FaultSearch from '@/components/faults/FaultSearch';
@@ -16,15 +17,25 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const brand = await getBrand(params.slug);
   if (!brand) return { title: 'Marca no encontrada' };
   
+  // Use the English canonical as the primary canonical (Spanish is alternate)
+  const canonicalEn = resolveCanonical(params.slug, 'fault-codes');
+  
   return { 
     title: `${brand.name} — Códigos de falla y diagnóstico | Flat Earth Equipment`, 
     description: `Busca códigos de error y códigos de diagnóstico de ${brand.name} con soluciones, causas y pasos de resolución para tu equipo.`,
     alternates: { 
+      canonical: canonicalEn, // Point to English version as primary
       languages: { 
-        'en-US': `/brand/${params.slug}/fault-codes`, 
+        'en-US': canonicalEn, 
         'es-US': `/es/brand/${params.slug}/fault-codes` 
       } 
-    } 
+    },
+    robots: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    }
   };
 }
 
