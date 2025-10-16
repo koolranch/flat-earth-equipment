@@ -13,6 +13,24 @@ const baseConfig = {
   poweredByHeader: false,
   async redirects() {
     return [
+      // Redirect old charger module product pages to new landing page
+      {
+        source: '/parts/enersys-forklift-charger-module-6la20671',
+        destination: '/charger-modules',
+        permanent: true // 301 redirect - preserves SEO
+      },
+      {
+        source: '/parts/hawker-forklift-charger-module-6la20671',
+        destination: '/charger-modules',
+        permanent: true // 301 redirect - preserves SEO
+      },
+      // Catch-all for any other old charger module URLs
+      {
+        source: '/parts/:brand-forklift-charger-module-:model',
+        destination: '/charger-modules',
+        permanent: true // 301 redirect - preserves SEO
+      },
+      // Redirect www to non-www
       {
         source: '/:path*',
         has: [{ type: 'host', value: 'www.flatearthequipment.com' }],
