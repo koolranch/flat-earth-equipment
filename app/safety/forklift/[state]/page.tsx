@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 import { forkliftStates, ForkliftStateInfo } from "../../../../src/data/forkliftStates";
 import CheckoutButton from "@/app/safety/CheckoutButton";
 import Link from "next/link";
+import StateHero from "@/components/state/StateHero";
+import StickyCTA from "@/components/state/StickyCTA";
+import StateProductJsonLd from "@/components/state/StateProductJsonLd";
 
 // Disable dynamic params to ensure only pre-generated pages are served
 export const dynamicParams = false
@@ -121,10 +124,17 @@ export default function StateForkliftPage({ params }: Props) {
   const info = forkliftStates.find((s: ForkliftStateInfo) => s.code === params.state) ?? notFound();
 
   return (
-    <main className="container mx-auto px-4 lg:px-8 py-12 space-y-16">
-      <Breadcrumb stateName={info.name} />
+    <>
+      {/* Enhanced SEO Product JSON-LD */}
+      <StateProductJsonLd />
       
-      {/* ENHANCED HERO - ABOVE THE FOLD */}
+      {/* New State-Aware Hero Section */}
+      <StateHero />
+      
+      <main className="container mx-auto px-4 lg:px-8 py-12 space-y-16">
+        <Breadcrumb stateName={info.name} />
+        
+        {/* ENHANCED HERO - ABOVE THE FOLD */}
       <section className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-3xl p-8 md:p-12 text-center text-white shadow-2xl">
         <div className="max-w-4xl mx-auto space-y-6">
           {/* Trust Badge */}
@@ -2390,5 +2400,9 @@ export default function StateForkliftPage({ params }: Props) {
         href={`https://www.flatearthequipment.com/safety/forklift/${info.code}`}
       />
     </main>
+    
+    {/* Mobile Sticky CTA */}
+    <StickyCTA />
+  </>
   );
 } 
