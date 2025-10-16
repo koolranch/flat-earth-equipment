@@ -86,6 +86,10 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="//image.mux.com" />
         <link rel="preconnect" href="https://stream.mux.com" />
         
+        {/* Perf: Stripe and Google Fonts for checkout */}
+        <link rel="preconnect" href="https://js.stripe.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
         {/* SEO: Canonical URL to avoid duplicate content */}
         <link rel="canonical" href="https://www.flatearthequipment.com" />
         {/* SEO: hreflang tags for international SEO */}
