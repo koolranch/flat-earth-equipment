@@ -7,6 +7,7 @@ import { detectUserServer } from '@/lib/auth/detectUserServer';
 import { safeNext } from '@/lib/auth/nextParam';
 import { supabaseServer } from '@/lib/supabase/server';
 import PricingStrip from '@/components/training/PricingStrip';
+import PreviewModuleButton from '@/components/marketing/PreviewModuleButton';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; // no ISR
@@ -182,12 +183,7 @@ export default async function SafetyPage() {
             >
               {ctaText} →
             </Link>
-            <a 
-              href="/training/module-1-new" 
-              className="inline-flex items-center gap-2 rounded-xl border-2 border-brand-onPanel/20 px-6 py-3 text-brand-onPanel/90 hover:bg-white/5 transition-colors font-medium"
-            >
-              {t.hero.cta_secondary}
-            </a>
+            <PreviewModuleButton text={t.hero.cta_secondary} />
           </div>
           
           <p className="mt-4 text-sm text-brand-onPanel/70">
