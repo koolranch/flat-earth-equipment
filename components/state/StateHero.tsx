@@ -1,30 +1,72 @@
 'use client';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import { useState } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
 import { STATE_TO_USPS, slugToTitle } from '@/lib/state';
-
-const CHECKOUT_URL = process.env.NEXT_PUBLIC_CHECKOUT_URL || '/training/checkout';
-
-function fireBeginCheckout(state: string) {
-  // Prefer existing helper if present
-  // @ts-ignore
-  if (typeof window !== 'undefined' && window.trackBeginCheckoutOnce) {
-    // @ts-ignore
-    window.trackBeginCheckoutOnce();
-  } else if (typeof window !== 'undefined' && (window as any).gtag) {
-    (window as any).gtag('event', 'begin_checkout', {
-      value: 59,
-      currency: 'USD',
-      items: [{ item_id: 'forklift_cert', item_name: 'Online Forklift Certification' }],
-      state
-    });
-  }
-}
+import { trackEvent } from '@/lib/analytics/gtag';
 
 export default function StateHero() {
   const params = useParams() as Record<string, string> | null;
   const slug = (params?.state || params?.slug || '').toLowerCase();
   const STATE = slugToTitle(slug);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleCheckout = async () => {
+    // Track begin_checkout event
+    trackEvent('begin_checkout', {
+      course: 'forklift',
+      value: 59,
+      currency: 'USD',
+      state: STATE,
+      items: [{
+        item_id: 'price_1RS834HJI548rO8JpJMyGhL3',
+        item_name: 'Online Forklift Certification',
+        price: 59,
+      }]
+    });
+    
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items: [{
+            priceId: 'price_1RS834HJI548rO8JpJMyGhL3', // Single operator forklift cert
+            quantity: 1,
+            isTraining: true
+          }]
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (data.sessionId) {
+        const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+        if (stripe) {
+          const { error } = await stripe.redirectToCheckout({ 
+            sessionId: data.sessionId,
+          });
+          if (error) {
+            throw error;
+          }
+        }
+      } else if (data.error) {
+        setError(data.error);
+      } else {
+        setError('Failed to create checkout session');
+      }
+    } catch (err) {
+      console.error('Checkout error:', err);
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
@@ -36,13 +78,23 @@ export default function StateHero() {
           OSHA-aligned online training with instant digital certificate & wallet card. Your supervisor completes the on-site evaluation.
         </p>
         <div className="mt-6 flex flex-col sm:flex-row sm:items-center gap-3">
-          <Link
-            href={`${CHECKOUT_URL}?state=${encodeURIComponent(STATE)}`}
-            onClick={() => fireBeginCheckout(STATE)}
-            className="inline-flex items-center justify-center rounded-xl bg-orange-500 px-6 py-4 font-bold text-white shadow-lg hover:bg-orange-600 transition-all hover:shadow-xl text-lg"
+          <button
+            onClick={handleCheckout}
+            disabled={isLoading}
+            className="inline-flex items-center justify-center rounded-xl bg-orange-500 px-6 py-4 font-bold text-white shadow-lg hover:bg-orange-600 transition-all hover:shadow-xl text-lg disabled:opacity-50 disabled:cursor-wait"
           >
-            Get Certified Now — $59 →
-          </Link>
+            {isLoading ? (
+              <>
+                <svg className="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing...
+              </>
+            ) : (
+              'Get Certified Now — $59 →'
+            )}
+          </button>
           <Link
             href="/training/module-1-new"
             className="inline-flex items-center justify-center rounded-xl border-2 border-white/20 px-6 py-3 font-medium text-white hover:bg-white/5 transition-colors"
@@ -50,6 +102,9 @@ export default function StateHero() {
             Preview Module 1 Free
           </Link>
         </div>
+        {error && (
+          <p className="mt-3 text-red-400 text-sm">{error}</p>
+        )}
         <div className="mt-6 flex flex-wrap items-center gap-6 text-sm text-slate-300">
           <span className="flex items-center gap-2">
             <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
