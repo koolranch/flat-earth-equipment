@@ -1,8 +1,13 @@
-import { MetadataRoute } from 'next';
+import { type MetadataRoute } from 'next';
+
 export default function robots(): MetadataRoute.Robots {
-  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com';
   return {
-    rules: [{ userAgent: '*', allow: '/' }],
-    sitemap: `${base}/sitemap.xml`,
+    rules: [
+      {
+        userAgent: '*',
+        disallow: ['/_next/', '/_vercel/', '/api/preview']
+      }
+    ],
+    sitemap: 'https://flatearthequipment.com/sitemap.xml'
   };
 }
