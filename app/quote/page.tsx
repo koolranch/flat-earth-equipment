@@ -38,21 +38,27 @@ function QuoteForm() {
     setStatus('loading');
 
     try {
-      const response = await fetch('https://api.usebasin.com/v1/submissions', {
+      const response = await fetch('/api/quote', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_BASIN_API_KEY || 'fb0e195001565085399383d6996c0ab1'}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...formData,
-          subject: 'Quote Request',
-          form_name: 'quote_form'
-        }),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         setStatus('success');
+        // Reset form
+        setFormData({
+          name: '',
+          company: '',
+          email: '',
+          phone: '',
+          equipment: '',
+          part: '',
+          qty: '',
+          notes: ''
+        });
       } else {
         setStatus('error');
       }
