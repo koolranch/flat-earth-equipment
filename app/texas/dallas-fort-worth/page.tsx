@@ -57,7 +57,7 @@ export default async function DallasFortWorthPage() {
               Same-day quotes. Fast shipping across the DFW Metroplex and North Texas.
             </p>
             <Link
-              href="#quote-form"
+              href="/quote"
               className="inline-block px-8 py-3 bg-canyon-rust text-white font-medium rounded-lg shadow-lg hover:bg-canyon-rust/90 transition-colors"
             >
               Request a Quote
