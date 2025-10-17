@@ -22,6 +22,9 @@ export default function Navbar({ locale }: Props) {
   const pathname = usePathname();
   const { items } = useCart();
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
+  
+  // Minimal header on safety routes - less visual competition with hero CTA
+  const minimal = pathname.startsWith('/safety');
 
   const navItems: NavItem[] = [
     { name: 'Rent Equipment', href: '/rent-equipment' },
@@ -32,7 +35,7 @@ export default function Navbar({ locale }: Props) {
   ];
 
   return (
-    <nav className="bg-white border-b border-gray-200">
+    <nav className={`bg-white border-b border-gray-200 ${minimal ? 'bg-transparent border-transparent' : ''}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
           <div className="flex">
@@ -49,8 +52,8 @@ export default function Navbar({ locale }: Props) {
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex md:items-center md:space-x-8">
+          {/* Desktop Navigation - Hidden on safety routes for cleaner hero */}
+          <div className={`hidden md:flex md:items-center md:space-x-8 ${minimal ? 'md:hidden' : ''}`}>
             {navItems.map((item) => (
               <div key={item.name} className="relative">
                 {item.dropdown ? (
