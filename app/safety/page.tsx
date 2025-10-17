@@ -8,6 +8,8 @@ import { safeNext } from '@/lib/auth/nextParam';
 import { supabaseServer } from '@/lib/supabase/server';
 import PricingStrip from '@/components/training/PricingStrip';
 import PreviewModuleButton from '@/components/marketing/PreviewModuleButton';
+import SafetyHero from '@/components/safety/SafetyHero';
+import StickyCTA from '@/components/safety/StickyCTA';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; // no ISR
@@ -144,7 +146,7 @@ export default async function SafetyPage() {
   };
 
   return (
-    <main className="section">
+    <>
       {/* JSON-LD structured data */}
       <script 
         type="application/ld+json" 
@@ -155,49 +157,22 @@ export default async function SafetyPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(certificateJsonLd) }} 
       />
       
+      {/* New Simplified Hero */}
+      <SafetyHero />
+      
+      <main className="section">
       <div className="container mx-auto px-4">
-        {/* Hero Section */}
-        <header className="panel shadow-card px-6 py-10 md:px-10 md:py-12 text-center">
-          <div className="mb-4">
-            <p className="text-xs uppercase tracking-wide text-brand-orangeBright/80 mb-2">{t.brand.name}</p>
-            <div className="text-xs text-brand-onPanel/70">{t.brand.tagline}</div>
-          </div>
-          <h1 className="text-display font-semibold mb-4 text-brand-onPanel">
-            {t.hero.h1}
-          </h1>
-          <p className="text-lg text-brand-onPanel/90 prose-readable mx-auto mb-6">
-            {t.hero.sub}
-          </p>
-          {/* Authority Badges - Mobile Optimized */}
-          <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-3 sm:gap-4 text-sm text-brand-onPanel/80 mb-6 max-w-2xl mx-auto">
-            <span className="flex items-center gap-1 justify-center bg-white/10 px-3 py-2 rounded-lg">✅ Under 60 min</span>
-            <span className="flex items-center gap-1 justify-center bg-white/10 px-3 py-2 rounded-lg">✅ Instant cert</span>
-            <span className="flex items-center gap-1 justify-center bg-white/10 px-3 py-2 rounded-lg">✅ 3 years valid</span>
-            <span className="flex items-center gap-1 justify-center bg-white/10 px-3 py-2 rounded-lg">✅ All 50 states</span>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
-            <Link 
-              href={ctaHref}
-              className="inline-flex items-center gap-2 bg-[#F76511] text-white px-8 py-4 rounded-xl font-bold hover:bg-orange-600 transition-colors shadow-lg hover:shadow-xl"
-            >
-              {ctaText} →
-            </Link>
-            <PreviewModuleButton text={t.hero.cta_secondary} />
-          </div>
-          
-          <p className="mt-4 text-sm text-brand-onPanel/70">
-            ⚡ Most operators complete in 45-60 minutes
-          </p>
-          {!isAuthed && (
-            <p className="mt-4 text-sm text-brand-onPanel/70">
+        {/* Already certified? Login link */}
+        {!isAuthed && (
+          <div className="text-center py-4">
+            <p className="text-sm text-slate-600">
               {locale === 'es' ? '¿Ya estás certificado? ' : 'Already certified? '}
               <Link href="/login" className="text-[#F76511] hover:text-orange-600 underline font-medium">
                 {locale === 'es' ? 'Inicia sesión aquí' : 'Login here'}
               </Link>
             </p>
-          )}
-        </header>
+          </div>
+        )}
 
         {/* Comparison - Mobile-First Card Design */}
         <section className="mt-8 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-200 p-6 sm:p-8">
@@ -404,6 +379,12 @@ export default async function SafetyPage() {
               Get job-ready today. No need to wait for scheduled classes.
             </p>
           </div>
+          
+          {/* Preview Module Option */}
+          <div className="mt-6 text-center">
+            <p className="text-sm text-slate-600 mb-3">🎓 Not sure yet?</p>
+            <PreviewModuleButton text={t.hero.cta_secondary} />
+          </div>
         </section>
 
         {/* Compliance Block */}
@@ -531,5 +512,9 @@ export default async function SafetyPage() {
         </footer>
       </div>
     </main>
+    
+    {/* Mobile Sticky CTA */}
+    <StickyCTA />
+  </>
   );
 }
