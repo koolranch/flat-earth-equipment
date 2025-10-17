@@ -39,11 +39,11 @@ export default function Footer() {
   return (
     <footer className="bg-[#F9F7F3] text-[#2D2D2D]">
       <div className="container mx-auto px-4 py-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Left Column - Brand */}
           <div className="space-y-4">
             <div className="text-2xl font-bold">Flat Earth Equipment</div>
-            <p className="text-slate-600">
+            <p className="text-slate-600 text-sm">
               Flat Earth Equipment is built Western tough — precision-fit industrial parts and dispatch-ready rentals, shipped nationwide.
             </p>
           </div>
@@ -51,22 +51,32 @@ export default function Footer() {
           {/* Center Column - Quick Links */}
           <div>
             <h3 className="font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-1 text-sm text-slate-600">
-              <li><Link href="/insights">Insights & Guides</Link></li>
-              <li><Link href="/about">About Us</Link></li>
-              <li><Link href="/shipping-returns">Shipping & Returns</Link></li>
-              <li><Link href="/warranty">Warranty</Link></li>
-              <li><Link href="/contact">Contact</Link></li>
-              <li><Link href="/terms-of-service">Terms of Service</Link></li>
-              <li><Link href="/privacy-policy">Privacy Policy</Link></li>
-              <li><Link href="/locations" className="text-canyon-rust hover:underline">Service Areas</Link></li>
-              <li><Link href="/wyoming/cheyenne">Cheyenne, WY</Link></li>
-              <li><Link href="/montana/bozeman">Bozeman, MT</Link></li>
-              <li><Link href="/colorado/pueblo">Pueblo, CO</Link></li>
-              <li><Link href="/texas/dallas-fort-worth">Dallas-Fort Worth, TX</Link></li>
-              <li><Link href="/texas/el-paso">El Paso, TX</Link></li>
-              <li><Link href="/new-mexico/albuquerque">Albuquerque, NM</Link></li>
-              <li><Link href="/new-mexico/las-cruces">Las Cruces, NM</Link></li>
+            <ul className="space-y-2 text-sm text-slate-600">
+              <li><Link href="/insights" className="hover:text-canyon-rust transition">Insights & Guides</Link></li>
+              <li><Link href="/about" className="hover:text-canyon-rust transition">About Us</Link></li>
+              <li><Link href="/shipping-returns" className="hover:text-canyon-rust transition">Shipping & Returns</Link></li>
+              <li><Link href="/warranty" className="hover:text-canyon-rust transition">Warranty</Link></li>
+              <li><Link href="/contact" className="hover:text-canyon-rust transition">Contact</Link></li>
+              <li><Link href="/terms-of-service" className="hover:text-canyon-rust transition">Terms of Service</Link></li>
+              <li><Link href="/privacy-policy" className="hover:text-canyon-rust transition">Privacy Policy</Link></li>
+            </ul>
+          </div>
+
+          {/* Service Areas Column */}
+          <div>
+            <h3 className="font-semibold mb-4">
+              <Link href="/locations" className="hover:text-canyon-rust transition">Service Areas</Link>
+            </h3>
+            <ul className="space-y-2 text-sm text-slate-600">
+              <li><Link href="/texas/dallas-fort-worth" className="hover:text-canyon-rust transition">Dallas-Fort Worth, TX</Link></li>
+              <li><Link href="/texas/el-paso" className="hover:text-canyon-rust transition">El Paso, TX</Link></li>
+              <li><Link href="/arizona/phoenix" className="hover:text-canyon-rust transition">Phoenix, AZ</Link></li>
+              <li><Link href="/colorado/denver" className="hover:text-canyon-rust transition">Denver, CO</Link></li>
+              <li><Link href="/colorado/pueblo" className="hover:text-canyon-rust transition">Pueblo, CO</Link></li>
+              <li><Link href="/new-mexico/albuquerque" className="hover:text-canyon-rust transition">Albuquerque, NM</Link></li>
+              <li><Link href="/new-mexico/las-cruces" className="hover:text-canyon-rust transition">Las Cruces, NM</Link></li>
+              <li><Link href="/montana/bozeman" className="hover:text-canyon-rust transition">Bozeman, MT</Link></li>
+              <li><Link href="/wyoming/cheyenne" className="hover:text-canyon-rust transition">Cheyenne, WY</Link></li>
             </ul>
           </div>
 
