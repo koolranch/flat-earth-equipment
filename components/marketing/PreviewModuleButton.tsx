@@ -35,7 +35,7 @@ export default function PreviewModuleButton({ text, href = '/training/module-1-n
     <a 
       href={href}
       onClick={handleClick}
-      className="inline-flex items-center gap-2 rounded-xl border-2 border-brand-onPanel/20 px-6 py-3 text-brand-onPanel/90 hover:bg-white/5 transition-colors font-medium"
+      className="inline-flex items-center gap-2 rounded-xl border-2 border-slate-300 px-6 py-3 text-slate-700 hover:bg-slate-50 hover:border-[#F76511] hover:text-[#F76511] transition-colors font-medium"
     >
       {text}
     </a>
