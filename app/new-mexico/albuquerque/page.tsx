@@ -57,7 +57,7 @@ export default async function AlbuquerquePage() {
               Same-day quotes. Fast shipping across Bernalillo County and beyond.
             </p>
             <Link
-              href="#quote-form"
+              href="/quote"
               className="inline-block px-8 py-3 bg-canyon-rust text-white font-medium rounded-lg shadow-lg hover:bg-canyon-rust/90 transition-colors"
             >
               Request a Quote
@@ -358,7 +358,7 @@ export default async function AlbuquerquePage() {
               Browse Forklift Parts
             </Link>
             <Link
-              href="#quote-form"
+              href="/quote"
               className="inline-block bg-white text-canyon-rust border-2 border-canyon-rust px-8 py-3 rounded-lg font-medium hover:bg-canyon-rust/10 transition-colors"
             >
               Request a Quote
