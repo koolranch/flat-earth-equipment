@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
-import AlbuquerqueIcon from '@/app/icons/locations/AlbuquerqueIcon.svg';
 
 interface Location {
   name: string;
@@ -17,42 +15,74 @@ type LocationMap = {
 };
 
 const locations: LocationMap = {
-  'albuquerque-nm': {
-    name: 'Albuquerque, NM',
-    address: '123 Main St',
-    phone: '(555) 123-4567',
+  'dallas-fort-worth': {
+    name: 'Dallas-Fort Worth, TX',
+    address: '',
+    phone: '(307) 302-0043',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Our Albuquerque location serves central New Mexico with a full range of equipment parts and service.',
-    shortDescription: 'Serving central New Mexico contractors with parts and equipment.',
+    description: 'Serving the DFW Metroplex with fast shipping and same-day quotes.',
+    shortDescription: 'DFW Metroplex and North Texas parts & equipment.',
   },
-  'las-cruces-nm': {
-    name: 'Las Cruces, NM',
-    address: '123 Main St',
-    phone: '(555) 123-4567',
+  'el-paso': {
+    name: 'El Paso, TX',
+    address: '',
+    phone: '(307) 302-0043',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Our Las Cruces location serves southern New Mexico with a full range of equipment parts and service.',
-    shortDescription: 'Serving southern New Mexico contractors with parts and equipment.',
+    description: 'Serving West Texas and the borderland region.',
+    shortDescription: 'West Texas and borderland industrial parts.',
   },
-  'pueblo-co': {
+  'phoenix': {
+    name: 'Phoenix, AZ',
+    address: '',
+    phone: '(307) 302-0043',
+    hours: 'Mon-Fri: 8am-5pm',
+    description: 'Serving the Phoenix Metro and Valley of the Sun.',
+    shortDescription: 'Phoenix Metro and Valley of the Sun parts & equipment.',
+  },
+  'denver': {
+    name: 'Denver, CO',
+    address: '',
+    phone: '(307) 302-0043',
+    hours: 'Mon-Fri: 8am-5pm',
+    description: 'Serving the Denver Metro and Front Range.',
+    shortDescription: 'Denver Metro and Front Range parts & equipment.',
+  },
+  'pueblo': {
     name: 'Pueblo, CO',
-    address: '456 Oak Ave',
-    phone: '(555) 234-5678',
+    address: '',
+    phone: '(307) 302-0043',
     hours: 'Mon-Fri: 8am-5pm',
     description: 'Serving southern Colorado with quality parts and exceptional service.',
     shortDescription: 'Southern Colorado rentals and parts shipped same-day.',
   },
-  'bozeman-mt': {
+  'albuquerque': {
+    name: 'Albuquerque, NM',
+    address: '',
+    phone: '(307) 302-0043',
+    hours: 'Mon-Fri: 8am-5pm',
+    description: 'Serving central New Mexico with fast shipping and same-day quotes.',
+    shortDescription: 'Serving central New Mexico contractors with parts and equipment.',
+  },
+  'las-cruces': {
+    name: 'Las Cruces, NM',
+    address: '',
+    phone: '(307) 302-0043',
+    hours: 'Mon-Fri: 8am-5pm',
+    description: 'Serving southern New Mexico with fast shipping and same-day quotes.',
+    shortDescription: 'Serving southern New Mexico contractors with parts and equipment.',
+  },
+  'bozeman': {
     name: 'Bozeman, MT',
-    address: '789 Pine St',
-    phone: '(555) 345-6789',
+    address: '',
+    phone: '(307) 302-0043',
     hours: 'Mon-Fri: 8am-5pm',
     description: 'Your trusted source for equipment parts in Montana.',
     shortDescription: 'Rental-ready gear from Belgrade to Big Sky and the Gallatin Valley.',
   },
-  'cheyenne-wy': {
+  'cheyenne': {
     name: 'Cheyenne, WY',
-    address: '321 Elm St',
-    phone: '(555) 456-7890',
+    address: '',
+    phone: '(307) 302-0043',
     hours: 'Mon-Fri: 8am-5pm',
     description: 'Providing Wyoming with reliable equipment parts and service.',
     shortDescription: 'Forklifts, scissor lifts, and job-site rentals in southeastern Wyoming.',
@@ -61,7 +91,10 @@ const locations: LocationMap = {
 
 export const metadata: Metadata = {
   title: "Flat Earth Equipment Service Areas | Regional Rentals & Industrial Parts",
-  description: "Explore the locations Flat Earth Equipment serves across the Western U.S. Same-day shipping, rugged rental equipment, and expert support in Wyoming, Montana, Colorado, and New Mexico.",
+  description: "Explore the locations Flat Earth Equipment serves across the Western U.S. Same-day shipping, rugged rental equipment, and expert support in Texas, Arizona, Colorado, New Mexico, Montana, and Wyoming.",
+  alternates: {
+    canonical: '/locations'
+  }
 };
 
 export default function LocationsPage() {
@@ -79,45 +112,102 @@ export default function LocationsPage() {
           <p className="text-slate-600 text-sm mb-10 max-w-xl mx-auto">
             We serve contractors, facilities, and fleet operators across these key Western regions — and beyond.
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm text-slate-700">
-            <a href="/locations/cheyenne-wy" className="hover:text-canyon-rust transition">
-              <div className="text-3xl mb-2">📍</div>
-              Cheyenne, WY
-            </a>
-            <a href="/locations/bozeman-mt" className="hover:text-canyon-rust transition">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 text-sm text-slate-700">
+            <Link href="/texas/dallas-fort-worth" className="hover:text-canyon-rust transition">
+              <div className="text-3xl mb-2">🤠</div>
+              Dallas-Fort Worth, TX
+            </Link>
+            <Link href="/texas/el-paso" className="hover:text-canyon-rust transition">
+              <div className="text-3xl mb-2">🌵</div>
+              El Paso, TX
+            </Link>
+            <Link href="/arizona/phoenix" className="hover:text-canyon-rust transition">
+              <div className="text-3xl mb-2">☀️</div>
+              Phoenix, AZ
+            </Link>
+            <Link href="/colorado/denver" className="hover:text-canyon-rust transition">
               <div className="text-3xl mb-2">🏔️</div>
-              Bozeman, MT
-            </a>
-            <a href="/locations/pueblo-co" className="hover:text-canyon-rust transition">
+              Denver, CO
+            </Link>
+            <Link href="/colorado/pueblo" className="hover:text-canyon-rust transition">
               <div className="text-3xl mb-2">🏗️</div>
               Pueblo, CO
-            </a>
-            <a href="/locations/albuquerque-nm" className="hover:text-canyon-rust transition">
-              <div className="text-3xl mb-2">
-                <Image src={AlbuquerqueIcon} alt="Albuquerque" width={24} height={24} />
-              </div>
+            </Link>
+            <Link href="/new-mexico/albuquerque" className="hover:text-canyon-rust transition">
+              <div className="text-3xl mb-2">🌄</div>
               Albuquerque, NM
-            </a>
-            <a href="/locations/las-cruces-nm" className="hover:text-canyon-rust transition">
+            </Link>
+            <Link href="/new-mexico/las-cruces" className="hover:text-canyon-rust transition">
               <div className="text-3xl mb-2">🌵</div>
               Las Cruces, NM
-            </a>
+            </Link>
+            <Link href="/montana/bozeman" className="hover:text-canyon-rust transition">
+              <div className="text-3xl mb-2">⛰️</div>
+              Bozeman, MT
+            </Link>
+            <Link href="/wyoming/cheyenne" className="hover:text-canyon-rust transition">
+              <div className="text-3xl mb-2">📍</div>
+              Cheyenne, WY
+            </Link>
           </div>
         </div>
       </section>
 
       <ul className="space-y-6">
-        {Object.entries(locations).map(([slug, location]) => (
-          <li key={slug}>
-            <Link 
-              href={`/locations/${slug}`} 
-              className="block text-xl font-semibold text-canyon-rust hover:underline"
-            >
-              {location.name}
-            </Link>
-            <p className="text-slate-700 text-sm">{location.shortDescription}</p>
-          </li>
-        ))}
+        <li>
+          <Link href="/texas/dallas-fort-worth" className="block text-xl font-semibold text-canyon-rust hover:underline">
+            Dallas-Fort Worth, TX
+          </Link>
+          <p className="text-slate-700 text-sm">DFW Metroplex and North Texas parts & equipment.</p>
+        </li>
+        <li>
+          <Link href="/texas/el-paso" className="block text-xl font-semibold text-canyon-rust hover:underline">
+            El Paso, TX
+          </Link>
+          <p className="text-slate-700 text-sm">West Texas and borderland industrial parts.</p>
+        </li>
+        <li>
+          <Link href="/arizona/phoenix" className="block text-xl font-semibold text-canyon-rust hover:underline">
+            Phoenix, AZ
+          </Link>
+          <p className="text-slate-700 text-sm">Phoenix Metro and Valley of the Sun parts & equipment.</p>
+        </li>
+        <li>
+          <Link href="/colorado/denver" className="block text-xl font-semibold text-canyon-rust hover:underline">
+            Denver, CO
+          </Link>
+          <p className="text-slate-700 text-sm">Denver Metro and Front Range parts & equipment.</p>
+        </li>
+        <li>
+          <Link href="/colorado/pueblo" className="block text-xl font-semibold text-canyon-rust hover:underline">
+            Pueblo, CO
+          </Link>
+          <p className="text-slate-700 text-sm">Southern Colorado rentals and parts shipped same-day.</p>
+        </li>
+        <li>
+          <Link href="/new-mexico/albuquerque" className="block text-xl font-semibold text-canyon-rust hover:underline">
+            Albuquerque, NM
+          </Link>
+          <p className="text-slate-700 text-sm">Serving central New Mexico contractors with parts and equipment.</p>
+        </li>
+        <li>
+          <Link href="/new-mexico/las-cruces" className="block text-xl font-semibold text-canyon-rust hover:underline">
+            Las Cruces, NM
+          </Link>
+          <p className="text-slate-700 text-sm">Serving southern New Mexico contractors with parts and equipment.</p>
+        </li>
+        <li>
+          <Link href="/montana/bozeman" className="block text-xl font-semibold text-canyon-rust hover:underline">
+            Bozeman, MT
+          </Link>
+          <p className="text-slate-700 text-sm">Rental-ready gear from Belgrade to Big Sky and the Gallatin Valley.</p>
+        </li>
+        <li>
+          <Link href="/wyoming/cheyenne" className="block text-xl font-semibold text-canyon-rust hover:underline">
+            Cheyenne, WY
+          </Link>
+          <p className="text-slate-700 text-sm">Forklifts, scissor lifts, and job-site rentals in southeastern Wyoming.</p>
+        </li>
       </ul>
 
       <hr className="my-10" />
