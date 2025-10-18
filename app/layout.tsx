@@ -35,6 +35,12 @@ export const metadata: Metadata = {
   // Override with existing specific metadata
   title: "Flat Earth Equipment | Parts & Rentals for Forklifts, Scissor Lifts & More",
   description: "Flat Earth Equipment delivers precision-fit industrial parts and rugged rental equipment — with same-day shipping across the Western U.S.",
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+    other: [{ rel: "mask-icon", url: "/favicon.svg", color: "#F76511" }],
+  },
 };
 
 
