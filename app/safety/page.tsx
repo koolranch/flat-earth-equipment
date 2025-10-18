@@ -121,6 +121,20 @@ export default async function SafetyPage() {
       'Hazard identification'
     ],
     courseMode: 'online',
+    audience: {
+      '@type': 'BusinessAudience',
+      name: 'Ports & Terminals (Yard Operations)'
+    },
+    about: [
+      {
+        '@type': 'Thing',
+        name: 'OSHA forklift certification online'
+      },
+      {
+        '@type': 'Thing',
+        name: 'Port and terminal forklift operations'
+      }
+    ],
     hasCourseInstance: {
       '@type': 'CourseInstance',
       courseMode: 'online',
@@ -376,7 +390,7 @@ export default async function SafetyPage() {
               ⏱️ Total time: 45-60 minutes average
             </p>
             <p className="text-sm text-green-700 mt-1">
-              Get job-ready today. No need to wait for scheduled classes.
+              Complete your OSHA forklift certification online in about 90 minutes with a same-day card. Get job-ready today—no need to wait for scheduled classes.
             </p>
           </div>
           
@@ -391,6 +405,42 @@ export default async function SafetyPage() {
         <div className="mt-8">
           <ComplianceBlock t={t} />
         </div>
+
+        {/* Ports & Terminals Section */}
+        <section id="ports" className="mt-8 scroll-mt-24 bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-2xl p-8 shadow-sm">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Ports & Terminals: Forklift Training for Throughput</h2>
+          <p className="text-lg text-slate-700 leading-relaxed">
+            Container yards have unique risks—blue-light pedestrian lanes, blind corners in container mazes,
+            wind and stack-height limits, uneven surfaces, and tight approaches. Our OSHA forklift certification
+            pairs a fast, online theory module (≈90 minutes, English & Spanish) with your on-yard practical
+            evaluation so operators earn same-day wallet cards and you keep lanes moving.
+          </p>
+          <ul className="mt-4 space-y-2 text-slate-700 list-disc pl-5">
+            <li>Standardize theory online; finish practical on your yard & truck classes.</li>
+            <li>Spotter hand signals, horn-at-corners, and blue-light lane rules built into evaluation.</li>
+            <li>Simple records for audits; 3-year renewal reminders; retrain after incidents or equipment changes.</li>
+          </ul>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link 
+              href="/safety/forklift" 
+              className="inline-flex items-center gap-2 bg-[#F76511] text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors shadow-md hover:shadow-lg"
+            >
+              Start Course – $59
+            </Link>
+            <Link 
+              href="#pricing" 
+              className="inline-flex items-center gap-2 bg-white text-[#F76511] border-2 border-[#F76511] px-6 py-3 rounded-xl font-semibold hover:bg-orange-50 transition-colors"
+            >
+              Crew Packs for Employers
+            </Link>
+            <a 
+              href="/docs/forklift-employer-eval.pdf" 
+              className="inline-flex items-center gap-2 text-slate-700 hover:text-[#F76511] underline font-medium px-3 py-3 transition-colors"
+            >
+              Employer Practical Evaluation (PDF)
+            </a>
+          </div>
+        </section>
 
         {/* FAQ Section */}
         <section id="faq" className="mt-8 bg-white rounded-2xl border border-slate-200 shadow-sm px-8 py-8">
@@ -460,12 +510,18 @@ export default async function SafetyPage() {
             <h2 className="text-2xl font-bold mb-4 text-slate-900">
               {locale === 'es' ? 'Certificación por Estado' : 'Forklift Certification by State'}
             </h2>
-            <p className="text-slate-700 max-w-2xl mx-auto mb-6">
+            <p className="text-slate-700 max-w-2xl mx-auto mb-4">
               {locale === 'es' 
                 ? 'Obtenga información específica del estado sobre requisitos de OSHA, multas y certificación. Nuestra capacitación es aceptada en los 50 estados.'
                 : 'Get state-specific information about OSHA requirements, penalties, and certification. Our training is accepted in all 50 states.'
               }
             </p>
+            
+            {locale === 'en' && (
+              <p className="text-sm text-slate-600 max-w-2xl mx-auto mb-6">
+                Working near ports? See our <a href="#ports" className="text-[#F76511] hover:text-orange-600 underline font-medium">Ports & Terminals guidance</a>.
+              </p>
+            )}
             
             {/* Quick Links to Popular States */}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-6 max-w-4xl mx-auto">
