@@ -425,19 +425,21 @@ export default async function SafetyPage() {
               href="/safety/forklift" 
               className="inline-flex items-center gap-2 bg-[#F76511] text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors shadow-md hover:shadow-lg"
             >
-              Start Course – $59
+              {locale === 'es' ? 'Comenzar Curso – $59' : 'Start Course – $59'}
             </Link>
             <Link 
               href="#pricing" 
               className="inline-flex items-center gap-2 bg-white text-[#F76511] border-2 border-[#F76511] px-6 py-3 rounded-xl font-semibold hover:bg-orange-50 transition-colors"
             >
-              Crew Packs for Employers
+              {locale === 'es' ? 'Paquetes para Empleadores' : 'Crew Packs for Employers'}
             </Link>
             <a 
-              href="/docs/forklift-employer-eval.pdf" 
+              href={locale === 'es' ? '/docs/evaluacion-practica-montacargas.pdf' : '/docs/forklift-employer-eval.pdf'}
               className="inline-flex items-center gap-2 text-slate-700 hover:text-[#F76511] underline font-medium px-3 py-3 transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              Employer Practical Evaluation (PDF)
+              {locale === 'es' ? 'Evaluación Práctica del Empleador (PDF)' : 'Employer Practical Evaluation (PDF)'}
             </a>
           </div>
         </section>
