@@ -1,12 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Menu, X, ChevronDown, ShoppingCart } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 import LocaleSwitch from './LocaleSwitch';
+import Logo from './Logo';
 
 interface NavItem {
   name: string;
@@ -39,16 +39,14 @@ export default function Navbar({ locale }: Props) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
           <div className="flex">
-            <Link href="/" className="flex items-center">
-              <Image
-                src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge1.webp"
-                alt="Flat Earth Equipment"
-                width={40}
-                height={40}
-                className="mr-2"
-                priority
-              />
-              <span className="text-xl font-bold text-canyon-rust">Flat Earth Equipment</span>
+            <Link href="/" className="flex items-center pl-3 pr-3" aria-label="Flat Earth Equipment">
+              {/* Desktop: full lockup; Mobile: mark-only */}
+              <span className="hidden md:inline-block">
+                <Logo variant="full" inverse={false} className="h-10" />
+              </span>
+              <span className="md:hidden inline-block">
+                <Logo variant="mark" inverse={false} className="h-10" />
+              </span>
             </Link>
           </div>
 
