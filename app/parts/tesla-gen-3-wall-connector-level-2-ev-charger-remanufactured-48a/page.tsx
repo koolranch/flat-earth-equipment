@@ -204,7 +204,11 @@ export default async function TeslaGen3WallConnectorPage() {
                 sku={product.sku}
                 qty={1}
                 price={product.price * 100}
-                meta={{ productId: product.id }}
+                meta={{ 
+                  productId: product.id,
+                  hasCore: product.has_core_charge || false,
+                  coreCharge: product.core_charge || 0
+                }}
                 className="w-full bg-canyon-rust text-white py-4 rounded-lg font-semibold text-lg hover:bg-canyon-rust/90 transition-colors"
               >
                 Add to Cart - Buy Now →
@@ -595,7 +599,11 @@ export default async function TeslaGen3WallConnectorPage() {
               sku={product.sku}
               qty={1}
               price={product.price * 100}
-              meta={{ productId: product.id }}
+              meta={{ 
+                productId: product.id,
+                hasCore: product.has_core_charge || false,
+                coreCharge: product.core_charge || 0
+              }}
               className="bg-canyon-rust text-white px-8 py-3 rounded-lg font-semibold hover:bg-canyon-rust/90 transition-colors"
             >
               Add to Cart - ${product.price.toFixed(0)} →
