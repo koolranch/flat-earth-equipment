@@ -10,6 +10,25 @@ export default function StateProductJsonLd() {
   const usps = STATE_TO_USPS[slug];
   const url = typeof window !== 'undefined' ? window.location.href : `https://www.flatearthequipment.com/safety/forklift/${slug}`;
 
+  // Enhanced schema for Texas with DFW coverage
+  const areaServed = slug === 'tx' 
+    ? [
+        { '@type': 'State', name: 'Texas' },
+        { '@type': 'City', name: 'Dallas–Fort Worth' },
+        { '@type': 'City', name: 'Dallas' },
+        { '@type': 'City', name: 'Fort Worth' },
+        { '@type': 'City', name: 'Arlington' }
+      ]
+    : (usps ? `US-${usps}` : undefined);
+
+  const about = slug === 'tx'
+    ? [
+        { '@type': 'Thing', name: 'forklift certification Dallas' },
+        { '@type': 'Thing', name: 'OSHA forklift training Texas' },
+        { '@type': 'Thing', name: 'DFW forklift certification' }
+      ]
+    : undefined;
+
   const data = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -17,7 +36,11 @@ export default function StateProductJsonLd() {
     description:
       'OSHA 1910.178-aligned online forklift certification. Finish in 45–60 minutes. Same-day digital certificate & wallet card. Employer completes on-site evaluation.',
     brand: { '@type': 'Brand', name: 'Flat Earth Safety' },
-    ...(usps ? { areaServed: `US-${usps}` } : {}),
+    ...(areaServed ? { areaServed } : {}),
+    ...(about ? { about } : {}),
+    ...(slug === 'tx' ? { 
+      audience: { '@type': 'BusinessAudience', name: 'General Contractors and Subcontractors' }
+    } : {}),
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.8',
@@ -35,7 +58,7 @@ export default function StateProductJsonLd() {
         name: 'Flat Earth Equipment'
       }
     }
-  } as const;
+  };
 
   return <Script id="state-product-jsonld" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
 }
