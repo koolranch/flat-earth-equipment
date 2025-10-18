@@ -52,9 +52,13 @@ export default function Navbar({ locale }: Props) {
             </Link>
           </div>
 
-          {/* Desktop Navigation - Hidden on safety routes for cleaner hero */}
-          <div className={`hidden md:flex md:items-center md:space-x-8 ${minimal ? 'md:hidden' : ''}`}>
-            {navItems.map((item) => (
+          {/* Desktop Navigation - Minimal on safety routes, full on others */}
+          <div className="hidden md:flex md:items-center md:space-x-6">
+            {(minimal ? [
+              { name: 'Parts', href: '/parts' },
+              { name: 'Safety', href: '/safety' },
+              { name: 'Contact', href: '/contact' }
+            ] : navItems).map((item) => (
               <div key={item.name} className="relative">
                 {item.dropdown ? (
                   <div
@@ -101,11 +105,22 @@ export default function Navbar({ locale }: Props) {
               )}
             </Link>
             {/* Language Toggle */}
-            <LocaleSwitch />
+            {!minimal && <LocaleSwitch />}
+            {/* Full Menu button on minimal/safety pages */}
+            {minimal && (
+              <button
+                type="button"
+                className="text-gray-600 hover:text-gray-900 flex items-center gap-1 text-sm"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                <Menu className="h-5 w-5" />
+                <span className="hidden lg:inline">Menu</span>
+              </button>
+            )}
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+          <div className={`md:hidden flex items-center ${minimal ? 'hidden' : ''}`}>
             <button
               type="button"
               className="text-gray-600 hover:text-gray-900"
