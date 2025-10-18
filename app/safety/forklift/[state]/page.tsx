@@ -205,6 +205,13 @@ export default function StateForkliftPage({ params }: Props) {
             <div className="text-sm text-gray-600 mt-1">Certification Valid</div>
           </div>
         </div>
+        
+        {/* DFW Jump Link for Texas */}
+        {info.code === 'tx' && (
+          <p className="mt-6 text-center text-sm text-gray-600">
+            Working in North Texas? Jump to our <a href="#dfw" className="text-orange-600 hover:text-orange-700 underline font-medium">DFW forklift certification details</a>.
+          </p>
+        )}
       </section>
 
       {/* FINES TABLE */}
@@ -325,6 +332,56 @@ export default function StateForkliftPage({ params }: Props) {
           </Link>
         </div>
       </section>
+
+      {/* ───────────────── DFW SECTION (Texas Only) ───────────────── */}
+      {info.code === 'tx' && (
+        <section id="dfw" className="scroll-mt-24 mt-12 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-8 shadow-sm">
+          <div className="max-w-3xl">
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+              Dallas–Fort Worth (DFW) Forklift Certification
+            </h2>
+            <p className="mt-3 text-gray-700 text-lg">
+              Serving Dallas, Fort Worth, Arlington, Irving, Grand Prairie, Mesquite, and Garland.
+              Complete the online theory in about 90 minutes (English &amp; Spanish), then your supervisor
+              performs the onsite practical using our evaluation checklist. Same-day wallet card; renewal every 3 years.
+            </p>
+
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Link 
+                href="/safety/forklift" 
+                className="inline-flex items-center rounded-xl bg-orange-600 px-5 py-3 font-semibold text-white hover:bg-orange-700 shadow-md hover:shadow-lg transition-all"
+              >
+                Start Course – $59
+              </Link>
+              <Link 
+                href="/training#pricing" 
+                className="inline-flex items-center rounded-xl border-2 border-gray-400 px-5 py-3 font-semibold text-gray-800 hover:bg-gray-50 transition-colors"
+              >
+                Crew Packs for Employers
+              </Link>
+              <a 
+                href="/docs/forklift-employer-eval.pdf" 
+                className="inline-flex items-center underline font-medium text-gray-800 hover:text-orange-600 px-3 py-3 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Employer Checklist (PDF)
+              </a>
+            </div>
+
+            <div className="mt-6">
+              <h3 className="text-lg font-semibold text-slate-900">DFW Coverage &amp; FAQs</h3>
+              <ul className="mt-3 list-disc pl-5 text-gray-700 space-y-2">
+                <li><span className="font-medium">Coverage:</span> Dallas, Fort Worth, Arlington, Irving, Grand Prairie, Mesquite, Garland.</li>
+                <li><span className="font-medium">Format:</span> Online theory + employer practical on your equipment/site.</li>
+                <li><span className="font-medium">Bilingual:</span> English &amp; Spanish available.</li>
+                <li><span className="font-medium">Compliance:</span> Meets OSHA 29 CFR 1910.178(l); renew every 3 years or after incidents/equipment changes.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+      {/* ──────────────── END DFW SECTION ──────────────── */}
 
       {/* FAQ */}
       <section className="space-y-4">
