@@ -40,12 +40,12 @@ export default function Navbar({ locale }: Props) {
         <div className="flex justify-between h-20">
           <div className="flex">
             <Link href="/" className="flex items-center pl-3 pr-3" aria-label="Flat Earth Equipment">
-              {/* Desktop: full lockup; Mobile: mark-only */}
+              {/* Desktop: monogram + wordmark; Mobile: monogram only */}
               <span className="hidden md:inline-block">
-                <Logo variant="full" inverse={false} className="h-10" />
+                <Logo showWordmark className="h-5" />
               </span>
               <span className="md:hidden inline-block">
-                <Logo variant="mark" inverse={false} className="h-10" />
+                <Logo showWordmark={false} className="h-5" />
               </span>
             </Link>
           </div>
