@@ -55,7 +55,7 @@ export default function Navbar({ locale }: Props) {
           {/* Desktop Navigation - Minimal on safety routes, full on others */}
           <div className="hidden md:flex md:items-center md:space-x-6">
             {(minimal ? [
-              { name: 'Parts', href: '/parts' },
+              { name: 'Rent Equipment', href: '/rent-equipment' },
               { name: 'Safety', href: '/safety' },
               { name: 'Contact', href: '/contact' }
             ] : navItems).map((item) => (
