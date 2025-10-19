@@ -5,7 +5,8 @@ import StickyBottomCTA from "@/components/StickyBottomCTA";
 import { getUserLocale } from "@/lib/getUserLocale";
 import Script from "next/script";
 import Link from "next/link";
-import { Zap } from "lucide-react";
+import { Zap, Building2, FileText, TrendingDown } from "lucide-react";
+import QuoteButton from "@/components/QuoteButton";
 
 export const metadata = {
   title: "Forklift Charger Modules | Enersys & Hawker | Exchange & Repair | Flat Earth Equipment",
@@ -79,6 +80,62 @@ export default function ChargersLanding() {
         {CHARGER_MODULES.map((m) => (
           <OptionSelectorCard key={m.id} module={m} locale={locale} />
         ))}
+      </section>
+
+      {/* Corporate Buyer / Fleet CTA */}
+      <section className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 lg:p-10 text-white shadow-xl">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-start gap-4 mb-6">
+            <div className="flex-shrink-0 w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center">
+              <Building2 className="h-6 w-6 text-orange-400" />
+            </div>
+            <div>
+              <h2 className="text-2xl lg:text-3xl font-bold mb-2">
+                Corporate & Fleet Buyer?
+              </h2>
+              <p className="text-slate-300 text-lg">
+                Get volume pricing, NET-30 terms, and dedicated support for your fleet operations.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid sm:grid-cols-3 gap-4 mb-8">
+            <div className="flex items-start gap-3">
+              <TrendingDown className="h-5 w-5 text-orange-400 flex-shrink-0 mt-0.5" />
+              <div>
+                <div className="font-semibold text-sm">Volume Pricing</div>
+                <div className="text-slate-400 text-sm">Save on orders of 4+ units</div>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <FileText className="h-5 w-5 text-orange-400 flex-shrink-0 mt-0.5" />
+              <div>
+                <div className="font-semibold text-sm">Purchase Orders</div>
+                <div className="text-slate-400 text-sm">NET-30 payment terms available</div>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <Building2 className="h-5 w-5 text-orange-400 flex-shrink-0 mt-0.5" />
+              <div>
+                <div className="font-semibold text-sm">Fleet Support</div>
+                <div className="text-slate-400 text-sm">Dedicated account management</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 items-center">
+            <QuoteButton 
+              product={{
+                name: "Forklift Charger Modules - Corporate/Fleet Quote",
+                slug: "charger-modules-fleet",
+                sku: "FLEET-CHARGERS"
+              }}
+            />
+            <p className="text-slate-400 text-sm">
+              📧 Response within 24 hours • 📞 Questions? Call us at <a href="tel:+18887654321" className="underline hover:text-white">(888) 765-4321</a>
+            </p>
+          </div>
+        </div>
       </section>
 
         <ChargerModuleTrustBadges locale={locale} />
