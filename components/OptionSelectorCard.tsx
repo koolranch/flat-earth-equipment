@@ -14,7 +14,7 @@ function formatUsd(cents: number) {
 type Locale = 'en' | 'es';
 
 export default function OptionSelectorCard({ module, locale = 'en' }: { module: ChargerModule; locale?: Locale }) {
-  const [choice, setChoice] = useState<"Reman Exchange" | "Repair & Return">("Repair & Return");
+  const [choice, setChoice] = useState<"Reman Exchange" | "Repair & Return">("Reman Exchange");
   const offer = module.offers.find((o) => o.label === choice)!;
   const image = choice === "Repair & Return" ? module.imgRepair : module.imgExchange;
   const [fw, setFw] = useState("");
