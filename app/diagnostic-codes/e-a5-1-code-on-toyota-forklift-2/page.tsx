@@ -113,6 +113,62 @@ export default function EA51ToyotaForkliftPage() {
       <p>For more complex diagnostic needs, utilizing a plug-in analyzer is highly recommended.</p>
       <h2>Troubleshooting the E A5-1 Code</h2>
       <p>The E A5-1 code on a Toyota forklift may indicate various issues, such as electrical faults or fuel system errors. This section provides steps to identify and resolve these issues effectively.</p>
+      </div>
+
+      {/* Interactive Troubleshooting Checklist */}
+      <div className="not-prose my-8 bg-white border-2 border-blue-200 rounded-xl p-6">
+        <h3 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <span className="text-2xl">✓</span> Step-by-Step Diagnostic Checklist
+        </h3>
+        <p className="text-sm text-slate-600 mb-6">Follow these steps in order. Check off each as you complete it:</p>
+        <div className="space-y-3">
+          <div className="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-lg">
+            <span className="text-xl flex-shrink-0">☐</span>
+            <div>
+              <div className="font-semibold text-slate-900">Step 1: Inspect Seat Switch Wiring</div>
+              <div className="text-sm text-slate-600 mt-1">Check for bypass or damage. Time: ~5 minutes</div>
+            </div>
+          </div>
+          <div className="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-lg">
+            <span className="text-xl flex-shrink-0">☐</span>
+            <div>
+              <div className="font-semibold text-slate-900">Step 2: Test Accelerator Potentiometer</div>
+              <div className="text-sm text-slate-600 mt-1">Check for correct signal and idle speed. Time: ~10 minutes</div>
+            </div>
+          </div>
+          <div className="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-lg">
+            <span className="text-xl flex-shrink-0">☐</span>
+            <div>
+              <div className="font-semibold text-slate-900">Step 3: Scan with OBD Diagnostic Tool</div>
+              <div className="text-sm text-slate-600 mt-1">Read stored fault codes and live data. Time: ~5 minutes</div>
+            </div>
+          </div>
+          <div className="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-lg">
+            <span className="text-xl flex-shrink-0">☐</span>
+            <div>
+              <div className="font-semibold text-slate-900">Step 4: Inspect Electrical Connections</div>
+              <div className="text-sm text-slate-600 mt-1">Battery, fuses, wiring harness. Time: ~15 minutes</div>
+            </div>
+          </div>
+          <div className="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-lg">
+            <span className="text-xl flex-shrink-0">☐</span>
+            <div>
+              <div className="font-semibold text-slate-900">Step 5: Check Fuel System (if applicable)</div>
+              <div className="text-sm text-slate-600 mt-1">Injectors, fuel pump, feedback control. Time: ~20 minutes</div>
+            </div>
+          </div>
+        </div>
+        <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+          <p className="text-sm text-blue-800 mb-3">
+            <strong>Still stuck after these steps?</strong>
+          </p>
+          <Link href="/quote" className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-all text-sm">
+            Request Professional Diagnostic Help →
+          </Link>
+        </div>
+      </div>
+
+      <div className="prose prose-slate max-w-none">
       <h3>Initial Steps for Troubleshooting</h3>
       <p>When the E A5-1 code appears, begin by checking basic components.</p>
       <p>First, inspect the seat switch wiring, as a bypass can cause this fault. If the switch seems intact, ensure that the accelerator potentiometer is functioning correctly, since changes in idle speed might occur if it's faulty.</p>
