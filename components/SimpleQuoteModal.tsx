@@ -268,7 +268,7 @@ export default function SimpleQuoteModal({ open, onClose, product }: Props) {
                 name="notes"
                 rows={3}
                 placeholder="Any specific requirements, questions, or details about your project..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none text-slate-900 placeholder:text-slate-500"
               />
             </div>
 
