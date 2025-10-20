@@ -10,17 +10,53 @@ export const metadata: Metadata = {
 };
 
 export default function ToyotaFaultCodesPage() {
-  const commonCodes = [
-    { code: "E A5-1", description: "Vehicle speed control system fault", severity: "Medium", hasGuide: true, link: "/diagnostic-codes/e-a5-1-code-on-toyota-forklift-2" },
-    { code: "E-01-5", description: "Power circuit malfunction", severity: "High", hasGuide: false },
-    { code: "E A1", description: "Main contactor issue", severity: "High", hasGuide: false },
-    { code: "E A2", description: "Drive motor controller fault", severity: "High", hasGuide: false },
-    { code: "E A3", description: "Pump motor controller fault", severity: "Medium", hasGuide: false },
-    { code: "E A4", description: "Battery voltage irregular", severity: "Medium", hasGuide: false },
-    { code: "E A6", description: "Traction motor overheat", severity: "High", hasGuide: false },
-    { code: "E B1", description: "Lift/lower circuit fault", severity: "Medium", hasGuide: false },
-    { code: "E C1", description: "Hydraulic pressure sensor", severity: "Low", hasGuide: false },
-    { code: "E D1", description: "Steering sensor malfunction", severity: "Medium", hasGuide: false },
+  // Internal Combustion (Gas/LPG) Codes
+  const icCodes = [
+    { code: "01-01", description: "Fuel feedback control error (rich) - Engine speed unstable, may stop", severity: "High", system: "4Y-ECS" },
+    { code: "01-02", description: "Fuel feedback control error (lean) - Engine unstable", severity: "High", system: "4Y-ECS" },
+    { code: "01-05", description: "O2 sensor open - Engine issues at low temp", severity: "Medium", system: "4Y-ECS" },
+    { code: "01-06", description: "O2 sensor heater open - Limited engine power/speed", severity: "Medium", system: "4Y-ECS" },
+    { code: "02-01", description: "Intake temperature sensor open", severity: "Medium", system: "4Y-ECS" },
+    { code: "02-02", description: "Intake temperature sensor short", severity: "Medium", system: "4Y-ECS" },
+    { code: "03-01", description: "Intake pipe pressure sensor open - Limited power", severity: "Medium", system: "4Y-ECS" },
+    { code: "04-01", description: "Coolant temp sensor open - Engine unstable, may stop", severity: "High", system: "4Y-ECS" },
+    { code: "04-02", description: "Coolant temp sensor short - Engine unstable", severity: "High", system: "4Y-ECS" },
+    { code: "05-01", description: "Throttle position sensor 1 open - Engine unstable", severity: "High", system: "4Y-ECS" },
+    { code: "05-02", description: "Throttle position sensor 1 short - Limited speed", severity: "Medium", system: "4Y-ECS" },
+    { code: "E 12-4", description: "Variable nozzle turbo actuator malfunction", severity: "Medium", system: "Engine" },
+  ];
+
+  // Electric Forklift Codes
+  const electricCodes = [
+    { code: "F8", description: "Charging completion failure - Check cables/transformer", severity: "Medium", system: "Charging" },
+    { code: "C02", description: "Multi-display error - Abnormalities detected", severity: "Low", system: "Display" },
+    { code: "C05", description: "Display function error", severity: "Low", system: "Display" },
+    { code: "AD1", description: "CAN communication error - Partial drive limitation", severity: "High", system: "CAN Comm" },
+    { code: "ADE2", description: "Lost CAN communication - Drive/mast restricted", severity: "High", system: "CAN Comm" },
+    { code: "201-262", description: "Traction logic errors - May disable traveling", severity: "High", system: "Drive Logic" },
+    { code: "501-562", description: "Lift logic errors - Abnormalities in lift circuits", severity: "High", system: "Lift Logic" },
+    { code: "F5-1", description: "Material handling error - Lift may stop", severity: "Medium", system: "Lift" },
+  ];
+
+  // SAS/OPS (Stability & Operator Presence) Codes
+  const sasCodes = [
+    { code: "41-1", description: "Matching connector abnormal - Connector display faulty", severity: "Medium", system: "SAS/OPS" },
+    { code: "51-1", description: "Speed sensor open - Shows 0 km/h, swing control limited", severity: "Medium", system: "SAS/OPS" },
+    { code: "52-1", description: "Yaw rate sensor open - Swing control limited", severity: "Medium", system: "SAS/OPS" },
+    { code: "61-1", description: "Load sensor open - Swing/mast/drive limited, no load display", severity: "High", system: "SAS/OPS" },
+    { code: "62-1", description: "Tilt angle sensor open - Mast control limited", severity: "Medium", system: "SAS/OPS" },
+    { code: "63-1", description: "Tilt switches ON simultaneously - Mast limited", severity: "Medium", system: "SAS/OPS" },
+    { code: "64-1", description: "Lift lower lock solenoid open - Fork won't lower", severity: "High", system: "SAS/OPS" },
+  ];
+
+  // Special/Common Codes
+  const specialCodes = [
+    { code: "E A5-1", description: "Vehicle speed control system fault", severity: "Medium", system: "Speed Control", hasGuide: true, link: "/diagnostic-codes/e-a5-1-code-on-toyota-forklift-2" },
+    { code: "E AS-1", description: "Alarm code - Check seat switch", severity: "Low", system: "Safety" },
+    { code: "E A1", description: "Main contactor issue", severity: "High", system: "Electrical" },
+    { code: "E A2", description: "Drive motor controller fault", severity: "High", system: "Drive" },
+    { code: "E A4", description: "Battery voltage irregular", severity: "Medium", system: "Battery" },
+    { code: "E A6", description: "Traction motor overheat", severity: "High", system: "Drive" },
   ];
 
   return (
@@ -69,51 +105,134 @@ export default function ToyotaFaultCodesPage() {
         </div>
       </div>
 
-      {/* Fault Codes Table */}
+      {/* Code Type Selector Tabs */}
       <div className="bg-white border-2 border-slate-200 rounded-xl overflow-hidden mb-8">
         <div className="bg-slate-100 px-6 py-4 border-b-2 border-slate-200">
-          <h2 className="text-xl font-bold text-slate-900">Common Toyota Forklift Fault Codes</h2>
+          <h2 className="text-2xl font-bold text-slate-900">Toyota Forklift Fault Code Database</h2>
+          <p className="text-sm text-slate-600 mt-2">Over 30 diagnostic codes organized by system type</p>
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-slate-50">
-              <tr className="border-b border-slate-200">
-                <th className="px-6 py-3 text-left text-sm font-semibold text-slate-700">Code</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-slate-700">Description</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-slate-700">Severity</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-slate-700">Guide</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              {commonCodes.map((item) => (
-                <tr key={item.code} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-6 py-4 font-mono font-semibold text-slate-900">{item.code}</td>
-                  <td className="px-6 py-4 text-sm text-slate-700">{item.description}</td>
-                  <td className="px-6 py-4">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                      item.severity === 'High' ? 'bg-red-100 text-red-800' :
-                      item.severity === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                      'bg-green-100 text-green-800'
-                    }`}>
-                      {item.severity}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    {item.hasGuide ? (
-                      <Link href={item.link!} className="text-[#F76511] hover:text-orange-600 font-semibold text-sm">
-                        View Guide →
-                      </Link>
-                    ) : (
-                      <Link href="/quote" className="text-slate-500 hover:text-slate-700 text-sm">
-                        Get Help
-                      </Link>
-                    )}
-                  </td>
-                </tr>
+
+        {/* Special/Common Codes Section */}
+        <div className="p-6 border-b-2 border-slate-200">
+          <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <span className="w-8 h-8 bg-orange-100 text-[#F76511] rounded-full flex items-center justify-center font-bold">⚡</span>
+            Most Common Codes (All Models)
+          </h3>
+          <div className="grid sm:grid-cols-2 gap-3">
+            {specialCodes.map((item) => (
+              <div key={item.code} className="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-lg hover:border-[#F76511] transition-all">
+                <div className="flex-shrink-0">
+                  <div className="font-mono font-bold text-lg text-[#F76511]">{item.code}</div>
+                  <div className={`text-xs font-semibold mt-1 ${
+                    item.severity === 'High' ? 'text-red-600' :
+                    item.severity === 'Medium' ? 'text-yellow-600' :
+                    'text-green-600'
+                  }`}>
+                    {item.severity}
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-semibold text-slate-900 mb-1">{item.description}</div>
+                  <div className="text-xs text-slate-600">{item.system}</div>
+                  {item.hasGuide && (
+                    <Link href={item.link!} className="text-xs text-[#F76511] hover:text-orange-600 font-semibold mt-2 inline-block">
+                      View Full Guide →
+                    </Link>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* IC Codes Section */}
+        <details className="group border-b-2 border-slate-200">
+          <summary className="cursor-pointer p-6 font-bold text-slate-900 hover:bg-slate-50 transition-all flex items-center justify-between">
+            <span className="flex items-center gap-2">
+              <span className="text-xl">⛽</span> Internal Combustion Codes (Gas/LPG/Diesel) - {icCodes.length} codes
+            </span>
+            <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <div className="p-6 pt-0 bg-slate-50">
+            <p className="text-sm text-slate-600 mb-4">Codes for Toyota models with 4Y-ECS engines and similar IC systems</p>
+            <div className="space-y-2">
+              {icCodes.map((item) => (
+                <div key={item.code} className="flex items-start gap-3 p-3 bg-white border border-slate-200 rounded-lg text-sm">
+                  <span className="font-mono font-bold text-[#F76511] flex-shrink-0">{item.code}</span>
+                  <div className="flex-1">
+                    <span className="text-slate-900">{item.description}</span>
+                    <span className="text-xs text-slate-500 ml-2">({item.system})</span>
+                  </div>
+                  <span className={`text-xs font-semibold flex-shrink-0 ${
+                    item.severity === 'High' ? 'text-red-600' : 'text-yellow-600'
+                  }`}>
+                    {item.severity}
+                  </span>
+                </div>
               ))}
-            </tbody>
-          </table>
-        </div>
+            </div>
+          </div>
+        </details>
+
+        {/* Electric Codes Section */}
+        <details className="group border-b-2 border-slate-200">
+          <summary className="cursor-pointer p-6 font-bold text-slate-900 hover:bg-slate-50 transition-all flex items-center justify-between">
+            <span className="flex items-center gap-2">
+              <span className="text-xl">🔋</span> Electric Forklift Codes - {electricCodes.length} codes
+            </span>
+            <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <div className="p-6 pt-0 bg-slate-50">
+            <p className="text-sm text-slate-600 mb-4">Codes for Toyota 7-series and 8-series electric models</p>
+            <div className="space-y-2">
+              {electricCodes.map((item) => (
+                <div key={item.code} className="flex items-start gap-3 p-3 bg-white border border-slate-200 rounded-lg text-sm">
+                  <span className="font-mono font-bold text-[#F76511] flex-shrink-0">{item.code}</span>
+                  <div className="flex-1">
+                    <span className="text-slate-900">{item.description}</span>
+                    <span className="text-xs text-slate-500 ml-2">({item.system})</span>
+                  </div>
+                  <span className={`text-xs font-semibold flex-shrink-0 ${
+                    item.severity === 'High' ? 'text-red-600' :
+                    item.severity === 'Medium' ? 'text-yellow-600' :
+                    'text-green-600'
+                  }`}>
+                    {item.severity}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </details>
+
+        {/* SAS/OPS Codes Section */}
+        <details className="group">
+          <summary className="cursor-pointer p-6 font-bold text-slate-900 hover:bg-slate-50 transition-all flex items-center justify-between">
+            <span className="flex items-center gap-2">
+              <span className="text-xl">🛡️</span> SAS/OPS Stability Codes - {sasCodes.length} codes
+            </span>
+            <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <div className="p-6 pt-0 bg-slate-50">
+            <p className="text-sm text-slate-600 mb-4">Stability Augmentation System & Operator Presence codes</p>
+            <div className="space-y-2">
+              {sasCodes.map((item) => (
+                <div key={item.code} className="flex items-start gap-3 p-3 bg-white border border-slate-200 rounded-lg text-sm">
+                  <span className="font-mono font-bold text-[#F76511] flex-shrink-0">{item.code}</span>
+                  <div className="flex-1">
+                    <span className="text-slate-900">{item.description}</span>
+                    <span className="text-xs text-slate-500 ml-2">({item.system})</span>
+                  </div>
+                  <span className={`text-xs font-semibold flex-shrink-0 ${
+                    item.severity === 'High' ? 'text-red-600' : 'text-yellow-600'
+                  }`}>
+                    {item.severity}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </details>
       </div>
 
       {/* General Troubleshooting Tips */}
