@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "E A5-1 Code on Toyota Forklift: Understanding the Common Error and Solutions | Flat Earth Equipment",
@@ -10,7 +11,53 @@ export const metadata: Metadata = {
 
 export default function EA51ToyotaForkliftPage() {
   return (
-    <main className="max-w-3xl mx-auto px-4 py-12 prose prose-slate">
+    <main className="max-w-3xl mx-auto px-4 py-12">
+      {/* Quick Action Buttons */}
+      <div className="not-prose mb-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <Link href="/toyota-forklift-serial-lookup" className="flex flex-col items-center gap-2 p-4 bg-orange-50 hover:bg-orange-100 border-2 border-orange-200 rounded-xl transition-all hover:shadow-md">
+          <span className="text-2xl">🔍</span>
+          <span className="text-xs sm:text-sm font-semibold text-center text-slate-800">Check Serial Number</span>
+        </Link>
+        <Link href="/diagnostic-codes/toyota-forklift-fault-codes" className="flex flex-col items-center gap-2 p-4 bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 rounded-xl transition-all hover:shadow-md">
+          <span className="text-2xl">📋</span>
+          <span className="text-xs sm:text-sm font-semibold text-center text-slate-800">All Toyota Codes</span>
+        </Link>
+        <Link href="/parts?brand=toyota" className="flex flex-col items-center gap-2 p-4 bg-green-50 hover:bg-green-100 border-2 border-green-200 rounded-xl transition-all hover:shadow-md">
+          <span className="text-2xl">🔧</span>
+          <span className="text-xs sm:text-sm font-semibold text-center text-slate-800">Toyota Parts</span>
+        </Link>
+        <Link href="/quote" className="flex flex-col items-center gap-2 p-4 bg-purple-50 hover:bg-purple-100 border-2 border-purple-200 rounded-xl transition-all hover:shadow-md">
+          <span className="text-2xl">💬</span>
+          <span className="text-xs sm:text-sm font-semibold text-center text-slate-800">Get Help</span>
+        </Link>
+      </div>
+
+      {/* At a Glance Box */}
+      <div className="not-prose mb-8 bg-gradient-to-br from-orange-50 to-amber-50 border-2 border-orange-300 rounded-xl p-6 shadow-sm">
+        <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <span className="text-2xl">⚡</span> E A5-1 Code: At a Glance
+        </h2>
+        <div className="grid sm:grid-cols-2 gap-4 text-sm">
+          <div>
+            <div className="font-semibold text-orange-800 mb-1">❓ What it means:</div>
+            <div className="text-slate-700">Speed control system fault</div>
+          </div>
+          <div>
+            <div className="font-semibold text-orange-800 mb-1">⚠️ Severity:</div>
+            <div className="text-slate-700">Medium - needs diagnosis</div>
+          </div>
+          <div>
+            <div className="font-semibold text-orange-800 mb-1">🔧 Fix time:</div>
+            <div className="text-slate-700">30 minutes - 2 hours</div>
+          </div>
+          <div>
+            <div className="font-semibold text-orange-800 mb-1">💰 Est. cost:</div>
+            <div className="text-slate-700">$50-500 (parts dependent)</div>
+          </div>
+        </div>
+      </div>
+
+      <div className="prose prose-slate max-w-none">
       <h1>E A5-1 Code on Toyota Forklift: Understanding the Common Error and Solutions</h1>
       <p>For anyone operating a Toyota forklift, encountering error codes like E A5-1 can be concerning.</p>
       <p><strong>The E A5-1 code indicates a potential issue with the vehicle speed control system. This prompts further inspection and troubleshooting.</strong></p>
@@ -164,6 +211,62 @@ export default function EA51ToyotaForkliftPage() {
       <p>This insight is critical in addressing issues early.</p>
       <p>Understanding the responses of the tilt lever to various commands is essential for precise diagnostics. It offers a hands-on approach to evaluating mechanical conditions, thus aiding in quicker problem resolution.</p>
       <p>Regular maintenance using the tilt lever can enhance reliability and prevent unplanned repairs.</p>
+      </div>
+
+      {/* Parts CTA Section */}
+      <div className="not-prose my-8 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-300 rounded-xl p-6 sm:p-8">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">Need Speed Control Parts for Your Toyota?</h2>
+          <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
+            We stock sensors, controllers, potentiometers, and electrical components for Toyota forklifts. Get the right part to fix your E A5-1 code.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link href="/parts?brand=toyota" className="inline-flex items-center gap-2 bg-[#F76511] text-white px-8 py-3 rounded-xl font-bold hover:bg-orange-600 transition-all shadow-md hover:shadow-lg">
+              Browse Toyota Parts →
+            </Link>
+            <Link href="/quote" className="inline-flex items-center gap-2 bg-white text-[#F76511] border-2 border-[#F76511] px-8 py-3 rounded-xl font-bold hover:bg-orange-50 transition-all">
+              Request Quote
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Related Toyota Tools */}
+      <div className="not-prose my-8 bg-white border-2 border-slate-200 rounded-xl p-6">
+        <h2 className="text-xl font-bold text-slate-900 mb-4">Related Toyota Forklift Tools</h2>
+        <div className="grid sm:grid-cols-2 gap-4">
+          <Link href="/toyota-forklift-serial-lookup" className="flex items-start gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-lg transition-all">
+            <span className="text-2xl">🔍</span>
+            <div>
+              <div className="font-semibold text-slate-900">Toyota Serial Number Lookup</div>
+              <div className="text-sm text-slate-600">Find your forklift's year and model</div>
+            </div>
+          </Link>
+          <Link href="/diagnostic-codes/toyota-forklift-fault-codes" className="flex items-start gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-lg transition-all">
+            <span className="text-2xl">📋</span>
+            <div>
+              <div className="font-semibold text-slate-900">Complete Toyota Fault Codes</div>
+              <div className="text-sm text-slate-600">Full diagnostic code database</div>
+            </div>
+          </Link>
+          <Link href="/parts?brand=toyota&category=sensors" className="flex items-start gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-lg transition-all">
+            <span className="text-2xl">🔌</span>
+            <div>
+              <div className="font-semibold text-slate-900">Speed Control Sensors</div>
+              <div className="text-sm text-slate-600">Potentiometers, switches, controllers</div>
+            </div>
+          </Link>
+          <Link href="/contact" className="flex items-start gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-lg transition-all">
+            <span className="text-2xl">📞</span>
+            <div>
+              <div className="font-semibold text-slate-900">Talk to a Technician</div>
+              <div className="text-sm text-slate-600">Expert diagnostic support</div>
+            </div>
+          </Link>
+        </div>
+      </div>
+
+      <div className="prose prose-slate max-w-none">
       <h2>Frequently Asked Questions</h2>
       <p>The E A5-1 code on a Toyota forklift is related to potential issues with the vehicle speed control system. Addressing this issue may require several troubleshooting steps and resets, depending on the forklift model and year.</p>
       <h3>How can the E A5-1 error be resolved in a Toyota forklift?</h3>
@@ -178,6 +281,23 @@ export default function EA51ToyotaForkliftPage() {
       <p>Start by examining the speed control components such as the sensors and wiring. Ensure the connections are secure. Look for any signs of wear or damage. If unable to identify the issue, expert assistance might be required.</p>
       <h3>How can code E-01-5 be addressed on a Toyota lift truck?</h3>
       <p>The E-01-5 code might involve different components than the A5-1 code. Inspecting related systems, such as power and control circuits, is essential. You may need to refer to the forklift's manual or consult a technician to ensure accurate diagnosis and repair.</p>
+      </div>
+
+      {/* Final CTA */}
+      <div className="not-prose mt-12 bg-slate-900 text-white rounded-xl p-8 text-center">
+        <h2 className="text-2xl font-bold mb-3">Still Troubleshooting Your Toyota Forklift?</h2>
+        <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
+          Get expert help identifying the right parts or diagnosing complex issues. Our team specializes in Toyota forklift repairs and can help you get back to work fast.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <Link href="/quote" className="inline-flex items-center gap-2 bg-[#F76511] text-white px-8 py-3 rounded-xl font-bold hover:bg-orange-600 transition-all shadow-lg">
+            Request Diagnostic Help →
+          </Link>
+          <Link href="/toyota-forklift-serial-lookup" className="inline-flex items-center gap-2 bg-white text-slate-900 px-8 py-3 rounded-xl font-bold hover:bg-slate-100 transition-all">
+            Identify Your Toyota Model
+          </Link>
+        </div>
+      </div>
     </main>
   );
 } 
