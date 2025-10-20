@@ -43,34 +43,28 @@ export default function SimpleQuoteModal({ open, onClose, product }: Props) {
     const timeline = formData.get('timeline') as string;
     const notes = formData.get('notes') as string;
     
-    const apiKey = process.env.NEXT_PUBLIC_BASIN_API_KEY || 'fb0e195001565085399383d6996c0ab1';
-    
-    const payload = {
-      fullname,
-      email,
-      company,
-      phone,
-      quantity,
-      needs_purchase_order: needsPO ? 'Yes' : 'No',
-      timeline,
-      notes,
-      product_name: product.name,
-      product_slug: product.slug,
-      product_sku: product.sku || '',
-      subject: needsPO ? 'Corporate Quote Request (PO Required)' : 'Charger Quote Request',
-      form_name: 'charger_quote'
-    };
-    
-    console.log('Submitting quote form:', { payload, apiKey: apiKey.substring(0, 10) + '...' });
+    // Send via internal API (uses Resend, same as certificate emails)
+    console.log('Submitting quote form via Resend API');
     
     try {
-      const response = await fetch('https://api.usebasin.com/v1/submissions', {
+      const response = await fetch('/api/quote', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${apiKey}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          fullname,
+          email,
+          company,
+          phone,
+          quantity,
+          needsPO,
+          timeline,
+          notes,
+          productName: product.name,
+          productSlug: product.slug,
+          productSku: product.sku || ''
+        }),
       });
       
       console.log('Response status:', response.status);
@@ -158,7 +152,7 @@ export default function SimpleQuoteModal({ open, onClose, product }: Props) {
                   name="fullname"
                   required
                   placeholder="John Smith"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-900 placeholder:text-slate-400"
                 />
               </div>
 
@@ -172,7 +166,7 @@ export default function SimpleQuoteModal({ open, onClose, product }: Props) {
                   name="email"
                   required
                   placeholder="john@company.com"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-900 placeholder:text-slate-400"
                 />
               </div>
             </div>
@@ -187,7 +181,7 @@ export default function SimpleQuoteModal({ open, onClose, product }: Props) {
                   id="company"
                   name="company"
                   placeholder="Your company"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-900 placeholder:text-slate-500"
                 />
               </div>
 
@@ -200,7 +194,7 @@ export default function SimpleQuoteModal({ open, onClose, product }: Props) {
                   id="phone"
                   name="phone"
                   placeholder="(555) 123-4567"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-900 placeholder:text-slate-500"
                 />
               </div>
             </div>
@@ -222,7 +216,7 @@ export default function SimpleQuoteModal({ open, onClose, product }: Props) {
                     min="1"
                     defaultValue="1"
                     placeholder="1"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-900 placeholder:text-slate-500"
                   />
                 </div>
 
@@ -233,7 +227,7 @@ export default function SimpleQuoteModal({ open, onClose, product }: Props) {
                   <select
                     id="timeline"
                     name="timeline"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-900 placeholder:text-slate-500"
                   >
                     <option value="asap">As soon as possible</option>
                     <option value="1-2weeks">1-2 weeks</option>
