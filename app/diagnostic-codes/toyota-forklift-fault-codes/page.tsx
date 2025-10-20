@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function ToyotaFaultCodesPage() {
   // Internal Combustion (Gas/LPG) Codes
   const icCodes = [
-    { code: "01-01", description: "Fuel feedback control error (rich) - Engine speed unstable, may stop", severity: "High", system: "4Y-ECS" },
+    { code: "01-01", description: "Fuel feedback control error (rich) - Engine speed unstable, may stop", severity: "High", system: "4Y-ECS", hasGuide: true, link: "/diagnostic-codes/toyota-01-01-fuel-feedback-error" },
     { code: "01-02", description: "Fuel feedback control error (lean) - Engine unstable", severity: "High", system: "4Y-ECS" },
     { code: "01-05", description: "O2 sensor open - Engine issues at low temp", severity: "Medium", system: "4Y-ECS" },
     { code: "01-06", description: "O2 sensor heater open - Limited engine power/speed", severity: "Medium", system: "4Y-ECS" },
@@ -156,12 +156,19 @@ export default function ToyotaFaultCodesPage() {
           <div className="p-6 pt-0 bg-slate-50">
             <p className="text-sm text-slate-600 mb-4">Codes for Toyota models with 4Y-ECS engines and similar IC systems</p>
             <div className="space-y-2">
-              {icCodes.map((item) => (
+              {icCodes.map((item: any) => (
                 <div key={item.code} className="flex items-start gap-3 p-3 bg-white border border-slate-200 rounded-lg text-sm">
                   <span className="font-mono font-bold text-[#F76511] flex-shrink-0">{item.code}</span>
                   <div className="flex-1">
                     <span className="text-slate-900">{item.description}</span>
                     <span className="text-xs text-slate-500 ml-2">({item.system})</span>
+                    {item.hasGuide && (
+                      <div className="mt-1">
+                        <Link href={item.link} className="text-xs text-[#F76511] hover:text-orange-600 font-semibold">
+                          View Full Guide →
+                        </Link>
+                      </div>
+                    )}
                   </div>
                   <span className={`text-xs font-semibold flex-shrink-0 ${
                     item.severity === 'High' ? 'text-red-600' : 'text-yellow-600'
