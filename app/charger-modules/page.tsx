@@ -93,7 +93,7 @@ export default function ChargersLanding() {
               <h2 className="text-2xl lg:text-3xl font-bold mb-2">
                 Corporate & Fleet Buyer?
               </h2>
-              <p className="text-slate-300 text-lg">
+              <p className="text-slate-200 text-lg">
                 Get volume pricing, NET-30 terms, and dedicated support for your fleet operations.
               </p>
             </div>
@@ -103,22 +103,22 @@ export default function ChargersLanding() {
             <div className="flex items-start gap-3">
               <TrendingDown className="h-5 w-5 text-orange-400 flex-shrink-0 mt-0.5" />
               <div>
-                <div className="font-semibold text-sm">Volume Pricing</div>
-                <div className="text-slate-400 text-sm">Save on orders of 4+ units</div>
+                <div className="font-semibold text-white">Volume Pricing</div>
+                <div className="text-slate-300 text-sm">Save on orders of 4+ units</div>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <FileText className="h-5 w-5 text-orange-400 flex-shrink-0 mt-0.5" />
               <div>
-                <div className="font-semibold text-sm">Purchase Orders</div>
-                <div className="text-slate-400 text-sm">NET-30 payment terms available</div>
+                <div className="font-semibold text-white">Purchase Orders</div>
+                <div className="text-slate-300 text-sm">NET-30 payment terms available</div>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <Building2 className="h-5 w-5 text-orange-400 flex-shrink-0 mt-0.5" />
               <div>
-                <div className="font-semibold text-sm">Fleet Support</div>
-                <div className="text-slate-400 text-sm">Dedicated account management</div>
+                <div className="font-semibold text-white">Fleet Support</div>
+                <div className="text-slate-300 text-sm">Dedicated account management</div>
               </div>
             </div>
           </div>
@@ -130,9 +130,10 @@ export default function ChargersLanding() {
                 slug: "charger-modules-fleet",
                 sku: "FLEET-CHARGERS"
               }}
+              variant="light"
             />
-            <p className="text-slate-400 text-sm">
-              📧 Response within 24 hours • 📞 Questions? Call us at <a href="tel:+18887654321" className="underline hover:text-white">(888) 765-4321</a>
+            <p className="text-slate-200 text-sm">
+              📧 Response within 24 hours
             </p>
           </div>
         </div>
