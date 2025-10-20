@@ -6,25 +6,39 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const {
       name,
+      fullname,
       company,
       email,
       phone,
       equipment,
       part,
       qty,
-      notes
+      quantity,
+      notes,
+      productName,
+      productSlug,
+      productSku,
+      needsPO,
+      timeline
     } = body;
 
+    // Support both old and new field names
+    const customerName = fullname || name;
+    const requestedQty = quantity || qty || '1';
+    const productDescription = productName || part || equipment;
+
     // Validate required fields
-    if (!name || !email || !part) {
+    if (!customerName || !email || !productDescription) {
       return NextResponse.json(
-        { error: 'Name, email, and part description are required' },
+        { error: 'Name, email, and product are required' },
         { status: 400 }
       );
     }
 
     // Email to your team
-    const subject = `Quote Request from ${name}${company ? ` (${company})` : ''}`;
+    const subject = needsPO 
+      ? `Corporate Quote Request (PO Required) - ${customerName}${company ? ` (${company})` : ''}`
+      : `Quote Request from ${customerName}${company ? ` (${company})` : ''}`;
     
     const emailHtml = `
 <!DOCTYPE html>
@@ -44,7 +58,7 @@ export async function POST(req: NextRequest) {
     <table style="width: 100%; border-collapse: collapse;">
       <tr>
         <td style="padding: 8px 0; font-weight: bold; color: #6b7280;">Name:</td>
-        <td style="padding: 8px 0;">${name}</td>
+        <td style="padding: 8px 0;">${customerName}</td>
       </tr>
       ${company ? `
       <tr>
@@ -67,9 +81,11 @@ export async function POST(req: NextRequest) {
   
   <div style="background: #fff7ed; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #A0522D;">
     <h2 style="color: #1f2937; margin-top: 0;">Request Details</h2>
-    ${equipment ? `<p><strong>Equipment:</strong> ${equipment}</p>` : ''}
-    <p><strong>Part:</strong> ${part}</p>
-    ${qty ? `<p><strong>Quantity:</strong> ${qty}</p>` : ''}
+    <p><strong>Product:</strong> ${productDescription}</p>
+    ${productSku ? `<p><strong>SKU:</strong> ${productSku}</p>` : ''}
+    <p><strong>Quantity:</strong> ${requestedQty}</p>
+    ${timeline ? `<p><strong>Timeline:</strong> ${timeline}</p>` : ''}
+    ${needsPO ? `<p><strong>⚠️ Purchase Order Required:</strong> Yes - Will send NET-30 terms and setup instructions</p>` : ''}
     ${notes ? `
     <div style="margin-top: 15px;">
       <strong>Additional Notes:</strong>
