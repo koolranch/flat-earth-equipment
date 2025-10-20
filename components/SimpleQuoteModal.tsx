@@ -43,45 +43,58 @@ export default function SimpleQuoteModal({ open, onClose, product }: Props) {
     const timeline = formData.get('timeline') as string;
     const notes = formData.get('notes') as string;
     
+    const apiKey = process.env.NEXT_PUBLIC_BASIN_API_KEY || 'fb0e195001565085399383d6996c0ab1';
+    
+    const payload = {
+      fullname,
+      email,
+      company,
+      phone,
+      quantity,
+      needs_purchase_order: needsPO ? 'Yes' : 'No',
+      timeline,
+      notes,
+      product_name: product.name,
+      product_slug: product.slug,
+      product_sku: product.sku || '',
+      subject: needsPO ? 'Corporate Quote Request (PO Required)' : 'Charger Quote Request',
+      form_name: 'charger_quote'
+    };
+    
+    console.log('Submitting quote form:', { payload, apiKey: apiKey.substring(0, 10) + '...' });
+    
     try {
       const response = await fetch('https://api.usebasin.com/v1/submissions', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_BASIN_API_KEY || 'fb0e195001565085399383d6996c0ab1'}`,
+          'Authorization': `Bearer ${apiKey}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          fullname,
-          email,
-          company,
-          phone,
-          quantity,
-          needs_purchase_order: needsPO ? 'Yes' : 'No',
-          timeline,
-          notes,
-          product_name: product.name,
-          product_slug: product.slug,
-          product_sku: product.sku || '',
-          subject: needsPO ? 'Corporate Quote Request (PO Required)' : 'Charger Quote Request',
-          form_name: 'charger_quote'
-        }),
+        body: JSON.stringify(payload),
       });
       
+      console.log('Response status:', response.status);
+      
       if (response.ok) {
+        console.log('✅ Form submitted successfully');
         setIsSubmitted(true);
         setTimeout(() => {
           onClose();
           setIsSubmitted(false);
-        }, 2000);
+        }, 3000);
       } else {
         const errorText = await response.text();
-        console.error('Form submission failed:', errorText);
-        alert('There was an issue submitting your request. Please try again.');
+        console.error('❌ Form submission failed:', {
+          status: response.status,
+          statusText: response.statusText,
+          error: errorText
+        });
+        alert(`Unable to submit your request (Error ${response.status}). Please email us directly at sales@flatearthequipment.com or call (307) 655-5544.`);
       }
       
     } catch (error) {
-      console.error('Form submission error:', error);
-      alert('There was an issue submitting your request. Please try again.');
+      console.error('❌ Form submission error:', error);
+      alert('Network error. Please check your connection or email us directly at sales@flatearthequipment.com');
     } finally {
       setIsSubmitting(false);
     }
