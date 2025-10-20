@@ -174,18 +174,54 @@ export default function EA51ToyotaForkliftPage() {
       <p>First, inspect the seat switch wiring, as a bypass can cause this fault. If the switch seems intact, ensure that the accelerator potentiometer is functioning correctly, since changes in idle speed might occur if it's faulty.</p>
       <p>Next, use an OBD (On-Board Diagnostics) scanner to read any stored fault codes. This tool can help clarify the root cause, showing if other systems are affected.</p>
       <p>Remember, keeping all maintenance records is key to identifying patterns that might help diagnose the problem.</p>
-      <h3>Electrical System Inspection</h3>
-      <p>Inspecting the electrical system is essential when dealing with the E A5-1 code.</p>
-      <p>Start by checking the vehicle's battery and connections for corrosion or damage. Faulty wiring or loose connections can disrupt the forklift's operations, leading to error codes.</p>
-      <p>Look at the fuse box and relays, ensuring they are not blown or damaged. Testing continuity in wiring harnesses may reveal hidden issues.</p>
-      <p>If you find any irregularities, repairing or replacing faulty components might help in clearing the error code.</p>
-      <h3>Fuel Feedback Control Error</h3>
-      <p>The fuel system can also contribute to the E A5-1 code. Check for any malfunction in the fuel feedback control, as this component ensures proper fuel delivery to the engine. A common symptom of fuel system issues is fluctuating idle speeds.</p>
-      <p>Inspect the fuel injectors for clogs or leaks. Dirty injectors can hinder fuel flow, causing the engine to perform poorly. Cleaning or replacing them might resolve the issue. Additionally, verify that the fuel pump is operating efficiently.</p>
-      <h3>Verifying the Hour Meter</h3>
-      <p>Sometimes, errors in the hour meter settings can trigger the E A5-1 code.</p>
-      <p>The hour meter records the forklift's operational time, and discrepancies in this data might affect performance diagnostics.</p>
-      <p>Check the hour meter for any signs of malfunction or error messages. If the readings seem incorrect or unresponsive, recalibrating or replacing the meter might be necessary.</p>
+      </div>
+
+      {/* Collapsible Detailed Checks */}
+      <div className="not-prose my-8 space-y-3">
+        <details className="group bg-white border-2 border-slate-200 rounded-xl overflow-hidden">
+          <summary className="cursor-pointer p-4 font-semibold text-slate-900 hover:bg-slate-50 transition-all flex items-center justify-between">
+            <span className="flex items-center gap-2">
+              <span className="text-xl">🔌</span> Electrical System Inspection
+            </span>
+            <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <div className="p-4 pt-0 text-sm text-slate-700 space-y-2">
+            <p>Inspecting the electrical system is essential when dealing with the E A5-1 code.</p>
+            <p>Start by checking the vehicle's battery and connections for corrosion or damage. Faulty wiring or loose connections can disrupt the forklift's operations, leading to error codes.</p>
+            <p>Look at the fuse box and relays, ensuring they are not blown or damaged. Testing continuity in wiring harnesses may reveal hidden issues.</p>
+            <p className="font-semibold text-orange-700">✓ If you find any irregularities, repairing or replacing faulty components might help in clearing the error code.</p>
+          </div>
+        </details>
+
+        <details className="group bg-white border-2 border-slate-200 rounded-xl overflow-hidden">
+          <summary className="cursor-pointer p-4 font-semibold text-slate-900 hover:bg-slate-50 transition-all flex items-center justify-between">
+            <span className="flex items-center gap-2">
+              <span className="text-xl">⛽</span> Fuel Feedback Control Error
+            </span>
+            <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <div className="p-4 pt-0 text-sm text-slate-700 space-y-2">
+            <p>The fuel system can also contribute to the E A5-1 code. Check for any malfunction in the fuel feedback control, as this component ensures proper fuel delivery to the engine. A common symptom of fuel system issues is fluctuating idle speeds.</p>
+            <p>Inspect the fuel injectors for clogs or leaks. Dirty injectors can hinder fuel flow, causing the engine to perform poorly. Cleaning or replacing them might resolve the issue. Additionally, verify that the fuel pump is operating efficiently.</p>
+          </div>
+        </details>
+
+        <details className="group bg-white border-2 border-slate-200 rounded-xl overflow-hidden">
+          <summary className="cursor-pointer p-4 font-semibold text-slate-900 hover:bg-slate-50 transition-all flex items-center justify-between">
+            <span className="flex items-center gap-2">
+              <span className="text-xl">⏱️</span> Hour Meter Verification
+            </span>
+            <span className="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <div className="p-4 pt-0 text-sm text-slate-700 space-y-2">
+            <p>Sometimes, errors in the hour meter settings can trigger the E A5-1 code.</p>
+            <p>The hour meter records the forklift's operational time, and discrepancies in this data might affect performance diagnostics.</p>
+            <p>Check the hour meter for any signs of malfunction or error messages. If the readings seem incorrect or unresponsive, recalibrating or replacing the meter might be necessary.</p>
+          </div>
+        </details>
+      </div>
+
+      <div className="prose prose-slate max-w-none">
       <h2>Performing Maintenance on Toyota Forklifts</h2>
       <p>Performing regular maintenance on Toyota forklifts is crucial to keep them functioning smoothly and extending their life span. This process involves conducting routine checks, resetting maintenance indicators, and addressing common issues.</p>
       <h3>Regular Maintenance Checks</h3>
