@@ -1,166 +1,161 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import { AlertTriangle, CheckCircle, Phone, Mail, Search } from 'lucide-react';
+import Script from "next/script";
+import JCBCodeBrowser from '@/components/diagnostic/JCBCodeBrowser';
 
 export const metadata: Metadata = {
-  title: "JCB Telehandler Fault Codes List | Flat Earth Equipment",
-  description: "Complete guide to JCB telehandler fault codes, error messages, and troubleshooting solutions. Find your error code and get back to work quickly.",
+  title: "JCB Telehandler Fault Codes List | 50+ Diagnostic Codes | Flat Earth Equipment",
+  description: "Searchable database of 50+ JCB telehandler and excavator fault codes. P-codes, numeric codes for Loadall, JS series with detailed troubleshooting.",
   alternates: {
     canonical: "/rental/telehandler/jcb-telehandler-fault-codes-list",
+  },
+  openGraph: {
+    title: "JCB Telehandler Fault Codes: Complete Diagnostic Database",
+    description: "50+ JCB fault codes for telehandlers and excavators. Searchable P-codes, hydraulic, electrical faults with expert troubleshooting.",
+    type: "article",
   },
 };
 
 export default function JCBTelehandlerFaultCodesPage() {
   return (
+    <>
+      <Script id="breadcrumb-schema" type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://flatearthequipment.com" },
+            { "@type": "ListItem", "position": 2, "name": "Telehandler Resources", "item": "https://flatearthequipment.com/rental/telehandler" },
+            { "@type": "ListItem", "position": 3, "name": "JCB Fault Codes", "item": "https://flatearthequipment.com/rental/telehandler/jcb-telehandler-fault-codes-list" }
+          ]
+        })}
+      </Script>
+
     <main className="max-w-4xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold text-slate-900 mb-6">
-        JCB Telehandler Fault Codes Guide
+      <div className="not-prose mb-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <Link href="/jcb-serial-number-lookup" className="flex flex-col items-center gap-2 p-4 bg-yellow-50 hover:bg-yellow-100 border-2 border-yellow-300 rounded-xl transition-all">
+          <span className="text-2xl">🔍</span>
+          <span className="text-xs font-semibold text-center">JCB Serial Lookup</span>
+        </Link>
+        <Link href="/rental/telehandler/jcb-telehandler-battery-location" className="flex flex-col items-center gap-2 p-4 bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 rounded-xl transition-all">
+          <span className="text-2xl">🔋</span>
+          <span className="text-xs font-semibold text-center">Battery Location</span>
+        </Link>
+        <Link href="/parts?brand=jcb" className="flex flex-col items-center gap-2 p-4 bg-green-50 hover:bg-green-100 border-2 border-green-200 rounded-xl transition-all">
+          <span className="text-2xl">🔧</span>
+          <span className="text-xs font-semibold text-center">JCB Parts</span>
+        </Link>
+        <Link href="/quote" className="flex flex-col items-center gap-2 p-4 bg-orange-50 hover:bg-orange-100 border-2 border-orange-200 rounded-xl transition-all">
+          <span className="text-2xl">💬</span>
+          <span className="text-xs font-semibold text-center">Get Help</span>
+        </Link>
+      </div>
+      <h1 className="text-4xl font-bold text-slate-900 mb-4">
+        JCB Telehandler & Excavator Fault Codes
       </h1>
       
-      <div className="prose prose-slate max-w-none">
-        <p className="text-lg text-slate-600 mb-8">
-          Use this comprehensive guide to identify and troubleshoot JCB telehandler fault codes. 
-          Find your error code below to understand what it means and how to resolve it.
-        </p>
+      <p className="text-lg text-slate-600 mb-8">
+        Searchable database of 50+ JCB fault codes for Loadall telehandlers and JS series excavators. P-codes, hydraulic codes, and machine system codes with detailed troubleshooting.
+      </p>
 
-        <div className="bg-yellow-50 p-6 rounded-lg mb-8">
-          <div className="flex items-start">
-            <AlertTriangle className="w-6 h-6 text-yellow-600 mr-3 mt-1" />
-            <div>
-              <h2 className="text-xl font-semibold mb-2">Important Safety Notice</h2>
-              <p className="mb-4">
-                Always follow proper safety procedures when troubleshooting telehandler issues. 
-                If you're unsure about any repair, contact a certified technician.
-              </p>
-            </div>
+      <div className="mb-8 bg-gradient-to-br from-yellow-50 to-amber-50 border-2 border-yellow-300 rounded-xl p-6">
+        <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <span className="text-2xl">⚡</span> JCB Code Series Guide
+        </h2>
+        <div className="grid sm:grid-cols-2 gap-4 text-sm">
+          <div>
+            <div className="font-semibold text-yellow-800 mb-1">P-Codes:</div>
+            <div className="text-slate-700">Engine system (fuel, sensors, turbo)</div>
+          </div>
+          <div>
+            <div className="font-semibold text-yellow-800 mb-1">100-Series:</div>
+            <div className="text-slate-700">Open circuit faults (sensors, solenoids)</div>
+          </div>
+          <div>
+            <div className="font-semibold text-yellow-800 mb-1">200-Series:</div>
+            <div className="text-slate-700">Short circuit faults</div>
+          </div>
+          <div>
+            <div className="font-semibold text-yellow-800 mb-1">300-Series:</div>
+            <div className="text-slate-700">CAN communication & calibration</div>
           </div>
         </div>
+      </div>
 
-        <div className="mb-8">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search fault codes..."
-              className="w-full p-3 pl-10 border rounded-lg"
-            />
-            <Search className="absolute left-3 top-3.5 h-5 w-5 text-slate-400" />
+      <div className="mb-8 bg-red-50 border-2 border-red-200 rounded-xl p-6">
+        <div className="flex items-start gap-3">
+          <span className="text-2xl">⚠️</span>
+          <div>
+            <h2 className="font-bold text-red-900 mb-2">Important Safety Notice</h2>
+            <ul className="text-sm text-red-800 space-y-1">
+              <li>• <strong>Stop operations</strong> when fault code appears</li>
+              <li>• <strong>Record code and symptoms</strong> for diagnosis</li>
+              <li>• <strong>Check your model:</strong> <Link href="/jcb-serial-number-lookup" className="underline font-semibold">Use serial lookup</Link> (Loadall vs JS series)</li>
+              <li>• <strong>Use diagnostic tools:</strong> Jaltest recommended for detailed scans</li>
+            </ul>
           </div>
         </div>
+      </div>
 
-        <h2 className="text-2xl font-semibold mb-4">Common JCB Telehandler Fault Codes</h2>
-        
-        <div className="space-y-6">
-          <div className="border rounded-lg p-6">
-            <h3 className="text-lg font-semibold mb-2">E001 - Engine Oil Pressure Low</h3>
-            <p className="mb-4">The engine oil pressure has fallen below the minimum required level.</p>
-            <div className="bg-slate-50 p-4 rounded">
-              <h4 className="font-medium mb-2">Possible Solutions:</h4>
-              <ul className="list-disc pl-6">
-                <li>Check engine oil level</li>
-                <li>Inspect for oil leaks</li>
-                <li>Verify oil pressure sensor operation</li>
-                <li>Check oil pump function</li>
-              </ul>
-            </div>
-          </div>
+      <JCBCodeBrowser />
 
-          <div className="border rounded-lg p-6">
-            <h3 className="text-lg font-semibold mb-2">E002 - Engine Coolant Temperature High</h3>
-            <p className="mb-4">The engine coolant temperature has exceeded the maximum safe operating limit.</p>
-            <div className="bg-slate-50 p-4 rounded">
-              <h4 className="font-medium mb-2">Possible Solutions:</h4>
-              <ul className="list-disc pl-6">
-                <li>Check coolant level</li>
-                <li>Inspect radiator for blockages</li>
-                <li>Verify fan operation</li>
-                <li>Check thermostat function</li>
-              </ul>
-            </div>
-          </div>
+      <div className="prose prose-slate max-w-none my-12">
+        <h2>General JCB Fault Code Troubleshooting</h2>
+        <ol>
+          <li><strong>Record the code</strong> - Note exact code from display or diagnostic tool</li>
+          <li><strong>Check basic systems</strong> - Battery, hydraulic fluid, connections</li>
+          <li><strong>Consult manual</strong> - Codes vary by model (Loadall 535-95 vs JS200)</li>
+          <li><strong>Use Jaltest</strong> - Professional scanner for JCB equipment</li>
+          <li><strong>Clear and retest</strong> - Verify repair resolved the issue</li>
+        </ol>
 
-          <div className="border rounded-lg p-6">
-            <h3 className="text-lg font-semibold mb-2">E003 - Hydraulic System Pressure Low</h3>
-            <p className="mb-4">The hydraulic system pressure is below the required operating range.</p>
-            <div className="bg-slate-50 p-4 rounded">
-              <h4 className="font-medium mb-2">Possible Solutions:</h4>
-              <ul className="list-disc pl-6">
-                <li>Check hydraulic fluid level</li>
-                <li>Inspect for hydraulic leaks</li>
-                <li>Verify pump operation</li>
-                <li>Check pressure relief valve</li>
-              </ul>
-            </div>
-          </div>
+        <h3>When to Call for Professional Help</h3>
+        <ul>
+          <li>High severity codes (P0087, P0335, AL10-equivalent)</li>
+          <li>Multiple simultaneous codes</li>
+          <li>CAN communication errors (300-301)</li>
+          <li>ECU/calibration faults (305-310)</li>
+          <li>Safety system codes (brake, stabilizer)</li>
+        </ul>
+      </div>
 
-          <div className="border rounded-lg p-6">
-            <h3 className="text-lg font-semibold mb-2">E004 - Transmission Error</h3>
-            <p className="mb-4">The transmission system has detected an abnormal condition.</p>
-            <div className="bg-slate-50 p-4 rounded">
-              <h4 className="font-medium mb-2">Possible Solutions:</h4>
-              <ul className="list-disc pl-6">
-                <li>Check transmission fluid level</li>
-                <li>Inspect transmission filters</li>
-                <li>Verify shift solenoids</li>
-                <li>Check transmission sensors</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border rounded-lg p-6">
-            <h3 className="text-lg font-semibold mb-2">E005 - Load Sensing System Error</h3>
-            <p className="mb-4">The load sensing system has detected an abnormal condition.</p>
-            <div className="bg-slate-50 p-4 rounded">
-              <h4 className="font-medium mb-2">Possible Solutions:</h4>
-              <ul className="list-disc pl-6">
-                <li>Check load sensor connections</li>
-                <li>Verify load sensor calibration</li>
-                <li>Inspect wiring harness</li>
-                <li>Check control unit operation</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-8 bg-blue-50 p-6 rounded-lg">
-          <h2 className="text-xl font-semibold mb-4">Need JCB Replacement Parts?</h2>
-          <p className="mb-4">
-            Our parts specialists can help you find the right JCB telehandler parts based on your fault code diagnosis. 
-            Contact us for parts inquiries and availability:
+      <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-300 rounded-xl p-6 sm:p-8 mb-8">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">Need JCB Telehandler Parts?</h2>
+          <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
+            We stock sensors, injectors, hydraulic solenoids, and electrical components for JCB Loadall and excavator models.
           </p>
-          <ul className="list-none space-y-2">
-            <li className="flex items-center">
-              <Phone className="w-5 h-5 mr-2" />
-              <span>(307) 302-0043</span>
-            </li>
-            <li className="flex items-center">
-              <Mail className="w-5 h-5 mr-2" />
-              <span>parts@flatearthequipment.com</span>
-            </li>
-          </ul>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link href="/parts?brand=jcb" className="inline-flex items-center gap-2 bg-[#F76511] text-white px-8 py-3 rounded-xl font-bold hover:bg-orange-600 transition-all shadow-md">
+              Shop JCB Parts →
+            </Link>
+            <Link href="/quote" className="inline-flex items-center gap-2 bg-white text-[#F76511] border-2 border-[#F76511] px-8 py-3 rounded-xl font-bold hover:bg-orange-50 transition-all">
+              Request Diagnostic Help
+            </Link>
+          </div>
         </div>
+      </div>
 
-        <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-4">Related Resources</h2>
-          <ul className="list-disc pl-6">
-            <li>
-              <Link href="/parts/jcb-telehandler-parts" className="text-blue-600 hover:underline">
-                JCB Telehandler Parts Catalog
-              </Link>
-            </li>
-            <li>
-              <Link href="/rental/telehandler/jcb" className="text-blue-600 hover:underline">
-                JCB Telehandler Rentals
-              </Link>
-            </li>
-            <li>
-              <Link href="/service/telehandler-maintenance" className="text-blue-600 hover:underline">
-                Telehandler Maintenance Services
-              </Link>
-            </li>
-          </ul>
+      <div className="bg-white border-2 border-slate-200 rounded-xl p-6">
+        <h2 className="text-xl font-bold mb-4">Related JCB Resources</h2>
+        <div className="grid sm:grid-cols-2 gap-4">
+          <Link href="/jcb-serial-number-lookup" className="flex items-start gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-lg">
+            <span className="text-2xl">🔍</span>
+            <div>
+              <div className="font-semibold">JCB Serial Number Lookup</div>
+              <div className="text-sm text-slate-600">Identify model and year</div>
+            </div>
+          </Link>
+          <Link href="/rental/telehandler/jcb-telehandler-battery-location" className="flex items-start gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-lg">
+            <span className="text-2xl">🔋</span>
+            <div>
+              <div className="font-semibold">Battery Location Guide</div>
+              <div className="text-sm text-slate-600">Find and access battery</div>
+            </div>
+          </Link>
         </div>
       </div>
     </main>
+    </>
   );
 } 
