@@ -1,34 +1,105 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
+import GenieCodeBrowser from '@/components/diagnostic/GenieCodeBrowser';
 
 export const metadata: Metadata = {
-  title: "Genie Scissor Lift Error Codes: Understanding Common Issues and Solutions | Flat Earth Equipment",
-  description: "Comprehensive guide to Genie scissor lift error codes. Learn how to diagnose and fix common issues with your Genie lift equipment.",
+  title: "Genie Scissor Lift Error Codes: Complete Guide | 40+ Codes | Flat Earth Equipment",
+  description: "Searchable database of 40+ Genie scissor lift and boom lift error codes. E1-E20, OIC codes, model-specific troubleshooting for GS series.",
   alternates: {
     canonical: "/parts/aerial-equipment/genie-scissor-lift-error-codes",
+  },
+  openGraph: {
+    title: "Genie Scissor Lift Error Codes: Complete Diagnostic Guide",
+    description: "40+ Genie fault codes with troubleshooting. GS-1930, GS-2646, GS-4047 and boom lift codes.",
+    type: "article",
   },
 };
 
 export default function GenieScissorLiftErrorCodes() {
   return (
+    <>
+      <Script id="breadcrumb-schema" type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://flatearthequipment.com" },
+            { "@type": "ListItem", "position": 2, "name": "Aerial Equipment Parts", "item": "https://flatearthequipment.com/parts/aerial-equipment" },
+            { "@type": "ListItem", "position": 3, "name": "Genie Error Codes", "item": "https://flatearthequipment.com/parts/aerial-equipment/genie-scissor-lift-error-codes" }
+          ]
+        })}
+      </Script>
+
     <main className="max-w-4xl mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold text-slate-900 mb-6">
-        Genie Scissor Lift Error Codes: Understanding Common Issues and Solutions
+      {/* Quick Action Buttons */}
+      <div className="not-prose mb-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <Link href="/genie-serial-number-lookup" className="flex flex-col items-center gap-2 p-4 bg-purple-50 hover:bg-purple-100 border-2 border-purple-200 rounded-xl transition-all">
+          <span className="text-2xl">🔍</span>
+          <span className="text-xs font-semibold text-center">Genie Serial Lookup</span>
+        </Link>
+        <Link href="/parts/genie-gen-6-ground-control-box" className="flex flex-col items-center gap-2 p-4 bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 rounded-xl transition-all">
+          <span className="text-2xl">🎛️</span>
+          <span className="text-xs font-semibold text-center">Ground Control Box</span>
+        </Link>
+        <Link href="/parts?brand=genie" className="flex flex-col items-center gap-2 p-4 bg-green-50 hover:bg-green-100 border-2 border-green-200 rounded-xl transition-all">
+          <span className="text-2xl">🔧</span>
+          <span className="text-xs font-semibold text-center">Genie Parts</span>
+        </Link>
+        <Link href="/quote" className="flex flex-col items-center gap-2 p-4 bg-orange-50 hover:bg-orange-100 border-2 border-orange-200 rounded-xl transition-all">
+          <span className="text-2xl">💬</span>
+          <span className="text-xs font-semibold text-center">Get Help</span>
+        </Link>
+      </div>
+
+      {/* At-a-Glance Box */}
+      <div className="not-prose mb-8 bg-gradient-to-br from-purple-50 to-indigo-50 border-2 border-purple-300 rounded-xl p-6">
+        <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <span className="text-2xl">⚡</span> Genie Code Types
+        </h2>
+        <div className="grid sm:grid-cols-2 gap-4 text-sm">
+          <div>
+            <div className="font-semibold text-purple-800 mb-1">E-Codes (E1-E20):</div>
+            <div className="text-slate-700">Common error codes for GS series</div>
+          </div>
+          <div>
+            <div className="font-semibold text-purple-800 mb-1">OIC Codes:</div>
+            <div className="text-slate-700">Operation indicators (LL, OIL, CH, PHS)</div>
+          </div>
+          <div>
+            <div className="font-semibold text-purple-800 mb-1">DTC Codes:</div>
+            <div className="text-slate-700">Diagnostic trouble codes (01-59)</div>
+          </div>
+          <div>
+            <div className="font-semibold text-purple-800 mb-1">H-Codes:</div>
+            <div className="text-slate-700">Hydraulic coil faults (H102, H103)</div>
+          </div>
+        </div>
+      </div>
+
+      <h1 className="text-4xl font-bold text-slate-900 mb-4">
+        Genie Scissor Lift Error Codes: Complete Guide
       </h1>
 
-      <div className="prose prose-slate max-w-none">
-        <p className="lead">
-          Genie scissor lifts are widely used in various industries for their ability to reach high places safely and efficiently. However, like any machinery, they can encounter issues that may stop them from functioning properly.
-        </p>
+      <p className="text-lg text-slate-600 mb-8">
+        Searchable database of 40+ Genie error codes for scissor lifts (GS series) and boom lifts. Find your code, understand the problem, and get back to work quickly.
+      </p>
+
+      <div className="prose prose-slate max-w-none mb-8">
 
         <p>
-          Understanding Genie scissor lift error codes is essential for troubleshooting problems quickly and effectively. Having a grasp of these codes allows operators to identify the exact malfunction and take the necessary steps to resolve it.
+          Genie scissor lifts are widely used in various industries for their ability to reach high places safely and efficiently. Understanding error codes is essential for quick troubleshooting and getting back to work.
         </p>
+        </div>
 
+      {/* Searchable Code Database */}
+      <GenieCodeBrowser />
+
+      <div className="prose prose-slate max-w-none my-12">
         <h2>Common Error Codes by Model</h2>
 
         <h3>Genie GS-1930, GS-2032, GS-2632, GS-2646, GS-3246, GS-4047 Scissor Lifts</h3>
+        <p>The searchable database above includes all codes for these popular GS series models.</p>
         <div className="overflow-x-auto">
           <table className="min-w-full border-collapse">
             <thead>
@@ -189,13 +260,79 @@ export default function GenieScissorLiftErrorCodes() {
 
         <h2>Conclusion</h2>
         <p>
-          Understanding Genie scissor lift error codes is crucial for maintaining safe and efficient operation. Regular maintenance, proper troubleshooting, and timely repairs can help minimize downtime and ensure reliable performance. Always prioritize safety and consult with qualified technicians when needed.
+          Understanding Genie scissor lift error codes is crucial for maintaining safe and efficient operation. Regular maintenance, proper troubleshooting, and timely repairs can help minimize downtime and ensure reliable performance.
         </p>
+      </div>
 
-        {/* auto:brand-links */}
-        <p className="mt-4 text-sm text-muted-foreground">Looking for Genie diagnostics or serial help? Try our <a className="underline" href="/brand/genie/serial-lookup">Serial Lookup</a>, <a className="underline" href="/brand/genie/fault-codes">Fault Codes</a>, and <a className="underline" href="/brand/genie/guide">Service Guide</a>.</p>
-        {/* /auto:brand-links */}
+      {/* Ground Control Box CTA */}
+      <div className="not-prose my-8 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-300 rounded-xl p-6">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">Having E12, E13, or E15 Communication Errors?</h2>
+          <p className="text-slate-700 mb-6">
+            Persistent ground control communication errors often require control box replacement. We stock genuine <strong>Genie Gen 6 Ground Control Boxes</strong> with $250 core credit.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link href="/parts/genie-gen-6-ground-control-box" className="inline-flex items-center gap-2 bg-[#F76511] text-white px-8 py-3 rounded-xl font-bold hover:bg-orange-600 transition-all shadow-md">
+              View Ground Control Box →
+            </Link>
+            <Link href="/quote" className="inline-flex items-center gap-2 bg-white text-[#F76511] border-2 border-[#F76511] px-8 py-3 rounded-xl font-bold hover:bg-orange-50 transition-all">
+              Request Quote
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Parts CTA */}
+      <div className="not-prose my-8 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-300 rounded-xl p-6 text-center">
+        <h2 className="text-2xl font-bold text-slate-900 mb-3">Need Genie Scissor Lift Parts?</h2>
+        <p className="text-slate-700 mb-6">
+          We stock sensors, control boxes, hydraulic components, and electrical parts for all Genie GS and boom lift models.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <Link href="/parts?brand=genie" className="inline-flex items-center gap-2 bg-[#F76511] text-white px-8 py-3 rounded-xl font-bold hover:bg-orange-600 transition-all shadow-md">
+            Shop Genie Parts →
+          </Link>
+          <Link href="/quote" className="inline-flex items-center gap-2 bg-white text-[#F76511] border-2 border-[#F76511] px-8 py-3 rounded-xl font-bold hover:bg-orange-50 transition-all">
+            Request Diagnostic Help
+          </Link>
+        </div>
+      </div>
+
+      {/* Related Resources */}
+      <div className="not-prose bg-white border-2 border-slate-200 rounded-xl p-6">
+        <h2 className="text-xl font-bold mb-4">Related Genie Resources</h2>
+        <div className="grid sm:grid-cols-2 gap-4">
+          <Link href="/genie-serial-number-lookup" className="flex items-start gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-lg">
+            <span className="text-2xl">🔍</span>
+            <div>
+              <div className="font-semibold">Genie Serial Number Lookup</div>
+              <div className="text-sm text-slate-600">Identify your GS model and year</div>
+            </div>
+          </Link>
+          <Link href="/parts/genie-gen-6-ground-control-box" className="flex items-start gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-lg">
+            <span className="text-2xl">🎛️</span>
+            <div>
+              <div className="font-semibold">Gen 6 Ground Control Box</div>
+              <div className="text-sm text-slate-600">Fix E12/E13/E15 errors - $250 core credit</div>
+            </div>
+          </Link>
+          <Link href="/brand/genie" className="flex items-start gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-lg">
+            <span className="text-2xl">📚</span>
+            <div>
+              <div className="font-semibold">Genie Brand Hub</div>
+              <div className="text-sm text-slate-600">Parts, guides, and resources</div>
+            </div>
+          </Link>
+          <Link href="/contact" className="flex items-start gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-lg">
+            <span className="text-2xl">📞</span>
+            <div>
+              <div className="font-semibold">Expert Support</div>
+              <div className="text-sm text-slate-600">Talk to aerial lift specialists</div>
+            </div>
+          </Link>
+        </div>
       </div>
     </main>
+    </>
   );
 } 
