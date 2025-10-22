@@ -7,7 +7,6 @@ import { detectUserServer } from '@/lib/auth/detectUserServer';
 import { safeNext } from '@/lib/auth/nextParam';
 import { supabaseServer } from '@/lib/supabase/server';
 import PricingStrip from '@/components/training/PricingStrip';
-import PreviewModuleButton from '@/components/marketing/PreviewModuleButton';
 import SafetyHero from '@/components/safety/SafetyHero';
 import StickyCTA from '@/components/safety/StickyCTA';
 import ReasonsToJoin from '@/components/ReasonsToJoin';
@@ -349,24 +348,6 @@ export default async function SafetyPage() {
         <div className="mt-8">
           <ValueGrid t={t} />
         </div>
-
-        {/* Preview Module Section - HIDDEN (replaced with demo video in hero) */}
-        {/* 
-        <section id="preview" className="mt-8 scroll-mt-24 bg-white rounded-2xl border border-slate-200 shadow-sm px-8 py-8">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold mb-2 text-slate-900">
-              {locale === 'es' ? 'Vista previa del contenido' : 'Preview the content'}
-            </h2>
-            <p className="text-slate-600 mb-6">
-              {locale === 'es' 
-                ? 'Pruebe el Módulo 1 gratis para ver cómo funciona nuestra capacitación interactiva.'
-                : 'Try Module 1 free to see how our interactive training works.'
-              }
-            </p>
-            <PreviewModuleButton text={t.hero.cta_secondary} />
-          </div>
-        </section>
-        */}
 
         {/* Compliance Block */}
         <div className="mt-8">
