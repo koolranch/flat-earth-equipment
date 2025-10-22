@@ -86,14 +86,14 @@ export default function SafetyHero() {
       <div className="mx-auto max-w-3xl px-4 py-12 sm:py-16 text-center">
         <p className="text-xs uppercase tracking-widest text-emerald-300/90">OSHA-Aligned Training</p>
         <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Get Forklift Certified — $59</h1>
-        <p className="mt-3 text-base sm:text-lg text-slate-300">100% online • ~60 minutes • Same-day certificate • OSHA 1910.178 aligned</p>
-        <div className="mt-6 flex justify-center">
+        <p className="mt-3 text-base sm:text-lg text-slate-300">100% online • ~60 minutes • Same-day wallet card • OSHA 29 CFR 1910.178(l) aligned</p>
+        <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3 max-w-lg mx-auto">
           <button
             data-cta="hero-start"
             onClick={handleStart}
             disabled={isLoading}
-            className="inline-flex w-full max-w-xs items-center justify-center rounded-2xl px-5 py-4 text-base font-semibold bg-[#F76511] text-white shadow-lg hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F76511]/50 transition-all hover:bg-orange-600 disabled:opacity-50 disabled:cursor-wait"
-            aria-label="Start Certification — $59"
+            className="inline-flex flex-1 items-center justify-center rounded-xl px-6 py-4 text-base font-semibold bg-[#F76511] text-white shadow-lg hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F76511]/50 transition-all hover:bg-orange-600 disabled:opacity-50 disabled:cursor-wait"
+            aria-label="Start Certificate — $59"
           >
             {isLoading ? (
               <>
@@ -104,9 +104,15 @@ export default function SafetyHero() {
                 Processing...
               </>
             ) : (
-              'Start Certification — $59'
+              'Start Certificate — $59'
             )}
           </button>
+          <a
+            href="#preview"
+            className="inline-flex items-center justify-center rounded-xl border-2 border-white/30 bg-white/10 backdrop-blur px-6 py-4 text-base font-semibold text-white hover:bg-white/20 transition-all"
+          >
+            Preview Module 1 (Free)
+          </a>
         </div>
         {error && (
           <p className="mt-3 text-red-400 text-sm">{error}</p>

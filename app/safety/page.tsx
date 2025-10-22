@@ -10,6 +10,8 @@ import PricingStrip from '@/components/training/PricingStrip';
 import PreviewModuleButton from '@/components/marketing/PreviewModuleButton';
 import SafetyHero from '@/components/safety/SafetyHero';
 import StickyCTA from '@/components/safety/StickyCTA';
+import ReasonsToJoin from '@/components/ReasonsToJoin';
+import HowItWorksStrip from '@/components/HowItWorksStrip';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; // no ISR
@@ -306,6 +308,12 @@ export default async function SafetyPage() {
           </div>
         </section>
 
+        {/* Reasons to Join */}
+        <ReasonsToJoin />
+
+        {/* How It Works */}
+        <HowItWorksStrip />
+
         {/* Urgency Element */}
         <div className="mt-8 bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-orange-200 rounded-xl p-6 text-center">
           <p className="text-lg font-bold text-slate-900 mb-2">
@@ -323,80 +331,18 @@ export default async function SafetyPage() {
           <ValueGrid t={t} />
         </div>
 
-        {/* How It Works */}
-        <section id="how-it-works" className="mt-8 bg-white rounded-2xl border border-slate-200 shadow-sm px-8 py-8">
-          <h2 className="text-2xl font-bold mb-2 text-slate-900 text-center">
-            {locale === 'es' ? 'Cómo funciona' : 'How it works'}
-          </h2>
-          <p className="text-center text-[#F76511] font-semibold mb-6">
-            Complete in Under 60 Minutes
-          </p>
-          <ol className="list-decimal pl-6 text-base leading-7 text-slate-700 space-y-4">
-            <li>
-              <strong className="text-slate-900">
-                {locale === 'es' 
-                  ? 'Completa 5 módulos interactivos (35-45 minutos)'
-                  : 'Complete 5 Interactive Modules (35-45 minutes)'
-                }
-              </strong>
-              <br />
+        {/* Preview Module Section */}
+        <section id="preview" className="mt-8 scroll-mt-24 bg-white rounded-2xl border border-slate-200 shadow-sm px-8 py-8">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-2 text-slate-900">
+              {locale === 'es' ? 'Vista previa del contenido' : 'Preview the content'}
+            </h2>
+            <p className="text-slate-600 mb-6">
               {locale === 'es' 
-                ? 'Aprenda con demos interactivas cortas, listas de verificación y simulaciones.'
-                : 'Learn with short interactive demos, checklists, and simulations. Engaging content keeps you focused.'
+                ? 'Pruebe el Módulo 1 gratis para ver cómo funciona nuestra capacitación interactiva.'
+                : 'Try Module 1 free to see how our interactive training works.'
               }
-            </li>
-            <li>
-              <strong className="text-slate-900">
-                {locale === 'es' 
-                  ? 'Apruebe el examen final (5-10 minutos)'
-                  : 'Pass the Final Exam (5-10 minutes)'
-                }
-              </strong>
-              <br />
-              {locale === 'es' 
-                ? 'Responda micro-cuestionarios para demostrar conocimiento. Reintentos ilimitados.'
-                : 'Demonstrate your knowledge with the final exam. Unlimited retakes included at no extra cost.'
-              }
-            </li>
-            <li>
-              <strong className="text-slate-900">
-                {locale === 'es' 
-                  ? 'Descargue su certificado (instantáneo)'
-                  : 'Download Your Certificate (Instant)'
-                }
-              </strong>
-              <br />
-              {locale === 'es' 
-                ? 'Credencial verificable por QR lista para mostrar a su empleador.'
-                : 'QR-verifiable credential ready to show your employer. Start applying for jobs immediately.'
-              }
-            </li>
-            <li>
-              <strong className="text-slate-900">
-                {locale === 'es' 
-                  ? 'El empleador completa la evaluación práctica (en el sitio)'
-                  : 'Employer Completes Practical Evaluation (On-Site)'
-                }
-              </strong>
-              <br />
-              {locale === 'es' 
-                ? 'Proporcionamos el formulario de evaluación y las instrucciones.'
-                : 'We provide the evaluation form and instructions. Your supervisor confirms hands-on competency.'
-              }
-            </li>
-          </ol>
-          <div className="mt-6 text-center p-4 bg-green-50 rounded-xl border border-green-200">
-            <p className="text-lg font-bold text-green-800">
-              ⏱️ Total time: 45-60 minutes average
             </p>
-            <p className="text-sm text-green-700 mt-1">
-              Complete your OSHA forklift certification online in about 90 minutes with a same-day card. Get job-ready today—no need to wait for scheduled classes.
-            </p>
-          </div>
-          
-          {/* Preview Module Option */}
-          <div className="mt-6 text-center">
-            <p className="text-sm text-slate-600 mb-3">🎓 Not sure yet?</p>
             <PreviewModuleButton text={t.hero.cta_secondary} />
           </div>
         </section>
