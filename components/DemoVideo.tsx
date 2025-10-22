@@ -41,12 +41,16 @@ export default function DemoVideo({ poster = "/media/demo/poster.jpg" }: Props) 
         <div
           className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
           onClick={() => setOpen(false)}
+          onKeyDown={(e) => e.key === 'Escape' && setOpen(false)}
+          role="button"
+          tabIndex={-1}
         >
           <div
             className="max-w-md w-full"
+            onClick={(e) => e.stopPropagation()}
+            onKeyDown={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
-            onClick={(e) => e.stopPropagation()}
           >
             <video className="w-full rounded-xl" autoPlay controls playsInline>
               <source src="/media/demo/hero-demo.webm" type="video/webm" />
