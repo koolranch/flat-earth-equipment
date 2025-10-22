@@ -206,10 +206,10 @@ export default function OSHAForkliftCertificationPage() {
               <li>
                 Forklift training & operator certification →{' '}
                 <Link 
-                  href="/training/forklift-certification"
+                  href="/safety"
                   className="text-blue-600 hover:text-blue-800 underline"
                 >
-                  /training/forklift-certification
+                  /safety
                 </Link>
               </li>
               <li>
