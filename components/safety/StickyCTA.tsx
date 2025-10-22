@@ -77,14 +77,22 @@ export default function StickyCTA() {
 
   return (
     <div className="sm:hidden fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/60 p-3">
-      <button 
-        onClick={go} 
-        disabled={isLoading}
-        className="w-full rounded-xl px-4 py-4 text-base font-semibold shadow-lg bg-[#F76511] text-white hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-wait" 
-        aria-label="Start — $59"
-      >
-        {isLoading ? 'Loading...' : 'Start — $59'}
-      </button>
+      <div className="flex items-center gap-3">
+        <button 
+          onClick={go} 
+          disabled={isLoading}
+          className="flex-1 rounded-xl px-4 py-3 text-base font-semibold shadow-lg bg-[#F76511] text-white hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-wait" 
+          aria-label="Start Course — $59"
+        >
+          {isLoading ? 'Loading...' : 'Start Course — $59'}
+        </button>
+        <a 
+          href="#preview"
+          className="rounded-xl border border-gray-300 px-4 py-3 text-base font-semibold text-gray-800 hover:bg-gray-50 transition-colors whitespace-nowrap"
+        >
+          Preview Free
+        </a>
+      </div>
       <div className="h-[env(safe-area-inset-bottom)]" />
     </div>
   );
