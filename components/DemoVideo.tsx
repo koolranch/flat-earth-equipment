@@ -45,24 +45,26 @@ export default function DemoVideo({ poster = "/media/demo/poster.jpg" }: Props) 
           role="button"
           tabIndex={-1}
         >
-          <div
-            className="max-w-md w-full"
+          <button
+            type="button"
+            className="max-w-md w-full text-left"
             onClick={(e) => e.stopPropagation()}
-            onKeyDown={(e) => e.stopPropagation()}
-            role="dialog"
-            aria-modal="true"
+            aria-label="Video player"
           >
-            <video className="w-full rounded-xl" autoPlay controls playsInline>
-              <source src="/media/demo/hero-demo.webm" type="video/webm" />
-              <source src="/media/demo/hero-demo.mp4" type="video/mp4" />
-            </video>
-            <button
-              className="mt-3 w-full rounded-lg bg-white px-4 py-2 font-semibold"
-              onClick={() => setOpen(false)}
-            >
-              Close
-            </button>
-          </div>
+            <div role="dialog" aria-modal="true">
+              <video className="w-full rounded-xl" autoPlay controls playsInline>
+                <source src="/media/demo/hero-demo.webm" type="video/webm" />
+                <source src="/media/demo/hero-demo.mp4" type="video/mp4" />
+              </video>
+              <button
+                type="button"
+                className="mt-3 w-full rounded-lg bg-white px-4 py-2 font-semibold"
+                onClick={() => setOpen(false)}
+              >
+                Close
+              </button>
+            </div>
+          </button>
         </div>
       )}
     </div>
