@@ -1,10 +1,9 @@
 /* eslint-disable react/jsx-no-target-blank */
 "use client";
 import Image from "next/image";
-import HeroCTAs from "@/components/HeroCTAs";
+import Link from "next/link";
 
 export default function SafetyHero() {
-
   return (
     <section className="relative isolate overflow-hidden bg-slate-900 text-white h-[400px] sm:h-[450px]">
       {/* Background Image - Same as city pages */}
@@ -27,7 +26,14 @@ export default function SafetyHero() {
           <p className="mt-3 text-base sm:text-lg text-slate-300">
             100% online • ~60 minutes • Same-day wallet card • OSHA 29 CFR 1910.178(l) aligned
           </p>
-          <HeroCTAs />
+          <div className="mt-6">
+            <Link
+              href="/safety/forklift"
+              className="inline-flex items-center rounded-lg bg-orange-600 px-6 py-4 text-base font-semibold text-white hover:bg-orange-700 transition-colors shadow-lg"
+            >
+              Start Certificate — $59
+            </Link>
+          </div>
           <p className="mt-3 text-sm text-slate-300">Secure checkout — Apple Pay / Google Pay / Link</p>
         </div>
       </div>
