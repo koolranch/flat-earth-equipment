@@ -161,6 +161,19 @@ export default async function SafetyPage() {
     validFor: 'P3Y' // 3 years
   };
 
+  // Demo Video JSON-LD
+  const demoVideoJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: 'Forklift Certification — 20-second Demo',
+    description: 'Quick overview of our OSHA-compliant forklift training platform',
+    thumbnailUrl: 'https://flatearthequipment.com/media/demo/poster.jpg',
+    uploadDate: '2025-10-22',
+    contentUrl: 'https://flatearthequipment.com/media/demo/hero-demo.mp4',
+    embedUrl: 'https://flatearthequipment.com/safety',
+    duration: 'PT20S'
+  };
+
   return (
     <>
       {/* JSON-LD structured data */}
@@ -171,6 +184,10 @@ export default async function SafetyPage() {
       <script 
         type="application/ld+json" 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(certificateJsonLd) }} 
+      />
+      <script 
+        type="application/ld+json" 
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(demoVideoJsonLd) }} 
       />
       
       {/* New Simplified Hero */}
@@ -312,7 +329,9 @@ export default async function SafetyPage() {
         <ReasonsToJoin />
 
         {/* How It Works */}
-        <HowItWorksStrip />
+        <div id="how" className="scroll-mt-24">
+          <HowItWorksStrip />
+        </div>
 
         {/* Urgency Element */}
         <div className="mt-8 bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-orange-200 rounded-xl p-6 text-center">
@@ -331,7 +350,8 @@ export default async function SafetyPage() {
           <ValueGrid t={t} />
         </div>
 
-        {/* Preview Module Section */}
+        {/* Preview Module Section - HIDDEN (replaced with demo video in hero) */}
+        {/* 
         <section id="preview" className="mt-8 scroll-mt-24 bg-white rounded-2xl border border-slate-200 shadow-sm px-8 py-8">
           <div className="text-center">
             <h2 className="text-2xl font-bold mb-2 text-slate-900">
@@ -346,6 +366,7 @@ export default async function SafetyPage() {
             <PreviewModuleButton text={t.hero.cta_secondary} />
           </div>
         </section>
+        */}
 
         {/* Compliance Block */}
         <div className="mt-8">
