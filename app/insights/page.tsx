@@ -180,41 +180,37 @@ export default async function InsightsPage() {
                     href={`/insights/${post.slug}`}
                     className="group block bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-200 border border-slate-200 hover:border-canyon-rust/50 overflow-hidden"
                   >
-                    <div className="aspect-video relative overflow-hidden">
-                      {hasValidImage(post) ? (
-                        <img
-                          src={post.image}
-                          alt={post.title}
-                          className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-canyon-rust/15 to-canyon-rust/5 flex items-center justify-center">
-                          <div className="text-center text-canyon-rust/50">
-                            <div className="text-3xl mb-1">
-                              {post.title.toLowerCase().includes('forklift') ? '🏭' :
-                               post.title.toLowerCase().includes('charger') || post.title.toLowerCase().includes('battery') ? '🔋' :
-                               post.title.toLowerCase().includes('safety') ? '🛡️' :
-                               post.title.toLowerCase().includes('maintenance') ? '🔧' : '📄'}
-                            </div>
+                    <div className="p-6">
+                      <div className="flex items-start gap-4">
+                        <div className="text-3xl flex-shrink-0">
+                          {post.title.toLowerCase().includes('forklift') ? '🏭' :
+                           post.title.toLowerCase().includes('charger') || post.title.toLowerCase().includes('battery') ? '🔋' :
+                           post.title.toLowerCase().includes('safety') ? '🛡️' :
+                           post.title.toLowerCase().includes('jcb') || post.title.toLowerCase().includes('telehandler') ? '🏗️' :
+                           post.title.toLowerCase().includes('genie') || post.title.toLowerCase().includes('scissor') ? '✂️' :
+                           post.title.toLowerCase().includes('toyota') ? '🔴' :
+                           post.title.toLowerCase().includes('hyster') ? '🔵' :
+                           post.title.toLowerCase().includes('maintenance') ? '🔧' : '📄'}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#F76511] transition-colors mb-2 line-clamp-2">
+                            {post.title}
+                          </h3>
+                          {post.description && (
+                            <p className="text-sm text-slate-600 line-clamp-2 mb-3">{post.description}</p>
+                          )}
+                          <div className="flex items-center gap-3">
+                            <time dateTime={post.date} className="text-xs text-slate-500">
+                              {new Date(post.date).toLocaleDateString('en-US', {
+                                month: 'short',
+                                day: 'numeric',
+                                year: 'numeric',
+                              })}
+                            </time>
+                            <span className="text-xs font-medium text-[#F76511]">Read →</span>
                           </div>
                         </div>
-                      )}
-                    </div>
-                    <div className="p-5">
-                      <h3 className="text-lg font-semibold text-slate-900 group-hover:text-canyon-rust transition-colors mb-2 line-clamp-2">
-                        {post.title}
-                      </h3>
-                      <p className="text-slate-600 text-sm line-clamp-2 mb-3">{post.description}</p>
-                      <time
-                        dateTime={post.date}
-                        className="text-xs text-slate-500"
-                      >
-                        {new Date(post.date).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                        })}
-                      </time>
+                      </div>
                     </div>
                   </Link>
                 ))}
