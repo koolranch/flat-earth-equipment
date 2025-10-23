@@ -82,13 +82,9 @@ export default async function Page({ params, searchParams }: { params: { slug: s
           {/* UGC Section - Recent tips + guided submission form */}
           {ipsvcEnabled && (
             <div className="mt-8">
-              <div className='grid gap-6 md:grid-cols-2'>
-                <div>
-                  <RecentCommunityNotes brandSlug={brand.slug} />
-                </div>
-                <div>
-                  <SubmissionFormV2 brand={brand} />
-                </div>
+              <div className='grid gap-6 md:grid-cols-2 items-start'>
+                <RecentCommunityNotes brandSlug={brand.slug} />
+                <SubmissionFormV2 brand={brand} />
               </div>
             </div>
           )}
