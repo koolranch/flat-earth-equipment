@@ -7,10 +7,11 @@ export async function GET(_: Request, ctx: { params: { code: string } }) {
     return NextResponse.json({ ok: false, status: 'not_found' }, { status: 404 });
   }
   const svc = supabaseService();
+  // Be flexible across historical column names: verifier_code (original), verification_code (newer), verify_code (intermediate)
   const { data: cert, error } = await svc
     .from('certificates')
-    .select('id, user_id, course_slug, issued_at, pdf_url, verify_code, revoked_at, revoked_reason, trainer_signature_url, trainee_signature_url')
-    .eq('verify_code', code)
+    .select('id, user_id, course_slug, issued_at, pdf_url, verify_code, verifier_code, verification_code, revoked_at, revoked_reason, trainer_signature_url, trainee_signature_url')
+    .or(`verify_code.eq.${code},verifier_code.eq.${code},verification_code.eq.${code}`)
     .maybeSingle();
   if (error || !cert) {
     return NextResponse.json({ ok: false, status: 'not_found' }, { status: 404 });
@@ -31,7 +32,8 @@ export async function GET(_: Request, ctx: { params: { code: string } }) {
     status,
     certificate: {
       id: cert.id,
-      verify_code: cert.verify_code,
+      // Normalize outgoing shape expected by the UI
+      verify_code: (cert as any).verify_code || (cert as any).verifier_code || (cert as any).verification_code,
       issued_at: cert.issued_at,
       pdf_url: cert.pdf_url,
       course_slug: cert.course_slug,
