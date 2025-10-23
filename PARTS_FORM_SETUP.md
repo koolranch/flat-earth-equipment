@@ -2,44 +2,43 @@
 
 ## How It Works
 
-The parts request form on brand serial lookup pages uses a **simple email-only approach**—no database storage required.
+The parts request form on brand serial lookup pages uses **the same email system as your certification emails** (Resend)—simple, reliable, no database needed.
 
 ### Flow:
 1. User fills out form on `/brand/{brand}/serial-lookup`
 2. Form POSTs to `/api/leads/parts`
-3. API sends **two emails** via SendGrid:
+3. API sends **two emails** via Resend (same as cert emails):
    - One to you (sales notification)
    - One to customer (auto-reply confirmation)
 4. Returns success ✅
 
-**No database, no complexity, just email.**
+**Same email service you already use. No additional setup if Resend is already configured!**
 
 ## ✅ What You Need
 
 ### Required Environment Variables
 
-Add these to **Vercel** → Your Project → **Settings** → **Environment Variables**:
+These should **already be set** if your certification emails work:
 
 ```bash
-SENDGRID_API_KEY="SG.xxxxxxxxxxxxx"          # Your SendGrid API key
-LEADS_TO_EMAIL="sales@flatearthequipment.com"  # Where you receive notifications
+RESEND_API_KEY="re_xxxxxxxxxxxxx"           # Same key used for cert emails
+LEADS_TO_EMAIL="sales@flatearthequipment.com"  # Where you receive parts notifications
 ```
 
 ### Optional:
 ```bash
-LEADS_FROM_EMAIL="noreply@flatearthequipment.com"  # Defaults to this if not set
+EMAIL_FROM="Flat Earth Equipment <parts@flatearthequipment.com>"  # Defaults to no-reply if not set
 ```
 
-## 🔑 Get SendGrid API Key
+## 🔍 Check If Already Configured
 
-1. Go to: https://app.sendgrid.com/
-2. Sign up or log in
-3. Navigate to: **Settings** → **API Keys**
-4. Click **Create API Key**
-5. Name: "Flat Earth Parts Leads"
-6. Permissions: **Full Access** (or at least "Mail Send")
-7. Copy the key (starts with `SG.`)
-8. Add to Vercel environment variables
+If your **certification emails work**, you already have `RESEND_API_KEY` set in Vercel.
+
+You just need to add `LEADS_TO_EMAIL`:
+
+1. Go to: Vercel Dashboard → Settings → Environment Variables
+2. Check if `RESEND_API_KEY` exists ✅ (should already be there)
+3. Add `LEADS_TO_EMAIL` with your sales email address
 
 ## 📧 Emails Sent
 
@@ -89,9 +88,10 @@ Flat Earth Equipment Team
 
 1. **Check environment variables are set:**
    - Vercel Dashboard → Settings → Environment Variables
-   - Make sure `SENDGRID_API_KEY` and `LEADS_TO_EMAIL` exist
+   - `RESEND_API_KEY` ✅ (should already exist for cert emails)
+   - `LEADS_TO_EMAIL` ← **Add this if not set**
 
-2. **Redeploy** (if you just added env vars):
+2. **Redeploy** (if you just added `LEADS_TO_EMAIL`):
    ```bash
    git commit --allow-empty -m "Trigger redeploy"
    git push origin main
@@ -101,7 +101,7 @@ Flat Earth Equipment Team
    - Visit: https://flatearthequipment.com/brand/takeuchi/serial-lookup
    - Fill out the form with your email
    - Submit
-   - Check your inbox for both emails
+   - Check your inbox for both emails (should look like cert emails)
 
 ## 🛡️ Spam Protection
 
@@ -134,26 +134,26 @@ Bots get silently accepted (return 200) but no email is sent.
 
 ### Form shows error message
 
-**"Email service not configured"**
-→ Add `SENDGRID_API_KEY` to Vercel env vars and redeploy
-
 **"Failed to send email"**
-→ Check SendGrid dashboard for delivery errors
+→ Check that `RESEND_API_KEY` is set in Vercel
 → Verify `LEADS_TO_EMAIL` is a valid email address
+→ Check Resend dashboard for delivery errors
 
 ### Form submits but no emails received
 
 1. **Check Vercel logs:**
    - Vercel Dashboard → Deployments → Latest → Functions
    - Look for `/api/leads/parts` logs
-   - Check for SendGrid errors
+   - Check for email send errors
 
-2. **Check SendGrid activity:**
-   - SendGrid Dashboard → Activity Feed
-   - See if emails were sent/bounced
+2. **Check Resend dashboard:**
+   - Go to: https://resend.com/emails
+   - See if emails were sent/delivered
+   - Check for bounce/rejection messages
 
 3. **Check spam folder:**
-   - Emails might be filtered
+   - Parts request emails might be filtered
+   - Look for subject: "Parts Lead — {brand}"
 
 ### Form submits instantly (suspicious)
 
@@ -161,18 +161,28 @@ This is normal—bots that fill the form too fast are silently rejected. Real us
 
 ## ✅ Current Status
 
-- [x] API simplified to email-only (no database)
+- [x] API uses Resend (same as certification emails)
+- [x] Email-only (no database needed)
 - [x] Honeypot and anti-spam measures in place
-- [ ] **TODO:** Add SendGrid API key to Vercel
-- [ ] **TODO:** Set LEADS_TO_EMAIL in Vercel
+- [x] Professional HTML email templates
+- [ ] **TODO:** Add LEADS_TO_EMAIL to Vercel env vars
 - [ ] **TODO:** Test form after deployment
 
 ## 📋 Next Steps
 
-1. **Add SendGrid credentials** to Vercel env vars
-2. **Redeploy** to pick up the new simplified API
+1. **Add `LEADS_TO_EMAIL`** to Vercel environment variables (if not already set)
+2. **Deployment is automatic** (already triggered by the push)
 3. **Test the form** on any brand page
 4. **Monitor your email** for parts requests
 
-That's it! The form will work with just email—simple and effective. 📬
+**That's it!** Since you're already using Resend for certification emails, the parts form will work with just one additional env var (`LEADS_TO_EMAIL`). 📬
+
+## 🎯 Benefits of Using Same Email Service
+
+- ✅ **No additional services** to configure
+- ✅ **Same reliability** as cert emails
+- ✅ **Unified email logs** in Resend dashboard
+- ✅ **Same deliverability** (emails won't be flagged as spam)
+- ✅ **Consistent branding** across all emails
+- ✅ **One API key** to manage
 
