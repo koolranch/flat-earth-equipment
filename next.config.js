@@ -83,6 +83,12 @@ const baseConfig = {
         destination: '/forks',
         permanent: true
       },
+      // Remove demo content
+      {
+        source: '/insights/hello-world',
+        destination: '/insights',
+        permanent: true
+      },
       // Redirect www to non-www
       {
         source: '/:path*',
