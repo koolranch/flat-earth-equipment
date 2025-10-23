@@ -30,6 +30,12 @@ const baseConfig = {
         destination: '/charger-modules',
         permanent: true // 301 redirect - preserves SEO
       },
+      // Redirect placeholder insight to canonical charger modules landing
+      {
+        source: '/insights/battery-charger-modules',
+        destination: '/charger-modules',
+        permanent: true
+      },
       // Redirect www to non-www
       {
         source: '/:path*',
