@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title>Fast vs Overnight Forklift Charging</title>
+  <desc>Visual comparison between fast and overnight charging with forklift and charger elements.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#c2410c"/>
+      <stop offset="100%" stop-color="#f97316"/>
+    </linearGradient>
+    <linearGradient id="cool" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity="0.2">
+    <circle cx="1380" cy="180" r="280" fill="#0ea5e9"/>
+    <circle cx="220" cy="760" r="240" fill="#f97316"/>
+  </g>
+
+  <!-- Header -->
+  <g transform="translate(80,140)">
+    <rect x="-12" y="-12" width="1200" height="148" rx="14" fill="rgba(2,6,23,0.35)"/>
+    <text x="0" y="52" font-family="Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial" font-size="54" font-weight="800" fill="#f8fafc">Fast vs Overnight Charging</text>
+    <text x="0" y="112" font-family="Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial" font-size="38" font-weight="600" fill="#cbd5e1">C/5 Fast Charge • C/10 Overnight • 24V–80V • 60A–240A</text>
+  </g>
+
+  <!-- Split panels -->
+  <g transform="translate(80,300)">
+    <!-- Overnight panel (left) -->
+    <rect x="0" y="0" width="700" height="420" rx="18" fill="rgba(15,23,42,0.55)" stroke="#334155"/>
+    <text x="24" y="56" font-family="Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial" font-size="36" font-weight="800" fill="#e5e7eb">Overnight (C/10)</text>
+    <text x="24" y="100" font-family="Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial" font-size="28" fill="#cbd5e1">8–12 hours • Longest Battery Life</text>
+    <!-- simple forklift + gentle bars -->
+    <g transform="translate(24,150)" fill="#e5e7eb">
+      <circle cx="120" cy="140" r="40" fill="#94a3b8"/>
+      <circle cx="260" cy="140" r="50" fill="#94a3b8"/>
+      <rect x="70" y="40" width="220" height="80" rx="12"/>
+      <rect x="150" y="0" width="80" height="70" rx="10"/>
+      <rect x="230" y="0" width="18" height="100" rx="8"/>
+      <rect x="360" y="-20" width="18" height="180" rx="8"/>
+      <rect x="382" y="-20" width="14" height="180" rx="8"/>
+      <rect x="404" y="120" width="120" height="12" rx="6"/>
+      <rect x="404" y="100" width="120" height="12" rx="6"/>
+    </g>
+    <!-- gentle bars -->
+    <g transform="translate(500,180)">
+      <rect x="0" y="0" width="14" height="140" rx="6" fill="url(#cool)"/>
+      <rect x="26" y="0" width="14" height="140" rx="6" fill="url(#cool)" opacity="0.8"/>
+      <rect x="52" y="0" width="14" height="140" rx="6" fill="url(#cool)" opacity="0.6"/>
+    </g>
+  </g>
+
+  <g transform="translate(820,300)">
+    <!-- Fast panel (right) -->
+    <rect x="0" y="0" width="700" height="420" rx="18" fill="rgba(15,23,42,0.55)" stroke="#334155"/>
+    <text x="24" y="56" font-family="Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial" font-size="36" font-weight="800" fill="#e5e7eb">Fast (C/5)</text>
+    <text x="24" y="100" font-family="Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial" font-size="28" fill="#cbd5e1">4–6 hours • Higher Throughput</text>
+    <!-- charger with strong bars -->
+    <g transform="translate(40,150)">
+      <rect x="0" y="-40" width="240" height="220" rx="18" fill="#0b1220" stroke="#22d3ee"/>
+      <text x="22" y="32" font-family="Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial" font-size="30" font-weight="700" fill="#22d3ee">48V • 180A</text>
+      <rect x="22" y="60" width="196" height="26" rx="6" fill="#0ea5e9"/>
+      <rect x="22" y="96" width="196" height="26" rx="6" fill="#22d3ee"/>
+      <rect x="22" y="132" width="196" height="26" rx="6" fill="#14b8a6"/>
+    </g>
+    <!-- aggressive bars -->
+    <g transform="translate(320,180)">
+      <rect x="0" y="-20" width="18" height="180" rx="8" fill="url(#accent)"/>
+      <rect x="30" y="-20" width="18" height="180" rx="8" fill="url(#accent)" opacity="0.85"/>
+      <rect x="60" y="-20" width="18" height="180" rx="8" fill="url(#accent)" opacity="0.7"/>
+    </g>
+  </g>
+
+  <!-- Footer -->
+  <g transform="translate(80,820)">
+    <rect x="0" y="0" width="1440" height="2" fill="#334155"/>
+    <text x="0" y="44" font-family="Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial" font-size="28" font-weight="700" fill="#e5e7eb">Flat Earth Equipment • Charging Strategy Guide</text>
+  </g>
+</svg>
+
+
