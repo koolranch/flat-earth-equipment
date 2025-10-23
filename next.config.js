@@ -57,6 +57,32 @@ const baseConfig = {
         destination: '/parts/attachments',
         permanent: true
       },
+      // Fork placeholder insights -> Forks landing
+      {
+        source: '/insights/forklift-forks-class-ii-std-taper-42-x-5-x-1-75',
+        destination: '/forks',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-forks-class-ii-std-taper-48-x-4-x-1-75',
+        destination: '/forks',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-forks-class-ii-std-taper-48-x-5-x-1-75',
+        destination: '/forks',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-forks-class-ii-std-taper-54-x-5-x-1-75',
+        destination: '/forks',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-forks-class-ii-std-taper-72-x-4-x-1-75',
+        destination: '/forks',
+        permanent: true
+      },
       // Redirect www to non-www
       {
         source: '/:path*',
