@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title>Complete Guide to Forklift Battery Chargers</title>
+  <desc>Branded illustration for the complete forklift battery charger guide showing charger specs and forklift silhouette.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#c2410c"/>
+      <stop offset="100%" stop-color="#f97316"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity="0.2">
+    <circle cx="1380" cy="180" r="280" fill="#0ea5e9"/>
+    <circle cx="220" cy="760" r="240" fill="#f97316"/>
+  </g>
+
+  <!-- Header Text -->
+  <g transform="translate(80,140)">
+    <rect x="-12" y="-12" width="1120" height="148" rx="14" fill="rgba(2,6,23,0.35)"/>
+    <text x="0" y="52" font-family="Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial" font-size="54" font-weight="800" fill="#f8fafc">Forklift Battery Charger Guide</text>
+    <text x="0" y="112" font-family="Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial" font-size="38" font-weight="600" fill="#cbd5e1">24V • 36V • 48V • 80V  |  15A–200A+  |  Single & Three‑Phase</text>
+  </g>
+
+  <!-- Charger block -->
+  <g transform="translate(1020,420)">
+    <rect x="0" y="-130" width="280" height="320" rx="22" fill="rgba(15,23,42,0.55)" stroke="#e5e7eb" stroke-width="2"/>
+    <rect x="28" y="-100" width="224" height="90" rx="12" fill="#0b1220" stroke="#22d3ee" stroke-width="2"/>
+    <text x="48" y="-45" font-family="Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial" font-size="32" font-weight="700" fill="#22d3ee">48V • 150A</text>
+    <rect x="28" y="20" width="224" height="30" rx="6" fill="#0ea5e9"/>
+    <rect x="28" y="62" width="224" height="30" rx="6" fill="#22d3ee"/>
+    <rect x="28" y="104" width="224" height="30" rx="6" fill="#14b8a6"/>
+  </g>
+
+  <!-- Forklift silhouette -->
+  <g transform="translate(140,520) scale(1.0)" fill="#e5e7eb">
+    <circle cx="200" cy="160" r="56" fill="#94a3b8"/>
+    <circle cx="460" cy="160" r="76" fill="#94a3b8"/>
+    <circle cx="200" cy="160" r="30" fill="#e5e7eb"/>
+    <circle cx="460" cy="160" r="38" fill="#e5e7eb"/>
+    <rect x="140" y="20" width="380" height="130" rx="16" fill="#e5e7eb"/>
+    <rect x="250" y="-50" width="130" height="110" rx="12" fill="#e5e7eb"/>
+    <rect x="390" y="-50" width="34" height="150" rx="8" fill="#e5e7eb"/>
+    <rect x="430" y="-50" width="20" height="150" rx="8" fill="#e5e7eb"/>
+    <rect x="560" y="-90" width="24" height="240" rx="10" fill="#e5e7eb"/>
+    <rect x="588" y="-90" width="20" height="240" rx="10" fill="#e5e7eb"/>
+    <rect x="616" y="120" width="170" height="16" rx="6" fill="#e5e7eb"/>
+    <rect x="616" y="98" width="170" height="16" rx="6" fill="#e5e7eb"/>
+  </g>
+
+  <!-- Badges -->
+  <g transform="translate(80,320)">
+    <rect x="0" y="0" width="280" height="60" rx="12" fill="url(#accent)"/>
+    <text x="20" y="40" font-family="Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial" font-size="30" font-weight="800" fill="#fff">Voltage Match</text>
+  </g>
+  <g transform="translate(380,320)">
+    <rect x="0" y="0" width="280" height="60" rx="12" fill="url(#accent)"/>
+    <text x="20" y="40" font-family="Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial" font-size="30" font-weight="800" fill="#fff">Amperage Sizing</text>
+  </g>
+  <g transform="translate(680,320)">
+    <rect x="0" y="0" width="320" height="60" rx="12" fill="url(#accent)"/>
+    <text x="20" y="40" font-family="Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial" font-size="30" font-weight="800" fill="#fff">Single vs Three‑Phase</text>
+  </g>
+
+  <!-- Footer -->
+  <g transform="translate(80,820)">
+    <rect x="0" y="0" width="1440" height="2" fill="#334155"/>
+    <text x="0" y="44" font-family="Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial" font-size="28" font-weight="700" fill="#e5e7eb">Flat Earth Equipment • Complete Charger Guide</text>
+  </g>
+</svg>
+
+
