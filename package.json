@@ -10,6 +10,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 3000",
+    "db:migrate:parts-leads": "tsx scripts/apply-parts-leads-migration.ts",
     "analyze": "ANALYZE=1 next build",
     "analyze:ci": "node scripts/ci-analyze.mjs",
     "qa:perf": "node scripts/lh-smoke.mjs",
