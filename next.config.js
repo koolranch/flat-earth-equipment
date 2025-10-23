@@ -36,6 +36,27 @@ const baseConfig = {
         destination: '/charger-modules',
         permanent: true
       },
+      // Redirect additional placeholder insights to canonical targets
+      {
+        source: '/insights/bozeman-mt',
+        destination: '/montana/bozeman',
+        permanent: true
+      },
+      {
+        source: '/insights/by-brand',
+        destination: '/brands',
+        permanent: true
+      },
+      {
+        source: '/insights/carpet-poles',
+        destination: '/carpet-poles',
+        permanent: true
+      },
+      {
+        source: '/insights/cat-91a1431010-vinyl-suspension-seat',
+        destination: '/parts/attachments',
+        permanent: true
+      },
       // Redirect www to non-www
       {
         source: '/:path*',
