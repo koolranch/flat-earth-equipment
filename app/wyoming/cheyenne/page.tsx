@@ -124,7 +124,7 @@ export default async function CheyennePage() {
             'name': 'Flat Earth Equipment',
             'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
             'url': 'https://flatearthequipment.com/wyoming/cheyenne',
-            'telephone': '+1-307-302-0043',
+            // 'telephone' removed by request
             'address': { '@type': 'PostalAddress', 'addressLocality': 'Cheyenne', 'addressRegion': 'WY', 'addressCountry': 'US', 'postalCode': '82001' },
             'areaServed': { '@type': 'Place', 'name': 'Cheyenne, WY' },
             'description': 'Flat Earth Equipment provides rental equipment and parts to contractors and facilities in Cheyenne, Wyoming.',
@@ -165,7 +165,6 @@ export default async function CheyennePage() {
             <div>
               <h2 className="text-xl font-semibold mb-4">Contact Information</h2>
               <ul className="space-y-2">
-                <li><strong>Phone:</strong> (307) 302-0043</li>
                 <li><strong>Hours:</strong> Mon-Fri: 8am-5pm</li>
               </ul>
             </div>
