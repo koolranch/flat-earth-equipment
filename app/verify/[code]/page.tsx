@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 
+export const dynamic = 'force-dynamic';
+
 async function fetchVerification(code: string) {
   // Build absolute URL on server to avoid SSR fetch errors
   const envBase = (process.env.NEXT_PUBLIC_BASE_URL || '').replace(/\/$/, '');
@@ -13,27 +15,35 @@ async function fetchVerification(code: string) {
     const host = h.get('x-forwarded-host') || h.get('host') || '';
     apiUrl = host ? `${proto}://${host}/api/verify/${code}` : `/api/verify/${code}`;
   }
-  const res = await fetch(apiUrl, { cache: 'no-store' });
-  if (!res.ok) return null;
-  return res.json();
+  try {
+    const res = await fetch(apiUrl, { cache: 'no-store' });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
 }
 
 export async function generateMetadata({ params }: { params: { code: string } }): Promise<Metadata> {
-  const data = await fetchVerification(params.code);
-  const titleBase = 'Forklift Certification Verification';
-  if (!data?.ok) return { title: `${titleBase} · Not found` };
-  const name = data.certificate?.full_name || 'Learner';
-  const valid = data.status === 'valid';
-  const title = `${titleBase} · ${valid ? 'Valid' : 'Revoked'} · ${name}`;
-  return {
-    title,
-    openGraph: {
+  try {
+    const data = await fetchVerification(params.code);
+    const titleBase = 'Forklift Certification Verification';
+    if (!data?.ok) return { title: `${titleBase} · Not found` };
+    const name = data.certificate?.full_name || 'Learner';
+    const valid = data.status === 'valid';
+    const title = `${titleBase} · ${valid ? 'Valid' : 'Revoked'} · ${name}`;
+    return {
       title,
-      description: valid ? `Valid certificate for ${name}` : `Certificate revoked for ${name}`,
-      type: 'website'
-    },
-    twitter: { card: 'summary', title }
-  };
+      openGraph: {
+        title,
+        description: valid ? `Valid certificate for ${name}` : `Certificate revoked for ${name}`,
+        type: 'website'
+      },
+      twitter: { card: 'summary', title }
+    };
+  } catch {
+    return { title: 'Forklift Certification Verification' };
+  }
 }
 
 function CopyButton({ url }: { url: string }) {
