@@ -26,25 +26,8 @@ async function fetchVerification(code: string) {
 }
 
 export async function generateMetadata({ params }: { params: { code: string } }): Promise<Metadata> {
-  try {
-    const data = await fetchVerification(params.code);
-    const titleBase = 'Forklift Certification Verification';
-    if (!data?.ok) return { title: `${titleBase} · Not found` };
-    const name = data.certificate?.full_name || 'Learner';
-    const valid = data.status === 'valid';
-    const title = `${titleBase} · ${valid ? 'Valid' : 'Revoked'} · ${name}`;
-    return {
-      title,
-      openGraph: {
-        title,
-        description: valid ? `Valid certificate for ${name}` : `Certificate revoked for ${name}`,
-        type: 'website'
-      },
-      twitter: { card: 'summary', title }
-    };
-  } catch {
-    return { title: 'Forklift Certification Verification' };
-  }
+  const titleBase = 'Forklift Certification Verification';
+  return { title: `${titleBase} · Code ${params.code}` };
 }
 
 // CopyButton moved to client file to prevent SSR hydration errors
