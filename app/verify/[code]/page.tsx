@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 
 async function fetchVerification(code: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/verify/${code}`, { cache: 'no-store' });
+  // Prefer relative URL in production if base is not configured to avoid SSR fetch errors
+  const base = (process.env.NEXT_PUBLIC_BASE_URL || '').replace(/\/$/, '');
+  const apiUrl = `${base}/api/verify/${code}`;
+  const res = await fetch(apiUrl, { cache: 'no-store' });
   if (!res.ok) return null;
   return res.json();
 }
@@ -30,7 +32,7 @@ function CopyButton({ url }: { url: string }) {
   const [copied, setCopied] = require('react').useState(false);
   return (
     <button
-      onClick={async () => { await navigator.clipboard.writeText(url); setCopied(true); setTimeout(()=>setCopied(false), 1500); }}
+      onClick={async () => { const href = url.startsWith('/') ? new URL(url, window.location.origin).toString() : url; await navigator.clipboard.writeText(href); setCopied(true); setTimeout(()=>setCopied(false), 1500); }}
       className="rounded bg-slate-900 text-white px-3 py-2 text-sm">
       {copied ? 'Copied' : 'Copy link'}
     </button>
@@ -39,8 +41,8 @@ function CopyButton({ url }: { url: string }) {
 
 export default async function VerifyPage({ params }: { params: { code: string } }) {
   const data = await fetchVerification(params.code);
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  const url = `${baseUrl}/verify/${params.code}`;
+  const base = (process.env.NEXT_PUBLIC_BASE_URL || '').replace(/\/$/, '');
+  const url = `${base}/verify/${params.code}`; // may be relative
 
   if (!data?.ok) {
     return (
