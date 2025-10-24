@@ -18,7 +18,7 @@ const locations: LocationMap = {
   'dallas-fort-worth': {
     name: 'Dallas-Fort Worth, TX',
     address: '',
-    phone: '(307) 302-0043',
+    phone: '',
     hours: 'Mon-Fri: 8am-5pm',
     description: 'Serving the DFW Metroplex with fast shipping and same-day quotes.',
     shortDescription: 'DFW Metroplex and North Texas parts & equipment.',
@@ -26,7 +26,7 @@ const locations: LocationMap = {
   'el-paso': {
     name: 'El Paso, TX',
     address: '',
-    phone: '(307) 302-0043',
+    phone: '',
     hours: 'Mon-Fri: 8am-5pm',
     description: 'Serving West Texas and the borderland region.',
     shortDescription: 'West Texas and borderland industrial parts.',
@@ -34,7 +34,7 @@ const locations: LocationMap = {
   'phoenix': {
     name: 'Phoenix, AZ',
     address: '',
-    phone: '(307) 302-0043',
+    phone: '',
     hours: 'Mon-Fri: 8am-5pm',
     description: 'Serving the Phoenix Metro and Valley of the Sun.',
     shortDescription: 'Phoenix Metro and Valley of the Sun parts & equipment.',
@@ -42,7 +42,7 @@ const locations: LocationMap = {
   'denver': {
     name: 'Denver, CO',
     address: '',
-    phone: '(307) 302-0043',
+    phone: '',
     hours: 'Mon-Fri: 8am-5pm',
     description: 'Serving the Denver Metro and Front Range.',
     shortDescription: 'Denver Metro and Front Range parts & equipment.',
@@ -50,7 +50,7 @@ const locations: LocationMap = {
   'pueblo': {
     name: 'Pueblo, CO',
     address: '',
-    phone: '(307) 302-0043',
+    phone: '',
     hours: 'Mon-Fri: 8am-5pm',
     description: 'Serving southern Colorado with quality parts and exceptional service.',
     shortDescription: 'Southern Colorado rentals and parts shipped same-day.',
@@ -58,7 +58,7 @@ const locations: LocationMap = {
   'albuquerque': {
     name: 'Albuquerque, NM',
     address: '',
-    phone: '(307) 302-0043',
+    phone: '',
     hours: 'Mon-Fri: 8am-5pm',
     description: 'Serving central New Mexico with fast shipping and same-day quotes.',
     shortDescription: 'Serving central New Mexico contractors with parts and equipment.',
@@ -66,7 +66,7 @@ const locations: LocationMap = {
   'las-cruces': {
     name: 'Las Cruces, NM',
     address: '',
-    phone: '(307) 302-0043',
+    phone: '',
     hours: 'Mon-Fri: 8am-5pm',
     description: 'Serving southern New Mexico with fast shipping and same-day quotes.',
     shortDescription: 'Serving southern New Mexico contractors with parts and equipment.',
@@ -74,7 +74,7 @@ const locations: LocationMap = {
   'bozeman': {
     name: 'Bozeman, MT',
     address: '',
-    phone: '(307) 302-0043',
+    phone: '',
     hours: 'Mon-Fri: 8am-5pm',
     description: 'Your trusted source for equipment parts in Montana.',
     shortDescription: 'Rental-ready gear from Belgrade to Big Sky and the Gallatin Valley.',
@@ -82,7 +82,7 @@ const locations: LocationMap = {
   'cheyenne': {
     name: 'Cheyenne, WY',
     address: '',
-    phone: '(307) 302-0043',
+    phone: '',
     hours: 'Mon-Fri: 8am-5pm',
     description: 'Providing Wyoming with reliable equipment parts and service.',
     shortDescription: 'Forklifts, scissor lifts, and job-site rentals in southeastern Wyoming.',

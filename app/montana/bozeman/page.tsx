@@ -116,7 +116,7 @@ export default async function BozemanPage() {
             '@type': 'LocalBusiness',
             'name': 'Flat Earth Equipment',
             'url': 'https://flatearthequipment.com/montana/bozeman',
-            'telephone': '+1-307-302-0043',
+            // 'telephone' removed by request
             'address': { '@type': 'PostalAddress', 'addressLocality': 'Bozeman', 'addressRegion': 'MT', 'addressCountry': 'US' },
             'areaServed': [
               { '@type': 'Place', 'name': 'Bozeman, MT' },
@@ -149,7 +149,6 @@ export default async function BozemanPage() {
             <div>
               <h2 className="text-xl font-semibold mb-4">Contact Information</h2>
               <ul className="space-y-2">
-                <li><strong>Phone:</strong> (307) 302-0043</li>
                 <li><strong>Hours:</strong> Mon-Fri: 8am-5pm</li>
               </ul>
             </div>

@@ -174,7 +174,7 @@ export default async function DallasFortWorthPage() {
             'name': 'Flat Earth Equipment',
             'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
             'url': 'https://flatearthequipment.com/texas/dallas-fort-worth',
-            'telephone': '+1-307-302-0043',
+            // 'telephone' removed by request
             'address': {
               '@type': 'PostalAddress',
               'addressLocality': 'Dallas',
@@ -273,9 +273,6 @@ export default async function DallasFortWorthPage() {
             <div>
               <h2 className="text-xl font-semibold mb-4">Contact Information</h2>
               <ul className="space-y-2">
-                <li>
-                  <strong>Phone:</strong> (307) 302-0043
-                </li>
                 <li>
                   <strong>Hours:</strong> Mon-Fri: 8am-5pm
                 </li>

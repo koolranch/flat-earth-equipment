@@ -116,7 +116,7 @@ export default async function PuebloPage() {
             '@type': 'LocalBusiness',
             'name': 'Flat Earth Equipment',
             'url': 'https://flatearthequipment.com/colorado/pueblo',
-            'telephone': '+1-307-302-0043',
+            // 'telephone' removed by request
             'address': { '@type': 'PostalAddress', 'addressLocality': 'Pueblo', 'addressRegion': 'CO', 'addressCountry': 'US' },
             'areaServed': { '@type': 'Place', 'name': 'Pueblo, CO' },
             'openingHours': 'Mo-Fr 07:00-17:00',
@@ -144,7 +144,6 @@ export default async function PuebloPage() {
             <div>
               <h2 className="text-xl font-semibold mb-4">Contact Information</h2>
               <ul className="space-y-2">
-                <li><strong>Phone:</strong> (307) 302-0043</li>
                 <li><strong>Hours:</strong> Mon-Fri: 8am-5pm</li>
               </ul>
             </div>
