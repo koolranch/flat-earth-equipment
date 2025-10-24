@@ -1,9 +1,18 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 
 async function fetchVerification(code: string) {
-  // Prefer relative URL in production if base is not configured to avoid SSR fetch errors
-  const base = (process.env.NEXT_PUBLIC_BASE_URL || '').replace(/\/$/, '');
-  const apiUrl = `${base}/api/verify/${code}`;
+  // Build absolute URL on server to avoid SSR fetch errors
+  const envBase = (process.env.NEXT_PUBLIC_BASE_URL || '').replace(/\/$/, '');
+  let apiUrl = '';
+  if (envBase) {
+    apiUrl = `${envBase}/api/verify/${code}`;
+  } else {
+    const h = headers();
+    const proto = h.get('x-forwarded-proto') || 'https';
+    const host = h.get('x-forwarded-host') || h.get('host') || '';
+    apiUrl = host ? `${proto}://${host}/api/verify/${code}` : `/api/verify/${code}`;
+  }
   const res = await fetch(apiUrl, { cache: 'no-store' });
   if (!res.ok) return null;
   return res.json();
