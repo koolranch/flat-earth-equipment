@@ -294,7 +294,7 @@ function TrainingContent({ courseId, resumeHref, course, modules, resumeOrder }:
             
             {prog.stepsLeft && prog.stepsLeft.length > 0 && (
               <div className='mt-6 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20'>
-                <p className='text-base leading-7 text-amber-300'>
+                <p className='text-base leading-7 text-amber-700 font-medium'>
                   <strong>{prog.stepsLeft.length} {prog.stepsLeft.length === 1 ? 'module' : 'modules'} remaining</strong> — Complete all modules to unlock the exam
                 </p>
               </div>
