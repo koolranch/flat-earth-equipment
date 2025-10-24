@@ -1,7 +1,9 @@
 'use client'
 
+import React, { useState } from 'react';
+
 export default function CopyButton({ url }: { url: string }) {
-  const [copied, setCopied] = require('react').useState(false);
+  const [copied, setCopied] = useState(false);
   return (
     <button
       onClick={async () => {
