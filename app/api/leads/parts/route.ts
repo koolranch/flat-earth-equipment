@@ -110,14 +110,14 @@ export async function POST(req: Request) {
 
   <div style="background: #dbeafe; border-left: 4px solid #3b82f6; padding: 15px; margin: 20px 0; border-radius: 4px;">
     <p style="margin: 0; font-weight: bold; color: #1e40af;">Need immediate assistance?</p>
-    <p style="margin: 5px 0 0 0;">Call us at <a href="tel:+1-307-302-0043" style="color: #1e40af; text-decoration: none; font-weight: bold;">(307) 302-0043</a></p>
+    <p style="margin: 5px 0 0 0;">Reach us at <a href="mailto:contact@flatearthequipment.com" style="color: #1e40af; text-decoration: none; font-weight: bold;">contact@flatearthequipment.com</a> or use our <a href="https://flatearthequipment.com/contact" style="color: #1e40af; text-decoration: underline; font-weight: bold;">contact form</a>.</p>
   </div>
 
   <hr style="border: none; height: 1px; background: #e5e7eb; margin: 30px 0;">
   
   <div style="text-align: center; color: #6b7280; font-size: 12px;">
     <p>Flat Earth Equipment | Built Western Tough</p>
-    <p>flatearthequipment.com | (307) 302-0043</p>
+    <p><a href="https://flatearthequipment.com" style="color: #6b7280; text-decoration: none;">flatearthequipment.com</a> | <a href="mailto:contact@flatearthequipment.com" style="color: #6b7280; text-decoration: none;">contact@flatearthequipment.com</a></p>
   </div>
 </body>
 </html>`;
@@ -146,7 +146,7 @@ export async function POST(req: Request) {
         console.error('Failed to send customer confirmation:', customerResult);
         return NextResponse.json({ 
           ok: false, 
-          error: 'Failed to send confirmation email. Please call (307) 302-0043 for immediate assistance.' 
+          error: 'Failed to send confirmation email. Please email contact@flatearthequipment.com or use https://flatearthequipment.com/contact for assistance.' 
         }, { status: 500 });
       }
 
@@ -157,7 +157,7 @@ export async function POST(req: Request) {
       console.error('Email send error:', emailError);
       return NextResponse.json({ 
         ok: false, 
-        error: 'Failed to send email. Please call (307) 302-0043 for immediate assistance.' 
+        error: 'Failed to send email. Please email contact@flatearthequipment.com or use https://flatearthequipment.com/contact for assistance.' 
       }, { status: 500 });
     }
 

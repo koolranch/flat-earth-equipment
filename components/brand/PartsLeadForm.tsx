@@ -222,10 +222,11 @@ export default function PartsLeadForm({ brandSlug, brandName }: PartsLeadFormPro
 
         <div className="mt-4 text-center">
           <p className="text-sm text-slate-500">
-            Need immediate assistance? Call us at{' '}
-            <a href="tel:+1-307-302-0043" className="text-brand-accent hover:underline">
-              (307) 302-0043
-            </a>
+            Need immediate assistance? Reach us at{' '}
+            <a href="mailto:contact@flatearthequipment.com" className="text-brand-accent hover:underline">
+              contact@flatearthequipment.com
+            </a>{' '}or use our{' '}
+            <a href="/contact" className="text-brand-accent hover:underline">contact form</a>.
           </p>
         </div>
       </div>

@@ -127,7 +127,6 @@ export default function ContactForm() {
           <div>
             <h2 className="font-semibold text-base text-slate-800 mb-1">{t.support}</h2>
             <p>{t.email} <a href="mailto:contact@flatearthequipment.com" className="text-canyon-rust underline">contact@flatearthequipment.com</a></p>
-            <p>{t.phone} <a href="tel:+13073020043" className="text-canyon-rust underline">(307) 302-0043‬</a></p>
             <p>{t.hours}</p>
           </div>
         </div>
