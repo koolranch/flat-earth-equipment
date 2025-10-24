@@ -270,7 +270,7 @@ async function generateEvaluationPDF() {
   });
 
   // Footer text
-  const footerText = 'Flat Earth Safety™ · Built Western Tough · Form v2.3 | Retain for 3 years\nflatearthequipment.com | contact@flatearthequipment.com | (307) 302-0043';
+  const footerText = 'Flat Earth Safety™ · Built Western Tough · Form v2.3 | Retain for 3 years\nflatearthequipment.com | contact@flatearthequipment.com';
   
   page.drawText(footerText, {
     x: 40,

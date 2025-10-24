@@ -87,7 +87,7 @@ export async function POST(req: NextRequest) {
   
   <div style="text-align: center; color: #6b7280; font-size: 12px;">
     <p>Flat Earth Equipment | Western-Tough Rentals & Parts</p>
-    <p>flatearthequipment.com | (307) 302-0043</p>
+    <p><a href="https://flatearthequipment.com" style="color: #6b7280; text-decoration: none;">flatearthequipment.com</a> | <a href="mailto:rentals@flatearthequipment.com" style="color: #6b7280; text-decoration: none;">rentals@flatearthequipment.com</a></p>
   </div>
 </body>
 </html>
