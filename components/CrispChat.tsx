@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 
 declare global {
   interface Window {
@@ -10,6 +11,11 @@ declare global {
 }
 
 export default function CrispChat() {
+  const pathname = usePathname()
+
+  // Disable Crisp on the safety landing page only
+  if (pathname === '/safety') return null
+
   useEffect(() => {
     // Crisp chat widget
     window.$crisp = [];
