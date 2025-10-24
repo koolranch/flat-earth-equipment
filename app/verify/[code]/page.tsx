@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
+import CopyButton from './CopyButton';
 
 export const dynamic = 'force-dynamic';
 
@@ -46,17 +47,7 @@ export async function generateMetadata({ params }: { params: { code: string } })
   }
 }
 
-function CopyButton({ url }: { url: string }) {
-  'use client';
-  const [copied, setCopied] = require('react').useState(false);
-  return (
-    <button
-      onClick={async () => { const href = url.startsWith('/') ? new URL(url, window.location.origin).toString() : url; await navigator.clipboard.writeText(href); setCopied(true); setTimeout(()=>setCopied(false), 1500); }}
-      className="rounded bg-slate-900 text-white px-3 py-2 text-sm">
-      {copied ? 'Copied' : 'Copy link'}
-    </button>
-  );
-}
+// CopyButton moved to client file to prevent SSR hydration errors
 
 export default async function VerifyPage({ params }: { params: { code: string } }) {
   const data = await fetchVerification(params.code);
