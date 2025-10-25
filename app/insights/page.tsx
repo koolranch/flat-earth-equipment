@@ -32,10 +32,7 @@ export default async function InsightsPage() {
 
   // Helper function to check if image exists and is valid
   const hasValidImage = (post: any) => {
-    return post.image && 
-           post.image !== '/images/insights/.jpg' && 
-           post.image.length > 10 && 
-           !post.image.includes('undefined');
+    return typeof post?.image === 'string' && post.image.trim().length > 0;
   };
 
   // Get featured posts (most recent or most important)
