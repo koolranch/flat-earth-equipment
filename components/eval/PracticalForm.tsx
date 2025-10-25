@@ -157,7 +157,7 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
           <p className="text-slate-600 mb-8">Evaluate each skill based on OSHA 29 CFR 1910.178 requirements. Check each item the operator demonstrates competently.</p>
           <div className="grid md:grid-cols-2 gap-8">
             <fieldset className="bg-slate-50 rounded-xl p-6 space-y-4">
-              <legend className="font-bold text-lg text-slate-900 mb-4 flex items-center gap-3">
+              <legend className="font-bold text-lg text-slate-900 flex items-center gap-3 mb-4">
                 <span className="w-8 h-8 rounded-full bg-canyon-rust text-white flex items-center justify-center text-sm font-bold">1</span>
                 Pre-Operation
               </legend>
@@ -175,7 +175,7 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
             </fieldset>
           
             <fieldset className="bg-slate-50 rounded-xl p-6 space-y-4">
-              <legend className="font-bold text-lg text-slate-900 mb-4 flex items-center gap-3">
+              <legend className="font-bold text-lg text-slate-900 flex items-center gap-3 mb-4">
                 <span className="w-8 h-8 rounded-full bg-canyon-rust text-white flex items-center justify-center text-sm font-bold">2</span>
                 Maneuvers
               </legend>
@@ -193,7 +193,7 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
             </fieldset>
             
             <fieldset className="bg-slate-50 rounded-xl p-6 space-y-4">
-              <legend className="font-bold text-lg text-slate-900 mb-4 flex items-center gap-3">
+              <legend className="font-bold text-lg text-slate-900 flex items-center gap-3 mb-4">
                 <span className="w-8 h-8 rounded-full bg-canyon-rust text-white flex items-center justify-center text-sm font-bold">3</span>
                 Load Handling
               </legend>
@@ -211,7 +211,7 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
             </fieldset>
             
             <fieldset className="bg-slate-50 rounded-xl p-6 space-y-4">
-              <legend className="font-bold text-lg text-slate-900 mb-4 flex items-center gap-3">
+              <legend className="font-bold text-lg text-slate-900 flex items-center gap-3 mb-4">
                 <span className="w-8 h-8 rounded-full bg-canyon-rust text-white flex items-center justify-center text-sm font-bold">4</span>
                 Shutdown
               </legend>
@@ -223,7 +223,7 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
                     onChange={()=>toggle(`shutdown.${k}`)} 
                     className="w-6 h-6 rounded-md border-2 border-slate-400 text-canyon-rust focus:ring-2 focus:ring-canyon-rust focus:ring-offset-2"
                   /> 
-                  <span className="text-slate-800 font-medium">{k==='branchOK'?'Fuel branch action done':'Step complete'}</span>
+                  <span className="text-slate-800 font-medium">{k==='neutral'?'Shift to neutral/park':k==='forksDown'?'Forks lowered to floor':k==='keyOff'?'Parking brake set, key off':k==='branchOK'?'Battery disconnected (if applicable)':'Step complete'}</span>
                 </label>
               ))}
             </fieldset>
