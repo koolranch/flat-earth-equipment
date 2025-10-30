@@ -11,6 +11,9 @@ import SafetyHero from '@/components/safety/SafetyHero';
 import StickyCTA from '@/components/safety/StickyCTA';
 import ReasonsToJoin from '@/components/ReasonsToJoin';
 import HowItWorksStrip from '@/components/HowItWorksStrip';
+import dynamic from 'next/dynamic';
+
+const SafetyScreenshots = dynamic(() => import('./components/SafetyScreenshots'), { ssr: true });
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; // no ISR
@@ -67,6 +70,9 @@ export default async function SafetyPage() {
   const locale = getLocaleForStatic();
   const t = getMarketingDict(locale);
   const { isAuthed, userId } = await detectUserServer();
+  
+  // Feature flag for screenshot section (additive, safe to toggle)
+  const showScreenshots = true;
   
   // Determine CTA destination based on auth + enrollment status
   // For non-authenticated users, direct to pricing (better for ads)
@@ -205,7 +211,12 @@ export default async function SafetyPage() {
             </p>
           </div>
         )}
+      </div>
 
+      {/* Visual proof section (additive, safe) */}
+      {showScreenshots && <SafetyScreenshots />}
+
+      <div className="container mx-auto px-4">
         {/* Comparison - Mobile-First Card Design */}
         <section className="mt-8 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-200 p-6 sm:p-8">
           <h2 className="text-2xl sm:text-3xl font-bold text-center text-slate-900 mb-6">
