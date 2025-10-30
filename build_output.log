@@ -1,0 +1,44 @@
+
+> flat-earth-equipment@1.0.0 build
+> next build
+
+🔥 [NUCLEAR-CACHE-BUST] Build ID: SECURITY-local-1761829838417-urk8fd17mnn-production
+   ▲ Next.js 14.1.0
+   - Environments: .env.production.local, .env.local, .env.production, .env
+
+   Creating an optimized production build ...
+🔥 [NUCLEAR-CACHE-BUST] Forcing unique chunk filenames with timestamp: 1761829839100
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (116kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+Failed to compile.
+
+./app/safety/page.tsx
+Error: 
+  [31mx[0m the name `dynamic` is defined multiple times
+    ,-[[36;1;4m/Users/christopherray/Documents/flat-earth-equipment/app/safety/page.tsx[0m:11:1]
+ [2m11[0m | import StickyCTA from '@/components/safety/StickyCTA';
+ [2m12[0m | import ReasonsToJoin from '@/components/ReasonsToJoin';
+ [2m13[0m | import HowItWorksStrip from '@/components/HowItWorksStrip';
+ [2m14[0m | import dynamic from 'next/dynamic';
+    : [31;1m       ^^^|^^^[0m
+    :           [31;1m`-- [31;1mprevious definition of `dynamic` here[0m[0m
+ [2m15[0m | 
+ [2m16[0m | const SafetyScreenshots = dynamic(() => import('./components/SafetyScreenshots'), { ssr: true });
+ [2m17[0m | 
+ [2m18[0m | export const dynamic = 'force-dynamic';
+    : [33;1m             ^^^|^^^[0m
+    :                 [33;1m`-- [33;1m`dynamic` redefined here[0m[0m
+ [2m19[0m | export const revalidate = 0; // no ISR
+ [2m20[0m | 
+ [2m21[0m | export const metadata = {
+    `----
+
+Import trace for requested module:
+./app/safety/page.tsx
+
+
+> Build failed because of webpack errors
+npm notice
+npm notice New major version of npm available! 10.9.2 -> 11.6.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.6.2
+npm notice To update run: npm install -g npm@11.6.2
+npm notice

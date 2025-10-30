@@ -231,7 +231,6 @@ export async function POST(req: Request) {
 
   // QR Code Section (Right side, bordered)
   page.drawRectangle({ x: 620, y: 360, width: 140, height: 180, borderWidth: 2, borderColor: mediumGray, color: rgb(1, 1, 1) });
-  page.drawText('VERIFY', { x: 662, y: 525, size: 10, font: fontB, color: darkBlue });
   
   const { generateVerificationQRBuffer } = await import('@/lib/cert/qrcode');
   const qrBuffer = await generateVerificationQRBuffer(verification_code, base, {
