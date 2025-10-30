@@ -19,7 +19,7 @@ export default function ScreenshotCard({ src, alt, caption, aspect = '4/3', clas
   return (
     <figure className={cn('group', className)}>
       <div className={cn(
-        'relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg ring-0 focus-within:ring-2 focus-within:ring-orange-500 transition',
+        'relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg ring-0 focus-within:ring-2 focus-within:ring-orange-500 transition-shadow duration-300 hover:shadow-xl',
         aspectClass
       )}>
         <Image
@@ -33,9 +33,7 @@ export default function ScreenshotCard({ src, alt, caption, aspect = '4/3', clas
         <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-orange-500/90 px-3 py-1 text-xs font-medium text-white shadow-sm">Actual interface</span>
       </div>
       {caption ? (
-        <figcaption className="mt-3 text-sm text-slate-600">
-          {caption}
-        </figcaption>
+        <figcaption className="mt-3 text-sm text-slate-600" dangerouslySetInnerHTML={{ __html: caption }} />
       ) : null}
     </figure>
   );

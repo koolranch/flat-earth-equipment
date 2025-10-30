@@ -12,6 +12,8 @@ import StickyCTA from '@/components/safety/StickyCTA';
 import ReasonsToJoin from '@/components/ReasonsToJoin';
 import HowItWorksStrip from '@/components/HowItWorksStrip';
 import SafetyScreenshots from './components/SafetyScreenshots';
+import Testimonial from './components/Testimonial';
+import FaqSchema from './components/FaqSchema';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; // no ISR
@@ -213,6 +215,9 @@ export default async function SafetyPage() {
 
       {/* Visual proof section (additive, safe) */}
       {showScreenshots && <SafetyScreenshots />}
+
+      {/* Social proof */}
+      <Testimonial />
 
       <div className="container mx-auto px-4">
         {/* Comparison - Mobile-First Card Design */}
@@ -526,6 +531,9 @@ export default async function SafetyPage() {
           </p>
         </footer>
       </div>
+
+      {/* FAQ Rich Results */}
+      <FaqSchema />
     </main>
     
     {/* Mobile Sticky CTA */}
