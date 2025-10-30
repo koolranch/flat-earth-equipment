@@ -85,7 +85,7 @@ export default function SafetyHero() {
       <div className="relative z-10 h-full flex items-center justify-center">
         <div className="mx-auto max-w-3xl px-4 py-12 sm:py-16 text-center">
           <p className="text-xs uppercase tracking-widest text-emerald-300/90">OSHA-Compliant Forklift Training</p>
-          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Get Forklift Certified — $59</h1>
+          <h1 className="mt-2 text-3xl font-bold sm:text-4xl text-balance">Forklift Certification & Training Online — Flat Earth Safety</h1>
           <p className="mt-3 text-base sm:text-lg text-slate-300">
             100% online • ~60 minutes • Same-day wallet card • OSHA 29 CFR 1910.178(l) aligned
           </p>
@@ -111,7 +111,8 @@ export default function SafetyHero() {
           {error && (
             <p className="mt-3 text-red-400 text-sm">{error}</p>
           )}
-          <p className="mt-3 text-sm text-slate-300">Secure checkout — Apple Pay / Google Pay / Link</p>
+          <p className="mt-3 text-sm text-white/90">OSHA 1910.178 compliant · Accepted nationwide · Instant download</p>
+          <p className="mt-2 text-sm text-slate-300">Secure checkout — Apple Pay / Google Pay / Link</p>
         </div>
       </div>
     </section>

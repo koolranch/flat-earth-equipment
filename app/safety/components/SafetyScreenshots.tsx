@@ -11,31 +11,31 @@ export default function SafetyScreenshots() {
       </div>
 
       <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2">
-        {/* 1) Dashboard */}
-        <ScreenshotCard
-          src={`${SUPABASE_STORAGE_URL}/safety-dashboard.jpg`}
-          alt="Training dashboard showing modules and progress"
-          caption="Your training dashboard: track progress and unlock the final exam."
-          aspect="4/3"
-        />
+        {/* 1) Dashboard (larger) */}
+        <div className="md:col-span-2">
+          <ScreenshotCard
+            src={`${SUPABASE_STORAGE_URL}/safety-dashboard.jpg`}
+            alt="Training dashboard showing modules and progress"
+            caption="<span class='font-semibold'>Dashboard:</span> Track progress and unlock the final exam."
+            aspect="4/3"
+          />
+        </div>
 
         {/* 2) Interactive Module */}
         <ScreenshotCard
           src={`${SUPABASE_STORAGE_URL}/safety-module.jpg`}
           alt="Interactive flashcard module with reveal answer and quiz buttons"
-          caption="Interactive OSHA training with flash cards and quizzes — not boring slides."
+          caption="<span class='font-semibold'>Interactive Modules:</span> Flash cards and quizzes — not boring slides."
           aspect="4/3"
         />
 
         {/* 3) Certificate */}
-        <div className="md:col-span-2">
-          <ScreenshotCard
-            src={`${SUPABASE_STORAGE_URL}/safety-certificate.jpg`}
-            alt="Exam passed screen with Download Certificate and Wallet Card buttons"
-            caption="Pass your exam and download your official certificate instantly."
-            aspect="16/9"
-          />
-        </div>
+        <ScreenshotCard
+          src={`${SUPABASE_STORAGE_URL}/safety-certificate.jpg`}
+          alt="Exam passed screen with Download Certificate and Wallet Card buttons"
+          caption="<span class='font-semibold'>Instant Certificate:</span> Download your certificate immediately after passing."
+          aspect="4/3"
+        />
       </div>
     </section>
   );
