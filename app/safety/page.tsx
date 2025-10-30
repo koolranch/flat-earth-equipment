@@ -11,9 +11,7 @@ import SafetyHero from '@/components/safety/SafetyHero';
 import StickyCTA from '@/components/safety/StickyCTA';
 import ReasonsToJoin from '@/components/ReasonsToJoin';
 import HowItWorksStrip from '@/components/HowItWorksStrip';
-import dynamic from 'next/dynamic';
-
-const SafetyScreenshots = dynamic(() => import('./components/SafetyScreenshots'), { ssr: true });
+import SafetyScreenshots from './components/SafetyScreenshots';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; // no ISR
