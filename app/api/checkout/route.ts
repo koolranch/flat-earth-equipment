@@ -44,9 +44,10 @@ export async function POST(req: NextRequest) {
           quantity: Math.max(1, Number(item.quantity) || 1)
         });
         
-        // If this is a training purchase, add course_slug for webhook
+        // If this is a training purchase, add course_slug and quantity for webhook
         if (item.isTraining) {
           metadata.course_slug = 'forklift';
+          metadata.quantity = String(item.quantity || 1);
         }
         
         // Add core charge as separate line item if applicable

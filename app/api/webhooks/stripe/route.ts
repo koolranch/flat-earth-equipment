@@ -125,6 +125,20 @@ export async function POST(req: Request) {
         } else {
           console.log(`✅ Order created: ${order.id}`)
           
+          // Auto-assign trainer role for multi-seat purchases
+          if (quantity > 1) {
+            try {
+              await supabase
+                .from('profiles')
+                .update({ role: 'trainer' })
+                .eq('id', user.id);
+              console.log(`✅ Granted trainer role to user ${user.id} (${quantity} seats)`);
+            } catch (roleError) {
+              console.error('⚠️ Failed to assign trainer role (non-blocking):', roleError);
+              // Don't fail the order if role assignment fails
+            }
+          }
+          
           // Send order confirmation email
           try {
             const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'
