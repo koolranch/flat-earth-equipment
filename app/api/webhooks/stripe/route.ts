@@ -71,6 +71,8 @@ export async function POST(req: Request) {
           
           // Send welcome email with login credentials
           const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'
+          const quantity = parseInt(session.metadata.quantity || '1')
+          
           await fetch(`${siteUrl}/api/send-training-welcome`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -78,10 +80,12 @@ export async function POST(req: Request) {
               email: customerEmail,
               name: customerName,
               password: temporaryPassword,
-              courseTitle: 'Forklift Operator Certification'
+              courseTitle: 'Forklift Operator Certification',
+              isTrainer: quantity > 1,
+              seatCount: quantity
             })
           })
-          console.log('📧 Training welcome email sent')
+          console.log(`📧 Training welcome email sent (${quantity > 1 ? 'trainer' : 'learner'} template)`)
         }
 
         // Auto-enroll in the course
