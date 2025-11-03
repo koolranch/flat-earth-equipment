@@ -118,16 +118,22 @@ export async function POST(req: Request) {
   // Batch update all invite records
   if (updates.length > 0) {
     try {
-      const { error: updateError } = await svc
-        .from('seat_invites')
-        .upsert(updates, { onConflict: 'id' });
-        
-      if (updateError) {
-        console.error('Error updating seat invites:', updateError);
-        return NextResponse.json({ 
-          ok: false, 
-          error: 'failed_to_update_invites' 
-        }, { status: 500 });
+      // Update each invite record individually (Supabase doesn't support batch updates easily)
+      for (const update of updates) {
+        const { error: updateError } = await svc
+          .from('seat_invites')
+          .update({
+            invite_token: update.invite_token,
+            expires_at: update.expires_at,
+            status: update.status,
+            sent_at: update.sent_at
+          })
+          .eq('id', update.id);
+          
+        if (updateError) {
+          console.error(`Error updating seat invite ${update.id}:`, updateError);
+          // Continue with other updates even if one fails
+        }
       }
     } catch (updateError) {
       console.error('Unexpected error updating invites:', updateError);
