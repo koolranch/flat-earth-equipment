@@ -37,8 +37,11 @@ export async function createTrainingCheckoutSessionFromForm(formData: FormData):
     body: JSON.stringify({
       items: [{
         priceId: priceId,
-        quantity: seatCount,
-        isTraining: true
+        quantity: 1,  // Always 1 - buying one package
+        isTraining: true,
+        metadata: {
+          seat_count: seatCount  // Pass seat count in metadata
+        }
       }]
     })
   });
