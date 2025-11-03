@@ -176,7 +176,12 @@ CREATE POLICY seat_claims_service_all ON public.seat_claims
 -- =====================================================================
 -- HELPER VIEW: Order seat usage summary
 -- =====================================================================
-CREATE OR REPLACE VIEW public.v_order_seat_usage AS
+
+-- Drop existing view if it exists (safe - recreating with correct columns)
+DROP VIEW IF EXISTS public.v_order_seat_usage;
+
+-- Create view with correct column names
+CREATE VIEW public.v_order_seat_usage AS
 SELECT 
   o.id as order_id,
   o.user_id as trainer_id,
