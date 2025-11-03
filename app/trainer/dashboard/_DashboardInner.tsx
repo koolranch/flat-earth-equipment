@@ -1,6 +1,7 @@
 'use client';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useI18n } from '@/lib/i18n/I18nProvider';
+import AssignSeatsPanel from '@/components/trainer/AssignSeatsPanel';
 
 type Row = { enrollment_id: string; learner_id: string; learner_name: string; learner_email: string; course_slug: string; progress_pct: number; status: 'not_started' | 'in_progress' | 'passed'; passed: boolean; cert_pdf_url: string | null; cert_issued_at: string | null; updated_at?: string; created_at?: string };
 
@@ -11,6 +12,7 @@ export default function DashboardInner() {
   const [total, setTotal] = useState(0);
   const [pageSize, setPageSize] = useState(50);
   const [loading, setLoading] = useState(true);
+  const [seatsInfo, setSeatsInfo] = useState<{total: number; claimed: number; remaining: number} | null>(null);
 
   const [q, setQ] = useState('');
   const [status, setStatus] = useState<'all' | 'not_started' | 'in_progress' | 'passed'>('all');
@@ -35,7 +37,31 @@ export default function DashboardInner() {
     setLoading(false);
   }, [page, q, status, course, from, to, pageSize]);
 
-  useEffect(() => { (window as any)?.analytics?.track?.('trainer_dashboard_open'); load(1); }, [load]);
+  useEffect(() => { 
+    (window as any)?.analytics?.track?.('trainer_dashboard_open'); 
+    load(1); 
+    loadSeatsInfo();
+  }, [load]);
+
+  async function loadSeatsInfo() {
+    try {
+      const r = await fetch('/api/trainer/orders');
+      if (r.ok) {
+        const j = await r.json();
+        if (j.ok && j.items && j.items.length > 0) {
+          // Sum up all seats across orders
+          const totals = j.items.reduce((acc: any, order: any) => ({
+            total: acc.total + (order.seats || 0),
+            claimed: acc.claimed + (order.claimed || 0),
+            remaining: acc.remaining + (order.remaining || 0)
+          }), { total: 0, claimed: 0, remaining: 0 });
+          setSeatsInfo(totals);
+        }
+      }
+    } catch (e) {
+      console.error('Failed to load seats info:', e);
+    }
+  }
 
   const pages = Math.max(1, Math.ceil(total / pageSize));
   const summary = useMemo(() => ({
@@ -47,7 +73,32 @@ export default function DashboardInner() {
 
   return (
     <main id="main" className="container mx-auto p-4 grid gap-4" role="main" aria-label={t('trainer.title')}>
-      <h1 className="text-xl font-bold">{t('trainer.title')}</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-xl font-bold">{t('trainer.title')}</h1>
+        {seatsInfo && seatsInfo.total > 0 && (
+          <div className="flex items-center gap-4 text-sm">
+            <div>
+              <span className="text-slate-600">Total Seats: </span>
+              <span className="font-semibold">{seatsInfo.total}</span>
+            </div>
+            <div>
+              <span className="text-slate-600">Available: </span>
+              <span className="font-semibold text-green-600">{seatsInfo.remaining}</span>
+            </div>
+            <div>
+              <span className="text-slate-600">Assigned: </span>
+              <span className="font-semibold">{seatsInfo.claimed}</span>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Assign Seats Panel - Show if they have available seats */}
+      {seatsInfo && seatsInfo.remaining > 0 && (
+        <div className="rounded-2xl border bg-gradient-to-r from-blue-50 to-indigo-50 p-4">
+          <AssignSeatsPanel />
+        </div>
+      )}
 
       <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
         <Stat label={t('trainer.total')} value={summary.total} />
