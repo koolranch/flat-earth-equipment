@@ -73,25 +73,39 @@ export default function DashboardInner() {
 
   return (
     <main id="main" className="container mx-auto p-4 grid gap-4" role="main" aria-label={t('trainer.title')}>
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold">{t('trainer.title')}</h1>
-        {seatsInfo && seatsInfo.total > 0 && (
-          <div className="flex items-center gap-4 text-sm">
-            <div>
-              <span className="text-slate-600">Total Seats: </span>
-              <span className="font-semibold">{seatsInfo.total}</span>
+      <h1 className="text-xl font-bold">{t('trainer.title')}</h1>
+      
+      {/* Visual Seat Counter Cards */}
+      {seatsInfo && seatsInfo.total > 0 && (
+        <section className="grid grid-cols-3 gap-4">
+          <div className="rounded-2xl border bg-gradient-to-br from-blue-50 to-blue-100 p-4 border-blue-200">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-medium text-blue-700">Total Seats</span>
+              <span className="text-2xl">💺</span>
             </div>
-            <div>
-              <span className="text-slate-600">Available: </span>
-              <span className="font-semibold text-green-600">{seatsInfo.remaining}</span>
-            </div>
-            <div>
-              <span className="text-slate-600">Assigned: </span>
-              <span className="font-semibold">{seatsInfo.claimed}</span>
-            </div>
+            <div className="text-3xl font-bold text-blue-900">{seatsInfo.total}</div>
+            <div className="text-xs text-blue-600 mt-1">Purchased</div>
           </div>
-        )}
-      </div>
+          
+          <div className="rounded-2xl border bg-gradient-to-br from-green-50 to-green-100 p-4 border-green-200">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-medium text-green-700">Available</span>
+              <span className="text-2xl">🟢</span>
+            </div>
+            <div className="text-3xl font-bold text-green-900">{seatsInfo.remaining}</div>
+            <div className="text-xs text-green-600 mt-1">Ready to assign</div>
+          </div>
+          
+          <div className="rounded-2xl border bg-gradient-to-br from-purple-50 to-purple-100 p-4 border-purple-200">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-medium text-purple-700">Assigned</span>
+              <span className="text-2xl">📊</span>
+            </div>
+            <div className="text-3xl font-bold text-purple-900">{seatsInfo.claimed}</div>
+            <div className="text-xs text-purple-600 mt-1">Active learners</div>
+          </div>
+        </section>
+      )}
 
       {/* Assign Seats Panel - Show if they have available seats */}
       {seatsInfo && seatsInfo.remaining > 0 && (
@@ -140,7 +154,7 @@ export default function DashboardInner() {
           </thead>
           <tbody>
             {rows.map(r => (
-              <tr key={r.enrollment_id} className="border-t">
+              <tr key={r.enrollment_id} className="border-t hover:bg-slate-50">
                 <td className="p-2">{r.learner_name}</td>
                 <td className="p-2">{r.learner_email}</td>
                 <td className="p-2">{r.course_slug}</td>
@@ -149,7 +163,26 @@ export default function DashboardInner() {
                 <td className="p-2 text-center">{r.cert_pdf_url ? <a className="underline" href={r.cert_pdf_url} target="_blank" rel="noreferrer">PDF</a> : '—'}</td>
               </tr>
             ))}
-            {!rows.length && !loading && (
+            {!rows.length && !loading && total === 0 && seatsInfo && seatsInfo.remaining > 0 && (
+              <tr>
+                <td colSpan={6} className="p-12">
+                  <div className="text-center">
+                    <div className="text-5xl mb-4">👥</div>
+                    <h3 className="text-lg font-semibold text-slate-700 mb-2">No Learners Yet</h3>
+                    <p className="text-slate-500 mb-4">
+                      Assign your first seat above to get started tracking your team's progress
+                    </p>
+                    <div className="inline-flex items-center gap-2 text-sm text-blue-600 bg-blue-50 px-4 py-2 rounded-lg">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
+                      {seatsInfo.remaining} seat{seatsInfo.remaining !== 1 ? 's' : ''} available to assign
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            )}
+            {!rows.length && !loading && total === 0 && (!seatsInfo || seatsInfo.remaining === 0) && (
               <tr><td colSpan={6} className="p-6 text-center text-slate-500">No results</td></tr>
             )}
           </tbody>
@@ -170,8 +203,32 @@ function Stat({ label, value }: { label: string; value: number }) {
 }
 
 function StatusBadge({ status }: { status: 'not_started' | 'in_progress' | 'passed' }) {
-  const styles = status === 'passed' ? 'bg-green-50 border-green-300 text-green-800' : status === 'in_progress' ? 'bg-amber-50 border-amber-300 text-amber-800' : 'bg-slate-50 border-slate-300 text-slate-700';
-  return <span className={`inline-block rounded-xl border px-2 py-1 text-xs ${styles}`}>{status.replace('_', ' ')}</span>;
+  const config = {
+    passed: { 
+      styles: 'bg-green-50 border-green-300 text-green-800', 
+      icon: '✓', 
+      label: 'Passed' 
+    },
+    in_progress: { 
+      styles: 'bg-amber-50 border-amber-300 text-amber-800', 
+      icon: '⟳', 
+      label: 'In Progress' 
+    },
+    not_started: { 
+      styles: 'bg-slate-50 border-slate-300 text-slate-700', 
+      icon: '○', 
+      label: 'Not Started' 
+    }
+  };
+  
+  const { styles, icon, label } = config[status];
+  
+  return (
+    <span className={`inline-flex items-center gap-1 rounded-xl border px-2 py-1 text-xs ${styles}`}>
+      <span>{icon}</span>
+      <span>{label}</span>
+    </span>
+  );
 }
 
 function exportHref({ q, status, course, from, to }: { q?: string; status?: string; course?: string; from?: string; to?: string }) {
