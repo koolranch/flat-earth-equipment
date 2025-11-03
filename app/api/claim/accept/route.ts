@@ -17,9 +17,14 @@ export async function POST(req: Request) {
   }
 
   // Parse request body
-  const { token } = await req.json();
+  const { token, firstName, lastName } = await req.json();
   if (!token) {
     return NextResponse.json({ ok: false, error: 'missing_token' }, { status: 400 });
+  }
+  
+  // Validate name fields
+  if (!firstName || !lastName) {
+    return NextResponse.json({ ok: false, error: 'missing_name' }, { status: 400 });
   }
 
   try {
@@ -53,6 +58,23 @@ export async function POST(req: Request) {
 
     if (!profile) {
       return NextResponse.json({ ok: false, error: 'profile_not_found' }, { status: 404 });
+    }
+    
+    // Update profile with full name from claim form
+    const fullName = `${firstName.trim()} ${lastName.trim()}`;
+    try {
+      await svc
+        .from('profiles')
+        .update({ full_name: fullName })
+        .eq('id', user.id);
+      
+      // Also update auth user metadata for consistency
+      await svc.auth.admin.updateUserById(user.id, {
+        user_metadata: { full_name: fullName }
+      });
+    } catch (nameError) {
+      console.error('Failed to update user name (non-blocking):', nameError);
+      // Don't fail the claim if name update fails
     }
 
     // Verify email match (optional - could be flexible)
