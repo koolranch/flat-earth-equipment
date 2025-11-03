@@ -367,7 +367,19 @@ export default async function TrainerHome() {
       return <PublicTrainerLanding />;
     }
 
-    // Check if user has trainer/owner role in any organization
+    // First check profiles.role (for multi-seat package buyers)
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .maybeSingle();
+
+    // If they have trainer or admin role in profiles, redirect to dashboard
+    if (profile && ['trainer', 'admin'].includes(profile.role)) {
+      redirect('/trainer/dashboard');
+    }
+
+    // Otherwise, check if user has trainer/owner role in any organization (org-based system)
     const { data: orgMemberships } = await supabase
       .from('org_members')
       .select('org_id, role')
