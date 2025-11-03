@@ -233,6 +233,22 @@ function PublicTrainerLanding() {
           </div>
         </section>
 
+        {/* Already Purchased Section */}
+        <section className="mb-8">
+          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl p-6 text-center">
+            <h3 className="text-2xl font-bold mb-3">Already Purchased Training Seats?</h3>
+            <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
+              Access your trainer dashboard to assign seats to your team and track their progress.
+            </p>
+            <Link
+              href="/trainer/dashboard"
+              className="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors shadow-lg"
+            >
+              📊 Go to Trainer Dashboard
+            </Link>
+          </div>
+        </section>
+
         {/* CTA Section */}
         <section className="text-center">
           <div className="bg-gradient-to-r from-canyon-rust to-canyon-rust/90 text-white rounded-xl p-8">
@@ -259,7 +275,7 @@ function PublicTrainerLanding() {
             </div>
             
             <p className="text-sm text-canyon-rust-200">
-              Already have a trainer account? <Link href="/login" className="underline hover:no-underline">Sign in here</Link>
+              New to training management? <Link href="/safety" className="underline hover:no-underline">Learn about our program</Link>
             </p>
           </div>
         </section>
