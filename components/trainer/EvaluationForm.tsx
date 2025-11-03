@@ -172,9 +172,9 @@ export default function EvaluationForm({ enrollmentId }: { enrollmentId: string 
         </button>
         <a 
           className="rounded-xl border px-3 py-2 text-sm hover:bg-slate-50" 
-          href="/trainer"
+          href="/trainer/dashboard"
         >
-          Back to Trainer
+          Back to Dashboard
         </a>
       </div>
     </section>
