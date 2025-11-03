@@ -133,6 +133,12 @@ CREATE POLICY seat_invites_select_own ON public.seat_invites
   FOR SELECT TO authenticated
   USING (created_by = auth.uid());
 
+-- Allow anyone (authenticated) to view invites by token (needed for claim page)
+DROP POLICY IF EXISTS seat_invites_select_by_token ON public.seat_invites;
+CREATE POLICY seat_invites_select_by_token ON public.seat_invites
+  FOR SELECT TO authenticated
+  USING (invite_token IS NOT NULL);
+
 DROP POLICY IF EXISTS seat_invites_insert_own ON public.seat_invites;
 CREATE POLICY seat_invites_insert_own ON public.seat_invites
   FOR INSERT TO authenticated
