@@ -47,7 +47,8 @@ export async function POST(req: NextRequest) {
         // If this is a training purchase, add course_slug and quantity for webhook
         if (item.isTraining) {
           metadata.course_slug = 'forklift';
-          metadata.quantity = String(item.quantity || 1);
+          // Use seat_count from metadata if provided, otherwise use quantity
+          metadata.quantity = String(item.metadata?.seat_count || item.quantity || 1);
         }
         
         // Add core charge as separate line item if applicable
