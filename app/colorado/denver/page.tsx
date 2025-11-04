@@ -13,14 +13,15 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: "Forklift & Equipment Parts in Denver, CO | Flat Earth Equipment",
-  description: "Shop forklift, scissor lift, and heavy equipment parts in Denver Metro. Fast shipping, Western-tough reliability. Request a quote today from Flat Earth Equipment.",
+  title: "Telehandler & Forklift Parts + Rentals Denver, CO | Fast Delivery",
+  description: "Telehandler delivery Denver Metro & Thornton. Fast telehandler parts shipping + rental equipment. JCB, Genie, JLG, Bobcat. Same-day delivery Denver, Aurora, Thornton.",
+  keywords: "telehandler delivery denver, telehandler parts denver, telehandler parts thornton, telehandler rental denver, forklift parts denver, equipment rental denver metro",
   alternates: {
     canonical: '/colorado/denver'
   },
   openGraph: {
-    title: "Forklift & Equipment Parts in Denver, CO | Flat Earth Equipment",
-    description: "Shop forklift, scissor lift, and heavy equipment parts in Denver Metro. Fast shipping, Western-tough reliability.",
+    title: "Telehandler Delivery & Parts in Denver | Flat Earth Equipment",
+    description: "Fast telehandler delivery and parts in Denver Metro. JCB, Genie, JLG telehandler rentals + same-day parts shipping to Denver, Thornton, Aurora.",
     url: "https://flatearthequipment.com/colorado/denver"
   }
 };
@@ -59,17 +60,25 @@ export default async function DenverPage() {
         <div className="relative z-10 flex items-center justify-center h-full px-6 text-center">
           <div className="max-w-2xl">
             <h1 className="text-4xl font-bold leading-tight text-white mb-4">
-              Forklift & Industrial Equipment Parts in Denver, CO
+              Telehandler & Forklift Rentals + Parts in Denver, CO
             </h1>
             <p className="text-white text-lg mb-6">
-              Same-day quotes. Fast shipping across the Denver Metro and Front Range.
+              Fast telehandler delivery to Denver Metro. Same-day parts shipping to Denver, Thornton & Aurora.
             </p>
-            <Link
-              href="/quote"
-              className="inline-block px-8 py-3 bg-canyon-rust text-white font-medium rounded-lg shadow-lg hover:bg-canyon-rust/90 transition-colors"
-            >
-              Request a Quote
-            </Link>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <Link
+                href="/rentals/telehandler"
+                className="inline-block px-8 py-3 bg-orange-500 text-white font-semibold rounded-lg shadow-lg hover:bg-orange-600 transition-colors"
+              >
+                View Telehandler Rentals
+              </Link>
+              <Link
+                href="/quote"
+                className="inline-block px-8 py-3 bg-white text-canyon-rust font-semibold rounded-lg shadow-lg hover:bg-gray-100 transition-colors"
+              >
+                Get Parts Quote
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -77,8 +86,112 @@ export default async function DenverPage() {
       {/* Introduction Paragraph */}
       <section className="max-w-4xl mx-auto px-4 py-12">
         <p className="text-lg text-slate-700 mb-8">
-          Flat Earth Equipment is your trusted source for forklift, scissor lift, and heavy equipment parts in the Denver Metro area. We supply precision-fit components to warehouses, distribution centers, contractors, and facilities throughout Denver, Aurora, Lakewood, Westminster, Thornton, and the Front Range, with fast shipping from our regional hubs. Our extensive inventory includes parts for all major brands, and our team of experienced technicians ensures you get the right part, every time. Whether you need routine maintenance parts or emergency replacements, we're here to keep your equipment running with minimal downtime.
+          Flat Earth Equipment is your trusted source for forklift, scissor lift, telehandler, and heavy equipment parts in the Denver Metro area. We supply precision-fit components to warehouses, distribution centers, contractors, and facilities throughout Denver, Aurora, Lakewood, Westminster, Thornton, and the Front Range, with fast shipping from our regional hubs. Our extensive inventory includes parts for all major brands, and our team of experienced technicians ensures you get the right part, every time. Whether you need routine maintenance parts or emergency replacements, we're here to keep your equipment running with minimal downtime.
         </p>
+
+        {/* Telehandler Rental & Delivery CTA - Prominent Section */}
+        <section className="mb-12 bg-gradient-to-br from-orange-50 to-amber-50 border-2 border-orange-200 rounded-xl p-8 shadow-lg">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+            <div className="flex-shrink-0">
+              <div className="w-16 h-16 bg-orange-500 rounded-xl flex items-center justify-center">
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+            </div>
+            <div className="flex-1">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                Telehandler Rental & Delivery in Denver
+              </h2>
+              <p className="text-gray-700 mb-4">
+                Need a telehandler delivered to your Denver, Thornton, or Aurora jobsite? We provide fast telehandler rentals with same-day or next-day delivery across the Denver Metro and Front Range. JCB, Genie, JLG, and Bobcat models available with lift heights from 19ft to 56ft.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="/rentals/telehandler"
+                  className="inline-flex items-center px-6 py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors shadow-md"
+                >
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                  View Telehandler Rentals
+                </Link>
+                <Link
+                  href="/quote"
+                  className="inline-flex items-center px-6 py-3 bg-white text-orange-600 font-semibold rounded-lg hover:bg-gray-50 transition-colors border-2 border-orange-500"
+                >
+                  Get Delivery Quote
+                </Link>
+              </div>
+              <p className="text-sm text-gray-600 mt-3">
+                ⚡ <strong>Fast delivery to Denver Metro:</strong> Westminster, Thornton, Aurora, Lakewood, Commerce City & all Front Range cities
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Telehandler Parts Section - Enhanced for SEO */}
+        <section className="mb-12 bg-white rounded-xl p-8 shadow-md border border-gray-200">
+          <div className="flex items-start gap-4 mb-6">
+            <div className="flex-shrink-0">
+              <svg className="w-12 h-12 text-canyon-rust" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <div className="flex-1">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                Telehandler Parts in Denver & Thornton
+              </h2>
+              <p className="text-gray-700 mb-4">
+                Fast-shipping telehandler parts for JCB, Genie, JLG, Bobcat, and Caterpillar models. We stock hydraulic filters, transmission filters, engine parts, boom components, and maintenance kits for all major telehandler brands operating in the Denver Metro area.
+              </p>
+              <div className="grid sm:grid-cols-2 gap-3 mb-4">
+                <div className="flex items-center gap-2 text-gray-700">
+                  <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Hydraulic & transmission filters</span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-700">
+                  <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Boom & hydraulic cylinders</span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-700">
+                  <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Engine maintenance kits</span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-700">
+                  <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Same-day delivery Denver Metro</span>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="/parts/category/telehandler-filters"
+                  className="inline-flex items-center px-5 py-2 bg-canyon-rust text-white font-semibold rounded-lg hover:bg-canyon-rust/90 transition-colors"
+                >
+                  Shop Telehandler Parts
+                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+                <Link
+                  href="/quote"
+                  className="inline-flex items-center px-5 py-2 bg-white text-canyon-rust font-semibold rounded-lg hover:bg-gray-50 transition-colors border-2 border-canyon-rust"
+                >
+                  Request Parts Quote
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Popular Parts Section */}
         <section className="mb-12">
@@ -157,15 +270,19 @@ export default async function DenverPage() {
 
         {/* FAQ Section */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-slate-800 mb-4">Denver Parts FAQs</h2>
+          <h2 className="text-2xl font-semibold text-slate-800 mb-4">Denver Equipment FAQs</h2>
           <div className="space-y-6">
             <div className="bg-white rounded-lg shadow-sm p-6">
-              <h3 className="text-lg font-semibold mb-2">Do you ship forklift parts within Denver same day?</h3>
-              <p className="text-slate-700">Yes, we offer same-day delivery for most forklift parts within the Denver Metro area when ordered before 2 PM. Our logistics network ensures your parts arrive when you need them across Denver, Aurora, and surrounding cities.</p>
+              <h3 className="text-lg font-semibold mb-2">Do you deliver telehandlers to Denver and Thornton?</h3>
+              <p className="text-slate-700">Yes! We provide fast telehandler delivery throughout the Denver Metro area, including Thornton, Aurora, Westminster, Commerce City, and all Front Range cities. Same-day and next-day delivery available depending on equipment availability and your location. Our fleet includes JCB, Genie, JLG, and Bobcat telehandlers with reach heights from 19ft to 56ft.</p>
+            </div>
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <h3 className="text-lg font-semibold mb-2">Do you ship telehandler parts within Denver same day?</h3>
+              <p className="text-slate-700">Yes, we offer same-day delivery for most telehandler parts within the Denver Metro area when ordered before 2 PM. We stock filters, hydraulic components, engine parts, and maintenance kits for all major telehandler brands including JCB, Genie, JLG, Bobcat, and Caterpillar. Our logistics network ensures your parts arrive quickly across Denver, Aurora, Thornton, and surrounding cities.</p>
             </div>
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h3 className="text-lg font-semibold mb-2">Which brands do you carry parts for in Colorado?</h3>
-              <p className="text-slate-700">We stock parts for all major brands including Toyota, Hyster, Yale, Crown, and Raymond, with special emphasis on models commonly used in Colorado's warehouses, distribution centers, and cannabis cultivation facilities.</p>
+              <p className="text-slate-700">We stock parts for all major brands including Toyota, Hyster, Yale, Crown, Raymond (forklifts), JCB, Genie, JLG, Bobcat, Caterpillar (telehandlers), and more, with special emphasis on models commonly used in Colorado's warehouses, distribution centers, construction sites, and cannabis cultivation facilities.</p>
             </div>
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h3 className="text-lg font-semibold mb-2">Do you offer volume pricing for Denver businesses?</h3>
