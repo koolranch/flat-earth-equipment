@@ -14,14 +14,14 @@ import {
 
 export const metadata: Metadata = {
   title: "Telehandler & Forklift Parts + Rentals Denver, CO | Fast Delivery",
-  description: "Telehandler delivery Denver Metro & Thornton. Fast telehandler parts shipping + rental equipment. JCB, Genie, JLG, Bobcat. Same-day delivery Denver, Aurora, Thornton.",
-  keywords: "telehandler delivery denver, telehandler parts denver, telehandler parts thornton, telehandler rental denver, forklift parts denver, equipment rental denver metro",
+  description: "Telehandler service Thornton + delivery Denver Metro. Heavy equipment telehandler maintenance, repairs & parts. JCB, Genie, JLG. Same-day service Denver, Lakewood, Thornton.",
+  keywords: "heavy equipment telehandler service thornton, telehandler delivery denver, telehandler parts denver, telehandler parts thornton, telehandler parts lakewood, telehandler maintenance denver, forklift parts denver",
   alternates: {
     canonical: '/colorado/denver'
   },
   openGraph: {
-    title: "Telehandler Delivery & Parts in Denver | Flat Earth Equipment",
-    description: "Fast telehandler delivery and parts in Denver Metro. JCB, Genie, JLG telehandler rentals + same-day parts shipping to Denver, Thornton, Aurora.",
+    title: "Telehandler Service, Delivery & Parts Denver | Flat Earth Equipment",
+    description: "Heavy equipment telehandler service in Thornton + fast delivery Denver Metro. JCB, Genie, JLG repairs, maintenance, rentals & parts. Same-day service available.",
     url: "https://flatearthequipment.com/colorado/denver"
   }
 };
@@ -104,7 +104,7 @@ export default async function DenverPage() {
                 Telehandler Rental & Delivery in Denver
               </h2>
               <p className="text-gray-700 mb-4">
-                Need a telehandler delivered to your Denver, Thornton, or Aurora jobsite? We provide fast telehandler rentals with same-day or next-day delivery across the Denver Metro and Front Range. JCB, Genie, JLG, and Bobcat models available with lift heights from 19ft to 56ft.
+                Need a telehandler delivered to your Denver, Thornton, Lakewood, or Aurora jobsite? We provide fast telehandler rentals with same-day or next-day delivery across the Denver Metro and Front Range. JCB, Genie, JLG, and Bobcat models available with lift heights from 19ft to 56ft.
               </p>
               <div className="flex flex-wrap gap-3">
                 <Link
@@ -124,7 +124,81 @@ export default async function DenverPage() {
                 </Link>
               </div>
               <p className="text-sm text-gray-600 mt-3">
-                ⚡ <strong>Fast delivery to Denver Metro:</strong> Westminster, Thornton, Aurora, Lakewood, Commerce City & all Front Range cities
+                ⚡ <strong>Fast delivery to Denver Metro:</strong> Denver, Thornton, Lakewood, Westminster, Aurora, Commerce City & all Front Range cities
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Telehandler Service & Maintenance Section - High-value service leads */}
+        <section className="mb-12 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-8 shadow-lg border-2 border-blue-200">
+          <div className="flex items-start gap-4 mb-6">
+            <div className="flex-shrink-0">
+              <svg className="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+              </svg>
+            </div>
+            <div className="flex-1">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                Heavy Equipment & Telehandler Service in Thornton
+              </h2>
+              <p className="text-gray-700 mb-4">
+                Professional telehandler service and heavy equipment maintenance in Thornton, Denver, and Lakewood. Our certified technicians provide on-site repairs, preventive maintenance, hydraulic system diagnostics, and emergency breakdown service for JCB, Genie, JLG, Bobcat, and Caterpillar telehandlers throughout the Denver Metro area.
+              </p>
+              
+              <div className="grid sm:grid-cols-2 gap-3 mb-4">
+                <div className="flex items-center gap-2 text-gray-700">
+                  <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>On-site mobile service available</span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-700">
+                  <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Hydraulic system repair & diagnostics</span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-700">
+                  <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Preventive maintenance programs</span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-700">
+                  <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Emergency breakdown support</span>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg p-4 mb-4 border-l-4 border-blue-600">
+                <p className="text-sm text-gray-700">
+                  <strong className="text-blue-600">Service Areas:</strong> Thornton, Denver, Lakewood, Westminster, Commerce City, Aurora, and all Denver Metro locations
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="/quote?service=telehandler-maintenance"
+                  className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-md"
+                >
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Schedule Service
+                </Link>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-50 transition-colors border-2 border-blue-600"
+                >
+                  Request Service Quote
+                </Link>
+              </div>
+
+              <p className="text-sm text-gray-600 mt-3">
+                ⚙️ <strong>24/7 Emergency Service:</strong> Call us for urgent telehandler repairs and breakdown support in Thornton & Denver Metro
               </p>
             </div>
           </div>
@@ -141,10 +215,10 @@ export default async function DenverPage() {
             </div>
             <div className="flex-1">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                Telehandler Parts in Denver & Thornton
+                Telehandler Parts in Denver, Lakewood & Thornton
               </h2>
               <p className="text-gray-700 mb-4">
-                Fast-shipping telehandler parts for JCB, Genie, JLG, Bobcat, and Caterpillar models. We stock hydraulic filters, transmission filters, engine parts, boom components, and maintenance kits for all major telehandler brands operating in the Denver Metro area.
+                Fast-shipping telehandler parts for JCB, Genie, JLG, Bobcat, and Caterpillar models. We stock hydraulic filters, transmission filters, engine parts, boom components, and maintenance kits for all major telehandler brands operating in Denver, Lakewood, Thornton, and throughout the Denver Metro area.
               </p>
               <div className="grid sm:grid-cols-2 gap-3 mb-4">
                 <div className="flex items-center gap-2 text-gray-700">
@@ -273,12 +347,16 @@ export default async function DenverPage() {
           <h2 className="text-2xl font-semibold text-slate-800 mb-4">Denver Equipment FAQs</h2>
           <div className="space-y-6">
             <div className="bg-white rounded-lg shadow-sm p-6">
-              <h3 className="text-lg font-semibold mb-2">Do you deliver telehandlers to Denver and Thornton?</h3>
-              <p className="text-slate-700">Yes! We provide fast telehandler delivery throughout the Denver Metro area, including Thornton, Aurora, Westminster, Commerce City, and all Front Range cities. Same-day and next-day delivery available depending on equipment availability and your location. Our fleet includes JCB, Genie, JLG, and Bobcat telehandlers with reach heights from 19ft to 56ft.</p>
+              <h3 className="text-lg font-semibold mb-2">Do you provide heavy equipment telehandler service in Thornton?</h3>
+              <p className="text-slate-700">Yes! We provide professional telehandler service and heavy equipment maintenance in Thornton, Denver, and throughout the Denver Metro area. Our certified technicians offer on-site mobile service, hydraulic system repairs, preventive maintenance programs, and emergency breakdown support for all major brands including JCB, Genie, JLG, Bobcat, and Caterpillar. Same-day service available for urgent repairs.</p>
             </div>
             <div className="bg-white rounded-lg shadow-sm p-6">
-              <h3 className="text-lg font-semibold mb-2">Do you ship telehandler parts within Denver same day?</h3>
-              <p className="text-slate-700">Yes, we offer same-day delivery for most telehandler parts within the Denver Metro area when ordered before 2 PM. We stock filters, hydraulic components, engine parts, and maintenance kits for all major telehandler brands including JCB, Genie, JLG, Bobcat, and Caterpillar. Our logistics network ensures your parts arrive quickly across Denver, Aurora, Thornton, and surrounding cities.</p>
+              <h3 className="text-lg font-semibold mb-2">Do you deliver telehandlers to Denver, Lakewood, and Thornton?</h3>
+              <p className="text-slate-700">Yes! We provide fast telehandler delivery throughout the Denver Metro area, including Denver, Lakewood, Thornton, Aurora, Westminster, Commerce City, and all Front Range cities. Same-day and next-day delivery available depending on equipment availability and your location. Our fleet includes JCB, Genie, JLG, and Bobcat telehandlers with reach heights from 19ft to 56ft.</p>
+            </div>
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <h3 className="text-lg font-semibold mb-2">Do you ship telehandler parts to Lakewood and Denver same day?</h3>
+              <p className="text-slate-700">Yes, we offer same-day delivery for most telehandler parts within the Denver Metro area when ordered before 2 PM. We stock filters, hydraulic components, engine parts, and maintenance kits for all major telehandler brands including JCB, Genie, JLG, Bobcat, and Caterpillar. Our logistics network ensures your parts arrive quickly across Denver, Lakewood, Thornton, Aurora, and surrounding cities.</p>
             </div>
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h3 className="text-lg font-semibold mb-2">Which brands do you carry parts for in Colorado?</h3>
