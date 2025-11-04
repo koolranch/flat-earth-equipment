@@ -44,7 +44,7 @@ export const metadata = {
     images: ['/og-forklift-training.jpg']
   },
   alternates: {
-    canonical: '/safety'
+    canonical: 'https://flatearthequipment.com/safety'
   },
   robots: {
     index: true,
