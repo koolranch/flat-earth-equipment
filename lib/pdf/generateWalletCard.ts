@@ -111,14 +111,14 @@ export async function generateWalletCardPDF(input: WalletCardInput): Promise<Uin
     page.drawRectangle({ x: 7, y: CARD_H - 32, width: CARD_W - 14, height: 2, color: brandOrange });
     page.drawText('OSHA COMPLIANCE REQUIREMENTS', { x: 24, y: CARD_H - 22, size: 9, font: fontBold, color: darkBlue });
 
-    // OSHA Requirements
+    // OSHA Requirements - Action-oriented and clear
     page.drawText('29 CFR 1910.178(l)', { x: 12, y: CARD_H - 42, size: 7, font: fontBold, color: brandOrange });
     
     const requirements = [
-      '* Formal training completed',
-      '* Workplace evaluation required',
-      '* Equipment-specific training',
-      '* Valid for 3 years from issue date'
+      '* OSHA 1910.178(l) compliant formal instruction',
+      '* Covers all powered industrial trucks',
+      '* Employer must complete practical evaluation',
+      '* Valid 3 years • Re-certify every 3 years'
     ];
     let y = CARD_H - 58; // Start slightly higher
     requirements.forEach((req) => {
