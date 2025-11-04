@@ -92,10 +92,9 @@ export async function generateWalletCardPDF(input: WalletCardInput): Promise<Uin
     // Verification code
     page.drawText(`Code: ${input.verifyCode}`, { x: 12, y: 14, size: 6.5, font: fontBold, color: mediumGray });
 
-    // QR code (right side, bordered)
+    // QR code (right side, bordered) - QR is self-explanatory, no label needed
     const qrSize = 90;
     page.drawRectangle({ x: CARD_W - qrSize - 18, y: 20, width: qrSize + 6, height: qrSize + 14, borderWidth: 1.5, borderColor: brandOrange });
-    page.drawText('VERIFY', { x: CARD_W - qrSize + 5, y: qrSize + 30, size: 7, font: fontBold, color: brandOrange });
     page.drawImage(qrImg, { x: CARD_W - qrSize - 15, y: 23, width: qrSize, height: qrSize });
   }
 
