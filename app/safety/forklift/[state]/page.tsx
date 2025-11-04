@@ -75,6 +75,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `How to Get Forklift Certified in ${state.name} | Online OSHA Training`,
     description: `Learn how to get forklift certified in ${state.name}. Complete OSHA-compliant certification online in under 60 minutes. Instant certificate download for ${state.name} operators.`,
+    alternates: {
+      canonical: `https://www.flatearthequipment.com/safety/forklift/${state.code}`
+    },
     openGraph: {
       title: `Forklift Certification in ${state.name} | OSHA Compliant`,
       description: `Get certified in under 60 minutes. OSHA-compliant online training for ${state.name} operators. Instant certificate download.`,
