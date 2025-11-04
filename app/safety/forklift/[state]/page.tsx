@@ -6,6 +6,7 @@ import Link from "next/link";
 import StateHero from "@/components/state/StateHero";
 import StickyCTA from "@/components/state/StickyCTA";
 import StateProductJsonLd from "@/components/state/StateProductJsonLd";
+import { getStateMetrics } from "@/lib/safety/stateMetrics";
 
 // Disable dynamic params to ensure only pre-generated pages are served
 export const dynamicParams = false
@@ -72,11 +73,21 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const state = forkliftStates.find((s: ForkliftStateInfo) => s.code === params.state) ?? notFound();
+  const metrics = getStateMetrics(params.state);
+  
   return {
     title: `How to Get Forklift Certified in ${state.name} | Online OSHA Training`,
     description: `Learn how to get forklift certified in ${state.name}. Complete OSHA-compliant certification online in under 60 minutes. Instant certificate download for ${state.name} operators.`,
     alternates: {
       canonical: `https://www.flatearthequipment.com/safety/forklift/${state.code}`
+    },
+    robots: {
+      index: metrics.shouldIndex,
+      follow: true,
+      googleBot: {
+        index: metrics.shouldIndex,
+        follow: true,
+      }
     },
     openGraph: {
       title: `Forklift Certification in ${state.name} | OSHA Compliant`,
@@ -125,6 +136,7 @@ function Breadcrumb({ stateName }: { stateName: string }) {
 
 export default function StateForkliftPage({ params }: Props) {
   const info = forkliftStates.find((s: ForkliftStateInfo) => s.code === params.state) ?? notFound();
+  const metrics = getStateMetrics(params.state);
 
   return (
     <>
@@ -140,10 +152,10 @@ export default function StateForkliftPage({ params }: Props) {
         {/* ENHANCED HERO - ABOVE THE FOLD */}
       <section className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-3xl p-8 md:p-12 text-center text-white shadow-2xl">
         <div className="max-w-4xl mx-auto space-y-6">
-          {/* Trust Badge */}
+          {/* Trust Badge - State-specific numbers */}
           <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium">
             <span className="text-yellow-300">★★★★★</span>
-            <span>5,000+ {info.name} Operators Certified</span>
+            <span>{metrics.operatorsCertified.toLocaleString()}+ {info.name} Operators Certified</span>
           </div>
           
           {/* Headline */}
@@ -181,18 +193,18 @@ export default function StateForkliftPage({ params }: Props) {
             />
           </div>
           
-          {/* Urgency */}
+          {/* Urgency - State-specific monthly average */}
           <p className="text-sm text-orange-100 italic">
-            🔥 Popular in {info.name}: Join the 247 operators certified this month
+            🔥 Popular in {info.name}: Join the {metrics.monthlyAverage}+ operators certified this month
           </p>
         </div>
       </section>
 
-      {/* SOCIAL PROOF STRIP */}
+      {/* SOCIAL PROOF STRIP - State-specific metrics */}
       <section className="bg-white border-2 border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm">
         <div className="flex flex-wrap justify-around items-center gap-8 text-center">
           <div>
-            <div className="text-4xl font-bold text-orange-600">5,000+</div>
+            <div className="text-4xl font-bold text-orange-600">{metrics.operatorsCertified.toLocaleString()}+</div>
             <div className="text-sm text-gray-600 mt-1">Certified Operators</div>
           </div>
           <div>
@@ -307,18 +319,31 @@ export default function StateForkliftPage({ params }: Props) {
         </div>
       </section>
 
-      {/* SECONDARY CTA WITH TESTIMONIAL */}
+      {/* SECONDARY CTA WITH STATE-SPECIFIC TESTIMONIAL */}
       <section className="bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl p-8 md:p-10 text-center space-y-6">
         <h2 className="text-3xl md:text-4xl font-bold">Ready to Get Certified in {info.name}?</h2>
         
-        {/* Testimonial */}
+        {/* State-Specific Testimonial */}
         <div className="max-w-3xl mx-auto bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-          <p className="text-lg italic mb-3">
-            "Quick, easy, and affordable. Finished my certification during lunch break. The mobile version worked great on my phone!"
-          </p>
-          <p className="text-sm font-semibold">
-            — Mike T., Warehouse Supervisor in {info.name}
-          </p>
+          {metrics.testimonial ? (
+            <>
+              <p className="text-lg italic mb-3">
+                "{metrics.testimonial.quote}"
+              </p>
+              <p className="text-sm font-semibold">
+                — {metrics.testimonial.name}, {metrics.testimonial.title} in {metrics.testimonial.city}
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="text-lg italic mb-3">
+                "Quick, easy, and affordable. Finished my certification during lunch break. The mobile version worked great on my phone!"
+              </p>
+              <p className="text-sm font-semibold">
+                — Certified Operator in {info.name}
+              </p>
+            </>
+          )}
         </div>
         
         <div className="pt-4">
