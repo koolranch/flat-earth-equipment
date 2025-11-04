@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     title: `${brand.name} Serial Number Lookup | Flat Earth Equipment`, 
     description: `Find your ${brand.name} equipment serial number location and decode your serial for parts identification and service history.`,
     alternates: { 
-      canonical,
+      canonical: fullUrl,
       languages: {
         'en-US': canonical,
         'es-US': `/es/brand/${params.slug}/serial-lookup`

@@ -20,12 +20,13 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   
   // Use the English canonical as the primary canonical (Spanish is alternate)
   const canonicalEn = resolveCanonical(params.slug, 'serial');
+  const fullUrlEn = `https://www.flatearthequipment.com${canonicalEn}`;
   
   return { 
     title: `${brand.name} — Búsqueda por número de serie | Flat Earth Equipment`, 
     description: `Encuentra la ubicación del número de serie de tu equipo ${brand.name} y decodifica tu serie para identificación de partes e historial de servicio.`,
     alternates: { 
-      canonical: canonicalEn, // Point to English version as primary
+      canonical: fullUrlEn, // Point to English version as primary (absolute URL)
       languages: { 
         'en-US': canonicalEn, 
         'es-US': `/es/brand/${params.slug}/serial-lookup` 
