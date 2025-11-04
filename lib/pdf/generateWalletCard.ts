@@ -121,13 +121,13 @@ export async function generateWalletCardPDF(input: WalletCardInput): Promise<Uin
       '* Equipment-specific training',
       '* Valid for 3 years from issue date'
     ];
-    let y = CARD_H - 56;
+    let y = CARD_H - 58; // Start slightly higher
     requirements.forEach((req) => {
       page.drawText(req, { x: 12, y, size: 7, font, color: darkBlue });
-      y -= 12;
+      y -= 14; // Increased spacing from 12 to 14 for better readability
     });
 
-    // Important notice box (more prominent)
+    // Important notice box (more prominent) - positioned with proper spacing from requirements
     page.drawRectangle({ x: 10, y: 28, width: CARD_W - 20, height: 36, borderWidth: 1.5, borderColor: brandOrange, color: rgb(1, 0.98, 0.95) });
     page.drawText('IMPORTANT:', { x: 14, y: 56, size: 8, font: fontBold, color: brandOrange });
     page.drawText('Employer must verify and document', { x: 14, y: 46, size: 6.5, font: fontBold, color: darkBlue });
