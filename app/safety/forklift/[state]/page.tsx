@@ -7,6 +7,13 @@ import StateHero from "@/components/state/StateHero";
 import StickyCTA from "@/components/state/StickyCTA";
 import StateProductJsonLd from "@/components/state/StateProductJsonLd";
 import { getStateMetrics } from "@/lib/safety/stateMetrics";
+import SafetyScreenshots from "@/app/safety/components/SafetyScreenshots";
+import Testimonial from "@/app/safety/components/Testimonial";
+import ReasonsToJoin from "@/components/ReasonsToJoin";
+import HowItWorksStrip from "@/components/HowItWorksStrip";
+import PricingStrip from "@/components/training/PricingStrip";
+import ValueGrid from "@/components/marketing/ValueGrid";
+import { getMarketingDict } from '@/i18n';
 
 // Disable dynamic params to ensure only pre-generated pages are served
 export const dynamicParams = false
@@ -137,6 +144,7 @@ function Breadcrumb({ stateName }: { stateName: string }) {
 export default function StateForkliftPage({ params }: Props) {
   const info = forkliftStates.find((s: ForkliftStateInfo) => s.code === params.state) ?? notFound();
   const metrics = getStateMetrics(params.state);
+  const t = getMarketingDict('en'); // Get marketing copy for ValueGrid
 
   return (
     <>
@@ -229,6 +237,130 @@ export default function StateForkliftPage({ params }: Props) {
         )}
       </section>
 
+      {/* Visual proof section - Product Screenshots */}
+      <SafetyScreenshots />
+
+      {/* Social proof - Testimonial */}
+      <Testimonial />
+
+      {/* Comparison Table - Classroom vs Online */}
+      <section className="mt-8 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-200 p-6 sm:p-8">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center text-slate-900 mb-6">
+          Why Choose Online Training?
+        </h2>
+        
+        {/* Mobile: Stacked comparison cards */}
+        <div className="space-y-4 sm:hidden">
+          {[
+            { icon: '⏰', label: 'Time', old: '8 hours', new: 'Under 60 min' },
+            { icon: '💵', label: 'Cost', old: '$200-$500', new: '$59' },
+            { icon: '📍', label: 'Location', old: 'Travel required', new: 'Anywhere' },
+            { icon: '📜', label: 'Certificate', old: '1-2 weeks', new: 'Instant' },
+          ].map((item, i) => (
+            <div key={i} className="bg-white rounded-xl p-4 border-2 border-blue-200">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-2xl">{item.icon}</span>
+                <span className="text-xs font-semibold text-slate-500">{item.label}</span>
+              </div>
+              <div className="grid grid-cols-2 gap-3 text-sm">
+                <div>
+                  <div className="text-xs text-slate-500 mb-1">Classroom</div>
+                  <div className="font-medium text-slate-700">{item.old}</div>
+                </div>
+                <div className="border-l-2 border-[#F76511] pl-3">
+                  <div className="text-xs text-[#F76511] font-semibold mb-1">Online</div>
+                  <div className="font-bold text-[#F76511]">{item.new}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop: Table view */}
+        <div className="hidden sm:block overflow-x-auto">
+          <table className="w-full text-left">
+            <thead>
+              <tr className="border-b-2 border-blue-300">
+                <th className="pb-3 text-slate-700 font-semibold"></th>
+                <th className="pb-3 text-slate-700 font-semibold">Traditional Classroom</th>
+                <th className="pb-3 text-[#F76511] font-bold">Flat Earth Safety Online</th>
+              </tr>
+            </thead>
+            <tbody className="text-sm">
+              <tr className="border-b border-blue-100">
+                <td className="py-3 font-medium text-slate-700">⏰ Time Required</td>
+                <td className="py-3 text-slate-600">8 hours (full day)</td>
+                <td className="py-3 text-[#F76511] font-semibold">Under 60 minutes ⚡</td>
+              </tr>
+              <tr className="border-b border-blue-100">
+                <td className="py-3 font-medium text-slate-700">💵 Cost</td>
+                <td className="py-3 text-slate-600">$200-$500</td>
+                <td className="py-3 text-[#F76511] font-semibold">$59</td>
+              </tr>
+              <tr className="border-b border-blue-100">
+                <td className="py-3 font-medium text-slate-700">📍 Location</td>
+                <td className="py-3 text-slate-600">Must travel to center</td>
+                <td className="py-3 text-[#F76511] font-semibold">Train anywhere</td>
+              </tr>
+              <tr className="border-b border-blue-100">
+                <td className="py-3 font-medium text-slate-700">📅 Schedule</td>
+                <td className="py-3 text-slate-600">Fixed class times</td>
+                <td className="py-3 text-[#F76511] font-semibold">24/7 - Start now</td>
+              </tr>
+              <tr className="border-b border-blue-100">
+                <td className="py-3 font-medium text-slate-700">📜 Certificate</td>
+                <td className="py-3 text-slate-600">Mail in 1-2 weeks</td>
+                <td className="py-3 text-[#F76511] font-semibold">Instant download</td>
+              </tr>
+              <tr className="border-b border-blue-100">
+                <td className="py-3 font-medium text-slate-700">✅ OSHA Compliance</td>
+                <td className="py-3 text-slate-600">29 CFR 1910.178</td>
+                <td className="py-3 text-[#F76511] font-semibold">29 CFR 1910.178</td>
+              </tr>
+              <tr>
+                <td className="py-3 font-medium text-slate-700">🔄 Retakes</td>
+                <td className="py-3 text-slate-600">Pay again</td>
+                <td className="py-3 text-[#F76511] font-semibold">Free unlimited</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div className="mt-6 text-center p-4 bg-white rounded-xl border border-blue-200">
+          <p className="text-base sm:text-lg font-bold text-slate-900">
+            💰 You save: $141-$441 + 7 hours
+          </p>
+          <p className="text-sm text-slate-600 mt-1">
+            Same OSHA certification. Faster and more convenient.
+          </p>
+        </div>
+      </section>
+
+      {/* Authority & Compliance Section - 3 Cards */}
+      <section className="mt-8 grid sm:grid-cols-3 gap-4">
+        <div className="bg-white rounded-xl border-2 border-green-200 p-6 text-center shadow-sm">
+          <div className="text-4xl mb-3">📋</div>
+          <h3 className="font-bold text-slate-900 mb-2">OSHA 29 CFR 1910.178</h3>
+          <p className="text-sm text-slate-600">
+            Meets all required formal instruction topics for powered industrial trucks
+          </p>
+        </div>
+        <div className="bg-white rounded-xl border-2 border-blue-200 p-6 text-center shadow-sm">
+          <div className="text-4xl mb-3">🗺️</div>
+          <h3 className="font-bold text-slate-900 mb-2">Accepted in All 50 States</h3>
+          <p className="text-sm text-slate-600">
+            Valid nationwide. Recognized by employers across the United States
+          </p>
+        </div>
+        <div className="bg-white rounded-xl border-2 border-orange-200 p-6 text-center shadow-sm">
+          <div className="text-4xl mb-3">✅</div>
+          <h3 className="font-bold text-slate-900 mb-2">Instant Verification</h3>
+          <p className="text-sm text-slate-600">
+            QR code on certificate allows instant verification by employers
+          </p>
+        </div>
+      </section>
+
       {/* FINES TABLE */}
       <section className="space-y-6">
         <h2 className="text-2xl font-semibold">OSHA Penalties in {info.name}</h2>
@@ -318,6 +450,30 @@ export default function StateForkliftPage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      {/* Reasons to Join - New Component */}
+      <ReasonsToJoin />
+
+      {/* How It Works - New Component */}
+      <HowItWorksStrip />
+
+      {/* Urgency Element */}
+      <div className="mt-8 bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-orange-200 rounded-xl p-6 text-center">
+        <p className="text-lg font-bold text-slate-900 mb-2">
+          🚀 Start Today, Get Certified Today
+        </p>
+        <p className="text-sm text-slate-700">
+          Complete your training in under an hour and download your certificate immediately. Don't wait for scheduled classes - get job-ready now.
+        </p>
+      </div>
+
+      {/* Pricing Cards - New Component */}
+      <PricingStrip />
+
+      {/* Value Propositions - New Component */}
+      <div className="mt-8">
+        <ValueGrid t={t} />
+      </div>
 
       {/* SECONDARY CTA WITH STATE-SPECIFIC TESTIMONIAL */}
       <section className="bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl p-8 md:p-10 text-center space-y-6">
