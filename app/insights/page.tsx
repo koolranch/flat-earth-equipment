@@ -13,19 +13,19 @@ export default async function InsightsPage() {
   // Categorize posts by keywords for better organization
   const categories = {
     'Forklift Parts': posts.filter(p => 
-      p.keywords?.some(k => k.toLowerCase().includes('forklift')) || 
+      (Array.isArray(p.keywords) && p.keywords.some(k => k.toLowerCase().includes('forklift'))) || 
       p.title.toLowerCase().includes('forklift')
     ),
     'Battery Chargers': posts.filter(p => 
-      p.keywords?.some(k => k.toLowerCase().includes('charger') || k.toLowerCase().includes('battery')) ||
+      (Array.isArray(p.keywords) && p.keywords.some(k => k.toLowerCase().includes('charger') || k.toLowerCase().includes('battery'))) ||
       p.title.toLowerCase().includes('charger') || p.title.toLowerCase().includes('battery')
     ),
     'Maintenance': posts.filter(p => 
-      p.keywords?.some(k => k.toLowerCase().includes('maintenance') || k.toLowerCase().includes('repair')) ||
+      (Array.isArray(p.keywords) && p.keywords.some(k => k.toLowerCase().includes('maintenance') || k.toLowerCase().includes('repair'))) ||
       p.title.toLowerCase().includes('maintenance')
     ),
     'Safety': posts.filter(p => 
-      p.keywords?.some(k => k.toLowerCase().includes('safety')) ||
+      (Array.isArray(p.keywords) && p.keywords.some(k => k.toLowerCase().includes('safety'))) ||
       p.title.toLowerCase().includes('safety')
     ),
   };
