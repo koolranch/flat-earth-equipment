@@ -77,7 +77,7 @@ export default function StateHero() {
         <p className="mt-4 text-slate-200 text-lg md:text-xl max-w-3xl">
           OSHA-aligned online training with instant digital certificate & wallet card. Your supervisor completes the on-site evaluation.
         </p>
-        <div className="mt-6 flex flex-col sm:flex-row sm:items-center gap-3">
+        <div className="mt-6">
           <button
             onClick={handleCheckout}
             disabled={isLoading}
@@ -95,12 +95,6 @@ export default function StateHero() {
               'Get Certified Now — $59 →'
             )}
           </button>
-          <Link
-            href="/training/module-1-new"
-            className="inline-flex items-center justify-center rounded-xl border-2 border-white/20 px-6 py-3 font-medium text-white hover:bg-white/5 transition-colors"
-          >
-            Preview Module 1 Free
-          </Link>
         </div>
         {error && (
           <p className="mt-3 text-red-400 text-sm">{error}</p>
