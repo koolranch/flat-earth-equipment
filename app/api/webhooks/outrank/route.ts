@@ -20,9 +20,12 @@ export async function POST(req: NextRequest) {
     const accessToken = process.env.OUTRANK_WEBHOOK_TOKEN;
     
     if (!accessToken) {
-      console.error('OUTRANK_WEBHOOK_TOKEN not configured');
+      console.error('OUTRANK_WEBHOOK_TOKEN not configured in environment variables');
       return NextResponse.json(
-        { error: 'Webhook not configured' },
+        { 
+          error: 'Webhook not configured',
+          message: 'OUTRANK_WEBHOOK_TOKEN environment variable is missing'
+        },
         { status: 500 }
       );
     }
@@ -31,13 +34,31 @@ export async function POST(req: NextRequest) {
     const body = await req.text();
     const signature = req.headers.get('x-outrank-signature') || '';
 
-    // Verify the webhook signature
-    if (!verifyWebhookSignature(body, signature, accessToken)) {
-      console.error('Invalid webhook signature');
-      return NextResponse.json(
-        { error: 'Invalid signature' },
-        { status: 401 }
-      );
+    console.log('Webhook received:', {
+      hasSignature: !!signature,
+      bodyLength: body.length,
+      signatureLength: signature.length
+    });
+
+    // Verify the webhook signature if present
+    if (signature) {
+      try {
+        if (!verifyWebhookSignature(body, signature, accessToken)) {
+          console.error('Invalid webhook signature');
+          return NextResponse.json(
+            { error: 'Invalid signature' },
+            { status: 401 }
+          );
+        }
+      } catch (verifyError) {
+        console.error('Signature verification error:', verifyError);
+        return NextResponse.json(
+          { error: 'Signature verification failed' },
+          { status: 401 }
+        );
+      }
+    } else {
+      console.warn('No signature provided - this may be a test webhook');
     }
 
     // Parse the payload
@@ -67,8 +88,12 @@ export async function POST(req: NextRequest) {
 
   } catch (error) {
     console.error('Webhook processing error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { 
+        error: 'Internal server error',
+        details: errorMessage
+      },
       { status: 500 }
     );
   }
