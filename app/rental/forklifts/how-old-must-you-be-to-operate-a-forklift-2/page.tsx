@@ -123,7 +123,7 @@ export default function ForkliftOperatorAgeRequirementsPage() {
           <ul className="list-none space-y-2">
             <li className="flex items-center">
               <Phone className="w-5 h-5 mr-2" />
-              <span>(307) 302-0043</span>
+              <a href="mailto:rentals@flatearthequipment.com" className="text-blue-600 hover:underline">rentals@flatearthequipment.com</a>
             </li>
             <li className="flex items-center">
               <Mail className="w-5 h-5 mr-2" />

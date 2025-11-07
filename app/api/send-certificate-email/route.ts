@@ -85,7 +85,7 @@ export async function POST(req: Request) {
       
       <div style="text-align: center; color: #6b7280; font-size: 12px;">
         <p>Flat Earth Safety™ | OSHA-Compliant Training Solutions</p>
-        <p>flatearthequipment.com | training@flatearthequipment.com | (307) 302-0043</p>
+        <p>flatearthequipment.com | training@flatearthequipment.com</p>
       </div>
     </body>
     </html>

@@ -181,7 +181,7 @@ function generateOrderEmail(order: OrderData): { subject: string; emailHtml: str
       <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #1e40af;">
         <li>We'll process your order within 1-2 business days</li>
         <li>You'll receive tracking information once your order ships</li>
-        <li>Questions? Reply to this email or call (307) 302-0043</li>
+        <li>Questions? Reply to this email and we'll respond within 24 hours</li>
       </ul>
     </div>
     
@@ -189,7 +189,7 @@ function generateOrderEmail(order: OrderData): { subject: string; emailHtml: str
     
     <div style="text-align: center; color: #6b7280; font-size: 12px;">
       <p>Flat Earth Equipment | Quality Parts & Training Solutions</p>
-      <p>flatearthequipment.com | orders@flatearthequipment.com | (307) 302-0043</p>
+      <p>flatearthequipment.com | orders@flatearthequipment.com</p>
       <p style="margin-top: 15px;">30 N Gould St., Ste R, Sheridan, WY 82801</p>
     </div>
   </body>

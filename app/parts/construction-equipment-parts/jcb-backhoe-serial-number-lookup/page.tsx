@@ -117,7 +117,7 @@ export default function JcbBackhoeSerialNumberPage() {
           <ul className="list-none space-y-2">
             <li className="flex items-center">
               <Phone className="w-5 h-5 mr-2" />
-              <span>(307) 302-0043</span>
+              <a href="mailto:parts@flatearthequipment.com" className="text-blue-600 hover:underline">parts@flatearthequipment.com</a>
             </li>
             <li className="flex items-center">
               <Mail className="w-5 h-5 mr-2" />
