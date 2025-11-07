@@ -63,10 +63,23 @@ export async function POST(req: NextRequest) {
     }
 
     // Parse the payload
-    const payload = JSON.parse(body);
+    console.log('📦 Attempting to parse payload, body length:', body.length);
+    
+    let payload;
+    try {
+      payload = JSON.parse(body);
+    } catch (parseError) {
+      console.error('❌ JSON parse error:', parseError);
+      console.error('Body preview:', body.substring(0, 500));
+      return NextResponse.json(
+        { error: 'Invalid JSON payload' },
+        { status: 400 }
+      );
+    }
+    
     const { event_type, timestamp, data } = payload;
 
-    console.log('Received Outrank webhook:', {
+    console.log('✅ Received Outrank webhook:', {
       event_type,
       timestamp,
       article_count: data?.articles?.length || 0
