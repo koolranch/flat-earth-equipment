@@ -133,7 +133,7 @@ async function saveArticleAsMDX(article: any) {
     fs.mkdirSync(insightsDir, { recursive: true });
   }
 
-  // Determine keywords/tags for categorization
+  // Use Outrank's SEO-optimized tags/keywords
   const keywords = article.tags || [];
   
   // Format the date (YYYY-MM-DD)
@@ -141,10 +141,21 @@ async function saveArticleAsMDX(article: any) {
     ? new Date(article.created_at).toISOString().split('T')[0]
     : new Date().toISOString().split('T')[0];
 
-  // Create MDX frontmatter
+  // Escape single quotes in strings for YAML frontmatter
+  const escapeYaml = (str: string) => str.replace(/'/g, "''");
+  
+  // Use Outrank's SEO-optimized meta_description (already optimized for search engines)
+  const description = article.meta_description || article.title;
+  
+  // Ensure description is within SEO best practices (150-160 chars)
+  const seoDescription = description.length > 160 
+    ? description.substring(0, 157) + '...'
+    : description;
+
+  // Create MDX frontmatter with Outrank's SEO data
   const frontmatter = `---
-title: '${article.title.replace(/'/g, "''")}'
-description: '${(article.meta_description || article.title).replace(/'/g, "''")}'
+title: '${escapeYaml(article.title)}'
+description: '${escapeYaml(seoDescription)}'
 slug: ${article.slug}
 date: '${publishDate}'
 keywords: ${JSON.stringify(keywords)}
@@ -152,7 +163,8 @@ ${article.image_url ? `image: '${article.image_url}'` : ''}
 ---
 `;
 
-  // Use markdown content from Outrank
+  // Use markdown content from Outrank (preferred for better rendering)
+  // Fall back to HTML if markdown not available
   const content = article.content_markdown || article.content_html || '';
   
   // Combine frontmatter + content
@@ -163,6 +175,10 @@ ${article.image_url ? `image: '${article.image_url}'` : ''}
   fs.writeFileSync(filePath, mdxContent, 'utf8');
 
   console.log(`📝 Article saved to: ${filePath}`);
+  console.log(`   Title: ${article.title}`);
+  console.log(`   Description: ${seoDescription.substring(0, 80)}...`);
+  console.log(`   Keywords: ${keywords.join(', ')}`);
+  console.log(`   Image: ${article.image_url ? 'Yes' : 'No'}`);
   
   // Trigger revalidation of insights pages
   try {
