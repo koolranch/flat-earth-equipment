@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import crypto from 'crypto';
+import fs from 'fs';
+import path from 'path';
 
 // Verify webhook signature
 function verifyWebhookSignature(
@@ -112,26 +115,62 @@ async function handlePublishArticles(data: any) {
       created_at: article.created_at
     });
 
-    // TODO: Implement your article processing logic here
-    // For example:
-    // - Save to database
-    // - Generate pages
-    // - Send notifications
-    // - Trigger revalidation
-    
-    // Example: You might want to save to Supabase
-    // const supabase = supabaseServer();
-    // await supabase.from('articles').insert({
-    //   outrank_id: article.id,
-    //   title: article.title,
-    //   slug: article.slug,
-    //   content_html: article.content_html,
-    //   content_markdown: article.content_markdown,
-    //   meta_description: article.meta_description,
-    //   image_url: article.image_url,
-    //   tags: article.tags,
-    //   created_at: article.created_at
-    // });
+    try {
+      // Save article as MDX file
+      await saveArticleAsMDX(article);
+      console.log(`✅ Saved article: ${article.slug}`);
+    } catch (error) {
+      console.error(`❌ Error saving article ${article.slug}:`, error);
+    }
+  }
+}
+
+async function saveArticleAsMDX(article: any) {
+  const insightsDir = path.join(process.cwd(), 'content', 'insights');
+  
+  // Ensure directory exists
+  if (!fs.existsSync(insightsDir)) {
+    fs.mkdirSync(insightsDir, { recursive: true });
+  }
+
+  // Determine keywords/tags for categorization
+  const keywords = article.tags || [];
+  
+  // Format the date (YYYY-MM-DD)
+  const publishDate = article.created_at 
+    ? new Date(article.created_at).toISOString().split('T')[0]
+    : new Date().toISOString().split('T')[0];
+
+  // Create MDX frontmatter
+  const frontmatter = `---
+title: '${article.title.replace(/'/g, "''")}'
+description: '${(article.meta_description || article.title).replace(/'/g, "''")}'
+slug: ${article.slug}
+date: '${publishDate}'
+keywords: ${JSON.stringify(keywords)}
+${article.image_url ? `image: '${article.image_url}'` : ''}
+---
+`;
+
+  // Use markdown content from Outrank
+  const content = article.content_markdown || article.content_html || '';
+  
+  // Combine frontmatter + content
+  const mdxContent = frontmatter + '\n' + content;
+
+  // Save to file
+  const filePath = path.join(insightsDir, `${article.slug}.mdx`);
+  fs.writeFileSync(filePath, mdxContent, 'utf8');
+
+  console.log(`📝 Article saved to: ${filePath}`);
+  
+  // Trigger revalidation of insights pages
+  try {
+    revalidatePath('/insights');
+    revalidatePath(`/insights/${article.slug}`);
+    console.log('🔄 Revalidated insights pages');
+  } catch (revalidateError) {
+    console.warn('⚠️ Could not trigger revalidation:', revalidateError);
   }
 }
 
