@@ -474,7 +474,11 @@ export default async function BlogPost({ params }: Props) {
 
         {/* Enhanced Article Content */}
         <article className="prose prose-slate max-w-none prose-headings:font-bold prose-h1:text-4xl prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4 prose-p:text-slate-700 prose-li:text-slate-700 prose-strong:text-slate-900 prose-a:text-canyon-rust prose-a:no-underline hover:prose-a:underline">
-          {post.content}
+          {post.content && typeof post.content === 'object' && 'isRawHTML' in post.content ? (
+            <div dangerouslySetInnerHTML={{ __html: post.content.__html }} />
+          ) : (
+            post.content
+          )}
         </article>
 
         {/* Call to Action for Charger Guide */}
