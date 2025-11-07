@@ -160,7 +160,10 @@ ${article.image_url ? `image: '${article.image_url}'` : ''}
 
   // Use markdown content from Outrank (preferred for better rendering)
   // Fall back to HTML if markdown not available
-  const content = article.content_markdown || article.content_html || '';
+  let content = article.content_markdown || article.content_html || '';
+  
+  // Sanitize content to prevent MDX parsing errors
+  content = sanitizeMarkdownForMDX(content);
   
   // Combine frontmatter + content
   const mdxContent = frontmatter + '\n' + content;
@@ -173,6 +176,26 @@ ${article.image_url ? `image: '${article.image_url}'` : ''}
   console.log(`   Description: ${seoDescription.substring(0, 80)}...`);
   console.log(`   Keywords: ${keywords.join(', ')}`);
   console.log(`   Image: ${article.image_url ? 'Yes' : 'No'}`);
+}
+
+function sanitizeMarkdownForMDX(content: string): string {
+  // Fix common MDX parsing issues from Outrank content
+  
+  // 1. Escape curly braces that aren't part of JSX
+  content = content.replace(/\{(?![a-zA-Z\s])/g, '\\{');
+  content = content.replace(/(?<![a-zA-Z\s])\}/g, '\\}');
+  
+  // 2. Fix markdown tables - ensure proper spacing
+  content = content.replace(/\n\|/g, '\n\n|');
+  content = content.replace(/\|\n/g, '|\n\n');
+  
+  // 3. Ensure code blocks are properly closed
+  const codeBlockCount = (content.match(/```/g) || []).length;
+  if (codeBlockCount % 2 !== 0) {
+    content += '\n```'; // Close unclosed code block
+  }
+  
+  return content;
 }
 
 async function saveToGitHub(slug: string, content: string) {
