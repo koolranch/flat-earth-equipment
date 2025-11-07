@@ -24,19 +24,30 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
     const filePath = path.join(process.cwd(), 'content/insights', `${slug}.mdx`);
     const fileContent = fs.readFileSync(filePath, 'utf8');
     const { data, content } = matter(fileContent);
-    const { content: compiledContent } = await compileMDX({
-      source: content,
-      options: { parseFrontmatter: true },
-      components: {
-        AmperageCalculator,
-        QuickReferenceCard,
-        ChargingROICalculator,
-        LithiumChargingCalculator,
-        TCOComparisonCalculator,
-        BMSCompatibilityChecker,
-        FAQSection,
-      }
-    });
+    
+    let compiledContent;
+    
+    try {
+      // Try to compile as MDX first
+      const result = await compileMDX({
+        source: content,
+        options: { parseFrontmatter: true },
+        components: {
+          AmperageCalculator,
+          QuickReferenceCard,
+          ChargingROICalculator,
+          LithiumChargingCalculator,
+          TCOComparisonCalculator,
+          BMSCompatibilityChecker,
+          FAQSection,
+        }
+      });
+      compiledContent = result.content;
+    } catch (mdxError) {
+      // If MDX compilation fails, render HTML directly (for Outrank content)
+      console.warn(`MDX compilation failed for ${slug}, using raw HTML fallback`);
+      compiledContent = <div dangerouslySetInnerHTML={{ __html: content }} />;
+    }
 
     return {
       slug,
