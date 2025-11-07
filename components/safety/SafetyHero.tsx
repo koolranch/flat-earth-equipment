@@ -112,6 +112,7 @@ export default function SafetyHero() {
             <p className="mt-3 text-red-400 text-sm">{error}</p>
           )}
           <p className="mt-3 text-sm text-white/90">OSHA 1910.178 compliant · Accepted nationwide · Instant download</p>
+          <p className="mt-2 text-sm text-emerald-300 font-medium">✨ Lifetime access. Free theory refresher every 3 years—we'll remind you when it's time.</p>
           <p className="mt-2 text-sm text-slate-300">Secure checkout — Apple Pay / Google Pay / Link</p>
         </div>
       </div>
