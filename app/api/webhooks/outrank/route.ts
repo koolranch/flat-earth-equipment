@@ -158,12 +158,9 @@ ${article.image_url ? `image: '${article.image_url}'` : ''}
 ---
 `;
 
-  // Use markdown content from Outrank (preferred for better rendering)
-  // Fall back to HTML if markdown not available
-  let content = article.content_markdown || article.content_html || '';
-  
-  // Sanitize content to prevent MDX parsing errors
-  content = sanitizeMarkdownForMDX(content);
+  // Use HTML content from Outrank (more reliable than markdown for MDX parsing)
+  // Outrank's markdown sometimes has syntax that breaks next-mdx-remote
+  const content = article.content_html || article.content_markdown || '';
   
   // Combine frontmatter + content
   const mdxContent = frontmatter + '\n' + content;
