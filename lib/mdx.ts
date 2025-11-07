@@ -44,9 +44,10 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       });
       compiledContent = result.content;
     } catch (mdxError) {
-      // If MDX compilation fails, render HTML directly (for Outrank content)
+      // If MDX compilation fails, return a special marker for raw HTML rendering
       console.warn(`MDX compilation failed for ${slug}, using raw HTML fallback`);
-      compiledContent = <div dangerouslySetInnerHTML={{ __html: content }} />;
+      // Return the raw HTML content wrapped in a special marker
+      compiledContent = { __html: content, isRawHTML: true };
     }
 
     return {
