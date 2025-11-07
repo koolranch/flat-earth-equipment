@@ -192,6 +192,12 @@ export default function StateForkliftPage({ params }: Props) {
             </div>
           </div>
           
+          {/* Lifetime Access Badge */}
+          <div className="mt-2 inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium">
+            <span>✨</span>
+            <span>Lifetime access. Free theory refresher every 3 years—we'll remind you when it's time.</span>
+          </div>
+          
           {/* Primary CTA */}
           <div className="pt-4">
             <CheckoutButton 
@@ -447,6 +453,10 @@ export default function StateForkliftPage({ params }: Props) {
           <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-orange-200 hover:shadow-md transition-shadow">
             <div className="text-orange-500 text-xl">✓</div>
             <span className="text-gray-700">Valid for 3 years throughout {info.name}</span>
+          </div>
+          <div className="flex items-start gap-3 bg-gradient-to-br from-emerald-50 to-green-50 p-4 rounded-xl border-2 border-emerald-300 hover:shadow-md transition-shadow">
+            <div className="text-emerald-600 text-xl">✨</div>
+            <span className="text-gray-700"><strong className="text-emerald-700">Lifetime access.</strong> Free theory refresher every 3 years—we'll remind you when it's time.</span>
           </div>
         </div>
       </section>
