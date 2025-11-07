@@ -293,7 +293,7 @@ export default function CertificacionMontacargasEspanol() {
               usa nuestro chat en vivo para obtener ayuda inmediata.
             </p>
             <p className="mt-2">
-              📞 Teléfono: <a href="tel:+13073020043" className="text-blue-600 hover:text-blue-800">(307) 302-0043</a> |
+              📧 Email:
               📧 Email: <a href="mailto:support@flatearthequipment.com" className="text-blue-600 hover:text-blue-800">support@flatearthequipment.com</a>
             </p>
           </div>

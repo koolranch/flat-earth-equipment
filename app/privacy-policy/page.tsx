@@ -27,7 +27,7 @@ export default function PrivacyPolicy() {
         Flat Earth Equipment<br/>
         30 N Gould St., Ste R<br/>
         Sheridan, WY 82801<br/>
-        <a href="tel:+13073020043">(307) 302-0043</a>
+        <a href="mailto:contact@flatearthequipment.com">contact@flatearthequipment.com</a>
       </address>
     </main>
   )
