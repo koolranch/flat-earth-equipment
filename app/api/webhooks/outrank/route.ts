@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import crypto from 'crypto';
-import fs from 'fs';
-import path from 'path';
 
 // Verify webhook signature
 function verifyWebhookSignature(
@@ -126,13 +124,6 @@ async function handlePublishArticles(data: any) {
 }
 
 async function saveArticleAsMDX(article: any) {
-  const insightsDir = path.join(process.cwd(), 'content', 'insights');
-  
-  // Ensure directory exists
-  if (!fs.existsSync(insightsDir)) {
-    fs.mkdirSync(insightsDir, { recursive: true });
-  }
-
   // Use Outrank's SEO-optimized tags/keywords
   const keywords = article.tags || [];
   
@@ -170,23 +161,73 @@ ${article.image_url ? `image: '${article.image_url}'` : ''}
   // Combine frontmatter + content
   const mdxContent = frontmatter + '\n' + content;
 
-  // Save to file
-  const filePath = path.join(insightsDir, `${article.slug}.mdx`);
-  fs.writeFileSync(filePath, mdxContent, 'utf8');
+  // Save to GitHub via API (Vercel filesystem is read-only)
+  await saveToGitHub(article.slug, mdxContent);
 
-  console.log(`📝 Article saved to: ${filePath}`);
+  console.log(`📝 Article saved to GitHub: ${article.slug}.mdx`);
   console.log(`   Title: ${article.title}`);
   console.log(`   Description: ${seoDescription.substring(0, 80)}...`);
   console.log(`   Keywords: ${keywords.join(', ')}`);
   console.log(`   Image: ${article.image_url ? 'Yes' : 'No'}`);
+}
+
+async function saveToGitHub(slug: string, content: string) {
+  const githubToken = process.env.GITHUB_TOKEN;
+  const repo = 'koolranch/flat-earth-equipment'; // Update if different
+  const filePath = `content/insights/${slug}.mdx`;
   
-  // Trigger revalidation of insights pages
-  try {
-    revalidatePath('/insights');
-    revalidatePath(`/insights/${article.slug}`);
-    console.log('🔄 Revalidated insights pages');
-  } catch (revalidateError) {
-    console.warn('⚠️ Could not trigger revalidation:', revalidateError);
+  if (!githubToken) {
+    throw new Error('GITHUB_TOKEN environment variable not set');
   }
+
+  // Check if file already exists (to get SHA for update)
+  let sha: string | undefined;
+  try {
+    const checkResponse = await fetch(
+      `https://api.github.com/repos/${repo}/contents/${filePath}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${githubToken}`,
+          'Accept': 'application/vnd.github.v3+json',
+        },
+      }
+    );
+    
+    if (checkResponse.ok) {
+      const data: any = await checkResponse.json();
+      sha = data.sha as string;
+      console.log(`   Updating existing article (SHA: ${sha.substring(0, 7)})`);
+    }
+  } catch (error) {
+    console.log(`   Creating new article`);
+  }
+
+  // Create or update file via GitHub API
+  const response = await fetch(
+    `https://api.github.com/repos/${repo}/contents/${filePath}`,
+    {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${githubToken}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        message: `Add/Update article: ${slug}`,
+        content: Buffer.from(content).toString('base64'),
+        ...(sha && { sha }), // Required for updates, omitted for new files
+        branch: 'main',
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`GitHub API error: ${response.status} - ${error}`);
+  }
+
+  const result = await response.json();
+  console.log(`   ✅ Committed to GitHub: ${result.commit.sha.substring(0, 7)}`);
+  console.log(`   🚀 Vercel will auto-deploy in ~1-3 minutes`);
 }
 
