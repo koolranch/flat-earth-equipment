@@ -119,6 +119,10 @@ async function handlePublishArticles(data: any) {
       console.log(`✅ Saved article: ${article.slug}`);
     } catch (error) {
       console.error(`❌ Error saving article ${article.slug}:`, error);
+      console.error(`   Error details:`, {
+        message: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : undefined
+      });
     }
   }
 }
@@ -173,8 +177,11 @@ ${article.image_url ? `image: '${article.image_url}'` : ''}
 
 async function saveToGitHub(slug: string, content: string) {
   const githubToken = process.env.GITHUB_TOKEN;
-  const repo = 'koolranch/flat-earth-equipment'; // Update if different
+  const repo = 'koolranch/flat-earth-equipment';
   const filePath = `content/insights/${slug}.mdx`;
+  
+  console.log(`🔑 GitHub token present: ${!!githubToken}`);
+  console.log(`📁 Target file: ${filePath}`);
   
   if (!githubToken) {
     throw new Error('GITHUB_TOKEN environment variable not set');
@@ -222,8 +229,13 @@ async function saveToGitHub(slug: string, content: string) {
   );
 
   if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`GitHub API error: ${response.status} - ${error}`);
+    const errorText = await response.text();
+    console.error(`❌ GitHub API Error:`, {
+      status: response.status,
+      statusText: response.statusText,
+      error: errorText
+    });
+    throw new Error(`GitHub API error: ${response.status} - ${errorText}`);
   }
 
   const result = await response.json();
