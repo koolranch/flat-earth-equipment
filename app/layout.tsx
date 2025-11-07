@@ -148,8 +148,8 @@ export default async function RootLayout({
             </footer>
             <Analytics />
             <SpeedInsights />
-            {/* Live chat widget */}
-            <CrispChat />
+            {/* Live chat widget - Disabled */}
+            {/* <CrispChat /> */}
             <Toaster />
             </I18nProvider>
           </SupabaseProvider>
