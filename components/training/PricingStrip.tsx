@@ -8,6 +8,7 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
       <h2 className="text-3xl font-bold text-center text-slate-900">Pricing</h2>
       <p className="text-center text-base text-slate-600 mt-2">Choose a plan and checkout securely.</p>
       <p className="text-center text-sm text-slate-600 mt-1">Bulk seat packs include manager dashboard and verification tools.</p>
+      <p className="text-center text-xs text-emerald-600 font-medium mt-2">✨ All seats include lifetime course access and free 3-year theory refresher.</p>
       <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {PLANS.map((p) => (
           <div 
