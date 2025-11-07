@@ -216,7 +216,7 @@ export async function POST(req: Request) {
       <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0;">
         <h4 style="margin: 0 0 10px 0; color: #92400e;">💬 Need Help?</h4>
         <p style="margin: 0; font-size: 14px; color: #92400e;">
-          Questions about your training? Reply to this email or call us at <strong>(307) 302-0043</strong>. 
+          Questions about your training? Reply to this email and we'll respond within 24 hours. 
           We're here to help you succeed!
         </p>
       </div>
@@ -225,7 +225,7 @@ export async function POST(req: Request) {
       
       <div style="text-align: center; color: #6b7280; font-size: 12px;">
         <p>Flat Earth Safety™ | OSHA-Compliant Training Solutions</p>
-        <p>flatearthequipment.com | training@flatearthequipment.com | (307) 302-0043</p>
+        <p>flatearthequipment.com | training@flatearthequipment.com</p>
         <p style="margin-top: 15px;">This training meets OSHA 29 CFR 1910.178 requirements</p>
       </div>
     </body>
