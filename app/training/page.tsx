@@ -9,6 +9,7 @@ import { firstContentOrder, nextPlayableOrder, hrefForOrder } from '@/lib/traini
 import { buildModuleHref, buildIntroHref, buildCompleteHref, readCourseSlugFromSearchParams } from '@/lib/training/routeIndex';
 import { createServerClient } from '@/lib/supabase/server';
 import TrainingHub from './TrainingHub';
+import NameEntry from '@/components/training/NameEntry';
 import dynamicImport from 'next/dynamic';
 
 const ClickShieldProbe = dynamicImport(() => import('@/components/debug/ClickShieldProbe'), { ssr: false });
@@ -47,6 +48,29 @@ export default async function TrainingIndex({ searchParams }: { searchParams?: R
   // Get enrollment data for progress tracking
   const supabase = createServerClient();
   const { data: { user } } = await supabase.auth.getUser();
+  
+  // Check if user has a valid name - if not, show name entry
+  let needsNameEntry = false;
+  let suggestedName = '';
+  
+  if (user) {
+    // Get profile
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('full_name')
+      .eq('id', user.id)
+      .maybeSingle();
+    
+    const fullName = profile?.full_name || user.user_metadata?.full_name || '';
+    
+    // Check if name is missing, empty, or just an email
+    if (!fullName || fullName.trim() === '' || fullName.includes('@')) {
+      needsNameEntry = true;
+      // Try to get name from Stripe metadata as suggestion
+      suggestedName = user.user_metadata?.full_name || '';
+    }
+  }
+  
   let enrollment: any = null;
   if (user) {
     const { data: enr } = await supabase
@@ -85,6 +109,11 @@ export default async function TrainingIndex({ searchParams }: { searchParams?: R
       return buildModuleHref(m.order, course.slug);
     })()
   }));
+
+  // Show name entry if needed (before training access)
+  if (needsNameEntry) {
+    return <NameEntry suggestedName={suggestedName} />;
+  }
 
   // Render the training hub with enhanced data
   return (
