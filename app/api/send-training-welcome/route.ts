@@ -106,7 +106,7 @@ function generateTrainerWelcomeEmail(firstName: string, email: string, password:
       <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0;">
         <h4 style="margin: 0 0 10px 0; color: #92400e;">💬 Need Help?</h4>
         <p style="margin: 0; font-size: 14px; color: #92400e;">
-          Questions about managing your team's training? Reply to this email or call us at <strong>(307) 302-0043</strong>. 
+          Questions about managing your team's training? Reply to this email and we'll respond within 24 hours. 
           We're here to help you get your team certified!
         </p>
       </div>
@@ -115,7 +115,7 @@ function generateTrainerWelcomeEmail(firstName: string, email: string, password:
       
       <div style="text-align: center; color: #6b7280; font-size: 12px;">
         <p><strong>Flat Earth Safety™</strong> | OSHA-Compliant Training Solutions</p>
-        <p>flatearthequipment.com | training@flatearthequipment.com | (307) 302-0043</p>
+        <p>flatearthequipment.com | training@flatearthequipment.com</p>
         <p style="margin-top: 15px;">This training meets OSHA 29 CFR 1910.178 requirements</p>
       </div>
     </body>
