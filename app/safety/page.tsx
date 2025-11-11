@@ -374,7 +374,7 @@ export default async function SafetyPage() {
           <p className="text-lg text-slate-700 leading-relaxed">
             Container yards have unique risks—blue-light pedestrian lanes, blind corners in container mazes,
             wind and stack-height limits, uneven surfaces, and tight approaches. Our OSHA forklift certification
-            pairs a fast, online theory module (≈90 minutes, English & Spanish) with your on-yard practical
+            pairs a fast, online theory module (≈90 minutes) with your on-yard practical
             evaluation so operators earn same-day wallet cards and you keep lanes moving.
           </p>
           <ul className="mt-4 space-y-2 text-slate-700 list-disc pl-5">

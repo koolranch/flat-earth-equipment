@@ -3,7 +3,7 @@ export default function ReasonsToJoin() {
     { title: "Finish in ~60 minutes", body: "Interactive modules keep you moving—no long videos." },
     { title: "Same-day wallet card", body: "QR-verifiable certificate issued immediately after passing." },
     { title: "Employer-accepted nationwide", body: "Built to match OSHA 29 CFR 1910.178(l) requirements." },
-    { title: "English & Spanish", body: "Switch language anytime—desktop or phone." },
+    { title: "Free unlimited retakes", body: "Practice as much as you need—no extra charges." },
   ];
   
   return (
