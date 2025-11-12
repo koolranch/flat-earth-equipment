@@ -85,9 +85,9 @@ export default function SafetyHero() {
       <div className="relative z-10 h-full flex items-center justify-center">
         <div className="mx-auto max-w-3xl px-4 py-12 sm:py-16 text-center">
           <p className="text-xs uppercase tracking-widest text-emerald-300/90">OSHA-Compliant Forklift Training</p>
-          <h1 className="mt-2 text-3xl font-bold sm:text-4xl text-balance">Forklift Certification & Training Online — Flat Earth Safety</h1>
+          <h1 className="mt-2 text-3xl font-bold sm:text-4xl text-balance">Get OSHA Forklift Certification in Under 60 Minutes</h1>
           <p className="mt-3 text-base sm:text-lg text-slate-300">
-            100% online • ~60 minutes • Same-day wallet card • OSHA 29 CFR 1910.178(l) aligned
+            100% online • $59 • Same-day wallet card • OSHA 29 CFR 1910.178(l) aligned
           </p>
           <div className="mt-6">
             <button
