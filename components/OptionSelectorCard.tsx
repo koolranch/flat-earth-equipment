@@ -37,15 +37,24 @@ export default function OptionSelectorCard({ module, locale = 'en' }: { module: 
   }[locale];
 
   return (
-    <div className="flex flex-col rounded-2xl bg-white shadow-lg p-6 gap-6">
-      <Image
-        src={image}
-        alt={module.title}
-        width={400}
-        height={480}
-        className="rounded-lg object-contain mx-auto"
-        priority
-      />
+    <div className="flex flex-col rounded-2xl bg-white shadow-lg p-6 gap-6 group">
+      <div className="relative overflow-hidden rounded-lg">
+        <Image
+          src={image}
+          alt={module.title}
+          width={500}
+          height={600}
+          className="rounded-lg object-contain mx-auto transition-transform duration-300 group-hover:scale-105"
+          priority
+        />
+        {/* Stock Badge */}
+        <div className="absolute top-2 left-2 flex items-center gap-2 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-md border border-green-200">
+          <span className="inline-flex items-center text-xs font-semibold text-green-700">
+            ✓ In Stock
+          </span>
+          <span className="text-xs text-slate-600">3 units available</span>
+        </div>
+      </div>
 
       {/* Brand + Part Number Line */}
       <div className="text-center space-y-1">
