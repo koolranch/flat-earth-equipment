@@ -310,6 +310,14 @@ export default async function SafetyPage() {
             <p className="text-sm text-slate-600 mt-1">
               Same OSHA certification. Faster and more convenient.
             </p>
+            <div className="mt-4">
+              <Link 
+                href="#pricing" 
+                className="inline-flex items-center gap-2 bg-[#F76511] text-white px-8 py-4 rounded-xl font-bold hover:bg-orange-600 transition-colors shadow-lg hover:shadow-xl"
+              >
+                Get Started — $59 →
+              </Link>
+            </div>
           </div>
         </section>
 
