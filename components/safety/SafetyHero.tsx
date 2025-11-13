@@ -68,7 +68,7 @@ export default function SafetyHero() {
   };
 
   return (
-    <section className="relative isolate overflow-hidden bg-slate-900 text-white h-[400px] sm:h-[450px]">
+    <section className="relative isolate overflow-hidden bg-slate-900 text-white min-h-[500px] sm:h-[500px]">
       {/* Background Image - Same as city pages */}
       <Image
         src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/hero-bg-mountains.webp"
@@ -82,18 +82,18 @@ export default function SafetyHero() {
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/50"></div>
       
       {/* Content */}
-      <div className="relative z-10 h-full flex items-center justify-center">
-        <div className="mx-auto max-w-3xl px-4 py-12 sm:py-16 text-center">
-          <p className="text-xs uppercase tracking-widest text-emerald-300/90">OSHA-Compliant Forklift Training</p>
-          <h1 className="mt-2 text-3xl font-bold sm:text-4xl text-balance">Get OSHA Forklift Certification in Under 60 Minutes</h1>
-          <p className="mt-3 text-base sm:text-lg text-slate-300">
+      <div className="relative z-10 h-full flex items-center justify-center py-20 sm:py-24">
+        <div className="mx-auto max-w-3xl px-6 text-center">
+          <p className="text-xs uppercase tracking-widest text-emerald-300/90 mb-4">OSHA-Compliant Forklift Training</p>
+          <h1 className="text-3xl font-bold sm:text-4xl text-balance leading-tight">Get OSHA Forklift Certification in Under 60 Minutes</h1>
+          <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed">
             100% online • $59 • Same-day wallet card • OSHA 29 CFR 1910.178(l) aligned
           </p>
-          <div className="mt-6">
+          <div className="mt-8">
             <button
               onClick={handleStart}
               disabled={isLoading}
-              className="inline-flex items-center rounded-lg bg-orange-600 px-6 py-4 text-base font-semibold text-white hover:bg-orange-700 transition-colors shadow-lg disabled:opacity-50 disabled:cursor-wait"
+              className="inline-flex items-center rounded-lg bg-orange-600 px-8 py-4 text-lg font-semibold text-white hover:bg-orange-700 transition-colors shadow-lg disabled:opacity-50 disabled:cursor-wait"
             >
               {isLoading ? (
                 <>
@@ -109,11 +109,11 @@ export default function SafetyHero() {
             </button>
           </div>
           {error && (
-            <p className="mt-3 text-red-400 text-sm">{error}</p>
+            <p className="mt-4 text-red-400 text-sm">{error}</p>
           )}
-          <p className="mt-3 text-sm text-white/90">OSHA 1910.178 compliant · Accepted nationwide · Instant download</p>
-          <p className="mt-2 text-sm text-emerald-300 font-medium">✨ Lifetime access. Free theory refresher every 3 years—we'll remind you when it's time.</p>
-          <p className="mt-2 text-sm text-slate-300">Secure checkout — Apple Pay / Google Pay / Link</p>
+          <p className="mt-4 text-sm text-white/90">OSHA 1910.178 compliant · Accepted nationwide · Instant download</p>
+          <p className="mt-3 text-sm text-emerald-300 font-medium">✨ Lifetime access. Free theory refresher every 3 years—we'll remind you when it's time.</p>
+          <p className="mt-3 text-sm text-slate-300 hidden sm:block">Secure checkout — Apple Pay / Google Pay / Link</p>
         </div>
       </div>
     </section>
