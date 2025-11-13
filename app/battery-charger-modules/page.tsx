@@ -4,7 +4,6 @@ import Link from "next/link";
 import { CheckCircle, Package, Zap, Clock, CreditCard } from 'lucide-react';
 import Script from 'next/script';
 import { supabaseServer } from '@/lib/supabase/server';
-import AddToCartButton from '@/components/AddToCartButton';
 
 export const metadata: Metadata = {
   title: "Battery Charger Modules | Flat Earth Equipment",
@@ -39,9 +38,10 @@ export default async function BatteryChargerModulesPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {parts?.map((part) => (
-            <div
+            <Link
               key={part.id}
-              className="border rounded-lg p-6 bg-white shadow-md flex flex-col items-center text-center"
+              href={`/parts/${part.slug}`}
+              className="border rounded-lg p-6 bg-white shadow-md flex flex-col items-center text-center hover:shadow-xl transition-all group cursor-pointer"
             >
               <div className="relative w-full aspect-square mb-4">
                 <Image
@@ -51,32 +51,24 @@ export default async function BatteryChargerModulesPage() {
                   }
                   alt={part.name}
                   fill
-                  className="object-contain"
+                  className="object-contain group-hover:scale-105 transition-transform"
                   loading="lazy"
                 />
               </div>
               <span className="text-sm text-slate-500 mb-1">{part.brand}</span>
-              <h3 className="font-bold text-lg mb-2">{part.name}</h3>
+              <h3 className="font-bold text-lg mb-2 group-hover:text-[#F76511] transition-colors">{part.name}</h3>
               <p className="text-sm text-slate-600 mb-4">{part.description?.slice(0, 100)}...</p>
-              <div className="flex gap-2 justify-center mb-4">
+              <div className="flex gap-2 justify-center mb-4 flex-wrap">
                 <span className="inline-flex items-center text-xs text-slate-600">🚚 Same-Day Dispatch</span>
                 <span className="inline-flex items-center text-xs text-slate-600">📦 Free Shipping</span>
                 <span className="inline-flex items-center text-xs text-slate-600">🤝 U.S.-Based Support</span>
               </div>
-              <AddToCartButton 
-                sku={part.sku}
-                qty={1}
-                price={part.price * 100} // Convert to cents
-                meta={{ 
-                  productId: part.id,
-                  hasCore: part.has_core_charge || false,
-                  coreCharge: part.core_charge || 0
-                }}
-                className="mt-6 bg-orange-600 text-white px-6 py-3 rounded-2xl hover:bg-orange-700 transition-colors w-full font-medium"
-              >
-                Add to Cart — ${part.price?.toFixed(2)} + ${part.core_charge?.toFixed(2) || '0.00'} core fee
-              </AddToCartButton>
-            </div>
+              <div className="mt-auto pt-4 border-t w-full">
+                <p className="text-2xl font-bold text-[#F76511]">${part.price?.toFixed(2)}</p>
+                <p className="text-sm text-slate-500 mt-1">+ ${part.core_charge?.toFixed(2) || '0.00'} core fee</p>
+                <p className="text-sm text-[#F76511] font-semibold mt-3 group-hover:underline">View Details & Add to Cart →</p>
+              </div>
+            </Link>
           ))}
         </div>
       </main>
