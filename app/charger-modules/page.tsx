@@ -5,7 +5,7 @@ import StickyBottomCTA from "@/components/StickyBottomCTA";
 import { getUserLocale } from "@/lib/getUserLocale";
 import Script from "next/script";
 import Link from "next/link";
-import { Zap, Building2, FileText, TrendingDown } from "lucide-react";
+import { Zap, Building2, FileText, TrendingDown, Leaf, Award, DollarSign } from "lucide-react";
 import QuoteButton from "@/components/QuoteButton";
 
 export const metadata = {
@@ -82,6 +82,18 @@ export default function ChargersLanding() {
         ))}
       </section>
 
+      {/* Customer Testimonial */}
+      <section className="bg-blue-50 border-l-4 border-blue-500 rounded-r-lg p-6 lg:p-8 max-w-4xl mx-auto">
+        <blockquote className="space-y-3">
+          <p className="text-lg lg:text-xl italic text-slate-700 leading-relaxed">
+            "Ordered at 2 PM, charger arrived next day. Back up and running in 24 hours. Saved $400 vs buying new."
+          </p>
+          <footer className="text-sm text-slate-600 font-medium">
+            — Mike R., Maintenance Manager, Dallas TX
+          </footer>
+        </blockquote>
+      </section>
+
       {/* Corporate Buyer / Fleet CTA */}
       <section className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 lg:p-10 text-white shadow-xl">
         <div className="max-w-4xl mx-auto">
@@ -140,6 +152,98 @@ export default function ChargersLanding() {
       </section>
 
         <ChargerModuleTrustBadges locale={locale} />
+
+        {/* Why Remanufactured? Education Section */}
+        <section className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-8 lg:p-10">
+          <h2 className="text-2xl lg:text-3xl font-bold text-center text-slate-900 mb-8">
+            Why Choose Remanufactured?
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="text-center space-y-3">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+                <Leaf className="h-8 w-8 text-green-600" />
+              </div>
+              <h3 className="font-bold text-lg text-slate-900">Environmental Impact</h3>
+              <p className="text-slate-700 leading-relaxed">
+                Reduces electronic waste and carbon footprint. Each remanufactured module keeps 15-20 lbs of materials out of landfills.
+              </p>
+            </div>
+            <div className="text-center space-y-3">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
+                <Award className="h-8 w-8 text-blue-600" />
+              </div>
+              <h3 className="font-bold text-lg text-slate-900">Certified Quality</h3>
+              <p className="text-slate-700 leading-relaxed">
+                Bench-tested to exceed OEM specifications. Every module undergoes rigorous multi-point inspection and performance validation.
+              </p>
+            </div>
+            <div className="text-center space-y-3">
+              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto">
+                <DollarSign className="h-8 w-8 text-orange-600" />
+              </div>
+              <h3 className="font-bold text-lg text-slate-900">Significant Savings</h3>
+              <p className="text-slate-700 leading-relaxed">
+                Save 40-60% compared to new OEM parts with identical performance and reliability. Same 6-month warranty coverage.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="max-w-4xl mx-auto bg-white rounded-2xl border border-slate-200 shadow-sm p-8">
+          <h2 className="text-2xl font-bold mb-6 text-slate-900">Frequently Asked Questions</h2>
+          <div className="divide-y divide-slate-200 space-y-4">
+            <details className="group pt-4 first:pt-0">
+              <summary className="cursor-pointer font-semibold text-slate-900 hover:text-[#F76511] transition-colors list-none flex items-center justify-between">
+                <span className="text-base">What's included in the remanufacturing process?</span>
+                <span className="text-slate-500 group-open:rotate-180 transition-transform ml-2">▼</span>
+              </summary>
+              <p className="text-base text-slate-700 mt-3 leading-relaxed">
+                Every module undergoes complete disassembly, component-level inspection, replacement of worn parts, firmware updates, and rigorous bench testing. We test at multiple voltage levels and load conditions to ensure it meets or exceeds OEM specifications before shipping.
+              </p>
+            </details>
+
+            <details className="group pt-4">
+              <summary className="cursor-pointer font-semibold text-slate-900 hover:text-[#F76511] transition-colors list-none flex items-center justify-between">
+                <span className="text-base">How does the core refund work?</span>
+                <span className="text-slate-500 group-open:rotate-180 transition-transform ml-2">▼</span>
+              </summary>
+              <p className="text-base text-slate-700 mt-3 leading-relaxed">
+                For exchange orders, we charge a $350 refundable core deposit at checkout. You'll receive a prepaid shipping label with your new module. Ship your old module back within 30 days, and we'll refund the full $350 to your original payment method within 48 hours of receiving it.
+              </p>
+            </details>
+
+            <details className="group pt-4">
+              <summary className="cursor-pointer font-semibold text-slate-900 hover:text-[#F76511] transition-colors list-none flex items-center justify-between">
+                <span className="text-base">What if my firmware version isn't listed?</span>
+                <span className="text-slate-500 group-open:rotate-180 transition-transform ml-2">▼</span>
+              </summary>
+              <p className="text-base text-slate-700 mt-3 leading-relaxed">
+                Leave the firmware field blank or enter "unknown." Our team will email you within 2 hours to confirm compatibility before shipping. We maintain multiple firmware versions in stock and can match your specific charger model.
+              </p>
+            </details>
+
+            <details className="group pt-4">
+              <summary className="cursor-pointer font-semibold text-slate-900 hover:text-[#F76511] transition-colors list-none flex items-center justify-between">
+                <span className="text-base">Do you offer installation support?</span>
+                <span className="text-slate-500 group-open:rotate-180 transition-transform ml-2">▼</span>
+              </summary>
+              <p className="text-base text-slate-700 mt-3 leading-relaxed">
+                Yes. Every module ships with detailed installation instructions. Our U.S.-based technical support team is available via phone and email to guide you through installation, troubleshooting, or configuration questions at no additional charge.
+              </p>
+            </details>
+
+            <details className="group pt-4">
+              <summary className="cursor-pointer font-semibold text-slate-900 hover:text-[#F76511] transition-colors list-none flex items-center justify-between">
+                <span className="text-base">What's your return policy?</span>
+                <span className="text-slate-500 group-open:rotate-180 transition-transform ml-2">▼</span>
+              </summary>
+              <p className="text-base text-slate-700 mt-3 leading-relaxed">
+                30-day satisfaction guarantee. If the module doesn't perform as expected, contact us for a prepaid return label. We'll issue a full refund (including core deposit if applicable) upon receiving the return. Our 6-month warranty covers any defects or performance issues.
+              </p>
+            </details>
+          </div>
+        </section>
 
         {/* Cross-promotion to EV Chargers */}
         <section className="bg-blue-50 rounded-2xl p-8 text-center space-y-6">
