@@ -9,6 +9,7 @@ import { supabaseServer } from '@/lib/supabase/server';
 import PricingStrip from '@/components/training/PricingStrip';
 import SafetyHero from '@/components/safety/SafetyHero';
 import StickyCTA from '@/components/safety/StickyCTA';
+import FaqAccordion from '@/components/safety/FaqAccordion';
 import ReasonsToJoin from '@/components/ReasonsToJoin';
 import HowItWorksStrip from '@/components/HowItWorksStrip';
 import SafetyScreenshots from './components/SafetyScreenshots';
@@ -376,8 +377,8 @@ export default async function SafetyPage() {
           <ComplianceBlock t={t} />
         </div>
 
-        {/* Ports & Terminals Section */}
-        <section id="ports" className="mt-8 scroll-mt-24 bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-2xl p-8 shadow-sm">
+        {/* Ports & Terminals Section - Hidden on mobile */}
+        <section id="ports" className="hidden md:block mt-8 scroll-mt-24 bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-2xl p-8 shadow-sm">
           <h2 className="text-2xl font-bold text-slate-900 mb-4">Ports & Terminals: Forklift Training for Throughput</h2>
           <p className="text-lg text-slate-700 leading-relaxed">
             Container yards have unique risks—blue-light pedestrian lanes, blind corners in container mazes,
@@ -415,26 +416,7 @@ export default async function SafetyPage() {
         </section>
 
         {/* FAQ Section */}
-        <section id="faq" className="mt-8 bg-white rounded-2xl border border-slate-200 shadow-sm px-8 py-8">
-          <h2 className="text-2xl font-bold mb-6 text-slate-900">{t.faq.title}</h2>
-          <div className="divide-y divide-slate-200">
-            {t.faq.items.map((f: any, i: number) => (
-              <details key={i} className="py-5 group">
-                <summary className="cursor-pointer font-semibold text-slate-900 hover:text-[#F76511] transition-colors list-none tappable">
-                  <div className="flex items-center justify-between">
-                    <span className="text-base leading-7">{f.q}</span>
-                    <span className="text-slate-500 group-open:rotate-180 transition-transform ml-2">
-                      ▼
-                    </span>
-                  </div>
-                </summary>
-                <p className="text-base leading-7 text-slate-700 mt-3">
-                  {f.a}
-                </p>
-              </details>
-            ))}
-          </div>
-        </section>
+        <FaqAccordion items={t.faq.items} title={t.faq.title} />
 
         {/* Call to Action */}
         <section className="mt-10 rounded-2xl bg-brand-orange text-white px-6 py-8 text-center shadow-card">
@@ -498,21 +480,21 @@ export default async function SafetyPage() {
             {/* Quick Links to Popular States */}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-6 max-w-4xl mx-auto">
               {[
-                { code: 'tx', name: 'Texas', icon: '🤠' },
-                { code: 'ca', name: 'California', icon: '☀️' },
-                { code: 'fl', name: 'Florida', icon: '🌴' },
-                { code: 'ny', name: 'New York', icon: '🗽' },
-                { code: 'pa', name: 'Pennsylvania', icon: '🏛️' },
-                { code: 'oh', name: 'Ohio', icon: '🏭' },
-                { code: 'il', name: 'Illinois', icon: '🌆' },
-                { code: 'nc', name: 'North Carolina', icon: '🌲' },
-                { code: 'ga', name: 'Georgia', icon: '🍑' },
-                { code: 'mi', name: 'Michigan', icon: '🚗' },
+                { code: 'tx', name: 'Texas', icon: '🤠', mobile: true },
+                { code: 'ca', name: 'California', icon: '☀️', mobile: true },
+                { code: 'fl', name: 'Florida', icon: '🌴', mobile: true },
+                { code: 'ny', name: 'New York', icon: '🗽', mobile: true },
+                { code: 'pa', name: 'Pennsylvania', icon: '🏛️', mobile: false },
+                { code: 'oh', name: 'Ohio', icon: '🏭', mobile: false },
+                { code: 'il', name: 'Illinois', icon: '🌆', mobile: false },
+                { code: 'nc', name: 'North Carolina', icon: '🌲', mobile: false },
+                { code: 'ga', name: 'Georgia', icon: '🍑', mobile: false },
+                { code: 'mi', name: 'Michigan', icon: '🚗', mobile: false },
               ].map(state => (
                 <Link
                   key={state.code}
                   href={`/safety/forklift/${state.code}`}
-                  className="bg-white hover:bg-orange-50 border border-orange-200 rounded-lg p-3 transition-all hover:shadow-md"
+                  className={`bg-white hover:bg-orange-50 border border-orange-200 rounded-lg p-3 transition-all hover:shadow-md ${!state.mobile ? 'hidden md:block' : ''}`}
                 >
                   <div className="text-2xl mb-1">{state.icon}</div>
                   <div className="text-sm font-medium text-slate-800">{state.name}</div>
