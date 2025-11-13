@@ -36,6 +36,12 @@ const baseConfig = {
         destination: '/charger-modules',
         permanent: true
       },
+      // Redirect old battery-charger-modules page to canonical charger-modules
+      {
+        source: '/battery-charger-modules',
+        destination: '/charger-modules',
+        permanent: true // 301 redirect - preserves SEO
+      },
       // Redirect additional placeholder insights to canonical targets
       {
         source: '/insights/bozeman-mt',
