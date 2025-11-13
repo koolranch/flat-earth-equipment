@@ -11,7 +11,7 @@ export default function SafetyScreenshots() {
       </div>
 
       <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2">
-        {/* 1) Dashboard (larger) */}
+        {/* 1) Dashboard (larger) - Always visible */}
         <div className="md:col-span-2">
           <ScreenshotCard
             src={`${SUPABASE_STORAGE_URL}/safety-dashboard.jpg`}
@@ -21,21 +21,25 @@ export default function SafetyScreenshots() {
           />
         </div>
 
-        {/* 2) Interactive Module */}
-        <ScreenshotCard
-          src={`${SUPABASE_STORAGE_URL}/safety-module.jpg`}
-          alt="Interactive flashcard module with reveal answer and quiz buttons"
-          caption="<span class='font-semibold'>Interactive Modules:</span> Flash cards and quizzes — not boring slides."
-          aspect="4/3"
-        />
+        {/* 2) Interactive Module - Hidden on mobile */}
+        <div className="hidden md:block">
+          <ScreenshotCard
+            src={`${SUPABASE_STORAGE_URL}/safety-module.jpg`}
+            alt="Interactive flashcard module with reveal answer and quiz buttons"
+            caption="<span class='font-semibold'>Interactive Modules:</span> Flash cards and quizzes — not boring slides."
+            aspect="4/3"
+          />
+        </div>
 
-        {/* 3) Certificate */}
-        <ScreenshotCard
-          src={`${SUPABASE_STORAGE_URL}/safety-certificate.jpg`}
-          alt="Exam passed screen with Download Certificate and Wallet Card buttons"
-          caption="<span class='font-semibold'>Instant Certificate:</span> Download your certificate immediately after passing."
-          aspect="4/3"
-        />
+        {/* 3) Certificate - Hidden on mobile */}
+        <div className="hidden md:block">
+          <ScreenshotCard
+            src={`${SUPABASE_STORAGE_URL}/safety-certificate.jpg`}
+            alt="Exam passed screen with Download Certificate and Wallet Card buttons"
+            caption="<span class='font-semibold'>Instant Certificate:</span> Download your certificate immediately after passing."
+            aspect="4/3"
+          />
+        </div>
       </div>
     </section>
   );

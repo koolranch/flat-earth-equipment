@@ -8,7 +8,7 @@ export default function ComplianceBlock({ t }: ComplianceBlockProps) {
       <h2 className="text-2xl font-bold mb-6 text-slate-900">{t.compliance.title}</h2>
       <ul className="space-y-4 text-base leading-7 text-slate-700">
         {t.compliance.bullets.map((b: string, i: number) => (
-          <li key={i} className="flex items-start gap-3">
+          <li key={i} className={`flex items-start gap-3 ${i >= 2 ? 'hidden md:flex' : ''}`}>
             <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-100 text-[#F76511] flex items-center justify-center text-sm font-bold mt-0.5">
               ✓
             </span>

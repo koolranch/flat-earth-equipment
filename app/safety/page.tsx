@@ -201,9 +201,9 @@ export default async function SafetyPage() {
       
       <main className="section">
       <div className="container mx-auto px-4">
-        {/* Already certified? Login link */}
+        {/* Already certified? Login link - Hidden on mobile */}
         {!isAuthed && (
-          <div className="text-center py-4">
+          <div className="hidden md:block text-center py-4">
             <p className="text-sm text-slate-600">
               {locale === 'es' ? '¿Ya estás certificado? ' : 'Already certified? '}
               <Link href="/login" className="text-[#F76511] hover:text-orange-600 underline font-medium">
@@ -418,8 +418,8 @@ export default async function SafetyPage() {
         {/* FAQ Section */}
         <FaqAccordion items={t.faq.items} title={t.faq.title} />
 
-        {/* Call to Action */}
-        <section className="mt-10 rounded-2xl bg-brand-orange text-white px-6 py-8 text-center shadow-card">
+        {/* Call to Action - Hidden on mobile (redundant) */}
+        <section className="hidden md:block mt-10 rounded-2xl bg-brand-orange text-white px-6 py-8 text-center shadow-card">
           <h2 className="text-2xl font-semibold mb-2">
             {locale === 'es' ? 'Comience hoy' : 'Get started today'}
           </h2>
