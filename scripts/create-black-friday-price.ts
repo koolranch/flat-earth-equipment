@@ -8,8 +8,42 @@
 
 import Stripe from 'stripe';
 import dotenv from 'dotenv';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
-dotenv.config({ path: '.env.local' });
+// Try multiple env files
+const envFiles = ['.env.local', '.env.production.pulled', '.env.production.local', '.env'];
+let loaded = false;
+
+for (const envFile of envFiles) {
+  try {
+    const envPath = join(process.cwd(), envFile);
+    const envContent = readFileSync(envPath, 'utf-8');
+    envContent.split('\n').forEach(line => {
+      const match = line.match(/^([^=]+)=(.*)$/);
+      if (match) {
+        const key = match[1].trim();
+        const value = match[2].trim().replace(/^["']|["']$/g, '');
+        if (!process.env[key]) {
+          process.env[key] = value;
+        }
+      }
+    });
+    if (process.env.STRIPE_SECRET_KEY) {
+      console.log(`✓ Loaded environment from ${envFile}\n`);
+      loaded = true;
+      break;
+    }
+  } catch (e) {
+    // Try next file
+  }
+}
+
+if (!loaded || !process.env.STRIPE_SECRET_KEY) {
+  console.error('❌ Error: STRIPE_SECRET_KEY not found in environment files');
+  console.error('   Checked:', envFiles.join(', '));
+  process.exit(1);
+}
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2024-11-20.acacia',
