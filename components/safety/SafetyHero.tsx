@@ -84,10 +84,22 @@ export default function SafetyHero() {
       {/* Content */}
       <div className="relative z-10 h-full flex items-center justify-center py-20 sm:py-24">
         <div className="mx-auto max-w-3xl px-6 text-center">
+          {/* Black Friday badge - subtle and elegant */}
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500/20 to-red-500/20 backdrop-blur-sm border border-orange-400/30 px-4 py-2 rounded-full mb-3 animate-in fade-in duration-700">
+            <span className="text-xs font-bold text-orange-300">🎉 BLACK FRIDAY</span>
+            <span className="text-xs text-white/80">•</span>
+            <span className="text-xs text-emerald-300 font-semibold">Save $10</span>
+          </div>
+          
           <p className="text-xs uppercase tracking-widest text-emerald-300/90 mb-4">OSHA-Compliant Forklift Training</p>
           <h1 className="text-3xl font-bold sm:text-4xl text-balance leading-tight">Get OSHA Forklift Certification in Under 60 Minutes</h1>
           <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed">
-            100% online • $49 • Same-day wallet card • OSHA 29 CFR 1910.178(l) aligned
+            100% online • 
+            <span className="inline-flex items-baseline gap-1.5 mx-1">
+              <span className="text-slate-400 line-through text-sm">$59</span>
+              <span className="font-bold text-white">$49</span>
+            </span>
+            • Same-day wallet card • OSHA 29 CFR 1910.178(l) aligned
           </p>
           <div className="mt-8">
             <button
