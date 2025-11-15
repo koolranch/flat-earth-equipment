@@ -35,23 +35,23 @@ export default function Navbar({ locale }: Props) {
   ];
 
   return (
-    <nav className={`bg-white border-b border-gray-200 ${minimal ? 'bg-transparent border-transparent' : ''}`}>
+    <nav className={`sticky top-0 z-50 transition-all duration-300 ${minimal ? 'bg-transparent border-transparent backdrop-blur-sm' : 'bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
           <div className="flex">
             <Link 
               href="/" 
-              className="flex items-center py-2 px-3 -ml-3 rounded-lg hover:bg-gray-50 transition-colors min-h-[44px]" 
+              className="flex items-center py-2 px-3 -ml-3 rounded-lg hover:bg-gray-50 transition-colors min-h-[44px] group" 
               aria-label="Flat Earth Equipment - Home"
             >
-              {/* Desktop: monogram + full wordmark */}
-              <span className="hidden md:inline-block">
-                <Logo showWordmark className="h-5" />
+              {/* Desktop: monogram + full wordmark with fade-in animation */}
+              <span className="hidden md:inline-block animate-in fade-in duration-500">
+                <Logo showWordmark className="h-5" inverse={minimal} />
               </span>
-              {/* Mobile: larger monogram + "Flat Earth" abbreviated */}
-              <span className="md:hidden flex items-center gap-2">
-                <Logo showWordmark={false} className="h-8" />
-                <span className="text-sm font-bold text-slate-900">
+              {/* Mobile: larger monogram + "Flat Earth" abbreviated with fade-in */}
+              <span className="md:hidden flex items-center gap-2 animate-in fade-in duration-500">
+                <Logo showWordmark={false} className="h-8" inverse={minimal} />
+                <span className={`text-sm font-bold ${minimal ? 'text-white' : 'text-slate-900'}`}>
                   Flat Earth
                 </span>
               </span>
