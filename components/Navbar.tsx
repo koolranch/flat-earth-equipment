@@ -103,11 +103,12 @@ export default function Navbar({ locale }: Props) {
               <span className="hidden md:inline-block animate-in fade-in duration-500">
                 <Logo showWordmark className="h-5" inverse={minimal} />
               </span>
-              {/* Mobile: larger monogram + "Flat Earth" abbreviated with fade-in */}
+              {/* Mobile: larger monogram + full brand name with fade-in */}
               <span className="md:hidden flex items-center gap-2 animate-in fade-in duration-500">
                 <Logo showWordmark={false} className="h-8" inverse={minimal} />
                 <span className={`text-sm font-bold ${minimal ? 'text-white' : 'text-slate-900'}`}>
-                  Flat Earth
+                  Flat Earth{' '}
+                  <span className={minimal ? 'text-orange-300' : 'text-[#F76511]'}>Equipment</span>
                 </span>
               </span>
             </Link>
