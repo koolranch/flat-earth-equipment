@@ -30,6 +30,9 @@ export default function Navbar({ locale }: Props) {
   // Minimal header on safety routes - less visual competition with hero CTA
   const minimal = pathname.startsWith('/safety');
   
+  // On safety pages, only use inverse colors when scrolled past light top section
+  const useInverse = minimal && scrolled;
+  
   // Determine if this page should have auto-hide behavior
   const shouldAutoHide = 
     pathname.startsWith('/insights/') ||  // Blog posts
@@ -96,19 +99,19 @@ export default function Navbar({ locale }: Props) {
           <div className="flex">
             <Link 
               href="/" 
-              className="flex items-center py-2 px-3 -ml-3 rounded-lg hover:bg-gray-50 transition-colors min-h-[44px] group" 
+              className={`flex items-center py-2 px-3 -ml-3 rounded-lg transition-colors min-h-[44px] group ${useInverse ? 'hover:bg-white/10' : 'hover:bg-gray-50'}`}
               aria-label="Flat Earth Equipment - Home"
             >
               {/* Desktop: monogram + full wordmark with fade-in animation */}
               <span className="hidden md:inline-block animate-in fade-in duration-500">
-                <Logo showWordmark className="h-5" inverse={minimal} />
+                <Logo showWordmark className="h-5" inverse={useInverse} />
               </span>
               {/* Mobile: larger monogram + full brand name with fade-in */}
               <span className="md:hidden flex items-center gap-2 animate-in fade-in duration-500">
-                <Logo showWordmark={false} className="h-8" inverse={minimal} />
-                <span className={`text-sm font-bold ${minimal ? 'text-white' : 'text-slate-900'}`}>
+                <Logo showWordmark={false} className="h-8" inverse={useInverse} />
+                <span className={`text-sm font-bold transition-colors duration-300 ${useInverse ? 'text-white' : 'text-slate-900'}`}>
                   Flat Earth{' '}
-                  <span className={minimal ? 'text-orange-300' : 'text-[#F76511]'}>Equipment</span>
+                  <span className={useInverse ? 'text-orange-300' : 'text-[#F76511]'}>Equipment</span>
                 </span>
               </span>
             </Link>
