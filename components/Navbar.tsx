@@ -39,13 +39,21 @@ export default function Navbar({ locale }: Props) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
           <div className="flex">
-            <Link href="/" className="flex items-center pl-3 pr-3" aria-label="Flat Earth Equipment">
-              {/* Desktop: monogram + wordmark; Mobile: monogram only */}
+            <Link 
+              href="/" 
+              className="flex items-center py-2 px-3 -ml-3 rounded-lg hover:bg-gray-50 transition-colors min-h-[44px]" 
+              aria-label="Flat Earth Equipment - Home"
+            >
+              {/* Desktop: monogram + full wordmark */}
               <span className="hidden md:inline-block">
                 <Logo showWordmark className="h-5" />
               </span>
-              <span className="md:hidden inline-block">
-                <Logo showWordmark={false} className="h-5" />
+              {/* Mobile: larger monogram + "Flat Earth" abbreviated */}
+              <span className="md:hidden flex items-center gap-2">
+                <Logo showWordmark={false} className="h-8" />
+                <span className="text-sm font-bold text-slate-900">
+                  Flat Earth
+                </span>
               </span>
             </Link>
           </div>
