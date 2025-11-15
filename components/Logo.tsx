@@ -17,6 +17,9 @@ export default function Logo({
 }: Props) {
   const textColor = inverse ? "#FFFFFF" : "#0F172A";
   const accent = "#F76511";
+  
+  // Dynamically scale monogram based on className height
+  const iconSize = className.includes('h-8') ? 32 : 20;
 
   return (
     <div
@@ -25,12 +28,13 @@ export default function Logo({
       aria-label={label}
       style={{ lineHeight: 0 }}
     >
-      <MonogramFE size={20} inverse={inverse} ring />
+      <MonogramFE size={iconSize} inverse={inverse} ring />
       {showWordmark && (
         <svg 
           width="186" 
-          height="20" 
+          height={iconSize} 
           viewBox="0 0 186 20" 
+          preserveAspectRatio="xMinYMid meet"
           aria-hidden="true" 
           style={{ transform: "translateY(1px)" }}
         >
