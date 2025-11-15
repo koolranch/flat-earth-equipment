@@ -202,8 +202,8 @@ export default function StateForkliftPage({ params }: Props) {
           <div className="pt-4">
             <CheckoutButton 
               courseSlug="forklift"
-              price="59"
-              priceId="price_1RS834HJI548rO8JpJMyGhL3"
+              price="49"
+              priceId="price_1SToXBHJI548rO8JZnnTwKER"
             />
           </div>
           
@@ -515,8 +515,8 @@ export default function StateForkliftPage({ params }: Props) {
         <div className="pt-4">
           <CheckoutButton 
             courseSlug="forklift"
-            price="59"
-            priceId="price_1RS834HJI548rO8JpJMyGhL3"
+            price="49"
+            priceId="price_1SToXBHJI548rO8JZnnTwKER"
           />
           <p className="mt-4 text-sm text-orange-100">
             ✓ Instant download 24/7 · ✓ Money-back guarantee · ✓ Free retakes

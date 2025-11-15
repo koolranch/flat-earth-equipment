@@ -17,13 +17,13 @@ export default function StateHero() {
     // Track begin_checkout event
     trackEvent('begin_checkout', {
       course: 'forklift',
-      value: 59,
+      value: 49,
       currency: 'USD',
       state: STATE,
       items: [{
-        item_id: 'price_1RS834HJI548rO8JpJMyGhL3',
+        item_id: 'price_1SToXBHJI548rO8JZnnTwKER',
         item_name: 'Online Forklift Certification',
-        price: 59,
+        price: 49,
       }]
     });
     
@@ -36,7 +36,7 @@ export default function StateHero() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           items: [{
-            priceId: 'price_1RS834HJI548rO8JpJMyGhL3', // Single operator forklift cert
+            priceId: 'price_1SToXBHJI548rO8JZnnTwKER', // Black Friday price
             quantity: 1,
             isTraining: true
           }]
@@ -72,7 +72,7 @@ export default function StateHero() {
     <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
       <div className="mx-auto max-w-5xl px-4 py-12 md:py-16">
         <h1 className="text-3xl md:text-5xl font-bold leading-tight">
-          Get Forklift-Certified in {STATE} — $59, Under 60 Minutes
+          Get Forklift-Certified in {STATE} — $49, Under 60 Minutes
         </h1>
         <p className="mt-4 text-slate-200 text-lg md:text-xl max-w-3xl">
           OSHA-aligned online training with instant digital certificate & wallet card. Your supervisor completes the on-site evaluation.
@@ -92,7 +92,7 @@ export default function StateHero() {
                 Processing...
               </>
             ) : (
-              'Get Certified Now — $59 →'
+              'Get Certified Now — $49 →'
             )}
           </button>
         </div>

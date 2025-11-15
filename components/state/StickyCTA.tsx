@@ -15,14 +15,14 @@ export default function StickyCTA() {
     // Track begin_checkout event
     trackEvent('begin_checkout', {
       course: 'forklift',
-      value: 59,
+      value: 49,
       currency: 'USD',
       state: STATE,
       source: 'sticky_cta',
       items: [{
-        item_id: 'price_1RS834HJI548rO8JpJMyGhL3',
+        item_id: 'price_1SToXBHJI548rO8JZnnTwKER',
         item_name: 'Online Forklift Certification',
-        price: 59,
+        price: 49,
       }]
     });
     
@@ -34,7 +34,7 @@ export default function StickyCTA() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           items: [{
-            priceId: 'price_1RS834HJI548rO8JpJMyGhL3',
+            priceId: 'price_1SToXBHJI548rO8JZnnTwKER', // Black Friday price
             quantity: 1,
             isTraining: true
           }]
@@ -61,7 +61,7 @@ export default function StickyCTA() {
       <div className="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between gap-3">
         <div className="flex-1">
           <div className="text-sm font-semibold text-white">Get certified in {STATE}</div>
-          <div className="text-xs text-slate-300">$59 • Under 60 minutes</div>
+          <div className="text-xs text-slate-300">$49 • Under 60 minutes</div>
         </div>
         <button 
           onClick={handleCheckout}
