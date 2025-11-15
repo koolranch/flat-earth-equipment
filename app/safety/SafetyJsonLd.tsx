@@ -24,7 +24,7 @@ export default function SafetyJsonLd() {
             acceptedAnswerText: 'OSHA requires forklift operators to be re-evaluated every 3 years, or sooner if involved in an accident or observed operating unsafely.',
           },
           {
-            questionName: 'What is included in the $59 certification?',
+            questionName: 'What is included in the $49 certification?',
             acceptedAnswerText: 'The certification includes comprehensive online theory training modules, quizzes to test your knowledge, a printable certificate upon completion, and an employer evaluation checklist for practical assessment.',
           },
           {

@@ -62,7 +62,7 @@ export default function StickyCTA() {
           disabled={isLoading}
           className="w-full inline-flex justify-center rounded-lg bg-orange-600 px-4 py-3 text-white font-semibold hover:bg-orange-700 transition-colors disabled:opacity-50 disabled:cursor-wait"
         >
-          {isLoading ? 'Loading...' : 'Start — $59'}
+          {isLoading ? 'Loading...' : 'Start — $49'}
         </button>
       </div>
       <div className="h-[env(safe-area-inset-bottom)]" />

@@ -79,7 +79,7 @@ export default async function SafetyPage() {
   // For non-authenticated users, direct to pricing (better for ads)
   // For authenticated users, check enrollment and route accordingly
   let ctaHref = '/safety#pricing';
-  let ctaText = locale === 'es' ? 'Certificarse Ahora - $59' : 'Get Certified Now - $59';
+  let ctaText = locale === 'es' ? 'Certificarse Ahora - $49' : 'Get Certified Now - $49';
   
   if (isAuthed && userId) {
     // Check enrollment status
@@ -104,7 +104,7 @@ export default async function SafetyPage() {
         ctaText = locale === 'es' ? 'Continuar Entrenamiento' : 'Continue Training';
       } else {
         ctaHref = '/safety#pricing';
-        ctaText = locale === 'es' ? 'Certificarse Ahora - $59' : 'Get Certified Now - $59';
+        ctaText = locale === 'es' ? 'Certificarse Ahora - $49' : 'Get Certified Now - $49';
       }
     }
   }
@@ -231,7 +231,7 @@ export default async function SafetyPage() {
           <div className="space-y-4 sm:hidden">
             {[
               { icon: '⏰', label: 'Time', old: '8 hours', new: 'Under 60 min' },
-              { icon: '💵', label: 'Cost', old: '$200-$500', new: '$59' },
+              { icon: '💵', label: 'Cost', old: '$200-$500', new: '$49' },
               { icon: '📍', label: 'Location', old: 'Travel required', new: 'Anywhere' },
               { icon: '📜', label: 'Certificate', old: '1-2 weeks', new: 'Instant' },
             ].map((item, i) => (
@@ -273,7 +273,7 @@ export default async function SafetyPage() {
                 <tr className="border-b border-blue-100">
                   <td className="py-3 font-medium text-slate-700">💵 Cost</td>
                   <td className="py-3 text-slate-600">$200-$500</td>
-                  <td className="py-3 text-[#F76511] font-semibold">$59</td>
+                  <td className="py-3 text-[#F76511] font-semibold">$49</td>
                 </tr>
                 <tr className="border-b border-blue-100">
                   <td className="py-3 font-medium text-slate-700">📍 Location</td>
@@ -316,7 +316,7 @@ export default async function SafetyPage() {
                 href="#pricing" 
                 className="inline-flex items-center gap-2 bg-[#F76511] text-white px-8 py-4 rounded-xl font-bold hover:bg-orange-600 transition-colors shadow-lg hover:shadow-xl"
               >
-                Get Started — $59 →
+                Get Started — $49 →
               </Link>
             </div>
           </div>
@@ -396,7 +396,7 @@ export default async function SafetyPage() {
               href="/safety/forklift" 
               className="inline-flex items-center gap-2 bg-[#F76511] text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors shadow-md hover:shadow-lg"
             >
-              {locale === 'es' ? 'Comenzar Curso – $59' : 'Start Course – $59'}
+              {locale === 'es' ? 'Comenzar Curso – $49' : 'Start Course – $49'}
             </Link>
             <Link 
               href="#pricing" 
