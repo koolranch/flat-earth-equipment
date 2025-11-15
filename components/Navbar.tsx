@@ -19,12 +19,59 @@ type Props = { locale: 'en' | 'es' }
 export default function Navbar({ locale }: Props) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [trainingDropdownOpen, setTrainingDropdownOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  
   const pathname = usePathname();
   const { items } = useCart();
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
   
   // Minimal header on safety routes - less visual competition with hero CTA
   const minimal = pathname.startsWith('/safety');
+  
+  // Determine if this page should have auto-hide behavior
+  const shouldAutoHide = 
+    pathname.startsWith('/insights/') ||  // Blog posts
+    pathname.startsWith('/blog/') ||       // Blog posts (if you use this)
+    pathname.includes('/article/') ||      // Long-form content
+    pathname.includes('/guide/');          // Guides
+  
+  // Critical pages where header should ALWAYS be visible
+  const alwaysShow = 
+    pathname === '/' ||                    // Homepage
+    pathname.startsWith('/parts') ||       // Parts pages
+    pathname.startsWith('/cart') ||        // Cart
+    pathname.startsWith('/checkout') ||    // Checkout
+    pathname.startsWith('/safety') ||      // Safety/training
+    pathname.startsWith('/rent-equipment');// Rentals
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Scroll-based shadow (always active)
+      setScrolled(currentScrollY > 10);
+      
+      // Auto-hide logic (only on reading pages)
+      if (shouldAutoHide && !alwaysShow) {
+        // Hide when scrolling down, show when scrolling up
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+          setHidden(true);
+        } else if (currentScrollY < lastScrollY) {
+          setHidden(false);
+        }
+      } else {
+        // Always show on critical pages
+        setHidden(false);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY, shouldAutoHide, alwaysShow]);
 
   const navItems: NavItem[] = [
     { name: 'Rent Equipment', href: '/rent-equipment' },
@@ -34,8 +81,16 @@ export default function Navbar({ locale }: Props) {
     { name: 'Contact', href: '/contact' },
   ];
 
+  // Dynamic classes based on scroll state
+  const navClasses = `
+    sticky top-0 z-50 transition-all duration-300
+    ${hidden ? '-translate-y-full' : 'translate-y-0'}
+    ${minimal ? 'bg-transparent border-transparent backdrop-blur-sm' : 'bg-white/95 backdrop-blur-sm border-b border-gray-200'}
+    ${scrolled && !minimal ? 'shadow-md' : 'shadow-sm'}
+  `.trim().replace(/\s+/g, ' ');
+  
   return (
-    <nav className={`sticky top-0 z-50 transition-all duration-300 ${minimal ? 'bg-transparent border-transparent backdrop-blur-sm' : 'bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm'}`}>
+    <nav className={navClasses}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
           <div className="flex">
