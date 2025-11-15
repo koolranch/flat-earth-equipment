@@ -13,12 +13,12 @@ export default function SafetyHero() {
     // Track begin_checkout event
     trackEvent('begin_checkout', {
       course: 'forklift',
-      value: 59,
+      value: 49,
       currency: 'USD',
       items: [{
-        item_id: 'price_1RS834HJI548rO8JpJMyGhL3',
+        item_id: 'price_1SToXBHJI548rO8JZnnTwKER',
         item_name: 'Online Forklift Certification',
-        price: 59,
+        price: 49,
       }]
     });
 
@@ -35,7 +35,7 @@ export default function SafetyHero() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           items: [{
-            priceId: 'price_1RS834HJI548rO8JpJMyGhL3',
+            priceId: 'price_1SToXBHJI548rO8JZnnTwKER', // Black Friday price
             quantity: 1,
             isTraining: true
           }]

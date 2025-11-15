@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 
 // Map Stripe Price IDs to seat counts for proper order tracking
 const PRICE_TO_SEATS: Record<string, number> = {
-  'price_1RS834HJI548rO8JpJMyGhL3': 1,   // Single Operator
+  'price_1SToXBHJI548rO8JZnnTwKER': 1,   // Single Operator (Black Friday $49)
   'price_1RS835HJI548rO8JkMXj7FMQ': 5,   // 5-Pack
   'price_1RS835HJI548rO8JbvRrMwUv': 25,  // 25-Pack
   'price_1RS836HJI548rO8JwlCAzg7m': 999, // Facility Unlimited
