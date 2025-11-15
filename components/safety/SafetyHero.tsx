@@ -87,7 +87,7 @@ export default function SafetyHero() {
           <p className="text-xs uppercase tracking-widest text-emerald-300/90 mb-4">OSHA-Compliant Forklift Training</p>
           <h1 className="text-3xl font-bold sm:text-4xl text-balance leading-tight">Get OSHA Forklift Certification in Under 60 Minutes</h1>
           <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed">
-            100% online • $59 • Same-day wallet card • OSHA 29 CFR 1910.178(l) aligned
+            100% online • $49 • Same-day wallet card • OSHA 29 CFR 1910.178(l) aligned
           </p>
           <div className="mt-8">
             <button
@@ -104,7 +104,7 @@ export default function SafetyHero() {
                   Processing...
                 </>
               ) : (
-                'Start Certificate — $59'
+                'Start Certificate — $49'
               )}
             </button>
           </div>

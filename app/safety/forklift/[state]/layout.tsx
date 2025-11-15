@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: { state: string } }
   
   return {
     title: `Forklift Certification in ${stateName} | OSHA Compliant Training`,
-    description: `Get OSHA-compliant forklift certification in ${stateName}. Online training available 24/7. Learn about ${stateName} OSHA fines and requirements. Start today for only $59.`,
+    description: `Get OSHA-compliant forklift certification in ${stateName}. Online training available 24/7. Learn about ${stateName} OSHA fines and requirements. Black Friday Special: Only $49 (Save $10!)`,
     openGraph: {
       title: `Forklift Certification in ${stateName} | OSHA Compliant Training`,
       description: `Get OSHA-compliant forklift certification in ${stateName}. Online training available 24/7.`,

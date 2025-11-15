@@ -173,7 +173,7 @@ export default function StateForkliftPage({ params }: Props) {
           
           {/* Subheadline */}
           <p className="text-xl md:text-2xl text-orange-100 max-w-3xl mx-auto font-medium">
-            OSHA-compliant online training. Instant certificate download. Just $59.
+            OSHA-compliant online training. Instant certificate download. Just $49.
           </p>
           
           {/* Key Benefits */}
@@ -259,7 +259,7 @@ export default function StateForkliftPage({ params }: Props) {
         <div className="space-y-4 sm:hidden">
           {[
             { icon: '⏰', label: 'Time', old: '8 hours', new: 'Under 60 min' },
-            { icon: '💵', label: 'Cost', old: '$200-$500', new: '$59' },
+            { icon: '💵', label: 'Cost', old: '$200-$500', new: '$49' },
             { icon: '📍', label: 'Location', old: 'Travel required', new: 'Anywhere' },
             { icon: '📜', label: 'Certificate', old: '1-2 weeks', new: 'Instant' },
           ].map((item, i) => (
@@ -301,7 +301,7 @@ export default function StateForkliftPage({ params }: Props) {
               <tr className="border-b border-blue-100">
                 <td className="py-3 font-medium text-slate-700">💵 Cost</td>
                 <td className="py-3 text-slate-600">$200-$500</td>
-                <td className="py-3 text-[#F76511] font-semibold">$59</td>
+                <td className="py-3 text-[#F76511] font-semibold">$49</td>
               </tr>
               <tr className="border-b border-blue-100">
                 <td className="py-3 font-medium text-slate-700">📍 Location</td>
@@ -545,7 +545,7 @@ export default function StateForkliftPage({ params }: Props) {
                 href="/safety/forklift" 
                 className="inline-flex items-center rounded-xl bg-orange-600 px-5 py-3 font-semibold text-white hover:bg-orange-700 shadow-md hover:shadow-lg transition-all"
               >
-                Start Course – $59
+                Start Course – $49
               </Link>
               <Link 
                 href="/training#pricing" 
