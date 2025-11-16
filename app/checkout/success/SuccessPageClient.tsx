@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { trackPurchase } from '@/lib/analytics/gtag'
+import { trackPurchaseClient } from '@/lib/analytics/vercel-funnel'
 
 export default function SuccessPageClient() {
   const searchParams = useSearchParams();
@@ -11,21 +12,24 @@ export default function SuccessPageClient() {
   useEffect(() => {
     // Track conversion when page loads
     if (sessionId) {
+      // GA4 purchase tracking (EXISTING - unchanged)
       trackPurchase({
         transactionId: sessionId,
-        value: 59, // Default to single operator price
+        value: 49, // Black Friday price
         currency: 'USD',
         items: [{
           item_id: 'forklift_cert_single',
           item_name: 'Forklift Operator Certification',
-          price: 59,
+          price: 49,
           quantity: 1,
         }],
       });
 
-      // Also track as a custom event for Vercel Analytics
-      if (typeof window !== 'undefined' && (window as any).va) {
-        (window as any).va('track', 'Purchase', { value: 59, currency: 'USD' });
+      // Vercel Analytics purchase tracking (NEW - safe, won't break anything)
+      try {
+        trackPurchaseClient(sessionId, 49);
+      } catch (e) {
+        console.warn('[Vercel] Purchase tracking failed:', e);
       }
     }
   }, [sessionId]);
