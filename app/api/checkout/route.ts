@@ -49,6 +49,10 @@ export async function POST(req: NextRequest) {
           metadata.course_slug = 'forklift';
           // Use seat_count from metadata if provided, otherwise use quantity
           metadata.quantity = String(item.metadata?.seat_count || item.quantity || 1);
+          // Add funnel state if provided (for Vercel Analytics)
+          if (item.metadata?.utm_state) {
+            metadata.funnel_state = String(item.metadata.utm_state);
+          }
         }
         
         // Add core charge as separate line item if applicable

@@ -1,16 +1,27 @@
 /* eslint-disable react/jsx-no-target-blank */
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { loadStripe } from "@stripe/stripe-js";
 import { trackEvent } from "@/lib/analytics/gtag";
+import { trackLanding, trackCTA, trackCheckoutBegin } from "@/lib/analytics/vercel-funnel";
 
 export default function SafetyHero() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  
+  // Track landing view once on mount
+  useEffect(() => {
+    trackLanding(49);
+  }, []);
 
   const handleStart = async () => {
-    // Track begin_checkout event
+    // Track CTA click to Vercel (safe, won't block checkout)
+    try {
+      trackCTA('hero', 49);
+    } catch {}
+    
+    // Track begin_checkout event (EXISTING GA4 - unchanged)
     trackEvent('begin_checkout', {
       course: 'forklift',
       value: 49,
@@ -21,6 +32,12 @@ export default function SafetyHero() {
         price: 49,
       }]
     });
+    
+    // Track checkout begin to Vercel and get state
+    let funnelState = null;
+    try {
+      funnelState = trackCheckoutBegin(49, 'price_1SToXBHJI548rO8JZnnTwKER');
+    } catch {}
 
     try {
       (window as any).dataLayer?.push({ event: "cta_click", label: "hero_start_cert" });
@@ -37,7 +54,10 @@ export default function SafetyHero() {
           items: [{
             priceId: 'price_1SToXBHJI548rO8JZnnTwKER', // Black Friday price
             quantity: 1,
-            isTraining: true
+            isTraining: true,
+            metadata: {
+              ...(funnelState && { utm_state: funnelState }),
+            }
           }]
         })
       });

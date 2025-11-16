@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { STATE_TO_USPS, slugToTitle } from '@/lib/state';
 import { trackEvent } from '@/lib/analytics/gtag';
+import { trackCTA, trackCheckoutBegin } from '@/lib/analytics/vercel-funnel';
 
 export default function StateHero() {
   const params = useParams() as Record<string, string> | null;
@@ -14,7 +15,12 @@ export default function StateHero() {
   const [error, setError] = useState<string | null>(null);
 
   const handleCheckout = async () => {
-    // Track begin_checkout event
+    // Track CTA click to Vercel (safe, won't block checkout)
+    try {
+      trackCTA('hero', 49);
+    } catch {}
+    
+    // Track begin_checkout event (EXISTING GA4 - unchanged)
     trackEvent('begin_checkout', {
       course: 'forklift',
       value: 49,
@@ -27,6 +33,12 @@ export default function StateHero() {
       }]
     });
     
+    // Track checkout begin to Vercel and get state
+    let funnelState = null;
+    try {
+      funnelState = trackCheckoutBegin(49, 'price_1SToXBHJI548rO8JZnnTwKER');
+    } catch {}
+    
     setIsLoading(true);
     setError(null);
     
@@ -38,7 +50,10 @@ export default function StateHero() {
           items: [{
             priceId: 'price_1SToXBHJI548rO8JZnnTwKER', // Black Friday price
             quantity: 1,
-            isTraining: true
+            isTraining: true,
+            metadata: {
+              ...(funnelState && { utm_state: funnelState }),
+            }
           }]
         })
       });

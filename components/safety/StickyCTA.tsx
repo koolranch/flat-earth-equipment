@@ -2,12 +2,18 @@
 import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { trackEvent } from "@/lib/analytics/gtag";
+import { trackCTA, trackCheckoutBegin } from "@/lib/analytics/vercel-funnel";
 
 export default function StickyCTA() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleStart = async () => {
-    // Track event
+    // Track CTA click to Vercel (safe, won't block checkout)
+    try {
+      trackCTA('sticky', 49);
+    } catch {}
+    
+    // Track event (EXISTING GA4 - unchanged)
     trackEvent('begin_checkout', {
       course: 'forklift',
       value: 49,
@@ -19,6 +25,12 @@ export default function StickyCTA() {
         price: 49,
       }]
     });
+    
+    // Track checkout begin to Vercel and get state
+    let funnelState = null;
+    try {
+      funnelState = trackCheckoutBegin(49, 'price_1SToXBHJI548rO8JZnnTwKER');
+    } catch {}
 
     try {
       (window as any).dataLayer?.push({ event: "cta_click", label: "sticky_start" });
@@ -34,7 +46,10 @@ export default function StickyCTA() {
           items: [{
             priceId: 'price_1SToXBHJI548rO8JZnnTwKER', // Black Friday price
             quantity: 1,
-            isTraining: true
+            isTraining: true,
+            metadata: {
+              ...(funnelState && { utm_state: funnelState }),
+            }
           }]
         })
       });
