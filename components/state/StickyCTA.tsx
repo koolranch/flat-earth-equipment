@@ -76,7 +76,7 @@ export default function StickyCTA() {
       <div className="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between gap-3">
         <div className="flex-1">
           <div className="text-sm font-semibold text-white">Get certified in {STATE}</div>
-          <div className="text-xs text-slate-300">$49 • Under 60 minutes</div>
+          <div className="text-xs text-slate-300">$49 • Under 30 minutes</div>
         </div>
         <button 
           onClick={handleCheckout}

@@ -84,7 +84,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   
   return {
     title: `How to Get Forklift Certified in ${state.name} | Online OSHA Training`,
-    description: `Learn how to get forklift certified in ${state.name}. Complete OSHA-compliant certification online in under 60 minutes. Instant certificate download for ${state.name} operators.`,
+    description: `Learn how to get forklift certified in ${state.name}. Complete OSHA-compliant certification online in under 30 minutes. Instant certificate download for ${state.name} operators.`,
     alternates: {
       canonical: `https://www.flatearthequipment.com/safety/forklift/${state.code}`
     },
@@ -98,7 +98,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     openGraph: {
       title: `Forklift Certification in ${state.name} | OSHA Compliant`,
-      description: `Get certified in under 60 minutes. OSHA-compliant online training for ${state.name} operators. Instant certificate download.`,
+      description: `Get certified in under 30 minutes. OSHA-compliant online training for ${state.name} operators. Instant certificate download.`,
       url: `https://www.flatearthequipment.com/safety/forklift/${state.code}`,
       siteName: 'Flat Earth Equipment',
       images: [
@@ -114,7 +114,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     twitter: {
       card: 'summary_large_image',
       title: `Forklift Certification in ${state.name}`,
-      description: `Get OSHA-compliant forklift certification online in under 60 minutes. Valid in ${state.name}.`,
+      description: `Get OSHA-compliant forklift certification online in under 30 minutes. Valid in ${state.name}.`,
       images: ['https://www.flatearthequipment.com/og-safety-training.png'],
     },
   };
@@ -168,7 +168,7 @@ export default function StateForkliftPage({ params }: Props) {
           
           {/* Headline */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
-            Get Forklift Certified in {info.name} in Under 60 Minutes
+            Get Forklift Certified in {info.name} in Under 30 Minutes
           </h1>
           
           {/* Subheadline */}
@@ -180,7 +180,7 @@ export default function StateForkliftPage({ params }: Props) {
           <div className="flex flex-wrap justify-center gap-6 text-base md:text-lg py-4">
             <div className="flex items-center gap-2">
               <span className="text-2xl">✓</span>
-              <span>Complete in 60 minutes</span>
+              <span>Complete in 30 minutes</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl">✓</span>
@@ -258,7 +258,7 @@ export default function StateForkliftPage({ params }: Props) {
         {/* Mobile: Stacked comparison cards */}
         <div className="space-y-4 sm:hidden">
           {[
-            { icon: '⏰', label: 'Time', old: '8 hours', new: 'Under 60 min' },
+            { icon: '⏰', label: 'Time', old: '8 hours', new: 'Under 30 min' },
             { icon: '💵', label: 'Cost', old: '$200-$500', new: '$49' },
             { icon: '📍', label: 'Location', old: 'Travel required', new: 'Anywhere' },
             { icon: '📜', label: 'Certificate', old: '1-2 weeks', new: 'Instant' },
@@ -296,7 +296,7 @@ export default function StateForkliftPage({ params }: Props) {
               <tr className="border-b border-blue-100">
                 <td className="py-3 font-medium text-slate-700">⏰ Time Required</td>
                 <td className="py-3 text-slate-600">8 hours (full day)</td>
-                <td className="py-3 text-[#F76511] font-semibold">Under 60 minutes ⚡</td>
+                <td className="py-3 text-[#F76511] font-semibold">Under 30 minutes ⚡</td>
               </tr>
               <tr className="border-b border-blue-100">
                 <td className="py-3 font-medium text-slate-700">💵 Cost</td>
@@ -416,7 +416,7 @@ export default function StateForkliftPage({ params }: Props) {
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 text-white flex items-center justify-center font-bold text-lg flex-shrink-0">2</div>
               <div>
                 <strong className="text-gray-900">Complete Training:</strong>
-                <span className="text-gray-700"> Finish the online course in under 60 minutes at your own pace.</span>
+                <span className="text-gray-700"> Finish the online course in under 30 minutes at your own pace.</span>
               </div>
             </li>
             <li className="flex items-start gap-4">
@@ -586,7 +586,7 @@ export default function StateForkliftPage({ params }: Props) {
             How do I get forklift certified in {info.name}?
           </summary>
           <p className="mt-3 pl-8 text-gray-700">
-            To get forklift certified in {info.name}, simply enroll in our online OSHA-compliant course, complete the training in under 60 minutes, 
+            To get forklift certified in {info.name}, simply enroll in our online OSHA-compliant course, complete the training in under 30 minutes, 
             and pass the exam. You'll instantly receive your printable certification valid throughout {info.name}.
           </p>
         </details>
@@ -606,7 +606,7 @@ export default function StateForkliftPage({ params }: Props) {
             How long does it take to get forklift certified in {info.name}?
           </summary>
           <p className="mt-3 pl-8 text-gray-700">
-            You can get forklift certified in {info.name} in under 60 minutes with our online course. 
+            You can get forklift certified in {info.name} in under 30 minutes with our online course. 
             The training is self-paced, so you can complete it faster if needed.
           </p>
         </details>
@@ -2307,7 +2307,7 @@ export default function StateForkliftPage({ params }: Props) {
               {
                 "@type": "Course",
                 name: "How to Get Forklift Certified in " + info.name + " - Online Training",
-                description: "Learn how to get forklift certified in " + info.name + " with our OSHA-compliant online course. Complete certification in under 60 minutes.",
+                description: "Learn how to get forklift certified in " + info.name + " with our OSHA-compliant online course. Complete certification in under 30 minutes.",
                 provider: {
                   "@type": "Organization",
                   name: "Flat Earth Equipment",

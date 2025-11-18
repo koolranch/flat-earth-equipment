@@ -230,7 +230,7 @@ export default async function SafetyPage() {
           {/* Mobile: Stacked comparison cards */}
           <div className="space-y-4 sm:hidden">
             {[
-              { icon: '⏰', label: 'Time', old: '8 hours', new: 'Under 60 min' },
+              { icon: '⏰', label: 'Time', old: '8 hours', new: 'Under 30 min' },
               { icon: '💵', label: 'Cost', old: '$200-$500', new: '$49' },
               { icon: '📍', label: 'Location', old: 'Travel required', new: 'Anywhere' },
               { icon: '📜', label: 'Certificate', old: '1-2 weeks', new: 'Instant' },
@@ -268,7 +268,7 @@ export default async function SafetyPage() {
                 <tr className="border-b border-blue-100">
                   <td className="py-3 font-medium text-slate-700">⏰ Time Required</td>
                   <td className="py-3 text-slate-600">8 hours (full day)</td>
-                  <td className="py-3 text-[#F76511] font-semibold">Under 60 minutes ⚡</td>
+                  <td className="py-3 text-[#F76511] font-semibold">Under 30 minutes ⚡</td>
                 </tr>
                 <tr className="border-b border-blue-100">
                   <td className="py-3 font-medium text-slate-700">💵 Cost</td>

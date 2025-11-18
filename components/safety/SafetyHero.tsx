@@ -112,7 +112,7 @@ export default function SafetyHero() {
           </div>
           
           <p className="text-xs uppercase tracking-widest text-emerald-300/90 mb-4">OSHA-Compliant Forklift Training</p>
-          <h1 className="text-3xl font-bold sm:text-4xl text-balance leading-tight">Get OSHA Forklift Certification in Under 60 Minutes</h1>
+          <h1 className="text-3xl font-bold sm:text-4xl text-balance leading-tight">Get OSHA Forklift Certification in Under 30 Minutes</h1>
           <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed">
             100% online • 
             <span className="inline-flex items-baseline gap-1.5 mx-1">

@@ -3,7 +3,7 @@ import Script from "next/script"
 import { getUserLocale } from "@/lib/getUserLocale"
 
 export const metadata = {
-  title: "Certificación de Montacargas en Línea – OSHA en Español (60 min)",
+  title: "Certificación de Montacargas en Línea – OSHA en Español (30 min)",
   description:
     "Completa tu curso de montacargas en menos de 1 hora. Obtén tu certificado PDF inmediato. Español e inglés incluidos – solo $59.",
   alternates: {
@@ -16,7 +16,7 @@ export const metadata = {
   openGraph: {
     title: "Curso OSHA de Montacargas (Español)",
     description:
-      "Certifícate 100% online en menos de 60 min, PDF instantáneo.",
+      "Certifícate 100% online en menos de 30 min, PDF instantáneo.",
     url: "https://www.flatearthequipment.com/certificacion-montacargas-espanol",
     type: "website",
   },
@@ -96,7 +96,7 @@ export default function CertificacionMontacargasEspanol() {
           </h1>
 
           <p className="text-xl text-center mb-8 text-gray-700 font-medium">
-            Completa el entrenamiento teórico exigido por OSHA en <strong>&lt; 60 minutos</strong>.
+            Completa el entrenamiento teórico exigido por OSHA en <strong>&lt; 30 minutos</strong>.
             PDF de certificado inmediato, exámenes ilimitados y versión en inglés sin costo extra.
           </p>
 
@@ -160,7 +160,7 @@ export default function CertificacionMontacargasEspanol() {
           <div className="bg-gray-50 rounded-lg p-6 mb-8">
             <ol className="space-y-3">
               <li><strong>1. Inscríbete:</strong> Haz clic en <em>"Empieza Ahora"</em> y completa el pago seguro.</li>
-              <li><strong>2. Estudia:</strong> Sigue los módulos interactivos (menos de 60 minutos).</li>
+              <li><strong>2. Estudia:</strong> Sigue los módulos interactivos (menos de 30 minutos).</li>
               <li><strong>3. Examínate:</strong> Toma el examen final (necesitas 80% para aprobar).</li>
               <li><strong>4. Descarga:</strong> Obtén tu certificado PDF inmediatamente.</li>
               <li><strong>5. Evaluación práctica:</strong> Pide a tu empleador la evaluación incluida.</li>

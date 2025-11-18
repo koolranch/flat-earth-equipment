@@ -34,7 +34,7 @@ export default function StateProductJsonLd() {
     '@type': 'Product',
     name: `Online Forklift Certification — ${STATE}`,
     description:
-      'OSHA 1910.178-aligned online forklift certification. Finish in 45–60 minutes. Same-day digital certificate & wallet card. Employer completes on-site evaluation.',
+      'OSHA 1910.178-aligned online forklift certification. Finish in under 30 minutes. Same-day digital certificate & wallet card. Employer completes on-site evaluation.',
     brand: { '@type': 'Brand', name: 'Flat Earth Safety' },
     ...(areaServed ? { areaServed } : {}),
     ...(about ? { about } : {}),
@@ -49,7 +49,7 @@ export default function StateProductJsonLd() {
     offers: {
       '@type': 'Offer',
       priceCurrency: 'USD',
-      price: '59.00',
+      price: '49.00',
       availability: 'https://schema.org/InStock',
       url,
       priceValidUntil: '2025-12-31',
