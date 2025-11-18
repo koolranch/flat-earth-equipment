@@ -5,7 +5,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Counterbalance Forklift Certification – Online OSHA Class IV/V",
   description:
-    "Finish OSHA-compliant counterbalance forklift training in under 60 minutes. Covers load capacity plates, stability triangle & more. PDF certificate for just $59.",
+    "Finish OSHA-compliant counterbalance forklift training in under 30 minutes. Covers load capacity plates, stability triangle & more. PDF certificate for just $59.",
   alternates: {
     canonical: "/counterbalance-forklift-certification-online",
     languages: {
@@ -96,7 +96,7 @@ export default function CounterbalanceForkliftPage() {
         <h1>Online Counterbalance Forklift Certification (Class IV & V)</h1>
 
         <p className="lead text-xl text-gray-700 mb-8">
-          Master the most common warehouse truck type in <strong>&lt; 60 minutes</strong>.
+          Master the most common warehouse truck type in <strong>&lt; 30 minutes</strong>.
           This OSHA-compliant course covers class IV (solid-tire) and class V (pneumatic-tire) counterbalance forklifts—
           including load-capacity plates, stability triangle, and safe travel techniques.
         </p>

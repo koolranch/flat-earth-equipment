@@ -87,7 +87,7 @@ export default function StateHero() {
     <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
       <div className="mx-auto max-w-5xl px-4 py-12 md:py-16">
         <h1 className="text-3xl md:text-5xl font-bold leading-tight">
-          Get Forklift-Certified in {STATE} — $49, Under 60 Minutes
+          Get Forklift-Certified in {STATE} — $49, Under 30 Minutes
         </h1>
         <p className="mt-4 text-slate-200 text-lg md:text-xl max-w-3xl">
           OSHA-aligned online training with instant digital certificate & wallet card. Your supervisor completes the on-site evaluation.

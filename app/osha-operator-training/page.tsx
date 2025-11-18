@@ -80,7 +80,7 @@ export default function OSHAOperatorTrainingPage() {
               🚜 Individual operator looking for online certification?
             </p>
             <p className="text-orange-800 mb-3">
-              Get OSHA-compliant forklift certification online in under 60 minutes for just $59.
+              Get OSHA-compliant forklift certification online in under 30 minutes for just $59.
             </p>
             <Link
               href="/safety"
