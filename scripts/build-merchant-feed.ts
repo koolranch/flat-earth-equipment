@@ -1,6 +1,17 @@
 import { writeFileSync } from "fs";
 import { prisma } from "../lib/prisma.js";
-import { Part } from '@prisma/client';
+
+type Part = {
+  id: string;
+  name: string;
+  slug: string;
+  price_cents: number | null;
+  image_url: string | null;
+  brand: string | null;
+  category: string | null;
+  description: string | null;
+  in_stock: boolean | null;
+};
 
 async function buildFeed() {
   const parts = await prisma.part.findMany();
