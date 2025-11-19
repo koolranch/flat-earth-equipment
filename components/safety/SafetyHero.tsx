@@ -125,7 +125,7 @@ export default function SafetyHero() {
             <button
               onClick={handleStart}
               disabled={isLoading}
-              className="inline-flex items-center rounded-lg bg-orange-600 px-8 py-4 text-lg font-semibold text-white hover:bg-orange-700 transition-colors shadow-lg disabled:opacity-50 disabled:cursor-wait"
+              className="inline-flex items-center rounded-xl bg-orange-600 px-10 py-5 text-xl font-bold text-white hover:bg-orange-700 transition-all duration-300 shadow-xl shadow-orange-500/30 hover:shadow-2xl hover:-translate-y-1 disabled:opacity-50 disabled:cursor-wait"
             >
               {isLoading ? (
                 <>
@@ -140,6 +140,26 @@ export default function SafetyHero() {
               )}
             </button>
           </div>
+          
+          {/* Social Proof - Trust Signal */}
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
+            {/* Avatar Stack */}
+            <div className="flex -space-x-3">
+              <div className="w-10 h-10 rounded-full bg-orange-100 border-2 border-white shadow-sm text-orange-700 flex items-center justify-center font-bold text-xs">JD</div>
+              <div className="w-10 h-10 rounded-full bg-emerald-100 border-2 border-white shadow-sm text-emerald-700 flex items-center justify-center font-bold text-xs">SK</div>
+              <div className="w-10 h-10 rounded-full bg-blue-100 border-2 border-white shadow-sm text-blue-700 flex items-center justify-center font-bold text-xs">PR</div>
+              <div className="w-10 h-10 rounded-full bg-brand-100 border-2 border-white shadow-sm text-brand-700 flex items-center justify-center font-bold text-xs">+2k</div>
+            </div>
+            
+            {/* Rating + Count */}
+            <div className="flex flex-col items-center sm:items-start">
+              <div className="flex text-yellow-400 text-base mb-1">
+                ★★★★★
+              </div>
+              <p className="text-white/90 font-medium">Trusted by 2,000+ operators</p>
+            </div>
+          </div>
+          
           {error && (
             <p className="mt-4 text-red-400 text-sm">{error}</p>
           )}

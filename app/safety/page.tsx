@@ -8,6 +8,7 @@ import { safeNext } from '@/lib/auth/nextParam';
 import { supabaseServer } from '@/lib/supabase/server';
 import PricingStrip from '@/components/training/PricingStrip';
 import SafetyHero from '@/components/safety/SafetyHero';
+import LogoCloud from '@/components/safety/LogoCloud';
 import StickyCTA from '@/components/safety/StickyCTA';
 import FaqAccordion from '@/components/safety/FaqAccordion';
 import ReasonsToJoin from '@/components/ReasonsToJoin';
@@ -198,6 +199,9 @@ export default async function SafetyPage() {
       
       {/* New Simplified Hero */}
       <SafetyHero />
+      
+      {/* Enterprise Logo Cloud - High Trust Signal */}
+      <LogoCloud />
       
       <main className="section">
       <div className="container mx-auto px-4">
