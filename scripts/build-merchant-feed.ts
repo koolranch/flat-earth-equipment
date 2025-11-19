@@ -19,13 +19,13 @@ async function buildFeed() {
   const feed = parts.map((p: Part) => ({
     id: p.id,
     title: p.name,
-    description: p.description,
+    description: p.description || '',
     link: `https://flatearthequipment.com/parts/${p.slug}`,
-    image_link: `https://flatearthequipment.com/images/parts/${p.slug}.jpg`,
-    price: `${p.price.toFixed(2)} USD`,
-    brand: p.brand,
+    image_link: p.image_url || `https://flatearthequipment.com/images/parts/${p.slug}.jpg`,
+    price: p.price_cents ? `${(p.price_cents / 100).toFixed(2)} USD` : '0.00 USD',
+    brand: p.brand || '',
     condition: "new",
-    availability: "in stock",
+    availability: p.in_stock ? "in stock" : "out of stock",
   }));
 
   // Ensure the directory exists
