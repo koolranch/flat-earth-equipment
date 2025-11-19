@@ -1,6 +1,6 @@
 export default function HowItWorksStrip() {
   const steps = [
-    { h: "1) Online theory (~90 min)", p: "Interactive checks & demos—phone friendly." },
+    { h: "1) Online theory (~30 min)", p: "Interactive checks & demos—phone friendly." },
     { h: "2) Employer Practical", p: "Supervisor evaluates on your equipment using our checklist." },
     { h: "3) Same-day wallet card", p: "Instant certificate + 3-year renewal reminder." },
   ];
