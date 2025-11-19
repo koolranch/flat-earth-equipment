@@ -536,7 +536,7 @@ export default function StateForkliftPage({ params }: Props) {
             </h2>
             <p className="mt-3 text-gray-700 text-lg">
               Serving Dallas, Fort Worth, Arlington, Irving, Grand Prairie, Mesquite, and Garland.
-              Complete the online theory in about 90 minutes (English &amp; Spanish), then your supervisor
+              Complete the online theory in about 30 minutes (English &amp; Spanish), then your supervisor
               performs the onsite practical using our evaluation checklist. Same-day wallet card; renewal every 3 years.
             </p>
 
