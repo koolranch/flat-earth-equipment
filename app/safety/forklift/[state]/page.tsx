@@ -222,7 +222,7 @@ export default function StateForkliftPage({ params }: Props) {
             <div className="text-sm text-gray-600 mt-1">Certified Operators</div>
           </div>
           <div>
-            <div className="text-4xl font-bold text-orange-600">&lt;60</div>
+            <div className="text-4xl font-bold text-orange-600">30</div>
             <div className="text-sm text-gray-600 mt-1">Minutes to Complete</div>
           </div>
           <div>
