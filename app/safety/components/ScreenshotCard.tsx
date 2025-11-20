@@ -24,21 +24,27 @@ export default function ScreenshotCard({ src, alt, caption, aspect = '4/3', clas
   return (
     <figure className={cn('group', className)}>
       <div className={cn(
-        'relative overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 to-slate-100 shadow-lg ring-0 focus-within:ring-2 focus-within:ring-orange-500 transition-shadow duration-300 hover:shadow-xl',
+        'relative overflow-hidden rounded-xl border border-slate-200/60 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)]',
         aspectClass
       )}>
+        {/* Browser Chrome */}
+        <div className="absolute top-0 left-0 right-0 h-8 bg-slate-50 border-b border-slate-100 flex items-center px-4 gap-1.5 z-10">
+          <div className="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+          <div className="w-2.5 h-2.5 rounded-full bg-slate-200"></div>
+          <div className="w-2.5 h-2.5 rounded-full bg-slate-200"></div>
+        </div>
+        
         <Image
           src={src}
           alt={alt}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 700px"
-          className="object-contain p-2 sm:p-4"
+          className="object-contain pt-8 pb-2 px-2 sm:pt-12 sm:pb-4 sm:px-4"
           priority={false}
         />
-        <span className="pointer-events-none absolute left-2 top-2 sm:left-3 sm:top-3 rounded-full bg-orange-500/90 px-2 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-xs font-medium text-white shadow-sm">Actual interface</span>
       </div>
       {caption ? (
-        <figcaption className="mt-3 text-sm text-slate-600" dangerouslySetInnerHTML={{ __html: caption }} />
+        <figcaption className="mt-4 text-center text-sm text-slate-600 font-medium" dangerouslySetInnerHTML={{ __html: caption }} />
       ) : null}
     </figure>
   );
