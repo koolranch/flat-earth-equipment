@@ -111,7 +111,7 @@ export default function StateHero() {
         <p className="text-xs uppercase tracking-widest text-emerald-300/90 mb-3">OSHA-Compliant Forklift Training</p>
         
         <h1 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight">
-          Get {STATE} Forklift Certification in Under 30 Minutes
+          Get {STATE} Forklift Certified
         </h1>
         <p className="mt-4 text-slate-200 text-base md:text-lg max-w-3xl leading-relaxed">
           <span className="font-semibold">About 30 Minutes</span> • <span className="inline-flex items-baseline gap-1.5">
