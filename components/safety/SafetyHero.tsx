@@ -110,98 +110,118 @@ export default function SafetyHero() {
   };
 
   return (
-    <section className="relative isolate overflow-hidden bg-slate-900 text-white min-h-[500px] sm:h-[500px]">
+    <section className="relative isolate overflow-hidden bg-slate-950 text-white min-h-[500px] sm:h-[500px]">
       {/* Background Image */}
       <Image
         src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/hero-bg-mountains.webp"
         alt="Forklift certification training"
         fill
-        className="object-cover object-center"
+        className="object-cover object-center opacity-40 mix-blend-overlay"
         priority
         fetchPriority="high"
       />
       
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/50"></div>
+      {/* Dark overlay + Pattern */}
+      <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 to-slate-900/80"></div>
+      <div className="absolute inset-0 opacity-[0.03]">
+        <div className="absolute inset-0" style={{backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px'}}></div>
+      </div>
       
       {/* Content */}
       <div className="relative z-10 h-full flex items-center justify-center py-20 sm:py-24">
-        <div className="mx-auto max-w-3xl px-6 text-center">
-          {/* Black Friday badge */}
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500/20 to-red-500/20 backdrop-blur-sm border border-orange-400/30 px-4 py-2 rounded-full mb-3 animate-in fade-in duration-700">
-            <span className="text-xs font-bold text-orange-300">🎉 BLACK FRIDAY</span>
-            <span className="text-xs text-white/80">•</span>
-            <span className="text-xs text-emerald-300 font-semibold">Save $10</span>
-          </div>
-          
-          <p className="text-xs uppercase tracking-widest text-emerald-300/90 mb-4">OSHA-Compliant Forklift Training</p>
-          
-          {/* Dynamic H1 with state */}
-          <h1 className="text-3xl font-bold sm:text-4xl text-balance leading-tight">
-            {stateName 
-              ? `Get ${stateName} Forklift Certification in Under 30 Minutes`
-              : 'Get OSHA Forklift Certification in Under 30 Minutes'
-            }
-          </h1>
-          
-          {/* Clear price and time */}
-          <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed">
-            <span className="font-semibold">About 30 Minutes</span> • 
-            <span className="inline-flex items-baseline gap-1.5 mx-1">
-              <span className="text-slate-400 line-through text-sm">$59</span>
-              <span className="font-bold text-white">$49</span>
-            </span>
-            • 100% online • Same-day wallet card
-          </p>
-          
-          {/* Primary CTA */}
-          <div className="mt-8">
-            <button
-              onClick={handleStart}
-              disabled={isLoading}
-              className="inline-flex items-center rounded-xl bg-orange-600 px-10 py-5 text-xl font-bold text-white hover:bg-orange-700 transition-all duration-300 shadow-xl shadow-orange-500/30 hover:shadow-2xl hover:-translate-y-1 disabled:opacity-50 disabled:cursor-wait"
-            >
-              {isLoading ? (
-                <>
-                  <svg className="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Processing...
-                </>
-              ) : (
-                'Start — $49'
-              )}
-            </button>
-          </div>
-          
-          {/* Trust note - directly under CTA */}
-          <p className="mt-3 text-sm text-white/90">
-            🔒 Secure checkout • Instant access • Accepted nationwide
-          </p>
-          
-          {error && (
-            <p className="mt-4 text-red-400 text-sm">{error}</p>
-          )}
-          
-          {/* Social Proof */}
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
-            <div className="flex -space-x-3">
-              <div className="w-10 h-10 rounded-full bg-orange-100 border-2 border-white shadow-sm text-orange-700 flex items-center justify-center font-bold text-xs">JD</div>
-              <div className="w-10 h-10 rounded-full bg-emerald-100 border-2 border-white shadow-sm text-emerald-700 flex items-center justify-center font-bold text-xs">SK</div>
-              <div className="w-10 h-10 rounded-full bg-blue-100 border-2 border-white shadow-sm text-blue-700 flex items-center justify-center font-bold text-xs">PR</div>
-              <div className="w-10 h-10 rounded-full bg-brand-100 border-2 border-white shadow-sm text-brand-700 flex items-center justify-center font-bold text-xs">+2k</div>
+        <div className="mx-auto max-w-5xl px-4 text-center md:text-left">
+          <div className="flex flex-col md:items-start items-center">
+            {/* Black Friday badge */}
+            <div className="inline-flex items-center gap-2 bg-orange-500/10 backdrop-blur-md border border-orange-500/20 px-4 py-1.5 rounded-full mb-6 animate-in fade-in duration-700 shadow-lg shadow-orange-500/5">
+              <span className="text-[11px] uppercase tracking-widest font-bold text-orange-400">Black Friday</span>
+              <span className="text-xs text-white/40">•</span>
+              <span className="text-xs text-emerald-300 font-semibold tracking-wide">Save $10</span>
             </div>
             
-            <div className="flex flex-col items-center sm:items-start">
-              <div className="flex text-yellow-400 text-base mb-1">
-                ★★★★★
-              </div>
-              <p className="text-white/90 font-medium">Trusted by 2,000+ operators</p>
+            <h1 className="text-4xl md:text-6xl font-bold leading-[1.1] tracking-tighter text-white max-w-4xl text-balance">
+              {stateName 
+                ? `Get ${stateName} Forklift Certified`
+                : 'Get OSHA Forklift Certification in Under 30 Minutes'
+              }
+            </h1>
+            
+            <p className="mt-6 text-slate-300 text-lg md:text-xl max-w-2xl leading-relaxed font-normal">
+              <span className="text-white font-medium">30 Minutes</span> • <span className="inline-flex items-baseline gap-1.5">
+                <span className="text-slate-500 line-through decoration-slate-500/50 text-base">$59</span>
+                <span className="text-white font-semibold">$49</span>
+              </span> • Same-day certificate • OSHA-aligned
+            </p>
+            
+            <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
+              <button
+                onClick={handleStart}
+                disabled={isLoading}
+                className="group relative inline-flex items-center justify-center rounded-xl bg-gradient-to-b from-orange-500 to-orange-600 px-8 py-4 md:px-10 md:py-5 font-semibold text-white shadow-[0_1px_2px_rgba(0,0,0,0.1),0_4px_8px_rgba(249,115,22,0.2)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_rgba(249,115,22,0.3)] active:scale-95 active:shadow-sm disabled:opacity-50 disabled:cursor-wait"
+              >
+                 {isLoading ? (
+                  <>
+                    <svg className="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Processing...
+                  </>
+                ) : (
+                  <span className="text-lg md:text-xl tracking-tight">Start — $49</span>
+                )}
+              </button>
+              
+              {/* Trust note - Desktop side position */}
+              <p className="hidden sm:block text-sm text-slate-400/80 max-w-[200px] leading-snug text-left">
+                🔒 Secure checkout • Instant access
+              </p>
             </div>
+            
+            {/* Trust note - Mobile bottom position */}
+            <p className="mt-4 sm:hidden text-sm text-slate-400/80 text-center">
+              🔒 Secure checkout • Instant access
+            </p>
+            
+            {error && (
+              <p className="mt-4 text-red-400 text-sm bg-red-500/10 border border-red-500/20 rounded-lg p-3">{error}</p>
+            )}
+            
+            {/* Social Proof & Icons */}
+            <div className="mt-12 pt-8 border-t border-white/5 w-full flex flex-col md:flex-row gap-8 items-center md:items-start">
+               {/* Social Proof */}
+              <div className="flex flex-col sm:flex-row items-center gap-4">
+                <div className="flex -space-x-3">
+                  <div className="w-10 h-10 rounded-full bg-slate-800 border-2 border-slate-900 shadow-md flex items-center justify-center text-xs font-medium text-slate-300 ring-2 ring-slate-900/50">JD</div>
+                  <div className="w-10 h-10 rounded-full bg-slate-800 border-2 border-slate-900 shadow-md flex items-center justify-center text-xs font-medium text-slate-300 ring-2 ring-slate-900/50">SK</div>
+                  <div className="w-10 h-10 rounded-full bg-slate-800 border-2 border-slate-900 shadow-md flex items-center justify-center text-xs font-medium text-slate-300 ring-2 ring-slate-900/50">PR</div>
+                  <div className="w-10 h-10 rounded-full bg-slate-800 border-2 border-slate-900 shadow-md flex items-center justify-center text-xs font-medium text-slate-300 ring-2 ring-slate-900/50">+2k</div>
+                </div>
+                <div className="flex flex-col items-center sm:items-start gap-0.5">
+                  <div className="flex text-yellow-400 text-sm gap-0.5">
+                    {'★★★★★'.split('').map((star, i) => <span key={i}>{star}</span>)}
+                  </div>
+                  <p className="text-slate-400 text-sm font-medium">Trusted by 2,000+ operators</p>
+                </div>
+              </div>
+
+              {/* Icons (Hidden on very small screens if needed, but good for trust) */}
+              <div className="hidden md:flex items-center gap-6 text-sm text-slate-400 ml-auto">
+                <span className="flex items-center gap-2.5 transition-colors hover:text-slate-300">
+                  <svg className="w-5 h-5 text-emerald-500/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="font-medium">Nationwide</span>
+                </span>
+                <span className="flex items-center gap-2.5 transition-colors hover:text-slate-300">
+                  <svg className="w-5 h-5 text-emerald-500/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="font-medium">Under 30 min</span>
+                </span>
+              </div>
+            </div>
+
           </div>
-          
-          <p className="mt-4 text-sm text-emerald-300 font-medium">✨ Lifetime access • Free refresher in 3 years</p>
         </div>
       </div>
     </section>
