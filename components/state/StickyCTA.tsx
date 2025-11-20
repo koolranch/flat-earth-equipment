@@ -72,20 +72,22 @@ export default function StickyCTA() {
   };
   
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 bg-slate-900/95 backdrop-blur supports-[backdrop-filter]:bg-slate-900/90 md:hidden border-t border-white/10">
+    <div className="fixed inset-x-0 bottom-0 z-50 bg-slate-900/95 backdrop-blur-md supports-[backdrop-filter]:bg-slate-900/90 md:hidden border-t border-white/10 shadow-2xl">
       <div className="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between gap-3">
         <div className="flex-1">
-          <div className="text-sm font-semibold text-white">Get certified in {STATE}</div>
-          <div className="text-xs text-slate-300">$49 • Under 30 minutes</div>
+          <div className="text-sm font-bold text-white">{STATE} Certification</div>
+          <div className="text-xs text-emerald-300 font-medium">$49 • Under 30 min • Instant access</div>
         </div>
         <button 
           onClick={handleCheckout}
           disabled={isLoading}
-          className="rounded-lg bg-orange-500 px-5 py-2.5 text-white font-bold hover:bg-orange-600 transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-wait"
+          className="rounded-lg bg-orange-500 px-5 py-2.5 text-white font-bold hover:bg-orange-600 transition-all duration-300 whitespace-nowrap disabled:opacity-50 disabled:cursor-wait shadow-lg hover:shadow-xl active:scale-95"
         >
           {isLoading ? 'Loading...' : 'Start — $49'}
         </button>
       </div>
+      {/* Safe area padding for iOS */}
+      <div className="h-[env(safe-area-inset-bottom)]" />
     </div>
   );
 }

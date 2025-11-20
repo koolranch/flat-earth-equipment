@@ -89,8 +89,13 @@ export default function StateHero() {
   };
 
   return (
-    <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
-      <div className="mx-auto max-w-5xl px-4 py-12 md:py-16">
+    <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
+      {/* Subtle pattern overlay */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '32px 32px'}}></div>
+      </div>
+      
+      <div className="relative mx-auto max-w-5xl px-4 py-12 md:py-16">
         {/* Black Friday badge */}
         <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500/20 to-red-500/20 backdrop-blur-sm border border-orange-400/30 px-4 py-2 rounded-full mb-4 animate-in fade-in duration-700">
           <span className="text-xs font-bold text-orange-300">🎉 BLACK FRIDAY</span>
@@ -98,10 +103,12 @@ export default function StateHero() {
           <span className="text-xs text-emerald-300 font-semibold">Save $10</span>
         </div>
         
-        <h1 className="text-3xl md:text-5xl font-bold leading-tight">
+        <p className="text-xs uppercase tracking-widest text-emerald-300/90 mb-3">OSHA-Compliant Forklift Training</p>
+        
+        <h1 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight">
           Get {STATE} Forklift Certification in Under 30 Minutes
         </h1>
-        <p className="mt-4 text-slate-200 text-lg md:text-xl max-w-3xl">
+        <p className="mt-4 text-slate-200 text-base md:text-lg max-w-3xl leading-relaxed">
           <span className="font-semibold">About 30 Minutes</span> • <span className="inline-flex items-baseline gap-1.5">
             <span className="text-slate-400 line-through text-base">$59</span>
             <span className="font-bold">$49</span>
@@ -111,7 +118,7 @@ export default function StateHero() {
           <button
             onClick={handleCheckout}
             disabled={isLoading}
-            className="inline-flex items-center justify-center rounded-xl bg-orange-500 px-10 py-5 font-bold text-white shadow-lg hover:bg-orange-600 transition-all hover:shadow-xl text-xl disabled:opacity-50 disabled:cursor-wait"
+            className="inline-flex items-center justify-center rounded-xl bg-orange-500 px-8 py-4 md:px-10 md:py-5 font-bold text-white shadow-lg hover:bg-orange-600 transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/30 hover:-translate-y-0.5 text-lg md:text-xl disabled:opacity-50 disabled:cursor-wait active:scale-95"
           >
             {isLoading ? (
               <>
@@ -136,24 +143,38 @@ export default function StateHero() {
           <p className="mt-4 text-red-400 text-sm">{error}</p>
         )}
         
-        <div className="mt-6 flex flex-wrap items-center gap-6 text-sm text-slate-300">
+        {/* Social Proof - Mobile optimized */}
+        <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 text-sm">
+          <div className="flex -space-x-2">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-orange-100 border-2 border-white shadow-sm text-orange-700 flex items-center justify-center font-bold text-xs">JD</div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-emerald-100 border-2 border-white shadow-sm text-emerald-700 flex items-center justify-center font-bold text-xs">SK</div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-blue-100 border-2 border-white shadow-sm text-blue-700 flex items-center justify-center font-bold text-xs">PR</div>
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-purple-100 border-2 border-white shadow-sm text-purple-700 flex items-center justify-center font-bold text-xs">+2k</div>
+          </div>
+          <div className="flex flex-col items-center sm:items-start">
+            <div className="flex text-yellow-400 text-sm mb-1">★★★★★</div>
+            <p className="text-slate-300 text-xs sm:text-sm font-medium">Trusted by 2,000+ operators</p>
+          </div>
+        </div>
+        
+        <div className="mt-6 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 text-sm text-slate-300">
           <span className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
-            Accepted in all 50 states
+            <span className="text-xs sm:text-sm">Accepted in all 50 states</span>
           </span>
           <span className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            Under 30 minutes
+            <span className="text-xs sm:text-sm">Under 30 minutes</span>
           </span>
           <span className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            Same-day certificate
+            <span className="text-xs sm:text-sm">Same-day certificate</span>
           </span>
         </div>
       </div>
