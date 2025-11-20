@@ -6,11 +6,16 @@ import { loadStripe } from '@stripe/stripe-js';
 import { STATE_TO_USPS, slugToTitle } from '@/lib/state';
 import { trackEvent } from '@/lib/analytics/gtag';
 import { trackLanding, trackCTA, trackCheckoutBegin } from '@/lib/analytics/vercel-funnel';
+import { forkliftStates } from '@/src/data/forkliftStates';
 
 export default function StateHero() {
   const params = useParams() as Record<string, string> | null;
   const slug = (params?.state || params?.slug || '').toLowerCase();
-  const STATE = slugToTitle(slug);
+  
+  // Get full state name from code (e.g., "oh" → "Ohio")
+  const stateInfo = forkliftStates.find(s => s.code === slug);
+  const STATE = stateInfo?.name || slugToTitle(slug); // fallback to title-cased slug
+  
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
