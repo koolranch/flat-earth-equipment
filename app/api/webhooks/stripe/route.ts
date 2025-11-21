@@ -73,7 +73,7 @@ export async function POST(req: Request) {
           const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'
           const quantity = parseInt(session.metadata.quantity || '1')
           
-          await fetch(`${siteUrl}/api/send-training-welcome`, {
+          const emailResponse = await fetch(`${siteUrl}/api/send-training-welcome`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -85,7 +85,24 @@ export async function POST(req: Request) {
               seatCount: quantity
             })
           })
-          console.log(`📧 Training welcome email sent (${quantity > 1 ? 'trainer' : 'learner'} template)`)
+          
+          if (emailResponse.ok) {
+            console.log(`✅ Training welcome email sent to ${customerEmail}`)
+          } else {
+            const errorText = await emailResponse.text()
+            console.error(`❌ Failed to send welcome email to ${customerEmail}: ${errorText}`)
+            // Store failed email for retry
+            try {
+              await supabase.from('failed_emails').insert({
+                user_email: customerEmail,
+                password: temporaryPassword,
+                error: errorText,
+                created_at: new Date().toISOString()
+              })
+            } catch (e) {
+              console.error('Could not log failed email:', e)
+            }
+          }
         }
 
         // Auto-enroll in the course
