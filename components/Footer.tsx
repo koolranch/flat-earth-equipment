@@ -69,6 +69,7 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2 text-sm text-slate-600">
               <li><Link href="/texas/dallas-fort-worth" className="hover:text-canyon-rust transition">Dallas-Fort Worth, TX</Link></li>
+              <li><Link href="/texas/houston" className="hover:text-canyon-rust transition">Houston, TX</Link></li>
               <li><Link href="/texas/el-paso" className="hover:text-canyon-rust transition">El Paso, TX</Link></li>
               <li><Link href="/arizona/phoenix" className="hover:text-canyon-rust transition">Phoenix, AZ</Link></li>
               <li><Link href="/colorado/denver" className="hover:text-canyon-rust transition">Denver, CO</Link></li>
