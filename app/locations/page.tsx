@@ -23,6 +23,14 @@ const locations: LocationMap = {
     description: 'Serving the DFW Metroplex with fast shipping and same-day quotes.',
     shortDescription: 'DFW Metroplex and North Texas parts & equipment.',
   },
+  'houston': {
+    name: 'Houston, TX',
+    address: '',
+    phone: '',
+    hours: 'Mon-Fri: 8am-5pm',
+    description: 'Serving the Energy Corridor, Port of Houston, and Greater Metroplex.',
+    shortDescription: 'Industrial parts for Houston, Pasadena, and the Port region.',
+  },
   'el-paso': {
     name: 'El Paso, TX',
     address: '',
@@ -117,6 +125,10 @@ export default function LocationsPage() {
               <div className="text-3xl mb-2">🤠</div>
               Dallas-Fort Worth, TX
             </Link>
+            <Link href="/texas/houston" className="hover:text-canyon-rust transition">
+              <div className="text-3xl mb-2">🚀</div>
+              Houston, TX
+            </Link>
             <Link href="/texas/el-paso" className="hover:text-canyon-rust transition">
               <div className="text-3xl mb-2">🌵</div>
               El Paso, TX
@@ -159,6 +171,12 @@ export default function LocationsPage() {
             Dallas-Fort Worth, TX
           </Link>
           <p className="text-slate-700 text-sm">DFW Metroplex and North Texas parts & equipment.</p>
+        </li>
+        <li>
+          <Link href="/texas/houston" className="block text-xl font-semibold text-canyon-rust hover:underline">
+            Houston, TX
+          </Link>
+          <p className="text-slate-700 text-sm">Industrial parts for Houston, Pasadena, and the Port region.</p>
         </li>
         <li>
           <Link href="/texas/el-paso" className="block text-xl font-semibold text-canyon-rust hover:underline">
@@ -216,4 +234,4 @@ export default function LocationsPage() {
       </p>
     </main>
   );
-} 
+}

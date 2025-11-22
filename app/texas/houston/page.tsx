@@ -10,32 +10,32 @@ import {
   Circle as RollerIcon,
   Gauge as TrackIcon,
   BatteryCharging as BatteryIcon,
-  Plane as AviationIcon,
-  Warehouse as LogisticsIcon,
-  Construction as ConstructionIcon,
-  Factory as IndustrialIcon
+  Anchor as PortIcon,
+  Factory as IndustrialIcon,
+  Flame as EnergyIcon,
+  Warehouse as LogisticsIcon
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: "Forklift & Equipment Parts in Dallas-Fort Worth, TX | Flat Earth Equipment",
-  description: "Shop forklift, scissor lift, and heavy equipment parts in Dallas-Fort Worth Metroplex. Fast shipping to 76101 & 50+ zip codes. Request a quote today.",
+  title: "Forklift & Equipment Parts in Houston, TX | Flat Earth Equipment",
+  description: "Shop forklift, scissor lift, and heavy equipment parts in Houston, Pasadena, and the Port region. Fast shipping to 77002 & 50+ zip codes. Request a quote today.",
 };
 
 export async function generateStaticParams() {
   return [
     {
       state: 'texas',
-      city: 'dallas-fort-worth',
+      city: 'houston',
     },
   ];
 }
 
-export default async function DallasFortWorthPage() {
+export default async function HoustonPage() {
   const supabase = createClient();
   const { data: rentals } = await supabase
     .from('rental_equipment')
     .select('*')
-    .eq('city_slug', 'dallas-fort-worth-tx');
+    .eq('city_slug', 'houston-tx');
 
   return (
     <main>
@@ -43,7 +43,7 @@ export default async function DallasFortWorthPage() {
       <section className="relative h-[500px] w-full overflow-hidden">
         <Image
           src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/hero-bg-mountains.webp"
-          alt="Dallas-Fort Worth industrial equipment service region"
+          alt="Houston industrial equipment service region"
           fill
           className="object-cover object-center"
           priority
@@ -55,15 +55,15 @@ export default async function DallasFortWorthPage() {
         <div className="relative z-10 flex items-center justify-center h-full px-6 text-center sm:text-left">
           <div className="max-w-4xl w-full">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1 mb-6 text-sm text-white font-medium">
-              <span className="text-green-400">●</span> Serving 76101 & 50+ DFW Zip Codes
+              <span className="text-green-400">●</span> Serving 77002 & 50+ Houston Zip Codes
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold leading-tight text-white mb-6">
-              Forklift & Industrial Parts <br className="hidden md:block" /> in <span className="text-canyon-rust">Dallas-Fort Worth</span>
+              Forklift & Industrial Parts <br className="hidden md:block" /> in <span className="text-canyon-rust">Houston, TX</span>
             </h1>
             
             <p className="text-slate-200 text-lg md:text-xl mb-8 max-w-2xl">
-              Serving the Metroplex, Arlington, Plano, and North Texas with precision-fit parts and fast dispatch.
+              Serving the Energy Corridor, Port of Houston, and Greater Metroplex with precision-fit parts and fast dispatch.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -83,16 +83,16 @@ export default async function DallasFortWorthPage() {
 
             {/* Trust Bar */}
             <div className="mt-12 pt-8 border-t border-white/10">
-              <p className="text-sm text-slate-400 mb-4 font-medium uppercase tracking-wider">Trusted by DFW Industries</p>
+              <p className="text-sm text-slate-400 mb-4 font-medium uppercase tracking-wider">Trusted by Houston Industries</p>
               <div className="flex flex-wrap gap-8 items-center opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
                 {/* Industry Icons as Trust Signals */}
                 <div className="flex items-center gap-2 text-white/80">
-                  <LogisticsIcon className="w-6 h-6" />
-                  <span className="font-semibold">Logistics</span>
+                  <PortIcon className="w-6 h-6" />
+                  <span className="font-semibold">Port Logistics</span>
                 </div>
                 <div className="flex items-center gap-2 text-white/80">
-                  <AviationIcon className="w-6 h-6" />
-                  <span className="font-semibold">Aviation</span>
+                  <EnergyIcon className="w-6 h-6" />
+                  <span className="font-semibold">Energy & Oil</span>
                 </div>
                 <div className="flex items-center gap-2 text-white/80">
                   <IndustrialIcon className="w-6 h-6" />
@@ -108,12 +108,12 @@ export default async function DallasFortWorthPage() {
       <section className="max-w-5xl mx-auto px-4 py-16">
         <div className="grid md:grid-cols-3 gap-12 items-start">
           <div className="md:col-span-2">
-            <h2 className="text-3xl font-bold text-slate-900 mb-6">Powering the Metroplex</h2>
+            <h2 className="text-3xl font-bold text-slate-900 mb-6">Your Partner in the Energy Capital</h2>
             <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-              Flat Earth Equipment is your trusted source for forklift, scissor lift, and heavy equipment parts in the Dallas-Fort Worth Metroplex. We supply precision-fit components to warehouses, distribution centers, and contractors throughout DFW, Arlington, Irving, Plano, and surrounding areas.
+              Flat Earth Equipment connects Houston's industrial powerhouse with the heavy-duty parts needed to keep operations moving. From the <strong>Port of Houston</strong> to the <strong>Energy Corridor</strong> and <strong>Pasadena refineries</strong>, we understand the unique demands of the Bayou City.
             </p>
             <p className="text-lg text-slate-700 mb-8 leading-relaxed">
-              Our strategic partnerships enable quick shipping to all major industrial corridors including the I-35E corridor, I-20 industrial zone, DFW Airport area warehouses, and Alliance Global Logistics Hub.
+              We supply spark-proof components for chemical plants, heavy-capacity forklift parts for port operations, and reliable telehandler equipment for the booming construction sector across Harris, Fort Bend, and Montgomery counties.
             </p>
             
             {/* Service Radius Visual */}
@@ -124,9 +124,9 @@ export default async function DallasFortWorthPage() {
               </h3>
               <div className="flex flex-wrap gap-2">
                 {[
-                  'Downtown Dallas', 'Fort Worth', 'Arlington', 'Irving', 
-                  'Plano', 'Garland', 'Mesquite', 'Frisco', 
-                  'McKinney', 'Grand Prairie', 'Denton'
+                  'Downtown Houston', 'Pasadena', 'Deer Park', 'Baytown', 
+                  'The Woodlands', 'Katy', 'Sugar Land', 'Pearland', 
+                  'Channelview', 'Galena Park', 'La Porte'
                 ].map(zone => (
                   <span key={zone} className="px-3 py-1 bg-white border border-slate-200 rounded-full text-sm text-slate-600">
                     ✓ {zone}
@@ -142,21 +142,21 @@ export default async function DallasFortWorthPage() {
             <div className="space-y-4">
               <div className="flex items-start gap-4 p-3 rounded-lg hover:bg-slate-50 transition-colors">
                 <div className="p-2 bg-blue-100 text-blue-700 rounded-lg">
-                  <LogisticsIcon className="w-5 h-5" />
+                  <PortIcon className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-slate-900">Distribution</h4>
-                  <p className="text-sm text-slate-600">High-volume pallet moving</p>
+                  <h4 className="font-semibold text-slate-900">Port & Logistics</h4>
+                  <p className="text-sm text-slate-600">Container handlers & heavy forklifts</p>
                 </div>
               </div>
               
               <div className="flex items-start gap-4 p-3 rounded-lg hover:bg-slate-50 transition-colors">
                 <div className="p-2 bg-orange-100 text-orange-700 rounded-lg">
-                  <ConstructionIcon className="w-5 h-5" />
+                  <EnergyIcon className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-slate-900">Construction</h4>
-                  <p className="text-sm text-slate-600">Telehandlers & rough terrain</p>
+                  <h4 className="font-semibold text-slate-900">Oil & Gas</h4>
+                  <p className="text-sm text-slate-600">Explosion-proof & rough terrain</p>
                 </div>
               </div>
               
@@ -166,17 +166,17 @@ export default async function DallasFortWorthPage() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-slate-900">Manufacturing</h4>
-                  <p className="text-sm text-slate-600">Plant maintenance parts</p>
+                  <p className="text-sm text-slate-600">Plant maintenance & material handling</p>
                 </div>
               </div>
               
               <div className="flex items-start gap-4 p-3 rounded-lg hover:bg-slate-50 transition-colors">
-                <div className="p-2 bg-sky-100 text-sky-700 rounded-lg">
-                  <AviationIcon className="w-5 h-5" />
+                <div className="p-2 bg-green-100 text-green-700 rounded-lg">
+                  <LogisticsIcon className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-slate-900">Aviation</h4>
-                  <p className="text-sm text-slate-600">GSE & hangar equipment</p>
+                  <h4 className="font-semibold text-slate-900">Distribution</h4>
+                  <p className="text-sm text-slate-600">High-volume pallet moving</p>
                 </div>
               </div>
             </div>
@@ -191,44 +191,44 @@ export default async function DallasFortWorthPage() {
       {/* Popular Parts Section */}
       <section className="bg-slate-50 py-16">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">Popular Equipment Parts in DFW</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">Popular Equipment Parts in Houston</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
                 name: 'Forklift Parts',
                 slug: 'forklift-parts',
                 Icon: ForkliftIcon,
-                label: 'Available for fast shipping'
+                label: 'Port & Warehouse Ready'
               },
               {
                 name: 'Scissor Lift Hydraulics',
                 slug: 'scissor-lift-hydraulics',
                 Icon: ScissorLiftIcon,
-                label: 'Available for fast shipping'
+                label: 'Construction Grade'
               },
               {
                 name: 'Telehandler Filters',
                 slug: 'telehandler-filters',
                 Icon: TelehandlerIcon,
-                label: 'Available for fast shipping'
+                label: 'Heavy Duty'
               },
               {
                 name: 'Mini Excavator Rollers',
                 slug: 'mini-excavator-rollers',
                 Icon: RollerIcon,
-                label: 'Available for fast shipping'
+                label: 'Site Prep Essentials'
               },
               {
                 name: 'Track Systems',
                 slug: 'track-systems',
                 Icon: TrackIcon,
-                label: 'Available for fast shipping'
+                label: 'All-Terrain'
               },
               {
                 name: 'Battery Chargers & Modules',
                 slug: 'battery-chargers-modules',
                 Icon: BatteryIcon,
-                label: 'Available for fast shipping'
+                label: 'Electric Fleet Power'
               }
             ].map((category) => (
               <Link
@@ -257,19 +257,19 @@ export default async function DallasFortWorthPage() {
 
       {/* FAQ Section */}
       <section className="py-16 max-w-4xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">DFW Equipment FAQs</h2>
+        <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">Houston Equipment FAQs</h2>
         <div className="space-y-4">
           <div className="bg-white rounded-lg border border-slate-200 p-6 hover:border-canyon-rust/30 transition-colors">
-            <h3 className="text-lg font-bold text-slate-900 mb-2">Do you ship forklift parts within Dallas-Fort Worth same day?</h3>
-            <p className="text-slate-600">Yes, we offer same-day delivery for most forklift parts within the DFW Metroplex when ordered before 2 PM. Our logistics network ensures your parts arrive when you need them across Dallas, Fort Worth, and surrounding cities.</p>
+            <h3 className="text-lg font-bold text-slate-900 mb-2">Do you serve the Port of Houston area?</h3>
+            <p className="text-slate-600">Yes, we prioritize delivery to the Port of Houston, Bayport Container Terminal, and Barbours Cut. We understand the TWIC and security requirements for deliveries in these zones.</p>
           </div>
           <div className="bg-white rounded-lg border border-slate-200 p-6 hover:border-canyon-rust/30 transition-colors">
-            <h3 className="text-lg font-bold text-slate-900 mb-2">Which brands do you carry parts for in Texas?</h3>
-            <p className="text-slate-600">We stock parts for all major brands including Toyota, Hyster, Yale, Crown, and Raymond, with special emphasis on models commonly used in Texas warehouse and distribution facilities.</p>
+            <h3 className="text-lg font-bold text-slate-900 mb-2">Do you carry explosion-proof parts for refineries?</h3>
+            <p className="text-slate-600">We supply EE and EX rated components suitable for hazardous environments common in Pasadena and Deer Park refineries. Contact our technical team for specific compliance requirements.</p>
           </div>
           <div className="bg-white rounded-lg border border-slate-200 p-6 hover:border-canyon-rust/30 transition-colors">
-            <h3 className="text-lg font-bold text-slate-900 mb-2">Do you offer volume pricing for DFW businesses?</h3>
-            <p className="text-slate-600">Yes, we provide competitive volume pricing for Dallas-Fort Worth businesses with regular parts needs, including special fleet maintenance programs for companies with multiple pieces of equipment.</p>
+            <h3 className="text-lg font-bold text-slate-900 mb-2">How fast is shipping to The Woodlands or Sugar Land?</h3>
+            <p className="text-slate-600">We offer next-day ground shipping to all Greater Houston suburbs including The Woodlands, Sugar Land, Katy, and Pearland for in-stock items ordered before 2 PM CST.</p>
           </div>
         </div>
       </section>
@@ -279,26 +279,29 @@ export default async function DallasFortWorthPage() {
         {JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'LocalBusiness',
-          'name': 'Flat Earth Equipment - Dallas-Fort Worth',
+          'name': 'Flat Earth Equipment - Houston',
           'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
-          'url': 'https://flatearthequipment.com/texas/dallas-fort-worth',
+          'url': 'https://flatearthequipment.com/texas/houston',
           'address': {
             '@type': 'PostalAddress',
-            'addressLocality': 'Dallas',
+            'addressLocality': 'Houston',
             'addressRegion': 'TX',
             'addressCountry': 'US',
-            'postalCode': '75201-76199'
+            'postalCode': '77002'
           },
           'areaServed': [
-            { '@type': 'City', 'name': 'Dallas' },
-            { '@type': 'City', 'name': 'Fort Worth' },
-            { '@type': 'City', 'name': 'Arlington' },
-            { '@type': 'City', 'name': 'Irving' },
-            { '@type': 'City', 'name': 'Plano' }
+            { '@type': 'City', 'name': 'Houston' },
+            { '@type': 'City', 'name': 'Pasadena' },
+            { '@type': 'City', 'name': 'Deer Park' },
+            { '@type': 'City', 'name': 'Baytown' },
+            { '@type': 'City', 'name': 'The Woodlands' },
+            { '@type': 'City', 'name': 'Sugar Land' },
+            { '@type': 'City', 'name': 'Katy' }
           ],
-          'description': 'Flat Earth Equipment provides rental equipment and parts to contractors, facilities, and warehouses in the Dallas-Fort Worth Metroplex. Fast shipping from regional hubs.',
+          'description': 'Industrial equipment parts supplier for Houston, the Energy Corridor, and Port of Houston. Specializing in forklift, telehandler, and heavy equipment components.',
           'openingHours': 'Mo-Fr 07:00-17:00',
-          'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support']
+          'priceRange': '$$',
+          'serviceType': ['Equipment Rental', 'Industrial Parts', 'Port Equipment', 'Refinery Equipment']
         })}
       </Script>
 
@@ -310,26 +313,26 @@ export default async function DallasFortWorthPage() {
           'mainEntity': [
             {
               '@type': 'Question',
-              'name': 'Do you ship forklift parts within Dallas-Fort Worth same day?',
+              'name': 'Do you serve the Port of Houston area?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Yes, we offer same-day delivery for most forklift parts within the DFW Metroplex when ordered before 2 PM. Our logistics network ensures your parts arrive when you need them across Dallas, Fort Worth, and surrounding cities.'
+                'text': 'Yes, we prioritize delivery to the Port of Houston, Bayport Container Terminal, and Barbours Cut. We understand the TWIC and security requirements for deliveries in these zones.'
               }
             },
             {
               '@type': 'Question',
-              'name': 'Which brands do you carry parts for in Texas?',
+              'name': 'Do you carry explosion-proof parts for refineries?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'We stock parts for all major brands including Toyota, Hyster, Yale, Crown, and Raymond, with special emphasis on models commonly used in Texas warehouse and distribution facilities.'
+                'text': 'We supply EE and EX rated components suitable for hazardous environments common in Pasadena and Deer Park refineries. Contact our technical team for specific compliance requirements.'
               }
             },
             {
               '@type': 'Question',
-              'name': 'Do you offer volume pricing for DFW businesses?',
+              'name': 'How fast is shipping to The Woodlands or Sugar Land?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Yes, we provide competitive volume pricing for Dallas-Fort Worth businesses with regular parts needs, including special fleet maintenance programs for companies with multiple pieces of equipment.'
+                'text': 'We offer next-day ground shipping to all Greater Houston suburbs including The Woodlands, Sugar Land, Katy, and Pearland for in-stock items ordered before 2 PM CST.'
               }
             }
           ]
@@ -340,10 +343,10 @@ export default async function DallasFortWorthPage() {
       <section className="bg-slate-900 py-16 text-center px-4">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-white mb-6">
-            Keep your DFW fleet moving
+            Ready to keep Houston moving?
           </h2>
           <p className="text-slate-300 mb-8 text-lg">
-            We've got the parts—and the toughness—to minimize downtime and maximize productivity.
+            From the ship channel to the suburbs, we deliver the parts you need to minimize downtime and maximize productivity.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -378,10 +381,11 @@ export default async function DallasFortWorthPage() {
               </Link>
             </li>
             <li className="text-slate-400">/</li>
-            <li className="text-slate-800 font-medium">Dallas-Fort Worth, TX</li>
+            <li className="text-slate-800 font-medium">Houston, TX</li>
           </ol>
         </nav>
       </div>
     </main>
   );
 }
+
