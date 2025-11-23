@@ -152,70 +152,13 @@ export default function StateForkliftPage({ params }: Props) {
       <StateProductJsonLd />
       
       {/* New State-Aware Hero Section */}
-      <StateHero />
+      <StateHero metrics={metrics} />
       
       <main className="container mx-auto px-4 lg:px-8 py-12 space-y-16">
         <Breadcrumb stateName={info.name} />
         
-        {/* ENHANCED HERO - ABOVE THE FOLD */}
-      <section className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-3xl p-8 md:p-12 text-center text-white shadow-2xl">
-        <div className="max-w-4xl mx-auto space-y-6">
-          {/* Trust Badge - State-specific numbers */}
-          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium">
-            <span className="text-yellow-300">★★★★★</span>
-            <span>{metrics.operatorsCertified.toLocaleString()}+ {info.name} Operators Certified</span>
-          </div>
-          
-          {/* Headline */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
-            Get Forklift Certified in {info.name} in Under 30 Minutes
-          </h1>
-          
-          {/* Subheadline */}
-          <p className="text-xl md:text-2xl text-orange-100 max-w-3xl mx-auto font-medium">
-            OSHA-compliant online training. Instant certificate download. Just $49.
-          </p>
-          
-          {/* Key Benefits */}
-          <div className="flex flex-wrap justify-center gap-6 text-base md:text-lg py-4">
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">✓</span>
-              <span>Complete in 30 minutes</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">✓</span>
-              <span>Valid for 3 years</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">✓</span>
-              <span>Instant certificate</span>
-            </div>
-          </div>
-          
-          {/* Lifetime Access Badge */}
-          <div className="mt-2 inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium">
-            <span>✨</span>
-            <span>Lifetime access. Free theory refresher every 3 years—we'll remind you when it's time.</span>
-          </div>
-          
-          {/* Primary CTA */}
-          <div className="pt-4">
-            <CheckoutButton 
-              courseSlug="forklift"
-              price="49"
-              priceId="price_1SToXBHJI548rO8JZnnTwKER"
-            />
-          </div>
-          
-          {/* Urgency - State-specific monthly average */}
-          <p className="text-sm text-orange-100 italic">
-            🔥 Popular in {info.name}: Join the {metrics.monthlyAverage}+ operators certified this month
-          </p>
-        </div>
-      </section>
-
-      {/* SOCIAL PROOF STRIP - State-specific metrics */}
-      <section className="bg-white border-2 border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm">
+        {/* SOCIAL PROOF STRIP - State-specific metrics */}
+        <section className="bg-white border-2 border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm">
         <div className="flex flex-wrap justify-around items-center gap-8 text-center">
           <div>
             <div className="text-4xl font-bold text-orange-600">{metrics.operatorsCertified.toLocaleString()}+</div>
@@ -399,75 +342,21 @@ export default function StateForkliftPage({ params }: Props) {
         </p>
       </section>
 
-      {/* HOW TO GET CERTIFIED SECTION */}
-      <section className="space-y-6">
-        <h2 className="text-2xl font-semibold">How to Get Forklift Certified in {info.name}</h2>
-        <div className="bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-200 p-8 rounded-2xl shadow-lg">
-          <h3 className="text-xl font-bold mb-6 text-orange-900">Simple 3-Step Process:</h3>
-          <ol className="space-y-4">
-            <li className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 text-white flex items-center justify-center font-bold text-lg flex-shrink-0">1</div>
-              <div>
-                <strong className="text-gray-900">Enroll Online:</strong>
-                <span className="text-gray-700"> Register for our OSHA-compliant forklift certification course from anywhere in {info.name}.</span>
-              </div>
-            </li>
-            <li className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 text-white flex items-center justify-center font-bold text-lg flex-shrink-0">2</div>
-              <div>
-                <strong className="text-gray-900">Complete Training:</strong>
-                <span className="text-gray-700"> Finish the online course in under 30 minutes at your own pace.</span>
-              </div>
-            </li>
-            <li className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 text-white flex items-center justify-center font-bold text-lg flex-shrink-0">3</div>
-              <div>
-                <strong className="text-gray-900">Get Certified:</strong>
-                <span className="text-gray-700"> Pass the 30-question exam and instantly download your printable certificate and wallet card.</span>
-              </div>
-            </li>
-          </ol>
-        </div>
-        <h3 className="text-xl font-semibold">Why Choose Our {info.name} Forklift Certification?</h3>
-        <div className="grid md:grid-cols-2 gap-4">
-          <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-orange-200 hover:shadow-md transition-shadow">
-            <div className="text-orange-500 text-xl">✓</div>
-            <span className="text-gray-700">100% online—train anywhere in {info.name}</span>
+        {/* HOW TO GET CERTIFIED SECTION */}
+        <section className="space-y-6">
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="text-3xl font-bold mb-4">How to Get Forklift Certified in {info.name}</h2>
+            <p className="text-lg text-gray-600">
+              Follow our simple process to get your official certification today.
+            </p>
           </div>
-          <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-orange-200 hover:shadow-md transition-shadow">
-            <div className="text-orange-500 text-xl">✓</div>
-            <span className="text-gray-700">Instant printable certificate & wallet card</span>
-          </div>
-          <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-orange-200 hover:shadow-md transition-shadow">
-            <div className="text-orange-500 text-xl">✓</div>
-            <span className="text-gray-700">Free retakes until you pass (30-question exam)</span>
-          </div>
-          <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-orange-200 hover:shadow-md transition-shadow">
-            <div className="text-orange-500 text-xl">✓</div>
-            <span className="text-gray-700">Bulk pricing for teams statewide</span>
-          </div>
-          <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-orange-200 hover:shadow-md transition-shadow">
-            <div className="text-orange-500 text-xl">✓</div>
-            <span className="text-gray-700">OSHA CFR 1910.178(l) compliant training</span>
-          </div>
-          <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-orange-200 hover:shadow-md transition-shadow">
-            <div className="text-orange-500 text-xl">✓</div>
-            <span className="text-gray-700">Valid for 3 years throughout {info.name}</span>
-          </div>
-          <div className="flex items-start gap-3 bg-gradient-to-br from-emerald-50 to-green-50 p-4 rounded-xl border-2 border-emerald-300 hover:shadow-md transition-shadow">
-            <div className="text-emerald-600 text-xl">✨</div>
-            <span className="text-gray-700"><strong className="text-emerald-700">Lifetime access.</strong> Free theory refresher every 3 years—we'll remind you when it's time.</span>
-          </div>
-        </div>
-      </section>
+          
+          {/* Replaced redundant lists with visual components */}
+          <HowItWorksStrip />
+          <ReasonsToJoin />
+        </section>
 
-      {/* Reasons to Join - New Component */}
-      <ReasonsToJoin />
-
-      {/* How It Works - New Component */}
-      <HowItWorksStrip />
-
-      {/* Urgency Element */}
+        {/* Urgency Element */}
       <div className="mt-8 bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-orange-200 rounded-xl p-6 text-center">
         <p className="text-lg font-bold text-slate-900 mb-2">
           🚀 Start Today, Get Certified Today

@@ -88,6 +88,27 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      keyframes: {
+        shimmer: {
+          '100%': {
+            transform: 'translateX(100%)',
+          },
+        },
+        'pulse-subtle': {
+          '0%, 100%': {
+            transform: 'scale(1)',
+            boxShadow: '0 2px 8px rgba(249,115,22,0.4)',
+          },
+          '50%': {
+            transform: 'scale(1.02)',
+            boxShadow: '0 4px 12px rgba(249,115,22,0.5)',
+          },
+        },
+      },
+      animation: {
+        shimmer: 'shimmer 2s infinite',
+        'pulse-subtle': 'pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
     },
   },
   plugins: [

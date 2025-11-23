@@ -85,16 +85,19 @@ export default function StickyCTA() {
           <div className="text-xs text-emerald-400 font-medium flex items-center gap-1.5">
             <span className="text-slate-400 line-through decoration-slate-400/50 text-[10px]">$59</span>
             <span className="font-bold text-white">$49</span>
-            <span className="w-0.5 h-0.5 rounded-full bg-white/40"></span>
-            <span className="truncate text-slate-300">Instant Access</span>
+            {/* ADDED: Trust signal */}
+            <span className="text-[10px] text-slate-400 ml-1 hidden sm:inline">Money-back guarantee</span>
           </div>
         </div>
         <button 
           onClick={handleCheckout}
           disabled={isLoading}
-          className="rounded-lg bg-gradient-to-b from-orange-500 to-orange-600 px-5 py-3 text-white font-bold shadow-[0_2px_8px_rgba(249,115,22,0.4)] hover:shadow-[0_4px_12px_rgba(249,115,22,0.5)] transition-all duration-200 active:scale-95 active:shadow-none disabled:opacity-50 disabled:cursor-wait whitespace-nowrap ring-1 ring-white/10 text-sm"
+          // ADDED: animate-pulse-subtle and relative grouping
+          className="relative overflow-hidden rounded-lg bg-gradient-to-b from-orange-500 to-orange-600 px-5 py-3 text-white font-bold shadow-lg shadow-orange-500/20 active:scale-95 transition-all text-sm animate-pulse-subtle"
         >
-          {isLoading ? 'Loading...' : 'Get Certified - $49'}
+          <span className="relative z-10">{isLoading ? 'Loading...' : 'Get Certified'}</span>
+          {/* Optional: CSS shine effect */}
+          <div className="absolute inset-0 -translate-x-full hover:animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
         </button>
       </div>
       {/* Safe area padding for iOS */}

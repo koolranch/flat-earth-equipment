@@ -255,6 +255,40 @@ export default async function HoustonPage() {
         </div>
       </section>
 
+      {/* Safety Training Section - Added for Lead Capture */}
+      <section className="bg-orange-50 py-12 mt-12 rounded-xl border border-orange-100 p-8 mx-auto max-w-5xl mb-16">
+        <div className="flex flex-col md:flex-row items-center gap-8">
+          <div className="flex-1">
+            <h2 className="text-2xl font-bold text-slate-900 mb-4">Need Certified Operators?</h2>
+            <p className="text-slate-700 mb-4">
+              Get your Houston team OSHA-certified in under 60 minutes. Our online training is valid statewide and accepted by major energy and logistics companies.
+            </p>
+            <ul className="space-y-2 mb-6">
+              <li className="flex items-center text-sm text-slate-600">
+                <span className="text-green-500 mr-2">✓</span> OSHA 29 CFR 1910.178 Compliant
+              </li>
+              <li className="flex items-center text-sm text-slate-600">
+                <span className="text-green-500 mr-2">✓</span> Instant Digital Certificate
+              </li>
+            </ul>
+            <Link 
+              href="/safety/forklift/tx" 
+              className="inline-block bg-canyon-rust text-white px-6 py-3 rounded-lg font-bold hover:bg-canyon-rust/90 transition-colors shadow-sm"
+            >
+              Get Certified in Texas - $49
+            </Link>
+          </div>
+          <div className="w-full md:w-1/3 relative h-48 rounded-lg overflow-hidden shadow-md border border-white">
+             <Image
+              src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/safety-certification-card.webp"
+              alt="Forklift Certification Card"
+              fill
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="py-16 max-w-4xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">Houston Equipment FAQs</h2>
@@ -388,4 +422,3 @@ export default async function HoustonPage() {
     </main>
   );
 }
-
