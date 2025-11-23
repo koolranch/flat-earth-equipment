@@ -4,6 +4,7 @@ import { forkliftStates, ForkliftStateInfo } from "../../../../src/data/forklift
 import CheckoutButton from "@/app/safety/CheckoutButton";
 import Link from "next/link";
 import StateHero from "@/components/state/StateHero";
+import LogoCloud from "@/components/safety/LogoCloud";
 import StickyCTA from "@/components/state/StickyCTA";
 import StateProductJsonLd from "@/components/state/StateProductJsonLd";
 import { getStateMetrics } from "@/lib/safety/stateMetrics";
@@ -153,6 +154,9 @@ export default function StateForkliftPage({ params }: Props) {
       
       {/* New State-Aware Hero Section */}
       <StateHero metrics={metrics} />
+      
+      {/* Enterprise Logo Cloud - High Trust Signal */}
+      <LogoCloud />
       
       <main className="container mx-auto px-4 lg:px-8 py-12 space-y-16">
         <Breadcrumb stateName={info.name} />
