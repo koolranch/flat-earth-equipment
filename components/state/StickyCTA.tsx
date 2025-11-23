@@ -34,6 +34,7 @@ export default function StickyCTA() {
         item_id: 'price_1SToXBHJI548rO8JZnnTwKER',
         item_name: 'Online Forklift Certification',
         price: 49,
+        quantity: 1
       }]
     });
     
@@ -77,22 +78,23 @@ export default function StickyCTA() {
   };
   
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 bg-slate-900/85 backdrop-blur-xl supports-[backdrop-filter]:bg-slate-900/80 md:hidden border-t border-white/10 shadow-[0_-8px_32px_rgba(0,0,0,0.3)]">
-      <div className="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between gap-4">
+    <div className="fixed inset-x-0 bottom-0 z-50 bg-slate-900/95 backdrop-blur-xl supports-[backdrop-filter]:bg-slate-900/90 md:hidden border-t border-white/10 shadow-[0_-8px_32px_rgba(0,0,0,0.3)]">
+      <div className="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between gap-3">
         <div className="flex-1 min-w-0">
-          <div className="text-sm font-bold text-white truncate tracking-tight">{STATE} Certification</div>
+          <div className="text-sm font-bold text-white truncate tracking-tight">{STATE} Certified</div>
           <div className="text-xs text-emerald-400 font-medium flex items-center gap-1.5">
-            <span className="font-bold">$49</span>
+            <span className="text-slate-400 line-through decoration-slate-400/50 text-[10px]">$59</span>
+            <span className="font-bold text-white">$49</span>
             <span className="w-0.5 h-0.5 rounded-full bg-white/40"></span>
-            <span className="truncate">Instant access</span>
+            <span className="truncate text-slate-300">Instant Access</span>
           </div>
         </div>
         <button 
           onClick={handleCheckout}
           disabled={isLoading}
-          className="rounded-xl bg-gradient-to-b from-orange-500 to-orange-600 px-6 py-3 text-white font-bold shadow-[0_2px_8px_rgba(249,115,22,0.4)] hover:shadow-[0_4px_12px_rgba(249,115,22,0.5)] transition-all duration-200 active:scale-95 active:shadow-none disabled:opacity-50 disabled:cursor-wait whitespace-nowrap ring-1 ring-white/10"
+          className="rounded-lg bg-gradient-to-b from-orange-500 to-orange-600 px-5 py-3 text-white font-bold shadow-[0_2px_8px_rgba(249,115,22,0.4)] hover:shadow-[0_4px_12px_rgba(249,115,22,0.5)] transition-all duration-200 active:scale-95 active:shadow-none disabled:opacity-50 disabled:cursor-wait whitespace-nowrap ring-1 ring-white/10 text-sm"
         >
-          {isLoading ? 'Loading...' : 'Start — $49'}
+          {isLoading ? 'Loading...' : 'Get Certified - $49'}
         </button>
       </div>
       {/* Safe area padding for iOS */}
@@ -100,4 +102,3 @@ export default function StickyCTA() {
     </div>
   );
 }
-

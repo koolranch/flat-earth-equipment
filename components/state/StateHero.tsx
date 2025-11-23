@@ -40,6 +40,7 @@ export default function StateHero() {
         item_id: 'price_1SToXBHJI548rO8JZnnTwKER',
         item_name: 'Online Forklift Certification',
         price: 49,
+        quantity: 1
       }]
     });
     
@@ -100,50 +101,55 @@ export default function StateHero() {
         <div className="absolute inset-0" style={{backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px'}}></div>
       </div>
       
-      <div className="relative mx-auto max-w-5xl px-4 py-12 md:py-20">
-        {/* Black Friday badge - Enterprise Polish */}
-        <div className="inline-flex items-center gap-2 bg-orange-500/10 backdrop-blur-md border border-orange-500/20 px-4 py-1.5 rounded-full mb-6 animate-in fade-in duration-700 shadow-lg shadow-orange-500/5">
+      <div className="relative mx-auto max-w-5xl px-4 py-8 md:py-20"> {/* Reduced padding for mobile */}
+        {/* Badge - Hidden on mobile to save vertical space */}
+        <div className="hidden md:inline-flex items-center gap-2 bg-orange-500/10 backdrop-blur-md border border-orange-500/20 px-4 py-1.5 rounded-full mb-6 animate-in fade-in duration-700 shadow-lg shadow-orange-500/5">
           <span className="text-[11px] uppercase tracking-widest font-bold text-orange-400">Black Friday</span>
           <span className="text-xs text-white/40">•</span>
           <span className="text-xs text-emerald-300 font-semibold tracking-wide">Save $10</span>
         </div>
         
-        <h1 className="text-4xl md:text-6xl font-bold leading-[1.1] tracking-tighter text-white">
+        <h1 className="text-3xl md:text-6xl font-bold leading-tight tracking-tighter text-white mb-4">
           Get {STATE} Forklift Certified
         </h1>
-        <p className="mt-6 text-slate-300 text-lg md:text-xl max-w-2xl leading-relaxed font-normal">
-          <span className="text-white font-medium">30 Minutes</span> • <span className="inline-flex items-baseline gap-1.5">
-            <span className="text-slate-500 line-through decoration-slate-500/50 text-base">$59</span>
-            <span className="text-white font-semibold">$49</span>
-          </span> • OSHA-aligned online training
-        </p>
         
-        <div className="mt-8 flex flex-col sm:flex-row items-center gap-4">
+        {/* NEW: Value props moved up for visibility */}
+        <div className="flex flex-wrap gap-x-6 gap-y-2 text-lg text-slate-200 mb-6 font-medium">
+          <span className="flex items-center gap-2">
+            <svg className="w-5 h-5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Done in 30 Mins
+          </span>
+          <span className="flex items-center gap-2">
+            <svg className="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Valid in {STATE}
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-4">
           <button
             onClick={handleCheckout}
             disabled={isLoading}
-            className="group relative inline-flex items-center justify-center rounded-xl bg-gradient-to-b from-orange-500 to-orange-600 px-8 py-4 md:px-10 md:py-5 font-semibold text-white shadow-[0_1px_2px_rgba(0,0,0,0.1),0_4px_8px_rgba(249,115,22,0.2)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_rgba(249,115,22,0.3)] active:scale-95 active:shadow-sm disabled:opacity-50 disabled:cursor-wait"
+            className="w-full md:w-auto group relative inline-flex items-center justify-center rounded-xl bg-gradient-to-b from-orange-500 to-orange-600 px-8 py-4 md:px-12 md:py-6 font-bold text-white shadow-[0_1px_2px_rgba(0,0,0,0.1),0_4px_8px_rgba(249,115,22,0.2)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_rgba(249,115,22,0.3)] active:scale-95 active:shadow-sm disabled:opacity-50 disabled:cursor-wait"
           >
-            <span className="text-lg md:text-xl tracking-tight">Start — $49</span>
+            {/* Enhanced Button Text */}
+            <span className="text-xl md:text-2xl tracking-tight">Get Certified Now - $49</span>
           </button>
           
-          {/* Trust note - Desktop side position */}
-          <p className="hidden sm:block text-sm text-slate-400/80 max-w-[200px] leading-snug">
-            🔒 Secure checkout • Instant access
+          <p className="text-sm text-slate-400/80 text-center md:text-left">
+            Valid in Houston, Dallas, Austin & all of {STATE} • Instant Certificate
           </p>
         </div>
-
-        {/* Trust note - Mobile bottom position */}
-        <p className="mt-4 sm:hidden text-sm text-slate-400/80 text-center">
-          🔒 Secure checkout • Instant access
-        </p>
         
         {error && (
           <p className="mt-4 text-red-400 text-sm bg-red-500/10 border border-red-500/20 rounded-lg p-3 inline-block">{error}</p>
         )}
         
-        {/* Social Proof - Mobile optimized */}
-        <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
+        {/* Social Proof - Moved below CTA for mobile */}
+        <div className="mt-8 flex flex-col sm:flex-row items-center gap-4">
           <div className="flex -space-x-3">
             <div className="w-10 h-10 rounded-full bg-slate-800 border-2 border-slate-900 shadow-md flex items-center justify-center text-xs font-medium text-slate-300 ring-2 ring-slate-900/50">JD</div>
             <div className="w-10 h-10 rounded-full bg-slate-800 border-2 border-slate-900 shadow-md flex items-center justify-center text-xs font-medium text-slate-300 ring-2 ring-slate-900/50">SK</div>
@@ -158,7 +164,8 @@ export default function StateHero() {
           </div>
         </div>
         
-        <div className="mt-12 pt-8 border-t border-white/5 flex flex-wrap items-center gap-y-4 gap-x-8 text-sm text-slate-400">
+        {/* Desktop Trust Badges - Hidden on mobile to reduce scroll */}
+        <div className="hidden md:flex mt-12 pt-8 border-t border-white/5 flex-wrap items-center gap-y-4 gap-x-8 text-sm text-slate-400">
           <span className="flex items-center gap-2.5 transition-colors hover:text-slate-300">
             <svg className="w-5 h-5 text-emerald-500/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -182,4 +189,3 @@ export default function StateHero() {
     </section>
   );
 }
-
