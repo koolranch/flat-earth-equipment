@@ -21,6 +21,12 @@ export default function StateHero({ metrics }: Props) {
   const stateInfo = forkliftStates.find(s => s.code === slug);
   const STATE = stateInfo?.name || slugToTitle(slug); // fallback to title-cased slug
   
+  // Logic to get top 3 cities string
+  const topCities = metrics?.topCities?.slice(0, 3).join(', ') || '';
+  const validationText = topCities 
+    ? `Valid in ${topCities} & all of ${STATE}`
+    : `Valid in all of ${STATE}`;
+  
   // Use dynamic count if available, otherwise fallback to 2k+
   const operatorCount = metrics?.operatorsCertified 
     ? `${metrics.operatorsCertified.toLocaleString()}+` 
@@ -159,7 +165,7 @@ export default function StateHero({ metrics }: Props) {
 
           {/* UPDATE: Mobile Trust Text - Replaces the hidden icons below */}
           <p className="text-sm text-slate-400/80 text-center md:text-left flex flex-col gap-1 md:block">
-            <span>Valid in Houston, Dallas, Austin & all of {STATE}</span>
+            <span>{validationText}</span>
             <span className="flex items-center justify-center md:inline gap-2 text-emerald-400/90 text-xs font-medium mt-1 md:mt-0 md:text-slate-400/80 md:font-normal md:text-sm">
               <span>✓ OSHA Compliant</span>
               <span>•</span>
