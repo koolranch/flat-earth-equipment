@@ -7,8 +7,13 @@ import { STATE_TO_USPS, slugToTitle } from '@/lib/state';
 import { trackEvent } from '@/lib/analytics/gtag';
 import { trackLanding, trackCTA, trackCheckoutBegin } from '@/lib/analytics/vercel-funnel';
 import { forkliftStates } from '@/src/data/forkliftStates';
+import { StateMetrics } from '@/lib/safety/stateMetrics';
 
-export default function StateHero() {
+interface Props {
+  metrics?: StateMetrics;
+}
+
+export default function StateHero({ metrics }: Props) {
   const params = useParams() as Record<string, string> | null;
   const slug = (params?.state || params?.slug || '').toLowerCase();
   
@@ -16,6 +21,11 @@ export default function StateHero() {
   const stateInfo = forkliftStates.find(s => s.code === slug);
   const STATE = stateInfo?.name || slugToTitle(slug); // fallback to title-cased slug
   
+  // Use dynamic count if available, otherwise fallback to 2k+
+  const operatorCount = metrics?.operatorsCertified 
+    ? `${metrics.operatorsCertified.toLocaleString()}+` 
+    : '2,000+';
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
@@ -102,9 +112,9 @@ export default function StateHero() {
       </div>
       
       <div className="relative mx-auto max-w-5xl px-4 py-8 md:py-20"> {/* Reduced padding for mobile */}
-        {/* Badge - Hidden on mobile to save vertical space */}
-        <div className="hidden md:inline-flex items-center gap-2 bg-orange-500/10 backdrop-blur-md border border-orange-500/20 px-4 py-1.5 rounded-full mb-6 animate-in fade-in duration-700 shadow-lg shadow-orange-500/5">
-          <span className="text-[11px] uppercase tracking-widest font-bold text-orange-400">Black Friday</span>
+        {/* UPDATE: Visible on mobile, just smaller */}
+        <div className="inline-flex items-center gap-2 bg-orange-500/10 backdrop-blur-md border border-orange-500/20 px-3 py-1 md:px-4 md:py-1.5 rounded-full mb-4 md:mb-6 animate-in fade-in duration-700 shadow-lg shadow-orange-500/5">
+          <span className="text-[10px] md:text-[11px] uppercase tracking-widest font-bold text-orange-400">Black Friday</span>
           <span className="text-xs text-white/40">•</span>
           <span className="text-xs text-emerald-300 font-semibold tracking-wide">Save $10</span>
         </div>
@@ -139,8 +149,22 @@ export default function StateHero() {
             <span className="text-xl md:text-2xl tracking-tight">Get Certified Now - $49</span>
           </button>
           
-          <p className="text-sm text-slate-400/80 text-center md:text-left">
-            Valid in Houston, Dallas, Austin & all of {STATE} • Instant Certificate
+          <div className="mt-2 flex items-center justify-center md:justify-start gap-1.5 text-[10px] uppercase tracking-wider font-bold text-orange-400/80">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+            </span>
+            High Demand in {STATE}
+          </div>
+
+          {/* UPDATE: Mobile Trust Text - Replaces the hidden icons below */}
+          <p className="text-sm text-slate-400/80 text-center md:text-left flex flex-col gap-1 md:block">
+            <span>Valid in Houston, Dallas, Austin & all of {STATE}</span>
+            <span className="flex items-center justify-center md:inline gap-2 text-emerald-400/90 text-xs font-medium mt-1 md:mt-0 md:text-slate-400/80 md:font-normal md:text-sm">
+              <span>✓ OSHA Compliant</span>
+              <span>•</span>
+              <span>✓ Instant Download</span>
+            </span>
           </p>
         </div>
         
@@ -154,13 +178,15 @@ export default function StateHero() {
             <div className="w-10 h-10 rounded-full bg-slate-800 border-2 border-slate-900 shadow-md flex items-center justify-center text-xs font-medium text-slate-300 ring-2 ring-slate-900/50">JD</div>
             <div className="w-10 h-10 rounded-full bg-slate-800 border-2 border-slate-900 shadow-md flex items-center justify-center text-xs font-medium text-slate-300 ring-2 ring-slate-900/50">SK</div>
             <div className="w-10 h-10 rounded-full bg-slate-800 border-2 border-slate-900 shadow-md flex items-center justify-center text-xs font-medium text-slate-300 ring-2 ring-slate-900/50">PR</div>
-            <div className="w-10 h-10 rounded-full bg-slate-800 border-2 border-slate-900 shadow-md flex items-center justify-center text-xs font-medium text-slate-300 ring-2 ring-slate-900/50">+2k</div>
+            <div className="w-10 h-10 rounded-full bg-slate-800 border-2 border-slate-900 shadow-md flex items-center justify-center text-xs font-medium text-slate-300 ring-2 ring-slate-900/50">
+              {metrics?.operatorsCertified ? '2k+' : '+2k'}
+            </div>
           </div>
           <div className="flex flex-col items-center sm:items-start gap-0.5">
             <div className="flex text-yellow-400 text-sm gap-0.5">
                {'★★★★★'.split('').map((star, i) => <span key={i}>{star}</span>)}
             </div>
-            <p className="text-slate-400 text-sm font-medium">Trusted by 2,000+ operators</p>
+            <p className="text-slate-400 text-sm font-medium">Trusted by {operatorCount} operators</p>
           </div>
         </div>
         
