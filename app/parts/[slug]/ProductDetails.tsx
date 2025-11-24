@@ -28,6 +28,7 @@ interface ProductDetailsProps {
     stripe_price_id: string;
     has_core_charge?: boolean;
     core_charge?: number;
+    category?: string;
   };
   variants: Variant[];
 }
