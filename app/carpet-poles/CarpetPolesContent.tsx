@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
 import Link from "next/link";
+import Image from "next/image";
 import { Shield, Truck, Package, AlertTriangle } from 'lucide-react';
 
 function CarpetPoleQuoteForm() {
@@ -272,6 +273,17 @@ export default function CarpetPolesContent() {
           for maximum safety and efficiency. Perfect for carpet warehouses, distribution centers, and 
           installation companies.
         </p>
+
+        <div className="mb-8">
+          <Image
+            src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/carpetpole.jpeg"
+            alt="Heavy-duty forklift carpet pole for industrial carpet handling"
+            width={1216}
+            height={832}
+            className="rounded-xl shadow-lg w-full"
+            priority
+          />
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           <div className="bg-slate-50 p-6 rounded-lg">
