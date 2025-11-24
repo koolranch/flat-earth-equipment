@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-11-24T00:00:00.000Z",
+  "status": "SUCCESS",
+  "productsImported": 8,
+  "category": "Class III Forks",
+  "finish": "Full Tapered and Polished",
+  "pricingFormula": "(dealer_price_per_fork × 2) × 1.40",
+  "excluded": ["FORK-4192 (Special Order)", "FORK-4195 (Special Order)"],
+  "totalDealerCostPairs": 5290,
+  "totalRetailValue": 7406,
+  "grossMargin": 2116,
+  "marginPercentage": "40%",
+  "totalClass3Forks": 29,
+  "class3Breakdown": {
+    "standardTapered": 21,
+    "fullTaperedPolished": 8
+  }
+}
+
