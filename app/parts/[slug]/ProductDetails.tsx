@@ -51,6 +51,7 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
       has_core_charge: item.has_core_charge,
       core_charge: item.core_charge,
       image_url: part.image_url,
+      category: part.category,
       quantity: 1
     });
     

@@ -64,7 +64,8 @@ export default function CartPage() {
             quantity: item.quantity,
             coreCharge: item.has_core_charge ? item.core_charge : undefined,
             metadata: item.metadata,
-            name: item.name
+            name: item.name,
+            category: item.category
           }))
         }),
       });
@@ -104,6 +105,26 @@ export default function CartPage() {
   const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const coreCharges = items.reduce((sum, item) => 
     sum + ((item.has_core_charge && item.core_charge) ? item.core_charge * item.quantity : 0), 0);
+  
+  // Calculate freight charges - flat rate per category type
+  const freightCharges = (() => {
+    const categories = items.map(item => item.category).filter(Boolean);
+    let freight = 0;
+    
+    // Check for fork categories (all fork types get one $250 charge)
+    const hasForks = categories.some(cat => 
+      cat === 'forks' || 
+      cat === 'Class II Forks' || 
+      cat === 'Class III Forks' || 
+      cat === 'Class IV Forks'
+    );
+    if (hasForks) freight += 250;
+    
+    // Check for carpet/rug rams
+    if (categories.includes('Rug / Carpet Rams')) freight += 1000;
+    
+    return freight;
+  })();
 
 
   if (items.length === 0) {
@@ -200,9 +221,15 @@ export default function CartPage() {
                   <span>${coreCharges.toFixed(2)}</span>
                 </div>
               )}
+              {freightCharges > 0 && (
+                <div className="flex justify-between text-orange-600">
+                  <span>Freight Shipping</span>
+                  <span>${freightCharges.toFixed(2)}</span>
+                </div>
+              )}
               <div className="flex justify-between font-semibold pt-2 border-t">
                 <span>{t.total}</span>
-                <span>${(total + coreCharges).toFixed(2)}</span>
+                <span>${(total + coreCharges + freightCharges).toFixed(2)}</span>
               </div>
             </div>
 
