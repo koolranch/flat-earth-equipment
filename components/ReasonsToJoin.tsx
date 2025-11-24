@@ -16,9 +16,9 @@ export default function ReasonsToJoin() {
       icon: "✅"
     },
     { 
-      title: "Free unlimited retakes", 
-      body: "Practice as much as you need—no extra charges.",
-      icon: "🔄"
+      title: "Free Lifetime Access", 
+      body: "Pay once. Free renewals forever—even if you change employers.",
+      icon: "♾️"
     },
   ];
   
