@@ -1,0 +1,20 @@
+{
+  "timestamp": "2025-11-24T00:00:00.000Z",
+  "status": "SUCCESS - FINAL HELMAR CATEGORY",
+  "productsImported": 4,
+  "category": "Lumber Forks",
+  "multiClass": true,
+  "classesIncluded": ["Class II", "Class III", "Class IV"],
+  "pricingFormula": "(dealer_price_per_fork × 2) × 1.40",
+  "excluded": ["FORK-4256 (Special Order)", "FORK-4260 (Special Order - Call for Price)"],
+  "totalDealerCostPairs": 5240,
+  "totalRetailValue": 7336,
+  "grossMargin": 2096,
+  "marginPercentage": "40%",
+  "specialFeatures": {
+    "width": "8 inches (extra-wide for lumber)",
+    "finish": "Full Tapered and Polished",
+    "application": "Lumber and sheet material handling"
+  }
+}
+
