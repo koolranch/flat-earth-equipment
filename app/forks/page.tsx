@@ -93,6 +93,26 @@ export default function ForksPage() {
           </Link>
         </div>
 
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
+        <h2 className="text-xl font-semibold mb-4 text-blue-900">Pricing & Shipping Information</h2>
+        <div className="space-y-4 text-blue-800">
+          <div>
+            <p className="font-semibold">Equipment Pricing:</p>
+            <p>Competitive pricing based on specifications, class, and quantity. Request a quote below for exact pricing.</p>
+          </div>
+          <div className="border-t border-blue-200 pt-4">
+            <p className="font-semibold text-lg">Freight Shipping:</p>
+            <p className="text-blue-900">
+              <strong>$250.00</strong> - Due to the size and weight of forklift forks, freight shipping costs are required. 
+              This freight charge will be added to your final quote.
+            </p>
+          </div>
+          <p className="text-sm text-blue-700 italic">
+            Note: Freight costs are for standard shipping. Expedited or specialized delivery may incur additional charges.
+          </p>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
         <div className="bg-white rounded-2xl p-6 shadow">
           <h2 className="text-xl font-semibold mb-2">Most Popular Fork Types</h2>
