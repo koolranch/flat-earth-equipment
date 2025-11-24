@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-11-24T00:00:00.000Z",
+  "status": "SUCCESS",
+  "productsImported": 21,
+  "category": "Class III Forks",
+  "finish": "Standard Tapered",
+  "pricingFormula": "(dealer_price_per_fork × 2) × 1.40",
+  "excluded": ["FORK-4144 (Due 1/7/2026)", "FORK-4158 (Due 2/12/2026)", "FORK-4171 (Special Order)"],
+  "totalDealerCostPairs": 13580,
+  "totalRetailValue": 19012,
+  "grossMargin": 5432,
+  "marginPercentage": "40%",
+  "notes": "Class III forks use FEE-F3-XXX SKU prefix. Finish type stored in metadata for filtering."
+}
+
