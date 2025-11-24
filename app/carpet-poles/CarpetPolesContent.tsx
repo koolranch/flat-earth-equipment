@@ -317,6 +317,26 @@ export default function CarpetPolesContent() {
           </p>
         </div>
 
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-12">
+          <h3 className="text-xl font-semibold mb-4 text-blue-900">Pricing & Shipping Information</h3>
+          <div className="space-y-4 text-blue-800">
+            <div>
+              <p className="font-semibold">Equipment Pricing:</p>
+              <p>Competitive pricing based on specifications and quantity. Request a quote below for exact pricing.</p>
+            </div>
+            <div className="border-t border-blue-200 pt-4">
+              <p className="font-semibold text-lg">Freight Shipping:</p>
+              <p className="text-blue-900">
+                <strong>$1,000.00</strong> - Due to the size and weight of carpet poles, freight shipping costs are significant. 
+                This freight charge will be added to your final quote.
+              </p>
+            </div>
+            <p className="text-sm text-blue-700 italic">
+              Note: Freight costs are for standard shipping. Expedited or specialized delivery may incur additional charges.
+            </p>
+          </div>
+        </div>
+
         <div className="bg-white border rounded-lg p-6 mb-12">
           <h2 className="text-2xl font-semibold mb-6">Request a Quote</h2>
           <CarpetPoleQuoteForm />
