@@ -11,6 +11,7 @@ interface StickyFooterButtonProps {
     has_core_charge?: boolean;
     core_charge?: number;
     image_url?: string;
+    category?: string;
   };
   slug: string;
 }
@@ -27,6 +28,7 @@ export default function StickyFooterButton({ product, slug }: StickyFooterButton
       has_core_charge: product.has_core_charge,
       core_charge: product.core_charge,
       image_url: product.image_url,
+      category: product.category,
       quantity: 1
     });
   };

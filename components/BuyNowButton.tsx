@@ -10,6 +10,7 @@ interface Product {
   has_core_charge?: boolean;
   core_charge?: number;
   image_url?: string;
+  category?: string;
 }
 
 interface BuyNowButtonProps {
@@ -29,6 +30,7 @@ export default function BuyNowButton({ product, slug }: BuyNowButtonProps) {
       has_core_charge: product.has_core_charge,
       core_charge: product.core_charge,
       image_url: product.image_url,
+      category: product.category,
       quantity: 1
     });
   };
