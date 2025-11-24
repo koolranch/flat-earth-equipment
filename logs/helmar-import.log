@@ -1,0 +1,28 @@
+{
+  "timestamp": "2025-11-24T00:00:00.000Z",
+  "status": "SUCCESS",
+  "productsImported": 11,
+  "products": [
+    {"internalSku": "FEE-RC-001", "vendorSku": "FM-1-200", "name": "FORK MT RUG RAM (10X2 1/2)", "dealerPrice": 840.00, "retailPrice": 1176.00},
+    {"internalSku": "FEE-RC-002", "vendorSku": "FM-1-300", "name": "FORK MT RUG RAM (10X2 3/4)", "dealerPrice": 980.00, "retailPrice": 1372.00},
+    {"internalSku": "FEE-RC-003", "vendorSku": "FM-1-400", "name": "FORK MT RUG RAM (12X2 1/2)", "dealerPrice": 880.00, "retailPrice": 1232.00},
+    {"internalSku": "FEE-RC-004", "vendorSku": "FM-1-500", "name": "FORK MT RUG RAM (12X2 3/4)", "dealerPrice": 965.00, "retailPrice": 1351.00},
+    {"internalSku": "FEE-RC-005", "vendorSku": "RR-2-206", "name": "RUG RAM (CLASS II 9X2 3/4)", "dealerPrice": 995.00, "retailPrice": 1393.00},
+    {"internalSku": "FEE-RC-006", "vendorSku": "RR-2-209", "name": "RUG RAM (CLASS II (10X2 3/4)", "dealerPrice": 650.00, "retailPrice": 910.00},
+    {"internalSku": "FEE-RC-007", "vendorSku": "RR-2-214", "name": "RUG RAM (CLASS II (10X3)", "dealerPrice": 875.00, "retailPrice": 1225.00},
+    {"internalSku": "FEE-RC-008", "vendorSku": "RR-2-219", "name": "RUG RAM (CLASS II (12X2 1/2)", "dealerPrice": 725.00, "retailPrice": 1015.00},
+    {"internalSku": "FEE-RC-009", "vendorSku": "RR-2-224", "name": "RUG RAM (CLASS II 12X2 3/4)", "dealerPrice": 650.00, "retailPrice": 910.00},
+    {"internalSku": "FEE-RC-010", "vendorSku": "RR-3-310", "name": "RUG RAM (CLASS III (10X2 3/4)", "dealerPrice": 740.00, "retailPrice": 1036.00},
+    {"internalSku": "FEE-RC-011", "vendorSku": "RR-3-316", "name": "RUG RAM (CLASS III (12X2 3/4)", "dealerPrice": 895.00, "retailPrice": 1253.00}
+  ],
+  "validations": {
+    "allProductsInserted": true,
+    "partNumbersSequential": true,
+    "vendorSkusPopulated": true,
+    "pricingCorrect": true,
+    "metadataStructureValid": true,
+    "slugsUnique": true
+  },
+  "notes": "Images currently using Helmar URLs. Will be replaced with Supabase storage URLs in image pipeline phase."
+}
+
