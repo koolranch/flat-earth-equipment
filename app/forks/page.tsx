@@ -2,6 +2,9 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
+import { supabaseServer } from '@/lib/supabase/server';
+import ForkFinder from "@/components/forks/ForkFinder";
+import ForkSchemaWrapper from "@/components/forks/ForkSchemaWrapper";
 
 export const metadata: Metadata = {
   title: "Forklift Forks | Heavy-Duty Material Handling Equipment | Flat Earth Equipment",
@@ -34,9 +37,16 @@ export const metadata: Metadata = {
   }
 };
 
-export default function ForksPage() {
+export default async function ForksPage() {
+  const supabase = supabaseServer();
+  const { data: products } = await supabase
+    .from('parts')
+    .select('id, name, slug, price, image_url, metadata')
+    .in('category', ['Class II Forks', 'Class III Forks', 'Class IV Forks']);
+
   return (
     <>
+      <ForkSchemaWrapper />
       {/* Structured Data */}
       <Script id="forks-ld-json" type="application/ld+json">
         {JSON.stringify({
@@ -76,6 +86,11 @@ export default function ForksPage() {
           Class III, and Class IV forks in standard and custom lengths, including tapered pallet forks,
           block forks, and telehandler-compatible styles.
         </p>
+
+        {/* Fork Finder Tool */}
+        <div className="mb-16">
+          <ForkFinder products={products || []} />
+        </div>
 
         {/* CTA Buttons */}
         <div className="flex flex-wrap gap-4 mb-12">
