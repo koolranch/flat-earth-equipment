@@ -12,6 +12,14 @@ export const metadata: Metadata = {
     description: "High-quality forklift carpet poles for safe and efficient carpet handling. Custom sizes available. Get a quote for your carpet handling needs.",
     url: "https://www.flatearthequipment.com/carpet-poles",
     type: "website",
+    images: [
+      {
+        url: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/carpetpole.jpeg",
+        width: 1216,
+        height: 832,
+        alt: "Heavy-duty forklift carpet pole for industrial carpet handling"
+      }
+    ]
   },
 };
 
