@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-11-24T00:00:00.000Z",
+  "status": "SUCCESS",
+  "productsImported": 10,
+  "category": "Class IV Forks",
+  "finish": "Standard Tapered",
+  "pricingFormula": "(dealer_price_per_fork × 2) × 1.40",
+  "excluded": ["FORK-4222 (Special Order)", "FORK-4228 (Due 2/12/2026)", "FORK-4230 (Special Order)"],
+  "totalDealerCostPairs": 11530,
+  "totalRetailValue": 16142,
+  "grossMargin": 4612,
+  "marginPercentage": "40%"
+}
+
