@@ -79,6 +79,46 @@ export async function POST(req: NextRequest) {
           });
         }
       }
+      
+      // Add freight charges - flat rate per category type (after all items processed)
+      const categories = body.items.map((item: any) => item.category).filter(Boolean);
+      
+      // Check for fork categories (all fork types get one $250 charge)
+      const hasForks = categories.some((cat: string) => 
+        cat === 'forks' || 
+        cat === 'Class II Forks' || 
+        cat === 'Class III Forks' || 
+        cat === 'Class IV Forks'
+      );
+      if (hasForks) {
+        lineItems.push({
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Freight Shipping - Forklift Forks',
+              description: 'Freight shipping for forklift forks due to size and weight'
+            },
+            unit_amount: 25000 // $250.00 in cents
+          },
+          quantity: 1
+        });
+      }
+      
+      // Check for carpet/rug rams
+      if (categories.includes('Rug / Carpet Rams')) {
+        lineItems.push({
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Freight Shipping - Carpet/Rug Rams',
+              description: 'Freight shipping for carpet poles due to size and weight'
+            },
+            unit_amount: 100000 // $1,000.00 in cents
+          },
+          quantity: 1
+        });
+      }
+      
       successSlug = body.items[0]?.name || "";
     } else {
       // Simple checkout format: { priceId, slug, qty }

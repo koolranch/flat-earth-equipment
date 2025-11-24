@@ -13,6 +13,7 @@ interface CartItem {
   stripe_price_id: string;
   has_core_charge?: boolean;
   core_charge?: number;
+  category?: string;
   metadata?: {
     firmwareVersion?: string;
     moduleId?: string;
