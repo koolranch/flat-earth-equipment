@@ -13,6 +13,7 @@ interface LegacyAddToCartProps {
     firmwareVersion?: string;
     moduleId?: string;
     offer?: string;
+    category?: string;
     [key: string]: any;
   };
   className?: string;
@@ -47,6 +48,7 @@ function AddToCartToCartLegacy({
       quantity: qty,
       has_core_charge: meta?.hasCore || false,
       core_charge: meta?.coreCharge || 0,
+      category: meta?.category,
       metadata: meta, // Store metadata for checkout
     });
     
