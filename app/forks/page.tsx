@@ -294,8 +294,16 @@ export default async function ForksPage() {
               <p className="text-slate-700">We sell high-quality aftermarket forks manufactured to meet or exceed OEM specifications. They're fully compatible with major brands like Toyota, Hyster, Yale, Crown, and Cat, often at significant cost savings.</p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-lg border">
+              <h3 className="text-lg font-semibold mb-3 text-slate-900">What&apos;s the difference between standard and telehandler forks?</h3>
+              <p className="text-slate-700">Telehandler forks are built for heavier duty applications with reinforced construction and different mounting systems (pin or shaft mount vs. hook mount). They&apos;re designed to handle the additional stresses of telescopic boom operation and rough terrain use.</p>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow-lg border">
+              <h3 className="text-lg font-semibold mb-3 text-slate-900">What capacity forks do I need?</h3>
+              <p className="text-slate-700">Fork capacity should match or exceed your forklift&apos;s rated capacity at the load center you&apos;ll be operating. Consider the weight distribution and type of loads you&apos;ll be handling. Our technical team can help calculate the proper capacity for your application.</p>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow-lg border">
               <h3 className="text-lg font-semibold mb-3 text-slate-900">Do you offer custom length forks?</h3>
-              <p className="text-slate-700">Yes, we manufacture custom length forks from 36" up to 120" or longer for specialized applications. Custom forks require load calculations and typically have a 2-3 week lead time.</p>
+              <p className="text-slate-700">Yes, we manufacture custom length forks from 36&quot; up to 120&quot; or longer for specialized applications. Custom forks require load calculations and typically have a 2-3 week lead time.</p>
             </div>
           </div>
         </section>
