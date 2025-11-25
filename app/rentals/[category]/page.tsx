@@ -139,6 +139,47 @@ export default async function RentalCategoryPage({ params }: PageProps) {
       </h1>
 
       <RentalEquipmentGrid rentals={rentals} categorySlug={params.category} />
+
+      {/* SEO Content Guide */}
+      <section className="mt-20 border-t border-slate-200 pt-12">
+        <h2 className="text-2xl font-bold text-slate-900 mb-6">
+          Complete Guide to {dbCategory} Rentals
+        </h2>
+        <div className="prose prose-slate max-w-none text-slate-600">
+          <p className="mb-4">
+            Looking for reliable <strong>{dbCategory.toLowerCase()}</strong> rentals? Flat Earth Equipment offers a comprehensive fleet of 
+            industrial-grade equipment designed to tackle your toughest project requirements. Whether you need a machine for a day, 
+            a week, or a long-term project, we provide flexible rental terms to match your schedule.
+          </p>
+
+          <h3 className="text-xl font-semibold text-slate-900 mt-8 mb-4">Why Rent a {dbCategory}?</h3>
+          <ul className="list-disc pl-5 space-y-2 mb-6">
+            <li>
+              <strong>Cost-Effective:</strong> Avoid the high upfront capital investment of purchasing new machinery.
+            </li>
+            <li>
+              <strong>Maintenance-Free:</strong> We handle all servicing, repairs, and maintenance so you can focus on the job.
+            </li>
+            <li>
+              <strong>Project Flexibility:</strong> Scale your fleet up or down based on current project demands.
+            </li>
+            <li>
+              <strong>Latest Technology:</strong> Access newer models with advanced safety features and better fuel efficiency.
+            </li>
+          </ul>
+
+          <h3 className="text-xl font-semibold text-slate-900 mt-8 mb-4">Safety First</h3>
+          <p className="mb-4">
+            Operating heavy equipment requires proper training and certification. Ensure your operators are OSHA-certified 
+            before using any {dbCategory.toLowerCase()}. We offer online certification courses to help keep your team compliant and safe.
+          </p>
+          <p>
+            <Link href="/safety" className="text-canyon-rust font-semibold hover:underline">
+              View Safety Training Courses →
+            </Link>
+          </p>
+        </div>
+      </section>
     </main>
   )
 } 

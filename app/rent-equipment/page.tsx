@@ -34,6 +34,8 @@ async function fetchRentalCategories() {
   return categories;
 }
 
+import RentalTrustBadges from "@/components/rental/RentalTrustBadges";
+
 export default async function RentEquipmentPage() {
   const categories = await fetchRentalCategories();
   const locale = getUserLocale()
@@ -136,50 +138,13 @@ export default async function RentEquipmentPage() {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 py-16">
-          {/* Key Benefits */}
-          <section className="mb-16">
+          {/* Trust Badges - NEW */}
+          <RentalTrustBadges />
+          
+          {/* Key Benefits - Removed old version in favor of new badges */}
+          <section className="mb-16 hidden">
             <h2 className="text-3xl font-bold text-center mb-12 text-slate-900">Why Choose Our Equipment Rentals?</h2>
-            <div className="grid md:grid-cols-4 gap-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-canyon-rust/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-canyon-rust" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <h3 className="font-semibold text-slate-900 mb-2">Fast Availability</h3>
-                <p className="text-sm text-slate-600">Equipment ready when you need it with flexible scheduling</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="w-16 h-16 bg-canyon-rust/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-canyon-rust" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <h3 className="font-semibold text-slate-900 mb-2">Quality Assured</h3>
-                <p className="text-sm text-slate-600">Professionally maintained equipment from trusted brands</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="w-16 h-16 bg-canyon-rust/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-canyon-rust" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-                  </svg>
-                </div>
-                <h3 className="font-semibold text-slate-900 mb-2">Competitive Rates</h3>
-                <p className="text-sm text-slate-600">Best value pricing with transparent, no-surprise costs</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="w-16 h-16 bg-canyon-rust/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-canyon-rust" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <h3 className="font-semibold text-slate-900 mb-2">Expert Support</h3>
-                <p className="text-sm text-slate-600">Technical guidance and support throughout your rental</p>
-              </div>
-            </div>
+            {/* ... old benefits ... */}
           </section>
 
           {/* Equipment Categories */}
