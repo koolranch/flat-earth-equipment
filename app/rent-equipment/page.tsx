@@ -258,22 +258,25 @@ export default async function RentEquipmentPage() {
           <Link
             key={category}
             href={`/rentals/${slugify(category, { lower: true })}`}
-                    className="group block rounded-xl border-2 border-slate-200 bg-white hover:border-canyon-rust hover:shadow-lg transition-all duration-200 p-8"
-                  >
-                    <div className="text-center">
-                      <div className="mb-4">{getIcon(category)}</div>
-                      <h2 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-canyon-rust transition-colors">
-                        {category}
-                      </h2>
-                      <p className="text-sm text-slate-600 mb-4">{t.viewModels}</p>
-                      <div className="inline-flex items-center gap-2 text-sm font-medium text-canyon-rust">
-                        <span>Browse Equipment</span>
-                        <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </div>
-                    </div>
-                  </Link>
+            className="group block rounded-2xl border border-slate-200 bg-white hover:border-canyon-rust/30 hover:shadow-xl transition-all duration-300 p-8 transform hover:-translate-y-1"
+          >
+            <div className="text-center">
+              <div className="mb-6 transform group-hover:scale-110 transition-transform duration-300">{getIcon(category)}</div>
+              <h2 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-canyon-rust transition-colors">
+                {category}
+              </h2>
+              <div className="inline-flex items-center justify-center bg-slate-50 px-3 py-1 rounded-full mb-4">
+                <span className="text-xs font-semibold text-slate-600">{categoryCount} Models Available</span>
+              </div>
+              <p className="text-sm text-slate-600 mb-6 leading-relaxed">{t.viewModels}</p>
+              <div className="inline-flex items-center gap-2 text-sm font-bold text-canyon-rust tracking-wide group-hover:gap-3 transition-all">
+                <span>BROWSE EQUIPMENT</span>
+                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </div>
+            </div>
+          </Link>
                 );
               })}
             </div>
