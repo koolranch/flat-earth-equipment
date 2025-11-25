@@ -128,24 +128,21 @@ export default async function ForksPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-        <div className="bg-white rounded-2xl p-6 shadow">
-          <h2 className="text-xl font-semibold mb-2">Most Popular Fork Types</h2>
-          <ul className="list-disc list-inside text-gray-700 space-y-1">
-            <li>Pallet forks (ITA hook mount)</li>
-            <li>Telehandler forks</li>
-            <li>Block handling forks</li>
-            <li>Drum forks & lumber forks</li>
-          </ul>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div className="bg-white rounded-2xl p-6 shadow-lg border">
+          <div className="text-3xl mb-4">🏗️</div>
+          <h3 className="text-xl font-semibold mb-2">Heavy-Duty Construction</h3>
+          <p className="text-slate-600">High-strength alloy steel construction with heat treatment for maximum durability and load capacity.</p>
         </div>
-        <div className="bg-white rounded-2xl p-6 shadow">
-          <h2 className="text-xl font-semibold mb-2">Common Specs</h2>
-          <ul className="list-disc list-inside text-gray-700 space-y-1">
-            <li>Lengths: 36" – 96"</li>
-            <li>Widths: 4" to 6"</li>
-            <li>Capacities: up to 10,000 lbs</li>
-            <li>Mount types: ITA Class II / III / IV, shaft mount, pin mount</li>
-          </ul>
+        <div className="bg-white rounded-2xl p-6 shadow-lg border">
+          <div className="text-3xl mb-4">✅</div>
+          <h3 className="text-xl font-semibold mb-2">ANSI Certified</h3>
+          <p className="text-slate-600">All forks meet or exceed ANSI/ITSDF B56.1 safety standards with full documentation and certification.</p>
+        </div>
+        <div className="bg-white rounded-2xl p-6 shadow-lg border">
+          <div className="text-3xl mb-4">🔧</div>
+          <h3 className="text-xl font-semibold mb-2">Custom Solutions</h3>
+          <p className="text-slate-600">Custom lengths, specialized mounting systems, and application-specific designs available.</p>
         </div>
       </div>
 
