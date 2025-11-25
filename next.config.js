@@ -89,6 +89,12 @@ const baseConfig = {
         destination: '/forks',
         permanent: true
       },
+      // Consolidate fork pages - redirect detailed page to main fork finder
+      {
+        source: '/parts/attachments/forks',
+        destination: '/forks',
+        permanent: true // 301 redirect - consolidates SEO authority
+      },
       // Remove demo content
       {
         source: '/insights/hello-world',
