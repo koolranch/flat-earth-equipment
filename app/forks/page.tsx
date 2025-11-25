@@ -204,6 +204,68 @@ export default async function ForksPage() {
         </div>
       </section>
 
+      <section className="mb-16">
+        <h2 className="text-3xl font-bold mb-8 text-slate-900">Fork Types & Applications</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="bg-white rounded-xl p-6 shadow-lg border">
+            <h3 className="text-xl font-semibold mb-3 text-slate-900">Standard Pallet Forks</h3>
+            <p className="text-slate-700 mb-4">ITA Class II/III/IV hook-mounted forks for standard pallet handling</p>
+            <div className="space-y-2">
+              <div>
+                <span className="font-medium text-slate-900">Specifications:</span>
+                <span className="text-slate-600 ml-2">36&quot;-96&quot; lengths, 4&quot;-6&quot; widths, up to 10,000 lbs capacity</span>
+              </div>
+              <div>
+                <span className="font-medium text-slate-900">Applications:</span>
+                <span className="text-slate-600 ml-2">Warehouse operations, pallet handling, general material transport</span>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white rounded-xl p-6 shadow-lg border">
+            <h3 className="text-xl font-semibold mb-3 text-slate-900">Telehandler Forks</h3>
+            <p className="text-slate-700 mb-4">Heavy-duty forks designed for telescopic handlers and rough terrain</p>
+            <div className="space-y-2">
+              <div>
+                <span className="font-medium text-slate-900">Specifications:</span>
+                <span className="text-slate-600 ml-2">48&quot;-96&quot; lengths, reinforced construction, pin or shaft mount</span>
+              </div>
+              <div>
+                <span className="font-medium text-slate-900">Applications:</span>
+                <span className="text-slate-600 ml-2">Construction sites, outdoor material handling, agricultural use</span>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white rounded-xl p-6 shadow-lg border">
+            <h3 className="text-xl font-semibold mb-3 text-slate-900">Block Handling Forks</h3>
+            <p className="text-slate-700 mb-4">Specialized forks for concrete blocks, lumber, and irregular loads</p>
+            <div className="space-y-2">
+              <div>
+                <span className="font-medium text-slate-900">Specifications:</span>
+                <span className="text-slate-600 ml-2">Extended length options, tapered design, high-strength steel</span>
+              </div>
+              <div>
+                <span className="font-medium text-slate-900">Applications:</span>
+                <span className="text-slate-600 ml-2">Construction materials, lumber yards, masonry operations</span>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white rounded-xl p-6 shadow-lg border">
+            <h3 className="text-xl font-semibold mb-3 text-slate-900">Drum & Specialty Forks</h3>
+            <p className="text-slate-700 mb-4">Custom forks for drums, coils, and specialized material handling</p>
+            <div className="space-y-2">
+              <div>
+                <span className="font-medium text-slate-900">Specifications:</span>
+                <span className="text-slate-600 ml-2">Custom lengths and configurations, specialized mounting systems</span>
+              </div>
+              <div>
+                <span className="font-medium text-slate-900">Applications:</span>
+                <span className="text-slate-600 ml-2">Chemical handling, steel coils, specialized industrial applications</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <div className="space-y-6 text-gray-800 max-w-3xl">
         <p>
           Our forks meet or exceed ANSI/ITSDF B56.1 standards. All products are inspected for
