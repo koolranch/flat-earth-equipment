@@ -101,10 +101,10 @@ export default async function ForksPage() {
             Get Quote
           </Link>
           <Link 
-            href="/parts/attachments/forks" 
+            href="/contact" 
             className="border-2 border-canyon-rust text-canyon-rust px-8 py-3 rounded-lg font-semibold hover:bg-canyon-rust hover:text-white transition-colors"
           >
-            View Complete Selection
+            Technical Support
           </Link>
         </div>
 
@@ -128,65 +128,179 @@ export default async function ForksPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-        <div className="bg-white rounded-2xl p-6 shadow">
-          <h2 className="text-xl font-semibold mb-2">Most Popular Fork Types</h2>
-          <ul className="list-disc list-inside text-gray-700 space-y-1">
-            <li>Pallet forks (ITA hook mount)</li>
-            <li>Telehandler forks</li>
-            <li>Block handling forks</li>
-            <li>Drum forks & lumber forks</li>
-          </ul>
+      {/* Key Features Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div className="bg-white rounded-2xl p-6 shadow-lg border">
+          <div className="text-3xl mb-4">🏗️</div>
+          <h3 className="text-xl font-semibold mb-2">Heavy-Duty Construction</h3>
+          <p className="text-slate-600">High-strength alloy steel construction with heat treatment for maximum durability and load capacity.</p>
         </div>
-        <div className="bg-white rounded-2xl p-6 shadow">
-          <h2 className="text-xl font-semibold mb-2">Common Specs</h2>
-          <ul className="list-disc list-inside text-gray-700 space-y-1">
-            <li>Lengths: 36" – 96"</li>
-            <li>Widths: 4" to 6"</li>
-            <li>Capacities: up to 10,000 lbs</li>
-            <li>Mount types: ITA Class II / III / IV, shaft mount, pin mount</li>
-          </ul>
+        <div className="bg-white rounded-2xl p-6 shadow-lg border">
+          <div className="text-3xl mb-4">✅</div>
+          <h3 className="text-xl font-semibold mb-2">ANSI Certified</h3>
+          <p className="text-slate-600">All forks meet or exceed ANSI/ITSDF B56.1 safety standards with full documentation and certification.</p>
+        </div>
+        <div className="bg-white rounded-2xl p-6 shadow-lg border">
+          <div className="text-3xl mb-4">🔧</div>
+          <h3 className="text-xl font-semibold mb-2">Custom Solutions</h3>
+          <p className="text-slate-600">Custom lengths, specialized mounting systems, and application-specific designs available.</p>
         </div>
       </div>
 
-      <Image
-        src="/images/insights/what-are-forklift-forks-made-of-2.jpg"
-        alt="Forklift forks for sale"
-        width={1216}
-        height={832}
-        className="rounded-xl mb-10 shadow"
-      />
+      {/* Hero Image */}
+      <div className="mb-12">
+        <Image
+          src="/images/insights/what-are-forklift-forks-made-of-2.jpg"
+          alt="Heavy-duty forklift forks for industrial material handling"
+          width={1216}
+          height={832}
+          className="rounded-xl shadow-lg w-full"
+          priority
+        />
+      </div>
 
-      <div className="space-y-6 text-gray-800 max-w-3xl">
-        <p>
-          Our forks meet or exceed ANSI/ITSDF B56.1 standards. All products are inspected for
-          thickness, heel wear, and weld quality. Need help matching forks to your machine? Our team
-          can assist with fork charts and ITA class selection.
-        </p>
+      {/* Fork Types Section */}
+      <section className="mb-16">
+        <h2 className="text-3xl font-bold mb-8 text-slate-900">Fork Types & Applications</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="bg-white rounded-xl p-6 shadow-lg border">
+            <h3 className="text-xl font-semibold mb-3 text-slate-900">Standard Pallet Forks</h3>
+            <p className="text-slate-700 mb-4">ITA Class II/III/IV hook-mounted forks for standard pallet handling</p>
+            <div className="space-y-2">
+              <div>
+                <span className="font-medium text-slate-900">Specifications:</span>
+                <span className="text-slate-600 ml-2">36"-96" lengths, 4"-6" widths, up to 10,000 lbs capacity</span>
+              </div>
+              <div>
+                <span className="font-medium text-slate-900">Applications:</span>
+                <span className="text-slate-600 ml-2">Warehouse operations, pallet handling, general material transport</span>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white rounded-xl p-6 shadow-lg border">
+            <h3 className="text-xl font-semibold mb-3 text-slate-900">Telehandler Forks</h3>
+            <p className="text-slate-700 mb-4">Heavy-duty forks designed for telescopic handlers and rough terrain</p>
+            <div className="space-y-2">
+              <div>
+                <span className="font-medium text-slate-900">Specifications:</span>
+                <span className="text-slate-600 ml-2">48"-96" lengths, reinforced construction, pin or shaft mount</span>
+              </div>
+              <div>
+                <span className="font-medium text-slate-900">Applications:</span>
+                <span className="text-slate-600 ml-2">Construction sites, outdoor material handling, agricultural use</span>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white rounded-xl p-6 shadow-lg border">
+            <h3 className="text-xl font-semibold mb-3 text-slate-900">Block Handling Forks</h3>
+            <p className="text-slate-700 mb-4">Specialized forks for concrete blocks, lumber, and irregular loads</p>
+            <div className="space-y-2">
+              <div>
+                <span className="font-medium text-slate-900">Specifications:</span>
+                <span className="text-slate-600 ml-2">Extended length options, tapered design, high-strength steel</span>
+              </div>
+              <div>
+                <span className="font-medium text-slate-900">Applications:</span>
+                <span className="text-slate-600 ml-2">Construction materials, lumber yards, masonry operations</span>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white rounded-xl p-6 shadow-lg border">
+            <h3 className="text-xl font-semibold mb-3 text-slate-900">Drum & Specialty Forks</h3>
+            <p className="text-slate-700 mb-4">Custom forks for drums, coils, and specialized material handling</p>
+            <div className="space-y-2">
+              <div>
+                <span className="font-medium text-slate-900">Specifications:</span>
+                <span className="text-slate-600 ml-2">Custom lengths and configurations, specialized mounting systems</span>
+              </div>
+              <div>
+                <span className="font-medium text-slate-900">Applications:</span>
+                <span className="text-slate-600 ml-2">Chemical handling, steel coils, specialized industrial applications</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <p>
-          Browse our collection or <Link href="/quote" className="text-blue-600 underline">request a quote</Link> for bulk orders and custom-length forks.
-        </p>
+      {/* Technical Specifications */}
+      <section className="mb-16">
+        <h2 className="text-3xl font-bold mb-8 text-slate-900">Technical Specifications</h2>
+        <div className="bg-white rounded-xl shadow-lg border overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-slate-50">
+                <tr>
+                  <th className="px-6 py-4 text-left font-semibold text-slate-900">Specification</th>
+                  <th className="px-6 py-4 text-left font-semibold text-slate-900">Range/Options</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="bg-white">
+                  <td className="px-6 py-4 font-medium text-slate-900">Length Range</td>
+                  <td className="px-6 py-4 text-slate-700">36" - 96" (custom lengths available)</td>
+                </tr>
+                <tr className="bg-slate-50">
+                  <td className="px-6 py-4 font-medium text-slate-900">Width Options</td>
+                  <td className="px-6 py-4 text-slate-700">4", 5", 6" standard widths</td>
+                </tr>
+                <tr className="bg-white">
+                  <td className="px-6 py-4 font-medium text-slate-900">Thickness</td>
+                  <td className="px-6 py-4 text-slate-700">1.5" - 2.5" depending on capacity</td>
+                </tr>
+                <tr className="bg-slate-50">
+                  <td className="px-6 py-4 font-medium text-slate-900">Capacity Range</td>
+                  <td className="px-6 py-4 text-slate-700">2,000 - 20,000+ lbs</td>
+                </tr>
+                <tr className="bg-white">
+                  <td className="px-6 py-4 font-medium text-slate-900">Mount Types</td>
+                  <td className="px-6 py-4 text-slate-700">ITA Class II/III/IV, Pin Mount, Shaft Mount</td>
+                </tr>
+                <tr className="bg-slate-50">
+                  <td className="px-6 py-4 font-medium text-slate-900">Material</td>
+                  <td className="px-6 py-4 text-slate-700">High-strength alloy steel, heat-treated</td>
+                </tr>
+                <tr className="bg-white">
+                  <td className="px-6 py-4 font-medium text-slate-900">Finish</td>
+                  <td className="px-6 py-4 text-slate-700">Industrial paint or galvanized coating</td>
+                </tr>
+                <tr className="bg-slate-50">
+                  <td className="px-6 py-4 font-medium text-slate-900">Certification</td>
+                  <td className="px-6 py-4 text-slate-700">ANSI/ITSDF B56.1 compliant</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
 
-        {/* Enhanced FAQ Section */}
+
+        {/* FAQ Section */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold mb-8 text-slate-900">Frequently Asked Questions</h2>
           <div className="space-y-6">
             <div className="bg-white rounded-xl p-6 shadow-lg border">
-              <h3 className="text-lg font-semibold mb-3 text-slate-900">What class are forklift forks?</h3>
-              <p className="text-slate-700">Forks are rated Class II (16" tall carriage), Class III (20"), or Class IV (25"). Your forklift manual or carriage plate will indicate the class. The class determines the hook spacing and mounting dimensions.</p>
+              <h3 className="text-lg font-semibold mb-3 text-slate-900">How do I determine the correct fork class for my forklift?</h3>
+              <p className="text-slate-700 leading-relaxed">Fork class is determined by your forklift's carriage height and mounting system. Class II forks fit 16" tall carriages, Class III fit 20" carriages, and Class IV fit 25" carriages. Check your forklift manual or the carriage nameplate for specifications.</p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-lg border">
-              <h3 className="text-lg font-semibold mb-3 text-slate-900">How do I measure forklift forks?</h3>
-              <p className="text-slate-700">Measure the overall length (tip to heel), width (side to side), and thickness (top to bottom). Also check hook spacing and carriage class. Our technical team can help verify measurements for proper fit.</p>
+              <h3 className="text-lg font-semibold mb-3 text-slate-900">What's the difference between standard and telehandler forks?</h3>
+              <p className="text-slate-700 leading-relaxed">Telehandler forks are built for heavier duty applications with reinforced construction and different mounting systems (pin or shaft mount vs. hook mount). They're designed to handle the additional stresses of telescopic boom operation and rough terrain use.</p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-lg border">
-              <h3 className="text-lg font-semibold mb-3 text-slate-900">Are your forks OEM quality?</h3>
-              <p className="text-slate-700">We sell high-quality aftermarket forks manufactured to meet or exceed OEM specifications. They're fully compatible with major brands like Toyota, Hyster, Yale, Crown, and Cat, often at significant cost savings.</p>
+              <h3 className="text-lg font-semibold mb-3 text-slate-900">Can I use aftermarket forks on my OEM forklift?</h3>
+              <p className="text-slate-700 leading-relaxed">Yes, aftermarket forks that meet ANSI/ITSDF standards are fully compatible with OEM forklifts when properly matched for class, capacity, and mounting type. Our forks are manufactured to OEM specifications and often exceed original quality standards.</p>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow-lg border">
+              <h3 className="text-lg font-semibold mb-3 text-slate-900">How do I measure my existing forks for replacement?</h3>
+              <p className="text-slate-700 leading-relaxed">Measure the overall length (tip to heel), width (side to side), and thickness (top to bottom). Also note the hook spacing, carriage class, and any special features like tapered tips or side shifter compatibility.</p>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow-lg border">
+              <h3 className="text-lg font-semibold mb-3 text-slate-900">What capacity forks do I need?</h3>
+              <p className="text-slate-700 leading-relaxed">Fork capacity should match or exceed your forklift's rated capacity at the load center you'll be operating. Consider the weight distribution and type of loads you'll be handling. Our technical team can help calculate the proper capacity for your application.</p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-lg border">
               <h3 className="text-lg font-semibold mb-3 text-slate-900">Do you offer custom length forks?</h3>
-              <p className="text-slate-700">Yes, we manufacture custom length forks from 36" up to 120" or longer for specialized applications. Custom forks require load calculations and typically have a 2-3 week lead time.</p>
+              <p className="text-slate-700 leading-relaxed">Yes, we manufacture custom length forks from 36" up to 120" or longer for specialized applications. Custom forks typically have a 2-3 week lead time and require specific load calculations for safety certification.</p>
             </div>
           </div>
         </section>
@@ -195,63 +309,131 @@ export default async function ForksPage() {
         <section className="mb-16">
           <h2 className="text-3xl font-bold mb-8 text-slate-900">Compatible Forklift Brands</h2>
           <div className="bg-white rounded-xl p-8 shadow-lg border">
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 text-center">
-              {["Toyota", "Hyster", "Yale", "Crown", "Clark", "Cat", "Komatsu", "Mitsubishi", "Nissan", "Raymond", "Doosan", "JLG"].map((brand, index) => (
-                <div key={index} className="p-3 bg-slate-50 rounded-lg">
+            <p className="text-lg text-slate-700 mb-6">
+              Our forklift forks are compatible with all major forklift and material handling equipment brands:
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+              {["Toyota", "Hyster", "Yale", "Crown", "Clark", "Cat", "Komatsu", "Mitsubishi", "Nissan", "Raymond", "Doosan", "JLG", "Genie", "Skytrak"].map((brand, index) => (
+                <div key={index} className="text-center p-3 bg-slate-50 rounded-lg">
                   <span className="font-medium text-slate-900">{brand}</span>
                 </div>
               ))}
             </div>
+            <p className="text-sm text-slate-600 mt-6">
+              Don't see your brand? Contact our technical team for compatibility verification and custom solutions.
+            </p>
           </div>
         </section>
 
-        {/* Call to Action */}
-        <section className="bg-gradient-to-r from-canyon-rust to-canyon-rust/90 text-white rounded-xl p-8 text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Need Expert Fork Selection?</h2>
-          <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Our technical experts provide free consultation to help you choose the perfect forks for your 
-            specific application, ensuring safety, efficiency, and compliance.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/quote"
-              className="bg-white text-canyon-rust px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-            >
-              Get Custom Quote
-            </Link>
-            
-            <Link
-              href="/contact"
-              className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-canyon-rust transition-colors"
-            >
-              Technical Support
-            </Link>
+        {/* Quality & Safety Standards */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-8 text-slate-900">Quality & Safety Standards</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white rounded-xl p-6 shadow-lg border">
+              <h3 className="text-xl font-semibold mb-4 text-slate-900">Manufacturing Standards</h3>
+              <ul className="space-y-2 text-slate-700">
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  ANSI/ITSDF B56.1 compliance for all fork designs
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  High-strength alloy steel construction
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  Heat treatment for optimal strength-to-weight ratio
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  Precision machining for perfect fit and finish
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  Industrial-grade paint or galvanized coating
+                </li>
+              </ul>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow-lg border">
+              <h3 className="text-xl font-semibold mb-4 text-slate-900">Quality Inspection</h3>
+              <ul className="space-y-2 text-slate-700">
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  Dimensional accuracy verification
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  Weld quality and penetration testing
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  Load capacity certification
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  Surface finish and coating inspection
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  Final assembly and function testing
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
 
-        {/* Related Links */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-bold mb-6 text-slate-900">Related Products & Services</h2>
+        {/* Installation & Maintenance */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-8 text-slate-900">Installation & Maintenance</h2>
+          <div className="bg-gradient-to-r from-slate-50 to-slate-100 rounded-xl p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-xl font-semibold mb-4 text-slate-900">Installation Guidelines</h3>
+                <ul className="space-y-2 text-slate-700">
+                  <li>• Verify fork class matches carriage specifications</li>
+                  <li>• Check hook spacing and mounting alignment</li>
+                  <li>• Ensure proper fork positioning and locking</li>
+                  <li>• Test load capacity with graduated weights</li>
+                  <li>• Document installation for safety records</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-4 text-slate-900">Maintenance Schedule</h3>
+                <ul className="space-y-2 text-slate-700">
+                  <li>• Daily visual inspection for damage or wear</li>
+                  <li>• Weekly measurement of heel thickness</li>
+                  <li>• Monthly check of mounting hardware</li>
+                  <li>• Quarterly load testing and documentation</li>
+                  <li>• Annual professional inspection and certification</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        {/* Related Products */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-8 text-slate-900">Related Products & Services</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Link 
-              href="/parts/attachments/forks" 
-              className="group block bg-white rounded-xl p-6 shadow-lg border hover:shadow-xl transition-shadow"
-            >
-              <h3 className="text-xl font-semibold mb-2 text-slate-900 group-hover:text-canyon-rust transition-colors">
-                Complete Fork Selection
-              </h3>
-              <p className="text-slate-600">Browse our comprehensive selection of forklift forks with detailed specifications and technical information.</p>
-            </Link>
-            
             <Link 
               href="/parts/attachments" 
               className="group block bg-white rounded-xl p-6 shadow-lg border hover:shadow-xl transition-shadow"
             >
               <h3 className="text-xl font-semibold mb-2 text-slate-900 group-hover:text-canyon-rust transition-colors">
-                All Attachments
+                Forklift Attachments
               </h3>
-              <p className="text-slate-600">Explore our full range of forklift attachments including clamps, rotators, and specialized equipment.</p>
+              <p className="text-slate-600">Browse our complete selection of forklift attachments and specialized equipment.</p>
+            </Link>
+            
+            <Link 
+              href="/parts/forklift-parts" 
+              className="group block bg-white rounded-xl p-6 shadow-lg border hover:shadow-xl transition-shadow"
+            >
+              <h3 className="text-xl font-semibold mb-2 text-slate-900 group-hover:text-canyon-rust transition-colors">
+                Forklift Parts
+              </h3>
+              <p className="text-slate-600">Complete inventory of OEM and aftermarket forklift parts for all major brands.</p>
             </Link>
             
             <Link 
@@ -259,12 +441,37 @@ export default async function ForksPage() {
               className="group block bg-white rounded-xl p-6 shadow-lg border hover:shadow-xl transition-shadow"
             >
               <h3 className="text-xl font-semibold mb-2 text-slate-900 group-hover:text-canyon-rust transition-colors">
-                Technical Support
+                Custom Solutions
               </h3>
-              <p className="text-slate-600">Get expert guidance on fork selection, load calculations, and safety compliance from our technical team.</p>
+              <p className="text-slate-600">Need something specific? Our engineering team creates custom material handling solutions.</p>
             </Link>
           </div>
         </section>
+
+        {/* Expert Support CTA */}
+        <div className="bg-slate-50 border border-slate-200 rounded-xl p-8 text-center">
+          <h3 className="text-2xl font-semibold text-slate-900 mb-3">
+            🔧 Expert Technical Support
+          </h3>
+          <p className="text-slate-600 mb-6 max-w-2xl mx-auto">
+            Our technical team provides comprehensive support for fork selection, installation guidance, 
+            load calculations, and safety compliance. Get personalized recommendations based on your specific requirements.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/contact"
+              className="bg-canyon-rust text-white px-6 py-3 rounded-lg font-semibold hover:bg-canyon-rust/90 transition-colors"
+            >
+              Contact Technical Team
+            </Link>
+            <Link
+              href="tel:+1-307-555-0123"
+              className="border-2 border-canyon-rust text-canyon-rust px-6 py-3 rounded-lg font-semibold hover:bg-canyon-rust hover:text-white transition-colors"
+            >
+              Call (307) 555-0123
+            </Link>
+          </div>
+        </div>
       </div>
       </main>
     </>
