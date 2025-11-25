@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { Metadata } from 'next'
 import Script from 'next/script'
+import Image from 'next/image'
 import RelatedItems from "@/components/RelatedItems";
 
 const TrainingRibbon = () => (
@@ -77,8 +78,46 @@ export default async function RentalEquipmentDetailPage({ params }: PageProps) {
     )
   }
 
+  // Fetch related items (other models in same category)
+  const relatedModels = await fetchModelsByCategory(params.category)
+  // Filter out current model and limit to 3
+  const relatedItems = relatedModels
+    .filter((item: any) => item.seo_slug !== params.slug)
+    .slice(0, 3)
+    .map((item: any) => ({
+      name: `${item.brand} ${item.model}`,
+      href: `/rentals/${params.category}/${item.seo_slug}`,
+      description: `Capacity: ${item.weight_capacity_lbs?.toLocaleString()} lbs | Lift: ${item.lift_height_ft} ft`
+    }))
+
+  // Structured Data for Product
+  const productSchema = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": `${equipment.brand} ${equipment.model}`,
+    "image": equipment.image_url || `https://flatearthequipment.com/images/rentals/${params.category}.jpg`,
+    "description": `Rent a ${equipment.brand} ${equipment.model} ${equipment.category}. Professional grade equipment available for daily, weekly, or monthly rental.`,
+    "brand": {
+      "@type": "Brand",
+      "name": equipment.brand
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": `https://flatearthequipment.com/rentals/${params.category}/${params.slug}`,
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "itemCondition": "https://schema.org/UsedCondition"
+    }
+  }
+
   return (
     <main className="max-w-6xl mx-auto px-4 py-12">
+      <Script
+        id="product-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
+
       {/* Breadcrumbs */}
       <nav className="flex items-center gap-2 text-sm text-slate-600 mb-8">
         <Link href="/" className="hover:text-canyon-rust transition-colors">Home</Link>
@@ -100,9 +139,32 @@ export default async function RentalEquipmentDetailPage({ params }: PageProps) {
             <h1 className="text-4xl font-bold text-slate-900 mb-2">
               {equipment.brand} {equipment.model}
             </h1>
-            <p className="text-xl text-slate-600">
+            <p className="text-xl text-slate-600 mb-6">
               Professional {equipment.category.toLowerCase()} rental for your project needs
             </p>
+
+            {/* Product Image */}
+            <div className="relative h-64 w-full bg-slate-50 rounded-xl border border-slate-100 mb-8 overflow-hidden flex items-center justify-center group">
+              {equipment.image_url ? (
+                <Image
+                  src={equipment.image_url}
+                  alt={`${equipment.brand} ${equipment.model}`}
+                  fill
+                  className="object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+                  priority
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              ) : (
+                <div className="text-6xl">
+                   {/* Fallback icons based on category */}
+                   {equipment.category.toLowerCase().includes('boom') ? '🏗️' : 
+                    equipment.category.toLowerCase().includes('scissor') ? '✂️' :
+                    equipment.category.toLowerCase().includes('forklift') ? '🏭' :
+                    equipment.category.toLowerCase().includes('telehandler') ? '🚜' :
+                    equipment.category.toLowerCase().includes('skid') ? '🚧' : '🏗️'}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Specifications */}
@@ -257,6 +319,13 @@ export default async function RentalEquipmentDetailPage({ params }: PageProps) {
       </div>
 
       <TrainingRibbon />
+      
+      {/* Related Items */}
+      {relatedItems.length > 0 && (
+        <div className="mt-16 pt-16 border-t border-slate-200">
+          <RelatedItems items={relatedItems} />
+        </div>
+      )}
     </main>
   )
 } 
