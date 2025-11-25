@@ -384,6 +384,34 @@ export default async function ForksPage() {
           </div>
         </section>
 
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-8 text-slate-900">Installation & Maintenance</h2>
+          <div className="bg-gradient-to-r from-slate-50 to-slate-100 rounded-xl p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-xl font-semibold mb-4 text-slate-900">Installation Guidelines</h3>
+                <ul className="space-y-2 text-slate-700">
+                  <li>• Verify fork class matches carriage specifications</li>
+                  <li>• Check hook spacing and mounting alignment</li>
+                  <li>• Ensure proper fork positioning and locking</li>
+                  <li>• Test load capacity with graduated weights</li>
+                  <li>• Document installation for safety records</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-4 text-slate-900">Maintenance Schedule</h3>
+                <ul className="space-y-2 text-slate-700">
+                  <li>• Daily visual inspection for damage or wear</li>
+                  <li>• Weekly measurement of heel thickness</li>
+                  <li>• Monthly check of mounting hardware</li>
+                  <li>• Quarterly load testing and documentation</li>
+                  <li>• Annual professional inspection and certification</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Call to Action */}
         <section className="bg-gradient-to-r from-canyon-rust to-canyon-rust/90 text-white rounded-xl p-8 text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">Need Expert Fork Selection?</h2>
