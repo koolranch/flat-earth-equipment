@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 
@@ -65,9 +66,14 @@ export default function RentalEquipmentGrid({ rentals, categorySlug }: Props) {
       </div>
 
       {/* Filter Section */}
-      <div className="bg-white rounded-xl border border-slate-200 p-6 mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-slate-900">Filter Equipment</h2>
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 mb-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
+          <div className="flex items-center gap-2">
+            <svg className="w-5 h-5 text-canyon-rust" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4" />
+            </svg>
+            <h2 className="text-lg font-bold text-slate-900">Filter Equipment</h2>
+          </div>
           {(brandFilter || capacityFilter || heightFilter || powerFilter) && (
             <button
               onClick={() => {
@@ -76,8 +82,11 @@ export default function RentalEquipmentGrid({ rentals, categorySlug }: Props) {
                 setHeightFilter('');
                 setPowerFilter('');
               }}
-              className="text-sm text-canyon-rust hover:underline font-medium"
+              className="text-sm text-slate-500 hover:text-canyon-rust hover:underline font-medium transition-colors flex items-center gap-1"
             >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
               Clear All Filters
             </button>
           )}
@@ -85,28 +94,33 @@ export default function RentalEquipmentGrid({ rentals, categorySlug }: Props) {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Brand Filter */}
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">Brand</label>
+          <div className="relative">
+            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Brand</label>
             <select 
               value={brandFilter}
               onChange={(e) => setBrandFilter(e.target.value)}
-              className="w-full border-2 border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-canyon-rust focus:border-canyon-rust transition-colors"
+              className="w-full appearance-none bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 pr-8 text-slate-700 focus:ring-2 focus:ring-canyon-rust/20 focus:border-canyon-rust transition-all cursor-pointer hover:bg-slate-100"
             >
               <option value="">All Brands</option>
               {brands.map(brand => (
                 <option key={brand} value={brand}>{brand}</option>
               ))}
             </select>
+            <div className="pointer-events-none absolute right-3 bottom-3 text-slate-500">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
           </div>
           
           {/* Capacity Filter */}
           {hasCapacity && (
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Minimum Capacity</label>
+            <div className="relative">
+              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Minimum Capacity</label>
               <select 
                 value={capacityFilter}
                 onChange={(e) => setCapacityFilter(e.target.value)}
-                className="w-full border-2 border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-canyon-rust focus:border-canyon-rust transition-colors"
+                className="w-full appearance-none bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 pr-8 text-slate-700 focus:ring-2 focus:ring-canyon-rust/20 focus:border-canyon-rust transition-all cursor-pointer hover:bg-slate-100"
               >
                 <option value="">Any Capacity</option>
                 <option value="1000">1,000+ lbs</option>
@@ -114,17 +128,22 @@ export default function RentalEquipmentGrid({ rentals, categorySlug }: Props) {
                 <option value="5000">5,000+ lbs</option>
                 <option value="8000">8,000+ lbs</option>
               </select>
+              <div className="pointer-events-none absolute right-3 bottom-3 text-slate-500">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
             </div>
           )}
           
           {/* Lift Height Filter */}
           {hasHeight && (
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Minimum Lift Height</label>
+            <div className="relative">
+              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Minimum Lift Height</label>
               <select 
                 value={heightFilter}
                 onChange={(e) => setHeightFilter(e.target.value)}
-                className="w-full border-2 border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-canyon-rust focus:border-canyon-rust transition-colors"
+                className="w-full appearance-none bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 pr-8 text-slate-700 focus:ring-2 focus:ring-canyon-rust/20 focus:border-canyon-rust transition-all cursor-pointer hover:bg-slate-100"
               >
                 <option value="">Any Height</option>
                 <option value="20">20+ ft</option>
@@ -132,23 +151,33 @@ export default function RentalEquipmentGrid({ rentals, categorySlug }: Props) {
                 <option value="40">40+ ft</option>
                 <option value="60">60+ ft</option>
               </select>
+              <div className="pointer-events-none absolute right-3 bottom-3 text-slate-500">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
             </div>
           )}
           
           {/* Power Source Filter */}
           {powerSources.length > 0 && (
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Power Source</label>
+            <div className="relative">
+              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Power Source</label>
               <select 
                 value={powerFilter}
                 onChange={(e) => setPowerFilter(e.target.value)}
-                className="w-full border-2 border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-canyon-rust focus:border-canyon-rust transition-colors"
+                className="w-full appearance-none bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 pr-8 text-slate-700 focus:ring-2 focus:ring-canyon-rust/20 focus:border-canyon-rust transition-all cursor-pointer hover:bg-slate-100"
               >
                 <option value="">All Power Types</option>
                 {powerSources.map(power => (
                   <option key={power} value={power}>{power?.toUpperCase()}</option>
                 ))}
               </select>
+              <div className="pointer-events-none absolute right-3 bottom-3 text-slate-500">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
             </div>
           )}
         </div>
@@ -176,19 +205,21 @@ export default function RentalEquipmentGrid({ rentals, categorySlug }: Props) {
             <Link
               key={rental.seo_slug}
               href={`/rentals/${categorySlug}/${rental.seo_slug}`}
-              className="group block rounded-xl border-2 border-slate-200 bg-white hover:border-canyon-rust hover:shadow-lg transition-all duration-200 overflow-hidden"
+              className="group block rounded-2xl border border-slate-200 bg-white hover:border-canyon-rust/30 hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-1"
             >
               {/* Image Section */}
-              <div className="relative bg-slate-50 h-48 flex items-center justify-center p-4">
+              <div className="relative bg-slate-50 h-56 flex items-center justify-center p-6 group-hover:bg-slate-100 transition-colors duration-300">
                 {rental.image_url ? (
-                  <img
+                  <Image
                     src={rental.image_url}
-                    alt={rental.name}
-                    className="h-full w-full object-contain"
-                    loading="lazy"
+                    alt={rental.name || `${rental.brand} ${rental.model}`}
+                    fill
+                    className="object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={false}
                   />
                 ) : (
-                  <div className="text-6xl text-slate-300">
+                  <div className="text-6xl text-slate-300 transition-transform duration-300 group-hover:scale-110">
                     {rental.category.toLowerCase().includes('boom') ? '🏗️' : 
                      rental.category.toLowerCase().includes('scissor') ? '✂️' :
                      rental.category.toLowerCase().includes('forklift') ? '🏭' :
@@ -197,7 +228,7 @@ export default function RentalEquipmentGrid({ rentals, categorySlug }: Props) {
                   </div>
                 )}
                 {/* Brand Badge */}
-                <div className="absolute top-3 right-3 bg-white px-3 py-1 rounded-full text-xs font-semibold text-slate-700 shadow-sm">
+                <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-slate-800 shadow-sm border border-slate-100">
                   {rental.brand}
                 </div>
               </div>
