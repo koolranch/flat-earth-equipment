@@ -328,6 +328,62 @@ export default async function ForksPage() {
           </div>
         </section>
 
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-8 text-slate-900">Quality & Safety Standards</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white rounded-xl p-6 shadow-lg border">
+              <h3 className="text-xl font-semibold mb-4 text-slate-900">Manufacturing Standards</h3>
+              <ul className="space-y-2 text-slate-700">
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  ANSI/ITSDF B56.1 compliance for all fork designs
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  High-strength alloy steel construction
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  Heat treatment for optimal strength-to-weight ratio
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  Precision machining for perfect fit and finish
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  Industrial-grade paint or galvanized coating
+                </li>
+              </ul>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow-lg border">
+              <h3 className="text-xl font-semibold mb-4 text-slate-900">Quality Inspection</h3>
+              <ul className="space-y-2 text-slate-700">
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  Dimensional accuracy verification
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  Weld quality and penetration testing
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  Load capacity certification
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  Surface finish and coating inspection
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-600 mr-2">✓</span>
+                  Final assembly and function testing
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
         {/* Call to Action */}
         <section className="bg-gradient-to-r from-canyon-rust to-canyon-rust/90 text-white rounded-xl p-8 text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">Need Expert Fork Selection?</h2>
