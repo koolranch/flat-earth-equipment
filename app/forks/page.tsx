@@ -154,6 +154,56 @@ export default async function ForksPage() {
         className="rounded-xl mb-10 shadow"
       />
 
+      <section className="mb-16">
+        <h2 className="text-3xl font-bold mb-8 text-slate-900">Technical Specifications</h2>
+        <div className="bg-white rounded-xl shadow-lg border overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-slate-50">
+                <tr>
+                  <th className="px-6 py-4 text-left font-semibold text-slate-900">Specification</th>
+                  <th className="px-6 py-4 text-left font-semibold text-slate-900">Range/Options</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="bg-white">
+                  <td className="px-6 py-4 font-medium text-slate-900">Length Range</td>
+                  <td className="px-6 py-4 text-slate-700">36&quot; - 96&quot; (custom lengths available)</td>
+                </tr>
+                <tr className="bg-slate-50">
+                  <td className="px-6 py-4 font-medium text-slate-900">Width Options</td>
+                  <td className="px-6 py-4 text-slate-700">4&quot;, 5&quot;, 6&quot; standard widths</td>
+                </tr>
+                <tr className="bg-white">
+                  <td className="px-6 py-4 font-medium text-slate-900">Thickness</td>
+                  <td className="px-6 py-4 text-slate-700">1.5&quot; - 2.5&quot; depending on capacity</td>
+                </tr>
+                <tr className="bg-slate-50">
+                  <td className="px-6 py-4 font-medium text-slate-900">Capacity Range</td>
+                  <td className="px-6 py-4 text-slate-700">2,000 - 20,000+ lbs</td>
+                </tr>
+                <tr className="bg-white">
+                  <td className="px-6 py-4 font-medium text-slate-900">Mount Types</td>
+                  <td className="px-6 py-4 text-slate-700">ITA Class II/III/IV, Pin Mount, Shaft Mount</td>
+                </tr>
+                <tr className="bg-slate-50">
+                  <td className="px-6 py-4 font-medium text-slate-900">Material</td>
+                  <td className="px-6 py-4 text-slate-700">High-strength alloy steel, heat-treated</td>
+                </tr>
+                <tr className="bg-white">
+                  <td className="px-6 py-4 font-medium text-slate-900">Finish</td>
+                  <td className="px-6 py-4 text-slate-700">Industrial paint or galvanized coating</td>
+                </tr>
+                <tr className="bg-slate-50">
+                  <td className="px-6 py-4 font-medium text-slate-900">Certification</td>
+                  <td className="px-6 py-4 text-slate-700">ANSI/ITSDF B56.1 compliant</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
       <div className="space-y-6 text-gray-800 max-w-3xl">
         <p>
           Our forks meet or exceed ANSI/ITSDF B56.1 standards. All products are inspected for
