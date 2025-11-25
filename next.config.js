@@ -159,6 +159,12 @@ const baseConfig = {
         hostname: 'images.unsplash.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'media.sandhills.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
