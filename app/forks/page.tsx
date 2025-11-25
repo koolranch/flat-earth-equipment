@@ -312,13 +312,19 @@ export default async function ForksPage() {
         <section className="mb-16">
           <h2 className="text-3xl font-bold mb-8 text-slate-900">Compatible Forklift Brands</h2>
           <div className="bg-white rounded-xl p-8 shadow-lg border">
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 text-center">
-              {["Toyota", "Hyster", "Yale", "Crown", "Clark", "Cat", "Komatsu", "Mitsubishi", "Nissan", "Raymond", "Doosan", "JLG"].map((brand, index) => (
-                <div key={index} className="p-3 bg-slate-50 rounded-lg">
+            <p className="text-lg text-slate-700 mb-6">
+              Our forklift forks are compatible with all major forklift and material handling equipment brands:
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+              {["Toyota", "Hyster", "Yale", "Crown", "Clark", "Cat", "Komatsu", "Mitsubishi", "Nissan", "Raymond", "Doosan", "JLG", "Genie", "Skytrak"].map((brand, index) => (
+                <div key={index} className="text-center p-3 bg-slate-50 rounded-lg">
                   <span className="font-medium text-slate-900">{brand}</span>
                 </div>
               ))}
             </div>
+            <p className="text-sm text-slate-600 mt-6">
+              Don&apos;t see your brand? Contact our technical team for compatibility verification and custom solutions.
+            </p>
           </div>
         </section>
 
