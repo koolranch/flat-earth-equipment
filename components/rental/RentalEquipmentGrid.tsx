@@ -1,7 +1,6 @@
 'use client';
 
-import Image from 'next/image';
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 
 type RentalEquipment = {
@@ -22,23 +21,10 @@ type Props = {
 };
 
 export default function RentalEquipmentGrid({ rentals, categorySlug }: Props) {
-  const [mounted, setMounted] = useState(false);
   const [brandFilter, setBrandFilter] = useState('');
   const [capacityFilter, setCapacityFilter] = useState('');
   const [heightFilter, setHeightFilter] = useState('');
   const [powerFilter, setPowerFilter] = useState('');
-
-  // Force re-render after hydration to fix image loading on client navigation
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Reset mounted state when category changes to force image re-render
-  useEffect(() => {
-    setMounted(false);
-    const timer = setTimeout(() => setMounted(true), 0);
-    return () => clearTimeout(timer);
-  }, [categorySlug]);
 
   // Filter equipment based on selected filters
   const filteredRentals = useMemo(() => {
@@ -222,15 +208,11 @@ export default function RentalEquipmentGrid({ rentals, categorySlug }: Props) {
             >
               {/* Image Section */}
               <div className="relative bg-slate-50 h-56 flex items-center justify-center p-6 group-hover:bg-slate-100 transition-colors duration-300">
-                {mounted && rental.image_url ? (
-                  <Image
+                {rental.image_url ? (
+                  <img
                     src={rental.image_url}
                     alt={rental.name || `${rental.brand} ${rental.model}`}
-                    fill
-                    className="object-contain p-4 transition-transform duration-300 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    priority={index < 6}
-                    loading="eager"
+                    className="absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
                   />
                 ) : (
                   <div className="text-6xl text-slate-300 transition-transform duration-300 group-hover:scale-110">
