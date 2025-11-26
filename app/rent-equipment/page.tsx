@@ -16,7 +16,12 @@ interface RentalEquipment {
   category: string;
 }
 
-async function fetchRentalCategories() {
+interface CategoryWithCount {
+  name: string;
+  count: number;
+}
+
+async function fetchRentalCategories(): Promise<CategoryWithCount[]> {
   const supabase = supabaseServer();
   const { data, error } = await supabase
     .from("rental_equipment")
@@ -25,19 +30,30 @@ async function fetchRentalCategories() {
 
   if (error) throw error;
 
-  // Get unique categories and convert to singular form
-  const categories = Array.from(new Set(data.map((item: RentalEquipment) => {
-    // Convert to singular form if it ends with 's'
-    const category = item.category.toLowerCase();
-    return category.endsWith('s') ? category.slice(0, -1) : category;
-  })));
-  return categories;
+  // Count equipment per category
+  const categoryCountMap: Record<string, number> = {};
+  data.forEach((item: RentalEquipment) => {
+    // Normalize category name (convert to title case, handle singular/plural)
+    let category = item.category.toLowerCase();
+    if (category.endsWith('s') && !category.endsWith('ss')) {
+      category = category.slice(0, -1);
+    }
+    categoryCountMap[category] = (categoryCountMap[category] || 0) + 1;
+  });
+
+  // Convert to array with counts
+  const categoriesWithCounts: CategoryWithCount[] = Object.entries(categoryCountMap).map(([name, count]) => ({
+    name,
+    count
+  }));
+
+  return categoriesWithCounts;
 }
 
 import RentalTrustBadges from "@/components/rental/RentalTrustBadges";
 
 export default async function RentEquipmentPage() {
-  const categories = await fetchRentalCategories();
+  const categoriesWithCounts = await fetchRentalCategories();
   const locale = getUserLocale()
   
   // Translation strings
@@ -55,11 +71,11 @@ export default async function RentEquipmentPage() {
   }[locale]
 
   // Map Mini Skid Steer to Compact Utility Loader for display and slug
-  const displayCategories = categories.map((category: string) => {
-    if (category.toLowerCase() === 'mini skid steer') {
-      return 'Compact Utility Loader';
+  const displayCategories = categoriesWithCounts.map((cat) => {
+    if (cat.name.toLowerCase() === 'mini skid steer') {
+      return { name: 'Compact Utility Loader', count: cat.count };
     }
-    return category;
+    return cat;
   });
 
   return (
@@ -155,12 +171,9 @@ export default async function RentEquipmentPage() {
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {displayCategories.map((category: string) => {
-                // Get equipment count for this category
-                const categoryCount = categories.filter(cat => 
-                  cat.toLowerCase() === category.toLowerCase() || 
-                  (category.toLowerCase() === 'compact utility loader' && cat.toLowerCase() === 'mini skid steer')
-                ).length;
+              {displayCategories.map((categoryData) => {
+                const category = categoryData.name;
+                const categoryCount = categoryData.count;
                 
                 // Get category icon (professional SVG)
                 const getIcon = (cat: string) => {
