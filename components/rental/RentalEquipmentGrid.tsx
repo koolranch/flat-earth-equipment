@@ -201,7 +201,7 @@ export default function RentalEquipmentGrid({ rentals, categorySlug }: Props) {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredRentals.map((rental) => (
+          {filteredRentals.map((rental, index) => (
             <Link
               key={rental.seo_slug}
               href={`/rentals/${categorySlug}/${rental.seo_slug}`}
@@ -216,7 +216,7 @@ export default function RentalEquipmentGrid({ rentals, categorySlug }: Props) {
                     fill
                     className="object-contain p-4 transition-transform duration-300 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    priority={false}
+                    priority={index < 6}
                   />
                 ) : (
                   <div className="text-6xl text-slate-300 transition-transform duration-300 group-hover:scale-110">
