@@ -232,7 +232,7 @@ export default function RentalEquipmentGrid({ rentals, categorySlug }: Props) {
               <div className="p-6 space-y-4">
                 <div>
                   <h2 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-canyon-rust transition-colors">
-                    {rental.model || rental.name}
+                    {rental.model}
                   </h2>
                   <p className="text-sm text-slate-500 uppercase tracking-wide font-medium">
                     {rental.brand}
