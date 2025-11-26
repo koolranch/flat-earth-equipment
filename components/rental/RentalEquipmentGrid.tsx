@@ -21,12 +21,6 @@ type Props = {
 };
 
 export default function RentalEquipmentGrid({ rentals, categorySlug }: Props) {
-  // Debug: Log rentals data to check if image_url is present
-  if (typeof window !== 'undefined') {
-    console.log('[RentalEquipmentGrid] Rentals received:', rentals?.length, 'items');
-    console.log('[RentalEquipmentGrid] First rental image_url:', rentals?.[0]?.image_url);
-  }
-  
   const [brandFilter, setBrandFilter] = useState('');
   const [capacityFilter, setCapacityFilter] = useState('');
   const [heightFilter, setHeightFilter] = useState('');
