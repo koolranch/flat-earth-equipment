@@ -478,10 +478,10 @@ export default function ForkliftForksPage() {
               Contact Technical Team
             </Link>
             <Link
-              href="tel:+1-307-555-0123"
+              href="tel:+1-888-392-9175"
               className="border-2 border-canyon-rust text-canyon-rust px-6 py-3 rounded-lg font-semibold hover:bg-canyon-rust hover:text-white transition-colors"
             >
-              Call (307) 555-0123
+              Call (888) 392-9175
             </Link>
           </div>
         </div>
