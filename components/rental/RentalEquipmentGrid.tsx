@@ -217,6 +217,7 @@ export default function RentalEquipmentGrid({ rentals, categorySlug }: Props) {
                     className="object-contain p-4 transition-transform duration-300 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority={index < 6}
+                    loading="eager"
                   />
                 ) : (
                   <div className="text-6xl text-slate-300 transition-transform duration-300 group-hover:scale-110">
