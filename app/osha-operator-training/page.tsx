@@ -67,10 +67,10 @@ export default function OSHAOperatorTrainingPage() {
               Request Corporate Training Quote
             </Link>
             <a
-              href="tel:+1-307-555-0123"
+              href="tel:+1-888-392-9175"
               className="inline-flex items-center justify-center px-6 py-3 border-2 border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors"
             >
-              Call (307) 555-0123
+              Call (888) 392-9175
             </a>
           </div>
 
@@ -441,10 +441,10 @@ export default function OSHAOperatorTrainingPage() {
               Request Corporate Quote
             </Link>
             <a
-              href="tel:+1-307-555-0123"
+              href="tel:+1-888-392-9175"
               className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
             >
-              Call (307) 555-0123
+              Call (888) 392-9175
             </a>
           </div>
           <p className="mt-6 text-sm text-blue-200">

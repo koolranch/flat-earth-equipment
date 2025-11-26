@@ -14,7 +14,7 @@ const BUSINESS_ADDRESS = {
   state: "WY",
   zip: "82801",
   country: "US",
-  phone: "(307) 302-0043",
+  phone: "(888) 392-9175",
   email: "parts@flatearthequipment.com"
 };
 

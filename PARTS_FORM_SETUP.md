@@ -78,7 +78,7 @@ Fault Code: E01
 
 Parts needed: Need hydraulic pump for excavator
 
-Need immediate assistance? Call us at (307) 302-0043.
+Need immediate assistance? Call us at (888) 392-9175.
 
 Best regards,
 Flat Earth Equipment Team

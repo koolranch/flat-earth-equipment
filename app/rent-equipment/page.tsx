@@ -276,10 +276,10 @@ export default async function RentEquipmentPage() {
           </Link>
               
               <a
-                href="tel:+1-307-555-0123"
+                href="tel:+1-888-392-9175"
                 className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-canyon-rust transition-colors"
               >
-                Call (307) 555-0123
+                Call (888) 392-9175
               </a>
             </div>
       </section>
