@@ -8,7 +8,6 @@ type RentalEquipment = {
   category: string;
   brand: string;
   model: string;
-  name?: string;
   lift_height_ft?: number;
   weight_capacity_lbs?: number;
   power_source?: string;
@@ -211,7 +210,7 @@ export default function RentalEquipmentGrid({ rentals, categorySlug }: Props) {
                 {rental.image_url ? (
                   <img
                     src={rental.image_url}
-                    alt={rental.name || `${rental.brand} ${rental.model}`}
+                    alt={`${rental.brand} ${rental.model}`}
                     className="absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
                   />
                 ) : (

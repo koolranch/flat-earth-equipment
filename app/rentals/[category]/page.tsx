@@ -38,7 +38,7 @@ export default async function RentalCategoryPage({ params }: PageProps) {
 
   const { data: rentals } = await supabase
     .from('rental_equipment')
-    .select('seo_slug, category, brand, model, name, lift_height_ft, weight_capacity_lbs, power_source, image_url')
+    .select('seo_slug, category, brand, model, lift_height_ft, weight_capacity_lbs, power_source, image_url')
     .ilike('category', `%${dbCategory}%`)
     .order('brand')
 
