@@ -181,8 +181,8 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
                     Corporate Buyer?
                   </h3>
                   <p className="text-sm text-slate-300 mb-3">
-                    Fleet pricing, NET-30 terms, and dedicated account management for orders of 10+ forks. 
-                    <strong className="text-white"> Freight subsidy available for 20+ forks.</strong>
+                    Fleet pricing, NET-30 terms, and dedicated account management for orders of 10+ forks.
+                    <strong className="text-white">FREE FREIGHT on orders of 15+ forks!</strong>
                   </p>
                   <div className="flex flex-wrap gap-3">
                     <Link 
