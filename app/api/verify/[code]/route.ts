@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { supabaseService } from '@/lib/supabase/service.server';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function GET(_: Request, ctx: { params: { code: string } }) {
   const code = ctx.params.code;
   if (!code || code.length < 6) {
