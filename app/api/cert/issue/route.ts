@@ -16,13 +16,13 @@ export const dynamic = 'force-dynamic';
 export async function POST(req: Request) {
   try {
     const sb = supabaseService();
-    const { enrollment_id } = await req.json();
+    const { enrollment_id, verification_code: providedCode } = await req.json();
     if (!enrollment_id) {
       console.error('[cert/issue] No enrollment_id provided in request');
       return NextResponse.json({ ok: false, error: 'missing enrollment_id' }, { status: 400 });
     }
 
-    console.log('[cert/issue] Generating certificate for enrollment:', enrollment_id);
+    console.log('[cert/issue] Generating certificate for enrollment:', enrollment_id, providedCode ? `(using provided code: ${providedCode})` : '');
 
     // Load enrollment + profile + course
     const { data: enr, error: e1 } = await sb
@@ -83,7 +83,7 @@ export async function POST(req: Request) {
   // Prepare payload
   const issued_at = new Date().toISOString();
   const expires_at = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365 * 3).toISOString(); // ~3 years
-  const verification_code = randomCode(10);
+  const verification_code = providedCode || randomCode(10);
   
   console.log('[cert/issue] Prepared cert data:', { enrollment_id: enr.id, verification_code });
   
