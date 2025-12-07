@@ -120,7 +120,7 @@ export default function StateHero({ metrics }: Props) {
       <div className="relative mx-auto max-w-5xl px-4 py-8 md:py-20"> {/* Reduced padding for mobile */}
         {/* UPDATE: Visible on mobile, just smaller */}
         <div className="inline-flex items-center gap-2 bg-orange-500/10 backdrop-blur-md border border-orange-500/20 px-3 py-1 md:px-4 md:py-1.5 rounded-full mb-4 md:mb-6 animate-in fade-in duration-700 shadow-lg shadow-orange-500/5">
-          <span className="text-[10px] md:text-[11px] uppercase tracking-widest font-bold text-orange-400">Black Friday</span>
+          <span className="text-[10px] md:text-[11px] uppercase tracking-widest font-bold text-orange-400">Holiday</span>
           <span className="text-xs text-white/40">•</span>
           <span className="text-xs text-emerald-300 font-semibold tracking-wide">Save $10</span>
         </div>

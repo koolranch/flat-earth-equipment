@@ -38,9 +38,9 @@ export function Hero({ locale = 'en' }: { locale?: 'en' | 'es' }) {
       {/* Text Content - Certification Focused */}
       <div className="relative z-10 flex items-center justify-center h-full px-6 text-center">
         <div className="max-w-xl mx-auto">
-          {/* Black Friday Badge */}
+          {/* Holiday Badge */}
           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500/20 to-red-500/20 backdrop-blur-sm border border-orange-400/30 px-4 py-2 rounded-full mb-4 animate-in fade-in duration-700">
-            <span className="text-xs font-bold text-orange-300">🎉 BLACK FRIDAY</span>
+            <span className="text-xs font-bold text-orange-300">🎉 HOLIDAY</span>
             <span className="text-xs text-white/80">•</span>
             <span className="text-xs text-emerald-300 font-semibold">Save $10</span>
           </div>

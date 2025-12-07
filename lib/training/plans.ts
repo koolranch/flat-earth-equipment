@@ -8,7 +8,7 @@ export const TRAINING_PLANS = {
     price: 49,
     priceText: '$49',
     priceId: 'price_1SToXBHJI548rO8JZnnTwKER', // Black Friday 2025 - Rollback: price_1RS834HJI548rO8JpJMyGhL3
-    blurb: '🎉 Black Friday Special - Save $10! Perfect for job seekers and individual operators',
+    blurb: '🎉 Holiday Special - Save $10! Perfect for job seekers and individual operators',
     features: ['Complete in under 30 minutes', 'Instant certificate download', 'Valid for 3 years', 'Accepted by all employers', 'Unlimited exam retakes'],
     seats: 1,
     popular: true,
