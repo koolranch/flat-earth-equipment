@@ -131,9 +131,9 @@ export default function SafetyHero() {
       <div className="relative z-10 h-full flex items-center justify-center py-20 sm:py-24">
         <div className="mx-auto max-w-5xl px-4 text-center md:text-left">
           <div className="flex flex-col md:items-start items-center">
-            {/* Black Friday badge */}
+            {/* Holiday badge */}
             <div className="inline-flex items-center gap-2 bg-orange-500/10 backdrop-blur-md border border-orange-500/20 px-4 py-1.5 rounded-full mb-6 animate-in fade-in duration-700 shadow-lg shadow-orange-500/5">
-              <span className="text-[11px] uppercase tracking-widest font-bold text-orange-400">Black Friday</span>
+              <span className="text-[11px] uppercase tracking-widest font-bold text-orange-400">Holiday</span>
               <span className="text-xs text-white/40">•</span>
               <span className="text-xs text-emerald-300 font-semibold tracking-wide">Save $10</span>
             </div>
