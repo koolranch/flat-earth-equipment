@@ -26,7 +26,7 @@ export function Hero({ locale = 'en' }: { locale?: 'en' | 'es' }) {
       badge: { emoji: '🚜', label: 'RENTALS', highlight: 'Flexible Terms' },
       headline: 'Rent Heavy Equipment for Any Job',
       subtext: 'Forklifts • Scissor Lifts • Telehandlers • Loaders',
-      cta: { text: 'Browse Rental Fleet →', href: '/rentals' },
+      cta: { text: 'Browse Rental Fleet →', href: '/rent-equipment' },
       trustSignals: ['Delivery Available', 'Short & Long Term', 'Well-Maintained Fleet'],
       backgroundImage: 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/hero-bg-mountains.webp',
       secondaryLink: { label: 'Need a quote?', text: 'Request pricing →', href: '/quote' }
@@ -50,7 +50,7 @@ export function Hero({ locale = 'en' }: { locale?: 'en' | 'es' }) {
       badge: { emoji: '🚜', label: 'ALQUILERES', highlight: 'Términos Flexibles' },
       headline: 'Alquile Equipo Pesado para Cualquier Trabajo',
       subtext: 'Montacargas • Tijeras • Telehandlers • Cargadores',
-      cta: { text: 'Ver Flota de Alquiler →', href: '/rentals' },
+      cta: { text: 'Ver Flota de Alquiler →', href: '/rent-equipment' },
       trustSignals: ['Entrega Disponible', 'Corto y Largo Plazo', 'Flota Bien Mantenida'],
       backgroundImage: 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/hero-bg-mountains.webp',
       secondaryLink: { label: '¿Necesita cotización?', text: 'Solicitar precios →', href: '/quote' }
