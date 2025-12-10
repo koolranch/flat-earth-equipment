@@ -1,7 +1,6 @@
 import { Hero } from "@/components/ui/Hero";
 import FeaturedParts from "@/components/FeaturedParts";
 import { Features } from "@/components/ui/Features";
-import CategoryTiles from "@/components/CategoryTiles";
 import EmailSignup from "@/components/EmailSignup";
 import QuickQuote from "@/components/QuickQuote";
 import Testimonials from "@/components/Testimonials";
@@ -89,9 +88,6 @@ export default function Page() {
       <div className="py-12">
         <FeaturedRentals />
       </div>
-
-      {/* Popular Categories */}
-      <CategoryTiles />
 
       {/* Featured Products */}
       <FeaturedProducts />
