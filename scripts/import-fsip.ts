@@ -203,10 +203,55 @@ async function scrapeWithFirecrawl(url: string): Promise<ExtractedProduct | null
   // Extract data from scraped content
   const product = extractProductFromContent(content, html || '', pageTitle, url);
   
-  // Use OG image or first image found
+  // =========================================================================
+  // IMPROVED IMAGE EXTRACTION (Priority Order)
+  // =========================================================================
+  let finalImageUrl: string | null = null;
+  
+  // Priority 1: og:image from metadata (highest quality)
   if (metadata?.ogImage) {
-    product.imageUrl = metadata.ogImage;
+    finalImageUrl = metadata.ogImage;
+    console.log(`   🖼️  Image Found (og:image): ${finalImageUrl}`);
   }
+  
+  // Priority 2: Extract from HTML meta tags
+  if (!finalImageUrl && html) {
+    const ogImageMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i);
+    if (ogImageMatch) {
+      finalImageUrl = ogImageMatch[1];
+      console.log(`   🖼️  Image Found (meta og:image): ${finalImageUrl}`);
+    }
+  }
+  
+  // Priority 3: Product gallery image (FSIP uses getthumbnail pattern)
+  if (!finalImageUrl && html) {
+    const galleryMatch = html.match(/src=["'](https?:\/\/[^"']*getthumbnail[^"']+)["']/i);
+    if (galleryMatch) {
+      // Get higher resolution version by modifying the URL
+      finalImageUrl = galleryMatch[1].replace(/width=\d+/, 'width=600').replace(/height=\d+/, 'height=600');
+      console.log(`   🖼️  Image Found (gallery): ${finalImageUrl}`);
+    }
+  }
+  
+  // Priority 4: Any product image with common extensions
+  if (!finalImageUrl && html) {
+    const imgMatch = html.match(/<img[^>]+src=["']([^"']+(?:\.jpg|\.jpeg|\.png|\.webp)[^"']*)["']/i);
+    if (imgMatch) {
+      finalImageUrl = imgMatch[1];
+      // Make URL absolute if relative
+      if (finalImageUrl.startsWith('/')) {
+        const urlObj = new URL(url);
+        finalImageUrl = `${urlObj.origin}${finalImageUrl}`;
+      }
+      console.log(`   🖼️  Image Found (img tag): ${finalImageUrl}`);
+    }
+  }
+  
+  if (!finalImageUrl) {
+    console.log(`   ⚠️  No image found for this product`);
+  }
+  
+  product.imageUrl = finalImageUrl;
 
   return product;
 }
@@ -359,14 +404,21 @@ function extractProductFromContent(
     }
   }
 
-  // Extract description (first paragraph or first 300 chars)
-  let description = markdown
-    .split('\n')
-    .filter(line => line.trim() && !line.startsWith('#') && line.length > 50)
-    .slice(0, 2)
-    .join(' ')
-    .substring(0, 500)
-    .trim() || null;
+  // =========================================================================
+  // GENERATE CLEAN DESCRIPTION (instead of scraping messy page text)
+  // =========================================================================
+  // Template: "Genuine FSIP ${name}. Industrial quality replacement. Fits: X, Y, Z. Ships from USA."
+  let description: string | null = null;
+  
+  const fitsText = compatibilityList.length > 0 
+    ? ` Fits: ${compatibilityList.slice(0, 5).join(', ')}${compatibilityList.length > 5 ? '...' : ''}.`
+    : '';
+  
+  const specsText = Object.entries(specs).length > 0
+    ? ` Specs: ${Object.entries(specs).map(([k, v]) => `${k}: ${v}`).slice(0, 3).join(', ')}.`
+    : '';
+  
+  description = `Genuine FSIP ${title}. Industrial quality battery charger for forklifts and material handling equipment.${specsText}${fitsText} Ships from USA.`.substring(0, 500);
 
   // Extract image URL from HTML
   let imageUrl: string | null = null;
