@@ -27,7 +27,7 @@ function escapeXml(str: string | null | undefined): string {
     .replace(/'/g, '&apos;');
 }
 
-export async function generateGoogleShoppingFeed(): Promise<string> {
+async function generateGoogleShoppingFeed(): Promise<string> {
   // Fetch chargers from parts_catalog
   const { data: products, error } = await supabase
     .from('parts_catalog')
