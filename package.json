@@ -138,7 +138,10 @@
     "qa:live-user": "node scripts/qa/create-live-user.mjs",
     "migrate:flashcards": "node scripts/flashcards/migrate.mjs",
     "migrate:quizzes": "node scripts/quizzes/migrate.mjs",
-    "audit:db": "npx ts-node scripts/audit/supabase-audit.ts"
+    "audit:db": "npx ts-node scripts/audit/supabase-audit.ts",
+    "import:fsip": "npx tsx scripts/import-fsip.ts",
+    "import:fsip:dry": "npx tsx scripts/import-fsip.ts --dry-run",
+    "import:fsip:bulk": "npx tsx scripts/bulk-import.ts"
   },
   "keywords": [],
   "author": "",
