@@ -237,12 +237,13 @@ async function scrapeWithFirecrawl(url: string): Promise<ExtractedProduct | null
   if (!finalImageUrl && html) {
     const imgMatch = html.match(/<img[^>]+src=["']([^"']+(?:\.jpg|\.jpeg|\.png|\.webp)[^"']*)["']/i);
     if (imgMatch && imgMatch[1]) {
-      finalImageUrl = imgMatch[1];
+      let imgUrl = imgMatch[1];
       // Make URL absolute if relative
-      if (finalImageUrl.startsWith('/')) {
+      if (imgUrl.startsWith('/')) {
         const urlObj = new URL(url);
-        finalImageUrl = `${urlObj.origin}${finalImageUrl}`;
+        imgUrl = `${urlObj.origin}${imgUrl}`;
       }
+      finalImageUrl = imgUrl;
       console.log(`   🖼️  Image Found (img tag): ${finalImageUrl}`);
     }
   }
