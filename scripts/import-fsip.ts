@@ -236,7 +236,7 @@ async function scrapeWithFirecrawl(url: string): Promise<ExtractedProduct | null
   // Priority 4: Any product image with common extensions
   if (!finalImageUrl && html) {
     const imgMatch = html.match(/<img[^>]+src=["']([^"']+(?:\.jpg|\.jpeg|\.png|\.webp)[^"']*)["']/i);
-    if (imgMatch) {
+    if (imgMatch && imgMatch[1]) {
       finalImageUrl = imgMatch[1];
       // Make URL absolute if relative
       if (finalImageUrl.startsWith('/')) {
