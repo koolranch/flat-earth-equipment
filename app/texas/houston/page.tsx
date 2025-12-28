@@ -322,6 +322,7 @@ export default async function HoustonPage() {
           'name': 'Flat Earth Equipment - Houston',
           'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
           'url': 'https://flatearthequipment.com/texas/houston',
+          'telephone': '+1-888-392-9175',
           'address': {
             '@type': 'PostalAddress',
             'addressLocality': 'Houston',
@@ -341,7 +342,15 @@ export default async function HoustonPage() {
           'description': 'Industrial equipment parts supplier for Houston, the Energy Corridor, and Port of Houston. Specializing in forklift, telehandler, and heavy equipment components.',
           'openingHours': 'Mo-Fr 07:00-17:00',
           'priceRange': '$$',
-          'serviceType': ['Equipment Rental', 'Industrial Parts', 'Port Equipment', 'Refinery Equipment']
+          'serviceType': ['Equipment Rental', 'Industrial Parts', 'Port Equipment', 'Refinery Equipment'],
+          'sameAs': [
+            'https://flatearthequipment.com/contact'
+          ],
+          'parentOrganization': {
+            '@type': 'Organization',
+            'name': 'Flat Earth Equipment',
+            'url': 'https://flatearthequipment.com'
+          }
         })}
       </Script>
 

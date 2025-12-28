@@ -303,8 +303,16 @@ export default async function DallasFortWorthPage() {
             { '@type': 'City', 'name': 'Plano' }
           ],
           'description': 'Flat Earth Equipment provides rental equipment and parts to contractors, facilities, and warehouses in the Dallas-Fort Worth Metroplex. Fast shipping from regional hubs.',
+          'telephone': '+1-888-392-9175',
           'openingHours': 'Mo-Fr 07:00-17:00',
-          'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support']
+          'priceRange': '$$',
+          'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support'],
+          'sameAs': ['https://flatearthequipment.com/contact'],
+          'parentOrganization': {
+            '@type': 'Organization',
+            'name': 'Flat Earth Equipment',
+            'url': 'https://flatearthequipment.com'
+          }
         })}
       </Script>
 

@@ -1,6 +1,32 @@
 import type { Metadata } from 'next';
-const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com';
+
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com';
 const cdn = (process.env.NEXT_PUBLIC_SUPABASE_URL || '') + '/storage/v1/object/public/' + (process.env.NEXT_PUBLIC_ASSET_BUCKET || 'public-assets');
+
+/**
+ * Generate a canonical URL that strips query parameters.
+ * This prevents index bloat from search/filter pages.
+ * @param pathname - The pathname without query string (e.g., '/insights')
+ * @returns Full canonical URL
+ */
+export function getCanonicalUrl(pathname: string): string {
+  // Ensure pathname starts with /
+  const cleanPath = pathname.startsWith('/') ? pathname : `/${pathname}`;
+  return `${SITE_URL}${cleanPath}`;
+}
+
+/**
+ * Generate metadata with self-referencing canonical URL.
+ * Always strips query parameters from the canonical.
+ */
+export function generateCanonicalMetadata(pathname: string): Pick<Metadata, 'alternates'> {
+  return {
+    alternates: {
+      canonical: pathname,
+    },
+  };
+}
+
 export const seoDefaults: Metadata = {
   metadataBase: new URL(base),
   title: {
