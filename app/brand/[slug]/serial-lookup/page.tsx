@@ -14,9 +14,23 @@ import { notFound } from 'next/navigation';
 export const dynamic = 'force-static';
 export const dynamicParams = true;
 
+// Brands that have working serial lookup tools (must match SerialLookupEmbed routes)
+const BRANDS_WITH_SERIAL_TOOLS = new Set([
+  'toyota', 'hyster', 'bobcat', 'crown', 'clark', 'cat', 'caterpillar',
+  'doosan', 'jlg', 'karcher', 'factory-cat', 'factorycat', 'tennant',
+  'haulotte', 'yale', 'raymond', 'ep', 'ep-equipment', 'linde',
+  'mitsubishi', 'komatsu', 'case', 'case-construction', 'new-holland',
+  'takeuchi', 'kubota', 'toro', 'xcmg', 'sinoboom', 'skyjack',
+  'jungheinrich', 'gehl', 'hangcha', 'lull', 'manitou', 'unicarriers',
+  'jcb', 'genie', 'hyundai'
+]);
+
 export async function generateMetadata({ params }: { params: { slug: string } }){
   const brand = await getBrand(params.slug);
-  if (!brand) return { title: 'Brand Not Found' };
+  // Return 404 metadata if brand doesn't exist OR doesn't have a serial tool
+  if (!brand || !BRANDS_WITH_SERIAL_TOOLS.has(params.slug)) {
+    return { title: 'Brand Not Found' };
+  }
   
   const canonical = resolveCanonical(params.slug, 'serial');
   const fullUrl = `https://flatearthequipment.com${canonical}`;
@@ -54,7 +68,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 export default async function Page({ params, searchParams }: { params: { slug: string }; searchParams?: { notes_limit?: string } }){
   const brand = await getBrand(params.slug);
-  if (!brand) notFound();
+  // 404 if brand doesn't exist OR doesn't have a serial tool
+  if (!brand || !BRANDS_WITH_SERIAL_TOOLS.has(params.slug)) notFound();
   
   const ipsvcEnabled = process.env.NEXT_PUBLIC_FEATURE_SVC_SUBMISSIONS !== 'false';
   const url = `https://flatearthequipment.com/brand/${brand.slug}/serial-lookup`;

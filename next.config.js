@@ -95,11 +95,49 @@ const baseConfig = {
         destination: '/forks',
         permanent: true // 301 redirect - consolidates SEO authority
       },
+      // Redirect non-existent attachment category pages to main parts catalog
+      {
+        source: '/parts/attachments/rotators',
+        destination: '/parts',
+        permanent: true
+      },
+      {
+        source: '/parts/attachments/side-shifters',
+        destination: '/parts',
+        permanent: true
+      },
+      {
+        source: '/parts/attachments/push-pull',
+        destination: '/parts',
+        permanent: true
+      },
+      {
+        source: '/parts/attachments/specialized',
+        destination: '/parts',
+        permanent: true
+      },
+      {
+        source: '/parts/attachments/clamps',
+        destination: '/parts',
+        permanent: true
+      },
       // Remove demo content
       {
         source: '/insights/hello-world',
         destination: '/insights',
         permanent: true
+      },
+      // Redirect specific uncategorized articles that don't exist in insights
+      // This article is linked from several MDX files but content was never migrated
+      {
+        source: '/uncategorized/maximizing-forklift-efficiency-maintenance-guide',
+        destination: '/insights',
+        permanent: true // Redirect to insights index since article doesn't exist
+      },
+      {
+        source: '/insights/maximizing-forklift-efficiency-maintenance-guide',
+        destination: '/insights',
+        permanent: true // Also redirect the insights path in case of cached links
       },
       // Redirect old WordPress /uncategorized/ URLs to /insights/
       // These blog posts were migrated from WordPress where they lived under /uncategorized/

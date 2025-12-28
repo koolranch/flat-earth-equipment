@@ -18,17 +18,21 @@ export const metadata: Metadata = {
 };
 
 export default function AttachmentsPage() {
+  // Attachment categories with explicit hrefs to avoid 404s
+  // Only /parts/attachments/forks and /forks exist - others redirect to /parts
   const attachmentCategories = [
     {
       name: "Forks",
       slug: "forks",
+      href: "/forks", // Dedicated forks page exists
       description: "Standard pallet forks, telehandler forks, block forks, and custom length options",
       features: ["Class II/III/IV", "36\"-96\" lengths", "ANSI certified", "All major brands"],
       image: "🍴"
     },
     {
       name: "Clamps",
-      slug: "clamps", 
+      slug: "clamps",
+      href: "/parts", // No dedicated page - link to parts catalog
       description: "Paper roll clamps, bale clamps, carton clamps, and specialized clamping attachments",
       features: ["Hydraulic operation", "Custom jaw configurations", "Side-shift compatible", "Heavy-duty construction"],
       image: "🗜️"
@@ -36,13 +40,15 @@ export default function AttachmentsPage() {
     {
       name: "Rotators",
       slug: "rotators",
+      href: "/parts", // No dedicated page - link to parts catalog
       description: "Fork rotators, load rotators, and rotating attachments for specialized handling",
       features: ["360° rotation", "Hydraulic drive", "Load sensing", "Precision control"],
       image: "🔄"
     },
     {
       name: "Side Shifters",
-      slug: "side-shifters", 
+      slug: "side-shifters",
+      href: "/parts", // No dedicated page - link to parts catalog
       description: "Hydraulic side shifters for precise load positioning and increased efficiency",
       features: ["Left/right positioning", "Integrated fork mounting", "Smooth operation", "High capacity"],
       image: "↔️"
@@ -50,6 +56,7 @@ export default function AttachmentsPage() {
     {
       name: "Push-Pull Attachments",
       slug: "push-pull",
+      href: "/parts", // No dedicated page - link to parts catalog
       description: "Slip sheet handling, push-pull attachments for efficient material transport",
       features: ["Slip sheet compatible", "Reduced packaging", "Fast cycle times", "Cost effective"],
       image: "⬅️➡️"
@@ -57,6 +64,7 @@ export default function AttachmentsPage() {
     {
       name: "Specialized Attachments",
       slug: "specialized",
+      href: "/parts", // No dedicated page - link to parts catalog
       description: "Custom and specialized attachments for unique material handling requirements",
       features: ["Custom engineering", "Application specific", "Heavy-duty design", "Expert support"],
       image: "🔧"
@@ -132,7 +140,7 @@ export default function AttachmentsPage() {
           {attachmentCategories.map((category, index) => (
             <Link
               key={index}
-              href={`/parts/attachments/${category.slug}`}
+              href={category.href}
               className="group block bg-white rounded-xl p-6 shadow-lg border hover:shadow-xl transition-all duration-300"
             >
               <div className="text-4xl mb-4">{category.image}</div>
