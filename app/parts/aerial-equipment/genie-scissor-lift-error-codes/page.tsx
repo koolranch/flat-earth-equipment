@@ -2,13 +2,12 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
 import GenieCodeBrowser from '@/components/diagnostic/GenieCodeBrowser';
+import { generatePageAlternates } from "@/app/seo-defaults";
 
 export const metadata: Metadata = {
   title: "Genie Scissor Lift Error Codes: Complete Guide | 40+ Codes | Flat Earth Equipment",
   description: "Searchable database of 40+ Genie scissor lift and boom lift error codes. E1-E20, OIC codes, model-specific troubleshooting for GS series.",
-  alternates: {
-    canonical: "/parts/aerial-equipment/genie-scissor-lift-error-codes",
-  },
+  alternates: generatePageAlternates("/parts/aerial-equipment/genie-scissor-lift-error-codes"),
   openGraph: {
     title: "Genie Scissor Lift Error Codes: Complete Diagnostic Guide",
     description: "40+ Genie fault codes with troubleshooting. GS-1930, GS-2646, GS-4047 and boom lift codes.",
@@ -32,6 +31,17 @@ export default function GenieScissorLiftErrorCodes() {
       </Script>
 
     <main className="max-w-4xl mx-auto px-4 py-12">
+      {/* Featured Snippet Quick Answer Box */}
+      <div className="not-prose mb-8 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-400 rounded-xl p-6 shadow-sm">
+        <p className="text-sm font-semibold text-green-700 uppercase tracking-wide mb-2">Quick Answer</p>
+        <p className="text-lg text-slate-900 mb-3">
+          <strong>Genie scissor lift error codes indicate specific system faults.</strong> The most common codes are: <strong>E1</strong> (Emergency Stop), <strong>E4</strong> (Low Battery), <strong>E6</strong> (Tilt Sensor), and <strong>E12/E13</strong> (Control Communication).
+        </p>
+        <p className="text-slate-700">
+          <strong>To reset:</strong> (1) Lower lift completely to ground, (2) Turn off machine, (3) Engage override mode on control panel, (4) Turn machine back on. If codes persist after reset, inspect the affected component or contact a technician.
+        </p>
+      </div>
+
       {/* Quick Action Buttons */}
       <div className="not-prose mb-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
         <Link href="/genie-serial-number-lookup" className="flex flex-col items-center gap-2 p-4 bg-purple-50 hover:bg-purple-100 border-2 border-purple-200 rounded-xl transition-all">

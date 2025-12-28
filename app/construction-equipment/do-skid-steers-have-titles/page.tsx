@@ -1,12 +1,11 @@
 import { Metadata } from "next";
 import Image from "next/image";
+import { generatePageAlternates } from "@/app/seo-defaults";
 
 export const metadata: Metadata = {
   title: "Do Skid Steers Have Titles? Understanding Equipment Registration | Flat Earth Equipment",
   description: "Learn about skid steer titles, registration requirements, and documentation. Essential guide for equipment owners and operators.",
-  alternates: {
-    canonical: "/construction-equipment/do-skid-steers-have-titles",
-  },
+  alternates: generatePageAlternates("/construction-equipment/do-skid-steers-have-titles"),
 };
 
 export default function DoSkidSteersHaveTitles() {
@@ -44,16 +43,46 @@ export default function DoSkidSteersHaveTitles() {
           <li>Warranty information (if applicable)</li>
         </ul>
 
-        <h2>State-Specific Requirements</h2>
+        <h2>State-by-State Title Requirements</h2>
         <p>
-          Registration requirements vary by state:
+          Skid steer registration requirements vary significantly by state. Here's a summary of requirements across major states:
         </p>
+
+        <h3>States That Do NOT Require Titles for Skid Steers</h3>
         <ul>
-          <li>Some states require equipment registration</li>
-          <li>Others only require documentation for tax purposes</li>
-          <li>Certain states have specific requirements for commercial use</li>
-          <li>Local regulations may apply for public road use</li>
+          <li><strong>Texas:</strong> No title required. Bill of Sale and serial number documentation is sufficient.</li>
+          <li><strong>Florida:</strong> Off-highway equipment exempt from titling. Keep manufacturer's certificate of origin.</li>
+          <li><strong>California:</strong> No DMV title, but local business permits may be required for commercial use.</li>
+          <li><strong>Georgia:</strong> No title required. Bill of Sale serves as proof of ownership.</li>
+          <li><strong>North Carolina:</strong> Equipment not driven on public roads is exempt from titling.</li>
+          <li><strong>Arizona:</strong> No title for off-highway construction equipment.</li>
         </ul>
+
+        <h3>States That MAY Require Registration</h3>
+        <ul>
+          <li><strong>Pennsylvania:</strong> May require registration if operated on public roads, even briefly.</li>
+          <li><strong>Ohio:</strong> Requires "Slow Moving Vehicle" emblem and may need permit for road crossings.</li>
+          <li><strong>New York:</strong> Commercial equipment may need Department of Agriculture registration.</li>
+          <li><strong>Michigan:</strong> Off-road equipment used commercially may need registration for tax purposes.</li>
+        </ul>
+
+        <h3>How to Verify Ownership Without a Title</h3>
+        <p>
+          When a title isn't available, use these methods to establish ownership:
+        </p>
+        <ol>
+          <li><strong>Serial Number Verification:</strong> Match the serial number to manufacturer records</li>
+          <li><strong>Bill of Sale Chain:</strong> Gather bills of sale from all previous owners if possible</li>
+          <li><strong>Lien Search:</strong> Use services like Equipment Watch or IronClad to check for liens</li>
+          <li><strong>Manufacturer COO:</strong> Request Certificate of Origin records from the manufacturer</li>
+          <li><strong>Insurance Records:</strong> Previous insurance policies can help establish ownership history</li>
+          <li><strong>Theft Database Check:</strong> Search the National Equipment Register (NER) to ensure it's not stolen</li>
+        </ol>
+
+        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 my-4">
+          <p className="text-yellow-800 font-semibold">⚠️ Important:</p>
+          <p className="text-yellow-700 text-sm">Always check your state's specific requirements before purchasing. Some states have recently changed regulations, and commercial vs. personal use may have different requirements.</p>
+        </div>
 
         <h2>Proof of Ownership</h2>
         <p>

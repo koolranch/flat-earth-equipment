@@ -1,13 +1,12 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
+import { generatePageAlternates } from "@/app/seo-defaults";
 
 export const metadata: Metadata = {
   title: "E A5-1 Code on Toyota Forklift: Understanding the Common Error and Solutions | Flat Earth Equipment",
   description: "Comprehensive guide to the E A5-1 error code on Toyota forklifts: causes, troubleshooting, and solutions for operators and technicians.",
-  alternates: {
-    canonical: "/diagnostic-codes/e-a5-1-code-on-toyota-forklift-2",
-  },
+  alternates: generatePageAlternates("/diagnostic-codes/e-a5-1-code-on-toyota-forklift-2"),
   openGraph: {
     title: "Toyota Forklift E A5-1 Error Code: Diagnosis & Fix Guide",
     description: "Step-by-step troubleshooting for E A5-1 speed control system fault. Expert guidance for Toyota 8FGU25, 8FGU30, and other models.",
@@ -152,6 +151,17 @@ export default function EA51ToyotaForkliftPage() {
       </Script>
 
     <main className="max-w-3xl mx-auto px-4 py-12">
+      {/* Featured Snippet Quick Answer Box */}
+      <div className="not-prose mb-8 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-400 rounded-xl p-6 shadow-sm">
+        <p className="text-sm font-semibold text-green-700 uppercase tracking-wide mb-2">Quick Answer</p>
+        <p className="text-lg text-slate-900 mb-3">
+          <strong>The Toyota E A5-1 error code indicates a vehicle speed control system fault.</strong> This code typically points to issues with the accelerator potentiometer, seat switch wiring, or speed sensors.
+        </p>
+        <p className="text-slate-700">
+          <strong>To fix it:</strong> (1) Check seat switch wiring for bypass or damage, (2) Test accelerator potentiometer for correct signal, (3) Use an OBD scanner to read stored codes, (4) Inspect electrical connections and wiring harness. Reset by disconnecting battery for 2-3 minutes.
+        </p>
+      </div>
+
       {/* Quick Action Buttons */}
       <div className="not-prose mb-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
         <Link href="/toyota-forklift-serial-lookup" className="flex flex-col items-center gap-2 p-4 bg-orange-50 hover:bg-orange-100 border-2 border-orange-200 rounded-xl transition-all hover:shadow-md">
