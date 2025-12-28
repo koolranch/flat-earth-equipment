@@ -5,12 +5,20 @@ import { generatePageAlternates } from "@/app/seo-defaults";
 
 export const metadata: Metadata = {
   title: "JCB Telehandler Battery Location & Replacement Guide | Flat Earth Equipment",
-  description: "Learn where to find and how to access the battery in your JCB telehandler. Complete guide for JCB 510-56, 520-50, and other models.",
+  description: "Find where the battery is located on your JCB telehandler. Step-by-step access guide for JCB 510-56, 520-50, 527-55, and other models with safety checklist.",
+  keywords: ["JCB telehandler battery location", "JCB 510-56 battery", "JCB 520-50 battery", "telehandler battery replacement", "JCB battery access"],
   alternates: generatePageAlternates("/rental/telehandler/jcb-telehandler-battery-location"),
+  robots: {
+    index: true,
+    follow: true,
+    "max-image-preview": "large",
+    "max-snippet": -1,
+  },
   openGraph: {
     title: "JCB Telehandler Battery Location: Complete Access Guide",
     description: "Step-by-step battery location and replacement guide for JCB 510-56, 520-50, and other telehandler models.",
     type: "article",
+    url: "https://flatearthequipment.com/rental/telehandler/jcb-telehandler-battery-location",
   },
 };
 
