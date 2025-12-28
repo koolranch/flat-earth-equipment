@@ -28,7 +28,7 @@ export function generateCanonicalMetadata(pathname: string): Pick<Metadata, 'alt
 }
 
 export const seoDefaults: Metadata = {
-  metadataBase: new URL(base),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Forklift Certification — Flat Earth Equipment',
     template: '%s | Flat Earth Equipment'
@@ -36,7 +36,7 @@ export const seoDefaults: Metadata = {
   description: 'Modern, interactive forklift operator training and certification — fast, compliant, and no BS.',
   openGraph: {
     type: 'website',
-    url: base,
+    url: SITE_URL,
     title: 'Forklift Certification — Flat Earth Equipment',
     description: 'Modern, interactive forklift operator training and certification — fast, compliant, and no BS.',
     images: [{ url: `${cdn}/images/generated/og-default.png`, width: 1200, height: 630 }]
