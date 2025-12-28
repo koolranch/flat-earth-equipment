@@ -3,16 +3,51 @@ import type { Metadata } from 'next';
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com';
 const cdn = (process.env.NEXT_PUBLIC_SUPABASE_URL || '') + '/storage/v1/object/public/' + (process.env.NEXT_PUBLIC_ASSET_BUCKET || 'public-assets');
 
+// Utility pages that should be noindex, nofollow
+const NOINDEX_PATHS = ['/login', '/register', '/redeem', '/verify', '/reset-password', '/callback'];
+
+/**
+ * Strip query parameters from a pathname.
+ * Handles both URL strings and pathname strings.
+ * @param pathname - The pathname possibly with query string
+ * @returns Clean pathname without query parameters
+ */
+function stripQueryParams(pathname: string): string {
+  // Handle full URLs or paths with query strings
+  const questionIndex = pathname.indexOf('?');
+  const hashIndex = pathname.indexOf('#');
+  
+  let cleanPath = pathname;
+  if (questionIndex !== -1) {
+    cleanPath = pathname.substring(0, questionIndex);
+  }
+  if (hashIndex !== -1 && (questionIndex === -1 || hashIndex < questionIndex)) {
+    cleanPath = pathname.substring(0, hashIndex);
+  }
+  
+  // Ensure pathname starts with /
+  return cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
+}
+
 /**
  * Generate a canonical URL that strips query parameters.
  * This prevents index bloat from search/filter pages.
- * @param pathname - The pathname without query string (e.g., '/insights')
- * @returns Full canonical URL
+ * @param pathname - The pathname (query params will be stripped)
+ * @returns Full canonical URL (absolute)
  */
 export function getCanonicalUrl(pathname: string): string {
-  // Ensure pathname starts with /
-  const cleanPath = pathname.startsWith('/') ? pathname : `/${pathname}`;
+  const cleanPath = stripQueryParams(pathname);
   return `${SITE_URL}${cleanPath}`;
+}
+
+/**
+ * Check if a pathname is a utility page that should be noindex.
+ * @param pathname - The pathname to check
+ * @returns true if the page should be noindex
+ */
+export function isNoIndexPath(pathname: string): boolean {
+  const cleanPath = stripQueryParams(pathname);
+  return NOINDEX_PATHS.some(p => cleanPath === p || cleanPath.startsWith(`${p}/`));
 }
 
 /**
@@ -21,18 +56,18 @@ export function getCanonicalUrl(pathname: string): string {
  * - Self-referencing hreflang for en-US (primary locale)
  * - x-default hreflang pointing to current page
  * 
- * This fixes Ahrefs "Missing self-referencing hreflang" errors.
- * Canonical must be absolute URL to avoid Google Search Console indexing issues.
+ * Query parameters are automatically stripped to prevent duplicate content.
+ * Canonical is always an absolute URL to avoid Google Search Console issues.
  * 
- * @param pathname - The pathname without query string (e.g., '/insights')
+ * @param pathname - The pathname (query params will be stripped automatically)
  * @returns Metadata alternates object with canonical and languages
  */
 export function generatePageAlternates(pathname: string): Metadata['alternates'] {
-  const cleanPath = pathname.startsWith('/') ? pathname : `/${pathname}`;
+  const cleanPath = stripQueryParams(pathname);
   const fullUrl = `${SITE_URL}${cleanPath}`;
   
   return {
-    canonical: fullUrl, // Must be absolute URL for proper indexing
+    canonical: fullUrl, // Absolute URL, query params stripped
     languages: {
       'en-US': fullUrl,
       'x-default': fullUrl,
@@ -41,9 +76,31 @@ export function generatePageAlternates(pathname: string): Metadata['alternates']
 }
 
 /**
+ * Generate complete page metadata including alternates and robots.
+ * Automatically handles:
+ * - Query parameter stripping for canonical URLs
+ * - noindex for utility pages (login, register, redeem, etc.)
+ * - Self-referencing hreflang tags
+ * 
+ * @param pathname - The pathname (query params will be stripped automatically)
+ * @returns Metadata object with alternates and robots
+ */
+export function generatePageMetadata(pathname: string): Pick<Metadata, 'alternates' | 'robots'> {
+  const cleanPath = stripQueryParams(pathname);
+  const shouldNoIndex = isNoIndexPath(cleanPath);
+  
+  return {
+    alternates: generatePageAlternates(cleanPath),
+    robots: shouldNoIndex 
+      ? { index: false, follow: false }
+      : { index: true, follow: true },
+  };
+}
+
+/**
  * Generate metadata with self-referencing canonical URL.
  * Always strips query parameters from the canonical.
- * @deprecated Use generatePageAlternates instead for proper hreflang support
+ * @deprecated Use generatePageAlternates or generatePageMetadata instead
  */
 export function generateCanonicalMetadata(pathname: string): Pick<Metadata, 'alternates'> {
   return {
