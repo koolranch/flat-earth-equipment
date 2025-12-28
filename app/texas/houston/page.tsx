@@ -197,43 +197,49 @@ export default async function HoustonPage() {
               {
                 name: 'Forklift Parts',
                 slug: 'forklift-parts',
+                href: '/parts',
                 Icon: ForkliftIcon,
                 label: 'Port & Warehouse Ready'
               },
               {
                 name: 'Scissor Lift Hydraulics',
                 slug: 'scissor-lift-hydraulics',
+                href: '/parts',
                 Icon: ScissorLiftIcon,
                 label: 'Construction Grade'
               },
               {
                 name: 'Telehandler Filters',
                 slug: 'telehandler-filters',
+                href: '/parts',
                 Icon: TelehandlerIcon,
                 label: 'Heavy Duty'
               },
               {
                 name: 'Mini Excavator Rollers',
                 slug: 'mini-excavator-rollers',
+                href: '/parts',
                 Icon: RollerIcon,
                 label: 'Site Prep Essentials'
               },
               {
                 name: 'Track Systems',
                 slug: 'track-systems',
+                href: '/parts',
                 Icon: TrackIcon,
                 label: 'All-Terrain'
               },
               {
                 name: 'Battery Chargers & Modules',
                 slug: 'battery-chargers-modules',
+                href: '/charger-modules',
                 Icon: BatteryIcon,
                 label: 'Electric Fleet Power'
               }
             ].map((category) => (
               <Link
                 key={category.slug}
-                href={`/parts/category/${category.slug}`}
+                href={category.href}
                 className="group"
               >
                 <div className="bg-white rounded-xl shadow-sm p-6 border border-slate-200 transition-all duration-200 hover:-translate-y-1 hover:shadow-md hover:border-canyon-rust/30">
