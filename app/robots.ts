@@ -5,9 +5,24 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        disallow: ['/_next/', '/_vercel/', '/api/preview']
+        allow: '/',
+        disallow: [
+          // Internal Next.js and Vercel paths
+          '/_next/',
+          '/_vercel/',
+          '/api/preview',
+          // Search result pages - prevent index bloat
+          '/*?keyword=*',
+          '/*?q=*',
+          '/*?search=*',
+          // Admin and dashboard pages
+          '/admin/',
+          '/dashboard/',
+          '/trainer/',
+        ]
       }
     ],
-    sitemap: 'https://flatearthequipment.com/sitemap.xml'
+    sitemap: 'https://flatearthequipment.com/sitemap.xml',
+    host: 'https://flatearthequipment.com'
   };
 }
