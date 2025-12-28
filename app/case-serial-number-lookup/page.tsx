@@ -468,7 +468,7 @@ export default function CaseSerialLookupPage() {
           </div>
 
           {/* Brand Hub Banner */}
-          <BrandHubBanner brandSlug="case-construction" brandName="Case Construction" />
+          <BrandHubBanner slug="case-construction" name="Case Construction" />
 
           {/* CTA Section */}
           <div className="bg-gradient-to-r from-amber-600 to-yellow-600 rounded-2xl p-8 text-white text-center">
