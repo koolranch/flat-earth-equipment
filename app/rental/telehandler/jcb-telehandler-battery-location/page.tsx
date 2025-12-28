@@ -1,13 +1,12 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
+import { generatePageAlternates } from "@/app/seo-defaults";
 
 export const metadata: Metadata = {
-  title: "JCB Telehandler Battery Location Guide | Flat Earth Equipment",
+  title: "JCB Telehandler Battery Location & Replacement Guide | Flat Earth Equipment",
   description: "Learn where to find and how to access the battery in your JCB telehandler. Complete guide for JCB 510-56, 520-50, and other models.",
-  alternates: {
-    canonical: "/rental/telehandler/jcb-telehandler-battery-location",
-  },
+  alternates: generatePageAlternates("/rental/telehandler/jcb-telehandler-battery-location"),
   openGraph: {
     title: "JCB Telehandler Battery Location: Complete Access Guide",
     description: "Step-by-step battery location and replacement guide for JCB 510-56, 520-50, and other telehandler models.",
