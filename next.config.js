@@ -101,6 +101,19 @@ const baseConfig = {
         destination: '/insights',
         permanent: true
       },
+      // Redirect old WordPress /uncategorized/ URLs to /insights/
+      // These blog posts were migrated from WordPress where they lived under /uncategorized/
+      {
+        source: '/uncategorized/:slug',
+        destination: '/insights/:slug',
+        permanent: true // 308 redirect - preserves SEO and request method
+      },
+      // Also redirect the uncategorized index page
+      {
+        source: '/uncategorized',
+        destination: '/insights',
+        permanent: true
+      },
       // Redirect www to non-www
       {
         source: '/:path*',
