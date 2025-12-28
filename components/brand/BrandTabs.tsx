@@ -4,6 +4,18 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { canonForBrand } from '@/lib/brandCanon';
 
+// Brands that have working serial lookup tools
+// (matches the keys in SerialLookupEmbed's serialLookupRoutes)
+const BRANDS_WITH_SERIAL_TOOLS = new Set([
+  'toyota', 'hyster', 'bobcat', 'crown', 'clark', 'cat', 'caterpillar',
+  'doosan', 'jlg', 'karcher', 'factory-cat', 'factorycat', 'tennant',
+  'haulotte', 'yale', 'raymond', 'ep', 'ep-equipment', 'linde',
+  'mitsubishi', 'komatsu', 'case', 'case-construction', 'new-holland',
+  'takeuchi', 'kubota', 'toro', 'xcmg', 'sinoboom', 'skyjack',
+  'jungheinrich', 'gehl', 'hangcha', 'lull', 'manitou', 'unicarriers',
+  'jcb', 'genie', 'hyundai'
+]);
+
 function Tab({ href, children, active }: { href: string; children: React.ReactNode; active: boolean }) {
   return (
     <Link
@@ -32,6 +44,9 @@ function Tab({ href, children, active }: { href: string; children: React.ReactNo
 export default function BrandTabs({ slug }: { slug: string }) {
   const pathname = usePathname();
   
+  // Only show serial lookup tab if this brand has a working tool
+  const hasSerialTool = BRANDS_WITH_SERIAL_TOOLS.has(slug);
+  
   // TEMP FIX: Use direct paths instead of canonForBrand to avoid any redirect loops
   const serialPath = `/brand/${slug}/serial-lookup`;
   const faultsPath = `/brand/${slug}/fault-codes`;
@@ -40,16 +55,21 @@ export default function BrandTabs({ slug }: { slug: string }) {
   return (
     <>
       <div className='flex flex-wrap gap-3 mt-4 mb-6'>
-        <Tab href={serialPath} active={isActive(serialPath)}>
-          Open Serial Lookup
-        </Tab>
+        {/* Only show Serial Lookup tab for brands with working tools */}
+        {hasSerialTool && (
+          <Tab href={serialPath} active={isActive(serialPath)}>
+            Open Serial Lookup
+          </Tab>
+        )}
         <Tab href={faultsPath} active={isActive(faultsPath)}>
           Fault Codes & Retrieval
         </Tab>
         {/* Parts goes to an in-page anchor for smooth scroll to the form */}
-        <Tab href={`/brand/${slug}/serial-lookup#parts-request`} active={pathname === `/brand/${slug}/serial-lookup`}>
-          Request Parts Help
-        </Tab>
+        {hasSerialTool && (
+          <Tab href={`/brand/${slug}/serial-lookup#parts-request`} active={pathname === `/brand/${slug}/serial-lookup`}>
+            Request Parts Help
+          </Tab>
+        )}
       </div>
       {/* CTA for tips submission */}
       <div className='w-full text-right -mt-2 mb-2'>
