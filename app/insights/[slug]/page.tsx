@@ -6,6 +6,7 @@ import Script from 'next/script';
 import RelatedItems from '@/components/RelatedItems';
 import { TableOfContents, AmperageCalculator, QuickReferenceCard } from '@/components/BasicInteractiveComponents';
 import { StructuredData } from '@/components/SEOComponents';
+import { generatePageAlternates } from '@/app/seo-defaults';
 
 type Props = {
   params: {
@@ -27,9 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${post.title} | Flat Earth Equipment`,
     description: post.description?.slice(0, 160) || 'Industry insights and equipment maintenance tips.',
     keywords: post.keywords,
-    alternates: {
-      canonical: `/insights/${params.slug}`,
-    },
+    alternates: generatePageAlternates(`/insights/${params.slug}`),
     openGraph: {
       title: post.title,
       description: post.description,

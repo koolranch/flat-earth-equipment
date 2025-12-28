@@ -16,13 +16,12 @@ import {
 } from "lucide-react";
 import { categories as canonicalCategories } from '@/lib/data/categories';
 import { getUserLocale } from '@/lib/getUserLocale';
+import { generatePageAlternates } from '../seo-defaults';
 
 export const metadata: Metadata = {
   title: 'Parts Catalog | Flat Earth Equipment',
   description: 'Browse our complete catalog of industrial parts and components.',
-  alternates: {
-    canonical: '/parts'
-  },
+  alternates: generatePageAlternates('/parts'),
   robots: {
     index: true,
     follow: true,

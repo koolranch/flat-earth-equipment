@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllBlogPosts } from '@/lib/mdx';
+import { generatePageAlternates } from '../seo-defaults';
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -16,9 +17,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     robots: hasSearchQuery 
       ? { index: false, follow: true } 
       : { index: true, follow: true },
-    alternates: {
-      canonical: '/insights',
-    },
+    alternates: generatePageAlternates('/insights'),
   };
 }
 
