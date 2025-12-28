@@ -46,7 +46,7 @@ export default function CrownLookupPage() {
     "@type": "WebApplication",
     "name": "Crown Forklift Serial Number Lookup",
     "description": "Find Crown capacity/data plate locations by truck family and decode the model year only for true 17-digit VIN/PIN inputs.",
-    "url": "https://www.flatearthequipment.com/crown-serial-number-lookup",
+    "url": "https://flatearthequipment.com/crown-serial-number-lookup",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web Browser",
     "offers": {
@@ -57,7 +57,7 @@ export default function CrownLookupPage() {
     "provider": {
       "@type": "Organization",
       "name": "Flat Earth Equipment",
-      "url": "https://www.flatearthequipment.com"
+      "url": "https://flatearthequipment.com"
     }
   };
 

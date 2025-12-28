@@ -1,7 +1,7 @@
 import 'node:process';
 import https from 'node:https';
 
-const HOST = process.env.QA_HOST || process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com';
+const HOST = process.env.QA_HOST || process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com';
 const TOKEN = process.env.QA_USER_TOKEN; // read from your local shell just to sign the request
 if (!TOKEN) {
   console.error('Missing QA_USER_TOKEN in your local environment.');

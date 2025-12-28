@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Forklift Carpet Poles | Heavy-Duty Carpet Handling Equipment",
     description: "High-quality forklift carpet poles for safe and efficient carpet handling. Custom sizes available. Get a quote for your carpet handling needs.",
-    url: "https://www.flatearthequipment.com/carpet-poles",
+    url: "https://flatearthequipment.com/carpet-poles",
     type: "website",
     images: [
       {

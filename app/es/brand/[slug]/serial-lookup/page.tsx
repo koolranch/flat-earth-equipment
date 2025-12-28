@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   
   // Use the English canonical as the primary canonical (Spanish is alternate)
   const canonicalEn = resolveCanonical(params.slug, 'serial');
-  const fullUrlEn = `https://www.flatearthequipment.com${canonicalEn}`;
+  const fullUrlEn = `https://flatearthequipment.com${canonicalEn}`;
   
   return { 
     title: `${brand.name} — Búsqueda por número de serie | Flat Earth Equipment`, 
@@ -46,7 +46,7 @@ export default async function Page({ params, searchParams }: { params: { slug: s
   if (!brand) notFound();
   
   const svcEnabled = process.env.NEXT_PUBLIC_FEATURE_SVC_SUBMISSIONS !== 'false';
-  const url = `https://www.flatearthequipment.com/es/brand/${brand.slug}/serial-lookup`;
+  const url = `https://flatearthequipment.com/es/brand/${brand.slug}/serial-lookup`;
   
   // Allow larger list via search param (?notes_limit=50) when you want to see more
   const limit = Math.min(Number(searchParams?.notes_limit) || 10, 100);

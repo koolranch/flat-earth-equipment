@@ -27,7 +27,7 @@ export default function ToyotaLookupPage() {
     "@type": "WebApplication",
     "name": "Toyota Forklift Serial Number Lookup",
     "description": "Free tool to estimate Toyota forklift build year by serial number. Helps identify correct parts and maintenance requirements.",
-    "url": "https://www.flatearthequipment.com/toyota-forklift-serial-lookup",
+    "url": "https://flatearthequipment.com/toyota-forklift-serial-lookup",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web Browser",
     "offers": {
@@ -38,13 +38,13 @@ export default function ToyotaLookupPage() {
     "provider": {
       "@type": "Organization",
       "name": "Flat Earth Equipment",
-      "url": "https://www.flatearthequipment.com"
+      "url": "https://flatearthequipment.com"
     },
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://www.flatearthequipment.com/toyota-forklift-serial-lookup?model={model}&serial={serial}"
+        "urlTemplate": "https://flatearthequipment.com/toyota-forklift-serial-lookup?model={model}&serial={serial}"
       },
       "query-input": [
         {

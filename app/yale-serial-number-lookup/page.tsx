@@ -41,7 +41,7 @@ export default function YaleLookupPage() {
     "@type": "WebApplication",
     "name": "Yale Forklift Serial Number Lookup",
     "description": "Free tool to decode Yale forklift serial numbers. Decode design/series prefix, plant code, production sequence, and year letter (post-1995).",
-    "url": "https://www.flatearthequipment.com/yale-serial-number-lookup",
+    "url": "https://flatearthequipment.com/yale-serial-number-lookup",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web Browser",
     "offers": {
@@ -52,7 +52,7 @@ export default function YaleLookupPage() {
     "provider": {
       "@type": "Organization",
       "name": "Flat Earth Equipment",
-      "url": "https://www.flatearthequipment.com"
+      "url": "https://flatearthequipment.com"
     }
   };
 

@@ -13,7 +13,7 @@ export default function BreadcrumbsBrand({ slug, name }: { slug: string; name: s
       '@type': 'ListItem',
       'position': i+1,
       'name': it.name,
-      'item': `https://www.flatearthequipment.com${it.href}`
+      'item': `https://flatearthequipment.com${it.href}`
     }))
   };
   return (

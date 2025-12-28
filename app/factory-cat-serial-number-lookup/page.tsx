@@ -29,7 +29,7 @@ export default function Page(){
     "@type": "WebApplication",
     "name": "Factory Cat Serial Number Lookup",
     "description": "Free tool to find Factory Cat serial plate locations and capture correct serial numbers for parts/service. Includes S/N break examples.",
-    "url": "https://www.flatearthequipment.com/factory-cat-serial-number-lookup",
+    "url": "https://flatearthequipment.com/factory-cat-serial-number-lookup",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web Browser",
     "offers": {
@@ -40,7 +40,7 @@ export default function Page(){
     "provider": {
       "@type": "Organization",
       "name": "Flat Earth Equipment",
-      "url": "https://www.flatearthequipment.com"
+      "url": "https://flatearthequipment.com"
     }
   };
 

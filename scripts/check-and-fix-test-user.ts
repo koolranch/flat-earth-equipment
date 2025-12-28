@@ -129,7 +129,7 @@ async function checkAndFixTestUser() {
     console.log('\n🔐 Login credentials:')
     console.log(`📧 Email: ${testEmail}`)
     console.log('🔑 Password: TestPassword123!')
-    console.log('\n🔗 Try logging in at: https://www.flatearthequipment.com/login')
+    console.log('\n🔗 Try logging in at: https://flatearthequipment.com/login')
     
   } catch (error) {
     console.error('Script error:', error)

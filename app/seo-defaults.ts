@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com';
+const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com';
 const cdn = (process.env.NEXT_PUBLIC_SUPABASE_URL || '') + '/storage/v1/object/public/' + (process.env.NEXT_PUBLIC_ASSET_BUCKET || 'public-assets');
 export const seoDefaults: Metadata = {
   metadataBase: new URL(base),

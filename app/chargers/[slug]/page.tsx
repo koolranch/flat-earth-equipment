@@ -88,7 +88,7 @@ function generateJsonLd(p: PartsCatalog) {
       p.meta_description,
       "FSIP industrial battery charger for forklift applications."
     ),
-    url: `https://www.flatearthequipment.com/chargers/${p.slug}`,
+    url: `https://flatearthequipment.com/chargers/${p.slug}`,
   };
 
   // Add images if available
@@ -117,7 +117,7 @@ function generateJsonLd(p: PartsCatalog) {
       availability: p.in_stock
         ? "https://schema.org/InStock"
         : "https://schema.org/OutOfStock",
-      url: `https://www.flatearthequipment.com/chargers/${p.slug}`,
+      url: `https://flatearthequipment.com/chargers/${p.slug}`,
     };
   }
 

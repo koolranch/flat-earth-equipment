@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "New Holland Serial Number Lookup | Flat Earth Equipment",
     description: "Tool for tractors, skid steers, combines, excavators and more. Plate locations + year estimates where published.",
-    url: "https://www.flatearthequipment.com/new-holland-serial-number-lookup",
+    url: "https://flatearthequipment.com/new-holland-serial-number-lookup",
     type: "website",
     images: [
       {

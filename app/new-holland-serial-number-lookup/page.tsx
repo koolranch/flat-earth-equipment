@@ -36,7 +36,7 @@ export default function NewHollandLookupPage() {
     "@type": "WebApplication",
     "name": "New Holland Serial Number Lookup",
     "description": "Free tool to lookup New Holland equipment serial numbers. Find plate locations and estimate year from model-specific ranges or prefix patterns.",
-    "url": "https://www.flatearthequipment.com/new-holland-serial-number-lookup",
+    "url": "https://flatearthequipment.com/new-holland-serial-number-lookup",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web Browser",
     "offers": {
@@ -47,7 +47,7 @@ export default function NewHollandLookupPage() {
     "provider": {
       "@type": "Organization",
       "name": "Flat Earth Equipment",
-      "url": "https://www.flatearthequipment.com"
+      "url": "https://flatearthequipment.com"
     }
   };
 

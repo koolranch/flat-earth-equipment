@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: "Fork Extensions for Forklifts | Flat Earth Equipment",
     description: "Professional fork extensions for forklifts - extend your reach safely. Quality forklift fork extensions for all major brands.",
     type: "website",
-    url: "https://www.flatearthequipment.com/attachments/forklift-forks/fork-extensions-for-forklifts",
+    url: "https://flatearthequipment.com/attachments/forklift-forks/fork-extensions-for-forklifts",
   },
 };
 

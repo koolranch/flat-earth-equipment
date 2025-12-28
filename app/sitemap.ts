@@ -11,7 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .order("slug", { ascending: true })
     .limit(1000);
 
-  const base = "https://www.flatearthequipment.com";
+  const base = "https://flatearthequipment.com";
   const chargerItems = (data ?? []).map((p) => ({
     url: `${base}/chargers/${p.slug}`,
     lastModified: p.updated_at ? new Date(p.updated_at) : new Date(),

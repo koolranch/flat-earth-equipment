@@ -8,7 +8,7 @@ export default function StateProductJsonLd() {
   const slug = (params?.state || params?.slug || '').toLowerCase();
   const STATE = slugToTitle(slug);
   const usps = STATE_TO_USPS[slug];
-  const url = typeof window !== 'undefined' ? window.location.href : `https://www.flatearthequipment.com/safety/forklift/${slug}`;
+  const url = typeof window !== 'undefined' ? window.location.href : `https://flatearthequipment.com/safety/forklift/${slug}`;
 
   // Enhanced schema for Texas with DFW coverage
   const areaServed = slug === 'tx' 

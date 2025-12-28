@@ -44,7 +44,7 @@ export default function CATLookupPage() {
     "@type": "WebApplication",
     "name": "CAT Forklift Serial Number Lookup",
     "description": "Find CAT (Caterpillar) capacity/data plate guidance and infer family (GP/DP/EC/EP). VIN-year decoding only for true 17-character VIN/PIN.",
-    "url": "https://www.flatearthequipment.com/cat-serial-number-lookup",
+    "url": "https://flatearthequipment.com/cat-serial-number-lookup",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web Browser",
     "offers": {
@@ -55,7 +55,7 @@ export default function CATLookupPage() {
     "provider": {
       "@type": "Organization",
       "name": "Flat Earth Equipment",
-      "url": "https://www.flatearthequipment.com"
+      "url": "https://flatearthequipment.com"
     }
   };
 

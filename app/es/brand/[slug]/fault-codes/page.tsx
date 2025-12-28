@@ -44,7 +44,7 @@ export default async function Page({ params, searchParams }: { params: { slug: s
   if (!brand) notFound();
   
   const svcEnabled = process.env.NEXT_PUBLIC_FEATURE_SVC_SUBMISSIONS !== 'false';
-  const canonicalUrl = `https://www.flatearthequipment.com/es/brand/${brand.slug}/fault-codes`;
+  const canonicalUrl = `https://flatearthequipment.com/es/brand/${brand.slug}/fault-codes`;
   
   // Allow larger list via search param (?notes_limit=50) when you want to see more
   const limit = Math.min(Number(searchParams?.notes_limit) || 10, 100);

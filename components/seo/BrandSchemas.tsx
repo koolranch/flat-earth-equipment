@@ -33,7 +33,7 @@ export function BrandSchemas({ brand }: BrandSchemasProps) {
     "@type": "WebApplication",
     "name": `${brand.name} Equipment Support Tool`,
     "description": `Comprehensive support tool for ${brand.name} ${equipmentList} including serial number lookup, fault code database, and parts sourcing`,
-    "url": `https://www.flatearthequipment.com/brand/${brand.slug}`,
+    "url": `https://flatearthequipment.com/brand/${brand.slug}`,
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web Browser",
     "offers": {
@@ -51,7 +51,7 @@ export function BrandSchemas({ brand }: BrandSchemasProps) {
     "provider": {
       "@type": "Organization",
       "name": "Flat Earth Equipment",
-      "url": "https://www.flatearthequipment.com"
+      "url": "https://flatearthequipment.com"
     }
   };
 
@@ -104,7 +104,7 @@ export function BrandSchemas({ brand }: BrandSchemasProps) {
     "provider": {
       "@type": "Organization",
       "name": "Flat Earth Equipment",
-      "url": "https://www.flatearthequipment.com",
+      "url": "https://flatearthequipment.com",
       "telephone": "+1-555-123-4567"
     },
     "areaServed": {
