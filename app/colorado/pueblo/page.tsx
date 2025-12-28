@@ -330,8 +330,16 @@ export default async function PuebloPage() {
           },
           'areaServed': { '@type': 'Place', 'name': 'Pueblo, CO' },
           'description': 'Flat Earth Equipment provides rental equipment and parts to contractors, facilities, and municipalities in Pueblo, CO. Fast shipping from regional hubs.',
+          'telephone': '+1-888-392-9175',
           'openingHours': 'Mo-Fr 07:00-17:00',
-          'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support']
+          'priceRange': '$$',
+          'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support'],
+          'sameAs': ['https://flatearthequipment.com/contact'],
+          'parentOrganization': {
+            '@type': 'Organization',
+            'name': 'Flat Earth Equipment',
+            'url': 'https://flatearthequipment.com'
+          }
         })}
       </Script>
 

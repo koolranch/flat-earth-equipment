@@ -326,8 +326,16 @@ export default async function BozemanPage() {
             { '@type': 'Place', 'name': 'Gallatin Valley, MT' }
           ],
           'description': 'Flat Earth Equipment provides rental equipment and parts to contractors, ski resorts, and agriculture in Bozeman, MT. Fast shipping from regional hubs.',
+          'telephone': '+1-888-392-9175',
           'openingHours': 'Mo-Fr 07:00-17:00',
-          'serviceType': ['Equipment Rental', 'Industrial Parts', 'Resort Maintenance Support']
+          'priceRange': '$$',
+          'serviceType': ['Equipment Rental', 'Industrial Parts', 'Resort Maintenance Support'],
+          'sameAs': ['https://flatearthequipment.com/contact'],
+          'parentOrganization': {
+            '@type': 'Organization',
+            'name': 'Flat Earth Equipment',
+            'url': 'https://flatearthequipment.com'
+          }
         })}
       </Script>
 

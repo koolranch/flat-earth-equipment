@@ -335,8 +335,16 @@ export default async function LasCrucesPage() {
             { '@type': 'Place', 'name': 'Doña Ana County, NM' }
           ],
           'description': 'Flat Earth Equipment provides rental equipment and parts to contractors, agriculture, and facilities in Las Cruces, NM. Fast shipping from regional hubs.',
+          'telephone': '+1-888-392-9175',
           'openingHours': 'Mo-Fr 07:00-17:00',
-          'serviceType': ['Equipment Rental', 'Industrial Parts', 'Agricultural Equipment Support']
+          'priceRange': '$$',
+          'serviceType': ['Equipment Rental', 'Industrial Parts', 'Agricultural Equipment Support'],
+          'sameAs': ['https://flatearthequipment.com/contact'],
+          'parentOrganization': {
+            '@type': 'Organization',
+            'name': 'Flat Earth Equipment',
+            'url': 'https://flatearthequipment.com'
+          }
         })}
       </Script>
 

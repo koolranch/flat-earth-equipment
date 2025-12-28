@@ -483,12 +483,13 @@ export default async function DenverPage() {
           'name': 'Flat Earth Equipment - Denver',
           'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
           'url': 'https://flatearthequipment.com/colorado/denver',
+          'telephone': '+1-888-392-9175',
           'address': {
             '@type': 'PostalAddress',
             'addressLocality': 'Denver',
             'addressRegion': 'CO',
             'addressCountry': 'US',
-            'postalCode': '80202-80299'
+            'postalCode': '80202'
           },
           'areaServed': [
             { '@type': 'City', 'name': 'Denver' },
@@ -499,7 +500,16 @@ export default async function DenverPage() {
           ],
           'description': 'Flat Earth Equipment provides telehandler and forklift rental equipment and parts to contractors, facilities, and warehouses in the Denver Metro area. Fast shipping from regional hubs.',
           'openingHours': 'Mo-Fr 07:00-17:00',
-          'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support', 'Heavy Equipment Service']
+          'priceRange': '$$',
+          'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support', 'Heavy Equipment Service'],
+          'sameAs': [
+            'https://flatearthequipment.com/contact'
+          ],
+          'parentOrganization': {
+            '@type': 'Organization',
+            'name': 'Flat Earth Equipment',
+            'url': 'https://flatearthequipment.com'
+          }
         })}
       </Script>
 
