@@ -2,12 +2,27 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllBlogPosts } from '@/lib/mdx';
 
-export const metadata: Metadata = {
-  title: 'Insights & Guides | Flat Earth Equipment',
-  description: 'Expert guides and insights on forklift parts, scissor lifts, and industrial equipment maintenance.',
+type Props = {
+  searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export default async function InsightsPage() {
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const hasSearchQuery = !!(searchParams?.keyword || searchParams?.q || searchParams?.search);
+  
+  return {
+    title: 'Insights & Guides | Flat Earth Equipment',
+    description: 'Expert guides and insights on forklift parts, scissor lifts, and industrial equipment maintenance.',
+    // Block indexing of search result pages to prevent index bloat
+    robots: hasSearchQuery 
+      ? { index: false, follow: true } 
+      : { index: true, follow: true },
+    alternates: {
+      canonical: '/insights',
+    },
+  };
+}
+
+export default async function InsightsPage({ searchParams }: Props) {
   const posts = await getAllBlogPosts();
 
   // Categorize posts by keywords for better organization
