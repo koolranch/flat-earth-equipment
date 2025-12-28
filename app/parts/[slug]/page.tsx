@@ -4,6 +4,7 @@ import { supabaseServer } from '@/lib/supabase/server';
 import ProductDetails from './ProductDetails';
 import { getBlogPost } from '@/lib/mdx';
 import Link from 'next/link';
+import { generatePageAlternates } from '@/app/seo-defaults';
 
 type Props = {
   params: {
@@ -24,9 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
       title: `${product.name} | Flat Earth Equipment`,
       description: product.description || `Buy ${product.name} from Flat Earth Equipment`,
-      alternates: {
-        canonical: `/parts/${params.slug}`,
-      },
+      alternates: generatePageAlternates(`/parts/${params.slug}`),
     };
   }
 
@@ -38,9 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${mdxPost.title} | Flat Earth Equipment`,
       description: mdxPost.description?.slice(0, 160) || 'Quality parts and equipment information.',
       keywords: mdxPost.keywords,
-      alternates: {
-        canonical: `/parts/${params.slug}`,
-      },
+      alternates: generatePageAlternates(`/parts/${params.slug}`),
       openGraph: {
         title: mdxPost.title,
         description: mdxPost.description,

@@ -6,6 +6,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import FSIPChargerCard from "@/components/FSIPChargerCard";
 import FilterChips from "@/components/FilterChips";
 import Pagination from "@/components/Pagination";
+import { generatePageAlternates } from '../seo-defaults';
 
 export const revalidate = 60;
 
@@ -13,9 +14,7 @@ export const metadata = {
   title: "FSIP GREEN Series Battery Chargers | Flat Earth Equipment",
   description:
     "Browse FSIP GREEN Series industrial battery chargers. Filter by family, voltage, and current. Request a quote.",
-  alternates: {
-    canonical: "/chargers"
-  },
+  alternates: generatePageAlternates('/chargers'),
   robots: {
     index: true,
     follow: true,

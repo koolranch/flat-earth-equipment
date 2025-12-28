@@ -10,11 +10,12 @@ import Script from 'next/script';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { getUserLocale } from '@/lib/getUserLocale';
+import { generatePageAlternates } from './seo-defaults';
 
 export const metadata: Metadata = {
   title: 'Flat Earth Equipment | Flat Earth Equipment',
   description: 'Your one-stop shop for high-quality, precision-fit replacement industrial equipment parts and rentals.',
-  alternates: { canonical: '/' }
+  alternates: generatePageAlternates('/')
 };
 
 export const revalidate = 3600;

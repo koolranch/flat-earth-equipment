@@ -16,14 +16,37 @@ export function getCanonicalUrl(pathname: string): string {
 }
 
 /**
+ * Generate proper alternates metadata with:
+ * - Self-referencing canonical URL
+ * - Self-referencing hreflang for en-US (primary locale)
+ * - x-default hreflang pointing to current page
+ * 
+ * This fixes Ahrefs "Missing self-referencing hreflang" errors.
+ * 
+ * @param pathname - The pathname without query string (e.g., '/insights')
+ * @returns Metadata alternates object with canonical and languages
+ */
+export function generatePageAlternates(pathname: string): Metadata['alternates'] {
+  const cleanPath = pathname.startsWith('/') ? pathname : `/${pathname}`;
+  const fullUrl = `${SITE_URL}${cleanPath}`;
+  
+  return {
+    canonical: cleanPath,
+    languages: {
+      'en-US': fullUrl,
+      'x-default': fullUrl,
+    },
+  };
+}
+
+/**
  * Generate metadata with self-referencing canonical URL.
  * Always strips query parameters from the canonical.
+ * @deprecated Use generatePageAlternates instead for proper hreflang support
  */
 export function generateCanonicalMetadata(pathname: string): Pick<Metadata, 'alternates'> {
   return {
-    alternates: {
-      canonical: pathname,
-    },
+    alternates: generatePageAlternates(pathname),
   };
 }
 
