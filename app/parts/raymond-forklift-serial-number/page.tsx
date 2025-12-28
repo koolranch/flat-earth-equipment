@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Raymond Forklift Serial Number Lookup Guide | Flat Earth Equipment",
     description: "Find your Raymond forklift serial number location and decode it. Complete guide to Raymond forklift model identification, parts lookup, and maintenance history.",
-    url: "https://www.flatearthequipment.com/parts/raymond-forklift-serial-number",
+    url: "https://flatearthequipment.com/parts/raymond-forklift-serial-number",
     type: "website",
   },
 };

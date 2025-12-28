@@ -1,5 +1,5 @@
 export default function Head({ params }: { params?: { locale?: 'en' | 'es', slug?: string } }) {
-  const url = 'https://www.flatearthequipment.com'
+  const url = 'https://flatearthequipment.com'
   const currentPath = params?.slug || ''
   const locale = params?.locale || 'en'
   

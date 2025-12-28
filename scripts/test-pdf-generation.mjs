@@ -18,7 +18,7 @@ async function testPdfGeneration() {
     issued_at: '2024-01-15T10:00:00Z',
     expires_at: '2027-01-15T10:00:00Z',
     verification_code: 'ABC123XYZ789',
-    verify_url: 'https://www.flatearthequipment.com/verify/ABC123XYZ789'
+    verify_url: 'https://flatearthequipment.com/verify/ABC123XYZ789'
   };
 
   try {

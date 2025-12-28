@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "How Long Does OSHA Certification Last? | 2025 Complete Guide",
     description: "How long does OSHA certification last? OSHA forklift certification lasts exactly 3 years from training completion. Complete 2025 guide to OSHA certification duration, renewal requirements & compliance.",
-    url: "https://www.flatearthequipment.com/rental/forklifts/how-long-is-forklift-certification-good-for",
+    url: "https://flatearthequipment.com/rental/forklifts/how-long-is-forklift-certification-good-for",
     type: "article",
   },
   other: {
@@ -36,14 +36,14 @@ export default function ForkliftCertificationDurationPage() {
             "author": {
               "@type": "Organization",
               "name": "Flat Earth Equipment",
-              "url": "https://www.flatearthequipment.com"
+              "url": "https://flatearthequipment.com"
             },
             "publisher": {
               "@type": "Organization",
               "name": "Flat Earth Equipment",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://www.flatearthequipment.com/images/logo.png"
+                "url": "https://flatearthequipment.com/images/logo.png"
               }
             },
             "datePublished": "2025-01-01T00:00:00Z",
@@ -98,25 +98,25 @@ export default function ForkliftCertificationDurationPage() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "Home",
-                "item": "https://www.flatearthequipment.com"
+                "item": "https://flatearthequipment.com"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Rental",
-                "item": "https://www.flatearthequipment.com/rental"
+                "item": "https://flatearthequipment.com/rental"
               },
               {
                 "@type": "ListItem",
                 "position": 3,
                 "name": "Forklifts",
-                "item": "https://www.flatearthequipment.com/rental/forklifts"
+                "item": "https://flatearthequipment.com/rental/forklifts"
               },
               {
                 "@type": "ListItem",
                 "position": 4,
                 "name": "How Long Does OSHA Certification Last",
-                "item": "https://www.flatearthequipment.com/rental/forklifts/how-long-is-forklift-certification-good-for"
+                "item": "https://flatearthequipment.com/rental/forklifts/how-long-is-forklift-certification-good-for"
               }
             ]
           })

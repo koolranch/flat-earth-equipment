@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!brand) return { title: 'Brand Not Found' };
   
   const canonical = resolveCanonical(params.slug, 'serial');
-  const fullUrl = `https://www.flatearthequipment.com${canonical}`;
+  const fullUrl = `https://flatearthequipment.com${canonical}`;
   
   return { 
     title: `${brand.name} Serial Number Lookup | Flat Earth Equipment`, 
@@ -57,7 +57,7 @@ export default async function Page({ params, searchParams }: { params: { slug: s
   if (!brand) notFound();
   
   const ipsvcEnabled = process.env.NEXT_PUBLIC_FEATURE_SVC_SUBMISSIONS !== 'false';
-  const url = `https://www.flatearthequipment.com/brand/${brand.slug}/serial-lookup`;
+  const url = `https://flatearthequipment.com/brand/${brand.slug}/serial-lookup`;
   
   // Allow larger list via search param (?notes_limit=50) when you want to see more
   const limit = Math.min(Number(searchParams?.notes_limit) || 10, 100);

@@ -21,7 +21,7 @@ if (!url || !key) throw new Error('Missing env');
 const svc = createClient(url, key);
 
 const N = Number(process.argv[2] || 50);
-const site = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com';
+const site = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com';
 
 console.log(`🔄 Regenerating PDFs for last ${N} certificates...\n`);
 

@@ -17,7 +17,7 @@ export default function SerialToolJsonLd({ brand, url, name }: SerialToolJsonLdP
     'applicationCategory': 'BusinessApplication',
     'operatingSystem': 'Web',
     'offers': { '@type': 'Offer', 'price': 0, 'priceCurrency': 'USD' },
-    'provider': { '@type': 'Organization', 'name': 'Flat Earth Equipment', 'url': 'https://www.flatearthequipment.com' }
+    'provider': { '@type': 'Organization', 'name': 'Flat Earth Equipment', 'url': 'https://flatearthequipment.com' }
   };
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(json) }} />;
 }

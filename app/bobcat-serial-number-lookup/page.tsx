@@ -43,7 +43,7 @@ export default function BobcatLookupPage() {
     "@type": "WebApplication",
     "name": "Bobcat Serial Number Lookup",
     "description": "Free tool to decode Bobcat equipment serial numbers. Identifies module code, production sequence, and provides plate location guidance for all equipment types.",
-    "url": "https://www.flatearthequipment.com/bobcat-serial-number-lookup",
+    "url": "https://flatearthequipment.com/bobcat-serial-number-lookup",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web Browser",
     "offers": {
@@ -54,7 +54,7 @@ export default function BobcatLookupPage() {
     "provider": {
       "@type": "Organization",
       "name": "Flat Earth Equipment",
-      "url": "https://www.flatearthequipment.com"
+      "url": "https://flatearthequipment.com"
     }
   };
 

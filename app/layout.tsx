@@ -97,11 +97,11 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
         {/* SEO: Canonical URL to avoid duplicate content */}
-        <link rel="canonical" href="https://www.flatearthequipment.com" />
+        <link rel="canonical" href="https://flatearthequipment.com" />
         {/* SEO: hreflang tags for international SEO */}
-        <link rel="alternate" hrefLang="en" href="https://www.flatearthequipment.com" />
-        <link rel="alternate" hrefLang="es" href="https://www.flatearthequipment.com" />
-        <link rel="alternate" hrefLang="x-default" href="https://www.flatearthequipment.com" />
+        <link rel="alternate" hrefLang="en" href="https://flatearthequipment.com" />
+        <link rel="alternate" hrefLang="es" href="https://flatearthequipment.com" />
+        <link rel="alternate" hrefLang="x-default" href="https://flatearthequipment.com" />
         {/* Client-side error monitoring */}
         <script src="/monitor.js" async />
         

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Hyster Forklift Serial Number Lookup | Flat Earth Equipment", 
     description: "Decode Hyster serials: model prefix, plant, and year candidates. Free tool with decade filtering.",
-    url: "https://www.flatearthequipment.com/hyster-serial-number-lookup",
+    url: "https://flatearthequipment.com/hyster-serial-number-lookup",
     type: "website",
     images: [
       {

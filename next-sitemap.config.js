@@ -11,11 +11,11 @@ const scaled = loadScale();
 
 /** @type {import('next-sitemap').IConfig} */
 const config = {
-  siteUrl: 'https://www.flatearthequipment.com',
+  siteUrl: 'https://flatearthequipment.com',
   generateRobotsTxt: true,
   alternateRefs: [
-    { href: 'https://www.flatearthequipment.com', hreflang: 'en-US' },
-    { href: 'https://www.flatearthequipment.com/es', hreflang: 'es-US' }
+    { href: 'https://flatearthequipment.com', hreflang: 'en-US' },
+    { href: 'https://flatearthequipment.com/es', hreflang: 'es-US' }
   ],
   transform: async (config, path) => ({
     loc: path,

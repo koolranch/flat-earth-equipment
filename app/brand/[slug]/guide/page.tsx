@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!brand) return { title: 'Brand Not Found' };
   
   const canonical = resolveCanonical(params.slug, 'guide');
-  const fullUrl = `https://www.flatearthequipment.com${canonical}`;
+  const fullUrl = `https://flatearthequipment.com${canonical}`;
   
   return { 
     title: `${brand.name} Service & Serial Guide | Flat Earth Equipment`, 

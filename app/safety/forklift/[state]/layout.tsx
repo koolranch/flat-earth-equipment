@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: { state: string } }
     openGraph: {
       title: `Forklift Certification in ${stateName} | OSHA Compliant Training`,
       description: `Get OSHA-compliant forklift certification in ${stateName}. Online training available 24/7.`,
-      url: `https://www.flatearthequipment.com/safety/forklift/${params.state}`,
+      url: `https://flatearthequipment.com/safety/forklift/${params.state}`,
     },
   }
 }

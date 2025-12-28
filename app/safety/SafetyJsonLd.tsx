@@ -10,7 +10,7 @@ export default function SafetyJsonLd() {
         description="OSHA-compliant PIT theory plus employer sign-off kit."
         provider={{
           name: 'Flat Earth Safety',
-          url: 'https://www.flatearthequipment.com',
+          url: 'https://flatearthequipment.com',
         }}
       />
       <FAQPageJsonLd

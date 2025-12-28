@@ -13,7 +13,7 @@ export default function BrandGuideBlock({ slug, name }: { slug: string; name: st
   // Extract how-to steps for retrieving fault codes
   const retrievalSteps = extractRetrievalSteps(guide.content);
   
-  const url = `https://www.flatearthequipment.com/brand/${slug}/guide`;
+  const url = `https://flatearthequipment.com/brand/${slug}/guide`;
   
   return (
     <section className="mt-8">
