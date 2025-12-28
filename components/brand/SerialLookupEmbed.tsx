@@ -17,19 +17,23 @@ const serialLookupRoutes: Record<string, string> = {
   'crown': '/crown-serial-number-lookup',
   'clark': '/clark-serial-number-lookup',
   'cat': '/cat-serial-number-lookup',
+  'caterpillar': '/cat-serial-number-lookup',
   'doosan': '/doosan-serial-number-lookup',
   'jlg': '/jlg-serial-number-lookup',
   'karcher': '/karcher-serial-number-lookup',
   'factory-cat': '/factory-cat-serial-number-lookup',
+  'factorycat': '/factory-cat-serial-number-lookup',
   'tennant': '/tennant-serial-number-lookup',
   'haulotte': '/haulotte-serial-number-lookup',
   'yale': '/yale-serial-number-lookup',
   'raymond': '/raymond-serial-number-lookup',
   'ep': '/ep-forklift-serial-number-lookup',
+  'ep-equipment': '/ep-forklift-serial-number-lookup',
   'linde': '/linde-forklift-serial-number-lookup',
   'mitsubishi': '/mitsubishi-serial-number-lookup',
   'komatsu': '/komatsu-serial-number-lookup',
   'case': '/case-serial-number-lookup',
+  'case-construction': '/case-serial-number-lookup',
   'new-holland': '/new-holland-serial-number-lookup',
   'takeuchi': '/takeuchi-serial-number-lookup',
   'kubota': '/kubota-serial-number-lookup',
@@ -44,7 +48,8 @@ const serialLookupRoutes: Record<string, string> = {
   'manitou': '/manitou-forklift-serial-number-lookup',
   'unicarriers': '/unicarriers-serial-number-lookup',
   'jcb': '/jcb-serial-number-lookup',
-  'genie': '/genie-serial-number-lookup'
+  'genie': '/genie-serial-number-lookup',
+  'hyundai': '/hyundai-serial-number-lookup'
 };
 
 export default function SerialLookupEmbed({ brandSlug, brandName }: SerialLookupEmbedProps) {
