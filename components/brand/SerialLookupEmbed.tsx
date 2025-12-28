@@ -43,7 +43,8 @@ const serialLookupRoutes: Record<string, string> = {
   'lull': '/lull-serial-number-lookup',
   'manitou': '/manitou-forklift-serial-number-lookup',
   'unicarriers': '/unicarriers-serial-number-lookup',
-  'jcb': '/jcb-serial-number-lookup'
+  'jcb': '/jcb-serial-number-lookup',
+  'genie': '/genie-serial-number-lookup'
 };
 
 export default function SerialLookupEmbed({ brandSlug, brandName }: SerialLookupEmbedProps) {
