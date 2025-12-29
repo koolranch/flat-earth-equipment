@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com';
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com';
 const cdn = (process.env.NEXT_PUBLIC_SUPABASE_URL || '') + '/storage/v1/object/public/' + (process.env.NEXT_PUBLIC_ASSET_BUCKET || 'public-assets');
 
 // Utility pages that should be noindex, nofollow
