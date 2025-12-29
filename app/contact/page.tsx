@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { generatePageAlternates } from '@/app/seo-defaults';
+import EnhancedContactForm from './EnhancedContactForm';
 
 export const metadata: Metadata = {
   title: 'Contact Flat Earth Equipment | Rentals, Service & Training',
@@ -316,92 +317,7 @@ export default function Contact() {
               {/* Enhanced Contact Form */}
               <div>
                 <h2 className="text-2xl font-bold text-slate-900 mb-6">Send Us a Message</h2>
-                <form className="space-y-6" action="https://formspree.io/f/contact@flatearthequipment.com" method="POST">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">Full Name *</label>
-                      <input 
-                        type="text" 
-                        id="name" 
-                        name="name" 
-                        required
-                        className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
-                        placeholder="John Smith"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">Email Address *</label>
-                      <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        required
-                        className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
-                        placeholder="john@company.com"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-2">Phone Number</label>
-                      <input 
-                        type="tel" 
-                        id="phone" 
-                        name="phone"
-                        className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
-                        placeholder="(555) 123-4567"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="zipcode" className="block text-sm font-medium text-slate-700 mb-2">Project Location (Zip Code)</label>
-                      <input 
-                        type="text" 
-                        id="zipcode" 
-                        name="zipcode"
-                        pattern="[0-9]{5}"
-                        maxLength={5}
-                        className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
-                        placeholder="82801"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="reason" className="block text-sm font-medium text-slate-700 mb-2">Reason for Inquiry *</label>
-                    <select 
-                      id="reason" 
-                      name="reason" 
-                      required
-                      className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors bg-white"
-                    >
-                      <option value="">Select a reason...</option>
-                      <option value="rental_quote">Rental Quote</option>
-                      <option value="service_request">Service Request</option>
-                      <option value="training_support">Training Support</option>
-                      <option value="general_question">General Question</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">Message *</label>
-                    <textarea 
-                      id="message" 
-                      name="message" 
-                      rows={5}
-                      required
-                      className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors resize-none"
-                      placeholder="Tell us about your project or question..."
-                    />
-                  </div>
-
-                  <button 
-                    type="submit"
-                    className="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-4 px-6 rounded-lg transition-colors text-lg"
-                  >
-                    Send Message
-                  </button>
-                </form>
+                <EnhancedContactForm />
               </div>
 
               {/* Business Details + Map */}
