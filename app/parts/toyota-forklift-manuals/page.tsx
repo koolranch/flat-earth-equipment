@@ -89,7 +89,7 @@ export default function ToyotaForkliftManualsPage() {
         {/* Primary CTAs */}
         <div className="flex flex-col sm:flex-row gap-4 mb-12">
           <Link
-            href="/support/request-manual?brand=toyota"
+            href="/contact?subject=Manual%20Request%20-%20Toyota"
             className="inline-flex items-center justify-center px-6 py-3 bg-orange-600 text-white font-medium rounded-2xl hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors"
           >
             Request a Manual
@@ -116,7 +116,7 @@ export default function ToyotaForkliftManualsPage() {
             for older or specialized Toyota forklift models.
           </p>
           <Link
-            href="/support/request-manual?brand=toyota"
+            href="/contact?subject=Manual%20Request%20-%20Toyota"
             className="inline-flex items-center px-5 py-3 bg-orange-600 text-white font-medium rounded-2xl hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors"
           >
             Request Your Manual

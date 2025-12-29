@@ -321,7 +321,7 @@ export default function YaleLookupPage() {
                 {/* Action Buttons */}
                 <div className="flex flex-wrap gap-3 pt-4 border-t">
                   <Link 
-                    href="/parts/forklift-parts"
+                    href="/parts?brand=yale"
                     className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
                   >
                     Find Yale Parts
@@ -426,7 +426,7 @@ export default function YaleLookupPage() {
         <div className="bg-white border border-slate-200 rounded-lg p-8 mt-8">
           <h2 className="text-2xl font-bold text-slate-900 mb-6">Related Resources</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Link href="/parts/forklift-parts" className="group">
+            <Link href="/parts?brand=yale" className="group">
               <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 hover:shadow-md transition-all group-hover:border-blue-300">
                 <div className="flex items-center gap-3 mb-3">
                   <Wrench className="h-5 w-5 text-blue-600" />

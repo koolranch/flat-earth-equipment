@@ -64,7 +64,7 @@ export default function JCBTelehandlerBatteryLocation() {
           <span className="text-2xl">🔍</span>
           <span className="text-xs sm:text-sm font-semibold text-center text-slate-800">JCB Serial Lookup</span>
         </Link>
-        <Link href="/diagnostic-codes/jcb-telehandler-fault-codes-list" className="flex flex-col items-center gap-2 p-4 bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 rounded-xl transition-all hover:shadow-md">
+        <Link href="/rental/telehandler/jcb-telehandler-fault-codes-list" className="flex flex-col items-center gap-2 p-4 bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 rounded-xl transition-all hover:shadow-md">
           <span className="text-2xl">📋</span>
           <span className="text-xs sm:text-sm font-semibold text-center text-slate-800">JCB Fault Codes</span>
         </Link>
@@ -293,7 +293,7 @@ export default function JCBTelehandlerBatteryLocation() {
               <div className="text-sm text-slate-600">Identify your telehandler's year and model</div>
             </div>
           </Link>
-          <Link href="/diagnostic-codes/jcb-telehandler-fault-codes-list" className="flex items-start gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-lg transition-all">
+          <Link href="/rental/telehandler/jcb-telehandler-fault-codes-list" className="flex items-start gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-lg transition-all">
             <span className="text-2xl">⚠️</span>
             <div>
               <div className="font-semibold text-slate-900">JCB Fault Codes Database</div>
