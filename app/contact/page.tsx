@@ -108,8 +108,8 @@ const trustBadges = [
 const supportedBrands = [
   { name: 'JLG', initials: 'JLG' },
   { name: 'Genie', initials: 'GENIE' },
-  { name: 'Heli', initials: 'HELI' },
-  { name: 'Hangcha', initials: 'HANGCHA' },
+  { name: 'JCB', initials: 'JCB' },
+  { name: 'Toro', initials: 'TORO' },
 ];
 
 export default function Contact() {
