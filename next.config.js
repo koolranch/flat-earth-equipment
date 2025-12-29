@@ -152,11 +152,11 @@ const baseConfig = {
         destination: '/insights',
         permanent: true
       },
-      // Redirect www to non-www
+      // Redirect non-www to www (canonical domain)
       {
         source: '/:path*',
-        has: [{ type: 'host', value: 'www.flatearthequipment.com' }],
-        destination: 'https://flatearthequipment.com/:path*',
+        has: [{ type: 'host', value: 'flatearthequipment.com' }],
+        destination: 'https://www.flatearthequipment.com/:path*',
         permanent: true
       }
     ];
