@@ -601,7 +601,7 @@ export default function BobcatSerialNumberGuide() {
             Flat Earth Equipment provides Bobcat skid steers, compact track loaders, and excavators for rent across <strong>Wyoming, Montana, Colorado, Arizona, New Mexico, and Texas</strong>. All rentals include verified serial numbers and full documentation.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Link href="/rental" className="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition font-semibold">
+            <Link href="/rent-equipment" className="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition font-semibold">
               🚜 View Equipment Rentals
             </Link>
             <Link href="/quote" className="inline-flex items-center gap-2 bg-white text-green-700 border-2 border-green-600 px-4 py-2 rounded-lg hover:bg-green-50 transition font-semibold">
@@ -691,7 +691,7 @@ export default function BobcatSerialNumberGuide() {
           Flat Earth Equipment provides Bobcat rentals, parts, and service support across <strong>Wyoming, Montana, Colorado, Arizona, New Mexico, and Texas</strong>. Get expert help identifying the right equipment for your project.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <Link href="/rental" className="inline-flex items-center gap-2 bg-red-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-red-700 transition-all shadow-lg">
+          <Link href="/rent-equipment" className="inline-flex items-center gap-2 bg-red-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-red-700 transition-all shadow-lg">
             Browse Equipment Rentals →
           </Link>
           <Link href="/bobcat-serial-number-lookup" className="inline-flex items-center gap-2 bg-white text-slate-900 px-8 py-3 rounded-xl font-bold hover:bg-slate-100 transition-all">

@@ -136,18 +136,18 @@ export default function JcbTelehandlerJoystickControlsPage() {
           <h2 className="text-xl font-semibold mb-4">Related Resources</h2>
           <ul className="list-disc pl-6">
             <li>
-              <Link href="/rental/telehandler/jcb" className="text-blue-600 hover:underline">
-                JCB Telehandler Rentals
+              <Link href="/brand/jcb" className="text-blue-600 hover:underline">
+                JCB Equipment Hub
               </Link>
             </li>
             <li>
-              <Link href="/parts/telehandler-parts/jcb" className="text-blue-600 hover:underline">
+              <Link href="/parts?brand=jcb" className="text-blue-600 hover:underline">
                 JCB Telehandler Parts
               </Link>
             </li>
             <li>
-              <Link href="/service/telehandler-maintenance" className="text-blue-600 hover:underline">
-                Telehandler Maintenance Services
+              <Link href="/parts" className="text-blue-600 hover:underline">
+                All Parts Catalog
               </Link>
             </li>
           </ul>
