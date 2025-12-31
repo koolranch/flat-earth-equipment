@@ -13,6 +13,94 @@ const baseConfig = {
   poweredByHeader: false,
   async redirects() {
     return [
+      // ============================================================
+      // CRITICAL: Domain Canonicalization (301 Permanent)
+      // These MUST be permanent to reclaim backlink authority
+      // ============================================================
+      
+      // Redirect non-www to www (canonical domain) - PERMANENT 301
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'flatearthequipment.com' }],
+        destination: 'https://www.flatearthequipment.com/:path*',
+        permanent: true // 301 - Passes full link equity to www
+      },
+      
+      // ============================================================
+      // LOST BACKLINKS RECOVERY: Safety/Blog → Training Hub
+      // Reclaim authority from old safety and blog content
+      // ============================================================
+      
+      // Old safety training pages → Training revenue hub
+      { source: '/safety-training', destination: '/training/forklift', permanent: true },
+      { source: '/safety-training/:path*', destination: '/training/forklift', permanent: true },
+      { source: '/forklift-safety', destination: '/training/forklift', permanent: true },
+      { source: '/forklift-safety/:path*', destination: '/training/forklift', permanent: true },
+      { source: '/operator-training', destination: '/training/forklift', permanent: true },
+      { source: '/operator-training/:path*', destination: '/training/forklift', permanent: true },
+      { source: '/certification', destination: '/training/forklift', permanent: true },
+      { source: '/certification/:path*', destination: '/training/forklift', permanent: true },
+      { source: '/osha-training', destination: '/training/forklift', permanent: true },
+      { source: '/osha-certification', destination: '/training/forklift', permanent: true },
+      { source: '/forklift-certification', destination: '/training/forklift', permanent: true },
+      { source: '/forklift-license', destination: '/training/forklift', permanent: true },
+      { source: '/blog/forklift-safety', destination: '/training/forklift', permanent: true },
+      { source: '/blog/forklift-safety/:path*', destination: '/training/forklift', permanent: true },
+      { source: '/blog/osha-requirements', destination: '/training/forklift', permanent: true },
+      { source: '/blog/osha-requirements/:path*', destination: '/training/forklift', permanent: true },
+      { source: '/blog/operator-certification', destination: '/training/forklift', permanent: true },
+      { source: '/safety/training', destination: '/training/forklift', permanent: true },
+      { source: '/safety/certification', destination: '/training/forklift', permanent: true },
+      
+      // ============================================================
+      // LOST BACKLINKS RECOVERY: Rental/Equipment → Rent Equipment Hub
+      // Reclaim authority from old rental and equipment listings
+      // ============================================================
+      
+      // Old rental listing pages → Rental revenue hub
+      { source: '/rental', destination: '/rent-equipment', permanent: true },
+      { source: '/rentals', destination: '/rent-equipment', permanent: true },
+      { source: '/equipment-rental', destination: '/rent-equipment', permanent: true },
+      { source: '/equipment-rentals', destination: '/rent-equipment', permanent: true },
+      { source: '/forklift-rental', destination: '/rent-equipment', permanent: true },
+      { source: '/forklift-rentals', destination: '/rent-equipment', permanent: true },
+      { source: '/scissor-lift-rental', destination: '/rent-equipment', permanent: true },
+      { source: '/boom-lift-rental', destination: '/rent-equipment', permanent: true },
+      { source: '/telehandler-rental', destination: '/rent-equipment', permanent: true },
+      { source: '/equipment-for-rent', destination: '/rent-equipment', permanent: true },
+      { source: '/rent', destination: '/rent-equipment', permanent: true },
+      { source: '/rent/:slug', destination: '/rent-equipment', permanent: true },
+      { source: '/equipment-listings', destination: '/rent-equipment', permanent: true },
+      { source: '/equipment-listings/:path*', destination: '/rent-equipment', permanent: true },
+      { source: '/available-equipment', destination: '/rent-equipment', permanent: true },
+      { source: '/fleet', destination: '/rent-equipment', permanent: true },
+      { source: '/fleet/:path*', destination: '/rent-equipment', permanent: true },
+      
+      // ============================================================
+      // LOST BACKLINKS RECOVERY: Contact Variants → Contact Hub
+      // Reclaim authority from old contact page URLs
+      // ============================================================
+      
+      { source: '/contact-us', destination: '/contact', permanent: true },
+      { source: '/contactus', destination: '/contact', permanent: true },
+      { source: '/get-in-touch', destination: '/contact', permanent: true },
+      { source: '/get-quote', destination: '/contact', permanent: true },
+      { source: '/get-a-quote', destination: '/contact', permanent: true },
+      { source: '/quote', destination: '/contact', permanent: true },
+      { source: '/request-quote', destination: '/contact', permanent: true },
+      { source: '/request-a-quote', destination: '/contact', permanent: true },
+      { source: '/inquiry', destination: '/contact', permanent: true },
+      { source: '/inquiries', destination: '/contact', permanent: true },
+      { source: '/support', destination: '/contact', permanent: true },
+      { source: '/support/:path*', destination: '/contact', permanent: true },
+      { source: '/help', destination: '/contact', permanent: true },
+      { source: '/customer-service', destination: '/contact', permanent: true },
+      { source: '/sales', destination: '/contact', permanent: true },
+      
+      // ============================================================
+      // EXISTING REDIRECTS: Charger Modules Consolidation
+      // ============================================================
+      
       // Redirect old charger module product pages to new landing page
       {
         source: '/parts/enersys-forklift-charger-module-6la20671',
@@ -42,6 +130,11 @@ const baseConfig = {
         destination: '/charger-modules',
         permanent: true // 301 redirect - preserves SEO
       },
+      
+      // ============================================================
+      // EXISTING REDIRECTS: Placeholder Insights
+      // ============================================================
+      
       // Redirect additional placeholder insights to canonical targets
       {
         source: '/insights/bozeman-mt',
@@ -144,19 +237,12 @@ const baseConfig = {
       {
         source: '/uncategorized/:slug',
         destination: '/insights/:slug',
-        permanent: true // 308 redirect - preserves SEO and request method
+        permanent: true // 301 redirect - preserves SEO and request method
       },
       // Also redirect the uncategorized index page
       {
         source: '/uncategorized',
         destination: '/insights',
-        permanent: true
-      },
-      // Redirect non-www to www (canonical domain)
-      {
-        source: '/:path*',
-        has: [{ type: 'host', value: 'flatearthequipment.com' }],
-        destination: 'https://www.flatearthequipment.com/:path*',
         permanent: true
       }
     ];

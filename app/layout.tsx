@@ -30,11 +30,24 @@ import SafetyRouteGate from '@/components/safety/SafetyRouteGate';
 
 const inter = Inter({ subsets: ['latin'] });
 
+// CANONICAL DOMAIN: Force all stray backlink authority to www version
+const CANONICAL_DOMAIN = 'https://www.flatearthequipment.com';
+
 export const metadata: Metadata = {
   ...seoDefaults,
+  // Force canonical base URL to www domain for all pages
+  metadataBase: new URL(CANONICAL_DOMAIN),
   // Override with existing specific metadata
   title: "Flat Earth Equipment | Parts & Rentals for Forklifts, Scissor Lifts & More",
   description: "Flat Earth Equipment delivers precision-fit industrial parts and rugged rental equipment — with same-day shipping across the Western U.S.",
+  // Global alternates ensure Google attributes all backlink equity to www
+  alternates: {
+    canonical: CANONICAL_DOMAIN,
+    languages: {
+      'en-US': CANONICAL_DOMAIN,
+      'x-default': CANONICAL_DOMAIN,
+    },
+  },
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
