@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Toyota Forklift E A5-1 Error Code: Diagnosis & Fix Guide",
     description: "Step-by-step troubleshooting for E A5-1 speed control system fault. Expert guidance for Toyota 8FGU25, 8FGU30, and other models.",
     type: "article",
-    url: "https://flatearthequipment.com/diagnostic-codes/e-a5-1-code-on-toyota-forklift-2",
+    url: "https://www.flatearthequipment.com/diagnostic-codes/e-a5-1-code-on-toyota-forklift-2",
   },
 };
 
@@ -132,19 +132,19 @@ export default function EA51ToyotaForkliftPage() {
               "@type": "ListItem",
               "position": 1,
               "name": "Home",
-              "item": "https://flatearthequipment.com"
+              "item": "https://www.flatearthequipment.com"
             },
             {
               "@type": "ListItem",
               "position": 2,
               "name": "Diagnostic Codes",
-              "item": "https://flatearthequipment.com/diagnostic-codes"
+              "item": "https://www.flatearthequipment.com/diagnostic-codes"
             },
             {
               "@type": "ListItem",
               "position": 3,
               "name": "Toyota E A5-1 Code",
-              "item": "https://flatearthequipment.com/diagnostic-codes/e-a5-1-code-on-toyota-forklift-2"
+              "item": "https://www.flatearthequipment.com/diagnostic-codes/e-a5-1-code-on-toyota-forklift-2"
             }
           ]
         })}
