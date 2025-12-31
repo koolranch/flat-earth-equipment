@@ -24,17 +24,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  // Normalize keywords to always be an array
+  const normalizedKeywords = Array.isArray(post.keywords) 
+    ? post.keywords 
+    : (typeof post.keywords === 'string' ? post.keywords.split(',').map(k => k.trim()) : []);
+
   return {
     title: `${post.title} | Flat Earth Equipment`,
     description: post.description?.slice(0, 160) || 'Industry insights and equipment maintenance tips.',
-    keywords: post.keywords,
+    keywords: normalizedKeywords,
     alternates: generatePageAlternates(`/insights/${params.slug}`),
     openGraph: {
       title: post.title,
       description: post.description,
       type: 'article',
       publishedTime: post.date,
-      images: [post.image],
+      ...(post.image && { images: [post.image] }),
     },
   };
 }
@@ -46,11 +51,16 @@ export default async function BlogPost({ params }: Props) {
     notFound();
   }
 
+  // Normalize keywords to always be an array for safe iteration
+  const normalizedKeywords = Array.isArray(post.keywords) 
+    ? post.keywords 
+    : (typeof post.keywords === 'string' ? post.keywords.split(',').map(k => k.trim()) : []);
+
   // Get related posts based on keywords
-  const relatedItems = post.keywords?.map(keyword => ({
+  const relatedItems = normalizedKeywords.map(keyword => ({
     name: keyword,
     href: `/insights?keyword=${encodeURIComponent(keyword)}`
-  })) || [];
+  }));
 
   // Check if this is a forklift charger guide for special treatment
   const isChargerGuide = params.slug === 'complete-guide-forklift-battery-chargers' || 
@@ -224,7 +234,7 @@ export default async function BlogPost({ params }: Props) {
           "description": post.description,
           "image": post.image,
           "datePublished": post.date,
-          "keywords": post.keywords?.join(', ') || '',
+          "keywords": normalizedKeywords.join(', '),
           "author": {
             "@type": "Organization",
             "name": "Flat Earth Equipment"
@@ -234,7 +244,7 @@ export default async function BlogPost({ params }: Props) {
             "name": "Flat Earth Equipment",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://flatearthequipment.com/logo.png"
+              "url": "https://www.flatearthequipment.com/logo.png"
             }
           }
         })}

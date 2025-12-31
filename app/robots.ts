@@ -22,7 +22,7 @@ export default function robots(): MetadataRoute.Robots {
         ]
       }
     ],
-    sitemap: 'https://flatearthequipment.com/sitemap.xml',
-    host: 'https://flatearthequipment.com'
+    sitemap: 'https://www.flatearthequipment.com/sitemap.xml',
+    host: 'https://www.flatearthequipment.com'
   };
 }
