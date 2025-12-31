@@ -15,6 +15,7 @@ import {
   Flame as EnergyIcon,
   Warehouse as LogisticsIcon
 } from 'lucide-react';
+import RelatedResources from '@/components/seo/RelatedResources';
 
 export const metadata: Metadata = {
   title: "Forklift & Equipment Parts in Houston, TX | Flat Earth Equipment",
@@ -387,6 +388,9 @@ export default async function HoustonPage() {
           ]
         })}
       </Script>
+
+      {/* Related Resources - SEO Internal Linking to fix orphaned pages */}
+      <RelatedResources type="location" region="texas" city="houston" />
 
       {/* Final CTA Section */}
       <section className="bg-slate-900 py-16 text-center px-4">

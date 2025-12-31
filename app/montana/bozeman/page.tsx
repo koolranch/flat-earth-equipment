@@ -14,6 +14,7 @@ import {
   Tractor as AgIcon,
   Mountain as ResortIcon
 } from 'lucide-react';
+import RelatedResources from '@/components/seo/RelatedResources';
 
 export const metadata: Metadata = {
   title: "Forklift & Equipment Parts in Bozeman, MT | Flat Earth Equipment",
@@ -372,6 +373,9 @@ export default async function BozemanPage() {
           ]
         })}
       </Script>
+
+      {/* Related Resources - SEO Internal Linking to fix orphaned pages */}
+      <RelatedResources type="location" region="montana" city="bozeman" />
 
       {/* Final CTA Section */}
       <section className="mt-16 bg-slate-900 rounded-lg p-8 text-center max-w-5xl mx-auto px-4">

@@ -15,6 +15,7 @@ import {
   Mountain as MiningIcon,
   Wrench as ServiceIcon
 } from 'lucide-react';
+import RelatedResources from '@/components/seo/RelatedResources';
 
 export const metadata: Metadata = {
   title: "Telehandler & Forklift Parts + Rentals Denver, CO | Fast Delivery",
@@ -546,6 +547,9 @@ export default async function DenverPage() {
           ]
         })}
       </Script>
+
+      {/* Related Resources - SEO Internal Linking to fix orphaned pages */}
+      <RelatedResources type="location" region="colorado" city="denver" />
 
       {/* Final CTA Section */}
       <section className="bg-slate-900 py-16 text-center px-4">
