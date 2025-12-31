@@ -24,10 +24,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  // Normalize keywords to always be an array
-  const normalizedKeywords = Array.isArray(post.keywords) 
-    ? post.keywords 
-    : (typeof post.keywords === 'string' ? post.keywords.split(',').map(k => k.trim()) : []);
+  // Normalize keywords to always be an array (cast to handle MDX string vs array variations)
+  const rawKeywords = post.keywords as string | string[] | undefined;
+  const normalizedKeywords = Array.isArray(rawKeywords) 
+    ? rawKeywords 
+    : (typeof rawKeywords === 'string' ? rawKeywords.split(',').map(k => k.trim()) : []);
 
   return {
     title: `${post.title} | Flat Earth Equipment`,
@@ -51,10 +52,11 @@ export default async function BlogPost({ params }: Props) {
     notFound();
   }
 
-  // Normalize keywords to always be an array for safe iteration
-  const normalizedKeywords = Array.isArray(post.keywords) 
-    ? post.keywords 
-    : (typeof post.keywords === 'string' ? post.keywords.split(',').map(k => k.trim()) : []);
+  // Normalize keywords to always be an array for safe iteration (cast to handle MDX string vs array variations)
+  const rawKeywords = post.keywords as string | string[] | undefined;
+  const normalizedKeywords = Array.isArray(rawKeywords) 
+    ? rawKeywords 
+    : (typeof rawKeywords === 'string' ? rawKeywords.split(',').map(k => k.trim()) : []);
 
   // Get related posts based on keywords
   const relatedItems = normalizedKeywords.map(keyword => ({
