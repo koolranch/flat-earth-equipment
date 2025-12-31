@@ -15,6 +15,7 @@ import {
   Construction as ConstructionIcon,
   Factory as IndustrialIcon
 } from 'lucide-react';
+import RelatedResources from '@/components/seo/RelatedResources';
 
 export const metadata: Metadata = {
   title: "Forklift & Equipment Parts in Dallas-Fort Worth, TX | Flat Earth Equipment",
@@ -349,6 +350,9 @@ export default async function DallasFortWorthPage() {
           ]
         })}
       </Script>
+
+      {/* Related Resources - SEO Internal Linking to fix orphaned pages */}
+      <RelatedResources type="location" region="texas" city="dallas-fort-worth" />
 
       {/* Final CTA Section */}
       <section className="bg-slate-900 py-16 text-center px-4">

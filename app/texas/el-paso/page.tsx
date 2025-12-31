@@ -15,6 +15,7 @@ import {
   Construction as ConstructionIcon,
   Globe as GlobalIcon
 } from 'lucide-react';
+import RelatedResources from '@/components/seo/RelatedResources';
 
 export const metadata: Metadata = {
   title: "Forklift & Equipment Parts in El Paso, TX | Flat Earth Equipment",
@@ -409,6 +410,9 @@ export default async function ElPasoPage() {
           ]
         })}
       </Script>
+
+      {/* Related Resources - SEO Internal Linking to fix orphaned pages */}
+      <RelatedResources type="location" region="texas" city="el-paso" />
 
       {/* Final CTA Section */}
       <section className="mt-16 bg-slate-900 rounded-lg p-8 text-center max-w-5xl mx-auto px-4">

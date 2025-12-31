@@ -15,6 +15,7 @@ import {
   Warehouse as LogisticsIcon,
   Sun as SolarIcon
 } from 'lucide-react';
+import RelatedResources from '@/components/seo/RelatedResources';
 
 export const metadata: Metadata = {
   title: "Forklift & Equipment Parts in Phoenix, AZ | Flat Earth Equipment",
@@ -393,6 +394,9 @@ export default async function PhoenixPage() {
           ]
         })}
       </Script>
+
+      {/* Related Resources - SEO Internal Linking to fix orphaned pages */}
+      <RelatedResources type="location" region="arizona" city="phoenix" />
 
       {/* Final CTA Section */}
       <section className="bg-slate-900 py-16 text-center px-4">

@@ -109,8 +109,11 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://js.stripe.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
-        {/* SEO: Canonical and hreflang handled dynamically per-page via generateMetadata */}
-        {/* Each page sets its own canonical and hreflang via metadata.alternates */}
+        {/* SEO: Global x-default hreflang - tells Google our primary version is www US site */}
+        {/* Individual pages override with self-referencing hreflang via generateMetadata */}
+        <link rel="alternate" hrefLang="x-default" href="https://www.flatearthequipment.com" />
+        <link rel="alternate" hrefLang="en-US" href="https://www.flatearthequipment.com" />
+        
         {/* Client-side error monitoring */}
         <script src="/monitor.js" async />
         

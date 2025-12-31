@@ -5,12 +5,32 @@ import ProductDetails from './ProductDetails';
 import { getBlogPost } from '@/lib/mdx';
 import Link from 'next/link';
 import { generatePageAlternates } from '@/app/seo-defaults';
+import RelatedResources from '@/components/seo/RelatedResources';
 
 type Props = {
   params: {
     slug: string;
   };
 };
+
+/**
+ * Smart truncation for meta descriptions.
+ * Truncates to maxLength without cutting mid-word.
+ * Adds ellipsis if truncated.
+ */
+function truncateDescription(text: string, maxLength: number = 155): string {
+  if (!text || text.length <= maxLength) return text;
+  
+  // Find the last space before maxLength
+  const truncated = text.substring(0, maxLength);
+  const lastSpace = truncated.lastIndexOf(' ');
+  
+  // If no space found, just cut at maxLength
+  if (lastSpace === -1) return truncated;
+  
+  // Cut at the last complete word and add ellipsis
+  return truncated.substring(0, lastSpace) + '...';
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // Try database first
@@ -22,9 +42,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .single();
 
   if (product) {
+    const description = truncateDescription(
+      product.description || `Buy ${product.name} from Flat Earth Equipment. Fast shipping across the Western U.S.`
+    );
     return {
       title: `${product.name} | Flat Earth Equipment`,
-      description: product.description || `Buy ${product.name} from Flat Earth Equipment`,
+      description,
       alternates: generatePageAlternates(`/parts/${params.slug}`),
     };
   }
@@ -33,14 +56,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const mdxPost = await getBlogPost(`parts/${params.slug}`);
   
   if (mdxPost) {
+    const description = truncateDescription(
+      mdxPost.description || 'Quality parts and equipment information.'
+    );
     return {
       title: `${mdxPost.title} | Flat Earth Equipment`,
-      description: mdxPost.description?.slice(0, 160) || 'Quality parts and equipment information.',
+      description,
       keywords: mdxPost.keywords,
       alternates: generatePageAlternates(`/parts/${params.slug}`),
       openGraph: {
         title: mdxPost.title,
-        description: mdxPost.description,
+        description: truncateDescription(mdxPost.description || '', 200), // OG allows 200 chars
         type: 'article',
         publishedTime: mdxPost.date,
       },
@@ -131,6 +157,9 @@ export default async function ProductPage({ params }: Props) {
               </a>
             </div>
           </div>
+          
+          {/* Related Resources - SEO internal linking */}
+          <RelatedResources type="parts" currentSlug={params.slug} />
         </main>
       </div>
     );
