@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabase/server';
+import { supabaseService } from '@/lib/supabase/service.server';
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,10 +13,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const sb = supabaseServer();
+    // Use server client to get authenticated user from cookies
+    const sbAuth = supabaseServer();
     
     // Get current user
-    const { data: { user }, error: userError } = await sb.auth.getUser();
+    const { data: { user }, error: userError } = await sbAuth.auth.getUser();
     
     if (userError || !user) {
       return NextResponse.json(
@@ -26,8 +28,11 @@ export async function POST(req: NextRequest) {
 
     const fullName = `${firstName.trim()} ${lastName.trim()}`;
 
-    // Update profile
-    const { error: profileError } = await sb
+    // Use service role to bypass RLS for profile update
+    const sbAdmin = supabaseService();
+
+    // Update profile using service role (bypasses RLS)
+    const { error: profileError } = await sbAdmin
       .from('profiles')
       .upsert({
         id: user.id,
@@ -45,8 +50,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Update auth user metadata
-    const { error: metadataError } = await sb.auth.admin.updateUserById(
+    // Update auth user metadata using service role
+    const { error: metadataError } = await sbAdmin.auth.admin.updateUserById(
       user.id,
       {
         user_metadata: {
