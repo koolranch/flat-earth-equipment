@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     }
     
     // Generate a login link that we can extract the token from
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com'
     const { data: linkData, error: linkError } = await supabase.auth.admin.generateLink({
       type: 'magiclink',
       email: user.user.email!,

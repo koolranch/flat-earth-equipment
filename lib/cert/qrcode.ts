@@ -60,7 +60,7 @@ export async function qrPngBuffer(url: string, options: {
  * @returns Full verification URL
  */
 export function getVerificationUrl(verificationCode: string, baseUrl?: string): string {
-  const base = baseUrl || process.env.NEXT_PUBLIC_BASE_URL || 'https://flatearthequipment.com';
+  const base = baseUrl || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.flatearthequipment.com';
   return `${base.replace(/\/$/, '')}/verify/${verificationCode}`;
 }
 

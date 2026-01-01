@@ -29,7 +29,7 @@ export async function createTrainingCheckoutSessionFromForm(formData: FormData):
   const seatCount = PRICE_TO_SEATS[priceId] || 1;
   
   // Create Stripe checkout session via API
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com';
   
   const response = await fetch(`${baseUrl}/api/checkout`, {
     method: 'POST',

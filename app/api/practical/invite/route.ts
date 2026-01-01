@@ -51,7 +51,7 @@ export async function POST(req: Request) {
     }
 
     // Generate evaluation link
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://flatearthequipment.com';
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.flatearthequipment.com';
     const evalLink = `${baseUrl}/practical/${enrollment_id}/start`;
 
     // Send email to supervisor
