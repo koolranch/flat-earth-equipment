@@ -16,13 +16,16 @@ const baseConfig = {
       // ============================================================
       // CRITICAL: Domain Canonicalization (301 Permanent)
       // These MUST be permanent to reclaim backlink authority
+      // NOTE: API routes are EXCLUDED to prevent breaking webhooks
+      // (301 redirects change POST to GET, breaking Stripe webhooks)
       // ============================================================
       
       // Redirect non-www to www (canonical domain) - PERMANENT 301
+      // Excludes /api routes to preserve webhook POST requests
       {
-        source: '/:path*',
+        source: '/:path((?!api).*)',
         has: [{ type: 'host', value: 'flatearthequipment.com' }],
-        destination: 'https://www.flatearthequipment.com/:path*',
+        destination: 'https://www.flatearthequipment.com/:path',
         permanent: true // 301 - Passes full link equity to www
       },
       
