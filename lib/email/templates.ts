@@ -1,5 +1,5 @@
 const brand = { name: 'Flat Earth Safety', color: '#F76511' };
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com';
 
 export function pickLocale(l?: string) { 
   return (l === 'es' ? 'es' : 'en'); 

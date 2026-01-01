@@ -98,7 +98,7 @@ export async function POST(req: Request){
       
       // Trigger certificate generation
       try {
-        const certApiUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://flatearthequipment.com'}/api/cert/issue`;
+        const certApiUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.flatearthequipment.com'}/api/cert/issue`;
         const certResponse = await fetch(certApiUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

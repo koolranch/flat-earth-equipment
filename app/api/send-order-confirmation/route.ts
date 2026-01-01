@@ -217,7 +217,7 @@ function getOrderTypeContent(order: OrderData): string {
           </ol>
         </div>
         <div style="margin: 20px 0;">
-          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'}/login" 
+          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com'}/login" 
              style="display: inline-block; background: #059669; color: white; padding: 12px 20px; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: bold;">
             Access Training Dashboard
           </a>

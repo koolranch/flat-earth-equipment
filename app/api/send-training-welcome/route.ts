@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { sendMail } from '@/lib/email/mailer'
 
 function generateTrainerWelcomeEmail(firstName: string, email: string, password: string, courseTitle: string, seatCount: number): string {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com';
   
   return `
     <!DOCTYPE html>
@@ -178,7 +178,7 @@ export async function POST(req: Request) {
           <p style="margin: 5px 0;"><strong>Password:</strong> <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-family: monospace; font-size: 14px;">${password}</code></p>
         </div>
         <div style="margin: 20px 0;">
-          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'}/login" 
+          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com'}/login" 
              style="display: inline-block; background: #059669; color: white; padding: 15px 30px; text-decoration: none; border-radius: 6px; font-size: 16px; font-weight: bold;">
             🚀 Start Training Now
           </a>

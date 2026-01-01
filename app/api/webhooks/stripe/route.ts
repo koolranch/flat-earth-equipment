@@ -70,7 +70,7 @@ export async function POST(req: Request) {
           console.log('✅ Created new user:', user.email)
           
           // Send welcome email with login credentials
-          const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'
+          const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com'
           const quantity = parseInt(session.metadata.quantity || '1')
           
           const emailResponse = await fetch(`${siteUrl}/api/send-training-welcome`, {
@@ -162,7 +162,7 @@ export async function POST(req: Request) {
           
           // Send order confirmation email
           try {
-            const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'
+            const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com'
             const emailResponse = await fetch(`${siteUrl}/api/send-order-confirmation`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -405,7 +405,7 @@ export async function POST(req: Request) {
 
               // Send order confirmation email
               try {
-                const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com'
+                const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com'
                 const emailResponse = await fetch(`${siteUrl}/api/send-order-confirmation`, {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },

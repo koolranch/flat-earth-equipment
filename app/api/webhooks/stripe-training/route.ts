@@ -95,7 +95,7 @@ export async function POST(req: NextRequest) {
       
       if (learnerEmail) {
         // Send learner welcome email
-        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flatearthequipment.com';
+        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com';
         const welcomeTemplate = learnerWelcomeEmail({
           learnerName,
           courseTitle: course.title || 'Forklift Operator Certification',
