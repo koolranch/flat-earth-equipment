@@ -230,6 +230,13 @@ const baseConfig = {
         destination: '/insights',
         permanent: true // Redirect to insights index since article doesn't exist
       },
+      // BACKLINK RECOVERY: DR70+ external site links to this URL (constructionreviewonline.com)
+      // Redirect to relevant live page to capture link equity
+      {
+        source: '/uncategorized/future-green-material-handling',
+        destination: '/insights/future-green-material-handling',
+        permanent: true // 301 - Recovers backlink authority from high-DR referrers
+      },
       {
         source: '/insights/maximizing-forklift-efficiency-maintenance-guide',
         destination: '/insights',
