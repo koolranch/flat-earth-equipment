@@ -15,34 +15,49 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = await getBlogPost(params.slug);
+  try {
+    const post = await getBlogPost(params.slug);
 
-  if (!post) {
+    if (!post) {
+      return {
+        title: 'Post Not Found | Flat Earth Equipment',
+        description: 'The requested post could not be found.',
+      };
+    }
+
+    // Normalize keywords to always be an array (cast to handle MDX string vs array variations)
+    const rawKeywords = post.keywords as string | string[] | undefined;
+    const normalizedKeywords = Array.isArray(rawKeywords) 
+      ? rawKeywords 
+      : (typeof rawKeywords === 'string' ? rawKeywords.split(',').map(k => k.trim()) : []);
+
+    // Safely handle potentially empty or missing fields
+    const title = post.title || 'Industry Insight';
+    const description = (post.description && post.description.length > 0) 
+      ? post.description.slice(0, 160) 
+      : 'Industry insights and equipment maintenance tips from Flat Earth Equipment.';
+
     return {
-      title: 'Post Not Found | Flat Earth Equipment',
-      description: 'The requested post could not be found.',
+      title: `${title} | Flat Earth Equipment`,
+      description,
+      keywords: normalizedKeywords,
+      alternates: generatePageAlternates(`/insights/${params.slug}`),
+      openGraph: {
+        title,
+        description,
+        type: 'article',
+        publishedTime: post.date || new Date().toISOString(),
+        ...(post.image && { images: [post.image] }),
+      },
+    };
+  } catch (error) {
+    // Graceful fallback if metadata generation fails
+    console.error(`Error generating metadata for insight ${params.slug}:`, error);
+    return {
+      title: 'Industry Insight | Flat Earth Equipment',
+      description: 'Industry insights and equipment maintenance tips.',
     };
   }
-
-  // Normalize keywords to always be an array (cast to handle MDX string vs array variations)
-  const rawKeywords = post.keywords as string | string[] | undefined;
-  const normalizedKeywords = Array.isArray(rawKeywords) 
-    ? rawKeywords 
-    : (typeof rawKeywords === 'string' ? rawKeywords.split(',').map(k => k.trim()) : []);
-
-  return {
-    title: `${post.title} | Flat Earth Equipment`,
-    description: post.description?.slice(0, 160) || 'Industry insights and equipment maintenance tips.',
-    keywords: normalizedKeywords,
-    alternates: generatePageAlternates(`/insights/${params.slug}`),
-    openGraph: {
-      title: post.title,
-      description: post.description,
-      type: 'article',
-      publishedTime: post.date,
-      ...(post.image && { images: [post.image] }),
-    },
-  };
 }
 
 export default async function BlogPost({ params }: Props) {

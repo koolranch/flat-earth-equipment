@@ -9,7 +9,7 @@ import PartsLeadForm from '@/components/brand/PartsLeadForm';
 import RecentCommunityNotes from '@/components/brand/RecentCommunityNotes';
 import SubmissionFormV2 from '@/components/brand/SubmissionFormV2';
 import { getBrand } from '@/lib/brands';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 export const dynamic = 'force-static';
 export const dynamicParams = true;
@@ -25,11 +25,23 @@ const BRANDS_WITH_SERIAL_TOOLS = new Set([
   'jcb', 'genie', 'hyundai'
 ]);
 
+// Pre-generate static params for all brands with serial tools (SEO optimization)
+export async function generateStaticParams() {
+  return Array.from(BRANDS_WITH_SERIAL_TOOLS).map((slug) => ({ slug }));
+}
+
 export async function generateMetadata({ params }: { params: { slug: string } }){
   const brand = await getBrand(params.slug);
-  // Return 404 metadata if brand doesn't exist OR doesn't have a serial tool
-  if (!brand || !BRANDS_WITH_SERIAL_TOOLS.has(params.slug)) {
+  // Return minimal metadata if brand doesn't exist (will 404 in page)
+  if (!brand) {
     return { title: 'Brand Not Found' };
+  }
+  // Return redirect metadata if brand doesn't have serial tool (will redirect in page)
+  if (!BRANDS_WITH_SERIAL_TOOLS.has(params.slug)) {
+    return { 
+      title: `${brand.name} | Flat Earth Equipment`,
+      robots: { index: false } // Don't index redirect pages
+    };
   }
   
   const canonical = resolveCanonical(params.slug, 'serial');
@@ -68,8 +80,15 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 export default async function Page({ params, searchParams }: { params: { slug: string }; searchParams?: { notes_limit?: string } }){
   const brand = await getBrand(params.slug);
-  // 404 if brand doesn't exist OR doesn't have a serial tool
-  if (!brand || !BRANDS_WITH_SERIAL_TOOLS.has(params.slug)) notFound();
+  
+  // 404 if brand doesn't exist at all
+  if (!brand) notFound();
+  
+  // Redirect to main brand page if brand exists but doesn't have serial tool
+  // This preserves SEO value from backlinks instead of returning 404
+  if (!BRANDS_WITH_SERIAL_TOOLS.has(params.slug)) {
+    redirect(`/brand/${params.slug}`);
+  }
   
   const ipsvcEnabled = process.env.NEXT_PUBLIC_FEATURE_SVC_SUBMISSIONS !== 'false';
   const url = `https://www.flatearthequipment.com/brand/${brand.slug}/serial-lookup`;
