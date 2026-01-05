@@ -22,10 +22,10 @@ import { ShieldCheck, Truck, Clock, Wrench, ArrowLeft } from 'lucide-react';
 export const dynamic = 'force-static';
 export const dynamicParams = true;
 
-// Map SKU slugs to Stripe product IDs
+// Map SKU slugs to Stripe product IDs (verified via chargerOptions.ts price IDs)
 const SKU_TO_STRIPE_ID: Record<string, { productId: string; moduleIndex: number }> = {
-  'enersys-6LA20671': { productId: 'prod_SQFVwUeeCdWtWc', moduleIndex: 0 },
-  'hawker-6LA20671': { productId: 'prod_SQFWLLgjHjBHBj', moduleIndex: 1 },
+  'enersys-6LA20671': { productId: 'prod_SJfLj8ykMeUVit', moduleIndex: 0 },
+  'hawker-6LA20671': { productId: 'prod_SJfLX5eYSChvS0', moduleIndex: 1 },
 };
 
 export async function generateStaticParams() {

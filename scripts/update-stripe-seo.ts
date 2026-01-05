@@ -55,8 +55,8 @@ interface SkuSeoData {
 
 const skuData: SkuSeoData[] = [
   {
-    // Enersys 6LA20671 - Get actual Stripe Product ID from chargerOptions.ts
-    stripeProductId: 'prod_SQFVwUeeCdWtWc', // You may need to update this
+    // Enersys 6LA20671 - Verified via price_1RQJNjHJI548rO8JKJclmS56
+    stripeProductId: 'prod_SJfLj8ykMeUVit',
     brand: 'Enersys',
     partNumber: '6LA20671',
     metadata: {
@@ -87,8 +87,8 @@ const skuData: SkuSeoData[] = [
     },
   },
   {
-    // Hawker 6LA20671 - Get actual Stripe Product ID from chargerOptions.ts  
-    stripeProductId: 'prod_SQFWLLgjHjBHBj', // You may need to update this
+    // Hawker 6LA20671 - Verified via price_1RQJNjHJI548rO8JFFATEXkd
+    stripeProductId: 'prod_SJfLX5eYSChvS0',
     brand: 'Hawker',
     partNumber: '6LA20671',
     metadata: {
