@@ -78,7 +78,7 @@ export default function CompatibilityHubPage() {
   
   // Group brands by equipment type for better organization
   const scissorLiftBrands = ['JLG', 'Genie', 'Skyjack', 'BT'];
-  const forkliftBrands = ['Toyota', 'Hyster', 'Yale', 'Jungheinrich'];
+  const forkliftBrands = ['Toyota', 'Hyster', 'Yale', 'Jungheinrich', 'Cat'];
   const utilityVehicleBrands = ['EZGO', 'Cushman', 'Taylor-Dunn'];
 
   // Brand stats

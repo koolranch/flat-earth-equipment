@@ -129,6 +129,10 @@ const skuData: SkuSeoData[] = [
       spec_compatibility_list: 'EZGO RXV, EZGO TXT, Taylor-Dunn Bigfoot, Cushman Hauler, Cushman Shuttle',
       spec_oem_refs: 'EZGO 603689, EZGO 9134800E5, Cushman 913-4800-03, Taylor-Dunn 73051-G20',
       
+      // is_complete_system flag for Compatibility Hub
+      is_complete_system: 'true',
+      product_type: 'complete_charger',
+      
       // SKU
       sku: 'DELTAQ-9134800-QUIQ',
     },
@@ -167,6 +171,10 @@ const skuData: SkuSeoData[] = [
       spec_compatibility_list: 'JLG 1930ES, JLG 2030ES, JLG 2630ES, Genie GS-1930, Genie GS-1932, Skyjack SJIII 3219, Skyjack SJIII 3226, BT Levio',
       spec_oem_refs: 'JLG 0270001, JLG 1001129555, Genie 105739, Genie 1319032GT, Skyjack 161827',
       
+      // is_complete_system flag for Compatibility Hub
+      is_complete_system: 'true',
+      product_type: 'complete_charger',
+      
       // SKU
       sku: 'DELTAQ-IC650-940-0001',
     },
@@ -202,7 +210,9 @@ const skuData: SkuSeoData[] = [
       spec_compatibility_list: 'Internal replacement for SPE GREEN6 Cabinets',
       spec_oem_refs: 'SPE 24-279-012, SPE GREEN6-MODULE',
       
-      // Product type indicator
+      // === NEW: is_complete_system flag === 
+      // CRITICAL: This prevents repair modules from being recommended as primary chargers
+      is_complete_system: 'false',
       product_type: 'repair_component',
       
       // SKU
@@ -245,7 +255,9 @@ const skuData: SkuSeoData[] = [
       // Verified OEM Cross-Reference
       spec_compatibility: 'Toyota 57590-32840-71, Hyster 4603626, Yale 524245865, Jungheinrich Industrial',
       
-      // Product type indicator
+      // === NEW: is_complete_system flag === 
+      // TRUE: This is a complete charger system and should be the PRIMARY recommendation
+      is_complete_system: 'true',
       product_type: 'complete_charger',
       
       // Related repair component
