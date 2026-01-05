@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 interface SpecRow {
   label: string;
@@ -13,9 +13,16 @@ interface SpecRow {
 
 interface TechnicalSpecsTableProps {
   title: string;
-  specs: SpecRow[];
+  specs?: SpecRow[];
   showClassComparison?: boolean;
   footnote?: string;
+  /** 
+   * Pass Stripe product metadata to auto-generate specs from spec_* keys.
+   * Takes precedence over `specs` array if provided.
+   */
+  metadata?: Record<string, string | undefined>;
+  /** Pro tip from metadata to display at bottom */
+  proTip?: string;
 }
 
 /**
@@ -30,13 +37,58 @@ interface TechnicalSpecsTableProps {
  * - Single-value mode for modules/chargers
  * - Structured data support
  */
+/**
+ * Extract spec_* keys from metadata and convert to SpecRow format
+ */
+function extractSpecsFromMetadata(metadata: Record<string, string | undefined>): SpecRow[] {
+  const specs: SpecRow[] = [];
+  
+  // Define friendly labels for common spec keys
+  const labelMap: Record<string, string> = {
+    spec_thermal_torque: 'IGBT Mounting Torque',
+    spec_input_fuse: 'Input Fuse (F1)',
+    spec_output_fuse: 'Output Fuse (F2)',
+    spec_igbt_mounting: 'IGBT Mounting Pattern',
+    spec_thermal_pad: 'Thermal Pad Spec',
+    spec_operating_temp: 'Operating Temperature',
+    spec_input_voltage: 'Input Voltage',
+    spec_output_current: 'Max Output Current',
+    spec_efficiency: 'Efficiency Rating',
+    spec_communication: 'Communication Protocol',
+  };
+
+  for (const [key, value] of Object.entries(metadata)) {
+    if (key.startsWith('spec_') && value) {
+      const label = labelMap[key] || key
+        .replace('spec_', '')
+        .split('_')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+      
+      specs.push({ label, value });
+    }
+  }
+
+  return specs;
+}
+
 export default function TechnicalSpecsTable({ 
   title, 
-  specs, 
+  specs: providedSpecs, 
   showClassComparison = false,
-  footnote 
+  footnote,
+  metadata,
+  proTip,
 }: TechnicalSpecsTableProps) {
   const [expanded, setExpanded] = useState(false);
+  
+  // Use metadata-derived specs if provided, otherwise use providedSpecs
+  const specs = useMemo(() => {
+    if (metadata) {
+      return extractSpecsFromMetadata(metadata);
+    }
+    return providedSpecs || [];
+  }, [metadata, providedSpecs]);
   
   // Show first 5 rows collapsed, all when expanded
   const displayedSpecs = expanded ? specs : specs.slice(0, 5);
@@ -112,6 +164,18 @@ export default function TechnicalSpecsTable({
           </div>
         )}
         
+        {proTip && (
+          <div className="px-6 py-4 bg-amber-50 border-t border-amber-200">
+            <div className="flex items-start gap-3">
+              <span className="text-amber-600 text-lg">💡</span>
+              <div>
+                <p className="text-sm font-semibold text-amber-800 mb-1">Pro Tip</p>
+                <p className="text-sm text-amber-700">{proTip}</p>
+              </div>
+            </div>
+          </div>
+        )}
+        
         {footnote && (
           <div className="px-6 py-3 bg-slate-100 border-t text-xs text-slate-600">
             {footnote}
@@ -164,6 +228,18 @@ export default function TechnicalSpecsTable({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
+        </div>
+      )}
+      
+      {proTip && (
+        <div className="px-6 py-4 bg-amber-50 border-t border-amber-200">
+          <div className="flex items-start gap-3">
+            <span className="text-amber-600 text-lg">💡</span>
+            <div>
+              <p className="text-sm font-semibold text-amber-800 mb-1">Pro Tip</p>
+              <p className="text-sm text-amber-700">{proTip}</p>
+            </div>
+          </div>
         </div>
       )}
       
