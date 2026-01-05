@@ -37,7 +37,7 @@ export default function FaqSchema() {
         'name': 'How much does forklift certification cost?',
         'acceptedAnswer': {
           '@type': 'Answer',
-          'text': 'Forklift certification costs between $49-$149 for online training, or $200-$500 for traditional classroom courses. The price difference reflects delivery method—not certification quality—as both satisfy the same OSHA requirements. Online training typically costs $49-$149 and takes 20-45 minutes, while classroom training costs $200-$500 and requires 4-8 hours. Pro Tip: Some employers reimburse certification costs or provide free in-house training—ask about this before paying out-of-pocket.'
+          'text': 'Online forklift certification costs $49 at Flat Earth Safety—significantly less than traditional classroom training at $200-$500. Both methods satisfy the same OSHA 29 CFR 1910.178 requirements, so the price difference reflects delivery convenience, not certification quality. Our $49 certification includes interactive training modules, knowledge assessment, instant certificate download, printable wallet card, and employer evaluation checklist. Pro Tip: Some employers reimburse certification costs—ask your HR department before paying out-of-pocket, as many warehousing and logistics companies cover operator training expenses.'
         }
       },
       {
