@@ -57,13 +57,10 @@ export default function CompatibilityTable({
   productName = 'This Product',
   verifiedDate = 'Jan 2026',
 }: CompatibilityTableProps) {
+  // Parse compatibility string into OEM matches
   const oemMatches = useMemo(() => parseCompatibility(compatibility), [compatibility]);
 
-  if (oemMatches.length === 0) {
-    return null;
-  }
-
-  // Group by brand for cleaner display
+  // Group by brand for cleaner display - must be called before any early returns
   const groupedByBrand = useMemo(() => {
     const groups: Record<string, string[]> = {};
     for (const match of oemMatches) {
@@ -74,6 +71,11 @@ export default function CompatibilityTable({
     }
     return groups;
   }, [oemMatches]);
+
+  // Early return after all hooks are called
+  if (oemMatches.length === 0) {
+    return null;
+  }
 
   return (
     <div className="bg-white rounded-xl shadow-lg border overflow-hidden">
