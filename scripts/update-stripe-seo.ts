@@ -125,6 +125,10 @@ const skuData: SkuSeoData[] = [
       // Verified OEM Cross-Reference (comma-delimited: "Brand PartNumber")
       spec_compatibility: 'EZGO 603689, Cushman 913-4800-03, Taylor-Dunn 73051-G20, EZGO 73051-G20, EZGO 9134800E5',
       
+      // Universal Compatibility Hub - Model/OEM Fitment Data
+      spec_compatibility_list: 'EZGO RXV, EZGO TXT, Taylor-Dunn Bigfoot, Cushman Hauler, Cushman Shuttle',
+      spec_oem_refs: 'EZGO 603689, EZGO 9134800E5, Cushman 913-4800-03, Taylor-Dunn 73051-G20',
+      
       // SKU
       sku: 'DELTAQ-9134800-QUIQ',
     },
@@ -159,42 +163,97 @@ const skuData: SkuSeoData[] = [
       // Verified OEM Cross-Reference (comma-delimited: "Brand PartNumber")
       spec_compatibility: 'Genie 105739, Genie 161827, Genie 1264372GT, Genie 1319032GT, JLG 0270001, JLG 1001129555, Skyjack 161827, Skyjack 228476, BT 7012457',
       
+      // Universal Compatibility Hub - Model/OEM Fitment Data
+      spec_compatibility_list: 'JLG 1930ES, JLG 2030ES, JLG 2630ES, Genie GS-1930, Genie GS-1932, Skyjack SJIII 3219, Skyjack SJIII 3226, BT Levio',
+      spec_oem_refs: 'JLG 0270001, JLG 1001129555, Genie 105739, Genie 1319032GT, Skyjack 161827',
+      
       // SKU
       sku: 'DELTAQ-IC650-940-0001',
     },
   },
   {
-    // SPE GREEN6 48V Module (24-279-012) - Priced at $465.00
+    // SPE GREEN6 48V Power Module (24-279-012) - Repair Part Only - $465.00
     stripeProductId: 'prod_SqjmLeEubqVsMi',
     brand: 'SPE',
-    partNumber: 'GREEN6 48V (24-279-012)',
+    partNumber: 'GREEN6 48V Power Module (24-279-012)',
     metadata: {
       // Technical Specifications
       spec_input_fuse: 'F1: 35A (Input Protection)',
       spec_output_fuse: 'F2: 50A (Output Protection)',
       spec_input_voltage: '380-480 VAC, 3-Phase',
       spec_output_voltage: '48V nominal',
-      spec_output_current: '50-150A (model dependent)',
+      spec_output_current: '50A per module',
       spec_efficiency: '≥94% at full load',
       spec_power_factor: '>0.95 (Active PFC)',
       spec_communication: 'CAN Bus / Modbus optional',
       spec_cooling: 'Forced air, replaceable fan assembly',
       
-      // SEO Content
-      seo_pro_tip: 'If your GREEN6 shows no output, first check fuse F1 (35A input) before assuming module failure. 80% of "dead charger" calls are blown input fuses from voltage spikes. Keep spare 35A fuses on hand for quick field repair.',
-      seo_information_gain: 'SPE GREEN6 chargers use high-frequency switching technology achieving 94%+ efficiency—significantly better than older SCR-based chargers. Lower heat generation extends battery life and reduces facility cooling costs.',
+      // SEO Content - Focus on REPAIR use case
+      seo_pro_tip: 'This power module is an internal replacement component for SPE GREEN6 charger cabinets. If your GREEN6 charger shows no output, first check fuse F1 (35A input) before replacing the module. 80% of "dead charger" calls are blown input fuses.',
+      seo_information_gain: 'The 24-279-012 is a single power stage module—complete GREEN6 chargers use 1-3 modules in parallel. For full forklift charging capability, see our complete GREEN6 48V 150A charger with housing.',
       
       // Fault Codes (pipe-delimited for parsing)
       fault_codes: 'F1 Blown: Input Overvoltage/Surge|F2 Blown: Output Short Circuit|LED Solid Red: AC Phase Loss|LED Flashing: Battery Not Detected|No LED: Check AC Input & F1 Fuse|Thermal Shutdown: Ambient >45°C',
       
-      // Compatibility
-      compatible_chargers: 'SPE GREEN6 48V/50A, GREEN6 48V/100A, GREEN6 48V/150A, Industrial Forklift Chargers',
+      // Compatibility - REPAIR FOCUS ONLY
+      compatible_chargers: 'Internal replacement for SPE GREEN6 Cabinets (50A/100A/150A configurations)',
       
-      // Verified OEM Cross-Reference (comma-delimited: "Brand PartNumber")
-      spec_compatibility: 'Hyster 4603626, Yale 524245865, Jungheinrich Industrial, Hyster/Yale Class I & II Forklifts',
+      // Repurposed for repair focus
+      spec_compatibility_list: 'Internal replacement for SPE GREEN6 Cabinets',
+      spec_oem_refs: 'SPE 24-279-012, SPE GREEN6-MODULE',
+      
+      // Product type indicator
+      product_type: 'repair_component',
       
       // SKU
       sku: '24-279-012',
+    },
+  },
+  {
+    // SPE GREEN6 48V 150A Complete Charger - Industrial Forklifts - HIGH-TICKET SKU
+    stripeProductId: 'prod_TdBtS3QHCKsiFS',
+    brand: 'SPE',
+    partNumber: 'GREEN6 48V 150A (24-GREEN6IP54-48150)',
+    metadata: {
+      // Technical Specifications
+      spec_output: '150A DC (Triple-Module Config)',
+      spec_input: '480VAC 3-Phase Industrial Power',
+      spec_output_voltage: '48V nominal',
+      spec_output_current: '150A max',
+      spec_input_voltage: '480 VAC, 3-Phase',
+      spec_efficiency: '≥94% at full load',
+      spec_power_factor: '>0.95 (Active PFC)',
+      spec_communication: 'CAN Bus / Modbus optional',
+      spec_cooling: 'Forced air, redundant fan assembly',
+      spec_enclosure: 'IP54 Industrial Housing',
+      spec_module_config: 'Triple-module redundant system (3x 50A)',
+      
+      // SEO Content - HIGH VALUE
+      seo_pro_tip: 'For fleet operations, the 150A Green6 is the standard. It utilizes a three-module redundant system, ensuring the forklift stays in service even if one internal power stage requires maintenance.',
+      seo_information_gain: 'The GREEN6 150A uses a triple-module architecture: if one 50A power stage fails, the remaining two modules continue charging at 100A. This redundancy minimizes fleet downtime—no other charger in this class offers this feature.',
+      
+      // Fault Codes (pipe-delimited for parsing)
+      fault_codes: 'F1 Blown: Input Overvoltage/Surge|F2 Blown: Output Short Circuit|LED Solid Red: AC Phase Loss|LED Flashing: Battery Not Detected|No LED: Check AC Input & F1 Fuse|Thermal Shutdown: Ambient >45°C|Module Fault: Redundancy Active (2/3 modules running)',
+      
+      // Compatibility - INDUSTRIAL FORKLIFTS
+      compatible_chargers: 'Toyota Electric Forklifts, Hyster Class I/II, Yale Class I/II, Jungheinrich EFG Series, Cat Electric Forklifts',
+      
+      // Universal Compatibility Hub - FORKLIFT MODEL FITMENT
+      spec_compatibility_list: 'Toyota 8FBCU25, Toyota 7FBE15, Hyster E50XN, Yale ERC050, Jungheinrich EFG Series, Cat F50',
+      spec_oem_refs: 'Toyota 57590-32840-71, Hyster 4603626, Yale 524245865',
+      
+      // Verified OEM Cross-Reference
+      spec_compatibility: 'Toyota 57590-32840-71, Hyster 4603626, Yale 524245865, Jungheinrich Industrial',
+      
+      // Product type indicator
+      product_type: 'complete_charger',
+      
+      // Related repair component
+      related_repair_sku: '24-279-012',
+      related_repair_product_id: 'prod_SqjmLeEubqVsMi',
+      
+      // SKU
+      sku: '24-GREEN6IP54-48150',
     },
   },
   // ==========================================================================
