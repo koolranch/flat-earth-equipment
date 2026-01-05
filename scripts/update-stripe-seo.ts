@@ -118,6 +118,107 @@ const skuData: SkuSeoData[] = [
       sku: 'HAWKER-6LA20671-REMAN',
     },
   },
+  // ==========================================================================
+  // DELTA-Q PRODUCTS - COMMENTED OUT (Not yet in Stripe catalog)
+  // Uncomment and add correct product IDs when these are created in Stripe
+  // ==========================================================================
+  /*
+  {
+    // Delta-Q Quiq 913-4800 - CREATE IN STRIPE FIRST
+    stripeProductId: 'prod_XXXXXX', // TODO: Create product in Stripe
+    brand: 'Delta-Q',
+    partNumber: '913-4800',
+    metadata: {
+      // Technical Specifications
+      spec_algorithm_id: 'Alg 1, 7, 11, 27 (Lead-Acid/AGM)',
+      spec_communication: 'CAN-BUS J1939 enabled',
+      spec_connector: '14-pin signal connector; Pin 1: CAN-H, Pin 2: CAN-L',
+      spec_output_voltage: '48V nominal',
+      spec_output_current: '18A max',
+      spec_input_voltage: '120 VAC, 60 Hz',
+      spec_efficiency: '≥90% at full load',
+      spec_operating_temp: '32°F–104°F (0°C–40°C)',
+      
+      // SEO Content
+      seo_pro_tip: 'If your Quiq charger flashes 1 time repeatedly, check battery voltage with a multimeter—this indicates the pack is below minimum threshold (typically <36V for 48V systems). The charger will not start until voltage recovers above safe levels.',
+      seo_information_gain: 'Delta-Q Quiq chargers use algorithm profiles (ALG-1 to ALG-50+) matched to specific battery chemistries. Using the wrong algorithm can undercharge or damage batteries. We pre-program the correct algorithm for your application.',
+      
+      // Fault Codes (pipe-delimited for parsing)
+      fault_codes: '1 Flash: Low Battery Voltage (<36V)|2 Flashes: High Battery Voltage (>62V)|3 Flashes: Charger Timeout (8hr exceeded)|4 Flashes: Battery Temperature Fault|5 Flashes: Charger Internal Fault|Solid Red: AC Input Fault',
+      
+      // Compatibility
+      compatible_chargers: 'Delta-Q Quiq 48V 18A, Golf Cart (EZGO, Club Car, Yamaha), Scissor Lifts, Floor Scrubbers',
+      
+      // SKU
+      sku: 'DELTAQ-9134800-QUIQ',
+    },
+  },
+  {
+    // Delta-Q IC650 940-0001 - TODO: Verify Stripe Product ID
+    stripeProductId: 'PLACEHOLDER_DELTAQ_IC650', // NEEDS VERIFICATION
+    brand: 'Delta-Q',
+    partNumber: 'IC650 (940-0001)',
+    metadata: {
+      // Technical Specifications
+      spec_mounting: '4x M6 @ 165mm diagonal pattern',
+      spec_firmware: 'ChargeAssist USB compatible (firmware update via laptop)',
+      spec_efficiency: '93.5% Peak Efficiency',
+      spec_output_voltage: '24V nominal (configurable 12-48V)',
+      spec_output_current: '27.1A max',
+      spec_output_power: '650W',
+      spec_input_voltage: '85-265 VAC, 47-63 Hz (universal)',
+      spec_communication: 'CANopen / CAN J1939 optional',
+      spec_ip_rating: 'IP66 (sealed, washdown safe)',
+      
+      // SEO Content
+      seo_pro_tip: 'Error E-0-0-1 on IC650 indicates high input voltage. Verify your AC supply is within 265V max. This commonly occurs when connected to 277V industrial circuits instead of 240V. Use ChargeAssist software to read detailed fault history.',
+      seo_information_gain: 'The IC650 features IP66 sealing making it suitable for outdoor and washdown environments. ChargeAssist USB software allows field-programmable charge profiles—no factory return needed for algorithm changes.',
+      
+      // Fault Codes (pipe-delimited for parsing)
+      fault_codes: 'E-0-0-1: High Input Voltage (>265V)|E-0-0-2: Low Input Voltage (<85V)|E-0-1-0: Output Overcurrent|E-0-2-0: Output Overvoltage|E-1-0-0: Internal Overtemperature|E-2-0-0: Battery Temperature Sensor Fault',
+      
+      // Compatibility
+      compatible_chargers: 'JLG Scissor Lifts, Genie Boom Lifts, Aerial Work Platforms, Material Handling Equipment',
+      
+      // SKU
+      sku: 'DELTAQ-IC650-940-0001',
+    },
+  },
+  */
+  // END DELTA-Q COMMENTED SECTION
+  // ==========================================================================
+  
+  {
+    // SPE GREEN6 48V 150A - Verified in Stripe
+    stripeProductId: 'prod_SqjmLeEubqVsMi',
+    brand: 'SPE',
+    partNumber: 'GREEN6 48V',
+    metadata: {
+      // Technical Specifications
+      spec_input_fuse: 'F1: 35A (Input Protection)',
+      spec_output_fuse: 'F2: 50A (Output Protection)',
+      spec_input_voltage: '380-480 VAC, 3-Phase',
+      spec_output_voltage: '48V nominal',
+      spec_output_current: '50-150A (model dependent)',
+      spec_efficiency: '≥94% at full load',
+      spec_power_factor: '>0.95 (Active PFC)',
+      spec_communication: 'CAN Bus / Modbus optional',
+      spec_cooling: 'Forced air, replaceable fan assembly',
+      
+      // SEO Content
+      seo_pro_tip: 'If your GREEN6 shows no output, first check fuse F1 (35A input) before assuming module failure. 80% of "dead charger" calls are blown input fuses from voltage spikes. Keep spare 35A fuses on hand for quick field repair.',
+      seo_information_gain: 'SPE GREEN6 chargers use high-frequency switching technology achieving 94%+ efficiency—significantly better than older SCR-based chargers. Lower heat generation extends battery life and reduces facility cooling costs.',
+      
+      // Fault Codes (pipe-delimited for parsing)
+      fault_codes: 'F1 Blown: Input Overvoltage/Surge|F2 Blown: Output Short Circuit|LED Solid Red: AC Phase Loss|LED Flashing: Battery Not Detected|No LED: Check AC Input & F1 Fuse|Thermal Shutdown: Ambient >45°C',
+      
+      // Compatibility
+      compatible_chargers: 'SPE GREEN6 48V/50A, GREEN6 48V/100A, GREEN6 48V/150A, Industrial Forklift Chargers',
+      
+      // SKU
+      sku: 'SPE-GREEN6-48V',
+    },
+  },
 ];
 
 // =============================================================================
