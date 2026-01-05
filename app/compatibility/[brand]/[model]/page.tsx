@@ -306,7 +306,7 @@ export default async function CompatibilityPage({ params }: PageProps) {
 
   // Generate Schema.org markup
   const pageUrl = `https://www.flatearthequipment.com/compatibility/${params.brand}/${params.model}`;
-  const schemas = generateEnhancedSchema(machineModel, compatibility, stripeProduct, pageUrl);
+  const schemas = generateEnhancedSchema(machineModel, compatibility || null, stripeProduct, pageUrl);
 
   // Find related models from same brand
   const relatedModels = COMPATIBILITY_DATA.filter(
@@ -597,7 +597,6 @@ export default async function CompatibilityPage({ params }: PageProps) {
                   title={`ITA Class ${defaultForkClass || itaClass} Fork Specifications`}
                   specs={FORK_SPECS}
                   showClassComparison={false}
-                  highlightClass={defaultForkClass || itaClass}
                   footnote={`Specifications per ITA/ISO 2328. All forks verified for ${brandDisplay} ${modelDisplay} carriage dimensions.`}
                 />
 
@@ -736,7 +735,6 @@ export default async function CompatibilityPage({ params }: PageProps) {
                 <TechnicalSpecsTable
                   title={`${product?.productName || 'Charger'} Specs`}
                   metadata={metadata}
-                  compact={true}
                 />
               </section>
             )}
