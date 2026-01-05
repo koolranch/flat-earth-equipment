@@ -47,29 +47,29 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: 'Product Not Found | Flat Earth Equipment' };
   }
 
-  const module = CHARGER_MODULES[skuMapping.moduleIndex];
+  const chargerModule = CHARGER_MODULES[skuMapping.moduleIndex];
   const stripeProduct = await getStripeProduct(skuMapping.productId);
 
   // Use seo_pro_tip from Stripe metadata for description (snippet-optimized)
   const description = stripeProduct?.metadata?.seo_pro_tip 
     ? stripeProduct.metadata.seo_pro_tip.slice(0, 160)
-    : `Buy remanufactured ${module.brand} ${module.partNumber} charger module. 6-month warranty, free shipping. Same-day dispatch available.`;
+    : `Buy remanufactured ${chargerModule.brand} ${chargerModule.partNumber} charger module. 6-month warranty, free shipping. Same-day dispatch available.`;
 
   return {
-    title: `${module.brand} ${module.partNumber} | Forklift Charger Module | Flat Earth Equipment`,
+    title: `${chargerModule.brand} ${chargerModule.partNumber} | Forklift Charger Module | Flat Earth Equipment`,
     description,
     keywords: [
-      `${module.brand.toLowerCase()} charger module`,
-      `${module.partNumber} replacement`,
-      `${module.partNumber} repair`,
+      `${chargerModule.brand.toLowerCase()} charger module`,
+      `${chargerModule.partNumber} replacement`,
+      `${chargerModule.partNumber} repair`,
       'forklift charger module',
-      `${module.brand.toLowerCase()} ${module.partNumber}`,
+      `${chargerModule.brand.toLowerCase()} ${chargerModule.partNumber}`,
       'charger module exchange',
     ],
     openGraph: {
-      title: `${module.brand} ${module.partNumber} Charger Module`,
+      title: `${chargerModule.brand} ${chargerModule.partNumber} Charger Module`,
       description,
-      images: module.imgExchange ? [{ url: module.imgExchange }] : undefined,
+      images: chargerModule.imgExchange ? [{ url: chargerModule.imgExchange }] : undefined,
       type: 'website',
     },
     alternates: {
@@ -89,7 +89,7 @@ export default async function ChargerModuleDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  const module = CHARGER_MODULES[skuMapping.moduleIndex];
+  const chargerModule = CHARGER_MODULES[skuMapping.moduleIndex];
   const stripeProduct = await getStripeProduct(skuMapping.productId);
   const metadata = stripeProduct?.metadata || {};
 
@@ -129,8 +129,8 @@ export default async function ChargerModuleDetailPage({ params }: PageProps) {
           {/* Image */}
           <div className="bg-white rounded-2xl shadow-lg border p-8 flex items-center justify-center">
             <Image
-              src={module.imgExchange}
-              alt={`${module.brand} ${module.partNumber} Charger Module`}
+              src={chargerModule.imgExchange}
+              alt={`${chargerModule.brand} ${chargerModule.partNumber} Charger Module`}
               width={400}
               height={400}
               className="object-contain"
@@ -142,19 +142,19 @@ export default async function ChargerModuleDetailPage({ params }: PageProps) {
           <div className="space-y-6">
             <div>
               <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mb-3">
-                {module.brand}
+                {chargerModule.brand}
               </span>
               <h1 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-2">
-                {module.partNumber} Charger Module
+                {chargerModule.partNumber} Charger Module
               </h1>
               <p className="text-lg text-slate-600">
-                Remanufactured {module.brand} power module with 6-month warranty
+                Remanufactured {chargerModule.brand} power module with 6-month warranty
               </p>
             </div>
 
             {/* Pricing Options */}
             <div className="space-y-4">
-              {module.offers.map((offer, index) => (
+              {chargerModule.offers.map((offer, index) => (
                 <div 
                   key={index}
                   className={`
@@ -176,7 +176,7 @@ export default async function ChargerModuleDetailPage({ params }: PageProps) {
                   )}
                   <QuoteButton 
                     sku={offer.sku}
-                    productName={`${module.brand} ${module.partNumber} (${offer.label})`}
+                    productName={`${chargerModule.brand} ${chargerModule.partNumber} (${offer.label})`}
                   />
                 </div>
               ))}
@@ -216,7 +216,7 @@ export default async function ChargerModuleDetailPage({ params }: PageProps) {
         <section className="mb-12">
           <h2 className="text-2xl font-bold text-slate-900 mb-6">Technical Specifications</h2>
           <TechnicalSpecsTable
-            title={`${module.brand} ${module.partNumber} Specifications`}
+            title={`${chargerModule.brand} ${chargerModule.partNumber} Specifications`}
             metadata={metadata}
             proTip={metadata.seo_pro_tip}
             footnote="Specifications based on standard OEM configuration. Consult documentation for your specific model."
@@ -250,11 +250,11 @@ export default async function ChargerModuleDetailPage({ params }: PageProps) {
           <h2 className="text-2xl font-bold text-slate-900 mb-6">Troubleshooting Guide</h2>
           <ProductSupportFAQ
             faultCodes={metadata.fault_codes}
-            productName={`${module.brand} ${module.partNumber}`}
+            productName={`${chargerModule.brand} ${chargerModule.partNumber}`}
             additionalFaqs={[
               {
-                question: `How long is the warranty on a remanufactured ${module.brand} ${module.partNumber}?`,
-                answer: `All remanufactured ${module.brand} charger modules come with a 6-month warranty covering defects in workmanship. If you experience any issues within the warranty period, we offer free repair or replacement.`,
+                question: `How long is the warranty on a remanufactured ${chargerModule.brand} ${chargerModule.partNumber}?`,
+                answer: `All remanufactured ${chargerModule.brand} charger modules come with a 6-month warranty covering defects in workmanship. If you experience any issues within the warranty period, we offer free repair or replacement.`,
               },
               {
                 question: `What's the difference between "Reman Exchange" and "Repair & Return"?`,
