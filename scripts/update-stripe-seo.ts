@@ -183,10 +183,10 @@ const skuData: SkuSeoData[] = [
     },
   },
   {
-    // SPE GREEN6 48V 150A - Verified in Stripe
+    // SPE GREEN6 48V Module (24-279-012) - Priced at $465.00
     stripeProductId: 'prod_SqjmLeEubqVsMi',
     brand: 'SPE',
-    partNumber: 'GREEN6 48V',
+    partNumber: 'GREEN6 48V (24-279-012)',
     metadata: {
       // Technical Specifications
       spec_input_fuse: 'F1: 35A (Input Protection)',
@@ -210,7 +210,7 @@ const skuData: SkuSeoData[] = [
       compatible_chargers: 'SPE GREEN6 48V/50A, GREEN6 48V/100A, GREEN6 48V/150A, Industrial Forklift Chargers',
       
       // SKU
-      sku: 'SPE-GREEN6-48V',
+      sku: '24-279-012',
     },
   },
 ];
