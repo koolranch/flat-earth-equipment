@@ -175,8 +175,11 @@ export default async function ChargerModuleDetailPage({ params }: PageProps) {
                     <p className="text-sm text-slate-500 mb-3">{offer.coreInfo}</p>
                   )}
                   <QuoteButton 
-                    sku={offer.sku}
-                    productName={`${chargerModule.brand} ${chargerModule.partNumber} (${offer.label})`}
+                    product={{
+                      name: `${chargerModule.brand} ${chargerModule.partNumber} (${offer.label})`,
+                      slug: params.sku,
+                      sku: offer.sku,
+                    }}
                   />
                 </div>
               ))}

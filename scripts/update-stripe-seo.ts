@@ -23,34 +23,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 interface SkuSeoData {
   stripeProductId: string;
-  brand: 'Enersys' | 'Hawker';
+  brand: string;  // 'Enersys' | 'Hawker' | 'Delta-Q' | 'SPE' etc.
   partNumber: string;
-  metadata: {
-    // Technical Specifications (prefix: spec_)
-    spec_thermal_torque: string;
-    spec_input_fuse: string;
-    spec_output_fuse: string;
-    spec_igbt_mounting: string;
-    spec_thermal_pad: string;
-    spec_operating_temp: string;
-    spec_input_voltage: string;
-    spec_output_current: string;
-    spec_efficiency: string;
-    spec_communication: string;
-    
-    // SEO Content
-    seo_pro_tip: string;
-    seo_information_gain: string;
-    
-    // Fault Code Reference
-    fault_codes: string;
-    
-    // Compatibility
-    compatible_chargers: string;
-    
-    // SKU identifier for search
-    sku: string;
-  };
+  metadata: Record<string, string>;  // Flexible metadata for different product types
 }
 
 const skuData: SkuSeoData[] = [
