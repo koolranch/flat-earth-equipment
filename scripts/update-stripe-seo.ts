@@ -119,13 +119,11 @@ const skuData: SkuSeoData[] = [
     },
   },
   // ==========================================================================
-  // DELTA-Q PRODUCTS - COMMENTED OUT (Not yet in Stripe catalog)
-  // Uncomment and add correct product IDs when these are created in Stripe
+  // DELTA-Q PRODUCTS - Created via CLI on 2026-01-04
   // ==========================================================================
-  /*
   {
-    // Delta-Q Quiq 913-4800 - CREATE IN STRIPE FIRST
-    stripeProductId: 'prod_XXXXXX', // TODO: Create product in Stripe
+    // Delta-Q Quiq 913-4800 - Created at $435.00
+    stripeProductId: 'prod_TjW123kj1iHtXV',
     brand: 'Delta-Q',
     partNumber: '913-4800',
     metadata: {
@@ -154,8 +152,8 @@ const skuData: SkuSeoData[] = [
     },
   },
   {
-    // Delta-Q IC650 940-0001 - TODO: Verify Stripe Product ID
-    stripeProductId: 'PLACEHOLDER_DELTAQ_IC650', // NEEDS VERIFICATION
+    // Delta-Q IC650 940-0001 - Created at $599.95
+    stripeProductId: 'prod_TjW1umJ70ouQyJ',
     brand: 'Delta-Q',
     partNumber: 'IC650 (940-0001)',
     metadata: {
@@ -184,10 +182,6 @@ const skuData: SkuSeoData[] = [
       sku: 'DELTAQ-IC650-940-0001',
     },
   },
-  */
-  // END DELTA-Q COMMENTED SECTION
-  // ==========================================================================
-  
   {
     // SPE GREEN6 48V 150A - Verified in Stripe
     stripeProductId: 'prod_SqjmLeEubqVsMi',
