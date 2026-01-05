@@ -508,6 +508,35 @@ export default function EA51ToyotaForkliftPage() {
         </div>
       </div>
 
+      {/* INTERNAL LINK BRIDGE: Authority transfer to priority categories */}
+      <div className="not-prose my-8 bg-gradient-to-br from-orange-50 to-amber-50 border-2 border-orange-200 rounded-xl p-6">
+        <h2 className="text-xl font-bold text-slate-900 mb-2">Keep Your Fleet Running</h2>
+        <p className="text-slate-600 mb-4">Beyond diagnostics—get the parts and training your operation needs.</p>
+        <div className="grid sm:grid-cols-3 gap-4">
+          <Link href="/forks" className="flex items-start gap-3 p-4 bg-white hover:bg-orange-50 border border-orange-200 rounded-lg transition-all group">
+            <span className="text-2xl">🍴</span>
+            <div>
+              <div className="font-semibold text-slate-900 group-hover:text-canyon-rust">Forklift Forks</div>
+              <div className="text-sm text-slate-600">Class II/III/IV ITA forks in stock</div>
+            </div>
+          </Link>
+          <Link href="/charger-modules" className="flex items-start gap-3 p-4 bg-white hover:bg-orange-50 border border-orange-200 rounded-lg transition-all group">
+            <span className="text-2xl">⚡</span>
+            <div>
+              <div className="font-semibold text-slate-900 group-hover:text-canyon-rust">Charger Modules</div>
+              <div className="text-sm text-slate-600">Enersys & Hawker—exchange or repair</div>
+            </div>
+          </Link>
+          <Link href="/safety" className="flex items-start gap-3 p-4 bg-white hover:bg-orange-50 border border-orange-200 rounded-lg transition-all group">
+            <span className="text-2xl">🎓</span>
+            <div>
+              <div className="font-semibold text-slate-900 group-hover:text-canyon-rust">OSHA Training</div>
+              <div className="text-sm text-slate-600">Get certified online—under 30 min</div>
+            </div>
+          </Link>
+        </div>
+      </div>
+
       <div className="prose prose-slate max-w-none">
       <h2>Frequently Asked Questions</h2>
       <p>The E A5-1 code on a Toyota forklift is related to potential issues with the vehicle speed control system. Addressing this issue may require several troubleshooting steps and resets, depending on the forklift model and year.</p>
