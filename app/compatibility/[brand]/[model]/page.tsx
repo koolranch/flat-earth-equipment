@@ -13,6 +13,7 @@ import TechnicalSpecsTable, { FORK_SPECS } from '@/components/seo/TechnicalSpecs
 import ProductSupportFAQ from '@/components/seo/ProductSupportFAQ';
 import CompatibilityTable from '@/components/seo/CompatibilityTable';
 import QuoteButton from '@/components/QuoteButton';
+import VoltageConfirmationWrapper from '@/components/VoltageConfirmationWrapper';
 import { 
   ArrowLeft, 
   ArrowRight, 
@@ -43,8 +44,13 @@ interface MachineModel {
   brand_slug: string;
   ita_class: string | null;
   voltage: number | null;
+  voltage_options: number[] | null;
+  requires_voltage_confirmation: boolean;
   battery_connector: string | null;
   default_fork_class: string | null;
+  standard_fork_class: string | null;
+  primary_charger_sku: string | null;
+  oem_part_numbers: string[] | null;
   equipment_type: string;
   power_type: string | null;
   capacity_lbs: number | null;
@@ -374,7 +380,12 @@ export default async function CompatibilityPage({ params }: PageProps) {
                 <span>{equipmentInfo.icon}</span>
                 {equipmentInfo.label}
               </span>
-              {machineModel?.voltage && (
+              {machineModel?.voltage_options && machineModel.voltage_options.length > 1 ? (
+                <span className="px-3 py-1.5 bg-amber-500/20 border border-amber-500/40 text-amber-300 text-sm font-medium rounded-full flex items-center gap-1.5">
+                  <Battery className="w-4 h-4" />
+                  {machineModel.voltage_options.join('V / ')}V Options
+                </span>
+              ) : machineModel?.voltage && (
                 <span className="px-3 py-1.5 bg-amber-500/20 border border-amber-500/40 text-amber-300 text-sm font-medium rounded-full flex items-center gap-1.5">
                   <Battery className="w-4 h-4" />
                   {machineModel.voltage}V System
@@ -403,7 +414,17 @@ export default async function CompatibilityPage({ params }: PageProps) {
 
             {/* Quick Specs Grid */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              {machineModel?.voltage && (
+              {machineModel?.voltage_options && machineModel.voltage_options.length > 1 ? (
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
+                    <Zap className="w-5 h-5 text-amber-400" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-400">Voltage Options</p>
+                    <p className="font-semibold">{machineModel.voltage_options.join('V / ')}V</p>
+                  </div>
+                </div>
+              ) : machineModel?.voltage && (
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
                     <Zap className="w-5 h-5 text-amber-400" />
@@ -463,6 +484,14 @@ export default async function CompatibilityPage({ params }: PageProps) {
             </div>
           </div>
 
+          {/* Voltage Confirmation Wrapper - locks cart until voltage confirmed for multi-voltage models */}
+          <VoltageConfirmationWrapper
+            brand={brandDisplay}
+            modelName={modelDisplay}
+            voltageOptions={machineModel?.voltage_options || null}
+            requiresVoltageConfirmation={machineModel?.requires_voltage_confirmation || false}
+            currentVoltage={machineModel?.voltage}
+          >
           {product && stripeProduct ? (
             <div className="bg-white rounded-xl shadow-lg border overflow-hidden">
               <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 px-6 py-3 flex items-center justify-between">
@@ -568,6 +597,7 @@ export default async function CompatibilityPage({ params }: PageProps) {
               </Link>
             </div>
           )}
+          </VoltageConfirmationWrapper>
         </section>
 
         {/* === SECTION 2: INTEGRATED FORK FINDER === */}
