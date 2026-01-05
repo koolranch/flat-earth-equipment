@@ -6,6 +6,7 @@ import Script from 'next/script';
 import { CHARGER_MODULES } from '@/constants/chargerOptions';
 import TechnicalSpecsTable from '@/components/seo/TechnicalSpecsTable';
 import ProductSupportFAQ from '@/components/seo/ProductSupportFAQ';
+import CompatibilityTable from '@/components/seo/CompatibilityTable';
 import { 
   getStripeProduct, 
   generateMetaDescription, 
@@ -225,6 +226,18 @@ export default async function ChargerModuleDetailPage({ params }: PageProps) {
             footnote="Specifications based on standard OEM configuration. Consult documentation for your specific model."
           />
         </section>
+
+        {/* OEM Cross-Reference / Verified Fitment Table */}
+        {metadata.spec_compatibility && (
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">OEM Cross-Reference</h2>
+            <CompatibilityTable
+              compatibility={metadata.spec_compatibility}
+              productName={`${chargerModule.brand} ${chargerModule.partNumber}`}
+              verifiedDate="Jan 2026"
+            />
+          </section>
+        )}
 
         {/* Compatible Chargers */}
         {compatibleChargers.length > 0 && (

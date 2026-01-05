@@ -122,6 +122,9 @@ const skuData: SkuSeoData[] = [
       // Compatibility
       compatible_chargers: 'Delta-Q Quiq 48V 18A, Golf Cart (EZGO, Club Car, Yamaha), Scissor Lifts, Floor Scrubbers',
       
+      // Verified OEM Cross-Reference (comma-delimited: "Brand PartNumber")
+      spec_compatibility: 'EZGO 603689, Cushman 913-4800-03, Taylor-Dunn 73051-G20, EZGO 73051-G20, EZGO 9134800E5',
+      
       // SKU
       sku: 'DELTAQ-9134800-QUIQ',
     },
@@ -153,6 +156,9 @@ const skuData: SkuSeoData[] = [
       // Compatibility
       compatible_chargers: 'JLG Scissor Lifts, Genie Boom Lifts, Aerial Work Platforms, Material Handling Equipment',
       
+      // Verified OEM Cross-Reference (comma-delimited: "Brand PartNumber")
+      spec_compatibility: 'Genie 105739, Genie 161827, Genie 1264372GT, Genie 1319032GT, JLG 0270001, JLG 1001129555, Skyjack 161827, Skyjack 228476, BT 7012457',
+      
       // SKU
       sku: 'DELTAQ-IC650-940-0001',
     },
@@ -183,6 +189,9 @@ const skuData: SkuSeoData[] = [
       
       // Compatibility
       compatible_chargers: 'SPE GREEN6 48V/50A, GREEN6 48V/100A, GREEN6 48V/150A, Industrial Forklift Chargers',
+      
+      // Verified OEM Cross-Reference (comma-delimited: "Brand PartNumber")
+      spec_compatibility: 'Hyster 4603626, Yale 524245865, Jungheinrich Industrial, Hyster/Yale Class I & II Forklifts',
       
       // SKU
       sku: '24-279-012',
