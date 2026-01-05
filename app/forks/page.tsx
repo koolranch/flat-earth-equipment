@@ -88,6 +88,29 @@ export default async function ForksPage() {
           block forks, and telehandler-compatible styles.
         </p>
 
+        {/* Find by Model CTA */}
+        <div className="mb-8 bg-gradient-to-r from-purple-600 to-indigo-700 rounded-xl p-6 text-white">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              <div>
+                <h2 className="text-xl font-bold">Know Your Forklift Model?</h2>
+                <p className="text-purple-100">Get verified fork fitment by entering your exact model number.</p>
+              </div>
+            </div>
+            <Link 
+              href="/compatibility"
+              className="px-6 py-3 bg-white text-purple-700 font-bold rounded-lg hover:bg-purple-50 transition-colors whitespace-nowrap"
+            >
+              Find by Model →
+            </Link>
+          </div>
+        </div>
+
         {/* Fork Finder Tool */}
         <div className="mb-16">
           <ForkFinder products={products || []} />

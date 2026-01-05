@@ -455,7 +455,17 @@ export default async function Page({
             <p className="mt-2 text-blue-200/80 text-sm">
               FSIP GREEN Series • Professional Installation • Expert Technical Support
             </p>
-            <div className="mt-8 flex flex-col items-center gap-2 sm:flex-row sm:justify-center">
+            <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+              {/* Find by Model CTA */}
+              <a 
+                href="/compatibility"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-700 font-bold rounded-lg hover:bg-blue-50 transition-colors shadow-lg"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                Find by Forklift Model
+              </a>
               <div className="flex items-center gap-4 text-sm text-blue-200">
                 <span className="flex items-center gap-1">
                   <span className="w-2 h-2 bg-green-400 rounded-full"></span>
