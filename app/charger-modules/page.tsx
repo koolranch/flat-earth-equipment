@@ -7,6 +7,7 @@ import Script from "next/script";
 import Link from "next/link";
 import { Zap, Building2, FileText, TrendingDown, Leaf, Award, DollarSign } from "lucide-react";
 import QuoteButton from "@/components/QuoteButton";
+import TechnicalSpecsTable, { CHARGER_MODULE_SPECS } from "@/components/seo/TechnicalSpecsTable";
 
 export const metadata = {
   title: "Forklift Charger Modules | Enersys & Hawker | Exchange & Repair | Flat Earth Equipment",
@@ -187,6 +188,19 @@ export default function ChargersLanding() {
               </p>
             </div>
           </div>
+        </section>
+
+        {/* Technical Specifications - SEO Information Gain */}
+        <section className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold mb-4 text-slate-900">Technical Specifications</h2>
+          <p className="text-slate-600 mb-6">
+            All remanufactured charger modules are tested to exceed OEM specifications.
+          </p>
+          <TechnicalSpecsTable 
+            title="Enersys/Hawker Charger Module Specifications"
+            specs={CHARGER_MODULE_SPECS}
+            footnote="Specifications vary by model. Contact us for compatibility verification with your specific charger."
+          />
         </section>
 
         {/* FAQ Section */}
