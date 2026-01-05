@@ -5,6 +5,7 @@ import ChargerCard from "@/components/ChargerCard";
 import { type BatteryCharger, parseChargerSpecs } from "@/lib/batteryChargers";
 import ChargerSelectorWithRecommendations from "./ChargerSelectorWithRecommendations";
 import { filterGreen } from "@/lib/greenFilter";
+import ModelFilterBanner from "@/components/ModelFilterBanner";
 
 export const revalidate = 60;
 
@@ -409,6 +410,13 @@ export default async function Page({
       <script 
         type="application/ld+json" 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrganization) }} 
+      />
+
+      {/* Model Filter Banner */}
+      <ModelFilterBanner 
+        productType="chargers"
+        title="Filter Chargers by Equipment Model"
+        description="Find chargers verified to fit your specific forklift or lift"
       />
 
       {/* Breadcrumb Navigation */}

@@ -79,6 +79,7 @@ export default function Navbar({ locale }: Props) {
   const navItems: NavItem[] = [
     { name: 'Rent Equipment', href: '/rent-equipment' },
     { name: 'Parts', href: '/parts' },
+    { name: 'Compatibility', href: '/compatibility' },
     { name: 'Safety', href: '/safety' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
