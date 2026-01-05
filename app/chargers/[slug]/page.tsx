@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import { BuyNowButton } from "@/components/AddToCartButton";
 import QuoteButton from "@/components/QuoteButton";
 import RelatedChargers from "@/components/RelatedChargers";
+import FitmentValidator from "@/components/FitmentValidator";
 
 export const revalidate = 60;
 
@@ -448,6 +449,15 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 💼 <strong>Bulk orders or purchase order?</strong> Get volume pricing and NET-30
                 terms with a custom quote.
               </p>
+            </div>
+
+            {/* Fitment Validator - Compatibility Check */}
+            <div className="mt-6">
+              <FitmentValidator
+                productName={product.name}
+                compatibilityList={product.compatibility_list?.join(', ')}
+                compact
+              />
             </div>
 
             {/* Manual PDF */}

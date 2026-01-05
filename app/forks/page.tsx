@@ -6,6 +6,7 @@ import { supabaseServer } from '@/lib/supabase/server';
 import ForkFinder from "@/components/forks/ForkFinder";
 import ForkSchemaWrapper from "@/components/forks/ForkSchemaWrapper";
 import TechnicalSpecsTable, { FORK_SPECS } from "@/components/seo/TechnicalSpecsTable";
+import ModelFilterBanner from "@/components/ModelFilterBanner";
 
 export const metadata: Metadata = {
   title: "Forklift Forks | Heavy-Duty Material Handling Equipment | Flat Earth Equipment",
@@ -48,6 +49,14 @@ export default async function ForksPage() {
   return (
     <>
       <ForkSchemaWrapper />
+      
+      {/* Model Filter Banner */}
+      <ModelFilterBanner 
+        productType="forks"
+        title="Filter Forks by Equipment Model"
+        description="Find ITA-certified forks verified to fit your specific forklift"
+      />
+      
       {/* Structured Data */}
       <Script id="forks-ld-json" type="application/ld+json">
         {JSON.stringify({

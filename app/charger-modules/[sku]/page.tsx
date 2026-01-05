@@ -14,6 +14,7 @@ import {
   parseCompatibleChargers,
 } from '@/lib/stripe';
 import QuoteButton from '@/components/QuoteButton';
+import FitmentValidator from '@/components/FitmentValidator';
 import { ShieldCheck, Truck, Clock, Wrench, ArrowLeft } from 'lucide-react';
 
 // =============================================================================
@@ -204,6 +205,15 @@ export default async function ChargerModuleDetailPage({ params }: PageProps) {
                 <Wrench className="w-5 h-5 text-purple-600" />
                 <span>Full Load Tested</span>
               </div>
+            </div>
+
+            {/* Fitment Validator */}
+            <div className="pt-4">
+              <FitmentValidator
+                productId={skuMapping.productId}
+                productName={`${chargerModule.brand} ${chargerModule.partNumber}`}
+                compatibilityList={metadata.spec_compatibility_list}
+              />
             </div>
           </div>
         </div>
