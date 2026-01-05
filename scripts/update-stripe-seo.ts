@@ -213,6 +213,76 @@ const skuData: SkuSeoData[] = [
       sku: '24-279-012',
     },
   },
+  // ==========================================================================
+  // PHASE 4: HIGH-MARGIN INDUSTRIAL CHARGERS - Created 2026-01-04
+  // ==========================================================================
+  {
+    // Delta-Q IC1200 (941-0001) - Boom Lifts / Heavy UTV @ $845.00
+    stripeProductId: 'prod_TjW7elhu6zcNxN',
+    brand: 'Delta-Q',
+    partNumber: 'IC1200 (941-0001)',
+    metadata: {
+      // Technical Specifications
+      spec_output_voltage: '24V nominal (configurable 12-48V)',
+      spec_output_current: '50A max',
+      spec_output_power: '1200W',
+      spec_input_voltage: '85-265 VAC, 47-63 Hz (universal)',
+      spec_cooling: 'Active cooling (variable-speed field-replaceable fan)',
+      spec_ingress: 'IP66 (NEMA4) - Sealed against high-pressure water',
+      spec_usb_port: 'USB 2.0 Host Port for firmware/algorithm updates',
+      spec_display: '7-segment LED fault code display',
+      spec_communication: 'CANopen / CAN J1939 optional',
+      
+      // SEO Content
+      seo_pro_tip: 'Use the USB port to download charge cycle data for fleet diagnostics. If the charger is unresponsive, verify the 12V "Wake-up" signal on the auxiliary connector (Pin 3). No wake signal = charger stays in sleep mode.',
+      seo_information_gain: 'The IC1200 USB ChargeAssist feature allows downloading complete charge history including Ah delivered, peak temperatures, and fault events—data that competitors charge $200+ for diagnostic visits to retrieve.',
+      
+      // Fault Codes (7-segment display format)
+      fault_codes: 'F-0-0-1: Low Battery Voltage (<18V)|F-0-0-2: Charge Timeout Exceeded|F-0-2-1: Cooling Fan Blocked/Failed|F-0-0-6: Internal Fault (EEPROM)|F-0-1-0: Output Overcurrent|F-1-0-0: Overtemperature Shutdown',
+      
+      // Compatibility
+      compatible_chargers: 'JLG Boom Lifts (600/800 Series), Genie Z-Series, Skyjack SJIII, Heavy-Duty UTVs, Aerial Work Platforms',
+      
+      // Manual URL (for download CTA)
+      manual_url: 'https://delta-q.com/support/ic-series-manuals/',
+      
+      // SKU
+      sku: 'DELTAQ-IC1200-941-0001',
+    },
+  },
+  {
+    // SPE CBHF2 15-30A - Tennant / Floor Scrubbers @ $550.00
+    stripeProductId: 'prod_TjW7F0AhGnkPBT',
+    brand: 'SPE',
+    partNumber: 'CBHF2 15-30A',
+    metadata: {
+      // Technical Specifications
+      spec_output_voltage: '24V / 36V / 48V (model dependent)',
+      spec_output_current: '15A / 20A / 25A / 30A selectable',
+      spec_input_voltage: '110-240 VAC, 50/60 Hz (auto-ranging)',
+      spec_charging_curve: 'IUoU / IUoP / IUIa selectable via dip-switch',
+      spec_dip_switch: 'Internal 8-position switch for battery chemistry selection (Lead-Acid, AGM, GEL, Li-Ion profiles)',
+      spec_efficiency: '≥91% at full load',
+      spec_cooling: 'Convection cooled (fanless, silent operation)',
+      spec_mounting: 'On-board mounting bracket included',
+      
+      // SEO Content
+      seo_pro_tip: 'Ensure dip-switches match your battery type (Lead-Acid vs AGM) BEFORE installation. Incorrect settings will trigger the "E03" Safety Timer error after 16 hours. Dip-switch positions: SW1-SW4 = chemistry, SW5-SW8 = voltage.',
+      seo_information_gain: 'The CBHF2 fanless design means zero noise during charging—critical for indoor floor scrubbers in hospitals and schools. Most competitors require external ventilation; this unit is fully sealed.',
+      
+      // Fault Codes
+      fault_codes: 'E01: Battery Disconnected (check DC cable)|E02: Output Short Circuit (check battery terminals)|E03: Safety Timer Exceeded (verify dip-switch settings)|E04: High Temperature (improve ventilation)|E05: Low Input Voltage (<90V AC)',
+      
+      // Compatibility
+      compatible_chargers: 'Tennant T3/T5/T7 Floor Scrubbers, Nobles Speed Scrub, IPC Eagle CT Series, Factory Cat Floor Machines',
+      
+      // Manual URL (for download CTA)
+      manual_url: 'https://www.spe-charger.com/downloads/cbhf-manual.pdf',
+      
+      // SKU
+      sku: 'SPE-CBHF2-15-30A',
+    },
+  },
 ];
 
 // =============================================================================

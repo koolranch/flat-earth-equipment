@@ -52,9 +52,26 @@ function extractSpecsFromMetadata(metadata: Record<string, string | undefined>):
     spec_thermal_pad: 'Thermal Pad Spec',
     spec_operating_temp: 'Operating Temperature',
     spec_input_voltage: 'Input Voltage',
+    spec_output_voltage: 'Output Voltage',
     spec_output_current: 'Max Output Current',
+    spec_output_power: 'Output Power',
     spec_efficiency: 'Efficiency Rating',
     spec_communication: 'Communication Protocol',
+    spec_cooling: 'Cooling System',
+    spec_ingress: 'Ingress Protection',
+    spec_usb_port: 'USB Port',
+    spec_display: 'Display Type',
+    spec_mounting: 'Mounting',
+    spec_power_factor: 'Power Factor',
+    // Phase 4 additions
+    spec_charging_curve: 'Charging Algorithm',
+    spec_dip_switch: '⚙️ Configuration', // Special icon for configuration
+  };
+
+  // Define note hints for certain spec types
+  const noteMap: Record<string, string> = {
+    spec_dip_switch: 'Set before installation',
+    spec_charging_curve: 'Battery chemistry dependent',
   };
 
   for (const [key, value] of Object.entries(metadata)) {
@@ -65,7 +82,11 @@ function extractSpecsFromMetadata(metadata: Record<string, string | undefined>):
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
       
-      specs.push({ label, value });
+      specs.push({ 
+        label, 
+        value,
+        note: noteMap[key],
+      });
     }
   }
 
