@@ -332,7 +332,14 @@ const equipmentTypeLabels: Record<string, { label: string; icon: string }> = {
   utility_vehicle: { label: 'Utility Vehicle', icon: '🚗' },
   floor_scrubber: { label: 'Floor Scrubber', icon: '🧹' },
   telehandler: { label: 'Telehandler', icon: '🔧' },
+  compact_loader: { label: 'Compact Utility Loader', icon: '🚜' },
+  skid_steer: { label: 'Skid Steer / Teleskid', icon: '🏗️' },
+  mini_excavator: { label: 'Mini Excavator', icon: '⛏️' },
+  excavator: { label: 'Excavator', icon: '🏗️' },
 };
+
+// Construction equipment types that need Fluids & Filters section
+const CONSTRUCTION_EQUIPMENT_TYPES = ['compact_loader', 'skid_steer', 'mini_excavator', 'excavator', 'telehandler'];
 
 // =============================================================================
 // Page Component

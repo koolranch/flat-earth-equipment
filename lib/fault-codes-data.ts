@@ -342,6 +342,235 @@ export const FAULT_CODES_DATA: Record<string, Record<string, FaultCode[]>> = {
       },
     ],
   },
+  toro: {
+    'dingo-tx-1000': [
+      {
+        code: 'NO CRANK',
+        name: 'Engine Won\'t Crank',
+        description: 'The engine does not crank when the start button is pressed. The starter motor does not engage. This is typically a safety interlock issue.',
+        causes: [
+          'Operator not seated (seat interlock open)',
+          'Control handles not in neutral (handle interlock open)',
+          'Seat switch failure or misadjustment',
+          'Handle interlock switch failure',
+          'Neutral safety switch failure',
+          'Low battery voltage',
+        ],
+        solutions: [
+          'Verify operator is seated firmly on the seat',
+          'Ensure both control handles are in the neutral (centered) position',
+          'Check seat switch wiring and mounting - adjust if seat is not fully depressing switch',
+          'Test handle interlock switches for continuity when handles are centered',
+          'Check battery voltage (should be 12.6V+ for starting)',
+          'Bypass seat/handle switches temporarily to isolate faulty interlock',
+          'Replace faulty interlock switch if identified',
+        ],
+        relatedParts: [
+          { name: 'Hydraulic Filter', sku: '120-0255' },
+          { name: 'Track Tensioner Assembly', sku: '131-4131' },
+        ],
+        severity: 'high',
+      },
+      {
+        code: 'LOW HYD',
+        name: 'Low Hydraulic Pressure',
+        description: 'The hydraulic system is not generating sufficient pressure. Attachments may move slowly or not at all.',
+        causes: [
+          'Low hydraulic fluid level',
+          'Clogged hydraulic filter',
+          'Hydraulic pump wear or failure',
+          'Internal leak in hydraulic system',
+          'Relief valve stuck or misadjusted',
+        ],
+        solutions: [
+          'Check hydraulic fluid level in reservoir - top off if low',
+          'Replace hydraulic filter (PN: 120-0255) if overdue or clogged',
+          'Check for external hydraulic leaks at hoses and fittings',
+          'Test hydraulic pump pressure at test port',
+          'Verify relief valve setting per service manual',
+        ],
+        relatedParts: [
+          { name: 'Hydraulic Filter', sku: '120-0255' },
+        ],
+        severity: 'medium',
+      },
+    ],
+    'dingo-tx-525': [
+      {
+        code: 'NO CRANK',
+        name: 'Engine Won\'t Crank',
+        description: 'The engine does not crank when the start button is pressed. The starter motor does not engage. This is typically a safety interlock issue.',
+        causes: [
+          'Operator not seated (seat interlock open)',
+          'Control handles not in neutral (handle interlock open)',
+          'Seat switch failure or misadjustment',
+          'Handle interlock switch failure',
+          'Low battery voltage',
+        ],
+        solutions: [
+          'Verify operator is seated firmly on the seat',
+          'Ensure both control handles are in the neutral (centered) position',
+          'Check seat switch wiring and mounting',
+          'Test handle interlock switches for continuity when handles are centered',
+          'Check battery voltage (should be 12.6V+ for starting)',
+          'Replace faulty interlock switch if identified',
+        ],
+        relatedParts: [
+          { name: 'Hydraulic Filter', sku: '120-0255' },
+        ],
+        severity: 'high',
+      },
+    ],
+    'dingo-tx-427': [
+      {
+        code: 'NO CRANK',
+        name: 'Engine Won\'t Crank',
+        description: 'The engine does not crank when the start button is pressed. The starter motor does not engage. This is typically a safety interlock issue.',
+        causes: [
+          'Operator not seated (seat interlock open)',
+          'Control handles not in neutral (handle interlock open)',
+          'Seat switch failure or misadjustment',
+          'Handle interlock switch failure',
+          'Low battery voltage',
+        ],
+        solutions: [
+          'Verify operator is seated firmly on the seat',
+          'Ensure both control handles are in the neutral (centered) position',
+          'Check seat switch wiring and mounting',
+          'Test handle interlock switches for continuity when handles are centered',
+          'Check battery voltage (should be 12.6V+ for starting)',
+          'Replace faulty interlock switch if identified',
+        ],
+        relatedParts: [
+          { name: 'Hydraulic Filter', sku: '120-0255' },
+        ],
+        severity: 'high',
+      },
+    ],
+  },
+  jcb: {
+    '507-42': [
+      {
+        code: 'TRANS DIS',
+        name: 'Transmission Disconnect Error',
+        description: 'The transmission has disengaged or the controller has detected a disconnect condition. The machine may not move or may be stuck in neutral.',
+        causes: [
+          'Neutral cutout switch failure or misadjustment',
+          'Transmission controller communication fault',
+          'Clutch pack pressure sensor issue',
+          'Low transmission fluid level',
+          'Wiring harness damage to transmission controller',
+        ],
+        solutions: [
+          'Check the Neutral cutout switch for proper operation and adjustment',
+          'Verify transmission fluid level - top off if low',
+          'Inspect wiring to transmission controller for damage or corrosion',
+          'Check clutch pack pressure with diagnostic tool',
+          'Test neutral cutout switch continuity in all positions',
+          'Replace neutral cutout switch if faulty',
+        ],
+        relatedParts: [
+          { name: 'Engine Oil Filter', sku: '320/04133' },
+          { name: 'Joystick Controller', sku: '332/K4645' },
+        ],
+        severity: 'high',
+      },
+      {
+        code: 'ENG OIL',
+        name: 'Engine Oil Pressure Low',
+        description: 'The engine oil pressure has dropped below the safe operating threshold. Engine power may be reduced to protect internals.',
+        causes: [
+          'Low engine oil level',
+          'Clogged oil filter',
+          'Oil pressure sensor failure',
+          'Oil pump wear',
+          'Wrong oil viscosity for ambient temperature',
+        ],
+        solutions: [
+          'Check engine oil level immediately - top off if low',
+          'Replace engine oil filter (PN: 320/04133)',
+          'Verify correct oil viscosity for operating conditions',
+          'Test oil pressure at gauge port if available',
+          'Check oil pressure sensor wiring and connector',
+        ],
+        relatedParts: [
+          { name: 'Engine Oil Filter', sku: '320/04133' },
+        ],
+        severity: 'high',
+      },
+    ],
+    '3ts-8t': [
+      {
+        code: 'TRANS DIS',
+        name: 'Transmission Disconnect Error',
+        description: 'The transmission has disengaged or the controller has detected a disconnect condition. The machine may not move.',
+        causes: [
+          'Neutral cutout switch failure',
+          'Transmission controller fault',
+          'Low transmission fluid',
+          'Wiring harness issue',
+        ],
+        solutions: [
+          'Check the Neutral cutout switch for proper operation',
+          'Verify transmission fluid level',
+          'Inspect wiring to transmission controller',
+          'Replace neutral cutout switch if faulty',
+        ],
+        relatedParts: [
+          { name: 'Engine Oil Filter', sku: '320/04133' },
+        ],
+        severity: 'high',
+      },
+    ],
+    '19c-1': [
+      {
+        code: 'FUEL SYS',
+        name: 'Fuel System Fault',
+        description: 'The fuel system has detected an issue. The engine may run rough, lose power, or fail to start.',
+        causes: [
+          'Clogged fuel filter',
+          'Air in fuel system',
+          'Fuel pump failure',
+          'Contaminated fuel',
+          'Fuel injector issue',
+        ],
+        solutions: [
+          'Replace fuel filter (PN: 32/925915) - primary troubleshooting step',
+          'Bleed air from fuel system per service manual procedure',
+          'Check fuel tank for water or contamination',
+          'Verify fuel pump is priming (listen for pump sound at key-on)',
+          'Inspect fuel lines for cracks or leaks',
+        ],
+        relatedParts: [
+          { name: 'Fuel Filter', sku: '32/925915' },
+          { name: 'Bucket Pin Kit', sku: 'JCB-PIN-01' },
+        ],
+        severity: 'medium',
+      },
+      {
+        code: 'BUCKET',
+        name: 'Bucket Attachment Loose',
+        description: 'The bucket attachment pins may be worn, causing excessive play or safety concerns.',
+        causes: [
+          'Worn bucket pins',
+          'Worn bushings in bucket ears',
+          'Missing or broken pin retainers',
+          'Impact damage to attachment point',
+        ],
+        solutions: [
+          'Inspect bucket pins for wear (replace if grooved or undersized)',
+          'Check bushings in bucket attachment ears',
+          'Verify pin retainers are installed and secure',
+          'Replace Bucket Pin Kit (PN: JCB-PIN-01) if wear is excessive',
+          'Grease attachment points per maintenance schedule',
+        ],
+        relatedParts: [
+          { name: 'Bucket Pin Kit', sku: 'JCB-PIN-01' },
+        ],
+        severity: 'medium',
+      },
+    ],
+  },
 };
 
 // Helper function to get fault codes for a specific brand/model

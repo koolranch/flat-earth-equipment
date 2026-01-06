@@ -184,6 +184,50 @@ async function searchOEMSpecs(part: OEMPartInput): Promise<ScrapedSpecs | null> 
       description: '48V main contactor solenoid. Heavy-duty silver contacts.',
       sourceUrl: 'https://cushman.com/parts/612884',
     },
+    // Toro Dingo Parts
+    '120-0255': {
+      weight_lbs: 0.8,
+      dimensions: '5" x 3" diameter',
+      compatibilityTags: ['Toro Dingo TX 1000', 'Toro Dingo TX 525', 'Toro Dingo TX 427'],
+      description: '10-micron hydraulic filter for Toro Dingo compact loaders. Replace every 500 hours.',
+      sourceUrl: 'https://toro.com/parts/120-0255',
+    },
+    '131-4131': {
+      weight_lbs: 12.5,
+      dimensions: '18" x 6" x 4"',
+      compatibilityTags: ['Toro Dingo TX 1000', 'Toro Dingo TX 525', 'Toro Dingo TX 427'],
+      description: 'Track tensioner assembly with spring and adjustment hardware.',
+      sourceUrl: 'https://toro.com/parts/131-4131',
+    },
+    // JCB Parts
+    '320/04133': {
+      weight_lbs: 0.9,
+      dimensions: '5" x 3.5" diameter',
+      compatibilityTags: ['JCB 507-42', 'JCB 3TS-8T', 'JCB Loadall'],
+      description: 'Engine oil filter for JCB Tier 4 Final diesel engines.',
+      sourceUrl: 'https://jcb.com/parts/320-04133',
+    },
+    '332/K4645': {
+      weight_lbs: 2.2,
+      dimensions: '7" x 5" x 3"',
+      compatibilityTags: ['JCB 507-42', 'JCB Loadall Series'],
+      description: 'Proportional joystick controller for boom and aux functions.',
+      sourceUrl: 'https://jcb.com/parts/332-K4645',
+    },
+    '32/925915': {
+      weight_lbs: 0.6,
+      dimensions: '4" x 2.5" diameter',
+      compatibilityTags: ['JCB 19C-1', 'JCB 8025 ZTS', 'JCB Compact Excavators'],
+      description: 'Fuel filter with water separator. Replace every 500 hours.',
+      sourceUrl: 'https://jcb.com/parts/32-925915',
+    },
+    'JCB-PIN-01': {
+      weight_lbs: 3.5,
+      dimensions: '12" x 4" x 4"',
+      compatibilityTags: ['JCB 19C-1', 'JCB 8025 ZTS'],
+      description: 'Bucket pin kit with hardened pins, bushings, and retainers.',
+      sourceUrl: 'https://jcb.com/parts/bucket-pins',
+    },
   };
 
   return mockResults[part.oemPartNumber] || null;
@@ -382,6 +426,45 @@ const OEM_PARTS: OEMPartInput[] = [
     brand: 'Cushman',
     machineModel: 'Cushman Hauler',
     category: 'Main Contactor Solenoid',
+  },
+  // Toro Dingo TX Series
+  {
+    oemPartNumber: '120-0255',
+    brand: 'Toro',
+    machineModel: 'Toro Dingo TX 1000',
+    category: 'Hydraulic Filter',
+  },
+  {
+    oemPartNumber: '131-4131',
+    brand: 'Toro',
+    machineModel: 'Toro Dingo TX 1000',
+    category: 'Track Tensioner Assembly',
+  },
+  // JCB 507-42 Telehandler
+  {
+    oemPartNumber: '320/04133',
+    brand: 'JCB',
+    machineModel: 'JCB 507-42',
+    category: 'Engine Oil Filter',
+  },
+  {
+    oemPartNumber: '332/K4645',
+    brand: 'JCB',
+    machineModel: 'JCB 507-42',
+    category: 'Joystick Controller',
+  },
+  // JCB 19C-1 Mini Excavator
+  {
+    oemPartNumber: '32/925915',
+    brand: 'JCB',
+    machineModel: 'JCB 19C-1',
+    category: 'Fuel Filter',
+  },
+  {
+    oemPartNumber: 'JCB-PIN-01',
+    brand: 'JCB',
+    machineModel: 'JCB 19C-1',
+    category: 'Bucket Pin Kit',
   },
 ];
 
