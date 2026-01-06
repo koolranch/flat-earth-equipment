@@ -14,6 +14,7 @@ import ProductSupportFAQ from '@/components/seo/ProductSupportFAQ';
 import CompatibilityTable from '@/components/seo/CompatibilityTable';
 import QuoteButton from '@/components/QuoteButton';
 import VoltageConfirmationWrapper from '@/components/VoltageConfirmationWrapper';
+import OEMPartsSection from '@/components/OEMPartsSection';
 import { 
   ArrowLeft, 
   ArrowRight, 
@@ -131,6 +132,43 @@ async function getMachineModel(brandSlug: string, modelSlug: string): Promise<Ma
     return data as MachineModel;
   } catch {
     return null;
+  }
+}
+
+// Fetch OEM parts for the model (quote_only items)
+interface OEMPart {
+  id: string;
+  name: string;
+  sku: string;
+  oem_reference: string | null;
+  brand: string;
+  category: string;
+  description: string;
+  sales_type: 'direct' | 'quote_only';
+  is_in_stock: boolean;
+  price_cents: number | null;
+}
+
+async function getOEMPartsForModel(brandSlug: string, modelSlug: string): Promise<OEMPart[]> {
+  try {
+    const supabase = supabaseServer();
+    const modelKey = `${brandSlug}-${modelSlug}`.toLowerCase();
+    
+    const { data, error } = await supabase
+      .from('parts')
+      .select('id, name, sku, oem_reference, brand, category, description, sales_type, is_in_stock, price_cents')
+      .contains('compatible_models', [modelKey])
+      .order('category', { ascending: true })
+      .order('name', { ascending: true });
+    
+    if (error) {
+      console.error('Error fetching OEM parts:', error);
+      return [];
+    }
+    
+    return (data || []) as OEMPart[];
+  } catch {
+    return [];
   }
 }
 
@@ -309,6 +347,9 @@ export default async function CompatibilityPage({ params }: PageProps) {
   // Fetch repair module if exists
   const repairModuleId = machineModel?.repair_module_id || compatibility?.repairComponents?.[0]?.stripeProductId;
   const repairModule = repairModuleId ? await getStripeProduct(repairModuleId) : null;
+
+  // Fetch OEM parts for this model (quote_only items)
+  const oemParts = await getOEMPartsForModel(params.brand, params.model);
 
   // Generate Schema.org markup
   const pageUrl = `https://www.flatearthequipment.com/compatibility/${params.brand}/${params.model}`;
@@ -709,7 +750,16 @@ export default async function CompatibilityPage({ params }: PageProps) {
           </section>
         )}
 
-        {/* === SECTION 4: REPAIR COMPONENTS === */}
+        {/* === SECTION 4: COMMON WEAR PARTS (OEM) === */}
+        {oemParts.length > 0 && (
+          <OEMPartsSection
+            parts={oemParts}
+            machineBrand={brandDisplay}
+            machineModel={modelDisplay}
+          />
+        )}
+
+        {/* === SECTION 5: REPAIR COMPONENTS === */}
         {(repairModule || compatibility?.repairComponents?.length) && (
           <section className="mb-12">
             <div className="flex items-center gap-3 mb-6">
