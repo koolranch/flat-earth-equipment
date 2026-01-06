@@ -460,6 +460,16 @@ export default async function CompatibilityPage({ params }: PageProps) {
                   ITA Class {itaClass}
                 </span>
               )}
+              {/* SSQA Badge for Skid Steers and Compact Loaders */}
+              {(equipmentType === 'skid_steer' || equipmentType === 'compact_loader') && (
+                <Link 
+                  href="/forks?class=II"
+                  className="px-3 py-1.5 bg-orange-500/20 border border-orange-500/40 text-orange-300 text-sm font-bold rounded-full flex items-center gap-1.5 hover:bg-orange-500/30 transition-colors"
+                >
+                  <Box className="w-4 h-4" />
+                  SSQA Compatible
+                </Link>
+              )}
             </div>
 
             {/* Title */}
@@ -712,8 +722,87 @@ export default async function CompatibilityPage({ params }: PageProps) {
           </section>
         )}
 
-        {/* === SECTION 3: ATTACHMENT FINDER PLACEHOLDER === */}
-        {itaClass && itaClass !== 'N/A' && machineModel?.capacity_lbs && (
+        {/* === SECTION 3A: SSQA ATTACHMENTS FOR LOADERS === */}
+        {(equipmentType === 'skid_steer' || equipmentType === 'compact_loader') && (
+          <section className="mb-12">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                <Box className="w-5 h-5 text-orange-600" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-slate-900">SSQA Compatible Attachments</h2>
+                <p className="text-slate-600">Quick-attach forks and buckets for {modelDisplay}</p>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl border border-orange-200 p-6">
+              {/* SSQA Badge Hero */}
+              <div className="bg-gradient-to-r from-orange-600 to-amber-600 rounded-lg p-4 mb-6 text-white">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+                    <Box className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg">Skid Steer Quick Attach (SSQA) Compatible</h3>
+                    <p className="text-orange-100 text-sm">
+                      Universal quick-attach mounting system — swap attachments in under 30 seconds
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                <Link
+                  href="/forks?class=II"
+                  className="bg-white rounded-lg p-4 border border-orange-200 hover:border-orange-400 hover:shadow-md transition-all group"
+                >
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center text-lg group-hover:bg-orange-200 transition-colors">🔱</div>
+                    <span className="font-semibold text-slate-900">Pallet Forks (Class II)</span>
+                  </div>
+                  <p className="text-sm text-slate-600 mb-2">
+                    Heavy-duty forged tines with SSQA backplate
+                  </p>
+                  <span className="text-orange-600 text-sm font-medium group-hover:underline">Browse Forks →</span>
+                </Link>
+                <div className="bg-white rounded-lg p-4 border border-orange-200">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center text-lg">🪣</div>
+                    <span className="font-semibold text-slate-900">Buckets</span>
+                  </div>
+                  <p className="text-sm text-slate-600">
+                    GP, tooth, low-profile, and 4-in-1 buckets
+                  </p>
+                </div>
+                <div className="bg-white rounded-lg p-4 border border-orange-200">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center text-lg">🔨</div>
+                    <span className="font-semibold text-slate-900">Breakers & Augers</span>
+                  </div>
+                  <p className="text-sm text-slate-600">
+                    Hydraulic breakers, post hole augers
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between bg-white/50 rounded-lg p-4 border border-orange-300">
+                <div>
+                  <p className="font-semibold text-orange-900">Need a specific SSQA attachment?</p>
+                  <p className="text-sm text-orange-800">We can verify fitment and source any SSQA-compatible tool.</p>
+                </div>
+                <Link
+                  href="/quote"
+                  className="px-4 py-2 bg-orange-600 text-white font-medium rounded-lg hover:bg-orange-700 transition-colors whitespace-nowrap"
+                >
+                  Request Quote
+                </Link>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* === SECTION 3B: ATTACHMENT FINDER FOR FORKLIFTS === */}
+        {itaClass && itaClass !== 'N/A' && itaClass !== 'Construction' && machineModel?.capacity_lbs && (
           <section className="mb-12">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
