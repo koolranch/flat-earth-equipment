@@ -154,18 +154,11 @@ async function searchOEMSpecs(part: OEMPartInput): Promise<ScrapedSpecs | null> 
       sourceUrl: 'https://skyjack.com/parts/228945',
     },
     // Hyster Parts
-    'HY-1640561': {
+    '4603626': {
       weight_lbs: 0.3,
       dimensions: '1.5" x 0.75" x 0.5" (set of 4)',
-      compatibilityTags: ['Hyster E50XN', 'Hyster E60XN', 'Hyster E70XN'],
-      description: 'Steering motor carbon brush set. OEM grade for extended life.',
-      sourceUrl: 'https://hyster.com/parts/1640561',
-    },
-    '4603626': {
-      weight_lbs: 0.9,
-      dimensions: '5" x 3" diameter',
       compatibilityTags: ['Hyster E50XN', 'Yale ERC050VG', 'Hyster E60XN'],
-      description: 'Hydraulic return line filter. 10-micron filtration rating.',
+      description: 'Steering motor carbon brush set. OEM grade for extended life.',
       sourceUrl: 'https://hyster-yale.com/parts/4603626',
     },
     // Yale Parts
@@ -365,16 +358,10 @@ const OEM_PARTS: OEMPartInput[] = [
   },
   // Hyster E50XN
   {
-    oemPartNumber: 'HY-1640561',
-    brand: 'Hyster',
-    machineModel: 'Hyster E50XN',
-    category: 'Steering Motor Brushes',
-  },
-  {
     oemPartNumber: '4603626',
     brand: 'Hyster',
     machineModel: 'Hyster E50XN',
-    category: 'Hydraulic Filter',
+    category: 'Steer Motor Brushes',
   },
   // Yale ERC050VG
   {
