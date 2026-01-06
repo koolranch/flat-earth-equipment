@@ -117,3 +117,178 @@ Modern Forklift Operator Training`;
     throw error;
   }
 }
+
+// =============================================================================
+// Quote Request Emails
+// =============================================================================
+
+const partsFrom = process.env.PARTS_EMAIL_FROM || 'Flat Earth Equipment <parts@flatearthequipment.com>';
+const partsNotifyEmail = process.env.PARTS_NOTIFY_EMAIL || 'parts@flatearthequipment.com';
+
+export interface QuoteRequestEmailData {
+  requestId: string;
+  customerName: string;
+  customerEmail: string;
+  customerPhone?: string | null;
+  company?: string | null;
+  partName: string;
+  oemReference?: string | null;
+  quantity: number;
+  machineBrand?: string | null;
+  machineModel?: string | null;
+  machineSerial?: string | null;
+  urgency: 'standard' | 'urgent' | 'emergency';
+  notes?: string | null;
+}
+
+const urgencyLabels = {
+  standard: '📦 Standard (3-5 business days)',
+  urgent: '⚡ Urgent (1-2 business days)',
+  emergency: '🚨 EMERGENCY (Same day if possible)',
+};
+
+const urgencySubjectPrefix = {
+  standard: '',
+  urgent: '[URGENT] ',
+  emergency: '[🚨 EMERGENCY] ',
+};
+
+/**
+ * Send high-priority notification to sales team
+ */
+export async function sendQuoteNotificationEmail(data: QuoteRequestEmailData) {
+  if (!key) {
+    console.warn('Missing RESEND_API_KEY - skipping quote notification email');
+    return null;
+  }
+  
+  const resend = new Resend(key);
+  
+  const subject = `${urgencySubjectPrefix[data.urgency]}New OEM Quote Request: ${data.partName}`;
+  
+  const machineInfo = data.machineBrand && data.machineModel 
+    ? `${data.machineBrand} ${data.machineModel}${data.machineSerial ? ` (S/N: ${data.machineSerial})` : ''}`
+    : 'Not specified';
+
+  const text = `
+═══════════════════════════════════════════════════════════
+  NEW OEM QUOTE REQUEST
+  Priority: ${urgencyLabels[data.urgency]}
+═══════════════════════════════════════════════════════════
+
+PART DETAILS
+────────────────────────────────────────
+Part Name:     ${data.partName}
+OEM Number:    ${data.oemReference || 'N/A'}
+Quantity:      ${data.quantity}
+Machine:       ${machineInfo}
+
+CUSTOMER INFORMATION
+────────────────────────────────────────
+Name:          ${data.customerName}
+Email:         ${data.customerEmail}
+Phone:         ${data.customerPhone || 'Not provided'}
+Company:       ${data.company || 'Not provided'}
+
+${data.notes ? `NOTES\n────────────────────────────────────────\n${data.notes}\n` : ''}
+────────────────────────────────────────
+Request ID: ${data.requestId}
+Submitted: ${new Date().toLocaleString('en-US', { timeZone: 'America/Denver' })} MT
+
+Manage in dashboard: ${process.env.NEXT_PUBLIC_BASE_URL}/admin/quotes/${data.requestId}
+`.trim();
+
+  try {
+    const result = await resend.emails.send({
+      from: partsFrom,
+      to: partsNotifyEmail,
+      replyTo: data.customerEmail,
+      subject,
+      text,
+    });
+    
+    console.log('Quote notification email sent:', result);
+    return result;
+  } catch (error) {
+    console.error('Failed to send quote notification email:', error);
+    // Don't throw - we don't want email failures to break the request
+    return null;
+  }
+}
+
+/**
+ * Send professional confirmation email to customer
+ */
+export async function sendQuoteConfirmationEmail(data: QuoteRequestEmailData) {
+  if (!key) {
+    console.warn('Missing RESEND_API_KEY - skipping quote confirmation email');
+    return null;
+  }
+  
+  const resend = new Resend(key);
+  
+  const subject = `We've received your quote request - ${data.partName}`;
+  
+  const responseTime = data.urgency === 'emergency' 
+    ? 'within a few hours' 
+    : data.urgency === 'urgent' 
+      ? 'within 24 hours' 
+      : 'within 1-2 business days';
+
+  const text = `
+Hi ${data.customerName},
+
+Thank you for your quote request! We've received your inquiry and our parts team is already working on it.
+
+═══════════════════════════════════════════════════════════
+  YOUR REQUEST SUMMARY
+═══════════════════════════════════════════════════════════
+
+Part:          ${data.partName}
+OEM Number:    ${data.oemReference || 'N/A'}
+Quantity:      ${data.quantity}
+${data.machineBrand && data.machineModel ? `Machine:       ${data.machineBrand} ${data.machineModel}` : ''}
+
+Priority:      ${urgencyLabels[data.urgency]}
+Reference:     #${data.requestId.slice(0, 8).toUpperCase()}
+
+───────────────────────────────────────────────────────────
+
+WHAT HAPPENS NEXT
+───────────────────────────────────────────────────────────
+1. Our team will verify part availability with our suppliers
+2. We'll confirm fitment for your specific equipment
+3. You'll receive a detailed quote ${responseTime}
+
+${data.urgency === 'emergency' ? '⚡ Since you marked this as EMERGENCY, we\'re prioritizing your request. For immediate assistance, call us at 1-800-555-1234.\n' : ''}
+NEED IMMEDIATE HELP?
+───────────────────────────────────────────────────────────
+📞 Phone: 1-800-555-1234
+📧 Email: parts@flatearthequipment.com
+
+We appreciate your business!
+
+Best regards,
+The Flat Earth Equipment Team
+
+───────────────────────────────────────────────────────────
+Flat Earth Equipment | Industrial Parts & Solutions
+www.flatearthequipment.com
+`.trim();
+
+  try {
+    const result = await resend.emails.send({
+      from: partsFrom,
+      to: data.customerEmail,
+      subject,
+      text,
+    });
+    
+    console.log('Quote confirmation email sent to:', data.customerEmail);
+    return result;
+  } catch (error) {
+    console.error('Failed to send quote confirmation email:', error);
+    // Don't throw - we don't want email failures to break the request
+    return null;
+  }
+}

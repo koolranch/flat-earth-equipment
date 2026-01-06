@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabase/server';
+import { sendQuoteNotificationEmail, sendQuoteConfirmationEmail, type QuoteRequestEmailData } from '@/lib/email/resend';
 
 interface QuoteRequestBody {
   name: string;
@@ -79,11 +80,30 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // TODO: Send email notification to sales team
-    // await sendQuoteNotificationEmail(data);
+    // Prepare email data
+    const emailData: QuoteRequestEmailData = {
+      requestId: data.id,
+      customerName: body.name,
+      customerEmail: body.email.toLowerCase().trim(),
+      customerPhone: body.phone,
+      company: body.company,
+      partName: body.partName,
+      oemReference: body.oemReference,
+      quantity: body.quantity || 1,
+      machineBrand: body.machineBrand,
+      machineModel: body.machineModel,
+      machineSerial: body.machineSerial,
+      urgency: body.urgency || 'standard',
+      notes: body.notes,
+    };
 
-    // TODO: Send confirmation email to customer
-    // await sendQuoteConfirmationEmail(body.email, body.name, body.partName);
+    // Send emails in parallel (non-blocking - failures logged but don't break request)
+    await Promise.allSettled([
+      // High-priority notification to sales team
+      sendQuoteNotificationEmail(emailData),
+      // Professional confirmation to customer
+      sendQuoteConfirmationEmail(emailData),
+    ]);
 
     return NextResponse.json({
       success: true,
