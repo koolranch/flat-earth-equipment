@@ -84,17 +84,31 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   
   if (staticModels.length > 0) {
     const brandDisplay = staticModels[0].brand;
+    const modelList = staticModels.slice(0, 3).map(m => m.model).join(', ');
+    const oemRefs = staticModels
+      .filter(m => m.products[0]?.oemRef)
+      .slice(0, 2)
+      .map(m => m.products[0].oemRef)
+      .join(', ');
+    
+    // Enhanced description with OEM part numbers
+    const description = `Verified fitment for ${brandDisplay} equipment. Find ${oemRefs ? `${oemRefs} ` : ''}chargers, forks, and common wear parts. ${staticModels.length} models: ${modelList}. Ships same-day with 6-month warranty.`;
+    
+    // Ensure canonical URL has no trailing slash
+    const canonicalUrl = `https://www.flatearthequipment.com/compatibility/${params.brand}`.replace(/\/+$/, '');
+    
     return {
       title: `${brandDisplay} Charger Replacements | OEM Fit Battery Chargers`,
-      description: `Find verified replacement chargers for ${brandDisplay} equipment. ${staticModels.length} models supported including ${staticModels.slice(0, 3).map(m => m.model).join(', ')}. Same-day shipping with 6-month warranty.`,
+      description,
       keywords: [
         `${brandDisplay.toLowerCase()} charger`,
         `${brandDisplay.toLowerCase()} battery charger`,
         `${brandDisplay.toLowerCase()} charger replacement`,
+        `${brandDisplay.toLowerCase()} oem parts`,
         ...staticModels.map(m => `${brandDisplay.toLowerCase()} ${m.model.toLowerCase()} charger`),
       ],
       alternates: {
-        canonical: `https://www.flatearthequipment.com/compatibility/${params.brand}`,
+        canonical: canonicalUrl,
       },
     };
   }
@@ -108,18 +122,32 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const brandDisplay = supabaseModels[0].brand;
   const modelNames = supabaseModels.slice(0, 3).map(m => m.model_name).join(', ');
+  
+  // Get voltage info for enhanced description
+  const voltageInfo = supabaseModels
+    .filter(m => m.voltage_options && m.voltage_options.length > 0)
+    .slice(0, 1)
+    .map(m => m.voltage_options?.join('V/') + 'V')
+    .join('');
+  
+  // Enhanced description with model specifics
+  const description = `Verified fitment for ${brandDisplay} equipment. Find ${voltageInfo ? `${voltageInfo} ` : ''}chargers, forks, and common wear parts. ${supabaseModels.length} models: ${modelNames}. OEM cross-reference included. Ships same-day.`;
+  
+  // Ensure canonical URL has no trailing slash
+  const canonicalUrl = `https://www.flatearthequipment.com/compatibility/${params.brand}`.replace(/\/+$/, '');
 
   return {
     title: `${brandDisplay} Parts & Compatibility | OEM Service Parts`,
-    description: `Find verified OEM parts and chargers for ${brandDisplay} equipment. ${supabaseModels.length} models supported including ${modelNames}. Request quotes for service parts.`,
+    description,
     keywords: [
       `${brandDisplay.toLowerCase()} parts`,
       `${brandDisplay.toLowerCase()} oem parts`,
       `${brandDisplay.toLowerCase()} service parts`,
+      `${brandDisplay.toLowerCase()} charger`,
       ...supabaseModels.map(m => `${brandDisplay.toLowerCase()} ${m.model_name.toLowerCase()} parts`),
     ],
     alternates: {
-      canonical: `https://www.flatearthequipment.com/compatibility/${params.brand}`,
+      canonical: canonicalUrl,
     },
   };
 }

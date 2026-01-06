@@ -210,11 +210,32 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const voltage = machineModel?.voltage;
 
   const title = `${brandDisplay} ${modelDisplay} Parts & Charger | Total Solution Hub`;
-  const description = machineModel?.meta_description || 
-    `Complete parts compatibility for ${brandDisplay} ${modelDisplay}. ` +
-    `${voltage ? `${voltage}V charger, ` : ''}` +
-    `${itaClass ? `Class ${itaClass} forks, ` : ''}` +
-    `attachments & more. Verified 2026 Fleet Specs.`;
+  
+  // Build enhanced description with OEM part numbers
+  const descriptionParts: string[] = [
+    `Verified fitment for ${brandDisplay} ${modelDisplay}.`,
+  ];
+  
+  if (oemRef) {
+    descriptionParts.push(`Find ${oemRef} chargers,`);
+  } else if (voltage) {
+    descriptionParts.push(`Find ${voltage}V chargers,`);
+  } else {
+    descriptionParts.push('Find compatible chargers,');
+  }
+  
+  if (itaClass && itaClass !== 'N/A' && itaClass !== 'Construction') {
+    descriptionParts.push(`Class ${itaClass} forks,`);
+  } else {
+    descriptionParts.push('forks,');
+  }
+  
+  descriptionParts.push('and common wear parts. OEM cross-reference included. Ships same-day with 6-month warranty.');
+  
+  const description = machineModel?.meta_description || descriptionParts.join(' ');
+
+  // Ensure canonical URL has no trailing slash
+  const canonicalUrl = `https://www.flatearthequipment.com/compatibility/${params.brand}/${params.model}`.replace(/\/+$/, '');
 
   return {
     title,
@@ -223,8 +244,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       `${brandDisplay.toLowerCase()} ${modelDisplay.toLowerCase()} charger`,
       `${brandDisplay.toLowerCase()} ${modelDisplay.toLowerCase()} parts`,
       `${brandDisplay.toLowerCase()} ${modelDisplay.toLowerCase()} forks`,
-      itaClass ? `class ${itaClass} forks` : '',
+      `${brandDisplay.toLowerCase()} ${modelDisplay.toLowerCase()} oem parts`,
+      itaClass && itaClass !== 'N/A' ? `class ${itaClass} forks` : '',
       voltage ? `${voltage}v forklift charger` : '',
+      oemRef ? oemRef.toLowerCase() : '',
       'forklift compatibility',
       'equipment parts',
     ].filter(Boolean),
@@ -234,7 +257,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       type: 'website',
     },
     alternates: {
-      canonical: `https://www.flatearthequipment.com/compatibility/${params.brand}/${params.model}`,
+      canonical: canonicalUrl,
     },
   };
 }
