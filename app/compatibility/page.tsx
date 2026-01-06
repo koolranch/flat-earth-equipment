@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Script from 'next/script';
+import { createClient } from '@supabase/supabase-js';
 import { 
   COMPATIBILITY_DATA, 
   getAllBrands,
@@ -15,7 +16,48 @@ import {
   CheckCircle,
   Zap,
   Truck,
+  HardHat,
+  Forklift,
 } from 'lucide-react';
+
+// Create Supabase client for static generation
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
+// Fetch brand statistics from Supabase
+async function getBrandStats() {
+  const { data: models } = await supabase
+    .from('machine_models')
+    .select('brand, brand_slug, equipment_type')
+    .order('brand');
+  
+  if (!models) return [];
+  
+  // Group by brand
+  const brandMap = new Map<string, { brand: string; slug: string; count: number; types: Set<string> }>();
+  
+  for (const model of models) {
+    const existing = brandMap.get(model.brand);
+    if (existing) {
+      existing.count++;
+      existing.types.add(model.equipment_type);
+    } else {
+      brandMap.set(model.brand, {
+        brand: model.brand,
+        slug: model.brand_slug,
+        count: 1,
+        types: new Set([model.equipment_type]),
+      });
+    }
+  }
+  
+  return Array.from(brandMap.values()).map(b => ({
+    ...b,
+    types: Array.from(b.types),
+  }));
+}
 
 // =============================================================================
 // Metadata
@@ -45,24 +87,22 @@ export const metadata: Metadata = {
 // Schema.org ItemList Markup
 // =============================================================================
 
-function generateCollectionSchema() {
-  const brands = getAllBrands();
-  
+function generateCollectionSchema(brands: { brand: string; slug: string; count: number }[]) {
   return {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: 'Universal Compatibility Hub',
-    description: 'Find verified replacement chargers for industrial equipment including forklifts, scissor lifts, and aerial work platforms.',
+    description: 'Find verified replacement chargers and OEM parts for industrial equipment including forklifts, scissor lifts, aerial work platforms, and construction equipment.',
     url: 'https://www.flatearthequipment.com/compatibility',
     mainEntity: {
       '@type': 'ItemList',
-      itemListElement: brands.map((brand, index) => ({
+      itemListElement: brands.map((b, index) => ({
         '@type': 'ListItem',
         position: index + 1,
         item: {
           '@type': 'Brand',
-          name: brand,
-          url: `https://www.flatearthequipment.com/compatibility/${brand.toLowerCase()}`,
+          name: b.brand,
+          url: `https://www.flatearthequipment.com/compatibility/${b.slug}`,
         },
       })),
     },
@@ -73,19 +113,55 @@ function generateCollectionSchema() {
 // Page Component
 // =============================================================================
 
-export default function CompatibilityHubPage() {
-  const brands = getAllBrands();
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
+export default async function CompatibilityHubPage() {
+  // Fetch from Supabase
+  const supabaseBrands = await getBrandStats();
   
-  // Group brands by equipment type for better organization
+  // Combine with static data
+  const staticBrands = getAllBrands();
+  
+  // Build comprehensive brand list
+  const allBrandStats = new Map<string, { brand: string; slug: string; count: number; types: string[] }>();
+  
+  // Add Supabase brands
+  for (const b of supabaseBrands) {
+    allBrandStats.set(b.brand.toLowerCase(), b);
+  }
+  
+  // Add static brands if not already present
+  for (const brand of staticBrands) {
+    const key = brand.toLowerCase();
+    if (!allBrandStats.has(key)) {
+      allBrandStats.set(key, {
+        brand,
+        slug: key,
+        count: getCompatibilityByBrand(brand).length,
+        types: ['forklift'], // default type for static data
+      });
+    }
+  }
+  
+  const brandStatsArray = Array.from(allBrandStats.values()).sort((a, b) => b.count - a.count);
+  const totalModels = brandStatsArray.reduce((sum, b) => sum + b.count, 0);
+  
+  // Group brands by equipment type
   const scissorLiftBrands = ['JLG', 'Genie', 'Skyjack', 'BT'];
   const forkliftBrands = ['Toyota', 'Hyster', 'Yale', 'Jungheinrich', 'Cat'];
+  const materialHandlingBrands = ['Raymond', 'Crown'];
+  const constructionBrands = ['Bobcat', 'Kubota', 'Toro', 'JCB'];
   const utilityVehicleBrands = ['EZGO', 'Cushman', 'Taylor-Dunn'];
-
-  // Brand stats
-  const brandStats = brands.map(brand => ({
-    brand,
-    count: getCompatibilityByBrand(brand).length,
-  })).sort((a, b) => b.count - a.count);
+  
+  // Helper to get count for a brand
+  const getBrandCount = (brand: string) => {
+    const stats = allBrandStats.get(brand.toLowerCase());
+    return stats?.count || 0;
+  };
+  
+  // Filter to only show brands that exist
+  const availableBrands = brandStatsArray.map(b => b.brand);
 
   return (
     <>
@@ -93,7 +169,7 @@ export default function CompatibilityHubPage() {
       <Script
         id="compatibility-hub-schema"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(generateCollectionSchema()) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(generateCollectionSchema(brandStatsArray)) }}
       />
 
       <main className="container mx-auto px-4 lg:px-8 py-8 pb-24 sm:pb-12">
@@ -135,7 +211,7 @@ export default function CompatibilityHubPage() {
                     <Wrench className="w-5 h-5 text-canyon-rust" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold">{COMPATIBILITY_DATA.length}</p>
+                    <p className="text-2xl font-bold">{totalModels}</p>
                     <p className="text-sm text-slate-400">Equipment Models</p>
                   </div>
                 </div>
@@ -146,7 +222,7 @@ export default function CompatibilityHubPage() {
                     <CheckCircle className="w-5 h-5 text-emerald-400" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold">{brands.length}</p>
+                    <p className="text-2xl font-bold">{brandStatsArray.length}</p>
                     <p className="text-sm text-slate-400">Brands Supported</p>
                   </div>
                 </div>
@@ -206,8 +282,8 @@ export default function CompatibilityHubPage() {
             <h2 className="text-2xl font-bold text-slate-900">Scissor Lifts & Aerial Equipment</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {scissorLiftBrands.filter(b => brands.includes(b)).map(brand => {
-              const models = getCompatibilityByBrand(brand);
+            {scissorLiftBrands.filter(b => availableBrands.some(ab => ab.toLowerCase() === b.toLowerCase())).map(brand => {
+              const count = getBrandCount(brand);
               return (
                 <Link
                   key={brand}
@@ -226,7 +302,7 @@ export default function CompatibilityHubPage() {
                     {brand}
                   </h3>
                   <p className="text-sm text-slate-500">
-                    {models.length} models supported
+                    {count} models supported
                   </p>
                 </Link>
               );
@@ -234,17 +310,17 @@ export default function CompatibilityHubPage() {
           </div>
         </section>
 
-        {/* Forklifts */}
+        {/* Forklifts & Warehouse */}
         <section className="mb-12">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
               <span className="text-lg">🚜</span>
             </div>
-            <h2 className="text-2xl font-bold text-slate-900">Forklifts & Material Handling</h2>
+            <h2 className="text-2xl font-bold text-slate-900">Forklifts & Warehouse</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {forkliftBrands.filter(b => brands.includes(b)).map(brand => {
-              const models = getCompatibilityByBrand(brand);
+            {forkliftBrands.filter(b => availableBrands.some(ab => ab.toLowerCase() === b.toLowerCase())).map(brand => {
+              const count = getBrandCount(brand);
               return (
                 <Link
                   key={brand}
@@ -263,13 +339,91 @@ export default function CompatibilityHubPage() {
                     {brand}
                   </h3>
                   <p className="text-sm text-slate-500">
-                    {models.length} models supported
+                    {count} models supported
                   </p>
                 </Link>
               );
             })}
           </div>
         </section>
+
+        {/* Material Handling (Reach Trucks & Pallet Jacks) */}
+        {materialHandlingBrands.some(b => availableBrands.some(ab => ab.toLowerCase() === b.toLowerCase())) && (
+          <section className="mb-12">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                <span className="text-lg">📦</span>
+              </div>
+              <h2 className="text-2xl font-bold text-slate-900">Material Handling & Reach Trucks</h2>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {materialHandlingBrands.filter(b => availableBrands.some(ab => ab.toLowerCase() === b.toLowerCase())).map(brand => {
+                const count = getBrandCount(brand);
+                return (
+                  <Link
+                    key={brand}
+                    href={`/compatibility/${brand.toLowerCase()}`}
+                    className="bg-white border border-slate-200 rounded-xl p-6 hover:border-purple-300 hover:shadow-lg transition-all group"
+                  >
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center">
+                        <span className="text-lg font-bold text-purple-600">
+                          {brand.slice(0, 2).toUpperCase()}
+                        </span>
+                      </div>
+                      <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-purple-500 transition-colors" />
+                    </div>
+                    <h3 className="font-bold text-xl text-slate-900 group-hover:text-purple-600 transition-colors mb-1">
+                      {brand}
+                    </h3>
+                    <p className="text-sm text-slate-500">
+                      {count} models supported
+                    </p>
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+        {/* Construction & Compact Equipment */}
+        {constructionBrands.some(b => availableBrands.some(ab => ab.toLowerCase() === b.toLowerCase())) && (
+          <section className="mb-12">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
+                <HardHat className="w-5 h-5 text-amber-600" />
+              </div>
+              <h2 className="text-2xl font-bold text-slate-900">Construction & Compact Equipment</h2>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {constructionBrands.filter(b => availableBrands.some(ab => ab.toLowerCase() === b.toLowerCase())).map(brand => {
+                const count = getBrandCount(brand);
+                return (
+                  <Link
+                    key={brand}
+                    href={`/compatibility/${brand.toLowerCase()}`}
+                    className="bg-white border border-slate-200 rounded-xl p-6 hover:border-amber-300 hover:shadow-lg transition-all group"
+                  >
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center">
+                        <span className="text-lg font-bold text-amber-600">
+                          {brand.slice(0, 2).toUpperCase()}
+                        </span>
+                      </div>
+                      <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-amber-500 transition-colors" />
+                    </div>
+                    <h3 className="font-bold text-xl text-slate-900 group-hover:text-amber-600 transition-colors mb-1">
+                      {brand}
+                    </h3>
+                    <p className="text-sm text-slate-500">
+                      {count} models supported
+                    </p>
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+        )}
 
         {/* Utility Vehicles */}
         <section className="mb-12">
@@ -280,8 +434,8 @@ export default function CompatibilityHubPage() {
             <h2 className="text-2xl font-bold text-slate-900">Utility Vehicles & Golf Carts</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {utilityVehicleBrands.filter(b => brands.includes(b)).map(brand => {
-              const models = getCompatibilityByBrand(brand);
+            {utilityVehicleBrands.filter(b => availableBrands.some(ab => ab.toLowerCase() === b.toLowerCase())).map(brand => {
+              const count = getBrandCount(brand);
               return (
                 <Link
                   key={brand}
@@ -300,7 +454,7 @@ export default function CompatibilityHubPage() {
                     {brand}
                   </h3>
                   <p className="text-sm text-slate-500">
-                    {models.length} models supported
+                    {count} models supported
                   </p>
                 </Link>
               );
@@ -322,11 +476,11 @@ export default function CompatibilityHubPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
-                  {brandStats.map(({ brand, count }) => (
+                  {brandStatsArray.map(({ brand, slug, count }) => (
                     <tr key={brand} className="hover:bg-slate-50 transition-colors">
                       <td className="px-6 py-4">
                         <Link 
-                          href={`/compatibility/${brand.toLowerCase()}`}
+                          href={`/compatibility/${slug}`}
                           className="font-medium text-slate-900 hover:text-canyon-rust transition-colors"
                         >
                           {brand}
@@ -339,7 +493,7 @@ export default function CompatibilityHubPage() {
                       </td>
                       <td className="px-6 py-4 text-right">
                         <Link
-                          href={`/compatibility/${brand.toLowerCase()}`}
+                          href={`/compatibility/${slug}`}
                           className="inline-flex items-center gap-1 text-sm font-medium text-canyon-rust hover:underline"
                         >
                           View Models
