@@ -276,7 +276,7 @@ export default async function CheyennePage() {
           </div>
           <div className="w-full md:w-1/3 relative h-48 rounded-lg overflow-hidden shadow-md border border-white">
              <Image
-              src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/safety-certification-card.webp"
+              src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/safety-certificate.jpg"
               alt="Wyoming Forklift Certification Card"
               fill
               className="object-cover"
