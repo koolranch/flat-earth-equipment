@@ -79,6 +79,7 @@ async function searchOEMSpecs(part: OEMPartInput): Promise<ScrapedSpecs | null> 
   // This demonstrates the expected data transformation
   
   const mockResults: Record<string, ScrapedSpecs> = {
+    // JLG Parts
     '1001134438': {
       weight_lbs: 2.5,
       dimensions: '8" x 4" x 3"',
@@ -100,6 +101,7 @@ async function searchOEMSpecs(part: OEMPartInput): Promise<ScrapedSpecs | null> 
       description: 'Ignition switch assembly with 2 keys. Direct OEM replacement.',
       sourceUrl: 'https://jlg.com/parts/4360469S',
     },
+    // Toyota Parts
     '67502-23000-71': {
       weight_lbs: 0.8,
       dimensions: '4" x 3" diameter',
@@ -120,6 +122,74 @@ async function searchOEMSpecs(part: OEMPartInput): Promise<ScrapedSpecs | null> 
       compatibilityTags: ['Toyota 8FBCU25', 'Toyota 8FBCU30'],
       description: '48V headlight assembly. LED upgrade available.',
       sourceUrl: 'https://toyotaliftnorthwest.com/56510-11900-71',
+    },
+    // Genie Parts
+    '1256721GT': {
+      weight_lbs: 8.5,
+      dimensions: '12" x 8" x 6"',
+      compatibilityTags: ['Genie GS-1930', 'Genie GS-1932', 'Genie GS-2032'],
+      description: 'Main control box assembly with integrated diagnostics and safety circuits.',
+      sourceUrl: 'https://genielift.com/parts/1256721GT',
+    },
+    '105122GT': {
+      weight_lbs: 1.8,
+      dimensions: '6" x 4" x 0.5" (set of 4)',
+      compatibilityTags: ['Genie GS-1930', 'Genie GS-1932', 'Genie GS-2632'],
+      description: 'Scissor arm wear pad kit. UHMW material for extended life.',
+      sourceUrl: 'https://genielift.com/parts/105122GT',
+    },
+    // Skyjack Parts
+    '159111': {
+      weight_lbs: 1.2,
+      dimensions: '5" x 3" x 4"',
+      compatibilityTags: ['Skyjack SJIII 3219', 'Skyjack SJIII 3226', 'Skyjack SJIII 3220'],
+      description: 'Platform joystick controller with proportional output.',
+      sourceUrl: 'https://skyjack.com/parts/159111',
+    },
+    '228945': {
+      weight_lbs: 3.5,
+      dimensions: '24" x 18" x 2"',
+      compatibilityTags: ['Skyjack SJIII 3219', 'Skyjack SJIII 3226'],
+      description: 'Eco-tray drip containment system for indoor use compliance.',
+      sourceUrl: 'https://skyjack.com/parts/228945',
+    },
+    // Hyster Parts
+    'HY-1640561': {
+      weight_lbs: 0.3,
+      dimensions: '1.5" x 0.75" x 0.5" (set of 4)',
+      compatibilityTags: ['Hyster E50XN', 'Hyster E60XN', 'Hyster E70XN'],
+      description: 'Steering motor carbon brush set. OEM grade for extended life.',
+      sourceUrl: 'https://hyster.com/parts/1640561',
+    },
+    '4603626': {
+      weight_lbs: 0.9,
+      dimensions: '5" x 3" diameter',
+      compatibilityTags: ['Hyster E50XN', 'Yale ERC050VG', 'Hyster E60XN'],
+      description: 'Hydraulic return line filter. 10-micron filtration rating.',
+      sourceUrl: 'https://hyster-yale.com/parts/4603626',
+    },
+    // Yale Parts
+    'YL-580037636': {
+      weight_lbs: 0.3,
+      dimensions: '1.5" x 0.75" x 0.5" (set of 4)',
+      compatibilityTags: ['Yale ERC050VG', 'Yale ERC060VG', 'Yale ERC070VG'],
+      description: 'Steering motor carbon brush set. OEM grade for extended life.',
+      sourceUrl: 'https://yale.com/parts/580037636',
+    },
+    // Cushman/EZGO Parts
+    '604216': {
+      weight_lbs: 6.2,
+      dimensions: '8" x 8" x 4"',
+      compatibilityTags: ['Cushman Hauler', 'Cushman Shuttle', 'EZGO RXV', 'EZGO TXT'],
+      description: 'Rear brake hub assembly with pre-installed bearings and seals.',
+      sourceUrl: 'https://cushman.com/parts/604216',
+    },
+    '612884': {
+      weight_lbs: 1.8,
+      dimensions: '4" x 3" x 3"',
+      compatibilityTags: ['Cushman Hauler', 'Cushman Shuttle', 'EZGO RXV', 'EZGO TXT'],
+      description: '48V main contactor solenoid. Heavy-duty silver contacts.',
+      sourceUrl: 'https://cushman.com/parts/612884',
     },
   };
 
@@ -221,8 +291,9 @@ async function scrapeOEMParts(parts: OEMPartInput[]): Promise<void> {
   console.log(`⚠️  Not Found: ${results.notFound}`);
 }
 
-// Parts to scrape (from user's CSV data)
+// Parts to scrape - All OEM quote_only items
 const OEM_PARTS: OEMPartInput[] = [
+  // JLG 1930ES
   {
     oemPartNumber: '1001134438',
     brand: 'JLG',
@@ -244,6 +315,7 @@ const OEM_PARTS: OEMPartInput[] = [
     category: 'Ignition Switch',
     estimatedValue: '~$28.00',
   },
+  // Toyota 8FBCU25
   {
     oemPartNumber: '67502-23000-71',
     brand: 'Toyota',
@@ -264,6 +336,65 @@ const OEM_PARTS: OEMPartInput[] = [
     machineModel: 'Toyota 8FBCU25',
     category: 'Head Lamp (48V)',
     estimatedValue: '~$62.00',
+  },
+  // Genie GS-1930/1932
+  {
+    oemPartNumber: '1256721GT',
+    brand: 'Genie',
+    machineModel: 'Genie GS-1930',
+    category: 'Control Box Assembly',
+  },
+  {
+    oemPartNumber: '105122GT',
+    brand: 'Genie',
+    machineModel: 'Genie GS-1930',
+    category: 'Scissor Wear Pads',
+  },
+  // Skyjack SJIII 3219
+  {
+    oemPartNumber: '159111',
+    brand: 'Skyjack',
+    machineModel: 'Skyjack SJIII 3219',
+    category: 'Joystick Controller',
+  },
+  {
+    oemPartNumber: '228945',
+    brand: 'Skyjack',
+    machineModel: 'Skyjack SJIII 3219',
+    category: 'Eco-Tray Assembly',
+  },
+  // Hyster E50XN
+  {
+    oemPartNumber: 'HY-1640561',
+    brand: 'Hyster',
+    machineModel: 'Hyster E50XN',
+    category: 'Steering Motor Brushes',
+  },
+  {
+    oemPartNumber: '4603626',
+    brand: 'Hyster',
+    machineModel: 'Hyster E50XN',
+    category: 'Hydraulic Filter',
+  },
+  // Yale ERC050VG
+  {
+    oemPartNumber: 'YL-580037636',
+    brand: 'Yale',
+    machineModel: 'Yale ERC050VG',
+    category: 'Steering Motor Brushes',
+  },
+  // Cushman/EZGO
+  {
+    oemPartNumber: '604216',
+    brand: 'Cushman',
+    machineModel: 'Cushman Hauler',
+    category: 'Brake Hub Assembly',
+  },
+  {
+    oemPartNumber: '612884',
+    brand: 'Cushman',
+    machineModel: 'Cushman Hauler',
+    category: 'Main Contactor Solenoid',
   },
 ];
 
