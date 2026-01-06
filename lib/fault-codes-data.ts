@@ -746,6 +746,224 @@ export const FAULT_CODES_DATA: Record<string, Record<string, FaultCode[]>> = {
       },
     ],
   },
+  bobcat: {
+    's650': [
+      {
+        code: 'E08',
+        name: 'Hydraulic Charge Pressure Low',
+        description: 'The hydraulic system charge pressure has dropped below the minimum threshold. This can cause sluggish response or loss of drive and lift functions.',
+        causes: [
+          'Low hydraulic fluid level',
+          'Clogged hydraulic filter',
+          'Charge pump wear or failure',
+          'Internal leak in hydraulic system',
+          'Relief valve stuck open',
+        ],
+        solutions: [
+          'Check hydraulic fluid level in reservoir immediately - top off if low',
+          'Check for visible hydraulic leaks under machine and at hoses',
+          'Replace hydraulic filter if overdue (every 500 hours)',
+          'Listen for charge pump whine - excessive noise indicates pump wear',
+          'Test charge pressure at diagnostic port per service manual',
+          'If charge pump is failing, plan for replacement to avoid further damage',
+        ],
+        relatedParts: [
+          { name: 'Engine Oil Filter', sku: '6671057' },
+          { name: 'Fuel Water Separator', sku: '6667352' },
+        ],
+        severity: 'high',
+      },
+      {
+        code: 'M0707',
+        name: 'Filter Plugged Warning',
+        description: 'The engine oil filter bypass indicator has triggered. The filter is clogged and oil is bypassing filtration, which can cause accelerated engine wear.',
+        causes: [
+          'Engine oil filter overdue for replacement',
+          'Filter clogged with debris from engine wear',
+          'Wrong filter installed (incorrect micron rating)',
+          'Contaminated oil from fuel dilution or coolant leak',
+        ],
+        solutions: [
+          'Replace engine oil filter immediately (PN: 6671057)',
+          'Change engine oil along with filter',
+          'Inspect old filter element for metal particles (indicates engine wear)',
+          'Check oil for fuel smell or milky appearance (indicates contamination)',
+          'If metal particles found, investigate engine bearings/components',
+        ],
+        relatedParts: [
+          { name: 'Engine Oil Filter', sku: '6671057' },
+        ],
+        severity: 'medium',
+      },
+    ],
+    't7x': [
+      {
+        code: 'E08',
+        name: 'Hydraulic Charge Pressure Low',
+        description: 'The hydraulic system charge pressure has dropped below threshold. On the T7X electric, this may also relate to electric pump performance.',
+        causes: [
+          'Low hydraulic fluid level',
+          'Clogged hydraulic filter',
+          'Electric hydraulic pump issue',
+          'Internal hydraulic leak',
+        ],
+        solutions: [
+          'Check hydraulic fluid level - top off if needed',
+          'Replace hydraulic filter if overdue',
+          'Check electric pump motor for faults',
+          'Inspect hydraulic lines for leaks',
+        ],
+        relatedParts: [
+          { name: 'Engine Oil Filter', sku: '6671057' },
+          { name: 'Universal Ignition Key', sku: '6693241' },
+        ],
+        severity: 'high',
+      },
+      {
+        code: 'BMS',
+        name: 'Battery Management System Alert',
+        description: 'The 465V lithium-ion battery management system has detected an issue. The machine may limit power output or prevent operation.',
+        causes: [
+          'Battery cell imbalance',
+          'Battery overtemperature',
+          'Charging system fault',
+          'BMS communication error',
+          'Low state of charge',
+        ],
+        solutions: [
+          'Check battery state of charge on display',
+          'Allow battery to cool if overtemperature is indicated',
+          'Verify on-board charger is functioning when plugged in',
+          'Cycle machine power off for 60 seconds and restart',
+          'Contact Bobcat dealer for BMS diagnostics - specialized equipment required',
+        ],
+        relatedParts: [],
+        severity: 'high',
+      },
+    ],
+    'e19e': [
+      {
+        code: 'BMS',
+        name: 'Battery Management System Alert',
+        description: 'The 51.8V lithium-ion battery system has detected an issue. Operation may be limited or prevented.',
+        causes: [
+          'Low battery state of charge',
+          'Battery cell imbalance',
+          'Charging fault',
+          'BMS sensor error',
+        ],
+        solutions: [
+          'Check battery charge level on instrument panel',
+          'Plug in on-board charger and verify charging',
+          'If charging fails, check charger connection and circuit',
+          'Contact Bobcat dealer for battery system diagnostics',
+        ],
+        relatedParts: [
+          { name: 'Universal Ignition Key', sku: '6693241' },
+        ],
+        severity: 'high',
+      },
+    ],
+  },
+  kubota: {
+    'svl75-2': [
+      {
+        code: 'ANTI-THEFT',
+        name: 'Anti-Theft Immobilizer Active',
+        description: 'The Kubota anti-theft immobilizer system is preventing engine start. Only a programmed key will allow the engine to crank and start.',
+        causes: [
+          'Key not programmed to this machine',
+          'Key transponder failure',
+          'Immobilizer antenna issue',
+          'ECU programming lost',
+          'Aftermarket key used',
+        ],
+        solutions: [
+          'Use only genuine Kubota programmed keys for this machine',
+          'Try spare programmed key if available',
+          'Check key for physical damage to transponder area',
+          'Contact Kubota dealer for key programming service',
+          'ECU may need to be reprogrammed if all keys are lost',
+          'Note: Keys cannot be cloned - must be programmed by Kubota dealer',
+        ],
+        relatedParts: [
+          { name: 'Engine Oil Filter', sku: 'HH164-32430' },
+        ],
+        severity: 'high',
+      },
+      {
+        code: 'E-14',
+        name: 'Engine Oil Pressure Low',
+        description: 'Engine oil pressure has dropped below safe operating level. Engine may derate or shut down to prevent damage.',
+        causes: [
+          'Low engine oil level',
+          'Oil filter clogged',
+          'Oil pump wear',
+          'Engine bearing wear',
+          'Wrong oil viscosity',
+        ],
+        solutions: [
+          'Stop engine and check oil level immediately',
+          'Replace engine oil filter (PN: HH164-32430)',
+          'Check oil condition - if milky or smells of fuel, investigate contamination',
+          'Listen for engine knocking (indicates bearing damage)',
+          'Verify correct oil viscosity for ambient temperature',
+        ],
+        relatedParts: [
+          { name: 'Engine Oil Filter', sku: 'HH164-32430' },
+          { name: 'Hydraulic Filter', sku: 'HHK72-14080' },
+        ],
+        severity: 'high',
+      },
+    ],
+    'kx040-4': [
+      {
+        code: 'ANTI-THEFT',
+        name: 'Anti-Theft Immobilizer Active',
+        description: 'The Kubota anti-theft immobilizer system is preventing engine start. Only a programmed key will allow the engine to crank and start.',
+        causes: [
+          'Key not programmed to this machine',
+          'Key transponder failure',
+          'Immobilizer antenna issue',
+          'ECU programming lost',
+        ],
+        solutions: [
+          'Use only genuine Kubota programmed keys',
+          'Try spare programmed key if available',
+          'Check key transponder for damage',
+          'Contact Kubota dealer for key programming',
+          'Master keys cannot be duplicated at hardware stores',
+        ],
+        relatedParts: [
+          { name: 'Engine Oil Filter', sku: 'HH164-32430' },
+        ],
+        severity: 'high',
+      },
+      {
+        code: 'H-01',
+        name: 'Hydraulic System Fault',
+        description: 'The hydraulic system has detected a fault. Excavator functions may be limited or disabled.',
+        causes: [
+          'Low hydraulic fluid',
+          'Hydraulic filter clogged',
+          'Hydraulic pump issue',
+          'Control valve fault',
+        ],
+        solutions: [
+          'Check hydraulic fluid level in sight glass',
+          'Replace hydraulic filter (PN: HHK72-14080)',
+          'Check for hydraulic leaks at cylinders and hoses',
+          'Verify pilot pressure is correct',
+          'Use Kubota diagnostic tool for detailed fault codes',
+        ],
+        relatedParts: [
+          { name: 'Hydraulic Filter', sku: 'HHK72-14080' },
+          { name: 'Outer Air Filter', sku: 'TA040-93230' },
+        ],
+        severity: 'medium',
+      },
+    ],
+  },
 };
 
 // Helper function to get fault codes for a specific brand/model

@@ -279,6 +279,50 @@ async function searchOEMSpecs(part: OEMPartInput): Promise<ScrapedSpecs | null> 
       description: 'Contact tip rebuild kit for Crown contactors. Extends contactor life.',
       sourceUrl: 'https://crown.com/parts/120091',
     },
+    // Bobcat Parts
+    '6671057': {
+      weight_lbs: 0.9,
+      dimensions: '5" x 3.5" diameter',
+      compatibilityTags: ['Bobcat S650', 'Bobcat S630', 'Bobcat S770', 'Bobcat T650', 'Bobcat T770'],
+      description: 'OEM engine oil filter for Bobcat compact equipment. Spin-on design.',
+      sourceUrl: 'https://bobcat.com/parts/6671057',
+    },
+    '6693241': {
+      weight_lbs: 0.1,
+      dimensions: '2" x 1" x 0.5"',
+      compatibilityTags: ['Bobcat S650', 'Bobcat S630', 'Bobcat T650', 'Bobcat E19e', 'Bobcat T7X'],
+      description: 'Universal ignition key for Bobcat equipment manufactured after 2000.',
+      sourceUrl: 'https://bobcat.com/parts/6693241',
+    },
+    '6667352': {
+      weight_lbs: 0.7,
+      dimensions: '4" x 3" diameter',
+      compatibilityTags: ['Bobcat S650', 'Bobcat S630', 'Bobcat S770', 'Bobcat T650'],
+      description: 'Fuel water separator filter for Bobcat diesel equipment.',
+      sourceUrl: 'https://bobcat.com/parts/6667352',
+    },
+    // Kubota Parts
+    'HH164-32430': {
+      weight_lbs: 0.8,
+      dimensions: '5" x 3.5" diameter',
+      compatibilityTags: ['Kubota SVL75-2', 'Kubota SVL95-2S', 'Kubota KX040-4', 'Kubota KX057-5'],
+      description: 'OEM engine oil filter for Kubota compact equipment.',
+      sourceUrl: 'https://kubota.com/parts/HH164-32430',
+    },
+    'HHK72-14080': {
+      weight_lbs: 1.2,
+      dimensions: '6" x 4" diameter',
+      compatibilityTags: ['Kubota SVL75-2', 'Kubota SVL95-2S', 'Kubota KX040-4', 'Kubota KX057-5'],
+      description: 'OEM hydraulic filter for Kubota compact equipment.',
+      sourceUrl: 'https://kubota.com/parts/HHK72-14080',
+    },
+    'TA040-93230': {
+      weight_lbs: 1.5,
+      dimensions: '12" x 7" diameter',
+      compatibilityTags: ['Kubota SVL75-2', 'Kubota SVL95-2S', 'Kubota KX040-4', 'Kubota U35-4'],
+      description: 'Outer air filter element for Kubota compact equipment.',
+      sourceUrl: 'https://kubota.com/parts/TA040-93230',
+    },
   };
 
   return mockResults[part.oemPartNumber] || null;
@@ -562,6 +606,44 @@ const OEM_PARTS: OEMPartInput[] = [
     brand: 'Crown',
     machineModel: 'Crown PE 4500',
     category: 'Contact Tip Kit',
+  },
+  // Bobcat Equipment
+  {
+    oemPartNumber: '6671057',
+    brand: 'Bobcat',
+    machineModel: 'Bobcat S650',
+    category: 'Engine Oil Filter',
+  },
+  {
+    oemPartNumber: '6693241',
+    brand: 'Bobcat',
+    machineModel: 'Bobcat S650',
+    category: 'Universal Ignition Key',
+  },
+  {
+    oemPartNumber: '6667352',
+    brand: 'Bobcat',
+    machineModel: 'Bobcat S650',
+    category: 'Fuel Water Separator',
+  },
+  // Kubota Equipment
+  {
+    oemPartNumber: 'HH164-32430',
+    brand: 'Kubota',
+    machineModel: 'Kubota SVL75-2',
+    category: 'Engine Oil Filter',
+  },
+  {
+    oemPartNumber: 'HHK72-14080',
+    brand: 'Kubota',
+    machineModel: 'Kubota SVL75-2',
+    category: 'Hydraulic Filter',
+  },
+  {
+    oemPartNumber: 'TA040-93230',
+    brand: 'Kubota',
+    machineModel: 'Kubota SVL75-2',
+    category: 'Outer Air Filter',
   },
 ];
 
