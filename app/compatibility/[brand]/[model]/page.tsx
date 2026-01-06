@@ -2,7 +2,13 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Script from 'next/script';
-import { supabaseServer } from '@/lib/supabase/server';
+import { createClient } from '@supabase/supabase-js';
+
+// Create Supabase client for static generation (anon key is safe for public reads)
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 import { 
   COMPATIBILITY_DATA, 
   getCompatibilityBySlug,
@@ -15,6 +21,15 @@ import CompatibilityTable from '@/components/seo/CompatibilityTable';
 import QuoteButton from '@/components/QuoteButton';
 import VoltageConfirmationWrapper from '@/components/VoltageConfirmationWrapper';
 import OEMPartsSection from '@/components/OEMPartsSection';
+import FaultCodesAccordion from '@/components/FaultCodesAccordion';
+import { FAULT_CODES_DATA, type FaultCode } from '@/lib/fault-codes-data';
+
+// Get fault codes for a specific brand/model (server-side)
+function getFaultCodes(brandSlug: string, modelSlug: string): FaultCode[] {
+  const brandCodes = FAULT_CODES_DATA[brandSlug.toLowerCase()];
+  if (!brandCodes) return [];
+  return brandCodes[modelSlug.toLowerCase()] || [];
+}
 import { 
   ArrowLeft, 
   ArrowRight, 
@@ -87,7 +102,7 @@ export async function generateStaticParams() {
 
   // Also fetch from Supabase for additional models
   try {
-    const supabase = supabaseServer();
+    // Use the module-level supabase client
     const { data: models } = await supabase
       .from('machine_models')
       .select('brand_slug, slug');
@@ -120,7 +135,7 @@ export async function generateStaticParams() {
 
 async function getMachineModel(brandSlug: string, modelSlug: string): Promise<MachineModel | null> {
   try {
-    const supabase = supabaseServer();
+    // Use the module-level supabase client
     const { data, error } = await supabase
       .from('machine_models')
       .select('*')
@@ -151,7 +166,7 @@ interface OEMPart {
 
 async function getOEMPartsForModel(brandSlug: string, modelSlug: string): Promise<OEMPart[]> {
   try {
-    const supabase = supabaseServer();
+    // Use the module-level supabase client
     const modelKey = `${brandSlug}-${modelSlug}`.toLowerCase();
     
     const { data, error } = await supabase
@@ -759,7 +774,19 @@ export default async function CompatibilityPage({ params }: PageProps) {
           />
         )}
 
-        {/* === SECTION 5: REPAIR COMPONENTS === */}
+        {/* === SECTION 5: COMMON FAULT CODES === */}
+        {(() => {
+          const faultCodes = getFaultCodes(params.brand, params.model);
+          return faultCodes.length > 0 ? (
+            <FaultCodesAccordion
+              brand={brandDisplay}
+              model={modelDisplay}
+              faultCodes={faultCodes}
+            />
+          ) : null;
+        })()}
+
+        {/* === SECTION 6: REPAIR COMPONENTS === */}
         {(repairModule || compatibility?.repairComponents?.length) && (
           <section className="mb-12">
             <div className="flex items-center gap-3 mb-6">
