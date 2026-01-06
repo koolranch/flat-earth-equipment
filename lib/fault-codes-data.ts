@@ -571,6 +571,181 @@ export const FAULT_CODES_DATA: Record<string, Record<string, FaultCode[]>> = {
       },
     ],
   },
+  raymond: {
+    '7400': [
+      {
+        code: '31',
+        name: 'CAN-bus Communication Error',
+        description: 'The controller has lost communication with one or more modules on the CAN network. The truck may enter limp mode or stop responding to controls.',
+        causes: [
+          'PPA (Programmable Power Amplifier) wiring fault',
+          'TPA (Traction Power Amplifier) wiring fault',
+          'CAN bus termination resistor missing or damaged',
+          'Damaged CAN bus wiring harness',
+          'Controller module failure',
+          'Water intrusion in connector blocks',
+        ],
+        solutions: [
+          'Check PPA and TPA wiring connections for damage or corrosion',
+          'Verify CAN bus termination resistors are present (120 ohm at each end)',
+          'Inspect main wiring harness for chafing or damage',
+          'Check all connector blocks for water intrusion',
+          'Use Raymond diagnostic tool to identify which module is offline',
+          'Cycle key off for 30 seconds and restart to reset CAN network',
+        ],
+        relatedParts: [
+          { name: 'Hydraulic Filter', sku: 'DS234455' },
+          { name: 'SB350 Blue Connector', sku: 'RA 590-726' },
+        ],
+        severity: 'high',
+      },
+      {
+        code: 'E-106',
+        name: 'Digital Output Overcurrent',
+        description: 'A digital output from the controller is drawing excessive current. This typically indicates a short circuit or failed component on that output.',
+        causes: [
+          'Short circuit in output wiring',
+          'Failed solenoid or relay coil',
+          'Damaged wiring harness',
+          'Water intrusion causing short',
+          'Controller output driver failure',
+        ],
+        solutions: [
+          'Disconnect all loads from digital outputs one at a time to isolate fault',
+          'Check solenoid and relay coil resistance (compare to spec)',
+          'Inspect wiring for damaged insulation or pinched wires',
+          'Check connector blocks for moisture or corrosion',
+          'If fault persists with all loads disconnected, controller may need replacement',
+        ],
+        relatedParts: [
+          { name: 'Hydraulic Filter', sku: 'DS234455' },
+        ],
+        severity: 'medium',
+      },
+    ],
+    '102xm': [
+      {
+        code: '31',
+        name: 'CAN-bus Communication Error',
+        description: 'Communication fault on the CAN network. The pallet jack may stop responding to controls.',
+        causes: [
+          'Wiring harness damage',
+          'Connector corrosion',
+          'Controller module fault',
+          'Battery voltage too low',
+        ],
+        solutions: [
+          'Check main wiring harness for damage',
+          'Inspect connectors for corrosion or bent pins',
+          'Verify battery voltage is above 22V',
+          'Cycle key off and restart',
+        ],
+        relatedParts: [
+          { name: 'SB175 Gray Connector', sku: 'RA 590-701' },
+        ],
+        severity: 'high',
+      },
+    ],
+  },
+  crown: {
+    'rr-5700': [
+      {
+        code: '312',
+        name: 'AC Traction Motor Overcurrent',
+        description: 'The traction motor is drawing excessive current. The truck will limit travel speed or disable traction to protect the motor and controller.',
+        causes: [
+          'Traction motor temperature sensor wiring fault',
+          'Motor overheating due to heavy use',
+          'Motor bearing failure causing drag',
+          'Controller calibration issue',
+          'Shorted motor winding',
+        ],
+        solutions: [
+          'Check traction motor temperature sensor wiring for damage or loose connections',
+          'Allow motor to cool if overheated (feel motor case temperature)',
+          'Listen for bearing noise - grinding indicates bearing failure',
+          'Check motor winding resistance (should be balanced across all phases)',
+          'Use Crown InfoLink diagnostic tool to view motor temperature',
+          'If sensor wiring is OK, motor may need replacement',
+        ],
+        relatedParts: [
+          { name: 'Load Wheel Assembly', sku: '115032-030' },
+          { name: 'Lift Pump Contactor', sku: '110613-007' },
+        ],
+        severity: 'high',
+      },
+      {
+        code: '212',
+        name: 'Brake Switch Circuit Fault',
+        description: 'The brake release switch circuit has a fault. The truck may not release the parking brake or may have unexpected brake behavior.',
+        causes: [
+          'Brake switch wiring open or shorted',
+          'Brake switch failure',
+          'Connector corrosion at brake switch',
+          'Controller input circuit failure',
+          'Brake release solenoid wiring issue',
+        ],
+        solutions: [
+          'Check brake switch connector for corrosion or damage',
+          'Test brake switch continuity with multimeter (should toggle with brake lever)',
+          'Inspect wiring from brake switch to controller',
+          'Check brake release solenoid wiring if brake won\'t release',
+          'Replace brake switch if switch tests faulty',
+        ],
+        relatedParts: [
+          { name: 'Lift Pump Contactor', sku: '110613-007' },
+        ],
+        severity: 'high',
+      },
+    ],
+    'pe-4500': [
+      {
+        code: '312',
+        name: 'AC Traction Motor Overcurrent',
+        description: 'The traction motor is drawing excessive current. The pallet truck will limit speed to protect components.',
+        causes: [
+          'Motor temperature sensor fault',
+          'Motor overheating',
+          'Drive wheel binding or dragging',
+          'Motor bearing wear',
+        ],
+        solutions: [
+          'Check motor temperature sensor wiring',
+          'Allow motor to cool if overheated',
+          'Check drive wheel for binding - should spin freely when lifted',
+          'Listen for bearing noise in drive motor',
+          'Replace motor if bearings are failed',
+        ],
+        relatedParts: [
+          { name: 'Main Contactor', sku: '110613-002' },
+          { name: 'Contact Tip Kit', sku: 'CR 120091' },
+        ],
+        severity: 'high',
+      },
+      {
+        code: '212',
+        name: 'Brake Switch Circuit Fault',
+        description: 'The deadman brake switch circuit has detected a fault. The truck may not respond to controls.',
+        causes: [
+          'Deadman switch wiring fault',
+          'Handle switch failure',
+          'Connector corrosion',
+          'Wiring harness damage',
+        ],
+        solutions: [
+          'Check deadman switch at control handle',
+          'Test switch continuity when handle is depressed',
+          'Inspect wiring to controller for damage',
+          'Check connector pins for corrosion',
+          'Replace handle switch assembly if faulty',
+        ],
+        relatedParts: [
+          { name: 'Main Contactor', sku: '110613-002' },
+        ],
+        severity: 'high',
+      },
+    ],
+  },
 };
 
 // Helper function to get fault codes for a specific brand/model

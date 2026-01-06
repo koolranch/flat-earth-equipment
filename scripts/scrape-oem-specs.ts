@@ -228,6 +228,57 @@ async function searchOEMSpecs(part: OEMPartInput): Promise<ScrapedSpecs | null> 
       description: 'Bucket pin kit with hardened pins, bushings, and retainers.',
       sourceUrl: 'https://jcb.com/parts/bucket-pins',
     },
+    // Raymond Parts
+    'DS234455': {
+      weight_lbs: 1.2,
+      dimensions: '6" x 4" diameter',
+      compatibilityTags: ['Raymond 7400', 'Raymond 7500', 'Raymond 7600'],
+      description: 'High-capacity hydraulic filter for reach truck mast and steering systems.',
+      sourceUrl: 'https://raymond.com/parts/DS234455',
+    },
+    'RA 590-726': {
+      weight_lbs: 1.8,
+      dimensions: '5" x 3" x 2.5"',
+      compatibilityTags: ['Raymond 7400', 'Raymond 7500'],
+      description: 'SB350 blue battery connector. 350A rating for 36V/48V systems.',
+      sourceUrl: 'https://raymond.com/parts/590-726',
+    },
+    'RA 590-701': {
+      weight_lbs: 0.8,
+      dimensions: '3" x 2" x 1.5"',
+      compatibilityTags: ['Raymond 102XM', 'Raymond 8210', 'Raymond 8510'],
+      description: 'SB175 gray battery connector. 175A rating for 24V systems.',
+      sourceUrl: 'https://raymond.com/parts/590-701',
+    },
+    // Crown Parts
+    '115032-030': {
+      weight_lbs: 8.5,
+      dimensions: '10" x 6" x 6"',
+      compatibilityTags: ['Crown RR 5700', 'Crown RR 5200', 'Crown RM 6000'],
+      description: 'Load wheel assembly with polyurethane tread and bearings.',
+      sourceUrl: 'https://crown.com/parts/115032-030',
+    },
+    '110613-007': {
+      weight_lbs: 2.4,
+      dimensions: '4" x 3" x 3"',
+      compatibilityTags: ['Crown RR 5700', 'Crown RR 5200'],
+      description: 'Lift pump motor contactor. Heavy-duty silver contacts.',
+      sourceUrl: 'https://crown.com/parts/110613-007',
+    },
+    '110613-002': {
+      weight_lbs: 2.2,
+      dimensions: '4" x 3" x 3"',
+      compatibilityTags: ['Crown PE 4500', 'Crown PE 4000', 'Crown WP 3000'],
+      description: 'Main power contactor for pallet truck drive systems.',
+      sourceUrl: 'https://crown.com/parts/110613-002',
+    },
+    'CR 120091': {
+      weight_lbs: 0.4,
+      dimensions: '2" x 2" x 1"',
+      compatibilityTags: ['Crown PE 4500', 'Crown PE 4000', 'Crown WP 3000'],
+      description: 'Contact tip rebuild kit for Crown contactors. Extends contactor life.',
+      sourceUrl: 'https://crown.com/parts/120091',
+    },
   };
 
   return mockResults[part.oemPartNumber] || null;
@@ -465,6 +516,52 @@ const OEM_PARTS: OEMPartInput[] = [
     brand: 'JCB',
     machineModel: 'JCB 19C-1',
     category: 'Bucket Pin Kit',
+  },
+  // Raymond 7400 Reach Truck
+  {
+    oemPartNumber: 'DS234455',
+    brand: 'Raymond',
+    machineModel: 'Raymond 7400',
+    category: 'Hydraulic Filter',
+  },
+  {
+    oemPartNumber: 'RA 590-726',
+    brand: 'Raymond',
+    machineModel: 'Raymond 7400',
+    category: 'SB350 Blue Connector',
+  },
+  // Raymond 102XM Pallet Jack
+  {
+    oemPartNumber: 'RA 590-701',
+    brand: 'Raymond',
+    machineModel: 'Raymond 102XM',
+    category: 'SB175 Gray Connector',
+  },
+  // Crown RR 5700 Reach Truck
+  {
+    oemPartNumber: '115032-030',
+    brand: 'Crown',
+    machineModel: 'Crown RR 5700',
+    category: 'Load Wheel Assembly',
+  },
+  {
+    oemPartNumber: '110613-007',
+    brand: 'Crown',
+    machineModel: 'Crown RR 5700',
+    category: 'Lift Pump Contactor',
+  },
+  // Crown PE 4500 Pallet Truck
+  {
+    oemPartNumber: '110613-002',
+    brand: 'Crown',
+    machineModel: 'Crown PE 4500',
+    category: 'Main Contactor',
+  },
+  {
+    oemPartNumber: 'CR 120091',
+    brand: 'Crown',
+    machineModel: 'Crown PE 4500',
+    category: 'Contact Tip Kit',
   },
 ];
 
