@@ -254,6 +254,85 @@ const baseConfig = {
         source: '/uncategorized',
         destination: '/insights',
         permanent: true
+      },
+      
+      // ============================================================
+      // DUPLICATE CONTENT CONSOLIDATION (Added 2026-01-09)
+      // Redirect duplicate pages to canonical URLs to fix SEO cannibalization
+      // These redirects address the "3XX page receives organic traffic" Site Audit issue
+      // ============================================================
+      
+      // 1. Toyota A5-1 Error Code - Keep diagnostic-codes, redirect insights
+      {
+        source: '/insights/toyota-forklift-error-code-e-a5-1',
+        destination: '/diagnostic-codes/e-a5-1-code-on-toyota-forklift-2',
+        permanent: true // 301 - Consolidates ranking authority
+      },
+      
+      // 2-3. Raymond Serial Number - Keep /raymond-serial-number-lookup, redirect duplicates
+      {
+        source: '/parts/raymond-forklift-serial-number',
+        destination: '/raymond-serial-number-lookup',
+        permanent: true
+      },
+      {
+        source: '/insights/raymond-forklift-serial-number',
+        destination: '/raymond-serial-number-lookup',
+        permanent: true
+      },
+      
+      // 4. Hyster Fault Codes - Keep brand hub, redirect rental path
+      {
+        source: '/rental/forklifts/hyster-forklift-fault-codes-list',
+        destination: '/brand/hyster/fault-codes',
+        permanent: true
+      },
+      
+      // 5. Hyster Serial Number - Keep brand hub, redirect rental path
+      {
+        source: '/rental/forklifts/hyster-serial-number-lookup',
+        destination: '/brand/hyster/serial-lookup',
+        permanent: true
+      },
+      
+      // 6. JCB Battery Location - Keep rental (top performer), redirect insights
+      {
+        source: '/insights/jcb-telehandler-battery-location',
+        destination: '/rental/telehandler/jcb-telehandler-battery-location',
+        permanent: true
+      },
+      
+      // 7-8. JCB Fault Codes - Keep brand hub, redirect rental and insights
+      {
+        source: '/rental/telehandler/jcb-telehandler-fault-codes-list',
+        destination: '/brand/jcb/fault-codes',
+        permanent: true
+      },
+      {
+        source: '/insights/jcb-telehandler-fault-codes-list',
+        destination: '/brand/jcb/fault-codes',
+        permanent: true
+      },
+      
+      // 9. JCB Joystick Controls - Keep insights, redirect rental
+      {
+        source: '/rental/telehandler/jcb-telehandler-joystick-controls',
+        destination: '/insights/jcb-telehandler-joystick-controls',
+        permanent: true
+      },
+      
+      // 10. Forklift Certification Duration - Keep insights, redirect rental
+      {
+        source: '/rental/forklifts/how-long-is-forklift-certification-good-for',
+        destination: '/insights/how-long-is-forklift-certification-good-for',
+        permanent: true
+      },
+      
+      // 11. Forklift Age Requirement - Keep insights, redirect rental
+      {
+        source: '/rental/forklifts/how-old-must-you-be-to-operate-a-forklift-2',
+        destination: '/insights/how-old-must-you-be-to-operate-a-forklift-2',
+        permanent: true
       }
     ];
   },
