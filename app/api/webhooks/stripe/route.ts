@@ -45,6 +45,36 @@ export async function POST(req: Request) {
         
         if (user) {
           console.log('✅ Using existing user:', user.email)
+          
+          // NEW: Send notification to existing users about their new purchase
+          // This is non-blocking and wrapped in try/catch - cannot break existing flow
+          try {
+            const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com'
+            const quantity = parseInt(session.metadata?.quantity || '1')
+            
+            fetch(`${siteUrl}/api/send-enrollment-notification`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                email: customerEmail,
+                name: customerName,
+                courseTitle: 'Forklift Operator Certification',
+                isTrainer: quantity > 1,
+                seatCount: quantity
+              })
+            }).then(res => {
+              if (res.ok) {
+                console.log(`✅ Enrollment notification sent to existing user: ${customerEmail}`)
+              } else {
+                console.log(`⚠️ Enrollment notification failed (non-blocking): ${res.status}`)
+              }
+            }).catch(err => {
+              console.log(`⚠️ Enrollment notification error (non-blocking):`, err.message)
+            })
+          } catch (notifyError) {
+            // Completely silent - this should never break the main flow
+            console.log('⚠️ Notification setup error (non-blocking):', notifyError)
+          }
         } else {
           // Create new user account with a simple, user-friendly password
           const randomNumber = Math.floor(1000 + Math.random() * 9000) // 4-digit number
