@@ -87,7 +87,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `How to Get Forklift Certified in ${state.name} | Online OSHA Training`,
     description: `Learn how to get forklift certified in ${state.name}. Complete OSHA-compliant certification online in under 30 minutes. Instant certificate download for ${state.name} operators.`,
     alternates: {
-      canonical: `https://flatearthequipment.com/safety/forklift/${state.code}`
+      canonical: `https://www.flatearthequipment.com/safety/forklift/${state.code}`
     },
     robots: {
       index: metrics.shouldIndex,
@@ -100,11 +100,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `Forklift Certification in ${state.name} | OSHA Compliant`,
       description: `Get certified in under 30 minutes. OSHA-compliant online training for ${state.name} operators. Instant certificate download.`,
-      url: `https://flatearthequipment.com/safety/forklift/${state.code}`,
+      url: `https://www.flatearthequipment.com/safety/forklift/${state.code}`,
       siteName: 'Flat Earth Equipment',
       images: [
         {
-          url: 'https://flatearthequipment.com/og-safety-training.png',
+          url: 'https://www.flatearthequipment.com/og-safety-training.png',
           width: 1200,
           height: 630,
           alt: `Forklift Certification Training in ${state.name}`,
@@ -116,7 +116,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       title: `Forklift Certification in ${state.name}`,
       description: `Get OSHA-compliant forklift certification online in under 30 minutes. Valid in ${state.name}.`,
-      images: ['https://flatearthequipment.com/og-safety-training.png'],
+      images: ['https://www.flatearthequipment.com/og-safety-training.png'],
     },
   };
 }
@@ -2175,25 +2175,25 @@ export default function StateForkliftPage({ params }: Props) {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://flatearthequipment.com",
+                    item: "https://www.flatearthequipment.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Safety Training",
-                    item: "https://flatearthequipment.com/safety",
+                    item: "https://www.flatearthequipment.com/safety",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Forklift Certification",
-                    item: "https://flatearthequipment.com/safety/forklift",
+                    item: "https://www.flatearthequipment.com/safety/forklift",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: info.name,
-                    item: `https://flatearthequipment.com/safety/forklift/${info.code}`,
+                    item: `https://www.flatearthequipment.com/safety/forklift/${info.code}`,
                   },
                 ],
               },
@@ -2204,13 +2204,13 @@ export default function StateForkliftPage({ params }: Props) {
                 provider: {
                   "@type": "Organization",
                   name: "Flat Earth Equipment",
-                  logo: "https://flatearthequipment.com/logo.png",
+                  logo: "https://www.flatearthequipment.com/logo.png",
                 },
                 offers: {
                   "@type": "Offer",
                   price: "59",
                   priceCurrency: "USD",
-                  url: `https://flatearthequipment.com/safety/forklift/${info.code}`,
+                  url: `https://www.flatearthequipment.com/safety/forklift/${info.code}`,
                 },
                 aggregateRating: {
                   "@type": "AggregateRating",
@@ -2541,7 +2541,7 @@ export default function StateForkliftPage({ params }: Props) {
       <meta name="robots" content="index,follow" />
       <link
         rel="canonical"
-        href={`https://flatearthequipment.com/safety/forklift/${info.code}`}
+        href={`https://www.flatearthequipment.com/safety/forklift/${info.code}`}
       />
     </main>
     

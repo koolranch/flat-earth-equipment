@@ -114,7 +114,7 @@ export async function generateMetadata({ params }: { params: { code: string } })
   const title = `${certificate.learner.name} - ${certificate.course_title} Certificate`;
   const description = `Verify the authenticity of ${certificate.learner.name}'s ${certificate.course_title} certificate. ${certificate.is_expired ? 'Certificate has expired.' : 'Certificate is valid.'}`;
   
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://flatearthequipment.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.flatearthequipment.com';
   const verifyUrl = `${baseUrl}/verify/${params.code}`;
 
   return {
@@ -148,7 +148,7 @@ export async function generateMetadata({ params }: { params: { code: string } })
 }
 
 export default async function VerificationPage({ params }: { params: { code: string } }) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://flatearthequipment.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.flatearthequipment.com';
   const locale = (cookies().get('locale')?.value === 'es') ? 'es' : 'en';
   const dict = getDict(locale as Locales);
   const t = (path: string, params?: Record<string, any>) => tFrom(dict, path, params);

@@ -45,7 +45,7 @@ async function generateGoogleShoppingFeed(): Promise<string> {
 
   const xmlItems = items.map((item) => {
     const price = item.your_price ? `${item.your_price.toFixed(2)} USD` : '';
-    const link = `https://flatearthequipment.com/chargers/${item.slug}`;
+    const link = `https://www.flatearthequipment.com/chargers/${item.slug}`;
     const imageLink = item.images && item.images.length > 0 ? item.images[0] : '';
     const availability = item.in_stock ? 'in_stock' : 'out_of_stock';
     const description = item.meta_description || `${item.name} - Industrial battery charger from FSIP GREEN Series.`;
@@ -69,7 +69,7 @@ async function generateGoogleShoppingFeed(): Promise<string> {
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
   <channel>
     <title>Flat Earth Equipment - Industrial Battery Chargers</title>
-    <link>https://flatearthequipment.com/chargers</link>
+    <link>https://www.flatearthequipment.com/chargers</link>
     <description>Industrial battery chargers for forklifts and material handling equipment</description>
 ${xmlItems}
   </channel>

@@ -38,7 +38,7 @@ export default function CounterbalanceForkliftPage() {
                 "provider": {
                   "@type": "Organization",
                   "name": "Flat Earth Equipment",
-                  "url": "https://flatearthequipment.com"
+                  "url": "https://www.flatearthequipment.com"
                 },
                 "offers": {
                   "@type": "Offer",

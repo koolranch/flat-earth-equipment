@@ -104,7 +104,7 @@ export async function POST(req: NextRequest) {
   
   <div style="text-align: center; color: #6b7280; font-size: 12px;">
     <p>Flat Earth Equipment | Western-Tough Parts & Rentals</p>
-    <p><a href="https://flatearthequipment.com" style="color: #6b7280; text-decoration: none;">flatearthequipment.com</a> | <a href="mailto:quotes@flatearthequipment.com" style="color: #6b7280; text-decoration: none;">quotes@flatearthequipment.com</a></p>
+    <p><a href="https://www.flatearthequipment.com" style="color: #6b7280; text-decoration: none;">flatearthequipment.com</a> | <a href="mailto:quotes@flatearthequipment.com" style="color: #6b7280; text-decoration: none;">quotes@flatearthequipment.com</a></p>
   </div>
 </body>
 </html>

@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   description: "Shop forklift proximity sensors, pedestrian detection systems, and safety equipment. Ultrasonic, RFID, laser sensors for Toyota, Crown, Yale, Hyster forklifts. Same-day shipping.",
   keywords: "forklift proximity sensor, pedestrian detection system, forklift safety sensors, ultrasonic forklift sensor, RFID pedestrian alert, warehouse safety equipment",
   alternates: {
-    canonical: "https://flatearthequipment.com/parts/safety/forklift-proximity-sensors"
+    canonical: "https://www.flatearthequipment.com/parts/safety/forklift-proximity-sensors"
   },
   openGraph: {
     title: "Forklift Proximity Sensors & Pedestrian Detection Systems",
     description: "Professional-grade proximity sensors and pedestrian detection systems for all major forklift brands. Reduce accidents and improve warehouse safety.",
-    url: "https://flatearthequipment.com/parts/safety/forklift-proximity-sensors"
+    url: "https://www.flatearthequipment.com/parts/safety/forklift-proximity-sensors"
   }
 };
 

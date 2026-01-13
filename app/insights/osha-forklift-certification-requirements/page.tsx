@@ -6,13 +6,13 @@ export const metadata: Metadata = {
   title: 'OSHA Forklift Operator Training & Certification (29 CFR 1910.178(l)) – Summary & Compliance Guide',
   description: 'Neutral summary of OSHA 29 CFR 1910.178(l) forklift operator training, certification, and three-year evaluation requirements with official references.',
   alternates: {
-    canonical: 'https://flatearthequipment.com/insights/osha-forklift-certification-requirements',
+    canonical: 'https://www.flatearthequipment.com/insights/osha-forklift-certification-requirements',
   },
   openGraph: {
     type: 'article',
     title: 'OSHA Forklift Operator Training & Certification (29 CFR 1910.178(l))',
     description: 'Neutral summary of OSHA forklift operator certification and evaluation requirements.',
-    url: 'https://flatearthequipment.com/insights/osha-forklift-certification-requirements',
+    url: 'https://www.flatearthequipment.com/insights/osha-forklift-certification-requirements',
   },
   twitter: {
     card: 'summary_large_image',
@@ -38,10 +38,10 @@ export default function OSHAForkliftCertificationPage() {
       name: 'Flat Earth Equipment',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://flatearthequipment.com/logo.png',
+        url: 'https://www.flatearthequipment.com/logo.png',
       },
     },
-    mainEntityOfPage: 'https://flatearthequipment.com/insights/osha-forklift-certification-requirements',
+    mainEntityOfPage: 'https://www.flatearthequipment.com/insights/osha-forklift-certification-requirements',
   };
 
   return (

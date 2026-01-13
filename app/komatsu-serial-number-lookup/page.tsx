@@ -52,7 +52,7 @@ export default function KomatsuLookupPage() {
     "@type": "WebApplication",
     "name": "Komatsu Forklift Serial Number Lookup",
     "description": "Find Komatsu data plate and embossed serial locations. VIN-year decoding only for true 17-char VIN/PIN. IC model-code helper for FG/FD.",
-    "url": "https://flatearthequipment.com/komatsu-serial-number-lookup",
+    "url": "https://www.flatearthequipment.com/komatsu-serial-number-lookup",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web Browser",
     "offers": {
@@ -63,7 +63,7 @@ export default function KomatsuLookupPage() {
     "provider": {
       "@type": "Organization",
       "name": "Flat Earth Equipment",
-      "url": "https://flatearthequipment.com"
+      "url": "https://www.flatearthequipment.com"
     }
   };
 

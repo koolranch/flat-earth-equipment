@@ -69,7 +69,7 @@ export default function Page() {
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "Flat Earth Equipment",
-          url: "https://flatearthequipment.com",
+          url: "https://www.flatearthequipment.com",
           logo: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp",
           description: "Industrial equipment parts and rentals. Same-day shipping. Western-tough, nationwide.",
           address: {

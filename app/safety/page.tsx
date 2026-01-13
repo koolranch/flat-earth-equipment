@@ -46,7 +46,7 @@ export const metadata = {
     images: ['/og-forklift-training.jpg']
   },
   alternates: {
-    canonical: 'https://flatearthequipment.com/safety'
+    canonical: 'https://www.flatearthequipment.com/safety'
   },
   robots: {
     index: true,
@@ -119,7 +119,7 @@ export default async function SafetyPage() {
     provider: { 
       '@type': 'Organization', 
       name: t.brand.name,
-      url: 'https://flatearthequipment.com'
+      url: 'https://www.flatearthequipment.com'
     },
     educationalLevel: 'Professional',
     teaches: [
@@ -174,10 +174,10 @@ export default async function SafetyPage() {
     '@type': 'VideoObject',
     name: 'Forklift Certification — 20-second Demo',
     description: 'Quick overview of our OSHA-compliant forklift training platform',
-    thumbnailUrl: 'https://flatearthequipment.com/media/demo/poster.jpg',
+    thumbnailUrl: 'https://www.flatearthequipment.com/media/demo/poster.jpg',
     uploadDate: '2025-10-22',
-    contentUrl: 'https://flatearthequipment.com/media/demo/hero-demo.mp4',
-    embedUrl: 'https://flatearthequipment.com/safety',
+    contentUrl: 'https://www.flatearthequipment.com/media/demo/hero-demo.mp4',
+    embedUrl: 'https://www.flatearthequipment.com/safety',
     duration: 'PT20S'
   };
 

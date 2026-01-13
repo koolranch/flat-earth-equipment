@@ -48,7 +48,7 @@ export default function KarcherLookupPage() {
     "@type": "WebApplication",
     "name": "Kärcher Serial Number Lookup",
     "description": "Free tool to find type plate locations on Kärcher scrubbers and sweepers. Step-by-step guidance for BD, BR, B series, KM series, and BRC models.",
-    "url": "https://flatearthequipment.com/karcher-serial-number-lookup",
+    "url": "https://www.flatearthequipment.com/karcher-serial-number-lookup",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web Browser",
     "offers": {
@@ -59,7 +59,7 @@ export default function KarcherLookupPage() {
     "provider": {
       "@type": "Organization",
       "name": "Flat Earth Equipment",
-      "url": "https://flatearthequipment.com"
+      "url": "https://www.flatearthequipment.com"
     }
   };
 

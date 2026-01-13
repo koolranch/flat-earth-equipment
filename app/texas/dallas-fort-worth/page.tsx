@@ -288,7 +288,7 @@ export default async function DallasFortWorthPage() {
           '@type': 'LocalBusiness',
           'name': 'Flat Earth Equipment - Dallas-Fort Worth',
           'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
-          'url': 'https://flatearthequipment.com/texas/dallas-fort-worth',
+          'url': 'https://www.flatearthequipment.com/texas/dallas-fort-worth',
           'address': {
             '@type': 'PostalAddress',
             'addressLocality': 'Dallas',
@@ -308,11 +308,11 @@ export default async function DallasFortWorthPage() {
           'openingHours': 'Mo-Fr 07:00-17:00',
           'priceRange': '$$',
           'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support'],
-          'sameAs': ['https://flatearthequipment.com/contact'],
+          'sameAs': ['https://www.flatearthequipment.com/contact'],
           'parentOrganization': {
             '@type': 'Organization',
             'name': 'Flat Earth Equipment',
-            'url': 'https://flatearthequipment.com'
+            'url': 'https://www.flatearthequipment.com'
           }
         })}
       </Script>

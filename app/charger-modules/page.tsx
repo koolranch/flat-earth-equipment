@@ -39,7 +39,7 @@ export default function ChargersLanding() {
           "@type": "ItemList",
           "name": "Forklift Charger Modules",
           "description": "In-stock remanufactured forklift charger modules for Enersys & Hawker. Choose instant exchange or send-in repair service.",
-          "url": "https://flatearthequipment.com/charger-modules",
+          "url": "https://www.flatearthequipment.com/charger-modules",
           "numberOfItems": CHARGER_MODULES.length * 2, // Each module has 2 offers
           "itemListElement": CHARGER_MODULES.flatMap((module, moduleIndex) => 
             module.offers.map((offer, offerIndex) => ({

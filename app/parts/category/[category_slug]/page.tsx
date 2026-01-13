@@ -71,7 +71,7 @@ export default async function CategoryPage({
           "@type": "CollectionPage",
           "name": categoryDisplay,
           "description": `Shop ${categoryDisplay}—high-quality, same-day quotes, rugged Western-tough parts.`,
-          "url": `https://flatearthequipment.com/parts/category/${params.category_slug}`,
+          "url": `https://www.flatearthequipment.com/parts/category/${params.category_slug}`,
           "numberOfItems": parts.length,
           "itemListElement": parts.map((part, index) => ({
             "@type": "ListItem",
@@ -79,7 +79,7 @@ export default async function CategoryPage({
             "item": {
               "@type": "Product",
               "name": part.name,
-              "url": `https://flatearthequipment.com/parts/${part.slug}`,
+              "url": `https://www.flatearthequipment.com/parts/${part.slug}`,
               "image": part.image_url,
               "brand": {
                 "@type": "Brand",

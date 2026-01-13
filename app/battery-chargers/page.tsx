@@ -21,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: "Professional Forklift Battery Chargers - All Voltages Available", 
       description, 
       type: "website",
-      url: "https://flatearthequipment.com/battery-chargers"
+      url: "https://www.flatearthequipment.com/battery-chargers"
     },
     twitter: { 
       card: "summary_large_image", 
@@ -119,7 +119,7 @@ function itemListJsonLd(items: { name: string; slug: string }[]) {
     "itemListElement": list.map((it, idx) => ({
       "@type": "ListItem",
       "position": idx + 1,
-      "url": `https://flatearthequipment.com/chargers/${it.slug}`,
+      "url": `https://www.flatearthequipment.com/chargers/${it.slug}`,
       "name": it.name
     }))
   };
@@ -178,7 +178,7 @@ function howToSchemaJsonLd() {
     "@type": "HowTo",
     "name": "How to Choose a Forklift Battery Charger",
     "description": "Step-by-step guide to selecting the right forklift battery charger based on voltage, amperage, and power requirements",
-    "image": "https://flatearthequipment.com/images/insights/forklift-charger-guide.jpg",
+    "image": "https://www.flatearthequipment.com/images/insights/forklift-charger-guide.jpg",
     "totalTime": "PT15M",
     "estimatedCost": {
       "@type": "MonetaryAmount",
@@ -200,19 +200,19 @@ function howToSchemaJsonLd() {
         "@type": "HowToStep",
         "name": "Determine Battery Voltage",
         "text": "Check your forklift battery label to find the voltage (24V, 36V, 48V, or 80V). This must match your charger exactly.",
-        "url": "https://flatearthequipment.com/battery-chargers#voltage-selection"
+        "url": "https://www.flatearthequipment.com/battery-chargers#voltage-selection"
       },
       {
         "@type": "HowToStep",
         "name": "Calculate Required Amperage", 
         "text": "Determine charging amperage based on battery capacity and desired charging time. Use C/10 rate for overnight charging or C/5 for fast charging.",
-        "url": "https://flatearthequipment.com/battery-chargers#amperage-calculation"
+        "url": "https://www.flatearthequipment.com/battery-chargers#amperage-calculation"
       },
       {
         "@type": "HowToStep",
         "name": "Verify Power Input Requirements",
         "text": "Confirm your facility has appropriate power input (single-phase 208-240V or three-phase 480-600V) for your selected charger.",
-        "url": "https://flatearthequipment.com/battery-chargers#power-input"
+        "url": "https://www.flatearthequipment.com/battery-chargers#power-input"
       }
     ]
   };
@@ -227,19 +227,19 @@ function breadcrumbSchemaJsonLd() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://flatearthequipment.com"
+        "item": "https://www.flatearthequipment.com"
       },
       {
         "@type": "ListItem", 
         "position": 2,
         "name": "Parts",
-        "item": "https://flatearthequipment.com/parts"
+        "item": "https://www.flatearthequipment.com/parts"
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": "Forklift Battery Chargers",
-        "item": "https://flatearthequipment.com/battery-chargers"
+        "item": "https://www.flatearthequipment.com/battery-chargers"
       }
     ]
   };
@@ -250,8 +250,8 @@ function organizationSchemaJsonLd() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Flat Earth Equipment",
-    "url": "https://flatearthequipment.com",
-    "logo": "https://flatearthequipment.com/images/flat-earth-logo.png",
+    "url": "https://www.flatearthequipment.com",
+    "logo": "https://www.flatearthequipment.com/images/flat-earth-logo.png",
     "description": "Professional forklift parts, battery chargers, and equipment rentals with expert technical support and same-day shipping.",
     "address": {
       "@type": "PostalAddress",

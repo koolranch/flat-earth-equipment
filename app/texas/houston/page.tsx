@@ -322,7 +322,7 @@ export default async function HoustonPage() {
           '@type': 'LocalBusiness',
           'name': 'Flat Earth Equipment - Houston',
           'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
-          'url': 'https://flatearthequipment.com/texas/houston',
+          'url': 'https://www.flatearthequipment.com/texas/houston',
           'telephone': '+1-888-392-9175',
           'address': {
             '@type': 'PostalAddress',
@@ -345,12 +345,12 @@ export default async function HoustonPage() {
           'priceRange': '$$',
           'serviceType': ['Equipment Rental', 'Industrial Parts', 'Port Equipment', 'Refinery Equipment'],
           'sameAs': [
-            'https://flatearthequipment.com/contact'
+            'https://www.flatearthequipment.com/contact'
           ],
           'parentOrganization': {
             '@type': 'Organization',
             'name': 'Flat Earth Equipment',
-            'url': 'https://flatearthequipment.com'
+            'url': 'https://www.flatearthequipment.com'
           }
         })}
       </Script>

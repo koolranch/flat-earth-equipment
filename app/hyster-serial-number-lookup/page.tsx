@@ -30,7 +30,7 @@ export default function HysterLookupPage() {
     "@type": "WebApplication",
     "name": "Hyster Forklift Serial Number Lookup",
     "description": "Free tool to decode Hyster forklift serial numbers. Identifies model prefix, manufacturing plant, and year candidates.",
-    "url": "https://flatearthequipment.com/hyster-serial-number-lookup",
+    "url": "https://www.flatearthequipment.com/hyster-serial-number-lookup",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web Browser",
     "offers": {
@@ -41,7 +41,7 @@ export default function HysterLookupPage() {
     "provider": {
       "@type": "Organization",
       "name": "Flat Earth Equipment",
-      "url": "https://flatearthequipment.com"
+      "url": "https://www.flatearthequipment.com"
     }
   };
 

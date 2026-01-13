@@ -54,19 +54,19 @@ export function generateBreadcrumbJSONLD(): object {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://flatearthequipment.com/"
+        "item": "https://www.flatearthequipment.com/"
       },
       {
         "@type": "ListItem", 
         "position": 2,
         "name": "Parts",
-        "item": "https://flatearthequipment.com/parts"
+        "item": "https://www.flatearthequipment.com/parts"
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": "Toyota Forklift Manuals",
-        "item": "https://flatearthequipment.com/parts/toyota-forklift-manuals"
+        "item": "https://www.flatearthequipment.com/parts/toyota-forklift-manuals"
       }
     ]
   };

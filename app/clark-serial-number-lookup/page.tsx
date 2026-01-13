@@ -47,7 +47,7 @@ export default function ClarkLookupPage() {
     "@type": "WebApplication",
     "name": "Clark Forklift Serial Number Lookup",
     "description": "Find Clark serial/data plate locations by truck family. VIN-year decoding for true 17-digit VIN/PIN; legacy pre-1958 decoder where applicable.",
-    "url": "https://flatearthequipment.com/clark-serial-number-lookup",
+    "url": "https://www.flatearthequipment.com/clark-serial-number-lookup",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web Browser",
     "offers": {
@@ -58,7 +58,7 @@ export default function ClarkLookupPage() {
     "provider": {
       "@type": "Organization",
       "name": "Flat Earth Equipment",
-      "url": "https://flatearthequipment.com"
+      "url": "https://www.flatearthequipment.com"
     }
   };
 

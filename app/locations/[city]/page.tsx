@@ -122,7 +122,7 @@ export async function generateMetadata({ params }: { params: { city: string } })
         '@type': 'LocalBusiness',
         'name': 'Flat Earth Equipment',
         'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
-        'url': `https://flatearthequipment.com/locations/${params.city}`,
+        'url': `https://www.flatearthequipment.com/locations/${params.city}`,
         // 'telephone' removed by request
         'address': {
           '@type': 'PostalAddress',

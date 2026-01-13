@@ -23,9 +23,9 @@ export default function GenieScissorLiftErrorCodes() {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://flatearthequipment.com" },
-            { "@type": "ListItem", "position": 2, "name": "Aerial Equipment Parts", "item": "https://flatearthequipment.com/parts/aerial-equipment" },
-            { "@type": "ListItem", "position": 3, "name": "Genie Error Codes", "item": "https://flatearthequipment.com/parts/aerial-equipment/genie-scissor-lift-error-codes" }
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.flatearthequipment.com" },
+            { "@type": "ListItem", "position": 2, "name": "Aerial Equipment Parts", "item": "https://www.flatearthequipment.com/parts/aerial-equipment" },
+            { "@type": "ListItem", "position": 3, "name": "Genie Error Codes", "item": "https://www.flatearthequipment.com/parts/aerial-equipment/genie-scissor-lift-error-codes" }
           ]
         })}
       </Script>

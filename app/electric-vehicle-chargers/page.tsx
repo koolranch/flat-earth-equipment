@@ -378,7 +378,7 @@ export default function ElectricVehicleChargersPage() {
             "description": language === 'es' ? 
               "Cargadores de vehículos eléctricos de grado profesional y estaciones de carga EV. Cargadores Nivel 2 remanufacturados con características inteligentes." :
               "Professional-grade electric vehicle chargers and EV charging stations. Remanufactured Level 2 chargers with smart features.",
-            "url": "https://flatearthequipment.com/electric-vehicle-chargers",
+            "url": "https://www.flatearthequipment.com/electric-vehicle-chargers",
             "inLanguage": language,
             "numberOfItems": evChargers.length,
             "itemListElement": evChargers.map((charger, index) => ({

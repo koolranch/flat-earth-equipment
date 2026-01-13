@@ -320,7 +320,7 @@ export default async function LasCrucesPage() {
           '@context': 'https://schema.org',
           '@type': 'LocalBusiness',
           'name': 'Flat Earth Equipment',
-          'url': 'https://flatearthequipment.com/new-mexico/las-cruces',
+          'url': 'https://www.flatearthequipment.com/new-mexico/las-cruces',
           'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
           // 'telephone' removed by request
           'address': {
@@ -340,11 +340,11 @@ export default async function LasCrucesPage() {
           'openingHours': 'Mo-Fr 07:00-17:00',
           'priceRange': '$$',
           'serviceType': ['Equipment Rental', 'Industrial Parts', 'Agricultural Equipment Support'],
-          'sameAs': ['https://flatearthequipment.com/contact'],
+          'sameAs': ['https://www.flatearthequipment.com/contact'],
           'parentOrganization': {
             '@type': 'Organization',
             'name': 'Flat Earth Equipment',
-            'url': 'https://flatearthequipment.com'
+            'url': 'https://www.flatearthequipment.com'
           }
         })}
       </Script>
