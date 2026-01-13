@@ -7,17 +7,17 @@ export const metadata = {
   description:
     "Completa tu curso de montacargas en menos de 1 hora. Obtén tu certificado PDF inmediato. Español e inglés incluidos – solo $59.",
   alternates: {
-    canonical: "https://flatearthequipment.com/certificacion-montacargas-espanol",
+    canonical: "https://www.flatearthequipment.com/certificacion-montacargas-espanol",
     languages: { 
-      "en-US": "https://flatearthequipment.com/safety",
-      "es": "https://flatearthequipment.com/certificacion-montacargas-espanol" 
+      "en-US": "https://www.flatearthequipment.com/safety",
+      "es": "https://www.flatearthequipment.com/certificacion-montacargas-espanol" 
     },
   },
   openGraph: {
     title: "Curso OSHA de Montacargas (Español)",
     description:
       "Certifícate 100% online en menos de 30 min, PDF instantáneo.",
-    url: "https://flatearthequipment.com/certificacion-montacargas-espanol",
+    url: "https://www.flatearthequipment.com/certificacion-montacargas-espanol",
     type: "website",
   },
 }
@@ -34,7 +34,7 @@ export default function CertificacionMontacargasEspanol() {
           "provider": {
             "@type": "Organization",
             "name": "Flat Earth Equipment",
-            "url": "https://flatearthequipment.com"
+            "url": "https://www.flatearthequipment.com"
           },
           "courseMode": "online",
           "educationalLevel": "beginner",

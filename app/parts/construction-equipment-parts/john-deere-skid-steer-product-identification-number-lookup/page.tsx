@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "John Deere PIN Lookup Guide | Find Your Skid Steer Model & Parts | Flat Earth Equipment",
     description: "Learn how to find and decode your John Deere skid steer PIN (Product Identification Number). Complete guide to model identification, parts lookup, and maintenance history.",
-    url: "https://flatearthequipment.com/parts/construction-equipment-parts/john-deere-skid-steer-product-identification-number-lookup",
+    url: "https://www.flatearthequipment.com/parts/construction-equipment-parts/john-deere-skid-steer-product-identification-number-lookup",
     type: "website",
   },
 };

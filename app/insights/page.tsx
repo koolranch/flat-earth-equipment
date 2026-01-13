@@ -58,13 +58,13 @@ export default async function InsightsPage({ searchParams }: Props) {
     '@type': 'Blog',
     name: 'Flat Earth Equipment Insights',
     description: 'Expert guides and insights on forklift parts, scissor lifts, and industrial equipment maintenance.',
-    url: 'https://flatearthequipment.com/insights',
+    url: 'https://www.flatearthequipment.com/insights',
     publisher: {
       '@type': 'Organization',
       name: 'Flat Earth Equipment',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://flatearthequipment.com/logo.png',
+        url: 'https://www.flatearthequipment.com/logo.png',
       },
     },
   };

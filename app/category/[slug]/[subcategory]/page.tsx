@@ -17,7 +17,7 @@ export default async function CategoryPage({
   if (!category) return notFound();
 
   // Construct URLs for JSON-LD
-  const baseUrl = 'https://flatearthequipment.com';
+  const baseUrl = 'https://www.flatearthequipment.com';
   const categoryUrl = baseUrl + '/category/' + slug + '/' + subcategory;
 
   // Fetch popular parts in this category

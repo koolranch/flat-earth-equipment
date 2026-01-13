@@ -321,7 +321,7 @@ export default async function AlbuquerquePage() {
           '@type': 'LocalBusiness',
           'name': 'Flat Earth Equipment',
           'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
-          'url': 'https://flatearthequipment.com/new-mexico/albuquerque',
+          'url': 'https://www.flatearthequipment.com/new-mexico/albuquerque',
           // 'telephone' removed by request
           'address': {
             '@type': 'PostalAddress',
@@ -340,11 +340,11 @@ export default async function AlbuquerquePage() {
           'openingHours': 'Mo-Fr 07:00-17:00',
           'priceRange': '$$',
           'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support'],
-          'sameAs': ['https://flatearthequipment.com/contact'],
+          'sameAs': ['https://www.flatearthequipment.com/contact'],
           'parentOrganization': {
             '@type': 'Organization',
             'name': 'Flat Earth Equipment',
-            'url': 'https://flatearthequipment.com'
+            'url': 'https://www.flatearthequipment.com'
           }
         })}
       </Script>

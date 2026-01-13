@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Forklift & Equipment Parts in Phoenix, AZ | Flat Earth Equipment",
     description: "Shop forklift, scissor lift, and heavy equipment parts in Phoenix Metro. Fast shipping, Western-tough reliability.",
-    url: "https://flatearthequipment.com/arizona/phoenix"
+    url: "https://www.flatearthequipment.com/arizona/phoenix"
   }
 };
 
@@ -330,7 +330,7 @@ export default async function PhoenixPage() {
           '@type': 'LocalBusiness',
           'name': 'Flat Earth Equipment',
           'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
-          'url': 'https://flatearthequipment.com/arizona/phoenix',
+          'url': 'https://www.flatearthequipment.com/arizona/phoenix',
           'address': {
             '@type': 'PostalAddress',
             'addressLocality': 'Phoenix',
@@ -352,11 +352,11 @@ export default async function PhoenixPage() {
           'openingHours': 'Mo-Fr 07:00-17:00',
           'priceRange': '$$',
           'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support'],
-          'sameAs': ['https://flatearthequipment.com/contact'],
+          'sameAs': ['https://www.flatearthequipment.com/contact'],
           'parentOrganization': {
             '@type': 'Organization',
             'name': 'Flat Earth Equipment',
-            'url': 'https://flatearthequipment.com'
+            'url': 'https://www.flatearthequipment.com'
           }
         })}
       </Script>

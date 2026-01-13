@@ -44,7 +44,7 @@ export default function GenieLookupPage() {
     "@type": "WebApplication",
     "name": "Genie Aerial Lift Serial Number Lookup",
     "description": "Free tool to decode Genie aerial lift serial numbers. Identifies equipment type, model specifications, and serial plate locations.",
-    "url": "https://flatearthequipment.com/genie-serial-number-lookup",
+    "url": "https://www.flatearthequipment.com/genie-serial-number-lookup",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web Browser",
     "offers": {
@@ -55,7 +55,7 @@ export default function GenieLookupPage() {
     "provider": {
       "@type": "Organization",
       "name": "Flat Earth Equipment",
-      "url": "https://flatearthequipment.com"
+      "url": "https://www.flatearthequipment.com"
     }
   };
 

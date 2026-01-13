@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Telehandler Service, Delivery & Parts Denver | Flat Earth Equipment",
     description: "Heavy equipment telehandler service in Thornton + fast delivery Denver Metro. JCB, Genie, JLG repairs, maintenance, rentals & parts. Same-day service available.",
-    url: "https://flatearthequipment.com/colorado/denver"
+    url: "https://www.flatearthequipment.com/colorado/denver"
   }
 };
 
@@ -483,7 +483,7 @@ export default async function DenverPage() {
           '@type': 'LocalBusiness',
           'name': 'Flat Earth Equipment - Denver',
           'image': 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/flat-earth-logo-badge.webp',
-          'url': 'https://flatearthequipment.com/colorado/denver',
+          'url': 'https://www.flatearthequipment.com/colorado/denver',
           'telephone': '+1-888-392-9175',
           'address': {
             '@type': 'PostalAddress',
@@ -504,12 +504,12 @@ export default async function DenverPage() {
           'priceRange': '$$',
           'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support', 'Heavy Equipment Service'],
           'sameAs': [
-            'https://flatearthequipment.com/contact'
+            'https://www.flatearthequipment.com/contact'
           ],
           'parentOrganization': {
             '@type': 'Organization',
             'name': 'Flat Earth Equipment',
-            'url': 'https://flatearthequipment.com'
+            'url': 'https://www.flatearthequipment.com'
           }
         })}
       </Script>

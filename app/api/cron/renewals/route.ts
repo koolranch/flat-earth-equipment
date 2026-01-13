@@ -48,7 +48,7 @@ export async function GET(request: Request) {
               day: 'numeric'
             })}</strong>.</p>
             <p>Stay compliant with OSHA regulations by completing your refresher training.</p>
-            <p><a href="https://flatearthequipment.com/safety?renew=${row.enrollment_id}" 
+            <p><a href="https://www.flatearthequipment.com/safety?renew=${row.enrollment_id}" 
                 style="display: inline-block; background-color: #3b82f6; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">
                 Complete $35 Refresher Course
             </a></p>

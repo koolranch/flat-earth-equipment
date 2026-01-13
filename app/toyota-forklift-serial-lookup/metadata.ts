@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Toyota Forklift Serial Number Lookup (Free Year Finder)",
     description: "Enter Toyota model and serial to estimate the forklift build year. Works with common 7/8-series. Free instant lookup tool.",
-    url: "https://flatearthequipment.com/toyota-forklift-serial-lookup",
+    url: "https://www.flatearthequipment.com/toyota-forklift-serial-lookup",
     type: "website",
     images: [
       {

@@ -25,9 +25,9 @@ export default function HysterFaultCodesPage() {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://flatearthequipment.com" },
-            { "@type": "ListItem", "position": 2, "name": "Diagnostic Codes", "item": "https://flatearthequipment.com/diagnostic-codes" },
-            { "@type": "ListItem", "position": 3, "name": "Hyster Fault Codes", "item": "https://flatearthequipment.com/diagnostic-codes/hyster-forklift-fault-codes" }
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.flatearthequipment.com" },
+            { "@type": "ListItem", "position": 2, "name": "Diagnostic Codes", "item": "https://www.flatearthequipment.com/diagnostic-codes" },
+            { "@type": "ListItem", "position": 3, "name": "Hyster Fault Codes", "item": "https://www.flatearthequipment.com/diagnostic-codes/hyster-forklift-fault-codes" }
           ]
         })}
       </Script>

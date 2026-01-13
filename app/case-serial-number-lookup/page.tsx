@@ -77,7 +77,7 @@ export default function CaseSerialLookupPage() {
   }
 
   const brand = { slug: 'case-construction', name: 'Case Construction' };
-  const url = 'https://flatearthequipment.com/case-serial-number-lookup';
+  const url = 'https://www.flatearthequipment.com/case-serial-number-lookup';
 
   return (
     <>
@@ -98,7 +98,7 @@ export default function CaseSerialLookupPage() {
             publisher: {
               "@type": "Organization",
               name: "Flat Earth Equipment",
-              url: "https://flatearthequipment.com",
+              url: "https://www.flatearthequipment.com",
             },
           }),
         }}

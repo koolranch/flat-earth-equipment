@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "K21 Engine Guide: Nissan Forklift Engine Parts & Specs",
     description: "Complete K21 engine guide for Nissan forklifts. K21 engine specifications, maintenance, troubleshooting, and replacement parts.",
-    url: "https://flatearthequipment.com/parts/forklift-parts/nissan-k21-forklift-engine",
+    url: "https://www.flatearthequipment.com/parts/forklift-parts/nissan-k21-forklift-engine",
     type: "website",
     images: [
       {

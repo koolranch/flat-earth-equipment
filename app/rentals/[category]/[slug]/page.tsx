@@ -95,7 +95,7 @@ export default async function RentalEquipmentDetailPage({ params }: PageProps) {
     "@context": "https://schema.org/",
     "@type": "Product",
     "name": `${equipment.brand} ${equipment.model}`,
-    "image": equipment.image_url || `https://flatearthequipment.com/images/rentals/${params.category}.jpg`,
+    "image": equipment.image_url || `https://www.flatearthequipment.com/images/rentals/${params.category}.jpg`,
     "description": `Rent a ${equipment.brand} ${equipment.model} ${equipment.category}. Professional grade equipment available for daily, weekly, or monthly rental.`,
     "brand": {
       "@type": "Brand",
@@ -103,7 +103,7 @@ export default async function RentalEquipmentDetailPage({ params }: PageProps) {
     },
     "offers": {
       "@type": "Offer",
-      "url": `https://flatearthequipment.com/rentals/${params.category}/${params.slug}`,
+      "url": `https://www.flatearthequipment.com/rentals/${params.category}/${params.slug}`,
       "priceCurrency": "USD",
       "availability": "https://schema.org/InStock",
       "itemCondition": "https://schema.org/UsedCondition"

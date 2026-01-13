@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Bobcat Serial Number Lookup | Flat Earth Equipment",
     description: "Free tool for loaders, track loaders, excavators, and mini track loaders. Check plate for year; legacy estimates for select models.",
-    url: "https://flatearthequipment.com/bobcat-serial-number-lookup",
+    url: "https://www.flatearthequipment.com/bobcat-serial-number-lookup",
     type: "website",
     images: [
       {

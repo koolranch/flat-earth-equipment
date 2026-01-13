@@ -320,7 +320,7 @@ export default async function PuebloPage() {
           '@context': 'https://schema.org',
           '@type': 'LocalBusiness',
           'name': 'Flat Earth Equipment',
-          'url': 'https://flatearthequipment.com/colorado/pueblo',
+          'url': 'https://www.flatearthequipment.com/colorado/pueblo',
           // 'telephone' removed by request
           'address': {
             '@type': 'PostalAddress',
@@ -335,11 +335,11 @@ export default async function PuebloPage() {
           'openingHours': 'Mo-Fr 07:00-17:00',
           'priceRange': '$$',
           'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support'],
-          'sameAs': ['https://flatearthequipment.com/contact'],
+          'sameAs': ['https://www.flatearthequipment.com/contact'],
           'parentOrganization': {
             '@type': 'Organization',
             'name': 'Flat Earth Equipment',
-            'url': 'https://flatearthequipment.com'
+            'url': 'https://www.flatearthequipment.com'
           }
         })}
       </Script>

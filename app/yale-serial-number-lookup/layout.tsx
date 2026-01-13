@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Yale Forklift Serial Number Lookup | Flat Earth Equipment",
     description: "Free tool to decode Yale serials and show year candidates from the letter code. Design/series, plant, production sequence.",
-    url: "https://flatearthequipment.com/yale-serial-number-lookup",
+    url: "https://www.flatearthequipment.com/yale-serial-number-lookup",
     type: "website",
     images: [
       {

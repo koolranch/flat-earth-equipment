@@ -89,7 +89,7 @@ export default async function RentEquipmentPage() {
           "provider": {
             "@type": "Organization",
             "name": "Flat Earth Equipment",
-            "url": "https://flatearthequipment.com"
+            "url": "https://www.flatearthequipment.com"
           },
           "areaServed": {
             "@type": "Country",

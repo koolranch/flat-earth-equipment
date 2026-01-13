@@ -34,7 +34,7 @@ export default function RaymondLookupPage() {
     "@type": "WebApplication",
     "name": "Raymond Forklift Serial Number Lookup",
     "description": "Free tool to decode Raymond forklift serial numbers. Parse model digits, two-digit year code, and sequence. Get plate location tips.",
-    "url": "https://flatearthequipment.com/raymond-serial-number-lookup",
+    "url": "https://www.flatearthequipment.com/raymond-serial-number-lookup",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web Browser",
     "offers": {
@@ -45,7 +45,7 @@ export default function RaymondLookupPage() {
     "provider": {
       "@type": "Organization",
       "name": "Flat Earth Equipment",
-      "url": "https://flatearthequipment.com"
+      "url": "https://www.flatearthequipment.com"
     }
   };
 
