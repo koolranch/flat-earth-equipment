@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com';
+// CRITICAL: Always use www domain for SEO - don't rely on env vars which may have non-www
+// This ensures all canonicals point to www version regardless of environment
+export const SITE_URL = 'https://www.flatearthequipment.com';
 const cdn = (process.env.NEXT_PUBLIC_SUPABASE_URL || '') + '/storage/v1/object/public/' + (process.env.NEXT_PUBLIC_ASSET_BUCKET || 'public-assets');
 
 // Utility pages that should be noindex, nofollow
