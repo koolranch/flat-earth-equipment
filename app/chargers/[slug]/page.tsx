@@ -146,6 +146,8 @@ export async function generateMetadata({
     ? { index: false, follow: false }
     : { index: true, follow: true };
 
+  const canonicalUrl = `https://www.flatearthequipment.com/chargers/${params.slug}`;
+  
   return {
     title,
     description,
@@ -154,9 +156,10 @@ export async function generateMetadata({
       title,
       description,
       type: "website",
+      url: canonicalUrl,
       images: product.images?.[0] ? [{ url: product.images[0] }] : undefined,
     },
-    alternates: { canonical: `/chargers/${params.slug}` },
+    alternates: { canonical: canonicalUrl },
   };
 }
 

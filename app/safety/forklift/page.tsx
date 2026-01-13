@@ -56,6 +56,16 @@ const STATES = [
 export const metadata = {
   title: 'Forklift Certification by State | OSHA Training',
   description: 'Get OSHA-compliant forklift certification in any US state. Select your state to learn about specific requirements and OSHA fines.',
+  alternates: {
+    canonical: 'https://www.flatearthequipment.com/safety/forklift'
+  },
+  openGraph: {
+    title: 'Forklift Certification by State | OSHA Training',
+    description: 'Get OSHA-compliant forklift certification in any US state. Select your state to learn about requirements and OSHA fines.',
+    url: 'https://www.flatearthequipment.com/safety/forklift',
+    type: 'website',
+    siteName: 'Flat Earth Equipment'
+  }
 }
 
 export default function ForkliftStatesPage() {
