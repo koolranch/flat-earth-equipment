@@ -17,17 +17,19 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const brand = await getBrand(params.slug);
   if (!brand) return { title: 'Marca no encontrada' };
   
-  // Use the English canonical as the primary canonical (Spanish is alternate)
   const canonicalEn = resolveCanonical(params.slug, 'guide');
+  const fullUrlEn = `https://www.flatearthequipment.com${canonicalEn}`;
+  const fullUrlEs = `https://www.flatearthequipment.com/es/brand/${params.slug}/guide`;
   
   return { 
     title: `${brand.name} — Guía de servicio y números de serie | Flat Earth Equipment`, 
     description: `Guía completa de servicio de ${brand.name} que cubre ubicaciones de placas de serie, consejos de resolución de problemas y procedimientos de mantenimiento para tu equipo.`,
     alternates: { 
-      canonical: canonicalEn, // Point to English version as primary
+      canonical: fullUrlEs, // Spanish page's canonical should be itself
       languages: { 
-        'en-US': canonicalEn, 
-        'es-US': `/es/brand/${params.slug}/guide` 
+        'en-US': fullUrlEn, 
+        'es-US': fullUrlEs,
+        'x-default': fullUrlEn
       } 
     },
     robots: {

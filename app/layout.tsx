@@ -40,14 +40,10 @@ export const metadata: Metadata = {
   // Override with existing specific metadata
   title: "Flat Earth Equipment | Parts & Rentals for Forklifts, Scissor Lifts & More",
   description: "Flat Earth Equipment delivers precision-fit industrial parts and rugged rental equipment — with same-day shipping across the Western U.S.",
-  // Global alternates ensure Google attributes all backlink equity to www
-  alternates: {
-    canonical: CANONICAL_DOMAIN,
-    languages: {
-      'en-US': CANONICAL_DOMAIN,
-      'x-default': CANONICAL_DOMAIN,
-    },
-  },
+  // NOTE: Do NOT set global alternates.languages here!
+  // Pages inherit this and get incorrect hreflang pointing to homepage.
+  // Each page should set its own alternates.languages if it has translations.
+  // The metadataBase above ensures all relative canonicals become absolute www URLs.
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

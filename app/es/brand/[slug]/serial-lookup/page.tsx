@@ -22,14 +22,17 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const canonicalEn = resolveCanonical(params.slug, 'serial');
   const fullUrlEn = `https://www.flatearthequipment.com${canonicalEn}`;
   
+  const fullUrlEs = `https://www.flatearthequipment.com/es/brand/${params.slug}/serial-lookup`;
+  
   return { 
     title: `${brand.name} — Búsqueda por número de serie | Flat Earth Equipment`, 
     description: `Encuentra la ubicación del número de serie de tu equipo ${brand.name} y decodifica tu serie para identificación de partes e historial de servicio.`,
     alternates: { 
-      canonical: fullUrlEn, // Point to English version as primary (absolute URL)
+      canonical: fullUrlEs, // Spanish page's canonical should be itself
       languages: { 
-        'en-US': canonicalEn, 
-        'es-US': `/es/brand/${params.slug}/serial-lookup` 
+        'en-US': fullUrlEn, 
+        'es-US': fullUrlEs,
+        'x-default': fullUrlEn
       } 
     },
     robots: {

@@ -23,7 +23,14 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return { 
     title: `${brand.name} Fault Codes & Diagnostics | Flat Earth Equipment`, 
     description: `Search ${brand.name} error codes and diagnostic trouble codes with solutions, causes, and troubleshooting steps for your equipment.`,
-    alternates: { canonical },
+    alternates: { 
+      canonical: fullUrl,
+      languages: {
+        'en-US': fullUrl,
+        'es-US': `https://www.flatearthequipment.com/es/brand/${params.slug}/fault-codes`,
+        'x-default': fullUrl
+      }
+    },
     openGraph: {
       title: `${brand.name} Fault Codes & Diagnostics`,
       description: `Search ${brand.name} error codes and diagnostic trouble codes with solutions and troubleshooting steps.`,
