@@ -17,17 +17,19 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const brand = await getBrand(params.slug);
   if (!brand) return { title: 'Marca no encontrada' };
   
-  // Use the English canonical as the primary canonical (Spanish is alternate)
   const canonicalEn = resolveCanonical(params.slug, 'fault-codes');
+  const fullUrlEn = `https://www.flatearthequipment.com${canonicalEn}`;
+  const fullUrlEs = `https://www.flatearthequipment.com/es/brand/${params.slug}/fault-codes`;
   
   return { 
     title: `${brand.name} — Códigos de falla y diagnóstico | Flat Earth Equipment`, 
     description: `Busca códigos de error y códigos de diagnóstico de ${brand.name} con soluciones, causas y pasos de resolución para tu equipo.`,
     alternates: { 
-      canonical: canonicalEn, // Point to English version as primary
+      canonical: fullUrlEs, // Spanish page's canonical should be itself
       languages: { 
-        'en-US': canonicalEn, 
-        'es-US': `/es/brand/${params.slug}/fault-codes` 
+        'en-US': fullUrlEn, 
+        'es-US': fullUrlEs,
+        'x-default': fullUrlEn
       } 
     },
     robots: {

@@ -23,7 +23,14 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return { 
     title: `${brand.name} Service & Serial Guide | Flat Earth Equipment`, 
     description: `Complete ${brand.name} service guide covering serial plate locations, troubleshooting tips, and maintenance procedures for your equipment.`,
-    alternates: { canonical },
+    alternates: { 
+      canonical: fullUrl,
+      languages: {
+        'en-US': fullUrl,
+        'es-US': `https://www.flatearthequipment.com/es/brand/${params.slug}/guide`,
+        'x-default': fullUrl
+      }
+    },
     openGraph: {
       title: `${brand.name} Service & Serial Guide`,
       description: `Complete ${brand.name} service guide covering serial plate locations and troubleshooting tips.`,

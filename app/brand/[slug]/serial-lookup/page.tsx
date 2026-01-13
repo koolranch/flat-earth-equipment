@@ -53,8 +53,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     alternates: { 
       canonical: fullUrl,
       languages: {
-        'en-US': canonical,
-        'es-US': `/es/brand/${params.slug}/serial-lookup`
+        'en-US': fullUrl,
+        'es-US': `https://www.flatearthequipment.com/es/brand/${params.slug}/serial-lookup`,
+        'x-default': fullUrl
       }
     },
     openGraph: {
