@@ -4,7 +4,7 @@ export type Canon = { serial?: string; faults?: string; guide?: string };
 // Keep this tiny and additive.
 export const brandCanonMap: Record<string, Canon> = {
   toyota: { serial: '/toyota-forklift-serial-lookup' },
-  hyster: { serial: '/rental/forklifts/hyster-serial-number-lookup' },
+  hyster: { serial: '/hyster-serial-number-lookup' },
   genie: { serial: '/genie-serial-number-lookup' },
   jlg: {},
   jcb: {},
