@@ -105,10 +105,8 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://js.stripe.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
-        {/* SEO: Global x-default hreflang - tells Google our primary version is www US site */}
-        {/* Individual pages override with self-referencing hreflang via generateMetadata */}
-        <link rel="alternate" hrefLang="x-default" href="https://www.flatearthequipment.com" />
-        <link rel="alternate" hrefLang="en-US" href="https://www.flatearthequipment.com" />
+        {/* SEO: hreflang tags are set per-page via generateMetadata() */}
+        {/* Do NOT add global hreflang here - it causes "more than one page for same language" errors */}
         
         {/* Client-side error monitoring */}
         <script src="/monitor.js" async />

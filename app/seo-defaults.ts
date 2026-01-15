@@ -78,6 +78,27 @@ export function generatePageAlternates(pathname: string): Metadata['alternates']
 }
 
 /**
+ * Generate openGraph metadata with proper URL matching the canonical.
+ * Use this to ensure OG URL matches the canonical (fixes Ahrefs "OG URL not matching canonical" issues).
+ * 
+ * @param pathname - The pathname (query params will be stripped automatically)
+ * @param title - The page title
+ * @param description - The page description
+ * @returns OpenGraph metadata object
+ */
+export function generateOpenGraph(pathname: string, title: string, description: string): Metadata['openGraph'] {
+  const cleanPath = stripQueryParams(pathname);
+  const fullUrl = `${SITE_URL}${cleanPath}`;
+  
+  return {
+    title,
+    description,
+    url: fullUrl,
+    type: 'website',
+  };
+}
+
+/**
  * Generate complete page metadata including alternates and robots.
  * Automatically handles:
  * - Query parameter stripping for canonical URLs
@@ -119,7 +140,8 @@ export const seoDefaults: Metadata = {
   description: 'Modern, interactive forklift operator training and certification — fast, compliant, and no BS.',
   openGraph: {
     type: 'website',
-    url: SITE_URL,
+    // NOTE: Do NOT set url here - it causes OG URL to not match page canonical
+    // Each page should set its own openGraph.url via generatePageAlternates
     title: 'Forklift Certification — Flat Earth Equipment',
     description: 'Modern, interactive forklift operator training and certification — fast, compliant, and no BS.',
     images: [{ url: `${cdn}/images/generated/og-default.png`, width: 1200, height: 630 }]
