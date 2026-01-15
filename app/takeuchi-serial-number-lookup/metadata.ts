@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Takeuchi Serial Number Lookup (Excavators, Track Loaders) | Flat Earth Equipment",
+  title: "Takeuchi Serial Number Lookup | Excavators & Loaders",
   description: "Find the Takeuchi nameplate, capture the correct machine serial (PIN) and engine serial, and view published serial-number ranges by model. No year decoding.",
   keywords: "takeuchi serial number lookup, takeuchi serial decoder, takeuchi excavator serial, takeuchi track loader serial, takeuchi nameplate location, takeuchi PIN lookup",
   alternates: { 

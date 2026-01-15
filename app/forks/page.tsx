@@ -9,7 +9,7 @@ import TechnicalSpecsTable, { FORK_SPECS } from "@/components/seo/TechnicalSpecs
 import ModelFilterBanner from "@/components/ModelFilterBanner";
 
 export const metadata: Metadata = {
-  title: "Forklift Forks | Heavy-Duty Material Handling Equipment | Flat Earth Equipment",
+  title: "Forklift Forks | Heavy-Duty Equipment",
   description: "Premium forklift forks for all major brands. Class II, III, IV forks, pallet forks, telehandler forks, and custom lengths. ANSI/ITSDF certified with same-day quotes and expert technical support.",
   keywords: [
     "forklift forks",

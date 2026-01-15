@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Kubota Serial Number Lookup (SVL, SSV, KX/U, R, TLB) | Flat Earth Equipment",
+  title: "Kubota Serial Number Lookup | All Equipment Types",
   description: "Find Kubota nameplate locations by family, capture the proper Product Identification Number (PIN) and engine serial, and see published serial-number breaks by model.",
   keywords: "kubota serial number lookup, kubota serial decoder, kubota excavator serial, kubota track loader serial, kubota PIN lookup, kubota nameplate location",
   alternates: { 

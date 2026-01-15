@@ -98,7 +98,7 @@ const locations: LocationMap = {
 };
 
 export const metadata: Metadata = {
-  title: "Flat Earth Equipment Service Areas | Regional Rentals & Industrial Parts",
+  title: "Service Areas | Rentals & Parts",
   description: "Explore the locations Flat Earth Equipment serves across the Western U.S. Same-day shipping, rugged rental equipment, and expert support in Texas, Arizona, Colorado, New Mexico, Montana, and Wyoming.",
   alternates: {
     canonical: '/locations'

@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: 'Facility Training Management | Bulk Forklift Certification | Flat Earth Equipment',
+  title: 'Bulk Forklift Certification | Team Training',
   description: 'Manage forklift certification for your entire team. Bulk training discounts, seat management, and progress tracking for facility trainers and safety managers.',
   keywords: [
     'facility training',

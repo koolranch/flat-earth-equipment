@@ -1,14 +1,14 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Hyster Forklift Serial Number Lookup (Year & Plant Decoder) | Flat Earth Equipment",
+  title: "Hyster Serial Number Lookup | Year & Plant Decoder",
   description: "Enter your Hyster serial number to decode model prefix, plant, and year candidates. Post-1957 format with repeating year letters; use decade selector to finalize. Free tool.",
   keywords: "hyster forklift serial number lookup, hyster serial number decoder, hyster forklift year by serial number, hyster model identification, hyster plant codes",
   alternates: {
     canonical: "/hyster-serial-number-lookup"
   },
   openGraph: {
-    title: "Hyster Forklift Serial Number Lookup | Flat Earth Equipment", 
+    title: "Hyster Serial Number Lookup | Year & Plant Decoder", 
     description: "Decode Hyster serials: model prefix, plant, and year candidates. Free tool with decade filtering.",
     url: "https://www.flatearthequipment.com/hyster-serial-number-lookup",
     type: "website",

@@ -1,14 +1,14 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "New Holland Serial Number Lookup (All Equipment Types) | Flat Earth Equipment",
+  title: "New Holland Serial Number Lookup | All Equipment",
   description: "Find plate locations and estimate year from model-specific serial ranges or prefix patterns. For exact year, use the product identification plate. Free tool.",
   keywords: "new holland serial number lookup, new holland serial number decoder, new holland equipment identification, new holland parts lookup, tractor serial number, skid steer serial number",
   alternates: { 
     canonical: "/new-holland-serial-number-lookup" 
   },
   openGraph: {
-    title: "New Holland Serial Number Lookup | Flat Earth Equipment",
+    title: "New Holland Serial Number Lookup | All Equipment",
     description: "Tool for tractors, skid steers, combines, excavators and more. Plate locations + year estimates where published.",
     url: "https://www.flatearthequipment.com/new-holland-serial-number-lookup",
     type: "website",

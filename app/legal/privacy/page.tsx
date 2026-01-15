@@ -1,3 +1,13 @@
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy',
+  description: 'Privacy policy for Flat Earth Equipment training and certification platform. Learn how we collect, store, and protect your data.',
+  alternates: {
+    canonical: 'https://www.flatearthequipment.com/legal/privacy',
+  },
+};
+
 export default function Privacy() {
   return (
     <main className="container mx-auto p-4 prose">
