@@ -162,11 +162,43 @@ const config = {
     { href: 'https://www.flatearthequipment.com', hreflang: 'en-US' },
     { href: 'https://www.flatearthequipment.com/es', hreflang: 'es-US' }
   ],
-  // Exclude individual charger pages (many lack images/prices and are noindexed)
-  // Also exclude noindex state safety pages
+  // Exclude pages that are noindex or internal-only
   exclude: [
-    '/chargers/*',           // Exclude all individual charger product pages
-    '/es/chargers/*',        // Spanish versions too
+    // Charger pages (many lack images/prices and are noindexed)
+    '/chargers/*',
+    '/es/chargers/*',
+    // Admin & internal pages
+    '/admin/*',
+    '/dashboard/*',
+    '/dashboard-debug/*',
+    '/dashboard-new/*',
+    '/dashboard-simple/*',
+    '/dashboard-simple-direct/*',
+    // Training internal pages (quiz, exam, module progress)
+    '/quiz/*',
+    '/quiz-demo/*',
+    '/exam/*',
+    '/final-exam/*',
+    '/module/*',
+    '/practical/*',
+    '/orientation/*',
+    // Auth & account pages
+    '/login/*',
+    '/verify/*',
+    '/redeem/*',
+    '/claim/*',
+    '/auth-test/*',
+    // Test pages
+    '/test-*',
+    '/debug/*',
+    // Cart & checkout (transactional)
+    '/cart/*',
+    '/checkout/*',
+    // QA/internal tools
+    '/qa-make-user/*',
+    '/docs/*',
+    // API routes (shouldn't be crawled anyway)
+    '/api/*',
   ],
   transform: async (config, urlPath) => {
     // Exclude noindex state safety pages from sitemap
