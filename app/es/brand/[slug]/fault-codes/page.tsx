@@ -62,9 +62,9 @@ export default async function Page({ params, searchParams }: { params: { slug: s
           {/* Fault Codes Content */}
           <div className="space-y-6">
             <div className="mb-4">
-              <h3 className="text-lg font-semibold text-slate-900 mb-2">
-                Base de Datos de Códigos de Falla de {brand.name}
-              </h3>
+              <h1 className="text-2xl font-bold text-slate-900 mb-2">
+                Códigos de Falla y Diagnóstico de {brand.name}
+              </h1>
               <p className="text-sm text-muted-foreground">
                 Busca nuestra base de datos de códigos de falla comunes de {brand.name} y orientación de diagnóstico. 
                 Úsalos como punto de partida - siempre confirma con los procedimientos de servicio oficiales.

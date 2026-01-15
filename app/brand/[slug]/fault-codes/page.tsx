@@ -73,9 +73,9 @@ export default async function Page({ params, searchParams }: { params: { slug: s
           {/* Fault Codes Content */}
           <div className="space-y-6">
             <div className="mb-4">
-              <h3 className="text-lg font-semibold text-slate-900 mb-2">
-                {brand.name} Fault Code Database
-              </h3>
+              <h1 className="text-2xl font-bold text-slate-900 mb-2">
+                {brand.name} Fault Codes & Diagnostics
+              </h1>
               <p className="text-sm text-muted-foreground">
                 Search our database of common {brand.name} fault codes and diagnostic guidance. 
                 Use these as a starting point - always confirm with official service procedures.

@@ -72,6 +72,11 @@ export default async function Page({ params, searchParams }: { params: { slug: s
           
           {/* Guide Content */}
           <div className="space-y-8">
+            {/* Page H1 */}
+            <h1 className="text-2xl font-bold text-slate-900">
+              {brand.name} Service & Serial Guide
+            </h1>
+            
             {/* Brand Guide Section */}
             <BrandGuideBlock slug={brand.slug} name={brand.name} />
 
