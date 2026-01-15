@@ -10,7 +10,7 @@ import QuoteButton from "@/components/QuoteButton";
 import TechnicalSpecsTable, { CHARGER_MODULE_SPECS } from "@/components/seo/TechnicalSpecsTable";
 
 export const metadata = {
-  title: "Forklift Charger Modules | Enersys & Hawker | Exchange & Repair | Flat Earth Equipment",
+  title: "Charger Modules | Enersys & Hawker | Repair",
   description: "In-stock remanufactured forklift charger modules for Enersys & Hawker. Choose instant exchange or send-in repair service. 6-month warranty, free shipping nationwide.",
   keywords: "forklift charger modules, enersys charger module, hawker charger module, forklift charger repair, charger module exchange",
 };

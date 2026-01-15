@@ -1,3 +1,13 @@
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Terms of Service',
+  description: 'Terms of service for Flat Earth Equipment training and certification platform. Rules for account usage, refunds, and liability.',
+  alternates: {
+    canonical: 'https://www.flatearthequipment.com/legal/terms',
+  },
+};
+
 export default function Terms() {
   return (
     <main className="container mx-auto p-4 prose">

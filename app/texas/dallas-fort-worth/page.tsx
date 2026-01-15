@@ -18,7 +18,7 @@ import {
 import RelatedResources from '@/components/seo/RelatedResources';
 
 export const metadata: Metadata = {
-  title: "Forklift & Equipment Parts in Dallas-Fort Worth, TX | Flat Earth Equipment",
+  title: "Forklift Parts in Dallas-Fort Worth, TX",
   description: "Shop forklift, scissor lift, and heavy equipment parts in Dallas-Fort Worth Metroplex. Fast shipping to 76101 & 50+ zip codes. Request a quote today.",
 };
 

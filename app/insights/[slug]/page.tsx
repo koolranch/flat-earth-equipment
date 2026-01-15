@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     if (!post) {
       return {
-        title: 'Post Not Found | Flat Earth Equipment',
+        title: 'Post Not Found', // Template adds " | Flat Earth Equipment"
         description: 'The requested post could not be found.',
       };
     }
@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       : 'Industry insights and equipment maintenance tips from Flat Earth Equipment.';
 
     return {
-      title: `${title} | Flat Earth Equipment`,
+      title, // Don't add suffix - layout.tsx title template adds " | Flat Earth Equipment"
       description,
       keywords: normalizedKeywords,
       alternates: generatePageAlternates(`/insights/${params.slug}`),
@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // Graceful fallback if metadata generation fails
     console.error(`Error generating metadata for insight ${params.slug}:`, error);
     return {
-      title: 'Industry Insight | Flat Earth Equipment',
+      title: 'Industry Insight', // Template adds " | Flat Earth Equipment"
       description: 'Industry insights and equipment maintenance tips.',
     };
   }

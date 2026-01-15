@@ -1,14 +1,14 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Bobcat Serial Number Lookup (All Equipment Types) | Flat Earth Equipment",
+  title: "Bobcat Serial Number Lookup | All Equipment Types",
   description: "Decode Bobcat serials: module (first 4 digits) and production sequence (last 5 digits). Model year is on the plate; legacy ranges available for select models. Free tool.",
   keywords: "bobcat serial number lookup, bobcat serial number decoder, bobcat equipment identification, bobcat model identification, bobcat parts lookup, skid steer serial number",
   alternates: { 
     canonical: "/bobcat-serial-number-lookup" 
   },
   openGraph: {
-    title: "Bobcat Serial Number Lookup | Flat Earth Equipment",
+    title: "Bobcat Serial Number Lookup | All Equipment Types",
     description: "Free tool for loaders, track loaders, excavators, and mini track loaders. Check plate for year; legacy estimates for select models.",
     url: "https://www.flatearthequipment.com/bobcat-serial-number-lookup",
     type: "website",

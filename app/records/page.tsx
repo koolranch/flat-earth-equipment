@@ -1,5 +1,12 @@
+import { Metadata } from 'next';
 import { supabaseServer } from '@/lib/supabase/server';
 import { WalletCardButton } from '@/components/certificates/CertificateActions';
+
+export const metadata: Metadata = {
+  title: 'Your Training Records & Certificates',
+  description: 'View and download your forklift certification records, training certificates, and compliance documents.',
+  robots: { index: false, follow: false }, // Private user page
+};
 
 export default async function RecordsPage() {
   const s = supabaseServer();

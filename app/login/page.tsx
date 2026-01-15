@@ -1,5 +1,12 @@
+import { Metadata } from 'next';
 import { unstable_noStore as noStore } from 'next/cache';
 import { signInWithPasswordAction } from './actions';
+
+export const metadata: Metadata = {
+  title: 'Sign In',
+  description: 'Sign in to access your Flat Earth Equipment training dashboard and certification records.',
+  robots: { index: false, follow: false }, // Auth page
+};
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
