@@ -11,6 +11,15 @@ const baseConfig = {
   reactStrictMode: true,
   cleanDistDir: true,
   poweredByHeader: false,
+  async rewrites() {
+    return [
+      // IndexNow key file - must be served at root for verification
+      {
+        source: '/e8f4a2b1c9d7e5f3.txt',
+        destination: '/api/indexnow-key',
+      },
+    ];
+  },
   async redirects() {
     return [
       // ============================================================
