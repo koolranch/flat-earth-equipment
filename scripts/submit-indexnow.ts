@@ -264,8 +264,9 @@ const URLS_TO_SUBMIT = [
 ];
 
 // IndexNow API endpoints (submit to one, others sync automatically)
+// Using Yandex as primary since it accepts immediately
 const INDEXNOW_ENDPOINTS = [
-  'https://api.indexnow.org/indexnow',
+  'https://yandex.com/indexnow',
   'https://www.bing.com/indexnow',
 ];
 
