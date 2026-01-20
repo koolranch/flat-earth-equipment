@@ -5,6 +5,18 @@
   "installCommand": "npm install",
   "outputDirectory": ".next",
   "framework": "nextjs",
+  "redirects": [
+    {
+      "source": "/battery-charger-modules/",
+      "destination": "/charger-modules",
+      "permanent": true
+    },
+    {
+      "source": "/parts/attachments/forks/",
+      "destination": "/forks",
+      "permanent": true
+    }
+  ],
   "crons": [{
     "path": "/api/cron/renewals",
     "schedule": "0 13 * * *"
