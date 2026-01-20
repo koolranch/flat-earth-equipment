@@ -137,6 +137,13 @@ const baseConfig = {
         permanent: true
       },
       // Redirect old battery-charger-modules page to canonical charger-modules
+      // BACKLINK RECOVERY: Trailing-slash variant must come FIRST
+      // Bypasses Next.js's automatic 308 trailing-slash normalization
+      {
+        source: '/battery-charger-modules/',
+        destination: '/charger-modules',
+        permanent: true // 301 - Direct to final destination (itsupplychain.com DR63)
+      },
       {
         source: '/battery-charger-modules',
         destination: '/charger-modules',
@@ -195,6 +202,13 @@ const baseConfig = {
         permanent: true
       },
       // Consolidate fork pages - redirect detailed page to main fork finder
+      // BACKLINK RECOVERY: Trailing-slash variant must come FIRST
+      // Bypasses Next.js's automatic 308 trailing-slash normalization
+      {
+        source: '/parts/attachments/forks/',
+        destination: '/forks',
+        permanent: true // 301 - Direct to final destination (roboticsandautomationnews.com DR72)
+      },
       {
         source: '/parts/attachments/forks',
         destination: '/forks',

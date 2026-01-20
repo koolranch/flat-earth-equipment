@@ -1,0 +1,26 @@
+# Flat Earth Equipment - Spam Backlink Disavow
+# Generated: 2026-01-20
+# Submit at: https://search.google.com/search-console/disavow-links
+
+# SEO spam / PBN domains
+domain:2x9.co
+domain:qhtycw.com
+domain:globalecommerce.org
+domain:sport-life.club
+domain:rankpilot.shop
+domain:kgzxkf.com
+domain:hzdlpq.com
+domain:bye.fyi
+domain:nettools.guru
+domain:seoagency.sale
+domain:getwebsiteworth.com
+domain:obmain.com
+domain:creativeposts.top
+domain:sitescooponline.com
+domain:optimisedwebsites.com
+domain:runningwebsites.net
+domain:rankyour.website
+domain:byteshort.xyz
+domain:seo-high-ranking.shop
+domain:backlinker.shop
+domain:dsnylu.com
