@@ -29,7 +29,7 @@ export const CHARGER_MODULES: ChargerModule[] = [
       {
         label: "Reman Exchange",
         sku: "price_1RQJNjHJI548rO8JKJclmS56", // Updated to match database
-        price: 84900,
+        price: 74900,
         coreInfo: "+ $350 refundable core deposit",
         coreCharge: 350, // core charge amount in dollars
         desc: "Ships today if ordered before 3 PM EST.",
@@ -37,7 +37,7 @@ export const CHARGER_MODULES: ChargerModule[] = [
       {
         label: "Repair & Return",
         sku: "price_1RQJNjHJI548rO8JKJclmS56", // Using same price ID for now - needs separate repair price
-        price: 70000,
+        price: 64900,
         desc: "Ship your unit in (prepaid label), we refurbish & return in 3-5 business days.",
       },
     ],
@@ -53,7 +53,7 @@ export const CHARGER_MODULES: ChargerModule[] = [
       {
         label: "Reman Exchange",
         sku: "price_1RQJNjHJI548rO8JFFATEXkd", // Updated to match database
-        price: 84900,
+        price: 74900,
         coreInfo: "+ $350 refundable core deposit",
         coreCharge: 350, // core charge amount in dollars
         desc: "Ships today if ordered before 3 PM EST.",
@@ -61,7 +61,7 @@ export const CHARGER_MODULES: ChargerModule[] = [
       {
         label: "Repair & Return",
         sku: "price_1RQJNjHJI548rO8JFFATEXkd", // Using same price ID for now - needs separate repair price
-        price: 70000,
+        price: 64900,
         desc: "Ship your unit in (prepaid label), we refurbish & return in 3-5 business days.",
       },
     ],
