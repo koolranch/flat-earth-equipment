@@ -73,13 +73,14 @@ export default async function TrainingIndex({ searchParams }: { searchParams?: R
   
   let enrollment: any = null;
   if (user) {
-    const { data: enr } = await supabase
+    const { data: enrs } = await supabase
       .from('enrollments')
       .select('resume_state')
       .eq('user_id', user.id)
       .eq('course_id', course.id)
-      .maybeSingle();
-    enrollment = enr;
+      .order('created_at', { ascending: false })
+      .limit(1);
+    enrollment = enrs?.[0] || null;
   }
 
   // Compute navigation targets using moduleNav helpers

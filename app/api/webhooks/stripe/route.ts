@@ -226,24 +226,27 @@ export async function POST(req: Request) {
           }
         }
 
-        // Then enroll in the course
-        for (let i = 0; i < quantity; i++) {
-          const { error: enrollError } = await supabase
-            .from('enrollments')
-            .insert({
-              user_id: user.id,
-              course_id: course.id, // Use the actual UUID instead of slug
-              progress_pct: 0,
-              passed: false,
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString()
-            })
-          
-          if (enrollError) {
-            console.error(`❌ Error enrolling user (seat ${i + 1}):`, enrollError)
+        // Enroll the purchaser in the course (always 1 enrollment per purchase)
+        const { error: enrollError } = await supabase
+          .from('enrollments')
+          .insert({
+            user_id: user.id,
+            course_id: course.id, // Use the actual UUID instead of slug
+            progress_pct: 0,
+            passed: false,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          })
+        
+        if (enrollError) {
+          // If duplicate key error (23505), user is already enrolled - this is OK
+          if (enrollError.code !== '23505') {
+            console.error(`❌ Error enrolling user:`, enrollError)
           } else {
-            console.log(`✅ User enrolled successfully (seat ${i + 1})`)
+            console.log(`ℹ️ User already enrolled in course (duplicate purchase)`)
           }
+        } else {
+          console.log(`✅ User enrolled successfully (${quantity > 1 ? 'trainer with ' + quantity + ' seats' : 'single seat'})`)
         }
         
       } catch (error) {
