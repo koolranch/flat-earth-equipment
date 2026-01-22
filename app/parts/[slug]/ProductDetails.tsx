@@ -90,7 +90,7 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
           <h1 className="text-3xl font-bold mb-2">{part.name}</h1>
           <p className="text-gray-600 mb-4">{part.brand}</p>
           {part.description && (
-            <p className="text-gray-700 mb-6">{part.description}</p>
+            <div className="text-gray-700 mb-6 whitespace-pre-line">{part.description}</div>
           )}
           <div className="text-2xl font-bold mb-4">
             ${selected?.price?.toFixed(2) || part.price.toFixed(2)}
