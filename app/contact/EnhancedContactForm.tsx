@@ -17,17 +17,12 @@ export default function EnhancedContactForm() {
     setStatus('loading');
 
     try {
-      const response = await fetch('https://api.usebasin.com/v1/submissions', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_BASIN_API_KEY || 'fb0e195001565085399383d6996c0ab1'}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...formData,
-          subject: `Contact Form: ${formData.reason || 'General Inquiry'}`,
-          form_name: 'contact_form_enhanced'
-        }),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
@@ -68,7 +63,7 @@ export default function EnhancedContactForm() {
     <form onSubmit={handleSubmit} className="space-y-6">
       {status === 'error' && (
         <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-          Failed to send message. Please try again or email us directly.
+          Failed to send message. Please try again or email us directly at contact@flatearthequipment.com
         </div>
       )}
       
@@ -178,4 +173,3 @@ export default function EnhancedContactForm() {
     </form>
   );
 }
-
