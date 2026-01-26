@@ -1,12 +1,5 @@
 "use client";
 import { useState } from "react";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: 'Takeuchi Serial Number Lookup | Find Model Year & Specs', 
-  description: 'Find Takeuchi serial numbers and decode manufacturing information. Lookup Takeuchi excavator and skid steer model year, specifications, and parts compatibility by serial number.',
-  alternates: { canonical: '/takeuchi-serial-number-lookup' }
-};
 
 type PlateTip = { 
   equipment_type: string; 

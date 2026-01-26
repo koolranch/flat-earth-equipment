@@ -1,3 +1,15 @@
-export default function Layout({ children }: { children: React.ReactNode }) {
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Lull Serial Number Lookup | Find Model Year & Specs',
+  description: 'Find Lull serial numbers and decode manufacturing information. Lookup Lull telehandler model year, specifications, and parts compatibility by serial number.',
+  alternates: { canonical: '/lull-serial-number-lookup' }
+};
+
+export default function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return children;
 }

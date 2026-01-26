@@ -1,12 +1,5 @@
 'use client';
 import { useState } from 'react';
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Lull Serial Number Lookup | Find Model Year & Specs',
-  description: 'Find Lull serial numbers and decode manufacturing information. Lookup Lull telehandler model year, specifications, and parts compatibility by serial number.',
-  alternates: { canonical: '/lull-serial-number-lookup' }
-};
 
 type PlateTip = { equipment_type:string; series:string|null; location_notes:string };
 type ModelNote = { model_code:string; note:string };
