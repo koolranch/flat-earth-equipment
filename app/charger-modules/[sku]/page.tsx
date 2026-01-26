@@ -50,15 +50,16 @@ async function getProductBySlug(slug: string) {
 
 export async function generateStaticParams() {
   try {
-    // Fetch all charger module parts from the database
+    // Fetch GREEN series charger parts from the database (Phase 4 focus)
     const { data: parts, error } = await supabase
       .from('parts')
       .select('slug')
       .eq('category', 'Battery Chargers')
+      .ilike('slug', 'green%')
       .not('slug', 'is', null);
     
     if (error) {
-      console.error('Error fetching parts for static generation:', error);
+      console.error('Error fetching GREEN series parts:', error);
       // Fallback to old hardcoded values
       return [
         { sku: 'enersys-6LA20671' },
@@ -66,7 +67,17 @@ export async function generateStaticParams() {
       ];
     }
     
-    return parts.map(part => ({ sku: part.slug }));
+    console.log(`Generating static paths for ${parts.length} GREEN series chargers`);
+    const greenPaths = parts.map(part => ({ sku: part.slug }));
+    
+    // Also include the original hardcoded chargers
+    const allPaths = [
+      ...greenPaths,
+      { sku: 'enersys-6LA20671' },
+      { sku: 'hawker-6LA20671' }
+    ];
+    
+    return allPaths;
   } catch (error) {
     console.error('Error in generateStaticParams:', error);
     return [
