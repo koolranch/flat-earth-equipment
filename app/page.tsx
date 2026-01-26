@@ -14,7 +14,7 @@ import { generatePageAlternates } from './seo-defaults';
 
 export const metadata: Metadata = {
   title: 'Flat Earth Equipment | Flat Earth Equipment',
-  description: 'Your one-stop shop for high-quality, precision-fit replacement industrial equipment parts and rentals.',
+  description: 'Get OSHA forklift certification online in under 30 minutes. Interactive training with instant certificates. Professional forklift parts & rentals shipped nationwide.',
   alternates: generatePageAlternates('/')
 };
 

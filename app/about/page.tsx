@@ -4,7 +4,7 @@ import { getUserLocale } from '@/lib/getUserLocale';
 
 export const metadata: Metadata = {
   title: 'About Flat Earth Equipment | Flat Earth Equipment',
-  description: 'Learn about Flat Earth Equipment, your trusted partner for industrial equipment parts and rentals.',
+  description: 'Flat Earth Equipment delivers precision-fit industrial parts and OSHA training nationwide. Built Western tough for contractors, fleets, and facilities.',
   alternates: { canonical: '/about' }
 };
 

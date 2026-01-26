@@ -4,7 +4,7 @@ import { generatePageAlternates } from '@/app/seo-defaults';
 import EnhancedContactForm from './EnhancedContactForm';
 
 export const metadata: Metadata = {
-  title: 'Contact Flat Earth Equipment | Rentals, Service & Training',
+  title: 'Contact Flat Earth Equipment | Parts & Training',
   description: 'Contact Flat Earth Equipment for equipment rentals, service & repair, and OSHA operator training. Nationwide logistics from our Western & Southern service hubs. Call 888-392-9175.',
   alternates: generatePageAlternates('/contact'),
   keywords: ['equipment rental', 'forklift service', 'operator training', 'OSHA certification', 'telehandler rental', 'boom lift rental'],
