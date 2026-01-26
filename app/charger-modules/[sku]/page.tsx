@@ -27,29 +27,50 @@ export const dynamicParams = true;
 // Import Supabase client
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+// Create admin client for static generation
+function createAdminClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  
+  if (!url || !serviceKey) {
+    console.error('Missing Supabase admin credentials');
+    throw new Error('Missing Supabase admin credentials');
+  }
+  
+  return createClient(url, serviceKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false
+    }
+  });
+}
 
 // Get product data from Supabase database
 async function getProductBySlug(slug: string) {
-  const { data, error } = await supabase
-    .from('parts')
-    .select('*')
-    .eq('slug', slug)
-    .single();
-  
-  if (error) {
-    console.error('Database error:', error);
+  try {
+    const supabase = createAdminClient();
+    const { data, error } = await supabase
+      .from('parts')
+      .select('*')
+      .eq('slug', slug)
+      .single();
+    
+    if (error) {
+      console.error('Database error:', error);
+      return null;
+    }
+    
+    return data;
+  } catch (err) {
+    console.error('Failed to create admin client:', err);
     return null;
   }
-  
-  return data;
 }
 
 export async function generateStaticParams() {
   try {
+    const supabase = createAdminClient();
+    
     // Fetch GREEN series charger parts from the database (Phase 4 focus)
     const { data: parts, error } = await supabase
       .from('parts')
