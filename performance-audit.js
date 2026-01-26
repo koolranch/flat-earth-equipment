@@ -27,8 +27,14 @@ const KEY_PAGES = [
   'https://www.flatearthequipment.com/locations/pueblo-co'
 ];
 
-// Google PageSpeed Insights API key (from TOOLS.md)
-const PSI_API_KEY = 'AIzaSyA4S4ZemkIXkXjmtmlVCEkh_H-i52jjbRY'; // CLS key, should work for PSI
+// Google PageSpeed Insights API key (set via environment variable)
+const PSI_API_KEY = process.env.GOOGLE_API_KEY || process.env.PSI_API_KEY;
+
+if (!PSI_API_KEY) {
+  console.error('❌ Error: GOOGLE_API_KEY environment variable is required');
+  console.error('   Set it with: export GOOGLE_API_KEY=your_api_key_here');
+  process.exit(1);
+}
 
 async function testPageSpeed(url, strategy = 'mobile') {
   const apiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&key=${PSI_API_KEY}&strategy=${strategy}&category=PERFORMANCE&category=ACCESSIBILITY&category=BEST_PRACTICES&category=SEO`;

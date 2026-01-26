@@ -35,7 +35,13 @@
 ### ✅ 4. Additional Security Alert Remediation (2026-01-26 02:07 UTC)
 - [x] Removed Stripe webhook pattern from `.env.local.example` (commit 6618ae83 alert)
 - [x] Force-pushed cleaned history to eliminate all secret traces
-- [x] Final security commit: 43a37c70
+- [x] Security documentation commit: 43a37c70
+
+### ✅ 5. Google API Key Security Alert (2026-01-26 02:08 UTC)
+- [x] Detected: Google API Key hardcoded in `performance-audit.js` line 31 (commit c3354aa0)
+- [x] Replaced hardcoded key with environment variable: `process.env.GOOGLE_API_KEY`
+- [x] Added error handling for missing environment variable
+- [x] API key was: `AIzaSyA4S4ZemkIXkXjmtmlVCEkh_H-i52jjbRY` (CLS key)
 
 ## Required Follow-up Actions
 
