@@ -27,6 +27,7 @@ import '../styles/training-click-fix.css';
 import { Toaster } from 'react-hot-toast';
 import QAEventListener from '@/components/dev/QAEventListener';
 import SafetyRouteGate from '@/components/safety/SafetyRouteGate';
+import PerformanceMonitor from '@/components/PerformanceMonitor';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -154,6 +155,8 @@ export default async function RootLayout({
             </footer>
             <Analytics />
             <SpeedInsights />
+            {/* Performance monitoring for Core Web Vitals and RUM */}
+            <PerformanceMonitor />
             {/* Live chat widget - Disabled */}
             {/* <CrispChat /> */}
             <Toaster />

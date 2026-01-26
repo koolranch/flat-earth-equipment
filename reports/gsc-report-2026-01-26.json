@@ -1,0 +1,59 @@
+{
+  "generatedAt": "2026-01-26T02:41:38.493Z",
+  "summary": {
+    "totalPages": 14,
+    "dataLastUpdated": "2026-01-26T02:41:38.492Z",
+    "activeAlerts": 0
+  },
+  "performance": {
+    "corePages": {
+      "averageCTR": "7.16",
+      "totalClicks": 4331,
+      "totalImpressions": 42513,
+      "pages": 6,
+      "expectedImprovement": {
+        "min": 15,
+        "max": 25
+      },
+      "status": "good"
+    },
+    "serialLookup": {
+      "averageCTR": "10.08",
+      "totalClicks": 1936,
+      "totalImpressions": 22311,
+      "pages": 3,
+      "expectedImprovement": {
+        "min": 20,
+        "max": 30
+      },
+      "status": "good"
+    },
+    "productPages": {
+      "averageCTR": "4.55",
+      "totalClicks": 3221,
+      "totalImpressions": 24031,
+      "pages": 5,
+      "expectedImprovement": {
+        "min": 10,
+        "max": 15
+      },
+      "status": "moderate"
+    }
+  },
+  "recentAlerts": [],
+  "expectedImprovements": {
+    "CORE_PAGES": {
+      "min": 15,
+      "max": 25
+    },
+    "SERIAL_LOOKUP": {
+      "min": 20,
+      "max": 30
+    },
+    "PRODUCT_PAGES": {
+      "min": 10,
+      "max": 15
+    }
+  },
+  "monitoringPeriod": 28
+}

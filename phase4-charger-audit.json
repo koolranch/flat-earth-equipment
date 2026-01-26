@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-01-26T02:05:29.933Z",
+  "total": 9,
+  "withMeta": 9,
+  "withoutMeta": 0,
+  "breakdown": {
+    "green2": 0,
+    "green4": 0,
+    "green6": 0,
+    "green8": 0,
+    "greenX": 0,
+    "other": 0
+  },
+  "highPriority": 0,
+  "productsNeedingMeta": []
+}
