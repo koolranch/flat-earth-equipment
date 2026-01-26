@@ -1,7 +1,14 @@
 "use client";
 import { useState } from "react";
+import { Metadata } from "next";
 import BrandHubBanner from '@/components/brand/BrandHubBanner';
 import SerialToolJsonLd from '@/components/seo/SerialToolJsonLd';
+
+export const metadata: Metadata = {
+  title: 'JCB Serial Number Lookup | Find Model Year & Specs',
+  description: 'Find JCB serial numbers and decode manufacturing information. Lookup JCB backhoe, telehandler, and loader model year, specifications, and parts compatibility by serial number.',
+  alternates: { canonical: '/jcb-serial-number-lookup' }
+};
 
 type PlateTip = { equipment_type: string; series: string | null; location_notes: string; };
 type Series = { code: string; example_note: string };
