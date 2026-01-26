@@ -24,14 +24,56 @@ import { ShieldCheck, Truck, Clock, Wrench, ArrowLeft } from 'lucide-react';
 export const dynamic = 'force-static';
 export const dynamicParams = true;
 
-// Map SKU slugs to Stripe product IDs (verified via chargerOptions.ts price IDs)
-const SKU_TO_STRIPE_ID: Record<string, { productId: string; moduleIndex: number }> = {
-  'enersys-6LA20671': { productId: 'prod_SJfLj8ykMeUVit', moduleIndex: 0 },
-  'hawker-6LA20671': { productId: 'prod_SJfLX5eYSChvS0', moduleIndex: 1 },
-};
+// Import Supabase client
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
+
+// Get product data from Supabase database
+async function getProductBySlug(slug: string) {
+  const { data, error } = await supabase
+    .from('parts')
+    .select('*')
+    .eq('slug', slug)
+    .single();
+  
+  if (error) {
+    console.error('Database error:', error);
+    return null;
+  }
+  
+  return data;
+}
 
 export async function generateStaticParams() {
-  return Object.keys(SKU_TO_STRIPE_ID).map(sku => ({ sku }));
+  try {
+    // Fetch all charger module parts from the database
+    const { data: parts, error } = await supabase
+      .from('parts')
+      .select('slug')
+      .eq('category', 'Battery Chargers')
+      .not('slug', 'is', null);
+    
+    if (error) {
+      console.error('Error fetching parts for static generation:', error);
+      // Fallback to old hardcoded values
+      return [
+        { sku: 'enersys-6LA20671' },
+        { sku: 'hawker-6LA20671' }
+      ];
+    }
+    
+    return parts.map(part => ({ sku: part.slug }));
+  } catch (error) {
+    console.error('Error in generateStaticParams:', error);
+    return [
+      { sku: 'enersys-6LA20671' },
+      { sku: 'hawker-6LA20671' }
+    ];
+  }
 }
 
 // =============================================================================
@@ -43,35 +85,35 @@ interface PageProps {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const skuMapping = SKU_TO_STRIPE_ID[params.sku];
+  const product = await getProductBySlug(params.sku);
   
-  if (!skuMapping) {
+  if (!product) {
     return { title: 'Product Not Found | Flat Earth Equipment' };
   }
 
-  const chargerModule = CHARGER_MODULES[skuMapping.moduleIndex];
-  const stripeProduct = await getStripeProduct(skuMapping.productId);
+  const stripeProduct = product.stripe_product_id ? await getStripeProduct(product.stripe_product_id) : null;
 
-  // Use seo_pro_tip from Stripe metadata for description (snippet-optimized)
-  const description = stripeProduct?.metadata?.seo_pro_tip 
-    ? stripeProduct.metadata.seo_pro_tip.slice(0, 160)
-    : `Buy remanufactured ${chargerModule.brand} ${chargerModule.partNumber} charger module. 6-month warranty, free shipping. Same-day dispatch available.`;
+  // Use description from database or generate from product data
+  const description = product.description 
+    ? product.description.slice(0, 160)
+    : `Buy ${product.name} battery charger. Industrial grade, OSHA-compliant. Free shipping, 6-month warranty.`;
 
   return {
-    title: `${chargerModule.brand} ${chargerModule.partNumber} | Forklift Charger Module | Flat Earth Equipment`,
+    title: `${product.name} | Industrial Battery Charger | Flat Earth Equipment`,
     description,
     keywords: [
-      `${chargerModule.brand.toLowerCase()} charger module`,
-      `${chargerModule.partNumber} replacement`,
-      `${chargerModule.partNumber} repair`,
-      'forklift charger module',
-      `${chargerModule.brand.toLowerCase()} ${chargerModule.partNumber}`,
-      'charger module exchange',
+      `${product.brand?.toLowerCase() || 'industrial'} battery charger`,
+      `${product.sku} replacement`,
+      `${product.name.toLowerCase()}`,
+      'industrial battery charger',
+      'forklift charger',
+      'FSIP charger',
+      'GREEN series charger',
     ],
     openGraph: {
-      title: `${chargerModule.brand} ${chargerModule.partNumber} Charger Module`,
+      title: `${product.name} - Industrial Battery Charger`,
       description,
-      images: chargerModule.imgExchange ? [{ url: chargerModule.imgExchange }] : undefined,
+      images: product.image_url ? [{ url: product.image_url }] : undefined,
       type: 'website',
     },
     alternates: {
@@ -85,14 +127,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 // =============================================================================
 
 export default async function ChargerModuleDetailPage({ params }: PageProps) {
-  const skuMapping = SKU_TO_STRIPE_ID[params.sku];
+  const product = await getProductBySlug(params.sku);
   
-  if (!skuMapping) {
+  if (!product) {
     notFound();
   }
 
-  const chargerModule = CHARGER_MODULES[skuMapping.moduleIndex];
-  const stripeProduct = await getStripeProduct(skuMapping.productId);
+  const stripeProduct = product.stripe_product_id ? await getStripeProduct(product.stripe_product_id) : null;
   const metadata = stripeProduct?.metadata || {};
 
   // Parse compatible chargers from metadata
@@ -131,8 +172,8 @@ export default async function ChargerModuleDetailPage({ params }: PageProps) {
           {/* Image */}
           <div className="bg-white rounded-2xl shadow-lg border p-8 flex items-center justify-center">
             <Image
-              src={chargerModule.imgExchange}
-              alt={`${chargerModule.brand} ${chargerModule.partNumber} Charger Module`}
+              src={product.image_url || '/images/chargers/default-charger.jpg'}
+              alt={`${product.name} Industrial Battery Charger`}
               width={400}
               height={400}
               className="object-contain"
@@ -144,47 +185,36 @@ export default async function ChargerModuleDetailPage({ params }: PageProps) {
           <div className="space-y-6">
             <div>
               <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mb-3">
-                {chargerModule.brand}
+                {product.brand || 'FSIP'}
               </span>
               <h1 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-2">
-                {chargerModule.partNumber} Charger Module
+                {product.name}
               </h1>
               <p className="text-lg text-slate-600">
-                Remanufactured {chargerModule.brand} power module with 6-month warranty
+                {product.description || `Industrial battery charger - ${product.name}`}
               </p>
             </div>
 
-            {/* Pricing Options */}
+            {/* Quote Button */}
             <div className="space-y-4">
-              {chargerModule.offers.map((offer, index) => (
-                <div 
-                  key={index}
-                  className={`
-                    border-2 rounded-xl p-6 transition-all
-                    ${offer.label === 'Reman Exchange' 
-                      ? 'border-canyon-rust bg-canyon-rust/5' 
-                      : 'border-slate-200 hover:border-slate-300'}
-                  `}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-bold text-lg text-slate-900">{offer.label}</span>
-                    <span className="text-2xl font-bold text-canyon-rust">
-                      ${(offer.price / 100).toLocaleString()}
-                    </span>
-                  </div>
-                  <p className="text-sm text-slate-600 mb-3">{offer.desc}</p>
-                  {offer.coreInfo && (
-                    <p className="text-sm text-slate-500 mb-3">{offer.coreInfo}</p>
-                  )}
-                  <QuoteButton 
-                    product={{
-                      name: `${chargerModule.brand} ${chargerModule.partNumber} (${offer.label})`,
-                      slug: params.sku,
-                      sku: offer.sku,
-                    }}
-                  />
+              <div className="border-2 border-canyon-rust bg-canyon-rust/5 rounded-xl p-6">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-bold text-lg text-slate-900">Request Quote</span>
+                  <span className="text-lg font-bold text-canyon-rust">
+                    Contact for Pricing
+                  </span>
                 </div>
-              ))}
+                <p className="text-sm text-slate-600 mb-3">
+                  Get personalized pricing for {product.name}. Free shipping and professional support included.
+                </p>
+                <QuoteButton 
+                  product={{
+                    name: product.name,
+                    slug: params.sku,
+                    sku: product.sku || params.sku,
+                  }}
+                />
+              </div>
             </div>
 
             {/* Trust Badges */}
@@ -208,13 +238,15 @@ export default async function ChargerModuleDetailPage({ params }: PageProps) {
             </div>
 
             {/* Fitment Validator */}
-            <div className="pt-4">
-              <FitmentValidator
-                productId={skuMapping.productId}
-                productName={`${chargerModule.brand} ${chargerModule.partNumber}`}
-                compatibilityList={metadata.spec_compatibility_list}
-              />
-            </div>
+            {product.stripe_product_id && (
+              <div className="pt-4">
+                <FitmentValidator
+                  productId={product.stripe_product_id}
+                  productName={product.name}
+                  compatibilityList={metadata.spec_compatibility_list}
+                />
+              </div>
+            )}
           </div>
         </div>
 
@@ -230,7 +262,7 @@ export default async function ChargerModuleDetailPage({ params }: PageProps) {
         <section className="mb-12">
           <h2 className="text-2xl font-bold text-slate-900 mb-6">Technical Specifications</h2>
           <TechnicalSpecsTable
-            title={`${chargerModule.brand} ${chargerModule.partNumber} Specifications`}
+            title={`${product.name} Specifications`}
             metadata={metadata}
             proTip={metadata.seo_pro_tip}
             footnote="Specifications based on standard OEM configuration. Consult documentation for your specific model."
@@ -243,7 +275,7 @@ export default async function ChargerModuleDetailPage({ params }: PageProps) {
             <h2 className="text-2xl font-bold text-slate-900 mb-6">OEM Cross-Reference</h2>
             <CompatibilityTable
               compatibility={metadata.spec_compatibility}
-              productName={`${chargerModule.brand} ${chargerModule.partNumber}`}
+              productName={product.name}
               verifiedDate="Jan 2026"
             />
           </section>
@@ -276,15 +308,15 @@ export default async function ChargerModuleDetailPage({ params }: PageProps) {
           <h2 className="text-2xl font-bold text-slate-900 mb-6">Troubleshooting Guide</h2>
           <ProductSupportFAQ
             faultCodes={metadata.fault_codes}
-            productName={`${chargerModule.brand} ${chargerModule.partNumber}`}
+            productName={product.name}
             additionalFaqs={[
               {
-                question: `How long is the warranty on a remanufactured ${chargerModule.brand} ${chargerModule.partNumber}?`,
-                answer: `All remanufactured ${chargerModule.brand} charger modules come with a 6-month warranty covering defects in workmanship. If you experience any issues within the warranty period, we offer free repair or replacement.`,
+                question: `How long is the warranty on ${product.name}?`,
+                answer: `All ${product.brand || 'our'} industrial battery chargers come with comprehensive warranty coverage. Contact us for specific warranty terms and coverage details.`,
               },
               {
-                question: `What's the difference between "Reman Exchange" and "Repair & Return"?`,
-                answer: 'Reman Exchange ships you a pre-tested replacement module same-day; you then return your failed unit (core deposit refunded upon receipt). Repair & Return means you ship us your module, we refurbish it, and return the same unit to you within 3-5 business days.',
+                question: `Is ${product.name} OSHA compliant?`,
+                answer: `Yes, all our industrial battery chargers meet or exceed OSHA safety standards. They include proper safety features and are designed for industrial applications.`,
               },
             ]}
             includeSchema={true}
