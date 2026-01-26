@@ -55,7 +55,7 @@ const STATES = [
 
 export const metadata = {
   title: 'Forklift Certification by State | OSHA Training',
-  description: 'Get OSHA-compliant forklift certification in any US state. Select your state to learn about specific requirements and OSHA fines.',
+  description: 'Find OSHA forklift certification by state. Compliant training for all 50 states with instant certificates and state-specific requirements covered.',
   alternates: {
     canonical: 'https://www.flatearthequipment.com/safety/forklift'
   },

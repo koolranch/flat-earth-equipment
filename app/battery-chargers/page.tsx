@@ -11,7 +11,7 @@ export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const title = "Forklift Battery Chargers 24V-80V | Fast Ship Available";
-  const description = "Professional forklift battery chargers for 24V, 36V, 48V & 80V batteries. Fast charging, single/three-phase options. Expert support & same-day shipping.";
+  const description = "Professional forklift battery chargers 24V-80V. All major brands supported. Fast shipping, precision-fit parts, and expert technical support for your fleet.";
   
   return {
     title,

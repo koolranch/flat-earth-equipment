@@ -22,7 +22,7 @@ export const revalidate = 0; // no ISR
 
 export const metadata = {
   title: 'Forklift Operator Training — Flat Earth Safety',
-  description: 'Interactive forklift certification training with demos, micro-quizzes, final exam, and QR-verifiable certificates. OSHA 29 CFR 1910.178(l) aligned.',
+  description: 'OSHA-compliant forklift operator training online. Meet 29 CFR 1910.178 requirements with interactive courses, instant certificates, and hands-on demos.',
   keywords: 'forklift training, forklift certification, OSHA compliance, forklift operator, industrial truck training, workplace safety',
   openGraph: {
     title: 'Forklift Operator Training — Flat Earth Safety',
