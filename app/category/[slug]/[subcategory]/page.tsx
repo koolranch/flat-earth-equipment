@@ -8,6 +8,33 @@ import RelatedItems from "../../../components/RelatedItems";
 import { createClient } from "@/utils/supabase/server";
 import Script from "next/script";
 
+export async function generateMetadata({ params }: { params: { slug: string; subcategory: string } }): Promise<Metadata> {
+  const category = categories.find((c) => c.slug === params.slug);
+  
+  if (!category) {
+    return {
+      title: 'Category Not Found | Flat Earth Equipment'
+    };
+  }
+
+  const subcategoryTitle = params.subcategory
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+
+  return {
+    title: `${subcategoryTitle} | ${category.name} | Flat Earth Equipment`,
+    description: `Shop ${subcategoryTitle.toLowerCase()} in our ${category.name.toLowerCase()} category. OEM-compatible parts for all major brands with fast shipping.`,
+    alternates: {
+      canonical: `/category/${params.slug}/${params.subcategory}`,
+    },
+    robots: {
+      index: true,
+      follow: true,
+    }
+  };
+}
+
 export default async function CategoryPage({
   params: { slug, subcategory },
 }: {

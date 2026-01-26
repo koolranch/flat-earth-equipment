@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { unstable_noStore as noStore } from 'next/cache';
+import { Metadata } from 'next';
 import { coerceCourseId, DEFAULT_COURSE_SLUG } from "@/lib/courses";
 import { canonicalizeCourseParam } from '@/lib/training/courses';
 import { requireEnrollmentServer } from '@/lib/training/requireEnrollmentServer';
@@ -14,6 +15,27 @@ import dynamicImport from 'next/dynamic';
 
 const ClickShieldProbe = dynamicImport(() => import('@/components/debug/ClickShieldProbe'), { ssr: false });
 const CTADebugProbe = dynamicImport(() => import('@/components/debug/CTADebugProbe'), { ssr: false });
+
+export const metadata: Metadata = {
+  title: 'OSHA Forklift Training | Online Certification Course',
+  description: 'Get OSHA-compliant forklift certification online in 30 minutes. Valid for 3 years. Includes wallet card and employer documentation. Start training now for $59.',
+  keywords: ['forklift certification', 'OSHA training', 'forklift operator training', 'powered industrial truck training', 'online forklift course'],
+  alternates: {
+    canonical: '/training',
+  },
+  openGraph: {
+    title: 'OSHA Forklift Certification | Online Training Course',
+    description: 'Get OSHA-compliant forklift certification online in 30 minutes. Valid for 3 years. Includes wallet card and employer documentation.',
+    type: 'website',
+    url: 'https://www.flatearthequipment.com/training',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    'max-image-preview': 'large',
+    'max-snippet': -1,
+  }
+};
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;

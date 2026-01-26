@@ -20,7 +20,7 @@ import { generatePageAlternates } from '../seo-defaults';
 
 export const metadata: Metadata = {
   title: 'Parts Catalog | Flat Earth Equipment',
-  description: 'Browse our complete catalog of industrial parts and components.',
+  description: 'Shop forklift parts, aerial lift components, and industrial equipment parts. Fast shipping across the Western US. OEM-compatible parts for all major brands.',
   alternates: generatePageAlternates('/parts'),
   robots: {
     index: true,
