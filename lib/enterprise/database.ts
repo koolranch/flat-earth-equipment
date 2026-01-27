@@ -128,16 +128,21 @@ export async function getOrganizationHierarchy(userId: string): Promise<Organiza
     return [];
   }
 
-  const orgIds = userOrgs.map(uo => uo.organization.id);
+  // Cast organization to any since Supabase returns it as object but TS sees it as array
+  const orgIds = userOrgs.map(uo => (uo.organization as any)?.id).filter(Boolean);
+  
+  if (orgIds.length === 0) {
+    return [];
+  }
   
   // Get full hierarchy including parent/child relationships
   const { data: allOrgs, error: hierarchyError } = await supabase
     .from('organizations')
     .select('*')
-    .or(`id.in.(${orgIds.join(',')}),parent_id.in.(${orgIds.join(',')})${orgIds.length > 0 ? ',children.organizations!parent_id.id.in.(' + orgIds.join(',') + ')' : ''}`);
+    .or(`id.in.(${orgIds.join(',')}),parent_id.in.(${orgIds.join(',')})`);
 
   if (hierarchyError || !allOrgs) {
-    return userOrgs.map(uo => uo.organization);
+    return userOrgs.map(uo => uo.organization as any);
   }
 
   return allOrgs.map(org => ({
@@ -294,7 +299,8 @@ export async function getOrganizationStats(orgId: string): Promise<OrganizationS
   // Calculate rates
   const totalEnrollments = (activeEnrollments || 0) + (completedTrainings || 0);
   const completionRate = totalEnrollments > 0 ? (completedTrainings || 0) / totalEnrollments * 100 : 0;
-  const complianceRate = totalUsers > 0 ? (completedTrainings || 0) / (totalUsers || 1) * 100 : 0;
+  const safeUserCount = totalUsers ?? 0;
+  const complianceRate = safeUserCount > 0 ? (completedTrainings || 0) / safeUserCount * 100 : 0;
 
   // Get average score
   const { data: scoreData } = await supabase
