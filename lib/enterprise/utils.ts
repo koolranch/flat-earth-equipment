@@ -8,7 +8,7 @@ import { EnterpriseUser, Organization, DashboardView, EnterprisePermissions } fr
 export function isEnterpriseUser(user: EnterpriseUser): boolean {
   return !!(
     user.org_id || 
-    user.organizations?.length > 0 ||
+    (user.organizations && user.organizations.length > 0) ||
     user.enterprise_settings?.preferred_dashboard === 'enterprise'
   );
 }
@@ -35,7 +35,9 @@ export function getDashboardView(user: EnterpriseUser, org?: Organization): Dash
   if (!org) return 'trainer';
 
   // Get user's role in this organization
-  const userOrgRole = user.organizations?.find(uo => uo.org_id === org.id)?.role;
+  const userOrgRole = (user.organizations && Array.isArray(user.organizations)) 
+    ? user.organizations.find(uo => uo.org_id === org!.id)?.role
+    : undefined;
 
   switch (org.type) {
     case 'facility':
@@ -112,14 +114,16 @@ export function getUserPermissions(user: EnterpriseUser, org?: Organization): En
   }
 
   // Get user's role in the current organization
-  const userOrgRole = user.organizations?.find(uo => uo.org_id === org?.id)?.role || 'member';
+  const userOrgRole = (user.organizations && Array.isArray(user.organizations)) 
+    ? user.organizations.find(uo => uo.org_id === org?.id)?.role || 'member'
+    : 'member';
 
   // Role-based permissions
   switch (userOrgRole) {
     case 'owner':
       return Object.fromEntries(
         Object.keys(defaultPermissions).map(key => [key, true])
-      ) as EnterprisePermissions;
+      ) as Record<keyof EnterprisePermissions, boolean>;
 
     case 'admin':
       return {

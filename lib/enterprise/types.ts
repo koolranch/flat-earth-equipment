@@ -88,8 +88,8 @@ export interface EnterpriseUser {
   created_at: string;
   
   // Enterprise relationships
-  organizations?: UserOrganization[];
-  primary_organization?: Organization;
+  organizations?: UserOrganization[] | null;
+  primary_organization?: Organization | null;
 }
 
 // Enhanced enrollment with org context
