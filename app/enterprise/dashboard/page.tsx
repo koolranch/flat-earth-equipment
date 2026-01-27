@@ -281,7 +281,7 @@ export default function EnterpriseDashboard() {
               title="Active Enrollments"
               value={stats.active_enrollments}
               icon="📚"
-              status="info"
+              status="neutral"
               trend={`+${stats.trends.enrollments_trend}%`}
               trendDirection="up"
             />
