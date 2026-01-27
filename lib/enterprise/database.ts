@@ -97,7 +97,7 @@ export async function getOrganization(orgId: string): Promise<Organization | nul
     .contains('org_context', { org_id: orgId })
     .eq('passed', true);
 
-  const completion_rate = enrollmentCount > 0 ? (completedCount || 0) / enrollmentCount * 100 : 0;
+  const completion_rate = (enrollmentCount || 0) > 0 ? (completedCount || 0) / (enrollmentCount || 1) * 100 : 0;
 
   return {
     ...data,
