@@ -210,6 +210,12 @@ export default function EnterpriseDashboard() {
               📊 Analytics
             </EnterpriseButton>
             <EnterpriseButton 
+              variant="outline"
+              onClick={() => window.location.href = '/enterprise/team'}
+            >
+              👥 Team
+            </EnterpriseButton>
+            <EnterpriseButton 
               variant="secondary"
               onClick={() => window.location.href = '/trainer/dashboard'}
             >
