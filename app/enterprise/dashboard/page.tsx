@@ -202,12 +202,20 @@ export default function EnterpriseDashboard() {
         title="Enterprise Dashboard" 
         subtitle="Organizational training overview and management"
         actions={
-          <EnterpriseButton 
-            variant="secondary"
-            onClick={() => window.location.href = '/trainer/dashboard'}
-          >
-            Switch to Trainer View
-          </EnterpriseButton>
+          <div className="flex gap-2">
+            <EnterpriseButton 
+              variant="primary"
+              onClick={() => window.location.href = '/enterprise/analytics'}
+            >
+              📊 Analytics
+            </EnterpriseButton>
+            <EnterpriseButton 
+              variant="secondary"
+              onClick={() => window.location.href = '/trainer/dashboard'}
+            >
+              Switch to Trainer View
+            </EnterpriseButton>
+          </div>
         }
       />
 
