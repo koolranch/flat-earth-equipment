@@ -1,6 +1,6 @@
 // Adapted Enterprise Organization Users API
 import { NextRequest, NextResponse } from 'next/server';
-import { getOrganizationUsers } from '@/lib/enterprise/adapted-database';
+import { getOrganizationUsers } from '@/lib/enterprise/adapted-database.server';
 
 // GET /api/enterprise/adapted/organizations/[id]/users
 export async function GET(

@@ -1,7 +1,7 @@
 // Adapted Enterprise Database Operations - Working with Existing Schema
 // Phase 1 Alternative Approach
 
-import { createClient } from '@/utils/supabase/server';
+import { supabaseService } from '@/lib/supabase/service.server';
 import { EnterpriseUser, OrganizationStats, EnterpriseApiResponse } from './types';
 
 /**
@@ -26,7 +26,7 @@ export interface AdaptedOrganization {
  * Get enterprise user using existing schema
  */
 export async function getAdaptedEnterpriseUser(userId: string): Promise<EnterpriseUser | null> {
-  const supabase = createClient();
+  const supabase = supabaseService();
   
   const { data: profile, error } = await supabase
     .from('profiles')
@@ -66,7 +66,7 @@ export async function getAdaptedEnterpriseUser(userId: string): Promise<Enterpri
  * Get organization hierarchy from enrollments data
  */
 export async function getAdaptedOrganizations(): Promise<AdaptedOrganization[]> {
-  const supabase = createClient();
+  const supabase = supabaseService();
   
   // Get unique org_ids from enrollments with stats
   const { data: orgData } = await supabase
@@ -146,7 +146,7 @@ export async function getAdaptedOrganizations(): Promise<AdaptedOrganization[]> 
  * Get organization stats using existing data
  */
 export async function getAdaptedOrganizationStats(orgId: string): Promise<OrganizationStats | null> {
-  const supabase = createClient();
+  const supabase = supabaseService();
   
   // Get all enrollments for this organization
   const { data: enrollments } = await supabase
@@ -204,7 +204,7 @@ export async function getOrganizationUsers(orgId: string, options: {
   search?: string;
   status?: 'all' | 'active' | 'completed';
 } = {}): Promise<{ users: any[]; total: number }> {
-  const supabase = createClient();
+  const supabase = supabaseService();
   
   const page = options.page || 1;
   const pageSize = options.pageSize || 50;
@@ -274,7 +274,7 @@ export async function bulkAssignTraining(
   userEmails: string[],
   assignedBy: string
 ): Promise<EnterpriseApiResponse<{ created: number; errors: string[] }>> {
-  const supabase = createClient();
+  const supabase = supabaseService();
   
   const results = { created: 0, errors: [] as string[] };
   
@@ -332,7 +332,7 @@ export async function logAdaptedAuditEvent(event: {
   resource_id?: string;
   details: Record<string, any>;
 }): Promise<void> {
-  const supabase = createClient();
+  const supabase = supabaseService();
   
   await supabase
     .from('audit_logs')
@@ -355,7 +355,7 @@ export async function exportOrganizationData(orgId: string): Promise<{
   enrollments: any[];
   certificates: any[];
 }> {
-  const supabase = createClient();
+  const supabase = supabaseService();
   
   // Get organization info
   const organizations = await getAdaptedOrganizations();

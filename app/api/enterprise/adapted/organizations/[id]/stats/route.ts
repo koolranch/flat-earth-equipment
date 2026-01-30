@@ -1,6 +1,6 @@
 // Adapted Enterprise Organization Stats API
 import { NextRequest, NextResponse } from 'next/server';
-import { getAdaptedOrganizationStats } from '@/lib/enterprise/adapted-database';
+import { getAdaptedOrganizationStats } from '@/lib/enterprise/adapted-database.server';
 
 // GET /api/enterprise/adapted/organizations/[id]/stats
 export async function GET(

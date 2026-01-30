@@ -1,6 +1,6 @@
 // Adapted Enterprise API - Working with Existing Schema
 import { NextRequest, NextResponse } from 'next/server';
-import { getAdaptedOrganizations } from '@/lib/enterprise/adapted-database';
+import { getAdaptedOrganizations } from '@/lib/enterprise/adapted-database.server';
 
 // GET /api/enterprise/adapted/organizations
 export async function GET(request: NextRequest) {
