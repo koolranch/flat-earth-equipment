@@ -2,7 +2,7 @@
 // Handles role retrieval and assignment
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/utils/supabase/server';
+import { createServerClient } from '@/lib/supabase/server';
 import { 
   RoleType, 
   normalizeRole, 
@@ -16,7 +16,7 @@ import {
  */
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createClient();
+    const supabase = createServerClient();
     
     const { data: { user }, error: authError } = await supabase.auth.getUser();
     
@@ -33,9 +33,9 @@ export async function GET(request: NextRequest) {
 
     // Check for org-specific role in user_organizations table (if exists)
     let orgRole: string | null = null;
-    let orgId = profile?.org_id;
+    let orgId = profile?.org_id || null;
 
-    // Try to get org-specific role
+    // Try to get org-specific role from user_organizations
     const { data: userOrg } = await supabase
       .from('user_organizations')
       .select('role, org_id')
@@ -46,6 +46,21 @@ export async function GET(request: NextRequest) {
     if (userOrg) {
       orgRole = userOrg.role;
       orgId = userOrg.org_id;
+    }
+
+    // If still no org_id, check enrollments (adapted approach)
+    if (!orgId) {
+      const { data: enrollment } = await supabase
+        .from('enrollments')
+        .select('org_id')
+        .eq('user_id', user.id)
+        .not('org_id', 'is', null)
+        .limit(1)
+        .single();
+      
+      if (enrollment?.org_id) {
+        orgId = enrollment.org_id;
+      }
     }
 
     // Determine effective role (org role takes precedence)
@@ -78,7 +93,7 @@ export async function GET(request: NextRequest) {
  */
 export async function PUT(request: NextRequest) {
   try {
-    const supabase = await createClient();
+    const supabase = createServerClient();
     
     const { data: { user }, error: authError } = await supabase.auth.getUser();
     
