@@ -128,17 +128,21 @@ export default function EnterpriseDashboard() {
     {
       key: 'progress_pct',
       label: 'Progress',
-      render: (value) => (
-        <div className="flex items-center gap-2">
-          <div className="w-16 bg-neutral-200 rounded-full h-2">
-            <div 
-              className="bg-primary-500 h-2 rounded-full transition-all"
-              style={{ width: `${value || 0}%` }}
-            />
+      render: (value, row) => {
+        const isCompleted = row?.status === 'completed' || value === 100;
+        const barColor = isCompleted ? 'bg-green-500' : 'bg-amber-500';
+        return (
+          <div className="flex items-center gap-2">
+            <div className="w-16 bg-neutral-200 rounded-full h-2">
+              <div 
+                className={`${barColor} h-2 rounded-full transition-all`}
+                style={{ width: `${value || 0}%` }}
+              />
+            </div>
+            <span className="text-sm font-medium">{value || 0}%</span>
           </div>
-          <span className="text-sm font-medium">{value || 0}%</span>
-        </div>
-      )
+        );
+      }
     },
     {
       key: 'status',
@@ -208,8 +212,9 @@ export default function EnterpriseDashboard() {
         actions={
           <div className="flex gap-2">
             <EnterpriseButton 
-              variant="primary"
+              variant="secondary"
               onClick={() => window.location.href = '/enterprise/analytics'}
+              className="bg-blue-600 text-white hover:bg-blue-700 border-blue-600"
             >
               📊 Analytics
             </EnterpriseButton>
