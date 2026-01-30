@@ -29,7 +29,7 @@ interface TeamMember {
 }
 
 export default function TeamManagementPage() {
-  const { orgId, role: myRole, can } = useRBAC();
+  const { orgId, role: myRole, can, isLoading: rbacLoading } = useRBAC();
   const [members, setMembers] = useState<TeamMember[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
@@ -39,8 +39,11 @@ export default function TeamManagementPage() {
   useEffect(() => {
     if (orgId) {
       loadTeamMembers();
+    } else if (!rbacLoading) {
+      // RBAC finished loading but no orgId - stop loading state
+      setLoading(false);
     }
-  }, [orgId]);
+  }, [orgId, rbacLoading]);
 
   const loadTeamMembers = async () => {
     try {
@@ -91,7 +94,7 @@ export default function TeamManagementPage() {
     return acc;
   }, {} as Record<RoleType, number>);
 
-  if (loading) {
+  if (loading || rbacLoading) {
     return (
       <div className="container mx-auto p-6 space-y-6">
         <EnterprisePageHeader 
@@ -103,6 +106,26 @@ export default function TeamManagementPage() {
             <SkeletonCard key={i} />
           ))}
         </EnterpriseGrid>
+      </div>
+    );
+  }
+
+  if (!orgId) {
+    return (
+      <div className="container mx-auto p-6 space-y-6">
+        <EnterprisePageHeader 
+          title="Team Management" 
+          subtitle="Manage team members and their roles"
+        />
+        <EnterpriseEmptyState
+          title="No Organization Found"
+          description="You need to be part of an organization to manage team members. Please contact your administrator."
+          icon="🏢"
+          action={{
+            label: "Back to Dashboard",
+            onClick: () => window.location.href = '/enterprise/dashboard'
+          }}
+        />
       </div>
     );
   }
