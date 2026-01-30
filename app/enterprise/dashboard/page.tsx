@@ -60,10 +60,14 @@ export default function EnterpriseDashboard() {
         const data = await response.json();
         setOrganizations(data.organizations || []);
         
-        // Load stats for the first organization if available
+        // Load stats AND users for the first organization if available
         if (data.organizations && data.organizations.length > 0) {
-          setSelectedOrg(data.organizations[0].id);
-          await loadOrganizationStats(data.organizations[0].id);
+          const firstOrgId = data.organizations[0].id;
+          setSelectedOrg(firstOrgId);
+          await Promise.all([
+            loadOrganizationStats(firstOrgId),
+            loadOrganizationUsers(firstOrgId)
+          ]);
         }
       }
     } catch (error) {
