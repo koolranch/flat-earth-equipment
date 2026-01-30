@@ -70,8 +70,32 @@ async function verifyEnterpriseSetup() {
     console.log('  ❌ Exception:', e.message);
   }
   
-  // Check 4: Single user (should NOT be in enterprise)
-  console.log('\\n4. Checking single user (regression test)...');
+  // Check 4: Enrollments with org_id (CRITICAL for dashboard)
+  console.log('\\n4. Checking enrollments with org_id...');
+  try {
+    const { data: enrollments, error } = await supabase
+      .from('enrollments')
+      .select('user_id, org_id, progress_pct, passed')
+      .eq('org_id', 'test-enterprise-001');
+    
+    if (error) {
+      console.log('  ❌ Error:', error.message);
+    } else if (enrollments && enrollments.length > 0) {
+      console.log(`  ✅ Found ${enrollments.length} enrollments with org_id:`);
+      enrollments.forEach(e => {
+        console.log(`    - User ${e.user_id.substring(0,8)}... | Progress: ${e.progress_pct}% | Passed: ${e.passed}`);
+      });
+    } else {
+      console.log('  ⚠️  No enrollments with org_id found');
+      console.log('     This is why the dashboard shows "No Organizations Found"');
+      console.log('     Run complete_enterprise_setup.sql to fix this');
+    }
+  } catch (e) {
+    console.log('  ❌ Exception:', e.message);
+  }
+  
+  // Check 5: Single user (should NOT be in enterprise)
+  console.log('\\n5. Checking single user (regression test)...');
   try {
     const { data: singleUser, error } = await supabase
       .from('profiles')
