@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { createBrowserClient } from '@supabase/ssr';
 import { 
   EnterprisePageHeader,
   EnterpriseGrid,
@@ -45,10 +47,35 @@ export default function EnterpriseDashboard() {
   const [selectedOrg, setSelectedOrg] = useState<string | null>(null);
   const [users, setUsers] = useState<any[]>([]);
   const [usersLoading, setUsersLoading] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false);
+  const router = useRouter();
 
+  // SECURITY: Check authentication first
   useEffect(() => {
-    loadDashboardData();
+    async function checkAuth() {
+      const supabase = createBrowserClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      );
+      
+      const { data: { user }, error } = await supabase.auth.getUser();
+      
+      if (error || !user) {
+        router.replace('/login?next=/enterprise/dashboard');
+        return;
+      }
+      
+      setAuthChecked(true);
+      loadDashboardData();
+    }
+    
+    checkAuth();
   }, []);
+
+  // Don't load data until auth is checked
+  // useEffect(() => {
+  //   loadDashboardData();
+  // }, []);
 
   const loadDashboardData = async () => {
     try {
@@ -164,12 +191,13 @@ export default function EnterpriseDashboard() {
     }
   ];
 
-  if (loading) {
+  // Show loading while checking auth or loading data
+  if (!authChecked || loading) {
     return (
       <div className="container mx-auto p-6 space-y-6">
         <EnterprisePageHeader 
           title="Enterprise Dashboard" 
-          subtitle="Loading your organizational overview..."
+          subtitle={!authChecked ? "Verifying access..." : "Loading your organizational overview..."}
         />
         
         <EnterpriseGrid columns={4}>
