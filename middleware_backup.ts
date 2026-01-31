@@ -8,14 +8,6 @@ const TRAILING_SLASH_REDIRECTS: Record<string, string> = {
   '/parts/attachments/forks/': '/forks',
 };
 
-// PROTECTED ENTERPRISE ROUTES - Require authentication
-const ENTERPRISE_ROUTES = [
-  '/enterprise/dashboard',
-  '/enterprise/analytics',
-  '/enterprise/team',
-  '/enterprise/bulk'
-];
-
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   
@@ -43,27 +35,8 @@ export async function middleware(request: NextRequest) {
     }
   });
 
-  // SECURITY FIX: Protect enterprise routes with authentication
-  if (ENTERPRISE_ROUTES.some(route => pathname.startsWith(route))) {
-    const { data: { user }, error } = await supabase.auth.getUser();
-    
-    if (error || !user) {
-      // Redirect to login with return URL
-      const loginUrl = new URL('/login', request.url);
-      loginUrl.searchParams.set('next', pathname);
-      return NextResponse.redirect(loginUrl);
-    }
-
-    // User is authenticated - allow access for now
-    // TODO: Add organization membership check once user_organizations table exists
-    console.log(`Enterprise access granted to: ${user.email} for ${pathname}`);
-  }
-
-  // Touch session so tokens refresh if needed (for non-enterprise routes)
-  if (!ENTERPRISE_ROUTES.some(route => pathname.startsWith(route))) {
-    await supabase.auth.getUser();
-  }
-
+  // Touch session so tokens refresh if needed
+  await supabase.auth.getUser();
   return response;
 }
 
