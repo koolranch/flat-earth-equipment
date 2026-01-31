@@ -1,6 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { createBrowserClient } from '@supabase/ssr';
 import {
   EnterprisePageHeader,
   EnterpriseCard,
@@ -14,8 +16,11 @@ import { RoleGuard, useRBAC } from '@/components/enterprise/auth/RoleGuard';
 type TabType = 'import-users' | 'import-training' | 'export';
 
 export default function BulkOperationsPage() {
+  // ALL hooks must be at the top, before any conditional returns
   const { orgId } = useRBAC();
   const [authChecked, setAuthChecked] = useState(false);
+  const [activeTab, setActiveTab] = useState<TabType>('import-users');
+  const [lastResult, setLastResult] = useState<any>(null);
   const router = useRouter();
 
   // SECURITY: Check authentication first
@@ -37,7 +42,7 @@ export default function BulkOperationsPage() {
     }
     
     checkAuth();
-  }, []);
+  }, [router]);
 
   // Return loading if not authenticated
   if (!authChecked) {
@@ -49,9 +54,6 @@ export default function BulkOperationsPage() {
       </div>
     );
   }
-
-  const [activeTab, setActiveTab] = useState<TabType>('import-users');
-  const [lastResult, setLastResult] = useState<any>(null);
 
   const tabs: { id: TabType; label: string; icon: string }[] = [
     { id: 'import-users', label: 'Import Users', icon: '👥' },

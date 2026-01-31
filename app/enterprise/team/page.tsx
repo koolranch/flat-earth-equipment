@@ -31,8 +31,14 @@ interface TeamMember {
 }
 
 export default function TeamManagementPage() {
+  // ALL hooks must be at the top, before any conditional returns
   const { orgId, role: myRole, can, isLoading: rbacLoading } = useRBAC();
   const [authChecked, setAuthChecked] = useState(false);
+  const [members, setMembers] = useState<TeamMember[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
+  const [filter, setFilter] = useState<'all' | RoleType>('all');
+  const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
 
   // SECURITY: Check authentication first
@@ -54,7 +60,16 @@ export default function TeamManagementPage() {
     }
     
     checkAuth();
-  }, []);
+  }, [router]);
+
+  useEffect(() => {
+    if (authChecked && orgId) {
+      loadTeamMembers();
+    } else if (authChecked && !rbacLoading) {
+      // RBAC finished loading but no orgId - stop loading state
+      setLoading(false);
+    }
+  }, [authChecked, orgId, rbacLoading]);
 
   // Return loading if not authenticated
   if (!authChecked) {
@@ -66,21 +81,6 @@ export default function TeamManagementPage() {
       </div>
     );
   }
-
-  const [members, setMembers] = useState<TeamMember[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
-  const [filter, setFilter] = useState<'all' | RoleType>('all');
-  const [searchQuery, setSearchQuery] = useState('');
-
-  useEffect(() => {
-    if (orgId) {
-      loadTeamMembers();
-    } else if (!rbacLoading) {
-      // RBAC finished loading but no orgId - stop loading state
-      setLoading(false);
-    }
-  }, [orgId, rbacLoading]);
 
   const loadTeamMembers = async () => {
     try {

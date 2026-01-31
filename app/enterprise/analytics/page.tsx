@@ -64,7 +64,13 @@ interface AnalyticsData {
 }
 
 export default function AnalyticsDashboard() {
+  // ALL hooks must be at the top, before any conditional returns
   const [authChecked, setAuthChecked] = useState(false);
+  const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [exporting, setExporting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [orgId, setOrgId] = useState<string | null>(null);
   const router = useRouter();
 
   // SECURITY: Check authentication first
@@ -86,7 +92,13 @@ export default function AnalyticsDashboard() {
     }
     
     checkAuth();
-  }, []);
+  }, [router]);
+
+  useEffect(() => {
+    if (authChecked) {
+      loadAnalytics();
+    }
+  }, [authChecked]);
 
   // Return loading if not authenticated
   if (!authChecked) {
@@ -98,16 +110,6 @@ export default function AnalyticsDashboard() {
       </div>
     );
   }
-
-  const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [exporting, setExporting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [orgId, setOrgId] = useState<string | null>(null);
-
-  useEffect(() => {
-    loadAnalytics();
-  }, []);
 
   const loadAnalytics = async () => {
     try {
