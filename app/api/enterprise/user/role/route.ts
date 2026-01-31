@@ -24,31 +24,30 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Get user profile with org membership
+    // Get user profile
     const { data: profile } = await supabase
       .from('profiles')
-      .select('id, email, full_name, role, org_id')
+      .select('id, email, full_name')
       .eq('id', user.id)
-      .single();
+      .maybeSingle();
 
-    // Check for org-specific role in user_organizations table (if exists)
+    // Check for org-specific role in org_members table
     let orgRole: string | null = null;
-    let orgId = profile?.org_id || null;
+    let orgId: string | null = null;
 
-    // Try to get org-specific role from user_organizations
-    const { data: userOrg } = await supabase
-      .from('user_organizations')
+    // Get org membership and role from org_members table
+    const { data: orgMember } = await supabase
+      .from('org_members')
       .select('role, org_id')
       .eq('user_id', user.id)
-      .limit(1)
-      .single();
+      .maybeSingle();
 
-    if (userOrg) {
-      orgRole = userOrg.role;
-      orgId = userOrg.org_id;
+    if (orgMember) {
+      orgRole = orgMember.role;
+      orgId = orgMember.org_id;
     }
 
-    // If still no org_id, check enrollments (adapted approach)
+    // If still no org_id, check enrollments (adapted approach for legacy users)
     if (!orgId) {
       const { data: enrollment } = await supabase
         .from('enrollments')
@@ -56,15 +55,15 @@ export async function GET(request: NextRequest) {
         .eq('user_id', user.id)
         .not('org_id', 'is', null)
         .limit(1)
-        .single();
+        .maybeSingle();
       
       if (enrollment?.org_id) {
         orgId = enrollment.org_id;
       }
     }
 
-    // Determine effective role (org role takes precedence)
-    const effectiveRole = orgRole || profile?.role || 'member';
+    // Determine effective role (org role takes precedence, default to member)
+    const effectiveRole = orgRole || 'member';
     const normalizedRole = normalizeRole(effectiveRole);
     const permissions = getRolePermissions(normalizedRole);
 
@@ -111,37 +110,39 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    // Get requester's role
-    const { data: requesterOrg } = await supabase
-      .from('user_organizations')
+    // Get requester's role from org_members
+    const { data: requesterOrgMember } = await supabase
+      .from('org_members')
       .select('role')
       .eq('user_id', user.id)
       .eq('org_id', org_id)
-      .single();
+      .maybeSingle();
 
-    const { data: requesterProfile } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', user.id)
-      .single();
+    if (!requesterOrgMember) {
+      return NextResponse.json(
+        { ok: false, error: 'You are not a member of this organization' },
+        { status: 403 }
+      );
+    }
 
-    const requesterRole = normalizeRole(requesterOrg?.role || requesterProfile?.role || 'member');
+    const requesterRole = normalizeRole(requesterOrgMember.role);
 
-    // Get target user's current role
-    const { data: targetOrg } = await supabase
-      .from('user_organizations')
+    // Get target user's current role from org_members
+    const { data: targetOrgMember } = await supabase
+      .from('org_members')
       .select('role')
       .eq('user_id', target_user_id)
       .eq('org_id', org_id)
-      .single();
+      .maybeSingle();
 
-    const { data: targetProfile } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', target_user_id)
-      .single();
+    if (!targetOrgMember) {
+      return NextResponse.json(
+        { ok: false, error: 'Target user is not a member of this organization' },
+        { status: 404 }
+      );
+    }
 
-    const targetCurrentRole = normalizeRole(targetOrg?.role || targetProfile?.role || 'member');
+    const targetCurrentRole = normalizeRole(targetOrgMember.role);
     const targetNewRole = normalizeRole(new_role);
 
     // Validate the role change
@@ -154,43 +155,31 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    // Update or create user_organizations entry
+    // Update role in org_members table
     const { error: updateError } = await supabase
-      .from('user_organizations')
-      .upsert({
-        user_id: target_user_id,
-        org_id: org_id,
-        role: targetNewRole,
-        updated_at: new Date().toISOString()
-      }, {
-        onConflict: 'user_id,org_id'
-      });
+      .from('org_members')
+      .update({ 
+        role: targetNewRole
+      })
+      .eq('user_id', target_user_id)
+      .eq('org_id', org_id);
 
     if (updateError) {
-      // If user_organizations doesn't exist, try updating profiles
-      const { error: profileError } = await supabase
-        .from('profiles')
-        .update({ role: targetNewRole })
-        .eq('id', target_user_id);
-
-      if (profileError) {
-        console.error('Role update error:', profileError);
-        return NextResponse.json(
-          { ok: false, error: 'Failed to update role' },
-          { status: 500 }
-        );
-      }
+      console.error('Role update error:', updateError);
+      return NextResponse.json(
+        { ok: false, error: 'Failed to update role' },
+        { status: 500 }
+      );
     }
 
-    // Log the role change
+    // Log the role change in audit_events table
     try {
-      await supabase.from('audit_logs').insert({
+      await supabase.from('audit_events').insert({
         org_id: org_id,
-        user_id: user.id,
-        action: 'role_change',
-        resource_type: 'user',
-        resource_id: target_user_id,
-        details: {
+        actor_user_id: user.id,
+        action: 'role.change',
+        target: target_user_id,
+        meta: {
           previous_role: targetCurrentRole,
           new_role: targetNewRole,
           reason: reason || null

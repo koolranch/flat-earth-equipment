@@ -226,9 +226,11 @@ export function getAssignableRoles(userRole: RoleType): RoleType[] {
 
 /**
  * Convert legacy role strings to RoleType
+ * Supports both new RBAC roles and legacy database roles
  */
 export function normalizeRole(role: string): RoleType {
   const roleMap: Record<string, RoleType> = {
+    // New RBAC roles
     'view': 'viewer',
     'viewer': 'viewer',
     'read': 'viewer',
@@ -241,6 +243,11 @@ export function normalizeRole(role: string): RoleType {
     'owner': 'owner',
     'super_admin': 'super_admin',
     'superadmin': 'super_admin',
+    
+    // Legacy database roles (from org_members table)
+    'learner': 'member',      // Legacy: learner → member
+    'trainer': 'manager',     // Legacy: trainer → manager
+    // 'owner' already mapped above
   };
   
   return roleMap[role.toLowerCase()] || 'member';

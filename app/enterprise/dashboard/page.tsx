@@ -15,6 +15,14 @@ import {
   SkeletonCard
 } from '@/components/enterprise/ui/DesignSystem';
 import { EnterpriseDataTable, Column } from '@/components/enterprise/ui/DataTable';
+import { useRBAC } from '@/components/enterprise/auth/RoleGuard';
+import {
+  OwnerDashboard,
+  AdminDashboard,
+  ManagerDashboard,
+  MemberDashboard,
+  ViewerDashboard
+} from '@/components/enterprise/dashboards/RoleBasedDashboards';
 
 interface OrganizationData {
   id: string;
@@ -49,6 +57,7 @@ export default function EnterpriseDashboard() {
   const [usersLoading, setUsersLoading] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
   const router = useRouter();
+  const { role, isLoading: roleLoading } = useRBAC();
 
   // SECURITY: Check authentication first
   useEffect(() => {
@@ -192,7 +201,7 @@ export default function EnterpriseDashboard() {
   ];
 
   // Show loading while checking auth or loading data
-  if (!authChecked || loading) {
+  if (!authChecked || loading || roleLoading) {
     return (
       <div className="container mx-auto p-6 space-y-6">
         <EnterprisePageHeader 
@@ -205,6 +214,48 @@ export default function EnterpriseDashboard() {
             <SkeletonCard key={i} />
           ))}
         </EnterpriseGrid>
+      </div>
+    );
+  }
+
+  // ROLE-BASED DASHBOARD RENDERING
+  // Render different dashboard based on user's role
+  if (role === 'owner') {
+    return (
+      <div className="container mx-auto p-6">
+        <OwnerDashboard stats={stats} organizations={organizations} />
+      </div>
+    );
+  }
+
+  if (role === 'admin') {
+    return (
+      <div className="container mx-auto p-6">
+        <AdminDashboard stats={stats} organizations={organizations} />
+      </div>
+    );
+  }
+
+  if (role === 'manager') {
+    return (
+      <div className="container mx-auto p-6">
+        <ManagerDashboard stats={stats} />
+      </div>
+    );
+  }
+
+  if (role === 'member') {
+    return (
+      <div className="container mx-auto p-6">
+        <MemberDashboard stats={stats} />
+      </div>
+    );
+  }
+
+  if (role === 'viewer') {
+    return (
+      <div className="container mx-auto p-6">
+        <ViewerDashboard stats={stats} />
       </div>
     );
   }
