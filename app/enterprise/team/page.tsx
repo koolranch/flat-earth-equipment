@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { createBrowserClient } from '@supabase/ssr';
 import {
   EnterprisePageHeader,
   EnterpriseGrid,
@@ -30,6 +32,41 @@ interface TeamMember {
 
 export default function TeamManagementPage() {
   const { orgId, role: myRole, can, isLoading: rbacLoading } = useRBAC();
+  const [authChecked, setAuthChecked] = useState(false);
+  const router = useRouter();
+
+  // SECURITY: Check authentication first
+  useEffect(() => {
+    async function checkAuth() {
+      const supabase = createBrowserClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      );
+      
+      const { data: { user }, error } = await supabase.auth.getUser();
+      
+      if (error || !user) {
+        router.replace('/login?next=' + window.location.pathname);
+        return;
+      }
+      
+      setAuthChecked(true);
+    }
+    
+    checkAuth();
+  }, []);
+
+  // Return loading if not authenticated
+  if (!authChecked) {
+    return (
+      <div className="container mx-auto p-6">
+        <div className="text-center py-12">
+          <div className="text-lg text-gray-600">Verifying access...</div>
+        </div>
+      </div>
+    );
+  }
+
   const [members, setMembers] = useState<TeamMember[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
