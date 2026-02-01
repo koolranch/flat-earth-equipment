@@ -17,7 +17,7 @@ import { ManagerTeamRoster } from '@/components/enterprise/ManagerTeamRoster';
 /**
  * OWNER DASHBOARD - Full management control
  */
-export function OwnerDashboard({ stats, organizations }: any) {
+export function OwnerDashboard({ stats, organizations, orgId }: any) {
   return (
     <div className="space-y-6">
       <EnterprisePageHeader 
@@ -36,11 +36,14 @@ export function OwnerDashboard({ stats, organizations }: any) {
             >
               👥 Team Management
             </EnterpriseButton>
-            <EnterpriseButton 
-              onClick={() => window.location.href = '/enterprise/bulk'}
-            >
-              📤 Bulk Operations
-            </EnterpriseButton>
+            {orgId && (
+              <EnterpriseButton 
+                onClick={() => window.location.href = `/api/enterprise/export/roster?org_id=${orgId}`}
+                variant="secondary"
+              >
+                📥 Export CSV
+              </EnterpriseButton>
+            )}
             <EnterpriseButton 
               variant="secondary"
               onClick={() => window.location.href = '/enterprise/settings'}
@@ -82,7 +85,7 @@ export function OwnerDashboard({ stats, organizations }: any) {
       {/* Management Actions */}
       <EnterpriseCard>
         <EnterpriseH2 className="mb-4">Quick Actions</EnterpriseH2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <ActionCard
             icon="➕"
             title="Invite Users"
@@ -101,6 +104,12 @@ export function OwnerDashboard({ stats, organizations }: any) {
             description="Access compliance reports"
             onClick={() => window.location.href = '/enterprise/analytics'}
           />
+          <ActionCard
+            icon="📥"
+            title="Export Records"
+            description="Download team CSV"
+            onClick={() => orgId && (window.location.href = `/api/enterprise/export/roster?org_id=${orgId}`)}
+          />
         </div>
       </EnterpriseCard>
     </div>
@@ -110,7 +119,7 @@ export function OwnerDashboard({ stats, organizations }: any) {
 /**
  * ADMIN DASHBOARD - User management + analytics
  */
-export function AdminDashboard({ stats, organizations }: any) {
+export function AdminDashboard({ stats, organizations, orgId }: any) {
   return (
     <div className="space-y-6">
       <EnterprisePageHeader 
@@ -129,11 +138,14 @@ export function AdminDashboard({ stats, organizations }: any) {
             >
               👥 Manage Team
             </EnterpriseButton>
-            <EnterpriseButton 
-              onClick={() => window.location.href = '/enterprise/bulk'}
-            >
-              📤 Bulk Ops
-            </EnterpriseButton>
+            {orgId && (
+              <EnterpriseButton 
+                onClick={() => window.location.href = `/api/enterprise/export/roster?org_id=${orgId}`}
+                variant="secondary"
+              >
+                📥 Export CSV
+              </EnterpriseButton>
+            )}
           </div>
         }
       />
@@ -161,7 +173,7 @@ export function AdminDashboard({ stats, organizations }: any) {
 
       <EnterpriseCard>
         <EnterpriseH2 className="mb-4">Admin Actions</EnterpriseH2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <ActionCard
             icon="👥"
             title="Manage Users"
@@ -173,6 +185,12 @@ export function AdminDashboard({ stats, organizations }: any) {
             title="View Analytics"
             description="Access detailed reports"
             onClick={() => window.location.href = '/enterprise/analytics'}
+          />
+          <ActionCard
+            icon="📥"
+            title="Export Records"
+            description="Download team CSV"
+            onClick={() => orgId && (window.location.href = `/api/enterprise/export/roster?org_id=${orgId}`)}
           />
         </div>
       </EnterpriseCard>

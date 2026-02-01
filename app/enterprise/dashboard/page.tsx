@@ -221,17 +221,21 @@ export default function EnterpriseDashboard() {
   // ROLE-BASED DASHBOARD RENDERING
   // Render different dashboard based on user's role
   if (role === 'owner') {
+    // Owners use their org_id from RBAC, or selected org if they manage multiple
+    const ownerOrgId = userOrgId || selectedOrg;
     return (
       <div className="container mx-auto p-6">
-        <OwnerDashboard stats={stats} organizations={organizations} />
+        <OwnerDashboard stats={stats} organizations={organizations} orgId={ownerOrgId} />
       </div>
     );
   }
 
   if (role === 'admin') {
+    // Admins use their org_id from RBAC, or selected org
+    const adminOrgId = userOrgId || selectedOrg;
     return (
       <div className="container mx-auto p-6">
-        <AdminDashboard stats={stats} organizations={organizations} />
+        <AdminDashboard stats={stats} organizations={organizations} orgId={adminOrgId} />
       </div>
     );
   }
