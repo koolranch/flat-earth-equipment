@@ -1,7 +1,7 @@
 'use client';
-import { useEffect, useState, useRef } from 'react';
-import SignaturePad from 'signature_pad';
+import { useEffect, useState } from 'react';
 import { useI18n } from '@/lib/i18n/I18nProvider';
+import SignatureInput from './SignatureInput';
 
 const defaultCompetencies = {
   preop: false, controls: false, travel: false, loadHandling: false, pedestrians: false,
@@ -35,27 +35,9 @@ export default function EvalForm({ enrollmentId, initial }: { enrollmentId: stri
   const [competencies, setCompetencies] = useState<Record<string, boolean>>({ ...defaultCompetencies, ...(initial?.competencies || {}) });
   const [saving, setSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
-  const evalPadRef = useRef<SignaturePad | null>(null);
-  const traineePadRef = useRef<SignaturePad | null>(null);
 
   useEffect(() => { 
     (window as any)?.analytics?.track?.('eval_open', { enrollmentId }); 
-    
-    // Initialize signature pads
-    const evalCanvas = document.getElementById('sig-evaluator') as HTMLCanvasElement;
-    const traineeCanvas = document.getElementById('sig-trainee') as HTMLCanvasElement;
-    
-    if (evalCanvas) {
-      evalPadRef.current = new SignaturePad(evalCanvas, { backgroundColor: 'rgb(255, 255, 255)' });
-    }
-    if (traineeCanvas) {
-      traineePadRef.current = new SignaturePad(traineeCanvas, { backgroundColor: 'rgb(255, 255, 255)' });
-    }
-    
-    return () => {
-      evalPadRef.current?.off();
-      traineePadRef.current?.off();
-    };
   }, [enrollmentId]);
 
   function setField<K extends keyof EvalRow>(k: K, v: EvalRow[K]) { setData(d => ({ ...d, [k]: v })); }
@@ -72,21 +54,16 @@ export default function EvalForm({ enrollmentId, initial }: { enrollmentId: stri
     (window as any)?.analytics?.track?.('eval_saved', { enrollmentId });
   }
 
-  async function sign(role: 'evaluator' | 'trainee') {
-    const pad = role === 'evaluator' ? evalPadRef.current : traineePadRef.current;
-    if (!pad) return;
-    if (pad.isEmpty()) { alert('Please draw your signature first, then click Save Signature'); return; }
-    const dataUrl = pad.toDataURL('image/png');
-    const res = await fetch('/api/eval/signature', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ enrollment_id: enrollmentId, role, dataUrl }) });
+  async function handleSignatureSave(role: 'evaluator' | 'trainee', dataUrl: string) {
+    const res = await fetch('/api/eval/signature', { 
+      method: 'POST', 
+      headers: { 'Content-Type': 'application/json' }, 
+      body: JSON.stringify({ enrollment_id: enrollmentId, role, dataUrl }) 
+    });
     const j = await res.json();
-    if (!j.ok) return alert(j.error || 'Signature upload failed');
+    if (!j.ok) throw new Error(j.error || 'Signature upload failed');
     setData(d => ({ ...d, [`${role}_signature_url` as const]: j.url }));
     (window as any)?.analytics?.track?.('eval_signed', { enrollmentId, role });
-  }
-
-  function clearSig(role: 'evaluator' | 'trainee') {
-    const pad = role === 'evaluator' ? evalPadRef.current : traineePadRef.current;
-    pad?.clear();
   }
 
   function Check({ k }: { k: keyof typeof defaultCompetencies }) {
@@ -269,62 +246,25 @@ export default function EvalForm({ enrollmentId, initial }: { enrollmentId: stri
       </div>
 
       {/* Section 4: Signatures */}
-      <div className="grid md:grid-cols-2 gap-4">
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-          <div className="flex items-center justify-between mb-3">
-            <h4 className="font-semibold text-gray-900">Evaluator Signature</h4>
-            {data.evaluator_signature_url && (
-              <span className="text-green-600 text-sm">✓ Saved</span>
-            )}
-          </div>
-          <canvas 
-            id="sig-evaluator" 
-            width={400} 
-            height={150} 
-            className="border-2 border-gray-200 rounded-xl bg-white w-full h-36 cursor-crosshair"
-          />
-          <div className="flex gap-2 mt-3">
-            <button 
-              className="flex-1 rounded-xl bg-[#F76511] text-white px-4 py-2 font-medium hover:bg-[#E55A0C] transition-colors" 
-              onClick={() => sign('evaluator')}
-            >
-              Save Signature
-            </button>
-            <button 
-              className="rounded-xl border-2 border-gray-200 px-4 py-2 text-gray-600 hover:bg-gray-50 transition-colors" 
-              onClick={() => clearSig('evaluator')}
-            >
-              Clear
-            </button>
-          </div>
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-4">
+        <div className="flex items-center gap-3 mb-4">
+          <span className="w-8 h-8 rounded-full bg-[#F76511] text-white flex items-center justify-center text-sm font-bold">4</span>
+          <h3 className="text-lg font-bold text-gray-900">Signatures</h3>
         </div>
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-          <div className="flex items-center justify-between mb-3">
-            <h4 className="font-semibold text-gray-900">Trainee Signature</h4>
-            {data.trainee_signature_url && (
-              <span className="text-green-600 text-sm">✓ Saved</span>
-            )}
-          </div>
-          <canvas 
-            id="sig-trainee" 
-            width={400} 
-            height={150} 
-            className="border-2 border-gray-200 rounded-xl bg-white w-full h-36 cursor-crosshair"
+        <p className="text-gray-600 text-sm mb-4">Both evaluator and trainee must sign. Choose to draw or type your signature.</p>
+        
+        <div className="grid md:grid-cols-2 gap-4">
+          <SignatureInput
+            label="Evaluator Signature"
+            onSave={(dataUrl) => handleSignatureSave('evaluator', dataUrl)}
+            savedUrl={data.evaluator_signature_url}
+            defaultName={data.evaluator_name || ''}
           />
-          <div className="flex gap-2 mt-3">
-            <button 
-              className="flex-1 rounded-xl bg-[#F76511] text-white px-4 py-2 font-medium hover:bg-[#E55A0C] transition-colors" 
-              onClick={() => sign('trainee')}
-            >
-              Save Signature
-            </button>
-            <button 
-              className="rounded-xl border-2 border-gray-200 px-4 py-2 text-gray-600 hover:bg-gray-50 transition-colors" 
-              onClick={() => clearSig('trainee')}
-            >
-              Clear
-            </button>
-          </div>
+          <SignatureInput
+            label="Trainee Signature"
+            onSave={(dataUrl) => handleSignatureSave('trainee', dataUrl)}
+            savedUrl={data.trainee_signature_url}
+          />
         </div>
       </div>
 
