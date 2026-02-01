@@ -12,6 +12,7 @@ import {
   EnterpriseButton,
   SkeletonCard
 } from '@/components/enterprise/ui/DesignSystem';
+import { ManagerTeamRoster } from '@/components/enterprise/ManagerTeamRoster';
 
 /**
  * OWNER DASHBOARD - Full management control
@@ -180,32 +181,35 @@ export function AdminDashboard({ stats, organizations }: any) {
 }
 
 /**
- * MANAGER DASHBOARD - Team view + training assignment
+ * MANAGER DASHBOARD - Unified team view with roster and evaluations
  */
-export function ManagerDashboard({ stats }: any) {
+export function ManagerDashboard({ stats, orgId }: any) {
+  const pendingEvals = stats?.pending_evaluations || 0;
+  
   return (
     <div className="space-y-6">
       <EnterprisePageHeader 
         title="Manager Dashboard" 
-        subtitle="Team oversight and training assignment"
+        subtitle="Team oversight, training progress, and practical evaluations"
         actions={
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             <EnterpriseButton 
-              onClick={() => window.location.href = '/enterprise/team'}
+              onClick={() => window.location.href = '/enterprise/bulk?tab=assign'}
             >
-              👥 View Team
+              ➕ Assign Training
             </EnterpriseButton>
             <EnterpriseButton 
               variant="secondary"
-              onClick={() => window.location.href = '/trainer/dashboard'}
+              onClick={() => window.location.href = '/enterprise/analytics'}
             >
-              Switch to Trainer View
+              📊 Reports
             </EnterpriseButton>
           </div>
         }
       />
 
-      <EnterpriseGrid columns={3}>
+      {/* KPI Cards */}
+      <EnterpriseGrid columns={4}>
         <KPICard
           title="Team Members"
           value={stats?.total_users || 0}
@@ -213,7 +217,7 @@ export function ManagerDashboard({ stats }: any) {
           status="neutral"
         />
         <KPICard
-          title="Team Progress"
+          title="Online Progress"
           value={`${stats?.completion_rate || 0}%`}
           icon="📈"
           status={stats?.completion_rate >= 70 ? "good" : "warning"}
@@ -224,25 +228,53 @@ export function ManagerDashboard({ stats }: any) {
           icon="📚"
           status="neutral"
         />
+        <KPICard
+          title="Pending Evaluations"
+          value={pendingEvals}
+          icon="📋"
+          status={pendingEvals > 0 ? "warning" : "good"}
+        />
       </EnterpriseGrid>
 
+      {/* Quick Actions */}
       <EnterpriseCard>
-        <EnterpriseH2 className="mb-4">Manager Actions</EnterpriseH2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <EnterpriseH2 className="mb-4">Quick Actions</EnterpriseH2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <ActionCard
-            icon="👥"
-            title="View Team"
-            description="See team member progress"
-            onClick={() => window.location.href = '/enterprise/team'}
+            icon="➕"
+            title="Invite Team Member"
+            description="Add new employees"
+            onClick={() => window.location.href = '/enterprise/bulk?tab=invite'}
           />
           <ActionCard
             icon="📋"
             title="Assign Training"
-            description="Assign courses to your team"
-            onClick={() => window.location.href = '/trainer/dashboard'}
+            description="Assign courses to team"
+            onClick={() => window.location.href = '/enterprise/bulk?tab=assign'}
+          />
+          <ActionCard
+            icon="✍️"
+            title="Practical Evaluations"
+            description={pendingEvals > 0 ? `${pendingEvals} pending` : 'All complete'}
+            onClick={() => {
+              // Scroll to roster with pending filter
+              const roster = document.getElementById('team-roster');
+              if (roster) roster.scrollIntoView({ behavior: 'smooth' });
+            }}
+          />
+          <ActionCard
+            icon="📥"
+            title="Export Records"
+            description="Download CSV report"
+            onClick={() => window.location.href = `/api/enterprise/export/roster?org_id=${orgId}`}
           />
         </div>
       </EnterpriseCard>
+
+      {/* Embedded Team Roster */}
+      <div id="team-roster">
+        <ManagerTeamRoster orgId={orgId} />
+      </div>
     </div>
   );
 }

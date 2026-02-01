@@ -239,7 +239,7 @@ export default function EnterpriseDashboard() {
   if (role === 'manager') {
     return (
       <div className="container mx-auto p-6">
-        <ManagerDashboard stats={stats} />
+        <ManagerDashboard stats={stats} orgId={selectedOrg} />
       </div>
     );
   }

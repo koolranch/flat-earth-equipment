@@ -90,7 +90,7 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       <section className="max-w-5xl mx-auto px-4 py-8 space-y-8">
         <header className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-canyon-rust rounded-full mb-6">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-[#F76511] rounded-full mb-6">
             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -105,14 +105,14 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
         {/* Evaluator Information */}
         <div className="bg-white rounded-2xl border border-slate-200 shadow-lg p-8">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-8 rounded-full bg-canyon-rust text-white flex items-center justify-center text-sm font-bold">1</div>
+            <div className="w-8 h-8 rounded-full bg-[#F76511] text-white flex items-center justify-center text-sm font-bold">1</div>
             <h2 className="text-2xl font-bold text-slate-900">Evaluator Information</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             <label className="block">
               <span className="text-sm font-semibold text-slate-700 mb-2 block">Supervisor Name *</span>
               <input 
-                className="w-full rounded-xl border-2 border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-canyon-rust focus:border-canyon-rust transition-colors text-slate-900" 
+                className="w-full rounded-xl border-2 border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#F76511] focus:border-[#F76511] transition-colors text-slate-900" 
                 value={evaluatorName} 
                 onChange={e=>setEvaluatorName(e.target.value)}
                 placeholder="John Smith"
@@ -121,7 +121,7 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
             <label className="block">
               <span className="text-sm font-semibold text-slate-700 mb-2 block">Title</span>
               <input 
-                className="w-full rounded-xl border-2 border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-canyon-rust focus:border-canyon-rust transition-colors text-slate-900" 
+                className="w-full rounded-xl border-2 border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#F76511] focus:border-[#F76511] transition-colors text-slate-900" 
                 value={evaluatorTitle} 
                 onChange={e=>setEvaluatorTitle(e.target.value)}
                 placeholder="Safety Manager"
@@ -130,7 +130,7 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
             <label className="block">
               <span className="text-sm font-semibold text-slate-700 mb-2 block">Site / Location</span>
               <input 
-                className="w-full rounded-xl border-2 border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-canyon-rust focus:border-canyon-rust transition-colors text-slate-900" 
+                className="w-full rounded-xl border-2 border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#F76511] focus:border-[#F76511] transition-colors text-slate-900" 
                 value={site} 
                 onChange={e=>setSite(e.target.value)}
                 placeholder="Warehouse A, Phoenix"
@@ -140,7 +140,7 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
               <span className="text-sm font-semibold text-slate-700 mb-2 block">Evaluation Date</span>
               <input 
                 type="date" 
-                className="w-full rounded-xl border-2 border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-canyon-rust focus:border-canyon-rust transition-colors text-slate-900" 
+                className="w-full rounded-xl border-2 border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#F76511] focus:border-[#F76511] transition-colors text-slate-900" 
                 value={date} 
                 onChange={e=>setDate(e.target.value)} 
               />
@@ -151,14 +151,14 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
         {/* Competency Checklist */}
         <section className="bg-white rounded-2xl border border-slate-200 shadow-lg p-8">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-8 rounded-full bg-canyon-rust text-white flex items-center justify-center text-sm font-bold">2</div>
+            <div className="w-8 h-8 rounded-full bg-[#F76511] text-white flex items-center justify-center text-sm font-bold">2</div>
             <h2 className="text-2xl font-bold text-slate-900">Competency Checklist</h2>
           </div>
           <p className="text-slate-600 mb-8">Evaluate each skill based on OSHA 29 CFR 1910.178 requirements. Check each item the operator demonstrates competently.</p>
           <div className="grid md:grid-cols-2 gap-8">
             <fieldset className="bg-slate-50 rounded-xl p-6 space-y-4">
               <legend className="font-bold text-lg text-slate-900 flex items-center gap-3 mb-4">
-                <span className="w-8 h-8 rounded-full bg-canyon-rust text-white flex items-center justify-center text-sm font-bold">1</span>
+                <span className="w-8 h-8 rounded-full bg-[#F76511] text-white flex items-center justify-center text-sm font-bold">1</span>
                 Pre-Operation
               </legend>
               {['ppe','forksDown','brakeSet'].map(k => (
@@ -167,7 +167,7 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
                     type="checkbox" 
                     checked={(ck as any).preOp[k]} 
                     onChange={()=>toggle(`preOp.${k}`)} 
-                    className="w-6 h-6 rounded-md border-2 border-slate-400 text-canyon-rust focus:ring-2 focus:ring-canyon-rust focus:ring-offset-2"
+                    className="w-6 h-6 rounded-md border-2 border-slate-400 text-[#F76511] focus:ring-2 focus:ring-[#F76511] focus:ring-offset-2"
                   /> 
                   <span className="text-slate-800 font-medium">{k==='ppe'?'PPE on':k==='forksDown'?'Forks down':'Parking brake set'}</span>
                 </label>
@@ -176,7 +176,7 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
           
             <fieldset className="bg-slate-50 rounded-xl p-6 space-y-4">
               <legend className="font-bold text-lg text-slate-900 flex items-center gap-3 mb-4">
-                <span className="w-8 h-8 rounded-full bg-canyon-rust text-white flex items-center justify-center text-sm font-bold">2</span>
+                <span className="w-8 h-8 rounded-full bg-[#F76511] text-white flex items-center justify-center text-sm font-bold">2</span>
                 Maneuvers
               </legend>
               {['startStopSmooth','slowTurns','hornAtCorners'].map(k => (
@@ -185,7 +185,7 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
                     type="checkbox" 
                     checked={(ck as any).maneuvers[k]} 
                     onChange={()=>toggle(`maneuvers.${k}`)} 
-                    className="w-6 h-6 rounded-md border-2 border-slate-400 text-canyon-rust focus:ring-2 focus:ring-canyon-rust focus:ring-offset-2"
+                    className="w-6 h-6 rounded-md border-2 border-slate-400 text-[#F76511] focus:ring-2 focus:ring-[#F76511] focus:ring-offset-2"
                   /> 
                   <span className="text-slate-800 font-medium">{k==='startStopSmooth'?'Starts/stops smooth':k==='slowTurns'?'Slow controlled turns':'Horn at corners'}</span>
                 </label>
@@ -194,7 +194,7 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
             
             <fieldset className="bg-slate-50 rounded-xl p-6 space-y-4">
               <legend className="font-bold text-lg text-slate-900 flex items-center gap-3 mb-4">
-                <span className="w-8 h-8 rounded-full bg-canyon-rust text-white flex items-center justify-center text-sm font-bold">3</span>
+                <span className="w-8 h-8 rounded-full bg-[#F76511] text-white flex items-center justify-center text-sm font-bold">3</span>
                 Load Handling
               </legend>
               {['lowTiltBack','capacityRespected'].map(k => (
@@ -203,7 +203,7 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
                     type="checkbox" 
                     checked={(ck as any).loadHandling[k]} 
                     onChange={()=>toggle(`loadHandling.${k}`)} 
-                    className="w-6 h-6 rounded-md border-2 border-slate-400 text-canyon-rust focus:ring-2 focus:ring-canyon-rust focus:ring-offset-2"
+                    className="w-6 h-6 rounded-md border-2 border-slate-400 text-[#F76511] focus:ring-2 focus:ring-[#F76511] focus:ring-offset-2"
                   /> 
                   <span className="text-slate-800 font-medium">{k==='lowTiltBack'?'Load low, mast back':'Capacity respected'}</span>
                 </label>
@@ -212,7 +212,7 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
             
             <fieldset className="bg-slate-50 rounded-xl p-6 space-y-4">
               <legend className="font-bold text-lg text-slate-900 flex items-center gap-3 mb-4">
-                <span className="w-8 h-8 rounded-full bg-canyon-rust text-white flex items-center justify-center text-sm font-bold">4</span>
+                <span className="w-8 h-8 rounded-full bg-[#F76511] text-white flex items-center justify-center text-sm font-bold">4</span>
                 Shutdown
               </legend>
               {['neutral','forksDown','keyOff','branchOK'].map(k => (
@@ -221,7 +221,7 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
                     type="checkbox" 
                     checked={(ck as any).shutdown[k]} 
                     onChange={()=>toggle(`shutdown.${k}`)} 
-                    className="w-6 h-6 rounded-md border-2 border-slate-400 text-canyon-rust focus:ring-2 focus:ring-canyon-rust focus:ring-offset-2"
+                    className="w-6 h-6 rounded-md border-2 border-slate-400 text-[#F76511] focus:ring-2 focus:ring-[#F76511] focus:ring-offset-2"
                   /> 
                   <span className="text-slate-800 font-medium">{k==='neutral'?'Shift to neutral/park':k==='forksDown'?'Forks lowered to floor':k==='keyOff'?'Parking brake set, key off':k==='branchOK'?'Battery disconnected (if applicable)':'Step complete'}</span>
                 </label>
@@ -272,7 +272,7 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
             disabled={busy || !evaluatorName || !sigDataUrl} 
             onClick={submit} 
             className={`rounded-xl px-8 py-3 text-base font-semibold shadow-lg text-white transition-colors ${
-              busy||!evaluatorName||!sigDataUrl? 'bg-slate-400 cursor-not-allowed':'bg-canyon-rust hover:bg-canyon-rust/90'
+              busy||!evaluatorName||!sigDataUrl? 'bg-slate-400 cursor-not-allowed':'bg-[#F76511] hover:bg-[#F76511]/90'
             }`}
           >
             {busy?'Saving…':'Save evaluation'}

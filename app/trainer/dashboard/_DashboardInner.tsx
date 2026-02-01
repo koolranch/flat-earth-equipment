@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useI18n } from '@/lib/i18n/I18nProvider';
 import AssignSeatsPanel from '@/components/trainer/AssignSeatsPanel';
+import Link from 'next/link';
 
 type Row = { enrollment_id: string; learner_id: string; learner_name: string; learner_email: string; course_slug: string; progress_pct: number; status: 'not_started' | 'in_progress' | 'passed'; passed: boolean; cert_pdf_url: string | null; cert_issued_at: string | null; updated_at?: string; created_at?: string };
 
@@ -13,6 +14,7 @@ export default function DashboardInner() {
   const [pageSize, setPageSize] = useState(50);
   const [loading, setLoading] = useState(true);
   const [seatsInfo, setSeatsInfo] = useState<{total: number; claimed: number; remaining: number} | null>(null);
+  const [hasEnterpriseAccess, setHasEnterpriseAccess] = useState(false);
 
   const [q, setQ] = useState('');
   const [status, setStatus] = useState<'all' | 'not_started' | 'in_progress' | 'passed'>('all');
@@ -41,7 +43,23 @@ export default function DashboardInner() {
     (window as any)?.analytics?.track?.('trainer_dashboard_open'); 
     load(1); 
     loadSeatsInfo();
+    checkEnterpriseAccess();
   }, [load]);
+
+  async function checkEnterpriseAccess() {
+    try {
+      const r = await fetch('/api/enterprise/user/role');
+      if (r.ok) {
+        const j = await r.json();
+        // User has enterprise access if they have an org_id
+        if (j.ok && j.org_id) {
+          setHasEnterpriseAccess(true);
+        }
+      }
+    } catch (e) {
+      // Not enterprise user, that's fine
+    }
+  }
 
   async function loadSeatsInfo() {
     try {
@@ -73,6 +91,22 @@ export default function DashboardInner() {
 
   return (
     <main id="main" className="container mx-auto p-4 grid gap-4" role="main" aria-label={t('trainer.title')}>
+      {/* Enterprise Back Navigation */}
+      {hasEnterpriseAccess && (
+        <div className="flex items-center justify-between">
+          <Link 
+            href="/enterprise/dashboard"
+            className="inline-flex items-center gap-2 text-gray-600 hover:text-[#F76511] transition-colors"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <span>Back to Enterprise Dashboard</span>
+          </Link>
+          <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Legacy Trainer View</span>
+        </div>
+      )}
+      
       <h1 className="text-xl font-bold">{t('trainer.title')}</h1>
       
       {/* Visual Seat Counter Cards */}
