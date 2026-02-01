@@ -17,6 +17,14 @@ interface Course {
   description?: string;
 }
 
+interface SeatInfo {
+  course_id: string;
+  course_title: string;
+  total: number;
+  used: number;
+  available: number;
+}
+
 interface AssignTrainingModalProps {
   orgId: string;
   isOpen: boolean;
@@ -27,6 +35,8 @@ interface AssignTrainingModalProps {
 export function AssignTrainingModal({ orgId, isOpen, onClose, onSuccess }: AssignTrainingModalProps) {
   const [users, setUsers] = useState<User[]>([]);
   const [courses, setCourses] = useState<Course[]>([]);
+  const [seats, setSeats] = useState<SeatInfo[]>([]);
+  const [hasSeatTracking, setHasSeatTracking] = useState(false);
   const [selectedUsers, setSelectedUsers] = useState<Set<string>>(new Set());
   const [selectedCourse, setSelectedCourse] = useState<string>('');
   const [loading, setLoading] = useState(false);
@@ -44,14 +54,16 @@ export function AssignTrainingModal({ orgId, isOpen, onClose, onSuccess }: Assig
   const loadData = async () => {
     setLoadingData(true);
     try {
-      // Load users and courses in parallel
-      const [usersRes, coursesRes] = await Promise.all([
+      // Load users, courses, and seats in parallel
+      const [usersRes, coursesRes, seatsRes] = await Promise.all([
         fetch(`/api/enterprise/adapted/organizations/${orgId}/users?pageSize=100`),
-        fetch('/api/enterprise/assign-training')
+        fetch('/api/enterprise/assign-training'),
+        fetch(`/api/enterprise/seats?org_id=${orgId}`)
       ]);
 
       const usersData = await usersRes.json();
       const coursesData = await coursesRes.json();
+      const seatsData = await seatsRes.json();
 
       if (usersData.ok) {
         setUsers(usersData.users || []);
@@ -63,12 +75,19 @@ export function AssignTrainingModal({ orgId, isOpen, onClose, onSuccess }: Assig
           setSelectedCourse(coursesData.courses[0].id);
         }
       }
+      if (seatsData.ok) {
+        setSeats(seatsData.seats || []);
+        setHasSeatTracking(seatsData.has_seat_tracking);
+      }
     } catch (err) {
       setError('Failed to load data');
     } finally {
       setLoadingData(false);
     }
   };
+
+  // Get seat info for selected course
+  const selectedCourseSeatInfo = seats.find(s => s.course_id === selectedCourse);
 
   if (!isOpen) return null;
 
@@ -202,12 +221,45 @@ export function AssignTrainingModal({ orgId, isOpen, onClose, onSuccess }: Assig
                   required
                   className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F76511]"
                 >
-                  {courses.map(course => (
-                    <option key={course.id} value={course.id}>
-                      {course.title}
-                    </option>
-                  ))}
+                  {courses.map(course => {
+                    const seatInfo = seats.find(s => s.course_id === course.id);
+                    return (
+                      <option key={course.id} value={course.id}>
+                        {course.title}{seatInfo ? ` (${seatInfo.available} seats available)` : ''}
+                      </option>
+                    );
+                  })}
                 </select>
+                
+                {/* Seat availability indicator */}
+                {hasSeatTracking && selectedCourseSeatInfo && (
+                  <div className={`mt-2 p-3 rounded-xl text-sm ${
+                    selectedCourseSeatInfo.available === 0 
+                      ? 'bg-red-50 border border-red-200 text-red-700'
+                      : selectedCourseSeatInfo.available <= 3
+                      ? 'bg-amber-50 border border-amber-200 text-amber-700'
+                      : 'bg-green-50 border border-green-200 text-green-700'
+                  }`}>
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium">Seat Availability</span>
+                      <span className="font-bold">{selectedCourseSeatInfo.available} / {selectedCourseSeatInfo.total}</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                      <div 
+                        className={`h-2 rounded-full ${
+                          selectedCourseSeatInfo.available === 0 ? 'bg-red-500' :
+                          selectedCourseSeatInfo.available <= 3 ? 'bg-amber-500' : 'bg-green-500'
+                        }`}
+                        style={{ width: `${(selectedCourseSeatInfo.used / selectedCourseSeatInfo.total) * 100}%` }}
+                      />
+                    </div>
+                    {selectedUsers.size > selectedCourseSeatInfo.available && (
+                      <p className="mt-2 text-red-600 font-medium">
+                        Warning: You selected {selectedUsers.size} users but only {selectedCourseSeatInfo.available} seats available
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
 
               {/* User Selection */}

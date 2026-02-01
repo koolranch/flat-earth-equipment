@@ -1,5 +1,6 @@
 // Enterprise Assign Training API
 // Assigns a course to one or more users in the organization
+// Checks and consumes seat allocation from org_seats
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
@@ -55,6 +56,41 @@ export async function POST(request: NextRequest) {
 
     if (!course) {
       return NextResponse.json({ ok: false, error: 'Course not found' }, { status: 404 });
+    }
+
+    // Check seat availability for this org + course
+    const { data: seatData } = await svc
+      .from('org_seats')
+      .select('id, total_seats, allocated_seats')
+      .eq('org_id', org_id)
+      .eq('course_id', course_id)
+      .maybeSingle();
+
+    // Calculate how many NEW enrollments we need (excluding already enrolled)
+    const { data: existingEnrollments } = await svc
+      .from('enrollments')
+      .select('user_id')
+      .eq('course_id', course_id)
+      .in('user_id', user_ids);
+
+    const alreadyEnrolledIds = new Set((existingEnrollments || []).map(e => e.user_id));
+    const newEnrollmentCount = user_ids.filter(id => !alreadyEnrolledIds.has(id)).length;
+
+    // If org has seat tracking enabled, check availability
+    if (seatData) {
+      const available = seatData.total_seats - seatData.allocated_seats;
+      if (newEnrollmentCount > available) {
+        return NextResponse.json({
+          ok: false,
+          error: `Not enough seats. Need ${newEnrollmentCount}, but only ${available} available.`,
+          seats: {
+            total: seatData.total_seats,
+            used: seatData.allocated_seats,
+            available: available,
+            requested: newEnrollmentCount
+          }
+        }, { status: 400 });
+      }
     }
 
     // Get user details for the selected users
@@ -113,11 +149,29 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Update seat allocation if seats are tracked and we created enrollments
+    if (seatData && results.created > 0) {
+      const { error: seatUpdateError } = await svc
+        .from('org_seats')
+        .update({ allocated_seats: seatData.allocated_seats + results.created })
+        .eq('id', seatData.id);
+
+      if (seatUpdateError) {
+        console.error('Failed to update seat allocation:', seatUpdateError);
+        // Don't fail the request - enrollments were created
+      }
+    }
+
     return NextResponse.json({
       ok: true,
       message: `Training assigned to ${results.created} user(s)`,
       course_title: course.title,
-      results
+      results,
+      seats: seatData ? {
+        total: seatData.total_seats,
+        used: seatData.allocated_seats + results.created,
+        available: seatData.total_seats - seatData.allocated_seats - results.created
+      } : null
     });
 
   } catch (error) {

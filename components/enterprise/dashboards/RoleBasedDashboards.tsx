@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRBAC } from '@/components/enterprise/auth/RoleGuard';
 import { 
   EnterprisePageHeader,
@@ -127,8 +127,23 @@ export function AdminDashboard({ stats, organizations, orgId }: any) {
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [showAssignModal, setShowAssignModal] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [seatTotals, setSeatTotals] = useState<{ total: number; used: number; available: number } | null>(null);
   
   const pendingEvals = stats?.pending_evaluations || 0;
+
+  // Fetch seat availability on mount
+  useEffect(() => {
+    if (orgId) {
+      fetch(`/api/enterprise/seats?org_id=${orgId}`)
+        .then(r => r.json())
+        .then(data => {
+          if (data.ok && data.has_seat_tracking) {
+            setSeatTotals(data.totals);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [orgId]);
 
   const handleInviteSuccess = () => {
     setRefreshKey(k => k + 1);
@@ -136,6 +151,17 @@ export function AdminDashboard({ stats, organizations, orgId }: any) {
 
   const handleAssignSuccess = () => {
     setRefreshKey(k => k + 1);
+    // Refresh seat counts
+    if (orgId) {
+      fetch(`/api/enterprise/seats?org_id=${orgId}`)
+        .then(r => r.json())
+        .then(data => {
+          if (data.ok && data.has_seat_tracking) {
+            setSeatTotals(data.totals);
+          }
+        })
+        .catch(() => {});
+    }
   };
   
   return (
@@ -161,7 +187,7 @@ export function AdminDashboard({ stats, organizations, orgId }: any) {
       />
 
       {/* KPI Cards - Org-wide stats */}
-      <EnterpriseGrid columns={4}>
+      <EnterpriseGrid columns={seatTotals ? 5 : 4}>
         <KPICard
           title="Total Members"
           value={stats?.total_users || 0}
@@ -190,6 +216,15 @@ export function AdminDashboard({ stats, organizations, orgId }: any) {
           status={pendingEvals > 0 ? "warning" : "good"}
           subtitle="need hands-on review"
         />
+        {seatTotals && (
+          <KPICard
+            title="Available Seats"
+            value={seatTotals.available}
+            icon="🎟️"
+            status={seatTotals.available === 0 ? "danger" : seatTotals.available <= 3 ? "warning" : "good"}
+            subtitle={`${seatTotals.used} of ${seatTotals.total} used`}
+          />
+        )}
       </EnterpriseGrid>
 
       {/* Full Team Roster */}
