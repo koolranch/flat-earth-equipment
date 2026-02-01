@@ -1,0 +1,25 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ignition key control icon -->
+  <rect width="96" height="96" fill="transparent"/>
+  
+  <!-- Key slot/ignition housing -->
+  <circle cx="48" cy="48" r="20" fill="#1E293B" stroke="#334155" stroke-width="2"/>
+  <circle cx="48" cy="48" r="14" fill="#0F172A"/>
+  
+  <!-- Key slot opening -->
+  <rect x="45" y="34" width="6" height="16" rx="1" fill="#475569"/>
+  <rect x="44" y="48" width="8" height="4" rx="1" fill="#475569"/>
+  
+  <!-- Key inserted -->
+  <rect x="46" y="24" width="4" height="14" rx="1" fill="#F76511"/>
+  <rect x="44" y="18" width="8" height="8" rx="2" fill="#F76511"/>
+  <circle cx="48" cy="22" r="2" fill="#0F172A"/>
+  
+  <!-- Position indicators -->
+  <text x="28" y="38" font-size="6" fill="#64748B" font-weight="bold">OFF</text>
+  <text x="64" y="48" font-size="6" fill="#10B981" font-weight="bold">RUN</text>
+  <text x="48" y="78" font-size="6" fill="#64748B" font-weight="bold" text-anchor="middle">START</text>
+  
+  <!-- Current position indicator (RUN) -->
+  <circle cx="62" cy="44" r="3" fill="#10B981"/>
+</svg>
