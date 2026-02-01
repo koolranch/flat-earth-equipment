@@ -22,7 +22,7 @@ function EnterpriseNav() {
               <a href="/enterprise/dashboard" className="text-slate-300 hover:text-white transition-colors">
                 Dashboard
               </a>
-              {(role === 'owner' || role === 'admin') && (
+              {role === 'owner' && (
                 <a href="/enterprise/analytics" className="text-slate-300 hover:text-white transition-colors">
                   Analytics
                 </a>

@@ -124,15 +124,9 @@ export function AdminDashboard({ stats, organizations, orgId }: any) {
     <div className="space-y-6">
       <EnterprisePageHeader 
         title="Admin Dashboard" 
-        subtitle="User management and analytics access"
+        subtitle="User management and team oversight"
         actions={
           <div className="flex gap-2 flex-wrap">
-            <EnterpriseButton 
-              onClick={() => window.location.href = '/enterprise/analytics'}
-              className="bg-blue-600 text-white hover:bg-blue-700"
-            >
-              📊 Analytics
-            </EnterpriseButton>
             <EnterpriseButton 
               onClick={() => window.location.href = '/enterprise/team'}
             >
@@ -173,18 +167,12 @@ export function AdminDashboard({ stats, organizations, orgId }: any) {
 
       <EnterpriseCard>
         <EnterpriseH2 className="mb-4">Admin Actions</EnterpriseH2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ActionCard
             icon="👥"
             title="Manage Users"
             description="Invite, assign, and manage roles"
             onClick={() => window.location.href = '/enterprise/team'}
-          />
-          <ActionCard
-            icon="📊"
-            title="View Analytics"
-            description="Access detailed reports"
-            onClick={() => window.location.href = '/enterprise/analytics'}
           />
           <ActionCard
             icon="📥"
