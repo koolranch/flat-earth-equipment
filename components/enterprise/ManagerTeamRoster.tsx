@@ -57,13 +57,25 @@ export function ManagerTeamRoster({ orgId }: ManagerTeamRosterProps) {
       const data = await response.json();
       
       if (data.ok) {
-        // Fetch evaluation status for completed users
-        const usersWithEvals = await enrichWithEvaluationStatus(data.users);
+        // Fetch evaluation status and scores in parallel
+        const [usersWithEvals, usersWithScores] = await Promise.all([
+          enrichWithEvaluationStatus(data.users),
+          enrichWithScores(data.users)
+        ]);
+        
+        // Merge scores into users with evals
+        const mergedUsers = usersWithEvals.map(user => {
+          const scoreInfo = usersWithScores.find(u => u.id === user.id);
+          return {
+            ...user,
+            score: scoreInfo?.score ?? null
+          };
+        });
         
         // Apply pending_eval filter if needed
-        let filteredUsers = usersWithEvals;
+        let filteredUsers = mergedUsers;
         if (statusFilter === 'pending_eval') {
-          filteredUsers = usersWithEvals.filter(u => u.evaluation_status === 'pending');
+          filteredUsers = mergedUsers.filter(u => u.evaluation_status === 'pending');
         }
         
         setMembers(filteredUsers);
@@ -122,6 +134,37 @@ export function ManagerTeamRoster({ orgId }: ManagerTeamRosterProps) {
     return users.map(user => ({
       ...user,
       evaluation_status: user.status === 'completed' ? 'pending' : 'not_needed'
+    }));
+  }
+
+  // Enrich users with certificate scores (safe - if this fails, roster still works)
+  async function enrichWithScores(users: TeamMember[]): Promise<TeamMember[]> {
+    try {
+      const response = await fetch('/api/enterprise/certificates/scores', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          user_ids: users.map(u => u.id) 
+        })
+      });
+      
+      if (response.ok) {
+        const scoreData = await response.json();
+        const scoreMap = new Map(scoreData.scores?.map((s: any) => [s.user_id, s.score]) || []);
+        
+        return users.map(user => ({
+          ...user,
+          score: (scoreMap.get(user.id) as number) ?? null
+        }));
+      }
+    } catch (error) {
+      console.error('Failed to fetch scores (non-fatal):', error);
+    }
+    
+    // Return users without scores on error - roster still works
+    return users.map(user => ({
+      ...user,
+      score: null
     }));
   }
 
