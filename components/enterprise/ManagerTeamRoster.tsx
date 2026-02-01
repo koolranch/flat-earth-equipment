@@ -16,6 +16,7 @@ interface TeamMember {
   course: string;
   course_slug: string;
   progress_pct: number;
+  score: number | null;
   status: 'active' | 'completed';
   enrollment_date: string;
   last_activity: string;
@@ -301,6 +302,7 @@ export function ManagerTeamRoster({ orgId }: ManagerTeamRosterProps) {
                 <th className="text-left p-3 font-semibold">Team Member</th>
                 <th className="text-left p-3 font-semibold">Course</th>
                 <th className="text-center p-3 font-semibold">Online Progress</th>
+                <th className="text-center p-3 font-semibold">Score</th>
                 <th className="text-center p-3 font-semibold">Status</th>
                 <th className="text-center p-3 font-semibold">Practical Eval</th>
                 <th className="text-center p-3 font-semibold">Actions</th>
@@ -309,13 +311,13 @@ export function ManagerTeamRoster({ orgId }: ManagerTeamRosterProps) {
             <tbody className="divide-y divide-gray-200">
               {loading && members.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="p-8 text-center text-gray-500">
+                  <td colSpan={7} className="p-8 text-center text-gray-500">
                     <div className="animate-pulse">Loading team members...</div>
                   </td>
                 </tr>
               ) : members.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="p-8 text-center">
+                  <td colSpan={7} className="p-8 text-center">
                     <div className="text-4xl mb-2">👥</div>
                     <p className="text-gray-500">No team members found</p>
                     {statusFilter !== 'all' && (
@@ -350,6 +352,9 @@ export function ManagerTeamRoster({ orgId }: ManagerTeamRosterProps) {
                         </div>
                         <span className="text-xs font-medium w-10">{member.progress_pct}%</span>
                       </div>
+                    </td>
+                    <td className="p-3 text-center">
+                      <ScoreBadge score={member.score} status={member.status} />
                     </td>
                     <td className="p-3 text-center">
                       <StatusBadge status={member.status} />
@@ -462,6 +467,33 @@ function EvalBadge({ status }: { status?: TeamMember['evaluation_status'] }) {
         </span>
       );
   }
+}
+
+function ScoreBadge({ score, status }: { score: number | null; status: 'active' | 'completed' }) {
+  // Show dash if still in progress
+  if (status === 'active') {
+    return (
+      <span className="text-gray-400 text-sm">—</span>
+    );
+  }
+  
+  // Show score if completed
+  if (score !== null) {
+    const scoreColor = score >= 80 ? 'text-green-600' : score >= 70 ? 'text-amber-600' : 'text-red-600';
+    const bgColor = score >= 80 ? 'bg-green-50' : score >= 70 ? 'bg-amber-50' : 'bg-red-50';
+    const borderColor = score >= 80 ? 'border-green-200' : score >= 70 ? 'border-amber-200' : 'border-red-200';
+    
+    return (
+      <span className={`inline-flex items-center px-2 py-1 rounded-lg text-xs font-bold ${scoreColor} ${bgColor} border ${borderColor}`}>
+        {score}%
+      </span>
+    );
+  }
+  
+  // No score recorded
+  return (
+    <span className="text-gray-400 text-sm">—</span>
+  );
 }
 
 export default ManagerTeamRoster;

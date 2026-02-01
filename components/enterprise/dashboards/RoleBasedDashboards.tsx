@@ -216,12 +216,6 @@ export function ManagerDashboard({ stats, orgId }: any) {
             >
               ➕ Assign Training
             </EnterpriseButton>
-            <EnterpriseButton 
-              variant="secondary"
-              onClick={() => window.location.href = '/enterprise/analytics'}
-            >
-              📊 Reports
-            </EnterpriseButton>
           </div>
         }
       />

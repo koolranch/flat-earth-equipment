@@ -217,6 +217,7 @@ export async function getOrganizationUsers(orgId: string, options: {
       learner_email,
       progress_pct,
       passed,
+      score,
       created_at,
       updated_at,
       course_id,
@@ -254,6 +255,7 @@ export async function getOrganizationUsers(orgId: string, options: {
     course: (enrollment.courses as any)?.title || 'Unknown Course',
     course_slug: (enrollment.courses as any)?.slug,
     progress_pct: enrollment.progress_pct || 0,
+    score: enrollment.score || null,
     status: enrollment.passed ? 'completed' : 'active',
     enrollment_date: enrollment.created_at,
     last_activity: enrollment.updated_at
