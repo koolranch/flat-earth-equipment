@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { email, full_name, role, org_id } = body;
+    const { email, full_name, role, org_id, course_id } = body;
 
     // Validate required fields
     if (!email || !org_id) {
@@ -75,6 +75,36 @@ export async function POST(request: NextRequest) {
     // Map role to database role
     const dbRole = role === 'admin' ? 'trainer' : role === 'manager' ? 'trainer' : role || 'learner';
 
+    // If course specified, verify it exists and check seat availability
+    let courseName = '';
+    if (course_id) {
+      const { data: course } = await svc
+        .from('courses')
+        .select('id, title')
+        .eq('id', course_id)
+        .maybeSingle();
+      
+      if (!course) {
+        return NextResponse.json({ ok: false, error: 'Selected course not found' }, { status: 400 });
+      }
+      courseName = course.title;
+
+      // Check seat availability
+      const { data: seatData } = await svc
+        .from('org_seats')
+        .select('total_seats, allocated_seats')
+        .eq('org_id', org_id)
+        .eq('course_id', course_id)
+        .maybeSingle();
+
+      if (seatData && seatData.allocated_seats >= seatData.total_seats) {
+        return NextResponse.json({ 
+          ok: false, 
+          error: `No seats available for ${courseName}` 
+        }, { status: 400 });
+      }
+    }
+
     // Create invitation record
     const { error: insertError } = await svc
       .from('invitations')
@@ -84,7 +114,8 @@ export async function POST(request: NextRequest) {
         role: dbRole,
         token,
         invited_by: user.id,
-        expires_at: expiresAt.toISOString()
+        expires_at: expiresAt.toISOString(),
+        course_id: course_id || null
       });
 
     if (insertError) {
@@ -104,13 +135,21 @@ export async function POST(request: NextRequest) {
     if (resendKey) {
       try {
         const resend = new Resend(resendKey);
+        
+        // Build email content based on whether course is assigned
+        const trainingInfo = courseName 
+          ? `\n\nYou've been assigned to complete: ${courseName}\nYour training will begin as soon as you accept this invitation.`
+          : '';
+        
         await resend.emails.send({
           from: process.env.EMAIL_FROM || 'Flat Earth Safety <no-reply@flatearthsafety.com>',
           to: email,
-          subject: `You've been invited to join ${orgName}`,
+          subject: courseName 
+            ? `${orgName} has enrolled you in ${courseName}`
+            : `You've been invited to join ${orgName}`,
           text: `Hi${full_name ? ` ${full_name}` : ''},
 
-You've been invited to join ${orgName} on Flat Earth Safety for forklift operator training.
+You've been invited to join ${orgName} on Flat Earth Safety for forklift operator training.${trainingInfo}
 
 Click here to accept your invitation and get started:
 ${acceptUrl}
@@ -133,8 +172,12 @@ OSHA-Compliant Forklift Operator Training`
 
     return NextResponse.json({
       ok: true,
-      message: 'Invitation sent successfully',
+      message: courseName 
+        ? `Invitation sent with ${courseName} training assignment`
+        : 'Invitation sent successfully',
       email,
+      course_assigned: !!course_id,
+      course_name: courseName || null,
       expires_at: expiresAt.toISOString()
     });
 
