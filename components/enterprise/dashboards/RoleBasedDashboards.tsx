@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useRBAC } from '@/components/enterprise/auth/RoleGuard';
 import { 
   EnterprisePageHeader,
@@ -14,6 +15,8 @@ import {
 } from '@/components/enterprise/ui/DesignSystem';
 import { ManagerTeamRoster } from '@/components/enterprise/ManagerTeamRoster';
 import { AdminTeamRoster } from '@/components/enterprise/AdminTeamRoster';
+import { InviteUserModal } from '@/components/enterprise/modals/InviteUserModal';
+import { AssignTrainingModal } from '@/components/enterprise/modals/AssignTrainingModal';
 
 /**
  * OWNER DASHBOARD - Full management control
@@ -121,7 +124,19 @@ export function OwnerDashboard({ stats, organizations, orgId }: any) {
  * ADMIN DASHBOARD - Full roster view with bulk operations
  */
 export function AdminDashboard({ stats, organizations, orgId }: any) {
+  const [showInviteModal, setShowInviteModal] = useState(false);
+  const [showAssignModal, setShowAssignModal] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
+  
   const pendingEvals = stats?.pending_evaluations || 0;
+
+  const handleInviteSuccess = () => {
+    setRefreshKey(k => k + 1);
+  };
+
+  const handleAssignSuccess = () => {
+    setRefreshKey(k => k + 1);
+  };
   
   return (
     <div className="space-y-6">
@@ -131,13 +146,13 @@ export function AdminDashboard({ stats, organizations, orgId }: any) {
         actions={
           <div className="flex gap-2 flex-wrap">
             <EnterpriseButton 
-              onClick={() => window.location.href = '/enterprise/bulk?tab=invite'}
+              onClick={() => setShowInviteModal(true)}
             >
               ➕ Invite Users
             </EnterpriseButton>
             <EnterpriseButton 
               variant="secondary"
-              onClick={() => window.location.href = '/enterprise/bulk?tab=assign'}
+              onClick={() => setShowAssignModal(true)}
             >
               📋 Assign Training
             </EnterpriseButton>
@@ -178,7 +193,25 @@ export function AdminDashboard({ stats, organizations, orgId }: any) {
       </EnterpriseGrid>
 
       {/* Full Team Roster */}
-      <AdminTeamRoster orgId={orgId} />
+      <AdminTeamRoster key={refreshKey} orgId={orgId} />
+
+      {/* Modals */}
+      {orgId && (
+        <>
+          <InviteUserModal
+            orgId={orgId}
+            isOpen={showInviteModal}
+            onClose={() => setShowInviteModal(false)}
+            onSuccess={handleInviteSuccess}
+          />
+          <AssignTrainingModal
+            orgId={orgId}
+            isOpen={showAssignModal}
+            onClose={() => setShowAssignModal(false)}
+            onSuccess={handleAssignSuccess}
+          />
+        </>
+      )}
     </div>
   );
 }
