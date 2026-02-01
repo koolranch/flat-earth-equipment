@@ -227,29 +227,6 @@ export function ManagerDashboard({ stats, orgId }: any) {
         />
       </EnterpriseGrid>
 
-      {/* Quick Actions */}
-      <EnterpriseCard>
-        <EnterpriseH2 className="mb-4">Quick Actions</EnterpriseH2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <ActionCard
-            icon="✍️"
-            title="Practical Evaluations"
-            description={pendingEvals > 0 ? `${pendingEvals} pending` : 'All complete'}
-            onClick={() => {
-              // Scroll to roster with pending filter
-              const roster = document.getElementById('team-roster');
-              if (roster) roster.scrollIntoView({ behavior: 'smooth' });
-            }}
-          />
-          <ActionCard
-            icon="📥"
-            title="Export Records"
-            description="Download CSV report"
-            onClick={() => window.location.href = `/api/enterprise/export/roster?org_id=${orgId}`}
-          />
-        </div>
-      </EnterpriseCard>
-
       {/* Embedded Team Roster */}
       <div id="team-roster">
         <ManagerTeamRoster orgId={orgId} />
