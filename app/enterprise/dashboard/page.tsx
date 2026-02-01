@@ -75,11 +75,17 @@ export default function EnterpriseDashboard() {
       }
       
       setAuthChecked(true);
-      loadDashboardData();
     }
     
     checkAuth();
   }, []);
+
+  // Load dashboard data after auth is checked and role is determined
+  useEffect(() => {
+    if (authChecked && !roleLoading) {
+      loadDashboardData();
+    }
+  }, [authChecked, roleLoading, userOrgId]);
 
   // Don't load data until auth is checked
   // useEffect(() => {
@@ -96,13 +102,15 @@ export default function EnterpriseDashboard() {
         const data = await response.json();
         setOrganizations(data.organizations || []);
         
-        // Load stats AND users for the first organization if available
-        if (data.organizations && data.organizations.length > 0) {
-          const firstOrgId = data.organizations[0].id;
-          setSelectedOrg(firstOrgId);
+        // Determine which org to load stats for
+        // Priority: user's own org_id (from RBAC) > first org in list
+        const orgIdToLoad = userOrgId || (data.organizations?.[0]?.id);
+        
+        if (orgIdToLoad) {
+          setSelectedOrg(orgIdToLoad);
           await Promise.all([
-            loadOrganizationStats(firstOrgId),
-            loadOrganizationUsers(firstOrgId)
+            loadOrganizationStats(orgIdToLoad),
+            loadOrganizationUsers(orgIdToLoad)
           ]);
         }
       }
