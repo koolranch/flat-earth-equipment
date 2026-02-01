@@ -13,6 +13,7 @@ import {
   SkeletonCard
 } from '@/components/enterprise/ui/DesignSystem';
 import { ManagerTeamRoster } from '@/components/enterprise/ManagerTeamRoster';
+import { AdminTeamRoster } from '@/components/enterprise/AdminTeamRoster';
 
 /**
  * OWNER DASHBOARD - Full management control
@@ -117,71 +118,67 @@ export function OwnerDashboard({ stats, organizations, orgId }: any) {
 }
 
 /**
- * ADMIN DASHBOARD - User management + analytics
+ * ADMIN DASHBOARD - Full roster view with bulk operations
  */
 export function AdminDashboard({ stats, organizations, orgId }: any) {
+  const pendingEvals = stats?.pending_evaluations || 0;
+  
   return (
     <div className="space-y-6">
       <EnterprisePageHeader 
-        title="Admin Dashboard" 
-        subtitle="User management and team oversight"
+        title="Administrator Dashboard" 
+        subtitle="Organization-wide team oversight and management"
         actions={
           <div className="flex gap-2 flex-wrap">
             <EnterpriseButton 
-              onClick={() => window.location.href = '/enterprise/team'}
+              onClick={() => window.location.href = '/enterprise/bulk?tab=invite'}
             >
-              👥 Manage Team
+              ➕ Invite Users
             </EnterpriseButton>
-            {orgId && (
-              <EnterpriseButton 
-                onClick={() => window.location.href = `/api/enterprise/export/roster?org_id=${orgId}`}
-                variant="secondary"
-              >
-                📥 Export CSV
-              </EnterpriseButton>
-            )}
+            <EnterpriseButton 
+              variant="secondary"
+              onClick={() => window.location.href = '/enterprise/bulk?tab=assign'}
+            >
+              📋 Assign Training
+            </EnterpriseButton>
           </div>
         }
       />
 
-      <EnterpriseGrid columns={3}>
+      {/* KPI Cards - Org-wide stats */}
+      <EnterpriseGrid columns={4}>
         <KPICard
-          title="Team Members"
+          title="Total Members"
           value={stats?.total_users || 0}
           icon="👥"
           status="neutral"
+          subtitle="across all teams"
         />
         <KPICard
           title="Completion Rate"
           value={`${stats?.completion_rate || 0}%`}
           icon="✅"
           status={stats?.completion_rate >= 80 ? "good" : "warning"}
+          subtitle="org-wide average"
         />
         <KPICard
           title="Active Training"
           value={stats?.active_enrollments || 0}
           icon="📚"
           status="neutral"
+          subtitle="in progress"
+        />
+        <KPICard
+          title="Pending Evaluations"
+          value={pendingEvals}
+          icon="📋"
+          status={pendingEvals > 0 ? "warning" : "good"}
+          subtitle="need hands-on review"
         />
       </EnterpriseGrid>
 
-      <EnterpriseCard>
-        <EnterpriseH2 className="mb-4">Admin Actions</EnterpriseH2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <ActionCard
-            icon="👥"
-            title="Manage Users"
-            description="Invite, assign, and manage roles"
-            onClick={() => window.location.href = '/enterprise/team'}
-          />
-          <ActionCard
-            icon="📥"
-            title="Export Records"
-            description="Download team CSV"
-            onClick={() => orgId && (window.location.href = `/api/enterprise/export/roster?org_id=${orgId}`)}
-          />
-        </div>
-      </EnterpriseCard>
+      {/* Full Team Roster */}
+      <AdminTeamRoster orgId={orgId} />
     </div>
   );
 }
