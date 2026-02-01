@@ -133,6 +133,14 @@ export function ManagerTeamRoster({ orgId }: ManagerTeamRosterProps) {
     loadMembers();
   };
 
+  const clearAllFilters = () => {
+    setSearch('');
+    setStatusFilter('all');
+    setPage(1);
+  };
+
+  const hasActiveFilters = search !== '' || statusFilter !== 'all';
+
   const pendingEvalCount = members.filter(m => m.evaluation_status === 'pending').length;
 
   if (!orgId) {
@@ -148,7 +156,7 @@ export function ManagerTeamRoster({ orgId }: ManagerTeamRosterProps) {
   return (
     <div className="space-y-4">
       {/* Pending Evaluations Alert */}
-      {pendingEvalCount > 0 && (
+      {pendingEvalCount > 0 && statusFilter !== 'pending_eval' && (
         <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -173,6 +181,31 @@ export function ManagerTeamRoster({ orgId }: ManagerTeamRosterProps) {
         </div>
       )}
 
+      {/* Currently Viewing Pending - Show option to view all */}
+      {statusFilter === 'pending_eval' && (
+        <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-xl">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">🔍</span>
+              <div>
+                <p className="font-semibold text-blue-800">
+                  Showing {members.length} team member{members.length !== 1 ? 's' : ''} needing practical evaluation
+                </p>
+                <p className="text-sm text-blue-700">
+                  These employees completed online training and are ready for hands-on assessment
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => setStatusFilter('all')}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-blue-300 text-blue-700 rounded-xl font-medium hover:bg-blue-100 transition-colors"
+            >
+              ← View All Team
+            </button>
+          </div>
+        </div>
+      )}
+
       <EnterpriseCard>
         <div className="flex items-center justify-between mb-4">
           <EnterpriseH2>Team Progress</EnterpriseH2>
@@ -193,6 +226,43 @@ export function ManagerTeamRoster({ orgId }: ManagerTeamRosterProps) {
             </a>
           </div>
         </div>
+
+        {/* Active Filters Bar */}
+        {hasActiveFilters && (
+          <div className="flex items-center gap-2 mb-4 p-3 bg-blue-50 border border-blue-200 rounded-xl">
+            <span className="text-sm font-medium text-blue-800">Active filters:</span>
+            <div className="flex flex-wrap gap-2">
+              {search && (
+                <span className="inline-flex items-center gap-1 px-3 py-1 bg-white border border-blue-300 rounded-full text-sm">
+                  Search: "{search}"
+                  <button 
+                    onClick={() => { setSearch(''); setPage(1); }}
+                    className="ml-1 text-gray-500 hover:text-gray-700"
+                  >
+                    ✕
+                  </button>
+                </span>
+              )}
+              {statusFilter !== 'all' && (
+                <span className="inline-flex items-center gap-1 px-3 py-1 bg-white border border-blue-300 rounded-full text-sm">
+                  Status: {statusFilter === 'pending_eval' ? '⏳ Pending Evaluation' : statusFilter === 'active' ? 'In Progress' : 'Completed'}
+                  <button 
+                    onClick={() => { setStatusFilter('all'); setPage(1); }}
+                    className="ml-1 text-gray-500 hover:text-gray-700"
+                  >
+                    ✕
+                  </button>
+                </span>
+              )}
+            </div>
+            <button 
+              onClick={clearAllFilters}
+              className="ml-auto text-sm text-blue-700 hover:text-blue-900 font-medium hover:underline"
+            >
+              Clear All
+            </button>
+          </div>
+        )}
 
         {/* Filters */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4">
