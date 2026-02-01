@@ -19,7 +19,7 @@ function EnterpriseNav() {
               🏢 Enterprise Hub
             </a>
             <nav className="hidden md:flex gap-4 text-sm">
-              {(role === 'owner' || role === 'admin') && (
+              {role === 'owner' && (
                 <a href="/enterprise/dashboard" className="text-slate-300 hover:text-white transition-colors">
                   Dashboard
                 </a>
@@ -29,17 +29,17 @@ function EnterpriseNav() {
                   Analytics
                 </a>
               )}
-              {(role === 'owner' || role === 'admin') && (
+              {role === 'owner' && (
                 <a href="/enterprise/team" className="text-slate-300 hover:text-white transition-colors">
                   Team
                 </a>
               )}
-              {(role === 'owner' || role === 'admin') && (
+              {role === 'owner' && (
                 <a href="/enterprise/bulk" className="text-slate-300 hover:text-white transition-colors">
                   Bulk Ops
                 </a>
               )}
-              {(role === 'owner' || role === 'admin') && (
+              {role === 'owner' && (
                 <a href="/trainer/dashboard" className="text-slate-300 hover:text-white transition-colors">
                   Trainer View
                 </a>
