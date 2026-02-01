@@ -57,7 +57,7 @@ export default function EnterpriseDashboard() {
   const [usersLoading, setUsersLoading] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
   const router = useRouter();
-  const { role, isLoading: roleLoading } = useRBAC();
+  const { role, isLoading: roleLoading, orgId: userOrgId } = useRBAC();
 
   // SECURITY: Check authentication first
   useEffect(() => {
@@ -237,9 +237,11 @@ export default function EnterpriseDashboard() {
   }
 
   if (role === 'manager') {
+    // Managers use their own org_id from RBAC, not the selected org
+    const managerOrgId = userOrgId || selectedOrg;
     return (
       <div className="container mx-auto p-6">
-        <ManagerDashboard stats={stats} orgId={selectedOrg} />
+        <ManagerDashboard stats={stats} orgId={managerOrgId} />
       </div>
     );
   }
