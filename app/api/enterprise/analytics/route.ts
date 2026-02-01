@@ -40,17 +40,29 @@ export async function GET(request: NextRequest) {
     // Get user's org_id if not provided
     let orgId = orgIdParam;
     
+    // First check org_members table (enterprise users)
+    if (!orgId) {
+      const { data: orgMember } = await supabase
+        .from('org_members')
+        .select('org_id')
+        .eq('user_id', user.id)
+        .maybeSingle();
+      
+      orgId = orgMember?.org_id;
+    }
+
+    // Fallback: check profiles table
     if (!orgId) {
       const { data: profile } = await supabase
         .from('profiles')
         .select('org_id')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
       
       orgId = profile?.org_id;
     }
 
-    // If still no org_id, try to find from enrollments
+    // Fallback: check enrollments table
     if (!orgId) {
       const { data: enrollment } = await supabase
         .from('enrollments')
@@ -58,7 +70,7 @@ export async function GET(request: NextRequest) {
         .eq('user_id', user.id)
         .not('org_id', 'is', null)
         .limit(1)
-        .single();
+        .maybeSingle();
       
       orgId = enrollment?.org_id;
     }
