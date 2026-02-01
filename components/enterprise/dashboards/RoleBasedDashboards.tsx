@@ -197,15 +197,6 @@ export function ManagerDashboard({ stats, orgId }: any) {
       <EnterprisePageHeader 
         title="Manager Dashboard" 
         subtitle="Team oversight, training progress, and practical evaluations"
-        actions={
-          <div className="flex gap-2 flex-wrap">
-            <EnterpriseButton 
-              onClick={() => window.location.href = '/enterprise/bulk?tab=assign'}
-            >
-              ➕ Assign Training
-            </EnterpriseButton>
-          </div>
-        }
       />
 
       {/* KPI Cards */}
@@ -239,19 +230,7 @@ export function ManagerDashboard({ stats, orgId }: any) {
       {/* Quick Actions */}
       <EnterpriseCard>
         <EnterpriseH2 className="mb-4">Quick Actions</EnterpriseH2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <ActionCard
-            icon="➕"
-            title="Invite Team Member"
-            description="Add new employees"
-            onClick={() => window.location.href = '/enterprise/bulk?tab=invite'}
-          />
-          <ActionCard
-            icon="📋"
-            title="Assign Training"
-            description="Assign courses to team"
-            onClick={() => window.location.href = '/enterprise/bulk?tab=assign'}
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ActionCard
             icon="✍️"
             title="Practical Evaluations"

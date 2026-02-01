@@ -19,15 +19,17 @@ function EnterpriseNav() {
               🏢 Enterprise Hub
             </a>
             <nav className="hidden md:flex gap-4 text-sm">
-              <a href="/enterprise/dashboard" className="text-slate-300 hover:text-white transition-colors">
-                Dashboard
-              </a>
+              {(role === 'owner' || role === 'admin') && (
+                <a href="/enterprise/dashboard" className="text-slate-300 hover:text-white transition-colors">
+                  Dashboard
+                </a>
+              )}
               {role === 'owner' && (
                 <a href="/enterprise/analytics" className="text-slate-300 hover:text-white transition-colors">
                   Analytics
                 </a>
               )}
-              {(role === 'owner' || role === 'admin' || role === 'manager') && (
+              {(role === 'owner' || role === 'admin') && (
                 <a href="/enterprise/team" className="text-slate-300 hover:text-white transition-colors">
                   Team
                 </a>
@@ -37,9 +39,11 @@ function EnterpriseNav() {
                   Bulk Ops
                 </a>
               )}
-              <a href="/trainer/dashboard" className="text-slate-300 hover:text-white transition-colors">
-                Trainer View
-              </a>
+              {(role === 'owner' || role === 'admin') && (
+                <a href="/trainer/dashboard" className="text-slate-300 hover:text-white transition-colors">
+                  Trainer View
+                </a>
+              )}
             </nav>
           </div>
           <div className="flex items-center gap-3">
