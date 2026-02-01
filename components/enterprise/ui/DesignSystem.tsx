@@ -56,7 +56,7 @@ interface TypographyProps {
 export function EnterpriseH1({ children, className }: TypographyProps) {
   return (
     <h1 className={cn(
-      'text-3xl font-bold text-neutral-900 tracking-tight',
+      'text-3xl font-bold text-gray-900 tracking-tight',
       className
     )}>
       {children}
@@ -67,7 +67,7 @@ export function EnterpriseH1({ children, className }: TypographyProps) {
 export function EnterpriseH2({ children, className }: TypographyProps) {
   return (
     <h2 className={cn(
-      'text-2xl font-semibold text-neutral-900 tracking-tight',
+      'text-2xl font-semibold text-gray-900 tracking-tight',
       className
     )}>
       {children}
@@ -78,7 +78,7 @@ export function EnterpriseH2({ children, className }: TypographyProps) {
 export function EnterpriseH3({ children, className }: TypographyProps) {
   return (
     <h3 className={cn(
-      'text-xl font-semibold text-neutral-700',
+      'text-xl font-semibold text-gray-700',
       className
     )}>
       {children}
@@ -89,7 +89,7 @@ export function EnterpriseH3({ children, className }: TypographyProps) {
 export function EnterpriseBody({ children, className }: TypographyProps) {
   return (
     <p className={cn(
-      'text-base text-neutral-700 leading-relaxed',
+      'text-base text-gray-700 leading-relaxed',
       className
     )}>
       {children}
@@ -100,7 +100,7 @@ export function EnterpriseBody({ children, className }: TypographyProps) {
 export function EnterpriseBodySmall({ children, className }: TypographyProps) {
   return (
     <p className={cn(
-      'text-sm text-neutral-600',
+      'text-sm text-gray-600',
       className
     )}>
       {children}
@@ -125,7 +125,7 @@ export function EnterpriseCard({ children, className, padding = 'md' }: CardProp
 
   return (
     <div className={cn(
-      'bg-white rounded-xl border border-neutral-200 shadow-sm hover:shadow-md transition-shadow',
+      'bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow',
       paddingClasses[padding],
       className
     )}>
@@ -155,16 +155,16 @@ export function KPICard({
   subtitle 
 }: KPICardProps) {
   const statusColors = {
-    good: 'border-success-200 bg-gradient-to-br from-success-50 to-success-100',
-    warning: 'border-warning-200 bg-gradient-to-br from-warning-50 to-warning-100',
-    danger: 'border-danger-200 bg-gradient-to-br from-danger-50 to-danger-100',
-    neutral: 'border-neutral-200 bg-gradient-to-br from-neutral-50 to-neutral-100'
+    good: 'border-green-200 bg-gradient-to-br from-green-50 to-green-100',
+    warning: 'border-amber-200 bg-gradient-to-br from-amber-50 to-amber-100',
+    danger: 'border-red-200 bg-gradient-to-br from-red-50 to-red-100',
+    neutral: 'border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100'
   };
 
   const trendColors = {
-    up: 'text-success-600',
-    down: 'text-danger-600',
-    neutral: 'text-neutral-500'
+    up: 'text-green-600',
+    down: 'text-red-600',
+    neutral: 'text-gray-500'
   };
 
   const trendIcons = {
@@ -176,21 +176,21 @@ export function KPICard({
   return (
     <EnterpriseCard className={cn('p-4', statusColors[status])}>
       <div className="flex items-center justify-between mb-2">
-        <EnterpriseBodySmall className="font-medium text-neutral-700">
+        <EnterpriseBodySmall className="font-medium text-gray-700">
           {title}
         </EnterpriseBodySmall>
         {icon && <span className="text-2xl">{icon}</span>}
       </div>
       
       <div className="space-y-1">
-        <div className="text-3xl font-bold text-neutral-900">
+        <div className="text-3xl font-bold text-gray-900">
           {value}
         </div>
         
         {(trend || subtitle) && (
           <div className="flex items-center justify-between">
             {subtitle && (
-              <EnterpriseBodySmall className="text-neutral-600">
+              <EnterpriseBodySmall className="text-gray-600">
                 {subtitle}
               </EnterpriseBodySmall>
             )}
@@ -220,27 +220,27 @@ interface StatusBadgeProps {
 export function EnterpriseStatusBadge({ status, size = 'md', showIcon = true }: StatusBadgeProps) {
   const configs = {
     passed: {
-      styles: 'bg-success-50 border-success-300 text-success-800',
+      styles: 'bg-green-50 border-green-300 text-green-800',
       icon: '✓',
       label: 'Passed'
     },
     in_progress: {
-      styles: 'bg-info-50 border-info-300 text-info-800',
+      styles: 'bg-blue-50 border-blue-300 text-blue-800',
       icon: '⟳',
       label: 'In Progress'
     },
     not_started: {
-      styles: 'bg-neutral-50 border-neutral-300 text-neutral-700',
+      styles: 'bg-gray-50 border-gray-300 text-gray-700',
       icon: '○',
       label: 'Not Started'
     },
     failed: {
-      styles: 'bg-danger-50 border-danger-300 text-danger-800',
+      styles: 'bg-red-50 border-red-300 text-red-800',
       icon: '✗',
       label: 'Failed'
     },
     expired: {
-      styles: 'bg-warning-50 border-warning-300 text-warning-800',
+      styles: 'bg-amber-50 border-amber-300 text-amber-800',
       icon: '⚠',
       label: 'Expired'
     }
@@ -291,10 +291,10 @@ export function EnterpriseProgressBar({
   };
 
   const statusColors = {
-    normal: 'bg-info-500',
-    success: 'bg-success-500',
-    warning: 'bg-warning-500',
-    danger: 'bg-danger-500'
+    normal: 'bg-blue-500',
+    success: 'bg-green-500',
+    warning: 'bg-amber-500',
+    danger: 'bg-red-500'
   };
 
   return (
@@ -308,7 +308,7 @@ export function EnterpriseProgressBar({
         </div>
       )}
       <div className={cn(
-        'w-full bg-neutral-200 rounded-full overflow-hidden',
+        'w-full bg-gray-200 rounded-full overflow-hidden',
         sizeClasses[size]
       )}>
         <div
@@ -348,11 +348,11 @@ export function EnterpriseButton({
   const baseClasses = 'inline-flex items-center justify-center gap-2 font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
 
   const variants = {
-    primary: 'bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500 shadow-sm hover:shadow-md',
-    secondary: 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200 focus:ring-neutral-500 border border-neutral-300',
-    outline: 'border border-primary-500 text-primary-500 hover:bg-primary-50 focus:ring-primary-500',
-    ghost: 'text-neutral-600 hover:bg-neutral-100 focus:ring-neutral-500',
-    danger: 'bg-danger-500 text-white hover:bg-danger-600 focus:ring-danger-500 shadow-sm hover:shadow-md'
+    primary: 'bg-[#F76511] text-white hover:bg-[#E55A0C] focus:ring-[#F76511] shadow-sm hover:shadow-md',
+    secondary: 'bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-gray-500 border border-gray-300',
+    outline: 'border-2 border-[#F76511] text-[#F76511] hover:bg-orange-50 focus:ring-[#F76511]',
+    ghost: 'text-gray-600 hover:bg-gray-100 focus:ring-gray-500',
+    danger: 'bg-red-500 text-white hover:bg-red-600 focus:ring-red-500 shadow-sm hover:shadow-md'
   };
 
   const sizes = {
@@ -400,9 +400,9 @@ export function SkeletonCard() {
   return (
     <EnterpriseCard className="animate-pulse">
       <div className="space-y-3">
-        <div className="h-4 bg-neutral-200 rounded w-1/3"></div>
-        <div className="h-8 bg-neutral-200 rounded w-1/2"></div>
-        <div className="h-3 bg-neutral-200 rounded w-1/4"></div>
+        <div className="h-4 bg-gray-200 rounded w-1/3"></div>
+        <div className="h-8 bg-gray-200 rounded w-1/2"></div>
+        <div className="h-3 bg-gray-200 rounded w-1/4"></div>
       </div>
     </EnterpriseCard>
   );
@@ -411,12 +411,12 @@ export function SkeletonCard() {
 export function SkeletonTable({ rows = 5, columns = 4 }: { rows?: number; columns?: number }) {
   return (
     <EnterpriseCard padding="none">
-      <div className="divide-y divide-neutral-200">
+      <div className="divide-y divide-gray-200">
         {/* Header */}
-        <div className="p-4 bg-neutral-50 flex space-x-4">
+        <div className="p-4 bg-gray-50 flex space-x-4">
           {Array.from({ length: columns }).map((_, i) => (
             <div key={i} className="flex-1">
-              <div className="h-4 bg-neutral-300 rounded animate-pulse"></div>
+              <div className="h-4 bg-gray-300 rounded animate-pulse"></div>
             </div>
           ))}
         </div>
@@ -426,7 +426,7 @@ export function SkeletonTable({ rows = 5, columns = 4 }: { rows?: number; column
           <div key={rowIndex} className="p-4 flex space-x-4">
             {Array.from({ length: columns }).map((_, colIndex) => (
               <div key={colIndex} className="flex-1">
-                <div className="h-4 bg-neutral-200 rounded animate-pulse"></div>
+                <div className="h-4 bg-gray-200 rounded animate-pulse"></div>
               </div>
             ))}
           </div>
@@ -480,7 +480,7 @@ export function EnterprisePageHeader({
     <div className="flex items-center justify-between mb-8">
       <div>
         <EnterpriseH1 className="mb-1">{title}</EnterpriseH1>
-        {subtitle && <EnterpriseBody className="text-neutral-600">{subtitle}</EnterpriseBody>}
+        {subtitle && <EnterpriseBody className="text-gray-600">{subtitle}</EnterpriseBody>}
       </div>
       {actions && <div className="flex items-center gap-3">{actions}</div>}
     </div>

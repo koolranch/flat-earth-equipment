@@ -348,7 +348,7 @@ export function ViewerDashboard({ stats }: any) {
 
       <EnterpriseCard>
         <EnterpriseH2 className="mb-4">Available Reports</EnterpriseH2>
-        <EnterpriseBody className="text-neutral-600 mb-4">
+        <EnterpriseBody className="text-gray-600 mb-4">
           You can view training progress and basic reports. For additional features, contact your administrator.
         </EnterpriseBody>
         <EnterpriseButton 
@@ -379,11 +379,11 @@ function ActionCard({
   return (
     <button
       onClick={onClick}
-      className="text-left p-4 bg-gradient-to-br from-neutral-50 to-neutral-100 hover:from-orange-50 hover:to-orange-100 border-2 border-neutral-200 hover:border-[#F76511] rounded-xl transition-all hover:shadow-md group"
+      className="text-left p-4 bg-gradient-to-br from-gray-50 to-gray-100 hover:from-orange-50 hover:to-orange-100 border-2 border-gray-200 hover:border-[#F76511] rounded-xl transition-all hover:shadow-md group"
     >
       <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">{icon}</div>
-      <h3 className="font-semibold text-neutral-900 mb-1">{title}</h3>
-      <p className="text-sm text-neutral-600">{description}</p>
+      <h3 className="font-semibold text-gray-900 mb-1">{title}</h3>
+      <p className="text-sm text-gray-600">{description}</p>
     </button>
   );
 }

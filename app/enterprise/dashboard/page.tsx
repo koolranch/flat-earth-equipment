@@ -169,7 +169,7 @@ export default function EnterpriseDashboard() {
         const barColor = isCompleted ? 'bg-green-500' : 'bg-amber-500';
         return (
           <div className="flex items-center gap-2">
-            <div className="w-16 bg-neutral-200 rounded-full h-2">
+            <div className="w-16 bg-gray-200 rounded-full h-2">
               <div 
                 className={`${barColor} h-2 rounded-full transition-all`}
                 style={{ width: `${value || 0}%` }}
@@ -186,8 +186,8 @@ export default function EnterpriseDashboard() {
       render: (value) => (
         <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
           value === 'completed' 
-            ? 'bg-success-100 text-success-800'
-            : 'bg-info-100 text-info-800'
+            ? 'bg-green-100 text-green-800'
+            : 'bg-blue-100 text-blue-800'
         }`}>
           {value === 'completed' ? '✓ Completed' : '⟳ In Progress'}
         </span>
@@ -323,7 +323,7 @@ export default function EnterpriseDashboard() {
       <EnterpriseCard>
         <div className="flex items-center justify-between mb-4">
           <EnterpriseH2>Organizations</EnterpriseH2>
-          <EnterpriseBody className="text-neutral-600">
+          <EnterpriseBody className="text-gray-600">
             {organizations.length} organization{organizations.length !== 1 ? 's' : ''} found
           </EnterpriseBody>
         </div>
@@ -332,25 +332,25 @@ export default function EnterpriseDashboard() {
           {organizations.map(org => (
             <div
               key={org.id}
-              className={`p-4 rounded-lg border-2 cursor-pointer transition-all hover:border-primary-300 ${
+              className={`p-4 rounded-lg border-2 cursor-pointer transition-all hover:border-orange-300 ${
                 selectedOrg === org.id 
-                  ? 'border-primary-500 bg-primary-50' 
-                  : 'border-neutral-200 hover:bg-neutral-50'
+                  ? 'border-[#F76511] bg-orange-50' 
+                  : 'border-gray-200 hover:bg-gray-50'
               }`}
               onClick={() => handleOrganizationSelect(org.id)}
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="font-semibold text-neutral-900">{org.name}</h3>
-                  <p className="text-sm text-neutral-600">
+                  <h3 className="font-semibold text-gray-900">{org.name}</h3>
+                  <p className="text-sm text-gray-600">
                     {org.user_count} users • {org.enrollment_count} enrollments
                   </p>
                 </div>
                 <div className="text-right">
-                  <div className="text-lg font-bold text-primary-600">
+                  <div className="text-lg font-bold text-[#F76511]">
                     {org.completion_rate}%
                   </div>
-                  <div className="text-xs text-neutral-500">completion</div>
+                  <div className="text-xs text-gray-500">completion</div>
                 </div>
               </div>
             </div>
