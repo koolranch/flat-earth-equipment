@@ -1,6 +1,8 @@
 // Adapted Enterprise Organization Users API
 import { NextRequest, NextResponse } from 'next/server';
 import { getOrganizationUsers } from '@/lib/enterprise/adapted-database.server';
+import { createServerClient } from '@/lib/supabase/server';
+import { supabaseService } from '@/lib/supabase/service.server';
 
 // GET /api/enterprise/adapted/organizations/[id]/users
 export async function GET(
@@ -14,11 +16,35 @@ export async function GET(
     const search = url.searchParams.get('search') || undefined;
     const status = url.searchParams.get('status') as 'all' | 'active' | 'completed' || 'all';
 
+    // Get current user to check if they're a manager
+    const supabase = createServerClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    let managerId: string | undefined;
+    
+    if (user) {
+      // Check user's role in this org
+      const svc = supabaseService();
+      const { data: membership } = await svc
+        .from('org_members')
+        .select('role')
+        .eq('org_id', params.id)
+        .eq('user_id', user.id)
+        .maybeSingle();
+      
+      // If user is a manager, only show their team members
+      if (membership?.role === 'manager') {
+        managerId = user.id;
+      }
+      // Admins and owners see all users (managerId stays undefined)
+    }
+
     const result = await getOrganizationUsers(params.id, {
       page,
       pageSize,
       search,
-      status
+      status,
+      managerId
     });
 
     return NextResponse.json({

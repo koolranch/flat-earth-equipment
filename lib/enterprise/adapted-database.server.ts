@@ -203,12 +203,30 @@ export async function getOrganizationUsers(orgId: string, options: {
   pageSize?: number;
   search?: string;
   status?: 'all' | 'active' | 'completed';
+  managerId?: string; // Filter to only show team members for this manager
 } = {}): Promise<{ users: any[]; total: number }> {
   const supabase = supabaseService();
   
   const page = options.page || 1;
   const pageSize = options.pageSize || 50;
   const offset = (page - 1) * pageSize;
+
+  // If managerId is provided, first get the user_ids of team members
+  let teamMemberIds: string[] | null = null;
+  if (options.managerId) {
+    const { data: teamMembers } = await supabase
+      .from('org_members')
+      .select('user_id')
+      .eq('org_id', orgId)
+      .eq('manager_id', options.managerId);
+    
+    teamMemberIds = teamMembers?.map(m => m.user_id) || [];
+    
+    // If no team members, return empty result
+    if (teamMemberIds.length === 0) {
+      return { users: [], total: 0 };
+    }
+  }
 
   let query = supabase
     .from('enrollments')
@@ -223,6 +241,11 @@ export async function getOrganizationUsers(orgId: string, options: {
       courses(title, slug)
     `, { count: 'exact' })
     .eq('org_id', orgId);
+
+  // Filter by team members if managerId was provided
+  if (teamMemberIds) {
+    query = query.in('user_id', teamMemberIds);
+  }
 
   // Apply filters
   if (options.search) {
