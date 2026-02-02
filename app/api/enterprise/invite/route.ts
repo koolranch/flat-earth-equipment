@@ -142,7 +142,7 @@ export async function POST(request: NextRequest) {
           : '';
         
         await resend.emails.send({
-          from: process.env.EMAIL_FROM || 'Flat Earth Safety <no-reply@flatearthsafety.com>',
+          from: process.env.EMAIL_FROM || 'Flat Earth Safety <no-reply@flatearthequipment.com>',
           to: email,
           subject: courseName 
             ? `${orgName} has enrolled you in ${courseName}`

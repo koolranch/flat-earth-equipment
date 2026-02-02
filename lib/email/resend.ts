@@ -2,7 +2,7 @@ import 'server-only';
 import { Resend } from 'resend';
 
 const key = process.env.RESEND_API_KEY!;
-const from = process.env.EMAIL_FROM || 'Flat Earth Safety <no-reply@flatearthsafety.test>';
+const from = process.env.EMAIL_FROM || 'Flat Earth Safety <no-reply@flatearthequipment.com>';
 
 interface SendInviteEmailOptions {
   to: string;
