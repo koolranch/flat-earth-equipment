@@ -175,5 +175,54 @@ export const T = {
             </div>
           `
         });
+  },
+
+  // Manager notification when team member's evaluation is completed
+  eval_manager_notify: (traineeName: string, passed: boolean, pdfUrl: string, locale?: string) => {
+    const L = pickLocale(locale);
+    const status = passed ? 'PASSED' : 'NEEDS REFRESHER';
+    const statusColor = passed ? '#10B981' : '#F59E0B';
+    
+    return L === 'es'
+      ? ({
+          subject: `Evaluación completada: ${traineeName} - ${passed ? 'APROBADO' : 'NECESITA REPASO'}`,
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+              <h1 style="color: ${brand.color}; margin: 0 0 20px 0; font-size: 24px;">Evaluación de Equipo Completada</h1>
+              <p style="font-size: 16px; line-height: 1.5; margin: 0 0 15px 0;">Se ha completado una evaluación práctica para un miembro de tu equipo.</p>
+              <div style="background-color: #f5f5f5; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                <p style="margin: 0 0 10px 0;"><strong>Operador:</strong> ${traineeName}</p>
+                <p style="margin: 0;"><strong>Resultado:</strong> <span style="color: ${statusColor}; font-weight: bold;">${passed ? 'APROBADO' : 'NECESITA REPASO'}</span></p>
+              </div>
+              <p style="margin: 20px 0;">
+                <a href="${pdfUrl}" style="background-color: ${brand.color}; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; display: inline-block;">Ver PDF de Evaluación</a>
+              </p>
+              <p style="margin: 20px 0;">
+                <a href="${siteUrl}/enterprise/dashboard" style="color: ${brand.color}; text-decoration: none;">Ver Panel de Manager →</a>
+              </p>
+              <p style="font-size: 12px; color: #999; margin-top: 30px;">Este es un aviso automático de ${brand.name}.</p>
+            </div>
+          `
+        })
+      : ({
+          subject: `Evaluation completed: ${traineeName} - ${status}`,
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+              <h1 style="color: ${brand.color}; margin: 0 0 20px 0; font-size: 24px;">Team Evaluation Completed</h1>
+              <p style="font-size: 16px; line-height: 1.5; margin: 0 0 15px 0;">A practical evaluation has been completed for one of your team members.</p>
+              <div style="background-color: #f5f5f5; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                <p style="margin: 0 0 10px 0;"><strong>Operator:</strong> ${traineeName}</p>
+                <p style="margin: 0;"><strong>Result:</strong> <span style="color: ${statusColor}; font-weight: bold;">${status}</span></p>
+              </div>
+              <p style="margin: 20px 0;">
+                <a href="${pdfUrl}" style="background-color: ${brand.color}; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; display: inline-block;">View Evaluation PDF</a>
+              </p>
+              <p style="margin: 20px 0;">
+                <a href="${siteUrl}/enterprise/dashboard" style="color: ${brand.color}; text-decoration: none;">View Manager Dashboard →</a>
+              </p>
+              <p style="font-size: 12px; color: #999; margin-top: 30px;">This is an automated notification from ${brand.name}.</p>
+            </div>
+          `
+        });
   }
 };

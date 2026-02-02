@@ -72,13 +72,67 @@ export async function POST(req: Request){
   }
 
   // Email hooks (best-effort)
+  // 1. Email to trainee
   try {
     if (ev.trainee_email) {
       const template = T.eval_finalized(ev.trainee_email, pub.publicUrl, ev.locale || 'en');
       await sendMail({ to: ev.trainee_email, ...template });
     }
   } catch (err) {
-    console.warn('[email] Failed to send evaluation finalized email:', err);
+    console.warn('[email] Failed to send evaluation finalized email to trainee:', err);
+  }
+
+  // 2. Email to manager (if trainee has a manager assigned)
+  // Only managers get this notification, not admins
+  try {
+    if (ev.trainee_user_id) {
+      // Look up trainee's org membership and manager
+      const { data: membership } = await svc
+        .from('org_members')
+        .select('manager_id, org_id')
+        .eq('user_id', ev.trainee_user_id)
+        .not('manager_id', 'is', null)
+        .maybeSingle();
+
+      if (membership?.manager_id) {
+        // Get manager's email from their enrollment record or profiles
+        let managerEmail: string | null = null;
+        
+        // Try enrollments first (most reliable source of email for enterprise users)
+        const { data: managerEnrollment } = await svc
+          .from('enrollments')
+          .select('learner_email')
+          .eq('user_id', membership.manager_id)
+          .eq('org_id', membership.org_id)
+          .maybeSingle();
+        
+        managerEmail = managerEnrollment?.learner_email || null;
+        
+        // Fallback: try profiles table
+        if (!managerEmail) {
+          const { data: managerProfile } = await svc
+            .from('profiles')
+            .select('email')
+            .eq('id', membership.manager_id)
+            .maybeSingle();
+          managerEmail = managerProfile?.email || null;
+        }
+
+        if (managerEmail) {
+          const traineeName = ev.trainee_name || ev.trainee_email || 'Team Member';
+          const template = T.eval_manager_notify(
+            traineeName, 
+            !!ev.overall_pass, 
+            pub.publicUrl, 
+            ev.locale || 'en'
+          );
+          await sendMail({ to: managerEmail, ...template });
+          console.log('[email] Sent evaluation notification to manager:', managerEmail);
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('[email] Failed to send evaluation notification to manager:', err);
   }
 
   return NextResponse.json({ ok:true, pdf_url: pub.publicUrl });
