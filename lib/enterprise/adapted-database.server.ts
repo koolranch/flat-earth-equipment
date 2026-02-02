@@ -144,15 +144,52 @@ export async function getAdaptedOrganizations(): Promise<AdaptedOrganization[]> 
 
 /**
  * Get organization stats using existing data
+ * @param orgId - Organization ID
+ * @param managerId - Optional manager ID to filter stats to only their team members
  */
-export async function getAdaptedOrganizationStats(orgId: string): Promise<OrganizationStats | null> {
+export async function getAdaptedOrganizationStats(
+  orgId: string,
+  managerId?: string
+): Promise<OrganizationStats | null> {
   const supabase = supabaseService();
   
-  // Get all enrollments for this organization
-  const { data: enrollments } = await supabase
+  // If managerId is provided, first get the user_ids of team members
+  let teamMemberIds: string[] | null = null;
+  if (managerId) {
+    const { data: teamMembers } = await supabase
+      .from('org_members')
+      .select('user_id')
+      .eq('org_id', orgId)
+      .eq('manager_id', managerId);
+    
+    teamMemberIds = teamMembers?.map(m => m.user_id) || [];
+    
+    // If manager has no team members, return zeros
+    if (teamMemberIds.length === 0) {
+      return {
+        total_users: 0,
+        active_enrollments: 0,
+        completed_trainings: 0,
+        pending_certifications: 0,
+        compliance_rate: 0,
+        completion_rate: 0,
+        average_score: 0,
+        trends: { enrollments_trend: 0, completion_trend: 0, compliance_trend: 0 }
+      };
+    }
+  }
+  
+  // Get enrollments for this organization (filtered by team if managerId provided)
+  let enrollmentsQuery = supabase
     .from('enrollments')
     .select('user_id, passed, created_at')
     .eq('org_id', orgId);
+  
+  if (teamMemberIds) {
+    enrollmentsQuery = enrollmentsQuery.in('user_id', teamMemberIds);
+  }
+  
+  const { data: enrollments } = await enrollmentsQuery;
 
   if (!enrollments) return null;
 
