@@ -39,6 +39,48 @@ const baseConfig = {
       },
       
       // ============================================================
+      // BACKLINK RECOVERY: State-specific safety pages (explicit trailing slash handling)
+      // Prevents redirect chains for high-value backlinks
+      // ============================================================
+      
+      // Texas forklift safety (DR 31 backlink from overtonsecurity.com)
+      {
+        source: '/safety/forklift/tx/',
+        destination: '/safety/forklift/tx',
+        permanent: true // 301 - Normalize trailing slash
+      },
+      // Colorado forklift safety (DR 12 backlink from wastecorner.com)
+      {
+        source: '/safety/forklift/co/',
+        destination: '/safety/forklift/co',
+        permanent: true // 301 - Normalize trailing slash
+      },
+      // General forklift safety page (multiple high-DR backlinks)
+      {
+        source: '/safety/forklift/',
+        destination: '/safety/forklift',
+        permanent: true // 301 - Normalize trailing slash
+      },
+      // General safety page (multiple backlinks)
+      {
+        source: '/safety/',
+        destination: '/safety',
+        permanent: true // 301 - Normalize trailing slash
+      },
+      
+      // ============================================================
+      // BACKLINK RECOVERY: Battery charger pages (explicit canonical URLs)
+      // Prevents redirect chains for charger-related backlinks
+      // ============================================================
+      
+      // Battery chargers page normalization
+      {
+        source: '/battery-chargers/',
+        destination: '/battery-chargers',
+        permanent: true // 301 - Normalize trailing slash
+      },
+      
+      // ============================================================
       // LOST BACKLINKS RECOVERY: Safety/Blog → Training Hub
       // Reclaim authority from old safety and blog content
       // ============================================================
