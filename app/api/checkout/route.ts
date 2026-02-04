@@ -164,6 +164,21 @@ export async function POST(req: NextRequest) {
         });
       }
 
+      // Check for seat covers
+      if (categories.includes('Seat covers')) {
+        lineItems.push({
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Freight Shipping - Seat Covers',
+              description: 'Flat rate ground shipping for seat covers'
+            },
+            unit_amount: 2900 // $29.00 in cents
+          },
+          quantity: 1
+        });
+      }
+
       // Check for full seats
       if (categories.includes('Seats')) {
         lineItems.push({
