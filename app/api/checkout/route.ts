@@ -118,6 +118,21 @@ export async function POST(req: NextRequest) {
           quantity: 1
         });
       }
+
+      // Check for mirrors
+      if (categories.includes('Mirrors')) {
+        lineItems.push({
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Freight Shipping - Equipment Mirrors',
+              description: 'Flat rate ground shipping for machine mirrors'
+            },
+            unit_amount: 1700 // $17.00 in cents
+          },
+          quantity: 1
+        });
+      }
       
       successSlug = body.items[0]?.name || "";
     } else {
