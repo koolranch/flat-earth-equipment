@@ -148,6 +148,21 @@ export async function POST(req: NextRequest) {
           quantity: 1
         });
       }
+
+      // Check for seat cushions
+      if (categories.includes('Seat cushions')) {
+        lineItems.push({
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Freight Shipping - Seat Cushions',
+              description: 'Flat rate ground shipping for seat components'
+            },
+            unit_amount: 2900 // $29.00 in cents
+          },
+          quantity: 1
+        });
+      }
       
       successSlug = body.items[0]?.name || "";
     } else {
