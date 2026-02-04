@@ -81,7 +81,11 @@ export async function POST(req: NextRequest) {
       }
       
       // Add freight charges - flat rate per category type (after all items processed)
-      const categories = body.items.map((item: any) => item.category).filter(Boolean);
+      // Only include categories from items that don't have free freight
+      const categories = body.items
+        .filter((item: any) => !item.metadata?.free_freight)
+        .map((item: any) => item.category)
+        .filter(Boolean);
       
       // Check for fork categories (all fork types get one $250 charge)
       const hasForks = categories.some((cat: string) => 
