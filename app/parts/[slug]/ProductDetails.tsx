@@ -29,6 +29,7 @@ interface ProductDetailsProps {
     has_core_charge?: boolean;
     core_charge?: number;
     category?: string;
+    compatible_models?: string[] | null;
   };
   variants: Variant[];
 }
@@ -207,6 +208,77 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
           )}
         </div>
       </div>
+
+      {/* Compatibility Section */}
+      {part.compatible_models && part.compatible_models.length > 0 && (
+        <section className="mt-8 bg-green-50 border border-green-200 rounded-xl p-6">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-slate-900">
+                Compatible with {part.compatible_models.length}+ {part.brand} Models
+              </h2>
+              <p className="text-sm text-slate-600">Verified fitment for industrial equipment</p>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Telehandlers */}
+            {part.compatible_models.some(m => m.startsWith('5')) && (
+              <div>
+                <h3 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                  Loadall Telehandlers
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {part.compatible_models
+                    .filter(m => m.startsWith('5'))
+                    .map(model => (
+                      <span key={model} className="bg-white border border-green-100 text-slate-700 text-xs px-2 py-1 rounded">
+                        {model}
+                      </span >
+                    ))}
+                </div>
+              </div>
+            )}
+
+            {/* Wheeled Loaders */}
+            {part.compatible_models.some(m => m.startsWith('4')) && (
+              <div>
+                <h3 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                  Wheeled Loaders
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {part.compatible_models
+                    .filter(m => m.startsWith('4'))
+                    .map(model => (
+                      <span key={model} className="bg-white border border-green-100 text-slate-700 text-xs px-2 py-1 rounded">
+                        {model}
+                      </span>
+                    ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="mt-6 pt-6 border-t border-green-100 flex items-center justify-between">
+            <p className="text-sm text-green-800">
+              Not sure about your model? Check your serial number.
+            </p>
+            <Link
+              href={`/brand/${part.brand.toLowerCase()}/serial-lookup`}
+              className="text-sm font-semibold text-green-700 hover:text-green-900 underline flex items-center gap-1"
+            >
+              Open Serial Lookup →
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* Add internal linking for charger modules */}
       {(part.name.toLowerCase().includes('charger module') || part.name.toLowerCase().includes('enersys') || part.name.toLowerCase().includes('hawker')) && (
