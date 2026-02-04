@@ -133,6 +133,21 @@ export async function POST(req: NextRequest) {
           quantity: 1
         });
       }
+
+      // Check for brakes
+      if (categories.includes('Brakes')) {
+        lineItems.push({
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Freight Shipping - Heavy Brake Components',
+              description: 'Flat rate ground shipping for heavy brake parts'
+            },
+            unit_amount: 3500 // $35.00 in cents
+          },
+          quantity: 1
+        });
+      }
       
       successSlug = body.items[0]?.name || "";
     } else {
