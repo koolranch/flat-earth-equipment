@@ -183,6 +183,21 @@ export async function POST(req: NextRequest) {
         });
       }
 
+      // Check for undercarriage
+      if (categories.includes('Undercarriage')) {
+        lineItems.push({
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Freight Shipping - Undercarriage Components',
+              description: 'Flat rate ground shipping for heavy undercarriage parts'
+            },
+            unit_amount: 2900 // $29.00 in cents
+          },
+          quantity: 1
+        });
+      }
+
       // Check for full seats
       if (categories.includes('Seats')) {
         lineItems.push({
