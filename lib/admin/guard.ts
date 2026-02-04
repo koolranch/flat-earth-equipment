@@ -57,7 +57,10 @@ export async function requireAdminServer(): Promise<AdminCheckResult> {
     // User is authenticated but not authorized as admin
     return { ok: false, reason: 'forbidden', user } as const;
     
-  } catch (error) {
+  } catch (error: any) {
+    if (error?.digest === 'DYNAMIC_SERVER_USAGE') {
+      throw error;
+    }
     console.error('Admin guard error:', error);
     return { ok: false, reason: 'unauthorized', user: null } as const;
   }
