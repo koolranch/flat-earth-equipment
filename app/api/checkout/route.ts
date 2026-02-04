@@ -183,6 +183,21 @@ export async function POST(req: NextRequest) {
         });
       }
 
+      // Check for hydraulic cylinders
+      if (categories.includes('Hydraulic Cylinders')) {
+        lineItems.push({
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Freight Shipping - Hydraulic Components',
+              description: 'Flat rate ground shipping for hydraulic cylinders'
+            },
+            unit_amount: 2900 // $29.00 in cents
+          },
+          quantity: 1
+        });
+      }
+
       // Check for undercarriage
       if (categories.includes('Undercarriage')) {
         lineItems.push({
