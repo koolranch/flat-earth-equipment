@@ -163,6 +163,21 @@ export async function POST(req: NextRequest) {
           quantity: 1
         });
       }
+
+      // Check for full seats
+      if (categories.includes('Seats')) {
+        lineItems.push({
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Freight Shipping - Equipment Seats',
+              description: 'Flat rate ground shipping for heavy equipment seats'
+            },
+            unit_amount: 2500 // $25.00 in cents
+          },
+          quantity: 1
+        });
+      }
       
       successSlug = body.items[0]?.name || "";
     } else {
