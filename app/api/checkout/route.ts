@@ -212,6 +212,21 @@ export async function POST(req: NextRequest) {
           quantity: 1
         });
       }
+
+      // Check for steering rod ends
+      if (categories.includes('Steering rod ends')) {
+        lineItems.push({
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Freight Shipping - Steering Components',
+              description: 'Flat rate ground shipping for steering components'
+            },
+            unit_amount: 2500 // $25.00 in cents
+          },
+          quantity: 1
+        });
+      }
       
       successSlug = body.items[0]?.name || "";
     } else {
