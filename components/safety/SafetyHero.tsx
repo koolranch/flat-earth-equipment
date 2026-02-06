@@ -5,37 +5,15 @@ import Image from "next/image";
 import { loadStripe } from "@stripe/stripe-js";
 import { trackEvent } from "@/lib/analytics/gtag";
 import { trackLanding, trackCTA, trackCheckoutBegin } from "@/lib/analytics/vercel-funnel";
-import { STATE_TO_USPS } from '@/lib/state';
 
 export default function SafetyHero() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [detectedState, setDetectedState] = useState<string | null>(null);
   
-  // Track landing view and detect state once on mount
+  // Track landing view once on mount
   useEffect(() => {
     trackLanding(49);
-    
-    // Client-side state detection from URL params or sessionStorage
-    const stored = sessionStorage.getItem('funnel_state');
-    if (stored) {
-      setDetectedState(stored);
-      return;
-    }
-    
-    const params = new URLSearchParams(window.location.search);
-    const utmState = params.get('utm_state');
-    if (utmState) {
-      sessionStorage.setItem('funnel_state', utmState);
-      setDetectedState(utmState);
-    }
   }, []);
-  
-  // Get full state name from code
-  const stateCode = detectedState?.toLowerCase();
-  const stateName = stateCode && STATE_TO_USPS[stateCode] 
-    ? STATE_TO_USPS[stateCode] 
-    : null;
 
   const handleStart = async () => {
     // Track CTA click to Vercel (safe, won't block checkout)
@@ -132,10 +110,7 @@ export default function SafetyHero() {
         <div className="mx-auto max-w-5xl px-4 text-center md:text-left">
           <div className="flex flex-col md:items-start items-center">
             <h1 className="text-4xl md:text-6xl font-bold leading-[1.1] tracking-tighter text-white max-w-4xl text-balance">
-              {stateName 
-                ? `Get ${stateName} Forklift Certified Online`
-                : 'Get Online Forklift Certification in Under 30 Minutes'
-              }
+              Get Online Forklift Certification in Under 30 Minutes
             </h1>
             
             <p className="mt-6 text-slate-300 text-lg md:text-xl max-w-2xl leading-relaxed font-normal">
