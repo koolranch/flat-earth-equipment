@@ -52,7 +52,7 @@ export default function StickyCTA() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           items: [{
-            priceId: 'price_1SToXBHJI548rO8JZnnTwKER', // Black Friday price
+            priceId: 'price_1SToXBHJI548rO8JZnnTwKER',
             quantity: 1,
             isTraining: true,
             metadata: {
@@ -83,10 +83,8 @@ export default function StickyCTA() {
         <div className="flex-1 min-w-0">
           <div className="text-sm font-bold text-white truncate tracking-tight">{STATE} Certified</div>
           <div className="text-xs text-emerald-400 font-medium flex items-center gap-1.5">
-            <span className="text-slate-400 line-through decoration-slate-400/50 text-[10px]">$59</span>
             <span className="font-bold text-white">$49</span>
-            {/* ADDED: Trust signal */}
-            <span className="text-[10px] text-slate-400 ml-1 hidden sm:inline">Money-back guarantee</span>
+            <span className="text-[10px] text-slate-400 ml-1">OSHA Compliant · Money-back guarantee</span>
           </div>
         </div>
         <button 

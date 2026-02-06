@@ -191,7 +191,7 @@ export const stateMetrics: Record<string, StateMetrics> = {
     monthlyAverage: 82,
     topCities: ['Denver', 'Colorado Springs', 'Aurora', 'Fort Collins', 'Lakewood', 'Thornton'],
     testimonial: {
-      quote: "Denver's Front Range has tons of warehouse jobs. Got certified fast and started applying the same day. Great investment at $59.",
+      quote: "Denver's Front Range has tons of warehouse jobs. Got certified fast and started applying the same day. Great investment at $49.",
       name: "Chris H.",
       title: "Forklift Operator",
       city: "Denver"

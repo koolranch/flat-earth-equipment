@@ -52,7 +52,7 @@ export default function StateProductJsonLd() {
       price: '49.00',
       availability: 'https://schema.org/InStock',
       url,
-      priceValidUntil: '2025-12-31',
+      priceValidUntil: '2026-12-31',
       seller: {
         '@type': 'Organization',
         name: 'Flat Earth Equipment'

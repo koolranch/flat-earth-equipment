@@ -75,7 +75,7 @@ export default function StateHero({ metrics }: Props) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           items: [{
-            priceId: 'price_1SToXBHJI548rO8JZnnTwKER', // Black Friday price
+            priceId: 'price_1SToXBHJI548rO8JZnnTwKER',
             quantity: 1,
             isTraining: true,
             metadata: {
@@ -120,13 +120,13 @@ export default function StateHero({ metrics }: Props) {
       <div className="relative mx-auto max-w-5xl px-4 py-8 md:py-20"> {/* Reduced padding for mobile */}
         {/* UPDATE: Visible on mobile, just smaller */}
         <div className="inline-flex items-center gap-2 bg-orange-500/10 backdrop-blur-md border border-orange-500/20 px-3 py-1 md:px-4 md:py-1.5 rounded-full mb-4 md:mb-6 animate-in fade-in duration-700 shadow-lg shadow-orange-500/5">
-          <span className="text-[10px] md:text-[11px] uppercase tracking-widest font-bold text-orange-400">Holiday</span>
+          <span className="text-[10px] md:text-[11px] uppercase tracking-widest font-bold text-orange-400">100% Online</span>
           <span className="text-xs text-white/40">•</span>
-          <span className="text-xs text-emerald-300 font-semibold tracking-wide">Save $10</span>
+          <span className="text-xs text-emerald-300 font-semibold tracking-wide">OSHA Compliant</span>
         </div>
         
         <h1 className="text-3xl md:text-6xl font-bold leading-tight tracking-tighter text-white mb-4">
-          Get {STATE} Forklift Certified
+          Get {STATE} Forklift Certified Online
         </h1>
         
         {/* NEW: Value props moved up for visibility */}

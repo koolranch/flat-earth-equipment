@@ -4,17 +4,11 @@ import { forkliftStates, ForkliftStateInfo } from "../../../../src/data/forklift
 import CheckoutButton from "@/app/safety/CheckoutButton";
 import Link from "next/link";
 import StateHero from "@/components/state/StateHero";
-import LogoCloud from "@/components/safety/LogoCloud";
 import StickyCTA from "@/components/state/StickyCTA";
 import StateProductJsonLd from "@/components/state/StateProductJsonLd";
 import { getStateMetrics } from "@/lib/safety/stateMetrics";
-import SafetyScreenshots from "@/app/safety/components/SafetyScreenshots";
-import Testimonial from "@/app/safety/components/Testimonial";
-import ReasonsToJoin from "@/components/ReasonsToJoin";
 import HowItWorksStrip from "@/components/HowItWorksStrip";
 import PricingStrip from "@/components/training/PricingStrip";
-import ValueGrid from "@/components/marketing/ValueGrid";
-import { getMarketingDict } from '@/i18n';
 
 // Disable dynamic params to ensure only pre-generated pages are served
 export const dynamicParams = false
@@ -72,6 +66,60 @@ const OSHA_FINES_BY_STATE: { [key: string]: { serious: number, willful: number, 
   'wi': { serious: 15625, willful: 156259, stateName: 'Wisconsin' },
   'wy': { serious: 15625, willful: 156259, stateName: 'Wyoming' }
 }
+
+// Nearby states for internal linking (reduces bounce, improves SEO)
+const NEARBY_STATES: Record<string, string[]> = {
+  al: ['fl', 'ga', 'ms', 'tn'],
+  ak: ['wa', 'hi'],
+  az: ['ca', 'co', 'nv', 'nm', 'ut'],
+  ar: ['la', 'mo', 'ms', 'ok', 'tn', 'tx'],
+  ca: ['az', 'nv', 'or'],
+  co: ['az', 'ks', 'ne', 'nm', 'ut', 'wy'],
+  ct: ['ma', 'ny', 'ri'],
+  de: ['md', 'nj', 'pa'],
+  fl: ['al', 'ga'],
+  ga: ['al', 'fl', 'nc', 'sc', 'tn'],
+  hi: ['ca', 'ak'],
+  id: ['mt', 'nv', 'or', 'ut', 'wa', 'wy'],
+  il: ['in', 'ia', 'ky', 'mo', 'wi'],
+  in: ['il', 'ky', 'mi', 'oh'],
+  ia: ['il', 'mn', 'mo', 'ne', 'wi'],
+  ks: ['co', 'mo', 'ne', 'ok'],
+  ky: ['il', 'in', 'oh', 'tn', 'va', 'wv'],
+  la: ['ar', 'ms', 'tx'],
+  me: ['ma', 'nh'],
+  md: ['de', 'pa', 'va', 'wv'],
+  ma: ['ct', 'nh', 'ny', 'ri', 'vt'],
+  mi: ['in', 'oh', 'wi'],
+  mn: ['ia', 'nd', 'sd', 'wi'],
+  ms: ['al', 'ar', 'la', 'tn'],
+  mo: ['ar', 'il', 'ia', 'ks', 'ky', 'ne', 'ok', 'tn'],
+  mt: ['id', 'nd', 'sd', 'wy'],
+  ne: ['co', 'ia', 'ks', 'mo', 'sd', 'wy'],
+  nv: ['az', 'ca', 'id', 'or', 'ut'],
+  nh: ['ma', 'me', 'vt'],
+  nj: ['de', 'ny', 'pa'],
+  nm: ['az', 'co', 'ok', 'tx', 'ut'],
+  ny: ['ct', 'ma', 'nj', 'pa', 'vt'],
+  nc: ['ga', 'sc', 'tn', 'va'],
+  nd: ['mn', 'mt', 'sd'],
+  oh: ['in', 'ky', 'mi', 'pa', 'wv'],
+  ok: ['ar', 'co', 'ks', 'mo', 'nm', 'tx'],
+  or: ['ca', 'id', 'nv', 'wa'],
+  pa: ['de', 'md', 'nj', 'ny', 'oh', 'wv'],
+  ri: ['ct', 'ma'],
+  sc: ['ga', 'nc'],
+  sd: ['ia', 'mn', 'mt', 'ne', 'nd', 'wy'],
+  tn: ['al', 'ar', 'ga', 'ky', 'ms', 'nc', 'va'],
+  tx: ['ar', 'la', 'nm', 'ok'],
+  ut: ['az', 'co', 'id', 'nv', 'nm', 'wy'],
+  vt: ['ma', 'nh', 'ny'],
+  va: ['ky', 'md', 'nc', 'tn', 'wv'],
+  wa: ['id', 'or'],
+  wv: ['ky', 'md', 'oh', 'pa', 'va'],
+  wi: ['ia', 'il', 'mi', 'mn'],
+  wy: ['co', 'id', 'mt', 'ne', 'sd', 'ut'],
+};
 
 type Props = { params: { state: string } };
 
@@ -145,7 +193,9 @@ function Breadcrumb({ stateName }: { stateName: string }) {
 export default function StateForkliftPage({ params }: Props) {
   const info = forkliftStates.find((s: ForkliftStateInfo) => s.code === params.state) ?? notFound();
   const metrics = getStateMetrics(params.state);
-  const t = getMarketingDict('en'); // Get marketing copy for ValueGrid
+  const nearbyStates = (NEARBY_STATES[info.code] || [])
+    .map(code => forkliftStates.find(s => s.code === code))
+    .filter(Boolean) as ForkliftStateInfo[];
 
   return (
     <>
@@ -154,9 +204,6 @@ export default function StateForkliftPage({ params }: Props) {
       
       {/* New State-Aware Hero Section */}
       <StateHero metrics={metrics} />
-      
-      {/* Enterprise Logo Cloud - High Trust Signal */}
-      <LogoCloud />
       
       <main className="container mx-auto px-4 lg:px-8 py-12 space-y-16">
         <Breadcrumb stateName={info.name} />
@@ -190,16 +237,45 @@ export default function StateForkliftPage({ params }: Props) {
         )}
       </section>
 
-      {/* Visual proof section - Product Screenshots */}
-      <SafetyScreenshots />
+      {/* FINES TABLE - Pain point to motivate action */}
+      <section className="space-y-6">
+        <h2 className="text-2xl font-semibold">OSHA Penalties in {info.name}</h2>
+        <div className="bg-white rounded-2xl border-2 border-orange-200 shadow-lg overflow-hidden">
+          <table className="w-full text-left">
+            <thead>
+              <tr className="bg-gradient-to-r from-orange-500 to-orange-600 text-white">
+                <th className="py-4 px-6 font-semibold">Violation Type</th>
+                <th className="py-4 px-6 font-semibold">Possible Fine</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-orange-100">
+                <td className="py-4 px-6 text-gray-900">Serious / Other-Than-Serious</td>
+                <td className="py-4 px-6 font-semibold text-orange-600">
+                  ${info.fines.min.toLocaleString()} – ${info.fines.max.toLocaleString()}
+                </td>
+              </tr>
+              <tr className="bg-orange-50">
+                <td className="py-4 px-6 text-gray-900">Willful / Repeat</td>
+                <td className="py-4 px-6 font-semibold text-red-600">Up to ${info.fines.max.toLocaleString()}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="text-sm text-gray-600 bg-amber-50 border-l-4 border-amber-400 p-4 rounded">
+          {info.hasStatePlan
+            ? `💡 ${info.name} operates its own OSHA-approved State Plan; fines may differ from federal maximums.`
+            : `💡 ${info.name} is regulated directly by Federal OSHA.`}
+        </p>
+      </section>
 
-      {/* Social proof - Testimonial */}
-      <Testimonial />
+      {/* Pricing - immediately after fines for maximum conversion */}
+      <PricingStrip />
 
       {/* Comparison Table - Classroom vs Online */}
       <section className="mt-8 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-200 p-6 sm:p-8">
         <h2 className="text-2xl sm:text-3xl font-bold text-center text-slate-900 mb-6">
-          Why Choose Online Training?
+          Why {info.name} Operators Choose Online Training
         </h2>
         
         {/* Mobile: Stacked comparison cards */}
@@ -243,7 +319,7 @@ export default function StateForkliftPage({ params }: Props) {
               <tr className="border-b border-blue-100">
                 <td className="py-3 font-medium text-slate-700">⏰ Time Required</td>
                 <td className="py-3 text-slate-600">8 hours (full day)</td>
-                <td className="py-3 text-[#F76511] font-semibold">Under 30 minutes ⚡</td>
+                <td className="py-3 text-[#F76511] font-semibold">Under 30 minutes</td>
               </tr>
               <tr className="border-b border-blue-100">
                 <td className="py-3 font-medium text-slate-700">💵 Cost</td>
@@ -253,7 +329,7 @@ export default function StateForkliftPage({ params }: Props) {
               <tr className="border-b border-blue-100">
                 <td className="py-3 font-medium text-slate-700">📍 Location</td>
                 <td className="py-3 text-slate-600">Must travel to center</td>
-                <td className="py-3 text-[#F76511] font-semibold">Train anywhere</td>
+                <td className="py-3 text-[#F76511] font-semibold">Train anywhere in {info.name}</td>
               </tr>
               <tr className="border-b border-blue-100">
                 <td className="py-3 font-medium text-slate-700">📅 Schedule</td>
@@ -281,7 +357,7 @@ export default function StateForkliftPage({ params }: Props) {
         
         <div className="mt-6 text-center p-4 bg-white rounded-xl border border-blue-200">
           <p className="text-base sm:text-lg font-bold text-slate-900">
-            💰 You save: $141-$441 + 7 hours
+            💰 You save: $151-$451 + 7 hours
           </p>
           <p className="text-sm text-slate-600 mt-1">
             Same OSHA certification. Faster and more convenient.
@@ -289,94 +365,16 @@ export default function StateForkliftPage({ params }: Props) {
         </div>
       </section>
 
-      {/* Authority & Compliance Section - 3 Cards */}
-      <section className="mt-8 grid sm:grid-cols-3 gap-4">
-        <div className="bg-white rounded-xl border-2 border-green-200 p-6 text-center shadow-sm">
-          <div className="text-4xl mb-3">📋</div>
-          <h3 className="font-bold text-slate-900 mb-2">OSHA 29 CFR 1910.178</h3>
-          <p className="text-sm text-slate-600">
-            Meets all required formal instruction topics for powered industrial trucks
-          </p>
-        </div>
-        <div className="bg-white rounded-xl border-2 border-blue-200 p-6 text-center shadow-sm">
-          <div className="text-4xl mb-3">🗺️</div>
-          <h3 className="font-bold text-slate-900 mb-2">Accepted in All 50 States</h3>
-          <p className="text-sm text-slate-600">
-            Valid nationwide. Recognized by employers across the United States
-          </p>
-        </div>
-        <div className="bg-white rounded-xl border-2 border-orange-200 p-6 text-center shadow-sm">
-          <div className="text-4xl mb-3">✅</div>
-          <h3 className="font-bold text-slate-900 mb-2">Instant Verification</h3>
-          <p className="text-sm text-slate-600">
-            QR code on certificate allows instant verification by employers
-          </p>
-        </div>
-      </section>
-
-      {/* FINES TABLE */}
-      <section className="space-y-6">
-        <h2 className="text-2xl font-semibold">OSHA Penalties in {info.name}</h2>
-        <div className="bg-white rounded-2xl border-2 border-orange-200 shadow-lg overflow-hidden">
-          <table className="w-full text-left">
-            <thead>
-              <tr className="bg-gradient-to-r from-orange-500 to-orange-600 text-white">
-                <th className="py-4 px-6 font-semibold">Violation Type</th>
-                <th className="py-4 px-6 font-semibold">Possible Fine</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-b border-orange-100">
-                <td className="py-4 px-6 text-gray-900">Serious / Other-Than-Serious</td>
-                <td className="py-4 px-6 font-semibold text-orange-600">
-                  ${info.fines.min.toLocaleString()} – ${info.fines.max.toLocaleString()}
-                </td>
-              </tr>
-              <tr className="bg-orange-50">
-                <td className="py-4 px-6 text-gray-900">Willful / Repeat</td>
-                <td className="py-4 px-6 font-semibold text-red-600">Up to ${info.fines.max.toLocaleString()}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p className="text-sm text-gray-600 bg-amber-50 border-l-4 border-amber-400 p-4 rounded">
-          {info.hasStatePlan
-            ? `💡 ${info.name} operates its own OSHA-approved State Plan; fines may differ from federal maximums.`
-            : `💡 ${info.name} is regulated directly by Federal OSHA.`}
-        </p>
-      </section>
-
         {/* HOW TO GET CERTIFIED SECTION */}
         <section className="space-y-6">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold mb-4">How to Get Forklift Certified in {info.name}</h2>
             <p className="text-lg text-gray-600">
-              Follow our simple process to get your official certification today.
+              Follow our simple process to get your official {info.name} certification today.
             </p>
           </div>
-          
-          {/* Replaced redundant lists with visual components */}
           <HowItWorksStrip />
-          <ReasonsToJoin />
         </section>
-
-        {/* Urgency Element */}
-      <div className="mt-8 bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-orange-200 rounded-xl p-6 text-center">
-        <p className="text-lg font-bold text-slate-900 mb-2">
-          🚀 Start Today, Get Certified Today
-        </p>
-        <p className="text-sm text-slate-700">
-          Complete your training in under an hour and download your certificate immediately. Don't wait for scheduled classes - get job-ready now.
-        </p>
-      </div>
-
-      {/* Pricing Cards - New Component */}
-      <PricingStrip />
-
-      {/* Value Propositions - New Component */}
-      <div className="mt-8">
-        <ValueGrid t={t} />
-      </div>
 
       {/* SECONDARY CTA WITH STATE-SPECIFIC TESTIMONIAL */}
       <section className="bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl p-8 md:p-10 text-center space-y-6">
@@ -573,23 +571,32 @@ export default function StateForkliftPage({ params }: Props) {
         </div>
       </section>
 
-      {/* Related States - Internal Linking */}
+      {/* Related States - Internal Linking for SEO */}
       <section className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
-        <h3 className="text-lg font-semibold mb-4">Forklift Certification in Other States</h3>
+        <h3 className="text-lg font-semibold mb-4">Forklift Certification Near {info.name}</h3>
         <p className="text-sm text-slate-600 mb-4">
-          Our OSHA-compliant training is accepted nationwide. Browse certification information for nearby states:
+          Our OSHA-compliant training is accepted nationwide. Browse forklift certification for nearby states:
         </p>
         <div className="flex flex-wrap gap-2">
-          <Link href="/safety/forklift" className="text-sm px-4 py-2 bg-white border border-orange-200 rounded-lg hover:bg-orange-50 hover:border-orange-400 transition-colors">
+          {nearbyStates.map(ns => (
+            <Link 
+              key={ns.code} 
+              href={`/safety/forklift/${ns.code}`} 
+              className="text-sm px-4 py-2 bg-white border border-slate-200 rounded-lg hover:bg-orange-50 hover:border-orange-400 transition-colors"
+            >
+              {ns.name}
+            </Link>
+          ))}
+          <Link href="/safety/forklift" className="text-sm px-4 py-2 bg-white border border-orange-200 rounded-lg hover:bg-orange-50 hover:border-orange-400 transition-colors font-medium">
             View All 50 States →
           </Link>
         </div>
       </section>
 
-      {/* Last Updated Date */}
+      {/* Last Updated Date - auto-generated */}
       <div className="text-center py-4 border-t border-slate-200">
         <p className="text-xs text-slate-500">
-          Last updated: January 2025 | Information current as of publish date
+          Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} | Information current as of publish date
         </p>
       </div>
 
@@ -2208,7 +2215,7 @@ export default function StateForkliftPage({ params }: Props) {
                 },
                 offers: {
                   "@type": "Offer",
-                  price: "59",
+                  price: "49",
                   priceCurrency: "USD",
                   url: `https://www.flatearthequipment.com/safety/forklift/${info.code}`,
                 },
@@ -2537,12 +2544,6 @@ export default function StateForkliftPage({ params }: Props) {
         }}
       />
 
-      {/* META tags */}
-      <meta name="robots" content="index,follow" />
-      <link
-        rel="canonical"
-        href={`https://www.flatearthequipment.com/safety/forklift/${info.code}`}
-      />
     </main>
     
     {/* Mobile Sticky CTA */}
