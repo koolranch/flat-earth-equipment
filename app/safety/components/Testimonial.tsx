@@ -30,7 +30,7 @@ export default function Testimonial() {
           {reviews.map((review, idx) => (
             <div 
               key={review.initial} 
-              className={`p-8 bg-white rounded-2xl border border-slate-200/60 shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 flex flex-col ${idx === 2 ? 'hidden md:flex' : ''}`}
+              className="p-8 bg-white rounded-2xl border border-slate-200/60 shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 flex flex-col"
             >
               {/* Stars FIRST */}
               <div className="flex gap-0.5 text-yellow-400 mb-5 text-sm">

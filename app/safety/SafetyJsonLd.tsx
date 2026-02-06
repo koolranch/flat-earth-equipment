@@ -1,42 +1,57 @@
 'use client'
 
-import { CourseJsonLd, FAQPageJsonLd } from 'next-seo'
-
+/**
+ * FAQ Schema - Generated from the same source as the visible FAQ
+ * to ensure schema matches on-page content (avoids Google penalties).
+ * 
+ * NOTE: The Course JSON-LD is rendered inline in page.tsx to avoid duplicates.
+ */
 export default function SafetyJsonLd() {
+  // These must match the FAQ items in i18n/marketing.en.ts exactly
+  const faqItems = [
+    {
+      question: 'Will employers accept this online certification?',
+      answer: 'Yes. OSHA 29 CFR 1910.178 allows online training for the formal instruction component. Our training is accepted by employers nationwide. Your certificate includes QR verification for instant employer validation.',
+    },
+    {
+      question: 'How fast can I get my certificate?',
+      answer: 'Most operators complete training in 45-60 minutes. Your certificate is available for immediate download upon passing the final exam. You can start applying for jobs the same day.',
+    },
+    {
+      question: 'Is this the same as in-person classroom training?',
+      answer: 'Yes, for the formal instruction component. OSHA requires both classroom training AND workplace evaluation. Our online course covers the classroom portion (same content as 8-hour classes). Your employer completes a brief practical evaluation on-site using our provided form.',
+    },
+    {
+      question: 'What if I fail the exam?',
+      answer: 'You can retake quizzes and the final exam as many times as needed at no additional cost. Most operators pass on the first attempt.',
+    },
+    {
+      question: 'Do I need any special equipment?',
+      answer: 'No. Works on any phone, tablet, or computer with internet access. No apps to download.',
+    },
+    {
+      question: 'How long is the certification valid?',
+      answer: '3 years. OSHA requires recertification every 3 years or when changing equipment types.',
+    },
+  ];
+
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  };
+
   return (
-    <>
-      <CourseJsonLd
-        courseName="Online Forklift Operator Certification"
-        description="OSHA-compliant PIT theory plus employer sign-off kit."
-        provider={{
-          name: 'Flat Earth Safety',
-          url: 'https://www.flatearthequipment.com',
-        }}
-      />
-      <FAQPageJsonLd
-        mainEntity={[
-          {
-            questionName: 'Is this forklift certification OSHA compliant?',
-            acceptedAnswerText: 'Yes, our online training covers all OSHA requirements for powered industrial truck theory training. Your employer completes the practical evaluation using our provided checklist.',
-          },
-          {
-            questionName: 'How long does the certification last?',
-            acceptedAnswerText: 'OSHA requires forklift operators to be re-evaluated every 3 years, or sooner if involved in an accident or observed operating unsafely.',
-          },
-          {
-            questionName: 'What is included in the $49 certification?',
-            acceptedAnswerText: 'The certification includes comprehensive online theory training modules, quizzes to test your knowledge, a printable certificate upon completion, and an employer evaluation checklist for practical assessment.',
-          },
-          {
-            questionName: 'Can I complete this training on my phone?',
-            acceptedAnswerText: 'Yes, our training platform is fully mobile-responsive and works on any device with an internet connection.',
-          },
-          {
-            questionName: 'Do I need my employer to complete the certification?',
-            acceptedAnswerText: 'Yes, OSHA requires employers to conduct a practical evaluation of your forklift operation skills. We provide the evaluation checklist and instructions for your employer.',
-          },
-        ]}
-      />
-    </>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+    />
   )
 } 

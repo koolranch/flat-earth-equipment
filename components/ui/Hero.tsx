@@ -12,18 +12,18 @@ interface HeroContent {
 
 export function Hero({ locale = 'en' }: { locale?: 'en' | 'es' }) {
   const content: HeroContent = locale === 'en' ? {
-    badge: { emoji: '🎓', label: 'TRAINING', highlight: 'Save $10' },
+    badge: { emoji: '🎓', label: 'TRAINING', highlight: '100% Online' },
     headline: 'Get Forklift Certified in Under 30 Minutes',
     subtext: 'OSHA-compliant • 100% online',
-    pricing: { original: '$59', current: '$49' },
+    pricing: { original: '', current: '$49' },
     cta: { text: 'Start Certification — $49 →', href: '/safety' },
     trustSignals: ['OSHA 1910.178', 'All 50 States', 'Instant Certificate'],
     secondaryLink: { label: 'Need parts or rentals?', text: 'Browse equipment →', href: '/parts' }
   } : {
-    badge: { emoji: '🎓', label: 'CAPACITACIÓN', highlight: 'Ahorre $10' },
+    badge: { emoji: '🎓', label: 'CAPACITACIÓN', highlight: '100% en línea' },
     headline: 'Obtenga Certificación de Montacargas en Menos de 30 Minutos',
     subtext: 'Cumple con OSHA • 100% en línea',
-    pricing: { original: '$59', current: '$49' },
+    pricing: { original: '', current: '$49' },
     cta: { text: 'Comenzar Certificación — $49 →', href: '/safety' },
     trustSignals: ['OSHA 1910.178', 'Los 50 Estados', 'Certificado Instantáneo'],
     secondaryLink: { label: '¿Necesita partes o alquileres?', text: 'Ver equipos →', href: '/parts' }
@@ -64,7 +64,9 @@ export function Hero({ locale = 'en' }: { locale?: 'en' | 'es' }) {
             {content.subtext}
             {' • '}
             <span className="inline-flex items-baseline gap-1.5">
-              <span className="text-white/60 line-through text-base">{content.pricing.original}</span>
+              {content.pricing.original && (
+                <span className="text-white/60 line-through text-base">{content.pricing.original}</span>
+              )}
               <span className="font-bold text-white text-xl">{content.pricing.current}</span>
             </span>
           </p>

@@ -74,7 +74,7 @@ export default function SafetyHero() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           items: [{
-            priceId: 'price_1SToXBHJI548rO8JZnnTwKER', // Black Friday price
+            priceId: 'price_1SToXBHJI548rO8JZnnTwKER',
             quantity: 1,
             isTraining: true,
             metadata: {
@@ -131,25 +131,15 @@ export default function SafetyHero() {
       <div className="relative z-10 h-full flex items-center justify-center py-20 sm:py-24">
         <div className="mx-auto max-w-5xl px-4 text-center md:text-left">
           <div className="flex flex-col md:items-start items-center">
-            {/* Holiday badge */}
-            <div className="inline-flex items-center gap-2 bg-orange-500/10 backdrop-blur-md border border-orange-500/20 px-4 py-1.5 rounded-full mb-6 animate-in fade-in duration-700 shadow-lg shadow-orange-500/5">
-              <span className="text-[11px] uppercase tracking-widest font-bold text-orange-400">Holiday</span>
-              <span className="text-xs text-white/40">•</span>
-              <span className="text-xs text-emerald-300 font-semibold tracking-wide">Save $10</span>
-            </div>
-            
             <h1 className="text-4xl md:text-6xl font-bold leading-[1.1] tracking-tighter text-white max-w-4xl text-balance">
               {stateName 
-                ? `Get ${stateName} Forklift Certified`
-                : 'Get OSHA Forklift Certification in Under 30 Minutes'
+                ? `Get ${stateName} Forklift Certified Online`
+                : 'Get Online Forklift Certification in Under 30 Minutes'
               }
             </h1>
             
             <p className="mt-6 text-slate-300 text-lg md:text-xl max-w-2xl leading-relaxed font-normal">
-              <span className="text-white font-medium">30 Minutes</span> • <span className="inline-flex items-baseline gap-1.5">
-                <span className="text-slate-500 line-through decoration-slate-500/50 text-base">$59</span>
-                <span className="text-white font-semibold">$49</span>
-              </span> • Same-day certificate • OSHA-aligned
+              <span className="text-white font-medium">30 Minutes</span> • <span className="text-white font-semibold">$49</span> • Same-day certificate • OSHA-aligned
             </p>
             
             <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">

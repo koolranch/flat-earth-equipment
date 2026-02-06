@@ -1,10 +1,8 @@
 import { getMarketingDict, type Locale } from '@/i18n';
-import ValueGrid from '@/components/marketing/ValueGrid';
 import ComplianceBlock from '@/components/marketing/ComplianceBlock';
 import Link from 'next/link';
 import { unstable_noStore as noStore } from 'next/cache';
 import { detectUserServer } from '@/lib/auth/detectUserServer';
-import { safeNext } from '@/lib/auth/nextParam';
 import { supabaseServer } from '@/lib/supabase/server';
 import PricingStrip from '@/components/training/PricingStrip';
 import SafetyHero from '@/components/safety/SafetyHero';
@@ -21,32 +19,35 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0; // no ISR
 
 export const metadata = {
-  title: 'Forklift Operator Training — Flat Earth Safety',
-  description: 'OSHA-compliant forklift operator training online. Meet 29 CFR 1910.178 requirements with interactive courses, instant certificates, and hands-on demos.',
-  keywords: 'forklift training, forklift certification, OSHA compliance, forklift operator, industrial truck training, workplace safety',
+  title: 'Online Forklift Certification — OSHA Training in 30 Min | $49',
+  description: 'Get online forklift certification for $49. OSHA-compliant training in under 30 minutes with instant certificate download. Accepted by employers in all 50 states.',
   openGraph: {
-    title: 'Forklift Operator Training — Flat Earth Safety',
-    description: 'Interactive training, modern UI, real records. OSHA-compliant forklift certification with hands-on demos.',
+    title: 'Online Forklift Certification — OSHA Training in 30 Min | $49',
+    description: 'Get online forklift certification for $49. OSHA-compliant training in under 30 minutes with instant certificate download.',
     type: 'website',
-    url: '/safety',
+    url: 'https://www.flatearthequipment.com/safety',
     siteName: 'Flat Earth Safety',
     images: [
       {
         url: '/og-forklift-training.jpg',
         width: 1200,
         height: 630,
-        alt: 'Flat Earth Safety Forklift Training Platform'
+        alt: 'Flat Earth Safety — Online Forklift Certification Platform'
       }
     ]
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Forklift Operator Training — Flat Earth Safety',
-    description: 'Interactive OSHA-compliant forklift certification with modern demos and QR-verifiable certificates.',
+    title: 'Online Forklift Certification — OSHA Training in 30 Min | $49',
+    description: 'Get online forklift certification for $49. OSHA-compliant, instant certificate, accepted in all 50 states.',
     images: ['/og-forklift-training.jpg']
   },
   alternates: {
-    canonical: 'https://www.flatearthequipment.com/safety'
+    canonical: 'https://www.flatearthequipment.com/safety',
+    languages: {
+      'en-US': 'https://www.flatearthequipment.com/safety',
+      'x-default': 'https://www.flatearthequipment.com/safety',
+    },
   },
   robots: {
     index: true,
@@ -114,8 +115,8 @@ export default async function SafetyPage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Course',
-    name: `${t.brand.name} — Forklift Operator Training`,
-    description: t.hero.sub,
+    name: 'Online Forklift Certification — OSHA-Compliant Training',
+    description: 'Get online forklift certification for $49. Complete OSHA 29 CFR 1910.178 training in under 30 minutes with instant certificate download.',
     provider: { 
       '@type': 'Organization', 
       name: t.brand.name,
@@ -130,23 +131,41 @@ export default async function SafetyPage() {
       'Hazard identification'
     ],
     courseMode: 'online',
+    timeRequired: 'PT30M',
     audience: {
-      '@type': 'BusinessAudience',
-      name: 'Ports & Terminals (Yard Operations)'
+      '@type': 'Audience',
+      audienceType: 'Forklift operators, warehouse workers, and industrial professionals'
     },
     about: [
       {
         '@type': 'Thing',
-        name: 'OSHA forklift certification online'
+        name: 'Online forklift certification'
       },
       {
         '@type': 'Thing',
-        name: 'Port and terminal forklift operations'
+        name: 'OSHA forklift training'
       }
     ],
+    offers: {
+      '@type': 'Offer',
+      price: 49,
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+      url: 'https://www.flatearthequipment.com/safety#pricing',
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '2000',
+      bestRating: '5',
+    },
     hasCourseInstance: {
       '@type': 'CourseInstance',
       courseMode: 'online',
+      courseSchedule: {
+        '@type': 'Schedule',
+        repeatFrequency: 'P1D',
+      },
       instructor: {
         '@type': 'Organization',
         name: t.brand.name
@@ -197,17 +216,20 @@ export default async function SafetyPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(demoVideoJsonLd) }} 
       />
       
-      {/* New Simplified Hero */}
+      {/* Hero */}
       <SafetyHero />
       
-      {/* Enterprise Logo Cloud - High Trust Signal */}
+      {/* Trust Stats Strip */}
       <LogoCloud />
       
       <main className="section">
+      {/* Visual proof section */}
+      {showScreenshots && <SafetyScreenshots />}
+
       <div className="container mx-auto px-4">
         {/* Already certified? Login link - Hidden on mobile */}
         {!isAuthed && (
-          <div className="hidden md:block text-center py-4">
+          <div className="hidden md:block text-center py-2">
             <p className="text-sm text-slate-600">
               {locale === 'es' ? '¿Ya estás certificado? ' : 'Already certified? '}
               <Link href="/login" className="text-[#F76511] hover:text-orange-600 underline font-medium">
@@ -216,15 +238,7 @@ export default async function SafetyPage() {
             </p>
           </div>
         )}
-      </div>
 
-      {/* Visual proof section (additive, safe) */}
-      {showScreenshots && <SafetyScreenshots />}
-
-      {/* Social proof */}
-      <Testimonial />
-
-      <div className="container mx-auto px-4">
         {/* Comparison - Mobile-First Card Design */}
         <section className="mt-8 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-200 p-6 sm:p-8">
           <h2 className="text-2xl sm:text-3xl font-bold text-center text-slate-900 mb-6">
@@ -272,7 +286,7 @@ export default async function SafetyPage() {
                 <tr className="border-b border-blue-100">
                   <td className="py-3 font-medium text-slate-700">⏰ Time Required</td>
                   <td className="py-3 text-slate-600">8 hours (full day)</td>
-                  <td className="py-3 text-[#F76511] font-semibold">Under 30 minutes ⚡</td>
+                  <td className="py-3 text-[#F76511] font-semibold">Under 30 minutes</td>
                 </tr>
                 <tr className="border-b border-blue-100">
                   <td className="py-3 font-medium text-slate-700">💵 Cost</td>
@@ -287,7 +301,7 @@ export default async function SafetyPage() {
                 <tr className="border-b border-blue-100">
                   <td className="py-3 font-medium text-slate-700">📅 Schedule</td>
                   <td className="py-3 text-slate-600">Fixed class times</td>
-                  <td className="py-3 text-[#F76511] font-semibold">24/7 - Start now</td>
+                  <td className="py-3 text-[#F76511] font-semibold">24/7 — Start now</td>
                 </tr>
                 <tr className="border-b border-blue-100">
                   <td className="py-3 font-medium text-slate-700">📜 Certificate</td>
@@ -310,23 +324,29 @@ export default async function SafetyPage() {
           
           <div className="mt-6 text-center p-4 bg-white rounded-xl border border-blue-200">
             <p className="text-base sm:text-lg font-bold text-slate-900">
-              💰 You save: $141-$441 + 7 hours
+              You save $151-$451 + 7 hours
             </p>
             <p className="text-sm text-slate-600 mt-1">
               Same OSHA certification. Faster and more convenient.
             </p>
-            <div className="mt-4">
-              <Link 
-                href="#pricing" 
-                className="inline-flex items-center gap-2 bg-[#F76511] text-white px-8 py-4 rounded-xl font-bold hover:bg-orange-600 transition-colors shadow-lg hover:shadow-xl"
-              >
-                Get Started — $49 →
-              </Link>
-            </div>
           </div>
         </section>
 
-        {/* Authority & Compliance Section */}
+        {/* Pricing — placed right after comparison for conversion */}
+        <PricingStrip />
+      </div>
+
+      {/* Social proof — full-width section with its own container */}
+      <Testimonial />
+
+      <div className="container mx-auto px-4">
+
+        {/* How It Works */}
+        <div id="how" className="scroll-mt-24">
+          <HowItWorksStrip />
+        </div>
+
+        {/* Authority & Compliance Cards */}
         <section className="mt-8 grid sm:grid-cols-3 gap-4">
           <div className="bg-white rounded-xl border-2 border-green-200 p-6 text-center shadow-sm">
             <div className="text-4xl mb-3">📋</div>
@@ -354,28 +374,6 @@ export default async function SafetyPage() {
         {/* Reasons to Join */}
         <ReasonsToJoin />
 
-        {/* How It Works */}
-        <div id="how" className="scroll-mt-24">
-          <HowItWorksStrip />
-        </div>
-
-        {/* Urgency Element */}
-        <div className="mt-8 bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-orange-200 rounded-xl p-6 text-center">
-          <p className="text-lg font-bold text-slate-900 mb-2">
-            🚀 Start Today, Get Certified Today
-          </p>
-          <p className="text-sm text-slate-700">
-            Complete your training in under an hour and download your certificate immediately. Don't wait for scheduled classes - get job-ready now.
-          </p>
-        </div>
-
-        <PricingStrip />
-
-        {/* Value Propositions */}
-        <div className="mt-8">
-          <ValueGrid t={t} />
-        </div>
-
         {/* Compliance Block */}
         <div className="mt-8">
           <ComplianceBlock t={t} />
@@ -387,7 +385,7 @@ export default async function SafetyPage() {
           <p className="text-lg text-slate-700 leading-relaxed">
             Container yards have unique risks—blue-light pedestrian lanes, blind corners in container mazes,
             wind and stack-height limits, uneven surfaces, and tight approaches. Our OSHA forklift certification
-            pairs a fast, online theory module (≈30 minutes) with your on-yard practical
+            pairs a fast, online theory module (~30 minutes) with your on-yard practical
             evaluation so operators earn same-day wallet cards and you keep lanes moving.
           </p>
           <ul className="mt-4 space-y-2 text-slate-700 list-disc pl-5">
@@ -421,46 +419,6 @@ export default async function SafetyPage() {
 
         {/* FAQ Section */}
         <FaqAccordion items={t.faq.items} title={t.faq.title} />
-
-        {/* Call to Action - Hidden on mobile (redundant) */}
-        <section className="hidden md:block mt-10 rounded-2xl bg-brand-orange text-white px-6 py-8 text-center shadow-card">
-          <h2 className="text-2xl font-semibold mb-2">
-            {locale === 'es' ? 'Comience hoy' : 'Get started today'}
-          </h2>
-          <p className="prose-readable mx-auto opacity-95 text-lg leading-7 mb-5">
-            {locale === 'es' 
-              ? 'Capacitación interactiva que cumple con OSHA. Sin videos largos.'
-              : 'Interactive training that meets OSHA requirements. No long videos.'
-            }
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <Link 
-              href="/safety#pricing"
-              className="inline-flex items-center gap-2 bg-white text-[#F76511] px-8 py-4 rounded-xl font-bold hover:bg-orange-50 transition-colors shadow-lg hover:shadow-xl" 
-              aria-label="View pricing and buy training"
-              data-testid="get-started-cta"
-            >
-              {locale === 'es' ? 'Ver Precios' : 'View Pricing'} →
-            </Link>
-            <a 
-              href="#how-it-works" 
-              className="tappable rounded-xl bg-white/10 px-4 py-2 text-white hover:bg-white/15 transition-colors"
-            >
-              {locale === 'es' ? 'Cómo funciona' : 'How it works'}
-            </a>
-          </div>
-          <p className="mt-3 text-sm text-white/80">
-            {locale === 'es' ? '¿Tienes un código? ' : 'Have a code? '}
-            <a href="/redeem" className="underline hover:text-white">
-              {locale === 'es' ? 'Canjear' : 'Redeem'}
-            </a>
-            {' • '}
-            {locale === 'es' ? '¿Ya estás certificado? ' : 'Already certified? '}
-            <a href="/login" className="underline hover:text-white">
-              {locale === 'es' ? 'Inicia sesión' : 'Login'}
-            </a>
-          </p>
-        </section>
 
         {/* Browse by State - Internal Linking */}
         <section className="mt-12 bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-8 border-2 border-orange-200">

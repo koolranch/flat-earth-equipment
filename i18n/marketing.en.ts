@@ -6,13 +6,13 @@ export default {
   hero: {
     h1: 'Get OSHA-Certified in Under 60 Minutes',
     sub: 'Complete your forklift certification online today. Required by employers nationwide. Instant certificate download.',
-    cta_primary: 'Get Certified Now - $59',
+    cta_primary: 'Get Certified Now - $49',
     cta_secondary: 'Preview Module 1 Free'
   },
   value: {
     items: [
       { title: '⚡ Get Hired Faster', body: 'Complete certification in under 60 minutes. Start applying for forklift jobs today, not next week. Don\'t wait for scheduled classroom training.' },
-      { title: '💰 Save $140-$440 vs. Traditional Training', body: '$59 online vs. $200-500 in-person courses. Same OSHA 29 CFR 1910.178 compliance, fraction of the cost. No travel time or expenses required.' },
+      { title: '💰 Save $150-$450 vs. Traditional Training', body: '$49 online vs. $200-500 in-person courses. Same OSHA 29 CFR 1910.178 compliance, fraction of the cost. No travel time or expenses required.' },
       { title: '✅ Employer-Accepted Nationwide', body: 'QR-verifiable certificate meets all OSHA requirements. Accepted by employers and staffing agencies in all 50 states. Instant proof of compliance.' },
       { title: '📱 Train Anywhere, On Your Schedule', body: 'Complete on phone, tablet, or computer. Work breaks, at home, whenever works for you. Progress automatically saved. No classroom schedule conflicts.' }
     ]

@@ -44,7 +44,7 @@ export default function StickyCTA() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           items: [{
-            priceId: 'price_1SToXBHJI548rO8JZnnTwKER', // Black Friday price
+            priceId: 'price_1SToXBHJI548rO8JZnnTwKER',
             quantity: 1,
             isTraining: true,
             metadata: {
