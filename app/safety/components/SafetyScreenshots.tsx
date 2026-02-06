@@ -15,36 +15,36 @@ export default function SafetyScreenshots() {
       </div>
 
       <div className="mt-12 grid md:grid-cols-2 gap-6 lg:gap-8">
-        {/* 1) Dashboard - spans full width on md, crops from center-top to hide excess nav */}
-        <div className="md:col-span-2">
+        {/* 1) Dashboard - spans full width on md */}
+        <div className="md:col-span-2 max-w-3xl mx-auto w-full">
           <ScreenshotCard
             src={`${SUPABASE_STORAGE_URL}/safety-dashboard.jpg`}
             alt="Training dashboard showing 5 modules with progress tracking and final exam"
             caption="<span class='font-semibold'>Training Dashboard</span> — Track your progress across all 5 modules and unlock the final exam."
             badge="5 Modules"
             badgeColor="orange"
-            objectPosition="center 15%"
+            maxHeight="max-h-[560px]"
           />
         </div>
 
-        {/* 2) Interactive Module - crops from top to focus on the flash card */}
+        {/* 2) Interactive Module */}
         <ScreenshotCard
           src={`${SUPABASE_STORAGE_URL}/safety-module.jpg`}
           alt="Interactive flash card module with tap-to-reveal quiz format"
           caption="<span class='font-semibold'>Interactive Flash Cards</span> — Tap to reveal answers. No boring slides."
           badge="Interactive"
           badgeColor="blue"
-          objectPosition="center 55%"
+          maxHeight="max-h-[520px]"
         />
 
-        {/* 3) Certificate - crops from center to hide the black bars */}
+        {/* 3) Certificate */}
         <ScreenshotCard
           src={`${SUPABASE_STORAGE_URL}/safety-certificate.jpg`}
           alt="Exam passed screen showing 100% score with Download Certificate and Wallet Card buttons"
           caption="<span class='font-semibold'>Instant Certificate</span> — Download your PDF + wallet card immediately."
           badge="Instant Download"
           badgeColor="emerald"
-          objectPosition="center 70%"
+          maxHeight="max-h-[520px]"
         />
       </div>
     </section>

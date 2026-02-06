@@ -7,8 +7,8 @@ interface ScreenshotCardProps {
   caption?: string;
   badge?: string;
   badgeColor?: 'orange' | 'emerald' | 'blue';
-  /** CSS object-position to crop the image (e.g., 'top' to hide bottom black bars) */
-  objectPosition?: string;
+  /** Max height constraint for the image area (Tailwind class). Defaults to max-h-[480px]. */
+  maxHeight?: string;
   className?: string;
 }
 
@@ -17,10 +17,10 @@ interface ScreenshotCardProps {
  * - Realistic browser chrome with URL bar
  * - Gradient backdrop for visual depth
  * - Optional feature badge overlay
- * - Smart cropping via objectPosition
+ * - Shows the FULL image (object-contain) so nothing is ever cropped
  */
 export default function ScreenshotCard({ 
-  src, alt, caption, badge, badgeColor = 'orange', objectPosition = 'top', className 
+  src, alt, caption, badge, badgeColor = 'orange', maxHeight = 'max-h-[480px]', className 
 }: ScreenshotCardProps) {
   const badgeColors = {
     orange: 'bg-orange-500 text-white',
@@ -55,15 +55,15 @@ export default function ScreenshotCard({
             <div className="w-[52px] shrink-0"></div>
           </div>
           
-          {/* Screenshot content */}
-          <div className="relative aspect-[4/3] overflow-hidden bg-slate-50">
+          {/* Screenshot content — object-contain shows full image, no cropping */}
+          <div className={cn('relative overflow-hidden bg-gradient-to-b from-slate-50 to-slate-100/50 flex items-center justify-center', maxHeight)}>
             <Image
               src={src}
               alt={alt}
-              fill
+              width={800}
+              height={600}
               sizes="(max-width: 768px) 85vw, (max-width: 1280px) 50vw, 600px"
-              className="object-cover"
-              style={{ objectPosition }}
+              className="w-full h-auto max-h-full object-contain"
               priority={false}
             />
           </div>
