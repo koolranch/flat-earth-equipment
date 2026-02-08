@@ -15,10 +15,12 @@ import {
   Warehouse as LogisticsIcon
 } from 'lucide-react';
 import RelatedResources from '@/components/seo/RelatedResources';
+import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: "Forklift & Equipment Parts in Las Cruces, NM | Flat Earth Equipment",
   description: "Shop forklift, scissor lift, and heavy equipment parts in Las Cruces and southern New Mexico. Fast shipping across the Mesilla Valley. Request a quote today from Flat Earth Equipment.",
+  alternates: generatePageAlternates("/new-mexico/las-cruces"),
 };
 
 export async function generateStaticParams() {

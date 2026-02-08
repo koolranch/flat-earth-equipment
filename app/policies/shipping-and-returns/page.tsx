@@ -1,9 +1,11 @@
 import { Metadata } from 'next';
 import { getUserLocale } from '@/lib/getUserLocale';
+import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: 'Shipping & Returns | Flat Earth Equipment',
   description: 'Learn about our shipping and returns policies for industrial equipment and parts.',
+  alternates: generatePageAlternates('/policies/shipping-and-returns'),
 };
 
 export default function ShippingAndReturnsPage() {

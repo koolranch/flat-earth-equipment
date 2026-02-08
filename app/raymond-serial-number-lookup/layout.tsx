@@ -1,12 +1,11 @@
 import { Metadata } from "next";
+import { generatePageAlternates } from "@/app/seo-defaults";
 
 export const metadata: Metadata = {
   title: "Raymond Forklift Serial Number Lookup (2-Digit Year & Model Code) | Flat Earth Equipment",
   description: "Decode Raymond serials: model digits, two-digit year code, and sequence. Get plate location tips and legacy year estimates for select series. Free tool.",
   keywords: "raymond forklift serial number lookup, raymond serial number decoder, raymond forklift identification, raymond parts lookup, forklift serial number, raymond year code",
-  alternates: { 
-    canonical: "/raymond-serial-number-lookup" 
-  },
+  alternates: generatePageAlternates("/raymond-serial-number-lookup"),
   openGraph: {
     title: "Raymond Forklift Serial Number Lookup | Flat Earth Equipment",
     description: "Free tool to parse Raymond serials, show candidate years, and guide you to the nameplate location. Model digits + 2-digit year + sequence.",

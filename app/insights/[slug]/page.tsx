@@ -7,6 +7,7 @@ import RelatedItems from '@/components/RelatedItems';
 import { TableOfContents, AmperageCalculator, QuickReferenceCard } from '@/components/BasicInteractiveComponents';
 import { StructuredData } from '@/components/SEOComponents';
 import { generatePageAlternates } from '@/app/seo-defaults';
+import BreadcrumbJsonLd from '@/components/seo/BreadcrumbJsonLd';
 
 type Props = {
   params: {
@@ -266,6 +267,14 @@ export default async function BlogPost({ params }: Props) {
           }
         })}
       </Script>
+
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://www.flatearthequipment.com' },
+          { name: 'Insights', url: 'https://www.flatearthequipment.com/insights' },
+          { name: post.title, url: `https://www.flatearthequipment.com/insights/${params.slug}` },
+        ]}
+      />
 
       {/* Enhanced Hero Section for Charger Guide */}
       {isChargerGuide ? (

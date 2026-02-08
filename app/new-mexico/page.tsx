@@ -1,10 +1,12 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
+import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: "New Mexico Equipment Parts & Rentals | Flat Earth Equipment",
   description: "Industrial equipment parts and rentals across New Mexico. Fast shipping from our Western hubs to Albuquerque, Las Cruces, and beyond.",
+  alternates: generatePageAlternates("/new-mexico"),
 };
 
 export default function NewMexicoPage() {

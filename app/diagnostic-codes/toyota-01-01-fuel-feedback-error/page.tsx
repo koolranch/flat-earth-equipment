@@ -1,15 +1,25 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
+import { generatePageAlternates } from "@/app/seo-defaults";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Toyota Forklift 01-01 Code: Fuel Feedback Error (Rich) Guide",
   description: "Complete troubleshooting guide for Toyota 01-01 fault code - fuel feedback control error rich. Fix engine instability and prevent stalling on 4Y-ECS models.",
+  alternates: generatePageAlternates("/diagnostic-codes/toyota-01-01-fuel-feedback-error"),
 };
 
 export default function Toyota0101Page() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://www.flatearthequipment.com' },
+          { name: 'Diagnostic Codes', url: 'https://www.flatearthequipment.com/diagnostic-codes' },
+          { name: 'Toyota 01-01 Fuel Feedback Error', url: 'https://www.flatearthequipment.com/diagnostic-codes/toyota-01-01-fuel-feedback-error' },
+        ]}
+      />
       <Script id="howto-schema" type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org",

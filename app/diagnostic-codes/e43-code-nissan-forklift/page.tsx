@@ -2,18 +2,26 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { AlertTriangle, CheckCircle, Phone, Mail, Search } from 'lucide-react';
+import { generatePageAlternates } from "@/app/seo-defaults";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Nissan Forklift E43 Error Code Guide | Flat Earth Equipment",
   description: "Learn how to diagnose and fix the E43 error code on your Nissan forklift. Complete troubleshooting guide with step-by-step solutions.",
-  alternates: {
-    canonical: "/diagnostic-codes/e43-code-nissan-forklift",
-  },
+  alternates: generatePageAlternates("/diagnostic-codes/e43-code-nissan-forklift"),
 };
 
 export default function NissanForkliftE43CodePage() {
   return (
-    <main className="max-w-4xl mx-auto px-4 py-12">
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://www.flatearthequipment.com' },
+          { name: 'Diagnostic Codes', url: 'https://www.flatearthequipment.com/diagnostic-codes' },
+          { name: 'Nissan E43 Error Code', url: 'https://www.flatearthequipment.com/diagnostic-codes/e43-code-nissan-forklift' },
+        ]}
+      />
+      <main className="max-w-4xl mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold text-slate-900 mb-6">
         Nissan Forklift E43 Error Code Guide
       </h1>
@@ -143,6 +151,7 @@ export default function NissanForkliftE43CodePage() {
           </ul>
         </div>
       </div>
-    </main>
+      </main>
+    </>
   );
 } 

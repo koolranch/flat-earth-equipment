@@ -2,18 +2,26 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { AlertTriangle, CheckCircle, Phone, Mail, Search } from 'lucide-react';
+import { generatePageAlternates } from "@/app/seo-defaults";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Cat Forklift Fault Codes | Flat Earth Equipment",
   description: "Complete guide to Cat forklift fault codes, error messages, and troubleshooting solutions. Find your error code and get back to work quickly.",
-  alternates: {
-    canonical: "/diagnostic-codes/cat-forklift-fault-codes",
-  },
+  alternates: generatePageAlternates("/diagnostic-codes/cat-forklift-fault-codes"),
 };
 
 export default function CatForkliftFaultCodesPage() {
   return (
-    <main className="max-w-4xl mx-auto px-4 py-12">
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://www.flatearthequipment.com' },
+          { name: 'Diagnostic Codes', url: 'https://www.flatearthequipment.com/diagnostic-codes' },
+          { name: 'Cat Forklift Fault Codes', url: 'https://www.flatearthequipment.com/diagnostic-codes/cat-forklift-fault-codes' },
+        ]}
+      />
+      <main className="max-w-4xl mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold text-slate-900 mb-6">
         Cat Forklift Fault Codes Guide
       </h1>
@@ -161,6 +169,7 @@ export default function CatForkliftFaultCodesPage() {
           </ul>
         </div>
       </div>
-    </main>
+      </main>
+    </>
   );
 } 

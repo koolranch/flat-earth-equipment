@@ -1,9 +1,11 @@
 import { Metadata } from 'next';
 import { getUserLocale } from '@/lib/getUserLocale';
+import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: 'Terms of Service | Flat Earth Equipment',
   description: 'Read our terms of service and conditions for using Flat Earth Equipment\'s website and services.',
+  alternates: generatePageAlternates('/policies/terms-of-service'),
 };
 
 export default function TermsOfServicePage() {

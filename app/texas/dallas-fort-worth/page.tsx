@@ -16,10 +16,12 @@ import {
   Factory as IndustrialIcon
 } from 'lucide-react';
 import RelatedResources from '@/components/seo/RelatedResources';
+import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: "Forklift Parts in Dallas-Fort Worth, TX",
   description: "Shop forklift, scissor lift, and heavy equipment parts in Dallas-Fort Worth Metroplex. Fast shipping to 76101 & 50+ zip codes. Request a quote today.",
+  alternates: generatePageAlternates("/texas/dallas-fort-worth"),
 };
 
 export async function generateStaticParams() {

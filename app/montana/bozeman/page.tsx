@@ -15,10 +15,12 @@ import {
   Mountain as ResortIcon
 } from 'lucide-react';
 import RelatedResources from '@/components/seo/RelatedResources';
+import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: "Forklift & Equipment Parts in Bozeman, MT | Flat Earth Equipment",
   description: "Shop forklift, scissor lift, and heavy equipment parts in Bozeman and the Gallatin Valley. Fast shipping across Montana. Request a quote today from Flat Earth Equipment.",
+  alternates: generatePageAlternates("/montana/bozeman"),
 };
 
 export default async function BozemanPage() {

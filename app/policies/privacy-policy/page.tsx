@@ -1,9 +1,11 @@
 import { Metadata } from 'next';
 import { getUserLocale } from '@/lib/getUserLocale';
+import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy | Flat Earth Equipment',
   description: 'Learn how Flat Earth Equipment collects, uses, and protects your personal information.',
+  alternates: generatePageAlternates('/policies/privacy-policy'),
 };
 
 export default function PrivacyPolicyPage() {

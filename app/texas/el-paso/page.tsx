@@ -16,10 +16,12 @@ import {
   Globe as GlobalIcon
 } from 'lucide-react';
 import RelatedResources from '@/components/seo/RelatedResources';
+import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: "Forklift & Equipment Parts in El Paso, TX | Flat Earth Equipment",
   description: "Shop forklift, scissor lift, and heavy equipment parts in El Paso, TX. Fast shipping across West Texas and Southern New Mexico. Request a quote today from Flat Earth Equipment.",
+  alternates: generatePageAlternates("/texas/el-paso"),
 };
 
 export async function generateStaticParams() {

@@ -9,6 +9,8 @@ import StateProductJsonLd from "@/components/state/StateProductJsonLd";
 import { getStateMetrics } from "@/lib/safety/stateMetrics";
 import HowItWorksStrip from "@/components/HowItWorksStrip";
 import PricingStrip from "@/components/training/PricingStrip";
+import { generatePageAlternates } from "@/app/seo-defaults";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
 // Disable dynamic params to ensure only pre-generated pages are served
 export const dynamicParams = false
@@ -134,9 +136,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `How to Get Forklift Certified in ${state.name} | Online OSHA Training`,
     description: `Learn how to get forklift certified in ${state.name}. Complete OSHA-compliant certification online in under 30 minutes. Instant certificate download for ${state.name} operators.`,
-    alternates: {
-      canonical: `https://www.flatearthequipment.com/safety/forklift/${state.code}`
-    },
+    alternates: generatePageAlternates(`/safety/forklift/${state.code}`),
     robots: {
       index: metrics.shouldIndex,
       follow: true,
@@ -201,6 +201,16 @@ export default function StateForkliftPage({ params }: Props) {
     <>
       {/* Enhanced SEO Product JSON-LD */}
       <StateProductJsonLd />
+      
+      {/* Breadcrumb Schema */}
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://www.flatearthequipment.com' },
+          { name: 'Safety Training', url: 'https://www.flatearthequipment.com/safety' },
+          { name: 'Forklift Certification by State', url: 'https://www.flatearthequipment.com/safety/forklift' },
+          { name: `${info.name} Forklift Certification`, url: `https://www.flatearthequipment.com/safety/forklift/${info.code}` },
+        ]}
+      />
       
       {/* New State-Aware Hero Section */}
       <StateHero metrics={metrics} />

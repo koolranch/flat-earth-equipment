@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import { generatePageAlternates } from '@/app/seo-defaults';
+import BreadcrumbJsonLd from '@/components/seo/BreadcrumbJsonLd';
 
 const STATES = [
   { code: 'al', name: 'Alabama' },
@@ -56,9 +58,7 @@ const STATES = [
 export const metadata = {
   title: 'Forklift Certification by State | OSHA Training',
   description: 'Find OSHA forklift certification by state. Compliant training for all 50 states with instant certificates and state-specific requirements covered.',
-  alternates: {
-    canonical: 'https://www.flatearthequipment.com/safety/forklift'
-  },
+  alternates: generatePageAlternates('/safety/forklift'),
   openGraph: {
     title: 'Forklift Certification by State | OSHA Training',
     description: 'Get OSHA-compliant forklift certification in any US state. Select your state to learn about requirements and OSHA fines.',
@@ -70,8 +70,16 @@ export const metadata = {
 
 export default function ForkliftStatesPage() {
   return (
-    <main className="max-w-6xl mx-auto px-4 py-12">
-      <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-6">
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://www.flatearthequipment.com' },
+          { name: 'Safety Training', url: 'https://www.flatearthequipment.com/safety' },
+          { name: 'Forklift Certification by State', url: 'https://www.flatearthequipment.com/safety/forklift' },
+        ]}
+      />
+      <main className="max-w-6xl mx-auto px-4 py-12">
+        <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-6">
         <Link href="/" className="hover:text-safety transition-colors">
           Home
         </Link>
@@ -114,7 +122,8 @@ export default function ForkliftStatesPage() {
         >
           Start Your Certification
         </Link>
-      </div>
-    </main>
+        </div>
+      </main>
+    </>
   )
 } 

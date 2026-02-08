@@ -1,12 +1,11 @@
 import { Metadata } from "next";
+import { generatePageAlternates } from "@/app/seo-defaults";
 
 export const metadata: Metadata = {
   title: "Hyster Serial Number Lookup | Year & Plant Decoder",
   description: "Enter your Hyster serial number to decode model prefix, plant, and year candidates. Post-1957 format with repeating year letters; use decade selector to finalize. Free tool.",
   keywords: "hyster forklift serial number lookup, hyster serial number decoder, hyster forklift year by serial number, hyster model identification, hyster plant codes",
-  alternates: {
-    canonical: "/hyster-serial-number-lookup"
-  },
+  alternates: generatePageAlternates("/hyster-serial-number-lookup"),
   openGraph: {
     title: "Hyster Serial Number Lookup | Year & Plant Decoder", 
     description: "Decode Hyster serials: model prefix, plant, and year candidates. Free tool with decade filtering.",

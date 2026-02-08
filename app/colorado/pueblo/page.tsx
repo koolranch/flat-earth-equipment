@@ -15,10 +15,12 @@ import {
   Factory as IndustrialIcon
 } from 'lucide-react';
 import RelatedResources from '@/components/seo/RelatedResources';
+import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: "Forklift & Equipment Parts in Pueblo, CO | Flat Earth Equipment",
   description: "Shop forklift, scissor lift, and heavy equipment parts in Pueblo and southern Colorado. Fast shipping across the Front Range. Request a quote today from Flat Earth Equipment.",
+  alternates: generatePageAlternates("/colorado/pueblo"),
 };
 
 export async function generateStaticParams() {

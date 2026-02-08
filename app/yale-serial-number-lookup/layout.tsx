@@ -1,12 +1,11 @@
 import { Metadata } from "next";
+import { generatePageAlternates } from "@/app/seo-defaults";
 
 export const metadata: Metadata = {
   title: "Yale Serial Number Lookup | Year & Plant Decoder",
   description: "Decode Yale serials: design/series prefix, plant code, production sequence, and post-1995 year letter (I, O, Q skipped; repeats ~every 23 years). Free tool.",
   keywords: "yale forklift serial number lookup, yale serial number decoder, yale forklift identification, yale parts lookup, forklift serial number, yale year letter",
-  alternates: { 
-    canonical: "/yale-serial-number-lookup" 
-  },
+  alternates: generatePageAlternates("/yale-serial-number-lookup"),
   openGraph: {
     title: "Yale Serial Number Lookup | Year & Plant Decoder",
     description: "Free tool to decode Yale serials and show year candidates from the letter code. Design/series, plant, production sequence.",

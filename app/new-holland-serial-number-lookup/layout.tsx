@@ -1,12 +1,11 @@
 import { Metadata } from "next";
+import { generatePageAlternates } from "@/app/seo-defaults";
 
 export const metadata: Metadata = {
   title: "New Holland Serial Number Lookup | All Equipment",
   description: "Find plate locations and estimate year from model-specific serial ranges or prefix patterns. For exact year, use the product identification plate. Free tool.",
   keywords: "new holland serial number lookup, new holland serial number decoder, new holland equipment identification, new holland parts lookup, tractor serial number, skid steer serial number",
-  alternates: { 
-    canonical: "/new-holland-serial-number-lookup" 
-  },
+  alternates: generatePageAlternates("/new-holland-serial-number-lookup"),
   openGraph: {
     title: "New Holland Serial Number Lookup | All Equipment",
     description: "Tool for tractors, skid steers, combines, excavators and more. Plate locations + year estimates where published.",

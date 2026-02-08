@@ -1,14 +1,14 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
+import { generatePageAlternates } from "@/app/seo-defaults";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Toro Dingo Error Codes | e-Dingo 500 Fault Codes & Troubleshooting Guide",
   description: "Complete guide to Toro Dingo error codes including e-Dingo 500 battery/charging faults, diesel engine codes, and troubleshooting for TX series compact utility loaders.",
   keywords: ["Toro Dingo error codes", "e-Dingo 500 fault codes", "Toro Dingo troubleshooting", "Toro TX-1000 codes", "Dingo battery error"],
-  alternates: {
-    canonical: "/diagnostic-codes/toro-dingo-error-codes",
-  },
+  alternates: generatePageAlternates("/diagnostic-codes/toro-dingo-error-codes"),
   openGraph: {
     title: "Toro Dingo Error Codes: Complete Troubleshooting Guide",
     description: "Fix e-Dingo 500 battery errors, charging faults, and diesel engine codes. Expert guide for all Toro Dingo compact utility loaders.",
@@ -41,6 +41,13 @@ export default function ToroDingoErrorCodesPage() {
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://www.flatearthequipment.com' },
+          { name: 'Diagnostic Codes', url: 'https://www.flatearthequipment.com/diagnostic-codes' },
+          { name: 'Toro Dingo Error Codes', url: 'https://www.flatearthequipment.com/diagnostic-codes/toro-dingo-error-codes' },
+        ]}
+      />
       <Script id="faq-schema" type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org",

@@ -17,6 +17,7 @@ import {
 import { categories as canonicalCategories } from '@/lib/data/categories';
 import { getUserLocale } from '@/lib/getUserLocale';
 import { generatePageAlternates } from '../seo-defaults';
+import BreadcrumbJsonLd from '@/components/seo/BreadcrumbJsonLd';
 
 export const metadata: Metadata = {
   title: 'Parts Catalog | Flat Earth Equipment',
@@ -153,9 +154,16 @@ export default async function PartsPage({
   };
 
   return (
-    <main className="container mx-auto px-4 py-12">
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold text-slate-900 mb-2">{t.title}</h1>
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://www.flatearthequipment.com' },
+          { name: 'Parts Catalog', url: 'https://www.flatearthequipment.com/parts' },
+        ]}
+      />
+      <main className="container mx-auto px-4 py-12">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-slate-900 mb-2">{t.title}</h1>
         <p className="text-slate-600">
           {count ? `${count.toLocaleString()} ${t.parts}` : ''}
         </p>
@@ -283,6 +291,7 @@ export default async function PartsPage({
           )}
         </nav>
       )}
-    </main>
+      </main>
+    </>
   );
 }

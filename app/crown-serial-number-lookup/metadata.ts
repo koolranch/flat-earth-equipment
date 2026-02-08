@@ -1,10 +1,10 @@
+import { generatePageAlternates } from "@/app/seo-defaults";
+
 export const metadata = {
   title: "Crown Forklift Serial Number Lookup | Flat Earth Equipment",
   description: "Find Crown capacity/data plate locations by truck family and decode the model year only for true 17-digit VIN/PIN inputs.",
   keywords: "crown forklift serial number, crown serial decoder, crown data plate location, crown VIN PIN lookup, crown equipment identification",
-  alternates: { 
-    canonical: "/crown-serial-number-lookup" 
-  },
+  alternates: generatePageAlternates("/crown-serial-number-lookup"),
   openGraph: {
     title: "Crown Forklift Serial Number Lookup",
     description: "Plate locations by series (C-5/FC/RC/RR/SP/etc.) and VIN-year decoding (17-digit PIN only).",

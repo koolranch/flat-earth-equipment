@@ -15,10 +15,12 @@ import {
   Warehouse as LogisticsIcon
 } from 'lucide-react';
 import RelatedResources from '@/components/seo/RelatedResources';
+import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: "Forklift & Equipment Parts in Cheyenne, WY | Flat Earth Equipment",
   description: "Shop forklift, scissor lift, and heavy equipment parts in Cheyenne, Wyoming. Fast shipping across southeastern Wyoming. Request a quote today from Flat Earth Equipment.",
+  alternates: generatePageAlternates("/wyoming/cheyenne"),
 };
 
 export async function generateStaticParams() {

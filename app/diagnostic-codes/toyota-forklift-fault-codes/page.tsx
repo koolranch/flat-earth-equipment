@@ -1,18 +1,26 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import ToyotaCodeBrowser from '@/components/diagnostic/ToyotaCodeBrowser';
+import { generatePageAlternates } from "@/app/seo-defaults";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Toyota Forklift Fault Codes & Error Codes | Complete Reference Guide",
   description: "Searchable database of 40+ Toyota forklift fault codes. Find diagnostic codes for Toyota electric and IC forklifts with detailed troubleshooting.",
-  alternates: {
-    canonical: "/diagnostic-codes/toyota-forklift-fault-codes",
-  },
+  alternates: generatePageAlternates("/diagnostic-codes/toyota-forklift-fault-codes"),
 };
 
 export default function ToyotaFaultCodesPage() {
   return (
-    <main className="max-w-4xl mx-auto px-4 py-12">
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://www.flatearthequipment.com' },
+          { name: 'Diagnostic Codes', url: 'https://www.flatearthequipment.com/diagnostic-codes' },
+          { name: 'Toyota Forklift Fault Codes', url: 'https://www.flatearthequipment.com/diagnostic-codes/toyota-forklift-fault-codes' },
+        ]}
+      />
+      <main className="max-w-4xl mx-auto px-4 py-12">
       {/* Quick Links - Keep as before */}
       <div className="not-prose mb-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
         <Link href="/toyota-forklift-serial-lookup" className="flex flex-col items-center gap-2 p-4 bg-red-50 hover:bg-red-100 border-2 border-red-200 rounded-xl transition-all hover:shadow-md">
@@ -144,6 +152,7 @@ export default function ToyotaFaultCodesPage() {
           Fault codes can vary by Toyota forklift model, year, and system type (electric vs IC). Always consult your specific model's service manual for accurate diagnostics. If you need help identifying codes specific to your Toyota forklift, <Link href="/quote" className="underline font-semibold">contact our technical team</Link> with your model and serial number.
         </p>
       </div>
-    </main>
+      </main>
+    </>
   );
 }

@@ -1,10 +1,10 @@
+import { generatePageAlternates } from "@/app/seo-defaults";
+
 export const metadata = {
   title: "CAT Forklift Serial Number Lookup | Flat Earth Equipment",
   description: "Find CAT (Caterpillar) capacity/data plate guidance and infer family (GP/DP/EC/EP). VIN-year decoding only for true 17-character VIN/PIN.",
   keywords: "cat forklift serial number, cat caterpillar serial decoder, cat data plate location, cat VIN PIN lookup, cat equipment identification",
-  alternates: { 
-    canonical: "/cat-serial-number-lookup" 
-  },
+  alternates: generatePageAlternates("/cat-serial-number-lookup"),
   openGraph: {
     title: "CAT Forklift Serial Number Lookup",
     description: "Capacity/Data Plate guidance, CAT family prefixes (GP/DP/EC/EP), guarded VIN-year decode.",

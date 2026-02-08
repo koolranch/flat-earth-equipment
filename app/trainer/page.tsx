@@ -7,6 +7,8 @@ import { Metadata } from 'next';
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
+import { generatePageAlternates } from '@/app/seo-defaults';
+
 export const metadata: Metadata = {
   title: 'Bulk Forklift Certification | Team Training',
   description: 'Manage forklift certification for your entire team. Bulk training discounts, seat management, and progress tracking for facility trainers and safety managers.',
@@ -17,6 +19,7 @@ export const metadata: Metadata = {
     'safety manager tools',
     'group training discounts'
   ],
+  alternates: generatePageAlternates('/trainer'),
 };
 
 // Component for the public landing page

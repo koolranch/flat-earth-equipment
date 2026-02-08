@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
+import { generatePageAlternates } from '@/app/seo-defaults';
 
 interface Location {
   name: string;
@@ -116,6 +117,7 @@ export async function generateMetadata({ params }: { params: { city: string } })
   return {
     title: `${location.name} Location | Flat Earth Equipment`,
     description: location.description,
+    alternates: generatePageAlternates(`/locations/${params.city}`),
     other: {
       'application/ld+json': JSON.stringify({
         '@context': 'https://schema.org',

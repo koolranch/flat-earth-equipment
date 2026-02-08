@@ -9,13 +9,13 @@ import { Zap, Building2, FileText, TrendingDown, Leaf, Award, DollarSign } from 
 import QuoteButton from "@/components/QuoteButton";
 import TechnicalSpecsTable, { CHARGER_MODULE_SPECS } from "@/components/seo/TechnicalSpecsTable";
 
+import { generatePageAlternates } from '@/app/seo-defaults';
+
 export const metadata = {
   title: "Charger Modules | Enersys & Hawker | Repair",
   description: "In-stock remanufactured forklift charger modules for Enersys & Hawker. Choose instant exchange or send-in repair service. 6-month warranty, free shipping nationwide.",
   keywords: "forklift charger modules, enersys charger module, hawker charger module, forklift charger repair, charger module exchange",
-  alternates: {
-    canonical: "https://www.flatearthequipment.com/charger-modules"
-  },
+  alternates: generatePageAlternates("/charger-modules"),
   openGraph: {
     title: "Charger Modules | Enersys & Hawker | Repair",
     description: "In-stock remanufactured forklift charger modules for Enersys & Hawker. Choose instant exchange or send-in repair service. 6-month warranty, free shipping nationwide.",

@@ -15,10 +15,12 @@ import {
   Warehouse as LogisticsIcon
 } from 'lucide-react';
 import RelatedResources from '@/components/seo/RelatedResources';
+import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: "Forklift & Equipment Parts in Albuquerque, NM | Flat Earth Equipment",
   description: "Shop forklift, scissor lift, and heavy equipment parts in Albuquerque, NM. Fast shipping, Western-tough reliability. Request a quote today from Flat Earth Equipment.",
+  alternates: generatePageAlternates("/new-mexico/albuquerque"),
 };
 
 export async function generateStaticParams() {

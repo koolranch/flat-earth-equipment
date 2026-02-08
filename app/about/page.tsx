@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { Metadata } from 'next';
 import { getUserLocale } from '@/lib/getUserLocale';
+import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: 'About Flat Earth Equipment | Flat Earth Equipment',
   description: 'Flat Earth Equipment delivers precision-fit industrial parts and OSHA training nationwide. Built Western tough for contractors, fleets, and facilities.',
-  alternates: { canonical: '/about' }
+  alternates: generatePageAlternates('/about'),
 };
 
 export default function AboutPage() {

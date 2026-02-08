@@ -1,9 +1,11 @@
 import React from "react";
 import Link from 'next/link';
+import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata = {
   title: "Toyota Forklift Parts, Fault Codes & Resources | Flat Earth Equipment",
   description: "Complete Toyota forklift resource hub: serial number lookup, 40+ fault codes database, parts catalog, and expert guides for all Toyota models.",
+  alternates: generatePageAlternates("/brand/toyota"),
 };
 
 export default function Page() {

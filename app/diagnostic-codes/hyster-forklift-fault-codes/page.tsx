@@ -1,14 +1,13 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import HysterCodeBrowser from '@/components/diagnostic/HysterCodeBrowser';
+import { generatePageAlternates } from "@/app/seo-defaults";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Hyster Forklift Fault Codes & Error Codes | Complete Reference Guide",
   description: "Searchable database of 40+ Hyster forklift fault codes. AL-series, Err-series, P-codes, and SPN codes for all Hyster models with troubleshooting.",
-  alternates: {
-    canonical: "/diagnostic-codes/hyster-forklift-fault-codes",
-  },
+  alternates: generatePageAlternates("/diagnostic-codes/hyster-forklift-fault-codes"),
   openGraph: {
     title: "Hyster Forklift Fault Codes: Complete Diagnostic Reference",
     description: "Comprehensive guide to Hyster fault codes including AL-series, Err-series, and engine codes. Expert troubleshooting for all Hyster models.",
@@ -19,20 +18,14 @@ export const metadata: Metadata = {
 export default function HysterFaultCodesPage() {
   return (
     <>
-      {/* Breadcrumb Schema */}
-      <Script id="breadcrumb-schema" type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.flatearthequipment.com" },
-            { "@type": "ListItem", "position": 2, "name": "Diagnostic Codes", "item": "https://www.flatearthequipment.com/diagnostic-codes" },
-            { "@type": "ListItem", "position": 3, "name": "Hyster Fault Codes", "item": "https://www.flatearthequipment.com/diagnostic-codes/hyster-forklift-fault-codes" }
-          ]
-        })}
-      </Script>
-
-    <main className="max-w-4xl mx-auto px-4 py-12">
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://www.flatearthequipment.com' },
+          { name: 'Diagnostic Codes', url: 'https://www.flatearthequipment.com/diagnostic-codes' },
+          { name: 'Hyster Fault Codes', url: 'https://www.flatearthequipment.com/diagnostic-codes/hyster-forklift-fault-codes' },
+        ]}
+      />
+      <main className="max-w-4xl mx-auto px-4 py-12">
       {/* Quick Action Buttons */}
       <div className="not-prose mb-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
         <Link href="/hyster-serial-number-lookup" className="flex flex-col items-center gap-2 p-4 bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 rounded-xl transition-all hover:shadow-md">

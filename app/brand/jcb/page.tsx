@@ -1,9 +1,11 @@
 import React from "react";
 import Link from 'next/link';
+import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata = {
   title: "JCB Telehandler Parts, Fault Codes & Resources | Flat Earth Equipment",
   description: "Complete JCB telehandler resource hub: serial number lookup, 50+ fault codes database, battery location guide, parts catalog for Loadall and excavator models.",
+  alternates: generatePageAlternates("/brand/jcb"),
 };
 
 export default function Page() {

@@ -16,10 +16,12 @@ import {
   Warehouse as LogisticsIcon
 } from 'lucide-react';
 import RelatedResources from '@/components/seo/RelatedResources';
+import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: "Forklift & Equipment Parts in Houston, TX | Flat Earth Equipment",
   description: "Shop forklift, scissor lift, and heavy equipment parts in Houston, Pasadena, and the Port region. Fast shipping to 77002 & 50+ zip codes. Request a quote today.",
+  alternates: generatePageAlternates("/texas/houston"),
 };
 
 export async function generateStaticParams() {
