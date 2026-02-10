@@ -242,6 +242,55 @@ export async function POST(req: NextRequest) {
           quantity: 1
         });
       }
+
+      // ── JCB subcategory freight rules ──────────────────────────────
+      // Flat-rate shipping for JCB replacement parts by subcategory.
+      const jcbFreightMap: Record<string, { amount: number; label: string; desc: string }> = {
+        'JCB Filters':            { amount: 1500, label: 'JCB Filters',          desc: 'Flat rate ground shipping for JCB filter elements' },
+        'JCB Brakes':             { amount: 3500, label: 'JCB Brake Components', desc: 'Flat rate ground shipping for JCB brake parts' },
+        'JCB Electrical':         { amount: 2500, label: 'JCB Electrical Parts', desc: 'Flat rate ground shipping for JCB electrical components' },
+        'JCB Switches & Sensors': { amount: 1500, label: 'JCB Switches & Sensors', desc: 'Flat rate ground shipping for JCB sensors and switches' },
+        'JCB Seals & Gaskets':    { amount: 1500, label: 'JCB Seals & Gaskets', desc: 'Flat rate ground shipping for JCB seals and gaskets' },
+        'JCB Engine Parts':       { amount: 3500, label: 'JCB Engine Parts',    desc: 'Flat rate ground shipping for JCB engine components' },
+        'JCB Fuel System':        { amount: 2500, label: 'JCB Fuel System',     desc: 'Flat rate ground shipping for JCB fuel system parts' },
+        'JCB Hydraulic Valves':   { amount: 2900, label: 'JCB Hydraulic Valves', desc: 'Flat rate ground shipping for JCB hydraulic valves' },
+        'JCB Hydraulics':         { amount: 2900, label: 'JCB Hydraulic Parts', desc: 'Flat rate ground shipping for JCB hydraulic components' },
+        'JCB Cooling':            { amount: 2900, label: 'JCB Cooling Parts',   desc: 'Flat rate ground shipping for JCB radiators and coolers' },
+        'JCB Cab & Body':         { amount: 2900, label: 'JCB Cab & Body Parts', desc: 'Flat rate ground shipping for JCB cab and body parts' },
+        'JCB Controls':           { amount: 2500, label: 'JCB Controls',        desc: 'Flat rate ground shipping for JCB joysticks and controls' },
+        'JCB Hoses':              { amount: 2500, label: 'JCB Hoses',           desc: 'Flat rate ground shipping for JCB hoses and fittings' },
+        'JCB Pins & Bushings':    { amount: 1500, label: 'JCB Pins & Bushings', desc: 'Flat rate ground shipping for JCB pins and bushings' },
+        'JCB Lights':             { amount: 1700, label: 'JCB Lights',          desc: 'Flat rate ground shipping for JCB lights and lamps' },
+        'JCB Mirrors':            { amount: 1700, label: 'JCB Mirrors',         desc: 'Flat rate ground shipping for JCB mirrors' },
+        'JCB Seats':              { amount: 2500, label: 'JCB Seats',           desc: 'Flat rate ground shipping for JCB seats' },
+        'JCB Undercarriage':      { amount: 2900, label: 'JCB Undercarriage',   desc: 'Flat rate ground shipping for JCB undercarriage parts' },
+        'JCB Steering':           { amount: 2500, label: 'JCB Steering',        desc: 'Flat rate ground shipping for JCB steering components' },
+        'JCB Wheels':             { amount: 2900, label: 'JCB Wheels',          desc: 'Flat rate ground shipping for JCB wheels and rims' },
+        'JCB Mounts & Dampers':   { amount: 2500, label: 'JCB Mounts & Dampers', desc: 'Flat rate ground shipping for JCB mounts and dampers' },
+        'JCB Exhaust':            { amount: 2900, label: 'JCB Exhaust',         desc: 'Flat rate ground shipping for JCB exhaust parts' },
+        'JCB General Parts':      { amount: 2900, label: 'JCB Parts',           desc: 'Flat rate ground shipping for JCB replacement parts' },
+      };
+
+      // Apply JCB freight — one charge per distinct JCB subcategory in the cart
+      const jcbCategoriesInCart = new Set<string>(
+        categories.filter((cat: string) => cat.startsWith('JCB '))
+      );
+      for (const jcbCat of jcbCategoriesInCart) {
+        const rule = jcbFreightMap[jcbCat];
+        if (rule) {
+          lineItems.push({
+            price_data: {
+              currency: 'usd',
+              product_data: {
+                name: `Freight Shipping - ${rule.label}`,
+                description: rule.desc,
+              },
+              unit_amount: rule.amount,
+            },
+            quantity: 1,
+          });
+        }
+      }
       
       successSlug = body.items[0]?.name || "";
     } else {

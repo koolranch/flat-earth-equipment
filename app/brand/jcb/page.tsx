@@ -75,6 +75,50 @@ export default function Page() {
         </div>
       </section>
 
+      {/* Parts by Category */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-slate-900 mb-2">Shop JCB Parts by Category</h2>
+        <p className="text-slate-600 mb-6">Browse 700+ aftermarket JCB replacement parts. Priced 5% below dealer — fast shipping nationwide.</p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+          {[
+            { name: 'Filters',            slug: 'jcb-filters',          count: 32 },
+            { name: 'Brakes',             slug: 'jcb-brakes',           count: 21 },
+            { name: 'Electrical',         slug: 'jcb-electrical',       count: 21 },
+            { name: 'Engine Parts',       slug: 'jcb-engine-parts',     count: 25 },
+            { name: 'Fuel System',        slug: 'jcb-fuel-system',      count: 16 },
+            { name: 'Switches & Sensors', slug: 'jcb-switches-sensors', count: 26 },
+            { name: 'Hydraulics',         slug: 'jcb-hydraulics',       count: 26 },
+            { name: 'Hydraulic Valves',   slug: 'jcb-hydraulic-valves', count: 16 },
+            { name: 'Seals & Gaskets',    slug: 'jcb-seals-gaskets',    count: 10 },
+            { name: 'Cooling',            slug: 'jcb-cooling',          count: 15 },
+            { name: 'Cab & Body',         slug: 'jcb-cab-body',         count: 38 },
+            { name: 'Controls',           slug: 'jcb-controls',         count: 13 },
+            { name: 'Hoses & Fittings',   slug: 'jcb-hoses',           count: 13 },
+            { name: 'Pins & Bushings',    slug: 'jcb-pins-bushings',    count: 12 },
+            { name: 'Undercarriage',      slug: 'jcb-undercarriage',    count: 20 },
+            { name: 'Lights',             slug: 'jcb-lights',           count: 6  },
+            { name: 'Mirrors',            slug: 'jcb-mirrors',          count: 4  },
+            { name: 'Seats',              slug: 'jcb-seats',            count: 9  },
+            { name: 'Steering',           slug: 'jcb-steering',         count: 5  },
+            { name: 'Wheels & Rims',      slug: 'jcb-wheels',           count: 6  },
+            { name: 'Exhaust',            slug: 'jcb-exhaust',          count: 2  },
+            { name: 'Mounts & Dampers',   slug: 'jcb-mounts-dampers',   count: 1  },
+            { name: 'All JCB Parts',      slug: 'jcb-general',          count: 400 },
+          ].map((cat) => (
+            <Link
+              key={cat.slug}
+              href={`/parts/category/${cat.slug}`}
+              className="group bg-white border-2 border-slate-200 rounded-xl px-4 py-3 hover:border-[#F76511] hover:shadow-md transition-all"
+            >
+              <span className="font-semibold text-slate-900 group-hover:text-[#F76511] text-sm transition-colors">
+                {cat.name}
+              </span>
+              <span className="block text-xs text-slate-500 mt-0.5">{cat.count} parts</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* Common JCB Models */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-slate-900 mb-6">Popular JCB Models We Support</h2>
