@@ -78,7 +78,7 @@ export default function Page() {
       {/* Parts by Category */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-slate-900 mb-2">Shop JCB Parts by Category</h2>
-        <p className="text-slate-600 mb-6">Browse 700+ aftermarket JCB replacement parts. Priced 5% below dealer — fast shipping nationwide.</p>
+        <p className="text-slate-600 mb-6">Browse 700+ aftermarket JCB replacement parts. Competitive pricing — fast shipping nationwide.</p>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {[
             { name: 'Filters',            slug: 'jcb-filters',          count: 32 },
