@@ -2,6 +2,7 @@ import '../sentry.client.config';
 import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
 import React from 'react';
+import Script from 'next/script';
 import { seoDefaults } from './seo-defaults';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -75,25 +76,7 @@ export default async function RootLayout({
         {/* Pinterest Domain Verification */}
         <meta name="p:domain_verify" content="31d2150c1d8a86c95b938c37f0838eff" />
         
-        {/* Google Analytics 4 - Add your measurement ID to env vars */}
-        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
-          <>
-            <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}></script>
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}', {
-                    page_path: window.location.pathname,
-                  });
-                  ${process.env.NEXT_PUBLIC_GOOGLE_ADS_ID ? `gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ADS_ID}');` : ''}
-                `,
-              }}
-            />
-          </>
-        )}
+        {/* Google Analytics 4 + Google Ads — using next/script for proper loading */}
         
         {/* Perf: preconnect/dns-prefetch to Supabase and Mux (if used) */}
         <link rel="preconnect" href="https://mzsozezflbhebykncbmr.supabase.co" crossOrigin="anonymous" />
@@ -117,6 +100,26 @@ export default async function RootLayout({
         <link rel="apple-touch-icon" href="/icons/app-icon-192.png" />
       </head>
       <body className="font-sans text-gray-900 bg-gray-50 antialiased">
+        {/* Google Analytics 4 + Google Ads global site tag */}
+        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="gtag-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}', {
+                  page_path: window.location.pathname,
+                });
+                ${process.env.NEXT_PUBLIC_GOOGLE_ADS_ID ? `gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ADS_ID}');` : ''}
+              `}
+            </Script>
+          </>
+        )}
         <ReducedMotionProvider>
           <SupabaseProvider>
             <I18nProvider>

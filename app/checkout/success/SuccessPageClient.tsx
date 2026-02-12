@@ -1,5 +1,5 @@
 'use client';
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { trackPurchase } from '@/lib/analytics/gtag'
@@ -8,14 +8,22 @@ import { trackPurchaseClient } from '@/lib/analytics/vercel-funnel'
 export default function SuccessPageClient() {
   const searchParams = useSearchParams();
   const sessionId = searchParams?.get('session_id');
+  const hasFired = useRef(false);
 
   useEffect(() => {
-    // Track conversion when page loads
-    if (sessionId) {
-      // GA4 purchase tracking (EXISTING - unchanged)
+    // Prevent duplicate conversions (e.g. React strict mode or page refresh)
+    if (!sessionId || hasFired.current) return;
+
+    const fireConversion = () => {
+      if (typeof window === 'undefined') return false;
+
+      // Check if gtag is ready
+      if (typeof window.gtag !== 'function') return false;
+
+      // GA4 + Google Ads purchase tracking
       trackPurchase({
         transactionId: sessionId,
-        value: 49, // Black Friday price
+        value: 49,
         currency: 'USD',
         items: [{
           item_id: 'forklift_cert_single',
@@ -25,13 +33,35 @@ export default function SuccessPageClient() {
         }],
       });
 
-      // Vercel Analytics purchase tracking (NEW - safe, won't break anything)
+      // Vercel Analytics purchase tracking
       try {
         trackPurchaseClient(sessionId, 49);
       } catch (e) {
         console.warn('[Vercel] Purchase tracking failed:', e);
       }
-    }
+
+      hasFired.current = true;
+      console.log('[Conversion] Purchase tracked:', sessionId);
+      return true;
+    };
+
+    // Try immediately — gtag may already be loaded
+    if (fireConversion()) return;
+
+    // If gtag isn't ready yet, poll briefly (afterInteractive may still be loading)
+    let attempts = 0;
+    const maxAttempts = 20; // 10 seconds max
+    const interval = setInterval(() => {
+      attempts++;
+      if (fireConversion() || attempts >= maxAttempts) {
+        clearInterval(interval);
+        if (attempts >= maxAttempts && !hasFired.current) {
+          console.warn('[Conversion] gtag not available after 10s — conversion not tracked');
+        }
+      }
+    }, 500);
+
+    return () => clearInterval(interval);
   }, [sessionId]);
 
   return (
