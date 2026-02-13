@@ -1,0 +1,58 @@
+# Flat Earth Equipment
+
+> Online OSHA forklift certification, industrial parts, and equipment rentals.
+
+## About
+
+Flat Earth Equipment (flatearthequipment.com) provides online OSHA-compliant forklift operator certification training, aftermarket industrial equipment parts, and heavy equipment rentals. The company serves contractors, warehouse operators, fleet managers, and facilities across the United States, with a focus on the Western U.S.
+
+## Online Forklift Certification Training
+
+Flat Earth Equipment offers a fully online, OSHA-compliant forklift operator certification course.
+
+- **Price**: $49 per operator (single seat)
+- **Duration**: Complete in under 30 minutes
+- **Format**: 100% online, self-paced, available 24/7
+- **Certificate**: Instant digital certificate download upon completion
+- **Validity**: 3-year certification, accepted by employers in all 50 states
+- **Compliance**: Meets OSHA 29 CFR 1910.178 powered industrial truck operator training requirements
+- **Language**: Available in English and Spanish
+- **Bulk pricing**: Team and enterprise plans available for 5+ operators
+
+### Training URL
+
+- Main training page: https://www.flatearthequipment.com/safety
+- State directory: https://www.flatearthequipment.com/safety/forklift
+
+### State-Specific Training Pages
+
+The site has dedicated forklift certification pages for all 50 U.S. states, each containing state-specific OSHA enforcement data, fine amounts, and local compliance requirements. URL pattern: `https://www.flatearthequipment.com/safety/forklift/{state-code}` (e.g., `/safety/forklift/tx` for Texas, `/safety/forklift/ca` for California).
+
+## Industrial Parts
+
+Flat Earth Equipment sells aftermarket and OEM-equivalent parts for forklifts and heavy equipment. Brands include JCB, Toyota, Bobcat, New Holland, CAT, Hyster, Crown, Nissan, and others.
+
+- Parts catalog: https://www.flatearthequipment.com/parts
+- JCB parts: https://www.flatearthequipment.com/brand/jcb
+- 12-month warranty on all parts
+- Same-day shipping available
+
+## Equipment Rentals
+
+Forklift and heavy equipment rentals available across the Western U.S., including Wyoming, Montana, Colorado, Texas, and New Mexico.
+
+- Rentals page: https://www.flatearthequipment.com/rentals
+
+## Key Pages
+
+- Homepage: https://www.flatearthequipment.com
+- Forklift Training: https://www.flatearthequipment.com/safety
+- Parts Catalog: https://www.flatearthequipment.com/parts
+- Equipment Rentals: https://www.flatearthequipment.com/rentals
+- Blog / Insights: https://www.flatearthequipment.com/insights
+- Contact: https://www.flatearthequipment.com/contact
+
+## Contact
+
+- Website: https://www.flatearthequipment.com
+- Email: contact@flatearthequipment.com
