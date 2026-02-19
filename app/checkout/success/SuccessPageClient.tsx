@@ -11,16 +11,18 @@ export default function SuccessPageClient() {
   const hasFired = useRef(false);
 
   useEffect(() => {
-    // Prevent duplicate conversions (e.g. React strict mode or page refresh)
     if (!sessionId || hasFired.current) return;
+
+    console.log('[Tracking Debug] Success page loaded with session:', sessionId);
+    console.log('[Tracking Debug] gtag available:', typeof window.gtag === 'function');
+    console.log('[Tracking Debug] _gcl_aw cookie:', document.cookie.match(/_gcl_aw=([^;]+)/)?.[1] || 'NOT FOUND');
+    console.log('[Tracking Debug] GOOGLE_ADS_ID baked in:', !!process.env.NEXT_PUBLIC_GOOGLE_ADS_ID);
+    console.log('[Tracking Debug] CONVERSION_LABEL baked in:', !!process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL);
 
     const fireConversion = () => {
       if (typeof window === 'undefined') return false;
-
-      // Check if gtag is ready
       if (typeof window.gtag !== 'function') return false;
 
-      // GA4 + Google Ads purchase tracking
       trackPurchase({
         transactionId: sessionId,
         value: 49,
@@ -33,7 +35,6 @@ export default function SuccessPageClient() {
         }],
       });
 
-      // Vercel Analytics purchase tracking
       try {
         trackPurchaseClient(sessionId, 49);
       } catch (e) {
@@ -45,18 +46,18 @@ export default function SuccessPageClient() {
       return true;
     };
 
-    // Try immediately — gtag may already be loaded
     if (fireConversion()) return;
 
-    // If gtag isn't ready yet, poll briefly (afterInteractive may still be loading)
     let attempts = 0;
-    const maxAttempts = 20; // 10 seconds max
+    const maxAttempts = 20;
     const interval = setInterval(() => {
       attempts++;
       if (fireConversion() || attempts >= maxAttempts) {
         clearInterval(interval);
         if (attempts >= maxAttempts && !hasFired.current) {
           console.warn('[Conversion] gtag not available after 10s — conversion not tracked');
+          console.warn('[Conversion] dataLayer exists:', !!window.dataLayer);
+          console.warn('[Conversion] scripts on page:', document.querySelectorAll('script[src*="gtag"]').length);
         }
       }
     }, 500);

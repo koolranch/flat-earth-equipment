@@ -101,10 +101,10 @@ export default async function RootLayout({
       </head>
       <body className="font-sans text-gray-900 bg-gray-50 antialiased">
         {/* Google Analytics 4 + Google Ads global site tag */}
-        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+        {(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-3MQWE0RK5M') && (
           <>
             <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-3MQWE0RK5M'}`}
               strategy="afterInteractive"
             />
             <Script id="gtag-init" strategy="afterInteractive">
@@ -112,10 +112,10 @@ export default async function RootLayout({
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
-                gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}', {
+                gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-3MQWE0RK5M'}', {
                   page_path: window.location.pathname,
                 });
-                ${process.env.NEXT_PUBLIC_GOOGLE_ADS_ID ? `gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ADS_ID}');` : ''}
+                gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || 'AW-16989996368'}');
               `}
             </Script>
           </>
