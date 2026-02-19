@@ -1,8 +1,16 @@
 'use client';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { PLANS } from '@/lib/training/plans';
 import { createTrainingCheckoutSessionFromForm } from '@/app/training/checkout/actions';
 import Link from 'next/link';
+
+function ReferralHiddenInput() {
+  const searchParams = useSearchParams();
+  const ref = searchParams.get('ref');
+  if (!ref) return null;
+  return <input type="hidden" name="referralCode" value={ref} />;
+}
 
 export default function PricingStrip({ disableBuy = false }: { disableBuy?: boolean }) {
   const [showTeamPricing, setShowTeamPricing] = useState(false);
@@ -52,6 +60,7 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
             ) : (
               <form action={createTrainingCheckoutSessionFromForm} className="mt-6">
                 <input type="hidden" name="priceId" value={p.priceId} />
+                <Suspense><ReferralHiddenInput /></Suspense>
                 <button 
                   type="submit" 
                   className={`w-full px-6 py-3 rounded-xl font-bold transition-all shadow-md hover:shadow-lg ${
@@ -104,6 +113,7 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
           ) : (
             <form action={createTrainingCheckoutSessionFromForm} className="mt-6">
               <input type="hidden" name="priceId" value={singlePlan.priceId} />
+              <Suspense><ReferralHiddenInput /></Suspense>
               <button 
                 type="submit" 
                 className="w-full px-6 py-3 rounded-xl font-bold transition-all shadow-md hover:shadow-lg bg-[#F76511] text-white hover:bg-orange-600"
@@ -153,6 +163,7 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
                 ) : (
                   <form action={createTrainingCheckoutSessionFromForm} className="mt-6">
                     <input type="hidden" name="priceId" value={p.priceId} />
+                    <Suspense><ReferralHiddenInput /></Suspense>
                     <button 
                       type="submit" 
                       className="w-full px-6 py-3 rounded-xl font-bold transition-all shadow-md hover:shadow-lg bg-slate-900 text-white hover:bg-slate-800"

@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { getMarketingDict, type Locale } from '@/i18n';
 import ComplianceBlock from '@/components/marketing/ComplianceBlock';
 import Link from 'next/link';
@@ -6,6 +7,7 @@ import { detectUserServer } from '@/lib/auth/detectUserServer';
 import { supabaseServer } from '@/lib/supabase/server';
 import PricingStrip from '@/components/training/PricingStrip';
 import SafetyHero from '@/components/safety/SafetyHero';
+import StatePersonalizedHero from '@/components/safety/StatePersonalizedHero';
 import LogoCloud from '@/components/safety/LogoCloud';
 import StickyCTA from '@/components/safety/StickyCTA';
 import FaqAccordion from '@/components/safety/FaqAccordion';
@@ -216,8 +218,10 @@ export default async function SafetyPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(demoVideoJsonLd) }} 
       />
       
-      {/* Hero */}
-      <SafetyHero />
+      {/* Hero — personalized by ?state= param for ad traffic, generic fallback */}
+      <Suspense fallback={<SafetyHero />}>
+        <StatePersonalizedHero />
+      </Suspense>
       
       {/* Trust Stats Strip */}
       <LogoCloud />

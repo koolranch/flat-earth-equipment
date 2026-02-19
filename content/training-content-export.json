@@ -1,0 +1,948 @@
+{
+  "_meta": {
+    "exported_at": "2026-02-17",
+    "description": "Complete training content export for Forklift Certified mobile app integration",
+    "course": "forklift",
+    "course_id": "f5194f6b-1750-4eef-912c-4f7807eb29ca",
+    "modules_count": 5,
+    "content_sources": {
+      "osha_basics": "app/training/oshaBasics.ts",
+      "osha_components": "app/training/[course]/modules/module-{1-5}/OSHA.tsx",
+      "lesson_sections": "content/training/module{1-5}.ts",
+      "flashcards_ts": "content/training/flashcards/module-{1-5}.ts",
+      "flashcards_json": "public/flashcards/module-{1-5}.json",
+      "practice_components": "components/training/practice/Module{1-5}Practice.tsx"
+    }
+  },
+  "modules": [
+    {
+      "module_order": 1,
+      "module_id": "ce5613f3-0d24-4d3a-9404-cafa9ba0dce0",
+      "title": "Module 1: Pre-Operation Inspection",
+      "content_slug": "pre-operation-inspection",
+      "type": "game",
+      "web_route": "/training/module-1",
+      "steps": {
+        "osha": {
+          "title": "OSHA 1910.178 — Pre-Operation Requirements",
+          "note": "Reference: OSHA 29 CFR 1910.178.",
+          "bullets": [
+            "Inspect the truck before each shift and remove from service if any condition adversely affects safety (29 CFR 1910.178(q)). Only authorized personnel perform repairs.",
+            "PPE & seat belt: Wear required PPE (hi-vis vest, hard hat, eye/ear protection, safety boots) and use the seat belt.",
+            "Data plate: Present, legible, and reflects all attachments; know capacity and load center.",
+            "Controls & alerts: Test horn, lights/beacon, reverse beeper, and alarms; sound horn at blind corners and intersections.",
+            "Forks, chains, hoses: Matched forks, pins in place, no cracks/bends; chains lubricated with no kinks/broken links; hoses/cylinders free of leaks.",
+            "Brakes & steering: Service brake, parking brake, and steering respond correctly.",
+            "Tires & wheels: Adequate tread/inflation, no cuts/chunks; lugs tight; rims undamaged.",
+            "Housekeeping: Keep aisles clear; clean or barricade spills promptly.",
+            "Tag out unsafe trucks: Report defects; do not operate until repaired and verified safe."
+          ],
+          "lesson_sections": [
+            {
+              "kind": "objectives",
+              "items": [
+                "Wear required PPE; belt on before moving",
+                "Set parking brake during pre-start/setup",
+                "Know basic controls: horn, lights, ignition"
+              ]
+            },
+            {
+              "kind": "icons",
+              "icons": [
+                { "src": "training/c1-ppe-vest.svg", "alt": "Hi-vis vest", "label": "Vest" },
+                { "src": "training/c1-ppe-hardhat.svg", "alt": "Hard hat", "label": "Hard hat" },
+                { "src": "training/c1-ppe-goggles.svg", "alt": "Eye protection", "label": "Eye protection" }
+              ]
+            },
+            {
+              "kind": "media",
+              "src": "training/d1-seatbelt.svg",
+              "alt": "Seatbelt latch micro animation",
+              "caption": "Always belt in before moving"
+            },
+            {
+              "kind": "media",
+              "src": "training/d2-brake.svg",
+              "alt": "Parking brake set animation",
+              "caption": "Brake set during pre-start"
+            },
+            {
+              "kind": "media",
+              "src": "training/a1-controls.svg",
+              "alt": "Forklift controls diagram",
+              "caption": "Learn your horn/lights/ignition locations"
+            },
+            {
+              "kind": "osha",
+              "title": "OSHA 1910.178 — General Requirements",
+              "body": "Operate only if trained/authorized. Inspect and set up safely before travel; use seat belts where provided."
+            },
+            {
+              "kind": "tips",
+              "items": [
+                { "label": "Horn check", "body": "Tap horn before first move; confirm it sounds." },
+                { "label": "Lights", "body": "Flip lights on in low visibility." }
+              ]
+            }
+          ]
+        },
+        "practice": {
+          "title": "Pre-Operation Practice",
+          "type": "toggle_checklist",
+          "steps": [
+            { "key": "ppe_vest", "label": "Hi-vis vest", "icon_key": "ppeVest" },
+            { "key": "ppe_hardhat", "label": "Hard hat", "icon_key": "ppeHardhat" },
+            { "key": "ppe_boots", "label": "Safety boots", "icon_key": "ppeBoots" },
+            { "key": "ppe_eyes_ears", "label": "Eye/Ear protection", "icon_key": "ppeGoggles" },
+            { "key": "horn_test", "label": "Horn test", "icon_key": "controlHorn" },
+            { "key": "lights_test", "label": "Lights test", "icon_key": "controlLights" },
+            { "key": "data_plate", "label": "Data plate present/legible", "icon_key": "dataPlate" }
+          ],
+          "extra_content": {
+            "title": "Seatbelt reminder",
+            "image": "/training/d1-seatbelt.svg",
+            "alt": "Seatbelt latch animation",
+            "text": "Always buckle your seatbelt before moving the forklift"
+          }
+        },
+        "cards": {
+          "source_ts": [
+            { "id": 1, "front": "Hi-vis vest — when?", "back": "Always on the floor. Improves visibility around moving equipment.", "icon": "/training/flashcards/m1-hivis-vest.svg" },
+            { "id": 2, "front": "Hard hat — where?", "back": "Any area with overhead guards, racks, or suspended loads.", "icon": "/training/flashcards/m1-hard-hat.svg" },
+            { "id": 3, "front": "Safety boots — why?", "back": "Toe protection + slip resistance on dusty/wet warehouse floors.", "icon": "/training/flashcards/m1-safety-boots.svg" },
+            { "id": 4, "front": "Eye/Ear protection — when?", "back": "Grinding, battery rooms, loud docks, or as posted by site policy." },
+            { "id": 5, "front": "Horn test — what are you checking?", "back": "Audible warning works before moving. Use at intersections and blind corners.", "icon": "/training/flashcards/m1-horn-test.svg" },
+            { "id": 6, "front": "Lights test — what must be lit?", "back": "Headlights + rear/blue spot if equipped. Replace failed bulbs before operation.", "icon": "/training/flashcards/m1-lights.svg" },
+            { "id": 7, "front": "Data plate — what to verify?", "back": "Rated capacity, mast/attachments, and that it matches your forklift/attachment combo.", "icon": "/training/flashcards/m1-data-plate.svg" },
+            { "id": 8, "front": "Seatbelt — when to latch?", "back": "Before moving. Prevents ejection in tip-overs; stay in the protective zone.", "icon": "/training/flashcards/m1-seatbelt.svg" }
+          ],
+          "source_json": [
+            { "id": "m1-fc-01", "front": "Hi-vis vest — when?", "back": "Always during operations in the facility or yard; required any time you operate or work around mobile equipment.", "icon": "/training/flashcards/m1-hivis-vest.svg" },
+            { "id": "m1-fc-02", "front": "Hard hat — when is it required?", "back": "Where overhead hazards may exist (racks, loads, docks) or per site policy — default to wear unless posted otherwise.", "icon": "/training/flashcards/m1-hard-hat.svg" },
+            { "id": "m1-fc-03", "front": "Safety boots — key requirement", "back": "ANSI-rated toe; slip-resistant. Laces tied; no open-toe shoes on the floor.", "icon": "/training/flashcards/m1-safety-boots.svg" },
+            { "id": "m1-fc-04", "front": "Horn test — where to use it", "back": "At intersections, blind corners, doorways, and before moving when visibility is limited.", "icon": "/training/flashcards/m1-horn-test.svg" },
+            { "id": "m1-fc-05", "front": "Lights test — what to check", "back": "Headlights, tail/marker lights, and reverse beeper; replace/repair before operating.", "icon": "/training/flashcards/m1-lights.svg" },
+            { "id": "m1-fc-06", "front": "Data plate — what must be legible", "back": "Capacity, load center, attachments. If unreadable, do not operate until replaced.", "icon": "/training/flashcards/m1-data-plate.svg" },
+            { "id": "m1-fc-07", "front": "Seatbelt — OSHA expectation", "back": "Wear it whenever operating; no exceptions. Belt must latch and retract properly.", "icon": "/training/flashcards/m1-seatbelt.svg" },
+            { "id": "m1-fc-08", "front": "Daily inspection — frequency", "back": "At least once each shift, before use; tag out and remove from service if unsafe.", "icon": "/training/flashcards/m1-inspection-checklist.svg" }
+          ]
+        },
+        "quiz": {
+          "api_endpoint": "GET /api/quiz/module/pre-operation-inspection?locale=en",
+          "source_table": "quiz_items",
+          "filter": { "module_slug": "pre-operation-inspection", "active": true }
+        }
+      }
+    },
+    {
+      "module_order": 2,
+      "module_id": "e9226601-2621-49aa-8df3-69d193f94584",
+      "title": "Module 2: 8-Point Inspection",
+      "content_slug": "eight-point-inspection",
+      "type": "game",
+      "web_route": "/training/forklift-operator/module-2",
+      "steps": {
+        "osha": {
+          "title": "OSHA Basics — 8-Point Inspection",
+          "note": "References: 29 CFR 1910.178 (p), (q); ANSI/ITSDF B56.1.",
+          "bullets": [
+            "Run the full inspection each shift and record defects. Remove trucks from service if any condition adversely affects safety (29 CFR 1910.178(q)(7)). Repairs must be by authorized personnel.",
+            "Forks: No cracks or bends; matched pair; lock pins in place; heel wear within limit.",
+            "Chains & hoses: No kinks, tight/broken links, frays, or leaks; proper tension/lube; guards in place.",
+            "Tires & wheels: Adequate tread/inflation (pneumatic); no chunks/splits; lugs tight; rims undamaged.",
+            "Horn & lights: Horn works (use at blind corners); head/taillights, beacon, and reverse beeper functional.",
+            "Seat belt & data plate: Seat belt present/working; data plate present, legible, and matches attachments/capacity.",
+            "Leaks/undercarriage: No hydraulic, fuel, or coolant leaks; mast/undercarriage clear; clean spills per procedure.",
+            "Battery/LP system: Cables/connectors intact and secure; charger leads OK; LP cylinder secured, no leaks/odor.",
+            "Safety devices: Parking brake, deadman, brakes, and steering respond correctly; alarms present and working."
+          ],
+          "checklist_items": [
+            { "id": "daily-inspection", "title": "Daily Inspection Required", "description": "Run the full inspection each shift and record defects. Remove trucks from service if any condition adversely affects safety.", "icon": "📋" },
+            { "id": "forks", "title": "Inspect Forks", "description": "No cracks or bends; matched pair; lock pins in place; heel wear within limit. Damaged forks cause dropped loads.", "icon": "🔱" },
+            { "id": "chains-hoses", "title": "Check Chains & Hoses", "description": "No kinks, tight/broken links, frays, or leaks; proper tension/lubrication; guards in place. Test lift/tilt functions.", "icon": "⛓️" },
+            { "id": "tires-wheels", "title": "Inspect Tires & Wheels", "description": "Adequate tread/inflation (pneumatic); no chunks/splits; wheel lugs tight; rims undamaged. Tire failure causes tip-overs.", "icon": "🛞" },
+            { "id": "horn-lights", "title": "Test Horn & Lights", "description": "Horn works (use at blind corners); head/taillights, beacon, and reverse beeper functional. Prevent pedestrian accidents.", "icon": "📢" },
+            { "id": "seatbelt-dataplate", "title": "Verify Seatbelt & Data Plate", "description": "Seatbelt present/working and must be worn; data plate present, legible, and matches attachments/capacity.", "icon": "🦺" },
+            { "id": "leaks", "title": "Check for Leaks", "description": "No hydraulic, fuel, or coolant leaks; mast/undercarriage clear; clean spills per procedure. Fuel leaks create fire hazards.", "icon": "💧" },
+            { "id": "battery-lp", "title": "Check Battery/LP System", "description": "Cables/connectors intact and secure; charger leads OK; LP cylinder secured, no leaks/odor. LP leaks are fire hazards.", "icon": "🔋" },
+            { "id": "safety-devices", "title": "Test Safety Devices", "description": "Parking brake, deadman, brakes, and steering respond correctly; alarms present and working. Test before moving.", "icon": "🛡️" }
+          ],
+          "lesson_sections": [
+            { "kind": "objectives", "items": ["Complete the 8-point inspection", "Report defects before operating"] },
+            {
+              "kind": "icons",
+              "icons": [
+                { "src": "training/c5-tires.svg", "alt": "Tires", "label": "Tires" },
+                { "src": "training/c5-forks.svg", "alt": "Forks", "label": "Forks" },
+                { "src": "training/c5-chains.svg", "alt": "Chains", "label": "Chains" },
+                { "src": "training/c5-horn.svg", "alt": "Horn", "label": "Horn" },
+                { "src": "training/c5-lights.svg", "alt": "Lights", "label": "Lights" },
+                { "src": "training/c5-hydraulics.svg", "alt": "Hydraulics", "label": "Hydraulics" },
+                { "src": "training/c5-leaks.svg", "alt": "Leaks", "label": "Leaks" },
+                { "src": "training/c5-plate.svg", "alt": "Data plate", "label": "Data plate" }
+              ]
+            },
+            { "kind": "osha", "title": "OSHA 1910.178(q)(7)", "body": "Industrial trucks must be examined before being placed in service; unsafe units shall be removed from service." }
+          ]
+        },
+        "practice": {
+          "title": "Run the 8-point inspection",
+          "subtitle": "Tap each inspection point to learn why it matters",
+          "type": "checklist",
+          "completion_title": "Inspection Complete!",
+          "completion_message": "Report any defects immediately — never operate an unsafe truck. (OSHA 1910.178(q)(7))",
+          "items": [
+            { "id": "forks", "label": "Forks inspected", "tip": "Check for cracks, bends, and worn heel — damaged forks can fail under load" },
+            { "id": "chains", "label": "Chains & hoses OK", "tip": "Look for wear, leaks, and proper tension — chain failure causes uncontrolled drops" },
+            { "id": "tires", "label": "Tires/Wheels OK", "tip": "Check for damage, proper inflation, and lug nuts — bad tires reduce stability" },
+            { "id": "horn", "label": "Horn & lights work", "tip": "Test before every shift — your horn warns pedestrians, lights signal your presence" },
+            { "id": "seatbelt", "label": "Seatbelt present", "tip": "Verify it latches securely — OSHA requires use if your forklift is equipped" },
+            { "id": "dataplate", "label": "Data plate legible", "tip": "Must show capacity, weight, and attachments — never exceed rated capacity" },
+            { "id": "leaks", "label": "No visible leaks", "tip": "Check for oil, hydraulic fluid, or fuel — leaks indicate mechanical problems" },
+            { "id": "battery", "label": "Battery/LP secure", "tip": "Ensure connections tight, LP tank strapped properly — prevents fire and acid hazards" }
+          ]
+        },
+        "cards": {
+          "source_ts": [
+            { "id": 1, "front": "Forks: what fails inspection?", "back": "Cracks, bends, mismatched pair, missing lock pins, heel wear beyond limit. Replace as a pair.", "icon": "/training/flashcards/m2-forks-damage.svg" },
+            { "id": 2, "front": "Chains: what are you looking for?", "back": "Kinks, tight links, stretch, broken links—proper tension and lubrication required.", "icon": "/training/flashcards/m2-chains-hoses.svg" },
+            { "id": 3, "front": "Hydraulics: OK means…", "back": "No hose damage, no visible leaks, smooth lift/tilt with no jerks or drift.", "icon": "/training/flashcards/m2-leaks.svg" },
+            { "id": 4, "front": "Horn & lights must be…", "back": "Present and functional before moving—horn at blind corners; lights in low visibility.", "icon": "/training/flashcards/m1-lights.svg" },
+            { "id": 5, "front": "Tires/wheels pass if…", "back": "Adequate tread/inflation (pneumatic), no chunks or splits, lugs tight; no damage.", "icon": "/training/flashcards/m2-tires.svg" },
+            { "id": 6, "front": "Data plate present and legible?", "back": "Yes—verify plate matches truck and attachments; do not operate if missing/illegible.", "icon": "/training/flashcards/m1-data-plate.svg" },
+            { "id": 7, "front": "Hydraulic leaks: what to do?", "back": "Stop, tag out, report. Clean spills per procedure; do not operate until repaired.", "icon": "/training/flashcards/m2-leaks.svg" },
+            { "id": 8, "front": "Brakes/steer check includes…", "back": "Service/parking brake engagement, steering responsiveness, no pulling or grinding.", "icon": "/training/flashcards/m2-safety-devices.svg" }
+          ],
+          "source_json": [
+            { "id": "m2-fc-01", "front": "Forks — rejection criteria", "back": "Cracks, bends, wear (heel/thickness), locking pins seated.", "icon": "/training/flashcards/m2-forks-damage.svg" },
+            { "id": "m2-fc-02", "front": "Chains & hoses — what to spot", "back": "Frays, kinks, leaks, improper tension; replace if damaged.", "icon": "/training/flashcards/m2-chains-hoses.svg" },
+            { "id": "m2-fc-03", "front": "Tires & wheels — check for", "back": "Wear, cuts, embedded debris, low pressure (pneumatic), loose lugs.", "icon": "/training/flashcards/m2-tires.svg" },
+            { "id": "m2-fc-04", "front": "Horn & lights — rule", "back": "Must function; reverse beeper required where used.", "icon": "/training/flashcards/m1-lights.svg" },
+            { "id": "m2-fc-05", "front": "Seatbelt & plate — verify", "back": "Belt latches/retracts; data plate readable.", "icon": "/training/flashcards/m1-data-plate.svg" },
+            { "id": "m2-fc-06", "front": "Leaks — look here", "back": "Under mast, pump, cylinders, lines; undercarriage; around axle.", "icon": "/training/flashcards/m2-leaks.svg" },
+            { "id": "m2-fc-07", "front": "Battery/LP secure — why it matters", "back": "Unsecured power source can shift and cause loss of control.", "icon": "/training/flashcards/m2-battery-secure.svg" },
+            { "id": "m2-fc-08", "front": "Safety devices — examples", "back": "Parking brake, deadman, alarms. Inoperative = out of service.", "icon": "/training/flashcards/m2-safety-devices.svg" }
+          ]
+        },
+        "quiz": {
+          "api_endpoint": "GET /api/quiz/module/eight-point-inspection?locale=en",
+          "source_table": "quiz_items",
+          "filter": { "module_slug": "eight-point-inspection", "active": true }
+        }
+      }
+    },
+    {
+      "module_order": 3,
+      "module_id": "e036d125-7fe9-4bb5-8333-57747aac9055",
+      "title": "Module 3: Balance & Load Handling",
+      "content_slug": "stability-and-load-handling",
+      "type": "game",
+      "web_route": "/training/forklift-operator/module-3",
+      "steps": {
+        "osha": {
+          "title": "OSHA Basics — Balance & Load Handling",
+          "note": "Reference: OSHA 29 CFR 1910.178(n); ANSI/ITSDF B56.1.",
+          "bullets": [
+            "Capacity & attachments: Never exceed nameplate capacity; attachments change capacity and load center—use the data plate.",
+            "Keep load low & tilted back: Travel with forks ~4–6 in (10–15 cm) off the floor; mast slightly back; avoid sudden starts/stops/turns.",
+            "Stability triangle: Keep the combined center of gravity inside the triangle; slow at corners and uneven surfaces; no riders and keep body inside the compartment.",
+            "Visibility: Maintain a clear view; if the load blocks view, travel in reverse when safe or use a spotter.",
+            "Grades/ramps: With a load, drive upgrade; without a load, drive downgrade. Do not turn on ramps; forks low and tilted back; descend slowly.",
+            "Stacking/unstacking: Stop; set parking brake; square mast; level forks; lift/lower smoothly; do not raise or lower while moving.",
+            "Pedestrians: Sound horn at intersections; make eye contact; maintain safe separation; pedestrians have right-of-way."
+          ],
+          "checklist_items": [
+            {
+              "id": "capacity---attachments",
+              "title": "Capacity & attachments",
+              "description": "Never exceed nameplate capacity; attachments change capacity and load center—use the data plate.",
+              "icon": "⚖️",
+              "details": {
+                "heading": "Understanding Load Capacity:",
+                "body": "The data plate shows maximum capacity at a specific load center (usually 24 inches). If your load's center of gravity is farther away, capacity decreases significantly.",
+                "subsections": [
+                  {
+                    "heading": "Attachment Impact on Capacity:",
+                    "items": [
+                      "Attachments add weight to the front of the truck",
+                      "This shifts the combined center of gravity forward",
+                      "Available lifting capacity is reduced by attachment weight PLUS additional derating",
+                      "Always check the attachment data plate for new capacity limits"
+                    ]
+                  }
+                ],
+                "warning": "⚠️ Operating beyond capacity is a leading cause of tip-overs and fatalities. Always verify before lifting."
+              }
+            },
+            {
+              "id": "keep-load-low---tilted-back",
+              "title": "Keep load low & tilted back",
+              "description": "Travel with forks ~4–6 in (10–15 cm) off the floor; mast slightly back; avoid sudden starts/stops/turns.",
+              "icon": "📏",
+              "details": {
+                "heading": "Proper Travel Position (OSHA 1910.178(n)(6)):",
+                "items": [
+                  "Fork height: 4-6 inches (10-15 cm) above ground clears obstacles but maintains low center of gravity",
+                  "Mast tilt: Tilt mast back slightly to secure load and prevent sliding forward",
+                  "Load against backrest: Keep load tight against load backrest extension"
+                ],
+                "subsections": [
+                  {
+                    "heading": "Why This Matters:",
+                    "body": "A raised load dramatically raises the combined center of gravity, making the forklift unstable. Sudden movements (starts, stops, turns) shift weight and can cause tip-overs even with stable loads."
+                  }
+                ],
+                "warning": "⚠️ Traveling with elevated loads is prohibited except during stacking operations. Always lower forks before moving."
+              }
+            },
+            {
+              "id": "stability-triangle",
+              "title": "Stability triangle",
+              "description": "Keep the combined center of gravity inside the triangle; slow at corners and uneven surfaces; no riders and keep body inside the compartment.",
+              "icon": "🔺",
+              "details": {
+                "heading": "The Stability Triangle:",
+                "body": "Three-wheel forklifts have a triangular stability zone formed by the two front wheels and the pivot point of the rear wheel. Four-wheel forklifts have a rectangular zone but the concept is similar.",
+                "subsections": [
+                  {
+                    "heading": "Center of Gravity Rules:",
+                    "items": [
+                      "Empty truck: COG is within the triangle",
+                      "With load: Combined COG shifts forward toward the load",
+                      "Turning: COG shifts to the outside of the turn",
+                      "Elevated load: COG rises, reducing stability"
+                    ]
+                  },
+                  {
+                    "heading": "Maintaining Stability:",
+                    "body": "Slow down when turning, especially with loads. Avoid turning on slopes or uneven surfaces. Never carry riders - extra weight destabilizes the truck. Always keep your body inside the operator compartment and overhead guard."
+                  }
+                ],
+                "warning": "⚠️ If the combined COG moves outside the stability zone, the forklift will tip over. No exceptions."
+              }
+            },
+            {
+              "id": "visibility",
+              "title": "Visibility",
+              "description": "Maintain a clear view; if the load blocks view, travel in reverse when safe or use a spotter.",
+              "icon": "👁️",
+              "details": {
+                "heading": "Visibility Requirements (OSHA 1910.178(n)(6)):",
+                "body": "Operators must have a clear view of the travel path at all times. When the load obstructs forward visibility:",
+                "items": [
+                  "Option 1: Travel in reverse (forks trailing) with frequent looks ahead",
+                  "Option 2: Use a spotter to guide you (maintain constant communication)",
+                  "Never: Travel blind or rely solely on memory of the path"
+                ],
+                "subsections": [
+                  {
+                    "heading": "Additional Visibility Considerations:",
+                    "items": [
+                      "Keep mast upright when traveling to maximize sight lines",
+                      "Use mirrors to check blind spots",
+                      "Ensure adequate lighting in work areas",
+                      "Sound horn at intersections even if you think you can see"
+                    ]
+                  }
+                ],
+                "warning": "⚠️ Most collisions occur when operators can't see pedestrians or obstacles. Never guess - always verify clear path."
+              }
+            },
+            {
+              "id": "grades-ramps",
+              "title": "Grades/ramps",
+              "description": "With a load, drive upgrade; without a load, drive downgrade. Do not turn on ramps; forks low and tilted back; descend slowly.",
+              "icon": "⛰️",
+              "details": {
+                "heading": "Grade and Ramp Safety (OSHA 1910.178(n)(7)):",
+                "subsections": [
+                  {
+                    "heading": "The Golden Rule:",
+                    "items": [
+                      "Loaded: Forks pointing UPHILL (prevents load from sliding forward)",
+                      "Unloaded: Forks pointing DOWNHILL (keeps forklift stable)"
+                    ]
+                  },
+                  {
+                    "heading": "Critical Grade Procedures:",
+                    "items": [
+                      "Keep forks 4-6 inches off surface with mast tilted back",
+                      "NEVER turn on a ramp or slope - tip-over risk is extreme",
+                      "Control speed - descend slowly using brakes, not momentum",
+                      "Watch for slippery conditions (water, ice, oil)",
+                      "Use chocks when loading/unloading on grades"
+                    ]
+                  }
+                ],
+                "warning": "⚠️ Turning on a ramp is one of the most dangerous forklift maneuvers. Always straighten out before changing direction."
+              }
+            },
+            {
+              "id": "stacking-unstacking",
+              "title": "Stacking/unstacking",
+              "description": "Stop; set parking brake; square mast; level forks; lift/lower smoothly; do not raise or lower while moving.",
+              "icon": "📦",
+              "details": {
+                "heading": "Safe Stacking Procedure (OSHA 1910.178(o)(2)):",
+                "subsections": [
+                  {
+                    "heading": "Before lifting:",
+                    "items": [
+                      "Come to complete stop",
+                      "Set parking brake",
+                      "Square the mast (vertical)",
+                      "Level the forks (equal height)",
+                      "Position forks fully under load"
+                    ]
+                  },
+                  {
+                    "heading": "During lifting:",
+                    "items": [
+                      "Lift smoothly - no jerking motions",
+                      "Tilt mast back slightly once load clears rack",
+                      "Never raise or lower loads while the truck is moving",
+                      "Watch for overhead obstructions"
+                    ]
+                  }
+                ],
+                "warning": "⚠️ Lifting while moving or jerky hydraulic movements can cause loads to shift or fall. Always stop completely before raising/lowering."
+              }
+            },
+            {
+              "id": "pedestrians",
+              "title": "Pedestrians",
+              "description": "Sound horn at intersections; make eye contact; maintain safe separation; pedestrians have right-of-way.",
+              "icon": "🚶",
+              "details": {
+                "heading": "Pedestrian Safety Priority (OSHA 1910.178(n)(4)):",
+                "body": "Pedestrians ALWAYS have the right of way. The forklift operator is responsible for avoiding pedestrian contact under all circumstances.",
+                "subsections": [
+                  {
+                    "heading": "Safe Pedestrian Practices:",
+                    "items": [
+                      "Sound horn: At ALL intersections, blind corners, doorways, and when approaching pedestrians",
+                      "Eye contact: Make direct eye contact before passing near anyone",
+                      "Safe distance: Maintain at least 3 feet of clearance when passing",
+                      "Spotter required: When visibility is limited or in congested areas",
+                      "Stop if uncertain: If you can't confirm it's safe, stop and wait"
+                    ]
+                  },
+                  {
+                    "heading": "Common Pedestrian Hazards:",
+                    "body": "Workers wearing headphones, backing out of aisles, focused on tasks, or crossing at non-designated points. Never assume pedestrians see or hear you."
+                  }
+                ],
+                "warning": "⚠️ Pedestrian accidents are often fatal. Defensive driving and constant vigilance are required."
+              }
+            }
+          ],
+          "lesson_sections": [
+            { "kind": "objectives", "items": ["Keep COG inside triangle", "Respect load center and mast tilt"] },
+            { "kind": "media", "src": "training/a2-triangle.svg", "alt": "Stability triangle diagram", "caption": "Two front tire contact points + rear axle pivot" },
+            { "kind": "media", "src": "training/d5-cog.svg", "alt": "COG shift animation", "caption": "How combined center shifts with load/tilt" },
+            {
+              "kind": "tips",
+              "items": [
+                { "label": "Load center", "body": "24 in / 600 mm unless rated otherwise" },
+                { "label": "Tilt back", "body": "Travel with mast slightly back and forks low" }
+              ]
+            }
+          ]
+        },
+        "practice": {
+          "title": "Balance & load handling checks",
+          "subtitle": "Tap each check to learn how it prevents tip-overs",
+          "type": "checklist",
+          "completion_title": "Load Handling Mastered!",
+          "completion_message": "Always keep the combined center of gravity within the stability triangle — the #1 cause of forklift fatalities is tip-overs. (OSHA 1910.178(o))",
+          "items": [
+            { "id": "level", "label": "Level forks at entry/exit", "tip": "Approach loads with forks level to prevent sliding or catching — tilt back only after load is secure" },
+            { "id": "tilt", "label": "Keep load low & tilted back when traveling", "tip": "4-6 inches off ground with back tilt lowers center of gravity for maximum stability" },
+            { "id": "capacity", "label": "Verify load is within rated capacity", "tip": "Check the data plate — capacity decreases as load center distance increases" },
+            { "id": "triangle", "label": "Check stability triangle alignment", "tip": "The triangle is formed by the two front wheels and rear pivot — keep the combined center of gravity inside it" },
+            { "id": "square", "label": "Position load square and centered on forks", "tip": "Off-center loads shift the center of gravity sideways, increasing tip-over risk" },
+            { "id": "turns", "label": "Make slow, controlled turns with load", "tip": "Centrifugal force during turns can push the combined center of gravity outside the stability triangle" },
+            { "id": "elevated", "label": "Avoid traveling with elevated loads", "tip": "Elevated loads raise the center of gravity, dramatically reducing stability on turns and inclines" }
+          ]
+        },
+        "cards": {
+          "source_ts": [
+            { "id": 1, "front": "What is the stability triangle?", "back": "The triangle formed by the two front wheels and rear axle pivot. Keep the combined COG inside it.", "icon": "/training/flashcards/m3-stability-triangle.svg" },
+            { "id": 2, "front": "Load center—why it matters?", "back": "Further from the heel = less capacity. Keep loads tight to the carriage; respect rated load center.", "icon": "/training/flashcards/m3-load-center.svg" },
+            { "id": 3, "front": "Best travel position with a load?", "back": "Forks low; mast slightly tilted back; look in the direction of travel.", "icon": "/training/flashcards/m3-fork-travel-position.svg" },
+            { "id": 4, "front": "Going upslope with a load?", "back": "Drive forward uphill with load upgrade; downhill with load downgrade in reverse.", "icon": "/training/flashcards/m3-ramps.svg" },
+            { "id": 5, "front": "Turning with elevated loads?", "back": "Avoid—high tip-over risk. Lower before turning; slow, smooth steering only.", "icon": "/training/flashcards/m3-no-elevated-travel.svg" },
+            { "id": 6, "front": "Stacking basics?", "back": "Square up; level forks; raise to height; inch forward; lower to rest; back out straight; lower forks to travel.", "icon": "/training/flashcards/m3-stacking.svg" }
+          ],
+          "source_json": [
+            { "id": "m3-fc-01", "front": "Stability triangle — points", "back": "Front tire contacts + rear axle pivot.", "icon": "/training/flashcards/m3-stability-triangle.svg" },
+            { "id": "m3-fc-02", "front": "Load center — definition", "back": "Distance from the face of forks to load's center of gravity (often 24 in / 600 mm unless specified).", "icon": "/training/flashcards/m3-load-center.svg" },
+            { "id": "m3-fc-03", "front": "Travel position of forks", "back": "Low (4–6 in / 10–15 cm) and slightly tilted back.", "icon": "/training/flashcards/m3-fork-travel-position.svg" },
+            { "id": "m3-fc-04", "front": "Ramps — travel rule", "back": "Up ramp with load uphill; down ramp with load downhill; go slow and straight.", "icon": "/training/flashcards/m3-ramps.svg" },
+            { "id": "m3-fc-05", "front": "Blind corners — what to do", "back": "Slow, sound horn, ensure clear path, maintain visibility.", "icon": "/training/flashcards/m3-blind-corner.svg" },
+            { "id": "m3-fc-06", "front": "No elevated travel", "back": "Never drive with an elevated load; lower to travel height first.", "icon": "/training/flashcards/m3-no-elevated-travel.svg" },
+            { "id": "m3-fc-07", "front": "Pedestrians — priority", "back": "Pedestrians always have right of way; make eye contact; stop if unsure.", "icon": "/training/flashcards/m3-pedestrian-priority.svg" },
+            { "id": "m3-fc-08", "front": "Stacking basics", "back": "Level the forks, square to load, place gently, back out slowly.", "icon": "/training/flashcards/m3-stacking.svg" }
+          ]
+        },
+        "quiz": {
+          "api_endpoint": "GET /api/quiz/module/stability-and-load-handling?locale=en",
+          "source_table": "quiz_items",
+          "filter": { "module_slug": "stability-and-load-handling", "active": true }
+        }
+      }
+    },
+    {
+      "module_order": 4,
+      "module_id": "39ea326a-3228-478e-8976-38c187ef1595",
+      "title": "Module 4: Hazard Hunt",
+      "content_slug": "safe-operation-and-hazards",
+      "type": "game",
+      "web_route": "/training/forklift-operator/module-4",
+      "steps": {
+        "osha": {
+          "title": "OSHA Basics — Workplace Hazards",
+          "note": "Reference: OSHA 29 CFR 1910.178(n), (o), (p).",
+          "bullets": [
+            "Train for your facility's hazards and use the scene hotspots to practice. Control hazards before operating.",
+            "Blind corners & aisles: Stop/creep, sound horn, look; use convex mirrors; keep corners clear of parked equipment.",
+            "Pedestrians: Marked walkways, eye contact, spotters when required; maintain separation; right-of-way to pedestrians.",
+            "Ramps & slopes: Keep forks low/tilted back; no turning on ramps; control speed; chock as needed.",
+            "Docks & edges: Use dock locks/chocks; verify dock plates (capacity, lip engaged, dry); maintain a setback from edges; watch overhead doors.",
+            "Spills & leaks: Clean or barricade; report leaks; never travel through unidentified liquids.",
+            "Speed & visibility: Obey posted speed; maintain lighting; beacon/reverse beeper operating; slow for wet/icy floors.",
+            "Overhead obstructions: Verify clearances; never travel with an elevated load; watch sprinklers/doors/fixtures.",
+            "Charging/fueling areas: Ventilated, no ignition sources; eyewash/spill kits available and known."
+          ],
+          "checklist_items": [
+            {
+              "id": "train-for-your-facility-s-hazards",
+              "title": "Train for your facility's hazards",
+              "description": "and use the scene hotspots to practice. Control hazards before operating.",
+              "icon": "⚠️",
+              "details": {
+                "heading": "Workplace-Specific Training (OSHA 1910.178(l)(3)):",
+                "body": "OSHA requires training in operating conditions specific to YOUR workplace. This includes:",
+                "items": ["Surface conditions (wet, uneven, slopes)", "Load types and characteristics common to your facility", "Traffic patterns and pedestrian zones", "Specific hazards unique to your environment"],
+                "subsections": [{ "heading": "Hazard Control Hierarchy:", "body": "1. Eliminate hazards if possible | 2. Engineer controls (barriers, guards) | 3. Administrative (policies, training) | 4. PPE as last resort" }],
+                "warning": "⚠️ Your employer must document site-specific hazards and provide additional training for any unique conditions."
+              }
+            },
+            {
+              "id": "blind-corners---aisles",
+              "title": "Blind corners & aisles",
+              "description": "Stop/creep, sound horn, look; use convex mirrors; keep corners clear of parked equipment.",
+              "icon": "🚧",
+              "details": {
+                "heading": "Blind Corner Procedures:",
+                "items": ["Slow to creep speed as you approach (2-3 mph max)", "Sound horn to alert anyone around the corner", "Check mirrors if available to see ahead", "Edge forward carefully - never commit to a turn without clear view", "Listen for other equipment or voices"],
+                "subsections": [{ "heading": "Facility Controls:", "body": "Convex mirrors should be installed at blind intersections. Keep corners clear of parked equipment, pallets, or boxes. Mark high-traffic intersections with lines or signage." }],
+                "warning": "⚠️ T-bone collisions at blind corners can be fatal. Always assume someone is coming."
+              }
+            },
+            {
+              "id": "pedestrians",
+              "title": "Pedestrians",
+              "description": "Marked walkways, eye contact, spotters when required; maintain separation; right-of-way to pedestrians.",
+              "icon": "🚶‍♂️",
+              "details": {
+                "heading": "Pedestrian Protection (OSHA 1910.178(l)(1)):",
+                "body": "OSHA requires permanent aisles and passageways be appropriately marked. Pedestrians have absolute right-of-way.",
+                "items": ["Marked walkways: Respect pedestrian-only zones with painted lines", "Eye contact: Never pass a pedestrian without making direct eye contact", "Spotter required: Congested areas, limited visibility, or when backing long distances", "Safe separation: Maintain at least 3 feet clearance when passing workers", "Stop and yield: Always give pedestrians right-of-way without exception"],
+                "warning": "⚠️ Pedestrian fatalities are preventable. Treat every person as if they can't see or hear you."
+              }
+            },
+            {
+              "id": "ramps---slopes",
+              "title": "Ramps & slopes",
+              "description": "Keep forks low/tilted back; no turning on ramps; control speed; chock as needed.",
+              "icon": "⛰️",
+              "details": {
+                "heading": "Ramp and Slope Procedures:",
+                "subsections": [
+                  { "heading": "Load position based on direction:", "items": ["Loaded going uphill: Forks point uphill to prevent load sliding", "Unloaded going downhill: Forks point downhill for stability"] },
+                  { "heading": "Critical Rules for Grades:", "items": ["Keep forks 4-6 inches off surface, mast tilted back", "NEVER turn on a ramp - straighten out first, then turn", "Descend slowly using service brake, not neutral coasting", "Use wheel chocks when loading/unloading on slopes", "Watch for surface conditions (wet, icy, loose gravel)"] }
+                ],
+                "warning": "⚠️ Tip-overs on ramps are usually lateral (sideways). Never turn while on a grade."
+              }
+            },
+            {
+              "id": "docks---edges",
+              "title": "Docks & edges",
+              "description": "Use dock locks/chocks; verify dock plates (capacity, lip engaged, dry); maintain a setback from edges; watch overhead doors.",
+              "icon": "🚪",
+              "details": {
+                "heading": "Loading Dock Safety (OSHA 1910.178(k)(1)):",
+                "items": ["Dock locks: Engage restraints before driving onto trailer", "Wheel chocks: Place at trailer wheels as backup restraint", "Dock plate inspection: Verify capacity rating, lip properly engaged, surface dry and clean", "Edge awareness: Maintain 12-inch setback from edges at all times", "Communication: Coordinate with dock supervisor and truck driver"],
+                "subsections": [{ "heading": "Trailer Safety:", "body": "Verify trailer is stable and won't roll. Check floor condition inside trailer - look for holes, weak spots, or damage. Ensure adequate lighting inside trailer. Never enter a trailer if it's moving or unstable." }],
+                "warning": "⚠️ Trailers creeping away from dock or dock plate failure causes serious accidents. Always verify restraints."
+              }
+            },
+            {
+              "id": "spills---leaks",
+              "title": "Spills & leaks",
+              "description": "Clean or barricade; report leaks; never travel through unidentified liquids.",
+              "icon": "⚡",
+              "details": {
+                "heading": "Spill Response Procedures:",
+                "items": ["Stop operations: Don't drive through spills - creates slip hazard", "Barricade immediately: Use cones or caution tape to warn others", "Identify substance: Check container labels, ask supervisor", "Clean per SDS: Use appropriate absorbent and disposal method", "Report all leaks: Document location, substance, and action taken"],
+                "subsections": [{ "heading": "Common Hazardous Fluids:", "items": ["Battery acid (sulfuric acid - extremely corrosive)", "Hydraulic fluid (slippery, fire hazard if heated)", "LP gas (explosion hazard)", "Fuel (fire hazard)"] }],
+                "warning": "⚠️ Unidentified liquids may be hazardous. Never attempt cleanup without proper PPE and SDS guidance."
+              }
+            },
+            {
+              "id": "speed---visibility",
+              "title": "Speed & visibility",
+              "description": "Obey posted speed; maintain lighting; beacon/reverse beeper operating; slow for wet/icy floors.",
+              "icon": "🔥",
+              "details": {
+                "heading": "Speed Control (OSHA 1910.178(n)(8)):",
+                "body": "Speed limits must be posted and obeyed. Typical limits are 5-8 mph in open areas, 2-3 mph in congested zones or at intersections.",
+                "subsections": [
+                  { "heading": "Speed Reduction Required:", "items": ["Wet, icy, or oily surfaces (reduce speed 50% or more)", "Congested areas with pedestrians", "Approaching intersections or blind corners", "Uneven surfaces or floor joints", "When carrying large or unstable loads"] },
+                  { "heading": "Visibility Equipment:", "body": "Headlights, beacons, and backup alarms must be operational. These devices alert pedestrians to your presence and improve your visibility of the environment." }
+                ],
+                "warning": "⚠️ Speed-related accidents increase in severity. Slower speeds allow more reaction time to avoid collisions."
+              }
+            },
+            {
+              "id": "overhead-obstructions",
+              "title": "Overhead obstructions",
+              "description": "Verify clearances; never travel with an elevated load; watch sprinklers/doors/fixtures.",
+              "icon": "⚠️",
+              "details": {
+                "heading": "Overhead Clearance Verification:",
+                "items": ["Mast height: Know your truck's maximum mast height (extended)", "Load height: Add load height to mast height for total clearance needed", "Overhead guard clearance: Factor in overhead guard when going under structures", "Sprinkler systems: Contact can discharge fire suppression or cause flooding", "Door frames: Verify adequate clearance before entering", "Electrical conduits: Contact with high-voltage can be fatal"],
+                "subsections": [{ "heading": "Safe Practices:", "body": "Mark low clearance areas with warning signs and height indicators. Never raise loads higher than necessary for travel. When approaching low clearances, stop and visually verify safe passage." }],
+                "warning": "⚠️ Striking overhead obstacles can cause load falls, structural damage, or electrocution. Always verify clearance before proceeding."
+              }
+            },
+            {
+              "id": "charging-fueling-areas",
+              "title": "Charging/fueling areas",
+              "description": "Ventilated, no ignition sources; eyewash/spill kits available and known.",
+              "icon": "⚠️",
+              "details": {
+                "heading": "Battery Charging Area Requirements (OSHA 1910.178(g)):",
+                "items": ["Ventilation: Adequate to disperse hydrogen gas generated during charging", "No smoking: Posted signs prohibiting smoking and open flames", "Eyewash station: Within 10 seconds travel time for battery acid exposure", "Spill kit: Acid neutralizer and absorbent materials readily available", "Fire extinguisher: Class ABC rated, accessible and charged"],
+                "subsections": [{ "heading": "LP Fueling Area Requirements:", "items": ["Well-ventilated area (preferably outdoors)", "No ignition sources within 20 feet", "Cylinder storage must be secure and upright", "Fire extinguisher readily available"] }],
+                "warning": "⚠️ Battery acid can cause chemical burns. LP gas is explosive. Know emergency procedures before charging/fueling."
+              }
+            }
+          ],
+          "lesson_sections": [
+            { "kind": "objectives", "items": ["Spot hazards before they bite", "Use horn/visibility; control speed"] },
+            { "kind": "media", "src": "training/b1-bay.svg", "alt": "Bay scene – hazards" },
+            { "kind": "media", "src": "training/b2-corner.svg", "alt": "Blind corner scene – hazards" },
+            { "kind": "media", "src": "training/b3-dock.svg", "alt": "Ramp/dock scene – hazards" },
+            {
+              "kind": "icons",
+              "icons": [
+                { "src": "training/c2-spill.svg", "alt": "Spill", "label": "Spill" },
+                { "src": "training/c2-pedestrian.svg", "alt": "Pedestrian", "label": "Pedestrian" },
+                { "src": "training/c2-overhead.svg", "alt": "Overhead", "label": "Overhead" },
+                { "src": "training/c2-unstable.svg", "alt": "Unstable load", "label": "Unstable load" },
+                { "src": "training/c2-corner.svg", "alt": "Blind corner", "label": "Blind corner" },
+                { "src": "training/c2-speed.svg", "alt": "Speed", "label": "Speed zone" },
+                { "src": "training/c2-ramp.svg", "alt": "Ramp", "label": "Ramp" },
+                { "src": "training/c2-dock.svg", "alt": "Dock edge", "label": "Dock edge" },
+                { "src": "training/c2-battery.svg", "alt": "Battery", "label": "Battery area" }
+              ]
+            }
+          ]
+        },
+        "practice": {
+          "title": "Hazard hunt — mark each hazard",
+          "subtitle": "Tap each hazard to learn the correct response",
+          "type": "checklist",
+          "completion_title": "Hazard Spotter Certified!",
+          "completion_message": "You've trained your eye to spot hazards! In real operations, identify and report hazards BEFORE an incident occurs — prevention is the goal. (OSHA 1910.178(l))",
+          "items": [
+            { "id": "spill", "label": "Identify spill hazard", "tip": "Stop and report spills immediately — liquids cause loss of traction and uncontrolled skids" },
+            { "id": "corner", "label": "Identify blind corner hazard", "tip": "Sound horn and slow down at blind corners — collisions with pedestrians are often fatal" },
+            { "id": "overhead", "label": "Identify overhead obstruction", "tip": "Watch mast height and overhead clearance — striking pipes, lights, or sprinklers causes serious damage" },
+            { "id": "pedestrian", "label": "Identify pedestrian crossing area", "tip": "Pedestrians always have the right of way — make eye contact before proceeding" },
+            { "id": "dock", "label": "Identify dock edge/ramp hazard", "tip": "Check dock plates are secure and trailer brakes are set — dock falls are often fatal" },
+            { "id": "speed", "label": "Identify speed zone violation", "tip": "Reduce speed in designated zones — forklifts need 3x the stopping distance of a car" },
+            { "id": "unstable", "label": "Identify unstable load hazard", "tip": "Don't move unstable loads — restack or secure before transport" },
+            { "id": "congestion", "label": "Identify congested aisle hazard", "tip": "Clear the area or find alternate route — congested aisles increase collision risk" }
+          ]
+        },
+        "cards": {
+          "source_ts": [
+            { "id": 1, "front": "Approaching a blind corner?", "back": "Slow/stop, sound horn, creep into sight line; use mirrors if installed; expect pedestrians.", "icon": "/training/flashcards/m3-blind-corner.svg" },
+            { "id": 2, "front": "Pedestrian priority means…", "back": "Pedestrians always have the right of way. Keep eye contact; never assume they see you.", "icon": "/training/flashcards/m3-pedestrian-priority.svg" },
+            { "id": 3, "front": "Spill on the floor—action?", "back": "Stop, mark/guard the area, report/clean per procedure before resuming operations.", "icon": "/training/flashcards/m4-spill.svg" },
+            { "id": 4, "front": "Overhead obstacles—control?", "back": "Know truck height with mast/forks; look up; travel slow in low-clearance areas.", "icon": "/training/flashcards/m4-overhead-obstruction.svg" },
+            { "id": 5, "front": "Speed management in aisles?", "back": "Adjust for conditions: congestion, visibility, floor condition, and load. No fast turns.", "icon": "/training/flashcards/m4-speed-zone.svg" },
+            { "id": 6, "front": "Unstable/tilted pallet on rack?", "back": "Do not move under it. Secure or rework load; tag out the location if needed.", "icon": "/training/flashcards/m4-unstable-load.svg" }
+          ],
+          "source_json": [
+            { "id": "m4-fc-01", "front": "Blind corner — control", "back": "Horn, slow speed, mirror checks, stop if not clear.", "icon": "/training/flashcards/m3-blind-corner.svg" },
+            { "id": "m4-fc-02", "front": "Pedestrian aisle — control", "back": "Walkway separation, right-of-way, eye contact, spotter if needed.", "icon": "/training/flashcards/m3-pedestrian-priority.svg" },
+            { "id": "m4-fc-03", "front": "Spill on floor — control", "back": "Stop, cordon, clean per SOP; no travel through spills.", "icon": "/training/flashcards/m4-spill.svg" },
+            { "id": "m4-fc-04", "front": "Overhead obstruction — control", "back": "Lower mast/forks; verify clearance before moving.", "icon": "/training/flashcards/m4-overhead-obstruction.svg" },
+            { "id": "m4-fc-05", "front": "Unstable load — control", "back": "Restack/secure; do not move until stable within capacity.", "icon": "/training/flashcards/m4-unstable-load.svg" },
+            { "id": "m4-fc-06", "front": "Speed zone — control", "back": "Observe posted limits; slow near pedestrians and intersections.", "icon": "/training/flashcards/m4-speed-zone.svg" },
+            { "id": "m4-fc-07", "front": "Ramp/dock edge — control", "back": "Use chocks/dock plates; keep distance from edges; slow/straight.", "icon": "/training/flashcards/m4-dock-edge.svg" },
+            { "id": "m4-fc-08", "front": "Aisle congestion — control", "back": "Wait or use spotter; maintain clearances; no squeezing loads.", "icon": "/training/flashcards/m4-aisle-congestion.svg" }
+          ]
+        },
+        "quiz": {
+          "api_endpoint": "GET /api/quiz/module/safe-operation-and-hazards?locale=en",
+          "source_table": "quiz_items",
+          "filter": { "module_slug": "safe-operation-and-hazards", "active": true }
+        }
+      }
+    },
+    {
+      "module_order": 5,
+      "module_id": "f363c001-2af9-4f3c-be54-2a083ae1fb37",
+      "title": "Module 5: Advanced Operations",
+      "content_slug": "shutdown-and-parking",
+      "type": "game",
+      "web_route": "/training/forklift-operator/module-5",
+      "steps": {
+        "osha": {
+          "title": "OSHA Basics — Charging/Fueling & Care",
+          "note": "Reference: OSHA 29 CFR 1910.178(g), (l); manufacturer manuals; SDS.",
+          "bullets": [
+            "Battery charging: Park, set brake, forks down, power off; ventilated area; no smoking/open flames.",
+            "Wear PPE (eye/face, gloves, apron per SDS). Eyewash and spill neutralizer available.",
+            "Unplug truck; inspect cables/connectors; connect charger leads correctly; verify charger settings.",
+            "After charge, turn charger off (if required), then disconnect; inspect for heat/damage; keep vent caps in place.",
+            "LP fuel (if applicable): Shut engine off; close cylinder valve; allow area to cool; no ignition sources.",
+            "Wear PPE; remove/replace cylinder upright with locating pin engaged; secure clamp/strap.",
+            "Reconnect; open valve slowly; leak-check; if odor/leak—shut down and report.",
+            "Care & records: Only authorized personnel repair/adjust trucks; defective trucks are removed from service.",
+            "Operator certification records include name, training date, evaluation date, and trainer/evaluator. Provide refresher training after incidents/unsafe operation/workplace changes, and evaluate each operator at least every 3 years."
+          ],
+          "checklist_items": [
+            {
+              "id": "battery-charging", "title": "Battery charging", "description": "Park, set brake, forks down, power off; ventilated area; no smoking/open flames.", "icon": "🔋",
+              "details": {
+                "heading": "Battery Charging Procedures (OSHA 1910.178(g)):",
+                "subsections": [
+                  { "heading": "Before charging:", "items": ["Park in designated charging area with adequate ventilation", "Set parking brake and lower forks completely", "Turn off truck power (key off, disconnect switch if equipped)", "Allow battery to cool if just used"] },
+                  { "heading": "Area Requirements:", "items": ["Adequate ventilation to disperse hydrogen gas", "No smoking or open flame signs posted", "Eyewash station within 10 seconds", "Spill kit with acid neutralizer available"] }
+                ],
+                "warning": "⚠️ Hydrogen gas generated during charging is explosive. One spark can cause battery explosion with acid spray."
+              }
+            },
+            {
+              "id": "wear-ppe--eye-face--gloves--apron-per-sds-", "title": "Wear PPE (eye/face, gloves, apron per SDS)", "description": "Eyewash and spill neutralizer available.", "icon": "🦺",
+              "details": {
+                "heading": "Required PPE for Battery Handling:",
+                "items": ["Face shield or goggles: Full face protection against acid splash", "Rubber gloves: Chemical-resistant, extend past wrists", "Rubber apron: Protects torso and legs from acid", "Safety shoes: Chemical-resistant with toe protection"],
+                "subsections": [{ "heading": "Emergency Equipment (OSHA 1910.178(g)(2)):", "items": ["Eyewash station accessible within 10 seconds", "Acid neutralizer (baking soda solution) for spills", "Absorbent materials for containment", "First aid kit with burn treatment supplies"] }],
+                "warning": "⚠️ Battery acid causes severe chemical burns on contact. Know location of safety equipment before handling batteries."
+              }
+            },
+            {
+              "id": "unplug-truck", "title": "Unplug truck", "description": "inspect cables/connectors; connect charger leads correctly; verify charger settings.", "icon": "🔌",
+              "details": {
+                "heading": "Safe Charging Connection Procedure:",
+                "items": ["1. Unplug truck: Disconnect battery from truck (if removable) or turn off all switches", "2. Inspect cables: Check for fraying, exposed wires, damaged insulation, or corrosion", "3. Clean connectors: Remove any corrosion or debris from terminals", "4. Verify polarity: Match positive to positive, negative to negative", "5. Connect charger: Plug charger leads firmly into battery connector", "6. Check charger: Verify correct voltage and amperage settings for your battery"],
+                "subsections": [{ "heading": "Charger Settings:", "body": "Verify charger voltage matches battery (24V, 36V, 48V, etc.). Incorrect settings can damage battery or create fire hazard. Modern chargers auto-detect, but older models require manual selection." }],
+                "warning": "⚠️ Reversed polarity or wrong voltage can cause battery damage, fire, or explosion. Always verify before starting charge."
+              }
+            },
+            {
+              "id": "after-charge", "title": "After charge", "description": "turn charger off (if required), then disconnect; inspect for heat/damage; keep vent caps in place.", "icon": "🔍",
+              "details": {
+                "heading": "Post-Charging Procedures:",
+                "subsections": [
+                  { "heading": "Disconnection sequence:", "items": ["1. Turn off charger: Stop charging cycle if manual charger", "2. Disconnect leads: Remove charger connector from battery", "3. Inspect connections: Check for heat damage, melting, or corrosion", "4. Check electrolyte: Verify levels (if applicable) - add distilled water only", "5. Secure vent caps: Ensure all caps are tightened to prevent acid spray"] },
+                  { "heading": "Heat and Damage Inspection:", "body": "Batteries and connectors get hot during charging. Excessive heat indicates problems - damaged cables, poor connections, or charger malfunction. Report any overheating immediately." }
+                ],
+                "warning": "⚠️ Hot batteries can off-gas more hydrogen. Allow cooling time before use. Never add water immediately after charging."
+              }
+            },
+            {
+              "id": "lp-fuel--if-applicable-", "title": "LP fuel (if applicable)", "description": "Shut engine off; close cylinder valve; allow area to cool; no ignition sources.", "icon": "🔧",
+              "details": {
+                "heading": "LP Cylinder Change Procedure (OSHA 1910.178(f)):",
+                "subsections": [
+                  { "heading": "Before removing cylinder:", "items": ["Shut off engine completely", "Close cylinder valve (turn clockwise)", "Allow engine to burn remaining fuel in lines", "Wait for exhaust system to cool (hot surfaces ignite LP)", "Park in well-ventilated area away from ignition sources"] },
+                  { "heading": "Cylinder Removal/Installation:", "body": "LP cylinders must be handled upright. Never drop or roll cylinders. Inspect for damage, dents, rust, or leaks before installing. Secure with strap/clamp and locating pin. Leak test connections with soap solution before starting engine." }
+                ],
+                "warning": "⚠️ LP gas is heavier than air and collects in low areas. If you smell propane (rotten egg odor), evacuate area immediately."
+              }
+            },
+            {
+              "id": "wear-ppe-cylinder", "title": "Wear PPE; remove/replace cylinder upright", "description": "with locating pin engaged; secure clamp/strap.", "icon": "📋",
+              "details": {
+                "heading": "LP Cylinder Handling PPE:",
+                "items": ["Safety gloves (protect hands from cold and sharp edges)", "Safety glasses or face shield", "Steel-toe boots (cylinders are heavy ~35 lbs)"],
+                "subsections": [{ "heading": "Proper Cylinder Installation:", "items": ["Keep upright: Never tip or lay cylinders horizontally", "Locating pin: Must engage properly to prevent cylinder movement", "Secure clamp/strap: Tighten to prevent shifting during operation", "Connection: Thread fitting carefully - don't cross-thread", "Valve operation: Open slowly (counter-clockwise) after connection"] }],
+                "warning": "⚠️ Improperly secured cylinders can fall off during operation, causing leaks or impact hazards."
+              }
+            },
+            {
+              "id": "reconnect", "title": "Reconnect", "description": "open valve slowly; leak-check; if odor/leak—shut down and report.", "icon": "🔌",
+              "details": {
+                "heading": "Leak Detection Procedures:",
+                "subsections": [
+                  { "heading": "After installing LP cylinder:", "items": ["Open valve slowly: Turn counter-clockwise 1-2 full turns", "Soap test: Apply soap solution to all connections", "Look for bubbles: Any bubbling indicates a leak", "Smell test: LP has added odorant (mercaptan) - smells like rotten eggs"] },
+                  { "heading": "If Leak Detected:", "items": ["Close cylinder valve immediately", "Do NOT attempt to repair - call maintenance", "Evacuate area if strong odor present", "Tag truck out of service", "Report to supervisor"] }
+                ],
+                "warning": "⚠️ NEVER use open flames or matches to check for leaks. LP gas is extremely flammable and forms explosive mixtures."
+              }
+            },
+            {
+              "id": "care---records", "title": "Care & records", "description": "Only authorized personnel repair/adjust trucks; defective trucks are removed from service.", "icon": "📋",
+              "details": {
+                "heading": "Maintenance Authorization (OSHA 1910.178(q)(1)):",
+                "body": "Only persons trained and authorized by the employer may perform repairs or adjustments to powered industrial trucks. Operators should NEVER attempt repairs.",
+                "subsections": [
+                  { "heading": "Operator Responsibilities:", "items": ["Report all defects immediately to supervisor", "Tag out defective equipment to prevent use", "Document defects on inspection forms", "Never bypass safety devices or make field repairs", "Follow lockout/tagout procedures when applicable"] },
+                  { "heading": "Recordkeeping Requirements (OSHA 1910.178(l)(6)):", "body": "Employers must maintain records of operator training including: operator name, training dates, evaluation dates, and identity of persons conducting training and evaluation. Records demonstrate compliance during OSHA inspections." }
+                ],
+                "warning": "⚠️ Unauthorized repairs or modifications can void certifications and create liability for accidents."
+              }
+            },
+            {
+              "id": "operator-certification-records", "title": "Operator certification records", "description": "include name, training date, evaluation date, and trainer/evaluator. Provide refresher training after incidents/unsafe operation/workplace changes, and evaluate each operator at least every 3 years.", "icon": "📋",
+              "details": {
+                "heading": "Certification Requirements (OSHA 1910.178(l)):",
+                "subsections": [
+                  { "heading": "Initial Certification Must Include:", "items": ["Formal instruction (classroom or online)", "Practical training (hands-on with equipment)", "Evaluation of operator performance in workplace", "Training on workplace-specific conditions and equipment"] },
+                  { "heading": "Refresher Training Required (OSHA 1910.178(l)(4)):", "items": ["Every 3 years minimum - re-evaluate and document", "After any accident or near-miss involving the operator", "After observed unsafe operation by supervisor", "When assigned to new truck type with different characteristics", "When workplace conditions change (new hazards, equipment, processes)"] },
+                  { "heading": "Documentation to Maintain:", "body": "Records must include operator name, training dates, evaluation dates, and identity of persons who trained and evaluated the operator. These records prove OSHA compliance." }
+                ],
+                "warning": "⚠️ Operating without current certification violates OSHA and exposes employer to penalties up to $156,000+ per violation."
+              }
+            }
+          ],
+          "lesson_sections": [
+            { "kind": "objectives", "items": ["Leave truck safe", "Charge / secure before walking away"] },
+            {
+              "kind": "icons",
+              "icons": [
+                { "src": "training/c4-step1-neutral.svg", "alt": "Neutral", "label": "Neutral" },
+                { "src": "training/c4-step2-steer.svg", "alt": "Steer straight", "label": "Steer straight" },
+                { "src": "training/c4-step3-brake.svg", "alt": "Brake set", "label": "Brake set" },
+                { "src": "training/c4-step4-forks.svg", "alt": "Forks down", "label": "Forks down" },
+                { "src": "training/c4-step5-key.svg", "alt": "Key off", "label": "Key off" },
+                { "src": "training/c4-step6-charge.svg", "alt": "Connect charger", "label": "Charger" },
+                { "src": "training/c4-step7-chock.svg", "alt": "Wheel chock", "label": "Chock" }
+              ]
+            },
+            { "kind": "media", "src": "training/d3-forks.svg", "alt": "Forks lower animation" },
+            { "kind": "media", "src": "training/d4-charge.svg", "alt": "Connect charger animation" },
+            { "kind": "media", "src": "training/a3-charging.svg", "alt": "Charging schematic" }
+          ]
+        },
+        "practice": {
+          "title": "End-of-shift safety checks",
+          "subtitle": "Tap each item to review end-of-shift safety",
+          "type": "checklist",
+          "completion_title": "Shutdown Expert!",
+          "completion_message": "You know how to safely end your shift! Never walk away from a forklift without completing shutdown — an unsecured truck is a hazard to everyone. (OSHA 1910.178(m))",
+          "items": [
+            { "id": "shutdown", "label": "Review shutdown procedures", "tip": "Follow the sequence: Neutral → Brake → Forks down → Key off — skipping steps creates hazards" },
+            { "id": "attachments", "label": "Review attachment safety", "tip": "Attachments must be approved for your truck — they change capacity and require data plate update" },
+            { "id": "charging", "label": "Review charging safety protocols", "tip": "Batteries produce explosive hydrogen gas during charging — proper ventilation prevents ignition" },
+            { "id": "charging-area", "label": "Verify charging area is safe (ventilation, no flames)", "tip": "No smoking, open flames, or sparks within 25 feet — hydrogen gas is highly explosive" },
+            { "id": "ppe", "label": "Check PPE for battery handling", "tip": "Face shield, rubber gloves, and apron required — battery acid causes severe burns" },
+            { "id": "sequence", "label": "Confirm proper shutdown sequence", "tip": "Neutral, parking brake, forks flat on floor — prevents roll-away and trip hazards" },
+            { "id": "connections", "label": "Inspect fuel/power connections", "tip": "Check for leaks, corrosion, and secure connections — fuel leaks cause fires, loose cables arc" },
+            { "id": "parking", "label": "Verify parking brake and forks lowered", "tip": "Forks flat on floor prevents tripping — parking brake prevents uncontrolled movement" }
+          ]
+        },
+        "cards": {
+          "source_ts": [
+            { "id": 1, "front": "Shutdown steps, in order?", "back": "Neutral → Steer straight → Parking brake → Forks down → Key off → Connect charger → Wheel chock.", "icon": "/training/flashcards/m5-shutdown.svg" },
+            { "id": 2, "front": "Why chock the wheel?", "back": "Prevents unintended movement during parking/charging; required in many dock areas.", "icon": "/training/flashcards/m5-parking.svg" },
+            { "id": 3, "front": "Charging safety basics?", "back": "No smoking/open flames; vent caps in place; PPE; eyewash nearby; good ventilation.", "icon": "/training/flashcards/m5-charging-area.svg" },
+            { "id": 4, "front": "Battery connections—what to check?", "back": "Cables intact, connectors clean/secure; connect charger only with key off and truck secured.", "icon": "/training/flashcards/m5-charger-connect.svg" },
+            { "id": 5, "front": "After charging…", "back": "Disconnect properly; coil cables; inspect area; update logs as required.", "icon": "/training/flashcards/m5-charger-connect.svg" },
+            { "id": 6, "front": "When do you tag out instead of parking?", "back": "Any critical defect (brakes, steering, hydraulics, forks, guards). Remove from service and report.", "icon": "/training/flashcards/m2-safety-devices.svg" }
+          ],
+          "source_json": [
+            { "id": "m5-fc-01", "front": "Charging area — requirements", "back": "Eyewash, ventilation, fire protection, spill neutralizer; no ignition sources.", "icon": "/training/flashcards/m5-charging-area.svg" },
+            { "id": "m5-fc-02", "front": "Connecting charger — sequence", "back": "Park, brake, power OFF, plug in per SOP; check cables and connectors.", "icon": "/training/flashcards/m5-charger-connect.svg" },
+            { "id": "m5-fc-03", "front": "LP cylinder change — key steps", "back": "Close valve, engine OFF, cool, disconnect carefully, leak check after install.", "icon": "/training/flashcards/m5-lp-cylinder.svg" },
+            { "id": "m5-fc-04", "front": "Parking — when leaving truck", "back": "Forks down, neutral, brake set, power OFF; chock if required.", "icon": "/training/flashcards/m5-parking.svg" },
+            { "id": "m5-fc-05", "front": "Shutdown — after shift", "back": "Inspect, report defects, connect charger/fuel per policy, secure truck.", "icon": "/training/flashcards/m5-shutdown.svg" },
+            { "id": "m5-fc-06", "front": "Records — certification", "back": "Keep operator name, training & evaluation dates, evaluator identity; refreshers per triggers.", "icon": "/training/flashcards/m5-records-cert.svg" },
+            { "id": "m5-fc-07", "front": "When refresher training is required", "back": "After incidents/near-misses, unsafe operation, workplace/equipment changes, or 3-year eval shows need.", "icon": "/training/flashcards/m5-refresher.svg" },
+            { "id": "m5-fc-08", "front": "No-charge rules", "back": "No smoking or open flames; keep vent caps in place; handle electrolytes with PPE.", "icon": "/training/flashcards/m5-no-charging-hazards.svg" }
+          ]
+        },
+        "quiz": {
+          "api_endpoint": "GET /api/quiz/module/shutdown-and-parking?locale=en",
+          "source_table": "quiz_items",
+          "filter": { "module_slug": "shutdown-and-parking", "active": true }
+        }
+      }
+    }
+  ],
+  "osha_basics_es": {
+    "m1": {
+      "title": "OSHA 1910.178 — Requisitos de Pre-Operación",
+      "bullets": [
+        "Inspeccionar el montacargas antes de cada turno y retirar del servicio si cualquier condición afecta adversamente la seguridad (29 CFR 1910.178(q)). Solo personal autorizado realiza reparaciones.",
+        "EPP y cinturón de seguridad: Usar EPP requerido (chaleco de alta visibilidad, casco, protección ocular/auditiva, botas de seguridad) y usar el cinturón de seguridad.",
+        "Placa de datos: Presente, legible, y refleja todos los aditamentos; conocer capacidad y centro de carga.",
+        "Controles y alertas: Probar bocina, luces/baliza, pitido de reversa, y alarmas; sonar bocina en esquinas ciegas e intersecciones.",
+        "Horquillas, cadenas, mangueras: Horquillas emparejadas, pasadores en lugar, sin grietas/dobleces; cadenas lubricadas sin torceduras/eslabones rotos; mangueras/cilindros libres de fugas.",
+        "Frenos y dirección: Freno de servicio, freno de estacionamiento, y dirección responden correctamente.",
+        "Llantas y ruedas: Banda de rodadura/inflado adecuado, sin cortes/pedazos; tuercas apretadas; rines sin daño.",
+        "Limpieza: Mantener pasillos despejados; limpiar o acordonar derrames prontamente.",
+        "Etiquetar montacargas inseguros: Reportar defectos; no operar hasta reparar y verificar seguridad."
+      ],
+      "note": "Referencia: OSHA 29 CFR 1910.178."
+    },
+    "m2": {
+      "title": "Básicos OSHA — Inspección de 8 Puntos",
+      "bullets": [
+        "Ejecutar la inspección completa cada turno y registrar defectos. Retirar montacargas del servicio si cualquier condición afecta adversamente la seguridad (29 CFR 1910.178(q)(7)). Las reparaciones deben ser por personal autorizado.",
+        "Horquillas: Sin grietas o dobleces; par emparejado; pasadores de bloqueo en lugar; desgaste del talón dentro del límite.",
+        "Cadenas y mangueras: Sin torceduras, eslabones rotos, deshilachado, o fugas; tensión/lubricación adecuada; guardas en lugar.",
+        "Llantas y ruedas: Banda de rodadura/inflado adecuado (neumáticas), sin cortes/pedazos; tuercas apretadas; rines sin daño.",
+        "Bocina y luces: La bocina funciona (usar en esquinas ciegas); faros/luces traseras/baliza, pitido de reversa funcional.",
+        "Cinturón de seguridad y placa de datos: Cinturón presente/funcionando; placa de datos presente, legible, y coincide con aditamentos/capacidad.",
+        "Fugas/tren de rodaje: Sin fugas hidráulicas, combustible, o refrigerante; mástil/tren de rodaje despejado; limpiar derrames según procedimiento.",
+        "Batería/sistema LP: Cables/conectores intactos y seguros; cargador lleva OK; cilindro LP asegurado, sin fugas/olor.",
+        "Dispositivos de seguridad: Freno de estacionamiento, hombre muerto, frenos, y dirección responden correctamente; alarmas presentes y funcionando."
+      ],
+      "note": "Referencia: OSHA 29 CFR 1910.178(q), (a); ANSI/ITSDF B56.1."
+    },
+    "m3": {
+      "title": "Básicos OSHA — Equilibrio y Manejo de Carga",
+      "bullets": [
+        "Triángulo de estabilidad: dos ruedas delanteras + pivote del eje trasero.",
+        "Mantener carga baja e inclinada hacia atrás; viajar con horquillas ~4–6 pulg.",
+        "Conocer centro de carga y capacidad nominal de la placa de datos.",
+        "Girar despacio con carga elevada u descentrada; sin giros bruscos.",
+        "Nivelar horquillas antes de entrada/salida; usar bocina en intersecciones."
+      ],
+      "note": "Referencia: OSHA 29 CFR 1910.178(n), (o); manuales del fabricante."
+    },
+    "m4": {
+      "title": "Básicos OSHA — Conciencia de Peligros",
+      "bullets": [
+        "Esquinas ciegas: despacio, sonar bocina, avanzar lentamente en intersecciones.",
+        "Zonas peatonales: contacto visual, derecho de paso, guías.",
+        "Obstrucciones aéreas: espacio libre del mástil, marcos de puertas, rociadores.",
+        "Rampas y muelles: aproximarse derecho; calzar ruedas.",
+        "Limpieza: derrames y escombros son peligros de control."
+      ],
+      "note": "Referencia: OSHA 29 CFR 1910.178(n); políticas del sitio."
+    },
+    "m5": {
+      "title": "Básicos OSHA — Operaciones Avanzadas",
+      "bullets": [
+        "Área de carga: lavaojos, ventilación, protección contra incendios, neutralizador de derrames disponible.",
+        "Conectar cargador: estacionar, freno, energía APAGADA, enchufar según SOP; verificar cables/conectores.",
+        "Cambio de cilindro LP: cerrar válvula, motor APAGADO, enfriar, desconectar cuidadosamente, verificar fugas después de instalar.",
+        "Estacionamiento: horquillas abajo, neutral, freno puesto, energía APAGADA; calzar si es requerido.",
+        "Reconectar; abrir válvula despacio; verificar fugas; si olor/fuga—apagar y reportar.",
+        "Cuidado y registros: Solo personal autorizado repara/ajusta montacargas; montacargas defectuosos se retiran del servicio.",
+        "Los registros de certificación del operador incluyen nombre, fecha de entrenamiento, fecha de evaluación, y entrenador/evaluador. Proporcionar entrenamiento de repaso después de incidentes/operación insegura/cambios en el lugar de trabajo, y evaluar cada operador al menos cada 3 años."
+      ],
+      "note": "Referencia: OSHA 29 CFR 1910.178(g), (l); manuales del fabricante; SDS."
+    }
+  }
+}

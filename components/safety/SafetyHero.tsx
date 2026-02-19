@@ -5,8 +5,13 @@ import Image from "next/image";
 import { loadStripe } from "@stripe/stripe-js";
 import { trackEvent } from "@/lib/analytics/gtag";
 import { trackLanding, trackCTA, trackCheckoutBegin } from "@/lib/analytics/vercel-funnel";
+import type { StateData } from "@/lib/data/state-data";
 
-export default function SafetyHero() {
+interface SafetyHeroProps {
+  stateData?: StateData | null;
+}
+
+export default function SafetyHero({ stateData }: SafetyHeroProps = {}) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
@@ -110,11 +115,25 @@ export default function SafetyHero() {
         <div className="mx-auto max-w-5xl px-4 text-center md:text-left">
           <div className="flex flex-col md:items-start items-center">
             <h1 className="text-4xl md:text-6xl font-bold leading-[1.1] tracking-tighter text-white max-w-4xl text-balance">
-              Get Online Forklift Certification in Under 30 Minutes
+              {stateData
+                ? `Get ${stateData.name} Forklift Certified Online in Under 30 Minutes`
+                : "Get Online Forklift Certification in Under 30 Minutes"}
             </h1>
             
             <p className="mt-6 text-slate-300 text-lg md:text-xl max-w-2xl leading-relaxed font-normal">
-              <span className="text-white font-medium">30 Minutes</span> • <span className="text-white font-semibold">$49</span> • Same-day certificate • OSHA-aligned
+              {stateData ? (
+                <>
+                  <span className="text-white font-medium">30 Minutes</span> • <span className="text-white font-semibold">$49</span> • Same-day certificate • OSHA-aligned
+                  <span className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-base">
+                    <span className="text-emerald-400 font-medium">✓ Valid for {stateData.name} employers</span>
+                    <span className="text-emerald-400 font-medium">✓ {stateData.operatorsCertified} {stateData.name} operators certified</span>
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="text-white font-medium">30 Minutes</span> • <span className="text-white font-semibold">$49</span> • Same-day certificate • OSHA-aligned
+                </>
+              )}
             </p>
             
             <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
@@ -165,7 +184,11 @@ export default function SafetyHero() {
                   <div className="flex text-yellow-400 text-sm gap-0.5">
                     {'★★★★★'.split('').map((star, i) => <span key={i}>{star}</span>)}
                   </div>
-                  <p className="text-slate-400 text-sm font-medium">Trusted by 2,000+ operators</p>
+                  <p className="text-slate-400 text-sm font-medium">
+                    {stateData
+                      ? `Trusted by 2,000+ operators nationwide`
+                      : "Trusted by 2,000+ operators"}
+                  </p>
                 </div>
               </div>
 

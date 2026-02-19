@@ -20,6 +20,7 @@ export async function createCheckoutSession(planId: string) {
 
 export async function createTrainingCheckoutSessionFromForm(formData: FormData): Promise<void> {
   const priceId = formData.get('priceId') as string;
+  const referralCode = formData.get('referralCode') as string | null;
   
   if (!priceId) {
     throw new Error('Missing priceId');
@@ -42,7 +43,8 @@ export async function createTrainingCheckoutSessionFromForm(formData: FormData):
         metadata: {
           seat_count: seatCount  // Pass seat count in metadata
         }
-      }]
+      }],
+      ...(referralCode && { referral_code: referralCode }),
     })
   });
   

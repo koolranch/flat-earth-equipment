@@ -2,6 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { supabaseServer } from '@/lib/supabase/server';
+import { supabaseService } from '@/lib/supabase/service.server';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -24,7 +25,21 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json().catch(() => ({}));
-    
+
+    // Referral code lookup — only for training purchases
+    let referralPromoCodeId: string | null = null;
+    const referralCode = body.referral_code as string | undefined;
+    if (referralCode && body.items?.some((item: any) => item.isTraining)) {
+      const { data: refCode } = await supabaseService()
+        .from('referral_codes')
+        .select('stripe_promotion_code_id')
+        .eq('code', referralCode.toUpperCase())
+        .single();
+      if (refCode?.stripe_promotion_code_id) {
+        referralPromoCodeId = refCode.stripe_promotion_code_id;
+      }
+    }
+
     // Handle both simple checkout (BuyNowButton) and cart checkout (cart page)
     let lineItems = [];
     let metadata: Record<string, string> = {};
@@ -52,6 +67,9 @@ export async function POST(req: NextRequest) {
           // Add funnel state if provided (for Vercel Analytics)
           if (item.metadata?.utm_state) {
             metadata.funnel_state = String(item.metadata.utm_state);
+          }
+          if (referralCode) {
+            metadata.referral_code = referralCode.toUpperCase();
           }
         }
         
@@ -316,7 +334,9 @@ export async function POST(req: NextRequest) {
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       line_items: lineItems,
-      allow_promotion_codes: true,
+      ...(referralPromoCodeId
+        ? { discounts: [{ promotion_code: referralPromoCodeId }] }
+        : { allow_promotion_codes: true }),
       billing_address_collection: "required",
       shipping_address_collection: { allowed_countries: ["US", "CA"] },
       success_url: `${base}/checkout/success?slug=${encodeURIComponent(successSlug)}&session_id={CHECKOUT_SESSION_ID}`,

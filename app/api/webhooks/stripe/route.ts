@@ -248,6 +248,37 @@ export async function POST(req: Request) {
         } else {
           console.log(`✅ User enrolled successfully (${quantity > 1 ? 'trainer with ' + quantity + ' seats' : 'single seat'})`)
         }
+
+        // Record referral conversion (non-blocking — must never break purchase flow)
+        if (session.metadata?.referral_code) {
+          try {
+            const refCode = session.metadata.referral_code;
+            const refEmail = session.customer_details?.email || session.customer_email || '';
+
+            const { data: refCodeRow } = await supabase
+              .from('referral_codes')
+              .select('user_id')
+              .eq('code', refCode)
+              .single();
+
+            if (refCodeRow) {
+              await supabase
+                .from('referrals')
+                .upsert(
+                  {
+                    referrer_id: refCodeRow.user_id,
+                    referred_email: refEmail,
+                    code_used: refCode,
+                    stripe_session_id: session.id,
+                  },
+                  { onConflict: 'stripe_session_id' }
+                );
+              console.log(`[referral] Recorded conversion: ${refCode} -> ${refEmail}`);
+            }
+          } catch (refErr: any) {
+            console.error('[referral] Failed to record conversion:', refErr.message);
+          }
+        }
         
       } catch (error) {
         console.error('❌ Error processing training purchase:', error)

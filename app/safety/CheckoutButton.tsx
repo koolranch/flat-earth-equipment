@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { loadStripe } from '@stripe/stripe-js'
 import { trackEvent } from '@/lib/analytics/gtag'
 
@@ -11,9 +12,10 @@ interface CheckoutButtonProps {
   coupon?: string // Keep for test page compatibility
 }
 
-export default function CheckoutButton({ courseSlug, price, priceId, coupon }: CheckoutButtonProps) {
+function CheckoutButtonInner({ courseSlug, price, priceId, coupon }: CheckoutButtonProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const searchParams = useSearchParams()
 
   const handleCheckout = async () => {
     console.log('Checkout button clicked')
@@ -36,6 +38,7 @@ export default function CheckoutButton({ courseSlug, price, priceId, coupon }: C
     try {
       console.log('Sending request to /api/checkout with:', { courseSlug, priceId, coupon })
       
+      const referralCode = searchParams.get('ref') || undefined
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -45,7 +48,8 @@ export default function CheckoutButton({ courseSlug, price, priceId, coupon }: C
             quantity: 1,
             isTraining: true
           }],
-          ...(coupon && { coupon }) // Only include coupon if passed as prop (for test page)
+          ...(coupon && { coupon }),
+          ...(referralCode && { referral_code: referralCode }),
         })
       })
       
@@ -108,4 +112,12 @@ export default function CheckoutButton({ courseSlug, price, priceId, coupon }: C
       )}
     </div>
   )
-} 
+}
+
+export default function CheckoutButton(props: CheckoutButtonProps) {
+  return (
+    <Suspense>
+      <CheckoutButtonInner {...props} />
+    </Suspense>
+  )
+}
