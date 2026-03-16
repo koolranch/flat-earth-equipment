@@ -65,7 +65,8 @@ export default function CartPage() {
             coreCharge: item.has_core_charge ? item.core_charge : undefined,
             metadata: item.metadata,
             name: item.name,
-            category: item.category
+            category: item.category,
+            price: item.price
           }))
         }),
       });
