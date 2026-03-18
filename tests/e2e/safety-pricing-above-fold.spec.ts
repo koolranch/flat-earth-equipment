@@ -3,20 +3,18 @@ import { test, expect } from '@playwright/test';
 test('safety page shows above-the-fold pricing strip', async ({ page }) => {
   await page.goto('/safety');
   
-  // Check that hero has "See pricing" button
-  await expect(page.getByTestId('hero-see-pricing')).toBeVisible();
-  
-  // Click the hero pricing link
-  await page.getByTestId('hero-see-pricing').click();
+  // Check that the hero CTA is visible
+  await expect(page.getByRole('button', { name: 'Start — $49' }).first()).toBeVisible();
   
   // Should scroll to pricing section
   await expect(page.locator('#pricing')).toBeVisible();
   
-  // Check that all buy buttons are visible in the pricing strip
-  await expect(page.getByTestId('safety-top-buy-single')).toBeVisible();
-  await expect(page.getByTestId('safety-top-buy-five')).toBeVisible();
-  await expect(page.getByTestId('safety-top-buy-twenty5')).toBeVisible();
-  await expect(page.getByTestId('safety-top-buy-unlim')).toBeVisible();
+  // Check that the key pricing actions are visible in the pricing strip
+  await expect(page.getByTestId('safety-top-buy-single').first()).toBeVisible();
+  await expect(page.getByTestId('safety-top-buy-five').first()).toBeVisible();
+  await expect(page.getByTestId('safety-top-buy-twenty5').first()).toBeVisible();
+  await expect(page.getByTestId('safety-top-contact-unlim').first()).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Facility Unlimited Annual' }).first()).toBeVisible();
 });
 
 test('pricing strip shows correct plan details', async ({ page }) => {
@@ -26,12 +24,12 @@ test('pricing strip shows correct plan details', async ({ page }) => {
   await page.locator('#pricing').scrollIntoViewIfNeeded();
   
   // Check that plan titles and prices are visible
-  await expect(page.getByText('Forklift Certification – Single')).toBeVisible();
-  await expect(page.getByText('$59')).toBeVisible();
-  await expect(page.getByText('Forklift Certification – 5 Pack')).toBeVisible();
-  await expect(page.getByText('$275')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Single Operator' }).first()).toBeVisible();
+  await expect(page.getByText('$49').first()).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Team 5-Pack' }).first()).toBeVisible();
+  await expect(page.getByText('$225').first()).toBeVisible();
   
   // Check navigation links
   await expect(page.getByText('Already have a code?')).toBeVisible();
-  await expect(page.getByText('See how it works')).toBeVisible();
+  await expect(page.getByText('See full pricing')).toBeVisible();
 });

@@ -12,6 +12,12 @@ function ReferralHiddenInput() {
   return <input type="hidden" name="referralCode" value={ref} />;
 }
 
+function BillingLabel({ label }: { label?: string }) {
+  if (!label) return null;
+
+  return <span className="ml-2 text-lg font-semibold text-slate-500">{label}</span>;
+}
+
 export default function PricingStrip({ disableBuy = false }: { disableBuy?: boolean }) {
   const [showTeamPricing, setShowTeamPricing] = useState(false);
   
@@ -22,7 +28,7 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
     <section id="pricing" className="mt-8 mx-auto max-w-6xl px-4">
       <h2 className="text-3xl font-bold text-center text-slate-900">Pricing</h2>
       <p className="text-center text-base text-slate-600 mt-2">Choose a plan and checkout securely.</p>
-      <p className="text-center text-sm text-slate-600 mt-1">Bulk seat packs include manager dashboard and verification tools.</p>
+      <p className="text-center text-sm text-slate-600 mt-1">Team plans include seat management, progress tracking, and certificate verification.</p>
       <p className="text-center text-xs text-emerald-600 font-medium mt-2">✨ All seats include lifetime course access and free 3-year theory refresher.</p>
       
       {/* Desktop: Show all 4 plans in grid */}
@@ -43,10 +49,13 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
             )}
             <div>
               <h3 className="text-xl font-bold text-slate-900">{p.title}</h3>
-              <div className="text-4xl font-bold mt-3 text-[#F76511]">{p.priceText}</div>
+              <div className="mt-3 flex items-end text-[#F76511]">
+                <span className="text-4xl font-bold">{p.priceText}</span>
+                <BillingLabel label={p.billingLabel} />
+              </div>
               <p className="text-sm text-slate-600 mt-2">{p.blurb}</p>
-              {p.savings && (
-                <p className="text-xs text-emerald-600 font-semibold mt-1">Save: {p.savings}</p>
+              {p.callout && (
+                <p className="text-xs text-emerald-600 font-semibold mt-1">{p.callout}</p>
               )}
             </div>
             {disableBuy ? (
@@ -57,7 +66,7 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
               >
                 See on pricing page
               </Link>
-            ) : (
+            ) : p.priceId ? (
               <form action={createTrainingCheckoutSessionFromForm} className="mt-6">
                 <input type="hidden" name="priceId" value={p.priceId} />
                 <Suspense><ReferralHiddenInput /></Suspense>
@@ -73,6 +82,14 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
                   Buy Now →
                 </button>
               </form>
+            ) : (
+              <Link
+                href="/contact"
+                className="mt-6 w-full text-center px-4 py-3 rounded-xl border-2 border-slate-300 text-slate-700 font-medium hover:bg-slate-50 transition-colors"
+                data-testid={`safety-top-contact-${p.key}`}
+              >
+                Contact Us →
+              </Link>
             )}
           </div>
         ))}
@@ -96,10 +113,13 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
           )}
           <div>
             <h3 className="text-xl font-bold text-slate-900">{singlePlan.title}</h3>
-            <div className="text-4xl font-bold mt-3 text-[#F76511]">{singlePlan.priceText}</div>
+            <div className="mt-3 flex items-end text-[#F76511]">
+              <span className="text-4xl font-bold">{singlePlan.priceText}</span>
+              <BillingLabel label={singlePlan.billingLabel} />
+            </div>
             <p className="text-sm text-slate-600 mt-2">{singlePlan.blurb}</p>
-            {singlePlan.savings && (
-              <p className="text-xs text-emerald-600 font-semibold mt-1">Save: {singlePlan.savings}</p>
+            {singlePlan.callout && (
+              <p className="text-xs text-emerald-600 font-semibold mt-1">{singlePlan.callout}</p>
             )}
           </div>
           {disableBuy ? (
@@ -146,10 +166,13 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
               >
                 <div>
                   <h3 className="text-xl font-bold text-slate-900">{p.title}</h3>
-                  <div className="text-4xl font-bold mt-3 text-[#F76511]">{p.priceText}</div>
+                  <div className="mt-3 flex items-end text-[#F76511]">
+                    <span className="text-4xl font-bold">{p.priceText}</span>
+                    <BillingLabel label={p.billingLabel} />
+                  </div>
                   <p className="text-sm text-slate-600 mt-2">{p.blurb}</p>
-                  {p.savings && (
-                    <p className="text-xs text-emerald-600 font-semibold mt-1">Save: {p.savings}</p>
+                  {p.callout && (
+                    <p className="text-xs text-emerald-600 font-semibold mt-1">{p.callout}</p>
                   )}
                 </div>
                 {disableBuy ? (
@@ -160,7 +183,7 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
                   >
                     See on pricing page
                   </Link>
-                ) : (
+                ) : p.priceId ? (
                   <form action={createTrainingCheckoutSessionFromForm} className="mt-6">
                     <input type="hidden" name="priceId" value={p.priceId} />
                     <Suspense><ReferralHiddenInput /></Suspense>
@@ -172,6 +195,14 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
                       Buy Now →
                     </button>
                   </form>
+                ) : (
+                  <Link
+                    href="/contact"
+                    className="mt-6 w-full text-center px-4 py-3 rounded-xl border-2 border-slate-300 text-slate-700 font-medium hover:bg-slate-50 transition-colors"
+                    data-testid={`safety-top-contact-${p.key}`}
+                  >
+                    Contact Us →
+                  </Link>
                 )}
               </div>
             ))}

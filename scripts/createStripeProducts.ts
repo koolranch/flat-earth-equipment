@@ -13,10 +13,14 @@ const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env
 
 async function main() {
   const tiers = [
-    {name: 'Forklift Certification – Single', unit_amount: 5900},
-    {name: 'Forklift Certification – 5 Pack', unit_amount: 27500},
-    {name: 'Forklift Certification – 25 Pack', unit_amount: 137500},
-    {name: 'Forklift Certification – Facility Unlimited', unit_amount: 199900}
+    {name: 'Forklift Certification – Single', unit_amount: 4900},
+    {name: 'Forklift Certification – Team 5-Pack', unit_amount: 22500},
+    {name: 'Forklift Certification – Team 25-Pack', unit_amount: 99900},
+    {
+      name: 'Forklift Certification – Facility Unlimited Annual',
+      unit_amount: 199900,
+      recurring: { interval: 'year' as const }
+    }
   ]
 
   for (const t of tiers) {
@@ -24,7 +28,8 @@ async function main() {
     const price   = await stripe.prices.create({
       product: product.id,
       currency: 'usd',
-      unit_amount: t.unit_amount
+      unit_amount: t.unit_amount,
+      ...(t.recurring ? { recurring: t.recurring } : {})
     })
     if (t.name.includes('Single')) {
       // upsert course record so Next.js LP can query price id

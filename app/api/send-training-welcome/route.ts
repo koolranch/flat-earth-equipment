@@ -1,8 +1,31 @@
 import { NextResponse } from 'next/server'
 import { sendMail } from '@/lib/email/mailer'
 
-function generateTrainerWelcomeEmail(firstName: string, email: string, password: string, courseTitle: string, seatCount: number): string {
+function generateTrainerWelcomeEmail(
+  firstName: string,
+  email: string,
+  password: string,
+  courseTitle: string,
+  seatCount: number,
+  isAnnualPlan: boolean
+): string {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com';
+  const packageLabel = isAnnualPlan
+    ? 'your annual facility training plan'
+    : `${seatCount} training seats`;
+  const accessCopy = isAnnualPlan
+    ? `You've successfully activated <strong>${courseTitle}</strong> for <strong>one facility on an annual billing cycle</strong>.`
+    : `You've successfully purchased <strong>${seatCount} training seats</strong> for <strong>${courseTitle}</strong>.`;
+  const assignmentCopy = isAnnualPlan
+    ? 'As the facility admin, you can assign seats to operators year-round and track completions across your location.'
+    : 'As a trainer, you can now assign these seats to your team members and track their progress.';
+  const stepTwoCopy = isAnnualPlan
+    ? 'Enter your team members email addresses and send invitations as needed throughout the year. Your annual plan supports ongoing hiring, turnover, and refresher training for one facility.'
+    : `Enter your team members' email addresses and send them personalized invitations. You can assign all ${seatCount} seats now or add team members later.`;
+  const proTipCopy = isAnnualPlan
+    ? 'As the facility admin, you can use the dashboard to keep training moving for new hires and annual refreshers without buying another pack each time.'
+    : `As a trainer, you can also take the course yourself! This is a great way to preview the content and 
+          better support your team. You'll still have full access to assign all ${seatCount} seats to your team.`;
   
   return `
     <!DOCTYPE html>
@@ -14,13 +37,13 @@ function generateTrainerWelcomeEmail(firstName: string, email: string, password:
     <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
       <div style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); color: white; padding: 30px; border-radius: 8px; text-align: center; margin-bottom: 30px;">
         <h1 style="margin: 0; font-size: 28px;">🎓 Your Team Training is Ready!</h1>
-        <p style="margin: 10px 0 0 0; font-size: 18px; opacity: 0.95;">${seatCount} Training Seats for Your Team</p>
+        <p style="margin: 10px 0 0 0; font-size: 18px; opacity: 0.95;">${isAnnualPlan ? 'Facility Unlimited Annual' : `${seatCount} Training Seats for Your Team`}</p>
       </div>
       
       <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
         <h2 style="color: #1f2937; margin-top: 0;">Hi ${firstName}!</h2>
-        <p>Your purchase is complete! You've successfully purchased <strong>${seatCount} training seats</strong> for <strong>${courseTitle}</strong>.</p>
-        <p>As a trainer, you can now assign these seats to your team members and track their progress.</p>
+        <p>Your purchase is complete! ${accessCopy}</p>
+        <p>${assignmentCopy}</p>
       </div>
       
       <!-- Login Credentials -->
@@ -50,7 +73,7 @@ function generateTrainerWelcomeEmail(firstName: string, email: string, password:
         
         <div style="background: white; padding: 15px; border-radius: 6px; margin: 15px 0; border-left: 4px solid #8b5cf6;">
           <h4 style="margin: 0 0 10px 0; color: #6b21a8;">Step 2: Assign Seats to Your Team</h4>
-          <p style="margin: 0; font-size: 14px;">Enter your team members' email addresses and send them personalized invitations. You can assign all ${seatCount} seats now or add team members later.</p>
+          <p style="margin: 0; font-size: 14px;">${stepTwoCopy}</p>
         </div>
         
         <div style="background: white; padding: 15px; border-radius: 6px; margin: 15px 0; border-left: 4px solid #10b981;">
@@ -97,8 +120,7 @@ function generateTrainerWelcomeEmail(firstName: string, email: string, password:
       <div style="background: #f0fdf4; border: 1px solid #10b981; border-radius: 6px; padding: 15px; margin: 20px 0;">
         <h4 style="margin: 0 0 10px 0; color: #047857;">💡 Pro Tip</h4>
         <p style="margin: 0; font-size: 14px; color: #065f46;">
-          As a trainer, you can also take the course yourself! This is a great way to preview the content and 
-          better support your team. You'll still have full access to assign all ${seatCount} seats to your team.
+          ${proTipCopy}
         </p>
       </div>
       
@@ -116,7 +138,7 @@ function generateTrainerWelcomeEmail(firstName: string, email: string, password:
       <div style="text-align: center; color: #6b7280; font-size: 12px;">
         <p><strong>Flat Earth Safety™</strong> | OSHA-Compliant Training Solutions</p>
         <p>flatearthequipment.com | training@flatearthequipment.com</p>
-        <p style="margin-top: 15px;">This training meets OSHA 29 CFR 1910.178 requirements</p>
+        <p style="margin-top: 15px;">This training meets OSHA 29 CFR 1910.178 requirements for ${packageLabel}</p>
       </div>
     </body>
     </html>
@@ -125,7 +147,7 @@ function generateTrainerWelcomeEmail(firstName: string, email: string, password:
 
 export async function POST(req: Request) {
   try {
-    const { email, name, password, courseTitle, isTrainer, seatCount } = await req.json()
+    const { email, name, password, courseTitle, isTrainer, seatCount, isAnnualPlan } = await req.json()
     
     if (!email || !password || !courseTitle) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
@@ -135,11 +157,13 @@ export async function POST(req: Request) {
     
     // Use trainer email template for multi-seat purchases
     if (isTrainer && seatCount && seatCount > 1) {
-      const trainerEmailHtml = generateTrainerWelcomeEmail(firstName, email, password, courseTitle, seatCount);
+      const trainerEmailHtml = generateTrainerWelcomeEmail(firstName, email, password, courseTitle, seatCount, Boolean(isAnnualPlan));
       
       await sendMail({
         to: email,
-        subject: `🎓 Welcome ${firstName}! Your ${seatCount}-Seat Training Package is Ready`,
+        subject: Boolean(isAnnualPlan)
+          ? `🎓 Welcome ${firstName}! Your Facility Unlimited Annual Plan is Ready`
+          : `🎓 Welcome ${firstName}! Your ${seatCount}-Seat Training Package is Ready`,
         html: trainerEmailHtml
       })
       

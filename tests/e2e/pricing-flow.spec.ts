@@ -1,31 +1,32 @@
 import { test, expect } from '@playwright/test';
 
-test('anon → /training/pricing shows plans, buy prompts sign-in', async ({ page }) => {
-  await page.goto('/training/pricing');
-  await expect(page.getByTestId('buy-single')).toBeVisible();
-  await expect(page.getByTestId('buy-five')).toBeVisible();
-  await expect(page.getByTestId('buy-twenty5')).toBeVisible();
-  await expect(page.getByTestId('buy-unlim')).toBeVisible();
+test('anon → /safety shows pricing plans', async ({ page }) => {
+  await page.goto('/safety');
+  await expect(page.getByTestId('safety-top-buy-single').first()).toBeVisible();
+  await expect(page.getByTestId('safety-top-buy-five').first()).toBeVisible();
+  await expect(page.getByTestId('safety-top-buy-twenty5').first()).toBeVisible();
+  await expect(page.getByTestId('safety-top-contact-unlim').first()).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Facility Unlimited Annual' }).first()).toBeVisible();
 });
 
-test('anon → /safety → Get Started → login?next=/training/pricing', async ({ page }) => {
+test('anon → /safety shows primary CTA', async ({ page }) => {
   await page.goto('/safety');
-  await page.getByTestId('get-started-cta').click();
-  await expect(page).toHaveURL(/\/login\?next=%2Ftraining%2Fpricing/);
+  await expect(page.getByRole('button', { name: 'Start — $49' }).first()).toBeVisible();
 });
 
 test('pricing page shows correct plan details', async ({ page }) => {
-  await page.goto('/training/pricing');
+  await page.goto('/safety');
   
   // Check that all plan titles are visible
-  await expect(page.getByText('Forklift Certification – Single')).toBeVisible();
-  await expect(page.getByText('Forklift Certification – 5 Pack')).toBeVisible();
-  await expect(page.getByText('Forklift Certification – 25 Pack')).toBeVisible();
-  await expect(page.getByText('Forklift Certification – Facility Unlimited')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Single Operator' }).first()).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Team 5-Pack' }).first()).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Team 25-Pack' }).first()).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Facility Unlimited Annual' }).first()).toBeVisible();
   
   // Check pricing
-  await expect(page.getByText('$59')).toBeVisible();
-  await expect(page.getByText('$275')).toBeVisible();
-  await expect(page.getByText('$1,375')).toBeVisible();
-  await expect(page.getByText('$1,999')).toBeVisible();
+  await expect(page.getByText('$49').first()).toBeVisible();
+  await expect(page.getByText('$225').first()).toBeVisible();
+  await expect(page.getByText('$999').first()).toBeVisible();
+  await expect(page.getByText('$1,999').first()).toBeVisible();
+  await expect(page.getByText('/year').first()).toBeVisible();
 });

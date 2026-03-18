@@ -2,14 +2,7 @@
 'use server'
 
 import { redirect } from 'next/navigation';
-
-// Map Stripe Price IDs to seat counts for proper order tracking
-const PRICE_TO_SEATS: Record<string, number> = {
-  'price_1SToXBHJI548rO8JZnnTwKER': 1,   // Single Operator (Black Friday $49)
-  'price_1RS835HJI548rO8JkMXj7FMQ': 5,   // 5-Pack
-  'price_1RS835HJI548rO8JbvRrMwUv': 25,  // 25-Pack
-  'price_1RS836HJI548rO8JwlCAzg7m': 999, // Facility Unlimited
-};
+import { getTrainingPlanByPriceId } from '@/lib/training/plans';
 
 export async function createCheckoutSession(planId: string) {
   return {
@@ -25,9 +18,11 @@ export async function createTrainingCheckoutSessionFromForm(formData: FormData):
   if (!priceId) {
     throw new Error('Missing priceId');
   }
-  
-  // Get seat count for this price ID (defaults to 1 for unknown prices)
-  const seatCount = PRICE_TO_SEATS[priceId] || 1;
+
+  const plan = getTrainingPlanByPriceId(priceId);
+  if (!plan) {
+    throw new Error('Unknown or unconfigured training plan');
+  }
   
   // Create Stripe checkout session via API
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com';
@@ -41,7 +36,10 @@ export async function createTrainingCheckoutSessionFromForm(formData: FormData):
         quantity: 1,  // Always 1 - buying one package
         isTraining: true,
         metadata: {
-          seat_count: seatCount  // Pass seat count in metadata
+          seat_count: plan.seats,  // Pass seat count in metadata
+          checkout_mode: plan.checkoutMode,
+          plan_id: plan.id,
+          billing_label: plan.billingLabel || '',
         }
       }],
       ...(referralCode && { referral_code: referralCode }),

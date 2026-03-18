@@ -44,6 +44,7 @@ export async function POST(req: NextRequest) {
     let lineItems = [];
     let metadata: Record<string, string> = {};
     let successSlug = "";
+    let checkoutMode: "payment" | "subscription" = "payment";
     
     if (body.items && Array.isArray(body.items)) {
       // Cart checkout format: { items: [{ priceId, quantity, metadata, coreCharge, isTraining, ... }] }
@@ -53,6 +54,27 @@ export async function POST(req: NextRequest) {
           return NextResponse.json({ error: `Missing priceId for item ${i}` }, { status: 400 });
         }
         
+        const itemCheckoutMode =
+          item.isTraining && item.metadata?.checkout_mode === 'subscription'
+            ? 'subscription'
+            : 'payment';
+
+        if (itemCheckoutMode === 'subscription') {
+          if (body.items.length !== 1) {
+            return NextResponse.json(
+              { error: 'Subscription checkout only supports a single training plan at a time' },
+              { status: 400 }
+            );
+          }
+          if (item.coreCharge && Number(item.coreCharge) > 0) {
+            return NextResponse.json(
+              { error: 'Subscription checkout does not support additional line items' },
+              { status: 400 }
+            );
+          }
+          checkoutMode = 'subscription';
+        }
+
         // Add main product line item
         lineItems.push({
           price: item.priceId,
@@ -62,8 +84,16 @@ export async function POST(req: NextRequest) {
         // If this is a training purchase, add course_slug and quantity for webhook
         if (item.isTraining) {
           metadata.course_slug = 'forklift';
+          metadata.price_id = item.priceId;
+          metadata.checkout_mode = itemCheckoutMode;
           // Use seat_count from metadata if provided, otherwise use quantity
           metadata.quantity = String(item.metadata?.seat_count || item.quantity || 1);
+          if (item.metadata?.plan_id) {
+            metadata.plan_id = String(item.metadata.plan_id);
+          }
+          if (item.metadata?.billing_label) {
+            metadata.billing_label = String(item.metadata.billing_label);
+          }
           // Add funnel state if provided (for Vercel Analytics)
           if (item.metadata?.utm_state) {
             metadata.funnel_state = String(item.metadata.utm_state);
@@ -323,7 +353,7 @@ export async function POST(req: NextRequest) {
     const cancelUrl = isTrainingPurchase ? `${base}/safety#pricing` : `${base}/cart`;
 
     const session = await stripe.checkout.sessions.create({
-      mode: "payment",
+      mode: checkoutMode,
       line_items: lineItems,
       ...(referralPromoCodeId
         ? { discounts: [{ promotion_code: referralPromoCodeId }] }

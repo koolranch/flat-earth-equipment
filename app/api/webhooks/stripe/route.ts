@@ -33,6 +33,8 @@ export async function POST(req: Request) {
       try {
         const customerEmail = session.customer_details?.email
         const customerName = session.customer_details?.name || ''
+        const isAnnualPlan =
+          session.mode === 'subscription' || session.metadata?.checkout_mode === 'subscription'
         
         if (!customerEmail) {
           console.error('❌ No customer email found in session')
@@ -60,7 +62,8 @@ export async function POST(req: Request) {
                 name: customerName,
                 courseTitle: 'Forklift Operator Certification',
                 isTrainer: quantity > 1,
-                seatCount: quantity
+                seatCount: quantity,
+                isAnnualPlan
               })
             }).then(res => {
               if (res.ok) {
@@ -112,7 +115,8 @@ export async function POST(req: Request) {
               password: temporaryPassword,
               courseTitle: 'Forklift Operator Certification',
               isTrainer: quantity > 1,
-              seatCount: quantity
+              seatCount: quantity,
+              isAnnualPlan
             })
           })
           
@@ -139,7 +143,7 @@ export async function POST(req: Request) {
         const courseSlug = session.metadata.course_slug
         const quantity = parseInt(session.metadata.quantity || '1')
         
-        console.log(`🎓 Auto-enrolling in course: ${courseSlug} (${quantity} seats)`)
+        console.log(`🎓 Auto-enrolling in course: ${courseSlug} (${quantity} seats${isAnnualPlan ? ', annual plan' : ''})`)
         
         // First, get the actual course UUID from the slug
         const { data: course, error: courseError } = await supabase

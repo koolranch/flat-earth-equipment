@@ -1,4 +1,7 @@
 // Forklift Certification Training Plans - Stripe Price IDs
+const facilityUnlimitedAnnualPriceId =
+  process.env.NEXT_PUBLIC_TRAINING_FACILITY_UNLIMITED_ANNUAL_PRICE_ID || '';
+
 export const TRAINING_PLANS = {
   single: {
     id: 'single',
@@ -12,49 +15,57 @@ export const TRAINING_PLANS = {
     features: ['Complete in under 30 minutes', 'Instant certificate download', 'Valid for 3 years', 'Accepted by all employers', 'Unlimited exam retakes'],
     seats: 1,
     popular: true,
-    savings: undefined,
+    callout: undefined,
+    checkoutMode: 'payment',
+    billingLabel: undefined,
   },
   pack5: {
     id: 'pack5',
-    key: 'pack5', 
-    name: '5-Pack',
-    title: '5-Pack',
-    price: 275,
-    priceText: '$275',
+    key: 'five',
+    name: 'Team 5-Pack',
+    title: 'Team 5-Pack',
+    price: 225,
+    priceText: '$225',
     priceId: 'price_1RS835HJI548rO8JkMXj7FMQ',
-    blurb: 'Five operator certifications',
+    blurb: 'Best for small crews that need 5 certifications fast.',
     features: ['5 Training Seats', 'Trainer Dashboard', 'Progress Tracking', 'Bulk Certificates'],
     seats: 5,
-    savings: '$20 total',
+    callout: 'Save $20 vs buying 5 singles',
     popular: false,
+    checkoutMode: 'payment',
+    billingLabel: undefined,
   },
   pack25: {
     id: 'pack25',
-    key: 'pack25',
-    name: '25-Pack',
-    title: '25-Pack',
-    price: 1375,
-    priceText: '$1,375',
+    key: 'twenty5',
+    name: 'Team 25-Pack',
+    title: 'Team 25-Pack',
+    price: 999,
+    priceText: '$999',
     priceId: 'price_1RS835HJI548rO8JbvRrMwUv',
-    blurb: 'Twenty-five operator certifications',
+    blurb: 'Best for departments standardizing training across shifts.',
     features: ['25 Training Seats', 'Trainer Dashboard', 'Priority Support', 'Compliance Reports'],
     seats: 25,
-    savings: '$100 total',
+    callout: 'Save $226 vs buying 25 singles',
     popular: false,
+    checkoutMode: 'payment',
+    billingLabel: undefined,
   },
   unlimited: {
     id: 'unlimited',
-    key: 'unlimited',
-    name: 'Facility Unlimited',
-    title: 'Facility Unlimited',
+    key: 'unlim',
+    name: 'Facility Unlimited Annual',
+    title: 'Facility Unlimited Annual',
     price: 1999,
     priceText: '$1,999',
-    priceId: 'price_1RS836HJI548rO8JwlCAzg7m',
-    blurb: 'Unlimited operators for your facility',
-    features: ['Unlimited Seats', 'Dedicated Support', 'Custom Branding', 'API Access'],
+    priceId: facilityUnlimitedAnnualPriceId,
+    blurb: 'Unlimited operators for one facility, billed annually.',
+    features: ['Unlimited Seats for One Facility', 'Seat Assignment Dashboard', 'Progress Tracking', 'Certificate Verification', 'Renewal Reminders'],
     seats: 999,
-    savings: 'Best value',
+    callout: 'Best for ongoing hiring, turnover, and annual retraining.',
     popular: false,
+    checkoutMode: 'subscription',
+    billingLabel: '/year',
   },
 } as const;
 
@@ -62,4 +73,8 @@ export const PLANS = Object.values(TRAINING_PLANS);
 
 export function getTrainingPlans() {
   return Object.values(TRAINING_PLANS);
+}
+
+export function getTrainingPlanByPriceId(priceId: string) {
+  return Object.values(TRAINING_PLANS).find((plan) => plan.priceId === priceId);
 }
