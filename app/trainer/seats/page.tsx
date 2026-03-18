@@ -2,7 +2,19 @@
 import { useEffect, useState } from 'react';
 import { useI18n } from '@/lib/i18n/I18nProvider';
 
-type Row = { order_id: string; course_slug: string; seats: number; claimed: number; remaining: number; amount_cents: number; created_at: string };
+type Row = {
+  order_id: string;
+  course_slug: string;
+  seats: number;
+  claimed: number;
+  remaining: number;
+  seats_label: string;
+  remaining_label: string;
+  is_unlimited: boolean;
+  active: boolean;
+  amount_cents: number;
+  created_at: string;
+};
 
 export default function TrainerSeats() {
   const { t } = useI18n();
@@ -54,11 +66,13 @@ export default function TrainerSeats() {
               <tr key={r.order_id} className="border-t">
                 <td className="p-2">{r.order_id.slice(0, 8)}…</td>
                 <td className="p-2">{r.course_slug}</td>
-                <td className="p-2 text-right">{r.seats}</td>
+                <td className="p-2 text-right">{r.seats_label}</td>
                 <td className="p-2 text-right">{r.claimed}</td>
-                <td className="p-2 text-right font-semibold">{r.remaining}</td>
+                <td className="p-2 text-right font-semibold">{r.remaining_label}</td>
                 <td className="p-2 text-right whitespace-nowrap">
-                  <a className="rounded-xl border px-2 py-1 mr-2" href={`/trainer/invites?order=${r.order_id}`}>{t('seats.invite')}</a>
+                  {r.active && (
+                    <a className="rounded-xl border px-2 py-1 mr-2" href={`/trainer/invites?order=${r.order_id}`}>{t('seats.invite')}</a>
+                  )}
                   <a className="rounded-xl border px-2 py-1" href={`/api/trainer/export.csv?order_id=${r.order_id}`}>{t('seats.export')}</a>
                 </td>
               </tr>

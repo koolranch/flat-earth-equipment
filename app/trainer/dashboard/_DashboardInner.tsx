@@ -5,6 +5,14 @@ import AssignSeatsPanel from '@/components/trainer/AssignSeatsPanel';
 import Link from 'next/link';
 
 type Row = { enrollment_id: string; learner_id: string; learner_name: string; learner_email: string; course_slug: string; progress_pct: number; status: 'not_started' | 'in_progress' | 'passed'; passed: boolean; cert_pdf_url: string | null; cert_issued_at: string | null; updated_at?: string; created_at?: string };
+type SeatsInfo = {
+  total: number;
+  claimed: number;
+  remaining: number;
+  hasUnlimited: boolean;
+  totalLabel: string;
+  remainingLabel: string;
+};
 
 export default function DashboardInner() {
   const { t } = useI18n();
@@ -13,7 +21,7 @@ export default function DashboardInner() {
   const [total, setTotal] = useState(0);
   const [pageSize, setPageSize] = useState(50);
   const [loading, setLoading] = useState(true);
-  const [seatsInfo, setSeatsInfo] = useState<{total: number; claimed: number; remaining: number} | null>(null);
+  const [seatsInfo, setSeatsInfo] = useState<SeatsInfo | null>(null);
   const [hasEnterpriseAccess, setHasEnterpriseAccess] = useState(false);
 
   const [q, setQ] = useState('');
@@ -67,13 +75,18 @@ export default function DashboardInner() {
       if (r.ok) {
         const j = await r.json();
         if (j.ok && j.items && j.items.length > 0) {
-          // Sum up all seats across orders
+          const hasUnlimited = j.items.some((order: any) => order.is_unlimited && order.active);
           const totals = j.items.reduce((acc: any, order: any) => ({
             total: acc.total + (order.seats || 0),
             claimed: acc.claimed + (order.claimed || 0),
             remaining: acc.remaining + (order.remaining || 0)
           }), { total: 0, claimed: 0, remaining: 0 });
-          setSeatsInfo(totals);
+          setSeatsInfo({
+            ...totals,
+            hasUnlimited,
+            totalLabel: hasUnlimited ? 'Unlimited' : String(totals.total),
+            remainingLabel: hasUnlimited ? 'Unlimited' : String(totals.remaining),
+          });
         }
       }
     } catch (e) {
@@ -117,8 +130,8 @@ export default function DashboardInner() {
               <span className="text-sm font-medium text-blue-700">Total Seats</span>
               <span className="text-2xl">💺</span>
             </div>
-            <div className="text-3xl font-bold text-blue-900">{seatsInfo.total}</div>
-            <div className="text-xs text-blue-600 mt-1">Purchased</div>
+            <div className="text-3xl font-bold text-blue-900">{seatsInfo.totalLabel}</div>
+            <div className="text-xs text-blue-600 mt-1">{seatsInfo.hasUnlimited ? 'Annual plan active' : 'Purchased'}</div>
           </div>
           
           <div className="rounded-2xl border bg-gradient-to-br from-green-50 to-green-100 p-4 border-green-200">
@@ -126,8 +139,8 @@ export default function DashboardInner() {
               <span className="text-sm font-medium text-green-700">Available</span>
               <span className="text-2xl">🟢</span>
             </div>
-            <div className="text-3xl font-bold text-green-900">{seatsInfo.remaining}</div>
-            <div className="text-xs text-green-600 mt-1">Ready to assign</div>
+            <div className="text-3xl font-bold text-green-900">{seatsInfo.remainingLabel}</div>
+            <div className="text-xs text-green-600 mt-1">{seatsInfo.hasUnlimited ? 'Ready to assign year-round' : 'Ready to assign'}</div>
           </div>
           
           <div className="rounded-2xl border bg-gradient-to-br from-purple-50 to-purple-100 p-4 border-purple-200">
@@ -142,7 +155,7 @@ export default function DashboardInner() {
       )}
 
       {/* Assign Seats Panel - Show if they have available seats */}
-      {seatsInfo && seatsInfo.remaining > 0 && (
+      {seatsInfo && (seatsInfo.hasUnlimited || seatsInfo.remaining > 0) && (
         <div className="rounded-2xl border bg-gradient-to-r from-blue-50 to-indigo-50 p-4">
           <AssignSeatsPanel />
         </div>
@@ -210,7 +223,9 @@ export default function DashboardInner() {
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                       </svg>
-                      {seatsInfo.remaining} seat{seatsInfo.remaining !== 1 ? 's' : ''} available to assign
+                      {seatsInfo.hasUnlimited
+                        ? 'Unlimited seats available to assign'
+                        : `${seatsInfo.remaining} seat${seatsInfo.remaining !== 1 ? 's' : ''} available to assign`}
                     </div>
                   </div>
                 </td>

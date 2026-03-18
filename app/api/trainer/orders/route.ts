@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
+import { getOrderSeatSummary } from '@/lib/training/orderEntitlements';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,7 +25,7 @@ export async function GET(req: Request) {
   // Fetch orders for this trainer
   const { data: orders, error } = await svc
     .from('orders')
-    .select('id, course_id, course_slug, seats, amount_cents, created_at')
+    .select('id, course_id, course_slug, seats, amount_cents, created_at, is_unlimited, subscription_status, current_period_end, cancel_at_period_end, ended_at')
     .eq('user_id', user.id)
     .order('created_at', { ascending: false });
   if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
@@ -42,14 +43,19 @@ export async function GET(req: Request) {
   }
 
   const rows = (orders || []).map((o: any) => {
-    const claimed = seatMap[o.id]?.claimed || 0;
-    const remaining = Math.max(0, (o.seats || 0) - claimed);
+    const summary = getOrderSeatSummary(o, seatMap[o.id]?.claimed || 0);
     return {
       order_id: o.id,
       course_slug: o.course_slug || 'forklift_operator',
-      seats: o.seats || 0,
-      claimed,
-      remaining,
+      seats: summary.seats,
+      claimed: summary.claimed,
+      remaining: summary.remaining,
+      seats_label: summary.seatsLabel,
+      remaining_label: summary.remainingLabel,
+      is_unlimited: summary.isUnlimited,
+      active: summary.active,
+      cancel_at_period_end: !!o.cancel_at_period_end,
+      current_period_end: o.current_period_end || null,
       amount_cents: o.amount_cents || 0,
       created_at: o.created_at
     };

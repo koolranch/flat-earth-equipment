@@ -38,6 +38,7 @@ export async function createTrainingCheckoutSessionFromForm(formData: FormData):
         metadata: {
           seat_count: plan.seats,  // Pass seat count in metadata
           checkout_mode: plan.checkoutMode,
+          is_unlimited: plan.id === 'unlimited',
           plan_id: plan.id,
           billing_label: plan.billingLabel || '',
         }

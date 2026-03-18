@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { supabaseService } from '@/lib/supabase/service.server'
+import { getOrderSeatSummary } from '@/lib/training/orderEntitlements'
 
 export async function POST(req: Request) {
   try {
@@ -23,7 +24,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Order not found' }, { status: 404 })
     }
     
-    if (order.available_seats <= 0) {
+    const claimedCount = Math.max(0, (order.seats || 0) - (order.available_seats || 0))
+    const summary = getOrderSeatSummary(order, claimedCount)
+
+    if (!summary.canAssign) {
       return NextResponse.json({ error: 'No seats left' }, { status: 400 })
     }
 
@@ -70,14 +74,16 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Failed to enroll user' }, { status: 500 })
     }
 
-    // decrement seat counter
-    const { error: updateError } = await supabase
-      .from('orders')
-      .update({ available_seats: order.available_seats - 1 })
-      .eq('id', orderId)
-      
-    if (updateError) {
-      return NextResponse.json({ error: 'Failed to update available seats' }, { status: 500 })
+    if (!summary.isUnlimited) {
+      // decrement seat counter for finite packs only
+      const { error: updateError } = await supabase
+        .from('orders')
+        .update({ available_seats: order.available_seats - 1 })
+        .eq('id', orderId)
+        
+      if (updateError) {
+        return NextResponse.json({ error: 'Failed to update available seats' }, { status: 500 })
+      }
     }
 
     return NextResponse.json({ ok: true, userId, courseId: order.course_id })

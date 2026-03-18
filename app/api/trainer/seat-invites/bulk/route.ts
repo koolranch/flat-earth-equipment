@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
+import { selectClaimableOrder } from '@/lib/training/orderEntitlements';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -47,6 +48,42 @@ export async function POST(req: Request) {
     }, { status: 404 });
   }
 
+  const { data: orders, error: ordersError } = await svc
+    .from('orders')
+    .select('id, seats, created_at, is_unlimited, subscription_status, current_period_end, ended_at')
+    .eq('user_id', user.id)
+    .eq('course_id', course_id)
+    .order('created_at', { ascending: false });
+
+  if (ordersError) {
+    return NextResponse.json({
+      ok: false,
+      error: ordersError.message
+    }, { status: 500 });
+  }
+
+  const orderIds = (orders || []).map((order: any) => order.id);
+  let claimedByOrderId: Record<string, number> = {};
+  if (orderIds.length > 0) {
+    const { data: claims } = await svc
+      .from('seat_claims')
+      .select('order_id')
+      .in('order_id', orderIds);
+
+    for (const claim of claims || []) {
+      const orderId = (claim as any).order_id;
+      claimedByOrderId[orderId] = (claimedByOrderId[orderId] || 0) + 1;
+    }
+  }
+
+  const selectedOrder = selectClaimableOrder((orders || []) as any[], claimedByOrderId);
+  if (!selectedOrder) {
+    return NextResponse.json({
+      ok: false,
+      error: 'no_assignable_seats'
+    }, { status: 400 });
+  }
+
   // Filter valid emails and prepare invite rows
   const validEmails = emails.filter(isEmail);
   const invalidEmails = emails.filter(email => !isEmail(email));
@@ -59,9 +96,18 @@ export async function POST(req: Request) {
     }, { status: 400 });
   }
 
+  if (!selectedOrder.summary.isUnlimited && validEmails.length > selectedOrder.summary.remaining) {
+    return NextResponse.json({
+      ok: false,
+      error: 'insufficient_available_seats',
+      available_seats: selectedOrder.summary.remaining
+    }, { status: 400 });
+  }
+
   // Prepare rows for insertion
   const rows = validEmails.map(email => ({
     created_by: user.id,
+    order_id: selectedOrder.order.id,
     course_id,
     email,
     status: 'pending' as const,

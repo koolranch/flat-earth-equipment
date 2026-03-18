@@ -88,6 +88,9 @@ export async function POST(req: NextRequest) {
           metadata.checkout_mode = itemCheckoutMode;
           // Use seat_count from metadata if provided, otherwise use quantity
           metadata.quantity = String(item.metadata?.seat_count || item.quantity || 1);
+          if (item.metadata?.is_unlimited !== undefined) {
+            metadata.is_unlimited = String(item.metadata.is_unlimited);
+          }
           if (item.metadata?.plan_id) {
             metadata.plan_id = String(item.metadata.plan_id);
           }
@@ -360,6 +363,13 @@ export async function POST(req: NextRequest) {
         : { allow_promotion_codes: true }),
       billing_address_collection: "required",
       shipping_address_collection: { allowed_countries: ["US", "CA"] },
+      ...(checkoutMode === 'subscription'
+        ? {
+            subscription_data: {
+              metadata,
+            },
+          }
+        : {}),
       success_url: `${base}/checkout/success?slug=${encodeURIComponent(successSlug)}&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: cancelUrl,
       metadata: metadata,

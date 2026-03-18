@@ -5,6 +5,55 @@ import Stripe from 'stripe'
 import { supabaseService } from '@/lib/supabase/service.server'
 import { createReturnLabel } from '@/lib/shippo'
 
+function isoFromUnix(ts?: number | null) {
+  return ts ? new Date(ts * 1000).toISOString() : null
+}
+
+async function fetchSubscriptionSnapshot(stripe: Stripe, subscriptionId?: string | null) {
+  if (!subscriptionId) return null
+
+  const subscription = await stripe.subscriptions.retrieve(subscriptionId) as Stripe.Subscription & {
+    current_period_end?: number | null
+  }
+  return {
+    stripe_subscription_id: subscription.id,
+    stripe_customer_id:
+      typeof subscription.customer === 'string' ? subscription.customer : subscription.customer?.id || null,
+    subscription_status: subscription.status,
+    current_period_end: isoFromUnix(subscription.current_period_end),
+    cancel_at_period_end: subscription.cancel_at_period_end,
+    ended_at: isoFromUnix(subscription.ended_at),
+  }
+}
+
+async function syncSubscriptionOrderState(
+  supabase: ReturnType<typeof supabaseService>,
+  stripe: Stripe,
+  subscriptionId?: string | null
+) {
+  if (!subscriptionId) return
+
+  const snapshot = await fetchSubscriptionSnapshot(stripe, subscriptionId)
+  if (!snapshot) return
+
+  const { error } = await supabase
+    .from('orders')
+    .update({
+      is_unlimited: true,
+      stripe_subscription_id: snapshot.stripe_subscription_id,
+      stripe_customer_id: snapshot.stripe_customer_id,
+      subscription_status: snapshot.subscription_status,
+      current_period_end: snapshot.current_period_end,
+      cancel_at_period_end: snapshot.cancel_at_period_end,
+      ended_at: snapshot.ended_at,
+    })
+    .eq('stripe_subscription_id', snapshot.stripe_subscription_id)
+
+  if (error) {
+    console.error(`❌ Failed to sync subscription state for ${subscriptionId}:`, error)
+  }
+}
+
 export async function POST(req: Request) {
   const rawBody = await req.text()
   const signature = req.headers.get('stripe-signature')!
@@ -35,6 +84,13 @@ export async function POST(req: Request) {
         const customerName = session.customer_details?.name || ''
         const isAnnualPlan =
           session.mode === 'subscription' || session.metadata?.checkout_mode === 'subscription'
+        const subscriptionId =
+          typeof session.subscription === 'string'
+            ? session.subscription
+            : session.subscription?.id || null
+        const subscriptionSnapshot = isAnnualPlan
+          ? await fetchSubscriptionSnapshot(stripe, subscriptionId)
+          : null
         
         if (!customerEmail) {
           console.error('❌ No customer email found in session')
@@ -165,7 +221,14 @@ export async function POST(req: Request) {
           course_id: course.id,
           stripe_session_id: session.id,
           seats: quantity,
-          amount_cents: session.amount_total || 0
+          amount_cents: session.amount_total || 0,
+          is_unlimited: Boolean(isAnnualPlan),
+          stripe_subscription_id: subscriptionSnapshot?.stripe_subscription_id || null,
+          stripe_customer_id: subscriptionSnapshot?.stripe_customer_id || null,
+          subscription_status: subscriptionSnapshot?.subscription_status || null,
+          current_period_end: subscriptionSnapshot?.current_period_end || null,
+          cancel_at_period_end: subscriptionSnapshot?.cancel_at_period_end || false,
+          ended_at: subscriptionSnapshot?.ended_at || null
         }
         
         console.log('📦 Creating order record...')
@@ -209,14 +272,23 @@ export async function POST(req: Request) {
                 tax_cents: 0,
                 total_cents: orderData.amount_cents,
                 order_type: 'training',
-                line_items: [{
-                  product_name: 'Forklift Operator Certification',
-                  product_sku: 'FORKLIFT-CERT',
-                  quantity: orderData.seats,
-                  unit_price_cents: Math.floor(orderData.amount_cents / orderData.seats),
-                  total_price_cents: orderData.amount_cents,
-                  core_charge_cents: 0
-                }]
+                line_items: isAnnualPlan
+                  ? [{
+                      product_name: 'Facility Unlimited Annual',
+                      product_sku: 'FORKLIFT-ANNUAL',
+                      quantity: 1,
+                      unit_price_cents: orderData.amount_cents,
+                      total_price_cents: orderData.amount_cents,
+                      core_charge_cents: 0
+                    }]
+                  : [{
+                      product_name: 'Forklift Operator Certification',
+                      product_sku: 'FORKLIFT-CERT',
+                      quantity: orderData.seats,
+                      unit_price_cents: Math.floor(orderData.amount_cents / orderData.seats),
+                      total_price_cents: orderData.amount_cents,
+                      core_charge_cents: 0
+                    }]
               })
             })
             
@@ -505,6 +577,30 @@ export async function POST(req: Request) {
           console.error('❌ Error processing parts purchase:', error)
         }
       }
+    }
+  }
+
+  if (event.type === 'customer.subscription.updated' || event.type === 'customer.subscription.deleted') {
+    const subscription = event.data.object as Stripe.Subscription
+    const supabase = supabaseService()
+    await syncSubscriptionOrderState(supabase, stripe, subscription.id)
+    return NextResponse.json({ received: true, synced: subscription.id })
+  }
+
+  if (event.type === 'invoice.paid' || event.type === 'invoice.payment_failed') {
+    const invoice = event.data.object as Stripe.Invoice
+    const invoiceSubscription = (invoice as Stripe.Invoice & {
+      subscription?: string | Stripe.Subscription | null
+    }).subscription
+    const subscriptionId =
+      typeof invoiceSubscription === 'string'
+        ? invoiceSubscription
+        : invoiceSubscription?.id || null
+
+    if (subscriptionId) {
+      const supabase = supabaseService()
+      await syncSubscriptionOrderState(supabase, stripe, subscriptionId)
+      return NextResponse.json({ received: true, synced: subscriptionId })
     }
   }
   

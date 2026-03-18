@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
 import { sendWelcomeEmail } from '@/lib/email/resend';
+import { selectClaimableOrder } from '@/lib/training/orderEntitlements';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -31,7 +32,7 @@ export async function POST(req: Request) {
     // Fetch invitation details
     const { data: inv, error: invError } = await svc
       .from('seat_invites')
-      .select('id, email, course_id, status, expires_at, claimed_at, created_by, courses(title)')
+      .select('id, email, course_id, order_id, status, expires_at, claimed_at, created_by, courses(title)')
       .eq('invite_token', token)
       .maybeSingle();
 
@@ -95,6 +96,49 @@ export async function POST(req: Request) {
       .maybeSingle();
 
     let enrollmentId = existingEnrollment?.id;
+    let claimOrderId: string | null = null;
+
+    const ordersQuery = svc
+      .from('orders')
+      .select('id, user_id, course_id, seats, created_at, is_unlimited, subscription_status, current_period_end, ended_at')
+      .eq('course_id', inv.course_id)
+      .order('created_at', { ascending: false });
+
+    const { data: candidateOrders, error: candidateOrdersError } = inv.order_id
+      ? await ordersQuery.eq('id', inv.order_id)
+      : await ordersQuery.eq('user_id', inv.created_by);
+
+    if (candidateOrdersError) {
+      console.error('Error loading candidate orders for seat claim:', candidateOrdersError);
+      return NextResponse.json({
+        ok: false,
+        error: 'failed_to_validate_order'
+      }, { status: 500 });
+    }
+
+    const orderIds = (candidateOrders || []).map((order: any) => order.id);
+    let claimedByOrderId: Record<string, number> = {};
+    if (orderIds.length > 0) {
+      const { data: claims } = await svc
+        .from('seat_claims')
+        .select('order_id')
+        .in('order_id', orderIds);
+
+      for (const claim of claims || []) {
+        const orderId = (claim as any).order_id;
+        claimedByOrderId[orderId] = (claimedByOrderId[orderId] || 0) + 1;
+      }
+    }
+
+    const selectedOrder = selectClaimableOrder((candidateOrders || []) as any[], claimedByOrderId);
+    if (!selectedOrder) {
+      return NextResponse.json({
+        ok: false,
+        error: 'no_seats_available'
+      }, { status: 409 });
+    }
+
+    claimOrderId = selectedOrder.order.id;
 
     // Create enrollment if it doesn't exist
     if (!enrollmentId) {
@@ -141,19 +185,11 @@ export async function POST(req: Request) {
 
     // Persist claim in seat_claims (idempotent)
     try {
-      // Find the order for this trainer and course
-      const { data: order } = await svc
-        .from('orders')
-        .select('id')
-        .eq('user_id', inv.created_by)
-        .eq('course_id', inv.course_id)
-        .maybeSingle();
-
-      if (order) {
+      if (claimOrderId) {
         await svc
           .from('seat_claims')
           .upsert({ 
-            order_id: order.id, 
+            order_id: claimOrderId, 
             user_id: user.id,
             created_at: new Date().toISOString()
           }, { 

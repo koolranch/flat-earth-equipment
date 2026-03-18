@@ -14,7 +14,7 @@ export async function POST(req: Request) {
   const order_id = body?.order_id as string;
   if (!order_id) return NextResponse.json({ ok: false, error: 'missing_order_id' }, { status: 400 });
 
-  const { data: o } = await svc.from('orders').select('id, user_id, seats, course_slug, created_at').eq('id', order_id).maybeSingle();
+  const { data: o } = await svc.from('orders').select('id, user_id, seats, course_slug, created_at, is_unlimited').eq('id', order_id).maybeSingle();
   if (!o) return NextResponse.json({ ok: false, error: 'order_not_found' }, { status: 404 });
   const { data: u } = await svc.from('profiles').select('email, full_name').eq('id', (o as any).user_id).maybeSingle();
   const email = (u as any)?.email || '';
@@ -22,8 +22,9 @@ export async function POST(req: Request) {
 
   const manageUrl = `${site()}/trainer/seats`;
   const inviteUrl = `${site()}/trainer/invites?order=${order_id}`;
-  const subject = `Your ${o?.seats || 0} training seats are ready`;
-  const html = `<h2>Seats ready for ${o?.course_slug || 'course'}</h2><p>You purchased <b>${o?.seats || 0}</b> seat(s). Manage them here:</p><ul><li><a href="${manageUrl}">Manage seats</a></li><li><a href="${inviteUrl}">Invite learners</a></li></ul>`;
+  const seatLabel = o?.is_unlimited ? 'your unlimited annual training plan' : `${o?.seats || 0} training seat(s)`;
+  const subject = o?.is_unlimited ? 'Your annual training plan is active' : `Your ${o?.seats || 0} training seats are ready`;
+  const html = `<h2>Seats ready for ${o?.course_slug || 'course'}</h2><p>You purchased <b>${seatLabel}</b>. Manage them here:</p><ul><li><a href="${manageUrl}">Manage seats</a></li><li><a href="${inviteUrl}">Invite learners</a></li></ul>`;
 
   if (process.env.RESEND_API_KEY) {
     try {
