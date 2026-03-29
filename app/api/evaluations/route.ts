@@ -1,21 +1,16 @@
 import { NextResponse } from 'next/server';
+import { canManageEvaluations } from '@/lib/eval/auth.server';
 import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
 
 export const dynamic = 'force-dynamic';
-
-async function isTrainerOrAdmin(id:string){
-  const svc = supabaseService();
-  const { data } = await svc.from('profiles').select('role').eq('id', id).maybeSingle();
-  return data && ['trainer','admin'].includes((data as any).role);
-}
 
 export async function POST(req: Request){
   const sb = supabaseServer();
   const svc = supabaseService();
   const { data: { user } } = await sb.auth.getUser();
   if (!user) return NextResponse.json({ ok:false, error:'unauthorized' }, { status:401 });
-  if (!(await isTrainerOrAdmin(user.id))) return NextResponse.json({ ok:false, error:'forbidden' }, { status:403 });
+  if (!(await canManageEvaluations(user.id))) return NextResponse.json({ ok:false, error:'forbidden' }, { status:403 });
 
   const body = await req.json();
   const { id, trainee_user_id, trainee_email, course_id, course_title, evaluator_name, evaluator_title, site_location, evaluation_date, truck_type, checklist, overall_pass, notes, signature_base64 } = body;

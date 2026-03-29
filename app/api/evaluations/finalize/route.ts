@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { canManageEvaluations } from '@/lib/eval/auth.server';
 import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
 import { renderEvaluationPdf } from '@/lib/eval/pdf';
@@ -8,18 +9,12 @@ import { logServerError } from '@/lib/monitor/log.server';
 
 export const dynamic = 'force-dynamic';
 
-async function isTrainerOrAdmin(id:string){
-  const svc = supabaseService();
-  const { data } = await svc.from('profiles').select('role').eq('id', id).maybeSingle();
-  return data && ['trainer','admin'].includes((data as any).role);
-}
-
 export async function POST(req: Request){
   const sb = supabaseServer();
   const svc = supabaseService();
   const { data: { user } } = await sb.auth.getUser();
   if (!user) return NextResponse.json({ ok:false, error:'unauthorized' }, { status:401 });
-  if (!(await isTrainerOrAdmin(user.id))) return NextResponse.json({ ok:false, error:'forbidden' }, { status:403 });
+  if (!(await canManageEvaluations(user.id))) return NextResponse.json({ ok:false, error:'forbidden' }, { status:403 });
 
   const { id } = await req.json();
   if (!id) return NextResponse.json({ ok:false, error:'missing_id' }, { status:400 });

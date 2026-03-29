@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { canManageEvaluations } from '@/lib/eval/auth.server';
 import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
 
@@ -10,9 +11,7 @@ export async function POST(req: Request) {
   const svc = supabaseService();
   const { data: { user } } = await sb.auth.getUser();
   if (!user) return NextResponse.json({ ok: false, error: 'unauthorized' }, { status: 401 });
-  
-  const { data: prof } = await sb.from('profiles').select('role').eq('id', user.id).maybeSingle();
-  if (!prof || !['trainer', 'admin'].includes(prof.role)) {
+  if (!(await canManageEvaluations(user.id))) {
     return NextResponse.json({ ok: false, error: 'forbidden' }, { status: 403 });
   }
 
