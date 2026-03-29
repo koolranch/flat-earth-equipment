@@ -35,51 +35,59 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
     setOk(null);
     
     try {
-      let signatureUrl: string|undefined = undefined;
+      let signatureUrl: string | undefined = undefined;
       
       // Upload signature if provided
       if (sigDataUrl){
         const up = await fetch('/api/evaluations/signature', { 
           method: 'POST', 
           headers: { 'Content-Type':'application/json' }, 
-          body: JSON.stringify({ dataUrl: sigDataUrl }) 
+          body: JSON.stringify({
+            enrollment_id: enrollmentId,
+            dataUrl: sigDataUrl,
+          }) 
         });
-        const uj = await up.json(); 
-        if (uj.ok) signatureUrl = uj.url;
+        const uj = await up.json();
+        if (!up.ok || !uj.ok) {
+          throw new Error(uj.error || 'signature_upload_failed');
+        }
+        signatureUrl = uj.url;
       }
       
       // Submit evaluation
-      const res = await fetch('/api/evaluations', { 
+      const res = await fetch('/api/practical/evaluation', { 
         method: 'POST', 
         headers: { 'Content-Type':'application/json' }, 
         body: JSON.stringify({
-          enrollmentId, 
-          traineeUserId, 
-          evaluatorName, 
-          evaluatorTitle, 
-          siteLocation: site, 
-          evaluationDate: date, 
-          practicalPass: pass, 
-          notes, 
-          signatureUrl, 
-          checklist: ck 
+          enrollment_id: enrollmentId,
+          trainee_user_id: traineeUserId,
+          evaluator_name: evaluatorName,
+          evaluator_title: evaluatorTitle,
+          site_location: site,
+          evaluation_date: date,
+          practical_pass: pass,
+          notes,
+          signature_url: signatureUrl,
+          checklist: ck,
         }) 
       });
       
       const json = await res.json();
-      setOk(json.ok);
-      
-      if (json.ok){
-        try { 
-          window.dispatchEvent(new CustomEvent('analytics', { 
-            detail: { 
-              evt: pass ? 'evaluation_passed' : 'evaluation_failed', 
-              enrollmentId 
-            } 
-          })); 
-        } catch {}
+      if (!res.ok || !json.ok) {
+        throw new Error(json.error || 'save_failed');
       }
+      setOk(true);
+      
+      try { 
+        window.dispatchEvent(new CustomEvent('analytics', { 
+          detail: { 
+            evt: pass ? 'evaluation_passed' : 'evaluation_failed', 
+            enrollmentId 
+          } 
+        })); 
+      } catch {}
     } catch (e) { 
+      console.error('Failed to save practical evaluation:', e);
       setOk(false); 
     }
     
@@ -233,7 +241,7 @@ export default function PracticalForm({ enrollmentId, traineeUserId }: { enrollm
         {/* Pass/Fail and Notes */}
         <div className="bg-white rounded-2xl border border-slate-200 shadow-lg p-8 grid md:grid-cols-2 gap-8">
         <div>
-          <label className="block text-sm font-medium mb-1">Pass/fail</label>
+          <div className="mb-1 text-sm font-medium">Pass/fail</div>
           <div className="flex items-center gap-3">
             <label className="inline-flex items-center gap-2 text-sm">
               <input 
