@@ -21,8 +21,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const fullUrl = `https://www.flatearthequipment.com${canonical}`;
   
   return { 
-    title: `${brand.name} Service & Serial Guide | Flat Earth Equipment`, 
-    description: `Complete ${brand.name} service guide covering serial plate locations, troubleshooting tips, and maintenance procedures for your equipment.`,
+    title: `${brand.name} Forklift Serial Number Lookup & Fault Code Guide | Flat Earth Equipment`, 
+    description: `${brand.name} serial number lookup, common fault codes, and service tips for forklift and industrial equipment. Find compatible parts by model and serial number.`,
     alternates: { 
       canonical: fullUrl,
       languages: {
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       }
     },
     openGraph: {
-      title: `${brand.name} Service & Serial Guide`,
+      title: `${brand.name} Forklift Serial Number & Fault Code Guide`,
       description: `Complete ${brand.name} service guide covering serial plate locations and troubleshooting tips.`,
       url: fullUrl,
       type: 'website',
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     },
     twitter: {
       card: 'summary',
-      title: `${brand.name} Service & Serial Guide`,
+      title: `${brand.name} Forklift Serial Number & Fault Code Guide`,
       description: `Complete ${brand.name} service guide covering serial plate locations and troubleshooting tips.`
     },
     robots: {

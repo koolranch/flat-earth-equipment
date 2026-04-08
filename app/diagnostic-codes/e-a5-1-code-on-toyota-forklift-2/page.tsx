@@ -4,8 +4,8 @@ import Script from "next/script";
 import { generatePageAlternates } from "@/app/seo-defaults";
 
 export const metadata: Metadata = {
-  title: "E A5-1 Code on Toyota Forklift: Understanding the Common Error and Solutions | Flat Earth Equipment",
-  description: "Comprehensive guide to the E A5-1 error code on Toyota forklifts: causes, troubleshooting, and solutions for operators and technicians.",
+  title: "Toyota Forklift E A5-1 Code: What It Means & How to Fix It | Flat Earth Equipment",
+  description: "The E A5-1 code signals a vehicle speed control fault. Check seat switch wiring, accelerator potentiometer, and electrical connections. Full step-by-step diagnostic checklist inside.",
   alternates: generatePageAlternates("/diagnostic-codes/e-a5-1-code-on-toyota-forklift-2"),
   openGraph: {
     title: "Toyota Forklift E A5-1 Error Code: Diagnosis & Fix Guide",

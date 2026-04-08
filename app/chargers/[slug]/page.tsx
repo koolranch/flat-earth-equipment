@@ -136,7 +136,9 @@ export async function generateMetadata({
   const product = await getProduct(params.slug);
   if (!product) return {};
 
-  const title = `${product.name} | ${product.seo_title_template || "FSIP Series"}`;
+  const title = product.seo_title_template && product.seo_title_template !== product.name
+    ? `${product.name} | ${product.seo_title_template} | Flat Earth Equipment`
+    : `${product.name} | Industrial Forklift Battery Charger | Flat Earth Equipment`;
   const description = shortDesc(
     product.meta_description,
     `${product.name} industrial battery charger from FSIP. Request a quote from Flat Earth Equipment.`
