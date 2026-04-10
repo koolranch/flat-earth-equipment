@@ -65,11 +65,36 @@ export async function getAdaptedEnterpriseUser(userId: string): Promise<Enterpri
 /**
  * Get organization hierarchy from enrollments data
  */
-export async function getAdaptedOrganizations(): Promise<AdaptedOrganization[]> {
+export async function getAdaptedOrganizations(userId?: string): Promise<AdaptedOrganization[]> {
   const supabase = supabaseService();
-  
-  // Get unique org_ids from enrollments with stats
-  const { data: orgData } = await supabase
+
+  let orgIdsForUser: string[] | null = null;
+
+  if (userId) {
+    const [{ data: memberOrgs }, { data: enrollmentOrgs }] = await Promise.all([
+      supabase
+        .from('org_members')
+        .select('org_id')
+        .eq('user_id', userId),
+      supabase
+        .from('enrollments')
+        .select('org_id')
+        .eq('user_id', userId)
+        .not('org_id', 'is', null)
+    ]);
+
+    orgIdsForUser = Array.from(new Set([
+      ...(memberOrgs || []).map(row => row.org_id),
+      ...(enrollmentOrgs || []).map(row => row.org_id)
+    ].filter(Boolean)));
+
+    if (orgIdsForUser.length === 0) {
+      return [];
+    }
+  }
+
+  // Get org-scoped enrollments with stats
+  let orgDataQuery = supabase
     .from('enrollments')
     .select(`
       org_id,
@@ -79,7 +104,21 @@ export async function getAdaptedOrganizations(): Promise<AdaptedOrganization[]> 
     `)
     .not('org_id', 'is', null);
 
+  if (orgIdsForUser) {
+    orgDataQuery = orgDataQuery.in('org_id', orgIdsForUser);
+  }
+
+  const { data: orgData } = await orgDataQuery;
+
   if (!orgData) return [];
+
+  const uniqueOrgIds = Array.from(new Set(orgData.map(enrollment => enrollment.org_id)));
+  const { data: orgRecords } = await supabase
+    .from('orgs')
+    .select('id, name, created_at')
+    .in('id', uniqueOrgIds);
+
+  const orgRecordMap = new Map((orgRecords || []).map(org => [org.id, org]));
 
   // Group by org_id and calculate stats
   const orgMap = new Map<string, {
@@ -113,12 +152,9 @@ export async function getAdaptedOrganizations(): Promise<AdaptedOrganization[]> 
   const organizations: AdaptedOrganization[] = [];
   
   orgMap.forEach((stats, orgId) => {
-    // Try to derive organization name from org_id or use a default
-    let orgName = `Organization ${orgId.substring(0, 8)}`;
-    
-    // If org_id looks like a UUID, try to make a more friendly name
-    if (orgId.length === 36) {
-      // Use first email domain or generic name
+    const orgRecord = orgRecordMap.get(orgId);
+    let orgName = orgRecord?.name || `Organization ${orgId.substring(0, 8)}`;
+    if (!orgRecord) {
       const firstEmail = Array.from(stats.emails)[0];
       if (firstEmail) {
         const domain = firstEmail.split('@')[1];
@@ -130,7 +166,7 @@ export async function getAdaptedOrganizations(): Promise<AdaptedOrganization[]> 
       id: orgId,
       name: orgName,
       type: 'facility', // Default to facility for now
-      created_at: new Date().toISOString(),
+      created_at: orgRecord?.created_at || new Date().toISOString(),
       user_count: stats.users.size,
       enrollment_count: stats.enrollments,
       completion_rate: stats.enrollments > 0 
