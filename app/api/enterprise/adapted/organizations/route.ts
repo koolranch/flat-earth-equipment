@@ -1,12 +1,12 @@
 // Adapted Enterprise API - Working with Existing Schema
 import { NextRequest, NextResponse } from 'next/server';
 import { getAdaptedOrganizations } from '@/lib/enterprise/adapted-database.server';
-import { createClient } from '@/utils/supabase/server';
+import { createServerClient } from '@/lib/supabase/server';
 
 // GET /api/enterprise/adapted/organizations
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createClient();
+    const supabase = createServerClient();
     const { data: { user }, error: authError } = await supabase.auth.getUser();
 
     if (authError || !user) {
