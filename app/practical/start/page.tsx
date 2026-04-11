@@ -1,5 +1,8 @@
 import { supabaseServer } from '@/lib/supabase/server';
+import { getLatestEnrollmentForUser } from '@/lib/practical/enrollment.server';
 import PracticalInviteForm from '@/components/practical/PracticalInviteForm';
+
+export const dynamic = 'force-dynamic';
 
 export default async function Page(){
   const sb = supabaseServer();
@@ -19,13 +22,7 @@ export default async function Page(){
     );
   }
   
-  const { data: enr } = await sb
-    .from('enrollments')
-    .select('id, course_id, passed')
-    .eq('user_id', user.id)
-    .order('created_at', { ascending: false })
-    .limit(1)
-    .maybeSingle();
+  const enr = await getLatestEnrollmentForUser(user.id);
   
   if (!enr) {
     return (
