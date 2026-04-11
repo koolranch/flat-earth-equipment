@@ -48,12 +48,6 @@ export function OwnerDashboard({ stats, organizations, orgId }: any) {
                 📥 Export CSV
               </EnterpriseButton>
             )}
-            <EnterpriseButton 
-              variant="secondary"
-              onClick={() => window.location.href = '/enterprise/settings'}
-            >
-              ⚙️ Settings
-            </EnterpriseButton>
           </div>
         }
       />
