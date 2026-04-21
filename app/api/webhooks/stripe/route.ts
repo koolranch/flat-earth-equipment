@@ -4,6 +4,8 @@ import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { supabaseService } from '@/lib/supabase/service.server'
 import { createReturnLabel } from '@/lib/shippo'
+// Ask-employer fulfillment (Prompt D) — gated by ENABLE_ASK_EMPLOYER_FULFILLMENT + session.metadata.request_id.
+import { runAskEmployerFulfillment, shouldSuppressEmployerSideEffects } from '@/lib/training/askEmployerFulfillment'
 
 function isoFromUnix(ts?: number | null) {
   return ts ? new Date(ts * 1000).toISOString() : null
@@ -106,33 +108,37 @@ export async function POST(req: Request) {
           
           // NEW: Send notification to existing users about their new purchase
           // This is non-blocking and wrapped in try/catch - cannot break existing flow
-          try {
-            const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com'
-            const quantity = parseInt(session.metadata?.quantity || '1')
-            
-            fetch(`${siteUrl}/api/send-enrollment-notification`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                email: customerEmail,
-                name: customerName,
-                courseTitle: 'Forklift Operator Certification',
-                isTrainer: quantity > 1,
-                seatCount: quantity,
-                isAnnualPlan
+          // [ask-employer guard #2] Suppress employer-facing enrollment-notification email
+          // when (flag on && request_id in metadata). Existing behavior preserved otherwise.
+          if (!shouldSuppressEmployerSideEffects(session.metadata, process.env.ENABLE_ASK_EMPLOYER_FULFILLMENT)) {
+            try {
+              const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com'
+              const quantity = parseInt(session.metadata?.quantity || '1')
+              
+              fetch(`${siteUrl}/api/send-enrollment-notification`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  email: customerEmail,
+                  name: customerName,
+                  courseTitle: 'Forklift Operator Certification',
+                  isTrainer: quantity > 1,
+                  seatCount: quantity,
+                  isAnnualPlan
+                })
+              }).then(res => {
+                if (res.ok) {
+                  console.log(`✅ Enrollment notification sent to existing user: ${customerEmail}`)
+                } else {
+                  console.log(`⚠️ Enrollment notification failed (non-blocking): ${res.status}`)
+                }
+              }).catch(err => {
+                console.log(`⚠️ Enrollment notification error (non-blocking):`, err.message)
               })
-            }).then(res => {
-              if (res.ok) {
-                console.log(`✅ Enrollment notification sent to existing user: ${customerEmail}`)
-              } else {
-                console.log(`⚠️ Enrollment notification failed (non-blocking): ${res.status}`)
-              }
-            }).catch(err => {
-              console.log(`⚠️ Enrollment notification error (non-blocking):`, err.message)
-            })
-          } catch (notifyError) {
-            // Completely silent - this should never break the main flow
-            console.log('⚠️ Notification setup error (non-blocking):', notifyError)
+            } catch (notifyError) {
+              // Completely silent - this should never break the main flow
+              console.log('⚠️ Notification setup error (non-blocking):', notifyError)
+            }
           }
         } else {
           // Create new user account with a simple, user-friendly password
@@ -159,38 +165,43 @@ export async function POST(req: Request) {
           console.log('✅ Created new user:', user.email)
           
           // Send welcome email with login credentials
-          const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com'
-          const quantity = parseInt(session.metadata.quantity || '1')
-          
-          const emailResponse = await fetch(`${siteUrl}/api/send-training-welcome`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              email: customerEmail,
-              name: customerName,
-              password: temporaryPassword,
-              courseTitle: 'Forklift Operator Certification',
-              isTrainer: quantity > 1,
-              seatCount: quantity,
-              isAnnualPlan
-            })
-          })
-          
-          if (emailResponse.ok) {
-            console.log(`✅ Training welcome email sent to ${customerEmail}`)
-          } else {
-            const errorText = await emailResponse.text()
-            console.error(`❌ Failed to send welcome email to ${customerEmail}: ${errorText}`)
-            // Store failed email for retry
-            try {
-              await supabase.from('failed_emails').insert({
-                user_email: customerEmail,
+          // [ask-employer guard #1] Suppress employer-facing welcome email (contains a temp
+          // password and course-access language) when (flag on && request_id in metadata).
+          // The new user account still gets created above — only the email is suppressed.
+          if (!shouldSuppressEmployerSideEffects(session.metadata, process.env.ENABLE_ASK_EMPLOYER_FULFILLMENT)) {
+            const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com'
+            const quantity = parseInt(session.metadata.quantity || '1')
+            
+            const emailResponse = await fetch(`${siteUrl}/api/send-training-welcome`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                email: customerEmail,
+                name: customerName,
                 password: temporaryPassword,
-                error: errorText,
-                created_at: new Date().toISOString()
+                courseTitle: 'Forklift Operator Certification',
+                isTrainer: quantity > 1,
+                seatCount: quantity,
+                isAnnualPlan
               })
-            } catch (e) {
-              console.error('Could not log failed email:', e)
+            })
+            
+            if (emailResponse.ok) {
+              console.log(`✅ Training welcome email sent to ${customerEmail}`)
+            } else {
+              const errorText = await emailResponse.text()
+              console.error(`❌ Failed to send welcome email to ${customerEmail}: ${errorText}`)
+              // Store failed email for retry
+              try {
+                await supabase.from('failed_emails').insert({
+                  user_email: customerEmail,
+                  password: temporaryPassword,
+                  error: errorText,
+                  created_at: new Date().toISOString()
+                })
+              } catch (e) {
+                console.error('Could not log failed email:', e)
+              }
             }
           }
         }
@@ -244,16 +255,21 @@ export async function POST(req: Request) {
           console.log(`✅ Order created: ${order.id}`)
           
           // Auto-assign trainer role for multi-seat purchases
-          if (quantity > 1) {
-            try {
-              await supabase
-                .from('profiles')
-                .update({ role: 'trainer' })
-                .eq('id', user.id);
-              console.log(`✅ Granted trainer role to user ${user.id} (${quantity} seats)`);
-            } catch (roleError) {
-              console.error('⚠️ Failed to assign trainer role (non-blocking):', roleError);
-              // Don't fail the order if role assignment fails
+          // [ask-employer guard #3] Suppress role='trainer' upgrade for ask-employer purchases.
+          // Defensive: today quantity is always 1 for this path, but guard is kept so a future
+          // change to multi-seat ask-employer won't silently grant trainer access to the employer.
+          if (!shouldSuppressEmployerSideEffects(session.metadata, process.env.ENABLE_ASK_EMPLOYER_FULFILLMENT)) {
+            if (quantity > 1) {
+              try {
+                await supabase
+                  .from('profiles')
+                  .update({ role: 'trainer' })
+                  .eq('id', user.id);
+                console.log(`✅ Granted trainer role to user ${user.id} (${quantity} seats)`);
+              } catch (roleError) {
+                console.error('⚠️ Failed to assign trainer role (non-blocking):', roleError);
+                // Don't fail the order if role assignment fails
+              }
             }
           }
           
@@ -303,26 +319,135 @@ export async function POST(req: Request) {
         }
 
         // Enroll the purchaser in the course (always 1 enrollment per purchase)
-        const { error: enrollError } = await supabase
-          .from('enrollments')
-          .insert({
-            user_id: user.id,
-            course_id: course.id, // Use the actual UUID instead of slug
-            progress_pct: 0,
-            passed: false,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString()
-          })
-        
-        if (enrollError) {
-          // If duplicate key error (23505), user is already enrolled - this is OK
-          if (enrollError.code !== '23505') {
-            console.error(`❌ Error enrolling user:`, enrollError)
+        // [ask-employer guard #4] Suppress buyer enrollment for ask-employer purchases —
+        // the employer paid on behalf of their employee and must NOT get course access themselves.
+        // The employee's access is granted via the ask-employer branch below (seat_invite + claim).
+        if (!shouldSuppressEmployerSideEffects(session.metadata, process.env.ENABLE_ASK_EMPLOYER_FULFILLMENT)) {
+          const { error: enrollError } = await supabase
+            .from('enrollments')
+            .insert({
+              user_id: user.id,
+              course_id: course.id, // Use the actual UUID instead of slug
+              progress_pct: 0,
+              passed: false,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            })
+          
+          if (enrollError) {
+            // If duplicate key error (23505), user is already enrolled - this is OK
+            if (enrollError.code !== '23505') {
+              console.error(`❌ Error enrolling user:`, enrollError)
+            } else {
+              console.log(`ℹ️ User already enrolled in course (duplicate purchase)`)
+            }
           } else {
-            console.log(`ℹ️ User already enrolled in course (duplicate purchase)`)
+            console.log(`✅ User enrolled successfully (${quantity > 1 ? 'trainer with ' + quantity + ' seats' : 'single seat'})`)
           }
-        } else {
-          console.log(`✅ User enrolled successfully (${quantity > 1 ? 'trainer with ' + quantity + ' seats' : 'single seat'})`)
+        }
+
+        // [ask-employer branch] Runs only when a purchase_request id is on the session
+        // AND the fulfillment flag is enabled. Entirely isolated: any failure here is
+        // logged with a '[ask-employer-fulfillment-error]' prefix, never bubbles up,
+        // webhook still returns 200 to Stripe.
+        if (session.metadata?.request_id && process.env.ENABLE_ASK_EMPLOYER_FULFILLMENT === '1') {
+          if (!order) {
+            // Order creation failed above. Nothing to link to — log and skip.
+            console.error('[ask-employer-fulfillment-error]', {
+              request_id: session.metadata.request_id,
+              reason: 'order_missing_cannot_fulfill'
+            })
+          } else {
+            try {
+              const { randomBytes } = await import('node:crypto')
+              const { sendMail } = await import('@/lib/email/mailer')
+              const { sendPushToUser } = await import('@/lib/push/sender.server')
+              const { renderEmailHtml } = await import('@/lib/email/renderEmail')
+              const { createElement } = await import('react')
+              const ExamUnlockedEmailMod = await import('@/emails/ExamUnlockedEmail')
+              const ExamUnlockedEmail = ExamUnlockedEmailMod.default
+
+              const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com'
+
+              const outcome = await runAskEmployerFulfillment(
+                {
+                  requestId: session.metadata.request_id,
+                  orderId: order.id,
+                  orderUserId: order.user_id,
+                  courseId: course.id,
+                  employerEmail: session.customer_details?.email ?? null,
+                  siteUrl,
+                },
+                {
+                  loadPurchaseRequest: async (id) => {
+                    const { data } = await supabase
+                      .from('purchase_requests')
+                      .select('id, status, employee_user_id, employee_email, employer_name, seats_requested, related_seat_invite_id')
+                      .eq('id', id)
+                      .maybeSingle()
+                    return data as any
+                  },
+                  findInviteById: async (id) => {
+                    const { data } = await supabase
+                      .from('seat_invites')
+                      .select('id, invite_token, email, status')
+                      .eq('id', id)
+                      .maybeSingle()
+                    return data as any
+                  },
+                  findInviteByOrderId: async (orderId) => {
+                    const { data } = await supabase
+                      .from('seat_invites')
+                      .select('id, invite_token, email, status')
+                      .eq('order_id', orderId)
+                      .maybeSingle()
+                    return data as any
+                  },
+                  insertSeatInvite: async (row) => {
+                    const { data, error } = await supabase
+                      .from('seat_invites')
+                      .insert(row)
+                      .select('id, invite_token, email, status')
+                      .single()
+                    return { data: data as any, error: error ? { code: (error as any).code, message: error.message } : null }
+                  },
+                  updatePurchaseRequest: async (id, patch) => {
+                    const { data, error } = await supabase
+                      .from('purchase_requests')
+                      .update(patch)
+                      .eq('id', id)
+                      .neq('status', 'paid')
+                      .select('id')
+                    return {
+                      rowsAffected: data?.length ?? 0,
+                      error: error ? { code: (error as any).code, message: error.message } : null,
+                    }
+                  },
+                  sendEmail: (msg) => sendMail(msg),
+                  sendPushToUser: (userId, payload) => sendPushToUser(userId, payload),
+                  generateToken: () => randomBytes(24).toString('base64url'),
+                  renderEmailForEmployee: (props) =>
+                    renderEmailHtml(createElement(ExamUnlockedEmail, props)),
+                  now: () => new Date(),
+                  analytics: (name, data) => console.log('[analytics]', name, data),
+                }
+              )
+
+              console.log('[ask-employer-fulfillment] outcome', {
+                request_id: session.metadata.request_id,
+                outcome,
+              })
+            } catch (err) {
+              console.error('[ask-employer-fulfillment-error]', {
+                request_id: session.metadata.request_id,
+                err,
+              })
+              console.log('[analytics]', 'exam_ask_employer_fulfillment_error', {
+                request_id: session.metadata.request_id,
+              })
+              // Do not rethrow — webhook must still return 200.
+            }
+          }
         }
 
         // Record referral conversion (non-blocking — must never break purchase flow)
