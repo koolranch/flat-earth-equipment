@@ -26,12 +26,13 @@ import { supabaseService } from '@/lib/supabase/service.server';
 import { rateLimit } from '@/lib/ratelimit';
 import { sendMail } from '@/lib/email/mailer';
 import { renderEmailHtml } from '@/lib/email/renderEmail';
+import { createRequire } from 'module';
 import AskEmployerEmail from '@/emails/AskEmployerEmail';
 import { isValidEmail, isDisposableDomain } from '@/lib/training/purchaseRequestValidation';
 
-// disposable-email-domains exports a plain JS array of domain strings.
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const disposableDomains: string[] = require('disposable-email-domains');
+// disposable-email-domains is CJS-only; use createRequire for clean ESM interop.
+const _require = createRequire(import.meta.url);
+const disposableDomains: string[] = _require('disposable-email-domains');
 const DISPOSABLE_SET = new Set(disposableDomains.map((d) => d.toLowerCase()));
 
 // ─── Rate-limit constants ─────────────────────────────────────────────────────
