@@ -4,7 +4,7 @@
  * Pure (side-effect-free) core of the push sender.
  * No server-only imports — safe to import in Playwright tests.
  *
- * The real sendPushToUser (in lib/push/sender.ts) wires up Supabase +
+ * The real sendPushToUser (in lib/push/sender.server.ts) wires up Supabase +
  * the Expo SDK and delegates here. Tests inject mocks directly.
  */
 
