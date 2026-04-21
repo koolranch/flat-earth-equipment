@@ -40,6 +40,27 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    // [feature-flag: ENABLE_ASK_EMPLOYER_CHECKOUT]
+    // When on, extract request_id and prefill_email from the request body.
+    // request_id is appended to Stripe metadata; prefill_email becomes customer_email
+    // ONLY when the existing flow has not already set one (it currently never does).
+    // On any error inside this block, we log and fall through to the legacy path.
+    // When the flag is off (or unset), this entire block is skipped and behavior is
+    // byte-identical to the pre-feature code.
+    let askEmployerRequestId: string | null = null;
+    let askEmployerPrefillEmail: string | null = null;
+    if (process.env.ENABLE_ASK_EMPLOYER_CHECKOUT === '1') {
+      try {
+        const requestId = typeof body.request_id === 'string' ? body.request_id.trim() : '';
+        const prefillEmail =
+          typeof body.prefill_email === 'string' ? body.prefill_email.trim() : '';
+        if (requestId) askEmployerRequestId = requestId;
+        if (prefillEmail) askEmployerPrefillEmail = prefillEmail;
+      } catch (err) {
+        console.error('[ask-employer-checkout] error extracting params:', err);
+      }
+    }
+
     // Handle both simple checkout (BuyNowButton) and cart checkout (cart page)
     let lineItems = [];
     let metadata: Record<string, string> = {};
@@ -355,6 +376,28 @@ export async function POST(req: NextRequest) {
     const isTrainingPurchase = metadata.course_slug === 'forklift';
     const cancelUrl = isTrainingPurchase ? `${base}/safety#pricing` : `${base}/cart`;
 
+    // [feature-flag: ENABLE_ASK_EMPLOYER_CHECKOUT]
+    // Append request_id to metadata and optionally set customer_email.
+    // Existing metadata keys are preserved; nothing is overridden.
+    // customer_email is only set from prefill_email because the legacy flow never
+    // sets it — if that changes in future, add a prior-set check here.
+    let askEmployerCustomerEmail: string | undefined;
+    if (process.env.ENABLE_ASK_EMPLOYER_CHECKOUT === '1') {
+      try {
+        if (askEmployerRequestId) {
+          metadata.request_id = askEmployerRequestId;
+        }
+        if (askEmployerPrefillEmail) {
+          // customer_email is not set anywhere in the existing flow, so it is safe
+          // to assign directly. If you later set customer_email from the authed user
+          // above this block, add a guard: `if (!alreadySetCustomerEmail)`.
+          askEmployerCustomerEmail = askEmployerPrefillEmail;
+        }
+      } catch (err) {
+        console.error('[ask-employer-checkout] error applying to session args:', err);
+      }
+    }
+
     const session = await stripe.checkout.sessions.create({
       mode: checkoutMode,
       line_items: lineItems,
@@ -370,6 +413,7 @@ export async function POST(req: NextRequest) {
             },
           }
         : {}),
+      ...(askEmployerCustomerEmail ? { customer_email: askEmployerCustomerEmail } : {}),
       success_url: `${base}/checkout/success?slug=${encodeURIComponent(successSlug)}&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: cancelUrl,
       metadata: metadata,

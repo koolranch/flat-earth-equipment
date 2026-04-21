@@ -39,6 +39,20 @@ function CheckoutButtonInner({ courseSlug, price, priceId, coupon }: CheckoutBut
       console.log('Sending request to /api/checkout with:', { courseSlug, priceId, coupon })
       
       const referralCode = searchParams.get('ref') || undefined
+
+      // [feature-flag: NEXT_PUBLIC_ENABLE_ASK_EMPLOYER_CHECKOUT]
+      // When on, forward request_id and prefill_email from the URL to /api/checkout
+      // so the Stripe session can carry them in metadata and prefill the billing email.
+      // When off (or the params are absent), the extra keys are omitted and behavior is
+      // byte-identical to the legacy flow.
+      const askEmployerExtras: Record<string, string> = {};
+      if (process.env.NEXT_PUBLIC_ENABLE_ASK_EMPLOYER_CHECKOUT === '1') {
+        const requestId = searchParams.get('request_id');
+        const prefillEmail = searchParams.get('prefill_email');
+        if (requestId) askEmployerExtras.request_id = requestId;
+        if (prefillEmail) askEmployerExtras.prefill_email = prefillEmail;
+      }
+
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -50,6 +64,7 @@ function CheckoutButtonInner({ courseSlug, price, priceId, coupon }: CheckoutBut
           }],
           ...(coupon && { coupon }),
           ...(referralCode && { referral_code: referralCode }),
+          ...askEmployerExtras,
         })
       })
       

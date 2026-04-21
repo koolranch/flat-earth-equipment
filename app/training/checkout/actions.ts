@@ -26,7 +26,20 @@ export async function createTrainingCheckoutSessionFromForm(formData: FormData):
   
   // Create Stripe checkout session via API
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com';
-  
+
+  // [feature-flag: ENABLE_ASK_EMPLOYER_CHECKOUT]
+  // When on, forward request_id and prefill_email from the form (populated via hidden
+  // inputs by PricingStrip's RequestParamsHiddenInputs component) to the checkout API.
+  // When off (or the fields are absent), the extra keys are omitted and behavior is
+  // byte-identical to the legacy flow.
+  const askEmployerExtras: Record<string, string> = {};
+  if (process.env.ENABLE_ASK_EMPLOYER_CHECKOUT === '1') {
+    const requestId = formData.get('requestId') as string | null;
+    const prefillEmail = formData.get('prefillEmail') as string | null;
+    if (requestId) askEmployerExtras.request_id = requestId;
+    if (prefillEmail) askEmployerExtras.prefill_email = prefillEmail;
+  }
+
   const response = await fetch(`${baseUrl}/api/checkout`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -44,6 +57,7 @@ export async function createTrainingCheckoutSessionFromForm(formData: FormData):
         }
       }],
       ...(referralCode && { referral_code: referralCode }),
+      ...askEmployerExtras,
     })
   });
   

@@ -12,6 +12,25 @@ function ReferralHiddenInput() {
   return <input type="hidden" name="referralCode" value={ref} />;
 }
 
+/**
+ * When NEXT_PUBLIC_ENABLE_ASK_EMPLOYER_CHECKOUT is '1', forward
+ * request_id and prefill_email from the URL into the server-action form
+ * so they reach /api/checkout via createTrainingCheckoutSessionFromForm.
+ * No-op when either the flag is off or the params are absent.
+ */
+function RequestParamsHiddenInputs() {
+  const searchParams = useSearchParams();
+  if (process.env.NEXT_PUBLIC_ENABLE_ASK_EMPLOYER_CHECKOUT !== '1') return null;
+  const requestId = searchParams.get('request_id');
+  const prefillEmail = searchParams.get('prefill_email');
+  return (
+    <>
+      {requestId && <input type="hidden" name="requestId" value={requestId} />}
+      {prefillEmail && <input type="hidden" name="prefillEmail" value={prefillEmail} />}
+    </>
+  );
+}
+
 function BillingLabel({ label }: { label?: string }) {
   if (!label) return null;
 
@@ -70,6 +89,7 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
               <form action={createTrainingCheckoutSessionFromForm} className="mt-6">
                 <input type="hidden" name="priceId" value={p.priceId} />
                 <Suspense><ReferralHiddenInput /></Suspense>
+                <Suspense><RequestParamsHiddenInputs /></Suspense>
                 <button 
                   type="submit" 
                   className={`w-full px-6 py-3 rounded-xl font-bold transition-all shadow-md hover:shadow-lg ${
@@ -134,6 +154,7 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
             <form action={createTrainingCheckoutSessionFromForm} className="mt-6">
               <input type="hidden" name="priceId" value={singlePlan.priceId} />
               <Suspense><ReferralHiddenInput /></Suspense>
+              <Suspense><RequestParamsHiddenInputs /></Suspense>
               <button 
                 type="submit" 
                 className="w-full px-6 py-3 rounded-xl font-bold transition-all shadow-md hover:shadow-lg bg-[#F76511] text-white hover:bg-orange-600"
@@ -187,6 +208,7 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
                   <form action={createTrainingCheckoutSessionFromForm} className="mt-6">
                     <input type="hidden" name="priceId" value={p.priceId} />
                     <Suspense><ReferralHiddenInput /></Suspense>
+                    <Suspense><RequestParamsHiddenInputs /></Suspense>
                     <button 
                       type="submit" 
                       className="w-full px-6 py-3 rounded-xl font-bold transition-all shadow-md hover:shadow-lg bg-slate-900 text-white hover:bg-slate-800"
