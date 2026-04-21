@@ -11,6 +11,15 @@ const baseConfig = {
   reactStrictMode: true,
   cleanDistDir: true,
   poweredByHeader: false,
+  experimental: {
+    // expo-server-sdk depends on undici, which uses private class fields (#name)
+    // that Next.js 14.1's webpack parser can't handle. Externalizing keeps it as
+    // a runtime `require()` from node_modules on the Vercel Node runtime — same
+    // mechanism Next already uses for other heavy server-only packages.
+    // Consumed only by lib/push/sender.server.ts (dynamically imported by the
+    // Stripe webhook's ask-employer branch, gated behind ENABLE_ASK_EMPLOYER_FULFILLMENT).
+    serverComponentsExternalPackages: ['expo-server-sdk'],
+  },
   async rewrites() {
     return [
       // IndexNow key file - must be served at root for verification
