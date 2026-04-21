@@ -29,6 +29,7 @@ import {
   type FulfillmentDeps,
   type PurchaseRequestRow,
   type SeatInviteRow,
+  type SendEmailResult,
 } from '../../lib/training/askEmployerFulfillment';
 
 // ─── Harness ──────────────────────────────────────────────────────────────────
@@ -59,6 +60,12 @@ interface HarnessOptions {
   token?: string;
   fixedInviteId?: string;
   fixedNow?: Date;
+  /**
+   * Override deps.sendEmail's return value. Defaults to { ok: true, id: 're_fake_msg_id' }
+   * so the pre-existing F1–F4 + E1 suite continues to assert happy-path
+   * deliverability. Phase 4 adds a new "email-failed" variant.
+   */
+  sendEmailResult?: SendEmailResult;
 }
 
 function buildHarness(opts: HarnessOptions = {}): { deps: FulfillmentDeps; spy: Spy } {
@@ -113,6 +120,7 @@ function buildHarness(opts: HarnessOptions = {}): { deps: FulfillmentDeps; spy: 
     },
     sendEmail: async (msg) => {
       spy.sendEmail.push(msg);
+      return opts.sendEmailResult ?? { ok: true, id: 're_fake_msg_id' };
     },
     sendPushToUser: async (userId, payload) => {
       spy.sendPushToUser.push({ userId, payload });
@@ -218,6 +226,7 @@ test.describe('runAskEmployerFulfillment — happy path (F1)', () => {
       inviteId: 'invite-xyz',
       reusedInvite: false,
       updatedPurchaseRequest: true,
+      emailDelivered: true,
     });
 
     // seat_invite was inserted with the correct fields
@@ -270,8 +279,122 @@ test.describe('runAskEmployerFulfillment — happy path (F1)', () => {
         seat_invite_id: 'invite-xyz',
         employer_email: 'employer@acme.com',
         seats_requested: 1,
+        email_delivered: true,
       },
     });
+  });
+});
+
+// ─── Phase 4: email-delivery failure propagation (F5) ─────────────────────────
+
+test.describe('runAskEmployerFulfillment — email-delivery failure (F5)', () => {
+  test('F5a: sendEmail returns ok:false (API rejection) → emailDelivered:false, analytics event emitted, pipeline continues', async () => {
+    const { deps, spy } = buildHarness({
+      purchaseRequest: { ...DEFAULT_PR },
+      token: 'TOK_F5',
+      fixedInviteId: 'invite-f5',
+      sendEmailResult: {
+        ok: false,
+        error: 'Email address is on the suppression list.',
+        error_name: 'validation_error',
+      },
+    });
+
+    const outcome = await runAskEmployerFulfillment(DEFAULT_ARGS, deps);
+
+    // seat_invite + paid status landed; the invite still exists, ops can requeue.
+    expect(outcome).toMatchObject({
+      status: 'succeeded',
+      inviteId: 'invite-f5',
+      reusedInvite: false,
+      updatedPurchaseRequest: true,
+      emailDelivered: false,
+    });
+
+    // Insert + PR update both happened (email failure doesn't block them)
+    expect(spy.insertSeatInvite).toHaveLength(1);
+    expect(spy.updatePurchaseRequest).toHaveLength(1);
+    // sendEmail was still attempted exactly once
+    expect(spy.sendEmail).toHaveLength(1);
+    // Push still fires (safe — demo user may still have tokens regardless of email suppression)
+    expect(spy.sendPushToUser).toHaveLength(1);
+
+    // Two analytics events, in order:
+    //   1. exam_ask_employer_email_failed (new — surfaces the delivery failure)
+    //   2. exam_ask_employer_paid (existing — the invite did land in DB)
+    expect(spy.analytics).toHaveLength(2);
+    expect(spy.analytics[0]).toMatchObject({
+      name: 'exam_ask_employer_email_failed',
+      data: {
+        request_id: 'pr-1',
+        order_id: 'order-1',
+        seat_invite_id: 'invite-f5',
+        email: 'employee@example.com',
+        error: 'Email address is on the suppression list.',
+        error_name: 'validation_error',
+      },
+    });
+    expect(spy.analytics[1]).toMatchObject({
+      name: 'exam_ask_employer_paid',
+      data: {
+        request_id: 'pr-1',
+        email_delivered: false,
+      },
+    });
+  });
+
+  test('F5b: sendEmail returns ok:false with skipped:true (no RESEND_API_KEY) → emailDelivered:false, still emits failure analytics', async () => {
+    // Simulates an environment where the mailer early-returns because
+    // RESEND_API_KEY isn't configured. We treat that as undelivered too
+    // so ops gets paged instead of silently losing the email.
+    const { deps, spy } = buildHarness({
+      purchaseRequest: { ...DEFAULT_PR },
+      sendEmailResult: { ok: false, skipped: true },
+    });
+
+    const outcome = await runAskEmployerFulfillment(DEFAULT_ARGS, deps);
+
+    expect(outcome).toMatchObject({
+      status: 'succeeded',
+      emailDelivered: false,
+    });
+
+    const failedEvt = spy.analytics.find((a) => a.name === 'exam_ask_employer_email_failed');
+    expect(failedEvt).toBeTruthy();
+    // With skipped:true there's no error string; we still emit the analytics
+    // event so the alert fires, just with null error fields.
+    expect(failedEvt!.data).toMatchObject({
+      request_id: 'pr-1',
+      error: null,
+      error_name: null,
+    });
+  });
+
+  test('F5c: retry path (reusedInvite + already paid) reports emailDelivered:true without re-sending', async () => {
+    // F2b regression guard: if the first delivery already succeeded (status='paid'
+    // short-circuit), we must NOT report emailDelivered:false just because we
+    // didn't call sendEmail this time. The first delivery's email is the source
+    // of truth.
+    const { deps, spy } = buildHarness({
+      purchaseRequest: { ...DEFAULT_PR, related_seat_invite_id: null },
+      existingInviteByOrderId: {
+        id: 'invite-first-delivery',
+        invite_token: 'TOK_FIRST',
+        email: 'employee@example.com',
+        status: 'sent',
+      },
+      updateRowsAffected: 0, // status was already 'paid' on retry
+    });
+
+    const outcome = await runAskEmployerFulfillment(DEFAULT_ARGS, deps);
+
+    expect(outcome).toMatchObject({
+      status: 'succeeded',
+      reusedInvite: true,
+      updatedPurchaseRequest: false,
+      emailDelivered: true, // <-- critical: don't lie about delivery on retries
+    });
+    expect(spy.sendEmail).toHaveLength(0);
   });
 });
 

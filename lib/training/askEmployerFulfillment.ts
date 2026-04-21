@@ -55,6 +55,15 @@ export interface PushPayload {
   data?: Record<string, string>;
 }
 
+/**
+ * Matches SendMailResult from lib/email/mailer.ts. Kept structurally typed (not
+ * imported) so this module stays free of a direct mailer dependency and can
+ * accept any adapter that returns a compatible shape.
+ */
+export type SendEmailResult =
+  | { ok: true; id?: string }
+  | { ok: false; skipped?: true; error?: string; error_name?: string };
+
 export interface FulfillmentDeps {
   loadPurchaseRequest: (id: string) => Promise<PurchaseRequestRow | null>;
   findInviteById: (id: string) => Promise<SeatInviteRow | null>;
@@ -79,7 +88,7 @@ export interface FulfillmentDeps {
       related_seat_invite_id: string;
     },
   ) => Promise<UpdatePurchaseRequestResult>;
-  sendEmail: (msg: { to: string; subject: string; html: string }) => Promise<unknown>;
+  sendEmail: (msg: { to: string; subject: string; html: string }) => Promise<SendEmailResult>;
   sendPushToUser: (userId: string, payload: PushPayload) => Promise<{ sent: number; failed: number }>;
   generateToken: () => string;
   renderEmailForEmployee: (props: EmailTemplateProps) => Promise<string>;
@@ -100,7 +109,24 @@ export type FulfillmentOutcome =
   | { status: 'skipped_missing_request' }
   | { status: 'skipped_already_paid' }
   | { status: 'collision' }
-  | { status: 'succeeded'; inviteId: string; reusedInvite: boolean; updatedPurchaseRequest: boolean };
+  | {
+      status: 'succeeded';
+      inviteId: string;
+      reusedInvite: boolean;
+      updatedPurchaseRequest: boolean;
+      /**
+       * True iff deps.sendEmail returned { ok: true }. When false, the
+       * seat_invite + purchase_requests.paid writes have already landed,
+       * so the invite still exists; the employee just wasn't notified.
+       * Callers (and dashboards) can requeue a manual notification.
+       *
+       * Retry deliveries that legitimately skip email (F2 — reusedInvite
+       * on a row where PR is already paid) report emailDelivered=true
+       * because the original delivery is the source of truth; we're not
+       * claiming any new send occurred.
+       */
+      emailDelivered: boolean;
+    };
 
 const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 
@@ -219,6 +245,9 @@ export async function runAskEmployerFulfillment(
       inviteId: invite.id,
       reusedInvite: true,
       updatedPurchaseRequest: false,
+      // Original delivery is the source of truth for email delivery; we're
+      // not claiming a new send here and not reporting a spurious failure.
+      emailDelivered: true,
     };
   }
 
@@ -231,11 +260,28 @@ export async function runAskEmployerFulfillment(
     claimUrl,
     appDeepLink,
   });
-  await deps.sendEmail({
+  const emailResult = await deps.sendEmail({
     to: purchaseRequest.employee_email,
     subject: 'Your OSHA forklift exam is unlocked',
     html,
   });
+  const emailDelivered = emailResult?.ok === true;
+  if (!emailDelivered) {
+    // seat_invite + paid status already persisted upstream, so the invite
+    // still exists and ops can requeue a manual notification. We emit an
+    // analytics event so log-drain alerts can fire, then keep going to
+    // push + happy-path analytics (both are cheap and benign on an already
+    // persisted invite).
+    const failure = emailResult as Extract<SendEmailResult, { ok: false }> | undefined;
+    deps.analytics('exam_ask_employer_email_failed', {
+      request_id: requestId,
+      order_id: orderId,
+      seat_invite_id: invite.id,
+      email: purchaseRequest.employee_email,
+      error: failure?.error ?? null,
+      error_name: failure?.error_name ?? null,
+    });
+  }
 
   // Step 6 — Push notification (never throws per its contract).
   await deps.sendPushToUser(purchaseRequest.employee_user_id, {
@@ -251,6 +297,7 @@ export async function runAskEmployerFulfillment(
     seat_invite_id: invite.id,
     employer_email: employerEmail,
     seats_requested: purchaseRequest.seats_requested,
+    email_delivered: emailDelivered,
   });
 
   return {
@@ -258,6 +305,7 @@ export async function runAskEmployerFulfillment(
     inviteId: invite.id,
     reusedInvite,
     updatedPurchaseRequest,
+    emailDelivered,
   };
 }
 
