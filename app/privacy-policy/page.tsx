@@ -16,6 +16,13 @@ export default function PrivacyPolicy() {
         <li>To personalize site content</li>
         <li>For email communications (opt-out any time)</li>
       </ul>
+      <h2>Asking your employer to pay</h2>
+      <p>If you use the &ldquo;Ask your employer to pay&rdquo; feature in our mobile app, we collect the employer name and email address you provide, along with an optional message. We use this information solely to send a one-time email to the employer on your behalf. We do not share it with third parties or use it for marketing. We retain these records for 7 years to comply with business records retention requirements tied to financial transactions.</p>
+      <ul>
+        <li>Employer name (when you use the ask-employer feature) — optional, encrypted in transit, retained 7 years, not shared with third parties beyond the named employer.</li>
+        <li>Employer email address (when you use the ask-employer feature) — optional, encrypted in transit, retained 7 years, not shared with third parties beyond the named employer.</li>
+        <li>Optional message text (when you use the ask-employer feature) — optional, encrypted in transit, retained 7 years, not shared with third parties beyond the named employer.</li>
+      </ul>
       <h2>Data Sharing</h2>
       <p>We do not sell your data. We share it only with payment processors and logistics partners.</p>
       <p>All the above categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.</p>

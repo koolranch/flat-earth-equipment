@@ -44,8 +44,17 @@ export default function PrivacyPolicyPage() {
           'Shipping partners to deliver your orders'
         ]
       },
+      askEmployer: {
+        title: '4. Asking Your Employer to Pay',
+        description: 'If you use the "Ask your employer to pay" feature in our mobile app, we collect the employer name and email address you provide, along with an optional message. We use this information solely to send a one-time email to the employer on your behalf. We do not share it with third parties or use it for marketing. We retain these records for 7 years to comply with business records retention requirements tied to financial transactions. Each of the following is optional, encrypted in transit, retained 7 years, and not shared with third parties beyond the named employer:',
+        items: [
+          'Employer name (when you use the ask-employer feature)',
+          'Employer email address (when you use the ask-employer feature)',
+          'Optional message text (when you use the ask-employer feature)'
+        ]
+      },
       yourRights: {
-        title: '4. Your Rights',
+        title: '5. Your Rights',
         description: 'You have the right to:',
         items: [
           'Access your personal information',
@@ -55,7 +64,7 @@ export default function PrivacyPolicyPage() {
         ]
       },
       contact: {
-        title: '5. Contact Us',
+        title: '6. Contact Us',
         description: 'If you have any questions about our Privacy Policy, please contact us:',
         items: [
           'Email: privacy@flatearthequipment.com',
@@ -95,8 +104,17 @@ export default function PrivacyPolicyPage() {
           'Socios de envío para entregar sus pedidos'
         ]
       },
+      askEmployer: {
+        title: '4. Pedirle a su Empleador que Pague',
+        description: 'Si utiliza la función "Pídale a su empleador que pague" en nuestra aplicación móvil, recopilamos el nombre y la dirección de correo electrónico del empleador que usted proporciona, junto con un mensaje opcional. Usamos esta información únicamente para enviar un correo electrónico único al empleador en su nombre. No la compartimos con terceros ni la usamos con fines de marketing. Conservamos estos registros durante 7 años para cumplir con los requisitos de retención de registros comerciales asociados con transacciones financieras. Cada uno de los siguientes datos es opcional, cifrado en tránsito, retenido durante 7 años y no compartido con terceros más allá del empleador designado:',
+        items: [
+          'Nombre del empleador (cuando utiliza la función de pedirle a su empleador)',
+          'Dirección de correo electrónico del empleador (cuando utiliza la función de pedirle a su empleador)',
+          'Texto de mensaje opcional (cuando utiliza la función de pedirle a su empleador)'
+        ]
+      },
       yourRights: {
-        title: '4. Sus Derechos',
+        title: '5. Sus Derechos',
         description: 'Usted tiene el derecho a:',
         items: [
           'Acceder a su información personal',
@@ -106,7 +124,7 @@ export default function PrivacyPolicyPage() {
         ]
       },
       contact: {
-        title: '5. Contáctanos',
+        title: '6. Contáctanos',
         description: 'Si tiene alguna pregunta sobre nuestra Política de Privacidad, por favor contáctenos:',
         items: [
           'Correo electrónico: privacy@flatearthequipment.com',
@@ -151,6 +169,18 @@ export default function PrivacyPolicyPage() {
           <p>{t.infoSharing.description}</p>
           <ul>
             {t.infoSharing.items.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">{t.askEmployer.title}</h2>
+        <div className="prose prose-slate">
+          <p>{t.askEmployer.description}</p>
+          <ul>
+            {t.askEmployer.items.map((item, index) => (
               <li key={index}>{item}</li>
             ))}
           </ul>
