@@ -273,48 +273,61 @@ export async function POST(req: Request) {
             }
           }
           
-          // Send order confirmation email
-          try {
-            const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com'
-            const emailResponse = await fetch(`${siteUrl}/api/send-order-confirmation`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                order_number: `FEE-${order.id.slice(-8)}`,
-                customer_email: customerEmail,
-                customer_name: customerName,
-                subtotal_cents: orderData.amount_cents,
-                shipping_cents: 0,
-                tax_cents: 0,
-                total_cents: orderData.amount_cents,
-                order_type: 'training',
-                line_items: isAnnualPlan
-                  ? [{
-                      product_name: 'Facility Unlimited Annual',
-                      product_sku: 'FORKLIFT-ANNUAL',
-                      quantity: 1,
-                      unit_price_cents: orderData.amount_cents,
-                      total_price_cents: orderData.amount_cents,
-                      core_charge_cents: 0
-                    }]
-                  : [{
-                      product_name: 'Forklift Operator Certification',
-                      product_sku: 'FORKLIFT-CERT',
-                      quantity: orderData.seats,
-                      unit_price_cents: Math.floor(orderData.amount_cents / orderData.seats),
-                      total_price_cents: orderData.amount_cents,
-                      core_charge_cents: 0
-                    }]
+          // [ask-employer guard #5] Suppress FEE-branded "Order Confirmed" email for
+          // ask-employer purchases. The employer already received the AskEmployerEmail
+          // when the purchase_request was created (POST /api/training/exam/purchase-request),
+          // and the employee receives the ExamUnlockedEmail from runAskEmployerFulfillment
+          // below. The generic FEE order-confirmation contains buyer-receipt language
+          // ("Your order is confirmed") that doesn't fit the "paid on behalf of" relationship
+          // and would duplicate / confuse the existing notifications. Self-purchase behavior
+          // is preserved because the predicate is false unless flag is on AND request_id is
+          // in metadata — see shouldSuppressEmployerSideEffects R1-R5 unit tests.
+          if (!shouldSuppressEmployerSideEffects(session.metadata, process.env.ENABLE_ASK_EMPLOYER_FULFILLMENT)) {
+            // Send order confirmation email
+            try {
+              const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com'
+              const emailResponse = await fetch(`${siteUrl}/api/send-order-confirmation`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  order_number: `FEE-${order.id.slice(-8)}`,
+                  customer_email: customerEmail,
+                  customer_name: customerName,
+                  subtotal_cents: orderData.amount_cents,
+                  shipping_cents: 0,
+                  tax_cents: 0,
+                  total_cents: orderData.amount_cents,
+                  order_type: 'training',
+                  line_items: isAnnualPlan
+                    ? [{
+                        product_name: 'Facility Unlimited Annual',
+                        product_sku: 'FORKLIFT-ANNUAL',
+                        quantity: 1,
+                        unit_price_cents: orderData.amount_cents,
+                        total_price_cents: orderData.amount_cents,
+                        core_charge_cents: 0
+                      }]
+                    : [{
+                        product_name: 'Forklift Operator Certification',
+                        product_sku: 'FORKLIFT-CERT',
+                        quantity: orderData.seats,
+                        unit_price_cents: Math.floor(orderData.amount_cents / orderData.seats),
+                        total_price_cents: orderData.amount_cents,
+                        core_charge_cents: 0
+                      }]
+                })
               })
-            })
-            
-            if (emailResponse.ok) {
-              console.log('✅ Order confirmation email sent successfully')
-            } else {
-              console.error('❌ Failed to send order confirmation email:', await emailResponse.text())
+
+              if (emailResponse.ok) {
+                console.log('✅ Order confirmation email sent successfully')
+              } else {
+                console.error('❌ Failed to send order confirmation email:', await emailResponse.text())
+              }
+            } catch (emailError) {
+              console.error('❌ Error sending order confirmation email:', emailError)
             }
-          } catch (emailError) {
-            console.error('❌ Error sending order confirmation email:', emailError)
+          } else {
+            console.log(`[webhook] suppressed order-confirmation email for ask-employer request ${session.metadata?.request_id}.`)
           }
         }
 
