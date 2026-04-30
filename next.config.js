@@ -39,9 +39,10 @@ const baseConfig = {
       // ============================================================
       
       // Redirect non-www to www (canonical domain) - PERMANENT 301
-      // Excludes /api routes to preserve webhook POST requests
+      // Excludes /api routes to preserve webhook POST requests and
+      // /.well-known files for app/site verification.
       {
-        source: '/:path((?!api).*)',
+        source: '/:path((?!api|\\.well-known).*)',
         has: [{ type: 'host', value: 'flatearthequipment.com' }],
         destination: 'https://www.flatearthequipment.com/:path',
         permanent: true // 301 - Passes full link equity to www
@@ -428,6 +429,12 @@ const baseConfig = {
     return [
       {
         source: '/.well-known/apple-app-site-association',
+        headers: [
+          { key: 'Content-Type', value: 'application/json' }
+        ]
+      },
+      {
+        source: '/.well-known/assetlinks.json',
         headers: [
           { key: 'Content-Type', value: 'application/json' }
         ]

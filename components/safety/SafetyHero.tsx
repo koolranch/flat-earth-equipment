@@ -6,6 +6,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { trackEvent } from "@/lib/analytics/gtag";
 import { trackLanding, trackCTA, trackCheckoutBegin } from "@/lib/analytics/vercel-funnel";
 import type { StateData } from "@/lib/data/state-data";
+import GooglePlayBadge from "@/components/GooglePlayBadge";
 
 interface SafetyHeroProps {
   stateData?: StateData | null;
@@ -165,6 +166,11 @@ export default function SafetyHero({ stateData }: SafetyHeroProps = {}) {
             <p className="mt-4 sm:hidden text-sm text-slate-400/80 text-center">
               🔒 Secure checkout • Instant access
             </p>
+
+            <GooglePlayBadge
+              className="mt-5 flex flex-col items-center gap-1 md:items-start"
+              labelClassName="text-sm font-semibold text-slate-300"
+            />
             
             {error && (
               <p className="mt-4 text-red-400 text-sm bg-red-500/10 border border-red-500/20 rounded-lg p-3">{error}</p>

@@ -4,9 +4,8 @@
     "target": {
       "namespace": "android_app",
       "package_name": "com.flateartheequipment.forkliftcertified",
-      "sha256_cert_fingerprints": [
-        "SIGNING_CERT_SHA256"
-      ]
+      "sha256_cert_fingerprints":
+      ["60:4B:57:E4:FE:37:EA:0F:EC:25:1B:EE:61:88:A9:E6:AB:4C:D4:A9:35:8B:07:4D:F0:3A:84:BB:07:FE:6E:C3"]
     }
   }
 ]

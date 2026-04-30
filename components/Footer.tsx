@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import GooglePlayBadge from './GooglePlayBadge';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -60,6 +61,7 @@ export default function Footer() {
               <li><Link href="/terms-of-service" className="hover:text-canyon-rust transition">Terms of Service</Link></li>
               <li><Link href="/privacy-policy" className="hover:text-canyon-rust transition">Privacy Policy</Link></li>
             </ul>
+            <GooglePlayBadge className="mt-6 space-y-2" />
           </div>
 
           {/* Service Areas Column */}
