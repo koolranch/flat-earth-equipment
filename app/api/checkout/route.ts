@@ -174,7 +174,7 @@ export async function POST(req: NextRequest) {
               name: 'Freight Shipping - Forklift Forks',
               description: 'Freight shipping for forklift forks due to size and weight'
             },
-            unit_amount: 35000 // $350.00 in cents
+            unit_amount: 39500 // $395.00 in cents
           },
           quantity: 1
         });
