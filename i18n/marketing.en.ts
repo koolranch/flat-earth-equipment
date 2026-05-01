@@ -30,11 +30,13 @@ export default {
   faq: {
     title: 'FAQ',
     items: [
-      { q: 'Will employers accept this online certification?', a: 'Yes. OSHA 29 CFR 1910.178 allows online training for the formal instruction component. Our training is accepted by employers nationwide. Your certificate includes QR verification for instant employer validation.' },
+      { q: 'Is the app really free?', a: "Yes. Download the app, complete all 5 training modules, and study as long as you want — completely free. You only pay $49 when you're ready to take the final exam and receive your official OSHA-aligned certificate with QR verification.", featured: true },
+      { q: 'Can my employer pay for my certification?', a: "Yes! Once you've completed training in the app, you can send a payment request directly to your employer. They'll receive an email with a secure payment link to pay the $49 certificate fee on your behalf. Many operators get reimbursed this way — your employer benefits from a certified, compliant operator at no upfront cost to you.", featured: true },
+      { q: 'Will employers accept this online certification?', a: 'Yes. OSHA 29 CFR 1910.178 allows online training for the formal instruction component. Our training is accepted by employers nationwide. Your certificate includes QR verification for instant employer validation.', featured: true },
       { q: 'How fast can I get my certificate?', a: 'Most operators complete training in 45-60 minutes. Your certificate is available for immediate download upon passing the final exam. You can start applying for jobs the same day.' },
       { q: 'Is this the same as in-person classroom training?', a: 'Yes, for the formal instruction component. OSHA requires both classroom training AND workplace evaluation. Our online course covers the classroom portion (same content as 8-hour classes). Your employer completes a brief practical evaluation on-site using our provided form.' },
       { q: 'What if I fail the exam?', a: 'You can retake quizzes and the final exam as many times as needed at no additional cost. Most operators pass on the first attempt.' },
-      { q: 'Do I need any special equipment?', a: 'No. Works on any phone, tablet, or computer with internet access. No apps to download.' },
+      { q: 'Do I need any special equipment?', a: "No. Download our free app on Android or iOS, or use any phone, tablet, or computer with a web browser. Training is free in the app — you only pay $49 when you're ready for your certificate." },
       { q: 'How long is the certification valid?', a: '3 years. OSHA requires recertification every 3 years or when changing equipment types.' }
     ]
   },

@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { getMarketingDict, type Locale } from '@/i18n';
 import ComplianceBlock from '@/components/marketing/ComplianceBlock';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { unstable_noStore as noStore } from 'next/cache';
 import { detectUserServer } from '@/lib/auth/detectUserServer';
 import { supabaseServer } from '@/lib/supabase/server';
@@ -17,10 +18,14 @@ import SafetyScreenshots from './components/SafetyScreenshots';
 import Testimonial from './components/Testimonial';
 import FaqSchema from './components/FaqSchema';
 
+// Mobile app-first behavior on /safety is governed by lib/app-store/links.ts
+// (IOS_APP_LIVE, IOS_APP_STORE_URL, ANDROID_PLAY_STORE_URL). Flip the iOS
+// flag in that file when the App Store listing goes live.
+
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; // no ISR
 
-export const metadata = {
+const baseMetadata: Metadata = {
   title: 'Online Forklift Certification — OSHA Training in 30 Min | $49',
   description: 'Get online forklift certification for $49. OSHA-compliant training in under 30 minutes with instant certificate download. Accepted by employers in all 50 states.',
   openGraph: {
@@ -62,6 +67,37 @@ export const metadata = {
       'max-snippet': -1,
     },
   }
+};
+
+/**
+ * When ANY query param is present (state personalization, gclid, utm, etc.)
+ * we prevent indexing so personalized + ad-tagged variants don't compete
+ * with the canonical /safety listing or the dedicated state SEO pages.
+ */
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams?: Record<string, string | string[] | undefined>;
+}): Promise<Metadata> {
+  const hasAnyParam =
+    !!searchParams && Object.keys(searchParams).some((key) => {
+      const value = searchParams[key];
+      return Array.isArray(value) ? value.length > 0 : value !== undefined && value !== '';
+    });
+
+  if (!hasAnyParam) return baseMetadata;
+
+  return {
+    ...baseMetadata,
+    robots: {
+      index: false,
+      follow: false,
+      googleBot: {
+        index: false,
+        follow: false,
+      },
+    },
+  };
 }
 
 function getLocaleForStatic(): Locale {

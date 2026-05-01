@@ -27,6 +27,8 @@ export default {
   faq: {
     title: 'Preguntas frecuentes',
     items: [
+      { q: '¿La app es realmente gratis?', a: 'Sí. Descarga la app, completa los 5 módulos de capacitación y estudia el tiempo que necesites — totalmente gratis. Solo pagas $49 cuando estés listo para el examen final y para recibir tu certificado oficial alineado a OSHA con verificación por QR.', featured: true },
+      { q: '¿Mi empleador puede pagar mi certificación?', a: 'Sí. Cuando termines la capacitación en la app, puedes enviar una solicitud de pago a tu empleador. Recibirá un correo con un enlace seguro para pagar los $49 del certificado en tu nombre. Muchos operadores se benefician así — tu empleador obtiene un operador certificado y conforme sin costo inicial para ti.', featured: true },
       { q: '¿Este curso es basado en video?', a: 'No. Usamos demos interactivas y micro-cuestionarios. Cualquier video incluye subtítulos y transcripción.' },
       { q: '¿Recibiré un certificado?', a: 'Sí. Al aprobar el examen final se genera un certificado verificable por QR. Su empleador puede añadir la evaluación práctica y la firma.' },
       { q: '¿Los instructores pueden gestionar asientos?', a: 'Sí. Cargue un CSV o pegue correos, siga el progreso, exporte registros y verifique certificados.' }

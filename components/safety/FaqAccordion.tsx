@@ -4,6 +4,8 @@ import { useState } from 'react';
 interface FaqItem {
   q: string;
   a: string;
+  /** When true, surfaces this question above the "Show More" fold on mobile. */
+  featured?: boolean;
 }
 
 interface FaqAccordionProps {
@@ -14,12 +16,18 @@ interface FaqAccordionProps {
 export default function FaqAccordion({ items, title }: FaqAccordionProps) {
   const [showAllMobile, setShowAllMobile] = useState(false);
 
-  // Critical questions for mobile: indices 0, 1, 3
-  // 0: Will employers accept
-  // 1: How fast
-  // 3: What if I fail
-  const criticalIndices = [0, 1, 3];
-  const remainingIndices = [2, 4, 5];
+  // Mobile-critical = items flagged as featured. Falls back to the previous
+  // hand-picked indices (0, 1, 3) if no items are flagged so legacy locales
+  // keep working without changes.
+  const featuredIndices = items
+    .map((item, idx) => (item?.featured ? idx : -1))
+    .filter((idx) => idx >= 0);
+
+  const criticalIndices =
+    featuredIndices.length > 0 ? featuredIndices : [0, 1, 3].filter((i) => i < items.length);
+  const remainingIndices = items
+    .map((_, idx) => idx)
+    .filter((idx) => !criticalIndices.includes(idx));
 
   return (
     <section id="faq" className="mt-12 bg-white rounded-2xl border border-slate-200/60 shadow-sm px-6 py-8 sm:p-10">
@@ -64,13 +72,13 @@ export default function FaqAccordion({ items, title }: FaqAccordionProps) {
         })}
 
         {/* Show More Button */}
-        {!showAllMobile && (
+        {!showAllMobile && remainingIndices.length > 0 && (
           <div className="py-6 text-center">
             <button
               onClick={() => setShowAllMobile(true)}
               className="inline-flex items-center gap-2 text-orange-600 font-medium px-4 py-2 rounded-lg hover:bg-orange-50 transition-colors text-sm"
             >
-              <span>Show 3 More Questions</span>
+              <span>{`Show ${remainingIndices.length} More Question${remainingIndices.length === 1 ? '' : 's'}`}</span>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
             </button>
           </div>

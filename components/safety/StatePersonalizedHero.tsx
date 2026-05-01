@@ -10,17 +10,28 @@ import { getStateFromParam } from "@/lib/data/state-data";
  * data to SafetyHero. Wrapped in <Suspense> by the parent page.
  *
  * - Does NOT rewrite or redirect the URL (preserves gclid and all params)
- * - Injects a noindex meta tag when a state param is present so
- *   personalized ad-landing variants are never indexed
+ * - Injects a noindex meta tag whenever ANY query param is present so the
+ *   personalized + ad-tagged variants are never indexed as duplicates of
+ *   the canonical /safety landing page.
  */
 export default function StatePersonalizedHero() {
   const searchParams = useSearchParams();
   const stateParam = searchParams.get("state");
 
   const stateData = useMemo(() => getStateFromParam(stateParam), [stateParam]);
+  const normalizedStateParam = useMemo(() => {
+    if (!stateParam) return null;
+    return stateParam.toLowerCase().trim();
+  }, [stateParam]);
+
+  const hasAnyParam = useMemo(() => {
+    if (!searchParams) return false;
+    const str = searchParams.toString();
+    return str.length > 0;
+  }, [searchParams]);
 
   useEffect(() => {
-    if (!stateParam) return;
+    if (!hasAnyParam) return;
 
     const meta = document.createElement("meta");
     meta.name = "robots";
@@ -30,7 +41,7 @@ export default function StatePersonalizedHero() {
     return () => {
       document.head.removeChild(meta);
     };
-  }, [stateParam]);
+  }, [hasAnyParam]);
 
-  return <SafetyHero stateData={stateData} />;
+  return <SafetyHero stateData={stateData} stateParam={normalizedStateParam} />;
 }

@@ -6,13 +6,15 @@ import { loadStripe } from "@stripe/stripe-js";
 import { trackEvent } from "@/lib/analytics/gtag";
 import { trackLanding, trackCTA, trackCheckoutBegin } from "@/lib/analytics/vercel-funnel";
 import type { StateData } from "@/lib/data/state-data";
-import GooglePlayBadge from "@/components/GooglePlayBadge";
+import AppDownloadCTA from "@/components/safety/AppDownloadCTA";
 
 interface SafetyHeroProps {
   stateData?: StateData | null;
+  /** Lowercased state slug from the `?state=` query param, or null. */
+  stateParam?: string | null;
 }
 
-export default function SafetyHero({ stateData }: SafetyHeroProps = {}) {
+export default function SafetyHero({ stateData, stateParam = null }: SafetyHeroProps = {}) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
@@ -122,22 +124,43 @@ export default function SafetyHero({ stateData }: SafetyHeroProps = {}) {
             </h1>
             
             <p className="mt-6 text-slate-300 text-lg md:text-xl max-w-2xl leading-relaxed font-normal">
-              {stateData ? (
-                <>
-                  <span className="text-white font-medium">30 Minutes</span> • <span className="text-white font-semibold">$49</span> • Same-day certificate • OSHA-aligned
-                  <span className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-base">
-                    <span className="text-emerald-400 font-medium">✓ Valid for {stateData.name} employers</span>
-                    <span className="text-emerald-400 font-medium">✓ {stateData.operatorsCertified} {stateData.name} operators certified</span>
-                  </span>
-                </>
-              ) : (
-                <>
-                  <span className="text-white font-medium">30 Minutes</span> • <span className="text-white font-semibold">$49</span> • Same-day certificate • OSHA-aligned
-                </>
-              )}
+              <span className="md:hidden">
+                Train free on the app. Pay $49 when ready — or have your
+                employer pay for you.
+              </span>
+              <span className="hidden md:inline">
+                {stateData ? (
+                  <>
+                    <span className="text-white font-medium">30 Minutes</span> • <span className="text-white font-semibold">$49</span> • Same-day certificate • OSHA-aligned
+                    <span className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-base">
+                      <span className="text-emerald-400 font-medium">✓ Valid for {stateData.name} employers</span>
+                      <span className="text-emerald-400 font-medium">✓ {stateData.operatorsCertified} {stateData.name} operators certified</span>
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-white font-medium">30 Minutes</span> • <span className="text-white font-semibold">$49</span> • Same-day certificate • OSHA-aligned
+                  </>
+                )}
+              </span>
             </p>
-            
-            <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
+
+            {/* Mobile-only app-first CTA stack (desktop is unchanged below). */}
+            <div className="mt-8 w-full md:hidden">
+              <AppDownloadCTA
+                placement="safety_hero"
+                stateParam={stateParam}
+                primaryLabel="Start Training Free"
+                showWebFallback
+                showTrustLine={false}
+                className="items-center"
+              />
+              <p className="mt-3 text-xs text-slate-400 text-center">
+                2,000+ operators • 50 states • 4.9★ • Employer pay option
+              </p>
+            </div>
+
+            <div className="mt-8 hidden md:flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
               <button
                 onClick={handleStart}
                 disabled={isLoading}
@@ -162,16 +185,12 @@ export default function SafetyHero({ stateData }: SafetyHeroProps = {}) {
               </p>
             </div>
             
-            {/* Trust note - Mobile bottom position */}
-            <p className="mt-4 sm:hidden text-sm text-slate-400/80 text-center">
+            {/* Trust note for the desktop $49 button — mobile uses the AppDownloadCTA's
+                trust line instead. Keep visibility tied to the desktop CTA above. */}
+            <p className="mt-4 hidden md:block sm:hidden text-sm text-slate-400/80 text-center">
               🔒 Secure checkout • Instant access
             </p>
 
-            <GooglePlayBadge
-              className="mt-5 flex flex-col items-center gap-1 md:items-start"
-              labelClassName="text-sm font-semibold text-slate-300"
-            />
-            
             {error && (
               <p className="mt-4 text-red-400 text-sm bg-red-500/10 border border-red-500/20 rounded-lg p-3">{error}</p>
             )}
