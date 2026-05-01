@@ -15,7 +15,7 @@ export default function GooglePlayBadge({
 }: GooglePlayBadgeProps) {
   return (
     <div className={`min-[1025px]:hidden ${className}`}>
-      <p className={labelClassName}>Also available on Android</p>
+      <p className={labelClassName}>Start Training Free on Android</p>
       <a
         href={PLAY_STORE_URL}
         target="_blank"
