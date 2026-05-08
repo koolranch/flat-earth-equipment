@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { buildPracticalEvalInviteDeepLink } from '@/lib/practical/deepLink';
 import OpenInAppButton from './OpenInAppButton';
 
 export const dynamic = 'force-dynamic';
@@ -190,7 +191,7 @@ export default async function PracticalEvalInvitePage({
   params: { token: string };
 }) {
   const token = params.token;
-  const deepLink = `forklift-certified://invite/practical-eval/${token}`;
+  const deepLink = buildPracticalEvalInviteDeepLink(token);
   const result = await getInvite(token);
 
   if (!result.ok) {
