@@ -35,11 +35,6 @@ function EnterpriseNav() {
                 </a>
               )}
               {role === 'owner' && (
-                <a href="/enterprise/bulk" className="text-slate-300 hover:text-white transition-colors">
-                  Bulk Ops
-                </a>
-              )}
-              {role === 'owner' && (
                 <a href="/trainer/dashboard" className="text-slate-300 hover:text-white transition-colors">
                   Trainer View
                 </a>
