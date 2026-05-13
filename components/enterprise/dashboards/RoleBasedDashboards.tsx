@@ -80,36 +80,6 @@ export function OwnerDashboard({ stats, organizations, orgId }: any) {
         />
       </EnterpriseGrid>
 
-      {/* Management Actions */}
-      <EnterpriseCard>
-        <EnterpriseH2 className="mb-4">Quick Actions</EnterpriseH2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <ActionCard
-            icon="➕"
-            title="Invite Users"
-            description="Add new team members"
-            onClick={() => window.location.href = '/enterprise/team?action=invite'}
-          />
-          <ActionCard
-            icon="📋"
-            title="Assign Training"
-            description="Assign courses to users"
-            onClick={() => window.location.href = '/enterprise/bulk?tab=assign'}
-          />
-          <ActionCard
-            icon="📊"
-            title="View Reports"
-            description="Access compliance reports"
-            onClick={() => window.location.href = '/enterprise/analytics'}
-          />
-          <ActionCard
-            icon="📥"
-            title="Export Records"
-            description="Download team CSV"
-            onClick={() => orgId && (window.location.href = `/api/enterprise/export/roster?org_id=${orgId}`)}
-          />
-        </div>
-      </EnterpriseCard>
     </div>
   );
 }
