@@ -342,19 +342,45 @@ export async function getOrganizationUsers(orgId: string, options: {
     throw new Error(error.message);
   }
 
+  const userIds = Array.from(new Set((data || []).map(enrollment => enrollment.user_id).filter(Boolean)));
+  const [{ data: profiles }, { data: memberships }] = await Promise.all([
+    userIds.length > 0
+      ? supabase
+          .from('profiles')
+          .select('id, full_name, email')
+          .in('id', userIds)
+      : Promise.resolve({ data: [] as any[] }),
+    userIds.length > 0
+      ? supabase
+          .from('org_members')
+          .select('user_id, role')
+          .eq('org_id', orgId)
+          .in('user_id', userIds)
+      : Promise.resolve({ data: [] as any[] })
+  ]);
+
+  const profileMap = new Map((profiles || []).map(profile => [profile.id, profile]));
+  const membershipMap = new Map((memberships || []).map(member => [member.user_id, member]));
+
   // Transform data to user format
-  const users = (data || []).map(enrollment => ({
-    id: enrollment.user_id,
-    email: enrollment.learner_email,
-    full_name: enrollment.learner_email?.split('@')[0] || 'Unknown',
-    course: (enrollment.courses as any)?.title || 'Unknown Course',
-    course_slug: (enrollment.courses as any)?.slug,
-    progress_pct: enrollment.progress_pct || 0,
-    score: null, // Score not stored in enrollments table - would need certificates join
-    status: enrollment.passed ? 'completed' : 'active',
-    enrollment_date: enrollment.created_at,
-    last_activity: enrollment.updated_at
-  }));
+  const users = (data || []).map(enrollment => {
+    const profile = profileMap.get(enrollment.user_id);
+    const membership = membershipMap.get(enrollment.user_id);
+
+    return {
+      id: enrollment.user_id,
+      email: profile?.email || enrollment.learner_email,
+      full_name: profile?.full_name || enrollment.learner_email?.split('@')[0] || 'Unknown',
+      role: membership?.role || 'member',
+      course: (enrollment.courses as any)?.title || 'Unknown Course',
+      course_slug: (enrollment.courses as any)?.slug,
+      progress_pct: enrollment.progress_pct || 0,
+      score: null, // Score not stored in enrollments table - would need certificates join
+      status: enrollment.passed ? 'completed' : 'active',
+      enrollment_date: enrollment.created_at,
+      last_activity: enrollment.updated_at
+    };
+  });
 
   return {
     users,
