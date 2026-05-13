@@ -80,7 +80,6 @@ export function OwnerDashboard({ stats, organizations, orgId }: any) {
             <EnterpriseBody className="text-gray-600">
               {assignedLearners} assigned learner{assignedLearners === 1 ? '' : 's'}
               {seatTotals ? ` · ${seatTotals.available} seat${seatTotals.available === 1 ? '' : 's'} available` : ''}
-              {' · '}Last updated just now
             </EnterpriseBody>
           </div>
           <EnterpriseButton onClick={() => window.location.href = '/enterprise/team'}>
@@ -111,7 +110,7 @@ export function OwnerDashboard({ stats, organizations, orgId }: any) {
           status={completionRate >= 80 ? "good" : completionRate >= 60 ? "warning" : "danger"}
         />
         <KPICard
-          title="Not Completed"
+          title="Training Remaining"
           value={notCompleted}
           icon="📚"
           status="neutral"
