@@ -110,7 +110,7 @@ export function OwnerDashboard({ stats, organizations, orgId }: any) {
           status={completionRate >= 80 ? "good" : completionRate >= 60 ? "warning" : "danger"}
         />
         <KPICard
-          title="Training Remaining"
+          title="Incomplete"
           value={notCompleted}
           icon="📚"
           status="neutral"
@@ -119,9 +119,8 @@ export function OwnerDashboard({ stats, organizations, orgId }: any) {
 
       <EnterpriseCard>
         <EnterpriseBody className="text-gray-700">
-          {assignedLearners} learner{assignedLearners === 1 ? ' has' : 's have'} been assigned.{' '}
-          {Math.max(assignedLearners - notCompleted, 0)} completed training and {notCompleted} remain in progress or not started.
-          Once learners pass the final exam, certificates will appear in Team Management and CSV exports.
+          {assignedLearners} learner{assignedLearners === 1 ? ' is' : 's are'} assigned.
+          Certificates will appear in Team Management and CSV exports after learners pass the final exam.
         </EnterpriseBody>
       </EnterpriseCard>
 
