@@ -78,8 +78,8 @@ export function OwnerDashboard({ stats, organizations, orgId }: any) {
           <div>
             <EnterpriseH2 className="text-xl">{orgName}</EnterpriseH2>
             <EnterpriseBody className="text-gray-600">
-              {assignedLearners} assigned learner{assignedLearners === 1 ? '' : 's'}
-              {seatTotals ? ` · ${seatTotals.available} seat${seatTotals.available === 1 ? '' : 's'} available` : ''}
+              Forklift certification program
+              {seatTotals ? ` · ${seatTotals.total}-seat enterprise plan` : ''}
             </EnterpriseBody>
           </div>
           <EnterpriseButton onClick={() => window.location.href = '/enterprise/team'}>
