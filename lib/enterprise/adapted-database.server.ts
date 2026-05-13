@@ -343,7 +343,7 @@ export async function getOrganizationUsers(orgId: string, options: {
   }
 
   const userIds = Array.from(new Set((data || []).map(enrollment => enrollment.user_id).filter(Boolean)));
-  const [{ data: profiles }, { data: memberships }] = await Promise.all([
+  const [{ data: profiles }, { data: memberships }, { data: userEnrollments }] = await Promise.all([
     userIds.length > 0
       ? supabase
           .from('profiles')
@@ -356,22 +356,43 @@ export async function getOrganizationUsers(orgId: string, options: {
           .select('user_id, role')
           .eq('org_id', orgId)
           .in('user_id', userIds)
+      : Promise.resolve({ data: [] as any[] }),
+    userIds.length > 0
+      ? supabase
+          .from('enrollments')
+          .select('user_id, progress_pct, passed')
+          .eq('org_id', orgId)
+          .in('user_id', userIds)
       : Promise.resolve({ data: [] as any[] })
   ]);
 
   const profileMap = new Map((profiles || []).map(profile => [profile.id, profile]));
   const membershipMap = new Map((memberships || []).map(member => [member.user_id, member]));
+  const enrollmentStatsMap = new Map<string, { count: number; progressTotal: number }>();
+
+  for (const enrollment of userEnrollments || []) {
+    const current = enrollmentStatsMap.get(enrollment.user_id) || { count: 0, progressTotal: 0 };
+    current.count += 1;
+    current.progressTotal += enrollment.progress_pct || 0;
+    enrollmentStatsMap.set(enrollment.user_id, current);
+  }
 
   // Transform data to user format
   const users = (data || []).map(enrollment => {
     const profile = profileMap.get(enrollment.user_id);
     const membership = membershipMap.get(enrollment.user_id);
+    const enrollmentStats = enrollmentStatsMap.get(enrollment.user_id) || { count: 1, progressTotal: enrollment.progress_pct || 0 };
+    const completionRate = enrollmentStats.count > 0
+      ? Math.round(enrollmentStats.progressTotal / enrollmentStats.count)
+      : 0;
 
     return {
       id: enrollment.user_id,
       email: profile?.email || enrollment.learner_email,
       full_name: profile?.full_name || enrollment.learner_email?.split('@')[0] || 'Unknown',
       role: membership?.role || 'member',
+      enrollment_count: enrollmentStats.count,
+      completion_rate: completionRate,
       course: (enrollment.courses as any)?.title || 'Unknown Course',
       course_slug: (enrollment.courses as any)?.slug,
       progress_pct: enrollment.progress_pct || 0,
