@@ -22,11 +22,32 @@ import { AssignTrainingModal } from '@/components/enterprise/modals/AssignTraini
  * OWNER DASHBOARD - Full management control
  */
 export function OwnerDashboard({ stats, organizations, orgId }: any) {
+  const [seatTotals, setSeatTotals] = useState<{ total: number; used: number; available: number } | null>(null);
+
+  const organization = organizations?.find((org: any) => org.id === orgId) || organizations?.[0];
+  const orgName = organization?.name || 'Your Organization';
+  const assignedLearners = stats?.total_users || 0;
+  const notCompleted = stats?.active_enrollments || 0;
+  const completionRate = stats?.completion_rate || 0;
+
+  useEffect(() => {
+    if (!orgId) return;
+
+    fetch(`/api/enterprise/seats?org_id=${orgId}`)
+      .then(r => r.json())
+      .then(data => {
+        if (data.ok && data.has_seat_tracking) {
+          setSeatTotals(data.totals);
+        }
+      })
+      .catch(() => {});
+  }, [orgId]);
+
   return (
     <div className="space-y-6">
       <EnterprisePageHeader 
-        title="Enterprise Dashboard" 
-        subtitle="Full organizational control and management"
+        title={`${orgName} Dashboard`} 
+        subtitle="Team training progress, seat usage, and certification reporting"
         actions={
           <div className="flex gap-2 flex-wrap">
             <EnterpriseButton 
@@ -52,33 +73,58 @@ export function OwnerDashboard({ stats, organizations, orgId }: any) {
         }
       />
 
+      <EnterpriseCard className="border-orange-200 bg-orange-50/60">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <EnterpriseH2 className="text-xl">{orgName}</EnterpriseH2>
+            <EnterpriseBody className="text-gray-600">
+              {assignedLearners} assigned learner{assignedLearners === 1 ? '' : 's'}
+              {seatTotals ? ` · ${seatTotals.available} seat${seatTotals.available === 1 ? '' : 's'} available` : ''}
+              {' · '}Last updated just now
+            </EnterpriseBody>
+          </div>
+          <EnterpriseButton onClick={() => window.location.href = '/enterprise/team'}>
+            View Team Progress
+          </EnterpriseButton>
+        </div>
+      </EnterpriseCard>
+
       {/* Quick Stats */}
       <EnterpriseGrid columns={4}>
         <KPICard
-          title="Total Organizations"
-          value={organizations?.length || 0}
-          icon="🏢"
-          status="neutral"
+          title="Available Seats"
+          value={seatTotals?.available ?? '—'}
+          icon="🎟️"
+          status={seatTotals && seatTotals.available === 0 ? "danger" : "good"}
+          subtitle={seatTotals ? `${seatTotals.used} of ${seatTotals.total} assigned` : 'seat tracking'}
         />
         <KPICard
-          title="Total Users"
-          value={stats?.total_users || 0}
+          title="Assigned Learners"
+          value={assignedLearners}
           icon="👥"
           status="neutral"
         />
         <KPICard
           title="Completion Rate"
-          value={`${stats?.completion_rate || 0}%`}
+          value={`${completionRate}%`}
           icon="✅"
-          status={stats?.completion_rate >= 80 ? "good" : stats?.completion_rate >= 60 ? "warning" : "danger"}
+          status={completionRate >= 80 ? "good" : completionRate >= 60 ? "warning" : "danger"}
         />
         <KPICard
-          title="Active Enrollments"
-          value={stats?.active_enrollments || 0}
+          title="Not Completed"
+          value={notCompleted}
           icon="📚"
           status="neutral"
         />
       </EnterpriseGrid>
+
+      <EnterpriseCard>
+        <EnterpriseBody className="text-gray-700">
+          {assignedLearners} learner{assignedLearners === 1 ? ' has' : 's have'} been assigned.{' '}
+          {Math.max(assignedLearners - notCompleted, 0)} completed training and {notCompleted} remain in progress or not started.
+          Once learners pass the final exam, certificates will appear in Team Management and CSV exports.
+        </EnterpriseBody>
+      </EnterpriseCard>
 
     </div>
   );
