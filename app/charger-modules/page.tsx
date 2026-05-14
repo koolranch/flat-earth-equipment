@@ -12,13 +12,13 @@ import TechnicalSpecsTable, { CHARGER_MODULE_SPECS } from "@/components/seo/Tech
 import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata = {
-  title: "Charger Modules | Enersys & Hawker | Repair",
-  description: "In-stock remanufactured forklift charger modules for Enersys & Hawker. Choose instant exchange or send-in repair service. 6-month warranty, free shipping nationwide.",
-  keywords: "forklift charger modules, enersys charger module, hawker charger module, forklift charger repair, charger module exchange",
+  title: "Forklift Charger Modules | Enersys, Hawker & ACT Quantum | Reman & Repair",
+  description: "In-stock remanufactured forklift charger modules for Enersys, Hawker, and ACT Quantum (36V/48V/80V). Choose instant exchange or send-in repair service. 6-month warranty, free shipping nationwide.",
+  keywords: "forklift charger modules, enersys charger module, hawker charger module, act quantum charger module, hyster yale premier charger, 81063577R, 81063578R, 81063658R, forklift charger repair, charger module exchange",
   alternates: generatePageAlternates("/charger-modules"),
   openGraph: {
-    title: "Charger Modules | Enersys & Hawker | Repair",
-    description: "In-stock remanufactured forklift charger modules for Enersys & Hawker. Choose instant exchange or send-in repair service. 6-month warranty, free shipping nationwide.",
+    title: "Forklift Charger Modules | Enersys, Hawker & ACT Quantum | Reman & Repair",
+    description: "In-stock remanufactured forklift charger modules for Enersys, Hawker, and ACT Quantum (36V/48V/80V). Choose instant exchange or send-in repair service. 6-month warranty, free shipping nationwide.",
     type: "website",
     url: "https://www.flatearthequipment.com/charger-modules"
   }
@@ -47,7 +47,7 @@ export default function ChargersLanding() {
           "@context": "https://schema.org",
           "@type": "ItemList",
           "name": "Forklift Charger Modules",
-          "description": "In-stock remanufactured forklift charger modules for Enersys & Hawker. Choose instant exchange or send-in repair service.",
+          "description": "In-stock remanufactured forklift charger modules for Enersys, Hawker, and ACT Quantum (36V/48V/80V). Choose instant exchange or send-in repair service.",
           "url": "https://www.flatearthequipment.com/charger-modules",
           "numberOfItems": CHARGER_MODULES.length * 2, // Each module has 2 offers
           "itemListElement": CHARGER_MODULES.flatMap((module, moduleIndex) => 
@@ -206,7 +206,7 @@ export default function ChargersLanding() {
             All remanufactured charger modules are tested to exceed OEM specifications.
           </p>
           <TechnicalSpecsTable 
-            title="Enersys/Hawker Charger Module Specifications"
+            title="Enersys / Hawker / ACT Quantum Charger Module Specifications"
             specs={CHARGER_MODULE_SPECS}
             footnote="Specifications vary by model. Contact us for compatibility verification with your specific charger."
           />
