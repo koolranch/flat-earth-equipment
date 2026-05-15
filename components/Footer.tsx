@@ -49,10 +49,15 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Center Column - Quick Links */}
+          {/* Center Column - Shop Categories (drives sitewide SEO authority to top product hubs) */}
           <div>
-            <h3 className="font-semibold mb-4">Quick Links</h3>
+            <h3 className="font-semibold mb-4">Shop</h3>
             <ul className="space-y-2 text-sm text-slate-600">
+              <li><Link href="/parts" className="hover:text-canyon-rust transition">All Parts</Link></li>
+              <li><Link href="/lithium-batteries" className="hover:text-canyon-rust transition">Lithium Golf Cart Batteries</Link></li>
+              <li><Link href="/charger-modules" className="hover:text-canyon-rust transition">Forklift Charger Modules</Link></li>
+              <li><Link href="/battery-chargers" className="hover:text-canyon-rust transition">Battery Chargers</Link></li>
+              <li><Link href="/safety/forklift" className="hover:text-canyon-rust transition">Forklift Safety Training</Link></li>
               <li><Link href="/insights" className="hover:text-canyon-rust transition">Insights & Guides</Link></li>
               <li><Link href="/about" className="hover:text-canyon-rust transition">About Us</Link></li>
               <li><Link href="/shipping-returns" className="hover:text-canyon-rust transition">Shipping & Returns</Link></li>

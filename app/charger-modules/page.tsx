@@ -268,6 +268,28 @@ export default function ChargersLanding() {
           </div>
         </section>
 
+        {/* Cross-promotion to Lithium Golf Cart Batteries */}
+        <section className="bg-orange-50 rounded-2xl p-8 text-center space-y-6">
+          <div className="inline-flex items-center gap-2 bg-orange-600/10 text-orange-800 px-4 py-2 rounded-full text-sm font-medium">
+            <Zap className="h-4 w-4" />
+            Also Available
+          </div>
+          <h2 className="text-2xl font-bold text-orange-900">
+            Lithium Golf Cart Battery Conversion Kits
+          </h2>
+          <p className="text-orange-800 max-w-2xl mx-auto">
+            Drop-in LiFePO4 conversion kits for EZGO, Club Car, and Yamaha golf carts.
+            36V, 48V, and 72V options. 6,000+ cycles, 8-year warranty, free shipping on 3+ batteries.
+          </p>
+          <Link
+            href="/lithium-batteries"
+            className="inline-flex items-center gap-2 bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-700 transition-colors"
+          >
+            <Zap className="h-5 w-5" />
+            Shop Lithium Batteries →
+          </Link>
+        </section>
+
         {/* Cross-promotion to EV Chargers */}
         <section className="bg-blue-50 rounded-2xl p-8 text-center space-y-6">
           <div className="inline-flex items-center gap-2 bg-blue-600/10 text-blue-800 px-4 py-2 rounded-full text-sm font-medium">

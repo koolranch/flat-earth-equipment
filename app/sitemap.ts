@@ -1,67 +1,130 @@
 import { MetadataRoute } from "next";
 import { supabaseServer } from "@/lib/supabase/server";
 import { forkliftStates } from "@/src/data/forkliftStates";
+import { CART_MODELS } from "@/constants/golfCartModels";
+import * as fs from "fs";
+import * as path from "path";
+
+const BASE = "https://www.flatearthequipment.com";
+
+/**
+ * Read all MDX blog post slugs from content/insights/ at build time.
+ * Files in subdirectories (e.g. rental/, chargers/, construction-equipment-parts/)
+ * map to the same /insights/{slug} route since the route handler resolves them.
+ */
+function getAllInsightSlugs(): Array<{ slug: string; mtime: Date }> {
+  const insightsDir = path.resolve(process.cwd(), "content/insights");
+  const slugs: Array<{ slug: string; mtime: Date }> = [];
+
+  function walk(dir: string) {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(full);
+      } else if (entry.isFile() && entry.name.endsWith(".mdx")) {
+        // The slug is just the filename without .mdx (subdirectories are
+        // organizational only — the route handler ignores them).
+        const slug = entry.name.replace(/\.mdx$/, "");
+        const stat = fs.statSync(full);
+        slugs.push({ slug, mtime: stat.mtime });
+      }
+    }
+  }
+
+  try {
+    walk(insightsDir);
+  } catch (e) {
+    console.warn("Sitemap: failed to walk content/insights:", e);
+  }
+
+  // De-duplicate by slug (keep the most recently modified version)
+  const map = new Map<string, Date>();
+  for (const s of slugs) {
+    const existing = map.get(s.slug);
+    if (!existing || s.mtime > existing) map.set(s.slug, s.mtime);
+  }
+  return Array.from(map.entries()).map(([slug, mtime]) => ({ slug, mtime }));
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const sb = supabaseServer();
-  const { data } = await sb
+
+  // ── 1. All parts in the database ─────────────────────────────────────────
+  // Includes quote-only JCB SEO stubs (those pages exist for indexing).
+  const { data: parts } = await sb
     .from("parts")
-    .select("slug, updated_at, category_slug")
+    .select("slug, updated_at, category_slug, category, sales_type")
+    .order("slug", { ascending: true })
+    .limit(2000);
+
+  const partItems = (parts ?? [])
+    .filter((p) => p.slug)
+    .map((p) => {
+      // High-value categories get higher priority
+      const isHighValue =
+        p.category === "Lithium Batteries" ||
+        p.category === "Charger Modules" ||
+        p.sales_type === "direct";
+      return {
+        url: `${BASE}/parts/${p.slug}`,
+        lastModified: p.updated_at ? new Date(p.updated_at) : new Date(),
+        changeFrequency: "weekly" as const,
+        priority: isHighValue ? 0.8 : 0.6,
+      };
+    });
+
+  // ── 2. Charger product pages (legacy /chargers/ route) ───────────────────
+  const { data: chargers } = await sb
+    .from("parts")
+    .select("slug, updated_at")
     .eq("category_slug", "battery-chargers")
     .order("slug", { ascending: true })
-    .limit(1000);
+    .limit(2000);
 
-  const base = "https://www.flatearthequipment.com";
-  const chargerItems = (data ?? []).map((p) => ({
-    url: `${base}/chargers/${p.slug}`,
-    lastModified: p.updated_at ? new Date(p.updated_at) : new Date(),
-    changeFrequency: "weekly" as const,
-    priority: 0.8,
+  const chargerItems = (chargers ?? [])
+    .filter((p) => p.slug)
+    .map((p) => ({
+      url: `${BASE}/chargers/${p.slug}`,
+      lastModified: p.updated_at ? new Date(p.updated_at) : new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    }));
+
+  // ── 3. Insight (blog) posts from MDX files ───────────────────────────────
+  const insightSlugs = getAllInsightSlugs();
+  const insightItems = insightSlugs.map(({ slug, mtime }) => ({
+    url: `${BASE}/insights/${slug}`,
+    lastModified: mtime,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
   }));
 
-  // Core site pages
+  // ── 4. Lithium battery cart-model landing pages ──────────────────────────
+  const cartLithiumItems = CART_MODELS.map((c) => ({
+    url: `${BASE}/lithium-batteries/${c.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: c.popularity === "High" ? 0.9 : c.popularity === "Medium" ? 0.8 : 0.7,
+  }));
+
+  // ── 5. Core marketing/landing pages ──────────────────────────────────────
   const corePages = [
-    {
-      url: `${base}/`,
-      lastModified: new Date(),
-      changeFrequency: "daily" as const,
-      priority: 1.0,
-    },
-    {
-      url: `${base}/battery-chargers`,
-      lastModified: new Date(),
-      changeFrequency: "daily" as const,
-      priority: 0.9,
-    },
-    {
-      url: `${base}/safety`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.9,
-    },
-    {
-      url: `${base}/safety/forklift`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.85,
-    },
-    {
-      url: `${base}/about`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    },
-    {
-      url: `${base}/contact`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    },
+    { url: `${BASE}/`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 1.0 },
+    { url: `${BASE}/parts`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.95 },
+    { url: `${BASE}/lithium-batteries`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.95 },
+    { url: `${BASE}/charger-modules`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.9 },
+    { url: `${BASE}/battery-chargers`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.9 },
+    { url: `${BASE}/insights`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.9 },
+    { url: `${BASE}/safety`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.9 },
+    { url: `${BASE}/safety/forklift`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.85 },
+    { url: `${BASE}/about`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.6 },
+    { url: `${BASE}/contact`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.7 },
   ];
 
-  // All 50 state forklift certification pages
+  // ── 6. Forklift state-specific certification pages ───────────────────────
   const statePages = forkliftStates.map((state) => ({
-    url: `${base}/safety/forklift/${state.code}`,
+    url: `${BASE}/safety/forklift/${state.code}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.8,
@@ -70,6 +133,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...corePages,
     ...statePages,
-    ...chargerItems
+    ...cartLithiumItems,
+    ...partItems,
+    ...chargerItems,
+    ...insightItems,
   ];
 }

@@ -98,6 +98,63 @@ export default async function RootLayout({
         {/* PWA Manifest and Icons */}
         <link rel="manifest" href="/manifest.webmanifest" />
         <link rel="apple-touch-icon" href="/icons/app-icon-192.png" />
+
+        {/* Sitewide Organization schema — establishes brand entity in Google Knowledge Graph */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "@id": "https://www.flatearthequipment.com/#organization",
+              name: "Flat Earth Equipment",
+              alternateName: "Flat Earth Safety",
+              url: "https://www.flatearthequipment.com",
+              logo: "https://www.flatearthequipment.com/logo.png",
+              description:
+                "Flat Earth Equipment delivers precision-fit aftermarket forklift parts, JCB replacement parts, charger modules, lithium golf cart batteries, and OSHA-compliant forklift safety training across the United States.",
+              areaServed: { "@type": "Country", name: "United States" },
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "customer service",
+                email: "contact@flatearthequipment.com",
+                availableLanguage: ["English", "Spanish"],
+              },
+              sameAs: [
+                "https://www.linkedin.com/company/flat-earth-equipment",
+                "https://www.facebook.com/flatearthequipment",
+                "https://www.youtube.com/@flatearthequipment",
+              ],
+            }),
+          }}
+        />
+
+        {/* Sitewide WebSite schema with SearchAction — enables sitelinks search box in Google */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "@id": "https://www.flatearthequipment.com/#website",
+              url: "https://www.flatearthequipment.com",
+              name: "Flat Earth Equipment",
+              description:
+                "Aftermarket parts, charger modules, lithium golf cart batteries, and OSHA forklift safety training.",
+              publisher: { "@id": "https://www.flatearthequipment.com/#organization" },
+              potentialAction: {
+                "@type": "SearchAction",
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate:
+                    "https://www.flatearthequipment.com/parts?q={search_term_string}",
+                },
+                "query-input": "required name=search_term_string",
+              },
+              inLanguage: ["en-US", "es"],
+            }),
+          }}
+        />
       </head>
       <body className="font-sans text-gray-900 bg-gray-50 antialiased">
         {/* Google Analytics 4 + Google Ads global site tag */}

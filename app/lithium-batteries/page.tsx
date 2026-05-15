@@ -322,6 +322,26 @@ export default async function LithiumBatteriesLanding() {
         </div>
       </section>
 
+      {/* ─────────── Cross-promotion to Forklift Charger Modules ─────────── */}
+      <section className="bg-blue-50 rounded-2xl p-8 text-center space-y-4">
+        <div className="inline-flex items-center gap-2 bg-blue-600/10 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">
+          Also Available
+        </div>
+        <h2 className="text-2xl font-bold text-blue-900">
+          Need a Forklift Charger Module?
+        </h2>
+        <p className="text-blue-800 max-w-2xl mx-auto">
+          We also stock remanufactured forklift charger modules for Enersys, Hawker, and ACT Quantum.
+          Reman exchange or send-in repair options, both backed by a 6-month warranty.
+        </p>
+        <Link
+          href="/charger-modules"
+          className="inline-flex items-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+        >
+          Browse Charger Modules →
+        </Link>
+      </section>
+
       {/* ─────────── SHIPPING / TRUST ─────────── */}
       <section className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         <div className="bg-white rounded-xl border border-slate-200 p-6 text-center">
