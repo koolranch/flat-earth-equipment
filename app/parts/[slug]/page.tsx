@@ -1,11 +1,101 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
+import Script from 'next/script';
 import { supabaseServer } from '@/lib/supabase/server';
 import ProductDetails from './ProductDetails';
 import { getBlogPost } from '@/lib/mdx';
 import Link from 'next/link';
 import { generatePageAlternates } from '@/app/seo-defaults';
 import RelatedResources from '@/components/seo/RelatedResources';
+
+const SITE_URL = 'https://www.flatearthequipment.com';
+
+/**
+ * Build Product schema JSON-LD for a parts row.
+ * Includes Offer (with price + availability), brand, image, weight,
+ * and optional GTIN-style identifier.
+ */
+function buildProductSchema(product: any, slug: string) {
+  const url = `${SITE_URL}/parts/${slug}`;
+  const offer: Record<string, any> = {
+    '@type': 'Offer',
+    price: Number(product.price || 0).toFixed(2),
+    priceCurrency: 'USD',
+    availability: product.is_in_stock
+      ? 'https://schema.org/InStock'
+      : 'https://schema.org/PreOrder',
+    url,
+    seller: {
+      '@type': 'Organization',
+      name: 'Flat Earth Equipment',
+    },
+    priceValidUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split('T')[0],
+  };
+
+  const schema: Record<string, any> = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: (product.description || '').slice(0, 5000),
+    sku: product.sku,
+    mpn: product.oem_reference || product.sku,
+    image: product.image_url || undefined,
+    url,
+    brand: {
+      '@type': 'Brand',
+      name: product.brand || 'Flat Earth Equipment',
+    },
+    category: product.category || undefined,
+    offers: offer,
+  };
+
+  if (product.weight_lbs) {
+    schema.weight = {
+      '@type': 'QuantitativeValue',
+      value: product.weight_lbs,
+      unitCode: 'LBR', // pounds
+    };
+  }
+
+  return schema;
+}
+
+/**
+ * Build BreadcrumbList schema. Uses category to add a category breadcrumb when present.
+ */
+function buildBreadcrumbSchema(product: any, slug: string) {
+  const items: Array<{ name: string; item: string }> = [
+    { name: 'Home', item: SITE_URL },
+    { name: 'Parts', item: `${SITE_URL}/parts` },
+  ];
+
+  // If this is a Lithium Battery, link to the brand landing page
+  if (product.category === 'Lithium Batteries') {
+    items.push({ name: 'Lithium Batteries', item: `${SITE_URL}/lithium-batteries` });
+  } else if (product.category === 'Charger Modules') {
+    items.push({ name: 'Charger Modules', item: `${SITE_URL}/charger-modules` });
+  } else if (product.category) {
+    items.push({
+      name: product.category,
+      item: `${SITE_URL}/parts?category=${encodeURIComponent(product.category)}`,
+    });
+  }
+
+  items.push({ name: product.name, item: `${SITE_URL}/parts/${slug}` });
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((it, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      name: it.name,
+      item: it.item,
+    })),
+  };
+}
 
 type Props = {
   params: {
@@ -90,7 +180,23 @@ export default async function ProductPage({ params }: Props) {
   // If found in database, render product page
   if (product && !error) {
     console.log('ProductPage product:', product);
-    return <ProductDetails part={product} variants={product.part_variants || []} />;
+    const productSchema = buildProductSchema(product, params.slug);
+    const breadcrumbSchema = buildBreadcrumbSchema(product, params.slug);
+    return (
+      <>
+        <Script
+          id={`product-ld-json-${params.slug}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+        />
+        <Script
+          id={`breadcrumb-ld-json-${params.slug}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        />
+        <ProductDetails part={product} variants={product.part_variants || []} />
+      </>
+    );
   }
 
   // Fallback: check for MDX content in content/insights/parts/

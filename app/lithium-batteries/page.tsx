@@ -54,6 +54,33 @@ async function getBatteries() {
   return (data || []) as BatteryRow[];
 }
 
+const FAQ_ITEMS: Array<{ q: string; a: string }> = [
+  {
+    q: 'Will a Lithium Rhino battery fit my golf cart?',
+    a: 'Lithium Rhino batteries are drop-in replacements for EZGO TXT/RXV, Club Car DS/Precedent/Tempo, and Yamaha Drive/Drive2 carts. Match the voltage of your existing pack (36V or 48V), then choose the capacity (Ah) based on your range needs. The 48V 105Ah is the most popular for modern carts.',
+  },
+  {
+    q: 'Conversion Kit vs Replacement Battery — which do I need?',
+    a: 'Choose a Conversion Kit if this is your first lithium upgrade — it includes the battery, charger, DC converter, LCD display, and mounting hardware. Choose a Replacement Battery only if you already have a Lithium Rhino install and just need to swap the battery itself.',
+  },
+  {
+    q: 'How long does it take to install?',
+    a: 'Most DIY installations take 2-4 hours. The kit includes mounting hardware and instructions. If you prefer professional installation, most golf cart shops can complete the swap in under 2 hours.',
+  },
+  {
+    q: 'What is HazMat shipping and how does it affect my order?',
+    a: 'Lithium batteries ship as Class 9 hazardous materials (UN3480) by ground freight only. We use certified HazMat carriers and include all required placards. Single-battery freight ranges from $99-$349 by weight. Orders of 3 or more batteries ship free.',
+  },
+  {
+    q: 'How does the 8-year warranty work?',
+    a: 'The first 6 years are full replacement coverage. Years 7-8 are pro-rated with a $500 deductible. Warranty claims are handled directly through us — no need to deal with the manufacturer.',
+  },
+  {
+    q: 'Can I use my existing lead-acid charger?',
+    a: 'No. Lead-acid chargers will damage a lithium pack. Conversion Kits include the correct LiFePO4-compatible charger. If you buy a Replacement Battery only, make sure your existing charger is lithium-rated.',
+  },
+];
+
 function voltageOf(b: BatteryRow): string {
   return b.metadata?.voltage || '48V';
 }
@@ -77,35 +104,77 @@ export default async function LithiumBatteriesLanding() {
 
   return (
     <main className="container mx-auto px-4 lg:px-8 py-12 space-y-16 pb-20">
-      <Script id="lithium-batteries-ld-json" type="application/ld+json">
-        {JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'ItemList',
-          name: 'Lithium Golf Cart Batteries',
-          description:
-            'In-stock Lithium Rhino LiFePO4 golf cart battery conversion kits and replacement batteries for EZGO, Club Car, and Yamaha.',
-          url: 'https://www.flatearthequipment.com/lithium-batteries',
-          numberOfItems: batteries.length,
-          itemListElement: batteries.map((b, idx) => ({
-            '@type': 'ListItem',
-            position: idx + 1,
-            item: {
-              '@type': 'Product',
-              sku: b.sku,
-              name: b.name,
-              brand: { '@type': 'Brand', name: 'Lithium Rhino' },
-              image: b.image_url || undefined,
-              offers: {
-                '@type': 'Offer',
-                price: b.price.toFixed(2),
-                priceCurrency: 'USD',
-                availability: 'https://schema.org/InStock',
-                url: `https://www.flatearthequipment.com/parts/${b.slug}`,
+      {/* ItemList schema — for search results showing the product collection */}
+      <Script
+        id="lithium-batteries-itemlist-ld-json"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'ItemList',
+            name: 'Lithium Golf Cart Batteries',
+            description:
+              'In-stock Lithium Rhino LiFePO4 golf cart battery conversion kits and replacement batteries for EZGO, Club Car, and Yamaha.',
+            url: 'https://www.flatearthequipment.com/lithium-batteries',
+            numberOfItems: batteries.length,
+            itemListElement: batteries.map((b, idx) => ({
+              '@type': 'ListItem',
+              position: idx + 1,
+              item: {
+                '@type': 'Product',
+                sku: b.sku,
+                name: b.name,
+                brand: { '@type': 'Brand', name: 'Lithium Rhino' },
+                image: b.image_url || undefined,
+                offers: {
+                  '@type': 'Offer',
+                  price: b.price.toFixed(2),
+                  priceCurrency: 'USD',
+                  availability: 'https://schema.org/InStock',
+                  url: `https://www.flatearthequipment.com/parts/${b.slug}`,
+                },
               },
-            },
-          })),
-        })}
-      </Script>
+            })),
+          }),
+        }}
+      />
+
+      {/* BreadcrumbList schema */}
+      <Script
+        id="lithium-batteries-breadcrumb-ld-json"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.flatearthequipment.com' },
+              { '@type': 'ListItem', position: 2, name: 'Parts', item: 'https://www.flatearthequipment.com/parts' },
+              { '@type': 'ListItem', position: 3, name: 'Lithium Batteries', item: 'https://www.flatearthequipment.com/lithium-batteries' },
+            ],
+          }),
+        }}
+      />
+
+      {/* FAQPage schema — drives "People Also Ask" rich results */}
+      <Script
+        id="lithium-batteries-faq-ld-json"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: FAQ_ITEMS.map(({ q, a }) => ({
+              '@type': 'Question',
+              name: q,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: a,
+              },
+            })),
+          }),
+        }}
+      />
 
       {/* ─────────── HERO ─────────── */}
       <header className="text-center space-y-4">
@@ -239,36 +308,11 @@ export default async function LithiumBatteriesLanding() {
         </div>
       </section>
 
-      {/* ─────────── FAQ (concise, schema-ready) ─────────── */}
+      {/* ─────────── FAQ (rendered + schema-backed via FAQ_ITEMS) ─────────── */}
       <section className="max-w-3xl mx-auto space-y-6">
         <h2 className="text-2xl font-bold text-slate-900 text-center">Frequently Asked Questions</h2>
         <div className="space-y-4">
-          {[
-            {
-              q: 'Will a Lithium Rhino battery fit my golf cart?',
-              a: 'Lithium Rhino batteries are drop-in replacements for EZGO TXT/RXV, Club Car DS/Precedent/Tempo, and Yamaha Drive/Drive2 carts. Match the voltage of your existing pack (36V or 48V), then choose the capacity (Ah) based on your range needs. The 48V 105Ah is the most popular for modern carts.',
-            },
-            {
-              q: 'Conversion Kit vs Replacement Battery — which do I need?',
-              a: 'Choose a Conversion Kit if this is your first lithium upgrade — it includes the battery, charger, DC converter, LCD display, and mounting hardware. Choose a Replacement Battery only if you already have a Lithium Rhino install and just need to swap the battery itself.',
-            },
-            {
-              q: 'How long does it take to install?',
-              a: 'Most DIY installations take 2-4 hours. The kit includes mounting hardware and instructions. If you prefer professional installation, most golf cart shops can complete the swap in under 2 hours.',
-            },
-            {
-              q: 'What is HazMat shipping and how does it affect my order?',
-              a: 'Lithium batteries ship as Class 9 hazardous materials (UN3480) by ground freight only. We use certified HazMat carriers and include all required placards. Single-battery freight ranges from $99-$349 by weight. Orders of 3 or more batteries ship free.',
-            },
-            {
-              q: 'How does the 8-year warranty work?',
-              a: 'The first 6 years are full replacement coverage. Years 7-8 are pro-rated with a $500 deductible. Warranty claims are handled directly through us — no need to deal with the manufacturer.',
-            },
-            {
-              q: 'Can I use my existing lead-acid charger?',
-              a: 'No. Lead-acid chargers will damage a lithium pack. Conversion Kits include the correct LiFePO4-compatible charger. If you buy a Replacement Battery only, make sure your existing charger is lithium-rated.',
-            },
-          ].map(({ q, a }) => (
+          {FAQ_ITEMS.map(({ q, a }) => (
             <details key={q} className="bg-white border border-slate-200 rounded-lg p-4 group">
               <summary className="font-semibold text-slate-900 cursor-pointer list-none flex justify-between items-center">
                 {q}
