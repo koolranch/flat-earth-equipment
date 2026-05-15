@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Script from 'next/script';
 import { Battery, ShieldCheck, Truck, Wrench, Zap, Snowflake, Cpu, Award } from 'lucide-react';
 import { generatePageAlternates } from '@/app/seo-defaults';
+import { CART_MODELS } from '@/constants/golfCartModels';
 
 export const dynamic = 'force-static';
 export const revalidate = 3600;
@@ -251,6 +252,38 @@ export default async function LithiumBatteriesLanding() {
             </div>
           );
         })}
+      </section>
+
+      {/* ─────────── BROWSE BY CART MODEL ─────────── */}
+      <section className="bg-orange-50 border border-orange-200 rounded-2xl p-8 space-y-4">
+        <div className="text-center space-y-2">
+          <h2 className="text-2xl font-bold text-slate-900">Find the Right Kit for Your Cart</h2>
+          <p className="text-slate-700 max-w-2xl mx-auto">
+            Cart-specific install notes, recommended SKUs, and FAQs for the most popular models.
+          </p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-2">
+          {CART_MODELS.sort((a, b) => {
+            const order: Record<string, number> = { High: 0, Medium: 1, Niche: 2 };
+            return order[a.popularity] - order[b.popularity];
+          }).map((cart) => (
+            <Link
+              key={cart.slug}
+              href={`/lithium-batteries/${cart.slug}`}
+              className="bg-white border border-slate-200 hover:border-orange-300 hover:shadow-md rounded-lg px-4 py-3 transition-all"
+            >
+              <div className="flex items-start justify-between gap-2">
+                <div>
+                  <p className="font-semibold text-slate-900">{cart.fullName}</p>
+                  <p className="text-xs text-slate-500 mt-1">
+                    {cart.yearRange} · {cart.voltage}
+                  </p>
+                </div>
+                <span className="text-orange-500 text-xl">→</span>
+              </div>
+            </Link>
+          ))}
+        </div>
       </section>
 
       {/* ─────────── REPLACEMENT BATTERIES ─────────── */}
