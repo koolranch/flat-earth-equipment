@@ -30,6 +30,7 @@ interface ProductDetailsProps {
     core_charge?: number;
     category?: string;
     compatible_models?: string[] | null;
+    weight_lbs?: number | null;
   };
   variants: Variant[];
 }
@@ -54,7 +55,11 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
       core_charge: item.core_charge,
       image_url: part.image_url,
       category: part.category,
-      quantity: 1
+      quantity: 1,
+      // Pass weight_lbs through metadata for shipping calculators (e.g., HazMat lithium freight)
+      metadata: {
+        ...(part.weight_lbs ? { weight_lbs: part.weight_lbs } : {}),
+      },
     });
     
     // Show success toast

@@ -315,6 +315,55 @@ export async function POST(req: NextRequest) {
         });
       }
 
+      // ── Lithium Batteries (HazMat Class 9) freight tiers ──────────────
+      // Weight-tiered ground freight for lithium golf cart batteries (UN3480).
+      // Free shipping when 3+ batteries are ordered in the same cart
+      // (mirrors FSIP wholesale fleet incentive).
+      const lithiumItems = body.items.filter((item: any) =>
+        !item.metadata?.free_freight &&
+        item.category === 'Lithium Batteries'
+      );
+
+      if (lithiumItems.length > 0) {
+        const totalLithiumQty = lithiumItems.reduce(
+          (sum: number, item: any) => sum + Math.max(1, Number(item.quantity) || 1),
+          0
+        );
+
+        // 3+ batteries = free freight (fleet incentive)
+        if (totalLithiumQty < 3) {
+          function lithiumFreightCents(weightLbs: number): number {
+            if (weightLbs < 50)  return 9900;   // $99
+            if (weightLbs < 100) return 14900;  // $149
+            if (weightLbs < 150) return 19900;  // $199
+            if (weightLbs < 200) return 27900;  // $279
+            return 34900;                        // $349
+          }
+
+          let totalLithiumFreight = 0;
+          for (const item of lithiumItems) {
+            const weight = Number(item.metadata?.weight_lbs ?? item.weight_lbs ?? 100);
+            const qty = Math.max(1, Number(item.quantity) || 1);
+            totalLithiumFreight += lithiumFreightCents(weight) * qty;
+          }
+
+          if (totalLithiumFreight > 0) {
+            lineItems.push({
+              price_data: {
+                currency: 'usd',
+                product_data: {
+                  name: 'HazMat Freight Shipping - Lithium Batteries',
+                  description: 'Class 9 HazMat ground freight for lithium golf cart batteries (UN3480). Free on orders of 3+ batteries.',
+                },
+                unit_amount: totalLithiumFreight,
+              },
+              quantity: 1,
+            });
+          }
+        }
+        // else: 3+ qty in cart → free freight, no line item added
+      }
+
       // ── JCB cost-based freight tiers ──────────────────────────────
       // Freight is determined by the part's sell price, matching vendor tiers.
       // Each JCB item (not free_freight) gets its own freight line based on price.
