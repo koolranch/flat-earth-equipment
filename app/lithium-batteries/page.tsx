@@ -9,6 +9,8 @@ import { CART_MODELS } from '@/constants/golfCartModels';
 export const dynamic = 'force-static';
 export const revalidate = 3600;
 
+const LITHIUM_OG_IMAGE = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/lithium-rhino.png';
+
 export const metadata = {
   title: 'Lithium Golf Cart Batteries | Lithium Rhino LiFePO4 Conversion Kits | 36V 48V 72V',
   description:
@@ -22,6 +24,14 @@ export const metadata = {
       'In-stock Lithium Rhino LiFePO4 golf cart battery conversion kits and replacement batteries. 6,000+ cycles, 8-year warranty, free shipping on 3+ batteries.',
     type: 'website',
     url: 'https://www.flatearthequipment.com/lithium-batteries',
+    images: [{ url: LITHIUM_OG_IMAGE, width: 1200, height: 1200, alt: 'Lithium Rhino LiFePO4 Golf Cart Battery' }],
+  },
+  twitter: {
+    card: 'summary_large_image' as const,
+    title: 'Lithium Golf Cart Batteries | Lithium Rhino LiFePO4',
+    description:
+      'In-stock conversion kits and replacement batteries for EZGO, Club Car, Yamaha. 6,000+ cycles, 8-year warranty, free shipping on 3+.',
+    images: [LITHIUM_OG_IMAGE],
   },
 };
 

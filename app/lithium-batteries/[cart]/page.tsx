@@ -36,6 +36,7 @@ export async function generateMetadata({
 
   const title = `${cart.fullName} Lithium Battery Conversion | LiFePO4 Drop-In Kit`;
   const description = `${cart.fullName} (${cart.yearRange}) lithium battery upgrade. Drop-in LiFePO4 conversion kit with charger, DC converter, LCD display, and mounting hardware. ${cart.rangeEstimate}. 8-year warranty, free shipping on 3+.`;
+  const ogImage = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/lithium-rhino.png';
 
   return {
     title,
@@ -55,6 +56,13 @@ export async function generateMetadata({
       description,
       type: 'website',
       url: `${SITE_URL}/lithium-batteries/${params.cart}`,
+      images: [{ url: ogImage, width: 1200, height: 1200, alt: `${cart.fullName} lithium battery conversion` }],
+    },
+    twitter: {
+      card: 'summary_large_image' as const,
+      title,
+      description,
+      images: [ogImage],
     },
   };
 }

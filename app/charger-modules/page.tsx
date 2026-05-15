@@ -11,6 +11,8 @@ import TechnicalSpecsTable, { CHARGER_MODULE_SPECS } from "@/components/seo/Tech
 
 import { generatePageAlternates } from '@/app/seo-defaults';
 
+const CHARGER_OG_IMAGE = "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/enersys.png";
+
 export const metadata = {
   title: "Forklift Charger Modules | Enersys, Hawker & ACT Quantum | Reman & Repair",
   description: "In-stock remanufactured forklift charger modules for Enersys, Hawker, and ACT Quantum (36V/48V/80V). Choose instant exchange or send-in repair service. 6-month warranty, free shipping nationwide.",
@@ -20,8 +22,15 @@ export const metadata = {
     title: "Forklift Charger Modules | Enersys, Hawker & ACT Quantum | Reman & Repair",
     description: "In-stock remanufactured forklift charger modules for Enersys, Hawker, and ACT Quantum (36V/48V/80V). Choose instant exchange or send-in repair service. 6-month warranty, free shipping nationwide.",
     type: "website",
-    url: "https://www.flatearthequipment.com/charger-modules"
-  }
+    url: "https://www.flatearthequipment.com/charger-modules",
+    images: [{ url: CHARGER_OG_IMAGE, width: 1200, height: 1200, alt: "Remanufactured Forklift Charger Module" }],
+  },
+  twitter: {
+    card: 'summary_large_image' as const,
+    title: "Forklift Charger Modules | Enersys, Hawker & ACT Quantum",
+    description: "Reman exchange or send-in repair. 6-month warranty, free shipping nationwide.",
+    images: [CHARGER_OG_IMAGE],
+  },
 };
 
 export default function ChargersLanding() {

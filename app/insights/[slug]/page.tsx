@@ -250,19 +250,32 @@ export default async function BlogPost({ params }: Props) {
           "@type": "BlogPosting",
           "headline": post.title,
           "description": post.description,
-          "image": post.image,
+          "image": post.image
+            ? (post.image.startsWith('http') ? post.image : `https://www.flatearthequipment.com${post.image}`)
+            : "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/public-assets/images/generated/og-default.png",
           "datePublished": post.date,
+          "dateModified": post.date,
           "keywords": normalizedKeywords.join(', '),
+          "inLanguage": "en-US",
+          "isAccessibleForFree": true,
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `https://www.flatearthequipment.com/insights/${params.slug}`
+          },
           "author": {
             "@type": "Organization",
-            "name": "Flat Earth Equipment"
+            "name": "Flat Earth Equipment",
+            "url": "https://www.flatearthequipment.com"
           },
           "publisher": {
             "@type": "Organization",
+            "@id": "https://www.flatearthequipment.com/#organization",
             "name": "Flat Earth Equipment",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://www.flatearthequipment.com/logo.png"
+              "url": "https://www.flatearthequipment.com/logo.png",
+              "width": 512,
+              "height": 512
             }
           }
         })}

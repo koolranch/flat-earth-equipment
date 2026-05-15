@@ -135,10 +135,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const description = truncateDescription(
       product.description || `Buy ${product.name} from Flat Earth Equipment. Fast shipping across the Western U.S.`
     );
+    // Use the product image if available, otherwise fall back to the brand logo,
+    // otherwise the sitewide default OG image.
+    const brandSlug = (product.brand || '').toLowerCase().replace(/\s+/g, '-');
+    const brandLogoUrl = brandSlug
+      ? `https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/${brandSlug}.webp`
+      : undefined;
+    const ogImage = product.image_url || brandLogoUrl;
+    const pageUrl = `https://www.flatearthequipment.com/parts/${params.slug}`;
     return {
       title: `${product.name} | Flat Earth Equipment`,
       description,
       alternates: generatePageAlternates(`/parts/${params.slug}`),
+      openGraph: {
+        title: product.name,
+        description,
+        type: 'website',
+        url: pageUrl,
+        ...(ogImage ? { images: [{ url: ogImage, width: 1200, height: 1200, alt: product.name }] } : {}),
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: product.name,
+        description,
+        ...(ogImage ? { images: [ogImage] } : {}),
+      },
     };
   }
 
