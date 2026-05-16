@@ -7,10 +7,10 @@
  * up the change automatically.
  */
 
-export const IOS_APP_LIVE = false;
+export const IOS_APP_LIVE = true;
 
-// TODO: Fill in once the iOS app is approved (e.g. https://apps.apple.com/...).
-export const IOS_APP_STORE_URL = '';
+export const IOS_APP_STORE_URL =
+  'https://apps.apple.com/us/app/forklift-certified-pro/id6759796469';
 
 export const ANDROID_PLAY_STORE_URL =
   'https://play.google.com/store/apps/details?id=com.flateartheequipment.forkliftcertified';
