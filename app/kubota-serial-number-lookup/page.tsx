@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import Script from "next/script";
 
 type PlateTip = {
   equipment_type: string;
@@ -162,27 +161,24 @@ export default function Page() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
-      <Script
-        id="kubota-lookup-webapp-ld"
+      {/*
+        Server-rendered JSON-LD via plain <script> tags so the structured
+        data lands in the initial HTML response for crawlers (next/script
+        with afterInteractive only injects after client hydration, which
+        Google can still pick up but with lower reliability).
+      */}
+      <script
         type="application/ld+json"
-        strategy="afterInteractive"
-      >
-        {JSON.stringify(webAppLd)}
-      </Script>
-      <Script
-        id="kubota-lookup-howto-ld"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppLd) }}
+      />
+      <script
         type="application/ld+json"
-        strategy="afterInteractive"
-      >
-        {JSON.stringify(howToLd)}
-      </Script>
-      <Script
-        id="kubota-lookup-faq-ld"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToLd) }}
+      />
+      <script
         type="application/ld+json"
-        strategy="afterInteractive"
-      >
-        {JSON.stringify(faqLd)}
-      </Script>
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
 
       <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
         Kubota Serial Number Lookup
