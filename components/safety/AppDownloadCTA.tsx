@@ -52,11 +52,9 @@ export default function AppDownloadCTA({
   variant = "stacked",
 }: AppDownloadCTAProps) {
   const [platform, setPlatform] = useState<AppPlatform | null>(null);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setPlatform(detectAppPlatform());
-    setMounted(true);
   }, []);
 
   const isIOSDevice = platform === "ios";
@@ -69,8 +67,7 @@ export default function AppDownloadCTA({
     placement,
   });
 
-  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!mounted) return;
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     trackAppDownloadClick({
       platform: targetPlatform,
@@ -85,32 +82,32 @@ export default function AppDownloadCTA({
 
   if (variant === "inline") {
     return (
-      <a
-        href={finalUrl}
+      <button
+        type="button"
         onClick={handleClick}
-        className={`${buttonBaseClasses} ${buttonClassName} ${className}`}
+        className={`${buttonBaseClasses} ${buttonClassName} ${className} border-0 cursor-pointer`}
         aria-label={`${primaryLabel} on ${targetPlatform === "ios" ? "the App Store" : "Google Play"}`}
       >
         <span className="text-base tracking-tight">{primaryLabel}</span>
-      </a>
+      </button>
     );
   }
 
   return (
     <div className={`flex flex-col items-center gap-3 md:items-start ${className}`}>
-      <a
-        href={finalUrl}
+      <button
+        type="button"
         onClick={handleClick}
-        className={`${buttonBaseClasses} w-full max-w-sm md:w-auto ${buttonClassName}`}
+        className={`${buttonBaseClasses} w-full max-w-sm md:w-auto ${buttonClassName} border-0 cursor-pointer`}
         aria-label={`${primaryLabel} on ${targetPlatform === "ios" ? "the App Store" : "Google Play"}`}
       >
         <span className="text-lg md:text-xl tracking-tight">{primaryLabel}</span>
-      </a>
+      </button>
 
-      <a
-        href={finalUrl}
+      <button
+        type="button"
         onClick={handleClick}
-        className="inline-flex"
+        className="inline-flex appearance-none border-none bg-transparent p-0 cursor-pointer focus:outline-none"
         aria-label={`Get the app on ${targetPlatform === "ios" ? "the App Store" : "Google Play"}`}
       >
         {showApplePadge ? (
@@ -134,7 +131,7 @@ export default function AppDownloadCTA({
             loading="lazy"
           />
         )}
-      </a>
+      </button>
 
       {isIOSDevice && !IOS_APP_LIVE && (
         <p className="text-xs text-slate-300 md:text-slate-400">

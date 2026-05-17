@@ -56,7 +56,7 @@ function StickyCTAInner() {
     placement: "safety_sticky",
   });
 
-  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     trackAppDownloadClick({
       platform: targetPlatform,
@@ -86,14 +86,14 @@ function StickyCTAInner() {
             Start Training Free
           </span>
         </div>
-        <a
-          href={finalUrl}
+        <button
+          type="button"
           onClick={handleClick}
-          className="inline-flex items-center justify-center rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-orange-600 transition-colors"
+          className="inline-flex appearance-none items-center justify-center rounded-lg border-none bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-orange-600 transition-colors cursor-pointer focus:outline-none"
           aria-label={`Download the app on ${targetPlatform === "ios" ? "the App Store" : "Google Play"}`}
         >
           Download App
-        </a>
+        </button>
         <button
           type="button"
           onClick={handleDismiss}

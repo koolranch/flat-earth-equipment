@@ -18,9 +18,7 @@ export default function GooglePlayBadge({
   labelClassName = 'text-sm font-semibold text-slate-700',
   placement = 'footer_badge',
 }: GooglePlayBadgeProps) {
-  const fallbackUrl = buildStoreDownloadUrl(ANDROID_PLAY_STORE_URL, { placement });
-
-  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     const stateParam = new URLSearchParams(window.location.search).get('state')?.toLowerCase().trim() || null;
@@ -40,11 +38,11 @@ export default function GooglePlayBadge({
   return (
     <div className={`min-[1025px]:hidden ${className}`}>
       <p className={labelClassName}>Start Training Free on Android</p>
-      <a
-        href={fallbackUrl}
+      <button
+        type="button"
         onClick={handleClick}
         aria-label="Download Forklift Certified on Google Play"
-        className="inline-flex"
+        className="inline-flex appearance-none border-none bg-transparent p-0 cursor-pointer focus:outline-none"
       >
         <img
           src={PLAY_BADGE_SRC}
@@ -53,7 +51,7 @@ export default function GooglePlayBadge({
           className="h-auto w-[180px]"
           loading="lazy"
         />
-      </a>
+      </button>
     </div>
   );
 }

@@ -43,7 +43,18 @@ export function trackAppDownloadClick({
   placement = 'safety_page',
   stateParam,
 }: TrackAppDownloadClickArgs): void {
-  if (typeof window === 'undefined' || !window.gtag) return;
+  const payload = {
+    platform,
+    source: placement,
+    state: stateParam || 'none',
+    transport_type: 'beacon',
+  };
+
+  if (typeof window === 'undefined') return;
+
+  console.log('[app_download_click] handler called', payload);
+
+  if (!window.gtag) return;
 
   try {
     window.gtag('event', 'conversion', {
@@ -55,12 +66,7 @@ export function trackAppDownloadClick({
   } catch {}
 
   try {
-    window.gtag('event', 'app_download_click', {
-      platform,
-      source: placement,
-      state: stateParam || 'none',
-      transport_type: 'beacon',
-    });
+    window.gtag('event', 'app_download_click', payload);
   } catch {}
 
   try {
@@ -82,6 +88,7 @@ export function trackAppDownloadClick({
 export function navigateToStoreAfterTracking(url: string): void {
   if (typeof window === 'undefined' || !url) return;
   window.setTimeout(() => {
+    console.log('[app_download_click] navigating to', url);
     window.location.href = url;
   }, POST_TRACK_NAV_DELAY_MS);
 }
