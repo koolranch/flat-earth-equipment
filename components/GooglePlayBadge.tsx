@@ -3,8 +3,7 @@
 import type { MouseEvent } from 'react';
 import { ANDROID_PLAY_STORE_URL, PLAY_BADGE_SRC, buildStoreDownloadUrl } from '@/lib/app-store/links';
 import {
-  navigateToStoreAfterTracking,
-  trackAppDownloadClick,
+  trackAppDownloadClickAndNavigate,
 } from '@/lib/analytics/app-download';
 
 interface GooglePlayBadgeProps {
@@ -27,12 +26,11 @@ export default function GooglePlayBadge({
       placement,
     });
 
-    trackAppDownloadClick({
+    trackAppDownloadClickAndNavigate({
       platform: 'android',
       placement,
       stateParam,
-    });
-    navigateToStoreAfterTracking(finalUrl);
+    }, finalUrl);
   };
 
   return (

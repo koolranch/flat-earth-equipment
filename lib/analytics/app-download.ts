@@ -29,6 +29,9 @@ const APP_DOWNLOAD_CONVERSION_LABEL =
  * helps gtag finish any internal queueing on slow devices.
  */
 const POST_TRACK_NAV_DELAY_MS = 250;
+const GTAG_READY_TIMEOUT_MS = 1200;
+const GTAG_READY_POLL_MS = 50;
+const GA_EVENT_TIMEOUT_MS = 1000;
 
 export type AppDownloadPlatform = 'android' | 'ios';
 
@@ -38,23 +41,33 @@ interface TrackAppDownloadClickArgs {
   stateParam?: string | null;
 }
 
-export function trackAppDownloadClick({
+function getAppDownloadPayload({
   platform,
   placement = 'safety_page',
   stateParam,
-}: TrackAppDownloadClickArgs): void {
-  const payload = {
+}: TrackAppDownloadClickArgs) {
+  return {
     platform,
     source: placement,
     state: stateParam || 'none',
     transport_type: 'beacon',
   };
+}
 
-  if (typeof window === 'undefined') return;
+function fireAppDownloadClick(
+  args: TrackAppDownloadClickArgs,
+  eventCallback?: () => void,
+  options: { logClick?: boolean } = {}
+): boolean {
+  if (typeof window === 'undefined') return false;
 
-  console.log('[app_download_click] handler called', payload);
+  const payload = getAppDownloadPayload(args);
+  if (options.logClick !== false) {
+    console.log('[app_download_click] handler called', payload);
+  }
+  console.log('[app_download_click] gtag available', typeof window.gtag === 'function');
 
-  if (!window.gtag) return;
+  if (typeof window.gtag !== 'function') return false;
 
   try {
     window.gtag('event', 'conversion', {
@@ -66,17 +79,31 @@ export function trackAppDownloadClick({
   } catch {}
 
   try {
-    window.gtag('event', 'app_download_click', payload);
+    window.gtag('event', 'app_download_click', {
+      ...payload,
+      ...(eventCallback
+        ? {
+            event_callback: eventCallback,
+            event_timeout: GA_EVENT_TIMEOUT_MS,
+          }
+        : {}),
+    });
   } catch {}
 
   try {
     window.dataLayer?.push({
       event: 'app_download_click',
-      platform,
-      placement,
-      state: stateParam || 'none',
+      platform: payload.platform,
+      placement: payload.source,
+      state: payload.state,
     });
   } catch {}
+
+  return true;
+}
+
+export function trackAppDownloadClick(args: TrackAppDownloadClickArgs): void {
+  fireAppDownloadClick(args);
 }
 
 /**
@@ -91,4 +118,55 @@ export function navigateToStoreAfterTracking(url: string): void {
     console.log('[app_download_click] navigating to', url);
     window.location.href = url;
   }, POST_TRACK_NAV_DELAY_MS);
+}
+
+/**
+ * Full outbound app-store click flow. Unlike `trackAppDownloadClick` followed
+ * by an immediate timeout, this briefly waits for the async gtag script to be
+ * ready, then uses GA's event_callback/event_timeout before navigation. This
+ * protects the above-the-fold iOS CTA where a user can tap before the
+ * afterInteractive gtag scripts have finished initializing.
+ */
+export function trackAppDownloadClickAndNavigate(
+  args: TrackAppDownloadClickArgs,
+  url: string
+): void {
+  if (typeof window === 'undefined' || !url) return;
+
+  console.log('[app_download_click] handler called', getAppDownloadPayload(args));
+
+  let navigated = false;
+  let completed = false;
+  const startedAt = Date.now();
+
+  const navigateOnce = () => {
+    if (navigated) return;
+    navigated = true;
+    navigateToStoreAfterTracking(url);
+  };
+
+  const dispatchWhenReady = () => {
+    if (completed) return;
+
+    const dispatched = fireAppDownloadClick(args, navigateOnce, { logClick: false });
+    if (dispatched) {
+      completed = true;
+      window.setTimeout(navigateOnce, GA_EVENT_TIMEOUT_MS + POST_TRACK_NAV_DELAY_MS);
+      return;
+    }
+
+    if (Date.now() - startedAt >= GTAG_READY_TIMEOUT_MS) {
+      completed = true;
+      console.warn('[app_download_click] gtag unavailable before navigation', {
+        waitedMs: Date.now() - startedAt,
+        dataLayerExists: Boolean(window.dataLayer),
+      });
+      navigateOnce();
+      return;
+    }
+
+    window.setTimeout(dispatchWhenReady, GTAG_READY_POLL_MS);
+  };
+
+  dispatchWhenReady();
 }

@@ -13,8 +13,7 @@ import {
   type AppPlatform,
 } from "@/lib/app-store/links";
 import {
-  navigateToStoreAfterTracking,
-  trackAppDownloadClick,
+  trackAppDownloadClickAndNavigate,
 } from "@/lib/analytics/app-download";
 
 interface AppDownloadCTAProps {
@@ -69,12 +68,11 @@ export default function AppDownloadCTA({
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    trackAppDownloadClick({
+    trackAppDownloadClickAndNavigate({
       platform: targetPlatform,
       placement,
       stateParam,
-    });
-    navigateToStoreAfterTracking(finalUrl);
+    }, finalUrl);
   };
 
   const buttonBaseClasses =

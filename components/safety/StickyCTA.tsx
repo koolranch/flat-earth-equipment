@@ -11,8 +11,7 @@ import {
   type AppPlatform,
 } from "@/lib/app-store/links";
 import {
-  navigateToStoreAfterTracking,
-  trackAppDownloadClick,
+  trackAppDownloadClickAndNavigate,
 } from "@/lib/analytics/app-download";
 
 const SCROLL_TRIGGER_PX = 600;
@@ -58,12 +57,11 @@ function StickyCTAInner() {
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    trackAppDownloadClick({
+    trackAppDownloadClickAndNavigate({
       platform: targetPlatform,
       placement: "safety_sticky",
       stateParam,
-    });
-    navigateToStoreAfterTracking(finalUrl);
+    }, finalUrl);
   };
 
   const handleDismiss = () => {
