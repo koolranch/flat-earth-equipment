@@ -1,25 +1,48 @@
-const PLAY_STORE_URL =
-  'https://play.google.com/store/apps/details?id=com.flateartheequipment.forkliftcertified&utm_source=website&utm_medium=badge&utm_campaign=app_launch';
+'use client';
 
-const PLAY_BADGE_SRC =
-  'https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png';
+import type { MouseEvent } from 'react';
+import { ANDROID_PLAY_STORE_URL, PLAY_BADGE_SRC, buildStoreDownloadUrl } from '@/lib/app-store/links';
+import {
+  navigateToStoreAfterTracking,
+  trackAppDownloadClick,
+} from '@/lib/analytics/app-download';
 
 interface GooglePlayBadgeProps {
   className?: string;
   labelClassName?: string;
+  placement?: string;
 }
 
 export default function GooglePlayBadge({
   className = '',
   labelClassName = 'text-sm font-semibold text-slate-700',
+  placement = 'footer_badge',
 }: GooglePlayBadgeProps) {
+  const fallbackUrl = buildStoreDownloadUrl(ANDROID_PLAY_STORE_URL, { placement });
+
+  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+
+    const stateParam = new URLSearchParams(window.location.search).get('state')?.toLowerCase().trim() || null;
+    const finalUrl = buildStoreDownloadUrl(ANDROID_PLAY_STORE_URL, {
+      stateParam,
+      placement,
+    });
+
+    trackAppDownloadClick({
+      platform: 'android',
+      placement,
+      stateParam,
+    });
+    navigateToStoreAfterTracking(finalUrl);
+  };
+
   return (
     <div className={`min-[1025px]:hidden ${className}`}>
       <p className={labelClassName}>Start Training Free on Android</p>
       <a
-        href={PLAY_STORE_URL}
-        target="_blank"
-        rel="noopener noreferrer"
+        href={fallbackUrl}
+        onClick={handleClick}
         aria-label="Download Forklift Certified on Google Play"
         className="inline-flex"
       >
