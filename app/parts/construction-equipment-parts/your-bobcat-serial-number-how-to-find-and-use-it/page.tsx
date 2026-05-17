@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import Script from "next/script";
 import { generatePageAlternates } from "@/app/seo-defaults";
 
 export const metadata: Metadata = {
@@ -16,73 +15,81 @@ export const metadata: Metadata = {
   },
 };
 
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Where is the serial number on a Bobcat skid steer?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "On R-Series loaders (2020+), check the right side rear above the tailgate. M-Series (2010+) have it on the right side of the main frame below the cooling compartment. K-Series (2007-2014) have it on the rear frame upright. Older models vary - check inside or outside the rear upright."
+      }
+    },
+    {
+      "@type": "Question",
+      name: "How do I find what year my Bobcat is?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The model year is printed directly on the product identification plate. Alternatively, use the serial number to contact Bobcat customer service at 1-800-743-4340, or use a serial number decoder tool. The 9-digit serial number's first 4 digits identify the model/engine combination."
+      }
+    },
+    {
+      "@type": "Question",
+      name: "What do Bobcat serial numbers mean?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Bobcat serial numbers are 9 digits split into two parts: the first 4 digits identify the model number and engine combination, while the last 5 digits are the production sequence number indicating order of manufacture."
+      }
+    }
+  ]
+};
+
+const howToLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to Find Your Bobcat Serial Number",
+  description: "Step-by-step guide to locating and decoding your Bobcat equipment serial number",
+  totalTime: "PT5M",
+  step: [
+    {
+      "@type": "HowToStep",
+      name: "Locate the serial number plate",
+      text: "Find the product identification plate on your Bobcat. Location varies by series: R-Series is on the right rear, M-Series is below the cooling compartment, K-Series is on the rear frame upright.",
+      position: 1
+    },
+    {
+      "@type": "HowToStep",
+      name: "Read the 9-digit serial number",
+      text: "The serial number is 9 digits: first 4 digits = model/engine code, last 5 digits = production sequence.",
+      position: 2
+    },
+    {
+      "@type": "HowToStep",
+      name: "Note the model year",
+      text: "The model year is printed directly on the identification plate alongside the serial number.",
+      position: 3
+    }
+  ]
+};
+
 export default function BobcatSerialNumberGuide() {
   return (
     <>
-      {/* FAQ Schema for Rich Snippets */}
-      <Script id="faq-schema" type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "Where is the serial number on a Bobcat skid steer?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "On R-Series loaders (2020+), check the right side rear above the tailgate. M-Series (2010+) have it on the right side of the main frame below the cooling compartment. K-Series (2007-2014) have it on the rear frame upright. Older models vary - check inside or outside the rear upright."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "How do I find what year my Bobcat is?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "The model year is printed directly on the product identification plate. Alternatively, use the serial number to contact Bobcat customer service at 1-800-743-4340, or use a serial number decoder tool. The 9-digit serial number's first 4 digits identify the model/engine combination."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "What do Bobcat serial numbers mean?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Bobcat serial numbers are 9 digits split into two parts: the first 4 digits identify the model number and engine combination, while the last 5 digits are the production sequence number indicating order of manufacture."
-              }
-            }
-          ]
-        })}
-      </Script>
-
-      {/* HowTo Schema */}
-      <Script id="howto-schema" type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "HowTo",
-          "name": "How to Find Your Bobcat Serial Number",
-          "description": "Step-by-step guide to locating and decoding your Bobcat equipment serial number",
-          "totalTime": "PT5M",
-          "step": [
-            {
-              "@type": "HowToStep",
-              "name": "Locate the serial number plate",
-              "text": "Find the product identification plate on your Bobcat. Location varies by series: R-Series is on the right rear, M-Series is below the cooling compartment, K-Series is on the rear frame upright.",
-              "position": 1
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Read the 9-digit serial number",
-              "text": "The serial number is 9 digits: first 4 digits = model/engine code, last 5 digits = production sequence.",
-              "position": 2
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Note the model year",
-              "text": "The model year is printed directly on the identification plate alongside the serial number.",
-              "position": 3
-            }
-          ]
-        })}
-      </Script>
+      {/*
+        Server-rendered JSON-LD via raw <script> tags so the structured data
+        lands in the initial HTML response for crawlers (next/script with
+        afterInteractive defers until after hydration).
+      */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToLd) }}
+      />
 
     <main className="max-w-4xl mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold text-slate-900 mb-6">

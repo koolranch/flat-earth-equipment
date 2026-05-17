@@ -1,0 +1,47 @@
+---
+description: Standards for brand serial-number lookup tools (pages, APIs, migrations)
+globs: app/*-serial-number-lookup/**/*.{ts,tsx},app/api/*-lookup/**/*.ts,app/brand/[slug]/serial-lookup/**/*.{ts,tsx},app/parts/construction-equipment-parts/*-serial-number-lookup/**/*.{ts,tsx},supabase/migrations/*lookup*.sql
+alwaysApply: false
+---
+
+# Serial-Number Lookup Tools
+
+These pages are top organic-traffic drivers on the site (e.g. `/kubota-serial-number-lookup` is currently #1). All edits must preserve rank signals and follow the established pattern.
+
+## URL paths in use
+
+- `/<brand>-serial-number-lookup` — canonical interactive tool page.
+- `/brand/[slug]/serial-lookup` — brand-page tab that embeds the canonical tool via `SerialLookupEmbed` (do not duplicate logic; both surfaces share the same API).
+- `/parts/construction-equipment-parts/<topic>` — long-form companion articles (the Bobcat one is the highest-converting of these). Link from articles to the interactive tool, not the other way around.
+
+Never invent a 4th path for the same brand. Pick one URL as canonical and consolidate.
+
+## Data tables (Supabase, public schema)
+
+- `<brand>_plate_locations` — family-level + model-specific plate guidance.
+- `<brand>_model_serial_ranges` — production-year windows + parts-catalog serial breaks.
+- `<brand>_model_cues` — model-code → equipment-family mapping for the API regex.
+
+Migrations enriching these MUST be additive, use `ON CONFLICT DO NOTHING`, and add a unique index when one is missing. Cite public sources in `notes` columns. Reference: `supabase/migrations/20260516000000_enrich_kubota_lookup.sql`.
+
+## API route contract (`/api/<brand>-lookup/route.ts`)
+
+- Accept `{ serial, model? }`, return `{ input, parsed.family, plate.guidance[], serialRanges[], notes[] }`.
+- When a model is provided, rank model-specific plate rows above family rows.
+- When `serialRanges` is empty for a typed model, push an explicit "No published parts-book serial breaks were found for X — read the data tag for the PIN" note instead of leaving the result silent.
+
+## Page contract
+
+- **JSON-LD must be server-rendered** as raw inline `<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(...) }} />`. **Do NOT use `next/script` with `strategy="afterInteractive"` for JSON-LD** — it ships after hydration and Google misses it on first crawl.
+- Include `WebApplication`, `HowTo`, and `FAQPage` schemas.
+- Include a visible `<details>`-based FAQ section that mirrors the `FAQPage` JSON-LD verbatim (matching content is required to avoid structured-data spam flags).
+- After a successful lookup, render an in-result CTA linking to `/quote?equipment=<Brand>+<Model>&notes=PIN+/+serial:+<serial>` — `/quote` already accepts those URL params (canonical = `/quote`).
+- Form labels must be bound to inputs via `htmlFor` / `id`.
+
+## Do not change without explicit user approval
+
+`metadata.ts` and `layout.tsx` (title, description, canonical, alternates, OG image) on any top-ranking lookup page. These are live SEO signals on revenue-relevant traffic.
+
+## Canonical reference
+
+`app/kubota-serial-number-lookup/page.tsx` + the migration above. Mirror that pattern for new brands.
