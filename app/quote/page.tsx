@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 function QuoteForm() {
   const searchParams = useSearchParams();
   const prefilledSku = searchParams.get("sku") || "";
+  const prefilledEquipment = searchParams.get("equipment") || "";
+  const prefilledNotes = searchParams.get("notes") || "";
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [locale, setLocale] = useState<'en' | 'es'>('en');
   const [formData, setFormData] = useState({
@@ -13,25 +15,26 @@ function QuoteForm() {
     company: '',
     email: '',
     phone: '',
-    equipment: '',
+    equipment: prefilledEquipment,
     part: prefilledSku,
     qty: '',
-    notes: ''
+    notes: prefilledNotes
   });
 
   useEffect(() => {
-    // Get locale from cookie on client side
     const cookieLocale = document.cookie
       .split('; ')
       .find(row => row.startsWith('lang='))
       ?.split('=')[1] as 'en' | 'es';
     setLocale(cookieLocale || 'en');
-    
-    // Update part field if prefilled SKU changes
-    if (prefilledSku) {
-      setFormData(prev => ({ ...prev, part: prefilledSku }));
-    }
-  }, [prefilledSku]);
+
+    setFormData(prev => ({
+      ...prev,
+      ...(prefilledSku ? { part: prefilledSku } : {}),
+      ...(prefilledEquipment ? { equipment: prefilledEquipment } : {}),
+      ...(prefilledNotes ? { notes: prefilledNotes } : {}),
+    }));
+  }, [prefilledSku, prefilledEquipment, prefilledNotes]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
