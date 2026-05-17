@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { sendMail } from '@/lib/email/mailer'
+import { generateMobileAppBlock } from '@/lib/email/mobile-app-block'
 
 function generateTrainerWelcomeEmail(
   firstName: string,
@@ -102,7 +103,7 @@ function generateTrainerWelcomeEmail(
           They'll get instant access to the full OSHA-compliant forklift certification course.
         </p>
       </div>
-      
+      ${generateMobileAppBlock('trainer')}
       <!-- About the Training -->
       <div style="background: #f0f9ff; border-left: 4px solid #3b82f6; padding: 15px; margin: 20px 0;">
         <h4 style="margin: 0 0 10px 0; color: #1d4ed8;">📚 About the Training</h4>
@@ -211,7 +212,7 @@ export async function POST(req: Request) {
           💡 <strong>Easy to remember:</strong> Your password is simple to type! You can change it anytime after logging in.
         </p>
       </div>
-      
+      ${generateMobileAppBlock('learner')}
       <!-- What's Included -->
       <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
         <h3 style="color: #1f2937; margin-top: 0;">📚 What's Included in Your Training</h3>
