@@ -184,6 +184,17 @@ export default function SafetyHero({ stateData, stateParam = null }: SafetyHeroP
                 🔒 Secure checkout • Instant access
               </p>
             </div>
+
+            <div className="mt-4 hidden md:block">
+              <AppDownloadCTA
+                placement="safety_hero_desktop"
+                stateParam={stateParam}
+                showPrimaryButton={false}
+                showWebFallback={false}
+                showTrustLine={false}
+                className="items-center md:items-start"
+              />
+            </div>
             
             {/* Trust note for the desktop $49 button — mobile uses the AppDownloadCTA's
                 trust line instead. Keep visibility tied to the desktop CTA above. */}

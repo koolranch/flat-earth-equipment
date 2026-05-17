@@ -87,7 +87,7 @@ function StickyCTAInner() {
         <button
           type="button"
           onClick={handleClick}
-          className="inline-flex appearance-none items-center justify-center rounded-lg border-none bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-orange-600 transition-colors cursor-pointer focus:outline-none"
+          className="inline-flex min-h-[44px] appearance-none items-center justify-center rounded-lg border-none bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-orange-600 transition-colors cursor-pointer focus:outline-none"
           aria-label={`Download the app on ${targetPlatform === "ios" ? "the App Store" : "Google Play"}`}
         >
           Download App
@@ -96,7 +96,7 @@ function StickyCTAInner() {
           type="button"
           onClick={handleDismiss}
           aria-label="Dismiss"
-          className="ml-1 inline-flex h-8 w-8 items-center justify-center rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+          className="ml-1 inline-flex h-11 w-11 min-w-11 items-center justify-center rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-colors"
         >
           ✕
         </button>

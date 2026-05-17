@@ -59,8 +59,25 @@ export function buildStoreDownloadUrl(
   const { stateParam, placement } = options;
   const utmContent = stateParam && stateParam.length > 0 ? stateParam : 'direct';
   const utmTerm = placement || 'safety_page';
-  const separator = storeUrl.includes('?') ? '&' : '?';
-  return `${storeUrl}${separator}utm_source=website&utm_medium=safety_page&utm_campaign=app_launch&utm_content=${encodeURIComponent(
-    utmContent
-  )}&utm_term=${encodeURIComponent(utmTerm)}`;
+
+  try {
+    const url = new URL(storeUrl);
+    url.searchParams.set('utm_source', 'website');
+    url.searchParams.set('utm_medium', 'safety_page');
+    url.searchParams.set('utm_campaign', 'app_launch');
+    url.searchParams.set('utm_content', utmContent);
+    url.searchParams.set('utm_term', utmTerm);
+
+    if (typeof window !== 'undefined') {
+      const gclid = new URLSearchParams(window.location.search).get('gclid');
+      if (gclid) url.searchParams.set('gclid', gclid);
+    }
+
+    return url.toString();
+  } catch {
+    const separator = storeUrl.includes('?') ? '&' : '?';
+    return `${storeUrl}${separator}utm_source=website&utm_medium=safety_page&utm_campaign=app_launch&utm_content=${encodeURIComponent(
+      utmContent
+    )}&utm_term=${encodeURIComponent(utmTerm)}`;
+  }
 }

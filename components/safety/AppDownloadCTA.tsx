@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createTrainingCheckoutSessionFromForm } from "@/app/training/checkout/actions";
+import { TRAINING_PLANS } from "@/lib/training/plans";
 import {
   ANDROID_PLAY_STORE_URL,
   APPLE_BADGE_SRC,
@@ -27,6 +29,8 @@ interface AppDownloadCTAProps {
   buttonClassName?: string;
   /** Override the primary button label. */
   primaryLabel?: string;
+  /** Hide the primary orange app CTA and render only badges/fallback copy. */
+  showPrimaryButton?: boolean;
   /** Show a small "Or buy now on web — $49" secondary link below the badge. */
   showWebFallback?: boolean;
   /** Show the labeled trust line ("Train free • Pay $49 only when ready"). */
@@ -39,6 +43,13 @@ interface AppDownloadCTAProps {
 }
 
 const DEFAULT_PRIMARY_LABEL = "Start Training Free";
+const singleOperatorPlan = TRAINING_PLANS.single;
+
+interface CheckoutParams {
+  referralCode: string | null;
+  requestId: string | null;
+  prefillEmail: string | null;
+}
 
 export default function AppDownloadCTA({
   placement = "safety_page",
@@ -46,14 +57,27 @@ export default function AppDownloadCTA({
   className = "",
   buttonClassName = "",
   primaryLabel = DEFAULT_PRIMARY_LABEL,
+  showPrimaryButton = true,
   showWebFallback = true,
   showTrustLine = true,
   variant = "stacked",
 }: AppDownloadCTAProps) {
   const [platform, setPlatform] = useState<AppPlatform | null>(null);
+  const [checkoutParams, setCheckoutParams] = useState<CheckoutParams>({
+    referralCode: null,
+    requestId: null,
+    prefillEmail: null,
+  });
 
   useEffect(() => {
     setPlatform(detectAppPlatform());
+
+    const params = new URLSearchParams(window.location.search);
+    setCheckoutParams({
+      referralCode: params.get("ref"),
+      requestId: params.get("request_id"),
+      prefillEmail: params.get("prefill_email"),
+    });
   }, []);
 
   const isIOSDevice = platform === "ios";
@@ -75,40 +99,34 @@ export default function AppDownloadCTA({
     }, finalUrl);
   };
 
-  const buttonBaseClasses =
-    "group inline-flex items-center justify-center rounded-xl bg-gradient-to-b from-orange-500 to-orange-600 px-8 py-4 md:px-10 md:py-5 font-semibold text-white shadow-[0_1px_2px_rgba(0,0,0,0.1),0_4px_8px_rgba(249,115,22,0.2)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_rgba(249,115,22,0.3)] active:scale-95 active:shadow-sm";
+  const renderStoreBadgeButton = (
+    platformName: "ios" | "android",
+    url: string,
+    placementSuffix: string,
+    className = "inline-flex appearance-none border-none bg-transparent p-0 cursor-pointer focus:outline-none"
+  ) => {
+    const badgeUrl = buildStoreDownloadUrl(url, {
+      stateParam,
+      placement: placementSuffix,
+    });
 
-  if (variant === "inline") {
+    const onBadgeClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      trackAppDownloadClickAndNavigate({
+        platform: platformName,
+        placement: placementSuffix,
+        stateParam,
+      }, badgeUrl);
+    };
+
     return (
       <button
         type="button"
-        onClick={handleClick}
-        className={`${buttonBaseClasses} ${buttonClassName} ${className} border-0 cursor-pointer`}
-        aria-label={`${primaryLabel} on ${targetPlatform === "ios" ? "the App Store" : "Google Play"}`}
+        onClick={onBadgeClick}
+        className={className}
+        aria-label={`Get the app on ${platformName === "ios" ? "the App Store" : "Google Play"}`}
       >
-        <span className="text-base tracking-tight">{primaryLabel}</span>
-      </button>
-    );
-  }
-
-  return (
-    <div className={`flex flex-col items-center gap-3 md:items-start ${className}`}>
-      <button
-        type="button"
-        onClick={handleClick}
-        className={`${buttonBaseClasses} w-full max-w-sm md:w-auto ${buttonClassName} border-0 cursor-pointer`}
-        aria-label={`${primaryLabel} on ${targetPlatform === "ios" ? "the App Store" : "Google Play"}`}
-      >
-        <span className="text-lg md:text-xl tracking-tight">{primaryLabel}</span>
-      </button>
-
-      <button
-        type="button"
-        onClick={handleClick}
-        className="inline-flex appearance-none border-none bg-transparent p-0 cursor-pointer focus:outline-none"
-        aria-label={`Get the app on ${targetPlatform === "ios" ? "the App Store" : "Google Play"}`}
-      >
-        {showApplePadge ? (
+        {platformName === "ios" ? (
           <img
             src={APPLE_BADGE_SRC}
             alt="Download on the App Store"
@@ -130,6 +148,70 @@ export default function AppDownloadCTA({
           />
         )}
       </button>
+    );
+  };
+
+  const webCheckoutButton = showWebFallback ? (
+    <form action={createTrainingCheckoutSessionFromForm} className="w-full max-w-sm md:w-auto">
+      <input type="hidden" name="priceId" value={singleOperatorPlan.priceId} />
+      {checkoutParams.referralCode && (
+        <input type="hidden" name="referralCode" value={checkoutParams.referralCode} />
+      )}
+      {process.env.NEXT_PUBLIC_ENABLE_ASK_EMPLOYER_CHECKOUT === "1" && checkoutParams.requestId && (
+        <input type="hidden" name="requestId" value={checkoutParams.requestId} />
+      )}
+      {process.env.NEXT_PUBLIC_ENABLE_ASK_EMPLOYER_CHECKOUT === "1" && checkoutParams.prefillEmail && (
+        <input type="hidden" name="prefillEmail" value={checkoutParams.prefillEmail} />
+      )}
+      <button
+        type="submit"
+        className="inline-flex min-h-[44px] w-full items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold text-orange-300 underline underline-offset-2 transition-colors hover:text-orange-200 md:w-auto"
+      >
+        Or buy now on web — $49 →
+      </button>
+    </form>
+  ) : null;
+
+  const buttonBaseClasses =
+    "group inline-flex items-center justify-center rounded-xl bg-gradient-to-b from-orange-500 to-orange-600 px-8 py-4 md:px-10 md:py-5 font-semibold text-white shadow-[0_1px_2px_rgba(0,0,0,0.1),0_4px_8px_rgba(249,115,22,0.2)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_rgba(249,115,22,0.3)] active:scale-95 active:shadow-sm";
+
+  if (variant === "inline") {
+    return (
+      <button
+        type="button"
+        onClick={handleClick}
+        className={`${buttonBaseClasses} ${buttonClassName} ${className} border-0 cursor-pointer`}
+        aria-label={`${primaryLabel} on ${targetPlatform === "ios" ? "the App Store" : "Google Play"}`}
+      >
+        <span className="text-base tracking-tight">{primaryLabel}</span>
+      </button>
+    );
+  }
+
+  return (
+    <div className={`flex flex-col items-center gap-3 md:items-start ${className}`}>
+      {showPrimaryButton && (
+        <button
+          type="button"
+          onClick={handleClick}
+          className={`${buttonBaseClasses} w-full max-w-sm md:w-auto ${buttonClassName} border-0 cursor-pointer`}
+          aria-label={`${primaryLabel} on ${targetPlatform === "ios" ? "the App Store" : "Google Play"}`}
+        >
+          <span className="text-lg md:text-xl tracking-tight">{primaryLabel}</span>
+        </button>
+      )}
+
+      <div className="flex flex-col items-center gap-3 md:flex-row md:items-center">
+        <div className="md:hidden">
+          {renderStoreBadgeButton(targetPlatform, finalUrl, placement)}
+        </div>
+        <div className="hidden items-center gap-3 md:flex">
+          {IOS_APP_LIVE && IOS_APP_STORE_URL
+            ? renderStoreBadgeButton("ios", IOS_APP_STORE_URL, `${placement}_ios`)
+            : null}
+          {renderStoreBadgeButton("android", ANDROID_PLAY_STORE_URL, `${placement}_android`)}
+        </div>
+      </div>
 
       {isIOSDevice && !IOS_APP_LIVE && (
         <p className="text-xs text-slate-300 md:text-slate-400">
@@ -144,14 +226,7 @@ export default function AppDownloadCTA({
         </p>
       )}
 
-      {showWebFallback && (
-        <a
-          href="/safety#pricing"
-          className="text-sm font-medium text-orange-300 hover:text-orange-200 underline underline-offset-2"
-        >
-          Or buy now on web — $49 →
-        </a>
-      )}
+      {webCheckoutButton}
 
       {/* Hidden link helps non-JS clients still reach the store. */}
       <noscript>
