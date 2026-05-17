@@ -202,7 +202,37 @@ export async function POST(req: Request) {
 
     const decoded = decodeVIN(serial);
     const plateLocations = getPlateLocations(equipmentType);
-    
+
+    // Cross-sell: parts in the catalog that fit this model. Match either
+    // bare ('SR250') or slug-form ('case-sr250') compatible_models values.
+    // Lazy import the supabase client so this route stays compatible if the
+    // module is unavailable (e.g. in offline tests).
+    let partsThatFit: Array<{
+      slug: string;
+      name: string;
+      sales_type: string | null;
+      price_cents: number | null;
+      is_fast_moving: boolean | null;
+    }> = [];
+    if (model) {
+      try {
+        const { supabaseService } = await import("@/lib/supabase/service.server");
+        const db = supabaseService();
+        const m = model.toUpperCase();
+        const slugForm = `case-${m.toLowerCase()}`;
+        const { data: parts } = await db
+          .from("parts")
+          .select("slug,name,sales_type,price_cents,is_fast_moving")
+          .ilike("brand", "case")
+          .or(`compatible_models.cs.{${m}},compatible_models.cs.{${slugForm}}`)
+          .order("is_fast_moving", { ascending: false })
+          .limit(6);
+        partsThatFit = (parts || []) as typeof partsThatFit;
+      } catch (e) {
+        console.error("Case parts fitment query failed:", e);
+      }
+    }
+
     const notes: string[] = [];
     
     if (serial.length === 17) {
@@ -235,6 +265,7 @@ export async function POST(req: Request) {
       input: { serial, model, equipmentType },
       decoded,
       plateLocations,
+      partsThatFit,
       officialLookupUrl: 'https://www.casece.com/northamerica/en-us/parts-and-service',
       notes,
     });

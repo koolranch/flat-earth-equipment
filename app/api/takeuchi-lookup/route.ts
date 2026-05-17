@@ -28,7 +28,9 @@ export async function POST(req: Request) {
     const normalized = clean(serial);
     const fam = familyFromModel(model);
 
-    // Plate guidance
+    // Plate guidance.
+    // When a model is provided, surface model-specific series rows ahead of
+    // generic family rows so the most relevant plate location appears first.
     let plateTips: any[] = [];
     if (fam) {
       const { data } = await db
@@ -44,6 +46,18 @@ export async function POST(req: Request) {
       plateTips = data || [];
     }
 
+    if (model && plateTips.length > 0) {
+      const m = clean(model);
+      plateTips = plateTips
+        .map((row, idx) => {
+          const s = (row.series || "").toUpperCase();
+          const score = m && s.includes(m) ? 0 : 1;
+          return { row, idx, score };
+        })
+        .sort((a, b) => a.score - b.score || a.idx - b.idx)
+        .map(({ row }) => row);
+    }
+
     // Known S/N blocks for exact model text (if provided); also try a sanitized cue (e.g., "TL230 Series 2")
     let ranges: any[] = [];
     if (model) {
@@ -54,12 +68,30 @@ export async function POST(req: Request) {
       ranges = data || [];
     }
 
+    // Cross-sell: parts in the catalog that fit this model.
+    let partsThatFit: any[] = [];
+    if (model) {
+      const m = clean(model);
+      const slugForm = `takeuchi-${m.toLowerCase()}`;
+      const { data: parts } = await db
+        .from("parts")
+        .select("slug,name,sales_type,price_cents,is_fast_moving")
+        .ilike("brand", "takeuchi")
+        .or(`compatible_models.cs.{${m}},compatible_models.cs.{${slugForm}}`)
+        .order("is_fast_moving", { ascending: false })
+        .limit(6);
+      partsThatFit = parts || [];
+    }
+
     const notes: string[] = [];
     notes.push("Use the machine nameplate (serial/PIN) and record the engine serial from its plate; Takeuchi manuals explicitly instruct recording both.");
     notes.push("Do not attempt universal year-from-serial decoding; it is not published by Takeuchi across models.");
-    
+
     if (fam === "Compact Track Loader") {
       notes.push("Track loader manuals state 'Do not remove the machine name plate' and provide spaces to record machine & engine serials.");
+    }
+    if (model && ranges.length === 0) {
+      notes.push(`No published parts-book serial breaks were found for ${clean(model)}. Read the machine nameplate for the PIN and the engine plate for the engine serial — that is what the dealer uses for parts.`);
     }
 
     return NextResponse.json({
@@ -67,6 +99,7 @@ export async function POST(req: Request) {
       parsed: { family: fam },
       plate: { guidance: plateTips },
       serialRanges: ranges,
+      partsThatFit,
       notes
     });
 

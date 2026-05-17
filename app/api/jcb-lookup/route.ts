@@ -49,7 +49,9 @@ export async function POST(req: Request) {
       family = map?.[0]?.family || null;
     }
 
-    // Plate guidance
+    // Plate guidance.
+    // When a model is provided, surface model-specific series rows ahead of
+    // generic family rows so the most relevant plate location appears first.
     let plateTips: any[] = [];
     if (family) {
       const { data } = await db.from("jcb_plate_locations")
@@ -62,22 +64,58 @@ export async function POST(req: Request) {
       plateTips = data || [];
     }
 
+    if (model && plateTips.length > 0) {
+      const m = clean(model);
+      plateTips = plateTips
+        .map((row, idx) => {
+          const s = (row.series || "").toUpperCase();
+          let score = 2;
+          if (m && s.includes(m)) score = 0;
+          else if (cue && s.includes(cue)) score = 1;
+          return { row, idx, score };
+        })
+        .sort((a, b) => a.score - b.score || a.idx - b.idx)
+        .map(({ row }) => row);
+    }
+
     // Series notes
     const { data: series } = await db.from("jcb_series_examples").select("*").limit(6);
 
     // VIN year (true 17-char PIN only)
     const year = await vinYear(db, normalized);
 
+    // Cross-sell: parts in the catalog that fit this model. compatible_models
+    // values are stored two ways across the catalog (bare model code or
+    // slug-form 'jcb-<model>'); match against both. Order by is_fast_moving
+    // DESC so when the user flags fast-moving SKUs they surface first.
+    let partsThatFit: any[] = [];
+    if (model) {
+      const m = clean(model);
+      const slugForm = `jcb-${m.toLowerCase()}`;
+      const { data: parts } = await db
+        .from("parts")
+        .select("slug,name,sales_type,price_cents,is_fast_moving")
+        .ilike("brand", "jcb")
+        .or(`compatible_models.cs.{${m}},compatible_models.cs.{${slugForm}}`)
+        .order("is_fast_moving", { ascending: false })
+        .limit(6);
+      partsThatFit = parts || [];
+    }
+
     const notes: string[] = [];
     if (year) notes.push("Detected a true 17-character PIN; decoded model year from the 10th character.");
     notes.push("Most JCB serials/PINs do not encode year in a single universal way. Use the machine identification plate to confirm details, or contact an authorized JCB dealer.");
     notes.push("Major components (engine, axles, gearbox) carry their own serial plates.");
+    if (model && !family) {
+      notes.push(`We could not infer an equipment family for ${clean(model)} from our cue list. Read the chassis identification plate for the PIN — that is what your dealer uses for parts.`);
+    }
 
     return NextResponse.json({
       input: { serial: normalized, model: model || null, equipmentType: equipmentType || null },
       parsed: { inferredCue: cue, family: family || null, vinYear: year ?? null },
       plate: { guidance: plateTips },
       seriesExamples: series || [],
+      partsThatFit,
       notes
     });
   } catch (e: any) {

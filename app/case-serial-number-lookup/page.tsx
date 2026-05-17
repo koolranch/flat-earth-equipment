@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Script from "next/script";
 import { Search, CheckCircle, MapPin, Wrench, Settings, Calendar, Info, ExternalLink, Building2 } from "lucide-react";
 import BrandHubBanner from '@/components/brand/BrandHubBanner';
 import SerialToolJsonLd from '@/components/seo/SerialToolJsonLd';
+
+type PartFit = { slug: string; name: string; sales_type: string | null; price_cents: number | null; is_fast_moving: boolean | null };
 
 type ApiResponse = {
   input?: { serial: string; model: string | null; equipmentType: string | null };
@@ -21,10 +22,42 @@ type ApiResponse = {
     prefix: string | null;
   };
   plateLocations?: string[];
+  partsThatFit?: PartFit[];
   officialLookupUrl?: string;
   notes?: string[];
   error?: string;
 };
+
+const FAQS: { q: string; a: string }[] = [
+  {
+    q: "Where is the serial number on a Case 580 backhoe?",
+    a: "On older 580B / 580C / 580D loader-backhoes the serial plate is on the left side of the dash, just inside the left cab door, or under the left door on the side of the frame rail. On 580E / 580K the serial is stamped on the top of the frame under the cab between the rear tire and fender. On modern 580M / 580 Super L / 580SM / 580SN / 580SNWT / 580 Super R units the PIN plate is on the left-hand side of the chassis beneath the loader-arm pivot.",
+  },
+  {
+    q: "Where is the serial number on a Case skid steer or compact track loader (SR / SV / TR / TV)?",
+    a: "On 2014-and-newer SR / SV wheeled skid steers and TR / TV compact track loaders the identification plate is on the rear of the machine under the base of the left lift arm. Older Case skid steers (1840, 1845C, 90XT) used in-cab plates — typically on the kick plate or the right-hand side of the cab interior.",
+  },
+  {
+    q: "How do I decode a Case 17-character VIN/PIN?",
+    a: "Modern Case VINs/PINs follow ISO 3779. Position 1-3 identifies the manufacturer (YDH = CNH Industrial / Case Construction). Positions 4-8 describe the equipment. Position 9 is a check digit. Position 10 encodes the year (P = 2023, R = 2024, S = 2025). Position 11 is the manufacturing plant. Positions 12-17 are the sequential production number.",
+  },
+  {
+    q: "What does the year code on a Case PIN mean?",
+    a: "On the modern 17-character PIN, the 10th character is the year code. Common recent years: J = 2018, K = 2019, L = 2020, M = 2021, N = 2022, P = 2023, R = 2024, S = 2025. The letters I, O, Q, U, and Z are skipped to avoid confusion with numerals.",
+  },
+  {
+    q: "What does YDH or YDJ mean on a Case serial number?",
+    a: "These are CNH Industrial manufacturer codes. YDH = Case Construction. YDJ = Case IH (agricultural). YDK = New Holland. JAF, CGK, and similar prefixes are also Case Construction variants used on different production lines.",
+  },
+  {
+    q: "Why does my Case dealer also need the engine serial number?",
+    a: "Case parts catalogs are PIN-driven, but engine, axle, and gearbox each carry their own serial plates. Two machines built in the same year and same model can take different engine parts depending on which engine variant was fitted (FPT / Cursor / NEF). Recording the chassis PIN plus the engine serial from the engine plate lets the dealer pull the correct parts on the first try.",
+  },
+  {
+    q: "Can I look up Case parts that fit my machine on this site?",
+    a: "Yes — when you run the lookup with a model code we search our parts catalog for items keyed to your model and surface them in the result panel. If your part isn't above, click \"Get a Case parts quote\" and your model and serial pre-fill on the quote form.",
+  },
+];
 
 const EQUIPMENT_TYPES = [
   "Backhoe Loader (580 Series)",
@@ -79,11 +112,72 @@ export default function CaseSerialLookupPage() {
   const brand = { slug: 'case-construction', name: 'Case Construction' };
   const url = 'https://www.flatearthequipment.com/case-serial-number-lookup';
 
+  const howToLd = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to find your Case Construction serial number",
+    description: "Locate the machine identification plate and decode the Case PIN/VIN for parts and service.",
+    totalTime: "PT2M",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Identify the equipment family",
+        text: "Determine whether the machine is a 580 backhoe loader, a SR / SV skid steer, a TR / TV compact track loader, a CX excavator, an M-series crawler dozer, a G-series wheel loader, or a Case IH tractor."
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Locate the identification plate",
+        text: "On 580 backhoes the plate is on the left dash inside the cab door (older B/C/D), stamped on the frame under the cab (E/K), or on the left chassis beneath the loader-arm pivot (M / Super L / SM / SN / SNWT / Super R). On 2014+ SR/SV/TR/TV machines the plate is on the rear under the base of the left lift arm. On CX excavators the plate is on the cab frame near the boom mount."
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Read the serial / VIN / PIN",
+        text: "Modern Case machines use a 17-character ISO VIN. Older units use shorter sequential serial numbers with a 3-letter manufacturer prefix. Record exactly as shown on the plate."
+      },
+      {
+        "@type": "HowToStep",
+        position: 4,
+        name: "Run the lookup",
+        text: "Type the serial / VIN / PIN, equipment type, and model into the form above. The tool decodes year (position 10), plant (position 11), and surfaces plate locations specific to your series."
+      }
+    ]
+  };
+
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQS.map(({ q, a }) => ({
+      "@type": "Question",
+      name: q,
+      acceptedAnswer: { "@type": "Answer", text: a }
+    }))
+  };
+
+  const partsThatFit = result?.partsThatFit || [];
+  const quoteHref = (() => {
+    const params = new URLSearchParams();
+    const m = (result?.input?.model || model || "").trim();
+    const s = (result?.input?.serial || serial || "").trim();
+    const eq = m ? `Case ${m}` : "Case Construction";
+    params.set("equipment", eq);
+    if (s) {
+      params.set("notes", `PIN / serial: ${s}${m ? ` (${m})` : ""} — looked up from /case-serial-number-lookup`);
+    }
+    return `/quote?${params.toString()}`;
+  })();
+
   return (
     <>
       <SerialToolJsonLd brand={brand} url={url} />
-      <Script
-        id="case-serial-jsonld"
+      {/*
+        Server-rendered JSON-LD via raw <script> tags so crawlers see the
+        structured data on first request. Replaces the prior next/script
+        usage which only injected after hydration.
+      */}
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
@@ -102,6 +196,14 @@ export default function CaseSerialLookupPage() {
             },
           }),
         }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
       />
 
       <main className="min-h-screen bg-gradient-to-b from-amber-50 via-white to-slate-50">
@@ -327,13 +429,64 @@ export default function CaseSerialLookupPage() {
                     </div>
                   )}
 
+                  {/* Parts that fit this machine */}
+                  {partsThatFit.length > 0 && (
+                    <div className="border-t pt-5">
+                      <h3 className="font-semibold text-slate-900 mb-3">Case parts that fit this machine</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {partsThatFit.map((p) => (
+                          <Link
+                            key={p.slug}
+                            href={`/parts/${p.slug}`}
+                            className="block rounded-lg border border-slate-200 bg-white p-4 hover:border-amber-500 hover:shadow-sm transition-colors"
+                          >
+                            <div className="font-medium text-slate-900">{p.name}</div>
+                            <div className="mt-1 text-xs text-slate-500">
+                              {p.sales_type === "direct" && p.price_cents
+                                ? `In stock — $${(p.price_cents / 100).toFixed(2)}`
+                                : "Quote on request"}
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Contextual conversion CTA */}
+                  <div className="rounded-xl border border-amber-400 bg-amber-50 p-5">
+                    <h3 className="text-lg font-semibold text-slate-900">Need a part for this Case machine?</h3>
+                    <p className="mt-1 text-sm text-slate-700">
+                      We&apos;ll pre-fill your make, model, and PIN so we can come back with accurate pricing — no account required.
+                    </p>
+                    <div className="mt-3 flex flex-wrap items-center gap-3">
+                      <a
+                        href={quoteHref}
+                        className="inline-flex items-center rounded-lg bg-amber-600 px-4 py-2 text-sm font-semibold text-white hover:bg-amber-700 transition-colors"
+                      >
+                        Get a Case parts quote
+                      </a>
+                      <Link
+                        href="/parts/construction-equipment-parts"
+                        className="text-sm text-slate-700 underline hover:text-amber-700"
+                      >
+                        Browse construction parts
+                      </Link>
+                      <a
+                        href="tel:+18883929175"
+                        className="text-sm text-slate-700 underline hover:text-amber-700"
+                      >
+                        Or call (888) 392-9175
+                      </a>
+                    </div>
+                  </div>
+
                   {/* Official Lookup Link */}
                   {result.officialLookupUrl && (
                     <a
                       href={result.officialLookupUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 bg-amber-600 text-white py-3 px-6 rounded-xl font-semibold hover:bg-amber-700 transition"
+                      className="flex items-center justify-center gap-2 bg-slate-700 text-white py-3 px-6 rounded-xl font-semibold hover:bg-slate-800 transition"
                     >
                       <ExternalLink className="w-5 h-5" />
                       Visit Official CASE Parts Lookup
@@ -469,6 +622,25 @@ export default function CaseSerialLookupPage() {
 
           {/* Brand Hub Banner */}
           <BrandHubBanner slug="case-construction" name="Case Construction" />
+
+          {/* Visible FAQ — mirrors the FAQPage JSON-LD */}
+          <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-8 mb-8">
+            <h2 className="text-2xl font-bold text-slate-900 mb-2">Frequently Asked Questions</h2>
+            <p className="text-sm text-slate-500 mb-6">
+              Sources: Case 580B/C/D/E/K dealer references, ConEquip Parts skid-steer location guide, ISO 3779 VIN/PIN structure.
+            </p>
+            <div className="divide-y divide-slate-200 rounded-2xl border border-slate-200">
+              {FAQS.map((item, i) => (
+                <details key={i} className="group p-5 open:bg-slate-50">
+                  <summary className="cursor-pointer list-none font-medium text-slate-900 marker:hidden flex items-center justify-between">
+                    <span>{item.q}</span>
+                    <span className="ml-4 text-slate-400 transition-transform group-open:rotate-45 select-none">+</span>
+                  </summary>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-700">{item.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
 
           {/* CTA Section */}
           <div className="bg-gradient-to-r from-amber-600 to-yellow-600 rounded-2xl p-8 text-white text-center">
