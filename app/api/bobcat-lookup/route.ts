@@ -117,13 +117,15 @@ export async function POST(req: Request) {
 
     // Optional legacy year inference if model is provided AND we have ranges.
     // Bobcat serials are mostly alphanumeric with year-cuts published as a
-    // sortable prefix (e.g. A3NW17001+ for 2021 S650), so we compare the
-    // cleaned 9-digit serial alphabetically against the start/end markers.
+    // sortable prefix (e.g. A3NW17001+ for 2021 S650). For comparison we need
+    // the original serial uppercased and non-alphanumeric-stripped (NOT the
+    // digits-only `parsed.cleaned`, which is correct for legacy numeric ranges
+    // like the 843 5-digit serial but breaks alphanumeric comparison).
     let candidateYear: number | null = null;
     let rangesChecked = false;
     if (model) {
       rangesChecked = true;
-      const cleaned = parsed.cleaned.toUpperCase();
+      const alnum = clean(serial);                 // e.g. "A3NW17500"
       const seq = Number(parsed.productionSeq);
       const { data: ranges, error: rangesError } = await admin
         .from("bobcat_serial_ranges")
@@ -136,18 +138,28 @@ export async function POST(req: Request) {
         for (const r of ranges || []) {
           const startStr = String(r.serial_start || "").toUpperCase();
           const endStr = String(r.serial_end || "").toUpperCase();
-          // Numeric comparison for legacy 5-digit ranges (e.g. 11001-11681).
-          const startNum = Number(startStr.replace(/\D/g, ""));
-          const endNum = Number(endStr.replace(/\D/g, ""));
           const looksNumeric = /^\d+$/.test(startStr) && /^\d+$/.test(endStr);
-          if (looksNumeric && Number.isFinite(seq) && Number.isFinite(startNum) && Number.isFinite(endNum)) {
-            if (seq >= startNum && seq <= endNum) {
+          if (looksNumeric) {
+            // Legacy 5-digit numeric range — compare against production seq.
+            const startNum = Number(startStr);
+            const endNum = Number(endStr);
+            if (Number.isFinite(seq) && seq >= startNum && seq <= endNum) {
               candidateYear = r.year as number;
               break;
             }
-          } else if (cleaned >= startStr && cleaned <= endStr) {
-            candidateYear = r.year as number;
-            break;
+          } else {
+            // Alphanumeric range — string comparison on equal-length tokens.
+            // We zero-pad both sides to the longest length so lexicographic
+            // comparison stays correct when the typed serial omits leading
+            // padding.
+            const len = Math.max(alnum.length, startStr.length, endStr.length);
+            const a = alnum.padStart(len, "0");
+            const s = startStr.padStart(len, "0");
+            const e = endStr.padStart(len, "0");
+            if (a >= s && a <= e) {
+              candidateYear = r.year as number;
+              break;
+            }
           }
         }
       }
