@@ -7,21 +7,23 @@ function clean(s: string) {
   return (s || "").trim().toUpperCase(); 
 }
 
-const CUES = [
-  "540-170", "535-95", "531-70", // longest first for telehandlers
-  "3TS", "190T", "150T",         // skid steer/CTL
-  "220X", "JS",                  // excavators
-  "457", "427", "411",           // wheel loaders
-  "LOADALL", "TM", "4CX", "3CX"  // families/aliases
-];
-
-function inferCue(input: string) {
+// Match the typed input against the cues stored in jcb_model_cues. Cues are
+// matched by startsWith first, then by substring; the longest cue wins so
+// that "535-95" beats "535" and "8035ZTS" beats "8035" or "80".
+function inferCueFromList(input: string, cues: string[]): string | null {
   const s = clean(input);
-  for (const c of CUES) { 
-    if (s.startsWith(c)) return c; 
+  if (!s || cues.length === 0) return null;
+  // Sort cues by length DESC so the most specific match wins.
+  const sorted = [...cues].sort((a, b) => b.length - a.length);
+  for (const c of sorted) {
+    const cu = clean(c);
+    if (cu && s.startsWith(cu)) return c;
   }
-  const m = s.match(/\b(540-170|535-95|531-70|3TS|190T|150T|220X|JS|457|427|411|LOADALL|TM|4CX|3CX)\b/i);
-  return m ? m[1].toUpperCase() : null;
+  for (const c of sorted) {
+    const cu = clean(c);
+    if (cu && s.includes(cu)) return c;
+  }
+  return null;
 }
 
 async function vinYear(db: any, serial: string) {
@@ -40,13 +42,20 @@ export async function POST(req: Request) {
     const db = supabase();
     const normalized = clean(serial);
     const txt = clean([model, serial].filter(Boolean).join(" "));
-    const cue = inferCue(txt);
+
+    // Pull the full cue list from the database so the regex stays in sync
+    // with the seeded *_model_cues table (no hardcoded list to drift).
+    const { data: cueRows } = await db
+      .from("jcb_model_cues")
+      .select("cue,family");
+    const allCues = (cueRows || []).map((r: { cue: string }) => r.cue);
+    const cue = inferCueFromList(txt, allCues);
 
     // Resolve family from explicit type or cue
     let family = equipmentType || null;
     if (!family && cue) {
-      const { data: map } = await db.from("jcb_model_cues").select("family").eq("cue", cue);
-      family = map?.[0]?.family || null;
+      const hit = (cueRows || []).find((r: { cue: string }) => clean(r.cue) === clean(cue));
+      family = (hit?.family as string) || null;
     }
 
     // Plate guidance.
