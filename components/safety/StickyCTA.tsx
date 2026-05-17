@@ -10,7 +10,10 @@ import {
   getStoreUrlForPlatform,
   type AppPlatform,
 } from "@/lib/app-store/links";
-import { trackAppDownloadClick } from "@/lib/analytics/app-download";
+import {
+  navigateToStoreAfterTracking,
+  trackAppDownloadClick,
+} from "@/lib/analytics/app-download";
 
 const SCROLL_TRIGGER_PX = 600;
 const DISMISS_KEY = "safety_sticky_dismissed";
@@ -60,9 +63,7 @@ function StickyCTAInner() {
       placement: "safety_sticky",
       stateParam,
     });
-    setTimeout(() => {
-      window.location.href = finalUrl;
-    }, 200);
+    navigateToStoreAfterTracking(finalUrl);
   };
 
   const handleDismiss = () => {

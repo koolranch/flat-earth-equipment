@@ -12,7 +12,10 @@ import {
   getStoreUrlForPlatform,
   type AppPlatform,
 } from "@/lib/app-store/links";
-import { trackAppDownloadClick } from "@/lib/analytics/app-download";
+import {
+  navigateToStoreAfterTracking,
+  trackAppDownloadClick,
+} from "@/lib/analytics/app-download";
 
 interface AppDownloadCTAProps {
   /** Where this CTA is rendered. Used in tracking so we can split conversions. */
@@ -74,9 +77,7 @@ export default function AppDownloadCTA({
       placement,
       stateParam,
     });
-    setTimeout(() => {
-      window.location.href = finalUrl;
-    }, 200);
+    navigateToStoreAfterTracking(finalUrl);
   };
 
   const buttonBaseClasses =
