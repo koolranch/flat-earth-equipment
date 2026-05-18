@@ -364,6 +364,47 @@ export async function POST(req: NextRequest) {
         // else: 3+ qty in cart → free freight, no line item added
       }
 
+      // ── Mitsubishi (TVH-sourced) cost-based freight tiers ───────────
+      // Matches TVH vendor freight matrix (slightly higher than JCB tiers).
+      // Triggers on category "Mitsubishi Parts" or any "Mitsubishi *" subcategory.
+      const mitsubishiItems = body.items.filter((item: any) =>
+        !item.metadata?.free_freight &&
+        (item.category === 'Mitsubishi Parts' ||
+          (item.category && typeof item.category === 'string' && item.category.startsWith('Mitsubishi ')))
+      );
+
+      if (mitsubishiItems.length > 0) {
+        function mitsubishiFreightCents(priceDollars: number): number {
+          if (priceDollars < 25)   return 1800;  // $18.00
+          if (priceDollars < 150)  return 2500;  // $25.00
+          if (priceDollars < 300)  return 3100;  // $31.00
+          if (priceDollars < 500)  return 3700;  // $37.00
+          if (priceDollars < 650)  return 4100;  // $41.00
+          return 5000;                            // $50.00 for $650+ (extrapolated from TVH pattern)
+        }
+
+        let totalMitsubishiFreight = 0;
+        for (const item of mitsubishiItems) {
+          const itemPrice = Number(item.price) || 0;
+          const qty = Math.max(1, Number(item.quantity) || 1);
+          totalMitsubishiFreight += mitsubishiFreightCents(itemPrice) * qty;
+        }
+
+        if (totalMitsubishiFreight > 0) {
+          lineItems.push({
+            price_data: {
+              currency: 'usd',
+              product_data: {
+                name: 'Freight Shipping - Mitsubishi Parts',
+                description: 'Ground shipping for Mitsubishi and Mitsubishi/Caterpillar replacement parts',
+              },
+              unit_amount: totalMitsubishiFreight,
+            },
+            quantity: 1,
+          });
+        }
+      }
+
       // ── JCB cost-based freight tiers ──────────────────────────────
       // Freight is determined by the part's sell price, matching vendor tiers.
       // Each JCB item (not free_freight) gets its own freight line based on price.

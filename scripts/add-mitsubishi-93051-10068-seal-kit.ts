@@ -32,8 +32,8 @@ const PRODUCT = {
   oemReference: '93051-10068',
   name: 'Mitsubishi 93051-10068 Lift Cylinder Seal Kit (Aftermarket)',
   brand: 'Mitsubishi',
-  category: 'Hydraulic Cylinders',
-  categorySlug: 'hydraulic-cylinders',
+  category: 'Mitsubishi Parts',          // Triggers TVH cost-tier freight in checkout
+  categorySlug: 'mitsubishi-parts',
   cost: 96.63,
   sellPrice: 159.00,
   imageUrl: `${STORAGE_PUBLIC}/brand-logos/mitsubishi.webp`,
