@@ -2,8 +2,8 @@
 // Creates invitation and sends email
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerClient } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
+import { getAuthUser } from '@/lib/supabase/mobile-auth';
 import { randomBytes } from 'node:crypto';
 import { Resend } from 'resend';
 
@@ -13,10 +13,9 @@ export const dynamic = 'force-dynamic';
 export async function POST(request: NextRequest) {
   try {
     // Verify authentication
-    const supabase = createServerClient();
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    const { user, client: supabase } = await getAuthUser(request);
     
-    if (authError || !user) {
+    if (!user || !supabase) {
       return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
     }
 

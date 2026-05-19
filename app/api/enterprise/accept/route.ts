@@ -2,7 +2,7 @@
 // Processes invitation acceptance using the accept_invitation database function
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerClient } from '@/lib/supabase/server';
+import { getAuthUser } from '@/lib/supabase/mobile-auth';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -10,10 +10,9 @@ export const dynamic = 'force-dynamic';
 export async function POST(request: NextRequest) {
   try {
     // Verify authentication
-    const supabase = createServerClient();
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    const { user, client: supabase } = await getAuthUser(request);
     
-    if (authError || !user) {
+    if (!user || !supabase) {
       return NextResponse.json(
         { ok: false, error: 'Please sign in to accept this invitation' }, 
         { status: 401 }

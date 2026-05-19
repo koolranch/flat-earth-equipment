@@ -1,15 +1,14 @@
 // Adapted Enterprise API - Working with Existing Schema
 import { NextRequest, NextResponse } from 'next/server';
 import { getAdaptedOrganizations } from '@/lib/enterprise/adapted-database.server';
-import { createServerClient } from '@/lib/supabase/server';
+import { getAuthUser } from '@/lib/supabase/mobile-auth';
 
 // GET /api/enterprise/adapted/organizations
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createServerClient();
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    const { user } = await getAuthUser(request);
 
-    if (authError || !user) {
+    if (!user) {
       return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
     }
 

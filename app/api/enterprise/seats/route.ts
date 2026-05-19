@@ -2,18 +2,17 @@
 // Get seat availability for an organization
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerClient } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
+import { getAuthUser } from '@/lib/supabase/mobile-auth';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createServerClient();
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    const { user, client: supabase } = await getAuthUser(request);
     
-    if (authError || !user) {
+    if (!user || !supabase) {
       return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
     }
 

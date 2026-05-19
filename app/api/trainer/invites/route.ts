@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
+import { getAuthUser } from '@/lib/supabase/mobile-auth';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -13,17 +13,19 @@ export async function GET(req: Request) {
     return NextResponse.json({ ok: false, error: 'missing_course_id' }, { status: 400 });
   }
 
-  const sb = supabaseServer();
   const svc = supabaseService();
   
   // Authentication check
-  const { data: { user } } = await sb.auth.getUser();
+  const { user, client } = await getAuthUser(req);
   if (!user) {
     return NextResponse.json({ ok: false, error: 'unauthorized' }, { status: 401 });
   }
 
   // Role authorization check
-  const { data: prof } = await sb.from('profiles').select('role').eq('id', user.id).maybeSingle();
+  if (!client) {
+    return NextResponse.json({ ok: false, error: 'unauthorized' }, { status: 401 });
+  }
+  const { data: prof } = await client.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!prof || !['trainer', 'admin'].includes(prof.role)) {
     return NextResponse.json({ ok: false, error: 'forbidden' }, { status: 403 });
   }

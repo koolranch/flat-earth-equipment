@@ -18,25 +18,46 @@
 
 import { createClient, SupabaseClient, User } from '@supabase/supabase-js';
 import { createServerClient } from '@supabase/ssr';
-import { NextRequest } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 interface AuthResult {
   user: User | null;
   client: SupabaseClient | null;
 }
 
-export async function getAuthUser(req: NextRequest): Promise<AuthResult> {
+function parseCookieHeader(cookieHeader: string | null) {
+  if (!cookieHeader) return [];
+
+  return cookieHeader
+    .split(';')
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .map((part) => {
+      const separator = part.indexOf('=');
+      if (separator === -1) {
+        return { name: part, value: '' };
+      }
+
+      return {
+        name: part.slice(0, separator),
+        value: decodeURIComponent(part.slice(separator + 1)),
+      };
+    });
+}
+
+export async function getAuthUser(req: NextRequest | Request): Promise<AuthResult> {
   // ─────────────────────────────────────────────
   // 1. Try cookie-based auth first (existing web flow — unchanged)
   // ─────────────────────────────────────────────
   try {
+    const requestCookies = (req as NextRequest).cookies;
     const cookieClient = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       {
         cookies: {
           getAll() {
-            return req.cookies.getAll();
+            return requestCookies?.getAll?.() || parseCookieHeader(req.headers.get('cookie'));
           },
         },
       }

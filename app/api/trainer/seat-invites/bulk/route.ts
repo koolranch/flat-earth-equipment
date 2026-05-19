@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
 import { selectClaimableOrder } from '@/lib/training/orderEntitlements';
+import { getAuthUser } from '@/lib/supabase/mobile-auth';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -9,17 +9,16 @@ export const dynamic = 'force-dynamic';
 const isEmail = (s: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.trim());
 
 export async function POST(req: Request) {
-  const sb = supabaseServer();
   const svc = supabaseService();
   
   // Authentication check
-  const { data: { user } } = await sb.auth.getUser();
-  if (!user) {
+  const { user, client } = await getAuthUser(req);
+  if (!user || !client) {
     return NextResponse.json({ ok: false, error: 'unauthorized' }, { status: 401 });
   }
   
   // Role authorization check
-  const { data: prof } = await sb.from('profiles').select('role').eq('id', user.id).maybeSingle();
+  const { data: prof } = await client.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!prof || !['trainer', 'admin'].includes(prof.role)) {
     return NextResponse.json({ ok: false, error: 'forbidden' }, { status: 403 });
   }

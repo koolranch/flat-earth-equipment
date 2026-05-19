@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
 import { getOrderSeatSummary } from '@/lib/training/orderEntitlements';
+import { getAuthUser } from '@/lib/supabase/mobile-auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,9 +12,8 @@ async function isStaff(uid: string) {
 }
 
 export async function GET(req: Request) {
-  const sb = supabaseServer();
   const svc = supabaseService();
-  const { data: { user } } = await sb.auth.getUser();
+  const { user } = await getAuthUser(req);
   if (!user) return NextResponse.json({ ok: false, error: 'auth_required' }, { status: 401 });
   if (!(await isStaff(user.id))) return NextResponse.json({ ok: false, error: 'forbidden' }, { status: 403 });
 

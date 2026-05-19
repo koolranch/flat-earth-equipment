@@ -10,6 +10,8 @@
           { "/": "/r/*", "comment": "Referral links" },
           { "/": "/invite/*", "comment": "Team invite links" },
           { "/": "/claim/*", "comment": "Invite claim links" },
+          { "/": "/enterprise/*", "comment": "Manager and enterprise dashboard links" },
+          { "/": "/trainer/*", "comment": "Trainer dashboard and seat management links" },
           { "/": "/app/*", "comment": "General app links" }
         ]
       }

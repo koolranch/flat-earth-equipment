@@ -1,19 +1,18 @@
 import { NextResponse } from 'next/server';
-import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
 import { sendInviteEmail } from '@/lib/email/resend';
+import { getAuthUser } from '@/lib/supabase/mobile-auth';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
-  const sb = supabaseServer();
   const svc = supabaseService();
-  const { data: { user } } = await sb.auth.getUser();
-  if (!user) return NextResponse.json({ ok: false, error: 'unauthorized' }, { status: 401 });
+  const { user, client } = await getAuthUser(req);
+  if (!user || !client) return NextResponse.json({ ok: false, error: 'unauthorized' }, { status: 401 });
 
   // role check
-  const { data: prof } = await sb.from('profiles').select('role').eq('id', user.id).maybeSingle();
+  const { data: prof } = await client.from('profiles').select('role').eq('id', user.id).maybeSingle();
   if (!prof || !['trainer', 'admin'].includes(prof.role)) {
     return NextResponse.json({ ok: false, error: 'forbidden' }, { status: 403 });
   }
@@ -40,10 +39,10 @@ export async function POST(req: Request) {
     }
 
     // See if user exists
-    const { data: prof2 } = await sb.from('profiles').select('id').eq('email', email).maybeSingle();
+    const { data: prof2 } = await client.from('profiles').select('id').eq('email', email).maybeSingle();
     if (prof2?.id) {
       // Ensure enrollment
-      const { data: existing } = await sb
+        const { data: existing } = await client
         .from('enrollments')
         .select('id')
         .eq('user_id', prof2.id)
@@ -52,7 +51,7 @@ export async function POST(req: Request) {
       if (existing) {
         results.push({ email, status: 'exists', enrollment_id: existing.id });
       } else {
-        const { data: created, error: eIns } = await sb
+        const { data: created, error: eIns } = await client
           .from('enrollments')
           .insert({ user_id: prof2.id, course_id, progress_pct: 0, passed: false })
           .select('id').maybeSingle();

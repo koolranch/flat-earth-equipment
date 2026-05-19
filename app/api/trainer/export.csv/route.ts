@@ -1,18 +1,23 @@
 import { NextResponse } from 'next/server';
-import { supabaseServer } from '@/lib/supabase/server';
 import { auditLog } from '@/lib/audit/log.server';
+import { getAuthUser } from '@/lib/supabase/mobile-auth';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: Request) {
-  const { data: { user } } = await supabaseServer().auth.getUser();
+  const { user } = await getAuthUser(req);
   const url = new URL(req.url);
   // call internal roster endpoint with pageSize=5000
   url.pathname = '/api/trainer/roster';
   url.searchParams.set('page', '1');
   url.searchParams.set('pageSize', '5000');
   
-  const r = await fetch(url, { headers: { 'cookie': req.headers.get('cookie') || '' } });
+  const r = await fetch(url, {
+    headers: {
+      cookie: req.headers.get('cookie') || '',
+      authorization: req.headers.get('authorization') || '',
+    },
+  });
   if (!r.ok) return new Response(await r.text(), { status: r.status });
   
   const j = await r.json();

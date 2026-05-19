@@ -2,7 +2,7 @@
 // Handles role retrieval and assignment
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerClient } from '@/lib/supabase/server';
+import { getAuthUser } from '@/lib/supabase/mobile-auth';
 import { 
   RoleType, 
   normalizeRole, 
@@ -16,11 +16,9 @@ import {
  */
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createServerClient();
+    const { user, client: supabase } = await getAuthUser(request);
     
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    
-    if (authError || !user) {
+    if (!user || !supabase) {
       return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -92,11 +90,9 @@ export async function GET(request: NextRequest) {
  */
 export async function PUT(request: NextRequest) {
   try {
-    const supabase = createServerClient();
+    const { user, client: supabase } = await getAuthUser(request);
     
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    
-    if (authError || !user) {
+    if (!user || !supabase) {
       return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
     }
 
