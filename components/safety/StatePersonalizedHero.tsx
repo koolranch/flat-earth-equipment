@@ -5,6 +5,7 @@ import { useMemo, useEffect } from "react";
 import SafetyHero from "./SafetyHero";
 import { getStateFromParam } from "@/lib/data/state-data";
 import type { Locale, MarketingDict } from "@/i18n";
+import type { SafetyTrafficSource } from "@/lib/safety/traffic-source";
 
 /**
  * Reads the `state` URL parameter client-side and passes personalization
@@ -18,9 +19,14 @@ import type { Locale, MarketingDict } from "@/i18n";
 interface StatePersonalizedHeroProps {
   locale?: Locale;
   t?: MarketingDict;
+  trafficSource?: SafetyTrafficSource;
 }
 
-export default function StatePersonalizedHero({ locale = "en", t }: StatePersonalizedHeroProps) {
+export default function StatePersonalizedHero({
+  locale = "en",
+  t,
+  trafficSource = "organic",
+}: StatePersonalizedHeroProps) {
   const searchParams = useSearchParams();
   const stateParam = searchParams.get("state");
 
@@ -49,5 +55,13 @@ export default function StatePersonalizedHero({ locale = "en", t }: StatePersona
     };
   }, [hasAnyParam]);
 
-  return <SafetyHero stateData={stateData} stateParam={normalizedStateParam} locale={locale} t={t} />;
+  return (
+    <SafetyHero
+      stateData={stateData}
+      stateParam={normalizedStateParam}
+      locale={locale}
+      t={t}
+      trafficSource={trafficSource}
+    />
+  );
 }

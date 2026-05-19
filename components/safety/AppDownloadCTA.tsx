@@ -16,6 +16,7 @@ import {
 import {
   trackAppDownloadClickAndNavigate,
 } from "@/lib/analytics/app-download";
+import { trackWebCheckoutInitiated } from "@/lib/analytics/gtag";
 import type { Locale, MarketingDict } from "@/i18n";
 import { getMarketingDict } from "@/i18n";
 
@@ -43,6 +44,7 @@ interface AppDownloadCTAProps {
   variant?: "stacked" | "inline";
   locale?: Locale;
   t?: MarketingDict;
+  webCheckoutSource?: string;
 }
 
 const singleOperatorPlan = TRAINING_PLANS.single;
@@ -65,6 +67,7 @@ export default function AppDownloadCTA({
   variant = "stacked",
   locale = "en",
   t,
+  webCheckoutSource = "safety_hero_web_fallback",
 }: AppDownloadCTAProps) {
   const dict = t || getMarketingDict(locale);
   const copy = dict.safety.appDownload;
@@ -172,6 +175,14 @@ export default function AppDownloadCTA({
       )}
       <button
         type="submit"
+        onClick={() => {
+          trackWebCheckoutInitiated({
+            source: webCheckoutSource,
+            priceId: singleOperatorPlan.priceId,
+            state: stateParam,
+            value: singleOperatorPlan.price,
+          });
+        }}
         className="inline-flex min-h-[44px] w-full items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold text-orange-300 underline underline-offset-2 transition-colors hover:text-orange-200 md:w-auto"
       >
         {copy.webFallback}

@@ -18,8 +18,15 @@ import HowItWorksStrip from '@/components/HowItWorksStrip';
 import SafetyScreenshots from './components/SafetyScreenshots';
 import Testimonial from './components/Testimonial';
 import FaqSchema from './components/FaqSchema';
+import type { SafetyTrafficSource } from '@/lib/safety/traffic-source';
 
-export default async function SafetyLandingPage({ locale }: { locale: Locale }) {
+export default async function SafetyLandingPage({
+  locale,
+  trafficSource = 'organic',
+}: {
+  locale: Locale;
+  trafficSource?: SafetyTrafficSource;
+}) {
   noStore();
   const t = getMarketingDict(locale);
   const { isAuthed, userId } = await detectUserServer();
@@ -127,8 +134,8 @@ export default async function SafetyLandingPage({ locale }: { locale: Locale }) 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(certificateJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(demoVideoJsonLd) }} />
 
-      <Suspense fallback={<SafetyHero locale={locale} t={t} />}>
-        <StatePersonalizedHero locale={locale} t={t} />
+      <Suspense fallback={<SafetyHero locale={locale} t={t} trafficSource={trafficSource} />}>
+        <StatePersonalizedHero locale={locale} t={t} trafficSource={trafficSource} />
       </Suspense>
 
       <LogoCloud t={t} />
@@ -308,7 +315,7 @@ export default async function SafetyLandingPage({ locale }: { locale: Locale }) 
         <FaqSchema t={t} />
       </main>
 
-      <StickyCTA locale={locale} t={t} />
+      <StickyCTA locale={locale} t={t} trafficSource={trafficSource} />
     </>
   );
 }

@@ -29,6 +29,22 @@ export function trackEvent(eventName: string, params?: Record<string, any>) {
   }
 }
 
+export function trackWebCheckoutInitiated(params: {
+  source: string;
+  priceId?: string;
+  state?: string | null;
+  value?: number;
+  currency?: string;
+}) {
+  trackEvent('web_checkout_initiated', {
+    source: params.source,
+    price_id: params.priceId,
+    state: params.state || 'none',
+    value: params.value ?? 49,
+    currency: params.currency || 'USD',
+  });
+}
+
 // Google Ads conversion tracking
 export function trackConversion(conversionLabel: string, value?: number, currency: string = 'USD', transactionId?: string) {
   if (typeof window !== 'undefined' && window.gtag) {

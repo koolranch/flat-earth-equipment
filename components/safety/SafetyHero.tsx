@@ -3,13 +3,14 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { loadStripe } from "@stripe/stripe-js";
-import { trackEvent } from "@/lib/analytics/gtag";
+import { trackEvent, trackWebCheckoutInitiated } from "@/lib/analytics/gtag";
 import { trackLanding, trackCTA, trackCheckoutBegin } from "@/lib/analytics/vercel-funnel";
 import type { StateData } from "@/lib/data/state-data";
 import AppDownloadCTA from "@/components/safety/AppDownloadCTA";
 import type { Locale, MarketingDict } from "@/i18n";
 import { getMarketingDict } from "@/i18n";
 import SafetyLanguageToggle from "@/components/safety/SafetyLanguageToggle";
+import type { SafetyTrafficSource } from "@/lib/safety/traffic-source";
 
 interface SafetyHeroProps {
   stateData?: StateData | null;
@@ -17,6 +18,7 @@ interface SafetyHeroProps {
   stateParam?: string | null;
   locale?: Locale;
   t?: MarketingDict;
+  trafficSource?: SafetyTrafficSource;
 }
 
 function formatTemplate(template: string, values: Record<string, string | number>) {
@@ -26,9 +28,16 @@ function formatTemplate(template: string, values: Record<string, string | number
   );
 }
 
-export default function SafetyHero({ stateData, stateParam = null, locale = "en", t }: SafetyHeroProps = {}) {
+export default function SafetyHero({
+  stateData,
+  stateParam = null,
+  locale = "en",
+  t,
+  trafficSource = "organic",
+}: SafetyHeroProps = {}) {
   const dict = t || getMarketingDict(locale);
   const copy = dict.safety.hero;
+  const isAdTraffic = trafficSource === "ad";
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
@@ -37,11 +46,18 @@ export default function SafetyHero({ stateData, stateParam = null, locale = "en"
     trackLanding(49);
   }, []);
 
-  const handleStart = async () => {
+  const handleStart = async (source = "safety_hero_desktop") => {
     // Track CTA click to Vercel (safe, won't block checkout)
     try {
       trackCTA('hero', 49);
     } catch {}
+
+    trackWebCheckoutInitiated({
+      source,
+      priceId: 'price_1SToXBHJI548rO8JZnnTwKER',
+      state: stateParam,
+      value: 49,
+    });
     
     // Track begin_checkout event (EXISTING GA4 - unchanged)
     trackEvent('begin_checkout', {
@@ -160,18 +176,48 @@ export default function SafetyHero({ stateData, stateParam = null, locale = "en"
               </span>
             </p>
 
-            {/* Mobile-only app-first CTA stack (desktop is unchanged below). */}
+            {/* Mobile traffic is segmented: ads stay app-first, organic is web-first. */}
             <div className="mt-8 w-full md:hidden">
-              <AppDownloadCTA
-                placement={locale === "es" ? "safety_hero_es" : "safety_hero"}
-                stateParam={stateParam}
-                primaryLabel={copy.primaryCta}
-                showWebFallback
-                showTrustLine={false}
-                className="items-center"
-                locale={locale}
-                t={dict}
-              />
+              {isAdTraffic ? (
+                <AppDownloadCTA
+                  placement={locale === "es" ? "safety_hero_es" : "safety_hero"}
+                  stateParam={stateParam}
+                  primaryLabel={copy.primaryCta}
+                  showWebFallback
+                  showTrustLine={false}
+                  className="items-center"
+                  locale={locale}
+                  t={dict}
+                  webCheckoutSource={locale === "es" ? "safety_hero_ad_es" : "safety_hero_ad"}
+                />
+              ) : (
+                <div className="flex flex-col items-center gap-4">
+                  <button
+                    type="button"
+                    onClick={() => handleStart(locale === "es" ? "safety_hero_organic_es" : "safety_hero_organic")}
+                    disabled={isLoading}
+                    className="group inline-flex w-full max-w-sm items-center justify-center rounded-xl bg-gradient-to-b from-orange-500 to-orange-600 px-8 py-4 font-semibold text-white shadow-[0_1px_2px_rgba(0,0,0,0.1),0_4px_8px_rgba(249,115,22,0.2)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_rgba(249,115,22,0.3)] active:scale-95 active:shadow-sm disabled:opacity-50 disabled:cursor-wait"
+                    aria-label={copy.organicPrimaryCta}
+                  >
+                    {isLoading ? copy.processing : copy.organicPrimaryCta}
+                  </button>
+                  <div className="flex flex-col items-center gap-2">
+                    <p className="text-sm text-slate-300">{copy.organicAppSecondary}</p>
+                    <AppDownloadCTA
+                      placement={locale === "es" ? "safety_hero_organic_app_es" : "safety_hero_organic_app"}
+                      stateParam={stateParam}
+                      primaryLabel={dict.safety.appDownload.pricingPrimaryLabel}
+                      showPrimaryButton
+                      showWebFallback={false}
+                      showTrustLine={false}
+                      className="items-center"
+                      buttonClassName="w-full max-w-sm px-6 py-3 text-base"
+                      locale={locale}
+                      t={dict}
+                    />
+                  </div>
+                </div>
+              )}
               <p className="mt-3 text-xs text-slate-400 text-center">
                 {copy.trustLine}
               </p>
@@ -179,7 +225,7 @@ export default function SafetyHero({ stateData, stateParam = null, locale = "en"
 
             <div className="mt-8 hidden md:flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
               <button
-                onClick={handleStart}
+                onClick={() => handleStart(locale === "es" ? "safety_hero_desktop_es" : "safety_hero_desktop")}
                 disabled={isLoading}
                 className="group relative inline-flex items-center justify-center rounded-xl bg-gradient-to-b from-orange-500 to-orange-600 px-8 py-4 md:px-10 md:py-5 font-semibold text-white shadow-[0_1px_2px_rgba(0,0,0,0.1),0_4px_8px_rgba(249,115,22,0.2)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_rgba(249,115,22,0.3)] active:scale-95 active:shadow-sm disabled:opacity-50 disabled:cursor-wait"
               >
