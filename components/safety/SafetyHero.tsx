@@ -126,7 +126,7 @@ export default function SafetyHero({
   };
 
   return (
-    <section className="relative isolate overflow-hidden bg-slate-950 text-white min-h-[500px] sm:h-[500px]">
+    <section className="relative isolate scroll-mt-20 overflow-hidden bg-slate-950 text-white min-h-[560px] pt-20 sm:min-h-[580px] md:pt-24 lg:pt-28">
       <SafetyLanguageToggle locale={locale} t={dict} />
       {/* Background Image */}
       <Image
@@ -146,7 +146,7 @@ export default function SafetyHero({
       </div>
       
       {/* Content */}
-      <div className="relative z-10 h-full flex items-center justify-center py-20 sm:py-24">
+      <div className="relative z-10 flex min-h-[480px] items-center justify-center pb-16 pt-8 sm:min-h-[500px] sm:pb-20 md:pt-10 lg:pt-12">
         <div className="mx-auto max-w-5xl px-4 text-center md:text-left">
           <div className="flex flex-col md:items-start items-center">
             <h1 className="text-4xl md:text-6xl font-bold leading-[1.1] tracking-tighter text-white max-w-4xl text-balance">
