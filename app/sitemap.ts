@@ -117,6 +117,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/battery-chargers`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.9 },
     { url: `${BASE}/insights`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.9 },
     { url: `${BASE}/safety`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.9 },
+    { url: `${BASE}/es/safety`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.85 },
     { url: `${BASE}/safety/forklift`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.85 },
     { url: `${BASE}/about`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.6 },
     { url: `${BASE}/contact`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.7 },

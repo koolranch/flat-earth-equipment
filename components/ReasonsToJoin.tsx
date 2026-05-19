@@ -1,30 +1,12 @@
-export default function ReasonsToJoin() {
-  const items = [
-    { 
-      title: "Finish in ~30 minutes", 
-      body: "Interactive modules keep you moving—no long videos.",
-      icon: "⏱️"
-    },
-    { 
-      title: "Same-day wallet card", 
-      body: "QR-verifiable certificate issued immediately after passing.",
-      icon: "📱"
-    },
-    { 
-      title: "Employer-accepted nationwide", 
-      body: "Built to match OSHA 29 CFR 1910.178(l) requirements.",
-      icon: "✅"
-    },
-    { 
-      title: "Free Lifetime Access", 
-      body: "Pay once. Free renewals forever—even if you change employers.",
-      icon: "♾️"
-    },
-  ];
+import type { MarketingDict } from "@/i18n";
+import { getMarketingDict } from "@/i18n";
+
+export default function ReasonsToJoin({ t = getMarketingDict("en") }: { t?: MarketingDict }) {
+  const items = t.safety.reasons.items;
   
   return (
     <section aria-labelledby="reasons" className="mt-8">
-      <h2 id="reasons" className="sr-only">Reasons to join</h2>
+      <h2 id="reasons" className="sr-only">{t.safety.reasons.title}</h2>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {items.map((i) => (
           <div 

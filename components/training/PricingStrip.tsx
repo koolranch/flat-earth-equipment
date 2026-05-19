@@ -5,6 +5,8 @@ import { PLANS } from '@/lib/training/plans';
 import { createTrainingCheckoutSessionFromForm } from '@/app/training/checkout/actions';
 import Link from 'next/link';
 import AppDownloadCTA from '@/components/safety/AppDownloadCTA';
+import type { Locale, MarketingDict } from '@/i18n';
+import { getMarketingDict } from '@/i18n';
 
 function ReferralHiddenInput() {
   const searchParams = useSearchParams();
@@ -38,7 +40,17 @@ function BillingLabel({ label }: { label?: string }) {
   return <span className="ml-2 text-lg font-semibold text-slate-500">{label}</span>;
 }
 
-export default function PricingStrip({ disableBuy = false }: { disableBuy?: boolean }) {
+export default function PricingStrip({
+  disableBuy = false,
+  locale = 'en',
+  t,
+}: {
+  disableBuy?: boolean;
+  locale?: Locale;
+  t?: MarketingDict;
+}) {
+  const dict = t || getMarketingDict(locale);
+  const copy = dict.safety.pricing;
   const [showTeamPricing, setShowTeamPricing] = useState(false);
   
   const singlePlan = PLANS[0]; // Single Operator plan
@@ -46,10 +58,10 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
 
   return (
     <section id="pricing" className="mt-8 mx-auto max-w-6xl px-4">
-      <h2 className="text-3xl font-bold text-center text-slate-900">Pricing</h2>
-      <p className="text-center text-base text-slate-600 mt-2">Choose a plan and checkout securely.</p>
-      <p className="text-center text-sm text-slate-600 mt-1">Team plans include seat management, progress tracking, and certificate verification.</p>
-      <p className="text-center text-xs text-emerald-600 font-medium mt-2">✨ All seats include lifetime course access and free 3-year theory refresher.</p>
+      <h2 className="text-3xl font-bold text-center text-slate-900">{copy.title}</h2>
+      <p className="text-center text-base text-slate-600 mt-2">{copy.subtitle}</p>
+      <p className="text-center text-sm text-slate-600 mt-1">{copy.teamNote}</p>
+      <p className="text-center text-xs text-emerald-600 font-medium mt-2">✨ {copy.accessNote}</p>
       
       {/* Desktop: Show all 4 plans in grid */}
       <div className="hidden md:grid mt-8 grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -63,28 +75,28 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
             {p.popular && (
               <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                 <span className="bg-[#F76511] text-white px-4 py-1 rounded-full text-xs font-bold shadow-lg">
-                  POPULAR
+                  {copy.popular}
                 </span>
               </div>
             )}
             <div>
-              <h3 className="text-xl font-bold text-slate-900">{p.title}</h3>
+              <h3 className="text-xl font-bold text-slate-900">{copy.planTitles[p.key as keyof typeof copy.planTitles] || p.title}</h3>
               <div className="mt-3 flex items-end text-[#F76511]">
                 <span className="text-4xl font-bold">{p.priceText}</span>
-                <BillingLabel label={p.billingLabel} />
+                <BillingLabel label={p.billingLabel === '/year' ? copy.billingLabels.year : p.billingLabel} />
               </div>
-              <p className="text-sm text-slate-600 mt-2">{p.blurb}</p>
+              <p className="text-sm text-slate-600 mt-2">{copy.planBlurbs[p.key as keyof typeof copy.planBlurbs] || p.blurb}</p>
               {p.callout && (
-                <p className="text-xs text-emerald-600 font-semibold mt-1">{p.callout}</p>
+                <p className="text-xs text-emerald-600 font-semibold mt-1">{copy.planCallouts[p.key as keyof typeof copy.planCallouts] || p.callout}</p>
               )}
             </div>
             {disableBuy ? (
               <Link 
-                href="/safety#pricing" 
+                href={locale === 'es' ? '/es/safety#pricing' : '/safety#pricing'}
                 className="mt-6 w-full text-center px-4 py-3 rounded-xl border-2 border-slate-300 text-slate-700 font-medium hover:bg-slate-50 transition-colors" 
                 data-testid={`safety-see-${p.key}`}
               >
-                See on pricing page
+                {copy.seeOnPricing}
               </Link>
             ) : p.priceId ? (
               <form action={createTrainingCheckoutSessionFromForm} className="mt-6">
@@ -100,7 +112,7 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
                   }`}
                   data-testid={`safety-top-buy-${p.key}`}
                 >
-                  Buy Now →
+                  {copy.buyNow}
                 </button>
               </form>
             ) : (
@@ -109,7 +121,7 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
                 className="mt-6 w-full text-center px-4 py-3 rounded-xl border-2 border-slate-300 text-slate-700 font-medium hover:bg-slate-50 transition-colors"
                 data-testid={`safety-top-contact-${p.key}`}
               >
-                Contact Us →
+                {copy.contact}
               </Link>
             )}
           </div>
@@ -124,36 +136,38 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
         >
           <div className="absolute -top-3 left-1/2 -translate-x-1/2">
             <span className="bg-[#F76511] text-white px-4 py-1 rounded-full text-xs font-bold shadow-lg">
-              GET CERTIFIED — $49
+              {copy.singleBadge}
             </span>
           </div>
 
           <div>
-            <h3 className="text-xl font-bold text-slate-900">Get Certified — $49</h3>
+            <h3 className="text-xl font-bold text-slate-900">{copy.singleTitle}</h3>
             <p className="text-sm text-slate-600 mt-2">
-              Train free on the app. Pay $49 only when you pass the final exam.
+              {copy.singleBody}
             </p>
             <p className="text-sm text-slate-600 mt-2">
-              💼 Or have your employer pay — request from inside the app.
+              💼 {copy.employerPay}
             </p>
           </div>
 
           {disableBuy ? (
             <Link
-              href="/safety#pricing"
+              href={locale === 'es' ? '/es/safety#pricing' : '/safety#pricing'}
               className="mt-2 w-full text-center px-4 py-3 rounded-xl border-2 border-slate-300 text-slate-700 font-medium hover:bg-slate-50 transition-colors"
               data-testid={`safety-see-${singlePlan.key}`}
             >
-              See on pricing page
+              {copy.seeOnPricing}
             </Link>
           ) : (
             <div className="flex flex-col gap-3">
               <AppDownloadCTA
-                placement="safety_pricing"
-                primaryLabel="Download Free App"
+                placement={locale === 'es' ? 'safety_pricing_es' : 'safety_pricing'}
+                primaryLabel={dict.safety.appDownload.pricingPrimaryLabel}
                 showWebFallback={false}
                 showTrustLine={false}
                 className="items-center"
+                locale={locale}
+                t={dict}
               />
 
               <form action={createTrainingCheckoutSessionFromForm}>
@@ -165,7 +179,7 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
                   className="w-full px-6 py-3 rounded-xl font-semibold transition-all border-2 border-slate-300 text-slate-700 hover:bg-slate-50"
                   data-testid={`safety-top-buy-${singlePlan.key}`}
                 >
-                  Buy Now — $49 (instant web access)
+                  {copy.buyNowWeb}
                 </button>
               </form>
             </div>
@@ -178,7 +192,7 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
             onClick={() => setShowTeamPricing(!showTeamPricing)}
             className="inline-flex items-center gap-2 text-slate-700 hover:text-[#F76511] font-medium px-4 py-3 rounded-lg hover:bg-slate-50 transition-colors"
           >
-            <span>Running a team? View Employer Plans</span>
+            <span>{copy.employerPlans}</span>
             <span className={`transition-transform ${showTeamPricing ? 'rotate-180' : ''}`}>▼</span>
           </button>
         </div>
@@ -192,23 +206,23 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
                 className="relative border-2 rounded-2xl p-6 flex flex-col justify-between bg-white shadow-md border-slate-200"
               >
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900">{p.title}</h3>
+                  <h3 className="text-xl font-bold text-slate-900">{copy.planTitles[p.key as keyof typeof copy.planTitles] || p.title}</h3>
                   <div className="mt-3 flex items-end text-[#F76511]">
                     <span className="text-4xl font-bold">{p.priceText}</span>
-                    <BillingLabel label={p.billingLabel} />
+                    <BillingLabel label={p.billingLabel === '/year' ? copy.billingLabels.year : p.billingLabel} />
                   </div>
-                  <p className="text-sm text-slate-600 mt-2">{p.blurb}</p>
+                  <p className="text-sm text-slate-600 mt-2">{copy.planBlurbs[p.key as keyof typeof copy.planBlurbs] || p.blurb}</p>
                   {p.callout && (
-                    <p className="text-xs text-emerald-600 font-semibold mt-1">{p.callout}</p>
+                    <p className="text-xs text-emerald-600 font-semibold mt-1">{copy.planCallouts[p.key as keyof typeof copy.planCallouts] || p.callout}</p>
                   )}
                 </div>
                 {disableBuy ? (
                   <Link 
-                    href="/safety#pricing" 
+                    href={locale === 'es' ? '/es/safety#pricing' : '/safety#pricing'}
                     className="mt-6 w-full text-center px-4 py-3 rounded-xl border-2 border-slate-300 text-slate-700 font-medium hover:bg-slate-50 transition-colors" 
                     data-testid={`safety-see-${p.key}`}
                   >
-                    See on pricing page
+                    {copy.seeOnPricing}
                   </Link>
                 ) : p.priceId ? (
                   <form action={createTrainingCheckoutSessionFromForm} className="mt-6">
@@ -220,7 +234,7 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
                       className="w-full px-6 py-3 rounded-xl font-bold transition-all shadow-md hover:shadow-lg bg-slate-900 text-white hover:bg-slate-800"
                       data-testid={`safety-top-buy-${p.key}`}
                     >
-                      Buy Now →
+                      {copy.buyNow}
                     </button>
                   </form>
                 ) : (
@@ -229,7 +243,7 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
                     className="mt-6 w-full text-center px-4 py-3 rounded-xl border-2 border-slate-300 text-slate-700 font-medium hover:bg-slate-50 transition-colors"
                     data-testid={`safety-top-contact-${p.key}`}
                   >
-                    Contact Us →
+                    {copy.contact}
                   </Link>
                 )}
               </div>
@@ -239,10 +253,10 @@ export default function PricingStrip({ disableBuy = false }: { disableBuy?: bool
       </div>
 
       <p className="mt-6 text-sm text-center text-slate-600">
-        Already have a code? <a href="/redeem" className="text-[#F76511] underline hover:text-orange-600">Redeem</a>
+        {copy.alreadyCode} <a href="/redeem" className="text-[#F76511] underline hover:text-orange-600">{copy.redeem}</a>
       </p>
       <p className="mt-2 text-sm text-center text-slate-600">
-        Want details? <a href="/safety#pricing" className="text-[#F76511] underline hover:text-orange-600">See full pricing</a>
+        {copy.wantDetails} <a href={locale === 'es' ? '/es/safety#pricing' : '/safety#pricing'} className="text-[#F76511] underline hover:text-orange-600">{copy.fullPricing}</a>
       </p>
     </section>
   );

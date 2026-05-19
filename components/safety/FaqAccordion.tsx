@@ -11,9 +11,27 @@ interface FaqItem {
 interface FaqAccordionProps {
   items: FaqItem[];
   title: string;
+  showMoreLabel: string;
+  showLessLabel: string;
+  paymentMethodsLabel: string;
+  guaranteeLabel: string;
 }
 
-export default function FaqAccordion({ items, title }: FaqAccordionProps) {
+function formatTemplate(template: string, values: Record<string, string | number>) {
+  return Object.entries(values).reduce(
+    (out, [key, value]) => out.replace(new RegExp(`\\{${key}\\}`, 'g'), String(value)),
+    template,
+  );
+}
+
+export default function FaqAccordion({
+  items,
+  title,
+  showMoreLabel,
+  showLessLabel,
+  paymentMethodsLabel,
+  guaranteeLabel,
+}: FaqAccordionProps) {
   const [showAllMobile, setShowAllMobile] = useState(false);
 
   // Mobile-critical = items flagged as featured. Falls back to the previous
@@ -31,7 +49,7 @@ export default function FaqAccordion({ items, title }: FaqAccordionProps) {
 
   return (
     <section id="faq" className="mt-12 bg-white rounded-2xl border border-slate-200/60 shadow-sm px-6 py-8 sm:p-10">
-      <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-slate-900 tracking-tight text-center">Frequently Asked Questions</h2>
+      <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-slate-900 tracking-tight text-center">{title}</h2>
       
       {/* Desktop: Show all questions */}
       <div className="hidden md:block divide-y divide-slate-100">
@@ -78,7 +96,7 @@ export default function FaqAccordion({ items, title }: FaqAccordionProps) {
               onClick={() => setShowAllMobile(true)}
               className="inline-flex items-center gap-2 text-orange-600 font-medium px-4 py-2 rounded-lg hover:bg-orange-50 transition-colors text-sm"
             >
-              <span>{`Show ${remainingIndices.length} More Question${remainingIndices.length === 1 ? '' : 's'}`}</span>
+              <span>{formatTemplate(showMoreLabel, { count: remainingIndices.length, plural: remainingIndices.length === 1 ? '' : 's' })}</span>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
             </button>
           </div>
@@ -110,7 +128,7 @@ export default function FaqAccordion({ items, title }: FaqAccordionProps) {
               onClick={() => setShowAllMobile(false)}
               className="inline-flex items-center gap-2 text-slate-500 hover:text-orange-600 font-medium px-4 py-2 rounded-lg hover:bg-slate-50 transition-colors text-sm"
             >
-              <span>Show Less</span>
+              <span>{showLessLabel}</span>
               <svg className="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
             </button>
           </div>
@@ -119,7 +137,7 @@ export default function FaqAccordion({ items, title }: FaqAccordionProps) {
       
       {/* Trust Badges Footer */}
       <div className="mt-8 pt-8 border-t border-slate-100 flex flex-col items-center gap-4 text-center">
-         <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Secure Payment Methods</p>
+         <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">{paymentMethodsLabel}</p>
          <div className="flex items-center gap-4 opacity-60 grayscale hover:grayscale-0 transition-all duration-300">
             {/* Simple text badges for clarity and speed */}
             <span className="flex items-center gap-1.5 border border-slate-200 rounded px-2 py-1 bg-slate-50">
@@ -137,7 +155,7 @@ export default function FaqAccordion({ items, title }: FaqAccordionProps) {
          </div>
          <p className="text-xs text-slate-400 flex items-center gap-1.5 mt-2">
            <svg className="w-3 h-3 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path></svg>
-           100% Money Back Guarantee
+           {guaranteeLabel}
          </p>
       </div>
     </section>

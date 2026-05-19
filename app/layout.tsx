@@ -10,7 +10,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CrispChat from '@/components/CrispChat';
 import SupabaseProvider from './providers';
-import { cookies } from 'next/headers';
+import { headers } from 'next/headers';
 import { I18nProvider } from '@/lib/i18n';
 import SkipToContent from '@/components/a11y/SkipToContent';
 import SkipLink from '@/components/a11y/SkipLink';
@@ -62,7 +62,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   // Get active locale from cookie with fallback (safe for static generation)
-  const locale = getUserLocale();
+  const pathname = headers().get('x-pathname') || '';
+  const locale = pathname.startsWith('/es') ? 'es' : getUserLocale();
   
   // Check admin status for conditional header link (safe for static generation)
   const adminStatus = await getAdminStatus();
@@ -197,7 +198,7 @@ export default async function RootLayout({
               {children}
             </main>
             
-            <Footer />
+            <Footer locale={locale} />
             
             {/* Footer with legal links and accessibility toggle */}
             <footer role="contentinfo" className="mt-10 border-t text-xs text-slate-500 bg-white">
@@ -205,9 +206,9 @@ export default async function RootLayout({
                 <div className="flex items-center gap-4 flex-wrap">
                   <span>© Flat Earth Safety</span>
                   <nav aria-label="Legal and support links" className="flex gap-4">
-                    <a href="/legal/terms" className="hover:text-slate-700 underline hover:no-underline">Terms</a>
-                    <a href="/legal/privacy" className="hover:text-slate-700 underline hover:no-underline">Privacy</a>
-                    <a href="/contact" className="hover:text-slate-700 underline hover:no-underline">Contact</a>
+                    <a href="/legal/terms" className="hover:text-slate-700 underline hover:no-underline">{locale === 'es' ? 'Términos' : 'Terms'}</a>
+                    <a href="/legal/privacy" className="hover:text-slate-700 underline hover:no-underline">{locale === 'es' ? 'Privacidad' : 'Privacy'}</a>
+                    <a href="/contact" className="hover:text-slate-700 underline hover:no-underline">{locale === 'es' ? 'Contacto' : 'Contact'}</a>
                   </nav>
                 </div>
                 <ReducedMotionToggle />

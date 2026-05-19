@@ -13,11 +13,15 @@ import {
 import {
   trackAppDownloadClickAndNavigate,
 } from "@/lib/analytics/app-download";
+import type { Locale, MarketingDict } from "@/i18n";
+import { getMarketingDict } from "@/i18n";
 
 const SCROLL_TRIGGER_PX = 600;
 const DISMISS_KEY = "safety_sticky_dismissed";
 
-function StickyCTAInner() {
+function StickyCTAInner({ locale = "en", t }: { locale?: Locale; t?: MarketingDict }) {
+  const dict = t || getMarketingDict(locale);
+  const copy = dict.safety.sticky;
   const searchParams = useSearchParams();
   const stateParam = (searchParams?.get("state") || "").toLowerCase().trim() || null;
 
@@ -52,14 +56,14 @@ function StickyCTAInner() {
   const storeUrl = getStoreUrlForPlatform(showAppleBadge ? "ios" : "android");
   const finalUrl = buildStoreDownloadUrl(storeUrl, {
     stateParam,
-    placement: "safety_sticky",
+    placement: locale === "es" ? "safety_sticky_es" : "safety_sticky",
   });
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     trackAppDownloadClickAndNavigate({
       platform: targetPlatform,
-      placement: "safety_sticky",
+      placement: locale === "es" ? "safety_sticky_es" : "safety_sticky",
       stateParam,
     }, finalUrl);
   };
@@ -75,27 +79,27 @@ function StickyCTAInner() {
     <div
       className="fixed bottom-0 inset-x-0 z-40 md:hidden border-t border-white/10 bg-slate-950/85 backdrop-blur-md text-white shadow-[0_-6px_20px_rgba(0,0,0,0.25)]"
       role="region"
-      aria-label="Start free training in the app"
+      aria-label={copy.label}
     >
       <div className="flex items-center gap-3 px-4 py-3">
         <div className="flex flex-1 items-center gap-2 min-w-0">
           <span aria-hidden="true" className="text-lg">🎓</span>
           <span className="truncate text-sm font-semibold">
-            Start Training Free
+            {copy.text}
           </span>
         </div>
         <button
           type="button"
           onClick={handleClick}
           className="inline-flex min-h-[44px] appearance-none items-center justify-center rounded-lg border-none bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-orange-600 transition-colors cursor-pointer focus:outline-none"
-          aria-label={`Download the app on ${targetPlatform === "ios" ? "the App Store" : "Google Play"}`}
+          aria-label={targetPlatform === "ios" ? copy.appStoreAria : copy.playStoreAria}
         >
-          Download App
+          {copy.button}
         </button>
         <button
           type="button"
           onClick={handleDismiss}
-          aria-label="Dismiss"
+          aria-label={copy.dismiss}
           className="ml-1 inline-flex h-11 w-11 min-w-11 items-center justify-center rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-colors"
         >
           ✕
@@ -106,10 +110,10 @@ function StickyCTAInner() {
   );
 }
 
-export default function StickyCTA() {
+export default function StickyCTA({ locale = "en", t }: { locale?: Locale; t?: MarketingDict }) {
   return (
     <Suspense fallback={null}>
-      <StickyCTAInner />
+      <StickyCTAInner locale={locale} t={t} />
     </Suspense>
   );
 }

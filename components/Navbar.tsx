@@ -28,7 +28,7 @@ export default function Navbar({ locale }: Props) {
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
   
   // Minimal header on safety routes - less visual competition with hero CTA
-  const minimal = pathname.startsWith('/safety');
+  const minimal = pathname.startsWith('/safety') || pathname.startsWith('/es/safety');
   
   // On safety pages, only use inverse colors when scrolled past light top section
   const useInverse = minimal && scrolled;
@@ -47,6 +47,7 @@ export default function Navbar({ locale }: Props) {
     pathname.startsWith('/cart') ||        // Cart
     pathname.startsWith('/checkout') ||    // Checkout
     pathname.startsWith('/safety') ||      // Safety/training
+    pathname.startsWith('/es/safety') ||   // Spanish safety/training
     pathname.startsWith('/rent-equipment');// Rentals
   
   useEffect(() => {
@@ -76,13 +77,21 @@ export default function Navbar({ locale }: Props) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY, shouldAutoHide, alwaysShow]);
 
-  const navItems: NavItem[] = [
-    { name: 'Rent Equipment', href: '/rent-equipment' },
-    { name: 'Parts', href: '/parts' },
-    { name: 'Safety', href: '/safety' },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
-  ];
+  const navItems: NavItem[] = locale === 'es'
+    ? [
+        { name: 'Renta de equipo', href: '/rent-equipment' },
+        { name: 'Partes', href: '/parts' },
+        { name: 'Seguridad', href: '/es/safety' },
+        { name: 'Nosotros', href: '/about' },
+        { name: 'Contacto', href: '/contact' },
+      ]
+    : [
+        { name: 'Rent Equipment', href: '/rent-equipment' },
+        { name: 'Parts', href: '/parts' },
+        { name: 'Safety', href: '/safety' },
+        { name: 'About', href: '/about' },
+        { name: 'Contact', href: '/contact' },
+      ];
 
   // Dynamic classes based on scroll state
   const navClasses = `
@@ -119,11 +128,18 @@ export default function Navbar({ locale }: Props) {
 
           {/* Desktop Navigation - Minimal on safety routes, full on others */}
           <div className="hidden md:flex md:items-center md:space-x-6">
-            {(minimal ? [
-              { name: 'Rent Equipment', href: '/rent-equipment' },
-              { name: 'Safety', href: '/safety' },
-              { name: 'Contact', href: '/contact' }
-            ] : navItems).map((item) => (
+            {(minimal ? (
+              locale === 'es'
+                ? [
+                    { name: 'Seguridad', href: '/es/safety' },
+                    { name: 'Contacto', href: '/contact' },
+                  ]
+                : [
+                    { name: 'Rent Equipment', href: '/rent-equipment' },
+                    { name: 'Safety', href: '/safety' },
+                    { name: 'Contact', href: '/contact' },
+                  ]
+            ) : navItems).map((item) => (
               <div key={item.name} className="relative">
                 {item.dropdown ? (
                   <div

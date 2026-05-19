@@ -7,14 +7,28 @@ import { trackEvent } from "@/lib/analytics/gtag";
 import { trackLanding, trackCTA, trackCheckoutBegin } from "@/lib/analytics/vercel-funnel";
 import type { StateData } from "@/lib/data/state-data";
 import AppDownloadCTA from "@/components/safety/AppDownloadCTA";
+import type { Locale, MarketingDict } from "@/i18n";
+import { getMarketingDict } from "@/i18n";
+import SafetyLanguageToggle from "@/components/safety/SafetyLanguageToggle";
 
 interface SafetyHeroProps {
   stateData?: StateData | null;
   /** Lowercased state slug from the `?state=` query param, or null. */
   stateParam?: string | null;
+  locale?: Locale;
+  t?: MarketingDict;
 }
 
-export default function SafetyHero({ stateData, stateParam = null }: SafetyHeroProps = {}) {
+function formatTemplate(template: string, values: Record<string, string | number>) {
+  return Object.entries(values).reduce(
+    (out, [key, value]) => out.replace(new RegExp(`\\{${key}\\}`, "g"), String(value)),
+    template
+  );
+}
+
+export default function SafetyHero({ stateData, stateParam = null, locale = "en", t }: SafetyHeroProps = {}) {
+  const dict = t || getMarketingDict(locale);
+  const copy = dict.safety.hero;
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
@@ -97,12 +111,14 @@ export default function SafetyHero({ stateData, stateParam = null }: SafetyHeroP
 
   return (
     <section className="relative isolate overflow-hidden bg-slate-950 text-white min-h-[500px] sm:h-[500px]">
+      <SafetyLanguageToggle locale={locale} t={dict} />
       {/* Background Image */}
       <Image
         src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/hero-bg-mountains.webp"
-        alt="Forklift certification training"
+        alt={copy.imageAlt}
         fill
-        className="object-cover object-center opacity-40 mix-blend-overlay"
+        className="pointer-events-none object-cover object-center opacity-40 mix-blend-overlay"
+        style={{ pointerEvents: "none" }}
         priority
         fetchPriority="high"
       />
@@ -119,44 +135,45 @@ export default function SafetyHero({ stateData, stateParam = null }: SafetyHeroP
           <div className="flex flex-col md:items-start items-center">
             <h1 className="text-4xl md:text-6xl font-bold leading-[1.1] tracking-tighter text-white max-w-4xl text-balance">
               {stateData
-                ? `Get ${stateData.name} Forklift Certified Online in Under 30 Minutes`
-                : "Get Online Forklift Certification in Under 30 Minutes"}
+                ? formatTemplate(copy.stateH1, { state: stateData.name })
+                : copy.genericH1}
             </h1>
             
             <p className="mt-6 text-slate-300 text-lg md:text-xl max-w-2xl leading-relaxed font-normal">
-              <span className="md:hidden">
-                Train free on the app. Pay $49 when ready — or have your
-                employer pay for you.
-              </span>
               <span className="hidden md:inline">
                 {stateData ? (
                   <>
-                    <span className="text-white font-medium">30 Minutes</span> • <span className="text-white font-semibold">$49</span> • Same-day certificate • OSHA-aligned
+                    {copy.desktopLine}
                     <span className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-base">
-                      <span className="text-emerald-400 font-medium">✓ Valid for {stateData.name} employers</span>
-                      <span className="text-emerald-400 font-medium">✓ {stateData.operatorsCertified} {stateData.name} operators certified</span>
+                      <span className="text-emerald-400 font-medium">✓ {formatTemplate(copy.stateValid, { state: stateData.name })}</span>
+                      <span className="text-emerald-400 font-medium">✓ {formatTemplate(copy.stateOperators, { count: stateData.operatorsCertified, state: stateData.name })}</span>
                     </span>
                   </>
                 ) : (
                   <>
-                    <span className="text-white font-medium">30 Minutes</span> • <span className="text-white font-semibold">$49</span> • Same-day certificate • OSHA-aligned
+                    {copy.desktopLine}
                   </>
                 )}
+              </span>
+              <span className="md:hidden">
+                {copy.mobileSub}
               </span>
             </p>
 
             {/* Mobile-only app-first CTA stack (desktop is unchanged below). */}
             <div className="mt-8 w-full md:hidden">
               <AppDownloadCTA
-                placement="safety_hero"
+                placement={locale === "es" ? "safety_hero_es" : "safety_hero"}
                 stateParam={stateParam}
-                primaryLabel="Start Training Free"
+                primaryLabel={copy.primaryCta}
                 showWebFallback
                 showTrustLine={false}
                 className="items-center"
+                locale={locale}
+                t={dict}
               />
               <p className="mt-3 text-xs text-slate-400 text-center">
-                2,000+ operators • 50 states • 4.9★ • Employer pay option
+                {copy.trustLine}
               </p>
             </div>
 
@@ -172,34 +189,36 @@ export default function SafetyHero({ stateData, stateParam = null }: SafetyHeroP
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    Processing...
+                    {copy.processing}
                   </>
                 ) : (
-                  <span className="text-lg md:text-xl tracking-tight">Start — $49</span>
+                  <span className="text-lg md:text-xl tracking-tight">{copy.desktopCta}</span>
                 )}
               </button>
               
               {/* Trust note - Desktop side position */}
               <p className="hidden sm:block text-sm text-slate-400/80 max-w-[200px] leading-snug text-left">
-                🔒 Secure checkout • Instant access
+                🔒 {copy.secureCheckout}
               </p>
             </div>
 
             <div className="mt-4 hidden md:block">
               <AppDownloadCTA
-                placement="safety_hero_desktop"
+                placement={locale === "es" ? "safety_hero_desktop_es" : "safety_hero_desktop"}
                 stateParam={stateParam}
                 showPrimaryButton={false}
                 showWebFallback={false}
                 showTrustLine={false}
                 className="items-center md:items-start"
+                locale={locale}
+                t={dict}
               />
             </div>
             
             {/* Trust note for the desktop $49 button — mobile uses the AppDownloadCTA's
                 trust line instead. Keep visibility tied to the desktop CTA above. */}
             <p className="mt-4 hidden md:block sm:hidden text-sm text-slate-400/80 text-center">
-              🔒 Secure checkout • Instant access
+              🔒 {copy.secureCheckout}
             </p>
 
             {error && (
@@ -222,8 +241,8 @@ export default function SafetyHero({ stateData, stateParam = null }: SafetyHeroP
                   </div>
                   <p className="text-slate-400 text-sm font-medium">
                     {stateData
-                      ? `Trusted by 2,000+ operators nationwide`
-                      : "Trusted by 2,000+ operators"}
+                      ? copy.trustedState
+                      : copy.trustedGeneric}
                   </p>
                 </div>
               </div>
@@ -234,13 +253,13 @@ export default function SafetyHero({ stateData, stateParam = null }: SafetyHeroP
                   <svg className="w-5 h-5 text-emerald-500/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="font-medium">Nationwide</span>
+                  <span className="font-medium">{copy.nationwide}</span>
                 </span>
                 <span className="flex items-center gap-2.5 transition-colors hover:text-slate-300">
                   <svg className="w-5 h-5 text-emerald-500/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span className="font-medium">Under 30 min</span>
+                  <span className="font-medium">{copy.under30}</span>
                 </span>
               </div>
             </div>

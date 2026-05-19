@@ -5,18 +5,19 @@ import { createTrainingCheckoutSessionFromForm } from "@/app/training/checkout/a
 import { TRAINING_PLANS } from "@/lib/training/plans";
 import {
   ANDROID_PLAY_STORE_URL,
-  APPLE_BADGE_SRC,
   IOS_APP_LIVE,
   IOS_APP_STORE_URL,
-  PLAY_BADGE_SRC,
   buildStoreDownloadUrl,
   detectAppPlatform,
+  getStoreBadgeSrc,
   getStoreUrlForPlatform,
   type AppPlatform,
 } from "@/lib/app-store/links";
 import {
   trackAppDownloadClickAndNavigate,
 } from "@/lib/analytics/app-download";
+import type { Locale, MarketingDict } from "@/i18n";
+import { getMarketingDict } from "@/i18n";
 
 interface AppDownloadCTAProps {
   /** Where this CTA is rendered. Used in tracking so we can split conversions. */
@@ -40,9 +41,10 @@ interface AppDownloadCTAProps {
    * compact horizontal version for the sticky bottom bar.
    */
   variant?: "stacked" | "inline";
+  locale?: Locale;
+  t?: MarketingDict;
 }
 
-const DEFAULT_PRIMARY_LABEL = "Start Training Free";
 const singleOperatorPlan = TRAINING_PLANS.single;
 
 interface CheckoutParams {
@@ -56,12 +58,17 @@ export default function AppDownloadCTA({
   stateParam = null,
   className = "",
   buttonClassName = "",
-  primaryLabel = DEFAULT_PRIMARY_LABEL,
+  primaryLabel,
   showPrimaryButton = true,
   showWebFallback = true,
   showTrustLine = true,
   variant = "stacked",
+  locale = "en",
+  t,
 }: AppDownloadCTAProps) {
+  const dict = t || getMarketingDict(locale);
+  const copy = dict.safety.appDownload;
+  const resolvedPrimaryLabel = primaryLabel || copy.defaultPrimaryLabel;
   const [platform, setPlatform] = useState<AppPlatform | null>(null);
   const [checkoutParams, setCheckoutParams] = useState<CheckoutParams>({
     referralCode: null,
@@ -124,23 +131,23 @@ export default function AppDownloadCTA({
         type="button"
         onClick={onBadgeClick}
         className={className}
-        aria-label={`Get the app on ${platformName === "ios" ? "the App Store" : "Google Play"}`}
+        aria-label={platformName === "ios" ? copy.appStoreAria : copy.playStoreAria}
       >
         {platformName === "ios" ? (
           <img
-            src={APPLE_BADGE_SRC}
-            alt="Download on the App Store"
+            src={getStoreBadgeSrc("ios", locale)}
+            alt={copy.appStoreAlt}
             width={180}
             className="h-[54px] w-auto"
             loading="lazy"
           />
         ) : (
           <img
-            src={PLAY_BADGE_SRC}
+            src={getStoreBadgeSrc("android", locale)}
             alt={
               isIOSDevice
-                ? "Available on Android — Get it on Google Play"
-                : "Get it on Google Play"
+                ? copy.playStoreAltIos
+                : copy.playStoreAlt
             }
             width={180}
             className="h-auto w-[180px]"
@@ -167,7 +174,7 @@ export default function AppDownloadCTA({
         type="submit"
         className="inline-flex min-h-[44px] w-full items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold text-orange-300 underline underline-offset-2 transition-colors hover:text-orange-200 md:w-auto"
       >
-        Or buy now on web — $49 →
+        {copy.webFallback}
       </button>
     </form>
   ) : null;
@@ -181,9 +188,9 @@ export default function AppDownloadCTA({
         type="button"
         onClick={handleClick}
         className={`${buttonBaseClasses} ${buttonClassName} ${className} border-0 cursor-pointer`}
-        aria-label={`${primaryLabel} on ${targetPlatform === "ios" ? "the App Store" : "Google Play"}`}
+        aria-label={`${resolvedPrimaryLabel} on ${targetPlatform === "ios" ? copy.appStoreAria : copy.playStoreAria}`}
       >
-        <span className="text-base tracking-tight">{primaryLabel}</span>
+        <span className="text-base tracking-tight">{resolvedPrimaryLabel}</span>
       </button>
     );
   }
@@ -195,9 +202,9 @@ export default function AppDownloadCTA({
           type="button"
           onClick={handleClick}
           className={`${buttonBaseClasses} w-full max-w-sm md:w-auto ${buttonClassName} border-0 cursor-pointer`}
-          aria-label={`${primaryLabel} on ${targetPlatform === "ios" ? "the App Store" : "Google Play"}`}
+          aria-label={`${resolvedPrimaryLabel} on ${targetPlatform === "ios" ? copy.appStoreAria : copy.playStoreAria}`}
         >
-          <span className="text-lg md:text-xl tracking-tight">{primaryLabel}</span>
+          <span className="text-lg md:text-xl tracking-tight">{resolvedPrimaryLabel}</span>
         </button>
       )}
 
@@ -215,14 +222,13 @@ export default function AppDownloadCTA({
 
       {isIOSDevice && !IOS_APP_LIVE && (
         <p className="text-xs text-slate-300 md:text-slate-400">
-          Available on Android today — iOS coming soon.
+          {copy.iosComingSoon}
         </p>
       )}
 
       {showTrustLine && (
         <p className="text-sm text-slate-300 md:text-slate-400">
-          Train free in the app. Pay $49 only when you&rsquo;re ready for the
-          certificate.
+          {copy.trustLine}
         </p>
       )}
 

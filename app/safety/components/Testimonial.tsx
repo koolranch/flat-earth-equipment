@@ -1,30 +1,13 @@
-export default function Testimonial() {
-  const reviews = [
-    {
-      quote: "Needed this for a job interview the next day. Took 30 mins, printed the card, got the job. Super easy.",
-      author: "James D.",
-      title: "Warehouse Operator",
-      initial: "JD"
-    },
-    {
-      quote: "We certified 12 operators in one afternoon — saved over $400 versus classroom training.",
-      author: "Jake M.",
-      title: "Maintenance Manager",
-      initial: "JM"
-    },
-    {
-      quote: "Clear and to the point. Didn't put me to sleep like the old VHS training tapes we used to watch.",
-      author: "Mike R.",
-      title: "Forklift Operator",
-      initial: "MR"
-    }
-  ];
+import type { MarketingDict } from '@/i18n';
+
+export default function Testimonial({ t }: { t: MarketingDict }) {
+  const { reviews, title } = t.safety.testimonials;
 
   return (
     <section aria-labelledby="testimonial-heading" className="py-16 md:py-24 bg-slate-50/50 border-y border-slate-200/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 id="testimonial-heading" className="text-3xl md:text-4xl font-bold text-center mb-16 text-slate-900 tracking-tight">
-          What Operators Say
+          {title}
         </h2>
         <div className="grid md:grid-cols-3 gap-6 md:gap-8">
           {reviews.map((review, idx) => (

@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { useMemo, useEffect } from "react";
 import SafetyHero from "./SafetyHero";
 import { getStateFromParam } from "@/lib/data/state-data";
+import type { Locale, MarketingDict } from "@/i18n";
 
 /**
  * Reads the `state` URL parameter client-side and passes personalization
@@ -14,7 +15,12 @@ import { getStateFromParam } from "@/lib/data/state-data";
  *   personalized + ad-tagged variants are never indexed as duplicates of
  *   the canonical /safety landing page.
  */
-export default function StatePersonalizedHero() {
+interface StatePersonalizedHeroProps {
+  locale?: Locale;
+  t?: MarketingDict;
+}
+
+export default function StatePersonalizedHero({ locale = "en", t }: StatePersonalizedHeroProps) {
   const searchParams = useSearchParams();
   const stateParam = searchParams.get("state");
 
@@ -43,5 +49,5 @@ export default function StatePersonalizedHero() {
     };
   }, [hasAnyParam]);
 
-  return <SafetyHero stateData={stateData} stateParam={normalizedStateParam} />;
+  return <SafetyHero stateData={stateData} stateParam={normalizedStateParam} locale={locale} t={t} />;
 }

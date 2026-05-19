@@ -3,14 +3,11 @@
  * Social proof metrics instead of trademark-sensitive logos
  */
 
-export default function LogoCloud() {
-  const stats = [
-    { value: '2,000+', label: 'Operators Certified' },
-    { value: '50', label: 'States Accepted' },
-    { value: '4.9★', label: 'Average Rating' },
-    { value: '<30', label: 'Minutes to Complete' },
-  ];
+import type { MarketingDict } from "@/i18n";
+import { getMarketingDict } from "@/i18n";
 
+export default function LogoCloud({ t = getMarketingDict("en") }: { t?: MarketingDict }) {
+  const stats = t.safety.stats;
   return (
     <section className="py-6 border-y border-slate-100 bg-slate-50/50">
       <div className="max-w-5xl mx-auto px-4">

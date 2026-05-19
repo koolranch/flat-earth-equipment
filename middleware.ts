@@ -24,8 +24,16 @@ export async function middleware(request: NextRequest) {
     const destination = new URL(TRAILING_SLASH_REDIRECTS[pathname], request.url);
     return NextResponse.redirect(destination, 301);
   }
+
+  if (pathname === '/certificacion-montacargas-espanol') {
+    const destination = new URL('/es/safety', request.url);
+    destination.search = request.nextUrl.search;
+    return NextResponse.redirect(destination, 301);
+  }
   
-  const response = NextResponse.next({ request: { headers: request.headers } });
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-pathname', pathname);
+  const response = NextResponse.next({ request: { headers: requestHeaders } });
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
   const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 

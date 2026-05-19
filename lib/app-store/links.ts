@@ -21,7 +21,15 @@ export const PLAY_BADGE_SRC =
 export const APPLE_BADGE_SRC =
   'https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg';
 
+export const PLAY_BADGE_SRC_ES =
+  'https://play.google.com/intl/es-419/badges/static/images/badges/es-419_badge_web_generic.png';
+
+// Apple does not expose stable localized badge URLs from the same CDN path.
+// Keep the live English SVG as the fallback until a Spanish asset is added.
+export const APPLE_BADGE_SRC_ES = APPLE_BADGE_SRC;
+
 export type AppPlatform = 'android' | 'ios';
+export type StoreBadgeLocale = 'en' | 'es';
 
 /**
  * Detect the visitor's platform from the user-agent. Returns `null` on the
@@ -57,27 +65,39 @@ export function buildStoreDownloadUrl(
 ): string {
   if (!storeUrl) return storeUrl;
   const { stateParam, placement } = options;
-  const utmContent = stateParam && stateParam.length > 0 ? stateParam : 'direct';
-  const utmTerm = placement || 'safety_page';
 
   try {
     const url = new URL(storeUrl);
-    url.searchParams.set('utm_source', 'website');
-    url.searchParams.set('utm_medium', 'safety_page');
-    url.searchParams.set('utm_campaign', 'app_launch');
+    const currentParams =
+      typeof window !== 'undefined'
+        ? new URLSearchParams(window.location.search)
+        : new URLSearchParams();
+    const utmContent =
+      currentParams.get('utm_content') ||
+      (stateParam && stateParam.length > 0 ? stateParam : 'direct');
+    const utmTerm = currentParams.get('utm_term') || placement || 'safety_page';
+
+    url.searchParams.set('utm_source', currentParams.get('utm_source') || 'website');
+    url.searchParams.set('utm_medium', currentParams.get('utm_medium') || 'safety_page');
+    url.searchParams.set('utm_campaign', currentParams.get('utm_campaign') || 'app_launch');
     url.searchParams.set('utm_content', utmContent);
     url.searchParams.set('utm_term', utmTerm);
 
-    if (typeof window !== 'undefined') {
-      const gclid = new URLSearchParams(window.location.search).get('gclid');
-      if (gclid) url.searchParams.set('gclid', gclid);
-    }
+    const gclid = currentParams.get('gclid');
+    if (gclid) url.searchParams.set('gclid', gclid);
 
     return url.toString();
   } catch {
+    const utmContent = stateParam && stateParam.length > 0 ? stateParam : 'direct';
+    const utmTerm = placement || 'safety_page';
     const separator = storeUrl.includes('?') ? '&' : '?';
     return `${storeUrl}${separator}utm_source=website&utm_medium=safety_page&utm_campaign=app_launch&utm_content=${encodeURIComponent(
       utmContent
     )}&utm_term=${encodeURIComponent(utmTerm)}`;
   }
+}
+
+export function getStoreBadgeSrc(platform: AppPlatform, locale: StoreBadgeLocale = 'en'): string {
+  if (platform === 'ios') return locale === 'es' ? APPLE_BADGE_SRC_ES : APPLE_BADGE_SRC;
+  return locale === 'es' ? PLAY_BADGE_SRC_ES : PLAY_BADGE_SRC;
 }

@@ -18,7 +18,7 @@ export default function ComplianceBlock({ t }: ComplianceBlockProps) {
       </ul>
       <div className="mt-6 p-4 rounded-xl bg-amber-50 border-2 border-amber-200">
         <p className="text-sm text-amber-900">
-          <strong className="text-amber-800">Important:</strong> {t.compliance.note}
+          <strong className="text-amber-800">{t.compliance.importantLabel}</strong> {t.compliance.note}
         </p>
       </div>
     </section>

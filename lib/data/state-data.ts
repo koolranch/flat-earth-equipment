@@ -53,6 +53,27 @@ export const stateData: Record<string, StateData> = {
     majorCities: ["Philadelphia", "Pittsburgh", "Allentown", "Erie"],
     keyIndustries: ["Manufacturing", "Logistics & Distribution", "Energy"],
   },
+  georgia: {
+    name: "Georgia",
+    abbreviation: "GA",
+    operatorsCertified: "1,300+",
+    majorCities: ["Atlanta", "Savannah", "Augusta", "Columbus"],
+    keyIndustries: ["Logistics & Distribution", "Manufacturing", "Ports"],
+  },
+  "north carolina": {
+    name: "North Carolina",
+    abbreviation: "NC",
+    operatorsCertified: "1,100+",
+    majorCities: ["Charlotte", "Raleigh", "Greensboro", "Durham"],
+    keyIndustries: ["Manufacturing", "Warehousing", "Food Processing"],
+  },
+  tennessee: {
+    name: "Tennessee",
+    abbreviation: "TN",
+    operatorsCertified: "950+",
+    majorCities: ["Memphis", "Nashville", "Knoxville", "Chattanooga"],
+    keyIndustries: ["Logistics & Distribution", "Automotive", "Manufacturing"],
+  },
 };
 
 /**
