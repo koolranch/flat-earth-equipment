@@ -1,6 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuthUser } from '@/lib/supabase/mobile-auth';
 import { computePercentFractional, resolveCourseForUser, getModuleSlugsForCourse } from '@/lib/training/progress-utils';
+import {
+  ensureForkliftEnrollmentWithClient,
+  isEnsureEnrollmentOnProgressEnabled,
+  isForkliftCourseSlug,
+} from '@/lib/training/ensure-forklift-enrollment';
+
+function shouldEnsureForkliftEnrollmentOnProgress(courseSlug: string | undefined): boolean {
+  return (
+    isEnsureEnrollmentOnProgressEnabled(process.env.ENSURE_ENROLLMENT_ON_PROGRESS) &&
+    isForkliftCourseSlug(courseSlug)
+  );
+}
 
 export async function GET(req: NextRequest) {
   try {
@@ -26,6 +38,18 @@ export async function GET(req: NextRequest) {
     });
     if (!course.id) {
       return NextResponse.json({ error: 'Course not found' }, { status: 404 });
+    }
+
+    if (shouldEnsureForkliftEnrollmentOnProgress(course.slug)) {
+      try {
+        await ensureForkliftEnrollmentWithClient(client, user.id, course.id);
+      } catch (ensureErr: any) {
+        console.error('[training/progress] ensureForkliftEnrollment failed:', ensureErr);
+        return NextResponse.json(
+          { error: ensureErr.message || 'Failed to ensure enrollment' },
+          { status: 500 },
+        );
+      }
     }
 
     // Get enrollment by course_id or course_slug
@@ -192,6 +216,18 @@ export async function PATCH(req: NextRequest) {
   const course = await resolveCourseForUser({ supabase: client, userId: user.id!, courseIdOrSlug: courseIdOrSlug || 'forklift' });
   if (!course.id) {
     return NextResponse.json({ ok: false, error: 'course_missing' }, { status: 422 });
+  }
+
+  if (shouldEnsureForkliftEnrollmentOnProgress(course.slug)) {
+    try {
+      await ensureForkliftEnrollmentWithClient(client, user.id, course.id);
+    } catch (ensureErr: any) {
+      console.error('[training/progress] PATCH ensureForkliftEnrollment failed:', ensureErr);
+      return NextResponse.json(
+        { ok: false, error: ensureErr.message || 'Failed to ensure enrollment' },
+        { status: 500 },
+      );
+    }
   }
 
   // Load enrollment by course_id (preferred) or by course_slug (fallback)
