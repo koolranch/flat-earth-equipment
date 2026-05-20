@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuthUser } from '@/lib/supabase/mobile-auth';
-import { computePercentFractional, resolveCourseForUser, getModuleSlugsForCourse } from '@/lib/training/progress-utils';
+import { resolveCourseForUser } from '@/lib/training/progress-utils';
+import { mergeStepIntoEnrollment } from '@/lib/training/merge-step-enrollment';
 import {
   ensureForkliftEnrollmentWithClient,
   isEnsureEnrollmentOnProgressEnabled,
@@ -257,19 +258,19 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ ok: false, error: 'not_enrolled' }, { status: 404 });
   }
 
-  const state = (enrollment.resume_state || {}) as any;
-  state[moduleSlug] = { ...(state[moduleSlug] || {}), [stepKey]: true };
-
-  const moduleSlugs = await getModuleSlugsForCourse(course.id, client);
-  const pct = Math.max(0, Math.min(100, computePercentFractional(state, moduleSlugs)));
+  const { resume_state, progress_pct } = mergeStepIntoEnrollment(
+    enrollment,
+    moduleSlug,
+    stepKey,
+  );
 
   const { error: updErr } = await client
     .from('enrollments')
-    .update({ resume_state: state, progress_pct: pct, updated_at: new Date().toISOString() })
+    .update({ resume_state, progress_pct, updated_at: new Date().toISOString() })
     .eq('id', enrollment.id);
   if (updErr) {
     return NextResponse.json({ ok: false, error: 'update_failed' }, { status: 500 });
   }
 
-  return NextResponse.json({ ok: true, progress_pct: pct, resume_state: state });
+  return NextResponse.json({ ok: true, progress_pct, resume_state });
 }
