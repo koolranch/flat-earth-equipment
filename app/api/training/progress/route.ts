@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuthUser } from '@/lib/supabase/mobile-auth';
 import { resolveCourseForUser } from '@/lib/training/progress-utils';
-import { mergeStepIntoEnrollment } from '@/lib/training/merge-step-enrollment';
+import {
+  applyTrainingStepToEnrollment,
+  findEnrollmentForTrainingCourse,
+} from '@/lib/training/apply-training-step';
 import {
   ensureForkliftEnrollmentWithClient,
   isEnsureEnrollmentOnProgressEnabled,
@@ -231,46 +234,22 @@ export async function PATCH(req: NextRequest) {
     }
   }
 
-  // Load enrollment by course_id (preferred) or by course_slug (fallback)
-  let enrollment: any = null;
-  {
-    const { data: enrById } = await client
-      .from('enrollments')
-      .select('id, resume_state, progress_pct')
-      .eq('user_id', user.id)
-      .eq('course_id', course.id)
-      .order('created_at', { ascending: false })
-      .limit(1);
-    enrollment = enrById?.[0] || null;
-  }
-  if (!enrollment && course.slug) {
-    const { data: enrBySlug } = await client
-      .from('enrollments')
-      .select('id, resume_state, progress_pct')
-      .eq('user_id', user.id)
-      .eq('course_slug', course.slug)
-      .order('created_at', { ascending: false })
-      .limit(1);
-    enrollment = enrBySlug?.[0] || null;
-  }
-
+  const enrollment = await findEnrollmentForTrainingCourse(client, user.id, course);
   if (!enrollment) {
     return NextResponse.json({ ok: false, error: 'not_enrolled' }, { status: 404 });
   }
 
-  const { resume_state, progress_pct } = mergeStepIntoEnrollment(
-    enrollment,
-    moduleSlug,
-    stepKey,
-  );
-
-  const { error: updErr } = await client
-    .from('enrollments')
-    .update({ resume_state, progress_pct, updated_at: new Date().toISOString() })
-    .eq('id', enrollment.id);
-  if (updErr) {
-    return NextResponse.json({ ok: false, error: 'update_failed' }, { status: 500 });
+  try {
+    const { progress_pct, resume_state } = await applyTrainingStepToEnrollment(
+      client,
+      enrollment,
+      moduleSlug,
+      stepKey,
+    );
+    return NextResponse.json({ ok: true, progress_pct, resume_state });
+  } catch (updErr: unknown) {
+    const message = updErr instanceof Error ? updErr.message : 'update_failed';
+    console.error('[training/progress] PATCH update failed:', updErr);
+    return NextResponse.json({ ok: false, error: message }, { status: 500 });
   }
-
-  return NextResponse.json({ ok: true, progress_pct, resume_state });
 }
