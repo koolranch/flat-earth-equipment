@@ -7,7 +7,7 @@ test.describe('Spanish /es/safety landing page', () => {
 
     await expect(page.locator('html')).toHaveAttribute('lang', 'es');
     await expect(page.getByRole('heading', { name: /certificación de montacargas/i }).first()).toBeVisible();
-    await expect(page.getByText('Empieza tu entrenamiento gratis').first()).toBeVisible();
+    await expect(page.getByText('Descarga la app gratis').first()).toBeVisible();
     await expect(page.getByText('Entrena gratis en la app. Paga $49 cuando estés listo').first()).toBeVisible();
     await expect(page.getByText('Bilingüe (próximamente)')).toHaveCount(0);
     await expect(page.getByText('Actualmente disponible en inglés')).toHaveCount(0);
@@ -67,7 +67,7 @@ test.describe('Spanish /es/safety landing page', () => {
       window.dataLayer = [];
     });
 
-    await page.getByRole('button', { name: /Empieza tu entrenamiento gratis/i }).click();
+    await page.getByRole('button', { name: /Descarga la app gratis/i }).click();
     await page.waitForTimeout(1500);
 
     const navigationLog = consoleMessages.find((message) =>

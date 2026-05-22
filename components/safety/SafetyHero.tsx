@@ -248,13 +248,16 @@ export default function SafetyHero({
               </p>
             </div>
 
-            <div className="mt-4 hidden md:block">
+            <div className="mt-6 hidden md:block">
+              <p className="mb-2 text-sm font-medium text-slate-300">
+                {dict.safety.appDownload.studyFirstEyebrow}
+              </p>
               <AppDownloadCTA
                 placement={locale === "es" ? "safety_hero_desktop_es" : "safety_hero_desktop"}
                 stateParam={stateParam}
                 showPrimaryButton={false}
                 showWebFallback={false}
-                showTrustLine={false}
+                showTrustLine
                 className="items-center md:items-start"
                 locale={locale}
                 t={dict}

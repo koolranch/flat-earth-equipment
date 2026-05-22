@@ -35,7 +35,7 @@ interface AppDownloadCTAProps {
   showPrimaryButton?: boolean;
   /** Show a small "Or buy now on web — $49" secondary link below the badge. */
   showWebFallback?: boolean;
-  /** Show the labeled trust line ("Train free • Pay $49 only when ready"). */
+  /** Show the labeled trust line explaining free study + $49 final-exam gate. */
   showTrustLine?: boolean;
   /**
    * Layout style. `stacked` shows a button + badge below it; `inline` is a
