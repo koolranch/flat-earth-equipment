@@ -168,7 +168,7 @@ export async function fetchCatalogParts(
 
 export async function fetchCatalogFacets(supabase: SupabaseClient) {
   const [brandsResult, categoriesResult] = await Promise.all([
-    supabase.from('parts').select('brand').order('brand'),
+    supabase.from('parts').select('brand, brand_logo_url').order('brand'),
     supabase
       .from('parts')
       .select('category_slug, category')
@@ -176,10 +176,21 @@ export async function fetchCatalogFacets(supabase: SupabaseClient) {
       .order('category'),
   ]);
 
-  const brandCounts = new Map<string, number>();
+  const brandCounts = new Map<string, { count: number; logoUrl: string | null }>();
   for (const row of brandsResult.data ?? []) {
     if (!row.brand) continue;
-    brandCounts.set(row.brand, (brandCounts.get(row.brand) ?? 0) + 1);
+    const existing = brandCounts.get(row.brand);
+    if (existing) {
+      existing.count += 1;
+      if (!existing.logoUrl && row.brand_logo_url) {
+        existing.logoUrl = row.brand_logo_url;
+      }
+    } else {
+      brandCounts.set(row.brand, {
+        count: 1,
+        logoUrl: row.brand_logo_url ?? null,
+      });
+    }
   }
 
   const categoryMap = new Map<string, { name: string; count: number }>();
@@ -197,7 +208,7 @@ export async function fetchCatalogFacets(supabase: SupabaseClient) {
   }
 
   const brands = [...brandCounts.entries()]
-    .map(([name, count]) => ({ name, count }))
+    .map(([name, { count, logoUrl }]) => ({ name, count, logoUrl }))
     .sort((a, b) => b.count - a.count);
 
   const categories = [...categoryMap.entries()]

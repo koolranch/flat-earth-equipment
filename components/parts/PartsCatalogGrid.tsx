@@ -1,4 +1,5 @@
-import SmartProductCard from '@/components/SmartProductCard';
+import PartsCatalogCard from '@/components/parts/PartsCatalogCard';
+import { parsePartSpecs } from '@/lib/parts/parseSpecs';
 import type { CatalogPart } from '@/lib/parts/catalogQuery';
 
 function toCardProduct(part: CatalogPart) {
@@ -13,7 +14,7 @@ function toCardProduct(part: CatalogPart) {
     slug: part.slug,
     sku: part.sku,
     brand: part.brand,
-    description: part.description,
+    category: part.category,
     price: Number(part.price),
     imageUrl: part.image_url ?? undefined,
     salesType,
@@ -21,18 +22,15 @@ function toCardProduct(part: CatalogPart) {
     isInStock: part.is_in_stock,
     stripePriceId: part.stripe_price_id ?? undefined,
     backordered: part.metadata?.backordered === true,
+    specChips: parsePartSpecs({ name: part.name, category: part.category }),
   };
 }
 
 export default function PartsCatalogGrid({ parts }: { parts: CatalogPart[] }) {
   return (
-    <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
       {parts.map((part) => (
-        <SmartProductCard
-          key={part.id}
-          product={toCardProduct(part)}
-          showDescription={false}
-        />
+        <PartsCatalogCard key={part.id} product={toCardProduct(part)} />
       ))}
     </div>
   );

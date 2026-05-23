@@ -1,11 +1,13 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import type { ReactNode } from 'react';
 import {
   buildCatalogUrl,
   type CatalogSearchParams,
 } from '@/lib/parts/catalogQuery';
+import { getBrandLogoUrl } from '@/lib/parts/brandLogo';
 
-type BrandFacet = { name: string; count: number };
+type BrandFacet = { name: string; count: number; logoUrl?: string | null };
 type CategoryFacet = { slug: string; name: string; count: number };
 
 type Props = {
@@ -116,18 +118,38 @@ export default function PartsCatalogSidebar({
           {labels.brands}
         </h3>
         <div className="max-h-64 space-y-1 overflow-y-auto">
-          {brands.slice(0, 12).map((brand) => (
-            <FilterLink
-              key={brand.name}
-              href={buildCatalogUrl(searchParams, { brand: brand.name })}
-              active={searchParams.brand === brand.name}
-            >
-              {brand.name}{' '}
-              <span className={searchParams.brand === brand.name ? 'text-orange-100' : 'text-slate-400'}>
-                ({brand.count})
-              </span>
-            </FilterLink>
-          ))}
+          {brands.slice(0, 12).map((brand) => {
+            const logoUrl = getBrandLogoUrl(brand.name, brand.logoUrl);
+            const active = searchParams.brand === brand.name;
+
+            return (
+              <Link
+                key={brand.name}
+                href={buildCatalogUrl(searchParams, { brand: brand.name })}
+                className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all ${
+                  active
+                    ? 'bg-[#F76511] font-medium text-white'
+                    : 'text-slate-700 hover:bg-slate-100'
+                }`}
+              >
+                {logoUrl && (
+                  <span className="relative h-4 w-8 shrink-0">
+                    <Image
+                      src={logoUrl}
+                      alt=""
+                      fill
+                      className="object-contain object-left"
+                      sizes="32px"
+                    />
+                  </span>
+                )}
+                <span className="min-w-0 flex-1 truncate">{brand.name}</span>
+                <span className={active ? 'text-orange-100' : 'text-slate-400'}>
+                  ({brand.count})
+                </span>
+              </Link>
+            );
+          })}
         </div>
       </div>
 

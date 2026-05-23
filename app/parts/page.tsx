@@ -10,9 +10,9 @@ import PartsCatalogToolbar from '@/components/parts/PartsCatalogToolbar';
 import PartsCatalogSidebar from '@/components/parts/PartsCatalogSidebar';
 import PartsCatalogGrid from '@/components/parts/PartsCatalogGrid';
 import PartsCatalogMobileFilters from '@/components/parts/PartsCatalogMobileFilters';
+import PartsCatalogQuickPaths from '@/components/parts/PartsCatalogQuickPaths';
 import {
   buildCatalogUrl,
-  CATALOG_QUICK_PATHS,
   fetchCatalogFacets,
   fetchCatalogParts,
   ITEMS_PER_PAGE,
@@ -150,25 +150,6 @@ export default async function PartsPage({
           </p>
         </div>
 
-        {/* Quick paths */}
-        <section aria-labelledby="quick-paths-heading" className="mb-8">
-          <h2 id="quick-paths-heading" className="mb-3 text-sm font-bold uppercase tracking-wide text-slate-500">
-            {t.shopBy}
-          </h2>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {CATALOG_QUICK_PATHS.map((path) => (
-              <Link
-                key={path.href}
-                href={path.href}
-                className="rounded-xl border-2 border-slate-200 bg-white p-4 transition-all hover:border-[#F76511] hover:shadow-md"
-              >
-                <p className="font-bold text-slate-900">{path.label}</p>
-                <p className="text-sm text-slate-500">{path.description}</p>
-              </Link>
-            ))}
-          </div>
-        </section>
-
         <PartsCatalogToolbar
           searchParams={searchParams}
           totalCount={count}
@@ -200,7 +181,7 @@ export default async function PartsPage({
         />
 
         <div className="flex flex-col gap-8 lg:flex-row">
-          <div className="hidden w-56 shrink-0 lg:block">
+          <div className="hidden w-60 shrink-0 lg:block">
             <PartsCatalogSidebar
               searchParams={searchParams}
               brands={facets.brands}
@@ -295,7 +276,6 @@ export default async function PartsPage({
           </div>
         </div>
 
-        {/* Trust signals */}
         <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6">
           <div className="grid gap-6 text-center sm:grid-cols-3">
             <div>
@@ -312,6 +292,8 @@ export default async function PartsPage({
             </div>
           </div>
         </div>
+
+        <PartsCatalogQuickPaths heading={t.shopBy} />
       </main>
     </>
   );
