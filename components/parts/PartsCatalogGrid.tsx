@@ -1,8 +1,14 @@
 import PartsCatalogCard from '@/components/parts/PartsCatalogCard';
+import { getForkClassStripeClass } from '@/lib/parts/catalogContext';
 import { parsePartSpecs } from '@/lib/parts/parseSpecs';
 import type { CatalogPart } from '@/lib/parts/catalogQuery';
 
-function toCardProduct(part: CatalogPart) {
+type Props = {
+  parts: CatalogPart[];
+  activeBrandFilter?: string;
+};
+
+function toCardProduct(part: CatalogPart, activeBrandFilter?: string) {
   const salesType =
     part.sales_type === 'quote_only' || !part.stripe_price_id || part.price <= 0
       ? ('quote_only' as const)
@@ -22,15 +28,25 @@ function toCardProduct(part: CatalogPart) {
     isInStock: part.is_in_stock,
     stripePriceId: part.stripe_price_id ?? undefined,
     backordered: part.metadata?.backordered === true,
-    specChips: parsePartSpecs({ name: part.name, category: part.category }),
+    specChips: parsePartSpecs({
+      name: part.name,
+      category: part.category,
+      description: part.description,
+      metadata: part.metadata,
+    }),
+    classStripeClass: getForkClassStripeClass(part.name, part.category),
+    activeBrandFilter,
   };
 }
 
-export default function PartsCatalogGrid({ parts }: { parts: CatalogPart[] }) {
+export default function PartsCatalogGrid({ parts, activeBrandFilter }: Props) {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
       {parts.map((part) => (
-        <PartsCatalogCard key={part.id} product={toCardProduct(part)} />
+        <PartsCatalogCard
+          key={part.id}
+          product={toCardProduct(part, activeBrandFilter)}
+        />
       ))}
     </div>
   );

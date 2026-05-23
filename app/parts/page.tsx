@@ -11,6 +11,7 @@ import PartsCatalogSidebar from '@/components/parts/PartsCatalogSidebar';
 import PartsCatalogGrid from '@/components/parts/PartsCatalogGrid';
 import PartsCatalogMobileFilters from '@/components/parts/PartsCatalogMobileFilters';
 import PartsCatalogQuickPaths from '@/components/parts/PartsCatalogQuickPaths';
+import PartsCatalogActiveFilters from '@/components/parts/PartsCatalogActiveFilters';
 import {
   buildCatalogUrl,
   fetchCatalogFacets,
@@ -18,6 +19,11 @@ import {
   ITEMS_PER_PAGE,
   type CatalogSearchParams,
 } from '@/lib/parts/catalogQuery';
+import {
+  getActiveFilters,
+  getCatalogCountLabel,
+  getCatalogPageTitle,
+} from '@/lib/parts/catalogContext';
 
 export const metadata: Metadata = {
   title: 'Parts Catalog | Flat Earth Equipment',
@@ -132,6 +138,14 @@ export default async function PartsPage({
   const buildPageUrl = (page: number) =>
     buildCatalogUrl(searchParams, { page: page > 1 ? String(page) : undefined }, false);
 
+  const pageTitle = getCatalogPageTitle(searchParams, facets.categories);
+  const countLabel = getCatalogCountLabel(count, searchParams, facets.categories, t.parts);
+  const activeFilters = getActiveFilters(searchParams, facets.categories, {
+    buyNow: t.buyNow,
+    inStock: t.inStock,
+    quoteOnly: t.quoteOnly,
+  });
+
   return (
     <>
       <BreadcrumbJsonLd
@@ -142,11 +156,9 @@ export default async function PartsPage({
       />
       <main className="container mx-auto px-4 py-12">
         <div className="mb-8">
-          <h1 className="mb-2 text-4xl font-bold text-slate-900">{t.title}</h1>
+          <h1 className="mb-2 text-4xl font-bold text-slate-900">{pageTitle}</h1>
           <p className="text-slate-600">
-            {count ? `${count.toLocaleString()} ${t.parts}` : ''}
-            {count ? ' · ' : ''}
-            {t.subtitle}
+            {count ? `${countLabel} · ${t.subtitle}` : t.subtitle}
           </p>
         </div>
 
@@ -182,7 +194,8 @@ export default async function PartsPage({
 
         <div className="flex flex-col gap-8 lg:flex-row">
           <div className="hidden w-60 shrink-0 lg:block">
-            <PartsCatalogSidebar
+            <div className="sticky top-24">
+              <PartsCatalogSidebar
               searchParams={searchParams}
               brands={facets.brands}
               categories={facets.categories}
@@ -198,11 +211,20 @@ export default async function PartsPage({
                 clearFilters: t.clearFilters,
               }}
             />
+            </div>
           </div>
 
           <div className="min-w-0 flex-1">
+            <PartsCatalogActiveFilters
+              filters={activeFilters}
+              clearLabel={t.clearFilters}
+            />
+
             {parts.length > 0 ? (
-              <PartsCatalogGrid parts={parts} />
+              <PartsCatalogGrid
+                parts={parts}
+                activeBrandFilter={searchParams.brand}
+              />
             ) : (
               <div className="rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 p-10 text-center">
                 <p className="mb-2 text-lg font-semibold text-slate-900">{t.noResults}</p>
@@ -276,6 +298,8 @@ export default async function PartsPage({
           </div>
         </div>
 
+        <PartsCatalogQuickPaths heading={t.shopBy} />
+
         <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6">
           <div className="grid gap-6 text-center sm:grid-cols-3">
             <div>
@@ -292,8 +316,6 @@ export default async function PartsPage({
             </div>
           </div>
         </div>
-
-        <PartsCatalogQuickPaths heading={t.shopBy} />
       </main>
     </>
   );

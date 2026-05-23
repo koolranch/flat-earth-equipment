@@ -1,17 +1,26 @@
+import { formatCapacityLbs, getForkCapacityLbs } from '@/lib/parts/forkCapacity';
+
 export type SpecChip = {
   label: string;
   value: string;
+  emphasis?: boolean;
 };
 
 function formatDimensions(raw: string): string {
   return raw
     .replace(/\s+/g, ' ')
     .replace(/(\d+)\s+1\/2/g, '$1½')
+    .replace(/(\d+)\s+3\/4/g, '$1¾')
     .replace(/\s*[xX×]\s*/g, '×')
     .trim();
 }
 
-function parseForkSpecs(name: string, category?: string): SpecChip[] {
+function parseForkSpecs(
+  name: string,
+  category?: string,
+  description?: string,
+  metadata?: Record<string, unknown> | null,
+): SpecChip[] {
   const chips: SpecChip[] = [];
   const upper = name.toUpperCase();
   const isFork =
@@ -21,7 +30,7 @@ function parseForkSpecs(name: string, category?: string): SpecChip[] {
 
   const classMatch = upper.match(/CLASS\s+(I{1,3}|IV|V)\b/);
   if (classMatch) {
-    chips.push({ label: 'Class', value: classMatch[1] });
+    chips.push({ label: 'Class', value: classMatch[1], emphasis: true });
   }
 
   const dimMatch =
@@ -29,7 +38,20 @@ function parseForkSpecs(name: string, category?: string): SpecChip[] {
     name.match(/([\d./\s]+[xX×][\d./\s]+[xX×][\d./\s]+)/i);
 
   if (dimMatch) {
-    chips.push({ label: 'Size', value: formatDimensions(dimMatch[1]) });
+    chips.push({
+      label: 'Size',
+      value: formatDimensions(dimMatch[1]),
+      emphasis: true,
+    });
+  }
+
+  const capacityLbs = getForkCapacityLbs({ name, description, metadata });
+  if (capacityLbs) {
+    chips.push({
+      label: 'Capacity',
+      value: formatCapacityLbs(capacityLbs),
+      emphasis: true,
+    });
   }
 
   return chips;
@@ -69,10 +91,17 @@ function parseChargerSpecs(
 export function parsePartSpecs(input: {
   name: string;
   category?: string;
+  description?: string;
+  metadata?: Record<string, unknown> | null;
   voltage?: number | null;
   amperage?: number | null;
 }): SpecChip[] {
-  const fork = parseForkSpecs(input.name, input.category);
+  const fork = parseForkSpecs(
+    input.name,
+    input.category,
+    input.description,
+    input.metadata,
+  );
   if (fork.length > 0) return fork;
 
   const charger = parseChargerSpecs(
