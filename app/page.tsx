@@ -1,5 +1,4 @@
 import { Hero } from "@/components/ui/Hero";
-import FeaturedParts from "@/components/FeaturedParts";
 import { Features } from "@/components/ui/Features";
 import Testimonials from "@/components/Testimonials";
 import FeaturedRentals from "@/components/FeaturedRentals";
@@ -67,10 +66,6 @@ export default function Page() {
       <Hero locale={locale} />
 
       <TrainingCTA />
-
-      <section className="py-12">
-        <FeaturedParts />
-      </section>
 
       <FeaturedProducts />
 
