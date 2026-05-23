@@ -17,6 +17,7 @@ import { writeFileSync, existsSync, mkdirSync } from "fs";
 import { createClient } from "@supabase/supabase-js";
 import * as dotenv from "dotenv";
 import * as path from "path";
+import { getDisplayBrand, sanitizeCustomerFacingCopy } from "../lib/parts/displayBrand";
 
 dotenv.config({ path: path.resolve(process.cwd(), ".env.production.local") });
 dotenv.config({ path: path.resolve(process.cwd(), ".env.local") });
@@ -112,11 +113,11 @@ async function buildFeed() {
   const jsonFeed = rows.map((p) => ({
     id: p.sku || p.id,
     title: p.name,
-    description: (p.description || "").slice(0, 5000),
+    description: sanitizeCustomerFacingCopy(p.description || "").slice(0, 5000),
     link: `${SITE_URL}/parts/${p.slug}`,
     image_link: p.image_url || `${SITE_URL}/images/parts/${p.slug}.jpg`,
     price: p.price_cents ? `${(p.price_cents / 100).toFixed(2)} USD` : "0.00 USD",
-    brand: p.brand || "Flat Earth Equipment",
+    brand: getDisplayBrand(p.brand),
     mpn: p.oem_reference || p.sku || p.id,
     condition: "new",
     availability: p.is_in_stock ? "in stock" : "out of stock",
@@ -154,7 +155,7 @@ async function buildFeed() {
       <link>${escapeXml(link)}</link>
       <g:image_link>${escapeXml(image)}</g:image_link>
       <g:price>${escapeXml(price)}</g:price>
-      <g:brand>${escapeXml(p.brand || "Flat Earth Equipment")}</g:brand>
+      <g:brand>${escapeXml(getDisplayBrand(p.brand))}</g:brand>
       <g:mpn>${escapeXml(p.oem_reference || p.sku || p.id)}</g:mpn>
       <g:condition>new</g:condition>
       <g:availability>${escapeXml(availability)}</g:availability>

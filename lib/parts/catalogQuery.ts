@@ -238,7 +238,7 @@ export const CATALOG_QUICK_PATHS = [
   {
     label: 'Charger Modules',
     href: '/charger-modules',
-    description: 'FSIP reman modules',
+    description: 'Remanufactured charger modules',
   },
   {
     label: 'Lithium Batteries',

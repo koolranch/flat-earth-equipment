@@ -5,6 +5,7 @@ import { Metadata } from 'next'
 import Script from 'next/script'
 import BreadcrumbJsonLd from '@/components/seo/BreadcrumbJsonLd'
 import { generatePageAlternates, SITE_URL } from '@/app/seo-defaults'
+import { getDisplayBrand } from '@/lib/parts/displayBrand'
 
 export const dynamic = 'force-dynamic'
 
@@ -245,7 +246,7 @@ export default async function CategoryPage({
                 "name": part.name,
                 "url": `${SITE_URL}/parts/${part.slug}`,
                 ...(part.image_url ? { "image": part.image_url } : {}),
-                "brand": { "@type": "Brand", "name": part.brand },
+                "brand": { "@type": "Brand", "name": getDisplayBrand(part.brand) },
                 "offers": {
                   "@type": "Offer",
                   "price": part.price,
@@ -326,7 +327,7 @@ export default async function CategoryPage({
                   <h2 className="text-base font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-[#F76511] transition-colors">
                     {part.name}
                   </h2>
-                  <p className="text-sm text-slate-500 mb-2">{part.brand}</p>
+                  <p className="text-sm text-slate-500 mb-2">{getDisplayBrand(part.brand)}</p>
 
                   {isQuoteOnly ? (
                     <span className="inline-block text-sm font-semibold text-[#F76511] bg-orange-50 px-3 py-1 rounded-lg">

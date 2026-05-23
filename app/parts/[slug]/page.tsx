@@ -6,7 +6,7 @@ import ProductDetails from './ProductDetails';
 import { getBlogPost } from '@/lib/mdx';
 import Link from 'next/link';
 import { generatePageAlternates } from '@/app/seo-defaults';
-import RelatedResources from '@/components/seo/RelatedResources';
+import { getDisplayBrand, sanitizeCustomerFacingCopy } from '@/lib/parts/displayBrand';
 
 const SITE_URL = 'https://www.flatearthequipment.com';
 
@@ -38,14 +38,14 @@ function buildProductSchema(product: any, slug: string) {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.name,
-    description: (product.description || '').slice(0, 5000),
+    description: sanitizeCustomerFacingCopy(product.description || '').slice(0, 5000),
     sku: product.sku,
     mpn: product.oem_reference || product.sku,
     image: product.image_url || undefined,
     url,
     brand: {
       '@type': 'Brand',
-      name: product.brand || 'Flat Earth Equipment',
+      name: getDisplayBrand(product.brand),
     },
     category: product.category || undefined,
     offers: offer,
@@ -133,7 +133,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (product) {
     const description = truncateDescription(
-      product.description || `Buy ${product.name} from Flat Earth Equipment. Fast shipping across the Western U.S.`
+      sanitizeCustomerFacingCopy(
+        product.description || `Buy ${product.name} from Flat Earth Equipment. Fast shipping across the Western U.S.`,
+      ),
     );
     // Use the product image if available, otherwise fall back to the brand logo,
     // otherwise the sitewide default OG image.

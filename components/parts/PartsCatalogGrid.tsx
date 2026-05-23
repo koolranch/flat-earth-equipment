@@ -1,5 +1,6 @@
 import PartsCatalogCard from '@/components/parts/PartsCatalogCard';
 import { getForkClassStripeClass } from '@/lib/parts/catalogContext';
+import { getDisplayBrand } from '@/lib/parts/displayBrand';
 import { parsePartSpecs } from '@/lib/parts/parseSpecs';
 import type { CatalogPart } from '@/lib/parts/catalogQuery';
 
@@ -19,7 +20,7 @@ function toCardProduct(part: CatalogPart, activeBrandFilter?: string) {
     name: part.name,
     slug: part.slug,
     sku: part.sku,
-    brand: part.brand,
+    brand: getDisplayBrand(part.brand),
     category: part.category,
     price: Number(part.price),
     imageUrl: part.image_url ?? undefined,

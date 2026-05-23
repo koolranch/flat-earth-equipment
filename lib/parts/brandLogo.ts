@@ -4,7 +4,6 @@ const STORAGE_BASE =
 const BRAND_SLUGS: Record<string, string> = {
   'flat earth equipment': 'flat-earth',
   jcb: 'jcb',
-  fsip: 'fsip',
   'lithium rhino': 'lithium-rhino',
   crown: 'crown',
   toyota: 'toyota',
