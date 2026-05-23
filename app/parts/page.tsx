@@ -1,157 +1,136 @@
 export const revalidate = 0;
 
 import { Metadata } from 'next';
-import { supabaseServer } from '@/lib/supabase/server';
 import Link from 'next/link';
-import {
-  TruckIcon,
-  MoveHorizontalIcon,
-  MoveIcon,
-  DropletIcon,
-  ZapIcon,
-  Gamepad2Icon,
-  BatteryChargingIcon,
-  CircleIcon,
-  LucideIcon,
-} from "lucide-react";
-import { categories as canonicalCategories } from '@/lib/data/categories';
+import { supabaseServer } from '@/lib/supabase/server';
 import { getUserLocale } from '@/lib/getUserLocale';
 import { generatePageAlternates } from '../seo-defaults';
 import BreadcrumbJsonLd from '@/components/seo/BreadcrumbJsonLd';
+import PartsCatalogToolbar from '@/components/parts/PartsCatalogToolbar';
+import PartsCatalogSidebar from '@/components/parts/PartsCatalogSidebar';
+import PartsCatalogGrid from '@/components/parts/PartsCatalogGrid';
+import PartsCatalogMobileFilters from '@/components/parts/PartsCatalogMobileFilters';
+import {
+  buildCatalogUrl,
+  CATALOG_QUICK_PATHS,
+  fetchCatalogFacets,
+  fetchCatalogParts,
+  ITEMS_PER_PAGE,
+  type CatalogSearchParams,
+} from '@/lib/parts/catalogQuery';
 
 export const metadata: Metadata = {
   title: 'Parts Catalog | Flat Earth Equipment',
-  description: 'Shop forklift parts, aerial lift components, and industrial equipment parts. Fast shipping across the Western US. OEM-compatible parts for all major brands.',
+  description:
+    'Shop forklift parts, aerial lift components, and industrial equipment parts. Search by part number or OEM reference. Fast shipping across the Western US.',
   alternates: generatePageAlternates('/parts'),
   robots: {
     index: true,
     follow: true,
     'max-image-preview': 'large',
     'max-snippet': -1,
-  }
+  },
 };
-
-type CategoryIcon = 
-  | "TruckIcon"
-  | "MoveHorizontalIcon"
-  | "MoveIcon"
-  | "DropletIcon"
-  | "ZapIcon"
-  | "Gamepad2Icon"
-  | "BatteryChargingIcon"
-  | "CircleIcon";
-
-interface Category {
-  name: string;
-  slug: string;
-  icon: CategoryIcon;
-}
-
-const categories: Category[] = [
-  { name: "Forklift Parts", slug: "forklift-parts", icon: "TruckIcon" },
-  { name: "Scissor Lift Parts", slug: "scissor-lift-parts", icon: "MoveHorizontalIcon" },
-  { name: "Telehandler Parts", slug: "telehandler-parts", icon: "MoveIcon" },
-  { name: "Hydraulic Components", slug: "hydraulic", icon: "DropletIcon" },
-  { name: "Electrical Systems", slug: "electrical", icon: "ZapIcon" },
-  { name: "Controllers & Joysticks", slug: "controllers", icon: "Gamepad2Icon" },
-  { name: "Battery Chargers", slug: "battery-chargers", icon: "BatteryChargingIcon" },
-  { name: "Brakes & Wheels", slug: "brakes-wheels", icon: "CircleIcon" },
-];
-
-const iconMap: Record<CategoryIcon, LucideIcon> = {
-  TruckIcon,
-  MoveHorizontalIcon,
-  MoveIcon,
-  DropletIcon,
-  ZapIcon,
-  Gamepad2Icon,
-  BatteryChargingIcon,
-  CircleIcon,
-};
-
-const ITEMS_PER_PAGE = 24;
 
 export default async function PartsPage({
   searchParams,
 }: {
-  searchParams: { category?: string; page?: string };
+  searchParams: CatalogSearchParams;
 }) {
-  const locale = getUserLocale()
-  const currentPage = parseInt(searchParams.page || '1', 10);
-  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
-  
-  // Translation strings
+  const locale = getUserLocale();
+  const supabase = supabaseServer();
+
   const t = {
     en: {
       title: 'Parts Catalog',
-      filterTitle: 'Filter by Category',
-      allParts: 'All Parts',
+      subtitle: 'Search by part number, SKU, or OEM reference',
       error: 'Error:',
+      previous: 'Previous',
+      next: 'Next',
+      searchPlaceholder: 'Search part number, SKU, OEM, brand…',
+      searchButton: 'Search',
+      sortLabel: 'Sort results',
       showing: 'Showing',
       of: 'of',
       parts: 'parts',
-      previous: 'Previous',
-      next: 'Next'
+      filters: 'Filters',
+      brands: 'Brand',
+      categories: 'Category',
+      availability: 'Availability',
+      allParts: 'All Parts',
+      buyNow: 'Buy Now Online',
+      inStock: 'In Stock — Buy Now',
+      quoteOnly: 'Request Quote (OEM)',
+      clearFilters: 'Clear all filters',
+      sortRecommended: 'Recommended',
+      sortPriceAsc: 'Price: Low to High',
+      sortPriceDesc: 'Price: High to Low',
+      sortName: 'Name: A to Z',
+      noResults: 'No parts matched your search.',
+      noResultsHelp: 'Try a different part number, or request a quote and our team will cross-reference OEM numbers.',
+      requestQuote: 'Request a Quote',
+      trustWarranty: '12-Month Warranty',
+      trustWarrantyDesc: 'All aftermarket parts include warranty from date of purchase',
+      trustOem: 'OEM Equivalent',
+      trustOemDesc: 'Direct-fit replacements — no modifications required',
+      trustShip: 'Fast Shipping',
+      trustShipDesc: 'In-stock parts ship same day nationwide',
+      shopBy: 'Shop by category',
     },
     es: {
       title: 'Catálogo de Partes',
-      filterTitle: 'Filtrar por Categoría',
-      allParts: 'Todas las Partes',
+      subtitle: 'Busque por número de parte, SKU o referencia OEM',
       error: 'Error:',
+      previous: 'Anterior',
+      next: 'Siguiente',
+      searchPlaceholder: 'Buscar número, SKU, OEM, marca…',
+      searchButton: 'Buscar',
+      sortLabel: 'Ordenar resultados',
       showing: 'Mostrando',
       of: 'de',
       parts: 'partes',
-      previous: 'Anterior',
-      next: 'Siguiente'
-    }
-  }[locale]
-  const supabase = supabaseServer();
-  const { data: categories } = await supabase
-    .from('parts')
-    .select('category')
-    .order('category');
+      filters: 'Filtros',
+      brands: 'Marca',
+      categories: 'Categoría',
+      availability: 'Disponibilidad',
+      allParts: 'Todas las Partes',
+      buyNow: 'Comprar en línea',
+      inStock: 'En stock — Comprar',
+      quoteOnly: 'Solicitar cotización (OEM)',
+      clearFilters: 'Borrar filtros',
+      sortRecommended: 'Recomendado',
+      sortPriceAsc: 'Precio: menor a mayor',
+      sortPriceDesc: 'Precio: mayor a menor',
+      sortName: 'Nombre: A a Z',
+      noResults: 'No se encontraron partes.',
+      noResultsHelp:
+        'Pruebe otro número de parte o solicite una cotización y cruzaremos referencias OEM.',
+      requestQuote: 'Solicitar cotización',
+      trustWarranty: 'Garantía de 12 meses',
+      trustWarrantyDesc: 'Todas las partes aftermarket incluyen garantía desde la compra',
+      trustOem: 'Equivalente OEM',
+      trustOemDesc: 'Reemplazos de ajuste directo — sin modificaciones',
+      trustShip: 'Envío rápido',
+      trustShipDesc: 'Partes en stock se envían el mismo día',
+      shopBy: 'Comprar por categoría',
+    },
+  }[locale];
 
-  const distinctCategories = Array.from(new Set(categories?.map((c) => c.category) || []));
+  const [{ parts, count, error, params }, facets] = await Promise.all([
+    fetchCatalogParts(supabase, searchParams),
+    fetchCatalogFacets(supabase),
+  ]);
 
-  // Helper to get canonical display name from slug
-  function getCategoryDisplayName(slugOrName: string) {
-    // Try to find by slug
-    const found = canonicalCategories.find(cat => cat.slug === slugOrName);
-    if (found) return found.name;
-    // Try to find by name (case-insensitive)
-    const foundByName = canonicalCategories.find(cat => cat.name.toLowerCase() === slugOrName.toLowerCase());
-    if (foundByName) return foundByName.name;
-    // Fallback to original
-    return slugOrName
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-  }
-
-  let partsQuery = supabase
-    .from('parts')
-    .select('slug, name, price, category, brand, image_url', { count: 'exact' })
-    .order('name')
-    .range(offset, offset + ITEMS_PER_PAGE - 1);
-
-  if (searchParams.category) {
-    partsQuery = partsQuery.eq('category', searchParams.category);
-  }
-
-  const { data: parts, error, count } = await partsQuery;
   const totalPages = count ? Math.ceil(count / ITEMS_PER_PAGE) : 1;
+  const showingFrom = count ? params.offset + 1 : 0;
+  const showingTo = count ? Math.min(params.offset + ITEMS_PER_PAGE, count) : 0;
 
   if (error) {
     return <p className="p-8 text-red-600">{t.error} {error.message}</p>;
   }
 
-  // Build pagination URLs
-  const buildPageUrl = (page: number) => {
-    const params = new URLSearchParams();
-    if (searchParams.category) params.set('category', searchParams.category);
-    if (page > 1) params.set('page', page.toString());
-    return `/parts${params.toString() ? '?' + params.toString() : ''}`;
-  };
+  const buildPageUrl = (page: number) =>
+    buildCatalogUrl(searchParams, { page: page > 1 ? String(page) : undefined }, false);
 
   return (
     <>
@@ -163,134 +142,176 @@ export default async function PartsPage({
       />
       <main className="container mx-auto px-4 py-12">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-slate-900 mb-2">{t.title}</h1>
-        <p className="text-slate-600">
-          {count ? `${count.toLocaleString()} ${t.parts}` : ''}
-        </p>
-      </div>
-      
-      {/* Category Filter */}
-      <div className="mb-8 bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
-        <h2 className="text-lg font-bold text-slate-900 mb-4">{t.filterTitle}</h2>
-        <div className="flex flex-wrap gap-2">
-          <Link
-            href="/parts"
-            className={`px-4 py-2 rounded-xl font-medium transition-all ${
-              !searchParams.category
-                ? 'bg-[#F76511] text-white shadow-md'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-            }`}
-          >
-            {t.allParts}
-          </Link>
-          {distinctCategories.map((category) => (
-            <Link
-              key={category}
-              href={`/parts?category=${encodeURIComponent(category)}`}
-              className={`px-4 py-2 rounded-xl font-medium transition-all ${
-                searchParams.category === category
-                  ? 'bg-[#F76511] text-white shadow-md'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-              }`}
-            >
-              {getCategoryDisplayName(category)}
-            </Link>
-          ))}
+          <h1 className="mb-2 text-4xl font-bold text-slate-900">{t.title}</h1>
+          <p className="text-slate-600">
+            {count ? `${count.toLocaleString()} ${t.parts}` : ''}
+            {count ? ' · ' : ''}
+            {t.subtitle}
+          </p>
         </div>
-      </div>
 
-      {/* Results count and pagination info */}
-      {count && count > 0 && (
-        <div className="mb-4 text-sm text-slate-600">
-          {t.showing} {offset + 1}–{Math.min(offset + ITEMS_PER_PAGE, count)} {t.of} {count.toLocaleString()} {t.parts}
-        </div>
-      )}
+        {/* Quick paths */}
+        <section aria-labelledby="quick-paths-heading" className="mb-8">
+          <h2 id="quick-paths-heading" className="mb-3 text-sm font-bold uppercase tracking-wide text-slate-500">
+            {t.shopBy}
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {CATALOG_QUICK_PATHS.map((path) => (
+              <Link
+                key={path.href}
+                href={path.href}
+                className="rounded-xl border-2 border-slate-200 bg-white p-4 transition-all hover:border-[#F76511] hover:shadow-md"
+              >
+                <p className="font-bold text-slate-900">{path.label}</p>
+                <p className="text-sm text-slate-500">{path.description}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
 
-      {/* Parts Grid */}
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-8">
-        {parts?.map((part) => (
-          <Link
-            key={part.slug}
-            href={`/parts/${part.slug}`}
-            className="group bg-white rounded-xl border-2 border-slate-200 p-5 hover:border-[#F76511] hover:shadow-lg transition-all"
-          >
-            {part.image_url && (
-              <div className="aspect-square mb-3 rounded-lg overflow-hidden bg-slate-100">
-                <img 
-                  src={part.image_url} 
-                  alt={part.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-            )}
-            <h2 className="text-base font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-[#F76511] transition-colors">
-              {part.name}
-            </h2>
-            <p className="text-sm text-slate-600 mb-2">{part.brand}</p>
-            <p className="text-lg font-bold text-[#F76511]">
-              ${part.price.toFixed(2)}
-            </p>
-            <p className="text-xs text-slate-500 mt-1">{part.category}</p>
-          </Link>
-        ))}
-      </div>
+        <PartsCatalogToolbar
+          searchParams={searchParams}
+          totalCount={count}
+          showingFrom={showingFrom}
+          showingTo={showingTo}
+          labels={{
+            searchPlaceholder: t.searchPlaceholder,
+            searchButton: t.searchButton,
+            sortLabel: t.sortLabel,
+            showing: t.showing,
+            of: t.of,
+            parts: t.parts,
+            filters: t.filters,
+            sortRecommended: t.sortRecommended,
+            sortPriceAsc: t.sortPriceAsc,
+            sortPriceDesc: t.sortPriceDesc,
+            sortName: t.sortName,
+          }}
+        />
 
-      {/* Pagination */}
-      {totalPages > 1 && (
-        <nav className="flex items-center justify-center gap-2" aria-label="Pagination">
-          {currentPage > 1 && (
-            <Link
-              href={buildPageUrl(currentPage - 1)}
-              className="px-4 py-2 rounded-xl bg-white border-2 border-slate-200 text-slate-700 font-medium hover:border-[#F76511] hover:text-[#F76511] transition-all"
-            >
-              ← {t.previous}
-            </Link>
-          )}
-          
-          <div className="flex gap-1">
-            {Array.from({ length: totalPages }, (_, i) => i + 1)
-              .filter(page => {
-                // Show first page, last page, current page, and pages around current
-                return page === 1 || 
-                       page === totalPages || 
-                       Math.abs(page - currentPage) <= 2;
-              })
-              .map((page, idx, arr) => {
-                // Add ellipsis between gaps
-                const prevPage = arr[idx - 1];
-                const showEllipsis = prevPage && page - prevPage > 1;
-                
-                return (
-                  <div key={page} className="flex gap-1">
-                    {showEllipsis && (
-                      <span className="px-3 py-2 text-slate-400">...</span>
-                    )}
-                    <Link
-                      href={buildPageUrl(page)}
-                      className={`px-4 py-2 rounded-xl font-medium transition-all ${
-                        page === currentPage
-                          ? 'bg-[#F76511] text-white shadow-md'
-                          : 'bg-white border-2 border-slate-200 text-slate-700 hover:border-[#F76511]'
-                      }`}
-                      aria-current={page === currentPage ? 'page' : undefined}
-                    >
-                      {page}
-                    </Link>
-                  </div>
-                );
-              })}
+        <PartsCatalogMobileFilters
+          searchParams={searchParams}
+          labels={{
+            buyNow: t.buyNow,
+            inStock: t.inStock,
+            quoteOnly: t.quoteOnly,
+            allParts: t.allParts,
+          }}
+        />
+
+        <div className="flex flex-col gap-8 lg:flex-row">
+          <div className="hidden w-56 shrink-0 lg:block">
+            <PartsCatalogSidebar
+              searchParams={searchParams}
+              brands={facets.brands}
+              categories={facets.categories}
+              labels={{
+                filters: t.filters,
+                brands: t.brands,
+                categories: t.categories,
+                availability: t.availability,
+                allParts: t.allParts,
+                buyNow: t.buyNow,
+                inStock: t.inStock,
+                quoteOnly: t.quoteOnly,
+                clearFilters: t.clearFilters,
+              }}
+            />
           </div>
 
-          {currentPage < totalPages && (
-            <Link
-              href={buildPageUrl(currentPage + 1)}
-              className="px-4 py-2 rounded-xl bg-white border-2 border-slate-200 text-slate-700 font-medium hover:border-[#F76511] hover:text-[#F76511] transition-all"
-            >
-              {t.next} →
-            </Link>
-          )}
-        </nav>
-      )}
+          <div className="min-w-0 flex-1">
+            {parts.length > 0 ? (
+              <PartsCatalogGrid parts={parts} />
+            ) : (
+              <div className="rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 p-10 text-center">
+                <p className="mb-2 text-lg font-semibold text-slate-900">{t.noResults}</p>
+                <p className="mb-6 text-slate-600">{t.noResultsHelp}</p>
+                <Link
+                  href="/quote"
+                  className="inline-flex items-center justify-center rounded-xl bg-[#F76511] px-8 py-3 font-bold text-white shadow-lg transition-all hover:bg-orange-600"
+                >
+                  {t.requestQuote}
+                </Link>
+              </div>
+            )}
+
+            {totalPages > 1 && (
+              <nav
+                className="mt-8 flex items-center justify-center gap-2"
+                aria-label="Pagination"
+              >
+                {params.page > 1 && (
+                  <Link
+                    href={buildPageUrl(params.page - 1)}
+                    className="rounded-xl border-2 border-slate-200 bg-white px-4 py-2 font-medium text-slate-700 transition-all hover:border-[#F76511] hover:text-[#F76511]"
+                  >
+                    ← {t.previous}
+                  </Link>
+                )}
+
+                <div className="flex gap-1">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1)
+                    .filter(
+                      (page) =>
+                        page === 1 ||
+                        page === totalPages ||
+                        Math.abs(page - params.page) <= 2,
+                    )
+                    .map((page, idx, arr) => {
+                      const prevPage = arr[idx - 1];
+                      const showEllipsis = prevPage && page - prevPage > 1;
+
+                      return (
+                        <div key={page} className="flex gap-1">
+                          {showEllipsis && (
+                            <span className="px-3 py-2 text-slate-400">...</span>
+                          )}
+                          <Link
+                            href={buildPageUrl(page)}
+                            className={`rounded-xl px-4 py-2 font-medium transition-all ${
+                              page === params.page
+                                ? 'bg-[#F76511] text-white shadow-md'
+                                : 'border-2 border-slate-200 bg-white text-slate-700 hover:border-[#F76511]'
+                            }`}
+                            aria-current={page === params.page ? 'page' : undefined}
+                          >
+                            {page}
+                          </Link>
+                        </div>
+                      );
+                    })}
+                </div>
+
+                {params.page < totalPages && (
+                  <Link
+                    href={buildPageUrl(params.page + 1)}
+                    className="rounded-xl border-2 border-slate-200 bg-white px-4 py-2 font-medium text-slate-700 transition-all hover:border-[#F76511] hover:text-[#F76511]"
+                  >
+                    {t.next} →
+                  </Link>
+                )}
+              </nav>
+            )}
+          </div>
+        </div>
+
+        {/* Trust signals */}
+        <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+          <div className="grid gap-6 text-center sm:grid-cols-3">
+            <div>
+              <p className="mb-1 text-2xl font-bold text-slate-900">{t.trustWarranty}</p>
+              <p className="text-sm text-slate-600">{t.trustWarrantyDesc}</p>
+            </div>
+            <div>
+              <p className="mb-1 text-2xl font-bold text-slate-900">{t.trustOem}</p>
+              <p className="text-sm text-slate-600">{t.trustOemDesc}</p>
+            </div>
+            <div>
+              <p className="mb-1 text-2xl font-bold text-slate-900">{t.trustShip}</p>
+              <p className="text-sm text-slate-600">{t.trustShipDesc}</p>
+            </div>
+          </div>
+        </div>
       </main>
     </>
   );

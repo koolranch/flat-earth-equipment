@@ -3,15 +3,17 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 import { 
   ShoppingCart, 
   FileText, 
   CheckCircle, 
-  Package, 
   AlertCircle,
   ExternalLink,
   Phone
 } from 'lucide-react';
+import { useCart } from '@/hooks/useCart';
 import QuoteRequestModal from './QuoteRequestModal';
 
 interface SmartProductCardProps {
@@ -28,6 +30,8 @@ interface SmartProductCardProps {
     salesType: 'direct' | 'quote_only';
     oemReference?: string;
     isInStock?: boolean;
+    stripePriceId?: string;
+    backordered?: boolean;
     compatibleModels?: string[];
   };
   machine?: {
@@ -46,6 +50,8 @@ export default function SmartProductCard({
 }: SmartProductCardProps) {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const { addItem } = useCart();
+  const router = useRouter();
 
   const isQuoteOnly = product.salesType === 'quote_only';
   const hasPrice = (product.price && product.price > 0) || (product.priceCents && product.priceCents > 0);
@@ -54,11 +60,34 @@ export default function SmartProductCard({
     : product.price?.toFixed(2);
 
   const handleAddToCart = async () => {
+    if (!product.id || !product.stripePriceId) {
+      toast.error('This item is not available for online checkout yet.');
+      return;
+    }
+
     setIsAddingToCart(true);
-    // TODO: Implement Stripe checkout or cart logic
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price ?? (product.priceCents ? product.priceCents / 100 : 0),
+      stripe_price_id: product.stripePriceId,
+      image_url: product.imageUrl,
+      quantity: 1,
+    });
+
+    toast.success('Added to cart!', {
+      duration: 2000,
+      position: 'bottom-right',
+      style: {
+        background: '#059669',
+        color: '#fff',
+        padding: '16px',
+        borderRadius: '8px',
+      },
+    });
+
     setIsAddingToCart(false);
-    // Show success toast or redirect to cart
+    router.push('/cart');
   };
 
   return (
@@ -80,12 +109,18 @@ export default function SmartProductCard({
             {!isQuoteOnly && (
               <div className={`
                 absolute top-2 right-2 px-2 py-1 rounded-full text-xs font-medium
-                ${product.isInStock 
-                  ? 'bg-emerald-100 text-emerald-700' 
+                ${product.backordered
+                  ? 'bg-amber-100 text-amber-700'
+                  : product.isInStock
+                  ? 'bg-emerald-100 text-emerald-700'
                   : 'bg-amber-100 text-amber-700'
                 }
               `}>
-                {product.isInStock ? 'In Stock' : 'Ships in 3-5 days'}
+                {product.backordered
+                  ? 'Backordered'
+                  : product.isInStock
+                  ? 'In Stock'
+                  : 'Ships in 3-5 days'}
               </div>
             )}
             {isQuoteOnly && (
@@ -167,7 +202,7 @@ export default function SmartProductCard({
                 </div>
                 <button
                   onClick={handleAddToCart}
-                  disabled={isAddingToCart}
+                  disabled={isAddingToCart || !product.stripePriceId}
                   className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-slate-900 text-white font-semibold rounded-lg hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-md"
                 >
                   {isAddingToCart ? (
