@@ -7,7 +7,11 @@ import { toast } from 'react-hot-toast';
 import { FileText, ShoppingCart } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 import QuoteRequestModal from '@/components/QuoteRequestModal';
-import { shouldShowBrandChip } from '@/lib/parts/catalogContext';
+import {
+  shouldShowBrandChip,
+  shouldShowCardStockIndicator,
+  type AvailabilityFilter,
+} from '@/lib/parts/catalogContext';
 import { parsePartSpecs, type SpecChip } from '@/lib/parts/parseSpecs';
 
 export type CatalogCardProduct = {
@@ -27,6 +31,7 @@ export type CatalogCardProduct = {
   specChips?: SpecChip[];
   classStripeClass?: string | null;
   activeBrandFilter?: string;
+  availabilityFilter?: AvailabilityFilter;
 };
 
 function SpecChipRow({ chips }: { chips: SpecChip[] }) {
@@ -107,7 +112,15 @@ export default function PartsCatalogCard({ product }: { product: CatalogCardProd
   const isQuoteOnly = product.salesType === 'quote_only';
   const hasPrice = Boolean(product.price && product.price > 0);
   const showBrand = shouldShowBrandChip(product.brand, product.activeBrandFilter);
-  const showImageBadge = isQuoteOnly || product.backordered || !product.isInStock;
+  const availabilityFilter = product.availabilityFilter ?? 'all';
+  const showStockIndicator = shouldShowCardStockIndicator(availabilityFilter, {
+    salesType: product.salesType,
+    isInStock: product.isInStock,
+    backordered: product.backordered,
+  });
+  const showImageBadge =
+    showStockIndicator &&
+    (isQuoteOnly || product.backordered || !product.isInStock);
 
   const specChips =
     product.specChips ??
@@ -219,13 +232,15 @@ export default function PartsCatalogCard({ product }: { product: CatalogCardProd
               <>
                 <div>
                   <span className="text-sm font-semibold text-slate-700">Call for price</span>
-                  <div className="mt-0.5">
-                    <StockIndicator
-                      isQuoteOnly={isQuoteOnly}
-                      backordered={product.backordered}
-                      isInStock={product.isInStock}
-                    />
-                  </div>
+                  {showStockIndicator && (
+                    <div className="mt-0.5">
+                      <StockIndicator
+                        isQuoteOnly={isQuoteOnly}
+                        backordered={product.backordered}
+                        isInStock={product.isInStock}
+                      />
+                    </div>
+                  )}
                 </div>
                 <button
                   type="button"
@@ -243,13 +258,15 @@ export default function PartsCatalogCard({ product }: { product: CatalogCardProd
                   <span className="text-lg font-bold text-slate-900">
                     ${product.price!.toFixed(2)}
                   </span>
-                  <div className="mt-0.5">
-                    <StockIndicator
-                      isQuoteOnly={false}
-                      backordered={product.backordered}
-                      isInStock={product.isInStock}
-                    />
-                  </div>
+                  {showStockIndicator && (
+                    <div className="mt-0.5">
+                      <StockIndicator
+                        isQuoteOnly={false}
+                        backordered={product.backordered}
+                        isInStock={product.isInStock}
+                      />
+                    </div>
+                  )}
                 </div>
                 <button
                   type="button"

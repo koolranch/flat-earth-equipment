@@ -9,7 +9,7 @@ import BreadcrumbJsonLd from '@/components/seo/BreadcrumbJsonLd';
 import PartsCatalogToolbar from '@/components/parts/PartsCatalogToolbar';
 import PartsCatalogSidebar from '@/components/parts/PartsCatalogSidebar';
 import PartsCatalogGrid from '@/components/parts/PartsCatalogGrid';
-import PartsCatalogMobileFilters from '@/components/parts/PartsCatalogMobileFilters';
+import PartsCatalogAvailabilityPills from '@/components/parts/PartsCatalogAvailabilityPills';
 import PartsCatalogQuickPaths from '@/components/parts/PartsCatalogQuickPaths';
 import PartsCatalogActiveFilters from '@/components/parts/PartsCatalogActiveFilters';
 import {
@@ -64,9 +64,9 @@ export default async function PartsPage({
       categories: 'Category',
       availability: 'Availability',
       allParts: 'All Parts',
-      buyNow: 'Buy Now Online',
-      inStock: 'In Stock — Buy Now',
-      quoteOnly: 'Request Quote (OEM)',
+      buyNow: 'Shop Online',
+      inStock: 'Ships Today',
+      quoteOnly: 'Request Quote',
       clearFilters: 'Clear all filters',
       sortRecommended: 'Recommended',
       sortPriceAsc: 'Price: Low to High',
@@ -99,10 +99,10 @@ export default async function PartsPage({
       brands: 'Marca',
       categories: 'Categoría',
       availability: 'Disponibilidad',
-      allParts: 'Todas las Partes',
-      buyNow: 'Comprar en línea',
-      inStock: 'En stock — Comprar',
-      quoteOnly: 'Solicitar cotización (OEM)',
+      allParts: 'Todas las partes',
+      buyNow: 'Tienda en línea',
+      inStock: 'Envío hoy',
+      quoteOnly: 'Solicitar cotización',
       clearFilters: 'Borrar filtros',
       sortRecommended: 'Recomendado',
       sortPriceAsc: 'Precio: menor a mayor',
@@ -141,9 +141,9 @@ export default async function PartsPage({
   const pageTitle = getCatalogPageTitle(searchParams, facets.categories);
   const countLabel = getCatalogCountLabel(count, searchParams, facets.categories, t.parts);
   const activeFilters = getActiveFilters(searchParams, facets.categories, {
-    buyNow: t.buyNow,
-    inStock: t.inStock,
-    quoteOnly: t.quoteOnly,
+    buyNow: `${t.buyNow} (${facets.availability.shopOnline.toLocaleString()})`,
+    inStock: `${t.inStock} (${facets.availability.shipsToday.toLocaleString()})`,
+    quoteOnly: `${t.quoteOnly} (${facets.availability.quoteOnly.toLocaleString()})`,
   });
 
   return (
@@ -182,8 +182,9 @@ export default async function PartsPage({
           }}
         />
 
-        <PartsCatalogMobileFilters
+        <PartsCatalogAvailabilityPills
           searchParams={searchParams}
+          counts={facets.availability}
           labels={{
             buyNow: t.buyNow,
             inStock: t.inStock,
@@ -199,6 +200,7 @@ export default async function PartsPage({
               searchParams={searchParams}
               brands={facets.brands}
               categories={facets.categories}
+              availability={facets.availability}
               labels={{
                 filters: t.filters,
                 brands: t.brands,
@@ -223,6 +225,7 @@ export default async function PartsPage({
             {parts.length > 0 ? (
               <PartsCatalogGrid
                 parts={parts}
+                searchParams={searchParams}
                 activeBrandFilter={searchParams.brand}
               />
             ) : (

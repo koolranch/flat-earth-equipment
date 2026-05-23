@@ -166,14 +166,50 @@ export async function fetchCatalogParts(
   };
 }
 
+export type AvailabilityCounts = {
+  total: number;
+  shipsToday: number;
+  shopOnline: number;
+  quoteOnly: number;
+};
+
+export async function fetchAvailabilityCounts(
+  supabase: SupabaseClient,
+): Promise<AvailabilityCounts> {
+  const [total, shopOnline, shipsToday, quoteOnly] = await Promise.all([
+    supabase.from('parts').select('*', { count: 'exact', head: true }),
+    supabase
+      .from('parts')
+      .select('*', { count: 'exact', head: true })
+      .eq('sales_type', 'direct'),
+    supabase
+      .from('parts')
+      .select('*', { count: 'exact', head: true })
+      .eq('sales_type', 'direct')
+      .eq('is_in_stock', true),
+    supabase
+      .from('parts')
+      .select('*', { count: 'exact', head: true })
+      .eq('sales_type', 'quote_only'),
+  ]);
+
+  return {
+    total: total.count ?? 0,
+    shopOnline: shopOnline.count ?? 0,
+    shipsToday: shipsToday.count ?? 0,
+    quoteOnly: quoteOnly.count ?? 0,
+  };
+}
+
 export async function fetchCatalogFacets(supabase: SupabaseClient) {
-  const [brandsResult, categoriesResult] = await Promise.all([
+  const [brandsResult, categoriesResult, availability] = await Promise.all([
     supabase.from('parts').select('brand, brand_logo_url').order('brand'),
     supabase
       .from('parts')
       .select('category_slug, category')
       .not('category_slug', 'is', null)
       .order('category'),
+    fetchAvailabilityCounts(supabase),
   ]);
 
   const brandCounts = new Map<string, { count: number; logoUrl: string | null }>();
@@ -216,7 +252,7 @@ export async function fetchCatalogFacets(supabase: SupabaseClient) {
     .sort((a, b) => b.count - a.count)
     .slice(0, 20);
 
-  return { brands, categories };
+  return { brands, categories, availability };
 }
 
 export const CATALOG_QUICK_PATHS = [
@@ -226,9 +262,9 @@ export const CATALOG_QUICK_PATHS = [
     description: 'Aftermarket OEM replacements',
   },
   {
-    label: 'Buy Now — In Stock',
+    label: 'Ships Today',
     href: '/parts?sales_type=direct&in_stock=1',
-    description: 'Ready to ship today',
+    description: 'In stock — ready to ship',
   },
   {
     label: 'Battery Chargers',

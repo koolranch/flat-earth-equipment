@@ -40,11 +40,15 @@ export function getCatalogPageTitle(
   if (searchParams.brand) return `${searchParams.brand} Parts`;
 
   if (searchParams.sales_type === 'direct' && searchParams.in_stock === '1') {
-    return 'In-Stock Parts — Buy Now';
+    return 'Ships Today';
+  }
+
+  if (searchParams.sales_type === 'direct') {
+    return 'Shop Online';
   }
 
   if (searchParams.sales_type === 'quote_only') {
-    return 'OEM Parts — Request Quote';
+    return 'Request Quote';
   }
 
   return 'Parts Catalog';
@@ -126,6 +130,36 @@ export function getActiveFilters(
   }
 
   return filters;
+}
+
+export type AvailabilityFilter = 'all' | 'ships_today' | 'shop_online' | 'quote';
+
+export function getAvailabilityFilter(
+  searchParams: CatalogSearchParams,
+): AvailabilityFilter {
+  if (searchParams.sales_type === 'quote_only') return 'quote';
+  if (searchParams.sales_type === 'direct' && searchParams.in_stock === '1') {
+    return 'ships_today';
+  }
+  if (searchParams.sales_type === 'direct') return 'shop_online';
+  return 'all';
+}
+
+export function shouldShowCardStockIndicator(
+  filter: AvailabilityFilter,
+  product: {
+    salesType: 'direct' | 'quote_only';
+    isInStock?: boolean;
+    backordered?: boolean;
+  },
+): boolean {
+  if (filter === 'ships_today' || filter === 'quote') return false;
+
+  if (filter === 'shop_online') {
+    return !product.isInStock || product.backordered === true;
+  }
+
+  return true;
 }
 
 export function getForkClassStripeClass(name: string, category?: string): string | null {
