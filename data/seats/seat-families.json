@@ -1,0 +1,72 @@
+[
+  {
+    "family_id": "SY1934|SY19334366",
+    "back": "SY1934",
+    "bottom": "SY19334366",
+    "assemblies": [
+      "AD8-69-00019",
+      "AM86900019"
+    ]
+  },
+  {
+    "family_id": "SY1596|SY1595",
+    "back": "SY1596",
+    "bottom": "SY1595",
+    "assemblies": [
+      "CT298-8722",
+      "CT298-8726",
+      "JL91563158",
+      "TN1022105"
+    ]
+  },
+  {
+    "family_id": "SY1596|SY15951044",
+    "back": "SY1596",
+    "bottom": "SY15951044",
+    "assemblies": [
+      "LU1001101085",
+      "LU3980039"
+    ]
+  },
+  {
+    "family_id": "SY1227026|SY1227027",
+    "back": "SY1227026",
+    "bottom": "SY1227027",
+    "assemblies": [
+      "PB3300489"
+    ]
+  },
+  {
+    "family_id": "SY1596|SY159510042",
+    "back": "SY1596",
+    "bottom": "SY159510042",
+    "assemblies": [
+      "SA1001101085",
+      "SA3980039"
+    ]
+  },
+  {
+    "family_id": "SY91809|SY91808",
+    "back": "SY91809",
+    "bottom": "SY91808",
+    "assemblies": [
+      "TN1056543"
+    ]
+  },
+  {
+    "family_id": "SY1981|SY19806600",
+    "back": "SY1981",
+    "bottom": "SY19806600",
+    "assemblies": [
+      "TN377070"
+    ]
+  },
+  {
+    "family_id": "SY91809|SY91808385",
+    "back": "SY91809",
+    "bottom": "SY91808385",
+    "assemblies": [
+      "TN53845"
+    ]
+  }
+]

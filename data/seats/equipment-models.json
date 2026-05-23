@@ -1,0 +1,3320 @@
+[
+  {
+    "brand": "Advance",
+    "model": "2052B",
+    "slug": "advance-2052b",
+    "assembly_oem_parts": [
+      "AD56481346"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Advance",
+    "model": "BR652",
+    "slug": "advance-br652",
+    "assembly_oem_parts": [
+      "AD9097858000"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Advance",
+    "model": "BR752",
+    "slug": "advance-br752",
+    "assembly_oem_parts": [
+      "AD9097858000"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Advance",
+    "model": "BR752C",
+    "slug": "advance-br752c",
+    "assembly_oem_parts": [
+      "AD9097858000"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Advance",
+    "model": "CS7000-48",
+    "slug": "advance-cs7000-48",
+    "assembly_oem_parts": [
+      "AD56509988"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Advance",
+    "model": "CS7010",
+    "slug": "advance-cs7010",
+    "assembly_oem_parts": [
+      "AD56383291",
+      "AD56509988"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Advance",
+    "model": "ES4000",
+    "slug": "advance-es4000",
+    "assembly_oem_parts": [
+      "AD56383240"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Advance",
+    "model": "EXTERRA SR1900",
+    "slug": "advance-exterra-sr1900",
+    "assembly_oem_parts": [
+      "AD56507052"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Advance",
+    "model": "NoNo2052",
+    "slug": "advance-nono2052",
+    "assembly_oem_parts": [
+      "AD56481346"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Advance",
+    "model": "PROTERRA",
+    "slug": "advance-proterra",
+    "assembly_oem_parts": [
+      "AD1455975000"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Advance",
+    "model": "SC2000",
+    "slug": "advance-sc2000",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "AD9100001130"
+    ]
+  },
+  {
+    "brand": "Advance",
+    "model": "SC3000-26D",
+    "slug": "advance-sc3000-26d",
+    "assembly_oem_parts": [
+      "AD9097858000"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Advance",
+    "model": "SC3000-26D-ECOFLEX",
+    "slug": "advance-sc3000-26d-ecoflex",
+    "assembly_oem_parts": [
+      "AD9097858000"
+    ],
+    "cushion_oem_parts": [
+      "AD9097858000"
+    ]
+  },
+  {
+    "brand": "Advance",
+    "model": "SC3000-28C",
+    "slug": "advance-sc3000-28c",
+    "assembly_oem_parts": [
+      "AD9097858000"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Advance",
+    "model": "SC3000-28C-ECOFLEX",
+    "slug": "advance-sc3000-28c-ecoflex",
+    "assembly_oem_parts": [
+      "AD9097858000"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Advance",
+    "model": "SC6000-34D",
+    "slug": "advance-sc6000-34d",
+    "assembly_oem_parts": [
+      "AD56116366",
+      "AD56116600"
+    ],
+    "cushion_oem_parts": [
+      "AD56383292"
+    ]
+  },
+  {
+    "brand": "Advance",
+    "model": "SC6000-36C",
+    "slug": "advance-sc6000-36c",
+    "assembly_oem_parts": [
+      "AD56116366",
+      "AD56116600"
+    ],
+    "cushion_oem_parts": [
+      "AD56383292"
+    ]
+  },
+  {
+    "brand": "Advance",
+    "model": "SC6000-40D",
+    "slug": "advance-sc6000-40d",
+    "assembly_oem_parts": [
+      "AD56116366",
+      "AD56116600"
+    ],
+    "cushion_oem_parts": [
+      "AD56383292"
+    ]
+  },
+  {
+    "brand": "Advance",
+    "model": "SC6500-",
+    "slug": "advance-sc6500-",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "AD56383292"
+    ]
+  },
+  {
+    "brand": "Advance",
+    "model": "SC6500-40C",
+    "slug": "advance-sc6500-40c",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "AD56383292"
+    ]
+  },
+  {
+    "brand": "Advance",
+    "model": "SC6500-40C-ECOFLEX",
+    "slug": "advance-sc6500-40c-ecoflex",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "AD56383292"
+    ]
+  },
+  {
+    "brand": "Advance",
+    "model": "SC6500-40D",
+    "slug": "advance-sc6500-40d",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "AD56383292"
+    ]
+  },
+  {
+    "brand": "Advance",
+    "model": "SC6500-40D-ECOFLEX",
+    "slug": "advance-sc6500-40d-ecoflex",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "AD56383292"
+    ]
+  },
+  {
+    "brand": "Advance",
+    "model": "SC8000-48",
+    "slug": "advance-sc8000-48",
+    "assembly_oem_parts": [
+      "AD56110273",
+      "AD56111535"
+    ],
+    "cushion_oem_parts": [
+      "AD7-69-00008"
+    ]
+  },
+  {
+    "brand": "Advance",
+    "model": "SC8000-48-ECOFLEX",
+    "slug": "advance-sc8000-48-ecoflex",
+    "assembly_oem_parts": [
+      "AD56110273",
+      "AD56111535"
+    ],
+    "cushion_oem_parts": [
+      "AD7-69-00008"
+    ]
+  },
+  {
+    "brand": "Advance",
+    "model": "SC8000-60",
+    "slug": "advance-sc8000-60",
+    "assembly_oem_parts": [
+      "AD56110273",
+      "AD56111535"
+    ],
+    "cushion_oem_parts": [
+      "AD7-69-00008"
+    ]
+  },
+  {
+    "brand": "Advance",
+    "model": "SC8000-60-ECOFLEX",
+    "slug": "advance-sc8000-60-ecoflex",
+    "assembly_oem_parts": [
+      "AD56110273",
+      "AD56111535"
+    ],
+    "cushion_oem_parts": [
+      "AD7-69-00008"
+    ]
+  },
+  {
+    "brand": "Advance",
+    "model": "SC8000-62",
+    "slug": "advance-sc8000-62",
+    "assembly_oem_parts": [
+      "AD56110273",
+      "AD56111535"
+    ],
+    "cushion_oem_parts": [
+      "AD7-69-00008"
+    ]
+  },
+  {
+    "brand": "Advance",
+    "model": "SC8000-62-ECOFLEX",
+    "slug": "advance-sc8000-62-ecoflex",
+    "assembly_oem_parts": [
+      "AD56110273",
+      "AD56111535"
+    ],
+    "cushion_oem_parts": [
+      "AD7-69-00008"
+    ]
+  },
+  {
+    "brand": "Advance",
+    "model": "SW4000",
+    "slug": "advance-sw4000",
+    "assembly_oem_parts": [
+      "AD1455975000"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Advance",
+    "model": "x  x",
+    "slug": "advance-x-x",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "AD56383187",
+      "AD8-69-00022"
+    ]
+  },
+  {
+    "brand": "Advance",
+    "model": "YesNoXP",
+    "slug": "advance-yesnoxp",
+    "assembly_oem_parts": [
+      "AD8-69-00019"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Advance",
+    "model": "YesYes2042",
+    "slug": "advance-yesyes2042",
+    "assembly_oem_parts": [
+      "AD56409021"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "American Lincoln",
+    "model": "7730-46 INCH DECK",
+    "slug": "american-lincoln-7730-46-inch-deck",
+    "assembly_oem_parts": [
+      "AM7-69-000087730-40"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "American Lincoln",
+    "model": "7765",
+    "slug": "american-lincoln-7765",
+    "assembly_oem_parts": [
+      "AM7-69-000087730-40"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "American Lincoln",
+    "model": "INCH DECK",
+    "slug": "american-lincoln-inch-deck",
+    "assembly_oem_parts": [
+      "AM7-69-000087730-40"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "American Lincoln",
+    "model": "XP GRANTERRA",
+    "slug": "american-lincoln-xp-granterra",
+    "assembly_oem_parts": [
+      "AM86900019"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Bobcat",
+    "model": "T2250",
+    "slug": "bobcat-t2250",
+    "assembly_oem_parts": [
+      "BC6919587",
+      "BC6919982"
+    ],
+    "cushion_oem_parts": [
+      "BC7003346",
+      "BC7003358"
+    ]
+  },
+  {
+    "brand": "Bobcat",
+    "model": "T35120L",
+    "slug": "bobcat-t35120l",
+    "assembly_oem_parts": [
+      "BC6911769"
+    ],
+    "cushion_oem_parts": [
+      "BC93243.4",
+      "BC93244.2"
+    ]
+  },
+  {
+    "brand": "Bobcat",
+    "model": "T35120SL",
+    "slug": "bobcat-t35120sl",
+    "assembly_oem_parts": [
+      "BC6911769"
+    ],
+    "cushion_oem_parts": [
+      "BC93243.4",
+      "BC93244.2"
+    ]
+  },
+  {
+    "brand": "Bobcat",
+    "model": "T3571",
+    "slug": "bobcat-t3571",
+    "assembly_oem_parts": [
+      "BC6911769"
+    ],
+    "cushion_oem_parts": [
+      "BC93243.4",
+      "BC93244.2"
+    ]
+  },
+  {
+    "brand": "Bobcat",
+    "model": "T3571L",
+    "slug": "bobcat-t3571l",
+    "assembly_oem_parts": [
+      "BC6911769"
+    ],
+    "cushion_oem_parts": [
+      "BC93243.4",
+      "BC93244.2"
+    ]
+  },
+  {
+    "brand": "Bobcat",
+    "model": "T40140",
+    "slug": "bobcat-t40140",
+    "assembly_oem_parts": [
+      "BC6911769",
+      "BC88049.2"
+    ],
+    "cushion_oem_parts": [
+      "BC93243.4",
+      "BC93244.2"
+    ]
+  },
+  {
+    "brand": "Bobcat",
+    "model": "T40170",
+    "slug": "bobcat-t40170",
+    "assembly_oem_parts": [
+      "BC6911769",
+      "BC88049.2"
+    ],
+    "cushion_oem_parts": [
+      "BC93243.4",
+      "BC93244.2"
+    ]
+  },
+  {
+    "brand": "Caterpillar",
+    "model": "TH255C",
+    "slug": "caterpillar-th255c",
+    "assembly_oem_parts": [
+      "CT298-8726",
+      "CT444-3404"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Caterpillar",
+    "model": "TH336",
+    "slug": "caterpillar-th336",
+    "assembly_oem_parts": [
+      "CT315-3904",
+      "CT320-9298",
+      "CT325-7693",
+      "CT450-9505"
+    ],
+    "cushion_oem_parts": [
+      "CT322-8055",
+      "CT322-8057",
+      "CT329-5289"
+    ]
+  },
+  {
+    "brand": "Caterpillar",
+    "model": "TH337",
+    "slug": "caterpillar-th337",
+    "assembly_oem_parts": [
+      "CT315-3904",
+      "CT320-9298",
+      "CT325-7693",
+      "CT450-9505"
+    ],
+    "cushion_oem_parts": [
+      "CT322-8055",
+      "CT322-8057",
+      "CT329-5289"
+    ]
+  },
+  {
+    "brand": "Caterpillar",
+    "model": "TH350B",
+    "slug": "caterpillar-th350b",
+    "assembly_oem_parts": [
+      "CT174-1134",
+      "CT232-4769",
+      "CT232-4770",
+      "CT232-4771",
+      "CT2324772"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Caterpillar",
+    "model": "TH406",
+    "slug": "caterpillar-th406",
+    "assembly_oem_parts": [
+      "CT315-3904",
+      "CT320-9298",
+      "CT325-7693",
+      "CT325-7694",
+      "CT450-9505"
+    ],
+    "cushion_oem_parts": [
+      "CT322-8055",
+      "CT322-8057",
+      "CT329-5289",
+      "CT389-1947",
+      "CT389-1951"
+    ]
+  },
+  {
+    "brand": "Caterpillar",
+    "model": "TH407",
+    "slug": "caterpillar-th407",
+    "assembly_oem_parts": [
+      "CT315-3904",
+      "CT320-9298",
+      "CT325-7693",
+      "CT325-7694",
+      "CT450-9505"
+    ],
+    "cushion_oem_parts": [
+      "CT322-8055",
+      "CT322-8057",
+      "CT329-5289",
+      "CT389-1947",
+      "CT389-1951"
+    ]
+  },
+  {
+    "brand": "Caterpillar",
+    "model": "TH407C",
+    "slug": "caterpillar-th407c",
+    "assembly_oem_parts": [
+      "CT315-3904",
+      "CT320-9298",
+      "CT325-7693",
+      "CT451-8374",
+      "CT463-2072"
+    ],
+    "cushion_oem_parts": [
+      "CT322-8080",
+      "CT329-5289"
+    ]
+  },
+  {
+    "brand": "Caterpillar",
+    "model": "TH414C",
+    "slug": "caterpillar-th414c",
+    "assembly_oem_parts": [
+      "CT320-9298",
+      "CT450-9505",
+      "CT451-8374",
+      "CT463-2072"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Caterpillar",
+    "model": "TH460B",
+    "slug": "caterpillar-th460b",
+    "assembly_oem_parts": [
+      "CT174-1134",
+      "CT232-4769",
+      "CT232-4770",
+      "CT232-4771",
+      "CT2324772"
+    ],
+    "cushion_oem_parts": [
+      "CT213-4566",
+      "CT213-4567",
+      "CT213-4569"
+    ]
+  },
+  {
+    "brand": "Caterpillar",
+    "model": "TH514C",
+    "slug": "caterpillar-th514c",
+    "assembly_oem_parts": [
+      "CT315-3904",
+      "CT320-9298",
+      "CT325-7693",
+      "CT451-8374",
+      "CT463-2072"
+    ],
+    "cushion_oem_parts": [
+      "CT329-5289"
+    ]
+  },
+  {
+    "brand": "Caterpillar",
+    "model": "TL1055",
+    "slug": "caterpillar-tl1055",
+    "assembly_oem_parts": [
+      "CT298-8722"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Caterpillar",
+    "model": "TL1055C",
+    "slug": "caterpillar-tl1055c",
+    "assembly_oem_parts": [
+      "CT298-8722"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Caterpillar",
+    "model": "TL1055D",
+    "slug": "caterpillar-tl1055d",
+    "assembly_oem_parts": [
+      "CT329-2962"
+    ],
+    "cushion_oem_parts": [
+      "CT319-7697"
+    ]
+  },
+  {
+    "brand": "Caterpillar",
+    "model": "TL1255",
+    "slug": "caterpillar-tl1255",
+    "assembly_oem_parts": [
+      "CT298-8722"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Caterpillar",
+    "model": "TL1255D",
+    "slug": "caterpillar-tl1255d",
+    "assembly_oem_parts": [
+      "CT329-2962"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Caterpillar",
+    "model": "TL642",
+    "slug": "caterpillar-tl642",
+    "assembly_oem_parts": [
+      "CT298-8722"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Caterpillar",
+    "model": "TL943",
+    "slug": "caterpillar-tl943",
+    "assembly_oem_parts": [
+      "CT298-8722"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Caterpillar",
+    "model": "TL943C",
+    "slug": "caterpillar-tl943c",
+    "assembly_oem_parts": [
+      "CT298-8722"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Caterpillar",
+    "model": "TL943D",
+    "slug": "caterpillar-tl943d",
+    "assembly_oem_parts": [
+      "CT329-2962"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Columbia",
+    "model": "BC2-L-36A",
+    "slug": "columbia-bc2-l-36a",
+    "assembly_oem_parts": [
+      "CO51700-00",
+      "CO51701-00",
+      "CO51718-05",
+      "CO51722-09",
+      "CO51723-09"
+    ],
+    "cushion_oem_parts": [
+      "CO51710-04",
+      "CO51711-04",
+      "CO51712-04"
+    ]
+  },
+  {
+    "brand": "Columbia",
+    "model": "BC2-L-36S",
+    "slug": "columbia-bc2-l-36s",
+    "assembly_oem_parts": [
+      "CO51700-00",
+      "CO51701-00",
+      "CO51718-05",
+      "CO51722-09",
+      "CO51723-09"
+    ],
+    "cushion_oem_parts": [
+      "CO51710-04",
+      "CO51711-04",
+      "CO51712-04"
+    ]
+  },
+  {
+    "brand": "Columbia",
+    "model": "BC2-L-48A",
+    "slug": "columbia-bc2-l-48a",
+    "assembly_oem_parts": [
+      "CO51700-00",
+      "CO51701-00",
+      "CO51718-05",
+      "CO51722-09",
+      "CO51723-09"
+    ],
+    "cushion_oem_parts": [
+      "CO51710-04",
+      "CO51711-04",
+      "CO51712-04"
+    ]
+  },
+  {
+    "brand": "Columbia",
+    "model": "BC2-S-36A",
+    "slug": "columbia-bc2-s-36a",
+    "assembly_oem_parts": [
+      "CO51700-00",
+      "CO51701-00",
+      "CO51718-05",
+      "CO51722-09",
+      "CO51723-09"
+    ],
+    "cushion_oem_parts": [
+      "CO51710-04",
+      "CO51711-04",
+      "CO51712-04"
+    ]
+  },
+  {
+    "brand": "Columbia",
+    "model": "BC2-S-36S",
+    "slug": "columbia-bc2-s-36s",
+    "assembly_oem_parts": [
+      "CO51700-00",
+      "CO51701-00",
+      "CO51718-05",
+      "CO51722-09",
+      "CO51723-09"
+    ],
+    "cushion_oem_parts": [
+      "CO51710-04",
+      "CO51711-04",
+      "CO51712-04"
+    ]
+  },
+  {
+    "brand": "Columbia",
+    "model": "BC2-S-48A",
+    "slug": "columbia-bc2-s-48a",
+    "assembly_oem_parts": [
+      "CO51700-00",
+      "CO51701-00",
+      "CO51718-05",
+      "CO51722-09",
+      "CO51723-09"
+    ],
+    "cushion_oem_parts": [
+      "CO51710-04",
+      "CO51711-04",
+      "CO51712-04"
+    ]
+  },
+  {
+    "brand": "Columbia",
+    "model": "BC3-L-36A",
+    "slug": "columbia-bc3-l-36a",
+    "assembly_oem_parts": [
+      "CO51700-00",
+      "CO51701-00",
+      "CO51718-05",
+      "CO51722-09",
+      "CO51723-09"
+    ],
+    "cushion_oem_parts": [
+      "CO51710-04",
+      "CO51711-04",
+      "CO51712-04"
+    ]
+  },
+  {
+    "brand": "Columbia",
+    "model": "BC3-L-48A",
+    "slug": "columbia-bc3-l-48a",
+    "assembly_oem_parts": [
+      "CO51700-00",
+      "CO51701-00",
+      "CO51718-05",
+      "CO51722-09",
+      "CO51723-09"
+    ],
+    "cushion_oem_parts": [
+      "CO51710-04",
+      "CO51711-04",
+      "CO51712-04"
+    ]
+  },
+  {
+    "brand": "Columbia",
+    "model": "BC3-S-36A",
+    "slug": "columbia-bc3-s-36a",
+    "assembly_oem_parts": [
+      "CO51700-00",
+      "CO51701-00",
+      "CO51718-05",
+      "CO51722-09",
+      "CO51723-09"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Columbia",
+    "model": "BC3-S-48A",
+    "slug": "columbia-bc3-s-48a",
+    "assembly_oem_parts": [
+      "CO51700-00",
+      "CO51701-00",
+      "CO51718-05",
+      "CO51722-09",
+      "CO51723-09"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Columbia",
+    "model": "BC4-L-48A",
+    "slug": "columbia-bc4-l-48a",
+    "assembly_oem_parts": [
+      "CO51700-00",
+      "CO51701-00",
+      "CO51718-05",
+      "CO51722-09",
+      "CO51723-09"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Columbia",
+    "model": "EX21-F",
+    "slug": "columbia-ex21-f",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "CO52980-96"
+    ]
+  },
+  {
+    "brand": "Columbia",
+    "model": "EX21-T",
+    "slug": "columbia-ex21-t",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "CO52980-96"
+    ]
+  },
+  {
+    "brand": "Columbia",
+    "model": "IR23",
+    "slug": "columbia-ir23",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "CO52932-08",
+      "CO52946-08"
+    ]
+  },
+  {
+    "brand": "Columbia",
+    "model": "IS12",
+    "slug": "columbia-is12",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "CO52932-08",
+      "CO52946-08"
+    ]
+  },
+  {
+    "brand": "Cushman",
+    "model": "TITAN 898335",
+    "slug": "cushman-titan-898335",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "CU886220"
+    ]
+  },
+  {
+    "brand": "Cushman",
+    "model": "TITAN 898336",
+    "slug": "cushman-titan-898336",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "CU886220"
+    ]
+  },
+  {
+    "brand": "Cushman",
+    "model": "TITAN 898341",
+    "slug": "cushman-titan-898341",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "CU886220"
+    ]
+  },
+  {
+    "brand": "Cushman",
+    "model": "TITAN 898348",
+    "slug": "cushman-titan-898348",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "CU886220"
+    ]
+  },
+  {
+    "brand": "Cushman",
+    "model": "TITAN 898349",
+    "slug": "cushman-titan-898349",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "CU886220"
+    ]
+  },
+  {
+    "brand": "E-Z-GO",
+    "model": "INDUSTRIAL 875AE",
+    "slug": "e-z-go-industrial-875ae",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "EZ33014G01",
+      "EZ33014G04",
+      "EZ33704G01",
+      "EZ33704G02",
+      "EZ33704G03",
+      "EZ34660G01",
+      "EZ34660G02",
+      "EZ34660G03"
+    ]
+  },
+  {
+    "brand": "E-Z-GO",
+    "model": "INDUSTRIAL 875E",
+    "slug": "e-z-go-industrial-875e",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "EZ33704G01",
+      "EZ33704G02",
+      "EZ33704G03",
+      "EZ34660G01",
+      "EZ34660G02",
+      "EZ34660G03"
+    ]
+  },
+  {
+    "brand": "E-Z-GO",
+    "model": "INDUSTRIAL 875PE",
+    "slug": "e-z-go-industrial-875pe",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "EZ27546G1",
+      "EZ27546G2",
+      "EZ27546G3",
+      "EZ33704G01",
+      "EZ33704G02",
+      "EZ33704G03",
+      "EZ34660G01",
+      "EZ34660G02",
+      "EZ34660G03"
+    ]
+  },
+  {
+    "brand": "E-Z-GO",
+    "model": "INDUSTRIAL 881E",
+    "slug": "e-z-go-industrial-881e",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "EZ33704G01",
+      "EZ33704G02",
+      "EZ33704G03",
+      "EZ34660G01",
+      "EZ34660G02",
+      "EZ34660G03"
+    ]
+  },
+  {
+    "brand": "Factory Cat",
+    "model": "x  x",
+    "slug": "factory-cat-x-x",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "FC8-142",
+      "FC8-143"
+    ]
+  },
+  {
+    "brand": "Genie",
+    "model": "GTGTH-1544",
+    "slug": "genie-gtgth-1544",
+    "assembly_oem_parts": [
+      "GN9.4610.0050"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Genie",
+    "model": "GTGTH-636",
+    "slug": "genie-gtgth-636",
+    "assembly_oem_parts": [
+      "GN123574",
+      "GN1263769",
+      "GN218102"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Genie",
+    "model": "GTH-1048",
+    "slug": "genie-gth-1048",
+    "assembly_oem_parts": [
+      "GN7-197-01"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Genie",
+    "model": "GTH-1056",
+    "slug": "genie-gth-1056",
+    "assembly_oem_parts": [
+      "GN123574",
+      "GN218102",
+      "GN7-197-01"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Genie",
+    "model": "GTH-1544",
+    "slug": "genie-gth-1544",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "GN7.0740.0472GT",
+      "GN7.0740.0473GT",
+      "GN7.0740.0474GT",
+      "GN7.0740.0475GT"
+    ]
+  },
+  {
+    "brand": "Genie",
+    "model": "GTH-2506",
+    "slug": "genie-gth-2506",
+    "assembly_oem_parts": [
+      "GN09.4610.0017",
+      "GN09.4610.0021"
+    ],
+    "cushion_oem_parts": [
+      "GN07.0703.0508",
+      "GN07.0703.0509",
+      "GN09.4610.0035"
+    ]
+  },
+  {
+    "brand": "Genie",
+    "model": "GTH-3007",
+    "slug": "genie-gth-3007",
+    "assembly_oem_parts": [
+      "GN09.4610.0021"
+    ],
+    "cushion_oem_parts": [
+      "GN07.0703.0508",
+      "GN09.4610.0035"
+    ]
+  },
+  {
+    "brand": "Genie",
+    "model": "GTH-5519",
+    "slug": "genie-gth-5519",
+    "assembly_oem_parts": [
+      "GN09.4610.0017",
+      "GN09.4610.0024",
+      "GN09.4610.0042",
+      "GN09.4610.0056"
+    ],
+    "cushion_oem_parts": [
+      "GN07.0703.0508",
+      "GN07.0703.0509"
+    ]
+  },
+  {
+    "brand": "Genie",
+    "model": "GTH-5519S",
+    "slug": "genie-gth-5519s",
+    "assembly_oem_parts": [
+      "GN09.4610.0024",
+      "GN09.4610.0042"
+    ],
+    "cushion_oem_parts": [
+      "GN07.0703.0508",
+      "GN07.0703.0509"
+    ]
+  },
+  {
+    "brand": "Genie",
+    "model": "GTH-644",
+    "slug": "genie-gth-644",
+    "assembly_oem_parts": [
+      "GN123574"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Genie",
+    "model": "GTH-842",
+    "slug": "genie-gth-842",
+    "assembly_oem_parts": [
+      "GN123574"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Genie",
+    "model": "GTH-844",
+    "slug": "genie-gth-844",
+    "assembly_oem_parts": [
+      "GN123574",
+      "GN218102"
+    ],
+    "cushion_oem_parts": [
+      "GN1253474",
+      "GN1253475"
+    ]
+  },
+  {
+    "brand": "Genie",
+    "model": "x  x",
+    "slug": "genie-x-x",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "GB210170",
+      "GN123137",
+      "GN123137GT"
+    ]
+  },
+  {
+    "brand": "JCB",
+    "model": "506-36",
+    "slug": "jcb-506-36",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "JC333/F2931",
+      "JC40/910489",
+      "JC40/910651",
+      "JC40/910654",
+      "JC40/910689"
+    ]
+  },
+  {
+    "brand": "JCB",
+    "model": "506C",
+    "slug": "jcb-506c",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "JC40/203401",
+      "JC40/906802"
+    ]
+  },
+  {
+    "brand": "JCB",
+    "model": "506C HL",
+    "slug": "jcb-506c-hl",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "JC40/203401"
+    ]
+  },
+  {
+    "brand": "JCB",
+    "model": "507-42",
+    "slug": "jcb-507-42",
+    "assembly_oem_parts": [
+      "JC332/",
+      "JC333/"
+    ],
+    "cushion_oem_parts": [
+      "JC40/910651",
+      "JC40/910654",
+      "JC40/910689"
+    ]
+  },
+  {
+    "brand": "JCB",
+    "model": "508C",
+    "slug": "jcb-508c",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "JC40/203301",
+      "JC40/203402",
+      "JC40/906802"
+    ]
+  },
+  {
+    "brand": "JCB",
+    "model": "509-42",
+    "slug": "jcb-509-42",
+    "assembly_oem_parts": [
+      "JC332/",
+      "JC333/"
+    ],
+    "cushion_oem_parts": [
+      "JC40/910651",
+      "JC40/910654",
+      "JC40/910689"
+    ]
+  },
+  {
+    "brand": "JCB",
+    "model": "510-56",
+    "slug": "jcb-510-56",
+    "assembly_oem_parts": [
+      "JC332/",
+      "JC333/"
+    ],
+    "cushion_oem_parts": [
+      "JC40/910651",
+      "JC40/910654",
+      "JC40/910689"
+    ]
+  },
+  {
+    "brand": "JCB",
+    "model": "512-56",
+    "slug": "jcb-512-56",
+    "assembly_oem_parts": [
+      "JC332/",
+      "JC333/"
+    ],
+    "cushion_oem_parts": [
+      "JC40/910651",
+      "JC40/910654",
+      "JC40/910689"
+    ]
+  },
+  {
+    "brand": "JCB",
+    "model": "514-56",
+    "slug": "jcb-514-56",
+    "assembly_oem_parts": [
+      "JC332/",
+      "JC333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "520-50",
+    "slug": "jcb-520-50",
+    "assembly_oem_parts": [
+      "JC332/"
+    ],
+    "cushion_oem_parts": [
+      "JC40/204601",
+      "JC40/204603",
+      "JC40/204701",
+      "JC40/204702"
+    ]
+  },
+  {
+    "brand": "JCB",
+    "model": "520LE",
+    "slug": "jcb-520le",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "JC40/204602",
+      "JC40/204604",
+      "JC40/205605",
+      "JC40/206703",
+      "JC40/206706",
+      "JC40/212705"
+    ]
+  },
+  {
+    "brand": "JCB",
+    "model": "524-50",
+    "slug": "jcb-524-50",
+    "assembly_oem_parts": [
+      "JC332/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "525-60",
+    "slug": "jcb-525-60",
+    "assembly_oem_parts": [
+      "JC332/",
+      "JC333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "525-60AG",
+    "slug": "jcb-525-60ag",
+    "assembly_oem_parts": [
+      "JC332/",
+      "JC333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "527-55",
+    "slug": "jcb-527-55",
+    "assembly_oem_parts": [
+      "JC332/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "535-125",
+    "slug": "jcb-535-125",
+    "assembly_oem_parts": [
+      "JC332/",
+      "JC333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "535-140",
+    "slug": "jcb-535-140",
+    "assembly_oem_parts": [
+      "JC332/",
+      "JC333/"
+    ],
+    "cushion_oem_parts": [
+      "JC333/F2931",
+      "JC40/910489"
+    ]
+  },
+  {
+    "brand": "JCB",
+    "model": "535-95",
+    "slug": "jcb-535-95",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "JC40/910489"
+    ]
+  },
+  {
+    "brand": "JCB",
+    "model": "541-70WM",
+    "slug": "jcb-541-70wm",
+    "assembly_oem_parts": [
+      "JC332/",
+      "JC333/"
+    ],
+    "cushion_oem_parts": [
+      "JC335/A1557",
+      "JC335/A1558",
+      "JC335/H3269",
+      "JC335/H3271"
+    ]
+  },
+  {
+    "brand": "JCB",
+    "model": "550-80",
+    "slug": "jcb-550-80",
+    "assembly_oem_parts": [
+      "JC332/",
+      "JC333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "C0054535-125",
+    "slug": "jcb-c0054535-125",
+    "assembly_oem_parts": [
+      "JC333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "C0085506-36",
+    "slug": "jcb-c0085506-36",
+    "assembly_oem_parts": [
+      "JC333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "C0088506-36",
+    "slug": "jcb-c0088506-36",
+    "assembly_oem_parts": [
+      "JC333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "C0091525-60",
+    "slug": "jcb-c0091525-60",
+    "assembly_oem_parts": [
+      "JC333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "C4873506-36",
+    "slug": "jcb-c4873506-36",
+    "assembly_oem_parts": [
+      "JC332/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "C5775506-36",
+    "slug": "jcb-c5775506-36",
+    "assembly_oem_parts": [
+      "JC332/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "C7991506-36",
+    "slug": "jcb-c7991506-36",
+    "assembly_oem_parts": [
+      "JC335/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "D1331525-60",
+    "slug": "jcb-d1331525-60",
+    "assembly_oem_parts": [
+      "JC333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "D1354535-125",
+    "slug": "jcb-d1354535-125",
+    "assembly_oem_parts": [
+      "JC333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "D1371541-70WM",
+    "slug": "jcb-d1371541-70wm",
+    "assembly_oem_parts": [
+      "JC333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "D1397535-125",
+    "slug": "jcb-d1397535-125",
+    "assembly_oem_parts": [
+      "JC333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "D1403535-125",
+    "slug": "jcb-d1403535-125",
+    "assembly_oem_parts": [
+      "JC333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "D1405535-125",
+    "slug": "jcb-d1405535-125",
+    "assembly_oem_parts": [
+      "JC333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "D1407525-60",
+    "slug": "jcb-d1407525-60",
+    "assembly_oem_parts": [
+      "JC333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "E5268541-70WM",
+    "slug": "jcb-e5268541-70wm",
+    "assembly_oem_parts": [
+      "JC333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "E8079541-70WM",
+    "slug": "jcb-e8079541-70wm",
+    "assembly_oem_parts": [
+      "JC334/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "F1819541-70WM",
+    "slug": "jcb-f1819541-70wm",
+    "assembly_oem_parts": [
+      "JC334/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "F1826541-70WM",
+    "slug": "jcb-f1826541-70wm",
+    "assembly_oem_parts": [
+      "JC334/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "F8306535-125",
+    "slug": "jcb-f8306535-125",
+    "assembly_oem_parts": [
+      "JC332/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "G2305541-70WM",
+    "slug": "jcb-g2305541-70wm",
+    "assembly_oem_parts": [
+      "JC332/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "LE",
+    "slug": "jcb-le",
+    "assembly_oem_parts": [
+      "JC40/212700520",
+      "JC40/212800520",
+      "JC40/214800520",
+      "JC40/214900520",
+      "JC40/215300520",
+      "JC40/215400520"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "TLT2.0G",
+    "slug": "jcb-tlt2-0g",
+    "assembly_oem_parts": [
+      "JC40216300"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "TLT3.0DHL",
+    "slug": "jcb-tlt3-0dhl",
+    "assembly_oem_parts": [
+      "JC40216300"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "TLT3.5D-2WD",
+    "slug": "jcb-tlt3-5d-2wd",
+    "assembly_oem_parts": [
+      "JC40216300"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "TLT3.5D-4WD",
+    "slug": "jcb-tlt3-5d-4wd",
+    "assembly_oem_parts": [
+      "JC40216300"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JCB",
+    "model": "V4006520-40",
+    "slug": "jcb-v4006520-40",
+    "assembly_oem_parts": [
+      "JC332/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JLG",
+    "model": "1043",
+    "slug": "jlg-1043",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "JL70027028"
+    ]
+  },
+  {
+    "brand": "JLG",
+    "model": "1644",
+    "slug": "jlg-1644",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "JL70023179",
+      "JL70024858",
+      "JL70025483",
+      "JL70025485",
+      "JL70025489"
+    ]
+  },
+  {
+    "brand": "JLG",
+    "model": "1732",
+    "slug": "jlg-1732",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "JL70023179",
+      "JL70024858",
+      "JL70025483",
+      "JL70025485",
+      "JL70025489",
+      "JL70025491"
+    ]
+  },
+  {
+    "brand": "JLG",
+    "model": "3507",
+    "slug": "jlg-3507",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "JL3986654",
+      "JL3986676",
+      "JL7028742",
+      "JL7028743"
+    ]
+  },
+  {
+    "brand": "JLG",
+    "model": "3508",
+    "slug": "jlg-3508",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "JL3986654",
+      "JL3986676",
+      "JL7028742",
+      "JL7028743"
+    ]
+  },
+  {
+    "brand": "JLG",
+    "model": "3509",
+    "slug": "jlg-3509",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "JL3986654",
+      "JL3986676",
+      "JL7028742",
+      "JL7028743"
+    ]
+  },
+  {
+    "brand": "JLG",
+    "model": "3512",
+    "slug": "jlg-3512",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "JL3986654",
+      "JL3986676",
+      "JL7028742",
+      "JL7028743"
+    ]
+  },
+  {
+    "brand": "JLG",
+    "model": "3513",
+    "slug": "jlg-3513",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "JL3986654",
+      "JL3986676",
+      "JL7028742",
+      "JL7028743"
+    ]
+  },
+  {
+    "brand": "JLG",
+    "model": "3614RS",
+    "slug": "jlg-3614rs",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "JL70025483",
+      "JL70025485"
+    ]
+  },
+  {
+    "brand": "JLG",
+    "model": "4007",
+    "slug": "jlg-4007",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "JL3986654",
+      "JL3986676",
+      "JL7028742",
+      "JL7028743"
+    ]
+  },
+  {
+    "brand": "JLG",
+    "model": "4017RS",
+    "slug": "jlg-4017rs",
+    "assembly_oem_parts": [
+      "JL10011502933614"
+    ],
+    "cushion_oem_parts": [
+      "JL70025483",
+      "JL70025485"
+    ]
+  },
+  {
+    "brand": "JLG",
+    "model": "642",
+    "slug": "jlg-642",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "JL70027028"
+    ]
+  },
+  {
+    "brand": "JLG",
+    "model": "742",
+    "slug": "jlg-742",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "JL70027028"
+    ]
+  },
+  {
+    "brand": "JLG",
+    "model": "943",
+    "slug": "jlg-943",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "JL70027028"
+    ]
+  },
+  {
+    "brand": "JLG",
+    "model": "G10-43A",
+    "slug": "jlg-g10-43a",
+    "assembly_oem_parts": [
+      "JL91563158"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JLG",
+    "model": "G10-55A",
+    "slug": "jlg-g10-55a",
+    "assembly_oem_parts": [
+      "JL91563158"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JLG",
+    "model": "G10-55A ACCUPLACE",
+    "slug": "jlg-g10-55a-accuplace",
+    "assembly_oem_parts": [
+      "JL91563158"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JLG",
+    "model": "G5-19A",
+    "slug": "jlg-g5-19a",
+    "assembly_oem_parts": [
+      "JL3980047"
+    ],
+    "cushion_oem_parts": [
+      "JL70020226"
+    ]
+  },
+  {
+    "brand": "JLG",
+    "model": "G6-23A",
+    "slug": "jlg-g6-23a",
+    "assembly_oem_parts": [
+      "JL3980047"
+    ],
+    "cushion_oem_parts": [
+      "JL70020226"
+    ]
+  },
+  {
+    "brand": "JLG",
+    "model": "G6-42A",
+    "slug": "jlg-g6-42a",
+    "assembly_oem_parts": [
+      "JL2915166",
+      "JL2915167"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "JLG",
+    "model": "RS",
+    "slug": "jlg-rs",
+    "assembly_oem_parts": [
+      "JL10011502933614"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Lancer Boss",
+    "model": "D1359541-70WM",
+    "slug": "lancer-boss-d1359541-70wm",
+    "assembly_oem_parts": [
+      "LB333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Lancer Boss",
+    "model": "D1403541-70WM",
+    "slug": "lancer-boss-d1403541-70wm",
+    "assembly_oem_parts": [
+      "LB333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Lancer Boss",
+    "model": "D1405541-70WM",
+    "slug": "lancer-boss-d1405541-70wm",
+    "assembly_oem_parts": [
+      "LB333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Lancer Boss",
+    "model": "D1422541-70WM",
+    "slug": "lancer-boss-d1422541-70wm",
+    "assembly_oem_parts": [
+      "LB333/"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Lancer Boss",
+    "model": "F2929",
+    "slug": "lancer-boss-f2929",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "LB333/"
+    ]
+  },
+  {
+    "brand": "Lull",
+    "model": "644E-42",
+    "slug": "lull-644e-42",
+    "assembly_oem_parts": [
+      "LU1001101085",
+      "LU3980039"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Lull",
+    "model": "944E-42",
+    "slug": "lull-944e-42",
+    "assembly_oem_parts": [
+      "LU1001101085",
+      "LU3980039"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Lull",
+    "model": "YesNoC-54",
+    "slug": "lull-yesnoc-54",
+    "assembly_oem_parts": [
+      "LU1001101085",
+      "LU3980039"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "1035 L TURBO LSU S3 E2",
+    "slug": "manitou-1035-l-turbo-lsu-s3-e2",
+    "assembly_oem_parts": [
+      "MN252758MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "420 S2",
+    "slug": "manitou-420-s2",
+    "assembly_oem_parts": [
+      "MN537102072071BT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "420 S3 E2",
+    "slug": "manitou-420-s3-e2",
+    "assembly_oem_parts": [
+      "MN208521BT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "526 COMPACT SA",
+    "slug": "manitou-526-compact-sa",
+    "assembly_oem_parts": [
+      "MN191022MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "625 TURBO S2 E3",
+    "slug": "manitou-625-turbo-s2-e3",
+    "assembly_oem_parts": [
+      "MN275989MT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "626 S2",
+    "slug": "manitou-626-s2",
+    "assembly_oem_parts": [
+      "MN187922MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "627 COMPACT SB E2",
+    "slug": "manitou-627-compact-sb-e2",
+    "assembly_oem_parts": [
+      "MN253006MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "634 120 PS ST3B",
+    "slug": "manitou-634-120-ps-st3b",
+    "assembly_oem_parts": [
+      "MN302225MLT",
+      "MN797917MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "732 EASY 75D ST3B S1",
+    "slug": "manitou-732-easy-75d-st3b-s1",
+    "assembly_oem_parts": [
+      "MN314253MT",
+      "MN941306MT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "845 120 LSU S3 E2",
+    "slug": "manitou-845-120-lsu-s3-e2",
+    "assembly_oem_parts": [
+      "MN224820MLT",
+      "MN253004MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "940 L TURBO",
+    "slug": "manitou-940-l-turbo",
+    "assembly_oem_parts": [
+      "MN219203MT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "BT 425 S2",
+    "slug": "manitou-bt-425-s2",
+    "assembly_oem_parts": [
+      "MN537102072071BT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "BT 425 S3 E2",
+    "slug": "manitou-bt-425-s3-e2",
+    "assembly_oem_parts": [
+      "MN208521BT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "BTI 220 S2",
+    "slug": "manitou-bti-220-s2",
+    "assembly_oem_parts": [
+      "MN537102072071BT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "BTI 220 S3 E2",
+    "slug": "manitou-bti-220-s3-e2",
+    "assembly_oem_parts": [
+      "MN208521BT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "BTI 225 S2",
+    "slug": "manitou-bti-225-s2",
+    "assembly_oem_parts": [
+      "MN537102072071BT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "BTI 225 S3 E2",
+    "slug": "manitou-bti-225-s3-e2",
+    "assembly_oem_parts": [
+      "MN208521BT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MLT 1035 L TURBO LSU S4 E3",
+    "slug": "manitou-mlt-1035-l-turbo-lsu-s4-e3",
+    "assembly_oem_parts": [
+      "MN252758MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MLT 523 TURBO MONO ULTRA SB E2",
+    "slug": "manitou-mlt-523-turbo-mono-ultra-sb-e2",
+    "assembly_oem_parts": [
+      "MN252758MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MLT 526 SA",
+    "slug": "manitou-mlt-526-sa",
+    "assembly_oem_parts": [
+      "MN191022MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MLT 626 TURBO S2",
+    "slug": "manitou-mlt-626-turbo-s2",
+    "assembly_oem_parts": [
+      "MN187922MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MLT 626 TURBO ULTRA S2",
+    "slug": "manitou-mlt-626-turbo-ultra-s2",
+    "assembly_oem_parts": [
+      "MN187922MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MLT 626 ULTRA S2",
+    "slug": "manitou-mlt-626-ultra-s2",
+    "assembly_oem_parts": [
+      "MN187922MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MLT 627 COMPACT SB E2",
+    "slug": "manitou-mlt-627-compact-sb-e2",
+    "assembly_oem_parts": [
+      "MN191022MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MLT 627 MONO ULTRA COMPACT SB E2",
+    "slug": "manitou-mlt-627-mono-ultra-compact-sb-e2",
+    "assembly_oem_parts": [
+      "MN191022MLT",
+      "MN253006MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MLT 627 SB E2",
+    "slug": "manitou-mlt-627-sb-e2",
+    "assembly_oem_parts": [
+      "MN191022MLT",
+      "MN253006MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MLT 634 120 ST3B",
+    "slug": "manitou-mlt-634-120-st3b",
+    "assembly_oem_parts": [
+      "MN302225MLT",
+      "MN797917MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MLT 634 120D ST4 S1",
+    "slug": "manitou-mlt-634-120d-st4-s1",
+    "assembly_oem_parts": [
+      "MN302225MLT",
+      "MN797917MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MLT 725",
+    "slug": "manitou-mlt-725",
+    "assembly_oem_parts": [
+      "MN187922MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MLT 725 S2",
+    "slug": "manitou-mlt-725-s2",
+    "assembly_oem_parts": [
+      "MN187922MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MLT 725 TURBO S2",
+    "slug": "manitou-mlt-725-turbo-s2",
+    "assembly_oem_parts": [
+      "MN187922MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MLT 735 100 ST3B",
+    "slug": "manitou-mlt-735-100-st3b",
+    "assembly_oem_parts": [
+      "MN302225MLT",
+      "MN797917MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MLT 735 120 PS ST3B",
+    "slug": "manitou-mlt-735-120-ps-st3b",
+    "assembly_oem_parts": [
+      "MN302225MLT",
+      "MN797917MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MLT 735 120 ST3B",
+    "slug": "manitou-mlt-735-120-st3b",
+    "assembly_oem_parts": [
+      "MN302225MLT",
+      "MN797917MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MLT 845 120 LSU S3 E3",
+    "slug": "manitou-mlt-845-120-lsu-s3-e3",
+    "assembly_oem_parts": [
+      "MN253004MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MLT 940 L 120 LSU S3 E2",
+    "slug": "manitou-mlt-940-l-120-lsu-s3-e2",
+    "assembly_oem_parts": [
+      "MN224820MLT",
+      "MN253004MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MLT 940 L 120 LSU S3 E3",
+    "slug": "manitou-mlt-940-l-120-lsu-s3-e3",
+    "assembly_oem_parts": [
+      "MN253004MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MT 1030 S S4 E3",
+    "slug": "manitou-mt-1030-s-s4-e3",
+    "assembly_oem_parts": [
+      "MN253006MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MT 1030 S TURBO S4 E3",
+    "slug": "manitou-mt-1030-s-turbo-s4-e3",
+    "assembly_oem_parts": [
+      "MN253006MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MT 1340 SL TURBO S3 E2",
+    "slug": "manitou-mt-1340-sl-turbo-s3-e2",
+    "assembly_oem_parts": [
+      "MN224820MLT",
+      "MN253004MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MT 1740 SL TURBO S2",
+    "slug": "manitou-mt-1740-sl-turbo-s2",
+    "assembly_oem_parts": [
+      "MN224820MLT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Manitou",
+    "model": "MT 932 EASY 75D ST3B S1",
+    "slug": "manitou-mt-932-easy-75d-st3b-s1",
+    "assembly_oem_parts": [
+      "MN314253MT",
+      "MN941306MT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P101.10HM",
+    "slug": "merlo-p101-10hm",
+    "assembly_oem_parts": [
+      "RF055866"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P120.10HM",
+    "slug": "merlo-p120-10hm",
+    "assembly_oem_parts": [
+      "RF070284"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P26.6LPT",
+    "slug": "merlo-p26-6lpt",
+    "assembly_oem_parts": [
+      "RF055866"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P26.6SP",
+    "slug": "merlo-p26-6sp",
+    "assembly_oem_parts": [
+      "RF055866"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P26.6SPT",
+    "slug": "merlo-p26-6spt",
+    "assembly_oem_parts": [
+      "RF055866"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P27.6PLUS",
+    "slug": "merlo-p27-6plus",
+    "assembly_oem_parts": [
+      "RF094130"
+    ],
+    "cushion_oem_parts": [
+      "RF079157",
+      "RF079158"
+    ]
+  },
+  {
+    "brand": "Merlo",
+    "model": "P28.7KT",
+    "slug": "merlo-p28-7kt",
+    "assembly_oem_parts": [
+      "RF055866"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P30.7KT",
+    "slug": "merlo-p30-7kt",
+    "assembly_oem_parts": [
+      "RF055866"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P30.9KT",
+    "slug": "merlo-p30-9kt",
+    "assembly_oem_parts": [
+      "RF055866"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P33.7KT",
+    "slug": "merlo-p33-7kt",
+    "assembly_oem_parts": [
+      "RF055866"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P34.10TOP",
+    "slug": "merlo-p34-10top",
+    "assembly_oem_parts": [
+      "RF070284"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P35.12K",
+    "slug": "merlo-p35-12k",
+    "assembly_oem_parts": [
+      "RF055866"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P35.13K",
+    "slug": "merlo-p35-13k",
+    "assembly_oem_parts": [
+      "RF055866"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P35.7KT",
+    "slug": "merlo-p35-7kt",
+    "assembly_oem_parts": [
+      "RF055866"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P36.7",
+    "slug": "merlo-p36-7",
+    "assembly_oem_parts": [
+      "RF070284"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P37.10CS",
+    "slug": "merlo-p37-10cs",
+    "assembly_oem_parts": [
+      "RF070284"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P37.12PLUS",
+    "slug": "merlo-p37-12plus",
+    "assembly_oem_parts": [
+      "RF070284"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P39.10",
+    "slug": "merlo-p39-10",
+    "assembly_oem_parts": [
+      "RF070284"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P40.16",
+    "slug": "merlo-p40-16",
+    "assembly_oem_parts": [
+      "RF055866"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P40.16K",
+    "slug": "merlo-p40-16k",
+    "assembly_oem_parts": [
+      "RF055866"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P40.7CS",
+    "slug": "merlo-p40-7cs",
+    "assembly_oem_parts": [
+      "RF070284"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "P75.9CS",
+    "slug": "merlo-p75-9cs",
+    "assembly_oem_parts": [
+      "RF070284"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "ROTO40.18S",
+    "slug": "merlo-roto40-18s",
+    "assembly_oem_parts": [
+      "RF070284"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "TF38.",
+    "slug": "merlo-tf38-",
+    "assembly_oem_parts": [
+      "RF070284"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "TF38.10-120",
+    "slug": "merlo-tf38-10-120",
+    "assembly_oem_parts": [
+      "RF070284"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Merlo",
+    "model": "TF38.7-120",
+    "slug": "merlo-tf38-7-120",
+    "assembly_oem_parts": [
+      "RF070291"
+    ],
+    "cushion_oem_parts": [
+      "RF066584",
+      "RF066585"
+    ]
+  },
+  {
+    "brand": "Merlo",
+    "model": "TF42.7CS-140",
+    "slug": "merlo-tf42-7cs-140",
+    "assembly_oem_parts": [
+      "RF094134"
+    ],
+    "cushion_oem_parts": [
+      "RF066584",
+      "RF066585"
+    ]
+  },
+  {
+    "brand": "Minuteman",
+    "model": "RIDE 26",
+    "slug": "minuteman-ride-26",
+    "assembly_oem_parts": [
+      "MH281085E"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Minuteman",
+    "model": "RIDE 30",
+    "slug": "minuteman-ride-30",
+    "assembly_oem_parts": [
+      "MH01071360E"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "28",
+    "slug": "powerboss-28",
+    "assembly_oem_parts": [
+      "PB01071360ADMIRAL",
+      "PB281085ADMIRAL"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "35",
+    "slug": "powerboss-35",
+    "assembly_oem_parts": [
+      "PB00016240ADMIRAL"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "ADMIRAL 30",
+    "slug": "powerboss-admiral-30",
+    "assembly_oem_parts": [
+      "PB01071360ADMIRAL"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "ADMIRAL 32",
+    "slug": "powerboss-admiral-32",
+    "assembly_oem_parts": [
+      "PB281085ADMIRAL"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "ADMIRAL 38C",
+    "slug": "powerboss-admiral-38c",
+    "assembly_oem_parts": [
+      "PB01071360ADMIRAL"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "APEX 47",
+    "slug": "powerboss-apex-47",
+    "assembly_oem_parts": [
+      "PB01071360ADMIRAL"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "CSS82",
+    "slug": "powerboss-css82",
+    "assembly_oem_parts": [
+      "PB3300406",
+      "PB3300489",
+      "PB3342103",
+      "PB3344473"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "CSS90",
+    "slug": "powerboss-css90",
+    "assembly_oem_parts": [
+      "PB3300406",
+      "PB3342103"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "ISS82",
+    "slug": "powerboss-iss82",
+    "assembly_oem_parts": [
+      "PB3300489"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "M82",
+    "slug": "powerboss-m82",
+    "assembly_oem_parts": [
+      "PB3300406",
+      "PB3342103"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "M90",
+    "slug": "powerboss-m90",
+    "assembly_oem_parts": [
+      "PB3300406",
+      "PB3342103"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "RS50",
+    "slug": "powerboss-rs50",
+    "assembly_oem_parts": [
+      "PB31001029"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "RS50E",
+    "slug": "powerboss-rs50e",
+    "assembly_oem_parts": [
+      "PB31001029"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "SW10X",
+    "slug": "powerboss-sw10x",
+    "assembly_oem_parts": [
+      "PB3300406"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "SW62",
+    "slug": "powerboss-sw62",
+    "assembly_oem_parts": [
+      "PB3300406"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "SW62E",
+    "slug": "powerboss-sw62e",
+    "assembly_oem_parts": [
+      "PB3300406"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "SW65E",
+    "slug": "powerboss-sw65e",
+    "assembly_oem_parts": [
+      "PB3300406"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "SW9X",
+    "slug": "powerboss-sw9x",
+    "assembly_oem_parts": [
+      "PB6202199"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "TSS80",
+    "slug": "powerboss-tss80",
+    "assembly_oem_parts": [
+      "PB3300489"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "TSS82",
+    "slug": "powerboss-tss82",
+    "assembly_oem_parts": [
+      "PB3300406",
+      "PB3300489",
+      "PB3342103",
+      "PB3344473"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "TSS90",
+    "slug": "powerboss-tss90",
+    "assembly_oem_parts": [
+      "PB3300406",
+      "PB3342103"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Powerboss",
+    "model": "x  x",
+    "slug": "powerboss-x-x",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "PB3316892"
+    ]
+  },
+  {
+    "brand": "Powerboss",
+    "model": "XRCE",
+    "slug": "powerboss-xrce",
+    "assembly_oem_parts": [
+      "PB6202199"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Skyjack",
+    "model": "SJ1044TH",
+    "slug": "skyjack-sj1044th",
+    "assembly_oem_parts": [
+      "SJ9-190534"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Skyjack",
+    "model": "SJ1056TH",
+    "slug": "skyjack-sj1056th",
+    "assembly_oem_parts": [
+      "SJ9-190534"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Skyjack",
+    "model": "SJ1256THS",
+    "slug": "skyjack-sj1256ths",
+    "assembly_oem_parts": [
+      "SJ9-190534"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Skyjack",
+    "model": "SJ643TH",
+    "slug": "skyjack-sj643th",
+    "assembly_oem_parts": [
+      "SJ9-190534"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Skyjack",
+    "model": "SJ843TH",
+    "slug": "skyjack-sj843th",
+    "assembly_oem_parts": [
+      "SJ9-190534"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Skytrack",
+    "model": "10042",
+    "slug": "skytrack-10042",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "SA8864045",
+      "SA8864046"
+    ]
+  },
+  {
+    "brand": "Skytrack",
+    "model": "10054",
+    "slug": "skytrack-10054",
+    "assembly_oem_parts": [
+      "SA1001101085",
+      "SA3980039",
+      "SA8864037",
+      "SA8864044"
+    ],
+    "cushion_oem_parts": [
+      "SA8864045",
+      "SA8864046"
+    ]
+  },
+  {
+    "brand": "Skytrack",
+    "model": "6036",
+    "slug": "skytrack-6036",
+    "assembly_oem_parts": [
+      "SA1001101085",
+      "SA3980039"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Skytrack",
+    "model": "6042",
+    "slug": "skytrack-6042",
+    "assembly_oem_parts": [
+      "SA1001101085",
+      "SA3980039"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Skytrack",
+    "model": "8042",
+    "slug": "skytrack-8042",
+    "assembly_oem_parts": [
+      "SA1001101085",
+      "SA3980039",
+      "SA8864037",
+      "SA8864044"
+    ],
+    "cushion_oem_parts": [
+      "SA8864045",
+      "SA8864046"
+    ]
+  },
+  {
+    "brand": "Skytrack",
+    "model": "YesNo",
+    "slug": "skytrack-yesno",
+    "assembly_oem_parts": [
+      "SA1001101085",
+      "SA3980039"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Skytrack",
+    "model": "YesNo10042",
+    "slug": "skytrack-yesno10042",
+    "assembly_oem_parts": [
+      "SA8864037",
+      "SA8864044"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Taylor Dunn",
+    "model": "AN-170",
+    "slug": "taylor-dunn-an-170",
+    "assembly_oem_parts": [
+      "TA90-160-00"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Taylor Dunn",
+    "model": "AN-171",
+    "slug": "taylor-dunn-an-171",
+    "assembly_oem_parts": [
+      "TA90-160-00",
+      "TA90-160-01"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Taylor Dunn",
+    "model": "SC-159",
+    "slug": "taylor-dunn-sc-159",
+    "assembly_oem_parts": [
+      "TA90-160-00"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Taylor Dunn",
+    "model": "x  x",
+    "slug": "taylor-dunn-x-x",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "TA90-175-",
+      "TA90-178-",
+      "TA90-179-"
+    ]
+  },
+  {
+    "brand": "Tennant",
+    "model": "550",
+    "slug": "tennant-550",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "TN51710",
+      "TN51878"
+    ]
+  },
+  {
+    "brand": "Tennant",
+    "model": "550E",
+    "slug": "tennant-550e",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "TN51710",
+      "TN51878"
+    ]
+  },
+  {
+    "brand": "Tennant",
+    "model": "550ESRS",
+    "slug": "tennant-550esrs",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "TN51710",
+      "TN51878"
+    ]
+  },
+  {
+    "brand": "Tennant",
+    "model": "550SRS",
+    "slug": "tennant-550srs",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "TN51710",
+      "TN51878"
+    ]
+  },
+  {
+    "brand": "Tennant",
+    "model": "6550",
+    "slug": "tennant-6550",
+    "assembly_oem_parts": [
+      "TN53845"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Tennant",
+    "model": "6650XP",
+    "slug": "tennant-6650xp",
+    "assembly_oem_parts": [
+      "TN377070"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Tennant",
+    "model": "6650XS",
+    "slug": "tennant-6650xs",
+    "assembly_oem_parts": [
+      "TN377070"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Tennant",
+    "model": "7400",
+    "slug": "tennant-7400",
+    "assembly_oem_parts": [
+      "TN53845"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Tennant",
+    "model": "7400D",
+    "slug": "tennant-7400d",
+    "assembly_oem_parts": [
+      "TN53845",
+      "TN77235"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Tennant",
+    "model": "8200",
+    "slug": "tennant-8200",
+    "assembly_oem_parts": [
+      "TN53845"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Tennant",
+    "model": "8210",
+    "slug": "tennant-8210",
+    "assembly_oem_parts": [
+      "TN53845"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Tennant",
+    "model": "8400",
+    "slug": "tennant-8400",
+    "assembly_oem_parts": [
+      "TN53845",
+      "TN77235"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Tennant",
+    "model": "8410",
+    "slug": "tennant-8410",
+    "assembly_oem_parts": [
+      "TN77235"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Tennant",
+    "model": "92",
+    "slug": "tennant-92",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "TN51710",
+      "TN51878"
+    ]
+  },
+  {
+    "brand": "Tennant",
+    "model": "92AA",
+    "slug": "tennant-92aa",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "TN51710",
+      "TN51878"
+    ]
+  },
+  {
+    "brand": "Tennant",
+    "model": "92GR",
+    "slug": "tennant-92gr",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "TN51878"
+    ]
+  },
+  {
+    "brand": "Tennant",
+    "model": "92GRHD",
+    "slug": "tennant-92grhd",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "TN51878"
+    ]
+  },
+  {
+    "brand": "Tennant",
+    "model": "ATLV4300",
+    "slug": "tennant-atlv4300",
+    "assembly_oem_parts": [
+      "TN367676"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Tennant",
+    "model": "M17",
+    "slug": "tennant-m17",
+    "assembly_oem_parts": [
+      "TN1201428"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Tennant",
+    "model": "M20",
+    "slug": "tennant-m20",
+    "assembly_oem_parts": [
+      "TN1022105",
+      "TN1072456"
+    ],
+    "cushion_oem_parts": [
+      "TN9012594",
+      "TN9012595"
+    ]
+  },
+  {
+    "brand": "Tennant",
+    "model": "M30",
+    "slug": "tennant-m30",
+    "assembly_oem_parts": [
+      "TN1022105"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Tennant",
+    "model": "S12",
+    "slug": "tennant-s12",
+    "assembly_oem_parts": [
+      "TN384665"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Tennant",
+    "model": "S20",
+    "slug": "tennant-s20",
+    "assembly_oem_parts": [
+      "TN1056543"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Tennant",
+    "model": "S30XP",
+    "slug": "tennant-s30xp",
+    "assembly_oem_parts": [
+      "TN1022105"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Tennant",
+    "model": "SENTINEL",
+    "slug": "tennant-sentinel",
+    "assembly_oem_parts": [
+      "TN765283",
+      "TN768493"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Tennant",
+    "model": "T12",
+    "slug": "tennant-t12",
+    "assembly_oem_parts": [
+      "TN9009836"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Tennant",
+    "model": "T16",
+    "slug": "tennant-t16",
+    "assembly_oem_parts": [
+      "TN1053205",
+      "TN1201428"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Tennant",
+    "model": "T20",
+    "slug": "tennant-t20",
+    "assembly_oem_parts": [
+      "TN1022105"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Tennant",
+    "model": "x  x",
+    "slug": "tennant-x-x",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "TN1048932",
+      "TN375411",
+      "TN79605",
+      "TN9005082"
+    ]
+  },
+  {
+    "brand": "Tennant",
+    "model": "YesNo",
+    "slug": "tennant-yesno",
+    "assembly_oem_parts": [
+      "TN377070",
+      "TN53845"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Tennant",
+    "model": "YesNo7400",
+    "slug": "tennant-yesno7400",
+    "assembly_oem_parts": [
+      "TN77235"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Terex",
+    "model": "625",
+    "slug": "terex-625",
+    "assembly_oem_parts": [
+      "TX09.4610.0017AGRILIFT",
+      "TX09.4610.0021AGRILIFT"
+    ],
+    "cushion_oem_parts": []
+  },
+  {
+    "brand": "Terex",
+    "model": "AGRILIFT 625",
+    "slug": "terex-agrilift-625",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "TX07.0703.0508",
+      "TX07.0703.0509",
+      "TX09.4610.0035"
+    ]
+  },
+  {
+    "brand": "Terex",
+    "model": "AGRILIFT 730",
+    "slug": "terex-agrilift-730",
+    "assembly_oem_parts": [],
+    "cushion_oem_parts": [
+      "TX07.0703.0508"
+    ]
+  },
+  {
+    "brand": "Terex",
+    "model": "TELELIFT 2506",
+    "slug": "terex-telelift-2506",
+    "assembly_oem_parts": [
+      "TX09.4610.0017AGRILIFT",
+      "TX09.4610.0021AGRILIFT"
+    ],
+    "cushion_oem_parts": [
+      "TX07.0703.0508",
+      "TX07.0703.0509"
+    ]
+  }
+]

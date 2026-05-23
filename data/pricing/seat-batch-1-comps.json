@@ -1,0 +1,24 @@
+[
+  {
+    "sku": "CT298-8722",
+    "compPrice": 949.43,
+    "compSource": "magnasource",
+    "compUrl": "https://www.magnasourceinc.com/itemdetail/CT2988722",
+    "cost": 694.33
+  },
+  {
+    "sku": "GN123137",
+    "compPrice": 209.68,
+    "compSource": "magnasource",
+    "compUrl": "https://www.magnasourceinc.com/itemdetail/GN123137",
+    "cost": 117.3
+  },
+  {
+    "sku": "JL91563158",
+    "compPrice": 988.78,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_91563158_SUSPENSION_SEAT_2_IN_SEAT_BELT_p/91563158.htm",
+    "cost": 777.65,
+    "compDiscount": 0.01
+  }
+]
