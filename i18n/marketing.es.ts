@@ -79,24 +79,24 @@ export default {
       { value: '<30', label: 'Minutos para completar' },
     ],
     screenshots: {
-      eyebrow: 'Vista previa',
+      eyebrow: 'Vista previa de la app',
       title: 'Mira exactamente lo que recibes',
-      sub: 'Panel de progreso, módulos interactivos y certificado inmediato — todo conforme a OSHA, optimizado para móvil y diseñado para avanzar rápido.',
+      sub: 'Estudia los cinco módulos gratis en la app. Paga $49 solo cuando estés listo para el examen final.',
       cards: [
         {
-          alt: 'Panel de entrenamiento con 5 módulos, progreso y examen final',
-          caption: "<span class='font-semibold'>Panel de entrenamiento</span> — Sigue tu progreso en los 5 módulos y desbloquea el examen final.",
+          alt: 'Pestaña Aprender de la app móvil con cinco módulos OSHA y meta diaria de progreso',
+          caption: "<span class='font-semibold'>Panel de entrenamiento</span> — Los cinco módulos gratis para estudiar. Sigue tu progreso y desbloquea el examen final.",
           badge: '5 módulos',
         },
         {
-          alt: 'Módulo interactivo con tarjetas de práctica y formato de tocar para revelar',
+          alt: 'Tarjetas interactivas en la app móvil con respuestas al tocar',
           caption: "<span class='font-semibold'>Tarjetas interactivas</span> — Toca para revelar respuestas. Sin diapositivas aburridas.",
           badge: 'Interactivo',
         },
         {
-          alt: 'Pantalla de examen aprobado con botones para descargar certificado y tarjeta',
-          caption: "<span class='font-semibold'>Certificado inmediato</span> — Descarga tu PDF y tarjeta al instante.",
-          badge: 'Descarga inmediata',
+          alt: 'Pantalla de progreso en la app con todos los módulos completos y estado certificado OSHA',
+          caption: "<span class='font-semibold'>Listo para certificarte</span> — Termina cada módulo gratis y paga $49 solo en el examen final.",
+          badge: 'Certificado OSHA',
         },
       ],
     },

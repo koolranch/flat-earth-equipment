@@ -1,59 +1,67 @@
+import { getDefaultStateFines, type StateOshaFines } from '@/lib/safety/osha-penalties';
+
 export interface ForkliftStateInfo {
-  code: string;          // "oh"
-  name: string;          // "Ohio"
-  fines: { min: number; max: number }; // OSHA penalty $
-  hasStatePlan: boolean; // true if OSHA-approved state plan
+  code: string;
+  name: string;
+  fines: StateOshaFines;
+  hasStatePlan: boolean;
+}
+
+const FINES = getDefaultStateFines();
+
+function state(code: string, name: string, hasStatePlan: boolean): ForkliftStateInfo {
+  return { code, name, fines: FINES, hasStatePlan };
 }
 
 export const forkliftStates: ForkliftStateInfo[] = [
-  { code: "al", name: "Alabama", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "ak", name: "Alaska", fines: { min: 0, max: 15625 }, hasStatePlan: true },
-  { code: "az", name: "Arizona", fines: { min: 0, max: 15625 }, hasStatePlan: true },
-  { code: "ar", name: "Arkansas", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "ca", name: "California", fines: { min: 0, max: 15625 }, hasStatePlan: true },
-  { code: "co", name: "Colorado", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "ct", name: "Connecticut", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "de", name: "Delaware", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "fl", name: "Florida", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "ga", name: "Georgia", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "hi", name: "Hawaii", fines: { min: 0, max: 15625 }, hasStatePlan: true },
-  { code: "id", name: "Idaho", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "il", name: "Illinois", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "in", name: "Indiana", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "ia", name: "Iowa", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "ks", name: "Kansas", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "ky", name: "Kentucky", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "la", name: "Louisiana", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "me", name: "Maine", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "md", name: "Maryland", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "ma", name: "Massachusetts", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "mi", name: "Michigan", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "mn", name: "Minnesota", fines: { min: 0, max: 15625 }, hasStatePlan: true },
-  { code: "ms", name: "Mississippi", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "mo", name: "Missouri", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "mt", name: "Montana", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "ne", name: "Nebraska", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "nv", name: "Nevada", fines: { min: 0, max: 15625 }, hasStatePlan: true },
-  { code: "nh", name: "New Hampshire", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "nj", name: "New Jersey", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "nm", name: "New Mexico", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "ny", name: "New York", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "nc", name: "North Carolina", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "nd", name: "North Dakota", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "oh", name: "Ohio", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "ok", name: "Oklahoma", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "or", name: "Oregon", fines: { min: 0, max: 15625 }, hasStatePlan: true },
-  { code: "pa", name: "Pennsylvania", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "ri", name: "Rhode Island", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "sc", name: "South Carolina", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "sd", name: "South Dakota", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "tn", name: "Tennessee", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "tx", name: "Texas", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "ut", name: "Utah", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "vt", name: "Vermont", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "va", name: "Virginia", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "wa", name: "Washington", fines: { min: 0, max: 15625 }, hasStatePlan: true },
-  { code: "wv", name: "West Virginia", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "wi", name: "Wisconsin", fines: { min: 0, max: 15625 }, hasStatePlan: false },
-  { code: "wy", name: "Wyoming", fines: { min: 0, max: 15625 }, hasStatePlan: false }
-]; 
+  state('al', 'Alabama', false),
+  state('ak', 'Alaska', true),
+  state('az', 'Arizona', true),
+  state('ar', 'Arkansas', false),
+  state('ca', 'California', true),
+  state('co', 'Colorado', false),
+  state('ct', 'Connecticut', false),
+  state('de', 'Delaware', false),
+  state('fl', 'Florida', false),
+  state('ga', 'Georgia', false),
+  state('hi', 'Hawaii', true),
+  state('id', 'Idaho', false),
+  state('il', 'Illinois', false),
+  state('in', 'Indiana', false),
+  state('ia', 'Iowa', false),
+  state('ks', 'Kansas', false),
+  state('ky', 'Kentucky', false),
+  state('la', 'Louisiana', false),
+  state('me', 'Maine', false),
+  state('md', 'Maryland', false),
+  state('ma', 'Massachusetts', false),
+  state('mi', 'Michigan', false),
+  state('mn', 'Minnesota', true),
+  state('ms', 'Mississippi', false),
+  state('mo', 'Missouri', false),
+  state('mt', 'Montana', false),
+  state('ne', 'Nebraska', false),
+  state('nv', 'Nevada', true),
+  state('nh', 'New Hampshire', false),
+  state('nj', 'New Jersey', false),
+  state('nm', 'New Mexico', false),
+  state('ny', 'New York', false),
+  state('nc', 'North Carolina', false),
+  state('nd', 'North Dakota', false),
+  state('oh', 'Ohio', false),
+  state('ok', 'Oklahoma', false),
+  state('or', 'Oregon', true),
+  state('pa', 'Pennsylvania', false),
+  state('ri', 'Rhode Island', false),
+  state('sc', 'South Carolina', false),
+  state('sd', 'South Dakota', false),
+  state('tn', 'Tennessee', false),
+  state('tx', 'Texas', false),
+  state('ut', 'Utah', false),
+  state('vt', 'Vermont', false),
+  state('va', 'Virginia', false),
+  state('wa', 'Washington', true),
+  state('wv', 'West Virginia', false),
+  state('wi', 'Wisconsin', false),
+  state('wy', 'Wyoming', false),
+];

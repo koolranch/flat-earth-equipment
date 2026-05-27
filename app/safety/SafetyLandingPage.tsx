@@ -141,7 +141,7 @@ export default async function SafetyLandingPage({
       <LogoCloud t={t} />
 
       <main className="section">
-        {showScreenshots && <SafetyScreenshots t={t} />}
+        {showScreenshots && <SafetyScreenshots t={t} locale={locale} />}
 
         <div className="container mx-auto px-4">
           {!isAuthed && (

@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { forkliftStates, ForkliftStateInfo } from "../../../../src/data/forkliftStates";
-import CheckoutButton from "@/app/safety/CheckoutButton";
 import Link from "next/link";
 import StateHero from "@/components/state/StateHero";
 import StickyCTA from "@/components/state/StickyCTA";
@@ -11,63 +10,12 @@ import HowItWorksStrip from "@/components/HowItWorksStrip";
 import PricingStrip from "@/components/training/PricingStrip";
 import { generatePageAlternates } from "@/app/seo-defaults";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import SafetyScreenshots from "@/app/safety/components/SafetyScreenshots";
+import { getMarketingDict } from "@/i18n";
+import { FEDERAL_OSHA_PENALTIES_2025 } from "@/lib/safety/osha-penalties";
 
 // Disable dynamic params to ensure only pre-generated pages are served
 export const dynamicParams = false
-
-// OSHA fine mapping by state (sample data - you can update with real values)
-const OSHA_FINES_BY_STATE: { [key: string]: { serious: number, willful: number, stateName: string } } = {
-  'al': { serious: 15625, willful: 156259, stateName: 'Alabama' },
-  'ak': { serious: 15625, willful: 156259, stateName: 'Alaska' },
-  'az': { serious: 15625, willful: 156259, stateName: 'Arizona' },
-  'ar': { serious: 15625, willful: 156259, stateName: 'Arkansas' },
-  'ca': { serious: 18000, willful: 180000, stateName: 'California' }, // CA has higher fines
-  'co': { serious: 15625, willful: 156259, stateName: 'Colorado' },
-  'ct': { serious: 15625, willful: 156259, stateName: 'Connecticut' },
-  'de': { serious: 15625, willful: 156259, stateName: 'Delaware' },
-  'fl': { serious: 15625, willful: 156259, stateName: 'Florida' },
-  'ga': { serious: 15625, willful: 156259, stateName: 'Georgia' },
-  'hi': { serious: 15625, willful: 156259, stateName: 'Hawaii' },
-  'id': { serious: 15625, willful: 156259, stateName: 'Idaho' },
-  'il': { serious: 15625, willful: 156259, stateName: 'Illinois' },
-  'in': { serious: 15625, willful: 156259, stateName: 'Indiana' },
-  'ia': { serious: 15625, willful: 156259, stateName: 'Iowa' },
-  'ks': { serious: 15625, willful: 156259, stateName: 'Kansas' },
-  'ky': { serious: 15625, willful: 156259, stateName: 'Kentucky' },
-  'la': { serious: 15625, willful: 156259, stateName: 'Louisiana' },
-  'me': { serious: 15625, willful: 156259, stateName: 'Maine' },
-  'md': { serious: 15625, willful: 156259, stateName: 'Maryland' },
-  'ma': { serious: 15625, willful: 156259, stateName: 'Massachusetts' },
-  'mi': { serious: 17000, willful: 170000, stateName: 'Michigan' }, // MI has state plan
-  'mn': { serious: 15625, willful: 156259, stateName: 'Minnesota' },
-  'ms': { serious: 15625, willful: 156259, stateName: 'Mississippi' },
-  'mo': { serious: 15625, willful: 156259, stateName: 'Missouri' },
-  'mt': { serious: 15625, willful: 156259, stateName: 'Montana' },
-  'ne': { serious: 15625, willful: 156259, stateName: 'Nebraska' },
-  'nv': { serious: 15625, willful: 156259, stateName: 'Nevada' },
-  'nh': { serious: 15625, willful: 156259, stateName: 'New Hampshire' },
-  'nj': { serious: 15625, willful: 156259, stateName: 'New Jersey' },
-  'nm': { serious: 15625, willful: 156259, stateName: 'New Mexico' },
-  'ny': { serious: 15625, willful: 156259, stateName: 'New York' },
-  'nc': { serious: 15625, willful: 156259, stateName: 'North Carolina' },
-  'nd': { serious: 15625, willful: 156259, stateName: 'North Dakota' },
-  'oh': { serious: 15625, willful: 156259, stateName: 'Ohio' },
-  'ok': { serious: 15625, willful: 156259, stateName: 'Oklahoma' },
-  'or': { serious: 16000, willful: 160000, stateName: 'Oregon' }, // OR has state plan
-  'pa': { serious: 15625, willful: 156259, stateName: 'Pennsylvania' },
-  'ri': { serious: 15625, willful: 156259, stateName: 'Rhode Island' },
-  'sc': { serious: 15625, willful: 156259, stateName: 'South Carolina' },
-  'sd': { serious: 15625, willful: 156259, stateName: 'South Dakota' },
-  'tn': { serious: 15625, willful: 156259, stateName: 'Tennessee' },
-  'tx': { serious: 15625, willful: 156259, stateName: 'Texas' },
-  'ut': { serious: 15625, willful: 156259, stateName: 'Utah' },
-  'vt': { serious: 15625, willful: 156259, stateName: 'Vermont' },
-  'va': { serious: 15625, willful: 156259, stateName: 'Virginia' },
-  'wa': { serious: 16000, willful: 160000, stateName: 'Washington' }, // WA has state plan
-  'wv': { serious: 15625, willful: 156259, stateName: 'West Virginia' },
-  'wi': { serious: 15625, willful: 156259, stateName: 'Wisconsin' },
-  'wy': { serious: 15625, willful: 156259, stateName: 'Wyoming' }
-}
 
 // Nearby states for internal linking (reduces bounce, improves SEO)
 const NEARBY_STATES: Record<string, string[]> = {
@@ -193,6 +141,7 @@ function Breadcrumb({ stateName }: { stateName: string }) {
 export default function StateForkliftPage({ params }: Props) {
   const info = forkliftStates.find((s: ForkliftStateInfo) => s.code === params.state) ?? notFound();
   const metrics = getStateMetrics(params.state);
+  const t = getMarketingDict('en');
   const nearbyStates = (NEARBY_STATES[info.code] || [])
     .map(code => forkliftStates.find(s => s.code === code))
     .filter(Boolean) as ForkliftStateInfo[];
@@ -200,7 +149,7 @@ export default function StateForkliftPage({ params }: Props) {
   return (
     <>
       {/* Enhanced SEO Product JSON-LD */}
-      <StateProductJsonLd />
+      <StateProductJsonLd stateCode={info.code} />
       
       {/* Breadcrumb Schema */}
       <BreadcrumbJsonLd
@@ -247,6 +196,8 @@ export default function StateForkliftPage({ params }: Props) {
         )}
       </section>
 
+      <SafetyScreenshots t={t} locale="en" compact />
+
       {/* FINES TABLE - Pain point to motivate action */}
       <section className="space-y-6">
         <h2 className="text-2xl font-semibold">OSHA Penalties in {info.name}</h2>
@@ -262,12 +213,12 @@ export default function StateForkliftPage({ params }: Props) {
               <tr className="border-b border-orange-100">
                 <td className="py-4 px-6 text-gray-900">Serious / Other-Than-Serious</td>
                 <td className="py-4 px-6 font-semibold text-orange-600">
-                  ${info.fines.min.toLocaleString()} – ${info.fines.max.toLocaleString()}
+                  ${info.fines.min.toLocaleString()} – ${info.fines.seriousMax.toLocaleString()}
                 </td>
               </tr>
               <tr className="bg-orange-50">
                 <td className="py-4 px-6 text-gray-900">Willful / Repeat</td>
-                <td className="py-4 px-6 font-semibold text-red-600">Up to ${info.fines.max.toLocaleString()}</td>
+                <td className="py-4 px-6 font-semibold text-red-600">Up to ${info.fines.willfulMax.toLocaleString()}</td>
               </tr>
             </tbody>
           </table>
@@ -275,7 +226,8 @@ export default function StateForkliftPage({ params }: Props) {
         <p className="text-sm text-gray-600 bg-amber-50 border-l-4 border-amber-400 p-4 rounded">
           {info.hasStatePlan
             ? `💡 ${info.name} operates its own OSHA-approved State Plan; fines may differ from federal maximums.`
-            : `💡 ${info.name} is regulated directly by Federal OSHA.`}
+            : `💡 ${info.name} is regulated directly by Federal OSHA.`}{' '}
+          Federal maximums shown reflect OSHA&apos;s {FEDERAL_OSHA_PENALTIES_2025.effectiveDate} inflation adjustment.
         </p>
       </section>
 
@@ -386,44 +338,45 @@ export default function StateForkliftPage({ params }: Props) {
           <HowItWorksStrip />
         </section>
 
-      {/* SECONDARY CTA WITH STATE-SPECIFIC TESTIMONIAL */}
-      <section className="bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl p-8 md:p-10 text-center space-y-6">
-        <h2 className="text-3xl md:text-4xl font-bold">Ready to Get Certified in {info.name}?</h2>
+      {/* Testimonial band — routes to pricing instead of a duplicate checkout CTA */}
+      <section className="rounded-2xl border border-slate-800 bg-slate-950 p-8 text-center text-white md:p-10 space-y-6">
+        <p className="text-sm font-semibold uppercase tracking-wide text-orange-400">Trusted in {info.name}</p>
+        <h2 className="text-3xl font-bold md:text-4xl">Ready to Get Certified in {info.name}?</h2>
         
-        {/* State-Specific Testimonial */}
-        <div className="max-w-3xl mx-auto bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+        <div className="mx-auto max-w-3xl rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
           {metrics.testimonial ? (
             <>
-              <p className="text-lg italic mb-3">
-                "{metrics.testimonial.quote}"
+              <p className="mb-3 text-lg italic text-slate-200">
+                &ldquo;{metrics.testimonial.quote}&rdquo;
               </p>
-              <p className="text-sm font-semibold">
+              <p className="text-sm font-semibold text-orange-300">
                 — {metrics.testimonial.name}, {metrics.testimonial.title} in {metrics.testimonial.city}
               </p>
             </>
           ) : (
             <>
-              <p className="text-lg italic mb-3">
-                "Quick, easy, and affordable. Finished my certification during lunch break. The mobile version worked great on my phone!"
+              <p className="mb-3 text-lg italic text-slate-200">
+                &ldquo;Quick, easy, and affordable. Finished my certification during lunch break. The mobile version worked great on my phone!&rdquo;
               </p>
-              <p className="text-sm font-semibold">
+              <p className="text-sm font-semibold text-orange-300">
                 — Certified Operator in {info.name}
               </p>
             </>
           )}
         </div>
         
-        <div className="pt-4">
-          <CheckoutButton 
-            courseSlug="forklift"
-            price="49"
-            priceId="price_1SToXBHJI548rO8JZnnTwKER"
-          />
-          <p className="mt-4 text-sm text-orange-100">
-            ✓ Instant download 24/7 · ✓ Money-back guarantee · ✓ Free retakes
+        <div className="pt-2">
+          <Link
+            href="#pricing"
+            className="inline-flex min-h-[44px] items-center justify-center rounded-xl bg-orange-500 px-8 py-3 font-semibold text-white transition-colors hover:bg-orange-600"
+          >
+            View plans &amp; pricing — from $49
+          </Link>
+          <p className="mt-4 text-sm text-slate-400">
+            Free app to study all 5 modules · Pay $49 only at the final exam · Instant download · Free retakes
           </p>
-          <Link href="/safety" className="inline-block mt-3 text-orange-100 hover:text-white underline text-sm">
-            View all plans and pricing →
+          <Link href="/safety" className="mt-3 inline-block text-sm text-orange-300 underline hover:text-orange-200">
+            Compare all training options →
           </Link>
         </div>
       </section>
@@ -443,10 +396,10 @@ export default function StateForkliftPage({ params }: Props) {
 
             <div className="mt-5 flex flex-wrap gap-3">
               <Link 
-                href="/safety/forklift" 
-                className="inline-flex items-center rounded-xl bg-orange-600 px-5 py-3 font-semibold text-white hover:bg-orange-700 shadow-md hover:shadow-lg transition-all"
+                href="#pricing" 
+                className="inline-flex items-center rounded-xl bg-orange-600 px-5 py-3 font-semibold text-white shadow-md transition-all hover:bg-orange-700 hover:shadow-lg"
               >
-                Start Course – $49
+                View Pricing — $49
               </Link>
               <Link 
                 href="/training#pricing" 
@@ -2229,13 +2182,9 @@ export default function StateForkliftPage({ params }: Props) {
                   priceCurrency: "USD",
                   url: `https://www.flatearthequipment.com/safety/forklift/${info.code}`,
                 },
-                aggregateRating: {
-                  "@type": "AggregateRating",
-                  ratingValue: "4.8",
-                  reviewCount: "5247",
-                  bestRating: "5",
-                  worstRating: "1",
-                },
+                // NOTE: aggregateRating intentionally omitted. Per Google's
+                // structured data policy, ratings must come from real
+                // reviews of this specific course.
               },
               {
                 "@type": "FAQPage",

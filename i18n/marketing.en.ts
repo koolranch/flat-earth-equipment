@@ -82,24 +82,24 @@ export default {
       { value: '<30', label: 'Minutes to Complete' },
     ],
     screenshots: {
-      eyebrow: 'Product Preview',
+      eyebrow: 'Mobile App Preview',
       title: 'See exactly what you get',
-      sub: 'Dashboard, interactive modules, and instant certificate — all OSHA-aligned, mobile-friendly, and built for speed.',
+      sub: 'Study all five modules free in the app. Pay $49 only when you are ready for the final exam.',
       cards: [
         {
-          alt: 'Training dashboard showing 5 modules with progress tracking and final exam',
-          caption: "<span class='font-semibold'>Training Dashboard</span> — Track your progress across all 5 modules and unlock the final exam.",
+          alt: 'Mobile app Learn tab showing five OSHA training modules with daily goal progress',
+          caption: "<span class='font-semibold'>Training Dashboard</span> — All five modules free to study. Track progress and unlock the final exam.",
           badge: '5 Modules',
         },
         {
-          alt: 'Interactive flash card module with tap-to-reveal quiz format',
+          alt: 'Interactive flash card quiz in the mobile app with tap-to-reveal answers',
           caption: "<span class='font-semibold'>Interactive Flash Cards</span> — Tap to reveal answers. No boring slides.",
           badge: 'Interactive',
         },
         {
-          alt: 'Exam passed screen showing 100% score with Download Certificate and Wallet Card buttons',
-          caption: "<span class='font-semibold'>Instant Certificate</span> — Download your PDF + wallet card immediately.",
-          badge: 'Instant Download',
+          alt: 'Mobile app progress screen showing all modules complete and OSHA certified status',
+          caption: "<span class='font-semibold'>Ready to Certify</span> — Finish every module free, then pay $49 only at the final exam.",
+          badge: 'OSHA Certified',
         },
       ],
     },
