@@ -63,8 +63,8 @@ export const CHARGER_MODULES: ChargerModule[] = [
       },
       {
         label: "Repair & Return",
-        sku: "price_1RsZDBHJI548rO8J6EAKJcSg",
-        price: 70000,
+        sku: "price_1TbkeEHJI548rO8JRm07O00v",
+        price: 65000,
         desc: "Ship your unit in (prepaid label), we refurbish & return in 3-5 business days.",
       },
     ],
