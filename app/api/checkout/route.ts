@@ -481,6 +481,7 @@ export async function POST(req: NextRequest) {
     const session = await stripe.checkout.sessions.create({
       mode: checkoutMode,
       line_items: lineItems,
+      automatic_tax: { enabled: true },
       ...(referralPromoCodeId
         ? { discounts: [{ promotion_code: referralPromoCodeId }] }
         : { allow_promotion_codes: true }),
