@@ -7,6 +7,7 @@ import { getBlogPost } from '@/lib/mdx';
 import Link from 'next/link';
 import { generatePageAlternates } from '@/app/seo-defaults';
 import { getDisplayBrand, sanitizeCustomerFacingCopy } from '@/lib/parts/displayBrand';
+import RelatedResources from '@/components/seo/RelatedResources';
 
 const SITE_URL = 'https://www.flatearthequipment.com';
 

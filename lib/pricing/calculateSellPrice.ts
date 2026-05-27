@@ -59,17 +59,18 @@ export function calculateSellPrice(params: {
   const category = params.category ?? 'assembly';
   const notes: string[] = [];
   const minMargin = MIN_MARGIN[category];
-  const hasCost = typeof params.cost === 'number' && params.cost > 0;
+  const cost = typeof params.cost === 'number' && params.cost > 0 ? params.cost : null;
+  const hasCost = cost !== null;
 
   if (!params.compPrice || params.compPrice <= 0) {
     if (!hasCost) {
       throw new Error('Need compPrice or cost to calculate sell price');
     }
-    const sell = roundSell(params.cost * COST_MULTIPLIER_NO_COMP[category], category);
+    const sell = roundSell(cost * COST_MULTIPLIER_NO_COMP[category], category);
     return {
       sellPrice: sell,
       method: 'cost_multiplier',
-      marginPct: marginPct(params.cost!, sell),
+      marginPct: marginPct(cost, sell),
       notes: [`No comp — cost × ${COST_MULTIPLIER_NO_COMP[category]}`],
     };
   }
@@ -98,7 +99,7 @@ export function calculateSellPrice(params: {
     };
   }
 
-  const floorBased = params.cost! / (1 - minMargin);
+  const floorBased = cost / (1 - minMargin);
   let sell = Math.max(compBased, floorBased);
   let method: SellPriceResult['method'] = compBased >= floorBased ? 'comp_discount' : 'margin_floor';
 
@@ -120,7 +121,7 @@ export function calculateSellPrice(params: {
     sellPrice: sell,
     method,
     compDiscountUsed: discount,
-    marginPct: marginPct(params.cost!, sell),
+    marginPct: marginPct(cost, sell),
     notes,
   };
 }

@@ -1,20 +1,17 @@
-import type { EquipmentModelIndexEntry, ParsedSeatRow, SeatProductRecord } from './types';
+import type { EquipmentModelIndexEntry, ParsedSeatRow, SeatProductRecord, SeatProductType } from './types';
 import { brandSlug } from './brandConfig';
 
-export function normalizeOemSku(oem: string, productType?: import('./types').SeatProductType): string {
+const SEAT_SKU_SUFFIX: Record<Exclude<SeatProductType, 'assembly'>, string> = {
+  cushion_back: '-BACK',
+  cushion_bottom: '-BOTTOM',
+  cushion_set: '-SET',
+  cushion_single: '-SINGLE',
+};
+
+export function normalizeOemSku(oem: string, productType?: SeatProductType): string {
   const base = oem.toUpperCase().trim().replace(/\s+/g, '');
   if (productType && productType !== 'assembly') {
-    const suffix =
-      productType === 'cushion_back'
-        ? '-BACK'
-        : productType === 'cushion_bottom'
-          ? '-BOTTOM'
-          : productType === 'cushion_set'
-            ? '-SET'
-            : productType === 'cushion_single'
-              ? '-SINGLE'
-              : `-${productType.toUpperCase()}`;
-    return `${base}${suffix}`;
+    return `${base}${SEAT_SKU_SUFFIX[productType]}`;
   }
   return base;
 }
