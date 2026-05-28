@@ -76,6 +76,9 @@ async function main() {
   }
 
   console.log('Also append the new price IDs to TRAINING_PRICE_IDS in Vercel env.');
+  console.log('Archive legacy prices when checkout is fully migrated:');
+  console.log('  price_1RS835HJI548rO8JkMXj7FMQ');
+  console.log('  price_1RS835HJI548rO8JbvRrMwUv');
 }
 
 main().catch((error) => {

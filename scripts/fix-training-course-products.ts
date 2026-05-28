@@ -9,10 +9,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 // Known training course price IDs from the codebase
 const trainingPriceIds = [
   'price_1RSHWVHJI548rO8Jf9CJer6y', // Old BETA price ID
-  'price_1RS834HJI548rO8JpJMyGhL3', // Single operator
-  'price_1RS835HJI548rO8JkMXj7FMQ', // 5-pack
-  'price_1RS835HJI548rO8JbvRrMwUv', // 25-pack
-  'price_1RS836HJI548rO8JwlCAzg7m'  // Unlimited
+  'price_1SToXBHJI548rO8JZnnTwKER', // Single operator
+  'price_1Tc6IoHJI548rO8JjjEeZCDf', // Team 5-pack
+  'price_1Tc6IoHJI548rO8JkLXU9g6b', // Team 25-pack
+  'price_1RS836HJI548rO8JwlCAzg7m'  // Unlimited (legacy one-time)
 ]
 
 async function fixTrainingProducts() {

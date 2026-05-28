@@ -71,13 +71,13 @@ export default function TestTrainingPage() {
             <div className="border border-gray-200 rounded-lg p-6">
               <h3 className="text-xl font-semibold mb-4">5-Pack Test</h3>
               <div className="mb-4">
-                <p className="text-gray-600 mb-2">Regular price: <span className="line-through">$275</span></p>
+                <p className="text-gray-600 mb-2">Regular price: <span className="line-through">$225</span></p>
                 <p className="text-green-600 font-semibold">With TEST-FORKLIFT-100: FREE</p>
               </div>
               <CheckoutButton 
                 courseSlug="forklift"
-                price="275"
-                priceId="price_1RS835HJI548rO8JkMXj7FMQ"
+                price="225"
+                priceId="price_1Tc6IoHJI548rO8JjjEeZCDf"
                 coupon="TEST-FORKLIFT-100"
               />
             </div>
