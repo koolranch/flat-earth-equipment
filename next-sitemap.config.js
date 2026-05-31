@@ -252,12 +252,17 @@ const ADDITIONAL_CORE_PAGES = [
   '/locations',
   '/electric-vehicle-chargers',
   '/osha-operator-training',
+  '/es/safety',
 ];
 
 /** @type {import('next-sitemap').IConfig} */
 const config = {
   siteUrl: 'https://www.flatearthequipment.com',
-  generateRobotsTxt: true,
+  // Disabled: app/robots.ts is the canonical source for /robots.txt.
+  // Keeping this true regenerated a stripped-down public/robots.txt at
+  // every build, shadowing the dynamic rules in app/robots.ts on disk.
+  // The App Router route handler still wins at runtime either way.
+  generateRobotsTxt: false,
   alternateRefs: [
     { href: 'https://www.flatearthequipment.com', hreflang: 'en-US' },
     { href: 'https://www.flatearthequipment.com/es', hreflang: 'es-US' }

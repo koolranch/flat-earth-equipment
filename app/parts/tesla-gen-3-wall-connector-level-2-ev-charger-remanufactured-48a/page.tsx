@@ -135,12 +135,9 @@ export default async function TeslaGen3WallConnectorPage() {
               "name": "Core Charge",
               "value": `$${product.core_charge} (refundable)`
             }
-          ],
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.8",
-            "reviewCount": "127"
-          }
+          ]
+          // NOTE: aggregateRating intentionally omitted. Per Google's
+          // structured data policy, ratings must come from real reviews.
         })}
       </Script>
 

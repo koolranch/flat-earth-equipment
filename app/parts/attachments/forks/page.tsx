@@ -131,12 +131,9 @@ export default function ForkliftForksPage() {
               "@type": "Organization",
               "name": "Flat Earth Equipment"
             }
-          },
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.8",
-            "reviewCount": "127"
           }
+          // NOTE: aggregateRating intentionally omitted. Per Google's
+          // structured data policy, ratings must come from real reviews.
         })}
       </Script>
 

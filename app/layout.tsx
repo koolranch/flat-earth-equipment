@@ -114,6 +114,13 @@ export default async function RootLayout({
               logo: "https://www.flatearthequipment.com/logo.png",
               description:
                 "Flat Earth Equipment delivers precision-fit aftermarket forklift parts, JCB replacement parts, charger modules, lithium golf cart batteries, and OSHA-compliant forklift safety training across the United States.",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Sheridan",
+                addressRegion: "WY",
+                postalCode: "82801",
+                addressCountry: "US",
+              },
               areaServed: { "@type": "Country", name: "United States" },
               contactPoint: {
                 "@type": "ContactPoint",
