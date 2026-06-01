@@ -1,6 +1,12 @@
 import { expect, test } from '@playwright/test';
-import { userHasExamPurchaseFromRows } from '../../lib/training/exam-access-logic';
+import {
+  userHasExamPurchaseFromRows,
+  userHasOrgAssignedExamAccessFromRows,
+} from '../../lib/training/exam-access-logic';
 import { buildPerfectMobileExamAnswers, gradeMobileExamAnswers } from '../../lib/training/mobile-exam-bank';
+
+const FORKLIFT_COURSE_ID = 'f5194f6b-1750-4eef-912c-4f7807eb29ca';
+const KNIGHT_ORG_ID = 'f1de0c2d-e95c-471a-80a4-90fe367d5b01';
 
 test.describe('userHasExamPurchaseFromRows', () => {
   test('returns true for a direct forklift order', () => {
@@ -18,6 +24,38 @@ test.describe('userHasExamPurchaseFromRows', () => {
 
   test('returns false with no orders or seat claims', () => {
     expect(userHasExamPurchaseFromRows([], 0)).toBe(false);
+  });
+});
+
+test.describe('userHasOrgAssignedExamAccessFromRows', () => {
+  test('returns true for org-assigned forklift enrollment with paid seat pool', () => {
+    expect(
+      userHasOrgAssignedExamAccessFromRows(
+        [{ org_id: KNIGHT_ORG_ID, course_id: FORKLIFT_COURSE_ID }],
+        [{ org_id: KNIGHT_ORG_ID, course_id: FORKLIFT_COURSE_ID, total_seats: 50 }],
+        FORKLIFT_COURSE_ID,
+      ),
+    ).toBe(true);
+  });
+
+  test('returns false when org has no seat pool', () => {
+    expect(
+      userHasOrgAssignedExamAccessFromRows(
+        [{ org_id: KNIGHT_ORG_ID, course_id: FORKLIFT_COURSE_ID }],
+        [],
+        FORKLIFT_COURSE_ID,
+      ),
+    ).toBe(false);
+  });
+
+  test('returns false for non-forklift org enrollment', () => {
+    expect(
+      userHasOrgAssignedExamAccessFromRows(
+        [{ org_id: KNIGHT_ORG_ID, course_id: 'other-course-id' }],
+        [{ org_id: KNIGHT_ORG_ID, course_id: 'other-course-id', total_seats: 50 }],
+        FORKLIFT_COURSE_ID,
+      ),
+    ).toBe(false);
   });
 });
 
