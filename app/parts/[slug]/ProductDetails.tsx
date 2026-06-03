@@ -32,6 +32,7 @@ interface ProductDetailsProps {
     category?: string;
     compatible_models?: string[] | null;
     weight_lbs?: number | null;
+    metadata?: Record<string, unknown> | null;
   };
   variants: Variant[];
 }
@@ -60,6 +61,9 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
       // Pass weight_lbs through metadata for shipping calculators (e.g., HazMat lithium freight)
       metadata: {
         ...(part.weight_lbs ? { weight_lbs: part.weight_lbs } : {}),
+        ...((part.metadata as Record<string, unknown> | null)?.freight_cents != null
+          ? { freight_cents: (part.metadata as Record<string, unknown>).freight_cents }
+          : {}),
       },
     });
     

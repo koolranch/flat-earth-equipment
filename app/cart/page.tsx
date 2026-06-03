@@ -107,23 +107,44 @@ export default function CartPage() {
   const coreCharges = items.reduce((sum, item) => 
     sum + ((item.has_core_charge && item.core_charge) ? item.core_charge * item.quantity : 0), 0);
   
-  // Calculate freight charges - flat rate per category type
+  // Estimate freight (checkout API is authoritative)
   const freightCharges = (() => {
-    const categories = items.map(item => item.category).filter(Boolean);
     let freight = 0;
-    
-    // Check for fork categories (all fork types get one $250 charge)
-    const hasForks = categories.some(cat => 
-      cat === 'forks' || 
-      cat === 'Class II Forks' || 
-      cat === 'Class III Forks' || 
-      cat === 'Class IV Forks'
+    for (const item of items) {
+      const fc = Number(item.metadata?.freight_cents);
+      if (Number.isFinite(fc) && fc > 0) {
+        freight += (fc / 100) * Math.max(1, item.quantity);
+        continue;
+      }
+    }
+    const categories = items
+      .filter((item) => !(Number(item.metadata?.freight_cents) > 0))
+      .map((item) => item.category)
+      .filter(Boolean);
+    const hasForks = categories.some(
+      (cat) =>
+        cat === 'forks' ||
+        cat === 'Class II Forks' ||
+        cat === 'Class III Forks' ||
+        cat === 'Class IV Forks'
     );
-    if (hasForks) freight += 250;
-    
-    // Check for carpet/rug rams
+    if (hasForks) freight += 395;
     if (categories.includes('Rug / Carpet Rams')) freight += 1000;
-    
+    const mitsubishiItems = items.filter(
+      (item) =>
+        !(Number(item.metadata?.freight_cents) > 0) &&
+        (item.category === 'Mitsubishi Parts' ||
+          (item.category?.startsWith('Mitsubishi ') ?? false))
+    );
+    for (const item of mitsubishiItems) {
+      const p = item.price;
+      if (p < 25) freight += 18;
+      else if (p < 150) freight += 25;
+      else if (p < 300) freight += 31;
+      else if (p < 500) freight += 37;
+      else if (p < 650) freight += 41;
+      else freight += 50;
+    }
     return freight;
   })();
 

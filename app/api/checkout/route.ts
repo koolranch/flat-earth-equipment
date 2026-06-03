@@ -143,9 +143,34 @@ export async function POST(req: NextRequest) {
       }
       
       // Add freight charges - flat rate per category type (after all items processed)
-      // Only include categories from items that don't have free freight
-      const categories = body.items
-        .filter((item: any) => !item.metadata?.free_freight)
+      const freightEligibleItems = body.items.filter(
+        (item: any) => !item.metadata?.free_freight
+      );
+
+      // Per-SKU freight override (e.g. heavy lift cylinder assemblies)
+      for (const item of freightEligibleItems) {
+        const freightCents = Number(item.metadata?.freight_cents);
+        if (!Number.isFinite(freightCents) || freightCents <= 0) continue;
+        const qty = Math.max(1, Number(item.quantity) || 1);
+        lineItems.push({
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Freight Shipping',
+              description: `Ground shipping for ${item.name || 'equipment part'}`,
+            },
+            unit_amount: freightCents,
+          },
+          quantity: qty,
+        });
+      }
+
+      const itemsUsingCategoryFreight = freightEligibleItems.filter((item: any) => {
+        const freightCents = Number(item.metadata?.freight_cents);
+        return !(Number.isFinite(freightCents) && freightCents > 0);
+      });
+
+      const categories = itemsUsingCategoryFreight
         .map((item: any) => item.category)
         .filter(Boolean);
       
@@ -357,10 +382,9 @@ export async function POST(req: NextRequest) {
       // ── Mitsubishi (TVH-sourced) cost-based freight tiers ───────────
       // Matches TVH vendor freight matrix (slightly higher than JCB tiers).
       // Triggers on category "Mitsubishi Parts" or any "Mitsubishi *" subcategory.
-      const mitsubishiItems = body.items.filter((item: any) =>
-        !item.metadata?.free_freight &&
-        (item.category === 'Mitsubishi Parts' ||
-          (item.category && typeof item.category === 'string' && item.category.startsWith('Mitsubishi ')))
+      const mitsubishiItems = itemsUsingCategoryFreight.filter((item: any) =>
+        item.category === 'Mitsubishi Parts' ||
+        (item.category && typeof item.category === 'string' && item.category.startsWith('Mitsubishi '))
       );
 
       if (mitsubishiItems.length > 0) {
@@ -398,9 +422,10 @@ export async function POST(req: NextRequest) {
       // ── JCB cost-based freight tiers ──────────────────────────────
       // Freight is determined by the part's sell price, matching vendor tiers.
       // Each JCB item (not free_freight) gets its own freight line based on price.
-      const jcbItems = body.items.filter((item: any) =>
-        !item.metadata?.free_freight &&
-        (item.category === 'JCB Parts' || (item.category && typeof item.category === 'string' && item.category.startsWith('JCB ')))
+      const jcbItems = itemsUsingCategoryFreight.filter(
+        (item: any) =>
+          item.category === 'JCB Parts' ||
+          (item.category && typeof item.category === 'string' && item.category.startsWith('JCB '))
       );
 
       if (jcbItems.length > 0) {
