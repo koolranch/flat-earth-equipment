@@ -3,10 +3,30 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/utils/supabase/server';
+import { supabaseService } from '@/lib/supabase/service.server';
 import { 
   getOrganizationAnalytics, 
   getExecutiveAnalytics 
 } from '@/lib/enterprise/analytics';
+
+// Roles permitted to view/export org-wide analytics for a given organization.
+const ANALYTICS_ROLES = ['owner', 'admin', 'manager', 'trainer'];
+
+/**
+ * Verify the authenticated user is a member of the requested org with an
+ * analytics-capable role. Uses the service-role client so the check is not
+ * itself subject to RLS. Returns true only for a genuine, role-bearing member.
+ */
+async function userCanAccessOrg(userId: string, orgId: string): Promise<boolean> {
+  const { data: membership } = await supabaseService()
+    .from('org_members')
+    .select('role')
+    .eq('user_id', userId)
+    .eq('org_id', orgId)
+    .maybeSingle();
+
+  return !!membership && ANALYTICS_ROLES.includes(String(membership.role || '').toLowerCase());
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -27,14 +47,32 @@ export async function GET(request: NextRequest) {
     const orgIdParam = searchParams.get('org_id');
     const viewType = searchParams.get('view') || 'organization'; // organization | executive
 
-    // If executive view requested, return aggregate data
+    // If executive view requested, return aggregate data.
+    // This is cross-organization data, so restrict it to platform super admins.
     if (viewType === 'executive') {
+      const { data: superAdmin } = await supabaseService()
+        .from('org_members')
+        .select('role')
+        .eq('user_id', user.id)
+        .eq('role', 'super_admin')
+        .maybeSingle();
+
+      if (!superAdmin) {
+        return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+      }
+
       const executiveData = await getExecutiveAnalytics();
       return NextResponse.json({
         ok: true,
         type: 'executive',
         data: executiveData
       });
+    }
+
+    // If the caller supplied an org_id, never trust it as proof of access.
+    // Verify the authenticated user is a role-bearing member of that org.
+    if (orgIdParam && !(await userCanAccessOrg(user.id, orgIdParam))) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
     // Get user's org_id if not provided
@@ -126,6 +164,12 @@ export async function POST(request: NextRequest) {
         { error: 'org_id is required' },
         { status: 400 }
       );
+    }
+
+    // Never trust a caller-supplied org_id. Verify the authenticated user is a
+    // role-bearing member of the requested org before returning its data.
+    if (!(await userCanAccessOrg(user.id, org_id))) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
     // Get analytics data

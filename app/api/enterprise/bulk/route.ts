@@ -17,6 +17,26 @@ import {
   BulkOperationResult
 } from '@/lib/enterprise/bulk-operations';
 import { normalizeRole, getRolePermissions, hasPermission } from '@/lib/enterprise/rbac';
+import { supabaseService } from '@/lib/supabase/service.server';
+
+// Roles permitted to import/export an organization's roster data.
+const BULK_ROLES = ['owner', 'admin', 'manager', 'trainer'];
+
+/**
+ * Verify the authenticated user is a role-bearing member of the requested org.
+ * Uses the service-role client so the check is not itself subject to RLS. A
+ * caller-supplied org_id is never trusted as proof of access on its own.
+ */
+async function userCanAccessOrg(userId: string, orgId: string): Promise<boolean> {
+  const { data: membership } = await supabaseService()
+    .from('org_members')
+    .select('role')
+    .eq('user_id', userId)
+    .eq('org_id', orgId)
+    .maybeSingle();
+
+  return !!membership && BULK_ROLES.includes(String(membership.role || '').toLowerCase());
+}
 
 /**
  * GET - Export data or get templates
@@ -76,6 +96,11 @@ export async function GET(request: NextRequest) {
     if (action === 'export') {
       if (!orgId) {
         return NextResponse.json({ ok: false, error: 'org_id is required for export' }, { status: 400 });
+      }
+
+      // Verify the caller actually belongs to the org they're exporting.
+      if (!(await userCanAccessOrg(user.id, orgId))) {
+        return NextResponse.json({ ok: false, error: 'Access denied' }, { status: 403 });
       }
 
       if (type === 'users') {
@@ -221,6 +246,11 @@ export async function POST(request: NextRequest) {
         { ok: false, error: 'type, csv_content, and org_id are required' },
         { status: 400 }
       );
+    }
+
+    // Verify the caller actually belongs to the org they're importing into.
+    if (!(await userCanAccessOrg(user.id, org_id))) {
+      return NextResponse.json({ ok: false, error: 'Access denied' }, { status: 403 });
     }
 
     if (type === 'users') {
