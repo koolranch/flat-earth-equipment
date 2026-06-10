@@ -145,6 +145,25 @@ export default function CartPage() {
       else if (p < 650) freight += 41;
       else freight += 50;
     }
+    // Lithium battery HazMat freight estimate — mirrors the authoritative
+    // tiers in /api/checkout (Class 9 ground, free on 3+ batteries).
+    const lithiumItems = items.filter(
+      (item) =>
+        !(Number(item.metadata?.freight_cents) > 0) &&
+        item.category === 'Lithium Batteries'
+    );
+    const lithiumQty = lithiumItems.reduce((sum, item) => sum + Math.max(1, item.quantity), 0);
+    if (lithiumQty > 0 && lithiumQty < 3) {
+      for (const item of lithiumItems) {
+        const weight = Number(item.metadata?.weight_lbs ?? 100);
+        let perUnit = 349;
+        if (weight < 50) perUnit = 99;
+        else if (weight < 100) perUnit = 149;
+        else if (weight < 150) perUnit = 199;
+        else if (weight < 200) perUnit = 279;
+        freight += perUnit * Math.max(1, item.quantity);
+      }
+    }
     return freight;
   })();
 

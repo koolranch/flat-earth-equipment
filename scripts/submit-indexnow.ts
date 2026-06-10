@@ -14,6 +14,19 @@ const KEY_LOCATION = `https://${HOST}/${INDEXNOW_KEY}.txt`;
 // URLs extracted from Ahrefs "pages to submit" export
 const URLS_TO_SUBMIT = [
   'https://www.flatearthequipment.com/',
+  // Lithium golf cart battery hub + cart-model landing pages
+  'https://www.flatearthequipment.com/lithium-batteries',
+  'https://www.flatearthequipment.com/lithium-batteries/ezgo-txt-48v',
+  'https://www.flatearthequipment.com/lithium-batteries/ezgo-txt-36v',
+  'https://www.flatearthequipment.com/lithium-batteries/ezgo-rxv-48v',
+  'https://www.flatearthequipment.com/lithium-batteries/club-car-precedent-48v',
+  'https://www.flatearthequipment.com/lithium-batteries/club-car-ds-48v',
+  'https://www.flatearthequipment.com/lithium-batteries/club-car-ds-36v',
+  'https://www.flatearthequipment.com/lithium-batteries/club-car-tempo-48v',
+  'https://www.flatearthequipment.com/lithium-batteries/yamaha-drive-48v',
+  'https://www.flatearthequipment.com/lithium-batteries/yamaha-drive2-48v',
+  'https://www.flatearthequipment.com/lithium-batteries/yamaha-g14-g16-36v',
+  'https://www.flatearthequipment.com/insights/lithium-vs-lead-acid-golf-cart-batteries-2026-guide',
   'https://www.flatearthequipment.com/legal/privacy',
   'https://www.flatearthequipment.com/locations',
   'https://www.flatearthequipment.com/texas/dallas-fort-worth',
