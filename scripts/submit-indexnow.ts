@@ -27,6 +27,13 @@ const URLS_TO_SUBMIT = [
   'https://www.flatearthequipment.com/lithium-batteries/yamaha-drive2-48v',
   'https://www.flatearthequipment.com/lithium-batteries/yamaha-g14-g16-36v',
   'https://www.flatearthequipment.com/insights/lithium-vs-lead-acid-golf-cart-batteries-2026-guide',
+  // Spanish certification content cluster
+  'https://www.flatearthequipment.com/es/safety',
+  'https://www.flatearthequipment.com/insights/como-sacar-la-licencia-de-montacargas',
+  'https://www.flatearthequipment.com/insights/cuanto-cuesta-la-certificacion-de-montacargas',
+  'https://www.flatearthequipment.com/insights/requisitos-osha-certificacion-montacargas',
+  'https://www.flatearthequipment.com/insights/curso-de-montacargas-en-linea',
+  'https://www.flatearthequipment.com/insights/cuanto-dura-la-certificacion-de-montacargas',
   'https://www.flatearthequipment.com/legal/privacy',
   'https://www.flatearthequipment.com/locations',
   'https://www.flatearthequipment.com/texas/dallas-fort-worth',
