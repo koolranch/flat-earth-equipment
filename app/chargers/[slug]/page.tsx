@@ -32,8 +32,16 @@ type PartsCatalog = {
   fsip_price: number | null;
   your_price: number | null;
   in_stock: boolean | null;
+  stripe_product_id?: string | null;
+  stripe_price_id?: string | null;
   created_at: string;
 };
+
+/** Customer-facing sell price: marked-up your_price when set, FSIP retail otherwise. */
+function sellPrice(p: PartsCatalog): number | null {
+  if (p.your_price !== null && p.your_price > 0) return p.your_price;
+  return p.fsip_price;
+}
 
 // -----------------------------------------------------------------------------
 // Data Fetching
@@ -109,12 +117,13 @@ function generateJsonLd(p: PartsCatalog) {
     }
   }
 
-  // Add offers with fsip_price
-  if (p.fsip_price !== null && p.fsip_price > 0) {
+  // Add offers with the customer-facing sell price
+  const offerPrice = sellPrice(p);
+  if (offerPrice !== null && offerPrice > 0) {
     base.offers = {
       "@type": "Offer",
       priceCurrency: "USD",
-      price: p.fsip_price.toFixed(2),
+      price: offerPrice.toFixed(2),
       availability: p.in_stock
         ? "https://schema.org/InStock"
         : "https://schema.org/OutOfStock",
@@ -268,7 +277,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const product = await getProduct(params.slug);
   if (!product) notFound();
 
-  const priceStr = currency(product.fsip_price);
+  const priceStr = currency(sellPrice(product));
   const noindex = shouldNoIndex(product);
   const primaryImage = product.images?.[0] ?? null;
 
@@ -447,7 +456,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 <div className="text-xl font-semibold">
                   {priceStr ? priceStr : <span className="text-neutral-500 text-base">Call for pricing</span>}
                 </div>
-                <BuyNowButton priceId={null} slug={product.slug} />
+                <BuyNowButton priceId={product.stripe_price_id ?? null} slug={product.slug} />
                 <QuoteButton product={{ name: product.name, slug: product.slug, sku: product.sku }} />
               </div>
               <p className="mt-3 text-sm text-gray-600">
