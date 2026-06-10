@@ -1,7 +1,5 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
-
 export const metadata: Metadata = {
   title: "Corporate OSHA Operator Training | Onsite Fleet Certification",
   description: "Professional onsite OSHA training for companies and fleets. Forklift, aerial lift, and MEWP certification for teams of 3+ operators. Volume pricing available nationwide.",
@@ -42,9 +40,10 @@ export default function OSHAOperatorTrainingPage() {
 
   return (
     <>
-      <Script id="service-schema" type="application/ld+json">
-        {JSON.stringify(serviceSchema)}
-      </Script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
 
       <main className="max-w-5xl mx-auto px-4 py-12">
         {/* Hero Section */}

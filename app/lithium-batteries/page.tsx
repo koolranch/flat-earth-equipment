@@ -1,7 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import Link from 'next/link';
 import Image from 'next/image';
-import Script from 'next/script';
 import { Battery, ShieldCheck, Truck, Wrench, Zap, Snowflake, Cpu, Award } from 'lucide-react';
 import { generatePageAlternates } from '@/app/seo-defaults';
 import { CART_MODELS } from '@/constants/golfCartModels';
@@ -116,7 +115,7 @@ export default async function LithiumBatteriesLanding() {
   return (
     <main className="container mx-auto px-4 lg:px-8 py-12 space-y-16 pb-20">
       {/* ItemList schema — for search results showing the product collection */}
-      <Script
+      <script
         id="lithium-batteries-itemlist-ld-json"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -151,7 +150,7 @@ export default async function LithiumBatteriesLanding() {
       />
 
       {/* BreadcrumbList schema */}
-      <Script
+      <script
         id="lithium-batteries-breadcrumb-ld-json"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -168,7 +167,7 @@ export default async function LithiumBatteriesLanding() {
       />
 
       {/* FAQPage schema — drives "People Also Ask" rich results */}
-      <Script
+      <script
         id="lithium-batteries-faq-ld-json"
         type="application/ld+json"
         dangerouslySetInnerHTML={{

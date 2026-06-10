@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import Script from 'next/script';
 import { Metadata } from 'next';
 import { createClient } from '@supabase/supabase-js';
 import { CART_MODELS, getCartModel, type CartModel } from '@/constants/golfCartModels';
@@ -134,7 +133,7 @@ export default async function CartLithiumLanding({
   return (
     <main className="container mx-auto px-4 lg:px-8 py-12 space-y-12 pb-20">
       {/* ─────────── Schemas ─────────── */}
-      <Script
+      <script
         id={`cart-product-ld-${cart.slug}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -163,7 +162,7 @@ export default async function CartLithiumLanding({
         }}
       />
 
-      <Script
+      <script
         id={`cart-breadcrumb-ld-${cart.slug}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -180,7 +179,7 @@ export default async function CartLithiumLanding({
         }}
       />
 
-      <Script
+      <script
         id={`cart-faq-ld-${cart.slug}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{

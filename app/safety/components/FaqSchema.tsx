@@ -1,4 +1,3 @@
-import Script from 'next/script';
 import type { MarketingDict } from '@/i18n';
 
 /**
@@ -34,6 +33,8 @@ export default function FaqSchema({ t }: { t: MarketingDict }) {
       },
     })),
   };
-  return <Script id="faq-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
+  // Raw inline script (not next/script) so the FAQPage schema is present in the
+  // server-rendered HTML where crawlers can see it without executing JS.
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
 }
 

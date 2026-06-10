@@ -9,7 +9,6 @@ import { getStateMetrics } from "@/lib/safety/stateMetrics";
 import HowItWorksStrip from "@/components/HowItWorksStrip";
 import PricingStrip from "@/components/training/PricingStrip";
 import { generatePageAlternates } from "@/app/seo-defaults";
-import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import SafetyScreenshots from "@/app/safety/components/SafetyScreenshots";
 import { getMarketingDict } from "@/i18n";
 import { FEDERAL_OSHA_PENALTIES_2025 } from "@/lib/safety/osha-penalties";
@@ -150,16 +149,6 @@ export default function StateForkliftPage({ params }: Props) {
     <>
       {/* Enhanced SEO Product JSON-LD */}
       <StateProductJsonLd stateCode={info.code} />
-      
-      {/* Breadcrumb Schema */}
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: 'https://www.flatearthequipment.com' },
-          { name: 'Safety Training', url: 'https://www.flatearthequipment.com/safety' },
-          { name: 'Forklift Certification by State', url: 'https://www.flatearthequipment.com/safety/forklift' },
-          { name: `${info.name} Forklift Certification`, url: `https://www.flatearthequipment.com/safety/forklift/${info.code}` },
-        ]}
-      />
       
       {/* New State-Aware Hero Section */}
       <StateHero metrics={metrics} />

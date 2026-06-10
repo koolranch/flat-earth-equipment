@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Script from "next/script";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -24,7 +23,7 @@ export const metadata: Metadata = {
 export default function ForkliftRecertification() {
   return (
     <>
-      <Script
+      <script
         id="ld-json"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
