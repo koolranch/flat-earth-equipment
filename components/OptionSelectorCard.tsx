@@ -16,6 +16,8 @@ type Locale = 'en' | 'es';
 export default function OptionSelectorCard({ module, locale = 'en' }: { module: ChargerModule; locale?: Locale }) {
   const [choice, setChoice] = useState<"Reman Exchange" | "Repair & Return">("Reman Exchange");
   const offer = module.offers.find((o) => o.label === choice)!;
+  const remanOffer = module.offers.find((o) => o.label === "Reman Exchange");
+  const repairOffer = module.offers.find((o) => o.label === "Repair & Return");
   const image = choice === "Repair & Return" ? module.imgRepair : module.imgExchange;
   const [fw, setFw] = useState("");
 
@@ -130,7 +132,7 @@ export default function OptionSelectorCard({ module, locale = 'en' }: { module: 
             </tr>
           </thead>
           <tbody className="[&>tr>*]:py-1">
-            <tr><td>Up-front&nbsp;cost</td><td>{formatUsd(84900)}</td><td>{formatUsd(70000)}</td></tr>
+            <tr><td>Unit&nbsp;price</td><td>{remanOffer ? formatUsd(remanOffer.price) : '—'}</td><td>{repairOffer ? formatUsd(repairOffer.price) : '—'}</td></tr>
             <tr><td>Core&nbsp;deposit</td><td>{formatUsd(CORE_DEPOSIT)} (refunded)</td><td>None</td></tr>
             <tr><td>Ship out</td><td>Today (order ≤ 3 PM&nbsp;EST)</td><td>After we refurbish</td></tr>
             <tr><td>Total&nbsp;turn-around</td><td>1-3 days (ground)</td><td>3-5 business days</td></tr>

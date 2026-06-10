@@ -80,14 +80,32 @@ export default function Navbar({ locale }: Props) {
   const navItems: NavItem[] = locale === 'es'
     ? [
         { name: 'Renta de equipo', href: '/rent-equipment' },
-        { name: 'Partes', href: '/parts' },
+        {
+          name: 'Partes',
+          href: '/parts',
+          dropdown: [
+            { name: 'Todas las partes', href: '/parts' },
+            { name: 'Baterías de litio para carritos de golf', href: '/lithium-batteries' },
+            { name: 'Módulos de cargador', href: '/charger-modules' },
+            { name: 'Cargadores de batería', href: '/battery-chargers' },
+          ],
+        },
         { name: 'Seguridad', href: '/es/safety' },
         { name: 'Nosotros', href: '/about' },
         { name: 'Contacto', href: '/contact' },
       ]
     : [
         { name: 'Rent Equipment', href: '/rent-equipment' },
-        { name: 'Parts', href: '/parts' },
+        {
+          name: 'Parts',
+          href: '/parts',
+          dropdown: [
+            { name: 'All Parts', href: '/parts' },
+            { name: 'Lithium Golf Cart Batteries', href: '/lithium-batteries' },
+            { name: 'Charger Modules', href: '/charger-modules' },
+            { name: 'Battery Chargers', href: '/battery-chargers' },
+          ],
+        },
         { name: 'Safety', href: '/safety' },
         { name: 'About', href: '/about' },
         { name: 'Contact', href: '/contact' },
