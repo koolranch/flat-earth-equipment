@@ -18,7 +18,7 @@ const CTADebugProbe = dynamicImport(() => import('@/components/debug/CTADebugPro
 
 export const metadata: Metadata = {
   title: 'OSHA Forklift Training | Online Certification Course',
-  description: 'Get OSHA-compliant forklift certification online in 30 minutes. Valid for 3 years. Includes wallet card and employer documentation. Start training now for $59.',
+  description: 'Get OSHA-compliant forklift certification online in 30 minutes. Valid for 3 years. Includes wallet card and employer documentation. Start training now for $49.',
   keywords: ['forklift certification', 'OSHA training', 'forklift operator training', 'powered industrial truck training', 'online forklift course'],
   alternates: {
     canonical: '/training',
@@ -29,11 +29,16 @@ export const metadata: Metadata = {
     type: 'website',
     url: 'https://www.flatearthequipment.com/training',
   },
+  // The learner hub is a product surface, not a marketing page. /safety is the
+  // sole indexable landing page for certification search terms; keeping this
+  // noindexed prevents the two pages from competing in search results.
   robots: {
-    index: true,
+    index: false,
     follow: true,
-    'max-image-preview': 'large',
-    'max-snippet': -1,
+    googleBot: {
+      index: false,
+      follow: true,
+    },
   }
 };
 
