@@ -40,7 +40,7 @@ const equipmentCategories = [
   { name: 'Charger Modules', href: '/charger-modules', icon: '🔋' },
   { name: 'Forklift Forks', href: '/forks', icon: '🔱' },
   { name: 'Equipment Rentals', href: '/rent-equipment', icon: '🚜' },
-  { name: 'OSHA Training', href: '/training/forklift', icon: '📋' },
+  { name: 'OSHA Training', href: '/safety', icon: '📋' },
 ];
 
 // Brand hub links

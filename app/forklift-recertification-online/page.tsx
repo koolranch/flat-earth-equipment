@@ -5,11 +5,11 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Forklift Recertification Online – Renew OSHA Card in 45 Minutes",
   description:
-    "Renew your forklift license fast. Complete the OSHA-compliant refresher course and print your 3-year certificate today for just $59.",
+    "Renew your forklift license fast. Complete the OSHA-compliant refresher course and print your 3-year certificate today for just $49.",
   alternates: {
     canonical: "/forklift-recertification-online",
     languages: {
-      "es": "/es/forklift-certificacion-online",
+      "es": "/es/safety",
     },
   },
   openGraph: {
@@ -99,7 +99,7 @@ export default function ForkliftRecertification() {
             href="/safety"
             className="inline-block rounded-xl bg-emerald-600 px-6 py-3 text-xl font-semibold text-white no-underline transition hover:bg-emerald-700"
           >
-            Renew Now – $59
+            Renew Now – $49
           </Link>
         </div>
 
@@ -204,7 +204,7 @@ export default function ForkliftRecertification() {
         <div className="mt-12 pt-6 border-t border-gray-200">
           <h3 className="text-lg font-semibold mb-4">Related Training Options</h3>
           <div className="grid gap-4 not-prose">
-            <Link href="/es/forklift-certificacion-online" className="block p-4 border rounded-lg hover:bg-gray-50 transition-colors">
+            <Link href="/es/safety" className="block p-4 border rounded-lg hover:bg-gray-50 transition-colors">
               <div className="font-medium text-blue-600">🇪🇸 Certificación en Español</div>
               <div className="text-sm text-gray-600">¿Necesitas la versión en español? Curso completo disponible.</div>
             </Link>

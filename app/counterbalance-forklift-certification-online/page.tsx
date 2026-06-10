@@ -5,17 +5,17 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Counterbalance Forklift Certification – Online OSHA Class IV/V",
   description:
-    "Finish OSHA-compliant counterbalance forklift training in under 30 minutes. Covers load capacity plates, stability triangle & more. PDF certificate for just $59.",
+    "Finish OSHA-compliant counterbalance forklift training in under 30 minutes. Covers load capacity plates, stability triangle & more. PDF certificate for just $49.",
   alternates: {
     canonical: "/counterbalance-forklift-certification-online",
     languages: {
-      "es": "/es/forklift-certificacion-online",
+      "es": "/es/safety",
     },
   },
   openGraph: {
     title: "Online Counterbalance Forklift Certification (Class IV & V)",
     description:
-      "Get certified fast – instant PDF card, unlimited exam retakes – only $59.",
+      "Get certified fast – instant PDF card, unlimited exam retakes – only $49.",
     url: "/counterbalance-forklift-certification-online",
     type: "website",
   },
@@ -106,7 +106,7 @@ export default function CounterbalanceForkliftPage() {
             href="/safety"
             className="inline-block rounded-xl bg-indigo-600 px-6 py-3 text-xl font-semibold text-white no-underline transition hover:bg-indigo-700"
           >
-            Enroll – $59
+            Enroll – $49
           </Link>
         </div>
 
@@ -232,7 +232,7 @@ export default function CounterbalanceForkliftPage() {
               <div className="text-sm text-gray-600">Already certified? Visit our recertification page for 3-year renewal.</div>
             </Link>
             
-            <Link href="/es/forklift-certificacion-online" className="block p-4 border rounded-lg hover:bg-gray-50 transition-colors">
+            <Link href="/es/safety" className="block p-4 border rounded-lg hover:bg-gray-50 transition-colors">
               <div className="font-medium text-blue-600">🇪🇸 ¿Prefieres Español?</div>
               <div className="text-sm text-gray-600">Curso de certificación de montacargas disponible en español.</div>
             </Link>

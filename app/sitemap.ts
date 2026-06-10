@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { supabaseServer } from "@/lib/supabase/server";
 import { forkliftStates } from "@/src/data/forkliftStates";
+import { getStateMetrics } from "@/lib/safety/stateMetrics";
 import { CART_MODELS } from "@/constants/golfCartModels";
 import * as fs from "fs";
 import * as path from "path";
@@ -119,17 +120,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/safety`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.9 },
     { url: `${BASE}/es/safety`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.85 },
     { url: `${BASE}/safety/forklift`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.85 },
+    { url: `${BASE}/forklift-recertification-online`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.8 },
+    { url: `${BASE}/counterbalance-forklift-certification-online`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.8 },
+    { url: `${BASE}/osha-operator-training`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.75 },
+    { url: `${BASE}/trainer`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.75 },
     { url: `${BASE}/about`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.6 },
     { url: `${BASE}/contact`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.7 },
   ];
 
   // ── 6. Forklift state-specific certification pages ───────────────────────
-  const statePages = forkliftStates.map((state) => ({
-    url: `${BASE}/safety/forklift/${state.code}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
-  }));
+  // Only emit states whose pages are indexable; tier-3 states carry a noindex
+  // robots meta, and listing them in the sitemap sends Google mixed signals.
+  const statePages = forkliftStates
+    .filter((state) => getStateMetrics(state.code).shouldIndex)
+    .map((state) => ({
+      url: `${BASE}/safety/forklift/${state.code}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    }));
 
   return [
     ...corePages,
