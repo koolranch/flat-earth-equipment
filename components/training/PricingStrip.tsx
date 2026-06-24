@@ -5,6 +5,8 @@ import { PLANS } from '@/lib/training/plans';
 import { createTrainingCheckoutSessionFromForm } from '@/app/training/checkout/actions';
 import Link from 'next/link';
 import AppDownloadCTA from '@/components/safety/AppDownloadCTA';
+import ClickIdsHiddenInput from '@/components/checkout/ClickIdsHiddenInput';
+import { trackWebCheckoutInitiated } from '@/lib/analytics/gtag';
 import type { Locale, MarketingDict } from '@/i18n';
 import { getMarketingDict } from '@/i18n';
 
@@ -103,6 +105,7 @@ export default function PricingStrip({
                 <input type="hidden" name="priceId" value={p.priceId} />
                 <Suspense><ReferralHiddenInput /></Suspense>
                 <Suspense><RequestParamsHiddenInputs /></Suspense>
+                <ClickIdsHiddenInput />
                 <button 
                   type="submit" 
                   className={`w-full px-6 py-3 rounded-xl font-bold transition-all shadow-md hover:shadow-lg ${
@@ -159,29 +162,45 @@ export default function PricingStrip({
               {copy.seeOnPricing}
             </Link>
           ) : (
-            <div className="flex flex-col gap-3">
-              <AppDownloadCTA
-                placement={locale === 'es' ? 'safety_pricing_es' : 'safety_pricing'}
-                primaryLabel={dict.safety.appDownload.pricingPrimaryLabel}
-                showWebFallback={false}
-                showTrustLine={false}
-                className="items-center"
-                locale={locale}
-                t={dict}
-              />
-
+            <div className="flex flex-col gap-4">
+              {/* PRIMARY: web Stripe checkout (full-margin, best-converting path) */}
               <form action={createTrainingCheckoutSessionFromForm}>
                 <input type="hidden" name="priceId" value={singlePlan.priceId} />
                 <Suspense><ReferralHiddenInput /></Suspense>
                 <Suspense><RequestParamsHiddenInputs /></Suspense>
+                <ClickIdsHiddenInput />
                 <button
                   type="submit"
-                  className="w-full px-6 py-3 rounded-xl font-semibold transition-all border-2 border-slate-300 text-slate-700 hover:bg-slate-50"
+                  onClick={() => {
+                    trackWebCheckoutInitiated({
+                      source: 'safety_pricing_web',
+                      priceId: singlePlan.priceId,
+                      value: singlePlan.price,
+                    });
+                  }}
+                  className="w-full px-6 py-3 rounded-xl font-bold transition-all shadow-md hover:shadow-lg bg-[#F76511] text-white hover:bg-orange-600"
                   data-testid={`safety-top-buy-${singlePlan.key}`}
                 >
                   {copy.buyNowWeb}
                 </button>
               </form>
+
+              {/* SECONDARY: study free in the app, then pay $49 at the exam */}
+              <div className="flex flex-col items-center gap-2 border-t border-slate-100 pt-4">
+                <p className="text-sm font-medium text-slate-500">
+                  {dict.safety.appDownload.studyFirstEyebrow}
+                </p>
+                <AppDownloadCTA
+                  placement={locale === 'es' ? 'safety_pricing_es' : 'safety_pricing'}
+                  primaryLabel={dict.safety.appDownload.pricingPrimaryLabel}
+                  showPrimaryButton={false}
+                  showWebFallback={false}
+                  showTrustLine={false}
+                  className="items-center"
+                  locale={locale}
+                  t={dict}
+                />
+              </div>
             </div>
           )}
         </div>
@@ -229,6 +248,7 @@ export default function PricingStrip({
                     <input type="hidden" name="priceId" value={p.priceId} />
                     <Suspense><ReferralHiddenInput /></Suspense>
                     <Suspense><RequestParamsHiddenInputs /></Suspense>
+                    <ClickIdsHiddenInput />
                     <button 
                       type="submit" 
                       className="w-full px-6 py-3 rounded-xl font-bold transition-all shadow-md hover:shadow-lg bg-slate-900 text-white hover:bg-slate-800"

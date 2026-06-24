@@ -475,6 +475,20 @@ export async function POST(req: NextRequest) {
       successSlug = slug ?? "";
     }
 
+    // Google Ads click ids → Stripe Checkout Session metadata (for ad attribution).
+    // Sent as a top-level `click_ids` object by both the server-action form path
+    // and the hero /api/checkout fetch path. Only present, string-valued keys are
+    // written, and existing metadata keys are never overwritten.
+    const clickIds = body.click_ids;
+    if (clickIds && typeof clickIds === 'object') {
+      for (const key of ['gclid', 'gbraid', 'wbraid'] as const) {
+        const value = clickIds[key];
+        if (typeof value === 'string' && value.trim() && !metadata[key]) {
+          metadata[key] = value.trim();
+        }
+      }
+    }
+
     const base = siteUrlFrom(req);
     
     // For training purchases, return to /safety on cancel instead of /cart

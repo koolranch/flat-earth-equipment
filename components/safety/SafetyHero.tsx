@@ -11,6 +11,7 @@ import type { Locale, MarketingDict } from "@/i18n";
 import { getMarketingDict } from "@/i18n";
 import SafetyLanguageToggle from "@/components/safety/SafetyLanguageToggle";
 import type { SafetyTrafficSource } from "@/lib/safety/traffic-source";
+import { getClickIds } from "@/lib/attribution/getClickIds";
 
 interface SafetyHeroProps {
   stateData?: StateData | null;
@@ -84,6 +85,8 @@ export default function SafetyHero({
     setIsLoading(true);
     setError(null);
 
+    const clickIds = getClickIds();
+
     try {
       const response = await fetch('/api/checkout', {
         method: 'POST',
@@ -96,7 +99,8 @@ export default function SafetyHero({
             metadata: {
               ...(funnelState && { utm_state: funnelState }),
             }
-          }]
+          }],
+          ...(Object.keys(clickIds).length > 0 && { click_ids: clickIds }),
         })
       });
 

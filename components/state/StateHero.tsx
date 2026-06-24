@@ -10,6 +10,7 @@ import { forkliftStates } from '@/src/data/forkliftStates';
 import { StateMetrics } from '@/lib/safety/stateMetrics';
 import AppDownloadCTA from '@/components/safety/AppDownloadCTA';
 import { getMarketingDict } from '@/i18n';
+import { getClickIds } from '@/lib/attribution/getClickIds';
 
 interface Props {
   metrics?: StateMetrics;
@@ -75,6 +76,8 @@ export default function StateHero({ metrics }: Props) {
     setIsLoading(true);
     setError(null);
 
+    const clickIds = getClickIds();
+
     try {
       const response = await fetch('/api/checkout', {
         method: 'POST',
@@ -90,6 +93,7 @@ export default function StateHero({ metrics }: Props) {
               },
             },
           ],
+          ...(Object.keys(clickIds).length > 0 && { click_ids: clickIds }),
         }),
       });
 

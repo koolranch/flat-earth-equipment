@@ -17,6 +17,7 @@ import {
   trackAppDownloadClickAndNavigate,
 } from "@/lib/analytics/app-download";
 import { trackWebCheckoutInitiated } from "@/lib/analytics/gtag";
+import ClickIdsHiddenInput from "@/components/checkout/ClickIdsHiddenInput";
 import type { Locale, MarketingDict } from "@/i18n";
 import { getMarketingDict } from "@/i18n";
 
@@ -173,6 +174,7 @@ export default function AppDownloadCTA({
       {process.env.NEXT_PUBLIC_ENABLE_ASK_EMPLOYER_CHECKOUT === "1" && checkoutParams.prefillEmail && (
         <input type="hidden" name="prefillEmail" value={checkoutParams.prefillEmail} />
       )}
+      <ClickIdsHiddenInput />
       <button
         type="submit"
         onClick={() => {

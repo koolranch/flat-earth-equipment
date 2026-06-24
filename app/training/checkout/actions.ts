@@ -40,6 +40,17 @@ export async function createTrainingCheckoutSessionFromForm(formData: FormData):
     if (prefillEmail) askEmployerExtras.prefill_email = prefillEmail;
   }
 
+  // Google Ads click ids (injected by ClickIdsHiddenInput) → forwarded to the
+  // checkout API so they land in the Stripe Checkout Session metadata. This lets
+  // us attribute Stripe sales back to ad clicks (true ROAS).
+  const clickIds: Record<string, string> = {};
+  for (const key of ['gclid', 'gbraid', 'wbraid'] as const) {
+    const value = formData.get(key);
+    if (typeof value === 'string' && value.trim()) {
+      clickIds[key] = value.trim();
+    }
+  }
+
   const response = await fetch(`${baseUrl}/api/checkout`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -58,6 +69,7 @@ export async function createTrainingCheckoutSessionFromForm(formData: FormData):
       }],
       ...(referralCode && { referral_code: referralCode }),
       ...askEmployerExtras,
+      ...(Object.keys(clickIds).length > 0 && { click_ids: clickIds }),
     })
   });
   

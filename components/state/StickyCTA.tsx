@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { createTrainingCheckoutSessionFromForm } from '@/app/training/checkout/actions';
 import { TRAINING_PLANS } from '@/lib/training/plans';
+import ClickIdsHiddenInput from '@/components/checkout/ClickIdsHiddenInput';
 import { trackWebCheckoutInitiated } from '@/lib/analytics/gtag';
 import { getMarketingDict } from '@/i18n';
 
@@ -61,6 +62,7 @@ export default function StickyCTA() {
         </div>
         <form action={createTrainingCheckoutSessionFromForm}>
           <input type="hidden" name="priceId" value={TRAINING_PLANS.single.priceId} />
+          <ClickIdsHiddenInput />
           <button
             type="submit"
             onClick={() => {

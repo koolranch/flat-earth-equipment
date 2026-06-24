@@ -16,6 +16,7 @@ import {
 import { trackWebCheckoutInitiated } from "@/lib/analytics/gtag";
 import { createTrainingCheckoutSessionFromForm } from "@/app/training/checkout/actions";
 import { TRAINING_PLANS } from "@/lib/training/plans";
+import ClickIdsHiddenInput from "@/components/checkout/ClickIdsHiddenInput";
 import type { Locale, MarketingDict } from "@/i18n";
 import { getMarketingDict } from "@/i18n";
 import type { SafetyTrafficSource } from "@/lib/safety/traffic-source";
@@ -114,6 +115,7 @@ function StickyCTAInner({
             {process.env.NEXT_PUBLIC_ENABLE_ASK_EMPLOYER_CHECKOUT === "1" && prefillEmail && (
               <input type="hidden" name="prefillEmail" value={prefillEmail} />
             )}
+            <ClickIdsHiddenInput />
             <button
               type="submit"
               onClick={() => {
