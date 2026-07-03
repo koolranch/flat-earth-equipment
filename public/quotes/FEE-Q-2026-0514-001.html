@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  @page { size: letter; margin: 0.5in; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #1a1a1a; line-height: 1.4; margin: 0; padding: 30px; }
+  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; border-bottom: 3px solid #059669; padding-bottom: 15px; }
+  .company { }
+  .company h1 { font-size: 24px; color: #059669; margin: 0 0 4px; }
+  .company p { margin: 2px 0; font-size: 12px; color: #555; }
+  .quote-title { text-align: right; }
+  .quote-title h2 { font-size: 28px; color: #1a1a1a; margin: 0; letter-spacing: 2px; }
+  .quote-title p { margin: 4px 0; font-size: 12px; color: #555; }
+  .parties { display: flex; justify-content: space-between; margin-bottom: 20px; }
+  .party { width: 48%; }
+  .party h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #059669; margin: 0 0 8px; border-bottom: 1px solid #e5e7eb; padding-bottom: 4px; }
+  .party p { margin: 2px 0; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  thead th { background: #059669; color: white; padding: 10px 12px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  thead th:nth-child(3), thead th:nth-child(4), thead th:nth-child(5) { text-align: right; }
+  tbody td { padding: 12px; border-bottom: 1px solid #e5e7eb; font-size: 13px; }
+  tbody td:nth-child(3), tbody td:nth-child(4), tbody td:nth-child(5) { text-align: right; }
+  .totals { display: flex; justify-content: flex-end; margin-bottom: 25px; }
+  .totals-table { width: 280px; }
+  .totals-table .row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; }
+  .totals-table .row.total { border-top: 2px solid #059669; padding-top: 10px; margin-top: 6px; font-size: 16px; font-weight: bold; color: #059669; }
+  .terms { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; padding: 12px 16px; margin-bottom: 20px; }
+  .terms h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #059669; margin: 0 0 8px; }
+  .terms p { margin: 3px 0; font-size: 12px; color: #555; }
+  .footer { text-align: center; font-size: 11px; color: #999; border-top: 1px solid #e5e7eb; padding-top: 16px; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="company">
+      <h1>Flat Earth Equipment</h1>
+      <p>Heavy Equipment Parts & Training</p>
+      <p>www.flatearthequipment.com</p>
+      <p>parts@flatearthequipment.com</p>
+    </div>
+    <div class="quote-title">
+      <h2>QUOTATION</h2>
+      <p><strong>Quote #:</strong> FEE-Q-2026-0514-001</p>
+      <p><strong>Date:</strong> May 14, 2026</p>
+      <p><strong>Valid Until:</strong> June 13, 2026</p>
+    </div>
+  </div>
+
+  <div class="parties">
+    <div class="party">
+      <h3>Quoted To</h3>
+      <p><strong>Tim Pazdra</strong></p>
+      <p>Timothy.pazdra@donaldson.com</p>
+      <p>Donaldson Co. Inc.</p>
+      <p>5200 Coye Dr</p>
+      <p>Stevens Point, WI 54481</p>
+    </div>
+    <div class="party">
+      <h3>From</h3>
+      <p><strong>Flat Earth Equipment</strong></p>
+      <p>Parts Sales Department</p>
+      <p>parts@flatearthequipment.com</p>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Part Number</th>
+        <th>Description</th>
+        <th>Qty</th>
+        <th>Unit Price</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>6LA20671</strong></td>
+        <td>Repair and Return Service<br><span style="font-size:11px;color:#666">Includes return freight to customer (continental US)</span></td>
+        <td>2</td>
+        <td>$650.00</td>
+        <td>$1,300.00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="totals">
+    <div class="totals-table">
+      <div class="row"><span>Subtotal</span><span>$1,300.00</span></div>
+      <div class="row"><span>Return Freight</span><span>Included</span></div>
+      <div class="row total"><span>Total</span><span>$1,300.00</span></div>
+    </div>
+  </div>
+
+  <div class="terms">
+    <h3>Terms & Conditions</h3>
+    <p><strong>Payment Method:</strong> Payment is processed by secure credit card checkout on our website. A checkout link will be provided once the post-analysis quote is approved.</p>
+    <p><strong>Payment Timing:</strong> Units will be received and evaluated at no charge. Payment is due once analysis is complete and the customer approves the repair, prior to any repair work being performed.</p>
+    <p><strong>Service:</strong> Repair and return service for customer-supplied 6LA20671 units.</p>
+    <p><strong>Freight:</strong> Customer is responsible for inbound freight to our facility. Return freight to the customer (continental US) is included in the quoted price.</p>
+    <p><strong>Quote Validity:</strong> This quote is valid for 30 days from the date above.</p>
+  </div>
+
+  <div class="footer">
+    <p>Thank you for your inquiry. To proceed, reply to this quote or contact parts@flatearthequipment.com</p>
+    <p>Flat Earth Equipment - Heavy Equipment Parts & Safety Training</p>
+  </div>
+</body>
+</html>
