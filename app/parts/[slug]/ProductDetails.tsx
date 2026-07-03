@@ -39,8 +39,18 @@ interface ProductDetailsProps {
 
 export default function ProductDetails({ part, variants }: ProductDetailsProps) {
   const [selected, setSelected] = useState<Variant | null>(variants?.[0] || null);
+  const isRubberTrack = part.category === 'Rubber Tracks';
+  // Tracks are almost always replaced in pairs — default to a full set of 2.
+  const [quantity, setQuantity] = useState(isRubberTrack ? 2 : 1);
   const { addItem } = useCart();
   const router = useRouter();
+
+  const partMetadata = (part.metadata as Record<string, unknown> | null) ?? {};
+  const serialPrefixes = Array.isArray(partMetadata.serial_prefixes)
+    ? (partMetadata.serial_prefixes as string[])
+    : [];
+  const warrantyMonths =
+    typeof partMetadata.warranty_months === 'number' ? partMetadata.warranty_months : null;
 
   const handleAddToCart = () => {
     const item = selected || part;
@@ -57,13 +67,14 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
       core_charge: item.core_charge,
       image_url: part.image_url,
       category: part.category,
-      quantity: 1,
+      quantity,
       // Pass weight_lbs through metadata for shipping calculators (e.g., HazMat lithium freight)
       metadata: {
         ...(part.weight_lbs ? { weight_lbs: part.weight_lbs } : {}),
-        ...((part.metadata as Record<string, unknown> | null)?.freight_cents != null
-          ? { freight_cents: (part.metadata as Record<string, unknown>).freight_cents }
+        ...(partMetadata.freight_cents != null
+          ? { freight_cents: partMetadata.freight_cents }
           : {}),
+        ...(partMetadata.free_freight ? { free_freight: true } : {}),
       },
     });
     
@@ -110,7 +121,65 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
             {(selected?.has_core_charge && selected.core_charge) || (part.has_core_charge && part.core_charge) 
               ? ` + $${(selected?.core_charge || part.core_charge)?.toFixed(2)} core fee` 
               : ''}
+            {isRubberTrack && <span className="text-base font-medium text-gray-500"> / track</span>}
           </div>
+
+          {isRubberTrack && (
+            <div className="flex flex-wrap gap-2 mb-6">
+              <span className="inline-flex items-center gap-1.5 bg-green-50 border border-green-200 text-green-800 text-sm font-semibold px-3 py-1.5 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                  <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" />
+                </svg>
+                Free Shipping
+              </span>
+              {warrantyMonths && (
+                <span className="inline-flex items-center gap-1.5 bg-slate-50 border border-slate-200 text-slate-800 text-sm font-semibold px-3 py-1.5 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  {warrantyMonths / 12}-Year Warranty
+                </span>
+              )}
+            </div>
+          )}
+
+          {isRubberTrack && (
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">Quantity</label>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setQuantity(1)}
+                  className={`flex-1 border-2 rounded-lg px-4 py-3 text-left transition-colors ${
+                    quantity === 1
+                      ? 'border-canyon-rust bg-orange-50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <div className="font-semibold text-slate-900">Single Track</div>
+                  <div className="text-sm text-gray-600">${part.price.toFixed(2)}</div>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setQuantity(2)}
+                  className={`flex-1 border-2 rounded-lg px-4 py-3 text-left transition-colors ${
+                    quantity === 2
+                      ? 'border-canyon-rust bg-orange-50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <div className="font-semibold text-slate-900">Pair (Both Sides)</div>
+                  <div className="text-sm text-gray-600">${(part.price * 2).toFixed(2)}</div>
+                </button>
+              </div>
+              {quantity === 2 && (
+                <p className="text-xs text-gray-500 mt-2">
+                  Recommended — running a new track opposite a worn one shortens the life of both.
+                </p>
+              )}
+            </div>
+          )}
 
           {variants && variants.length > 0 && (
             <div className="mb-6">
@@ -145,13 +214,44 @@ export default function ProductDetails({ part, variants }: ProductDetailsProps) 
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
               </svg>
-              Add to Cart — ${selected?.price?.toFixed(2) || part.price.toFixed(2)}${
+              Add to Cart — ${((selected?.price ?? part.price) * quantity).toFixed(2)}${
                 (selected?.has_core_charge && selected.core_charge) || (part.has_core_charge && part.core_charge) 
                   ? ` + $${(selected?.core_charge || part.core_charge)?.toFixed(2)} core fee` 
                   : ''
               }
             </button>
           </div>
+
+          {/* Fitment verification - Only for rubber tracks */}
+          {isRubberTrack && serialPrefixes.length > 0 && (
+            <div className="mt-6 bg-slate-50 border border-slate-200 rounded-xl p-6">
+              <h3 className="font-bold text-lg text-slate-900 mb-2">Verify Your Fitment</h3>
+              <p className="text-sm text-slate-600 mb-3">
+                This track fits {getDisplayBrand(part.brand)}{' '}
+                {part.compatible_models?.join(', ')} machines with serial numbers beginning:
+              </p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {serialPrefixes.map((prefix) => (
+                  <span
+                    key={prefix}
+                    className="bg-white border border-slate-300 text-slate-800 font-mono text-sm px-3 py-1 rounded"
+                  >
+                    {prefix}
+                  </span>
+                ))}
+              </div>
+              <p className="text-sm text-slate-600">
+                Not sure where your serial plate is?{' '}
+                <Link
+                  href={`/${part.brand.toLowerCase()}-serial-number-lookup`}
+                  className="text-canyon-rust font-semibold underline hover:text-orange-700"
+                >
+                  Use our {getDisplayBrand(part.brand)} serial number lookup
+                </Link>{' '}
+                to find it, then match the first four characters.
+              </p>
+            </div>
+          )}
 
           {/* Fork Finder Link - Only for fork products */}
           {part.category?.includes('Fork') && (
