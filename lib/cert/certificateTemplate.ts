@@ -14,8 +14,6 @@ export type CertificateTemplateData = {
   issuedAt: string; // ISO
   expiresAt: string; // ISO
   locale?: 'en' | 'es';
-  practicalVerified?: boolean;
-  evaluationDate?: string | null;
 };
 
 const PAGE_W = 792;
@@ -25,12 +23,11 @@ const CREAM = rgb(253 / 255, 249 / 255, 239 / 255);
 const NAVY = rgb(0.06, 0.09, 0.16);
 const ORANGE = rgb(0.9686, 0.396, 0.0667); // #F76511
 const GRAY = rgb(0.42, 0.44, 0.48);
-const GREEN = rgb(0.12, 0.55, 0.31);
 const LIGHT_RULE = rgb(0.78, 0.76, 0.7);
 
 const CDN = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/videos/';
 const LOGO_PNG = CDN + 'logo_128.png';
-const SEAL_PNG = CDN + 'seal_orange.png';
+const SEAL_PNG = CDN + 'seal_forklift_certified.png';
 
 const STRINGS = {
   en: {
@@ -43,8 +40,6 @@ const STRINGS = {
     issueDate: 'ISSUE DATE',
     certNo: 'CERTIFICATE NO.',
     validThrough: 'VALID THROUGH',
-    practicalVerified: 'PRACTICAL EVALUATION VERIFIED',
-    evaluated: 'Evaluated',
     signature: 'Supervisor / Qualified Evaluator',
     signatureSub: 'Employer practical evaluation — 29 CFR 1910.178(l)(2)',
     scan: 'Scan or visit flatearthequipment.com/verify',
@@ -63,8 +58,6 @@ const STRINGS = {
     issueDate: 'FECHA DE EMISIÓN',
     certNo: 'N.º DE CERTIFICADO',
     validThrough: 'VÁLIDO HASTA',
-    practicalVerified: 'EVALUACIÓN PRÁCTICA VERIFICADA',
-    evaluated: 'Evaluado',
     signature: 'Supervisor / Evaluador Calificado',
     signatureSub: 'Evaluación práctica del empleador — 29 CFR 1910.178(l)(2)',
     scan: 'Escanee o visite flatearthequipment.com/verify',
@@ -187,14 +180,6 @@ export async function renderCertificateTemplate(data: CertificateTemplateData): 
   }
   page.drawLine({ start: { x: 306, y: detY - 20 }, end: { x: 306, y: detY + 10 }, thickness: 0.5, color: LIGHT_RULE });
   page.drawLine({ start: { x: 486, y: detY - 20 }, end: { x: 486, y: detY + 10 }, thickness: 0.5, color: LIGHT_RULE });
-
-  // Practical verification note (only when the employer evaluation passed)
-  if (data.practicalVerified) {
-    const note = data.evaluationDate
-      ? `${t.practicalVerified} — ${t.evaluated}: ${fmt(data.evaluationDate)}`
-      : t.practicalVerified;
-    drawTracked(page, note, PAGE_W / 2, 188, 8.5, helvB, GREEN, 1.2);
-  }
 
   // ── Bottom band: signature left, seal center, QR right ──
   const bandY = 128;

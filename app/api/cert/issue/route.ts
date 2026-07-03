@@ -121,8 +121,6 @@ export async function POST(req: Request) {
     issuedAt: issued_at,
     expiresAt: expires_at,
     locale,
-    practicalVerified: practical_verified,
-    evaluationDate: evaluation_date,
   });
 
   // Upload to storage and save certificate record
