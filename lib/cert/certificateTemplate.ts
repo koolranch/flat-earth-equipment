@@ -35,7 +35,7 @@ const SEAL_PNG = CDN + 'seal_orange.png';
 const STRINGS = {
   en: {
     docTitle: 'Certificate of Completion',
-    brand: 'FLAT EARTH SAFETY TRAINING',
+    brand: 'FORKLIFT CERTIFIED',
     title: 'Certificate of Completion',
     certifies: 'This certifies that',
     completed: 'has successfully completed the training program',
@@ -45,17 +45,17 @@ const STRINGS = {
     validThrough: 'VALID THROUGH',
     practicalVerified: 'PRACTICAL EVALUATION VERIFIED',
     evaluated: 'Evaluated',
-    signature: 'Authorized Representative',
-    signatureOrg: 'Flat Earth Safety Training',
+    signature: 'Supervisor / Qualified Evaluator',
+    signatureSub: 'Employer practical evaluation — 29 CFR 1910.178(l)(2)',
     scan: 'Scan or visit flatearthequipment.com/verify',
     footer1: 'This certificate documents completion of formal instruction under 29 CFR 1910.178(l)(1). OSHA requires a hands-on workplace',
     footer2: 'evaluation by a qualified evaluator, plus equipment- and site-specific training, before independent operation. Valid three years.',
-    footerBrand: 'Flat Earth Equipment  •  Sheridan, WY  •  flatearthequipment.com',
+    footerBrand: 'Issued by Flat Earth Equipment  •  Sheridan, WY  •  flatearthequipment.com',
     dateLocale: 'en-US',
   },
   es: {
     docTitle: 'Certificado de Finalización',
-    brand: 'FLAT EARTH SAFETY TRAINING',
+    brand: 'FORKLIFT CERTIFIED',
     title: 'Certificado de Finalización',
     certifies: 'Se certifica que',
     completed: 'ha completado satisfactoriamente el programa de capacitación',
@@ -65,12 +65,12 @@ const STRINGS = {
     validThrough: 'VÁLIDO HASTA',
     practicalVerified: 'EVALUACIÓN PRÁCTICA VERIFICADA',
     evaluated: 'Evaluado',
-    signature: 'Representante Autorizado',
-    signatureOrg: 'Flat Earth Safety Training',
+    signature: 'Supervisor / Evaluador Calificado',
+    signatureSub: 'Evaluación práctica del empleador — 29 CFR 1910.178(l)(2)',
     scan: 'Escanee o visite flatearthequipment.com/verify',
     footer1: 'Este certificado documenta la finalización de la instrucción formal según 29 CFR 1910.178(l)(1). OSHA requiere una evaluación',
     footer2: 'práctica por un evaluador calificado, más capacitación específica del equipo y del sitio, antes de la operación independiente. Válido tres años.',
-    footerBrand: 'Flat Earth Equipment  •  Sheridan, WY  •  flatearthequipment.com',
+    footerBrand: 'Emitido por Flat Earth Equipment  •  Sheridan, WY  •  flatearthequipment.com',
     dateLocale: 'es-ES',
   },
 } as const;
@@ -202,7 +202,7 @@ export async function renderCertificateTemplate(data: CertificateTemplateData): 
   const sigY = bandY + 8;
   page.drawLine({ start: { x: 110, y: sigY }, end: { x: 290, y: sigY }, thickness: 0.75, color: NAVY });
   page.drawText(t.signature, { x: 200 - helvB.widthOfTextAtSize(t.signature, 9) / 2, y: sigY - 14, size: 9, font: helvB, color: NAVY });
-  page.drawText(t.signatureOrg, { x: 200 - helv.widthOfTextAtSize(t.signatureOrg, 8) / 2, y: sigY - 26, size: 8, font: helv, color: GRAY });
+  page.drawText(t.signatureSub, { x: 200 - helv.widthOfTextAtSize(t.signatureSub, 7.5) / 2, y: sigY - 26, size: 7.5, font: helv, color: GRAY });
 
   if (seal) page.drawImage(seal, { x: PAGE_W / 2 - 44, y: bandY - 34, width: 88, height: 88 });
 
