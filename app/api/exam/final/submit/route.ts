@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabase/server';
+import { supabaseService } from '@/lib/supabase/service.server';
+import { examEntitlementBlocked, NOT_PURCHASED_RESPONSE } from '@/lib/training/exam-entitlement-gate.server';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
@@ -10,6 +12,7 @@ export async function POST(req: Request) {
   const sb = supabaseServer();
   const { data: { user } } = await sb.auth.getUser();
   if (!user) return NextResponse.json({ ok: false, error: 'unauthorized' }, { status: 401 });
+  if (await examEntitlementBlocked(supabaseService(), user.id)) return NextResponse.json(NOT_PURCHASED_RESPONSE, { status: 403 });
 
   const body = await req.json();
   const { locale = 'en', selected_ids = [], answers = {} } = body || {};

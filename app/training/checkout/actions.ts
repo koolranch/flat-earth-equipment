@@ -2,7 +2,8 @@
 'use server'
 
 import { redirect } from 'next/navigation';
-import { getTrainingPlanByPriceId } from '@/lib/training/plans';
+import { getTrainingPlanByPriceId, TRAINING_PLANS } from '@/lib/training/plans';
+import { supabaseServer } from '@/lib/supabase/server';
 
 export async function createCheckoutSession(planId: string) {
   return {
@@ -77,6 +78,53 @@ export async function createTrainingCheckoutSessionFromForm(formData: FormData):
   
   if (data.url) {
     // Redirect to Stripe Checkout
+    redirect(data.url);
+  } else {
+    throw new Error(data.error || 'Failed to create checkout session');
+  }
+}
+
+/**
+ * [exam-unlock] Checkout for enrolled-but-unpaid users hitting the gated exam
+ * (see lib/training/exam-entitlement-gate.server.ts). Single-seat $49 plan.
+ * Reads the AUTHED user's email server-side and locks the Stripe checkout to it,
+ * so webhook fulfillment attaches the order to their existing account instead of
+ * creating an orphan account under a different email.
+ */
+export async function createExamUnlockCheckout(): Promise<void> {
+  const sb = supabaseServer();
+  const { data: { user } } = await sb.auth.getUser();
+  if (!user?.email) {
+    redirect('/login?next=' + encodeURIComponent('/training/exam'));
+  }
+
+  const plan = TRAINING_PLANS.single;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com';
+
+  const response = await fetch(`${baseUrl}/api/checkout`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      items: [{
+        priceId: plan.priceId,
+        quantity: 1,
+        isTraining: true,
+        metadata: {
+          seat_count: plan.seats,
+          checkout_mode: plan.checkoutMode,
+          is_unlimited: false,
+          plan_id: plan.id,
+          billing_label: '',
+          entry_point: 'exam_unlock',
+        }
+      }],
+      prefill_source: 'exam_unlock',
+      prefill_email: user!.email,
+    })
+  });
+
+  const data = await response.json();
+  if (data.url) {
     redirect(data.url);
   } else {
     throw new Error(data.error || 'Failed to create checkout session');

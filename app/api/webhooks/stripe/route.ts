@@ -336,26 +336,43 @@ export async function POST(req: Request) {
         // the employer paid on behalf of their employee and must NOT get course access themselves.
         // The employee's access is granted via the ask-employer branch below (seat_invite + claim).
         if (!shouldSuppressEmployerSideEffects(session.metadata, process.env.ENABLE_ASK_EMPLOYER_FULFILLMENT)) {
-          const { error: enrollError } = await supabase
+          // Guard against duplicate enrollments: production `enrollments` has NO unique
+          // constraint on (user_id, course_id), so the old blind insert + 23505 check
+          // silently created second rows at 0% progress for already-enrolled users
+          // (e.g. app-trained buyers), which can clobber displayed progress and confuse
+          // "most recent enrollment" selection. Check first, insert only when missing.
+          const { data: existingEnrollment } = await supabase
             .from('enrollments')
-            .insert({
-              user_id: user.id,
-              course_id: course.id, // Use the actual UUID instead of slug
-              progress_pct: 0,
-              passed: false,
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString()
-            })
-          
-          if (enrollError) {
-            // If duplicate key error (23505), user is already enrolled - this is OK
-            if (enrollError.code !== '23505') {
-              console.error(`❌ Error enrolling user:`, enrollError)
-            } else {
-              console.log(`ℹ️ User already enrolled in course (duplicate purchase)`)
-            }
+            .select('id')
+            .eq('user_id', user.id)
+            .eq('course_id', course.id)
+            .limit(1)
+            .maybeSingle()
+
+          if (existingEnrollment) {
+            console.log(`ℹ️ User already enrolled in course (enrollment ${existingEnrollment.id}) - skipping duplicate enrollment insert`)
           } else {
-            console.log(`✅ User enrolled successfully (${quantity > 1 ? 'trainer with ' + quantity + ' seats' : 'single seat'})`)
+            const { error: enrollError } = await supabase
+              .from('enrollments')
+              .insert({
+                user_id: user.id,
+                course_id: course.id, // Use the actual UUID instead of slug
+                progress_pct: 0,
+                passed: false,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+              })
+
+            if (enrollError) {
+              // If duplicate key error (23505), user is already enrolled - this is OK
+              if (enrollError.code !== '23505') {
+                console.error(`❌ Error enrolling user:`, enrollError)
+              } else {
+                console.log(`ℹ️ User already enrolled in course (duplicate purchase)`)
+              }
+            } else {
+              console.log(`✅ User enrolled successfully (${quantity > 1 ? 'trainer with ' + quantity + ' seats' : 'single seat'})`)
+            }
           }
         }
 

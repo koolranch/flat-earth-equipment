@@ -4,6 +4,7 @@ import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
 import { sendMail } from '@/lib/email/mailer';
 import { T } from '@/lib/email/templates';
+import { examEntitlementBlocked, NOT_PURCHASED_RESPONSE } from '@/lib/training/exam-entitlement-gate.server';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,6 +13,7 @@ export async function POST(req: Request){
   const svc = supabaseService();
   const { data: { user } } = await sb.auth.getUser();
   if (!user) return NextResponse.json({ ok:false, error:'unauthorized' }, { status:401 });
+  if (await examEntitlementBlocked(svc, user.id)) return NextResponse.json(NOT_PURCHASED_RESPONSE, { status:403 });
 
   const { session_id, answers, course_id } = await req.json();
   if (!session_id || !Array.isArray(answers)) return NextResponse.json({ ok:false, error:'bad_request' }, { status:400 });

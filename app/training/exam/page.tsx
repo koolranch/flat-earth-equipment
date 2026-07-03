@@ -1,8 +1,9 @@
 'use client';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useI18n } from '@/lib/i18n/I18nProvider';
+import { createExamUnlockCheckout } from '@/app/training/checkout/actions';
 
-async function api(path:string, init?:RequestInit){ const r = await fetch(path, { cache:'no-store', ...init }); if (!r.ok) throw new Error(path); return r.json(); }
+async function api(path:string, init?:RequestInit){ const r = await fetch(path, { cache:'no-store', ...init }); if (!r.ok) { const err:any = new Error(path); err.status = r.status; throw err; } return r.json(); }
 
 export default function ExamPage(){
   const { t, locale: i18nLocale } = useI18n();
@@ -14,6 +15,7 @@ export default function ExamPage(){
   const [remaining, setRemaining] = useState<number>(0);
   const [result, setResult] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [locked, setLocked] = useState(false);
   const saveTick = useRef<number>(0);
 
   // Analytics for retake tips - must be at component top level
@@ -36,7 +38,11 @@ export default function ExamPage(){
         setRemaining(gen.time_limit_sec);
         (window as any)?.analytics?.track?.('exam_start', { count: gen.meta.count, locale });
       }
-    } catch(e){ console.error(e); }
+    } catch(e:any){
+      // 403 not_purchased: exam entitlement gate — show the unlock CTA instead of an exam
+      if (e?.status === 403) { setLocked(true); (window as any)?.analytics?.track?.('exam_locked_viewed', { locale }); }
+      else console.error(e);
+    }
     setLoading(false);
   })() }, [locale]);
 
@@ -62,6 +68,35 @@ export default function ExamPage(){
   async function submit(){ const r = await api('/api/exam/submit', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ session_id: paper.session_id, answers }) }); setResult(r); (window as any)?.analytics?.track?.(r.passed? 'exam_passed':'exam_failed', { scorePct: r.scorePct, locale }); }
 
   if (loading) return <main className="container mx-auto p-4">{t('common.loading')}</main>;
+
+  if (locked) return (
+    <main className="container mx-auto p-4 max-w-xl">
+      <section className="rounded-2xl border-2 border-orange-200 bg-white shadow-lg p-8 text-center space-y-4">
+        <div className="text-4xl" aria-hidden>🔓</div>
+        <h1 className="text-2xl font-bold text-slate-900">Unlock the final exam</h1>
+        <p className="text-slate-600">
+          Your training is saved. The final exam and your certificate are a one-time $49 purchase.
+        </p>
+        <ul className="text-sm text-slate-600 space-y-1">
+          <li>15-minute exam, 80% to pass, unlimited retakes</li>
+          <li>OSHA-aligned certificate, accepted in all 50 states</li>
+          <li>Issued the same day, in your name</li>
+        </ul>
+        <form action={createExamUnlockCheckout}>
+          <button
+            type="submit"
+            className="tappable w-full rounded-xl bg-gradient-to-b from-orange-500 to-orange-600 px-6 py-4 font-semibold text-white shadow-xl hover:shadow-2xl transition-all"
+          >
+            Unlock the exam for $49
+          </button>
+        </form>
+        <p className="text-xs text-slate-500">
+          Already purchased in the app? Make sure you're signed in here with the same email you use in the app.
+        </p>
+      </section>
+    </main>
+  );
+
   if (!paper) return <main className="container mx-auto p-4">No exam available.</main>;
   
   if (result){

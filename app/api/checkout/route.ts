@@ -51,6 +51,19 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    // [exam-unlock] Server action createExamUnlockCheckout passes the AUTHED user's
+    // email so Stripe locks the checkout to it. Webhook fulfillment matches accounts
+    // by exact email, so this prevents orphan accounts when an existing (app-trained)
+    // user buys exam access on the web with a different email (e.g. Stripe Link autofill).
+    let examUnlockCustomerEmail: string | null = null;
+    if (
+      body.prefill_source === 'exam_unlock' &&
+      typeof body.prefill_email === 'string' &&
+      body.prefill_email.trim()
+    ) {
+      examUnlockCustomerEmail = body.prefill_email.trim();
+    }
+
     // Handle both simple checkout (BuyNowButton) and cart checkout (cart page)
     let lineItems = [];
     let metadata: Record<string, string> = {};
@@ -533,7 +546,9 @@ export async function POST(req: NextRequest) {
             },
           }
         : {}),
-      ...(askEmployerCustomerEmail ? { customer_email: askEmployerCustomerEmail } : {}),
+      ...(askEmployerCustomerEmail || examUnlockCustomerEmail
+        ? { customer_email: askEmployerCustomerEmail ?? examUnlockCustomerEmail ?? undefined }
+        : {}),
       success_url: `${base}/checkout/success?slug=${encodeURIComponent(successSlug)}&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: cancelUrl,
       metadata: metadata,

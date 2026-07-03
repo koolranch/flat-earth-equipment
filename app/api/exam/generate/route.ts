@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
 import { logServerError } from '@/lib/monitor/log.server';
+import { examEntitlementBlocked, NOT_PURCHASED_RESPONSE } from '@/lib/training/exam-entitlement-gate.server';
 import crypto from 'crypto';
 
 export const runtime = 'nodejs';
@@ -16,6 +17,7 @@ export async function POST(req: Request){
   const svc = supabaseService();
   const { data: { user } } = await sb.auth.getUser();
   if (!user) return NextResponse.json({ ok:false, error:'unauthorized' }, { status:401 });
+  if (await examEntitlementBlocked(svc, user.id)) return NextResponse.json(NOT_PURCHASED_RESPONSE, { status:403 });
 
   const body = await req.json().catch(()=>({}));
   const count = Math.max(1, Math.min(50, Number(body?.count) || 20));
