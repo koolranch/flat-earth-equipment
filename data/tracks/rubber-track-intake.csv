@@ -5,3 +5,6 @@ Bobcat,T650,"A3P0,A3P1,ALJG,B5FF,T1ML",TSA/SY84849,,450x84x53,Block,"Track - Rub
 Bobcat,T650,"A3P0,A3P1,ALJG,B5FF,T1ML",TSA/BC6989159,6989159,450x84x53,,"Track - 450x84x53 Rubber (Bobcat OEM 6989159)",,,no,DO NOT LIST - vendor out of stock
 Bobcat,T650,"ALJG,B5FF,T1ML",TSA/SY84931,,450x86x52,Zig-zag,"Track - Rubber 450x86x52 - B-Style Zig-Zag Pattern (newer breaks only)",,,unknown,optional variant - need cost if listing
 Bobcat,T650,"ALJG,B5FF,T1ML",TSA/UNKNOWN-320ZZ,,320x86x52,Zig-zag,"Track - Rubber 320x86x52 - B-Style Zig-Zag Pattern (newer breaks only)",,,unknown,optional variant - PN cut off in screenshot; need PN + cost if listing
+Bobcat,T770,"AUYB,A3P9,A3P8",TSA/SY450X86X55C,,450x86x55,C pattern,"Track - Rubber 450x86x55 - B-Style C Pattern (standard T770 size, 55 links)",1275,1449,yes,primary listing; fits all 3 breaks; comps Fortis ~$1494/ea
+Bobcat,T770,"AUYB,A3P9,A3P8",TSA/SY44454322,,450x84x56,C pattern,"Track - Rubber 450x84x56 - B-Style C Pattern (84-pitch interchange)",1350,1595,yes,alternate pitch; fits all 3 breaks
+Bobcat,T770,"AUYB,A3P9,A3P8",TSA/SY320X84X56C,,320x84x56,C pattern,"Track - Rubber 320x84x56 - B-Style C Pattern (narrow width option)",715.01,949,yes,narrow fit; fits all 3 breaks
