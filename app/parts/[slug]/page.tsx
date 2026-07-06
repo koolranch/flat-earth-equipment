@@ -7,9 +7,46 @@ import { getBlogPost } from '@/lib/mdx';
 import Link from 'next/link';
 import { generatePageAlternates } from '@/app/seo-defaults';
 import { getDisplayBrand, sanitizeCustomerFacingCopy } from '@/lib/parts/displayBrand';
+import { getRubberTrackIntro } from '@/lib/parts/rubberTrackUtils';
 import RelatedResources from '@/components/seo/RelatedResources';
+import type { RelatedTrack } from '@/lib/parts/rubberTrackUtils';
 
 const SITE_URL = 'https://www.flatearthequipment.com';
+
+function mapRelatedTracks(rows: Array<Record<string, unknown>> | null): RelatedTrack[] {
+  if (!rows) return [];
+  return rows.map((row) => {
+    const metadata = (row.metadata as Record<string, unknown> | null) ?? {};
+    return {
+      slug: String(row.slug),
+      name: String(row.name),
+      price: Number(row.price),
+      size: typeof metadata.track_size === 'string' ? metadata.track_size : '',
+      treadPattern:
+        typeof metadata.tread_pattern === 'string' ? metadata.tread_pattern : 'Track',
+    };
+  });
+}
+
+async function fetchRelatedRubberTracks(
+  supabase: ReturnType<typeof supabaseServer>,
+  product: { brand: string; slug: string; category?: string | null; compatible_models?: string[] | null }
+): Promise<RelatedTrack[]> {
+  if (product.category !== 'Rubber Tracks' || !product.compatible_models?.length) {
+    return [];
+  }
+
+  const { data } = await supabase
+    .from('parts')
+    .select('slug, name, price, metadata')
+    .eq('brand', product.brand)
+    .eq('category', 'Rubber Tracks')
+    .neq('slug', product.slug)
+    .overlaps('compatible_models', product.compatible_models)
+    .order('price', { ascending: true });
+
+  return mapRelatedTracks(data);
+}
 
 /**
  * Build Product schema JSON-LD for a parts row.
@@ -57,6 +94,18 @@ function buildProductSchema(product: any, slug: string) {
       '@type': 'QuantitativeValue',
       value: product.weight_lbs,
       unitCode: 'LBR', // pounds
+    };
+  }
+
+  const warrantyMonths = product.metadata?.warranty_months;
+  if (typeof warrantyMonths === 'number' && warrantyMonths > 0) {
+    offer.warranty = {
+      '@type': 'WarrantyPromise',
+      durationOfWarranty: {
+        '@type': 'QuantitativeValue',
+        value: warrantyMonths,
+        unitCode: 'MON',
+      },
     };
   }
 
@@ -133,11 +182,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .single();
 
   if (product) {
-    const description = truncateDescription(
-      sanitizeCustomerFacingCopy(
-        product.description || `Buy ${product.name} from Flat Earth Equipment. Fast shipping across the Western U.S.`,
-      ),
-    );
+    const rawDescription =
+      product.category === 'Rubber Tracks'
+        ? getRubberTrackIntro(product.description)
+        : sanitizeCustomerFacingCopy(
+            product.description ||
+              `Buy ${product.name} from Flat Earth Equipment. Fast shipping across the Western U.S.`,
+          );
+    const description = truncateDescription(rawDescription);
     // Use the product image if available, otherwise fall back to the brand logo,
     // otherwise the sitewide default OG image.
     const brandSlug = (product.brand || '').toLowerCase().replace(/\s+/g, '-');
@@ -203,7 +255,7 @@ export default async function ProductPage({ params }: Props) {
 
   // If found in database, render product page
   if (product && !error) {
-    console.log('ProductPage product:', product);
+    const relatedTracks = await fetchRelatedRubberTracks(supabase, product);
     const productSchema = buildProductSchema(product, params.slug);
     const breadcrumbSchema = buildBreadcrumbSchema(product, params.slug);
     return (
@@ -218,7 +270,11 @@ export default async function ProductPage({ params }: Props) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
         />
-        <ProductDetails part={product} variants={product.part_variants || []} />
+        <ProductDetails
+          part={product}
+          variants={product.part_variants || []}
+          relatedTracks={relatedTracks}
+        />
       </>
     );
   }
