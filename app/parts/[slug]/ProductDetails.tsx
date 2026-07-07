@@ -34,6 +34,8 @@ interface ProductDetailsProps {
     id: string;
     name: string;
     brand: string;
+    sku?: string;
+    oem_reference?: string | null;
     description?: string;
     image_url?: string;
     price: number;

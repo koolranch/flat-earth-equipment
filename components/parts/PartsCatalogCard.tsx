@@ -17,6 +17,7 @@ import {
   getCustomerPartNumber,
   getCustomerProductName,
 } from '@/lib/parts/vendorOemPrefix';
+import { parsePartSpecs, type SpecChip } from '@/lib/parts/parseSpecs';
 import SeatProductVisual from '@/components/parts/SeatProductVisual';
 import {
   isSeatCategory,
@@ -152,6 +153,7 @@ export default function PartsCatalogCard({ product }: { product: CatalogCardProd
   const showBrandLogo =
     !showProductPhoto && !showSeatVisual && Boolean(brandLogoUrl) && !brandLogoFailed;
   const placeholderUrl = '/images/parts/placeholder.jpg';
+  const showGenericPlaceholder = !showProductPhoto && !showSeatVisual && !showBrandLogo;
   const displayPartNumber =
     getCustomerPartNumber({
       brand: product.brand,
