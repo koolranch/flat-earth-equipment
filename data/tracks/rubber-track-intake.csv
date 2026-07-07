@@ -1,5 +1,5 @@
 brand,model,serial_breaks,vendor_pn,oem_pn,size,tread_style,description,our_cost,sell_price,in_stock,notes
-Bobcat,T650,"A3P0,A3P1,ALJG,B5FF,T1ML",TSA/SY320X86X52C,,320x86x52,C pattern,"Track - Rubber 320x86x52 - B-Style C Pattern (narrow width; also the T190/T590 size)",840,1049,yes,fits all 5 T650 serial breaks; comps: SkidHeaven $1100 / Fortis $1081
+Bobcat,T650,"A3P0,A3P1,ALJG,B5FF,T1ML",TSA/SY320X86X52C,,320x86x52,C pattern,"Track - Rubber 320x86x52 - B-Style C Pattern (narrow width; T650-only — T590 uses 320x86x49 like T190)",840,1049,yes,fits all 5 T650 serial breaks; comps: SkidHeaven $1100 / Fortis $1081
 Bobcat,T650,"A3P0,A3P1,ALJG,B5FF,T1ML",TSA/SY450X86X52C,,450x86x52,C pattern,"Track - Rubber 450x86x52 - B-Style C Pattern (standard T650 size, aftermarket)",1200,1395,yes,primary listing; fits all 5 breaks; comps $950-1400 - priced premium on free ship + 2yr warranty
 Bobcat,T650,"A3P0,A3P1,ALJG,B5FF,T1ML",TSA/SY84849,,450x84x53,Block,"Track - Rubber 450x84x53 - B-Style Block (84-pitch interchange, aftermarket)",1125,1325,yes,alternate tread; fits all 5 breaks; Bridgestone-style block comps ~$1468/ea
 Bobcat,T650,"A3P0,A3P1,ALJG,B5FF,T1ML",TSA/BC6989159,6989159,450x84x53,,"Track - 450x84x53 Rubber (Bobcat OEM 6989159)",,,no,DO NOT LIST - vendor out of stock
@@ -14,3 +14,35 @@ Bobcat,T190,"5277,5278",TSA/SY6766330009,,320x84x50,C pattern,"Track - Rubber 32
 Caterpillar,259D/259D3,"259D: FTL; 259D3: TE9,MC9,TLS,CW9",TSA/SY84826,,400x86x53,C pattern,"Track - Rubber 400x86x53 - B-Style C Pattern (wide option)",975,1099,yes,all vendor breaks verified; comps Monster $949-1169 Prowler ~$1261
 Caterpillar,259D/259D3,"259D: FTL; 259D3: TE9,MC9,TLS,CW9",TSA/CT357-0232,,320x86x53,Block,"Track - Rubber 320x86x53 - Block tread (narrow)",860,1049,yes,all vendor breaks verified; comps Monster/Prowler ~$1016+
 Caterpillar,259D,FTL,TSA/SY320X86X53Z,,320x86x53,Zig-zag,"Track - Rubber 320x86x53 - B-Style Zig-Zag Pattern (narrow)",,,unknown,259D FTL only optional variant — not listed
+Bobcat,T590,"A3NR,A3NS,ALJU,B378,B3Z7,B3ZA",TSA/SY320X86X49C,,320x86x49,C pattern,"Track - Rubber 320x86x49 - B-Style C Pattern (narrow; same PN as T190)",800,999,yes,all 6 vendor breaks verified 2026-07-07 — identical 4-PN set on every break; A3NU not yet checked
+Bobcat,T590,"A3NR,A3NS,ALJU,B378,B3Z7,B3ZA",TSA/SY400X86X49C,,400x86x49,C pattern,"Track - Rubber 400x86x49 - B-Style C Pattern (wide option)",618.06,949,yes,all 6 breaks verified; measure current track width before ordering
+Bobcat,T590,"A3NR,A3NS,ALJU,B378,B3Z7,B3ZA",TSA/SY84945,,400x86x49,Zig-zag,"Track - Rubber 400x86x49 - B-Style Zig-Zag Pattern",900,1149,yes,all 6 breaks verified; priced premium on free ship + 2yr warranty vs comps adding freight
+Bobcat,T590,"A3NR,A3NS,ALJU,B378,B3Z7,B3ZA",TSA/SY320X86X49Z,,320x86x49,Zig-zag,"Track - Rubber 320x86x49 - B-Style Zig-Zag Pattern",800,1049,yes,all 6 breaks verified; alternate tread to C-pattern narrow listing
+Kubota,SVL75/SVL75-2,SVL75+SVL75-2 vendor breaks,TSA/SY320X86X52C,,320x86x52,C pattern,"Track - Rubber 320x86x52 - B-Style C Pattern (narrow; same PN as T650 narrow)",840,1049,yes,SVL75+SVL75-2 only — vendor does not catalog SVL75-3
+Kubota,SVL75/SVL75-2,SVL75+SVL75-2 vendor breaks,TSA/SY380X86X52SVL65-2,,380x86x52,Block,"Track - Rubber 380x86x52 - Block tread (Kubota wide option)",840,1049,yes,SVL75+SVL75-2 only — vendor does not catalog SVL75-3
+Kubota,SVL75/SVL75-2,SVL75+SVL75-2 vendor breaks,TSA/SYB320X86X52Y6,,320x86x52,Zig-zag,"Track - Rubber 320x86x52 - B-Style Zig-Zag Pattern",1181.23,1449,yes,SVL75+SVL75-2 only — vendor does not catalog SVL75-3
+Takeuchi,TL8,TL8 vendor break,TSA/SY84825,,400x86x52,Block,"Track - Rubber 400x86x52 - T-Style Block (wide)",930,1149,yes,TL8 only — different PNs than TL8R-2
+Takeuchi,TL8,TL8 vendor break,TSA/SY320X86X52,,320x86x52,C pattern,"Track - Rubber 320x86x52 - T-Style C Pattern (narrow)",701.25,899,yes,TL8 only — PN lacks trailing C vs Bobcat SY320X86X52C
+Takeuchi,TL8R-2,TL8R-2 vendor break,TSA/SY84914,,400x86x52,Block,"Track - Rubber 400x86x52 - B-Style Block (wide)",930,1149,yes,TL8R-2 only — vendor label TL8R-2
+Takeuchi,TL8R-2,TL8R-2 vendor break,TSA/SY400X86CNX52/323E,,400x86x52,C pattern,"Track - Rubber 400x86x52 - B-Style C Pattern (wide)",950,1179,yes,TL8R-2 only — no 320 narrow in vendor catalog
+John Deere,333G,333G vendor break,TSA/SY450X86X58C,,450x86x58,C pattern,"Track - Rubber 450x86x58 - B-Style C Pattern (standard wide)",1350,1649,yes,primary listing; only SKU in vendor catalog for 333G so far
+John Deere,325G,325G vendor break,TSA/SY320X86X52C,,320x86x52,C pattern,"Track - Rubber 320x86x52 - B-Style C Pattern (narrow)",840,1049,yes,same PN as T650/Kubota narrow
+John Deere,325G,325G vendor break,TSA/SYZC-B400X86X52-E5,,400x86x52,Multibar,"Track - Rubber 400x86x52 - B-Style Multibar (wide)",921.04,1149,backorder,vendor backordered no ETA — contact us to confirm availability before ordering
+John Deere,325G,325G vendor break,TSA/SY84914,,400x86x52,Block,"Track - Rubber 400x86x52 - B-Style Block (wide)",930,1149,yes,same PN as Takeuchi TL8R2 block
+Caterpillar,289D,TAW,TSA/CT454-6097,454-6097,450x86x56,Straight bar,"Track - Rubber 450x86x56 - Straight Bar (CT OEM cross-ref)",1750,2149,yes,single SKU in vendor catalog for 289D TAW break; only TAW prefix verified so far
+Bobcat,T66,"B51V,B4SB",TSA/SY320X86X50C,,320x86x50,C pattern,"Track - Rubber 320x86x50 - B-Style C Pattern (narrow)",820,999,yes,B51V+B4SB verified — 50 links not 52
+Bobcat,T66,"B51V,B4SB",TSA/SY320X86X50Z,,320x86x50,Zig-zag,"Track - Rubber 320x86x50 - B-Style Zig-Zag Pattern",820,1019,yes,alternate narrow tread
+Bobcat,T66,"B51V,B4SB",TSA/SY400X86X50C,,400x86x50,C pattern,"Track - Rubber 400x86x50 - B-Style C Pattern (wide)",910,1149,yes,measure width before ordering
+Bobcat,T66,"B51V,B4SB",TSA/SY84940,,400x86x50,Zig-zag,"Track - Rubber 400x86x50 - B-Style Zig-Zag Pattern",910,1149,yes,alternate wide tread
+Bobcat,T66,"B51V,B4SB",TSA/BC7394912,7394912,320x86x50,Straight bar,"Track - Rubber 320x86x50 - B-Style Straight Bar (Bobcat OEM)",900,1149,yes,OEM cross-ref 7394912
+Bobcat,T66,"B51V,B4SB",TSA/BC7408151,7408151,400x86x50,Straight bar,"Track - Rubber 400x86x50 - B-Style Straight Bar (Bobcat OEM)",885.61,1129,backorder,OEM cross-ref 7408151 — vendor backordered no ETA
+Bobcat,T550,"A7UJ,AJZV,B57T",TSA/SY320X86X49C,,320x86x49,C pattern,"Track - Rubber 320x86x49 - B-Style C Pattern (narrow)",800,999,yes,same PN as T590 — A7UJ+AJZV+B57T verified identical 4-PN set
+Bobcat,T550,"A7UJ,AJZV,B57T",TSA/SY400X86X49C,,400x86x49,C pattern,"Track - Rubber 400x86x49 - B-Style C Pattern (wide)",618.06,949,yes,same PN as T590
+Bobcat,T550,"A7UJ,AJZV,B57T",TSA/SY84945,,400x86x49,Zig-zag,"Track - Rubber 400x86x49 - B-Style Zig-Zag Pattern",900,1149,yes,same PN as T590
+Bobcat,T550,"A7UJ,AJZV,B57T",TSA/SY320X86X49Z,,320x86x49,Zig-zag,"Track - Rubber 320x86x49 - B-Style Zig-Zag Pattern",800,1049,yes,same PN as T590
+Bobcat,MT85,B3TR,TSA/SY180X72X45C,,180x72x45,C pattern,"Track - Rubber 180x72x45 - B-Style C Pattern (narrow mini CTL)",250,379,yes,B3TR verified; vendor freight $41/pair absorbed (~$20.50/track) — free_freight flag kept for checkout consistency
+Bobcat,MT85,B3TR,TSA/SY250X72X45C,,250x72x45,C pattern,"Track - Rubber 250x72x45 - B-Style C Pattern (wide mini CTL)",315,459,yes,measure width; vendor freight $41/pair absorbed in sell price
+Kubota,SVL95-2S/SVL95-2SC,SVL95-2S+SVL95-2SC vendor breaks,TSA/SY450X86X58C,,450x86x58,C pattern,"Track - Rubber 450x86x58 - B-Style C Pattern (standard wide)",1350,1649,yes,same PN as John Deere 333G — both Kubota models return identical single SKU
+Case,TR270,TR270 vendor break,TSA/SY320X86X50C,,320x86x50,C pattern,"Track - Rubber 320x86x50 - B-Style C Pattern",820,999,yes,same PN as Bobcat T66 320 C
+Case,TR270,TR270 vendor break,TSA/SY84909,,320x86x50,Bridgestone,"Track - Rubber 320x86x50 - Bridgestone premium tread",820,1049,yes,premium alternate at same vendor cost — priced above C-pattern listing
+Case,TR310,TR310 vendor break,TSA/SY320X86X50C,,320x86x50,C pattern,"Track - Rubber 320x86x50 - B-Style C Pattern",820,999,yes,same PN as TR270/T66 — single SKU in vendor catalog
