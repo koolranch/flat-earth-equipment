@@ -3,6 +3,7 @@ import { supabaseServer } from "@/lib/supabase/server";
 import { forkliftStates } from "@/src/data/forkliftStates";
 import { getStateMetrics } from "@/lib/safety/stateMetrics";
 import { CART_MODELS } from "@/constants/golfCartModels";
+import { CHARGER_MODULES } from "@/constants/chargerOptions";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -61,6 +62,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const partItems = (parts ?? [])
     .filter((p) => p.slug)
+    // Old charger-module product slugs 301-redirect to /charger-modules;
+    // listing them here sends Google redirecting URLs.
+    .filter((p) => !/-forklift-charger-module-/.test(p.slug))
     .map((p) => {
       // High-value categories get higher priority
       const isHighValue =
@@ -109,6 +113,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: c.popularity === "High" ? 0.9 : c.popularity === "Medium" ? 0.8 : 0.7,
   }));
 
+  // ── 4b. Dedicated charger-module part-number pages ───────────────────────
+  const chargerModuleItems = CHARGER_MODULES.map((m) => ({
+    url: `${BASE}/charger-modules/${m.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.85,
+  }));
+
   // ── 5. Core marketing/landing pages ──────────────────────────────────────
   const corePages = [
     { url: `${BASE}/`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 1.0 },
@@ -144,6 +156,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...corePages,
     ...statePages,
     ...cartLithiumItems,
+    ...chargerModuleItems,
     ...partItems,
     ...chargerItems,
     ...insightItems,

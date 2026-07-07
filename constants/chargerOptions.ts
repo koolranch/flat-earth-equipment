@@ -11,6 +11,8 @@ export interface ChargerModule {
   id: string;            // product UUID
   brand: "Enersys" | "Hawker" | "ACT";
   partNumber: string;    // part number (e.g., "6LA20671")
+  slug: string;          // URL slug for the dedicated page at /charger-modules/[sku]
+  crossRefPn?: string;   // OEM cross-reference part number (e.g., Hyster/Yale Premier)
   title: string;         // full marketing title
   imgExchange: string;
   imgRepair: string;
@@ -25,6 +27,7 @@ export const CHARGER_MODULES: ChargerModule[] = [
     id: "7e1b5a1d-3b0a-42be-8ec2-dcd3670ec601",
     brand: "Enersys",
     partNumber: "6LA20671",
+    slug: "enersys-6la20671",
     title: "Enersys Forklift Charger Module – 6LA20671",
     imgExchange: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/enersys.png",
     imgRepair: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/enersys.png",
@@ -49,6 +52,7 @@ export const CHARGER_MODULES: ChargerModule[] = [
     id: "4f9d4d95-2d86-4b65-a1d3-5726e5802b6a",
     brand: "Hawker",
     partNumber: "6LA20671",
+    slug: "hawker-6la20671",
     title: "Hawker Forklift Charger Module – 6LA20671",
     imgExchange: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/hawker.png",
     imgRepair: "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/hawker.png",
@@ -73,6 +77,8 @@ export const CHARGER_MODULES: ChargerModule[] = [
     id: "3da197f5-be07-418e-a94d-441855a21f7b",
     brand: "ACT",
     partNumber: "Quantum 36VDC",
+    slug: "act-quantum-36vdc",
+    crossRefPn: "81063658R",
     title: "ACT Quantum 36VDC Charger Module – 480VAC In",
     imgExchange: ACT_QUANTUM_IMAGE,
     imgRepair: ACT_QUANTUM_IMAGE,
@@ -97,6 +103,8 @@ export const CHARGER_MODULES: ChargerModule[] = [
     id: "9019608e-9051-49a3-846b-0d8787fa3ea8",
     brand: "ACT",
     partNumber: "Quantum 48VDC",
+    slug: "act-quantum-48vdc",
+    crossRefPn: "81063577R",
     title: "ACT Quantum 48VDC Charger Module – 480VAC In",
     imgExchange: ACT_QUANTUM_IMAGE,
     imgRepair: ACT_QUANTUM_IMAGE,
@@ -121,6 +129,8 @@ export const CHARGER_MODULES: ChargerModule[] = [
     id: "f4fcbadf-b3ee-4d26-bb8b-d54570e74cf1",
     brand: "ACT",
     partNumber: "Quantum 80VDC",
+    slug: "act-quantum-80vdc",
+    crossRefPn: "81063578R",
     title: "ACT Quantum 80VDC Industrial Charger Module – 480VAC In",
     imgExchange: ACT_QUANTUM_IMAGE,
     imgRepair: ACT_QUANTUM_IMAGE,

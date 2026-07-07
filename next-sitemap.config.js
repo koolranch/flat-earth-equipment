@@ -230,7 +230,6 @@ const PARTS_PAGES = [
   '/parts/aerial-equipment/genie-scissor-lift-error-codes',
   '/parts/forklift-parts/nissan-k21-forklift-engine',
   '/parts/attachments/forks',
-  '/parts/battery-charger-modules',
 ];
 
 // Core pages that might be missed by auto-discovery

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ChargerModule } from "../constants/chargerOptions";
 import AddToCartButton from "./AddToCartButton";
 import InfoTooltip from "./InfoTooltip";
@@ -13,7 +14,7 @@ function formatUsd(cents: number) {
 
 type Locale = 'en' | 'es';
 
-export default function OptionSelectorCard({ module, locale = 'en' }: { module: ChargerModule; locale?: Locale }) {
+export default function OptionSelectorCard({ module, locale = 'en', showDetailsLink = true }: { module: ChargerModule; locale?: Locale; showDetailsLink?: boolean }) {
   const [choice, setChoice] = useState<"Reman Exchange" | "Repair & Return">("Reman Exchange");
   const offer = module.offers.find((o) => o.label === choice)!;
   const remanOffer = module.offers.find((o) => o.label === "Reman Exchange");
@@ -63,6 +64,14 @@ export default function OptionSelectorCard({ module, locale = 'en' }: { module: 
         <p className="text-sm text-gray-500 font-medium">
           {module.brand} • {module.partNumber}
         </p>
+        {showDetailsLink && (
+          <Link
+            href={`/charger-modules/${module.slug}`}
+            className="inline-block text-sm font-medium text-canyon-rust hover:underline"
+          >
+            {locale === 'es' ? 'Ver especificaciones y detalles →' : 'View full specs & details →'}
+          </Link>
+        )}
       </div>
 
       {/* Radio selector */}

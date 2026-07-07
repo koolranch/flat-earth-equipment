@@ -193,6 +193,12 @@ const baseConfig = {
         destination: '/charger-modules',
         permanent: true
       },
+      // Retire duplicate legacy listing page that competed with /charger-modules
+      {
+        source: '/parts/battery-charger-modules',
+        destination: '/charger-modules',
+        permanent: true
+      },
       // Redirect old battery-charger-modules page to canonical charger-modules
       // BACKLINK RECOVERY: Trailing-slash variant must come FIRST
       // Bypasses Next.js's automatic 308 trailing-slash normalization
