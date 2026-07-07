@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { Search, CheckCircle, AlertTriangle, MapPin, Wrench, Settings, Calendar, Truck } from "lucide-react";
+import BrandRubberTracksSection from "@/components/parts/BrandRubberTracksSection";
 
 type PlateTip = {
   equipment_type: string;
@@ -598,6 +599,9 @@ export default function BobcatLookupPage() {
             </div>
           </div>
         </div>
+
+        {/* Rubber tracks cross-links (static, crawlable) */}
+        <BrandRubberTracksSection brand="bobcat" brandLabel="Bobcat" />
 
         {/* Related Links */}
         <div className="bg-white border border-slate-200 rounded-lg p-8 mt-8">

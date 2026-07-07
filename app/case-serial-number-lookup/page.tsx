@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Search, CheckCircle, MapPin, Wrench, Settings, Calendar, Info, ExternalLink, Building2 } from "lucide-react";
 import BrandHubBanner from '@/components/brand/BrandHubBanner';
 import SerialToolJsonLd from '@/components/seo/SerialToolJsonLd';
+import BrandRubberTracksSection from '@/components/parts/BrandRubberTracksSection';
 
 type PartFit = { slug: string; name: string; sales_type: string | null; price_cents: number | null; is_fast_moving: boolean | null };
 
@@ -622,6 +623,11 @@ export default function CaseSerialLookupPage() {
 
           {/* Brand Hub Banner */}
           <BrandHubBanner slug="case-construction" name="Case Construction" />
+
+          {/* Rubber tracks cross-links (static, crawlable) */}
+          <div className="mb-8">
+            <BrandRubberTracksSection brand="case" brandLabel="Case" />
+          </div>
 
           {/* Visible FAQ — mirrors the FAQPage JSON-LD */}
           <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-8 mb-8">

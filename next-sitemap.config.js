@@ -420,6 +420,8 @@ const config = {
     for (const page of PARTS_PAGES) {
       add(page, 0.7);
     }
+    // Rubber tracks category hub
+    add('/rubber-tracks', 0.8);
     
     // =========================================================================
     // 7. Individual product pages from Supabase (~925 products)

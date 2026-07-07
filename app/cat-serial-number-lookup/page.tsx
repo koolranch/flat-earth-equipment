@@ -1,6 +1,7 @@
 "use client";
 import { useState, useMemo } from "react";
 import Script from "next/script";
+import BrandRubberTracksSection from "@/components/parts/BrandRubberTracksSection";
 
 type PlateTip = { 
   equipment_type: string; 
@@ -286,6 +287,9 @@ export default function CATLookupPage() {
             )}
           </div>
         )}
+
+        {/* Rubber tracks cross-links (static, crawlable) */}
+        <BrandRubberTracksSection brand="caterpillar" brandLabel="CAT" />
       </div>
     </>
   );

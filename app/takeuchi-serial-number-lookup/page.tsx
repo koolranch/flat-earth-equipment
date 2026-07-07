@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import BrandRubberTracksSection from "@/components/parts/BrandRubberTracksSection";
 
 type PlateTip = {
   equipment_type: string;
@@ -387,6 +388,9 @@ export default function Page() {
           )}
         </div>
       )}
+
+      {/* Rubber tracks cross-links (static, crawlable) */}
+      <BrandRubberTracksSection brand="takeuchi" brandLabel="Takeuchi" />
 
       <section className="mt-12">
         <h2 className="text-2xl font-semibold tracking-tight text-slate-900">Frequently Asked Questions</h2>
