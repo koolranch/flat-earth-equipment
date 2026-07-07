@@ -12,6 +12,7 @@ import {
   shouldShowCardStockIndicator,
   type AvailabilityFilter,
 } from '@/lib/parts/catalogContext';
+import { getBrandLogoUrl } from '@/lib/parts/brandLogo';
 import { parsePartSpecs, type SpecChip } from '@/lib/parts/parseSpecs';
 
 export type CatalogCardProduct = {
@@ -129,6 +130,12 @@ export default function PartsCatalogCard({ product }: { product: CatalogCardProd
       category: product.category,
     });
 
+  const brandLogoUrl = getBrandLogoUrl(product.brand ?? '');
+  const placeholderUrl = '/images/parts/placeholder.jpg';
+  const imageSrc = product.imageUrl || brandLogoUrl || placeholderUrl;
+  const isLogoFallback = !product.imageUrl && Boolean(brandLogoUrl);
+  const isPlaceholder = !product.imageUrl && !brandLogoUrl;
+
   const handleAddToCart = (event: MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
@@ -173,19 +180,19 @@ export default function PartsCatalogCard({ product }: { product: CatalogCardProd
                 aria-hidden="true"
               />
             )}
-            {product.imageUrl ? (
-              <Image
-                src={product.imageUrl}
-                alt={product.name}
-                fill
-                sizes="(max-width: 640px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
-              />
-            ) : (
-              <div className="flex h-full items-center justify-center text-xs text-slate-400">
-                Image coming soon
-              </div>
-            )}
+            <Image
+              src={imageSrc}
+              alt={product.name}
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 1280px) 33vw, 25vw"
+              className={`p-2 transition-transform duration-300 group-hover:scale-105 ${
+                isLogoFallback
+                  ? 'object-contain opacity-80'
+                  : isPlaceholder
+                    ? 'object-cover'
+                    : 'object-contain'
+              }`}
+            />
             {specChips.length > 0 && (
               <div className="absolute left-2 top-2 z-10 max-w-[calc(100%-1rem)] sm:hidden">
                 <SpecChipRow chips={specChips.slice(0, 2)} />
@@ -272,14 +279,16 @@ export default function PartsCatalogCard({ product }: { product: CatalogCardProd
                   type="button"
                   onClick={handleAddToCart}
                   disabled={isAddingToCart || !product.stripePriceId}
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#F76511] text-white transition-colors hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="flex h-9 shrink-0 items-center gap-1.5 rounded-lg bg-[#F76511] px-3 text-xs font-semibold text-white transition-colors hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
                   aria-label="Add to cart"
-                  title="Add to cart"
                 >
                   {isAddingToCart ? (
                     <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
                   ) : (
-                    <ShoppingCart className="h-4 w-4" />
+                    <>
+                      <ShoppingCart className="h-3.5 w-3.5" />
+                      <span>Add</span>
+                    </>
                   )}
                 </button>
               </>

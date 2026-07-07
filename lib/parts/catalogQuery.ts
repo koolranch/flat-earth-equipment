@@ -122,6 +122,7 @@ function applySort(query: any, sort: CatalogSort) {
     case 'recommended':
     default:
       return query
+        .order('is_fast_moving', { ascending: false, nullsFirst: false })
         .order('is_in_stock', { ascending: false, nullsFirst: false })
         .order('sales_type', { ascending: true })
         .order('name', { ascending: true });
@@ -257,38 +258,39 @@ export async function fetchCatalogFacets(supabase: SupabaseClient) {
 
 export const CATALOG_QUICK_PATHS = [
   {
-    label: 'JCB Parts',
-    href: '/brand/jcb',
-    description: 'Aftermarket OEM replacements',
+    label: 'Rubber Tracks',
+    href: '/parts?category_slug=rubber-tracks',
+    description: 'Free shipping · 2-year warranty',
+    accent: 'bg-emerald-600',
   },
   {
     label: 'Ships Today',
     href: '/parts?sales_type=direct&in_stock=1',
-    description: 'In stock — ready to ship',
+    description: 'In stock — same-day shipping',
+    accent: 'bg-[#F76511]',
   },
   {
-    label: 'Battery Chargers',
-    href: '/parts?category_slug=battery-chargers',
-    description: 'Fleet & lift chargers',
+    label: 'JCB Parts',
+    href: '/brand/jcb',
+    description: 'Aftermarket OEM replacements',
+    accent: 'bg-slate-800',
+  },
+  {
+    label: 'Industrial Seats',
+    href: '/parts?category_slug=seats',
+    description: 'Forklift & equipment seats',
+    accent: 'bg-slate-700',
   },
   {
     label: 'Charger Modules',
     href: '/charger-modules',
-    description: 'Remanufactured charger modules',
+    description: 'Reman repair & exchange',
+    accent: 'bg-blue-600',
   },
   {
     label: 'Lithium Batteries',
     href: '/lithium-batteries',
     description: 'Drop-in LiFePO4 kits',
-  },
-  {
-    label: 'Rubber Tracks',
-    href: '/parts?category_slug=rubber-tracks',
-    description: 'Bobcat, Cat & more — free shipping',
-  },
-  {
-    label: 'Forklift Parts',
-    href: '/parts?category_slug=forklift-parts',
-    description: 'Seats, forks & more',
+    accent: 'bg-purple-600',
   },
 ] as const;

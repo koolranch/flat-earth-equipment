@@ -2,9 +2,9 @@ export const revalidate = 0;
 
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { ShieldCheck, Truck, Wrench } from 'lucide-react';
 import { supabaseServer } from '@/lib/supabase/server';
 import { getUserLocale } from '@/lib/getUserLocale';
-import { generatePageAlternates } from '../seo-defaults';
 import BreadcrumbJsonLd from '@/components/seo/BreadcrumbJsonLd';
 import PartsCatalogToolbar from '@/components/parts/PartsCatalogToolbar';
 import PartsCatalogSidebar from '@/components/parts/PartsCatalogSidebar';
@@ -12,6 +12,10 @@ import PartsCatalogGrid from '@/components/parts/PartsCatalogGrid';
 import PartsCatalogAvailabilityPills from '@/components/parts/PartsCatalogAvailabilityPills';
 import PartsCatalogQuickPaths from '@/components/parts/PartsCatalogQuickPaths';
 import PartsCatalogActiveFilters from '@/components/parts/PartsCatalogActiveFilters';
+import PartsCatalogMobileFilters from '@/components/parts/PartsCatalogMobileFilters';
+import PartsCatalogIntro from '@/components/parts/PartsCatalogIntro';
+import PartsCatalogJsonLd from '@/components/parts/PartsCatalogJsonLd';
+import PartsCatalogFaq from '@/components/parts/PartsCatalogFaq';
 import {
   buildCatalogUrl,
   fetchCatalogFacets,
@@ -24,19 +28,28 @@ import {
   getCatalogCountLabel,
   getCatalogPageTitle,
 } from '@/lib/parts/catalogContext';
+import { buildCatalogMetadata } from '@/lib/parts/catalogSeo';
 
-export const metadata: Metadata = {
-  title: 'Parts Catalog | Flat Earth Equipment',
-  description:
-    'Shop forklift parts, aerial lift components, and industrial equipment parts. Search by part number or OEM reference. Fast shipping across the Western US.',
-  alternates: generatePageAlternates('/parts'),
-  robots: {
-    index: true,
-    follow: true,
-    'max-image-preview': 'large',
-    'max-snippet': -1,
-  },
-};
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: CatalogSearchParams;
+}): Promise<Metadata> {
+  const supabase = supabaseServer();
+  const { categories } = await fetchCatalogFacets(supabase);
+  return buildCatalogMetadata(searchParams, categories);
+}
+
+function isBaseCatalogView(searchParams: CatalogSearchParams): boolean {
+  return (
+    !searchParams.q &&
+    !searchParams.brand &&
+    !searchParams.category &&
+    !searchParams.category_slug &&
+    !searchParams.sales_type &&
+    !searchParams.in_stock
+  );
+}
 
 export default async function PartsPage({
   searchParams,
@@ -45,11 +58,15 @@ export default async function PartsPage({
 }) {
   const locale = getUserLocale();
   const supabase = supabaseServer();
+  const showBaseContent = isBaseCatalogView(searchParams);
 
   const t = {
     en: {
-      title: 'Parts Catalog',
+      title: 'Forklift & Equipment Parts',
       subtitle: 'Search by part number, SKU, or OEM reference',
+      intro:
+        'Browse {count} forklift parts, JCB aftermarket components, rubber tracks, charger modules, and aerial lift parts. Every listing is an OEM-equivalent replacement — search by part number or use our serial lookup tools to confirm fitment.',
+      serialLookup: 'Serial lookup',
       error: 'Error:',
       previous: 'Previous',
       next: 'Next',
@@ -73,7 +90,8 @@ export default async function PartsPage({
       sortPriceDesc: 'Price: High to Low',
       sortName: 'Name: A to Z',
       noResults: 'No parts matched your search.',
-      noResultsHelp: 'Try a different part number, or request a quote and our team will cross-reference OEM numbers.',
+      noResultsHelp:
+        'Try a different part number, or request a quote and our team will cross-reference OEM numbers.',
       requestQuote: 'Request a Quote',
       trustWarranty: '12-Month Warranty',
       trustWarrantyDesc: 'All aftermarket parts include warranty from date of purchase',
@@ -81,11 +99,15 @@ export default async function PartsPage({
       trustOemDesc: 'Direct-fit replacements — no modifications required',
       trustShip: 'Fast Shipping',
       trustShipDesc: 'In-stock parts ship same day nationwide',
-      shopBy: 'Shop by category',
+      shopBy: 'Popular categories',
+      faqHeading: 'Parts catalog FAQ',
     },
     es: {
-      title: 'Catálogo de Partes',
+      title: 'Partes para montacargas y equipo',
       subtitle: 'Busque por número de parte, SKU o referencia OEM',
+      intro:
+        'Explore {count} partes para montacargas, componentes JCB, bandas de goma, módulos de cargador y partes para elevadores. Cada listado es un reemplazo equivalente OEM.',
+      serialLookup: 'Búsqueda por serial',
       error: 'Error:',
       previous: 'Anterior',
       next: 'Siguiente',
@@ -118,7 +140,8 @@ export default async function PartsPage({
       trustOemDesc: 'Reemplazos de ajuste directo — sin modificaciones',
       trustShip: 'Envío rápido',
       trustShipDesc: 'Partes en stock se envían el mismo día',
-      shopBy: 'Comprar por categoría',
+      shopBy: 'Categorías populares',
+      faqHeading: 'Preguntas frecuentes',
     },
   }[locale];
 
@@ -148,6 +171,7 @@ export default async function PartsPage({
 
   return (
     <>
+      <PartsCatalogJsonLd parts={parts} showFaq={showBaseContent} />
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: 'https://www.flatearthequipment.com' },
@@ -161,6 +185,20 @@ export default async function PartsPage({
             {count ? `${countLabel} · ${t.subtitle}` : t.subtitle}
           </p>
         </div>
+
+        {showBaseContent && (
+          <>
+            <PartsCatalogIntro
+              totalCount={facets.availability.total}
+              labels={{
+                intro: t.intro,
+                serialLookup: t.serialLookup,
+                partsWord: t.parts,
+              }}
+            />
+            <PartsCatalogQuickPaths heading={t.shopBy} />
+          </>
+        )}
 
         <PartsCatalogToolbar
           searchParams={searchParams}
@@ -193,26 +231,46 @@ export default async function PartsPage({
           }}
         />
 
+        <PartsCatalogMobileFilters label={t.filters} activeCount={activeFilters.length}>
+          <PartsCatalogSidebar
+            searchParams={searchParams}
+            brands={facets.brands}
+            categories={facets.categories}
+            availability={facets.availability}
+            labels={{
+              filters: t.filters,
+              brands: t.brands,
+              categories: t.categories,
+              availability: t.availability,
+              allParts: t.allParts,
+              buyNow: t.buyNow,
+              inStock: t.inStock,
+              quoteOnly: t.quoteOnly,
+              clearFilters: t.clearFilters,
+            }}
+          />
+        </PartsCatalogMobileFilters>
+
         <div className="flex flex-col gap-8 lg:flex-row">
           <div className="hidden w-60 shrink-0 lg:block">
             <div className="sticky top-24">
               <PartsCatalogSidebar
-              searchParams={searchParams}
-              brands={facets.brands}
-              categories={facets.categories}
-              availability={facets.availability}
-              labels={{
-                filters: t.filters,
-                brands: t.brands,
-                categories: t.categories,
-                availability: t.availability,
-                allParts: t.allParts,
-                buyNow: t.buyNow,
-                inStock: t.inStock,
-                quoteOnly: t.quoteOnly,
-                clearFilters: t.clearFilters,
-              }}
-            />
+                searchParams={searchParams}
+                brands={facets.brands}
+                categories={facets.categories}
+                availability={facets.availability}
+                labels={{
+                  filters: t.filters,
+                  brands: t.brands,
+                  categories: t.categories,
+                  availability: t.availability,
+                  allParts: t.allParts,
+                  buyNow: t.buyNow,
+                  inStock: t.inStock,
+                  quoteOnly: t.quoteOnly,
+                  clearFilters: t.clearFilters,
+                }}
+              />
             </div>
           </div>
 
@@ -301,24 +359,27 @@ export default async function PartsPage({
           </div>
         </div>
 
-        <PartsCatalogQuickPaths heading={t.shopBy} />
-
-        <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-          <div className="grid gap-6 text-center sm:grid-cols-3">
-            <div>
-              <p className="mb-1 text-2xl font-bold text-slate-900">{t.trustWarranty}</p>
+        <div className="mt-12 rounded-2xl border border-slate-200 bg-white p-6">
+          <div className="grid gap-8 sm:grid-cols-3">
+            <div className="text-center sm:text-left">
+              <ShieldCheck className="mx-auto mb-3 h-8 w-8 text-[#F76511] sm:mx-0" />
+              <p className="mb-1 text-lg font-bold text-slate-900">{t.trustWarranty}</p>
               <p className="text-sm text-slate-600">{t.trustWarrantyDesc}</p>
             </div>
-            <div>
-              <p className="mb-1 text-2xl font-bold text-slate-900">{t.trustOem}</p>
+            <div className="text-center sm:text-left">
+              <Wrench className="mx-auto mb-3 h-8 w-8 text-[#F76511] sm:mx-0" />
+              <p className="mb-1 text-lg font-bold text-slate-900">{t.trustOem}</p>
               <p className="text-sm text-slate-600">{t.trustOemDesc}</p>
             </div>
-            <div>
-              <p className="mb-1 text-2xl font-bold text-slate-900">{t.trustShip}</p>
+            <div className="text-center sm:text-left">
+              <Truck className="mx-auto mb-3 h-8 w-8 text-[#F76511] sm:mx-0" />
+              <p className="mb-1 text-lg font-bold text-slate-900">{t.trustShip}</p>
               <p className="text-sm text-slate-600">{t.trustShipDesc}</p>
             </div>
           </div>
         </div>
+
+        {showBaseContent && <PartsCatalogFaq heading={t.faqHeading} />}
       </main>
     </>
   );

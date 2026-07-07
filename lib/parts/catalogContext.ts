@@ -51,7 +51,7 @@ export function getCatalogPageTitle(
     return 'Request Quote';
   }
 
-  return 'Parts Catalog';
+  return 'Forklift & Equipment Parts';
 }
 
 export function getCatalogCountLabel(
@@ -61,7 +61,7 @@ export function getCatalogCountLabel(
   partsWord: string,
 ): string {
   const title = getCatalogPageTitle(searchParams, categories);
-  if (title === 'Parts Catalog') {
+  if (title === 'Forklift & Equipment Parts') {
     return `${count.toLocaleString()} ${partsWord}`;
   }
   return `${count.toLocaleString()} ${title.toLowerCase()}`;
