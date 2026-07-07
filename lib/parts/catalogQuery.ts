@@ -264,9 +264,9 @@ export const CATALOG_QUICK_PATHS = [
     accent: 'bg-emerald-600',
   },
   {
-    label: 'Ships Today',
-    href: '/parts?sales_type=direct&in_stock=1',
-    description: 'In stock — same-day shipping',
+    label: 'Forklift Forks',
+    href: '/forks',
+    description: 'Class II–IV · ANSI certified',
     accent: 'bg-[#F76511]',
   },
   {
