@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import SeatProductVisual from '@/components/parts/SeatProductVisual';
+import { isSeatCategory } from '@/lib/parts/seatVisualUtils';
 import { createClient } from '@/utils/supabase/server';
 
 // Curated homepage showcase. Edit this list to change which parts appear.
@@ -32,8 +34,10 @@ type PartRow = {
   name: string;
   brand: string | null;
   category: string | null;
+  category_slug: string | null;
   price: number | null;
   image_url: string | null;
+  metadata: Record<string, unknown> | null;
 };
 
 function shortLabel(category: string | null, fallback: string): string {
@@ -47,7 +51,7 @@ export default async function FeaturedProducts() {
 
   const { data } = await supabase
     .from('parts')
-    .select('slug, name, brand, category, price, image_url')
+    .select('slug, name, brand, category, category_slug, price, image_url, metadata')
     .in('slug', slugs);
 
   const bySlug = new Map<string, PartRow>(
@@ -91,6 +95,8 @@ export default async function FeaturedProducts() {
         <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
           {products.map(({ config, part }) => {
             const cleanImage = part.image_url?.replace(/([^:]\/)\/+/g, '$1');
+            const useSeatVisual =
+              !cleanImage && isSeatCategory(part.category, part.category_slug);
             return (
               <Link
                 key={part.slug}
@@ -105,6 +111,14 @@ export default async function FeaturedProducts() {
                       fill
                       className="object-contain p-6 transition duration-300 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  ) : useSeatVisual ? (
+                    <SeatProductVisual
+                      name={part.name}
+                      brand={part.brand ?? undefined}
+                      category={part.category ?? undefined}
+                      metadata={part.metadata}
+                      variant="card"
                     />
                   ) : (
                     <div className="flex h-full items-center justify-center text-slate-300">
