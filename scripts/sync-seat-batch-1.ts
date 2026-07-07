@@ -1,5 +1,8 @@
 /**
- * Seat catalog batch 1 — enable Buy Now with vendor costs + product images.
+ * Seat catalog batch 1 — enable Buy Now with vendor costs.
+ *
+ * Do NOT upload vendor portal screenshots as product images — use clean,
+ * watermark-free photos only (or leave image_url null until available).
  *
  * Run: npx tsx scripts/sync-seat-batch-1.ts
  */
@@ -91,7 +94,6 @@ const BATCH: BatchItem[] = [
     sku: 'CT298-8722',
     cost: 694.33,
     mode: 'price',
-    imageFile: 'FireShot_Capture_1297_-_Products_-_TVH_-__shop.tvh.com_-ce43b994-52d0-493b-8d27-6f20f0dba1b6.png',
     patch: {
       weight_lbs: 61,
       description: [
@@ -106,7 +108,6 @@ const BATCH: BatchItem[] = [
     sku: 'JL91563158',
     cost: 777.65,
     mode: 'price',
-    imageFile: 'FireShot_Capture_1298_-_Products_-_TVH_-__shop.tvh.com_-9247dcb7-a98f-40f6-8d8c-e726eaae9b0f.png',
     patch: {
       weight_lbs: 44,
       description: [
@@ -122,7 +123,6 @@ const BATCH: BatchItem[] = [
     lookupSku: 'GN123137-BACK',
     cost: 117.3,
     mode: 'price',
-    imageFile: 'FireShot_Capture_1299_-_Products_-_TVH_-__shop.tvh.com_-a39ac998-3ff1-4d45-a0b2-c63531c0f6b4.png',
     patch: {
       name: 'Genie GN123137 Vinyl Seat Assembly',
       slug: 'genie-gn123137-vinyl-seat-assembly',
@@ -149,7 +149,6 @@ const BATCH: BatchItem[] = [
     sku: 'SA1001101085',
     cost: 579.44,
     mode: 'price',
-    imageFile: 'FireShot_Capture_1300_-_Products_-_TVH_-__shop.tvh.com_-577450f3-1b2c-4a44-9cc0-cd1d6c14aefe.png',
     patch: {
       compatible_models: ['10042', '10054', '6036', '6042', '8042'],
       weight_lbs: 42,
@@ -164,7 +163,6 @@ const BATCH: BatchItem[] = [
     sku: 'JL7026900-BACK',
     cost: 67.33,
     mode: 'price',
-    imageFile: 'FireShot_Capture_1301_-_Products_-_TVH_-__shop.tvh.com_-37415516-d8a2-4d32-9287-c5e4ca9b6039.png',
     patch: {
       name: 'JLG JL7026900 Seat Back Cushion (Vinyl)',
       slug: 'jlg-jl7026900-seat-back-cushion',
@@ -192,7 +190,6 @@ const BATCH: BatchItem[] = [
     sku: 'JL7026901-BOTTOM',
     cost: 103.68,
     mode: 'price',
-    imageFile: 'FireShot_Capture_1301_-_Products_-_TVH_-__shop.tvh.com_-37415516-d8a2-4d32-9287-c5e4ca9b6039.png',
     patch: {
       name: 'JLG JL7026901 Seat Bottom Cushion (Vinyl)',
       slug: 'jlg-jl7026901-seat-bottom-cushion',
@@ -220,7 +217,6 @@ const BATCH: BatchItem[] = [
     sku: 'JC40/910654-BOTTOM',
     cost: 180.29,
     mode: 'price',
-    imageFile: 'FireShot_Capture_1303_-_Products_-_TVH_-__shop.tvh.com_-bbb2b511-5dc9-4544-91f4-297295520cfe.png',
     patch: {
       name: 'JCB JC40/910654 Seat Foam Cushion Kit (Bottom)',
       description: [

@@ -1,0 +1,403 @@
+{
+  "transcriptDirectory": "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts",
+  "transcripts": {
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/03cb78e5-e634-49ca-96c1-12a14aefc133/03cb78e5-e634-49ca-96c1-12a14aefc133.jsonl": {
+      "mtime": 1775612798.3414621,
+      "size": 128065
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/03cb78e5-e634-49ca-96c1-12a14aefc133/subagents/c0155928-82fd-4ffc-aa8b-f3c677fe15f9.jsonl": {
+      "mtime": 1775611498.236926,
+      "size": 26424
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/03cb78e5-e634-49ca-96c1-12a14aefc133/subagents/d560247a-abad-4ff1-a158-26fa574ac0fd.jsonl": {
+      "mtime": 1775611461.1213477,
+      "size": 13264
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/1019785b-8f29-4a2b-b545-e6a49f78398e/1019785b-8f29-4a2b-b545-e6a49f78398e.jsonl": {
+      "mtime": 1779158040.136684,
+      "size": 291270
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/1019785b-8f29-4a2b-b545-e6a49f78398e/subagents/ceb95911-9208-42f7-8aa9-8573e3778b40.jsonl": {
+      "mtime": 1779157269.618792,
+      "size": 15830
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/1019785b-8f29-4a2b-b545-e6a49f78398e/subagents/ed19e206-42d3-48ac-8fb5-62064f126879.jsonl": {
+      "mtime": 1779157298.1345096,
+      "size": 28001
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/102e0766-17c4-4bc7-8b4a-0c86cccf3936/102e0766-17c4-4bc7-8b4a-0c86cccf3936.jsonl": {
+      "mtime": 1782837443.811196,
+      "size": 4088
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/1287ef67-d7fd-4e69-8511-931bebf360cd/1287ef67-d7fd-4e69-8511-931bebf360cd.jsonl": {
+      "mtime": 1773875120.1614525,
+      "size": 178309
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/1287ef67-d7fd-4e69-8511-931bebf360cd/subagents/937a73fb-715f-454e-a903-80c48513131d.jsonl": {
+      "mtime": 1773874081.677253,
+      "size": 15890
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/1287ef67-d7fd-4e69-8511-931bebf360cd/subagents/e2bb1348-9b5d-4efc-933f-49612d2298e5.jsonl": {
+      "mtime": 1773874072.419087,
+      "size": 17430
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/1c26fbb9-4230-4995-8148-228fd191b2ab/1c26fbb9-4230-4995-8148-228fd191b2ab.jsonl": {
+      "mtime": 1772459383.8169305,
+      "size": 36640
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/1c7ad7a3-3117-48ee-8d37-9c886032344a/1c7ad7a3-3117-48ee-8d37-9c886032344a.jsonl": {
+      "mtime": 1778861661.6519444,
+      "size": 59980
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/1c7ad7a3-3117-48ee-8d37-9c886032344a/subagents/b16c752d-53c8-42f6-ae90-2cf13460aacd.jsonl": {
+      "mtime": 1778860010.963974,
+      "size": 13004
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/2093234e-5238-4ed5-85d6-39a164afb756/2093234e-5238-4ed5-85d6-39a164afb756.jsonl": {
+      "mtime": 1778072734.795209,
+      "size": 27620
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/2195865b-59e6-4501-88e7-7abcc6ba605d/2195865b-59e6-4501-88e7-7abcc6ba605d.jsonl": {
+      "mtime": 1777661995.6776826,
+      "size": 118999
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/27527524-7a33-4450-acb3-b0d2dcf551b9/27527524-7a33-4450-acb3-b0d2dcf551b9.jsonl": {
+      "mtime": 1780237986.5306091,
+      "size": 180174
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/27527524-7a33-4450-acb3-b0d2dcf551b9/subagents/7523c685-c73c-4728-a2fb-0fcc005061f8.jsonl": {
+      "mtime": 1780237978.6332068,
+      "size": 14029
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/282cb939-7d9d-4344-855a-90cfb96265d5/282cb939-7d9d-4344-855a-90cfb96265d5.jsonl": {
+      "mtime": 1777295430.2334402,
+      "size": 919880
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/282cb939-7d9d-4344-855a-90cfb96265d5/subagents/3a4fdac7-0047-4871-8dd0-72c9dbbd9a29.jsonl": {
+      "mtime": 1776734173.8446271,
+      "size": 9235
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/282cb939-7d9d-4344-855a-90cfb96265d5/subagents/4be53330-70cf-4784-bb5e-638e5ee3f5b9.jsonl": {
+      "mtime": 1776734192.1291707,
+      "size": 13777
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/44c3f0e8-2077-4473-a1d8-32ae302d6ccd/44c3f0e8-2077-4473-a1d8-32ae302d6ccd.jsonl": {
+      "mtime": 1782940518.5303547,
+      "size": 272823
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/44c3f0e8-2077-4473-a1d8-32ae302d6ccd/subagents/38c0f6b7-89a2-4a67-a6c0-952b617a12e1.jsonl": {
+      "mtime": 1781063159.2569559,
+      "size": 32895
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/44c3f0e8-2077-4473-a1d8-32ae302d6ccd/subagents/ca859ed4-3a07-44fc-bd76-a33a4a1e6ece.jsonl": {
+      "mtime": 1781062475.2467494,
+      "size": 33714
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/44c3f0e8-2077-4473-a1d8-32ae302d6ccd/subagents/da09bf34-fffe-4f58-bb5c-7bdc08e24895.jsonl": {
+      "mtime": 1781062492.6269448,
+      "size": 38858
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/44c3f0e8-2077-4473-a1d8-32ae302d6ccd/subagents/f72a9289-6635-40bc-9052-0048ac7127f6.jsonl": {
+      "mtime": 1781062472.9893188,
+      "size": 37181
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/44c3f0e8-2077-4473-a1d8-32ae302d6ccd/subagents/fed0ba69-76e4-44d7-81b2-5d07f0874f61.jsonl": {
+      "mtime": 1781062871.3975852,
+      "size": 41029
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/4706cdfa-488d-4c11-970c-eccc9d6f0df8/4706cdfa-488d-4c11-970c-eccc9d6f0df8.jsonl": {
+      "mtime": 1782831083.496754,
+      "size": 124
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/4a6d46b3-3621-45df-a8a4-441f86537df2/4a6d46b3-3621-45df-a8a4-441f86537df2.jsonl": {
+      "mtime": 1778213226.406174,
+      "size": 69275
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/4a6d46b3-3621-45df-a8a4-441f86537df2/subagents/75b9cc44-6872-462b-b714-a21e4d6bd92c.jsonl": {
+      "mtime": 1778212582.0284708,
+      "size": 11541
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/4a6d46b3-3621-45df-a8a4-441f86537df2/subagents/ce5b9347-8b65-43af-b7d6-5e3221777b2d.jsonl": {
+      "mtime": 1778212071.0624216,
+      "size": 14953
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/4a6d46b3-3621-45df-a8a4-441f86537df2/subagents/d0aa5b51-112e-413c-9706-0061c7c07329.jsonl": {
+      "mtime": 1778212588.2660666,
+      "size": 12944
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/4e149f32-8e92-4650-8ed5-8f29957e4c58/4e149f32-8e92-4650-8ed5-8f29957e4c58.jsonl": {
+      "mtime": 1779510213.174358,
+      "size": 104334
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/4e149f32-8e92-4650-8ed5-8f29957e4c58/subagents/5bedc03a-4509-4e7d-b475-f90db30a356d.jsonl": {
+      "mtime": 1779558994.6724336,
+      "size": 16435
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/4e149f32-8e92-4650-8ed5-8f29957e4c58/subagents/6d1059be-a4f5-40e2-bfc6-5a5ef24e68e6.jsonl": {
+      "mtime": 1779558968.7460773,
+      "size": 14562
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/4e149f32-8e92-4650-8ed5-8f29957e4c58/subagents/caa8f25e-1bda-452b-859b-47f8690147b1.jsonl": {
+      "mtime": 1779513535.259836,
+      "size": 24177
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/4e149f32-8e92-4650-8ed5-8f29957e4c58/subagents/faed0d82-889b-4427-b54a-b0563c5aefe5.jsonl": {
+      "mtime": 1779513535.2343247,
+      "size": 22387
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/5aa833d1-65da-497b-aa70-eaecfa0847d3/5aa833d1-65da-497b-aa70-eaecfa0847d3.jsonl": {
+      "mtime": 1779192563.1481757,
+      "size": 299592
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/5aa833d1-65da-497b-aa70-eaecfa0847d3/subagents/238576ee-415a-439d-968e-d93c441a2592.jsonl": {
+      "mtime": 1779029469.4309406,
+      "size": 32947
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/5f5f97a9-62ce-4431-b943-03bda95a381e/5f5f97a9-62ce-4431-b943-03bda95a381e.jsonl": {
+      "mtime": 1782265579.903405,
+      "size": 58466
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/65c4e807-3234-4273-beb4-f9a2bde6fd2f/65c4e807-3234-4273-beb4-f9a2bde6fd2f.jsonl": {
+      "mtime": 1780543135.4028845,
+      "size": 76952
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/6a87c3ee-f41c-48ae-8e72-5c472ef14cd3/6a87c3ee-f41c-48ae-8e72-5c472ef14cd3.jsonl": {
+      "mtime": 1779123183.5174553,
+      "size": 543246
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/6a87c3ee-f41c-48ae-8e72-5c472ef14cd3/subagents/614ab79b-f378-4101-9e88-f050447a8915.jsonl": {
+      "mtime": 1779123174.8798463,
+      "size": 16086
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/6a87c3ee-f41c-48ae-8e72-5c472ef14cd3/subagents/65e668a8-487a-4e3e-8749-54f64f13c1bc.jsonl": {
+      "mtime": 1778990851.7884574,
+      "size": 20573
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/6a87c3ee-f41c-48ae-8e72-5c472ef14cd3/subagents/86c18c74-28c9-44d8-81b2-a58611dea46d.jsonl": {
+      "mtime": 1779123208.8694513,
+      "size": 37116
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/6c78c534-1df9-4d04-ab5f-187aff9294ee/6c78c534-1df9-4d04-ab5f-187aff9294ee.jsonl": {
+      "mtime": 1778791069.7915142,
+      "size": 46062
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/749c874e-61d4-4268-b168-eca8eb7e4227/749c874e-61d4-4268-b168-eca8eb7e4227.jsonl": {
+      "mtime": 1782924275.5114706,
+      "size": 3280
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/79d826b7-91f2-44aa-9a37-362c2c3968dc/79d826b7-91f2-44aa-9a37-362c2c3968dc.jsonl": {
+      "mtime": 1782930479.4401135,
+      "size": 76403
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/79d826b7-91f2-44aa-9a37-362c2c3968dc/subagents/7d8ef551-7918-4a57-9fa9-577b5f0c923d.jsonl": {
+      "mtime": 1782923192.8599033,
+      "size": 23444
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/79d826b7-91f2-44aa-9a37-362c2c3968dc/subagents/8a66d591-0d43-49a5-8bd0-1a77033907aa.jsonl": {
+      "mtime": 1782930452.1338942,
+      "size": 24436
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/7c245f70-de7d-472b-88b1-3bfae6b9cc37/7c245f70-de7d-472b-88b1-3bfae6b9cc37.jsonl": {
+      "mtime": 1783056107.9817152,
+      "size": 44483
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/7c245f70-de7d-472b-88b1-3bfae6b9cc37/subagents/d171f5da-917c-49d4-92af-598cd72b12ea.jsonl": {
+      "mtime": 1783055966.6468794,
+      "size": 28264
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/7dc7b8c3-dc57-4d85-9e21-81481981e841/7dc7b8c3-dc57-4d85-9e21-81481981e841.jsonl": {
+      "mtime": 1772028340.971447,
+      "size": 4315
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/8e89c52f-60b5-40e5-99aa-f0ff40d8b44b/8e89c52f-60b5-40e5-99aa-f0ff40d8b44b.jsonl": {
+      "mtime": 1779909961.043281,
+      "size": 62740
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/8e89c52f-60b5-40e5-99aa-f0ff40d8b44b/subagents/1e64a7ca-683a-4cf3-9aae-8915d4b18288.jsonl": {
+      "mtime": 1779909723.1906426,
+      "size": 15633
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/92b803a8-4958-4815-850f-78579200d581/92b803a8-4958-4815-850f-78579200d581.jsonl": {
+      "mtime": 1777600762.7212005,
+      "size": 218317
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/95aa5d73-cd1c-40e7-a443-0680469bc914/95aa5d73-cd1c-40e7-a443-0680469bc914.jsonl": {
+      "mtime": 1779898893.3979478,
+      "size": 175384
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/95aa5d73-cd1c-40e7-a443-0680469bc914/subagents/dd97c46e-2bd2-4e32-8315-cada5a75e7b7.jsonl": {
+      "mtime": 1779897927.3254304,
+      "size": 17700
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/95aa5d73-cd1c-40e7-a443-0680469bc914/subagents/f0e6d794-7e8c-4db1-a0d8-acea77b6e1b5.jsonl": {
+      "mtime": 1779407044.417834,
+      "size": 8884
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/a10a4b9c-1972-4db1-9666-ba6cd4fe52fc/a10a4b9c-1972-4db1-9666-ba6cd4fe52fc.jsonl": {
+      "mtime": 1774799970.857829,
+      "size": 161866
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/a10a4b9c-1972-4db1-9666-ba6cd4fe52fc/subagents/00fda461-2867-4221-a06a-9bda3ca5cce8.jsonl": {
+      "mtime": 1774797719.3358438,
+      "size": 7668
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/a10a4b9c-1972-4db1-9666-ba6cd4fe52fc/subagents/05fb2cbc-a28e-4387-8dbb-2a22de6958e2.jsonl": {
+      "mtime": 1774797646.1128001,
+      "size": 4380
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/a10a4b9c-1972-4db1-9666-ba6cd4fe52fc/subagents/1e6a5aa9-1305-4fb5-9b95-0b010593a3a9.jsonl": {
+      "mtime": 1774794850.6097481,
+      "size": 11402
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/a10a4b9c-1972-4db1-9666-ba6cd4fe52fc/subagents/649b8faa-a011-4ff2-b969-075876789e55.jsonl": {
+      "mtime": 1774797718.3161638,
+      "size": 5368
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/a10a4b9c-1972-4db1-9666-ba6cd4fe52fc/subagents/9b77aa1e-3b6f-4c44-9b6d-f224b05710c3.jsonl": {
+      "mtime": 1774797703.9590178,
+      "size": 7192
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/a10a4b9c-1972-4db1-9666-ba6cd4fe52fc/subagents/e26b8fe2-84af-4189-b08f-b00704bc2163.jsonl": {
+      "mtime": 1774794816.8774076,
+      "size": 5636
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/a2211a50-6ad4-44a4-96e8-cafe4dcfcffe/a2211a50-6ad4-44a4-96e8-cafe4dcfcffe.jsonl": {
+      "mtime": 1778944266.3328464,
+      "size": 31961
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/a2211a50-6ad4-44a4-96e8-cafe4dcfcffe/subagents/7c77bea5-916a-4313-bb70-f0d3cada5c1d.jsonl": {
+      "mtime": 1778943546.2073293,
+      "size": 14121
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/a63d57f2-edd0-43ec-8e9c-7d8a8d2f05c3/a63d57f2-edd0-43ec-8e9c-7d8a8d2f05c3.jsonl": {
+      "mtime": 1781062337.6294954,
+      "size": 6096
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/addf7831-d771-42b0-b09d-da940a98a1cf/addf7831-d771-42b0-b09d-da940a98a1cf.jsonl": {
+      "mtime": 1780509718.067097,
+      "size": 1594660
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/addf7831-d771-42b0-b09d-da940a98a1cf/subagents/4e612efb-1302-4316-8afa-c1a4d1e692d6.jsonl": {
+      "mtime": 1778525984.9361017,
+      "size": 21225
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/addf7831-d771-42b0-b09d-da940a98a1cf/subagents/c1f17382-73b8-4eee-9b5c-daf2dc1073bf.jsonl": {
+      "mtime": 1779557177.1624172,
+      "size": 27946
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/addf7831-d771-42b0-b09d-da940a98a1cf/subagents/fdacbabe-647e-45e6-9c36-33b742c17c55.jsonl": {
+      "mtime": 1778812296.4656782,
+      "size": 27755
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/be0f5955-780c-415d-8f7b-146545bcb4e1/be0f5955-780c-415d-8f7b-146545bcb4e1.jsonl": {
+      "mtime": 1782831191.886895,
+      "size": 15900
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/c113d52b-23dd-4415-b7cf-9a66c5bf8a59/c113d52b-23dd-4415-b7cf-9a66c5bf8a59.jsonl": {
+      "mtime": 1779983611.9163244,
+      "size": 951555
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/c113d52b-23dd-4415-b7cf-9a66c5bf8a59/subagents/7d041d48-03a7-4dc1-a5a1-9846a0031a57.jsonl": {
+      "mtime": 1778675201.64545,
+      "size": 15508
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/c113d52b-23dd-4415-b7cf-9a66c5bf8a59/subagents/93344bb1-f47f-4c9f-a2c7-705cf4b35f9f.jsonl": {
+      "mtime": 1779983438.0597231,
+      "size": 28550
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/c113d52b-23dd-4415-b7cf-9a66c5bf8a59/subagents/cf31acbc-2e75-467d-9b76-a58f5304e6e2.jsonl": {
+      "mtime": 1778635898.2046754,
+      "size": 31389
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/c24bc700-51a0-487f-9458-c7a3b5dd415d/c24bc700-51a0-487f-9458-c7a3b5dd415d.jsonl": {
+      "mtime": 1779198167.555597,
+      "size": 223943
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/c24bc700-51a0-487f-9458-c7a3b5dd415d/subagents/a78c444d-9d62-4cf4-a8b6-c8ec022cf781.jsonl": {
+      "mtime": 1778817891.9877021,
+      "size": 19374
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/c24bc700-51a0-487f-9458-c7a3b5dd415d/subagents/bec83c75-05f9-4d2a-b982-589c1e93e872.jsonl": {
+      "mtime": 1779198073.8458092,
+      "size": 28795
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/c24bc700-51a0-487f-9458-c7a3b5dd415d/subagents/c7704629-bbe8-4182-84cc-ebcb4e704178.jsonl": {
+      "mtime": 1778817896.2191296,
+      "size": 28006
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/c24bc700-51a0-487f-9458-c7a3b5dd415d/subagents/fa014ba7-5c3a-4ee6-9e3f-c4023de5199b.jsonl": {
+      "mtime": 1778817914.0164356,
+      "size": 25737
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/cc427d43-8756-4102-b80a-7347bcc055ea/cc427d43-8756-4102-b80a-7347bcc055ea.jsonl": {
+      "mtime": 1779901827.2873695,
+      "size": 56515
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/cc6f5d55-afde-4ae1-a00a-07c866ccfe67/cc6f5d55-afde-4ae1-a00a-07c866ccfe67.jsonl": {
+      "mtime": 1779984476.082968,
+      "size": 39912
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/d10cab6e-d6f0-42fd-8678-e0553df4f665/d10cab6e-d6f0-42fd-8678-e0553df4f665.jsonl": {
+      "mtime": 1779899272.7895024,
+      "size": 77312
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/d3932019-b136-4e4a-8230-4be5129041a4/d3932019-b136-4e4a-8230-4be5129041a4.jsonl": {
+      "mtime": 1783395570.161673,
+      "size": 365228
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/d3932019-b136-4e4a-8230-4be5129041a4/subagents/33449a8e-f8c5-4837-858b-448005ec313e.jsonl": {
+      "mtime": 1783089870.3873522,
+      "size": 24414
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/d3932019-b136-4e4a-8230-4be5129041a4/subagents/584b6e00-df34-45d6-95b1-0561c20cc4d9.jsonl": {
+      "mtime": 1783395589.1523192,
+      "size": 3270
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/d3932019-b136-4e4a-8230-4be5129041a4/subagents/aaabd859-776d-4180-b149-f803c3ee02a2.jsonl": {
+      "mtime": 1783348685.8484395,
+      "size": 15586
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/d59dbd38-e686-4c18-b70b-5c80c3031014/d59dbd38-e686-4c18-b70b-5c80c3031014.jsonl": {
+      "mtime": 1779843033.9255908,
+      "size": 22518
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/e62f21b4-a0c9-4ecc-b2c3-d8f98048c73a/e62f21b4-a0c9-4ecc-b2c3-d8f98048c73a.jsonl": {
+      "mtime": 1782172944.9806962,
+      "size": 173638
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/e62f21b4-a0c9-4ecc-b2c3-d8f98048c73a/subagents/745bae2f-3b33-463b-9e4c-f4a17f8616c2.jsonl": {
+      "mtime": 1780959454.019474,
+      "size": 7985
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/e62f21b4-a0c9-4ecc-b2c3-d8f98048c73a/subagents/c20dcb85-c056-4698-a8b8-215e286806aa.jsonl": {
+      "mtime": 1780579329.186061,
+      "size": 21409
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/e62f21b4-a0c9-4ecc-b2c3-d8f98048c73a/subagents/f24ec668-c72e-4ed5-aabf-2a642a34cc61.jsonl": {
+      "mtime": 1781788829.08075,
+      "size": 6618
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/eb0b0c0b-e9f9-49f5-a32c-ba0b2c1a8079/eb0b0c0b-e9f9-49f5-a32c-ba0b2c1a8079.jsonl": {
+      "mtime": 1779250640.864081,
+      "size": 215880
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/eb0b0c0b-e9f9-49f5-a32c-ba0b2c1a8079/subagents/c07a6f15-14dd-446b-afb6-1b4889dfeb16.jsonl": {
+      "mtime": 1779248735.76427,
+      "size": 15580
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/f0c8573f-f8fb-4f46-ae50-2b2125357724/f0c8573f-f8fb-4f46-ae50-2b2125357724.jsonl": {
+      "mtime": 1783055642.612413,
+      "size": 111687
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/f5df0637-3363-4a22-860e-ab3bcec8603f/f5df0637-3363-4a22-860e-ab3bcec8603f.jsonl": {
+      "mtime": 1779218267.1335957,
+      "size": 144232
+    },
+    "/Users/christopherray/.cursor/projects/Users-christopherray-Documents-flat-earth-equipment/agent-transcripts/fcaa426f-538a-4824-bf8f-3f62b26c3636/fcaa426f-538a-4824-bf8f-3f62b26c3636.jsonl": {
+      "mtime": 1777986496.066705,
+      "size": 64365
+    }
+  },
+  "updatedAt": "2026-07-07T03:40:41.527189Z",
+  "workspace": "/Users/christopherray/Documents/flat-earth-equipment"
+}

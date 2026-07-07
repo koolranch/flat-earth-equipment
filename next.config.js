@@ -176,6 +176,11 @@ const baseConfig = {
         destination: '/charger-modules',
         permanent: true // 301 redirect - preserves SEO
       },
+      {
+        source: '/parts/caterpillar-259d-rubber-track-320x86x53-block',
+        destination: '/parts/caterpillar-259d-rubber-track-320x86x53',
+        permanent: true,
+      },
       // Catch-all for any other old charger module URLs
       {
         source: '/parts/:brand-forklift-charger-module-:model',

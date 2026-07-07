@@ -65,7 +65,7 @@ const TRACKS: TrackSku[] = [
   },
   {
     sku: 'RT-CAT-259D-320X86X53-BLOCK',
-    slug: 'caterpillar-259d-rubber-track-320x86x53-block',
+    slug: 'caterpillar-259d-rubber-track-320x86x53',
     name: 'Caterpillar 259D / 259D3 Rubber Track 320x86x53 Block',
     size: '320x86x53',
     treadPattern: 'Block',

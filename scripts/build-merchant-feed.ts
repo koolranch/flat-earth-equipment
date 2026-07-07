@@ -24,6 +24,7 @@ dotenv.config({ path: path.resolve(process.cwd(), ".env.local") });
 dotenv.config({ path: path.resolve(process.cwd(), ".env") });
 
 const SITE_URL = "https://www.flatearthequipment.com";
+const DEFAULT_PRODUCT_IMAGE = `${SITE_URL}/images/parts/placeholder.jpg`;
 
 type PartRow = {
   id: string;
@@ -115,7 +116,7 @@ async function buildFeed() {
     title: p.name,
     description: sanitizeCustomerFacingCopy(p.description || "").slice(0, 5000),
     link: `${SITE_URL}/parts/${p.slug}`,
-    image_link: p.image_url || `${SITE_URL}/images/parts/${p.slug}.jpg`,
+    image_link: p.image_url || DEFAULT_PRODUCT_IMAGE,
     price: p.price_cents ? `${(p.price_cents / 100).toFixed(2)} USD` : "0.00 USD",
     brand: getDisplayBrand(p.brand),
     mpn: p.oem_reference || p.sku || p.id,
@@ -139,8 +140,7 @@ async function buildFeed() {
   const items = rows
     .map((p) => {
       const link = `${SITE_URL}/parts/${p.slug}`;
-      const image =
-        p.image_url || `${SITE_URL}/images/parts/${p.slug}.jpg`;
+      const image = p.image_url || DEFAULT_PRODUCT_IMAGE;
       const price = p.price_cents
         ? `${(p.price_cents / 100).toFixed(2)} USD`
         : "0.00 USD";

@@ -282,6 +282,11 @@ export const CATALOG_QUICK_PATHS = [
     description: 'Drop-in LiFePO4 kits',
   },
   {
+    label: 'Rubber Tracks',
+    href: '/parts?category_slug=rubber-tracks',
+    description: 'Bobcat, Cat & more — free shipping',
+  },
+  {
     label: 'Forklift Parts',
     href: '/parts?category_slug=forklift-parts',
     description: 'Seats, forks & more',

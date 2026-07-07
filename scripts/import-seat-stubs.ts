@@ -25,39 +25,6 @@ const supabase = createClient(
 );
 
 const JSON_PATH = path.resolve(process.cwd(), 'data/seats/seat-products.json');
-const STORAGE_PUBLIC = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public`;
-
-const BRAND_LOGO: Record<string, string> = {
-  Advance: 'advance.webp',
-  'American Lincoln': 'american-lincoln.webp',
-  Bobcat: 'bobcat.webp',
-  Columbia: 'columbia.webp',
-  Caterpillar: 'caterpillar.webp',
-  'Factory Cat': 'factory-cat.webp',
-  Gehl: 'gehl.webp',
-  Genie: 'genie.webp',
-  JCB: 'jcb.webp',
-  JLG: 'jlg.webp',
-  'Lancer Boss': 'lancer-boss.webp',
-  Lull: 'lull.webp',
-  Minuteman: 'minuteman.webp',
-  Manitou: 'manitou.webp',
-  Powerboss: 'powerboss.webp',
-  Merlo: 'merlo.webp',
-  Skyjack: 'skyjack.webp',
-  Skytrack: 'skytrack.webp',
-  'Taylor Dunn': 'taylor-dunn.webp',
-  Tennant: 'tennant.webp',
-  Terex: 'terex.webp',
-  Cushman: 'cushman.webp',
-  'E-Z-GO': 'ezgo.webp',
-};
-
-function brandImageUrl(brand: string): string | null {
-  const file = BRAND_LOGO[brand];
-  if (!file) return null;
-  return `${STORAGE_PUBLIC}/brand-logos/${file}`;
-}
 
 function toPartRow(item: SeatProductRecord) {
   return {
@@ -74,7 +41,7 @@ function toPartRow(item: SeatProductRecord) {
     sales_type: 'quote_only' as const,
     is_in_stock: false,
     compatible_models: item.compatible_models,
-    image_url: brandImageUrl(item.brand),
+    image_url: null,
     metadata: {
       oem_pn: item.oem_part_number,
       product_type: item.product_type,

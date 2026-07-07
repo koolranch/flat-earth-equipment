@@ -18,7 +18,7 @@ type Props = { locale: 'en' | 'es' }
 
 export default function Navbar({ locale }: Props) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [trainingDropdownOpen, setTrainingDropdownOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -157,19 +157,33 @@ export default function Navbar({ locale }: Props) {
                     { name: 'Safety', href: '/safety' },
                     { name: 'Contact', href: '/contact' },
                   ]
-            ) : navItems).map((item) => (
+            ) : navItems).map((item) => {
+              const isActive =
+                pathname === item.href ||
+                (item.href !== '/' && pathname.startsWith(`${item.href}/`));
+
+              return (
               <div key={item.name} className="relative">
                 {item.dropdown ? (
                   <div
-                    className="flex items-center space-x-1 cursor-pointer"
-                    onMouseEnter={() => setTrainingDropdownOpen(true)}
-                    onMouseLeave={() => setTrainingDropdownOpen(false)}
+                    className="relative"
+                    onMouseEnter={() => setOpenDropdown(item.name)}
+                    onMouseLeave={() => setOpenDropdown(null)}
                   >
-                    <span className="text-gray-600 hover:text-gray-900">{item.name}</span>
-                    <ChevronDown className="w-4 h-4" />
-                    {trainingDropdownOpen && (
-                      <div className="absolute top-full left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                        <div className="py-1">
+                    <div className="flex items-center gap-1">
+                      <Link
+                        href={item.href}
+                        className={`text-gray-600 hover:text-gray-900 ${
+                          isActive ? 'text-canyon-rust font-semibold' : ''
+                        }`}
+                      >
+                        {item.name}
+                      </Link>
+                      <ChevronDown className="w-4 h-4 text-gray-500" aria-hidden />
+                    </div>
+                    {openDropdown === item.name && (
+                      <div className="absolute top-full left-0 z-50 w-56 pt-2">
+                        <div className="rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5">
                           {item.dropdown.map((subItem) => (
                             <Link
                               key={subItem.name}
@@ -187,14 +201,15 @@ export default function Navbar({ locale }: Props) {
                   <Link
                     href={item.href}
                     className={`text-gray-600 hover:text-gray-900 ${
-                      pathname === item.href ? 'text-canyon-rust font-semibold' : ''
+                      isActive ? 'text-canyon-rust font-semibold' : ''
                     }`}
                   >
                     {item.name}
                   </Link>
                 )}
               </div>
-            ))}
+            );
+            })}
             <Link href="/cart" className="relative text-gray-600 hover:text-gray-900" aria-label={`Shopping cart${itemCount > 0 ? ` (${itemCount} items)` : ''}`}>
               <ShoppingCart className="w-6 h-6" />
               {itemCount > 0 && (
@@ -239,16 +254,32 @@ export default function Navbar({ locale }: Props) {
       {mobileMenuOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            {navItems.map((item) => (
+            {navItems.map((item) => {
+              const isActive =
+                pathname === item.href ||
+                (item.href !== '/' && pathname.startsWith(`${item.href}/`));
+
+              return (
               <div key={item.name}>
                 {item.dropdown ? (
                   <div className="space-y-1">
-                    <div className="text-gray-600 px-3 py-2 font-medium">{item.name}</div>
+                    <Link
+                      href={item.href}
+                      className={`block px-3 py-2 text-base font-medium ${
+                        isActive
+                          ? 'text-canyon-rust font-semibold'
+                          : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                      }`}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
                     {item.dropdown.map((subItem) => (
                       <Link
                         key={subItem.name}
                         href={subItem.href}
                         className="block pl-6 pr-3 py-2 text-base text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                        onClick={() => setMobileMenuOpen(false)}
                       >
                         {subItem.name}
                       </Link>
@@ -258,16 +289,18 @@ export default function Navbar({ locale }: Props) {
                   <Link
                     href={item.href}
                     className={`block px-3 py-2 text-base ${
-                      pathname === item.href
+                      isActive
                         ? 'text-canyon-rust font-semibold'
                         : 'text-gray-600 hover:text-gray-900'
                     }`}
+                    onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.name}
                   </Link>
                 )}
               </div>
-            ))}
+            );
+            })}
             <Link
               href="/cart"
               className="block px-3 py-2 text-base text-gray-600 hover:text-gray-900"
