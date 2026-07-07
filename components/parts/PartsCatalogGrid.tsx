@@ -43,6 +43,8 @@ function toCardProduct(
     classStripeClass: getForkClassStripeClass(part.name, part.category),
     activeBrandFilter,
     availabilityFilter,
+    metadata: part.metadata,
+    categorySlug: part.category_slug,
   };
 }
 

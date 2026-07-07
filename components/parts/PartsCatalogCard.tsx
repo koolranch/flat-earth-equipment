@@ -14,6 +14,11 @@ import {
 } from '@/lib/parts/catalogContext';
 import { getBrandLogoUrl } from '@/lib/parts/brandLogo';
 import { parsePartSpecs, type SpecChip } from '@/lib/parts/parseSpecs';
+import SeatProductVisual from '@/components/parts/SeatProductVisual';
+import {
+  isSeatCategory,
+  shouldUseBrandLogoForCategory,
+} from '@/lib/parts/seatVisualUtils';
 
 export type CatalogCardProduct = {
   id: string;
@@ -33,6 +38,8 @@ export type CatalogCardProduct = {
   classStripeClass?: string | null;
   activeBrandFilter?: string;
   availabilityFilter?: AvailabilityFilter;
+  metadata?: Record<string, unknown> | null;
+  categorySlug?: string | null;
 };
 
 function SpecChipRow({ chips }: { chips: SpecChip[] }) {
@@ -108,6 +115,8 @@ function StockIndicator({
 export default function PartsCatalogCard({ product }: { product: CatalogCardProduct }) {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const [imageFailed, setImageFailed] = useState(false);
+  const [brandLogoFailed, setBrandLogoFailed] = useState(false);
   const { addItem } = useCart();
 
   const isQuoteOnly = product.salesType === 'quote_only';
@@ -130,11 +139,17 @@ export default function PartsCatalogCard({ product }: { product: CatalogCardProd
       category: product.category,
     });
 
-  const brandLogoUrl = getBrandLogoUrl(product.brand ?? '');
+  const brandLogoUrl =
+    shouldUseBrandLogoForCategory(product.category) && product.brand
+      ? getBrandLogoUrl(product.brand)
+      : null;
+  const isSeatListing = isSeatCategory(product.category, product.categorySlug);
+  const showProductPhoto = Boolean(product.imageUrl) && !imageFailed;
+  const showSeatVisual = !showProductPhoto && isSeatListing;
+  const showBrandLogo =
+    !showProductPhoto && !showSeatVisual && Boolean(brandLogoUrl) && !brandLogoFailed;
   const placeholderUrl = '/images/parts/placeholder.jpg';
-  const imageSrc = product.imageUrl || brandLogoUrl || placeholderUrl;
-  const isLogoFallback = !product.imageUrl && Boolean(brandLogoUrl);
-  const isPlaceholder = !product.imageUrl && !brandLogoUrl;
+  const showGenericPlaceholder = !showProductPhoto && !showSeatVisual && !showBrandLogo;
 
   const handleAddToCart = (event: MouseEvent) => {
     event.preventDefault();
@@ -180,19 +195,44 @@ export default function PartsCatalogCard({ product }: { product: CatalogCardProd
                 aria-hidden="true"
               />
             )}
-            <Image
-              src={imageSrc}
-              alt={product.name}
-              fill
-              sizes="(max-width: 640px) 50vw, (max-width: 1280px) 33vw, 25vw"
-              className={`p-2 transition-transform duration-300 group-hover:scale-105 ${
-                isLogoFallback
-                  ? 'object-contain opacity-80'
-                  : isPlaceholder
-                    ? 'object-cover'
-                    : 'object-contain'
-              }`}
-            />
+            {showProductPhoto && (
+              <Image
+                src={product.imageUrl!}
+                alt={product.name}
+                fill
+                sizes="(max-width: 640px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
+                onError={() => setImageFailed(true)}
+              />
+            )}
+            {showSeatVisual && (
+              <SeatProductVisual
+                name={product.name}
+                brand={product.brand}
+                category={product.category}
+                metadata={product.metadata}
+                variant="card"
+              />
+            )}
+            {showBrandLogo && brandLogoUrl && (
+              <Image
+                src={brandLogoUrl}
+                alt={`${product.brand} logo`}
+                fill
+                sizes="(max-width: 640px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                className="object-contain p-3 opacity-80 transition-transform duration-300 group-hover:scale-105"
+                onError={() => setBrandLogoFailed(true)}
+              />
+            )}
+            {showGenericPlaceholder && (
+              <Image
+                src={placeholderUrl}
+                alt={product.name}
+                fill
+                sizes="(max-width: 640px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            )}
             {specChips.length > 0 && (
               <div className="absolute left-2 top-2 z-10 max-w-[calc(100%-1rem)] sm:hidden">
                 <SpecChipRow chips={specChips.slice(0, 2)} />

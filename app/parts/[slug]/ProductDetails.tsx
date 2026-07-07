@@ -13,6 +13,8 @@ import {
 import { toast } from 'react-hot-toast';
 import Link from 'next/link';
 import RubberTrackVisual from '@/components/parts/RubberTrackVisual';
+import SeatProductVisual from '@/components/parts/SeatProductVisual';
+import { isSeatCategory } from '@/lib/parts/seatVisualUtils';
 
 interface Variant {
   id: string;
@@ -37,6 +39,7 @@ interface ProductDetailsProps {
     has_core_charge?: boolean;
     core_charge?: number;
     category?: string;
+    category_slug?: string | null;
     compatible_models?: string[] | null;
     weight_lbs?: number | null;
     metadata?: Record<string, unknown> | null;
@@ -96,6 +99,7 @@ export default function ProductDetails({
 }: ProductDetailsProps) {
   const [selected, setSelected] = useState<Variant | null>(variants?.[0] || null);
   const isRubberTrack = part.category === 'Rubber Tracks';
+  const isSeatListing = isSeatCategory(part.category, part.category_slug);
   const [quantity, setQuantity] = useState(isRubberTrack ? 2 : 1);
   const { addItem } = useCart();
 
@@ -432,14 +436,25 @@ export default function ProductDetails({
         </>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {part.image_url && (
-            <div className="relative aspect-square bg-white rounded-lg shadow-sm p-4">
-              <img
-                src={part.image_url}
-                alt={part.name}
-                className="object-contain w-full h-full"
-              />
-            </div>
+          {isSeatListing ? (
+            <SeatProductVisual
+              name={part.name}
+              brand={part.brand}
+              category={part.category}
+              metadata={part.metadata}
+              imageUrl={part.image_url}
+              variant="detail"
+            />
+          ) : (
+            part.image_url && (
+              <div className="relative aspect-square bg-white rounded-lg shadow-sm p-4">
+                <img
+                  src={part.image_url}
+                  alt={part.name}
+                  className="object-contain w-full h-full"
+                />
+              </div>
+            )
           )}
           <div>
             <h1 className="text-3xl font-bold mb-2">{part.name}</h1>
