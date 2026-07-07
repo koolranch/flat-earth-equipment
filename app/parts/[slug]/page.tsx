@@ -7,6 +7,10 @@ import { getBlogPost } from '@/lib/mdx';
 import Link from 'next/link';
 import { generatePageAlternates } from '@/app/seo-defaults';
 import { getDisplayBrand, sanitizeCustomerFacingCopy } from '@/lib/parts/displayBrand';
+import {
+  getCustomerPartNumber,
+  getCustomerProductName,
+} from '@/lib/parts/vendorOemPrefix';
 import { getRubberTrackIntro } from '@/lib/parts/rubberTrackUtils';
 import RelatedResources from '@/components/seo/RelatedResources';
 import type { RelatedTrack } from '@/lib/parts/rubberTrackUtils';
@@ -72,13 +76,21 @@ function buildProductSchema(product: any, slug: string) {
       .split('T')[0],
   };
 
+  const customerMpn =
+    getCustomerPartNumber({
+      brand: product.brand,
+      sku: product.sku,
+      oemReference: product.oem_reference,
+    }) || product.sku;
+  const customerName = getCustomerProductName(product.name, product.brand);
+
   const schema: Record<string, any> = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: product.name,
+    name: customerName,
     description: sanitizeCustomerFacingCopy(product.description || '').slice(0, 5000),
     sku: product.sku,
-    mpn: product.oem_reference || product.sku,
+    mpn: customerMpn,
     image: product.image_url || undefined,
     url,
     brand: {
@@ -133,7 +145,10 @@ function buildBreadcrumbSchema(product: any, slug: string) {
     });
   }
 
-  items.push({ name: product.name, item: `${SITE_URL}/parts/${slug}` });
+  items.push({
+    name: getCustomerProductName(product.name, product.brand),
+    item: `${SITE_URL}/parts/${slug}`,
+  });
 
   return {
     '@context': 'https://schema.org',
@@ -182,12 +197,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .single();
 
   if (product) {
+    const customerName = getCustomerProductName(product.name, product.brand);
     const rawDescription =
       product.category === 'Rubber Tracks'
         ? getRubberTrackIntro(product.description)
         : sanitizeCustomerFacingCopy(
             product.description ||
-              `Buy ${product.name} from Flat Earth Equipment. Fast shipping across the Western U.S.`,
+              `Buy ${customerName} from Flat Earth Equipment. Fast shipping across the Western U.S.`,
           );
     const description = truncateDescription(rawDescription);
     // Use the product image if available, otherwise fall back to the brand logo,
@@ -199,19 +215,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const ogImage = product.image_url || brandLogoUrl;
     const pageUrl = `https://www.flatearthequipment.com/parts/${params.slug}`;
     return {
-      title: `${product.name} | Flat Earth Equipment`,
+      title: `${customerName} | Flat Earth Equipment`,
       description,
       alternates: generatePageAlternates(`/parts/${params.slug}`),
       openGraph: {
-        title: product.name,
+        title: customerName,
         description,
         type: 'website',
         url: pageUrl,
-        ...(ogImage ? { images: [{ url: ogImage, width: 1200, height: 1200, alt: product.name }] } : {}),
+        ...(ogImage ? { images: [{ url: ogImage, width: 1200, height: 1200, alt: customerName }] } : {}),
       },
       twitter: {
         card: 'summary_large_image',
-        title: product.name,
+        title: customerName,
         description,
         ...(ogImage ? { images: [ogImage] } : {}),
       },

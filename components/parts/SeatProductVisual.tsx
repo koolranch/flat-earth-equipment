@@ -110,7 +110,7 @@ export default function SeatProductVisual({
 
   const kind = getSeatVisualKind(name, category, metadata);
   const label = getSeatVisualLabel(kind);
-  const facts = getSeatVisualFacts(name, metadata);
+  const facts = getSeatVisualFacts(name, brand, metadata);
   const isCard = variant === 'card';
 
   return (

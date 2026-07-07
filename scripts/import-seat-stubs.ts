@@ -14,6 +14,7 @@ import { createClient } from '@supabase/supabase-js';
 import * as dotenv from 'dotenv';
 import type { SeatProductRecord } from '../lib/seats/types';
 import { isValidOemPartNumber } from '../lib/seats/buildSeatProduct';
+import { stripVendorCatalogPrefix } from '../lib/parts/vendorOemPrefix';
 
 dotenv.config({ path: path.resolve(process.cwd(), '.env.production.local') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
@@ -27,11 +28,13 @@ const supabase = createClient(
 const JSON_PATH = path.resolve(process.cwd(), 'data/seats/seat-products.json');
 
 function toPartRow(item: SeatProductRecord) {
+  const customerOem = stripVendorCatalogPrefix(item.oem_part_number, item.brand);
+
   return {
     name: item.name,
     slug: item.slug,
     sku: item.sku,
-    oem_reference: item.oem_part_number,
+    oem_reference: customerOem,
     brand: item.brand,
     category: item.category,
     category_slug: item.category_slug,
@@ -43,7 +46,8 @@ function toPartRow(item: SeatProductRecord) {
     compatible_models: item.compatible_models,
     image_url: null,
     metadata: {
-      oem_pn: item.oem_part_number,
+      oem_pn: customerOem,
+      vendor_catalog_pn: item.oem_part_number,
       product_type: item.product_type,
       section: item.section,
       dimensions: item.dimensions ?? null,

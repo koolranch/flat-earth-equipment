@@ -1,3 +1,5 @@
+import { stripVendorCatalogPrefix } from '@/lib/parts/vendorOemPrefix';
+
 const SEAT_CATEGORIES = new Set(['Seats', 'Seat cushions', 'Seat covers']);
 const SEAT_CATEGORY_SLUGS = new Set(['seats', 'seat-cushions', 'seat-covers']);
 
@@ -99,6 +101,7 @@ function formatDimensions(dimensions: Record<string, unknown>): string | null {
 
 export function getSeatVisualFacts(
   name: string,
+  brand?: string,
   metadata?: Record<string, unknown> | null,
 ): {
   oemPn: string | null;
@@ -106,10 +109,12 @@ export function getSeatVisualFacts(
   dimensions: string | null;
   modelHint: string | null;
 } {
-  const oemPn =
+  const rawOem =
     typeof metadata?.oem_pn === 'string'
       ? metadata.oem_pn
       : name.match(/\b([A-Z0-9][A-Z0-9.-]{4,})\b/i)?.[1]?.toUpperCase() ?? null;
+
+  const oemPn = rawOem ? stripVendorCatalogPrefix(rawOem, brand) : null;
 
   const material =
     typeof metadata?.material === 'string' && metadata.material.trim()

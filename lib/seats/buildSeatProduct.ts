@@ -1,5 +1,9 @@
 import type { EquipmentModelIndexEntry, ParsedSeatRow, SeatProductRecord, SeatProductType } from './types';
 import { brandSlug } from './brandConfig';
+import {
+  sanitizeCustomerFacingDescription,
+  stripVendorCatalogPrefix,
+} from '@/lib/parts/vendorOemPrefix';
 
 const SEAT_SKU_SUFFIX: Record<Exclude<SeatProductType, 'assembly'>, string> = {
   cushion_back: '-BACK',
@@ -81,16 +85,18 @@ export function buildSeatSlug(row: ParsedSeatRow): string {
 }
 
 export function buildSeatName(row: ParsedSeatRow): string {
-  return `${row.brand} ${row.oem_part_number} ${productTypeLabel(row.product_type)}`;
+  const customerOem = stripVendorCatalogPrefix(row.oem_part_number, row.brand);
+  return `${row.brand} ${customerOem} ${productTypeLabel(row.product_type)}`;
 }
 
 export function buildSeatDescription(row: ParsedSeatRow): string {
   const typeLabel = productTypeLabel(row.product_type).toLowerCase();
   const models = formatModelList(row.compatible_models);
+  const customerOem = stripVendorCatalogPrefix(row.oem_part_number, row.brand);
   const lines: string[] = [];
 
   lines.push(
-    `Aftermarket ${typeLabel} for ${row.brand} industrial equipment. Replaces OEM part number ${row.oem_part_number}. Verified fitment for ${row.compatible_models.length} machine model${row.compatible_models.length === 1 ? '' : 's'} including ${models}.`
+    `Aftermarket ${typeLabel} for ${row.brand} industrial equipment. Replaces OEM part number ${customerOem}. Verified fitment for ${row.compatible_models.length} machine model${row.compatible_models.length === 1 ? '' : 's'} including ${models}.`
   );
 
   if (row.dimensions?.h_in && row.dimensions.w_in && row.dimensions.d_in) {
@@ -117,6 +123,7 @@ export function buildSeatDescription(row: ParsedSeatRow): string {
     if (row.replacement_back_cushion || row.replacement_bottom_cushion) {
       const refs = [row.replacement_back_cushion, row.replacement_bottom_cushion]
         .filter(Boolean)
+        .map((ref) => stripVendorCatalogPrefix(ref!, row.brand))
         .join(' / ');
       lines.push(
         `Replacement cushion cross-references: ${refs}. Contact us if you need cushions only instead of a full assembly.`
@@ -134,10 +141,15 @@ export function buildSeatDescription(row: ParsedSeatRow): string {
 export function toSeatProductRecord(row: ParsedSeatRow): SeatProductRecord {
   const category = row.product_type === 'assembly' ? 'Seats' : 'Seat cushions';
   const category_slug = category === 'Seats' ? 'seats' : 'seat-cushions';
+  const customerOem = stripVendorCatalogPrefix(row.oem_part_number, row.brand);
 
   const related: string[] = [];
-  if (row.replacement_back_cushion) related.push(row.replacement_back_cushion);
-  if (row.replacement_bottom_cushion) related.push(row.replacement_bottom_cushion);
+  if (row.replacement_back_cushion) {
+    related.push(stripVendorCatalogPrefix(row.replacement_back_cushion, row.brand));
+  }
+  if (row.replacement_bottom_cushion) {
+    related.push(stripVendorCatalogPrefix(row.replacement_bottom_cushion, row.brand));
+  }
 
   return {
     ...row,
@@ -148,6 +160,7 @@ export function toSeatProductRecord(row: ParsedSeatRow): SeatProductRecord {
     category_slug,
     description: buildSeatDescription(row),
     related_oem_parts: related,
+    oem_part_number: customerOem,
   };
 }
 

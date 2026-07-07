@@ -13,7 +13,10 @@ import {
   type AvailabilityFilter,
 } from '@/lib/parts/catalogContext';
 import { getBrandLogoUrl } from '@/lib/parts/brandLogo';
-import { parsePartSpecs, type SpecChip } from '@/lib/parts/parseSpecs';
+import {
+  getCustomerPartNumber,
+  getCustomerProductName,
+} from '@/lib/parts/vendorOemPrefix';
 import SeatProductVisual from '@/components/parts/SeatProductVisual';
 import {
   isSeatCategory,
@@ -149,7 +152,13 @@ export default function PartsCatalogCard({ product }: { product: CatalogCardProd
   const showBrandLogo =
     !showProductPhoto && !showSeatVisual && Boolean(brandLogoUrl) && !brandLogoFailed;
   const placeholderUrl = '/images/parts/placeholder.jpg';
-  const showGenericPlaceholder = !showProductPhoto && !showSeatVisual && !showBrandLogo;
+  const displayPartNumber =
+    getCustomerPartNumber({
+      brand: product.brand,
+      sku: product.sku,
+      oemReference: product.oemReference,
+    }) || product.sku;
+  const displayName = getCustomerProductName(product.name, product.brand);
 
   const handleAddToCart = (event: MouseEvent) => {
     event.preventDefault();
@@ -269,10 +278,10 @@ export default function PartsCatalogCard({ product }: { product: CatalogCardProd
             href={`/parts/${product.slug}`}
             className="line-clamp-2 text-sm font-semibold leading-snug text-slate-900 transition-colors hover:text-[#F76511]"
           >
-            {product.name}
+            {displayName}
           </Link>
 
-          <p className="font-mono text-[11px] text-slate-500">{product.sku}</p>
+          <p className="font-mono text-[11px] text-slate-500">{displayPartNumber}</p>
 
           <div className="mt-auto flex items-end justify-between gap-2 pt-1">
             {isQuoteOnly || !hasPrice ? (

@@ -3,6 +3,10 @@
 import { useState } from 'react';
 import { useCart } from '@/hooks/useCart';
 import { getDisplayBrand, sanitizeCustomerFacingCopy } from '@/lib/parts/displayBrand';
+import {
+  getCustomerPartNumber,
+  getCustomerProductName,
+} from '@/lib/parts/vendorOemPrefix';
 import { getSerialLookupPath } from '@/lib/parts/serialLookupRoutes';
 import {
   formatTrackLabel,
@@ -120,6 +124,12 @@ export default function ProductDetails({
   const lineTotal = unitPrice * quantity;
   const serialLookupPath = getSerialLookupPath(part.brand);
   const trackIntro = isRubberTrack ? getRubberTrackIntro(part.description) : '';
+  const displayName = getCustomerProductName(part.name, part.brand);
+  const displayPartNumber = getCustomerPartNumber({
+    brand: part.brand,
+    sku: part.sku,
+    oemReference: part.oem_reference,
+  });
 
   const handleAddToCart = () => {
     const item = selected || part;
@@ -296,7 +306,7 @@ export default function ProductDetails({
               treadPattern={treadPattern}
             />
             <div>
-              <h1 className="text-3xl font-bold mb-2">{part.name}</h1>
+              <h1 className="text-3xl font-bold mb-2">{displayName}</h1>
               <p className="text-gray-600 mb-3">{getDisplayBrand(part.brand)}</p>
               {trackIntro && (
                 <p className="text-gray-700 mb-5 leading-relaxed">{trackIntro}</p>
@@ -457,8 +467,15 @@ export default function ProductDetails({
             )
           )}
           <div>
-            <h1 className="text-3xl font-bold mb-2">{part.name}</h1>
-            <p className="text-gray-600 mb-4">{getDisplayBrand(part.brand)}</p>
+            <h1 className="text-3xl font-bold mb-2">{displayName}</h1>
+            <p className="text-gray-600 mb-4">
+              {getDisplayBrand(part.brand)}
+              {displayPartNumber ? (
+                <span className="ml-2 font-mono text-sm text-slate-500">
+                  OEM {displayPartNumber}
+                </span>
+              ) : null}
+            </p>
             {part.description && (
               <div className="text-gray-700 mb-6 whitespace-pre-line">
                 {sanitizeCustomerFacingCopy(part.description)}
