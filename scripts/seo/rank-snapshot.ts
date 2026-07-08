@@ -72,6 +72,7 @@ const KEYWORDS: TargetKeyword[] = [
   { keyword: 'case tr270 tracks', language: 'en', group: 'tracks' },
   { keyword: 'case tr310 tracks', language: 'en', group: 'tracks' },
   { keyword: 'case tv370 tracks', language: 'en', group: 'tracks' },
+  { keyword: 'case tv450 tracks', language: 'en', group: 'tracks' },
   { keyword: 'john deere 333g tracks', language: 'en', group: 'tracks' },
   { keyword: 'john deere 325g tracks', language: 'en', group: 'tracks' },
   { keyword: 'jcb rubber tracks', language: 'en', group: 'tracks' },

@@ -51,6 +51,8 @@ Case,TR270,TR270 vendor break,TSA/SY84909,,320x86x50,Bridgestone,"Track - Rubber
 Case,TR310,TR310 vendor break,TSA/SY320X86X50C,,320x86x50,C pattern,"Track - Rubber 320x86x50 - B-Style C Pattern",820,999,yes,same PN as TR270/T66 — single SKU in vendor catalog
 Case,TV370,TV370 vendor model filter (no serial breaks),TSA/SY450X86X55C,,450x86x55,C pattern,"Track - Rubber 450x86x55 - B-Style C Pattern",1275,1449,yes,same PN as Bobcat T770 — TR340 unavailable at vendor
 Case,TV370,TV370 vendor model filter (no serial breaks),TSA/CS47598152,47598152,450x86x55,Block,"Track - Rubber 450x86x55 - Block tread",795.22,999,yes,Case OEM cross-ref 47598152
+Case,TV450,TV450 vendor model filter (no serial breaks),TSA/SY450X86X55C,,450x86x55,C pattern,"Track - Rubber 450x86x55 - B-Style C Pattern",1275,1449,yes,same PN as TV370/T770
+Case,TV450,TV450 vendor model filter (no serial breaks),TSA/CS47598152,47598152,450x86x55,Block,"Track - Rubber 450x86x55 - Block tread",795.22,999,yes,same PN as TV370 block listing
 JCB,1CXT,"1CXT + HF + EC + HF EC vendor filters (no serial breaks)",TSA/SY320X86X50C,,320x86x50,C pattern,"Track - Rubber 320x86x50 - B-Style C Pattern",820,999,yes,same PN as 190T/T66/TR270 — all four 1CXT vendor filters return identical SKU
 JCB,150T,150T vendor model filter (no serial breaks),JC333/L4732,L4732,320x86x48,Block,"Track - Rubber 320x86x48 - Block tread (150T-exclusive size)",1651.57,2049,no,backordered at vendor — contact before ordering; not interchangeable with 190T 320x86x50
 JCB,190T,190T vendor model filter (no serial breaks),TSA/SY320X86X50C,,320x86x50,C pattern,"Track - Rubber 320x86x50 - B-Style C Pattern",820,999,yes,same PN as T66/TR270/TR310 — single SKU on 190T filter
