@@ -73,6 +73,7 @@ const KEYWORDS: TargetKeyword[] = [
   { keyword: 'john deere 333g tracks', language: 'en', group: 'tracks' },
   { keyword: 'john deere 325g tracks', language: 'en', group: 'tracks' },
   { keyword: 'jcb rubber tracks', language: 'en', group: 'tracks' },
+  { keyword: 'jcb 1cxt tracks', language: 'en', group: 'tracks' },
   { keyword: 'jcb 150t tracks', language: 'en', group: 'tracks' },
   { keyword: 'jcb 190t tracks', language: 'en', group: 'tracks' },
   // Chargers
