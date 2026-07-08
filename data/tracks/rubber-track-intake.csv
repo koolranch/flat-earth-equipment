@@ -40,6 +40,10 @@ John Deere,325G,325G vendor break,TSA/SY320X86X52C,,320x86x52,C pattern,"Track -
 John Deere,325G,325G vendor break,TSA/SYZC-B400X86X52-E5,,400x86x52,Multibar,"Track - Rubber 400x86x52 - B-Style Multibar (wide)",921.04,1149,backorder,vendor backordered no ETA — contact us to confirm availability before ordering
 John Deere,325G,325G vendor break,TSA/SY84914,,400x86x52,Block,"Track - Rubber 400x86x52 - B-Style Block (wide)",930,1149,yes,same PN as Takeuchi TL8R2 block
 Caterpillar,289D,TAW,TSA/CT454-6097,454-6097,450x86x56,Straight bar,"Track - Rubber 450x86x56 - Straight Bar (CT OEM cross-ref)",1750,2149,yes,single SKU in vendor catalog for 289D TAW break; only TAW prefix verified so far
+Caterpillar,279D,"TP5,GTL",TSA/SY450X86X56C,,450x86x56,C pattern,"Track - Rubber 450x86x56 - B-Style C Pattern (standard wide)",1300,1649,yes,identical 4-SKU set on TP5 and GTL breaks
+Caterpillar,279D,"TP5,GTL",TSA/CT454-6097,454-6097,450x86x56,Straight bar,"Track - Rubber 450x86x56 - Straight Bar (same PN as 289D)",1750,2149,yes,identical set on both breaks
+Caterpillar,279D,"TP5,GTL",TSA/JDT317183,,450x86x56,Block,"Track - Rubber 450x86x56 - Block tread",1500,1849,yes,identical set on both breaks
+Caterpillar,279D,"TP5,GTL",TSA/SY84988,,400x86x56,C pattern,"Track - Rubber 400x86x56 - C Pattern (narrow)",1000,1249,yes,narrow width option — identical set on both breaks
 Bobcat,T66,"B51V,B4SB",TSA/SY320X86X50C,,320x86x50,C pattern,"Track - Rubber 320x86x50 - B-Style C Pattern (narrow)",820,999,yes,B51V+B4SB verified — 50 links not 52
 Bobcat,T66,"B51V,B4SB",TSA/SY320X86X50Z,,320x86x50,Zig-zag,"Track - Rubber 320x86x50 - B-Style Zig-Zag Pattern",820,1019,yes,alternate narrow tread
 Bobcat,T66,"B51V,B4SB",TSA/SY400X86X50C,,400x86x50,C pattern,"Track - Rubber 400x86x50 - B-Style C Pattern (wide)",910,1149,yes,measure width before ordering

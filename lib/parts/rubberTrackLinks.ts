@@ -22,6 +22,7 @@ export const RUBBER_TRACK_MODEL_LINKS: Record<string, TrackModelLink[]> = {
     { model: 'MT85', slug: 'bobcat-mt85-rubber-track-180x72x45' },
   ],
   caterpillar: [
+    { model: '279D', slug: 'caterpillar-279d-rubber-track-450x86x56' },
     { model: '259D / 259D3', slug: 'caterpillar-259d-rubber-track-400x86x53' },
     { model: '289D', slug: 'caterpillar-289d-rubber-track-450x86x56' },
   ],

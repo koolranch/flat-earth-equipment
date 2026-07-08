@@ -64,6 +64,7 @@ const KEYWORDS: TargetKeyword[] = [
   { keyword: 'bobcat t66 tracks', language: 'en', group: 'tracks' },
   { keyword: 'bobcat mt85 tracks', language: 'en', group: 'tracks' },
   { keyword: 'cat 259d tracks', language: 'en', group: 'tracks' },
+  { keyword: 'cat 279d tracks', language: 'en', group: 'tracks' },
   { keyword: 'cat 289d tracks', language: 'en', group: 'tracks' },
   { keyword: 'kubota svl75 tracks', language: 'en', group: 'tracks' },
   { keyword: 'kubota svl65 tracks', language: 'en', group: 'tracks' },
