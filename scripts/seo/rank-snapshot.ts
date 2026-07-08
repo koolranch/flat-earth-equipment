@@ -66,6 +66,7 @@ const KEYWORDS: TargetKeyword[] = [
   { keyword: 'cat 259d tracks', language: 'en', group: 'tracks' },
   { keyword: 'cat 289d tracks', language: 'en', group: 'tracks' },
   { keyword: 'kubota svl75 tracks', language: 'en', group: 'tracks' },
+  { keyword: 'kubota svl65 tracks', language: 'en', group: 'tracks' },
   { keyword: 'kubota svl95 tracks', language: 'en', group: 'tracks' },
   { keyword: 'takeuchi tl8 tracks', language: 'en', group: 'tracks' },
   { keyword: 'case tr270 tracks', language: 'en', group: 'tracks' },
