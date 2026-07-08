@@ -101,6 +101,7 @@ export default function Navbar({ locale }: Props) {
           href: '/parts',
           dropdown: [
             { name: 'All Parts', href: '/parts' },
+            { name: 'Rubber Tracks', href: '/rubber-tracks' },
             { name: 'Lithium Golf Cart Batteries', href: '/lithium-batteries' },
             { name: 'Charger Modules', href: '/charger-modules' },
             { name: 'Battery Chargers', href: '/battery-chargers' },

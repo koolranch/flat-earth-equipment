@@ -72,6 +72,8 @@ const KEYWORDS: TargetKeyword[] = [
   { keyword: 'case tr310 tracks', language: 'en', group: 'tracks' },
   { keyword: 'john deere 333g tracks', language: 'en', group: 'tracks' },
   { keyword: 'john deere 325g tracks', language: 'en', group: 'tracks' },
+  { keyword: 'jcb rubber tracks', language: 'en', group: 'tracks' },
+  { keyword: 'jcb 190t tracks', language: 'en', group: 'tracks' },
   // Chargers
   { keyword: 'forklift charger module repair', language: 'en', group: 'charger' },
   { keyword: '6la20671', language: 'en', group: 'charger' },

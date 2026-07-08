@@ -46,3 +46,5 @@ Kubota,SVL95-2S/SVL95-2SC,SVL95-2S+SVL95-2SC vendor breaks,TSA/SY450X86X58C,,450
 Case,TR270,TR270 vendor break,TSA/SY320X86X50C,,320x86x50,C pattern,"Track - Rubber 320x86x50 - B-Style C Pattern",820,999,yes,same PN as Bobcat T66 320 C
 Case,TR270,TR270 vendor break,TSA/SY84909,,320x86x50,Bridgestone,"Track - Rubber 320x86x50 - Bridgestone premium tread",820,1049,yes,premium alternate at same vendor cost — priced above C-pattern listing
 Case,TR310,TR310 vendor break,TSA/SY320X86X50C,,320x86x50,C pattern,"Track - Rubber 320x86x50 - B-Style C Pattern",820,999,yes,same PN as TR270/T66 — single SKU in vendor catalog
+JCB,190T,190T vendor model filter (no serial breaks),TSA/SY320X86X50C,,320x86x50,C pattern,"Track - Rubber 320x86x50 - B-Style C Pattern",820,999,yes,same PN as T66/TR270/TR310 — single SKU on 190T filter
+JCB,190T ECO,190T ECO vendor model filter (no serial breaks),TSA/SY320X86X50C,,320x86x50,C pattern,"Track - Rubber 320x86x50 - B-Style C Pattern",820,999,yes,same PN as 190T — single SKU on 190T ECO filter

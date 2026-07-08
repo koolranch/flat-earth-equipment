@@ -2,6 +2,7 @@
 import { useState } from "react";
 import BrandHubBanner from '@/components/brand/BrandHubBanner';
 import SerialToolJsonLd from '@/components/seo/SerialToolJsonLd';
+import BrandRubberTracksSection from '@/components/parts/BrandRubberTracksSection';
 
 type PlateTip = { equipment_type: string; series: string | null; location_notes: string; };
 type Series = { code: string; example_note: string };
@@ -364,6 +365,8 @@ export default function Page() {
           )}
         </div>
       )}
+
+      <BrandRubberTracksSection brand="jcb" brandLabel="JCB" />
 
       <section className="mt-12">
         <h2 className="text-2xl font-semibold tracking-tight text-slate-900">Frequently Asked Questions</h2>
