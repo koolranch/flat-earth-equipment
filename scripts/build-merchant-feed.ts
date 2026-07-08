@@ -26,6 +26,14 @@ dotenv.config({ path: path.resolve(process.cwd(), ".env") });
 const SITE_URL = "https://www.flatearthequipment.com";
 const DEFAULT_PRODUCT_IMAGE = `${SITE_URL}/images/parts/placeholder.jpg`;
 
+function productImageLink(p: PartRow): string {
+  if (p.image_url) return p.image_url;
+  if (p.category === "Rubber Tracks" || p.slug.includes("rubber-track")) {
+    return `${SITE_URL}/images/parts/tracks/${p.slug}.jpg`;
+  }
+  return DEFAULT_PRODUCT_IMAGE;
+}
+
 type PartRow = {
   id: string;
   name: string;
@@ -116,7 +124,7 @@ async function buildFeed() {
     title: p.name,
     description: sanitizeCustomerFacingCopy(p.description || "").slice(0, 5000),
     link: `${SITE_URL}/parts/${p.slug}`,
-    image_link: p.image_url || DEFAULT_PRODUCT_IMAGE,
+    image_link: productImageLink(p),
     price: p.price_cents ? `${(p.price_cents / 100).toFixed(2)} USD` : "0.00 USD",
     brand: getDisplayBrand(p.brand),
     mpn: p.oem_reference || p.sku || p.id,
@@ -140,7 +148,7 @@ async function buildFeed() {
   const items = rows
     .map((p) => {
       const link = `${SITE_URL}/parts/${p.slug}`;
-      const image = p.image_url || DEFAULT_PRODUCT_IMAGE;
+      const image = productImageLink(p);
       const price = p.price_cents
         ? `${(p.price_cents / 100).toFixed(2)} USD`
         : "0.00 USD";
