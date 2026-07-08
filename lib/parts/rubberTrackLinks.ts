@@ -42,6 +42,7 @@ export const RUBBER_TRACK_MODEL_LINKS: Record<string, TrackModelLink[]> = {
   ],
   'john deere': [
     { model: '317G', slug: 'john-deere-317g-rubber-track-320x86x50' },
+    { model: '331G', slug: 'john-deere-331g-rubber-track-450x86x58' },
     { model: '333G', slug: 'john-deere-333g-rubber-track-450x86x58' },
     { model: '325G', slug: 'john-deere-325g-rubber-track-320x86x52' },
   ],
