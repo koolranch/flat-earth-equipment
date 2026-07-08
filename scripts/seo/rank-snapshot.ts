@@ -71,6 +71,7 @@ const KEYWORDS: TargetKeyword[] = [
   { keyword: 'takeuchi tl8 tracks', language: 'en', group: 'tracks' },
   { keyword: 'case tr270 tracks', language: 'en', group: 'tracks' },
   { keyword: 'case tr310 tracks', language: 'en', group: 'tracks' },
+  { keyword: 'case tv370 tracks', language: 'en', group: 'tracks' },
   { keyword: 'john deere 333g tracks', language: 'en', group: 'tracks' },
   { keyword: 'john deere 325g tracks', language: 'en', group: 'tracks' },
   { keyword: 'jcb rubber tracks', language: 'en', group: 'tracks' },
