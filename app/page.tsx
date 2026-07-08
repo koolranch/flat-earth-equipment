@@ -37,7 +37,7 @@ export default function Page() {
         albuquerque: 'Albuquerque, NM',
         lasCruces: 'Las Cruces, NM'
       },
-      lastUpdated: 'Page last updated: May 2025'
+      lastUpdated: 'Page last updated: July 2026'
     },
     es: {
       trustedBrands: 'Marcas de Confianza que Apoyamos',
@@ -53,7 +53,7 @@ export default function Page() {
         albuquerque: 'Albuquerque, NM',
         lasCruces: 'Las Cruces, NM'
       },
-      lastUpdated: 'Página actualizada por última vez: Mayo 2025'
+      lastUpdated: 'Página actualizada por última vez: Julio 2026'
     }
   }[locale]
 

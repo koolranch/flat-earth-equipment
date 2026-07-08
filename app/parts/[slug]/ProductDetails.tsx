@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useCart } from '@/hooks/useCart';
-import { getDisplayBrand, sanitizeCustomerFacingCopy } from '@/lib/parts/displayBrand';
+import { getDisplayBrand } from '@/lib/parts/displayBrand';
 import {
   getCustomerPartNumber,
   getCustomerProductName,
@@ -17,6 +17,7 @@ import {
 import { toast } from 'react-hot-toast';
 import Link from 'next/link';
 import RubberTrackVisual from '@/components/parts/RubberTrackVisual';
+import ProductDescription from '@/components/parts/ProductDescription';
 import SeatProductVisual from '@/components/parts/SeatProductVisual';
 import { isSeatCategory } from '@/lib/parts/seatVisualUtils';
 
@@ -478,11 +479,14 @@ export default function ProductDetails({
                 </span>
               ) : null}
             </p>
-            {part.description && (
-              <div className="text-gray-700 mb-6 whitespace-pre-line">
-                {sanitizeCustomerFacingCopy(part.description)}
-              </div>
-            )}
+            <ProductDescription
+              description={part.description}
+              specPdfUrl={
+                typeof partMetadata.spec_pdf_url === 'string'
+                  ? partMetadata.spec_pdf_url
+                  : null
+              }
+            />
             {priceBlock}
             {quantitySelector}
             {variantSelector}
