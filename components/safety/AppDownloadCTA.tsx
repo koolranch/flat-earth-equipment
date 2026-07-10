@@ -222,10 +222,9 @@ export default function AppDownloadCTA({
       )}
 
       <div className="flex flex-col items-center gap-3 md:flex-row md:items-center">
-        <div className="md:hidden">
-          {renderStoreBadgeButton(targetPlatform, finalUrl, placement)}
-        </div>
-        <div className="hidden items-center gap-3 md:flex">
+        {/* Show both stores whenever iOS is live — paid LP traffic includes
+            desktop + cross-platform users who shouldn't only see Play. */}
+        <div className="flex flex-wrap items-center justify-center gap-3 md:justify-start">
           {IOS_APP_LIVE && IOS_APP_STORE_URL
             ? renderStoreBadgeButton("ios", IOS_APP_STORE_URL, `${placement}_ios`)
             : null}
@@ -247,8 +246,13 @@ export default function AppDownloadCTA({
 
       {webCheckoutButton}
 
-      {/* Hidden link helps non-JS clients still reach the store. */}
+      {/* Hidden links help non-JS clients / crawlers still reach both stores. */}
       <noscript>
+        {IOS_APP_LIVE && IOS_APP_STORE_URL ? (
+          <a href={IOS_APP_STORE_URL} className="sr-only">
+            Get the app on the App Store
+          </a>
+        ) : null}
         <a href={ANDROID_PLAY_STORE_URL} className="sr-only">
           Get the app on Google Play
         </a>

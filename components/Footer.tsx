@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import GooglePlayBadge from './GooglePlayBadge';
+import MobileAppBadges from './MobileAppBadges';
 
 export default function Footer({ locale = 'en' }: { locale?: 'en' | 'es' }) {
   const [email, setEmail] = useState('');
@@ -69,7 +69,7 @@ export default function Footer({ locale = 'en' }: { locale?: 'en' | 'es' }) {
               <li><Link href="/terms-of-service" className="hover:text-canyon-rust transition">{es ? 'Términos de servicio' : 'Terms of Service'}</Link></li>
               <li><Link href="/privacy-policy" className="hover:text-canyon-rust transition">{es ? 'Política de privacidad' : 'Privacy Policy'}</Link></li>
             </ul>
-            <GooglePlayBadge className="mt-6 space-y-2" locale={locale} />
+            <MobileAppBadges className="mt-6 space-y-2" locale={locale} />
           </div>
 
           {/* Service Areas Column */}
