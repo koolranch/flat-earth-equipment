@@ -89,6 +89,38 @@ export default async function BlogPost({ params }: Props) {
                          params.slug === 'lead-acid-vs-lithium-forklift-chargers' ||
                          params.slug === 'bms-integration-lithium-forklift-chargers';
 
+  const isCertGuide = params.slug === 'how-to-get-forklift-certified';
+
+  const certFAQs = isCertGuide
+    ? [
+        {
+          question: 'Can I get fully forklift certified online?',
+          answer:
+            'No. Online or app training covers OSHA formal instruction. You still need practical training and a workplace performance evaluation by a qualified person on the equipment you will use.',
+        },
+        {
+          question: 'Do I need an in-person classroom course to get forklift certified?',
+          answer:
+            'Not for the knowledge portion. OSHA allows interactive computer and video instruction for formal training. Many operators complete theory online or in the Forklift Certified app for $49 (study free in the app, pay at the exam), then finish evaluation with their employer on-site.',
+        },
+        {
+          question: 'How much does forklift certification cost?',
+          answer:
+            'Flat Earth Equipment formal instruction is $49 online, or free to study in the app with $49 due only at the final exam. Traditional classroom packages often run $200–$500 per operator. The employer still handles the required on-site evaluation.',
+        },
+        {
+          question: 'How long does it take to get forklift certified?',
+          answer:
+            'Formal instruction often takes under an hour online or in the app. On-site practice and evaluation usually happen the same day or within a few days. Many operators go from start to evaluated within a week.',
+        },
+        {
+          question: 'Does forklift certification transfer to a new employer?',
+          answer:
+            'Not automatically. Your training history helps, but the new employer must evaluate you on their equipment in their workplace and maintain their own certification records.',
+        },
+      ]
+    : [];
+
   // FAQ data for structured data - different for each guide
   const getChargerFAQs = (slug: string) => {
     if (slug === 'complete-guide-forklift-battery-chargers') {
@@ -295,6 +327,27 @@ export default async function BlogPost({ params }: Props) {
           description={post.description}
           publishDate={post.date}
           faqs={chargerFAQs}
+        />
+      )}
+
+      {/* Additive FAQPage JSON-LD for high-traffic certification guide */}
+      {isCertGuide && certFAQs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: certFAQs.map((faq) => ({
+                '@type': 'Question',
+                name: faq.question,
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: faq.answer,
+                },
+              })),
+            }),
+          }}
         />
       )}
 
@@ -672,30 +725,60 @@ export default async function BlogPost({ params }: Props) {
           </div>
         )}
 
-        {/* Expert Support CTA */}
-        <div className="mt-12 bg-slate-50 border border-slate-200 rounded-xl p-8 text-center">
-          <h3 className="text-xl font-semibold text-slate-900 mb-3">
-            🔧 Expert Technical Support
-          </h3>
-          <p className="text-slate-600 mb-6 max-w-2xl mx-auto">
-            Our technical team provides free consultation for charger selection, installation planning, 
-            and fleet optimization. Get personalized recommendations based on your specific requirements.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/contact"
-              className="bg-canyon-rust text-white px-6 py-3 rounded-lg font-semibold hover:bg-canyon-rust/90 transition-colors"
-            >
-              Contact Technical Team
-            </a>
-            <a
-              href="tel:+1-888-392-9175"
-              className="border-2 border-canyon-rust text-canyon-rust px-6 py-3 rounded-lg font-semibold hover:bg-canyon-rust hover:text-white transition-colors"
-            >
-              Call (888) 392-9175
-            </a>
+        {/* Certification CTA — soft-sell after education */}
+        {isCertGuide && (
+          <div className="mt-12 rounded-xl border border-slate-200 bg-slate-950 p-8 text-center text-white">
+            <h3 className="text-xl font-semibold mb-3">
+              Try before you certify
+            </h3>
+            <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
+              Study all five modules free in the Forklift Certified app, then pay $49 only at the final exam —
+              or get the same OSHA-aligned formal instruction on the web for $49. Your employer still completes
+              the required on-site evaluation.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="/safety"
+                className="bg-[#F76511] text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors"
+              >
+                Get certified — $49
+              </a>
+              <a
+                href="/safety"
+                className="border border-slate-600 text-white px-6 py-3 rounded-lg font-semibold hover:border-[#F76511] transition-colors"
+              >
+                See app + web options
+              </a>
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* Expert Support CTA — charger guides only (not certification posts) */}
+        {isChargerGuide && (
+          <div className="mt-12 bg-slate-50 border border-slate-200 rounded-xl p-8 text-center">
+            <h3 className="text-xl font-semibold text-slate-900 mb-3">
+              Expert Technical Support
+            </h3>
+            <p className="text-slate-600 mb-6 max-w-2xl mx-auto">
+              Our technical team provides free consultation for charger selection, installation planning,
+              and fleet optimization. Get personalized recommendations based on your specific requirements.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="/contact"
+                className="bg-canyon-rust text-white px-6 py-3 rounded-lg font-semibold hover:bg-canyon-rust/90 transition-colors"
+              >
+                Contact Technical Team
+              </a>
+              <a
+                href="tel:+1-888-392-9175"
+                className="border-2 border-canyon-rust text-canyon-rust px-6 py-3 rounded-lg font-semibold hover:bg-canyon-rust hover:text-white transition-colors"
+              >
+                Call (888) 392-9175
+              </a>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
