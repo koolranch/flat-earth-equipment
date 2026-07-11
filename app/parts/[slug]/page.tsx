@@ -275,7 +275,7 @@ function buildPartMetaDescription(product: {
   metadata?: Record<string, unknown> | null;
 }): string {
   if (product.category === 'Rubber Tracks') {
-    return truncateDescription(getRubberTrackIntro(product.description));
+    return truncateDescription(getRubberTrackIntro(product.description ?? undefined));
   }
 
   const meta = product.metadata ?? {};
