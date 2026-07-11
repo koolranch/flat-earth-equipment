@@ -126,19 +126,43 @@ export function TableOfContents() {
   )
 }
 
+type QuickRefItem = { label: string; value: string; highlight?: boolean }
+
+function parseQuickRefItems(
+  items?: QuickRefItem[],
+  itemsJson?: string
+): QuickRefItem[] {
+  if (Array.isArray(items) && items.length > 0) return items
+  if (typeof itemsJson === 'string' && itemsJson.trim()) {
+    try {
+      const parsed = JSON.parse(itemsJson.replace(/&#39;/g, "'"))
+      return Array.isArray(parsed) ? parsed : []
+    } catch {
+      return []
+    }
+  }
+  return []
+}
+
 // Quick Reference Card Component
+// next-mdx-remote RSC only passes string literal props — use itemsJson='[...]' in MDX
 export function QuickReferenceCard({
   title,
-  items
+  items,
+  itemsJson,
 }: {
   title: string
-  items: Array<{ label: string; value: string; highlight?: boolean }>
+  items?: QuickRefItem[]
+  itemsJson?: string
 }) {
+  const resolvedItems = parseQuickRefItems(items, itemsJson)
+  if (resolvedItems.length === 0) return null
+
   return (
     <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 my-6">
       <h4 className="font-semibold text-slate-900 mb-3">{title}</h4>
       <div className="space-y-2">
-        {items.map((item, index) => (
+        {resolvedItems.map((item, index) => (
           <div key={index} className="flex justify-between items-center">
             <span className="text-slate-600">{item.label}:</span>
             <span className={`font-medium ${

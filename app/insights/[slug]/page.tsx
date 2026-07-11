@@ -26,8 +26,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       };
     }
 
-    // Normalize keywords to always be an array (cast to handle MDX string vs array variations)
-    const rawKeywords = post.keywords as string | string[] | undefined;
+    // Normalize keywords (frontmatter may use keywords or tags)
+    const rawKeywords = (post.keywords ?? post.tags) as string | string[] | undefined;
     const normalizedKeywords = Array.isArray(rawKeywords) 
       ? rawKeywords 
       : (typeof rawKeywords === 'string' ? rawKeywords.split(',').map(k => k.trim()) : []);
@@ -68,8 +68,8 @@ export default async function BlogPost({ params }: Props) {
     notFound();
   }
 
-  // Normalize keywords to always be an array for safe iteration (cast to handle MDX string vs array variations)
-  const rawKeywords = post.keywords as string | string[] | undefined;
+  // Normalize keywords (frontmatter may use keywords or tags)
+  const rawKeywords = (post.keywords ?? post.tags) as string | string[] | undefined;
   const normalizedKeywords = Array.isArray(rawKeywords) 
     ? rawKeywords 
     : (typeof rawKeywords === 'string' ? rawKeywords.split(',').map(k => k.trim()) : []);
@@ -224,6 +224,60 @@ export default async function BlogPost({ params }: Props) {
         {
           question: "Do I need special training for BMS-integrated lithium chargers?",
           answer: "Yes, staff should understand BMS communication basics, fault code interpretation, proper connection procedures, and safety protocols specific to lithium technology. The complexity is higher than lead-acid chargers but the operational benefits justify the learning investment."
+        }
+      ];
+    } else if (slug === 'forklift-charger-voltage-comparison') {
+      return [
+        {
+          question: "What's the difference between 24V, 36V, 48V, and 80V forklift chargers?",
+          answer: "The voltage determines the forklift's power and application: 24V for small pallet jacks, 36V for medium warehouse forklifts, 48V for most industrial applications (most common), and 80V for heavy-duty industrial forklifts. Higher voltage provides more power but requires different electrical infrastructure."
+        },
+        {
+          question: "Which forklift charger voltage is most common?",
+          answer: "48V is the most common voltage for industrial forklifts because it provides the optimal balance of power, efficiency, and compatibility. Most counterbalance forklifts, reach trucks, and industrial warehouse equipment use 48V systems."
+        },
+        {
+          question: "Can I use a different voltage charger than my battery?",
+          answer: "No, never use a different voltage charger than your battery. This can cause fires, explosions, or equipment damage. Always verify the battery voltage on the nameplate and ensure your charger matches exactly - 24V battery needs 24V charger, 48V battery needs 48V charger, etc."
+        },
+        {
+          question: "Do I need single-phase or three-phase power for different voltages?",
+          answer: "24V and 36V chargers typically use single-phase power (110V-240V). 48V chargers can use either single-phase (for lower amperage) or three-phase (for higher amperage). 80V chargers require three-phase power (480V-600V) due to their high power requirements."
+        },
+        {
+          question: "How do I know what voltage my forklift battery is?",
+          answer: "Check the battery nameplate which clearly shows the voltage, count the battery cells (each cell = 2V), or consult your forklift manual. Common configurations: 12 cells = 24V, 18 cells = 36V, 24 cells = 48V, 40 cells = 80V."
+        },
+        {
+          question: "Which voltage is best for my warehouse operation?",
+          answer: "For small warehouses and retail: 24V-36V. For standard distribution centers: 36V-48V. For manufacturing and heavy industry: 48V-80V. The choice depends on your forklift capacity, operating hours, and facility electrical infrastructure."
+        }
+      ];
+    } else if (slug === 'fast-vs-overnight-forklift-charging') {
+      return [
+        {
+          question: "What's the difference between fast charging and overnight charging for forklifts?",
+          answer: "Overnight charging uses lower amperage (C/10 rate) over 8-12 hours, extending battery life to 5-7 years but requiring longer downtime. Fast charging uses higher amperage (C/5 rate) over 4-6 hours, reducing downtime but potentially shortening battery life to 3-5 years."
+        },
+        {
+          question: "Which charging method is more cost-effective?",
+          answer: "Overnight charging has lower total cost of ownership ($12,500-22,000 over 5 years) due to cheaper chargers, less electrical infrastructure, and longer battery life. Fast charging costs more ($21,500-42,000 over 5 years) but can provide ROI through increased productivity in multi-shift operations."
+        },
+        {
+          question: "Does fast charging damage forklift batteries?",
+          answer: "Fast charging doesn't damage batteries when done properly, but it does reduce their lifespan. With proper temperature management, ventilation, and quality chargers, fast charging can still provide 3-5 years of battery life compared to 5-7 years with overnight charging."
+        },
+        {
+          question: "Can I use both fast and overnight charging on the same battery?",
+          answer: "Yes, many facilities use a hybrid approach - overnight charging for daily routine and fast charging for emergency situations or peak demand periods. This provides operational flexibility while minimizing battery wear from constant fast charging."
+        },
+        {
+          question: "What electrical upgrades do I need for fast charging?",
+          answer: "Fast charging typically requires higher amperage circuits (often 60-200A), three-phase power for larger chargers, upgraded electrical panels, and enhanced ventilation. Professional electrical assessment is recommended to determine specific requirements for your facility."
+        },
+        {
+          question: "Which charging method is better for multi-shift operations?",
+          answer: "Fast charging or opportunity charging is better for multi-shift operations (16+ hours daily) as it reduces downtime and eliminates the need for battery swapping. The productivity gains from continuous operation often justify the higher costs and shorter battery life."
         }
       ];
     }
@@ -531,26 +585,35 @@ export default async function BlogPost({ params }: Props) {
 
         {/* Call to Action for Charger Guide */}
         {isChargerGuide && (
-          <div className="bg-gradient-to-r from-canyon-rust to-canyon-rust/90 text-white rounded-xl p-8 my-12">
+          <div className="mt-12 mb-4 rounded-xl border border-slate-200 bg-slate-50 p-8">
             <div className="text-center">
-              <h3 className="text-2xl font-bold mb-3">Need Help Selecting the Right Charger?</h3>
-              <p className="text-canyon-rust-100 mb-6 max-w-2xl mx-auto">
-                Our technical experts provide free consultation to help you choose the perfect charger for your specific requirements.
+              <h3 className="text-2xl font-bold text-slate-900 mb-3">
+                Ready to match a charger to your fleet?
+              </h3>
+              <p className="text-slate-600 mb-6 max-w-2xl mx-auto">
+                Use the selector to filter by voltage and amperage, or browse lithium battery options if you are upgrading from lead-acid.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href="/contact"
-                  className="bg-white text-canyon-rust px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                  href="/battery-chargers"
+                  className="bg-canyon-rust text-white px-6 py-3 rounded-lg font-semibold hover:bg-canyon-rust/90 transition-colors"
                 >
-                  Get Expert Consultation
+                  Browse chargers
                 </a>
                 
                 <a
-                  href="/battery-chargers"
-                  className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-canyon-rust transition-colors"
+                  href="/lithium-batteries"
+                  className="border border-slate-300 bg-white text-slate-800 px-6 py-3 rounded-lg font-semibold hover:border-canyon-rust/40 hover:text-canyon-rust transition-colors"
                 >
-                  Browse Chargers
+                  View lithium batteries
+                </a>
+
+                <a
+                  href="/contact"
+                  className="text-slate-600 px-6 py-3 rounded-lg font-medium hover:text-canyon-rust transition-colors"
+                >
+                  Ask a tech question
                 </a>
               </div>
             </div>

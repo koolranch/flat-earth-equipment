@@ -13,18 +13,41 @@ interface SEOComponentsProps {
   title: string
   description: string
   publishDate: string
-  faqs: FAQItem[]
+  faqs?: FAQItem[]
+}
+
+function parseFaqs(faqs?: FAQItem[], faqsJson?: string): FAQItem[] {
+  if (Array.isArray(faqs) && faqs.length > 0) return faqs
+  if (typeof faqsJson === 'string' && faqsJson.trim()) {
+    try {
+      const parsed = JSON.parse(faqsJson.replace(/&#39;/g, "'"))
+      return Array.isArray(parsed) ? parsed : []
+    } catch {
+      return []
+    }
+  }
+  return []
 }
 
 // FAQ Component with structured data
-export function FAQSection({ faqs }: { faqs: FAQItem[] }) {
+// next-mdx-remote RSC only passes string literal props — use faqsJson='[...]' in MDX
+export function FAQSection({
+  faqs,
+  faqsJson,
+}: {
+  faqs?: FAQItem[]
+  faqsJson?: string
+}) {
+  const resolvedFaqs = parseFaqs(faqs, faqsJson)
+  if (resolvedFaqs.length === 0) return null
+
   return (
     <div className="my-12">
       <h2 id="frequently-asked-questions" className="text-2xl font-bold text-slate-900 mb-8">
         Frequently Asked Questions
       </h2>
       <div className="space-y-4">
-        {faqs.map((faq, index) => (
+        {resolvedFaqs.map((faq, index) => (
           <FAQItem key={index} question={faq.question} answer={faq.answer} />
         ))}
       </div>
@@ -34,6 +57,7 @@ export function FAQSection({ faqs }: { faqs: FAQItem[] }) {
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false)
+  const paragraphs = (answer ?? '').split('\n')
 
   return (
     <div className="border border-slate-200 rounded-lg overflow-hidden">
@@ -56,7 +80,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
       {isOpen && (
         <div className="px-6 pb-6 border-t border-slate-200">
           <div className="text-slate-700 prose prose-slate max-w-none pt-4">
-            {answer.split('\n').map((paragraph, index) => (
+            {paragraphs.map((paragraph, index) => (
               <p key={index} className="mb-4 last:mb-0">
                 {paragraph}
               </p>
@@ -70,6 +94,8 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
 
 // Enhanced Structured Data Component
 export function StructuredData({ title, description, publishDate, faqs }: SEOComponentsProps) {
+  const resolvedFaqs = faqs ?? []
+
   // Article Schema
   const articleSchema = {
     "@context": "https://schema.org",
@@ -101,7 +127,7 @@ export function StructuredData({ title, description, publishDate, faqs }: SEOCom
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": faqs.map(faq => ({
+    "mainEntity": resolvedFaqs.map(faq => ({
       "@type": "Question",
       "name": faq.question,
       "acceptedAnswer": {
@@ -206,13 +232,15 @@ export function StructuredData({ title, description, publishDate, faqs }: SEOCom
       />
 
       {/* FAQ Schema */}
-      <Script
-        id="faq-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqSchema)
-        }}
-      />
+      {resolvedFaqs.length > 0 && (
+        <Script
+          id="faq-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqSchema)
+          }}
+        />
+      )}
 
       {/* HowTo Schema */}
       <Script
