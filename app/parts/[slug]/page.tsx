@@ -98,11 +98,17 @@ async function fetchRelatedGradeOption(
  */
 function buildProductSchema(product: any, slug: string) {
   const url = `${SITE_URL}/parts/${slug}`;
+  const price = Number(product.price || 0);
+  const isBuyNow =
+    product.sales_type === 'direct' &&
+    product.is_in_stock !== false &&
+    price > 0 &&
+    Boolean(product.stripe_price_id);
+
   const offer: Record<string, any> = {
     '@type': 'Offer',
-    price: Number(product.price || 0).toFixed(2),
     priceCurrency: 'USD',
-    availability: product.is_in_stock
+    availability: isBuyNow
       ? 'https://schema.org/InStock'
       : 'https://schema.org/PreOrder',
     url,
@@ -110,10 +116,15 @@ function buildProductSchema(product: any, slug: string) {
       '@type': 'Organization',
       name: 'Flat Earth Equipment',
     },
-    priceValidUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
-      .toISOString()
-      .split('T')[0],
   };
+
+  // Never publish $0.00 offers for quote-only stubs — that shows up as junk in SERPs.
+  if (isBuyNow) {
+    offer.price = price.toFixed(2);
+    offer.priceValidUntil = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split('T')[0];
+  }
 
   const customerMpn =
     getCustomerPartNumber({
@@ -161,7 +172,7 @@ function buildProductSchema(product: any, slug: string) {
   }
 
   // Same-day handling for in-stock Buy Now parts (freight may still apply at checkout).
-  if (product.sales_type === 'direct' && product.is_in_stock !== false && Number(product.price) > 0) {
+  if (isBuyNow) {
     offer.shippingDetails = {
       '@type': 'OfferShippingDetails',
       shippingDestination: {

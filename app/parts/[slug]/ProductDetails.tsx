@@ -50,8 +50,9 @@ interface ProductDetailsProps {
     image_url?: string;
     price: number;
     slug: string;
-    stripe_product_id?: string;
-    stripe_price_id: string;
+    stripe_product_id?: string | null;
+    stripe_price_id?: string | null;
+    sales_type?: string | null;
     has_core_charge?: boolean;
     core_charge?: number;
     category?: string;
@@ -146,6 +147,10 @@ export default function ProductDetails({
 
   const unitPrice = selected?.price ?? part.price;
   const lineTotal = unitPrice * quantity;
+  const isQuoteOnly =
+    part.sales_type === 'quote_only' ||
+    !part.stripe_price_id ||
+    !(Number(unitPrice) > 0);
   const serialLookupPath = getSerialLookupPath(part.brand);
   const trackIntro = isRubberTrack ? getRubberTrackIntro(part.description) : '';
   const displayName = getCustomerProductName(part.name, part.brand);
@@ -154,8 +159,10 @@ export default function ProductDetails({
     sku: part.sku,
     oemReference: part.oem_reference,
   });
+  const quoteHref = `/quote?sku=${encodeURIComponent(part.sku || part.slug)}&equipment=${encodeURIComponent(getDisplayBrand(part.brand))}&notes=${encodeURIComponent(`${displayName} — request pricing`)}`;
 
   const handleAddToCart = () => {
+    if (isQuoteOnly) return;
     const item = selected || part;
     if (!item.stripe_price_id) {
       console.error('No stripe_price_id available for item:', item);
@@ -192,7 +199,14 @@ export default function ProductDetails({
     });
   };
 
-  const priceBlock = (
+  const priceBlock = isQuoteOnly ? (
+    <>
+      <div className="text-2xl font-bold mb-1 text-slate-900">Request Quote</div>
+      <p className="text-sm text-slate-600 mb-4">
+        Pricing available on request — tell us your machine and quantity and we will confirm availability.
+      </p>
+    </>
+  ) : (
     <>
       <div className="text-2xl font-bold mb-1">
         ${unitPrice.toFixed(2)}
@@ -372,7 +386,14 @@ export default function ProductDetails({
     </div>
   );
 
-  const addToCartButton = (
+  const addToCartButton = isQuoteOnly ? (
+    <Link
+      href={quoteHref}
+      className="w-full bg-canyon-rust hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-150 flex items-center justify-center gap-2 min-h-[48px]"
+    >
+      Request a Quote
+    </Link>
+  ) : (
     <button
       type="button"
       onClick={handleAddToCart}
