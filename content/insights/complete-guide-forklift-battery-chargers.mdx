@@ -102,6 +102,7 @@ Forklift battery voltage is determined by the number of cells connected in serie
 
 <QuickReferenceCard 
   title="24V Quick Reference"
+  voltage="24"
   itemsJson='[{"label": "Typical Equipment", "value": "Pallet jacks, walkies"}, {"label": "Battery Range", "value": "200-600 Ah"}, {"label": "Recommended Amps", "value": "15A-50A", "highlight": true}, {"label": "Power Input", "value": "110V-240V single-phase"}, {"label": "Charge Time", "value": "8-12 hours"}]'
 />
 
@@ -126,6 +127,12 @@ Forklift battery voltage is determined by the number of cells connected in serie
 - **Power input:** 208V-240V single-phase standard
 - **Connector:** Anderson SB175 or SB350 typical
 
+<QuickReferenceCard 
+  title="36V Quick Reference"
+  voltage="36"
+  itemsJson='[{"label": "Typical Equipment", "value": "Counterbalance, reach trucks"}, {"label": "Battery Range", "value": "400-900 Ah"}, {"label": "Recommended Amps", "value": "25A-90A", "highlight": true}, {"label": "Power Input", "value": "208V-240V single-phase"}, {"label": "Charge Time", "value": "8-12 hours overnight"}]'
+/>
+
 ### 48V Forklift Charger Applications
 
 #### **Typical Equipment**
@@ -148,6 +155,12 @@ Forklift battery voltage is determined by the number of cells connected in serie
 - **Fast charging:** Double amperage for 4-6 hour charging
 - **Power input:** Single-phase for under 100A, three-phase for over 100A
 
+<QuickReferenceCard 
+  title="48V Quick Reference"
+  voltage="48"
+  itemsJson='[{"label": "Typical Equipment", "value": "Industrial counterbalance"}, {"label": "Battery Range", "value": "500-1,200 Ah"}, {"label": "Recommended Amps", "value": "50A-200A", "highlight": true}, {"label": "Power Input", "value": "Single or three-phase"}, {"label": "Charge Time", "value": "6-12 hours typical"}]'
+/>
+
 ### 80V Forklift Charger Applications
 
 #### **Typical Equipment**
@@ -163,6 +176,12 @@ Forklift battery voltage is determined by the number of cells connected in serie
 - **Charging time:** 8-12 hours typical
 - **Applications:** Heavy industry, steel mills, lumber yards
 
+<QuickReferenceCard 
+  title="80V Quick Reference"
+  voltage="80"
+  itemsJson='[{"label": "Typical Equipment", "value": "Heavy-duty outdoor forklifts"}, {"label": "Battery Range", "value": "800-1,500 Ah"}, {"label": "Recommended Amps", "value": "75A-150A", "highlight": true}, {"label": "Power Input", "value": "Three-phase 480V-600V"}, {"label": "Charge Time", "value": "8-12 hours typical"}]'
+/>
+
 ## Amperage Calculation Guide
 
 ### Basic Amperage Formula
@@ -172,6 +191,8 @@ Forklift battery voltage is determined by the number of cells connected in serie
 Where efficiency factor = 0.85 (accounts for charging losses)
 
 <AmperageCalculator />
+
+<ChargerSelectorStrip showVoltages="true" />
 
 ### Charging Rate Guidelines
 

@@ -591,22 +591,22 @@ export default async function BlogPost({ params }: Props) {
                 Ready to match a charger to your fleet?
               </h3>
               <p className="text-slate-600 mb-6 max-w-2xl mx-auto">
-                Use the selector to filter by voltage and amperage, or browse lithium battery options if you are upgrading from lead-acid.
+                Use the 3-step selector to filter by voltage, charge speed, and facility power — then browse live stocked chargers.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href="/battery-chargers"
+                  href="/battery-chargers#charger-selector"
                   className="bg-canyon-rust text-white px-6 py-3 rounded-lg font-semibold hover:bg-canyon-rust/90 transition-colors"
                 >
-                  Browse chargers
+                  Find your charger
                 </a>
                 
                 <a
-                  href="/lithium-batteries"
+                  href="/compatibility"
                   className="border border-slate-300 bg-white text-slate-800 px-6 py-3 rounded-lg font-semibold hover:border-canyon-rust/40 hover:text-canyon-rust transition-colors"
                 >
-                  View lithium batteries
+                  Find by forklift model
                 </a>
 
                 <a
@@ -636,7 +636,7 @@ export default async function BlogPost({ params }: Props) {
                 {
                   title: "Forklift Charger Selector Tool",
                   description: "Find your perfect charger in 3 easy steps",
-                  href: "/battery-chargers",
+                  href: "/battery-chargers#charger-selector",
                   type: "Tool"
                 },
                 {

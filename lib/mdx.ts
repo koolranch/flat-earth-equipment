@@ -6,6 +6,18 @@ import { AmperageCalculator, QuickReferenceCard, ChargingROICalculator, LithiumC
 import { TCOComparisonCalculator } from '@/components/TCOCalculator';
 import { BMSCompatibilityChecker } from '@/components/BMSCompatibilityChecker';
 import { FAQSection } from '@/components/SEOComponents';
+import { ChargerSelectorStrip } from '@/components/insights/ChargerSelectorStrip';
+
+const insightMdxComponents = {
+  AmperageCalculator,
+  QuickReferenceCard,
+  ChargingROICalculator,
+  LithiumChargingCalculator,
+  TCOComparisonCalculator,
+  BMSCompatibilityChecker,
+  FAQSection,
+  ChargerSelectorStrip,
+};
 
 export interface BlogPost {
   slug: string;
@@ -33,15 +45,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       const result = await compileMDX({
         source: content,
         options: { parseFrontmatter: true },
-        components: {
-          AmperageCalculator,
-          QuickReferenceCard,
-          ChargingROICalculator,
-          LithiumChargingCalculator,
-          TCOComparisonCalculator,
-          BMSCompatibilityChecker,
-          FAQSection,
-        }
+        components: insightMdxComponents,
       });
       compiledContent = result.content;
     } catch (mdxError) {
@@ -94,15 +98,7 @@ export async function getMDXContent(slug: string) {
     const { content: compiledContent } = await compileMDX({
       source: content,
       options: { parseFrontmatter: true },
-      components: {
-        AmperageCalculator,
-        QuickReferenceCard,
-        ChargingROICalculator,
-        LithiumChargingCalculator,
-        TCOComparisonCalculator,
-        BMSCompatibilityChecker,
-        FAQSection,
-      }
+      components: insightMdxComponents,
     });
 
     return {

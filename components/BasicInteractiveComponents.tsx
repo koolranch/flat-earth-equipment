@@ -3,10 +3,25 @@
 import { useState } from 'react'
 import { ChevronDownIcon, ChevronUpIcon, CalculatorIcon } from '@heroicons/react/24/outline'
 
+const CHARGER_VOLTAGES = ['24', '36', '48', '80'] as const
+
+function buildChargerBrowseHref(voltage?: string, amps?: number | null): string {
+  const params = new URLSearchParams()
+  if (voltage && CHARGER_VOLTAGES.includes(voltage as (typeof CHARGER_VOLTAGES)[number])) {
+    params.set('v', voltage)
+  }
+  if (typeof amps === 'number' && Number.isFinite(amps) && amps > 0) {
+    params.set('a', String(amps))
+  }
+  const qs = params.toString()
+  return qs ? `/battery-chargers?${qs}#charger-selector` : '/battery-chargers#charger-selector'
+}
+
 // Simplified Amperage Calculator for Phase 2
 export function AmperageCalculator() {
   const [batteryAh, setBatteryAh] = useState('')
   const [chargeHours, setChargeHours] = useState('')
+  const [voltage, setVoltage] = useState('')
   const [result, setResult] = useState<number | null>(null)
 
   const calculate = () => {
@@ -19,14 +34,32 @@ export function AmperageCalculator() {
     }
   }
 
+  const browseHref = buildChargerBrowseHref(voltage || undefined, result)
+
   return (
-    <div className="bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 rounded-xl p-6 my-8">
+    <div className="not-prose bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 rounded-xl p-6 my-8">
       <div className="flex items-center gap-3 mb-4">
         <CalculatorIcon className="h-6 w-6 text-canyon-rust" />
         <h3 className="text-lg font-semibold text-slate-900">Amperage Calculator</h3>
       </div>
       
-      <div className="grid md:grid-cols-2 gap-4 mb-4">
+      <div className="grid md:grid-cols-3 gap-4 mb-4">
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-1">
+            Battery voltage (optional)
+          </label>
+          <select
+            value={voltage}
+            onChange={(e) => setVoltage(e.target.value)}
+            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-canyon-rust focus:border-canyon-rust bg-white"
+          >
+            <option value="">Select voltage</option>
+            {CHARGER_VOLTAGES.map((v) => (
+              <option key={v} value={v}>{v}V</option>
+            ))}
+          </select>
+        </div>
+
         <div>
           <label className="block text-sm font-medium text-slate-700 mb-1">
             Battery Capacity (Ah)
@@ -55,6 +88,7 @@ export function AmperageCalculator() {
       </div>
       
       <button
+        type="button"
         onClick={calculate}
         className="w-full bg-canyon-rust text-white py-2 px-4 rounded-lg hover:bg-canyon-rust/90 transition-colors font-medium"
       >
@@ -68,7 +102,19 @@ export function AmperageCalculator() {
             <div className="text-sm text-slate-600">Recommended charger amperage</div>
             <div className="text-xs text-slate-500 mt-2">
               Based on {batteryAh}Ah battery charged in {chargeHours} hours (85% efficiency)
+              {voltage ? ` · ${voltage}V` : ''}
             </div>
+            <a
+              href={browseHref}
+              className="mt-4 inline-flex items-center justify-center rounded-lg border border-canyon-rust/30 bg-canyon-rust/5 px-4 py-2 text-sm font-semibold text-canyon-rust hover:bg-canyon-rust hover:text-white transition-colors"
+            >
+              {voltage
+                ? `See ${voltage}V chargers near ${result}A`
+                : `See chargers near ${result}A`}
+            </a>
+            <p className="text-xs text-slate-500 mt-2">
+              Opens the selector with your numbers pre-filtered — confirm phase on the next page.
+            </p>
           </div>
         </div>
       )}
@@ -145,27 +191,35 @@ function parseQuickRefItems(
 }
 
 // Quick Reference Card Component
-// next-mdx-remote RSC only passes string literal props — use itemsJson='[...]' in MDX
+// next-mdx-remote RSC only passes string literal props — use itemsJson='[...]' and voltage="48" in MDX
 export function QuickReferenceCard({
   title,
   items,
   itemsJson,
+  voltage,
 }: {
   title: string
   items?: QuickRefItem[]
   itemsJson?: string
+  /** String literal only in MDX, e.g. voltage="48" */
+  voltage?: string
 }) {
   const resolvedItems = parseQuickRefItems(items, itemsJson)
   if (resolvedItems.length === 0) return null
 
+  const browseHref =
+    voltage && CHARGER_VOLTAGES.includes(voltage as (typeof CHARGER_VOLTAGES)[number])
+      ? buildChargerBrowseHref(voltage)
+      : null
+
   return (
-    <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 my-6">
+    <div className="not-prose bg-slate-50 border border-slate-200 rounded-lg p-4 my-6">
       <h4 className="font-semibold text-slate-900 mb-3">{title}</h4>
       <div className="space-y-2">
         {resolvedItems.map((item, index) => (
-          <div key={index} className="flex justify-between items-center">
+          <div key={index} className="flex justify-between items-center gap-3">
             <span className="text-slate-600">{item.label}:</span>
-            <span className={`font-medium ${
+            <span className={`font-medium text-right ${
               item.highlight ? 'text-canyon-rust' : 'text-slate-900'
             }`}>
               {item.value}
@@ -173,6 +227,14 @@ export function QuickReferenceCard({
           </div>
         ))}
       </div>
+      {browseHref && (
+        <a
+          href={browseHref}
+          className="mt-4 inline-flex text-sm font-semibold text-canyon-rust hover:underline"
+        >
+          Browse {voltage}V chargers →
+        </a>
+      )}
     </div>
   )
 }
