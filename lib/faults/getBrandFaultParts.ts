@@ -1,4 +1,4 @@
-import { supabaseService } from '@/lib/supabase/service.server';
+import { supabaseServer } from '@/lib/supabase/server';
 
 export type FaultPartsCategory = {
   key: string;
@@ -53,7 +53,7 @@ const JCB_PARTS_GROUPS: FaultPartsCategory[] = [
 ];
 
 export async function getJcbFaultLikelyParts(limitPerGroup = 3): Promise<FaultPartsGroup[]> {
-  const supabase = supabaseService();
+  const supabase = supabaseServer();
   const allCategories = Array.from(new Set(JCB_PARTS_GROUPS.flatMap((g) => g.categories)));
 
   const { data, error } = await supabase
