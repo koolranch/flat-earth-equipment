@@ -30,7 +30,8 @@ export async function GET(req: Request) {
   const supabase = supabaseService();
 
   // 1) Fetch faults for brand (filter code server-side; model filter applied in-memory for proper LIKE semantics)
-  let q = supabase.from('svc.svc_fault_codes').select('*').eq('brand', brand).limit(limit);
+  // public.svc_fault_codes (seeded via scripts/seed-faults.ts) — not the empty svc.* schema copy
+  let q = supabase.from('svc_fault_codes').select('*').eq('brand', brand).limit(limit);
   if (code) q = q.ilike('code', `%${code}%`);
   const { data: faults, error } = await q;
   if (error) {
@@ -56,7 +57,7 @@ export async function GET(req: Request) {
 
   // 3) Fetch retrieval steps and pick the most specific match
   const { data: steps } = await supabase
-    .from('svc.svc_code_retrieval')
+    .from('svc_code_retrieval')
     .select('*')
     .eq('brand', brand);
   let retrieval = null as null | { brand: string; steps: string; model_pattern: string | null };

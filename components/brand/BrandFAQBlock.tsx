@@ -1,15 +1,28 @@
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import JsonLd from '@/components/seo/JsonLd';
-import { getBrandFaq, hasBrandFaq } from '@/lib/brandFaqs';
+import { getBrandFaq } from '@/lib/brandFaqs';
 
-export default function BrandFAQBlock({ slug, name, url }: { slug: string; name: string; url: string }){
-  const faq = getBrandFaq(slug);
+export default function BrandFAQBlock({
+  slug,
+  name,
+  url,
+  faqKey,
+  heading,
+}: {
+  slug: string;
+  name: string;
+  url: string;
+  /** Optional content/brand-faqs/{faqKey}.mdx override (e.g. jcb-faults). */
+  faqKey?: string;
+  heading?: string;
+}){
+  const faq = getBrandFaq(slug, faqKey);
   if (!faq) return null;
   const qa = extractQA(faq.content);
   const jsonLd = qa.length ? faqJson(name, url, qa) : null;
   return (
     <section className="mt-10">
-      <h2 className="text-xl font-semibold mb-2">{name} FAQs</h2>
+      <h2 className="text-xl font-semibold mb-2">{heading || `${name} FAQs`}</h2>
       <div className="prose prose-sm max-w-none">
         <MDXRemote source={faq.content} />
       </div>
