@@ -30,6 +30,15 @@ interface Variant {
   core_charge?: number;
 }
 
+export type RelatedGradeOption = {
+  slug: string;
+  name: string;
+  price: number;
+  grade: string;
+  label: string;
+  imageUrl?: string | null;
+};
+
 interface ProductDetailsProps {
   part: {
     id: string;
@@ -53,6 +62,7 @@ interface ProductDetailsProps {
   };
   variants: Variant[];
   relatedTracks?: RelatedTrack[];
+  relatedGrade?: RelatedGradeOption | null;
 }
 
 function TrackSpecTable({
@@ -103,6 +113,7 @@ export default function ProductDetails({
   part,
   variants,
   relatedTracks = [],
+  relatedGrade = null,
 }: ProductDetailsProps) {
   const [selected, setSelected] = useState<Variant | null>(variants?.[0] || null);
   const isRubberTrack = part.category === 'Rubber Tracks';
@@ -111,6 +122,16 @@ export default function ProductDetails({
   const { addItem } = useCart();
 
   const partMetadata = (part.metadata as Record<string, unknown> | null) ?? {};
+  const currentGrade =
+    typeof partMetadata.grade === 'string' ? partMetadata.grade : null;
+  const currentGradeLabel =
+    currentGrade === 'economy'
+      ? 'Economy'
+      : currentGrade === 'standard'
+        ? 'Standard'
+        : relatedGrade
+          ? 'This version'
+          : null;
   const serialPrefixes = Array.isArray(partMetadata.serial_prefixes)
     ? (partMetadata.serial_prefixes as string[])
     : [];
@@ -277,6 +298,77 @@ export default function ProductDetails({
           </option>
         ))}
       </select>
+    </div>
+  );
+
+  const gradeOptions =
+    relatedGrade && currentGradeLabel
+      ? [
+          {
+            key: 'current',
+            slug: part.slug,
+            label: currentGradeLabel,
+            price: part.price,
+            blurb:
+              currentGrade === 'economy'
+                ? 'Budget-friendly for routine service'
+                : 'Standard-grade aftermarket filter',
+            isCurrent: true,
+          },
+          {
+            key: 'related',
+            slug: relatedGrade.slug,
+            label: relatedGrade.label,
+            price: relatedGrade.price,
+            blurb:
+              relatedGrade.grade === 'economy'
+                ? 'Budget-friendly for routine service'
+                : 'Standard-grade aftermarket filter',
+            isCurrent: false,
+          },
+        ].sort((a, b) => a.price - b.price)
+      : null;
+
+  const gradeChooser = gradeOptions && (
+    <div className="mb-6">
+      <p className="block text-sm font-medium text-gray-700 mb-2">Choose filter grade</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        {gradeOptions.map((option) => {
+          const className = `block border-2 rounded-lg px-4 py-3 text-left transition-colors ${
+            option.isCurrent
+              ? 'border-canyon-rust bg-orange-50'
+              : 'border-gray-200 hover:border-canyon-rust/60 hover:bg-orange-50/40'
+          }`;
+          const body = (
+            <>
+              <div className="flex items-center justify-between gap-2">
+                <span className="font-semibold text-slate-900">{option.label}</span>
+                <span className="font-bold text-slate-900">${option.price.toFixed(0)}</span>
+              </div>
+              <p className="text-xs text-slate-600 mt-1">{option.blurb}</p>
+              {option.isCurrent ? (
+                <p className="text-xs font-semibold text-canyon-rust mt-1.5">Selected</p>
+              ) : (
+                <p className="text-xs font-semibold text-slate-500 mt-1.5">View this option →</p>
+              )}
+            </>
+          );
+
+          if (option.isCurrent) {
+            return (
+              <div key={option.key} className={className} aria-current="page">
+                {body}
+              </div>
+            );
+          }
+
+          return (
+            <Link key={option.key} href={`/parts/${option.slug}`} className={className}>
+              {body}
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 
@@ -487,6 +579,7 @@ export default function ProductDetails({
                   : null
               }
             />
+            {gradeChooser}
             {priceBlock}
             {quantitySelector}
             {variantSelector}

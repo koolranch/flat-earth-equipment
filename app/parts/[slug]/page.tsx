@@ -52,6 +52,45 @@ async function fetchRelatedRubberTracks(
   return mapRelatedTracks(data);
 }
 
+type RelatedGradeOption = {
+  slug: string;
+  name: string;
+  price: number;
+  grade: string;
+  label: string;
+  imageUrl?: string | null;
+};
+
+async function fetchRelatedGradeOption(
+  supabase: ReturnType<typeof supabaseServer>,
+  product: { slug: string; metadata?: Record<string, unknown> | null }
+): Promise<RelatedGradeOption | null> {
+  const relatedSlug = product.metadata?.related_slug;
+  if (typeof relatedSlug !== 'string' || !relatedSlug || relatedSlug === product.slug) {
+    return null;
+  }
+
+  const { data } = await supabase
+    .from('parts')
+    .select('slug, name, price, image_url, metadata')
+    .eq('slug', relatedSlug)
+    .maybeSingle();
+
+  if (!data) return null;
+
+  const meta = (data.metadata as Record<string, unknown> | null) ?? {};
+  const grade = typeof meta.grade === 'string' ? meta.grade : 'alternate';
+
+  return {
+    slug: data.slug,
+    name: data.name,
+    price: Number(data.price),
+    grade,
+    label: grade === 'economy' ? 'Economy' : grade === 'standard' ? 'Standard' : data.name,
+    imageUrl: data.image_url,
+  };
+}
+
 /**
  * Build Product schema JSON-LD for a parts row.
  * Includes Offer (with price + availability), brand, image, weight,
@@ -272,6 +311,7 @@ export default async function ProductPage({ params }: Props) {
   // If found in database, render product page
   if (product && !error) {
     const relatedTracks = await fetchRelatedRubberTracks(supabase, product);
+    const relatedGrade = await fetchRelatedGradeOption(supabase, product);
     const productSchema = buildProductSchema(product, params.slug);
     const breadcrumbSchema = buildBreadcrumbSchema(product, params.slug);
     return (
@@ -290,6 +330,7 @@ export default async function ProductPage({ params }: Props) {
           part={product}
           variants={product.part_variants || []}
           relatedTracks={relatedTracks}
+          relatedGrade={relatedGrade}
         />
       </>
     );
