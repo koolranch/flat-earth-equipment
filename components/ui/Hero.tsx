@@ -1,10 +1,9 @@
 import Link from "next/link";
 
 interface HeroContent {
-  badge: { emoji: string; label: string; highlight: string };
+  badge: { label: string; highlight: string };
   headline: string;
   subtext: string;
-  pricing: { original: string; current: string };
   cta: { text: string; href: string };
   trustSignals: string[];
   secondaryLink: { text: string; href: string; label: string };
@@ -12,21 +11,29 @@ interface HeroContent {
 
 export function Hero({ locale = 'en' }: { locale?: 'en' | 'es' }) {
   const content: HeroContent = locale === 'en' ? {
-    badge: { emoji: '🎓', label: 'TRAINING', highlight: '100% Online' },
-    headline: 'Get Forklift Certified in Under 30 Minutes',
-    subtext: 'OSHA-compliant • 100% online',
-    pricing: { original: '', current: '$49' },
-    cta: { text: 'Start Certification — $49 →', href: '/safety' },
-    trustSignals: ['OSHA 1910.178', 'All 50 States', 'Instant Certificate'],
-    secondaryLink: { label: 'Need parts or rentals?', text: 'Browse equipment →', href: '/parts' }
+    badge: { label: 'PARTS', highlight: 'Ships nationwide' },
+    headline: 'Parts that keep your fleet running',
+    subtext:
+      'Forks, seats, lithium batteries, chargers, and more — shipped across the U.S.',
+    cta: { text: 'Browse Parts →', href: '/parts' },
+    trustSignals: ['OEM-fit replacements', 'Fast-moving stock', 'Nationwide shipping'],
+    secondaryLink: {
+      label: 'Need forklift certification?',
+      text: 'Start training →',
+      href: '/safety',
+    },
   } : {
-    badge: { emoji: '🎓', label: 'CAPACITACIÓN', highlight: '100% en línea' },
-    headline: 'Obtenga Certificación de Montacargas en Menos de 30 Minutos',
-    subtext: 'Cumple con OSHA • 100% en línea',
-    pricing: { original: '', current: '$49' },
-    cta: { text: 'Comenzar Certificación — $49 →', href: '/safety' },
-    trustSignals: ['OSHA 1910.178', 'Los 50 Estados', 'Certificado Instantáneo'],
-    secondaryLink: { label: '¿Necesita partes o alquileres?', text: 'Ver equipos →', href: '/parts' }
+    badge: { label: 'PARTES', highlight: 'Envío a todo el país' },
+    headline: 'Partes que mantienen su flota en marcha',
+    subtext:
+      'Horquillas, asientos, baterías de litio, cargadores y más — envío a todo EE.UU.',
+    cta: { text: 'Ver Partes →', href: '/parts' },
+    trustSignals: ['Reemplazos de ajuste OEM', 'Inventario de alta rotación', 'Envío a todo el país'],
+    secondaryLink: {
+      label: '¿Necesita certificación de montacargas?',
+      text: 'Comenzar capacitación →',
+      href: '/safety',
+    },
   };
 
   return (
@@ -48,7 +55,7 @@ export function Hero({ locale = 'en' }: { locale?: 'en' | 'es' }) {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 backdrop-blur-sm border px-4 py-2 rounded-full mb-4 bg-gradient-to-r from-orange-500/20 to-red-500/20 border-orange-400/30">
             <span className="text-xs font-bold text-orange-300">
-              {content.badge.emoji} {content.badge.label}
+              {content.badge.label}
             </span>
             <span className="text-xs text-white/80">•</span>
             <span className="text-xs text-emerald-300 font-semibold">{content.badge.highlight}</span>
@@ -59,16 +66,9 @@ export function Hero({ locale = 'en' }: { locale?: 'en' | 'es' }) {
             {content.headline}
           </h1>
           
-          {/* Subtext with pricing */}
+          {/* Subtext */}
           <p className="text-white/90 text-lg mb-6">
             {content.subtext}
-            {' • '}
-            <span className="inline-flex items-baseline gap-1.5">
-              {content.pricing.original && (
-                <span className="text-white/60 line-through text-base">{content.pricing.original}</span>
-              )}
-              <span className="font-bold text-white text-xl">{content.pricing.current}</span>
-            </span>
           </p>
           
           {/* CTA Button */}

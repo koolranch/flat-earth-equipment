@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   // `absolute` bypasses the "%s | Flat Earth Equipment" template in
   // app/seo-defaults.ts so the brand name doesn't appear twice.
   title: { absolute: 'Flat Earth Equipment | Parts & Rentals for Forklifts, Scissor Lifts & More' },
-  description: 'Get OSHA forklift certification online in under 30 minutes. Interactive training with instant certificates. Professional forklift parts & rentals shipped nationwide.',
+  description: 'Forks, seats, lithium batteries, chargers, and more — shipped nationwide. Flat Earth Equipment — OEM-fit replacements for forklifts, aerial, and construction fleets.',
   alternates: generatePageAlternates('/')
 };
 
