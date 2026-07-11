@@ -85,7 +85,6 @@ const URLS_TO_SUBMIT = [
   'https://www.flatearthequipment.com/es/brand/unicarriers/fault-codes',
   'https://www.flatearthequipment.com/insights/forklift-daily-inspection-checklist',
   'https://www.flatearthequipment.com/insights/jcb-telehandler-parking-brake-stuck-on-solenoid-release-guide',
-  'https://www.flatearthequipment.com/insights/jcb-p-0087-fuel-rail-pressure-low-scv-valve-diagnosis',
   'https://www.flatearthequipment.com/insights/jcb-telehandler-cabin-filter-location',
   'https://www.flatearthequipment.com/es/brand/raymond/fault-codes',
   'https://www.flatearthequipment.com/brand/jlg/fault-codes',

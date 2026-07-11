@@ -399,6 +399,13 @@ const baseConfig = {
         destination: '/brand/jcb/fault-codes',
         permanent: true
       },
+
+      // Duplicate Outrank P0087 guides → canonical rewritten diagnosis page
+      {
+        source: '/insights/jcb-p-0087-fuel-rail-pressure-low-scv-valve-diagnosis',
+        destination: '/insights/jcb-p-0087-fuel-rail-pressure-too-low-scv-valve-diagnosis',
+        permanent: true
+      },
       
       // 9. JCB Joystick Controls - Keep insights, redirect rental
       {
