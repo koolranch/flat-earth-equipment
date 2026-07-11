@@ -9,7 +9,7 @@ import QuoteButton from "./QuoteButton";
 
 type Props = {
   charger: BatteryCharger;
-  onQuoteClick: (charger: BatteryCharger) => void;
+  onQuoteClick?: (charger: BatteryCharger) => void;
 };
 
 export default function ChargerCard({ charger, onQuoteClick }: Props) {
@@ -34,8 +34,14 @@ export default function ChargerCard({ charger, onQuoteClick }: Props) {
     }
   };
 
+  const quoteHref = `/quote?sku=${encodeURIComponent(charger.sku || charger.slug)}&equipment=${encodeURIComponent(charger.name || 'Forklift charger')}`;
+
   const handleQuoteClick = () => {
-    onQuoteClick(charger);
+    if (onQuoteClick) {
+      onQuoteClick(charger);
+      return;
+    }
+    window.location.href = quoteHref;
   };
 
   return (

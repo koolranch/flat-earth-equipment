@@ -38,9 +38,9 @@ export type SelectorFilters = {
 
 // Parse charger specs from name/description/slug
 export function parseChargerSpecs(charger: BatteryCharger): ChargerSpecs {
-  const name = charger.name.toLowerCase();
+  const name = (charger.name ?? "").toLowerCase();
   const desc = charger.description?.toLowerCase() || "";
-  const slug = charger.slug.toLowerCase();
+  const slug = (charger.slug ?? "").toLowerCase();
   
   // Extract voltage (24v, 36v, 48v, 80v, 96v)
   const voltageMatch = (name + " " + desc + " " + slug).match(/(\d{2,3})v/);

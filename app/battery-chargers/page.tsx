@@ -546,7 +546,6 @@ export default async function Page({
                   <ChargerCard
                     key={charger.id}
                     charger={charger}
-                    onQuoteClick={() => {}} // Server-side rendering - no interaction
                   />
                 ))}
               </div>
