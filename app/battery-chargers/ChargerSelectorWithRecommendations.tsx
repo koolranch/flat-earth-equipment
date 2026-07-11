@@ -43,7 +43,7 @@ export default function ChargerSelectorWithRecommendations({
     <div className="space-y-8">
       {/* Enhanced Step-by-step Selector */}
       <div className="bg-white rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/50 overflow-hidden">
-        <div className="bg-gradient-to-r from-gray-50 to-blue-50/50 px-8 py-6 border-b border-gray-100">
+        <div className="bg-gradient-to-r from-slate-50 to-slate-100/80 px-8 py-6 border-b border-slate-200">
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
             Forklift Charger Selector: Find Your Perfect Match
           </h2>

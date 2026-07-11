@@ -448,50 +448,47 @@ export default async function Page({
         </div>
       </div>
 
-      {/* SEO-Optimized Hero Section */}
-      <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      {/* SEO-Optimized Hero Section — slate band, canyon-rust accents (not bright blue) */}
+      <div className="bg-slate-950 text-white">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-              Professional Forklift Battery Chargers
-              <span className="block text-blue-200">24V • 36V • 48V • 80V</span>
-            </h1>
-            <p className="mx-auto mt-6 max-w-3xl text-xl text-blue-100">
-              Industrial-grade forklift chargers for Crown, Toyota, Yale, Hyster & all major brands. 
-              <a href="/insights/fast-vs-overnight-forklift-charging" className="text-blue-200 hover:text-white underline">Fast charging and overnight options</a> with <a href="/insights/forklift-charger-voltage-comparison" className="text-blue-200 hover:text-white underline">single or three-phase power input</a>.
+            <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-canyon-rust">
+              Industrial battery chargers
             </p>
-            <p className="mt-2 text-blue-200/80 text-sm">
-              FSIP GREEN Series • Professional Installation • Expert Technical Support
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-5xl">
+              Professional Forklift Battery Chargers
+              <span className="mt-2 block text-2xl font-semibold text-slate-300 sm:text-3xl">24V · 36V · 48V · 80V</span>
+            </h1>
+            <p className="mx-auto mt-6 max-w-3xl text-lg text-slate-300">
+              Industrial-grade forklift chargers for Crown, Toyota, Yale, Hyster &amp; all major brands.
+              {' '}
+              <a href="/insights/fast-vs-overnight-forklift-charging" className="text-canyon-rust hover:text-orange-300 underline underline-offset-2">Fast charging and overnight options</a>
+              {' '}with{' '}
+              <a href="/insights/forklift-charger-voltage-comparison" className="text-canyon-rust hover:text-orange-300 underline underline-offset-2">single or three-phase power input</a>.
+            </p>
+            <p className="mt-2 text-slate-400 text-sm">
+              FSIP GREEN Series · Professional installation · Expert technical support
             </p>
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-              {/* Find by Model CTA */}
+              <a 
+                href="#charger-selector"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-canyon-rust text-white font-semibold rounded-lg hover:bg-canyon-rust/90 transition-colors"
+              >
+                Open charger selector
+              </a>
               <a 
                 href="/compatibility"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-700 font-bold rounded-lg hover:bg-blue-50 transition-colors shadow-lg"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-900 font-semibold rounded-lg hover:bg-slate-100 transition-colors"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                Find by Forklift Model
+                Find by forklift model
               </a>
-              <div className="flex items-center gap-4 text-sm text-blue-200">
-                <span className="flex items-center gap-1">
-                  <span className="w-2 h-2 bg-green-400 rounded-full"></span>
-                  Same-Day Shipping
-                </span>
-                <span className="flex items-center gap-1">
-                  <span className="w-2 h-2 bg-yellow-400 rounded-full"></span>
-                  Expert Support
-                </span>
-                <span className="flex items-center gap-1">
-                  <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
-                  All Forklift Brands
-                </span>
-                <span className="flex items-center gap-1">
-                  <span className="w-2 h-2 bg-red-400 rounded-full"></span>
-                  🇺🇸 Made in USA
-                </span>
-              </div>
+            </div>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-slate-400">
+              <span>Same-day shipping available</span>
+              <span className="hidden sm:inline text-slate-600">·</span>
+              <span>All major forklift brands</span>
+              <span className="hidden sm:inline text-slate-600">·</span>
+              <span>Made in USA</span>
             </div>
           </div>
         </div>
@@ -554,23 +551,23 @@ export default async function Page({
         )}
 
         {/* Quick Navigation Menu */}
-        <div className="mt-12 bg-blue-50 rounded-2xl border border-blue-100 p-6">
+        <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6">
           <h2 className="text-xl font-bold text-gray-900 mb-4">Quick Navigation</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-            <a href="#voltage-selection" className="flex items-center gap-2 p-3 bg-white rounded-lg border border-blue-200 hover:border-blue-300 transition-colors">
-              <span className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xs">1</span>
+            <a href="#voltage-selection" className="flex items-center gap-2 p-3 bg-white rounded-lg border border-slate-200 hover:border-canyon-rust/40 transition-colors">
+              <span className="w-6 h-6 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-xs">1</span>
               <span className="text-gray-700">Voltage Selection</span>
             </a>
-            <a href="#charger-selector" className="flex items-center gap-2 p-3 bg-white rounded-lg border border-blue-200 hover:border-blue-300 transition-colors">
-              <span className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-bold text-xs">2</span>
+            <a href="#charger-selector" className="flex items-center gap-2 p-3 bg-white rounded-lg border border-slate-200 hover:border-canyon-rust/40 transition-colors">
+              <span className="w-6 h-6 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-xs">2</span>
               <span className="text-gray-700">Charger Selector</span>
             </a>
-            <a href="#resources" className="flex items-center gap-2 p-3 bg-white rounded-lg border border-blue-200 hover:border-blue-300 transition-colors">
-              <span className="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold text-xs">3</span>
+            <a href="#resources" className="flex items-center gap-2 p-3 bg-white rounded-lg border border-slate-200 hover:border-canyon-rust/40 transition-colors">
+              <span className="w-6 h-6 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-xs">3</span>
               <span className="text-gray-700">Expert Guides</span>
             </a>
-            <a href="#faq" className="flex items-center gap-2 p-3 bg-white rounded-lg border border-blue-200 hover:border-blue-300 transition-colors">
-              <span className="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 font-bold text-xs">4</span>
+            <a href="#faq" className="flex items-center gap-2 p-3 bg-white rounded-lg border border-slate-200 hover:border-canyon-rust/40 transition-colors">
+              <span className="w-6 h-6 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-xs">4</span>
               <span className="text-gray-700">FAQ</span>
             </a>
           </div>
@@ -586,8 +583,8 @@ export default async function Page({
               Choose the right charger for your forklift battery voltage. Each voltage requires specific amperage and power input configurations.
             </p>
             <div className="flex justify-center">
-              <a href="/insights/complete-guide-forklift-battery-chargers" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
-                📖 Read the Complete Forklift Charger Guide
+              <a href="/insights/complete-guide-forklift-battery-chargers" className="inline-flex items-center gap-2 px-6 py-3 bg-canyon-rust text-white rounded-lg hover:bg-canyon-rust/90 transition-colors font-medium">
+                Read the complete forklift charger guide
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                 </svg>
@@ -597,10 +594,10 @@ export default async function Page({
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* 24V Chargers */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+            <div className="bg-white rounded-2xl border border-slate-200 p-6 hover:border-slate-300 transition-colors">
               <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
-                  <span className="text-2xl font-bold text-blue-600">24V</span>
+                <div className="w-16 h-16 mx-auto mb-4 bg-slate-100 rounded-full flex items-center justify-center">
+                  <span className="text-2xl font-bold text-slate-800">24V</span>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">24V Forklift Chargers</h3>
                 <p className="text-gray-600 text-sm mb-4">
@@ -612,18 +609,18 @@ export default async function Page({
                   <div>• Applications: Small warehouse forklifts</div>
                 </div>
                 <div className="mt-3">
-                  <a href="/insights/forklift-charger-voltage-comparison#24v-chargers" className="text-blue-600 hover:text-blue-800 text-xs font-medium">
-                    Learn more about 24V chargers →
+                  <a href="/battery-chargers?v=24#charger-selector" className="text-canyon-rust hover:underline text-xs font-medium">
+                    Browse 24V chargers →
                   </a>
                 </div>
               </div>
             </div>
 
             {/* 36V Chargers */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+            <div className="bg-white rounded-2xl border border-slate-200 p-6 hover:border-slate-300 transition-colors">
               <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
-                  <span className="text-2xl font-bold text-green-600">36V</span>
+                <div className="w-16 h-16 mx-auto mb-4 bg-slate-100 rounded-full flex items-center justify-center">
+                  <span className="text-2xl font-bold text-slate-800">36V</span>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">36V Forklift Chargers</h3>
                 <p className="text-gray-600 text-sm mb-4">
@@ -635,18 +632,18 @@ export default async function Page({
                   <div>• Applications: Mid-size warehouse forklifts</div>
                 </div>
                 <div className="mt-3">
-                  <a href="/insights/forklift-charger-voltage-comparison#36v-chargers" className="text-green-600 hover:text-green-800 text-xs font-medium">
-                    Learn more about 36V chargers →
+                  <a href="/battery-chargers?v=36#charger-selector" className="text-canyon-rust hover:underline text-xs font-medium">
+                    Browse 36V chargers →
                   </a>
                 </div>
               </div>
             </div>
 
             {/* 48V Chargers */}
-            <div className="bg-white rounded-2xl border border-orange-200 p-6 hover:shadow-lg transition-shadow ring-2 ring-orange-100">
+            <div className="bg-white rounded-2xl border border-canyon-rust/30 p-6 ring-1 ring-canyon-rust/20">
               <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-orange-100 rounded-full flex items-center justify-center">
-                  <span className="text-2xl font-bold text-orange-600">48V</span>
+                <div className="w-16 h-16 mx-auto mb-4 bg-canyon-rust/10 rounded-full flex items-center justify-center">
+                  <span className="text-2xl font-bold text-canyon-rust">48V</span>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">48V Forklift Chargers</h3>
                 <p className="text-gray-600 text-sm mb-4">
@@ -658,12 +655,12 @@ export default async function Page({
                   <div>• Applications: Most industrial forklifts</div>
                 </div>
                 <div className="mt-3 space-y-2">
-                  <span className="bg-orange-100 text-orange-700 px-2 py-1 rounded-full text-xs font-medium">
-                    Most Popular
+                  <span className="inline-block bg-canyon-rust/10 text-canyon-rust px-2 py-1 rounded text-xs font-medium">
+                    Most popular
                   </span>
                   <div>
-                    <a href="/insights/forklift-charger-voltage-comparison#48v-chargers" className="text-orange-600 hover:text-orange-800 text-xs font-medium">
-                      Learn more about 48V chargers →
+                    <a href="/battery-chargers?v=48#charger-selector" className="text-canyon-rust hover:underline text-xs font-medium">
+                      Browse 48V chargers →
                     </a>
                   </div>
                 </div>
@@ -671,10 +668,10 @@ export default async function Page({
             </div>
 
             {/* 80V Chargers */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+            <div className="bg-white rounded-2xl border border-slate-200 p-6 hover:border-slate-300 transition-colors">
               <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
-                  <span className="text-2xl font-bold text-purple-600">80V</span>
+                <div className="w-16 h-16 mx-auto mb-4 bg-slate-100 rounded-full flex items-center justify-center">
+                  <span className="text-2xl font-bold text-slate-800">80V</span>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">80V Forklift Chargers</h3>
                 <p className="text-gray-600 text-sm mb-4">
@@ -686,8 +683,8 @@ export default async function Page({
                   <div>• Applications: Heavy-duty forklifts</div>
                 </div>
                 <div className="mt-3">
-                  <a href="/insights/forklift-charger-voltage-comparison#80v-chargers" className="text-purple-600 hover:text-purple-800 text-xs font-medium">
-                    Learn more about 80V chargers →
+                  <a href="/battery-chargers?v=80#charger-selector" className="text-canyon-rust hover:underline text-xs font-medium">
+                    Browse 80V chargers →
                   </a>
                 </div>
               </div>
@@ -696,160 +693,65 @@ export default async function Page({
         </div>
 
         {/* Helpful Resources Section */}
-        <div id="resources" className="mt-16 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100 p-8">
+        <div id="resources" className="mt-16 rounded-2xl border border-slate-200 bg-slate-50 p-8">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              Forklift Charger Resources & Guides
+              Forklift Charger Resources &amp; Guides
             </h2>
             <p className="text-gray-600">
               Expert guides to help you choose, install, and maintain your forklift battery chargers
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-xl border border-blue-200 p-6 hover:shadow-lg transition-shadow lg:col-span-2">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-bold text-gray-900 mb-2">Complete Forklift Charger Guide (2025)</h3>
-                  <p className="text-gray-600 text-sm mb-4">
-                    The ultimate 15,000+ word resource covering everything about forklift battery chargers - from basic selection to advanced troubleshooting and maintenance.
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs">Voltage Selection</span>
-                    <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Brand Compatibility</span>
-                    <span className="bg-orange-100 text-orange-700 px-2 py-1 rounded text-xs">Installation Guide</span>
-                    <span className="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs">Troubleshooting</span>
-                  </div>
-                  <a href="/insights/complete-guide-forklift-battery-chargers" className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium text-sm">
-                    Read the complete guide
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-            <div className="bg-white rounded-xl border border-blue-200 p-6 hover:shadow-lg transition-shadow">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.469-.742-6.21-2.002M6 9.5L5.5 9l-.5-.5L6 9.5z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 mb-2">Complete Selection Guide</h3>
-                  <p className="text-gray-600 text-sm mb-3">
-                    Step-by-step guide to choosing the perfect forklift charger for your specific needs and applications.
-                  </p>
-                  <a href="/insights/how-to-choose-forklift-battery-charger" className="text-blue-600 hover:text-blue-800 font-medium text-sm">
-                    Read the complete guide →
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl border border-green-200 p-6 hover:shadow-lg transition-shadow">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m0 0V1a1 1 0 011-1h2a1 1 0 011 1v16a1 1 0 01-1 1H3a1 1 0 01-1-1V1a1 1 0 011-1h2a1 1 0 011 1v3" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 mb-2">Voltage Comparison</h3>
-                  <p className="text-gray-600 text-sm mb-3">
-                    Compare 24V, 36V, 48V, and 80V chargers. Learn which voltage is right for your forklift brand and application.
-                  </p>
-                  <a href="/insights/forklift-charger-voltage-comparison" className="text-green-600 hover:text-green-800 font-medium text-sm">
-                    Compare voltages →
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl border border-orange-200 p-6 hover:shadow-lg transition-shadow">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 mb-2">Fast vs Overnight Charging</h3>
-                  <p className="text-gray-600 text-sm mb-3">
-                    Compare charging strategies. Learn the pros and cons of fast charging vs overnight charging for your fleet.
-                  </p>
-                  <a href="/insights/fast-vs-overnight-forklift-charging" className="text-orange-600 hover:text-orange-800 font-medium text-sm">
-                    Compare charging methods →
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl border border-purple-200 p-6 hover:shadow-lg transition-shadow">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 mb-2">Lithium Charger Guide</h3>
-                  <p className="text-gray-600 text-sm mb-3">
-                    Complete guide to lithium forklift battery chargers, BMS integration, and advanced charging technology.
-                  </p>
-                  <a href="/insights/lithium-forklift-battery-chargers-complete-guide" className="text-purple-600 hover:text-purple-800 font-medium text-sm">
-                    Learn about lithium →
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl border border-indigo-200 p-6 hover:shadow-lg transition-shadow">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 0v10a2 2 0 01-2 2H9a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 mb-2">Lead-Acid vs Lithium</h3>
-                  <p className="text-gray-600 text-sm mb-3">
-                    Compare charging technologies, costs, and ROI to choose the right charger type for your fleet.
-                  </p>
-                  <a href="/insights/lead-acid-vs-lithium-forklift-chargers" className="text-indigo-600 hover:text-indigo-800 font-medium text-sm">
-                    Compare technologies →
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl border border-teal-200 p-6 hover:shadow-lg transition-shadow">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 mb-2">BMS Integration Guide</h3>
-                  <p className="text-gray-600 text-sm mb-3">
-                    Technical guide to Battery Management System integration for lithium forklift chargers and compatibility.
-                  </p>
-                  <a href="/insights/bms-integration-lithium-forklift-chargers" className="text-teal-600 hover:text-teal-800 font-medium text-sm">
-                    Technical details →
-                  </a>
-                </div>
-              </div>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                href: '/insights/complete-guide-forklift-battery-chargers',
+                title: 'Complete Forklift Charger Guide',
+                body: 'Voltage selection, brand compatibility, installation, and troubleshooting in one place.',
+                cta: 'Read the complete guide →',
+              },
+              {
+                href: '/insights/how-to-choose-forklift-battery-charger',
+                title: 'How to Choose a Charger',
+                body: 'Step-by-step selection for voltage, amperage, and facility power.',
+                cta: 'Open selection guide →',
+              },
+              {
+                href: '/insights/forklift-charger-voltage-comparison',
+                title: '24V vs 36V vs 48V vs 80V',
+                body: 'Compare voltages and match the right charger to your forklift.',
+                cta: 'Compare voltages →',
+              },
+              {
+                href: '/insights/fast-vs-overnight-forklift-charging',
+                title: 'Fast vs Overnight Charging',
+                body: 'Trade-offs for multi-shift fleets versus overnight C/10 charging.',
+                cta: 'Compare charging methods →',
+              },
+              {
+                href: '/insights/lithium-forklift-battery-chargers-complete-guide',
+                title: 'Lithium Charger Guide',
+                body: 'BMS-aware charging, opportunity charging, and lithium-specific requirements.',
+                cta: 'Learn about lithium →',
+              },
+              {
+                href: '/insights/lead-acid-vs-lithium-forklift-chargers',
+                title: 'Lead-Acid vs Lithium',
+                body: 'Cost, ROI, and operational differences between charger technologies.',
+                cta: 'Compare technologies →',
+              },
+            ].map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="block rounded-xl border border-slate-200 bg-white p-6 hover:border-canyon-rust/40 transition-colors"
+              >
+                <h3 className="font-bold text-gray-900 mb-2">{item.title}</h3>
+                <p className="text-gray-600 text-sm mb-3">{item.body}</p>
+                <span className="text-canyon-rust font-medium text-sm">{item.cta}</span>
+              </a>
+            ))}
           </div>
         </div>
 
@@ -881,8 +783,8 @@ export default async function Page({
           
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-5">
             <div className="text-center">
-              <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="mx-auto w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+                <svg className="w-8 h-8 text-canyon-rust" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
@@ -893,8 +795,8 @@ export default async function Page({
             </div>
             
             <div className="text-center">
-              <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="mx-auto w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+                <svg className="w-8 h-8 text-canyon-rust" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
@@ -905,8 +807,8 @@ export default async function Page({
             </div>
             
             <div className="text-center">
-              <div className="mx-auto w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="mx-auto w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+                <svg className="w-8 h-8 text-canyon-rust" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                 </svg>
               </div>
@@ -917,8 +819,8 @@ export default async function Page({
             </div>
             
             <div className="text-center">
-              <div className="mx-auto w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="mx-auto w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+                <svg className="w-8 h-8 text-canyon-rust" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 100 19.5 9.75 9.75 0 000-19.5zM8.25 12l7.5 0" />
                 </svg>
               </div>
@@ -929,8 +831,8 @@ export default async function Page({
             </div>
 
             <div className="text-center">
-              <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
-                <div className="text-2xl">🇺🇸</div>
+              <div className="mx-auto w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+                <span className="text-sm font-bold text-slate-800">USA</span>
               </div>
               <h3 className="text-lg font-semibold text-neutral-900 mb-2">American Manufacturing</h3>
               <p className="text-neutral-600 text-sm">

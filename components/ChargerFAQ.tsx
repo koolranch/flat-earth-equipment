@@ -56,26 +56,26 @@ export default function ChargerFAQ() {
       </div>
       
       {/* FAQ Resources */}
-      <div className="mt-8 p-4 bg-gray-50 rounded-xl border border-gray-200">
-        <h3 className="font-semibold text-gray-900 mb-3">Need More Detailed Information?</h3>
+      <div className="mt-8 p-4 bg-slate-50 rounded-xl border border-slate-200">
+        <h3 className="font-semibold text-gray-900 mb-3">Need more detailed information?</h3>
         <div className="space-y-2 text-sm">
           <div>
-            📚 <a href="/insights/complete-guide-forklift-battery-chargers" className="text-blue-600 hover:text-blue-800 font-medium">
-              Complete Guide to Forklift Battery Chargers (2025)
+            <a href="/insights/complete-guide-forklift-battery-chargers" className="text-canyon-rust hover:underline font-medium">
+              Complete Guide to Forklift Battery Chargers
             </a>
           </div>
           <div>
-            📖 <a href="/insights/how-to-choose-forklift-battery-charger" className="text-green-600 hover:text-green-800 font-medium">
+            <a href="/insights/how-to-choose-forklift-battery-charger" className="text-canyon-rust hover:underline font-medium">
               How to Choose a Forklift Battery Charger
             </a>
           </div>
           <div>
-            ⚡ <a href="/insights/fast-vs-overnight-forklift-charging" className="text-orange-600 hover:text-orange-800 font-medium">
+            <a href="/insights/fast-vs-overnight-forklift-charging" className="text-canyon-rust hover:underline font-medium">
               Fast vs Overnight Charging Comparison
             </a>
           </div>
           <div>
-            🔧 <a href="/insights/forklift-charger-voltage-comparison" className="text-purple-600 hover:text-purple-800 font-medium">
+            <a href="/insights/forklift-charger-voltage-comparison" className="text-canyon-rust hover:underline font-medium">
               24V vs 36V vs 48V vs 80V Voltage Guide
             </a>
           </div>

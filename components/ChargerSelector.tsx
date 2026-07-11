@@ -20,12 +20,12 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
         aria-pressed={active}
         className={`group relative p-4 rounded-xl border-2 transition-all duration-200 ${
           active 
-            ? 'border-blue-500 bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg transform -translate-y-1 shadow-blue-200' 
-            : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5'
+            ? 'border-canyon-rust bg-canyon-rust text-white shadow-md' 
+            : 'border-gray-200 bg-white hover:border-slate-300 hover:shadow-sm'
         }`}
       >
         <div className="flex flex-col items-center text-center">
-          <div className={`text-3xl font-black mb-1 ${active ? 'text-white drop-shadow-sm' : 'text-gray-900'}`}>
+          <div className={`text-3xl font-black mb-1 ${active ? 'text-white' : 'text-gray-900'}`}>
             {voltage}V
           </div>
           <div className={`text-sm font-medium ${active ? 'text-white/90' : 'text-gray-500'}`}>
@@ -33,7 +33,7 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
           </div>
           {active && (
             <div className="absolute -top-2 -right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md">
-              <Check className="h-3.5 w-3.5 text-blue-500" />
+              <Check className="h-3.5 w-3.5 text-canyon-rust" />
             </div>
           )}
         </div>
@@ -87,8 +87,8 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
         aria-pressed={active}
         className={`group p-4 rounded-xl border-2 transition-all duration-200 text-left ${
           active 
-            ? 'border-[var(--brand-accent)] bg-gradient-to-r from-blue-50 to-indigo-50 shadow-lg transform -translate-y-1' 
-            : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5'
+            ? 'border-[var(--brand-accent)] bg-orange-50/80 shadow-md' 
+            : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm'
         }`}
       >
         <div className="flex items-start gap-3">
@@ -101,7 +101,7 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
             <div className={`font-semibold mb-1 ${active ? 'text-[var(--brand-accent)]' : 'text-gray-900'}`}>
               {label}
             </div>
-            <div className={`text-sm leading-relaxed ${active ? 'text-blue-700' : 'text-gray-500'}`}>
+            <div className={`text-sm leading-relaxed ${active ? 'text-slate-700' : 'text-gray-500'}`}>
               {sub}
             </div>
           </div>
@@ -125,10 +125,10 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
   return (
     <div className="space-y-8">
       {/* Enhanced Progress Header */}
-      <div className="bg-gradient-to-r from-orange-50 to-blue-50 rounded-2xl border border-orange-100 p-6">
+      <div className="bg-slate-50 rounded-2xl border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--brand-accent)] to-orange-600 text-white flex items-center justify-center shadow-lg">
+            <div className="w-12 h-12 rounded-xl bg-canyon-rust text-white flex items-center justify-center">
               <Zap className="h-6 w-6" />
             </div>
             <div>
@@ -141,7 +141,7 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
           {hasSelections && (
             <button 
               onClick={() => { setVoltage(''); setSpeed(''); setPhase(''); }}
-              className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 bg-white/70 hover:bg-white rounded-lg border border-gray-200 transition-all duration-200 hover:shadow-md"
+              className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 bg-white hover:bg-slate-50 rounded-lg border border-slate-200 transition-colors"
             >
               Start Over
             </button>
@@ -154,9 +154,9 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
             <span>Progress</span>
             <span>{Math.round(progress)}% complete</span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
+          <div className="w-full bg-slate-200 rounded-full h-2">
             <div 
-              className="bg-gradient-to-r from-[var(--brand-accent)] to-orange-500 h-2 rounded-full transition-all duration-500 ease-out"
+              className="bg-canyon-rust h-2 rounded-full transition-all duration-500 ease-out"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -164,17 +164,17 @@ export default function ChargerSelector({ onFilterChange }: { onFilterChange: (f
 
         {/* Current Selection Summary */}
         <div className="flex flex-wrap gap-2 text-sm">
-          <span className={`px-3 py-1 rounded-full border ${voltage ? 'bg-orange-100 text-orange-700 border-orange-200' : 'bg-gray-100 text-gray-500 border-gray-200'}`}>
+          <span className={`px-3 py-1 rounded-full border ${voltage ? 'bg-canyon-rust/10 text-canyon-rust border-canyon-rust/20' : 'bg-gray-100 text-gray-500 border-gray-200'}`}>
             {voltage ? `${voltage}V battery` : 'Select voltage'}
           </span>
-          <span className={`px-3 py-1 rounded-full border ${voltage ? (speed === 'overnight' ? 'bg-blue-100 text-blue-700 border-blue-200' : 'bg-green-100 text-green-700 border-green-200') : 'bg-gray-100 text-gray-500 border-gray-200'}`}>
-            {speed === 'overnight' ? 'Overnight charging' : 'Fast charging'}
+          <span className={`px-3 py-1 rounded-full border ${speed ? 'bg-slate-100 text-slate-800 border-slate-200' : 'bg-gray-100 text-gray-500 border-gray-200'}`}>
+            {speed === 'overnight' ? 'Overnight charging' : speed === 'fast' ? 'Fast charging' : 'Select speed'}
           </span>
-          <span className={`px-3 py-1 rounded-full border ${phase ? (phase === '1P' ? 'bg-purple-100 text-purple-700 border-purple-200' : 'bg-indigo-100 text-indigo-700 border-indigo-200') : 'bg-gray-100 text-gray-500 border-gray-200'}`}>
+          <span className={`px-3 py-1 rounded-full border ${phase ? 'bg-slate-100 text-slate-800 border-slate-200' : 'bg-gray-100 text-gray-500 border-gray-200'}`}>
             {phase === '1P' ? 'Single-phase' : phase === '3P' ? 'Three-phase' : 'Any power type'}
           </span>
           {computedAmps && (
-            <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200">
+            <span className="px-3 py-1 rounded-full bg-slate-900 text-white border border-slate-900">
               ~{computedAmps}A output
             </span>
           )}
