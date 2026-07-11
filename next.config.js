@@ -277,6 +277,17 @@ const baseConfig = {
         destination: '/forks',
         permanent: true // 301 redirect - consolidates SEO authority
       },
+      // Broken legacy attachment URL (Analytics hits → 404)
+      {
+        source: '/attachments/class-2-forklift-forks',
+        destination: '/forks',
+        permanent: true
+      },
+      {
+        source: '/attachments/class-2-forklift-forks/',
+        destination: '/forks',
+        permanent: true
+      },
       // Redirect non-existent attachment category pages to main parts catalog
       {
         source: '/parts/attachments/rotators',
