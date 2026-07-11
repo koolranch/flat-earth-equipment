@@ -47,10 +47,15 @@ export const metadata: Metadata = {
   // Each page should set its own alternates.languages if it has translations.
   // The metadataBase above ensures all relative canonicals become absolute www URLs.
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
-    apple: "/favicon.svg",
-    other: [{ rel: "mask-icon", url: "/favicon.svg", color: "#F76511" }],
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icons/favicon-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icons/favicon-16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: [{ url: '/icons/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+    other: [{ rel: 'mask-icon', url: '/favicon.svg', color: '#F76511' }],
   },
 };
 

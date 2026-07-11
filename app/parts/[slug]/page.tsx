@@ -160,6 +160,40 @@ function buildProductSchema(product: any, slug: string) {
     };
   }
 
+  // Same-day handling for in-stock Buy Now parts (freight may still apply at checkout).
+  if (product.sales_type === 'direct' && product.is_in_stock !== false && Number(product.price) > 0) {
+    offer.shippingDetails = {
+      '@type': 'OfferShippingDetails',
+      shippingDestination: {
+        '@type': 'DefinedRegion',
+        addressCountry: 'US',
+      },
+      deliveryTime: {
+        '@type': 'ShippingDeliveryTime',
+        handlingTime: {
+          '@type': 'QuantitativeValue',
+          minValue: 0,
+          maxValue: 0,
+          unitCode: 'DAY',
+        },
+        transitTime: {
+          '@type': 'QuantitativeValue',
+          minValue: 1,
+          maxValue: 5,
+          unitCode: 'DAY',
+        },
+      },
+    };
+    offer.hasMerchantReturnPolicy = {
+      '@type': 'MerchantReturnPolicy',
+      applicableCountry: 'US',
+      returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+      merchantReturnDays: 30,
+      returnMethod: 'https://schema.org/ReturnByMail',
+      returnFees: 'https://schema.org/ReturnFeesCustomerResponsibility',
+    };
+  }
+
   return schema;
 }
 
@@ -226,6 +260,61 @@ function truncateDescription(text: string, maxLength: number = 155): string {
   return truncated.substring(0, lastSpace) + '...';
 }
 
+/**
+ * SERP-oriented meta description for parts PDPs.
+ * Leads with aftermarket/OEM intent, keeps specs when present, and ends with
+ * same-day shipping + returns — avoids "Add to Cart" body text Google often scrapes.
+ */
+function buildPartMetaDescription(product: {
+  name?: string | null;
+  brand?: string | null;
+  description?: string | null;
+  category?: string | null;
+  sales_type?: string | null;
+  is_in_stock?: boolean | null;
+  metadata?: Record<string, unknown> | null;
+}): string {
+  if (product.category === 'Rubber Tracks') {
+    return truncateDescription(getRubberTrackIntro(product.description));
+  }
+
+  const meta = product.metadata ?? {};
+  const aftermarket = meta.aftermarket === true;
+  const base = sanitizeCustomerFacingCopy(
+    product.description ||
+      `${aftermarket ? 'Aftermarket ' : ''}replacement part for ${getDisplayBrand(product.brand)} equipment.`,
+  )
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const extras: string[] = [];
+  if (aftermarket && !/aftermarket/i.test(base)) {
+    extras.push('Aftermarket replacement');
+  }
+  if (product.sales_type === 'direct' && product.is_in_stock !== false) {
+    extras.push('Same-day shipping');
+  }
+  extras.push('30-day returns');
+
+  const combined = extras.length ? `${base} ${extras.join('. ')}.` : base;
+  return truncateDescription(combined.replace(/\.\s*\./g, '.').replace(/\s+/g, ' ').trim());
+}
+
+function buildPartMetaTitle(customerName: string, product: {
+  sales_type?: string | null;
+  is_in_stock?: boolean | null;
+}): string {
+  const shipSuffix =
+    product.sales_type === 'direct' && product.is_in_stock !== false
+      ? ' | Same-Day Ship'
+      : '';
+  // Keep under ~60–65 chars when possible; Google truncates longer titles.
+  const withBrand = `${customerName}${shipSuffix}`;
+  if (withBrand.length <= 60) return withBrand;
+  if (`${customerName}`.length <= 60) return customerName;
+  return truncateDescription(customerName, 57).replace(/\.\.\.$/, '');
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // Try database first
   const supabase = supabaseServer();
@@ -237,14 +326,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (product) {
     const customerName = getCustomerProductName(product.name, product.brand);
-    const rawDescription =
-      product.category === 'Rubber Tracks'
-        ? getRubberTrackIntro(product.description)
-        : sanitizeCustomerFacingCopy(
-            product.description ||
-              `Buy ${customerName} from Flat Earth Equipment. Fast shipping across the Western U.S.`,
-          );
-    const description = truncateDescription(rawDescription);
+    const description = buildPartMetaDescription(product);
+    const titleName = buildPartMetaTitle(customerName, product);
     // Use the product image if available, otherwise fall back to the brand logo,
     // otherwise the sitewide default OG image.
     const brandSlug = (product.brand || '').toLowerCase().replace(/\s+/g, '-');
@@ -254,11 +337,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const ogImage = product.image_url || brandLogoUrl;
     const pageUrl = `https://www.flatearthequipment.com/parts/${params.slug}`;
     return {
-      title: `${customerName} | Flat Earth Equipment`,
+      title: `${titleName} | Flat Earth Equipment`,
       description,
       alternates: generatePageAlternates(`/parts/${params.slug}`),
       openGraph: {
-        title: customerName,
+        title: titleName,
         description,
         type: 'website',
         url: pageUrl,
@@ -266,7 +349,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       },
       twitter: {
         card: 'summary_large_image',
-        title: customerName,
+        title: titleName,
         description,
         ...(ogImage ? { images: [ogImage] } : {}),
       },
