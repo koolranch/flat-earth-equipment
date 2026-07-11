@@ -288,6 +288,46 @@ const baseConfig = {
         destination: '/forks',
         permanent: true
       },
+      {
+        source: '/attachments/class-3-forklift-forks',
+        destination: '/forks',
+        permanent: true
+      },
+      {
+        source: '/attachments/class-3-forklift-forks/',
+        destination: '/forks',
+        permanent: true
+      },
+      {
+        source: '/attachments/class-4-forklift-forks',
+        destination: '/forks',
+        permanent: true
+      },
+      {
+        source: '/attachments/class-4-forklift-forks/',
+        destination: '/forks',
+        permanent: true
+      },
+      {
+        source: '/attachments/class-ii-forklift-forks',
+        destination: '/forks',
+        permanent: true
+      },
+      {
+        source: '/attachments/class-ii-forklift-forks/',
+        destination: '/forks',
+        permanent: true
+      },
+      {
+        source: '/attachments/forklift-forks',
+        destination: '/forks',
+        permanent: true
+      },
+      {
+        source: '/attachments/forklift-forks/',
+        destination: '/forks',
+        permanent: true
+      },
       // Redirect non-existent attachment category pages to main parts catalog
       {
         source: '/parts/attachments/rotators',
