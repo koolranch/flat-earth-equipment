@@ -6,6 +6,7 @@ import { supabaseService } from '@/lib/supabase/service.server'
 import { createReturnLabel } from '@/lib/shippo'
 // Ask-employer fulfillment (Prompt D) — gated by ENABLE_ASK_EMPLOYER_FULFILLMENT + session.metadata.request_id.
 import { runAskEmployerFulfillment, shouldSuppressEmployerSideEffects } from '@/lib/training/askEmployerFulfillment'
+import { notifyFromCheckoutSession } from '@/lib/telegram/notifySale'
 
 function isoFromUnix(ts?: number | null) {
   return ts ? new Date(ts * 1000).toISOString() : null
@@ -76,6 +77,12 @@ export async function POST(req: Request) {
     console.log(`💳 Payment status: ${session.payment_status}`)
     console.log(`💰 Amount: $${(session.amount_total || 0) / 100}`)
     console.log(`📧 Customer: ${session.customer_details?.email}`)
+
+    // Telegram sale alert — fire-and-forget so fulfillment never waits on Telegram/Stripe expand.
+    // Missing TELEGRAM_* env = immediate no-op. Failures never affect revenue paths.
+    void notifyFromCheckoutSession(stripe, session).catch((telegramErr) => {
+      console.warn('[telegram] sale alert failed (non-blocking):', telegramErr)
+    })
 
     // Handle training purchases
     if (session.metadata?.course_slug) {
