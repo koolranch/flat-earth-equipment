@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { MapPin, Hash, Wrench, HelpCircle } from "lucide-react";
 import BrandRubberTracksSection from "@/components/parts/BrandRubberTracksSection";
+import BrandCabGlassSection from "@/components/parts/BrandCabGlassSection";
 
 const PAGE_PATH =
   "/parts/construction-equipment-parts/john-deere-skid-steer-product-identification-number-lookup";
@@ -252,6 +253,7 @@ export default function JohnDeerePINLookupPage() {
       </section>
 
       <BrandRubberTracksSection brand="john deere" brandLabel="John Deere" />
+      <BrandCabGlassSection brand="john deere" brandLabel="John Deere" />
 
       <section className="bg-slate-50 border border-slate-200 rounded-xl p-6 mt-10 mb-10">
         <h2 className="text-xl font-semibold text-slate-900 mb-2">

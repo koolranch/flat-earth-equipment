@@ -264,6 +264,12 @@ export const CATALOG_QUICK_PATHS = [
     accent: 'bg-emerald-600',
   },
   {
+    label: 'Cab Glass',
+    href: '/cab-glass',
+    description: 'Door · windshield · by model',
+    accent: 'bg-sky-700',
+  },
+  {
     label: 'Forklift Forks',
     href: '/forks',
     description: 'Class II–IV · ANSI certified',

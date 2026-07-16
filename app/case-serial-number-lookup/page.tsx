@@ -6,6 +6,7 @@ import { Search, CheckCircle, MapPin, Wrench, Settings, Calendar, Info, External
 import BrandHubBanner from '@/components/brand/BrandHubBanner';
 import SerialToolJsonLd from '@/components/seo/SerialToolJsonLd';
 import BrandRubberTracksSection from '@/components/parts/BrandRubberTracksSection';
+import BrandCabGlassSection from '@/components/parts/BrandCabGlassSection';
 
 type PartFit = { slug: string; name: string; sales_type: string | null; price_cents: number | null; is_fast_moving: boolean | null };
 
@@ -627,6 +628,7 @@ export default function CaseSerialLookupPage() {
           {/* Rubber tracks cross-links (static, crawlable) */}
           <div className="mb-8">
             <BrandRubberTracksSection brand="case" brandLabel="Case" />
+            <BrandCabGlassSection brand="case" brandLabel="Case" />
           </div>
 
           {/* Visible FAQ — mirrors the FAQPage JSON-LD */}

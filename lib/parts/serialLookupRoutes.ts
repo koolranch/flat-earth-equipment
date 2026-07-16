@@ -17,6 +17,10 @@ const SERIAL_LOOKUP_ROUTES: Record<string, string> = {
   takeuchi: '/takeuchi-serial-number-lookup',
   jcb: '/jcb-serial-number-lookup',
   genie: '/genie-serial-number-lookup',
+  'john deere':
+    '/parts/construction-equipment-parts/john-deere-skid-steer-product-identification-number-lookup',
+  deere:
+    '/parts/construction-equipment-parts/john-deere-skid-steer-product-identification-number-lookup',
 };
 
 export function getSerialLookupPath(brand: string): string | null {

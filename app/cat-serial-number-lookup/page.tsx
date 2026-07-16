@@ -2,6 +2,7 @@
 import { useState, useMemo } from "react";
 import Script from "next/script";
 import BrandRubberTracksSection from "@/components/parts/BrandRubberTracksSection";
+import BrandCabGlassSection from "@/components/parts/BrandCabGlassSection";
 
 type PlateTip = { 
   equipment_type: string; 
@@ -290,6 +291,7 @@ export default function CATLookupPage() {
 
         {/* Rubber tracks cross-links (static, crawlable) */}
         <BrandRubberTracksSection brand="caterpillar" brandLabel="CAT" />
+        <BrandCabGlassSection brand="caterpillar" brandLabel="CAT" />
       </div>
     </>
   );
