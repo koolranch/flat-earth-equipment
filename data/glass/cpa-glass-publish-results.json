@@ -1,0 +1,66 @@
+{
+  "source": "cpa_glass_qrg_2110094T",
+  "published_at": "2026-07-16",
+  "totals": {
+    "intake_rows": 136,
+    "skip_retail_packs": 2,
+    "stubs_live": 134,
+    "buy_now": 19,
+    "quote_only": 115
+  },
+  "by_phase": {
+    "1": { "total": 9, "buyNow": 2, "quote": 7 },
+    "2": { "total": 30, "buyNow": 9, "quote": 21 },
+    "3": { "total": 15, "buyNow": 1, "quote": 14 },
+    "4": { "total": 10, "buyNow": 1, "quote": 9 },
+    "5": { "total": 27, "buyNow": 3, "quote": 24 },
+    "6": { "total": 14, "buyNow": 1, "quote": 13 },
+    "7": { "total": 29, "buyNow": 2, "quote": 27 }
+  },
+  "freight": {
+    "matrix": [
+      { "max_net": 24.99, "freight": 18 },
+      { "max_net": 149.99, "freight": 25 },
+      { "max_net": 299.99, "freight": 31 },
+      { "max_net": 499.99, "freight": 37 },
+      { "max_net": 649.99, "freight": 41 },
+      { "max_net": null, "freight": 0, "note": "prepaid at $650+" }
+    ],
+    "mode": "order_net_cab_glass_subtotal",
+    "confirm_freight_banner": false,
+    "notes": "Standard vendor surface freight matrix — not LTL"
+  },
+  "buy_now_skus": [
+    "door-seal-7281063",
+    "door-gas-spring-7157893",
+    "bobcat-7120401-door-glass",
+    "bobcat-6729776-door-glass",
+    "bobcat-7219974-rear-window",
+    "bobcat-7261608-lower-side-window",
+    "bobcat-7261610-right-sliding-window",
+    "bobcat-7266740-left-sliding-window",
+    "bobcat-7266739-left-rear-fixed",
+    "bobcat-7261609-right-rear-fixed",
+    "bobcat-7179045-front-lower-windshield",
+    "caterpillar-345-6230-door-glass",
+    "case-84344565-door-glass",
+    "john-deere-t312628-door-glass",
+    "john-deere-4635164-upper-door-panel",
+    "john-deere-fyd00004957-front-upper-windshield",
+    "takeuchi-08808-65301-door-glass",
+    "takeuchi-03586-00096-door-glass",
+    "kubota-v0511-33150-rear-window"
+  ],
+  "pricing_file": "data/pricing/glass-phase-comps.json",
+  "qa": {
+    "pdp_http_200_sampled": [
+      "bobcat-7120401-door-glass",
+      "caterpillar-345-6230-door-glass",
+      "case-84344565-door-glass",
+      "door-seal-7281063",
+      "takeuchi-08808-65301-door-glass"
+    ],
+    "image_url": null,
+    "packs_published": false
+  }
+}

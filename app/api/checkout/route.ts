@@ -332,6 +332,51 @@ export async function POST(req: NextRequest) {
         });
       }
 
+      // Cab glass: standard surface freight matrix (not LTL).
+      // Bands match vendor contiguous-US policy on net invoice value.
+      // $650+ surface freight prepaid → no customer freight line.
+      {
+        const cabGlassItems = itemsUsingCategoryFreight.filter(
+          (item: any) =>
+            item.category === 'Cab Glass' ||
+            item.metadata?.category_slug === 'cab-glass'
+        );
+
+        if (cabGlassItems.length > 0) {
+          const cabGlassNet = cabGlassItems.reduce((sum: number, item: any) => {
+            const price = Number(item.price) || 0;
+            const qty = Math.max(1, Number(item.quantity) || 1);
+            return sum + price * qty;
+          }, 0);
+
+          function cabGlassFreightCents(netDollars: number): number {
+            if (netDollars <= 0) return 0;
+            if (netDollars < 25) return 1800; // $18.00
+            if (netDollars < 150) return 2500; // $25.00
+            if (netDollars < 300) return 3100; // $31.00
+            if (netDollars < 500) return 3700; // $37.00
+            if (netDollars < 650) return 4100; // $41.00
+            return 0; // $650+ surface freight prepaid
+          }
+
+          const freightCents = cabGlassFreightCents(cabGlassNet);
+          if (freightCents > 0) {
+            lineItems.push({
+              price_data: {
+                currency: 'usd',
+                product_data: {
+                  name: 'Freight Shipping - Cab Glass',
+                  description:
+                    'Ground surface freight for cab glass and glass accessories (standard freight bands)',
+                },
+                unit_amount: freightCents,
+              },
+              quantity: 1,
+            });
+          }
+        }
+      }
+
       // Check for steering rod ends
       if (categories.includes('Steering rod ends')) {
         lineItems.push({

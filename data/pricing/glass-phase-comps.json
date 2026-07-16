@@ -1,0 +1,116 @@
+[
+  {
+    "sku": "door-seal-7281063",
+    "compPrice": 51.74,
+    "compSource": "safeharborparts",
+    "compUrl": "https://www.safeharborparts.com/7281063-seal/"
+  },
+  {
+    "sku": "door-gas-spring-7157893",
+    "compPrice": 14.89,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/p/1085549134"
+  },
+  {
+    "sku": "bobcat-7120401-door-glass",
+    "compPrice": 121.0,
+    "compSource": "unclebobspartsshed",
+    "compUrl": "https://unclebobspartsshed.com/product/replacement-bobcat-m-series-door-glass/"
+  },
+  {
+    "sku": "bobcat-6729776-door-glass",
+    "compPrice": 102.29,
+    "compSource": "unclebobspartsshed",
+    "compUrl": "https://unclebobspartsshed.com/product/bobcat-g-series-door-glass/"
+  },
+  {
+    "sku": "bobcat-7219974-rear-window",
+    "compPrice": 110.62,
+    "compSource": "safeharborparts",
+    "compUrl": "https://www.safeharborparts.com/7219974-skidsteer-rear-window-glass/"
+  },
+  {
+    "sku": "bobcat-7261608-lower-side-window",
+    "compPrice": 82.49,
+    "compSource": "safeharborparts",
+    "compUrl": "https://www.safeharborparts.com/7261608-skidsteer-lh-rh-side-lower-glass/"
+  },
+  {
+    "sku": "bobcat-7261610-right-sliding-window",
+    "compPrice": 79.11,
+    "compSource": "safeharborparts",
+    "compUrl": "https://www.safeharborparts.com/7261610-skidsteer-rh-side-front-sliding-glass-no-seal/"
+  },
+  {
+    "sku": "bobcat-7266740-left-sliding-window",
+    "compPrice": 68.99,
+    "compSource": "unclebobspartsshed",
+    "compUrl": "https://unclebobspartsshed.com/product/bobcat-left-hand-side-sliding-window-glass-with-channel/"
+  },
+  {
+    "sku": "bobcat-7266739-left-rear-fixed",
+    "compPrice": 72.49,
+    "compSource": "unclebobspartsshed",
+    "compUrl": "https://unclebobspartsshed.com/product/bobcat-skid-steer-left-rear-fixed-cab-glass/"
+  },
+  {
+    "sku": "bobcat-7261609-right-rear-fixed",
+    "compPrice": 72.49,
+    "compSource": "unclebobspartsshed",
+    "compUrl": "https://unclebobspartsshed.com/product/bobcat-skid-steer-right-rear-cab-glass/"
+  },
+  {
+    "sku": "bobcat-7179045-front-lower-windshield",
+    "compPrice": 89.99,
+    "compSource": "unclebobspartsshed",
+    "compUrl": "https://unclebobspartsshed.com/product/bobcat-mini-excavator-front-lower-glass-7179045/"
+  },
+  {
+    "sku": "caterpillar-345-6230-door-glass",
+    "compPrice": 215.0,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/187807816502"
+  },
+  {
+    "sku": "case-84344565-door-glass",
+    "compPrice": 145.0,
+    "compSource": "safeharborparts",
+    "compUrl": "https://www.safeharborparts.com/84344565-skid-steer-door-glass/"
+  },
+  {
+    "sku": "john-deere-t312628-door-glass",
+    "compPrice": 179.55,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/305459750129"
+  },
+  {
+    "sku": "john-deere-4635164-upper-door-panel",
+    "compPrice": 99.99,
+    "compSource": "unclebobspartsshed",
+    "compUrl": "https://unclebobspartsshed.com/product/john-deere-d-series-mini-excavator-4635164-cab-glass/"
+  },
+  {
+    "sku": "john-deere-fyd00004957-front-upper-windshield",
+    "compPrice": 279.0,
+    "compSource": "unclebobspartsshed",
+    "compUrl": "https://unclebobspartsshed.com/product/john-deere-60g-excavator-front-upper-glass/"
+  },
+  {
+    "sku": "takeuchi-08808-65301-door-glass",
+    "compPrice": 126.95,
+    "compSource": "loaderpartssource",
+    "compUrl": "https://www.loaderpartssource.com/products/front-door-glass-for-takeuchi-oem-0880865301"
+  },
+  {
+    "sku": "takeuchi-03586-00096-door-glass",
+    "compPrice": 184.99,
+    "compSource": "tractorpartsasap",
+    "compUrl": "https://www.tractorpartsasap.com/cab-glass-door-windshield-takeuchi-tb230-tb240-tb260-tb280fr-03586.html"
+  },
+  {
+    "sku": "kubota-v0511-33150-rear-window",
+    "compPrice": 208.82,
+    "compSource": "intellaparts",
+    "compUrl": "https://intellaparts.com/p/KUB-V0511-33150/KUBOTA-V0511-33150-REAR-WINDOW-GLASS.html"
+  }
+]

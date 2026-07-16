@@ -207,6 +207,11 @@ export default function ProductDetails({
           : {}),
         ...(wholesaleCostUsd != null ? { cost_wholesale: wholesaleCostUsd } : {}),
         ...(hasFreeFreight ? { free_freight: true } : {}),
+        ...(partMetadata.is_glass_accessory === true ||
+        partMetadata.is_glass_accessory === 'true'
+          ? { is_glass_accessory: true }
+          : {}),
+        ...(part.category_slug ? { category_slug: part.category_slug } : {}),
       },
     });
 
@@ -256,6 +261,23 @@ export default function ProductDetails({
           Free freight to the contiguous US — no shipping line at checkout.
         </p>
       )}
+      {(partMetadata.confirm_freight === true ||
+        partMetadata.confirm_freight === 'true') &&
+        !hasFreeFreight &&
+        !isRubberTrack && (
+          <p className="text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded-md px-3 py-2 mb-4">
+            Contact us to confirm availability before ordering.
+          </p>
+        )}
+      {part.category_slug === 'cab-glass' &&
+        !hasFreeFreight &&
+        !isRubberTrack && (
+          <p className="text-sm text-slate-600 mb-4">
+            Ships ground surface freight — handling is calculated at checkout
+            from order value ($18–$41 under $650; prepaid on cab-glass totals
+            $650+).
+          </p>
+        )}
     </>
   );
 
