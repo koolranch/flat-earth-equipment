@@ -20,6 +20,14 @@ import RubberTrackVisual from '@/components/parts/RubberTrackVisual';
 import ProductDescription from '@/components/parts/ProductDescription';
 import SeatProductVisual from '@/components/parts/SeatProductVisual';
 import { isSeatCategory } from '@/lib/parts/seatVisualUtils';
+import {
+  formatWarrantyLabel,
+  getEffectiveWarrantyMonths,
+} from '@/lib/parts/aftermarketWarranty';
+import {
+  getWholesaleCostUsd,
+  qualifiesForSeatFreeFreight,
+} from '@/lib/parts/seatFreight';
 
 interface Variant {
   id: string;
@@ -136,8 +144,15 @@ export default function ProductDetails({
   const serialPrefixes = Array.isArray(partMetadata.serial_prefixes)
     ? (partMetadata.serial_prefixes as string[])
     : [];
-  const warrantyMonths =
-    typeof partMetadata.warranty_months === 'number' ? partMetadata.warranty_months : null;
+  const warrantyMonths = getEffectiveWarrantyMonths({
+    brand: part.brand,
+    category: part.category,
+    category_slug: part.category_slug,
+    name: part.name,
+    has_core_charge: part.has_core_charge,
+    core_charge: part.core_charge,
+    metadata: partMetadata,
+  });
   const trackSize =
     typeof partMetadata.track_size === 'string' ? partMetadata.track_size : undefined;
   const treadPattern =
@@ -161,6 +176,13 @@ export default function ProductDetails({
   });
   const quoteHref = `/quote?sku=${encodeURIComponent(part.sku || part.slug)}&equipment=${encodeURIComponent(getDisplayBrand(part.brand))}&notes=${encodeURIComponent(`${displayName} — request pricing`)}`;
 
+  const seatFreeFreight = qualifiesForSeatFreeFreight(part.category, partMetadata);
+  const wholesaleCostUsd = getWholesaleCostUsd(partMetadata);
+  const hasFreeFreight =
+    partMetadata.free_freight === true ||
+    partMetadata.free_freight === 'true' ||
+    seatFreeFreight;
+
   const handleAddToCart = () => {
     if (isQuoteOnly) return;
     const item = selected || part;
@@ -183,7 +205,8 @@ export default function ProductDetails({
         ...(partMetadata.freight_cents != null
           ? { freight_cents: partMetadata.freight_cents }
           : {}),
-        ...(partMetadata.free_freight ? { free_freight: true } : {}),
+        ...(wholesaleCostUsd != null ? { cost_wholesale: wholesaleCostUsd } : {}),
+        ...(hasFreeFreight ? { free_freight: true } : {}),
       },
     });
 
@@ -228,20 +251,36 @@ export default function ProductDetails({
           Many sellers add $150+ freight at checkout.
         </p>
       )}
+      {hasFreeFreight && !isRubberTrack && (
+        <p className="text-sm text-slate-600 mb-4">
+          Free freight to the contiguous US — no shipping line at checkout.
+        </p>
+      )}
     </>
   );
 
-  const trustBadges = isRubberTrack && (
+  const trustBadges = (
+    isRubberTrack ||
+    hasFreeFreight ||
+    (warrantyMonths != null && warrantyMonths >= 24)
+  ) && (
     <div className="flex flex-wrap gap-2 mb-6">
-      <span className="inline-flex items-center gap-1.5 bg-green-50 border border-green-200 text-green-800 text-sm font-semibold px-3 py-1.5 rounded-full">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-          <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
-          <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" />
-        </svg>
-        Free Shipping
-      </span>
-      {warrantyMonths && (
-        <span className="inline-flex items-center gap-1.5 bg-slate-50 border border-slate-200 text-slate-800 text-sm font-semibold px-3 py-1.5 rounded-full">
+      {!isRubberTrack && (
+        <span className="inline-flex items-center gap-1.5 bg-slate-900 text-white text-sm font-semibold px-3 py-1.5 rounded-full">
+          Aftermarket
+        </span>
+      )}
+      {(isRubberTrack || hasFreeFreight) && (
+        <span className="inline-flex items-center gap-1.5 bg-green-50 border border-green-200 text-green-800 text-sm font-semibold px-3 py-1.5 rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+            <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" />
+          </svg>
+          Free Shipping
+        </span>
+      )}
+      {warrantyMonths != null && warrantyMonths > 0 && (
+        <span className="inline-flex items-center gap-1.5 bg-emerald-50 border border-emerald-200 text-emerald-900 text-sm font-semibold px-3 py-1.5 rounded-full">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
             <path
               fillRule="evenodd"
@@ -249,7 +288,7 @@ export default function ProductDetails({
               clipRule="evenodd"
             />
           </svg>
-          {warrantyMonths / 12}-Year Warranty
+          {formatWarrantyLabel(warrantyMonths)}
         </span>
       )}
     </div>
@@ -602,6 +641,7 @@ export default function ProductDetails({
             />
             {gradeChooser}
             {priceBlock}
+            {trustBadges}
             {quantitySelector}
             {variantSelector}
             <div className="pt-4">{addToCartButton}</div>

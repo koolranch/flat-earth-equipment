@@ -5,7 +5,7 @@ import { isTrainingPrice, TRAINING_COURSE_SLUG } from '@/lib/payments/trainingSt
 import { supabaseService } from '@/lib/supabase/service.server';
 import { sendMail } from '@/lib/email/mailer';
 import { learnerWelcomeEmail, trainerNotificationEmail } from '@/lib/email/templates/training';
-import { notifyFromCheckoutSession } from '@/lib/telegram/notifySale';
+import { scheduleCheckoutSaleNotify } from '@/lib/telegram/notifySale';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -167,10 +167,8 @@ export async function POST(req: NextRequest) {
       // Don't fail the webhook - enrollment is still successful
     }
 
-    // Telegram sale alert — fire-and-forget; never changes enrollment or webhook status
-    void notifyFromCheckoutSession(stripe, session, { forceKind: 'training' }).catch((telegramErr) => {
-      console.warn('[telegram] sale alert failed (non-blocking):', telegramErr);
-    });
+    // Telegram sale alert — waitUntil; never changes enrollment or webhook status
+    scheduleCheckoutSaleNotify(stripe, session, { forceKind: 'training' });
     
     return NextResponse.json({ ok: true, enrolled: true, course: course.slug });
   }

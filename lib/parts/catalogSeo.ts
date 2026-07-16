@@ -21,7 +21,7 @@ export function buildCatalogMetadata(
 
   if (!isBasePage) {
     title = `${pageTitle} | Parts Catalog`;
-    description = `Browse ${pageTitle.toLowerCase()} from Flat Earth Equipment. OEM-equivalent replacements, 12-month warranty, and same-day shipping on in-stock items. Search by part number or request a quote.`;
+    description = `Browse ${pageTitle.toLowerCase()} from Flat Earth Equipment. Aftermarket replacements with 2-year warranty on JCB, Bobcat, forklift parts, and rubber tracks — same-day shipping on in-stock items.`;
   }
 
   if (searchParams.q) {
@@ -73,7 +73,7 @@ export const PARTS_CATALOG_FAQ = [
   },
   {
     q: 'Do parts include a warranty?',
-    a: 'Yes. Aftermarket parts purchased through Flat Earth Equipment include a 12-month warranty from the date of purchase. Rubber tracks ship with a 2-year warranty and free freight.',
+    a: 'Yes. Aftermarket JCB parts, Bobcat parts, forklift parts, and rubber tracks include a 2-year warranty from the date of purchase (chargers, controllers, charger modules, and core-charge items follow the coverage stated on the product page). Rubber tracks also ship free.',
   },
   {
     q: 'How fast do in-stock parts ship?',

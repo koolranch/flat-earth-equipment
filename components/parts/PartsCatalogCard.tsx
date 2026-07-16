@@ -23,6 +23,7 @@ import {
   isSeatCategory,
   shouldUseBrandLogoForCategory,
 } from '@/lib/parts/seatVisualUtils';
+import { qualifiesForTwoYearAftermarketWarranty } from '@/lib/parts/aftermarketWarranty';
 
 export type CatalogCardProduct = {
   id: string;
@@ -161,6 +162,13 @@ export default function PartsCatalogCard({ product }: { product: CatalogCardProd
       oemReference: product.oemReference,
     }) || product.sku;
   const displayName = getCustomerProductName(product.name, product.brand);
+  const showTwoYearWarranty = qualifiesForTwoYearAftermarketWarranty({
+    brand: product.brand,
+    category: product.category,
+    category_slug: product.categorySlug,
+    name: product.name,
+    metadata: product.metadata,
+  });
 
   const handleAddToCart = (event: MouseEvent) => {
     event.preventDefault();
@@ -284,6 +292,12 @@ export default function PartsCatalogCard({ product }: { product: CatalogCardProd
           </Link>
 
           <p className="font-mono text-[11px] text-slate-500">{displayPartNumber}</p>
+
+          {showTwoYearWarranty && (
+            <span className="inline-flex w-fit items-center rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-800 ring-1 ring-emerald-200/80">
+              2-yr warranty
+            </span>
+          )}
 
           <div className="mt-auto flex items-end justify-between gap-2 pt-1">
             {isQuoteOnly || !hasPrice ? (

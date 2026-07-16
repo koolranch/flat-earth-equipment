@@ -1,4 +1,5 @@
 import type Stripe from 'stripe';
+import { waitUntil } from '@vercel/functions';
 
 export type PartsLineItem = {
   sku: string;
@@ -227,5 +228,32 @@ export async function notifyFromCheckoutSession(
     });
   } catch (err) {
     console.warn('[telegram] notifyFromCheckoutSession failed (non-blocking):', err);
+  }
+}
+
+/**
+ * Schedule a Telegram sale alert with Vercel waitUntil so the work can finish
+ * after the webhook responds. Never throws; missing/empty env = warn + no-op.
+ */
+export function scheduleCheckoutSaleNotify(
+  stripe: Stripe,
+  session: Stripe.Checkout.Session,
+  options?: { forceKind?: 'parts' | 'training' }
+): void {
+  try {
+    if (!isTelegramConfigured()) {
+      console.warn(
+        '[telegram] skipped — TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID missing/empty'
+      );
+      return;
+    }
+
+    waitUntil(
+      notifyFromCheckoutSession(stripe, session, options).catch((err) => {
+        console.warn('[telegram] sale alert failed (non-blocking):', err);
+      })
+    );
+  } catch (err) {
+    console.warn('[telegram] scheduleCheckoutSaleNotify failed (non-blocking):', err);
   }
 }

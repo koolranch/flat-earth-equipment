@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import Script from 'next/script';
 import { supabaseServer } from '@/lib/supabase/server';
 import ProductDetails from './ProductDetails';
+import { qualifiesForSeatFreeFreight } from '@/lib/parts/seatFreight';
 import { getBlogPost } from '@/lib/mdx';
 import Link from 'next/link';
 import { generatePageAlternates } from '@/app/seo-defaults';
@@ -12,6 +13,7 @@ import {
   getCustomerProductName,
 } from '@/lib/parts/vendorOemPrefix';
 import { getRubberTrackIntro } from '@/lib/parts/rubberTrackUtils';
+import { getEffectiveWarrantyMonths } from '@/lib/parts/aftermarketWarranty';
 import RelatedResources from '@/components/seo/RelatedResources';
 import type { RelatedTrack } from '@/lib/parts/rubberTrackUtils';
 
@@ -159,8 +161,16 @@ function buildProductSchema(product: any, slug: string) {
     };
   }
 
-  const warrantyMonths = product.metadata?.warranty_months;
-  if (typeof warrantyMonths === 'number' && warrantyMonths > 0) {
+  const warrantyMonths = getEffectiveWarrantyMonths({
+    brand: product.brand,
+    category: product.category,
+    category_slug: product.category_slug,
+    name: product.name,
+    has_core_charge: product.has_core_charge,
+    core_charge: product.core_charge,
+    metadata: product.metadata,
+  });
+  if (warrantyMonths != null && warrantyMonths > 0) {
     offer.warranty = {
       '@type': 'WarrantyPromise',
       durationOfWarranty: {
@@ -171,14 +181,32 @@ function buildProductSchema(product: any, slug: string) {
     };
   }
 
-  // Same-day handling for in-stock Buy Now parts (freight may still apply at checkout).
+  // Same-day handling for in-stock Buy Now parts.
+  // Free freight SKUs (rubber tracks, seat assemblies with vendor cost >= $650, etc.)
+  // publish a $0 shippingRate so Google can surface Free delivery.
   if (isBuyNow) {
+    const meta = (product.metadata as Record<string, unknown> | null) ?? {};
+    const freeFreight =
+      meta.free_freight === true ||
+      meta.free_freight === 'true' ||
+      product.category === 'Rubber Tracks' ||
+      qualifiesForSeatFreeFreight(product.category, meta);
+
     offer.shippingDetails = {
       '@type': 'OfferShippingDetails',
       shippingDestination: {
         '@type': 'DefinedRegion',
         addressCountry: 'US',
       },
+      ...(freeFreight
+        ? {
+            shippingRate: {
+              '@type': 'MonetaryAmount',
+              value: '0',
+              currency: 'USD',
+            },
+          }
+        : {}),
       deliveryTime: {
         '@type': 'ShippingDeliveryTime',
         handlingTime: {
@@ -281,8 +309,11 @@ function buildPartMetaDescription(product: {
   brand?: string | null;
   description?: string | null;
   category?: string | null;
+  category_slug?: string | null;
   sales_type?: string | null;
   is_in_stock?: boolean | null;
+  has_core_charge?: boolean | null;
+  core_charge?: number | null;
   metadata?: Record<string, unknown> | null;
 }): string {
   if (product.category === 'Rubber Tracks') {
@@ -291,6 +322,15 @@ function buildPartMetaDescription(product: {
 
   const meta = product.metadata ?? {};
   const aftermarket = meta.aftermarket === true;
+  const warrantyMonths = getEffectiveWarrantyMonths({
+    brand: product.brand,
+    category: product.category,
+    category_slug: product.category_slug,
+    name: product.name,
+    has_core_charge: product.has_core_charge,
+    core_charge: product.core_charge,
+    metadata: meta,
+  });
   const base = sanitizeCustomerFacingCopy(
     product.description ||
       `${aftermarket ? 'Aftermarket ' : ''}replacement part for ${getDisplayBrand(product.brand)} equipment.`,
@@ -301,6 +341,9 @@ function buildPartMetaDescription(product: {
   const extras: string[] = [];
   if (aftermarket && !/aftermarket/i.test(base)) {
     extras.push('Aftermarket replacement');
+  }
+  if (warrantyMonths != null && warrantyMonths >= 24 && !/2[- ]year warranty/i.test(base)) {
+    extras.push('2-year warranty');
   }
   if (product.sales_type === 'direct' && product.is_in_stock !== false) {
     extras.push('Same-day shipping');

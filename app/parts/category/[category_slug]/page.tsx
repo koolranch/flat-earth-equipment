@@ -29,95 +29,95 @@ interface Part {
 const CATEGORY_INTROS: Record<string, { headline: string; body: string }> = {
   'jcb-filters': {
     headline: 'Aftermarket JCB Filters — OEM-Equivalent Quality',
-    body: 'Oil filters, fuel filters, hydraulic filters, air filters, and cabin filters for JCB telehandlers, excavators, and compact equipment. Every filter is an aftermarket equivalent of the original JCB part — direct fit, no modifications required. 12-month warranty from date of purchase.',
+    body: 'Oil filters, fuel filters, hydraulic filters, air filters, and cabin filters for JCB telehandlers, excavators, and compact equipment. Every filter is an aftermarket equivalent of the original JCB part — direct fit, no modifications required. 2-year warranty from date of purchase.',
   },
   'jcb-brakes': {
     headline: 'Aftermarket JCB Brake Components',
-    body: 'Brake pads, discs, calipers, and master cylinders for JCB Loadall telehandlers and construction equipment. Aftermarket equivalents that replace the OEM part number directly. 12-month warranty included.',
+    body: 'Brake pads, discs, calipers, and master cylinders for JCB Loadall telehandlers and construction equipment. Aftermarket equivalents that replace the OEM part number directly. 2-year warranty included.',
   },
   'jcb-electrical': {
     headline: 'Aftermarket JCB Electrical Parts',
-    body: 'Starters, alternators, solenoids, coils, and wiring harnesses for JCB machinery. Each part is an aftermarket equivalent of the original — same fit, same function. Backed by a 12-month warranty.',
+    body: 'Starters, alternators, solenoids, coils, and wiring harnesses for JCB machinery. Each part is an aftermarket equivalent of the original — same fit, same function. Backed by a 2-year warranty.',
   },
   'jcb-switches-sensors': {
     headline: 'Aftermarket JCB Switches & Sensors',
-    body: 'Pressure sensors, temperature sensors, proximity switches, and gauge assemblies for JCB equipment. Direct OEM replacements with 12-month warranty coverage.',
+    body: 'Pressure sensors, temperature sensors, proximity switches, and gauge assemblies for JCB equipment. Direct OEM replacements with 2-year warranty coverage.',
   },
   'jcb-engine-parts': {
     headline: 'Aftermarket JCB Engine Parts',
-    body: 'Turbochargers, EGR components, cylinder head gaskets, pistons, and timing belts for JCB diesel engines. Aftermarket equivalents built to OEM specifications. 12-month warranty.',
+    body: 'Turbochargers, EGR components, cylinder head gaskets, pistons, and timing belts for JCB diesel engines. Aftermarket equivalents built to OEM specifications. 2-year warranty.',
   },
   'jcb-fuel-system': {
     headline: 'Aftermarket JCB Fuel System Parts',
-    body: 'Fuel injection pumps, injectors, fuel rails, and fuel level senders for JCB telehandlers and excavators. OEM-equivalent aftermarket parts with 12-month warranty.',
+    body: 'Fuel injection pumps, injectors, fuel rails, and fuel level senders for JCB telehandlers and excavators. OEM-equivalent aftermarket parts with 2-year warranty.',
   },
   'jcb-hydraulic-valves': {
     headline: 'Aftermarket JCB Hydraulic Valves',
-    body: 'Solenoid valves, relief valves, check valves, and spool cartridges for JCB hydraulic systems. Direct replacements for OEM part numbers. 12-month warranty included.',
+    body: 'Solenoid valves, relief valves, check valves, and spool cartridges for JCB hydraulic systems. Direct replacements for OEM part numbers. 2-year warranty included.',
   },
   'jcb-hydraulics': {
     headline: 'Aftermarket JCB Hydraulic Components',
-    body: 'Hydraulic cylinders, pumps, and accumulators for JCB construction and industrial equipment. OEM-equivalent aftermarket parts with 12-month warranty from date of purchase.',
+    body: 'Hydraulic cylinders, pumps, and accumulators for JCB construction and industrial equipment. OEM-equivalent aftermarket parts with 2-year warranty from date of purchase.',
   },
   'jcb-seals-gaskets': {
     headline: 'Aftermarket JCB Seals & Gaskets',
-    body: 'Seal kits, O-rings, gaskets, and gaiters for JCB hydraulic and engine systems. Precision-fit aftermarket replacements backed by a 12-month warranty.',
+    body: 'Seal kits, O-rings, gaskets, and gaiters for JCB hydraulic and engine systems. Precision-fit aftermarket replacements backed by a 2-year warranty.',
   },
   'jcb-cooling': {
     headline: 'Aftermarket JCB Cooling System Parts',
-    body: 'Radiators, oil coolers, fans, and water pumps for JCB telehandlers and excavators. Aftermarket equivalents that bolt in place of the original OEM part. 12-month warranty.',
+    body: 'Radiators, oil coolers, fans, and water pumps for JCB telehandlers and excavators. Aftermarket equivalents that bolt in place of the original OEM part. 2-year warranty.',
   },
   'jcb-cab-body': {
     headline: 'Aftermarket JCB Cab & Body Parts',
-    body: 'Doors, windows, windscreens, wipers, grilles, and fenders for JCB equipment cabs. OEM-equivalent aftermarket replacements. 12-month warranty from date of purchase.',
+    body: 'Doors, windows, windscreens, wipers, grilles, and fenders for JCB equipment cabs. OEM-equivalent aftermarket replacements. 2-year warranty from date of purchase.',
   },
   'jcb-controls': {
     headline: 'Aftermarket JCB Joysticks & Controls',
-    body: 'Joysticks, control levers, and pedal assemblies for JCB Loadall telehandlers and excavators. Direct OEM replacements with 12-month warranty.',
+    body: 'Joysticks, control levers, and pedal assemblies for JCB Loadall telehandlers and excavators. Direct OEM replacements with 2-year warranty.',
   },
   'jcb-hoses': {
     headline: 'Aftermarket JCB Hoses & Fittings',
-    body: 'Hydraulic hoses, fittings, and couplings for JCB machinery. Built to OEM specifications for a direct fit. 12-month warranty included.',
+    body: 'Hydraulic hoses, fittings, and couplings for JCB machinery. Built to OEM specifications for a direct fit. 2-year warranty included.',
   },
   'jcb-pins-bushings': {
     headline: 'Aftermarket JCB Pins & Bushings',
-    body: 'Hitch pins, king pins, bushings, and shims for JCB telehandlers and excavators. OEM-equivalent aftermarket parts with 12-month warranty.',
+    body: 'Hitch pins, king pins, bushings, and shims for JCB telehandlers and excavators. OEM-equivalent aftermarket parts with 2-year warranty.',
   },
   'jcb-undercarriage': {
     headline: 'Aftermarket JCB Undercarriage Parts',
-    body: 'Track rollers, guide rollers, idlers, and sprockets for JCB compact excavators and track loaders. Direct OEM replacements. 12-month warranty.',
+    body: 'Track rollers, guide rollers, idlers, and sprockets for JCB compact excavators and track loaders. Direct OEM replacements. 2-year warranty.',
   },
   'jcb-lights': {
     headline: 'Aftermarket JCB Lights & Lamps',
-    body: 'Worklights, beacons, lamps, and LED upgrades for JCB equipment. OEM-equivalent aftermarket parts with 12-month warranty from date of purchase.',
+    body: 'Worklights, beacons, lamps, and LED upgrades for JCB equipment. OEM-equivalent aftermarket parts with 2-year warranty from date of purchase.',
   },
   'jcb-mirrors': {
     headline: 'Aftermarket JCB Mirrors',
-    body: 'Mirror assemblies and mounting arms for JCB telehandlers and excavators. Direct replacements for OEM part numbers. 12-month warranty included.',
+    body: 'Mirror assemblies and mounting arms for JCB telehandlers and excavators. Direct replacements for OEM part numbers. 2-year warranty included.',
   },
   'jcb-seats': {
     headline: 'Aftermarket JCB Seats & Seat Components',
-    body: 'Replacement seats, seat covers, and seat cushions for JCB equipment. Aftermarket equivalents built for comfort and durability. 12-month warranty.',
+    body: 'Replacement seats, seat covers, and seat cushions for JCB equipment. Aftermarket equivalents built for comfort and durability. 2-year warranty.',
   },
   'jcb-steering': {
     headline: 'Aftermarket JCB Steering Components',
-    body: 'Tie rod ends, steering columns, and orbital steering units for JCB telehandlers. OEM-equivalent parts with 12-month warranty.',
+    body: 'Tie rod ends, steering columns, and orbital steering units for JCB telehandlers. OEM-equivalent parts with 2-year warranty.',
   },
   'jcb-wheels': {
     headline: 'Aftermarket JCB Wheels & Rims',
-    body: 'Wheel rims, tires, and wheel assemblies for JCB telehandlers and construction equipment. Direct OEM replacements. 12-month warranty.',
+    body: 'Wheel rims, tires, and wheel assemblies for JCB telehandlers and construction equipment. Direct OEM replacements. 2-year warranty.',
   },
   'jcb-exhaust': {
     headline: 'Aftermarket JCB Exhaust Parts',
-    body: 'Exhaust silencers, mufflers, and manifolds for JCB diesel engines. OEM-equivalent aftermarket replacements with 12-month warranty.',
+    body: 'Exhaust silencers, mufflers, and manifolds for JCB diesel engines. OEM-equivalent aftermarket replacements with 2-year warranty.',
   },
   'jcb-mounts-dampers': {
     headline: 'Aftermarket JCB Mounts & Dampers',
-    body: 'Rubber mounts, engine mounts, and vibration dampers for JCB machinery. Direct OEM replacements backed by a 12-month warranty.',
+    body: 'Rubber mounts, engine mounts, and vibration dampers for JCB machinery. Direct OEM replacements backed by a 2-year warranty.',
   },
   'jcb-general': {
     headline: 'Aftermarket JCB Replacement Parts',
-    body: 'Aftermarket replacement parts for JCB telehandlers, excavators, and compact equipment. Every part is an OEM equivalent — direct fit, no modifications. All parts include a 12-month warranty from date of purchase.',
+    body: 'Aftermarket replacement parts for JCB telehandlers, excavators, and compact equipment. Every part is an OEM equivalent — direct fit, no modifications. All parts include a 2-year warranty from date of purchase.',
   },
 }
 
@@ -171,7 +171,7 @@ export async function generateMetadata({ params }: { params: { category_slug: st
     title: `${categoryDisplay} | Aftermarket OEM Replacement Parts | Flat Earth Equipment`,
     description: intro?.body
       ? intro.body.slice(0, 160)
-      : `Shop aftermarket ${categoryDisplay} — OEM-equivalent replacement parts with 12-month warranty. Direct fit, fast shipping nationwide.`,
+      : `Shop aftermarket ${categoryDisplay} — OEM-equivalent replacement parts with 2-year warranty. Direct fit, fast shipping nationwide.`,
     alternates: generatePageAlternates(`/parts/category/${params.category_slug}`),
     robots: { index: true, follow: true, 'max-image-preview': 'large' as const, 'max-snippet': -1 },
   }
@@ -233,7 +233,7 @@ export default async function CategoryPage({
           "@context": "https://schema.org",
           "@type": "CollectionPage",
           "name": categoryDisplay,
-          "description": intro?.body || `Shop ${categoryDisplay} — aftermarket OEM replacement parts with 12-month warranty.`,
+          "description": intro?.body || `Shop ${categoryDisplay} — aftermarket OEM replacement parts with 2-year warranty.`,
           "url": pageUrl,
           "numberOfItems": sorted.length,
           "itemListElement": sorted
@@ -297,7 +297,7 @@ export default async function CategoryPage({
               </span>
             )}
             <span className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-700 bg-blue-50 px-3 py-1.5 rounded-lg">
-              12-month warranty
+              2-year warranty
             </span>
           </div>
         </div>
@@ -359,7 +359,7 @@ export default async function CategoryPage({
           <div className="grid sm:grid-cols-3 gap-6 text-center">
             <div>
               <p className="text-2xl font-bold text-slate-900 mb-1">12-Month</p>
-              <p className="text-sm text-slate-600">Warranty from date of purchase on all aftermarket parts</p>
+              <p className="text-sm text-slate-600">2-year warranty from date of purchase on covered aftermarket parts</p>
             </div>
             <div>
               <p className="text-2xl font-bold text-slate-900 mb-1">OEM Equivalent</p>

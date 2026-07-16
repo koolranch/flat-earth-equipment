@@ -93,10 +93,11 @@ export default async function PartsPage({
       noResultsHelp:
         'Try a different part number, or request a quote and our team will cross-reference OEM numbers.',
       requestQuote: 'Request a Quote',
-      trustWarranty: '12-Month Warranty',
-      trustWarrantyDesc: 'All aftermarket parts include warranty from date of purchase',
-      trustOem: 'OEM Equivalent',
-      trustOemDesc: 'Direct-fit replacements — no modifications required',
+      trustWarranty: '2-Year Warranty',
+      trustWarrantyDesc:
+        'Aftermarket JCB, Bobcat, forklift parts & rubber tracks — from date of purchase',
+      trustOem: 'Aftermarket Fit',
+      trustOemDesc: 'Built to fit the OEM application — match your part number',
       trustShip: 'Fast Shipping',
       trustShipDesc: 'In-stock parts ship same day nationwide',
       shopBy: 'Popular categories',
@@ -134,10 +135,11 @@ export default async function PartsPage({
       noResultsHelp:
         'Pruebe otro número de parte o solicite una cotización y cruzaremos referencias OEM.',
       requestQuote: 'Solicitar cotización',
-      trustWarranty: 'Garantía de 12 meses',
-      trustWarrantyDesc: 'Todas las partes aftermarket incluyen garantía desde la compra',
-      trustOem: 'Equivalente OEM',
-      trustOemDesc: 'Reemplazos de ajuste directo — sin modificaciones',
+      trustWarranty: 'Garantía de 2 años',
+      trustWarrantyDesc:
+        'Partes aftermarket JCB, Bobcat, montacargas y bandas de goma — desde la compra',
+      trustOem: 'Ajuste aftermarket',
+      trustOemDesc: 'Diseñadas para el mismo uso OEM — verifique su número de parte',
       trustShip: 'Envío rápido',
       trustShipDesc: 'Partes en stock se envían el mismo día',
       shopBy: 'Categorías populares',

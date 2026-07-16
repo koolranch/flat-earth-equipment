@@ -71,6 +71,10 @@ await notifyCheckoutSale({
   customerEmail: 'x@y.com',
 });
 
+process.env.TELEGRAM_BOT_TOKEN = '   ';
+process.env.TELEGRAM_CHAT_ID = '123';
+assert.equal(isTelegramConfigured(), false, 'whitespace-only token must count as unset');
+
 process.env.TELEGRAM_BOT_TOKEN = prevToken;
 process.env.TELEGRAM_CHAT_ID = prevChat;
 

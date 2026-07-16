@@ -2,6 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { supabaseService } from '@/lib/supabase/service.server';
+import { qualifiesForSeatFreeFreight } from '@/lib/parts/seatFreight';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -156,9 +157,12 @@ export async function POST(req: NextRequest) {
       }
       
       // Add freight charges - flat rate per category type (after all items processed)
-      const freightEligibleItems = body.items.filter(
-        (item: any) => !item.metadata?.free_freight
-      );
+      // Skip free_freight SKUs and seat assemblies with vendor cost >= $650.
+      const freightEligibleItems = body.items.filter((item: any) => {
+        if (item.metadata?.free_freight) return false;
+        if (qualifiesForSeatFreeFreight(item.category, item.metadata)) return false;
+        return true;
+      });
 
       // Per-SKU freight override (e.g. heavy lift cylinder assemblies)
       for (const item of freightEligibleItems) {
