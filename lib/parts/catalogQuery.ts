@@ -259,7 +259,7 @@ export async function fetchCatalogFacets(supabase: SupabaseClient) {
 export const CATALOG_QUICK_PATHS = [
   {
     label: 'Rubber Tracks',
-    href: '/parts?category_slug=rubber-tracks',
+    href: '/rubber-tracks',
     description: 'Free shipping · 2-year warranty',
     accent: 'bg-emerald-600',
   },

@@ -671,7 +671,7 @@ export default function ProductDetails({
         </div>
       )}
 
-      {/* Legacy compatibility section — non-track parts with JCB-style model groupings */}
+      {/* Compatibility — JCB keeps Loadall/loader groupings; all other brands show flat model chips */}
       {!isRubberTrack && part.compatible_models && part.compatible_models.length > 0 && (
         <section className="mt-8 bg-green-50 border border-green-200 rounded-xl p-6">
           <div className="flex items-center gap-3 mb-6">
@@ -693,76 +693,83 @@ export default function ProductDetails({
             </div>
             <div>
               <h2 className="text-xl font-bold text-slate-900">
-                Compatible with {part.compatible_models.length}+ {part.brand} Models
+                Compatible with {part.compatible_models.length}+{' '}
+                {getDisplayBrand(part.brand)} Models
               </h2>
               <p className="text-sm text-slate-600">Verified fitment for industrial equipment</p>
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {part.compatible_models.some((m) => m.startsWith('5')) && (
-              <div>
-                <h3 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                  Loadall Telehandlers
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {part.compatible_models
-                    .filter((m) => m.startsWith('5'))
-                    .map((model) => (
-                      <span
-                        key={model}
-                        className="bg-white border border-green-100 text-slate-700 text-xs px-2 py-1 rounded"
-                      >
-                        {model}
-                      </span>
-                    ))}
+          {part.brand === 'JCB' ? (
+            <div className="grid md:grid-cols-2 gap-8">
+              {part.compatible_models.some((m) => m.startsWith('5')) && (
+                <div>
+                  <h3 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
+                    Loadall Telehandlers
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {part.compatible_models
+                      .filter((m) => m.startsWith('5'))
+                      .map((model) => (
+                        <span
+                          key={model}
+                          className="bg-white border border-green-100 text-slate-700 text-xs px-2 py-1 rounded"
+                        >
+                          {model}
+                        </span>
+                      ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {part.compatible_models.some((m) => m.startsWith('4')) && (
-              <div>
-                <h3 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                  Wheeled Loaders
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {part.compatible_models
-                    .filter((m) => m.startsWith('4'))
-                    .map((model) => (
-                      <span
-                        key={model}
-                        className="bg-white border border-green-100 text-slate-700 text-xs px-2 py-1 rounded"
-                      >
-                        {model}
-                      </span>
-                    ))}
+              {part.compatible_models.some((m) => m.startsWith('4')) && (
+                <div>
+                  <h3 className="font-semibold text-slate-900 mb-3 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
+                    Wheeled Loaders
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {part.compatible_models
+                      .filter((m) => m.startsWith('4'))
+                      .map((model) => (
+                        <span
+                          key={model}
+                          className="bg-white border border-green-100 text-slate-700 text-xs px-2 py-1 rounded"
+                        >
+                          {model}
+                        </span>
+                      ))}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          ) : (
+            <div className="flex flex-wrap gap-2">
+              {part.compatible_models.map((model) => (
+                <span
+                  key={model}
+                  className="bg-white border border-green-100 text-slate-700 text-xs px-2 py-1 rounded"
+                >
+                  {model}
+                </span>
+              ))}
+            </div>
+          )}
 
-          <div className="mt-6 pt-6 border-t border-green-100 flex items-center justify-between">
-            <p className="text-sm text-green-800">
-              Not sure about your model? Check your serial number.
-            </p>
-            {serialLookupPath ? (
+          {serialLookupPath && (
+            <div className="mt-6 pt-6 border-t border-green-100 flex items-center justify-between">
+              <p className="text-sm text-green-800">
+                Not sure about your model? Check your serial number.
+              </p>
               <Link
                 href={serialLookupPath}
                 className="text-sm font-semibold text-green-700 hover:text-green-900 underline flex items-center gap-1"
               >
                 Open Serial Lookup →
               </Link>
-            ) : (
-              <Link
-                href={`/brand/${part.brand.toLowerCase()}/serial-lookup`}
-                className="text-sm font-semibold text-green-700 hover:text-green-900 underline flex items-center gap-1"
-              >
-                Open Serial Lookup →
-              </Link>
-            )}
-          </div>
+            </div>
+          )}
         </section>
       )}
 
