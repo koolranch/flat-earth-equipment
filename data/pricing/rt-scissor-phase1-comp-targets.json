@@ -1,0 +1,1234 @@
+[
+  {
+    "sku": "genie-78903-joystick-controller",
+    "slug": "genie-78903-joystick-controller",
+    "brand": "Genie",
+    "oem": "78903",
+    "bucket": "controllers",
+    "vendor_pn": "GN78903"
+  },
+  {
+    "sku": "genie-144065-platform-controls-coil-cord",
+    "slug": "genie-144065-platform-controls-coil-cord",
+    "brand": "Genie",
+    "oem": "144065",
+    "bucket": "controllers",
+    "vendor_pn": "GN144065"
+  },
+  {
+    "sku": "genie-62161-joystick-controller",
+    "slug": "genie-62161-joystick-controller",
+    "brand": "Genie",
+    "oem": "62161",
+    "bucket": "controllers",
+    "vendor_pn": "GN62161"
+  },
+  {
+    "sku": "genie-62162-platform-controls-coil-cord",
+    "slug": "genie-62162-platform-controls-coil-cord",
+    "brand": "Genie",
+    "oem": "62162",
+    "bucket": "controllers",
+    "vendor_pn": "GN62162"
+  },
+  {
+    "sku": "jlg-1060846-emergency-down-cable",
+    "slug": "jlg-1060846-emergency-down-cable",
+    "brand": "JLG",
+    "oem": "1060846",
+    "bucket": "controllers",
+    "vendor_pn": "JL1060846"
+  },
+  {
+    "sku": "jlg-1600157-joystick-controller",
+    "slug": "jlg-1600157-joystick-controller",
+    "brand": "JLG",
+    "oem": "1600157",
+    "bucket": "controllers",
+    "vendor_pn": "JL1600157"
+  },
+  {
+    "sku": "jlg-1600290-joystick-controller",
+    "slug": "jlg-1600290-joystick-controller",
+    "brand": "JLG",
+    "oem": "1600290",
+    "bucket": "controllers",
+    "vendor_pn": "JL1600290"
+  },
+  {
+    "sku": "jlg-1600308-joystick-controller",
+    "slug": "jlg-1600308-joystick-controller",
+    "brand": "JLG",
+    "oem": "1600308",
+    "bucket": "controllers",
+    "vendor_pn": "JL1600308"
+  },
+  {
+    "sku": "jlg-1600403-joystick-controller",
+    "slug": "jlg-1600403-joystick-controller",
+    "brand": "JLG",
+    "oem": "1600403",
+    "bucket": "controllers",
+    "vendor_pn": "JL1600403"
+  },
+  {
+    "sku": "skyjack-123995-joystick-controller",
+    "slug": "skyjack-123995-joystick-controller",
+    "brand": "Skyjack",
+    "oem": "123995",
+    "bucket": "controllers",
+    "vendor_pn": "SJ123995"
+  },
+  {
+    "sku": "skyjack-125136-upgrade-kit",
+    "slug": "skyjack-125136-upgrade-kit",
+    "brand": "Skyjack",
+    "oem": "125136",
+    "bucket": "controllers",
+    "vendor_pn": "SJ125136"
+  },
+  {
+    "sku": "skyjack-132537-joystick-controller",
+    "slug": "skyjack-132537-joystick-controller",
+    "brand": "Skyjack",
+    "oem": "132537",
+    "bucket": "controllers",
+    "vendor_pn": "SJ132537"
+  },
+  {
+    "sku": "skyjack-159230-joystick-controller",
+    "slug": "skyjack-159230-joystick-controller",
+    "brand": "Skyjack",
+    "oem": "159230",
+    "bucket": "controllers",
+    "vendor_pn": "SJ159230"
+  },
+  {
+    "sku": "genie-105107-strobe-light",
+    "slug": "genie-105107-strobe-light",
+    "brand": "Genie",
+    "oem": "105107",
+    "bucket": "accessories",
+    "vendor_pn": "GN105107"
+  },
+  {
+    "sku": "genie-19506-hour-meter-gauge",
+    "slug": "genie-19506-hour-meter-gauge",
+    "brand": "Genie",
+    "oem": "19506",
+    "bucket": "accessories",
+    "vendor_pn": "GN19506"
+  },
+  {
+    "sku": "genie-81578-horn",
+    "slug": "genie-81578-horn",
+    "brand": "Genie",
+    "oem": "81578",
+    "bucket": "accessories",
+    "vendor_pn": "GN81578"
+  },
+  {
+    "sku": "jlg-2920105-strobe-light",
+    "slug": "jlg-2920105-strobe-light",
+    "brand": "JLG",
+    "oem": "2920105",
+    "bucket": "accessories",
+    "vendor_pn": "JL2920105"
+  },
+  {
+    "sku": "jlg-2920146-strobe-light",
+    "slug": "jlg-2920146-strobe-light",
+    "brand": "JLG",
+    "oem": "2920146",
+    "bucket": "accessories",
+    "vendor_pn": "JL2920146"
+  },
+  {
+    "sku": "genie-39540-descent-alarm",
+    "slug": "genie-39540-descent-alarm",
+    "brand": "Genie",
+    "oem": "39540",
+    "bucket": "accessories",
+    "vendor_pn": "GN39540"
+  },
+  {
+    "sku": "jlg-0140001-horn",
+    "slug": "jlg-0140001-horn",
+    "brand": "JLG",
+    "oem": "0140001",
+    "bucket": "accessories",
+    "vendor_pn": "JL0140001"
+  },
+  {
+    "sku": "jlg-0140032-descent-motion-alarm",
+    "slug": "jlg-0140032-descent-motion-alarm",
+    "brand": "JLG",
+    "oem": "0140032",
+    "bucket": "accessories",
+    "vendor_pn": "JL0140032"
+  },
+  {
+    "sku": "genie-62164-tilt-alarm",
+    "slug": "genie-62164-tilt-alarm",
+    "brand": "Genie",
+    "oem": "62164",
+    "bucket": "accessories",
+    "vendor_pn": "GN62164"
+  },
+  {
+    "sku": "jlg-0140011-tilt-alarm",
+    "slug": "jlg-0140011-tilt-alarm",
+    "brand": "JLG",
+    "oem": "0140011",
+    "bucket": "accessories",
+    "vendor_pn": "JL0140011"
+  },
+  {
+    "sku": "jlg-0140044-descent-motion-alarm",
+    "slug": "jlg-0140044-descent-motion-alarm",
+    "brand": "JLG",
+    "oem": "0140044",
+    "bucket": "accessories",
+    "vendor_pn": "JL0140044"
+  },
+  {
+    "sku": "jlg-2420009-hour-meter-gauge",
+    "slug": "jlg-2420009-hour-meter-gauge",
+    "brand": "JLG",
+    "oem": "2420009",
+    "bucket": "accessories",
+    "vendor_pn": "JL2420009"
+  },
+  {
+    "sku": "jlg-2420172-hour-meter-gauge",
+    "slug": "jlg-2420172-hour-meter-gauge",
+    "brand": "JLG",
+    "oem": "2420172",
+    "bucket": "accessories",
+    "vendor_pn": "JL2420172"
+  },
+  {
+    "sku": "skyjack-121476-flashing-light",
+    "slug": "skyjack-121476-flashing-light",
+    "brand": "Skyjack",
+    "oem": "121476",
+    "bucket": "accessories",
+    "vendor_pn": "SJ121476"
+  },
+  {
+    "sku": "skyjack-102850-12v-horn",
+    "slug": "skyjack-102850-12v-horn",
+    "brand": "Skyjack",
+    "oem": "102850",
+    "bucket": "accessories",
+    "vendor_pn": "SJ102850"
+  },
+  {
+    "sku": "skyjack-103056-tilt-alarm",
+    "slug": "skyjack-103056-tilt-alarm",
+    "brand": "Skyjack",
+    "oem": "103056",
+    "bucket": "accessories",
+    "vendor_pn": "SJ103056"
+  },
+  {
+    "sku": "skyjack-103336-hour-meter-gauge",
+    "slug": "skyjack-103336-hour-meter-gauge",
+    "brand": "Skyjack",
+    "oem": "103336",
+    "bucket": "accessories",
+    "vendor_pn": "SJ103336"
+  },
+  {
+    "sku": "skyjack-107098-rotating-light",
+    "slug": "skyjack-107098-rotating-light",
+    "brand": "Skyjack",
+    "oem": "107098",
+    "bucket": "accessories",
+    "vendor_pn": "SJ107098"
+  },
+  {
+    "sku": "skyjack-117967-tilt-alarm",
+    "slug": "skyjack-117967-tilt-alarm",
+    "brand": "Skyjack",
+    "oem": "117967",
+    "bucket": "accessories",
+    "vendor_pn": "SJ117967"
+  },
+  {
+    "sku": "skyjack-126677-flashing-light",
+    "slug": "skyjack-126677-flashing-light",
+    "brand": "Skyjack",
+    "oem": "126677",
+    "bucket": "accessories",
+    "vendor_pn": "SJ126677"
+  },
+  {
+    "sku": "skyjack-146652-12v-horn",
+    "slug": "skyjack-146652-12v-horn",
+    "brand": "Skyjack",
+    "oem": "146652",
+    "bucket": "accessories",
+    "vendor_pn": "SJ146652"
+  },
+  {
+    "sku": "genie-66761-e-stop-switch-kit",
+    "slug": "genie-66761-e-stop-switch-kit",
+    "brand": "Genie",
+    "oem": "66761",
+    "bucket": "switches",
+    "vendor_pn": "GN66761"
+  },
+  {
+    "sku": "genie-66811-key-switch-3-position-maintained",
+    "slug": "genie-66811-key-switch-3-position-maintained",
+    "brand": "Genie",
+    "oem": "66811",
+    "bucket": "switches",
+    "vendor_pn": "GN66811"
+  },
+  {
+    "sku": "genie-66812-e-stop-button",
+    "slug": "genie-66812-e-stop-button",
+    "brand": "Genie",
+    "oem": "66812",
+    "bucket": "switches",
+    "vendor_pn": "GN66812"
+  },
+  {
+    "sku": "genie-66813-push-button-switch",
+    "slug": "genie-66813-push-button-switch",
+    "brand": "Genie",
+    "oem": "66813",
+    "bucket": "switches",
+    "vendor_pn": "GN66813"
+  },
+  {
+    "sku": "genie-66814-block-base-w-2-n-o-contacts",
+    "slug": "genie-66814-block-base-w-2-n-o-contacts",
+    "brand": "Genie",
+    "oem": "66814",
+    "bucket": "switches",
+    "vendor_pn": "GN66814"
+  },
+  {
+    "sku": "genie-66815-block-base-w-1-n-o-contacts",
+    "slug": "genie-66815-block-base-w-1-n-o-contacts",
+    "brand": "Genie",
+    "oem": "66815",
+    "bucket": "switches",
+    "vendor_pn": "GN66815"
+  },
+  {
+    "sku": "genie-66816-contact-block-n-o",
+    "slug": "genie-66816-contact-block-n-o",
+    "brand": "Genie",
+    "oem": "66816",
+    "bucket": "switches",
+    "vendor_pn": "GN66816"
+  },
+  {
+    "sku": "genie-66817-block-base-w-1-n-c-contacts",
+    "slug": "genie-66817-block-base-w-1-n-c-contacts",
+    "brand": "Genie",
+    "oem": "66817",
+    "bucket": "switches",
+    "vendor_pn": "GN66817"
+  },
+  {
+    "sku": "genie-66818-contact-block-n-c",
+    "slug": "genie-66818-contact-block-n-c",
+    "brand": "Genie",
+    "oem": "66818",
+    "bucket": "switches",
+    "vendor_pn": "GN66818"
+  },
+  {
+    "sku": "genie-124641-e-stop-switch-kit",
+    "slug": "genie-124641-e-stop-switch-kit",
+    "brand": "Genie",
+    "oem": "124641",
+    "bucket": "switches",
+    "vendor_pn": "GN124641"
+  },
+  {
+    "sku": "genie-13037-s-toggle-switch-spdt-3-position-momentary",
+    "slug": "genie-13037-s-toggle-switch-spdt-3-position-momentary",
+    "brand": "Genie",
+    "oem": "13037-S",
+    "bucket": "switches",
+    "vendor_pn": "GN13037-S"
+  },
+  {
+    "sku": "genie-13480-s-toggle-switch-dpdt-2-position-momentary",
+    "slug": "genie-13480-s-toggle-switch-dpdt-2-position-momentary",
+    "brand": "Genie",
+    "oem": "13480-S",
+    "bucket": "switches",
+    "vendor_pn": "GN13480-S"
+  },
+  {
+    "sku": "genie-27246-toggle-boot-switch",
+    "slug": "genie-27246-toggle-boot-switch",
+    "brand": "Genie",
+    "oem": "27246",
+    "bucket": "switches",
+    "vendor_pn": "GN27246"
+  },
+  {
+    "sku": "genie-27378-s-toggle-switch-dpdt-2-position-maintained",
+    "slug": "genie-27378-s-toggle-switch-dpdt-2-position-maintained",
+    "brand": "Genie",
+    "oem": "27378-S",
+    "bucket": "switches",
+    "vendor_pn": "GN27378-S"
+  },
+  {
+    "sku": "genie-96008-s-key-switch-3-position-maintained",
+    "slug": "genie-96008-s-key-switch-3-position-maintained",
+    "brand": "Genie",
+    "oem": "96008-S",
+    "bucket": "switches",
+    "vendor_pn": "GN96008-S"
+  },
+  {
+    "sku": "genie-96011-key-switch-kit-3-position-w-terminals",
+    "slug": "genie-96011-key-switch-kit-3-position-w-terminals",
+    "brand": "Genie",
+    "oem": "96011",
+    "bucket": "switches",
+    "vendor_pn": "GN96011"
+  },
+  {
+    "sku": "genie-99164-rocker-switch",
+    "slug": "genie-99164-rocker-switch",
+    "brand": "Genie",
+    "oem": "99164",
+    "bucket": "switches",
+    "vendor_pn": "GN99164"
+  },
+  {
+    "sku": "genie-62165-toggle-switch-spdt-3-position-momentary",
+    "slug": "genie-62165-toggle-switch-spdt-3-position-momentary",
+    "brand": "Genie",
+    "oem": "62165",
+    "bucket": "switches",
+    "vendor_pn": "GN62165"
+  },
+  {
+    "sku": "genie-62166-push-button-switch",
+    "slug": "genie-62166-push-button-switch",
+    "brand": "Genie",
+    "oem": "62166",
+    "bucket": "switches",
+    "vendor_pn": "GN62166"
+  },
+  {
+    "sku": "genie-62167-push-button-switch",
+    "slug": "genie-62167-push-button-switch",
+    "brand": "Genie",
+    "oem": "62167",
+    "bucket": "switches",
+    "vendor_pn": "GN62167"
+  },
+  {
+    "sku": "jlg-4060802-switch-guard",
+    "slug": "jlg-4060802-switch-guard",
+    "brand": "JLG",
+    "oem": "4060802",
+    "bucket": "switches",
+    "vendor_pn": "JL4060802"
+  },
+  {
+    "sku": "jlg-4360274-push-button-switch",
+    "slug": "jlg-4360274-push-button-switch",
+    "brand": "JLG",
+    "oem": "4360274",
+    "bucket": "switches",
+    "vendor_pn": "JL4360274"
+  },
+  {
+    "sku": "jlg-4360290-key-switch",
+    "slug": "jlg-4360290-key-switch",
+    "brand": "JLG",
+    "oem": "4360290",
+    "bucket": "switches",
+    "vendor_pn": "JL4360290"
+  },
+  {
+    "sku": "jlg-4360314-toggle-switch-dpdt-3-position-momentary",
+    "slug": "jlg-4360314-toggle-switch-dpdt-3-position-momentary",
+    "brand": "JLG",
+    "oem": "4360314",
+    "bucket": "switches",
+    "vendor_pn": "JL4360314"
+  },
+  {
+    "sku": "jlg-4360328-toggle-switch-spdt-3-position-momentary",
+    "slug": "jlg-4360328-toggle-switch-spdt-3-position-momentary",
+    "brand": "JLG",
+    "oem": "4360328",
+    "bucket": "switches",
+    "vendor_pn": "JL4360328"
+  },
+  {
+    "sku": "jlg-4360329-toggle-switch-spdt-2-position-maintained",
+    "slug": "jlg-4360329-toggle-switch-spdt-2-position-maintained",
+    "brand": "JLG",
+    "oem": "4360329",
+    "bucket": "switches",
+    "vendor_pn": "JL4360329"
+  },
+  {
+    "sku": "jlg-4360330-toggle-switch-spdt-2-position-maintained",
+    "slug": "jlg-4360330-toggle-switch-spdt-2-position-maintained",
+    "brand": "JLG",
+    "oem": "4360330",
+    "bucket": "switches",
+    "vendor_pn": "JL4360330"
+  },
+  {
+    "sku": "jlg-4360331-toggle-switch-dpdt-3-position-momentary",
+    "slug": "jlg-4360331-toggle-switch-dpdt-3-position-momentary",
+    "brand": "JLG",
+    "oem": "4360331",
+    "bucket": "switches",
+    "vendor_pn": "JL4360331"
+  },
+  {
+    "sku": "jlg-4360345-toggle-switch-dpdt-3-position-momentary",
+    "slug": "jlg-4360345-toggle-switch-dpdt-3-position-momentary",
+    "brand": "JLG",
+    "oem": "4360345",
+    "bucket": "switches",
+    "vendor_pn": "JL4360345"
+  },
+  {
+    "sku": "jlg-4360387-yellow-push-button-switch",
+    "slug": "jlg-4360387-yellow-push-button-switch",
+    "brand": "JLG",
+    "oem": "4360387",
+    "bucket": "switches",
+    "vendor_pn": "JL4360387"
+  },
+  {
+    "sku": "jlg-4360469-key-switch",
+    "slug": "jlg-4360469-key-switch",
+    "brand": "JLG",
+    "oem": "4360469",
+    "bucket": "switches",
+    "vendor_pn": "JL4360469"
+  },
+  {
+    "sku": "jlg-4360475-e-stop-switch-kit",
+    "slug": "jlg-4360475-e-stop-switch-kit",
+    "brand": "JLG",
+    "oem": "4360475",
+    "bucket": "switches",
+    "vendor_pn": "JL4360475"
+  },
+  {
+    "sku": "jlg-4360482-toggle-switch-spdt-2-position-maintained",
+    "slug": "jlg-4360482-toggle-switch-spdt-2-position-maintained",
+    "brand": "JLG",
+    "oem": "4360482",
+    "bucket": "switches",
+    "vendor_pn": "JL4360482"
+  },
+  {
+    "sku": "jlg-4360483-toggle-switch-spdt-2-position-momentary",
+    "slug": "jlg-4360483-toggle-switch-spdt-2-position-momentary",
+    "brand": "JLG",
+    "oem": "4360483",
+    "bucket": "switches",
+    "vendor_pn": "JL4360483"
+  },
+  {
+    "sku": "jlg-4360524-toggle-switch-spdt-3-position-momentary",
+    "slug": "jlg-4360524-toggle-switch-spdt-3-position-momentary",
+    "brand": "JLG",
+    "oem": "4360524",
+    "bucket": "switches",
+    "vendor_pn": "JL4360524"
+  },
+  {
+    "sku": "jlg-4360525-toggle-switch-spdt-2-position-maintained",
+    "slug": "jlg-4360525-toggle-switch-spdt-2-position-maintained",
+    "brand": "JLG",
+    "oem": "4360525",
+    "bucket": "switches",
+    "vendor_pn": "JL4360525"
+  },
+  {
+    "sku": "jlg-7020176-contact-block-n-c",
+    "slug": "jlg-7020176-contact-block-n-c",
+    "brand": "JLG",
+    "oem": "7020176",
+    "bucket": "switches",
+    "vendor_pn": "JL7020176"
+  },
+  {
+    "sku": "skyjack-102572-push-pull-engine-on-off-switch",
+    "slug": "skyjack-102572-push-pull-engine-on-off-switch",
+    "brand": "Skyjack",
+    "oem": "102572",
+    "bucket": "switches",
+    "vendor_pn": "SJ102572"
+  },
+  {
+    "sku": "skyjack-102692-push-button-switch",
+    "slug": "skyjack-102692-push-button-switch",
+    "brand": "Skyjack",
+    "oem": "102692",
+    "bucket": "switches",
+    "vendor_pn": "SJ102692"
+  },
+  {
+    "sku": "skyjack-102753-key-switch-3-position-maintained",
+    "slug": "skyjack-102753-key-switch-3-position-maintained",
+    "brand": "Skyjack",
+    "oem": "102753",
+    "bucket": "switches",
+    "vendor_pn": "SJ102753"
+  },
+  {
+    "sku": "skyjack-102769-e-stop-button",
+    "slug": "skyjack-102769-e-stop-button",
+    "brand": "Skyjack",
+    "oem": "102769",
+    "bucket": "switches",
+    "vendor_pn": "SJ102769"
+  },
+  {
+    "sku": "skyjack-102836-rotary-switch-selector-2-position-maintained",
+    "slug": "skyjack-102836-rotary-switch-selector-2-position-maintained",
+    "brand": "Skyjack",
+    "oem": "102836",
+    "bucket": "switches",
+    "vendor_pn": "SJ102836"
+  },
+  {
+    "sku": "skyjack-102837-rotary-switch-selector-3-position-momentary",
+    "slug": "skyjack-102837-rotary-switch-selector-3-position-momentary",
+    "brand": "Skyjack",
+    "oem": "102837",
+    "bucket": "switches",
+    "vendor_pn": "SJ102837"
+  },
+  {
+    "sku": "skyjack-102851-black-push-button-switch",
+    "slug": "skyjack-102851-black-push-button-switch",
+    "brand": "Skyjack",
+    "oem": "102851",
+    "bucket": "switches",
+    "vendor_pn": "SJ102851"
+  },
+  {
+    "sku": "skyjack-102853-toggle-switch-spdt-3-position-momentary",
+    "slug": "skyjack-102853-toggle-switch-spdt-3-position-momentary",
+    "brand": "Skyjack",
+    "oem": "102853",
+    "bucket": "switches",
+    "vendor_pn": "SJ102853"
+  },
+  {
+    "sku": "skyjack-103100-switch-base",
+    "slug": "skyjack-103100-switch-base",
+    "brand": "Skyjack",
+    "oem": "103100",
+    "bucket": "switches",
+    "vendor_pn": "SJ103100"
+  },
+  {
+    "sku": "skyjack-103141-contact-block-n-o",
+    "slug": "skyjack-103141-contact-block-n-o",
+    "brand": "Skyjack",
+    "oem": "103141",
+    "bucket": "switches",
+    "vendor_pn": "SJ103141"
+  },
+  {
+    "sku": "skyjack-137793-rotary-switch-selector-3-position-maintained",
+    "slug": "skyjack-137793-rotary-switch-selector-3-position-maintained",
+    "brand": "Skyjack",
+    "oem": "137793",
+    "bucket": "switches",
+    "vendor_pn": "SJ137793"
+  },
+  {
+    "sku": "skyjack-103225-contact-block-n-c",
+    "slug": "skyjack-103225-contact-block-n-c",
+    "brand": "Skyjack",
+    "oem": "103225",
+    "bucket": "switches",
+    "vendor_pn": "SJ103225"
+  },
+  {
+    "sku": "skyjack-108854-green-push-button-switch",
+    "slug": "skyjack-108854-green-push-button-switch",
+    "brand": "Skyjack",
+    "oem": "108854",
+    "bucket": "switches",
+    "vendor_pn": "SJ108854"
+  },
+  {
+    "sku": "skyjack-111181-switch-guard",
+    "slug": "skyjack-111181-switch-guard",
+    "brand": "Skyjack",
+    "oem": "111181",
+    "bucket": "switches",
+    "vendor_pn": "SJ111181"
+  },
+  {
+    "sku": "skyjack-111627-toggle-switch-dpdt-3-position-maintained",
+    "slug": "skyjack-111627-toggle-switch-dpdt-3-position-maintained",
+    "brand": "Skyjack",
+    "oem": "111627",
+    "bucket": "switches",
+    "vendor_pn": "SJ111627"
+  },
+  {
+    "sku": "skyjack-114373-toggle-switch-dpdt-2-position-maintained",
+    "slug": "skyjack-114373-toggle-switch-dpdt-2-position-maintained",
+    "brand": "Skyjack",
+    "oem": "114373",
+    "bucket": "switches",
+    "vendor_pn": "SJ114373"
+  },
+  {
+    "sku": "skyjack-115574-toggle-switch-spdt-3-position-maintained",
+    "slug": "skyjack-115574-toggle-switch-spdt-3-position-maintained",
+    "brand": "Skyjack",
+    "oem": "115574",
+    "bucket": "switches",
+    "vendor_pn": "SJ115574"
+  },
+  {
+    "sku": "skyjack-119726-main-disconnect-switch",
+    "slug": "skyjack-119726-main-disconnect-switch",
+    "brand": "Skyjack",
+    "oem": "119726",
+    "bucket": "switches",
+    "vendor_pn": "SJ119726"
+  },
+  {
+    "sku": "skyjack-124446-toggle-switch-dpdt-3-position-maintained",
+    "slug": "skyjack-124446-toggle-switch-dpdt-3-position-maintained",
+    "brand": "Skyjack",
+    "oem": "124446",
+    "bucket": "switches",
+    "vendor_pn": "SJ124446"
+  },
+  {
+    "sku": "skyjack-133762-key-switch-3-position-maintained",
+    "slug": "skyjack-133762-key-switch-3-position-maintained",
+    "brand": "Skyjack",
+    "oem": "133762",
+    "bucket": "switches",
+    "vendor_pn": "SJ133762"
+  },
+  {
+    "sku": "skyjack-137781-switch-base",
+    "slug": "skyjack-137781-switch-base",
+    "brand": "Skyjack",
+    "oem": "137781",
+    "bucket": "switches",
+    "vendor_pn": "SJ137781"
+  },
+  {
+    "sku": "skyjack-137782-contact-block-n-o",
+    "slug": "skyjack-137782-contact-block-n-o",
+    "brand": "Skyjack",
+    "oem": "137782",
+    "bucket": "switches",
+    "vendor_pn": "SJ137782"
+  },
+  {
+    "sku": "skyjack-137783-contact-block-n-c",
+    "slug": "skyjack-137783-contact-block-n-c",
+    "brand": "Skyjack",
+    "oem": "137783",
+    "bucket": "switches",
+    "vendor_pn": "SJ137783"
+  },
+  {
+    "sku": "skyjack-137785-red-led-block",
+    "slug": "skyjack-137785-red-led-block",
+    "brand": "Skyjack",
+    "oem": "137785",
+    "bucket": "switches",
+    "vendor_pn": "SJ137785"
+  },
+  {
+    "sku": "skyjack-137786-contact-block-base-w-1-n-o",
+    "slug": "skyjack-137786-contact-block-base-w-1-n-o",
+    "brand": "Skyjack",
+    "oem": "137786",
+    "bucket": "switches",
+    "vendor_pn": "SJ137786"
+  },
+  {
+    "sku": "skyjack-137792-black-push-button-switch",
+    "slug": "skyjack-137792-black-push-button-switch",
+    "brand": "Skyjack",
+    "oem": "137792",
+    "bucket": "switches",
+    "vendor_pn": "SJ137792"
+  },
+  {
+    "sku": "skyjack-137794-rotary-switch-selector-2-position-maintained",
+    "slug": "skyjack-137794-rotary-switch-selector-2-position-maintained",
+    "brand": "Skyjack",
+    "oem": "137794",
+    "bucket": "switches",
+    "vendor_pn": "SJ137794"
+  },
+  {
+    "sku": "skyjack-137795-e-stop-switch-kit",
+    "slug": "skyjack-137795-e-stop-switch-kit",
+    "brand": "Skyjack",
+    "oem": "137795",
+    "bucket": "switches",
+    "vendor_pn": "SJ137795"
+  },
+  {
+    "sku": "skyjack-147051-e-stop-button",
+    "slug": "skyjack-147051-e-stop-button",
+    "brand": "Skyjack",
+    "oem": "147051",
+    "bucket": "switches",
+    "vendor_pn": "SJ147051"
+  },
+  {
+    "sku": "skyjack-147053-contact-block-n-c",
+    "slug": "skyjack-147053-contact-block-n-c",
+    "brand": "Skyjack",
+    "oem": "147053",
+    "bucket": "switches",
+    "vendor_pn": "SJ147053"
+  },
+  {
+    "sku": "skyjack-147054-contact-block-n-o",
+    "slug": "skyjack-147054-contact-block-n-o",
+    "brand": "Skyjack",
+    "oem": "147054",
+    "bucket": "switches",
+    "vendor_pn": "SJ147054"
+  },
+  {
+    "sku": "skyjack-147056-switch-base",
+    "slug": "skyjack-147056-switch-base",
+    "brand": "Skyjack",
+    "oem": "147056",
+    "bucket": "switches",
+    "vendor_pn": "SJ147056"
+  },
+  {
+    "sku": "skyjack-147058-black-push-button-switch",
+    "slug": "skyjack-147058-black-push-button-switch",
+    "brand": "Skyjack",
+    "oem": "147058",
+    "bucket": "switches",
+    "vendor_pn": "SJ147058"
+  },
+  {
+    "sku": "skyjack-147069-rotary-switch-selector-3-position-momentary",
+    "slug": "skyjack-147069-rotary-switch-selector-3-position-momentary",
+    "brand": "Skyjack",
+    "oem": "147069",
+    "bucket": "switches",
+    "vendor_pn": "SJ147069"
+  },
+  {
+    "sku": "skyjack-147211-green-push-button-switch",
+    "slug": "skyjack-147211-green-push-button-switch",
+    "brand": "Skyjack",
+    "oem": "147211",
+    "bucket": "switches",
+    "vendor_pn": "SJ147211"
+  },
+  {
+    "sku": "skyjack-147229-led-block",
+    "slug": "skyjack-147229-led-block",
+    "brand": "Skyjack",
+    "oem": "147229",
+    "bucket": "switches",
+    "vendor_pn": "SJ147229"
+  },
+  {
+    "sku": "skyjack-147233-rotary-switch-selector-2-position-maintained",
+    "slug": "skyjack-147233-rotary-switch-selector-2-position-maintained",
+    "brand": "Skyjack",
+    "oem": "147233",
+    "bucket": "switches",
+    "vendor_pn": "SJ147233"
+  },
+  {
+    "sku": "skyjack-149605-key-switch-3-position-maintained",
+    "slug": "skyjack-149605-key-switch-3-position-maintained",
+    "brand": "Skyjack",
+    "oem": "149605",
+    "bucket": "switches",
+    "vendor_pn": "SJ149605"
+  },
+  {
+    "sku": "skyjack-300802-toggle-switch-dpdt-3-position-maintained",
+    "slug": "skyjack-300802-toggle-switch-dpdt-3-position-maintained",
+    "brand": "Skyjack",
+    "oem": "300802",
+    "bucket": "switches",
+    "vendor_pn": "SJ300802"
+  },
+  {
+    "sku": "skyjack-701930-toggle-switch-spdt-2-position-maintained",
+    "slug": "skyjack-701930-toggle-switch-spdt-2-position-maintained",
+    "brand": "Skyjack",
+    "oem": "701930",
+    "bucket": "switches",
+    "vendor_pn": "SJ701930"
+  },
+  {
+    "sku": "genie-71484-level-sensor",
+    "slug": "genie-71484-level-sensor",
+    "brand": "Genie",
+    "oem": "71484",
+    "bucket": "sensors",
+    "vendor_pn": "GN71484"
+  },
+  {
+    "sku": "genie-78674-level-sensor",
+    "slug": "genie-78674-level-sensor",
+    "brand": "Genie",
+    "oem": "78674",
+    "bucket": "sensors",
+    "vendor_pn": "GN78674"
+  },
+  {
+    "sku": "genie-40836-level-sensor",
+    "slug": "genie-40836-level-sensor",
+    "brand": "Genie",
+    "oem": "40836",
+    "bucket": "sensors",
+    "vendor_pn": "GN40836"
+  },
+  {
+    "sku": "jlg-1001102811-level-sensor",
+    "slug": "jlg-1001102811-level-sensor",
+    "brand": "JLG",
+    "oem": "1001102811",
+    "bucket": "sensors",
+    "vendor_pn": "JL1001102811"
+  },
+  {
+    "sku": "jlg-4360348-level-sensor",
+    "slug": "jlg-4360348-level-sensor",
+    "brand": "JLG",
+    "oem": "4360348",
+    "bucket": "sensors",
+    "vendor_pn": "JL4360348"
+  },
+  {
+    "sku": "jlg-4360357-level-sensor",
+    "slug": "jlg-4360357-level-sensor",
+    "brand": "JLG",
+    "oem": "4360357",
+    "bucket": "sensors",
+    "vendor_pn": "JL4360357"
+  },
+  {
+    "sku": "skyjack-117880-level-sensor",
+    "slug": "skyjack-117880-level-sensor",
+    "brand": "Skyjack",
+    "oem": "117880",
+    "bucket": "sensors",
+    "vendor_pn": "SJ117880"
+  },
+  {
+    "sku": "skyjack-146660-level-sensor",
+    "slug": "skyjack-146660-level-sensor",
+    "brand": "Skyjack",
+    "oem": "146660",
+    "bucket": "sensors",
+    "vendor_pn": "SJ146660"
+  },
+  {
+    "sku": "skyjack-146661-level-sensor",
+    "slug": "skyjack-146661-level-sensor",
+    "brand": "Skyjack",
+    "oem": "146661",
+    "bucket": "sensors",
+    "vendor_pn": "SJ146661"
+  },
+  {
+    "sku": "skyjack-310585-level-sensor",
+    "slug": "skyjack-310585-level-sensor",
+    "brand": "Skyjack",
+    "oem": "310585",
+    "bucket": "sensors",
+    "vendor_pn": "SJ310585"
+  },
+  {
+    "sku": "genie-19274-spdt-12v-relay",
+    "slug": "genie-19274-spdt-12v-relay",
+    "brand": "Genie",
+    "oem": "19274",
+    "bucket": "relays",
+    "vendor_pn": "GN19274"
+  },
+  {
+    "sku": "genie-34052-spdt-12v-relay",
+    "slug": "genie-34052-spdt-12v-relay",
+    "brand": "Genie",
+    "oem": "34052",
+    "bucket": "relays",
+    "vendor_pn": "GN34052"
+  },
+  {
+    "sku": "genie-34053-spdt-socket-relay",
+    "slug": "genie-34053-spdt-socket-relay",
+    "brand": "Genie",
+    "oem": "34053",
+    "bucket": "relays",
+    "vendor_pn": "GN34053"
+  },
+  {
+    "sku": "genie-61225-spdt-70a-12v-relay",
+    "slug": "genie-61225-spdt-70a-12v-relay",
+    "brand": "Genie",
+    "oem": "61225",
+    "bucket": "relays",
+    "vendor_pn": "GN61225"
+  },
+  {
+    "sku": "jlg-3740049-spdt-12v-30a-relay",
+    "slug": "jlg-3740049-spdt-12v-30a-relay",
+    "brand": "JLG",
+    "oem": "3740049",
+    "bucket": "relays",
+    "vendor_pn": "JL3740049"
+  },
+  {
+    "sku": "jlg-3740059-spdt-12v-50a-relay",
+    "slug": "jlg-3740059-spdt-12v-50a-relay",
+    "brand": "JLG",
+    "oem": "3740059",
+    "bucket": "relays",
+    "vendor_pn": "JL3740059"
+  },
+  {
+    "sku": "jlg-3740067-spdt-12v-70a-relay",
+    "slug": "jlg-3740067-spdt-12v-70a-relay",
+    "brand": "JLG",
+    "oem": "3740067",
+    "bucket": "relays",
+    "vendor_pn": "JL3740067"
+  },
+  {
+    "sku": "jlg-3740077-spdt-6v-30a-relay",
+    "slug": "jlg-3740077-spdt-6v-30a-relay",
+    "brand": "JLG",
+    "oem": "3740077",
+    "bucket": "relays",
+    "vendor_pn": "JL3740077"
+  },
+  {
+    "sku": "jlg-3740080-spdt-12v-30a-relay",
+    "slug": "jlg-3740080-spdt-12v-30a-relay",
+    "brand": "JLG",
+    "oem": "3740080",
+    "bucket": "relays",
+    "vendor_pn": "JL3740080"
+  },
+  {
+    "sku": "jlg-3740112-spdt-12v-75a-relay",
+    "slug": "jlg-3740112-spdt-12v-75a-relay",
+    "brand": "JLG",
+    "oem": "3740112",
+    "bucket": "relays",
+    "vendor_pn": "JL3740112"
+  },
+  {
+    "sku": "skyjack-102479-spdt-relay-socket",
+    "slug": "skyjack-102479-spdt-relay-socket",
+    "brand": "Skyjack",
+    "oem": "102479",
+    "bucket": "relays",
+    "vendor_pn": "SJ102479"
+  },
+  {
+    "sku": "skyjack-103207-dpdt-12v-relay",
+    "slug": "skyjack-103207-dpdt-12v-relay",
+    "brand": "Skyjack",
+    "oem": "103207",
+    "bucket": "relays",
+    "vendor_pn": "SJ103207"
+  },
+  {
+    "sku": "skyjack-103271-dpdt-relay-socket",
+    "slug": "skyjack-103271-dpdt-relay-socket",
+    "brand": "Skyjack",
+    "oem": "103271",
+    "bucket": "relays",
+    "vendor_pn": "SJ103271"
+  },
+  {
+    "sku": "skyjack-103316-spdt-12v-relay",
+    "slug": "skyjack-103316-spdt-12v-relay",
+    "brand": "Skyjack",
+    "oem": "103316",
+    "bucket": "relays",
+    "vendor_pn": "SJ103316"
+  },
+  {
+    "sku": "skyjack-103731-spdt-12v-40a-relay",
+    "slug": "skyjack-103731-spdt-12v-40a-relay",
+    "brand": "Skyjack",
+    "oem": "103731",
+    "bucket": "relays",
+    "vendor_pn": "SJ103731"
+  },
+  {
+    "sku": "skyjack-111956-spdt-12v-relay-36486-36951-plug-in-type",
+    "slug": "skyjack-111956-spdt-12v-relay-36486-36951-plug-in-type",
+    "brand": "Skyjack",
+    "oem": "111956",
+    "bucket": "relays",
+    "vendor_pn": "SJ111956"
+  },
+  {
+    "sku": "skyjack-111958-tpdt-relay-socket",
+    "slug": "skyjack-111958-tpdt-relay-socket",
+    "brand": "Skyjack",
+    "oem": "111958",
+    "bucket": "relays",
+    "vendor_pn": "SJ111958"
+  },
+  {
+    "sku": "skyjack-121459-spdt-relay-socket-retainer-clip",
+    "slug": "skyjack-121459-spdt-relay-socket-retainer-clip",
+    "brand": "Skyjack",
+    "oem": "121459",
+    "bucket": "relays",
+    "vendor_pn": "SJ121459"
+  },
+  {
+    "sku": "skyjack-121460-dpdt-relay-socket-retainer-clip",
+    "slug": "skyjack-121460-dpdt-relay-socket-retainer-clip",
+    "brand": "Skyjack",
+    "oem": "121460",
+    "bucket": "relays",
+    "vendor_pn": "SJ121460"
+  },
+  {
+    "sku": "skyjack-127035-spdt-12v-40a-relay",
+    "slug": "skyjack-127035-spdt-12v-40a-relay",
+    "brand": "Skyjack",
+    "oem": "127035",
+    "bucket": "relays",
+    "vendor_pn": "SJ127035"
+  },
+  {
+    "sku": "skyjack-127131-spdt-12v-40a-relay",
+    "slug": "skyjack-127131-spdt-12v-40a-relay",
+    "brand": "Skyjack",
+    "oem": "127131",
+    "bucket": "relays",
+    "vendor_pn": "SJ127131"
+  },
+  {
+    "sku": "genie-112392-20a-circuit-breaker",
+    "slug": "genie-112392-20a-circuit-breaker",
+    "brand": "Genie",
+    "oem": "112392",
+    "bucket": "fuses",
+    "vendor_pn": "GN112392"
+  },
+  {
+    "sku": "genie-147095-20a-circuit-breaker",
+    "slug": "genie-147095-20a-circuit-breaker",
+    "brand": "Genie",
+    "oem": "147095",
+    "bucket": "fuses",
+    "vendor_pn": "GN147095"
+  },
+  {
+    "sku": "genie-96452-7a-circuit-breaker",
+    "slug": "genie-96452-7a-circuit-breaker",
+    "brand": "Genie",
+    "oem": "96452",
+    "bucket": "fuses",
+    "vendor_pn": "GN96452"
+  },
+  {
+    "sku": "jlg-4360070-15a-circuit-breaker",
+    "slug": "jlg-4360070-15a-circuit-breaker",
+    "brand": "JLG",
+    "oem": "4360070",
+    "bucket": "fuses",
+    "vendor_pn": "JL4360070"
+  },
+  {
+    "sku": "jlg-4360212-3a-circuit-breaker",
+    "slug": "jlg-4360212-3a-circuit-breaker",
+    "brand": "JLG",
+    "oem": "4360212",
+    "bucket": "fuses",
+    "vendor_pn": "JL4360212"
+  },
+  {
+    "sku": "jlg-4360216-30a-circuit-breaker",
+    "slug": "jlg-4360216-30a-circuit-breaker",
+    "brand": "JLG",
+    "oem": "4360216",
+    "bucket": "fuses",
+    "vendor_pn": "JL4360216"
+  },
+  {
+    "sku": "jlg-4360232-15a-circuit-breaker",
+    "slug": "jlg-4360232-15a-circuit-breaker",
+    "brand": "JLG",
+    "oem": "4360232",
+    "bucket": "fuses",
+    "vendor_pn": "JL4360232"
+  },
+  {
+    "sku": "jlg-4360448-10a-circuit-breaker",
+    "slug": "jlg-4360448-10a-circuit-breaker",
+    "brand": "JLG",
+    "oem": "4360448",
+    "bucket": "fuses",
+    "vendor_pn": "JL4360448"
+  },
+  {
+    "sku": "skyjack-117325-15a-circuit-breaker",
+    "slug": "skyjack-117325-15a-circuit-breaker",
+    "brand": "Skyjack",
+    "oem": "117325",
+    "bucket": "fuses",
+    "vendor_pn": "SJ117325"
+  },
+  {
+    "sku": "skyjack-117326-20a-circuit-breaker",
+    "slug": "skyjack-117326-20a-circuit-breaker",
+    "brand": "Skyjack",
+    "oem": "117326",
+    "bucket": "fuses",
+    "vendor_pn": "SJ117326"
+  },
+  {
+    "sku": "skyjack-128595-300a-fuse",
+    "slug": "skyjack-128595-300a-fuse",
+    "brand": "Skyjack",
+    "oem": "128595",
+    "bucket": "fuses",
+    "vendor_pn": "SJ128595"
+  },
+  {
+    "sku": "skyjack-137919-25a-circuit-breaker",
+    "slug": "skyjack-137919-25a-circuit-breaker",
+    "brand": "Skyjack",
+    "oem": "137919",
+    "bucket": "fuses",
+    "vendor_pn": "SJ137919"
+  }
+]

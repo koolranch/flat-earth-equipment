@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import BrandRtScissorSection from '@/components/parts/BrandRtScissorSection';
 
 type PlateTip = { equipment_type:string; series:string|null; location_notes:string; };
 type RangeRow = { model_code:string; serial_range:string; notes:string|null };
@@ -123,6 +124,8 @@ export default function Page(){
           )}
         </div>
       )}
+
+      <BrandRtScissorSection brand="skyjack" brandLabel="Skyjack" />
     </div>
   );
 }

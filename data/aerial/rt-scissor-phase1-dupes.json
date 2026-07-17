@@ -1,0 +1,29 @@
+[
+  {
+    "intake": {
+      "vendor_pn": "JL1810140",
+      "brand": "JLG",
+      "oem_display": "1810140",
+      "description": "Level sensor",
+      "category": "LEVEL SENSORS",
+      "category_bucket": "sensors",
+      "compatible_models": [
+        "3394 RT",
+        "4394 RT"
+      ],
+      "sn_from": "184436",
+      "sn_to": "Up",
+      "qty": "1",
+      "notes": "sn_breaks=3394 RT:184436-Up;4394 RT:184436-Up",
+      "phase": "1",
+      "publish_status": "pending",
+      "slug": "jlg-1810140-level-sensor"
+    },
+    "matches": [
+      {
+        "sku": "1810140",
+        "slug": "jlg-1810140-sensor"
+      }
+    ]
+  }
+]

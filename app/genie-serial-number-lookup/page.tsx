@@ -5,6 +5,7 @@ import Link from "next/link";
 import Script from "next/script";
 import { Search, CheckCircle, MapPin, Wrench, Settings, Calendar, Info, ExternalLink } from "lucide-react";
 import BrandHubBanner from '@/components/brand/BrandHubBanner';
+import BrandRtScissorSection from '@/components/parts/BrandRtScissorSection';
 import SerialToolJsonLd from '@/components/seo/SerialToolJsonLd';
 
 type ApiResponse = {
@@ -483,6 +484,8 @@ export default function GenieLookupPage() {
               on the frame. Genie typically stamps the serial number directly into the metal as a backup.
             </p>
           </div>
+
+          <BrandRtScissorSection brand="genie" brandLabel="Genie" />
         </div>
       </main>
     </>

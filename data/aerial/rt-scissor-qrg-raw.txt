@@ -1,0 +1,1361 @@
+
+
+===== PAGE 1 =====
+www.tvh.com 
+United States
+Olathe, Kansas 
+(800) 255-4109
+Duncan, South Carolina
+Grayslake, Illinois
+Elizabethtown, Pennsylvania
+Miami, Florida
+Mira Loma, California
+Portland, Oregon
+Shreveport, Louisiana
+Latin America and the Caribbean
++1 (913) 768-3099
+Canada
+Mississauga, Ontario
+(800) 509-7668
+Port Coquitlam, British Columbia
+(888) 661-8611 
+Mexico
+Cuautitlán Izcalli, EDM
++52 (55) 5861-8550 
+Santa Catarina, N.L.
+01 800 220-1884
+Brazil 
+Vinhedo, São Paulo
+Araquari, Santa Catarina
++55 (19) 3045-4250
+Belgium
+Waregem
++32 56 43 42 11
+SYPNRTQRG 2003034
+
+===== PAGE 2 =====
+ROUGH TERRAIN SCISSOR LIFTS
+QUICK REFERENCE GUIDE
+GUÍA DE REFERENCIA   GUIDE DE RÉFÉRENCE FACILE
+
+
+===== PAGE 3 =====
+1
+www.tvh.com
+GENIE
+ GS68 RT ...........................................2-3
+ GS84 RT ...........................................3-4
+ GS90 RT ...........................................4-5
+ 
+JLG (E/E2/E3/ES)
+ 260 MRT ...........................................6
+ 400/500 RTS .....................................7
+ 3394/4394 RT ...................................8
+SKYJACK
+ SJRT 6826/6832 ...............................9
+ SJRT 7127/7135 ...............................10-11
+ SJRT 8831 ........................................12-13
+ SJRT 8841 ........................................14-15
+ SJRT 9241/9250 ...............................16-17
+ 
+REFERENCES
+ SKYJACK controllers
+     Joystick upgrades ............................18
+ Manuals ...............................................18
+ Manual cases.......................................18
+ HD horns .............................................18
+ Switch styles
+  Toggle  .............................................19
+  Push button....................................20  
+  E-stop  .............................................20
+  Key switch ......................................21
+  Selector  ..........................................21
+  Base with contact kits ...................22
+  Bases  .............................................22
+  Contacts  .........................................22
+ Floyd Bell Piezo alarms ......................23
+ Aerial tool bin ......................................24
+TABLE OF CONTENTS
+Product by model
+
+===== PAGE 4 =====
+ GENIE
+2
+www.tvh.com
+GENIE  GS68 RT
+Part # Description Qty   S/N From S/N To Notes
+ACCESSORIES
+GN39540 Descent alarm 1 1 Up
+GN81578 Horn 1 1 Up
+GN19506 Hour meter gauge 1 1 Up
+GN105107 Strobe light 1 1 Up
+GN62164 Tilt alarm 1 1 Up
+CONTROLLERS
+GN62161 Joystick controller 1 1 42831 Single axis, drive/steer
+GN78903 Joystick controller 1 42382 Up Single axis, drive/steer
+GN62162 Platform controls - coil cord 1 1 42381 w/trident connector
+GN144065 Platform controls - coil cord 1 42382 Up w/Deutsch plug
+DECALS / LABELS
+GN43091 General safety 1 1 44988
+GN1000042 General safety 1 44989 Up
+GN48705 Ground controls 1 1 41199
+GN72989 Ground controls 1 42000 42381
+GN82418 Ground controls 1 42382 44988
+GN82721 Ground controls 44989 Up
+GN52392 Safety kit 1 1 41199 Dual fuel
+GN84405 Safety kit (words) 1 42000 42381 Dual fuel
+GN97365 Safety kit (symbols) 1 42382 Up Dual fuel
+GN52393 Safety kit 1 1 41199 Diesel
+GN84406 Safety kit (words) 1 42000 42381 Diesel
+GN84749 Safety kit (words) 1 42382 43183 Diesel
+GN97364 Safety kit (words) 1 43184 44988 Diesel
+GN131339 Safety kit (words) 1 44949 Up Diesel
+GN71245 Upper control box overlay 1 1 42381 Dual fuel, w/outriggers
+GN48695 Upper control box overlay 1 1 42381 Diesel, w/o outriggers
+GN48694 Upper control box overlay 1 1 42381 Dual fuel, w/o outriggers
+GN71246 Upper control box overlay 1 1 42381 Diesel, w/outriggers
+GN82417 Upper control box overlay 1 42382 Up
+DIODES / RELAYS
+GN34052 SPDT 12V relay A/R 1 Up Plug-in
+GN34053 SPDT socket relay A/R 1 Up
+FUSES / CIRCUIT BREAKERS
+GN96452 7A circuit breaker 1 1 Up
+GN147095 20A circuit breaker 1 1 Up
+LEVEL SENSORS
+GN40836 Level sensor 1 1 41753
+GN78674 Level sensor 1 41754 Up
+GN71484 Level sensor 1 1 Up Models w/outriggers
+SWITCHES - VERIFY STYLE REFER TO PAGES 19-22
+GN66814 Block base w/2 N.O. contacts A/R 1 Up
+GN66815 Block base w/1 N.O. contacts A/R 1 Up
+GN66817 Block base w/1 N.C. contacts A/R 1 Up
+GN66818 Contact block N.C. A/R 1 Up
+GN66816 Contact block N.O. A/R 1 Up
+GN66761 E-stop switch kit A/R 1 37961
+GN66812 E-stop button A/R 37692 Up
+GN96011 Key switch kit - 3 position w/terminals 1 1 37961
+GN66811 Key switch - 3 position maintained 1 37862 41823
+GN96008-S Key switch - 3 position maintained 1 41824 Up
+GN62166 Push button switch 1 1 Up Low range
+GN62167 Push button switch 1 1 Up High range
+GN66813 Push button switch 2 1 Up
+GN27246 Toggle boot switch A/R 1 Up
+GN27378-S Toggle switch DPDT - 2 position maintained A/R 1 Up
+GN13480-S Toggle switch DPDT - 2 position momentary A/R 1 Up
+GN13037-S Toggle switch SPDT - 3 position momentary A/R 1 Up
+GN62165 Toggle switch SPDT - 3 position momentary 1 1 Up
+VALVES
+GN44170 Solenoid brake  1 1 44770
+GN97467 Solenoid brake  44771 Up
+GN52372 Solenoid proportional  1 1 Up
+GN52380 Solenoid steering  1 1 44770
+GN44168 Solenoid steering  1 44771 Up
+
+===== PAGE 5 =====
+ GENIE
+3
+www.tvh.com
+GENIE  GS68 RT  Continued
+GENIE  GS84 RT
+Part # Description Qty   S/N From S/N To Notes
+WHEELS / TIRES
+GN79100 26 x 12 D380 tire A/R 1 Up Require foam filled
+GN79099 15 x 10 wheel A/R 1 Up
+GN79101 Left wheel assy A/R 1 Up Foam filled
+GN79102 Right wheel assy A/R 1 Up Foam filled
+GN104843 26 x 12 D380 tire (non marking) A/R 1 Up Require foam filled
+GN79099 15 x 10 wheel A/R 1 Up
+GN104841 Left wheel assy (non marking) A/R 1 Up Foam filled
+GN104842 Right wheel assy (non marking) A/R 1 Up Foam filled
+Part # Description QTY   S/N From S/N To Notes
+ACCESSORIES
+GN39540 Descent alarm 1 40001 Up
+GN81578 Horn 1 40001 Up
+GN19506 Hour meter gauge 1 40001 Up
+GN105107 Strobe light 1 40001 Up
+GN62164 Tilt alarm 1 40001 Up
+CONTROLLERS
+GN62161 Joystick controller 1 40001 40212 Single axis, drive/steer
+GN78903 Joystick controller 1 40213 Up Single axis, drive/steer
+GN62162 Platform controls - coil cord 1 40001 40212 w/trident connector
+GN144065 Platform controls - coil cord 1 40213 Up w/Deutsch plug
+DECALS / LABELS
+GN43091 General safety  1 40001 40965
+GN1000042 General safety  1 40966 Up
+GN72452 Ground controls  1 40001 40212
+GN82418 Ground controls  1 40213 40832
+GN82798 Ground controls  1 40833 Up
+GN84837 Safety kit (symbols) 1 40001 Up
+GN97374 Safety kit (words) 1 40001 40212
+GN84836 Safety kit (words) 1 40213 40965
+GN114046 Safety kit (words) 1 40966 Up
+GN48694 Upper control box overlay 1 40001 40212 Dual fuel, w/o outriggers
+GN71245 Upper control box overlay 1 40001 40212 Dual fuel, w/outriggers
+GN48695 Upper control box overlay 1 40001 40212 Diesel, w/o outriggers
+GN71246 Upper control box overlay 1 40001 40212 Diesel, w/outriggers
+GN82417 Upper control box overlay 1 40213 Up
+DIODES / RELAYS
+GN34052 SPDT 12V relay A/R 40001 Up Plug-in
+GN19274 SPDT 12V relay A/R 40213 40832
+GN61225 SPDT 70A 12V relay 1 41848 Up
+GN34053 SPDT socket relay A/R 40001 Up
+FUSES / CIRCUIT BREAKERS
+GN147095 20A circuit breaker 1 40001 Up
+GN112392 20A circuit breaker 1 40833 Up Dual fuel
+LEVEL SENSORS
+GN40836 Level sensor 1 40001 40076
+GN78674 Level sensor 1 40077 Up
+GN71484 Level sensor 1 40001 Up Models w/outriggers
+SWITCHES - VERIFY STYLE REFER TO PAGES 19-22
+GN66817 Block base w/1 N.C. contacts A/R 40132 Up
+GN66818 Contact block N.C. A/R 40132 Up
+GN124641 E-stop switch kit A/R 40001 40131
+GN66812 E-stop button A/R 40132 Up
+GN96011 Key switch kit - 3 position w/terminals 1 40001 40131
+GN66811 Key switch - 3 position maintained 1 40132 40212
+GN96008-S Key switch - 3 position maintained 1 40213 Up
+GN62166 Push button switch 1 40001 40832 Low range
+GN62167 Push button switch 1 40001 40832 High range
+GN99164 Rocker switch 1 40213 Up Analog
+GN27246 Toggle boot switch A/R 40001 Up
+GN27378-S Toggle switch DPDT - 2 position maintained A/R 40001 40832
+GN13480-S Toggle switch DPDT - 2 position momentary A/R 40001 Up
+GN13037-S Toggle switch SPDT - 3 position momentary A/R 40001 40832
+GN62165 Toggle switch SPDT - 3 position momentary A/R 40001 40832
+
+===== PAGE 6 =====
+ GENIE
+4
+www.tvh.com
+GENIE  GS84 RT  Continued
+GENIE  GS90 RT  
+Part # Description QTY   S/N From S/N To Notes
+VALVES
+GN84128 Solenoid brake 1 40001 40296
+GN89862 Solenoid brake 1 40297 Up
+GN84108 Solenoid proportional 1 40001 Up
+GN84109 Solenoid steering 1 40001 Up
+WHEELS / TIRES
+GN73925 33/16 LL500 10 ply tire A/R 40001 Up
+GN73924 19.5 x 14.00 wheel A/R 40001 Up
+GN73923 33/16 LL500 wheel assy A/R 40001 Up Air filled
+GN131341 Left wheel assy A/R 40001 Up Foam filled
+GN131340 Right wheel assy A/R 40001 Up Foam filled
+Part # Description QTY   S/N From S/N To Notes
+ACCESSORIES
+GN39540 Descent alarm 1 40001 Up
+GN81578 Horn 1 40001 Up
+GN19506 Hour meter gauge 1 40001 Up
+GN105107 Strobe light 1 40001 Up
+GN62164 Tilt alarm 1 40001 Up
+CONTROLLERS
+GN62161 Joystick controller 1 40001 41522 Single axis, drive/steer
+GN78903 Joystick controller 1 41523 Up Single axis, drive/steer
+GN62162 Platform controls - coil cord 1 40001 41522 w/trident connector
+GN144065 Platform controls - coil cord 1 41523 Up w/Deutsch plug
+DECALS / LABELS
+GN43091 General safety  1 40001 42904
+GN1000042 General safety  1 42905 Up
+GN72452 Ground controls  1 40001 40832
+GN82418 Ground controls  1 40833 Up
+GN84837 Safety kit (symbols) 1 40001 42685
+GN97374 Safety kit (words) 1 40001 41522
+GN84836 Safety kit (words) 1 41523 42904
+GN114046 Safety kit (words) 1 42905 Up
+GN48694 Upper control box overlay 1 40001 41522 Dual fuel, w/o outriggers
+GN71245 Upper control box overlay 1 40001 41522 Dual fuel, w/outriggers
+GN48695 Upper control box overlay 1 40001 41522 Diesel, w/o outriggers
+GN71246 Upper control box overlay 1 40001 41522 Diesel, w/outriggers
+GN82417 Upper control box overlay 1 41523 Up
+DIODES / RELAYS
+GN34052 SPDT 12V relay A/R 40001 Up Plug-in
+GN19274 SPDT 12V relay A/R 40001 Up
+GN61225 SPDT 70A 12V relay 1 46174 Up
+GN34053 SPDT socket relay A/R 40001 Up
+FUSES / CIRCUIT BREAKERS
+GN147095 20A circuit breaker 1 40001 UP
+GN112392 20A circuit breaker 1 42686 UP Dual fuel models
+LEVEL SENSORS
+GN40836 Level sensor 1 40001 41157
+GN78674 Level sensor 1 41158 Up
+GN71484 Level sensor 1 40001 Up Models w/outriggers
+SWITCHES - VERIFY STYLE REFER TO PAGES 19-22
+GN66817 Block base w/1 N.C. contact A/R 40086 Up
+GN66818 Contact block N.C. A/R 40086 Up
+GN124641 E-stop switch kit A/R 40001 40085
+GN66812 E-stop button A/R 40086 Up
+GN96011 Key switch kit - 3 position w/terminals 1 40001 40085
+GN66811 Key switch - 3 position maintained 1 40086 41350
+GN96008-S Key switch - 3 position maintained 1 41351 Up
+GN62166 Push button switch 1 40001 42685 Low range
+GN62167 Push button switch 1 40001 42685 High range
+GN99164 Rocker switch 1 41523 Up Analog
+GN27246 Toggle boot switch A/R 40001 Up
+
+===== PAGE 7 =====
+ GENIE
+5
+www.tvh.com
+GENIE  GS90 RT  Continued
+Part # Description QTY   S/N From S/N To Notes
+SWITCHES  - VERIFY STYLE REFER TO PAGES 19-22
+GN27378-S Toggle switch DPDT - 2 position maintained A/R 40001 42685
+GN13480-S Toggle switch DPDT - 2 position momentary A/R 40001 Up
+GN13037-S Toggle switch SPDT - 3 position momentary A/R 40001 42685
+GN62165 Toggle switch SPDT - 3 position momentary A/R 40001 42685
+VALVES
+GN62815 Solenoid brake 1 40001 41690
+GN89862 Solenoid brake 1 41691 Up
+GN84108 Solenoid proportional 1 40001 Up
+GN79154 Solenoid steering 1 40001 40518
+GN84109 Solenoid steering 1 40519 Up
+WHEELS / TIRES
+GN73925 33/16 LL500 10 ply tire A/R 40001 Up
+GN73924 19.5 x 14.00 wheel A/R 40001 Up
+GN73923 Wheel assy A/R 40001 Up Air filled
+GN131341 Left wheel assy A/R 40001 Up Foam filled
+GN131340 Right wheel assy A/R 40001 Up Foam filled
+
+===== PAGE 8 =====
+ JLG
+6
+www.tvh.com
+JLG 260 MRT
+Part # Description QTY   S/N From S/N To Notes
+ACCESSORIES
+JL0140044 Descent/motion alarm 1 1 Up
+JL0140001 Horn 1 1 Up
+JL2420172 Hour meter gauge 1 1 Up
+JL2920146 Strobe light 1 1 Up
+JL0140011 Tilt alarm 1 1 Up
+CONTROLLERS
+JL1060846 Emergency down cable 1 1 Up
+JL1600308 Joystick controller 1 1 142022
+JL1600403 Joystick controller 1 142023 Up
+DECALS / LABELS
+JL1703816 General safety 1 1 Up
+JL1704462 Ground controls 1 1 112398
+JL1705729 Ground controls 1 112399 Up
+JL2910480 Safety kit 1 1 Up
+DIODES / RELAYS
+JL3740049 SPDT relay A/R 1 Up
+FUSES / CIRCUIT BREAKERS
+JL4360070 15A circuit breaker 1 1 Up
+LEVEL SENSORS
+JL1001102811 Level sensor 1 1 Up
+SWITCHES - VERIFY STYLE REFER TO PAGES 19-22
+JL7020176 Contact block N.C. 2 1 Up
+JL4360475 E-stop switch kit 2 1 Up
+JL4360469 Key switch 1 1 Up
+JL4060802 Switch guard A/R 1 Up
+JL4360483 Toggle switch SPDT - 2 position momentary A/R 1 Up
+JL4360482 Toggle switch SPDT - 2 position maintained A/R 1 Up
+JL4360331 Toggle switch DPDT - 3 position momentary A/R 1 Up
+JL4360328 Toggle switch SPDT - 3 position momentary A/R 1 Up
+JL4360387 Yellow push button switch A/R 1 Up
+VALVES
+JL7012941 Solenoid brake 1 1 Up
+JL7017410 Solenoid dump 1 1 Up
+JL7021365 Solenoid steering 1 1 Up
+WHEELS / TIRES
+JL4520233 26 x 12.00 tire A/R 1 Up
+JL4860207 15.5 x 10 wheel A/R 1 Up
+JL0259975 26 x 12.00 right wheel assy A/R 1 Up Air filled
+JL0259976 26 x 12.00 left wheel assy A/R 1 Up Air filled
+JL0259977 26 x 12.00 right wheel assy A/R 1 Up Foam filled
+JL0259978 26 x 12.00 left wheel assy A/R 1 Up Foam filled
+
+===== PAGE 9 =====
+ JLG
+7
+www.tvh.com
+JLG 400 / 500 RTS
+Part # Description QTY   S/N From S/N To Notes
+ACCESSORIES
+JL0140044 Descent/motion alarm 1 1 Up
+JL0140032 Horn 1 1 Up
+JL2420009 Hour meter gauge 1 1 Up
+JL2920105 Strobe light 1 1 Up
+JL0140011 Tilt alarm 1 1 Up
+CONTROLLERS
+JL1600157 Joystick controller 1 1 57700
+JL1600290 Joystick controller 1 57701 Up
+DECALS / LABELS
+JL1703816 General safety 1 1 Up
+JL1704480 Platform legend 1 1 Up
+JL2910033 Safety kit 1 1 Up
+DIODES / RELAYS
+JL3740077 SPDT 6V 30A relay 1 1 Up
+JL3740049 SPDT 12V 30A relay A/R 1 Up w/bracket
+JL3740080 SPDT 12V 30A relay A/R 1 Up w/bracket
+JL3740059 SPDT 12V 50A relay 1 1 Up
+JL3740067 SPDT 12V 70A relay 1 1 Up
+FUSES / CIRCUIT BREAKERS
+JL4360212 3A circuit breaker 1 1 Up
+JL4360232 15A circuit breaker 1 1 Up Auto-reset
+JL4360216 30A circuit breaker 1 1 Up Auto-reset
+LEVEL SENSORS
+JL4360348 Level sensor 1 1 Up 400RTS
+JL4360357 Level sensor 1 1 Up 500RTS
+SWITCHES - VERIFY STYLE REFER TO PAGES 19-22
+JL7020176 Contact block N.C. 2 1 Up
+JL4360475 E-stop switch kit 2 1 Up
+JL4360290 Key switch 1 1 65039
+JL4360469 Key switch 1 65040 Up
+JL4360274 Push button switch A/R 1 Up
+JL4060802 Switch guard A/R 1 Up
+JL4360329 Toggle switch SPDT - 2 position maintained A/R 1 Up
+JL4360330 Toggle switch SPDT - 2 position maintained A/R 1 Up
+JL4360314 Toggle switch DPDT - 3 position momentary A/R 1 Up
+JL4360331 Toggle switch DPDT - 3 position momentary A/R 1 Up
+JL4360345 Toggle switch DPDT - 3 position momentary A/R 1 Up
+VALVES
+JL7012941 Solenoid brake 1 1 Up
+JL7012910 Solenoid dump 1 1 Up
+JL4641090 Solenoid steering 1 1 107516
+JL7017433 Solenoid steering 1 107517 Up
+WHEELS / TIRES
+JL4520225 31-13.5 x 15 tire A/R 1 Up Straight rib
+JL4520123 31-16.5 x 15 8 ply tire A/R 1 Up Standard
+JL4860065 15 x 10 wheel A/R 1 Up Option
+JL4843635 15 x 13 wheel A/R 1 Up
+JL4860126 16.5 x 9.75 wheel A/R 1 Up Standard
+JL0273414 31 x 15.5 x 15 left wheel assy A/R 1 Up Standard
+JL0273415 31 x 15.5 x 15 right wheel assy A/R 1 Up Standard
+
+===== PAGE 10 =====
+ JLG
+8
+www.tvh.com
+JLG  3394 / 4394 RT
+Part # Description QTY   S/N From S/N To Notes
+ACCESSORIES
+JL0140032 Descent/motion alarm 1 1 Up
+JL0140001 Horn 1 1 Up
+JL2420172 Hour meter gauge 1 1 Up
+JL2920146 Strobe light 1 1 Up
+JL0140011 Tilt alarm 1 1 Up
+CONTROLLERS
+JL1600308 Joystick controller 1 1 141440
+JL1600403 Joystick controller 1 141441 Up
+DECALS / LABELS
+JL1703816 General safety 1 1 Up
+JL3252796 Lower control box 1 1 112735
+JL1705688 Lower control box 1 112736 Up
+JL1705190 Platform legend 1 1 Up
+JL2910832 Safety kit 1 1 Up
+JL1705913 Upper control box 1 1 Up 1 of 2
+JL1705914 Upper control box 1 1 Up 2 of 2
+DIODES / RELAYS
+JL3740080 SPDT 12V 30A relay A/R 1 Up w/bracket
+JL3740049 SPDT 12V 30A relay A/R 1 Up w/bracket
+JL3740112 SPDT 12V 75A relay 1 1 149012
+JL3740067 SPDT 12V 70A relay A/R 1 Up
+FUSES / CIRCUIT BREAKERS
+JL4360448 10A circuit breaker 1 1 Up
+JL4360070 15A circuit breaker 1 1 Up
+LEVEL SENSORS
+JL1001102811 Level sensor 1 1 184435 Replaces 4360481 & 4000006
+JL1810140 Level sensor 1 184436 Up
+SWITCHES - VERIFY STYLE REFER TO PAGES 19-22
+JL7020176 Contact block N.N. 2 1 Up
+JL4360475 E-stop switch kit 2 1 Up
+JL4360469 Key switch 1 1 Up
+JL4360387 Push button switch A/R 1 Up
+JL4060802 Switch guard A/R 1 Up
+JL4360525 Toggle switch SPDT - 2 position maintained A/R 1 Up
+JL4360328 Toggle switch SPDT - 2 position momentary A/R 1 Up
+JL4360483 Toggle switch SPDT - 2 position momentary 1 1 Up Glow plug
+JL4360482 Toggle switch SPDT - 3 position maintained 1 1 Up Fuel select (dual fuel)
+JL4360524 Toggle switch SPDT - 3 position momentary A/R 1 Up
+VALVES
+JL7024570 Solenoid brake/high speed 2 1 191605
+JL7012941 Solenoid brake/high speed 191606 Up
+JL7024576 Solenoid dump 1 1 191605
+JL7012920 Solenoid dump 1 191606 Up
+JL7021365 Solenoid steering 1 1 191605
+JL7017433 Solenoid steering 1 191606 Up
+WHEELS / TIRES
+JL4520216 12 x 16.5 12 ply tire A/R 1 191605 Lug tire
+JL4520217 33/16LL x 16.5 tire A/R 191606 Up Lug tire
+JL4860213 16.5 x 9.75 wheel A/R 1 191605 Use with 4520216 tire
+JL4860179 16.5 x 12 wheel A/R 1 Up Use with 4520217 tire
+JL0258011 Right wheel assy A/R 1 Up 33/16LL x 16.5 lug
+JL0258012 Left wheel assy A/R 1 Up 33/16LL x 16.5 lug
+
+===== PAGE 11 =====
+SJRT 6826 / 6832
+Part # Description QTY   S/N From S/N To Notes
+ACCESSORIES
+SJ126677 Flashing light 1 370000 Up
+SJ102850 Horn 1 370000 37002163
+SJ146652 Horn 1 37002164 Up
+SJ103336 Hour meter gauge 1 370000 Up
+SJ103056 Tilt alarm 1 370000 Up
+CONTROLLERS
+SJ132537 Joystick controller 1 370000 37003468
+SJ159230 Joystick controller 1 37003469 Up Hall Effect
+DECALS / LABELS
+SJ146526 General safety 1 370000 37003468
+SJ158913 General safety 1 37003469 Up
+SJ137681 Lower controls 1 370000 Up
+SJ127343 Platform control box 1 370000 Up
+SJ139544 Safety kit 1 370000 37002787
+DIODES / RELAYS
+SJ127035 SPDT 12V 40A relay A/R 370000 Up w/bracket 
+SJ127131 SPDT 12V 40A relay A/R 370000 Up w/bracket (outrigger option)
+FUSES / CIRCUIT BREAKERS
+SJ137919 25A circuit breaker 2 370000 Up
+SJ128595 300A Fuse 1 370000 Up
+LEVEL SENSORS
+SJ117880 Level sensor 1 370000 37002163
+SJ146661 Level sensor 1 37002164 Up
+SWITCHES - VERIFY STYLE REFER TO PAGES 19-22
+SJ137792 Black push button switch A/R 370000 Up
+SJ137786 Contact block base w/1 N.O. A/R 370000 Up
+SJ137783 Contact block N.C. A/R 370000 Up
+SJ137782 Contact block N.O. A/R 370000 Up
+SJ137795 E-stop switch kit 2 370000 Up
+SJ133762 Key switch - 3 position maintained 1 370000 Up
+SJ119726 Main disconnect switch 1 370000 Up
+SJ102692 Push button switch A/R 370000 Up
+SJ137785 Red LED block 2 370000 Up
+SJ137794 Rotary switch selector - 2 position maintained 1 370000 Up
+SJ137793 Rotary switch selector - 3 position maintained 1 370000 Up
+SJ137781 Switch base A/R 370000 Up
+SJ102853 Toggle switch SPDT - 3 position momentary A/R 370000 Up
+VALVES
+SJ103655 Brake N.C. 1 370000 Up Feed
+SJ103656 Brake N.O. 1 370000 37002787 Dump
+SJ103623 Brake N.O. 1 37002788 Up Dump
+SJ103656 Dump 1 370000 Up Low volume
+SJ114365 Dump 1 370000 Up High volume
+SJ107271 Emergency lowering 1 370000 Up
+SJ153336 Steer 1 370000 Up Replaces 128797 and 128318
+WHEELS / TIRES
+SJ135905 26 x 12D right wheel assy A/R 370000 Up Foam filled
+SJ135904 26 x 12D left wheel assy A/R 370000 Up Foam filled
+SJ141736 26 x 12D right wheel assy A/R 370000 Up Air filled, 6826 only on units w/
+outriggers and weights
+SJ141735 26 x 12D left wheel assy A/R 370000 Up Air filled, 6826 only on units w/
+outriggers and weights
+ SKYJACK
+9
+www.tvh.com
+
+===== PAGE 12 =====
+ SKYJACK
+10
+www.tvh.com
+Part # Description QTY   S/N From S/N To Notes
+ACCESSORIES
+SJ102850 12V horn 1 340003 34001506
+SJ146652 12V horn 1 34001507 Up
+SJ126677 Flashing light 1 340003 Up
+SJ103336 Hour meter gauge 1 340003 Up
+SJ107098 Rotating light 1 340003 Up
+SJ103056 Tilt alarm 1 340003 Up
+CONTROLLERS
+SJ123995 Joystick controller 1 340003 341123
+SJ132537 Joystick controller 1 340003 34002204 w/enable relay
+SJ159230 Joystick controller 1 34002205 Up Hall Effect
+DECALS / LABELS
+SJ124080 Enable joystick 1 340003 341123 Platform control box
+SJ130800 Enable joystick 1 341124 Up Platform control box
+SJ118277 General safety 1 340000 340268
+SJ128742 General safety 1 340269 34000045
+SJ146526 General safety 1 34000046 34002204
+SJ158913 General safety 1 34002205 Up
+SJ106704 Operator warning 1 340003 341123 Platform control box
+SJ129986 Safety kit 1 340000 340268
+SJ129988 Safety kit 1 340269 341123
+SJ129998 Safety kit 1 341124 34001506
+SJ149812 Safety kit 1 34001507 34001950
+SJ158918 Safety kit 1 34001951 34002204
+SJ160895 Safety kit 1 34002205 Up
+DIODES / RELAYS
+SJ103207 DPDT 12V relay A/R 340003 Up Plug-in type
+SJ103316 SPDT 12V relay A/R 340003 Up Plug-in type
+SJ127035 SPDT 12V 40A relay A/R 340003 Up
+SJ127035 SPDT 12V 40A relay A/R 341124 34001506 w/bracket (outrigger option)
+SJ127131 SPDT 12V 40A relay A/R 34001507 Up w/bracket (outrigger option)
+SJ103271 DPDT relay socket A/R 340003 Up
+SJ102479 SPDT relay socket A/R 340003 Up
+SJ121460 DPDT relay retainer socket A/R 340003 Up
+SJ121459 SPDT relay retainer socket A/R 340003 Up
+FUSES / CIRCUIT BREAKERS
+SJ117325 15A circuit breaker A/R 341124 Up
+SJ117326 20A circuit breaker 2 340003 Up
+LEVEL SENSORS
+SJ310585 Level sensor 1 340003 34001506
+SJ146660 Level sensor 1 34001507 Up
+SWITCHES - VERIFY STYLE REFER TO PAGES 19-22
+SJ102851 Black push button switch A/R 340003 34001506 Upper controls
+SJ103225 Contact block N.C. A/R 340003 34001506
+SJ147053 Contact block N.C. A/R 34001507 Up
+SJ103141 Contact block N.O. A/R 340003 34001506 Upper controls
+SJ147054 Contact block N.O. A/R 34001507 Up Upper controls
+SJ147054 Contact block N.O. 1 34001507 Up
+SJ102769 E-stop button 1 340003 34001506
+SJ147051 E-stop button 1 34001507 Up
+SJ108854 Green push button switch 1 340003 34001506 Lift enable
+SJ147211 Green push button switch 1 34001507 Up Lift enable
+SJ102753 Key switch - 3 position maintained 1 340003 34001506
+SJ149605 Key switch - 3 position maintained 1 34001507 Up
+SJ119726 Main disconnect switch 1 340003 Up
+SJ102692 Push button switch 1 340003 34002204 Lower controls
+SJ102572 Push/pull engine on/off switch 1 340003 34002204 Lower controls
+SJ102836 Rotary switch selector - 2 position 
+maintained
+2 340003 34001506 Upper controls
+SJ147233 Rotary switch selector - 2 position 
+maintained
+2 34001507 Up Upper controls
+SJ102837 Rotary switch selector - 3 position 
+maintained
+1 340003 34001506 Upper controls
+SJ147069 Rotary switch selector - 3 position 
+maintained
+1 34001507 Up Upper controls
+SJ103100 Switch base A/R 340003 34001506
+SJRT 7127 / 7135
+
+===== PAGE 13 =====
+ SKYJACK
+11
+www.tvh.com
+Part # Description QTY   S/N From S/N To Notes
+SWITCHES - VERIFY STYLE REFER TO PAGES 19-22
+SJ147056 Switch base A/R 34001507 Up
+SJ114373 Toggle switch DPDT - 2 position maintained A/R 340003 Up Torque/high speed
+SJ701930 Toggle switch SPDT - 2 position maintained A/R 341124 Up
+SJ300802 Toggle switch DPDT - 3 position maintained 1 340003 341123 Fuel selector (dual fuel)
+SJ124446 Toggle switch DPDT - 3 position maintained A/R 341124 Up Engine control
+SJ115574 Toggle switch SPDT - 3 position maintained 1 341124 34002204 Fuel selector (dual fuel)
+SJ102853 Toggle switch SPDT - 3 position momentary A/R 34002204 Up
+VALVES
+SJ103655 Brake N.C. 1 340003 Up Feed
+SJ103656 Brake N.O. 1 340003 Up Dump
+SJ103656 Dump 1 340003 Up Low volume
+SJ114365 Dump 1 340003 Up High volume
+SJ107271 Emergency lowering 1 340003 Up
+SJ153336 Steer 1 340003 Up Replaces 128797 and 128318
+WHEELS / TIRES
+SJ129387 31 x 10 x 16.5 8 ply tire A/R 340003 Up
+SJ103149 8 bolt wheel A/R 340003 Up
+SJ129389 31 x 10 x 16.5 left wheel assy A/R 340003 Up Air filled
+SJ129388 31 x 10 x 16.5 right wheel assy A/R 340003 Up Air filled
+SJ130033 31 x 10 x 16.5 left wheel assy A/R 340003 Up Foam filled
+SJ130032 31 x 10 x 16.5 right wheel assy A/R 340003 Up Foam filled
+SJRT 7127 / 7135  C ontinued
+
+===== PAGE 14 =====
+ SKYJACK
+12
+www.tvh.com
+Part # Description QTY   S/N From S/N To Notes
+ACCESSORIES
+SJ102850 12V horn 1 36486 36000193
+SJ146652 12V horn 1 36000194 Up
+SJ121476 Flashing light 1 36486 37451
+SJ126677 Flashing light 1 37452 Up
+SJ103336 Hour meter gauge 1 36486 Up
+SJ107098 Rotating light 1 36952 Up
+SJ103056 Tilt alarm 1 36486 Up
+CONTROLLERS
+SJ123995 Joystick controller 1 37055 37451
+SJ132537 Joystick controller 1 37055 36000251 w/enable relay
+SJ159230 Joystick controller 1 36000252 Up Hall Effect
+SJ125136 Upgrade kit 1 36486 37054 Replaces 103334
+DECALS / LABELS
+SJ124080 Enable joystick 1 36952 37451 Platform control box
+SJ130800 Enable joystick 1 37452 Up Platform control box
+SJ105672 General safety 1 36486 36951
+SJ118277 General safety 1 36952 37451
+SJ146526 General safety 1 37452 36000251
+SJ158913 General safety 1 36000252 Up
+SJ106704 Operator warning 1 36486 36951 Platform control box
+SJ113874 Safety kit 1 36486 36951
+SJ129984 Safety kit 1 36952 36000193
+SJ149814 Safety kit 1 36000194 36000232
+SJ158918 Safety kit 1 36000233 36000251
+SJ160896 Safety kit 1 36000252 Up
+DIODES / RELAYS
+SJ103207 DPDT 12V relay A/R 36486 Up Plug-in type
+SJ103316 SPDT 12V relay A/R 36486 Up Plug-in type
+SJ127035 SPDT 12V 40A relay A/R 36952 Up
+SJ103731 SPDT 12V 40A relay A/R 36486 36000193
+SJ127131 SPDT 12V 40A relay A/R 36000194 Up Option 
+SJ111956 SPDT 12V relay 36486 36951 Plug-in type
+SJ103271 DPDT relay socket A/R 36486 Up
+SJ102479 SPDT relay socket A/R 36486 Up
+SJ111958 TPDT relay socket A/R 36486 36951
+SJ121460 DPDT relay retainer socket A/R 36486 Up
+SJ121459 SPDT relay retainer socket A/R 36486 Up
+FUSES / CIRCUIT BREAKERS
+SJ117325 15A circuit breaker A/R 36486 Up
+SJ117326 20A circuit breaker 2 36486 Up
+LEVEL SENSORS
+SJ117880 Level sensor 1 36486 36000193
+SJ146661 Level sensor 1 36000194 Up
+SWITCHES - VERIFY STYLE REFER TO PAGES 19-22
+SJ102851 Black push button switch A/R 36486 36000193
+SJ147058 Black push button switch A/R 36000194 Up
+SJ108854 Black push button switch 1 36486 36000193 Lift enable
+SJ147211 Black push button switch 1 36000194 Up Lift enable
+SJ103225 Contact block N.C. A/R 36486 36000193
+SJ147053 Contact block N.C. A/R 36000194 Up
+SJ103141 Contact block N.O. A/R 36486 36000193
+SJ147054 Contact block N.O. A/R 36000194 Up
+SJ102769 E-stop button 1 36486 36000193
+SJ147051 E-stop button 1 36000194 Up
+SJ102753 Key switch - 3 position maintained 1 36486 36000193
+SJ149605 Key switch - 3 position maintained 1 36000194 Up
+SJ147229 LED block 1 36000194 Up
+SJ119726 Main disconnect switch 1 36486 Up
+SJ102692 Push button switch A/R 36486 36000193
+SJ102572 Push/pull engine on/off switch 1 36486 36000193
+SJ102836 Rotary switch selector - 2 position maintained A/R 36486 36000193
+SJ147233 Rotary switch selector - 2 position maintained A/R 36000194 Up
+SJ102837 Rotary switch selector - 3 position momentary 1 36486 36000193
+SJ147069 Rotary switch selector - 3 position momentary 1 36000194 Up
+SJRT 8831
+
+===== PAGE 15 =====
+ SKYJACK
+13
+www.tvh.com
+Part # Description QTY   S/N From S/N To Notes
+SWITCHES - VERIFY STYLE REFER TO PAGES 19-22
+SJ103100 Switch base A/R 36486 36000193
+SJ147056 Switch base A/R 36000194 Up
+SJ111181 Switch guard A/R 36486 Up
+SJ111627 Toggle switch DPDT - 3 position maintained 1 36486 37451 Dual fuel
+SJ701930 Toggle switch DPDT - 2 position maintained A/R 37452 36000193 Dual fuel
+SJ124446 Toggle switch DPDT - 3 position maintained A/R 36000194 Up
+SJ114373 Toggle switch DPDT - 2 position maintained A/R 36486 Up Torque/high speed
+SJ115574 Toggle switch SPDT - 3 position maintained A/R 37452 Up
+SJ102853 Toggle switch SPDT - 3 position momentary A/R 36000194 36000257
+VALVES
+SJ103655 Brake N.C. 1 36486 Up Feed
+SJ103656 Brake N.O. 1 36486 Up Dump
+SJ103656 Dump 1 36486 Up Low volume
+SJ114365 Dump 1 36486 Up High volume
+SJ107271 Emergency lowering 1 36486 Up
+SJ153336 Steer 1 36486 Up Replaces 128797 and 128318
+WHEELS / TIRES
+SJ129387 31 x 10 x 16.5 8 ply tire A/R 36952 Up
+SJ112654 8.25 x 16.5 8 bolt wheel A/R 36952 Up
+SJ129397 31 x 10 x 16.5 left wheel assy A/R 36952 Up Air filled, 10 ply
+SJ129398 31 x 10 x 16.5 right wheel assy A/R 36952 Up Air filled, 10 ply
+SJ130031 31 x 10 x 16.5 left wheel assy A/R 36952 Up Foam filled, 10 ply
+SJ130030 31 x 10 x 16.5 right wheel assy A/R 36952 Up Foam filled, 10 ply
+SJRT 8831 C ontinued
+
+===== PAGE 16 =====
+ SKYJACK
+14
+www.tvh.com
+SJRT 8841
+Part # Description QTY   S/N From S/N To Notes
+ACCESSORIES
+SJ102850 12V horn 1 40471 Up
+SJ146652 12V horn 1 40000442 Up
+SJ121476 Flashing light 1 40471 43103
+SJ126677 Flashing light 1 43104 Up
+SJ103336 Hour meter gauge 1 40471 Up
+SJ107098 Rotating light 1 42029 Up
+SJ103056 Tilt alarm 1 40471 Up
+CONTROLLERS
+SJ123995 Joystick controller 1 42203 43103
+SJ132537 Joystick controller 1 43104 40000917 w/enable relay
+SJ159230 Joystick controller 1 40000918 Up Hall Effect
+SJ125136 Upgrade kit 1 40471 42202 Replaces 103334
+DECALS / LABELS
+SJ124080 Enable joystick 1 42029 43103 Platform control box
+SJ130800 Enable joystick 1 43104 Up Platform control box
+SJ105672 General safety 1 40471 42028
+SJ118277 General safety 1 42029 43103
+SJ146526 General safety 1 43104 40000917
+SJ158913 General safety 1 40000918 Up Platform control box
+SJ106704 Operator warning 1 40471 42028 Platform control box
+SJ113874 Safety kit 1 40471 42028
+SJ129984 Safety kit 1 42029 43103
+SJ129984 Safety kit 1 43104 40000441
+SJ149814 Safety kit 1 40000442 40000727
+SJ158918 Safety kit 1 40000728 40000917
+SJ158918 Safety kit 1 40000918 Up
+DIODES / RELAYS
+SJ103207 DPDT 12V relay A/R 40471 Up Plug-in type
+SJ103316 SPDT 12V relay A/R 40471 Up Plug-in type
+SJ103731 SPDT 12V 40A relay A/R 40471 42028
+SJ127035 SPDT 12V 40A relay A/R 42029 Up
+SJ127131 SPDT 12V 40A relay A/R 40000442 Up Option 
+SJ111956 TPDT 12V relay A/R 40471 42028 Plug-in type
+SJ103271 DPDT relay socket A/R 40471 Up
+SJ102479 SPDT relay socket A/R 40471 Up
+SJ111958 TPDT relay socket A/R 40471 42028
+SJ121460 DPDT relay retainer socket A/R 40471 Up
+SJ121459 SPDT relay retainer socket A/R 40471 Up
+FUSES / CIRCUIT BREAKERS
+SJ117325 15A circuit breaker A/R 40471 Up
+SJ117326 20A circuit breaker 2 40471 Up
+LEVEL SENSORS
+SJ117880 Level sensor 1 40471 40000441
+SJ146661 Level sensor 1 40000442 Up
+SWITCHES - VERIFY STYLE REFER TO PAGES 19-22
+SJ102851 Black push button switch A/R 40471 40000441
+SJ147058 Black push button switch A/R 40000442 Up
+SJ103225 Contact block N.C. A/R 40471 40000441
+SJ147053 Contact block N.C. A/R 40000442 Up
+SJ103141 Contact block N.O. A/R 40471 40000441
+SJ147054 Contact block N.O. A/R 40000442 Up
+SJ102769 E-stop button 1 40471 40000441
+SJ147051 E-stop button 1 40000442 Up
+SJ108854 Green push button switch 1 40471 40000441 Lift enable
+SJ147211 Green push button switch 1 40000442 Up Lift enable
+SJ102753 Key switch - 3 position maintained 1 40471 40000441
+SJ149605 Key switch - 3 position maintained 1 40000442 Up
+SJ147229 LED block 1 40000442 Up
+SJ119726 Main disconnect switch 1 40471 Up
+SJ102692 Push button switch A/R 40471 40000441
+SJ102572 Push/pull engine on/off switch 1 40471 40000441
+SJ102836 Rotary switch selector - 2 position maintained A/R 40471 40000441
+SJ147233 Rotary switch selector - 2 position maintained A/R 40000442 Up
+SJ102837 Rotary switch selector - 3 position momentary 1 40471 40000441
+
+===== PAGE 17 =====
+ SKYJACK
+15
+www.tvh.com
+SJRT 8841  C ontinued
+Part # Description QTY   S/N From S/N To Notes
+SWITCHES - VERIFY STYLE REFER TO PAGES 19-22
+SJ147069 Rotary switch selector - 3 position momentary 1 40000442 Up
+SJ103100 Switch base A/R 40471 40000441
+SJ147056 Switch base A/R 40000442 Up
+SJ111181 Switch guard A/R 40471 Up
+SJ111627 Toggle switch DPDT - 3 position maintained 1 40471 43103 Dual fuel
+SJ701930 Toggle switch DPDT - 2 position maintained A/R 43104 40000441 Dual fuel
+SJ124446 Toggle switch DPDT - 3 position maintained A/R 40000442 Up
+SJ114373 Toggle switch DPDT - 2 position maintained A/R 40471 Up Torque/high speed
+SJ115574 Toggle switch SPDT - 3 position maintained A/R 43104 Up
+SJ102853 Toggle switch SPDT - 3 position momentary A/R 40000442 40000917
+VALVES
+SJ103655 Brake N.C. 1 40471 Up Feed
+SJ103656 Brake N.O. 1 40471 Up Dump
+SJ103656 Dump 1 40471 Up Low volume
+SJ114365 Dump 1 40471 Up High volume
+SJ107271 Emergency lowering 1 40471 Up
+SJ153336 Steer 1 40471 Up Replaces 128797 and 128318
+WHEELS / TIRES
+SJ129387 31 x 10 x 16.5 8 ply tire A/R 42029 Up
+SJ112654 8.25 x 16.5 8 bolt wheel A/R 42029 Up
+SJ129397 31 x 10 x 16.5 left wheel assy A/R 42029 Up Air filled, 10 ply
+SJ129398 31 x 10 x 16.5 right wheel assy A/R 42029 Up Air filled, 10 ply
+SJ130031 31 x 10 x 16.5 left wheel assy A/R 42029 Up Foam filled, 10 ply
+SJ130030 31 x 10 x 16.5 right wheel assy A/R 42029 Up Foam filled, 10 ply
+
+===== PAGE 18 =====
+ SKYJACK
+16
+www.tvh.com
+SJRT 9241 / 9250
+Part # Description QTY   S/N From S/N To Notes
+ACCESSORIES
+SJ102850 12V horn 1 5604 50000512
+SJ146652 12V horn 1 50000513 Up
+SJ121476 Flashing light 1 5604 50000512
+SJ126677 Flashing light 1 50000513 Up
+SJ103336 Hour meter gauge 1 5604 Up
+SJ107098 Rotating light 1 5604 Up
+SJ103056 Tilt alarm 1 5604 50000878
+SJ117967 Tilt alarm 1 50000879 Up
+CONTROLLERS
+SJ123995 Joystick controller 1 50772 51088
+SJ132537 Joystick controller 1 51089 50000878 w/enable relay
+SJ159230 Joystick controller 1 50000879 Up Hall Effect
+SJ125136 Upgrade kit 1 5604 50771 Replaces 103334
+DECALS / LABELS
+SJ124080 Enable joystick 1 5604 51088 Platform control box
+SJ130800 Enable joystick 1 51089 Up Platform control box
+SJ118277 General safety 1 5604 51088 Platform
+SJ128742 General safety 1 51089 50000101 Platform
+SJ146526 General safety 1 50000102 50000878 Platform
+SJ158913 General safety 1 50000879 Up
+SJ129984 Safety kit 1 5604 50000512
+SJ149816 Safety kit 1 50000513 50000745
+SJ158918 Safety kit 1 50000746 50000878 not production number after 878
+DIODES / RELAYS
+SJ103207 DPDT 12V relay A/R 5604 Up
+SJ103316 SPDT 12V relay A/R 5604 Up
+SJ127035 SPDT 12V 40A relay A/R 5604 Up
+SJ127131 SPDT 12V 40A relay A/R 5604 Up
+SJ121460 DPDT relay socket retainer clip A/R 5604 Up
+SJ121459 SPDT relay socket retainer clip A/R 5604 Up
+SJ103271 DPST relay socket A/R 5604 Up
+SJ102479 SPDT relay socket A/R 5604 Up
+FUSES / CIRCUIT BREAKERS
+SJ117325 15A circuit breaker A/R 5604 Up
+SJ117326 20A circuit breaker 2 5604 Up
+LEVEL SENSOR
+SJ117880 Level sensor 1 5604 50000512
+SWITCHES - VERIFY STYLE REFER TO PAGES 19-22
+SJ102851 Black push button switch A/R 5604 50000512
+SJ147058 Black push button switch A/R 50000513 Up
+SJ103225 Contact block N.C. A/R 5604 50000512
+SJ147053 Contact block N.C. A/R 50000513 Up
+SJ103141 Contact block N.O. A/R 5604 50000512
+SJ147054 Contact block N.O. A/R 50000513 Up
+SJ102769 E-stop button 1 5604 50000512
+SJ147051 E-stop button 1 50000513 Up
+SJ108854 Green push button switch 1 5604 50000512 Lift enable
+SJ147211 Green push button switch 1 50000513 Up
+SJ102753 Key switch - 3 position maintained 1 5604 50000512
+SJ149605 Key switch - 3 position maintained 1 50000513 Up
+SJ147229 LED block 1 50000513 Up
+SJ119726 Main disconnect switch 1 5604 Up
+SJ102692 Push button switch A/R 5604 50000512
+SJ102572 Push/pull engine on/off switch 1 5604 50000512
+SJ102836 Rotary switch selector - 2 position maintained A/R 5604 50000512
+SJ147233 Rotary switch selector - 2 position maintained A/R 50000513 Up
+SJ102837 Rotary switch selector - 3 position momentary 1 5604 50000512
+SJ147069 Rotary switch selector - 3 position momentary 1 50000513 Up
+SJ103100 Switch base A/R 5604 50000512
+SJ147056 Switch base A/R 50000513 Up
+SJ111181 Switch guard A/R 5604 Up
+SJ701930 Toggle switch DPDT - 2 position maintained A/R 51089 50000512 Dual fuel
+SJ114373 Toggle switch DPDT - 2 position maintained A/R 5604 Up Torque/high speed
+SJ124446 Toggle switch DPDT - 3 position maintained A/R 50000513 Up
+SJ111627 Toggle switch DPDT - 3 position maintained 1 5604 51088 Dual fuel
+
+===== PAGE 19 =====
+ SKYJACK
+17
+www.tvh.com
+SJRT 9241 / 9250 C ontinued
+Part # Description QTY   S/N From S/N To Notes
+SWITCHES - VERIFY STYLE REFER TO PAGES 19-22
+SJ102853 Toggle switch SPDT - 3 position momentary A/R 5604 Up
+SJ115574 Toggle switch SPDT - 3 position maintained A/R 51089 Up
+VALVES
+SJ103655 Brake N.C. 1 5604 Up Feed
+SJ103656 Brake N.O. 1 5604 Up Dump
+SJ103656 Dump 1 5604 Up Low volume
+SJ114365 Dump 1 5604 Up High volume
+SJ107271 Emergency lowering 1 5604 Up
+SJ153336 Steer 1 5604 Up Replaces 128797 and 128318
+WHEELS / TIRES
+SJ129387 31 x 10 x 16.5 8 ply tire A/R 5604 Up
+SJ103149 8.25 x 16.5 8 bolt wheel A/R 5604 Up
+SJ129389 31 x 10 x 16.5 left wheel assy A/R 5604 Up Air filled, 6 ply
+SJ129388 31 x 10 x 16.5 right wheel assy A/R 5604 Up Air filled, 6 ply
+SJ130033 31 x 10 x 16.5 left wheel assy A/R 5604 Up Foam filled, 6 ply
+SJ130032 31 x 10 x 16.5 right wheel assy A/R 5604 Up Foam filled, 6 ply
+
+===== PAGE 20 =====
+ REFERENCES
+18
+www.tvh.com
+MANUAL CASES  CAJAS PARA MANUALES   COFFRES POUR LES MANUELS
+Part # Description
+SY4040 Manual fold open 8 1/2" x 11" 
+X 1D high-impact black plastic 
+case
+Part # Description
+SY87659 Manual flip top 12 1/4" x 10" 
+x 2 1/4D high-impact black 
+plastic case
+Part # Description
+SJ103334 Old style-NLA
+Part # Description
+SJ125136 Upgrade kit
+Part # Description
+SJ129722 New style
+Part # Voltage Decibels Size Conforms to
+Heavy Duty
+• 1 Year warranty
+SY100 12VDC 120dB 5" dia    127mm UL
+SY101 24VDC 120dB 5" dia     127mm UL
+SY103 48VDC 120dB 5" dia     127mm UL
+SY105 36-48VDC 120dB 5" dia     127mm UL
+HD HORNS  BOCINA  SIRÈNE
+SKYJACK CONTROLLER - JOYSTICK UPGRADES  CONTROLADORES SKYJACK – ACTUALIZACIONES PARA JOYSTICKS   MISES À NIVEAU DE LEVIERS SKYJACK  
+MUST USE UPGRADE KITS TO MOVE TO NEW STYLE
+Part # Description
+SYEMI EMI Manual Safety aerial platforms
+SYEMI2 EMI Manual Safety aerial devices
+SYA92.2 ANSI A92.2 Manual Vehicle-mounted elevating and rotating aerial devices
+SYA92.3 ANSI A92.3 Manual Manually propelled elevating aerial platforms
+SYA92.5 ANSI A92.5 Manual Boom-support elevating work platforms
+SYA92.6 ANSI A92.6 Manual Self-propelled elevating work platforms
+MANUALS MANUALES MANUELS  
+
+===== PAGE 21 =====
+ REFERENCES
+19
+www.tvh.com
+Terminals 
+OK Center Keyway  Screw Spade 
+On Off On SY2NT1-1 SY32NT91-1
+On - Off SY2NT1-2 SY32NT91-2
+On - On SY2NT1-3 SY32NT91-3
+On Off On* SY2NT1-5
+Off - On* SY2NT1-6
+On* Off On* SY2NT1-7 SY32NT91-7
+On - On* SY2NT1-8 SY32NT91-8
+On On On SY2NT1-12 SY32NT91-12
+On Off None SY2NT1-21 SY32NT91-21
+On On On* SY2NT1-50 SY32NT91-50
+On Off On* SY2NT1-61 SY32NT91-61
+On On On* SY2NT1-70 SY32NT91-70
+FOUR POLE 
+CUATRO POLOS  
+QUATRES BARRES   
+Terminals 
+OK Center Keyway  Screw Spade 
+On Off On SY4NT1-1
+On - On SY4NT1-3
+On* Off On* SY4NT1-7
+ Screw Spade 
+SY62NT1-3-NH
+SY61NT1-7-NH SY62NT1-7-NH
+TERMINALS  
+TERMINALES  
+POSTE DE COMMANDES  
+Terminals 
+OK Center Keyway  Screw Spade 
+On Off On SY1NT1-1 SY31NT91-1
+On - Off SY1NT1-2 SY31NT91-2
+On - On SY1NT1-3 SY31NT91-3
+On Off On* SY1NT1-5 SY31NT91-5
+Off - On* SY1NT1-6 SY31NT91-6
+On* Off On* SY1NT1-7 SY31NT91-7
+On - On* SY1NT1-8 SY31NT91-8
+On Off None SY1NT1-21 SY31NT91-21
+None Off On* SY1NT1-61 SY31NT91-61
+SINGLE POLE - LEVER STANDARD 
+INTERRUPTOR DE PALANCA ESTÁNDAR UNIPOLAR
+UNE BARRE – LEVIER DE SÉRIE
+DOUBLE POLE 
+DOBLE POLO 
+DEUX BARRES   
+*=Momentary
+OK=Opposite of keyway
+Terminals 
+OK Center Keyway  Screw Spade 
+On Off On SY31NT391-1-C08 SY32NT391-1-C08
+Off None On SY31NT391-2-C08
+On None On SY31NT391-3-C08 SY32NT391-3-C08
+On* None Off SY31NT391-6-C08
+On* None Off SY31NT391-6-B08
+On* Off On* SY31NT391-7-C08 SY32NT391-7-C08
+On On On SY32NT391-12-C08
+On* On On* SY32NT391-72-C08
+TABBED TOGGLES - LEVER YELLOW
+INTERRUPTOR DE PALANCA CON PESTAÑA AMARILLA
+BASCULEMENT AVEC INDENTATIONS – LEVIER JAUNE  
+*=Momentary
+OK=Opposite of keyway
+*=Momentary
+OK=Opposite of keyway *=Momentary
+OK=Opposite of keyway
+SWITCH STYLE - TOGGLE   INTERRUPTORES - TIPO PALANCA  TYPE – INTERRUPTEUR À LEVIER   
+
+
+===== PAGE 22 =====
+ REFERENCES
+20
+www.tvh.com
+Kits include contact(s) and base
+Part# Description Part# Description
+SYZB4-BA2 Black flush head push button switch SYZB2-BA2 Black flush head push button switch
+SYZB4-BA2-Kit Kit (ZB4-BA2, base, 2 N.C. contacts) SYZB2-BA2-Kit Kit (ZB2-BA2, base, 2 N.C. contacts)
+SYZB4-BA3 Green flush head push button switch SYZB2-BA3 Green flush head push button switch
+SYZB4-BA3-Kit Kit (ZB4-BA3, base, 2 N.C. contacts) SYZB2-BA3-Kit Kit (ZB2-BA3, base, 2 N.C. contacts)
+SYZB4-BA4 Red flush head push button switch SYZB2-BA4 Red flush head push button switch
+SYZB4-BA4-Kit Kit (ZB4-BA4, base, 2 N.C. contacts) SYZB2-BA4-Kit Kit (ZB2-BA4, base, 2 N.C. contacts)
+SYZB4-BP2 Booted black flush head push button switch SYZB2-BP2 Booted black flush head push button switch
+SYZB4-BP2-Kit Kit (ZB4-BP2, base, 2 N.C. contacts) SYZB2-BP2-Kit Kit (ZB2-BP2, base, 2 N.C. contacts)
+SYZB4-BP3 Booted green flush head push button switch SYZB2-BP3 Booted green flush head push button switch
+SYZB4-BP3-Kit Kit (ZB4-BP3, base, 2 N.C. contacts) SYZB2-BP3-Kit Kit (ZB2-BP3, base, 2 N.C. contacts)
+Part# Description Part# Description
+SYZB5-BA2 Black flush head push button switch SYZA2-BA2 Black flush head push button switch
+SYZB5-BA2-Kit Kit (ZB2-BA2, base, 2 N.C. contacts) SYZA2-BA2-Kit Kit (ZA2-BA2, base, 2 N.C. contacts)
+SYZB5-BA3 Green flush head push button switch SYZA2-BA3 Green flush head push button switch
+SYZB5-BA3-Kit Kit (ZB2-BA3, base, 2 N.C. contacts) SYZA2-BA3-Kit Kit (ZA2-BA3, base, 2 N.C. contacts)
+SYZB5-BA4 Red flush head push button switch SYZA2-BA4 Red flush head push button switch
+SYZB5-BA4-Kit Kit (ZB2-BA4, base, 2 N.C. contacts) SYZA2-BA4-Kit Kit (ZA2-BA4, base, 2 N.C. contacts)
+SYZB5-BP2 Booted black flush head push button switch
+SYZB5-BP2-Kit Kit (ZB2-BP2, base, 2 N.C. contacts)
+SYZB5-BP3 Booted green flush head push button switch
+SYZB5-BP3-Kit Kit (ZB2-BP3, base, 2 N.C. contacts)
+Part# Description Part# Description
+SYZB5-AS44 30mm turn to release e-stop button SYZA2-BS44 30mm turn to release e-stop button
+SYZB2-AS44-Kit Kit (ZB5-AS44, base, 2 N.C.) SYZA2-BS44-Kit Kit (ZA2-BS44, base, 2 N.C. contacts)
+SYZB5-AS54 40mm turn to release e-stop button SYZA2-BS54 40mm turn to release e-stop button
+SYZB5-AS54-Kit Kit (ZB5-AS54, base, 2 N.C.) SYZA2-BS54-Kit Kit (ZA2-BS54, base, 2 N.C. contacts)
+SYZB5-AT4 40mm push/pull e-stop button SYZA2-BT4 40mm push/pull e-stop button
+SYZB5-AT4-Kit Kit (ZB5-AT4, base, 2 N.C.) SYZA2-BT4-Kit Kit (ZA2-BT4, base, 2 N.C. contacts)
+Part# Description Part# Description
+SYZB4-BS44 30mm turn to release e-stop button SYZB2-BS44 30mm turn to release e-stop button
+SYZB4-BS44-Kit Kit (ZB4-BS44, base, 2 N.C.) SYZB2-BS44-Kit Kit (ZB2-BS44, base, 2 N.C. contacts)
+SYZB4-BS54 40mm turn to release e-stop button SYZB2-BS54 40mm turn to release e-stop button
+SYZB4-BS54-Kit Kit (ZB4-BS54, base, 2 N.C.) SYZB2-BS54-Kit Kit (ZB2-BS54, base, 2 N.C. contacts)
+SYZB4-BT4 40mm push/pull e-stop button SYZB2-BT4 40mm push/pull e-stop button
+SYZB4-BT4-Kit Kit (ZB4-BT4, base, 2 N.C.) SYZB2-BT4-Kit Kit (ZB2-BT4, base, 2 N.C. contacts)
+New Style Metal Old Style Metal
+New Style Plastic Old Style Plastic
+SWITCH STYLE - E-STOP INTERRUPTORES – TIPO PARADA DE EMERGENCIA   TYPE - E-STOP    
+New Style Metal
+New Style Plastic
+ Old Style Plastic
+Old Style Metal
+Kits include contact(s) and base
+SWITCH STYLE - PUSH BUTTON   INTERRUPTORES – TIPO BOTÓN  TYPE – BOUTON POUSSOIR  
+
+===== PAGE 23 =====
+ REFERENCES
+21
+www.tvh.com
+Key Remove                       Momentary               Maintained
+SWITCH STYLE - KEY SWITCH STYLE - KEY  INTERRUPTORES - TIPO LLAVE   TYPE – INTERRUPTEUR À CLÉ   
+Part# Description Part# Description
+SYZB4-BG0 3 position key switch SYZB2-BG0 3 position key switch
+SYZB4-BG0-Kit Kit (ZB4-BG0, base, 2 N.O.) SYZB2-BG0-Kit Kit (ZB2-BG0, base, 2 N.O. contacts)
+SYZB4-BG2 2 position key switch SYZB2-BG2 2 position key switch
+SYZB4-BG2-Kit Kit (ZB4-BG2, base, 2 N.O.) SYZB2-BG2-Kit Kit (ZB2-BG2, base, 2 N.O. contacts)
+SYZB4-BG3 3 position key switch SYZB2-BG3 3 position key switch
+SYZB4-BG3-Kit Kit (ZB4-BG3, base, 2 N.O.) SYZB2-BG3-Kit Kit (ZB2-BG3, base, 2 N.O. contacts)
+SYZB4-BG9 3 position key switch SYZB2-BG9 3 position key switch
+SYZB4-BG9-Kit Kit (ZB4-BG9, base, 2 N.O.) SYZB2-BG9-Kit Kit (ZB2-BG9, base, 2 N.O. contacts)
+Part# Description Part# Description
+SYZB4-BD2 2 position selector switch SYZB2-BD2 2 position selector switch
+SYZB4-BD2-Kit Kit (ZB4-BD2, base, 2 N.O.) SYZB2-BD2-Kit Kit (ZB2-BD2, base, 2 N.O. contacts)
+SYZB4-BD3 3 position selector switch SYZB2-BD3 3 position selector switch
+SYZB4-BD3-Kit Kit (ZB4-BD3, base, 2 N.O.) SYZB2-BD3-Kit Kit (ZB2-BD3, base, 2 N.O. contacts)
+SYZB4-BD5 3 position selector switch SYZB2-BD5 3 position selector switch
+SYZB4-BD5-Kit Kit (ZB4-BD5, base, 2 N.O.) SYZB2-BD5-Kit Kit (ZB2-BD5, base, 2 N.O. contacts)
+SYZB4-BD8 3 position selector switch SYZB2-BD8 3 position selector switch
+SYZB4-BD8-Kit Kit (ZB4-BD8, base, 2 N.O.) SYZB2-BD8-Kit Kit (ZB2-BD8, base, 2 N.O. contacts)
+Part# Description Part# Description
+SYZB5-AG0 3 position key switch SYZA2-BG0 3 position key switch
+SYZB5-AG0-Kit Kit (ZB5-AG0, base, 2 N.O.) SYZA2-BG0-Kit Kit (ZA2-BG0, base, 2 N.O. contacts)
+SYZB5-AG2 2 position key switch SYZA2-BG2 2 position key switch
+SYZB5-AG2-Kit Kit (ZB5-AG2, base, 2 N.O.) SYZA2-BG2-Kit Kit (ZA2-BG2, base, 2 N.O. contacts)
+SYZB5-AG3 3 position key switch SYZA2-BG3 3 position key switch
+SYZB5-AG3-Kit Kit (ZB5-AG3, base, 2 N.O.) SYZA2-BG3-Kit Kit (ZA2-BG3, base, 2 N.O. contacts)
+SYZB5-AG9 3 position key switch SYZA2-BG9 3 position key switch
+SYZB5-AG9-Kit Kit (ZB5-AG9, base, 2 N.O.) SYZA2-BG9-Kit Kit (ZA2-BG9, base, 2 N.O. contacts)
+Part# Description Part# Description
+SYZB5-AD2 2 position selector switch SYZA2-BD2 2 position selector switch
+SYZB5-AD2-Kit Kit (ZB5-AD2, base, 2 N.O.) SYZA2-BD2-Kit Kit (ZA2-BD2, base, 2 N.O. contacts)
+SYZB5-AD3 3 position selector switch SYZA2-BD3 3 position selector switch
+SYZB5-AD3-Kit Kit (ZB5-AD3, base, 2 N.O.) SYZA2-BD3-Kit Kit (ZA2-BD3, base, 2 N.O. contacts)
+SYZB5-AD5 3 position selector switch
+SYZB5-AD5-Kit Kit (ZB5-AD5, base, 2 N.O.)
+SYZB5-AD8 3 position selector switch
+SYZB5-AD8-Kit Kit (ZB5-AD8, base, 2 N.O.)
+NEW STYLE METAL
+NEW STYLE METAL
+OLD STYLE METAL
+OLD STYLE METAL
+NEW STYLE PLASTIC
+NEW STYLE PLASTIC
+OLD STYLE PLASTIC
+OLD STYLE PLASTIC
+SWITCH STYLE - SELECTOR  INTERRUPTORES – TIPO SELECTOR   TYPE - SELECTEUR  
+
+
+===== PAGE 24 =====
+ REFERENCES
+22
+www.tvh.com
+Part# Description Part# Description
+SYZBE-101 N.O. contact SYZB2-BE101 N.O. contact
+Part# Description Part# Description
+SYZBE-102 N.O. contact SYZB2-BE101 N.O. contact
+SWITCH STYLE - BASE W/ CONTACT KITS INTERRUPTORES – BASE CON KIT DE CONTACTOS  TYPE - BASE AVEC TROUSSE DE BRANCHEMENTS 
+Part# Description
+SYZBG-455 Ronis key
+KEY  LLAVE  CLÉ 
+Part# Description
+SYZB5-AC24 Black push button horn
+SYZB5-AC24-KIT Kit (ZB5-AC24, base, 1 N.O.)
+HORN BOCINA  SIRÈNE
+BOOT CUBRE POLVO  DÉMARRAGE 
+Part# Description
+SYZB2-BP003 Green boot
+SYZB2-BP002 Black boot
+SYZBPA Clear boot
+SYZB2-BP004 Red boot
+Part# Description Part# Description
+SYZB4-BZ009 Base SYZB2-BZ009 Base
+Part# Description Part# Description
+SYZB5-AZ009 Base SYZA2-BZ009 Base
+NEW STYLE METAL OLD STYLE METAL
+SWITCH STYLE - BASES   INTERRUPTORES – BASES   TYPE – BASES  
+NEW STYLE PLASTIC OLD STYLE PLASTIC
+NEW STYLE METAL OLD STYLE METAL
+SWITCH STYLE - CONTACTS  INTERRUPTORES – CONTACTOS  TYPE – BRANCHEMENTS  
+NEW STYLE PLASTIC OLD STYLE PLASTIC
+Part# Description Part# Description
+SYZB4-BZ101 Base w/1 N.O. contact SYZB2-BZ101 Base w/1 N.O. contact
+SYZB4-BZ102 Base w/1 N.C. contact SYZB2-BZ102 Base w/1 N.C. contact
+SYZB4-BZ103 Base w/2 N.O. contact SYZB2-BZ103 Base w/2 N.O. contact
+SYZB4-BZ104 Base w/2 N.C. contact SYZB2-BZ104 Base w/2 N.C. contact
+Part# Description Part# Description
+SYZB5-AZ101 Base w/1 N.O. contact SYZA2-BZ101 Base w/1 N.O. contact
+SYZB5-AZ102 Base w/1 N.C. contact SYZA2-BZ102 Base w/1 N.C. contact
+SYZB5-AZ103 Base w/2 N.O. contact SYZA2-BZ103 Base w/2 N.O. contact
+SYZB5-AZ104 Base w/2 N.C. contact SYZA2-BZ104 Base w/2 N.C. contact
+NEW STYLE METAL OLD STYLE METAL
+NEW STYLE PLASTIC OLD STYLE PLASTIC
+
+
+===== PAGE 25 =====
+ REFERENCES
+23
+www.tvh.com
+FLOYD BELL PIEZO ALARMS  FLOYD BELL PIEZO ALARMAS  FLOYD BELL PIEZO ALARMES
+Part# Height Voltage Decibels A.A.D. Mounting Tone
+AUDIOLARM® II SERIES
+•  2900+/- 250 Hz
+•    Available in 4 tones:  
+continuous, beep, warble 
+& chime
+• 1.41'' (36mm) dia
+•  Conforms to UL- USA/
+Canada
+SYMC-07-130-S 0.96''     24mm 1-30VDC 70-93dB+/-5 20mA Panel mount Medium loud continuous
+SYMC-09-948-S 1.35''     34mm 1-48VDC 85-95dB+/-5 20mA Panel mount Medium loud continuous
+SYCH-09-525-Q(M) 1.35''     34mm 5-25VDC 70-93dB+/-5 25mA Panel mount Medium loud moderate chime 
+SYMW-09-530-Q 1.35''     34mm 5-30VDC 85-95dB+/-5 20mA Panel mount Medium loud moderate warble
+SYXB-09-630-Q(S) 1.35''     34mm 6-30VDC 85-103dB+/-5 50mA Panel mount Extra loud slow beep
+Part# Height Voltage Decibels A.A.D. Mounting Tone
+ULTRA SERIES
+• 2100+/- 250 Hz
+• 1.41'' (36mm) dia
+•  Conforms to UL- USA/
+Canada
+SYUC-09-628-Q 1.35''     34mm 6-28VDC 95-108dB+/-5 50mA Panel mount Ultra loud continuous
+TVH offers a full line of Floyd Bell Piezo alarms. Please contact your sales representative for models not shown.
+Part# Voltage Decibels A.A.D. Mounting Tone
+TURBO SERIES
+•  2900+/- 250 Hz
+•  Available in 7 different 
+tones: continuous, beep, 
+warble, siren, whoop, 
+  staccato & chime
+•  Available in 2 volume levels 
+and 4 terminations
+• 1.22'' (31mm) height
+• 1.41'' (36mm) dia
+•    Conforms to UL-USA/
+Canada
+SYTXB-V86-515-S(F) 5-15VDC 92-103dB+/-5 50mA Panel mount with 
+volume control
+Extra loud fast beep
+SYTXO-V86-515-S 5-15VDC 92-103dB+/-5 50mA Panel mount with 
+volume control
+Extra loud whoop 
+SYTXS-V86-515-S 5-15VDC 92-103dB+/-5 50mA Panel mount with 
+volume control
+Extra loud siren tone
+SYTXW-V86-515-S(F) 5-15VDC 92-103dB+/-5 50mA Panel mount with 
+volume control
+Extra loud fast warble 
+SYTXW-V86-515-S(S) 5-15VDC 92-103dB+/-5 50mA Panel mount with 
+volume control
+Extra loud slow warble 
+SYTMB-V86-531-S(F) 5-24VAC/DC 75-95dB+/-5 15mA Panel mount with 
+volume control
+Medium loud fast beep 
+SYTMW-V86-531-S(F) 5-24VAC/DC 75-95dB+/-5 15mA Panel mount with 
+volume control
+Medium loud fast warble 
+SYTCH-V86-530-S(F) 5-30VDC 70-90dB+/-5 40mA Panel mount with 
+volume control
+Medium loud fast chime 
+SYTCH-V86-530-S(M) 5-30VDC 75-95dB+/-5 40mA Panel mount with 
+volume control
+Medium loud moderate chime
+SYTMB-V86-530-S(F) 5-30VDC 75-95dB+/-5 10mA Panel mount with 
+volume control
+Medium loud fast beep 
+SYTMB-V86-530-S(S) 5-30VDC 75-95dB+/-5 10mA Panel mount with 
+volume control
+Medium loud slow beep 
+SYTMW-V86-530-S(F) 5-30VDC 75-95dB+/-5 10mA Panel mount with 
+volume control
+Medium loud fast warble 
+SYTMB-V86-948-S(F) 9-48VDC 75-95dB+/-5 10mA Panel mount with 
+volume control
+Medium loud fast beep 
+SYTMB-V86-948-S(S) 9-48VDC 75-95dB+/-5 10mA Panel mount with 
+volume control
+Medium loud slow beep 
+SYTMW-V86-948-S(F) 9-48VDC 75-95dB+/-5 10mA Panel mount with 
+volume control
+Medium loud fast warble 
+SYTMW-V86-948-S(S) 9-48VDC 75-95dB+/-5 10mA Panel mount with 
+volume control
+Medium loud slow warble 
+
+===== PAGE 26 =====
+ REFERENCES
+24
+www.tvh.com
+AERIAL TOOL BIN 
+ • Ergonomic, triangular shaped design weighs 10lb
+•  Usable space measures 17" x 17", with a 24" front
+•  Holds up to 50 pounds
+•   Made of reinforced, non-conductive, UV protected polypropylene 
+  orange plastic
+•  Light, durable… and nearly as strong as steel
+•  Attaches to square or rounded 90 degree corners of a platform’s railing
+•  3 compartments with removable partition walls
+•  Multi-positional magnetic parts tray for holding small parts, attaches to 
+  the metal strips on top of the bin
+•  Tool belt holder safely secures a worker’s tool belt to the front of the bin
+• Built-in handle for easy carrying
+AERIAL TOOL BINS  CAJAS DE HERRAMIENTAS AÉREA  COFFRES D'OUTIL AÉRIENNE
+No more bending all-day-long searching for tools 
+and parts. Everything is right at hand.
+More relief for your back – your tool belt attaches 
+right to the front of the bin.
+Includes a multi-positional, magnetic parts tray for 
+holding small parts, which attaches to the metal 
+strips on top of the bin.
+Part# Description
+SYBIN-AWP Scissor lift tool bin
+Part# Description Magnet Force
+MAG-KADDY®
+ SY1196 3" x 5" x 3"  
+76mm x 127mm x 76mm
+60lb
+Part# Description Magnet Force
+MAGNUM MAG-KADDY®
+•
+SY1197 7" x 9"x 5"   
+178mm x 229mm x 127mm
+80lb
+Part# Description Magnet Force
+MAG-KLIP® CLIP BOARD
+ SY1195 9" x 12" usable
+229mm x 305mm
+9" x 15" overall
+229mm x 381mm
+60lb
+
+===== PAGE 27 =====
+ REFERENCES
+25
+www.tvh.com
+NOTES
+
+===== PAGE 28 =====
+ REFERENCES
+26
+www.tvh.com
+NOTES

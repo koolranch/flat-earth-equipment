@@ -270,6 +270,12 @@ export const CATALOG_QUICK_PATHS = [
     accent: 'bg-sky-700',
   },
   {
+    label: 'RT Scissor Parts',
+    href: '/rough-terrain-scissor-parts',
+    description: 'Genie · JLG · Skyjack controls',
+    accent: 'bg-slate-900',
+  },
+  {
     label: 'Forklift Forks',
     href: '/forks',
     description: 'Class II–IV · ANSI certified',

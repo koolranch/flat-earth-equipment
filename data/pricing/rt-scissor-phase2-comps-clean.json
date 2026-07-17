@@ -1,0 +1,98 @@
+[
+  {
+    "sku": "genie-52372-solenoid-proportional",
+    "compPrice": 16.99,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/Genie-Valve-Solenoid-Proportional-52372GT/dp/B0GKBSC632"
+  },
+  {
+    "sku": "genie-52380-solenoid-steering",
+    "compPrice": 61,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/198121629814"
+  },
+  {
+    "sku": "genie-62815-solenoid-brake",
+    "compPrice": 34.44,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/115786074116"
+  },
+  {
+    "sku": "genie-84109-solenoid-steering",
+    "compPrice": 36.91,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/307019880368"
+  },
+  {
+    "sku": "genie-89862-solenoid-brake",
+    "compPrice": 87.45,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/GENIE-89862-89862GT-VALVE-SOLENOID-2POS/dp/B08177P1Y1"
+  },
+  {
+    "sku": "jlg-7012920-solenoid-dump",
+    "compPrice": 54.69,
+    "compSource": "fridayparts",
+    "compUrl": "https://www.fridayparts.com/cartridge-valve-7012920-for-jlg-scissor-lift-3394rt-4394rt"
+  },
+  {
+    "sku": "jlg-7012941-solenoid-brake-high-speed-191606-up",
+    "compPrice": 40.46,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_7012941_CARTRIDGE_LESS_COIL_p/7012941.htm"
+  },
+  {
+    "sku": "jlg-7017410-solenoid-dump",
+    "compPrice": 43.15,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_7017410_CARTRIDGE_VALVE_p/7017410.htm"
+  },
+  {
+    "sku": "jlg-7017433-solenoid-steering",
+    "compPrice": 81.43,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_7017433_CARTRIDGE_VALVE_p/7017433.htm"
+  },
+  {
+    "sku": "jlg-7024576-solenoid-dump",
+    "compPrice": 33.23,
+    "compSource": "fridayparts",
+    "compUrl": "https://au.fridayparts.com/cartridge-valve-7024576-for-jlg-scissor-lift-3394rt-4394rt"
+  },
+  {
+    "sku": "skyjack-103623-brake-n-o",
+    "compPrice": 55,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/RONGPAS-103623-compatible-Skyjack-SJ3215/dp/B0DK1R2ZRW"
+  },
+  {
+    "sku": "genie-44168-solenoid-steering",
+    "compPrice": 149,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/387660427551"
+  },
+  {
+    "sku": "skyjack-103655-brake-n-c",
+    "compPrice": 88,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/152837553672"
+  },
+  {
+    "sku": "skyjack-103656-brake-n-o",
+    "compPrice": 22.25,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/115814088498"
+  },
+  {
+    "sku": "skyjack-107271-emergency-lowering",
+    "compPrice": 68.6,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/HNARL-Hydraulic-107271-SJIII3015-SJIII3215/dp/B0DPM3QKXW"
+  },
+  {
+    "sku": "skyjack-114365-dump",
+    "compPrice": 122.5,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/114365_SOL_CART_POPP_VALVE_SkyJack_Parts_p/sj-114365.htm"
+  }
+]

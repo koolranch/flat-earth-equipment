@@ -1,0 +1,210 @@
+[
+  {
+    "sku": "genie-44170-solenoid-brake",
+    "slug": "genie-44170-solenoid-brake",
+    "brand": "Genie",
+    "oem": "44170",
+    "bucket": "valves",
+    "vendor_pn": "GN44170"
+  },
+  {
+    "sku": "genie-52372-solenoid-proportional",
+    "slug": "genie-52372-solenoid-proportional",
+    "brand": "Genie",
+    "oem": "52372",
+    "bucket": "valves",
+    "vendor_pn": "GN52372"
+  },
+  {
+    "sku": "genie-52380-solenoid-steering",
+    "slug": "genie-52380-solenoid-steering",
+    "brand": "Genie",
+    "oem": "52380",
+    "bucket": "valves",
+    "vendor_pn": "GN52380"
+  },
+  {
+    "sku": "genie-62815-solenoid-brake",
+    "slug": "genie-62815-solenoid-brake",
+    "brand": "Genie",
+    "oem": "62815",
+    "bucket": "valves",
+    "vendor_pn": "GN62815"
+  },
+  {
+    "sku": "genie-79154-solenoid-steering",
+    "slug": "genie-79154-solenoid-steering",
+    "brand": "Genie",
+    "oem": "79154",
+    "bucket": "valves",
+    "vendor_pn": "GN79154"
+  },
+  {
+    "sku": "genie-84108-solenoid-proportional",
+    "slug": "genie-84108-solenoid-proportional",
+    "brand": "Genie",
+    "oem": "84108",
+    "bucket": "valves",
+    "vendor_pn": "GN84108"
+  },
+  {
+    "sku": "genie-84109-solenoid-steering",
+    "slug": "genie-84109-solenoid-steering",
+    "brand": "Genie",
+    "oem": "84109",
+    "bucket": "valves",
+    "vendor_pn": "GN84109"
+  },
+  {
+    "sku": "genie-84128-solenoid-brake",
+    "slug": "genie-84128-solenoid-brake",
+    "brand": "Genie",
+    "oem": "84128",
+    "bucket": "valves",
+    "vendor_pn": "GN84128"
+  },
+  {
+    "sku": "genie-89862-solenoid-brake",
+    "slug": "genie-89862-solenoid-brake",
+    "brand": "Genie",
+    "oem": "89862",
+    "bucket": "valves",
+    "vendor_pn": "GN89862"
+  },
+  {
+    "sku": "genie-97467-solenoid-brake-44771-up",
+    "slug": "genie-97467-solenoid-brake-44771-up",
+    "brand": "Genie",
+    "oem": "97467",
+    "bucket": "valves",
+    "vendor_pn": "GN97467"
+  },
+  {
+    "sku": "jlg-4641090-solenoid-steering",
+    "slug": "jlg-4641090-solenoid-steering",
+    "brand": "JLG",
+    "oem": "4641090",
+    "bucket": "valves",
+    "vendor_pn": "JL4641090"
+  },
+  {
+    "sku": "jlg-7012910-solenoid-dump",
+    "slug": "jlg-7012910-solenoid-dump",
+    "brand": "JLG",
+    "oem": "7012910",
+    "bucket": "valves",
+    "vendor_pn": "JL7012910"
+  },
+  {
+    "sku": "jlg-7012920-solenoid-dump",
+    "slug": "jlg-7012920-solenoid-dump",
+    "brand": "JLG",
+    "oem": "7012920",
+    "bucket": "valves",
+    "vendor_pn": "JL7012920"
+  },
+  {
+    "sku": "jlg-7012941-solenoid-brake-high-speed-191606-up",
+    "slug": "jlg-7012941-solenoid-brake-high-speed-191606-up",
+    "brand": "JLG",
+    "oem": "7012941",
+    "bucket": "valves",
+    "vendor_pn": "JL7012941"
+  },
+  {
+    "sku": "jlg-7017410-solenoid-dump",
+    "slug": "jlg-7017410-solenoid-dump",
+    "brand": "JLG",
+    "oem": "7017410",
+    "bucket": "valves",
+    "vendor_pn": "JL7017410"
+  },
+  {
+    "sku": "jlg-7017433-solenoid-steering",
+    "slug": "jlg-7017433-solenoid-steering",
+    "brand": "JLG",
+    "oem": "7017433",
+    "bucket": "valves",
+    "vendor_pn": "JL7017433"
+  },
+  {
+    "sku": "jlg-7021365-solenoid-steering",
+    "slug": "jlg-7021365-solenoid-steering",
+    "brand": "JLG",
+    "oem": "7021365",
+    "bucket": "valves",
+    "vendor_pn": "JL7021365"
+  },
+  {
+    "sku": "jlg-7024570-solenoid-brake-high-speed",
+    "slug": "jlg-7024570-solenoid-brake-high-speed",
+    "brand": "JLG",
+    "oem": "7024570",
+    "bucket": "valves",
+    "vendor_pn": "JL7024570"
+  },
+  {
+    "sku": "jlg-7024576-solenoid-dump",
+    "slug": "jlg-7024576-solenoid-dump",
+    "brand": "JLG",
+    "oem": "7024576",
+    "bucket": "valves",
+    "vendor_pn": "JL7024576"
+  },
+  {
+    "sku": "skyjack-103623-brake-n-o",
+    "slug": "skyjack-103623-brake-n-o",
+    "brand": "Skyjack",
+    "oem": "103623",
+    "bucket": "valves",
+    "vendor_pn": "SJ103623"
+  },
+  {
+    "sku": "genie-44168-solenoid-steering",
+    "slug": "genie-44168-solenoid-steering",
+    "brand": "Genie",
+    "oem": "44168",
+    "bucket": "valves",
+    "vendor_pn": "GN44168"
+  },
+  {
+    "sku": "skyjack-103655-brake-n-c",
+    "slug": "skyjack-103655-brake-n-c",
+    "brand": "Skyjack",
+    "oem": "103655",
+    "bucket": "valves",
+    "vendor_pn": "SJ103655"
+  },
+  {
+    "sku": "skyjack-103656-brake-n-o",
+    "slug": "skyjack-103656-brake-n-o",
+    "brand": "Skyjack",
+    "oem": "103656",
+    "bucket": "valves",
+    "vendor_pn": "SJ103656"
+  },
+  {
+    "sku": "skyjack-107271-emergency-lowering",
+    "slug": "skyjack-107271-emergency-lowering",
+    "brand": "Skyjack",
+    "oem": "107271",
+    "bucket": "valves",
+    "vendor_pn": "SJ107271"
+  },
+  {
+    "sku": "skyjack-114365-dump",
+    "slug": "skyjack-114365-dump",
+    "brand": "Skyjack",
+    "oem": "114365",
+    "bucket": "valves",
+    "vendor_pn": "SJ114365"
+  },
+  {
+    "sku": "skyjack-153336-steer",
+    "slug": "skyjack-153336-steer",
+    "brand": "Skyjack",
+    "oem": "153336",
+    "bucket": "valves",
+    "vendor_pn": "SJ153336"
+  }
+]

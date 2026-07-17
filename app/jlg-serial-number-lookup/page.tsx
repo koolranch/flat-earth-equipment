@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import BrandHubBanner from '@/components/brand/BrandHubBanner';
+import BrandRtScissorSection from '@/components/parts/BrandRtScissorSection';
 import SerialToolJsonLd from '@/components/seo/SerialToolJsonLd';
 
 type PlateTip = { equipment_type:string; series:string|null; location_notes:string; };
@@ -179,6 +180,8 @@ export default function Page(){
           )}
         </div>
       )}
+
+      <BrandRtScissorSection brand="jlg" brandLabel="JLG" />
       </div>
     </>
   );

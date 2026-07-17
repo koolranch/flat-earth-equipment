@@ -1,0 +1,716 @@
+[
+  {
+    "sku": "genie-78903-joystick-controller",
+    "compPrice": 67.42,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/177353830403"
+  },
+  {
+    "sku": "genie-144065-platform-controls-coil-cord",
+    "compPrice": 50,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/Aftermarket-Replacement-Assy-gs-Joystick-144065/dp/B08QDVCN6J"
+  },
+  {
+    "sku": "genie-62161-joystick-controller",
+    "compPrice": 70,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/376524262204"
+  },
+  {
+    "sku": "genie-62162-platform-controls-coil-cord",
+    "compPrice": 64.63,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/389912840263"
+  },
+  {
+    "sku": "jlg-1600290-joystick-controller",
+    "compPrice": 426.3,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_1600290_CONTROLLER_JOYSTICK_p/1600290.htm"
+  },
+  {
+    "sku": "jlg-1600308-joystick-controller",
+    "compPrice": 110.52,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/396672546850"
+  },
+  {
+    "sku": "jlg-1600403-joystick-controller",
+    "compPrice": 118.67,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_1600403_CONTROLLER_JOYSTICK_p/1600403.htm"
+  },
+  {
+    "sku": "skyjack-123995-joystick-controller",
+    "compPrice": 95.9,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/Joystick-Controller-123995-SkyJack-Scissor/dp/B07QD3VJRX"
+  },
+  {
+    "sku": "skyjack-132537-joystick-controller",
+    "compPrice": 179.89,
+    "compSource": "walmart",
+    "compUrl": "https://www.walmart.com/ip/Joystick-Controller-132537-159230-for-SkyJack-Scissor-Lift-800-1000-600-6826RT-6832RT-7027RT-7127RT-7135RT-9241RT/17364209626"
+  },
+  {
+    "sku": "genie-105107-strobe-light",
+    "compPrice": 21,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/315691359745"
+  },
+  {
+    "sku": "genie-19506-hour-meter-gauge",
+    "compPrice": 26.99,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/19506GT-GS-1530-GS-1930-GS-2646-GS-3390/dp/B0G2LK6GS4"
+  },
+  {
+    "sku": "genie-81578-horn",
+    "compPrice": 36.05,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/126010619074"
+  },
+  {
+    "sku": "jlg-2920146-strobe-light",
+    "compPrice": 16.99,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/HNARL-Strobe-Beacon-2920146-Scissor/dp/B0BN2T9V47"
+  },
+  {
+    "sku": "genie-39540-descent-alarm",
+    "compPrice": 10.5,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/HNARL-39540GT-Vertical-Scissor-GS-1530/dp/B0BM4R34J6"
+  },
+  {
+    "sku": "jlg-0140001-horn",
+    "compPrice": 11.03,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_0140001_ALARM_HORN_12V_1_0A_p/0140001.htm"
+  },
+  {
+    "sku": "jlg-0140032-descent-motion-alarm",
+    "compPrice": 31.16,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_0140032_ALARM_BACKUP_12_36_VDC_p/0140032.htm"
+  },
+  {
+    "sku": "genie-62164-tilt-alarm",
+    "compPrice": 17.5,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/277734658706"
+  },
+  {
+    "sku": "jlg-0140011-tilt-alarm",
+    "compPrice": 18.4,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_0140011_ALARM_BUZZER_12_48_VDC_p/0140011.htm"
+  },
+  {
+    "sku": "jlg-0140044-descent-motion-alarm",
+    "compPrice": 65.25,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_0140044_ALARM_BACKUP_p/0140044.htm"
+  },
+  {
+    "sku": "jlg-2420009-hour-meter-gauge",
+    "compPrice": 13.18,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/146952946844"
+  },
+  {
+    "sku": "skyjack-103056-tilt-alarm",
+    "compPrice": 21.95,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/147240052210"
+  },
+  {
+    "sku": "skyjack-103336-hour-meter-gauge",
+    "compPrice": 11.75,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/173505398738"
+  },
+  {
+    "sku": "skyjack-126677-flashing-light",
+    "compPrice": 18.75,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/276128599591"
+  },
+  {
+    "sku": "skyjack-146652-12v-horn",
+    "compPrice": 26.24,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/146652_HORN_12_VOLT_SkyJack_Parts_p/sj-146652.htm"
+  },
+  {
+    "sku": "genie-66761-e-stop-switch-kit",
+    "compPrice": 17,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/365560909063"
+  },
+  {
+    "sku": "genie-66811-key-switch-3-position-maintained",
+    "compPrice": 49.87,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/Position-Key-Switch-66811GT-66811/dp/B0GNL58XZK"
+  },
+  {
+    "sku": "genie-66812-e-stop-button",
+    "compPrice": 91.99,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/Switch-Button-66812GT-66812-GS1932/dp/B0GGQJ8RX7"
+  },
+  {
+    "sku": "genie-66813-push-button-switch",
+    "compPrice": 17,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/406112162980"
+  },
+  {
+    "sku": "genie-66814-block-base-w-2-n-o-contacts",
+    "compPrice": 19.9,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/227333484912"
+  },
+  {
+    "sku": "genie-66815-block-base-w-1-n-o-contacts",
+    "compPrice": 58,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/156557744656"
+  },
+  {
+    "sku": "genie-66816-contact-block-n-o",
+    "compPrice": 10,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/406047907298"
+  },
+  {
+    "sku": "genie-66817-block-base-w-1-n-c-contacts",
+    "compPrice": 33.24,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/306573656959"
+  },
+  {
+    "sku": "genie-66818-contact-block-n-c",
+    "compPrice": 18,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/134874497110"
+  },
+  {
+    "sku": "genie-13037-s-toggle-switch-spdt-3-position-momentary",
+    "compPrice": 21,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/HNARL-13037-S-13037SGT-Position-Momentary/dp/B0BM7H63RM"
+  },
+  {
+    "sku": "genie-13480-s-toggle-switch-dpdt-2-position-momentary",
+    "compPrice": 83.99,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/156240341338"
+  },
+  {
+    "sku": "genie-27246-toggle-boot-switch",
+    "compPrice": 10,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/223172276070"
+  },
+  {
+    "sku": "genie-96008-s-key-switch-3-position-maintained",
+    "compPrice": 12,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/Holdwell-Switch-96008-SGT-96008-S-GS-1530/dp/B01J1AFGH6"
+  },
+  {
+    "sku": "genie-96011-key-switch-kit-3-position-w-terminals",
+    "compPrice": 16.99,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/AAeAxtdfw-Ignition-96011GT-R-GN-96011-Compatible/dp/B0GV484FNS"
+  },
+  {
+    "sku": "genie-99164-rocker-switch",
+    "compPrice": 52,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/UsewellParts-99164GT-GN-99164-Terrain-Scissor/dp/B0G5XDJJZ9"
+  },
+  {
+    "sku": "genie-62165-toggle-switch-spdt-3-position-momentary",
+    "compPrice": 90.56,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/154510115873"
+  },
+  {
+    "sku": "genie-62166-push-button-switch",
+    "compPrice": 35.82,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/298362545266"
+  },
+  {
+    "sku": "jlg-4360274-push-button-switch",
+    "compPrice": 24.61,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_4360274_SWITCH_PUSH_BUTTON_GRAY_p/4360274.htm"
+  },
+  {
+    "sku": "jlg-4360290-key-switch",
+    "compPrice": 8.99,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/p/1224001406"
+  },
+  {
+    "sku": "jlg-4360314-toggle-switch-dpdt-3-position-momentary",
+    "compPrice": 11.28,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/Hanfork-Toggle-4360314-4360314S-Aftermarket/dp/B0D2J146XQ"
+  },
+  {
+    "sku": "jlg-4360328-toggle-switch-spdt-3-position-momentary",
+    "compPrice": 8.48,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_4360328S_1001155045_SWITCH_TOGGLE_p/4360328s.htm"
+  },
+  {
+    "sku": "jlg-4360329-toggle-switch-spdt-2-position-maintained",
+    "compPrice": 57.49,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_4360329_SWITCH_TOGGLE_SPST_p/4360329.htm"
+  },
+  {
+    "sku": "jlg-4360330-toggle-switch-spdt-2-position-maintained",
+    "compPrice": 20.99,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/UsewellParts-4360330-4360330S-1200SJP-1350SJP/dp/B0G5XL4QVH"
+  },
+  {
+    "sku": "jlg-4360331-toggle-switch-dpdt-3-position-momentary",
+    "compPrice": 12.5,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/HNARL-Toggle-Switch-4360331-4360331S/dp/B0BY6P262W"
+  },
+  {
+    "sku": "jlg-4360345-toggle-switch-dpdt-3-position-momentary",
+    "compPrice": 36.75,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/Toggle-Switch-4360345-400RTS-1932RS/dp/B0773DX4Q6"
+  },
+  {
+    "sku": "jlg-4360387-yellow-push-button-switch",
+    "compPrice": 17.53,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_4360387_SWITCH_PUSHBUTTON_p/4360387.htm"
+  },
+  {
+    "sku": "jlg-4360469-key-switch",
+    "compPrice": 12.99,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/Holdwell-Switch-4360469-1532E2-1932E2/dp/B01J16JY64"
+  },
+  {
+    "sku": "jlg-4360475-e-stop-switch-kit",
+    "compPrice": 11.99,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/Holdwell-Switch-4360475-Emergency-Scissor/dp/B01DCYBZA4"
+  },
+  {
+    "sku": "jlg-4360482-toggle-switch-spdt-2-position-maintained",
+    "compPrice": 30.87,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_4360482_SWITCH_TOGGLE_p/4360482.htm"
+  },
+  {
+    "sku": "jlg-4360483-toggle-switch-spdt-2-position-momentary",
+    "compPrice": 37.81,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_4360483_SWITCH_TOGGLE_p/4360483.htm"
+  },
+  {
+    "sku": "jlg-4360524-toggle-switch-spdt-3-position-momentary",
+    "compPrice": 45.99,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/Position-Connection-4360524-Compatible-Scissor/dp/B0GKZN4Z4X"
+  },
+  {
+    "sku": "jlg-4360525-toggle-switch-spdt-2-position-maintained",
+    "compPrice": 177.99,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/Toggle-Switch-4360525-Compatible-Scissor/dp/B0GHRFJVJ4"
+  },
+  {
+    "sku": "skyjack-102572-push-pull-engine-on-off-switch",
+    "compPrice": 34.97,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/102572_ENGINE_STOP_SWITCH_5015_NOTE_SkyJack_p/sj-102572.htm"
+  },
+  {
+    "sku": "skyjack-102692-push-button-switch",
+    "compPrice": 17.49,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/146400116581"
+  },
+  {
+    "sku": "skyjack-102753-key-switch-3-position-maintained",
+    "compPrice": 56.95,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/102753_KEY_SWITCH_3_POSITION_SkyJack_Parts_p/sj-102753.htm"
+  },
+  {
+    "sku": "skyjack-102769-e-stop-button",
+    "compPrice": 45,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/163778614873"
+  },
+  {
+    "sku": "skyjack-102836-rotary-switch-selector-2-position-maintained",
+    "compPrice": 24.93,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/102836_SWITCH_SELECT_BD2_SkyJack_Parts_p/sj-102836.htm"
+  },
+  {
+    "sku": "skyjack-102837-rotary-switch-selector-3-position-momentary",
+    "compPrice": 27.29,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/102837_SELECTOR_SWITCH_SkyJack_Parts_p/sj-102837.htm"
+  },
+  {
+    "sku": "skyjack-102851-black-push-button-switch",
+    "compPrice": 94,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/157616939194"
+  },
+  {
+    "sku": "skyjack-102853-toggle-switch-spdt-3-position-momentary",
+    "compPrice": 35.61,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/102853_TOGGLE_SWITCH_SkyJack_Parts_p/sj-102853.htm"
+  },
+  {
+    "sku": "skyjack-103100-switch-base",
+    "compPrice": 31,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/163801885001"
+  },
+  {
+    "sku": "skyjack-103141-contact-block-n-o",
+    "compPrice": 10.69,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/103141_CONTACT_N_O_SkyJack_Parts_p/sj-103141.htm"
+  },
+  {
+    "sku": "skyjack-137793-rotary-switch-selector-3-position-maintained",
+    "compPrice": 31.94,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/137793_SWITCH_HEAD_SELECTOR_3_WAY_SkyJack_Parts_p/sj-137793.htm"
+  },
+  {
+    "sku": "skyjack-103225-contact-block-n-c",
+    "compPrice": 11.06,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/Skyjack-SJIII3015-SWITCH-EMERGENCY-103225/dp/B07RB7GN7Z"
+  },
+  {
+    "sku": "skyjack-108854-green-push-button-switch",
+    "compPrice": 10.69,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/108854_SWITCH_P_B_HEAD_GREEN_SkyJack_Parts_p/sj-108854.htm"
+  },
+  {
+    "sku": "skyjack-111181-switch-guard",
+    "compPrice": 10.95,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/SKYJACK-111181-SWITCH-ALUMINUM-SHIELD/dp/B07Y2G45L1"
+  },
+  {
+    "sku": "skyjack-111627-toggle-switch-dpdt-3-position-maintained",
+    "compPrice": 14,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/276115981596"
+  },
+  {
+    "sku": "skyjack-114373-toggle-switch-dpdt-2-position-maintained",
+    "compPrice": 56,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/163782569274"
+  },
+  {
+    "sku": "skyjack-115574-toggle-switch-spdt-3-position-maintained",
+    "compPrice": 52.2,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/115574_TOGGLE_SWITCH_SkyJack_Parts_p/sj-115574.htm"
+  },
+  {
+    "sku": "skyjack-119726-main-disconnect-switch",
+    "compPrice": 13.7,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/116010259467"
+  },
+  {
+    "sku": "skyjack-124446-toggle-switch-dpdt-3-position-maintained",
+    "compPrice": 52.2,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/124446_SWITCH_TOGGLE_SkyJack_Parts_p/sj-124446.htm"
+  },
+  {
+    "sku": "skyjack-133762-key-switch-3-position-maintained",
+    "compPrice": 117,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/133762_SWITCH_KEY_3_WAY_SJ68XXRT_SkyJack_Parts_p/sj-133762.htm"
+  },
+  {
+    "sku": "skyjack-137781-switch-base",
+    "compPrice": 25,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/274299379155"
+  },
+  {
+    "sku": "skyjack-137782-contact-block-n-o",
+    "compPrice": 10,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/317338974131"
+  },
+  {
+    "sku": "skyjack-137783-contact-block-n-c",
+    "compPrice": 18.25,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/377027628289"
+  },
+  {
+    "sku": "skyjack-137785-red-led-block",
+    "compPrice": 69.94,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/137785_SWITCH_LED_BLOCK_RED_SkyJack_Parts_p/sj-137785.htm"
+  },
+  {
+    "sku": "skyjack-137786-contact-block-base-w-1-n-o",
+    "compPrice": 34.84,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/137786_SWITCH_BASE_ASSEMBLY_NORMALLY_SkyJack_p/sj-137786.htm"
+  },
+  {
+    "sku": "skyjack-137792-black-push-button-switch",
+    "compPrice": 19.22,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/137792_SWTICH_HEAD_PUSH_BUTTON_BLACK_SkyJack_p/sj-137792.htm"
+  },
+  {
+    "sku": "skyjack-137794-rotary-switch-selector-2-position-maintained",
+    "compPrice": 33.62,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/137794_SWITCH_HEAD_SELECTOR_2_WAY_SkyJack_Parts_p/sj-137794.htm"
+  },
+  {
+    "sku": "skyjack-137795-e-stop-switch-kit",
+    "compPrice": 120.09,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/137795_SWITCH_HEAD_ILLIUMINATED_E_STO_SkyJack_p/sj-137795.htm"
+  },
+  {
+    "sku": "skyjack-147053-contact-block-n-c",
+    "compPrice": 38.21,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/137092467271"
+  },
+  {
+    "sku": "skyjack-147054-contact-block-n-o",
+    "compPrice": 106,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/227185678702"
+  },
+  {
+    "sku": "skyjack-147056-switch-base",
+    "compPrice": 14.89,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/p/1174265772"
+  },
+  {
+    "sku": "skyjack-147058-black-push-button-switch",
+    "compPrice": 8.34,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/147058_SWITCH_P_B_BLACK_SkyJack_Parts_p/sj-147058.htm"
+  },
+  {
+    "sku": "skyjack-147069-rotary-switch-selector-3-position-momentary",
+    "compPrice": 16.59,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/147069_SWITCH_SELECTOR_SkyJack_Parts_p/sj-147069.htm"
+  },
+  {
+    "sku": "skyjack-147211-green-push-button-switch",
+    "compPrice": 10,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/p/18007463591"
+  },
+  {
+    "sku": "skyjack-147233-rotary-switch-selector-2-position-maintained",
+    "compPrice": 14,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/116030752103"
+  },
+  {
+    "sku": "skyjack-149605-key-switch-3-position-maintained",
+    "compPrice": 52.47,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/149605_3_POSITION_SWITCH_KEY_OUT_FRO_SkyJack_p/sj-149605.htm"
+  },
+  {
+    "sku": "skyjack-701930-toggle-switch-spdt-2-position-maintained",
+    "compPrice": 24.69,
+    "compSource": "magnasourceinc",
+    "compUrl": "https://prod.magnasourceinc.com/itemdetail/SJ701930"
+  },
+  {
+    "sku": "genie-78674-level-sensor",
+    "compPrice": 217.38,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/321734980465"
+  },
+  {
+    "sku": "jlg-4360357-level-sensor",
+    "compPrice": 61,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_4360357_SWITCH_PRESSURE_15PSI_FORD_p/4360357.htm"
+  },
+  {
+    "sku": "skyjack-117880-level-sensor",
+    "compPrice": 37.31,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/134700412404"
+  },
+  {
+    "sku": "skyjack-146660-level-sensor",
+    "compPrice": 143.61,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/146660_SWITCH_TILT_SkyJack_Parts_p/sj-146660.htm"
+  },
+  {
+    "sku": "skyjack-146661-level-sensor",
+    "compPrice": 149,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/321582745673"
+  },
+  {
+    "sku": "skyjack-310585-level-sensor",
+    "compPrice": 31.06,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/321582754063"
+  },
+  {
+    "sku": "genie-19274-spdt-12v-relay",
+    "compPrice": 26,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/NEW-GENIE-RELAY-19274-19274GT/dp/B01MA3Y02S"
+  },
+  {
+    "sku": "genie-34052-spdt-12v-relay",
+    "compPrice": 10.16,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/GENIE-TIMER-RELAY-S60XC-34052GT/dp/B081D9S8P4"
+  },
+  {
+    "sku": "genie-61225-spdt-70a-12v-relay",
+    "compPrice": 9.75,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/156557744309"
+  },
+  {
+    "sku": "jlg-3740049-spdt-12v-30a-relay",
+    "compPrice": 12.5,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/p/1073813994"
+  },
+  {
+    "sku": "jlg-3740059-spdt-12v-50a-relay",
+    "compPrice": 28.32,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_3740059_RELAY_12V_IGNITION_p/3740059.htm"
+  },
+  {
+    "sku": "jlg-3740067-spdt-12v-70a-relay",
+    "compPrice": 18.21,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_3740067_RELAY_SOLENOID_p/3740067.htm"
+  },
+  {
+    "sku": "jlg-3740112-spdt-12v-75a-relay",
+    "compPrice": 55.58,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/3740112_p/3740112.htm"
+  },
+  {
+    "sku": "skyjack-103207-dpdt-12v-relay",
+    "compPrice": 26.09,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/103207_RELAY_DPDT_12V_DC_SkyJack_Parts_p/sj-103207.htm"
+  },
+  {
+    "sku": "skyjack-103271-dpdt-relay-socket",
+    "compPrice": 17.8,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/103271_BASE_FOR_RELAY_SkyJack_Parts_p/sj-103271.htm"
+  },
+  {
+    "sku": "skyjack-103316-spdt-12v-relay",
+    "compPrice": 37.65,
+    "compSource": "amazon",
+    "compUrl": "https://www.amazon.com/103316-Compatible-Skyjack-SJ7127-SJ7135/dp/B0G1KH4F8P"
+  },
+  {
+    "sku": "skyjack-111956-spdt-12v-relay-36486-36951-plug-in-type",
+    "compPrice": 33,
+    "compSource": "magnasourceinc",
+    "compUrl": "https://www.magnasourceinc.com/itemdetail/SJ111956"
+  },
+  {
+    "sku": "skyjack-127035-spdt-12v-40a-relay",
+    "compPrice": 23.73,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/127035_RELAY_SINGLE_12V_40A_SkyJack_Parts_p/sj-127035.htm"
+  },
+  {
+    "sku": "skyjack-127131-spdt-12v-40a-relay",
+    "compPrice": 16.59,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/127131_RELAY_SPDT_12DC_40AMP_NO_MOU_SkyJack_p/sj-127131.htm"
+  },
+  {
+    "sku": "genie-147095-20a-circuit-breaker",
+    "compPrice": 20,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/156355747985"
+  },
+  {
+    "sku": "jlg-4360212-3a-circuit-breaker",
+    "compPrice": 17.15,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/354953270576"
+  },
+  {
+    "sku": "jlg-4360232-15a-circuit-breaker",
+    "compPrice": 8.99,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_4360232_BREAKER_CIRCUIT_15_AMP_p/4360232.htm"
+  },
+  {
+    "sku": "jlg-4360448-10a-circuit-breaker",
+    "compPrice": 19.46,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/JLG_Parts_4360448_BREAKER_CIRCUIT_10_AMP_p/4360448.htm"
+  },
+  {
+    "sku": "skyjack-117325-15a-circuit-breaker",
+    "compPrice": 41,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/153723369078"
+  },
+  {
+    "sku": "skyjack-117326-20a-circuit-breaker",
+    "compPrice": 11.23,
+    "compSource": "ebay",
+    "compUrl": "https://www.ebay.com/itm/295840757218"
+  },
+  {
+    "sku": "skyjack-137919-25a-circuit-breaker",
+    "compPrice": 20.44,
+    "compSource": "gciron",
+    "compUrl": "https://www.gciron.com/137919_CIRCUIT_BREAKER_25_AMP_SkyJack_Parts_p/sj-137919.htm"
+  }
+]
