@@ -276,6 +276,12 @@ export const CATALOG_QUICK_PATHS = [
     accent: 'bg-slate-900',
   },
   {
+    label: 'Sweeper Brooms',
+    href: '/brooms',
+    description: 'Tennant · Advance · Power Boss',
+    accent: 'bg-amber-800',
+  },
+  {
     label: 'Forklift Forks',
     href: '/forks',
     description: 'Class II–IV · ANSI certified',

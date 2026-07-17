@@ -1,0 +1,767 @@
+vendor_pn,brand,oem_display,description,broom_type,broom_type_label,size_in,filament,pattern,compatible_models,model_codes,phase,publish_status,slug,qty
+SY11-1307,Advance,11-1307,"Side Broom 13"" 3 S.R. Nylon",side_broom,Side Broom,"13""",Nylon,single_row,560|1800|2060|5100D|5100G|5100P|5100PS|5200G|5200HD|5600|5800B|5800D|5800G|5800P|6250,002|007|013|014,1,pending,advance-11-1307-side-broom-13-nylon,1
+SY11-2609,Advance,11-2609,"Main Broom 26"" 18 D.R. Union/Wire",main_broom,Main Broom,"26""",Union/Wire,double_row,360B|360G|360P|3600B,001,1,pending,advance-11-2609-main-broom-26-union-wire,1
+SY11-2610,Advance,11-2610,"Main Broom 26"" 6 D.R. Union/Wire",main_broom,Main Broom,"26""",Union/Wire,double_row,360B|360G|360P|3600B,001,1,pending,advance-11-2610-main-broom-26-union-wire,1
+SY11-2611,Advance,11-2611,"Main Broom 26"" 9 D.R. Poly",main_broom,Main Broom,"26""",Poly,double_row,360B|360G|360P|3600B,001,1,pending,advance-11-2611-main-broom-26-poly,1
+SY11-2740,Advance,11-2740,"Main Scrub 28"" 16 S.R. .070/46 Grit",cylindrical_scrub,Cylindrical Scrub,"28""",.070/46 Grit,single_row,Adgressor 2820|Retriever 2800|Warrior 28C,036,2,pending,advance-11-2740-cylindrical-scrub-28-070-46-grit,2
+SY11-2741,Advance,11-2741,"Main Scrub 28"" 16 S.R..050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"28""",.050/80 Grit,single_row,Adgressor 2820|Retriever 2800|Warrior 28C,036,2,pending,advance-11-2741-cylindrical-scrub-28-050-80-grit,2
+SY11-2742,Advance,11-2742,"Main Scrub 28"" 16 S.R. .035/180 Grit",cylindrical_scrub,Cylindrical Scrub,"28""",.035/180 Grit,single_row,Adgressor 2820|Retriever 2800|Warrior 28C,036,2,pending,advance-11-2742-cylindrical-scrub-28-035-180-grit,2
+SY11-2743,Advance,11-2743,"Main Scrub 28"" 16 S.R. .020 Poly",cylindrical_scrub,Cylindrical Scrub,"28""",Poly,single_row,Adgressor 2820|Retriever 2800|Warrior 28C,036,2,pending,advance-11-2743-cylindrical-scrub-28-poly,2
+SY11-2744,Advance,11-2744,"Main Scrub 28"" 16 S.R. .020 Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"28""",Soft Nylon,single_row,Adgressor 2820|Retriever 2800|Warrior 28C,036,2,pending,advance-11-2744-cylindrical-scrub-28-soft-nylon,2
+SY11-2745,Advance,11-2745,"Main Scrub 28"" 16 S.R. .028 Nylon",cylindrical_scrub,Cylindrical Scrub,"28""",Nylon,single_row,Adgressor 2820|Retriever 2800|Warrior 28C,036,2,pending,advance-11-2745-cylindrical-scrub-28-nylon,2
+SY11-3110,Advance,11-3110,"Main Scrub 32"" 16 S.R. .070/46 Grit",cylindrical_scrub,Cylindrical Scrub,"32""",.070/46 Grit,single_row,Adgressor 3220|Retriever 3200|Warrior 32C,037,2,pending,advance-11-3110-cylindrical-scrub-32-070-46-grit,2
+SY11-3111,Advance,11-3111,"Main Scrub 32"" 16 S.R. .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"32""",.050/80 Grit,single_row,Adgressor 3220|Retriever 3200|Warrior 32C,037,2,pending,advance-11-3111-cylindrical-scrub-32-050-80-grit,2
+SY11-3112,Advance,11-3112,"Main Scrub 32"" 16 S.R. .035/180 Grit",cylindrical_scrub,Cylindrical Scrub,"32""",.035/180 Grit,single_row,Adgressor 3220|Retriever 3200|Warrior 32C,037,2,pending,advance-11-3112-cylindrical-scrub-32-035-180-grit,2
+SY11-3113,Advance,11-3113,"Main Scrub 32"" 16 S.R. .020 Poly",cylindrical_scrub,Cylindrical Scrub,"32""",Poly,single_row,Adgressor 3220|Retriever 3200|Warrior 32C,037,2,pending,advance-11-3113-cylindrical-scrub-32-poly,2
+SY11-3114,Advance,11-3114,"Main Scrub 32"" 16 S.R. .020 Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"32""",Soft Nylon,single_row,Adgressor 3220|Retriever 3200|Warrior 32C,037,2,pending,advance-11-3114-cylindrical-scrub-32-soft-nylon,2
+SY11-3115,Advance,11-3115,"Main Scrub 32"" 16 S.R. .028 Nylon",cylindrical_scrub,Cylindrical Scrub,"32""",Nylon,single_row,Adgressor 3220|Retriever 3200|Warrior 32C,037,2,pending,advance-11-3115-cylindrical-scrub-32-nylon,2
+SY11-3403,Advance,11-3403,"Main Broom 34"" 6 D.R. Stiff Poly",main_broom,Main Broom,"34""",Stiff Poly,double_row,1600|4600|4600B,005,1,pending,advance-11-3403-main-broom-34-stiff-poly,1
+SY11-3404,Advance,11-3404,"Main Broom 34"" 6 D.R. Proex",main_broom,Main Broom,"34""",,double_row,1600|4600|4600B,005,1,pending,advance-11-3404-main-broom-34,1
+SY11-3405,Advance,11-3405,"Main Broom 34"" 6 D.R. Union Wire",main_broom,Main Broom,"34""",Wire,double_row,1600|4600|4600B,005,1,pending,advance-11-3405-main-broom-34-wire,1
+SY11-3407,Advance,11-3407,"Main Broom 34"" 6 D.R. Extra Stiff Proex",main_broom,Main Broom,"34""",,double_row,1600|4600|4600B,005,1,pending,advance-11-3407-main-broom-34,1
+SY11-3411,Advance,11-3411,"Main Scrub 35"" 16 S.R. .070/46 Grit",cylindrical_scrub,Cylindrical Scrub,"35""",.070/46 Grit,single_row,Adgressor 3520,038,2,pending,advance-11-3411-cylindrical-scrub-35-070-46-grit,2
+SY11-3412,Advance,11-3412,"Main Scrub 35"" 16 S.R. .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"35""",.050/80 Grit,single_row,Adgressor 3520,038,2,pending,advance-11-3412-cylindrical-scrub-35-050-80-grit,2
+SY11-3413,Advance,11-3413,"Main Scrub 35"" 16 S.R. .035/180 Grit",cylindrical_scrub,Cylindrical Scrub,"35""",.035/180 Grit,single_row,Adgressor 3520,038,2,pending,advance-11-3413-cylindrical-scrub-35-035-180-grit,2
+SY11-3414,Advance,11-3414,"Main Scrub 35"" 16 S.R. .020 Poly",cylindrical_scrub,Cylindrical Scrub,"35""",Poly,single_row,Adgressor 3520,038,2,pending,advance-11-3414-cylindrical-scrub-35-poly,2
+SY11-3415,Advance,11-3415,"Main Scrub 35"" 16 S.R. .020 Sofy Nylon",cylindrical_scrub,Cylindrical Scrub,"35""",Nylon,single_row,Adgressor 3520,038,2,pending,advance-11-3415-cylindrical-scrub-35-nylon,2
+SY11-3416,Advance,11-3416,"Main Scrub 35"" 16 S.R. .028 Nylon",cylindrical_scrub,Cylindrical Scrub,"35""",Nylon,single_row,Adgressor 3520,038,2,pending,advance-11-3416-cylindrical-scrub-35-nylon,2
+SY11-3636,Advance,11-3636,"Main Broom 36"" 12 D.R. Stiff Proex/Wire",main_broom,Main Broom,"36""",Proex/Wire,double_row,5200G|5200HD,014,1,pending,advance-11-3636-main-broom-36-proex-wire,1
+SY11-3637,Advance,11-3637,"Main Broom 36"" 8 D.R. Stiff Proex",main_broom,Main Broom,"36""",,double_row,5200G|5200HD,014,1,pending,advance-11-3637-main-broom-36,1
+SY11-3638,Advance,11-3638,"Main Broom 36"" 12 D.R. Proex/Wire",main_broom,Main Broom,"36""",Proex/Wire,double_row,5200G|5200HD,014,1,pending,advance-11-3638-main-broom-36-proex-wire,1
+SY11-3640,Advance,11-3640,"Main Broom 36"" 6 D.R. Stiff Poly",main_broom,Main Broom,"36""",Stiff Poly,double_row,1300|2052|5000|5015,004,1,pending,advance-11-3640-main-broom-36-stiff-poly,1
+SY11-3701,Advance,11-3701,"Main Scrub 38"" 16 S.R. .070/46 Grit",cylindrical_scrub,Cylindrical Scrub,"38""",.070/46 Grit,single_row,2042/2042C|Adgressor 3820|Retriever 3800,034|039,2,pending,advance-11-3701-cylindrical-scrub-38-070-46-grit,2
+SY11-3702,Advance,11-3702,"Main Scrub 38"" 16 S.R. .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"38""",.050/80 Grit,single_row,2042/2042C|Adgressor 3820|Retriever 3800,034|039,2,pending,advance-11-3702-cylindrical-scrub-38-050-80-grit,2
+SY11-3703,Advance,11-3703,"Main Scrub 38"" 16 S.R. .035/180 Grit",cylindrical_scrub,Cylindrical Scrub,"38""",.035/180 Grit,single_row,2042/2042C|Adgressor 3820|Retriever 3800,034|039,2,pending,advance-11-3703-cylindrical-scrub-38-035-180-grit,2
+SY11-3704,Advance,11-3704,"Main Scrub 38"" 16 S.R. .020 Poly",cylindrical_scrub,Cylindrical Scrub,"38""",Poly,single_row,2042/2042C|Adgressor 3820|Retriever 3800,034|039,2,pending,advance-11-3704-cylindrical-scrub-38-poly,2
+SY11-3705,Advance,11-3705,"Main Scrub 38"" 16 S.r .020 Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"38""",Soft Nylon,single_row,2042/2042C|Adgressor 3820|Retriever 3800,034|039,2,pending,advance-11-3705-cylindrical-scrub-38-soft-nylon,2
+SY11-3706,Advance,11-3706,"Main Scrub 38"" 16 S.R. .028 Nylon",cylindrical_scrub,Cylindrical Scrub,"38""",Nylon,single_row,2042/2042C|Adgressor 3820|Retriever 3800,034|039,2,pending,advance-11-3706-cylindrical-scrub-38-nylon,2
+SY11-3814,Advance,11-3814,"Main Scrub 40"" 18 S.R. .070/46 Grit",cylindrical_scrub,Cylindrical Scrub,"40""",.070/46 Grit,single_row,4030/4030C,040,2,pending,advance-11-3814-cylindrical-scrub-40-070-46-grit,2
+SY11-3815,Advance,11-3815,"Main Scrub 40"" 18 S.R. .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"40""",.050/80 Grit,single_row,4030/4030C,040,2,pending,advance-11-3815-cylindrical-scrub-40-050-80-grit,2
+SY11-3816,Advance,11-3816,"Main Scrub 40"" 18 S.R. .035/180 Grit",cylindrical_scrub,Cylindrical Scrub,"40""",.035/180 Grit,single_row,4030/4030C,040,2,pending,advance-11-3816-cylindrical-scrub-40-035-180-grit,2
+SY11-3817,Advance,11-3817,"Main Scrub 40"" 18 S.R. Poly",cylindrical_scrub,Cylindrical Scrub,"40""",Poly,single_row,4030/4030C,040,2,pending,advance-11-3817-cylindrical-scrub-40-poly,2
+SY11-3818,Advance,11-3818,"Main Scrub 40"" 18 S.R. Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"40""",Soft Nylon,single_row,4030/4030C,040,2,pending,advance-11-3818-cylindrical-scrub-40-soft-nylon,2
+SY11-3819,Advance,11-3819,"Main Scrub 40"" 18 S.R. Stiff Nylon",cylindrical_scrub,Cylindrical Scrub,"40""",Stiff Nylon,single_row,4030/4030C,040,2,pending,advance-11-3819-cylindrical-scrub-40-stiff-nylon,2
+SY11-3905,Advance,11-3905,"Main Broom 39.5"" 12 D.R. Stiff Poly",main_broom,Main Broom,"39.5""",Stiff Poly,double_row,5100D|5100G|5100P|5100PS,013,1,pending,advance-11-3905-main-broom-39-5-stiff-poly,1
+SY11-4010,Advance,11-4010,"Main Broom 40"" 12 D.R. Proex/Wire",main_broom,Main Broom,"40""",Proex/Wire,double_row,2820D|4300|4800|5400,010|012|015,1,pending,advance-11-4010-main-broom-40-proex-wire,1
+SY11-4011,Advance,11-4011,"Main Broom 40"" 8 D.R. Stiff Poly",main_broom,Main Broom,"40""",Stiff Poly,double_row,2820D|4300|4800|5400,010|012|015,1,pending,advance-11-4011-main-broom-40-stiff-poly,1
+SY11-4012,Advance,11-4012,"Main Broom 40"" 12 D.R. Proex",main_broom,Main Broom,"40""",,double_row,2820D|4300|4800|5400,010|012|015,1,pending,advance-11-4012-main-broom-40,1
+SY11-4013,Advance,11-4013,"Main Broom 40"" 8 D.R. Nylon",main_broom,Main Broom,"40""",Nylon,double_row,2820D|4300|4800|5400,010|012|015,1,pending,advance-11-4013-main-broom-40-nylon,1
+SY11-4014,Advance,11-4014,"Main Broom 40"" 8 D.R. Proex",main_broom,Main Broom,"40""",,double_row,2820D|4300|4800|5400,010|012|015,1,pending,advance-11-4014-main-broom-40,1
+SY11-4015,Advance,11-4015,"Main Broom 40"" 8 D.R. Proex/Wire",main_broom,Main Broom,"40""",Proex/Wire,double_row,2820D|4300|4800|5400,010|012|015,1,pending,advance-11-4015-main-broom-40-proex-wire,1
+SY11-4016,Advance,11-4016,"Main Broom 40"" 8 D.R. Extra Stiff Proex",main_broom,Main Broom,"40""",,double_row,2820D|4300|4800|5400,010|012|015,1,pending,advance-11-4016-main-broom-40,1
+SY11-4101,Advance,11-4101,"Main Scrub 42"" 16 S.R. .070/46 Grit",cylindrical_scrub,Cylindrical Scrub,"42""",.070/46 Grit,single_row,2042/2042C|Retriever 2042,035|039,2,pending,advance-11-4101-cylindrical-scrub-42-070-46-grit,2
+SY11-4102,Advance,11-4102,"Main Scrub 42"" 16 S.R. .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"42""",.050/80 Grit,single_row,2042/2042C|Retriever 2042,035|039,2,pending,advance-11-4102-cylindrical-scrub-42-050-80-grit,2
+SY11-4103,Advance,11-4103,"Main Scrub 42' 16 S.R. .035/180 Grit",cylindrical_scrub,Cylindrical Scrub,,.035/180 Grit,single_row,2042/2042C|Retriever 2042,035|039,2,pending,advance-11-4103-cylindrical-scrub-035-180-grit,2
+SY11-4104,Advance,11-4104,"Main Scrub 42"" 16 S.R. .020 Poly",cylindrical_scrub,Cylindrical Scrub,"42""",Poly,single_row,2042/2042C|Retriever 2042,035|039,2,pending,advance-11-4104-cylindrical-scrub-42-poly,2
+SY11-4105,Advance,11-4105,"Main Scrub 42"" 16 S.R. .020 Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"42""",Soft Nylon,single_row,2042/2042C|Retriever 2042,035|039,2,pending,advance-11-4105-cylindrical-scrub-42-soft-nylon,2
+SY11-4106,Advance,11-4106,"Main Scrub 42"" 16 S.R. .028 Hard Nylon",cylindrical_scrub,Cylindrical Scrub,"42""",Nylon,single_row,2042/2042C|Retriever 2042,035|039,2,pending,advance-11-4106-cylindrical-scrub-42-nylon,2
+SY11-4401,Advance,11-4401,"Main Broom 44"" 12 D.R. Stiff Poly",main_broom,Main Broom,"44""",Stiff Poly,double_row,560|5600|5800B|5800D|5800G|5800P,002,1,pending,advance-11-4401-main-broom-44-stiff-poly,1
+SY11-4517,Advance,11-4517,"Main Broom 45"" 8 D.R. Stiff Nylon",main_broom,Main Broom,"45""",Stiff Nylon,double_row,1700|1800|2060|2067|4500|6250,006|007,1,pending,advance-11-4517-main-broom-45-stiff-nylon,1
+SY11-4518,Advance,11-4518,"Main Broom 45"" 8 D.R. Proex/Wire",main_broom,Main Broom,"45""",Proex/Wire,double_row,1700|1800|2060|2067|4500|6250,006|007,1,pending,advance-11-4518-main-broom-45-proex-wire,1
+SY11-4519,Advance,11-4519,"Main Broom 45"" 8 D.R. Proex",main_broom,Main Broom,"45""",,double_row,1700|1800|2060|2067|4500|6250,006|007,1,pending,advance-11-4519-main-broom-45,1
+SY11-4535,Advance,11-4535,"Main Broom 45"" 12 D.R. Proex/Wire",main_broom,Main Broom,"45""",Proex/Wire,double_row,1800|2060|6250,007,1,pending,advance-11-4535-main-broom-45-proex-wire,1
+SY11-4536,Advance,11-4536,"Main Broom 45"" 12 D.R. Proex",main_broom,Main Broom,"45""",,double_row,1800|2060|6250,007,1,pending,advance-11-4536-main-broom-45,1
+SY11-4537,Advance,11-4537,"Main Broom 45"" 8 D.R. Stiff Proex/Wire",main_broom,Main Broom,"45""",Proex/Wire,double_row,1700|1800|2060|2067|4500|6250,006|007,1,pending,advance-11-4537-main-broom-45-proex-wire,1
+SY11-5027,Advance,11-5027,"Main Broom 50"" 8 D.R. Poly",main_broom,Main Broom,"50""",Poly,double_row,6600|6600XP,022,1,pending,advance-11-5027-main-broom-50-poly,1
+SY11-5040,Advance,11-5040,"Main Broom 50"" 8 D.R. Proex/Wire",main_broom,Main Broom,"50""",Proex/Wire,double_row,6340|Exterra,026,1,pending,advance-11-5040-main-broom-50-proex-wire,1
+SY11-5041,Advance,11-5041,"Main Broom 50"" 8 D.R. Stiff Proex/Wire",main_broom,Main Broom,"50""",Proex/Wire,double_row,6340|Exterra,026,1,pending,advance-11-5041-main-broom-50-proex-wire,1
+SY11-5042,Advance,11-5042,"Main Broom 50"" 12 D.R. Proex/Wire",main_broom,Main Broom,"50""",Proex/Wire,double_row,6340|Exterra,026,1,pending,advance-11-5042-main-broom-50-proex-wire,1
+SY11-5043,Advance,11-5043,"Main Broom 50"" 8 D.R. Nylon",main_broom,Main Broom,"50""",Nylon,double_row,6340|Exterra,026,1,pending,advance-11-5043-main-broom-50-nylon,1
+SY11-5044,Advance,11-5044,"Main Broom 50"" 12 D.R. Proex/Wire",main_broom,Main Broom,"50""",Proex/Wire,double_row,6340|Exterra,026,1,pending,advance-11-5044-main-broom-50-proex-wire,1
+SY11-5045,Advance,11-5045,Main Broom 8 D.R. Poly,main_broom,Main Broom,,Poly,double_row,6340|Exterra,026,1,pending,advance-11-5045-main-broom-poly,1
+SY11-5046,Advance,11-5046,"Main Broom 50"" 12 D.R. Poly/Wire",main_broom,Main Broom,"50""",Poly,double_row,6340|Exterra,026,1,pending,advance-11-5046-main-broom-50-poly,1
+SY11-5047,Advance,11-5047,"Main Broom 50"" 8 D.R. Poly",main_broom,Main Broom,"50""",Poly,double_row,6340|Exterra,026,1,pending,advance-11-5047-main-broom-50-poly,1
+SY21-0815,Advance,21-0815,"Side Broom 8"" 2 S.R. Poly",side_broom,Side Broom,"8""",Poly,single_row,4030/4030C,040,1,pending,advance-21-0815-side-broom-8-poly,1
+SY21-1004,Advance,21-1004,"Side Broom 10"" 2 S.R. Poly",side_broom,Side Broom,"10""",Poly,single_row,360B|360G|360P|1300|2052|3600B|5000|5015,001|004,1,pending,advance-21-1004-side-broom-10-poly,1
+SY21-1006,Advance,21-1006,"Side Broom 10"" 3 S.R. Poly",side_broom,Side Broom,"10""",Poly,single_row,1600|1700|2042/2042C|2067|2820D|4300|4500|4600|4600B|4800|5400,005|006|010|012|015|039,1,pending,advance-21-1006-side-broom-10-poly,1
+SY21-1111,Advance,21-1111,"Rotary Brush 11"" .070/46 Grit",rotary_brush,Rotary Brush,"11""",.070/46 Grit,,240HD|240HR|240LX|240LXJ|600S|1700|2067|3520D|4500,006|019|029,2,pending,advance-21-1111-rotary-brush-11-070-46-grit,2
+SY21-1112,Advance,21-1112,"Rotary Brush 11"" .050/80 Grit",rotary_brush,Rotary Brush,"11""",.050/80 Grit,,240HD|240HR|240LX|240LXJ|600S|1700|2067|3520D|4500,006|019|029,2,pending,advance-21-1112-rotary-brush-11-050-80-grit,2
+SY21-1113,Advance,21-1113,"Rotary Brush 11"" .035/180 Grit",rotary_brush,Rotary Brush,"11""",.035/180 Grit,,240HD|240HR|240LX|240LXJ|600S|1700|2067|3520D|4500,006|019|029,2,pending,advance-21-1113-rotary-brush-11-035-180-grit,2
+SY21-1114,Advance,21-1114,"Rotary Brush 11"" .022/120 Grit",rotary_brush,Rotary Brush,"11""",.022/120 Grit,,240HD|240HR|240LX|240LXJ|600S|1700|2067|3520D|4500,006|019|029,2,pending,advance-21-1114-rotary-brush-11-022-120-grit,2
+SY21-1115,Advance,21-1115,"Rotary Brush 11"" .018/500 Grit",rotary_brush,Rotary Brush,"11""",.018/500 Grit,,240HD|240HR|240LX|240LXJ|600S|1700|2067|3520D|4500,006|019|029,2,pending,advance-21-1115-rotary-brush-11-018-500-grit,2
+SY21-1116,Advance,21-1116,"Rotary Brush 11"" .028 Poly",rotary_brush,Rotary Brush,"11""",Poly,,1700|2067|3520D|4500,006|029,2,pending,advance-21-1116-rotary-brush-11-poly,2
+SY21-1117,Advance,21-1117,"Rotary Brush 11"" .022 Poly",rotary_brush,Rotary Brush,"11""",Poly,,240HD|240HR|240LX|240LXJ|600S|1700|2067|3520D|4500,006|019|029,2,pending,advance-21-1117-rotary-brush-11-poly,2
+SY21-1118,Advance,21-1118,"Rotary Brush 11"" Union Mix",rotary_brush,Rotary Brush,"11""",Union Mix,,240HD|240HR|240LX|240LXJ|600S|1700|2067|3520D|4500,006|019|029,2,pending,advance-21-1118-rotary-brush-11-union-mix,2
+SY21-1206,Advance,21-1206,"Rotary Brush 12"" .070/46 Grit",rotary_brush,Rotary Brush,"12""",.070/46 Grit,,260B|260BHD|260HD|265HD|1300|2052|3820D|5000|5015|ConvertaMax 26,003|004|030,2,pending,advance-21-1206-rotary-brush-12-070-46-grit,2
+SY21-1207,Advance,21-1207,"Rotary Brush 12"" .050/80 Grit",rotary_brush,Rotary Brush,"12""",.050/80 Grit,,260B|260BHD|260HD|265HD|1300|2052|3820D|5000|5015|ConvertaMax 26,003|004|030,2,pending,advance-21-1207-rotary-brush-12-050-80-grit,2
+SY21-1208,Advance,21-1208,"Rotary Brush 12"" Wire",rotary_brush,Rotary Brush,"12""",Wire,,260B|260BHD|260HD|265HD|1300|2052|5000|5015|ConvertaMax 26,003|004,2,pending,advance-21-1208-rotary-brush-12-wire,1
+SY21-1209,Advance,21-1209,"Rotary Brush 12"" .035/180 Grit",rotary_brush,Rotary Brush,"12""",.035/180 Grit,,260B|260BHD|260HD|265HD|1300|2052|3820D|5000|5015|ConvertaMax 26,003|004|030,2,pending,advance-21-1209-rotary-brush-12-035-180-grit,2
+SY21-1210,Advance,21-1210,"Rotary Brush 12"" .022/120 Grit",rotary_brush,Rotary Brush,"12""",.022/120 Grit,,3820D,030,2,pending,advance-21-1210-rotary-brush-12-022-120-grit,3
+SY21-1211,Advance,21-1211,"Rotary Brush 12"" .018/500 Grit",rotary_brush,Rotary Brush,"12""",.018/500 Grit,,260B|260BHD|260HD|265HD|1300|2052|3820D|5000|5015|ConvertaMax 26,003|004|030,2,pending,advance-21-1211-rotary-brush-12-018-500-grit,2
+SY21-1212,Advance,21-1212,"Rotary Brush 12"" .022 Poly",rotary_brush,Rotary Brush,"12""",Poly,,260B|260BHD|260HD|265HD|1300|2052|3820D|5000|5015|ConvertaMax 26,003|004|030,2,pending,advance-21-1212-rotary-brush-12-poly,2
+SY21-1214,Advance,21-1214,"Rotary Brush 12"" Union Mix",rotary_brush,Rotary Brush,"12""",Union Mix,,260B|260BHD|260HD|265HD|1300|2052|3820D|5000|5015|ConvertaMax 26,003|004|030,2,pending,advance-21-1214-rotary-brush-12-union-mix,2
+SY21-1215,Advance,21-1215,"Pad Driver 12""",pad_driver,Pad Driver,"12""",,,260B|260BHD|260HD|265HD|1300|2052|3820D|5000|5015|ConvertaMax 26,003|004|030,2,pending,advance-21-1215-pad-driver-12,2
+SY21-1217,Advance,21-1217,"Rotary Brush 12"" .022 Poly",rotary_brush,Rotary Brush,"12""",Poly,,260B|260BHD|260HD|265HD|1300|2052|3820D|5000|5015|ConvertaMax 26,003|004|030,2,pending,advance-21-1217-rotary-brush-12-poly,2
+SY21-1305,Advance,21-1305,"Side Broom 13"" 3 S.R. Wire",side_broom,Side Broom,"13""",Wire,single_row,560|1800|2060|5100D|5100G|5100P|5100PS|5200G|5200HD|5600|5800B|5800D|5800G|5800P|6250,002|007|013|014,1,pending,advance-21-1305-side-broom-13-wire,1
+SY21-1306,Advance,21-1306,"Side Broom 13"" 2 S.R. Poly",side_broom,Side Broom,"13""",Poly,single_row,560|1800|2060|5100D|5100G|5100P|5100PS|5200G|5200HD|5600|5800B|5800D|5800G|5800P|6250,002|007|013|014,1,pending,advance-21-1306-side-broom-13-poly,1
+SY21-1350,Advance,21-1350,"Rotary Brush 13"" .070/46 Grit",rotary_brush,Rotary Brush,"13""",.070/46 Grit,,2820D|5400|Warrior 28D AXP|Warrior 28D ST,015|027,2,pending,advance-21-1350-rotary-brush-13-070-46-grit,1
+SY21-1351,Advance,21-1351,"Rotary Brush 13"" .050/80 Grit",rotary_brush,Rotary Brush,"13""",.050/80 Grit,,2820D|5400|Warrior 28D AXP|Warrior 28D ST,015|027,2,pending,advance-21-1351-rotary-brush-13-050-80-grit,1
+SY21-1352,Advance,21-1352,"Rotary Brush 13"" .035/180 Grit",rotary_brush,Rotary Brush,"13""",.035/180 Grit,,2820D|5400|Warrior 28D AXP|Warrior 28D ST,015|027,2,pending,advance-21-1352-rotary-brush-13-035-180-grit,1
+SY21-1353,Advance,21-1353,"Rotary Brush 13"" .022/120 Grit",rotary_brush,Rotary Brush,"13""",.022/120 Grit,,2820D|5400|Warrior 28D AXP|Warrior 28D ST,015|027,2,pending,advance-21-1353-rotary-brush-13-022-120-grit,1
+SY21-1354,Advance,21-1354,"Rotary Brush 13"" .018/500 Grit",rotary_brush,Rotary Brush,"13""",.018/500 Grit,,2820D|5400|Warrior 28D AXP|Warrior 28D ST,015|027,2,pending,advance-21-1354-rotary-brush-13-018-500-grit,1
+SY21-1355,Advance,21-1355,"Rotary Brush 13"" .028 Poly",rotary_brush,Rotary Brush,"13""",Poly,,2820D|3220D|5400|Warrior 28D AXP|Warrior 28D ST|Warrior 32D AXP|Warrior 32D ST,015|027|028,2,pending,advance-21-1355-rotary-brush-13-poly,1
+SY21-1356,Advance,21-1356,"Rotary Brush 13"" .022 Poly",rotary_brush,Rotary Brush,"13""",Poly,,2820D|5400|Warrior 28D AXP|Warrior 28D ST,015|027,2,pending,advance-21-1356-rotary-brush-13-poly,1
+SY21-1357,Advance,21-1357,"Rotary Brush 13"" Union Mix",rotary_brush,Rotary Brush,"13""",Union Mix,,2820D|3220D|5400|Warrior 28D AXP|Warrior 28D ST|Warrior 32D AXP|Warrior 32D ST,015|027|028,2,pending,advance-21-1357-rotary-brush-13-union-mix,1
+SY21-1358,Advance,21-1358,"Pad Driver 13""",pad_driver,Pad Driver,"13""",,,2820D|5400|Warrior 28D AXP|Warrior 28D ST,015|027,2,pending,advance-21-1358-pad-driver-13,1
+SY21-1401N,Advance,21-1401N,"Side Broom 15"" 3 S.R. Wire",side_broom,Side Broom,"15""",Wire,single_row,6340|Exterra,026,1,pending,advance-21-1401n-side-broom-15-wire,2
+SY21-1402N,Advance,21-1402N,"Side Broom 15"" 3 S.R. Nylon",side_broom,Side Broom,"15""",Nylon,single_row,6340|Exterra,026,1,pending,advance-21-1402n-side-broom-15-nylon,2
+SY21-1403N,Advance,21-1403N,"Side Broom 15"" 3 S.R. Poly",side_broom,Side Broom,"15""",Poly,single_row,6340|Exterra,026,1,pending,advance-21-1403n-side-broom-15-poly,2
+SY21-1424,Advance,21-1424,"Rotary Brush 14"" .022/120 Grit",rotary_brush,Rotary Brush,"14""",.022/120 Grit,,280BHD|285HD|285LX|2800|2800HD|4300,010|020,2,pending,advance-21-1424-rotary-brush-14-022-120-grit,3
+SY21-1426,Advance,21-1426,"Rotary Brush 14"" .050/80 Grit",rotary_brush,Rotary Brush,"14""",.050/80 Grit,,280BHD|285HD|285LX|2800|2800HD|4300,010|020,2,pending,advance-21-1426-rotary-brush-14-050-80-grit,3
+SY21-1427,Advance,21-1427,"Rotary Brush 14"" .035/180 Grit",rotary_brush,Rotary Brush,"14""",.035/180 Grit,,280BHD|285HD|285LX|2800|2800HD|4300,010|020,2,pending,advance-21-1427-rotary-brush-14-035-180-grit,3
+SY21-1428,Advance,21-1428,"Rotary Brush 14"" .022 Poly",rotary_brush,Rotary Brush,"14""",Poly,,280BHD|285HD|285LX|2800|2800HD|4300,010|020,2,pending,advance-21-1428-rotary-brush-14-poly,3
+SY21-1429,Advance,21-1429,"Rotary Brush 14"" .018/500 Grit",rotary_brush,Rotary Brush,"14""",.018/500 Grit,,280BHD|285HD|285LX|2800|2800HD|4300,010|020,2,pending,advance-21-1429-rotary-brush-14-018-500-grit,3
+SY21-1430,Advance,21-1430,"Rotary Brush 14"" .028 Poly",rotary_brush,Rotary Brush,"14""",Poly,,280BHD|285HD|285LX|2800|2800HD|4300,010|020,2,pending,advance-21-1430-rotary-brush-14-poly,3
+SY21-1432,Advance,21-1432,"Rotary Brush 14"" Union Mix",rotary_brush,Rotary Brush,"14""",Union Mix,,280BHD|285HD|285LX|2800|2800HD|4300,010|020,2,pending,advance-21-1432-rotary-brush-14-union-mix,3
+SY21-1433,Advance,21-1433,"Pad Driver 14""",pad_driver,Pad Driver,"14""",,,280BHD|285HD|285LX|2800|2800HD|4300,010|020,2,pending,advance-21-1433-pad-driver-14,3
+SY21-1510J1,Advance,21-1510J1,"Rotary Brush 15"" .070/46 Grit",rotary_brush,Rotary Brush,"15""",.070/46 Grit,,3220D|4530D|Warrior 32D AXP|Warrior 32D ST,028|032,2,pending,advance-21-1510j1-rotary-brush-15-070-46-grit,2
+SY21-1513J1,Advance,21-1513J1,"Rotary Brush 15"" .022/120 Grit",rotary_brush,Rotary Brush,"15""",.022/120 Grit,,3220D|4530D|Warrior 32D AXP|Warrior 32D ST,028|032,2,pending,advance-21-1513j1-rotary-brush-15-022-120-grit,2
+SY21-1514J1,Advance,21-1514J1,"Rotary Brush 15"" .018/500 Grit",rotary_brush,Rotary Brush,"15""",.018/500 Grit,,3220D|4530D|Warrior 32D AXP|Warrior 32D ST,028|032,2,pending,advance-21-1514j1-rotary-brush-15-018-500-grit,2
+SY21-1517J1,Advance,21-1517J1,"Rotary Brush 15"" .028 Poly",rotary_brush,Rotary Brush,"15""",Poly,,3220D|4530D|Warrior 32D AXP|Warrior 32D ST,028|032,2,pending,advance-21-1517j1-rotary-brush-15-poly,2
+SY21-1525J1,Advance,21-1525J1,"Rotary Brush 15"" Union Mix",rotary_brush,Rotary Brush,"15""",Union Mix,,3220D|4530D|Warrior 32D AXP|Warrior 32D ST,028|032,2,pending,advance-21-1525j1-rotary-brush-15-union-mix,2
+SY21-1616,Advance,21-1616,"Rotary Brush 16"" .070/46 Grit",rotary_brush,Rotary Brush,"16""",.070/46 Grit,,32B|32BD|32LX|320BHD|320HD|325HD|4800|4830D,012|017|033,2,pending,advance-21-1616-rotary-brush-16-070-46-grit,3
+SY21-1617,Advance,21-1617,"Rotary Brush 16"" .050/80 Grit",rotary_brush,Rotary Brush,"16""",.050/80 Grit,,32B|32BD|32LX|320BHD|320HD|325HD|3220D|4530D|4800|4830D|Warrior 32D AXP|Warrior 32D ST,012|017|028|032|033,2,pending,advance-21-1617-rotary-brush-16-050-80-grit,3
+SY21-1618,Advance,21-1618,"Rotary Brush 16"" .035/180 Grit",rotary_brush,Rotary Brush,"16""",.035/180 Grit,,32B|32BD|32LX|320BHD|320HD|325HD|4800|4830D,012|017|033,2,pending,advance-21-1618-rotary-brush-16-035-180-grit,3
+SY21-1619,Advance,21-1619,"Rotary Brush 16"" .022/120 Grit",rotary_brush,Rotary Brush,"16""",.022/120 Grit,,32B|32BD|32LX|320BHD|320HD|325HD|4800|4830D,012|017|033,2,pending,advance-21-1619-rotary-brush-16-022-120-grit,3
+SY21-1620,Advance,21-1620,"Rotary Brush 16"" .018/500 Grit",rotary_brush,Rotary Brush,"16""",.018/500 Grit,,32B|32BD|32LX|320BHD|320HD|325HD|4800|4830D,012|017|033,2,pending,advance-21-1620-rotary-brush-16-018-500-grit,3
+SY21-1621,Advance,21-1621,"Rotary Brush 16"" .028 Poly",rotary_brush,Rotary Brush,"16""",Poly,,32B|32BD|32LX|320BHD|320HD|325HD|4800|4830D,012|017|033,2,pending,advance-21-1621-rotary-brush-16-poly,3
+SY21-1623,Advance,21-1623,"Rotary Brush 16"" Union Mix",rotary_brush,Rotary Brush,"16""",Union Mix,,32B|32BD|32LX|320BHD|320HD|325HD|4800|4830D,012|017|033,2,pending,advance-21-1623-rotary-brush-16-union-mix,3
+SY21-1624,Advance,21-1624,"Pad Driver 16'",pad_driver,Pad Driver,,,,32B|32BD|32LX|320BHD|320HD|325HD|4800|4830D,012|017|033,2,pending,advance-21-1624-pad-driver,3
+SY21-1626,Advance,21-1626,"Rotary Brush 16"" .022 Poly",rotary_brush,Rotary Brush,"16""",Poly,,32B|32BD|32LX|320BHD|320HD|325HD|3220D|4530D|4800|4830D|Warrior 32D AXP|Warrior 32D ST,012|017|028|032|033,2,pending,advance-21-1626-rotary-brush-16-poly,3
+SY21-181072,Advance,21-181072,"Rotary Brush 18"" .070/46 Grit",rotary_brush,Rotary Brush,"18""",.070/46 Grit,,200|200E|200HD,018,2,pending,advance-21-181072-rotary-brush-18-070-46-grit,1
+SY21-181172,Advance,21-181172,"Rotary Brush 18"" .050/80 Grit",rotary_brush,Rotary Brush,"18""",.050/80 Grit,,200|200E|200HD,018,2,pending,advance-21-181172-rotary-brush-18-050-80-grit,1
+SY21-181272,Advance,21-181272,"Rotary Brush 18"" .035/180 Grit",rotary_brush,Rotary Brush,"18""",.035/180 Grit,,200|200E|200HD,018,2,pending,advance-21-181272-rotary-brush-18-035-180-grit,1
+SY21-181372,Advance,21-181372,"Rotary Brush 18"" .022/120 Grit",rotary_brush,Rotary Brush,"18""",.022/120 Grit,,200|200E|200HD,018,2,pending,advance-21-181372-rotary-brush-18-022-120-grit,1
+SY21-181472,Advance,21-181472,"Rotary Brush 18"" .018/500 Grit",rotary_brush,Rotary Brush,"18""",.018/500 Grit,,200|200E|200HD,018,2,pending,advance-21-181472-rotary-brush-18-018-500-grit,1
+SY21-181772,Advance,21-181772,"Rotary Brush 18"" .028 Poly",rotary_brush,Rotary Brush,"18""",Poly,,200|200E|200HD,018,2,pending,advance-21-181772-rotary-brush-18-poly,1
+SY21-181872,Advance,21-181872,"Rotary Brush 18"" .022 Poly",rotary_brush,Rotary Brush,"18""",Poly,,200|200E|200HD,018,2,pending,advance-21-181872-rotary-brush-18-poly,1
+SY21-1821,Advance,21-1821,"Side Broom 18"" 3 S.R. Wire",side_broom,Side Broom,"18""",Wire,single_row,6600|6600XP,022,1,pending,advance-21-1821-side-broom-18-wire,1
+SY21-1822,Advance,21-1822,"Side Broom 18"" 3 S.R. Poly",side_broom,Side Broom,"18""",Poly,single_row,6600|6600XP,022,1,pending,advance-21-1822-side-broom-18-poly,1
+SY21-182572,Advance,21-182572,"Rotary Brush 18"" Union Mix",rotary_brush,Rotary Brush,"18""",Union Mix,,200|200E|200HD,018,2,pending,advance-21-182572-rotary-brush-18-union-mix,1
+SY21-182972,Advance,21-182972,"Pad Driver 18""",pad_driver,Pad Driver,"18""",,,200|200E|200HD,018,2,pending,advance-21-182972-pad-driver-18,1
+SY21-1901,Advance,21-1901,"Rotary Brush 19"" .070/46 Grit",rotary_brush,Rotary Brush,"19""",.070/46 Grit,,38B|380B|380BHD|380HD|385HD|385HR|2042/2042C|3800|4030/4030C|4030D,009|021|031|039|040,2,pending,advance-21-1901-rotary-brush-19-070-46-grit,2
+SY21-1902,Advance,21-1902,"Rotary Brush 19"" .050/80 Grit",rotary_brush,Rotary Brush,"19""",.050/80 Grit,,38B|380B|380BHD|380HD|385HD|385HR|2042/2042C|3800|4030/4030C|4030D,009|021|031|039|040,2,pending,advance-21-1902-rotary-brush-19-050-80-grit,2
+SY21-1903,Advance,21-1903,"Rotary Brush 19"" .035/180 Grit",rotary_brush,Rotary Brush,"19""",.035/180 Grit,,4030D,031,2,pending,advance-21-1903-rotary-brush-19-035-180-grit,2
+SY21-1904,Advance,21-1904,"Rotary Brush 19"" .022/120 Grit",rotary_brush,Rotary Brush,"19""",.022/120 Grit,,38B|380B|380BHD|380HD|385HD|385HR|2042/2042C|3800|4030/4030C|4030D,009|021|031|039|040,2,pending,advance-21-1904-rotary-brush-19-022-120-grit,2
+SY21-1905,Advance,21-1905,"Rotary Brush 19"" .018/500 Grit",rotary_brush,Rotary Brush,"19""",.018/500 Grit,,38B|380B|380BHD|380HD|385HD|385HR|2042/2042C|3800|4030/4030C|4030D,009|021|031|039|040,2,pending,advance-21-1905-rotary-brush-19-018-500-grit,2
+SY21-1906,Advance,21-1906,"Rotary Brush 19"" .028 Poly",rotary_brush,Rotary Brush,"19""",Poly,,38B|380B|380BHD|380HD|385HD|385HR|2042/2042C|3800|4030/4030C|4030D,009|021|031|039|040,2,pending,advance-21-1906-rotary-brush-19-poly,2
+SY21-1908,Advance,21-1908,"Rotary Brush 19"" Union Fiber",rotary_brush,Rotary Brush,"19""",,,38B|380B|380BHD|380HD|385HD|385HR|2042/2042C|3800|4030/4030C|4030D,009|021|031|039|040,2,pending,advance-21-1908-rotary-brush-19,2
+SY21-1909,Advance,21-1909,"Pad Holder 19"" W/Center-Lok3",pad_driver,Pad Driver,"19""",,,38B|380B|380BHD|380HD|385HD|385HR|2042/2042C|3800|4030/4030C|4030D,009|021|031|039|040,2,pending,advance-21-1909-pad-driver-19,2
+SY21-1911,Advance,21-1911,"Rotary Brush 19"" .022 Poly",rotary_brush,Rotary Brush,"19""",Poly,,38B|380B|380BHD|380HD|385HD|385HR|2042/2042C|3800|4030/4030C|4030D,009|021|031|039|040,2,pending,advance-21-1911-rotary-brush-19-poly,2
+SY21-98477,Advance,21-98477,"Pad Driver 11""",pad_driver,Pad Driver,"11""",,,240HD|240HR|240LX|240LXJ|600S|1700|2067|3520D|4500,006|019|029,2,pending,advance-21-98477-pad-driver-11,2
+SY11-2415,American Lincoln,11-2415,"Main Scrub 26"" 12 S.R. .070/46 Grit",cylindrical_scrub,Cylindrical Scrub,"26""",.070/46 Grit,single_row,Encore L26HD,023,hold,hold,american-lincoln-11-2415-cylindrical-scrub-26-070-46-grit,2
+SY11-2416,American Lincoln,11-2416,"Main Scrub 26"" 12 S.R. .035/180 Grit",cylindrical_scrub,Cylindrical Scrub,"26""",.035/180 Grit,single_row,Encore L26HD,023,hold,hold,american-lincoln-11-2416-cylindrical-scrub-26-035-180-grit,2
+SY11-2417,American Lincoln,11-2417,"Main Scrub 26"" 12 S.R. .012 Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"26""",Soft Nylon,single_row,Encore L26HD,023,hold,hold,american-lincoln-11-2417-cylindrical-scrub-26-soft-nylon,2
+SY11-2418,American Lincoln,11-2418,"Main Scrub 26"" 12 S.R. .040 Poly",cylindrical_scrub,Cylindrical Scrub,"26""",Poly,single_row,Encore L26HD,023,hold,hold,american-lincoln-11-2418-cylindrical-scrub-26-poly,2
+SY11-2701,American Lincoln,11-2701,"Main Broom 27"" 18 S.R. Nylon",main_broom,Main Broom,"27""",Nylon,single_row,91WS|114RS,001,hold,hold,american-lincoln-11-2701-main-broom-27-nylon,1
+SY11-2702,American Lincoln,11-2702,"Main Broom 27"" 6 D.R. Proex/Wire",main_broom,Main Broom,"27""",Proex/Wire,double_row,91WS|114RS,001,hold,hold,american-lincoln-11-2702-main-broom-27-proex-wire,1
+SY11-2703,American Lincoln,11-2703,"Main Broom 27"" 6 D.R. Nylon",main_broom,Main Broom,"27""",Nylon,double_row,91WS|114RS,001,hold,hold,american-lincoln-11-2703-main-broom-27-nylon,1
+SY11-2704,American Lincoln,11-2704,"Main Broom 27"" 6 D.R. Proex/Wire",main_broom,Main Broom,"27""",Proex/Wire,double_row,91WS|114RS,001,hold,hold,american-lincoln-11-2704-main-broom-27-proex-wire,1
+SY11-2706,American Lincoln,11-2706,"Main Broom 27"" 5 D.R. Proex/Wire",main_broom,Main Broom,"27""",Proex/Wire,double_row,436,002,hold,hold,american-lincoln-11-2706-main-broom-27-proex-wire,1
+SY11-2707,American Lincoln,11-2707,"Main Broom 27"" 12 D.R. Nylon",main_broom,Main Broom,"27""",Nylon,double_row,436,002,hold,hold,american-lincoln-11-2707-main-broom-27-nylon,1
+SY11-2740,American Lincoln,11-2740,"Main Scrub 28"" 16 S.R. .070/46 Grit",cylindrical_scrub,Cylindrical Scrub,"28""",.070/46 Grit,single_row,Advenger 2805C,043,hold,hold,american-lincoln-11-2740-cylindrical-scrub-28-070-46-grit,2
+SY11-2741,American Lincoln,11-2741,"Main Scrub 28"" 16 S.R. .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"28""",.050/80 Grit,single_row,Advenger 2805C,043,hold,hold,american-lincoln-11-2741-cylindrical-scrub-28-050-80-grit,2
+SY11-2742,American Lincoln,11-2742,"Main Scrub 28"" 16 S.R. .035/180 Grit",cylindrical_scrub,Cylindrical Scrub,"28""",.035/180 Grit,single_row,Advenger 2805C,043,hold,hold,american-lincoln-11-2742-cylindrical-scrub-28-035-180-grit,2
+SY11-2743,American Lincoln,11-2743,"Main Scrub 28"" 16 S.R. .020 Poly",cylindrical_scrub,Cylindrical Scrub,"28""",Poly,single_row,Advenger 2805C,043,hold,hold,american-lincoln-11-2743-cylindrical-scrub-28-poly,2
+SY11-2744,American Lincoln,11-2744,"Main Scrub 28"" 16 S.R. .020 Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"28""",Soft Nylon,single_row,Advenger 2805C,043,hold,hold,american-lincoln-11-2744-cylindrical-scrub-28-soft-nylon,2
+SY11-2745,American Lincoln,11-2745,"Main Scrub 28"" 16 S.R. Hard Nylon",cylindrical_scrub,Cylindrical Scrub,"28""",Nylon,single_row,Advenger 2805C,043,hold,hold,american-lincoln-11-2745-cylindrical-scrub-28-nylon,2
+SY11-3101,American Lincoln,11-3101,"Main Scrub 33"" 12 S.R. .070/46 Grit",cylindrical_scrub,Cylindrical Scrub,"33""",.070/46 Grit,single_row,Encore 33HD,024,hold,hold,american-lincoln-11-3101-cylindrical-scrub-33-070-46-grit,2
+SY11-3102,American Lincoln,11-3102,"Main Scrub 33"" 12 S.R. .035/180 Grit",cylindrical_scrub,Cylindrical Scrub,"33""",.035/180 Grit,single_row,Encore 33HD,024,hold,hold,american-lincoln-11-3102-cylindrical-scrub-33-035-180-grit,2
+SY11-3103,American Lincoln,11-3103,"Main Scrub 33"" 12 S.R. .012 Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"33""",Soft Nylon,single_row,Encore 33HD,024,hold,hold,american-lincoln-11-3103-cylindrical-scrub-33-soft-nylon,2
+SY11-3104,American Lincoln,11-3104,"Main Scrub 33"" 12 S.R. .040 Poly",cylindrical_scrub,Cylindrical Scrub,"33""",Poly,single_row,Encore 33HD,024,hold,hold,american-lincoln-11-3104-cylindrical-scrub-33-poly,2
+SY11-3301,American Lincoln,11-3301,"Main Scrub 34"" 12 S.R. .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"34""",.050/80 Grit,single_row,Encore 33|Encore 34|SR5730-34,025,hold,hold,american-lincoln-11-3301-cylindrical-scrub-34-050-80-grit,2
+SY11-3302,American Lincoln,11-3302,"Main Scrub 34"" 12 S.R. Poly",cylindrical_scrub,Cylindrical Scrub,"34""",Poly,single_row,Encore 33|Encore 34|SR5730-34,025,hold,hold,american-lincoln-11-3302-cylindrical-scrub-34-poly,2
+SY11-3303,American Lincoln,11-3303,"Main Scrub 34"" 12 S.R. Nylon",cylindrical_scrub,Cylindrical Scrub,"34""",Nylon,single_row,Encore 33|Encore 34|SR5730-34,025,hold,hold,american-lincoln-11-3303-cylindrical-scrub-34-nylon,2
+SY11-3501,American Lincoln,11-3501,"Main Broom 35"" 6 D.R. Nylon",main_broom,Main Broom,"35""",Nylon,double_row,Proterra,042,hold,hold,american-lincoln-11-3501-main-broom-35-nylon,1
+SY11-3502,American Lincoln,11-3502,"Main Broom 35"" 6 D.R. Proex",main_broom,Main Broom,"35""",,double_row,Proterra,042,hold,hold,american-lincoln-11-3502-main-broom-35,1
+SY11-3503,American Lincoln,11-3503,"Main Broom 35"" 6 D.R. Proex/Wire",main_broom,Main Broom,"35""",Proex/Wire,double_row,Proterra,042,hold,hold,american-lincoln-11-3503-main-broom-35-proex-wire,1
+SY11-3504,American Lincoln,11-3504,"Main Broom 35"" 6 D.R. Union",main_broom,Main Broom,"35""",,double_row,Proterra,042,hold,hold,american-lincoln-11-3504-main-broom-35,1
+SY11-3617,American Lincoln,11-3617,"Main Broom 36"" 24 S.R. Union/Wire",main_broom,Main Broom,"36""",Union/Wire,single_row,6150,011,hold,hold,american-lincoln-11-3617-main-broom-36-union-wire,1
+SY11-3618,American Lincoln,11-3618,"Main Broom 36"" 24 S.R. Nylon",main_broom,Main Broom,"36""",Nylon,single_row,6150,011,hold,hold,american-lincoln-11-3618-main-broom-36-nylon,1
+SY11-3619,American Lincoln,11-3619,"Main Broom 36"" 8 D.R. Proex/Wire",main_broom,Main Broom,"36""",Proex/Wire,double_row,6150,011,hold,hold,american-lincoln-11-3619-main-broom-36-proex-wire,1
+SY11-3621,American Lincoln,11-3621,"Main Broom 36"" 8 D.R. Proex/Wire",main_broom,Main Broom,"36""",Proex/Wire,double_row,6150,011,hold,hold,american-lincoln-11-3621-main-broom-36-proex-wire,1
+SY11-3623,American Lincoln,11-3623,"Main Broom 36"" 6 D.R. Proex/Wire",main_broom,Main Broom,"36""",Proex/Wire,double_row,610|1000|2000|6000|7730|7740,003|020|028|029,hold,hold,american-lincoln-11-3623-main-broom-36-proex-wire,1
+SY11-3624,American Lincoln,11-3624,"Main Broom 36"" 6 D.R. Nylon",main_broom,Main Broom,"36""",Nylon,double_row,1000|2000|7730|7740,003|028|029,hold,hold,american-lincoln-11-3624-main-broom-36-nylon,1
+SY11-3625,American Lincoln,11-3625,"Main Broom 36"" 6 D.R. Proex/Wire",main_broom,Main Broom,"36""",Proex/Wire,double_row,610|1000|2000|6000|7730|7740,003|020|028|029,hold,hold,american-lincoln-11-3625-main-broom-36-proex-wire,1
+SY11-3634,American Lincoln,11-3634,"Main Broom 36"" 6 D.R. Nylon",main_broom,Main Broom,"36""",Nylon,double_row,610|6000,020,hold,hold,american-lincoln-11-3634-main-broom-36-nylon,1
+SY11-3648,American Lincoln,11-3648,"Main Broom 36"" 8 D.R. Nylon",main_broom,Main Broom,"36""",Nylon,double_row,6150,011,hold,hold,american-lincoln-11-3648-main-broom-36-nylon,1
+SY11-4001,American Lincoln,11-4001,"Main Broom 40"" 6 D.R. Proex/Wire",main_broom,Main Broom,"40""",Proex/Wire,double_row,6200B|6200H|6200HIC|6200IC|6200S|6200SS|6700|6700B|6700IC,013|018,hold,hold,american-lincoln-11-4001-main-broom-40-proex-wire,1
+SY11-4002,American Lincoln,11-4002,"Main Broom 40"" 8 D.R. Nylon",main_broom,Main Broom,"40""",Nylon,double_row,6200B|6200H|6200HIC|6200IC|6200S|6200SS|6700|6700B|6700IC,013|018,hold,hold,american-lincoln-11-4002-main-broom-40-nylon,1
+SY11-4003,American Lincoln,11-4003,"Main Broom 40"" 6 D.R. Proex/Wire",main_broom,Main Broom,"40""",Proex/Wire,double_row,6200B|6200H|6200HIC|6200IC|6200S|6200SS|6700|6700B|6700IC,013|018,hold,hold,american-lincoln-11-4003-main-broom-40-proex-wire,1
+SY11-4206,American Lincoln,11-4206,"Main Broom 42"" 8 D.R. Nylon",main_broom,Main Broom,"42""",Nylon,double_row,1000|2000,003,hold,hold,american-lincoln-11-4206-main-broom-42-nylon,1
+SY11-4226,American Lincoln,11-4226,"Main Broom 42"" 8 D.R. Union/Wire",main_broom,Main Broom,"42""",Union/Wire,double_row,1000|2000,003,hold,hold,american-lincoln-11-4226-main-broom-42-union-wire,1
+SY11-4227,American Lincoln,11-4227,"Main Broom 42"" 8 D.R. Proex/Wire",main_broom,Main Broom,"42""",Proex/Wire,double_row,1000|2000,003,hold,hold,american-lincoln-11-4227-main-broom-42-proex-wire,1
+SY11-4230,American Lincoln,11-4230,"Main Broom 42"" 24 S.R. Union/Wire",main_broom,Main Broom,"42""",Union/Wire,single_row,2200|2260|2260XP,006,hold,hold,american-lincoln-11-4230-main-broom-42-union-wire,1
+SY11-4232,American Lincoln,11-4232,"Main Broom 42"" 8 D.R. Union/Wire",main_broom,Main Broom,"42""",Union/Wire,double_row,2200|2260|2260XP,006,hold,hold,american-lincoln-11-4232-main-broom-42-union-wire,1
+SY11-4233,American Lincoln,11-4233,"Main Broom 42"" 8 D.R. Proex/Wire",main_broom,Main Broom,"42""",Proex/Wire,double_row,2200|2260|2260XP,006,hold,hold,american-lincoln-11-4233-main-broom-42-proex-wire,1
+SY11-4234,American Lincoln,11-4234,"Main Broom 42"" 8 D.R. Poly",main_broom,Main Broom,"42""",Poly,double_row,2200|2260|2260XP,006,hold,hold,american-lincoln-11-4234-main-broom-42-poly,1
+SY11-4235,American Lincoln,11-4235,"Main Broom 42"" 8 D.R. Nylon",main_broom,Main Broom,"42""",Nylon,double_row,2200|2260|2260XP,006,hold,hold,american-lincoln-11-4235-main-broom-42-nylon,1
+SY11-4236,American Lincoln,11-4236,"Main Broom 42"" 8 D.R. Proex/Wire",main_broom,Main Broom,"42""",Proex/Wire,double_row,2200|2260|2260XP,006,hold,hold,american-lincoln-11-4236-main-broom-42-proex-wire,1
+SY11-4513,American Lincoln,11-4513,"Main Broom 45"" 24 S.R. Union/Wire",main_broom,Main Broom,"45""",Union/Wire,single_row,2160|2160XP|7750|ATS46|ATS53|MPV60|MPV60TS|SC7750,005|009|021|022|030,hold,hold,american-lincoln-11-4513-main-broom-45-union-wire,1
+SY11-4514,American Lincoln,11-4514,"Main Broom 45"" 24 S.R. Nylon",main_broom,Main Broom,"45""",Nylon,single_row,2160|2160XP|7750|ATS46|ATS53|MPV60|MPV60TS|SC7750,005|009|021|022|030,hold,hold,american-lincoln-11-4514-main-broom-45-nylon,1
+SY11-4515,American Lincoln,11-4515,"Main Broom 45"" 8 D.R. Proex/Wire",main_broom,Main Broom,"45""",Proex/Wire,double_row,2160|2160XP|7750|ATS46|SC7750,009|021|022|030,hold,hold,american-lincoln-11-4515-main-broom-45-proex-wire,1
+SY11-4530,American Lincoln,11-4530,"Main Broom 45"" 8 D.R. Stiff Proex/Wire",main_broom,Main Broom,"45""",Proex/Wire,double_row,2160|2160XP|7750|ATS46|ATS53|MPV60|MPV60TS,005|021|022|030,hold,hold,american-lincoln-11-4530-main-broom-45-proex-wire,1
+SY11-4531,American Lincoln,11-4531,"Main Broom 45"" 8 D.R. Nylon",main_broom,Main Broom,"45""",Nylon,double_row,2160|2160XP|7750|ATS46|ATS53|MPV60|MPV60TS|SC7750,005|009|021|022|030,hold,hold,american-lincoln-11-4531-main-broom-45-nylon,1
+SY11-5012,American Lincoln,11-5012,"Main Broom 50"" 24 S.R. Union/Wire",main_broom,Main Broom,"50""",Union/Wire,single_row,3300|7000|7700|7760|7765,008|012|014|027|031,hold,hold,american-lincoln-11-5012-main-broom-50-union-wire,1
+SY11-5013,American Lincoln,11-5013,"Main Broom 50"" 24 S.R. Nylon",main_broom,Main Broom,"50""",Nylon,single_row,3300|7000|7700|7760|7765,008|012|014|027|031,hold,hold,american-lincoln-11-5013-main-broom-50-nylon,1
+SY11-5014,American Lincoln,11-5014,"Main Broom 50"" 8 D.R. Proex /Wire",main_broom,Main Broom,"50""",Wire,double_row,3300|7000|7700|7760,008|012|014|027,hold,hold,american-lincoln-11-5014-main-broom-50-wire,1
+SY11-5015,American Lincoln,11-5015,"Main Broom 50"" 8 D.R. Poly",main_broom,Main Broom,"50""",Poly,double_row,3300|7000|7700|7760,008|012|014|027,hold,hold,american-lincoln-11-5015-main-broom-50-poly,1
+SY11-5016,American Lincoln,11-5016,"Main Broom 50"" 8 D.R. Nylon",main_broom,Main Broom,"50""",Nylon,double_row,3300|7000|7700|7760,008|012|014|027,hold,hold,american-lincoln-11-5016-main-broom-50-nylon,1
+SY11-5017,American Lincoln,11-5017,"Main Broom 50"" 8 D.R. Proex /Wire",main_broom,Main Broom,"50""",Wire,double_row,3300|7000|7700|7760,008|012|014|027,hold,hold,american-lincoln-11-5017-main-broom-50-wire,1
+SY11-5018,American Lincoln,11-5018,"Main Broom 50"" 8 D.R. Union/Wire",main_broom,Main Broom,"50""",Union/Wire,double_row,3300|7000|7700|7760,008|012|014|027,hold,hold,american-lincoln-11-5018-main-broom-50-union-wire,1
+SY11-5019,American Lincoln,11-5019,"Main Broom 50"" 24 S.R. Union/Wire",main_broom,Main Broom,"50""",Union/Wire,single_row,3366|3366XP|4366X|Grenterra,010|026|041,hold,hold,american-lincoln-11-5019-main-broom-50-union-wire,1
+SY11-5020,American Lincoln,11-5020,"Main Broom 50"" 24 S.R. Nylon",main_broom,Main Broom,"50""",Nylon,single_row,3366|3366XP,010,hold,hold,american-lincoln-11-5020-main-broom-50-nylon,1
+SY11-5021,American Lincoln,11-5021,"Main Broom 50"" 87 D.R. Proex/Wire",main_broom,Main Broom,"50""",Proex/Wire,double_row,4366X|Grenterra,026|041,hold,hold,american-lincoln-11-5021-main-broom-50-proex-wire,1
+SY11-5022,American Lincoln,11-5022,"Main Broom 50"" 8 D.R. Poly",main_broom,Main Broom,"50""",Poly,double_row,3366|3366XP|4366X|Grenterra,010|026|041,hold,hold,american-lincoln-11-5022-main-broom-50-poly,1
+SY11-5024,American Lincoln,11-5024,"Main Broom 50 "" 8 D.R. Proex/Wire",main_broom,Main Broom,"50""",Proex/Wire,double_row,3366|3366XP|4366X|Grenterra,010|026|041,hold,hold,american-lincoln-11-5024-main-broom-50-proex-wire,1
+SY11-5026,American Lincoln,11-5026,"Main Broom 50"" 8 D.R. Proex",main_broom,Main Broom,"50""",,double_row,3366|3366XP|4366X|Grenterra,010|026|041,hold,hold,american-lincoln-11-5026-main-broom-50,1
+SY11-5027,American Lincoln,11-5027,"Main Broom 50"" 8 D.R. Union/Wire",main_broom,Main Broom,"50""",Union/Wire,double_row,3366|3366XP,010,hold,hold,american-lincoln-11-5027-main-broom-50-union-wire,1
+SY11-5028,American Lincoln,11-5028,"Main Broom 50"" 8 D.R. Nylon",main_broom,Main Broom,"50""",Nylon,double_row,3366|3366XP|4366X|Grenterra,010|026|041,hold,hold,american-lincoln-11-5028-main-broom-50-nylon,1
+SY11-5401,American Lincoln,11-5401,"Main Broom 54"" 24 S.R.nylon",main_broom,Main Broom,"54""",Nylon,single_row,3000,007,hold,hold,american-lincoln-11-5401-main-broom-54-nylon,1
+SY11-5402,American Lincoln,11-5402,"Main Broom 54"" 8 D.R. Union/Wire",main_broom,Main Broom,"54""",Union/Wire,double_row,3000,007,hold,hold,american-lincoln-11-5402-main-broom-54-union-wire,1
+SY11-5403,American Lincoln,11-5403,"Main Broom 54"" 8 D.R. Proex/Wire",main_broom,Main Broom,"54""",Proex/Wire,double_row,3000,007,hold,hold,american-lincoln-11-5403-main-broom-54-proex-wire,1
+SY11-5404,American Lincoln,11-5404,"Main Broom 54"" 8 D.R. Nylon",main_broom,Main Broom,"54""",Nylon,double_row,3000,007,hold,hold,american-lincoln-11-5404-main-broom-54-nylon,1
+SY21-0603,American Lincoln,21-0603,"Side Broom 6"" 2 S.R. Poly",side_broom,Side Broom,"6""",Poly,single_row,436,002,hold,hold,american-lincoln-21-0603-side-broom-6-poly,1
+SY21-0804,American Lincoln,21-0804,"Side Broom 8"" 2 S.R. Nylon",side_broom,Side Broom,"8""",Nylon,single_row,91WS|114RS|1000|2000,001|003,hold,hold,american-lincoln-21-0804-side-broom-8-nylon,1
+SY21-1002,American Lincoln,21-1002,"Side Broom 10"" 2 S.R. Poly",side_broom,Side Broom,"10""",Poly,single_row,610|6000|6200B|6200H|6200HIC|6200IC|6200S|6200SS|6700|6700B|6700IC|7750,013|018|020|030,hold,hold,american-lincoln-21-1002-side-broom-10-poly,1
+SY21-1010,American Lincoln,21-1010,"Side Broom 10"" 3 S.R. Poly",side_broom,Side Broom,"10""",Poly,single_row,Proterra,042,hold,hold,american-lincoln-21-1010-side-broom-10-poly,2
+SY21-1011,American Lincoln,21-1011,"Side Broom 10"" 2 S.R. Poly/Wire",side_broom,Side Broom,"10""",Poly,single_row,Proterra,042,hold,hold,american-lincoln-21-1011-side-broom-10-poly,2
+SY21-1012,American Lincoln,21-1012,"Side Broom 10"" 2 S.R. Nylon",side_broom,Side Broom,"10""",Nylon,single_row,Proterra,042,hold,hold,american-lincoln-21-1012-side-broom-10-nylon,2
+SY21-1101,American Lincoln,21-1101,"Side Broom 11"" 2 S.R. Wire",side_broom,Side Broom,"11""",Wire,single_row,1000|2000|2160|2160XP|2200|2260|2260XP|3300|4366X|7000|7700|7750|7760|ATS46|ATS53|Grenterra|MPV60|MPV60TS|SC7750,003|005|006|008|009|012|014|021|022|026|030|041,hold,hold,american-lincoln-21-1101-side-broom-11-wire,1
+SY21-1102,American Lincoln,21-1102,"Side Broom 11"" 2 S.R. Nylon",side_broom,Side Broom,"11""",Nylon,single_row,2200|2260|2260XP|3300|7000|7700|7760,006|008|012|014|027,hold,hold,american-lincoln-21-1102-side-broom-11-nylon,1
+SY21-1103,American Lincoln,21-1103,"Side Broom 11"" 2 S.R. Poly",side_broom,Side Broom,"11""",Poly,single_row,2200|2260|2260XP|3300|3366|3366XP|6150|7000|7700|7760,006|008|010|011|012|014|027,hold,hold,american-lincoln-21-1103-side-broom-11-poly,1
+SY21-1105,American Lincoln,21-1105,"Side Broom 11"" 2 S.R. Nylon",side_broom,Side Broom,"11""",Nylon,single_row,1000|2000|3000,003|007,hold,hold,american-lincoln-21-1105-side-broom-11-nylon,1
+SY21-1106,American Lincoln,21-1106,"Side Broom 11"" 2 S.R. Poly",side_broom,Side Broom,"11""",Poly,single_row,1000|2000|3000|7700,003|007|027,hold,hold,american-lincoln-21-1106-side-broom-11-poly,1
+SY21-1302,American Lincoln,21-1302,"Side Broom 13"" 3 S.R. Nylon",side_broom,Side Broom,"13""",Nylon,single_row,2160|2160XP|2200|2260|2260XP|3366|3366XP|4366X|6150|7750|ATS46|ATS53|Grenterra|MPV60|MPV60TS|SC7750,005|006|009|010|011|021|022|026|030|041,hold,hold,american-lincoln-21-1302-side-broom-13-nylon,1
+SY21-1303,American Lincoln,21-1303,"Side Broom 13"" 3 S.R. Nylon",side_broom,Side Broom,"13""",Nylon,single_row,2160|2160XP|2200|2260|2260XP|3366|3366XP|4366X|6150|7750|ATS46|ATS53|Grenterra|MPV60|MPV60TS|SC7750,005|006|009|010|011|021|022|026|030|041,hold,hold,american-lincoln-21-1303-side-broom-13-nylon,1
+SY21-1350,American Lincoln,21-1350,"Rotary Brush 13"" .070/46 Grit",rotary_brush,Rotary Brush,"13""",.070/46 Grit,,Advenger 2805D,044,hold,hold,american-lincoln-21-1350-rotary-brush-13-070-46-grit,2
+SY21-1351,American Lincoln,21-1351,"Rotary Brush 13"" .050/80 Grit",rotary_brush,Rotary Brush,"13""",.050/80 Grit,,Advenger 2805D,044,hold,hold,american-lincoln-21-1351-rotary-brush-13-050-80-grit,2
+SY21-1352,American Lincoln,21-1352,"Rotary Brush 13"" .035/180 Grit",rotary_brush,Rotary Brush,"13""",.035/180 Grit,,Advenger 2805D,044,hold,hold,american-lincoln-21-1352-rotary-brush-13-035-180-grit,2
+SY21-1353,American Lincoln,21-1353,"Rotary Brush 13"" .022/180 Grit",rotary_brush,Rotary Brush,"13""",,,Advenger 2805D,044,hold,hold,american-lincoln-21-1353-rotary-brush-13,2
+SY21-1354,American Lincoln,21-1354,"Rotary Brush 13"" .018/500 Grit",rotary_brush,Rotary Brush,"13""",.018/500 Grit,,Advenger 2805D,044,hold,hold,american-lincoln-21-1354-rotary-brush-13-018-500-grit,2
+SY21-1355,American Lincoln,21-1355,"Rotary Brush 13"" .028 Poly",rotary_brush,Rotary Brush,"13""",Poly,,Advenger 2805D,044,hold,hold,american-lincoln-21-1355-rotary-brush-13-poly,2
+SY21-1356,American Lincoln,21-1356,"Rotary Brush 13"" .022 Poly",rotary_brush,Rotary Brush,"13""",Poly,,Advenger 2805D,044,hold,hold,american-lincoln-21-1356-rotary-brush-13-poly,2
+SY21-1357,American Lincoln,21-1357,"Rotary Brush 13"" Union Mix",rotary_brush,Rotary Brush,"13""",Union Mix,,Advenger 2805D,044,hold,hold,american-lincoln-21-1357-rotary-brush-13-union-mix,2
+SY21-1358,American Lincoln,21-1358,"Pad Driver 13""",pad_driver,Pad Driver,"13""",,,Advenger 2805D,044,hold,hold,american-lincoln-21-1358-pad-driver-13,2
+SY21-1414,American Lincoln,21-1414,"Rotary Brush 14"" .028 Medium Poly",rotary_brush,Rotary Brush,"14""",Medium Poly,,730I|930I,016,hold,hold,american-lincoln-21-1414-rotary-brush-14-medium-poly,2
+SY21-1415,American Lincoln,21-1415,"Rotary Brush 14"" .028 Medium Nylon",rotary_brush,Rotary Brush,"14""",Medium Nylon,,730I|930I|6200B|6200H|6200HIC|6200IC|6200S|6200SS,013|016,hold,hold,american-lincoln-21-1415-rotary-brush-14-medium-nylon,3
+SY21-1416,American Lincoln,21-1416,"Rotary Brush 14"" .012 Soft Nylon",rotary_brush,Rotary Brush,"14""",Soft Nylon,,730I|930I|6200B|6200H|6200HIC|6200IC|6200S|6200SS,013|016,hold,hold,american-lincoln-21-1416-rotary-brush-14-soft-nylon,3
+SY21-1419,American Lincoln,21-1419,"Rotary Brush 14"" .070/46 Grit",rotary_brush,Rotary Brush,"14""",.070/46 Grit,,6700|6700B|6700IC,018,hold,hold,american-lincoln-21-1419-rotary-brush-14-070-46-grit,3
+SY21-1420,American Lincoln,21-1420,"Rotary Brush 14"" .040 Stiff Poly",rotary_brush,Rotary Brush,"14""",Stiff Poly,,6700|6700B|6700IC,018,hold,hold,american-lincoln-21-1420-rotary-brush-14-stiff-poly,3
+SY21-1421,American Lincoln,21-1421,"Rotary Brush 14"" .028 Medium Nylon",rotary_brush,Rotary Brush,"14""",Medium Nylon,,6700|6700B|6700IC,018,hold,hold,american-lincoln-21-1421-rotary-brush-14-medium-nylon,3
+SY21-1422,American Lincoln,21-1422,"Rotary Brush 14"" .012 Soft Nylon",rotary_brush,Rotary Brush,"14""",Soft Nylon,,6700|6700B|6700IC,018,hold,hold,american-lincoln-21-1422-rotary-brush-14-soft-nylon,3
+SY21-1610,American Lincoln,21-1610,"Rotary Brush 16"" .070/456 Grit",rotary_brush,Rotary Brush,"16""",,,1000|2000|7740|7750|ATS46|SC7750,003|009|022|029|030,hold,hold,american-lincoln-21-1610-rotary-brush-16,3
+SY21-1611,American Lincoln,21-1611,"Rotary Brush 16"" .028 Poly",rotary_brush,Rotary Brush,"16""",Poly,,7730|7740|7750|Advenger 3405D|ATS46,022|028|029|030|045,hold,hold,american-lincoln-21-1611-rotary-brush-16-poly,3
+SY21-1612,American Lincoln,21-1612,"Rotary Brush 16"" .028 Medium Nylon",rotary_brush,Rotary Brush,"16""",Medium Nylon,,1000|2000|7730|7740|7750|ATS46|SC7750,003|009|022|028|029|030,hold,hold,american-lincoln-21-1612-rotary-brush-16-medium-nylon,3
+SY21-1613,American Lincoln,21-1613,"Rotary Brush 16"" .035/180 Grit",rotary_brush,Rotary Brush,"16""",.035/180 Grit,,1000|2000|7730|7740|7750|ATS46|SC7750,003|009|022|028|029|030,hold,hold,american-lincoln-21-1613-rotary-brush-16-035-180-grit,3
+SY21-1614,American Lincoln,21-1614,"Pad Driver 16""",pad_driver,Pad Driver,"16""",,,1000|2000|7730|7740|ATS46|SC7750,003|009|022|028|029,hold,hold,american-lincoln-21-1614-pad-driver-16,3
+SY21-1616,American Lincoln,21-1616,"Rotary Brush 16"" .070/46 Grit",rotary_brush,Rotary Brush,"16""",.070/46 Grit,,Advenger 3405D,045,hold,hold,american-lincoln-21-1616-rotary-brush-16-070-46-grit,2
+SY21-1617,American Lincoln,21-1617,"Rotary Brush 16"" .050/80 Grit",rotary_brush,Rotary Brush,"16""",.050/80 Grit,,Advenger 3405D,045,hold,hold,american-lincoln-21-1617-rotary-brush-16-050-80-grit,2
+SY21-1618,American Lincoln,21-1618,"Rotary Brush 16"" .035/180 Grit",rotary_brush,Rotary Brush,"16""",.035/180 Grit,,Advenger 3405D,045,hold,hold,american-lincoln-21-1618-rotary-brush-16-035-180-grit,2
+SY21-1619,American Lincoln,21-1619,"Rotary Brush 16"" .022/120 Grit",rotary_brush,Rotary Brush,"16""",.022/120 Grit,,Advenger 3405D,045,hold,hold,american-lincoln-21-1619-rotary-brush-16-022-120-grit,2
+SY21-1620,American Lincoln,21-1620,"Rotary Brush 16"" .018/500 Grit",rotary_brush,Rotary Brush,"16""",.018/500 Grit,,Advenger 3405D,045,hold,hold,american-lincoln-21-1620-rotary-brush-16-018-500-grit,2
+SY21-1621,American Lincoln,21-1621,"Rotary Brush 16"" .028 Nylon",rotary_brush,Rotary Brush,"16""",Nylon,,Advenger 3405D,045,hold,hold,american-lincoln-21-1621-rotary-brush-16-nylon,2
+SY21-1623,American Lincoln,21-1623,"Rotary Brush 16"" Union Mix",rotary_brush,Rotary Brush,"16""",Union Mix,,Advenger 3405D,045,hold,hold,american-lincoln-21-1623-rotary-brush-16-union-mix,2
+SY21-1624,American Lincoln,21-1624,"Pad Driver 16""",pad_driver,Pad Driver,"16""",,,Advenger 3405D,045,hold,hold,american-lincoln-21-1624-pad-driver-16,2
+SY21-1626,American Lincoln,21-1626,"Rotary Brush 16"" .022 Poly",rotary_brush,Rotary Brush,"16""",Poly,,Advenger 3405D,045,hold,hold,american-lincoln-21-1626-rotary-brush-16-poly,2
+SY21-1702,American Lincoln,21-1702,"Rotary Brush 17"" .070/46 Grit",rotary_brush,Rotary Brush,"17""",.070/46 Grit,,934|935I,015,hold,hold,american-lincoln-21-1702-rotary-brush-17-070-46-grit,2
+SY21-1703,American Lincoln,21-1703,"Rotary Brush 17"" .028 Medium Nylon",rotary_brush,Rotary Brush,"17""",Medium Nylon,,934|935I,015,hold,hold,american-lincoln-21-1703-rotary-brush-17-medium-nylon,2
+SY21-1704,American Lincoln,21-1704,"Rotary Brush 17"" .028 Poly",rotary_brush,Rotary Brush,"17""",Poly,,934|935I,015,hold,hold,american-lincoln-21-1704-rotary-brush-17-poly,2
+SY21-1708,American Lincoln,21-1708,"Rotary Brush 17"" .070/46 Grit",rotary_brush,Rotary Brush,"17""",.070/46 Grit,,7000|7700,012|027,hold,hold,american-lincoln-21-1708-rotary-brush-17-070-46-grit,3
+SY21-1710,American Lincoln,21-1710,"Rotary Brush 17"" .040 Stiff Poly",rotary_brush,Rotary Brush,"17""",Stiff Poly,,7700,027,hold,hold,american-lincoln-21-1710-rotary-brush-17-stiff-poly,3
+SY21-1711,American Lincoln,21-1711,"Rotary Brush 17"" .028 Medium Nylon",rotary_brush,Rotary Brush,"17""",Medium Nylon,,7000|7700,012|027,hold,hold,american-lincoln-21-1711-rotary-brush-17-medium-nylon,3
+SY21-1712,American Lincoln,21-1712,"Rotary Brush 17"" .012 Soft Nylon",rotary_brush,Rotary Brush,"17""",Soft Nylon,,7000|7700,012|027,hold,hold,american-lincoln-21-1712-rotary-brush-17-soft-nylon,3
+SY21-1809,American Lincoln,21-1809,"Rotary Brush 18"" .018/500 Grit",rotary_brush,Rotary Brush,"18""",.018/500 Grit,,7750|ATS53|MPV60|MPV60TS|SC7750,005|009|030,hold,hold,american-lincoln-21-1809-rotary-brush-18-018-500-grit,3
+SY21-1810,American Lincoln,21-1810,"Rotary Brush 18"" .028 Poly",rotary_brush,Rotary Brush,"18""",Poly,,7750|ATS53|MPV60|MPV60TS,005|030,hold,hold,american-lincoln-21-1810-rotary-brush-18-poly,3
+SY21-1811,American Lincoln,21-1811,"Rotary Brush 18"" .028 Medium Nylon",rotary_brush,Rotary Brush,"18""",Medium Nylon,,7750|ATS53|MPV60|MPV60TS|SC7750,005|009|030,hold,hold,american-lincoln-21-1811-rotary-brush-18-medium-nylon,3
+SY21-1812,American Lincoln,21-1812,"Rotary Brush 18"" .035/180 Grit",rotary_brush,Rotary Brush,"18""",.035/180 Grit,,7750|ATS53|MPV60|MPV60TS|SC7750,005|009|030,hold,hold,american-lincoln-21-1812-rotary-brush-18-035-180-grit,3
+SY21-1813,American Lincoln,21-1813,"Pad Driver 18""",pad_driver,Pad Driver,"18""",,,ATS53|MPV60|MPV60TS|SC7750,005|009,hold,hold,american-lincoln-21-1813-pad-driver-18,3
+SY21-1814,American Lincoln,21-1814,"Rotary Brush 18' .070/46 Grit",rotary_brush,Rotary Brush,,.070/46 Grit,,7750|SC7750,009|030,hold,hold,american-lincoln-21-1814-rotary-brush-070-46-grit,3
+SY21-1815,American Lincoln,21-1815,"Rotary Brush 18"" .070/46 Grit",rotary_brush,Rotary Brush,"18""",.070/46 Grit,,772|7760|9772,014|017,hold,hold,american-lincoln-21-1815-rotary-brush-18-070-46-grit,4
+SY21-1816,American Lincoln,21-1816,"Rotary Brush 18"" Wire",rotary_brush,Rotary Brush,"18""",Wire,,772|7760|9772,014|017,hold,hold,american-lincoln-21-1816-rotary-brush-18-wire,4
+SY21-1817,American Lincoln,21-1817,"Rotary Brush 18"" .040 Stiff Poly",rotary_brush,Rotary Brush,"18""",Stiff Poly,,772|7760|9772,014|017,hold,hold,american-lincoln-21-1817-rotary-brush-18-stiff-poly,4
+SY21-1818,American Lincoln,21-1818,"Rotary Brush 18"" .028 Medium Nylon",rotary_brush,Rotary Brush,"18""",Medium Nylon,,772|7760|9772,014|017,hold,hold,american-lincoln-21-1818-rotary-brush-18-medium-nylon,4
+SY21-1819,American Lincoln,21-1819,"Rotary Brush 18"" .012 Soft Nylon",rotary_brush,Rotary Brush,"18""",Soft Nylon,,772|7760|9772,014|017,hold,hold,american-lincoln-21-1819-rotary-brush-18-soft-nylon,4
+SY21-1820,American Lincoln,21-1820,"Rotary Brush 18"" .035/180 Grit",rotary_brush,Rotary Brush,"18""",.035/180 Grit,,772|7760|9772,014|017,hold,hold,american-lincoln-21-1820-rotary-brush-18-035-180-grit,4
+SY21-2010,American Lincoln,21-2010,"Rotary Brush 20"" .070/46 Grit",rotary_brush,Rotary Brush,"20""",.070/46 Grit,,1000|2000|7730|7740,003|028|029,hold,hold,american-lincoln-21-2010-rotary-brush-20-070-46-grit,2
+SY21-2011,American Lincoln,21-2011,"Rotary Brush 20"" .035/180 Grit",rotary_brush,Rotary Brush,"20""",.035/180 Grit,,1000|2000|7730|7740,003|028|029,hold,hold,american-lincoln-21-2011-rotary-brush-20-035-180-grit,2
+SY21-2012,American Lincoln,21-2012,"Rotary Brush 20"" .028 Poly",rotary_brush,Rotary Brush,"20""",Poly,,7730|7740|Advenger 3405D,028|029|045,hold,hold,american-lincoln-21-2012-rotary-brush-20-poly,2
+SY21-2013,American Lincoln,21-2013,"Rotary Brush 20"" .028 Medium Nylon",rotary_brush,Rotary Brush,"20""",Medium Nylon,,1000|2000|7730|7740,003|028|029,hold,hold,american-lincoln-21-2013-rotary-brush-20-medium-nylon,2
+SY21-2014,American Lincoln,21-2014,"Pad Driver 20""",pad_driver,Pad Driver,"20""",,,1000|2000|7730|7740,003|028|029,hold,hold,american-lincoln-21-2014-pad-driver-20,2
+SY21-2110H5,American Lincoln,21-2110H5,"Rotary Brush 21"" .070/46 Grit",rotary_brush,Rotary Brush,"21""",.070/46 Grit,,SR7770,019,hold,hold,american-lincoln-21-2110h5-rotary-brush-21-070-46-grit,3
+SY21-2112H5,American Lincoln,21-2112H5,"Rotary Brush 21"" .035/180 Grit",rotary_brush,Rotary Brush,"21""",.035/180 Grit,,SR7770,019,hold,hold,american-lincoln-21-2112h5-rotary-brush-21-035-180-grit,3
+SY21-2117H5,American Lincoln,21-2117H5,"Rotary Bruah 21"" .040 Stiff Poly",rotary_brush,Rotary Brush,"21""",Stiff Poly,,SR7770,019,hold,hold,american-lincoln-21-2117h5-rotary-brush-21-stiff-poly,3
+SY21-2121H5,American Lincoln,21-2121H5,"Rotary Brush 21"" .028Med. Nylon",rotary_brush,Rotary Brush,"21""",Medium Nylon,,SR7770,019,hold,hold,american-lincoln-21-2121h5-rotary-brush-21-medium-nylon,3
+SY21-98478,American Lincoln,21-98478,"Rotary Brush 17"" .028 Nylon",rotary_brush,Rotary Brush,"17""",Nylon,,934|935I,015,hold,hold,american-lincoln-21-98478-rotary-brush-17-nylon,2
+SY99625,American Lincoln,99625,"Rotary Brush 17"" Wire",rotary_brush,Rotary Brush,"17""",Wire,,7700,027,hold,hold,american-lincoln-99625-rotary-brush-17-wire,3
+SY99732,American Lincoln,99732,"Rotary Brush 17"" Poly/Wire",rotary_brush,Rotary Brush,"17""",Poly,,7700,027,hold,hold,american-lincoln-99732-rotary-brush-17-poly,3
+SY99736,American Lincoln,99736,"Rotary Brush 16"" .035/180 Grit",rotary_brush,Rotary Brush,"16""",.035/180 Grit,,7740,029,hold,hold,american-lincoln-99736-rotary-brush-16-035-180-grit,3
+SY99737,American Lincoln,99737,"Main Broom 36"" Union/Wire",main_broom,Main Broom,"36""",Union/Wire,,7730|7740,028|029,hold,hold,american-lincoln-99737-main-broom-36-union-wire,1
+SY11-2210,Factory Cat,11-2210,"Main Scrub 22"" 16 S.R. .060/46 Grit",cylindrical_scrub,Cylindrical Scrub,"22""",,single_row,22|2200|2200EX,001,hold,hold,factory-cat-11-2210-cylindrical-scrub-22,2
+SY11-2211,Factory Cat,11-2211,"Main Scrub 22"" 16 S.R. .50/80 Grit",cylindrical_scrub,Cylindrical Scrub,"22""",,single_row,22|2200|2200EX,001,hold,hold,factory-cat-11-2211-cylindrical-scrub-22,2
+SY11-2212,Factory Cat,11-2212,"Main Scrub 22"" 16 S.R. .022/120 Grit",cylindrical_scrub,Cylindrical Scrub,"22""",.022/120 Grit,single_row,22|2200|2200EX,001,hold,hold,factory-cat-11-2212-cylindrical-scrub-22-022-120-grit,2
+SY11-2213,Factory Cat,11-2213,"Main Scrub 22"" 16 S.R. .012 Nylon",cylindrical_scrub,Cylindrical Scrub,"22""",Nylon,single_row,22|2200|2200EX,001,hold,hold,factory-cat-11-2213-cylindrical-scrub-22-nylon,2
+SY11-2510,Factory Cat,11-2510,"Main Scrub 25"" 18 S.R. .060/36 Grit",cylindrical_scrub,Cylindrical Scrub,"25""",,single_row,26|290C|Magnum 26,009|013,hold,hold,factory-cat-11-2510-cylindrical-scrub-25,2
+SY11-2511,Factory Cat,11-2511,"Main Scrub 25"" 18 S.R. .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"25""",.050/80 Grit,single_row,26|290C|Magnum 26,009|013,hold,hold,factory-cat-11-2511-cylindrical-scrub-25-050-80-grit,2
+SY11-2512,Factory Cat,11-2512,"Main Scrub 25"" 18 S.R. .022/120 Grit",cylindrical_scrub,Cylindrical Scrub,"25""",.022/120 Grit,single_row,26|290C|Magnum 26,009|013,hold,hold,factory-cat-11-2512-cylindrical-scrub-25-022-120-grit,2
+SY11-2513,Factory Cat,11-2513,"Main Scrub 25"" 18 S.R. .012 Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"25""",Soft Nylon,single_row,26|290C|Magnum 26,009|013,hold,hold,factory-cat-11-2513-cylindrical-scrub-25-soft-nylon,2
+SY11-2515,Factory Cat,11-2515,"Main Scrub 25"" 16 S.R. Tampico",cylindrical_scrub,Cylindrical Scrub,"25""",,single_row,Magnum 26,013,hold,hold,factory-cat-11-2515-cylindrical-scrub-25,2
+SY11-2604,Factory Cat,11-2604,"Main Broom 26"" 6 D.R. Nylon",main_broom,Main Broom,"26""",Nylon,double_row,34|TR34,006|016,hold,hold,factory-cat-11-2604-main-broom-26-nylon,1
+SY11-2605,Factory Cat,11-2605,"Main Broom 26"" 6 D.R. Proex/Wire",main_broom,Main Broom,"26""",Proex/Wire,double_row,34|TR34,006|016,hold,hold,factory-cat-11-2605-main-broom-26-proex-wire,1
+SY11-2620,Factory Cat,11-2620,"Main Broom 26"" 6 D.R. Union/Wire",main_broom,Main Broom,"26""",Union/Wire,double_row,34|TR34,006|016,hold,hold,factory-cat-11-2620-main-broom-26-union-wire,1
+SY11-2622,Factory Cat,11-2622,"Main Broom 26"" 6 D.R. Proex/Wire",main_broom,Main Broom,"26""",Proex/Wire,double_row,34|TR34,006|016,hold,hold,factory-cat-11-2622-main-broom-26-proex-wire,1
+SY11-2624,Factory Cat,11-2624,"Main Broom 26"" 18 S.R. Nylon",main_broom,Main Broom,"26""",Nylon,single_row,34|TR34,006|016,hold,hold,factory-cat-11-2624-main-broom-26-nylon,1
+SY11-2626,Factory Cat,11-2626,"Main Broom 26"" 6 D.R. Union",main_broom,Main Broom,"26""",,double_row,34|TR34,006|016,hold,hold,factory-cat-11-2626-main-broom-26,1
+SY11-2820,Factory Cat,11-2820,"Main Scrub 28"" 16 S.R. .060/46 Grit",cylindrical_scrub,Cylindrical Scrub,"28""",,single_row,28|29|350-28|2800|3000|Magnum 30,005|014,hold,hold,factory-cat-11-2820-cylindrical-scrub-28,2
+SY11-2821,Factory Cat,11-2821,"Main Scrub 28"" 16 S.R. .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"28""",.050/80 Grit,single_row,28|29|350-28|2800|3000|Magnum 30,005|014,hold,hold,factory-cat-11-2821-cylindrical-scrub-28-050-80-grit,2
+SY11-2822,Factory Cat,11-2822,"Main Scrub 28"" 16 S.R. .022/120 Grit",cylindrical_scrub,Cylindrical Scrub,"28""",.022/120 Grit,single_row,28|29|350-28|2800|3000|Magnum 30,005|014,hold,hold,factory-cat-11-2822-cylindrical-scrub-28-022-120-grit,2
+SY11-2823,Factory Cat,11-2823,"Main Scrub 28"" 18 S.R. .012 Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"28""",Soft Nylon,single_row,28|29|350-28|2800|3000|Magnum 30,005|014,hold,hold,factory-cat-11-2823-cylindrical-scrub-28-soft-nylon,2
+SY11-2824,Factory Cat,11-2824,"Main Scrub 28"" 16 S.R. Tampico",cylindrical_scrub,Cylindrical Scrub,"28""",,single_row,Magnum 30,014,hold,hold,factory-cat-11-2824-cylindrical-scrub-28,2
+SY11-2826,Factory Cat,11-2826,"Main Scrub 28"" 16 S.R. .070/46 Grit",cylindrical_scrub,Cylindrical Scrub,"28""",.070/46 Grit,single_row,Magnum 30,014,hold,hold,factory-cat-11-2826-cylindrical-scrub-28-070-46-grit,2
+SY11-2827,Factory Cat,11-2827,"Main Scrub 28"" 16 S.R. .035/180 Grit",cylindrical_scrub,Cylindrical Scrub,"28""",.035/180 Grit,single_row,Magnum 30,014,hold,hold,factory-cat-11-2827-cylindrical-scrub-28-035-180-grit,2
+SY11-2828,Factory Cat,11-2828,"Main Scrub 28"" 16 S.R. .022/120 Grit",cylindrical_scrub,Cylindrical Scrub,"28""",.022/120 Grit,single_row,Magnum 30,014,hold,hold,factory-cat-11-2828-cylindrical-scrub-28-022-120-grit,2
+SY11-2829,Factory Cat,11-2829,"Main Scrub 28"" 16 S.R. Nylon",cylindrical_scrub,Cylindrical Scrub,"28""",Nylon,single_row,Magnum 30,014,hold,hold,factory-cat-11-2829-cylindrical-scrub-28-nylon,2
+SY11-2830,Factory Cat,11-2830,"Main Scrub 28"" 16 S.R. Tampico",cylindrical_scrub,Cylindrical Scrub,"28""",,single_row,Magnum 30,014,hold,hold,factory-cat-11-2830-cylindrical-scrub-28,2
+SY11-3220,Factory Cat,11-3220,"Main Broom 32"" 2 D.R. Union /Wire",main_broom,Main Broom,"32""",Wire,double_row,48,010,hold,hold,factory-cat-11-3220-main-broom-32-wire,1
+SY11-3221,Factory Cat,11-3221,"Main Broom 32'' 6 D.R. Proex",main_broom,Main Broom,,,double_row,48,010,hold,hold,factory-cat-11-3221-main-broom,1
+SY11-3222,Factory Cat,11-3222,"Main Broom 32"" 6 D.R. Proex/Wire",main_broom,Main Broom,"32""",Proex/Wire,double_row,48,010,hold,hold,factory-cat-11-3222-main-broom-32-proex-wire,1
+SY11-3223,Factory Cat,11-3223,"Main Broom 32"" 6 D.R. Nylon",main_broom,Main Broom,"32""",Nylon,double_row,48,010,hold,hold,factory-cat-11-3223-main-broom-32-nylon,1
+SY11-3224,Factory Cat,11-3224,"Main Broom 32"" 18 S.R. Nylon",main_broom,Main Broom,"32""",Nylon,single_row,48,010,hold,hold,factory-cat-11-3224-main-broom-32-nylon,1
+SY11-3226,Factory Cat,11-3226,"Main Broom 32"" 6 D.R. Union",main_broom,Main Broom,"32""",,double_row,48,010,hold,hold,factory-cat-11-3226-main-broom-32,1
+SY11-3230,Factory Cat,11-3230,"Main Scrub 32"" 18 S.R. .060/36 Grit",cylindrical_scrub,Cylindrical Scrub,"32""",,single_row,38|40|40HD|350-32|3400|3700|Magnum 34|XR370-34C,008|015,hold,hold,factory-cat-11-3230-cylindrical-scrub-32,2
+SY11-3231,Factory Cat,11-3231,"Main Scrub 32"" 18 S.R. .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"32""",.050/80 Grit,single_row,38|40|40HD|350-32|3400|3700|Magnum 34|SCR5730|XR370-34C,008|015|032,hold,hold,factory-cat-11-3231-cylindrical-scrub-32-050-80-grit,2
+SY11-3232,Factory Cat,11-3232,"Main Scrub 32"" 18 S.R. .022/120 Grit",cylindrical_scrub,Cylindrical Scrub,"32""",.022/120 Grit,single_row,38|40|40HD|350-32|3400|3700|Magnum 34|SCR5730|XR370-34C,008|015|032,hold,hold,factory-cat-11-3232-cylindrical-scrub-32-022-120-grit,2
+SY11-3233,Factory Cat,11-3233,"Main Scrub 32"" 18 S.R. .012 Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"32""",Soft Nylon,single_row,38|40|40HD|350-32|3400|3700|Magnum 34|SCR5730|XR370-34C,008|015|032,hold,hold,factory-cat-11-3233-cylindrical-scrub-32-soft-nylon,2
+SY11-3237,Factory Cat,11-3237,"Main Scrub 32' 16 S.R. .035/180 Grit",cylindrical_scrub,Cylindrical Scrub,,.035/180 Grit,single_row,Magnum 34,015,hold,hold,factory-cat-11-3237-cylindrical-scrub-035-180-grit,2
+SY11-5014,Factory Cat,11-5014,"Main Broom 50"" 8 D.R. Proex/Wire",main_broom,Main Broom,"50""",Proex/Wire,double_row,35,007,hold,hold,factory-cat-11-5014-main-broom-50-proex-wire,1
+SY11-5015,Factory Cat,11-5015,"Main Broom 50"" 8 D.R. Poly",main_broom,Main Broom,"50""",Poly,double_row,35,007,hold,hold,factory-cat-11-5015-main-broom-50-poly,1
+SY11-5016,Factory Cat,11-5016,"Main Broom 50"" 8 D.R. Nylon",main_broom,Main Broom,"50""",Nylon,double_row,35,007,hold,hold,factory-cat-11-5016-main-broom-50-nylon,1
+SY11-5017,Factory Cat,11-5017,"Main Broom 50"" 8 D.R. Proex/Wire",main_broom,Main Broom,"50""",Proex/Wire,double_row,35,007,hold,hold,factory-cat-11-5017-main-broom-50-proex-wire,1
+SY11-5018,Factory Cat,11-5018,"Main Broom 50"" 8 D.R. Union/Wire",main_broom,Main Broom,"50""",Union/Wire,double_row,35,007,hold,hold,factory-cat-11-5018-main-broom-50-union-wire,1
+SY21-0810,Factory Cat,21-0810,"Side Broom 8"" 2 S.R. Nylon",side_broom,Side Broom,"8""",Nylon,single_row,34|38|40|40HD|48|350-32|3400|3700|TR34|XR370-34C,006|008|010|016,hold,hold,factory-cat-21-0810-side-broom-8-nylon,1
+SY21-0811,Factory Cat,21-0811,"Side Broom 8"" 2 S.R. Poly/Wire",side_broom,Side Broom,"8""",Poly,single_row,34|38|40|40HD|48|350-32|3400|3700|TR34|XR370-34C,006|008|010|016,hold,hold,factory-cat-21-0811-side-broom-8-poly,1
+SY21-0812,Factory Cat,21-0812,"Side Broom 8"" 2 S.R. Poly/Wire",side_broom,Side Broom,"8""",Poly,single_row,34|38|40|40HD|48|350-32|3400|3700|TR34|XR370-34C,006|008|010|016,hold,hold,factory-cat-21-0812-side-broom-8-poly,1
+SY21-101033,Factory Cat,21-101033,"Rotary Brush 10"" .070/46 Grit",rotary_brush,Rotary Brush,"10""",.070/46 Grit,,21|2100,012,hold,hold,factory-cat-21-101033-rotary-brush-10-070-46-grit,2
+SY21-101133,Factory Cat,21-101133,"Rotary Brush 10"" .050/80 Grit",rotary_brush,Rotary Brush,"10""",.050/80 Grit,,21|22|2100|2200|2200EX,001|012,hold,hold,factory-cat-21-101133-rotary-brush-10-050-80-grit,2
+SY21-101233,Factory Cat,21-101233,"Rotary Brush 10"" .035/180 Grit",rotary_brush,Rotary Brush,"10""",.035/180 Grit,,21|2100,012,hold,hold,factory-cat-21-101233-rotary-brush-10-035-180-grit,2
+SY21-101333,Factory Cat,21-101333,"Rotary Brush 10"" .022/120 Grit",rotary_brush,Rotary Brush,"10""",.022/120 Grit,,21|2100,012,hold,hold,factory-cat-21-101333-rotary-brush-10-022-120-grit,2
+SY21-101733,Factory Cat,21-101733,"Rotary Brush 10"" .028 Poly",rotary_brush,Rotary Brush,"10""",Poly,,21|22|2100|2200|2200EX,001|012,hold,hold,factory-cat-21-101733-rotary-brush-10-poly,2
+SY21-102133,Factory Cat,21-102133,"Rotary Brush 10"" .028 Nylon",rotary_brush,Rotary Brush,"10""",Nylon,,21|2100,012,hold,hold,factory-cat-21-102133-rotary-brush-10-nylon,2
+SY21-102433,Factory Cat,21-102433,"Rotary Brush 10"" Tampico",rotary_brush,Rotary Brush,"10""",,,21|2100,012,hold,hold,factory-cat-21-102433-rotary-brush-10,2
+SY21-102933,Factory Cat,21-102933,"Pad Driver 10""",pad_driver,Pad Driver,"10""",,,21|22|2100|2200|2200EX,001|012,hold,hold,factory-cat-21-102933-pad-driver-10,2
+SY21-1102,Factory Cat,21-1102,"Side Broom 11"" 2 S.R. Nylon",side_broom,Side Broom,"11""",Nylon,single_row,35,007,hold,hold,factory-cat-21-1102-side-broom-11-nylon,1
+SY21-1106,Factory Cat,21-1106,"Side Broom 11"" 2 S.R. Poly",side_broom,Side Broom,"11""",Poly,single_row,35,007,hold,hold,factory-cat-21-1106-side-broom-11-poly,1
+SY21-121033,Factory Cat,21-121033,"Rotary Brush 12"" .070/46 Grit",rotary_brush,Rotary Brush,"12""",.070/46 Grit,,25|2500|Magnum 26,003|013,hold,hold,factory-cat-21-121033-rotary-brush-12-070-46-grit,2
+SY21-121133,Factory Cat,21-121133,"Rotary Brush 12"" .050/80 Grit",rotary_brush,Rotary Brush,"12""",.050/80 Grit,,25|2500|Magnum 26,003|013,hold,hold,factory-cat-21-121133-rotary-brush-12-050-80-grit,2
+SY21-121233,Factory Cat,21-121233,"Rotary Brush 12"" .035/180 Grit",rotary_brush,Rotary Brush,"12""",.035/180 Grit,,25|2500|Magnum 26,003|013,hold,hold,factory-cat-21-121233-rotary-brush-12-035-180-grit,2
+SY21-121333,Factory Cat,21-121333,"Rotary Brush 12"" .022/120 Grit",rotary_brush,Rotary Brush,"12""",.022/120 Grit,,25|2500|Magnum 26,003|013,hold,hold,factory-cat-21-121333-rotary-brush-12-022-120-grit,2
+SY21-121733,Factory Cat,21-121733,"Rotary Brush 12 "" .028 Poly",rotary_brush,Rotary Brush,"12""",Poly,,25|2500|Magnum 26,003|013,hold,hold,factory-cat-21-121733-rotary-brush-12-poly,2
+SY21-122133,Factory Cat,21-122133,"Rotary Brush 12"" .028 Nylon",rotary_brush,Rotary Brush,"12""",Nylon,,25|2500|Magnum 26,003|013,hold,hold,factory-cat-21-122133-rotary-brush-12-nylon,2
+SY21-122433,Factory Cat,21-122433,"Rotary Brush 12"" Tampico",rotary_brush,Rotary Brush,"12""",,,25|2500|Magnum 26,003|013,hold,hold,factory-cat-21-122433-rotary-brush-12,2
+SY21-122933,Factory Cat,21-122933,"Pad Driver 12""",pad_driver,Pad Driver,"12""",,,25|2500,003,hold,hold,factory-cat-21-122933-pad-driver-12,2
+SY21-131033,Factory Cat,21-131033,"Rotary Brush 13"" .070/46 Grit",rotary_brush,Rotary Brush,"13""",.070/46 Grit,,27|2700,004,hold,hold,factory-cat-21-131033-rotary-brush-13-070-46-grit,2
+SY21-131133,Factory Cat,21-131133,"Rotary Brush 13"" .050/80 Grit",rotary_brush,Rotary Brush,"13""",.050/80 Grit,,27|2700,004,hold,hold,factory-cat-21-131133-rotary-brush-13-050-80-grit,2
+SY21-131233,Factory Cat,21-131233,"Rotary Brush 13"" .035/180 Grit",rotary_brush,Rotary Brush,"13""",.035/180 Grit,,27|2700,004,hold,hold,factory-cat-21-131233-rotary-brush-13-035-180-grit,2
+SY21-131333,Factory Cat,21-131333,"Rotary Brush 13"" .022/120 Grit",rotary_brush,Rotary Brush,"13""",.022/120 Grit,,27|2700,004,hold,hold,factory-cat-21-131333-rotary-brush-13-022-120-grit,2
+SY21-131733,Factory Cat,21-131733,"Rotary Brush 13"" .028 Poly",rotary_brush,Rotary Brush,"13""",Poly,,27|2700,004,hold,hold,factory-cat-21-131733-rotary-brush-13-poly,2
+SY21-132133,Factory Cat,21-132133,"Rotary Brush 13"" .028 Nylon",rotary_brush,Rotary Brush,"13""",Nylon,,27|2700,004,hold,hold,factory-cat-21-132133-rotary-brush-13-nylon,2
+SY21-132433,Factory Cat,21-132433,"Rotary Brush 13"" Tampico",rotary_brush,Rotary Brush,"13""",,,27|2700,004,hold,hold,factory-cat-21-132433-rotary-brush-13,2
+SY21-132933,Factory Cat,21-132933,"Pad Driver 13""",pad_driver,Pad Driver,"13""",,,27|2700,004,hold,hold,factory-cat-21-132933-pad-driver-13,2
+SY21-133933,Factory Cat,21-133933,"Pad Driver 12""",pad_driver,Pad Driver,"12""",,,Magnum 26,013,hold,hold,factory-cat-21-133933-pad-driver-12,2
+SY21-141033,Factory Cat,21-141033,"Rotary Brush 14"" .070/46 Grit",rotary_brush,Rotary Brush,"14""",.070/46 Grit,,28|29|350-28|2800|3000,005,hold,hold,factory-cat-21-141033-rotary-brush-14-070-46-grit,2
+SY21-141133,Factory Cat,21-141133,"Rotary Brush 14"" .050/80 Grit",rotary_brush,Rotary Brush,"14""",.050/80 Grit,,28|29|350-28|2800|3000|Magnum 30,005|014,hold,hold,factory-cat-21-141133-rotary-brush-14-050-80-grit,2
+SY21-141233,Factory Cat,21-141233,"Rotary Brush 14"" .035/180 Grit",rotary_brush,Rotary Brush,"14""",.035/180 Grit,,28|29|350-28|2800|3000|Magnum 30,005|014,hold,hold,factory-cat-21-141233-rotary-brush-14-035-180-grit,2
+SY21-141333,Factory Cat,21-141333,"Rotary Brush 14"" .022/120 Grit",rotary_brush,Rotary Brush,"14""",.022/120 Grit,,28|29|350-28|2800|3000|Magnum 30,005|014,hold,hold,factory-cat-21-141333-rotary-brush-14-022-120-grit,2
+SY21-141733,Factory Cat,21-141733,"Rotary Brush 14"" .028 Poly",rotary_brush,Rotary Brush,"14""",Poly,,Magnum 30,014,hold,hold,factory-cat-21-141733-rotary-brush-14-poly,2
+SY21-142133,Factory Cat,21-142133,"Rotary Brush 14"" .028 Nylon",rotary_brush,Rotary Brush,"14""",Nylon,,28|29|350-28|2800|3000|Magnum 30,005|014,hold,hold,factory-cat-21-142133-rotary-brush-14-nylon,2
+SY21-142433,Factory Cat,21-142433,"Rotary Brush 14"" Tampico",rotary_brush,Rotary Brush,"14""",,,28|29|350-28|2800|3000|SCR5730,005|032,hold,hold,factory-cat-21-142433-rotary-brush-14,2
+SY21-142733,Factory Cat,21-142733,"Rotary Brush 14"" Wire",rotary_brush,Rotary Brush,"14""",Wire,,28|29|350-28|2800|3000,005,hold,hold,factory-cat-21-142733-rotary-brush-14-wire,2
+SY21-142933,Factory Cat,21-142933,"Pad Driver 14""",pad_driver,Pad Driver,"14""",,,28|29|350-28|2800|3000,005,hold,hold,factory-cat-21-142933-pad-driver-14,2
+SY21-161033,Factory Cat,21-161033,"Rotary Brush 16"" .070/46 Grit",rotary_brush,Rotary Brush,"16""",.070/46 Grit,,SCR5730,032,hold,hold,factory-cat-21-161033-rotary-brush-16-070-46-grit,2
+SY21-161133,Factory Cat,21-161133,"Rotary Brush 16"" .050/80 Grit",rotary_brush,Rotary Brush,"16""",.050/80 Grit,,Magnum 34|SCR5730,015|032,hold,hold,factory-cat-21-161133-rotary-brush-16-050-80-grit,2
+SY21-161233,Factory Cat,21-161233,"Rotary Brush 16"" .035/180 Grit",rotary_brush,Rotary Brush,"16""",.035/180 Grit,,Magnum 34|SCR5730,015|032,hold,hold,factory-cat-21-161233-rotary-brush-16-035-180-grit,2
+SY21-161333,Factory Cat,21-161333,"Rotary Brush 16"" .022/120 Grit",rotary_brush,Rotary Brush,"16""",.022/120 Grit,,Magnum 34|SCR5730,015|032,hold,hold,factory-cat-21-161333-rotary-brush-16-022-120-grit,2
+SY21-161733,Factory Cat,21-161733,"Rotary Brush 16"" .028 Poly",rotary_brush,Rotary Brush,"16""",Poly,,Magnum 34|SCR5730,015|032,hold,hold,factory-cat-21-161733-rotary-brush-16-poly,2
+SY21-162133,Factory Cat,21-162133,"Rotary Brush 16"" .028 Nylon",rotary_brush,Rotary Brush,"16""",Nylon,,Magnum 34|SCR5730,015|032,hold,hold,factory-cat-21-162133-rotary-brush-16-nylon,2
+SY21-162433,Factory Cat,21-162433,"Rotary Brush 16"" Tampico",rotary_brush,Rotary Brush,"16""",,,Magnum 34,015,hold,hold,factory-cat-21-162433-rotary-brush-16,2
+SY21-162733,Factory Cat,21-162733,"Rotary Brush 16"" Wire",rotary_brush,Rotary Brush,"16""",Wire,,SCR5730,032,hold,hold,factory-cat-21-162733-rotary-brush-16-wire,2
+SY21-162933,Factory Cat,21-162933,"Pad Driver 16""",pad_driver,Pad Driver,"16""",,,35|Magnum 34,007|015,hold,hold,factory-cat-21-162933-pad-driver-16,2
+SY21-1706,Factory Cat,21-1706,"Pad Driver 17""",pad_driver,Pad Driver,"17""",,,SCR5730,032,hold,hold,factory-cat-21-1706-pad-driver-17,2
+SY21-171033,Factory Cat,21-171033,"Rotary Brush 17"" .070/46 Grit",rotary_brush,Rotary Brush,"17""",.070/46 Grit,,52|5100|XP370-34D,011,hold,hold,factory-cat-21-171033-rotary-brush-17-070-46-grit,3
+SY21-171133,Factory Cat,21-171133,"Rotary Brush 17"" .050/80 Grit",rotary_brush,Rotary Brush,"17""",.050/80 Grit,,52|5100|XP370-34D,011,hold,hold,factory-cat-21-171133-rotary-brush-17-050-80-grit,3
+SY21-171223,Factory Cat,21-171223,"Rotary Brush 17"" .035/180 Grit",rotary_brush,Rotary Brush,"17""",.035/180 Grit,,52|5100|XP370-34D,011,hold,hold,factory-cat-21-171223-rotary-brush-17-035-180-grit,3
+SY21-171333,Factory Cat,21-171333,"Rotary Brush 17"" .022/120 Grit",rotary_brush,Rotary Brush,"17""",.022/120 Grit,,52|5100|XP370-34D,011,hold,hold,factory-cat-21-171333-rotary-brush-17-022-120-grit,3
+SY21-171733,Factory Cat,21-171733,"Rotary Brush 17"" .028 Poly",rotary_brush,Rotary Brush,"17""",Poly,,52|5100|XP370-34D,011,hold,hold,factory-cat-21-171733-rotary-brush-17-poly,3
+SY21-172133,Factory Cat,21-172133,"Rotary Brush 17"" .028 Nylon",rotary_brush,Rotary Brush,"17""",Nylon,,52|5100|XP370-34D,011,hold,hold,factory-cat-21-172133-rotary-brush-17-nylon,3
+SY21-172433,Factory Cat,21-172433,"Rotary Brush 17"" Tampico",rotary_brush,Rotary Brush,"17""",,,52|5100|XP370-34D,011,hold,hold,factory-cat-21-172433-rotary-brush-17,3
+SY21-172733,Factory Cat,21-172733,"Rotary Brush 17"" Wire",rotary_brush,Rotary Brush,"17""",Wire,,52|5100|XP370-34D,011,hold,hold,factory-cat-21-172733-rotary-brush-17-wire,3
+SY21-172933,Factory Cat,21-172933,"Pad Driver 17""",pad_driver,Pad Driver,"17""",,,52|5100|XP370-34D,011,hold,hold,factory-cat-21-172933-pad-driver-17,3
+SY21-181033,Factory Cat,21-181033,"Rotary Brush 18"" .070/46 Grit",rotary_brush,Rotary Brush,"18""",.070/46 Grit,,38|40|40HD|350-32|3400|3700|XR370-34C,008,hold,hold,factory-cat-21-181033-rotary-brush-18-070-46-grit,2
+SY21-181133,Factory Cat,21-181133,"Rotary Brush 18"" .050/80 Grit",rotary_brush,Rotary Brush,"18""",.050/80 Grit,,38|40|40HD|350-32|3400|3700|XR370-34C,008,hold,hold,factory-cat-21-181133-rotary-brush-18-050-80-grit,2
+SY21-181233,Factory Cat,21-181233,"Rotary Brush 18"" .035/180 Grit",rotary_brush,Rotary Brush,"18""",.035/180 Grit,,38|40|40HD|350-32|3400|3700|XR370-34C,008,hold,hold,factory-cat-21-181233-rotary-brush-18-035-180-grit,2
+SY21-181333,Factory Cat,21-181333,"Rotary Brush 18"" .022/120 Grit",rotary_brush,Rotary Brush,"18""",.022/120 Grit,,38|40|40HD|350-32|3400|3700|XR370-34C,008,hold,hold,factory-cat-21-181333-rotary-brush-18-022-120-grit,2
+SY21-1815,Factory Cat,21-1815,"Rotary Brush 18"" .070/46 Grit",rotary_brush,Rotary Brush,"18""",.070/46 Grit,,35,007,hold,hold,factory-cat-21-1815-rotary-brush-18-070-46-grit,3
+SY21-1816,Factory Cat,21-1816,"Rotary Brush 18"" Wire W/Lugs",rotary_brush,Rotary Brush,"18""",Wire,,35,007,hold,hold,factory-cat-21-1816-rotary-brush-18-wire,3
+SY21-1817,Factory Cat,21-1817,"Rotary Brush 18"" .040 Stiff Poly",rotary_brush,Rotary Brush,"18""",Stiff Poly,,35,007,hold,hold,factory-cat-21-1817-rotary-brush-18-stiff-poly,3
+SY21-181733,Factory Cat,21-181733,"Rotary Brush 18"" .028 Poly",rotary_brush,Rotary Brush,"18""",Poly,,38|40|40HD|350-32|3400|3700|XR370-34C,008,hold,hold,factory-cat-21-181733-rotary-brush-18-poly,2
+SY21-1818,Factory Cat,21-1818,"Rotary Brush 18"" .028 Medium Nylon",rotary_brush,Rotary Brush,"18""",Medium Nylon,,35,007,hold,hold,factory-cat-21-1818-rotary-brush-18-medium-nylon,3
+SY21-1819,Factory Cat,21-1819,"Rotary Brush 18"" .028 Nylon",rotary_brush,Rotary Brush,"18""",Nylon,,35,007,hold,hold,factory-cat-21-1819-rotary-brush-18-nylon,3
+SY21-182133,Factory Cat,21-182133,"Rotary Brush 18"" .028 Nylon",rotary_brush,Rotary Brush,"18""",Nylon,,38|40|40HD|350-32|3400|3700|XR370-34C,008,hold,hold,factory-cat-21-182133-rotary-brush-18-nylon,2
+SY21-182433,Factory Cat,21-182433,"Rotary Brush 18"" Tampico",rotary_brush,Rotary Brush,"18""",,,38|40|40HD|350-32|3400|3700|XR370-34C,008,hold,hold,factory-cat-21-182433-rotary-brush-18,2
+SY21-182733,Factory Cat,21-182733,"Rotary Brush 18"" Wire",rotary_brush,Rotary Brush,"18""",Wire,,38|40|40HD|350-32|3400|3700|XR370-34C,008,hold,hold,factory-cat-21-182733-rotary-brush-18-wire,2
+SY21-182933,Factory Cat,21-182933,"Pad Driver 18""",pad_driver,Pad Driver,"18""",,,38|40|40HD|350-32|3400|3700|XR370-34C,008,hold,hold,factory-cat-21-182933-pad-driver-18,2
+SY21-1849,Factory Cat,21-1849,"Rotary Brush 18"" Wire",rotary_brush,Rotary Brush,"18""",Wire,,SCR5730,032,hold,hold,factory-cat-21-1849-rotary-brush-18-wire,2
+SY21-1920,Factory Cat,21-1920,"Rotary Brush 19"" .070/46 Grit",rotary_brush,Rotary Brush,"19""",.070/46 Grit,,SCR5730,032,hold,hold,factory-cat-21-1920-rotary-brush-19-070-46-grit,2
+SY21-211033,Factory Cat,21-211033,"Rotary Brush 21"" .070/46 Grit",rotary_brush,Rotary Brush,"21""",.070/46 Grit,,23,002,hold,hold,factory-cat-21-211033-rotary-brush-21-070-46-grit,2
+SY21-211133,Factory Cat,21-211133,"Rotary Brush 21"" .022/120 Grit",rotary_brush,Rotary Brush,"21""",.022/120 Grit,,23,002,hold,hold,factory-cat-21-211133-rotary-brush-21-022-120-grit,2
+SY21-211233,Factory Cat,21-211233,"Rotary Brush 21"" .035/180 Grit",rotary_brush,Rotary Brush,"21""",.035/180 Grit,,23,002,hold,hold,factory-cat-21-211233-rotary-brush-21-035-180-grit,2
+SY21-211733,Factory Cat,21-211733,"Rotary Brush 21"" .028 Poly",rotary_brush,Rotary Brush,"21""",Poly,,23,002,hold,hold,factory-cat-21-211733-rotary-brush-21-poly,2
+SY21-212133,Factory Cat,21-212133,"Rotary Brush 21"" .028 Nylon",rotary_brush,Rotary Brush,"21""",Nylon,,23,002,hold,hold,factory-cat-21-212133-rotary-brush-21-nylon,2
+SY21-212433,Factory Cat,21-212433,"Rotary Brush 21"" Tampico",rotary_brush,Rotary Brush,"21""",,,23,002,hold,hold,factory-cat-21-212433-rotary-brush-21,2
+SY21-212933,Factory Cat,21-212933,"Pad Driver 21""",pad_driver,Pad Driver,"21""",,,23,002,hold,hold,factory-cat-21-212933-pad-driver-21,2
+SY99620,Factory Cat,99620,"Rotary Brush 17"" .050/80 Grit",rotary_brush,Rotary Brush,"17""",.050/80 Grit,,SCR5730,032,hold,hold,factory-cat-99620-rotary-brush-17-050-80-grit,2
+SY99621,Factory Cat,99621,"Rotary Brush 19"" .020/.025 Poly",rotary_brush,Rotary Brush,"19""",Poly,,SCR5730,032,hold,hold,factory-cat-99621-rotary-brush-19-poly,2
+SY99622,Factory Cat,99622,"Pad Driver 19""",pad_driver,Pad Driver,"19""",,,SCR5730,032,hold,hold,factory-cat-99622-pad-driver-19,2
+SY99703,Factory Cat,99703,"Rotary Brush 17"" 4.38 C/H .028 Poly",rotary_brush,Rotary Brush,"17""",Poly,,SCR5730,032,hold,hold,factory-cat-99703-rotary-brush-17-poly,2
+SY99733,Factory Cat,99733,"Main Broom 28.5"" 8 D.R. Poly",main_broom,Main Broom,"28.5""",Poly,double_row,SCR5730,032,hold,hold,factory-cat-99733-main-broom-28-5-poly,1
+SY99734,Factory Cat,99734,"Side Broom 5.75"" 2 S.R. Poly",side_broom,Side Broom,"5.75""",Poly,single_row,SCR5730,032,hold,hold,factory-cat-99734-side-broom-5-75-poly,1
+SY99981,Factory Cat,99981,"Rotary Brush 17 7/8"" .035/180 Grit",rotary_brush,Rotary Brush,"8""",.035/180 Grit,,35,007,hold,hold,factory-cat-99981-rotary-brush-8-035-180-grit,3
+SY11-2730,Power Boss,11-2730,"Main Scrub 27"" .018 Nylon",cylindrical_scrub,Cylindrical Scrub,"27""",Nylon,,SCV28,031,2,pending,power-boss-11-2730-cylindrical-scrub-27-nylon,1
+SY11-2731,Power Boss,11-2731,"Main Scrub 27"" .025 Nylon",cylindrical_scrub,Cylindrical Scrub,"27""",Nylon,,SCV28,031,2,pending,power-boss-11-2731-cylindrical-scrub-27-nylon,1
+SY11-2732,Power Boss,11-2732,"Main Scrub 27"" .025 Poly",cylindrical_scrub,Cylindrical Scrub,"27""",Poly,,SCV28,031,2,pending,power-boss-11-2732-cylindrical-scrub-27-poly,1
+SY11-2733,Power Boss,11-2733,Main Scrub 27 Inch .022/120 Grit,cylindrical_scrub,Cylindrical Scrub,,.022/120 Grit,,SCV28,031,2,pending,power-boss-11-2733-cylindrical-scrub-022-120-grit,1
+SY11-2734,Power Boss,11-2734,"Main Scrub 27"" .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"27""",.050/80 Grit,,SCV28,031,2,pending,power-boss-11-2734-cylindrical-scrub-27-050-80-grit,1
+SY11-2735,Power Boss,11-2735,"Main Brush 27"" .070/46 Grit",other,Brush,"27""",.070/46 Grit,,SCV28,031,hold,pending,power-boss-11-2735-brush-27-070-46-grit,1
+SY11-2736,Power Boss,11-2736,"Main Brush 27"" .035/180 Grit",other,Brush,"27""",.035/180 Grit,,SCV28,031,hold,pending,power-boss-11-2736-brush-27-035-180-grit,1
+SY11-3120,Power Boss,11-3120,"Main Scrub 31"" .018 Nylon",cylindrical_scrub,Cylindrical Scrub,"31""",Nylon,,SB/SCV 32 & 3200,032,2,pending,power-boss-11-3120-cylindrical-scrub-31-nylon,1
+SY11-3121,Power Boss,11-3121,"Main Scrub 31"" .025 Nylon",cylindrical_scrub,Cylindrical Scrub,"31""",Nylon,,SB/SCV 32 & 3200,032,2,pending,power-boss-11-3121-cylindrical-scrub-31-nylon,1
+SY11-3122,Power Boss,11-3122,"Main Scrub 31"" .025 Poly",cylindrical_scrub,Cylindrical Scrub,"31""",Poly,,SB/SCV 32 & 3200,032,2,pending,power-boss-11-3122-cylindrical-scrub-31-poly,1
+SY11-3123,Power Boss,11-3123,"Main Scrub 31"" .022/120 Grit",cylindrical_scrub,Cylindrical Scrub,"31""",.022/120 Grit,,SB/SCV 32 & 3200,032,2,pending,power-boss-11-3123-cylindrical-scrub-31-022-120-grit,1
+SY11-3124,Power Boss,11-3124,"Main Scrub 31"" .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"31""",.050/80 Grit,,SB/SCV 32 & 3200,032,2,pending,power-boss-11-3124-cylindrical-scrub-31-050-80-grit,1
+SY11-3125,Power Boss,11-3125,"Main Scrub 31"" .070/46 Grit",cylindrical_scrub,Cylindrical Scrub,"31""",.070/46 Grit,,SB/SCV 32 & 3200,032,2,pending,power-boss-11-3125-cylindrical-scrub-31-070-46-grit,1
+SY11-3126,Power Boss,11-3126,"Main Scrub 31"" .035/180 Grit",cylindrical_scrub,Cylindrical Scrub,"31""",.035/180 Grit,,SB/SCV 32 & 3200,032,2,pending,power-boss-11-3126-cylindrical-scrub-31-035-180-grit,1
+SY11-3626,Power Boss,11-3626,"Main Broom 36"" 24 S.R. Nylon",main_broom,Main Broom,"36""",Nylon,single_row,52|71|75|78|SW/6X,010|014|016|025|026,1,pending,power-boss-11-3626-main-broom-36-nylon,1
+SY11-3627,Power Boss,11-3627,"Main Broom 36"" 24 S.R. Union/Wire",main_broom,Main Broom,"36""",Union/Wire,single_row,52|62|65|71|75|78|SW/6X,001|010|014|016|025|026,1,pending,power-boss-11-3627-main-broom-36-union-wire,1
+SY11-3628,Power Boss,11-3628,"Main Broom 36"" 8 D.R. Crimped Wire",main_broom,Main Broom,"36""",Crimped Wire,double_row,52|62|65|71|75|78|SW/6X,001|010|014|016|025|026,1,pending,power-boss-11-3628-main-broom-36-crimped-wire,1
+SY11-3629,Power Boss,11-3629,"Main Broom 36"" 8 D.R. Proex/Wire",main_broom,Main Broom,"36""",Proex/Wire,double_row,52|62|65|71|75|78|SW/6X,001|010|014|016|025|026,1,pending,power-boss-11-3629-main-broom-36-proex-wire,1
+SY11-3630,Power Boss,11-3630,"Main Broom 36"" 8 D.R. Nylon",main_broom,Main Broom,"36""",Nylon,double_row,52|62|65|71|75|78|SW/6X,001|010|014|016|025|026,1,pending,power-boss-11-3630-main-broom-36-nylon,1
+SY11-3631,Power Boss,11-3631,"Main Broom 36"" 8 D.R. Stiff Nylon",main_broom,Main Broom,"36""",Stiff Nylon,double_row,52|62|65|71|75|78|SW/6X,001|010|014|016|025|026,1,pending,power-boss-11-3631-main-broom-36-stiff-nylon,1
+SY11-3632,Power Boss,11-3632,"Main Broom 36"" 5 D.R. Nylon Patrol",main_broom,Main Broom,"36""",Nylon Patrol,double_row,52|62|65|71|75|78|SW/6X,001|010|014|016|025|026,1,pending,power-boss-11-3632-main-broom-36-nylon-patrol,1
+SY11-3633,Power Boss,11-3633,"Main Broom 36"" 8 D.R. Proex/Wire",main_broom,Main Broom,"36""",Proex/Wire,double_row,52|62|65|71|75|78|SW/6X,001|010|014|016|025|026,1,pending,power-boss-11-3633-main-broom-36-proex-wire,1
+SY11-3634,Power Boss,11-3634,"Main Broom 36"" 8 D.R. Union/Wire",main_broom,Main Broom,"36""",Union/Wire,double_row,52|62|65|71|75|78|SW/6X,001|010|014|016|025|026,1,pending,power-boss-11-3634-main-broom-36-union-wire,1
+SY11-3710,Power Boss,11-3710,"Main Scrub 38"" .018 Nylon",cylindrical_scrub,Cylindrical Scrub,"38""",Nylon,,SB/SCV 32 & 3200,032,2,pending,power-boss-11-3710-cylindrical-scrub-38-nylon,1
+SY11-3711,Power Boss,11-3711,"Main Scrub 38"" .025 Nylon",cylindrical_scrub,Cylindrical Scrub,"38""",Nylon,,SB/SCV 32 & 3200,032,2,pending,power-boss-11-3711-cylindrical-scrub-38-nylon,1
+SY11-3712,Power Boss,11-3712,"Main Scrub 38"" .025 Poly",cylindrical_scrub,Cylindrical Scrub,"38""",Poly,,SB/SCV 32 & 3200,032,2,pending,power-boss-11-3712-cylindrical-scrub-38-poly,1
+SY11-3713,Power Boss,11-3713,"Main Scrub 38"" .022/120 Grit",cylindrical_scrub,Cylindrical Scrub,"38""",.022/120 Grit,,SB/SCV 32 & 3200,032,2,pending,power-boss-11-3713-cylindrical-scrub-38-022-120-grit,1
+SY11-3714,Power Boss,11-3714,"Main Scrub 38"" .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"38""",.050/80 Grit,,SB/SCV 32 & 3200,032,2,pending,power-boss-11-3714-cylindrical-scrub-38-050-80-grit,1
+SY11-3715,Power Boss,11-3715,"Main Scrub 38"" .070/46 Grit",cylindrical_scrub,Cylindrical Scrub,"38""",.070/46 Grit,,SB/SCV 32 & 3200,032,2,pending,power-boss-11-3715-cylindrical-scrub-38-070-46-grit,1
+SY11-3716,Power Boss,11-3716,"Main Scrub 38"" .035/180 Grit",cylindrical_scrub,Cylindrical Scrub,"38""",.035/180 Grit,,SB/SCV 32 & 3200,032,2,pending,power-boss-11-3716-cylindrical-scrub-38-035-180-grit,1
+SY11-4210,Power Boss,11-4210,"Main Broom 42"" 24 S.R. Union/Wire",main_broom,Main Broom,"42""",Union/Wire,single_row,82|85|SW/8X|SW/9X|SW/75II|TSS82-85,002|008|013|028|029,1,pending,power-boss-11-4210-main-broom-42-union-wire,1
+SY11-4211,Power Boss,11-4211,"Main Broom 42"" 24 S.R. Nylon",main_broom,Main Broom,"42""",Nylon,single_row,82|85|SW/8X|SW/9X|SW/75II|TSS82-85,002|008|013|028|029,1,pending,power-boss-11-4211-main-broom-42-nylon,1
+SY11-4212,Power Boss,11-4212,"Main Broom 42"" 8 D.R. Crimped Wire",main_broom,Main Broom,"42""",Crimped Wire,double_row,82|85|SW/9X|SW/75II|TSS82-85,002|008|028|029,1,pending,power-boss-11-4212-main-broom-42-crimped-wire,1
+SY11-4214,Power Boss,11-4214,"Main Broom 42"" 8 D.R. Proex/Wire",main_broom,Main Broom,"42""",Proex/Wire,double_row,82|85|SW/8X|SW/9X|SW/75II|TSS82-85,002|008|013|028|029,1,pending,power-boss-11-4214-main-broom-42-proex-wire,1
+SY11-4215,Power Boss,11-4215,"Main Broom 42"" 8 D.R. Nylon",main_broom,Main Broom,"42""",Nylon,double_row,82|85|SW/8X|SW/9X|SW/75II|TSS82-85,002|008|013|028|029,1,pending,power-boss-11-4215-main-broom-42-nylon,1
+SY11-4216,Power Boss,11-4216,"Main Broom 42"" 8 D.R. Proex/Wire",main_broom,Main Broom,"42""",Proex/Wire,double_row,82|85|SW/8X|SW/9X|SW/75II|TSS82-85,002|008|013|028|029,1,pending,power-boss-11-4216-main-broom-42-proex-wire,1
+SY11-4217,Power Boss,11-4217,"Main Broom 42"" 5 D.R. Nylon Patrol",main_broom,Main Broom,"42""",Nylon Patrol,double_row,82|85|88|SW/8X|SW/9X|SW/75II|TSS82-85,002|005|008|013|028|029,1,pending,power-boss-11-4217-main-broom-42-nylon-patrol,1
+SY11-4218,Power Boss,11-4218,"Main Broom 42"" 8 D.R. Stiff Nylon",main_broom,Main Broom,"42""",Stiff Nylon,double_row,82|85|SW/8X|SW/9X|SW/75II|TSS82-85,002|008|013|028|029,1,pending,power-boss-11-4218-main-broom-42-stiff-nylon,1
+SY11-4238,Power Boss,11-4238,"Main Broom 42"" 24 S.R. Union/Wire",main_broom,Main Broom,"42""",Union/Wire,single_row,88,005,1,pending,power-boss-11-4238-main-broom-42-union-wire,1
+SY11-4240,Power Boss,11-4240,"Main Broom 42"" Crimped Wire",main_broom,Main Broom,"42""",Crimped Wire,,88,005,1,pending,power-boss-11-4240-main-broom-42-crimped-wire,1
+SY11-4242,Power Boss,11-4242,"Main Broom 42"" 8 D.R. Crimped Wire",main_broom,Main Broom,"42""",Crimped Wire,double_row,88|SW/8X,005|013,1,pending,power-boss-11-4242-main-broom-42-crimped-wire,1
+SY11-4243,Power Boss,11-4243,"Main Broom 42"" 8 D.R. Stiff Nylon",main_broom,Main Broom,"42""",Stiff Nylon,double_row,88,005,1,pending,power-boss-11-4243-main-broom-42-stiff-nylon,1
+SY11-4244,Power Boss,11-4244,"Main Broom 42"" 5 D.R. Nylon Patrol",main_broom,Main Broom,"42""",Nylon Patrol,double_row,88,005,1,pending,power-boss-11-4244-main-broom-42-nylon-patrol,1
+SY11-4245,Power Boss,11-4245,"Main Broom 42"" 8 D.R. Proex",main_broom,Main Broom,"42""",,double_row,88,005,1,pending,power-boss-11-4245-main-broom-42,1
+SY11-4250,Power Boss,11-4250,"Main Scrub 42"" Stiff Poly",cylindrical_scrub,Cylindrical Scrub,"42""",Stiff Poly,,9082,003,2,pending,power-boss-11-4250-cylindrical-scrub-42-stiff-poly,1
+SY11-4251,Power Boss,11-4251,"Main Scrub 42"" .035/180 Grit",cylindrical_scrub,Cylindrical Scrub,"42""",.035/180 Grit,,9082,003,2,pending,power-boss-11-4251-cylindrical-scrub-42-035-180-grit,1
+SY11-4252,Power Boss,11-4252,"Main Scrub 42"" .070/46 Grit",cylindrical_scrub,Cylindrical Scrub,"42""",.070/46 Grit,,9082,003,2,pending,power-boss-11-4252-cylindrical-scrub-42-070-46-grit,1
+SY11-4520,Power Boss,11-4520,"Main Broom 45"" 24 S.R. Union/Wire",main_broom,Main Broom,"45""",Union/Wire,single_row,72,015,1,pending,power-boss-11-4520-main-broom-45-union-wire,1
+SY11-4521,Power Boss,11-4521,"Main Broom 45"" 24 S.R. Nylon",main_broom,Main Broom,"45""",Nylon,single_row,72,015,1,pending,power-boss-11-4521-main-broom-45-nylon,1
+SY11-4522,Power Boss,11-4522,"Main Broom 45"" 8 D.R. Crimped Wire",main_broom,Main Broom,"45""",Crimped Wire,double_row,72,015,1,pending,power-boss-11-4522-main-broom-45-crimped-wire,1
+SY11-4523,Power Boss,11-4523,"Main Broom 45'' 8 D.R. Proex & Wire",main_broom,Main Broom,,Wire,double_row,72,015,1,pending,power-boss-11-4523-main-broom-wire,1
+SY11-4524,Power Boss,11-4524,"Main Broom 45"" 8 D.R. Nylon",main_broom,Main Broom,"45""",Nylon,double_row,72,015,1,pending,power-boss-11-4524-main-broom-45-nylon,1
+SY11-4525,Power Boss,11-4525,"Main Broom 45"" 8 D.R. Stiff Nylon",main_broom,Main Broom,"45""",Stiff Nylon,double_row,72,015,1,pending,power-boss-11-4525-main-broom-45-stiff-nylon,1
+SY11-4526,Power Boss,11-4526,"Main Broom 45"" 5 D.R. Nylon Patrol",main_broom,Main Broom,"45""",Nylon Patrol,double_row,72,015,1,pending,power-boss-11-4526-main-broom-45-nylon-patrol,1
+SY11-4527,Power Boss,11-4527,"Main Broom 45"" 8 D.R. Proex",main_broom,Main Broom,"45""",,double_row,72,015,1,pending,power-boss-11-4527-main-broom-45,1
+SY11-4805,Power Boss,11-4805,"Main Broom 48"" 8 D.R. Proex/Wire",main_broom,Main Broom,"48""",Proex/Wire,double_row,90|95|SW/7X|SW/62|SW/62E|SW/65|SW65E,004|009|027,1,pending,power-boss-11-4805-main-broom-48-proex-wire,1
+SY11-4809,Power Boss,11-4809,"Main Broom 48"" 8 D.R. Stiff Nylon",main_broom,Main Broom,"48""",Stiff Nylon,double_row,90|95|SW/7X|SW/62|SW/62E|SW/65|SW65E|TSS90,004|009|027|030,1,pending,power-boss-11-4809-main-broom-48-stiff-nylon,1
+SY11-4820,Power Boss,11-4820,"Main Scrub 48"" .035/180 Grit",cylindrical_scrub,Cylindrical Scrub,"48""",.035/180 Grit,,9090,012,2,pending,power-boss-11-4820-cylindrical-scrub-48-035-180-grit,1
+SY11-4821,Power Boss,11-4821,"Main Scrub 48"" .070/46 Grit",cylindrical_scrub,Cylindrical Scrub,"48""",.070/46 Grit,,9090,012,2,pending,power-boss-11-4821-cylindrical-scrub-48-070-46-grit,1
+SY11-4822,Power Boss,11-4822,"Main Scrub 48"" Stiff Poly",cylindrical_scrub,Cylindrical Scrub,"48""",Stiff Poly,,9090,012,2,pending,power-boss-11-4822-cylindrical-scrub-48-stiff-poly,1
+SY11-4830,Power Boss,11-4830,"Main Broom 48"" 5 D.R. Nylon Patrol",main_broom,Main Broom,"48""",Nylon Patrol,double_row,90|95|SW/7X|SW/62|SW/62E|SW/65|SW65E|TSS90,004|009|027|030,1,pending,power-boss-11-4830-main-broom-48-nylon-patrol,1
+SY11-4831,Power Boss,11-4831,"Main Broom 48"" 24 S.R. Union/Wire",main_broom,Main Broom,"48""",Union/Wire,single_row,90|95|SW/7X|SW/62|SW/62E|SW/65|SW65E|TSS90,004|009|027|030,1,pending,power-boss-11-4831-main-broom-48-union-wire,1
+SY11-4832,Power Boss,11-4832,"Main Broom 48"" 24 S.R. Nylon",main_broom,Main Broom,"48""",Nylon,single_row,90|95|SW/7X|SW/62|SW/62E|SW/65|SW65E|TSS90,004|009|027|030,1,pending,power-boss-11-4832-main-broom-48-nylon,1
+SY11-4833,Power Boss,11-4833,"Main Broom 48"" 8 D.R. Crimped Wire",main_broom,Main Broom,"48""",Crimped Wire,double_row,SW/7X|SW/62|SW/62E|SW/65|SW65E|TSS90,009|027|030,1,pending,power-boss-11-4833-main-broom-48-crimped-wire,1
+SY11-4835,Power Boss,11-4835,"Main Broom 48"" 8 D.R. Proex/Wire",main_broom,Main Broom,"48""",Proex/Wire,double_row,TSS90,030,1,pending,power-boss-11-4835-main-broom-48-proex-wire,1
+SY11-4836,Power Boss,11-4836,"Main Broom 48"" 8 D.R. Nylon",main_broom,Main Broom,"48""",Nylon,double_row,90|95|SW/7X|SW/62|SW/62E|SW/65|SW65E|TSS90,004|009|027|030,1,pending,power-boss-11-4836-main-broom-48-nylon,1
+SY11-4837,Power Boss,11-4837,"Main Broom 48"" 8 D.R. Proex",main_broom,Main Broom,"48""",,double_row,90|95|SW/7X|SW/62|SW/62E|SW/65|SW65E|TSS90,004|009|027|030,1,pending,power-boss-11-4837-main-broom-48,1
+SY11-5600,Power Boss,11-5600,"Main Broom 56"" 24 S.R. Union/Wire",main_broom,Main Broom,"56""",Union/Wire,single_row,SW/10X|SW100,024,1,pending,power-boss-11-5600-main-broom-56-union-wire,1
+SY11-5601,Power Boss,11-5601,"Main Broom 56"" 24 S.R. Nylon",main_broom,Main Broom,"56""",Nylon,single_row,SW/10X|SW100,024,1,pending,power-boss-11-5601-main-broom-56-nylon,1
+SY11-5602,Power Boss,11-5602,"Main Broom 56"" 8 D.R. Crimped Wire",main_broom,Main Broom,"56""",Crimped Wire,double_row,SW/10X|SW100,024,1,pending,power-boss-11-5602-main-broom-56-crimped-wire,1
+SY11-5603,Power Boss,11-5603,"Main Broom 56"" 8 D.R. Proex/Wire",main_broom,Main Broom,"56""",Proex/Wire,double_row,SW/10X|SW100,024,1,pending,power-boss-11-5603-main-broom-56-proex-wire,1
+SY11-5604,Power Boss,11-5604,"Main Broom 56"" 8 D.R. Nylon",main_broom,Main Broom,"56""",Nylon,double_row,SW/10X|SW100,024,1,pending,power-boss-11-5604-main-broom-56-nylon,1
+SY11-5605,Power Boss,11-5605,"Main Broom 56"" 8 D.R. Stiff Nylon",main_broom,Main Broom,"56""",Stiff Nylon,double_row,SW/10X|SW100,024,1,pending,power-boss-11-5605-main-broom-56-stiff-nylon,1
+SY11-5606,Power Boss,11-5606,"Main Broom 56"" 5 D.R. Nylon Patrol",main_broom,Main Broom,"56""",Nylon Patrol,double_row,SW/10X|SW100,024,1,pending,power-boss-11-5606-main-broom-56-nylon-patrol,1
+SY11-5607,Power Boss,11-5607,"Main Broom 56"" 8 D.R. Proex",main_broom,Main Broom,"56""",,double_row,SW/10X|SW100,024,1,pending,power-boss-11-5607-main-broom-56,1
+SY1211043,Power Boss,1211043,"Rotary Brush 16"" .028 Nylon",rotary_brush,Rotary Brush,"16""",Nylon,,80|85|86|88|90|91|95|9090,002|004|005|012,2,pending,power-boss-1211043-rotary-brush-16-nylon,3
+SY1211044,Power Boss,1211044,"Rotary Brush 16"" .050/80 Grit",rotary_brush,Rotary Brush,"16""",.050/80 Grit,,80|85|86|88|90|91|95,002|004,2,pending,power-boss-1211044-rotary-brush-16-050-80-grit,3
+SY1211045,Power Boss,1211045,"Rotary Brush 16"" .070/46 Grit",rotary_brush,Rotary Brush,"16""",.070/46 Grit,,80|85|86|88|90|91|95|9090,002|004|005|012,2,pending,power-boss-1211045-rotary-brush-16-070-46-grit,3
+SY1211046,Power Boss,1211046,"Rotary Brush 16"" Wire",rotary_brush,Rotary Brush,"16""",Wire,,80|85|86|88|90|91|95,002|004|005,2,pending,power-boss-1211046-rotary-brush-16-wire,3
+SY1211052,Power Boss,1211052,"Rotary Brush 16"" .018/500 Grit",rotary_brush,Rotary Brush,"16""",.018/500 Grit,,80|85|86|88|90|91,002,2,pending,power-boss-1211052-rotary-brush-16-018-500-grit,3
+SY1211053,Power Boss,1211053,"Rotary Brush 14"" .018/500 Grit",rotary_brush,Rotary Brush,"14""",.018/500 Grit,,TSS82-85,029,2,pending,power-boss-1211053-rotary-brush-14-018-500-grit,3
+SY21-1207,Power Boss,21-1207,"Rotary Brush 12"" .050/80 Grit",rotary_brush,Rotary Brush,"12""",.050/80 Grit,,PBSB26|PBSB65|VS26|VS66,020,2,pending,power-boss-21-1207-rotary-brush-12-050-80-grit,2
+SY21-1211,Power Boss,21-1211,"Rotary Brush 12"" .070/46 Grit",rotary_brush,Rotary Brush,"12""",.070/46 Grit,,PBSB26|PBSB65|VS26|VS66,020,2,pending,power-boss-21-1211-rotary-brush-12-070-46-grit,2
+SY21-131334,Power Boss,21-131334,"Side Broom 13"" 3 S.R. Flat Wire",side_broom,Side Broom,"13""",Flat Wire,single_row,72|75|78|9082|9090|SW/7X|SW/75II,003|008|009|012|014|015|016,1,pending,power-boss-21-131334-side-broom-13-flat-wire,1
+SY21-1314,Power Boss,21-1314,"Side Broom 13"" 3 S.R. Nylon",side_broom,Side Broom,"13""",Nylon,single_row,72|75|78|80|85|86|88|90|91|95|9082|9090|SW/6X|SW/7X|SW/8X|SW/9X|SW/10X|SW/62|SW/62E|SW/65|SW/75II|SW65E|SW100|TSS82-85,002|003|004|005|008|009|012|013|014|015|016|024|025|027|028|029,1,pending,power-boss-21-1314-side-broom-13-nylon,1
+SY21-1315,Power Boss,21-1315,"Side Broom 13"" 3 S.R. Poly",side_broom,Side Broom,"13""",Poly,single_row,72|75|78|80|85|86|88|90|91|95|9082|9090|SW/6X|SW/7X|SW/8X|SW/9X|SW/10X|SW/62|SW/62E|SW/65|SW/75II|SW65E|SW100|TSS82-85,002|003|004|005|008|009|012|013|014|015|016|024|025|027|028|029,1,pending,power-boss-21-1315-side-broom-13-poly,1
+SY21-141036,Power Boss,21-141036,"Rotary Brush 14"" .070/46 Grit 2,",rotary_brush,Rotary Brush,"14""",.070/46 Grit,,SCV82|SCV85|TSS82-85,011|029,2,pending,power-boss-21-141036-rotary-brush-14-070-46-grit,3 or 4
+SY21-141136,Power Boss,21-141136,"Rotary Brush 14"" .050/80 Grit 2,",rotary_brush,Rotary Brush,"14""",.050/80 Grit,,SCV82|SCV85|TSS82-85,011|029,2,pending,power-boss-21-141136-rotary-brush-14-050-80-grit,3 or 4
+SY21-141236,Power Boss,21-141236,"Rotary Brush 14"" .035/180 Grit 2,",rotary_brush,Rotary Brush,"14""",.035/180 Grit,,SCV82|SCV85|TSS82-85,011|029,2,pending,power-boss-21-141236-rotary-brush-14-035-180-grit,3 or 4
+SY21-142136,Power Boss,21-142136,"Rotary Brush 14"" .028 Nylon 2,",rotary_brush,Rotary Brush,"14""",Nylon,,SCV82|SCV85|TSS82-85,011|029,2,pending,power-boss-21-142136-rotary-brush-14-nylon,3 or 4
+SY21-1424,Power Boss,21-1424,"Rotary Brush 14"" .022/120 Grit",rotary_brush,Rotary Brush,"14""",.022/120 Grit,,62|65|78|82|85|4000|9082|SW/9X|TSS82-85,001|002|003|016|022|028|029,2,pending,power-boss-21-1424-rotary-brush-14-022-120-grit,1
+SY21-1426,Power Boss,21-1426,"Rotary Brush 14"" .050/80 Grit",rotary_brush,Rotary Brush,"14""",.050/80 Grit,,62|65|78|82|85|4000|SW/9X|TSS82-85,001|002|016|022|028|029,2,pending,power-boss-21-1426-rotary-brush-14-050-80-grit,1
+SY21-142736,Power Boss,21-142736,"Rotary Brush 14"" Wire 2,",rotary_brush,Rotary Brush,"14""",Wire,,SCV82|SCV85|TSS82-85,011|029,2,pending,power-boss-21-142736-rotary-brush-14-wire,3 or 4
+SY21-1429,Power Boss,21-1429,"Rotary Brush 14"" .018/500 Grit",rotary_brush,Rotary Brush,"14""",.018/500 Grit,,62|65|78|82|85|4000|SW/9X|TSS82-85,001|002|016|022|028|029,2,pending,power-boss-21-1429-rotary-brush-14-018-500-grit,1
+SY21-142936,Power Boss,21-142936,"Pad Driver 14"" 2,",pad_driver,Pad Driver,"14""",,,SCV82|SCV85|TSS82-85,011|029,2,pending,power-boss-21-142936-pad-driver-14,3 or 4
+SY21-1431,Power Boss,21-1431,"Rotary Brush 14"" .028 Nylon",rotary_brush,Rotary Brush,"14""",Nylon,,62|65|78|82|85|4000|9082|SW/9X|TSS82-85,001|002|003|016|022|028|029,2,pending,power-boss-21-1431-rotary-brush-14-nylon,1
+SY21-1433,Power Boss,21-1433,"Pad Driverpad Driver 14""",pad_driver,Pad Driver,"14""",,,62|65|78|82|85|4000|9082|SW/9X|TSS82-85,001|002|003|016|022|028|029,2,pending,power-boss-21-1433-pad-driver-14,1
+SY21-1434,Power Boss,21-1434,"Rotary Brush 14"" Wire",rotary_brush,Rotary Brush,"14""",Wire,,62|65|78|4000|9082,001|003|016|022,2,pending,power-boss-21-1434-rotary-brush-14-wire,1
+SY21-1435,Power Boss,21-1435,"Side Broom 14"" 3 S.R. Flat Wire",side_broom,Side Broom,"14""",Flat Wire,single_row,52|80|82|85|86|88|90|91|95|9082|9090|SW/8X|SW/10X|SW/62|SW/62E|SW/65|SW65E|SW100,002|003|004|005|010|012|013|024|027,1,pending,power-boss-21-1435-side-broom-14-flat-wire,1
+SY21-1436,Power Boss,21-1436,"Side Broom 14"" 3 S.R. Flat Wire",side_broom,Side Broom,"14""",Flat Wire,single_row,52|80|82|85|86|88|90|91|95|9082|9090|SW/8X|SW/10X|SW/62|SW/62E|SW/65|SW65E|SW100,002|003|004|005|010|012|013|024|027,1,pending,power-boss-21-1436-side-broom-14-flat-wire,1
+SY21-1437,Power Boss,21-1437,"Side Broom 14"" 3 S.R. Poly",side_broom,Side Broom,"14""",Poly,single_row,52|80|82|85|86|88|90|91|95|9082|9090|SW/8X|SW/10X|SW/62|SW/62E|SW/65|SW65E|SW100,002|003|004|005|010|012|013|024|027,1,pending,power-boss-21-1437-side-broom-14-poly,1
+SY21-161036,Power Boss,21-161036,"Rotary Brush 16"" .070/46 Grit 2,3, or",rotary_brush,Rotary Brush,"16""",.070/46 Grit,,80|85|86|88|90|91|SB/SCV88|SB/SCV90|SW/9X,002|018|028,2,pending,power-boss-21-161036-rotary-brush-16-070-46-grit,4
+SY21-1610B2,Power Boss,21-1610B2,"Rotary Brush 16"" .070/46 Grit",rotary_brush,Rotary Brush,"16""",.070/46 Grit,,PBSB17|PBSB34|PBSB45|PBSB85|VB85,007|017|023,2,pending,power-boss-21-1610b2-rotary-brush-16-070-46-grit,1
+SY21-161136,Power Boss,21-161136,"Rotary Brush 16"" .050/80 Grit 2,3, or",rotary_brush,Rotary Brush,"16""",.050/80 Grit,,80|85|86|88|90|91|SB/SCV88|SB/SCV90|SW/9X,002|018|028,2,pending,power-boss-21-161136-rotary-brush-16-050-80-grit,4
+SY21-1611B2,Power Boss,21-1611B2,"Rotary Brush 16"" .050/80 Grit",rotary_brush,Rotary Brush,"16""",.050/80 Grit,,PBSB17|PBSB34|PBSB45|PBSB85|VB85,007|017|023,2,pending,power-boss-21-1611b2-rotary-brush-16-050-80-grit,1
+SY21-161236,Power Boss,21-161236,"Rotary Brush 16"" .035/180 Grit 2,3, or",rotary_brush,Rotary Brush,"16""",.035/180 Grit,,80|85|86|88|90|91|SB/SCV88|SB/SCV90,002|018,2,pending,power-boss-21-161236-rotary-brush-16-035-180-grit,4
+SY21-1612B2,Power Boss,21-1612B2,"Rotary Brush 16"" Wire",rotary_brush,Rotary Brush,"16""",Wire,,PBSB17|PBSB34|PBSB45|PBSB85|VB85,007|017|023,2,pending,power-boss-21-1612b2-rotary-brush-16-wire,1
+SY21-1614B2,Power Boss,21-1614B2,"Rotary Brush 16"" .035/180 Grit",rotary_brush,Rotary Brush,"16""",.035/180 Grit,,PBSB17|PBSB34|PBSB45|PBSB85|VB85,007|017|023,2,pending,power-boss-21-1614b2-rotary-brush-16-035-180-grit,1
+SY21-1617B2,Power Boss,21-1617B2,"Rotary Brush 16"" .018/500 Grit",rotary_brush,Rotary Brush,"16""",.018/500 Grit,,PBSB17|PBSB34|PBSB45|PBSB85|VB85,007|017|023,2,pending,power-boss-21-1617b2-rotary-brush-16-018-500-grit,1
+SY21-1620,Power Boss,21-1620,"Rotary Brush 16"" .018/500 Grit",rotary_brush,Rotary Brush,"16""",.018/500 Grit,,80|85|86|88|90|91|95,002|004|005,2,pending,power-boss-21-1620-rotary-brush-16-018-500-grit,3
+SY21-162138,Power Boss,21-162138,"Rotary Brush 16"" .028 Nylon 2,3, or",rotary_brush,Rotary Brush,"16""",Nylon,,80|85|86|88|90|91|SB/SCV88|SB/SCV90|SW/9X,002|018|028,2,pending,power-boss-21-162138-rotary-brush-16-nylon,4
+SY21-1621B2,Power Boss,21-1621B2,"Rotary Brush 16"" .028 Poly",rotary_brush,Rotary Brush,"16""",Poly,,PBSB17|PBSB34|PBSB45|PBSB85|VB85,007|017|023,2,pending,power-boss-21-1621b2-rotary-brush-16-poly,1
+SY21-1624,Power Boss,21-1624,"Pad Driverpad Driver 16""",pad_driver,Pad Driver,"16""",,,80|85|86|88|90|91|95|9090,002|004|005|012,2,pending,power-boss-21-1624-pad-driver-16,3
+SY21-162736,Power Boss,21-162736,"Rotary Brush 16"" Wire 2,3, or",rotary_brush,Rotary Brush,"16""",Wire,,80|85|86|88|90|91|SB/SCV88|SB/SCV90|SW/9X,002|018|028,2,pending,power-boss-21-162736-rotary-brush-16-wire,4
+SY21-1627B2,Power Boss,21-1627B2,"Pad Driver 16""",pad_driver,Pad Driver,"16""",,,PBSB17|PBSB34|PBSB45|PBSB85|VB85,007|017|023,2,pending,power-boss-21-1627b2-pad-driver-16,1
+SY21-162836,Power Boss,21-162836,"Rotary Brush 16"" Butcher Wire",rotary_brush,Rotary Brush,"16""",Wire,,SW/9X,028,2,pending,power-boss-21-162836-rotary-brush-16-wire,3
+SY21-1629B2,Power Boss,21-1629B2,"Rotary Brush 16"" .028 Nylon",rotary_brush,Rotary Brush,"16""",Nylon,,PBSB17|PBSB34|PBSB45|PBSB85|VB85,007|017|023,2,pending,power-boss-21-1629b2-rotary-brush-16-nylon,1
+SY21-191034,Power Boss,21-191034,"Rotary Brush 19"" .070/46 Grit",rotary_brush,Rotary Brush,"19""",.070/46 Grit,,38B|200|205|380|3800|B53|MC20532,019,2,pending,power-boss-21-191034-rotary-brush-19-070-46-grit,1
+SY21-191134,Power Boss,21-191134,"Rotary Brush 19"" .050/80 Grit",rotary_brush,Rotary Brush,"19""",.050/80 Grit,,38B|200|205|380|3800|B53|MC20532,019,2,pending,power-boss-21-191134-rotary-brush-19-050-80-grit,1
+SY21-191334,Power Boss,21-191334,"Rotary Brush 19"" .022/120 Grit",rotary_brush,Rotary Brush,"19""",.022/120 Grit,,38B|200|205|380|3800|B53|MC20532,019,2,pending,power-boss-21-191334-rotary-brush-19-022-120-grit,1
+SY21-191434,Power Boss,21-191434,"Rotary Brush 19"" .018/500 Grit",rotary_brush,Rotary Brush,"19""",.018/500 Grit,,38B|200|205|380|3800|B53|MC20532,019,2,pending,power-boss-21-191434-rotary-brush-19-018-500-grit,1
+SY21-192134,Power Boss,21-192134,"Rotary Brush 19"" .028 Nylon",rotary_brush,Rotary Brush,"19""",Nylon,,38B|200|205|380|3800|B53|MC20532,019,2,pending,power-boss-21-192134-rotary-brush-19-nylon,1
+SY21-192934,Power Boss,21-192934,"Pad Driver 19""",pad_driver,Pad Driver,"19""",,,38B|200|205|380|3800|B53|MC20532,019,2,pending,power-boss-21-192934-pad-driver-19,1
+SY21-192936,Power Boss,21-192936,"Pad Driver 16"" 2,3, or",pad_driver,Pad Driver,"16""",,,80|85|86|88|90|91|SB/SCV88|SB/SCV90,002|018,2,pending,power-boss-21-192936-pad-driver-16,4
+SY21-4241,Power Boss,21-4241,"Main Broom 42"" 8 D.R. Proex/Wire",main_broom,Main Broom,"42""",Proex/Wire,double_row,88,005,1,pending,power-boss-21-4241-main-broom-42-proex-wire,1
+SY21-98475,Power Boss,21-98475,"Rotary Brush 12"" Bassine",rotary_brush,Rotary Brush,"12""",Bassine,,PBSB26|PBSB65|VS26|VS66,020,2,pending,power-boss-21-98475-rotary-brush-12-bassine,2
+SY21-98476,Power Boss,21-98476,"Rotary Brush 12"" .028 Nylon",rotary_brush,Rotary Brush,"12""",Nylon,,PBSB26|PBSB65|VS26|VS66,020,2,pending,power-boss-21-98476-rotary-brush-12-nylon,2
+SY82748,Power Boss,82748,"Main Broom 42"" 24 S.R. Nylon",main_broom,Main Broom,"42""",Nylon,single_row,88,005,1,pending,power-boss-82748-main-broom-42-nylon,1
+SY11-2201,Tennant,11-2201,"Main Broom 22"" 8 D.R. Union Fiber",main_broom,Main Broom,"22""",,double_row,6100,036,1,pending,tennant-11-2201-main-broom-22,1
+SY11-2202,Tennant,11-2202,"Main Broom 22"" 8 S.R. Proex",main_broom,Main Broom,"22""",,single_row,6100,036,1,pending,tennant-11-2202-main-broom-22,1
+SY11-2401,Tennant,11-2401,"Main Broom 24"" 18 S.R. Union Fiber",main_broom,Main Broom,"24""",,single_row,3460|6080,009,1,pending,tennant-11-2401-main-broom-24,1
+SY11-2402,Tennant,11-2402,"Main Broom 24"" 6 D.R. Proex/Wire",main_broom,Main Broom,"24""",Proex/Wire,double_row,3460|6080,009,1,pending,tennant-11-2402-main-broom-24-proex-wire,1
+SY11-2403,Tennant,11-2403,"Main Broom 24"" 6 D.R. Proex",main_broom,Main Broom,"24""",,double_row,3460|6080,009,1,pending,tennant-11-2403-main-broom-24,1
+SY11-2405,Tennant,11-2405,"Main Scrub 24"" 18 S.R. .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"24""",.050/80 Grit,single_row,5400-24C,020,2,pending,tennant-11-2405-cylindrical-scrub-24-050-80-grit,2
+SY11-2406,Tennant,11-2406,"Main Scrub 24"" 18 S.R. Poly",cylindrical_scrub,Cylindrical Scrub,"24""",Poly,single_row,5400-24C,020,2,pending,tennant-11-2406-cylindrical-scrub-24-poly,2
+SY11-2407,Tennant,11-2407,"Main Scrub 24"" 18 S.R. Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"24""",Soft Nylon,single_row,5400-24C,020,2,pending,tennant-11-2407-cylindrical-scrub-24-soft-nylon,2
+SY11-2408,Tennant,11-2408,"Main Scrub 24"" 18 S.R. Stiff Poly",cylindrical_scrub,Cylindrical Scrub,"24""",Stiff Poly,single_row,5400-24C,020,2,pending,tennant-11-2408-cylindrical-scrub-24-stiff-poly,2
+SY11-2600,Tennant,11-2600,"Main Broom 26"" 18 S.R. Union Fiber",main_broom,Main Broom,"26""",,single_row,40|42|186|1186,001,1,pending,tennant-11-2600-main-broom-26,1
+SY11-2601,Tennant,11-2601,"Main Broom 26"" 18 S.R. Union/Wire",main_broom,Main Broom,"26""",Union/Wire,single_row,40|42|186|1186,001,1,pending,tennant-11-2601-main-broom-26-union-wire,1
+SY11-2602,Tennant,11-2602,"Main Broom 26"" 6 D.R. Crimped Wire",main_broom,Main Broom,"26""",Crimped Wire,double_row,40|42|186|1186,001,1,pending,tennant-11-2602-main-broom-26-crimped-wire,1
+SY11-2604,Tennant,11-2604,"Main Broom 26"" 6 D.R. Nylon",main_broom,Main Broom,"26""",Nylon,double_row,40|42|186|1186,001,1,pending,tennant-11-2604-main-broom-26-nylon,1
+SY11-2605,Tennant,11-2605,"Main Broom 26"" 6 D.R. Proex",main_broom,Main Broom,"26""",,double_row,40|42|186|1186,001,1,pending,tennant-11-2605-main-broom-26,1
+SY11-2606,Tennant,11-2606,"Main Broom 26"" 6 D.R. Union Fiber",main_broom,Main Broom,"26""",,double_row,40|42|186|1186,001,1,pending,tennant-11-2606-main-broom-26,1
+SY11-2607,Tennant,11-2607,"Main Scrub 26"" 18 S.R. .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"26""",.050/80 Grit,single_row,40|42|186|1186,001,2,pending,tennant-11-2607-cylindrical-scrub-26-050-80-grit,1
+SY11-2608,Tennant,11-2608,"Main Broom 26"" 24 S.R. Poly",main_broom,Main Broom,"26""",Poly,single_row,40|42|186|1186,001,1,pending,tennant-11-2608-main-broom-26-poly,1
+SY11-2640,Tennant,11-2640,"Main Scrub 26"" 18 S.R. Nylon",cylindrical_scrub,Cylindrical Scrub,"26""",Nylon,single_row,T5,045,2,pending,tennant-11-2640-cylindrical-scrub-26-nylon,2
+SY11-2641,Tennant,11-2641,"Main Scrub 26"" 18 S.R. Poly",cylindrical_scrub,Cylindrical Scrub,"26""",Poly,single_row,T5,045,2,pending,tennant-11-2641-cylindrical-scrub-26-poly,2
+SY11-2642,Tennant,11-2642,"Main Scrub 26"" 18 S.R. Stiff Poly",cylindrical_scrub,Cylindrical Scrub,"26""",Stiff Poly,single_row,T5,045,2,pending,tennant-11-2642-cylindrical-scrub-26-stiff-poly,2
+SY11-2643,Tennant,11-2643,"Main Scrub 26"" 18 S.R. .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"26""",.050/80 Grit,single_row,T5,045,2,pending,tennant-11-2643-cylindrical-scrub-26-050-80-grit,2
+SY11-2801,Tennant,11-2801,"Main Broom 28"" 18 S.R. Union",main_broom,Main Broom,"28""",,single_row,28B|37B|140|140E,044,1,pending,tennant-11-2801-main-broom-28,1
+SY11-2802,Tennant,11-2802,"Main Scrub 28"" 18 S.R. Poly",cylindrical_scrub,Cylindrical Scrub,"28""",Poly,single_row,5700-700C|7100-28C|7200-700C,014,2,pending,tennant-11-2802-cylindrical-scrub-28-poly,2
+SY11-2803,Tennant,11-2803,"Main Broom 28"" 6 D.R. Proex",main_broom,Main Broom,"28""",,double_row,28B|37B|140|140E,044,1,pending,tennant-11-2803-main-broom-28,1
+SY11-2805,Tennant,11-2805,"Main Scrub 28"" 18 S.R. .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"28""",.050/80 Grit,single_row,5700-700C|7100-28C|7200-700C,014,2,pending,tennant-11-2805-cylindrical-scrub-28-050-80-grit,2
+SY11-2807,Tennant,11-2807,"Main Scrub 28"" 18 S.R. Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"28""",Soft Nylon,single_row,5700-700C|7100-28C|7200-700C,014,2,pending,tennant-11-2807-cylindrical-scrub-28-soft-nylon,2
+SY11-2808,Tennant,11-2808,"Main Scrub 28"" 18 S.R. Stiff Poly",cylindrical_scrub,Cylindrical Scrub,"28""",Stiff Poly,single_row,5700-700C|7100-28C|7200-700C,014,2,pending,tennant-11-2808-cylindrical-scrub-28-stiff-poly,2
+SY11-2809,Tennant,11-2809,"Main Broom 28"" 8 D.R. Union Fiber",main_broom,Main Broom,"28""",,double_row,6200,037,1,pending,tennant-11-2809-main-broom-28,1
+SY11-2810,Tennant,11-2810,"Main Broom 28"" 8 S.R. Proex",main_broom,Main Broom,"28""",,single_row,6200,037,1,pending,tennant-11-2810-main-broom-28,1
+SY11-3201,Tennant,11-3201,"Main Scrub 32"" 18 S.R. .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"32""",.050/80 Grit,single_row,5700-800C|7100-32C|T5,016|045,2,pending,tennant-11-3201-cylindrical-scrub-32-050-80-grit,2
+SY11-3202,Tennant,11-3202,"Main Scrub 32"" 18 S.R. Poly",cylindrical_scrub,Cylindrical Scrub,"32""",Poly,single_row,5700-800C|7100-32C|T5,016|045,2,pending,tennant-11-3202-cylindrical-scrub-32-poly,2
+SY11-3203,Tennant,11-3203,"Main Scrub 32"" 18 S.R. Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"32""",Soft Nylon,single_row,5700-800C|7100-32C|T5,016|045,2,pending,tennant-11-3203-cylindrical-scrub-32-soft-nylon,2
+SY11-3204,Tennant,11-3204,"Main Scrub 32"" 18 S.R. Stiff Poly",cylindrical_scrub,Cylindrical Scrub,"32""",Stiff Poly,single_row,5700-800C|7100-32C|T5,016|045,2,pending,tennant-11-3204-cylindrical-scrub-32-stiff-poly,2
+SY11-3401,Tennant,11-3401,"Main Broom 34.5"" 6 D.R. Proex",main_broom,Main Broom,"34.5""",,double_row,510E|515|515SS|8200|8210,006|030,1,pending,tennant-11-3401-main-broom-34-5,1
+SY11-3601,Tennant,11-3601,"Main Broom 36"" 24 S.R. Union/Wire",main_broom,Main Broom,"36""",Union/Wire,single_row,36|75|220,013,1,pending,tennant-11-3601-main-broom-36-union-wire,1
+SY11-3602,Tennant,11-3602,"Main Broom 36"" 8 D.R. Crimped Wire",main_broom,Main Broom,"36""",Crimped Wire,double_row,36|75|220,013,1,pending,tennant-11-3602-main-broom-36-crimped-wire,1
+SY11-3603,Tennant,11-3603,"Main Broom 36"" 8 D.R. Union/Wire",main_broom,Main Broom,"36""",Union/Wire,double_row,36|75|220,013,1,pending,tennant-11-3603-main-broom-36-union-wire,1
+SY11-3604,Tennant,11-3604,"Main Broom 36"" 8 D.R. Nylon",main_broom,Main Broom,"36""",Nylon,double_row,36|75|220,013,1,pending,tennant-11-3604-main-broom-36-nylon,1
+SY11-3605,Tennant,11-3605,"Main Broom 36"" 8 D.R. Proex/Wire",main_broom,Main Broom,"36""",Proex/Wire,double_row,36|75|220,013,1,pending,tennant-11-3605-main-broom-36-proex-wire,1
+SY11-3606,Tennant,11-3606,"Main Broom 36"" 20 S.R. Proex",main_broom,Main Broom,"36""",,single_row,210|215,004,1,pending,tennant-11-3606-main-broom-36,1
+SY11-3607,Tennant,11-3607,"Main Broom 36"" 8 D.R. Proex/Wire",main_broom,Main Broom,"36""",Proex/Wire,double_row,210|215,004,1,pending,tennant-11-3607-main-broom-36-proex-wire,1
+SY11-3608,Tennant,11-3608,"Main Broom 36"" 8 S.R. Proex",main_broom,Main Broom,"36""",,single_row,210|215,004,1,pending,tennant-11-3608-main-broom-36,1
+SY11-3609,Tennant,11-3609,"Main Broom 36"" 24 S.R. Polyester",main_broom,Main Broom,"36""",,single_row,235|6400|8200-8210|S20,018|038|042|049,1,pending,tennant-11-3609-main-broom-36,1
+SY11-3610,Tennant,11-3610,"Main Broom 36"" 8 D.R. Proex/Wire",main_broom,Main Broom,"36""",Proex/Wire,double_row,235|6400|8200-8210|S20,018|038|042|049,1,pending,tennant-11-3610-main-broom-36-proex-wire,1
+SY11-3611,Tennant,11-3611,"Main Broom 36"" 8 D.R. Proex",main_broom,Main Broom,"36""",,double_row,235|6400|8200-8210|S20,018|038|042|049,1,pending,tennant-11-3611-main-broom-36,1
+SY11-3612,Tennant,11-3612,"Main Broom 36"" 8 D.R. Polyester",main_broom,Main Broom,"36""",,double_row,235|6400|8200-8210|S20,018|038|042|049,1,pending,tennant-11-3612-main-broom-36,1
+SY11-3613,Tennant,11-3613,"Main Scrub 36"" 18 S.R. .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"36""",.050/80 Grit,single_row,900C|5700|5700-900C|7200-900C|7200C|T15,017|046,2,pending,tennant-11-3613-cylindrical-scrub-36-050-80-grit,2
+SY11-3614,Tennant,11-3614,"Main Scrub 36"" 18 S.R. Poly",cylindrical_scrub,Cylindrical Scrub,"36""",Poly,single_row,900C|5700|5700-900C|7200-900C|7200C|T15,017|046,2,pending,tennant-11-3614-cylindrical-scrub-36-poly,2
+SY11-3615,Tennant,11-3615,"Main Scrub 36"" 18 S.R. Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"36""",Soft Nylon,single_row,900C|5700|5700-900C|7200-900C|7200C|T15,017|046,2,pending,tennant-11-3615-cylindrical-scrub-36-soft-nylon,2
+SY11-3616,Tennant,11-3616,"Main Scrub 36"" 18 S.R. Stiff Poly",cylindrical_scrub,Cylindrical Scrub,"36""",Stiff Poly,single_row,900C|5700|5700-900C|7200-900C|7200C|T15,017|046,2,pending,tennant-11-3616-cylindrical-scrub-36-stiff-poly,2
+SY11-3643,Tennant,11-3643,"Main Broom 36"" 8 S.R. Proex",main_broom,Main Broom,"36""",,single_row,8010,041,1,pending,tennant-11-3643-main-broom-36,1
+SY11-3651,Tennant,11-3651,"Main Broom 36"" Window, Proex",main_broom,Main Broom,"36""",,,S20,049,1,pending,tennant-11-3651-main-broom-36,1
+SY11-3652,Tennant,11-3652,"Main Broom 36"" Sand Wedge",main_broom,Main Broom,"36""",,,S20,049,1,pending,tennant-11-3652-main-broom-36,1
+SY11-3653,Tennant,11-3653,"Main Broom 36"" 8 D.R. Union",main_broom,Main Broom,"36""",,double_row,S20,049,1,pending,tennant-11-3653-main-broom-36,1
+SY11-3801,Tennant,11-3801,"Main Scrub 38"" 24 S.R. .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"38""",.050/80 Grit,single_row,240|240EH|242E|250|255|255Ii|260|265|275|275Ii|275Se|280|285,005|012|033|034,2,pending,tennant-11-3801-cylindrical-scrub-38-050-80-grit,1
+SY11-3802,Tennant,11-3802,"Main Broom 38"" 24 S.R. Stiff Poly",main_broom,Main Broom,"38""",Stiff Poly,single_row,240|240EH|242E|250|255|260|265|275|275Se|280,005|033|034,1,pending,tennant-11-3802-main-broom-38-stiff-poly,1
+SY11-3803,Tennant,11-3803,"Main Broom 38"" 24 S.R. Poly",main_broom,Main Broom,"38""",Poly,single_row,240|240EH|242E|250|255|260|265|275|275Se|280,005|033|034,1,pending,tennant-11-3803-main-broom-38-poly,1
+SY11-3901,Tennant,11-3901,"Main Scrub 39"" 20 S.R. .066/36 Grit",cylindrical_scrub,Cylindrical Scrub,"39""",,single_row,7300|8300,039|043,2,pending,tennant-11-3901-cylindrical-scrub-39,2
+SY11-3902,Tennant,11-3902,"Main Scrub 39"" 20 S.R. Poly",cylindrical_scrub,Cylindrical Scrub,"39""",Poly,single_row,7300|8300,039|043,2,pending,tennant-11-3902-cylindrical-scrub-39-poly,2
+SY11-3903,Tennant,11-3903,"Main Scrub 39"" 20 S.R. Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"39""",Soft Nylon,single_row,7300|8300,039|043,2,pending,tennant-11-3903-cylindrical-scrub-39-soft-nylon,2
+SY11-4020,Tennant,11-4020,"Main Scrub 40"" 24 S.R. .060 Grit",cylindrical_scrub,Cylindrical Scrub,"40""",,single_row,M20|T20,047,2,pending,tennant-11-4020-cylindrical-scrub-40,2
+SY11-4021,Tennant,11-4021,"Main Scrub 40"" 24 S.R. Poly",cylindrical_scrub,Cylindrical Scrub,"40""",Poly,single_row,M20|T20,047,2,pending,tennant-11-4021-cylindrical-scrub-40-poly,2
+SY11-4022,Tennant,11-4022,"Main Scrub 40"" 24 S.R. Stiff Poly",cylindrical_scrub,Cylindrical Scrub,"40""",Stiff Poly,single_row,M20|T20,047,2,pending,tennant-11-4022-cylindrical-scrub-40-stiff-poly,2
+SY11-4023,Tennant,11-4023,"Main Scrub 40"" 24 S.R. Poly",cylindrical_scrub,Cylindrical Scrub,"40""",Poly,single_row,M20|T20,047,2,pending,tennant-11-4023-cylindrical-scrub-40-poly,2
+SY11-4024,Tennant,11-4024,"Main Scrub 40"" .060 Grit (Checkerboard)",cylindrical_scrub,Cylindrical Scrub,"40""",,,M20|T20,047,2,pending,tennant-11-4024-cylindrical-scrub-40,2
+SY11-4025,Tennant,11-4025,"Main Scrub 40"" Poly (Window)",cylindrical_scrub,Cylindrical Scrub,"40""",Poly,,M20|T20,047,2,pending,tennant-11-4025-cylindrical-scrub-40-poly,2
+SY11-4200,Tennant,11-4200,"Main Broom 42"" 24 S.R. Union Fiber",main_broom,Main Broom,"42""",,single_row,SB/SCV 32 & 3200,032,1,pending,tennant-11-4200-main-broom-42,1
+SY11-4202,Tennant,11-4202,"Main Broom 42"" 24 S.R. Nylon",main_broom,Main Broom,"42""",Nylon,single_row,240EH|SB/SCV 32 & 3200,032|033,1,pending,tennant-11-4202-main-broom-42-nylon,1
+SY11-4203,Tennant,11-4203,"Main Broom 42"" 8 D.R. Crimped Wire",main_broom,Main Broom,"42""",Crimped Wire,double_row,240EH,033,1,pending,tennant-11-4203-main-broom-42-crimped-wire,1
+SY11-4205,Tennant,11-4205,"Main Broom 42"" 8 D.R. Proex/Wire",main_broom,Main Broom,"42""",Proex/Wire,double_row,SB/SCV 32 & 3200,032,1,pending,tennant-11-4205-main-broom-42-proex-wire,1
+SY11-4206,Tennant,11-4206,"Main Broom 42"" 8 D.R. Crimped Wire",main_broom,Main Broom,"42""",Crimped Wire,double_row,240EH|SB/SCV 32 & 3200,032|033,1,pending,tennant-11-4206-main-broom-42-crimped-wire,1
+SY11-4207,Tennant,11-4207,"Main Broom 42"" 8 D.R. Proex",main_broom,Main Broom,"42""",,double_row,240EH|SB/SCV 32 & 3200,032|033,1,pending,tennant-11-4207-main-broom-42,1
+SY11-4208,Tennant,11-4208,"Main Broom 42"" 5 D.R. Nylon Patrol",main_broom,Main Broom,"42""",Nylon Patrol,double_row,240EH|SB/SCV 32 & 3200,032|033,1,pending,tennant-11-4208-main-broom-42-nylon-patrol,1
+SY11-4209,Tennant,11-4209,"Main Broom 42"" 8 D.R. Union/Wire",main_broom,Main Broom,"42""",Union/Wire,double_row,240|250|255|260|265|275|275Se|280,005,1,pending,tennant-11-4209-main-broom-42-union-wire,1
+SY11-4210,Tennant,11-4210,"Main Broom 42"" 24 S.R. Union/Wire",main_broom,Main Broom,"42""",Union/Wire,single_row,240|250|255|260|265|275|275Se|280,005,1,pending,tennant-11-4210-main-broom-42-union-wire,1
+SY11-4211,Tennant,11-4211,"Main Broom 42"" 24 S.R. Nylon",main_broom,Main Broom,"42""",Nylon,single_row,240|250|255|260|265|275|275Se|280,005,1,pending,tennant-11-4211-main-broom-42-nylon,1
+SY11-4212,Tennant,11-4212,"Main Broom 42"" 8 D.R. Crimped Wire",main_broom,Main Broom,"42""",Crimped Wire,double_row,240|250|255|260|265|275|275Se|280,005,1,pending,tennant-11-4212-main-broom-42-crimped-wire,1
+SY11-4213,Tennant,11-4213,"Main Broom 42"" 8 D.R. Union/Wire",main_broom,Main Broom,"42""",Union/Wire,double_row,240|250|255|260|265|275|275Se|280,005,1,pending,tennant-11-4213-main-broom-42-union-wire,1
+SY11-4214,Tennant,11-4214,"Main Broom 42"" 8 D.R. Proex/Wire",main_broom,Main Broom,"42""",Proex/Wire,double_row,240|250|255|260|265|275|275Se|280,005,1,pending,tennant-11-4214-main-broom-42-proex-wire,1
+SY11-4215,Tennant,11-4215,"Main Broom 42"" 8 D.R. Nylon",main_broom,Main Broom,"42""",Nylon,double_row,240|250|255|260|265|275|275Se|280,005,1,pending,tennant-11-4215-main-broom-42-nylon,1
+SY11-4216,Tennant,11-4216,"Main Broom 42"" 8 D.R. Proex",main_broom,Main Broom,"42""",,double_row,240|250|255|260|265|275|275Se|280,005,1,pending,tennant-11-4216-main-broom-42,1
+SY11-4217,Tennant,11-4217,"Main Broom 42"" 5 D.R. Nylon Patrol",main_broom,Main Broom,"42""",Nylon Patrol,double_row,240|250|255|260|265|275|275Se|280,005,1,pending,tennant-11-4217-main-broom-42-nylon-patrol,1
+SY11-4219,Tennant,11-4219,"Main Broom 42"" 24 S.R. Union Wire",main_broom,Main Broom,"42""",Wire,single_row,255Ii|275Ii|285,012,1,pending,tennant-11-4219-main-broom-42-wire,1
+SY11-4220,Tennant,11-4220,"Main Broom 42"" 24 S.R. Nylon",main_broom,Main Broom,"42""",Nylon,single_row,255Ii|275Ii|285,012,1,pending,tennant-11-4220-main-broom-42-nylon,1
+SY11-4221,Tennant,11-4221,"Main Broom 42"" 8 D.R. Crimped Wire",main_broom,Main Broom,"42""",Crimped Wire,double_row,255Ii|275Ii|285,012,1,pending,tennant-11-4221-main-broom-42-crimped-wire,1
+SY11-4222,Tennant,11-4222,"Main Broom 42"" 8 D.R. Proex/Wire",main_broom,Main Broom,"42""",Proex/Wire,double_row,255Ii|275Ii|285,012,1,pending,tennant-11-4222-main-broom-42-proex-wire,1
+SY11-4223,Tennant,11-4223,"Main Broom 42' 8 D.R. Nylon",main_broom,Main Broom,,Nylon,double_row,255Ii|275Ii|285,012,1,pending,tennant-11-4223-main-broom-nylon,1
+SY11-4226,Tennant,11-4226,"Main Broom 42"" 8 D.R. Union/Wire",main_broom,Main Broom,"42""",Union/Wire,double_row,240EH|SB/SCV 32 & 3200,032|033,1,pending,tennant-11-4226-main-broom-42-union-wire,1
+SY11-4227,Tennant,11-4227,"Main Broom 42"" 8 D.R. Proex/Wire",main_broom,Main Broom,"42""",Proex/Wire,double_row,240EH,033,1,pending,tennant-11-4227-main-broom-42-proex-wire,1
+SY11-4301,Tennant,11-4301,"Main Scrub 43"" 24 S.R. .070/46 Grit",cylindrical_scrub,Cylindrical Scrub,"43""",.070/46 Grit,single_row,520|525|527|527Ii,007,2,pending,tennant-11-4301-cylindrical-scrub-43-070-46-grit,2
+SY11-4302,Tennant,11-4302,"Main Scrub 43"" 24 S.R. .050/80 Grit",cylindrical_scrub,Cylindrical Scrub,"43""",.050/80 Grit,single_row,520|525|527|527Ii,007,2,pending,tennant-11-4302-cylindrical-scrub-43-050-80-grit,2
+SY11-4303,Tennant,11-4303,"Main Scrub 43"" 24 S.R. Poly",cylindrical_scrub,Cylindrical Scrub,"43""",Poly,single_row,520|525|527|527Ii,007,2,pending,tennant-11-4303-cylindrical-scrub-43-poly,2
+SY11-4304,Tennant,11-4304,"Main Scrub 43"" 24 S.R. Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"43""",Soft Nylon,single_row,520|525|527|527Ii,007,2,pending,tennant-11-4304-cylindrical-scrub-43-soft-nylon,2
+SY11-4306,Tennant,11-4306,"Main Scrub 43"" 24 S.R. .066/36 Grit",cylindrical_scrub,Cylindrical Scrub,"43""",,single_row,528,031,2,pending,tennant-11-4306-cylindrical-scrub-43,2
+SY11-4307,Tennant,11-4307,"Main Scrub 43"" 24 S.R. Poly",cylindrical_scrub,Cylindrical Scrub,"43""",Poly,single_row,528,031,2,pending,tennant-11-4307-cylindrical-scrub-43-poly,2
+SY11-4308,Tennant,11-4308,"Main Scrub 43"" 24S.R. Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"43""",Soft Nylon,,528,031,2,pending,tennant-11-4308-cylindrical-scrub-43-soft-nylon,2
+SY11-4501,Tennant,11-4501,"Main Broom 45"" 24 S.R. Union/Wire",main_broom,Main Broom,"45""",Union/Wire,single_row,355|355E|385|6500|6550|6600|6650|8400|8410,010|011,1,pending,tennant-11-4501-main-broom-45-union-wire,1
+SY11-4502,Tennant,11-4502,"Main Broom 45"" 24 S.R. Nylon",main_broom,Main Broom,"45""",Nylon,single_row,355|355E|385|6500|6550|6600|6650|8400|8410|S30,010|011|050,1,pending,tennant-11-4502-main-broom-45-nylon,1
+SY11-4503,Tennant,11-4503,"Main Broom 45"" 8 D.R. Crimped Wire",main_broom,Main Broom,"45""",Crimped Wire,double_row,355|355E|385|6500|6550|6600|6650|8400|8410,010|011,1,pending,tennant-11-4503-main-broom-45-crimped-wire,1
+SY11-4504,Tennant,11-4504,"Main Broom 45"" 8 D.R. Proex/Wire",main_broom,Main Broom,"45""",Proex/Wire,double_row,355|355E|385|6500|6550|6600|6650|8400|8410,010|011,1,pending,tennant-11-4504-main-broom-45-proex-wire,1
+SY11-4505,Tennant,11-4505,"Main Broom 45"" 8 D.R. Nylon",main_broom,Main Broom,"45""",Nylon,double_row,355|355E|385|6500|6550|6600|6650|8400|8410,010|011,1,pending,tennant-11-4505-main-broom-45-nylon,1
+SY11-4506,Tennant,11-4506,"Main Broom 45"" 8 D.R. Proex",main_broom,Main Broom,"45""",,double_row,355|355E|385|6500|6550|6600|6650|8400|8410,010|011,1,pending,tennant-11-4506-main-broom-45,1
+SY11-4507,Tennant,11-4507,"Main Broom 45"" 5 D.R. Nylon Patrol",main_broom,Main Broom,"45""",Nylon Patrol,double_row,355|355E|385|6500|6550|6600|6650|8400|8410,010|011,1,pending,tennant-11-4507-main-broom-45-nylon-patrol,1
+SY11-4509,Tennant,11-4509,"Main Scrub 45"" 24 S.R. .066/36 Grit",cylindrical_scrub,Cylindrical Scrub,"45""",,single_row,7400,040,2,pending,tennant-11-4509-cylindrical-scrub-45,2
+SY11-4510,Tennant,11-4510,"Main Scrub 45"" 24 S.R. Poly",cylindrical_scrub,Cylindrical Scrub,"45""",Poly,single_row,7400,040,2,pending,tennant-11-4510-cylindrical-scrub-45-poly,2
+SY11-4511,Tennant,11-4511,"Main Scrub 45"" 24 S.R. Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"45""",Soft Nylon,single_row,7400,040,2,pending,tennant-11-4511-cylindrical-scrub-45-soft-nylon,2
+SY11-4701,Tennant,11-4701,"Main Scrub 47"" 20 S.R. .060 Grit",cylindrical_scrub,Cylindrical Scrub,"47""",,single_row,7300|8300,039|043,2,pending,tennant-11-4701-cylindrical-scrub-47,2
+SY11-4702,Tennant,11-4702,"Main Scrub 47"" 20 S.R. Poly",cylindrical_scrub,Cylindrical Scrub,"47""",Poly,single_row,7300|8300,039|043,2,pending,tennant-11-4702-cylindrical-scrub-47-poly,2
+SY11-4703,Tennant,11-4703,"Main Scrub 47"" 20 S.R. Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"47""",Soft Nylon,single_row,7300|8300,039|043,2,pending,tennant-11-4703-cylindrical-scrub-47-soft-nylon,2
+SY11-4803,Tennant,11-4803,"Main Broom 48"" 8 D.R. Crimped Wire",main_broom,Main Broom,"48""",Crimped Wire,double_row,360,023,1,pending,tennant-11-4803-main-broom-48-crimped-wire,1
+SY11-4804,Tennant,11-4804,"Main Broom 48"" 8 D.R. Union/Wire",main_broom,Main Broom,"48""",Union/Wire,double_row,360,023,1,pending,tennant-11-4804-main-broom-48-union-wire,1
+SY11-4805,Tennant,11-4805,"Main Broom 48"" 8 D.R. Proex/Wire",main_broom,Main Broom,"48""",Proex/Wire,double_row,360|365,023|024,1,pending,tennant-11-4805-main-broom-48-proex-wire,1
+SY11-4831,Tennant,11-4831,"Main Broom 48"" 24 S.R. Union/Wire",main_broom,Main Broom,"48""",Union/Wire,single_row,360|365,023|024,1,pending,tennant-11-4831-main-broom-48-union-wire,1
+SY11-4832,Tennant,11-4832,"Main Broom 48"" 24 S.R. Nylon",main_broom,Main Broom,"48""",Nylon,single_row,360|365,023|024,1,pending,tennant-11-4832-main-broom-48-nylon,1
+SY11-4836,Tennant,11-4836,"Main Broom 48"" 8 D.R. Nylon",main_broom,Main Broom,"48""",Nylon,double_row,360|365,023|024,1,pending,tennant-11-4836-main-broom-48-nylon,1
+SY11-4837,Tennant,11-4837,"Main Broom 48"" 8 D.R. Proex",main_broom,Main Broom,"48""",,double_row,360,023,1,pending,tennant-11-4837-main-broom-48,1
+SY11-4840,Tennant,11-4840,"Main Scrub 48"" 24 S.R. .060 Grit",cylindrical_scrub,Cylindrical Scrub,"48""",,single_row,M30,048,2,pending,tennant-11-4840-cylindrical-scrub-48,1
+SY11-4841,Tennant,11-4841,"Main Scrub 48"" 24 S.R. Poly",cylindrical_scrub,Cylindrical Scrub,"48""",Poly,single_row,M30,048,2,pending,tennant-11-4841-cylindrical-scrub-48-poly,2
+SY11-4842,Tennant,11-4842,"Main Scrub 48"" 24 S.R. Stiff Poly",cylindrical_scrub,Cylindrical Scrub,"48""",Stiff Poly,single_row,M30,048,2,pending,tennant-11-4842-cylindrical-scrub-48-stiff-poly,1
+SY11-4843,Tennant,11-4843,"Main Scrub 48"" 24 S.R. Polyester",cylindrical_scrub,Cylindrical Scrub,"48""",,single_row,M30,048,2,pending,tennant-11-4843-cylindrical-scrub-48,1
+SY11-4845,Tennant,11-4845,"Main Scrub 48"" Window Poly",cylindrical_scrub,Cylindrical Scrub,"48""",Poly,,M30,048,2,pending,tennant-11-4845-cylindrical-scrub-48-poly,1
+SY11-4901,Tennant,11-4901,"Main Broom 49.5"" 24 S.R. Nylon",main_broom,Main Broom,"49.5""",Nylon,single_row,97|800|810,008,1,pending,tennant-11-4901-main-broom-49-5-nylon,1
+SY11-4902,Tennant,11-4902,"Main Broom 49.5"" Crimped Wire",main_broom,Main Broom,"49.5""",Crimped Wire,,97|800|810,008,1,pending,tennant-11-4902-main-broom-49-5-crimped-wire,1
+SY11-4903,Tennant,11-4903,"Main Broom 49.5"" 8 D.R. Stiff Proex/Wire",main_broom,Main Broom,"49.5""",Proex/Wire,double_row,97|800|810,008,1,pending,tennant-11-4903-main-broom-49-5-proex-wire,1
+SY11-4904,Tennant,11-4904,"Main Broom 49.5"" 8 D.R. Nylon",main_broom,Main Broom,"49.5""",Nylon,double_row,97|800|810,008,1,pending,tennant-11-4904-main-broom-49-5-nylon,1
+SY11-4905,Tennant,11-4905,"Main Broom 49.5"" 8 D.R. Stiff Proex",main_broom,Main Broom,"49.5""",,double_row,97|800|810,008,1,pending,tennant-11-4905-main-broom-49-5,1
+SY11-4906,Tennant,11-4906,"Main Broom 49.5"" 4 Q.R. Nylon Patrol",main_broom,Main Broom,"49.5""",Nylon Patrol,patrol,97|800|810,008,1,pending,tennant-11-4906-main-broom-49-5-nylon-patrol,1
+SY11-4907,Tennant,11-4907,"Main Broom 49.5"" 8 D.R. Extra Stiff Proex",main_broom,Main Broom,"49.5""",,double_row,97|800|810,008,1,pending,tennant-11-4907-main-broom-49-5,1
+SY11-5001,Tennant,11-5001,"Main Broom 50"" 24 S.R. Nylon",main_broom,Main Broom,"50""",Nylon,single_row,92|95,003,1,pending,tennant-11-5001-main-broom-50-nylon,1
+SY11-5002,Tennant,11-5002,"Main Broom 50"" 8 D.R. Crimped Wire",main_broom,Main Broom,"50""",Crimped Wire,double_row,92|95,003,1,pending,tennant-11-5002-main-broom-50-crimped-wire,1
+SY11-5003,Tennant,11-5003,"Main Broom 50"" 8 D.R. Proex/Wire",main_broom,Main Broom,"50""",Proex/Wire,double_row,92|95,003,1,pending,tennant-11-5003-main-broom-50-proex-wire,1
+SY11-5004,Tennant,11-5004,"Main Broom 50"" 8 D.R. Nylon",main_broom,Main Broom,"50""",Nylon,double_row,92|95,003,1,pending,tennant-11-5004-main-broom-50-nylon,1
+SY11-5005,Tennant,11-5005,"Main Broom 50"" 8 D.R. Stiff Poly",main_broom,Main Broom,"50""",Stiff Poly,double_row,92|95,003,1,pending,tennant-11-5005-main-broom-50-stiff-poly,1
+SY11-5006,Tennant,11-5006,"Main Broom 50"" 5 D.R. Nylon Patrol",main_broom,Main Broom,"50""",Nylon Patrol,double_row,92|95,003,1,pending,tennant-11-5006-main-broom-50-nylon-patrol,1
+SY11-5007,Tennant,11-5007,"Main Broom 50"" 8 D.R. Stiff Poly",main_broom,Main Broom,"50""",Stiff Poly,double_row,92|95,003,1,pending,tennant-11-5007-main-broom-50-stiff-poly,1
+SY11-5008,Tennant,11-5008,"Main Scrub 50"" 24 S.R. .066/36 Grit",cylindrical_scrub,Cylindrical Scrub,"50""",,single_row,550|550E|1550,032,2,pending,tennant-11-5008-cylindrical-scrub-50,2
+SY11-5010,Tennant,11-5010,"Main Scrub 50"" 24 S.R. Soft Nylon",cylindrical_scrub,Cylindrical Scrub,"50""",Soft Nylon,single_row,550|550E|1550,032,2,pending,tennant-11-5010-cylindrical-scrub-50-soft-nylon,2
+SY11-5011,Tennant,11-5011,"Main Scrub 50"" 24 S.R. Poly",cylindrical_scrub,Cylindrical Scrub,"50""",Poly,single_row,550|550E|1550,032,2,pending,tennant-11-5011-cylindrical-scrub-50-poly,2
+SY12-4301,Tennant,12-4301,"Main Scrub 43"" 24 S.R. /6.D.R. .060/36 Grit Set",cylindrical_scrub,Cylindrical Scrub,"43""",,double_row,530E,022,2,pending,tennant-12-4301-cylindrical-scrub-43,1
+SY12-4302,Tennant,12-4302,"Main Scrub 43"" 24 S.R. /6 D.R. Poly Set",cylindrical_scrub,Cylindrical Scrub,"43""",Poly,double_row,530E,022,2,pending,tennant-12-4302-cylindrical-scrub-43-poly,1
+SY12-4303,Tennant,12-4303,"Main Scrub 43"" 24 S.R. /6 D.R. Soft Nylon Set",cylindrical_scrub,Cylindrical Scrub,"43""",Soft Nylon,double_row,530E,022,2,pending,tennant-12-4303-cylindrical-scrub-43-soft-nylon,1
+SY21-0601,Tennant,21-0601,"Side Broom 13"" 2 S.R. Poly",side_broom,Side Broom,"13""",Poly,single_row,28B|37B|140|140E|510E,006|044,1,pending,tennant-21-0601-side-broom-13-poly,1
+SY21-0701,Tennant,21-0701,"Side Broom 7"" 2 S.R. Poly",side_broom,Side Broom,"7""",Poly,single_row,3460|6080|6100,009|036,1,pending,tennant-21-0701-side-broom-7-poly,1
+SY21-0803,Tennant,21-0803,"Side Broom 8"" 2 S.R. Poly",side_broom,Side Broom,"8""",Poly,single_row,40|42|186|210|215|900C|1186|5700|7200C|T15,001|004|046,1,pending,tennant-21-0803-side-broom-8-poly,1
+SY21-0804,Tennant,21-0804,"Side Broom 8"" 2 S.R. Nylon",side_broom,Side Broom,"8""",Nylon,single_row,235,018,1,pending,tennant-21-0804-side-broom-8-nylon,1
+SY21-0810,Tennant,21-0810,"Side Broom 8"" 2 S.R. Nylon",side_broom,Side Broom,"8""",Nylon,single_row,40|42|186|210|215|1186,001|004,1,pending,tennant-21-0810-side-broom-8-nylon,1
+SY21-111032,Tennant,21-111032,"Rotary Brush 11"" .070/46 Grit",rotary_brush,Rotary Brush,"11""",.070/46 Grit,,5400-25D,019,2,pending,tennant-21-111032-rotary-brush-11-070-46-grit,2
+SY21-111732,Tennant,21-111732,"Rotary Brush 11"" .028 Poly",rotary_brush,Rotary Brush,"11""",Poly,,5400-25D,019,2,pending,tennant-21-111732-rotary-brush-11-poly,2
+SY21-1121,Tennant,21-1121,"Rotary Brush 12"" .070/46 Grit",rotary_brush,Rotary Brush,"12""",.070/46 Grit,,T5,045,2,pending,tennant-21-1121-rotary-brush-12-070-46-grit,1
+SY21-1122,Tennant,21-1122,"Rotary Brush 12"" .028 Poly",rotary_brush,Rotary Brush,"12""",Poly,,T5,045,2,pending,tennant-21-1122-rotary-brush-12-poly,1
+SY21-1123,Tennant,21-1123,"Rotary Brush 11"" .028 Nylon",rotary_brush,Rotary Brush,"11""",Nylon,,5400-25D,019,2,pending,tennant-21-1123-rotary-brush-11-nylon,2
+SY21-112932,Tennant,21-112932,"Pad Driver 11""",pad_driver,Pad Driver,"11""",,,5400-25D,019,2,pending,tennant-21-112932-pad-driver-11,2
+SY21-1210F,Tennant,21-1210F,"Rotary Brush 12"" .070/46 Grit (No Clutch Plate)",rotary_brush,Rotary Brush,"12""",.070/46 Grit,,426,025,2,pending,tennant-21-1210f-rotary-brush-12-070-46-grit,2
+SY21-1217F,Tennant,21-1217F,"Rotary Brush 12"" .028 Poly (No Clutch Plate)",rotary_brush,Rotary Brush,"12""",Poly,,426,025,2,pending,tennant-21-1217f-rotary-brush-12-poly,2
+SY21-1221F,Tennant,21-1221F,"Rotary Brush 12"" .028 Nylon (No Clutch Plate)",rotary_brush,Rotary Brush,"12""",Nylon,,426,025,2,pending,tennant-21-1221f-rotary-brush-12-nylon,2
+SY21-1223F,Tennant,21-1223F,"Rotary Brush 12"" Bassine (No Clutch Plate)",rotary_brush,Rotary Brush,"12""",Bassine,,426,025,2,pending,tennant-21-1223f-rotary-brush-12-bassine,2
+SY21-1229F,Tennant,21-1229F,"Pad Driver 12""",pad_driver,Pad Driver,"12""",,,426,025,2,pending,tennant-21-1229f-pad-driver-12,2
+SY21-1250,Tennant,21-1250,"Rotary Brush 12"" Bassine",rotary_brush,Rotary Brush,"12""",Bassine,,465|1654,027,2,pending,tennant-21-1250-rotary-brush-12-bassine,2
+SY21-1251,Tennant,21-1251,"Rotary Brush 12"" .070/46 Grit",rotary_brush,Rotary Brush,"12""",.070/46 Grit,,530E,022,2,pending,tennant-21-1251-rotary-brush-12-070-46-grit,2
+SY21-1252,Tennant,21-1252,"Rotary Brush 12"" Wire",rotary_brush,Rotary Brush,"12""",Wire,,465|1654,027,2,pending,tennant-21-1252-rotary-brush-12-wire,2
+SY21-1254,Tennant,21-1254,"Rotary Brush 12"" .028 Nylon",rotary_brush,Rotary Brush,"12""",Nylon,,530E,022,2,pending,tennant-21-1254-rotary-brush-12-nylon,2
+SY21-1255,Tennant,21-1255,"Pad Driver 12""",pad_driver,Pad Driver,"12""",,,465|1654|T5,027|045,2,pending,tennant-21-1255-pad-driver-12,2
+SY21-1256,Tennant,21-1256,"Rotary Brush 12"" .028 Poly",rotary_brush,Rotary Brush,"12""",Poly,,465|1654,027,2,pending,tennant-21-1256-rotary-brush-12-poly,2
+SY21-1257,Tennant,21-1257,"Rotary Brush 12"" .070/46 Grit",rotary_brush,Rotary Brush,"12""",.070/46 Grit,,465|528|1654|5400-26D,021|027|031,2,pending,tennant-21-1257-rotary-brush-12-070-46-grit,2
+SY21-1259,Tennant,21-1259,"Rotary Brush 12"" .028 Nylon",rotary_brush,Rotary Brush,"12""",Nylon,,465|528|1654|5400-26D|T5,021|027|031|045,2,pending,tennant-21-1259-rotary-brush-12-nylon,2
+SY21-1302,Tennant,21-1302,"Side Broom 13"" 3 S.R. Nylon",side_broom,Side Broom,"13""",Nylon,single_row,36|75|220|240|240EH|250|255|255Ii|260|265|275|275Ii|275Se|280|285|360|365|SB/SCV 32 & 3200,005|012|013|023|024|032|033,1,pending,tennant-21-1302-side-broom-13-nylon,1
+SY21-1303,Tennant,21-1303,"Side Broom 13"" 3 S.R. Poly",side_broom,Side Broom,"13""",Poly,single_row,36|75|220|240|240EH|250|255|255Ii|260|265|275|275Ii|275Se|280|285|360|365|SB/SCV 32 & 3200,005|012|013|023|024|032|033,1,pending,tennant-21-1303-side-broom-13-poly,1
+SY21-131032,Tennant,21-131032,"Rotary Brush 14"" .070/46 Grit",rotary_brush,Rotary Brush,"14""",.070/46 Grit,,T5,045,2,pending,tennant-21-131032-rotary-brush-14-070-46-grit,1
+SY21-131732,Tennant,21-131732,"Rotary Brush 12"" .028 Poly",rotary_brush,Rotary Brush,"12""",Poly,,5400-26D|T5,021|045,2,pending,tennant-21-131732-rotary-brush-12-poly,2
+SY21-132132,Tennant,21-132132,"Rotary Brush 14"" .028 Nylon",rotary_brush,Rotary Brush,"14""",Nylon,,T5,045,2,pending,tennant-21-132132-rotary-brush-14-nylon,1
+SY21-132932,Tennant,21-132932,"Pad Driver 14""",pad_driver,Pad Driver,"14""",,,T5,045,2,pending,tennant-21-132932-pad-driver-14,1
+SY21-1401,Tennant,21-1401,"Side Broom 14"" 3 S.R. Flat Wire",side_broom,Side Broom,"14""",Flat Wire,single_row,355|355E|385|6400|8200-8210|8400|8410|S20,011|038|042|049,1,pending,tennant-21-1401-side-broom-14-flat-wire,1
+SY21-1402,Tennant,21-1402,"Side Broom 14"" 3 S.R. White Nylon",side_broom,Side Broom,"14""",Nylon,single_row,240|240EH|250|255|255Ii|260|265|275|275Ii|275Se|280|285|355|355E|385|6400|8200-8210|8400|8410|S20|SB/SCV 32 & 3200,005|011|012|032|033|038|042|049,1,pending,tennant-21-1402-side-broom-14-nylon,1
+SY21-1403,Tennant,21-1403,"Side Broom 14"" 3 S.R. Black Poly",side_broom,Side Broom,"14""",Poly,single_row,355|355E|385|6400|8200-8210|8400|8410|S20,011|038|042|049,1,pending,tennant-21-1403-side-broom-14-poly,1
+SY21-1404,Tennant,21-1404,"Side Broom 15"" 3 S.R. Poly",side_broom,Side Broom,"15""",Poly,single_row,M20|M30|T20,047|048,1,pending,tennant-21-1404-side-broom-15-poly,1
+SY21-1405,Tennant,21-1405,"Rotary Brush 14"" 6 S.R. Stiff Poly",side_broom,Side Broom,"14""",Stiff Poly,single_row,240|240EH|242E|250|255|260|265|275|275Se|280,005|033|034,1,pending,tennant-21-1405-side-broom-14-stiff-poly,1
+SY21-1441,Tennant,21-1441,"Rotary Brush 14"" .070/46 Grit",rotary_brush,Rotary Brush,"14""",.070/46 Grit,,5680-700D|5700-700D|7100-28D,015,2,pending,tennant-21-1441-rotary-brush-14-070-46-grit,2
+SY21-1444,Tennant,21-1444,"Rotary Brush 14"" .028 Poly",rotary_brush,Rotary Brush,"14""",Poly,,5680-700D|5700-700D|7100-28D,015,2,pending,tennant-21-1444-rotary-brush-14-poly,2
+SY21-1446,Tennant,21-1446,"Pad Driver 14""",pad_driver,Pad Driver,"14""",,,5680-700D|5700-700D|7100-28D,015,2,pending,tennant-21-1446-pad-driver-14,2
+SY21-1447,Tennant,21-1447,"Rotary Brush 14"" .028 Nylon",rotary_brush,Rotary Brush,"14""",Nylon,,5680-700D|5700-700D|7100-28D,015,2,pending,tennant-21-1447-rotary-brush-14-nylon,2
+SY21-151031,Tennant,21-151031,"Rotary Brush 16"" .070/46 Grit",rotary_brush,Rotary Brush,"16""",.070/46 Grit,,M30,048,2,pending,tennant-21-151031-rotary-brush-16-070-46-grit,1
+SY21-151032,Tennant,21-151032,"Rotary Brush 16"" .070/46 Grit",rotary_brush,Rotary Brush,"16""",.070/46 Grit,,T5,045,2,pending,tennant-21-151032-rotary-brush-16-070-46-grit,1
+SY21-151732,Tennant,21-151732,"Rotary Brush 16"" .028 Poly",rotary_brush,Rotary Brush,"16""",Poly,,T5,045,2,pending,tennant-21-151732-rotary-brush-16-poly,1
+SY21-152132,Tennant,21-152132,"Rotary Brush 16"" .028 Nylon",rotary_brush,Rotary Brush,"16""",Nylon,,T5,045,2,pending,tennant-21-152132-rotary-brush-16-nylon,1
+SY21-152932,Tennant,21-152932,"Pad Driver 16""",pad_driver,Pad Driver,"16""",,,T5,045,2,pending,tennant-21-152932-pad-driver-16,1
+SY21-1601,Tennant,21-1601,"Rotary Brush 16"" .070/46 Grit",rotary_brush,Rotary Brush,"16""",.070/46 Grit,,432,026,2,pending,tennant-21-1601-rotary-brush-16-070-46-grit,2
+SY21-1602,Tennant,21-1602,"Rotary Brush 16"" .028 Poly",rotary_brush,Rotary Brush,"16""",Poly,,432|465|528|1654,026|027|031,2,pending,tennant-21-1602-rotary-brush-16-poly,2
+SY21-1603,Tennant,21-1603,"Rotary Brush 16"" .028 Nylon",rotary_brush,Rotary Brush,"16""",Nylon,,432,026,2,pending,tennant-21-1603-rotary-brush-16-nylon,2
+SY21-1604,Tennant,21-1604,"Pad Driver 16""",pad_driver,Pad Driver,"16""",,,432,026,2,pending,tennant-21-1604-pad-driver-16,2
+SY21-1605,Tennant,21-1605,"Rotary Brush 16"" .070/46 Grit",rotary_brush,Rotary Brush,"16""",.070/46 Grit,,355|355E|385|480|515|515SS|1480|5680-800D|5700-800D|7100-32D|7300|7400|8010|8200|8200-8210|8210|8300|8400|8410|M20|T20,011|028|030|039|040|041|042|043|047,2,pending,tennant-21-1605-rotary-brush-16-070-46-grit,2
+SY21-1606,Tennant,21-1606,"Rotary Brush 165"" .028 Poly",rotary_brush,Rotary Brush,"165""",Poly,,355|355E|385|480|515|515SS|1480|5680-800D|5700-800D|7100-32D|8200|8210|8400|8410|M30,011|028|030|048,2,pending,tennant-21-1606-rotary-brush-165-poly,2
+SY21-1607,Tennant,21-1607,"Rotary Brush 16"" .028 Nylon",rotary_brush,Rotary Brush,"16""",Nylon,,355|355E|385|480|515|515SS|1480|5680-800D|5700-800D|7100-32D|7300|7400|8010|8200|8200-8210|8210|8300|8400|8410|M20|M30|T20,011|028|030|039|040|041|042|043|047|048,2,pending,tennant-21-1607-rotary-brush-16-nylon,2
+SY21-1608,Tennant,21-1608,"Rotary Brush 16"" .028 Poly",rotary_brush,Rotary Brush,"16""",Poly,,355|355E|385|480|515|515SS|1480|5680-800D|5700-800D|7100-32D|7300|8010|8200|8200-8210|8210|8300|8400|8410|M20|T20,011|028|030|039|041|042|043|047,2,pending,tennant-21-1608-rotary-brush-16-poly,2
+SY21-1609,Tennant,21-1609,"Pad Driver 16""",pad_driver,Pad Driver,"16""",,,515|515SS|8200|8210,030,2,pending,tennant-21-1609-pad-driver-16,3
+SY21-1610H,Tennant,21-1610H,"Rotary Brush 16"" .070/46 Grit (No Clutch Plate)",rotary_brush,Rotary Brush,"16""",.070/46 Grit,,5100,035,2,pending,tennant-21-1610h-rotary-brush-16-070-46-grit,1
+SY21-1617H,Tennant,21-1617H,"Rotary Brush 16"" .028 Poly (No Clutch Plate)",rotary_brush,Rotary Brush,"16""",Poly,,5100,035,2,pending,tennant-21-1617h-rotary-brush-16-poly,1
+SY21-1621,Tennant,21-1621,"Rotary Brush 16"" .028 Nylon ( No Clutch Plate)",rotary_brush,Rotary Brush,"16""",Nylon,,5100,035,2,pending,tennant-21-1621-rotary-brush-16-nylon,1
+SY21-1661,Tennant,21-1661,"Rotary Brush 16"" Wire",rotary_brush,Rotary Brush,"16""",Wire,,355|355E|385|480|515|515SS|1480|5680-800D|5700-800D|7100-32D|7300|8010|8200|8200-8210|8210|8300|8400|8410,011|028|030|039|041|042|043,2,pending,tennant-21-1661-rotary-brush-16-wire,2
+SY21-1663,Tennant,21-1663,"Rotary Brush 16"" Bassine",rotary_brush,Rotary Brush,"16""",Bassine,,355|355E|385|480|515|515SS|1480|5680-800D|5700-800D|7100-32D|7300|8010|8200|8200-8210|8210|8300|8400|8410,011|028|030|039|041|042|043,2,pending,tennant-21-1663-rotary-brush-16-bassine,2
+SY21-1666,Tennant,21-1666,"Pad Driver 16'' Pad Driver",pad_driver,Pad Driver,,,,7300|8010|8200-8210|8300,039|041|042|043,2,pending,tennant-21-1666-pad-driver,3
+SY21-1801,Tennant,21-1801,"Side Broom 18"" 3 S.R. Flat Wire",side_broom,Side Broom,"18""",Flat Wire,single_row,97|800|810|6500|6550|6600|6650,008|010,1,pending,tennant-21-1801-side-broom-18-flat-wire,1
+SY21-1802,Tennant,21-1802,"Side Broom 18"" 3 S.R. Nylon",side_broom,Side Broom,"18""",Nylon,single_row,92|95|97|800|810|6500|6550|6600|6650,003|008|010,1,pending,tennant-21-1802-side-broom-18-nylon,1
+SY21-1803,Tennant,21-1803,"Side Broom 18"" 3 S.R. Poly",side_broom,Side Broom,"18""",Poly,single_row,92|95|97|800|810|6500|6550|6600|6650,003|008|010,1,pending,tennant-21-1803-side-broom-18-poly,1
+SY21-1805,Tennant,21-1805,"Rotary Brush 18"" .070/46 Grit",rotary_brush,Rotary Brush,"18""",.070/46 Grit,,490|900C|1490|5680-900D|5700|5700-900D|7200C|7200D|T15,046|209,2,pending,tennant-21-1805-rotary-brush-18-070-46-grit,2
+SY21-1806,Tennant,21-1806,"Rotary Brush 18"" .028 Nylon",rotary_brush,Rotary Brush,"18""",Nylon,,490|900C|1490|5680-900D|5700|5700-900D|7200C|7200D|T15,046|209,2,pending,tennant-21-1806-rotary-brush-18-nylon,2
+SY21-1807,Tennant,21-1807,"Rotary Brush 18"" .028 Nylon",rotary_brush,Rotary Brush,"18""",Nylon,,900C|5700|7200C|T15,046,2,pending,tennant-21-1807-rotary-brush-18-nylon,1
+SY21-1850,Tennant,21-1850,"Pad Driver 18""",pad_driver,Pad Driver,"18""",,,490|1490|5680-900D|5700-900D|7200D,209,2,pending,tennant-21-1850-pad-driver-18,2
+SY21-2000,Tennant,21-2000,"Rotary Brush 20"" .028 Poly",rotary_brush,Rotary Brush,"20""",Poly,,510E|515|515SS|7300|8010|8200|8200-8210|8210|8300,006|030|039|041|042|043,2,pending,tennant-21-2000-rotary-brush-20-poly,2
+SY21-2001,Tennant,21-2001,"Rotary Brush 20"" .070/46 Grit",rotary_brush,Rotary Brush,"20""",.070/46 Grit,,510E|515|515SS|7300|8010|8200|8200-8210|8210|8300,006|030|039|041|042|043,2,pending,tennant-21-2001-rotary-brush-20-070-46-grit,2
+SY21-2003,Tennant,21-2003,"Rotary Brush 20"" .028 Nylon",rotary_brush,Rotary Brush,"20""",Nylon,,510E|515|515SS|7300|8010|8200|8200-8210|8210|8300,006|030|039|041|042|043,2,pending,tennant-21-2003-rotary-brush-20-nylon,2
+SY21-2004,Tennant,21-2004,"Pad Driver 20""",pad_driver,Pad Driver,"20""",,,7300|8200-8210|8300,039|042|043,2,pending,tennant-21-2004-pad-driver-20,2
