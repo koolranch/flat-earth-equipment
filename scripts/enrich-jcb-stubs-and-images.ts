@@ -67,7 +67,8 @@ function familyHint(oemRef: string): { family: string; machines: string } {
   };
 }
 
-function buildEnrichedJcbDescription(part: {
+/** Confident conversion copy — aftermarket once, no scare-off revision hedges. */
+export function buildEnrichedJcbDescription(part: {
   name: string;
   oem_reference: string | null;
   sku: string | null;
@@ -80,14 +81,20 @@ function buildEnrichedJcbDescription(part: {
   // "BRAKE PAD KIT" in metadata.secondary_category — surface it for keyword
   // density without inventing specs.
   const secondary = (part.metadata?.secondary_category || '').toString().toLowerCase().trim();
-  const partType = secondary && secondary !== 'replacement part'
-    ? `OEM-equivalent ${secondary}`
-    : `OEM-equivalent replacement part`;
+  const partType =
+    secondary && secondary !== 'replacement part'
+      ? `Aftermarket ${secondary}`
+      : `Aftermarket replacement`;
+
+  const familyLine =
+    family && family !== 'replacement'
+      ? ` Commonly used in the ${family} group on ${machines}.`
+      : ` Built for ${machines}.`;
 
   return [
-    `${partType} for JCB part number ${oem} — designed as a direct cross-reference for the original equipment specification. Manufactured to fit ${machines} where this part number is called out in the parts manual.`,
-    `JCB references this part within the ${family} family of components. Verify the part number on your existing component or in your machine's parts manual before ordering — JCB part numbers are highly specific and small revisions can mean different physical fitments.`,
-    `Need help confirming fitment for your specific machine and serial number range? Contact our parts team for a same-day availability check, current pricing, and lead-time estimate. We ship aftermarket JCB replacement parts nationwide.`,
+    `${partType} for JCB part number ${oem} — a direct cross-reference to the OEM specification.${familyLine}`,
+    `Matches JCB OEM part number ${oem}. Order by this PN for a confident fit.`,
+    `Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.`,
   ].join('\n\n');
 }
 
@@ -279,7 +286,14 @@ async function main() {
   console.log('\n🏁 Done.');
 }
 
-main().catch((e) => {
-  console.error('❌ Fatal:', e);
-  process.exit(1);
-});
+const isDirectRun =
+  typeof process !== 'undefined' &&
+  process.argv[1] &&
+  /enrich-jcb-stubs-and-images\.(ts|js)$/.test(process.argv[1].replace(/\\/g, '/'));
+
+if (isDirectRun) {
+  main().catch((e) => {
+    console.error('❌ Fatal:', e);
+    process.exit(1);
+  });
+}
