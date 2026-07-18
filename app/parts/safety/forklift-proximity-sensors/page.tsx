@@ -16,6 +16,14 @@ export const metadata: Metadata = {
   }
 };
 
+function proximityQuoteHref(notes: string) {
+  const params = new URLSearchParams({
+    sku: "forklift-proximity-sensors",
+    notes,
+  });
+  return `/quote?${params.toString()}`;
+}
+
 export default function ForkliftProximitySensorsPage() {
   const sensorTypes = [
     {
@@ -103,7 +111,7 @@ export default function ForkliftProximitySensorsPage() {
             
             <div className="flex flex-wrap gap-4 mb-6">
               <Link 
-                href="/quote?product=proximity-sensors" 
+                href={proximityQuoteHref("Forklift proximity sensors — request pricing")}
                 className="bg-canyon-rust text-white px-8 py-4 rounded-lg font-semibold hover:bg-canyon-rust/90 transition-colors shadow-lg text-lg"
               >
                 Get Pricing & Quote
@@ -259,7 +267,7 @@ export default function ForkliftProximitySensorsPage() {
                   </div>
 
                   <Link 
-                    href="/quote?product=proximity-sensors&type=" 
+                    href={proximityQuoteHref(`Request quote for ${sensor.name}`)}
                     className="inline-flex items-center px-6 py-3 bg-canyon-rust text-white font-semibold rounded-lg hover:bg-canyon-rust/90 transition-colors"
                   >
                     Request Quote for {sensor.name}
@@ -343,7 +351,7 @@ export default function ForkliftProximitySensorsPage() {
               </li>
             </ul>
             <Link 
-              href="/quote?service=sensor-installation"
+              href={proximityQuoteHref("Proximity sensor installation / integration questions")}
               className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold"
             >
               Schedule Installation
@@ -478,7 +486,7 @@ export default function ForkliftProximitySensorsPage() {
             </div>
 
             <Link 
-              href="/quote?product=fleet-safety-upgrade"
+              href={proximityQuoteHref("Fleet-wide proximity sensor upgrade — request volume pricing")}
               className="inline-flex items-center px-8 py-4 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors shadow-lg text-lg"
             >
               Request Fleet Quote
@@ -562,7 +570,7 @@ export default function ForkliftProximitySensorsPage() {
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link 
-              href="/quote?product=proximity-sensors"
+              href={proximityQuoteHref("Forklift proximity sensors — custom quote")}
               className="bg-white text-canyon-rust px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-colors shadow-lg text-lg"
             >
               Get Custom Quote
