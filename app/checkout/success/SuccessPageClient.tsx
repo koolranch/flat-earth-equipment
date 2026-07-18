@@ -78,45 +78,39 @@ export default function SuccessPageClient() {
       <div className="space-y-6">
         {/* Training Course Instructions */}
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-          <h2 className="text-xl font-semibold text-blue-800 mb-3">📚 Purchased Training?</h2>
+          <h2 className="text-xl font-semibold text-blue-800 mb-3">Purchased Training?</h2>
           <div className="text-left text-blue-700 space-y-3">
-            <p className="font-medium">Your training is being activated automatically:</p>
+            <p className="font-medium">Your account is being activated automatically — no signup needed.</p>
             <ol className="list-decimal list-inside space-y-1 ml-4">
-              <li>We're creating your account now (no signup needed!)</li>
-              <li>You'll receive login credentials in your email within 5 minutes</li>
-              <li>Click the "Start Training Now" button in that email</li>
+              <li>Check your email for login credentials (usually within a few minutes)</li>
+              <li>Sign in below to start Module 1 right away</li>
+              <li>Or use the &quot;Start Training Now&quot; button in that email</li>
             </ol>
-            <div className="mt-4 p-3 bg-blue-100 rounded border">
-              <p className="text-sm">
-                <strong>🚀 Coming Soon:</strong> Login credentials will be sent to your email address. 
-                No manual signup required - we've automated everything for you!
-              </p>
-            </div>
             <div className="mt-4 p-3 bg-green-100 rounded border border-green-300">
               <p className="text-sm text-green-800">
-                <strong>✅ Pro Tip:</strong> Check your spam folder if you don't see the email in 5 minutes. 
-                Your training will be immediately available once you log in.
+                <strong>Tip:</strong> Check your spam folder if you don&apos;t see the email. Your
+                training is ready as soon as you sign in.
               </p>
             </div>
           </div>
         </div>
 
         <div className="bg-white border rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-3">What's Next?</h2>
+          <h2 className="text-xl font-semibold mb-3">What&apos;s Next?</h2>
           <ul className="text-left space-y-2 text-gray-700">
-            <li>• You'll receive an order confirmation email shortly</li>
-            <li>• For physical products, we'll send tracking information once shipped</li>
-            <li>• For repair services, we'll email you a prepaid return label</li>
+            <li>• You&apos;ll receive an order confirmation email shortly</li>
+            <li>• For physical products, we&apos;ll send tracking information once shipped</li>
+            <li>• For repair services, we&apos;ll email you a prepaid return label</li>
             <li>• Questions? Contact us at support@flatearthequipment.com</li>
           </ul>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
-            href="/login"
+            href="/login?next=/training/module-1"
             className="px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors font-medium"
           >
-            Sign In / Create Account
+            Sign in to start training
           </Link>
           <Link
             href="/dashboard"

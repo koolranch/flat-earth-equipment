@@ -8,6 +8,7 @@ import { expect, test } from '@playwright/test';
 import {
   computeCanTakeExamFromAttempts,
   computeQuizBasedProgressPct,
+  filterTrainingModulesByOrder,
   resolveModuleByIdOrOrder,
   type TrainingModuleRow,
 } from '../../lib/training/quiz-complete-logic';
@@ -20,6 +21,12 @@ const TRAINING_MODULES: TrainingModuleRow[] = [
   { id: 'mod-5', course_id: 'course-1', title: 'Shutdown', order: 5 },
 ];
 
+const ALL_COURSE_MODULES: TrainingModuleRow[] = [
+  { id: 'mod-0', course_id: 'course-1', title: 'Introduction', order: 0 },
+  ...TRAINING_MODULES,
+  { id: 'mod-99', course_id: 'course-1', title: 'Course Completion', order: 99 },
+];
+
 test.describe('resolveModuleByIdOrOrder', () => {
   test('resolves module order 1 for mobile moduleId: 1', () => {
     const mod = resolveModuleByIdOrOrder(TRAINING_MODULES, 1);
@@ -30,6 +37,18 @@ test.describe('resolveModuleByIdOrOrder', () => {
   test('resolves by UUID string', () => {
     const mod = resolveModuleByIdOrOrder(TRAINING_MODULES, 'mod-3');
     expect(mod?.order).toBe(3);
+  });
+});
+
+test.describe('filterTrainingModulesByOrder', () => {
+  test('keeps orders 1–5 and ignores intro / completion', () => {
+    const filtered = filterTrainingModulesByOrder(ALL_COURSE_MODULES);
+    expect(filtered.map((m) => m.order)).toEqual([1, 2, 3, 4, 5]);
+    expect(filtered).toHaveLength(5);
+  });
+
+  test('empty input → empty output', () => {
+    expect(filterTrainingModulesByOrder([])).toEqual([]);
   });
 });
 
@@ -94,5 +113,19 @@ test.describe('Bearer auth contract (documentation)', () => {
     expect(source).toContain("from '@/lib/supabase/mobile-auth'");
     expect(source).toContain('getAuthUser');
     expect(source).not.toContain('createServerClient');
+  });
+
+  test('quiz-complete does not filter modules via PostgREST order= param', async () => {
+    const { readFile } = await import('node:fs/promises');
+    const { join } = await import('node:path');
+    const source = await readFile(
+      join(process.cwd(), 'app/api/training/quiz-complete/route.ts'),
+      'utf8',
+    );
+    expect(source).toContain('filterTrainingModulesByOrder');
+    expect(source).not.toContain(".gte('order'");
+    expect(source).not.toContain('.gte("order"');
+    expect(source).not.toContain(".lte('order'");
+    expect(source).not.toContain('.lte("order"');
   });
 });

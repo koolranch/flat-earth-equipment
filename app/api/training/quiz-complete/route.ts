@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getAuthUser } from '@/lib/supabase/mobile-auth';
 import {
   computeQuizBasedProgressPct,
+  filterTrainingModulesByOrder,
   resolveModuleByIdOrOrder,
 } from '@/lib/training/quiz-complete-logic';
 
@@ -121,21 +122,25 @@ export async function POST(req: NextRequest) {
       .maybeSingle();
 
     if (enrollment) {
-      const { data: trainingModules } = await client
-        .from('modules')
-        .select('id')
-        .eq('course_id', moduleData.course_id)
-        .gte('order', 1)
-        .lte('order', 5);
+      // Filter in JS — avoid PostgREST filters on the order column (collides with sort param → 400).
+      const trainingModules = filterTrainingModulesByOrder(allModules ?? []);
 
-      const { data: completedAttempts } = await client
+      const { data: completedAttempts, error: attemptsError } = await client
         .from('quiz_attempts')
         .select('module_id')
         .eq('user_id', user.id)
         .eq('course_id', moduleData.course_id)
         .eq('passed', true);
 
-      if (trainingModules && completedAttempts) {
+      if (attemptsError) {
+        console.error('[quiz-complete] Error loading quiz attempts:', attemptsError);
+        return NextResponse.json(
+          { error: 'Failed to load quiz attempts' },
+          { status: 500 },
+        );
+      }
+
+      if (completedAttempts) {
         const totalModules = trainingModules.length;
         const completedCount = new Set(completedAttempts.map((a) => a.module_id)).size;
         const newProgress = computeQuizBasedProgressPct(
@@ -151,13 +156,21 @@ export async function POST(req: NextRequest) {
           previous: enrollment.progress_pct,
         });
 
-        await client
+        const { error: updateError } = await client
           .from('enrollments')
           .update({
             progress_pct: newProgress,
             updated_at: new Date().toISOString(),
           })
           .eq('id', enrollment.id);
+
+        if (updateError) {
+          console.error('[quiz-complete] Error updating enrollment progress:', updateError);
+          return NextResponse.json(
+            { error: 'Failed to update enrollment progress' },
+            { status: 500 },
+          );
+        }
       }
     }
 

@@ -29,6 +29,18 @@ export function resolveModuleByIdOrOrder(
 }
 
 /**
+ * Training modules are orders 1–5. Filter in JS — never `.gte('order', …)` /
+ * `.lte('order', …)` against PostgREST (column name collides with the `order` sort param).
+ */
+export function filterTrainingModulesByOrder<T extends { order: number }>(
+  modules: T[],
+): T[] {
+  return modules.filter(
+    (m) => typeof m.order === 'number' && m.order >= 1 && m.order <= 5,
+  );
+}
+
+/**
  * Matches quiz-complete enrollment update: Math.round(passedModules / total * 100),
  * never below current progress_pct (protects exam-complete / legacy 100% rows).
  */
