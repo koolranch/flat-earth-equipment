@@ -35,18 +35,18 @@ Christopher provides external inputs only when needed (GSC screenshots, stock/co
 
 ## Phases
 
-### Phase 0 — Foundation (now) ✅ in progress
+### Phase 0 — Foundation ✅ complete
 
 - [x] SSR Product/ItemList schema, duplicate page 301, SKU pages live (Jul 7 deploy)
 - [x] Rank helper + project docs
-- [ ] Weekly monitoring automation live
-- [ ] Baseline snapshot committed under `scripts/seo/rank-snapshots/charger/`
+- [x] Weekly monitoring automation live
+- [x] Baseline snapshot committed under `scripts/seo/rank-snapshots/charger/`
 
-### Phase 1 — Measurement (no UX risk)
+### Phase 1 — Measurement (active — no UX risk)
 
-- Wire GA4/checkout visibility for charger price IDs (view → begin_checkout → purchase)
-- Monthly/weekly rank snapshot with URL-aware deltas
-- Optional: Supabase/Stripe order pull for charger SKUs (last 90 days) as revenue baseline
+- [ ] Wire GA4/checkout visibility for charger price IDs (view → begin_checkout → purchase)
+- [x] Monthly/weekly rank snapshot with URL-aware deltas
+- [ ] Optional: Supabase/Stripe order pull for charger SKUs (last 90 days) as revenue baseline
 
 ### Phase 2 — Convert traffic that already ranks
 

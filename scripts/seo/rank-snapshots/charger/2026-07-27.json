@@ -18,14 +18,13 @@
     },
     {
       "keyword": "hyster 4092995 charger",
-      "position": null,
-      "url": null,
-      "topCompetitor": "n/a",
-      "error": "Internal SE Server Error."
+      "position": 65,
+      "url": "/parts?category=Battery+Chargers&sales_type=direct&page=3",
+      "topCompetitor": "intellaparts.com"
     },
     {
       "keyword": "forklift battery charger module",
-      "position": 73,
+      "position": 74,
       "url": "/charger-modules",
       "topCompetitor": "efficharger.com"
     },
@@ -51,18 +50,17 @@
       "keyword": "81063577r",
       "position": 2,
       "url": "/charger-modules/act-quantum-48vdc",
-      "topCompetitor": "n/a"
+      "topCompetitor": "www.flatearthequipment.com"
     },
     {
       "keyword": "81063578r",
-      "position": null,
-      "url": null,
-      "topCompetitor": "n/a",
-      "error": "Internal SE Server Error."
+      "position": 2,
+      "url": "/charger-modules/act-quantum-80vdc",
+      "topCompetitor": "www.flatearthequipment.com"
     },
     {
       "keyword": "81063658r",
-      "position": 1,
+      "position": 2,
       "url": "/charger-modules/act-quantum-36vdc",
       "topCompetitor": "www.flatearthequipment.com"
     }
