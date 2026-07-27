@@ -17,6 +17,7 @@ import { trackWebCheckoutInitiated } from "@/lib/analytics/gtag";
 import { createTrainingCheckoutSessionFromForm } from "@/app/training/checkout/actions";
 import { TRAINING_PLANS } from "@/lib/training/plans";
 import ClickIdsHiddenInput from "@/components/checkout/ClickIdsHiddenInput";
+import FunnelStateHiddenInput from "@/components/checkout/FunnelStateHiddenInput";
 import type { Locale, MarketingDict } from "@/i18n";
 import { getMarketingDict } from "@/i18n";
 import type { SafetyTrafficSource } from "@/lib/safety/traffic-source";
@@ -116,6 +117,7 @@ function StickyCTAInner({
               <input type="hidden" name="prefillEmail" value={prefillEmail} />
             )}
             <ClickIdsHiddenInput />
+            <FunnelStateHiddenInput />
             <button
               type="submit"
               onClick={() => {

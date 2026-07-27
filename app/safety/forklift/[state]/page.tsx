@@ -8,6 +8,7 @@ import StateProductJsonLd from "@/components/state/StateProductJsonLd";
 import { getStateMetrics } from "@/lib/safety/stateMetrics";
 import HowItWorksStrip from "@/components/HowItWorksStrip";
 import PricingStrip from "@/components/training/PricingStrip";
+import CaptureClickIds from "@/components/checkout/CaptureClickIds";
 import { generatePageAlternates } from "@/app/seo-defaults";
 import SafetyScreenshots from "@/app/safety/components/SafetyScreenshots";
 import { getMarketingDict } from "@/i18n";
@@ -147,6 +148,7 @@ export default function StateForkliftPage({ params }: Props) {
 
   return (
     <>
+      <CaptureClickIds />
       {/* Enhanced SEO Product JSON-LD */}
       <StateProductJsonLd stateCode={info.code} />
       

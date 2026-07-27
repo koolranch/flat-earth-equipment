@@ -11,6 +11,7 @@ import SafetyHero from '@/components/safety/SafetyHero';
 import StatePersonalizedHero from '@/components/safety/StatePersonalizedHero';
 import LogoCloud from '@/components/safety/LogoCloud';
 import StickyCTA from '@/components/safety/StickyCTA';
+import CaptureClickIds from '@/components/checkout/CaptureClickIds';
 import FaqAccordion from '@/components/safety/FaqAccordion';
 import SafetyStateLinks from '@/components/safety/SafetyStateLinks';
 import ReasonsToJoin from '@/components/ReasonsToJoin';
@@ -130,6 +131,7 @@ export default async function SafetyLandingPage({
 
   return (
     <>
+      <CaptureClickIds />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(certificateJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(demoVideoJsonLd) }} />

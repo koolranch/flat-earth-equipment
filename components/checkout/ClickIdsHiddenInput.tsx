@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { getClickIds, type ClickIds } from '@/lib/attribution/getClickIds';
 
 /**
@@ -8,13 +8,14 @@ import { getClickIds, type ClickIds } from '@/lib/attribution/getClickIds';
  * <form action={createTrainingCheckoutSessionFromForm}> so they reach the
  * Stripe Checkout Session metadata for ad attribution.
  *
- * Mirrors the ReferralHiddenInput pattern. Reads on mount (client only); renders
- * nothing when no click ids are present.
+ * Uses useLayoutEffect (not useEffect) so ids are in the DOM before the first
+ * paint/interaction when possible — avoids a race where Buy is clicked before
+ * a deferred effect runs.
  */
 export default function ClickIdsHiddenInput() {
   const [clickIds, setClickIds] = useState<ClickIds>({});
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setClickIds(getClickIds());
   }, []);
 

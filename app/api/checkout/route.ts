@@ -549,6 +549,14 @@ export async function POST(req: NextRequest) {
           metadata[key] = value.trim();
         }
       }
+      if (metadata.gclid || metadata.gbraid || metadata.wbraid) {
+        console.log('[checkout] attached ad click ids', {
+          has_gclid: Boolean(metadata.gclid),
+          has_gbraid: Boolean(metadata.gbraid),
+          has_wbraid: Boolean(metadata.wbraid),
+          funnel_state: metadata.funnel_state || null,
+        });
+      }
     }
 
     const base = siteUrlFrom(req);

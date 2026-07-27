@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { createTrainingCheckoutSessionFromForm } from '@/app/training/checkout/actions';
 import { TRAINING_PLANS } from '@/lib/training/plans';
 import ClickIdsHiddenInput from '@/components/checkout/ClickIdsHiddenInput';
+import FunnelStateHiddenInput from '@/components/checkout/FunnelStateHiddenInput';
 import { trackWebCheckoutInitiated } from '@/lib/analytics/gtag';
 import { getMarketingDict } from '@/i18n';
 
@@ -63,6 +64,7 @@ export default function StickyCTA() {
         <form action={createTrainingCheckoutSessionFromForm}>
           <input type="hidden" name="priceId" value={TRAINING_PLANS.single.priceId} />
           <ClickIdsHiddenInput />
+          <FunnelStateHiddenInput />
           <button
             type="submit"
             onClick={() => {

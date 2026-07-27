@@ -6,6 +6,7 @@ import { createTrainingCheckoutSessionFromForm } from '@/app/training/checkout/a
 import Link from 'next/link';
 import AppDownloadCTA from '@/components/safety/AppDownloadCTA';
 import ClickIdsHiddenInput from '@/components/checkout/ClickIdsHiddenInput';
+import FunnelStateHiddenInput from '@/components/checkout/FunnelStateHiddenInput';
 import { trackWebCheckoutInitiated } from '@/lib/analytics/gtag';
 import type { Locale, MarketingDict } from '@/i18n';
 import { getMarketingDict } from '@/i18n';
@@ -106,6 +107,7 @@ export default function PricingStrip({
                 <Suspense><ReferralHiddenInput /></Suspense>
                 <Suspense><RequestParamsHiddenInputs /></Suspense>
                 <ClickIdsHiddenInput />
+                <FunnelStateHiddenInput />
                 <button 
                   type="submit" 
                   className={`w-full px-6 py-3 rounded-xl font-bold transition-all shadow-md hover:shadow-lg ${
@@ -169,6 +171,7 @@ export default function PricingStrip({
                 <Suspense><ReferralHiddenInput /></Suspense>
                 <Suspense><RequestParamsHiddenInputs /></Suspense>
                 <ClickIdsHiddenInput />
+                <FunnelStateHiddenInput />
                 <button
                   type="submit"
                   onClick={() => {
@@ -249,6 +252,7 @@ export default function PricingStrip({
                     <Suspense><ReferralHiddenInput /></Suspense>
                     <Suspense><RequestParamsHiddenInputs /></Suspense>
                     <ClickIdsHiddenInput />
+                    <FunnelStateHiddenInput />
                     <button 
                       type="submit" 
                       className="w-full px-6 py-3 rounded-xl font-bold transition-all shadow-md hover:shadow-lg bg-slate-900 text-white hover:bg-slate-800"

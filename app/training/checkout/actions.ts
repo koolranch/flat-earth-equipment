@@ -4,6 +4,11 @@
 import { redirect } from 'next/navigation';
 import { getTrainingPlanByPriceId, TRAINING_PLANS } from '@/lib/training/plans';
 import { supabaseServer } from '@/lib/supabase/server';
+import {
+  clickIdsFromCookies,
+  clickIdsFromFormData,
+  mergeServerClickIds,
+} from '@/lib/attribution/clickIdsFromRequest';
 
 export async function createCheckoutSession(planId: string) {
   return {
@@ -41,16 +46,19 @@ export async function createTrainingCheckoutSessionFromForm(formData: FormData):
     if (prefillEmail) askEmployerExtras.prefill_email = prefillEmail;
   }
 
-  // Google Ads click ids (injected by ClickIdsHiddenInput) → forwarded to the
-  // checkout API so they land in the Stripe Checkout Session metadata. This lets
-  // us attribute Stripe sales back to ad clicks (true ROAS).
-  const clickIds: Record<string, string> = {};
-  for (const key of ['gclid', 'gbraid', 'wbraid'] as const) {
-    const value = formData.get(key);
-    if (typeof value === 'string' && value.trim()) {
-      clickIds[key] = value.trim();
-    }
-  }
+  // Google Ads click ids: hidden inputs (ClickIdsHiddenInput) first, then fee_*
+  // cookies from CaptureClickIds / getClickIds persistence (covers hydration race
+  // and navigations that drop ?gclid= from the URL).
+  const clickIds = mergeServerClickIds(
+    clickIdsFromFormData(formData),
+    clickIdsFromCookies(),
+  );
+
+  const funnelStateRaw = formData.get('funnelState');
+  const funnelState =
+    typeof funnelStateRaw === 'string' && funnelStateRaw.trim()
+      ? funnelStateRaw.trim().toLowerCase()
+      : null;
 
   const response = await fetch(`${baseUrl}/api/checkout`, {
     method: 'POST',
@@ -66,6 +74,7 @@ export async function createTrainingCheckoutSessionFromForm(formData: FormData):
           is_unlimited: plan.id === 'unlimited',
           plan_id: plan.id,
           billing_label: plan.billingLabel || '',
+          ...(funnelState && { utm_state: funnelState }),
         }
       }],
       ...(referralCode && { referral_code: referralCode }),
@@ -100,6 +109,7 @@ export async function createExamUnlockCheckout(): Promise<void> {
 
   const plan = TRAINING_PLANS.single;
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com';
+  const clickIds = clickIdsFromCookies();
 
   const response = await fetch(`${baseUrl}/api/checkout`, {
     method: 'POST',
@@ -120,6 +130,7 @@ export async function createExamUnlockCheckout(): Promise<void> {
       }],
       prefill_source: 'exam_unlock',
       prefill_email: user!.email,
+      ...(Object.keys(clickIds).length > 0 && { click_ids: clickIds }),
     })
   });
 

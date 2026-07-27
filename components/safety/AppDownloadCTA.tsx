@@ -18,6 +18,7 @@ import {
 } from "@/lib/analytics/app-download";
 import { trackWebCheckoutInitiated } from "@/lib/analytics/gtag";
 import ClickIdsHiddenInput from "@/components/checkout/ClickIdsHiddenInput";
+import FunnelStateHiddenInput from "@/components/checkout/FunnelStateHiddenInput";
 import type { Locale, MarketingDict } from "@/i18n";
 import { getMarketingDict } from "@/i18n";
 
@@ -175,6 +176,7 @@ export default function AppDownloadCTA({
         <input type="hidden" name="prefillEmail" value={checkoutParams.prefillEmail} />
       )}
       <ClickIdsHiddenInput />
+      <FunnelStateHiddenInput />
       <button
         type="submit"
         onClick={() => {

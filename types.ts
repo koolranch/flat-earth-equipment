@@ -3045,30 +3045,42 @@ export type Database = {
           course_id: string | null
           course_slug: string | null
           created_at: string | null
+          funnel_state: string | null
+          gbraid: string | null
+          gclid: string | null
           id: string
           seats: number | null
           stripe_session_id: string | null
           user_id: string | null
+          wbraid: string | null
         }
         Insert: {
           amount_cents?: number | null
           course_id?: string | null
           course_slug?: string | null
           created_at?: string | null
+          funnel_state?: string | null
+          gbraid?: string | null
+          gclid?: string | null
           id?: string
           seats?: number | null
           stripe_session_id?: string | null
           user_id?: string | null
+          wbraid?: string | null
         }
         Update: {
           amount_cents?: number | null
           course_id?: string | null
           course_slug?: string | null
           created_at?: string | null
+          funnel_state?: string | null
+          gbraid?: string | null
+          gclid?: string | null
           id?: string
           seats?: number | null
           stripe_session_id?: string | null
           user_id?: string | null
+          wbraid?: string | null
         }
         Relationships: [
           {

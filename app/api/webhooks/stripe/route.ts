@@ -7,6 +7,7 @@ import { createReturnLabel } from '@/lib/shippo'
 // Ask-employer fulfillment (Prompt D) — gated by ENABLE_ASK_EMPLOYER_FULFILLMENT + session.metadata.request_id.
 import { runAskEmployerFulfillment, shouldSuppressEmployerSideEffects } from '@/lib/training/askEmployerFulfillment'
 import { scheduleCheckoutSaleNotify } from '@/lib/telegram/notifySale'
+import { attributionFieldsFromCheckoutMetadata } from '@/lib/attribution/orderAttribution'
 
 function isoFromUnix(ts?: number | null) {
   return ts ? new Date(ts * 1000).toISOString() : null
@@ -232,6 +233,10 @@ export async function POST(req: Request) {
         console.log(`✅ Found course ID: ${course.id} for slug: ${courseSlug}`)
         
         // Create order record first
+        // Attribution: copy gclid/gbraid/wbraid/funnel_state from Checkout Session
+        // metadata (set by /api/checkout from client click_ids). Lets us split Ads vs SEO.
+        const attribution = attributionFieldsFromCheckoutMetadata(session.metadata)
+
         const orderData = {
           user_id: user.id,
           course_id: course.id,
@@ -244,7 +249,11 @@ export async function POST(req: Request) {
           subscription_status: subscriptionSnapshot?.subscription_status || null,
           current_period_end: subscriptionSnapshot?.current_period_end || null,
           cancel_at_period_end: subscriptionSnapshot?.cancel_at_period_end || false,
-          ended_at: subscriptionSnapshot?.ended_at || null
+          ended_at: subscriptionSnapshot?.ended_at || null,
+          gclid: attribution.gclid,
+          gbraid: attribution.gbraid,
+          wbraid: attribution.wbraid,
+          funnel_state: attribution.funnel_state,
         }
         
         console.log('📦 Creating order record...')
