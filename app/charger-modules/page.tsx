@@ -102,7 +102,38 @@ export default function ChargersLanding() {
         </p>
       </header>
 
-      <section className="grid gap-12 md:grid-cols-2">
+      {/* Part-number index — pushes equity to dedicated SKU URLs for PN SERPs */}
+      <section className="max-w-4xl mx-auto">
+        <h2 className="text-lg font-bold text-slate-900 mb-3 text-center">
+          Shop by part number
+        </h2>
+        <ul className="flex flex-wrap justify-center gap-2">
+          {CHARGER_MODULES.map((m) => (
+            <li key={m.slug}>
+              <Link
+                href={`/charger-modules/${m.slug}`}
+                className="inline-flex items-center rounded-full border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-800 hover:border-canyon-rust hover:text-canyon-rust"
+              >
+                {m.partNumber === '6LA20671'
+                  ? `6LA20671 (${m.brand})`
+                  : m.crossRefPn
+                    ? `${m.crossRefPn} · ${m.partNumber}`
+                    : `${m.brand} ${m.partNumber}`}
+              </Link>
+            </li>
+          ))}
+          <li>
+            <Link
+              href="/parts/hyster-remanufactured-24v-battery-charger-4092995"
+              className="inline-flex items-center rounded-full border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-800 hover:border-canyon-rust hover:text-canyon-rust"
+            >
+              Hyster 4092995
+            </Link>
+          </li>
+        </ul>
+      </section>
+
+      <section id="charger-buy" className="grid gap-12 md:grid-cols-2 scroll-mt-24">
         {CHARGER_MODULES.map((m) => (
           <OptionSelectorCard key={m.id} module={m} locale={locale} />
         ))}

@@ -476,6 +476,12 @@ export default async function Page({
               >
                 Open charger selector
               </a>
+              <a
+                href="/charger-modules"
+                className="inline-flex items-center gap-2 px-6 py-3 border border-slate-500 text-white font-semibold rounded-lg hover:border-canyon-rust hover:text-canyon-rust transition-colors"
+              >
+                Need a charger module? Reman &amp; repair →
+              </a>
               <a 
                 href="/compatibility"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-900 font-semibold rounded-lg hover:bg-slate-100 transition-colors"

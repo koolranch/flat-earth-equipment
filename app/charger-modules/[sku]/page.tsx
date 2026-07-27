@@ -14,6 +14,8 @@ import {
 } from '@/lib/stripe';
 import QuoteButton from '@/components/QuoteButton';
 import FitmentValidator from '@/components/FitmentValidator';
+import StickyBottomCTA from '@/components/StickyBottomCTA';
+import ChargerViewTracker from '@/components/charger/ChargerViewTracker';
 import { getUserLocale } from '@/lib/getUserLocale';
 import { ShieldCheck, Truck, Clock, Wrench, ArrowLeft } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
@@ -108,8 +110,12 @@ interface PageProps {
 }
 
 function moduleMetaTitle(m: ChargerModule): string {
-  if (m.brand === 'ACT') {
-    return `ACT ${m.partNumber} Charger Module | ${m.crossRefPn} | Reman & Repair`;
+  // Lead with the searchable part number so PN SERPs prefer the SKU URL.
+  if (m.partNumber === '6LA20671') {
+    return `6LA20671 ${m.brand} Forklift Charger Module | Reman & Repair`;
+  }
+  if (m.brand === 'ACT' && m.crossRefPn) {
+    return `${m.crossRefPn} ACT ${m.partNumber} Charger Module | Reman & Repair`;
   }
   return `${m.brand} ${m.partNumber} Charger Module | Reman & Repair`;
 }
@@ -242,15 +248,28 @@ function buildModuleJsonLd(m: ChargerModule) {
 function ChargerModulePage({ module }: { module: ChargerModule }) {
   const locale = getUserLocale();
   const siblings = CHARGER_MODULES.filter((m) => m.slug !== module.slug);
+  const reman = module.offers.find((o) => o.label === 'Reman Exchange');
   const crossRefLine = module.crossRefPn
     ? ` This module cross-references Hyster/Yale Premier part number ${module.crossRefPn}.`
     : '';
+  const h1 =
+    module.partNumber === '6LA20671'
+      ? `6LA20671 — ${module.brand} Forklift Charger Module`
+      : module.brand === 'ACT' && module.crossRefPn
+        ? `${module.crossRefPn} — ACT ${module.partNumber} Charger Module`
+        : `${module.brand} ${module.partNumber} Forklift Charger Module`;
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildModuleJsonLd(module)) }}
+      />
+      <ChargerViewTracker
+        slug={module.slug}
+        brand={module.brand}
+        partNumber={module.partNumber}
+        priceCents={reman?.price ?? module.offers[0]?.price ?? 0}
       />
 
       <main className="container mx-auto px-4 lg:px-8 py-8 pb-24 sm:pb-12 space-y-12">
@@ -266,8 +285,12 @@ function ChargerModulePage({ module }: { module: ChargerModule }) {
         </nav>
 
         <header className="max-w-3xl space-y-4">
+          <p className="text-sm font-semibold uppercase tracking-wide text-canyon-rust">
+            Part # {module.partNumber}
+            {module.crossRefPn ? ` · Cross-ref ${module.crossRefPn}` : ''}
+          </p>
           <h1 className="text-3xl lg:text-4xl font-extrabold text-slate-900">
-            {module.brand} {module.partNumber} Forklift Charger Module
+            {h1}
           </h1>
           <p className="text-lg text-slate-600 leading-relaxed">
             Remanufactured {module.brand} {module.partNumber} charger module, bench-tested to exceed
@@ -278,7 +301,7 @@ function ChargerModulePage({ module }: { module: ChargerModule }) {
         </header>
 
         {/* Buy card */}
-        <section className="max-w-xl">
+        <section id="charger-buy" className="max-w-xl scroll-mt-24">
           <OptionSelectorCard module={module} locale={locale} showDetailsLink={false} />
         </section>
 
@@ -383,9 +406,17 @@ function ChargerModulePage({ module }: { module: ChargerModule }) {
             >
               All Charger Modules →
             </Link>
+            <Link
+              href="/parts/hyster-remanufactured-24v-battery-charger-4092995"
+              className="px-4 py-2 bg-white border border-slate-300 rounded-lg text-sm font-medium text-slate-700 hover:border-canyon-rust hover:text-canyon-rust transition-colors"
+            >
+              Hyster 4092995 Battery Charger
+            </Link>
           </div>
         </section>
       </main>
+
+      <StickyBottomCTA locale={locale} targetId="charger-buy" />
     </>
   );
 }

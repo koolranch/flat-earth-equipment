@@ -35,36 +35,36 @@ Christopher provides external inputs only when needed (GSC screenshots, stock/co
 
 ## Phases
 
-### Phase 0 — Foundation (now) ✅ in progress
+### Phase 0 — Foundation ✅
 
 - [x] SSR Product/ItemList schema, duplicate page 301, SKU pages live (Jul 7 deploy)
 - [x] Rank helper + project docs
-- [ ] Weekly monitoring automation live
-- [ ] Baseline snapshot committed under `scripts/seo/rank-snapshots/charger/`
+- [x] Weekly monitoring automation live (Cloud Agent secrets + test run)
+- [x] Baseline snapshot under `scripts/seo/rank-snapshots/charger/`
 
-### Phase 1 — Measurement (no UX risk)
+### Phase 1 — Measurement ✅ (code)
 
-- Wire GA4/checkout visibility for charger price IDs (view → begin_checkout → purchase)
-- Monthly/weekly rank snapshot with URL-aware deltas
-- Optional: Supabase/Stripe order pull for charger SKUs (last 90 days) as revenue baseline
+- [x] GA4 view_item / add_to_cart / begin_checkout + `charger_module_*` events
+- [x] Weekly rank snapshot with URL-aware deltas (automation)
+- [x] Price ID list helper: `npx tsx scripts/seo/charger-revenue-baseline.ts`
 
-### Phase 2 — Convert traffic that already ranks
+### Phase 2 — Convert traffic that already ranks ✅ (code)
 
-- Sticky CTA + clearer core-deposit math on SKU pages
-- Verify repair prepaid-label copy matches real FSIP fulfillment
-- Hub cards: stronger path to SKU pages for part-number searchers who land on hub
+- [x] Sticky CTA + clearer core-deposit math on SKU pages
+- [x] Removed unverified prepaid-label claims from Repair & Return offer copy
+- [x] Hub part-number index + stronger PN links on cards
 
-### Phase 3 — Win `6la20671` on Enersys SKU URL
+### Phase 3 — Win `6la20671` on Enersys SKU URL ✅ (code)
 
-- Title/H1 lead with exact PN
-- Internal links with PN anchors (hub, battery-chargers, footer where appropriate)
-- Re-check SERP: prefer Enersys SKU over hub for that query
+- [x] Title/H1 lead with exact PN (Enersys/Hawker 6LA20671 + ACT cross-refs)
+- [x] Internal links from hub + `/battery-chargers`
+- [ ] Re-check SERP after deploy (Monday automation / 2–6 weeks)
 
-### Phase 4 — Expand only where ROI is clear
+### Phase 4 — Expand only where ROI is clear ✅ partial
 
-- Dedicated Hyster `4092995` (or keep as battery-charger PDP — pick one URL)
-- Fleet quote tracking (`charger-modules-fleet`)
-- Optional Google Ads Search on proven PNs only → SKU final URLs + purchase conversion
+- [x] Keep Hyster `4092995` on existing PDP; link from hub + SKU pages
+- [x] Fleet quote tracking (`generate_lead` / `charger_module_fleet_quote_open`)
+- [ ] Optional Google Ads Search on proven PNs — **deferred** until GA4 path verified
 
 ## Do not change (without explicit approve)
 

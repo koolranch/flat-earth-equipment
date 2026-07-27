@@ -3,7 +3,14 @@ import { useState, useEffect } from "react";
 
 type Locale = 'en' | 'es';
 
-export default function StickyBottomCTA({ locale = 'en' }: { locale?: Locale }) {
+export default function StickyBottomCTA({
+  locale = 'en',
+  targetId = 'charger-buy',
+}: {
+  locale?: Locale;
+  /** Element id to scroll to (SKU pages + hub share this default). */
+  targetId?: string;
+}) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -28,6 +35,11 @@ export default function StickyBottomCTA({ locale = 'en' }: { locale?: Locale }) 
   }[locale];
 
   const scrollToCards = () => {
+    const byId = document.getElementById(targetId);
+    if (byId) {
+      byId.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
     const cardsSection = document.querySelector('section[class*="grid"]');
     if (cardsSection) {
       cardsSection.scrollIntoView({ behavior: 'smooth' });

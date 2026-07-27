@@ -4,6 +4,7 @@ import { useCart } from '@/hooks/useCart';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 import { ReactNode, useState } from 'react';
+import { trackChargerAddToCart } from '@/lib/analytics/charger-modules';
 
 interface LegacyAddToCartProps {
   sku: string; // Stripe Price ID
@@ -14,6 +15,9 @@ interface LegacyAddToCartProps {
     moduleId?: string;
     offer?: string;
     category?: string;
+    brand?: string;
+    partNumber?: string;
+    slug?: string;
     [key: string]: any;
   };
   className?: string;
@@ -36,9 +40,23 @@ function AddToCartToCartLegacy({
     const itemId = meta?.moduleId ? `${meta.moduleId}-${meta.offer || 'default'}` : sku;
     
     // Create display name that includes offer type
-    const displayName = meta?.offer 
-      ? `Charger Module (${meta.offer})`
-      : 'Charger Module';
+    const displayName = meta?.partNumber
+      ? `${meta.brand ? `${meta.brand} ` : ''}${meta.partNumber} (${meta.offer || 'Charger Module'})`
+      : meta?.offer
+        ? `Charger Module (${meta.offer})`
+        : 'Charger Module';
+
+    if (meta?.moduleId || meta?.category === 'Charger Modules') {
+      trackChargerAddToCart({
+        slug: meta?.slug,
+        brand: meta?.brand,
+        partNumber: meta?.partNumber,
+        priceId: sku,
+        priceCents: price,
+        offer: meta?.offer || 'Reman Exchange',
+        moduleId: meta?.moduleId,
+      });
+    }
 
     addItem({
       id: itemId,
@@ -48,7 +66,7 @@ function AddToCartToCartLegacy({
       quantity: qty,
       has_core_charge: meta?.hasCore || false,
       core_charge: meta?.coreCharge || 0,
-      category: meta?.category,
+      category: meta?.category || (meta?.moduleId ? 'Charger Modules' : undefined),
       metadata: meta, // Store metadata for checkout
     });
     

@@ -50,29 +50,60 @@ export default function OptionSelectorCard({ module, locale = 'en', showDetailsL
           className="rounded-lg object-contain mx-auto transition-transform duration-300 group-hover:scale-105"
           priority
         />
-        {/* Stock Badge */}
+        {/* Stock Badge — no fabricated unit counts */}
         <div className="absolute top-2 left-2 flex items-center gap-2 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-md border border-green-200">
           <span className="inline-flex items-center text-xs font-semibold text-green-700">
             ✓ In Stock
           </span>
-          <span className="text-xs text-slate-600">3 units available</span>
         </div>
       </div>
 
       {/* Brand + Part Number Line */}
       <div className="text-center space-y-1">
         <p className="text-sm text-gray-500 font-medium">
-          {module.brand} • {module.partNumber}
+          {module.brand} •{' '}
+          {showDetailsLink ? (
+            <Link
+              href={`/charger-modules/${module.slug}`}
+              className="font-semibold text-slate-800 hover:text-canyon-rust hover:underline"
+            >
+              {module.partNumber}
+              {module.crossRefPn ? ` / ${module.crossRefPn}` : ''}
+            </Link>
+          ) : (
+            <span className="font-semibold text-slate-800">
+              {module.partNumber}
+              {module.crossRefPn ? ` / ${module.crossRefPn}` : ''}
+            </span>
+          )}
         </p>
         {showDetailsLink && (
           <Link
             href={`/charger-modules/${module.slug}`}
             className="inline-block text-sm font-medium text-canyon-rust hover:underline"
           >
-            {locale === 'es' ? 'Ver especificaciones y detalles →' : 'View full specs & details →'}
+            {locale === 'es'
+              ? `Ver ${module.partNumber} especificaciones →`
+              : `Shop ${module.partNumber} — full specs & details →`}
           </Link>
         )}
       </div>
+
+      {/* Core deposit math above the fold for Reman Exchange */}
+      {choice === 'Reman Exchange' && remanOffer && (
+        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950">
+          <p className="font-semibold">
+            Due today: {formatUsd(remanOffer.price + CORE_DEPOSIT)}
+            <span className="font-normal text-amber-800">
+              {' '}
+              ({formatUsd(remanOffer.price)} + {formatUsd(CORE_DEPOSIT)} refundable core)
+            </span>
+          </p>
+          <p className="mt-1 text-amber-900/90">
+            Net after you return your old module: <strong>{formatUsd(remanOffer.price)}</strong>
+          </p>
+        </div>
+      )}
 
       {/* Radio selector */}
       <fieldset className="space-y-3">
@@ -158,7 +189,11 @@ export default function OptionSelectorCard({ module, locale = 'en', showDetailsL
           moduleId: module.id, 
           offer: choice,
           coreCharge: offer.coreCharge || 0,
-          hasCore: offer.label === "Reman Exchange" && offer.coreCharge
+          hasCore: offer.label === "Reman Exchange" && !!offer.coreCharge,
+          category: 'Charger Modules',
+          brand: module.brand,
+          partNumber: module.partNumber,
+          slug: module.slug,
         }}
         className="w-full bg-canyon-rust py-3 rounded-lg text-white font-semibold hover:bg-canyon-rust/90"
       >

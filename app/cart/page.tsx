@@ -5,6 +5,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { loadStripe } from '@stripe/stripe-js';
 import { useState, useEffect } from 'react';
+import {
+  isChargerModulePriceId,
+  trackChargerBeginCheckout,
+} from '@/lib/analytics/charger-modules';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
@@ -55,6 +59,32 @@ export default function CartPage() {
 
   const handleCheckout = async () => {
     try {
+      const chargerItems = items.filter(
+        (item) =>
+          item.category === 'Charger Modules' ||
+          isChargerModulePriceId(item.stripe_price_id) ||
+          !!item.metadata?.moduleId
+      );
+      if (chargerItems.length > 0) {
+        trackChargerBeginCheckout({
+          value: chargerItems.reduce(
+            (sum, item) =>
+              sum +
+              item.price * item.quantity +
+              ((item.has_core_charge && item.core_charge) ? item.core_charge * item.quantity : 0),
+            0
+          ),
+          items: chargerItems.map((item) => ({
+            priceId: item.stripe_price_id,
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+            offer: typeof item.metadata?.offer === 'string' ? item.metadata.offer : undefined,
+            slug: typeof item.metadata?.slug === 'string' ? item.metadata.slug : undefined,
+          })),
+        });
+      }
+
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
