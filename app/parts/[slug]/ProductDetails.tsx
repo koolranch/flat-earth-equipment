@@ -28,6 +28,7 @@ import {
   getWholesaleCostUsd,
   qualifiesForSeatFreeFreight,
 } from '@/lib/parts/seatFreight';
+import { lithiumCartPathsForProduct } from '@/constants/lithiumRhinoSeo';
 
 interface Variant {
   id: string;
@@ -126,7 +127,11 @@ export default function ProductDetails({
 }: ProductDetailsProps) {
   const [selected, setSelected] = useState<Variant | null>(variants?.[0] || null);
   const isRubberTrack = part.category === 'Rubber Tracks';
+  const isLithiumBattery = part.category === 'Lithium Batteries';
   const isSeatListing = isSeatCategory(part.category, part.category_slug);
+  const lithiumCartPaths = isLithiumBattery
+    ? lithiumCartPathsForProduct({ metadata: part.metadata })
+    : [];
   const [quantity, setQuantity] = useState(isRubberTrack ? 2 : 1);
   const { addItem } = useCart();
 
@@ -669,6 +674,42 @@ export default function ProductDetails({
             <div className="pt-4">{addToCartButton}</div>
           </div>
         </div>
+      )}
+
+      {isLithiumBattery && (
+        <section className="mt-8 space-y-4">
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
+            <h2 className="text-lg font-bold text-slate-900 mb-1">HazMat ground shipping</h2>
+            <p className="text-sm text-slate-700 leading-relaxed">
+              Lithium Rhino packs ship Class 9 / UN3480 ground freight only. Freight is calculated at
+              checkout by weight (about $99–$349 for a single battery). Orders of{' '}
+              <strong>3 or more batteries ship free</strong>.
+            </p>
+          </div>
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+            <h2 className="text-lg font-bold text-slate-900 mb-2">Find the right kit for your cart</h2>
+            <p className="text-sm text-slate-600 mb-3">
+              Not sure this is the right capacity? Start from your cart model or browse all Lithium Rhino kits.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <Link
+                href="/lithium-batteries"
+                className="inline-flex items-center rounded-lg bg-canyon-rust px-4 py-2 text-sm font-semibold text-white hover:bg-orange-700"
+              >
+                All lithium batteries →
+              </Link>
+              {lithiumCartPaths.map((cart) => (
+                <Link
+                  key={cart.href}
+                  href={cart.href}
+                  className="inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-800 hover:border-canyon-rust"
+                >
+                  {cart.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
       )}
 
       {/* Compatibility — JCB keeps Loadall/loader groupings; all other brands show flat model chips */}

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Battery, ShieldCheck, Truck, Wrench, Zap, Snowflake, Cpu, Award } from 'lucide-react';
 import { generatePageAlternates } from '@/app/seo-defaults';
 import { CART_MODELS } from '@/constants/golfCartModels';
+import { LITHIUM_HUB_FEATURED_KITS } from '@/constants/lithiumRhinoSeo';
 
 export const dynamic = 'force-static';
 export const revalidate = 3600;
@@ -195,21 +196,93 @@ export default async function LithiumBatteriesLanding() {
           In-stock LiFePO4 conversion kits and replacement batteries for EZGO, Club Car, and Yamaha.
           50% more range, 60% less weight, 12+ year lifespan — backed by an industry-leading 8-year warranty.
         </p>
-        <div className="flex flex-wrap justify-center gap-3 pt-2">
-          <span className="bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full font-medium">
-            ✓ 6,000+ Charge Cycles
-          </span>
-          <span className="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full font-medium">
-            ✓ 8-Year Warranty
-          </span>
-          <span className="bg-purple-100 text-purple-800 text-sm px-3 py-1 rounded-full font-medium">
-            ✓ IP65 Weatherproof
-          </span>
-          <span className="bg-amber-100 text-amber-800 text-sm px-3 py-1 rounded-full font-medium">
-            ✓ Free Shipping on 3+ Batteries
-          </span>
+        <div className="flex flex-wrap justify-center gap-3 pt-3">
+          <a
+            href="#kits"
+            className="inline-flex items-center justify-center bg-canyon-rust text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-700 transition-colors min-h-[44px]"
+          >
+            Shop conversion kits
+          </a>
+          <a
+            href="#find-your-cart"
+            className="inline-flex items-center justify-center border border-slate-300 bg-white text-slate-900 px-6 py-3 rounded-lg font-semibold hover:border-orange-300 hover:bg-orange-50 transition-colors min-h-[44px]"
+          >
+            Find my cart
+          </a>
         </div>
+        <p className="text-sm text-slate-500 pt-1">
+          6,000+ cycles · 8-year warranty · IP65 · Free HazMat freight on 3+ batteries
+        </p>
       </header>
+
+      {/* ─────────── FIND YOUR CART (above fold for convert) ─────────── */}
+      <section id="find-your-cart" className="bg-orange-50 border border-orange-200 rounded-2xl p-8 space-y-4">
+        <div className="text-center space-y-2">
+          <h2 className="text-2xl font-bold text-slate-900">Find the Right Kit for Your Cart</h2>
+          <p className="text-slate-700 max-w-2xl mx-auto">
+            Cart-specific install notes, recommended Lithium Rhino SKUs, and FAQs for the most popular models.
+          </p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-2">
+          {CART_MODELS.sort((a, b) => {
+            const order: Record<string, number> = { High: 0, Medium: 1, Niche: 2 };
+            return order[a.popularity] - order[b.popularity];
+          }).map((cart) => (
+            <Link
+              key={cart.slug}
+              href={`/lithium-batteries/${cart.slug}`}
+              className="bg-white border border-slate-200 hover:border-orange-300 hover:shadow-md rounded-lg px-4 py-3 transition-all min-h-[44px]"
+            >
+              <div className="flex items-start justify-between gap-2">
+                <div>
+                  <p className="font-semibold text-slate-900">{cart.fullName}</p>
+                  <p className="text-xs text-slate-500 mt-1">
+                    {cart.yearRange} · {cart.voltage}
+                  </p>
+                </div>
+                <span className="text-orange-500 text-xl" aria-hidden>
+                  →
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ─────────── FEATURED BRAND / Ah DEEP LINKS ─────────── */}
+      <section className="space-y-4" aria-labelledby="popular-kits-heading">
+        <div className="text-center space-y-2">
+          <h2 id="popular-kits-heading" className="text-2xl font-bold text-slate-900">
+            Popular Lithium Rhino Kits
+          </h2>
+          <p className="text-slate-600 max-w-2xl mx-auto">
+            Jump straight to the voltage and capacity you need — complete conversion kits with charger and hardware.
+          </p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {LITHIUM_HUB_FEATURED_KITS.map((kit) => {
+            const row = batteries.find((b) => b.slug === kit.slug);
+            return (
+              <Link
+                key={kit.slug}
+                href={`/parts/${kit.slug}`}
+                className="rounded-xl border border-slate-200 bg-white p-5 hover:border-orange-300 hover:shadow-md transition-all min-h-[44px]"
+              >
+                <p className="text-xs font-semibold uppercase tracking-wide text-canyon-rust">
+                  Lithium Rhino
+                </p>
+                <p className="text-lg font-bold text-slate-900 mt-1">{kit.label}</p>
+                <p className="text-sm text-slate-600 mt-2">{kit.blurb}</p>
+                {row && (
+                  <p className="text-xl font-bold text-orange-600 mt-3">
+                    ${Number(row.price).toLocaleString()}
+                  </p>
+                )}
+              </Link>
+            );
+          })}
+        </div>
+      </section>
 
       {/* ─────────── WHY LITHIUM ─────────── */}
       <section className="bg-slate-50 rounded-2xl p-8 md:p-12">
@@ -233,7 +306,7 @@ export default async function LithiumBatteriesLanding() {
       </section>
 
       {/* ─────────── CONVERSION KITS BY VOLTAGE ─────────── */}
-      <section className="space-y-12">
+      <section id="kits" className="space-y-12">
         <div className="text-center space-y-2">
           <h2 className="text-3xl font-bold text-slate-900">Conversion Kits</h2>
           <p className="text-slate-600 max-w-2xl mx-auto">
@@ -261,38 +334,6 @@ export default async function LithiumBatteriesLanding() {
             </div>
           );
         })}
-      </section>
-
-      {/* ─────────── BROWSE BY CART MODEL ─────────── */}
-      <section className="bg-orange-50 border border-orange-200 rounded-2xl p-8 space-y-4">
-        <div className="text-center space-y-2">
-          <h2 className="text-2xl font-bold text-slate-900">Find the Right Kit for Your Cart</h2>
-          <p className="text-slate-700 max-w-2xl mx-auto">
-            Cart-specific install notes, recommended SKUs, and FAQs for the most popular models.
-          </p>
-        </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-2">
-          {CART_MODELS.sort((a, b) => {
-            const order: Record<string, number> = { High: 0, Medium: 1, Niche: 2 };
-            return order[a.popularity] - order[b.popularity];
-          }).map((cart) => (
-            <Link
-              key={cart.slug}
-              href={`/lithium-batteries/${cart.slug}`}
-              className="bg-white border border-slate-200 hover:border-orange-300 hover:shadow-md rounded-lg px-4 py-3 transition-all"
-            >
-              <div className="flex items-start justify-between gap-2">
-                <div>
-                  <p className="font-semibold text-slate-900">{cart.fullName}</p>
-                  <p className="text-xs text-slate-500 mt-1">
-                    {cart.yearRange} · {cart.voltage}
-                  </p>
-                </div>
-                <span className="text-orange-500 text-xl">→</span>
-              </div>
-            </Link>
-          ))}
-        </div>
       </section>
 
       {/* ─────────── REPLACEMENT BATTERIES ─────────── */}
@@ -329,6 +370,20 @@ export default async function LithiumBatteriesLanding() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* ─────────── Buying guide (generic commercial internal link) ─────────── */}
+      <section className="rounded-2xl border border-slate-200 bg-white p-8 text-center space-y-3">
+        <h2 className="text-2xl font-bold text-slate-900">Lithium vs lead-acid — what to buy</h2>
+        <p className="text-slate-600 max-w-2xl mx-auto">
+          Range, weight, warranty, and total cost of ownership for golf cart battery upgrades — then pick a kit above.
+        </p>
+        <Link
+          href="/insights/lithium-vs-lead-acid-golf-cart-batteries-2026-guide"
+          className="inline-flex items-center gap-2 text-canyon-rust font-semibold hover:underline min-h-[44px]"
+        >
+          Read the 2026 lithium golf cart battery guide →
+        </Link>
       </section>
 
       {/* ─────────── Cross-promotion to Forklift Charger Modules ─────────── */}
@@ -394,6 +449,13 @@ export default async function LithiumBatteriesLanding() {
 // ─────────────────────────────────────────────────────────────────────────────
 function ProductCard({ battery }: { battery: BatteryRow }) {
   const variant = battery.metadata?.variant;
+  const voltage = battery.metadata?.voltage as string | undefined;
+  const capacity = battery.metadata?.capacity as string | undefined;
+  const productType = battery.metadata?.product_type === 'battery' ? 'Battery only' : 'Conversion kit';
+  const shortLabel =
+    voltage && capacity
+      ? `Lithium Rhino ${voltage} ${capacity}${variant === 'heated' ? ' Heated' : variant === 'cube' ? ' Cube' : variant === 'goliath' ? ' Goliath' : ''}`
+      : battery.name;
   const variantBadge =
     variant === 'heated' ? { label: 'HEATED', color: 'bg-blue-500' }
     : variant === 'cube' ? { label: 'CUBE', color: 'bg-purple-500' }
@@ -423,8 +485,9 @@ function ProductCard({ battery }: { battery: BatteryRow }) {
         </span>
       </div>
       <div className="p-4 space-y-2">
+        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{productType}</p>
         <h4 className="font-semibold text-slate-900 line-clamp-2 group-hover:text-orange-600">
-          {battery.name}
+          {shortLabel}
         </h4>
         <div className="flex items-baseline justify-between">
           <span className="text-2xl font-bold text-orange-600">${battery.price.toLocaleString()}</span>

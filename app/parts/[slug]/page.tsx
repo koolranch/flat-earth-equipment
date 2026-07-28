@@ -14,6 +14,10 @@ import {
 } from '@/lib/parts/vendorOemPrefix';
 import { getRubberTrackIntro } from '@/lib/parts/rubberTrackUtils';
 import { getEffectiveWarrantyMonths } from '@/lib/parts/aftermarketWarranty';
+import {
+  buildLithiumRhinoMetaDescription,
+  buildLithiumRhinoMetaTitle,
+} from '@/constants/lithiumRhinoSeo';
 import RelatedResources from '@/components/seo/RelatedResources';
 import type { RelatedTrack } from '@/lib/parts/rubberTrackUtils';
 
@@ -314,10 +318,16 @@ function buildPartMetaDescription(product: {
   is_in_stock?: boolean | null;
   has_core_charge?: boolean | null;
   core_charge?: number | null;
+  sku?: string | null;
   metadata?: Record<string, unknown> | null;
 }): string {
   if (product.category === 'Rubber Tracks') {
     return truncateDescription(getRubberTrackIntro(product.description ?? undefined));
+  }
+
+  const lithiumDesc = buildLithiumRhinoMetaDescription(product);
+  if (lithiumDesc) {
+    return truncateDescription(lithiumDesc);
   }
 
   const meta = product.metadata ?? {};
@@ -357,7 +367,14 @@ function buildPartMetaDescription(product: {
 function buildPartMetaTitle(customerName: string, product: {
   sales_type?: string | null;
   is_in_stock?: boolean | null;
+  name?: string | null;
+  sku?: string | null;
+  category?: string | null;
+  metadata?: Record<string, unknown> | null;
 }): string {
+  const lithiumTitle = buildLithiumRhinoMetaTitle(product);
+  if (lithiumTitle) return lithiumTitle;
+
   const shipSuffix =
     product.sales_type === 'direct' && product.is_in_stock !== false
       ? ' | Same-Day Ship'
