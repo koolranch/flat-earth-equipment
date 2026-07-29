@@ -8,6 +8,7 @@ import {
   getCustomerProductName,
 } from '@/lib/parts/vendorOemPrefix';
 import { getSerialLookupPath } from '@/lib/parts/serialLookupRoutes';
+import { cabGlassHubHrefForPart } from '@/lib/parts/cabGlassLinks';
 import {
   formatTrackLabel,
   getRubberTrackIntro,
@@ -128,7 +129,12 @@ export default function ProductDetails({
   const [selected, setSelected] = useState<Variant | null>(variants?.[0] || null);
   const isRubberTrack = part.category === 'Rubber Tracks';
   const isLithiumBattery = part.category === 'Lithium Batteries';
+  const isCabGlass =
+    part.category_slug === 'cab-glass' || part.category === 'Cab Glass';
   const isSeatListing = isSeatCategory(part.category, part.category_slug);
+  const cabGlassHubHref = isCabGlass
+    ? cabGlassHubHrefForPart(part.brand, part.compatible_models)
+    : '/cab-glass';
   const lithiumCartPaths = isLithiumBattery
     ? lithiumCartPathsForProduct({ metadata: part.metadata })
     : [];
@@ -709,6 +715,24 @@ export default function ProductDetails({
               ))}
             </div>
           </div>
+        </section>
+      )}
+
+      {isCabGlass && (
+        <section className="mt-8 rounded-xl border border-slate-200 bg-slate-50 p-5">
+          <h2 className="text-lg font-bold text-slate-900 mb-2">
+            Find cab glass for your machine
+          </h2>
+          <p className="text-sm text-slate-600 mb-3">
+            Shop door, windshield, side, rear, and roof panels by brand and model —
+            or open the hub pre-filtered for this listing.
+          </p>
+          <Link
+            href={cabGlassHubHref}
+            className="inline-flex items-center rounded-lg bg-canyon-rust px-4 py-2 text-sm font-semibold text-white hover:bg-orange-700 min-h-[44px]"
+          >
+            Shop all cab glass by machine →
+          </Link>
         </section>
       )}
 

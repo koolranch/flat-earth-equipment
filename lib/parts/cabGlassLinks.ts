@@ -3,6 +3,8 @@
  * Models chosen from published CPA glass intake (high-volume SSL/CTL / mini-ex).
  */
 
+import { getDisplayBrand } from '@/lib/parts/displayBrand';
+
 export type CabGlassModelLink = {
   /** Customer-facing machine model label */
   model: string;
@@ -126,5 +128,23 @@ export function cabGlassHubHref(link: CabGlassModelLink): string {
     brand: link.brandLabel,
     model: link.model,
   });
+  return `/cab-glass?${params.toString()}`;
+}
+
+/**
+ * PDP → hub deep-link. Prefills GlassFinder brand (and first fitment model
+ * when present). Accessories / unknown brands land on the bare hub.
+ */
+export function cabGlassHubHrefForPart(
+  brand?: string | null,
+  compatibleModels?: string[] | null
+): string {
+  const brandLabel = getDisplayBrand(brand);
+  if (!brand?.trim() || brandLabel.toLowerCase() === 'universal') {
+    return '/cab-glass';
+  }
+  const params = new URLSearchParams({ brand: brandLabel });
+  const model = compatibleModels?.find((m) => typeof m === 'string' && m.trim());
+  if (model) params.set('model', model.trim());
   return `/cab-glass?${params.toString()}`;
 }

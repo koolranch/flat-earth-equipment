@@ -249,11 +249,18 @@ function buildBreadcrumbSchema(product: any, slug: string) {
     { name: 'Parts', item: `${SITE_URL}/parts` },
   ];
 
-  // If this is a Lithium Battery, link to the brand landing page
+  // Hub categories breadcrumb to their landing pages (not catalog filters)
   if (product.category === 'Lithium Batteries') {
     items.push({ name: 'Lithium Batteries', item: `${SITE_URL}/lithium-batteries` });
   } else if (product.category === 'Charger Modules') {
     items.push({ name: 'Charger Modules', item: `${SITE_URL}/charger-modules` });
+  } else if (
+    product.category === 'Cab Glass' ||
+    product.category_slug === 'cab-glass'
+  ) {
+    items.push({ name: 'Cab Glass', item: `${SITE_URL}/cab-glass` });
+  } else if (product.category === 'Rubber Tracks') {
+    items.push({ name: 'Rubber Tracks', item: `${SITE_URL}/rubber-tracks` });
   } else if (product.category) {
     items.push({
       name: product.category,
