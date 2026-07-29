@@ -1,0 +1,45 @@
+name: Fix JCB 320/E9653 starter copy
+
+on:
+  push:
+    branches:
+      - cursor/jcb-320e9653-starter-copy-5146
+    paths:
+      - 'scripts/fix-jcb-320e9653-starter-copy.ts'
+      - '.github/workflows/fix-jcb-320e9653-starter-copy.yml'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run only (no Supabase writes)'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Update part name and description
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" = "true" ]; then
+            npx tsx scripts/fix-jcb-320e9653-starter-copy.ts --dry-run
+          else
+            npx tsx scripts/fix-jcb-320e9653-starter-copy.ts
+          fi
