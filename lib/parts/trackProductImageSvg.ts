@@ -113,8 +113,8 @@ export function buildTrackProductImageSvg(input: TrackProductImageInput): string
   <text x="80" y="1125" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="34" font-weight="600" fill="#334155">${escapeXml(treadLabel)} tread · ${escapeXml(input.modelLabel)}</text>
   ${
     widthNote
-      ? `<text x="80" y="1175" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="26" fill="#64748b">${escapeXml(widthNote)} · Free shipping · 2-year warranty</text>`
-      : `<text x="80" y="1175" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="26" fill="#64748b">Free shipping · 2-year warranty</text>`
+      ? `<text x="80" y="1175" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="26" fill="#64748b">${escapeXml(widthNote)}</text>`
+      : ""
   }
 </svg>`;
 }

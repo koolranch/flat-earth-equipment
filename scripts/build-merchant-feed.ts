@@ -21,6 +21,8 @@ import { getDisplayBrand, sanitizeCustomerFacingCopy } from "../lib/parts/displa
 import {
   qualifiesForSeatFreeFreight,
 } from "../lib/parts/seatFreight";
+import { CHARGER_MODULES } from "../constants/chargerOptions";
+import { buildLithiumRhinoMetaTitle } from "../constants/lithiumRhinoSeo";
 
 dotenv.config({ path: path.resolve(process.cwd(), ".env.production.local") });
 dotenv.config({ path: path.resolve(process.cwd(), ".env.local") });
@@ -30,17 +32,12 @@ const SITE_URL = "https://www.flatearthequipment.com";
 const DEFAULT_PRODUCT_IMAGE = `${SITE_URL}/images/parts/placeholder.jpg`;
 /** Clean studio hero for rubber tracks (no text/watermarks — Merchant-safe). */
 const RUBBER_TRACK_HERO_IMAGE = `${SITE_URL}/images/parts/tracks/rubber-track-hero.jpg`;
-
-function productImageLink(p: PartRow): string {
-  // Prefer the shared Merchant-safe studio hero for rubber tracks.
-  // Per-SKU graphic cards with size/warranty text overlays are kept on PDPs
-  // via image_url for now, but Shopping rejects promotional overlays.
-  if (p.category === "Rubber Tracks" || p.slug.includes("rubber-track")) {
-    return RUBBER_TRACK_HERO_IMAGE;
-  }
-  if (p.image_url) return p.image_url;
-  return DEFAULT_PRODUCT_IMAGE;
-}
+const CAB_GLASS_IMAGE_DIR = path.resolve(process.cwd(), "public/images/parts/glass");
+const SEAT_IMAGE_DIR = path.resolve(process.cwd(), "public/images/parts/seats");
+const RUBBER_TRACK_IMAGE_DIR = path.resolve(
+  process.cwd(),
+  "public/images/parts/tracks"
+);
 
 type PartRow = {
   id: string;
@@ -58,6 +55,132 @@ type PartRow = {
   metadata: Record<string, unknown> | null;
 };
 
+type FeedShipping = {
+  country: string;
+  service: string;
+  price: string;
+};
+
+type FeedItem = {
+  id: string;
+  title: string;
+  description: string;
+  link: string;
+  image_link: string;
+  price: string;
+  brand: string;
+  mpn: string;
+  condition: "new" | "refurbished" | "used";
+  availability: "in stock" | "out of stock";
+  google_product_category?: string;
+  product_type?: string;
+  shipping_weight?: string;
+  identifier_exists: "no";
+  /** Ads / Merchant filters — high-value lines get priority labels. */
+  custom_label_0?: string;
+  shipping?: FeedShipping[];
+};
+
+/** Normalize storage URLs that accidentally include a double slash. */
+function normalizeImageUrl(url: string): string {
+  return url.replace(
+    /^(https?:\/\/[^/]+\/storage\/v1\/object\/public\/[^/]+)\/*\//,
+    "$1/"
+  );
+}
+
+function isRubberTrack(p: Pick<PartRow, "category" | "slug">): boolean {
+  return p.category === "Rubber Tracks" || p.slug.includes("rubber-track");
+}
+
+function isCabGlass(p: Pick<PartRow, "category">): boolean {
+  return p.category === "Cab Glass";
+}
+
+function isSeatCategory(p: Pick<PartRow, "category">): boolean {
+  return (
+    p.category === "Seats" ||
+    p.category === "Seat cushions" ||
+    p.category === "Seat covers"
+  );
+}
+
+function isUsableProductImage(url: string | null | undefined): boolean {
+  if (!url) return false;
+  if (/placeholder\.jpg/i.test(url)) return false;
+  if (/brand-logos/i.test(url)) return false;
+  if (/\.webp$/i.test(url) && /brand-logos/i.test(url)) return false;
+  return true;
+}
+
+/**
+ * Unique per-SKU track cards (size + tread + model) — preferred for Shopping.
+ * Falls back to the shared studio hero when a per-slug JPG is missing.
+ * Do not use the shared hero for every track: Merchant rejects identical images.
+ */
+function rubberTrackImageLink(slug: string): string {
+  const localPath = path.join(RUBBER_TRACK_IMAGE_DIR, `${slug}.jpg`);
+  if (existsSync(localPath)) {
+    return `${SITE_URL}/images/parts/tracks/${slug}.jpg`;
+  }
+  return RUBBER_TRACK_HERO_IMAGE;
+}
+
+/** Unique per-SKU cab glass cards — never fall back to the shared placeholder. */
+function cabGlassImageLink(slug: string, imageUrl: string | null): string {
+  const localPath = path.join(CAB_GLASS_IMAGE_DIR, `${slug}.jpg`);
+  if (existsSync(localPath)) {
+    return `${SITE_URL}/images/parts/glass/${slug}.jpg`;
+  }
+  if (isUsableProductImage(imageUrl)) {
+    return normalizeImageUrl(imageUrl!);
+  }
+  return DEFAULT_PRODUCT_IMAGE;
+}
+
+/**
+ * Prefer real seat photography when present; otherwise unique Merchant cards.
+ * Never use brand logos (Shopping + site policy for seats).
+ */
+function seatImageLink(slug: string, imageUrl: string | null): string {
+  if (isUsableProductImage(imageUrl)) {
+    return normalizeImageUrl(imageUrl!);
+  }
+  const localPath = path.join(SEAT_IMAGE_DIR, `${slug}.jpg`);
+  if (existsSync(localPath)) {
+    return `${SITE_URL}/images/parts/seats/${slug}.jpg`;
+  }
+  return DEFAULT_PRODUCT_IMAGE;
+}
+
+function productImageLink(p: PartRow): string {
+  if (isRubberTrack(p)) return rubberTrackImageLink(p.slug);
+  if (isCabGlass(p)) return cabGlassImageLink(p.slug, p.image_url);
+  if (isSeatCategory(p)) return seatImageLink(p.slug, p.image_url);
+  if (isUsableProductImage(p.image_url)) return normalizeImageUrl(p.image_url!);
+  if (p.image_url) return normalizeImageUrl(p.image_url);
+  return DEFAULT_PRODUCT_IMAGE;
+}
+
+function customLabel0(category: string | null | undefined): string | undefined {
+  switch (category) {
+    case "Rubber Tracks":
+      return "priority_rubber_tracks";
+    case "Lithium Batteries":
+      return "priority_lithium";
+    case "Charger Modules":
+      return "priority_charger_modules";
+    case "Cab Glass":
+      return "priority_cab_glass";
+    case "Seats":
+    case "Seat cushions":
+    case "Seat covers":
+      return "priority_seats";
+    default:
+      return undefined;
+  }
+}
+
 /**
  * Map our internal category to Google Product Category taxonomy IDs.
  * https://www.google.com/basepages/producttype/taxonomy-with-ids.en-US.txt
@@ -69,6 +192,8 @@ function googleProductCategory(category: string | null): string | undefined {
       return "Vehicles & Parts > Vehicle Parts & Accessories > Vehicle Maintenance, Care & Decor > Vehicle Repair & Specialty Tools";
     case "Charger Modules":
       return "Vehicles & Parts > Vehicle Parts & Accessories > Vehicle Repair & Specialty Tools";
+    case "Cab Glass":
+      return "Business & Industrial > Construction > Construction Machinery Accessories";
     case "Class II Forks":
     case "Class III Forks":
     case "Class IV Forks":
@@ -76,7 +201,7 @@ function googleProductCategory(category: string | null): string | undefined {
     case "Forks":
       return "Business & Industrial > Material Handling";
     case "Rubber Tracks":
-      return "Business & Industrial > Material Handling";
+      return "Business & Industrial > Construction > Construction Machinery Accessories";
     case "Mirrors":
     case "Brakes":
     case "Seats":
@@ -99,22 +224,93 @@ function shippingWeight(weight_lbs: number | null): string | undefined {
   return `${weight_lbs} lb`;
 }
 
+/** HazMat ground freight for a single lithium battery (checkout qty under 3). */
+function lithiumFreightUsd(weightLbs: number): string {
+  let cents = 34900;
+  if (weightLbs < 50) cents = 9900;
+  else if (weightLbs < 100) cents = 14900;
+  else if (weightLbs < 150) cents = 19900;
+  else if (weightLbs < 200) cents = 27900;
+  return `${(cents / 100).toFixed(2)} USD`;
+}
+
+/** Surface freight for a single cab-glass item (TVH-style bands on sell price). */
+function cabGlassFreightUsd(priceCents: number): string {
+  const dollars = priceCents / 100;
+  let cents = 0;
+  if (dollars <= 0) cents = 0;
+  else if (dollars < 25) cents = 1800;
+  else if (dollars < 150) cents = 2500;
+  else if (dollars < 300) cents = 3100;
+  else if (dollars < 500) cents = 3700;
+  else if (dollars < 650) cents = 4100;
+  // $650+ surface freight prepaid
+  return `${(cents / 100).toFixed(2)} USD`;
+}
+
 function hasFreeFreight(p: PartRow): boolean {
   const meta = p.metadata ?? {};
   if (meta.free_freight === true || meta.free_freight === "true") return true;
-  if (p.category === "Rubber Tracks" || p.slug.includes("rubber-track")) return true;
+  if (isRubberTrack(p)) return true;
   return qualifiesForSeatFreeFreight(p.category, meta);
 }
 
-function shippingXml(p: PartRow): string {
-  if (!hasFreeFreight(p)) return "";
-  // Contiguous US free ground — matches checkout for free_freight / rubber tracks.
-  return `      <g:shipping>
-        <g:country>US</g:country>
-        <g:service>Ground</g:service>
-        <g:price>0.00 USD</g:price>
-      </g:shipping>
-`;
+function seatFreightUsd(p: PartRow): string | undefined {
+  if (p.category === "Seats") {
+    if (qualifiesForSeatFreeFreight(p.category, p.metadata)) return "0.00 USD";
+    return "25.00 USD";
+  }
+  if (p.category === "Seat cushions" || p.category === "Seat covers") {
+    // Match checkout flat $29 (vendor prepaid over ~$650 net is rare on cushions).
+    return "29.00 USD";
+  }
+  return undefined;
+}
+
+function partShipping(p: PartRow): FeedShipping[] | undefined {
+  if (hasFreeFreight(p)) {
+    return [{ country: "US", service: "Ground", price: "0.00 USD" }];
+  }
+  if (p.category === "Lithium Batteries") {
+    const weight = Number(p.metadata?.weight_lbs ?? p.weight_lbs ?? 100);
+    return [
+      {
+        country: "US",
+        service: "HazMat Ground",
+        price: lithiumFreightUsd(weight),
+      },
+    ];
+  }
+  if (isCabGlass(p) && p.price_cents) {
+    return [
+      {
+        country: "US",
+        service: "Ground",
+        price: cabGlassFreightUsd(p.price_cents),
+      },
+    ];
+  }
+  if (isSeatCategory(p)) {
+    const price = seatFreightUsd(p);
+    if (price) {
+      return [{ country: "US", service: "Ground", price }];
+    }
+  }
+  return undefined;
+}
+
+/** Legacy /parts/* charger URLs 301 to the hub — never feed those landing pages. */
+function isLegacyChargerModulePart(p: PartRow): boolean {
+  if (p.category === "Charger Modules") return true;
+  const slug = p.slug.toLowerCase();
+  if (slug.includes("forklift-charger-module")) return true;
+  if (slug.startsWith("act-quantum-") && (slug.endsWith("-reman") || slug.endsWith("-repair"))) {
+    return true;
+  }
+  if (slug.includes("charger-module") && (slug.includes("repair") || slug.includes("reman"))) {
+    return true;
+  }
+  return false;
 }
 
 function escapeXml(s: string): string {
@@ -124,6 +320,132 @@ function escapeXml(s: string): string {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
+}
+
+function partToFeedItem(p: PartRow): FeedItem | null {
+  if (!p.price_cents || p.price_cents <= 0) return null;
+
+  const lithiumTitle = buildLithiumRhinoMetaTitle({
+    category: p.category,
+    sku: p.sku,
+    metadata: p.metadata,
+  });
+
+  const shipping = partShipping(p);
+  const label = customLabel0(p.category);
+  const item: FeedItem = {
+    id: p.sku || p.id,
+    title: lithiumTitle || p.name,
+    description: sanitizeCustomerFacingCopy(p.description || "").slice(0, 5000),
+    link: `${SITE_URL}/parts/${p.slug}`,
+    image_link: productImageLink(p),
+    price: `${(p.price_cents / 100).toFixed(2)} USD`,
+    brand: getDisplayBrand(p.brand),
+    mpn: p.oem_reference || p.sku || p.id,
+    condition: "new",
+    availability: p.is_in_stock === false ? "out of stock" : "in stock",
+    google_product_category: googleProductCategory(p.category),
+    product_type: p.category || undefined,
+    shipping_weight: shippingWeight(p.weight_lbs),
+    identifier_exists: "no",
+  };
+  if (label) item.custom_label_0 = label;
+  if (shipping) item.shipping = shipping;
+  return item;
+}
+
+/**
+ * Reman Exchange only — physical refurbished modules with Buy Now on
+ * /charger-modules/{slug}. Repair & Return is a service and is excluded.
+ */
+function chargerModuleFeedItems(): FeedItem[] {
+  const items: FeedItem[] = [];
+
+  for (const mod of CHARGER_MODULES) {
+    const reman = mod.offers.find((o) => o.label === "Reman Exchange");
+    if (!reman || reman.price <= 0) continue;
+
+    const cross = mod.crossRefPn
+      ? ` Cross-references ${mod.crossRefPn}.`
+      : "";
+    const core = reman.coreCharge
+      ? ` A $${reman.coreCharge} refundable core deposit applies at checkout.`
+      : "";
+
+    items.push({
+      id: `charger-${mod.slug}-reman`,
+      title: `${mod.title} (Reman Exchange)`,
+      description: sanitizeCustomerFacingCopy(
+        [
+          `Remanufactured ${mod.brand} forklift charger module ${mod.partNumber}.`,
+          reman.desc,
+          cross.trim(),
+          core.trim(),
+          "In stock for exchange; ships when ordered before 3 PM EST on business days.",
+        ]
+          .filter(Boolean)
+          .join(" ")
+      ).slice(0, 5000),
+      link: `${SITE_URL}/charger-modules/${mod.slug}`,
+      image_link: normalizeImageUrl(mod.imgExchange),
+      price: `${(reman.price / 100).toFixed(2)} USD`,
+      brand: mod.brand,
+      mpn: mod.partNumber,
+      condition: "refurbished",
+      availability: "in stock",
+      google_product_category: googleProductCategory("Charger Modules"),
+      product_type: "Charger Modules",
+      identifier_exists: "no",
+      custom_label_0: customLabel0("Charger Modules"),
+      // Checkout currently does not add a charger-module freight line.
+      shipping: [{ country: "US", service: "Ground", price: "0.00 USD" }],
+    });
+  }
+
+  return items;
+}
+
+function shippingXml(shipping: FeedShipping[] | undefined): string {
+  if (!shipping?.length) return "";
+  return shipping
+    .map(
+      (s) => `      <g:shipping>
+        <g:country>${escapeXml(s.country)}</g:country>
+        <g:service>${escapeXml(s.service)}</g:service>
+        <g:price>${escapeXml(s.price)}</g:price>
+      </g:shipping>
+`
+    )
+    .join("");
+}
+
+function itemToXml(item: FeedItem): string {
+  const gpc = item.google_product_category;
+  const sw = item.shipping_weight;
+
+  return `    <item>
+      <g:id>${escapeXml(item.id)}</g:id>
+      <title>${escapeXml(item.title)}</title>
+      <description>${escapeXml(item.description)}</description>
+      <link>${escapeXml(item.link)}</link>
+      <g:image_link>${escapeXml(item.image_link)}</g:image_link>
+      <g:price>${escapeXml(item.price)}</g:price>
+      <g:brand>${escapeXml(item.brand)}</g:brand>
+      <g:mpn>${escapeXml(item.mpn)}</g:mpn>
+      <g:condition>${escapeXml(item.condition)}</g:condition>
+      <g:availability>${escapeXml(item.availability)}</g:availability>
+      <g:identifier_exists>${escapeXml(item.identifier_exists)}</g:identifier_exists>
+${gpc ? `      <g:google_product_category>${escapeXml(gpc)}</g:google_product_category>\n` : ""}${
+    item.product_type
+      ? `      <g:product_type>${escapeXml(item.product_type)}</g:product_type>\n`
+      : ""
+  }${
+    item.custom_label_0
+      ? `      <g:custom_label_0>${escapeXml(item.custom_label_0)}</g:custom_label_0>\n`
+      : ""
+  }${sw ? `      <g:shipping_weight>${escapeXml(sw)}</g:shipping_weight>\n` : ""}${shippingXml(
+    item.shipping
+  )}    </item>`;
 }
 
 async function buildFeed() {
@@ -144,88 +466,34 @@ async function buildFeed() {
   if (error) throw new Error(`Supabase fetch failed: ${error.message}`);
   if (!parts) throw new Error("No parts returned from Supabase");
 
-  const rows = parts as PartRow[];
+  const rows = (parts as PartRow[]).filter((p) => !isLegacyChargerModulePart(p));
+  const skippedChargers = (parts as PartRow[]).length - rows.length;
 
-  // -- JSON debug feed --------------------------------------------------------
-  const jsonFeed = rows.map((p) => ({
-    id: p.sku || p.id,
-    title: p.name,
-    description: sanitizeCustomerFacingCopy(p.description || "").slice(0, 5000),
-    link: `${SITE_URL}/parts/${p.slug}`,
-    image_link: productImageLink(p),
-    price: p.price_cents ? `${(p.price_cents / 100).toFixed(2)} USD` : "0.00 USD",
-    brand: getDisplayBrand(p.brand),
-    mpn: p.oem_reference || p.sku || p.id,
-    condition: "new",
-    availability: p.is_in_stock ? "in stock" : "out of stock",
-    google_product_category: googleProductCategory(p.category),
-    product_type: p.category || undefined,
-    shipping_weight: shippingWeight(p.weight_lbs),
-    identifier_exists: "no", // most aftermarket parts have no GTIN
-    ...(hasFreeFreight(p)
-      ? {
-          shipping: [
-            {
-              country: "US",
-              service: "Ground",
-              price: "0.00 USD",
-            },
-          ],
-        }
-      : {}),
-  }));
+  const feedItems: FeedItem[] = [];
+  for (const p of rows) {
+    const item = partToFeedItem(p);
+    if (item) feedItems.push(item);
+  }
+
+  const chargerItems = chargerModuleFeedItems();
+  feedItems.push(...chargerItems);
 
   const dir = "public/feed";
   if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
 
   writeFileSync(
     "public/feed/google-merchant.json",
-    JSON.stringify(jsonFeed, null, 2)
+    JSON.stringify(feedItems, null, 2)
   );
 
-  // -- XML/RSS feed (the format Google actually fetches) ---------------------
-  const items = rows
-    .map((p) => {
-      const link = `${SITE_URL}/parts/${p.slug}`;
-      const image = productImageLink(p);
-      const price = p.price_cents
-        ? `${(p.price_cents / 100).toFixed(2)} USD`
-        : "0.00 USD";
-      const availability = p.is_in_stock ? "in stock" : "out of stock";
-      const gpc = googleProductCategory(p.category);
-      const sw = shippingWeight(p.weight_lbs);
-
-      return `    <item>
-      <g:id>${escapeXml(p.sku || p.id)}</g:id>
-      <title>${escapeXml(p.name)}</title>
-      <description>${escapeXml(
-        sanitizeCustomerFacingCopy(p.description || "").slice(0, 5000)
-      )}</description>
-      <link>${escapeXml(link)}</link>
-      <g:image_link>${escapeXml(image)}</g:image_link>
-      <g:price>${escapeXml(price)}</g:price>
-      <g:brand>${escapeXml(getDisplayBrand(p.brand))}</g:brand>
-      <g:mpn>${escapeXml(p.oem_reference || p.sku || p.id)}</g:mpn>
-      <g:condition>new</g:condition>
-      <g:availability>${escapeXml(availability)}</g:availability>
-      <g:identifier_exists>no</g:identifier_exists>
-${gpc ? `      <g:google_product_category>${escapeXml(gpc)}</g:google_product_category>\n` : ""}${
-        p.category
-          ? `      <g:product_type>${escapeXml(p.category)}</g:product_type>\n`
-          : ""
-      }${sw ? `      <g:shipping_weight>${escapeXml(sw)}</g:shipping_weight>\n` : ""}${shippingXml(
-        p
-      )}    </item>`;
-    })
-    .join("\n");
-
+  const itemsXml = feedItems.map(itemToXml).join("\n");
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
   <channel>
     <title>Flat Earth Equipment Product Feed</title>
     <link>${SITE_URL}</link>
     <description>Aftermarket forklift, JCB, charger module, rubber track, and lithium golf cart battery products.</description>
-${items}
+${itemsXml}
   </channel>
 </rss>
 `;
@@ -235,15 +503,22 @@ ${items}
   // -- Summary ----------------------------------------------------------------
   const byCategory: Record<string, number> = {};
   let freeShipCount = 0;
-  for (const r of rows) {
-    const c = r.category || "(uncategorized)";
+  let paidShipCount = 0;
+  for (const item of feedItems) {
+    const c = item.product_type || "(uncategorized)";
     byCategory[c] = (byCategory[c] || 0) + 1;
-    if (hasFreeFreight(r)) freeShipCount += 1;
+    if (item.shipping?.some((s) => s.price === "0.00 USD")) freeShipCount += 1;
+    else if (item.shipping?.length) paidShipCount += 1;
   }
-  console.log(`✅ Merchant feed built (${rows.length} products)`);
+  console.log(`✅ Merchant feed built (${feedItems.length} products)`);
   console.log("   public/feed/google-merchant.json");
   console.log("   public/feed/google-merchant.xml");
+  console.log(
+    `   Skipped legacy /parts charger rows (redirect to hub): ${skippedChargers}`
+  );
+  console.log(`   Charger Reman Exchange offers: ${chargerItems.length}`);
   console.log(`   Free-shipping items: ${freeShipCount}`);
+  console.log(`   Paid-shipping items (incl. lithium HazMat): ${paidShipCount}`);
   console.log("\n   Category breakdown:");
   for (const [c, n] of Object.entries(byCategory).sort((a, b) => b[1] - a[1])) {
     console.log(`     ${n.toString().padStart(4)} × ${c}`);
