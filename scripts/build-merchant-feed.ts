@@ -322,6 +322,30 @@ function escapeXml(s: string): string {
     .replace(/'/g, "&apos;");
 }
 
+/**
+ * Merchant descriptions for rubber tracks: one clear aftermarket disclosure
+ * (OEM brand + aftermarket parts is a common misrepresentation flag) plus the
+ * existing free-shipping / 2-year warranty copy from the PDP description.
+ * OEM cross-reference numbers stay in body copy when present — not as MPN.
+ */
+function rubberTrackFeedDescription(p: PartRow): string {
+  const body = sanitizeCustomerFacingCopy(p.description || "").trim();
+  const disclosure =
+    "Aftermarket replacement rubber track (not OEM). Free shipping and a 2-year warranty included.";
+  if (!body) return disclosure;
+  if (/aftermarket/i.test(body)) return body.slice(0, 5000);
+  return `${disclosure}\n\n${body}`.slice(0, 5000);
+}
+
+/**
+ * Unique per-SKU MPN for Shopping. Prefer house RT-* sku over shared OEM
+ * cross-refs so sibling model listings (e.g. Case TV370/TV450 block) do not
+ * collide in Merchant.
+ */
+function rubberTrackFeedMpn(p: PartRow): string {
+  return p.sku || p.id;
+}
+
 function partToFeedItem(p: PartRow): FeedItem | null {
   if (!p.price_cents || p.price_cents <= 0) return null;
 
@@ -331,17 +355,20 @@ function partToFeedItem(p: PartRow): FeedItem | null {
     metadata: p.metadata,
   });
 
+  const track = isRubberTrack(p);
   const shipping = partShipping(p);
   const label = customLabel0(p.category);
   const item: FeedItem = {
     id: p.sku || p.id,
     title: lithiumTitle || p.name,
-    description: sanitizeCustomerFacingCopy(p.description || "").slice(0, 5000),
+    description: track
+      ? rubberTrackFeedDescription(p)
+      : sanitizeCustomerFacingCopy(p.description || "").slice(0, 5000),
     link: `${SITE_URL}/parts/${p.slug}`,
     image_link: productImageLink(p),
     price: `${(p.price_cents / 100).toFixed(2)} USD`,
     brand: getDisplayBrand(p.brand),
-    mpn: p.oem_reference || p.sku || p.id,
+    mpn: track ? rubberTrackFeedMpn(p) : p.oem_reference || p.sku || p.id,
     condition: "new",
     availability: p.is_in_stock === false ? "out of stock" : "in stock",
     google_product_category: googleProductCategory(p.category),

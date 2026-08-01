@@ -1,18 +1,21 @@
 # Rubber Tracks — Status
 
-**Last updated:** 2026-07-27  
-**Active phase:** Phase 0 — Foundation  
-**Program commit:** see latest `main` after Phase 0 land
+**Last updated:** 2026-08-01  
+**Active phase:** Phase 0 → Phase 1 (measurement) + Merchant review  
+**Program commit:** Merchant track MPN + aftermarket disclosure feed regen (this commit)  
+**Organic track sales baseline:** $0 known (no recent track Stripe sales)  
+**Weekly automation:** believed saved; expect Monday ~10:00 AM Eastern run  
+**Merchant:** Shopping accepted as co-equal organic channel for 1/day math (paid Search still deferred)
 
 ## Phase checklist
 
 | Phase | Status | Notes |
 |-------|--------|-------|
-| 0 Foundation | ✅ code | Docs + rank script + baseline snapshot; weekly automation draft awaiting approval |
-| 1 Measurement | ⬜ | GA4/purchase path + automation deltas |
-| 2 Conversion | ⬜ | Hub/PDP UX, qty=2, free ship + 2yr warranty signals |
-| 3 Model SERP wins | ⬜ | Correct PDP URLs + serial-prefix honesty + serial-lookup cross-links |
-| 4 Expand | ⬜ | Intake publish + Merchant; paid ads deferred |
+| 0 Foundation | ✅ | Docs + rank script + baseline; automation believed live |
+| 1 Measurement | 🟡 | Ranks weekly; order attribution still unverified ($0 known sales) |
+| 2 Conversion | ⬜ | Hub/PDP UX largely shipped; sidebar→hub polish optional |
+| 3 Model SERP wins | ⬜ | Prefer Bobcat T650/T770 over Case TV370 demand |
+| 4 Expand | 🟡 | Merchant: 65 tracks; feed fix shipped (unique RT-* MPN + aftermarket disclosure) — awaiting Center review clear |
 
 ## Rank snapshot (Google US) — 2026-07-27 baseline
 
@@ -43,18 +46,35 @@ Source: DataForSEO via `scripts/seo/rubber-track-rank-check.ts`.
 | `/parts` → rubber-tracks CTA | Should deep-link hub (verify in Phase 2) |
 | Brand `*-serial-number-lookup` | Fitment assist; two-way link target |
 
+## Merchant track audit (2026-08-01)
+
+Feed: `public/feed/google-merchant.{xml,json}` · live after deploy of this commit · `/feed/google-merchant.xml`.
+
+| Check | Result |
+|-------|--------|
+| Track items | **65** (`custom_label_0=priority_rubber_tracks`) |
+| Unique images | **65/65** per-SKU JPGs; priority landings+images HTTP 200 |
+| Free shipping attr | **65/65** `US / Ground / 0.00 USD` |
+| TSA / house PN leak | None in feed fields |
+| Titles | Brand + model + size + tread; no “OEM/genuine” claims |
+| Dup MPNs | **Fixed** — track `mpn` = unique `RT-*` sku (no shared OEM cross-ref) |
+| Aftermarket word in desc | **Fixed** — feed-only one-liner on all 65 track items |
+| `shipping_weight` | **0/65** (optional; all free ship) |
+| OOS correctly flagged | 4 items |
+
+**Under Review** may clear after Merchant re-fetches the updated feed. In Center: filter `custom_label_0 = priority_rubber_tracks` and watch for Active vs specific disapproval codes.
+
 ## Open blockers / needs from Christopher
 
-1. **Approve** weekly Cursor Automation draft (Mondays ~10:00 AM Eastern, staggered from charger).  
-2. Optional: confirm last 90 days rubber-track order revenue once measurement helper exists.  
-3. Wholesale costs only ad hoc from normal POs — never bulk portal lookups.  
-4. Approve before any production checkout / pricing / freight changes.
-
+1. Confirm Monday automation actually ran (check STATUS commit after Mon).  
+2. Wholesale costs only ad hoc from normal POs — never bulk portal lookups.  
+3. Approve before any production checkout / pricing / freight changes.  
 ## Next action
 
-1. Enable Monday automation after draft approval.  
-2. After automation is live, pick **one** Phase 2/3 move: strengthen Case TV370 PDP + hub internal links (only ranked money keyword).  
-3. Do not chase all 28 out-of-index model terms at once.
+1. **Deploy** this Merchant feed commit so Center re-fetches unique MPNs + aftermarket disclosure.  
+2. Wait for Monday rank automation; treat organic track orders baseline as **$0**.  
+3. This week’s SEO focus: Bobcat T650 primary PDP pack (not Case TV370 demand).  
+4. In Merchant Center: filter `custom_label_0 = priority_rubber_tracks` after fetch — Active vs disapproval codes.
 
 ## Decision log
 
@@ -65,3 +85,6 @@ Source: DataForSEO via `scripts/seo/rubber-track-rank-check.ts`.
 | 2026-07-27 | Price near comps (free freight + 2yr warranty); not strict 5%-under |
 | 2026-07-27 | Weekly automation Mondays ~10:00 AM Eastern (stagger from charger) |
 | 2026-07-27 | Baseline: only `case tv370 tracks` in top 100 (#60 on correct PDP) |
+| 2026-08-01 | Merchant Shopping accepted as co-equal organic channel for 1/day math |
+| 2026-08-01 | Organic track sales baseline = $0 known |
+| 2026-08-01 | Merchant track feed: unique RT-* MPN + aftermarket disclosure (regen) |
