@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
 /**
- * Manual runner for the reactivation campaign engine
+ * Manual runner for the reactivation / nurture campaign engine
  * (lib/reactivation/engine.server.ts — same code the Vercel cron uses, and the
  * same Supabase `reactivation_sends` log, so manual and scheduled runs never
  * double-send).
@@ -9,6 +9,7 @@
  *   npx tsx scripts/reactivation-batch.ts                      # dry run, all tracks
  *   npx tsx scripts/reactivation-batch.ts --track a            # dry run, Track A only
  *   npx tsx scripts/reactivation-batch.ts --track b --slot am  # dry run, Track B AM half
+ *   npx tsx scripts/reactivation-batch.ts --track c            # dry run, Track C welcome/0%
  *   npx tsx scripts/reactivation-batch.ts --send --track a     # REAL SEND
  *   npx tsx scripts/reactivation-batch.ts --test you@x.com     # send template samples
  */
@@ -34,9 +35,15 @@ for (const [k, v] of Object.entries(envFile)) {
   if (!process.env[k]) process.env[k] = v as string
 }
 
-const { runReactivation, formatSummary, trackA1Template, trackA2Template, trackBTemplate } = await import(
-  '../lib/reactivation/engine.server'
-)
+const {
+  runReactivation,
+  formatSummary,
+  trackA1Template,
+  trackA2Template,
+  trackBTemplate,
+  trackC1Template,
+  trackC2Template,
+} = await import('../lib/reactivation/engine.server')
 
 const args = process.argv.slice(2)
 const SEND = args.includes('--send')
@@ -48,19 +55,25 @@ async function main() {
   if (testTo) {
     const resend = new Resend(process.env.RESEND_API_KEY!)
     const sample = {
-      userId: 'test', email: testTo, firstName: 'Sample',
+      userId: 'test',
+      email: testTo,
+      firstName: 'Sample',
       signupAt: new Date(Date.now() - 20 * 864e5).toISOString(),
       lastSignInAt: new Date(Date.now() - 20 * 864e5).toISOString(),
-      progressPct: 40, trainingUpdatedAt: new Date().toISOString(),
+      progressPct: 40,
+      trainingUpdatedAt: new Date().toISOString(),
+      createdVia: null as string | null,
     }
     for (const [label, tpl] of [
       ['A touch 1', trackA1Template(sample)],
       ['A touch 2', trackA2Template(sample)],
       ['B 20-59%', trackBTemplate(sample)],
       ['B 60-99%', trackBTemplate({ ...sample, progressPct: 80 })],
+      ['C1 welcome', trackC1Template({ ...sample, progressPct: 0 })],
+      ['C2 never-started', trackC2Template({ ...sample, progressPct: 0 })],
     ] as const) {
       const r = await resend.emails.send({
-        from: 'Flat Earth Equipment Training <training@flatearthequipment.com>',
+        from: 'Forklift Certified <training@getforkliftcertified.com>',
         to: testTo,
         subject: `[TEST ${label}] ${tpl.subject}`,
         text: tpl.text,
@@ -76,6 +89,7 @@ async function main() {
     send: SEND,
     trackA: trackArg === 'a' || trackArg === 'all',
     trackB: trackArg === 'b' || trackArg === 'all',
+    trackC: trackArg === 'c' || trackArg === 'all',
     slot: slotArg,
   })
   console.log(formatSummary(summary))

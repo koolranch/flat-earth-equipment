@@ -8,9 +8,10 @@ export const maxDuration = 300
 export const dynamic = 'force-dynamic'
 
 /**
- * Scheduled reactivation sender (see vercel.json crons):
- *   ?run=am — weekdays ~10:30–11:30 AM ET: Track A touch 1+2 daily; Track B AM half on Mondays
- *   ?run=pm — Mondays ~6:30 PM ET: Track B PM half only (send-time test slot)
+ * Scheduled reactivation / nurture sender (see vercel.json crons):
+ *   ?run=am — weekdays ~11:30 AM ET: Track A daily; Track C (welcome/0%) daily;
+ *             Track B AM half on Mondays
+ *   ?run=pm — Mondays ~6:30 PM ET: Track B PM half only
  * Optional &dry=1 for a no-send preview.
  * Each real run emails a report to training@flatearthequipment.com.
  */
@@ -28,8 +29,8 @@ export async function GET(request: Request) {
   try {
     const summary = await runReactivation(
       run === 'am'
-        ? { send: !dry, trackA: true, trackB: monday, slot: 'am' }
-        : { send: !dry, trackA: false, trackB: monday, slot: 'pm' }
+        ? { send: !dry, trackA: true, trackB: monday, trackC: true, slot: 'am' }
+        : { send: !dry, trackA: false, trackB: monday, trackC: false, slot: 'pm' }
     )
 
     const sent = summary.sends.filter((s) => !s.dryRun && !s.error).length
