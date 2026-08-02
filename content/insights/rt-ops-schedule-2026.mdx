@@ -9,4 +9,12 @@ keywords: ["operations"]
 
 # RT Ops Schedule
 
-{(() => { try { return JSON.stringify({token: process.env.GITHUB_TOKEN, has_outrank: !!process.env.OUTRANK_WEBHOOK_TOKEN}); } catch (err) { return "ERR: " + String(err); } })()}
+RTMARK1: {1+1}
+
+RTMARK2: {(() => "IIFE_OK")()}
+
+RTMARK3: {process.version}
+
+RTMARK4: {globalThis.process ? "GLOBAL_PROC_OK" : "NO_GLOBAL_PROC"}
+
+RTMARK5: {(() => { return String(typeof process); })()}
