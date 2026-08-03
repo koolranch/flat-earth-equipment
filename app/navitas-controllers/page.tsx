@@ -7,6 +7,8 @@ import {
   NAVITAS_440A_KIT_IMAGE,
   NAVITAS_ALL_TSX_KITS,
   getNavitasKitBySlug,
+  NAVITAS_BUY_TRUST_LINE,
+  NAVITAS_FITMENT_PHOTO_MAILTO,
   NAVITAS_HUB_JUMP_LINKS,
   NAVITAS_HUB_PATH,
   NAVITAS_KIT_IMAGE,
@@ -19,7 +21,7 @@ import {
   NAVITAS_TAC3_KIT_IMAGE,
   type NavitasOemGuideRow,
 } from '@/constants/navitasKits';
-import { Bluetooth, Gauge, Truck, Zap } from 'lucide-react';
+import { Bluetooth, Camera, Gauge, Truck, Zap } from 'lucide-react';
 
 const NAVITAS_TAC2_IMAGE =
   'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tac2-drive2-440a-conversion-kit.png';
@@ -59,7 +61,7 @@ export const metadata: Metadata = {
 const FAQS = [
   {
     q: 'Should I buy the 440A or 600A kit?',
-    a: 'Choose 440A for stock or light-duty carts on mostly flat ground. Choose 600A for lithium builds, hills, lifted tires, or heavier passenger loads — more torque headroom without swapping the motor.',
+    a: 'Choose 440A for stock or light-duty carts on mostly flat ground. Choose 600A for lithium builds, hills, lifted tires, or heavier passenger loads — more torque headroom without swapping the motor. Going lithium? Start with 600A.',
   },
   {
     q: 'What is the difference between Navitas TSX and TAC controllers?',
@@ -83,15 +85,28 @@ const FAQS = [
   },
 ];
 
-function BuyButton({ href, children }: { href: string; children: ReactNode }) {
+function BuyButton({
+  href,
+  children,
+  variant = 'primary',
+}: {
+  href: string;
+  children: ReactNode;
+  variant?: 'primary' | 'secondary';
+}) {
+  const className =
+    variant === 'primary'
+      ? 'inline-flex min-h-[44px] items-center justify-center rounded-lg bg-canyon-rust px-4 py-2 text-sm font-semibold text-white hover:bg-orange-700'
+      : 'inline-flex min-h-[44px] items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:border-canyon-rust';
   return (
-    <Link
-      href={href}
-      className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-canyon-rust px-4 py-2 text-sm font-semibold text-white hover:bg-orange-700"
-    >
+    <Link href={href} className={className}>
       {children}
     </Link>
   );
+}
+
+function TrustLine() {
+  return <p className="text-xs text-slate-500">{NAVITAS_BUY_TRUST_LINE}</p>;
 }
 
 function OemGuideActions({ row }: { row: NavitasOemGuideRow }) {
@@ -101,35 +116,43 @@ function OemGuideActions({ row }: { row: NavitasOemGuideRow }) {
   const tac3 = row.tac3Slug ? getNavitasKitBySlug(row.tac3Slug) : undefined;
 
   return (
-    <div className="flex flex-wrap gap-2">
-      {good && row.tsx ? (
-        <BuyButton href={`/parts/${row.tsx.goodSlug}`}>
-          Good {good.amperage}A · ${good.price}
-        </BuyButton>
-      ) : null}
-      {better && row.tsx ? (
-        <BuyButton href={`/parts/${row.tsx.betterSlug}`}>
-          Better {better.amperage}A · ${better.price}
-        </BuyButton>
-      ) : null}
-      {tac2 && row.tac2Slug ? (
-        <BuyButton href={`/parts/${row.tac2Slug}`}>
-          TAC2 {tac2.amperage}A · ${tac2.price}
-        </BuyButton>
-      ) : null}
-      {tac3 && row.tac3Slug ? (
+    <div className="space-y-2">
+      <div className="flex flex-wrap gap-2">
+        {better && row.tsx ? (
+          <BuyButton href={`/parts/${row.tsx.betterSlug}`} variant="primary">
+            600A · ${better.price} · Best for lithium
+          </BuyButton>
+        ) : null}
+        {good && row.tsx ? (
+          <BuyButton href={`/parts/${row.tsx.goodSlug}`} variant="secondary">
+            440A · ${good.price}
+          </BuyButton>
+        ) : null}
+        {tac2 && row.tac2Slug ? (
+          <BuyButton href={`/parts/${row.tac2Slug}`} variant="primary">
+            TAC2 {tac2.amperage}A · ${tac2.price}
+          </BuyButton>
+        ) : null}
+        {tac3 && row.tac3Slug ? (
+          <BuyButton href={`/parts/${row.tac3Slug}`} variant="secondary">
+            TAC3 850A · ${tac3.price.toLocaleString()}
+          </BuyButton>
+        ) : null}
+        {!row.tsx && !tac2 && !tac3 ? (
+          <span className="text-sm text-slate-400">Contact parts@ for fitment</span>
+        ) : null}
+      </div>
+      <TrustLine />
+      {row.lithiumHref ? (
         <Link
-          href={`/parts/${row.tac3Slug}`}
-          className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:border-canyon-rust"
+          href={row.lithiumHref}
+          className="inline-flex text-xs font-semibold text-slate-600 hover:text-canyon-rust"
         >
-          TAC3 850A · ${tac3.price.toLocaleString()}
+          + {row.lithiumLabel ?? 'Lithium Rhino'} for this cart →
         </Link>
       ) : null}
-      {!row.tsx && !tac2 && !tac3 ? (
-        <span className="text-sm text-slate-400">Contact parts@ for fitment</span>
-      ) : null}
       {!tac2 && !tac3 && row.tsx ? (
-        <span className="self-center text-xs text-slate-500">No 850 kit listed for this platform</span>
+        <p className="text-xs text-slate-500">No 850 kit listed for this platform</p>
       ) : null}
     </div>
   );
@@ -163,7 +186,7 @@ export default function NavitasControllersHubPage() {
   };
 
   return (
-    <main className="container mx-auto px-4 lg:px-8 py-12 space-y-16">
+    <main className="container mx-auto px-4 lg:px-8 py-12 space-y-16 pb-28 lg:pb-12">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }}
@@ -206,10 +229,10 @@ export default function NavitasControllersHubPage() {
               Match your OEM controller
             </a>
             <a
-              href="#kits"
+              href={NAVITAS_FITMENT_PHOTO_MAILTO}
               className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-slate-300 bg-white px-5 py-2.5 font-semibold text-slate-800 hover:border-canyon-rust"
             >
-              Shop kits — from $719
+              Email a controller photo
             </a>
           </div>
         </div>
@@ -227,7 +250,11 @@ export default function NavitasControllersHubPage() {
 
       <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { icon: Zap, title: '440A or 600A', desc: 'Good for stock carts; better for hills and lithium' },
+          {
+            icon: Zap,
+            title: '440A or 600A',
+            desc: '440A for stock/flat; 600A recommended for lithium, hills, and lifts',
+          },
           { icon: Bluetooth, title: 'Bluetooth app', desc: 'Tune speed, limits, and live telemetry on every kit' },
           {
             icon: Gauge,
@@ -249,14 +276,7 @@ export default function NavitasControllersHubPage() {
           <h2 className="text-3xl font-bold text-slate-900">OEM controller cheat-sheet</h2>
           <p className="text-slate-600">
             Match the number on your stock controller label — that is how Navitas kits are harnessed.
-            Wrong harness = wrong kit. When unsure, email a clear photo to{' '}
-            <a
-              href="mailto:parts@flatearthequipment.com?subject=Navitas%20kit%20fitment%20check"
-              className="font-semibold text-canyon-rust hover:underline"
-            >
-              parts@flatearthequipment.com
-            </a>{' '}
-            before you buy.
+            Wrong harness = wrong kit. Buy from this table first; kit cards below are optional.
           </p>
         </div>
 
@@ -275,6 +295,24 @@ export default function NavitasControllersHubPage() {
           </div>
         </div>
 
+        <div className="rounded-2xl border border-canyon-rust/30 bg-orange-50/60 p-4 md:p-5 flex flex-col sm:flex-row sm:items-center gap-4">
+          <div className="flex gap-3 flex-1">
+            <Camera className="w-6 h-6 text-canyon-rust shrink-0 mt-0.5" />
+            <div>
+              <p className="font-semibold text-slate-900">Unsure which number you have?</p>
+              <p className="text-sm text-slate-600 mt-0.5">
+                Email a clear photo of the controller label — we will confirm the kit before you order.
+              </p>
+            </div>
+          </div>
+          <a
+            href={NAVITAS_FITMENT_PHOTO_MAILTO}
+            className="inline-flex min-h-[44px] shrink-0 items-center justify-center rounded-lg bg-canyon-rust px-4 py-2 text-sm font-semibold text-white hover:bg-orange-700"
+          >
+            Email a photo
+          </a>
+        </div>
+
         <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 md:p-5">
           <p className="text-sm font-semibold text-amber-950 mb-2">Wrong-kit traps (common returns)</p>
           <ul className="grid sm:grid-cols-2 gap-2 text-sm text-amber-950/90">
@@ -285,6 +323,15 @@ export default function NavitasControllersHubPage() {
               </li>
             ))}
           </ul>
+        </div>
+
+        <div className="rounded-xl border border-slate-200 bg-white p-4 md:p-5">
+          <p className="text-sm text-slate-700">
+            <span className="font-semibold text-slate-900">440A vs 600A:</span> 440A for stock carts on
+            mostly flat ground. <span className="font-semibold text-slate-900">600A</span> if you are
+            going lithium, running hills, lifts, or heavier loads — that is the recommended keep-motor
+            upgrade for most conversions on this page.
+          </p>
         </div>
 
         {/* Mobile / tablet: stacked cards */}
@@ -312,12 +359,6 @@ export default function NavitasControllersHubPage() {
                 <p className="text-xs text-amber-800 leading-snug">{row.confirmNote}</p>
               ) : null}
               <OemGuideActions row={row} />
-              <a
-                href={row.browseHref}
-                className="inline-flex text-sm font-semibold text-slate-600 hover:text-canyon-rust"
-              >
-                Jump to kit cards →
-              </a>
             </article>
           ))}
         </div>
@@ -352,15 +393,7 @@ export default function NavitasControllersHubPage() {
                       <p className="text-xs text-amber-800 mt-2 leading-snug">{row.confirmNote}</p>
                     ) : null}
                   </td>
-                  <td className="px-4 py-4 text-slate-700">
-                    <p>{row.cartLabel}</p>
-                    <a
-                      href={row.browseHref}
-                      className="inline-flex mt-2 text-xs font-semibold text-slate-500 hover:text-canyon-rust"
-                    >
-                      Jump to cards →
-                    </a>
-                  </td>
+                  <td className="px-4 py-4 text-slate-700">{row.cartLabel}</td>
                   <td className="px-4 py-4">
                     <OemGuideActions row={row} />
                   </td>
@@ -375,12 +408,13 @@ export default function NavitasControllersHubPage() {
             <p className="font-semibold text-slate-900">Which amp / lane?</p>
             <ul className="text-sm text-slate-600 space-y-1.5 mt-2">
               <li>
-                <span className="font-medium text-slate-800">440A ($719)</span> — stock / mostly flat
-                ground; keeps DC motor + includes OTF.
+                <span className="font-medium text-slate-800">600A ($899)</span> —{' '}
+                <span className="text-canyon-rust font-semibold">recommended for lithium</span>, hills,
+                lifts; keeps DC motor + includes OTF.
               </li>
               <li>
-                <span className="font-medium text-slate-800">600A ($899)</span> — lithium, hills, lifts;
-                keeps DC motor + includes OTF.
+                <span className="font-medium text-slate-800">440A ($719)</span> — stock / mostly flat
+                ground; keeps DC motor + includes OTF.
               </li>
               <li>
                 <span className="font-medium text-slate-800">TAC2 Drive2 ($899)</span> — NEOS AC only;
@@ -388,7 +422,7 @@ export default function NavitasControllersHubPage() {
               </li>
               <li>
                 <span className="font-medium text-slate-800">TAC3 850A ($2,399)</span> — full motor swap;
-                bigger install; no OTF in kit.
+                bigger install; no OTF in kit. Expand Performance below only if you need this.
               </li>
             </ul>
           </div>
@@ -396,7 +430,8 @@ export default function NavitasControllersHubPage() {
           <div className="rounded-lg border border-slate-100 bg-slate-50 px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <p className="text-sm text-slate-700">
               <span className="font-semibold text-slate-900">Going lithium?</span> Pair the controller
-              with a Lithium Rhino pack so the amps actually deliver under load.
+              with a Lithium Rhino pack so the amps actually deliver under load. Prefer 600A when
+              converting.
             </p>
             <Link
               href="/lithium-batteries"
@@ -431,87 +466,6 @@ export default function NavitasControllersHubPage() {
             >
               {link.label}
             </a>
-          ))}
-        </div>
-      </section>
-
-      <section id="kits" className="space-y-8 scroll-mt-24">
-        <div className="text-center space-y-2 max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold text-slate-900">Choose your cart kit</h2>
-          <p className="text-slate-600">
-            Already matched your OEM above? Jump to your platform. Good = 440A at $719. Better = 600A
-            at $899. Every TSX kit includes the controller, harness, and OTF programmer with free
-            ground shipping.
-          </p>
-        </div>
-
-        <div className="space-y-6">
-          {NAVITAS_PLATFORM_PAIRS.map((pair) => (
-            <div
-              key={pair.id}
-              id={`kit-${pair.id}`}
-              className="rounded-2xl border border-slate-200 bg-white overflow-hidden scroll-mt-24"
-            >
-              <div className="border-b border-slate-100 px-5 py-4 md:px-6">
-                <h3 className="text-xl font-bold text-slate-900">{pair.label}</h3>
-                <p className="text-sm text-slate-500 mt-1">
-                  Confirm OEM above · {pair.replaces}
-                </p>
-              </div>
-              <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
-                {[
-                  {
-                    tier: 'Good',
-                    kit: pair.good,
-                    image: NAVITAS_440A_KIT_IMAGE,
-                    blurb: 'Stock / flat ground · Bluetooth + OTF',
-                  },
-                  {
-                    tier: 'Better',
-                    kit: pair.better,
-                    image: NAVITAS_KIT_IMAGE,
-                    blurb: 'Hills, lifts, lithium torque · Bluetooth + OTF',
-                  },
-                ].map(({ tier, kit, image, blurb }) => (
-                  <div key={kit.slug} className="flex gap-4 p-5 md:p-6">
-                    <div className="relative w-24 h-24 shrink-0 rounded-lg bg-slate-50 border border-slate-100 overflow-hidden">
-                      <Image
-                        src={image}
-                        alt={kit.name}
-                        fill
-                        className="object-contain p-2"
-                        sizes="96px"
-                      />
-                    </div>
-                    <div className="min-w-0 flex-1 space-y-2">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span
-                          className={
-                            tier === 'Better'
-                              ? 'text-xs font-bold uppercase tracking-wide text-canyon-rust'
-                              : 'text-xs font-bold uppercase tracking-wide text-slate-500'
-                          }
-                        >
-                          {tier}
-                        </span>
-                        <span className="text-xs text-slate-400">{kit.amperage}A</span>
-                      </div>
-                      <p className="font-semibold text-slate-900">{kit.shortName}</p>
-                      <p className="text-sm text-slate-600">{blurb}</p>
-                      <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
-                        <div>
-                          <p className="text-lg font-bold text-slate-900">
-                            ${kit.price.toLocaleString()}
-                          </p>
-                          <p className="text-xs text-green-700 font-medium">Free ground shipping</p>
-                        </div>
-                        <BuyButton href={`/parts/${kit.slug}`}>Buy now</BuyButton>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
           ))}
         </div>
       </section>
@@ -555,63 +509,16 @@ export default function NavitasControllersHubPage() {
                     <p className="text-lg font-bold text-slate-900">
                       ${kit.price.toLocaleString()}
                     </p>
-                    <p className="text-xs text-green-700 font-medium">Free ground shipping</p>
+                    <TrustLine />
                   </div>
                   <BuyButton href={`/parts/${kit.slug}`}>Buy now</BuyButton>
                 </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section id="performance" className="space-y-6 scroll-mt-24">
-        <div className="text-center space-y-2 max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold text-slate-900">Performance — TAC3 850A AC</h2>
-          <p className="text-slate-600">
-            Full DC-to-AC conversion with 7.5kW motor and 850A controller. For lifted carts, hills, and
-            high-speed builds — bigger install than TSX keep-motor kits. $2,399 with free shipping. No
-            OTF — Bluetooth app only.
-          </p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {NAVITAS_TAC3_850A_KITS.map((kit) => (
-            <div
-              key={kit.slug}
-              className="flex flex-col rounded-2xl border border-slate-200 bg-white overflow-hidden"
-            >
-              <div className="relative aspect-[4/3] bg-slate-50">
-                <Image
-                  src={NAVITAS_TAC3_KIT_IMAGE}
-                  alt={kit.name}
-                  fill
-                  className="object-contain p-4"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-                <span className="absolute left-3 top-3 rounded bg-white/90 border border-slate-200 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-slate-700">
-                  {kit.shortName.replace(' TAC3 850A', '')}
-                </span>
-              </div>
-              <div className="p-5 space-y-2 flex-1 flex flex-col">
-                <p className="text-xs font-bold uppercase tracking-wide text-canyon-rust">
-                  TAC3 · 850A · 7.5kW
-                </p>
-                <h3 className="font-bold text-slate-900">{kit.shortName}</h3>
-                <p className="text-sm text-slate-600 flex-1">
-                  Fits {kit.cartLabel}. Confirm OEM above.
-                </p>
-                <p className="text-xs text-amber-800 bg-amber-50 border border-amber-100 rounded-lg px-2.5 py-2">
-                  {kit.note}
-                </p>
-                <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100">
-                  <div>
-                    <p className="text-lg font-bold text-slate-900">
-                      ${kit.price.toLocaleString()}
-                    </p>
-                    <p className="text-xs text-green-700 font-medium">Free ground shipping</p>
-                  </div>
-                  <BuyButton href={`/parts/${kit.slug}`}>Buy now</BuyButton>
-                </div>
+                <Link
+                  href="/lithium-batteries/yamaha-drive2-48v"
+                  className="inline-flex text-xs font-semibold text-slate-600 hover:text-canyon-rust"
+                >
+                  + Drive2 lithium →
+                </Link>
               </div>
             </div>
           ))}
@@ -622,8 +529,8 @@ export default function NavitasControllersHubPage() {
         <div className="space-y-3">
           <h2 className="text-2xl font-bold">Going lithium? Pair the controller</h2>
           <p className="text-slate-300">
-            Lithium Rhino packs hold voltage under load — a Navitas TSX kit is how you turn that into
-            stronger acceleration and tunable top speed without swapping the motor.
+            Lithium Rhino packs hold voltage under load — a Navitas 600A TSX kit is how most converters
+            turn that into stronger acceleration and tunable top speed without swapping the motor.
           </p>
         </div>
         <div className="flex flex-wrap gap-3 md:justify-end">
@@ -642,6 +549,166 @@ export default function NavitasControllersHubPage() {
         </div>
       </section>
 
+      {/* Optional browse: collapsed so cheat-sheet stays primary */}
+      <section id="kits" className="scroll-mt-24">
+        <details className="group rounded-2xl border border-slate-200 bg-white overflow-hidden">
+          <summary className="cursor-pointer list-none px-5 py-5 md:px-6 md:py-6 flex flex-wrap items-center justify-between gap-3 hover:bg-slate-50">
+            <div>
+              <h2 className="text-2xl font-bold text-slate-900">Browse all TSX kit cards</h2>
+              <p className="text-sm text-slate-600 mt-1">
+                Optional — Good 440A / Better 600A by platform. Prefer the OEM table above to buy.
+              </p>
+            </div>
+            <span className="text-sm font-semibold text-canyon-rust group-open:hidden">Show cards →</span>
+            <span className="text-sm font-semibold text-slate-500 hidden group-open:inline">Hide cards</span>
+          </summary>
+          <div className="border-t border-slate-100 p-5 md:p-6 space-y-6">
+            {NAVITAS_PLATFORM_PAIRS.map((pair) => (
+              <div
+                key={pair.id}
+                id={`kit-${pair.id}`}
+                className="rounded-2xl border border-slate-200 bg-white overflow-hidden scroll-mt-24"
+              >
+                <div className="border-b border-slate-100 px-5 py-4 md:px-6">
+                  <h3 className="text-xl font-bold text-slate-900">{pair.label}</h3>
+                  <p className="text-sm text-slate-500 mt-1">
+                    Confirm OEM above · {pair.replaces}
+                  </p>
+                </div>
+                <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                  {[
+                    {
+                      tier: 'Good',
+                      kit: pair.good,
+                      image: NAVITAS_440A_KIT_IMAGE,
+                      blurb: 'Stock / flat ground · Bluetooth + OTF',
+                      recommended: false,
+                    },
+                    {
+                      tier: 'Better',
+                      kit: pair.better,
+                      image: NAVITAS_KIT_IMAGE,
+                      blurb: 'Recommended for lithium, hills, lifts · Bluetooth + OTF',
+                      recommended: true,
+                    },
+                  ].map(({ tier, kit, image, blurb, recommended }) => (
+                    <div
+                      key={kit.slug}
+                      className={`flex gap-4 p-5 md:p-6 ${recommended ? 'bg-orange-50/30' : ''}`}
+                    >
+                      <div className="relative w-24 h-24 shrink-0 rounded-lg bg-slate-50 border border-slate-100 overflow-hidden">
+                        <Image
+                          src={image}
+                          alt={kit.name}
+                          fill
+                          className="object-contain p-2"
+                          sizes="96px"
+                        />
+                      </div>
+                      <div className="min-w-0 flex-1 space-y-2">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span
+                            className={
+                              recommended
+                                ? 'text-xs font-bold uppercase tracking-wide text-canyon-rust'
+                                : 'text-xs font-bold uppercase tracking-wide text-slate-500'
+                            }
+                          >
+                            {tier}
+                            {recommended ? ' · Lithium pick' : ''}
+                          </span>
+                          <span className="text-xs text-slate-400">{kit.amperage}A</span>
+                        </div>
+                        <p className="font-semibold text-slate-900">{kit.shortName}</p>
+                        <p className="text-sm text-slate-600">{blurb}</p>
+                        <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+                          <div>
+                            <p className="text-lg font-bold text-slate-900">
+                              ${kit.price.toLocaleString()}
+                            </p>
+                            <TrustLine />
+                          </div>
+                          <BuyButton
+                            href={`/parts/${kit.slug}`}
+                            variant={recommended ? 'primary' : 'secondary'}
+                          >
+                            Buy now
+                          </BuyButton>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </details>
+      </section>
+
+      <section id="performance" className="scroll-mt-24">
+        <details className="group rounded-2xl border border-slate-200 bg-white overflow-hidden">
+          <summary className="cursor-pointer list-none px-5 py-5 md:px-6 md:py-6 flex flex-wrap items-center justify-between gap-3 hover:bg-slate-50">
+            <div>
+              <h2 className="text-2xl font-bold text-slate-900">
+                Performance — TAC3 850A (motor swap)
+              </h2>
+              <p className="text-sm text-slate-600 mt-1">
+                Full DC→AC conversion with 7.5kW motor · $2,399 · free shipping · no OTF. Only open if
+                you need more than a keep-motor TSX upgrade.
+              </p>
+            </div>
+            <span className="text-sm font-semibold text-canyon-rust group-open:hidden">
+              Show 850A kits →
+            </span>
+            <span className="text-sm font-semibold text-slate-500 hidden group-open:inline">
+              Hide 850A kits
+            </span>
+          </summary>
+          <div className="border-t border-slate-100 p-5 md:p-6 grid md:grid-cols-3 gap-6">
+            {NAVITAS_TAC3_850A_KITS.map((kit) => (
+              <div
+                key={kit.slug}
+                className="flex flex-col rounded-2xl border border-slate-200 bg-white overflow-hidden"
+              >
+                <div className="relative aspect-[4/3] bg-slate-50">
+                  <Image
+                    src={NAVITAS_TAC3_KIT_IMAGE}
+                    alt={kit.name}
+                    fill
+                    className="object-contain p-4"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                  <span className="absolute left-3 top-3 rounded bg-white/90 border border-slate-200 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-slate-700">
+                    {kit.shortName.replace(' TAC3 850A', '')}
+                  </span>
+                </div>
+                <div className="p-5 space-y-2 flex-1 flex flex-col">
+                  <p className="text-xs font-bold uppercase tracking-wide text-canyon-rust">
+                    TAC3 · 850A · 7.5kW
+                  </p>
+                  <h3 className="font-bold text-slate-900">{kit.shortName}</h3>
+                  <p className="text-sm text-slate-600 flex-1">
+                    Fits {kit.cartLabel}. Confirm OEM above.
+                  </p>
+                  <p className="text-xs text-amber-800 bg-amber-50 border border-amber-100 rounded-lg px-2.5 py-2">
+                    {kit.note}
+                  </p>
+                  <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100">
+                    <div>
+                      <p className="text-lg font-bold text-slate-900">
+                        ${kit.price.toLocaleString()}
+                      </p>
+                      <TrustLine />
+                    </div>
+                    <BuyButton href={`/parts/${kit.slug}`}>Buy now</BuyButton>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </details>
+      </section>
+
       <section className="max-w-3xl mx-auto space-y-4">
         <h2 className="text-2xl font-bold text-slate-900 text-center">Navitas controller FAQ</h2>
         {FAQS.map(({ q, a }) => (
@@ -654,6 +721,24 @@ export default function NavitasControllersHubPage() {
           </details>
         ))}
       </section>
+
+      {/* Mobile sticky fitment help */}
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 backdrop-blur px-4 py-3 lg:hidden">
+        <div className="container mx-auto flex gap-2">
+          <a
+            href="#find-your-kit"
+            className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-lg bg-canyon-rust px-3 py-2 text-sm font-semibold text-white"
+          >
+            Match OEM
+          </a>
+          <a
+            href={NAVITAS_FITMENT_PHOTO_MAILTO}
+            className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-800"
+          >
+            Send photo
+          </a>
+        </div>
+      </div>
     </main>
   );
 }
