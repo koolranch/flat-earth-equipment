@@ -397,6 +397,21 @@ export default function ProductDetails({
     </div>
   );
 
+  const isFilterListing =
+    /filter/i.test(part.category || '') || /filter/i.test(part.category_slug || '');
+  const isChargerListing =
+    /charger/i.test(part.category || '') || /charger/i.test(part.category_slug || '');
+  const gradeBlurbFor = (grade: string | null) => {
+    if (grade === 'economy') {
+      return isChargerListing
+        ? 'Signet HB500 economy version'
+        : 'Budget-friendly for routine service';
+    }
+    if (isChargerListing) return 'Signet HB600 industrial-duty charger';
+    if (isFilterListing) return 'Standard-grade aftermarket filter';
+    return 'Standard industrial-duty version';
+  };
+
   const gradeOptions =
     relatedGrade && currentGradeLabel
       ? [
@@ -405,10 +420,7 @@ export default function ProductDetails({
             slug: part.slug,
             label: currentGradeLabel,
             price: part.price,
-            blurb:
-              currentGrade === 'economy'
-                ? 'Budget-friendly for routine service'
-                : 'Standard-grade aftermarket filter',
+            blurb: gradeBlurbFor(currentGrade),
             isCurrent: true,
           },
           {
@@ -416,10 +428,7 @@ export default function ProductDetails({
             slug: relatedGrade.slug,
             label: relatedGrade.label,
             price: relatedGrade.price,
-            blurb:
-              relatedGrade.grade === 'economy'
-                ? 'Budget-friendly for routine service'
-                : 'Standard-grade aftermarket filter',
+            blurb: gradeBlurbFor(relatedGrade.grade),
             isCurrent: false,
           },
         ].sort((a, b) => a.price - b.price)
@@ -427,7 +436,9 @@ export default function ProductDetails({
 
   const gradeChooser = gradeOptions && (
     <div className="mb-6">
-      <p className="block text-sm font-medium text-gray-700 mb-2">Choose filter grade</p>
+      <p className="block text-sm font-medium text-gray-700 mb-2">
+        {isFilterListing ? 'Choose filter grade' : 'Choose version'}
+      </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
         {gradeOptions.map((option) => {
           const className = `block border-2 rounded-lg px-4 py-3 text-left transition-colors ${
