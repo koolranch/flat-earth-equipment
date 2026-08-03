@@ -128,27 +128,27 @@ export default async function BlogPost({ params }: Props) {
         {
           question: 'How do JCB telehandler joystick controls work?',
           answer:
-            'Most JCB telehandlers use a seat-mounted proportional joystick for boom lift/lower, extend/retract, and attachment crowd/dump, with buttons or rollers for auxiliary hydraulics. Steering is usually separate (front-wheel, all-wheel, or crab), so the stick handles the boom and attachment while the wheel handles travel direction.',
+            'JCB telehandlers use a single, fully proportional, seat-mounted servo joystick to control boom lift/lower, extend/retract, and crowd/dump (tilt), plus auxiliary hydraulics via a rocker or roller on the grip. The joystick only arms when the seat switch is engaged.',
         },
         {
           question: 'What should I check before replacing a JCB telehandler joystick?',
           answer:
-            'Confirm the machine has hydraulic enable and a closed seat/operator presence switch, then inspect the stick connector and harness for corrosion or chafe. Intermittent buttons often point to the grip or harness before the whole valve stack. Match left-hand vs right-hand and function count to your model and serial before ordering.',
+            'Check the seat switch, the multi-pin connector at the joystick base for corrosion or a loose latch, and the harness for chafe points along the seat riser. If only one function fails while others work, the fault is usually inside the joystick itself and replacement is the fix.',
         },
         {
           question: 'Are left-hand and right-hand joysticks interchangeable?',
           answer:
-            'Usually not. LH and RH sticks differ in mounting, harness pinout, and function layout. Ordering the wrong side is a common no-fit. Verify the OEM part number and serial break for your machine.',
+            'No. LH and RH joystick assemblies are built for a specific cab mounting position and are not interchangeable. Always confirm LH/RH, function count, and your model/serial number before ordering.',
         },
         {
           question: 'Can I use an aftermarket JCB joystick like 332/X6237?',
           answer:
-            'Yes, when the aftermarket unit matches the OEM part number and function count for your serial range. Flat Earth Equipment lists aftermarket JCB controls clearly and backs eligible parts with a 2-year warranty. Always confirm fitment before purchase.',
+            'Yes, once you have confirmed LH/RH position, function count, and fitment against your model and serial number. Eligible aftermarket JCB parts, including joysticks, ship with a 2-year warranty.',
         },
         {
           question: 'Where can I buy JCB telehandler joystick and cab parts online?',
           answer:
-            'Flat Earth Equipment stocks aftermarket JCB joysticks, seats, and forks for telehandler cabs. Start with the 332/X6237 left-hand joystick if that is your PN, or request a quote if you need a different control part number.',
+            "You can browse in-stock aftermarket JCB joystick, seat, and fork parts online, with fitment details listed on each part page. If you don't see your exact part number, request a quote and we'll help confirm the right fit.",
         },
       ]
     : [];
