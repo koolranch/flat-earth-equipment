@@ -7,6 +7,7 @@ import { TCOComparisonCalculator } from '@/components/TCOCalculator';
 import { BMSCompatibilityChecker } from '@/components/BMSCompatibilityChecker';
 import { FAQSection } from '@/components/SEOComponents';
 import { ChargerSelectorStrip } from '@/components/insights/ChargerSelectorStrip';
+import { JcbCabPartsStrip } from '@/components/insights/JcbCabPartsStrip';
 
 const insightMdxComponents = {
   AmperageCalculator,
@@ -17,6 +18,7 @@ const insightMdxComponents = {
   BMSCompatibilityChecker,
   FAQSection,
   ChargerSelectorStrip,
+  JcbCabPartsStrip,
 };
 
 export interface BlogPost {
