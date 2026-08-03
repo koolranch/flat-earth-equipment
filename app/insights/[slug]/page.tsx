@@ -383,6 +383,7 @@ export default async function BlogPost({ params }: Props) {
         />
       )}
 
+      {/* Additive FAQPage JSON-LD for JCB telehandler joystick guide */}
       {isJcbJoystickGuide && jcbJoystickFAQs.length > 0 && (
         <script
           type="application/ld+json"

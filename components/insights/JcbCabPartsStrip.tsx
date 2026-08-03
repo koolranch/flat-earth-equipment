@@ -7,21 +7,18 @@ const PRODUCTS = [
     slug: '332X6237',
     title: '332/X6237 Left-Hand Joystick',
     blurb: 'Aftermarket LH stick — often replaced when boom response dies or buttons go intermittent.',
-    priceLabel: '$1,639',
     cta: 'View joystick',
   },
   {
     slug: 'jcb-400-h9799-suspension-seat-vinyl',
     title: '400/H9799 Suspension Seat',
     blurb: 'Vinyl suspension seat for cab comfort when the stick is in use all day.',
-    priceLabel: '$1,400',
     cta: 'View seat',
   },
   {
     slug: '333C3422',
     title: '333/C3422 48″ Fork',
     blurb: 'Aftermarket 48″ fork — common telehandler attachment companion.',
-    priceLabel: '$629',
     cta: 'View fork',
   },
 ] as const
@@ -45,10 +42,9 @@ export function JcbCabPartsStrip({
           <li key={p.slug} className="flex flex-col rounded-lg border border-slate-200 bg-white p-4">
             <p className="text-sm font-semibold text-slate-900 mb-1">{p.title}</p>
             <p className="text-sm text-slate-600 flex-1 mb-3">{p.blurb}</p>
-            <p className="text-sm font-medium text-slate-900 mb-3">{p.priceLabel}</p>
             <a
               href={`/parts/${p.slug}`}
-              className="inline-flex items-center justify-center rounded-lg bg-canyon-rust px-4 py-2 text-sm font-semibold text-white hover:bg-canyon-rust/90 transition-colors"
+              className="inline-flex items-center justify-center rounded-lg bg-canyon-rust px-4 py-2.5 text-sm font-semibold text-white hover:bg-canyon-rust/90 transition-colors"
             >
               {p.cta}
             </a>
