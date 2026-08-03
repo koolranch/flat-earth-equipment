@@ -95,21 +95,6 @@
       <g:product_type>Controllers</g:product_type>
     </item>
     <item>
-      <g:id>NA600KIT</g:id>
-      <title>Navitas EZGO Series ITS 36/48V 600A Conversion Kit</title>
-      <description>Navitas 600 A ITS conversion—36/48 V torque + speed in one kit. Plug-n-play harness, Bluetooth tuning, and diagnostic app. Ideal for Series EZ-GO upgrades. Ships same-day.</description>
-      <link>https://www.flatearthequipment.com/parts/navitas-ezgo-series-its-36-48v-600a-conversion-kit</link>
-      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-ezgo-series-its-36-48v-conversion-kit.jpeg</g:image_link>
-      <g:price>1150.00 USD</g:price>
-      <g:brand>Navitas</g:brand>
-      <g:mpn>NA600KIT</g:mpn>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
-      <g:product_type>Controllers</g:product_type>
-    </item>
-    <item>
       <g:id>1206HB-5201</g:id>
       <title>Curtis EZGO 48V 250A (ITS) Controller 1206HB-5201</title>
       <description>Curtis 48 V / 250 A ITS controller for EZ-GO TXT. OEM-grade reman with updated firmware for crisp throttle response. Backed by 6-month warranty &amp; U S tech support.</description>
@@ -7823,6 +7808,54 @@ Most operators replace tracks in pairs: running a new track opposite a worn one 
       </g:shipping>
     </item>
     <item>
+      <g:id>87-TSX3-600CCIQX</g:id>
+      <title>Navitas Club Car IQ/Excel 48V 600A Conversion Kit w/OTF</title>
+      <description>Navitas TSX3.0 600A DC conversion kit for Club Car IQ/Excel 48V carts. Plug-and-play upgrade that keeps your existing separately excited DC motor while adding Bluetooth app tuning, regenerative braking, and the On-The-Fly (OTF) programmer for speed, regen, and acceleration adjustments while driving.
+
+Fits Club Car IQ and Excel systems that use a stock Curtis 1510 or 1515 controller — including many Precedent, Tempo, and DS IQ carts. Confirm your OEM controller before ordering; carts on 1268/1520 use the Club Car/StarEV kit instead.
+
+Kit includes the 600A Bluetooth TSX3.0 controller, vehicle-specific harness, and OTF programmer. Free ground shipping. Pair with a Lithium Rhino 48V pack for full current delivery under load.</description>
+      <link>https://www.flatearthequipment.com/parts/navitas-club-car-iq-excel-48v-600a-conversion-kit</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tsx-600a-conversion-kit.png</g:image_link>
+      <g:price>899.00 USD</g:price>
+      <g:brand>Navitas</g:brand>
+      <g:mpn>87-TSX3-600CCIQX</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Controllers</g:product_type>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>87-TSX3-600CCSTR</g:id>
+      <title>Navitas Club Car/StarEV 48V 600A Conversion Kit w/OTF</title>
+      <description>Navitas TSX3.0 600A DC conversion kit for Club Car and StarEV 48V carts running a stock Curtis 1268 or 1520 controller. Keeps your existing DC motor and adds Bluetooth app control, regen braking, and the On-The-Fly programmer.
+
+Not the same harness as Club Car IQ/Excel (1510/1515) kits — match your OEM controller number before ordering.
+
+Kit includes the 600A Bluetooth TSX3.0 controller, vehicle-specific harness, and OTF programmer. Free ground shipping. Works great alongside a Lithium Rhino 48V conversion kit.</description>
+      <link>https://www.flatearthequipment.com/parts/navitas-club-car-starev-48v-600a-conversion-kit</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tsx-600a-conversion-kit.png</g:image_link>
+      <g:price>899.00 USD</g:price>
+      <g:brand>Navitas</g:brand>
+      <g:mpn>87-TSX3-600CCSTR</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Controllers</g:product_type>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>32009383</g:id>
       <title>JCB 320/09383 BOTTOM GASKET KIT</title>
       <description>High-quality replacement bottom gasket kit for JCB equipment. Direct fit for OEM part number 320/09383.</description>
@@ -7838,6 +7871,30 @@ Most operators replace tracks in pairs: running a new track opposite a worn one 
       <g:product_type>JCB Engine Parts</g:product_type>
     </item>
     <item>
+      <g:id>NA600KIT</g:id>
+      <title>Navitas E-Z-GO ITS 48V 600A Conversion Kit w/OTF</title>
+      <description>Navitas TSX3.0 600A DC conversion kit for E-Z-GO ITS 48V systems. Plug-and-play controller upgrade with Bluetooth tuning, regenerative braking, and On-The-Fly programmer — keeps your stock separately excited DC motor.
+
+Replaces Curtis 1268/1264 controllers on ITS-equipped E-Z-GO carts. For TXT carts with a Curtis 1206HB, use the dedicated TXT kit instead.
+
+Kit includes the 600A Bluetooth TSX3.0 controller, vehicle-specific harness, and OTF programmer. Free ground shipping. Ideal companion upgrade when converting to Lithium Rhino.</description>
+      <link>https://www.flatearthequipment.com/parts/navitas-ezgo-series-its-36-48v-600a-conversion-kit</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tsx-600a-conversion-kit.png</g:image_link>
+      <g:price>899.00 USD</g:price>
+      <g:brand>Navitas</g:brand>
+      <g:mpn>87-TSX3-600E2ITS</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Controllers</g:product_type>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>04501800</g:id>
       <title>JCB 04/501800 Replacement Part</title>
       <description>Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 04/501800.</description>
@@ -7851,6 +7908,54 @@ Most operators replace tracks in pairs: running a new track opposite a worn one 
       <g:identifier_exists>no</g:identifier_exists>
       <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
       <g:product_type>JCB General Parts</g:product_type>
+    </item>
+    <item>
+      <g:id>87-TSX3-600EZTXT</g:id>
+      <title>Navitas E-Z-GO TXT 48V 600A Conversion Kit w/OTF</title>
+      <description>Navitas TSX3.0 600A DC conversion kit for E-Z-GO TXT 48V carts. The most common plug-and-play controller upgrade for TXT owners going lithium — Bluetooth app, regen braking, and On-The-Fly speed/accel/regen control while keeping the stock DC motor.
+
+Replaces the stock Curtis 1206HB controller. ITS/PDS carts need the ITS kit, not this TXT harness.
+
+Kit includes the 600A Bluetooth TSX3.0 controller, vehicle-specific harness, and OTF programmer. Free ground shipping. Pair with a Lithium Rhino 48V 105Ah kit for the full conversion package.</description>
+      <link>https://www.flatearthequipment.com/parts/navitas-ezgo-txt-48v-600a-conversion-kit</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tsx-600a-conversion-kit.png</g:image_link>
+      <g:price>899.00 USD</g:price>
+      <g:brand>Navitas</g:brand>
+      <g:mpn>87-TSX3-600EZTXT</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Controllers</g:product_type>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>87-TSX3-600YG29</g:id>
+      <title>Navitas Yamaha G29/Drive 48V 600A Conversion Kit w/OTF</title>
+      <description>Navitas TSX3.0 600A DC conversion kit for Yamaha G29 and Drive 48V carts. Plug-and-play upgrade that keeps your existing DC motor while adding Bluetooth app tuning, regenerative braking, and the On-The-Fly programmer.
+
+Confirm your cart is a G29/Drive DC platform before ordering. Drive2 AC systems need a different (AC) conversion path.
+
+Kit includes the 600A Bluetooth TSX3.0 controller, vehicle-specific harness, and OTF programmer. Free ground shipping. Pairs cleanly with Lithium Rhino 48V conversion kits.</description>
+      <link>https://www.flatearthequipment.com/parts/navitas-yamaha-g29-drive-48v-600a-conversion-kit</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tsx-600a-conversion-kit.png</g:image_link>
+      <g:price>899.00 USD</g:price>
+      <g:brand>Navitas</g:brand>
+      <g:mpn>87-TSX3-600YG29</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Controllers</g:product_type>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>
     </item>
     <item>
       <g:id>32009022</g:id>

@@ -386,6 +386,35 @@ export default async function LithiumBatteriesLanding() {
         </Link>
       </section>
 
+      {/* ─────────── Controller upgrade attach (Navitas) ─────────── */}
+      <section className="rounded-2xl border border-slate-200 bg-slate-950 text-white p-8 md:p-10 space-y-4">
+        <div className="inline-flex items-center gap-2 bg-orange-500/20 text-orange-300 px-3 py-1 rounded-full text-xs font-medium">
+          Pair with lithium
+        </div>
+        <h2 className="text-2xl font-bold">
+          Want more torque after the battery swap?
+        </h2>
+        <p className="text-slate-300 max-w-2xl">
+          Lithium holds voltage under load — a Navitas TSX 600A controller kit unlocks that current with
+          Bluetooth tuning and an On-The-Fly programmer. Kits for EZGO, Club Car, and Yamaha at $899 with
+          free shipping.
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href="/navitas-controllers"
+            className="inline-flex min-h-[44px] items-center gap-2 bg-canyon-rust text-white px-5 py-2 rounded-lg font-semibold hover:bg-orange-600 transition-colors"
+          >
+            Shop Navitas controllers →
+          </Link>
+          <Link
+            href="/parts/navitas-ezgo-txt-48v-600a-conversion-kit"
+            className="inline-flex min-h-[44px] items-center gap-2 border border-slate-600 text-white px-5 py-2 rounded-lg font-semibold hover:border-orange-400 transition-colors"
+          >
+            EZGO TXT 600A kit
+          </Link>
+        </div>
+      </section>
+
       {/* ─────────── Cross-promotion to Forklift Charger Modules ─────────── */}
       <section className="bg-blue-50 rounded-2xl p-8 text-center space-y-4">
         <div className="inline-flex items-center gap-2 bg-blue-600/10 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">

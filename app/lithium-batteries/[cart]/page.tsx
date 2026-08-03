@@ -5,6 +5,10 @@ import { Metadata } from 'next';
 import { createClient } from '@supabase/supabase-js';
 import { CART_MODELS, getCartModel, type CartModel } from '@/constants/golfCartModels';
 import {
+  getNavitasKitForLithiumCart,
+  NAVITAS_HUB_PATH,
+} from '@/constants/navitasKits';
+import {
   Battery,
   ShieldCheck,
   Truck,
@@ -129,6 +133,8 @@ export default async function CartLithiumLanding({
       return order[a.popularity] - order[b.popularity];
     })
     .slice(0, 9);
+
+  const navitasKit = getNavitasKitForLithiumCart(cart.slug);
 
   return (
     <main className="container mx-auto px-4 lg:px-8 py-12 space-y-12 pb-20">
@@ -304,6 +310,46 @@ export default async function CartLithiumLanding({
             <p className="text-xs text-slate-500 mt-1">{sub}</p>
           </div>
         ))}
+      </section>
+
+      {/* ─────────── Navitas controller attach ─────────── */}
+      <section className="rounded-2xl border border-slate-200 bg-slate-950 text-white p-8 space-y-4">
+        <h2 className="text-2xl font-bold">Controller upgrade for the {cart.fullName}</h2>
+        {navitasKit ? (
+          <>
+            <p className="text-slate-300 max-w-2xl">
+              Pair your lithium kit with the {navitasKit.shortName} conversion kit — Bluetooth tuning,
+              On-The-Fly programmer, free shipping. Replaces {navitasKit.replaces}.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href={`/parts/${navitasKit.slug}`}
+                className="inline-flex min-h-[44px] items-center rounded-lg bg-canyon-rust px-5 py-2.5 font-semibold text-white hover:bg-orange-600"
+              >
+                Shop {navitasKit.shortName} — ${navitasKit.price}
+              </Link>
+              <Link
+                href={NAVITAS_HUB_PATH}
+                className="inline-flex min-h-[44px] items-center rounded-lg border border-slate-600 px-5 py-2.5 font-semibold text-white hover:border-orange-400"
+              >
+                All Navitas kits
+              </Link>
+            </div>
+          </>
+        ) : (
+          <>
+            <p className="text-slate-300 max-w-2xl">
+              Going lithium? Browse Navitas TSX 600A kits for EZGO, Club Car, and Yamaha — $899 with free
+              shipping when a DC controller upgrade fits your cart.
+            </p>
+            <Link
+              href={NAVITAS_HUB_PATH}
+              className="inline-flex min-h-[44px] items-center rounded-lg bg-canyon-rust px-5 py-2.5 font-semibold text-white hover:bg-orange-600"
+            >
+              Shop Navitas controllers →
+            </Link>
+          </>
+        )}
       </section>
 
       {/* ─────────── Cart-specific FAQ ─────────── */}
