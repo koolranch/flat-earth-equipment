@@ -7,6 +7,7 @@ import { CART_MODELS, getCartModel, type CartModel } from '@/constants/golfCartM
 import {
   getNavitasKitForLithiumCart,
   NAVITAS_HUB_PATH,
+  NAVITAS_TAC2_KITS,
 } from '@/constants/navitasKits';
 import {
   Battery,
@@ -135,6 +136,7 @@ export default async function CartLithiumLanding({
     .slice(0, 9);
 
   const navitasKit = getNavitasKitForLithiumCart(cart.slug);
+  const navitasTac2Note = NAVITAS_TAC2_KITS.find((k) => k.slug === navitasKit?.slug)?.note;
 
   return (
     <main className="container mx-auto px-4 lg:px-8 py-12 space-y-12 pb-20">
@@ -319,8 +321,12 @@ export default async function CartLithiumLanding({
           <>
             <p className="text-slate-300 max-w-2xl">
               Pair your lithium kit with the {navitasKit.shortName} conversion kit — Bluetooth tuning,
-              On-The-Fly programmer, free shipping. Replaces {navitasKit.replaces}.
+              {navitasTac2Note ? ' free shipping.' : ' On-The-Fly programmer, free shipping.'} Replaces{' '}
+              {navitasKit.replaces}.
             </p>
+            {navitasTac2Note ? (
+              <p className="text-sm text-amber-200/90 max-w-2xl">{navitasTac2Note}</p>
+            ) : null}
             <div className="flex flex-wrap gap-3">
               <Link
                 href={`/parts/${navitasKit.slug}`}

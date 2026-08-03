@@ -8,13 +8,17 @@ import {
   NAVITAS_HUB_PATH,
   NAVITAS_KIT_IMAGE,
   NAVITAS_PLATFORM_PAIRS,
+  NAVITAS_TAC2_KITS,
 } from '@/constants/navitasKits';
 import { Bluetooth, Gauge, Truck, Zap } from 'lucide-react';
 
+const NAVITAS_TAC2_IMAGE =
+  'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tac2-drive2-440a-conversion-kit.png';
+
 const PAGE_TITLE =
-  'Navitas Golf Cart Controllers | TSX 440A & 600A Kits — Free Shipping';
+  'Navitas Golf Cart Controllers | TSX 440A & 600A + Drive2 TAC2 — Free Shipping';
 const PAGE_DESCRIPTION =
-  'Navitas TSX3.0 440A and 600A conversion kits for EZGO, Club Car, and Yamaha. Bluetooth app, On-The-Fly programmer, free ground shipping. Pair with Lithium Rhino.';
+  'Navitas TSX3.0 440A and 600A conversion kits for EZGO, Club Car, and Yamaha, plus Drive2 TAC2 AC kits. Bluetooth app, free ground shipping. Pair with Lithium Rhino.';
 
 export const metadata: Metadata = {
   title: PAGE_TITLE,
@@ -67,14 +71,15 @@ const FAQS = [
 ];
 
 export default function NavitasControllersHubPage() {
+  const allKits = [...NAVITAS_ALL_TSX_KITS, ...NAVITAS_TAC2_KITS];
   const itemListLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'Navitas TSX Conversion Kits',
+    name: 'Navitas Conversion Kits',
     description: PAGE_DESCRIPTION,
     url: `${SITE_URL}${NAVITAS_HUB_PATH}`,
-    numberOfItems: NAVITAS_ALL_TSX_KITS.length,
-    itemListElement: NAVITAS_ALL_TSX_KITS.map((kit, i) => ({
+    numberOfItems: allKits.length,
+    itemListElement: allKits.map((kit, i) => ({
       '@type': 'ListItem',
       position: i + 1,
       url: `${SITE_URL}/parts/${kit.slug}`,
@@ -247,6 +252,56 @@ export default function NavitasControllersHubPage() {
                 ))}
               </div>
             </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="drive2" className="space-y-6">
+        <div className="text-center space-y-2 max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold text-slate-900">Yamaha Drive2 (AC / NEOS)</h2>
+          <p className="text-slate-600">
+            Different platform from G29/Drive TSX kits. TAC2 AC controller for Drive2 carts with NEOS
+            controls — Bluetooth app tuning; On-The-Fly programmer is not included.
+          </p>
+        </div>
+        <div className="max-w-2xl mx-auto">
+          {NAVITAS_TAC2_KITS.map((kit) => (
+            <Link
+              key={kit.slug}
+              href={`/parts/${kit.slug}`}
+              className="group flex flex-col sm:flex-row gap-5 rounded-2xl border border-slate-200 bg-white p-5 md:p-6 hover:border-canyon-rust hover:shadow-md transition-all"
+            >
+              <div className="relative w-full sm:w-40 aspect-square sm:aspect-auto sm:h-40 shrink-0 rounded-xl bg-slate-50 border border-slate-100 overflow-hidden">
+                <Image
+                  src={NAVITAS_TAC2_IMAGE}
+                  alt={kit.name}
+                  fill
+                  className="object-contain p-3"
+                  sizes="160px"
+                />
+              </div>
+              <div className="flex-1 space-y-2">
+                <p className="text-xs font-bold uppercase tracking-wide text-canyon-rust">
+                  TAC2 AC · {kit.amperage}A
+                </p>
+                <h3 className="text-xl font-bold text-slate-900 group-hover:text-canyon-rust">
+                  {kit.shortName}
+                </h3>
+                <p className="text-sm text-slate-600">
+                  Fits {kit.cartLabel}. Replaces {kit.replaces}.
+                </p>
+                <p className="text-sm text-amber-800 bg-amber-50 border border-amber-100 rounded-lg px-3 py-2">
+                  {kit.note}
+                </p>
+                <div className="flex items-center justify-between pt-2">
+                  <span className="text-lg font-bold text-slate-900">
+                    ${kit.price.toLocaleString()}
+                  </span>
+                  <span className="text-sm font-semibold text-canyon-rust">Buy now →</span>
+                </div>
+                <p className="text-xs text-green-700 font-medium">Free ground shipping</p>
+              </div>
+            </Link>
           ))}
         </div>
       </section>

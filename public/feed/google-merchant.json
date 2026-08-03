@@ -7815,6 +7815,28 @@
     ]
   },
   {
+    "id": "64-NAVYAMTAC2-G29-4",
+    "title": "Navitas Yamaha Drive2 (NEOS) 48V 440A TAC2 Conversion Kit",
+    "description": "Navitas TAC2 440A conversion kit for Yamaha Drive2 (YDRE2) carts with Toyota NEOS “M” type AC controls. Bluetooth-enabled TAC2 controller with CAN support for performance tuning and diagnostics via the Navitas app.\n\nImportant: this kit does not include the On-The-Fly (OTF) dash programmer. Speed, regen, and acceleration are adjusted with the Navitas Bluetooth app. OTF is sold separately if you want physical knobs.\n\nKit includes the TAC2 440A controller with Bluetooth & CAN, TAC2 module, battery cable, and hardware mounting kit/plate. Not the same as the G29/Drive TSX DC kits — this is an AC / NEOS platform upgrade for Drive2 only.\n\nFree ground shipping. Pairs well with a Lithium Rhino 48V Drive2 conversion kit.",
+    "link": "https://www.flatearthequipment.com/parts/navitas-yamaha-drive2-neos-48v-440a-tac2-conversion-kit",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tac2-drive2-440a-conversion-kit.png",
+    "price": "899.00 USD",
+    "brand": "Navitas",
+    "mpn": "64-NAVYAMTAC2-G29-4",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "Controllers",
+    "identifier_exists": "no",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "Ground",
+        "price": "0.00 USD"
+      }
+    ]
+  },
+  {
     "id": "32009454",
     "title": "JCB 320/09454 Replacement Part",
     "description": "Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 320/09454.",

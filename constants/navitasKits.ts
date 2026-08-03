@@ -172,6 +172,29 @@ export const NAVITAS_ALL_TSX_KITS: NavitasKit[] = [
   ...NAVITAS_TSX_600A_KITS,
 ];
 
+/** AC / NEOS kits (not part of the TSX good/better ladder). */
+export type NavitasAcKit = NavitasKit & {
+  includesOtf: boolean;
+  series: 'TAC2' | 'TAC3';
+  note: string;
+};
+
+export const NAVITAS_TAC2_KITS: NavitasAcKit[] = [
+  {
+    sku: '64-NAVYAMTAC2-G29-4',
+    slug: 'navitas-yamaha-drive2-neos-48v-440a-tac2-conversion-kit',
+    name: 'Navitas Yamaha Drive2 (NEOS) 48V 440A TAC2 Conversion Kit',
+    shortName: 'Yamaha Drive2 TAC2 440A',
+    cartLabel: 'Yamaha Drive2 / YDRE2 (NEOS AC)',
+    replaces: 'Toyota NEOS M-type',
+    price: 899,
+    amperage: 440,
+    includesOtf: false,
+    series: 'TAC2',
+    note: 'Does not include On-The-Fly programmer — tune via Bluetooth app.',
+  },
+];
+
 /** Lithium cart landing slug → primary Navitas kit slug (600A preferred). */
 export const LITHIUM_CART_NAVITAS_KIT: Record<string, string> = {
   'ezgo-txt-48v': 'navitas-ezgo-txt-48v-600a-conversion-kit',
@@ -179,10 +202,14 @@ export const LITHIUM_CART_NAVITAS_KIT: Record<string, string> = {
   'club-car-tempo-48v': 'navitas-club-car-iq-excel-48v-600a-conversion-kit',
   'club-car-ds-48v': 'navitas-club-car-iq-excel-48v-600a-conversion-kit',
   'yamaha-drive-48v': 'navitas-yamaha-g29-drive-48v-600a-conversion-kit',
+  'yamaha-drive2-48v': 'navitas-yamaha-drive2-neos-48v-440a-tac2-conversion-kit',
 };
 
 export function getNavitasKitBySlug(slug: string): NavitasKit | undefined {
-  return NAVITAS_ALL_TSX_KITS.find((k) => k.slug === slug);
+  return (
+    NAVITAS_ALL_TSX_KITS.find((k) => k.slug === slug) ||
+    NAVITAS_TAC2_KITS.find((k) => k.slug === slug)
+  );
 }
 
 export function getNavitasKitForLithiumCart(cartSlug: string): NavitasKit | undefined {
