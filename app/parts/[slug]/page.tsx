@@ -97,6 +97,24 @@ async function fetchRelatedGradeOption(
   };
 }
 
+async function fetchAccessoryLink(
+  supabase: ReturnType<typeof supabaseServer>,
+  slug: unknown
+): Promise<{ slug: string; name: string; price: number } | null> {
+  if (typeof slug !== 'string' || !slug) return null;
+  const { data } = await supabase
+    .from('parts')
+    .select('slug, name, price')
+    .eq('slug', slug)
+    .maybeSingle();
+  if (!data) return null;
+  return {
+    slug: data.slug,
+    name: data.name,
+    price: Number(data.price),
+  };
+}
+
 /**
  * Build Product schema JSON-LD for a parts row.
  * Includes Offer (with price + availability), brand, image, weight,
@@ -473,6 +491,11 @@ export default async function ProductPage({ params }: Props) {
   if (product && !error) {
     const relatedTracks = await fetchRelatedRubberTracks(supabase, product);
     const relatedGrade = await fetchRelatedGradeOption(supabase, product);
+    const meta = (product.metadata as Record<string, unknown> | null) ?? {};
+    const [requiredAccessory, optionalAccessory] = await Promise.all([
+      fetchAccessoryLink(supabase, meta.required_accessory_slug),
+      fetchAccessoryLink(supabase, meta.optional_accessory_slug),
+    ]);
     const productSchema = buildProductSchema(product, params.slug);
     const breadcrumbSchema = buildBreadcrumbSchema(product, params.slug);
     return (
@@ -492,6 +515,8 @@ export default async function ProductPage({ params }: Props) {
           variants={product.part_variants || []}
           relatedTracks={relatedTracks}
           relatedGrade={relatedGrade}
+          requiredAccessory={requiredAccessory}
+          optionalAccessory={optionalAccessory}
         />
       </>
     );

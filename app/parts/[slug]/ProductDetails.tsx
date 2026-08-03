@@ -49,6 +49,12 @@ export type RelatedGradeOption = {
   imageUrl?: string | null;
 };
 
+export type RelatedAccessoryOption = {
+  slug: string;
+  name: string;
+  price: number;
+};
+
 interface ProductDetailsProps {
   part: {
     id: string;
@@ -74,6 +80,8 @@ interface ProductDetailsProps {
   variants: Variant[];
   relatedTracks?: RelatedTrack[];
   relatedGrade?: RelatedGradeOption | null;
+  requiredAccessory?: RelatedAccessoryOption | null;
+  optionalAccessory?: RelatedAccessoryOption | null;
 }
 
 function TrackSpecTable({
@@ -125,6 +133,8 @@ export default function ProductDetails({
   variants,
   relatedTracks = [],
   relatedGrade = null,
+  requiredAccessory = null,
+  optionalAccessory = null,
 }: ProductDetailsProps) {
   const [selected, setSelected] = useState<Variant | null>(variants?.[0] || null);
   const isRubberTrack = part.category === 'Rubber Tracks';
@@ -677,6 +687,39 @@ export default function ProductDetails({
             {trustBadges}
             {quantitySelector}
             {variantSelector}
+            {(requiredAccessory || optionalAccessory) && (
+              <div className="mt-4 mb-2 rounded-lg border border-amber-200 bg-amber-50 p-4">
+                {requiredAccessory ? (
+                  <div className="mb-2 last:mb-0">
+                    <p className="text-sm font-semibold text-slate-900">
+                      AC cable not included
+                    </p>
+                    <p className="text-sm text-slate-700 mt-1">
+                      Most buyers also need{' '}
+                      <Link
+                        href={`/parts/${requiredAccessory.slug}`}
+                        className="font-semibold text-canyon-rust underline hover:text-orange-700"
+                      >
+                        {requiredAccessory.name}
+                      </Link>{' '}
+                      (${requiredAccessory.price.toFixed(0)}) to plug into wall power.
+                    </p>
+                  </div>
+                ) : null}
+                {optionalAccessory ? (
+                  <p className={`text-sm text-slate-700 ${requiredAccessory ? 'mt-2' : ''}`}>
+                    Optional:{' '}
+                    <Link
+                      href={`/parts/${optionalAccessory.slug}`}
+                      className="font-semibold text-canyon-rust underline hover:text-orange-700"
+                    >
+                      {optionalAccessory.name}
+                    </Link>{' '}
+                    (${optionalAccessory.price.toFixed(0)})
+                  </p>
+                ) : null}
+              </div>
+            )}
             <div className="pt-4">{addToCartButton}</div>
           </div>
         </div>
