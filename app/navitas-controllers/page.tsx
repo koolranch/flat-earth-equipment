@@ -5,8 +5,12 @@ import { generatePageAlternates, generateOpenGraph, SITE_URL } from '@/app/seo-d
 import {
   NAVITAS_440A_KIT_IMAGE,
   NAVITAS_ALL_TSX_KITS,
+  getNavitasKitBySlug,
   NAVITAS_HUB_PATH,
   NAVITAS_KIT_IMAGE,
+  NAVITAS_OEM_CONTROLLER_GUIDE,
+  NAVITAS_OEM_UNSUPPORTED,
+  NAVITAS_OEM_WRONG_FIT_WARNINGS,
   NAVITAS_PLATFORM_PAIRS,
   NAVITAS_TAC2_KITS,
   NAVITAS_TAC3_850A_KITS,
@@ -56,11 +60,11 @@ const FAQS = [
   },
   {
     q: 'What is the difference between Navitas TSX and TAC controllers?',
-    a: 'TSX kits upgrade your existing separately excited DC motor (plug-and-play harness). TAC kits are AC conversions that replace the motor. This hub focuses on TSX DC kits — the right first upgrade for most lithium conversions.',
+    a: 'TSX kits upgrade your existing separately excited DC motor (plug-and-play harness + OTF). TAC2 (Drive2 NEOS) is an AC controller upgrade without the TAC3 motor swap. TAC3 850A kits replace both the DC motor and controller with a 7.5kW AC drivetrain.',
   },
   {
     q: 'How do I know which kit fits my cart?',
-    a: 'Match your OEM controller number and cart platform. TXT with Curtis 1206HB → TXT kit. ITS/PDS with 1268/1264 → ITS kit. Club Car IQ/Excel with 1510/1515 → IQ/Excel kit. Club Car/StarEV with 1268/1520 → StarEV kit. Yamaha G29/Drive → G29 kit.',
+    a: 'Read the OEM number on the controller label under the seat. Curtis 1206HB → EZGO TXT. Curtis 1268 with 1264 (ITS) → EZGO ITS. Curtis 1510/1515 → Club Car IQ/Excel. Curtis 1268 with 1520 (resistive) → Club Car/StarEV. Moric JW2 → Yamaha G29/Drive. Toyota NEOS “M” → Drive2 TAC2. Never order from “1268” alone — email parts@flatearthequipment.com with a photo if unsure.',
   },
   {
     q: 'Is shipping really free?',
@@ -141,17 +145,17 @@ export default function NavitasControllersHubPage() {
           </p>
           <div className="flex flex-wrap gap-3">
             <a
-              href="#kits"
+              href="#find-your-kit"
               className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-canyon-rust px-5 py-2.5 font-semibold text-white hover:bg-orange-700"
+            >
+              Match your OEM controller
+            </a>
+            <a
+              href="#kits"
+              className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-slate-300 bg-white px-5 py-2.5 font-semibold text-slate-800 hover:border-canyon-rust"
             >
               Shop kits — from $719
             </a>
-            <Link
-              href="/lithium-batteries"
-              className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-slate-300 bg-white px-5 py-2.5 font-semibold text-slate-800 hover:border-canyon-rust"
-            >
-              Pair with lithium →
-            </Link>
           </div>
         </div>
         <div className="relative aspect-square max-w-md mx-auto w-full rounded-2xl bg-slate-50 border border-slate-200 overflow-hidden">
@@ -179,6 +183,162 @@ export default function NavitasControllersHubPage() {
             <p className="text-sm text-slate-600 mt-1">{desc}</p>
           </div>
         ))}
+      </section>
+
+      <section id="find-your-kit" className="space-y-6">
+        <div className="max-w-2xl mx-auto text-center space-y-2">
+          <h2 className="text-3xl font-bold text-slate-900">OEM controller cheat-sheet</h2>
+          <p className="text-slate-600">
+            Match the number on your stock controller label — that is how Navitas kits are harnessed.
+            Wrong harness = wrong kit. When unsure, email a clear photo to{' '}
+            <a
+              href="mailto:parts@flatearthequipment.com?subject=Navitas%20kit%20fitment%20check"
+              className="font-semibold text-canyon-rust hover:underline"
+            >
+              parts@flatearthequipment.com
+            </a>{' '}
+            before you buy.
+          </p>
+        </div>
+
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-5 md:p-6 grid md:grid-cols-3 gap-4 text-sm text-slate-700">
+          <div>
+            <p className="font-semibold text-slate-900 mb-1">1. Lift the seat</p>
+            <p>Find the OEM controller in the bagwell / under-seat compartment.</p>
+          </div>
+          <div>
+            <p className="font-semibold text-slate-900 mb-1">2. Read the sticker</p>
+            <p>Look for Curtis, Moric, or NEOS part numbers (e.g. 1206HB, 1510, JW2).</p>
+          </div>
+          <div>
+            <p className="font-semibold text-slate-900 mb-1">3. Match the row</p>
+            <p>Use the full cue — especially for 1268, which needs a second number.</p>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 md:p-5">
+          <p className="text-sm font-semibold text-amber-950 mb-2">Wrong-kit traps (common returns)</p>
+          <ul className="grid sm:grid-cols-2 gap-2 text-sm text-amber-950/90">
+            {NAVITAS_OEM_WRONG_FIT_WARNINGS.map((w) => (
+              <li key={w} className="flex gap-2">
+                <span className="text-amber-700 shrink-0">•</span>
+                <span>{w}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+          <table className="w-full text-left text-sm min-w-[720px]">
+            <thead className="bg-slate-50 border-b border-slate-200 text-slate-600">
+              <tr>
+                <th className="px-4 py-3 font-semibold">OEM controller</th>
+                <th className="px-4 py-3 font-semibold">Cart / system</th>
+                <th className="px-4 py-3 font-semibold">Keep motor (TSX)</th>
+                <th className="px-4 py-3 font-semibold">Other options</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {NAVITAS_OEM_CONTROLLER_GUIDE.map((row) => {
+                const good = row.tsx ? getNavitasKitBySlug(row.tsx.goodSlug) : undefined;
+                const better = row.tsx ? getNavitasKitBySlug(row.tsx.betterSlug) : undefined;
+                const tac2 = row.tac2Slug ? getNavitasKitBySlug(row.tac2Slug) : undefined;
+                const tac3 = row.tac3Slug ? getNavitasKitBySlug(row.tac3Slug) : undefined;
+                return (
+                  <tr key={row.id} className="align-top">
+                    <td className="px-4 py-4">
+                      <p className="font-bold text-slate-900">{row.oemLabel}</p>
+                      <p className="text-xs text-slate-500 mt-0.5">{row.oemDetail}</p>
+                      {row.confirmNote ? (
+                        <p className="text-xs text-amber-800 mt-2 leading-snug">{row.confirmNote}</p>
+                      ) : null}
+                    </td>
+                    <td className="px-4 py-4 text-slate-700">{row.cartLabel}</td>
+                    <td className="px-4 py-4">
+                      {good && better && row.tsx ? (
+                        <div className="flex flex-col gap-1.5">
+                          <Link
+                            href={`/parts/${row.tsx.goodSlug}`}
+                            className="font-semibold text-canyon-rust hover:underline"
+                          >
+                            Good {good.amperage}A — ${good.price}
+                          </Link>
+                          <Link
+                            href={`/parts/${row.tsx.betterSlug}`}
+                            className="font-semibold text-canyon-rust hover:underline"
+                          >
+                            Better {better.amperage}A — ${better.price}
+                          </Link>
+                        </div>
+                      ) : (
+                        <span className="text-slate-400">—</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-4">
+                      <div className="flex flex-col gap-1.5">
+                        {tac2 ? (
+                          <Link
+                            href={`/parts/${row.tac2Slug}`}
+                            className="font-semibold text-canyon-rust hover:underline"
+                          >
+                            TAC2 {tac2.amperage}A — ${tac2.price}
+                          </Link>
+                        ) : null}
+                        {tac3 ? (
+                          <Link
+                            href={`/parts/${row.tac3Slug}`}
+                            className="font-semibold text-canyon-rust hover:underline"
+                          >
+                            TAC3 850A AC — ${tac3.price}
+                          </Link>
+                        ) : null}
+                        {!tac2 && !tac3 ? (
+                          <span className="text-slate-400">TSX only on our shelf</span>
+                        ) : null}
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="rounded-xl border border-slate-200 bg-white p-5 space-y-3">
+          <p className="font-semibold text-slate-900">Which amp / lane?</p>
+          <ul className="text-sm text-slate-600 space-y-1.5">
+            <li>
+              <span className="font-medium text-slate-800">440A ($719)</span> — stock / mostly flat
+              ground; keeps DC motor + includes OTF.
+            </li>
+            <li>
+              <span className="font-medium text-slate-800">600A ($899)</span> — lithium, hills, lifts;
+              keeps DC motor + includes OTF.
+            </li>
+            <li>
+              <span className="font-medium text-slate-800">TAC2 Drive2 ($899)</span> — NEOS AC only;
+              Bluetooth app (no OTF in kit).
+            </li>
+            <li>
+              <span className="font-medium text-slate-800">TAC3 850A ($2,399)</span> — full motor swap;
+              bigger install; no OTF in kit.
+            </li>
+          </ul>
+          <div className="pt-2 border-t border-slate-100">
+            <p className="text-sm font-semibold text-slate-900 mb-1.5">
+              Do not order from this page if you have…
+            </p>
+            <ul className="text-sm text-slate-600 space-y-1">
+              {NAVITAS_OEM_UNSUPPORTED.map((item) => (
+                <li key={item.label}>
+                  <span className="font-medium text-slate-800">{item.label}</span>
+                  {' — '}
+                  {item.reason}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </section>
 
       <section id="kits" className="space-y-8">
