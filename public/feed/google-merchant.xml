@@ -8504,6 +8504,56 @@ Free ground shipping. Pairs well with a Lithium Rhino 48V Drive2 conversion kit.
       <g:product_type>JCB General Parts</g:product_type>
     </item>
     <item>
+      <g:id>222-48VCANTXTTAC33850-7</g:id>
+      <title>Navitas EZGO TXT 48/72V 850A TAC3 AC Conversion Kit (7.5kW)</title>
+      <description>Navitas TAC3 850A CAN-enabled DC-to-AC conversion kit for E-Z-GO TXT carts. Replaces the stock DC motor and Curtis 1206HB controller with a high-torque 7.5kW AC motor and 850-amp MOSFET controller for serious speed and hill-climbing performance on 48V or 72V systems.
+
+Bluetooth app tuning, CAN-bus support for smart lithium packs, IP65 sealed controller. This is a full AC drivetrain conversion — not a TSX keep-motor upgrade. Controllers are large and may need custom mounting. OTF programmer is not included; tune via the Navitas Bluetooth app (OTF sold separately).
+
+Kit includes TAC3 850A controller, 7.5kW AC motor, OEM-specific harness, and motor sensor cable. Free ground shipping in the contiguous US. Best paired with a high-discharge Lithium Rhino pack (72V preferred for max performance).</description>
+      <link>https://www.flatearthequipment.com/parts/navitas-ezgo-txt-48v-850a-tac3-ac-conversion-kit</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tac3-850a-conversion-kit.png</g:image_link>
+      <g:price>2399.00 USD</g:price>
+      <g:brand>Navitas</g:brand>
+      <g:mpn>222-48VCANTXTTAC33850-7</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Controllers</g:product_type>
+      <g:shipping_weight>90 lb</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>222-48VCANCCTAC3850-7</g:id>
+      <title>Navitas Club Car IQ/Excel 48/72V 850A TAC3 AC Conversion Kit (7.5kW)</title>
+      <description>Navitas TAC3 850A CAN-enabled DC-to-AC conversion kit for Club Car IQ/Excel platforms. Replaces the stock DC motor and Curtis 1510/1515 controller with a 7.5kW AC motor and 850-amp controller — built for high torque, lifted carts, and performance builds on 48V or 72V.
+
+Bluetooth app tuning, CAN lithium communication, IP65 housing. Full AC conversion (not a TSX plug-and-play keep-motor kit). Large controller may require custom mounting. On-The-Fly programmer not included — use the Navitas Bluetooth app.
+
+Kit includes TAC3 850A controller, 7.5kW AC motor, vehicle harness, and motor sensor cable. Free ground shipping in the contiguous US. Pair with a strong Lithium Rhino pack for best results.</description>
+      <link>https://www.flatearthequipment.com/parts/navitas-club-car-iq-excel-48v-850a-tac3-ac-conversion-kit</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tac3-850a-conversion-kit.png</g:image_link>
+      <g:price>2399.00 USD</g:price>
+      <g:brand>Navitas</g:brand>
+      <g:mpn>222-48VCANCCTAC3850-7</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Controllers</g:product_type>
+      <g:shipping_weight>90 lb</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>320A7269</g:id>
       <title>JCB 320/A7269 ELEMENT-FUEL</title>
       <description>High-quality replacement element-fuel for JCB equipment. Direct fit for OEM part number 320/A7269.</description>
@@ -8517,6 +8567,31 @@ Free ground shipping. Pairs well with a Lithium Rhino 48V Drive2 conversion kit.
       <g:identifier_exists>no</g:identifier_exists>
       <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
       <g:product_type>JCB Fuel System</g:product_type>
+    </item>
+    <item>
+      <g:id>222-48VCANYAMTAC3850-7</g:id>
+      <title>Navitas Yamaha G29/Drive 48/72V 850A TAC3 AC Conversion Kit (7.5kW)</title>
+      <description>Navitas TAC3 850A CAN-enabled DC-to-AC conversion kit for Yamaha G29 / Drive carts with Moric DC controls. Swaps the factory DC motor and controller for a 7.5kW AC motor and 850-amp TAC3 controller — extreme performance for hills, speed, and custom builds on 48V or 72V.
+
+Not for Yamaha Drive2 NEOS AC carts (use the Drive2 TAC2 kit instead). Bluetooth app tuning; OTF programmer not included. Controller may need custom mounting.
+
+Kit includes TAC3 850A controller, 7.5kW AC motor, OEM harness, and motor sensor cable. Free ground shipping in the contiguous US.</description>
+      <link>https://www.flatearthequipment.com/parts/navitas-yamaha-g29-48v-850a-tac3-ac-conversion-kit</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tac3-850a-conversion-kit.png</g:image_link>
+      <g:price>2399.00 USD</g:price>
+      <g:brand>Navitas</g:brand>
+      <g:mpn>222-48VCANYAMTAC3850-7</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Controllers</g:product_type>
+      <g:shipping_weight>90 lb</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>
     </item>
     <item>
       <g:id>32/925915</g:id>

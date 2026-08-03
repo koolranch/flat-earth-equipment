@@ -7912,6 +7912,52 @@
     "identifier_exists": "no"
   },
   {
+    "id": "222-48VCANTXTTAC33850-7",
+    "title": "Navitas EZGO TXT 48/72V 850A TAC3 AC Conversion Kit (7.5kW)",
+    "description": "Navitas TAC3 850A CAN-enabled DC-to-AC conversion kit for E-Z-GO TXT carts. Replaces the stock DC motor and Curtis 1206HB controller with a high-torque 7.5kW AC motor and 850-amp MOSFET controller for serious speed and hill-climbing performance on 48V or 72V systems.\n\nBluetooth app tuning, CAN-bus support for smart lithium packs, IP65 sealed controller. This is a full AC drivetrain conversion — not a TSX keep-motor upgrade. Controllers are large and may need custom mounting. OTF programmer is not included; tune via the Navitas Bluetooth app (OTF sold separately).\n\nKit includes TAC3 850A controller, 7.5kW AC motor, OEM-specific harness, and motor sensor cable. Free ground shipping in the contiguous US. Best paired with a high-discharge Lithium Rhino pack (72V preferred for max performance).",
+    "link": "https://www.flatearthequipment.com/parts/navitas-ezgo-txt-48v-850a-tac3-ac-conversion-kit",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tac3-850a-conversion-kit.png",
+    "price": "2399.00 USD",
+    "brand": "Navitas",
+    "mpn": "222-48VCANTXTTAC33850-7",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "Controllers",
+    "shipping_weight": "90 lb",
+    "identifier_exists": "no",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "Ground",
+        "price": "0.00 USD"
+      }
+    ]
+  },
+  {
+    "id": "222-48VCANCCTAC3850-7",
+    "title": "Navitas Club Car IQ/Excel 48/72V 850A TAC3 AC Conversion Kit (7.5kW)",
+    "description": "Navitas TAC3 850A CAN-enabled DC-to-AC conversion kit for Club Car IQ/Excel platforms. Replaces the stock DC motor and Curtis 1510/1515 controller with a 7.5kW AC motor and 850-amp controller — built for high torque, lifted carts, and performance builds on 48V or 72V.\n\nBluetooth app tuning, CAN lithium communication, IP65 housing. Full AC conversion (not a TSX plug-and-play keep-motor kit). Large controller may require custom mounting. On-The-Fly programmer not included — use the Navitas Bluetooth app.\n\nKit includes TAC3 850A controller, 7.5kW AC motor, vehicle harness, and motor sensor cable. Free ground shipping in the contiguous US. Pair with a strong Lithium Rhino pack for best results.",
+    "link": "https://www.flatearthequipment.com/parts/navitas-club-car-iq-excel-48v-850a-tac3-ac-conversion-kit",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tac3-850a-conversion-kit.png",
+    "price": "2399.00 USD",
+    "brand": "Navitas",
+    "mpn": "222-48VCANCCTAC3850-7",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "Controllers",
+    "shipping_weight": "90 lb",
+    "identifier_exists": "no",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "Ground",
+        "price": "0.00 USD"
+      }
+    ]
+  },
+  {
     "id": "320A7269",
     "title": "JCB 320/A7269 ELEMENT-FUEL",
     "description": "High-quality replacement element-fuel for JCB equipment. Direct fit for OEM part number 320/A7269.",
@@ -7925,6 +7971,29 @@
     "google_product_category": "Business & Industrial > Material Handling",
     "product_type": "JCB Fuel System",
     "identifier_exists": "no"
+  },
+  {
+    "id": "222-48VCANYAMTAC3850-7",
+    "title": "Navitas Yamaha G29/Drive 48/72V 850A TAC3 AC Conversion Kit (7.5kW)",
+    "description": "Navitas TAC3 850A CAN-enabled DC-to-AC conversion kit for Yamaha G29 / Drive carts with Moric DC controls. Swaps the factory DC motor and controller for a 7.5kW AC motor and 850-amp TAC3 controller — extreme performance for hills, speed, and custom builds on 48V or 72V.\n\nNot for Yamaha Drive2 NEOS AC carts (use the Drive2 TAC2 kit instead). Bluetooth app tuning; OTF programmer not included. Controller may need custom mounting.\n\nKit includes TAC3 850A controller, 7.5kW AC motor, OEM harness, and motor sensor cable. Free ground shipping in the contiguous US.",
+    "link": "https://www.flatearthequipment.com/parts/navitas-yamaha-g29-48v-850a-tac3-ac-conversion-kit",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tac3-850a-conversion-kit.png",
+    "price": "2399.00 USD",
+    "brand": "Navitas",
+    "mpn": "222-48VCANYAMTAC3850-7",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "Controllers",
+    "shipping_weight": "90 lb",
+    "identifier_exists": "no",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "Ground",
+        "price": "0.00 USD"
+      }
+    ]
   },
   {
     "id": "32/925915",

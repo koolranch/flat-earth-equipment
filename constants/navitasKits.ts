@@ -10,7 +10,7 @@ export type NavitasKit = {
   cartLabel: string;
   replaces: string;
   price: number;
-  amperage: 440 | 600;
+  amperage: 440 | 600 | 850;
 };
 
 /** Live Buy Now shelf — keep in sync with add-navitas-tsx-*-kits.ts scripts */
@@ -172,7 +172,7 @@ export const NAVITAS_ALL_TSX_KITS: NavitasKit[] = [
   ...NAVITAS_TSX_600A_KITS,
 ];
 
-/** AC / NEOS kits (not part of the TSX good/better ladder). */
+/** AC kits (not part of the TSX good/better ladder). */
 export type NavitasAcKit = NavitasKit & {
   includesOtf: boolean;
   series: 'TAC2' | 'TAC3';
@@ -195,6 +195,49 @@ export const NAVITAS_TAC2_KITS: NavitasAcKit[] = [
   },
 ];
 
+/** TAC3 850A + 7.5kW motor — performance DC→AC lane. */
+export const NAVITAS_TAC3_850A_KITS: NavitasAcKit[] = [
+  {
+    sku: '222-48VCANTXTTAC33850-7',
+    slug: 'navitas-ezgo-txt-48v-850a-tac3-ac-conversion-kit',
+    name: 'Navitas EZGO TXT 48/72V 850A TAC3 AC Conversion Kit (7.5kW)',
+    shortName: 'EZGO TXT TAC3 850A',
+    cartLabel: 'E-Z-GO TXT 48V/72V (1206HB)',
+    replaces: 'Curtis 1206HB DC system',
+    price: 2399,
+    amperage: 850,
+    includesOtf: false,
+    series: 'TAC3',
+    note: 'Full AC conversion with 7.5kW motor. No OTF — Bluetooth app only. May need custom controller mounting.',
+  },
+  {
+    sku: '222-48VCANCCTAC3850-7',
+    slug: 'navitas-club-car-iq-excel-48v-850a-tac3-ac-conversion-kit',
+    name: 'Navitas Club Car IQ/Excel 48/72V 850A TAC3 AC Conversion Kit (7.5kW)',
+    shortName: 'Club Car IQ/Excel TAC3 850A',
+    cartLabel: 'Club Car IQ/Excel (1510/1515)',
+    replaces: 'Curtis 1510 / 1515 DC system',
+    price: 2399,
+    amperage: 850,
+    includesOtf: false,
+    series: 'TAC3',
+    note: 'Full AC conversion with 7.5kW motor. No OTF — Bluetooth app only. May need custom controller mounting.',
+  },
+  {
+    sku: '222-48VCANYAMTAC3850-7',
+    slug: 'navitas-yamaha-g29-48v-850a-tac3-ac-conversion-kit',
+    name: 'Navitas Yamaha G29/Drive 48/72V 850A TAC3 AC Conversion Kit (7.5kW)',
+    shortName: 'Yamaha G29 TAC3 850A',
+    cartLabel: 'Yamaha G29 / Drive (Moric DC)',
+    replaces: 'Moric DC motor + controller',
+    price: 2399,
+    amperage: 850,
+    includesOtf: false,
+    series: 'TAC3',
+    note: 'Full AC conversion with 7.5kW motor. Not for Drive2 NEOS — use the TAC2 kit. No OTF — Bluetooth app only.',
+  },
+];
+
 /** Lithium cart landing slug → primary Navitas kit slug (600A preferred). */
 export const LITHIUM_CART_NAVITAS_KIT: Record<string, string> = {
   'ezgo-txt-48v': 'navitas-ezgo-txt-48v-600a-conversion-kit',
@@ -208,7 +251,8 @@ export const LITHIUM_CART_NAVITAS_KIT: Record<string, string> = {
 export function getNavitasKitBySlug(slug: string): NavitasKit | undefined {
   return (
     NAVITAS_ALL_TSX_KITS.find((k) => k.slug === slug) ||
-    NAVITAS_TAC2_KITS.find((k) => k.slug === slug)
+    NAVITAS_TAC2_KITS.find((k) => k.slug === slug) ||
+    NAVITAS_TAC3_850A_KITS.find((k) => k.slug === slug)
   );
 }
 
@@ -223,3 +267,5 @@ export const NAVITAS_KIT_IMAGE =
   'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tsx-600a-conversion-kit.png';
 export const NAVITAS_440A_KIT_IMAGE =
   'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tsx-440a-conversion-kit.png';
+export const NAVITAS_TAC3_KIT_IMAGE =
+  'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tac3-850a-conversion-kit.png';

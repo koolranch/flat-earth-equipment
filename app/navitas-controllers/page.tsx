@@ -9,6 +9,8 @@ import {
   NAVITAS_KIT_IMAGE,
   NAVITAS_PLATFORM_PAIRS,
   NAVITAS_TAC2_KITS,
+  NAVITAS_TAC3_850A_KITS,
+  NAVITAS_TAC3_KIT_IMAGE,
 } from '@/constants/navitasKits';
 import { Bluetooth, Gauge, Truck, Zap } from 'lucide-react';
 
@@ -16,9 +18,9 @@ const NAVITAS_TAC2_IMAGE =
   'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tac2-drive2-440a-conversion-kit.png';
 
 const PAGE_TITLE =
-  'Navitas Golf Cart Controllers | TSX 440A & 600A + Drive2 TAC2 — Free Shipping';
+  'Navitas Golf Cart Controllers | TSX, TAC2 & TAC3 850A Kits — Free Shipping';
 const PAGE_DESCRIPTION =
-  'Navitas TSX3.0 440A and 600A conversion kits for EZGO, Club Car, and Yamaha, plus Drive2 TAC2 AC kits. Bluetooth app, free ground shipping. Pair with Lithium Rhino.';
+  'Navitas TSX 440A/600A keep-motor kits, Drive2 TAC2, and TAC3 850A AC conversion kits with 7.5kW motors for EZGO, Club Car, and Yamaha. Free ground shipping.';
 
 export const metadata: Metadata = {
   title: PAGE_TITLE,
@@ -65,13 +67,17 @@ const FAQS = [
     a: 'Yes. Every Navitas conversion kit on this page ships free ground freight in the contiguous US — no freight line at checkout.',
   },
   {
-    q: 'What is included in the kit?',
-    a: 'Each kit includes the Bluetooth TSX3.0 controller (440A or 600A), the vehicle-specific wiring harness, and the On-The-Fly (OTF) programmer for adjusting speed, regen, and acceleration while driving.',
+    q: 'What is included in the TSX kits?',
+    a: 'Each TSX kit includes the Bluetooth TSX3.0 controller (440A or 600A), the vehicle-specific wiring harness, and the On-The-Fly (OTF) programmer for adjusting speed, regen, and acceleration while driving.',
+  },
+  {
+    q: 'What is the TAC3 850A kit?',
+    a: 'A full DC-to-AC conversion: 850A TAC3 controller plus a 7.5kW AC motor. More power than TSX keep-motor upgrades, but a bigger install. OTF is not included — tune with the Bluetooth app. Best with a high-discharge lithium pack (often 72V for max performance).',
   },
 ];
 
 export default function NavitasControllersHubPage() {
-  const allKits = [...NAVITAS_ALL_TSX_KITS, ...NAVITAS_TAC2_KITS];
+  const allKits = [...NAVITAS_ALL_TSX_KITS, ...NAVITAS_TAC2_KITS, ...NAVITAS_TAC3_850A_KITS];
   const itemListLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -294,6 +300,54 @@ export default function NavitasControllersHubPage() {
                   {kit.note}
                 </p>
                 <div className="flex items-center justify-between pt-2">
+                  <span className="text-lg font-bold text-slate-900">
+                    ${kit.price.toLocaleString()}
+                  </span>
+                  <span className="text-sm font-semibold text-canyon-rust">Buy now →</span>
+                </div>
+                <p className="text-xs text-green-700 font-medium">Free ground shipping</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section id="performance" className="space-y-6">
+        <div className="text-center space-y-2 max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold text-slate-900">Performance — TAC3 850A AC</h2>
+          <p className="text-slate-600">
+            Full DC-to-AC conversion with 7.5kW motor and 850A controller. For lifted carts, hills, and
+            high-speed builds — bigger install than TSX keep-motor kits. $2,399 with free shipping.
+          </p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {NAVITAS_TAC3_850A_KITS.map((kit) => (
+            <Link
+              key={kit.slug}
+              href={`/parts/${kit.slug}`}
+              className="group flex flex-col rounded-2xl border border-slate-200 bg-white overflow-hidden hover:border-canyon-rust hover:shadow-md transition-all"
+            >
+              <div className="relative aspect-[4/3] bg-slate-50">
+                <Image
+                  src={NAVITAS_TAC3_KIT_IMAGE}
+                  alt={kit.name}
+                  fill
+                  className="object-contain p-4"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
+              <div className="p-5 space-y-2 flex-1 flex flex-col">
+                <p className="text-xs font-bold uppercase tracking-wide text-canyon-rust">
+                  TAC3 · 850A · 7.5kW
+                </p>
+                <h3 className="font-bold text-slate-900 group-hover:text-canyon-rust">{kit.shortName}</h3>
+                <p className="text-sm text-slate-600 flex-1">
+                  Fits {kit.cartLabel}. Replaces {kit.replaces}.
+                </p>
+                <p className="text-xs text-amber-800 bg-amber-50 border border-amber-100 rounded-lg px-2.5 py-2">
+                  {kit.note}
+                </p>
+                <div className="flex items-center justify-between pt-2 border-t border-slate-100">
                   <span className="text-lg font-bold text-slate-900">
                     ${kit.price.toLocaleString()}
                   </span>
