@@ -177,6 +177,10 @@ export type NavitasOemGuideRow = {
   oemLabel: string;
   oemDetail: string;
   cartLabel: string;
+  /** Anchor into #kits / #drive2 / #performance browse sections */
+  browseHref: string;
+  /** Highlight common lithium-conversion platforms */
+  popular?: boolean;
   /** TSX keep-motor good/better when we stock that platform */
   tsx?: { goodSlug: string; betterSlug: string };
   /** Drive2-style AC controller (no motor swap) */
@@ -192,6 +196,8 @@ export const NAVITAS_OEM_CONTROLLER_GUIDE: NavitasOemGuideRow[] = [
     oemLabel: 'Curtis 1206HB',
     oemDetail: '48V TXT shunt controller',
     cartLabel: 'E-Z-GO TXT 48V',
+    browseHref: '#kit-ezgo-txt',
+    popular: true,
     tsx: {
       goodSlug: 'navitas-ezgo-txt-48v-440a-conversion-kit',
       betterSlug: 'navitas-ezgo-txt-48v-600a-conversion-kit',
@@ -204,6 +210,7 @@ export const NAVITAS_OEM_CONTROLLER_GUIDE: NavitasOemGuideRow[] = [
     oemLabel: 'Curtis 1268 + 1264',
     oemDetail: 'ITS throttle (Navitas harness 40-000516)',
     cartLabel: 'E-Z-GO ITS / PDS 48V',
+    browseHref: '#kit-ezgo-its',
     tsx: {
       goodSlug: 'navitas-ezgo-its-48v-440a-conversion-kit',
       betterSlug: 'navitas-ezgo-series-its-36-48v-600a-conversion-kit',
@@ -215,6 +222,8 @@ export const NAVITAS_OEM_CONTROLLER_GUIDE: NavitasOemGuideRow[] = [
     oemLabel: 'Curtis 1510 / 1515',
     oemDetail: 'IQ / Excel shunt (Navitas harness 40-000542)',
     cartLabel: 'Club Car IQ / Excel (Precedent, Tempo, DS IQ)',
+    browseHref: '#kit-club-car-iq-excel',
+    popular: true,
     tsx: {
       goodSlug: 'navitas-club-car-iq-excel-48v-440a-conversion-kit',
       betterSlug: 'navitas-club-car-iq-excel-48v-600a-conversion-kit',
@@ -226,6 +235,7 @@ export const NAVITAS_OEM_CONTROLLER_GUIDE: NavitasOemGuideRow[] = [
     oemLabel: 'Curtis 1268 + 1520',
     oemDetail: 'Resistive throttle (Navitas harness 40-000515)',
     cartLabel: 'Club Car / StarEV (non-IQ 1268/1520)',
+    browseHref: '#kit-club-car-starev',
     tsx: {
       goodSlug: 'navitas-club-car-starev-48v-440a-conversion-kit',
       betterSlug: 'navitas-club-car-starev-48v-600a-conversion-kit',
@@ -237,6 +247,7 @@ export const NAVITAS_OEM_CONTROLLER_GUIDE: NavitasOemGuideRow[] = [
     oemLabel: 'Moric JW2',
     oemDetail: 'Yamaha G29 / Drive DC (Navitas harness 40-000513)',
     cartLabel: 'Yamaha G29 / Drive (2007–2016 DC)',
+    browseHref: '#kit-yamaha-g29',
     tsx: {
       goodSlug: 'navitas-yamaha-g29-drive-48v-440a-conversion-kit',
       betterSlug: 'navitas-yamaha-g29-drive-48v-600a-conversion-kit',
@@ -249,9 +260,21 @@ export const NAVITAS_OEM_CONTROLLER_GUIDE: NavitasOemGuideRow[] = [
     oemLabel: 'Toyota NEOS “M”',
     oemDetail: 'Drive2 AC controls',
     cartLabel: 'Yamaha Drive2 / YDRE2 (NEOS AC)',
+    browseHref: '#drive2',
     tac2Slug: 'navitas-yamaha-drive2-neos-48v-440a-tac2-conversion-kit',
     confirmNote: 'TAC2 only on our shelf. Do not buy G29 TSX or G29 TAC3 850 for Drive2 NEOS.',
   },
+];
+
+/** Jump chips under the cheat-sheet (browse without re-reading the table). */
+export const NAVITAS_HUB_JUMP_LINKS: { href: string; label: string }[] = [
+  { href: '#kit-ezgo-txt', label: 'EZGO TXT' },
+  { href: '#kit-ezgo-its', label: 'EZGO ITS' },
+  { href: '#kit-club-car-iq-excel', label: 'Club Car IQ/Excel' },
+  { href: '#kit-club-car-starev', label: 'Club Car / StarEV' },
+  { href: '#kit-yamaha-g29', label: 'Yamaha G29' },
+  { href: '#drive2', label: 'Drive2 NEOS' },
+  { href: '#performance', label: 'TAC3 850A' },
 ];
 
 /** Platforms we intentionally do not recommend from this hub (return-risk). */
