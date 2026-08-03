@@ -7988,6 +7988,23 @@ Kit includes the 600A Bluetooth TSX3.0 controller, vehicle-specific harness, and
       <g:product_type>JCB Brakes</g:product_type>
     </item>
     <item>
+      <g:id>23-4750008</g:id>
+      <title>Delta-Q QuiQ AC Cord 6.5&apos; 14 AWG</title>
+      <description>Replacement AC power cord for Delta-Q QuiQ onboard chargers. 6.5 ft, 14 AWG, with the QuiQ-compatible AC connector. Required if your QuiQ charger did not ship with a cord or the original cord is damaged.
+
+Pairs with the Delta-Q QuiQ Standard 48V 18A charger and other QuiQ models that use this AC inlet.</description>
+      <link>https://www.flatearthequipment.com/parts/delta-q-quiq-ac-cord-23-4750008</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/delta-q-quiq-ac-cord-23-4750008.jpg</g:image_link>
+      <g:price>39.00 USD</g:price>
+      <g:brand>Delta-Q</g:brand>
+      <g:mpn>4750008</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Battery Chargers</g:product_type>
+    </item>
+    <item>
       <g:id>320A7128</g:id>
       <title>JCB 320/A7128 Replacement Part</title>
       <description>Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 320/A7128.</description>
@@ -8016,6 +8033,59 @@ Kit includes the 600A Bluetooth TSX3.0 controller, vehicle-specific harness, and
       <g:identifier_exists>no</g:identifier_exists>
       <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
       <g:product_type>JCB Filters</g:product_type>
+    </item>
+    <item>
+      <g:id>23-9000111</g:id>
+      <title>Delta-Q IC650 Handle &amp; Rubber Feet Kit</title>
+      <description>Optional handle and rubber feet kit for Delta-Q IC650 chargers. Useful when the charger is used as a portable / bench unit instead of hard-mounted on the machine.
+
+Does not include AC or DC cables. Compatible with IC650 940-0001 family chargers.</description>
+      <link>https://www.flatearthequipment.com/parts/delta-q-ic650-handle-feet-kit-23-9000111</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/delta-q-ic650-handle-feet-kit-23-9000111.jpg</g:image_link>
+      <g:price>29.00 USD</g:price>
+      <g:brand>Delta-Q</g:brand>
+      <g:mpn>9000111</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Battery Chargers</g:product_type>
+    </item>
+    <item>
+      <g:id>23-4750496</g:id>
+      <title>Delta-Q IC650 Lock AC Cord 6.5&apos; 16 AWG</title>
+      <description>Locking AC power cord for Delta-Q IC650 chargers. 6.5 ft, 16 AWG, with the IC650 lock connector. Required to plug an IC650 base or AWP kit into wall power when a cord is not already on the machine.
+
+Fits Delta-Q IC650 24V chargers including 940-0001 base and AWP replacement kits.</description>
+      <link>https://www.flatearthequipment.com/parts/delta-q-ic650-lock-ac-cord-23-4750496</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/delta-q-ic650-lock-ac-cord-23-4750496.jpg</g:image_link>
+      <g:price>47.00 USD</g:price>
+      <g:brand>Delta-Q</g:brand>
+      <g:mpn>4750496</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Battery Chargers</g:product_type>
+    </item>
+    <item>
+      <g:id>23-9400001</g:id>
+      <title>Delta-Q IC650 24V 27.1A (650W) Base Battery Charger</title>
+      <description>Brand-new Delta-Q IC650 base charger — 24V, 27.1A, 650W. Compact IP66 onboard unit used across many aerial work platforms and industrial 24V packs. Not CAN-compatible — confirm your machine does not require a CAN IC650 before ordering.
+
+AC and DC cables are not included. Add the IC650 locking AC cord to plug into wall power. Optional handle and rubber feet kit available for portable mounting. Provide battery make and model after order for the correct charge profile (required for lithium).
+
+OEM cross-reference: Delta-Q 940-0001. Genuine new — no core charge.</description>
+      <link>https://www.flatearthequipment.com/parts/delta-q-ic650-24v-27a-charger-9400001</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/delta-q-ic650-24v-27a-charger-9400001.jpg</g:image_link>
+      <g:price>605.00 USD</g:price>
+      <g:brand>Delta-Q</g:brand>
+      <g:mpn>940-0001</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Battery Chargers</g:product_type>
     </item>
     <item>
       <g:id>320A7125</g:id>
@@ -8048,6 +8118,44 @@ Kit includes the 600A Bluetooth TSX3.0 controller, vehicle-specific harness, and
       <g:product_type>JCB Electrical</g:product_type>
     </item>
     <item>
+      <g:id>23-9400001S004</g:id>
+      <title>Delta-Q IC650 24V AWP Replacement Kit (w/o Interlock)</title>
+      <description>Brand-new Delta-Q IC650 AWP replacement kit (without interlock) — 24V, 27A, 650W. Configured for common aerial work platform charger swaps where an interlock circuit is not required. Same IC650 sealed electronics as the base unit; not CAN-compatible.
+
+AC/DC cables are not included — add the IC650 locking AC cord. Send battery make and model after purchase for charge-profile programming (required for lithium packs).
+
+OEM family: Delta-Q 940-0001 / IC650. Genuine new — no core charge.</description>
+      <link>https://www.flatearthequipment.com/parts/delta-q-ic650-24v-awp-replacement-kit-9400001s004</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/delta-q-ic650-24v-awp-replacement-kit-9400001s004.jpg</g:image_link>
+      <g:price>609.00 USD</g:price>
+      <g:brand>Delta-Q</g:brand>
+      <g:mpn>940-0001</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Battery Chargers</g:product_type>
+    </item>
+    <item>
+      <g:id>23-9124800</g:id>
+      <title>Delta-Q QuiQ Standard 48V 18A (1000W) Battery Charger</title>
+      <description>Brand-new Delta-Q QuiQ Standard onboard charger — 48V, 18A, 1000W. IP66 sealed enclosure with high-frequency electronics, ring-terminal DC leads, temperature sensor, and interlock. Built for lead-acid packs (wet/AGM/gel); lithium profiles available when you provide battery make and model at order.
+
+AC cable is not included. Most buyers also need the matching QuiQ AC cord (sold separately). After checkout, email parts@flatearthequipment.com with your battery brand/model so we can confirm the charge profile before we ship.
+
+OEM cross-reference: Delta-Q 912-4800. Genuine new unit — no core charge, no reman exchange.</description>
+      <link>https://www.flatearthequipment.com/parts/delta-q-quiq-48v-18a-charger-9124800</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/delta-q-quiq-48v-18a-charger-9124800.png</g:image_link>
+      <g:price>579.00 USD</g:price>
+      <g:brand>Delta-Q</g:brand>
+      <g:mpn>912-4800</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Battery Chargers</g:product_type>
+    </item>
+    <item>
       <g:id>32006160</g:id>
       <title>JCB 320/06160 TURBO 74KW MT3 (ACROSS)</title>
       <description>High-quality replacement turbo 74kw mt3 (across) for JCB equipment. Direct fit for OEM part number 320/06160.</description>
@@ -8076,6 +8184,28 @@ Kit includes the 600A Bluetooth TSX3.0 controller, vehicle-specific harness, and
       <g:identifier_exists>no</g:identifier_exists>
       <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
       <g:product_type>JCB General Parts</g:product_type>
+    </item>
+    <item>
+      <g:id>105739-E</g:id>
+      <title>Genie 105739-E Battery Charger (24V Signet HB500)</title>
+      <description>Aftermarket replacement for Genie 105739-E. Signet HB500-24 — 24V 19A charger for aerial lift / construction equipment duty cycles.
+
+If your plate lists Genie 105739 or 105739GT, see the Signet HB600 listing instead.
+
+Confirm fitment against your machine model and serial before ordering. Contact parts@flatearthequipment.com if you need help matching your plate.
+
+1-year warranty. Freight calculated at checkout per order value.</description>
+      <link>https://www.flatearthequipment.com/parts/genie-105739-e-battery-charger</link>
+      <g:image_link>https://www.flatearthequipment.com/images/parts/placeholder.jpg</g:image_link>
+      <g:price>399.00 USD</g:price>
+      <g:brand>Genie</g:brand>
+      <g:mpn>105739-E</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Chargers</g:product_type>
+      <g:shipping_weight>12 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>19156600</g:id>
@@ -8123,6 +8253,78 @@ Kit includes the 600A Bluetooth TSX3.0 controller, vehicle-specific harness, and
       <g:product_type>JCB General Parts</g:product_type>
     </item>
     <item>
+      <g:id>87-TSX3-440CCIQX</g:id>
+      <title>Navitas Club Car IQ/Excel 48V 440A Conversion Kit w/OTF</title>
+      <description>Navitas TSX3.0 440A DC conversion kit for Club Car IQ/Excel 48V carts. Plug-and-play upgrade that keeps your existing separately excited DC motor while adding Bluetooth app tuning, regenerative braking, and the On-The-Fly (OTF) programmer.
+
+Fits Club Car IQ and Excel systems that use a stock Curtis 1510 or 1515 controller — including many Precedent, Tempo, and DS IQ carts. For maximum torque on hills or lifted builds, step up to the matching 600A kit.
+
+Kit includes the 440A Bluetooth TSX3.0 controller, vehicle-specific harness, and OTF programmer. Free ground shipping. Pair with a Lithium Rhino 48V pack for full current delivery under load.</description>
+      <link>https://www.flatearthequipment.com/parts/navitas-club-car-iq-excel-48v-440a-conversion-kit</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tsx-440a-conversion-kit.png</g:image_link>
+      <g:price>719.00 USD</g:price>
+      <g:brand>Navitas</g:brand>
+      <g:mpn>87-TSX3-440CCIQX</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Controllers</g:product_type>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>87-TSX3-440CCSTR</g:id>
+      <title>Navitas Club Car/StarEV 48V 440A Conversion Kit w/OTF</title>
+      <description>Navitas TSX3.0 440A DC conversion kit for Club Car and StarEV 48V carts running a stock Curtis 1268 or 1520 controller. Keeps your existing DC motor and adds Bluetooth app control, regen braking, and the On-The-Fly programmer.
+
+Not the same harness as Club Car IQ/Excel (1510/1515) kits — match your OEM controller number before ordering. Need more amps? See the matching 600A StarEV kit.
+
+Kit includes the 440A Bluetooth TSX3.0 controller, vehicle-specific harness, and OTF programmer. Free ground shipping.</description>
+      <link>https://www.flatearthequipment.com/parts/navitas-club-car-starev-48v-440a-conversion-kit</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tsx-440a-conversion-kit.png</g:image_link>
+      <g:price>719.00 USD</g:price>
+      <g:brand>Navitas</g:brand>
+      <g:mpn>87-TSX3-440CCSTR</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Controllers</g:product_type>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>87-TSX3-440EZITS</g:id>
+      <title>Navitas E-Z-GO ITS 48V 440A Conversion Kit w/OTF</title>
+      <description>Navitas TSX3.0 440A DC conversion kit for E-Z-GO ITS 48V systems. Plug-and-play controller upgrade with Bluetooth tuning, regenerative braking, and On-The-Fly programmer — keeps your stock separately excited DC motor.
+
+Replaces Curtis 1268/1264 controllers on ITS-equipped E-Z-GO carts. For TXT carts with a Curtis 1206HB, use the dedicated TXT kit instead. Want more torque? Step up to the ITS 600A kit.
+
+Kit includes the 440A Bluetooth TSX3.0 controller, vehicle-specific harness, and OTF programmer. Free ground shipping.</description>
+      <link>https://www.flatearthequipment.com/parts/navitas-ezgo-its-48v-440a-conversion-kit</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tsx-440a-conversion-kit.png</g:image_link>
+      <g:price>719.00 USD</g:price>
+      <g:brand>Navitas</g:brand>
+      <g:mpn>87-TSX3-440EZITS</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Controllers</g:product_type>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>20902400</g:id>
       <title>JCB 20/902400 Replacement Part</title>
       <description>Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 20/902400.</description>
@@ -8151,6 +8353,54 @@ Kit includes the 600A Bluetooth TSX3.0 controller, vehicle-specific harness, and
       <g:identifier_exists>no</g:identifier_exists>
       <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
       <g:product_type>JCB Brakes</g:product_type>
+    </item>
+    <item>
+      <g:id>87-TSX3-440EZTXT</g:id>
+      <title>Navitas E-Z-GO TXT 48V 440A Conversion Kit w/OTF</title>
+      <description>Navitas TSX3.0 440A DC conversion kit for E-Z-GO TXT 48V carts. Solid entry upgrade for TXT owners going lithium — Bluetooth app, regen braking, and On-The-Fly control while keeping the stock DC motor.
+
+Replaces the stock Curtis 1206HB controller. ITS/PDS carts need the ITS kit, not this TXT harness. For hills, lifts, or heavier loads, choose the TXT 600A kit.
+
+Kit includes the 440A Bluetooth TSX3.0 controller, vehicle-specific harness, and OTF programmer. Free ground shipping. Pair with a Lithium Rhino 48V conversion kit.</description>
+      <link>https://www.flatearthequipment.com/parts/navitas-ezgo-txt-48v-440a-conversion-kit</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tsx-440a-conversion-kit.png</g:image_link>
+      <g:price>719.00 USD</g:price>
+      <g:brand>Navitas</g:brand>
+      <g:mpn>87-TSX3-440EZTXT</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Controllers</g:product_type>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>87-TSX3-440YG29</g:id>
+      <title>Navitas Yamaha G29/Drive 48V 440A Conversion Kit w/OTF</title>
+      <description>Navitas TSX3.0 440A DC conversion kit for Yamaha G29 and Drive 48V carts. Plug-and-play upgrade that keeps your existing DC motor while adding Bluetooth app tuning, regenerative braking, and the On-The-Fly programmer.
+
+Confirm your cart is a G29/Drive DC platform before ordering. Drive2 AC / NEOS systems need a TAC2 kit, not this TSX harness. For more amps, see the matching G29/Drive 600A kit.
+
+Kit includes the 440A Bluetooth TSX3.0 controller, vehicle-specific harness, and OTF programmer. Free ground shipping.</description>
+      <link>https://www.flatearthequipment.com/parts/navitas-yamaha-g29-drive-48v-440a-conversion-kit</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/navitas-tsx-440a-conversion-kit.png</g:image_link>
+      <g:price>719.00 USD</g:price>
+      <g:brand>Navitas</g:brand>
+      <g:mpn>87-TSX3-440YG29</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Controllers</g:product_type>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>
     </item>
     <item>
       <g:id>32009454</g:id>
@@ -8458,17 +8708,21 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
     </item>
     <item>
       <g:id>105739GT</g:id>
-      <title>Genie 105739GT Battery Charger (24V)</title>
-      <description>Aftermarket replacement equivalent to Genie OEM part number 105739GT (Charger-Signet Hb600-24b 24v19a). Built for industrial aerial lift duty cycles without dealer markup.
+      <title>Genie 105739 Battery Charger (24V Signet HB600)</title>
+      <description>Aftermarket replacement for Genie 105739 (also replaces 105739GT). Signet HB600-24B — 24V 19A industrial charger with AC interlock / charge-profile leads, heavy-gauge DC output cables, and IEC power cords.
+
+This is the Signet HB600 form factor fleets and dealers specify for this Genie part number — built for aerial-lift duty cycles, not a generic lookalike.
+
+Also available: Genie 105739-E (Signet HB500) for machines that call for that OEM number.
 
 Confirm fitment against your machine model and serial before ordering. Contact parts@flatearthequipment.com if you need help matching your plate.
 
 1-year warranty. Freight calculated at checkout per order value.</description>
       <link>https://www.flatearthequipment.com/parts/genie-105739gt-battery-charger</link>
-      <g:image_link>https://www.flatearthequipment.com/images/parts/placeholder.jpg</g:image_link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/genie-105739-battery-charger.jpg</g:image_link>
       <g:price>379.00 USD</g:price>
       <g:brand>Genie</g:brand>
-      <g:mpn>105739GT</g:mpn>
+      <g:mpn>105739</g:mpn>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
       <g:identifier_exists>no</g:identifier_exists>
@@ -8883,26 +9137,6 @@ Confirm fitment against your machine model and serial before ordering. Contact p
       <g:identifier_exists>no</g:identifier_exists>
       <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
       <g:product_type>JCB General Parts</g:product_type>
-    </item>
-    <item>
-      <g:id>105739-E</g:id>
-      <title>Genie 105739-E Battery Charger (24V Economy)</title>
-      <description>Aftermarket replacement equivalent to Genie OEM part number 105739-E (CHARGER-SIGNET HB500-24 24V19A). Built for industrial aerial lift / construction equipment duty cycles without dealer markup.
-
-Confirm fitment against your machine model and serial before ordering. Contact parts@flatearthequipment.com if you need help matching your plate.
-
-1-year warranty. Freight calculated at checkout per order value.</description>
-      <link>https://www.flatearthequipment.com/parts/genie-105739-e-battery-charger</link>
-      <g:image_link>https://www.flatearthequipment.com/images/parts/placeholder.jpg</g:image_link>
-      <g:price>399.00 USD</g:price>
-      <g:brand>Genie</g:brand>
-      <g:mpn>105739-E</g:mpn>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
-      <g:product_type>Chargers</g:product_type>
-      <g:shipping_weight>12 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>genie-19274-spdt-12v-relay</g:id>
