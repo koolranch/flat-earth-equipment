@@ -1,41 +1,42 @@
 # Rubber Tracks — Status
 
-**Last updated:** 2026-08-01  
+**Last updated:** 2026-08-04  
 **Active phase:** Phase 0 → Phase 1 (measurement) + Merchant review  
-**Program commit:** Merchant track MPN + aftermarket disclosure feed regen (this commit)  
 **Organic track sales baseline:** $0 known (no recent track Stripe sales)  
-**Weekly automation:** believed saved; expect Monday ~10:00 AM Eastern run  
+**Weekly automation:** did **not** run Mon 2026-08-03 — manual snapshot 2026-08-04 instead  
 **Merchant:** Shopping accepted as co-equal organic channel for 1/day math (paid Search still deferred)
 
 ## Phase checklist
 
 | Phase | Status | Notes |
 |-------|--------|-------|
-| 0 Foundation | ✅ | Docs + rank script + baseline; automation believed live |
-| 1 Measurement | 🟡 | Ranks weekly; order attribution still unverified ($0 known sales) |
+| 0 Foundation | ✅ | Docs + rank script + baseline |
+| 1 Measurement | 🟡 | Manual Aug 4 snapshot (automation miss); order attribution unverified |
 | 2 Conversion | ⬜ | Hub/PDP UX largely shipped; sidebar→hub polish optional |
-| 3 Model SERP wins | ⬜ | Prefer Bobcat T650/T770 over Case TV370 demand |
-| 4 Expand | 🟡 | Merchant: 65 tracks; feed fix shipped (unique RT-* MPN + aftermarket disclosure) — awaiting Center review clear |
+| 3 Model SERP wins | ⬜ | Prefer Bobcat T650/T770; Case cluster now has 2 footholds at #60 |
+| 4 Expand | 🟡 | Merchant: 65 tracks; feed fix shipped — awaiting Center review clear |
 
-## Rank snapshot (Google US) — 2026-07-27 baseline
+## Rank snapshot (Google US) — 2026-08-04 vs Jul 27
 
-| Keyword | Jul 27 | Winning URL | Top competitor | Notes |
-|---------|-------:|-------------|----------------|-------|
-| `case tv370 tracks` | **#60** | `/parts/case-tv370-rubber-track-450x86x55` | skidsteers.com | Sole money keyword in top 100 — protect + push |
-| `skid steer rubber tracks` | out | — | skidheaven.com | Hub target |
-| `compact track loader tracks` | out | — | grizzlyrubbertracks.com | Hub target |
-| `bobcat rubber tracks` | out | — | skidheaven.com | Hub / Bobcat cluster |
-| `bobcat t650 tracks` | out | — | mclarenindustries.com | Priority model |
-| `bobcat t770 tracks` | out | — | shop.bobcat.com | OEM SERP |
-| `cat 259d tracks` | out | — | skidsteers.com | |
-| `kubota svl75 tracks` | out | — | skidheaven.com | |
-| `john deere 333g tracks` | out | — | skidsteers.com | |
-| `jcb rubber tracks` | out | — | greenshieldsjcb.com | |
-| `takeuchi tl8 tracks` | out | — | skidheaven.com | |
+| Keyword | Jul 27 | Aug 4 | Winning URL | Top competitor | Notes |
+|---------|------:|------:|-------------|----------------|-------|
+| `case tv370 tracks` | **#60** | **#60** = | `/parts/case-tv370-rubber-track-450x86x55` | skidsteers.com | Hold |
+| `case tv450 tracks` | out | **#60** NEW | `/parts/case-tv450-rubber-track-450x86x55-block` | skidheaven.com | New foothold — prefer primary (non-block) URL long-term |
+| `skid steer rubber tracks` | out | out | — | skidheaven.com | Hub target |
+| `compact track loader tracks` | out | out | — | grizzlyrubbertracks.com | Hub target |
+| `bobcat rubber tracks` | out | out | — | skidheaven.com | |
+| `bobcat t650 tracks` | out | out | — | mclarenindustries.com | Priority model — still out |
+| `bobcat t770 tracks` | out | out | — | shop.bobcat.com | OEM SERP |
+| `cat 259d tracks` | out | out | — | skidsteers.com | |
+| `kubota svl75 tracks` | out | out | — | skidheaven.com | |
+| `john deere 333g tracks` | out | out | — | skidheaven.com | |
+| `jcb rubber tracks` | out | out | — | greenshieldsjcb.com | |
+| `takeuchi tl8 tracks` | out | out | — | skidheaven.com | |
 
-**Summary:** 1/29 ranked · 0 top 10 · 0 top 30 · 0 API errors. Full rows: `scripts/seo/rank-snapshots/rubber-tracks/2026-07-27.json`.
+**Summary:** 2/29 ranked · 0 top 10 · 0 top 30 · 0 API errors.  
+Full rows: `scripts/seo/rank-snapshots/rubber-tracks/2026-08-04.json`.
 
-Source: DataForSEO via `scripts/seo/rubber-track-rank-check.ts`.
+Source: DataForSEO via `scripts/seo/rubber-track-rank-check.ts` (manual run).
 
 ## Live surfaces
 
@@ -66,15 +67,16 @@ Feed: `public/feed/google-merchant.{xml,json}` · live after deploy of this comm
 
 ## Open blockers / needs from Christopher
 
-1. Confirm Monday automation actually ran (check STATUS commit after Mon).  
+1. **Fix / re-save weekly automation** — Mon 2026-08-03 run did not commit a snapshot.  
 2. Wholesale costs only ad hoc from normal POs — never bulk portal lookups.  
-3. Approve before any production checkout / pricing / freight changes.  
+3. Approve before any production checkout / pricing / freight changes.
+
 ## Next action
 
-1. **Deploy** this Merchant feed commit so Center re-fetches unique MPNs + aftermarket disclosure.  
-2. Wait for Monday rank automation; treat organic track orders baseline as **$0**.  
-3. This week’s SEO focus: Bobcat T650 primary PDP pack (not Case TV370 demand).  
-4. In Merchant Center: filter `custom_label_0 = priority_rubber_tracks` after fetch — Active vs disapproval codes.
+1. Re-check Cursor Automations for Rubber Tracks Weekly Rank Monitor (enabled + schedule + secrets).  
+2. This week’s SEO focus: Bobcat T650 primary PDP pack (still out of top 100).  
+3. Optional: strengthen Case TV450 primary (non-`-block`) URL so it can inherit the #60 foothold.  
+4. Merchant Center: filter `custom_label_0 = priority_rubber_tracks` — Active vs disapproval codes.
 
 ## Decision log
 
@@ -88,3 +90,4 @@ Feed: `public/feed/google-merchant.{xml,json}` · live after deploy of this comm
 | 2026-08-01 | Merchant Shopping accepted as co-equal organic channel for 1/day math |
 | 2026-08-01 | Organic track sales baseline = $0 known |
 | 2026-08-01 | Merchant track feed: unique RT-* MPN + aftermarket disclosure (regen) |
+| 2026-08-04 | Manual rank pull: 1→2 ranked; `case tv450 tracks` NEW #60; TV370 held #60; Bobcat still out |
