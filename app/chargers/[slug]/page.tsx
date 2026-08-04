@@ -348,13 +348,12 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 Not sure if this is the right charger for your forklift?
               </h3>
               <p className="text-sm text-gray-700 mb-3">
-                Use our free <strong>Interactive Charger Selector Tool</strong> to get personalized
-                recommendations based on your battery voltage, charging speed needs, and facility
-                power type.
+                Browse stocked chargers by voltage, or <strong>request a quote</strong> with your
+                battery voltage, Ah rating, and facility power type and we&apos;ll match the right unit.
               </p>
               <a
-                href="/battery-chargers#charger-selector"
-                className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors shadow-sm"
+                href="/battery-chargers#chargers"
+                className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-canyon-rust hover:bg-canyon-rust/90 rounded-lg transition-colors shadow-sm"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -364,7 +363,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                     d="M13 10V3L4 14h7v7l9-11h-7z"
                   />
                 </svg>
-                Use Charger Selector Tool
+                Shop battery chargers
               </a>
             </div>
           </div>
@@ -507,15 +506,15 @@ export default async function Page({ params }: { params: { slug: string } }) {
                   <span className="font-medium text-gray-900">Need help understanding these specs?</span>{" "}
                   Our{" "}
                   <a
-                    href="/battery-chargers#charger-selector"
-                    className="text-blue-600 hover:text-blue-700 font-medium underline"
+                    href="/battery-chargers#chargers"
+                    className="text-canyon-rust hover:text-canyon-rust/80 font-medium underline"
                   >
-                    Charger Selector Tool
+                    battery chargers hub
                   </a>{" "}
                   and{" "}
                   <a
                     href="/battery-chargers#faq"
-                    className="text-blue-600 hover:text-blue-700 font-medium underline"
+                    className="text-canyon-rust hover:text-canyon-rust/80 font-medium underline"
                   >
                     FAQ section
                   </a>{" "}
@@ -542,14 +541,14 @@ export default async function Page({ params }: { params: { slug: string } }) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Selector Tool Card */}
+              {/* Shop hub card */}
               <a
-                href="/battery-chargers#charger-selector"
-                className="group bg-white rounded-xl p-6 border border-gray-200 hover:border-blue-400 hover:shadow-lg transition-all"
+                href="/battery-chargers#chargers"
+                className="group bg-white rounded-xl p-6 border border-gray-200 hover:border-canyon-rust/40 hover:shadow-lg transition-all"
               >
-                <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mb-4 group-hover:bg-blue-600 transition-colors">
+                <div className="w-12 h-12 rounded-lg bg-canyon-rust/10 flex items-center justify-center mb-4 group-hover:bg-canyon-rust transition-colors">
                   <svg
-                    className="w-6 h-6 text-blue-600 group-hover:text-white transition-colors"
+                    className="w-6 h-6 text-canyon-rust group-hover:text-white transition-colors"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -562,15 +561,14 @@ export default async function Page({ params }: { params: { slug: string } }) {
                     />
                   </svg>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-                  Interactive Selector
+                <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-canyon-rust transition-colors">
+                  Shop by Voltage
                 </h3>
                 <p className="text-sm text-gray-600 mb-3">
-                  Answer 3 questions and get personalized charger recommendations for your specific
-                  needs
+                  Browse stocked 24V–80V chargers, or request a quote if you need help matching amps and facility power
                 </p>
-                <span className="text-sm font-medium text-blue-600 group-hover:underline">
-                  Try the selector →
+                <span className="text-sm font-medium text-canyon-rust group-hover:underline">
+                  Browse chargers →
                 </span>
               </a>
 

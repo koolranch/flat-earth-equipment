@@ -14,7 +14,7 @@ function buildChargerBrowseHref(voltage?: string, amps?: number | null): string 
     params.set('a', String(amps))
   }
   const qs = params.toString()
-  return qs ? `/battery-chargers?${qs}#charger-selector` : '/battery-chargers#charger-selector'
+  return qs ? `/battery-chargers?${qs}#chargers` : '/battery-chargers#chargers'
 }
 
 // Simplified Amperage Calculator for Phase 2

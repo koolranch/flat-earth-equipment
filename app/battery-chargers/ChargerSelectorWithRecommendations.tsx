@@ -13,7 +13,6 @@ type Props = {
 };
 
 export default function ChargerSelectorWithRecommendations({ 
-  chargers, 
   initialFilters = {},
   fallbackItems 
 }: Props) {
@@ -41,23 +40,24 @@ export default function ChargerSelectorWithRecommendations({
 
   return (
     <div className="space-y-8">
-      {/* Enhanced Step-by-step Selector */}
-      <div className="bg-white rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/50 overflow-hidden">
-        <div className="bg-gradient-to-r from-slate-50 to-slate-100/80 px-8 py-6 border-b border-slate-200">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            Forklift Charger Selector: Find Your Perfect Match
+      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+        <div className="bg-slate-50 px-6 py-5 border-b border-slate-200 sm:px-8">
+          <p className="text-xs font-semibold uppercase tracking-wide text-canyon-rust mb-1">
+            Optional helper
+          </p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-1">
+            Need help choosing a charger?
           </h2>
-          <p className="text-lg text-gray-600">
-            Choose your battery voltage, charging speed, and facility power type for personalized forklift charger recommendations
+          <p className="text-gray-600">
+            Answer three quick questions and we&apos;ll match live stocked chargers to your voltage, charge speed, and facility power.
           </p>
         </div>
         
-        <div className="p-8">
+        <div className="p-6 sm:p-8">
           <ChargerSelector onFilterChange={handleFilterChange} />
         </div>
       </div>
 
-      {/* Smart Recommendations Section */}
       <RecommendationsBlock 
         filters={currentFilters}
         fallbackItems={fallbackItems}

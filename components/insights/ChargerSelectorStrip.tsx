@@ -1,14 +1,14 @@
 /**
- * Soft-sell mid-article CTA into the live 3-step charger selector.
+ * Soft-sell mid-article CTA into the live battery-chargers catalog.
  * String-literal props only — next-mdx-remote RSC strips expression props.
  */
 const VOLTAGE_CHIPS = ['24', '36', '48', '80'] as const
 
 export function ChargerSelectorStrip({
-  href = '/battery-chargers#charger-selector',
-  headline = 'Not sure which charger fits?',
-  body = 'Use the 3-step selector: pick voltage, overnight vs fast charging, and your facility power type. We match live stocked chargers to your answers.',
-  cta = 'Open charger selector',
+  href = '/battery-chargers#chargers',
+  headline = 'Shop forklift battery chargers',
+  body = 'Browse stocked 24V–80V chargers by voltage, or request a quote if you need help matching amperage and facility power.',
+  cta = 'Shop battery chargers',
   showVoltages,
 }: {
   href?: string
@@ -23,7 +23,7 @@ export function ChargerSelectorStrip({
   return (
     <aside className="not-prose my-10 rounded-xl border border-slate-200 bg-slate-50 p-6 sm:p-8">
       <p className="text-xs font-semibold uppercase tracking-wide text-canyon-rust mb-2">
-        Charger selector
+        Battery chargers
       </p>
       <h3 className="text-xl font-semibold text-slate-900 mb-2">{headline}</h3>
       <p className="text-slate-600 mb-5 max-w-2xl">{body}</p>
@@ -32,7 +32,7 @@ export function ChargerSelectorStrip({
           {VOLTAGE_CHIPS.map((v) => (
             <a
               key={v}
-              href={`/battery-chargers?v=${v}#charger-selector`}
+              href={`/battery-chargers?v=${v}#chargers`}
               className="inline-flex items-center rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-800 hover:border-canyon-rust/40 hover:text-canyon-rust transition-colors"
             >
               {v}V chargers

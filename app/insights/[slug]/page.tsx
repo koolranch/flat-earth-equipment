@@ -697,22 +697,22 @@ export default async function BlogPost({ params }: Props) {
                 Ready to match a charger to your fleet?
               </h3>
               <p className="text-slate-600 mb-6 max-w-2xl mx-auto">
-                Use the 3-step selector to filter by voltage, charge speed, and facility power — then browse live stocked chargers.
+                Browse stocked 24V–80V chargers by voltage, or request a quote with your battery and facility power details.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href="/battery-chargers#charger-selector"
+                  href="/battery-chargers#chargers"
                   className="bg-canyon-rust text-white px-6 py-3 rounded-lg font-semibold hover:bg-canyon-rust/90 transition-colors"
                 >
-                  Find your charger
+                  Shop chargers
                 </a>
                 
                 <a
-                  href="/compatibility"
+                  href="/quote?equipment=Forklift%20battery%20charger&notes=Need%20help%20matching%20voltage%2C%20amps%2C%20and%20facility%20power"
                   className="border border-slate-300 bg-white text-slate-800 px-6 py-3 rounded-lg font-semibold hover:border-canyon-rust/40 hover:text-canyon-rust transition-colors"
                 >
-                  Find by forklift model
+                  Request a quote
                 </a>
 
                 <a
@@ -740,10 +740,10 @@ export default async function BlogPost({ params }: Props) {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 {
-                  title: "Forklift Charger Selector Tool",
-                  description: "Find your perfect charger in 3 easy steps",
-                  href: "/battery-chargers#charger-selector",
-                  type: "Tool"
+                  title: "Forklift Battery Chargers",
+                  description: "Shop stocked 24V–80V chargers or request a quote",
+                  href: "/battery-chargers#chargers",
+                  type: "Shop"
                 },
                 {
                   title: "24V vs 36V vs 48V Comparison",

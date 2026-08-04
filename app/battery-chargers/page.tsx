@@ -5,7 +5,30 @@ import ChargerCard from "@/components/ChargerCard";
 import { type BatteryCharger, parseChargerSpecs } from "@/lib/batteryChargers";
 import ChargerSelectorWithRecommendations from "./ChargerSelectorWithRecommendations";
 import { filterGreen } from "@/lib/greenFilter";
-import ModelFilterBanner from "@/components/ModelFilterBanner";
+
+const FEATURED_VOLTAGE_ORDER = [48, 36, 24, 80] as const;
+
+/** Round-robin featured chargers across voltages so the hub shows shoppable SKUs immediately. */
+function pickFeaturedChargers(parts: BatteryCharger[], limit = 12): BatteryCharger[] {
+  const pools = FEATURED_VOLTAGE_ORDER.map((voltage) =>
+    parts.filter((p) => parseChargerSpecs(p).voltage === voltage)
+  );
+  const picked: BatteryCharger[] = [];
+  let index = 0;
+  while (picked.length < limit) {
+    let added = false;
+    for (const pool of pools) {
+      if (pool[index]) {
+        picked.push(pool[index]);
+        added = true;
+        if (picked.length >= limit) break;
+      }
+    }
+    if (!added) break;
+    index += 1;
+  }
+  return picked;
+}
 
 export const revalidate = 60;
 
@@ -379,10 +402,11 @@ export default async function Page({
   const jsonLdBreadcrumb = breadcrumbSchemaJsonLd();
   const jsonLdOrganization = organizationSchemaJsonLd();
   
-  // Check if this is a bot/crawler by looking for filters - if no client-side JS filters, show SSR results
   const hasFilters = Object.keys(searchParams).some(key => 
     ['q', 'family', 'v', 'a', 'phase'].includes(key) && searchParams[key]
   );
+  const catalogParts = hasFilters ? filteredParts : pickFeaturedChargers(allParts, 12);
+  const voltageLabel = searchParams.v ? `${searchParams.v}V` : null;
 
   return (
     <div id="top" className="min-h-screen bg-neutral-50">
@@ -410,13 +434,6 @@ export default async function Page({
       <script 
         type="application/ld+json" 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrganization) }} 
-      />
-
-      {/* Model Filter Banner */}
-      <ModelFilterBanner 
-        productType="chargers"
-        title="Filter Chargers by Equipment Model"
-        description="Find chargers verified to fit your specific forklift or lift"
       />
 
       {/* Breadcrumb Navigation */}
@@ -471,22 +488,22 @@ export default async function Page({
             </p>
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <a 
-                href="#charger-selector"
+                href="#chargers"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-canyon-rust text-white font-semibold rounded-lg hover:bg-canyon-rust/90 transition-colors"
               >
-                Open charger selector
+                Shop chargers
+              </a>
+              <a
+                href="/quote?equipment=Forklift%20battery%20charger&notes=Need%20help%20matching%20voltage%2C%20amps%2C%20and%20facility%20power"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-900 font-semibold rounded-lg hover:bg-slate-100 transition-colors"
+              >
+                Request a quote
               </a>
               <a
                 href="/charger-modules"
                 className="inline-flex items-center gap-2 px-6 py-3 border border-slate-500 text-white font-semibold rounded-lg hover:border-canyon-rust hover:text-canyon-rust transition-colors"
               >
                 Need a charger module? Reman &amp; repair →
-              </a>
-              <a 
-                href="/compatibility"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-900 font-semibold rounded-lg hover:bg-slate-100 transition-colors"
-              >
-                Find by forklift model
               </a>
             </div>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-slate-400">
@@ -502,104 +519,18 @@ export default async function Page({
 
       {/* Main Content */}
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Interactive Selector with Smart Recommendations */}
-        <div id="charger-selector">
-          <ChargerSelectorWithRecommendations 
-          chargers={allParts}
-          initialFilters={{
-            voltage: searchParams.v ? Number(searchParams.v) : null, 
-            amps: searchParams.a ? Number(searchParams.a) : null, 
-            phase: (searchParams.phase as '1P' | '3P') ?? null,
-            chemistry: null,
-            limit: 6
-          }}
-          fallbackItems={filteredParts}
-          />
-        </div>
-
-        {/* SSR Results for SEO (when filters are applied via URL) */}
-        {hasFilters && (
-          <div className="mt-8">
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold text-neutral-900">
-                Search Results
-              </h2>
-              <p className="text-neutral-600 mt-1">
-                {filteredParts.length} charger{filteredParts.length !== 1 ? "s" : ""} match your criteria
-              </p>
-            </div>
-
-            {filteredParts.length === 0 ? (
-              <div className="text-center py-12">
-                <div className="w-16 h-16 mx-auto mb-4 bg-neutral-100 rounded-full flex items-center justify-center">
-                  <svg className="w-8 h-8 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.469-.742-6.21-2.002M6 9.5L5.5 9l-.5-.5L6 9.5z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-semibold text-neutral-900 mb-2">
-                  No chargers match your criteria
-                </h3>
-                <p className="text-neutral-600 mb-4">
-                  Try adjusting your filters or browse all available chargers
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {filteredParts.map((charger) => (
-                  <ChargerCard
-                    key={charger.id}
-                    charger={charger}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Quick Navigation Menu */}
-        <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Quick Navigation</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-            <a href="#voltage-selection" className="flex items-center gap-2 p-3 bg-white rounded-lg border border-slate-200 hover:border-canyon-rust/40 transition-colors">
-              <span className="w-6 h-6 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-xs">1</span>
-              <span className="text-gray-700">Voltage Selection</span>
-            </a>
-            <a href="#charger-selector" className="flex items-center gap-2 p-3 bg-white rounded-lg border border-slate-200 hover:border-canyon-rust/40 transition-colors">
-              <span className="w-6 h-6 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-xs">2</span>
-              <span className="text-gray-700">Charger Selector</span>
-            </a>
-            <a href="#resources" className="flex items-center gap-2 p-3 bg-white rounded-lg border border-slate-200 hover:border-canyon-rust/40 transition-colors">
-              <span className="w-6 h-6 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-xs">3</span>
-              <span className="text-gray-700">Expert Guides</span>
-            </a>
-            <a href="#faq" className="flex items-center gap-2 p-3 bg-white rounded-lg border border-slate-200 hover:border-canyon-rust/40 transition-colors">
-              <span className="w-6 h-6 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-xs">4</span>
-              <span className="text-gray-700">FAQ</span>
-            </a>
-          </div>
-        </div>
-
-        {/* Voltage-Specific Sections for SEO */}
-        <div id="voltage-selection" className="mt-16 space-y-12">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Forklift Battery Chargers by Voltage
+        {/* Voltage-first shopping path */}
+        <div id="voltage-selection" className="space-y-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">
+              Shop by battery voltage
             </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-4">
-              Choose the right charger for your forklift battery voltage. Each voltage requires specific amperage and power input configurations.
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Match your forklift battery voltage first, then pick amperage and power input on the product page—or request a quote if you are unsure.
             </p>
-            <div className="flex justify-center">
-              <a href="/insights/complete-guide-forklift-battery-chargers" className="inline-flex items-center gap-2 px-6 py-3 bg-canyon-rust text-white rounded-lg hover:bg-canyon-rust/90 transition-colors font-medium">
-                Read the complete forklift charger guide
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
-            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* 24V Chargers */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="bg-white rounded-2xl border border-slate-200 p-6 hover:border-slate-300 transition-colors">
               <div className="text-center">
                 <div className="w-16 h-16 mx-auto mb-4 bg-slate-100 rounded-full flex items-center justify-center">
@@ -609,20 +540,17 @@ export default async function Page({
                 <p className="text-gray-600 text-sm mb-4">
                   Ideal for small electric forklifts and pallet jacks. Available in 15A-50A output with single-phase input.
                 </p>
-                <div className="space-y-2 text-xs text-gray-500">
+                <div className="space-y-2 text-xs text-gray-500 mb-4">
                   <div>• Typical: 15A-35A output</div>
                   <div>• Input: 110V-240V single-phase</div>
                   <div>• Applications: Small warehouse forklifts</div>
                 </div>
-                <div className="mt-3">
-                  <a href="/battery-chargers?v=24#charger-selector" className="text-canyon-rust hover:underline text-xs font-medium">
-                    Browse 24V chargers →
-                  </a>
-                </div>
+                <a href="/battery-chargers?v=24#chargers" className="inline-flex items-center justify-center w-full px-4 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-lg hover:bg-slate-800 transition-colors">
+                  Browse 24V chargers
+                </a>
               </div>
             </div>
 
-            {/* 36V Chargers */}
             <div className="bg-white rounded-2xl border border-slate-200 p-6 hover:border-slate-300 transition-colors">
               <div className="text-center">
                 <div className="w-16 h-16 mx-auto mb-4 bg-slate-100 rounded-full flex items-center justify-center">
@@ -632,20 +560,17 @@ export default async function Page({
                 <p className="text-gray-600 text-sm mb-4">
                   Popular for medium-duty electric forklifts. Available in 20A-75A output with single-phase input.
                 </p>
-                <div className="space-y-2 text-xs text-gray-500">
+                <div className="space-y-2 text-xs text-gray-500 mb-4">
                   <div>• Typical: 25A-75A output</div>
                   <div>• Input: 208V-240V single-phase</div>
                   <div>• Applications: Mid-size warehouse forklifts</div>
                 </div>
-                <div className="mt-3">
-                  <a href="/battery-chargers?v=36#charger-selector" className="text-canyon-rust hover:underline text-xs font-medium">
-                    Browse 36V chargers →
-                  </a>
-                </div>
+                <a href="/battery-chargers?v=36#chargers" className="inline-flex items-center justify-center w-full px-4 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-lg hover:bg-slate-800 transition-colors">
+                  Browse 36V chargers
+                </a>
               </div>
             </div>
 
-            {/* 48V Chargers */}
             <div className="bg-white rounded-2xl border border-canyon-rust/30 p-6 ring-1 ring-canyon-rust/20">
               <div className="text-center">
                 <div className="w-16 h-16 mx-auto mb-4 bg-canyon-rust/10 rounded-full flex items-center justify-center">
@@ -655,25 +580,20 @@ export default async function Page({
                 <p className="text-gray-600 text-sm mb-4">
                   Most common voltage for industrial forklifts. Available in 25A-200A with single or three-phase input.
                 </p>
-                <div className="space-y-2 text-xs text-gray-500">
+                <div className="space-y-2 text-xs text-gray-500 mb-4">
                   <div>• Typical: 50A-150A output</div>
                   <div>• Input: 208V-600V single/three-phase</div>
                   <div>• Applications: Most industrial forklifts</div>
                 </div>
-                <div className="mt-3 space-y-2">
-                  <span className="inline-block bg-canyon-rust/10 text-canyon-rust px-2 py-1 rounded text-xs font-medium">
-                    Most popular
-                  </span>
-                  <div>
-                    <a href="/battery-chargers?v=48#charger-selector" className="text-canyon-rust hover:underline text-xs font-medium">
-                      Browse 48V chargers →
-                    </a>
-                  </div>
-                </div>
+                <span className="inline-block bg-canyon-rust/10 text-canyon-rust px-2 py-1 rounded text-xs font-medium mb-3">
+                  Most popular
+                </span>
+                <a href="/battery-chargers?v=48#chargers" className="inline-flex items-center justify-center w-full px-4 py-2.5 bg-canyon-rust text-white text-sm font-semibold rounded-lg hover:bg-canyon-rust/90 transition-colors">
+                  Browse 48V chargers
+                </a>
               </div>
             </div>
 
-            {/* 80V Chargers */}
             <div className="bg-white rounded-2xl border border-slate-200 p-6 hover:border-slate-300 transition-colors">
               <div className="text-center">
                 <div className="w-16 h-16 mx-auto mb-4 bg-slate-100 rounded-full flex items-center justify-center">
@@ -683,18 +603,141 @@ export default async function Page({
                 <p className="text-gray-600 text-sm mb-4">
                   High-capacity chargers for large industrial forklifts. Available in 50A-150A with three-phase input.
                 </p>
-                <div className="space-y-2 text-xs text-gray-500">
+                <div className="space-y-2 text-xs text-gray-500 mb-4">
                   <div>• Typical: 75A-150A output</div>
                   <div>• Input: 480V-600V three-phase</div>
                   <div>• Applications: Heavy-duty forklifts</div>
                 </div>
-                <div className="mt-3">
-                  <a href="/battery-chargers?v=80#charger-selector" className="text-canyon-rust hover:underline text-xs font-medium">
-                    Browse 80V chargers →
-                  </a>
-                </div>
+                <a href="/battery-chargers?v=80#chargers" className="inline-flex items-center justify-center w-full px-4 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-lg hover:bg-slate-800 transition-colors">
+                  Browse 80V chargers
+                </a>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Product catalog — always visible for conversion */}
+        <div id="chargers" className="mt-14 scroll-mt-24">
+          <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-neutral-900">
+                {hasFilters
+                  ? voltageLabel
+                    ? `${voltageLabel} forklift chargers`
+                    : 'Matching chargers'
+                  : 'Featured forklift chargers'}
+              </h2>
+              <p className="text-neutral-600 mt-1">
+                {hasFilters
+                  ? `${catalogParts.length} charger${catalogParts.length !== 1 ? 's' : ''} match your criteria`
+                  : 'Stocked GREEN Series options across common voltages. Filter by voltage above or request a quote for fleet sizing.'}
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              {hasFilters && (
+                <a
+                  href="/battery-chargers#chargers"
+                  className="inline-flex items-center px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-200 rounded-lg hover:border-canyon-rust/40 transition-colors"
+                >
+                  Clear filters
+                </a>
+              )}
+              <a
+                href="/quote?equipment=Forklift%20battery%20charger&notes=Need%20help%20matching%20voltage%2C%20amps%2C%20and%20facility%20power"
+                className="inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-canyon-rust rounded-lg hover:bg-canyon-rust/90 transition-colors"
+              >
+                Request a quote
+              </a>
+            </div>
+          </div>
+
+          {catalogParts.length === 0 ? (
+            <div className="text-center py-12 rounded-2xl border border-slate-200 bg-white">
+              <h3 className="text-lg font-semibold text-neutral-900 mb-2">
+                No chargers match your criteria
+              </h3>
+              <p className="text-neutral-600 mb-4">
+                Try another voltage, or send us your battery label and facility power details for a quote.
+              </p>
+              <a
+                href="/quote?equipment=Forklift%20battery%20charger"
+                className="inline-flex items-center px-5 py-2.5 bg-canyon-rust text-white font-semibold rounded-lg hover:bg-canyon-rust/90 transition-colors"
+              >
+                Request a quote
+              </a>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {catalogParts.map((charger) => (
+                <ChargerCard
+                  key={charger.id}
+                  charger={charger}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Quote band */}
+        <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-950 px-6 py-8 sm:px-10 text-white">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-2xl">
+              <h2 className="text-2xl font-bold mb-2">Not sure on amps or power input?</h2>
+              <p className="text-slate-300">
+                Send your forklift model, battery voltage/Ah, and available facility power. We&apos;ll recommend the right charger—or a reman module if that fits better.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+              <a
+                href="/quote?equipment=Forklift%20battery%20charger&notes=Need%20help%20matching%20voltage%2C%20amps%2C%20and%20facility%20power"
+                className="inline-flex items-center justify-center px-5 py-3 bg-canyon-rust text-white font-semibold rounded-lg hover:bg-canyon-rust/90 transition-colors"
+              >
+                Request a quote
+              </a>
+              <a
+                href="/charger-modules"
+                className="inline-flex items-center justify-center px-5 py-3 border border-slate-500 text-white font-semibold rounded-lg hover:border-canyon-rust hover:text-canyon-rust transition-colors"
+              >
+                Charger modules
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Demoted optional selector — keep #charger-selector for legacy deep links */}
+        <div id="charger-selector" className="mt-16 scroll-mt-24">
+          <ChargerSelectorWithRecommendations 
+            chargers={allParts}
+            initialFilters={{
+              voltage: searchParams.v ? Number(searchParams.v) : null, 
+              amps: searchParams.a ? Number(searchParams.a) : null, 
+              phase: (searchParams.phase as '1P' | '3P') ?? null,
+              chemistry: null,
+              limit: 6
+            }}
+            fallbackItems={filteredParts}
+          />
+        </div>
+
+        <div className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Quick Navigation</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+            <a href="#voltage-selection" className="flex items-center gap-2 p-3 bg-white rounded-lg border border-slate-200 hover:border-canyon-rust/40 transition-colors">
+              <span className="w-6 h-6 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-xs">1</span>
+              <span className="text-gray-700">Shop by voltage</span>
+            </a>
+            <a href="#chargers" className="flex items-center gap-2 p-3 bg-white rounded-lg border border-slate-200 hover:border-canyon-rust/40 transition-colors">
+              <span className="w-6 h-6 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-xs">2</span>
+              <span className="text-gray-700">Browse chargers</span>
+            </a>
+            <a href="#resources" className="flex items-center gap-2 p-3 bg-white rounded-lg border border-slate-200 hover:border-canyon-rust/40 transition-colors">
+              <span className="w-6 h-6 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-xs">3</span>
+              <span className="text-gray-700">Expert Guides</span>
+            </a>
+            <a href="#faq" className="flex items-center gap-2 p-3 bg-white rounded-lg border border-slate-200 hover:border-canyon-rust/40 transition-colors">
+              <span className="w-6 h-6 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-xs">4</span>
+              <span className="text-gray-700">FAQ</span>
+            </a>
           </div>
         </div>
 
