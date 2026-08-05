@@ -296,6 +296,16 @@ export const NAVITAS_HUB_JUMP_LINKS: { href: string; label: string }[] = [
   { href: '/lithium-batteries', label: 'Lithium Rhino' },
 ];
 
+/** Cart-model shortcuts → OEM guide row anchors (buyer mental model before Curtis/Moric PNs). */
+export const NAVITAS_CART_SHORTCUTS: { label: string; oemRowId: string }[] = [
+  { label: 'EZGO TXT', oemRowId: 'curtis-1206hb' },
+  { label: 'EZGO ITS', oemRowId: 'curtis-1268-1264-its' },
+  { label: 'Club Car IQ/Excel', oemRowId: 'curtis-1510-1515' },
+  { label: 'Club Car/StarEV', oemRowId: 'curtis-1268-1520' },
+  { label: 'Yamaha G29', oemRowId: 'moric-jw2' },
+  { label: 'Yamaha Drive2', oemRowId: 'toyota-neos-m' },
+];
+
 /** Platforms we intentionally do not recommend from this hub (return-risk). */
 export const NAVITAS_OEM_UNSUPPORTED: { label: string; reason: string }[] = [
   {

@@ -8,6 +8,7 @@ import {
   NAVITAS_ALL_TSX_KITS,
   getNavitasKitBySlug,
   NAVITAS_BUY_TRUST_LINE,
+  NAVITAS_CART_SHORTCUTS,
   NAVITAS_FITMENT_PHOTO_MAILTO,
   NAVITAS_HUB_JUMP_LINKS,
   NAVITAS_HUB_PATH,
@@ -116,11 +117,11 @@ function OemGuideActions({ row }: { row: NavitasOemGuideRow }) {
   const tac3 = row.tac3Slug ? getNavitasKitBySlug(row.tac3Slug) : undefined;
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2.5">
       <div className="flex flex-wrap gap-2">
         {better && row.tsx ? (
           <BuyButton href={`/parts/${row.tsx.betterSlug}`} variant="primary">
-            600A · ${better.price} · Best for lithium
+            Recommended: 600A · ${better.price}
           </BuyButton>
         ) : null}
         {good && row.tsx ? (
@@ -133,26 +134,31 @@ function OemGuideActions({ row }: { row: NavitasOemGuideRow }) {
             TAC2 {tac2.amperage}A · ${tac2.price}
           </BuyButton>
         ) : null}
-        {tac3 && row.tac3Slug ? (
-          <BuyButton href={`/parts/${row.tac3Slug}`} variant="secondary">
-            TAC3 850A · ${tac3.price.toLocaleString()}
-          </BuyButton>
-        ) : null}
-        {!row.tsx && !tac2 && !tac3 ? (
+        {!row.tsx && !tac2 ? (
           <span className="text-sm text-slate-400">Contact parts@ for fitment</span>
         ) : null}
       </div>
       <TrustLine />
+      {row.tsx ? (
+        <p className="text-xs text-slate-500">
+          600A for lithium, hills, or lifts · 440A for stock / mostly flat
+        </p>
+      ) : null}
       {row.lithiumHref ? (
         <Link
           href={row.lithiumHref}
-          className="inline-flex text-xs font-semibold text-slate-600 hover:text-canyon-rust"
+          className="inline-flex min-h-[36px] items-center rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-800 hover:border-canyon-rust hover:text-canyon-rust"
         >
-          + {row.lithiumLabel ?? 'Lithium Rhino'} for this cart →
+          Pair with {row.lithiumLabel ?? 'Lithium Rhino'} →
         </Link>
       ) : null}
-      {!tac2 && !tac3 && row.tsx ? (
-        <p className="text-xs text-slate-500">No 850 kit listed for this platform</p>
+      {tac3 && row.tac3Slug ? (
+        <Link
+          href={`/parts/${row.tac3Slug}`}
+          className="inline-flex text-xs font-medium text-slate-500 hover:text-canyon-rust"
+        >
+          Need a full motor swap? TAC3 850A · ${tac3.price.toLocaleString()} →
+        </Link>
       ) : null}
     </div>
   );
@@ -211,15 +217,14 @@ export default function NavitasControllersHubPage() {
       <header className="grid lg:grid-cols-2 gap-10 items-center">
         <div className="space-y-5">
           <p className="text-sm font-semibold uppercase tracking-wide text-canyon-rust">
-            Navitas TSX3.0 · Free shipping
+            Free shipping · Contiguous US
           </p>
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
             Navitas golf cart controllers
           </h1>
           <p className="text-lg text-slate-600 max-w-xl">
-            TSX 440A and 600A conversion kits for EZGO, Club Car, and Yamaha — Bluetooth tuning, free
-            ground shipping, and OTF programmers on every TSX keep-motor kit. Match your OEM
-            controller first to avoid the wrong harness.
+            Find the right kit for your EZGO, Club Car, or Yamaha — match the controller label under
+            the seat, then choose 440A or 600A. Free ground shipping on every kit.
           </p>
           <div className="flex flex-wrap gap-3">
             <a
@@ -255,11 +260,15 @@ export default function NavitasControllersHubPage() {
             title: '440A or 600A',
             desc: '440A for stock/flat; 600A recommended for lithium, hills, and lifts',
           },
-          { icon: Bluetooth, title: 'Bluetooth app', desc: 'Tune speed, limits, and live telemetry on every kit' },
+          {
+            icon: Bluetooth,
+            title: 'Bluetooth app',
+            desc: 'Tune speed, limits, and live telemetry on every kit',
+          },
           {
             icon: Gauge,
-            title: 'OTF on TSX kits',
-            desc: 'On-The-Fly programmer included with 440A/600A keep-motor kits — not TAC2/TAC3',
+            title: 'OTF programmer',
+            desc: 'Included on TSX keep-motor kits — adjust while you drive (not on TAC2/TAC3)',
           },
           { icon: Truck, title: 'Free shipping', desc: 'No freight line at checkout on every kit' },
         ].map(({ icon: Icon, title, desc }) => (
@@ -273,10 +282,10 @@ export default function NavitasControllersHubPage() {
 
       <section id="find-your-kit" className="space-y-6 scroll-mt-24">
         <div className="max-w-2xl mx-auto text-center space-y-2">
-          <h2 className="text-3xl font-bold text-slate-900">OEM controller cheat-sheet</h2>
+          <h2 className="text-3xl font-bold text-slate-900">Find your kit</h2>
           <p className="text-slate-600">
             Match the number on your stock controller label — that is how Navitas kits are harnessed.
-            Wrong harness = wrong kit. Buy from this table first; kit cards below are optional.
+            Wrong harness = wrong kit. Buy from this table; kit cards below are optional.
           </p>
         </div>
 
@@ -292,6 +301,23 @@ export default function NavitasControllersHubPage() {
           <div>
             <p className="font-semibold text-slate-900 mb-1">3. Match the row</p>
             <p>Use the full cue — especially for 1268, which needs a second number.</p>
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <p className="text-sm font-semibold text-slate-900 text-center md:text-left">
+            Know your cart? Jump to your row
+          </p>
+          <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+            {NAVITAS_CART_SHORTCUTS.map((chip) => (
+              <a
+                key={chip.oemRowId}
+                href={`#oem-${chip.oemRowId}`}
+                className="inline-flex min-h-[40px] items-center rounded-lg border border-slate-200 bg-white px-3.5 py-1.5 text-sm font-medium text-slate-700 hover:border-canyon-rust hover:text-canyon-rust"
+              >
+                {chip.label}
+              </a>
+            ))}
           </div>
         </div>
 
@@ -313,9 +339,15 @@ export default function NavitasControllersHubPage() {
           </a>
         </div>
 
-        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 md:p-5">
-          <p className="text-sm font-semibold text-amber-950 mb-2">Wrong-kit traps (common returns)</p>
-          <ul className="grid sm:grid-cols-2 gap-2 text-sm text-amber-950/90">
+        <details className="group rounded-2xl border border-amber-200 bg-amber-50 open:shadow-sm">
+          <summary className="cursor-pointer list-none px-4 py-3.5 md:px-5 flex items-center justify-between gap-3">
+            <span className="text-sm font-semibold text-amber-950">
+              Common mix-ups (avoid a wrong-kit return)
+            </span>
+            <span className="text-xs font-semibold text-amber-800 group-open:hidden">Show</span>
+            <span className="text-xs font-semibold text-amber-800 hidden group-open:inline">Hide</span>
+          </summary>
+          <ul className="px-4 pb-4 md:px-5 grid sm:grid-cols-2 gap-2 text-sm text-amber-950/90">
             {NAVITAS_OEM_WRONG_FIT_WARNINGS.map((w) => (
               <li key={w} className="flex gap-2">
                 <span className="text-amber-700 shrink-0">•</span>
@@ -323,84 +355,48 @@ export default function NavitasControllersHubPage() {
               </li>
             ))}
           </ul>
-        </div>
+        </details>
 
-        <div className="rounded-xl border border-slate-200 bg-white p-4 md:p-5">
-          <p className="text-sm text-slate-700">
-            <span className="font-semibold text-slate-900">440A vs 600A:</span> 440A for stock carts on
-            mostly flat ground. <span className="font-semibold text-slate-900">600A</span> if you are
-            going lithium, running hills, lifts, or heavier loads — that is the recommended keep-motor
-            upgrade for most conversions on this page.
-          </p>
-        </div>
-
-        {/* Mobile / tablet: stacked cards */}
-        <div className="grid gap-4 lg:hidden">
+        {/* Single responsive list — one id per OEM row for cart-chip anchors */}
+        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white divide-y divide-slate-100">
+          <div className="hidden lg:grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.2fr)_minmax(0,1.3fr)] gap-4 bg-slate-50 border-b border-slate-200 px-4 py-3 text-sm font-semibold text-slate-600">
+            <span>Cart / system</span>
+            <span>OEM controller</span>
+            <span>Buy</span>
+          </div>
           {NAVITAS_OEM_CONTROLLER_GUIDE.map((row) => (
             <article
               key={row.id}
-              className={`rounded-2xl border bg-white p-5 space-y-3 ${
-                row.popular ? 'border-canyon-rust/40 ring-1 ring-canyon-rust/20' : 'border-slate-200'
+              id={`oem-${row.id}`}
+              className={`scroll-mt-28 p-5 space-y-3 lg:space-y-0 lg:grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.2fr)_minmax(0,1.3fr)] lg:gap-4 lg:items-start target:bg-orange-50/70 target:ring-2 target:ring-inset target:ring-canyon-rust/30 ${
+                row.popular ? 'bg-orange-50/40' : 'bg-white'
               }`}
             >
               <div className="flex flex-wrap items-start justify-between gap-2">
-                <div>
-                  <p className="font-bold text-slate-900">{row.oemLabel}</p>
-                  <p className="text-xs text-slate-500 mt-0.5">{row.oemDetail}</p>
-                </div>
+                <p className="font-semibold text-slate-900">{row.cartLabel}</p>
                 {row.popular ? (
-                  <span className="text-[11px] font-bold uppercase tracking-wide text-canyon-rust bg-orange-50 border border-orange-100 rounded px-2 py-0.5">
+                  <span className="text-[11px] font-bold uppercase tracking-wide text-canyon-rust bg-orange-50 border border-orange-100 rounded px-2 py-0.5 lg:hidden">
                     Most common
                   </span>
                 ) : null}
               </div>
-              <p className="text-sm text-slate-700">{row.cartLabel}</p>
-              {row.confirmNote ? (
-                <p className="text-xs text-amber-800 leading-snug">{row.confirmNote}</p>
-              ) : null}
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <p className="font-bold text-slate-900">{row.oemLabel}</p>
+                  {row.popular ? (
+                    <span className="hidden lg:inline text-[11px] font-bold uppercase tracking-wide text-canyon-rust">
+                      Most common
+                    </span>
+                  ) : null}
+                </div>
+                <p className="text-xs text-slate-500 mt-0.5">{row.oemDetail}</p>
+                {row.confirmNote ? (
+                  <p className="text-xs text-amber-800 mt-2 leading-snug">{row.confirmNote}</p>
+                ) : null}
+              </div>
               <OemGuideActions row={row} />
             </article>
           ))}
-        </div>
-
-        {/* Desktop: table */}
-        <div className="hidden lg:block overflow-hidden rounded-2xl border border-slate-200 bg-white">
-          <table className="w-full text-left text-sm">
-            <thead className="bg-slate-50 border-b border-slate-200 text-slate-600">
-              <tr>
-                <th className="px-4 py-3 font-semibold">OEM controller</th>
-                <th className="px-4 py-3 font-semibold">Cart / system</th>
-                <th className="px-4 py-3 font-semibold">Buy</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              {NAVITAS_OEM_CONTROLLER_GUIDE.map((row) => (
-                <tr
-                  key={row.id}
-                  className={`align-top ${row.popular ? 'bg-orange-50/40' : ''}`}
-                >
-                  <td className="px-4 py-4">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <p className="font-bold text-slate-900">{row.oemLabel}</p>
-                      {row.popular ? (
-                        <span className="text-[11px] font-bold uppercase tracking-wide text-canyon-rust">
-                          Most common
-                        </span>
-                      ) : null}
-                    </div>
-                    <p className="text-xs text-slate-500 mt-0.5">{row.oemDetail}</p>
-                    {row.confirmNote ? (
-                      <p className="text-xs text-amber-800 mt-2 leading-snug">{row.confirmNote}</p>
-                    ) : null}
-                  </td>
-                  <td className="px-4 py-4 text-slate-700">{row.cartLabel}</td>
-                  <td className="px-4 py-4">
-                    <OemGuideActions row={row} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
 
         <div className="rounded-xl border border-slate-200 bg-white p-5 space-y-4">
@@ -722,21 +718,26 @@ export default function NavitasControllersHubPage() {
         ))}
       </section>
 
-      {/* Mobile sticky fitment help */}
+      {/* Mobile sticky — unsure buyers get a photo escape; others jump to match */}
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 backdrop-blur px-4 py-3 lg:hidden">
-        <div className="container mx-auto flex gap-2">
-          <a
-            href="#find-your-kit"
-            className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-lg bg-canyon-rust px-3 py-2 text-sm font-semibold text-white"
-          >
-            Match OEM
-          </a>
-          <a
-            href={NAVITAS_FITMENT_PHOTO_MAILTO}
-            className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-800"
-          >
-            Send photo
-          </a>
+        <div className="container mx-auto space-y-2">
+          <p className="text-center text-xs text-slate-600">
+            Not sure? Email a photo of the label — we confirm before you order.
+          </p>
+          <div className="flex gap-2">
+            <a
+              href={NAVITAS_FITMENT_PHOTO_MAILTO}
+              className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-lg bg-canyon-rust px-3 py-2 text-sm font-semibold text-white"
+            >
+              Send photo
+            </a>
+            <a
+              href="#find-your-kit"
+              className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-800"
+            >
+              Match OEM
+            </a>
+          </div>
         </div>
       </div>
     </main>
