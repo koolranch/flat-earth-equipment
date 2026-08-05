@@ -1,0 +1,1664 @@
+{
+  "source": "dataforseo search_volume + bulk_kd + live serp depth100 + labs merge",
+  "checked_at": "2026-08-04T02:25:55.734Z",
+  "cost_usd": 0.21111999999999997,
+  "do_not_change": [
+    "/safety ad UX",
+    "Stripe checkout",
+    "hero CTA wiring"
+  ],
+  "summary": {
+    "keywords": 26,
+    "tier1": 16,
+    "tier2": 8,
+    "tier3": 2,
+    "urls": 14
+  },
+  "urlPlan": [
+    {
+      "url": "/insights/forklift-training-classes",
+      "tier": 1,
+      "primaryKeyword": "forklift training classes",
+      "primaryPos": null,
+      "keywords": [
+        {
+          "keyword": "forklift training classes",
+          "volume": 5400,
+          "cpc": 4.7,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "internal-links",
+          "score": 2896.1
+        }
+      ],
+      "actions": [
+        "internal-links"
+      ],
+      "competitorDomains": [
+        "www.oshaeducationcenter.com",
+        "octitraining.com",
+        "awtc.aidt.edu",
+        "www.osha.gov",
+        "www.certifiedforklifttraining.com"
+      ],
+      "playbook": "Already ranking deep on insights — add strong CTA + links to /safety and matching state pages; tighten title/H1 to query."
+    },
+    {
+      "url": "/insights/how-to-get-a-forklift-license",
+      "tier": 1,
+      "primaryKeyword": "how to get forklift certified",
+      "primaryPos": null,
+      "keywords": [
+        {
+          "keyword": "how to get forklift certified",
+          "volume": 6600,
+          "cpc": 2.54,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "internal-links",
+          "score": 1912.9
+        },
+        {
+          "keyword": "requirements for forklift license",
+          "volume": 390,
+          "cpc": 2.9,
+          "difficulty": 8,
+          "ourPos": 90,
+          "action": "internal-links",
+          "score": 149
+        }
+      ],
+      "actions": [
+        "internal-links"
+      ],
+      "competitorDomains": [
+        "www.oshaeducationcenter.com",
+        "www.reddit.com",
+        "www.usfosha.com",
+        "www.nationalforkliftfoundation.com",
+        "www.forkliftcertification.us",
+        "www.osha.gov",
+        "www.certifyme.net",
+        "www.jjkeller.com"
+      ],
+      "playbook": "Already ranking deep on insights — add strong CTA + links to /safety and matching state pages; tighten title/H1 to query."
+    },
+    {
+      "url": "/safety/forklift/ca",
+      "tier": 1,
+      "primaryKeyword": "osha approved forklift certification",
+      "primaryPos": 88,
+      "keywords": [
+        {
+          "keyword": "osha approved forklift certification",
+          "volume": 880,
+          "cpc": 10.64,
+          "difficulty": 30,
+          "ourPos": 88,
+          "action": "strengthen-onpage",
+          "score": 1871.5
+        },
+        {
+          "keyword": "forklift certification california",
+          "volume": 320,
+          "cpc": 10.92,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "strengthen-onpage",
+          "score": 319
+        },
+        {
+          "keyword": "forklift certification los angeles",
+          "volume": 110,
+          "cpc": 6.34,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "city-mentions",
+          "score": 95.5
+        },
+        {
+          "keyword": "cal osha forklift certification",
+          "volume": 30,
+          "cpc": 7.91,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "strengthen-onpage",
+          "score": 21.7
+        }
+      ],
+      "actions": [
+        "strengthen-onpage",
+        "city-mentions"
+      ],
+      "competitorDomains": [
+        "www.osha.gov",
+        "www.oshaeducationcenter.com",
+        "www.nationalforkliftfoundation.com",
+        "www.osha.com",
+        "www.certifyme.net",
+        "forklifttraining.com",
+        "www.usaforkliftlicense-certification.com",
+        "westec.org"
+      ],
+      "playbook": "Existing Labs/live signal on a state page — expand city/FAQ/intent coverage without touching /safety ad UX."
+    },
+    {
+      "url": "/safety/forklift/tx",
+      "tier": 1,
+      "primaryKeyword": "forklift certification texas",
+      "primaryPos": null,
+      "keywords": [
+        {
+          "keyword": "forklift certification texas",
+          "volume": 260,
+          "cpc": 8.18,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "strengthen-onpage",
+          "score": 194.1
+        },
+        {
+          "keyword": "forklift certification houston",
+          "volume": 260,
+          "cpc": 3.94,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "city-mentions",
+          "score": 112.2
+        },
+        {
+          "keyword": "forklift certification dallas",
+          "volume": 110,
+          "cpc": 4.96,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "city-mentions",
+          "score": 74.7
+        },
+        {
+          "keyword": "how to get forklift certified in texas",
+          "volume": 170,
+          "cpc": 3.28,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "strengthen-onpage",
+          "score": 66.2
+        }
+      ],
+      "actions": [
+        "strengthen-onpage",
+        "city-mentions"
+      ],
+      "competitorDomains": [
+        "lonestarforklift.com",
+        "www.nationalforkliftfoundation.com",
+        "goodwillnorthcentraltexas.org",
+        "www.certifyme.net",
+        "www.oshaeducationcenter.com",
+        "salsafetysolutions.com",
+        "www.forkliftacademy.com",
+        "houstonforkliftacademy.com"
+      ],
+      "playbook": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    },
+    {
+      "url": "/safety/forklift/nj",
+      "tier": 1,
+      "primaryKeyword": "forklift certification new jersey",
+      "primaryPos": null,
+      "keywords": [
+        {
+          "keyword": "forklift certification new jersey",
+          "volume": 320,
+          "cpc": 6.06,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "strengthen-onpage",
+          "score": 177
+        },
+        {
+          "keyword": "how to get forklift certification nj",
+          "volume": 40,
+          "cpc": 5.97,
+          "difficulty": 0,
+          "ourPos": 68,
+          "action": "strengthen-onpage",
+          "score": 54.3
+        },
+        {
+          "keyword": "forklift certification newark nj",
+          "volume": 20,
+          "cpc": 2.68,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "city-mentions",
+          "score": 7.3
+        }
+      ],
+      "actions": [
+        "strengthen-onpage",
+        "city-mentions"
+      ],
+      "competitorDomains": [
+        "mycareer.nj.gov",
+        "www.nationalforkliftfoundation.com",
+        "ezwheelsdriving.com",
+        "fastlinesafetytraining.com",
+        "www.moderngroup.com",
+        "www.oshaeducationcenter.com",
+        "cstraining.org",
+        "allpurposeforklifttraining.com"
+      ],
+      "playbook": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    },
+    {
+      "url": "/safety/forklift/fl",
+      "tier": 1,
+      "primaryKeyword": "forklift certification florida",
+      "primaryPos": null,
+      "keywords": [
+        {
+          "keyword": "forklift certification florida",
+          "volume": 260,
+          "cpc": 6.46,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "strengthen-onpage",
+          "score": 153.3
+        }
+      ],
+      "actions": [
+        "strengthen-onpage"
+      ],
+      "competitorDomains": [
+        "www.nationalforkliftfoundation.com",
+        "www.oshaeducationcenter.com",
+        "www.certifyme.net",
+        "liftoffcerts.com",
+        "www.mcfattertechnicalcollege.edu"
+      ],
+      "playbook": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    },
+    {
+      "url": "/safety/forklift/il",
+      "tier": 1,
+      "primaryKeyword": "forklift certification chicago",
+      "primaryPos": null,
+      "keywords": [
+        {
+          "keyword": "forklift certification chicago",
+          "volume": 260,
+          "cpc": 4.09,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "city-mentions",
+          "score": 145.6
+        },
+        {
+          "keyword": "forklift certification illinois",
+          "volume": 140,
+          "cpc": 5.14,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "strengthen-onpage",
+          "score": 65.7
+        }
+      ],
+      "actions": [
+        "city-mentions",
+        "strengthen-onpage"
+      ],
+      "competitorDomains": [
+        "www.ccc.edu",
+        "www.wolterinc.com",
+        "www.reddit.com",
+        "www.indeed.com",
+        "www.nationalforkliftfoundation.com",
+        "forklifttraining.com",
+        "www.osha.gov",
+        "learn.clcillinois.edu"
+      ],
+      "playbook": "City SERP is local/training-school heavy — win with online-cert angle + city named in H2/FAQ on the parent state page."
+    },
+    {
+      "url": "/safety/forklift/az",
+      "tier": 1,
+      "primaryKeyword": "forklift certification arizona",
+      "primaryPos": null,
+      "keywords": [
+        {
+          "keyword": "forklift certification arizona",
+          "volume": 210,
+          "cpc": 6.51,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "strengthen-onpage",
+          "score": 124.8
+        }
+      ],
+      "actions": [
+        "strengthen-onpage"
+      ],
+      "competitorDomains": [
+        "arizonaforkliftsafetytraining.com",
+        "www.nationalforkliftfoundation.com",
+        "forklifttraining.com",
+        "www.raymondwest.com",
+        "www.facebook.com"
+      ],
+      "playbook": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    },
+    {
+      "url": "/safety/forklift/ny",
+      "tier": 1,
+      "primaryKeyword": "forklift certification new york",
+      "primaryPos": null,
+      "keywords": [
+        {
+          "keyword": "forklift certification new york",
+          "volume": 260,
+          "cpc": 4.25,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "strengthen-onpage",
+          "score": 100.9
+        }
+      ],
+      "actions": [
+        "strengthen-onpage"
+      ],
+      "competitorDomains": [
+        "www.nationalforkliftfoundation.com",
+        "fastlinesafetytraining.com",
+        "www.oshaeducationcenter.com",
+        "www.ferraridrivingschool.com",
+        "www.ablesafety.com"
+      ],
+      "playbook": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    },
+    {
+      "url": "/safety/forklift/tn",
+      "tier": 1,
+      "primaryKeyword": "forklift license memphis tn",
+      "primaryPos": 77,
+      "keywords": [
+        {
+          "keyword": "forklift license memphis tn",
+          "volume": 40,
+          "cpc": 5.84,
+          "difficulty": 0,
+          "ourPos": 77,
+          "action": "strengthen-onpage",
+          "score": 49.9
+        },
+        {
+          "keyword": "forklift certification tennessee",
+          "volume": 40,
+          "cpc": 7.51,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "strengthen-onpage",
+          "score": 27.4
+        }
+      ],
+      "actions": [
+        "strengthen-onpage"
+      ],
+      "competitorDomains": [
+        "octitraining.com",
+        "www.advancememphis.org",
+        "www.deltamat.com",
+        "www.indeed.com",
+        "www.nationalforkliftfoundation.com",
+        "tcatmurfreesboro.edu",
+        "www.forkliftsystems.com",
+        "www.expresspros.com"
+      ],
+      "playbook": "Existing Labs/live signal on a state page — expand city/FAQ/intent coverage without touching /safety ad UX."
+    },
+    {
+      "url": "/safety/forklift/wi",
+      "tier": 1,
+      "primaryKeyword": "forklift training milwaukee",
+      "primaryPos": 85,
+      "keywords": [
+        {
+          "keyword": "forklift training milwaukee",
+          "volume": 50,
+          "cpc": 4.83,
+          "difficulty": 0,
+          "ourPos": 85,
+          "action": "strengthen-onpage",
+          "score": 49.1
+        },
+        {
+          "keyword": "forklift certification wisconsin",
+          "volume": 70,
+          "cpc": 4.68,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "strengthen-onpage",
+          "score": 29.9
+        }
+      ],
+      "actions": [
+        "strengthen-onpage"
+      ],
+      "competitorDomains": [
+        "www.milwaukeecommunityservicecorps.org",
+        "dwd.wisconsin.gov",
+        "www.expresspros.com",
+        "www.wolterinc.com",
+        "usforkliftcertification.com",
+        "www.nationalforkliftfoundation.com",
+        "firstqualityforklifttraining.com",
+        "www.wisafetycouncil.org"
+      ],
+      "playbook": "Existing Labs/live signal on a state page — expand city/FAQ/intent coverage without touching /safety ad UX."
+    },
+    {
+      "url": "/safety/forklift/oh",
+      "tier": 2,
+      "primaryKeyword": "forklift certification ohio",
+      "primaryPos": null,
+      "keywords": [
+        {
+          "keyword": "forklift certification ohio",
+          "volume": 110,
+          "cpc": 6.33,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "strengthen-onpage",
+          "score": 63.6
+        }
+      ],
+      "actions": [
+        "strengthen-onpage"
+      ],
+      "competitorDomains": [
+        "www.nationalforkliftfoundation.com",
+        "www.tri-c.edu",
+        "www.mitlift.com",
+        "forklifttraining.com",
+        "scnwo.org"
+      ],
+      "playbook": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    },
+    {
+      "url": "/safety/forklift/ga",
+      "tier": 2,
+      "primaryKeyword": "forklift certification georgia",
+      "primaryPos": null,
+      "keywords": [
+        {
+          "keyword": "forklift certification georgia",
+          "volume": 90,
+          "cpc": 3.56,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "strengthen-onpage",
+          "score": 29.2
+        }
+      ],
+      "actions": [
+        "strengthen-onpage"
+      ],
+      "competitorDomains": [
+        "goodwillng.org",
+        "www.atlantaforklifts.com",
+        "forklifttraining.com",
+        "ce.wiregrass.edu",
+        "www.findhelp.org"
+      ],
+      "playbook": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    },
+    {
+      "url": "/safety/forklift/pa",
+      "tier": 3,
+      "primaryKeyword": "forklift certification pennsylvania",
+      "primaryPos": null,
+      "keywords": [
+        {
+          "keyword": "forklift certification pennsylvania",
+          "volume": 10,
+          "cpc": 0,
+          "difficulty": null,
+          "ourPos": null,
+          "action": "strengthen-onpage",
+          "score": 0.5
+        }
+      ],
+      "actions": [
+        "strengthen-onpage"
+      ],
+      "competitorDomains": [
+        "www.nationalforkliftfoundation.com",
+        "usforkliftcertification.com",
+        "fastlinesafetytraining.com",
+        "educationthatpays.com",
+        "www.forkliftcertification.com"
+      ],
+      "playbook": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    }
+  ],
+  "rows": [
+    {
+      "keyword": "forklift training classes",
+      "targetUrl": "/insights/forklift-training-classes",
+      "state": null,
+      "priorityHint": "insights",
+      "volume": 5400,
+      "cpc": 4.7,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 4,
+          "domain": "www.oshaeducationcenter.com",
+          "title": "Forklift Certification Training | 100% Online Course"
+        },
+        {
+          "pos": 6,
+          "domain": "octitraining.com",
+          "title": "3 Year OSHA-Compliant Forklift Training"
+        },
+        {
+          "pos": 7,
+          "domain": "awtc.aidt.edu",
+          "title": "Forklift Training - Alabama Workforce Training Center - AIDT"
+        },
+        {
+          "pos": 8,
+          "domain": "www.osha.gov",
+          "title": "Powered Industrial Trucks (Forklift) - Training Assistance"
+        },
+        {
+          "pos": 9,
+          "domain": "www.certifiedforklifttraining.com",
+          "title": "Forklift Certification | New Jersey | South Jersey Forklift Training"
+        }
+      ],
+      "score": 2896.1,
+      "tier": 1,
+      "action": "internal-links",
+      "why": "Already ranking deep on insights — add strong CTA + links to /safety and matching state pages; tighten title/H1 to query."
+    },
+    {
+      "keyword": "how to get forklift certified",
+      "targetUrl": "/insights/how-to-get-a-forklift-license",
+      "state": null,
+      "priorityHint": "insights",
+      "volume": 6600,
+      "cpc": 2.54,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 2,
+          "domain": "www.oshaeducationcenter.com",
+          "title": "Forklift Certification Training | 100% Online Course"
+        },
+        {
+          "pos": 4,
+          "domain": "www.reddit.com",
+          "title": "How do I get forklift certified? : r/jobs"
+        },
+        {
+          "pos": 5,
+          "domain": "www.usfosha.com",
+          "title": "100% Online Forklift Certification Training"
+        },
+        {
+          "pos": 6,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "Florida Forklift Certification"
+        },
+        {
+          "pos": 7,
+          "domain": "www.forkliftcertification.us",
+          "title": "Free Forklift Certification and Training"
+        }
+      ],
+      "score": 1912.9,
+      "tier": 1,
+      "action": "internal-links",
+      "why": "Already ranking deep on insights — add strong CTA + links to /safety and matching state pages; tighten title/H1 to query."
+    },
+    {
+      "keyword": "osha approved forklift certification",
+      "targetUrl": "/safety/forklift/ca",
+      "state": "CA",
+      "priorityHint": "labs-signal",
+      "volume": 880,
+      "cpc": 10.64,
+      "difficulty": 30,
+      "ourPos": 88,
+      "ourUrl": "https://www.flatearthequipment.com/safety/forklift/ca",
+      "rankingMatchesTarget": true,
+      "topCompetitors": [
+        {
+          "pos": 2,
+          "domain": "www.osha.gov",
+          "title": "Powered Industrial Trucks (Forklift) - Training Assistance"
+        },
+        {
+          "pos": 3,
+          "domain": "www.oshaeducationcenter.com",
+          "title": "Forklift Certification Training | 100% Online Course"
+        },
+        {
+          "pos": 4,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "National Forklift Foundation: Official OSHA Online Forklift ..."
+        },
+        {
+          "pos": 7,
+          "domain": "www.osha.com",
+          "title": "Forklift Certification & Heavy Equipment Training"
+        },
+        {
+          "pos": 8,
+          "domain": "www.certifyme.net",
+          "title": "Forklift Certification Online Training, 100% OSHA-Compliant!"
+        }
+      ],
+      "score": 1871.5,
+      "tier": 1,
+      "action": "strengthen-onpage",
+      "why": "Existing Labs/live signal on a state page — expand city/FAQ/intent coverage without touching /safety ad UX."
+    },
+    {
+      "keyword": "forklift certification california",
+      "targetUrl": "/safety/forklift/ca",
+      "state": "CA",
+      "priorityHint": "state-head",
+      "volume": 320,
+      "cpc": 10.92,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 5,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "Forklift Certification in California | Official 2025 Cal/OSHA ..."
+        },
+        {
+          "pos": 6,
+          "domain": "forklifttraining.com",
+          "title": "California Forklift Certification | Cal-OSHA ..."
+        },
+        {
+          "pos": 7,
+          "domain": "www.usaforkliftlicense-certification.com",
+          "title": "USA Forklift Certification: Forklift Training Center | License ..."
+        },
+        {
+          "pos": 8,
+          "domain": "westec.org",
+          "title": "forklift certification offered every thursday & friday"
+        },
+        {
+          "pos": 9,
+          "domain": "www.dir.ca.gov",
+          "title": "3668. Powered Industrial Truck Operator Training."
+        }
+      ],
+      "score": 319,
+      "tier": 1,
+      "action": "strengthen-onpage",
+      "why": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    },
+    {
+      "keyword": "forklift certification texas",
+      "targetUrl": "/safety/forklift/tx",
+      "state": "TX",
+      "priorityHint": "indexed-big",
+      "volume": 260,
+      "cpc": 8.18,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 4,
+          "domain": "lonestarforklift.com",
+          "title": "Forklift Certification in Texas - Training"
+        },
+        {
+          "pos": 5,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "Texas Forklift Certification"
+        },
+        {
+          "pos": 7,
+          "domain": "goodwillnorthcentraltexas.org",
+          "title": "FORKLIFT TRAINING & CERTIFICATION"
+        },
+        {
+          "pos": 8,
+          "domain": "www.certifyme.net",
+          "title": "Forklift Certification in Texas | 100% Online Training Course"
+        },
+        {
+          "pos": 9,
+          "domain": "www.oshaeducationcenter.com",
+          "title": "Forklift Certification Training | 100% Online Course"
+        }
+      ],
+      "score": 194.1,
+      "tier": 1,
+      "action": "strengthen-onpage",
+      "why": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    },
+    {
+      "keyword": "forklift certification new jersey",
+      "targetUrl": "/safety/forklift/nj",
+      "state": "NJ",
+      "priorityHint": "state-variant",
+      "volume": 320,
+      "cpc": 6.06,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 4,
+          "domain": "mycareer.nj.gov",
+          "title": "Forklift Certification Training Program - Maple Shade, NJ"
+        },
+        {
+          "pos": 6,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "New Jersey OSHA Forklift Certification Online"
+        },
+        {
+          "pos": 7,
+          "domain": "ezwheelsdriving.com",
+          "title": "How to get forklift certification | Forklift training | NJ"
+        },
+        {
+          "pos": 8,
+          "domain": "fastlinesafetytraining.com",
+          "title": "NJ Forklift Certification & Safety Training | Get Licensed"
+        },
+        {
+          "pos": 9,
+          "domain": "www.moderngroup.com",
+          "title": "Forklift Training | PA & NJ - Modern Group"
+        }
+      ],
+      "score": 177,
+      "tier": 1,
+      "action": "strengthen-onpage",
+      "why": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    },
+    {
+      "keyword": "forklift certification florida",
+      "targetUrl": "/safety/forklift/fl",
+      "state": "FL",
+      "priorityHint": "indexed-big",
+      "volume": 260,
+      "cpc": 6.46,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 5,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "Florida Forklift Certification"
+        },
+        {
+          "pos": 6,
+          "domain": "www.oshaeducationcenter.com",
+          "title": "Forklift Certification Training | 100% Online Course"
+        },
+        {
+          "pos": 7,
+          "domain": "www.certifyme.net",
+          "title": "Forklift Certification in Florida | 100% Online Training Course"
+        },
+        {
+          "pos": 8,
+          "domain": "liftoffcerts.com",
+          "title": "Forklift Certification Online | OSHA Safety and Training ..."
+        },
+        {
+          "pos": 9,
+          "domain": "www.mcfattertechnicalcollege.edu",
+          "title": "Forklift Certification"
+        }
+      ],
+      "score": 153.3,
+      "tier": 1,
+      "action": "strengthen-onpage",
+      "why": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    },
+    {
+      "keyword": "requirements for forklift license",
+      "targetUrl": "/insights/how-to-get-a-forklift-license",
+      "state": null,
+      "priorityHint": "insights",
+      "volume": 390,
+      "cpc": 2.9,
+      "difficulty": 8,
+      "ourPos": 90,
+      "ourUrl": "https://www.flatearthequipment.com/insights/how-to-get-a-forklift-license",
+      "rankingMatchesTarget": true,
+      "topCompetitors": [
+        {
+          "pos": 3,
+          "domain": "www.osha.gov",
+          "title": "Powered Industrial Trucks (Forklift) - Training Assistance"
+        },
+        {
+          "pos": 4,
+          "domain": "www.oshaeducationcenter.com",
+          "title": "Forklift Certification Training | 100% Online Course"
+        },
+        {
+          "pos": 5,
+          "domain": "www.certifyme.net",
+          "title": "OSHA Forklift Certification Requirements & Training Rules"
+        },
+        {
+          "pos": 6,
+          "domain": "www.jjkeller.com",
+          "title": "OSHA's Forklift Training Frequently Asked Questions"
+        },
+        {
+          "pos": 7,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "National Forklift Foundation: Official OSHA Online Forklift ..."
+        }
+      ],
+      "score": 149,
+      "tier": 1,
+      "action": "internal-links",
+      "why": "Already ranking deep on insights — add strong CTA + links to /safety and matching state pages; tighten title/H1 to query."
+    },
+    {
+      "keyword": "forklift certification chicago",
+      "targetUrl": "/safety/forklift/il",
+      "state": "IL",
+      "priorityHint": "city",
+      "volume": 260,
+      "cpc": 4.09,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 1,
+          "domain": "www.ccc.edu",
+          "title": "Forklift Operator Certificate"
+        },
+        {
+          "pos": 6,
+          "domain": "www.wolterinc.com",
+          "title": "Forklift Training in Chicago, IL"
+        },
+        {
+          "pos": 7,
+          "domain": "www.reddit.com",
+          "title": "Where to get forklift certified? : r/AskChicago"
+        },
+        {
+          "pos": 8,
+          "domain": "www.indeed.com",
+          "title": "Free Forklift Training jobs in Chicago, IL"
+        },
+        {
+          "pos": 9,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "Get Your Forklift Certification in Chicago IL"
+        }
+      ],
+      "score": 145.6,
+      "tier": 1,
+      "action": "city-mentions",
+      "why": "City SERP is local/training-school heavy — win with online-cert angle + city named in H2/FAQ on the parent state page."
+    },
+    {
+      "keyword": "forklift certification arizona",
+      "targetUrl": "/safety/forklift/az",
+      "state": "AZ",
+      "priorityHint": "ad-state",
+      "volume": 210,
+      "cpc": 6.51,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 5,
+          "domain": "arizonaforkliftsafetytraining.com",
+          "title": "1 arizona forklift safety training"
+        },
+        {
+          "pos": 7,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "Arizona Forklift Certification"
+        },
+        {
+          "pos": 8,
+          "domain": "forklifttraining.com",
+          "title": "Arizona Forklift Certification | OSHA-Compliant ..."
+        },
+        {
+          "pos": 9,
+          "domain": "www.raymondwest.com",
+          "title": "Forklift Certification Phoenix"
+        },
+        {
+          "pos": 10,
+          "domain": "www.facebook.com",
+          "title": "Where to find forklift training in Arizona"
+        }
+      ],
+      "score": 124.8,
+      "tier": 1,
+      "action": "strengthen-onpage",
+      "why": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    },
+    {
+      "keyword": "forklift certification houston",
+      "targetUrl": "/safety/forklift/tx",
+      "state": "TX",
+      "priorityHint": "city",
+      "volume": 260,
+      "cpc": 3.94,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 4,
+          "domain": "lonestarforklift.com",
+          "title": "Houston Forklift Training and Certification"
+        },
+        {
+          "pos": 6,
+          "domain": "salsafetysolutions.com",
+          "title": "SAL SAFETY SOLUTIONS"
+        },
+        {
+          "pos": 7,
+          "domain": "www.forkliftacademy.com",
+          "title": "Get Training And Forklift License in Houston, TX"
+        },
+        {
+          "pos": 8,
+          "domain": "houstonforkliftacademy.com",
+          "title": "Houston Forklift Academy: Home"
+        },
+        {
+          "pos": 9,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "Forklift Certification Houston, TX | OSHA Compliant"
+        }
+      ],
+      "score": 112.2,
+      "tier": 1,
+      "action": "city-mentions",
+      "why": "City SERP is local/training-school heavy — win with online-cert angle + city named in H2/FAQ on the parent state page."
+    },
+    {
+      "keyword": "forklift certification new york",
+      "targetUrl": "/safety/forklift/ny",
+      "state": "NY",
+      "priorityHint": "indexed-big",
+      "volume": 260,
+      "cpc": 4.25,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 4,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "New York Forklift Certification & Training"
+        },
+        {
+          "pos": 6,
+          "domain": "fastlinesafetytraining.com",
+          "title": "New York Forklift Certification & Training | OSHA"
+        },
+        {
+          "pos": 7,
+          "domain": "www.oshaeducationcenter.com",
+          "title": "Forklift Certification Training | 100% Online Course"
+        },
+        {
+          "pos": 8,
+          "domain": "www.ferraridrivingschool.com",
+          "title": "Forklift Training for OSHA Certification"
+        },
+        {
+          "pos": 9,
+          "domain": "www.ablesafety.com",
+          "title": "Forklift Certification New York: A 4-Step Guide"
+        }
+      ],
+      "score": 100.9,
+      "tier": 1,
+      "action": "strengthen-onpage",
+      "why": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    },
+    {
+      "keyword": "forklift certification los angeles",
+      "targetUrl": "/safety/forklift/ca",
+      "state": "CA",
+      "priorityHint": "city",
+      "volume": 110,
+      "cpc": 6.34,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 4,
+          "domain": "www.forkliftacademy.com",
+          "title": "Forklift Certification and Training in Los Angeles, CA"
+        },
+        {
+          "pos": 5,
+          "domain": "americanforkliftcertification.com",
+          "title": "American Forklift: Home"
+        },
+        {
+          "pos": 6,
+          "domain": "unitedforkliftlicense.com",
+          "title": "United Forklift Certification: Home"
+        },
+        {
+          "pos": 8,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "Forklift Certification Los Angeles, CA | OSHA Compliant"
+        },
+        {
+          "pos": 9,
+          "domain": "www.yelp.com",
+          "title": "TOP 10 BEST Forklift Certification in Los Angeles, CA"
+        }
+      ],
+      "score": 95.5,
+      "tier": 1,
+      "action": "city-mentions",
+      "why": "City SERP is local/training-school heavy — win with online-cert angle + city named in H2/FAQ on the parent state page."
+    },
+    {
+      "keyword": "how to get forklift certification nj",
+      "targetUrl": "/safety/forklift/nj",
+      "state": "NJ",
+      "priorityHint": "labs-signal",
+      "volume": 40,
+      "cpc": 5.97,
+      "difficulty": 0,
+      "ourPos": 68,
+      "ourUrl": "https://www.flatearthequipment.com/safety/forklift/nj",
+      "rankingMatchesTarget": true,
+      "topCompetitors": [
+        {
+          "pos": 2,
+          "domain": "mycareer.nj.gov",
+          "title": "Forklift Certification Training Program - Maple Shade, NJ"
+        },
+        {
+          "pos": 3,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "New Jersey OSHA Forklift Certification Online"
+        },
+        {
+          "pos": 4,
+          "domain": "ezwheelsdriving.com",
+          "title": "How to get forklift certification | Forklift training | NJ"
+        },
+        {
+          "pos": 5,
+          "domain": "www.oshaeducationcenter.com",
+          "title": "Forklift Certification Training | 100% Online Course"
+        },
+        {
+          "pos": 7,
+          "domain": "www.moderngroup.com",
+          "title": "Forklift Training | PA & NJ - Modern Group"
+        }
+      ],
+      "score": 54.3,
+      "tier": 1,
+      "action": "strengthen-onpage",
+      "why": "Existing Labs/live signal on a state page — expand city/FAQ/intent coverage without touching /safety ad UX."
+    },
+    {
+      "keyword": "forklift license memphis tn",
+      "targetUrl": "/safety/forklift/tn",
+      "state": "TN",
+      "priorityHint": "labs-signal",
+      "volume": 40,
+      "cpc": 5.84,
+      "difficulty": 0,
+      "ourPos": 77,
+      "ourUrl": "https://www.flatearthequipment.com/safety/forklift/tn",
+      "rankingMatchesTarget": true,
+      "topCompetitors": [
+        {
+          "pos": 2,
+          "domain": "octitraining.com",
+          "title": "Olympic Career Training Institute: Home - Forklift Certification"
+        },
+        {
+          "pos": 4,
+          "domain": "www.advancememphis.org",
+          "title": "Free Forklift Training & Certification in Memphis, TN"
+        },
+        {
+          "pos": 5,
+          "domain": "www.deltamat.com",
+          "title": "Forklifts for Sale + Forklift Training"
+        },
+        {
+          "pos": 6,
+          "domain": "www.indeed.com",
+          "title": "Free Forklift Training jobs in Memphis, TN"
+        },
+        {
+          "pos": 7,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "Tennessee OSHA Forklift Certification Online"
+        }
+      ],
+      "score": 49.9,
+      "tier": 1,
+      "action": "strengthen-onpage",
+      "why": "Existing Labs/live signal on a state page — expand city/FAQ/intent coverage without touching /safety ad UX."
+    },
+    {
+      "keyword": "forklift training milwaukee",
+      "targetUrl": "/safety/forklift/wi",
+      "state": "WI",
+      "priorityHint": "labs-signal",
+      "volume": 50,
+      "cpc": 4.83,
+      "difficulty": 0,
+      "ourPos": 85,
+      "ourUrl": "https://www.flatearthequipment.com/safety/forklift/wi",
+      "rankingMatchesTarget": true,
+      "topCompetitors": [
+        {
+          "pos": 4,
+          "domain": "www.milwaukeecommunityservicecorps.org",
+          "title": "Milwaukee Community Service Corps – What works best is ..."
+        },
+        {
+          "pos": 5,
+          "domain": "dwd.wisconsin.gov",
+          "title": "Forklift Training - Add Program - ETPL - Wisconsin.gov"
+        },
+        {
+          "pos": 6,
+          "domain": "www.expresspros.com",
+          "title": "Forklift Training Resource | Milwaukee (Downtown), WI"
+        },
+        {
+          "pos": 7,
+          "domain": "www.wolterinc.com",
+          "title": "Forklift Training & Certification Courses"
+        },
+        {
+          "pos": 8,
+          "domain": "usforkliftcertification.com",
+          "title": "OSHA Training in Milwaukee, WI"
+        }
+      ],
+      "score": 49.1,
+      "tier": 1,
+      "action": "strengthen-onpage",
+      "why": "Existing Labs/live signal on a state page — expand city/FAQ/intent coverage without touching /safety ad UX."
+    },
+    {
+      "keyword": "forklift certification dallas",
+      "targetUrl": "/safety/forklift/tx",
+      "state": "TX",
+      "priorityHint": "city",
+      "volume": 110,
+      "cpc": 4.96,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 4,
+          "domain": "lonestarforklift.com",
+          "title": "Dallas Forklift Training and Certification"
+        },
+        {
+          "pos": 6,
+          "domain": "www.aspiretolearn.org",
+          "title": "Workforce Training - Aspire"
+        },
+        {
+          "pos": 7,
+          "domain": "www.forkliftacademy.com",
+          "title": "#1 Dallas Forklift Certification & OSHA Training Courses"
+        },
+        {
+          "pos": 10,
+          "domain": "dev.goodwilldallas.org",
+          "title": "Forklift Operator with OSHA 10 Certification Training Class"
+        },
+        {
+          "pos": 11,
+          "domain": "www.facebook.com",
+          "title": "🚨 FREE Forklift Certification Training in Mesquite, TX ..."
+        }
+      ],
+      "score": 74.7,
+      "tier": 2,
+      "action": "city-mentions",
+      "why": "City SERP is local/training-school heavy — win with online-cert angle + city named in H2/FAQ on the parent state page."
+    },
+    {
+      "keyword": "how to get forklift certified in texas",
+      "targetUrl": "/safety/forklift/tx",
+      "state": "TX",
+      "priorityHint": "indexed-longtail",
+      "volume": 170,
+      "cpc": 3.28,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 2,
+          "domain": "lonestarforklift.com",
+          "title": "Forklift Certification in Texas - Training"
+        },
+        {
+          "pos": 4,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "Texas Forklift Certification"
+        },
+        {
+          "pos": 5,
+          "domain": "www.oshaeducationcenter.com",
+          "title": "Forklift Certification Training | 100% Online Course"
+        },
+        {
+          "pos": 6,
+          "domain": "goodwillnorthcentraltexas.org",
+          "title": "FORKLIFT TRAINING & CERTIFICATION"
+        },
+        {
+          "pos": 8,
+          "domain": "www.forkliftcertification.com",
+          "title": "Texas Forklift License and Certification | Easy & Affordable!"
+        }
+      ],
+      "score": 66.2,
+      "tier": 2,
+      "action": "strengthen-onpage",
+      "why": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    },
+    {
+      "keyword": "forklift certification illinois",
+      "targetUrl": "/safety/forklift/il",
+      "state": "IL",
+      "priorityHint": "indexed-big",
+      "volume": 140,
+      "cpc": 5.14,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 6,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "Illinois Forklift Certification"
+        },
+        {
+          "pos": 7,
+          "domain": "forklifttraining.com",
+          "title": "Illinois Forklift Certification | OSHA-Compliant ..."
+        },
+        {
+          "pos": 8,
+          "domain": "www.wolterinc.com",
+          "title": "Forklift Training in Chicago, IL"
+        },
+        {
+          "pos": 9,
+          "domain": "www.osha.gov",
+          "title": "Powered Industrial Trucks (Forklift) - Training Assistance"
+        },
+        {
+          "pos": 10,
+          "domain": "learn.clcillinois.edu",
+          "title": "Forklift Training"
+        }
+      ],
+      "score": 65.7,
+      "tier": 2,
+      "action": "strengthen-onpage",
+      "why": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    },
+    {
+      "keyword": "forklift certification ohio",
+      "targetUrl": "/safety/forklift/oh",
+      "state": "OH",
+      "priorityHint": "indexed-big",
+      "volume": 110,
+      "cpc": 6.33,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 6,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "Ohio OSHA Forklift Certification Online"
+        },
+        {
+          "pos": 7,
+          "domain": "www.tri-c.edu",
+          "title": "Tri-C Forklift Operator Training PIT: Cleveland, Ohio"
+        },
+        {
+          "pos": 8,
+          "domain": "www.mitlift.com",
+          "title": "OSHA Forklift Certification Training in Findlay, OH"
+        },
+        {
+          "pos": 9,
+          "domain": "forklifttraining.com",
+          "title": "Ohio Forklift Certification | OSHA-Compliant ..."
+        },
+        {
+          "pos": 10,
+          "domain": "scnwo.org",
+          "title": "Forklift Classroom Certification : Training Programs"
+        }
+      ],
+      "score": 63.6,
+      "tier": 2,
+      "action": "strengthen-onpage",
+      "why": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    },
+    {
+      "keyword": "forklift certification wisconsin",
+      "targetUrl": "/safety/forklift/wi",
+      "state": "WI",
+      "priorityHint": "state-variant",
+      "volume": 70,
+      "cpc": 4.68,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 2,
+          "domain": "dwd.wisconsin.gov",
+          "title": "Forklift Training - Add Program - ETPL - Wisconsin.gov"
+        },
+        {
+          "pos": 3,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "Wisconsin OSHA Forklift Certification Online"
+        },
+        {
+          "pos": 4,
+          "domain": "firstqualityforklifttraining.com",
+          "title": "OSHA Forklift Training Classes in Wisconsin | First Quality"
+        },
+        {
+          "pos": 6,
+          "domain": "usforkliftcertification.com",
+          "title": "Forklift Certification Wisconsin | OSHA Training - $58"
+        },
+        {
+          "pos": 7,
+          "domain": "www.wisafetycouncil.org",
+          "title": "Lift Truck Operator, Train-the-Trainer"
+        }
+      ],
+      "score": 29.9,
+      "tier": 2,
+      "action": "strengthen-onpage",
+      "why": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    },
+    {
+      "keyword": "forklift certification georgia",
+      "targetUrl": "/safety/forklift/ga",
+      "state": "GA",
+      "priorityHint": "indexed-big",
+      "volume": 90,
+      "cpc": 3.56,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 4,
+          "domain": "goodwillng.org",
+          "title": "Forklift"
+        },
+        {
+          "pos": 6,
+          "domain": "www.atlantaforklifts.com",
+          "title": "Individual Forklift Certification Courses"
+        },
+        {
+          "pos": 7,
+          "domain": "forklifttraining.com",
+          "title": "Georgia Forklift Certification | OSHA-Compliant ..."
+        },
+        {
+          "pos": 8,
+          "domain": "ce.wiregrass.edu",
+          "title": "0001 Forklift Certification Course"
+        },
+        {
+          "pos": 9,
+          "domain": "www.findhelp.org",
+          "title": "Forklift Operator Certification Program - Goodwill of North ..."
+        }
+      ],
+      "score": 29.2,
+      "tier": 2,
+      "action": "strengthen-onpage",
+      "why": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    },
+    {
+      "keyword": "forklift certification tennessee",
+      "targetUrl": "/safety/forklift/tn",
+      "state": "TN",
+      "priorityHint": "state-variant",
+      "volume": 40,
+      "cpc": 7.51,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 2,
+          "domain": "tcatmurfreesboro.edu",
+          "title": "Workforce & Skills - Forklift Training"
+        },
+        {
+          "pos": 3,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "Tennessee OSHA Forklift Certification Online"
+        },
+        {
+          "pos": 7,
+          "domain": "octitraining.com",
+          "title": "Olympic Career Training Institute: Home - Forklift Certification"
+        },
+        {
+          "pos": 9,
+          "domain": "www.forkliftsystems.com",
+          "title": "Forklift Safety Training | Tennessee, Kentucky, Indiana & ..."
+        },
+        {
+          "pos": 10,
+          "domain": "www.expresspros.com",
+          "title": "Forklift Training Resource | Dickson (Clarksville), TN"
+        }
+      ],
+      "score": 27.4,
+      "tier": 2,
+      "action": "strengthen-onpage",
+      "why": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    },
+    {
+      "keyword": "forklift certification newark nj",
+      "targetUrl": "/safety/forklift/nj",
+      "state": "NJ",
+      "priorityHint": "city",
+      "volume": 20,
+      "cpc": 2.68,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 2,
+          "domain": "cstraining.org",
+          "title": "Construction Safety Training LLC - cstraining"
+        },
+        {
+          "pos": 3,
+          "domain": "allpurposeforklifttraining.com",
+          "title": "Forklift Certification Newark New Jersey"
+        },
+        {
+          "pos": 5,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "New Jersey OSHA Forklift Certification Online"
+        },
+        {
+          "pos": 6,
+          "domain": "mycareer.nj.gov",
+          "title": "Forklift Certification Training Program - Maple Shade, NJ"
+        },
+        {
+          "pos": 7,
+          "domain": "ironboundcc.org",
+          "title": "FREE Forklift Safety Training!"
+        }
+      ],
+      "score": 7.3,
+      "tier": 2,
+      "action": "city-mentions",
+      "why": "City SERP is local/training-school heavy — win with online-cert angle + city named in H2/FAQ on the parent state page."
+    },
+    {
+      "keyword": "cal osha forklift certification",
+      "targetUrl": "/safety/forklift/ca",
+      "state": "CA",
+      "priorityHint": "state-variant",
+      "volume": 30,
+      "cpc": 7.91,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 1,
+          "domain": "www.dir.ca.gov",
+          "title": "3668. Powered Industrial Truck Operator Training."
+        },
+        {
+          "pos": 2,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "Forklift Certification in California | Official 2025 Cal/OSHA ..."
+        },
+        {
+          "pos": 5,
+          "domain": "afd.calpoly.edu",
+          "title": "Forklift Safety - Administration & Finance - Cal Poly"
+        },
+        {
+          "pos": 6,
+          "domain": "oshanationalforkliftcertificationcalifornia.com",
+          "title": "California Forklift Operator Certification"
+        },
+        {
+          "pos": 7,
+          "domain": "www.forkliftcomply.com",
+          "title": "Cal-OSHA vs Federal OSHA Forklift Requirements 2025"
+        }
+      ],
+      "score": 21.7,
+      "tier": 3,
+      "action": "strengthen-onpage",
+      "why": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    },
+    {
+      "keyword": "forklift certification pennsylvania",
+      "targetUrl": "/safety/forklift/pa",
+      "state": "PA",
+      "priorityHint": "ad-state",
+      "volume": 10,
+      "cpc": 0,
+      "difficulty": null,
+      "ourPos": null,
+      "ourUrl": null,
+      "rankingMatchesTarget": null,
+      "topCompetitors": [
+        {
+          "pos": 2,
+          "domain": "www.nationalforkliftfoundation.com",
+          "title": "Pennsylvania Forklift Certification"
+        },
+        {
+          "pos": 7,
+          "domain": "usforkliftcertification.com",
+          "title": "Forklift Certification Pennsylvania | OSHA Training - $58"
+        },
+        {
+          "pos": 8,
+          "domain": "fastlinesafetytraining.com",
+          "title": "PA Stand Up Forklift Certification & Training | Enroll Now"
+        },
+        {
+          "pos": 9,
+          "domain": "educationthatpays.com",
+          "title": "Forklift Operator Program, Training | OSHA Compliant"
+        },
+        {
+          "pos": 10,
+          "domain": "www.forkliftcertification.com",
+          "title": "Pennsylvania Forklift Certification | Get Certified Online Today ..."
+        }
+      ],
+      "score": 0.5,
+      "tier": 3,
+      "action": "strengthen-onpage",
+      "why": "Indexed state page with workable difficulty — improve title/H1/FAQ to exact query; secondary priority vs signal pages."
+    }
+  ]
+}

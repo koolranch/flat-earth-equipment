@@ -80,10 +80,124 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const state = forkliftStates.find((s: ForkliftStateInfo) => s.code === params.state) ?? notFound();
   const metrics = getStateMetrics(params.state);
+
+  // Lean titles into high-intent organic variants for signal states (URL unchanged)
+  type MetaOverride = {
+    title: string;
+    description: string;
+    ogTitle: string;
+    ogDescription: string;
+    twitterTitle: string;
+    twitterDescription: string;
+  };
+  const metaOverrides: Record<string, MetaOverride> = {
+    ca: {
+      title: 'OSHA Compliant Forklift Certification in California | Cal/OSHA Online',
+      description:
+        'Get OSHA-compliant forklift certification online in California. Meets federal OSHA and Cal/OSHA training requirements. Theory in under 30 minutes for $49, then employer practical evaluation.',
+      ogTitle: 'OSHA Compliant Forklift Certification in California | Cal/OSHA',
+      ogDescription:
+        'Online OSHA-compliant forklift training for California operators. Cal/OSHA-aligned theory for $49, then workplace practical evaluation.',
+      twitterTitle: 'OSHA Compliant Forklift Certification in California',
+      twitterDescription:
+        'Cal/OSHA-aligned online forklift training for California. $49 theory + employer practical evaluation.',
+    },
+    tx: {
+      title: 'How to Get Forklift Certified in Texas | Online OSHA Training $49',
+      description:
+        'How to get forklift certified in Texas online: OSHA-compliant theory for $49 (Houston, Dallas–Fort Worth, and statewide), then employer practical evaluation. Instant certificate download.',
+      ogTitle: 'How to Get Forklift Certified in Texas | Online OSHA Training',
+      ogDescription:
+        'Online OSHA-compliant forklift training for Texas operators in Houston, DFW, and statewide. $49 theory + employer practical evaluation.',
+      twitterTitle: 'How to Get Forklift Certified in Texas',
+      twitterDescription:
+        'Texas online forklift certification for Houston, Dallas, and statewide. $49 OSHA-compliant theory.',
+    },
+    nj: {
+      title: 'How to Get Forklift Certification in NJ | Online OSHA Training $49',
+      description:
+        'How to get forklift certification in New Jersey online. OSHA-compliant theory for $49 (Newark, Jersey City, and statewide), then employer practical evaluation.',
+      ogTitle: 'How to Get Forklift Certification in NJ | Online OSHA Training',
+      ogDescription:
+        'Online OSHA-compliant forklift training for New Jersey operators. $49 theory + workplace practical evaluation.',
+      twitterTitle: 'How to Get Forklift Certification in NJ',
+      twitterDescription:
+        'New Jersey online forklift certification for Newark and statewide. $49 OSHA-compliant theory.',
+    },
+    wi: {
+      title: 'Forklift Training in Milwaukee & Wisconsin | Online OSHA $49',
+      description:
+        'Online forklift training for Milwaukee and Wisconsin. OSHA-compliant theory for $49, then employer practical evaluation. Instant certificate download.',
+      ogTitle: 'Forklift Training in Milwaukee & Wisconsin | Online OSHA',
+      ogDescription:
+        'Milwaukee and statewide Wisconsin online forklift training. $49 OSHA-compliant theory + workplace practical evaluation.',
+      twitterTitle: 'Forklift Training in Milwaukee & Wisconsin',
+      twitterDescription:
+        'Wisconsin online forklift training for Milwaukee and statewide. $49 OSHA-compliant theory.',
+    },
+    tn: {
+      title: 'Forklift License in Memphis & Tennessee | Online OSHA $49',
+      description:
+        'Get a forklift license / certification online in Memphis and Tennessee. OSHA-compliant theory for $49, then employer practical evaluation.',
+      ogTitle: 'Forklift License in Memphis & Tennessee | Online OSHA',
+      ogDescription:
+        'Memphis and statewide Tennessee online forklift certification. $49 OSHA-compliant theory + workplace practical evaluation.',
+      twitterTitle: 'Forklift License in Memphis & Tennessee',
+      twitterDescription:
+        'Tennessee online forklift license training for Memphis and statewide. $49 OSHA-compliant theory.',
+    },
+    il: {
+      title: 'Forklift Certification in Chicago & Illinois | Online OSHA $49',
+      description:
+        'Online forklift certification for Chicago and Illinois. OSHA-compliant theory for $49, then employer practical evaluation. Instant certificate download.',
+      ogTitle: 'Forklift Certification in Chicago & Illinois | Online OSHA',
+      ogDescription:
+        'Chicago and statewide Illinois online forklift training. $49 OSHA-compliant theory + workplace practical evaluation.',
+      twitterTitle: 'Forklift Certification in Chicago & Illinois',
+      twitterDescription:
+        'Illinois online forklift certification for Chicago and statewide. $49 OSHA-compliant theory.',
+    },
+    fl: {
+      title: 'Forklift Certification in Miami & Florida | Online OSHA $49',
+      description:
+        'Online forklift certification for Miami, Jacksonville, Tampa, and Florida. OSHA-compliant theory for $49, then employer practical evaluation.',
+      ogTitle: 'Forklift Certification in Miami & Florida | Online OSHA',
+      ogDescription:
+        'Miami and statewide Florida online forklift training. $49 OSHA-compliant theory + workplace practical evaluation.',
+      twitterTitle: 'Forklift Certification in Miami & Florida',
+      twitterDescription:
+        'Florida online forklift certification for Miami, Tampa, and Jacksonville. $49 OSHA-compliant theory.',
+    },
+    az: {
+      title: 'Forklift Certification in Phoenix & Arizona | Online OSHA $49',
+      description:
+        'Online forklift certification for Phoenix, Tucson, and Arizona. OSHA-compliant theory for $49, then employer practical evaluation—faster than local classroom seats.',
+      ogTitle: 'Forklift Certification in Phoenix & Arizona | Online OSHA',
+      ogDescription:
+        'Phoenix and statewide Arizona online forklift training. $49 OSHA-compliant theory + workplace practical evaluation.',
+      twitterTitle: 'Forklift Certification in Phoenix & Arizona',
+      twitterDescription:
+        'Arizona online forklift certification for Phoenix and Tucson. $49 OSHA-compliant theory.',
+    },
+    ny: {
+      title: 'Forklift Certification in NYC & New York | Online OSHA $49',
+      description:
+        'Online forklift certification for New York City, Buffalo, Rochester, and statewide. OSHA-compliant theory for $49, then employer practical evaluation.',
+      ogTitle: 'Forklift Certification in NYC & New York | Online OSHA',
+      ogDescription:
+        'NYC and statewide New York online forklift training. $49 OSHA-compliant theory + workplace practical evaluation.',
+      twitterTitle: 'Forklift Certification in NYC & New York',
+      twitterDescription:
+        'New York online forklift certification for NYC, Buffalo, and Rochester. $49 OSHA-compliant theory.',
+    },
+  };
+  const override = metaOverrides[params.state];
   
   return {
-    title: `How to Get Forklift Certified in ${state.name} | Online OSHA Training`,
-    description: `Learn how to get forklift certified in ${state.name}. Complete OSHA-compliant certification online in under 30 minutes. Instant certificate download for ${state.name} operators.`,
+    title: override?.title ?? `How to Get Forklift Certified in ${state.name} | Online OSHA Training`,
+    description:
+      override?.description ??
+      `Learn how to get forklift certified in ${state.name}. Complete OSHA-compliant certification online in under 30 minutes. Instant certificate download for ${state.name} operators.`,
     alternates: generatePageAlternates(`/safety/forklift/${state.code}`),
     robots: {
       index: metrics.shouldIndex,
@@ -94,8 +208,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       }
     },
     openGraph: {
-      title: `Forklift Certification in ${state.name} | OSHA Compliant`,
-      description: `Get certified in under 30 minutes. OSHA-compliant online training for ${state.name} operators. Instant certificate download.`,
+      title: override?.ogTitle ?? `Forklift Certification in ${state.name} | OSHA Compliant`,
+      description:
+        override?.ogDescription ??
+        `Get certified in under 30 minutes. OSHA-compliant online training for ${state.name} operators. Instant certificate download.`,
       url: `https://www.flatearthequipment.com/safety/forklift/${state.code}`,
       siteName: 'Flat Earth Equipment',
       images: [
@@ -110,8 +226,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `Forklift Certification in ${state.name}`,
-      description: `Get OSHA-compliant forklift certification online in under 30 minutes. Valid in ${state.name}.`,
+      title: override?.twitterTitle ?? `Forklift Certification in ${state.name}`,
+      description:
+        override?.twitterDescription ??
+        `Get OSHA-compliant forklift certification online in under 30 minutes. Valid in ${state.name}.`,
       images: ['https://www.flatearthequipment.com/og-safety-training.png'],
     },
   };
@@ -179,10 +297,142 @@ export default function StateForkliftPage({ params }: Props) {
           </div>
         </div>
         
-        {/* DFW Jump Link for Texas */}
+        {/* Metro jump links for Texas */}
         {info.code === 'tx' && (
           <p className="mt-6 text-center text-sm text-gray-600">
-            Working in North Texas? Jump to our <a href="#dfw" className="text-orange-600 hover:text-orange-700 underline font-medium">DFW forklift certification details</a>.
+            Jump to{' '}
+            <a href="#houston" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              Houston
+            </a>
+            {' · '}
+            <a href="#dfw" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              Dallas–Fort Worth
+            </a>
+            {' · '}
+            <a href="#texas-online" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              how to get certified online in Texas
+            </a>
+            .
+          </p>
+        )}
+        {info.code === 'ca' && (
+          <p className="mt-6 text-center text-sm text-gray-600">
+            Jump to{' '}
+            <a href="#california-osha" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              Cal/OSHA &amp; OSHA-compliant training
+            </a>
+            {' · '}
+            <a href="#los-angeles" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              Los Angeles
+            </a>
+            {' · '}
+            <a href="#san-diego" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              San Diego
+            </a>
+            {' · '}
+            <a href="#sacramento" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              Sacramento
+            </a>
+            .
+          </p>
+        )}
+        {info.code === 'nj' && (
+          <p className="mt-6 text-center text-sm text-gray-600">
+            Jump to{' '}
+            <a href="#nj-how-to" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              how to get forklift certification in NJ
+            </a>
+            {' · '}
+            <a href="#newark" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              Newark
+            </a>
+            .
+          </p>
+        )}
+        {info.code === 'wi' && (
+          <p className="mt-6 text-center text-sm text-gray-600">
+            Jump to{' '}
+            <a href="#milwaukee" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              Milwaukee forklift training
+            </a>
+            {' · '}
+            <a href="#wisconsin-online" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              statewide Wisconsin certification
+            </a>
+            .
+          </p>
+        )}
+        {info.code === 'tn' && (
+          <p className="mt-6 text-center text-sm text-gray-600">
+            Jump to{' '}
+            <a href="#memphis" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              Memphis forklift license
+            </a>
+            {' · '}
+            <a href="#nashville" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              Nashville
+            </a>
+            .
+          </p>
+        )}
+        {info.code === 'il' && (
+          <p className="mt-6 text-center text-sm text-gray-600">
+            Jump to{' '}
+            <a href="#chicago" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              Chicago forklift certification
+            </a>
+            {' · '}
+            <a href="#illinois-online" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              statewide Illinois
+            </a>
+            .
+          </p>
+        )}
+        {info.code === 'fl' && (
+          <p className="mt-6 text-center text-sm text-gray-600">
+            Jump to{' '}
+            <a href="#miami" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              Miami
+            </a>
+            {' · '}
+            <a href="#jacksonville" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              Jacksonville
+            </a>
+            {' · '}
+            <a href="#tampa" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              Tampa
+            </a>
+            .
+          </p>
+        )}
+        {info.code === 'az' && (
+          <p className="mt-6 text-center text-sm text-gray-600">
+            Jump to{' '}
+            <a href="#phoenix" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              Phoenix forklift certification
+            </a>
+            {' · '}
+            <a href="#tucson" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              Tucson
+            </a>
+            .
+          </p>
+        )}
+        {info.code === 'ny' && (
+          <p className="mt-6 text-center text-sm text-gray-600">
+            Jump to{' '}
+            <a href="#nyc" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              New York City
+            </a>
+            {' · '}
+            <a href="#buffalo" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              Buffalo
+            </a>
+            {' · '}
+            <a href="#rochester" className="text-orange-600 hover:text-orange-700 underline font-medium">
+              Rochester
+            </a>
+            .
           </p>
         )}
       </section>
@@ -372,55 +622,782 @@ export default function StateForkliftPage({ params }: Props) {
         </div>
       </section>
 
-      {/* ───────────────── DFW SECTION (Texas Only) ───────────────── */}
+      {/* ───────────────── TEXAS METRO + ONLINE PATH (TX Only) ───────────────── */}
       {info.code === 'tx' && (
-        <section id="dfw" className="scroll-mt-24 mt-12 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-8 shadow-sm">
-          <div className="max-w-3xl">
-            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
-              Dallas–Fort Worth (DFW) Forklift Certification
-            </h2>
-            <p className="mt-3 text-gray-700 text-lg">
-              Serving Dallas, Fort Worth, Arlington, Irving, Grand Prairie, Mesquite, and Garland.
-              Complete the online theory in about 30 minutes (English &amp; Spanish), then your supervisor
-              performs the onsite practical using our evaluation checklist. Same-day wallet card; renewal every 3 years.
-            </p>
-
-            <div className="mt-5 flex flex-wrap gap-3">
-              <Link 
-                href="#pricing" 
-                className="inline-flex items-center rounded-xl bg-orange-600 px-5 py-3 font-semibold text-white shadow-md transition-all hover:bg-orange-700 hover:shadow-lg"
-              >
-                View Pricing — $49
-              </Link>
-              <Link 
-                href="/training#pricing" 
-                className="inline-flex items-center rounded-xl border-2 border-gray-400 px-5 py-3 font-semibold text-gray-800 hover:bg-gray-50 transition-colors"
-              >
-                Crew Packs for Employers
-              </Link>
-              <a 
-                href="/docs/forklift-employer-eval.pdf" 
-                className="inline-flex items-center underline font-medium text-gray-800 hover:text-orange-600 px-3 py-3 transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Employer Checklist (PDF)
-              </a>
+        <section className="mt-12 space-y-10">
+          <div
+            id="texas-online"
+            className="scroll-mt-24 bg-gradient-to-br from-orange-50 to-amber-50 border-2 border-orange-200 rounded-2xl p-8 shadow-sm"
+          >
+            <div className="max-w-3xl">
+              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+                How to Get Forklift Certified in Texas Online
+              </h2>
+              <p className="mt-3 text-gray-700 text-lg">
+                Local Texas schools and nonprofits often sell multi-hour classroom seats. If you need
+                OSHA-compliant theory fast—especially for Houston or Dallas–Fort Worth hiring—complete
+                online instruction for <strong>$49</strong> (about 30 minutes), download your certificate,
+                then have your supervisor finish the required hands-on evaluation on your equipment.
+              </p>
+              <ol className="mt-4 list-decimal pl-5 text-gray-700 space-y-2">
+                <li>Enroll and finish the online OSHA theory modules.</li>
+                <li>Pass the exam and download your certificate.</li>
+                <li>
+                  Complete the employer practical using our{' '}
+                  <a
+                    href="/docs/forklift-employer-eval.pdf"
+                    className="underline hover:text-orange-700"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    evaluation checklist (PDF)
+                  </a>
+                  .
+                </li>
+              </ol>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  href="#pricing"
+                  className="inline-flex min-h-[44px] items-center rounded-xl bg-orange-600 px-5 py-3 font-semibold text-white shadow-md transition-all hover:bg-orange-700 hover:shadow-lg"
+                >
+                  View Pricing — $49
+                </Link>
+                <Link
+                  href="/insights/how-to-get-a-forklift-license"
+                  className="inline-flex min-h-[44px] items-center rounded-xl border-2 border-gray-300 px-5 py-3 font-semibold text-gray-800 hover:bg-white transition-colors"
+                >
+                  Full license requirements guide
+                </Link>
+              </div>
             </div>
+          </div>
 
-            <div className="mt-6">
-              <h3 className="text-lg font-semibold text-slate-900">DFW Coverage &amp; FAQs</h3>
-              <ul className="mt-3 list-disc pl-5 text-gray-700 space-y-2">
-                <li><span className="font-medium">Coverage:</span> Dallas, Fort Worth, Arlington, Irving, Grand Prairie, Mesquite, Garland.</li>
-                <li><span className="font-medium">Format:</span> Online theory + employer practical on your equipment/site.</li>
-                <li><span className="font-medium">Bilingual:</span> English &amp; Spanish available.</li>
-                <li><span className="font-medium">Compliance:</span> Meets OSHA 29 CFR 1910.178(l); renew every 3 years or after incidents/equipment changes.</li>
+          <div
+            id="houston"
+            className="scroll-mt-24 bg-gradient-to-br from-blue-50 to-sky-50 border-2 border-blue-200 rounded-2xl p-8 shadow-sm"
+          >
+            <div className="max-w-3xl">
+              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+                Forklift Certification in Houston
+              </h2>
+              <p className="mt-3 text-gray-700 text-lg">
+                Serving Houston, Pasadena, Baytown, Sugar Land, The Woodlands, and the Ship Channel /
+                petrochemical corridor. Skip the drive to a local classroom for theory—train online,
+                then evaluate on the truck you actually use at the warehouse, terminal, or plant.
+              </p>
+              <ul className="mt-4 list-disc pl-5 text-gray-700 space-y-2">
+                <li>
+                  <span className="font-medium">Coverage:</span> Greater Houston logistics, energy,
+                  manufacturing, and port-adjacent sites.
+                </li>
+                <li>
+                  <span className="font-medium">Format:</span> Online OSHA-compliant theory + employer
+                  practical on your site.
+                </li>
+                <li>
+                  <span className="font-medium">vs local schools:</span> Same federal OSHA standard;
+                  online theory is usually faster and lower cost for multi-shift crews.
+                </li>
               </ul>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  href="#pricing"
+                  className="inline-flex min-h-[44px] items-center rounded-xl bg-orange-600 px-5 py-3 font-semibold text-white shadow-md transition-all hover:bg-orange-700 hover:shadow-lg"
+                >
+                  View Pricing — $49
+                </Link>
+                <a
+                  href="/docs/forklift-employer-eval.pdf"
+                  className="inline-flex min-h-[44px] items-center underline font-medium text-gray-800 hover:text-orange-600 px-3 py-3 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Employer Checklist (PDF)
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="dfw"
+            className="scroll-mt-24 bg-gradient-to-br from-indigo-50 to-blue-50 border-2 border-blue-200 rounded-2xl p-8 shadow-sm"
+          >
+            <div className="max-w-3xl">
+              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+                Dallas–Fort Worth (DFW) Forklift Certification
+              </h2>
+              <p className="mt-3 text-gray-700 text-lg">
+                Serving Dallas, Fort Worth, Arlington, Irving, Grand Prairie, Mesquite, and Garland.
+                Complete the online theory in about 30 minutes (English &amp; Spanish), then your supervisor
+                performs the onsite practical using our evaluation checklist. Same-day wallet card; renewal every 3 years.
+              </p>
+
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  href="#pricing"
+                  className="inline-flex min-h-[44px] items-center rounded-xl bg-orange-600 px-5 py-3 font-semibold text-white shadow-md transition-all hover:bg-orange-700 hover:shadow-lg"
+                >
+                  View Pricing — $49
+                </Link>
+                <Link
+                  href="/training#pricing"
+                  className="inline-flex min-h-[44px] items-center rounded-xl border-2 border-gray-400 px-5 py-3 font-semibold text-gray-800 hover:bg-gray-50 transition-colors"
+                >
+                  Crew Packs for Employers
+                </Link>
+                <a
+                  href="/docs/forklift-employer-eval.pdf"
+                  className="inline-flex min-h-[44px] items-center underline font-medium text-gray-800 hover:text-orange-600 px-3 py-3 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Employer Checklist (PDF)
+                </a>
+              </div>
+
+              <div className="mt-6">
+                <h3 className="text-lg font-semibold text-slate-900">DFW Coverage &amp; FAQs</h3>
+                <ul className="mt-3 list-disc pl-5 text-gray-700 space-y-2">
+                  <li>
+                    <span className="font-medium">Coverage:</span> Dallas, Fort Worth, Arlington,
+                    Irving, Grand Prairie, Mesquite, Garland.
+                  </li>
+                  <li>
+                    <span className="font-medium">Format:</span> Online theory + employer practical on
+                    your equipment/site.
+                  </li>
+                  <li>
+                    <span className="font-medium">Bilingual:</span> English &amp; Spanish available.
+                  </li>
+                  <li>
+                    <span className="font-medium">Compliance:</span> Meets OSHA 29 CFR 1910.178(l);
+                    renew every 3 years or after incidents/equipment changes.
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </section>
       )}
-      {/* ──────────────── END DFW SECTION ──────────────── */}
+      {/* ──────────────── END TEXAS METRO SECTION ──────────────── */}
+
+      {/* ───────────────── CALIFORNIA METRO + CAL/OSHA (CA Only) ───────────────── */}
+      {info.code === 'ca' && (
+        <section id="california-osha" className="scroll-mt-24 mt-12 space-y-10">
+          <div className="bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-orange-200 rounded-2xl p-8 shadow-sm">
+            <div className="max-w-3xl">
+              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+                OSHA Compliant Forklift Certification in California
+              </h2>
+              <p className="mt-3 text-gray-700 text-lg">
+                Looking for &ldquo;OSHA approved&rdquo; or OSHA-compliant forklift certification in California?
+                OSHA does not endorse private training brands—employers need training that meets{' '}
+                <strong>29 CFR 1910.178(l)</strong>. California also enforces powered industrial truck
+                rules through <strong>Cal/OSHA</strong> (a state plan that meets or exceeds federal OSHA).
+              </p>
+              <p className="mt-3 text-gray-700">
+                Our online course covers the formal instruction portion for <strong>$49</strong> (about
+                30 minutes). Your supervisor or qualified evaluator then completes the required
+                hands-on practical on your site and equipment. Same theory path statewide—from Los
+                Angeles warehouses to Central Valley ag sites.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  href="#pricing"
+                  className="inline-flex min-h-[44px] items-center rounded-xl bg-orange-600 px-5 py-3 font-semibold text-white shadow-md transition-all hover:bg-orange-700 hover:shadow-lg"
+                >
+                  View Pricing — $49
+                </Link>
+                <a
+                  href="/docs/forklift-employer-eval.pdf"
+                  className="inline-flex min-h-[44px] items-center underline font-medium text-gray-800 hover:text-orange-600 px-3 py-3 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Employer Checklist (PDF)
+                </a>
+                <Link
+                  href="/insights/how-to-get-a-forklift-license"
+                  className="inline-flex min-h-[44px] items-center rounded-xl border-2 border-gray-300 px-5 py-3 font-semibold text-gray-800 hover:bg-white transition-colors"
+                >
+                  License requirements guide
+                </Link>
+              </div>
+              <ul className="mt-6 list-disc pl-5 text-gray-700 space-y-2">
+                <li>
+                  <span className="font-medium">Federal OSHA:</span> Formal instruction + workplace
+                  practical evaluation under 29 CFR 1910.178(l).
+                </li>
+                <li>
+                  <span className="font-medium">Cal/OSHA:</span> California state-plan enforcement;
+                  employers still document theory training and site-specific evaluation.
+                </li>
+                <li>
+                  <span className="font-medium">Renewal:</span> At least every 3 years, or sooner
+                  after an incident, near-miss, or equipment change.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div id="los-angeles" className="scroll-mt-24 max-w-3xl">
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+              Forklift Certification in Los Angeles
+            </h2>
+            <p className="mt-3 text-gray-700 text-lg">
+              Serving Los Angeles, Long Beach, Vernon, Commerce, Carson, and the LA/Long Beach port
+              corridor. Finish online theory on your phone, then complete the employer practical at
+              your warehouse, yard, or dock—no need to travel to a classroom for the classroom
+              portion.
+            </p>
+            <ul className="mt-4 list-disc pl-5 text-gray-700 space-y-2">
+              <li>
+                <span className="font-medium">Coverage:</span> LA Basin distribution, ports, and
+                manufacturing sites.
+              </li>
+              <li>
+                <span className="font-medium">Format:</span> Online OSHA-compliant theory + onsite
+                practical on your equipment.
+              </li>
+              <li>
+                <span className="font-medium">Teams:</span> Multi-operator crews can study on their
+                own schedule, then share one employer evaluation workflow.
+              </li>
+            </ul>
+          </div>
+
+          <div id="san-diego" className="scroll-mt-24 max-w-3xl">
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+              Forklift Certification in San Diego
+            </h2>
+            <p className="mt-3 text-gray-700 text-lg">
+              For San Diego, Chula Vista, Oceanside, and nearby logistics and manufacturing
+              employers. Online theory works for day and night shifts; your qualified evaluator
+              signs off the practical where you actually operate.
+            </p>
+            <ul className="mt-4 list-disc pl-5 text-gray-700 space-y-2">
+              <li>
+                <span className="font-medium">Coverage:</span> San Diego County warehouses, ports,
+                and industrial parks.
+              </li>
+              <li>
+                <span className="font-medium">Compliance:</span> Same federal OSHA + Cal/OSHA path
+                as the rest of California.
+              </li>
+            </ul>
+          </div>
+
+          <div id="sacramento" className="scroll-mt-24 max-w-3xl">
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+              Forklift Certification in Sacramento
+            </h2>
+            <p className="mt-3 text-gray-700 text-lg">
+              Serving Sacramento, West Sacramento, Elk Grove, Roseville, and Central Valley
+              distribution. Get the theory done online for $49, then document the workplace
+              practical with our employer checklist.
+            </p>
+            <ul className="mt-4 list-disc pl-5 text-gray-700 space-y-2">
+              <li>
+                <span className="font-medium">Coverage:</span> Greater Sacramento and nearby
+                warehouse / food / logistics employers.
+              </li>
+              <li>
+                <span className="font-medium">Also nearby:</span> Fresno, Stockton, and Bakersfield
+                operators use the same California certification path.
+              </li>
+            </ul>
+          </div>
+        </section>
+      )}
+      {/* ──────────────── END CALIFORNIA METRO SECTION ──────────────── */}
+
+      {/* ───────────────── NEW JERSEY (NJ Only) ───────────────── */}
+      {info.code === 'nj' && (
+        <section className="mt-12 space-y-10">
+          <div
+            id="nj-how-to"
+            className="scroll-mt-24 bg-gradient-to-br from-orange-50 to-amber-50 border-2 border-orange-200 rounded-2xl p-8 shadow-sm"
+          >
+            <div className="max-w-3xl">
+              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+                How to Get Forklift Certification in NJ
+              </h2>
+              <p className="mt-3 text-gray-700 text-lg">
+                New Jersey search results often surface .gov workforce pages and local driving schools.
+                If you need OSHA-compliant theory fast, complete online instruction for{' '}
+                <strong>$49</strong> (about 30 minutes), download your certificate, then have a
+                qualified person at your NJ workplace finish the required hands-on evaluation.
+              </p>
+              <ol className="mt-4 list-decimal pl-5 text-gray-700 space-y-2">
+                <li>Enroll and finish the online OSHA theory modules.</li>
+                <li>Pass the exam and download your certificate.</li>
+                <li>
+                  Complete the employer practical using our{' '}
+                  <a
+                    href="/docs/forklift-employer-eval.pdf"
+                    className="underline hover:text-orange-700"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    evaluation checklist (PDF)
+                  </a>
+                  .
+                </li>
+              </ol>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  href="#pricing"
+                  className="inline-flex min-h-[44px] items-center rounded-xl bg-orange-600 px-5 py-3 font-semibold text-white shadow-md transition-all hover:bg-orange-700 hover:shadow-lg"
+                >
+                  View Pricing — $49
+                </Link>
+                <Link
+                  href="/insights/how-to-get-a-forklift-license"
+                  className="inline-flex min-h-[44px] items-center rounded-xl border-2 border-gray-300 px-5 py-3 font-semibold text-gray-800 hover:bg-white transition-colors"
+                >
+                  License requirements guide
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div id="newark" className="scroll-mt-24 max-w-3xl">
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+              Forklift Certification in Newark, NJ
+            </h2>
+            <p className="mt-3 text-gray-700 text-lg">
+              Serving Newark, Elizabeth, Jersey City, and the Port of NY/NJ corridor. Train online for
+              the classroom portion, then evaluate on the truck you use at the warehouse, terminal, or
+              plant—no need to sit a multi-hour local class for theory.
+            </p>
+            <ul className="mt-4 list-disc pl-5 text-gray-700 space-y-2">
+              <li>
+                <span className="font-medium">Coverage:</span> Newark / Elizabeth logistics, port
+                adjacent sites, and North Jersey warehouses.
+              </li>
+              <li>
+                <span className="font-medium">Format:</span> Online OSHA-compliant theory + employer
+                practical on your equipment.
+              </li>
+              <li>
+                <span className="font-medium">Also nearby:</span> Paterson, Edison, Woodbridge, and
+                Camden operators use the same New Jersey certification path.
+              </li>
+            </ul>
+          </div>
+        </section>
+      )}
+      {/* ──────────────── END NEW JERSEY SECTION ──────────────── */}
+
+      {/* ───────────────── WISCONSIN (WI Only) ───────────────── */}
+      {info.code === 'wi' && (
+        <section className="mt-12 space-y-10">
+          <div
+            id="milwaukee"
+            className="scroll-mt-24 bg-gradient-to-br from-blue-50 to-sky-50 border-2 border-blue-200 rounded-2xl p-8 shadow-sm"
+          >
+            <div className="max-w-3xl">
+              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+                Forklift Training in Milwaukee
+              </h2>
+              <p className="mt-3 text-gray-700 text-lg">
+                Milwaukee SERPs often feature community programs and state workforce pages. For
+                online forklift training that covers OSHA formal instruction, finish theory for{' '}
+                <strong>$49</strong>, then complete the practical evaluation with your supervisor on
+                site.
+              </p>
+              <ul className="mt-4 list-disc pl-5 text-gray-700 space-y-2">
+                <li>
+                  <span className="font-medium">Coverage:</span> Milwaukee, West Allis, Waukesha, and
+                  nearby manufacturing / warehouse employers.
+                </li>
+                <li>
+                  <span className="font-medium">Format:</span> Online OSHA-compliant theory + employer
+                  practical on your equipment.
+                </li>
+                <li>
+                  <span className="font-medium">vs local programs:</span> Same federal OSHA standard;
+                  online theory fits night-shift and multi-site crews.
+                </li>
+              </ul>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  href="#pricing"
+                  className="inline-flex min-h-[44px] items-center rounded-xl bg-orange-600 px-5 py-3 font-semibold text-white shadow-md transition-all hover:bg-orange-700 hover:shadow-lg"
+                >
+                  View Pricing — $49
+                </Link>
+                <a
+                  href="/docs/forklift-employer-eval.pdf"
+                  className="inline-flex min-h-[44px] items-center underline font-medium text-gray-800 hover:text-orange-600 px-3 py-3 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Employer Checklist (PDF)
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="wisconsin-online"
+            className="scroll-mt-24 max-w-3xl"
+          >
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+              Forklift Certification in Wisconsin
+            </h2>
+            <p className="mt-3 text-gray-700 text-lg">
+              Operators across Madison, Green Bay, Appleton, and the rest of Wisconsin use the same
+              path: online OSHA theory, then workplace practical evaluation. Renew at least every 3
+              years, or sooner after an incident or equipment change.
+            </p>
+            <ul className="mt-4 list-disc pl-5 text-gray-700 space-y-2">
+              <li>
+                <span className="font-medium">Statewide:</span> One online course works for every
+                Wisconsin worksite that follows federal OSHA PIT rules.
+              </li>
+              <li>
+                <span className="font-medium">Also nearby:</span> Madison and Green Bay crews can
+                study on their own schedule, then share one employer evaluation workflow.
+              </li>
+            </ul>
+          </div>
+        </section>
+      )}
+      {/* ──────────────── END WISCONSIN SECTION ──────────────── */}
+
+      {/* ───────────────── TENNESSEE (TN Only) ───────────────── */}
+      {info.code === 'tn' && (
+        <section className="mt-12 space-y-10">
+          <div
+            id="memphis"
+            className="scroll-mt-24 bg-gradient-to-br from-indigo-50 to-blue-50 border-2 border-blue-200 rounded-2xl p-8 shadow-sm"
+          >
+            <div className="max-w-3xl">
+              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+                Forklift License in Memphis, TN
+              </h2>
+              <p className="mt-3 text-gray-700 text-lg">
+                Searching for a forklift license in Memphis? Employers mean OSHA forklift operator
+                certification—not a DMV card. Complete online theory for <strong>$49</strong>, then
+                finish the hands-on evaluation at your Memphis warehouse, hub, or plant.
+              </p>
+              <ul className="mt-4 list-disc pl-5 text-gray-700 space-y-2">
+                <li>
+                  <span className="font-medium">Coverage:</span> Memphis logistics, distribution, and
+                  industrial sites across Shelby County.
+                </li>
+                <li>
+                  <span className="font-medium">Format:</span> Online OSHA-compliant theory + employer
+                  practical on your equipment.
+                </li>
+                <li>
+                  <span className="font-medium">vs local classes:</span> Same OSHA framework; online
+                  theory is usually faster for multi-shift crews.
+                </li>
+              </ul>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  href="#pricing"
+                  className="inline-flex min-h-[44px] items-center rounded-xl bg-orange-600 px-5 py-3 font-semibold text-white shadow-md transition-all hover:bg-orange-700 hover:shadow-lg"
+                >
+                  View Pricing — $49
+                </Link>
+                <a
+                  href="/docs/forklift-employer-eval.pdf"
+                  className="inline-flex min-h-[44px] items-center underline font-medium text-gray-800 hover:text-orange-600 px-3 py-3 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Employer Checklist (PDF)
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div id="nashville" className="scroll-mt-24 max-w-3xl">
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+              Forklift Certification in Nashville
+            </h2>
+            <p className="mt-3 text-gray-700 text-lg">
+              Serving Nashville, Murfreesboro, Franklin, and Middle Tennessee distribution and
+              manufacturing. Same statewide path as Memphis: online theory, then workplace practical.
+            </p>
+            <ul className="mt-4 list-disc pl-5 text-gray-700 space-y-2">
+              <li>
+                <span className="font-medium">Coverage:</span> Greater Nashville warehouses,
+                automotive suppliers, and logistics employers.
+              </li>
+              <li>
+                <span className="font-medium">Also:</span> Knoxville and Chattanooga operators use
+                the same Tennessee certification course.
+              </li>
+            </ul>
+          </div>
+        </section>
+      )}
+      {/* ──────────────── END TENNESSEE METRO SECTION ──────────────── */}
+
+      {/* ───────────────── ILLINOIS (IL Only) ───────────────── */}
+      {info.code === 'il' && (
+        <section className="mt-12 space-y-10">
+          <div
+            id="chicago"
+            className="scroll-mt-24 bg-gradient-to-br from-blue-50 to-sky-50 border-2 border-blue-200 rounded-2xl p-8 shadow-sm"
+          >
+            <div className="max-w-3xl">
+              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+                Forklift Certification in Chicago
+              </h2>
+              <p className="mt-3 text-gray-700 text-lg">
+                Chicago SERPs often feature community colleges, staffing firms, and local trainers. For
+                OSHA-compliant theory online at <strong>$49</strong>, finish instruction on your phone,
+                then complete the practical evaluation with your supervisor at the warehouse or plant.
+              </p>
+              <ul className="mt-4 list-disc pl-5 text-gray-700 space-y-2">
+                <li>
+                  <span className="font-medium">Coverage:</span> Chicago, Cicero, Joliet, Aurora, and
+                  Chicagoland distribution corridors.
+                </li>
+                <li>
+                  <span className="font-medium">Format:</span> Online OSHA-compliant theory + employer
+                  practical on your equipment.
+                </li>
+                <li>
+                  <span className="font-medium">vs classroom:</span> Same federal OSHA standard; online
+                  theory fits multi-shift logistics crews.
+                </li>
+              </ul>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  href="#pricing"
+                  className="inline-flex min-h-[44px] items-center rounded-xl bg-orange-600 px-5 py-3 font-semibold text-white shadow-md transition-all hover:bg-orange-700 hover:shadow-lg"
+                >
+                  View Pricing — $49
+                </Link>
+                <a
+                  href="/docs/forklift-employer-eval.pdf"
+                  className="inline-flex min-h-[44px] items-center underline font-medium text-gray-800 hover:text-orange-600 px-3 py-3 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Employer Checklist (PDF)
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div id="illinois-online" className="scroll-mt-24 max-w-3xl">
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+              Forklift Certification in Illinois
+            </h2>
+            <p className="mt-3 text-gray-700 text-lg">
+              Operators across Rockford, Peoria, Springfield, and the rest of Illinois use the same
+              path: online OSHA theory, then workplace practical evaluation. Renew at least every 3
+              years.
+            </p>
+          </div>
+        </section>
+      )}
+      {/* ──────────────── END ILLINOIS SECTION ──────────────── */}
+
+      {/* ───────────────── FLORIDA (FL Only) ───────────────── */}
+      {info.code === 'fl' && (
+        <section className="mt-12 space-y-10">
+          <div
+            id="miami"
+            className="scroll-mt-24 bg-gradient-to-br from-orange-50 to-amber-50 border-2 border-orange-200 rounded-2xl p-8 shadow-sm"
+          >
+            <div className="max-w-3xl">
+              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+                Forklift Certification in Miami
+              </h2>
+              <p className="mt-3 text-gray-700 text-lg">
+                Serving Miami, Hialeah, Fort Lauderdale, and South Florida logistics. Finish online
+                theory for <strong>$49</strong>, then evaluate on the truck you use at the warehouse,
+                cold storage, or port-adjacent site.
+              </p>
+              <ul className="mt-4 list-disc pl-5 text-gray-700 space-y-2">
+                <li>
+                  <span className="font-medium">Coverage:</span> Miami-Dade / Broward distribution and
+                  import-export warehouses.
+                </li>
+                <li>
+                  <span className="font-medium">Format:</span> Online OSHA-compliant theory + employer
+                  practical on your equipment.
+                </li>
+              </ul>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  href="#pricing"
+                  className="inline-flex min-h-[44px] items-center rounded-xl bg-orange-600 px-5 py-3 font-semibold text-white shadow-md transition-all hover:bg-orange-700 hover:shadow-lg"
+                >
+                  View Pricing — $49
+                </Link>
+                <a
+                  href="/docs/forklift-employer-eval.pdf"
+                  className="inline-flex min-h-[44px] items-center underline font-medium text-gray-800 hover:text-orange-600 px-3 py-3 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Employer Checklist (PDF)
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div id="jacksonville" className="scroll-mt-24 max-w-3xl">
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+              Forklift Certification in Jacksonville
+            </h2>
+            <p className="mt-3 text-gray-700 text-lg">
+              For Jacksonville port, rail, and warehouse employers: complete online theory, then
+              document the workplace practical with our employer checklist. Same Florida-wide OSHA path.
+            </p>
+          </div>
+
+          <div id="tampa" className="scroll-mt-24 max-w-3xl">
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+              Forklift Certification in Tampa
+            </h2>
+            <p className="mt-3 text-gray-700 text-lg">
+              Serving Tampa, St. Petersburg, and Clearwater distribution. Online theory fits day and
+              night shifts; your qualified evaluator signs off where you actually operate.
+            </p>
+          </div>
+        </section>
+      )}
+      {/* ──────────────── END FLORIDA SECTION ──────────────── */}
+
+      {/* ───────────────── ARIZONA (AZ Only) ───────────────── */}
+      {info.code === 'az' && (
+        <section className="mt-12 space-y-10">
+          <div
+            id="phoenix"
+            className="scroll-mt-24 bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-orange-200 rounded-2xl p-8 shadow-sm"
+          >
+            <div className="max-w-3xl">
+              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+                Forklift Certification in Phoenix
+              </h2>
+              <p className="mt-3 text-gray-700 text-lg">
+                Local Phoenix trainers often sell in-person seats. If you need OSHA-compliant theory
+                fast for <strong>$49</strong>, train online, then complete the practical evaluation at
+                your Mesa, Chandler, Glendale, or Phoenix warehouse.
+              </p>
+              <ul className="mt-4 list-disc pl-5 text-gray-700 space-y-2">
+                <li>
+                  <span className="font-medium">Coverage:</span> Phoenix metro distribution,
+                  manufacturing, and e-commerce fulfillment.
+                </li>
+                <li>
+                  <span className="font-medium">Format:</span> Online OSHA-compliant theory + employer
+                  practical on your equipment.
+                </li>
+                <li>
+                  <span className="font-medium">vs in-person:</span> Same federal OSHA standard; online
+                  theory is usually faster for multi-site crews.
+                </li>
+              </ul>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  href="#pricing"
+                  className="inline-flex min-h-[44px] items-center rounded-xl bg-orange-600 px-5 py-3 font-semibold text-white shadow-md transition-all hover:bg-orange-700 hover:shadow-lg"
+                >
+                  View Pricing — $49
+                </Link>
+                <a
+                  href="/docs/forklift-employer-eval.pdf"
+                  className="inline-flex min-h-[44px] items-center underline font-medium text-gray-800 hover:text-orange-600 px-3 py-3 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Employer Checklist (PDF)
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div id="tucson" className="scroll-mt-24 max-w-3xl">
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+              Forklift Certification in Tucson
+            </h2>
+            <p className="mt-3 text-gray-700 text-lg">
+              Tucson manufacturers and warehouses use the same Arizona path: online OSHA theory, then
+              workplace practical evaluation. No separate state license beyond OSHA compliance.
+            </p>
+          </div>
+        </section>
+      )}
+      {/* ──────────────── END ARIZONA SECTION ──────────────── */}
+
+      {/* ───────────────── NEW YORK (NY Only) ───────────────── */}
+      {info.code === 'ny' && (
+        <section className="mt-12 space-y-10">
+          <div
+            id="nyc"
+            className="scroll-mt-24 bg-gradient-to-br from-indigo-50 to-blue-50 border-2 border-blue-200 rounded-2xl p-8 shadow-sm"
+          >
+            <div className="max-w-3xl">
+              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+                Forklift Certification in New York City
+              </h2>
+              <p className="mt-3 text-gray-700 text-lg">
+                For NYC warehouses, last-mile hubs, and borough logistics: finish online OSHA theory
+                for <strong>$49</strong>, then have a qualified evaluator complete the practical on
+                your equipment. Employer-accepted online theory + on-site eval—not a DMV license.
+              </p>
+              <ul className="mt-4 list-disc pl-5 text-gray-700 space-y-2">
+                <li>
+                  <span className="font-medium">Coverage:</span> NYC metro warehouses, ports-adjacent
+                  sites, and corporate logistics.
+                </li>
+                <li>
+                  <span className="font-medium">Format:</span> Online OSHA-compliant theory + employer
+                  practical on your equipment.
+                </li>
+              </ul>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  href="#pricing"
+                  className="inline-flex min-h-[44px] items-center rounded-xl bg-orange-600 px-5 py-3 font-semibold text-white shadow-md transition-all hover:bg-orange-700 hover:shadow-lg"
+                >
+                  View Pricing — $49
+                </Link>
+                <a
+                  href="/docs/forklift-employer-eval.pdf"
+                  className="inline-flex min-h-[44px] items-center underline font-medium text-gray-800 hover:text-orange-600 px-3 py-3 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Employer Checklist (PDF)
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div id="buffalo" className="scroll-mt-24 max-w-3xl">
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+              Forklift Certification in Buffalo
+            </h2>
+            <p className="mt-3 text-gray-700 text-lg">
+              Western New York manufacturers and distribution centers use the same statewide path:
+              online theory, then workplace practical evaluation.
+            </p>
+          </div>
+
+          <div id="rochester" className="scroll-mt-24 max-w-3xl">
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+              Forklift Certification in Rochester
+            </h2>
+            <p className="mt-3 text-gray-700 text-lg">
+              Rochester and Finger Lakes employers can onboard operators with $49 online theory and an
+              onsite practical—same OSHA framework as NYC and Buffalo.
+            </p>
+          </div>
+        </section>
+      )}
+      {/* ──────────────── END NEW YORK SECTION ──────────────── */}
 
       {/* FAQ */}
       <section className="space-y-4">
@@ -486,7 +1463,7 @@ export default function StateForkliftPage({ params }: Props) {
         </p>
         
         {/* Industry Keywords for States Without Custom Content */}
-        {!['ca', 'il', 'pa', 'oh', 'ga', 'nc', 'mi', 'va', 'ny', 'tx', 'fl', 'az', 'tn', 'nj', 'in', 'wa'].includes(info.code) && (
+        {!['ca', 'il', 'pa', 'oh', 'ga', 'nc', 'mi', 'va', 'ny', 'tx', 'fl', 'az', 'tn', 'nj', 'wi', 'in', 'wa'].includes(info.code) && (
           <div className="grid md:grid-cols-2 gap-6 my-6">
             <div className="bg-blue-50 p-6 rounded-xl border border-blue-200">
               <h3 className="text-lg font-semibold mb-3 text-blue-900">💼 Top Forklift Employers in {info.name}</h3>
@@ -593,10 +1570,25 @@ export default function StateForkliftPage({ params }: Props) {
             <h3 className="text-lg font-semibold mb-3">California Major Cities We Serve:</h3>
             <div className="grid md:grid-cols-3 gap-4 text-sm">
               <ul className="space-y-1">
-                <li>• Los Angeles forklift certification</li>
+                <li>
+                  •{' '}
+                  <a href="#los-angeles" className="underline hover:text-orange-700">
+                    Los Angeles forklift certification
+                  </a>
+                </li>
                 <li>• San Francisco forklift training</li>
-                <li>• San Diego forklift operators</li>
-                <li>• Sacramento forklift certification</li>
+                <li>
+                  •{' '}
+                  <a href="#san-diego" className="underline hover:text-orange-700">
+                    San Diego forklift operators
+                  </a>
+                </li>
+                <li>
+                  •{' '}
+                  <a href="#sacramento" className="underline hover:text-orange-700">
+                    Sacramento forklift certification
+                  </a>
+                </li>
               </ul>
               <ul className="space-y-1">
                 <li>• Fresno forklift training</li>
@@ -611,6 +1603,13 @@ export default function StateForkliftPage({ params }: Props) {
                 <li>• Anaheim manufacturing</li>
               </ul>
             </div>
+            <p className="mt-4 text-sm text-gray-700">
+              See also:{' '}
+              <a href="#california-osha" className="underline hover:text-orange-700 font-medium">
+                OSHA compliant / Cal/OSHA certification in California
+              </a>
+              .
+            </p>
           </div>
         </section>
       )}
@@ -621,32 +1620,55 @@ export default function StateForkliftPage({ params }: Props) {
           <h2 className="text-2xl font-semibold">California-Specific Forklift Training Questions</h2>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
+              Is this OSHA approved or OSHA-compliant forklift certification?
+            </summary>
+            <p className="mt-2 text-gray-700">
+              OSHA does not approve or endorse private training companies. What employers need is{' '}
+              <strong>OSHA-compliant</strong> training under 29 CFR 1910.178(l): formal instruction plus a
+              workplace practical evaluation. Our online course provides the formal instruction; your
+              employer documents the hands-on evaluation. That is the compliant path California
+              employers expect when they ask for &ldquo;OSHA approved&rdquo; certification.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
               Does this meet Cal/OSHA requirements for California?
             </summary>
-            <p className="mt-2">
-              Yes! Our training meets both federal OSHA and Cal/OSHA requirements. California operates under its own 
-              state plan with standards that meet or exceed federal requirements. Our curriculum covers all necessary 
-              safety protocols for California workplaces.
+            <p className="mt-2 text-gray-700">
+              Yes. California enforces powered industrial truck rules through Cal/OSHA under a state
+              plan that meets or exceeds federal OSHA. Our curriculum covers the formal instruction
+              employers use for Cal/OSHA-aligned compliance, paired with site-specific practical
+              evaluation on your equipment.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Can I get forklift certified online in Los Angeles, San Diego, or Sacramento?
+            </summary>
+            <p className="mt-2 text-gray-700">
+              Yes for the theory portion. Operators across Los Angeles, San Diego, Sacramento, and
+              the rest of California complete online instruction, then finish the required practical
+              evaluation with a qualified person at their workplace.
             </p>
           </details>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
               Is forklift certification required at California ports and warehouses?
             </summary>
-            <p className="mt-2">
-              Absolutely. Major California ports (LA, Long Beach, Oakland) and warehouse operations require certified 
-              forklift operators. Many employers prefer online certification for faster onboarding of new workers 
-              in California's fast-paced logistics industry.
+            <p className="mt-2 text-gray-700">
+              Employers at major California ports (LA, Long Beach, Oakland) and warehouse operations
+              require trained, evaluated operators. Online theory speeds onboarding; the practical
+              eval stays on your site.
             </p>
           </details>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
               Do I need additional training for agricultural forklift work in California?
             </summary>
-            <p className="mt-2">
-              Our OSHA-compliant training covers the fundamentals for all industries, including agriculture. However, 
-              some California agricultural employers may require additional site-specific training for handling 
-              agricultural products and working in outdoor conditions.
+            <p className="mt-2 text-gray-700">
+              Our OSHA-compliant training covers the fundamentals for all industries, including
+              agriculture. Some California agricultural employers may still require additional
+              site-specific training for outdoor conditions or product handling.
             </p>
           </details>
         </section>
@@ -691,7 +1713,12 @@ export default function StateForkliftPage({ params }: Props) {
             <h3 className="text-lg font-semibold mb-3">Illinois Major Cities We Serve:</h3>
             <div className="grid md:grid-cols-3 gap-4 text-sm">
               <ul className="space-y-1">
-                <li>• Chicago forklift certification</li>
+                <li>
+                  •{' '}
+                  <a href="#chicago" className="underline hover:text-orange-700">
+                    Chicago forklift certification
+                  </a>
+                </li>
                 <li>• Aurora forklift training</li>
                 <li>• Rockford forklift operators</li>
                 <li>• Joliet forklift certification</li>
@@ -709,6 +1736,13 @@ export default function StateForkliftPage({ params }: Props) {
                 <li>• Decatur food processing</li>
               </ul>
             </div>
+            <p className="mt-4 text-sm text-gray-700">
+              See also:{' '}
+              <a href="#illinois-online" className="underline hover:text-orange-700 font-medium">
+                statewide Illinois certification
+              </a>
+              .
+            </p>
           </div>
         </section>
       )}
@@ -719,32 +1753,30 @@ export default function StateForkliftPage({ params }: Props) {
           <h2 className="text-2xl font-semibold">Illinois-Specific Forklift Training Questions</h2>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
+              How do I get forklift certified in Chicago online?
+            </summary>
+            <p className="mt-2 text-gray-700">
+              Complete OSHA-compliant online theory for $49, pass the exam, download your certificate,
+              then have a qualified person at your Chicago workplace complete the hands-on practical
+              evaluation.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
               Is this certification accepted at Chicago warehouses and distribution centers?
             </summary>
-            <p className="mt-2">
-              Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Illinois, 
-              including Amazon, Walmart, UPS, FedEx, and other logistics companies operating in the Chicago area 
-              and throughout Illinois.
+            <p className="mt-2 text-gray-700">
+              Yes for the theory portion. Chicago logistics and warehouse employers still complete the
+              required practical evaluation on your equipment under OSHA 29 CFR 1910.178(l).
             </p>
           </details>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
               Do Illinois manufacturing plants require forklift certification?
             </summary>
-            <p className="mt-2">
-              Yes, Illinois manufacturing facilities, including automotive plants, steel mills, and machinery manufacturers, 
-              require OSHA-compliant forklift certification. Our training covers the safety requirements for 
-              heavy industrial environments common in Illinois.
-            </p>
-          </details>
-          <details className="rounded-lg bg-neutral-50 p-4">
-            <summary className="cursor-pointer font-medium">
-              Is special training needed for Illinois agricultural operations?
-            </summary>
-            <p className="mt-2">
-              Our comprehensive OSHA training covers forklift operations in agricultural settings, which is important 
-              for Illinois' significant farming and food processing industries. The certification is valid for 
-              agricultural applications throughout Illinois.
+            <p className="mt-2 text-gray-700">
+              Employers operating powered industrial trucks must ensure operators are trained and
+              evaluated. Online theory plus an employer practical is the common compliant path.
             </p>
           </details>
         </section>
@@ -1377,9 +2409,24 @@ export default function StateForkliftPage({ params }: Props) {
             <h3 className="text-lg font-semibold mb-3">New York Major Cities We Serve:</h3>
             <div className="grid md:grid-cols-3 gap-4 text-sm">
               <ul className="space-y-1">
-                <li>• New York City forklift certification</li>
-                <li>• Buffalo forklift training</li>
-                <li>• Rochester forklift operators</li>
+                <li>
+                  •{' '}
+                  <a href="#nyc" className="underline hover:text-orange-700">
+                    New York City forklift certification
+                  </a>
+                </li>
+                <li>
+                  •{' '}
+                  <a href="#buffalo" className="underline hover:text-orange-700">
+                    Buffalo forklift training
+                  </a>
+                </li>
+                <li>
+                  •{' '}
+                  <a href="#rochester" className="underline hover:text-orange-700">
+                    Rochester forklift operators
+                  </a>
+                </li>
                 <li>• Yonkers forklift certification</li>
               </ul>
               <ul className="space-y-1">
@@ -1405,32 +2452,29 @@ export default function StateForkliftPage({ params }: Props) {
           <h2 className="text-2xl font-semibold">New York-Specific Forklift Training Questions</h2>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
-              Is this certification accepted at NYC financial institutions and corporate facilities?
+              Can I get forklift certified online in New York City?
             </summary>
-            <p className="mt-2">
-              Absolutely! Our OSHA-compliant certification is accepted by major employers throughout New York, 
-              including financial institutions on Wall Street, corporate headquarters in Manhattan, and logistics 
-              companies serving the NYC metropolitan area's extensive business operations.
+            <p className="mt-2 text-gray-700">
+              Yes for the theory portion. NYC operators complete online OSHA instruction for $49, then
+              finish the required practical evaluation with a qualified person at their workplace.
             </p>
           </details>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
-              Do New York port operations and manufacturing facilities require forklift certification?
+              Is online forklift certification valid in Buffalo and Rochester?
             </summary>
-            <p className="mt-2">
-              Yes! New York's port operations, including the Port of New York/New Jersey, and upstate manufacturing 
-              facilities require OSHA-compliant forklift certification. Our training covers maritime logistics, 
-              container handling, and heavy industrial safety requirements throughout New York State.
+            <p className="mt-2 text-gray-700">
+              Yes statewide for formal instruction when paired with a workplace practical evaluation
+              under OSHA 29 CFR 1910.178(l).
             </p>
           </details>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
-              Is additional training needed for New York's food processing and agricultural operations?
+              Do New York warehouses and port-adjacent sites require forklift certification?
             </summary>
-            <p className="mt-2">
-              Our comprehensive OSHA training covers forklift operations in food processing and agricultural 
-              environments, which is important for New York's significant agriculture and food industry. The 
-              certification is valid for dairy operations, food processing plants, and agricultural facilities throughout New York State.
+            <p className="mt-2 text-gray-700">
+              Employers operating powered industrial trucks must ensure operators are trained and
+              evaluated. Online theory plus an employer practical is the common compliant path.
             </p>
           </details>
         </section>
@@ -1475,8 +2519,18 @@ export default function StateForkliftPage({ params }: Props) {
             <h3 className="text-lg font-semibold mb-3">Texas Major Cities We Serve:</h3>
             <div className="grid md:grid-cols-3 gap-4 text-sm">
               <ul className="space-y-1">
-                <li>• Houston forklift certification</li>
-                <li>• Dallas forklift training</li>
+                <li>
+                  •{' '}
+                  <a href="#houston" className="underline hover:text-orange-700">
+                    Houston forklift certification
+                  </a>
+                </li>
+                <li>
+                  •{' '}
+                  <a href="#dfw" className="underline hover:text-orange-700">
+                    Dallas forklift training
+                  </a>
+                </li>
                 <li>• Austin forklift operators</li>
                 <li>• San Antonio forklift certification</li>
               </ul>
@@ -1493,6 +2547,13 @@ export default function StateForkliftPage({ params }: Props) {
                 <li>• Lubbock agricultural operations</li>
               </ul>
             </div>
+            <p className="mt-4 text-sm text-gray-700">
+              See also:{' '}
+              <a href="#texas-online" className="underline hover:text-orange-700 font-medium">
+                how to get forklift certified in Texas online
+              </a>
+              .
+            </p>
           </div>
         </section>
       )}
@@ -1503,32 +2564,52 @@ export default function StateForkliftPage({ params }: Props) {
           <h2 className="text-2xl font-semibold">Texas-Specific Forklift Training Questions</h2>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
+              How do I get forklift certified in Texas online?
+            </summary>
+            <p className="mt-2 text-gray-700">
+              Complete OSHA-compliant online theory for $49, pass the exam, download your certificate,
+              then have a qualified person at your Texas workplace complete the hands-on practical
+              evaluation. That combination meets the federal OSHA training framework employers use
+              statewide.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Is online forklift certification accepted in Houston and Dallas–Fort Worth?
+            </summary>
+            <p className="mt-2 text-gray-700">
+              Yes for the classroom/theory portion. Houston and DFW employers still complete the
+              required practical evaluation on your equipment. Online theory is often faster than
+              local classroom seats for multi-shift warehouses and plants.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
               Is this certification accepted at Houston energy facilities and petrochemical plants?
             </summary>
-            <p className="mt-2">
-              Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Texas, 
-              including energy companies in Houston's petrochemical corridor, oil refineries, and natural gas facilities. 
-              The training meets energy sector safety requirements.
+            <p className="mt-2 text-gray-700">
+              Our OSHA-compliant formal instruction is used by Texas employers across logistics and
+              industrial sites, including energy-corridor workplaces. Site-specific practical
+              evaluation and any plant rules still sit with your employer.
             </p>
           </details>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
               Do Texas logistics companies and distribution centers require forklift certification?
             </summary>
-            <p className="mt-2">
-              Yes! Texas's massive logistics sector, including Amazon, FedEx, UPS facilities in Dallas-Fort Worth, 
-              Houston, and San Antonio, require OSHA-compliant forklift certification. Our training is accepted 
-              at major distribution centers throughout Texas.
+            <p className="mt-2 text-gray-700">
+              Yes. Distribution and warehouse employers in Dallas–Fort Worth, Houston, San Antonio,
+              and across Texas expect OSHA-compliant training plus a documented workplace evaluation.
             </p>
           </details>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
-              Is additional training needed for Texas's technology and semiconductor manufacturing?
+              Is additional training needed for Texas technology and semiconductor manufacturing?
             </summary>
-            <p className="mt-2">
-              Our comprehensive OSHA training covers forklift operations in high-tech environments, which is 
-              essential for Austin's tech corridor and semiconductor facilities. The certification is valid 
-              for clean room logistics and advanced manufacturing throughout Texas.
+            <p className="mt-2 text-gray-700">
+              OSHA theory covers powered industrial truck fundamentals. High-tech or clean-room sites
+              may add their own site-specific rules after you complete online instruction and the
+              employer practical.
             </p>
           </details>
         </section>
@@ -1573,9 +2654,24 @@ export default function StateForkliftPage({ params }: Props) {
             <h3 className="text-lg font-semibold mb-3">Florida Major Cities We Serve:</h3>
             <div className="grid md:grid-cols-3 gap-4 text-sm">
               <ul className="space-y-1">
-                <li>• Miami forklift certification</li>
-                <li>• Jacksonville forklift training</li>
-                <li>• Tampa forklift operators</li>
+                <li>
+                  •{' '}
+                  <a href="#miami" className="underline hover:text-orange-700">
+                    Miami forklift certification
+                  </a>
+                </li>
+                <li>
+                  •{' '}
+                  <a href="#jacksonville" className="underline hover:text-orange-700">
+                    Jacksonville forklift training
+                  </a>
+                </li>
+                <li>
+                  •{' '}
+                  <a href="#tampa" className="underline hover:text-orange-700">
+                    Tampa forklift operators
+                  </a>
+                </li>
                 <li>• Orlando forklift certification</li>
               </ul>
               <ul className="space-y-1">
@@ -1601,32 +2697,29 @@ export default function StateForkliftPage({ params }: Props) {
           <h2 className="text-2xl font-semibold">Florida-Specific Forklift Training Questions</h2>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
-              Is this certification accepted at Florida ports and cruise line operations?
+              Can I get forklift certified online in Miami?
             </summary>
-            <p className="mt-2">
-              Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Florida, 
-              including port operations in Miami, Tampa, Jacksonville, and cruise line logistics companies. 
-              The training meets maritime industry safety requirements.
+            <p className="mt-2 text-gray-700">
+              Yes for the theory portion. Miami operators complete online OSHA instruction for $49,
+              then finish the required practical evaluation at their workplace.
             </p>
           </details>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
-              Do Florida theme parks and hospitality facilities require forklift certification?
+              Is online forklift certification accepted in Jacksonville and Tampa?
             </summary>
-            <p className="mt-2">
-              Yes! Florida's tourism and hospitality sector, including theme parks, hotels, and convention centers 
-              throughout Orlando, Miami, and Tampa, require OSHA-compliant forklift certification for warehouse 
-              and logistics operations. Our training meets hospitality industry standards.
+            <p className="mt-2 text-gray-700">
+              Yes statewide for formal instruction when paired with a workplace practical evaluation
+              under OSHA 29 CFR 1910.178(l).
             </p>
           </details>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
-              Is additional training needed for Florida's agricultural and food distribution operations?
+              Do Florida warehouses and port-adjacent sites require forklift certification?
             </summary>
-            <p className="mt-2">
-              Our comprehensive OSHA training covers forklift operations in agricultural and temperature-controlled 
-              environments, which is essential for Florida's citrus industry and produce distribution. The certification 
-              is valid for agricultural operations and cold storage facilities throughout Florida.
+            <p className="mt-2 text-gray-700">
+              Employers operating powered industrial trucks must ensure operators are trained and
+              evaluated. Online theory plus an employer practical is the common compliant path.
             </p>
           </details>
         </section>
@@ -1671,8 +2764,18 @@ export default function StateForkliftPage({ params }: Props) {
             <h3 className="text-lg font-semibold mb-3">Arizona Major Cities We Serve:</h3>
             <div className="grid md:grid-cols-3 gap-4 text-sm">
               <ul className="space-y-1">
-                <li>• Phoenix forklift certification</li>
-                <li>• Tucson forklift training</li>
+                <li>
+                  •{' '}
+                  <a href="#phoenix" className="underline hover:text-orange-700">
+                    Phoenix forklift certification
+                  </a>
+                </li>
+                <li>
+                  •{' '}
+                  <a href="#tucson" className="underline hover:text-orange-700">
+                    Tucson forklift training
+                  </a>
+                </li>
                 <li>• Mesa forklift operators</li>
                 <li>• Chandler forklift certification</li>
               </ul>
@@ -1699,32 +2802,30 @@ export default function StateForkliftPage({ params }: Props) {
           <h2 className="text-2xl font-semibold">Arizona-Specific Forklift Training Questions</h2>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
+              How do I get forklift certified in Phoenix online?
+            </summary>
+            <p className="mt-2 text-gray-700">
+              Complete OSHA-compliant online theory for $49, pass the exam, download your certificate,
+              then have a qualified person at your Phoenix workplace complete the hands-on practical
+              evaluation—often faster than local in-person classroom seats.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
               Is this certification accepted at Phoenix distribution centers and logistics facilities?
             </summary>
-            <p className="mt-2">
-              Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Arizona, 
-              including Amazon, Walmart, and regional distributors in the Phoenix metro area. The training meets 
-              e-commerce and warehouse industry safety standards.
+            <p className="mt-2 text-gray-700">
+              Yes for the theory portion. Phoenix metro employers still complete the required practical
+              evaluation on your equipment under OSHA 29 CFR 1910.178(l).
             </p>
           </details>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
-              Do Arizona semiconductor and electronics manufacturers require forklift certification?
+              Can Tucson operators use the same online forklift certification?
             </summary>
-            <p className="mt-2">
-              Yes! Arizona's growing semiconductor and electronics manufacturing sector requires OSHA-compliant 
-              forklift certification. Our training covers high-tech manufacturing environments and precision 
-              material handling requirements for Arizona's tech industry.
-            </p>
-          </details>
-          <details className="rounded-lg bg-neutral-50 p-4">
-            <summary className="cursor-pointer font-medium">
-              Is additional training needed for Arizona's mining and construction support operations?
-            </summary>
-            <p className="mt-2">
-              Our comprehensive OSHA training covers forklift operations in industrial environments, including 
-              Arizona's mining support facilities and construction supply warehouses. The certification is valid 
-              for heavy industrial operations throughout Arizona.
+            <p className="mt-2 text-gray-700">
+              Yes. Tucson and the rest of Arizona use the same online theory + workplace practical
+              path.
             </p>
           </details>
         </section>
@@ -1769,8 +2870,18 @@ export default function StateForkliftPage({ params }: Props) {
             <h3 className="text-lg font-semibold mb-3">Tennessee Major Cities We Serve:</h3>
             <div className="grid md:grid-cols-3 gap-4 text-sm">
               <ul className="space-y-1">
-                <li>• Nashville forklift certification</li>
-                <li>• Memphis forklift training</li>
+                <li>
+                  •{' '}
+                  <a href="#nashville" className="underline hover:text-orange-700">
+                    Nashville forklift certification
+                  </a>
+                </li>
+                <li>
+                  •{' '}
+                  <a href="#memphis" className="underline hover:text-orange-700">
+                    Memphis forklift license / training
+                  </a>
+                </li>
                 <li>• Knoxville forklift operators</li>
                 <li>• Chattanooga forklift certification</li>
               </ul>
@@ -1797,32 +2908,39 @@ export default function StateForkliftPage({ params }: Props) {
           <h2 className="text-2xl font-semibold">Tennessee-Specific Forklift Training Questions</h2>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
+              How do I get a forklift license in Memphis, TN?
+            </summary>
+            <p className="mt-2 text-gray-700">
+              There is no DMV forklift license. Complete OSHA-compliant online theory for $49, pass
+              the exam, download your certificate, then have a qualified person at your Memphis
+              workplace complete the hands-on practical evaluation.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
               Is this certification accepted at Tennessee automotive plants and manufacturing facilities?
             </summary>
-            <p className="mt-2">
-              Absolutely! Our OSHA-compliant certification is accepted by major Tennessee automotive manufacturers 
-              including Nissan, Volkswagen, GM, and their suppliers. The training meets automotive industry 
-              safety standards and lean manufacturing requirements.
+            <p className="mt-2 text-gray-700">
+              Our OSHA-compliant formal instruction is used by Tennessee automotive and manufacturing
+              employers. Site-specific practical evaluation and plant rules still sit with your employer.
             </p>
           </details>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
-              Do Memphis logistics companies and FedEx facilities require forklift certification?
+              Do Memphis logistics companies require forklift certification?
             </summary>
-            <p className="mt-2">
-              Yes! Tennessee's logistics sector, including FedEx headquarters in Memphis and major distribution 
-              centers throughout Nashville and Memphis, require OSHA-compliant forklift certification. Our training 
-              is accepted at major logistics and package handling facilities.
+            <p className="mt-2 text-gray-700">
+              Yes. Memphis and Nashville logistics employers expect OSHA-compliant training plus a
+              documented workplace evaluation for powered industrial truck operators.
             </p>
           </details>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
-              Is additional training needed for Tennessee's manufacturing and chemical processing industries?
+              Is additional training needed for Tennessee manufacturing environments?
             </summary>
-            <p className="mt-2">
-              Our comprehensive OSHA training covers forklift operations in industrial manufacturing environments, 
-              which is essential for Tennessee's chemical, plastics, and consumer goods production. The certification 
-              is valid for heavy industrial operations throughout Tennessee.
+            <p className="mt-2 text-gray-700">
+              OSHA theory covers PIT fundamentals. Chemical or heavy industrial sites may add their
+              own site-specific rules after online instruction and the employer practical.
             </p>
           </details>
         </section>
@@ -1867,7 +2985,12 @@ export default function StateForkliftPage({ params }: Props) {
             <h3 className="text-lg font-semibold mb-3">New Jersey Major Cities We Serve:</h3>
             <div className="grid md:grid-cols-3 gap-4 text-sm">
               <ul className="space-y-1">
-                <li>• Newark forklift certification</li>
+                <li>
+                  •{' '}
+                  <a href="#newark" className="underline hover:text-orange-700">
+                    Newark forklift certification
+                  </a>
+                </li>
                 <li>• Jersey City forklift training</li>
                 <li>• Paterson forklift operators</li>
                 <li>• Elizabeth forklift certification</li>
@@ -1885,6 +3008,13 @@ export default function StateForkliftPage({ params }: Props) {
                 <li>• Clifton industrial facilities</li>
               </ul>
             </div>
+            <p className="mt-4 text-sm text-gray-700">
+              See also:{' '}
+              <a href="#nj-how-to" className="underline hover:text-orange-700 font-medium">
+                how to get forklift certification in NJ
+              </a>
+              .
+            </p>
           </div>
         </section>
       )}
@@ -1895,32 +3025,136 @@ export default function StateForkliftPage({ params }: Props) {
           <h2 className="text-2xl font-semibold">New Jersey-Specific Forklift Training Questions</h2>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
+              How do I get forklift certification in NJ?
+            </summary>
+            <p className="mt-2 text-gray-700">
+              Complete OSHA-compliant online theory for $49, pass the exam, download your certificate,
+              then have a qualified person at your New Jersey workplace complete the hands-on practical
+              evaluation. That is the path employers mean when they ask how to get certified in NJ.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Can I get forklift certified online in Newark or Jersey City?
+            </summary>
+            <p className="mt-2 text-gray-700">
+              Yes for the theory portion. Newark, Jersey City, Elizabeth, and other NJ operators finish
+              online instruction, then complete the required practical evaluation on site.
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
               Is this certification accepted at New Jersey pharmaceutical and biotech facilities?
             </summary>
-            <p className="mt-2">
-              Absolutely! Our OSHA-compliant certification is accepted by major pharmaceutical and life sciences 
-              employers throughout New Jersey, including clean room operations, controlled substance warehouses, 
-              and biotech manufacturing facilities. The training meets pharmaceutical industry safety standards.
+            <p className="mt-2 text-gray-700">
+              Our OSHA-compliant formal instruction is used by life-sciences and warehouse employers
+              statewide. Clean-room or controlled-substance sites may add their own site rules after
+              the employer practical.
             </p>
           </details>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
               Do New Jersey port operations and logistics companies require forklift certification?
             </summary>
-            <p className="mt-2">
-              Yes! New Jersey's port operations and logistics sector, including operations at the Port of 
-              New York/New Jersey, require OSHA-compliant forklift certification. Our training covers maritime 
-              logistics and distribution center operations throughout New Jersey.
+            <p className="mt-2 text-gray-700">
+              Yes. Port-adjacent and distribution employers in New Jersey expect OSHA-compliant
+              training plus a documented workplace evaluation.
+            </p>
+          </details>
+        </section>
+      )}
+
+      {/* WISCONSIN INDUSTRY + FAQ */}
+      {info.code === 'wi' && (
+        <section className="space-y-6">
+          <h2 className="text-2xl font-semibold">Wisconsin Forklift Training for Major Industries</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">Manufacturing &amp; Metalworking</h3>
+              <p className="text-sm text-gray-700">
+                Milwaukee and Southeast Wisconsin manufacturers need certified operators for plant and
+                warehouse material handling. Online theory plus an onsite practical fits multi-shift crews.
+              </p>
+            </div>
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">Warehousing &amp; Distribution</h3>
+              <p className="text-sm text-gray-700">
+                Distribution centers across Milwaukee, Madison, and Green Bay expect OSHA-compliant
+                training with documented workplace evaluation.
+              </p>
+            </div>
+            <div className="bg-orange-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">Food &amp; Dairy Processing</h3>
+              <p className="text-sm text-gray-700">
+                Wisconsin food and dairy employers use the same federal OSHA PIT framework—online
+                instruction, then site-specific practical evaluation.
+              </p>
+            </div>
+            <div className="bg-purple-50 p-6 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3">Paper &amp; Industrial</h3>
+              <p className="text-sm text-gray-700">
+                Industrial sites statewide can onboard operators quickly with $49 online theory and an
+                employer checklist for the hands-on eval.
+              </p>
+            </div>
+          </div>
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-6">
+            <h3 className="text-lg font-semibold mb-3">Wisconsin Major Cities We Serve:</h3>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <ul className="space-y-1">
+                <li>
+                  •{' '}
+                  <a href="#milwaukee" className="underline hover:text-orange-700">
+                    Milwaukee forklift training
+                  </a>
+                </li>
+                <li>• Madison forklift certification</li>
+                <li>• Green Bay forklift operators</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Appleton warehouse training</li>
+                <li>• Racine manufacturing</li>
+                <li>• Kenosha logistics</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>• Eau Claire distribution</li>
+                <li>• Waukesha industrial sites</li>
+                <li>• Oshkosh operations</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {info.code === 'wi' && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold">Wisconsin-Specific Forklift Training Questions</h2>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Where can I get forklift training in Milwaukee online?
+            </summary>
+            <p className="mt-2 text-gray-700">
+              Complete OSHA-compliant online theory for $49, pass the exam, then have a qualified
+              person at your Milwaukee workplace complete the hands-on practical evaluation. That
+              covers the formal instruction employers expect.
             </p>
           </details>
           <details className="rounded-lg bg-neutral-50 p-4">
             <summary className="cursor-pointer font-medium">
-              Is additional training needed for New Jersey's chemical processing and manufacturing industries?
+              Is online forklift certification valid across Wisconsin?
             </summary>
-            <p className="mt-2">
-              Our comprehensive OSHA training covers forklift operations in chemical and heavy industrial 
-              environments, which is essential for New Jersey's significant chemical processing and manufacturing 
-              sectors. The certification is valid for industrial operations throughout New Jersey.
+            <p className="mt-2 text-gray-700">
+              Yes for the theory portion statewide—including Madison, Green Bay, and Appleton—when
+              paired with a workplace practical evaluation under OSHA 29 CFR 1910.178(l).
+            </p>
+          </details>
+          <details className="rounded-lg bg-neutral-50 p-4">
+            <summary className="cursor-pointer font-medium">
+              Do Wisconsin manufacturers and warehouses require forklift certification?
+            </summary>
+            <p className="mt-2 text-gray-700">
+              Employers operating powered industrial trucks must ensure operators are trained and
+              evaluated. Online theory plus an employer practical is the common compliant path.
             </p>
           </details>
         </section>
@@ -2202,10 +3436,26 @@ export default function StateForkliftPage({ params }: Props) {
                   ...(info.code === 'ca' ? [
                     {
                       "@type": "Question",
+                      name: "Is this OSHA approved or OSHA-compliant forklift certification?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "OSHA does not approve private training companies. Employers need OSHA-compliant training under 29 CFR 1910.178(l): formal instruction plus workplace practical evaluation. Our online course provides formal instruction; your employer documents the hands-on evaluation.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
                       name: "Does this meet Cal/OSHA requirements for California?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "Yes! Our training meets both federal OSHA and Cal/OSHA requirements. California operates under its own state plan with standards that meet or exceed federal requirements.",
+                        text: "Yes. California enforces powered industrial truck rules through Cal/OSHA under a state plan that meets or exceeds federal OSHA. Our curriculum covers formal instruction paired with site-specific practical evaluation.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Can I get forklift certified online in Los Angeles, San Diego, or Sacramento?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Yes for the theory portion. Operators across Los Angeles, San Diego, Sacramento, and the rest of California complete online instruction, then finish the required practical evaluation at their workplace.",
                       },
                     },
                     {
@@ -2213,25 +3463,25 @@ export default function StateForkliftPage({ params }: Props) {
                       name: "Is forklift certification required at California ports and warehouses?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "Absolutely. Major California ports (LA, Long Beach, Oakland) and warehouse operations require certified forklift operators for faster onboarding in California's logistics industry.",
+                        text: "Employers at major California ports (LA, Long Beach, Oakland) and warehouse operations require trained, evaluated operators. Online theory speeds onboarding; the practical evaluation stays on site.",
                       },
                     },
                   ] : []),
                   ...(info.code === 'il' ? [
                     {
                       "@type": "Question",
-                      name: "Is this certification accepted at Chicago warehouses and distribution centers?",
+                      name: "How do I get forklift certified in Chicago online?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Illinois, including Amazon, Walmart, UPS, FedEx, and other logistics companies.",
+                        text: "Complete OSHA-compliant online theory for $49, pass the exam, download your certificate, then have a qualified person at your Chicago workplace complete the hands-on practical evaluation.",
                       },
                     },
                     {
                       "@type": "Question",
-                      name: "Do Illinois manufacturing plants require forklift certification?",
+                      name: "Is this certification accepted at Chicago warehouses and distribution centers?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "Yes, Illinois manufacturing facilities, including automotive plants, steel mills, and machinery manufacturers, require OSHA-compliant forklift certification.",
+                        text: "Yes for the theory portion. Chicago logistics and warehouse employers still complete the required practical evaluation on your equipment under OSHA 29 CFR 1910.178(l).",
                       },
                     },
                   ] : []),
@@ -2394,76 +3644,134 @@ export default function StateForkliftPage({ params }: Props) {
                   ...(info.code === 'ny' ? [
                     {
                       "@type": "Question",
-                      name: "Is this certification accepted at NYC financial institutions and corporate facilities?",
+                      name: "Can I get forklift certified online in New York City?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "Absolutely! Our OSHA-compliant certification is accepted by major employers throughout New York, including financial institutions on Wall Street, corporate headquarters in Manhattan, and logistics companies serving the NYC metropolitan area's extensive business operations.",
+                        text: "Yes for the theory portion. NYC operators complete online OSHA instruction for $49, then finish the required practical evaluation with a qualified person at their workplace.",
                       },
                     },
                     {
                       "@type": "Question",
-                      name: "Do New York port operations and manufacturing facilities require forklift certification?",
+                      name: "Is online forklift certification valid in Buffalo and Rochester?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "Yes! New York's port operations, including the Port of New York/New Jersey, and upstate manufacturing facilities require OSHA-compliant forklift certification. Our training covers maritime logistics, container handling, and heavy industrial safety requirements throughout New York State.",
-                      },
-                    },
-                    {
-                      "@type": "Question",
-                      name: "Is additional training needed for New York's food processing and agricultural operations?",
-                      acceptedAnswer: {
-                        "@type": "Answer",
-                        text: "Our comprehensive OSHA training covers forklift operations in food processing and agricultural environments, which is important for New York's significant agriculture and food industry. The certification is valid for dairy operations, food processing plants, and agricultural facilities throughout New York State.",
+                        text: "Yes statewide for formal instruction when paired with a workplace practical evaluation under OSHA 29 CFR 1910.178(l).",
                       },
                     },
                   ] : []),
                   ...(info.code === 'tx' ? [
                     {
                       "@type": "Question",
+                      name: "How do I get forklift certified in Texas online?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Complete OSHA-compliant online theory for $49, pass the exam, download your certificate, then have a qualified person at your Texas workplace complete the hands-on practical evaluation.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Is online forklift certification accepted in Houston and Dallas–Fort Worth?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Yes for the classroom/theory portion. Houston and DFW employers still complete the required practical evaluation on your equipment.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
                       name: "Is this certification accepted at Houston energy facilities and petrochemical plants?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Texas, including energy companies in Houston's petrochemical corridor, oil refineries, and natural gas facilities.",
+                        text: "Our OSHA-compliant formal instruction is used by Texas employers across logistics and industrial sites, including energy-corridor workplaces. Site-specific practical evaluation sits with your employer.",
                       },
                     },
                   ] : []),
                   ...(info.code === 'fl' ? [
                     {
                       "@type": "Question",
-                      name: "Is this certification accepted at Florida ports and cruise line operations?",
+                      name: "Can I get forklift certified online in Miami?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Florida, including port operations in Miami, Tampa, Jacksonville, and cruise line logistics companies.",
+                        text: "Yes for the theory portion. Miami operators complete online OSHA instruction for $49, then finish the required practical evaluation at their workplace.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Is online forklift certification accepted in Jacksonville and Tampa?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Yes statewide for formal instruction when paired with a workplace practical evaluation under OSHA 29 CFR 1910.178(l).",
                       },
                     },
                   ] : []),
                   ...(info.code === 'az' ? [
                     {
                       "@type": "Question",
+                      name: "How do I get forklift certified in Phoenix online?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Complete OSHA-compliant online theory for $49, pass the exam, download your certificate, then have a qualified person at your Phoenix workplace complete the hands-on practical evaluation.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
                       name: "Is this certification accepted at Phoenix distribution centers and logistics facilities?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Arizona, including Amazon, Walmart, and regional distributors in the Phoenix metro area.",
+                        text: "Yes for the theory portion. Phoenix metro employers still complete the required practical evaluation on your equipment under OSHA 29 CFR 1910.178(l).",
                       },
                     },
                   ] : []),
                   ...(info.code === 'tn' ? [
                     {
                       "@type": "Question",
+                      name: "How do I get a forklift license in Memphis, TN?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "There is no DMV forklift license. Complete OSHA-compliant online theory for $49, pass the exam, download your certificate, then have a qualified person at your Memphis workplace complete the hands-on practical evaluation.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
                       name: "Is this certification accepted at Tennessee automotive plants and manufacturing facilities?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "Absolutely! Our OSHA-compliant certification is accepted by major Tennessee automotive manufacturers including Nissan, Volkswagen, GM, and their suppliers.",
+                        text: "Our OSHA-compliant formal instruction is used by Tennessee automotive and manufacturing employers. Site-specific practical evaluation sits with your employer.",
                       },
                     },
                   ] : []),
                   ...(info.code === 'nj' ? [
                     {
                       "@type": "Question",
-                      name: "Is this certification accepted at New Jersey pharmaceutical and biotech facilities?",
+                      name: "How do I get forklift certification in NJ?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "Absolutely! Our OSHA-compliant certification is accepted by major pharmaceutical and life sciences employers throughout New Jersey, including clean room operations and biotech manufacturing facilities.",
+                        text: "Complete OSHA-compliant online theory for $49, pass the exam, download your certificate, then have a qualified person at your New Jersey workplace complete the hands-on practical evaluation.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Can I get forklift certified online in Newark or Jersey City?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Yes for the theory portion. Newark, Jersey City, Elizabeth, and other NJ operators finish online instruction, then complete the required practical evaluation on site.",
+                      },
+                    },
+                  ] : []),
+                  ...(info.code === 'wi' ? [
+                    {
+                      "@type": "Question",
+                      name: "Where can I get forklift training in Milwaukee online?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Complete OSHA-compliant online theory for $49, pass the exam, then have a qualified person at your Milwaukee workplace complete the hands-on practical evaluation.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Is online forklift certification valid across Wisconsin?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Yes for the theory portion statewide—including Madison, Green Bay, and Appleton—when paired with a workplace practical evaluation under OSHA 29 CFR 1910.178(l).",
                       },
                     },
                   ] : []),
