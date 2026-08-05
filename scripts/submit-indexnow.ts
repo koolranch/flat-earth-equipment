@@ -139,7 +139,7 @@ const URLS_TO_SUBMIT = [
   'https://www.flatearthequipment.com/brand/skyjack/fault-codes',
   'https://www.flatearthequipment.com/es/brand/new-holland/fault-codes',
   'https://www.flatearthequipment.com/es/brand/tennant/fault-codes',
-  'https://www.flatearthequipment.com/insights/genie-scissor-lift-error-codes',
+  'https://www.flatearthequipment.com/parts/aerial-equipment/genie-scissor-lift-error-codes',
   'https://www.flatearthequipment.com/insights/future-green-material-handling',
   'https://www.flatearthequipment.com/insights/do-skid-steers-have-titles',
   'https://www.flatearthequipment.com/insights/what-are-forklift-forks-made-of-2',

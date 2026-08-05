@@ -451,6 +451,19 @@ const baseConfig = {
         permanent: true
       },
 
+      // Genie scissor error codes — consolidate thin insights duplicate onto parts hub
+      // Trailing-slash variant first (backlink recovery / trailing-slash normalization)
+      {
+        source: '/insights/genie-scissor-lift-error-codes/',
+        destination: '/parts/aerial-equipment/genie-scissor-lift-error-codes',
+        permanent: true
+      },
+      {
+        source: '/insights/genie-scissor-lift-error-codes',
+        destination: '/parts/aerial-equipment/genie-scissor-lift-error-codes',
+        permanent: true
+      },
+
       // Duplicate Outrank P0087 guides → canonical rewritten diagnosis page
       {
         source: '/insights/jcb-p-0087-fuel-rail-pressure-low-scv-valve-diagnosis',
