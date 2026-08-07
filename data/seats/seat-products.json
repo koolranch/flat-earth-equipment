@@ -2542,19 +2542,19 @@
     "oem_part_number": "JC40/910489",
     "brand": "JCB",
     "section": "cushions",
-    "product_type": "cushion_bottom",
+    "product_type": "cushion_back",
     "compatible_models": [
       "506-36",
       "535-95",
       "535-140"
     ],
-    "cushion_description": "Seat bottom",
-    "sku": "JC40/910489-BOTTOM",
-    "slug": "jcb-jc40-910489-seat-bottom-cushion",
-    "name": "JCB JC40/910489 Seat Bottom Cushion",
+    "cushion_description": "Seat back",
+    "sku": "JC40/910489-BACK",
+    "slug": "jcb-40-910489-seat-back-cushion",
+    "name": "JCB 40/910489 Seat Back Cushion",
     "category": "Seat cushions",
     "category_slug": "seat-cushions",
-    "description": "Aftermarket seat bottom cushion for JCB industrial equipment. Replaces OEM part number JC40/910489. Verified fitment for 3 machine models including 506-36, 535-95, 535-140.\n\nConfirm your machine model and serial number before ordering — seat rails and switch wiring can vary by production year. Request a quote for availability and freight to your location.",
+    "description": "Aftermarket seat back cushion for JCB telehandlers. Replaces OEM part number 40/910489. Fits 506-36, 535-95, and 535-140.\n\nConfirm your machine model and serial before ordering — seat rails and switch wiring can vary by production year.",
     "related_oem_parts": []
   },
   {

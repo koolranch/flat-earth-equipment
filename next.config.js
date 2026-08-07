@@ -412,6 +412,12 @@ const baseConfig = {
         destination: '/raymond-serial-number-lookup',
         permanent: true
       },
+      // Seat cushion correction: JC40/910489 is back, not bottom
+      {
+        source: '/parts/jcb-jc40-910489-seat-bottom-cushion',
+        destination: '/parts/jcb-40-910489-seat-back-cushion',
+        permanent: true
+      },
       {
         source: '/insights/raymond-forklift-serial-number',
         destination: '/raymond-serial-number-lookup',
