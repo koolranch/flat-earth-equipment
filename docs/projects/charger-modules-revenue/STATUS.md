@@ -1,9 +1,9 @@
 # Charger Modules — Status
 
 **Last updated:** 2026-08-10  
-**Active phase:** Phase 3 — win `6la20671` on Enersys SKU URL (monitor + de-cannibalize)  
+**Active phase:** Phase 3 — win `6la20671` on Enersys SKU URL (de-cannibalize shipped; monitor SERP)  
 **Deployed SEO recovery:** `b18f77e3` (2026-07-07) live on production  
-**Program commit:** Phases 1–4 code live; weekly rank monitor continues
+**Program commit:** Phases 1–4 code live; weekly rank monitor continues; Aug 10 STATUS merged via #11
 
 ## Phase checklist
 
@@ -12,7 +12,7 @@
 | 0 Foundation | ✅ | SSR schema, SKU pages, duplicate 301, weekly automation + secrets tested |
 | 1 Measurement | ✅ code | GA4 `view_item` / `add_to_cart` / `begin_checkout` + charger_* events; price ID list script |
 | 2 Conversion | ✅ code | Sticky CTA on SKU, core deposit math above fold, PN links on hub, repair prepaid claim removed |
-| 3 Win `6la20671` | 🔄 monitor | Title/H1 live with PN on Enersys SKU; SERP still awards hub — see Aug 10 snapshot |
+| 3 Win `6la20671` | 🔄 shipped Aug 10 | Hub ItemList links only (no nested Product/Offer); Enersys/Hawker legacy `/parts` → SKU; ACT `/parts/*-reman|repair` → `/charger-modules/*` |
 | 4 Expand | ✅ partial | Hyster 4092995 linked from hub/SKU; fleet quote `generate_lead` event. **Paid ads deferred** until organic + conversion baseline |
 
 ## Rank snapshot (Google US) — 2026-08-10 DataForSEO
@@ -56,9 +56,9 @@ Source: DataForSEO via `scripts/seo/charger-rank-check.ts` → `scripts/seo/rank
 3. Optional Phase 4b: Google Ads Search on proven PNs only — **do not launch** until GA4 purchase path is verified.  
 4. Repair inbound freight: copy no longer promises prepaid labels; confirm FSIP process if you later want to re-add that claim.
 
-## Next action (exactly one — Phase 3)
+## Next action (exactly one — post-deploy monitor)
 
-**Soften hub cannibalization for `6la20671`:** keep hub ItemList *links* to the Enersys SKU, but remove nested Product/Offer schema for Enersys+Hawker `6LA20671` from the hub so Google prefers `/charger-modules/enersys-6la20671` for the PN query. No deploy without human approval; do not touch checkout/webhooks.
+**Watch next Monday’s rank run** for: (1) `6la20671` winning URL flipping to `/charger-modules/enersys-6la20671`, (2) `81063658r` moving from legacy `/parts/...-repair` to `/charger-modules/act-quantum-36vdc`, (3) `act quantum charger module` returning to top 100. Optional: GSC URL Inspection on Enersys + ACT 36V SKU pages after deploy.
 
 ## Decision log
 
@@ -70,3 +70,4 @@ Source: DataForSEO via `scripts/seo/charger-rank-check.ts` → `scripts/seo/rank
 | 2026-07-27 | Proceed all phases: measurement + conversion + PN SEO + Hyster/fleet hooks; paid ads deferred |
 | 2026-08-03 | `6la20671` still ranks hub; next = hub Product-schema de-cannibalization (Phase 3), not keyword expand |
 | 2026-08-10 | `6la20671` still hub (#20); reaffirm hub Product-schema de-cannibalization; do not expand keywords yet |
+| 2026-08-10 | Merge #11; ship hub ItemList-only schema + ACT `/parts`→SKU 301s + Enersys/Hawker legacy→SKU |

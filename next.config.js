@@ -165,15 +165,15 @@ const baseConfig = {
       // EXISTING REDIRECTS: Charger Modules Consolidation
       // ============================================================
       
-      // Redirect old charger module product pages to new landing page
+      // Redirect old charger module product pages to dedicated SKU URLs (not hub)
       {
         source: '/parts/enersys-forklift-charger-module-6la20671',
-        destination: '/charger-modules',
+        destination: '/charger-modules/enersys-6la20671',
         permanent: true // 301 redirect - preserves SEO
       },
       {
         source: '/parts/hawker-forklift-charger-module-6la20671',
-        destination: '/charger-modules',
+        destination: '/charger-modules/hawker-6la20671',
         permanent: true // 301 redirect - preserves SEO
       },
       {
@@ -186,6 +186,38 @@ const baseConfig = {
         source: '/parts/:brand-forklift-charger-module-:model',
         destination: '/charger-modules',
         permanent: true // 301 redirect - preserves SEO
+      },
+      // Legacy ACT Quantum /parts reman|repair PDPs → canonical /charger-modules SKU pages
+      // (Aug 2026: 81063658r was ranking on /parts/act-quantum-36vdc-repair)
+      {
+        source: '/parts/act-quantum-36vdc-reman',
+        destination: '/charger-modules/act-quantum-36vdc',
+        permanent: true,
+      },
+      {
+        source: '/parts/act-quantum-36vdc-repair',
+        destination: '/charger-modules/act-quantum-36vdc',
+        permanent: true,
+      },
+      {
+        source: '/parts/act-quantum-48vdc-reman',
+        destination: '/charger-modules/act-quantum-48vdc',
+        permanent: true,
+      },
+      {
+        source: '/parts/act-quantum-48vdc-repair',
+        destination: '/charger-modules/act-quantum-48vdc',
+        permanent: true,
+      },
+      {
+        source: '/parts/act-quantum-80vdc-reman',
+        destination: '/charger-modules/act-quantum-80vdc',
+        permanent: true,
+      },
+      {
+        source: '/parts/act-quantum-80vdc-repair',
+        destination: '/charger-modules/act-quantum-80vdc',
+        permanent: true,
       },
       // Redirect placeholder insight to canonical charger modules landing
       {

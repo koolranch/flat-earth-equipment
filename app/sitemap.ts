@@ -62,9 +62,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const partItems = (parts ?? [])
     .filter((p) => p.slug)
-    // Old charger-module product slugs 301-redirect to /charger-modules;
+    // Old charger-module product slugs 301-redirect to /charger-modules/*;
     // listing them here sends Google redirecting URLs.
     .filter((p) => !/-forklift-charger-module-/.test(p.slug))
+    .filter(
+      (p) =>
+        !(
+          /^act-quantum-(36|48|80)vdc-(reman|repair)$/i.test(p.slug) ||
+          p.category === "Charger Modules"
+        )
+    )
     .map((p) => {
       // High-value categories get higher priority
       const isHighValue =

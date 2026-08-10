@@ -52,6 +52,9 @@ export default function ChargersLanding() {
         {/* JSON-LD Structured Data for SEO — raw inline script so it is present in the
             server-rendered HTML (next/script injects after hydration and search
             engines never see it). */}
+      {/* ItemList of SKU URLs only — no nested Product/Offer here.
+          Full Product+Offer schema lives on /charger-modules/[sku] so part-number
+          queries (esp. 6LA20671) prefer the dedicated pages over this hub. */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -65,28 +68,8 @@ export default function ChargersLanding() {
             "itemListElement": CHARGER_MODULES.map((module, moduleIndex) => ({
               "@type": "ListItem",
               "position": moduleIndex + 1,
+              "name": module.title,
               "url": `https://www.flatearthequipment.com/charger-modules/${module.slug}`,
-              "item": {
-                "@type": "Product",
-                "sku": module.partNumber,
-                "mpn": module.crossRefPn ?? module.partNumber,
-                "name": module.title,
-                "url": `https://www.flatearthequipment.com/charger-modules/${module.slug}`,
-                "brand": {
-                  "@type": "Brand",
-                  "name": module.brand
-                },
-                "image": module.imgExchange,
-                "offers": module.offers.map((offer) => ({
-                  "@type": "Offer",
-                  "name": `${module.title} (${offer.label})`,
-                  "price": (offer.price / 100).toFixed(2),
-                  "priceCurrency": "USD",
-                  "availability": "https://schema.org/InStock",
-                  "itemCondition": "https://schema.org/RefurbishedCondition",
-                  "priceValidUntil": new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-                }))
-              }
             }))
           })
         }}

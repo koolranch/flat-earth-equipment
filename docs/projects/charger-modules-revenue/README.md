@@ -54,11 +54,12 @@ Christopher provides external inputs only when needed (GSC screenshots, stock/co
 - [x] Removed unverified prepaid-label claims from Repair & Return offer copy
 - [x] Hub part-number index + stronger PN links on cards
 
-### Phase 3 — Win `6la20671` on Enersys SKU URL ✅ (code)
+### Phase 3 — Win `6la20671` on Enersys SKU URL 🔄 (monitor)
 
 - [x] Title/H1 lead with exact PN (Enersys/Hawker 6LA20671 + ACT cross-refs)
 - [x] Internal links from hub + `/battery-chargers`
-- [ ] Re-check SERP after deploy (Monday automation / 2–6 weeks)
+- [x] Hub ItemList links only (no nested Product/Offer); ACT `/parts/*-reman|repair` → SKU 301s
+- [ ] Re-check SERP after Aug 10 de-cannibalize deploy (Monday automation / 2–6 weeks)
 
 ### Phase 4 — Expand only where ROI is clear ✅ partial
 
