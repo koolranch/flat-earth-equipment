@@ -467,6 +467,18 @@ const baseConfig = {
         destination: '/parts/jcb-333-d8766-air-filter',
         permanent: true
       },
+      // JCB steer valve: SEO slug upgrade from stub PN slug
+      {
+        source: '/parts/332E3856',
+        destination: '/parts/jcb-332-e3856-steer-valve',
+        permanent: true
+      },
+      // JCB seat damper kit: SEO slug upgrade from stub PN slug
+      {
+        source: '/parts/40910659',
+        destination: '/parts/jcb-40-910659-seat-damper-kit',
+        permanent: true
+      },
       {
         source: '/insights/raymond-forklift-serial-number',
         destination: '/raymond-serial-number-lookup',
