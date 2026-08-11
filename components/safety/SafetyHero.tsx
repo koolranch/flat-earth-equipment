@@ -180,48 +180,52 @@ export default function SafetyHero({
               </span>
             </p>
 
-            {/* Mobile traffic is segmented: ads stay app-first, organic is web-first. */}
+            {/* Mobile is web-checkout-first for ad + organic (higher margin + Ads attribution). App is secondary. */}
             <div className="mt-8 w-full md:hidden">
-              {isAdTraffic ? (
-                <AppDownloadCTA
-                  placement={locale === "es" ? "safety_hero_es" : "safety_hero"}
-                  stateParam={stateParam}
-                  primaryLabel={copy.primaryCta}
-                  showWebFallback
-                  showTrustLine={false}
-                  className="items-center"
-                  locale={locale}
-                  t={dict}
-                  webCheckoutSource={locale === "es" ? "safety_hero_ad_es" : "safety_hero_ad"}
-                />
-              ) : (
-                <div className="flex flex-col items-center gap-4">
-                  <button
-                    type="button"
-                    onClick={() => handleStart(locale === "es" ? "safety_hero_organic_es" : "safety_hero_organic")}
-                    disabled={isLoading}
-                    className="group inline-flex w-full max-w-sm items-center justify-center rounded-xl bg-gradient-to-b from-orange-500 to-orange-600 px-8 py-4 font-semibold text-white shadow-[0_1px_2px_rgba(0,0,0,0.1),0_4px_8px_rgba(249,115,22,0.2)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_rgba(249,115,22,0.3)] active:scale-95 active:shadow-sm disabled:opacity-50 disabled:cursor-wait"
-                    aria-label={copy.organicPrimaryCta}
-                  >
-                    {isLoading ? copy.processing : copy.organicPrimaryCta}
-                  </button>
-                  <div className="flex flex-col items-center gap-2">
-                    <p className="text-sm text-slate-300">{copy.organicAppSecondary}</p>
-                    <AppDownloadCTA
-                      placement={locale === "es" ? "safety_hero_organic_app_es" : "safety_hero_organic_app"}
-                      stateParam={stateParam}
-                      primaryLabel={dict.safety.appDownload.pricingPrimaryLabel}
-                      showPrimaryButton
-                      showWebFallback={false}
-                      showTrustLine={false}
-                      className="items-center"
-                      buttonClassName="w-full max-w-sm px-6 py-3 text-base"
-                      locale={locale}
-                      t={dict}
-                    />
-                  </div>
+              <div className="flex flex-col items-center gap-4">
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleStart(
+                      isAdTraffic
+                        ? locale === "es"
+                          ? "safety_hero_ad_es"
+                          : "safety_hero_ad"
+                        : locale === "es"
+                          ? "safety_hero_organic_es"
+                          : "safety_hero_organic"
+                    )
+                  }
+                  disabled={isLoading}
+                  className="group inline-flex w-full max-w-sm items-center justify-center rounded-xl bg-gradient-to-b from-orange-500 to-orange-600 px-8 py-4 font-semibold text-white shadow-[0_1px_2px_rgba(0,0,0,0.1),0_4px_8px_rgba(249,115,22,0.2)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_16px_rgba(249,115,22,0.3)] active:scale-95 active:shadow-sm disabled:opacity-50 disabled:cursor-wait"
+                  aria-label={copy.organicPrimaryCta}
+                >
+                  {isLoading ? copy.processing : copy.organicPrimaryCta}
+                </button>
+                <div className="flex flex-col items-center gap-2">
+                  <p className="text-sm text-slate-300">{copy.organicAppSecondary}</p>
+                  <AppDownloadCTA
+                    placement={
+                      isAdTraffic
+                        ? locale === "es"
+                          ? "safety_hero_ad_app_es"
+                          : "safety_hero_ad_app"
+                        : locale === "es"
+                          ? "safety_hero_organic_app_es"
+                          : "safety_hero_organic_app"
+                    }
+                    stateParam={stateParam}
+                    primaryLabel={dict.safety.appDownload.pricingPrimaryLabel}
+                    showPrimaryButton
+                    showWebFallback={false}
+                    showTrustLine={false}
+                    className="items-center"
+                    buttonClassName="w-full max-w-sm px-6 py-3 text-base"
+                    locale={locale}
+                    t={dict}
+                  />
                 </div>
-              )}
+              </div>
               <p className="mt-3 text-xs text-slate-400 text-center">
                 {copy.trustLine}
               </p>

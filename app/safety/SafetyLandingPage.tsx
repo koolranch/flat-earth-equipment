@@ -51,8 +51,8 @@ export default async function SafetyLandingPage({
         .maybeSingle();
 
       // Enrollment lookup keeps the previous request-time behavior for
-      // authenticated visitors; the app-first CTAs below remain the primary
-      // conversion path for ad traffic.
+      // authenticated visitors; hero/sticky CTAs are web-checkout-first for
+      // ad + organic (app remains secondary).
       void enrollment;
     }
   }

@@ -32,7 +32,7 @@ export default {
     hero: {
       genericH1: 'Obtén tu certificación de montacargas en línea en menos de 30 minutos',
       stateH1: 'Obtén tu certificación de montacargas en {state} en menos de 30 minutos',
-      mobileSub: 'Entrena gratis en la app. Paga $49 cuando estés listo — o pide a tu empleador que pague.',
+      mobileSub: 'Certifícate en línea por $49 — o estudia gratis primero en la app. Opción de pago por empleador.',
       desktopLine: '30 minutos • $49 • Certificado el mismo día • Conforme a OSHA',
       stateValid: 'Válida para empleadores en {state}',
       stateOperators: '{count} operadores de {state} certificados',

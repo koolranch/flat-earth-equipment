@@ -35,7 +35,7 @@ export default {
     hero: {
       genericH1: 'Get Online Forklift Certification in Under 30 Minutes',
       stateH1: 'Get {state} Forklift Certified Online in Under 30 Minutes',
-      mobileSub: 'Train free on the app. Pay $49 when ready — or have your employer pay for you.',
+      mobileSub: 'Get certified online for $49 — or study free in the app first. Employer pay option available.',
       desktopLine: '30 Minutes • $49 • Same-day certificate • OSHA-aligned',
       stateValid: 'Valid for {state} employers',
       stateOperators: '{count} {state} operators certified',

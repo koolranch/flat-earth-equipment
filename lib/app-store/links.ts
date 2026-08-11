@@ -1,10 +1,10 @@
 /**
- * Single source of truth for the Forklift Certified mobile app links and the
- * /safety page's app-first behavior.
+ * Single source of truth for the Forklift Certified mobile app store links.
+ * `/safety` hero + sticky are web-checkout-first; these URLs power the
+ * secondary app CTAs and badges.
  *
  * To flip iOS to live in 1 line: set `IOS_APP_LIVE = true` and fill in
- * `IOS_APP_STORE_URL`. The `/safety` hero, sticky CTA, and pricing card pick
- * up the change automatically.
+ * `IOS_APP_STORE_URL`. Secondary app CTAs pick up the change automatically.
  */
 
 export const IOS_APP_LIVE = true;
