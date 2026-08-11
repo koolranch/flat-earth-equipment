@@ -450,6 +450,23 @@ const baseConfig = {
         destination: '/parts/jcb-40-910489-seat-back-cushion',
         permanent: true
       },
+      // JCB hydraulic filter assembly: SEO slug upgrade from stub PN slug
+      {
+        source: '/parts/58118087',
+        destination: '/parts/jcb-581-18087-hydraulic-filter-assembly',
+        permanent: true
+      },
+      {
+        source: '/parts/jcb-581-18087-hydraulic-filter',
+        destination: '/parts/jcb-581-18087-hydraulic-filter-assembly',
+        permanent: true
+      },
+      // JCB air filter: SEO slug upgrade from stub PN slug
+      {
+        source: '/parts/333D8766',
+        destination: '/parts/jcb-333-d8766-air-filter',
+        permanent: true
+      },
       {
         source: '/insights/raymond-forklift-serial-number',
         destination: '/raymond-serial-number-lookup',
