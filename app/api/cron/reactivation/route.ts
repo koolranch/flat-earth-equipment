@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
-import { runReactivation, formatSummary, isMondayEt, todayEt } from '@/lib/reactivation/engine.server'
+import { runReactivation, formatSummary, todayEt } from '@/lib/reactivation/engine.server'
 
 // Node runtime: engine uses supabase admin listUsers + long send loops
 export const runtime = 'nodejs'
@@ -9,9 +9,8 @@ export const dynamic = 'force-dynamic'
 
 /**
  * Scheduled reactivation / nurture sender (see vercel.json crons):
- *   ?run=am — weekdays ~11:30 AM ET: Track A daily; Track C (welcome/0%) daily;
- *             Track B AM half on Mondays
- *   ?run=pm — Mondays ~6:30 PM ET: Track B PM half only
+ *   ?run=am — weekdays ~11:30 AM ET: Track A + Track B (all eligible) + Track C
+ *   ?run=pm — legacy Monday slot; Track B moved to weekday AM (no-op)
  * Optional &dry=1 for a no-send preview.
  * Each real run emails a report to training@flatearthequipment.com.
  */
@@ -24,21 +23,22 @@ export async function GET(request: Request) {
   const url = new URL(request.url)
   const run = url.searchParams.get('run') === 'pm' ? 'pm' : 'am'
   const dry = url.searchParams.get('dry') === '1'
-  const monday = isMondayEt()
 
   try {
+    // Track B: weekday AM for all eligible (48h stall, 20–99%, one touch) — was
+    // Monday-only AM/PM split; daily cadence recovers mid-training stalls faster.
     const summary = await runReactivation(
       run === 'am'
-        ? { send: !dry, trackA: true, trackB: monday, trackC: true, slot: 'am' }
-        : { send: !dry, trackA: false, trackB: monday, trackC: false, slot: 'pm' }
+        ? { send: !dry, trackA: true, trackB: true, trackC: true, slot: 'all' }
+        : { send: !dry, trackA: false, trackB: false, trackC: false, slot: 'pm' }
     )
 
     const sent = summary.sends.filter((s) => !s.dryRun && !s.error).length
     const report = formatSummary(summary)
     console.log(report)
 
-    // PM slot outside Monday, or holiday hold: nothing to do — skip the report email
-    const noop = summary.skipped || (run === 'pm' && !monday) || (!dry && sent === 0 && summary.errors.length === 0)
+    // PM cron is a legacy no-op (B moved to weekday AM); holiday hold / zero-send: skip report
+    const noop = summary.skipped || run === 'pm' || (!dry && sent === 0 && summary.errors.length === 0)
     if (!dry && !noop) {
       const resend = new Resend(process.env.RESEND_API_KEY!)
       await resend.emails.send({
@@ -52,7 +52,6 @@ export async function GET(request: Request) {
     return NextResponse.json({
       run,
       dry,
-      monday,
       skipped: summary.skipped ?? null,
       eligible: summary.eligible,
       sent,

@@ -8,7 +8,8 @@
  * Usage:
  *   npx tsx scripts/reactivation-batch.ts                      # dry run, all tracks
  *   npx tsx scripts/reactivation-batch.ts --track a            # dry run, Track A only
- *   npx tsx scripts/reactivation-batch.ts --track b --slot am  # dry run, Track B AM half
+ *   npx tsx scripts/reactivation-batch.ts --track b            # dry run, Track B (all slots)
+ *   npx tsx scripts/reactivation-batch.ts --track b --slot am  # dry run, Track B AM hash half only
  *   npx tsx scripts/reactivation-batch.ts --track c            # dry run, Track C welcome/0%
  *   npx tsx scripts/reactivation-batch.ts --send --track a     # REAL SEND
  *   npx tsx scripts/reactivation-batch.ts --test you@x.com     # send template samples

@@ -6,7 +6,8 @@
  *   A touch 1 — 100% trained, unpaid, no passing exam, completed 36h–7d ago.
  *   A touch 2 — touch 1 sent >=5 days ago, still unpaid. Max 2 touches ever.
  *   B         — stalled 48h+ at 20–99%, unpaid, signup <=30d. Finish-training
- *               nudge only, NO checkout link. Weekly (Mondays), AM/PM split.
+ *               nudge only, NO checkout link. Weekday AM cron (slot all);
+ *               CLI may still filter AM/PM via --slot.
  *   C touch 1 — free signup welcome (no order, not web training_purchase), 1h–48h.
  *   C touch 2 — still 0% / never-started, signup 48h–30d. One touch. No checkout pitch.
  *
@@ -22,7 +23,7 @@ export interface RunOptions {
   trackA: boolean
   trackB: boolean
   trackC?: boolean         // welcome / 0% early funnel (default false for CLI back-compat)
-  slot: 'am' | 'pm' | 'all' // Track B split
+  slot: 'am' | 'pm' | 'all' // Track B hash split (cron uses 'all'; CLI optional)
   maxPerRun?: number        // safety cap, default 80
 }
 
