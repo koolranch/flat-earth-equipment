@@ -172,9 +172,9 @@ function isUsableProductImage(url: string | null | undefined): boolean {
 }
 
 /**
- * Unique per-SKU track cards (size + tread + model) — preferred for Shopping.
- * Falls back to the shared studio hero when a per-slug JPG is missing.
- * Do not use the shared hero for every track: Merchant rejects identical images.
+ * Per-slug JPG path stays stable so Center can recrawl the same image_link.
+ * Files are the clean studio hero (no size/tread text overlay) — do not
+ * regenerate the old TVH-style cards onto these paths.
  */
 function rubberTrackImageLink(slug: string): string {
   const localPath = path.join(RUBBER_TRACK_IMAGE_DIR, `${slug}.jpg`);

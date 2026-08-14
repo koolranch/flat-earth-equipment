@@ -1,6 +1,10 @@
 /**
  * Generate TVH-style rubber track product images for Google Shopping.
  *
+ * Do not re-run this for live Merchant SKUs — those now use the clean
+ * studio hero (no text overlay). This script's size/tread cards are the
+ * old look Center was still serving.
+ *
  * Renders a white-background track hero + size/tread spec bar per SKU,
  * writes JPGs to public/images/parts/tracks/{slug}.jpg, and optionally
  * updates parts.image_url in Supabase.
