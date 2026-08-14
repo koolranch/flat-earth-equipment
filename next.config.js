@@ -479,6 +479,12 @@ const baseConfig = {
         destination: '/parts/jcb-40-910659-seat-damper-kit',
         permanent: true
       },
+      // JCB camera kit: SEO slug upgrade from stub PN slug
+      {
+        source: '/parts/400B1585',
+        destination: '/parts/jcb-400-b1585-camera-kit',
+        permanent: true
+      },
       {
         source: '/insights/raymond-forklift-serial-number',
         destination: '/raymond-serial-number-lookup',
