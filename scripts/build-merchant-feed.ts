@@ -1,6 +1,13 @@
 /**
  * Build Google Merchant Center product feed.
  *
+ * Keep set (stable g:id — do not rewrite SKUs already in Center review):
+ *   rubber tracks, cab glass, lithium batteries, Navitas kits, seats,
+ *   reman charger modules, and JCB Buy Now parts. JCB brand-logo heroes
+ *   stay in the feed — Merchant has already approved some of those IDs,
+ *   and dropping them would take Active listings offline. True
+ *   placeholder.jpg / reman-as-new / Repair & Return rows stay out.
+ *
  * Generates two formats at the canonical paths Google reads from when
  * configured to fetch a remote feed:
  *   public/feed/google-merchant.json   — full debug feed (JSON)
@@ -105,6 +112,57 @@ function isSeatCategory(p: Pick<PartRow, "category">): boolean {
   );
 }
 
+function isLithiumBattery(p: Pick<PartRow, "category">): boolean {
+  return p.category === "Lithium Batteries";
+}
+
+function isNavitasKit(p: Pick<PartRow, "brand" | "slug">): boolean {
+  const brand = (p.brand || "").toLowerCase();
+  const slug = (p.slug || "").toLowerCase();
+  return brand === "navitas" || slug.startsWith("navitas-");
+}
+
+function isJcbPart(p: Pick<PartRow, "brand" | "category">): boolean {
+  const brand = (p.brand || "").toLowerCase();
+  const category = (p.category || "").toLowerCase();
+  return brand === "jcb" || category.startsWith("jcb");
+}
+
+/** Catalog lines we will submit while Merchant is still approving the first wave. */
+function isKeepSetPart(p: PartRow): boolean {
+  if (isRubberTrack(p)) return true;
+  if (isCabGlass(p)) return true;
+  if (isLithiumBattery(p)) return true;
+  if (isSeatCategory(p)) return true;
+  if (isNavitasKit(p)) return true;
+  if (isJcbPart(p)) return true;
+  return false;
+}
+
+function isRemanOrRepairService(p: Pick<PartRow, "name" | "description">): boolean {
+  const text = `${p.name} ${p.description || ""}`;
+  if (/\brepair\s*(and|&)\s*return\b/i.test(text)) return true;
+  return /\b(reman(?:ufactured)?|refurbished)\b/i.test(text);
+}
+
+function isPlaceholderImage(url: string): boolean {
+  return /placeholder\.jpg/i.test(url);
+}
+
+function isBrandLogoImage(url: string): boolean {
+  return /brand-logos/i.test(url);
+}
+
+/** Placeholder never ships. JCB may keep the brand-logo hero (already approved). */
+function isAllowedFeedImage(
+  url: string,
+  p: Pick<PartRow, "brand" | "category">
+): boolean {
+  if (isPlaceholderImage(url)) return false;
+  if (isBrandLogoImage(url) && !isJcbPart(p)) return false;
+  return true;
+}
+
 function isUsableProductImage(url: string | null | undefined): boolean {
   if (!url) return false;
   if (/placeholder\.jpg/i.test(url)) return false;
@@ -162,7 +220,9 @@ function productImageLink(p: PartRow): string {
   return DEFAULT_PRODUCT_IMAGE;
 }
 
-function customLabel0(category: string | null | undefined): string | undefined {
+function customLabel0ForCategory(
+  category: string | null | undefined
+): string | undefined {
   switch (category) {
     case "Rubber Tracks":
       return "priority_rubber_tracks";
@@ -179,6 +239,16 @@ function customLabel0(category: string | null | undefined): string | undefined {
     default:
       return undefined;
   }
+}
+
+function customLabel0ForPart(
+  p: Pick<PartRow, "category" | "brand" | "slug">
+): string | undefined {
+  if (isNavitasKit(p)) return "priority_navitas";
+  const fromCategory = customLabel0ForCategory(p.category);
+  if (fromCategory) return fromCategory;
+  if (isJcbPart(p)) return "priority_jcb";
+  return undefined;
 }
 
 /**
@@ -357,7 +427,7 @@ function partToFeedItem(p: PartRow): FeedItem | null {
 
   const track = isRubberTrack(p);
   const shipping = partShipping(p);
-  const label = customLabel0(p.category);
+  const label = customLabel0ForPart(p);
   const item: FeedItem = {
     id: p.sku || p.id,
     title: lithiumTitle || p.name,
@@ -423,7 +493,7 @@ function chargerModuleFeedItems(): FeedItem[] {
       google_product_category: googleProductCategory("Charger Modules"),
       product_type: "Charger Modules",
       identifier_exists: "no",
-      custom_label_0: customLabel0("Charger Modules"),
+      custom_label_0: customLabel0ForCategory("Charger Modules"),
       // Checkout currently does not add a charger-module freight line.
       shipping: [{ country: "US", service: "Ground", price: "0.00 USD" }],
     });
@@ -493,13 +563,26 @@ async function buildFeed() {
   if (error) throw new Error(`Supabase fetch failed: ${error.message}`);
   if (!parts) throw new Error("No parts returned from Supabase");
 
-  const rows = (parts as PartRow[]).filter((p) => !isLegacyChargerModulePart(p));
-  const skippedChargers = (parts as PartRow[]).length - rows.length;
+  const catalog = parts as PartRow[];
+  const skippedChargers = catalog.filter((p) => isLegacyChargerModulePart(p)).length;
+  const rows = catalog.filter(
+    (p) =>
+      !isLegacyChargerModulePart(p) &&
+      isKeepSetPart(p) &&
+      !isRemanOrRepairService(p)
+  );
+  const skippedOutsideKeepSet = catalog.length - skippedChargers - rows.length;
 
   const feedItems: FeedItem[] = [];
+  let skippedUnsafeImage = 0;
   for (const p of rows) {
     const item = partToFeedItem(p);
-    if (item) feedItems.push(item);
+    if (!item) continue;
+    if (!isAllowedFeedImage(item.image_link, p)) {
+      skippedUnsafeImage += 1;
+      continue;
+    }
+    feedItems.push(item);
   }
 
   const chargerItems = chargerModuleFeedItems();
@@ -519,7 +602,7 @@ async function buildFeed() {
   <channel>
     <title>Flat Earth Equipment Product Feed</title>
     <link>${SITE_URL}</link>
-    <description>Aftermarket forklift, JCB, charger module, rubber track, and lithium golf cart battery products.</description>
+    <description>Aftermarket rubber tracks, cab glass, lithium batteries, Navitas kits, seats, reman charger modules, and selected JCB parts.</description>
 ${itemsXml}
   </channel>
 </rss>
@@ -543,6 +626,8 @@ ${itemsXml}
   console.log(
     `   Skipped legacy /parts charger rows (redirect to hub): ${skippedChargers}`
   );
+  console.log(`   Skipped outside keep set: ${skippedOutsideKeepSet}`);
+  console.log(`   Skipped placeholder / non-JCB logo images: ${skippedUnsafeImage}`);
   console.log(`   Charger Reman Exchange offers: ${chargerItems.length}`);
   console.log(`   Free-shipping items: ${freeShipCount}`);
   console.log(`   Paid-shipping items (incl. lithium HazMat): ${paidShipCount}`);
