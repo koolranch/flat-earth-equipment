@@ -39,6 +39,8 @@ const SITE_URL = "https://www.flatearthequipment.com";
 const DEFAULT_PRODUCT_IMAGE = `${SITE_URL}/images/parts/placeholder.jpg`;
 /** Clean studio hero for rubber tracks (no text/watermarks — Merchant-safe). */
 const RUBBER_TRACK_HERO_IMAGE = `${SITE_URL}/images/parts/tracks/rubber-track-hero.jpg`;
+/** Bump when track JPG bytes change so Merchant recrawls (same path is cached). */
+const TRACK_IMAGE_CACHE_BUST = "20260815";
 const CAB_GLASS_IMAGE_DIR = path.resolve(process.cwd(), "public/images/parts/glass");
 const SEAT_IMAGE_DIR = path.resolve(process.cwd(), "public/images/parts/seats");
 const RUBBER_TRACK_IMAGE_DIR = path.resolve(
@@ -172,16 +174,16 @@ function isUsableProductImage(url: string | null | undefined): boolean {
 }
 
 /**
- * Per-slug JPG path stays stable so Center can recrawl the same image_link.
- * Files are the clean studio hero (no size/tread text overlay) — do not
+ * Per-slug JPG path stays stable; `?v=` changes when the file bytes change so
+ * Merchant recrawls instead of keeping the old text-card cache. Do not
  * regenerate the old TVH-style cards onto these paths.
  */
 function rubberTrackImageLink(slug: string): string {
   const localPath = path.join(RUBBER_TRACK_IMAGE_DIR, `${slug}.jpg`);
-  if (existsSync(localPath)) {
-    return `${SITE_URL}/images/parts/tracks/${slug}.jpg`;
-  }
-  return RUBBER_TRACK_HERO_IMAGE;
+  const base = existsSync(localPath)
+    ? `${SITE_URL}/images/parts/tracks/${slug}.jpg`
+    : RUBBER_TRACK_HERO_IMAGE;
+  return `${base}?v=${TRACK_IMAGE_CACHE_BUST}`;
 }
 
 /** Unique per-SKU cab glass cards — never fall back to the shared placeholder. */
