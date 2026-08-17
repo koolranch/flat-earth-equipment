@@ -3863,35 +3863,6 @@ Most operators replace tracks in pairs: running a new track opposite a worn one 
       </g:shipping>
     </item>
     <item>
-      <g:id>RT-T550-400X86X49-C</g:id>
-      <title>Bobcat T550 Rubber Track 400x86x49 C Pattern</title>
-      <description>Aftermarket replacement rubber track (not OEM). Free shipping and a 2-year warranty included.
-
-Replacement rubber track for Bobcat T550 compact track loaders running the 400mm-wide track option — 400mm wide, 86mm pitch, 49 links. The C-lug tread pattern delivers dependable traction in dirt, gravel, and mixed conditions.
-
-Verified for Bobcat T550 serial prefixes A7UJ, AJZV, B57T running the 400mm-wide track option. Measure your current track width before ordering. Not sure which prefix your machine is? Find your serial plate with our Bobcat serial number lookup and match the first four characters.
-
-Free shipping and a 2-year warranty on every rubber track — no freight surcharge at checkout.
-
-Most operators replace tracks in pairs: running a new track opposite a worn one causes uneven loading that shortens the life of both. Order quantity 2 for a full set.</description>
-      <link>https://www.flatearthequipment.com/parts/bobcat-t550-rubber-track-400x86x49</link>
-      <g:image_link>https://www.flatearthequipment.com/images/parts/tracks/bobcat-t550-rubber-track-400x86x49.jpg?v=20260815</g:image_link>
-      <g:price>949.00 USD</g:price>
-      <g:brand>Bobcat</g:brand>
-      <g:mpn>RT-T550-400X86X49-C</g:mpn>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:google_product_category>Business &amp; Industrial &gt; Construction &gt; Construction Machinery Accessories</g:google_product_category>
-      <g:product_type>Rubber Tracks</g:product_type>
-      <g:custom_label_0>priority_rubber_tracks</g:custom_label_0>
-      <g:shipping>
-        <g:country>US</g:country>
-        <g:service>Ground</g:service>
-        <g:price>0.00 USD</g:price>
-      </g:shipping>
-    </item>
-    <item>
       <g:id>RT-T190-320X86X49-C</g:id>
       <title>Bobcat T190 Rubber Track 320x86x49 C Pattern</title>
       <description>Aftermarket replacement rubber track (not OEM). Free shipping and a 2-year warranty included.
@@ -6106,6 +6077,38 @@ Most operators replace tracks in pairs: running a new track opposite a worn one 
       </g:shipping>
     </item>
     <item>
+      <g:id>RT-T550-400X86X49-C</g:id>
+      <title>Bobcat T550 Rubber Track 400x86x49 C Pattern</title>
+      <description>Aftermarket replacement rubber track (not OEM). Free shipping and a 2-year warranty included.
+
+Replacement rubber track for Bobcat T550 compact track loaders running the 400mm-wide track option — 400mm wide, 86mm pitch, 49 links. The C-lug tread pattern delivers dependable traction in dirt, gravel, and mixed conditions.
+
+Replaces Bobcat 7316759 (also listed as 6685650).
+
+Verified for Bobcat T550 serial prefixes A7UJ, AJZV, B57T running the 400mm-wide track option. Measure your current track width before ordering. Not sure which prefix your machine is? Find your serial plate with our Bobcat serial number lookup and match the first four characters.
+
+Free shipping and a 2-year warranty on every rubber track — no freight surcharge at checkout.
+
+Most operators replace tracks in pairs: running a new track opposite a worn one causes uneven loading that shortens the life of both. Order quantity 2 for a full set.</description>
+      <link>https://www.flatearthequipment.com/parts/bobcat-t550-rubber-track-400x86x49</link>
+      <g:image_link>https://www.flatearthequipment.com/images/parts/tracks/bobcat-t550-rubber-track-400x86x49.jpg?v=20260815</g:image_link>
+      <g:price>949.00 USD</g:price>
+      <g:brand>Bobcat</g:brand>
+      <g:mpn>RT-T550-400X86X49-C</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Construction &gt; Construction Machinery Accessories</g:google_product_category>
+      <g:product_type>Rubber Tracks</g:product_type>
+      <g:custom_label_0>priority_rubber_tracks</g:custom_label_0>
+      <g:shipping_weight>416 lb</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>320A7420</g:id>
       <title>JCB 320/A7420 Fuel Return Line</title>
       <description>Aftermarket fuel return / leak-off line assembly for JCB diesel engines. Replaces OEM part number 320/A7420. Routes injector leak-off fuel back to the tank to help prevent leaks and keep fuel system pressure stable.</description>
@@ -7461,6 +7464,8 @@ Most operators replace tracks in pairs: running a new track opposite a worn one 
 
 Replacement rubber track for Bobcat T190 compact track loaders running the 400mm-wide track option — 400mm wide, 86mm pitch, 49 links. Measure your current track width before ordering; not every T190 uses this size.
 
+Replaces Bobcat 7316759 (also listed as 6685650).
+
 Fits Bobcat T190 serial prefixes 5193, 5194, 5270, 5279, 5316, 5317, A3LN, A3LP. Machines with prefixes 5277 or 5278 use a different wide-track configuration — confirm your serial plate before ordering. Not sure which prefix your machine is? Find your serial plate with our Bobcat serial number lookup and match the first four characters.
 
 Free shipping and a 2-year warranty on every rubber track — no freight surcharge at checkout.
@@ -7477,6 +7482,7 @@ Most operators replace tracks in pairs: running a new track opposite a worn one 
       <g:google_product_category>Business &amp; Industrial &gt; Construction &gt; Construction Machinery Accessories</g:google_product_category>
       <g:product_type>Rubber Tracks</g:product_type>
       <g:custom_label_0>priority_rubber_tracks</g:custom_label_0>
+      <g:shipping_weight>416 lb</g:shipping_weight>
       <g:shipping>
         <g:country>US</g:country>
         <g:service>Ground</g:service>
@@ -7571,6 +7577,38 @@ Most operators replace tracks in pairs: running a new track opposite a worn one 
       </g:shipping>
     </item>
     <item>
+      <g:id>RT-T590-400X86X49-C</g:id>
+      <title>Bobcat T590 Rubber Track 400x86x49 C Pattern</title>
+      <description>Aftermarket replacement rubber track (not OEM). Free shipping and a 2-year warranty included.
+
+Replacement rubber track for Bobcat T590 compact track loaders running the 400mm-wide track option — 400mm wide, 86mm pitch, 49 links. The C-lug tread pattern delivers dependable traction in dirt, gravel, and mixed conditions.
+
+Replaces Bobcat 7316759 (also listed as 6685650).
+
+Verified for Bobcat T590 serial prefixes A3NR, A3NS, ALJU, B378, B3Z7, B3ZA running the 400mm-wide track option. All six vendor serial breaks return this same part number — measure your current track width before ordering. Not sure which prefix your machine is? Find your serial plate with our Bobcat serial number lookup and match the first four characters.
+
+Free shipping and a 2-year warranty on every rubber track — no freight surcharge at checkout.
+
+Most operators replace tracks in pairs: running a new track opposite a worn one causes uneven loading that shortens the life of both. Order quantity 2 for a full set.</description>
+      <link>https://www.flatearthequipment.com/parts/bobcat-t590-rubber-track-400x86x49</link>
+      <g:image_link>https://www.flatearthequipment.com/images/parts/tracks/bobcat-t590-rubber-track-400x86x49.jpg?v=20260815</g:image_link>
+      <g:price>949.00 USD</g:price>
+      <g:brand>Bobcat</g:brand>
+      <g:mpn>RT-T590-400X86X49-C</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Construction &gt; Construction Machinery Accessories</g:google_product_category>
+      <g:product_type>Rubber Tracks</g:product_type>
+      <g:custom_label_0>priority_rubber_tracks</g:custom_label_0>
+      <g:shipping_weight>416 lb</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>RT-T590-400X86X49-Z</g:id>
       <title>Bobcat T590 Rubber Track 400x86x49 Zig-Zag Pattern</title>
       <description>Aftermarket replacement rubber track (not OEM). Free shipping and a 2-year warranty included.
@@ -7587,35 +7625,6 @@ Most operators replace tracks in pairs: running a new track opposite a worn one 
       <g:price>1149.00 USD</g:price>
       <g:brand>Bobcat</g:brand>
       <g:mpn>RT-T590-400X86X49-Z</g:mpn>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:google_product_category>Business &amp; Industrial &gt; Construction &gt; Construction Machinery Accessories</g:google_product_category>
-      <g:product_type>Rubber Tracks</g:product_type>
-      <g:custom_label_0>priority_rubber_tracks</g:custom_label_0>
-      <g:shipping>
-        <g:country>US</g:country>
-        <g:service>Ground</g:service>
-        <g:price>0.00 USD</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>RT-T590-400X86X49-C</g:id>
-      <title>Bobcat T590 Rubber Track 400x86x49 C Pattern</title>
-      <description>Aftermarket replacement rubber track (not OEM). Free shipping and a 2-year warranty included.
-
-Replacement rubber track for Bobcat T590 compact track loaders running the 400mm-wide track option — 400mm wide, 86mm pitch, 49 links. The C-lug tread pattern delivers dependable traction in dirt, gravel, and mixed conditions.
-
-Verified for Bobcat T590 serial prefixes A3NR, A3NS, ALJU, B378, B3Z7, B3ZA running the 400mm-wide track option. All six vendor serial breaks return this same part number — measure your current track width before ordering. Not sure which prefix your machine is? Find your serial plate with our Bobcat serial number lookup and match the first four characters.
-
-Free shipping and a 2-year warranty on every rubber track — no freight surcharge at checkout.
-
-Most operators replace tracks in pairs: running a new track opposite a worn one causes uneven loading that shortens the life of both. Order quantity 2 for a full set.</description>
-      <link>https://www.flatearthequipment.com/parts/bobcat-t590-rubber-track-400x86x49</link>
-      <g:image_link>https://www.flatearthequipment.com/images/parts/tracks/bobcat-t590-rubber-track-400x86x49.jpg?v=20260815</g:image_link>
-      <g:price>949.00 USD</g:price>
-      <g:brand>Bobcat</g:brand>
-      <g:mpn>RT-T590-400X86X49-C</g:mpn>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
       <g:identifier_exists>no</g:identifier_exists>

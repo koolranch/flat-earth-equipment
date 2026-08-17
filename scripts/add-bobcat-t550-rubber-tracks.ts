@@ -38,6 +38,9 @@ type TrackSku = {
   cost: number;
   sellPrice: number;
   vendorPn: string;
+  oemPn?: string;
+  oemPnSuperseded?: string;
+  weightLbs?: number;
   intro: string;
   fitmentNote: string;
 };
@@ -65,6 +68,9 @@ const TRACKS: TrackSku[] = [
     cost: 618.06,
     sellPrice: 949,
     vendorPn: 'TSA/SY400X86X49C',
+    oemPn: '7316759',
+    oemPnSuperseded: '6685650',
+    weightLbs: 416,
     fitmentNote: `Verified for Bobcat T550 serial prefixes ${VERIFIED_PREFIXES.join(', ')} running the 400mm-wide track option. Measure your current track width before ordering.`,
     intro:
       'Replacement rubber track for Bobcat T550 compact track loaders running the 400mm-wide track option — 400mm wide, 86mm pitch, 49 links. The C-lug tread pattern delivers dependable traction in dirt, gravel, and mixed conditions.',
@@ -128,6 +134,9 @@ async function addTrack(t: TrackSku) {
   console.log(`✅ Stripe Price: ${stripePrice.id}`);
 
   const fitmentBlock = `${t.fitmentNote} Not sure which prefix your machine is? Find your serial plate with our Bobcat serial number lookup and match the first four characters.`;
+  const oemBlock = t.oemPn
+    ? `\n\nReplaces Bobcat ${t.oemPn}${t.oemPnSuperseded ? ` (also listed as ${t.oemPnSuperseded})` : ''}.`
+    : '';
 
   const row = {
     ...(existing?.id ? { id: existing.id } : {}),
@@ -135,9 +144,11 @@ async function addTrack(t: TrackSku) {
     slug: t.slug,
     sku: t.sku,
     brand: 'Bobcat',
+    ...(t.oemPn ? { oem_reference: t.oemPn } : {}),
     category: 'Rubber Tracks',
     category_slug: 'rubber-tracks',
-    description: `${t.intro}\n\n${fitmentBlock}\n\n${SHARED_TAIL}`,
+    description: `${t.intro}${oemBlock}\n\n${fitmentBlock}\n\n${SHARED_TAIL}`,
+    ...(t.weightLbs ? { weight_lbs: t.weightLbs } : {}),
     price: t.sellPrice,
     price_cents: Math.round(t.sellPrice * 100),
     sales_type: 'direct',
@@ -150,6 +161,8 @@ async function addTrack(t: TrackSku) {
     metadata: {
       cost_wholesale: t.cost,
       vendor_pn: t.vendorPn,
+      ...(t.oemPn ? { oem_pn: t.oemPn } : {}),
+      ...(t.oemPnSuperseded ? { oem_pn_superseded: t.oemPnSuperseded } : {}),
       vendor_supply_chain: 'tvh',
       track_size: t.size,
       tread_pattern: t.treadPattern,

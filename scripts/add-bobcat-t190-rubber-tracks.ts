@@ -64,6 +64,9 @@ type TrackSku = {
   cost: number;
   sellPrice: number;
   vendorPn: string;
+  oemPn?: string;
+  oemPnSuperseded?: string;
+  weightLbs?: number;
   intro: string;
   serialPrefixes: string[];
   fitmentNote: string;
@@ -93,6 +96,9 @@ const TRACKS: TrackSku[] = [
     cost: 618.06,
     sellPrice: 949,
     vendorPn: 'TSA/SY400X86X49C',
+    oemPn: '7316759',
+    oemPnSuperseded: '6685650',
+    weightLbs: 416,
     serialPrefixes: WIDE_PREFIXES,
     fitmentNote: `Fits Bobcat T190 serial prefixes ${WIDE_PREFIXES.join(', ')}. Machines with prefixes 5277 or 5278 use a different wide-track configuration — confirm your serial plate before ordering.`,
     intro:
@@ -149,6 +155,9 @@ async function addTrack(t: TrackSku) {
   console.log(`✅ Stripe Price: ${stripePrice.id}`);
 
   const fitmentBlock = `${t.fitmentNote} Not sure which prefix your machine is? Find your serial plate with our Bobcat serial number lookup and match the first four characters.`;
+  const oemBlock = t.oemPn
+    ? `\n\nReplaces Bobcat ${t.oemPn}${t.oemPnSuperseded ? ` (also listed as ${t.oemPnSuperseded})` : ''}.`
+    : '';
 
   const row = {
     ...(existing?.id ? { id: existing.id } : {}),
@@ -156,9 +165,11 @@ async function addTrack(t: TrackSku) {
     slug: t.slug,
     sku: t.sku,
     brand: 'Bobcat',
+    ...(t.oemPn ? { oem_reference: t.oemPn } : {}),
     category: 'Rubber Tracks',
     category_slug: 'rubber-tracks',
-    description: `${t.intro}\n\n${fitmentBlock}\n\n${SHARED_TAIL}`,
+    description: `${t.intro}${oemBlock}\n\n${fitmentBlock}\n\n${SHARED_TAIL}`,
+    ...(t.weightLbs ? { weight_lbs: t.weightLbs } : {}),
     price: t.sellPrice,
     price_cents: Math.round(t.sellPrice * 100),
     sales_type: 'direct',
@@ -171,6 +182,8 @@ async function addTrack(t: TrackSku) {
     metadata: {
       cost_wholesale: t.cost,
       vendor_pn: t.vendorPn,
+      ...(t.oemPn ? { oem_pn: t.oemPn } : {}),
+      ...(t.oemPnSuperseded ? { oem_pn_superseded: t.oemPnSuperseded } : {}),
       vendor_supply_chain: 'tvh',
       track_size: t.size,
       tread_pattern: t.treadPattern,

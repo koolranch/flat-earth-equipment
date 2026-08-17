@@ -9,13 +9,13 @@ Bobcat,T770,"AUYB,A3P9,A3P8",TSA/SY450X86X55C,,450x86x55,C pattern,"Track - Rubb
 Bobcat,T770,"AUYB,A3P9,A3P8",TSA/SY44454322,,450x84x56,C pattern,"Track - Rubber 450x84x56 - B-Style C Pattern (84-pitch interchange)",1350,1595,yes,alternate pitch; fits all 3 breaks
 Bobcat,T770,"AUYB,A3P9,A3P8",TSA/SY320X84X56C,,320x84x56,C pattern,"Track - Rubber 320x84x56 - B-Style C Pattern (narrow width option)",715.01,949,yes,narrow fit; fits all 3 breaks
 Bobcat,T190,"5193,5194,5270,5277,5278,5279,5316,5317,A3LN,A3LP",TSA/SY320X86X49C,,320x86x49,C pattern,"Track - Rubber 320x86x49 - B-Style C Pattern (narrow; all 10 breaks)",800,999,yes,primary listing; fits all 10 prefixes; comps Advance ~$930 Monster $849-1049
-Bobcat,T190,"5193,5194,5270,5279,5316,5317,A3LN,A3LP",TSA/SY400X86X49C,,400x86x49,C pattern,"Track - Rubber 400x86x49 - B-Style C Pattern (18in wide option)",618.06,949,yes,8/10 prefixes — NOT 5277 or 5278; comps SkidHeaven ~$1100+
+Bobcat,T190,"5193,5194,5270,5279,5316,5317,A3LN,A3LP",TSA/SY400X86X49C,7316759,400x86x49,C pattern,"Track - Rubber 400x86x49 - B-Style C Pattern (18in wide option)",618.06,949,yes,8/10 prefixes — NOT 5277 or 5278; OEM 7316759 (superseded 6685650); comps SkidHeaven ~$1100+
 Bobcat,T190,"5277,5278",TSA/SY6766330009,,320x84x50,C pattern,"Track - Rubber 320x84x50 - B-Style C Pattern (84-pitch interchange)",596.28,749,yes,5277+5278 only
 Caterpillar,259D/259D3,"259D: FTL; 259D3: TE9,MC9,TLS,CW9",TSA/SY84826,,400x86x53,C pattern,"Track - Rubber 400x86x53 - B-Style C Pattern (wide option)",975,1099,yes,all vendor breaks verified; comps Monster $949-1169 Prowler ~$1261
 Caterpillar,259D/259D3,"259D: FTL; 259D3: TE9,MC9,TLS,CW9",TSA/CT357-0232,,320x86x53,Block,"Track - Rubber 320x86x53 - Block tread (narrow)",860,1049,yes,all vendor breaks verified; comps Monster/Prowler ~$1016+
 Caterpillar,259D,FTL,TSA/SY320X86X53Z,,320x86x53,Zig-zag,"Track - Rubber 320x86x53 - B-Style Zig-Zag Pattern (narrow)",,,unknown,259D FTL only optional variant — not listed
 Bobcat,T590,"A3NR,A3NS,ALJU,B378,B3Z7,B3ZA",TSA/SY320X86X49C,,320x86x49,C pattern,"Track - Rubber 320x86x49 - B-Style C Pattern (narrow; same PN as T190)",800,999,yes,all 6 vendor breaks verified 2026-07-07 — identical 4-PN set on every break; A3NU not yet checked
-Bobcat,T590,"A3NR,A3NS,ALJU,B378,B3Z7,B3ZA",TSA/SY400X86X49C,,400x86x49,C pattern,"Track - Rubber 400x86x49 - B-Style C Pattern (wide option)",618.06,949,yes,all 6 breaks verified; measure current track width before ordering
+Bobcat,T590,"A3NR,A3NS,ALJU,B378,B3Z7,B3ZA",TSA/SY400X86X49C,7316759,400x86x49,C pattern,"Track - Rubber 400x86x49 - B-Style C Pattern (wide option)",618.06,949,yes,all 6 breaks verified; OEM 7316759 (superseded 6685650); measure current track width before ordering
 Bobcat,T590,"A3NR,A3NS,ALJU,B378,B3Z7,B3ZA",TSA/SY84945,,400x86x49,Zig-zag,"Track - Rubber 400x86x49 - B-Style Zig-Zag Pattern",900,1149,yes,all 6 breaks verified; priced premium on free ship + 2yr warranty vs comps adding freight
 Bobcat,T590,"A3NR,A3NS,ALJU,B378,B3Z7,B3ZA",TSA/SY320X86X49Z,,320x86x49,Zig-zag,"Track - Rubber 320x86x49 - B-Style Zig-Zag Pattern",800,1049,yes,all 6 breaks verified; alternate tread to C-pattern narrow listing
 Kubota,SVL65-2,SVL65-2 vendor model filter (no serial breaks),TSA/SY320X86X52C,,320x86x52,C pattern,"Track - Rubber 320x86x52 - B-Style C Pattern (narrow)",840,1049,yes,same PN as SVL75 narrow — SVL65-2 vendor filter only
@@ -51,7 +51,7 @@ Bobcat,T66,"B51V,B4SB",TSA/SY84940,,400x86x50,Zig-zag,"Track - Rubber 400x86x50 
 Bobcat,T66,"B51V,B4SB",TSA/BC7394912,7394912,320x86x50,Straight bar,"Track - Rubber 320x86x50 - B-Style Straight Bar (Bobcat OEM)",900,1149,yes,OEM cross-ref 7394912
 Bobcat,T66,"B51V,B4SB",TSA/BC7408151,7408151,400x86x50,Straight bar,"Track - Rubber 400x86x50 - B-Style Straight Bar (Bobcat OEM)",885.61,1129,backorder,OEM cross-ref 7408151 — vendor backordered no ETA
 Bobcat,T550,"A7UJ,AJZV,B57T",TSA/SY320X86X49C,,320x86x49,C pattern,"Track - Rubber 320x86x49 - B-Style C Pattern (narrow)",800,999,yes,same PN as T590 — A7UJ+AJZV+B57T verified identical 4-PN set
-Bobcat,T550,"A7UJ,AJZV,B57T",TSA/SY400X86X49C,,400x86x49,C pattern,"Track - Rubber 400x86x49 - B-Style C Pattern (wide)",618.06,949,yes,same PN as T590
+Bobcat,T550,"A7UJ,AJZV,B57T",TSA/SY400X86X49C,7316759,400x86x49,C pattern,"Track - Rubber 400x86x49 - B-Style C Pattern (wide)",618.06,949,yes,same PN as T590; OEM 7316759 (superseded 6685650)
 Bobcat,T550,"A7UJ,AJZV,B57T",TSA/SY84945,,400x86x49,Zig-zag,"Track - Rubber 400x86x49 - B-Style Zig-Zag Pattern",900,1149,yes,same PN as T590
 Bobcat,T550,"A7UJ,AJZV,B57T",TSA/SY320X86X49Z,,320x86x49,Zig-zag,"Track - Rubber 320x86x49 - B-Style Zig-Zag Pattern",800,1049,yes,same PN as T590
 Bobcat,MT85,B3TR,TSA/SY180X72X45C,,180x72x45,C pattern,"Track - Rubber 180x72x45 - B-Style C Pattern (narrow mini CTL)",250,379,yes,B3TR verified; vendor freight $41/pair absorbed (~$20.50/track) — free_freight flag kept for checkout consistency
