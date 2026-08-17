@@ -1,9 +1,9 @@
 # Rubber Tracks — Status
 
-**Last updated:** 2026-08-10  
+**Last updated:** 2026-08-17  
 **Active phase:** Phase 1 (measurement)  
 **Organic track sales baseline:** $0 known (no recent track Stripe sales)  
-**Weekly automation:** ran Mon 2026-08-10 (DataForSEO live regular, Google US top 100)  
+**Weekly automation:** ran Mon 2026-08-17 (DataForSEO live regular, Google US top 100)  
 **Merchant:** Shopping accepted as co-equal organic channel for 1/day math (paid Search still deferred)
 
 ## Phase checklist
@@ -11,17 +11,17 @@
 | Phase | Status | Notes |
 |-------|--------|-------|
 | 0 Foundation | ✅ | Docs + rank script + baseline |
-| 1 Measurement | 🟡 | Weekly snapshot restored; Case footholds LOST; order attribution unverified |
+| 1 Measurement | 🟡 | Weekly snapshot OK; Case footholds still out (2nd week); order attribution unverified |
 | 2 Conversion | ⬜ | Hub/PDP UX largely shipped; sidebar→hub polish optional |
 | 3 Model SERP wins | ⬜ | Recover Case TV370 first; Bobcat T650/T770 still out |
 | 4 Expand | 🟡 | Merchant: 65 tracks; feed fix shipped — awaiting Center review clear |
 
-## Rank snapshot (Google US) — 2026-08-10 vs Aug 4
+## Rank snapshot (Google US) — 2026-08-17 vs Aug 10
 
-| Keyword | Aug 4 | Aug 10 | Winning URL | Top competitor | Notes |
-|---------|------:|-------:|-------------|----------------|-------|
-| `case tv370 tracks` | **#60** | out **LOST** | — | skidsteers.com | Was correct PDP `/parts/case-tv370-rubber-track-450x86x55` (HTTP 200) |
-| `case tv450 tracks` | **#60** | out **LOST** | — | skidheaven.com | Was `-block` PDP (HTTP 200); primary non-block also 200 |
+| Keyword | Aug 10 | Aug 17 | Winning URL | Top competitor | Notes |
+|---------|-------:|-------:|-------------|----------------|-------|
+| `case tv370 tracks` | out | out | — | skidsteers.com | Still LOST from #60 foothold; PDP `/parts/case-tv370-rubber-track-450x86x55` HTTP 200 |
+| `case tv450 tracks` | out | out | — | skidheaven.com | Still LOST from #60; `-block` + primary PDPs both HTTP 200 |
 | `skid steer rubber tracks` | out | out | — | skidheaven.com | Hub target — still out |
 | `compact track loader tracks` | out | out | — | grizzlyrubbertracks.com | Hub target — still out |
 | `bobcat rubber tracks` | out | out | — | skidheaven.com | |
@@ -29,9 +29,9 @@
 | `bobcat t770 tracks` | out | out | — | shop.bobcat.com | OEM SERP |
 | `bobcat t590 tracks` | out | out | — | mclarenindustries.com | |
 | `bobcat t550 tracks` | out | out | — | skidheaven.com | |
-| `bobcat t190 tracks` | out | out | — | unitedskidtracks.com | |
-| `bobcat t66 tracks` | out | out | — | mclarenindustries.com | |
-| `bobcat mt85 tracks` | out | out | — | skidheaven.com | |
+| `bobcat t190 tracks` | out | out | — | skidsteers.com | Competitor shifted vs Aug 10 (was unitedskidtracks) |
+| `bobcat t66 tracks` | out | out | — | skidsteers.com | Competitor shifted vs Aug 10 (was mclaren) |
+| `bobcat mt85 tracks` | out | out | — | mclarenindustries.com | |
 | `cat 259d tracks` | out | out | — | unitedskidtracks.com | |
 | `cat 279d tracks` | out | out | — | parts.cat.com | OEM SERP |
 | `cat 289d tracks` | out | out | — | skidsteers.com | |
@@ -43,16 +43,16 @@
 | `john deere 317g tracks` | out | out | — | skidheaven.com | |
 | `john deere 325g tracks` | out | out | — | skidheaven.com | |
 | `john deere 331g tracks` | out | out | — | skidheaven.com | |
-| `john deere 333g tracks` | out | out | — | unitedskidtracks.com | |
-| `jcb rubber tracks` | out | out | — | greenshieldsjcb.com | |
+| `john deere 333g tracks` | out | out | — | skidheaven.com | Competitor shifted vs Aug 10 (was unitedskidtracks) |
+| `jcb rubber tracks` | out | out | — | jcb.com | Competitor shifted vs Aug 10 (was greenshieldsjcb) |
 | `jcb 1cxt tracks` | out | out | — | grizzlyrubbertracks.com | |
 | `jcb 150t tracks` | out | out | — | store.rubbertrax.com | |
 | `jcb 190t tracks` | out | out | — | monstertires.com | |
 | `takeuchi tl8 tracks` | out | out | — | skidheaven.com | |
 
-**Summary:** 0/29 ranked · 0 top 10 · 0 top 30 · 0 API errors · **2 LOST** (Case TV370 + TV450, both prior #60).  
+**Summary:** 0/29 ranked · 0 top 10 · 0 top 30 · 0 API errors · **no new wins/losses** (Case TV370 + TV450 remain out after Aug 10 LOST).  
 Head terms do **not** land on `/rubber-tracks` hub. No wrong winning URLs this week (nothing ranked).  
-Full rows: `scripts/seo/rank-snapshots/rubber-tracks/2026-08-10.json`.
+Full rows: `scripts/seo/rank-snapshots/rubber-tracks/2026-08-17.json`.
 
 Source: DataForSEO via `scripts/seo/rubber-track-rank-check.ts` (weekly automation).
 
@@ -91,7 +91,7 @@ Feed: `public/feed/google-merchant.{xml,json}` · live after deploy of this comm
 
 ## Next action
 
-**Exactly one (Phase 1):** Confirm Google indexing + GA4 organic landing coverage for the Case TV370 money PDP (`/parts/case-tv370-rubber-track-450x86x55`) — the only baseline foothold (#60 Jul 27 → #60 Aug 4 → out Aug 10). PDPs still HTTP 200; do not spray title/H1 work across the 27 never-ranked terms until this URL’s crawl/index/attribution path is verified.
+**Exactly one (Phase 1):** Confirm Google indexing + GA4 organic landing coverage for the Case TV370 money PDP (`/parts/case-tv370-rubber-track-450x86x55`) — the only baseline foothold (#60 Jul 27 → #60 Aug 4 → out Aug 10 → still out Aug 17, second consecutive week). PDP still HTTP 200; do not spray title/H1 work across never-ranked terms until this URL’s crawl/index/attribution path is verified.
 
 ## Decision log
 
@@ -107,3 +107,4 @@ Feed: `public/feed/google-merchant.{xml,json}` · live after deploy of this comm
 | 2026-08-01 | Merchant track feed: unique RT-* MPN + aftermarket disclosure (regen) |
 | 2026-08-04 | Manual rank pull: 1→2 ranked; `case tv450 tracks` NEW #60; TV370 held #60; Bobcat still out |
 | 2026-08-10 | Weekly pull: 2→0 ranked; Case TV370 + TV450 both LOST from #60; 0 API errors; hub still out on head terms |
+| 2026-08-17 | Weekly pull: 0/29 ranked; Case footholds still out (2nd week); 0 API errors; no wrong winning URLs |
