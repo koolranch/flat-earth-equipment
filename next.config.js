@@ -485,6 +485,12 @@ const baseConfig = {
         destination: '/parts/jcb-400-b1585-camera-kit',
         permanent: true
       },
+      // JCB steer link: SEO slug upgrade from stub PN slug
+      {
+        source: '/parts/458M9602',
+        destination: '/parts/jcb-458-m9602-steer-link',
+        permanent: true
+      },
       {
         source: '/insights/raymond-forklift-serial-number',
         destination: '/raymond-serial-number-lookup',
