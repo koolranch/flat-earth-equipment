@@ -5736,7 +5736,7 @@
   {
     "id": "CO51712-04-BOTTOM",
     "title": "Columbia 51712-04 Seat Bottom Cushion with Switch",
-    "description": "Aftermarket seat bottom cushion with operator presence switch for Columbia industrial equipment. Replaces OEM part number 51712-04.\n\nFits Columbia BC2 and BC3 series models including BC2-L-36A, BC2-L-36S, BC2-L-48A, BC2-S-36A, BC2-S-36S, BC2-S-48A, BC3-L-36A, and BC3-L-48A. Switch-equipped bottom cushion — confirm harness plug and seat pan match your machine before ordering.\n\nFlat $37 shipping is added at checkout. Confirm model and serial if you are unsure about switch wiring.",
+    "description": "Aftermarket seat bottom cushion with operator presence switch for Columbia industrial equipment. Replaces OEM part number 51712-04.\n\nFits Columbia BC2 and BC3 series models including BC2-L-36A, BC2-L-36S, BC2-L-48A, BC2-S-36A, BC2-S-36S, BC2-S-48A, BC3-L-36A, and BC3-L-48A. Switch-equipped bottom cushion — if you do not need the switch, the lower-cost Columbia 51711-04 without switch is here: https://www.flatearthequipment.com/parts/columbia-51711-04-seat-bottom-cushion\n\nFlat $37 shipping is added at checkout. Confirm harness plug and seat pan match your machine before ordering.",
     "link": "https://www.flatearthequipment.com/parts/columbia-51712-04-seat-bottom-cushion",
     "image_link": "https://www.flatearthequipment.com/images/parts/seats/columbia-51712-04-seat-bottom-cushion.jpg",
     "price": "468.00 USD",
@@ -5891,8 +5891,8 @@
   },
   {
     "id": "CO51711-04-BOTTOM",
-    "title": "Columbia 51711-04 Seat Bottom Cushion",
-    "description": "Aftermarket seat bottom cushion for Columbia industrial equipment. Replaces OEM part number 51711-04. Verified fitment for 8 machine models including BC2-L-36A, BC2-L-36S, BC2-L-48A, BC2-S-36A, BC2-S-36S, BC2-S-48A, BC3-L-36A, BC3-L-48A.\n\nConfirm your machine model and serial number before ordering — seat rails and switch wiring can vary by production year. Request a quote for availability and freight to your location.",
+    "title": "Columbia 51711-04 Seat Bottom Cushion without Switch",
+    "description": "Aftermarket seat bottom cushion without operator presence switch for Columbia industrial equipment. Replaces OEM part number 51711-04.\n\nFits Columbia BC2 and BC3 series models including BC2-L-36A, BC2-L-36S, BC2-L-48A, BC2-S-36A, BC2-S-36S, BC2-S-48A, BC3-L-36A, and BC3-L-48A. This is the no-switch bottom cushion — if your seat uses an operator presence switch, use Columbia 51712-04 instead: https://www.flatearthequipment.com/parts/columbia-51712-04-seat-bottom-cushion\n\nFlat $25 shipping is added at checkout. Confirm model and serial before ordering.",
     "link": "https://www.flatearthequipment.com/parts/columbia-51711-04-seat-bottom-cushion",
     "image_link": "https://www.flatearthequipment.com/images/parts/seats/columbia-51711-04-seat-bottom-cushion.jpg",
     "price": "102.00 USD",
@@ -5908,7 +5908,7 @@
       {
         "country": "US",
         "service": "Ground",
-        "price": "29.00 USD"
+        "price": "25.00 USD"
       }
     ]
   },
