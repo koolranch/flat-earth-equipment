@@ -3,10 +3,12 @@
  *
  * Keep set (stable g:id — do not rewrite SKUs already in Center review):
  *   rubber tracks, cab glass, lithium batteries, Navitas kits, seats,
- *   reman charger modules, and JCB Buy Now parts. JCB brand-logo heroes
- *   stay in the feed — Merchant has already approved some of those IDs,
- *   and dropping them would take Active listings offline. True
- *   placeholder.jpg / reman-as-new / Repair & Return rows stay out.
+ *   reman charger modules, JCB Buy Now parts, plus an explicit slug
+ *   allowlist for photo-ready Buy Now SKUs outside those categories.
+ *   JCB brand-logo heroes stay in the feed — Merchant has already
+ *   approved some of those IDs, and dropping them would take Active
+ *   listings offline. True placeholder.jpg / reman-as-new / Repair &
+ *   Return rows stay out.
  *
  * Generates two formats at the canonical paths Google reads from when
  * configured to fetch a remote feed:
@@ -130,6 +132,18 @@ function isJcbPart(p: Pick<PartRow, "brand" | "category">): boolean {
   return brand === "jcb" || category.startsWith("jcb");
 }
 
+/**
+ * Photo-ready Buy Now SKUs outside category keep-set (stable g:id = parts.sku).
+ * Add new Shopping candidates here — do not expand whole brands/categories.
+ */
+const MERCHANT_KEEP_SLUGS = new Set([
+  "tennant-9008999-wheel-gearbox-kit",
+  "genie-33984gt-standard-forks",
+  "sevcon-622-11201-36-48v-dc-dc-converter",
+  "skytrack-70021617-steering-cylinder",
+  "bobcat-7123864-excavator-swivel",
+]);
+
 /** Catalog lines we will submit while Merchant is still approving the first wave. */
 function isKeepSetPart(p: PartRow): boolean {
   if (isRubberTrack(p)) return true;
@@ -138,6 +152,7 @@ function isKeepSetPart(p: PartRow): boolean {
   if (isSeatCategory(p)) return true;
   if (isNavitasKit(p)) return true;
   if (isJcbPart(p)) return true;
+  if (MERCHANT_KEEP_SLUGS.has(p.slug)) return true;
   return false;
 }
 
@@ -352,6 +367,17 @@ function seatFreightUsd(p: PartRow): string | undefined {
 function partShipping(p: PartRow): FeedShipping[] | undefined {
   if (hasFreeFreight(p)) {
     return [{ country: "US", service: "Ground", price: "0.00 USD" }];
+  }
+  // Per-SKU checkout override (e.g. Genie SLC forks $37) — must match Ads landed price.
+  const freightCents = Number(p.metadata?.freight_cents);
+  if (Number.isFinite(freightCents) && freightCents > 0) {
+    return [
+      {
+        country: "US",
+        service: "Ground",
+        price: `${(freightCents / 100).toFixed(2)} USD`,
+      },
+    ];
   }
   if (p.category === "Lithium Batteries") {
     const weight = Number(p.metadata?.weight_lbs ?? p.weight_lbs ?? 100);
@@ -614,7 +640,7 @@ async function buildFeed() {
   <channel>
     <title>Flat Earth Equipment Product Feed</title>
     <link>${SITE_URL}</link>
-    <description>Aftermarket rubber tracks, cab glass, lithium batteries, Navitas kits, seats, reman charger modules, and selected JCB parts.</description>
+    <description>Aftermarket rubber tracks, cab glass, lithium batteries, Navitas kits, seats, reman charger modules, selected JCB parts, and photo-ready Buy Now SKUs.</description>
 ${itemsXml}
   </channel>
 </rss>

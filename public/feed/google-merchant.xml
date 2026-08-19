@@ -3,7 +3,7 @@
   <channel>
     <title>Flat Earth Equipment Product Feed</title>
     <link>https://www.flatearthequipment.com</link>
-    <description>Aftermarket rubber tracks, cab glass, lithium batteries, Navitas kits, seats, reman charger modules, and selected JCB parts.</description>
+    <description>Aftermarket rubber tracks, cab glass, lithium batteries, Navitas kits, seats, reman charger modules, selected JCB parts, and photo-ready Buy Now SKUs.</description>
     <item>
       <g:id>12304970</g:id>
       <title>JCB 123/04970 Replacement Part</title>
@@ -6109,6 +6109,130 @@ Most operators replace tracks in pairs: running a new track opposite a worn one 
       </g:shipping>
     </item>
     <item>
+      <g:id>TN9008999</g:id>
+      <title>Tennant 9008999 Wheel Gearbox Kit</title>
+      <description>Aftermarket wheel gearbox kit for Tennant floor cleaning equipment. Replaces OEM part number 9008999.
+
+Integrated drive assembly with red treaded wheel, gearbox housing, and mounting flange — built for scrubber/sweeper wheel drive applications.
+
+Free shipping on this kit. Confirm machine model and serial before ordering.</description>
+      <link>https://www.flatearthequipment.com/parts/tennant-9008999-wheel-gearbox-kit</link>
+      <g:image_link>https://www.flatearthequipment.com/images/parts/tennant-9008999-wheel-gearbox-kit.jpg</g:image_link>
+      <g:price>2239.00 USD</g:price>
+      <g:brand>Tennant</g:brand>
+      <g:mpn>9008999</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Motors</g:product_type>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>33984GT</g:id>
+      <title>Genie 33984GT Standard Forks</title>
+      <description>Aftermarket standard fork attachment for Genie Superlift material lifts. Replaces OEM part number 33984GT.
+
+Fits Genie SLC-12, SLC-18, and SLC-24. Square-tube steel fork frame with mounting mast and factory-style safety decals.
+
+Shipping is a flat $37 at checkout. Confirm your Superlift model before ordering.</description>
+      <link>https://www.flatearthequipment.com/parts/genie-33984gt-standard-forks</link>
+      <g:image_link>https://www.flatearthequipment.com/images/parts/genie-33984gt-standard-forks.jpg</g:image_link>
+      <g:price>359.00 USD</g:price>
+      <g:brand>Genie</g:brand>
+      <g:mpn>33984GT</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Forks</g:product_type>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>37.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>622-11201</g:id>
+      <title>Sevcon 622/11201 36/48V to 13.5V DC/DC Converter with Enable</title>
+      <description>Brand-new Sevcon (BorgWarner) isolated DC/DC converter, OEM part number 622/11201. Steps 36V or 48V traction battery power down to a regulated 13.5V accessory supply with enable control — the compact IP67 brick used on golf carts, material handlers, and other EV platforms that need stable 12V-class power for lights, horns, wipers, and control electronics.
+
+Rated in the 300–500W class with quiet high-frequency operation, reverse-polarity and overload protection, and sealed packaging suitable for wet and dusty equipment. Compact footprint (about 190 × 76 × 43 mm) so it mounts cleanly near the battery pack or controller bay. Enable pin lets the accessory rail stay off until the vehicle is keyed on.
+
+Cross-reference numbers commonly listed for this unit include SV622/11201, SV62211201, CL7012848, HU4192640, YP582071964, 62211201. Confirm connector pinout and enable wiring against your harness before install.
+
+Free ground shipping in the contiguous US. In stock for Buy Now checkout — contact parts@flatearthequipment.com if you need fitment help on a non-standard application.</description>
+      <link>https://www.flatearthequipment.com/parts/sevcon-622-11201-36-48v-dc-dc-converter</link>
+      <g:image_link>https://www.flatearthequipment.com/images/parts/sevcon-622-11201-36-48v-dc-dc-converter.jpg</g:image_link>
+      <g:price>339.00 USD</g:price>
+      <g:brand>Sevcon</g:brand>
+      <g:mpn>622/11201</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Electrical</g:product_type>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>70021617</g:id>
+      <title>Skytrack 70021617 Steering Cylinder</title>
+      <description>Aftermarket steering cylinder for Skytrack / SkyTrak telehandlers. Replaces OEM part number 70021617 (also listed under JLG family catalogs for shared SkyTrak platforms).
+
+Hydraulic steer cylinder with chrome rod, sealed barrel, and rod-end mounting — restores precise steering response when the original cylinder weeps, scores, or loses holding power.
+
+Free shipping on this assembly. Confirm machine model and serial before ordering; port orientation and stroke can vary by series.</description>
+      <link>https://www.flatearthequipment.com/parts/skytrack-70021617-steering-cylinder</link>
+      <g:image_link>https://www.flatearthequipment.com/images/parts/skytrack-70021617-steering-cylinder.jpg</g:image_link>
+      <g:price>1729.00 USD</g:price>
+      <g:brand>Skytrack</g:brand>
+      <g:mpn>70021617</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Hydraulics</g:product_type>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>7123864</g:id>
+      <title>Bobcat 7123864 Excavator Swivel Joint</title>
+      <description>Aftermarket excavator swivel joint (rotary manifold) for Bobcat excavators. Replaces OEM part number 7123864.
+
+Mounted at the center of the undercarriage, this swivel keeps pressurized hydraulic oil flowing to the travel motors while the upper house rotates continuously in either direction — so continuous rotation does not twist or pinch the drive circuits.
+
+Heavy multi-port steel assembly with mounting flange and sealed rotary passages. Eligible Bobcat aftermarket parts carry a 2-year warranty. Confirm machine model and serial before ordering.
+
+Free shipping on this assembly.</description>
+      <link>https://www.flatearthequipment.com/parts/bobcat-7123864-excavator-swivel</link>
+      <g:image_link>https://www.flatearthequipment.com/images/parts/bobcat-7123864-excavator-swivel.jpg</g:image_link>
+      <g:price>2799.00 USD</g:price>
+      <g:brand>Bobcat</g:brand>
+      <g:mpn>7123864</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Hydraulics</g:product_type>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>320A7420</g:id>
       <title>JCB 320/A7420 Fuel Return Line</title>
       <description>Aftermarket fuel return / leak-off line assembly for JCB diesel engines. Replaces OEM part number 320/A7420. Routes injector leak-off fuel back to the tank to help prevent leaks and keep fuel system pressure stable.</description>
@@ -6225,6 +6349,11 @@ Confirm your machine model and serial number before ordering — seat rails and 
       <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
       <g:product_type>JCB Filters</g:product_type>
       <g:custom_label_0>priority_jcb</g:custom_label_0>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>17.00 USD</g:price>
+      </g:shipping>
     </item>
     <item>
       <g:id>400E8363</g:id>
