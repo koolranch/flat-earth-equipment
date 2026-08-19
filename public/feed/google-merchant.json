@@ -5734,6 +5734,29 @@
     ]
   },
   {
+    "id": "CO51712-04-BOTTOM",
+    "title": "Columbia 51712-04 Seat Bottom Cushion with Switch",
+    "description": "Aftermarket seat bottom cushion with operator presence switch for Columbia industrial equipment. Replaces OEM part number 51712-04.\n\nFits Columbia BC2 and BC3 series models including BC2-L-36A, BC2-L-36S, BC2-L-48A, BC2-S-36A, BC2-S-36S, BC2-S-48A, BC3-L-36A, and BC3-L-48A. Switch-equipped bottom cushion — confirm harness plug and seat pan match your machine before ordering.\n\nFlat $37 shipping is added at checkout. Confirm model and serial if you are unsure about switch wiring.",
+    "link": "https://www.flatearthequipment.com/parts/columbia-51712-04-seat-bottom-cushion",
+    "image_link": "https://www.flatearthequipment.com/images/parts/seats/columbia-51712-04-seat-bottom-cushion.jpg",
+    "price": "468.00 USD",
+    "brand": "Columbia",
+    "mpn": "51712-04",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling > Forklifts",
+    "product_type": "Seat cushions",
+    "identifier_exists": "no",
+    "custom_label_0": "priority_seats",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "Ground",
+        "price": "37.00 USD"
+      }
+    ]
+  },
+  {
     "id": "320A7420",
     "title": "JCB 320/A7420 Fuel Return Line",
     "description": "Aftermarket fuel return / leak-off line assembly for JCB diesel engines. Replaces OEM part number 320/A7420. Routes injector leak-off fuel back to the tank to help prevent leaks and keep fuel system pressure stable.",
@@ -6602,29 +6625,6 @@
     "price": "91.00 USD",
     "brand": "JLG",
     "mpn": "7026900",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling > Forklifts",
-    "product_type": "Seat cushions",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_seats",
-    "shipping": [
-      {
-        "country": "US",
-        "service": "Ground",
-        "price": "29.00 USD"
-      }
-    ]
-  },
-  {
-    "id": "CO51712-04-BOTTOM",
-    "title": "Columbia 51712-04 Seat Bottom Cushion",
-    "description": "Aftermarket seat bottom cushion for Columbia industrial equipment. Replaces OEM part number 51712-04. Verified fitment for 8 machine models including BC2-L-36A, BC2-L-36S, BC2-L-48A, BC2-S-36A, BC2-S-36S, BC2-S-48A, BC3-L-36A, BC3-L-48A.\n\nConfirm your machine model and serial number before ordering — seat rails and switch wiring can vary by production year. Request a quote for availability and freight to your location.",
-    "link": "https://www.flatearthequipment.com/parts/columbia-51712-04-seat-bottom-cushion",
-    "image_link": "https://www.flatearthequipment.com/images/parts/seats/columbia-51712-04-seat-bottom-cushion.jpg",
-    "price": "319.00 USD",
-    "brand": "Columbia",
-    "mpn": "51712-04",
     "condition": "new",
     "availability": "in stock",
     "google_product_category": "Business & Industrial > Material Handling > Forklifts",
