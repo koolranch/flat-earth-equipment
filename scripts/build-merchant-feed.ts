@@ -186,11 +186,21 @@ function rubberTrackImageLink(slug: string): string {
   return `${base}?v=${TRACK_IMAGE_CACHE_BUST}`;
 }
 
+/** Bump when a glass JPG is replaced so Merchant recrawls the same path. */
+const GLASS_IMAGE_CACHE_BUST: Record<string, string> = {
+  "bobcat-7120401-door-glass": "20260818",
+  "caterpillar-345-6230-door-glass": "20260818",
+  "john-deere-t312628-door-glass": "20260818",
+  "bobcat-6729776-door-glass": "20260818",
+};
+
 /** Unique per-SKU cab glass cards — never fall back to the shared placeholder. */
 function cabGlassImageLink(slug: string, imageUrl: string | null): string {
   const localPath = path.join(CAB_GLASS_IMAGE_DIR, `${slug}.jpg`);
   if (existsSync(localPath)) {
-    return `${SITE_URL}/images/parts/glass/${slug}.jpg`;
+    const bust = GLASS_IMAGE_CACHE_BUST[slug];
+    const base = `${SITE_URL}/images/parts/glass/${slug}.jpg`;
+    return bust ? `${base}?v=${bust}` : base;
   }
   if (isUsableProductImage(imageUrl)) {
     return normalizeImageUrl(imageUrl!);

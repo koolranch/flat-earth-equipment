@@ -128,7 +128,10 @@ export async function applyCompPricing(params: {
             provisional_pricing_note:
               'Sell price set from Magnasource comp — wholesale cost not verified yet.',
           }
-        : {}),
+        : {
+            provisional_pricing: false,
+            provisional_pricing_note: null,
+          }),
     },
     updated_at: new Date().toISOString(),
   };
