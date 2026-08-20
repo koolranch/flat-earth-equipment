@@ -1,5 +1,6 @@
 # Flat Earth Equipment - Spam Backlink Disavow
 # Generated: 2026-01-20
+# Updated: 2026-08-20
 # Submit at: https://search.google.com/search-console/disavow-links
 
 # SEO spam / PBN domains
@@ -24,3 +25,15 @@ domain:byteshort.xyz
 domain:seo-high-ranking.shop
 domain:backlinker.shop
 domain:dsnylu.com
+
+# August 2026 PBN / aged-domain cluster (DataForSEO new-backlink review)
+# Six domains share the identical "DA 50 PA 40 Premium PBN" homepage spam;
+# wallpapers.pro and indexaward.com use the aged-domain sales template.
+domain:bazerdaily.com
+domain:ggmap.us.com
+domain:hostprinter.com
+domain:betulcrime.com
+domain:homesforsaleoldgreenwichct.com
+domain:betwinnermirror.com
+domain:wallpapers.pro
+domain:indexaward.com
