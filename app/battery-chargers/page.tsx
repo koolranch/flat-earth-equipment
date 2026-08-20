@@ -8,7 +8,6 @@ import {
   parseChargerSpecs,
 } from "@/lib/batteryChargers";
 import ChargerSelectorWithRecommendations from "./ChargerSelectorWithRecommendations";
-import { filterGreen } from "@/lib/greenFilter";
 
 const FEATURED_VOLTAGE_ORDER = [48, 36, 24, 80] as const;
 
@@ -395,8 +394,7 @@ export default async function Page({
   searchParams: Record<string, string | undefined> 
 }) {
   const allPartsRaw = await fetchParts();
-  // Apply GREEN-only filter to restrict to FSIP GREEN Series (GREEN2/4/6/8/X)
-  const allParts = filterGreen(allPartsRaw);
+  const allParts = allPartsRaw;
   const filteredParts = ssrFilter(allParts, searchParams);
   
   const jsonLdList = itemListJsonLd(filteredParts.map(p => ({ name: p.name, slug: p.slug })));
