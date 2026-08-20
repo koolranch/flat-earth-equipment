@@ -143,6 +143,7 @@ const MERCHANT_KEEP_SLUGS = new Set([
   "skytrack-70021617-steering-cylinder",
   "bobcat-7123864-excavator-swivel",
   "delta-q-quiq-48v-18a-charger-9124800",
+  "taylor-dunn-79-303-41-battery-charger",
 ]);
 
 /** Catalog lines we will submit while Merchant is still approving the first wave. */
