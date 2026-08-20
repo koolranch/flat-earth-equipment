@@ -273,6 +273,7 @@ export default async function LithiumBatteriesLanding() {
                 </p>
                 <p className="text-lg font-bold text-slate-900 mt-1">{kit.label}</p>
                 <p className="text-sm text-slate-600 mt-2">{kit.blurb}</p>
+                <p className="text-xs text-slate-500 mt-2">SKU: {kit.sku}</p>
                 {row && (
                   <p className="text-xl font-bold text-orange-600 mt-3">
                     ${Number(row.price).toLocaleString()}

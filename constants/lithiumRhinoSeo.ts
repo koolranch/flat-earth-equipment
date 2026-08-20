@@ -132,25 +132,149 @@ export const LITHIUM_MONEY_KEYWORDS: LithiumMoneyKeyword[] = [
 export const LITHIUM_HUB_FEATURED_KITS = [
   {
     slug: 'lithium-rhino-48v-65ah-kit',
+    sku: '113-LR51V65AH',
     label: '48V 65Ah Kit',
     blurb: 'Best seller — budget conversion for modern 48V carts',
   },
   {
     slug: 'lithium-rhino-48v-105ah-kit',
+    sku: '113-LR51V105AH',
     label: '48V 105Ah Kit',
     blurb: 'Most popular — everyday range for EZGO, Club Car, Yamaha',
   },
   {
     slug: 'lithium-rhino-48v-50ah-kit',
+    sku: '113-LR51V50AH',
     label: '48V 50Ah Kit',
     blurb: 'Light-duty / short-course carts',
   },
   {
     slug: 'lithium-rhino-36v-65ah-kit',
+    sku: '113-LR38V65AH',
     label: '36V 65Ah Kit',
     blurb: 'Older EZGO TXT / Club Car DS / Yamaha G-series',
   },
 ] as const;
+
+export type LithiumCapacityLink = {
+  slug: string;
+  sku: string;
+  voltage: '36V' | '48V' | '72V';
+  capacity: string;
+  label: string;
+};
+
+const LITHIUM_STANDARD_KITS: LithiumCapacityLink[] = [
+  {
+    slug: 'lithium-rhino-36v-65ah-kit',
+    sku: '113-LR38V65AH',
+    voltage: '36V',
+    capacity: '65Ah',
+    label: 'Lithium Rhino 36V 65Ah conversion kit',
+  },
+  {
+    slug: 'lithium-rhino-36v-105ah-kit',
+    sku: '113-LR38V105AH',
+    voltage: '36V',
+    capacity: '105Ah',
+    label: 'Lithium Rhino 36V 105Ah conversion kit',
+  },
+  {
+    slug: 'lithium-rhino-48v-50ah-kit',
+    sku: '113-LR51V50AH',
+    voltage: '48V',
+    capacity: '50Ah',
+    label: 'Lithium Rhino 48V 50Ah conversion kit',
+  },
+  {
+    slug: 'lithium-rhino-48v-65ah-kit',
+    sku: '113-LR51V65AH',
+    voltage: '48V',
+    capacity: '65Ah',
+    label: 'Lithium Rhino 48V 65Ah conversion kit',
+  },
+  {
+    slug: 'lithium-rhino-48v-105ah-kit',
+    sku: '113-LR51V105AH',
+    voltage: '48V',
+    capacity: '105Ah',
+    label: 'Lithium Rhino 48V 105Ah conversion kit',
+  },
+  {
+    slug: 'lithium-rhino-72v-105ah-kit',
+    sku: '113-LR76V105AH',
+    voltage: '72V',
+    capacity: '105Ah',
+    label: 'Lithium Rhino 72V 105Ah conversion kit',
+  },
+];
+
+/** Exact-capacity sibling links for PDPs; keeps broad cart pages out of PN targeting. */
+export function lithiumCapacityLinksForProduct(product: {
+  slug: string;
+  metadata?: Record<string, unknown> | null;
+}): LithiumCapacityLink[] {
+  const voltage =
+    typeof product.metadata?.voltage === 'string' ? product.metadata.voltage : null;
+  if (!voltage) return [];
+
+  return LITHIUM_STANDARD_KITS.filter(
+    (kit) => kit.voltage === voltage && kit.slug !== product.slug
+  );
+}
+
+export type LithiumCapacityPositioning = {
+  heading: string;
+  summary: string;
+};
+
+/** Unique buyer guidance that separates otherwise-similar capacity PDPs. */
+export function lithiumCapacityPositioningForProduct(product: {
+  metadata?: Record<string, unknown> | null;
+}): LithiumCapacityPositioning | null {
+  const metadata = product.metadata ?? {};
+  if (metadata.product_type === 'battery') return null;
+
+  const voltage = typeof metadata.voltage === 'string' ? metadata.voltage : null;
+  const capacity = typeof metadata.capacity === 'string' ? metadata.capacity : null;
+  if (!voltage || !capacity) return null;
+
+  const key = `${voltage}-${capacity}`;
+  const positioning: Record<string, LithiumCapacityPositioning> = {
+    '36V-65Ah': {
+      heading: 'Choose 36V 65Ah for lighter, moderate-use carts',
+      summary:
+        'The 65Ah kit is the lower-cost 36V conversion for neighborhood driving, short course loops and lighter passenger loads. Choose 105Ah instead for longer daily routes, hills or fleet duty.',
+    },
+    '36V-105Ah': {
+      heading: 'Choose 36V 105Ah for longer range and heavier use',
+      summary:
+        'The 105Ah kit adds reserve capacity for longer routes, hills, rear seats and repeated daily use while keeping a 36V drivetrain. Choose 65Ah when lower upfront cost matters more than maximum range.',
+    },
+    '48V-50Ah': {
+      heading: 'Choose 48V 50Ah for short-range, light-duty use',
+      summary:
+        'The 50Ah kit is the entry-price 48V conversion for short neighborhood trips, light passenger loads and carts that return to charge frequently. Move to 65Ah or 105Ah for longer routes, hills or fleet schedules.',
+    },
+    '48V-65Ah': {
+      heading: 'Choose 48V 65Ah for balanced cost and everyday range',
+      summary:
+        'The 65Ah kit is the mid-capacity 48V choice for regular neighborhood and course use without paying for maximum reserve. Choose 50Ah for the lowest entry price or 105Ah for hills, rear seats and longer daily mileage.',
+    },
+    '48V-105Ah': {
+      heading: 'Choose 48V 105Ah for extended range and demanding routes',
+      summary:
+        'The 105Ah kit provides the most reserve of the standard 48V lineup for hills, heavier passenger loads, long routes and repeated daily use. Choose 50Ah or 65Ah when shorter range and lower upfront cost are the priority.',
+    },
+    '72V-105Ah': {
+      heading: 'Choose 72V 105Ah for high-performance 72V builds',
+      summary:
+        'This kit is specifically for compatible 72V high-performance carts, custom builds and commercial fleets. It is not a replacement for a 36V or 48V pack; confirm your complete system voltage before ordering.',
+    },
+  };
+
+  return positioning[key] ?? null;
+}
 
 type LithiumMetaInput = {
   name?: string | null;
@@ -198,12 +322,14 @@ export function buildLithiumRhinoMetaDescription(product: LithiumMetaInput): str
   if (product.category !== 'Lithium Batteries') return null;
   const meta = product.metadata ?? {};
   const vc = voltageCapacityLabel(meta) ?? 'LiFePO4';
-  const productType =
-    meta.product_type === 'battery'
-      ? 'replacement battery'
-      : 'conversion kit (battery, charger, DC converter, display, hardware)';
-  const sku = product.sku ? ` SKU ${product.sku}.` : '';
-  return `In-stock Lithium Rhino ${vc} LiFePO4 golf cart ${productType}. 6,000+ cycles, 8-year warranty, IP65. Fits EZGO, Club Car, Yamaha.${sku} HazMat ground shipping; free freight on 3+.`;
+  const sku = product.sku ? `, SKU ${product.sku}` : '';
+
+  if (meta.product_type === 'battery') {
+    const variant = meta.variant === 'cube' ? ' Cube' : meta.variant === 'heated' ? ' Heated' : '';
+    return `Lithium Rhino ${vc}${variant} LiFePO4 golf cart replacement battery${sku}. Battery only with 8-year warranty and HazMat ground shipping.`;
+  }
+
+  return `Lithium Rhino ${vc} LiFePO4 golf cart conversion kit${sku}. Includes battery, charger, DC converter, display and mounting hardware.`;
 }
 
 /** Cart landing paths that match a lithium SKU's voltage / compatible carts. */

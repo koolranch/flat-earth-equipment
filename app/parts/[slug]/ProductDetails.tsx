@@ -29,7 +29,11 @@ import {
   getWholesaleCostUsd,
   qualifiesForSeatFreeFreight,
 } from '@/lib/parts/seatFreight';
-import { lithiumCartPathsForProduct } from '@/constants/lithiumRhinoSeo';
+import {
+  lithiumCapacityLinksForProduct,
+  lithiumCapacityPositioningForProduct,
+  lithiumCartPathsForProduct,
+} from '@/constants/lithiumRhinoSeo';
 
 interface Variant {
   id: string;
@@ -148,6 +152,12 @@ export default function ProductDetails({
   const lithiumCartPaths = isLithiumBattery
     ? lithiumCartPathsForProduct({ metadata: part.metadata })
     : [];
+  const lithiumCapacityLinks = isLithiumBattery
+    ? lithiumCapacityLinksForProduct({ slug: part.slug, metadata: part.metadata })
+    : [];
+  const lithiumCapacityPositioning = isLithiumBattery
+    ? lithiumCapacityPositioningForProduct({ metadata: part.metadata })
+    : null;
   const [quantity, setQuantity] = useState(isRubberTrack ? 2 : 1);
   const { addItem } = useCart();
 
@@ -738,6 +748,16 @@ export default function ProductDetails({
 
       {isLithiumBattery && (
         <section className="mt-8 space-y-4">
+          {lithiumCapacityPositioning && (
+            <div className="rounded-xl border border-slate-200 bg-white p-5">
+              <h2 className="text-lg font-bold text-slate-900 mb-1">
+                {lithiumCapacityPositioning.heading}
+              </h2>
+              <p className="text-sm leading-relaxed text-slate-700">
+                {lithiumCapacityPositioning.summary}
+              </p>
+            </div>
+          )}
           <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
             <h2 className="text-lg font-bold text-slate-900 mb-1">HazMat ground shipping</h2>
             <p className="text-sm text-slate-700 leading-relaxed">
@@ -747,9 +767,18 @@ export default function ProductDetails({
             </p>
           </div>
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
-            <h2 className="text-lg font-bold text-slate-900 mb-2">Find the right kit for your cart</h2>
+            <h2 className="text-lg font-bold text-slate-900 mb-2">
+              Compare {typeof partMetadata.voltage === 'string' ? `${partMetadata.voltage} ` : ''}
+              Lithium Rhino capacities
+            </h2>
             <p className="text-sm text-slate-600 mb-3">
-              Not sure this is the right capacity? Start from your cart model or browse all Lithium Rhino kits.
+              This page is for the{' '}
+              <strong>
+                {typeof partMetadata.capacity === 'string'
+                  ? `${partMetadata.capacity} ${partMetadata.product_type === 'battery' ? 'replacement battery' : 'conversion kit'}`
+                  : 'product shown above'}
+              </strong>
+              . Compare exact-capacity kits below, or start from your cart model.
             </p>
             <div className="flex flex-wrap gap-2">
               <Link
@@ -758,6 +787,16 @@ export default function ProductDetails({
               >
                 All lithium batteries →
               </Link>
+              {lithiumCapacityLinks.map((kit) => (
+                <Link
+                  key={kit.slug}
+                  href={`/parts/${kit.slug}`}
+                  className="inline-flex flex-col rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-800 hover:border-canyon-rust"
+                >
+                  <span>{kit.label}</span>
+                  <span className="text-xs font-normal text-slate-500">SKU {kit.sku}</span>
+                </Link>
+              ))}
               {lithiumCartPaths.map((cart) => (
                 <Link
                   key={cart.href}

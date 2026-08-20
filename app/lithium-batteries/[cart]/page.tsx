@@ -126,6 +126,9 @@ export default async function CartLithiumLanding({
     : undefined;
 
   if (!primary) notFound();
+  const recommendedProducts = [primary, budget, extended].filter(
+    (battery): battery is BatteryRow => battery != null
+  );
 
   // Other cart models (excluding current) for "Browse by cart" footer
   const otherCarts = CART_MODELS.filter((c) => c.slug !== cart.slug)
@@ -140,32 +143,25 @@ export default async function CartLithiumLanding({
 
   return (
     <main className="container mx-auto px-4 lg:px-8 py-12 space-y-12 pb-20">
-      {/* ─────────── Schemas ─────────── */}
+      {/* Cart pages are broad fitment guides. Keep exact SKU/MPN Product schema on
+          the canonical PDPs so part-number searches prefer /parts/{slug}. */}
       <script
-        id={`cart-product-ld-${cart.slug}`}
+        id={`cart-item-list-ld-${cart.slug}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',
-            '@type': 'Product',
-            name: `${cart.fullName} Lithium Battery Conversion Kit (${primary.name})`,
-            description: primary.description?.slice(0, 1500) || '',
-            sku: primary.sku,
-            mpn: primary.sku,
-            image: primary.image_url || undefined,
+            '@type': 'ItemList',
+            name: `${cart.fullName} Lithium Battery Conversion Kits`,
+            description: `Recommended Lithium Rhino conversion kits for the ${cart.fullName}.`,
             url: `${SITE_URL}/lithium-batteries/${cart.slug}`,
-            brand: { '@type': 'Brand', name: 'Lithium Rhino' },
-            category: 'Lithium Batteries',
-            offers: {
-              '@type': 'Offer',
-              price: primary.price.toFixed(2),
-              priceCurrency: 'USD',
-              availability: 'https://schema.org/InStock',
-              url: `${SITE_URL}/parts/${primary.slug}`,
-              priceValidUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
-                .toISOString()
-                .split('T')[0],
-            },
+            numberOfItems: recommendedProducts.length,
+            itemListElement: recommendedProducts.map((battery, index) => ({
+              '@type': 'ListItem',
+              position: index + 1,
+              name: battery.name,
+              url: `${SITE_URL}/parts/${battery.slug}`,
+            })),
           }),
         }}
       />
