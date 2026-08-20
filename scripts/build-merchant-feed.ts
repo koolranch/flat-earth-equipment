@@ -142,6 +142,7 @@ const MERCHANT_KEEP_SLUGS = new Set([
   "sevcon-622-11201-36-48v-dc-dc-converter",
   "skytrack-70021617-steering-cylinder",
   "bobcat-7123864-excavator-swivel",
+  "delta-q-quiq-48v-18a-charger-9124800",
 ]);
 
 /** Catalog lines we will submit while Merchant is still approving the first wave. */

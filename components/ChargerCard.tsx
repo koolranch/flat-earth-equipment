@@ -3,7 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Truck, Copy, Check } from "lucide-react";
-import { type BatteryCharger, parseChargerSpecs, formatPrice, isQuickShip, calculateChargeTime } from "@/lib/batteryChargers";
+import {
+  type BatteryCharger,
+  calculateChargeTime,
+  formatPrice,
+  getChargerDetailHref,
+  isQuickShip,
+  parseChargerSpecs,
+} from "@/lib/batteryChargers";
 import { BuyNowButton } from "./AddToCartButton";
 import QuoteButton from "./QuoteButton";
 
@@ -102,7 +109,10 @@ export default function ChargerCard({ charger, onQuoteClick }: Props) {
         {/* Product Name & Brand */}
         <div className="mb-3">
           <h3 className="font-semibold text-brand-ink text-lg leading-tight">
-            <Link href={`/chargers/${charger.slug}`} className="hover:text-brand-accent transition-colors">
+            <Link
+              href={getChargerDetailHref(charger.slug)}
+              className="hover:text-brand-accent transition-colors"
+            >
               {charger.name}
             </Link>
           </h3>

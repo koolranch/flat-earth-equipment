@@ -36,6 +36,34 @@ export type SelectorFilters = {
   chemistry: string[];
 };
 
+/**
+ * These chargers are stored only in `parts`, so their sellable PDP is the
+ * canonical `/parts/[slug]` route rather than the legacy `parts_catalog`
+ * `/chargers/[slug]` route.
+ */
+const PARTS_PDP_CHARGER_SLUGS = new Set([
+  "delta-q-ic650-24v-27a-charger-9400001",
+  "delta-q-ic650-24v-awp-replacement-kit-9400001s004",
+  "delta-q-ic650-handle-feet-kit-23-9000111",
+  "delta-q-ic650-lock-ac-cord-23-4750496",
+  "delta-q-quiq-48v-18a-charger-9124800",
+  "delta-q-quiq-ac-cord-23-4750008",
+  "hyster-remanufactured-24v-battery-charger-4092995",
+  "powerdrive-2-48v-club-car-charger-22110",
+  "powerdrive-3-48v-club-car-charger-26560",
+  "powerdrive-3-48v-club-car-charger-26580",
+  "powerwise-36v-ezgo-charger-28115g04",
+  "skyjack-remanufactured-24v-charger-wo-gel-105739",
+  "taylor-dunn-remanufactured-24v-battery-charger-7930220-td",
+  "tennant-remanufactured-24v-battery-charger-7930220",
+]);
+
+export function getChargerDetailHref(slug: string): string {
+  return PARTS_PDP_CHARGER_SLUGS.has(slug)
+    ? `/parts/${slug}`
+    : `/chargers/${slug}`;
+}
+
 // Parse charger specs from name/description/slug
 export function parseChargerSpecs(charger: BatteryCharger): ChargerSpecs {
   const name = (charger.name ?? "").toLowerCase();

@@ -2,7 +2,11 @@ import { Metadata } from "next";
 import { supabaseServer } from "@/lib/supabase/server";
 import ChargerFAQ from "@/components/ChargerFAQ";
 import ChargerCard from "@/components/ChargerCard";
-import { type BatteryCharger, parseChargerSpecs } from "@/lib/batteryChargers";
+import {
+  type BatteryCharger,
+  getChargerDetailHref,
+  parseChargerSpecs,
+} from "@/lib/batteryChargers";
 import ChargerSelectorWithRecommendations from "./ChargerSelectorWithRecommendations";
 import { filterGreen } from "@/lib/greenFilter";
 
@@ -142,7 +146,7 @@ function itemListJsonLd(items: { name: string; slug: string }[]) {
     "itemListElement": list.map((it, idx) => ({
       "@type": "ListItem",
       "position": idx + 1,
-      "url": `https://www.flatearthequipment.com/chargers/${it.slug}`,
+      "url": `https://www.flatearthequipment.com${getChargerDetailHref(it.slug)}`,
       "name": it.name
     }))
   };
