@@ -1050,6 +1050,24 @@ Most operators replace tracks in pairs: running a new track opposite a worn one 
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
+      <g:id>32008606</g:id>
+      <title>JCB 320/08606 Front Belt</title>
+      <description>Aftermarket front serpentine / multi-rib belt for JCB equipment. Replaces OEM part number 320/08606 (also listed as JC320/08606).
+
+Confirm belt length, rib count, and pulley layout for your machine before ordering. Flat shipping is added at checkout per the standard JCB parts freight bands.</description>
+      <link>https://www.flatearthequipment.com/parts/32008606</link>
+      <g:image_link>https://www.flatearthequipment.com/images/parts/jcb-320-08606-front-belt.jpg?v=20260821</g:image_link>
+      <g:price>80.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>320/08606</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Engine Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
       <g:id>32006377</g:id>
       <title>JCB 320/06377 TURBO</title>
       <description>High-quality replacement turbo for JCB equipment. Direct fit for OEM part number 320/06377.</description>
@@ -1143,22 +1161,6 @@ Most operators replace tracks in pairs: running a new track opposite a worn one 
       <g:identifier_exists>no</g:identifier_exists>
       <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
       <g:product_type>JCB General Parts</g:product_type>
-      <g:custom_label_0>priority_jcb</g:custom_label_0>
-    </item>
-    <item>
-      <g:id>32008606</g:id>
-      <title>JCB 320/08606 BELT - FRONT</title>
-      <description>High-quality replacement belt - front for JCB equipment. Direct fit for OEM part number 320/08606.</description>
-      <link>https://www.flatearthequipment.com/parts/32008606</link>
-      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp</g:image_link>
-      <g:price>80.39 USD</g:price>
-      <g:brand>JCB</g:brand>
-      <g:mpn>320/08606</g:mpn>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
-      <g:product_type>JCB Engine Parts</g:product_type>
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>

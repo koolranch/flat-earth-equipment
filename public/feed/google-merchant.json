@@ -985,6 +985,22 @@
     "custom_label_0": "priority_jcb"
   },
   {
+    "id": "32008606",
+    "title": "JCB 320/08606 Front Belt",
+    "description": "Aftermarket front serpentine / multi-rib belt for JCB equipment. Replaces OEM part number 320/08606 (also listed as JC320/08606).\n\nConfirm belt length, rib count, and pulley layout for your machine before ordering. Flat shipping is added at checkout per the standard JCB parts freight bands.",
+    "link": "https://www.flatearthequipment.com/parts/32008606",
+    "image_link": "https://www.flatearthequipment.com/images/parts/jcb-320-08606-front-belt.jpg?v=20260821",
+    "price": "80.00 USD",
+    "brand": "JCB",
+    "mpn": "320/08606",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "JCB Engine Parts",
+    "identifier_exists": "no",
+    "custom_label_0": "priority_jcb"
+  },
+  {
     "id": "32006377",
     "title": "JCB 320/06377 TURBO",
     "description": "High-quality replacement turbo for JCB equipment. Direct fit for OEM part number 320/06377.",
@@ -1077,22 +1093,6 @@
     "availability": "in stock",
     "google_product_category": "Business & Industrial > Material Handling",
     "product_type": "JCB General Parts",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
-    "id": "32008606",
-    "title": "JCB 320/08606 BELT - FRONT",
-    "description": "High-quality replacement belt - front for JCB equipment. Direct fit for OEM part number 320/08606.",
-    "link": "https://www.flatearthequipment.com/parts/32008606",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "80.39 USD",
-    "brand": "JCB",
-    "mpn": "320/08606",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB Engine Parts",
     "identifier_exists": "no",
     "custom_label_0": "priority_jcb"
   },
