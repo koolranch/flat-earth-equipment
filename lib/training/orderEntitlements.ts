@@ -27,12 +27,14 @@ function parseIsoDate(value?: string | null): number | null {
   return Number.isNaN(parsed) ? null : parsed;
 }
 
-export function isUnlimitedOrderActive(
-  order: Pick<TrainingOrderEntitlement, 'is_unlimited' | 'subscription_status' | 'current_period_end' | 'ended_at'>,
+/**
+ * Shared subscription-window check: paid-through date wins, then status.
+ * Used for unlimited (Facility) and capped (Crew) subscription orders alike.
+ */
+export function isSubscriptionOrderActive(
+  order: Pick<TrainingOrderEntitlement, 'subscription_status' | 'current_period_end' | 'ended_at'>,
   now = new Date()
 ): boolean {
-  if (!order.is_unlimited) return false;
-
   const nowMs = now.getTime();
   const endedAtMs = parseIsoDate(order.ended_at);
   if (endedAtMs !== null) {
@@ -46,6 +48,14 @@ export function isUnlimitedOrderActive(
 
   const status = order.subscription_status || '';
   return ['active', 'trialing', 'past_due', 'unpaid', 'canceled'].includes(status);
+}
+
+export function isUnlimitedOrderActive(
+  order: Pick<TrainingOrderEntitlement, 'is_unlimited' | 'subscription_status' | 'current_period_end' | 'ended_at'>,
+  now = new Date()
+): boolean {
+  if (!order.is_unlimited) return false;
+  return isSubscriptionOrderActive(order, now);
 }
 
 export function getOrderSeatSummary(
@@ -69,17 +79,23 @@ export function getOrderSeatSummary(
     };
   }
 
+  // Capped subscription orders (Crew) stay claimable only while the
+  // subscription is active. One-time seat packs have no subscription fields
+  // and remain active forever, as before.
+  const hasSubscription = Boolean(order.stripe_subscription_id || order.subscription_status);
+  const active = hasSubscription ? isSubscriptionOrderActive(order, now) : true;
+
   const seats = Math.max(0, order.seats || 0);
   const remaining = Math.max(0, seats - claimed);
   return {
-    active: true,
+    active,
     isUnlimited: false,
     seats,
     claimed,
     remaining,
     seatsLabel: String(seats),
-    remainingLabel: String(remaining),
-    canAssign: remaining > 0,
+    remainingLabel: active ? String(remaining) : 'Expired',
+    canAssign: active && remaining > 0,
   };
 }
 

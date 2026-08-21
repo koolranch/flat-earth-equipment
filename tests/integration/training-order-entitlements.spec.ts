@@ -68,6 +68,64 @@ test('annual entitlement stops assigning after period end', () => {
   expect(summary.canAssign).toBe(false);
 });
 
+test('crew subscription order assigns seats while subscription is active', () => {
+  const summary = getOrderSeatSummary(
+    {
+      id: 'crew-order',
+      seats: 10,
+      is_unlimited: false,
+      stripe_subscription_id: 'sub_crew123',
+      subscription_status: 'trialing',
+      current_period_end: '2026-09-15T00:00:00.000Z',
+      ended_at: null,
+    },
+    3,
+    new Date('2026-09-01T00:00:00.000Z')
+  );
+
+  expect(summary.active).toBe(true);
+  expect(summary.isUnlimited).toBe(false);
+  expect(summary.remaining).toBe(7);
+  expect(summary.remainingLabel).toBe('7');
+  expect(summary.canAssign).toBe(true);
+});
+
+test('crew subscription order stops assigning after subscription ends', () => {
+  const summary = getOrderSeatSummary(
+    {
+      id: 'lapsed-crew-order',
+      seats: 10,
+      is_unlimited: false,
+      stripe_subscription_id: 'sub_crew123',
+      subscription_status: 'canceled',
+      current_period_end: '2026-06-01T00:00:00.000Z',
+      ended_at: '2026-06-01T00:00:00.000Z',
+    },
+    3,
+    new Date('2026-07-01T00:00:00.000Z')
+  );
+
+  expect(summary.active).toBe(false);
+  expect(summary.remaining).toBe(7);
+  expect(summary.remainingLabel).toBe('Expired');
+  expect(summary.canAssign).toBe(false);
+});
+
+test('one-time seat packs never expire (no subscription fields)', () => {
+  const summary = getOrderSeatSummary(
+    {
+      id: 'legacy-pack',
+      seats: 5,
+      is_unlimited: false,
+    },
+    2,
+    new Date('2030-01-01T00:00:00.000Z')
+  );
+
+  expect(summary.active).toBe(true);
+  expect(summary.canAssign).toBe(true);
+});
+
 test('claim selection prefers active annual over older finite pack', () => {
   const selected = selectClaimableOrder(
     [

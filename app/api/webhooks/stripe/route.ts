@@ -43,7 +43,8 @@ async function syncSubscriptionOrderState(
   const { error } = await supabase
     .from('orders')
     .update({
-      is_unlimited: true,
+      // NOTE: is_unlimited is intentionally not touched here — capped subscription
+      // plans (Crew) sync their period/status without becoming unlimited.
       stripe_subscription_id: snapshot.stripe_subscription_id,
       stripe_customer_id: snapshot.stripe_customer_id,
       subscription_status: snapshot.subscription_status,
@@ -82,6 +83,38 @@ export async function POST(req: Request) {
     // Telegram sale alert — waitUntil keeps work alive after response; never blocks fulfillment.
     // Missing/empty TELEGRAM_* env = warn + no-op.
     scheduleCheckoutSaleNotify(stripe, session)
+
+    // Extra-seat purchase for an existing Crew order: increment seats and stop.
+    // Handled before the course_slug branch so it never creates users/enrollments
+    // and never falls through to the parts order-confirmation email.
+    if (session.metadata?.purchase_type === 'extra_seats' && session.metadata?.target_order_id) {
+      const targetOrderId = session.metadata.target_order_id
+      const addSeats = Math.max(1, parseInt(session.metadata.seat_quantity || '1', 10) || 1)
+
+      const { data: targetOrder, error: targetOrderError } = await supabase
+        .from('orders')
+        .select('id, seats')
+        .eq('id', targetOrderId)
+        .maybeSingle()
+
+      if (targetOrderError || !targetOrder) {
+        console.error(`❌ Extra-seat purchase for unknown order ${targetOrderId}:`, targetOrderError)
+        return NextResponse.json({ received: true, error: 'target_order_not_found' })
+      }
+
+      const { error: seatUpdateError } = await supabase
+        .from('orders')
+        .update({ seats: (targetOrder.seats || 0) + addSeats })
+        .eq('id', targetOrderId)
+
+      if (seatUpdateError) {
+        console.error(`❌ Failed to add ${addSeats} seat(s) to order ${targetOrderId}:`, seatUpdateError)
+        return NextResponse.json({ received: true, error: 'seat_update_failed' })
+      }
+
+      console.log(`✅ Added ${addSeats} seat(s) to order ${targetOrderId}`)
+      return NextResponse.json({ received: true, extra_seats: addSeats, order_id: targetOrderId })
+    }
 
     // Handle training purchases
     if (session.metadata?.course_slug) {
@@ -243,7 +276,9 @@ export async function POST(req: Request) {
           stripe_session_id: session.id,
           seats: quantity,
           amount_cents: session.amount_total || 0,
-          is_unlimited: Boolean(isAnnualPlan),
+          // Metadata-driven: Crew is a subscription with a finite seat cap, so
+          // subscription mode alone no longer implies unlimited seats.
+          is_unlimited: session.metadata?.is_unlimited === 'true' || (Boolean(isAnnualPlan) && session.metadata?.is_unlimited === undefined),
           stripe_subscription_id: subscriptionSnapshot?.stripe_subscription_id || null,
           stripe_customer_id: subscriptionSnapshot?.stripe_customer_id || null,
           subscription_status: subscriptionSnapshot?.subscription_status || null,

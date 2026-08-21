@@ -70,6 +70,7 @@ export async function POST(req: NextRequest) {
     let metadata: Record<string, string> = {};
     let successSlug = "";
     let checkoutMode: "payment" | "subscription" = "payment";
+    let subscriptionTrialDays = 0;
     
     if (body.items && Array.isArray(body.items)) {
       // Cart checkout format: { items: [{ priceId, quantity, metadata, coreCharge, isTraining, ... }] }
@@ -98,6 +99,11 @@ export async function POST(req: NextRequest) {
             );
           }
           checkoutMode = 'subscription';
+          // Optional free trial, plan-driven via metadata (e.g. Crew = 7 days).
+          const trialDays = Number(item.metadata?.trial_days);
+          if (Number.isInteger(trialDays) && trialDays > 0 && trialDays <= 30) {
+            subscriptionTrialDays = trialDays;
+          }
         }
 
         // Add main product line item
@@ -600,6 +606,9 @@ export async function POST(req: NextRequest) {
         ? {
             subscription_data: {
               metadata,
+              ...(subscriptionTrialDays > 0
+                ? { trial_period_days: subscriptionTrialDays }
+                : {}),
             },
           }
         : {}),

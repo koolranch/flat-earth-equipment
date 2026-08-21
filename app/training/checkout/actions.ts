@@ -2,7 +2,7 @@
 'use server'
 
 import { redirect } from 'next/navigation';
-import { getTrainingPlanByPriceId, TRAINING_PLANS } from '@/lib/training/plans';
+import { getTrainingPlanByPriceId, planIsUnlimited, planTrialDays, TRAINING_PLANS } from '@/lib/training/plans';
 import { supabaseServer } from '@/lib/supabase/server';
 import {
   clickIdsFromCookies,
@@ -71,9 +71,10 @@ export async function createTrainingCheckoutSessionFromForm(formData: FormData):
         metadata: {
           seat_count: plan.seats,  // Pass seat count in metadata
           checkout_mode: plan.checkoutMode,
-          is_unlimited: plan.id === 'unlimited',
+          is_unlimited: planIsUnlimited(plan),
           plan_id: plan.id,
           billing_label: plan.billingLabel || '',
+          ...(planTrialDays(plan) > 0 && { trial_days: planTrialDays(plan) }),
           ...(funnelState && { utm_state: funnelState }),
         }
       }],

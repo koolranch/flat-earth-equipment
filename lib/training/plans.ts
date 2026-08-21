@@ -69,12 +69,89 @@ export const TRAINING_PLANS = {
   },
 } as const;
 
+/**
+ * Employer subscription plans (GetForkliftCertified rollout). Kept separate
+ * from TRAINING_PLANS so the FEE /safety PricingStrip (which renders PLANS
+ * positionally) is unaffected. Checkout resolves these via
+ * getTrainingPlanByPriceId like any other plan.
+ */
+export const SUBSCRIPTION_PLANS = {
+  crewMonthly: {
+    id: 'crew_monthly',
+    key: 'crew_monthly',
+    name: 'Crew',
+    title: 'Crew (Monthly)',
+    price: 99,
+    priceText: '$99',
+    priceId: process.env.NEXT_PUBLIC_TRAINING_CREW_MONTHLY_PRICE_ID || '',
+    blurb: 'Manager dashboard with 10 active training seats for one crew.',
+    features: ['10 Training Seats', 'Manager Dashboard', 'Practical Evaluations', 'Compliance Exports', 'Add extra seats for $29'],
+    seats: 10,
+    popular: false,
+    callout: undefined,
+    checkoutMode: 'subscription',
+    billingLabel: '/month',
+    trialDays: 7,
+  },
+  crewAnnual: {
+    id: 'crew_annual',
+    key: 'crew_annual',
+    name: 'Crew Annual',
+    title: 'Crew (Annual)',
+    price: 990,
+    priceText: '$990',
+    priceId: process.env.NEXT_PUBLIC_TRAINING_CREW_ANNUAL_PRICE_ID || '',
+    blurb: 'Crew plan billed annually — two months free.',
+    features: ['10 Training Seats', 'Manager Dashboard', 'Practical Evaluations', 'Compliance Exports', 'Add extra seats for $29'],
+    seats: 10,
+    popular: false,
+    callout: 'Save $198 vs monthly',
+    checkoutMode: 'subscription',
+    billingLabel: '/year',
+    trialDays: 7,
+  },
+  facilityMonthly: {
+    id: 'facility_monthly',
+    key: 'facility_monthly',
+    name: 'Facility',
+    title: 'Facility (Monthly)',
+    price: 199,
+    priceText: '$199',
+    priceId: process.env.NEXT_PUBLIC_TRAINING_FACILITY_MONTHLY_PRICE_ID || '',
+    blurb: 'Unlimited operators for one facility, billed monthly.',
+    features: ['Unlimited Seats for One Facility', 'Seat Assignment Dashboard', 'Progress Tracking', 'Certificate Verification', 'Renewal Reminders'],
+    seats: 999,
+    popular: false,
+    callout: undefined,
+    checkoutMode: 'subscription',
+    billingLabel: '/month',
+    trialDays: 7,
+  },
+} as const;
+
 export const PLANS = Object.values(TRAINING_PLANS);
 
 export function getTrainingPlans() {
   return Object.values(TRAINING_PLANS);
 }
 
-export function getTrainingPlanByPriceId(priceId: string) {
-  return Object.values(TRAINING_PLANS).find((plan) => plan.priceId === priceId);
+type AnyPlan =
+  | (typeof TRAINING_PLANS)[keyof typeof TRAINING_PLANS]
+  | (typeof SUBSCRIPTION_PLANS)[keyof typeof SUBSCRIPTION_PLANS];
+
+export function getTrainingPlanByPriceId(priceId: string): AnyPlan | undefined {
+  return [...Object.values(TRAINING_PLANS), ...Object.values(SUBSCRIPTION_PLANS)].find(
+    (plan) => plan.priceId && plan.priceId === priceId
+  );
+}
+
+/** Seats >= this threshold are treated as an unlimited (facility-wide) plan. */
+export const UNLIMITED_SEAT_THRESHOLD = 999;
+
+export function planIsUnlimited(plan: Pick<AnyPlan, 'seats'>) {
+  return plan.seats >= UNLIMITED_SEAT_THRESHOLD;
+}
+
+export function planTrialDays(plan: AnyPlan): number {
+  return 'trialDays' in plan && typeof plan.trialDays === 'number' ? plan.trialDays : 0;
 }
