@@ -8,6 +8,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { GfcHeader, GfcFooter } from '@/components/gfc/GfcChrome';
 import CrispChat from '@/components/CrispChat';
 import SupabaseProvider from './providers';
 import { headers } from 'next/headers';
@@ -100,6 +101,16 @@ export default async function RootLayout({
         
         {/* Client-side error monitoring */}
         <script src="/monitor.js" async />
+
+        {/* Brand host detection (pre-paint, static-safe): on app.getforkliftcertified.com
+            the FEE navbar/footer are hidden via CSS and minimal GFC chrome shows instead.
+            See components/gfc/GfcChrome.tsx and globals.css [data-fee-chrome] rules. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(location.hostname==='app.getforkliftcertified.com'){document.documentElement.setAttribute('data-brand-host','gfc');}}catch(e){}",
+          }}
+        />
         
         {/* PWA Manifest and Icons */}
         <link rel="manifest" href="/manifest.webmanifest" />
@@ -200,16 +211,24 @@ export default async function RootLayout({
             
             {process.env.NODE_ENV !== 'production' ? <QAEventListener /> : null}
             
-            {/* Main Navbar */}
-            <Navbar locale={locale} />
-            
-            {/* Safety sub-nav appears BELOW main navbar on training/safety routes only */}
-            <SafetyRouteGate />
+            {/* Main Navbar (hidden on app.getforkliftcertified.com via [data-fee-chrome]) */}
+            <div data-fee-chrome>
+              <Navbar locale={locale} />
+              
+              {/* Safety sub-nav appears BELOW main navbar on training/safety routes only */}
+              <SafetyRouteGate />
+            </div>
+
+            {/* Forklift Certified chrome — only visible on app.getforkliftcertified.com */}
+            <GfcHeader />
             
             <main id="main" role="main">
               {children}
             </main>
+
+            <GfcFooter />
             
+            <div data-fee-chrome>
             <Footer locale={locale} />
             
             {/* Footer with legal links and accessibility toggle */}
@@ -226,6 +245,7 @@ export default async function RootLayout({
                 <ReducedMotionToggle />
               </div>
             </footer>
+            </div>
             <Analytics />
             <SpeedInsights />
             {/* Performance monitoring for Core Web Vitals and RUM */}

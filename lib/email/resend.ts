@@ -63,12 +63,53 @@ Modern Forklift Operator Training`;
 }
 
 // Additional email utility functions
-export async function sendWelcomeEmail(opts: { to: string; name?: string; courseTitle: string }) {
+export async function sendWelcomeEmail(opts: {
+  to: string;
+  name?: string;
+  courseTitle: string;
+  /** 'gfc' switches sender + copy to Forklift Certified branding. Default: Flat Earth Safety. */
+  brand?: SourceBrand;
+}) {
   if (!key) {
     throw new Error('Missing RESEND_API_KEY environment variable');
   }
   
   const resend = new Resend(key);
+
+  if (opts.brand === 'gfc') {
+    const gfcSubject = `Your training seat is ready — ${opts.courseTitle}`;
+    const gfcText = `Welcome${opts.name ? ` ${opts.name}` : ''}!
+
+Your seat in ${opts.courseTitle} is claimed and your account is ready.
+
+The fastest way to train is the Forklift Certified app:
+
+iPhone: https://apps.apple.com/app/id6759796469
+Android: https://play.google.com/store/apps/details?id=com.flateartheequipment.forkliftcertified
+
+Sign in with this email address and the password you just created. Most operators finish in under 30 minutes — interactive lessons, quick quizzes, and a final exam, in English or Spanish.
+
+Prefer a computer? Train in your browser: https://app.getforkliftcertified.com/training
+
+When you pass, you'll get a QR-verifiable certificate valid for 3 years.
+
+---
+Forklift Certified
+getforkliftcertified.com | support@getforkliftcertified.com`;
+
+    try {
+      return await resend.emails.send({
+        from: GFC_EMAIL_FROM,
+        to: opts.to,
+        subject: gfcSubject,
+        text: gfcText,
+      });
+    } catch (error) {
+      console.error('Failed to send welcome email:', error);
+      throw error;
+    }
+  }
+
   const subject = `Welcome to ${opts.courseTitle}`;
   const text = `Welcome ${opts.name || 'to the training'}!
 

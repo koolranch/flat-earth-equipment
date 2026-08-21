@@ -1,17 +1,26 @@
+import { headers } from 'next/headers';
 import { supabaseServer } from '@/lib/supabase/server';
 import AcceptClaim from '@/components/claim/AcceptClaim';
+import ClaimSignup from '@/components/claim/ClaimSignup';
 import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Claim Your Training Seat | Flat Earth Safety',
+  title: 'Claim Your Training Seat',
   description: 'Accept your invitation to join OSHA-compliant forklift operator training.',
+  robots: { index: false, follow: false },
 };
 
 export default async function ClaimPage({ params }: { params: { token: string } }) {
   const sb = supabaseServer();
   const token = params.token;
+
+  // Brand follows the host: app.getforkliftcertified.com is Forklift Certified
+  const host = headers().get('host')?.toLowerCase() || '';
+  const isGfc = host.startsWith('app.getforkliftcertified.com');
+  const brandName = isGfc ? 'Forklift Certified' : 'Flat Earth Safety';
+  const supportEmail = isGfc ? 'support@getforkliftcertified.com' : 'contact@flatearthequipment.com';
 
   // Get current user
   const { data: { user } } = await sb.auth.getUser();
@@ -30,22 +39,26 @@ export default async function ClaimPage({ params }: { params: { token: string } 
         <div className="rounded-2xl border border-red-200 bg-red-50 p-6 text-center">
           <h1 className="text-xl font-bold text-red-800 mb-2">Invalid Invitation</h1>
           <p className="text-red-700 mb-4">
-            This invitation link is invalid or has been removed.
+            This invitation link is invalid or has been removed. Ask your trainer to resend your
+            invitation, or contact{' '}
+            <a href={`mailto:${supportEmail}`} className="underline">{supportEmail}</a>.
           </p>
-          <div className="flex gap-2 justify-center">
-            <Link 
-              href="/safety" 
-              className="rounded-xl border px-4 py-2 text-sm hover:bg-slate-50"
-            >
-              Learn More
-            </Link>
-            <Link 
-              href="/training" 
-              className="rounded-2xl bg-[#F76511] text-white px-4 py-2 text-sm"
-            >
-              Go to Training
-            </Link>
-          </div>
+          {!isGfc && (
+            <div className="flex gap-2 justify-center">
+              <Link 
+                href="/safety" 
+                className="rounded-xl border px-4 py-2 text-sm hover:bg-slate-50"
+              >
+                Learn More
+              </Link>
+              <Link 
+                href="/training" 
+                className="rounded-2xl bg-[#F76511] text-white px-4 py-2 text-sm"
+              >
+                Go to Training
+              </Link>
+            </div>
+          )}
         </div>
       </main>
     );
@@ -63,20 +76,22 @@ export default async function ClaimPage({ params }: { params: { token: string } 
           <p className="text-amber-600 text-sm mb-4">
             Contact your trainer to request a new invitation.
           </p>
-          <div className="flex gap-2 justify-center">
-            <Link 
-              href="/safety" 
-              className="rounded-xl border px-4 py-2 text-sm hover:bg-slate-50"
-            >
-              Learn More
-            </Link>
-            <Link 
-              href="/contact" 
-              className="rounded-2xl bg-[#F76511] text-white px-4 py-2 text-sm"
-            >
-              Contact Support
-            </Link>
-          </div>
+          {!isGfc && (
+            <div className="flex gap-2 justify-center">
+              <Link 
+                href="/safety" 
+                className="rounded-xl border px-4 py-2 text-sm hover:bg-slate-50"
+              >
+                Learn More
+              </Link>
+              <Link 
+                href="/contact" 
+                className="rounded-2xl bg-[#F76511] text-white px-4 py-2 text-sm"
+              >
+                Contact Support
+              </Link>
+            </div>
+          )}
         </div>
       </main>
     );
@@ -92,7 +107,7 @@ export default async function ClaimPage({ params }: { params: { token: string } 
             This invitation was claimed on {new Date(inv.claimed_at).toLocaleDateString()}.
           </p>
           <p className="text-blue-600 text-sm mb-4">
-            If this was you, continue to your training dashboard.
+            If this was you, sign in to continue your training.
           </p>
           <div className="flex gap-2 justify-center">
             <Link 
@@ -179,26 +194,13 @@ export default async function ClaimPage({ params }: { params: { token: string } 
         {/* Action Section */}
         <section className="text-center">
           {!user ? (
-            <div className="space-y-3">
-              <p className="text-sm text-slate-600 dark:text-slate-400">
-                Please sign in to claim your training seat
-              </p>
-              <Link 
-                href={`/login?next=/claim/${token}`}
-                className="inline-block rounded-2xl bg-[#F76511] text-white px-6 py-3 font-medium hover:bg-[#E55A0C] transition-colors"
-              >
-                Sign In to Continue
-              </Link>
-              <div className="text-xs text-slate-500 dark:text-slate-400">
-                Don't have an account? You'll be able to create one after signing in.
-              </div>
-            </div>
+            <ClaimSignup token={token} email={inv.email || ''} />
           ) : (
             <div className="space-y-3">
               <p className="text-sm text-slate-600 dark:text-slate-400">
                 Ready to start your forklift operator training?
               </p>
-              <AcceptClaim token={token} />
+              <AcceptClaim token={token} successPath="/claim/success" />
               <div className="text-xs text-slate-500 dark:text-slate-400">
                 By accepting, you'll be enrolled in the course and can start training immediately.
               </div>
@@ -209,7 +211,7 @@ export default async function ClaimPage({ params }: { params: { token: string } 
 
       {/* Footer */}
       <footer className="mt-8 text-center text-xs text-slate-500 dark:text-slate-400">
-        <p>Powered by Flat Earth Safety</p>
+        <p>Powered by {brandName}</p>
         <p>Modern Forklift Operator Training</p>
       </footer>
     </main>

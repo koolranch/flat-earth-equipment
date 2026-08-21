@@ -299,3 +299,18 @@
   .accent-stroke { stroke: #F76511; }
   .accent-fill { fill: #F76511; }
 } 
+
+/* Brand-host chrome switching: app.getforkliftcertified.com gets Forklift
+   Certified chrome. An inline pre-paint script in app/layout.tsx sets
+   html[data-brand-host="gfc"] on that host. Default (FEE hosts): FEE chrome
+   visible, GFC chrome hidden. */
+[data-gfc-chrome] {
+  display: none;
+}
+html[data-brand-host="gfc"] [data-fee-chrome] {
+  display: none !important;
+}
+html[data-brand-host="gfc"] header[data-gfc-chrome],
+html[data-brand-host="gfc"] footer[data-gfc-chrome] {
+  display: block;
+}

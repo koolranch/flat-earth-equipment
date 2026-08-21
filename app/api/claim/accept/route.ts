@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabase/server';
 import { supabaseService } from '@/lib/supabase/service.server';
-import { sendWelcomeEmail } from '@/lib/email/resend';
-import { selectClaimableOrder } from '@/lib/training/orderEntitlements';
+import { claimSeatForUser } from '@/lib/training/claimSeat';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -50,200 +49,22 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error: 'already_claimed' }, { status: 409 });
     }
 
-    // Get user profile
-    const { data: profile } = await svc
-      .from('profiles')
-      .select('id, email, full_name')
-      .eq('id', user.id)
-      .maybeSingle();
+    const result = await claimSeatForUser(svc, {
+      inv,
+      userId: user.id,
+      firstName,
+      lastName,
+    });
 
-    if (!profile) {
-      return NextResponse.json({ ok: false, error: 'profile_not_found' }, { status: 404 });
-    }
-    
-    // Update profile with full name from claim form
-    const fullName = `${firstName.trim()} ${lastName.trim()}`;
-    try {
-      await svc
-        .from('profiles')
-        .update({ full_name: fullName })
-        .eq('id', user.id);
-      
-      // Also update auth user metadata for consistency
-      await svc.auth.admin.updateUserById(user.id, {
-        user_metadata: { full_name: fullName }
-      });
-    } catch (nameError) {
-      console.error('Failed to update user name (non-blocking):', nameError);
-      // Don't fail the claim if name update fails
-    }
-
-    // Verify email match (optional - could be flexible)
-    const profileEmail = profile.email?.toLowerCase();
-    const inviteEmail = inv.email?.toLowerCase();
-    
-    if (profileEmail !== inviteEmail) {
-      // For now, we'll allow different emails but log it
-      console.warn(`Email mismatch: profile=${profileEmail}, invite=${inviteEmail}`);
-    }
-
-    // Check if user already has an enrollment for this course
-    const { data: existingEnrollment } = await svc
-      .from('enrollments')
-      .select('id')
-      .eq('user_id', user.id)
-      .eq('course_id', inv.course_id)
-      .maybeSingle();
-
-    let enrollmentId = existingEnrollment?.id;
-    let claimOrderId: string | null = null;
-
-    const ordersQuery = svc
-      .from('orders')
-      .select('id, user_id, course_id, seats, created_at, is_unlimited, subscription_status, current_period_end, ended_at')
-      .eq('course_id', inv.course_id)
-      .order('created_at', { ascending: false });
-
-    const { data: candidateOrders, error: candidateOrdersError } = inv.order_id
-      ? await ordersQuery.eq('id', inv.order_id)
-      : await ordersQuery.eq('user_id', inv.created_by);
-
-    if (candidateOrdersError) {
-      console.error('Error loading candidate orders for seat claim:', candidateOrdersError);
-      return NextResponse.json({
-        ok: false,
-        error: 'failed_to_validate_order'
-      }, { status: 500 });
-    }
-
-    const orderIds = (candidateOrders || []).map((order: any) => order.id);
-    let claimedByOrderId: Record<string, number> = {};
-    if (orderIds.length > 0) {
-      const { data: claims } = await svc
-        .from('seat_claims')
-        .select('order_id')
-        .in('order_id', orderIds);
-
-      for (const claim of claims || []) {
-        const orderId = (claim as any).order_id;
-        claimedByOrderId[orderId] = (claimedByOrderId[orderId] || 0) + 1;
-      }
-    }
-
-    const selectedOrder = selectClaimableOrder((candidateOrders || []) as any[], claimedByOrderId);
-    if (!selectedOrder) {
-      return NextResponse.json({
-        ok: false,
-        error: 'no_seats_available'
-      }, { status: 409 });
-    }
-
-    claimOrderId = selectedOrder.order.id;
-
-    // Create enrollment if it doesn't exist
-    if (!enrollmentId) {
-      const { data: newEnrollment, error: enrollError } = await svc
-        .from('enrollments')
-        .insert({
-          user_id: user.id,
-          course_id: inv.course_id,
-          progress_pct: 0,
-          passed: false,
-          created_at: new Date().toISOString()
-        })
-        .select('id')
-        .single();
-
-      if (enrollError || !newEnrollment) {
-        console.error('Error creating enrollment:', enrollError);
-        return NextResponse.json({ 
-          ok: false, 
-          error: 'failed_to_create_enrollment' 
-        }, { status: 500 });
-      }
-
-      enrollmentId = newEnrollment.id;
-    }
-
-    // Mark invitation as claimed
-    const { error: claimError } = await svc
-      .from('seat_invites')
-      .update({
-        status: 'claimed',
-        claimed_at: new Date().toISOString(),
-        claimed_by: user.id
-      })
-      .eq('id', inv.id);
-
-    if (claimError) {
-      console.error('Error marking invitation as claimed:', claimError);
-      return NextResponse.json({ 
-        ok: false, 
-        error: 'failed_to_claim_invitation' 
-      }, { status: 500 });
-    }
-
-    // Persist claim in seat_claims (idempotent)
-    try {
-      if (claimOrderId) {
-        await svc
-          .from('seat_claims')
-          .upsert({ 
-            order_id: claimOrderId, 
-            user_id: user.id,
-            created_at: new Date().toISOString()
-          }, { 
-            onConflict: 'order_id,user_id', 
-            ignoreDuplicates: false 
-          });
-      }
-    } catch (e) {
-      console.error('seat_claims upsert failed', e);
-      // Don't fail the request if seat_claims fails
-    }
-
-    // Get course details for welcome email
-    const course = Array.isArray(inv.courses) ? inv.courses[0] : inv.courses;
-    const courseTitle = course?.title || 'Forklift Operator Training';
-
-    // Send welcome email (best effort)
-    if (process.env.RESEND_API_KEY && profile.email) {
-      try {
-        await sendWelcomeEmail({
-          to: profile.email,
-          name: profile.full_name,
-          courseTitle
-        });
-      } catch (emailError) {
-        console.error('Failed to send welcome email:', emailError);
-        // Don't fail the request if email fails
-      }
-    }
-
-    // Log audit trail
-    try {
-      await svc.from('audit_log').insert({
-        actor_id: user.id,
-        action: 'seat_claimed',
-        metadata: {
-          invite_id: inv.id,
-          course_id: inv.course_id,
-          enrollment_id: enrollmentId,
-          invite_email: inv.email,
-          profile_email: profile.email,
-          course_title: courseTitle
-        }
-      });
-    } catch (auditError) {
-      console.error('Error logging seat claim audit:', auditError);
-      // Don't fail the request if audit logging fails
+    if (!result.ok) {
+      return NextResponse.json({ ok: false, error: result.error }, { status: result.status });
     }
 
     return NextResponse.json({
       ok: true,
-      enrollment_id: enrollmentId,
+      enrollment_id: result.enrollmentId,
       course_id: inv.course_id,
-      course_title: courseTitle,
+      course_title: result.courseTitle,
       message: 'Seat claimed successfully! Welcome to the training.'
     });
 

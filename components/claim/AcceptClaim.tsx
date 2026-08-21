@@ -3,9 +3,11 @@ import { useState } from 'react';
 
 interface AcceptClaimProps {
   token: string;
+  /** Where to send the operator after a successful claim. */
+  successPath?: string;
 }
 
-export default function AcceptClaim({ token }: AcceptClaimProps) {
+export default function AcceptClaim({ token, successPath = '/training' }: AcceptClaimProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [firstName, setFirstName] = useState('');
@@ -42,8 +44,8 @@ export default function AcceptClaim({ token }: AcceptClaimProps) {
         return;
       }
 
-      // Success - redirect to training
-      window.location.href = '/training';
+      // Success - redirect to the post-claim destination
+      window.location.href = successPath;
 
     } catch (err) {
       console.error('Error claiming seat:', err);
