@@ -1,10 +1,14 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+// Lazy init: creating the client at module scope throws during `next build`
+// when Supabase env vars are absent (e.g. CI).
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
 
 interface PartsCatalogItem {
   sku: string;
@@ -29,7 +33,7 @@ function escapeXml(str: string | null | undefined): string {
 
 async function generateGoogleShoppingFeed(): Promise<string> {
   // Fetch chargers from parts_catalog
-  const { data: products, error } = await supabase
+  const { data: products, error } = await getSupabase()
     .from('parts_catalog')
     .select('sku, name, slug, your_price, images, meta_description, in_stock, specs')
     .eq('category_type', 'charger')

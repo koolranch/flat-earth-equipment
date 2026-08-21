@@ -4,9 +4,10 @@ import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-const supabase = supabaseService();
-
 export async function POST(req: Request) {
+  // Lazy init: creating the client at module scope throws during `next build`
+  // when SUPABASE_SERVICE_ROLE_KEY is absent (e.g. CI).
+  const supabase = supabaseService();
   try {
     // Get unprocessed price updates
     const { data: updates, error: fetchError } = await supabase

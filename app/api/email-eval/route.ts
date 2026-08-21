@@ -2,9 +2,10 @@ import { NextResponse } from 'next/server'
 import { supabaseService } from '@/lib/supabase/service.server'
 import { sendMail } from '@/lib/email/mailer'
 
-const supabase = supabaseService()
-
 export async function POST(req: Request) {
+  // Lazy init: creating the client at module scope throws during `next build`
+  // when SUPABASE_SERVICE_ROLE_KEY is absent (e.g. CI).
+  const supabase = supabaseService()
   try {
     const payload = await req.json()
     
