@@ -566,10 +566,33 @@ export async function POST(req: NextRequest) {
     }
 
     const base = siteUrlFrom(req);
-    
+
+    // White-label return base (GetForkliftCertified): Stripe success/cancel land
+    // back on the brand site so its Google Ads conversion fires on the same
+    // domain that saw the ad click. Host-allowlisted; anything else is ignored.
+    const ALLOWED_RETURN_HOSTS = new Set([
+      'getforkliftcertified.com',
+      'www.getforkliftcertified.com',
+    ]);
+    let returnBase: string | null = null;
+    if (typeof body.return_base === 'string') {
+      try {
+        const url = new URL(body.return_base);
+        if (url.protocol === 'https:' && ALLOWED_RETURN_HOSTS.has(url.hostname)) {
+          returnBase = url.origin;
+        }
+      } catch {
+        // Malformed URL — fall through to the default FEE return paths.
+      }
+    }
+
     // For training purchases, return to /safety on cancel instead of /cart
     const isTrainingPurchase = metadata.course_slug === 'forklift';
-    const cancelUrl = isTrainingPurchase ? `${base}/safety#pricing` : `${base}/cart`;
+    const cancelUrl = returnBase
+      ? `${returnBase}/#pricing`
+      : isTrainingPurchase
+        ? `${base}/safety#pricing`
+        : `${base}/cart`;
 
     // [feature-flag: ENABLE_ASK_EMPLOYER_CHECKOUT]
     // Append request_id to metadata and optionally set customer_email.
@@ -615,7 +638,9 @@ export async function POST(req: NextRequest) {
       ...(askEmployerCustomerEmail || examUnlockCustomerEmail
         ? { customer_email: askEmployerCustomerEmail ?? examUnlockCustomerEmail ?? undefined }
         : {}),
-      success_url: `${base}/checkout/success?slug=${encodeURIComponent(successSlug)}&session_id={CHECKOUT_SESSION_ID}`,
+      success_url: returnBase
+        ? `${returnBase}/checkout/success?session_id={CHECKOUT_SESSION_ID}`
+        : `${base}/checkout/success?slug=${encodeURIComponent(successSlug)}&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: cancelUrl,
       metadata: metadata,
     });
