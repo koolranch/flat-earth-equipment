@@ -14,8 +14,16 @@ jobs:
       CI: true
       BASE_URL: http://localhost:3000
       NEXT_PUBLIC_DEFAULT_LOCALE: en
-      # Optional E2E vars (set as repo secrets to enable cert flow)
+      # Publishable Supabase values (client-exposed by design); static pages
+      # read the anon-accessible parts catalog during prerender.
       NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+      # Build-only placeholders: several routes construct SDK clients at module
+      # scope, which throw during `next build` if the key is undefined. No real
+      # Stripe/Resend calls succeed with these values.
+      STRIPE_SECRET_KEY: sk_test_ci_build_placeholder
+      RESEND_API_KEY: re_ci_build_placeholder
+      # Optional E2E vars (set as repo secrets to enable cert flow)
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
       QA_LEARNER_ID: ${{ secrets.QA_LEARNER_ID }}
       QA_COURSE_ID: ${{ secrets.QA_COURSE_ID }}

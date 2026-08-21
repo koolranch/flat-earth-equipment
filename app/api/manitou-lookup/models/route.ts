@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
 import { supabaseService } from '@/lib/supabase/service.server';
 
+// Prevent static prerendering at build time: this route needs the service
+// role key, which is absent in CI builds.
+export const dynamic = 'force-dynamic';
+
 const supabase = () => supabaseService();
 
 export async function GET() {

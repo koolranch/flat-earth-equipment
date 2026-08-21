@@ -71,10 +71,12 @@ export async function generateMetadata({
   };
 }
 
-function createAdminClient() {
+// The parts catalog is anon-readable; using the publishable key keeps
+// static prerendering working in builds without the service role key.
+function createCatalogClient() {
   return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     { auth: { autoRefreshToken: false, persistSession: false } }
   );
 }
@@ -93,7 +95,7 @@ type BatteryRow = {
 
 async function getBatteriesByFsipSku(skus: string[]): Promise<Map<string, BatteryRow>> {
   if (skus.length === 0) return new Map();
-  const supabase = createAdminClient();
+  const supabase = createCatalogClient();
   const { data } = await supabase
     .from('parts')
     .select('id, name, slug, sku, price, image_url, weight_lbs, metadata, description')
