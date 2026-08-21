@@ -16,9 +16,39 @@ const ENTERPRISE_ROUTES = [
   '/enterprise/bulk'
 ];
 
+// MANAGER APP HOST — app.getforkliftcertified.com serves only the trainer
+// dashboard surface from this same deployment (GetForkliftCertified employer
+// brand). Everything else on that host bounces to the main FEE site so the
+// parts store and marketing pages are never duplicated on a second domain.
+const MANAGER_APP_HOST = 'app.getforkliftcertified.com';
+const MANAGER_APP_PREFIXES = [
+  '/trainer',
+  '/enterprise',
+  '/login',
+  '/logout',
+  '/api',
+  '/training',
+  '/records',
+];
+
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  
+  const host = (request.headers.get('host') || '').toLowerCase();
+  const isManagerAppHost = host === MANAGER_APP_HOST;
+
+  if (isManagerAppHost) {
+    if (pathname === '/' || pathname === '/dashboard') {
+      return NextResponse.redirect(new URL('/trainer', request.url), 307);
+    }
+    if (!MANAGER_APP_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`))) {
+      const destination = new URL(request.nextUrl);
+      destination.protocol = 'https:';
+      destination.host = 'www.flatearthequipment.com';
+      destination.port = '';
+      return NextResponse.redirect(destination, 307);
+    }
+  }
+
   // Check for trailing-slash redirects first (high priority for SEO)
   if (TRAILING_SLASH_REDIRECTS[pathname]) {
     const destination = new URL(TRAILING_SLASH_REDIRECTS[pathname], request.url);
@@ -34,6 +64,11 @@ export async function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-pathname', pathname);
   const response = NextResponse.next({ request: { headers: requestHeaders } });
+  if (isManagerAppHost) {
+    // Keep the manager app host out of search indexes; canonical pages live
+    // on the primary domains.
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+  }
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
   const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
