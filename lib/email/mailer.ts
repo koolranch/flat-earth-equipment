@@ -1,4 +1,4 @@
-export type Mail = { to: string; subject: string; html: string; };
+export type Mail = { to: string; subject: string; html: string; from?: string };
 
 export type SendMailResult =
   | { ok: true; id?: string }
@@ -106,6 +106,7 @@ export async function sendMail(msg: Mail): Promise<SendMailResult> {
     return { ok: false, skipped: true };
   }
 
-  const from = process.env.EMAIL_FROM || 'Flat Earth Safety <no-reply@flatearthequipment.com>';
+  const from =
+    msg.from || process.env.EMAIL_FROM || 'Flat Earth Safety <no-reply@flatearthequipment.com>';
   return sendMailWithClient(resend, msg, from);
 }

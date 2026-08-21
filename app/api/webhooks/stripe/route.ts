@@ -210,7 +210,12 @@ export async function POST(req: Request) {
           if (!shouldSuppressEmployerSideEffects(session.metadata, process.env.ENABLE_ASK_EMPLOYER_FULFILLMENT)) {
             const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com'
             const quantity = parseInt(session.metadata.quantity || '1')
-            
+
+            // Checkouts originating from getforkliftcertified.com get the
+            // GFC-branded welcome email instead of the Flat Earth Safety one.
+            const isGfcCheckout =
+              session.metadata?.item_0_utm_source === 'getforkliftcertified.com'
+
             const emailResponse = await fetch(`${siteUrl}/api/send-training-welcome`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -221,7 +226,12 @@ export async function POST(req: Request) {
                 courseTitle: 'Forklift Operator Certification',
                 isTrainer: quantity > 1,
                 seatCount: quantity,
-                isAnnualPlan
+                isAnnualPlan,
+                ...(isGfcCheckout && {
+                  brand: 'gfc',
+                  planId: session.metadata?.plan_id || '',
+                  trialDays: parseInt(session.metadata?.item_0_trial_days || '0'),
+                }),
               })
             })
             

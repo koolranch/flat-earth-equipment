@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { sendMail } from '@/lib/email/mailer'
+import { GFC_EMAIL_FROM, generateGfcTrainerWelcomeEmail } from '@/lib/email/gfcTrainerWelcome'
 import { generateMobileAppBlock } from '@/lib/email/mobile-app-block'
 
 function generateTrainerWelcomeEmail(
@@ -148,14 +149,40 @@ function generateTrainerWelcomeEmail(
 
 export async function POST(req: Request) {
   try {
-    const { email, name, password, courseTitle, isTrainer, seatCount, isAnnualPlan } = await req.json()
+    const { email, name, password, courseTitle, isTrainer, seatCount, isAnnualPlan, brand, planId, trialDays } = await req.json()
     
     if (!email || !password || !courseTitle) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
     
     const firstName = name ? name.split(' ')[0] : 'there'
-    
+
+    // Forklift Certified (getforkliftcertified.com) buyers get the GFC-branded
+    // welcome sent from the GFC domain, so the brand matches the site they bought on.
+    if (brand === 'gfc' && isTrainer) {
+      const gfcEmail = generateGfcTrainerWelcomeEmail({
+        firstName,
+        email,
+        password,
+        planId: String(planId || ''),
+        trialDays: Number(trialDays) || 0,
+      })
+
+      await sendMail({
+        to: email,
+        from: GFC_EMAIL_FROM,
+        subject: gfcEmail.subject,
+        html: gfcEmail.html,
+      })
+
+      console.log('✅ GFC trainer welcome email sent via Resend to:', email)
+
+      return NextResponse.json({
+        success: true,
+        message: 'GFC trainer welcome email sent successfully',
+      })
+    }
+
     // Use trainer email template for multi-seat purchases
     if (isTrainer && seatCount && seatCount > 1) {
       const trainerEmailHtml = generateTrainerWelcomeEmail(firstName, email, password, courseTitle, seatCount, Boolean(isAnnualPlan));
