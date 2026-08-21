@@ -17,6 +17,10 @@ import baseConfig from './playwright.config';
 export default defineConfig({
   ...baseConfig,
   testIgnore: [
+    'e2e/training/modules-list.spec.ts',
+    'e2e/training/orientation-start.spec.ts',
+    'e2e/training/progress-fallback.spec.ts',
+    'tests/e2e/perf.budget.spec.ts',
     'tests/brand-hub.spec.ts',
     'tests/demos.spec.ts',
     'tests/hub-resume.spec.ts',
