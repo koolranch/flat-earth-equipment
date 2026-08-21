@@ -29,6 +29,9 @@ const MANAGER_APP_PREFIXES = [
   '/api',
   '/training',
   '/records',
+  // Operator seat-claim links in GFC-branded invite emails land on this host.
+  '/claim',
+  '/claim-seat',
 ];
 
 export async function middleware(request: NextRequest) {

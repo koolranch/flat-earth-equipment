@@ -1,5 +1,7 @@
 import 'server-only';
 import { Resend } from 'resend';
+import { GFC_EMAIL_FROM } from '@/lib/email/gfcTrainerWelcome';
+import type { SourceBrand } from '@/lib/training/sourceBrand';
 
 const key = process.env.RESEND_API_KEY!;
 const from = process.env.EMAIL_FROM || 'Flat Earth Safety <no-reply@flatearthequipment.com>';
@@ -8,6 +10,8 @@ interface SendInviteEmailOptions {
   to: string;
   claimUrl: string;
   courseTitle: string;
+  /** 'gfc' switches sender + copy to Forklift Certified branding. Default: Flat Earth Safety. */
+  brand?: SourceBrand;
 }
 
 export async function sendInviteEmail(opts: SendInviteEmailOptions) {
@@ -18,7 +22,20 @@ export async function sendInviteEmail(opts: SendInviteEmailOptions) {
   const resend = new Resend(key);
   
   const subject = `You've been invited: ${opts.courseTitle}`;
-  const text = `You have been assigned training in ${opts.courseTitle}.
+  const text =
+    opts.brand === 'gfc'
+      ? `Your employer has assigned you training in ${opts.courseTitle}.
+
+Claim your seat: ${opts.claimUrl}
+
+This OSHA-aligned forklift operator certification takes most operators under 30 minutes on a phone — interactive lessons, quick quizzes, and a final exam, available in English and Spanish. When you pass, you'll get a QR-verifiable certificate valid for 3 years.
+
+If you weren't expecting this invitation, please ignore this email.
+
+---
+Forklift Certified
+getforkliftcertified.com | support@getforkliftcertified.com`
+      : `You have been assigned training in ${opts.courseTitle}.
 
 Claim your seat: ${opts.claimUrl}
 
@@ -32,7 +49,7 @@ Modern Forklift Operator Training`;
 
   try {
     const result = await resend.emails.send({
-      from,
+      from: opts.brand === 'gfc' ? GFC_EMAIL_FROM : from,
       to: opts.to,
       subject,
       text,

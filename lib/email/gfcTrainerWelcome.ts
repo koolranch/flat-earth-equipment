@@ -8,8 +8,9 @@
  */
 
 export const GFC_EMAIL_FROM = 'Forklift Certified <no-reply@getforkliftcertified.com>';
+export const GFC_APP_BASE_URL = 'https://app.getforkliftcertified.com';
 
-const GFC_DASHBOARD_URL = 'https://app.getforkliftcertified.com/trainer';
+const GFC_DASHBOARD_URL = `${GFC_APP_BASE_URL}/trainer`;
 const GFC_SUPPORT_EMAIL = 'support@getforkliftcertified.com';
 const BRAND_ORANGE = '#F76511';
 

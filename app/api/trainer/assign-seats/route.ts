@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { supabaseService } from '@/lib/supabase/service.server';
 import { sendInviteEmail } from '@/lib/email/resend';
+import { GFC_APP_BASE_URL } from '@/lib/email/gfcTrainerWelcome';
+import { managerSourceBrand } from '@/lib/training/sourceBrand';
 import { getAuthUser } from '@/lib/supabase/mobile-auth';
 
 export const runtime = 'nodejs';
@@ -28,6 +30,10 @@ export async function POST(req: Request) {
   if (!course) {
     return NextResponse.json({ ok: false, error: 'course_not_found' }, { status: 404 });
   }
+
+  // GFC-origin managers get Forklift Certified invite branding + claim host.
+  const brand = await managerSourceBrand(svc, user.id);
+  const claimBase = brand === 'gfc' ? GFC_APP_BASE_URL : process.env.NEXT_PUBLIC_BASE_URL;
 
   const results: any[] = [];
 
@@ -87,11 +93,12 @@ export async function POST(req: Request) {
               // Send email invitation if requested
               if (send_emails && process.env.RESEND_API_KEY) {
                 try {
-                  const claimUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/claim-seat?token=${inviteData?.id}`;
+                  const claimUrl = `${claimBase}/claim-seat?token=${inviteData?.id}`;
                   await sendInviteEmail({
                     to: email,
                     claimUrl,
-                    courseTitle: course.title
+                    courseTitle: course.title,
+                    brand
                   });
                   results[results.length - 1].email_sent = true;
                 } catch (emailError) {

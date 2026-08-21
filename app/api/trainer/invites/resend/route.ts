@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { randomBytes } from 'node:crypto';
 import { supabaseService } from '@/lib/supabase/service.server';
 import { sendInviteEmail } from '@/lib/email/resend';
+import { GFC_APP_BASE_URL } from '@/lib/email/gfcTrainerWelcome';
+import { managerSourceBrand } from '@/lib/training/sourceBrand';
 import { getAuthUser } from '@/lib/supabase/mobile-auth';
 
 export const runtime = 'nodejs';
@@ -53,7 +55,11 @@ export async function POST(req: Request) {
     // Generate new token and expiry
     const newToken = randomBytes(24).toString('base64url');
     const newExpiry = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(); // 14 days
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const brand = await managerSourceBrand(svc, user.id);
+    const baseUrl =
+      brand === 'gfc'
+        ? GFC_APP_BASE_URL
+        : process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
     const claimUrl = `${baseUrl}/claim/${newToken}`;
 
     // Get course details for email
@@ -69,7 +75,8 @@ export async function POST(req: Request) {
     await sendInviteEmail({
       to: invitation.email,
       claimUrl,
-      courseTitle
+      courseTitle,
+      brand
     });
 
     // Update invitation with new token, expiry, and sent status

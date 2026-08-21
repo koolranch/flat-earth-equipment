@@ -123,6 +123,10 @@ export async function POST(req: Request) {
       try {
         const customerEmail = session.customer_details?.email
         const customerName = session.customer_details?.name || ''
+        // Checkouts originating from getforkliftcertified.com get GFC branding
+        // on the order and its emails (welcome, seat invites).
+        const isGfcCheckout =
+          session.metadata?.item_0_utm_source === 'getforkliftcertified.com'
         const isAnnualPlan =
           session.mode === 'subscription' || session.metadata?.checkout_mode === 'subscription'
         const subscriptionId =
@@ -211,11 +215,6 @@ export async function POST(req: Request) {
             const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com'
             const quantity = parseInt(session.metadata.quantity || '1')
 
-            // Checkouts originating from getforkliftcertified.com get the
-            // GFC-branded welcome email instead of the Flat Earth Safety one.
-            const isGfcCheckout =
-              session.metadata?.item_0_utm_source === 'getforkliftcertified.com'
-
             const emailResponse = await fetch(`${siteUrl}/api/send-training-welcome`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -299,6 +298,7 @@ export async function POST(req: Request) {
           gbraid: attribution.gbraid,
           wbraid: attribution.wbraid,
           funnel_state: attribution.funnel_state,
+          source_brand: isGfcCheckout ? 'gfc' : null,
         }
         
         console.log('📦 Creating order record...')

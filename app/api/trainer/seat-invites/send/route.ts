@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { randomBytes } from 'node:crypto';
 import { supabaseService } from '@/lib/supabase/service.server';
 import { sendInviteEmail } from '@/lib/email/resend';
+import { GFC_APP_BASE_URL } from '@/lib/email/gfcTrainerWelcome';
+import { managerSourceBrand } from '@/lib/training/sourceBrand';
 import { getAuthUser } from '@/lib/supabase/mobile-auth';
 
 export const runtime = 'nodejs';
@@ -53,8 +55,15 @@ export async function POST(req: Request) {
   const { data: course } = await svc.from('courses').select('title').eq('id', course_id).maybeSingle();
   const courseTitle = course?.title || 'Forklift Operator Training';
 
+  // GFC-origin managers get Forklift Certified branding and claim links on
+  // the GFC app host; everyone else keeps the Flat Earth Safety defaults.
+  const brand = await managerSourceBrand(svc, user.id);
+
   // Base URL for claim links
-  const base = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const base =
+    brand === 'gfc'
+      ? GFC_APP_BASE_URL
+      : process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
   let sent = 0;
   let failed = 0;
@@ -77,7 +86,8 @@ export async function POST(req: Request) {
       const emailResult = await sendInviteEmail({
         to: inv.email,
         claimUrl,
-        courseTitle
+        courseTitle,
+        brand
       });
 
       // If email sent successfully, prepare update
