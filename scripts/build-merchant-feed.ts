@@ -137,6 +137,11 @@ function isJcbPart(p: Pick<PartRow, "brand" | "category">): boolean {
  * Add new Shopping candidates here — do not expand whole brands/categories.
  */
 const MERCHANT_KEEP_SLUGS = new Set([
+  "mitsubishi-32k62-00300-fuel-water-separator",
+  "tcm-wm682-vinyl-seat",
+  "toyota-53740-unl8g-71-seat-belt",
+  "hyster-4221086-high-vis-seat-belt",
+  "hyster-1490071-36v-fan",
   "tennant-9008999-wheel-gearbox-kit",
   "genie-33984gt-standard-forks",
   "sevcon-622-11201-36-48v-dc-dc-converter",
@@ -144,6 +149,8 @@ const MERCHANT_KEEP_SLUGS = new Set([
   "bobcat-7123864-excavator-swivel",
   "delta-q-quiq-48v-18a-charger-9124800",
   "taylor-dunn-79-303-41-battery-charger",
+  "taylor-dunn-62-033-48-accelerator-module",
+  "powerboss-620265-filter",
 ]);
 
 /** Catalog lines we will submit while Merchant is still approving the first wave. */
