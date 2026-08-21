@@ -102,124 +102,156 @@ export default function DashboardInner() {
     not_started: rows.filter(r => r.status === 'not_started').length,
   }), [rows, total]);
 
+  const inputClass = 'rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#F76511] focus:outline-none focus:ring-2 focus:ring-[#F76511]/20';
+
   return (
-    <main id="main" className="container mx-auto p-4 grid gap-4" role="main" aria-label={t('trainer.title')}>
+    <main id="main" className="container mx-auto max-w-6xl p-4 sm:p-6 grid gap-5" role="main" aria-label={t('trainer.title')}>
       {/* Enterprise Back Navigation */}
       {hasEnterpriseAccess && (
         <div className="flex items-center justify-between">
           <Link 
             href="/enterprise/dashboard"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-[#F76511] transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-[#F76511] transition-colors"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
             <span>Back to Enterprise Dashboard</span>
           </Link>
-          <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Legacy Trainer View</span>
+          <span className="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded-md">Legacy Trainer View</span>
         </div>
       )}
-      
-      <h1 className="text-xl font-bold">{t('trainer.title')}</h1>
-      
-      {/* Visual Seat Counter Cards */}
+
+      <header className="flex flex-wrap items-end justify-between gap-2">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900">{t('trainer.title')}</h1>
+          <p className="mt-1 text-sm text-slate-500">Track training progress and manage seats for your team.</p>
+        </div>
+      </header>
+
+      {/* Seat counters */}
       {seatsInfo && seatsInfo.total > 0 && (
-        <section className="grid grid-cols-3 gap-4">
-          <div className="rounded-2xl border bg-gradient-to-br from-blue-50 to-blue-100 p-4 border-blue-200">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-blue-700">Total Seats</span>
-              <span className="text-2xl">💺</span>
-            </div>
-            <div className="text-3xl font-bold text-blue-900">{seatsInfo.totalLabel}</div>
-            <div className="text-xs text-blue-600 mt-1">{seatsInfo.hasUnlimited ? 'Annual plan active' : 'Purchased'}</div>
-          </div>
-          
-          <div className="rounded-2xl border bg-gradient-to-br from-green-50 to-green-100 p-4 border-green-200">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-green-700">Available</span>
-              <span className="text-2xl">🟢</span>
-            </div>
-            <div className="text-3xl font-bold text-green-900">{seatsInfo.remainingLabel}</div>
-            <div className="text-xs text-green-600 mt-1">{seatsInfo.hasUnlimited ? 'Ready to assign year-round' : 'Ready to assign'}</div>
-          </div>
-          
-          <div className="rounded-2xl border bg-gradient-to-br from-purple-50 to-purple-100 p-4 border-purple-200">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-purple-700">Assigned</span>
-              <span className="text-2xl">📊</span>
-            </div>
-            <div className="text-3xl font-bold text-purple-900">{seatsInfo.claimed}</div>
-            <div className="text-xs text-purple-600 mt-1">Active learners</div>
-          </div>
+        <section className="grid gap-4 sm:grid-cols-3">
+          <SeatCard
+            label="Total seats"
+            value={seatsInfo.totalLabel}
+            sub={seatsInfo.hasUnlimited ? 'Annual plan active' : 'Purchased'}
+            icon={
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-1.13a4 4 0 10-4-4 4 4 0 004 4zm6-4a3 3 0 11-3-3m-9 3a3 3 0 10-3-3" />
+            }
+          />
+          <SeatCard
+            label="Available"
+            value={seatsInfo.remainingLabel}
+            sub={seatsInfo.hasUnlimited ? 'Ready to assign year-round' : 'Ready to assign'}
+            accent
+            icon={
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 9v3m0 3h.01M12 3a9 9 0 100 18 9 9 0 000-18zm0 5.5v4" />
+            }
+          />
+          <SeatCard
+            label="Assigned"
+            value={String(seatsInfo.claimed)}
+            sub="Active learners"
+            icon={
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            }
+          />
         </section>
       )}
 
       {/* Assign Seats Panel - Show if they have available seats */}
       {seatsInfo && (seatsInfo.hasUnlimited || seatsInfo.remaining > 0) && (
-        <div className="rounded-2xl border bg-gradient-to-r from-blue-50 to-indigo-50 p-4">
+        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <AssignSeatsPanel />
         </div>
       )}
 
-      <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      {/* Training status summary */}
+      <section className="grid grid-cols-2 divide-slate-200 rounded-2xl border border-slate-200 bg-white shadow-sm sm:grid-cols-4 sm:divide-x">
         <Stat label={t('trainer.total')} value={summary.total} />
-        <Stat label={t('trainer.passed')} value={summary.passed} />
-        <Stat label={t('trainer.in_progress')} value={summary.in_progress} />
-        <Stat label={t('trainer.not_started')} value={summary.not_started} />
+        <Stat label={t('trainer.passed')} value={summary.passed} dot="bg-emerald-500" />
+        <Stat label={t('trainer.in_progress')} value={summary.in_progress} dot="bg-amber-400" />
+        <Stat label={t('trainer.not_started')} value={summary.not_started} dot="bg-slate-300" />
       </section>
 
-      <section className="rounded-2xl border bg-white p-3 grid gap-2">
-        <div className="grid md:grid-cols-5 gap-2">
-          <input className="border rounded-xl p-2" placeholder={t('trainer.filters.q')} value={q} onChange={e => setQ(e.target.value)} />
-          <select className="border rounded-xl p-2" value={status} onChange={e => setStatus(e.target.value as any)}>
+      {/* Filters */}
+      <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm grid gap-3">
+        <div className="grid gap-2 md:grid-cols-5">
+          <input className={inputClass} placeholder={t('trainer.filters.q')} value={q} onChange={e => setQ(e.target.value)} />
+          <select className={`${inputClass} bg-white`} value={status} onChange={e => setStatus(e.target.value as any)}>
             <option value="all">All</option>
             <option value="not_started">{t('trainer.not_started')}</option>
             <option value="in_progress">{t('trainer.in_progress')}</option>
             <option value="passed">{t('trainer.passed')}</option>
           </select>
-          <input className="border rounded-xl p-2" placeholder={t('trainer.filters.course')} value={course} onChange={e => setCourse(e.target.value)} />
-          <input className="border rounded-xl p-2" type="date" value={from} onChange={e => setFrom(e.target.value)} />
-          <input className="border rounded-xl p-2" type="date" value={to} onChange={e => setTo(e.target.value)} />
+          <input className={inputClass} placeholder={t('trainer.filters.course')} value={course} onChange={e => setCourse(e.target.value)} />
+          <input className={inputClass} type="date" value={from} onChange={e => setFrom(e.target.value)} />
+          <input className={inputClass} type="date" value={to} onChange={e => setTo(e.target.value)} />
         </div>
         <div className="flex gap-2 justify-end">
-          <button className="rounded-2xl border px-4 py-2" onClick={() => { (window as any)?.analytics?.track?.('trainer_filter_change', { q, status, course, from, to }); load(1); }}>{t('common.apply')}</button>
-          <a className="rounded-2xl bg-[#F76511] text-white px-4 py-2" href={exportHref({ q, status, course, from, to })} onClick={() => (window as any)?.analytics?.track?.('export_roster', { q, status, course, from, to })}>{t('common.export')}</a>
+          <button className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors" onClick={() => { (window as any)?.analytics?.track?.('trainer_filter_change', { q, status, course, from, to }); load(1); }}>{t('common.apply')}</button>
+          <a className="rounded-lg bg-[#F76511] px-4 py-2 text-sm font-semibold text-white hover:bg-[#E55A0C] transition-colors" href={exportHref({ q, status, course, from, to })} onClick={() => (window as any)?.analytics?.track?.('export_roster', { q, status, course, from, to })}>{t('common.export')}</a>
         </div>
       </section>
 
-      <section className="rounded-2xl border overflow-auto bg-white">
+      {/* Roster */}
+      <section className="rounded-2xl border border-slate-200 overflow-auto bg-white shadow-sm">
         <table className="w-full text-sm">
-          <thead className="bg-slate-50 text-slate-700">
-            <tr>
-              <th className="text-left p-2">Learner</th>
-              <th className="text-left p-2">Email</th>
-              <th className="text-left p-2">Course</th>
-              <th className="text-right p-2">Progress</th>
-              <th className="text-center p-2">Status</th>
-              <th className="text-center p-2">Certificate</th>
+          <thead>
+            <tr className="border-b border-slate-200 bg-slate-50/80 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+              <th className="p-3">Learner</th>
+              <th className="p-3">Email</th>
+              <th className="p-3">Course</th>
+              <th className="p-3">Progress</th>
+              <th className="p-3 text-center">Status</th>
+              <th className="p-3 text-center">Certificate</th>
             </tr>
           </thead>
           <tbody>
             {rows.map(r => (
-              <tr key={r.enrollment_id} className="border-t hover:bg-slate-50">
-                <td className="p-2">{r.learner_name}</td>
-                <td className="p-2">{r.learner_email}</td>
-                <td className="p-2">{r.course_slug}</td>
-                <td className="p-2 text-right">{Math.round(r.progress_pct || 0)}%</td>
-                <td className="p-2 text-center"><StatusBadge status={r.status} /></td>
-                <td className="p-2 text-center">{r.cert_pdf_url ? <a className="underline" href={r.cert_pdf_url} target="_blank" rel="noreferrer">PDF</a> : '—'}</td>
+              <tr key={r.enrollment_id} className="border-t border-slate-100 hover:bg-slate-50/60">
+                <td className="p-3 font-medium text-slate-900">{r.learner_name}</td>
+                <td className="p-3 text-slate-500">{r.learner_email}</td>
+                <td className="p-3 text-slate-500">{r.course_slug}</td>
+                <td className="p-3">
+                  <div className="flex items-center gap-2">
+                    <div className="h-1.5 w-20 overflow-hidden rounded-full bg-slate-100">
+                      <div
+                        className={`h-full rounded-full ${r.status === 'passed' ? 'bg-emerald-500' : 'bg-[#F76511]'}`}
+                        style={{ width: `${Math.min(100, Math.max(0, Math.round(r.progress_pct || 0)))}%` }}
+                      />
+                    </div>
+                    <span className="tabular-nums text-slate-700 w-9 text-right">{Math.round(r.progress_pct || 0)}%</span>
+                  </div>
+                </td>
+                <td className="p-3 text-center"><StatusBadge status={r.status} /></td>
+                <td className="p-3 text-center">
+                  {r.cert_pdf_url ? (
+                    <a className="inline-flex items-center gap-1 rounded-md border border-slate-300 px-2 py-1 text-xs font-medium text-slate-700 hover:border-[#F76511] hover:text-[#F76511] transition-colors" href={r.cert_pdf_url} target="_blank" rel="noreferrer">
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                      PDF
+                    </a>
+                  ) : <span className="text-slate-300">—</span>}
+                </td>
               </tr>
             ))}
             {!rows.length && !loading && total === 0 && seatsInfo && seatsInfo.remaining > 0 && (
               <tr>
                 <td colSpan={6} className="p-12">
                   <div className="text-center">
-                    <div className="text-5xl mb-4">👥</div>
-                    <h3 className="text-lg font-semibold text-slate-700 mb-2">No Learners Yet</h3>
+                    <span className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-50 text-[#F76511]">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m9-1.13a4 4 0 10-8 0m4-11a4 4 0 110 8 4 4 0 010-8z" />
+                      </svg>
+                    </span>
+                    <h3 className="text-lg font-semibold text-slate-800 mb-1">No Learners Yet</h3>
                     <p className="text-slate-500 mb-4">
                       Assign your first seat above to get started tracking your team's progress
                     </p>
-                    <div className="inline-flex items-center gap-2 text-sm text-blue-600 bg-blue-50 px-4 py-2 rounded-lg">
+                    <div className="inline-flex items-center gap-2 rounded-lg bg-orange-50 px-4 py-2 text-sm font-medium text-[#F76511]">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                       </svg>
@@ -238,43 +270,66 @@ export default function DashboardInner() {
         </table>
       </section>
 
-      <nav className="flex items-center gap-2 justify-end">
-        <button className="rounded-xl border px-3 py-1 disabled:opacity-50" disabled={page <= 1} onClick={() => { setPage(p => p - 1); load(page - 1); }}>Prev</button>
-        <span className="text-sm">Page {page} / {pages}</span>
-        <button className="rounded-xl border px-3 py-1 disabled:opacity-50" disabled={page >= pages} onClick={() => { setPage(p => p + 1); load(page + 1); }}>Next</button>
+      <nav className="flex items-center gap-3 justify-end">
+        <button className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors disabled:opacity-40 disabled:hover:bg-transparent" disabled={page <= 1} onClick={() => { setPage(p => p - 1); load(page - 1); }}>Prev</button>
+        <span className="text-sm text-slate-500">Page {page} / {pages}</span>
+        <button className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors disabled:opacity-40 disabled:hover:bg-transparent" disabled={page >= pages} onClick={() => { setPage(p => p + 1); load(page + 1); }}>Next</button>
       </nav>
     </main>
   );
 }
 
-function Stat({ label, value }: { label: string; value: number }) {
-  return <div className="rounded-2xl border bg-white p-3 grid"><span className="text-slate-600 text-sm">{label}</span><span className="text-2xl font-bold">{value}</span></div>;
+function SeatCard({ label, value, sub, icon, accent = false }: { label: string; value: string; sub: string; icon: React.ReactNode; accent?: boolean }) {
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <div className="flex items-center justify-between">
+        <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</span>
+        <span className={`flex h-9 w-9 items-center justify-center rounded-lg ${accent ? 'bg-[#F76511] text-white' : 'bg-orange-50 text-[#F76511]'}`}>
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">{icon}</svg>
+        </span>
+      </div>
+      <div className="mt-2 text-3xl font-bold tracking-tight text-slate-900">{value}</div>
+      <div className="mt-1 text-xs text-slate-500">{sub}</div>
+    </div>
+  );
+}
+
+function Stat({ label, value, dot }: { label: string; value: number; dot?: string }) {
+  return (
+    <div className="p-4">
+      <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-slate-500">
+        {dot && <span className={`h-2 w-2 rounded-full ${dot}`} />}
+        {label}
+      </div>
+      <div className="mt-1 text-2xl font-bold tabular-nums text-slate-900">{value}</div>
+    </div>
+  );
 }
 
 function StatusBadge({ status }: { status: 'not_started' | 'in_progress' | 'passed' }) {
   const config = {
-    passed: { 
-      styles: 'bg-green-50 border-green-300 text-green-800', 
-      icon: '✓', 
-      label: 'Passed' 
+    passed: {
+      styles: 'bg-emerald-50 text-emerald-700 ring-emerald-600/20',
+      dot: 'bg-emerald-500',
+      label: 'Passed'
     },
-    in_progress: { 
-      styles: 'bg-amber-50 border-amber-300 text-amber-800', 
-      icon: '⟳', 
-      label: 'In Progress' 
+    in_progress: {
+      styles: 'bg-amber-50 text-amber-700 ring-amber-600/20',
+      dot: 'bg-amber-400',
+      label: 'In Progress'
     },
-    not_started: { 
-      styles: 'bg-slate-50 border-slate-300 text-slate-700', 
-      icon: '○', 
-      label: 'Not Started' 
+    not_started: {
+      styles: 'bg-slate-50 text-slate-600 ring-slate-500/20',
+      dot: 'bg-slate-300',
+      label: 'Not Started'
     }
   };
-  
-  const { styles, icon, label } = config[status];
-  
+
+  const { styles, dot, label } = config[status];
+
   return (
-    <span className={`inline-flex items-center gap-1 rounded-xl border px-2 py-1 text-xs ${styles}`}>
-      <span>{icon}</span>
+    <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ring-inset ${styles}`}>
+      <span className={`h-1.5 w-1.5 rounded-full ${dot}`} />
       <span>{label}</span>
     </span>
   );
