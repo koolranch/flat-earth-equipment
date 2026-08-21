@@ -1626,6 +1626,24 @@ Confirm belt length, rib count, and pulley layout for your machine before orderi
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
+      <g:id>20915900</g:id>
+      <title>JCB 20/915900 Transmission Pump</title>
+      <description>Aftermarket transmission / oil pump for JCB equipment. Replaces OEM part number 20/915900 (also listed as JC20/915900; cross-refs often include 20/925327 and 20/900400).
+
+Confirm pump style and mounting for your machine before ordering. Flat shipping is added at checkout per the standard JCB parts freight bands.</description>
+      <link>https://www.flatearthequipment.com/parts/20915900</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp</g:image_link>
+      <g:price>299.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>20/915900</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
       <g:id>25223170</g:id>
       <title>JCB 25/223170 Replacement Part</title>
       <description>Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 25/223170.</description>
@@ -1719,22 +1737,6 @@ Confirm belt length, rib count, and pulley layout for your machine before orderi
       <g:identifier_exists>no</g:identifier_exists>
       <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
       <g:product_type>JCB Hydraulic Valves</g:product_type>
-      <g:custom_label_0>priority_jcb</g:custom_label_0>
-    </item>
-    <item>
-      <g:id>20915900</g:id>
-      <title>JCB 20/915900 Replacement Part</title>
-      <description>Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 20/915900.</description>
-      <link>https://www.flatearthequipment.com/parts/20915900</link>
-      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp</g:image_link>
-      <g:price>300.31 USD</g:price>
-      <g:brand>JCB</g:brand>
-      <g:mpn>20/915900</g:mpn>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
-      <g:product_type>JCB General Parts</g:product_type>
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>

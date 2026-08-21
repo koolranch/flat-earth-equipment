@@ -1571,6 +1571,22 @@
     "custom_label_0": "priority_jcb"
   },
   {
+    "id": "20915900",
+    "title": "JCB 20/915900 Transmission Pump",
+    "description": "Aftermarket transmission / oil pump for JCB equipment. Replaces OEM part number 20/915900 (also listed as JC20/915900; cross-refs often include 20/925327 and 20/900400).\n\nConfirm pump style and mounting for your machine before ordering. Flat shipping is added at checkout per the standard JCB parts freight bands.",
+    "link": "https://www.flatearthequipment.com/parts/20915900",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
+    "price": "299.00 USD",
+    "brand": "JCB",
+    "mpn": "20/915900",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "JCB General Parts",
+    "identifier_exists": "no",
+    "custom_label_0": "priority_jcb"
+  },
+  {
     "id": "25223170",
     "title": "JCB 25/223170 Replacement Part",
     "description": "Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 25/223170.",
@@ -1663,22 +1679,6 @@
     "availability": "in stock",
     "google_product_category": "Business & Industrial > Material Handling",
     "product_type": "JCB Hydraulic Valves",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
-    "id": "20915900",
-    "title": "JCB 20/915900 Replacement Part",
-    "description": "Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 20/915900.",
-    "link": "https://www.flatearthequipment.com/parts/20915900",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "300.31 USD",
-    "brand": "JCB",
-    "mpn": "20/915900",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB General Parts",
     "identifier_exists": "no",
     "custom_label_0": "priority_jcb"
   },
