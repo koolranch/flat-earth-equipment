@@ -49,8 +49,10 @@ jobs:
       - name: Install Playwright
         run: npx playwright install --with-deps
 
-      - name: Run Playwright tests (HTML report)
-        run: npx playwright test
+      - name: Run Playwright tests (hermetic subset, HTML report)
+        # CI has no service role key or seeded data; playwright.ci.config.ts
+        # skips specs that need them. Run the full suite locally.
+        run: npx playwright test --config=playwright.ci.config.ts
 
       - name: Upload Playwright report
         if: always()
