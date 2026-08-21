@@ -1,6 +1,6 @@
 import { headers } from 'next/headers';
 import { supabaseServer } from '@/lib/supabase/server';
-import { supabaseService } from '@/lib/supabase/service.server';
+import { getSeatInviteByToken } from '@/lib/training/seatInvite.server';
 import AcceptClaim from '@/components/claim/AcceptClaim';
 import ClaimSignup from '@/components/claim/ClaimSignup';
 import Link from 'next/link';
@@ -26,15 +26,9 @@ export default async function ClaimPage({ params }: { params: { token: string } 
   // Get current user
   const { data: { user } } = await sb.auth.getUser();
 
-  // Fetch invitation details with the service client. RLS only grants
-  // seat_invites SELECT to authenticated users, but invited operators are
-  // anonymous — possession of the unguessable token is the authorization.
-  const svc = supabaseService();
-  const { data: inv, error: invError } = await svc
-    .from('seat_invites')
-    .select('id, email, course_id, status, expires_at, claimed_at, note, courses(title)')
-    .eq('invite_token', token)
-    .maybeSingle();
+  // Fetch invitation details via server-only helper (service client; the
+  // unguessable token is the authorization since operators are anonymous).
+  const { data: inv, error: invError } = await getSeatInviteByToken(token);
 
   // Handle various error states
   if (invError || !inv) {
