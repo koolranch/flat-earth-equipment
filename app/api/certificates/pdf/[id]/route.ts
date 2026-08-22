@@ -16,10 +16,31 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
   const { data: cert, error } = await supabase
     .from('certificates')
-    .select('id, learner_id, course_id, issue_date, score, verifier_code, pdf_url, practical_pass, evaluation_date, evaluator_name')
+    .select('id, learner_id, course_id, enrollment_id, issue_date, score, verifier_code, pdf_url')
     .eq('id', params.id)
     .maybeSingle();
   if (error || !cert) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+
+  // Practical evaluation details live in employer_evaluations, not on the
+  // certificate row (the old certificate columns were removed).
+  let evaluation: { practical_pass: boolean; evaluation_date: string | null; evaluator_name: string | null } | null = null;
+  if (cert.enrollment_id) {
+    const { data: ev } = await supabase
+      .from('employer_evaluations')
+      .select('practical_pass, evaluation_date, evaluator_name')
+      .eq('enrollment_id', cert.enrollment_id)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    evaluation = ev || null;
+  }
+
+  const { data: course } = await supabase
+    .from('courses')
+    .select('title')
+    .eq('id', cert.course_id)
+    .maybeSingle();
+  const courseTitle = course?.title || 'Forklift Operator Training';
 
   const L = (k: string) => {
     const en: Record<string,string> = { 
@@ -51,20 +72,20 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   const draw = (text: string, y: number, size = 14) => page.drawText(text, { x: 72, y, size, font, color: rgb(0.06, 0.09, 0.165) });
 
   draw(`Flat Earth Safety — ${L('title')}`, 720, 18);
-  draw(`${L('course')}: ${cert.course_id}`, 670);
+  draw(`${L('course')}: ${courseTitle}`, 670);
   draw(`${L('issued')}: ${cert.issue_date}`, 646);
   draw(`${L('score')}: ${cert.score}%`, 622);
   draw(`${L('verify')}: ${cert.verifier_code}`, 598);
   draw('Learner: ** (masked)', 574);
   
   // Add practical verification badge if evaluation passed
-  if (cert.practical_pass) {
+  if (evaluation?.practical_pass) {
     page.drawText(L('practical'), { x: 72, y: 550, size: 16, font, color: rgb(0.0, 0.6, 0.0) }); // Green color
-    if (cert.evaluator_name) {
-      draw(`${L('practicalBy')}: ${cert.evaluator_name}`, 526, 12);
+    if (evaluation.evaluator_name) {
+      draw(`${L('practicalBy')}: ${evaluation.evaluator_name}`, 526, 12);
     }
-    if (cert.evaluation_date) {
-      draw(`Date: ${cert.evaluation_date}`, 506, 12);
+    if (evaluation.evaluation_date) {
+      draw(`Date: ${evaluation.evaluation_date}`, 506, 12);
     }
   }
   
@@ -72,10 +93,15 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
 
   const pdfBytes = await pdfDoc.save();
   const filePath = `${cert.id}.pdf`;
-  const { data: up, error: upErr } = await supabase.storage.from('certificates').upload(filePath, new Blob([pdfBytes], { type: 'application/pdf' }), { upsert: true });
+  const { error: upErr } = await supabase.storage.from('certificates').upload(filePath, new Blob([pdfBytes], { type: 'application/pdf' }), { upsert: true });
   if (upErr) return NextResponse.json({ error: upErr.message }, { status: 400 });
   const { data: pub } = supabase.storage.from('certificates').getPublicUrl(filePath);
   const pdf_url = pub.publicUrl;
   await supabase.from('certificates').update({ pdf_url }).eq('id', cert.id);
+
+  // Browsers (e.g. the trainer roster's PDF link) get sent to the PDF itself;
+  // programmatic callers keep the original JSON contract.
+  const wantsHtml = (req.headers.get('accept') || '').includes('text/html');
+  if (wantsHtml) return NextResponse.redirect(pdf_url);
   return NextResponse.json({ pdf_url, locale });
 }
