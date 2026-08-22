@@ -23,7 +23,7 @@ export async function GET(req: Request) {
   const j = await r.json();
   const rows = (j.items || []) as any[];
   
-  const header = ['Learner Name', 'Email', 'Course', 'Progress %', 'Status', 'Passed', 'Cert Issued At', 'Cert URL'];
+  const header = ['Learner Name', 'Email', 'Course', 'Progress %', 'Status', 'Passed', 'Practical Eval', 'Expires At', 'Cert Issued At', 'Cert URL'];
   const lines = [header.join(',')].concat(rows.map(x => [
     csv(x.learner_name), 
     csv(x.learner_email), 
@@ -31,6 +31,8 @@ export async function GET(req: Request) {
     String(x.progress_pct || 0), 
     x.status, 
     x.passed ? 'yes' : 'no', 
+    x.practical_pass === true ? 'pass' : x.practical_pass === false ? 'fail' : '',
+    x.expires_at || '',
     x.cert_issued_at || '', 
     x.cert_pdf_url || ''
   ].join(',')));

@@ -48,24 +48,34 @@ export async function GET(req: Request) {
 
   // 4) Enrollments for those learners and these courses
   const courseIds = Array.from(new Set((orders || []).map(o => (o as any).course_id).filter(Boolean)));
-  let enrollQ = svc.from('enrollments').select('id, user_id, course_id, course_slug, progress_pct, passed, created_at, updated_at').in('user_id', learnerIds);
+  let enrollQ = svc.from('enrollments').select('id, user_id, course_id, course_slug, progress_pct, passed, cert_url, expires_at, created_at, updated_at').in('user_id', learnerIds);
   if (f.course_slug) enrollQ = enrollQ.eq('course_slug', f.course_slug);
   const { data: enrollments } = await enrollQ;
   const enrollmentIds = (enrollments || []).map(e => e.id);
 
-  // 5) Latest certificates per enrollment
+  // 5) Latest non-revoked certificate per enrollment
   let certs: any[] = [];
   try {
-    const { data } = await svc.from('certificates').select('id, enrollment_id, pdf_url, issued_at, revoked').in('enrollment_id', enrollmentIds).order('issued_at', { ascending: false });
-    certs = data || [];
+    const { data } = await svc.from('certificates').select('id, enrollment_id, pdf_url, issued_at, revoked_at').in('enrollment_id', enrollmentIds).order('issued_at', { ascending: false });
+    certs = (data || []).filter(c => !(c as any).revoked_at);
   } catch { certs = []; }
   const latestCertByEnroll: Record<string, any> = {};
   for (const c of certs) { const eid = (c as any).enrollment_id; if (!latestCertByEnroll[eid]) latestCertByEnroll[eid] = c; }
+
+  // 5b) Latest practical evaluation per enrollment (OSHA hands-on requirement)
+  let evals: any[] = [];
+  try {
+    const { data } = await svc.from('employer_evaluations').select('enrollment_id, practical_pass, evaluation_date, created_at').in('enrollment_id', enrollmentIds).order('created_at', { ascending: false });
+    evals = data || [];
+  } catch { evals = []; }
+  const latestEvalByEnroll: Record<string, any> = {};
+  for (const ev of evals) { const eid = (ev as any).enrollment_id; if (eid && !latestEvalByEnroll[eid]) latestEvalByEnroll[eid] = ev; }
 
   // Compose rows
   let rows = (enrollments || []).map(e => {
     const p = learnerById[(e as any).user_id] || {};
     const cert = latestCertByEnroll[(e as any).id];
+    const ev = latestEvalByEnroll[(e as any).id];
     const status = (e as any).passed ? 'passed' : ((e as any).progress_pct >= 5 ? 'in_progress' : 'not_started');
     return {
       enrollment_id: e.id,
@@ -76,8 +86,13 @@ export async function GET(req: Request) {
       progress_pct: (e as any).progress_pct ?? 0,
       passed: !!(e as any).passed,
       status,
-      cert_pdf_url: cert?.pdf_url || null,
+      // Certificates live in the certificates table for newer flows and on
+      // enrollments.cert_url for older ones; expose whichever exists.
+      cert_pdf_url: cert?.pdf_url || (e as any).cert_url || null,
       cert_issued_at: cert?.issued_at || null,
+      expires_at: (e as any).expires_at || null,
+      practical_pass: ev ? !!(ev as any).practical_pass : null,
+      evaluation_date: ev?.evaluation_date || null,
       updated_at: (e as any).updated_at,
       created_at: (e as any).created_at,
     };

@@ -1,12 +1,25 @@
 import { Metadata } from 'next';
+import { headers } from 'next/headers';
 import { unstable_noStore as noStore } from 'next/cache';
 import { signInWithPasswordAction } from './actions';
 
-export const metadata: Metadata = {
-  title: 'Sign In',
-  description: 'Sign in to access your Flat Earth Equipment training dashboard and certification records.',
-  robots: { index: false, follow: false }, // Auth page
-};
+// Host-aware: the GFC app host must not surface Flat Earth Equipment branding
+// in the tab title while managers and operators sign in.
+export async function generateMetadata(): Promise<Metadata> {
+  const host = (headers().get('host') || '').toLowerCase();
+  if (host === 'app.getforkliftcertified.com') {
+    return {
+      title: { absolute: 'Sign In | Forklift Certified' },
+      description: 'Sign in to access your Forklift Certified training dashboard and certification records.',
+      robots: { index: false, follow: false },
+    };
+  }
+  return {
+    title: 'Sign In',
+    description: 'Sign in to access your Flat Earth Equipment training dashboard and certification records.',
+    robots: { index: false, follow: false }, // Auth page
+  };
+}
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;

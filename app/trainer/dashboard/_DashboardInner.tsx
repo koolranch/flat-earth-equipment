@@ -1,10 +1,26 @@
 'use client';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useI18n } from '@/lib/i18n/I18nProvider';
 import AssignSeatsPanel from '@/components/trainer/AssignSeatsPanel';
 import Link from 'next/link';
 
-type Row = { enrollment_id: string; learner_id: string; learner_name: string; learner_email: string; course_slug: string; progress_pct: number; status: 'not_started' | 'in_progress' | 'passed'; passed: boolean; cert_pdf_url: string | null; cert_issued_at: string | null; updated_at?: string; created_at?: string };
+type Row = {
+  enrollment_id: string;
+  learner_id: string;
+  learner_name: string;
+  learner_email: string;
+  course_slug: string;
+  progress_pct: number;
+  status: 'not_started' | 'in_progress' | 'passed';
+  passed: boolean;
+  cert_pdf_url: string | null;
+  cert_issued_at: string | null;
+  expires_at: string | null;
+  practical_pass: boolean | null;
+  evaluation_date: string | null;
+  updated_at?: string;
+  created_at?: string;
+};
 type SeatsInfo = {
   total: number;
   claimed: number;
@@ -13,6 +29,30 @@ type SeatsInfo = {
   totalLabel: string;
   remainingLabel: string;
 };
+type RemindState = 'sending' | 'sent' | 'already_sent' | 'error';
+
+const COURSE_LABELS: Record<string, string> = {
+  forklift: 'Forklift Operator',
+  forklift_operator: 'Forklift Operator',
+};
+
+function courseLabel(slug: string) {
+  if (COURSE_LABELS[slug]) return COURSE_LABELS[slug];
+  return slug.replace(/[_-]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
+const EXPIRING_SOON_DAYS = 90;
+
+function expiryInfo(expiresAt: string | null): { label: string; tone: 'expired' | 'soon' | 'ok' } | null {
+  if (!expiresAt) return null;
+  const d = new Date(expiresAt);
+  if (Number.isNaN(d.getTime())) return null;
+  const label = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  const daysLeft = (d.getTime() - Date.now()) / 86400000;
+  if (daysLeft < 0) return { label, tone: 'expired' };
+  if (daysLeft <= EXPIRING_SOON_DAYS) return { label, tone: 'soon' };
+  return { label, tone: 'ok' };
+}
 
 export default function DashboardInner() {
   const { t } = useI18n();
@@ -23,12 +63,16 @@ export default function DashboardInner() {
   const [loading, setLoading] = useState(true);
   const [seatsInfo, setSeatsInfo] = useState<SeatsInfo | null>(null);
   const [hasEnterpriseAccess, setHasEnterpriseAccess] = useState(false);
+  const [showAssign, setShowAssign] = useState(false);
+  const [remindState, setRemindState] = useState<Record<string, RemindState>>({});
+  const autoOpenedAssign = useRef(false);
 
   const [q, setQ] = useState('');
   const [status, setStatus] = useState<'all' | 'not_started' | 'in_progress' | 'passed'>('all');
   const [course, setCourse] = useState('');
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
+  const [showFilters, setShowFilters] = useState(false);
 
   const load = useCallback(async (p = page) => {
     setLoading(true);
@@ -43,7 +87,18 @@ export default function DashboardInner() {
     const r = await fetch(u.toString());
     if (r.status === 401 || r.status === 403) { setRows([]); setTotal(0); setLoading(false); return; }
     const j = await r.json();
-    if (j.ok) { setRows(j.items || []); setTotal(j.total || 0); setPage(j.page || 1); setPageSize(j.pageSize || 50); }
+    if (j.ok) {
+      setRows(j.items || []);
+      setTotal(j.total || 0);
+      setPage(j.page || 1);
+      setPageSize(j.pageSize || 50);
+      // First visit with an empty roster: open the invite panel so the next
+      // step is obvious. Never auto-open again after that.
+      if ((j.total || 0) === 0 && !autoOpenedAssign.current) {
+        autoOpenedAssign.current = true;
+        setShowAssign(true);
+      }
+    }
     setLoading(false);
   }, [page, q, status, course, from, to, pageSize]);
 
@@ -59,7 +114,6 @@ export default function DashboardInner() {
       const r = await fetch('/api/enterprise/user/role');
       if (r.ok) {
         const j = await r.json();
-        // User has enterprise access if they have an org_id
         if (j.ok && j.org_id) {
           setHasEnterpriseAccess(true);
         }
@@ -94,13 +148,40 @@ export default function DashboardInner() {
     }
   }
 
+  async function sendReminder(enrollmentId: string) {
+    setRemindState(s => ({ ...s, [enrollmentId]: 'sending' }));
+    try {
+      const r = await fetch('/api/trainer/reminders/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ enrollment_id: enrollmentId }),
+      });
+      if (r.ok) {
+        setRemindState(s => ({ ...s, [enrollmentId]: 'sent' }));
+        (window as any)?.analytics?.track?.('trainer_reminder_sent', { enrollment_id: enrollmentId });
+      } else if (r.status === 429) {
+        setRemindState(s => ({ ...s, [enrollmentId]: 'already_sent' }));
+      } else {
+        setRemindState(s => ({ ...s, [enrollmentId]: 'error' }));
+      }
+    } catch {
+      setRemindState(s => ({ ...s, [enrollmentId]: 'error' }));
+    }
+  }
+
   const pages = Math.max(1, Math.ceil(total / pageSize));
   const summary = useMemo(() => ({
     total,
     passed: rows.filter(r => r.status === 'passed').length,
     in_progress: rows.filter(r => r.status === 'in_progress').length,
     not_started: rows.filter(r => r.status === 'not_started').length,
+    expiring: rows.filter(r => {
+      const info = expiryInfo(r.expires_at);
+      return !!info && (info.tone === 'soon' || info.tone === 'expired');
+    }).length,
   }), [rows, total]);
+
+  const canInvite = !!seatsInfo && (seatsInfo.hasUnlimited || seatsInfo.remaining > 0);
 
   const inputClass = 'rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#F76511] focus:outline-none focus:ring-2 focus:ring-[#F76511]/20';
 
@@ -122,77 +203,105 @@ export default function DashboardInner() {
         </div>
       )}
 
-      <header className="flex flex-wrap items-end justify-between gap-2">
+      <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-slate-900">{t('trainer.title')}</h1>
           <p className="mt-1 text-sm text-slate-500">Track training progress and manage seats for your team.</p>
         </div>
+        {canInvite && (
+          <button
+            className="inline-flex items-center gap-2 rounded-lg bg-[#F76511] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#E55A0C] transition-colors"
+            onClick={() => setShowAssign(v => !v)}
+            aria-expanded={showAssign}
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+            </svg>
+            {showAssign ? 'Close invite panel' : 'Invite operators'}
+            {!seatsInfo?.hasUnlimited && seatsInfo ? (
+              <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs font-semibold">{seatsInfo.remaining} left</span>
+            ) : null}
+          </button>
+        )}
       </header>
 
-      {/* Seat counters */}
-      {seatsInfo && seatsInfo.total > 0 && (
-        <section className="grid gap-4 sm:grid-cols-3">
-          <SeatCard
-            label="Total seats"
-            value={seatsInfo.totalLabel}
-            sub={seatsInfo.hasUnlimited ? 'Annual plan active' : 'Purchased'}
-            icon={
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-1.13a4 4 0 10-4-4 4 4 0 004 4zm6-4a3 3 0 11-3-3m-9 3a3 3 0 10-3-3" />
-            }
+      {/* Unified stats band */}
+      {(seatsInfo || total > 0) && (
+        <section className="grid grid-cols-2 divide-slate-200 rounded-2xl border border-slate-200 bg-white shadow-sm sm:grid-cols-5 sm:divide-x">
+          <Stat
+            label="Seats used"
+            value={seatsInfo ? (seatsInfo.hasUnlimited ? `${seatsInfo.claimed}` : `${seatsInfo.claimed}/${seatsInfo.total}`) : '—'}
+            sub={seatsInfo?.hasUnlimited ? 'Unlimited plan' : undefined}
           />
-          <SeatCard
-            label="Available"
-            value={seatsInfo.remainingLabel}
-            sub={seatsInfo.hasUnlimited ? 'Ready to assign year-round' : 'Ready to assign'}
-            accent
-            icon={
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 9v3m0 3h.01M12 3a9 9 0 100 18 9 9 0 000-18zm0 5.5v4" />
-            }
-          />
-          <SeatCard
-            label="Assigned"
-            value={String(seatsInfo.claimed)}
-            sub="Active learners"
-            icon={
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            }
+          <Stat label={t('trainer.passed')} value={summary.passed} dot="bg-emerald-500" />
+          <Stat label={t('trainer.in_progress')} value={summary.in_progress} dot="bg-amber-400" />
+          <Stat label={t('trainer.not_started')} value={summary.not_started} dot="bg-slate-300" />
+          <Stat
+            label="Expiring soon"
+            value={summary.expiring}
+            dot={summary.expiring > 0 ? 'bg-red-500' : 'bg-slate-200'}
+            sub={summary.expiring > 0 ? `Within ${EXPIRING_SOON_DAYS} days` : undefined}
           />
         </section>
       )}
 
-      {/* Assign Seats Panel - Show if they have available seats */}
-      {seatsInfo && (seatsInfo.hasUnlimited || seatsInfo.remaining > 0) && (
+      {/* Assign Seats Panel — collapsed behind the Invite operators button */}
+      {canInvite && showAssign && (
         <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <AssignSeatsPanel />
         </div>
       )}
 
-      {/* Training status summary */}
-      <section className="grid grid-cols-2 divide-slate-200 rounded-2xl border border-slate-200 bg-white shadow-sm sm:grid-cols-4 sm:divide-x">
-        <Stat label={t('trainer.total')} value={summary.total} />
-        <Stat label={t('trainer.passed')} value={summary.passed} dot="bg-emerald-500" />
-        <Stat label={t('trainer.in_progress')} value={summary.in_progress} dot="bg-amber-400" />
-        <Stat label={t('trainer.not_started')} value={summary.not_started} dot="bg-slate-300" />
-      </section>
-
-      {/* Filters */}
+      {/* Search + filters */}
       <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm grid gap-3">
-        <div className="grid gap-2 md:grid-cols-5">
-          <input className={inputClass} placeholder={t('trainer.filters.q')} value={q} onChange={e => setQ(e.target.value)} />
+        <div className="flex flex-wrap items-center gap-2">
+          <input
+            className={`${inputClass} flex-1 min-w-48`}
+            placeholder={t('trainer.filters.q')}
+            value={q}
+            onChange={e => setQ(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') load(1); }}
+          />
           <select className={`${inputClass} bg-white`} value={status} onChange={e => setStatus(e.target.value as any)}>
-            <option value="all">All</option>
+            <option value="all">All statuses</option>
             <option value="not_started">{t('trainer.not_started')}</option>
             <option value="in_progress">{t('trainer.in_progress')}</option>
             <option value="passed">{t('trainer.passed')}</option>
           </select>
-          <input className={inputClass} placeholder={t('trainer.filters.course')} value={course} onChange={e => setCourse(e.target.value)} />
-          <input className={inputClass} type="date" value={from} onChange={e => setFrom(e.target.value)} />
-          <input className={inputClass} type="date" value={to} onChange={e => setTo(e.target.value)} />
+          <button
+            className="rounded-lg bg-[#F76511] px-4 py-2 text-sm font-semibold text-white hover:bg-[#E55A0C] transition-colors"
+            onClick={() => { (window as any)?.analytics?.track?.('trainer_filter_change', { q, status, course, from, to }); load(1); }}
+          >
+            {t('common.apply')}
+          </button>
+          <button
+            className="rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors"
+            onClick={() => setShowFilters(v => !v)}
+            aria-expanded={showFilters}
+          >
+            {showFilters ? 'Fewer filters' : 'More filters'}
+          </button>
+          <a
+            className="rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors"
+            href={exportHref({ q, status, course, from, to })}
+            onClick={() => (window as any)?.analytics?.track?.('export_roster', { q, status, course, from, to })}
+          >
+            {t('common.export')}
+          </a>
         </div>
-        <div className="flex gap-2 justify-end">
-          <button className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors" onClick={() => { (window as any)?.analytics?.track?.('trainer_filter_change', { q, status, course, from, to }); load(1); }}>{t('common.apply')}</button>
-          <a className="rounded-lg bg-[#F76511] px-4 py-2 text-sm font-semibold text-white hover:bg-[#E55A0C] transition-colors" href={exportHref({ q, status, course, from, to })} onClick={() => (window as any)?.analytics?.track?.('export_roster', { q, status, course, from, to })}>{t('common.export')}</a>
-        </div>
+        {showFilters && (
+          <div className="grid gap-2 sm:grid-cols-3">
+            <input className={inputClass} placeholder={t('trainer.filters.course')} value={course} onChange={e => setCourse(e.target.value)} />
+            <label className="grid gap-1 text-xs text-slate-500">
+              Enrolled from
+              <input className={inputClass} type="date" value={from} onChange={e => setFrom(e.target.value)} />
+            </label>
+            <label className="grid gap-1 text-xs text-slate-500">
+              Enrolled to
+              <input className={inputClass} type="date" value={to} onChange={e => setTo(e.target.value)} />
+            </label>
+          </div>
+        )}
       </section>
 
       {/* Roster */}
@@ -201,46 +310,100 @@ export default function DashboardInner() {
           <thead>
             <tr className="border-b border-slate-200 bg-slate-50/80 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
               <th className="p-3">Learner</th>
-              <th className="p-3">Email</th>
               <th className="p-3">Course</th>
               <th className="p-3">Progress</th>
               <th className="p-3 text-center">Status</th>
+              <th className="p-3 text-center">Evaluation</th>
+              <th className="p-3">Expires</th>
               <th className="p-3 text-center">Certificate</th>
+              <th className="p-3 text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {rows.map(r => (
-              <tr key={r.enrollment_id} className="border-t border-slate-100 hover:bg-slate-50/60">
-                <td className="p-3 font-medium text-slate-900">{r.learner_name}</td>
-                <td className="p-3 text-slate-500">{r.learner_email}</td>
-                <td className="p-3 text-slate-500">{r.course_slug}</td>
-                <td className="p-3">
-                  <div className="flex items-center gap-2">
-                    <div className="h-1.5 w-20 overflow-hidden rounded-full bg-slate-100">
-                      <div
-                        className={`h-full rounded-full ${r.status === 'passed' ? 'bg-emerald-500' : 'bg-[#F76511]'}`}
-                        style={{ width: `${Math.min(100, Math.max(0, Math.round(r.progress_pct || 0)))}%` }}
-                      />
+            {rows.map(r => {
+              const expiry = expiryInfo(r.expires_at);
+              const rs = remindState[r.enrollment_id];
+              const needsRenewal = r.status === 'passed' && !!expiry && (expiry.tone === 'soon' || expiry.tone === 'expired');
+              const showRemind = r.status !== 'passed' || needsRenewal;
+              return (
+                <tr key={r.enrollment_id} className="border-t border-slate-100 hover:bg-slate-50/60">
+                  <td className="p-3">
+                    <div className="font-medium text-slate-900">{r.learner_name}</div>
+                    <div className="text-xs text-slate-500">{r.learner_email}</div>
+                  </td>
+                  <td className="p-3 text-slate-500">{courseLabel(r.course_slug)}</td>
+                  <td className="p-3">
+                    <div className="flex items-center gap-2">
+                      <div className="h-1.5 w-20 overflow-hidden rounded-full bg-slate-100">
+                        <div
+                          className={`h-full rounded-full ${r.status === 'passed' ? 'bg-emerald-500' : 'bg-[#F76511]'}`}
+                          style={{ width: `${Math.min(100, Math.max(0, Math.round(r.progress_pct || 0)))}%` }}
+                        />
+                      </div>
+                      <span className="tabular-nums text-slate-700 w-9 text-right">{Math.round(r.progress_pct || 0)}%</span>
                     </div>
-                    <span className="tabular-nums text-slate-700 w-9 text-right">{Math.round(r.progress_pct || 0)}%</span>
-                  </div>
-                </td>
-                <td className="p-3 text-center"><StatusBadge status={r.status} /></td>
-                <td className="p-3 text-center">
-                  {r.cert_pdf_url ? (
-                    <a className="inline-flex items-center gap-1 rounded-md border border-slate-300 px-2 py-1 text-xs font-medium text-slate-700 hover:border-[#F76511] hover:text-[#F76511] transition-colors" href={r.cert_pdf_url} target="_blank" rel="noreferrer">
-                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                      </svg>
-                      PDF
-                    </a>
-                  ) : <span className="text-slate-300">—</span>}
-                </td>
-              </tr>
-            ))}
-            {!rows.length && !loading && total === 0 && seatsInfo && seatsInfo.remaining > 0 && (
+                  </td>
+                  <td className="p-3 text-center"><StatusBadge status={r.status} /></td>
+                  <td className="p-3 text-center"><EvalBadge practicalPass={r.practical_pass} /></td>
+                  <td className="p-3">
+                    {expiry ? (
+                      <span className={
+                        expiry.tone === 'expired'
+                          ? 'inline-flex items-center gap-1.5 text-xs font-semibold text-red-600'
+                          : expiry.tone === 'soon'
+                            ? 'inline-flex items-center gap-1.5 text-xs font-semibold text-amber-600'
+                            : 'text-xs text-slate-500'
+                      }>
+                        {expiry.tone !== 'ok' && <span className={`h-1.5 w-1.5 rounded-full ${expiry.tone === 'expired' ? 'bg-red-500' : 'bg-amber-400'}`} />}
+                        {expiry.label}
+                        {expiry.tone === 'expired' && <span className="text-[10px] uppercase">Expired</span>}
+                      </span>
+                    ) : <span className="text-slate-300">—</span>}
+                  </td>
+                  <td className="p-3 text-center">
+                    {r.cert_pdf_url ? (
+                      <a className="inline-flex items-center gap-1 rounded-md border border-slate-300 px-2 py-1 text-xs font-medium text-slate-700 hover:border-[#F76511] hover:text-[#F76511] transition-colors" href={r.cert_pdf_url} target="_blank" rel="noreferrer">
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        PDF
+                      </a>
+                    ) : <span className="text-slate-300">—</span>}
+                  </td>
+                  <td className="p-3 text-center">
+                    {showRemind ? (
+                      rs === 'sent' ? (
+                        <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-600">
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          Sent
+                        </span>
+                      ) : rs === 'already_sent' ? (
+                        <span className="text-xs text-slate-400" title="A reminder was already sent in the last 24 hours">Sent today</span>
+                      ) : rs === 'error' ? (
+                        <button className="text-xs font-medium text-red-600 hover:underline" onClick={() => sendReminder(r.enrollment_id)}>Failed — retry</button>
+                      ) : (
+                        <button
+                          className="inline-flex items-center gap-1 rounded-md border border-slate-300 px-2 py-1 text-xs font-medium text-slate-700 hover:border-[#F76511] hover:text-[#F76511] transition-colors disabled:opacity-50"
+                          disabled={rs === 'sending'}
+                          onClick={() => sendReminder(r.enrollment_id)}
+                          title={needsRenewal ? 'Email a renewal notice' : 'Email a training reminder'}
+                        >
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                          </svg>
+                          {rs === 'sending' ? 'Sending…' : needsRenewal ? 'Renewal' : 'Remind'}
+                        </button>
+                      )
+                    ) : <span className="text-slate-300">—</span>}
+                  </td>
+                </tr>
+              );
+            })}
+            {!rows.length && !loading && total === 0 && seatsInfo && (seatsInfo.hasUnlimited || seatsInfo.remaining > 0) && (
               <tr>
-                <td colSpan={6} className="p-12">
+                <td colSpan={8} className="p-12">
                   <div className="text-center">
                     <span className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-50 text-[#F76511]">
                       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -249,7 +412,7 @@ export default function DashboardInner() {
                     </span>
                     <h3 className="text-lg font-semibold text-slate-800 mb-1">No Learners Yet</h3>
                     <p className="text-slate-500 mb-4">
-                      Assign your first seat above to get started tracking your team's progress
+                      Invite your first operators to start tracking your team&apos;s progress
                     </p>
                     <div className="inline-flex items-center gap-2 rounded-lg bg-orange-50 px-4 py-2 text-sm font-medium text-[#F76511]">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -263,8 +426,8 @@ export default function DashboardInner() {
                 </td>
               </tr>
             )}
-            {!rows.length && !loading && total === 0 && (!seatsInfo || seatsInfo.remaining === 0) && (
-              <tr><td colSpan={6} className="p-6 text-center text-slate-500">No results</td></tr>
+            {!rows.length && !loading && total === 0 && (!seatsInfo || (!seatsInfo.hasUnlimited && seatsInfo.remaining === 0)) && (
+              <tr><td colSpan={8} className="p-6 text-center text-slate-500">No results</td></tr>
             )}
           </tbody>
         </table>
@@ -279,22 +442,7 @@ export default function DashboardInner() {
   );
 }
 
-function SeatCard({ label, value, sub, icon, accent = false }: { label: string; value: string; sub: string; icon: React.ReactNode; accent?: boolean }) {
-  return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-      <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</span>
-        <span className={`flex h-9 w-9 items-center justify-center rounded-lg ${accent ? 'bg-[#F76511] text-white' : 'bg-orange-50 text-[#F76511]'}`}>
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">{icon}</svg>
-        </span>
-      </div>
-      <div className="mt-2 text-3xl font-bold tracking-tight text-slate-900">{value}</div>
-      <div className="mt-1 text-xs text-slate-500">{sub}</div>
-    </div>
-  );
-}
-
-function Stat({ label, value, dot }: { label: string; value: number; dot?: string }) {
+function Stat({ label, value, dot, sub }: { label: string; value: number | string; dot?: string; sub?: string }) {
   return (
     <div className="p-4">
       <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-slate-500">
@@ -302,6 +450,7 @@ function Stat({ label, value, dot }: { label: string; value: number; dot?: strin
         {label}
       </div>
       <div className="mt-1 text-2xl font-bold tabular-nums text-slate-900">{value}</div>
+      {sub && <div className="mt-0.5 text-xs text-slate-400">{sub}</div>}
     </div>
   );
 }
@@ -333,6 +482,30 @@ function StatusBadge({ status }: { status: 'not_started' | 'in_progress' | 'pass
       <span>{label}</span>
     </span>
   );
+}
+
+/**
+ * OSHA requires a hands-on practical evaluation in addition to the online
+ * course. Shows the latest employer evaluation result for the enrollment.
+ */
+function EvalBadge({ practicalPass }: { practicalPass: boolean | null }) {
+  if (practicalPass === true) {
+    return (
+      <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20">
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+        Done
+      </span>
+    );
+  }
+  if (practicalPass === false) {
+    return (
+      <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-2.5 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/20">
+        <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
+        Retrain
+      </span>
+    );
+  }
+  return <span className="text-xs text-slate-400">Pending</span>;
 }
 
 function exportHref({ q, status, course, from, to }: { q?: string; status?: string; course?: string; from?: string; to?: string }) {

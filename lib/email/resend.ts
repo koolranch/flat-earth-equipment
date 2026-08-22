@@ -142,6 +142,104 @@ Modern Forklift Operator Training`;
   }
 }
 
+export type ReminderType = 'nudge_start' | 'nudge_finish' | 'renewal';
+
+export async function sendTrainingReminderEmail(opts: {
+  to: string;
+  name?: string;
+  courseTitle: string;
+  reminderType: ReminderType;
+  progressPct?: number;
+  expiresAt?: string | null;
+  /** 'gfc' switches sender + copy to Forklift Certified branding. Default: Flat Earth Safety. */
+  brand?: SourceBrand;
+}) {
+  if (!key) {
+    throw new Error('Missing RESEND_API_KEY environment variable');
+  }
+
+  const resend = new Resend(key);
+  const isGfc = opts.brand === 'gfc';
+  const trainingUrl = isGfc
+    ? 'https://app.getforkliftcertified.com/training'
+    : `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.flatearthequipment.com'}/training`;
+  const appBlock = isGfc
+    ? `The fastest way to train is the Forklift Certified app:
+
+iPhone: https://apps.apple.com/app/id6759796469
+Android: https://play.google.com/store/apps/details?id=com.flateartheequipment.forkliftcertified
+
+Prefer a computer? Train in your browser: ${trainingUrl}`
+    : `Continue your training: ${trainingUrl}`;
+  const signature = isGfc
+    ? `---
+Forklift Certified
+getforkliftcertified.com | support@getforkliftcertified.com`
+    : `---
+Flat Earth Safety
+Modern Forklift Operator Training`;
+  const greeting = `Hi${opts.name ? ` ${opts.name}` : ''},`;
+
+  let subject: string;
+  let body: string;
+  switch (opts.reminderType) {
+    case 'nudge_start':
+      subject = `Reminder: start your ${opts.courseTitle} training`;
+      body = `${greeting}
+
+Your employer assigned you a seat in ${opts.courseTitle}, and it's ready whenever you are. Most operators finish in under 30 minutes — interactive lessons, quick quizzes, and a final exam, in English or Spanish.
+
+${appBlock}
+
+When you pass, you'll get a QR-verifiable certificate valid for 3 years.`;
+      break;
+    case 'nudge_finish':
+      subject = `You're ${Math.round(opts.progressPct || 0)}% through ${opts.courseTitle} — finish up!`;
+      body = `${greeting}
+
+You're ${Math.round(opts.progressPct || 0)}% of the way through ${opts.courseTitle}. Your progress is saved, so you can pick up right where you left off.
+
+${appBlock}
+
+When you pass, you'll get a QR-verifiable certificate valid for 3 years.`;
+      break;
+    case 'renewal': {
+      const expiryLine = opts.expiresAt
+        ? `Your ${opts.courseTitle} certification expires on ${new Date(opts.expiresAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}.`
+        : `Your ${opts.courseTitle} certification is coming up for renewal.`;
+      subject = `Your ${opts.courseTitle} certification is expiring soon`;
+      body = `${greeting}
+
+${expiryLine} To stay OSHA-compliant, complete your recertification before it lapses.
+
+${appBlock}`;
+      break;
+    }
+    default: {
+      const exhaustive: never = opts.reminderType;
+      throw new Error(`Unknown reminder type: ${exhaustive}`);
+    }
+  }
+
+  const text = `${body}
+
+This reminder was sent by your employer's training manager.
+
+${signature}`;
+
+  try {
+    return await resend.emails.send({
+      from: isGfc ? GFC_EMAIL_FROM : from,
+      to: opts.to,
+      subject,
+      text,
+    });
+  } catch (error) {
+    console.error('Failed to send training reminder email:', error);
+    throw error;
+  }
+}
+
 export async function sendCertificateEmail(opts: { to: string; name?: string; pdfUrl: string; verificationCode: string }) {
   if (!key) {
     throw new Error('Missing RESEND_API_KEY environment variable');
