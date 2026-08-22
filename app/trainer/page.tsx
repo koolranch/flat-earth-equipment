@@ -1,4 +1,5 @@
 import { unstable_noStore as noStore } from 'next/cache';
+import { headers } from 'next/headers';
 import { supabaseServer } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
@@ -375,13 +376,22 @@ async function AuthenticatedTrainerDashboard(orgId: string, role: string) {
 
 export default async function TrainerHome() {
   noStore();
-  
+
+  // On app.getforkliftcertified.com the FEE bulk-sales landing page must never
+  // render: it contradicts GFC's self-serve pricing. Logged-out visitors go to
+  // the login form; authenticated non-trainers go to their training instead.
+  const host = (headers().get('host') || '').toLowerCase();
+  const isGfcHost = host === 'app.getforkliftcertified.com';
+
   // Check if user is authenticated and has trainer role
   try {
     const supabase = supabaseServer();
     const { data: { user } } = await supabase.auth.getUser();
     
     if (!user) {
+      if (isGfcHost) {
+        redirect('/login?next=/trainer');
+      }
       // User is not authenticated, show public landing page
       return <PublicTrainerLanding />;
     }
@@ -406,6 +416,10 @@ export default async function TrainerHome() {
       .in('role', ['owner', 'trainer']);
 
     if (!orgMemberships || orgMemberships.length === 0) {
+      if (isGfcHost) {
+        // Operators (non-trainers) on the GFC host go to their own training.
+        redirect('/training');
+      }
       // User is authenticated but not a trainer, show public landing page
       return <PublicTrainerLanding />;
     }
@@ -415,6 +429,16 @@ export default async function TrainerHome() {
     return await AuthenticatedTrainerDashboard(orgId, role);
     
   } catch (error) {
+    // redirect() works by throwing; rethrow so redirects aren't swallowed by
+    // this catch (which would silently render the landing page instead).
+    if (
+      error &&
+      typeof error === 'object' &&
+      'digest' in error &&
+      String((error as { digest?: unknown }).digest).startsWith('NEXT_REDIRECT')
+    ) {
+      throw error;
+    }
     // If there's any error with authentication check, show public landing page
     console.error('Error checking trainer authentication:', error);
     return <PublicTrainerLanding />;
