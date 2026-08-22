@@ -288,6 +288,17 @@ export default function DashboardInner() {
           >
             {t('common.export')}
           </a>
+          <a
+            className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 hover:border-[#F76511] hover:text-[#F76511] transition-colors"
+            href="/api/trainer/audit-pack"
+            title="Download a single PDF with your roster, evaluation records, and every certificate — ready for an OSHA inspection"
+            onClick={() => (window as any)?.analytics?.track?.('audit_pack_download')}
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Audit pack
+          </a>
         </div>
         {showFilters && (
           <div className="grid gap-2 sm:grid-cols-3">
@@ -371,32 +382,47 @@ export default function DashboardInner() {
                     ) : <span className="text-slate-300">—</span>}
                   </td>
                   <td className="p-3 text-center">
-                    {showRemind ? (
-                      rs === 'sent' ? (
-                        <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-600">
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                          Sent
-                        </span>
-                      ) : rs === 'already_sent' ? (
-                        <span className="text-xs text-slate-400" title="A reminder was already sent in the last 24 hours">Sent today</span>
-                      ) : rs === 'error' ? (
-                        <button className="text-xs font-medium text-red-600 hover:underline" onClick={() => sendReminder(r.enrollment_id)}>Failed — retry</button>
-                      ) : (
-                        <button
-                          className="inline-flex items-center gap-1 rounded-md border border-slate-300 px-2 py-1 text-xs font-medium text-slate-700 hover:border-[#F76511] hover:text-[#F76511] transition-colors disabled:opacity-50"
-                          disabled={rs === 'sending'}
-                          onClick={() => sendReminder(r.enrollment_id)}
-                          title={needsRenewal ? 'Email a renewal notice' : 'Email a training reminder'}
+                    <div className="inline-flex items-center justify-center gap-1.5">
+                      {showRemind && (
+                        rs === 'sent' ? (
+                          <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-600">
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            Sent
+                          </span>
+                        ) : rs === 'already_sent' ? (
+                          <span className="text-xs text-slate-400" title="A reminder was already sent in the last 24 hours">Sent today</span>
+                        ) : rs === 'error' ? (
+                          <button className="text-xs font-medium text-red-600 hover:underline" onClick={() => sendReminder(r.enrollment_id)}>Failed — retry</button>
+                        ) : (
+                          <button
+                            className="inline-flex items-center gap-1 rounded-md border border-slate-300 px-2 py-1 text-xs font-medium text-slate-700 hover:border-[#F76511] hover:text-[#F76511] transition-colors disabled:opacity-50"
+                            disabled={rs === 'sending'}
+                            onClick={() => sendReminder(r.enrollment_id)}
+                            title={needsRenewal ? 'Email a renewal notice' : 'Email a training reminder'}
+                          >
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            {rs === 'sending' ? 'Sending…' : needsRenewal ? 'Renewal' : 'Remind'}
+                          </button>
+                        )
+                      )}
+                      {r.practical_pass !== true && (
+                        <Link
+                          href={`/trainer/evaluations/${r.enrollment_id}?back=/trainer/dashboard`}
+                          className="inline-flex items-center gap-1 rounded-md border border-slate-300 px-2 py-1 text-xs font-medium text-slate-700 hover:border-[#F76511] hover:text-[#F76511] transition-colors"
+                          title="Record the hands-on practical evaluation OSHA requires"
                         >
                           <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                           </svg>
-                          {rs === 'sending' ? 'Sending…' : needsRenewal ? 'Renewal' : 'Remind'}
-                        </button>
-                      )
-                    ) : <span className="text-slate-300">—</span>}
+                          {r.practical_pass === false ? 'Re-evaluate' : 'Evaluate'}
+                        </Link>
+                      )}
+                      {!showRemind && r.practical_pass === true && <span className="text-slate-300">—</span>}
+                    </div>
                   </td>
                 </tr>
               );

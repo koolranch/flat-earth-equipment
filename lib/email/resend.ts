@@ -240,6 +240,65 @@ ${signature}`;
   }
 }
 
+export async function sendManagerExpirationDigest(opts: {
+  to: string;
+  managerName?: string;
+  operators: Array<{ name: string; email: string; expiresAt: string; daysLeft: number }>;
+  /** 'gfc' switches sender + copy to Forklift Certified branding. Default: Flat Earth Safety. */
+  brand?: SourceBrand;
+}) {
+  if (!key) {
+    throw new Error('Missing RESEND_API_KEY environment variable');
+  }
+
+  const resend = new Resend(key);
+  const isGfc = opts.brand === 'gfc';
+  const dashboardUrl = isGfc
+    ? 'https://app.getforkliftcertified.com/trainer/dashboard'
+    : `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.flatearthequipment.com'}/trainer/dashboard`;
+  const signature = isGfc
+    ? `---
+Forklift Certified
+getforkliftcertified.com | support@getforkliftcertified.com`
+    : `---
+Flat Earth Safety
+Modern Forklift Operator Training`;
+
+  const lines = opts.operators
+    .map(o => {
+      const when = o.daysLeft < 0
+        ? `expired ${Math.abs(o.daysLeft)} day${Math.abs(o.daysLeft) === 1 ? '' : 's'} ago`
+        : `expires in ${o.daysLeft} day${o.daysLeft === 1 ? '' : 's'}`;
+      const date = new Date(o.expiresAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      return `- ${o.name} (${o.email}) — ${when} (${date})`;
+    })
+    .join('\n');
+
+  const count = opts.operators.length;
+  const subject = `${count} operator certification${count === 1 ? '' : 's'} expiring soon`;
+  const text = `Hi${opts.managerName ? ` ${opts.managerName}` : ''},
+
+The following operator certification${count === 1 ? ' is' : 's are'} coming up for renewal. We've sent each operator a renewal reminder — no action is needed unless you want to follow up directly.
+
+${lines}
+
+Review your team: ${dashboardUrl}
+
+${signature}`;
+
+  try {
+    return await resend.emails.send({
+      from: isGfc ? GFC_EMAIL_FROM : from,
+      to: opts.to,
+      subject,
+      text,
+    });
+  } catch (error) {
+    console.error('Failed to send manager expiration digest:', error);
+    throw error;
+  }
+}
+
 export async function sendCertificateEmail(opts: { to: string; name?: string; pdfUrl: string; verificationCode: string }) {
   if (!key) {
     throw new Error('Missing RESEND_API_KEY environment variable');
