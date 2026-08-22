@@ -322,7 +322,8 @@ export async function generateCertificate(params: {
     color: mediumGray
   })
 
-  /* QR code for verification */
+  /* QR code for verification — bottom-right corner so it never collides with
+     the centered title at the top of the certificate */
   try {
     const { generateVerificationQRBuffer, getVerificationUrl } = await import('./qrcode');
     const verifyUrl = getVerificationUrl(certId);
@@ -336,27 +337,27 @@ export async function generateCertificate(params: {
     
     page.drawImage(qr, { 
       x: width - 160, 
-      y: height - 160, 
+      y: 130, 
       width: 80, 
       height: 80 
-    });
-    
-    // QR verification text with URL
-    page.drawText(t.verify, {
-      x: width - 160,
-      y: height - 175,
-      size: 7,
-      font,
-      color: mediumGray
     });
     
     // Add verification code below QR
     page.drawText(`Code: ${certId}`, {
       x: width - 160,
-      y: height - 190,
+      y: 118,
       size: 7,
       font: bold,
       color: darkBlue
+    });
+
+    // QR verification text with URL
+    page.drawText(t.verify, {
+      x: width - 160,
+      y: 107,
+      size: 7,
+      font,
+      color: mediumGray
     });
   } catch (e) {
     console.warn('QR code not generated:', e);
