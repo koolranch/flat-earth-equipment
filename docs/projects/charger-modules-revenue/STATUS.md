@@ -38,6 +38,17 @@ Source: DataForSEO via `scripts/seo/charger-rank-check.ts` → `scripts/seo/rank
 - **Losses:** Soft slip on `6la20671` (#19→#20); `act quantum charger module` #34→**out**.
 - **`6la20671` landing URL:** still **`/charger-modules` (hub)** — not `/charger-modules/enersys-6la20671`. Production Enersys page title/H1 already lead with `6LA20671`; hub ItemList still nests Product/Offer for Enersys+Hawker `6LA20671` (de-cannibalize not yet shipped).
 
+## Unit economics (confirmed by Christopher, 2026-08-23)
+
+| Module | Sell | FSIP reman exchange cost | Gross unit profit* |
+|--------|-----:|-------------------------:|-------------------:|
+| 6LA20671 (Enersys + Hawker listings) | $749 single / $650 ea at qty 2 ($1,300) | **$526** | ~$183 single / ~$170–190 per 2-unit order |
+| ACT Quantum 36VDC (81063658R) | $800 | **$513** | ~$247 |
+| ACT Quantum 48VDC (81063577R) | $800 | **$513** | ~$247 |
+| ACT Quantum 80VDC (81063578R) | $800 | **$513** | ~$247 |
+
+\* After ~$30–50 assumed absorbed outbound freight (checkout adds no freight line on charger Buy Now; true-up from the first shipped order). Core charge ($350) is collect-and-refund — margin-neutral but adds per-order admin (collect deposit, chase core return, inspect, refund); budget ~$30/order of handling when comparing against drop-ship categories. Repair & Return service pricing is separate and not covered by these costs.
+
 ## Live pages
 
 | URL | Role |
