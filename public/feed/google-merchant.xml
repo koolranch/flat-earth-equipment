@@ -1980,42 +1980,6 @@ Confirm pump style and mounting for your machine before ordering. Flat shipping 
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
-      <g:id>113-LR51V105AH-CUBE</g:id>
-      <title>Lithium Rhino 48V 105Ah Cube Conversion Kit</title>
-      <description>The Lithium Rhino 48V 105Ah LiFePO4 Conversion Kit is a drop-in lithium upgrade engineered for 48V electric golf carts including EZGO TXT/RXV, Club Car DS/Precedent/Tempo, and Yamaha Drive/Drive2. Lithium iron phosphate (LiFePO4) chemistry delivers up to 50% more range, cuts cart weight by 60–70% versus lead-acid, and lasts 12+ years with zero watering or terminal maintenance.
-
-This complete conversion bundle includes the Lithium Rhino battery, fast charger, DC-to-DC voltage converter, LCD touchscreen state-of-charge display, and full mounting hardware — everything required to retire your lead-acid pack in a single afternoon.
-
-**Cube form-factor variant**: Compact 14.1&quot; × 13.3&quot; × 10.8&quot; footprint fits tight battery compartments where a standard rectangular pack won&apos;t clear. Same 105Ah capacity in a denser package.
-
-**Key Specs:** 6,000+ deep-cycle charge cycles · IP65 weatherproof rating · -4°F to 131°F operating range · 200A continuous / 500A peak discharge · Bluetooth app monitoring &amp; anti-theft lockout · UN38.3 + MDSD certified · Up to 4 batteries parallel-connectable for fleet expansion.
-
-**Warranty:** Industry-leading 8-year warranty (6 years complete coverage + 2 years pro-rated, $500 deductible). One of the longest warranties available on a golf cart lithium battery.
-
-**Shipping:** Ground freight ships from US warehouse via HazMat-certified carrier (Class 9, UN3480). Bulk fleet orders of 3 or more batteries ship freight-free.
-
-Direct equivalent to Flat Earth Equipment part number 113-LR51V105AH-CUBE. Approximate weight: 93 lbs.
-
-Full technical specification sheet: https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/lithium-rhino/lr48105cube.pdf</description>
-      <link>https://www.flatearthequipment.com/parts/lithium-rhino-48v-105ah-cube-kit</link>
-      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/lithium-rhino.png</g:image_link>
-      <g:price>2149.00 USD</g:price>
-      <g:brand>Lithium Rhino</g:brand>
-      <g:mpn>113-LR51V105AH-CUBE</g:mpn>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:google_product_category>Vehicles &amp; Parts &gt; Vehicle Parts &amp; Accessories &gt; Vehicle Maintenance, Care &amp; Decor &gt; Vehicle Repair &amp; Specialty Tools</g:google_product_category>
-      <g:product_type>Lithium Batteries</g:product_type>
-      <g:custom_label_0>priority_lithium</g:custom_label_0>
-      <g:shipping_weight>93 lb</g:shipping_weight>
-      <g:shipping>
-        <g:country>US</g:country>
-        <g:service>HazMat Ground</g:service>
-        <g:price>149.00 USD</g:price>
-      </g:shipping>
-    </item>
-    <item>
       <g:id>16203203</g:id>
       <title>JCB 162/03203 LEVER - CLAMP</title>
       <description>High-quality replacement lever - clamp for JCB equipment. Direct fit for OEM part number 162/03203.</description>
@@ -2063,6 +2027,42 @@ Full technical specification sheet: https://mzsozezflbhebykncbmr.supabase.co/sto
         <g:country>US</g:country>
         <g:service>HazMat Ground</g:service>
         <g:price>99.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>113-LR51V105AH-CUBE</g:id>
+      <title>Lithium Rhino 48V 105Ah Cube Conversion Kit</title>
+      <description>The Lithium Rhino 48V 105Ah LiFePO4 Conversion Kit is a drop-in lithium upgrade engineered for 48V electric golf carts including EZGO TXT/RXV, Club Car DS/Precedent/Tempo, and Yamaha Drive/Drive2. Lithium iron phosphate (LiFePO4) chemistry delivers up to 50% more range, cuts cart weight by 60–70% versus lead-acid, and lasts 12+ years with zero watering or terminal maintenance.
+
+This complete conversion bundle includes the Lithium Rhino battery, fast charger, DC-to-DC voltage converter, LCD touchscreen state-of-charge display, and full mounting hardware — everything required to retire your lead-acid pack in a single afternoon.
+
+**Cube form-factor variant**: Compact 14.1&quot; × 13.3&quot; × 10.8&quot; footprint fits tight battery compartments where a standard rectangular pack won&apos;t clear. Same 105Ah capacity in a denser package.
+
+**Key Specs:** 6,000+ deep-cycle charge cycles · IP65 weatherproof rating · -4°F to 131°F operating range · 200A continuous / 500A peak discharge · Bluetooth app monitoring &amp; anti-theft lockout · UN38.3 + MDSD certified · Up to 4 batteries parallel-connectable for fleet expansion.
+
+**Warranty:** Industry-leading 8-year warranty (6 years complete coverage + 2 years pro-rated, $500 deductible). One of the longest warranties available on a golf cart lithium battery.
+
+**Shipping:** Ground freight ships from US warehouse via HazMat-certified carrier (Class 9, UN3480). Bulk fleet orders of 3 or more batteries ship freight-free.
+
+Direct equivalent to Flat Earth Equipment part number 113-LR51V105AH-CUBE. Approximate weight: 93 lbs.
+
+Full technical specification sheet: https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/lithium-rhino/lr48105cube.pdf</description>
+      <link>https://www.flatearthequipment.com/parts/lithium-rhino-48v-105ah-cube-kit</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/lithium-rhino/lr48105cube.jpg?v=20260823</g:image_link>
+      <g:price>2149.00 USD</g:price>
+      <g:brand>Lithium Rhino</g:brand>
+      <g:mpn>113-LR51V105AH-CUBE</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Vehicles &amp; Parts &gt; Vehicle Parts &amp; Accessories &gt; Vehicle Maintenance, Care &amp; Decor &gt; Vehicle Repair &amp; Specialty Tools</g:google_product_category>
+      <g:product_type>Lithium Batteries</g:product_type>
+      <g:custom_label_0>priority_lithium</g:custom_label_0>
+      <g:shipping_weight>93 lb</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>HazMat Ground</g:service>
+        <g:price>149.00 USD</g:price>
       </g:shipping>
     </item>
     <item>
@@ -2152,42 +2152,6 @@ Full technical specification sheet: https://mzsozezflbhebykncbmr.supabase.co/sto
       </g:shipping>
     </item>
     <item>
-      <g:id>113-LR51V105AH-CUBE-S</g:id>
-      <title>Lithium Rhino 48V 105Ah Cube Battery</title>
-      <description>The Lithium Rhino 48V 105Ah LiFePO4 Replacement Battery is a drop-in lithium upgrade engineered for 48V electric golf carts including EZGO TXT/RXV, Club Car DS/Precedent/Tempo, and Yamaha Drive/Drive2. Lithium iron phosphate (LiFePO4) chemistry delivers up to 50% more range, cuts cart weight by 60–70% versus lead-acid, and lasts 12+ years with zero watering or terminal maintenance.
-
-Battery-only replacement for owners who already have a lithium-compatible charger and DC converter installed. Drop-in replacement uses the same mounting footprint as the original Lithium Rhino kit battery.
-
-**Cube form-factor variant**: Compact 14.1&quot; × 13.3&quot; × 10.8&quot; footprint fits tight battery compartments where a standard rectangular pack won&apos;t clear. Same 105Ah capacity in a denser package.
-
-**Key Specs:** 6,000+ deep-cycle charge cycles · IP65 weatherproof rating · -4°F to 131°F operating range · 200A continuous / 500A peak discharge · Bluetooth app monitoring &amp; anti-theft lockout · UN38.3 + MDSD certified · Up to 4 batteries parallel-connectable for fleet expansion.
-
-**Warranty:** Industry-leading 8-year warranty (6 years complete coverage + 2 years pro-rated, $500 deductible). One of the longest warranties available on a golf cart lithium battery.
-
-**Shipping:** Ground freight ships from US warehouse via HazMat-certified carrier (Class 9, UN3480). Bulk fleet orders of 3 or more batteries ship freight-free.
-
-Direct equivalent to Flat Earth Equipment part number 113-LR51V105AH-CUBE-S. Approximate weight: 93 lbs.
-
-Full technical specification sheet: https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/lithium-rhino/lr48105cube.pdf</description>
-      <link>https://www.flatearthequipment.com/parts/lithium-rhino-48v-105ah-cube-battery</link>
-      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/lithium-rhino.png</g:image_link>
-      <g:price>1749.00 USD</g:price>
-      <g:brand>Lithium Rhino</g:brand>
-      <g:mpn>113-LR51V105AH-CUBE-S</g:mpn>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:google_product_category>Vehicles &amp; Parts &gt; Vehicle Parts &amp; Accessories &gt; Vehicle Maintenance, Care &amp; Decor &gt; Vehicle Repair &amp; Specialty Tools</g:google_product_category>
-      <g:product_type>Lithium Batteries</g:product_type>
-      <g:custom_label_0>priority_lithium</g:custom_label_0>
-      <g:shipping_weight>93 lb</g:shipping_weight>
-      <g:shipping>
-        <g:country>US</g:country>
-        <g:service>HazMat Ground</g:service>
-        <g:price>149.00 USD</g:price>
-      </g:shipping>
-    </item>
-    <item>
       <g:id>113-LR51V50AH</g:id>
       <title>Lithium Rhino 48V 50Ah Conversion Kit</title>
       <description>The Lithium Rhino 48V 50Ah LiFePO4 Conversion Kit is a drop-in lithium upgrade engineered for 48V electric golf carts including EZGO TXT/RXV, Club Car DS/Precedent/Tempo, and Yamaha Drive/Drive2. Lithium iron phosphate (LiFePO4) chemistry delivers up to 50% more range, cuts cart weight by 60–70% versus lead-acid, and lasts 12+ years with zero watering or terminal maintenance.
@@ -2219,6 +2183,42 @@ Full technical specification sheet: https://mzsozezflbhebykncbmr.supabase.co/sto
         <g:country>US</g:country>
         <g:service>HazMat Ground</g:service>
         <g:price>99.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>113-LR51V105AH-CUBE-S</g:id>
+      <title>Lithium Rhino 48V 105Ah Cube Battery</title>
+      <description>The Lithium Rhino 48V 105Ah LiFePO4 Replacement Battery is a drop-in lithium upgrade engineered for 48V electric golf carts including EZGO TXT/RXV, Club Car DS/Precedent/Tempo, and Yamaha Drive/Drive2. Lithium iron phosphate (LiFePO4) chemistry delivers up to 50% more range, cuts cart weight by 60–70% versus lead-acid, and lasts 12+ years with zero watering or terminal maintenance.
+
+Battery-only replacement for owners who already have a lithium-compatible charger and DC converter installed. Drop-in replacement uses the same mounting footprint as the original Lithium Rhino kit battery.
+
+**Cube form-factor variant**: Compact 14.1&quot; × 13.3&quot; × 10.8&quot; footprint fits tight battery compartments where a standard rectangular pack won&apos;t clear. Same 105Ah capacity in a denser package.
+
+**Key Specs:** 6,000+ deep-cycle charge cycles · IP65 weatherproof rating · -4°F to 131°F operating range · 200A continuous / 500A peak discharge · Bluetooth app monitoring &amp; anti-theft lockout · UN38.3 + MDSD certified · Up to 4 batteries parallel-connectable for fleet expansion.
+
+**Warranty:** Industry-leading 8-year warranty (6 years complete coverage + 2 years pro-rated, $500 deductible). One of the longest warranties available on a golf cart lithium battery.
+
+**Shipping:** Ground freight ships from US warehouse via HazMat-certified carrier (Class 9, UN3480). Bulk fleet orders of 3 or more batteries ship freight-free.
+
+Direct equivalent to Flat Earth Equipment part number 113-LR51V105AH-CUBE-S. Approximate weight: 93 lbs.
+
+Full technical specification sheet: https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/lithium-rhino/lr48105cube.pdf</description>
+      <link>https://www.flatearthequipment.com/parts/lithium-rhino-48v-105ah-cube-battery</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/lithium-rhino/lr48105cube.jpg?v=20260823</g:image_link>
+      <g:price>1749.00 USD</g:price>
+      <g:brand>Lithium Rhino</g:brand>
+      <g:mpn>113-LR51V105AH-CUBE-S</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Vehicles &amp; Parts &gt; Vehicle Parts &amp; Accessories &gt; Vehicle Maintenance, Care &amp; Decor &gt; Vehicle Repair &amp; Specialty Tools</g:google_product_category>
+      <g:product_type>Lithium Batteries</g:product_type>
+      <g:custom_label_0>priority_lithium</g:custom_label_0>
+      <g:shipping_weight>93 lb</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>HazMat Ground</g:service>
+        <g:price>149.00 USD</g:price>
       </g:shipping>
     </item>
     <item>
