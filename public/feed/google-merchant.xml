@@ -2066,6 +2066,22 @@ Full technical specification sheet: https://mzsozezflbhebykncbmr.supabase.co/sto
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
+      <g:id>20925647</g:id>
+      <title>JCB 20/925647 ABI TWIN PUMP</title>
+      <description>High-quality replacement abi twin pump for JCB equipment. Direct fit for OEM part number 20/925647.</description>
+      <link>https://www.flatearthequipment.com/parts/20925647</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp</g:image_link>
+      <g:price>1867.78 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>20/925647</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Hydraulics</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
       <g:id>113-LR38V105AH</g:id>
       <title>Lithium Rhino 36V 105Ah Conversion Kit</title>
       <description>The Lithium Rhino 36V 105Ah LiFePO4 Conversion Kit is a drop-in lithium upgrade engineered for 36V electric golf carts including EZGO TXT/RXV, Club Car DS/Precedent/Tempo, and Yamaha Drive/Drive2. Lithium iron phosphate (LiFePO4) chemistry delivers up to 50% more range, cuts cart weight by 60–70% versus lead-acid, and lasts 12+ years with zero watering or terminal maintenance.
@@ -2082,7 +2098,7 @@ Direct equivalent to Flat Earth Equipment part number 113-LR38V105AH. Approximat
 
 Full technical specification sheet: https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/lithium-rhino/lr36105.pdf</description>
       <link>https://www.flatearthequipment.com/parts/lithium-rhino-36v-105ah-kit</link>
-      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/lithium-rhino.png</g:image_link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/lithium-rhino/lr36105.jpg?v=20260823</g:image_link>
       <g:price>1749.00 USD</g:price>
       <g:brand>Lithium Rhino</g:brand>
       <g:mpn>113-LR38V105AH</g:mpn>
@@ -2098,22 +2114,6 @@ Full technical specification sheet: https://mzsozezflbhebykncbmr.supabase.co/sto
         <g:service>HazMat Ground</g:service>
         <g:price>149.00 USD</g:price>
       </g:shipping>
-    </item>
-    <item>
-      <g:id>20925647</g:id>
-      <title>JCB 20/925647 ABI TWIN PUMP</title>
-      <description>High-quality replacement abi twin pump for JCB equipment. Direct fit for OEM part number 20/925647.</description>
-      <link>https://www.flatearthequipment.com/parts/20925647</link>
-      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp</g:image_link>
-      <g:price>1867.78 USD</g:price>
-      <g:brand>JCB</g:brand>
-      <g:mpn>20/925647</g:mpn>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
-      <g:product_type>JCB Hydraulics</g:product_type>
-      <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
       <g:id>113-LR51V50AH</g:id>
