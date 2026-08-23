@@ -111,6 +111,18 @@ export function buildCatalogUrl(
   return `/parts${qs ? `?${qs}` : ''}`;
 }
 
+/**
+ * `is_fast_moving` is currently only set on rubber tracks, so ordering by it
+ * first made page 1 a single-category run. Recommended reads the ranked view
+ * instead and leads with each category's best buyable item, so an unfiltered
+ * visitor sees the breadth of the catalog.
+ */
+const RECOMMENDED_SOURCE = 'parts_catalog_ranked';
+
+function catalogSource(sort: CatalogSort): string {
+  return sort === 'recommended' ? RECOMMENDED_SOURCE : 'parts';
+}
+
 function applySort(query: any, sort: CatalogSort) {
   switch (sort) {
     case 'price_asc':
@@ -120,12 +132,17 @@ function applySort(query: any, sort: CatalogSort) {
     case 'name':
       return query.order('name', { ascending: true });
     case 'recommended':
-    default:
       return query
+        .order('category_rank', { ascending: true })
+        .order('sales_type', { ascending: true })
         .order('is_fast_moving', { ascending: false, nullsFirst: false })
         .order('is_in_stock', { ascending: false, nullsFirst: false })
-        .order('sales_type', { ascending: true })
+        .order('category', { ascending: true })
         .order('name', { ascending: true });
+    default: {
+      const exhaustive: never = sort;
+      throw new Error(`Unhandled catalog sort: ${exhaustive}`);
+    }
   }
 }
 
@@ -134,7 +151,9 @@ export async function fetchCatalogParts(
   rawParams: CatalogSearchParams,
 ) {
   const params = parseCatalogParams(rawParams);
-  let query = supabase.from('parts').select(PARTS_SELECT, { count: 'exact' });
+  let query = supabase
+    .from(catalogSource(params.sort))
+    .select(PARTS_SELECT, { count: 'exact' });
 
   if (params.q) {
     query = query.or(buildSearchOrFilter(params.q));

@@ -94,7 +94,11 @@ type FeedItem = {
 
 /** Normalize storage URLs that accidentally include a double slash. */
 function normalizeImageUrl(url: string): string {
-  return url.replace(
+  // parts.image_url stores site images as relative paths (next/image only
+  // optimizes absolute URLs for whitelisted remote hosts); the feed needs
+  // absolute URLs, so re-prefix the site origin here.
+  const absolute = url.startsWith("/") ? `${SITE_URL}${url}` : url;
+  return absolute.replace(
     /^(https?:\/\/[^/]+\/storage\/v1\/object\/public\/[^/]+)\/*\//,
     "$1/"
   );

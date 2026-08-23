@@ -4,7 +4,7 @@ import { useState, type MouseEvent } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { toast } from 'react-hot-toast';
-import { FileText, ShoppingCart } from 'lucide-react';
+import { FileText, ShoppingCart, Wrench } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 import QuoteRequestModal from '@/components/QuoteRequestModal';
 import {
@@ -153,7 +153,6 @@ export default function PartsCatalogCard({ product }: { product: CatalogCardProd
   const showSeatVisual = !showProductPhoto && isSeatListing;
   const showBrandLogo =
     !showProductPhoto && !showSeatVisual && Boolean(brandLogoUrl) && !brandLogoFailed;
-  const placeholderUrl = '/images/parts/placeholder.jpg';
   const showGenericPlaceholder = !showProductPhoto && !showSeatVisual && !showBrandLogo;
   const displayPartNumber =
     getCustomerPartNumber({
@@ -244,13 +243,15 @@ export default function PartsCatalogCard({ product }: { product: CatalogCardProd
               />
             )}
             {showGenericPlaceholder && (
-              <Image
-                src={placeholderUrl}
-                alt={product.name}
-                fill
-                sizes="(max-width: 640px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-              />
+              <div
+                className="flex h-full w-full flex-col items-center justify-center gap-1.5 bg-slate-50 text-slate-400"
+                aria-hidden="true"
+              >
+                <Wrench className="h-7 w-7" strokeWidth={1.5} />
+                <span className="px-2 text-center font-mono text-[10px] uppercase tracking-wide">
+                  {displayPartNumber}
+                </span>
+              </div>
             )}
             {specChips.length > 0 && (
               <div className="absolute left-2 top-2 z-10 max-w-[calc(100%-1rem)] sm:hidden">
@@ -303,7 +304,7 @@ export default function PartsCatalogCard({ product }: { product: CatalogCardProd
             {isQuoteOnly || !hasPrice ? (
               <>
                 <div>
-                  <span className="text-sm font-semibold text-slate-700">Call for price</span>
+                  <span className="text-sm font-semibold text-slate-700">Quote for price</span>
                   {showStockIndicator && (
                     <div className="mt-0.5">
                       <StockIndicator

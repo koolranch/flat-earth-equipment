@@ -65,7 +65,7 @@ export default async function PartsPage({
       title: 'Forklift & Equipment Parts',
       subtitle: 'Search by part number, SKU, or OEM reference',
       intro:
-        'Browse {count} forklift parts, JCB aftermarket components, rubber tracks, charger modules, and aerial lift parts. Every listing is an OEM-equivalent replacement — search by part number or use our serial lookup tools to confirm fitment.',
+        'Browse forklift parts, JCB aftermarket components, rubber tracks, charger modules, and aerial lift parts. Every listing is an OEM-equivalent replacement — search by part number or use our serial lookup tools to confirm fitment.',
       serialLookup: 'Serial lookup',
       error: 'Error:',
       previous: 'Previous',
@@ -107,7 +107,7 @@ export default async function PartsPage({
       title: 'Partes para montacargas y equipo',
       subtitle: 'Busque por número de parte, SKU o referencia OEM',
       intro:
-        'Explore {count} partes para montacargas, componentes JCB, bandas de goma, módulos de cargador y partes para elevadores. Cada listado es un reemplazo equivalente OEM.',
+        'Explore partes para montacargas, componentes JCB, bandas de goma, módulos de cargador y partes para elevadores. Cada listado es un reemplazo equivalente OEM.',
       serialLookup: 'Búsqueda por serial',
       error: 'Error:',
       previous: 'Anterior',
@@ -191,11 +191,9 @@ export default async function PartsPage({
         {showBaseContent && (
           <>
             <PartsCatalogIntro
-              totalCount={facets.availability.total}
               labels={{
                 intro: t.intro,
                 serialLookup: t.serialLookup,
-                partsWord: t.parts,
               }}
             />
             <PartsCatalogQuickPaths heading={t.shopBy} />

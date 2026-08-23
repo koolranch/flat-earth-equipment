@@ -639,6 +639,14 @@ const baseConfig = {
         hostname: 'media.sandhills.com',
         port: '',
         pathname: '/**',
+      },
+      // Safety net: absolute own-domain image URLs (e.g. legacy parts.image_url
+      // rows) otherwise 400 through the optimizer and fall back to brand logos.
+      {
+        protocol: 'https',
+        hostname: 'www.flatearthequipment.com',
+        port: '',
+        pathname: '/images/**',
       }
     ],
   },

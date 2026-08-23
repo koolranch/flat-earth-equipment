@@ -165,7 +165,11 @@ function buildProductSchema(product: any, slug: string) {
     description: sanitizeCustomerFacingCopy(product.description || '').slice(0, 5000),
     sku: product.sku,
     mpn: customerMpn,
-    image: product.image_url || undefined,
+    image: product.image_url
+      ? product.image_url.startsWith('/')
+        ? `${SITE_URL}${product.image_url}`
+        : product.image_url
+      : undefined,
     url,
     brand: {
       '@type': 'Brand',

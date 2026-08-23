@@ -3,19 +3,17 @@ import { Search } from 'lucide-react';
 import { SERIAL_LOOKUP_SHORTCUTS } from '@/lib/parts/catalogSeo';
 
 type Props = {
-  totalCount: number;
   labels: {
     intro: string;
     serialLookup: string;
-    partsWord: string;
   };
 };
 
-export default function PartsCatalogIntro({ totalCount, labels }: Props) {
+export default function PartsCatalogIntro({ labels }: Props) {
   return (
     <section className="mb-8 rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
       <p className="max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base">
-        {labels.intro.replace('{count}', totalCount.toLocaleString())}
+        {labels.intro}
       </p>
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
