@@ -16,6 +16,7 @@ import PartsCatalogMobileFilters from '@/components/parts/PartsCatalogMobileFilt
 import PartsCatalogIntro from '@/components/parts/PartsCatalogIntro';
 import PartsCatalogJsonLd from '@/components/parts/PartsCatalogJsonLd';
 import PartsCatalogFaq from '@/components/parts/PartsCatalogFaq';
+import PartsCatalogTrustBar from '@/components/parts/PartsCatalogTrustBar';
 import {
   buildCatalogUrl,
   fetchCatalogFacets,
@@ -102,6 +103,10 @@ export default async function PartsPage({
       trustShipDesc: 'In-stock parts ship same day nationwide',
       shopBy: 'Popular categories',
       faqHeading: 'Parts catalog FAQ',
+      trustBarWarranty: '2-year warranty on aftermarket parts',
+      trustBarOem: 'OEM-equivalent fit',
+      trustBarShip: 'In-stock parts ship same day',
+      suggestQuote: 'Quote',
     },
     es: {
       title: 'Partes para montacargas y equipo',
@@ -144,6 +149,10 @@ export default async function PartsPage({
       trustShipDesc: 'Partes en stock se envían el mismo día',
       shopBy: 'Categorías populares',
       faqHeading: 'Preguntas frecuentes',
+      trustBarWarranty: 'Garantía de 2 años en partes aftermarket',
+      trustBarOem: 'Ajuste equivalente OEM',
+      trustBarShip: 'Partes en stock se envían el mismo día',
+      suggestQuote: 'Cotizar',
     },
   }[locale];
 
@@ -217,6 +226,7 @@ export default async function PartsPage({
             sortPriceAsc: t.sortPriceAsc,
             sortPriceDesc: t.sortPriceDesc,
             sortName: t.sortName,
+            suggestQuote: t.suggestQuote,
           }}
         />
 
@@ -278,6 +288,14 @@ export default async function PartsPage({
             <PartsCatalogActiveFilters
               filters={activeFilters}
               clearLabel={t.clearFilters}
+            />
+
+            <PartsCatalogTrustBar
+              labels={{
+                warranty: t.trustBarWarranty,
+                oem: t.trustBarOem,
+                ship: t.trustBarShip,
+              }}
             />
 
             {parts.length > 0 ? (

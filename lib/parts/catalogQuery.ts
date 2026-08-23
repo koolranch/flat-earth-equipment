@@ -2,6 +2,9 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 
 export const ITEMS_PER_PAGE = 24;
 
+/** How many category facets the sidebar offers before "show all". */
+const CATEGORY_FACET_LIMIT = 24;
+
 export type CatalogSort = 'recommended' | 'price_asc' | 'price_desc' | 'name';
 
 export type CatalogSearchParams = {
@@ -222,55 +225,33 @@ export async function fetchAvailabilityCounts(
 }
 
 export async function fetchCatalogFacets(supabase: SupabaseClient) {
+  // Counted in Postgres: the previous row-by-row tally ran on a plain select,
+  // which Supabase caps at 1000 rows, so every facet count was understated
+  // once the catalog passed 1k parts (JCB read 373 of 738).
   const [brandsResult, categoriesResult, availability] = await Promise.all([
-    supabase.from('parts').select('brand, brand_logo_url').order('brand'),
     supabase
-      .from('parts')
-      .select('category_slug, category')
-      .not('category_slug', 'is', null)
-      .order('category'),
+      .from('parts_brand_facets')
+      .select('name, count, logo_url')
+      .order('count', { ascending: false }),
+    supabase
+      .from('parts_category_facets')
+      .select('slug, name, count')
+      .order('count', { ascending: false })
+      .limit(CATEGORY_FACET_LIMIT),
     fetchAvailabilityCounts(supabase),
   ]);
 
-  const brandCounts = new Map<string, { count: number; logoUrl: string | null }>();
-  for (const row of brandsResult.data ?? []) {
-    if (!row.brand) continue;
-    const existing = brandCounts.get(row.brand);
-    if (existing) {
-      existing.count += 1;
-      if (!existing.logoUrl && row.brand_logo_url) {
-        existing.logoUrl = row.brand_logo_url;
-      }
-    } else {
-      brandCounts.set(row.brand, {
-        count: 1,
-        logoUrl: row.brand_logo_url ?? null,
-      });
-    }
-  }
+  const brands = (brandsResult.data ?? []).map((row: any) => ({
+    name: row.name as string,
+    count: Number(row.count),
+    logoUrl: (row.logo_url ?? null) as string | null,
+  }));
 
-  const categoryMap = new Map<string, { name: string; count: number }>();
-  for (const row of categoriesResult.data ?? []) {
-    if (!row.category_slug) continue;
-    const existing = categoryMap.get(row.category_slug);
-    if (existing) {
-      existing.count += 1;
-    } else {
-      categoryMap.set(row.category_slug, {
-        name: row.category,
-        count: 1,
-      });
-    }
-  }
-
-  const brands = [...brandCounts.entries()]
-    .map(([name, { count, logoUrl }]) => ({ name, count, logoUrl }))
-    .sort((a, b) => b.count - a.count);
-
-  const categories = [...categoryMap.entries()]
-    .map(([slug, { name, count }]) => ({ slug, name, count }))
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 20);
+  const categories = (categoriesResult.data ?? []).map((row: any) => ({
+    slug: row.slug as string,
+    name: row.name as string,
+    count: Number(row.count),
+  }));
 
   return { brands, categories, availability };
 }

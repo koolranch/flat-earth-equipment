@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
+import { ChevronDown } from 'lucide-react';
 import BrandMark from '@/components/parts/BrandMark';
 import {
   buildCatalogUrl,
@@ -59,6 +60,31 @@ function CountBadge({ count, active }: { count: number; active: boolean }) {
   );
 }
 
+function CategoryLink({
+  category,
+  searchParams,
+  label,
+}: {
+  category: CategoryFacet;
+  searchParams: CatalogSearchParams;
+  label?: string;
+}) {
+  const active = searchParams.category_slug === category.slug;
+
+  return (
+    <FilterLink
+      href={buildCatalogUrl(searchParams, {
+        category_slug: category.slug,
+        category: undefined,
+      })}
+      active={active}
+    >
+      <span className="min-w-0 truncate">{label ?? category.name}</span>
+      <CountBadge count={category.count} active={active} />
+    </FilterLink>
+  );
+}
+
 export default function PartsCatalogSidebar({
   searchParams,
   brands,
@@ -66,6 +92,14 @@ export default function PartsCatalogSidebar({
   availability,
   labels,
 }: Props) {
+  // Roughly half the category facets are JCB sub-categories, which crowded out
+  // everything else; collapse them behind one entry.
+  const jcbCategories = categories.filter((c) => c.slug.startsWith('jcb-'));
+  const generalCategories = categories.filter((c) => !c.slug.startsWith('jcb-'));
+  const jcbTotal = jcbCategories.reduce((sum, c) => sum + c.count, 0);
+  const jcbGroupActive = Boolean(
+    searchParams.category_slug?.startsWith('jcb-'),
+  );
   const hasActiveFilters = Boolean(
     searchParams.q ||
       searchParams.brand ||
@@ -173,22 +207,38 @@ export default function PartsCatalogSidebar({
           {labels.categories}
         </h3>
         <div className="max-h-72 space-y-1 overflow-y-auto">
-          {categories.map((category) => (
-            <FilterLink
+          {generalCategories.map((category) => (
+            <CategoryLink
               key={category.slug}
-              href={buildCatalogUrl(searchParams, {
-                category_slug: category.slug,
-                category: undefined,
-              })}
-              active={searchParams.category_slug === category.slug}
-            >
-              <span className="min-w-0 truncate">{category.name}</span>
-              <CountBadge
-                count={category.count}
-                active={searchParams.category_slug === category.slug}
-              />
-            </FilterLink>
+              category={category}
+              searchParams={searchParams}
+            />
           ))}
+
+          {jcbCategories.length > 0 && (
+            <details open={jcbGroupActive} className="group">
+              <summary className="flex cursor-pointer items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm text-slate-700 transition-all hover:bg-slate-100">
+                <span className="min-w-0 truncate">
+                  JCB parts
+                  <ChevronDown
+                    className="ml-1 inline h-3.5 w-3.5 transition-transform group-open:rotate-180"
+                    aria-hidden="true"
+                  />
+                </span>
+                <CountBadge count={jcbTotal} active={false} />
+              </summary>
+              <div className="mt-1 space-y-1 border-l border-slate-200 pl-2">
+                {jcbCategories.map((category) => (
+                  <CategoryLink
+                    key={category.slug}
+                    category={category}
+                    searchParams={searchParams}
+                    label={category.name.replace(/^JCB\s+/i, '')}
+                  />
+                ))}
+              </div>
+            </details>
+          )}
         </div>
       </div>
 
