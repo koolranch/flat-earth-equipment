@@ -491,6 +491,12 @@ const baseConfig = {
         destination: '/parts/jcb-458-m9602-steer-link',
         permanent: true
       },
+      // Vendor has no standard 105Ah battery-only SKU — only the kit and Cube -S
+      {
+        source: '/parts/lithium-rhino-48v-105ah-battery',
+        destination: '/parts/lithium-rhino-48v-105ah-kit',
+        permanent: true
+      },
       {
         source: '/insights/raymond-forklift-serial-number',
         destination: '/raymond-serial-number-lookup',

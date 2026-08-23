@@ -1,6 +1,6 @@
 /**
  * Add Lithium Rhino LiFePO4 golf cart batteries to Supabase + Stripe.
- * - 15 SKUs total (10 Conversion Kits + 5 Individual Batteries)
+ * - 14 SKUs total (10 Conversion Kits + 4 Individual Batteries)
  * - All sourced from FSIP wholesale, drop-shipped
  * - Pricing: cost + ~$400 minimum margin, undercuts Lithium Rhino direct retail
  *
@@ -57,9 +57,9 @@ const SKUS: Sku[] = [
   { fsipSku: '113-LR76V105AH', slug: 'lithium-rhino-72v-105ah-kit', voltage: '72V', capacity: '105Ah', productType: 'kit', variant: 'standard', weightLbs: 145, cost: 2450, sellPrice: 2969, pdfFsipUrl: 'https://shop.fsip.biz/Image/GetDocument/en/504/lr72105.pdf', pdfSlug: 'lr72105' },
   { fsipSku: '113-LR76V170AH', slug: 'lithium-rhino-72v-170ah-kit', voltage: '72V', capacity: '170Ah', productType: 'kit', variant: 'standard', weightLbs: 209, cost: 3400, sellPrice: 3799, pdfFsipUrl: 'https://shop.fsip.biz/Image/GetDocument/en/504/lr72170.pdf', pdfSlug: 'lr72170' },
 
-  // ---------- INDIVIDUAL BATTERIES (5) — battery-only replacements ----------
+  // ---------- INDIVIDUAL BATTERIES (4) — battery-only replacements ----------
+  // No vendor 113-LR51V105AH-S — standard 105Ah is kit-only; battery-only is Cube -S
   { fsipSku: '113-LR51V65AH-S', slug: 'lithium-rhino-48v-65ah-battery', voltage: '48V', capacity: '65Ah', productType: 'battery', variant: 'standard', weightLbs: 62, cost: 1000, sellPrice: 1399, pdfFsipUrl: 'https://shop.fsip.biz/Image/GetDocument/en/504/lr4865.pdf', pdfSlug: 'lr4865' },
-  { fsipSku: '113-LR51V105AH-S', slug: 'lithium-rhino-48v-105ah-battery', voltage: '48V', capacity: '105Ah', productType: 'battery', variant: 'standard', weightLbs: 102, cost: 1350, sellPrice: 1749, pdfFsipUrl: 'https://shop.fsip.biz/Image/GetDocument/en/504/lr48105.pdf', pdfSlug: 'lr48105' },
   { fsipSku: '113-LR51V105AH-CUBE-S', slug: 'lithium-rhino-48v-105ah-cube-battery', voltage: '48V', capacity: '105Ah', productType: 'battery', variant: 'cube', weightLbs: 93, cost: 1350, sellPrice: 1749, pdfFsipUrl: 'https://shop.fsip.biz/Image/GetDocument/en/504/lr48105cube.pdf', pdfSlug: 'lr48105cube' },
   { fsipSku: '113-LR51V120AH-H', slug: 'lithium-rhino-48v-120ah-heated-battery', voltage: '48V', capacity: '120Ah', productType: 'battery', variant: 'heated', weightLbs: 120, cost: 2000, sellPrice: 2499, pdfFsipUrl: 'https://shop.fsip.biz/Image/GetDocument/en/504/lr48120h.pdf', pdfSlug: 'lr48120h' },
   { fsipSku: '113-LR51V170AH-S', slug: 'lithium-rhino-48v-170ah-battery', voltage: '48V', capacity: '170Ah', productType: 'battery', variant: 'standard', weightLbs: 146, cost: 2200, sellPrice: 2599, pdfFsipUrl: 'https://shop.fsip.biz/Image/GetDocument/en/504/lr48170.pdf', pdfSlug: 'lr48170' },
