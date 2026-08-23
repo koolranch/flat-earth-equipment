@@ -210,9 +210,8 @@ function buildDescription(sku: Sku, specPdfUrl: string | null): string {
     `**Shipping:** Ground freight ships from US warehouse via HazMat-certified carrier (Class 9, UN3480). Bulk fleet orders of 3 or more batteries ship freight-free.`
   );
 
-  // FSIP cross-reference
   lines.push(
-    `Direct equivalent to FSIP part number ${sku.fsipSku}. Approximate weight: ${sku.weightLbs} lbs.`
+    `Part number ${sku.fsipSku}. Approximate weight: ${sku.weightLbs} lbs.`
   );
 
   if (specPdfUrl) {
@@ -231,7 +230,7 @@ function buildShortDescription(sku: Sku): string {
   const typeNote = sku.productType === 'kit'
     ? ' — full conversion kit with charger, DC converter, LCD display, and mounting hardware.'
     : ' — battery-only replacement for existing lithium installs.';
-  return `Lithium Rhino ${sku.voltage} ${sku.capacity} LiFePO4 golf cart battery${variantNote}${typeNote} 6,000+ cycles, IP65, 8-year warranty. Drop-in for EZGO, Club Car, Yamaha. FSIP ${sku.fsipSku}.`.slice(0, 500);
+  return `Lithium Rhino ${sku.voltage} ${sku.capacity} LiFePO4 golf cart battery${variantNote}${typeNote} 6,000+ cycles, IP65, 8-year warranty. Drop-in for EZGO, Club Car, Yamaha. SKU ${sku.fsipSku}.`.slice(0, 500);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
