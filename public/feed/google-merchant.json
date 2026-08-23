@@ -2280,30 +2280,6 @@
     "custom_label_0": "priority_jcb"
   },
   {
-    "id": "113-LR51V120AH-H",
-    "title": "Lithium Rhino 48V 120Ah Heated Battery",
-    "description": "The Lithium Rhino 48V 120Ah LiFePO4 Replacement Battery is a drop-in lithium upgrade engineered for 48V electric golf carts including EZGO TXT/RXV, Club Car DS/Precedent/Tempo, and Yamaha Drive/Drive2. Lithium iron phosphate (LiFePO4) chemistry delivers up to 50% more range, cuts cart weight by 60–70% versus lead-acid, and lasts 12+ years with zero watering or terminal maintenance.\n\nBattery-only replacement for owners who already have a lithium-compatible charger and DC converter installed. Drop-in replacement uses the same mounting footprint as the original Lithium Rhino kit battery.\n\n**Heated all-weather variant**: Built-in low-temperature heating element keeps cells in their optimal charge window down to -4°F, eliminating the cold-weather capacity loss that plagues unheated lithium packs. Ideal for northern climates, mountain communities, and any cart stored in unheated barns or garages.\n\n**Key Specs:** 6,000+ deep-cycle charge cycles · IP65 weatherproof rating · -4°F to 131°F operating range · 200A continuous / 500A peak discharge · Bluetooth app monitoring & anti-theft lockout · UN38.3 + MDSD certified · Up to 4 batteries parallel-connectable for fleet expansion.\n\n**Warranty:** Industry-leading 8-year warranty (6 years complete coverage + 2 years pro-rated, $500 deductible). One of the longest warranties available on a golf cart lithium battery.\n\n**Shipping:** Ground freight ships from US warehouse via HazMat-certified carrier (Class 9, UN3480). Bulk fleet orders of 3 or more batteries ship freight-free.\n\nDirect equivalent to Flat Earth Equipment part number 113-LR51V120AH-H. Approximate weight: 120 lbs.\n\nFull technical specification sheet: https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/lithium-rhino/lr48120h.pdf",
-    "link": "https://www.flatearthequipment.com/parts/lithium-rhino-48v-120ah-heated-battery",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/lithium-rhino.png",
-    "price": "2499.00 USD",
-    "brand": "Lithium Rhino",
-    "mpn": "113-LR51V120AH-H",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Vehicles & Parts > Vehicle Parts & Accessories > Vehicle Maintenance, Care & Decor > Vehicle Repair & Specialty Tools",
-    "product_type": "Lithium Batteries",
-    "shipping_weight": "120 lb",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_lithium",
-    "shipping": [
-      {
-        "country": "US",
-        "service": "HazMat Ground",
-        "price": "199.00 USD"
-      }
-    ]
-  },
-  {
     "id": "25MM5000",
     "title": "JCB 25/MM5000 Replacement Part",
     "description": "Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 25/MM5000.",
@@ -2333,6 +2309,30 @@
     "google_product_category": "Vehicles & Parts > Vehicle Parts & Accessories > Vehicle Maintenance, Care & Decor > Vehicle Repair & Specialty Tools",
     "product_type": "Lithium Batteries",
     "shipping_weight": "145 lb",
+    "identifier_exists": "no",
+    "custom_label_0": "priority_lithium",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "HazMat Ground",
+        "price": "199.00 USD"
+      }
+    ]
+  },
+  {
+    "id": "113-LR51V120AH-H",
+    "title": "Lithium Rhino 48V 120Ah Heated Battery",
+    "description": "The Lithium Rhino 48V 120Ah LiFePO4 Replacement Battery is a drop-in lithium upgrade engineered for 48V electric golf carts including EZGO TXT/RXV, Club Car DS/Precedent/Tempo, and Yamaha Drive/Drive2. Lithium iron phosphate (LiFePO4) chemistry delivers up to 50% more range, cuts cart weight by 60–70% versus lead-acid, and lasts 12+ years with zero watering or terminal maintenance.\n\nBattery-only replacement for owners who already have a lithium-compatible charger and DC converter installed. Drop-in replacement uses the same mounting footprint as the original Lithium Rhino kit battery.\n\n**Heated all-weather variant**: Built-in low-temperature heating element keeps cells in their optimal charge window down to -4°F, eliminating the cold-weather capacity loss that plagues unheated lithium packs. Ideal for northern climates, mountain communities, and any cart stored in unheated barns or garages.\n\n**Key Specs:** 6,000+ deep-cycle charge cycles · IP65 weatherproof rating · -4°F to 131°F operating range · 200A continuous / 500A peak discharge · Bluetooth app monitoring & anti-theft lockout · UN38.3 + MDSD certified · Up to 4 batteries parallel-connectable for fleet expansion.\n\n**Warranty:** Industry-leading 8-year warranty (6 years complete coverage + 2 years pro-rated, $500 deductible). One of the longest warranties available on a golf cart lithium battery.\n\n**Shipping:** Ground freight ships from US warehouse via HazMat-certified carrier (Class 9, UN3480). Bulk fleet orders of 3 or more batteries ship freight-free.\n\nDirect equivalent to Flat Earth Equipment part number 113-LR51V120AH-H. Approximate weight: 120 lbs.\n\nFull technical specification sheet: https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/lithium-rhino/lr48120h.pdf",
+    "link": "https://www.flatearthequipment.com/parts/lithium-rhino-48v-120ah-heated-battery",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/lithium-rhino/lr48120h.jpg?v=20260823",
+    "price": "2499.00 USD",
+    "brand": "Lithium Rhino",
+    "mpn": "113-LR51V120AH-H",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Vehicles & Parts > Vehicle Parts & Accessories > Vehicle Maintenance, Care & Decor > Vehicle Repair & Specialty Tools",
+    "product_type": "Lithium Batteries",
+    "shipping_weight": "120 lb",
     "identifier_exists": "no",
     "custom_label_0": "priority_lithium",
     "shipping": [
