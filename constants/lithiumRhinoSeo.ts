@@ -15,6 +15,16 @@ export type LithiumMoneyKeyword = {
   lane: 'generic' | 'brand' | 'cart' | 'pn';
 };
 
+/** Customer-facing kit contents — no vendor pack branding or PPE filler. */
+export const LITHIUM_KIT_INCLUDED_ITEMS = [
+  'Lithium Rhino battery',
+  'Lithium-rated fast charger',
+  'Charge port adapter and main cables',
+  '12V DC-DC reducer for lights and accessories',
+  'LCD state-of-charge display',
+  'Mounting brackets and hardware',
+] as const;
+
 /** Priority money keywords for weekly DataForSEO rank checks. */
 export const LITHIUM_MONEY_KEYWORDS: LithiumMoneyKeyword[] = [
   // Generic commercial (hub)

@@ -20,6 +20,7 @@ import {
   Zap,
 } from 'lucide-react';
 import { generatePageAlternates } from '@/app/seo-defaults';
+import { LITHIUM_KIT_INCLUDED_ITEMS } from '@/constants/lithiumRhinoSeo';
 
 const SITE_URL = 'https://www.flatearthequipment.com';
 
@@ -466,21 +467,12 @@ function RecommendedCard({
 
         {battery.metadata?.product_type === 'kit' && (
           <ul className="text-sm text-slate-600 space-y-1">
-            <li className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-green-600" /> Lithium Rhino battery
-            </li>
-            <li className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-green-600" /> LiFePO4-rated fast charger
-            </li>
-            <li className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-green-600" /> DC-to-DC voltage converter
-            </li>
-            <li className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-green-600" /> LCD touchscreen display
-            </li>
-            <li className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-green-600" /> Mounting hardware
-            </li>
+            {LITHIUM_KIT_INCLUDED_ITEMS.map((item) => (
+              <li key={item} className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 shrink-0 text-green-600" />
+                {item}
+              </li>
+            ))}
           </ul>
         )}
 

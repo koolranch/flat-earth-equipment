@@ -30,6 +30,7 @@ import {
   qualifiesForSeatFreeFreight,
 } from '@/lib/parts/seatFreight';
 import {
+  LITHIUM_KIT_INCLUDED_ITEMS,
   lithiumCapacityLinksForProduct,
   lithiumCapacityPositioningForProduct,
   lithiumCartPathsForProduct,
@@ -748,6 +749,33 @@ export default function ProductDetails({
 
       {isLithiumBattery && (
         <section className="mt-8 space-y-4">
+          {partMetadata.product_type === 'kit' && (
+            <div className="rounded-xl border border-slate-200 bg-white p-5">
+              <h2 className="text-lg font-bold text-slate-900 mb-1">What&apos;s included</h2>
+              <p className="text-sm text-slate-600 mb-3">
+                This conversion kit is the battery plus the parts needed to retire a lead-acid pack.
+              </p>
+              <ul className="grid gap-2 sm:grid-cols-2 text-sm text-slate-800">
+                {LITHIUM_KIT_INCLUDED_ITEMS.map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <span className="mt-0.5 text-canyon-rust" aria-hidden>
+                      ✓
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {partMetadata.product_type === 'battery' && (
+            <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+              <h2 className="text-lg font-bold text-slate-900 mb-1">Battery only</h2>
+              <p className="text-sm text-slate-700 leading-relaxed">
+                This listing is the Lithium Rhino battery by itself. First-time conversions need a kit
+                with charger, DC-DC reducer, display, and hardware.
+              </p>
+            </div>
+          )}
           {lithiumCapacityPositioning && (
             <div className="rounded-xl border border-slate-200 bg-white p-5">
               <h2 className="text-lg font-bold text-slate-900 mb-1">
