@@ -86,6 +86,7 @@ export default async function PartsPage({
       inStock: 'Ships Today',
       quoteOnly: 'Request Quote',
       clearFilters: 'Clear all filters',
+      showAllBrands: 'Show all brands',
       sortRecommended: 'Recommended',
       sortPriceAsc: 'Price: Low to High',
       sortPriceDesc: 'Price: High to Low',
@@ -132,6 +133,7 @@ export default async function PartsPage({
       inStock: 'Envío hoy',
       quoteOnly: 'Solicitar cotización',
       clearFilters: 'Borrar filtros',
+      showAllBrands: 'Ver todas las marcas',
       sortRecommended: 'Recomendado',
       sortPriceAsc: 'Precio: menor a mayor',
       sortPriceDesc: 'Precio: mayor a menor',
@@ -257,13 +259,17 @@ export default async function PartsPage({
               inStock: t.inStock,
               quoteOnly: t.quoteOnly,
               clearFilters: t.clearFilters,
+              showAllBrands: t.showAllBrands,
             }}
           />
         </PartsCatalogMobileFilters>
 
         <div className="flex flex-col gap-8 lg:flex-row">
           <div className="hidden w-60 shrink-0 lg:block">
-            <div className="sticky top-24">
+            {/* Single scroll context: the sidebar scrolls as one column when it
+                is taller than the viewport, so nothing is clipped by sticky
+                positioning and the inner lists never need their own scrollbars. */}
+            <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pb-4 pr-1">
               <PartsCatalogSidebar
                 searchParams={searchParams}
                 brands={facets.brands}
@@ -279,6 +285,7 @@ export default async function PartsPage({
                   inStock: t.inStock,
                   quoteOnly: t.quoteOnly,
                   clearFilters: t.clearFilters,
+                  showAllBrands: t.showAllBrands,
                 }}
               />
             </div>
