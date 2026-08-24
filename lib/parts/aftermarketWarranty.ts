@@ -69,6 +69,15 @@ function hasCoreCharge(part: WarrantyPartInput): boolean {
 }
 
 function isExcludedCategoryOrName(part: WarrantyPartInput): boolean {
+  const productType = String(part.metadata?.product_type || '').toLowerCase();
+  if (
+    productType === 'hydraulic_fluid' ||
+    productType === 'engine_oil' ||
+    productType === 'lubricant'
+  ) {
+    return true;
+  }
+
   const slug = (part.category_slug || '').trim().toLowerCase();
   if (EXCLUDED_CATEGORY_SLUGS.has(slug)) return true;
 
@@ -76,6 +85,9 @@ function isExcludedCategoryOrName(part: WarrantyPartInput): boolean {
   if (EXCLUDED_CATEGORY_PATTERNS.some((re) => re.test(category))) return true;
 
   const name = part.name || '';
+  if (/\b(hydraulic\s+fluids?|hydraulic\s+oils?|engine\s+oils?|lubricants?)\b/i.test(name)) {
+    return true;
+  }
   if (/\bcharger\s*modules?\b/i.test(name)) return true;
   if (/\bbattery\s*chargers?\b/i.test(name)) return true;
   if (/\b(level\s*2\s*)?ev\s*chargers?\b/i.test(name)) return true;

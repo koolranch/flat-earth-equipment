@@ -46,6 +46,17 @@ assert.equal(
 
 assert.equal(
   qualifiesForTwoYearAftermarketWarranty({
+    brand: 'Bobcat',
+    category: 'Hydraulics',
+    category_slug: 'hydraulics',
+    name: 'Bobcat 6903118 Hydraulic Fluid (5 Gallon)',
+    metadata: { product_type: 'hydraulic_fluid' },
+  }),
+  false,
+);
+
+assert.equal(
+  qualifiesForTwoYearAftermarketWarranty({
     brand: 'Curtis',
     category: 'Controllers',
     category_slug: 'controllers',
