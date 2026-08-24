@@ -491,6 +491,12 @@ const baseConfig = {
         destination: '/parts/jcb-458-m9602-steer-link',
         permanent: true
       },
+      // JCB starter: SEO slug upgrade from stub PN slug
+      {
+        source: '/parts/333H5787',
+        destination: '/parts/jcb-333-h5787-starter',
+        permanent: true
+      },
       // Vendor has no standard 105Ah battery-only SKU — only the kit and Cube -S
       {
         source: '/parts/lithium-rhino-48v-105ah-battery',
