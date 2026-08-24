@@ -124,6 +124,8 @@
       "section": "Hydraulics",
       "description": "Hydraulic cylinder seal kit",
       "raw_models": "SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4620, SJ/SJIII 4626, SJ/SJIII 4632, SJ6832 RT",
+      "publish_status": "skip_retail",
+      "skip_reason": "User skipped",
       "catalog": null
     },
     {
@@ -131,6 +133,8 @@
       "section": "Hydraulics",
       "description": "Hydraulic filter",
       "raw_models": "SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4626, SJ/SJIII 4632, SJ8831",
+      "publish_status": "skip_retail",
+      "skip_reason": "User skipped",
       "catalog": null
     },
     {
@@ -138,7 +142,13 @@
       "section": "Hydraulics",
       "description": "Hydraulic hose",
       "raw_models": "SJ/SJIII 3215, SJ/SJIII 3219",
-      "catalog": null
+      "catalog": {
+        "slug": "skyjack-138003-hydraulic-hose",
+        "sales_type": "direct",
+        "price": 41,
+        "compatible_models": null,
+        "note": "Flyer apps stored on metadata.vendor_featured_models only."
+      }
     },
     {
       "oem": "121087",
