@@ -305,9 +305,7 @@ export default function ProductDetails({
         !hasFreeFreight &&
         !isRubberTrack && (
           <p className="text-sm text-slate-600 mb-4">
-            Ships ground surface freight — handling is calculated at checkout
-            from order value ($18–$41 under $650; prepaid on cab-glass totals
-            $650+).
+            Ships ground — freight is added at checkout.
           </p>
         )}
     </>

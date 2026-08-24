@@ -44,7 +44,7 @@ const FAQS = [
   },
   {
     q: 'How does shipping work for cab glass?',
-    a: 'Cab glass ships ground surface freight — not LTL for standard panels. Freight is calculated at checkout from your cab-glass order total using standard bands ($18–$41 under $650; prepaid when the cab-glass subtotal is $650 or more in the contiguous U.S.).',
+    a: 'Cab glass ships ground — not LTL for standard panels. Freight is added at checkout from your cab-glass order total.',
   },
   {
     q: 'Do I need seals or adhesive with a new door panel?',
@@ -167,7 +167,7 @@ export default async function CabGlassPage() {
           {[
             ['Model fitment', 'Brand + model selector'],
             ['OEM cross-ref', 'Part numbers on every listing'],
-            ['Ground freight', 'Standard surface freight bands'],
+            ['Ground freight', 'Added at checkout'],
             ['Buy Now or quote', 'Priced panels ship when in stock'],
           ].map(([title, sub]) => (
             <div
