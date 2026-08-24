@@ -43,7 +43,13 @@
       "description": "Emergency switch assembly",
       "raw_models": "SJ/SJIII 3219, SJ/SJII 3220, SJ/SJII 3226, SJ/SJII 4626, SJ/SJII 4632, SJ6832 RT",
       "ocr_flags": ["likely_sjiii_not_sjii"],
-      "catalog": null
+      "catalog": {
+        "slug": "skyjack-194729-emergency-stop-switch",
+        "sales_type": "direct",
+        "price": 72,
+        "compatible_models": null,
+        "note": "Flyer apps stored on metadata.vendor_featured_models only."
+      }
     },
     {
       "oem": "149536",
