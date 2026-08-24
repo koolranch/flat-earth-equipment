@@ -1,0 +1,267 @@
+{
+  "date": "2026-08-24",
+  "domain": "flatearthequipment.com",
+  "source": "dataforseo-live-regular",
+  "rows": [
+    {
+      "keyword": "lithium golf cart battery",
+      "lane": "generic",
+      "targetUrl": "/lithium-batteries",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "ecobattery.com",
+      "topUrl": "https://ecobattery.com/collections/battery-bundles"
+    },
+    {
+      "keyword": "golf cart lithium battery",
+      "lane": "generic",
+      "targetUrl": "/lithium-batteries",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "ecobattery.com",
+      "topUrl": "https://ecobattery.com/collections/battery-bundles"
+    },
+    {
+      "keyword": "48v lithium golf cart battery",
+      "lane": "generic",
+      "targetUrl": "/lithium-batteries",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "ecobattery.com",
+      "topUrl": "https://ecobattery.com/collections/48v-lithium-golf-cart-batteries"
+    },
+    {
+      "keyword": "lithium golf cart battery conversion kit",
+      "lane": "generic",
+      "targetUrl": "/lithium-batteries",
+      "position": 66,
+      "url": "/lithium-batteries",
+      "urlMatchesTarget": true,
+      "topCompetitor": "lithiumrhino.com",
+      "topUrl": "https://lithiumrhino.com/?srsltid=AfmBOoqVx55BN5FKxz8u3HF5gr39cfmzm_NUw89bYzyGcxTywIQYIXhl"
+    },
+    {
+      "keyword": "48v lithium golf cart conversion kit",
+      "lane": "generic",
+      "targetUrl": "/lithium-batteries",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "bigbattery.com",
+      "topUrl": "https://bigbattery.com/golf-carts/?srsltid=AfmBOooE0gLEoQuLspZKZE2IAzSEibMolW49IrbzZuwN8lSj0Wc57Oj0"
+    },
+    {
+      "keyword": "lifepo4 golf cart battery 48v",
+      "lane": "generic",
+      "targetUrl": "/lithium-batteries",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "bigbattery.com",
+      "topUrl": "https://bigbattery.com/golf-carts/?srsltid=AfmBOoq9_PG0C71ueevTuATS8vo8eDv5Y-Fi2hhW5A8Yps8MGiPN4eRP"
+    },
+    {
+      "keyword": "48v 65ah lithium golf cart battery",
+      "lane": "generic",
+      "targetUrl": "/parts/lithium-rhino-48v-65ah-kit",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "lithiumrhino.com",
+      "topUrl": "https://lithiumrhino.com/products/48v-65ah-lithium-rhino-conversion-kit-coming-late-july-early-aug-pre-order-now?srsltid=AfmBOop4m7b4MMR8GqAmFfldA7LoDlo4tdaW7FOmJ1MY9wWEhjAd2pZb"
+    },
+    {
+      "keyword": "lithium rhino",
+      "lane": "brand",
+      "targetUrl": "/lithium-batteries",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "lithiumrhino.com",
+      "topUrl": "https://lithiumrhino.com/?srsltid=AfmBOoqUGUgEJkvXavbaPn0chsVgcZ-BrV4rbGnlRed9HSjYJsKshVJ1"
+    },
+    {
+      "keyword": "lithium rhino battery",
+      "lane": "brand",
+      "targetUrl": "/lithium-batteries",
+      "position": 57,
+      "url": "/lithium-batteries",
+      "urlMatchesTarget": true,
+      "topCompetitor": "lithiumrhino.com",
+      "topUrl": "https://lithiumrhino.com/?srsltid=AfmBOop1z0R-jSKCioVsF65K6iGMfbxDM2-XFshAmtnZ5neAov4mTQ6r"
+    },
+    {
+      "keyword": "lithium rhino golf cart battery",
+      "lane": "brand",
+      "targetUrl": "/lithium-batteries",
+      "position": 41,
+      "url": "/lithium-batteries",
+      "urlMatchesTarget": true,
+      "topCompetitor": "lithiumrhino.com",
+      "topUrl": "https://lithiumrhino.com/?srsltid=AfmBOorJdJ8cOP8gWn88_ERRK_O55k75aTtrVdwkOXYA_TimBHe10bdD"
+    },
+    {
+      "keyword": "lithium rhino conversion kit",
+      "lane": "brand",
+      "targetUrl": "/lithium-batteries",
+      "position": 31,
+      "url": "/lithium-batteries",
+      "urlMatchesTarget": true,
+      "topCompetitor": "lithiumrhino.com",
+      "topUrl": "https://lithiumrhino.com/?srsltid=AfmBOormmzGB9BAUHjYQ0qlKhgE2uiuXPoY9eVwb-A0SoqmqIle4KMYu"
+    },
+    {
+      "keyword": "lithium rhino 48v",
+      "lane": "brand",
+      "targetUrl": "/lithium-batteries",
+      "position": 54,
+      "url": "/parts/lithium-rhino-48v-105ah-kit",
+      "urlMatchesTarget": false,
+      "topCompetitor": "lithiumrhino.com",
+      "topUrl": "https://lithiumrhino.com/products/48v-105ah-conversion-kit?srsltid=AfmBOooCyIXHtTRdKJGq2Qwf4tvAFpSHsVISyOIWuvOwmmGT_sYMxd2y"
+    },
+    {
+      "keyword": "lithium rhino 48v 65ah",
+      "lane": "brand",
+      "targetUrl": "/parts/lithium-rhino-48v-65ah-kit",
+      "position": 60,
+      "url": "/parts/lithium-rhino-48v-105ah-kit",
+      "urlMatchesTarget": false,
+      "topCompetitor": "lithiumrhino.com",
+      "topUrl": "https://lithiumrhino.com/products/48v-65ah-lithium-rhino-conversion-kit-coming-late-july-early-aug-pre-order-now?srsltid=AfmBOor9ydPJckpi0MaQUiZsqgVihkWelKmTzctRRnlvLBqcQVJrfWB5"
+    },
+    {
+      "keyword": "lithium rhino 48v 65ah kit",
+      "lane": "brand",
+      "targetUrl": "/parts/lithium-rhino-48v-65ah-kit",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "lithiumrhino.com",
+      "topUrl": "https://lithiumrhino.com/collections/our-products?srsltid=AfmBOorodmAIuAz9QucKCzw7SxowXfCwnx_q_L-irPnMCGQVRrGhZ9-J"
+    },
+    {
+      "keyword": "lithium rhino 48v 105ah",
+      "lane": "brand",
+      "targetUrl": "/parts/lithium-rhino-48v-105ah-kit",
+      "position": 58,
+      "url": "/parts/lithium-rhino-48v-105ah-kit",
+      "urlMatchesTarget": true,
+      "topCompetitor": "lithiumrhino.com",
+      "topUrl": "https://lithiumrhino.com/products/48v-105ah-conversion-kit?srsltid=AfmBOoqLlQq2utROVGSHJfCq1C-RXh5xX6249vqaRInpx27kEpUQRSwc"
+    },
+    {
+      "keyword": "lithium rhino 48v 50ah",
+      "lane": "brand",
+      "targetUrl": "/parts/lithium-rhino-48v-50ah-kit",
+      "position": 55,
+      "url": "/parts/lithium-rhino-48v-105ah-kit",
+      "urlMatchesTarget": false,
+      "topCompetitor": "lithiumrhino.com",
+      "topUrl": "https://lithiumrhino.com/products/48v-50ah-lithium-rhino-conversion-kit?srsltid=AfmBOopPFu3zHhYnsj9PzkyE_7zfWgG7G83kYBSdvB-s-l_0u8H03X-Y"
+    },
+    {
+      "keyword": "lithium rhino 36v",
+      "lane": "brand",
+      "targetUrl": "/parts/lithium-rhino-36v-65ah-kit",
+      "position": 60,
+      "url": "/lithium-batteries",
+      "urlMatchesTarget": false,
+      "topCompetitor": "lithiumrhino.com",
+      "topUrl": "https://lithiumrhino.com/products/36v-105ah-lithium-rhino-conversion-kit?srsltid=AfmBOorROx1Ln2glwG8FEZL2xccaft_FU0dQrSN5s1FinUB7b4Ne0v1n"
+    },
+    {
+      "keyword": "lithium rhino 72v",
+      "lane": "brand",
+      "targetUrl": "/parts/lithium-rhino-72v-105ah-kit",
+      "position": 67,
+      "url": "/lithium-batteries",
+      "urlMatchesTarget": false,
+      "topCompetitor": "lithiumrhino.com",
+      "topUrl": "https://lithiumrhino.com/products/48v-105ah-lithium-conversion-kit?srsltid=AfmBOooboOd-oK521vjfUlKIVEhGYDS05RaLXQ8xmWAWZo3n2fX-6_8n"
+    },
+    {
+      "keyword": "ezgo txt 48v lithium battery conversion",
+      "lane": "cart",
+      "targetUrl": "/lithium-batteries/ezgo-txt-48v",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "www.amazon.com",
+      "topUrl": "https://www.amazon.com/ezgo-lithium-battery-conversion-kit/s?k=ezgo+lithium+battery+conversion+kit"
+    },
+    {
+      "keyword": "ezgo rxv lithium battery",
+      "lane": "cart",
+      "targetUrl": "/lithium-batteries/ezgo-rxv-48v",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "ecobattery.com",
+      "topUrl": "https://ecobattery.com/collections/battery-bundles"
+    },
+    {
+      "keyword": "club car precedent lithium battery",
+      "lane": "cart",
+      "targetUrl": "/lithium-batteries/club-car-precedent-48v",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "ecobattery.com",
+      "topUrl": "https://ecobattery.com/collections/battery-bundles"
+    },
+    {
+      "keyword": "club car ds lithium battery",
+      "lane": "cart",
+      "targetUrl": "/lithium-batteries/club-car-ds-48v",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "www.facebook.com",
+      "topUrl": "https://www.facebook.com/groups/GolfCartsModified/posts/4149789025294121/"
+    },
+    {
+      "keyword": "yamaha drive lithium battery",
+      "lane": "cart",
+      "targetUrl": "/lithium-batteries/yamaha-drive-48v",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "fleetlithium.com",
+      "topUrl": "https://fleetlithium.com/products/yamaha-drive2-2017-present-48v-fleet-lithium-conversion-kit?srsltid=AfmBOopPPtXS2Rdk2vrcLT1YORNKQ87r-0CkPPt4te2FiN0lGSdy1_t0"
+    },
+    {
+      "keyword": "113-LR51V65AH",
+      "lane": "pn",
+      "targetUrl": "/parts/lithium-rhino-48v-65ah-kit",
+      "position": 14,
+      "url": "/lithium-batteries",
+      "urlMatchesTarget": false,
+      "topCompetitor": "shop.fsip.biz",
+      "topUrl": "https://shop.fsip.biz/Image/GetDocument/en/498"
+    },
+    {
+      "keyword": "113-LR51V50AH",
+      "lane": "pn",
+      "targetUrl": "/parts/lithium-rhino-48v-50ah-kit",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "shop.fsip.biz",
+      "topUrl": "https://shop.fsip.biz/Image/GetDocument/en/498"
+    },
+    {
+      "keyword": "113-LR51V105AH",
+      "lane": "pn",
+      "targetUrl": "/parts/lithium-rhino-48v-105ah-kit",
+      "position": 13,
+      "url": "/parts/lithium-rhino-48v-105ah-kit",
+      "urlMatchesTarget": true,
+      "topCompetitor": "shop.fsip.biz",
+      "topUrl": "https://shop.fsip.biz/en/product/batteries-golf-lithium-rhino/lithium-rhino-48v-105ah-lifepo4-lithium-battery--113-LR51V105AH"
+    }
+  ]
+}
