@@ -80,6 +80,8 @@
       "section": "Switches, sensors, alarms",
       "description": "Tilt sensor",
       "raw_models": "SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4620, SJ/SJIII 4626, SJ/SJIII 4632",
+      "publish_status": "skip_retail",
+      "skip_reason": "Competing listing too cheap to bother selling",
       "catalog": null
     },
     {
@@ -100,6 +102,8 @@
       "section": "Hydraulics",
       "description": "Brake cylinder assembly",
       "raw_models": "SJ/SJIII 3015, SJ/SJIII 3215, SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIII 3226",
+      "publish_status": "skip_retail",
+      "skip_reason": "Comps too low to compete",
       "catalog": null
     },
     {
@@ -107,7 +111,13 @@
       "section": "Hydraulics",
       "description": "Hydraulic brake cylinder",
       "raw_models": "SJ/SJIII 3215, SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4626, SJ/SJIII 4632",
-      "catalog": null
+      "catalog": {
+        "slug": "skyjack-120220-hydraulic-brake-cylinder",
+        "sales_type": "direct",
+        "price": 251,
+        "compatible_models": null,
+        "note": "Margin floor sat $6 over cheapest public $245. Flyer apps on metadata only."
+      }
     },
     {
       "oem": "105816",
