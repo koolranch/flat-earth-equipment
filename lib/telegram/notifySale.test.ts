@@ -1,9 +1,11 @@
 import assert from 'node:assert/strict';
 import {
+  CHECKOUT_SESSION_NOTIFY_EXPAND,
   formatPartsSaleMessage,
   formatTrainingSaleMessage,
   isTelegramConfigured,
   notifyCheckoutSale,
+  shippingAddressFromSession,
   type PartsSaleDetails,
   type TrainingSaleDetails,
 } from './notifySale';
@@ -77,5 +79,36 @@ assert.equal(isTelegramConfigured(), false, 'whitespace-only token must count as
 
 process.env.TELEGRAM_BOT_TOKEN = prevToken;
 process.env.TELEGRAM_CHAT_ID = prevChat;
+
+// Stripe basil+ rejects expand: ['shipping_details'] — retrieve must only expand line items.
+assert.deepEqual(CHECKOUT_SESSION_NOTIFY_EXPAND, [
+  'line_items',
+  'line_items.data.price.product',
+]);
+assert.ok(
+  !CHECKOUT_SESSION_NOTIFY_EXPAND.includes('shipping_details' as (typeof CHECKOUT_SESSION_NOTIFY_EXPAND)[number]),
+  'shipping_details is not expandable on Checkout Sessions'
+);
+
+const collectedOnly = shippingAddressFromSession({
+  collected_information: {
+    shipping_details: { address: { city: 'Houston', state: 'TX' } },
+  },
+});
+assert.deepEqual(collectedOnly, { city: 'Houston', state: 'TX' });
+
+const collectedWins = shippingAddressFromSession({
+  collected_information: {
+    shipping_details: { address: { city: 'Houston', state: 'TX' } },
+  },
+  shipping_details: { address: { city: 'Legacy', state: 'XX' } },
+  customer_details: { address: { city: 'Billing', state: 'YY' } },
+});
+assert.deepEqual(collectedWins, { city: 'Houston', state: 'TX' });
+
+const customerFallback = shippingAddressFromSession({
+  customer_details: { address: { city: 'Olympia', state: 'WA' } },
+});
+assert.deepEqual(customerFallback, { city: 'Olympia', state: 'WA' });
 
 console.log('notifySale.test.ts: all assertions passed');

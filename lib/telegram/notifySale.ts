@@ -29,6 +29,45 @@ export type NotifyCheckoutSaleInput =
 
 const TELEGRAM_TIMEOUT_MS = 3000;
 
+/** Checkout Session retrieve expand list. Do not include `shipping_details` — Stripe basil+ rejects it. */
+export const CHECKOUT_SESSION_NOTIFY_EXPAND = [
+  'line_items',
+  'line_items.data.price.product',
+] as const;
+
+type SessionAddress = {
+  city?: string | null;
+  state?: string | null;
+};
+
+type SessionWithShipping = {
+  collected_information?: {
+    shipping_details?: {
+      address?: SessionAddress | null;
+    } | null;
+  } | null;
+  shipping_details?: {
+    address?: SessionAddress | null;
+  } | null;
+  customer_details?: {
+    address?: SessionAddress | null;
+  } | null;
+};
+
+export function shippingAddressFromSession(session: SessionWithShipping): {
+  city: string;
+  state: string;
+} {
+  const address =
+    session.collected_information?.shipping_details?.address ||
+    session.shipping_details?.address ||
+    session.customer_details?.address;
+  return {
+    city: address?.city?.trim() || '',
+    state: address?.state?.trim() || '',
+  };
+}
+
 function formatUsd(cents: number): string {
   return `$${(cents / 100).toFixed(2)}`;
 }
@@ -144,7 +183,7 @@ async function retrieveSessionForNotify(
 ): Promise<Stripe.Checkout.Session> {
   return Promise.race([
     stripe.checkout.sessions.retrieve(sessionId, {
-      expand: ['shipping_details', 'line_items', 'line_items.data.price.product'],
+      expand: [...CHECKOUT_SESSION_NOTIFY_EXPAND],
     }),
     new Promise<never>((_, reject) => {
       setTimeout(() => reject(new Error('telegram stripe retrieve timeout')), STRIPE_RETRIEVE_TIMEOUT_MS);
@@ -168,14 +207,7 @@ export async function notifyFromCheckoutSession(
       options?.forceKind === 'training' ||
       (options?.forceKind !== 'parts' && Boolean(session.metadata?.course_slug));
 
-    const full = (await retrieveSessionForNotify(stripe, session.id)) as Stripe.Checkout.Session & {
-      shipping_details?: {
-        address?: {
-          city?: string | null;
-          state?: string | null;
-        } | null;
-      } | null;
-    };
+    const full = await retrieveSessionForNotify(stripe, session.id);
 
     const amountTotalCents = full.amount_total ?? session.amount_total ?? 0;
     const email =
@@ -217,14 +249,14 @@ export async function notifyFromCheckoutSession(
       });
     }
 
-    const address = full.shipping_details?.address;
+    const address = shippingAddressFromSession(full);
     await notifyCheckoutSale({
       kind: 'parts',
       sessionId: full.id,
       totalCents: amountTotalCents,
       lineItems,
-      shippingCity: address?.city || '',
-      shippingState: address?.state || '',
+      shippingCity: address.city,
+      shippingState: address.state,
     });
   } catch (err) {
     console.warn('[telegram] notifyFromCheckoutSession failed (non-blocking):', err);
