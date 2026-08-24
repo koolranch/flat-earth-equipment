@@ -167,7 +167,13 @@
       "section": "Hydraulics",
       "description": "Solenoid lowering valve",
       "raw_models": "SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4632, SJ6826 RT",
-      "catalog": null
+      "catalog": {
+        "slug": "skyjack-107269-solenoid-lowering-valve",
+        "sales_type": "direct",
+        "price": 75,
+        "compatible_models": null,
+        "note": "Flyer apps stored on metadata.vendor_featured_models only."
+      }
     },
     {
       "oem": "121090",
