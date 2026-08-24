@@ -1,0 +1,394 @@
+{
+  "source": {
+    "id": "2608002T",
+    "title": "Quality parts for Skyjack equipment",
+    "kind": "vendor_featured_flyer",
+    "not": "serial-break catalog or exhaustive fitment",
+    "customer_pn_rule": "Strip SJ vendor prefix. List as Skyjack + OEM number.",
+    "fitment_rule": "Flyer models are typical applications. Store as vendor-featured. Do not overwrite existing compatible_models. Do not show as Verified fitment until a second source confirms."
+  },
+  "accuracy_notes": [
+    "SJ/SJIII 3219 means both the SJ and SJIII 3219 series — expand to two keys.",
+    "SJ/SJIII 6826 and SJ6832 RT are different machines. Never collapse compact 6826/6832 into SJRT.",
+    "Existing RT-QRG listings use SJRT ####. Flyer RT tokens (SJ6826 RT) canonicalize to SJRT #### and merge additively.",
+    "OCR garbage (SJ/SJIIISJIII, SJ/SJII on a row that starts SJ/SJIII) is flagged and must be visually confirmed before publish.",
+    "PDP copy currently says Verified fitment — flyer lists must not go into compatible_models until that copy is split."
+  ],
+  "parts": [
+    {
+      "oem": "103057",
+      "section": "Switches, sensors, alarms",
+      "description": "Alarm - 5/30VDC 85/95DB",
+      "raw_models": "SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4626, SJ/SJIII 4632, SJ16, SJ12",
+      "publish_status": "skip_retail",
+      "skip_reason": "Too inexpensive to bother selling",
+      "catalog": null
+    },
+    {
+      "oem": "119725",
+      "section": "Switches, sensors, alarms",
+      "description": "Disconnect switch",
+      "raw_models": "SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4626, SJ/SJIII 4632, SJ16, SJ12",
+      "catalog": {
+        "slug": "skyjack-119725-disconnect-switch",
+        "sales_type": "direct",
+        "price": 37,
+        "compatible_models": null,
+        "note": "Flyer apps stored on metadata.vendor_featured_models only."
+      }
+    },
+    {
+      "oem": "194729",
+      "section": "Switches, sensors, alarms",
+      "description": "Emergency switch assembly",
+      "raw_models": "SJ/SJIII 3219, SJ/SJII 3220, SJ/SJII 3226, SJ/SJII 4626, SJ/SJII 4632, SJ6832 RT",
+      "ocr_flags": ["likely_sjiii_not_sjii"],
+      "catalog": null
+    },
+    {
+      "oem": "149536",
+      "section": "Switches, sensors, alarms",
+      "description": "Key selector switch",
+      "raw_models": "SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIIISJIII 3226, SJ/SJIII 4632, SJ/SJIII 4626, SJ16, SJ12",
+      "ocr_flags": ["garbled_sjiii"],
+      "catalog": null
+    },
+    {
+      "oem": "119348",
+      "section": "Switches, sensors, alarms",
+      "description": "Limit switch",
+      "raw_models": "SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIIISJIII 3226, SJ/SJIII 4632, SJ/SJIII 4626, SJ16, SJ12",
+      "ocr_flags": ["garbled_sjiii"],
+      "catalog": null
+    },
+    {
+      "oem": "171560",
+      "section": "Switches, sensors, alarms",
+      "description": "Tilt sensor",
+      "raw_models": "SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4620, SJ/SJIII 4626, SJ/SJIII 4632",
+      "catalog": null
+    },
+    {
+      "oem": "102853",
+      "section": "Switches, sensors, alarms",
+      "description": "Toggle switch 3pos",
+      "raw_models": "SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4626, SJ/SJIII 4632, SJ6832 RT",
+      "catalog": {
+        "slug": "skyjack-102853-toggle-switch-spdt-3-position-momentary",
+        "sales_type": "direct",
+        "price": 34,
+        "compatible_models": ["SJRT 6826", "SJRT 6832", "SJRT 7127", "SJRT 7135", "SJRT 8831", "SJRT 8841", "SJRT 9241", "SJRT 9250"],
+        "note": "Live fitment is RT-QRG only. Flyer adds compact scissors. Merge additively — do not replace."
+      }
+    },
+    {
+      "oem": "127900",
+      "section": "Hydraulics",
+      "description": "Brake cylinder assembly",
+      "raw_models": "SJ/SJIII 3015, SJ/SJIII 3215, SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIII 3226",
+      "catalog": null
+    },
+    {
+      "oem": "120220",
+      "section": "Hydraulics",
+      "description": "Hydraulic brake cylinder",
+      "raw_models": "SJ/SJIII 3215, SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4626, SJ/SJIII 4632",
+      "catalog": null
+    },
+    {
+      "oem": "105816",
+      "section": "Hydraulics",
+      "description": "Hydraulic cylinder seal kit",
+      "raw_models": "SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4620, SJ/SJIII 4626, SJ/SJIII 4632, SJ6832 RT",
+      "catalog": null
+    },
+    {
+      "oem": "104254",
+      "section": "Hydraulics",
+      "description": "Hydraulic filter",
+      "raw_models": "SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4626, SJ/SJIII 4632, SJ8831",
+      "catalog": null
+    },
+    {
+      "oem": "138003",
+      "section": "Hydraulics",
+      "description": "Hydraulic hose",
+      "raw_models": "SJ/SJIII 3215, SJ/SJIII 3219",
+      "catalog": null
+    },
+    {
+      "oem": "121087",
+      "section": "Hydraulics",
+      "description": "Hydraulic steer cylinder",
+      "raw_models": "SJ/SJIII 3015, SJ/SJIII 3215, SJ/SJIII 3219",
+      "catalog": {
+        "slug": "skyjack-121087-cylinder",
+        "sales_type": "quote_only",
+        "price": 0,
+        "compatible_models": null
+      }
+    },
+    {
+      "oem": "107269",
+      "section": "Hydraulics",
+      "description": "Solenoid lowering valve",
+      "raw_models": "SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4632, SJ6826 RT",
+      "catalog": null
+    },
+    {
+      "oem": "121090",
+      "section": "Hydraulics",
+      "description": "Steer cylinder seal kit",
+      "raw_models": "SJ/SJIII 3015, SJ/SJIII 3215, SJ/SJIII 3219",
+      "catalog": null
+    },
+    {
+      "oem": "198601",
+      "section": "Tires & wheels",
+      "description": "Brake wheel - 16 x 5 x 12",
+      "raw_models": "SJ/SJIII 3226, SJ/SJIII 4620, SJ/SJIII 4626, SJ/SJIII 4632, SJ4726, SJ4732, SJ4740",
+      "catalog": null
+    },
+    {
+      "oem": "212154",
+      "section": "Tires & wheels",
+      "description": "Drive wheel - 16 x 5 x 12",
+      "raw_models": "SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4226, SJ/SJIII 4632, SJ/SJIII 4740",
+      "catalog": null
+    },
+    {
+      "oem": "158436",
+      "section": "Tires & wheels",
+      "description": "Front drive wheel - 200 x 8",
+      "raw_models": "SJ/SJIII 3015, SJ/SJIII 3019, SJ/SJIII 3215, SJ/SJIII 3219, SJ12, SJ16",
+      "also_on": "Mixed electronics flyer lists SJ12, SJ16, SJIII3215, SJIII3219 only",
+      "catalog": null
+    },
+    {
+      "oem": "198594",
+      "section": "Tires & wheels",
+      "description": "Mould on front wheel assembly",
+      "raw_models": "SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4620, SJ/SJIII 4626, SJ/SJIII 4632, SJ4732",
+      "catalog": null
+    },
+    {
+      "oem": "209405",
+      "section": "Tires & wheels",
+      "description": "Mould on rear wheel assembly",
+      "raw_models": "SJ/SJIII 3215, SJ/SJIII 3219, SJ12, SJ16",
+      "catalog": null
+    },
+    {
+      "oem": "158437",
+      "section": "Tires & wheels",
+      "description": "Rear drive wheel - 200 x 8",
+      "raw_models": "SJ/SJIII 3015, SJ/SJIII 3019, SJ/SJIII 3215, SJ/SJIII 3219, SJ12, SJ16",
+      "also_on": "Mixed electronics flyer lists SJIII3215, SJIII3219 only",
+      "catalog": null
+    },
+    {
+      "oem": "209400",
+      "section": "Tires & wheels",
+      "description": "Rubber drive wheel - 12 x 4 x 8",
+      "raw_models": "SJ/SJIII 3215, SJ/SJIII 3219, SJ12, SJ16",
+      "catalog": null
+    },
+    {
+      "oem": "125786",
+      "section": "Tires & wheels",
+      "description": "Rubber rear drive wheel - 16 x 5",
+      "raw_models": "SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4626, SJ/SJIII 4632",
+      "catalog": {
+        "slug": "skyjack-125786-drive-wheel",
+        "sales_type": "direct",
+        "price": 289,
+        "compatible_models": null
+      }
+    },
+    {
+      "oem": "125785",
+      "section": "Tires & wheels",
+      "description": "Rubber front drive wheel - 16 x 5 x 12",
+      "raw_models": "3220, SJ/SJIII 3226, SJ/SJIII 4626, SJ/SJIII 4632",
+      "ocr_flags": ["missing_prefix"],
+      "catalog": {
+        "slug": "skyjack-125785-drive-wheel",
+        "sales_type": "direct",
+        "price": 183,
+        "compatible_models": null
+      }
+    },
+    {
+      "oem": "103129",
+      "section": "Pumps & motors",
+      "description": "Hydraulic motor",
+      "raw_models": "SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4620, SJ/SJIII 4626, SJ/SJIII 4632",
+      "catalog": null
+    },
+    {
+      "oem": "141657",
+      "section": "Pumps & motors",
+      "description": "Hydraulic motor",
+      "raw_models": "SJ/SJIII 3215, SJ/SJIII 3219",
+      "catalog": {
+        "slug": "skyjack-141657-hydraulic-motor",
+        "sales_type": "quote_only",
+        "price": 0,
+        "compatible_models": null
+      }
+    },
+    {
+      "oem": "169261",
+      "section": "Pumps & motors",
+      "description": "Hydraulic pump",
+      "raw_models": "SJ/SJIII 3219, SJ/SJIII3220, SJ/SJIII3226, SJ/SJIII 4620, SJ/SJIII 4626, SJ/SJIII 4632",
+      "catalog": null
+    },
+    {
+      "oem": "147661",
+      "section": "Pumps & motors",
+      "description": "Hydraulic pump",
+      "raw_models": "SJ/SJIII 3219, SJ/SJIII3220, SJ/SJIII3226, SJ/SJIII 4620, SJ/SJIII 4626, SJ/SJIII 4632",
+      "catalog": null
+    },
+    {
+      "oem": "106587",
+      "section": "Pumps & motors",
+      "description": "Hydraulic pump with tube",
+      "raw_models": "SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4632, SJ/SJIII 6826, SJ/SJIII 6832, SJ6832 RT",
+      "accuracy": "Lists compact 6826/6832 and SJ6832 RT on the same row — keep both families.",
+      "catalog": null
+    },
+    {
+      "oem": "147664",
+      "section": "Pumps & motors",
+      "description": "Motor 24V",
+      "raw_models": "SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4626, SJ/SJIII 4632",
+      "catalog": {
+        "slug": "skyjack-147664-motor",
+        "sales_type": "quote_only",
+        "price": 0,
+        "compatible_models": null
+      }
+    },
+    {
+      "oem": "169260",
+      "section": "Pumps & motors",
+      "description": "Pump motor 24V",
+      "raw_models": "SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4626, SJ/SJIII 4632",
+      "catalog": null
+    },
+    {
+      "oem": "161937",
+      "section": "Pumps & motors",
+      "description": "Pump & motor assembly",
+      "raw_models": "SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4626, SJ/SJIII 4632",
+      "catalog": null
+    },
+    {
+      "oem": "163167",
+      "section": "Joysticks & controllers",
+      "description": "Control box",
+      "raw_models": "SJIII 3215, SJIII 3219, SJIII 3220, SJIII 3226, SJIII 4626, SJIII 4632, SJIII 4740",
+      "catalog": null
+    },
+    {
+      "oem": "163404",
+      "section": "Joysticks & controllers",
+      "description": "Control box (long cable option)",
+      "raw_models": "SJII 3215, SJII 3219, SJIII 3220, SJIII 3226, SJIII 4620, SJIII 4626, SJIII 4632",
+      "accuracy": "Flyer explicitly uses SJII on 3215/3219 — do not auto-upgrade to SJIII.",
+      "catalog": null
+    },
+    {
+      "oem": "163401",
+      "section": "Joysticks & controllers",
+      "description": "Controller box",
+      "raw_models": "SJIII 3215, SJIII 3219, SJIII 3220, SJIII 3226, SJIII 4626, SJIII 4632",
+      "catalog": null
+    },
+    {
+      "oem": "159111",
+      "section": "Joysticks & controllers",
+      "description": "Hall effect joystick",
+      "raw_models": "SJIII 3215, SJIII 3219, SJIII 3220, SJIII 3226, SJIII 4626, SJIII 4632, SJ12, SJ16",
+      "catalog": {
+        "slug": "skyjack-3219-joystick",
+        "sales_type": "quote_only",
+        "price": 0,
+        "compatible_models": ["skyjack-sjiii-3219", "skyjack-sjiii-3226"],
+        "note": "Existing keys are slug-shaped and incomplete vs flyer. Normalize before adding."
+      }
+    },
+    {
+      "oem": "159108",
+      "section": "Joysticks & controllers",
+      "description": "Joystick controller",
+      "raw_models": "SJIII 3215, SJIII 3219, SJIII 3220, SJIII 3226, SJIII 4626, SJIII 4632, SJ12, SJ16",
+      "catalog": {
+        "slug": "skyjack-159108-joystick",
+        "sales_type": "quote_only",
+        "price": 0,
+        "compatible_models": null
+      }
+    },
+    {
+      "oem": "132537",
+      "section": "Joysticks & controllers",
+      "description": "Joystick controller",
+      "raw_models": "SJ6826 RT, SJ6832 RT, SJ7135 RT, SJ7127 RT, SJ9250 RT",
+      "catalog": {
+        "slug": "skyjack-132537-joystick-controller",
+        "sales_type": "direct",
+        "price": 171,
+        "compatible_models": ["SJRT 6826", "SJRT 6832", "SJRT 7127", "SJRT 7135", "SJRT 8841", "SJRT 9241", "SJRT 9250"],
+        "note": "Flyer is a subset of live RT-QRG fitment. Keep 8841/9241. Do not replace with flyer-only list."
+      }
+    },
+    {
+      "oem": "138224",
+      "section": "Joysticks & controllers",
+      "description": "Single axis joystick controller",
+      "raw_models": "SJ40T, SJ45T, SJ61T, SJ66T, SJ46AJ, SJ63AJ",
+      "catalog": null
+    },
+    {
+      "oem": "228476",
+      "section": "Chargers",
+      "description": "24V 25A Charger",
+      "raw_models": "SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4632, SJ12, SJ16",
+      "catalog": {
+        "slug": "skyjack-228476-battery-charger",
+        "sales_type": "direct",
+        "price": 619,
+        "compatible_models": null
+      }
+    },
+    {
+      "oem": "128537",
+      "section": "Chargers",
+      "description": "24V 25A Onboard charger",
+      "raw_models": "SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4620, SJ/SJIII 4632",
+      "catalog": {
+        "slug": "skyjack-128537-battery-charger",
+        "sales_type": "quote_only",
+        "price": 0,
+        "compatible_models": null
+      }
+    },
+    {
+      "oem": "108592",
+      "section": "Chargers",
+      "description": "24V 40A Charger",
+      "raw_models": "SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4626, SJ/SJIII 4632",
+      "catalog": null
+    },
+    {
+      "oem": "223156",
+      "section": "Chargers",
+      "description": "Delta-Q charger cord",
+      "raw_models": "SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIII 3226, SJ/SJIII 4626, SJ/SJIII 4632, SJ12, SJ16",
+      "catalog": null
+    }
+  ]
+}
