@@ -57,6 +57,8 @@
       "description": "Key selector switch",
       "raw_models": "SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIIISJIII 3226, SJ/SJIII 4632, SJ/SJIII 4626, SJ16, SJ12",
       "ocr_flags": ["garbled_sjiii"],
+      "publish_status": "skip_retail",
+      "skip_reason": "Competing listing too cheap to bother selling",
       "catalog": null
     },
     {
@@ -65,7 +67,13 @@
       "description": "Limit switch",
       "raw_models": "SJ/SJIII 3219, SJ/SJIII 3220, SJ/SJIIISJIII 3226, SJ/SJIII 4632, SJ/SJIII 4626, SJ16, SJ12",
       "ocr_flags": ["garbled_sjiii"],
-      "catalog": null
+      "catalog": {
+        "slug": "skyjack-119348-pothole-limit-switch",
+        "sales_type": "direct",
+        "price": 71,
+        "compatible_models": null,
+        "note": "Flyer apps stored on metadata.vendor_featured_models only."
+      }
     },
     {
       "oem": "171560",
