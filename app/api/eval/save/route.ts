@@ -14,17 +14,23 @@ export async function POST(req: Request){
   if (!(await canManageEvaluations(user.id))) return NextResponse.json({ ok:false, error:'forbidden' }, { status:403 });
 
   const body = await req.json();
-  const payload = {
+  const payload: Record<string, unknown> = {
     enrollment_id: body.enrollment_id,
     evaluator_name: body.evaluator_name || null,
     evaluator_title: body.evaluator_title || null,
     site_location: body.site_location || null,
-    evaluation_date: body.evaluation_date || null,
+    evaluation_date: body.evaluation_date || new Date().toISOString().slice(0, 10),
     practical_pass: typeof body.practical_pass === 'boolean' ? body.practical_pass : null,
     notes: body.notes || null,
     competencies: body.competencies || null
   };
   if (!payload.enrollment_id) return NextResponse.json({ ok:false, error:'missing_enrollment_id' }, { status:400 });
+  if (typeof body.evaluator_signature_url === 'string' && body.evaluator_signature_url) {
+    payload.evaluator_signature_url = body.evaluator_signature_url;
+  }
+  if (typeof body.trainee_signature_url === 'string' && body.trainee_signature_url) {
+    payload.trainee_signature_url = body.trainee_signature_url;
+  }
 
   const { data: row, error } = await svc
     .from('employer_evaluations')
