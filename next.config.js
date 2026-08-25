@@ -511,6 +511,12 @@ const baseConfig = {
         destination: '/parts/jcb-333-h5787-starter',
         permanent: true
       },
+      // JCB tinted front screen: SEO slug upgrade from stub PN slug
+      {
+        source: '/parts/332H1528',
+        destination: '/parts/jcb-332-h1528-tinted-front-windshield',
+        permanent: true
+      },
       // Vendor has no standard 105Ah battery-only SKU — only the kit and Cube -S
       {
         source: '/parts/lithium-rhino-48v-105ah-battery',
