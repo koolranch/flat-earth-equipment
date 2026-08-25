@@ -706,6 +706,31 @@ export default async function Page({
           </div>
         </div>
 
+        {/* Reman module PN links: exact-PN anchors help part-number SERPs surface the SKU pages */}
+        <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-6">
+          <h2 className="text-lg font-bold text-gray-900 mb-1">Reman charger modules by part number</h2>
+          <p className="text-sm text-slate-600 mb-4">
+            Charger dead but the transformer is fine? A remanufactured control module is usually the fix—exchange units ship same day.
+          </p>
+          <div className="flex flex-wrap gap-3 text-sm">
+            <a href="/charger-modules/hawker-6la20671" className="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg font-medium text-slate-700 hover:border-canyon-rust hover:text-canyon-rust transition-colors">
+              6LA20671 (Hawker)
+            </a>
+            <a href="/charger-modules/enersys-6la20671" className="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg font-medium text-slate-700 hover:border-canyon-rust hover:text-canyon-rust transition-colors">
+              6LA20671 (Enersys)
+            </a>
+            <a href="/charger-modules/act-quantum-36vdc" className="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg font-medium text-slate-700 hover:border-canyon-rust hover:text-canyon-rust transition-colors">
+              81063658R (ACT Quantum 36V)
+            </a>
+            <a href="/charger-modules/act-quantum-48vdc" className="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg font-medium text-slate-700 hover:border-canyon-rust hover:text-canyon-rust transition-colors">
+              81063577R (ACT Quantum 48V)
+            </a>
+            <a href="/charger-modules/act-quantum-80vdc" className="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg font-medium text-slate-700 hover:border-canyon-rust hover:text-canyon-rust transition-colors">
+              81063578R (ACT Quantum 80V)
+            </a>
+          </div>
+        </div>
+
         {/* Demoted optional selector — keep #charger-selector for legacy deep links */}
         <div id="charger-selector" className="mt-16 scroll-mt-24">
           <ChargerSelectorWithRecommendations 

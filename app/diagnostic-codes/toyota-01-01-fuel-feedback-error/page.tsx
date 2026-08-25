@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { generatePageAlternates } from "@/app/seo-defaults";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
@@ -20,15 +19,13 @@ export default function Toyota0101Page() {
           { name: 'Toyota 01-01 Fuel Feedback Error', url: 'https://www.flatearthequipment.com/diagnostic-codes/toyota-01-01-fuel-feedback-error' },
         ]}
       />
-      <Script id="howto-schema" type="application/ld+json">
-        {JSON.stringify({
+      <script id="howto-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "HowTo",
           "name": "How to Fix Toyota Forklift 01-01 Fuel Feedback Error",
           "description": "Diagnose and repair fuel feedback control error (rich) on Toyota 4Y-ECS forklifts",
           "totalTime": "PT1H30M"
-        })}
-      </Script>
+        }) }} />
 
     <main className="max-w-3xl mx-auto px-4 py-12">
       <div className="not-prose mb-8 grid grid-cols-2 sm:grid-cols-4 gap-3">

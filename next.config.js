@@ -437,6 +437,20 @@ const baseConfig = {
         destination: '/diagnostic-codes/e-a5-1-code-on-toyota-forklift-2',
         permanent: true // 301 - Consolidates ranking authority
       },
+      // 1b. Toyota A5-1: second live insights duplicate (GSC 2026-08: 549 impr
+      // cannibalizing 4,735 impr on the diagnostic-codes winner)
+      {
+        source: '/insights/e-a5-1-code-on-toyota-forklift-2',
+        destination: '/diagnostic-codes/e-a5-1-code-on-toyota-forklift-2',
+        permanent: true
+      },
+      // 1c. Nissan E43: insights URL is the traffic winner (GSC 2026-08:
+      // 2,703 impr pos 8 vs 509 impr pos 11) - redirect the thin diagnostic-codes page
+      {
+        source: '/diagnostic-codes/e43-code-nissan-forklift',
+        destination: '/insights/e43-code-nissan-forklift',
+        permanent: true
+      },
       
       // 2-3. Raymond Serial Number - Keep /raymond-serial-number-lookup, redirect duplicates
       {

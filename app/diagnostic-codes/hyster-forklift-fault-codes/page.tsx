@@ -171,6 +171,13 @@ export default function HysterFaultCodesPage() {
               <div className="text-sm text-slate-600">Sensors, controllers, contactors</div>
             </div>
           </Link>
+          <Link href="/charger-modules/act-quantum-48vdc" className="flex items-start gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-lg transition-all">
+            <span className="text-2xl">⚡</span>
+            <div>
+              <div className="font-semibold text-slate-900">81063577R Charger Module</div>
+              <div className="text-sm text-slate-600">Reman ACT Quantum modules for Hyster/Yale chargers—36V, 48V, 80V</div>
+            </div>
+          </Link>
           <Link href="/contact" className="flex items-start gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-lg transition-all">
             <span className="text-2xl">📞</span>
             <div>

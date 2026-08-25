@@ -1,11 +1,10 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { generatePageAlternates } from "@/app/seo-defaults";
 
 export const metadata: Metadata = {
-  title: "Toyota Forklift E A5-1 Code: What It Means & How to Fix It | Flat Earth Equipment",
-  description: "The E A5-1 code signals a vehicle speed control fault. Check seat switch wiring, accelerator potentiometer, and electrical connections. Full step-by-step diagnostic checklist inside.",
+  title: "Toyota Forklift A5-1 (E A5-1) Code: Meaning & How to Fix It",
+  description: "A5-1 on a Toyota forklift = vehicle speed control fault. Most fixes: seat switch wiring, accelerator potentiometer, or speed sensor. 5-step checklist, battery reset procedure, and typical repair cost inside.",
   alternates: generatePageAlternates("/diagnostic-codes/e-a5-1-code-on-toyota-forklift-2"),
   openGraph: {
     title: "Toyota Forklift E A5-1 Error Code: Diagnosis & Fix Guide",
@@ -18,9 +17,8 @@ export const metadata: Metadata = {
 export default function EA51ToyotaForkliftPage() {
   return (
     <>
-      {/* HowTo Schema for Rich Snippets */}
-      <Script id="howto-schema" type="application/ld+json">
-        {JSON.stringify({
+      {/* HowTo Schema for Rich Snippets — raw inline script so crawlers see it in SSR HTML */}
+      <script id="howto-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "HowTo",
           "name": "How to Diagnose Toyota Forklift E A5-1 Error Code",
@@ -77,12 +75,10 @@ export default function EA51ToyotaForkliftPage() {
               "position": 5
             }
           ]
-        })}
-      </Script>
+        }) }} />
 
       {/* FAQPage Schema */}
-      <Script id="faq-schema" type="application/ld+json">
-        {JSON.stringify({
+      <script id="faq-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "FAQPage",
           "mainEntity": [
@@ -119,12 +115,10 @@ export default function EA51ToyotaForkliftPage() {
               }
             }
           ]
-        })}
-      </Script>
+        }) }} />
 
       {/* Breadcrumb Schema */}
-      <Script id="breadcrumb-schema" type="application/ld+json">
-        {JSON.stringify({
+      <script id="breadcrumb-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           "itemListElement": [
@@ -147,8 +141,7 @@ export default function EA51ToyotaForkliftPage() {
               "item": "https://www.flatearthequipment.com/diagnostic-codes/e-a5-1-code-on-toyota-forklift-2"
             }
           ]
-        })}
-      </Script>
+        }) }} />
 
     <main className="max-w-3xl mx-auto px-4 py-12">
       {/* Featured Snippet Quick Answer Box */}

@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { generatePageAlternates } from "@/app/seo-defaults";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
@@ -48,8 +47,7 @@ export default function ToroDingoErrorCodesPage() {
           { name: 'Toro Dingo Error Codes', url: 'https://www.flatearthequipment.com/diagnostic-codes/toro-dingo-error-codes' },
         ]}
       />
-      <Script id="faq-schema" type="application/ld+json">
-        {JSON.stringify({
+      <script id="faq-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "FAQPage",
           "mainEntity": [
@@ -69,8 +67,7 @@ export default function ToroDingoErrorCodesPage() {
               "acceptedAnswer": { "@type": "Answer", "text": "On e-Dingo 500, navigate to the FAULTS menu on the InfoCenter display. Codes appear as E-XXX or F-XXX with timestamps. During charging, codes flash on the indicator light one digit at a time." }
             }
           ]
-        })}
-      </Script>
+        }) }} />
 
     <main className="max-w-4xl mx-auto px-4 py-12">
       <div className="not-prose mb-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
