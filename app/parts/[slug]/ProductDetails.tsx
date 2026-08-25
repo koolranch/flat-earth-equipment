@@ -784,12 +784,28 @@ export default function ProductDetails({
               </p>
             </div>
           )}
-          <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
+          <div
+            className={
+              hasFreeFreight
+                ? 'rounded-xl border border-green-200 bg-green-50 p-5'
+                : 'rounded-xl border border-amber-200 bg-amber-50 p-5'
+            }
+          >
             <h2 className="text-lg font-bold text-slate-900 mb-1">HazMat ground shipping</h2>
             <p className="text-sm text-slate-700 leading-relaxed">
-              Lithium Rhino packs ship Class 9 / UN3480 ground freight only. Freight is calculated at
-              checkout by weight (about $99–$349 for a single battery). Orders of{' '}
-              <strong>3 or more batteries ship free</strong>.
+              {hasFreeFreight ? (
+                <>
+                  Lithium Rhino packs ship Class 9 / UN3480 ground only. This kit includes{' '}
+                  <strong>free ground freight</strong> to the contiguous US — no shipping line at
+                  checkout.
+                </>
+              ) : (
+                <>
+                  Lithium Rhino packs ship Class 9 / UN3480 ground freight only. Freight is calculated at
+                  checkout by weight (about $99–$349 for a single battery). Orders of{' '}
+                  <strong>3 or more batteries ship free</strong>.
+                </>
+              )}
             </p>
           </div>
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">

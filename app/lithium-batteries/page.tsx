@@ -82,7 +82,7 @@ const FAQ_ITEMS: Array<{ q: string; a: string }> = [
   },
   {
     q: 'What is HazMat shipping and how does it affect my order?',
-    a: 'Lithium batteries ship as Class 9 hazardous materials (UN3480) by ground freight only. We use certified HazMat carriers and include all required placards. Single-battery freight ranges from $99-$349 by weight. Orders of 3 or more batteries ship free.',
+    a: 'Lithium batteries ship as Class 9 hazardous materials (UN3480) by ground freight only. We use certified HazMat carriers and include all required placards. The 36V 105Ah, 48V 65Ah, and 48V 105Ah conversion kits include free ground freight. Other single-battery orders range from $99–$349 by weight. Orders of 3 or more batteries ship free.',
   },
   {
     q: 'How does the 8-year warranty work?',

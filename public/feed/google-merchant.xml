@@ -2092,7 +2092,7 @@ This complete conversion bundle includes the Lithium Rhino battery, fast charger
 
 **Warranty:** Industry-leading 8-year warranty (6 years complete coverage + 2 years pro-rated, $500 deductible). One of the longest warranties available on a golf cart lithium battery.
 
-**Shipping:** Ground freight ships from US warehouse via HazMat-certified carrier (Class 9, UN3480). Bulk fleet orders of 3 or more batteries ship freight-free.
+**Shipping:** Free ground freight to the contiguous US via HazMat-certified carrier (Class 9, UN3480).
 
 Part number 113-LR38V105AH. Approximate weight: 80 lbs.
 
@@ -2111,8 +2111,8 @@ Full technical specification sheet: https://mzsozezflbhebykncbmr.supabase.co/sto
       <g:shipping_weight>80 lb</g:shipping_weight>
       <g:shipping>
         <g:country>US</g:country>
-        <g:service>HazMat Ground</g:service>
-        <g:price>149.00 USD</g:price>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
       </g:shipping>
     </item>
     <item>
@@ -2264,7 +2264,7 @@ This complete conversion bundle includes the Lithium Rhino battery, fast charger
 
 **Warranty:** Industry-leading 8-year warranty (6 years complete coverage + 2 years pro-rated, $500 deductible). One of the longest warranties available on a golf cart lithium battery.
 
-**Shipping:** Ground freight ships from US warehouse via HazMat-certified carrier (Class 9, UN3480). Bulk fleet orders of 3 or more batteries ship freight-free.
+**Shipping:** Free ground freight to the contiguous US via HazMat-certified carrier (Class 9, UN3480).
 
 Part number 113-LR51V65AH. Approximate weight: 62 lbs.
 
@@ -2283,8 +2283,8 @@ Full technical specification sheet: https://mzsozezflbhebykncbmr.supabase.co/sto
       <g:shipping_weight>62 lb</g:shipping_weight>
       <g:shipping>
         <g:country>US</g:country>
-        <g:service>HazMat Ground</g:service>
-        <g:price>149.00 USD</g:price>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
       </g:shipping>
     </item>
     <item>
@@ -2314,7 +2314,7 @@ This complete conversion bundle includes the Lithium Rhino battery, fast charger
 
 **Warranty:** Industry-leading 8-year warranty (6 years complete coverage + 2 years pro-rated, $500 deductible). One of the longest warranties available on a golf cart lithium battery.
 
-**Shipping:** Ground freight ships from US warehouse via HazMat-certified carrier (Class 9, UN3480). Bulk fleet orders of 3 or more batteries ship freight-free.
+**Shipping:** Free ground freight to the contiguous US via HazMat-certified carrier (Class 9, UN3480).
 
 Part number 113-LR51V105AH. Approximate weight: 102 lbs.
 
@@ -2333,8 +2333,8 @@ Full technical specification sheet: https://mzsozezflbhebykncbmr.supabase.co/sto
       <g:shipping_weight>102 lb</g:shipping_weight>
       <g:shipping>
         <g:country>US</g:country>
-        <g:service>HazMat Ground</g:service>
-        <g:price>199.00 USD</g:price>
+        <g:service>Ground</g:service>
+        <g:price>0.00 USD</g:price>
       </g:shipping>
     </item>
     <item>

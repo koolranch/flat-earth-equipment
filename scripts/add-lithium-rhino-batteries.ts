@@ -40,6 +40,7 @@ type Sku = {
   weightLbs: number;
   cost: number;
   sellPrice: number;
+  freeFreight?: boolean;  // Shopping test kits — checkout + Merchant $0
   pdfFsipUrl?: string;    // direct FSIP spec PDF URL (where known)
   pdfSlug?: string;       // saved as products/lithium-rhino/{pdfSlug}.pdf
 };
@@ -47,10 +48,10 @@ type Sku = {
 const SKUS: Sku[] = [
   // ---------- CONVERSION KITS (10) ----------
   { fsipSku: '113-LR38V65AH', slug: 'lithium-rhino-36v-65ah-kit', voltage: '36V', capacity: '65Ah', productType: 'kit', variant: 'standard', weightLbs: 49, cost: 1150, sellPrice: 1549, pdfFsipUrl: 'https://shop.fsip.biz/Image/GetDocument/en/504/lr3665.pdf', pdfSlug: 'lr3665' },
-  { fsipSku: '113-LR38V105AH', slug: 'lithium-rhino-36v-105ah-kit', voltage: '36V', capacity: '105Ah', productType: 'kit', variant: 'standard', weightLbs: 80, cost: 1350, sellPrice: 1749, pdfFsipUrl: 'https://shop.fsip.biz/Image/GetDocument/en/504/lr36105.pdf', pdfSlug: 'lr36105' },
+  { fsipSku: '113-LR38V105AH', slug: 'lithium-rhino-36v-105ah-kit', voltage: '36V', capacity: '105Ah', productType: 'kit', variant: 'standard', weightLbs: 80, cost: 1350, sellPrice: 1749, freeFreight: true, pdfFsipUrl: 'https://shop.fsip.biz/Image/GetDocument/en/504/lr36105.pdf', pdfSlug: 'lr36105' },
   { fsipSku: '113-LR51V50AH', slug: 'lithium-rhino-48v-50ah-kit', voltage: '48V', capacity: '50Ah', productType: 'kit', variant: 'standard', weightLbs: 44, cost: 900, sellPrice: 1299, pdfFsipUrl: 'https://shop.fsip.biz/Image/GetDocument/en/504/lr4850.pdf', pdfSlug: 'lr4850' },
-  { fsipSku: '113-LR51V65AH', slug: 'lithium-rhino-48v-65ah-kit', voltage: '48V', capacity: '65Ah', productType: 'kit', variant: 'standard', weightLbs: 62, cost: 1250, sellPrice: 1649, pdfFsipUrl: 'https://shop.fsip.biz/Image/GetDocument/en/504/lr4865.pdf', pdfSlug: 'lr4865' },
-  { fsipSku: '113-LR51V105AH', slug: 'lithium-rhino-48v-105ah-kit', voltage: '48V', capacity: '105Ah', productType: 'kit', variant: 'standard', weightLbs: 102, cost: 1750, sellPrice: 2149, pdfFsipUrl: 'https://shop.fsip.biz/Image/GetDocument/en/504/lr48105.pdf', pdfSlug: 'lr48105' },
+  { fsipSku: '113-LR51V65AH', slug: 'lithium-rhino-48v-65ah-kit', voltage: '48V', capacity: '65Ah', productType: 'kit', variant: 'standard', weightLbs: 62, cost: 1250, sellPrice: 1649, freeFreight: true, pdfFsipUrl: 'https://shop.fsip.biz/Image/GetDocument/en/504/lr4865.pdf', pdfSlug: 'lr4865' },
+  { fsipSku: '113-LR51V105AH', slug: 'lithium-rhino-48v-105ah-kit', voltage: '48V', capacity: '105Ah', productType: 'kit', variant: 'standard', weightLbs: 102, cost: 1750, sellPrice: 2149, freeFreight: true, pdfFsipUrl: 'https://shop.fsip.biz/Image/GetDocument/en/504/lr48105.pdf', pdfSlug: 'lr48105' },
   { fsipSku: '113-LR51V105AH-CUBE', slug: 'lithium-rhino-48v-105ah-cube-kit', voltage: '48V', capacity: '105Ah', productType: 'kit', variant: 'cube', weightLbs: 93, cost: 1750, sellPrice: 2149, pdfFsipUrl: 'https://shop.fsip.biz/Image/GetDocument/en/504/lr48105cube.pdf', pdfSlug: 'lr48105cube' },
   { fsipSku: '113-LR51V120AH', slug: 'lithium-rhino-48v-120ah-kit', voltage: '48V', capacity: '120Ah', productType: 'kit', variant: 'standard', weightLbs: 120, cost: 1950, sellPrice: 2429, pdfFsipUrl: 'https://shop.fsip.biz/Image/GetDocument/en/504/lr48120.pdf', pdfSlug: 'lr48120' },
   { fsipSku: '113-LR51V170AH', slug: 'lithium-rhino-48v-170ah-goliath-kit', voltage: '48V', capacity: '170Ah', productType: 'kit', variant: 'goliath', weightLbs: 146, cost: 2600, sellPrice: 3149, pdfFsipUrl: 'https://shop.fsip.biz/Image/GetDocument/en/504/lr48170.pdf', pdfSlug: 'lr48170' },
@@ -207,7 +208,9 @@ function buildDescription(sku: Sku, specPdfUrl: string | null): string {
 
   // Shipping
   lines.push(
-    `**Shipping:** Ground freight ships from US warehouse via HazMat-certified carrier (Class 9, UN3480). Bulk fleet orders of 3 or more batteries ship freight-free.`
+    sku.freeFreight
+      ? `**Shipping:** Free ground freight to the contiguous US via HazMat-certified carrier (Class 9, UN3480).`
+      : `**Shipping:** Ground freight ships from US warehouse via HazMat-certified carrier (Class 9, UN3480). Bulk fleet orders of 3 or more batteries ship freight-free.`
   );
 
   lines.push(
@@ -318,6 +321,7 @@ async function main() {
         variant: sku.variant || 'standard',
         weight_lbs: sku.weightLbs,
         cost_wholesale: sku.cost,
+        ...(sku.freeFreight ? { free_freight: true } : {}),
         spec_pdf_url: specPdfUrl,
         chemistry: 'LiFePO4',
         cells: sku.voltage === '36V' ? 12 : sku.voltage === '48V' ? 16 : 24,
