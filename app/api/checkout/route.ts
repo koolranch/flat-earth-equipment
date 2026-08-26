@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { supabaseService } from '@/lib/supabase/service.server';
 import { qualifiesForSeatFreeFreight } from '@/lib/parts/seatFreight';
+import { skuFreightQuantity } from '@/lib/parts/skuFreight';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -170,11 +171,10 @@ export async function POST(req: NextRequest) {
         return true;
       });
 
-      // Per-SKU freight override (e.g. heavy lift cylinder assemblies)
+      // Per-SKU freight override: once per line unless freight_per_unit.
       for (const item of freightEligibleItems) {
         const freightCents = Number(item.metadata?.freight_cents);
         if (!Number.isFinite(freightCents) || freightCents <= 0) continue;
-        const qty = Math.max(1, Number(item.quantity) || 1);
         lineItems.push({
           price_data: {
             currency: 'usd',
@@ -184,7 +184,7 @@ export async function POST(req: NextRequest) {
             },
             unit_amount: freightCents,
           },
-          quantity: qty,
+          quantity: skuFreightQuantity(item),
         });
       }
 

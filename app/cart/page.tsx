@@ -9,6 +9,7 @@ import {
   isChargerModulePriceId,
   trackChargerBeginCheckout,
 } from '@/lib/analytics/charger-modules';
+import { skuFreightDollars } from '@/lib/parts/skuFreight';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
@@ -141,9 +142,9 @@ export default function CartPage() {
   const freightCharges = (() => {
     let freight = 0;
     for (const item of items) {
-      const fc = Number(item.metadata?.freight_cents);
-      if (Number.isFinite(fc) && fc > 0) {
-        freight += (fc / 100) * Math.max(1, item.quantity);
+      const skuFreight = skuFreightDollars(item);
+      if (skuFreight > 0) {
+        freight += skuFreight;
         continue;
       }
     }
