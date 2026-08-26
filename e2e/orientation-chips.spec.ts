@@ -21,6 +21,6 @@ test.describe('Orientation demo chips', () => {
     // Identify a control
     await page.getByRole('button', { name: /Identify a control/i }).click();
     await page.getByRole('button', { name: /^Horn$/i }).click();
-    await expect(page.getByRole('status')).toContainText(/Demo complete/i);
+    await expect(page.getByRole('status')).toContainText(/Orientation complete/i);
   });
 });
