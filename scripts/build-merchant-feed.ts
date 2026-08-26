@@ -597,6 +597,31 @@ ${gpc ? `      <g:google_product_category>${escapeXml(gpc)}</g:google_product_ca
   )}    </item>`;
 }
 
+const PART_SELECT =
+  "id, name, slug, sku, oem_reference, price_cents, image_url, brand, category, description, is_in_stock, weight_lbs, metadata";
+const PART_PAGE_SIZE = 1000;
+
+async function fetchPricedDirectParts(
+  supabase: ReturnType<typeof createClient>
+): Promise<PartRow[]> {
+  const all: PartRow[] = [];
+  for (let page = 0; ; page += 1) {
+    const from = page * PART_PAGE_SIZE;
+    const { data, error } = await supabase
+      .from("parts")
+      .select(PART_SELECT)
+      .gt("price_cents", 0)
+      .eq("sales_type", "direct")
+      .order("slug")
+      .range(from, from + PART_PAGE_SIZE - 1);
+    if (error) throw new Error(`Supabase fetch failed: ${error.message}`);
+    if (!data?.length) break;
+    all.push(...(data as PartRow[]));
+    if (data.length < PART_PAGE_SIZE) break;
+  }
+  return all;
+}
+
 async function buildFeed() {
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -604,18 +629,9 @@ async function buildFeed() {
   );
 
   // Pull priced direct-sale products. Quote-only stubs are excluded.
-  const { data: parts, error } = await supabase
-    .from("parts")
-    .select(
-      "id, name, slug, sku, oem_reference, price_cents, image_url, brand, category, description, is_in_stock, weight_lbs, metadata"
-    )
-    .gt("price_cents", 0)
-    .eq("sales_type", "direct");
-
-  if (error) throw new Error(`Supabase fetch failed: ${error.message}`);
-  if (!parts) throw new Error("No parts returned from Supabase");
-
-  const catalog = parts as PartRow[];
+  // Paginate past Supabase's 1000-row default or keep-set SKUs silently drop.
+  const catalog = await fetchPricedDirectParts(supabase);
+  if (!catalog.length) throw new Error("No parts returned from Supabase");
   const skippedChargers = catalog.filter((p) => isLegacyChargerModulePart(p)).length;
   const rows = catalog.filter(
     (p) =>
