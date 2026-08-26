@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { supabaseServer } from "@/lib/supabase/server";
 import { parseSpecsFromSlug, currency } from "@/lib/chargers";
+import { getChargerDetailHref } from "@/lib/batteryChargers";
 
 // Simple related logic: same family; fallback to same voltage; exclude current
 export default async function RelatedChargers({ currentSlug }: { currentSlug: string }) {
@@ -60,7 +61,7 @@ export default async function RelatedChargers({ currentSlug }: { currentSlug: st
           return (
             <Link
               key={p.slug}
-              href={`/chargers/${p.slug}`}
+              href={getChargerDetailHref(p.slug)}
               className="group rounded-2xl border bg-white transition hover:shadow-md"
             >
               <div className="aspect-[4/3] w-full overflow-hidden rounded-t-2xl bg-neutral-100">

@@ -231,6 +231,13 @@ const baseConfig = {
         destination: '/charger-modules',
         permanent: true
       },
+      // GREEN voltage×amp SKUs live on /chargers/* (noindex + series canonical).
+      // Collapse the duplicate /parts/{slug} URL Google already crawled.
+      {
+        source: '/parts/:slug(green[2468x]-\\d{2}v-\\d{2,3}a)',
+        destination: '/chargers/:slug',
+        permanent: true,
+      },
       // Redirect old battery-charger-modules page to canonical charger-modules
       // BACKLINK RECOVERY: Trailing-slash variant must come FIRST
       // Bypasses Next.js's automatic 308 trailing-slash normalization

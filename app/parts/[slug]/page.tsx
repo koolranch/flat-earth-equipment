@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { Metadata } from 'next';
 import Script from 'next/script';
 import { supabaseServer } from '@/lib/supabase/server';
@@ -20,6 +20,7 @@ import {
 } from '@/constants/lithiumRhinoSeo';
 import RelatedResources from '@/components/seo/RelatedResources';
 import type { RelatedTrack } from '@/lib/parts/rubberTrackUtils';
+import { isGreenVoltageAmpSlug } from '@/lib/chargers';
 
 const SITE_URL = 'https://www.flatearthequipment.com';
 
@@ -416,6 +417,10 @@ function buildPartMetaTitle(customerName: string, product: {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  if (isGreenVoltageAmpSlug(params.slug)) {
+    permanentRedirect(`/chargers/${params.slug}`);
+  }
+
   // Try database first
   const supabase = supabaseServer();
   const { data: product } = await supabase
@@ -484,6 +489,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ProductPage({ params }: Props) {
+  if (isGreenVoltageAmpSlug(params.slug)) {
+    permanentRedirect(`/chargers/${params.slug}`);
+  }
+
   const supabase = supabaseServer();
   const { data: product, error } = await supabase
     .from('parts')

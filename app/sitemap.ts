@@ -2,6 +2,8 @@ import { MetadataRoute } from "next";
 import { supabaseServer } from "@/lib/supabase/server";
 import { forkliftStates } from "@/src/data/forkliftStates";
 import { getStateMetrics } from "@/lib/safety/stateMetrics";
+import { INDEXABLE_CHARGER_SERIES_SLUGS, isGreenVoltageAmpSlug } from "@/lib/chargers";
+import { getChargerDetailHref } from "@/lib/batteryChargers";
 import { CART_MODELS } from "@/constants/golfCartModels";
 import { CHARGER_MODULES } from "@/constants/chargerOptions";
 import * as fs from "fs";
@@ -72,6 +74,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           p.category === "Charger Modules"
         )
     )
+    // GREEN voltage×amp PDPs 301 to /chargers/* and stay noindex.
+    .filter((p) => !isGreenVoltageAmpSlug(p.slug))
     .map((p) => {
       // High-value categories get higher priority
       const isHighValue =
@@ -94,14 +98,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .order("slug", { ascending: true })
     .limit(2000);
 
-  const chargerItems = (chargers ?? [])
-    .filter((p) => p.slug)
-    .map((p) => ({
-      url: `${BASE}/chargers/${p.slug}`,
-      lastModified: p.updated_at ? new Date(p.updated_at) : new Date(),
+  const chargerItems = [
+    ...INDEXABLE_CHARGER_SERIES_SLUGS.map((slug) => ({
+      url: `${BASE}/chargers/${slug}`,
+      lastModified: new Date(),
       changeFrequency: "weekly" as const,
       priority: 0.8,
-    }));
+    })),
+    ...(chargers ?? [])
+      .filter((p) => p.slug)
+      .filter((p) => !isGreenVoltageAmpSlug(p.slug))
+      .filter((p) => getChargerDetailHref(p.slug).startsWith("/chargers/"))
+      .map((p) => ({
+        url: `${BASE}/chargers/${p.slug}`,
+        lastModified: p.updated_at ? new Date(p.updated_at) : new Date(),
+        changeFrequency: "weekly" as const,
+        priority: 0.8,
+      })),
+  ];
 
   // ── 3. Insight (blog) posts from MDX files ───────────────────────────────
   const insightSlugs = getAllInsightSlugs();

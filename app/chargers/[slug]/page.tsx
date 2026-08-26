@@ -5,6 +5,12 @@ import { BuyNowButton } from "@/components/AddToCartButton";
 import QuoteButton from "@/components/QuoteButton";
 import RelatedChargers from "@/components/RelatedChargers";
 import FitmentValidator from "@/components/FitmentValidator";
+import {
+  chargerCanonicalPath,
+  chargerSellPrice,
+  chargerShouldNoIndex,
+  overlayCatalogWithParts,
+} from "@/lib/chargers";
 
 export const revalidate = 60;
 
@@ -37,29 +43,66 @@ type PartsCatalog = {
   created_at: string;
 };
 
-/** Customer-facing sell price: marked-up your_price when set, FSIP retail otherwise. */
-function sellPrice(p: PartsCatalog): number | null {
-  if (p.your_price !== null && p.your_price > 0) return p.your_price;
-  return p.fsip_price;
+type PartsOverlayRow = {
+  name: string | null;
+  sku: string | null;
+  description: string | null;
+  image_url: string | null;
+  price: string | null;
+  price_cents: number | null;
+  stripe_price_id: string | null;
+};
+
+function catalogFromParts(slug: string, part: PartsOverlayRow): PartsCatalog {
+  return {
+    id: slug,
+    sku: part.sku ?? slug,
+    name: part.name ?? slug,
+    category_type: "charger",
+    slug,
+    seo_title_template: null,
+    meta_description: part.description,
+    specs: null,
+    compatibility_list: null,
+    oem_part_numbers: null,
+    images: null,
+    manual_pdf_url: null,
+    fsip_price: null,
+    your_price: null,
+    in_stock: Boolean(part.stripe_price_id),
+    stripe_product_id: null,
+    stripe_price_id: null,
+    created_at: "",
+  };
 }
 
 // -----------------------------------------------------------------------------
 // Data Fetching
 // -----------------------------------------------------------------------------
 async function getProduct(slug: string): Promise<PartsCatalog | null> {
-  const { data, error } = await supabase
-    .from("parts_catalog")
-    .select("*")
-    .eq("slug", slug)
-    .eq("category_type", "charger")
-    .limit(1)
-    .single();
+  const [{ data, error }, { data: part }] = await Promise.all([
+    supabase
+      .from("parts_catalog")
+      .select("*")
+      .eq("slug", slug)
+      .eq("category_type", "charger")
+      .limit(1)
+      .maybeSingle(),
+    supabase
+      .from("parts")
+      .select("name, sku, description, image_url, price, price_cents, stripe_price_id")
+      .eq("slug", slug)
+      .maybeSingle(),
+  ]);
 
   if (error) {
     console.error("Error fetching charger from parts_catalog:", error);
-    return null;
   }
-  return data as PartsCatalog;
+
+  if (!data && !part) return null;
+
+  const catalog = (data as PartsCatalog | null) ?? catalogFromParts(slug, part as PartsOverlayRow);
+  return overlayCatalogWithParts(catalog, part);
 }
 
 // -----------------------------------------------------------------------------
@@ -76,10 +119,7 @@ function shortDesc(s: string | null | undefined, fallback: string): string {
 }
 
 function shouldNoIndex(p: PartsCatalog): boolean {
-  // Guard: if BOTH images are missing AND no price, noindex to avoid thin pages
-  const hasImage = p.images && p.images.length > 0;
-  const hasPrice = p.fsip_price !== null && p.fsip_price > 0;
-  return !hasImage && !hasPrice;
+  return chargerShouldNoIndex(p.slug, p);
 }
 
 // -----------------------------------------------------------------------------
@@ -118,7 +158,7 @@ function generateJsonLd(p: PartsCatalog) {
   }
 
   // Add offers with the customer-facing sell price
-  const offerPrice = sellPrice(p);
+  const offerPrice = chargerSellPrice(p);
   if (offerPrice !== null && offerPrice > 0) {
     base.offers = {
       "@type": "Offer",
@@ -154,10 +194,10 @@ export async function generateMetadata({
   );
 
   const robots = shouldNoIndex(product)
-    ? { index: false, follow: false }
+    ? { index: false, follow: true }
     : { index: true, follow: true };
 
-  const canonicalUrl = `https://www.flatearthequipment.com/chargers/${params.slug}`;
+  const canonicalUrl = `https://www.flatearthequipment.com${chargerCanonicalPath(params.slug)}`;
   
   return {
     title,
@@ -277,8 +317,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const product = await getProduct(params.slug);
   if (!product) notFound();
 
-  const priceStr = currency(sellPrice(product));
-  const noindex = shouldNoIndex(product);
+  const priceStr = currency(chargerSellPrice(product));
   const primaryImage = product.images?.[0] ?? null;
 
   return (
@@ -400,11 +439,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
                   </div>
                 ))}
               </div>
-            )}
-            {noindex && (
-              <p className="mt-3 text-xs text-amber-600">
-                Heads up: This page is set to <code>noindex</code> until an image or price is added.
-              </p>
             )}
           </div>
 
