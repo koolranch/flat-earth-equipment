@@ -48,3 +48,22 @@ test('checkout route is never gated by FEATURE_GA', () => {
   assert.equal(source.includes('FEATURE_GA'), false);
   assert.equal(source.includes('not_open'), false);
 });
+
+test('training checkout skips shipping; parts checkout still collects it', () => {
+  const source = readFileSync('app/api/checkout/route.ts', 'utf8');
+  assert.match(source, /!isTrainingPurchase/);
+  assert.match(source, /shipping_address_collection: \{ allowed_countries: \["US", "CA"\] \}/);
+  assert.equal(
+    source.includes('shipping_address_collection: { allowed_countries: ["US", "CA"] },\n      ...(checkoutMode'),
+    false,
+    'shipping must not be applied unconditionally to every checkout session',
+  );
+});
+
+test('GFC return_base checkouts get Forklift Certified branding; FEE path does not', () => {
+  const source = readFileSync('app/api/checkout/route.ts', 'utf8');
+  assert.match(source, /display_name: "Forklift Certified"/);
+  assert.match(source, /You won't be charged today/);
+  assert.match(source, /ALLOWED_RETURN_HOSTS/);
+  assert.match(source, /getforkliftcertified\.com/);
+});

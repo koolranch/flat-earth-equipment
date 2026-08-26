@@ -616,7 +616,11 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    const session = await stripe.checkout.sessions.create({
+    // Training is digital (GFC employer subscriptions + FEE single-seat).
+    // Collect shipping only for parts / physical goods so FEE parts checkout
+    // is unchanged. GFC-origin sessions also get Forklift Certified chrome
+    // and trial copy; FEE-hosted training keeps Flat Earth Equipment branding.
+    const sessionCreateParams: Stripe.Checkout.SessionCreateParams = {
       mode: checkoutMode,
       line_items: lineItems,
       automatic_tax: { enabled: true },
@@ -624,7 +628,9 @@ export async function POST(req: NextRequest) {
         ? { discounts: [{ promotion_code: referralPromoCodeId }] }
         : { allow_promotion_codes: true }),
       billing_address_collection: "required",
-      shipping_address_collection: { allowed_countries: ["US", "CA"] },
+      ...(!isTrainingPurchase
+        ? { shipping_address_collection: { allowed_countries: ["US", "CA"] } }
+        : {}),
       ...(checkoutMode === 'subscription'
         ? {
             subscription_data: {
@@ -638,12 +644,44 @@ export async function POST(req: NextRequest) {
       ...(askEmployerCustomerEmail || examUnlockCustomerEmail
         ? { customer_email: askEmployerCustomerEmail ?? examUnlockCustomerEmail ?? undefined }
         : {}),
+      ...(returnBase
+        ? {
+            custom_text: {
+              submit: {
+                message:
+                  "You won't be charged today. Cancel anytime during the 7-day trial.",
+              },
+            },
+          }
+        : {}),
       success_url: returnBase
         ? `${returnBase}/checkout/success?session_id={CHECKOUT_SESSION_ID}`
         : `${base}/checkout/success?slug=${encodeURIComponent(successSlug)}&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: cancelUrl,
       metadata: metadata,
-    });
+    };
+
+    let session: Stripe.Checkout.Session;
+    try {
+      session = await stripe.checkout.sessions.create(
+        returnBase
+          ? ({
+              ...sessionCreateParams,
+              // Per-session branding (API field newer than stripe@18 types).
+              branding_settings: {
+                display_name: "Forklift Certified",
+                button_color: "#f76511",
+              },
+            } as Stripe.Checkout.SessionCreateParams)
+          : sessionCreateParams,
+      );
+    } catch (err) {
+      // Older Stripe-Version headers reject branding_settings; still create
+      // the session so GFC checkout cannot 500 on a cosmetic field.
+      if (!returnBase) throw err;
+      console.warn("[checkout] branding_settings rejected, retrying without it", err);
+      session = await stripe.checkout.sessions.create(sessionCreateParams);
+    }
 
     return NextResponse.json({ sessionId: session.id, url: session.url });
   } catch (e) {
