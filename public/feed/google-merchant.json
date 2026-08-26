@@ -3202,10 +3202,10 @@
   {
     "id": "332X6237",
     "title": "JCB 332/X6237 Aftermarket Left-Hand Joystick",
-    "description": "Aftermarket left-hand joystick for JCB equipment. Replaces OEM part number 332/X6237 — built to fit the same application (LH SP 3-function style). Contoured grip with top-mounted switches, rubber dust boot, and dual harness connectors. Match the part number on your existing joystick or in the parts manual before ordering. In stock with same-day shipping.",
+    "description": "Aftermarket left-hand joystick for JCB equipment. Replaces OEM part number 332/X6237 — built to fit the same application (LH SP 3-function style). Contoured grip with top-mounted switches, rubber dust boot, and dual harness connectors. Match the part number on your existing joystick or in the parts manual before ordering. In stock. Free freight to the contiguous US.",
     "link": "https://www.flatearthequipment.com/parts/332X6237",
     "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/jcb/332X6237-joystick.png",
-    "price": "1639.00 USD",
+    "price": "1699.00 USD",
     "brand": "JCB",
     "mpn": "332/X6237",
     "condition": "new",
@@ -3213,7 +3213,14 @@
     "google_product_category": "Business & Industrial > Material Handling",
     "product_type": "JCB Controls",
     "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
+    "custom_label_0": "priority_jcb",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "Ground",
+        "price": "0.00 USD"
+      }
+    ]
   },
   {
     "id": "333C3422",
