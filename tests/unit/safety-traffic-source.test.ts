@@ -67,3 +67,17 @@ test('GFC return_base checkouts get Forklift Certified branding; FEE path does n
   assert.match(source, /ALLOWED_RETURN_HOSTS/);
   assert.match(source, /getforkliftcertified\.com/);
 });
+
+test('trial custom_text only applies to subscription checkouts, not one-time GFC purchases', () => {
+  const source = readFileSync('app/api/checkout/route.ts', 'utf8');
+  assert.match(source, /returnBase && checkoutMode === 'subscription'\s*\n?\s*\?\s*\{\s*\n?\s*custom_text/);
+});
+
+test('return_base success/cancel path overrides are restricted to same-site paths', () => {
+  const source = readFileSync('app/api/checkout/route.ts', 'utf8');
+  assert.match(source, /function safeReturnPath/);
+  assert.match(source, /\^\\\/\(\?!\\\/\)/); // must reject protocol-relative //host paths
+  // Defaults preserved when no override is sent.
+  assert.match(source, /successPath \?\? '\/checkout\/success'/);
+  assert.match(source, /cancelPath \?\? '\/#pricing'/);
+});

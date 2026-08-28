@@ -586,10 +586,20 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    // Optional path overrides for return_base checkouts (e.g. the GFC operator
+    // page lands on its own success/cancel routes so its Google Ads purchase
+    // conversion fires instead of the trial one). Restricted to same-site
+    // absolute paths; anything else falls back to the defaults.
+    function safeReturnPath(value: unknown): string | null {
+      return typeof value === 'string' && /^\/(?!\/)/.test(value) ? value : null;
+    }
+    const successPath = safeReturnPath(body.success_path);
+    const cancelPath = safeReturnPath(body.cancel_path);
+
     // For training purchases, return to /safety on cancel instead of /cart
     const isTrainingPurchase = metadata.course_slug === 'forklift';
     const cancelUrl = returnBase
-      ? `${returnBase}/#pricing`
+      ? `${returnBase}${cancelPath ?? '/#pricing'}`
       : isTrainingPurchase
         ? `${base}/safety#pricing`
         : `${base}/cart`;
@@ -644,7 +654,9 @@ export async function POST(req: NextRequest) {
       ...(askEmployerCustomerEmail || examUnlockCustomerEmail
         ? { customer_email: askEmployerCustomerEmail ?? examUnlockCustomerEmail ?? undefined }
         : {}),
-      ...(returnBase
+      // Trial copy only applies to subscription checkouts; a GFC one-time
+      // purchase (single operator) must not promise "you won't be charged".
+      ...(returnBase && checkoutMode === 'subscription'
         ? {
             custom_text: {
               submit: {
@@ -655,7 +667,7 @@ export async function POST(req: NextRequest) {
           }
         : {}),
       success_url: returnBase
-        ? `${returnBase}/checkout/success?session_id={CHECKOUT_SESSION_ID}`
+        ? `${returnBase}${successPath ?? '/checkout/success'}?session_id={CHECKOUT_SESSION_ID}`
         : `${base}/checkout/success?slug=${encodeURIComponent(successSlug)}&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: cancelUrl,
       metadata: metadata,
