@@ -237,17 +237,24 @@ function cabGlassImageLink(slug: string, imageUrl: string | null): string {
   return DEFAULT_PRODUCT_IMAGE;
 }
 
+/** Bump when a seat JPG is replaced so Merchant recrawls the same path. */
+const SEAT_IMAGE_CACHE_BUST: Record<string, string> = {
+  "jcb-40-910649-replacement-seat": "20260826",
+};
+
 /**
  * Prefer real seat photography when present; otherwise unique Merchant cards.
  * Never use brand logos (Shopping + site policy for seats).
  */
 function seatImageLink(slug: string, imageUrl: string | null): string {
-  if (isUsableProductImage(imageUrl)) {
-    return normalizeImageUrl(imageUrl!);
-  }
   const localPath = path.join(SEAT_IMAGE_DIR, `${slug}.jpg`);
   if (existsSync(localPath)) {
-    return `${SITE_URL}/images/parts/seats/${slug}.jpg`;
+    const bust = SEAT_IMAGE_CACHE_BUST[slug];
+    const base = `${SITE_URL}/images/parts/seats/${slug}.jpg`;
+    return bust ? `${base}?v=${bust}` : base;
+  }
+  if (isUsableProductImage(imageUrl)) {
+    return normalizeImageUrl(imageUrl!);
   }
   return DEFAULT_PRODUCT_IMAGE;
 }
