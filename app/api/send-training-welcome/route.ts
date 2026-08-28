@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server'
 import { sendMail } from '@/lib/email/mailer'
-import { GFC_EMAIL_FROM, generateGfcTrainerWelcomeEmail } from '@/lib/email/gfcTrainerWelcome'
+import {
+  GFC_EMAIL_FROM,
+  generateGfcOperatorWelcomeEmail,
+  generateGfcTrainerWelcomeEmail,
+} from '@/lib/email/gfcTrainerWelcome'
 import { generateMobileAppBlock } from '@/lib/email/mobile-app-block'
 
 function generateTrainerWelcomeEmail(
@@ -180,6 +184,26 @@ export async function POST(req: Request) {
       return NextResponse.json({
         success: true,
         message: 'GFC trainer welcome email sent successfully',
+      })
+    }
+
+    // GFC single-operator buyers ($49 one-time from /certification) get the
+    // GFC-branded solo template instead of the Flat Earth Safety one.
+    if (brand === 'gfc') {
+      const gfcEmail = generateGfcOperatorWelcomeEmail({ firstName, email, password })
+
+      await sendMail({
+        to: email,
+        from: GFC_EMAIL_FROM,
+        subject: gfcEmail.subject,
+        html: gfcEmail.html,
+      })
+
+      console.log('✅ GFC operator welcome email sent via Resend to:', email)
+
+      return NextResponse.json({
+        success: true,
+        message: 'GFC operator welcome email sent successfully',
       })
     }
 
