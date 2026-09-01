@@ -475,25 +475,56 @@ export default function DashboardInner() {
             })}
             {!rows.length && !loading && total === 0 && seatsInfo && (seatsInfo.hasUnlimited || seatsInfo.remaining > 0) && (
               <tr>
-                <td colSpan={8} className="p-12">
-                  <div className="text-center">
-                    <span className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-50 text-[#F76511]">
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m9-1.13a4 4 0 10-8 0m4-11a4 4 0 110 8 4 4 0 010-8z" />
-                      </svg>
-                    </span>
-                    <h3 className="text-lg font-semibold text-slate-800 mb-1">No Learners Yet</h3>
-                    <p className="text-slate-500 mb-4">
-                      Invite your first operators to start tracking your team&apos;s progress
+                <td colSpan={8} className="p-8 sm:p-12">
+                  <div className="mx-auto max-w-lg">
+                    <h3 className="text-lg font-semibold text-slate-900">Get your crew certified in 4 steps</h3>
+                    <p className="mt-1 text-sm text-slate-500">
+                      Most teams send invites in under two minutes. Here&apos;s the whole path:
                     </p>
-                    <div className="inline-flex items-center gap-2 rounded-lg bg-orange-50 px-4 py-2 text-sm font-medium text-[#F76511]">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                      </svg>
-                      {seatsInfo.hasUnlimited
-                        ? 'Unlimited seats available to assign'
-                        : `${seatsInfo.remaining} seat${seatsInfo.remaining !== 1 ? 's' : ''} available to assign`}
-                    </div>
+                    <ol className="mt-6 grid gap-4">
+                      <li className="flex items-start gap-3.5">
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F76511] text-xs font-bold text-white">1</span>
+                        <div>
+                          <div className="text-sm font-semibold text-slate-900">Invite your operators</div>
+                          <p className="text-xs text-slate-500">
+                            Email invites or a shareable link —{' '}
+                            {seatsInfo.hasUnlimited
+                              ? 'unlimited seats available.'
+                              : `${seatsInfo.remaining} seat${seatsInfo.remaining !== 1 ? 's' : ''} available.`}
+                          </p>
+                          <button
+                            className="mt-2 inline-flex items-center gap-2 rounded-lg bg-[#F76511] px-4 py-2 text-sm font-semibold text-white hover:bg-[#E55A0C] transition-colors"
+                            onClick={() => { setShowAssign(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                          >
+                            Invite operators
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                          </button>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3.5">
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-bold text-slate-500">2</span>
+                        <div>
+                          <div className="text-sm font-semibold text-slate-700">They train on their phones</div>
+                          <p className="text-xs text-slate-500">Self-paced formal instruction in English or Spanish — no scheduling, no classroom.</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3.5">
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-bold text-slate-500">3</span>
+                        <div>
+                          <div className="text-sm font-semibold text-slate-700">Record the practical evaluation</div>
+                          <p className="text-xs text-slate-500">The hands-on checklist OSHA requires (§1910.178(l)(2)) — about two minutes per operator, right from this dashboard.</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3.5">
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-bold text-slate-500">4</span>
+                        <div>
+                          <div className="text-sm font-semibold text-slate-700">Download your audit pack</div>
+                          <p className="text-xs text-slate-500">One PDF with your roster, evaluations, and every certificate — ready any time an inspector asks.</p>
+                        </div>
+                      </li>
+                    </ol>
                   </div>
                 </td>
               </tr>
