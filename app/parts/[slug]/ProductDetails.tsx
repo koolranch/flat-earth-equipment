@@ -194,6 +194,13 @@ export default function ProductDetails({
 
   const unitPrice = selected?.price ?? part.price;
   const lineTotal = unitPrice * quantity;
+  // Market list price (e.g. comp sticker) for strikethrough display; the
+  // charged price is always unitPrice. Only shown when meaningfully higher.
+  const listPriceCents = Number(partMetadata.list_price_cents);
+  const listPrice =
+    !selected && Number.isFinite(listPriceCents) && listPriceCents > unitPrice * 100
+      ? listPriceCents / 100
+      : null;
   const isQuoteOnly =
     part.sales_type === 'quote_only' ||
     !part.stripe_price_id ||
@@ -269,6 +276,11 @@ export default function ProductDetails({
   ) : (
     <>
       <div className="text-2xl font-bold mb-1">
+        {listPrice != null && (
+          <span className="mr-2 align-middle text-lg font-medium text-gray-400 line-through">
+            ${listPrice.toFixed(2)}
+          </span>
+        )}
         ${unitPrice.toFixed(2)}
         {(selected?.has_core_charge && selected.core_charge) ||
         (part.has_core_charge && part.core_charge)

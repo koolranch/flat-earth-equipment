@@ -79,6 +79,8 @@ type FeedItem = {
   link: string;
   image_link: string;
   price: string;
+  /** When set, `price` is the market list price and this is the charged price. */
+  sale_price?: string;
   brand: string;
   mpn: string;
   condition: "new" | "refurbished" | "used";
@@ -151,6 +153,8 @@ const MERCHANT_KEEP_SLUGS = new Set([
   "sevcon-622-11201-36-48v-dc-dc-converter",
   "skytrack-70021617-steering-cylinder",
   "bobcat-7123864-excavator-swivel",
+  "bobcat-7180668-track-tensioner",
+  "bobcat-7440628-radial-piston-motor",
   "delta-q-quiq-48v-18a-charger-9124800",
   "taylor-dunn-79-303-41-battery-charger",
   "taylor-dunn-62-033-48-accelerator-module",
@@ -507,6 +511,16 @@ function partToFeedItem(p: PartRow): FeedItem | null {
   };
   if (label) item.custom_label_0 = label;
   if (shipping) item.shipping = shipping;
+
+  // Strikethrough sale display: metadata.list_price_cents holds the market
+  // list price (also shown struck-through on the PDP so Merchant and the
+  // landing page match). g:price becomes list, g:sale_price the real price.
+  const listPriceCents = Number(p.metadata?.list_price_cents);
+  if (Number.isFinite(listPriceCents) && listPriceCents > p.price_cents) {
+    item.sale_price = item.price;
+    item.price = `${(listPriceCents / 100).toFixed(2)} USD`;
+  }
+
   return item;
 }
 
@@ -586,7 +600,7 @@ function itemToXml(item: FeedItem): string {
       <link>${escapeXml(item.link)}</link>
       <g:image_link>${escapeXml(item.image_link)}</g:image_link>
       <g:price>${escapeXml(item.price)}</g:price>
-      <g:brand>${escapeXml(item.brand)}</g:brand>
+${item.sale_price ? `      <g:sale_price>${escapeXml(item.sale_price)}</g:sale_price>\n` : ""}      <g:brand>${escapeXml(item.brand)}</g:brand>
       <g:mpn>${escapeXml(item.mpn)}</g:mpn>
       <g:condition>${escapeXml(item.condition)}</g:condition>
       <g:availability>${escapeXml(item.availability)}</g:availability>

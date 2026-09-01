@@ -3374,6 +3374,22 @@
     "custom_label_0": "priority_jcb"
   },
   {
+    "id": "401H8418",
+    "title": "JCB 401/H8418 8 Inch Brake Servo",
+    "description": "Aftermarket 8-inch brake servo for JCB Loadall telehandlers. Replaces OEM part number 401/H8418 (also 332/D0204).\n\nSilver booster canister with master-cylinder tube, bleeder, and hard line. Eight-inch servo housing — not the smaller 15/905001 unit used on other series.\n\nEligible JCB aftermarket parts carry a 2-year warranty. In stock.",
+    "link": "https://www.flatearthequipment.com/parts/401H8418",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/jcb-401-h8418-brake-servo.jpg",
+    "price": "619.00 USD",
+    "brand": "JCB",
+    "mpn": "401/H8418",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "JCB Brakes",
+    "identifier_exists": "no",
+    "custom_label_0": "priority_jcb"
+  },
+  {
     "id": "443E0068",
     "title": "JCB 443/E0068 LIMIT SWITCH",
     "description": "Aftermarket limit switch for JCB part number 443/E0068 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.\n\nMatches JCB OEM part number 443/E0068. Order by this PN for a confident fit.\n\nQuestions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.",
@@ -3514,6 +3530,22 @@
     "availability": "in stock",
     "google_product_category": "Business & Industrial > Material Handling",
     "product_type": "JCB Electrical",
+    "identifier_exists": "no",
+    "custom_label_0": "priority_jcb"
+  },
+  {
+    "id": "716C8932",
+    "title": "JCB 716/C8932 Electric Throttle Pedal",
+    "description": "Aftermarket electric throttle pedal for JCB equipment. Replaces OEM part number 716/C8932.\n\nBlack pedal lever on a bolted base plate, with a roller-arm position sensor and a four-wire harness (red, green, white, black) ending in a rectangular connector. This is the electric pedal — not a cable throttle.\n\nEligible JCB aftermarket parts carry a 2-year warranty. In stock.",
+    "link": "https://www.flatearthequipment.com/parts/716C8932",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/jcb-716-c8932-throttle-pedal.jpg",
+    "price": "359.00 USD",
+    "brand": "JCB",
+    "mpn": "716/C8932",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "JCB Controls",
     "identifier_exists": "no",
     "custom_label_0": "priority_jcb"
   },
@@ -4000,7 +4032,7 @@
   {
     "id": "7123864",
     "title": "Bobcat 7123864 Excavator Swivel Joint",
-    "description": "Aftermarket excavator swivel joint (rotary manifold) for Bobcat excavators. Replaces OEM part number 7123864.\n\nMounted at the center of the undercarriage, this swivel keeps pressurized hydraulic oil flowing to the travel motors while the upper house rotates continuously in either direction — so continuous rotation does not twist or pinch the drive circuits.\n\nHeavy multi-port steel assembly with mounting flange and sealed rotary passages. Eligible Bobcat aftermarket parts carry a 2-year warranty. \n\nFree shipping on this assembly.",
+    "description": "Aftermarket excavator swivel joint (rotary manifold) for Bobcat excavators. Replaces OEM part number 7123864.\n\nMounted at the center of the undercarriage, this swivel keeps pressurized hydraulic oil flowing to the travel motors while the upper house rotates continuously in either direction — so continuous rotation does not twist or pinch the drive circuits.\n\nThis is the 17-port hydraulic-only assembly: no electric slip ring and no built-in valve. Largest connection is 3/4\" UNF internal thread. Body is 12.60 in long × 4.30 in diameter and weighs 48.5 lb.\n\nA different port count, an electric-ring swivel, or a valve-in-swivel unit will not interchange with 7123864.\n\nEligible Bobcat aftermarket parts carry a 2-year warranty.\n\nFree shipping on this assembly.",
     "link": "https://www.flatearthequipment.com/parts/bobcat-7123864-excavator-swivel",
     "image_link": "https://www.flatearthequipment.com/images/parts/bobcat-7123864-excavator-swivel.jpg",
     "price": "2749.00 USD",
@@ -4010,6 +4042,7 @@
     "availability": "in stock",
     "google_product_category": "Business & Industrial > Material Handling",
     "product_type": "Hydraulics",
+    "shipping_weight": "48.5 lb",
     "identifier_exists": "no",
     "shipping": [
       {
@@ -4204,6 +4237,28 @@
     ]
   },
   {
+    "id": "7180668",
+    "title": "Bobcat 7180668 Track Tensioner",
+    "description": "Aftermarket track tensioner for Bobcat compact track loaders. Replaces OEM part number 7180668.\n\nOne assembly: recoil spring, cylinder, and seals. Bolts to the front idler and holds track tension so the track and idler last longer on roller-suspension and solid-mount undercarriage.\n\nFits Bobcat T630 and T650 compact track loaders. Eligible Bobcat aftermarket parts carry a 2-year warranty.\n\nIn stock. Free freight to the contiguous US — no shipping line at checkout.",
+    "link": "https://www.flatearthequipment.com/parts/bobcat-7180668-track-tensioner",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/bobcat-7180668-track-tensioner.jpg",
+    "price": "819.00 USD",
+    "brand": "Bobcat",
+    "mpn": "7180668",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling > Forklifts",
+    "product_type": "Undercarriage",
+    "identifier_exists": "no",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "Ground",
+        "price": "0.00 USD"
+      }
+    ]
+  },
+  {
     "id": "bobcat-7209964-front-upper-windshield",
     "title": "Bobcat 7209964 Front Upper Windshield",
     "description": "Aftermarket green-tint tempered safety glass front upper windshield for Bobcat compact equipment. Direct replacement for OEM part number 7209964. Fits Bobcat E26, E32, E42, E50. Specs: 6 mm thick, 705 mm max width, 835 mm height. Includes 14 mounting holes. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
@@ -4365,6 +4420,29 @@
     ]
   },
   {
+    "id": "7440628",
+    "title": "Bobcat 7440628 Radial Piston Drive Motor",
+    "description": "Aftermarket radial piston drive motor for Bobcat compact track loaders. Replaces OEM part number 7440628 (also supersedes 7276538, 7260088, and 7227892).\n\nSingle-speed hydrostatic motor: four hydraulic hoses, 15-bolt sprocket flange. The two-speed motor uses five hoses and is a different assembly.\n\nFits Bobcat T550, T590, and T595 compact track loaders. Steel housing, about 135 lb. Eligible Bobcat aftermarket parts carry a 2-year warranty.\n\nIn stock. Free freight to the contiguous US — no shipping line at checkout.",
+    "link": "https://www.flatearthequipment.com/parts/bobcat-7440628-radial-piston-motor",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/bobcat-7440628-radial-piston-motor.jpg",
+    "price": "3189.00 USD",
+    "brand": "Bobcat",
+    "mpn": "7440628",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "Hydraulics",
+    "shipping_weight": "135 lb",
+    "identifier_exists": "no",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "Ground",
+        "price": "0.00 USD"
+      }
+    ]
+  },
+  {
     "id": "RT-MT85-180X72X45-C",
     "title": "Bobcat MT85 Rubber Track 180x72x45 C Pattern",
     "description": "Aftermarket replacement rubber track (not OEM). Free shipping and a 2-year warranty included.\n\nReplacement rubber track for Bobcat MT85 mini track loaders in the narrow 180mm width — 180mm wide, 72mm pitch, 45 links. The C-lug tread pattern is the all-around choice for dirt, gravel, and mixed-surface work.\n\nVerified for Bobcat MT85 serial prefix B3TR in the narrow 180mm configuration. Not sure which prefix your machine is? Find your serial plate with our Bobcat serial number lookup and match the first four characters.\n\nFree shipping and a 2-year warranty on every rubber track — no freight surcharge at checkout.\n\nMost operators replace tracks in pairs: running a new track opposite a worn one causes uneven loading that shortens the life of both. Order quantity 2 for a full set.",
@@ -4462,7 +4540,7 @@
     "description": "Aftermarket replacement rubber track (not OEM). Free shipping and a 2-year warranty included.\n\nReplacement rubber track for Bobcat T190 compact track loaders running the 400mm-wide track option — 400mm wide, 86mm pitch, 49 links. Measure your current track width before ordering; not every T190 uses this size.\n\nReplaces Bobcat 7316759 (also listed as 6685650).\n\nFits Bobcat T190 serial prefixes 5193, 5194, 5270, 5279, 5316, 5317, A3LN, A3LP. Machines with prefixes 5277 or 5278 use a different wide-track configuration — confirm your serial plate before ordering. Not sure which prefix your machine is? Find your serial plate with our Bobcat serial number lookup and match the first four characters.\n\nFree shipping and a 2-year warranty on every rubber track — no freight surcharge at checkout.\n\nMost operators replace tracks in pairs: running a new track opposite a worn one causes uneven loading that shortens the life of both. Order quantity 2 for a full set.",
     "link": "https://www.flatearthequipment.com/parts/bobcat-t190-rubber-track-400x86x49",
     "image_link": "https://www.flatearthequipment.com/images/parts/tracks/bobcat-t190-rubber-track-400x86x49.jpg?v=20260815",
-    "price": "949.00 USD",
+    "price": "1149.00 USD",
     "brand": "Bobcat",
     "mpn": "RT-T190-400X86X49-C",
     "condition": "new",
@@ -4478,7 +4556,8 @@
         "service": "Ground",
         "price": "0.00 USD"
       }
-    ]
+    ],
+    "sale_price": "949.00 USD"
   },
   {
     "id": "RT-T550-320X86X49-C",
@@ -4532,7 +4611,7 @@
     "description": "Aftermarket replacement rubber track (not OEM). Free shipping and a 2-year warranty included.\n\nReplacement rubber track for Bobcat T550 compact track loaders running the 400mm-wide track option — 400mm wide, 86mm pitch, 49 links. The C-lug tread pattern delivers dependable traction in dirt, gravel, and mixed conditions.\n\nReplaces Bobcat 7316759 (also listed as 6685650).\n\nVerified for Bobcat T550 serial prefixes A7UJ, AJZV, B57T running the 400mm-wide track option. Measure your current track width before ordering. Not sure which prefix your machine is? Find your serial plate with our Bobcat serial number lookup and match the first four characters.\n\nFree shipping and a 2-year warranty on every rubber track — no freight surcharge at checkout.\n\nMost operators replace tracks in pairs: running a new track opposite a worn one causes uneven loading that shortens the life of both. Order quantity 2 for a full set.",
     "link": "https://www.flatearthequipment.com/parts/bobcat-t550-rubber-track-400x86x49",
     "image_link": "https://www.flatearthequipment.com/images/parts/tracks/bobcat-t550-rubber-track-400x86x49.jpg?v=20260815",
-    "price": "949.00 USD",
+    "price": "1149.00 USD",
     "brand": "Bobcat",
     "mpn": "RT-T550-400X86X49-C",
     "condition": "new",
@@ -4548,7 +4627,8 @@
         "service": "Ground",
         "price": "0.00 USD"
       }
-    ]
+    ],
+    "sale_price": "949.00 USD"
   },
   {
     "id": "RT-T550-400X86X49-Z",
@@ -4625,7 +4705,7 @@
     "description": "Aftermarket replacement rubber track (not OEM). Free shipping and a 2-year warranty included.\n\nReplacement rubber track for Bobcat T590 compact track loaders running the 400mm-wide track option — 400mm wide, 86mm pitch, 49 links. The C-lug tread pattern delivers dependable traction in dirt, gravel, and mixed conditions.\n\nReplaces Bobcat 7316759 (also listed as 6685650).\n\nVerified for Bobcat T590 serial prefixes A3NR, A3NS, ALJU, B378, B3Z7, B3ZA running the 400mm-wide track option. All six vendor serial breaks return this same part number — measure your current track width before ordering. Not sure which prefix your machine is? Find your serial plate with our Bobcat serial number lookup and match the first four characters.\n\nFree shipping and a 2-year warranty on every rubber track — no freight surcharge at checkout.\n\nMost operators replace tracks in pairs: running a new track opposite a worn one causes uneven loading that shortens the life of both. Order quantity 2 for a full set.",
     "link": "https://www.flatearthequipment.com/parts/bobcat-t590-rubber-track-400x86x49",
     "image_link": "https://www.flatearthequipment.com/images/parts/tracks/bobcat-t590-rubber-track-400x86x49.jpg?v=20260815",
-    "price": "949.00 USD",
+    "price": "1149.00 USD",
     "brand": "Bobcat",
     "mpn": "RT-T590-400X86X49-C",
     "condition": "new",
@@ -4641,7 +4721,8 @@
         "service": "Ground",
         "price": "0.00 USD"
       }
-    ]
+    ],
+    "sale_price": "949.00 USD"
   },
   {
     "id": "RT-T590-400X86X49-Z",
@@ -6353,7 +6434,7 @@
     "title": "JCB 400/H9799 Suspension Seat Assembly (Vinyl)",
     "description": "Premium aftermarket suspension seat designed as a direct replacement for JCB equipment. This heavy-duty vinyl seat features mechanical stepless suspension for all-day operator comfort and reduced fatigue.\n\nKey Features:\n• Durable black PVC vinyl upholstery - easy to clean and maintain\n• Mechanical stepless suspension system for smooth ride quality\n• Integrated seat belt with emergency locking retractor (right-hand side)\n• Weight adjustment for operator comfort customization\n• Slide rail system for fore/aft positioning\n• Document holder pocket for paperwork and manuals\n• Adjustable front-to-back positioning\n\nDimensions:\n• Overall Height: 29 inches\n• Overall Width: 21 inches (including mounting hardware)\n• Overall Length: 23 inches\n• Maximum Seat Height (at rest): 14 inches\n• Mounting Pattern: 6\" x 7\" (front-back x side-side)\n\nThis seat is built for demanding industrial applications and provides excellent value compared to OEM pricing. Ships with free freight to the continental US.\n\nReplaces OEM Part Number: 400/H9799",
     "link": "https://www.flatearthequipment.com/parts/jcb-400-h9799-suspension-seat-vinyl",
-    "image_link": "https://www.flatearthequipment.com/images/products/jcb-400-h9799-suspension-seat.jpg",
+    "image_link": "https://www.flatearthequipment.com/images/parts/seats/jcb-400-h9799-suspension-seat-vinyl.jpg",
     "price": "1400.00 USD",
     "brand": "JCB",
     "mpn": "400/H9799",
@@ -9489,7 +9570,7 @@
     "title": "Toyota 53720-U2241-71 Seat Assembly (Vinyl)",
     "description": "Premium aftermarket Toyota 53720-U2241-71 Seat Assembly. This heavy-duty black PVC replacement seat is designed for resilience and reliability in demanding industrial environments. \n\nKey Features:\n• Direct OEM fitment for Toyota part number 53720-U2241-71\n• Durable, easy-clean black PVC upholstery\n• Built-in microswitch seat safety switch for operational safety\n• Ergonomic design with lumbar support and document holder\n• Adjustable front-to-back positioning via stepless back adjustment\n• Standard 11\" side-to-side mounting pattern\n• Supports operator weights from 99 lbs to 276 lbs\n\nEnsure your Toyota forklift remains safe and comfortable with this high-quality replacement seat assembly.\n\nReplaces Part Number: 53720-U2241-71",
     "link": "https://www.flatearthequipment.com/parts/toyota-seat-assembly-vinyl-53720-u224171",
-    "image_link": "https://www.flatearthequipment.com/images/parts/toyota-seat-assembly-vinyl-53720-u224171.webp",
+    "image_link": "https://www.flatearthequipment.com/images/parts/seats/toyota-seat-assembly-vinyl-53720-u224171.jpg",
     "price": "795.00 USD",
     "brand": "Toyota",
     "mpn": "53720-U2241-71",
