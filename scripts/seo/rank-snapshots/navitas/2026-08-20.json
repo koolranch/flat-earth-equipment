@@ -1,0 +1,199 @@
+{
+  "date": "2026-08-20",
+  "domain": "flatearthequipment.com",
+  "source": "dataforseo-live-regular",
+  "rows": [
+    {
+      "keyword": "navitas controller",
+      "lane": "brand",
+      "targetUrl": "/navitas-controllers",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "navitasvs.com",
+      "topUrl": "https://navitasvs.com/"
+    },
+    {
+      "keyword": "navitas golf cart controller",
+      "lane": "brand",
+      "targetUrl": "/navitas-controllers",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "navitasvs.com",
+      "topUrl": "https://navitasvs.com/"
+    },
+    {
+      "keyword": "navitas tsx",
+      "lane": "brand",
+      "targetUrl": "/navitas-controllers",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "navitasvs.com",
+      "topUrl": "https://navitasvs.com/products/tsx3-0-dc-controller"
+    },
+    {
+      "keyword": "navitas tsx 3.0",
+      "lane": "brand",
+      "targetUrl": "/navitas-controllers",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "navitasvs.com",
+      "topUrl": "https://navitasvs.com/products/tsx3-0-dc-controller"
+    },
+    {
+      "keyword": "navitas 600a",
+      "lane": "brand",
+      "targetUrl": "/navitas-controllers",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "www.amazon.com",
+      "topUrl": "https://www.amazon.com/Navitas-Controller-Programmer-MODZ%C2%AE-Solenoid/dp/B0CQDB4Z6M"
+    },
+    {
+      "keyword": "navitas 440a",
+      "lane": "brand",
+      "targetUrl": "/navitas-controllers",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "navitasvs.com",
+      "topUrl": "https://navitasvs.com/products/tac2-ac-controller"
+    },
+    {
+      "keyword": "navitas conversion kit",
+      "lane": "brand",
+      "targetUrl": "/navitas-controllers",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "navitasvs.com",
+      "topUrl": "https://navitasvs.com/applications"
+    },
+    {
+      "keyword": "navitas tsx 600a",
+      "lane": "brand",
+      "targetUrl": "/navitas-controllers",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "navitasvs.com",
+      "topUrl": "https://navitasvs.com/products/tsx3-0-dc-controller"
+    },
+    {
+      "keyword": "navitas tac3",
+      "lane": "brand",
+      "targetUrl": "/navitas-controllers",
+      "position": 52,
+      "url": "/parts/navitas-club-car-iq-excel-48v-850a-tac3-ac-conversion-kit",
+      "urlMatchesTarget": false,
+      "topCompetitor": "navitasvs.com",
+      "topUrl": "https://navitasvs.com/industry/power-sports"
+    },
+    {
+      "keyword": "navitas tac2",
+      "lane": "brand",
+      "targetUrl": "/navitas-controllers",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "navitasvs.com",
+      "topUrl": "https://navitasvs.com/products/tac2-ac-controller"
+    },
+    {
+      "keyword": "golf cart controller upgrade",
+      "lane": "generic",
+      "targetUrl": "/navitas-controllers",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "extremekartz.com",
+      "topUrl": "https://extremekartz.com/collections/golf-cart-controllers?srsltid=AfmBOoq8yd-vEZOQJQLAMKq8SulJ5SBp5dG-ZQYcuLcIzLqydMQrkPg5"
+    },
+    {
+      "keyword": "golf cart controller conversion kit",
+      "lane": "generic",
+      "targetUrl": "/navitas-controllers",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "plumquick.com",
+      "topUrl": "https://plumquick.com/collections/club-car?srsltid=AfmBOooCFYUVKYMyDvIzNUmTVaFpEFB0-TXCn9qSdNhAsZMkYBTZvNX0"
+    },
+    {
+      "keyword": "ezgo navitas controller",
+      "lane": "cart",
+      "targetUrl": "/parts/navitas-ezgo-txt-48v-600a-conversion-kit",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "navitasvs.com",
+      "topUrl": "https://navitasvs.com/E-Z-GO/Series"
+    },
+    {
+      "keyword": "ezgo txt navitas",
+      "lane": "cart",
+      "targetUrl": "/parts/navitas-ezgo-txt-48v-600a-conversion-kit",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "navitasvs.com",
+      "topUrl": "https://navitasvs.com/E-Z-GO/Series"
+    },
+    {
+      "keyword": "club car navitas controller",
+      "lane": "cart",
+      "targetUrl": "/parts/navitas-club-car-iq-excel-48v-600a-conversion-kit",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "navitasvs.com",
+      "topUrl": "https://navitasvs.com/Club-Car/DS"
+    },
+    {
+      "keyword": "yamaha navitas controller",
+      "lane": "cart",
+      "targetUrl": "/parts/navitas-yamaha-g29-drive-48v-600a-conversion-kit",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "navitasvs.com",
+      "topUrl": "https://navitasvs.com/Yamaha/G29--Drive-2"
+    },
+    {
+      "keyword": "yamaha drive2 navitas",
+      "lane": "cart",
+      "targetUrl": "/parts/navitas-yamaha-drive2-neos-48v-440a-tac2-conversion-kit",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "navitasvs.com",
+      "topUrl": "https://navitasvs.com/Yamaha/G29--Drive-2"
+    },
+    {
+      "keyword": "87-TSX3-600EZTXT",
+      "lane": "pn",
+      "targetUrl": "/parts/navitas-ezgo-txt-48v-600a-conversion-kit",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "n/a",
+      "topUrl": null,
+      "error": "Internal SE Server Error."
+    },
+    {
+      "keyword": "87-TSX3-600CCIQX",
+      "lane": "pn",
+      "targetUrl": "/parts/navitas-club-car-iq-excel-48v-600a-conversion-kit",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "n/a",
+      "topUrl": null,
+      "error": "Internal SE Server Error."
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "date": "2026-08-20",
+  "extraLithium": [
+    {
+      "keyword": "lifepo4 golf cart battery",
+      "position": 96,
+      "url": "/lithium-batteries",
+      "top": "bigbattery.com"
+    },
+    {
+      "keyword": "lithium rhino 36v 105ah",
+      "position": 65,
+      "url": "/lithium-batteries",
+      "top": "lithiumrhino.com"
+    },
+    {
+      "keyword": "113-LR51V50AH",
+      "position": 34,
+      "url": "/lithium-batteries",
+      "top": "shop.fsip.biz"
+    },
+    {
+      "keyword": "113-LR38V105AH",
+      "position": 18,
+      "url": "/parts/lithium-rhino-36v-105ah-kit",
+      "top": "www.golfcartgarage.com"
+    }
+  ],
+  "lithiumLabs": {
+    "cost": 0.01428,
+    "count": 19,
+    "rows": [
+      {
+        "keyword": "lithium rhino",
+        "volume": 590,
+        "position": 44,
+        "url": "/lithium-batteries",
+        "etv": 1.2389999628067017
+      },
+      {
+        "keyword": "rhino golf cart battery",
+        "volume": 70,
+        "position": 47,
+        "url": "/lithium-batteries",
+        "etv": 0.1469999998807907
+      },
+      {
+        "keyword": "rhino lithium batteries",
+        "volume": 480,
+        "position": 47,
+        "url": "/lithium-batteries",
+        "etv": 1.0080000162124634
+      },
+      {
+        "keyword": "lithium rhino battery",
+        "volume": 170,
+        "position": 55,
+        "url": "/lithium-batteries",
+        "etv": 0.3569999933242798
+      },
+      {
+        "keyword": "lithium golf cart battery conversion kit",
+        "volume": 390,
+        "position": 66,
+        "url": "/lithium-batteries",
+        "etv": 0.8190000057220459
+      },
+      {
+        "keyword": "golf cart battery upgrade",
+        "volume": 260,
+        "position": 71,
+        "url": "/lithium-batteries",
+        "etv": 0.5460000038146973
+      },
+      {
+        "keyword": "golf cart lithium battery packs",
+        "volume": 70,
+        "position": 79,
+        "url": "/lithium-batteries",
+        "etv": 0.1469999998807907
+      },
+      {
+        "keyword": "lithium battery kit",
+        "volume": 70,
+        "position": 81,
+        "url": "/lithium-batteries",
+        "etv": 0.1469999998807907
+      },
+      {
+        "keyword": "golf cart battery kit",
+        "volume": 110,
+        "position": 84,
+        "url": "/lithium-batteries",
+        "etv": 0.23100000619888306
+      },
+      {
+        "keyword": "lithium golf cart battery kit",
+        "volume": 90,
+        "position": 84,
+        "url": "/lithium-batteries",
+        "etv": 0.1889999955892563
+      },
+      {
+        "keyword": "golf cart lithium battery kit",
+        "volume": 260,
+        "position": 87,
+        "url": "/lithium-batteries",
+        "etv": 0.5460000038146973
+      },
+      {
+        "keyword": "lifepo4 golf cart batteries",
+        "volume": 2900,
+        "position": 95,
+        "url": "/lithium-batteries",
+        "etv": 6.090000152587891
+      },
+      {
+        "keyword": "lithium battery kits",
+        "volume": 70,
+        "position": 95,
+        "url": "/lithium-batteries",
+        "etv": 0.1469999998807907
+      },
+      {
+        "keyword": "lithium battery kit for golf cart",
+        "volume": 210,
+        "position": 101,
+        "url": "/lithium-batteries",
+        "etv": 0.4410000145435333
+      },
+      {
+        "keyword": "what is the best lithium battery for a golf cart",
+        "volume": 70,
+        "position": 103,
+        "url": "/insights/best-lithium-batteries-for-golf-carts",
+        "etv": 0.1469999998807907
+      },
+      {
+        "keyword": "top rated lithium golf cart batteries",
+        "volume": 50,
+        "position": 105,
+        "url": "/insights/best-lithium-batteries-for-golf-carts",
+        "etv": 0.10499999672174454
+      },
+      {
+        "keyword": "top lithium golf cart batteries",
+        "volume": 30,
+        "position": 116,
+        "url": "/insights/best-lithium-batteries-for-golf-carts",
+        "etv": 0.06300000101327896
+      },
+      {
+        "keyword": "best lithium golf cart batteries",
+        "volume": 720,
+        "position": 119,
+        "url": "/insights/best-lithium-batteries-for-golf-carts",
+        "etv": 1.5120000839233398
+      },
+      {
+        "keyword": "best lithium batteries for golf carts",
+        "volume": 590,
+        "position": 121,
+        "url": "/insights/best-lithium-batteries-for-golf-carts",
+        "etv": 1.2389999628067017
+      }
+    ]
+  },
+  "navitasLabs": {
+    "cost": 0.012,
+    "count": 0,
+    "rows": []
+  }
+}
