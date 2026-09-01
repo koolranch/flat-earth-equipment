@@ -439,8 +439,15 @@ export default async function TrainerHome() {
     ) {
       throw error;
     }
-    // If there's any error with authentication check, show public landing page
     console.error('Error checking trainer authentication:', error);
+    // An expired session lands here: getUser() tries to refresh the token and
+    // can't write cookies from a Server Component. On the GFC host the FEE
+    // bulk-sales page must never render, so send the visitor to sign in again
+    // (logging in issues fresh cookies and returns them to /trainer).
+    if (isGfcHost) {
+      redirect('/login?next=/trainer');
+    }
+    // FEE hosts keep the public landing page as the error fallback.
     return <PublicTrainerLanding />;
   }
 }
