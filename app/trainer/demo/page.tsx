@@ -130,7 +130,9 @@ export default async function TrainerDemoPage() {
       </section>
 
       {/* Roster */}
-      <section className="relative">
+      {/* min-w-0: without it this grid item's min-width:auto lets the wide
+          roster table force the whole page wider than the phone viewport. */}
+      <section className="relative min-w-0">
         <p className="mb-1.5 text-xs text-slate-400 sm:hidden">Swipe sideways for certificates and actions →</p>
         <div className="rounded-2xl border border-slate-200 overflow-auto bg-white shadow-sm">
           <table className="w-full text-sm">
