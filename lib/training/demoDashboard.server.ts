@@ -10,6 +10,27 @@ import { supabaseService } from '@/lib/supabase/service.server';
  */
 const DEMO_ORDER_ID = '29706fe8-1e91-4399-9a0a-d375ef285edf';
 
+/**
+ * The e2e test account holds a seat on the demo order. Its real identifiers
+ * ("Demo Operator" / demo-operator-e2e@…) read as leftover test data on the
+ * public demo page, so we present it as a realistic fictional persona.
+ * Display-only: the DB row and e2e login are untouched.
+ */
+const DISPLAY_PERSONAS: Record<string, { name: string; email: string }> = {
+  'demo-operator-e2e@getforkliftcertified.com': {
+    name: 'Dana Whitfield',
+    email: 'dwhitfield@example.com',
+  },
+};
+
+function displayIdentity(profile: { full_name?: string | null; email?: string | null } | null | undefined) {
+  const persona = profile?.email ? DISPLAY_PERSONAS[profile.email] : undefined;
+  return {
+    name: persona?.name || profile?.full_name || '—',
+    email: persona?.email || profile?.email || '—',
+  };
+}
+
 export type DemoRosterRow = {
   enrollment_id: string;
   learner_name: string;
@@ -62,11 +83,14 @@ export async function getDemoDashboardData(): Promise<DemoDashboardData> {
     (releasedProfiles || []).map((p: any) => [p.id, p]),
   );
   const former: DemoFormerOperator[] = (releasedClaims || [])
-    .map((c: any) => ({
-      learner_name: releasedProfileById[c.user_id]?.full_name || '—',
-      learner_email: releasedProfileById[c.user_id]?.email || '—',
-      released_at: c.released_at,
-    }))
+    .map((c: any) => {
+      const identity = displayIdentity(releasedProfileById[c.user_id]);
+      return {
+        learner_name: identity.name,
+        learner_email: identity.email,
+        released_at: c.released_at,
+      };
+    })
     .sort((a, b) => new Date(b.released_at).getTime() - new Date(a.released_at).getTime());
 
   const learnerIds = (claims || []).map((c: any) => c.user_id).filter(Boolean);
@@ -111,6 +135,7 @@ export async function getDemoDashboardData(): Promise<DemoDashboardData> {
 
   const rows: DemoRosterRow[] = (enrollments || []).map((e: any) => {
     const profile = profileById[e.user_id] || {};
+    const identity = displayIdentity(profile);
     const cert = certByEnrollment[e.id];
     const evaluation = evalByEnrollment[e.id];
     const status: DemoRosterRow['status'] = e.passed
@@ -120,8 +145,8 @@ export async function getDemoDashboardData(): Promise<DemoDashboardData> {
         : 'not_started';
     return {
       enrollment_id: e.id,
-      learner_name: profile.full_name || '—',
-      learner_email: profile.email || '—',
+      learner_name: identity.name,
+      learner_email: identity.email,
       progress_pct: Math.round(e.progress_pct || 0),
       status,
       practical_pass: evaluation ? !!evaluation.practical_pass : null,
@@ -185,12 +210,14 @@ export async function getDemoEvaluation(enrollmentId: string): Promise<DemoEvalu
       .select('evaluator_name, evaluator_title, site_location, evaluation_date, practical_pass, truck_type, notes, competencies')
       .eq('enrollment_id', enrollmentId)
       .maybeSingle(),
-    svc.from('profiles').select('full_name').eq('id', enrollment.user_id).maybeSingle(),
+    svc.from('profiles').select('full_name, email').eq('id', enrollment.user_id).maybeSingle(),
   ]);
   if (!ev) return null;
 
+  const identity = displayIdentity(profile);
+
   return {
-    learner_name: profile?.full_name || 'Operator',
+    learner_name: identity.name === '—' ? 'Operator' : identity.name,
     evaluator_name: ev.evaluator_name,
     evaluator_title: ev.evaluator_title,
     site_location: ev.site_location,

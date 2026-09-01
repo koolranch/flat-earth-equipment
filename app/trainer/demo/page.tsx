@@ -45,11 +45,19 @@ function StatusBadge({ status }: { status: DemoRosterRow['status'] }) {
 function DemoAction({ label }: { label: string }) {
   return (
     <span
-      className="inline-flex cursor-not-allowed items-center rounded-md border border-slate-200 px-2 py-1 text-xs font-medium text-slate-400"
+      className="inline-flex cursor-not-allowed items-center whitespace-nowrap rounded-md border border-slate-200 px-2 py-1 text-xs font-medium text-slate-400"
       title="Actions are disabled in the demo — start a free trial to use them"
     >
       {label}
     </span>
+  );
+}
+
+function ViewChevron() {
+  return (
+    <svg className="h-3 w-3 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
   );
 }
 
@@ -87,15 +95,18 @@ export default async function TrainerDemoPage() {
           <h1 className="text-2xl font-bold tracking-tight text-slate-900">Trainer Dashboard</h1>
           <p className="mt-1 text-sm text-slate-500">Track training progress and manage seats for your team.</p>
         </div>
-        <a
-          href="/api/demo/audit-pack"
-          className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm hover:border-slate-400 hover:bg-slate-50 transition-colors"
-        >
-          <svg className="h-4 w-4 text-[#F76511]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-          </svg>
-          Download sample audit pack
-        </a>
+        <div className="text-right">
+          <a
+            href="/api/demo/audit-pack"
+            className="inline-flex items-center gap-2 whitespace-nowrap rounded-lg border-2 border-[#F76511]/50 bg-white px-4 py-2.5 text-sm font-semibold text-slate-900 shadow-sm hover:border-[#F76511] hover:bg-orange-50 transition-colors"
+          >
+            <svg className="h-4 w-4 text-[#F76511]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Download sample audit pack
+          </a>
+          <p className="mt-1.5 text-xs text-slate-400">See exactly what an inspector gets.</p>
+        </div>
       </header>
 
       {/* Stats band */}
@@ -119,8 +130,10 @@ export default async function TrainerDemoPage() {
       </section>
 
       {/* Roster */}
-      <section className="rounded-2xl border border-slate-200 overflow-auto bg-white shadow-sm">
-        <table className="w-full text-sm">
+      <section className="relative">
+        <p className="mb-1.5 text-xs text-slate-400 sm:hidden">Swipe sideways for certificates and actions →</p>
+        <div className="rounded-2xl border border-slate-200 overflow-auto bg-white shadow-sm">
+          <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-slate-200 bg-slate-50/80 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
               <th className="p-3">Learner</th>
@@ -157,20 +170,22 @@ export default async function TrainerDemoPage() {
                     {r.practical_pass === true ? (
                       <a
                         href={`/trainer/demo/evaluations/${r.enrollment_id}`}
-                        className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 hover:ring-emerald-600/40"
+                        className="inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 hover:bg-emerald-100 hover:ring-emerald-600/40"
                         title="View the evaluation record"
                       >
-                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                        <span className="mr-0.5 h-1.5 w-1.5 rounded-full bg-emerald-500" />
                         Done
+                        <ViewChevron />
                       </a>
                     ) : r.practical_pass === false ? (
                       <a
                         href={`/trainer/demo/evaluations/${r.enrollment_id}`}
-                        className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-2.5 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/20 hover:ring-red-600/40"
+                        className="inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-red-50 px-2.5 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/20 hover:bg-red-100 hover:ring-red-600/40"
                         title="View the evaluation record"
                       >
-                        <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
+                        <span className="mr-0.5 h-1.5 w-1.5 rounded-full bg-red-500" />
                         Retrain
+                        <ViewChevron />
                       </a>
                     ) : (
                       <span className="text-xs text-slate-400">Pending</span>
@@ -192,9 +207,13 @@ export default async function TrainerDemoPage() {
                         href={r.cert_pdf_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center rounded-md border border-slate-300 px-2 py-1 text-xs font-medium text-slate-700 hover:border-slate-400 hover:bg-slate-50"
+                        className="inline-flex items-center gap-1 whitespace-nowrap rounded-md border border-slate-300 px-2 py-1 text-xs font-medium text-slate-700 hover:border-[#F76511]/50 hover:bg-orange-50 hover:text-slate-900"
+                        title="Open the certificate PDF"
                       >
                         PDF
+                        <svg className="h-3 w-3 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M9 7h8v8" />
+                        </svg>
                       </a>
                     ) : (
                       <span className="text-slate-300">—</span>
@@ -211,7 +230,9 @@ export default async function TrainerDemoPage() {
               );
             })}
           </tbody>
-        </table>
+          </table>
+        </div>
+        <div className="pointer-events-none absolute bottom-0 right-0 top-7 w-8 rounded-r-2xl bg-gradient-to-l from-white to-transparent sm:hidden" />
       </section>
 
       {/* Former operators — the turnover story */}

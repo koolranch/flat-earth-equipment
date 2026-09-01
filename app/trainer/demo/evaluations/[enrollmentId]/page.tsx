@@ -127,6 +127,29 @@ export default async function DemoEvaluationPage({ params }: { params: { enrollm
           </div>
         )}
 
+        <div className="mt-8 grid gap-6 sm:grid-cols-2">
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">Evaluator signature</div>
+            <div className="mt-4 border-b border-slate-300 pb-1 font-serif text-xl italic text-slate-800">
+              {ev.evaluator_name || '—'}
+            </div>
+            <div className="mt-1.5 text-xs text-slate-500">
+              {[ev.evaluator_title, ev.evaluation_date
+                ? new Date(ev.evaluation_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                : null]
+                .filter(Boolean)
+                .join(' · ')}
+            </div>
+          </div>
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">Operator acknowledgment</div>
+            <div className="mt-4 border-b border-slate-300 pb-1 font-serif text-xl italic text-slate-800">
+              {ev.learner_name}
+            </div>
+            <div className="mt-1.5 text-xs text-slate-500">Signed on a phone or tablet — no paper forms</div>
+          </div>
+        </div>
+
         <div className="mt-8 border-t border-slate-100 pt-4 text-xs text-slate-500">
           Records like this are retained for the life of the certification and included in the one-click OSHA audit
           pack. Per §1910.178(l)(6), the employer must keep training and evaluation records.
