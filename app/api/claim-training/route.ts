@@ -113,7 +113,10 @@ export async function POST(req: Request) {
                 .upsert({ 
                   order_id: order.id, 
                   user_id: user.id,
-                  created_at: new Date().toISOString()
+                  created_at: new Date().toISOString(),
+                  // Reactivates a previously released row (rehire).
+                  released_at: null,
+                  released_by: null
                 }, { 
                   onConflict: 'order_id,user_id', 
                   ignoreDuplicates: false 

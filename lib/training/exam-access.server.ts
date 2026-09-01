@@ -37,10 +37,13 @@ export async function userHasExamPurchase(
         .select('id, course_slug, stripe_session_id, created_at')
         .eq('user_id', userId)
         .order('created_at', { ascending: false }),
+      // Released claims (operator removed by their trainer) no longer grant
+      // seat-based exam access; solo buyers qualify via their own orders row.
       svc
         .from('seat_claims')
         .select('order_id', { count: 'exact', head: true })
-        .eq('user_id', userId),
+        .eq('user_id', userId)
+        .is('released_at', null),
       svc.from('courses').select('id').eq('slug', FORKLIFT_COURSE_SLUG).maybeSingle(),
       svc
         .from('enrollments')

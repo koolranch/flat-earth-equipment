@@ -20,6 +20,7 @@ type Row = {
   evaluation_date: string | null;
   updated_at?: string;
   created_at?: string;
+  released_at?: string | null;
 };
 type SeatsInfo = {
   total: number;
@@ -65,6 +66,9 @@ export default function DashboardInner() {
   const [hasEnterpriseAccess, setHasEnterpriseAccess] = useState(false);
   const [showAssign, setShowAssign] = useState(false);
   const [remindState, setRemindState] = useState<Record<string, RemindState>>({});
+  const [former, setFormer] = useState<Row[]>([]);
+  const [removing, setRemoving] = useState<Record<string, boolean>>({});
+  const [addSeatsOrderId, setAddSeatsOrderId] = useState<string | null>(null);
   const autoOpenedAssign = useRef(false);
 
   const [q, setQ] = useState('');
@@ -89,6 +93,7 @@ export default function DashboardInner() {
     const j = await r.json();
     if (j.ok) {
       setRows(j.items || []);
+      setFormer(j.former || []);
       setTotal(j.total || 0);
       setPage(j.page || 1);
       setPageSize(j.pageSize || 50);
@@ -141,6 +146,8 @@ export default function DashboardInner() {
             totalLabel: hasUnlimited ? 'Unlimited' : String(totals.total),
             remainingLabel: hasUnlimited ? 'Unlimited' : String(totals.remaining),
           });
+          const extendable = j.items.find((order: any) => order.can_add_seats);
+          setAddSeatsOrderId(extendable ? extendable.order_id : null);
         }
       }
     } catch (e) {
@@ -166,6 +173,33 @@ export default function DashboardInner() {
       }
     } catch {
       setRemindState(s => ({ ...s, [enrollmentId]: 'error' }));
+    }
+  }
+
+  async function removeOperator(r: Row) {
+    const who = r.learner_name && r.learner_name !== '—' ? r.learner_name : r.learner_email;
+    const ok = window.confirm(
+      `Remove ${who} from the active roster?\n\n` +
+        'Their seat is freed for a new hire. Training records and certificates are kept for OSHA audits; their course access ends.'
+    );
+    if (!ok) return;
+    setRemoving(s => ({ ...s, [r.learner_id]: true }));
+    try {
+      const resp = await fetch('/api/trainer/seats/release', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ learner_id: r.learner_id }),
+      });
+      if (resp.ok) {
+        (window as any)?.analytics?.track?.('trainer_seat_released', { learner_id: r.learner_id });
+        await Promise.all([load(page), loadSeatsInfo()]);
+      } else {
+        window.alert('Could not free this seat. Please try again.');
+      }
+    } catch {
+      window.alert('Could not free this seat. Please try again.');
+    } finally {
+      setRemoving(s => ({ ...s, [r.learner_id]: false }));
     }
   }
 
@@ -222,6 +256,11 @@ export default function DashboardInner() {
               <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs font-semibold">{seatsInfo.remaining} left</span>
             ) : null}
           </button>
+        )}
+        {/* Out of (or nearly out of) seats on a live Crew subscription: offer
+            the $29 extra-seat purchase instead of silently hiding invites. */}
+        {addSeatsOrderId && seatsInfo && !seatsInfo.hasUnlimited && seatsInfo.remaining <= 2 && (
+          <AddSeatsButton orderId={addSeatsOrderId} prominent={seatsInfo.remaining === 0} />
         )}
       </header>
 
@@ -421,7 +460,14 @@ export default function DashboardInner() {
                           {r.practical_pass === false ? 'Re-evaluate' : 'Evaluate'}
                         </Link>
                       )}
-                      {!showRemind && r.practical_pass === true && <span className="text-slate-300">—</span>}
+                      <button
+                        className="inline-flex items-center gap-1 rounded-md border border-slate-300 px-2 py-1 text-xs font-medium text-slate-500 hover:border-red-500 hover:text-red-600 transition-colors disabled:opacity-50"
+                        disabled={!!removing[r.learner_id]}
+                        onClick={() => removeOperator(r)}
+                        title="Operator left? Free their seat for a new hire. Records are kept for OSHA audits."
+                      >
+                        {removing[r.learner_id] ? 'Removing…' : 'Remove'}
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -459,12 +505,109 @@ export default function DashboardInner() {
         </table>
       </section>
 
+      {/* Former operators: seats freed, records retained for OSHA audits */}
+      {former.length > 0 && (
+        <details className="rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <summary className="cursor-pointer select-none p-4 text-sm font-semibold text-slate-700">
+            Former operators ({former.length})
+            <span className="ml-2 text-xs font-normal text-slate-400">Seats freed — records kept for OSHA audits</span>
+          </summary>
+          <div className="overflow-auto border-t border-slate-100">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-slate-200 bg-slate-50/80 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  <th className="p-3">Learner</th>
+                  <th className="p-3">Course</th>
+                  <th className="p-3">Removed</th>
+                  <th className="p-3 text-center">Certificate</th>
+                </tr>
+              </thead>
+              <tbody>
+                {former.map(r => (
+                  <tr key={r.enrollment_id} className="border-t border-slate-100">
+                    <td className="p-3">
+                      <div className="font-medium text-slate-700">{r.learner_name}</div>
+                      <div className="text-xs text-slate-400">{r.learner_email}</div>
+                    </td>
+                    <td className="p-3 text-slate-500">{courseLabel(r.course_slug)}</td>
+                    <td className="p-3 text-xs text-slate-500">
+                      {r.released_at
+                        ? new Date(r.released_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                        : '—'}
+                    </td>
+                    <td className="p-3 text-center">
+                      {r.cert_pdf_url ? (
+                        <a className="inline-flex items-center gap-1 rounded-md border border-slate-300 px-2 py-1 text-xs font-medium text-slate-700 hover:border-[#F76511] hover:text-[#F76511] transition-colors" href={r.cert_pdf_url} target="_blank" rel="noreferrer">
+                          PDF
+                        </a>
+                      ) : <span className="text-slate-300">—</span>}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </details>
+      )}
+
       <nav className="flex items-center gap-3 justify-end">
         <button className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors disabled:opacity-40 disabled:hover:bg-transparent" disabled={page <= 1} onClick={() => { setPage(p => p - 1); load(page - 1); }}>Prev</button>
         <span className="text-sm text-slate-500">Page {page} / {pages}</span>
         <button className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors disabled:opacity-40 disabled:hover:bg-transparent" disabled={page >= pages} onClick={() => { setPage(p => p + 1); load(page + 1); }}>Next</button>
       </nav>
     </main>
+  );
+}
+
+function AddSeatsButton({ orderId, prominent }: { orderId: string; prominent?: boolean }) {
+  const [qty, setQty] = useState(1);
+  const [busy, setBusy] = useState(false);
+
+  async function buy() {
+    setBusy(true);
+    try {
+      const r = await fetch('/api/trainer/orders/add-seats', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ order_id: orderId, quantity: qty }),
+      });
+      const j = await r.json().catch(() => ({}));
+      if (r.ok && j.ok && j.url) {
+        (window as any)?.analytics?.track?.('trainer_add_seats_checkout', { order_id: orderId, quantity: qty });
+        window.location.href = j.url;
+        return;
+      }
+      window.alert('Could not start the seat purchase. Please try again.');
+    } catch {
+      window.alert('Could not start the seat purchase. Please try again.');
+    }
+    setBusy(false);
+  }
+
+  return (
+    <div className="inline-flex items-center gap-2">
+      <input
+        type="number"
+        min={1}
+        max={25}
+        value={qty}
+        onChange={e => setQty(Math.min(25, Math.max(1, parseInt(e.target.value, 10) || 1)))}
+        className="w-16 rounded-lg border border-slate-300 px-2 py-2 text-sm text-slate-900 focus:border-[#F76511] focus:outline-none focus:ring-2 focus:ring-[#F76511]/20"
+        aria-label="Number of extra seats to add"
+      />
+      <button
+        className={
+          prominent
+            ? 'inline-flex items-center gap-2 rounded-lg bg-[#F76511] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#E55A0C] transition-colors disabled:opacity-60'
+            : 'inline-flex items-center gap-2 rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:border-[#F76511] hover:text-[#F76511] transition-colors disabled:opacity-60'
+        }
+        disabled={busy}
+        onClick={buy}
+        title="Add extra training seats to your plan — $29 each, one-time"
+      >
+        {busy ? 'Opening checkout…' : 'Add seats — $29 each'}
+      </button>
+    </div>
   );
 }
 

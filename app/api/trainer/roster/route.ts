@@ -36,11 +36,23 @@ export async function GET(req: Request) {
   const orderIds = (orders || []).map(o => o.id);
   if (!orderIds.length) return NextResponse.json({ ok: true, items: [], total: 0, page: f.page, pageSize: f.pageSize });
 
-  // 2) Seats claimed under those orders
-  const { data: claims } = await svc.from('seat_claims').select('id, order_id, user_id, created_at');
+  // 2) Seats claimed under those orders (including released seats, so former
+  // operators stay visible with their records)
+  const { data: claims } = await svc.from('seat_claims').select('id, order_id, user_id, created_at, released_at');
   const claimsByOrder = (claims || []).filter(c => orderIds.includes((c as any).order_id));
   const learnerIds = Array.from(new Set(claimsByOrder.map(c => (c as any).user_id)));
-  if (!learnerIds.length) return NextResponse.json({ ok: true, items: [], total: 0, page: f.page, pageSize: f.pageSize });
+  if (!learnerIds.length) return NextResponse.json({ ok: true, items: [], total: 0, page: f.page, pageSize: f.pageSize, former: [] });
+
+  // A learner is "former" only if every one of their claims here is released.
+  const activeLearnerIds = new Set(claimsByOrder.filter(c => !(c as any).released_at).map(c => (c as any).user_id));
+  const releasedAtByLearner: Record<string, string> = {};
+  for (const c of claimsByOrder) {
+    const uid = (c as any).user_id;
+    const rel = (c as any).released_at;
+    if (rel && !activeLearnerIds.has(uid)) {
+      if (!releasedAtByLearner[uid] || rel > releasedAtByLearner[uid]) releasedAtByLearner[uid] = rel;
+    }
+  }
 
   // 3) Learner profiles
   const { data: learners } = await svc.from('profiles').select('id, full_name, email').in('id', learnerIds);
@@ -95,8 +107,17 @@ export async function GET(req: Request) {
       evaluation_date: ev?.evaluation_date || null,
       updated_at: (e as any).updated_at,
       created_at: (e as any).created_at,
+      released_at: releasedAtByLearner[(e as any).user_id] || null,
     };
   });
+
+  // Former operators (seat released) are listed separately: records stay
+  // available for OSHA audits, but they don't clutter the active roster.
+  const former = rows
+    .filter(r => r.released_at)
+    .sort((a, b) => new Date(b.released_at!).getTime() - new Date(a.released_at!).getTime())
+    .slice(0, 200);
+  rows = rows.filter(r => !r.released_at);
 
   // 6) Filter: q and date range and status
   if (f.q) {
@@ -114,7 +135,7 @@ export async function GET(req: Request) {
   const start = (f.page! - 1) * f.pageSize!;
   const paged = rows.slice(start, start + f.pageSize!);
 
-  const res = NextResponse.json({ ok: true, items: paged, total, page: f.page, pageSize: f.pageSize });
+  const res = NextResponse.json({ ok: true, items: paged, total, page: f.page, pageSize: f.pageSize, former });
   res.headers.set('Cache-Control', 'no-store');
   return res;
 }

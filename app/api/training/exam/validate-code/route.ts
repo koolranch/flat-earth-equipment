@@ -156,10 +156,12 @@ export async function POST(req: NextRequest) {
   let claimedByOrderId: Record<string, number> = {};
 
   if (orderIds.length > 0) {
+    // Released seats (departed operators) don't count against capacity.
     const { data: claims } = await svc
       .from('seat_claims')
       .select('order_id')
-      .in('order_id', orderIds);
+      .in('order_id', orderIds)
+      .is('released_at', null);
 
     for (const c of claims ?? []) {
       const oid = (c as any).order_id;
@@ -219,7 +221,8 @@ export async function POST(req: NextRequest) {
     await svc
       .from('seat_claims')
       .upsert(
-        { order_id: claimOrderId, user_id: user.id, created_at: new Date().toISOString() },
+        // released_at: null reactivates a previously released row (rehire).
+        { order_id: claimOrderId, user_id: user.id, created_at: new Date().toISOString(), released_at: null, released_by: null },
         { onConflict: 'order_id,user_id', ignoreDuplicates: false },
       );
   } catch (e) {

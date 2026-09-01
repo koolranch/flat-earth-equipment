@@ -63,10 +63,13 @@ export async function GET(request: Request) {
     const learnerIds = Array.from(new Set(enrollments.map(e => e.user_id)));
 
     // Managed operators only: map learner -> seat claim -> order -> manager.
+    // Released claims are departed operators — their ex-employer shouldn't
+    // trigger renewal reminders for them.
     const { data: claims } = await svc
       .from('seat_claims')
       .select('user_id, order_id, created_at')
       .in('user_id', learnerIds)
+      .is('released_at', null)
       .order('created_at', { ascending: false });
     const claimByLearner: Record<string, { order_id: string }> = {};
     for (const c of claims || []) {

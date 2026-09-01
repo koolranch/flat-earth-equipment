@@ -48,6 +48,7 @@ export async function POST(req: Request) {
       .select('id, order_id')
       .eq('user_id', enrollment.user_id)
       .in('order_id', orderIds)
+      .is('released_at', null)
       .limit(1)
       .maybeSingle();
     if (!claim) {

@@ -50,7 +50,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: 'subscription_not_active' }, { status: 400 });
   }
 
-  const base = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com').replace(/\/+$/, '');
+  // GFC trainers manage seats on app.getforkliftcertified.com; send them back
+  // there after checkout instead of the FEE domain.
+  const requestHost = (req.headers.get('host') || '').toLowerCase();
+  const base =
+    requestHost === 'app.getforkliftcertified.com'
+      ? 'https://app.getforkliftcertified.com'
+      : (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com').replace(/\/+$/, '');
 
   const session = await stripe.checkout.sessions.create({
     mode: 'payment',
