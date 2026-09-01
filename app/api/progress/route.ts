@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { supabaseService } from '@/lib/supabase/service.server'
 import crypto from 'crypto'
-import { generateCertificate } from '@/lib/cert/generateCertificate'
+import { renderCertificateTemplate } from '@/lib/cert/certificateTemplate'
 import { getUserLocale } from '@/lib/getUserLocale'
 
 export async function POST(req: Request) {
@@ -75,12 +75,17 @@ export async function POST(req: Request) {
         .slice(0, 12)
         .toUpperCase()
       
-      // Generate PDF certificate using modern generator
-      const pdfBytes = await generateCertificate({
-        certId,
-        student: userName,
-        course: enrollment.course.title,
-        completedAt: new Date().toISOString(),
+      // Generate PDF certificate with the same template /api/cert/issue uses
+      const issuedAtIso = new Date().toISOString()
+      const expiresAtIso = new Date(new Date(issuedAtIso).setFullYear(new Date(issuedAtIso).getFullYear() + 3)).toISOString()
+      const verifyBase = process.env.NEXT_PUBLIC_BASE_URL?.replace(/\/$/, '') || 'https://www.flatearthequipment.com'
+      const pdfBytes = await renderCertificateTemplate({
+        name: userName,
+        courseTitle: enrollment.course.title,
+        verificationCode: certId,
+        verifyUrl: `${verifyBase}/verify/${certId}?src=pdf`,
+        issuedAt: issuedAtIso,
+        expiresAt: expiresAtIso,
         locale
       })
       

@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createClient } from '@supabase/supabase-js';
-import { generateCertificate } from '@/lib/cert/generateCertificate';
+import { renderCertificateTemplate } from '@/lib/cert/certificateTemplate';
 
 export async function GET(req: Request, { params }: { params: { id: string } }) {
   const url = new URL(req.url);
@@ -22,21 +22,31 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   if (error || !cert) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 
   const learnerId = cert.user_id || cert.learner_id;
-  const [{ data: profile }, { data: course }] = await Promise.all([
+  const [{ data: profile }, { data: course }, { data: enrollment }] = await Promise.all([
     supabase.from('profiles').select('full_name').eq('id', learnerId).maybeSingle(),
     supabase.from('courses').select('title').eq('id', cert.course_id).maybeSingle(),
+    cert.enrollment_id
+      ? supabase.from('enrollments').select('expires_at').eq('id', cert.enrollment_id).maybeSingle()
+      : Promise.resolve({ data: null } as { data: { expires_at: string | null } | null }),
   ]);
   const student = profile?.full_name || 'Operator';
   const courseTitle = course?.title || 'Online Forklift Operator Certification';
   const completedAt = cert.issued_at || cert.issue_date || new Date().toISOString();
+  const expiresAt =
+    enrollment?.expires_at ||
+    new Date(new Date(completedAt).setFullYear(new Date(completedAt).getFullYear() + 3)).toISOString();
 
-  // Render with the same generator the training flow uses on completion, so
+  const base = process.env.NEXT_PUBLIC_BASE_URL?.replace(/\/$/, '') || 'https://www.flatearthequipment.com';
+
+  // Render with the same template /api/cert/issue uses on exam pass, so
   // regenerated certificates are identical to the ones the app issues.
-  const pdfBytes = await generateCertificate({
-    certId: cert.verifier_code,
-    student,
-    course: courseTitle,
-    completedAt,
+  const pdfBytes = await renderCertificateTemplate({
+    name: student,
+    courseTitle,
+    verificationCode: cert.verifier_code,
+    verifyUrl: `${base}/verify/${cert.verifier_code}?src=pdf`,
+    issuedAt: completedAt,
+    expiresAt,
     locale,
   });
 
