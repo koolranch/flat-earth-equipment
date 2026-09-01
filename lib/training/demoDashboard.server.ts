@@ -21,15 +21,22 @@ export type DemoRosterRow = {
   cert_pdf_url: string | null;
 };
 
+export type DemoFormerOperator = {
+  learner_name: string;
+  learner_email: string;
+  released_at: string;
+};
+
 export type DemoDashboardData = {
   seats: { total: number; claimed: number; remaining: number };
   rows: DemoRosterRow[];
+  former: DemoFormerOperator[];
 };
 
 export async function getDemoDashboardData(): Promise<DemoDashboardData> {
   const svc = supabaseService();
 
-  const [{ data: usage }, { data: claims }] = await Promise.all([
+  const [{ data: usage }, { data: claims }, { data: releasedClaims }] = await Promise.all([
     svc
       .from('v_order_seat_usage')
       .select('total_seats, claimed, remaining')
@@ -40,11 +47,31 @@ export async function getDemoDashboardData(): Promise<DemoDashboardData> {
       .select('user_id')
       .eq('order_id', DEMO_ORDER_ID)
       .is('released_at', null),
+    svc
+      .from('seat_claims')
+      .select('user_id, released_at')
+      .eq('order_id', DEMO_ORDER_ID)
+      .not('released_at', 'is', null),
   ]);
+
+  const releasedIds = (releasedClaims || []).map((c: any) => c.user_id).filter(Boolean);
+  const { data: releasedProfiles } = releasedIds.length
+    ? await svc.from('profiles').select('id, full_name, email').in('id', releasedIds)
+    : { data: [] as any[] };
+  const releasedProfileById: Record<string, any> = Object.fromEntries(
+    (releasedProfiles || []).map((p: any) => [p.id, p]),
+  );
+  const former: DemoFormerOperator[] = (releasedClaims || [])
+    .map((c: any) => ({
+      learner_name: releasedProfileById[c.user_id]?.full_name || '—',
+      learner_email: releasedProfileById[c.user_id]?.email || '—',
+      released_at: c.released_at,
+    }))
+    .sort((a, b) => new Date(b.released_at).getTime() - new Date(a.released_at).getTime());
 
   const learnerIds = (claims || []).map((c: any) => c.user_id).filter(Boolean);
   if (!learnerIds.length) {
-    return { seats: { total: 10, claimed: 0, remaining: 10 }, rows: [] };
+    return { seats: { total: 10, claimed: 0, remaining: 10 }, rows: [], former };
   }
 
   const [{ data: profiles }, { data: enrollments }] = await Promise.all([
@@ -113,5 +140,64 @@ export async function getDemoDashboardData(): Promise<DemoDashboardData> {
       remaining: Number(usage?.remaining ?? 0),
     },
     rows,
+    former,
+  };
+}
+
+export type DemoEvaluation = {
+  learner_name: string;
+  evaluator_name: string | null;
+  evaluator_title: string | null;
+  site_location: string | null;
+  evaluation_date: string | null;
+  practical_pass: boolean | null;
+  truck_type: string | null;
+  notes: string | null;
+  competencies: Record<string, boolean> | null;
+};
+
+/**
+ * Read-only evaluation record for the demo page. Returns null unless the
+ * enrollment belongs to one of the demo order's operators, so the public
+ * route can never leak a real customer's evaluation.
+ */
+export async function getDemoEvaluation(enrollmentId: string): Promise<DemoEvaluation | null> {
+  const svc = supabaseService();
+
+  const { data: enrollment } = await svc
+    .from('enrollments')
+    .select('id, user_id')
+    .eq('id', enrollmentId)
+    .maybeSingle();
+  if (!enrollment) return null;
+
+  const { data: claim } = await svc
+    .from('seat_claims')
+    .select('id')
+    .eq('order_id', DEMO_ORDER_ID)
+    .eq('user_id', enrollment.user_id)
+    .maybeSingle();
+  if (!claim) return null;
+
+  const [{ data: ev }, { data: profile }] = await Promise.all([
+    svc
+      .from('employer_evaluations')
+      .select('evaluator_name, evaluator_title, site_location, evaluation_date, practical_pass, truck_type, notes, competencies')
+      .eq('enrollment_id', enrollmentId)
+      .maybeSingle(),
+    svc.from('profiles').select('full_name').eq('id', enrollment.user_id).maybeSingle(),
+  ]);
+  if (!ev) return null;
+
+  return {
+    learner_name: profile?.full_name || 'Operator',
+    evaluator_name: ev.evaluator_name,
+    evaluator_title: ev.evaluator_title,
+    site_location: ev.site_location,
+    evaluation_date: ev.evaluation_date,
+    practical_pass: ev.practical_pass,
+    truck_type: ev.truck_type,
+    notes: ev.notes,
+    competencies: (ev.competencies as Record<string, boolean> | null) ?? null,
   };
 }

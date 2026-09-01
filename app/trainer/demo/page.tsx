@@ -55,7 +55,7 @@ function DemoAction({ label }: { label: string }) {
 
 export default async function TrainerDemoPage() {
   noStore();
-  const { seats, rows } = await getDemoDashboardData();
+  const { seats, rows, former } = await getDemoDashboardData();
 
   const passed = rows.filter(r => r.status === 'passed').length;
   const inProgress = rows.filter(r => r.status === 'in_progress').length;
@@ -82,9 +82,20 @@ export default async function TrainerDemoPage() {
         </a>
       </div>
 
-      <header>
-        <h1 className="text-2xl font-bold tracking-tight text-slate-900">Trainer Dashboard</h1>
-        <p className="mt-1 text-sm text-slate-500">Track training progress and manage seats for your team.</p>
+      <header className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900">Trainer Dashboard</h1>
+          <p className="mt-1 text-sm text-slate-500">Track training progress and manage seats for your team.</p>
+        </div>
+        <a
+          href="/api/demo/audit-pack"
+          className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm hover:border-slate-400 hover:bg-slate-50 transition-colors"
+        >
+          <svg className="h-4 w-4 text-[#F76511]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          Download sample audit pack
+        </a>
       </header>
 
       {/* Stats band */}
@@ -144,15 +155,23 @@ export default async function TrainerDemoPage() {
                   <td className="p-3 text-center"><StatusBadge status={r.status} /></td>
                   <td className="p-3 text-center">
                     {r.practical_pass === true ? (
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20">
+                      <a
+                        href={`/trainer/demo/evaluations/${r.enrollment_id}`}
+                        className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 hover:ring-emerald-600/40"
+                        title="View the evaluation record"
+                      >
                         <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                         Done
-                      </span>
+                      </a>
                     ) : r.practical_pass === false ? (
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-2.5 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/20">
+                      <a
+                        href={`/trainer/demo/evaluations/${r.enrollment_id}`}
+                        className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-2.5 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/20 hover:ring-red-600/40"
+                        title="View the evaluation record"
+                      >
                         <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
                         Retrain
-                      </span>
+                      </a>
                     ) : (
                       <span className="text-xs text-slate-400">Pending</span>
                     )}
@@ -194,6 +213,36 @@ export default async function TrainerDemoPage() {
           </tbody>
         </table>
       </section>
+
+      {/* Former operators — the turnover story */}
+      {former.length > 0 && (
+        <section className="rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 px-5 py-4">
+            <h2 className="text-sm font-semibold text-slate-900">
+              Former operators <span className="ml-1 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500">{former.length}</span>
+            </h2>
+            <p className="text-xs text-slate-500">
+              Seats are reusable — when someone leaves, their seat goes back into the pool and their records stay for audits.
+            </p>
+          </div>
+          <ul>
+            {former.map(f => (
+              <li key={f.learner_email} className="flex flex-wrap items-center justify-between gap-2 px-5 py-3">
+                <div>
+                  <div className="text-sm font-medium text-slate-700">{f.learner_name}</div>
+                  <div className="text-xs text-slate-400">{f.learner_email}</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-xs text-slate-500">
+                    Left the company · seat freed {new Date(f.released_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                  </div>
+                  <div className="text-xs text-slate-400">Training records retained in the audit pack</div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {/* Bottom CTA */}
       <section className="rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm">
