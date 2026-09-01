@@ -169,7 +169,14 @@ export default async function TrainerDemoPage() {
                   </td>
                   <td className="p-3 text-center">
                     {r.cert_pdf_url ? (
-                      <span className="inline-flex items-center rounded-md border border-slate-300 px-2 py-1 text-xs font-medium text-slate-700">PDF</span>
+                      <a
+                        href={r.cert_pdf_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center rounded-md border border-slate-300 px-2 py-1 text-xs font-medium text-slate-700 hover:border-slate-400 hover:bg-slate-50"
+                      >
+                        PDF
+                      </a>
                     ) : (
                       <span className="text-slate-300">—</span>
                     )}
