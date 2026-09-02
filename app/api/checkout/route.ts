@@ -696,7 +696,7 @@ export async function POST(req: NextRequest) {
                 // Stripe File id of the Forklift Certified mark; without it the
                 // header shows Stripe's grey placeholder next to the brand name.
                 ...(process.env.GFC_CHECKOUT_ICON_FILE_ID
-                  ? { icon: process.env.GFC_CHECKOUT_ICON_FILE_ID }
+                  ? { icon: { type: "file", file: process.env.GFC_CHECKOUT_ICON_FILE_ID } }
                   : {}),
               },
             } as Stripe.Checkout.SessionCreateParams)
