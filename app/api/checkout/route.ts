@@ -630,14 +630,20 @@ export async function POST(req: NextRequest) {
     // Collect shipping only for parts / physical goods so FEE parts checkout
     // is unchanged. GFC-origin sessions also get Forklift Certified chrome
     // and trial copy; FEE-hosted training keeps Flat Earth Equipment branding.
+    // GFC-origin sessions are a $49 impulse purchase or a $0-today trial:
+    // no promo-code field to go hunting for, only the address Stripe Tax
+    // actually needs, and card/Link/wallets only (no BNPL or bank debit).
+    // FEE sessions (parts cart, /safety training) keep their existing config.
+    const isGfcSession = Boolean(returnBase);
     const sessionCreateParams: Stripe.Checkout.SessionCreateParams = {
       mode: checkoutMode,
       line_items: lineItems,
       automatic_tax: { enabled: true },
       ...(referralPromoCodeId
         ? { discounts: [{ promotion_code: referralPromoCodeId }] }
-        : { allow_promotion_codes: true }),
-      billing_address_collection: "required",
+        : { allow_promotion_codes: !isGfcSession }),
+      billing_address_collection: isGfcSession ? "auto" : "required",
+      ...(isGfcSession ? { payment_method_types: ["card", "link"] } : {}),
       ...(!isTrainingPurchase
         ? { shipping_address_collection: { allowed_countries: ["US", "CA"] } }
         : {}),
@@ -654,14 +660,18 @@ export async function POST(req: NextRequest) {
       ...(askEmployerCustomerEmail || examUnlockCustomerEmail
         ? { customer_email: askEmployerCustomerEmail ?? examUnlockCustomerEmail ?? undefined }
         : {}),
-      // Trial copy only applies to subscription checkouts; a GFC one-time
-      // purchase (single operator) must not promise "you won't be charged".
-      ...(returnBase && checkoutMode === 'subscription'
+      // Submit-line copy pre-empts the two hesitations we see at the payment
+      // step: "what happens after I pay?" and "who is Flat Earth Equipment?"
+      // Trial wording only on subscriptions; a one-time purchase must not
+      // promise "you won't be charged".
+      ...(isGfcSession
         ? {
             custom_text: {
               submit: {
                 message:
-                  "You won't be charged today. Cancel anytime during the 7-day trial.",
+                  checkoutMode === 'subscription'
+                    ? "You won't be charged today. Cancel anytime during the 7-day trial from your dashboard. Forklift Certified is operated by Flat Earth Equipment — that's the name on your receipt."
+                    : 'Instant access: your login arrives by email right after payment. Unlimited exam retakes included. Forklift Certified is operated by Flat Earth Equipment — that\'s the name on your receipt and card statement.',
               },
             },
           }
@@ -683,6 +693,11 @@ export async function POST(req: NextRequest) {
               branding_settings: {
                 display_name: "Forklift Certified",
                 button_color: "#f76511",
+                // Stripe File id of the Forklift Certified mark; without it the
+                // header shows Stripe's grey placeholder next to the brand name.
+                ...(process.env.GFC_CHECKOUT_ICON_FILE_ID
+                  ? { icon: process.env.GFC_CHECKOUT_ICON_FILE_ID }
+                  : {}),
               },
             } as Stripe.Checkout.SessionCreateParams)
           : sessionCreateParams,

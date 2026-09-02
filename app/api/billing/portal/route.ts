@@ -30,7 +30,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: 'no_billing_account' }, { status: 404 });
   }
 
-  const base = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com').replace(/\/+$/, '');
+  // GFC trainers manage billing on app.getforkliftcertified.com; return them
+  // there instead of the FEE domain (same rule as the add-seats checkout).
+  const requestHost = (req.headers.get('host') || '').toLowerCase();
+  const base =
+    requestHost === 'app.getforkliftcertified.com'
+      ? 'https://app.getforkliftcertified.com'
+      : (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.flatearthequipment.com').replace(/\/+$/, '');
 
   const session = await stripe.billingPortal.sessions.create({
     customer: customerId,

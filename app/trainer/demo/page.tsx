@@ -61,6 +61,92 @@ function ViewChevron() {
   );
 }
 
+// Cell renderers shared by the desktop table and the phone card list so the
+// two layouts can't drift apart.
+
+function ProgressCell({ row }: { row: DemoRosterRow }) {
+  return (
+    <div className="flex items-center gap-2">
+      <div className="h-1.5 w-20 overflow-hidden rounded-full bg-slate-100">
+        <div
+          className={`h-full rounded-full ${row.status === 'passed' ? 'bg-emerald-500' : 'bg-[#F76511]'}`}
+          style={{ width: `${Math.min(100, Math.max(0, row.progress_pct))}%` }}
+        />
+      </div>
+      <span className="tabular-nums text-slate-700 w-9 text-right">{row.progress_pct}%</span>
+    </div>
+  );
+}
+
+function EvaluationCell({ row }: { row: DemoRosterRow }) {
+  if (row.practical_pass === true) {
+    return (
+      <a
+        href={`/trainer/demo/evaluations/${row.enrollment_id}`}
+        className="inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 hover:bg-emerald-100 hover:ring-emerald-600/40"
+        title="View the evaluation record"
+      >
+        <span className="mr-0.5 h-1.5 w-1.5 rounded-full bg-emerald-500" />
+        Done
+        <ViewChevron />
+      </a>
+    );
+  }
+  if (row.practical_pass === false) {
+    return (
+      <a
+        href={`/trainer/demo/evaluations/${row.enrollment_id}`}
+        className="inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-red-50 px-2.5 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/20 hover:bg-red-100 hover:ring-red-600/40"
+        title="View the evaluation record"
+      >
+        <span className="mr-0.5 h-1.5 w-1.5 rounded-full bg-red-500" />
+        Retrain
+        <ViewChevron />
+      </a>
+    );
+  }
+  return <span className="text-xs text-slate-400">Pending</span>;
+}
+
+function ExpiryCell({ expiresAt }: { expiresAt: string | null }) {
+  const expiry = expiryLabel(expiresAt);
+  if (expiry.tone === 'none') return <span className="text-slate-300">—</span>;
+  return (
+    <span className={expiry.tone === 'soon' ? 'inline-flex items-center gap-1.5 text-xs font-semibold text-amber-600' : 'text-xs text-slate-500'}>
+      {expiry.tone === 'soon' && <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />}
+      {expiry.text}
+    </span>
+  );
+}
+
+function CertificateCell({ url }: { url: string | null }) {
+  if (!url) return <span className="text-slate-300">—</span>;
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-1 whitespace-nowrap rounded-md border border-slate-300 px-2 py-1 text-xs font-medium text-slate-700 hover:border-[#F76511]/50 hover:bg-orange-50 hover:text-slate-900"
+      title="Open the certificate PDF"
+    >
+      PDF
+      <svg className="h-3 w-3 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M9 7h8v8" />
+      </svg>
+    </a>
+  );
+}
+
+function ActionsCell({ row }: { row: DemoRosterRow }) {
+  return (
+    <div className="inline-flex items-center justify-center gap-1.5">
+      {row.status !== 'passed' && <DemoAction label="Remind" />}
+      {row.practical_pass !== true && <DemoAction label={row.practical_pass === false ? 'Re-evaluate' : 'Evaluate'} />}
+      <DemoAction label="Remove" />
+    </div>
+  );
+}
+
 export default async function TrainerDemoPage() {
   noStore();
   const { seats, rows, former } = await getDemoDashboardData();
@@ -133,8 +219,43 @@ export default async function TrainerDemoPage() {
       {/* min-w-0: without it this grid item's min-width:auto lets the wide
           roster table force the whole page wider than the phone viewport. */}
       <section className="relative min-w-0">
-        <p className="mb-1.5 text-xs text-slate-400 sm:hidden">Swipe sideways for certificates and actions →</p>
-        <div className="rounded-2xl border border-slate-200 overflow-auto bg-white shadow-sm">
+        {/* Phones: one card per operator. A seven-column table only fits a
+            phone by sideways scrolling, which hides certificates and actions. */}
+        <ul className="grid gap-3 sm:hidden">
+          {rows.map(r => (
+            <li key={r.enrollment_id} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="truncate font-medium text-slate-900">{r.learner_name}</div>
+                  <div className="truncate text-xs text-slate-500">{r.learner_email}</div>
+                </div>
+                <StatusBadge status={r.status} />
+              </div>
+              <div className="mt-3">
+                <ProgressCell row={r} />
+              </div>
+              <dl className="mt-3 grid grid-cols-3 gap-2 border-t border-slate-100 pt-3 text-xs">
+                <div>
+                  <dt className="font-semibold uppercase tracking-wide text-slate-400">Evaluation</dt>
+                  <dd className="mt-1"><EvaluationCell row={r} /></dd>
+                </div>
+                <div>
+                  <dt className="font-semibold uppercase tracking-wide text-slate-400">Expires</dt>
+                  <dd className="mt-1"><ExpiryCell expiresAt={r.expires_at} /></dd>
+                </div>
+                <div>
+                  <dt className="font-semibold uppercase tracking-wide text-slate-400">Certificate</dt>
+                  <dd className="mt-1"><CertificateCell url={r.cert_pdf_url} /></dd>
+                </div>
+              </dl>
+              <div className="mt-3 border-t border-slate-100 pt-3">
+                <ActionsCell row={r} />
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <div className="hidden rounded-2xl border border-slate-200 overflow-auto bg-white shadow-sm sm:block">
           <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-slate-200 bg-slate-50/80 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
@@ -148,93 +269,23 @@ export default async function TrainerDemoPage() {
             </tr>
           </thead>
           <tbody>
-            {rows.map(r => {
-              const expiry = expiryLabel(r.expires_at);
-              return (
-                <tr key={r.enrollment_id} className="border-t border-slate-100 hover:bg-slate-50/60">
-                  <td className="p-3">
-                    <div className="font-medium text-slate-900">{r.learner_name}</div>
-                    <div className="text-xs text-slate-500">{r.learner_email}</div>
-                  </td>
-                  <td className="p-3">
-                    <div className="flex items-center gap-2">
-                      <div className="h-1.5 w-20 overflow-hidden rounded-full bg-slate-100">
-                        <div
-                          className={`h-full rounded-full ${r.status === 'passed' ? 'bg-emerald-500' : 'bg-[#F76511]'}`}
-                          style={{ width: `${Math.min(100, Math.max(0, r.progress_pct))}%` }}
-                        />
-                      </div>
-                      <span className="tabular-nums text-slate-700 w-9 text-right">{r.progress_pct}%</span>
-                    </div>
-                  </td>
-                  <td className="p-3 text-center"><StatusBadge status={r.status} /></td>
-                  <td className="p-3 text-center">
-                    {r.practical_pass === true ? (
-                      <a
-                        href={`/trainer/demo/evaluations/${r.enrollment_id}`}
-                        className="inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 hover:bg-emerald-100 hover:ring-emerald-600/40"
-                        title="View the evaluation record"
-                      >
-                        <span className="mr-0.5 h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                        Done
-                        <ViewChevron />
-                      </a>
-                    ) : r.practical_pass === false ? (
-                      <a
-                        href={`/trainer/demo/evaluations/${r.enrollment_id}`}
-                        className="inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-red-50 px-2.5 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/20 hover:bg-red-100 hover:ring-red-600/40"
-                        title="View the evaluation record"
-                      >
-                        <span className="mr-0.5 h-1.5 w-1.5 rounded-full bg-red-500" />
-                        Retrain
-                        <ViewChevron />
-                      </a>
-                    ) : (
-                      <span className="text-xs text-slate-400">Pending</span>
-                    )}
-                  </td>
-                  <td className="p-3">
-                    {expiry.tone === 'none' ? (
-                      <span className="text-slate-300">—</span>
-                    ) : (
-                      <span className={expiry.tone === 'soon' ? 'inline-flex items-center gap-1.5 text-xs font-semibold text-amber-600' : 'text-xs text-slate-500'}>
-                        {expiry.tone === 'soon' && <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />}
-                        {expiry.text}
-                      </span>
-                    )}
-                  </td>
-                  <td className="p-3 text-center">
-                    {r.cert_pdf_url ? (
-                      <a
-                        href={r.cert_pdf_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 whitespace-nowrap rounded-md border border-slate-300 px-2 py-1 text-xs font-medium text-slate-700 hover:border-[#F76511]/50 hover:bg-orange-50 hover:text-slate-900"
-                        title="Open the certificate PDF"
-                      >
-                        PDF
-                        <svg className="h-3 w-3 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M9 7h8v8" />
-                        </svg>
-                      </a>
-                    ) : (
-                      <span className="text-slate-300">—</span>
-                    )}
-                  </td>
-                  <td className="p-3 text-center">
-                    <div className="inline-flex items-center justify-center gap-1.5">
-                      {r.status !== 'passed' && <DemoAction label="Remind" />}
-                      {r.practical_pass !== true && <DemoAction label={r.practical_pass === false ? 'Re-evaluate' : 'Evaluate'} />}
-                      <DemoAction label="Remove" />
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
+            {rows.map(r => (
+              <tr key={r.enrollment_id} className="border-t border-slate-100 hover:bg-slate-50/60">
+                <td className="p-3">
+                  <div className="font-medium text-slate-900">{r.learner_name}</div>
+                  <div className="text-xs text-slate-500">{r.learner_email}</div>
+                </td>
+                <td className="p-3"><ProgressCell row={r} /></td>
+                <td className="p-3 text-center"><StatusBadge status={r.status} /></td>
+                <td className="p-3 text-center"><EvaluationCell row={r} /></td>
+                <td className="p-3"><ExpiryCell expiresAt={r.expires_at} /></td>
+                <td className="p-3 text-center"><CertificateCell url={r.cert_pdf_url} /></td>
+                <td className="p-3 text-center"><ActionsCell row={r} /></td>
+              </tr>
+            ))}
           </tbody>
           </table>
         </div>
-        <div className="pointer-events-none absolute bottom-0 right-0 top-7 w-8 rounded-r-2xl bg-gradient-to-l from-white to-transparent sm:hidden" />
       </section>
 
       {/* Former operators — the turnover story */}

@@ -240,7 +240,15 @@ export default function DashboardInner() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-slate-900">{t('trainer.title')}</h1>
-          <p className="mt-1 text-sm text-slate-500">Track training progress and manage seats for your team.</p>
+          <p className="mt-1 text-sm text-slate-500">
+            Track training progress and manage seats for your team.
+            {seatsInfo ? (
+              <>
+                {' '}
+                <ManageBillingLink />
+              </>
+            ) : null}
+          </p>
         </div>
         {canInvite && (
           <button
@@ -639,6 +647,45 @@ function AddSeatsButton({ orderId, prominent }: { orderId: string; prominent?: b
         {busy ? 'Opening checkout…' : 'Add seats — $29 each'}
       </button>
     </div>
+  );
+}
+
+/**
+ * Self-serve Stripe customer portal (update card, switch plan, cancel).
+ * Marketing copy promises "cancel from your dashboard"; this is that path.
+ */
+function ManageBillingLink() {
+  const [busy, setBusy] = useState(false);
+
+  async function open() {
+    setBusy(true);
+    try {
+      const r = await fetch('/api/billing/portal', { method: 'POST' });
+      const j = await r.json().catch(() => ({}));
+      if (r.ok && j.ok && j.url) {
+        window.location.href = j.url;
+        return;
+      }
+      window.alert(
+        j.error === 'no_billing_account'
+          ? 'No self-serve billing account is linked to this login yet. Email support and we will sort it out.'
+          : 'Could not open billing. Please try again or email support.'
+      );
+    } catch {
+      window.alert('Could not open billing. Please try again or email support.');
+    }
+    setBusy(false);
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={open}
+      disabled={busy}
+      className="font-medium text-slate-600 underline underline-offset-2 hover:text-[#F76511] disabled:opacity-60"
+    >
+      {busy ? 'Opening billing…' : 'Manage billing & plan'}
+    </button>
   );
 }
 
