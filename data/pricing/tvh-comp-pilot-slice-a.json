@@ -1,0 +1,85 @@
+{
+  "slice": "a",
+  "results": [
+    {
+      "sku": "genie-44170-solenoid-brake",
+      "slug": "genie-44170-solenoid-brake",
+      "brand": "Genie",
+      "oem": "44170",
+      "status": "apply",
+      "compPrice": 94.08,
+      "sellPrice": 89.38,
+      "compSource": "intellaparts",
+      "compUrl": "https://intellaparts.com/p/Genie-44170/genie-44170-valve-solenoid-n-o-scissors.html",
+      "inStockHint": null,
+      "tvhAligned": true,
+      "reason": null,
+      "candidateUrls": [
+        "https://intellaparts.com/p/Genie-44170/genie-44170-valve-solenoid-n-o-scissors.html",
+        "https://www.magnasourceinc.com/itemdetail/GN44170",
+        "https://www.magnasourceinc.com/itemdetail/GN44170GT",
+        "https://www.magnasourceinc.com/itemdetail/44170",
+        "https://www.magnasourceinc.com/itemdetail/JL44170"
+      ],
+      "notes": "Intella shows $94.08 with OEM 44170/44170GT on page; Availability Special order. MagnaSource GN44170/GN44170GT OEM match but price-hidden (contact support)."
+    },
+    {
+      "sku": "genie-79154-solenoid-steering",
+      "slug": "genie-79154-solenoid-steering",
+      "brand": "Genie",
+      "oem": "79154",
+      "status": "apply",
+      "compPrice": 89.43,
+      "sellPrice": 84.96,
+      "compSource": "magnasource",
+      "compUrl": "https://www.magnasourceinc.com/itemdetail/GN79154",
+      "inStockHint": "out_of_stock",
+      "tvhAligned": true,
+      "reason": null,
+      "candidateUrls": [
+        "https://www.magnasourceinc.com/itemdetail/GN79154",
+        "https://www.magnasourceinc.com/itemdetail/79154",
+        "https://www.magnasourceinc.com/itemdetail/79154GT"
+      ],
+      "notes": "MagnaSource GN79154 VALVE SOLENOID 3 POS 4 WAY; OEM 79154 on page; $89.43; 1 backordered (est. Aug 10\u201324)."
+    },
+    {
+      "sku": "jlg-4641090-solenoid-steering",
+      "slug": "jlg-4641090-solenoid-steering",
+      "brand": "JLG",
+      "oem": "4641090",
+      "status": "apply",
+      "compPrice": 501.07,
+      "sellPrice": 476.02,
+      "compSource": "magnasource",
+      "compUrl": "https://www.magnasourceinc.com/itemdetail/JL4641090",
+      "inStockHint": "out_of_stock",
+      "tvhAligned": true,
+      "reason": null,
+      "candidateUrls": [
+        "https://www.magnasourceinc.com/itemdetail/JL4641090",
+        "https://www.magnasourceinc.com/itemdetail/4641090"
+      ],
+      "notes": "MagnaSource JL4641090 VALVE CONTROL; OEM 4641090 on page; $501.07 (list $576.23); backordered/special order."
+    },
+    {
+      "sku": "jlg-7012910-solenoid-dump",
+      "slug": "jlg-7012910-solenoid-dump",
+      "brand": "JLG",
+      "oem": "7012910",
+      "status": "apply",
+      "compPrice": 126.61,
+      "sellPrice": 120.28,
+      "compSource": "magnasource",
+      "compUrl": "https://www.magnasourceinc.com/itemdetail/JL7012910",
+      "inStockHint": "in_stock",
+      "tvhAligned": true,
+      "reason": null,
+      "candidateUrls": [
+        "https://www.magnasourceinc.com/itemdetail/JL7012910",
+        "https://www.magnasourceinc.com/itemdetail/7012910"
+      ],
+      "notes": "MagnaSource JL7012910 VALVE - CARTRIDGE; OEM 7012910 on page; $126.61; Limited Availability 1 on hand ready to ship."
+    }
+  ]
+}
