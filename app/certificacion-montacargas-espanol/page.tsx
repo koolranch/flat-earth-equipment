@@ -273,7 +273,7 @@ export default function CertificacionMontacargasEspanol() {
               </Link>
             </div>
             <div className="space-y-2">
-              <Link href="/insights/licencia-de-forklift" className="block text-blue-600 hover:text-blue-800 underline">
+              <Link href="/es/safety" className="block text-blue-600 hover:text-blue-800 underline">
                 → Guía completa: Licencia de Forklift
               </Link>
               <Link href="/training" className="block text-blue-600 hover:text-blue-800 underline">

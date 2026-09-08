@@ -425,7 +425,7 @@ export default function GenieScissorLiftErrorCodes() {
               </div>
             </Link>
             <Link
-              href="/insights/genie-lift-battery-replacement"
+              href="/battery-chargers"
               className="flex items-start gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-lg"
             >
               <span className="text-2xl" aria-hidden>
@@ -443,18 +443,6 @@ export default function GenieScissorLiftErrorCodes() {
               <div>
                 <div className="font-semibold">Genie Brand Hub</div>
                 <div className="text-sm text-slate-600">Parts, guides, and resources</div>
-              </div>
-            </Link>
-            <Link
-              href="/insights/genie-fault-code-2000-12"
-              className="flex items-start gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-lg"
-            >
-              <span className="text-2xl" aria-hidden>
-                📡
-              </span>
-              <div>
-                <div className="font-semibold">Fault Code 2000-12 (CAN Bus)</div>
-                <div className="text-sm text-slate-600">Deeper CAN communication diagnosis</div>
               </div>
             </Link>
           </div>

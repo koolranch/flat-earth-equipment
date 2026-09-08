@@ -410,7 +410,7 @@ const baseConfig = {
       // Redirect to relevant live page to capture link equity
       {
         source: '/uncategorized/future-green-material-handling',
-        destination: '/insights/future-green-material-handling',
+        destination: '/parts',
         permanent: true // 301 - Recovers backlink authority from high-DR referrers
       },
       {
@@ -599,7 +599,7 @@ const baseConfig = {
       // 10. Forklift Certification Duration - Keep insights, redirect rental
       {
         source: '/rental/forklifts/how-long-is-forklift-certification-good-for',
-        destination: '/insights/how-long-is-forklift-certification-good-for',
+        destination: '/safety',
         permanent: true
       },
       
@@ -635,17 +635,17 @@ const baseConfig = {
       },
       {
         source: '/parts/construction-equipment-parts/jcb-parts-by-serial-number',
-        destination: '/insights/jcb-parts-by-serial-number',
+        destination: '/jcb-serial-number-lookup',
         permanent: true
       },
       {
         source: '/parts/construction-equipment-parts/jcb-engine-serial-number-lookup',
-        destination: '/insights/jcb-engine-serial-number-lookup',
+        destination: '/jcb-serial-number-lookup',
         permanent: true
       },
       {
         source: '/parts/construction-equipment-parts/jcb-1400b-serial-number',
-        destination: '/insights/jcb-1400b-serial-number',
+        destination: '/jcb-serial-number-lookup',
         permanent: true
       },
       // Legacy /parts/* articles → /insights/ twins
@@ -656,12 +656,12 @@ const baseConfig = {
       },
       {
         source: '/parts/cat-p5000-throttle-control-switch-troubleshooting',
-        destination: '/insights/cat-p5000-throttle-control-switch-troubleshooting',
+        destination: '/insights/cat-forklift-fault-codes',
         permanent: true
       },
       {
         source: '/parts/nissan-forklift-idle-circuit',
-        destination: '/insights/nissan-forklift-idle-circuit',
+        destination: '/insights/e43-code-nissan-forklift',
         permanent: true
       },
       // Legacy /insights/ serial-lookup articles that were removed → live lookup pages
@@ -683,17 +683,17 @@ const baseConfig = {
       // Legacy rental / category / product paths
       {
         source: '/rental/construction-equipment-rental/john-deere-250-skid-steer',
-        destination: '/insights/john-deere-250-skid-steer',
+        destination: '/parts/construction-equipment-parts/john-deere-skid-steer-product-identification-number-lookup',
         permanent: true
       },
       {
         source: '/construction-equipment/case-1840-specs',
-        destination: '/insights/case-1840-specs',
+        destination: '/case-serial-number-lookup',
         permanent: true
       },
       {
         source: '/attachments/forklift-forks/forklift-forks-class-3',
-        destination: '/insights/forklift-forks-class-3',
+        destination: '/parts/category/forks',
         permanent: true
       },
       {
@@ -724,6 +724,498 @@ const baseConfig = {
       {
         source: '/contacts',
         destination: '/contact',
+        permanent: true
+      },
+      // 2026-09-08 — /insights/ content triage (docs/projects/insights-content-audit/2026-09-08-triage.md):
+      // removed zero-impression / duplicate posts → nearest live hub or canonical twin
+      {
+        source: '/insights/gehl-serial-number-lookup',
+        destination: '/parts/construction-equipment-parts/gehl-serial-number-lookup',
+        permanent: true
+      },
+      {
+        source: '/insights/toyota-forklift-year-by-serial-number',
+        destination: '/parts/toyota-forklift-year-by-serial-number',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-daily-inspection-checklist',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-repair-parts-ohio',
+        destination: '/parts',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-safety-standards-ohio',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/genie-fault-code-2000-12',
+        destination: '/parts/aerial-equipment/genie-scissor-lift-error-codes',
+        permanent: true
+      },
+      {
+        source: '/insights/warehouse-safety-tips',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/yale-forklift-brake-adjustment-procedure',
+        destination: '/parts?brand=Yale',
+        permanent: true
+      },
+      {
+        source: '/insights/diagnose-case-and-cat-with-one-scanner',
+        destination: '/case-serial-number-lookup',
+        permanent: true
+      },
+      {
+        source: '/insights/enhancing-forklift-performance-aftermarket-parts',
+        destination: '/parts',
+        permanent: true
+      },
+      {
+        source: '/insights/heavy-equipment-laptop-scanner-combo',
+        destination: '/insights/jaltest-vs-cat-et-for-skid-steers',
+        permanent: true
+      },
+      {
+        source: '/insights/jcb-p-0117-coolant-temperature-sensor-location-and-swap',
+        destination: '/brand/jcb/fault-codes',
+        permanent: true
+      },
+      {
+        source: '/insights/dc-to-dc-converter-48-v-to-12-v',
+        destination: '/battery-chargers',
+        permanent: true
+      },
+      {
+        source: '/insights/jcb-js-220-track-motor-floating-seal-replacement-guide',
+        destination: '/brand/jcb/fault-codes',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-training-requirements',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/safety-training-course',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/24-volt-forklift-battery-charger',
+        destination: '/battery-chargers',
+        permanent: true
+      },
+      {
+        source: '/insights/aerial-lift-certification',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/aerial-lift-training',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/battery-charger-for-golf-carts-36-v',
+        destination: '/battery-chargers',
+        permanent: true
+      },
+      {
+        source: '/insights/bent-forklift-forks',
+        destination: '/parts/category/forks',
+        permanent: true
+      },
+      {
+        source: '/insights/bms-integration-lithium-forklift-chargers',
+        destination: '/battery-chargers',
+        permanent: true
+      },
+      {
+        source: '/insights/carpet-poles-for-forklifts',
+        destination: '/parts/category/forks',
+        permanent: true
+      },
+      {
+        source: '/insights/case-1840-specs',
+        destination: '/case-serial-number-lookup',
+        permanent: true
+      },
+      {
+        source: '/insights/cat-p5000-throttle-control-switch-troubleshooting',
+        destination: '/insights/cat-forklift-fault-codes',
+        permanent: true
+      },
+      {
+        source: '/insights/changing-hydraulic-oil-toyota-7-series-forklift',
+        destination: '/toyota-forklift-serial-lookup',
+        permanent: true
+      },
+      {
+        source: '/insights/charging-electric-forklift',
+        destination: '/battery-chargers',
+        permanent: true
+      },
+      {
+        source: '/insights/crown-electric-forklift-battery-watering-guide',
+        destination: '/battery-chargers',
+        permanent: true
+      },
+      {
+        source: '/insights/crown-rc-5500-fault-code-312-fix',
+        destination: '/brand/crown/serial-lookup',
+        permanent: true
+      },
+      {
+        source: '/insights/do-skid-steers-have-titles',
+        destination: '/parts',
+        permanent: true
+      },
+      {
+        source: '/insights/electric-forklift-charging',
+        destination: '/battery-chargers',
+        permanent: true
+      },
+      {
+        source: '/insights/electric-pallet-jack-certification',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/enhancing-forklift-safety-camera-systems',
+        destination: '/parts',
+        permanent: true
+      },
+      {
+        source: '/insights/ep-forklifts',
+        destination: '/parts',
+        permanent: true
+      },
+      {
+        source: '/insights/fixing-jcb-p-0107-atmospheric-pressure-sensor-faults',
+        destination: '/brand/jcb/fault-codes',
+        permanent: true
+      },
+      {
+        source: '/insights/fork-extensions-for-forklifts',
+        destination: '/parts/category/forks',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-aerial-platforms',
+        destination: '/parts',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-and-pedestrian-safety',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-battery-chargers',
+        destination: '/battery-chargers',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-charger-module-supplier',
+        destination: '/battery-chargers',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-charging-stations',
+        destination: '/battery-chargers',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-fork-sizes',
+        destination: '/parts/category/forks',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-forks-class-3',
+        destination: '/parts/category/forks',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-forks',
+        destination: '/parts/category/forks',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-lumber-forks',
+        destination: '/parts/category/forks',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-operator-safety-training',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-osha-certification',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-parts-cold-storage-guide',
+        destination: '/parts',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-parts-online',
+        destination: '/parts',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-side-shifter',
+        destination: '/parts/category/forks',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-training-certificate-template',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/forklift-truck-charger',
+        destination: '/battery-chargers',
+        permanent: true
+      },
+      {
+        source: '/insights/future-green-material-handling',
+        destination: '/parts',
+        permanent: true
+      },
+      {
+        source: '/insights/genie-lift-battery-replacement',
+        destination: '/battery-chargers',
+        permanent: true
+      },
+      {
+        source: '/insights/how-long-does-forklift-certification-take',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/how-long-is-forklift-certification-good-for',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/how-much-is-a-forklift-license',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/how-to-become-a-forklift-operator',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/importance-forklift-chains-maintenance-safety',
+        destination: '/parts',
+        permanent: true
+      },
+      {
+        source: '/insights/jcb-1400b-serial-number',
+        destination: '/jcb-serial-number-lookup',
+        permanent: true
+      },
+      {
+        source: '/insights/jcb-3-cx-backhoe-wont-move-forward-or-reverse-solenoid-fix',
+        destination: '/brand/jcb/fault-codes',
+        permanent: true
+      },
+      {
+        source: '/insights/jcb-3-cx-steering-mode-switch-fault-crab-steer-fix',
+        destination: '/brand/jcb/fault-codes',
+        permanent: true
+      },
+      {
+        source: '/insights/jcb-4-cx-transmission-overheating-oil-cooler-and-filter-check',
+        destination: '/brand/jcb/fault-codes',
+        permanent: true
+      },
+      {
+        source: '/insights/jcb-4-cx-transmission-solenoid-shift-faults-forward-reverse-fix',
+        destination: '/brand/jcb/fault-codes',
+        permanent: true
+      },
+      {
+        source: '/insights/jcb-ad-blue-def-crystallization-cleaning-and-pump-replacement',
+        destination: '/brand/jcb/fault-codes',
+        permanent: true
+      },
+      {
+        source: '/insights/jcb-ad-blue-injector-cleaning-guide-bosch-denoxtronic-system',
+        destination: '/brand/jcb/fault-codes',
+        permanent: true
+      },
+      {
+        source: '/insights/jcb-engine-serial-number-lookup',
+        destination: '/jcb-serial-number-lookup',
+        permanent: true
+      },
+      {
+        source: '/insights/jcb-hydraulic-pump-noise-cavitation-vs-worn-bearings',
+        destination: '/brand/jcb/fault-codes',
+        permanent: true
+      },
+      {
+        source: '/insights/jcb-loadall-wont-start-immobilizer-and-keypad-bypass',
+        destination: '/brand/jcb/fault-codes',
+        permanent: true
+      },
+      {
+        source: '/insights/jcb-p-0107-atmospheric-pressure-sensor-location-and-swap',
+        destination: '/brand/jcb/fault-codes',
+        permanent: true
+      },
+      {
+        source: '/insights/jcb-parts-by-serial-number',
+        destination: '/jcb-serial-number-lookup',
+        permanent: true
+      },
+      {
+        source: '/insights/jcb-telehandler-models',
+        destination: '/jcb-serial-number-lookup',
+        permanent: true
+      },
+      {
+        source: '/insights/jlg-0060048s-actuator',
+        destination: '/parts?brand=JLG',
+        permanent: true
+      },
+      {
+        source: '/insights/john-deere-250-skid-steer',
+        destination: '/parts/construction-equipment-parts/john-deere-skid-steer-product-identification-number-lookup',
+        permanent: true
+      },
+      {
+        source: '/insights/john-deere-320-skid-steer',
+        destination: '/parts/construction-equipment-parts/john-deere-skid-steer-product-identification-number-lookup',
+        permanent: true
+      },
+      {
+        source: '/insights/joystick-codes',
+        destination: '/parts',
+        permanent: true
+      },
+      {
+        source: '/insights/licencia-de-forklift',
+        destination: '/es/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/maximizing-efficiency-on-your-site-with-toro-buggy-parts',
+        destination: '/parts',
+        permanent: true
+      },
+      {
+        source: '/insights/mewp-certification',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/nissan-forklift-idle-circuit',
+        destination: '/insights/e43-code-nissan-forklift',
+        permanent: true
+      },
+      {
+        source: '/insights/osha-forklift-inspection-checklist',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/osha-standard-for-forklift-training',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/replacement-forklift-forks',
+        destination: '/parts/category/forks',
+        permanent: true
+      },
+      {
+        source: '/insights/replacing-jcb-telehandler-wear-pads-boom-extension-guide',
+        destination: '/brand/jcb/fault-codes',
+        permanent: true
+      },
+      {
+        source: '/insights/safety-and-forklift-training',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/shaft-mounted-forks',
+        destination: '/parts/category/forks',
+        permanent: true
+      },
+      {
+        source: '/insights/the-real-cause-of-most-forklift-accidents-operator-error-and-inadequate-training',
+        destination: '/safety',
+        permanent: true
+      },
+      {
+        source: '/insights/toro-dingo-tx427',
+        destination: '/parts',
+        permanent: true
+      },
+      {
+        source: '/insights/toyota-8-fgu-25-oil-filter-cross-reference',
+        destination: '/toyota-forklift-serial-lookup',
+        permanent: true
+      },
+      {
+        source: '/insights/toyota-forklift-mast-bearing-replacement',
+        destination: '/toyota-forklift-serial-lookup',
+        permanent: true
+      },
+      {
+        source: '/insights/warehouse-equipment-forklift-parts',
+        destination: '/parts',
+        permanent: true
+      },
+      {
+        source: '/insights/what-are-forklift-forks-made-of-2',
+        destination: '/parts/category/forks',
+        permanent: true
+      },
+      {
+        source: '/insights/what-is-a-scissor-lift-used-for',
+        destination: '/parts',
+        permanent: true
+      },
+      {
+        source: '/insights/what-is-the-fuel-capacity-of-a-746b-bobcat',
+        destination: '/bobcat-serial-number-lookup',
+        permanent: true
+      },
+      {
+        source: '/insights/wyoming-telehandler-rental',
+        destination: '/rent-equipment',
+        permanent: true
+      },
+      {
+        source: '/insights/your-bobcat-serial-number-how-to-find-and-use-it',
+        destination: '/parts/construction-equipment-parts/your-bobcat-serial-number-how-to-find-and-use-it',
+        permanent: true
+      },
+      {
+        source: '/insights/zoomlion-excavator-specs',
+        destination: '/parts',
+        permanent: true
+      },
+      {
+        source: '/insights/zoomlion',
+        destination: '/parts',
         permanent: true
       }
     ];
