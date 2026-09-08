@@ -153,6 +153,12 @@ export async function sendTrainingReminderEmail(opts: {
   expiresAt?: string | null;
   /** 'gfc' switches sender + copy to Forklift Certified branding. Default: Flat Earth Safety. */
   brand?: SourceBrand;
+  /**
+   * True when the operator bought their own seat (no trainer/manager). Drops the
+   * "sent by your employer's training manager" footer and, for renewals, points
+   * at self-serve re-purchase instead of an employer-assigned seat.
+   */
+  solo?: boolean;
 }) {
   if (!key) {
     throw new Error('Missing RESEND_API_KEY environment variable');
@@ -160,6 +166,7 @@ export async function sendTrainingReminderEmail(opts: {
 
   const resend = new Resend(key);
   const isGfc = opts.brand === 'gfc';
+  const isSolo = opts.solo === true;
   const trainingUrl = isGfc
     ? 'https://app.getforkliftcertified.com/training'
     : `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.flatearthequipment.com'}/training`;
@@ -208,7 +215,16 @@ When you pass, you'll get a QR-verifiable certificate valid for 3 years.`;
         ? `Your ${opts.courseTitle} certification expires on ${new Date(opts.expiresAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}.`
         : `Your ${opts.courseTitle} certification is coming up for renewal.`;
       subject = `Your ${opts.courseTitle} certification is expiring soon`;
-      body = `${greeting}
+      body = isSolo && isGfc
+        ? `${greeting}
+
+${expiryLine} OSHA requires operators to be re-evaluated every three years, so renewing before that date keeps your certificate current with no gap.
+
+Renew in about 30 minutes for $49 — same course, updated for the current rule, new 3-year certificate and wallet card:
+https://getforkliftcertified.com/certification
+
+Use the same email address and your training history stays in one place.`
+        : `${greeting}
 
 ${expiryLine} To stay OSHA-compliant, complete your recertification before it lapses.
 
@@ -221,9 +237,12 @@ ${appBlock}`;
     }
   }
 
+  const footer = isSolo
+    ? `You're receiving this because you earned a certificate with ${isGfc ? 'Forklift Certified' : 'Flat Earth Safety'}.`
+    : "This reminder was sent by your employer's training manager.";
   const text = `${body}
 
-This reminder was sent by your employer's training manager.
+${footer}
 
 ${signature}`;
 

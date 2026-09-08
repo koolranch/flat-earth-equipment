@@ -52,9 +52,10 @@ export async function generateWalletCardPDF(input: WalletCardInput): Promise<Uin
     // Header bar with gradient effect (simulated)
     page.drawRectangle({ x: 7, y: CARD_H - 32, width: CARD_W - 14, height: 25, color: brandOrange });
     
-    // OSHA badge in corner
+    // Regulation badge in corner. Cites the rule the training satisfies; never
+    // "OSHA Certified" — OSHA does not certify operators or issue cards.
     page.drawText('OSHA', { x: 12, y: CARD_H - 20, size: 7, font: fontBold, color: rgb(1, 1, 1) });
-    page.drawText('Certified', { x: 12, y: CARD_H - 28, size: 5, font, color: rgb(1, 1, 1) });
+    page.drawText('1910.178', { x: 12, y: CARD_H - 28, size: 5, font, color: rgb(1, 1, 1) });
     
     // Title
     page.drawText('FORKLIFT OPERATOR', { x: 52, y: CARD_H - 18, size: 9, font: fontBold, color: rgb(1, 1, 1) });
