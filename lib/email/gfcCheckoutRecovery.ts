@@ -22,7 +22,7 @@ function shell(body: string): string {
       <div style="color: #64748b; font-size: 12px;">
         <p style="margin: 0;"><strong>Forklift Certified</strong> — OSHA-aligned forklift operator certification</p>
         <p style="margin: 4px 0 0 0;">getforkliftcertified.com · ${SUPPORT_EMAIL}</p>
-        <p style="margin: 10px 0 0 0;">You're getting this because you started checkout at getforkliftcertified.com. Forklift Certified is operated by Flat Earth Equipment — that's the name on your receipt and card statement.</p>
+        <p style="margin: 10px 0 0 0;">You're getting this because you started checkout at getforkliftcertified.com. Forklift Certified is a Flat Earth Equipment brand.</p>
       </div>
     </body>
     </html>
@@ -62,7 +62,7 @@ After you pay: your login arrives by email within a minute, training takes most 
 
 Questions? Reply to this email or write to ${SUPPORT_EMAIL}.
 
-Forklift Certified is operated by Flat Earth Equipment — that's the name on your receipt and card statement.`;
+Forklift Certified is a Flat Earth Equipment brand.`;
   return { subject, html, text };
 }
 
@@ -87,6 +87,6 @@ One-time payment, no subscription. The certificate has a unique ID and QR code e
 
 This is the last reminder we'll send. Questions: ${SUPPORT_EMAIL}
 
-Forklift Certified is operated by Flat Earth Equipment — that's the name on your receipt and card statement.`;
+Forklift Certified is a Flat Earth Equipment brand.`;
   return { subject, html, text };
 }

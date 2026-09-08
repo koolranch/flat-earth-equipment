@@ -702,7 +702,7 @@ export async function POST(req: NextRequest) {
                 message:
                   checkoutMode === 'subscription'
                     ? "You won't be charged today. Cancel anytime during the 7-day trial from your dashboard. Forklift Certified is operated by Flat Earth Equipment — that's the name on your receipt."
-                    : 'Instant access: your login arrives by email right after payment. Unlimited exam retakes included. Forklift Certified is operated by Flat Earth Equipment — that\'s the name on your receipt and card statement.',
+                    : 'Instant access: your login arrives by email right after payment. Unlimited exam retakes included. Your receipt comes from Flat Earth Equipment, the forklift company that issues your certificate.',
               },
             },
           }
