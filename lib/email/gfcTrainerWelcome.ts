@@ -191,6 +191,10 @@ export function generateGfcOperatorWelcomeEmail(params: {
           evaluation at your workplace. Your certificate covers the training and written
           exam — evaluation guidance is included with the course.
         </p>
+        <p style="margin: 10px 0 0 0; font-size: 13px; color: #9a3412;">
+          Need to explain it to a manager? Forward them our one-page employer guide:
+          <a href="https://getforkliftcertified.com/certification/employer-guide" style="color: #9a3412; font-weight: bold;">getforkliftcertified.com/certification/employer-guide</a>
+        </p>
       </div>
 
       <p style="font-size: 14px; color: #334155;">
