@@ -70,7 +70,50 @@ test('GFC return_base checkouts get Forklift Certified branding; FEE path does n
 
 test('trial custom_text only applies to subscription checkouts, not one-time GFC purchases', () => {
   const source = readFileSync('app/api/checkout/route.ts', 'utf8');
-  assert.match(source, /returnBase && checkoutMode === 'subscription'\s*\n?\s*\?\s*\{\s*\n?\s*custom_text/);
+  // custom_text is GFC-only, and the "won't be charged today" wording is
+  // selected by checkoutMode so a one-time $49 purchase never sees it.
+  assert.match(source, /\.\.\.\(isGfcSession\s*\n?\s*\?\s*\{\s*\n?\s*custom_text/);
+  assert.match(
+    source,
+    /checkoutMode === 'subscription'\s*\n?\s*\?\s*"You won't be charged today/,
+  );
+});
+
+test('GFC operator email prefill + 1h expiry/recovery are gated to GFC one-time training sessions', () => {
+  const source = readFileSync('app/api/checkout/route.ts', 'utf8');
+  // customer_email from the body is only read inside the GFC payment-mode guard.
+  assert.match(
+    source,
+    /isGfcSession &&\s*\n\s*checkoutMode === 'payment' &&\s*\n\s*isTrainingPurchase &&\s*\n\s*typeof body\.customer_email === 'string'/,
+  );
+  // Existing exam-unlock / ask-employer prefills win over the GFC body email.
+  assert.match(
+    source,
+    /askEmployerCustomerEmail \?\? examUnlockCustomerEmail \?\? gfcOperatorCustomerEmail/,
+  );
+  // expires_at / after_expiration only on isGfcOperatorSession, never unconditionally.
+  assert.match(source, /\.\.\.\(isGfcOperatorSession\s*\n?\s*\?\s*\{\s*\n?\s*expires_at/);
+  assert.match(source, /after_expiration: \{ recovery: \{ enabled: true/);
+  assert.equal(
+    (source.match(/expires_at:/g) || []).length,
+    1,
+    'expires_at must appear exactly once, inside the GFC operator guard',
+  );
+  assert.match(
+    source,
+    /const isGfcOperatorSession = isGfcSession && checkoutMode === 'payment' && isTrainingPurchase/,
+  );
+});
+
+test('checkout recovery module only matches GFC one-time operator sessions', () => {
+  const source = readFileSync('lib/training/checkoutRecovery.server.ts', 'utf8');
+  assert.match(source, /session\.mode === 'payment'/);
+  assert.match(source, /item_0_utm_source === 'getforkliftcertified\.com'/);
+  assert.match(source, /course_slug === 'forklift'/);
+  assert.match(source, /purchase_type !== 'extra_seats'/);
+  const webhook = readFileSync('app/api/webhooks/stripe/route.ts', 'utf8');
+  // Cancel-on-purchase is inside the isGfcCheckout guard.
+  assert.match(webhook, /if \(isGfcCheckout && isGfcOperatorCheckoutSession\(session\)\)/);
 });
 
 test('return_base success/cancel path overrides are restricted to same-site paths', () => {

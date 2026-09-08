@@ -8,6 +8,11 @@ import { createReturnLabel } from '@/lib/shippo'
 import { runAskEmployerFulfillment, shouldSuppressEmployerSideEffects } from '@/lib/training/askEmployerFulfillment'
 import { scheduleCheckoutSaleNotify } from '@/lib/telegram/notifySale'
 import { attributionFieldsFromCheckoutMetadata } from '@/lib/attribution/orderAttribution'
+import {
+  cancelGfcRecoveryFollowups,
+  handleGfcOperatorSessionExpired,
+  isGfcOperatorCheckoutSession,
+} from '@/lib/training/checkoutRecovery.server'
 
 function isoFromUnix(ts?: number | null) {
   return ts ? new Date(ts * 1000).toISOString() : null
@@ -69,6 +74,19 @@ export async function POST(req: Request) {
     event = stripe.webhooks.constructEvent(rawBody, signature, process.env.STRIPE_WEBHOOK_SECRET!)
   } catch (err) {
     return new NextResponse(`Webhook Error: ${(err as Error).message}`, { status: 400 })
+  }
+
+  // [gfc-operator-recovery] Abandoned $49 operator checkout from
+  // getforkliftcertified.com: email a Stripe recovery link. The handler
+  // itself rejects every other session type (FEE /safety, parts, GFC trials),
+  // so this branch is a no-op for existing FEE flows.
+  if (event.type === 'checkout.session.expired') {
+    const session = event.data.object as Stripe.Checkout.Session
+    const outcome = await handleGfcOperatorSessionExpired(stripe, session)
+    if (outcome.action === 'sent') {
+      console.log(`📨 GFC checkout recovery email sent for ${session.id}`)
+    }
+    return NextResponse.json({ received: true, recovery: outcome.action })
   }
 
   if (event.type === 'checkout.session.completed') {
@@ -140,6 +158,16 @@ export async function POST(req: Request) {
         if (!customerEmail) {
           console.error('❌ No customer email found in session')
           return
+        }
+
+        // [gfc-operator-recovery] A GFC $49 buyer who paid (directly or via a
+        // recovery link) must not receive the scheduled "still need your
+        // certification?" follow-up. GFC one-time sessions only; FEE /safety
+        // purchases and GFC trials skip this entirely. Never blocks fulfillment.
+        if (isGfcCheckout && isGfcOperatorCheckoutSession(session)) {
+          cancelGfcRecoveryFollowups(customerEmail).catch(err =>
+            console.error('[gfc-recovery] cancel follow-ups failed:', err)
+          )
         }
 
         // Check if user already exists

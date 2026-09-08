@@ -635,6 +635,31 @@ export async function POST(req: NextRequest) {
     // actually needs, and card/Link/wallets only (no BNPL or bank debit).
     // FEE sessions (parts cart, /safety training) keep their existing config.
     const isGfcSession = Boolean(returnBase);
+
+    // [gfc-operator-recovery] The GFC /certification page is email-first: the
+    // buyer types their email on the brand site and it is prefilled here so
+    // Stripe opens on the payment step. Only honoured for GFC-origin one-time
+    // sessions — FEE never sends `customer_email`, and the exam-unlock /
+    // ask-employer prefills above stay authoritative when present. Those same
+    // sessions expire after 1 hour with Stripe's recovery URL enabled, so the
+    // webhook can email a resume link to a buyer who walked away.
+    const GFC_OPERATOR_SESSION_TTL_SECONDS = 60 * 60;
+    let gfcOperatorCustomerEmail: string | undefined;
+    if (
+      isGfcSession &&
+      checkoutMode === 'payment' &&
+      isTrainingPurchase &&
+      typeof body.customer_email === 'string'
+    ) {
+      const candidate = body.customer_email.trim().toLowerCase();
+      if (candidate && candidate.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(candidate)) {
+        gfcOperatorCustomerEmail = candidate;
+      }
+    }
+    const isGfcOperatorSession = isGfcSession && checkoutMode === 'payment' && isTrainingPurchase;
+    const prefilledCustomerEmail =
+      askEmployerCustomerEmail ?? examUnlockCustomerEmail ?? gfcOperatorCustomerEmail ?? undefined;
+
     const sessionCreateParams: Stripe.Checkout.SessionCreateParams = {
       mode: checkoutMode,
       line_items: lineItems,
@@ -657,8 +682,14 @@ export async function POST(req: NextRequest) {
             },
           }
         : {}),
-      ...(askEmployerCustomerEmail || examUnlockCustomerEmail
-        ? { customer_email: askEmployerCustomerEmail ?? examUnlockCustomerEmail ?? undefined }
+      ...(prefilledCustomerEmail ? { customer_email: prefilledCustomerEmail } : {}),
+      // GFC operator sessions only: short TTL + recovery link for the
+      // abandoned-checkout email. FEE sessions keep Stripe's 24h default.
+      ...(isGfcOperatorSession
+        ? {
+            expires_at: Math.floor(Date.now() / 1000) + GFC_OPERATOR_SESSION_TTL_SECONDS,
+            after_expiration: { recovery: { enabled: true, allow_promotion_codes: false } },
+          }
         : {}),
       // Submit-line copy pre-empts the two hesitations we see at the payment
       // step: "what happens after I pay?" and "who is Flat Earth Equipment?"
