@@ -140,7 +140,6 @@ const STANDALONE_SERIAL_PAGES = [
 
 // Diagnostic code pages
 const DIAGNOSTIC_CODE_PAGES = [
-  '/diagnostic-codes/cat-forklift-fault-codes',
   '/diagnostic-codes/e43-code-nissan-forklift',
   '/diagnostic-codes/e-a5-1-code-on-toyota-forklift-2',
   '/diagnostic-codes/hyster-forklift-fault-codes',
@@ -219,14 +218,11 @@ const CITY_PAGES = [
 // Parts pages (high-value content)
 const PARTS_PAGES = [
   '/parts',
-  '/parts/toyota-forklift-year-by-serial-number',
   '/parts/toyota-forklift-manuals',
   '/parts/construction-equipment-parts/your-bobcat-serial-number-how-to-find-and-use-it',
-  '/parts/construction-equipment-parts/jcb-backhoe-serial-number-lookup',
   '/parts/construction-equipment-parts/new-holland-skid-steer-serial-number-lookup',
   '/parts/construction-equipment-parts/gehl-serial-number-lookup',
   '/parts/construction-equipment-parts/john-deere-skid-steer-product-identification-number-lookup',
-  '/parts/construction-equipment-parts/case-loader-serial-number-lookup',
   '/parts/aerial-equipment/genie-scissor-lift-error-codes',
   '/parts/forklift-parts/nissan-k21-forklift-engine',
   '/parts/attachments/forks',

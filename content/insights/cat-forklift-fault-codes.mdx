@@ -1,120 +1,93 @@
 ---
-title: 'Cat Forklift Fault Codes: A Comprehensive Guide to Troubleshooting'
-description: ''
+title: 'Cat Forklift Fault Codes: E-Code Table for K21/K25 IC Trucks (E43, E32, E27 and More)'
+description: 'Full E-code table for Cat GP/GC-N series forklifts with the Nissan K21/K25 engine — E-03 through E-44 — with what each code means, the usual cause, and how to clear it. Shared with Mitsubishi FG-N and UniCarriers trucks.'
 slug: cat-forklift-fault-codes
 date: '2024-10-24'
+updated: '2026-09-08'
+keywords: ["cat forklift fault codes","cat forklift error codes","cat e43 code","cat forklift e32 code","nissan k21 error codes","mitsubishi forklift error codes"]
 ---
 
+Cat internal-combustion forklifts built by Mitsubishi Caterpillar Forklift America (the GP15N–GP35N and GC15N–GC35N series, roughly 2005 onward) use the Nissan K21 or K25 engine and show engine faults on the meter panel as an **E-code**: E-21, E-32, E-43 and so on. The same engine and control module appear in Mitsubishi FG/FGC-N trucks and Nissan/UniCarriers Platinum-series trucks, so the table below applies to all three badges.
 
-Caterpillar forklifts are essential tools in many industries. Understanding their fault codes can significantly improve maintenance and safety. 
+If your truck is an electric Cat (EP or ET series, or the older 2EC/2EP), it uses a different controller and numeric code set. That family is not covered here; the codes below will not match.
 
-When a Cat forklift displays an error code, it signals specific issues that require attention. Grasping these codes allows operators and technicians to quickly diagnose problems and take necessary actions.
+## How the codes show up
 
-Fault codes help users understand machine performance and failures. Each code corresponds to a particular fault, which can range from minor issues to significant mechanical failures. 
+A current fault shows on the LCD meter panel as "E" and a two-digit number while the key is on. Most codes also switch on the engine warning lamp. Some faults put the truck in a reduced-power mode; a few (E-27, E-28, E-30) usually stop it.
 
-By interpreting these codes effectively, users can streamline troubleshooting processes and keep their equipment running smoothly.
+The code clears itself once the underlying condition is gone and the key is cycled. A stored history stays in the ECM and is read with the dealer diagnostic tool or the panel's diagnostic mode. If a code returns immediately after the key cycle, the fault is still present; if it returns days later, it is intermittent and usually a connector or harness problem.
 
-Key Takeaways
+## E-code table
 
-- Fault codes indicate specific issues needing resolution.
+<table>
+  <thead>
+    <tr>
+      <th style={{textAlign: 'left'}}>Code</th>
+      <th style={{textAlign: 'left'}}>System</th>
+      <th style={{textAlign: 'left'}}>What it means / where to look</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>E-03</strong></td><td>VCM communication</td><td>CAN bus fault between the vehicle control module and the ECM. Check power and ground at the VCM, ECM, and meter panel; look for a chafed or unplugged CAN harness.</td></tr>
+    <tr><td><strong>E-04</strong></td><td>ECM communication</td><td>Same CAN bus, seen from the other side. Usually appears with E-03. Check the OBD/maintenance connector for corrosion.</td></tr>
+    <tr><td><strong>E-05</strong></td><td>DCM communication</td><td>Display/meter module lost communication. CAN harness and meter panel connectors.</td></tr>
+    <tr><td><strong>E-07</strong></td><td>CAN bus</td><td>General bus malfunction. Treat as E-03/E-04.</td></tr>
+    <tr><td><strong>E-21</strong></td><td>Mass air flow sensor</td><td>Signal out of range. Broken wire or loose connector at the MAF on the intake tube is the usual cause; the sensor itself fails less often.</td></tr>
+    <tr><td><strong>E-22</strong></td><td>Coolant temperature sensor</td><td>Two-wire sensor on the engine. Check resistance and the connector before replacing.</td></tr>
+    <tr><td><strong>E-23</strong></td><td>Throttle position sensor</td><td>Confirm 5 V reference from the ECM to the throttle body and that the ETC relay is powered. Corrosion in the relay box is common on trucks washed regularly.</td></tr>
+    <tr><td><strong>E-24</strong></td><td>Accelerator pedal sensor</td><td>Voltage out of range, often low at idle. After repair, perform the two "key learn" procedures or the code will return.</td></tr>
+    <tr><td><strong>E-25</strong></td><td>O2 sensor</td><td>Signal circuit fault. Check the connector, then the sensor.</td></tr>
+    <tr><td><strong>E-26</strong></td><td>O2 sensor heater</td><td>Heater circuit fault. Same checks as E-25; usually the sensor.</td></tr>
+    <tr><td><strong>E-27</strong></td><td>Crankshaft position sensor</td><td>Long crank or no start. Confirm fuel pressure is correct first; if it is, test the sensor, its air gap, and the connector.</td></tr>
+    <tr><td><strong>E-28</strong></td><td>Camshaft position sensor</td><td>Produces a no-start. Sensor or wiring.</td></tr>
+    <tr><td><strong>E-29</strong></td><td>LPG fuel cut circuit</td><td>Inspect the main "C" relay and the fuel lock-off circuit.</td></tr>
+    <tr><td><strong>E-30</strong></td><td>ECM circuit</td><td>Check the main chassis ground (clean, unpainted contact), ECM power and ground, and the emergency stop switch if the truck has one. Swap the ECM with a known-good truck to confirm before buying one.</td></tr>
+    <tr><td><strong>E-31</strong></td><td>Electronic throttle control actuator</td><td>Actuator circuit fault. Inspect the ETC relay for corrosion or water intrusion.</td></tr>
+    <tr><td><strong>E-32</strong></td><td>Coolant overheat, stage 1</td><td>Coolant reached about 230°F. Radiator clogged with debris, low coolant, failed fan or belt, or an operator holding the inching pedal and loading the torque converter.</td></tr>
+    <tr><td><strong>E-33</strong></td><td>Coolant overheat, stage 2</td><td>About 275°F. Shut down and find the cooling fault before running the truck again.</td></tr>
+    <tr><td><strong>E-34</strong></td><td>Ignition signal</td><td>No voltage at the ignition coil. Verify 12 V at the coil with the key on; if present and the fault stays, coil, plug, or ECM driver.</td></tr>
+    <tr><td><strong>E-35</strong></td><td>LPG fuel injection circuit</td><td>High resistance or corrosion at the injector connectors, or a blown 5 A fuse on the injector holder assembly.</td></tr>
+    <tr><td><strong>E-36</strong></td><td>LPG fuel pressure sensor</td><td>Broken wire or loose connection at the sensor.</td></tr>
+    <tr><td><strong>E-38</strong></td><td>LPG vaporizer</td><td>Outlet pressure too high. Check the vaporizer/regulator.</td></tr>
+    <tr><td><strong>E-40</strong></td><td>Oil pressure sensor</td><td>Monitored by the meter panel; may not show as a visible fault.</td></tr>
+    <tr><td><strong>E-41</strong></td><td>Stop lamp switch</td><td>Brake switch out of adjustment. Adjust it even if the truck has no brake lights, and hold the pedal down while clearing the code.</td></tr>
+    <tr><td><strong>E-42</strong></td><td>Air/fuel ratio, gasoline</td><td>Mixture pegged full rich or full lean.</td></tr>
+    <tr><td><strong>E-43</strong></td><td>Air/fuel ratio, LPG</td><td>Mixture out of range on LPG. Check that LPG pressure is stable with the key on; then look at a dirty or restricted air filter, a stuck main LPG injector, or an intake leak.</td></tr>
+    <tr><td><strong>E-44</strong></td><td>Atmospheric pressure sensor</td><td>Broken wire or loose connection.</td></tr>
+  </tbody>
+</table>
 
-- Understanding error codes aids in quick troubleshooting.
+## The three codes people search for most
 
-- Proper knowledge can prevent costly downtime.
+**E-43 (LPG air/fuel ratio)** is the most common code on these trucks because it is downstream of several cheap parts. Work in this order: air filter (a dirty flame-retardant element on a Cat lifts the mixture rich), LPG tank valve and hose for a restriction, vaporizer outlet pressure, then the main injector. A long crank before the code appears points toward fuel pressure rather than the mixture sensors. See the [E43 diagnostic walkthrough](/insights/e43-code-nissan-forklift) for the step-by-step.
 
-Understanding Fault Codes and Diagnostic Systems
+**E-32 (coolant overheat, stage 1)** is a real temperature event, not a sensor code. Check the radiator fins first; on a Cat in a lumber yard or recycling facility the core is usually packed. Then coolant level, fan belt, fan clutch, and the thermostat. If the operator rides the inching pedal, the torque converter heats the transmission oil, which shares the cooler.
 
-Fault codes in CAT forklifts provide essential insights into the machine's operational status. These codes help diagnose issues quickly, streamlining repairs and maintenance. Understanding the types of errors and their causes can prevent costly downtime.
+**E-27 (crankshaft position sensor)** shows as an extended crank or no-start. Verify fuel pressure before condemning the sensor, because a starving engine that eventually catches produces the same symptom. If fuel is right, measure the sensor and check its wiring for chafing where the harness passes the block.
 
-Error Code Fundamentals
+## Clearing a code
 
-Error codes in CAT forklifts indicate specific issues with the machine. Each code corresponds to a function, like the **E03** code, which signifies a VCM (Vehicle Control Module) communication error. 
+Fix the cause, cycle the key, and confirm the display is clear. Codes E-24 and E-41 have their own quirks: E-24 needs the accelerator "key learn" procedures after any pedal or sensor work, and E-41 needs the brake pedal held while the code is cleared. If the same code returns with nothing else changed, the fault is still present, not a stale memory.
 
-Similarly, the **E04** code points to an ECM (Engine Control Module) communication problem. Other codes, such as **E21** and **E22**, relate to sensor error signals, indicating issues with air flow and water temperature sensors, respectively.
+## Parts that fix these codes
 
-These codes are displayed on the forklift's diagnostic screen when an error occurs. Identifying the code helps technicians narrow down the problem. Quick reference guides for each code simplify troubleshooting and support maintenance decisions.
+The fast movers are the air filter (E-43), coolant temperature sensor (E-22), throttle body/TPS (E-23), O2 sensor (E-25/26), and crank sensor (E-27). Flat Earth Equipment stocks the [Caterpillar 91B61-00912 flame-retardant air filter](/parts/caterpillar-91b61-00912-bald-air-filter) and the [Mitsubishi 32K62-00300 fuel filter/water separator](/parts/mitsubishi-32k62-00300-fuel-water-separator), plus [Caterpillar forklift parts](/parts?brand=Caterpillar) and [Mitsubishi parts](/parts?brand=Mitsubishi) by part number. For sensors and ECM-side components, [send the truck model, serial, and the E-code](/quote?equipment=Caterpillar+forklift&notes=E-code+diagnosis) and we will match the part number.
 
-Sensor and Signal Errors
+For engine-side repairs, the [Nissan K21 engine reference](/parts/forklift-parts/nissan-k21-forklift-engine) covers specifications and common wear items.
 
-Sensor and signal errors affect the performance of CAT forklifts. Codes like **E21** (Air Flow Meter Error Signal) and **E22** (Water Temperature Sensor Error Signal) show when sensors do not provide accurate data. 
+## Frequently asked questions
 
-Meanwhile, a faulty **E23** throttle sensor can limit engine performance. Additionally, errors in **E25** (O2 Sensor Error Signal) and **E26** (O2 Sensor Heater Error Signal) can disrupt emissions controls and affect engine efficiency.
+**Are Cat and Mitsubishi forklift codes the same?**
+For IC trucks with the K21/K25 engine, yes. Both are built by Mitsubishi Caterpillar Forklift America on the same platform, and the ECM code set is identical. UniCarriers/Nissan Platinum-series trucks with the same engine share it as well.
 
-Proper checks on sensor wiring and connections are critical for diagnosing these errors. Technicians must address these faults to keep the forklift running efficiently and to prevent further mechanical issues.
+**Why does my code go away and come back?**
+An intermittent code is almost always a connector or harness issue: corrosion in a relay box, a chafed wire, or a loose pin. Wiggle-test the harness with the key on and watch for the code to set.
 
-Lever and Solenoid Errors
+**Does E-43 mean the truck is unsafe to run?**
+It means the mixture is out of range. The truck will usually run, but rich operation fouls the plugs and O2 sensor and raises CO in an enclosed building. Address it promptly.
 
-Levers and solenoids play key roles in the operation of CAT forklifts. Errors like Lift Lever Neutral Error and Tilt Lever Neutral Error can prevent proper movement. 
+**What does the truck do on E-32?**
+Stage-1 overheat typically derates the engine. Stage 2 (E-33) is a shut-down condition. Do not keep operating through either.
 
-Meanwhile, codes such as **E27** (POS Sensor Error Signal) indicate problems with position sensors, while **E31** (Electronic Control Throttle Control Error Signal) shows errors in throttle control systems.
-
-Solenoid errors, such as the Lift Up and Lift Down Solenoid Errors, can directly impact lifting capabilities. Identifying the specific lever or solenoid error is crucial for proper diagnostics and ensuring that the forklift operates safely and effectively. Regular maintenance of these components can help reduce the occurrence of such errors.
-
-Troubleshooting and Resolving Errors
-
-Identifying and resolving errors in Cat forklifts is crucial for maintaining efficiency and safety. Issues often involve communication errors, sensor malfunctions, and electrical concerns. 
-
-Each type of error has specific indicators and troubleshooting steps that can be followed.
-
-Communication and Control Unit Errors
-
-Communication errors can stem from various modules in the forklift. Common types include the **ECM Communication Error**, **MP Communication Error**, and **VCM Communication Error**. 
-
-If the operator sees a communication error on the display, it usually indicates a malfunction in the electronic control module.
-
-It's essential to check all connectors and wiring for damage. Look out for loose or corroded connections. By ensuring a solid connection, the operator can resolve many communication issues. 
-
-Additionally, addressing **Memory Check Errors** may involve reprogramming or resetting the control units to restore proper communication.
-
-Common Sensor Malfunctions
-
-Sensor malfunctions can significantly impact forklift performance. Key sensors to monitor include the **Air Flow Meter Error**, **Throttle Sensor Error**, and **O2 Sensor Error**. 
-
-For example, a failed **Oil Pressure Sensor Diagnostic Result Signal** can prevent the engine from running correctly. 
-
-It's crucial to regularly inspect these sensors and replace any faulty ones. A **Speed Sensor Error** will commonly disrupt the vehicle's ability to gauge its speed, affecting overall safety. 
-
-Operators should ensure all sensors are calibrated and functioning properly to avoid compounding issues.
-
-Electrical and Voltage Concerns
-
-Electrical issues can lead to various operational problems in a Cat forklift. Common indicators include the **Battery Voltage Error** and **Stop Lamp SW Error Signal**. 
-
-If the battery voltage is too low, the forklift may fail to start or operate effectively.
-
-Operators should regularly check the battery and wiring for wear and tear. Testing the **Lift Oil Pressure Sensor** and **Spark System Error** will also help identify electrical problems. 
-
-Maintaining appropriate voltage levels is essential for the smooth functioning of all electronic systems. 
-
-**Maintain your machine's interior.** If you're seeing fault codes related to operator safety switches, check your operator seat. A worn suspension can cause intermittent switch failures. We carry premium replacements including the **[Caterpillar 91A1431010 Suspension Seat](/parts/caterpillar-seat-assembly-suspension-91a1431010)** (\$1,000.00 with FREE FREIGHT), and Toyota cloth options like the **[53730-U1162-71](/parts/toyota-seat-assembly-cloth-53730-u116271)** (\$850.00) or **[53730-U1170-71](/parts/toyota-seat-assembly-cloth-53730-u117071)** (\$765.00).
-
-When troubleshooting these errors, verifying the **Serial Number** and ensuring that all parts are compatible can aid in resolving electrical concerns.
-
-Frequently Asked Questions
-
-This section addresses common questions regarding CAT forklift error codes. Understanding these issues can help users manage and troubleshoot their equipment effectively.
-
-How can I clear error codes on a CAT forklift?
-
-To clear error codes on a CAT forklift, turn off the ignition. Wait for about 30 seconds, then restart the machine. If the code persists, consult the operator’s manual or seek assistance from a qualified technician.
-
-What does the error code E32 indicate on a CAT forklift?
-
-The error code E32 typically indicates an issue with the engine speed sensor. This sensor works closely with the engine's performance and can affect overall operation. If this code appears, it's important to check the sensor and related wiring.
-
-What does the P22 code signify in a CAT forklift system?
-
-The P22 code signals a problem with the throttle position sensor. This sensor helps regulate engine speed. If the P22 error appears, it may require inspection or replacement of the throttle position sensor.
-
-What steps are involved in resetting a CAT forklift's service codes?
-
-To reset service codes on a CAT forklift, access the service tool or monitoring system. Follow the prompts to reset the codes. It's recommended to complete a thorough inspection before resetting to ensure all issues are addressed.
-
-How do you interpret the error code E43 on a CAT forklift?
-
-The E43 error code usually points to a malfunction in the battery voltage system. This could result from low battery charge or issues with electrical connections. Proper diagnosis is necessary to resolve this error effectively.
-
-What could cause a CAT forklift to display an error code P15?
-
-The P15 error code may indicate an issue with the transmission or its components. This could stem from fluid levels being too low or other mechanical problems. It is essential to diagnose the issue properly for safe operation.
-
+**Can I read stored codes without the dealer tool?**
+Current codes display on the meter panel with the key on. Stored history requires the dealer diagnostic software or the panel's service mode, which is described in the truck's service manual for your model.

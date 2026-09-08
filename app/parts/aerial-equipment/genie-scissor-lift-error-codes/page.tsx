@@ -91,6 +91,15 @@ const CODE_PART_MAP = [
   },
 ];
 
+// E-codes and operation indicators, in display order, for the server-rendered table above the fold.
+const QUICK_TABLE_ORDER = [
+  "E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "E9", "E10", "E11", "E12", "E13", "E14", "E15", "E16", "E17", "E18", "E19", "E20",
+  "LL", "OL", "OIL", "nd", "br", "CH", "PHS",
+];
+const QUICK_TABLE_CODES = QUICK_TABLE_ORDER
+  .map((code) => genieFaultCodes.find((c) => c.code === code))
+  .filter((c): c is (typeof genieFaultCodes)[number] => Boolean(c));
+
 const quoteDiagnosticHref =
   "/quote?equipment=Genie&notes=" +
   encodeURIComponent("Genie scissor lift error code — need parts / diagnosis help");
@@ -159,6 +168,52 @@ export default function GenieScissorLiftErrorCodes() {
       />
 
       <main className="max-w-4xl mx-auto px-4 py-12">
+        <h1 className="text-4xl font-bold text-slate-900 mb-4">
+          Genie Scissor Lift Error Codes: Complete Guide
+        </h1>
+
+        <p className="text-lg text-slate-600 mb-6">
+          Genie GS-series scissor lifts (GS-1930, GS-2032, GS-2646, GS-3246, GS-4047 and related models) show faults
+          on the platform or ground display as an E-code, a two-digit DTC, or a two-letter operation indicator.
+          Match the code in the table, clear the obvious interlocks (level, overload, E-stop), then chase the sensor,
+          harness, or control part if it returns.
+        </p>
+
+        {/* Server-rendered quick table: E-codes + operation indicators */}
+        <div className="not-prose mb-10 overflow-x-auto rounded-xl border-2 border-slate-200">
+          <table className="min-w-full text-sm">
+            <caption className="sr-only">Genie scissor lift E-codes and operation indicator codes</caption>
+            <thead className="bg-slate-100 text-left">
+              <tr>
+                <th scope="col" className="px-3 py-2 font-semibold text-slate-900 whitespace-nowrap">Code</th>
+                <th scope="col" className="px-3 py-2 font-semibold text-slate-900">Meaning</th>
+                <th scope="col" className="px-3 py-2 font-semibold text-slate-900">Usual cause</th>
+                <th scope="col" className="px-3 py-2 font-semibold text-slate-900">Fix / part</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-200 bg-white">
+              {QUICK_TABLE_CODES.map((c) => (
+                <tr key={c.code} className="align-top">
+                  <td className="px-3 py-2 font-mono font-bold text-[#F76511] whitespace-nowrap">{c.code}</td>
+                  <td className="px-3 py-2 text-slate-900">{c.description}</td>
+                  <td className="px-3 py-2 text-slate-700">{c.causes}</td>
+                  <td className="px-3 py-2 text-slate-700">
+                    {c.troubleshooting}
+                    {c.relatedPart && (
+                      <>
+                        {" "}
+                        <Link href={c.relatedPart.href} className="text-[#F76511] underline underline-offset-2 whitespace-nowrap">
+                          {c.relatedPart.label}
+                        </Link>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
         {/* Featured Snippet Quick Answer Box */}
         <div className="not-prose mb-8 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-400 rounded-xl p-6 shadow-sm">
           <p className="text-sm font-semibold text-green-700 uppercase tracking-wide mb-2">Quick Answer</p>
@@ -195,7 +250,7 @@ export default function GenieScissorLiftErrorCodes() {
             <span className="text-xs font-semibold text-center">Ground Control Box</span>
           </Link>
           <Link
-            href="/parts?brand=genie"
+            href="/parts?brand=Genie"
             className="flex flex-col items-center gap-2 p-4 bg-green-50 hover:bg-green-100 border-2 border-green-200 rounded-xl transition-all"
           >
             <span className="text-2xl" aria-hidden>
@@ -241,24 +296,11 @@ export default function GenieScissorLiftErrorCodes() {
           </p>
         </div>
 
-        <h1 className="text-4xl font-bold text-slate-900 mb-4">
-          Genie Scissor Lift Error Codes: Complete Guide
-        </h1>
-
-        <p className="text-lg text-slate-600 mb-8">
-          Searchable database of common Genie error codes for scissor lifts (GS series) and boom lifts. Find your
-          code, understand the problem, and get back to work quickly.
+        {/* Searchable Code Database (full list, all categories) */}
+        <h2 className="text-2xl font-bold text-slate-900 mb-2">All {genieFaultCodes.length} codes — search by code or symptom</h2>
+        <p className="text-slate-600 mb-6">
+          DTC numbers (01–59), H-codes, OIC indicators, and boom-lift P-codes are included below along with the E-codes.
         </p>
-
-        <div className="prose prose-slate max-w-none mb-8">
-          <p>
-            Genie scissor lifts are widely used for reaching work at height safely. When a code appears, match it
-            below, clear obvious interlocks (level, overload, E-stop), then chase the related sensor, harness, or
-            control part if the fault returns.
-          </p>
-        </div>
-
-        {/* Searchable Code Database */}
         <GenieCodeBrowser />
 
         {/* Code → Parts soft-sell */}
@@ -370,7 +412,7 @@ export default function GenieScissorLiftErrorCodes() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
-              href="/parts?brand=genie"
+              href="/parts?brand=Genie"
               className="inline-flex items-center gap-2 bg-[#F76511] text-white px-8 py-3 rounded-xl font-bold hover:bg-orange-600 transition-all shadow-md"
             >
               Shop Genie Parts →

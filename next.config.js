@@ -680,6 +680,27 @@ const baseConfig = {
         destination: '/jcb-serial-number-lookup',
         permanent: true
       },
+      // 2026-09-08 — serial-lookup / fault-code URL consolidation (thin legacy pages → canonical tools/posts)
+      {
+        source: '/parts/construction-equipment-parts/case-loader-serial-number-lookup',
+        destination: '/case-serial-number-lookup',
+        permanent: true
+      },
+      {
+        source: '/parts/construction-equipment-parts/jcb-backhoe-serial-number-lookup',
+        destination: '/jcb-serial-number-lookup',
+        permanent: true
+      },
+      {
+        source: '/diagnostic-codes/cat-forklift-fault-codes',
+        destination: '/insights/cat-forklift-fault-codes',
+        permanent: true
+      },
+      {
+        source: '/parts/toyota-forklift-year-by-serial-number',
+        destination: '/toyota-forklift-serial-lookup',
+        permanent: true
+      },
       // Legacy rental / category / product paths
       {
         source: '/rental/construction-equipment-rental/john-deere-250-skid-steer',
@@ -735,7 +756,7 @@ const baseConfig = {
       },
       {
         source: '/insights/toyota-forklift-year-by-serial-number',
-        destination: '/parts/toyota-forklift-year-by-serial-number',
+        destination: '/toyota-forklift-serial-lookup',
         permanent: true
       },
       {

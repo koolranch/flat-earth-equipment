@@ -162,7 +162,8 @@ export async function fetchCatalogParts(
     query = query.or(buildSearchOrFilter(params.q));
   }
   if (params.brand) {
-    query = query.eq('brand', params.brand);
+    // Case-insensitive exact match: internal links use both `?brand=Genie` and `?brand=genie`.
+    query = query.ilike('brand', params.brand.replace(/[%_]/g, '\\$&'));
   }
   if (params.categorySlug) {
     query = query.eq('category_slug', params.categorySlug);

@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { compileMDX } from 'next-mdx-remote/rsc';
+import remarkGfm from 'remark-gfm';
 import { AmperageCalculator, QuickReferenceCard, ChargingROICalculator, LithiumChargingCalculator } from '@/components/BasicInteractiveComponents';
 import { TCOComparisonCalculator } from '@/components/TCOCalculator';
 import { BMSCompatibilityChecker } from '@/components/BMSCompatibilityChecker';
@@ -46,7 +47,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       // Try to compile as MDX first
       const result = await compileMDX({
         source: content,
-        options: { parseFrontmatter: true },
+        options: { parseFrontmatter: true, mdxOptions: { remarkPlugins: [remarkGfm] } },
         components: insightMdxComponents,
       });
       compiledContent = result.content;
@@ -99,7 +100,7 @@ export async function getMDXContent(slug: string) {
     const { data, content } = matter(fileContent);
     const { content: compiledContent } = await compileMDX({
       source: content,
-      options: { parseFrontmatter: true },
+      options: { parseFrontmatter: true, mdxOptions: { remarkPlugins: [remarkGfm] } },
       components: insightMdxComponents,
     });
 

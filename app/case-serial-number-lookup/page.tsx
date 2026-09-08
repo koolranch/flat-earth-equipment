@@ -30,6 +30,28 @@ type ApiResponse = {
   error?: string;
 };
 
+// VIN/PIN position-10 year codes (ISO 3779 cycle; I, O, Q, U, Z are never used).
+// Case Construction 17-character PINs began in the early 2000s, so a letter almost always
+// means the 2010+ cycle; digits 1–9 cover 2001–2009.
+const VIN_YEAR_CODES: { code: string; recent: number; earlier: number | null }[] = [
+  { code: "A", recent: 2010, earlier: 1980 }, { code: "B", recent: 2011, earlier: 1981 },
+  { code: "C", recent: 2012, earlier: 1982 }, { code: "D", recent: 2013, earlier: 1983 },
+  { code: "E", recent: 2014, earlier: 1984 }, { code: "F", recent: 2015, earlier: 1985 },
+  { code: "G", recent: 2016, earlier: 1986 }, { code: "H", recent: 2017, earlier: 1987 },
+  { code: "J", recent: 2018, earlier: 1988 }, { code: "K", recent: 2019, earlier: 1989 },
+  { code: "L", recent: 2020, earlier: 1990 }, { code: "M", recent: 2021, earlier: 1991 },
+  { code: "N", recent: 2022, earlier: 1992 }, { code: "P", recent: 2023, earlier: 1993 },
+  { code: "R", recent: 2024, earlier: 1994 }, { code: "S", recent: 2025, earlier: 1995 },
+  { code: "T", recent: 2026, earlier: 1996 }, { code: "V", recent: 2027, earlier: 1997 },
+  { code: "W", recent: 2028, earlier: 1998 }, { code: "X", recent: 2029, earlier: 1999 },
+  { code: "Y", recent: 2030, earlier: 2000 },
+  { code: "1", recent: 2001, earlier: null }, { code: "2", recent: 2002, earlier: null },
+  { code: "3", recent: 2003, earlier: null }, { code: "4", recent: 2004, earlier: null },
+  { code: "5", recent: 2005, earlier: null }, { code: "6", recent: 2006, earlier: null },
+  { code: "7", recent: 2007, earlier: null }, { code: "8", recent: 2008, earlier: null },
+  { code: "9", recent: 2009, earlier: null },
+];
+
 const FAQS: { q: string; a: string }[] = [
   {
     q: "Where is the serial number on a Case 580 backhoe?",
@@ -498,6 +520,54 @@ export default function CaseSerialLookupPage() {
               )}
             </div>
           )}
+
+          {/* Year-code quick table (static, server-rendered) */}
+          <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 md:p-8 mb-8">
+            <h2 className="text-2xl font-bold text-slate-900 mb-2">Case Serial Number Year Chart</h2>
+            <p className="text-slate-600 mb-4">
+              On a 17-character Case PIN, the <strong>10th character</strong> (counting from the left) is the
+              model-year code. Letters repeat every 30 years; Case Construction did not use 17-character PINs before
+              2000, so read a letter as the 2010–2030 year shown first.
+            </p>
+            <div className="overflow-x-auto rounded-xl border border-slate-200">
+              <table className="min-w-full text-sm">
+                <caption className="sr-only">Case VIN/PIN position-10 year codes</caption>
+                <thead className="bg-slate-100 text-left">
+                  <tr>
+                    <th scope="col" className="px-3 py-2 font-semibold text-slate-900">Code</th>
+                    <th scope="col" className="px-3 py-2 font-semibold text-slate-900">Model year</th>
+                    <th scope="col" className="px-3 py-2 font-semibold text-slate-900">Code</th>
+                    <th scope="col" className="px-3 py-2 font-semibold text-slate-900">Model year</th>
+                    <th scope="col" className="px-3 py-2 font-semibold text-slate-900">Code</th>
+                    <th scope="col" className="px-3 py-2 font-semibold text-slate-900">Model year</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-200 bg-white">
+                  {Array.from({ length: 10 }).map((_, row) => (
+                    <tr key={row}>
+                      {[0, 10, 20].map((offset) => {
+                        const entry = VIN_YEAR_CODES[row + offset];
+                        if (!entry) return <td key={offset} colSpan={2} className="px-3 py-2" />;
+                        return (
+                          <td key={offset} colSpan={2} className="px-3 py-2 whitespace-nowrap">
+                            <span className="inline-block w-6 font-mono font-bold text-amber-800">{entry.code}</span>
+                            <span className="text-slate-900">{entry.recent}</span>
+                            {entry.earlier && <span className="text-slate-400"> / {entry.earlier}</span>}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="text-xs text-slate-500 mt-3">
+              Older 9-character serials use a year prefix instead: <span className="font-mono">N4C</span> = 2004,
+              <span className="font-mono"> N5C</span> = 2005 … <span className="font-mono">N9C</span> = 2009. Pre-2000
+              Case machines carry a plain sequential serial; use the model and serial break on the parts-book
+              microfiche, or run the decoder above with the model filled in.
+            </p>
+          </div>
 
           {/* How It Works */}
           <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-8 mb-8">

@@ -400,29 +400,6 @@ export default function ToyotaLookupPage() {
         </div>
       </section>
 
-      {/* Comprehensive Guide Callout */}
-      <div className="bg-gradient-to-r from-slate-50 to-gray-50 border border-slate-200 rounded-lg p-6 mt-8">
-        <div className="flex items-start gap-4">
-          <div className="bg-slate-600 p-2 rounded-lg flex-shrink-0">
-            <Search className="h-6 w-6 text-white" />
-          </div>
-          <div>
-            <h3 className="text-xl font-bold text-slate-900 mb-2">📖 Need More Detail?</h3>
-            <p className="text-slate-700 mb-4">
-              For detailed serial number location guides, manual lookup tables, and comprehensive model information, 
-              check out our complete reference guide.
-            </p>
-            <Link 
-              href="/parts/toyota-forklift-year-by-serial-number"
-              className="inline-flex items-center gap-2 bg-slate-600 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition font-semibold"
-            >
-              <Search className="h-4 w-4" />
-              View Complete Serial Number Guide
-            </Link>
-          </div>
-        </div>
-      </div>
-
       {/* Related Links */}
       <div className="bg-white border border-slate-200 rounded-lg p-8 mt-8">
         <h2 className="text-2xl font-bold text-slate-900 mb-6">Related Resources</h2>
