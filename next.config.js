@@ -608,6 +608,123 @@ const baseConfig = {
         source: '/rental/forklifts/how-old-must-you-be-to-operate-a-forklift-2',
         destination: '/insights/how-old-must-you-be-to-operate-a-forklift-2',
         permanent: true
+      },
+
+      // 2026-09-08 — legacy URLs that still earned GSC clicks (May 2025 → Sep 2026)
+      // but were returning 404. Recover equity onto the live equivalents.
+      // Legacy /parts/construction-equipment-parts/* articles → /insights/ twins
+      {
+        source: '/parts/construction-equipment-parts/jcb-telehandler-cabin-filter-location',
+        destination: '/insights/jcb-telehandler-cabin-filter-location',
+        permanent: true
+      },
+      {
+        source: '/parts/construction-equipment-parts/jcb-excavator-serial-number-location',
+        destination: '/insights/jcb-excavator-serial-number-location',
+        permanent: true
+      },
+      {
+        source: '/parts/construction-equipment-parts/jcb-3cx-serial-numbers',
+        destination: '/insights/jcb-3cx-serial-numbers',
+        permanent: true
+      },
+      {
+        source: '/parts/construction-equipment-parts/jcb-telehandler-serial-number-location-2',
+        destination: '/insights/jcb-telehandler-serial-number-location-2',
+        permanent: true
+      },
+      {
+        source: '/parts/construction-equipment-parts/jcb-parts-by-serial-number',
+        destination: '/insights/jcb-parts-by-serial-number',
+        permanent: true
+      },
+      {
+        source: '/parts/construction-equipment-parts/jcb-engine-serial-number-lookup',
+        destination: '/insights/jcb-engine-serial-number-lookup',
+        permanent: true
+      },
+      {
+        source: '/parts/construction-equipment-parts/jcb-1400b-serial-number',
+        destination: '/insights/jcb-1400b-serial-number',
+        permanent: true
+      },
+      // Legacy /parts/* articles → /insights/ twins
+      {
+        source: '/parts/cat-p5000-e31-error-code',
+        destination: '/insights/cat-p5000-e31-error-code',
+        permanent: true
+      },
+      {
+        source: '/parts/cat-p5000-throttle-control-switch-troubleshooting',
+        destination: '/insights/cat-p5000-throttle-control-switch-troubleshooting',
+        permanent: true
+      },
+      {
+        source: '/parts/nissan-forklift-idle-circuit',
+        destination: '/insights/nissan-forklift-idle-circuit',
+        permanent: true
+      },
+      // Legacy /insights/ serial-lookup articles that were removed → live lookup pages
+      {
+        source: '/insights/new-holland-skid-steer-serial-number-lookup',
+        destination: '/parts/construction-equipment-parts/new-holland-skid-steer-serial-number-lookup',
+        permanent: true
+      },
+      {
+        source: '/insights/case-loader-serial-number-lookup',
+        destination: '/case-serial-number-lookup',
+        permanent: true
+      },
+      {
+        source: '/insights/jcb-backhoe-serial-number-lookup',
+        destination: '/jcb-serial-number-lookup',
+        permanent: true
+      },
+      // Legacy rental / category / product paths
+      {
+        source: '/rental/construction-equipment-rental/john-deere-250-skid-steer',
+        destination: '/insights/john-deere-250-skid-steer',
+        permanent: true
+      },
+      {
+        source: '/construction-equipment/case-1840-specs',
+        destination: '/insights/case-1840-specs',
+        permanent: true
+      },
+      {
+        source: '/attachments/forklift-forks/forklift-forks-class-3',
+        destination: '/insights/forklift-forks-class-3',
+        permanent: true
+      },
+      {
+        source: '/parts/forklift-parts/2000-12-can-bus-code-2',
+        destination: '/parts/aerial-equipment/genie-scissor-lift-error-codes',
+        permanent: true
+      },
+      {
+        source: '/product/forklift-charger-module-6la20671',
+        destination: '/charger-modules/enersys-6la20671',
+        permanent: true
+      },
+      {
+        source: '/parts/mitsubishi-fg25n-engine',
+        destination: '/parts?brand=Mitsubishi',
+        permanent: true
+      },
+      {
+        source: '/parts/forklift-parts/ty53720-u2231-71',
+        destination: '/parts?brand=Toyota',
+        permanent: true
+      },
+      {
+        source: '/bozeman-mt',
+        destination: '/locations',
+        permanent: true
+      },
+      {
+        source: '/contacts',
+        destination: '/contact',
+        permanent: true
       }
     ];
   },

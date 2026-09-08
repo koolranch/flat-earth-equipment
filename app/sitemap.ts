@@ -12,43 +12,30 @@ import * as path from "path";
 const BASE = "https://www.flatearthequipment.com";
 
 /**
- * Read all MDX blog post slugs from content/insights/ at build time.
- * Files in subdirectories (e.g. rental/, chargers/, construction-equipment-parts/)
- * map to the same /insights/{slug} route since the route handler resolves them.
+ * Read MDX blog post slugs from content/insights/ at build time.
+ *
+ * Only top-level files are included: `getBlogPost` in lib/mdx.ts resolves
+ * `content/insights/{slug}.mdx` directly, so files in subdirectories
+ * (rental/, chargers/, "forklift parts"/, …) are legacy imports that do NOT
+ * render at /insights/{slug}. Listing them produced ~50 sitemap URLs that 404.
  */
 function getAllInsightSlugs(): Array<{ slug: string; mtime: Date }> {
   const insightsDir = path.resolve(process.cwd(), "content/insights");
   const slugs: Array<{ slug: string; mtime: Date }> = [];
 
-  function walk(dir: string) {
-    const entries = fs.readdirSync(dir, { withFileTypes: true });
-    for (const entry of entries) {
-      const full = path.join(dir, entry.name);
-      if (entry.isDirectory()) {
-        walk(full);
-      } else if (entry.isFile() && entry.name.endsWith(".mdx")) {
-        // The slug is just the filename without .mdx (subdirectories are
-        // organizational only — the route handler ignores them).
-        const slug = entry.name.replace(/\.mdx$/, "");
-        const stat = fs.statSync(full);
-        slugs.push({ slug, mtime: stat.mtime });
-      }
-    }
-  }
-
   try {
-    walk(insightsDir);
+    const entries = fs.readdirSync(insightsDir, { withFileTypes: true });
+    for (const entry of entries) {
+      if (!entry.isFile() || !entry.name.endsWith(".mdx")) continue;
+      const slug = entry.name.replace(/\.mdx$/, "");
+      const stat = fs.statSync(path.join(insightsDir, entry.name));
+      slugs.push({ slug, mtime: stat.mtime });
+    }
   } catch (e) {
-    console.warn("Sitemap: failed to walk content/insights:", e);
+    console.warn("Sitemap: failed to read content/insights:", e);
   }
 
-  // De-duplicate by slug (keep the most recently modified version)
-  const map = new Map<string, Date>();
-  for (const s of slugs) {
-    const existing = map.get(s.slug);
-    if (!existing || s.mtime > existing) map.set(s.slug, s.mtime);
-  }
-  return Array.from(map.entries()).map(([slug, mtime]) => ({ slug, mtime }));
+  return slugs;
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
