@@ -660,10 +660,17 @@ export async function POST(req: NextRequest) {
     const prefilledCustomerEmail =
       askEmployerCustomerEmail ?? examUnlockCustomerEmail ?? gfcOperatorCustomerEmail ?? undefined;
 
+    // Stripe Tax needs a full billing address to calculate, which puts an
+    // address form in front of the pay button. The account is registered for
+    // sales tax in Colorado only, and the $49 web course is a digital service,
+    // so for the GFC operator session we skip automatic tax: Stripe then asks
+    // for card details plus ZIP and nothing else. Any Colorado liability on
+    // those sales is absorbed from the $49 (see finance notes). Parts carts,
+    // FEE /safety training, and GFC employer subscriptions still run Stripe Tax.
     const sessionCreateParams: Stripe.Checkout.SessionCreateParams = {
       mode: checkoutMode,
       line_items: lineItems,
-      automatic_tax: { enabled: true },
+      automatic_tax: { enabled: !isGfcOperatorSession },
       ...(referralPromoCodeId
         ? { discounts: [{ promotion_code: referralPromoCodeId }] }
         : { allow_promotion_codes: !isGfcSession }),

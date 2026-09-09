@@ -103,6 +103,11 @@ test('GFC operator email prefill + 1h expiry/recovery are gated to GFC one-time 
     source,
     /const isGfcOperatorSession = isGfcSession && checkoutMode === 'payment' && isTrainingPurchase/,
   );
+  // Stripe Tax (and therefore the billing-address form) is skipped only for
+  // the GFC $49 operator session. Every other session — parts, FEE /safety,
+  // GFC employer subscriptions — keeps automatic tax on.
+  assert.match(source, /automatic_tax: \{ enabled: !isGfcOperatorSession \}/);
+  assert.equal((source.match(/automatic_tax:/g) || []).length, 1);
 });
 
 test('checkout recovery module only matches GFC one-time operator sessions', () => {
