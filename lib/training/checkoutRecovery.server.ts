@@ -7,6 +7,7 @@ import {
   gfcCheckoutRecoveryFirstEmail,
   gfcCheckoutRecoverySecondEmail,
 } from '@/lib/email/gfcCheckoutRecovery';
+import { nextDaytimeSlot } from '@/lib/training/sendWindow';
 
 /**
  * Abandoned-checkout recovery for GFC $49 operator sessions.
@@ -18,6 +19,15 @@ import {
  * nothing in this module can touch those flows.
  */
 
+/**
+ * Timing:
+ *  - First email goes out immediately on expiry (about an hour after the
+ *    abandon), whatever the clock says. The buyer was awake and shopping an
+ *    hour ago; recovery odds decay fast and this is the email that recovers.
+ *  - The follow-up targets ~24h later but is snapped into a daytime window
+ *    (see sendWindow.ts) so a midnight abandon doesn't get its second nudge
+ *    at midnight, buried under overnight spam.
+ */
 const FOLLOWUP_DELAY_MS = 23 * 60 * 60 * 1000; // ~24h after the 1h expiry
 const DEDUPE_WINDOW_MS = 24 * 60 * 60 * 1000;
 
@@ -100,7 +110,7 @@ export async function handleGfcOperatorSessionExpired(
       return { action: 'skipped', reason: 'send_failed' };
     }
 
-    const followupAt = new Date(Date.now() + FOLLOWUP_DELAY_MS);
+    const followupAt = nextDaytimeSlot(new Date(Date.now() + FOLLOWUP_DELAY_MS));
     const second = gfcCheckoutRecoverySecondEmail({ recoveryUrl });
     const secondResult = await resend.emails.send({
       from: GFC_EMAIL_FROM,
