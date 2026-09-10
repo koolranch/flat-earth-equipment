@@ -29,7 +29,7 @@ test('checkout: no-card trial params apply only to GFC subscription sessions wit
   assert.match(checkoutSource, /missing_payment_method: 'pause' as const/);
   assert.equal((checkoutSource.match(/trial_settings/g) || []).length, 1);
   // Operator ($49) and FEE sessions keep their existing tax + card behaviour.
-  assert.match(checkoutSource, /automatic_tax: \{ enabled: !isGfcOperatorSession \}/);
+  assert.match(checkoutSource, /automatic_tax: \{ enabled: !isGfcOperatorSession && !isGfcNoCardTrial \}/);
 });
 
 test('webhook: syncs pause/resume events, sends trial-ending notice, resumes on card added', () => {

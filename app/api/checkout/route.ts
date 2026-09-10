@@ -673,12 +673,16 @@ export async function POST(req: NextRequest) {
     // sales tax in Colorado only, and the $49 web course is a digital service,
     // so for the GFC operator session we skip automatic tax: Stripe then asks
     // for card details plus ZIP and nothing else. Any Colorado liability on
-    // those sales is absorbed from the $49 (see finance notes). Parts carts,
-    // FEE /safety training, and GFC employer subscriptions still run Stripe Tax.
+    // those sales is absorbed from the $49 (see finance notes). The same applies
+    // to GFC no-card trials: with Stripe Tax on, a $0 trial still demands a
+    // full billing address before "Start trial". Tax is switched on for that
+    // subscription later, once a card (and with it an address) exists — see
+    // enableAutomaticTaxIfPossible. Parts carts, FEE /safety training, and
+    // FEE's own subscription plan still run Stripe Tax at checkout.
     const sessionCreateParams: Stripe.Checkout.SessionCreateParams = {
       mode: checkoutMode,
       line_items: lineItems,
-      automatic_tax: { enabled: !isGfcOperatorSession },
+      automatic_tax: { enabled: !isGfcOperatorSession && !isGfcNoCardTrial },
       ...(referralPromoCodeId
         ? { discounts: [{ promotion_code: referralPromoCodeId }] }
         : { allow_promotion_codes: !isGfcSession }),

@@ -62,9 +62,62 @@ export async function subscriptionHasPaymentMethod(
 }
 
 /**
+ * No-card trial checkouts run without Stripe Tax (a $0 trial would otherwise
+ * demand a full billing address up front). Once the customer has a payment
+ * method, try to switch automatic tax on for the subscription so the first
+ * real invoice is taxed. Stripe needs a customer address for that; if the
+ * card's billing address is all we have, copy it onto the customer first.
+ * Best effort: any failure leaves tax off (absorbed, like the $49 sessions).
+ */
+export async function enableAutomaticTaxIfPossible(
+  stripe: Stripe,
+  subscription: Stripe.Subscription,
+): Promise<boolean> {
+  if (subscription.automatic_tax?.enabled) return true;
+  const customerId = paymentMethodId(subscription.customer);
+  if (!customerId) return false;
+
+  try {
+    const customer = await stripe.customers.retrieve(customerId);
+    if (customer.deleted) return false;
+
+    let hasAddress = Boolean(customer.address?.country && customer.address?.postal_code);
+    if (!hasAddress) {
+      const pmId =
+        paymentMethodId(subscription.default_payment_method) ||
+        paymentMethodId(customer.invoice_settings?.default_payment_method);
+      if (!pmId) return false;
+      const pm = await stripe.paymentMethods.retrieve(pmId);
+      const billing = pm.billing_details?.address;
+      if (!billing?.country || !billing.postal_code) return false;
+      await stripe.customers.update(customerId, {
+        address: {
+          country: billing.country,
+          postal_code: billing.postal_code,
+          ...(billing.state ? { state: billing.state } : {}),
+          ...(billing.city ? { city: billing.city } : {}),
+          ...(billing.line1 ? { line1: billing.line1 } : {}),
+          ...(billing.line2 ? { line2: billing.line2 } : {}),
+        },
+      });
+      hasAddress = true;
+    }
+    if (!hasAddress) return false;
+
+    await stripe.subscriptions.update(subscription.id, { automatic_tax: { enabled: true } });
+    return true;
+  } catch (err) {
+    console.warn(`[trial] could not enable automatic tax on ${subscription.id}:`, err);
+    return false;
+  }
+}
+
+/**
  * Resume a trial that Stripe paused for a missing payment method, once a
  * payment method exists. Billing starts immediately (new cycle anchored now):
  * the free trial was already used up, so the first charge is for the plan.
+ * Also the point where a still-trialing subscription that just got a card
+ * has tax enabled (see enableAutomaticTaxIfPossible).
  */
 export async function resumePausedTrialIfPayable(
   stripe: Stripe,
@@ -72,6 +125,10 @@ export async function resumePausedTrialIfPayable(
 ): Promise<TrialBillingState> {
   const subscription = await stripe.subscriptions.retrieve(subscriptionId);
   const hasPaymentMethod = await subscriptionHasPaymentMethod(stripe, subscription);
+
+  if (hasPaymentMethod && (subscription.status === 'trialing' || subscription.status === 'paused')) {
+    await enableAutomaticTaxIfPossible(stripe, subscription);
+  }
 
   if (subscription.status !== 'paused' || !hasPaymentMethod) {
     return {
@@ -147,7 +204,8 @@ export async function trialRosterProgress(
 
 /**
  * Webhook helper: a payment method was attached to (or set as default on)
- * `customerId`. Resume any of that customer's paused GFC trial orders.
+ * `customerId`. Resume any of that customer's paused GFC trial orders, and
+ * enable tax on still-trialing ones that now have a card.
  * Returns the subscription ids that were resumed.
  */
 export async function resumePausedTrialsForCustomer(
@@ -160,7 +218,7 @@ export async function resumePausedTrialsForCustomer(
     .select('id, stripe_subscription_id')
     .eq('stripe_customer_id', customerId)
     .eq('source_brand', 'gfc')
-    .eq('subscription_status', 'paused')
+    .in('subscription_status', ['paused', 'trialing'])
     .not('stripe_subscription_id', 'is', null);
 
   if (error) {
