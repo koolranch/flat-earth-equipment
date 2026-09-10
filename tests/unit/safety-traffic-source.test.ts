@@ -73,10 +73,14 @@ test('trial custom_text only applies to subscription checkouts, not one-time GFC
   // custom_text is GFC-only, and the "won't be charged today" wording is
   // selected by checkoutMode so a one-time $49 purchase never sees it.
   assert.match(source, /\.\.\.\(isGfcSession\s*\n?\s*\?\s*\{\s*\n?\s*custom_text/);
+  // Both subscription variants (no-card trial / card trial) sit under the
+  // subscription branch; the payment branch is the "Instant access" copy.
   assert.match(
     source,
-    /checkoutMode === 'subscription'\s*\n?\s*\?\s*"You won't be charged today/,
+    /checkoutMode === 'subscription'\s*\n?\s*\?\s*isGfcNoCardTrial\s*\n?\s*\?\s*`No card needed to start/,
   );
+  assert.match(source, /:\s*"You won't be charged today/);
+  assert.match(source, /:\s*'Instant access:/);
 });
 
 test('GFC operator email prefill + 1h expiry/recovery are gated to GFC one-time training sessions', () => {

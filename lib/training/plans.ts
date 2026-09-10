@@ -91,7 +91,7 @@ export const SUBSCRIPTION_PLANS = {
     callout: undefined,
     checkoutMode: 'subscription',
     billingLabel: '/month',
-    trialDays: 7,
+    trialDays: 14,
   },
   crewAnnual: {
     id: 'crew_annual',
@@ -108,7 +108,7 @@ export const SUBSCRIPTION_PLANS = {
     callout: 'Save $198 vs monthly',
     checkoutMode: 'subscription',
     billingLabel: '/year',
-    trialDays: 7,
+    trialDays: 14,
   },
   facilityMonthly: {
     id: 'facility_monthly',
@@ -125,7 +125,7 @@ export const SUBSCRIPTION_PLANS = {
     callout: undefined,
     checkoutMode: 'subscription',
     billingLabel: '/month',
-    trialDays: 7,
+    trialDays: 14,
   },
 } as const;
 

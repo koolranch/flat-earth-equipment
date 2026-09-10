@@ -153,7 +153,7 @@ function generateTrainerWelcomeEmail(
 
 export async function POST(req: Request) {
   try {
-    const { email, name, password, courseTitle, isTrainer, seatCount, isAnnualPlan, brand, planId, trialDays } = await req.json()
+    const { email, name, password, courseTitle, isTrainer, seatCount, isAnnualPlan, brand, planId, trialDays, noCard } = await req.json()
     
     if (!email || !password || !courseTitle) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
@@ -170,6 +170,7 @@ export async function POST(req: Request) {
         password,
         planId: String(planId || ''),
         trialDays: Number(trialDays) || 0,
+        noCard: noCard === true,
       })
 
       await sendMail({

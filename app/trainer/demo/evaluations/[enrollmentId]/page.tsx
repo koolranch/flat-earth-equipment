@@ -164,7 +164,7 @@ export default async function DemoEvaluationPage({ params }: { params: { enrollm
           href={TRIAL_URL}
           className="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#F76511] px-5 py-3 text-sm font-semibold text-white hover:bg-[#E55A0C] transition-colors"
         >
-          Start 7-day free trial
+          Start free trial — no card needed
         </a>
       </section>
     </main>

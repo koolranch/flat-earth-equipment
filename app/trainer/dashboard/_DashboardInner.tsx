@@ -31,6 +31,12 @@ type SeatsInfo = {
   remainingLabel: string;
 };
 type RemindState = 'sending' | 'sent' | 'already_sent' | 'error';
+type TrialInfo = {
+  status: string;
+  has_payment_method: boolean;
+  trial_end: string | null;
+  resumed: boolean;
+};
 
 const COURSE_LABELS: Record<string, string> = {
   forklift: 'Forklift Operator',
@@ -69,6 +75,7 @@ export default function DashboardInner() {
   const [former, setFormer] = useState<Row[]>([]);
   const [removing, setRemoving] = useState<Record<string, boolean>>({});
   const [addSeatsOrderId, setAddSeatsOrderId] = useState<string | null>(null);
+  const [trialInfo, setTrialInfo] = useState<TrialInfo | null>(null);
   const autoOpenedAssign = useRef(false);
 
   const [q, setQ] = useState('');
@@ -148,6 +155,10 @@ export default function DashboardInner() {
           });
           const extendable = j.items.find((order: any) => order.can_add_seats);
           setAddSeatsOrderId(extendable ? extendable.order_id : null);
+          // Most recent order carrying trial state (trialing, or paused after a
+          // no-card trial). Orders come back newest first.
+          const trialOrder = j.items.find((order: any) => order.trial);
+          setTrialInfo(trialOrder ? (trialOrder.trial as TrialInfo) : null);
         }
       }
     } catch (e) {
@@ -271,6 +282,8 @@ export default function DashboardInner() {
           <AddSeatsButton orderId={addSeatsOrderId} prominent={seatsInfo.remaining === 0} />
         )}
       </header>
+
+      {trialInfo && <TrialBanner trial={trialInfo} />}
 
       {/* Unified stats band */}
       {(seatsInfo || total > 0) && (
@@ -650,11 +663,7 @@ function AddSeatsButton({ orderId, prominent }: { orderId: string; prominent?: b
   );
 }
 
-/**
- * Self-serve Stripe customer portal (update card, switch plan, cancel).
- * Marketing copy promises "cancel from your dashboard"; this is that path.
- */
-function ManageBillingLink() {
+function useBillingPortal() {
   const [busy, setBusy] = useState(false);
 
   async function open() {
@@ -677,6 +686,16 @@ function ManageBillingLink() {
     setBusy(false);
   }
 
+  return { busy, open };
+}
+
+/**
+ * Self-serve Stripe customer portal (update card, switch plan, cancel).
+ * Marketing copy promises "cancel from your dashboard"; this is that path.
+ */
+function ManageBillingLink() {
+  const { busy, open } = useBillingPortal();
+
   return (
     <button
       type="button"
@@ -686,6 +705,78 @@ function ManageBillingLink() {
     >
       {busy ? 'Opening billing…' : 'Manage billing & plan'}
     </button>
+  );
+}
+
+/**
+ * Trial state for no-card employer trials. Three states:
+ *  - trialing, no card: add a card before the end date to keep the roster
+ *  - trialing, card on file: billing starts on the end date, cancel anytime
+ *  - paused (trial lapsed without a card): add a card to reactivate
+ * Adding the card happens in the Stripe customer portal; /api/trainer/orders
+ * resumes a paused subscription on the next load once a card exists.
+ */
+function TrialBanner({ trial }: { trial: TrialInfo }) {
+  const { busy, open } = useBillingPortal();
+  const end = trial.trial_end ? new Date(trial.trial_end) : null;
+  const endLabel = end && !Number.isNaN(end.getTime())
+    ? end.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })
+    : null;
+  const daysLeft = end ? Math.max(0, Math.ceil((end.getTime() - Date.now()) / 86400000)) : null;
+
+  if (trial.resumed) {
+    return (
+      <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 text-sm text-emerald-900">
+        <strong>Welcome back — your plan is active again.</strong> Your roster, evaluations, and certificates are exactly where you left them.
+      </div>
+    );
+  }
+
+  if (trial.status === 'paused') {
+    return (
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-900">
+        <p className="m-0">
+          <strong>Your free trial ended{endLabel ? ` ${endLabel}` : ''}.</strong> Your roster and records are saved.
+          Add a card to pick up where you left off — operators regain exam access and you can invite and issue certificates again.
+        </p>
+        <button
+          type="button"
+          onClick={open}
+          disabled={busy}
+          className="inline-flex items-center rounded-lg bg-[#F76511] px-4 py-2 font-semibold text-white hover:bg-[#E55A0C] disabled:opacity-60"
+        >
+          {busy ? 'Opening billing…' : 'Add a card & reactivate'}
+        </button>
+      </div>
+    );
+  }
+
+  if (trial.status !== 'trialing') return null;
+
+  if (!trial.has_payment_method) {
+    return (
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-900">
+        <p className="m-0">
+          <strong>Free trial{daysLeft !== null ? ` — ${daysLeft} day${daysLeft === 1 ? '' : 's'} left` : ''}.</strong>{' '}
+          No card on file, so nothing is billed. To keep your roster and certificates after{endLabel ? ` ${endLabel}` : ' the trial'}, add a card any time — you can cancel from this page.
+        </p>
+        <button
+          type="button"
+          onClick={open}
+          disabled={busy}
+          className="inline-flex items-center rounded-lg border border-amber-400 bg-white px-4 py-2 font-semibold text-amber-900 hover:border-[#F76511] hover:text-[#F76511] disabled:opacity-60"
+        >
+          {busy ? 'Opening billing…' : 'Add a card'}
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-3 text-sm text-slate-700">
+      <strong>Free trial{daysLeft !== null ? ` — ${daysLeft} day${daysLeft === 1 ? '' : 's'} left` : ''}.</strong>{' '}
+      Your plan starts billing{endLabel ? ` on ${endLabel}` : ' when the trial ends'}. Cancel anytime from <span className="whitespace-nowrap">Manage billing &amp; plan</span>.
+    </div>
   );
 }
 

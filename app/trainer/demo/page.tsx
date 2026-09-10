@@ -172,7 +172,7 @@ export default async function TrainerDemoPage() {
           href={TRIAL_URL}
           className="inline-flex items-center gap-2 rounded-lg bg-[#F76511] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#E55A0C] transition-colors"
         >
-          Start 7-day free trial
+          Start free trial — no card needed
         </a>
       </div>
 
@@ -324,13 +324,13 @@ export default async function TrainerDemoPage() {
         <p className="mx-auto mt-2 max-w-xl text-sm text-slate-500">
           Invite operators, track progress, record OSHA practical evaluations, and export a
           one-click audit pack. Seats are reusable when your crew changes. $99/month for up
-          to 10 operators, 7-day free trial.
+          to 10 operators, 14-day free trial, no card needed.
         </p>
         <a
           href={TRIAL_URL}
           className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#F76511] px-5 py-3 text-sm font-semibold text-white hover:bg-[#E55A0C] transition-colors"
         >
-          Start 7-day free trial
+          Start free trial — no card needed
         </a>
       </section>
     </main>

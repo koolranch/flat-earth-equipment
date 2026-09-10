@@ -2,6 +2,12 @@ import { NextResponse } from 'next/server';
 import { supabaseService } from '@/lib/supabase/service.server';
 import { getOrderSeatSummary } from '@/lib/training/orderEntitlements';
 import { getAuthUser } from '@/lib/supabase/mobile-auth';
+import { stripe } from '@/lib/payments/stripeServer';
+import {
+  resumePausedTrialIfPayable,
+  syncOrderFromSubscription,
+  type TrialBillingState,
+} from '@/lib/training/trialSubscription.server';
 
 export const dynamic = 'force-dynamic';
 
@@ -41,8 +47,35 @@ export async function GET(req: Request) {
     (claims || []).forEach((c: any) => { seatMap[c.order_id] = seatMap[c.order_id] || { claimed: 0 }; seatMap[c.order_id].claimed += 1; });
   }
 
+  // Trial billing state (GFC no-card trials). Only orders currently in a trial
+  // or paused after one hit Stripe; paused orders with a freshly added card
+  // are resumed here so the dashboard is right the moment the trainer returns
+  // from the customer portal, even if the webhook is a few seconds behind.
+  const trialState: Record<string, TrialBillingState> = {};
+  for (const o of orders || []) {
+    const order = o as any;
+    if (!order.stripe_subscription_id) continue;
+    if (order.subscription_status !== 'trialing' && order.subscription_status !== 'paused') continue;
+    try {
+      const state = await resumePausedTrialIfPayable(stripe, order.stripe_subscription_id);
+      trialState[order.id] = state;
+      if (state.resumed || state.status !== order.subscription_status) {
+        await syncOrderFromSubscription(svc, stripe, order.stripe_subscription_id);
+        order.subscription_status = state.status;
+        if (state.resumed) {
+          // Resumed just now: treat as active for this response.
+          order.ended_at = null;
+          order.current_period_end = null;
+        }
+      }
+    } catch (err) {
+      console.error(`Trial state lookup failed for order ${order.id}:`, err);
+    }
+  }
+
   const rows = (orders || []).map((o: any) => {
     const summary = getOrderSeatSummary(o, seatMap[o.id]?.claimed || 0);
+    const trial = trialState[o.id];
     return {
       order_id: o.id,
       course_slug: o.course_slug || 'forklift_operator',
@@ -57,6 +90,16 @@ export async function GET(req: Request) {
       can_add_seats: !summary.isUnlimited && summary.active && !!o.stripe_subscription_id,
       cancel_at_period_end: !!o.cancel_at_period_end,
       current_period_end: o.current_period_end || null,
+      subscription_status: o.subscription_status || null,
+      // Present only while trialing / paused-after-trial (see above).
+      trial: trial
+        ? {
+            status: trial.status,
+            has_payment_method: trial.hasPaymentMethod,
+            trial_end: trial.trialEnd,
+            resumed: trial.resumed,
+          }
+        : null,
       amount_cents: o.amount_cents || 0,
       created_at: o.created_at
     };

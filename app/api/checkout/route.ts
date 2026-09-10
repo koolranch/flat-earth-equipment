@@ -100,7 +100,7 @@ export async function POST(req: NextRequest) {
             );
           }
           checkoutMode = 'subscription';
-          // Optional free trial, plan-driven via metadata (e.g. Crew = 7 days).
+          // Optional free trial, plan-driven via metadata (e.g. Crew = 14 days).
           const trialDays = Number(item.metadata?.trial_days);
           if (Number.isInteger(trialDays) && trialDays > 0 && trialDays <= 30) {
             subscriptionTrialDays = trialDays;
@@ -657,6 +657,14 @@ export async function POST(req: NextRequest) {
       }
     }
     const isGfcOperatorSession = isGfcSession && checkoutMode === 'payment' && isTrainingPurchase;
+    // GFC employer trials (Crew / Facility) collect no card up front. Stripe
+    // pauses the subscription if the trial ends without a payment method; the
+    // trainer adds a card from the dashboard (customer portal) and
+    // lib/training/trialSubscription.server.ts resumes it on the same order,
+    // so the roster and records survive a lapse. FEE's own subscription plan
+    // (Facility annual on /safety) has no trial and still requires a card.
+    const isGfcNoCardTrial =
+      isGfcSession && checkoutMode === 'subscription' && subscriptionTrialDays > 0;
     const prefilledCustomerEmail =
       askEmployerCustomerEmail ?? examUnlockCustomerEmail ?? gfcOperatorCustomerEmail ?? undefined;
 
@@ -686,9 +694,13 @@ export async function POST(req: NextRequest) {
               ...(subscriptionTrialDays > 0
                 ? { trial_period_days: subscriptionTrialDays }
                 : {}),
+              ...(isGfcNoCardTrial
+                ? { trial_settings: { end_behavior: { missing_payment_method: 'pause' as const } } }
+                : {}),
             },
           }
         : {}),
+      ...(isGfcNoCardTrial ? { payment_method_collection: 'if_required' as const } : {}),
       ...(prefilledCustomerEmail ? { customer_email: prefilledCustomerEmail } : {}),
       // GFC operator sessions only: short TTL + recovery link for the
       // abandoned-checkout email. FEE sessions keep Stripe's 24h default.
@@ -708,7 +720,9 @@ export async function POST(req: NextRequest) {
               submit: {
                 message:
                   checkoutMode === 'subscription'
-                    ? "You won't be charged today. Cancel anytime during the 7-day trial from your dashboard. Forklift Certified is operated by Flat Earth Equipment — that's the name on your receipt."
+                    ? isGfcNoCardTrial
+                      ? `No card needed to start. Your ${subscriptionTrialDays}-day free trial begins now and nothing is ever billed unless you add a card from your dashboard to keep the plan. Forklift Certified is operated by Flat Earth Equipment.`
+                      : "You won't be charged today. Cancel anytime during the trial from your dashboard. Forklift Certified is operated by Flat Earth Equipment — that's the name on your receipt."
                     : 'Instant access: your login arrives by email right after payment. Unlimited exam retakes included. Your receipt comes from Flat Earth Equipment, the forklift company that issues your certificate.',
               },
             },

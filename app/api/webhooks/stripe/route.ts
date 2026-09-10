@@ -13,6 +13,13 @@ import {
   handleGfcOperatorSessionExpired,
   isGfcOperatorCheckoutSession,
 } from '@/lib/training/checkoutRecovery.server'
+import {
+  resumePausedTrialsForCustomer,
+  subscriptionHasPaymentMethod,
+  trialRosterProgress,
+} from '@/lib/training/trialSubscription.server'
+import { generateGfcTrialEndingEmail, GFC_EMAIL_FROM } from '@/lib/email/gfcTrainerWelcome'
+import { sendMail } from '@/lib/email/mailer'
 
 function isoFromUnix(ts?: number | null) {
   return ts ? new Date(ts * 1000).toISOString() : null
@@ -32,7 +39,46 @@ async function fetchSubscriptionSnapshot(stripe: Stripe, subscriptionId?: string
     current_period_end: isoFromUnix(subscription.current_period_end),
     cancel_at_period_end: subscription.cancel_at_period_end,
     ended_at: isoFromUnix(subscription.ended_at),
+    // Not persisted: only decides the welcome-email wording for no-card trials.
+    has_payment_method: await subscriptionHasPaymentMethod(stripe, subscription),
   }
+}
+
+/**
+ * Three days before a GFC trial ends: tell the manager whether billing starts
+ * or the account pauses (no card). FEE has no trials, so non-GFC orders and
+ * subscriptions with no local order are ignored.
+ */
+async function sendGfcTrialEndingNotice(
+  supabase: ReturnType<typeof supabaseService>,
+  stripe: Stripe,
+  subscription: Stripe.Subscription
+) {
+  const { data: order } = await supabase
+    .from('orders')
+    .select('id, user_id, source_brand')
+    .eq('stripe_subscription_id', subscription.id)
+    .maybeSingle()
+  if (!order || order.source_brand !== 'gfc' || !subscription.trial_end) return { skipped: 'not_gfc_trial' }
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('email, full_name')
+    .eq('id', order.user_id)
+    .maybeSingle()
+  if (!profile?.email) return { skipped: 'no_email' }
+
+  const progress = await trialRosterProgress(supabase, order.id)
+  const email = generateGfcTrialEndingEmail({
+    firstName: (profile.full_name || '').split(' ')[0] || 'there',
+    trialEndsAt: new Date(subscription.trial_end * 1000),
+    hasCard: await subscriptionHasPaymentMethod(stripe, subscription),
+    operatorsInvited: progress.invited,
+    operatorsCertified: progress.certified,
+  })
+  const result = await sendMail({ to: profile.email, from: GFC_EMAIL_FROM, subject: email.subject, html: email.html })
+  if (!result.ok) console.error('❌ Trial-ending email failed:', result)
+  return { sent: result.ok }
 }
 
 async function syncSubscriptionOrderState(
@@ -258,6 +304,7 @@ export async function POST(req: Request) {
                   brand: 'gfc',
                   planId: session.metadata?.plan_id || '',
                   trialDays: parseInt(session.metadata?.item_0_trial_days || '0'),
+                  noCard: subscriptionSnapshot ? !subscriptionSnapshot.has_payment_method : false,
                 }),
               })
             })
@@ -822,11 +869,40 @@ export async function POST(req: Request) {
     }
   }
 
-  if (event.type === 'customer.subscription.updated' || event.type === 'customer.subscription.deleted') {
+  if (
+    event.type === 'customer.subscription.updated' ||
+    event.type === 'customer.subscription.deleted' ||
+    event.type === 'customer.subscription.paused' ||
+    event.type === 'customer.subscription.resumed'
+  ) {
     const subscription = event.data.object as Stripe.Subscription
     const supabase = supabaseService()
     await syncSubscriptionOrderState(supabase, stripe, subscription.id)
     return NextResponse.json({ received: true, synced: subscription.id })
+  }
+
+  if (event.type === 'customer.subscription.trial_will_end') {
+    const subscription = event.data.object as Stripe.Subscription
+    const supabase = supabaseService()
+    const result = await sendGfcTrialEndingNotice(supabase, stripe, subscription)
+    return NextResponse.json({ received: true, trial_notice: result })
+  }
+
+  // No-card trial reactivation: the trainer added a card in the customer
+  // portal. Resume any paused GFC trial on that customer (same order).
+  if (event.type === 'payment_method.attached' || event.type === 'customer.updated') {
+    const object = event.data.object as Stripe.PaymentMethod | Stripe.Customer
+    const customerId =
+      object.object === 'payment_method'
+        ? typeof object.customer === 'string'
+          ? object.customer
+          : object.customer?.id || null
+        : object.id
+    if (customerId) {
+      const supabase = supabaseService()
+      const resumed = await resumePausedTrialsForCustomer(supabase, stripe, customerId)
+      return NextResponse.json({ received: true, resumed })
+    }
   }
 
   if (event.type === 'invoice.paid' || event.type === 'invoice.payment_failed') {
