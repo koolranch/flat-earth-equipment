@@ -215,8 +215,17 @@ function rubberTrackImageLink(slug: string): string {
   const base = existsSync(localPath)
     ? `${SITE_URL}/images/parts/tracks/${slug}.jpg`
     : RUBBER_TRACK_HERO_IMAGE;
-  return `${base}?v=${TRACK_IMAGE_CACHE_BUST}`;
+  const bust = TRACK_IMAGE_CACHE_BUST_BY_SLUG[slug] ?? TRACK_IMAGE_CACHE_BUST;
+  return `${base}?v=${bust}`;
 }
+
+/** Per-slug bump when a track JPG is replaced with real product photography. */
+const TRACK_IMAGE_CACHE_BUST_BY_SLUG: Record<string, string> = {
+  // 400x86x49 C-pattern (vendor SY400X86X49C) — reworked product photo 2026-09-10
+  "bobcat-t190-rubber-track-400x86x49": "20260910",
+  "bobcat-t550-rubber-track-400x86x49": "20260910",
+  "bobcat-t590-rubber-track-400x86x49": "20260910",
+};
 
 /** Bump when a glass JPG is replaced so Merchant recrawls the same path. */
 const GLASS_IMAGE_CACHE_BUST: Record<string, string> = {
