@@ -74,6 +74,7 @@ interface ProductDetailsProps {
     stripe_product_id?: string | null;
     stripe_price_id?: string | null;
     sales_type?: string | null;
+    is_in_stock?: boolean | null;
     has_core_charge?: boolean;
     core_charge?: number;
     category?: string;
@@ -291,13 +292,19 @@ export default function ProductDetails({
         )}
       </div>
       {isRubberTrack && (
-        <p className="text-sm text-slate-600 mb-4">
+        <p className="text-sm text-slate-600 mb-2">
           <span className="font-semibold text-slate-900">
             ${lineTotal.toFixed(2)} delivered
           </span>{' '}
           for {quantity === 2 ? 'a pair' : 'one track'} — free shipping and{' '}
           {warrantyMonths ? `${warrantyMonths / 12}-year warranty` : 'warranty'} included.
           Many sellers add $150+ freight at checkout.
+        </p>
+      )}
+      {isRubberTrack && part.is_in_stock !== false && (
+        <p className="mb-4 flex items-center gap-1.5 text-sm font-medium text-green-700">
+          <span className="inline-block h-2 w-2 rounded-full bg-green-500" aria-hidden />
+          In stock — ships from a US warehouse within 1 business day.
         </p>
       )}
       {hasFreeFreight && !isRubberTrack && (
@@ -354,6 +361,21 @@ export default function ProductDetails({
           </svg>
           {formatWarrantyLabel(warrantyMonths)}
         </span>
+      )}
+      {isRubberTrack && (
+        <Link
+          href="/returns"
+          className="inline-flex items-center gap-1.5 bg-slate-50 border border-slate-200 text-slate-700 text-sm font-semibold px-3 py-1.5 rounded-full hover:border-slate-300"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              fillRule="evenodd"
+              d="M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+              clipRule="evenodd"
+            />
+          </svg>
+          30-Day Returns
+        </Link>
       )}
     </div>
   );
