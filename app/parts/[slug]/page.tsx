@@ -410,6 +410,13 @@ function buildPartMetaTitle(customerName: string, product: {
       ? ' | Same-Day Ship'
       : '';
   // Keep under ~60–65 chars when possible; Google truncates longer titles.
+  // Rubber-track titles that carry an OEM cross-ref must keep the PN visible —
+  // drop the ship suffix rather than chopping "Replaces 7316759".
+  if (product.category === 'Rubber Tracks' && /replaces\s+\d/i.test(customerName)) {
+    return customerName.length <= 70
+      ? customerName
+      : truncateDescription(customerName, 70).replace(/\.\.\.$/, '');
+  }
   const withBrand = `${customerName}${shipSuffix}`;
   if (withBrand.length <= 60) return withBrand;
   if (`${customerName}`.length <= 60) return customerName;
