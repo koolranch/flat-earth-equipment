@@ -223,6 +223,65 @@ export default function ProductDetails({
     partMetadata.free_freight === 'true' ||
     seatFreeFreight;
 
+  // Same metadata shape the cart page forwards to /api/checkout — freight_cents,
+  // free_freight, and category_slug drive the server-side freight line.
+  const checkoutItemMetadata = {
+    ...(part.weight_lbs ? { weight_lbs: part.weight_lbs } : {}),
+    ...(partMetadata.freight_cents != null
+      ? { freight_cents: partMetadata.freight_cents }
+      : {}),
+    ...(wholesaleCostUsd != null ? { cost_wholesale: wholesaleCostUsd } : {}),
+    ...(hasFreeFreight ? { free_freight: true } : {}),
+    ...(partMetadata.is_glass_accessory === true ||
+    partMetadata.is_glass_accessory === 'true'
+      ? { is_glass_accessory: true }
+      : {}),
+    ...(part.category_slug ? { category_slug: part.category_slug } : {}),
+  };
+
+  const [buyingNow, setBuyingNow] = useState(false);
+
+  // Direct Stripe checkout for one-SKU purchases (rubber tracks): same
+  // items payload the cart page sends to /api/checkout, minus the cart hop.
+  const handleBuyNow = async () => {
+    if (isQuoteOnly || buyingNow) return;
+    const item = selected || part;
+    if (!item.stripe_price_id) {
+      console.error('No stripe_price_id available for item:', item);
+      return;
+    }
+    setBuyingNow(true);
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items: [
+            {
+              priceId: item.stripe_price_id,
+              quantity,
+              coreCharge: item.has_core_charge ? item.core_charge : undefined,
+              metadata: checkoutItemMetadata,
+              name: part.name,
+              category: part.category,
+              price: item.price,
+            },
+          ],
+        }),
+      });
+      const data = await response.json();
+      if (data?.url) {
+        window.location.href = data.url;
+        return;
+      }
+      throw new Error(data?.error || 'No checkout URL returned');
+    } catch (err) {
+      console.error('Buy now checkout error:', err);
+      toast.error('Checkout failed — try Add to Cart instead.');
+      setBuyingNow(false);
+    }
+  };
+
   const handleAddToCart = () => {
     if (isQuoteOnly) return;
     const item = selected || part;
@@ -240,19 +299,7 @@ export default function ProductDetails({
       image_url: part.image_url,
       category: part.category,
       quantity,
-      metadata: {
-        ...(part.weight_lbs ? { weight_lbs: part.weight_lbs } : {}),
-        ...(partMetadata.freight_cents != null
-          ? { freight_cents: partMetadata.freight_cents }
-          : {}),
-        ...(wholesaleCostUsd != null ? { cost_wholesale: wholesaleCostUsd } : {}),
-        ...(hasFreeFreight ? { free_freight: true } : {}),
-        ...(partMetadata.is_glass_accessory === true ||
-        partMetadata.is_glass_accessory === 'true'
-          ? { is_glass_accessory: true }
-          : {}),
-        ...(part.category_slug ? { category_slug: part.category_slug } : {}),
-      },
+      metadata: checkoutItemMetadata,
     });
 
     toast.success('Added to cart', {
@@ -570,7 +617,35 @@ export default function ProductDetails({
               )}
               {quantitySelector}
               {variantSelector}
-              <div className="pt-1">{addToCartButton}</div>
+              {isQuoteOnly ? (
+                <div className="pt-1">{addToCartButton}</div>
+              ) : (
+                <div className="pt-1 space-y-2">
+                  <button
+                    type="button"
+                    onClick={handleBuyNow}
+                    disabled={buyingNow}
+                    className="w-full bg-canyon-rust hover:bg-orange-700 disabled:opacity-60 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-150 flex items-center justify-center gap-2 min-h-[48px]"
+                  >
+                    {buyingNow
+                      ? 'Starting secure checkout…'
+                      : `Buy Now — $${lineTotal.toFixed(2)}`}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleAddToCart}
+                    className="w-full border-2 border-slate-300 hover:border-slate-400 text-slate-800 font-semibold py-3 px-6 rounded-lg transition-colors duration-150 flex items-center justify-center gap-2 min-h-[48px]"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+                    </svg>
+                    Add to Cart
+                  </button>
+                  <p className="text-center text-xs text-slate-500">
+                    Secure Stripe checkout · card, Apple Pay, Google Pay
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 
@@ -688,10 +763,11 @@ export default function ProductDetails({
               </div>
               <button
                 type="button"
-                onClick={handleAddToCart}
-                className="shrink-0 bg-canyon-rust hover:bg-orange-700 text-white font-semibold py-3 px-5 rounded-lg min-h-[48px]"
+                onClick={isQuoteOnly ? handleAddToCart : handleBuyNow}
+                disabled={buyingNow}
+                className="shrink-0 bg-canyon-rust hover:bg-orange-700 disabled:opacity-60 text-white font-semibold py-3 px-5 rounded-lg min-h-[48px]"
               >
-                Add to Cart
+                {buyingNow ? 'One moment…' : 'Buy Now'}
               </button>
             </div>
           </div>
