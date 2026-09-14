@@ -1,9 +1,9 @@
 # Charger Modules — Status
 
-**Last updated:** 2026-09-07  
-**Active phase:** Phase 3 — win `6la20671` on Enersys SKU URL (**URL flip sticky** at #17 for 2nd week)  
+**Last updated:** 2026-09-14  
+**Active phase:** Phase 3 — win `6la20671` on Enersys SKU URL (**URL flip sticky** at #17 for 3rd week; ACT 36 PN also flipped)  
 **Deployed SEO recovery:** `b18f77e3` (2026-07-07) live on production  
-**Program commit:** Phases 1–4 code live; weekly rank monitor continues; Aug 10 de-cannibalize live; Aug 17 + Aug 31 snapshots backfilled onto branch
+**Program commit:** Phases 1–4 code live; weekly rank monitor continues; Aug 10 de-cannibalize live; Aug 17/Aug 31/Sep 7 snapshots backfilled onto branch
 
 ## Phase checklist
 
@@ -12,32 +12,32 @@
 | 0 Foundation | ✅ | SSR schema, SKU pages, duplicate 301, weekly automation + secrets tested |
 | 1 Measurement | ✅ code | GA4 `view_item` / `add_to_cart` / `begin_checkout` + charger_* events; price ID list script |
 | 2 Conversion | ✅ code | Sticky CTA on SKU, core deposit math above fold, PN links on hub, repair prepaid claim removed |
-| 3 Win `6la20671` | 🔄 **sticky** | Hub ItemList-only live; `6la20671` holds `/charger-modules/enersys-6la20671` at #17 (Aug 31 + Sep 7) |
+| 3 Win `6la20671` | 🔄 **sticky** | Hub ItemList-only live; `6la20671` holds Enersys SKU at #17 (Aug 31 + Sep 7 + Sep 14); `81063658r` now on ACT 36 SKU |
 | 4 Expand | ✅ partial | Hyster 4092995 linked from hub/SKU; fleet quote `generate_lead` event. **Paid ads deferred** until organic + conversion baseline |
 
-## Rank snapshot (Google US) — 2026-09-07 DataForSEO
+## Rank snapshot (Google US) — 2026-09-14 DataForSEO
 
-| Keyword | Aug 31 | Sep 7 | Winning URL | Notes |
-|---------|------:|------:|-------------|-------|
-| `6la20671` | #17 | **#17** = | `/charger-modules/enersys-6la20671` | **Phase 3 URL flip sticky** — not hub |
-| `81063658r` | #2 | **#2** = | `/charger-modules` | Strong rank; **still hub, not** `/charger-modules/act-quantum-36vdc` |
-| `81063577r` | #2 | **#2** = | `/charger-modules/act-quantum-48vdc` | Protect; canonical SKU URL |
-| `81063578r` | #2 | **#2** = | `/charger-modules/act-quantum-80vdc` | URL recovered from legacy `/parts/...-repair` → canonical SKU |
-| `act quantum charger module` | out | API err | — | Single keyword partial-results error (no retry; &lt;3 errors) |
-| `hawker charger module` | #42 | **#45** ↓ | `/charger-modules` | Soft slip; still hub (not Hawker SKU) |
-| `forklift battery charger module` | #113 | **#76** ↑ | `/charger-modules` | Hub head-term recovery into top 100 |
-| `forklift charger module repair` | API err | **#56** NEW | `/charger-modules` | Recovered after prior API errors |
+| Keyword | Sep 7 | Sep 14 | Winning URL | Notes |
+|---------|------:|-------:|-------------|-------|
+| `6la20671` | #17 | **#17** = | `/charger-modules/enersys-6la20671` | **Phase 3 URL flip sticky** — 3rd consecutive week; not hub |
+| `81063658r` | #2 | **#2** = | `/charger-modules/act-quantum-36vdc` | **URL flip hub → SKU** (was hub on Sep 7) |
+| `81063577r` | #2 | API err | — | Internal SE Server Error (no retry; &lt;3 errors) |
+| `81063578r` | #2 | **#2** = | `/charger-modules/act-quantum-80vdc` | Protect; canonical SKU URL |
+| `act quantum charger module` | API err | **#29** NEW | `/charger-modules/act-quantum-36vdc` | Recovered into top 30 on ACT 36 SKU |
+| `hawker charger module` | #45 | **#45** = | `/charger-modules` | Flat; still hub (not Hawker SKU) |
+| `forklift battery charger module` | #76 | **#75** ↑ | `/battery-chargers` | Soft rank win; URL drifted off hub → battery-chargers |
+| `forklift charger module repair` | #56 | API err | — | Internal SE Server Error (no retry; &lt;3 errors) |
 | `enersys battery charger` | out | out | — | Deprioritize (OEM-owned) |
-| `hyster 4092995 charger` | API err | **#57** NEW | `/parts?category=Battery+Chargers&page=3` | Rank returned; wrong URL (filter page, not PDP) |
+| `hyster 4092995 charger` | #57 | **#42** ↑ | `/charger-modules` | Rank win; still wrong URL (hub, not reman PDP) |
 
-Source: DataForSEO via `scripts/seo/charger-rank-check.ts` → `scripts/seo/rank-snapshots/charger/2026-09-07.json`.  
-Prior compare: `2026-08-31.json` (restored from commit `9633c5c2`; prior Monday STATUS PRs had not fully landed on `main`).  
-**API errors:** 1 keyword (`act quantum charger module`). Retry threshold is **more than 3** — no retry this week.
+Source: DataForSEO via `scripts/seo/charger-rank-check.ts` → `scripts/seo/rank-snapshots/charger/2026-09-14.json`.  
+Prior compare: `2026-09-07.json` (restored from commit `dcb3cd77`; prior Monday STATUS PRs had not fully landed on `main`).  
+**API errors:** 2 keywords (`forklift charger module repair`, `81063577r`). Retry threshold is **more than 3** — no retry this week. Partial run for those two.
 
 ### Wins / losses / `6la20671` URL check
 
-- **Wins:** `6la20671` stays on `/charger-modules/enersys-6la20671` at **#17** (2nd consecutive week); `81063578r` URL fixed to `/charger-modules/act-quantum-80vdc`; hub head terms `forklift battery charger module` #113→**#76** and `forklift charger module repair` →**#56**; ACT 48/36 hold **#2**.
-- **Losses:** Soft slip `hawker charger module` #42→**#45** (hub); `act quantum charger module` unmeasured (API err); Hyster keyword lands on a catalog filter URL, not the reman PDP.
+- **Wins:** `6la20671` stays on `/charger-modules/enersys-6la20671` at **#17** (3rd consecutive week); `81063658r` flips hub → **`/charger-modules/act-quantum-36vdc`** at #2; `act quantum charger module` returns at **#29** on ACT 36 SKU; Hyster keyword #57→**#42**; hub head term #76→**#75**; ACT 80 holds **#2**.
+- **Losses / gaps:** `81063577r` and repair head term unmeasured (API err); `hawker charger module` still hub; Hyster still not on reman PDP; `forklift battery charger module` now lands on `/battery-chargers` instead of hub.
 - **`6la20671` landing URL:** **`/charger-modules/enersys-6la20671`** (Enersys SKU) — **not** the hub. Phase 3 primary goal remains met.
 
 ## Unit economics (confirmed by Christopher, 2026-08-23)
@@ -64,14 +64,14 @@ Prior compare: `2026-08-31.json` (restored from commit `9633c5c2`; prior Monday 
 
 ## Open blockers / needs from Christopher
 
-1. **Preferred this week:** GSC URL Inspection + Request indexing on `/charger-modules/act-quantum-36vdc` — `81063658r` is still #2 on the hub (same de-cannibalize pattern that flipped `6la20671`).  
-2. Optional: confirm last 90 days charger order revenue (Stripe filter via `npx tsx scripts/seo/charger-revenue-baseline.ts`).  
-3. Optional Phase 4b: Google Ads Search on proven PNs only — **do not launch** until GA4 purchase path is verified.  
-4. Repair inbound freight: copy no longer promises prepaid labels; confirm FSIP process if you later want to re-add that claim.
+1. Optional: confirm last 90 days charger order revenue (Stripe filter via `npx tsx scripts/seo/charger-revenue-baseline.ts`) before any Phase 4 expand.  
+2. Optional Phase 4b: Google Ads Search on proven PNs only — **do not launch** until GA4 purchase path is verified.  
+3. Repair inbound freight: copy no longer promises prepaid labels; confirm FSIP process if you later want to re-add that claim.  
+4. Soft watch: `forklift battery charger module` winning URL drifted to `/battery-chargers` — do not retarget without evidence of lost clicks.
 
 ## Next action (exactly one — Phase 3)
 
-**Christopher: GSC URL Inspection + Request indexing on `/charger-modules/act-quantum-36vdc`** so Google can flip `81063658r` from hub → SKU the same way `6la20671` flipped to Enersys. Do not expand keywords, do not deploy; Enersys URL stickiness is confirmed — remaining Phase 3 URL gap is ACT 36V.
+**Watch next Monday’s rank run** for stickiness of both URL flips: (1) `6la20671` still on `/charger-modules/enersys-6la20671`, (2) `81063658r` still on `/charger-modules/act-quantum-36vdc`. If both hold, mark Phase 3 complete. Do not expand keywords, do not deploy; no GSC action required this week (ACT 36 flip already landed).
 
 ## Decision log
 
@@ -87,3 +87,4 @@ Prior compare: `2026-08-31.json` (restored from commit `9633c5c2`; prior Monday 
 | 2026-08-17 | Hub ItemList-only confirmed live; `6la20671` still hub (#18); keep monitoring |
 | 2026-08-31 | `6la20671` flips to Enersys SKU (#17); next = GSC inspect ACT 36V; confirm stickiness |
 | 2026-09-07 | `6la20671` Enersys URL sticky at #17; `81063578r` back on canonical SKU; still chase `81063658r` hub→SKU via GSC |
+| 2026-09-14 | `6la20671` Enersys sticky #17 (3rd week); `81063658r` flipped hub→ACT 36 SKU; next = confirm both sticky then close Phase 3 |
