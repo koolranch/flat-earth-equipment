@@ -100,6 +100,59 @@ export function generateGfcTrialEndingEmail(params: {
   return { subject, html };
 }
 
+/**
+ * Day-2 nudge for GFC employer trials that still have an empty roster.
+ * One send, from the same no-reply address as welcome / trial-ending.
+ * FEE /safety and GFC $49 solos never hit this template.
+ */
+export function generateGfcTrialInviteNudgeEmail(params: {
+  firstName: string;
+}): { subject: string; html: string } {
+  const firstName = params.firstName || 'there';
+  const subject = 'Invite one operator to start';
+
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <title>${subject}</title>
+    </head>
+    <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 20px;">
+      <p style="font-size: 15px;">Hi ${firstName},</p>
+      <p style="font-size: 15px;">
+        Your trial is open, but nobody is training yet.
+      </p>
+      <p style="font-size: 15px;">
+        Invite one person. They finish the course on their phone in under 30 minutes.
+        If they leave later, you reuse the seat.
+      </p>
+
+      <div style="text-align: center; margin: 26px 0;">
+        <a href="${GFC_DASHBOARD_URL}"
+           style="display: inline-block; background: ${BRAND_ORANGE}; color: white; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-size: 16px; font-weight: bold;">
+          Invite an operator
+        </a>
+      </div>
+
+      <p style="font-size: 14px; color: #334155;">
+        Questions: write to
+        <a href="mailto:${GFC_SUPPORT_EMAIL}" style="color: ${BRAND_ORANGE};">${GFC_SUPPORT_EMAIL}</a>.
+      </p>
+
+      <hr style="border: none; height: 1px; background: #e2e8f0; margin: 28px 0;">
+
+      <div style="text-align: center; color: #64748b; font-size: 12px;">
+        <p style="margin: 0;"><strong>Forklift Certified</strong> is a Flat Earth Equipment brand</p>
+        <p style="margin: 4px 0 0 0;">getforkliftcertified.com · ${GFC_SUPPORT_EMAIL}</p>
+      </div>
+    </body>
+    </html>
+  `;
+
+  return { subject, html };
+}
+
 export function generateGfcTrainerWelcomeEmail(params: {
   firstName: string;
   email: string;

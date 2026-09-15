@@ -26,6 +26,9 @@
   }, {
     "path": "/api/cron/reactivation?run=pm",
     "schedule": "30 22 * * 1"
+  }, {
+    "path": "/api/cron/trial-invite-nudge",
+    "schedule": "0 15 * * 1-5"
   }],
   "headers": [
     {
