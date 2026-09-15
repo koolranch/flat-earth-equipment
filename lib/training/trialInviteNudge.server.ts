@@ -20,6 +20,10 @@ export type NudgeOrder = {
   created_at: string;
 };
 
+type ProfileRow = { id: string; email: string | null; full_name: string | null };
+type InviteRow = { order_id: string | null; created_by: string };
+type ClaimRow = { order_id: string };
+
 /**
  * GFC employer trials only. FEE /safety (null brand), GFC $49 solos
  * (no subscription, one seat), and paid/paused/canceled subs are out.
@@ -117,12 +121,11 @@ export async function runTrialInviteNudge(svc: OrdersClient, now = new Date()) {
   const profiles = profilesRes.data;
 
   const sentIds = new Set((alreadySent || []).map((row: { order_id: string }) => row.order_id));
-  const profileById = new Map(
-    (profiles || []).map((profile: { id: string; email: string | null; full_name: string | null }) => [
-      profile.id,
-      profile,
-    ]),
+  const profileById = new Map<string, ProfileRow>(
+    ((profiles || []) as ProfileRow[]).map((profile) => [profile.id, profile]),
   );
+  const inviteRows = (invites || []) as InviteRow[];
+  const claimRows = (claims || []) as ClaimRow[];
 
   let sent = 0;
   let skipped = 0;
@@ -132,7 +135,7 @@ export async function runTrialInviteNudge(svc: OrdersClient, now = new Date()) {
       skipped += 1;
       continue;
     }
-    if (trainerHasStartedInvites(order, invites || [], claims || [])) {
+    if (trainerHasStartedInvites(order, inviteRows, claimRows)) {
       skipped += 1;
       continue;
     }
