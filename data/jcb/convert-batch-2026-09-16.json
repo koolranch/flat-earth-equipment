@@ -77,6 +77,11 @@
       "mag_qty": 28,
       "mag_stock": "in_stock",
       "proposed_sell": 899,
+      "status": "live",
+      "hero": "public/images/parts/jcb-333-h8218-water-pump.jpg",
+      "stripe_product_id": "prod_VH2KQQb6xZBp4E",
+      "stripe_price_id": "price_1UGUGHHJI548rO8JpG5Nb6t9",
+      "sell": 899,
       "why": "28 on hand, Mag $945.79."
     },
     {
