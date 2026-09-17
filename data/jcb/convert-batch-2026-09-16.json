@@ -1,0 +1,87 @@
+{
+  "title": "JCB quote-only → Buy Now batch 2026-09-16",
+  "rule": "Mag priced + in stock → provisional Buy Now ~5% under Mag. Need cleaned hero (not brand logo, not vendor watermark). Cost optional until first PO. Skip Mag backorder/special-order-only rows.",
+  "skipped": [
+    {
+      "sku": "332X6239",
+      "oem": "332/X6239",
+      "name": "RH joystick SP 3 FCN",
+      "reason": "Mag $1638.63 but backordered / supplier special-order, non-cancellable. Sibling of live 332/X6237 $1699. Revisit when Mag is in stock."
+    },
+    {
+      "sku": "332X6240",
+      "oem": "332/X6240",
+      "name": "LH joystick SP 7 FCN",
+      "reason": "Mag $4709 special-order. Need cost before any convert."
+    }
+  ],
+  "ready": [
+    {
+      "sku": "333V3397",
+      "oem": "333/V3397",
+      "name": "Throttle pedal",
+      "slug": "333V3397",
+      "mag_url": "https://www.magnasourceinc.com/itemdetail/JC333/V3397",
+      "mag_price": 1020.93,
+      "mag_qty": 3,
+      "mag_stock": "in_stock",
+      "proposed_sell": 969,
+      "status": "live",
+      "hero": "public/images/parts/jcb-333-v3397-throttle-pedal.jpg",
+      "stripe_product_id": "prod_VH2EMkx31W44t5",
+      "stripe_price_id": "price_1UGU9yHJI548rO8JVjd8ahGr",
+      "sell": 969,
+      "why": "Same control/pedal lane as today's 716/C8932 sale."
+    },
+    {
+      "sku": "40000380",
+      "oem": "400/00380",
+      "name": "Joystick assembly",
+      "slug": "40000380",
+      "mag_url": "https://www.magnasourceinc.com/itemdetail/JC400/00380",
+      "mag_price": 331.34,
+      "mag_qty": 17,
+      "mag_stock": "in_stock",
+      "proposed_sell": 309,
+      "why": "In-stock joystick, 17 on hand."
+    },
+    {
+      "sku": "333H7722",
+      "oem": "333/H7722",
+      "name": "Alternator 80A",
+      "slug": "333H7722",
+      "mag_url": "https://www.magnasourceinc.com/itemdetail/JC333/H7722",
+      "mag_price": 386.9,
+      "mag_qty": 9,
+      "mag_stock": "in_stock",
+      "proposed_sell": 369,
+      "why": "9 on hand, Mag $386.90."
+    },
+    {
+      "sku": "333H8218",
+      "oem": "333/H8218",
+      "name": "Water pump assembly",
+      "slug": "333H8218",
+      "mag_url": "https://www.magnasourceinc.com/itemdetail/JC333/H8218",
+      "mag_price": 945.79,
+      "mag_qty": 28,
+      "mag_stock": "in_stock",
+      "proposed_sell": 899,
+      "why": "28 on hand, Mag $945.79."
+    },
+    {
+      "sku": "333E1715",
+      "oem": "333/E1715",
+      "name": "Isolation switch servo",
+      "slug": "333E1715",
+      "mag_url": "https://www.magnasourceinc.com/itemdetail/JC333/E1715",
+      "mag_price": 533.75,
+      "mag_qty": 3,
+      "mag_stock": "in_stock",
+      "proposed_sell": 509,
+      "why": "3 on hand. Mag also marks supplier special-order / non-cancellable — skip if you do not want that risk.",
+      "note": "Confirm with vendor stock before convert if the special-order flag bothers you."
+    }
+  ],
+  "blocked_on": "Your Mag confirm + a photo per PN (screenshot to rework is fine). Do not publish brand-logo heroes."
+}
