@@ -3152,6 +3152,29 @@
     "custom_label_0": "priority_jcb"
   },
   {
+    "id": "332C8166",
+    "title": "JCB 332/C8166 Proximity Switch",
+    "description": "Aftermarket proximity switch for JCB equipment. Replaces OEM part number 332/C8166.\n\nBlue rectangular sensor head, black corrugated loom, 2-pin connector, and a ring-terminal tab.\n\nEligible JCB aftermarket parts carry a 2-year warranty. In stock.",
+    "link": "https://www.flatearthequipment.com/parts/332C8166",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/jcb-332-c8166-proximity-switch.jpg",
+    "price": "235.00 USD",
+    "brand": "JCB",
+    "mpn": "332/C8166",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "JCB Switches & Sensors",
+    "identifier_exists": "no",
+    "custom_label_0": "priority_jcb",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "Ground",
+        "price": "29.00 USD"
+      }
+    ]
+  },
+  {
     "id": "332D2199",
     "title": "JCB 332/D2199 Aftermarket Twin Hose Assembly",
     "description": "Aftermarket twin hose assembly for JCB equipment. Replaces OEM part number 332/D2199 — built to fit the same application. Pair of 3/8\" (DN10) 2-wire braid hydraulic hoses (SAE 100R16 / EN857 2SC class) with crimped fittings and yellow ID bands. In stock with same-day shipping.",
@@ -3166,6 +3189,29 @@
     "product_type": "JCB Hoses",
     "identifier_exists": "no",
     "custom_label_0": "priority_jcb"
+  },
+  {
+    "id": "332D2730",
+    "title": "JCB 332/D2730 Handbrake Cable",
+    "description": "Aftermarket handbrake cable for JCB equipment. Replaces OEM part number 332/D2730.\n\nClevis fork and ribbed boot on one end, a threaded barrel fitting on the other. Long cable.\n\nEligible JCB aftermarket parts carry a 2-year warranty. In stock.",
+    "link": "https://www.flatearthequipment.com/parts/332D2730",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/jcb-332-d2730-handbrake-cable.jpg",
+    "price": "133.00 USD",
+    "brand": "JCB",
+    "mpn": "332/D2730",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "JCB Brakes",
+    "identifier_exists": "no",
+    "custom_label_0": "priority_jcb",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "Ground",
+        "price": "24.00 USD"
+      }
+    ]
   },
   {
     "id": "332D5584",
@@ -3582,6 +3628,29 @@
     "custom_label_0": "priority_jcb"
   },
   {
+    "id": "45202600",
+    "title": "JCB 452/02600 Hand Brake Lever",
+    "description": "Aftermarket hand brake lever for JCB equipment. Replaces OEM part number 452/02600.\n\nBlack grip on a zinc mounting plate with a cable roller and spacer bushings.\n\nEligible JCB aftermarket parts carry a 2-year warranty. In stock.",
+    "link": "https://www.flatearthequipment.com/parts/45202600",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/jcb-452-02600-hand-brake-lever.jpg",
+    "price": "359.00 USD",
+    "brand": "JCB",
+    "mpn": "452/02600",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "JCB Brakes",
+    "identifier_exists": "no",
+    "custom_label_0": "priority_jcb",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "Ground",
+        "price": "35.00 USD"
+      }
+    ]
+  },
+  {
     "id": "45920047",
     "title": "JCB 45/920047 COUPLER - HYDRAULIC",
     "description": "Aftermarket coupler - hydraulic for JCB part number 45/920047 — a direct cross-reference to the OEM specification. Commonly used in the steering linkage and track-rod group on JCB Loadall telehandlers.\n\nMatches JCB OEM part number 45/920047. Order by this PN for a confident fit.\n\nQuestions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.",
@@ -3676,6 +3745,29 @@
     "product_type": "JCB Brakes",
     "identifier_exists": "no",
     "custom_label_0": "priority_jcb"
+  },
+  {
+    "id": "70180322",
+    "title": "JCB 701/80322 Transmission Oil Pressure Switch",
+    "description": "Aftermarket transmission oil pressure switch for JCB equipment. Replaces OEM part number 701/80322.\n\nZinc hex body with a male pipe thread and a black 3-pin connector.\n\nEligible JCB aftermarket parts carry a 2-year warranty. In stock.",
+    "link": "https://www.flatearthequipment.com/parts/70180322",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/jcb-701-80322-trans-oil-press-switch.jpg",
+    "price": "81.00 USD",
+    "brand": "JCB",
+    "mpn": "701/80322",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "JCB Switches & Sensors",
+    "identifier_exists": "no",
+    "custom_label_0": "priority_jcb",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "Ground",
+        "price": "24.00 USD"
+      }
+    ]
   },
   {
     "id": "701E7389",
@@ -3868,6 +3960,29 @@
     "product_type": "JCB General Parts",
     "identifier_exists": "no",
     "custom_label_0": "priority_jcb"
+  },
+  {
+    "id": "91060074",
+    "title": "JCB 910/60074 Handbrake Cable",
+    "description": "Aftermarket handbrake cable for JCB equipment. Replaces OEM part number 910/60074.\n\nBlack sheathed cable with a clevis fork on each end, a ribbed boot, and a coil-spring adjuster.\n\nEligible JCB aftermarket parts carry a 2-year warranty. In stock.",
+    "link": "https://www.flatearthequipment.com/parts/91060074",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/jcb-910-60074-handbrake-cable.jpg",
+    "price": "228.00 USD",
+    "brand": "JCB",
+    "mpn": "910/60074",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "JCB Brakes",
+    "identifier_exists": "no",
+    "custom_label_0": "priority_jcb",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "Ground",
+        "price": "29.00 USD"
+      }
+    ]
   },
   {
     "id": "91122800",
@@ -6294,6 +6409,28 @@
     ]
   },
   {
+    "id": "137634GT",
+    "title": "Genie 137634GT Joystick Controller",
+    "description": "Aftermarket joystick controller for Genie aerial equipment. Replaces OEM part number 137634GT.\n\nSquare silver mounting plate, black cylindrical handle on a ribbed bellows, a 4-wire pigtail, and a black 4-pin connector. No extra buttons on the grip.\n\nIn stock.",
+    "link": "https://www.flatearthequipment.com/parts/genie-137634gt-joystick",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/genie-137634gt-joystick.jpg",
+    "price": "296.00 USD",
+    "brand": "Genie",
+    "mpn": "137634GT",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "Controllers",
+    "identifier_exists": "no",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "Ground",
+        "price": "31.00 USD"
+      }
+    ]
+  },
+  {
     "id": "33984GT",
     "title": "Genie 33984GT Standard Forks",
     "description": "Aftermarket standard fork attachment for Genie Superlift material lifts. Replaces OEM part number 33984GT.\n\nFits Genie SLC-12, SLC-18, and SLC-24. Square-tube steel fork frame with mounting mast and factory-style safety decals.\n\nShipping is a flat $37 at checkout.",
@@ -6950,6 +7087,28 @@
         "country": "US",
         "service": "Ground",
         "price": "37.00 USD"
+      }
+    ]
+  },
+  {
+    "id": "4360407",
+    "title": "JLG 4360407 Potentiometer Switch",
+    "description": "Aftermarket potentiometer switch for JLG aerial equipment. Replaces OEM part number 4360407.\n\nMetal housing with a shaft, multi-color harness, white connector, mounting disc, and two screws.\n\nIn stock.",
+    "link": "https://www.flatearthequipment.com/parts/jlg-4360407-switch",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/jlg-4360407-potentiometer-switch.jpg",
+    "price": "165.00 USD",
+    "brand": "JLG",
+    "mpn": "4360407",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "Switches & Sensors",
+    "identifier_exists": "no",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "Ground",
+        "price": "31.00 USD"
       }
     ]
   },
@@ -8921,6 +9080,72 @@
         "country": "US",
         "service": "Ground",
         "price": "0.00 USD"
+      }
+    ]
+  },
+  {
+    "id": "159108",
+    "title": "Skyjack 159108 Joystick Controller",
+    "description": "Aftermarket joystick controller for Skyjack aerial equipment. Replaces OEM part number 159108.\n\nBlack handle with a side trigger, green circuit board, and a white 2-pin pigtail connector.\n\nIn stock.",
+    "link": "https://www.flatearthequipment.com/parts/skyjack-159108-joystick",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/skyjack-159108-joystick.jpg",
+    "price": "319.00 USD",
+    "brand": "Skyjack",
+    "mpn": "159108",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "Controllers",
+    "identifier_exists": "no",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "Ground",
+        "price": "37.00 USD"
+      }
+    ]
+  },
+  {
+    "id": "skyjack-159230-joystick-controller",
+    "title": "Skyjack 159230 Joystick Controller",
+    "description": "Aftermarket 3-speed joystick controller for Skyjack aerial equipment. Replaces OEM part number 159230.\n\nGray square housing, black handle with a side trigger, ribbed bellows, and a white multi-pin harness.\n\nFits Skyjack rough-terrain scissors including SJRT 6826, 6832, 7127, 7135, 8841, 9241, and 9250.\n\nIn stock.",
+    "link": "https://www.flatearthequipment.com/parts/skyjack-159230-joystick-controller",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/skyjack-159230-joystick.jpg",
+    "price": "249.00 USD",
+    "brand": "Skyjack",
+    "mpn": "159230",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "Joysticks & Controls",
+    "identifier_exists": "no",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "Ground",
+        "price": "31.00 USD"
+      }
+    ]
+  },
+  {
+    "id": "211751",
+    "title": "Skyjack 211751 Electrical Joystick",
+    "description": "Aftermarket electrical joystick for Skyjack aerial equipment. Replaces OEM part number 211751.\n\nBlack handle with a side trigger, ribbed bellows, square flange, cylindrical base, and a white multi-pin connector.\n\nIn stock.",
+    "link": "https://www.flatearthequipment.com/parts/skyjack-211751-joystick",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/skyjack-211751-joystick.jpg",
+    "price": "489.00 USD",
+    "brand": "Skyjack",
+    "mpn": "211751",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "Controllers",
+    "identifier_exists": "no",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "Ground",
+        "price": "37.00 USD"
       }
     ]
   },

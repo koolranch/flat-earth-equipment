@@ -160,6 +160,11 @@ const MERCHANT_KEEP_SLUGS = new Set([
   "taylor-dunn-62-033-48-accelerator-module",
   "powerboss-620265-filter",
   "jlg-1600157-joystick-controller",
+  "genie-137634gt-joystick",
+  "skyjack-159108-joystick",
+  "skyjack-211751-joystick",
+  "skyjack-159230-joystick-controller",
+  "jlg-4360407-switch",
 ]);
 
 /** Catalog lines we will submit while Merchant is still approving the first wave. */
