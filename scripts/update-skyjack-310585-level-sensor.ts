@@ -1,10 +1,12 @@
 /**
- * Convert JCB 333/D2714 quote stub → Buy Now. Keep sku/slug 333D2714.
+ * Reprice Skyjack 310585 level sensor.
+ * Keep sku/slug skyjack-310585-level-sensor.
  *
- * Cost: $1376.28 | Magnasource: $1779 | Sell: $1769 (just under Mag)
- * TVH prepaid over $650 net → free_freight
+ * Cost: $207.71 | Magnasource: $342.58 | Sell: $329 (~5% under Mag)
+ * Old live sticker $30 was a junk eBay comp — archive that Stripe price.
+ * TVH Ground: $31 (cost in $150–$299.99 band)
  *
- * Run: npx tsx scripts/convert-jcb-333-d2714-lower-door.ts
+ * Run: npx tsx scripts/update-skyjack-310585-level-sensor.ts
  */
 
 import Stripe from 'stripe';
@@ -24,40 +26,39 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-const SKU = '333D2714';
-const COST = 1376.28;
-const COMP_PRICE = 1779;
-const COMP_URL = 'https://www.magnasourceinc.com/itemdetail/JC333D2714';
+const SKU = 'skyjack-310585-level-sensor';
+const COST = 207.71;
+const COMP_PRICE = 342.58;
+const COMP_URL = 'https://www.magnasourceinc.com/itemdetail/SJ310585';
 const priced = calculateSellPrice({
   cost: COST,
   compPrice: COMP_PRICE,
   category: 'assembly',
 });
-/** Sit just under Mag $1779 rather than the 20% floor ($1719). */
-const SELL_PRICE = 1769;
+const SELL_PRICE = priced.sellPrice;
 
 const LOCAL_IMAGE = path.resolve(
   process.cwd(),
-  'public/images/parts/jcb-333-d2714-lower-cab-door.jpg'
+  'public/images/parts/skyjack-310585-level-sensor.jpg'
 );
-const STORAGE_PATH = 'jcb-333-d2714-lower-cab-door.jpg';
+const STORAGE_PATH = 'skyjack-310585-level-sensor.jpg';
 
-const NAME = 'JCB 333/D2714 Painted Lower Door';
+const NAME = 'Skyjack 310585 Level Sensor';
 const DESCRIPTION = [
-  'Aftermarket painted lower door for JCB equipment. Replaces OEM part number 333/D2714.',
-  'Black painted steel lower door — not the upper door and not glass. Open rectangular frame with a chamfered corner and circular opening, hinge and mounting brackets on the edges, and a seal channel around the inner lip. This is the painted door, not a bare unfinished frame. Ships about 34 lb.',
-  'Eligible JCB aftermarket parts carry a 2-year warranty. In stock. Free freight to the contiguous US.',
+  'Aftermarket level sensor for Skyjack equipment. Replaces OEM part number 310585.',
+  'Circular tilt/level sensor on a black mounting plate with red and white lead wires and a blue-capped sensing head. This is the 2°/4° sensor with a 2-second delay — not a no-delay switch. Fits SJRT 6826 and SJRT 6832, serials 340003–34001506. Ships about 1.3 lb.',
+  'In stock.',
 ].join('\n\n');
 
 async function main() {
-  console.log(`Converting ${SKU}`);
+  console.log(`Updating ${SKU}`);
   console.log(
     `   Cost $${COST} | Mag $${COMP_PRICE} → Sell $${SELL_PRICE} (${priced.method}, ${(priced.marginPct * 100).toFixed(1)}%)\n`
   );
 
   const { data: existing, error: fetchErr } = await supabase
     .from('parts')
-    .select('id, sku, slug, stripe_product_id, metadata')
+    .select('id, sku, slug, stripe_product_id, stripe_price_id, metadata')
     .eq('sku', SKU)
     .maybeSingle();
   if (fetchErr) throw new Error(fetchErr.message);
@@ -76,16 +77,12 @@ async function main() {
   if (!stripeProductId) {
     const product = await stripe.products.create({
       name: NAME,
-      description:
-        'Aftermarket JCB 333/D2714 painted lower cab door. P68 T4i black steel frame.'.slice(
-          0,
-          500
-        ),
+      description: 'Aftermarket Skyjack 310585 level sensor. 2°/4° with 2-second delay.'.slice(0, 500),
       images: [imageUrl],
       metadata: {
         sku: SKU,
-        oem_reference: '333/D2714',
-        brand: 'JCB',
+        oem_reference: '310585',
+        brand: 'Skyjack',
       },
     });
     stripeProductId = product.id;
@@ -94,6 +91,7 @@ async function main() {
     await stripe.products.update(stripeProductId, {
       name: NAME,
       images: [imageUrl],
+      description: 'Aftermarket Skyjack 310585 level sensor. 2°/4° with 2-second delay.'.slice(0, 500),
     });
   }
 
@@ -101,9 +99,18 @@ async function main() {
     product: stripeProductId,
     unit_amount: Math.round(SELL_PRICE * 100),
     currency: 'usd',
-    metadata: { sku: SKU },
+    metadata: {
+      sku: SKU,
+      previous_price_id: String(existing.stripe_price_id ?? ''),
+      reason: 'reprice_under_mag_from_ebay_junk',
+    },
   });
   console.log(`Stripe Price: ${stripePrice.id}`);
+
+  if (existing.stripe_price_id && existing.stripe_price_id !== stripePrice.id) {
+    await stripe.prices.update(existing.stripe_price_id, { active: false });
+    console.log(`Archived ${existing.stripe_price_id}`);
+  }
 
   const prevMeta =
     existing.metadata && typeof existing.metadata === 'object'
@@ -120,19 +127,22 @@ async function main() {
       sales_type: 'direct',
       is_in_stock: true,
       image_url: imageUrl,
-      weight_lbs: 34.28,
+      weight_lbs: 1.316,
       stripe_product_id: stripeProductId,
       stripe_price_id: stripePrice.id,
       metadata: {
         ...prevMeta,
-        oem_pn: '333/D2714',
+        oem_pn: '310585',
         aftermarket: true,
         vendor_supply_chain: 'tvh',
-        product_type: 'painted_lower_cab_door',
+        product_type: 'level_sensor',
         cost_wholesale: COST,
-        free_freight: true,
-        weight_lbs: 34.28,
-        application: 'P68 T4i',
+        freight_cents: 3100,
+        free_freight: false,
+        weight_lbs: 1.316,
+        tilt_deg: '2/4',
+        delay_sec: 2,
+        provisional_pricing: false,
         competitor_prices: [
           {
             source: 'magnasource',
@@ -147,7 +157,7 @@ async function main() {
           notes: priced.notes,
           margin_pct: Math.round(priced.marginPct * 1000) / 10,
         },
-        source: 'mag_comp_2026-09-04',
+        source: 'mag_comp_2026-09-17',
       },
       updated_at: new Date().toISOString(),
     })

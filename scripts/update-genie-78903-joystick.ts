@@ -1,10 +1,12 @@
 /**
- * Convert JCB 333/D2714 quote stub → Buy Now. Keep sku/slug 333D2714.
+ * Reprice Genie 78903 ITT-style 9-wire joystick.
+ * Keep sku/slug genie-78903-joystick-controller.
  *
- * Cost: $1376.28 | Magnasource: $1779 | Sell: $1769 (just under Mag)
- * TVH prepaid over $650 net → free_freight
+ * Cost: $134.65 | Magnasource: $212.02 | Sell: $201 (~5% under Mag)
+ * Old live sticker $64 was a junk eBay comp — archive that Stripe price.
+ * TVH Ground: $25 (cost in $25–$149.99 band)
  *
- * Run: npx tsx scripts/convert-jcb-333-d2714-lower-door.ts
+ * Run: npx tsx scripts/update-genie-78903-joystick.ts
  */
 
 import Stripe from 'stripe';
@@ -24,40 +26,39 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-const SKU = '333D2714';
-const COST = 1376.28;
-const COMP_PRICE = 1779;
-const COMP_URL = 'https://www.magnasourceinc.com/itemdetail/JC333D2714';
+const SKU = 'genie-78903-joystick-controller';
+const COST = 134.65;
+const COMP_PRICE = 212.02;
+const COMP_URL = 'https://www.magnasourceinc.com/itemdetail/GN78903';
 const priced = calculateSellPrice({
   cost: COST,
   compPrice: COMP_PRICE,
   category: 'assembly',
 });
-/** Sit just under Mag $1779 rather than the 20% floor ($1719). */
-const SELL_PRICE = 1769;
+const SELL_PRICE = priced.sellPrice;
 
 const LOCAL_IMAGE = path.resolve(
   process.cwd(),
-  'public/images/parts/jcb-333-d2714-lower-cab-door.jpg'
+  'public/images/parts/genie-78903-itt-joystick.jpg'
 );
-const STORAGE_PATH = 'jcb-333-d2714-lower-cab-door.jpg';
+const STORAGE_PATH = 'genie-78903-itt-joystick.jpg';
 
-const NAME = 'JCB 333/D2714 Painted Lower Door';
+const NAME = 'Genie 78903 ITT-Style Joystick (9-Wire)';
 const DESCRIPTION = [
-  'Aftermarket painted lower door for JCB equipment. Replaces OEM part number 333/D2714.',
-  'Black painted steel lower door — not the upper door and not glass. Open rectangular frame with a chamfered corner and circular opening, hinge and mounting brackets on the edges, and a seal channel around the inner lip. This is the painted door, not a bare unfinished frame. Ships about 34 lb.',
-  'Eligible JCB aftermarket parts carry a 2-year warranty. In stock. Free freight to the contiguous US.',
+  'Aftermarket single-axis joystick controller for Genie equipment. Replaces OEM part number 78903 (also 78903GT).',
+  'T-style grip on a square metal base with a 9-wire harness. This is the single-axis drive/steer joystick — not a dual-axis boom stick. Fits GS68 RT (serial 42382-up), GS84 RT (40213-up), and GS90 RT (41523-up). Ships about 1.6 lb.',
+  'In stock.',
 ].join('\n\n');
 
 async function main() {
-  console.log(`Converting ${SKU}`);
+  console.log(`Updating ${SKU}`);
   console.log(
     `   Cost $${COST} | Mag $${COMP_PRICE} → Sell $${SELL_PRICE} (${priced.method}, ${(priced.marginPct * 100).toFixed(1)}%)\n`
   );
 
   const { data: existing, error: fetchErr } = await supabase
     .from('parts')
-    .select('id, sku, slug, stripe_product_id, metadata')
+    .select('id, sku, slug, stripe_product_id, stripe_price_id, metadata')
     .eq('sku', SKU)
     .maybeSingle();
   if (fetchErr) throw new Error(fetchErr.message);
@@ -76,16 +77,12 @@ async function main() {
   if (!stripeProductId) {
     const product = await stripe.products.create({
       name: NAME,
-      description:
-        'Aftermarket JCB 333/D2714 painted lower cab door. P68 T4i black steel frame.'.slice(
-          0,
-          500
-        ),
+      description: 'Aftermarket Genie 78903 ITT-style 9-wire single-axis joystick.'.slice(0, 500),
       images: [imageUrl],
       metadata: {
         sku: SKU,
-        oem_reference: '333/D2714',
-        brand: 'JCB',
+        oem_reference: '78903',
+        brand: 'Genie',
       },
     });
     stripeProductId = product.id;
@@ -94,6 +91,7 @@ async function main() {
     await stripe.products.update(stripeProductId, {
       name: NAME,
       images: [imageUrl],
+      description: 'Aftermarket Genie 78903 ITT-style 9-wire single-axis joystick.'.slice(0, 500),
     });
   }
 
@@ -101,9 +99,18 @@ async function main() {
     product: stripeProductId,
     unit_amount: Math.round(SELL_PRICE * 100),
     currency: 'usd',
-    metadata: { sku: SKU },
+    metadata: {
+      sku: SKU,
+      previous_price_id: String(existing.stripe_price_id ?? ''),
+      reason: 'reprice_under_mag_from_ebay_junk',
+    },
   });
   console.log(`Stripe Price: ${stripePrice.id}`);
+
+  if (existing.stripe_price_id && existing.stripe_price_id !== stripePrice.id) {
+    await stripe.prices.update(existing.stripe_price_id, { active: false });
+    console.log(`Archived ${existing.stripe_price_id}`);
+  }
 
   const prevMeta =
     existing.metadata && typeof existing.metadata === 'object'
@@ -120,19 +127,20 @@ async function main() {
       sales_type: 'direct',
       is_in_stock: true,
       image_url: imageUrl,
-      weight_lbs: 34.28,
+      weight_lbs: 1.56,
       stripe_product_id: stripeProductId,
       stripe_price_id: stripePrice.id,
       metadata: {
         ...prevMeta,
-        oem_pn: '333/D2714',
+        oem_pn: '78903',
         aftermarket: true,
         vendor_supply_chain: 'tvh',
-        product_type: 'painted_lower_cab_door',
+        product_type: 'joystick_controller',
         cost_wholesale: COST,
-        free_freight: true,
-        weight_lbs: 34.28,
-        application: 'P68 T4i',
+        freight_cents: 2500,
+        free_freight: false,
+        weight_lbs: 1.56,
+        provisional_pricing: false,
         competitor_prices: [
           {
             source: 'magnasource',
@@ -147,7 +155,7 @@ async function main() {
           notes: priced.notes,
           margin_pct: Math.round(priced.marginPct * 1000) / 10,
         },
-        source: 'mag_comp_2026-09-04',
+        source: 'mag_comp_2026-09-17',
       },
       updated_at: new Date().toISOString(),
     })
