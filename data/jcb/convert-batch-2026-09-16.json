@@ -183,7 +183,11 @@
       "mag_weight_lb": 0.1,
       "proposed_sell": 89,
       "freight": 24,
-      "status": "awaiting_photo",
+      "status": "live",
+      "hero": "public/images/parts/jcb-701-72500-brake-lamp-switch.jpg",
+      "stripe_product_id": "prod_VH2t9FyaMuutQ3",
+      "stripe_price_id": "price_1UGUnFHJI548rO8JL4XSSEB2",
+      "sell": 89,
       "why": "7 on hand, 0.1 lb. Small ticket, easy add-on next to tonight's $128 controller."
     }
   ],
