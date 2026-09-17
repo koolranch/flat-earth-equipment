@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import { partsWatchStatus, PARTS_WATCH_ENV } from '@/lib/internal/passwordGate';
-import { supabaseService } from '@/lib/supabase/service.server';
-import { buildWatchDashboard } from '@/lib/pricing/magWatchDashboard';
-import type { WatchRow } from '@/lib/pricing/magWatchUniverse';
+import { loadWatchDashboard } from '@/lib/pricing/magWatchDashboard.server';
 import DashboardView from './DashboardView';
 import LockScreen from './LockScreen';
 
@@ -12,29 +10,6 @@ export const metadata: Metadata = {
   title: 'Internal',
   robots: { index: false, follow: false },
 };
-
-const SELECT =
-  'id, sku, slug, name, brand, category, category_slug, sales_type, is_in_stock, price, price_cents, oem_reference, stripe_price_id, metadata';
-
-/** Supabase caps a plain select at 1000 rows — page through the whole catalog. */
-async function fetchAllParts(): Promise<WatchRow[]> {
-  const supabase = supabaseService();
-  const pageSize = 1000;
-  const rows: WatchRow[] = [];
-
-  for (let from = 0; ; from += pageSize) {
-    const { data, error } = await supabase
-      .from('parts')
-      .select(SELECT)
-      .order('id', { ascending: true })
-      .range(from, from + pageSize - 1);
-    if (error) throw new Error(error.message);
-    const page = (data ?? []) as unknown as WatchRow[];
-    rows.push(...page);
-    if (page.length < pageSize) break;
-  }
-  return rows;
-}
 
 export default async function PartsWatchPage({
   searchParams,
@@ -61,6 +36,5 @@ export default async function PartsWatchPage({
     return <LockScreen error={searchParams?.e === '1'} />;
   }
 
-  const data = buildWatchDashboard(await fetchAllParts());
-  return <DashboardView data={data} />;
+  return <DashboardView data={await loadWatchDashboard()} />;
 }

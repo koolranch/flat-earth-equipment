@@ -20,7 +20,6 @@ export default function LockScreen({ error }: { error: boolean }) {
               name="password"
               type="password"
               autoComplete="current-password"
-              autoFocus
               required
               className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-3 text-base text-white placeholder:text-slate-500 focus:border-canyon-rust focus:outline-none focus:ring-2 focus:ring-canyon-rust/40"
               placeholder="Password"
