@@ -123,7 +123,11 @@
       "mag_weight_lb": 1.34,
       "proposed_sell": 235,
       "freight": 29,
-      "status": "need_photo",
+      "status": "live",
+      "hero": "public/images/parts/jcb-400-x4858-fuel-pump.jpg",
+      "stripe_product_id": "prod_VH2dZnIcj5wJ95",
+      "stripe_price_id": "price_1UGUYWHJI548rO8J7FNy6OkU",
+      "sell": 235,
       "why": "37 on hand, 1.3 lb. Fast-moving fuel-system PN."
     },
     {
