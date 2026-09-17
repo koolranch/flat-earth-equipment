@@ -13,6 +13,14 @@
       "oem": "332/X6240",
       "name": "LH joystick SP 7 FCN",
       "reason": "Mag $4709 special-order. Need cost before any convert."
+    },
+    {
+      "sku": "333E1715",
+      "oem": "333/E1715",
+      "name": "Isolation switch servo",
+      "slug": "333E1715",
+      "mag_price": 533.75,
+      "reason": "Mag marks supplier special-order / non-cancellable. Direct OEM buy — sticker will sit too high. Leave quote_only."
     }
   ],
   "ready": [
@@ -83,20 +91,7 @@
       "stripe_price_id": "price_1UGUGHHJI548rO8JpG5Nb6t9",
       "sell": 899,
       "why": "28 on hand, Mag $945.79."
-    },
-    {
-      "sku": "333E1715",
-      "oem": "333/E1715",
-      "name": "Isolation switch servo",
-      "slug": "333E1715",
-      "mag_url": "https://www.magnasourceinc.com/itemdetail/JC333/E1715",
-      "mag_price": 533.75,
-      "mag_qty": 3,
-      "mag_stock": "in_stock",
-      "proposed_sell": 509,
-      "why": "3 on hand. Mag also marks supplier special-order / non-cancellable — skip if you do not want that risk.",
-      "note": "Confirm with vendor stock before convert if the special-order flag bothers you."
     }
   ],
-  "blocked_on": "Your Mag confirm + a photo per PN (screenshot to rework is fine). Do not publish brand-logo heroes."
+  "blocked_on": null
 }
