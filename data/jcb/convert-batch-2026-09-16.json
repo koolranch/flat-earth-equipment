@@ -51,6 +51,169 @@
       "oem": "714/40153",
       "name": "Alternator 75A",
       "reason": "Mag contact-for-price — no public sticker."
+    },
+    {
+      "sku": "714/40536",
+      "oem": "714/40536",
+      "name": "Starter (new)",
+      "reason": "Mag $753.45 / 42 on hand / 19.8 lb — same card as live 714/40231. Skip as likely same-stock sibling."
+    },
+    {
+      "sku": "334F3928",
+      "oem": "334/F3928",
+      "name": "Axial fan 12V 10in",
+      "reason": "Mag $93.29 backordered Oct 9–23."
+    },
+    {
+      "sku": "336A1322",
+      "oem": "336/A1322",
+      "name": "Coil sub assembly",
+      "reason": "Mag contact-for-price."
+    },
+    {
+      "sku": "443E4279",
+      "oem": "443/E4279",
+      "name": "Pressure sensor 0-250 bar",
+      "reason": "Mag $244.48 backordered."
+    },
+    {
+      "sku": "70180529",
+      "oem": "701/80529",
+      "name": "Switch column F-N",
+      "reason": "Mag contact-for-price."
+    },
+    {
+      "sku": "400K9142",
+      "oem": "400/K9142",
+      "name": "Kit sensor switch",
+      "reason": "Mag $348.15 backordered + supplier special-order / non-cancellable."
+    },
+    {
+      "sku": "jlg-4641090-solenoid-steering",
+      "oem": "4641090",
+      "name": "JLG valve control",
+      "reason": "Mag $501.07 backordered + special-order / non-returnable."
+    },
+    {
+      "sku": "1256727GT",
+      "oem": "1256727GT",
+      "name": "Genie joystick control box",
+      "reason": "Mag $711.05 backordered Oct 9–23."
+    }
+  ],
+  "ready_batch3": [
+    {
+      "sku": "333D1629",
+      "oem": "333/D1629",
+      "name": "Electronic sensor",
+      "slug": "333D1629",
+      "brand": "JCB",
+      "mag_url": "https://www.magnasourceinc.com/itemdetail/JC333/D1629",
+      "mag_price": 340.83,
+      "mag_qty": 21,
+      "mag_stock": "in_stock",
+      "mag_weight_lb": 0.15,
+      "proposed_sell": 319,
+      "freight": 35,
+      "status": "live",
+      "hero": "public/images/parts/jcb-333-d1629-electronic-sensor.jpg",
+      "stripe_product_id": "prod_VH2n4C9U4NZmuT",
+      "stripe_price_id": "price_1UGUhwHJI548rO8JmCYBxQSq",
+      "sell": 319,
+      "why": "21 on hand, 0.15 lb. Mid-ticket sensor — same daily-sales lane as tonight's controller/fuel pump."
+    },
+    {
+      "sku": "jlg-1600157-joystick-controller",
+      "oem": "1600157",
+      "name": "Joystick controller M115",
+      "slug": "jlg-1600157-joystick-controller",
+      "brand": "JLG",
+      "mag_url": "https://www.magnasourceinc.com/itemdetail/JL1600157",
+      "mag_price": 361.92,
+      "mag_qty": 11,
+      "mag_stock": "in_stock",
+      "mag_weight_lb": 1.81,
+      "proposed_sell": 339,
+      "freight": 37,
+      "status": "awaiting_photo",
+      "why": "11 on hand. First JLG Buy Now from this wave — joystick lane already sold on JCB tonight. Freight $37 TVH band (not JCB $35 cap)."
+    },
+    {
+      "sku": "334C9450",
+      "oem": "334/C9450",
+      "name": "Handbrake mini lever",
+      "slug": "334C9450",
+      "brand": "JCB",
+      "mag_url": "https://www.magnasourceinc.com/itemdetail/JC334/C9450",
+      "mag_price": 1130.07,
+      "mag_qty": 1,
+      "mag_stock": "in_stock",
+      "mag_weight_lb": 0.17,
+      "proposed_sell": 1069,
+      "freight": 35,
+      "status": "awaiting_photo",
+      "why": "High-ticket unique PN. Mag shows 1 and no product photo — confirm your stock; your photo is the hero."
+    },
+    {
+      "sku": "704E4202",
+      "oem": "704/E4202",
+      "name": "Fuel level sender",
+      "slug": "704E4202",
+      "brand": "JCB",
+      "mag_url": "https://www.magnasourceinc.com/itemdetail/JC704/E4202",
+      "mag_price": 142.37,
+      "mag_qty": 17,
+      "mag_stock": "in_stock",
+      "mag_weight_lb": 6.39,
+      "proposed_sell": 135,
+      "freight": 24,
+      "status": "awaiting_photo",
+      "why": "17 on hand, 6.4 lb. Fuel-system daily mover next to live 400/X4858."
+    },
+    {
+      "sku": "70172500",
+      "oem": "701/72500",
+      "name": "Brake lamp switch",
+      "slug": "70172500",
+      "brand": "JCB",
+      "mag_url": "https://www.magnasourceinc.com/itemdetail/JC701/72500",
+      "mag_price": 93.58,
+      "mag_qty": 7,
+      "mag_stock": "in_stock",
+      "mag_weight_lb": 0.1,
+      "proposed_sell": 89,
+      "freight": 24,
+      "status": "awaiting_photo",
+      "why": "7 on hand, 0.1 lb. Small ticket, easy add-on next to tonight's $128 controller."
+    }
+  ],
+  "ready_batch3_alts": [
+    {
+      "sku": "70180322",
+      "oem": "701/80322",
+      "name": "Trans oil press switch",
+      "mag_price": 85.06,
+      "mag_qty": "100+",
+      "proposed_sell": 81,
+      "freight": 24
+    },
+    {
+      "sku": "333H5810",
+      "oem": "333/H5810",
+      "name": "Water temp sensor",
+      "mag_price": 99.9,
+      "mag_qty": 1,
+      "proposed_sell": 95,
+      "freight": 24
+    },
+    {
+      "sku": "genie-44170-solenoid-brake",
+      "oem": "44170",
+      "name": "Genie solenoid cartridge",
+      "mag_price": 77.19,
+      "mag_qty": 1,
+      "proposed_sell": 73,
+      "freight": 25
     }
   ],
   "ready_batch2": [
