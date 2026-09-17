@@ -99,13 +99,17 @@
       "slug": "333H8243",
       "mag_url": "https://www.magnasourceinc.com/itemdetail/JC333/H8243",
       "mag_price": 468.87,
-      "mag_qty": 1,
-      "mag_stock": "limited",
+      "mag_qty": 24,
+      "mag_stock": "in_stock",
       "mag_weight_lb": 5,
       "proposed_sell": 449,
       "freight": 35,
-      "status": "need_photo",
-      "why": "Sibling of live 333/H8218. Mag 1 on hand, 5 lb."
+      "status": "live",
+      "hero": "public/images/parts/jcb-333-h8243-water-pump.jpg",
+      "stripe_product_id": "prod_VH2cKW9VfRGYyV",
+      "stripe_price_id": "price_1UGUWpHJI548rO8JAUop0taA",
+      "sell": 449,
+      "why": "Sibling of live 333/H8218. Vendor stock 24 (public Mag page showed 1). 5 lb."
     },
     {
       "sku": "400X4858",
