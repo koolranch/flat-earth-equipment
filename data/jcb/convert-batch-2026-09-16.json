@@ -60,6 +60,11 @@
       "mag_qty": 9,
       "mag_stock": "in_stock",
       "proposed_sell": 369,
+      "status": "live",
+      "hero": "public/images/parts/jcb-333-h7722-alternator.jpg",
+      "stripe_product_id": "prod_VH2JcCw1OytFO9",
+      "stripe_price_id": "price_1UGUFGHJI548rO8J9akioqbG",
+      "sell": 369,
       "why": "9 on hand, Mag $386.90."
     },
     {
