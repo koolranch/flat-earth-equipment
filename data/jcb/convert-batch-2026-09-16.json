@@ -135,7 +135,11 @@
       "mag_weight_lb": 1.81,
       "proposed_sell": 339,
       "freight": 37,
-      "status": "awaiting_photo",
+      "status": "live",
+      "hero": "public/images/parts/jlg-1600157-joystick-controller.jpg",
+      "stripe_product_id": "prod_VH2pXlZZP0haFV",
+      "stripe_price_id": "price_1UGUjpHJI548rO8JTzgBoeaI",
+      "sell": 339,
       "why": "11 on hand. First JLG Buy Now from this wave — joystick lane already sold on JCB tonight. Freight $37 TVH band (not JCB $35 cap)."
     },
     {

@@ -159,6 +159,7 @@ const MERCHANT_KEEP_SLUGS = new Set([
   "taylor-dunn-79-303-41-battery-charger",
   "taylor-dunn-62-033-48-accelerator-module",
   "powerboss-620265-filter",
+  "jlg-1600157-joystick-controller",
 ]);
 
 /** Catalog lines we will submit while Merchant is still approving the first wave. */

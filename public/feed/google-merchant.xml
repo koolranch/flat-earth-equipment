@@ -7373,6 +7373,30 @@ Questions? Contact our parts team for same-day help.</description>
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
+      <g:id>jlg-1600157-joystick-controller</g:id>
+      <title>JLG 1600157 Joystick Controller</title>
+      <description>Aftermarket joystick controller for JLG rough-terrain scissor lifts. Replaces OEM part number 1600157.
+
+Black square housing with a cylindrical handle on a ribbed bellows, a white multi-pin plug on a short lead, and a multi-color pigtail harness.
+
+Fits JLG 400 RTS and 500 RTS through serial 57700. In stock.</description>
+      <link>https://www.flatearthequipment.com/parts/jlg-1600157-joystick-controller</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/jlg-1600157-joystick-controller.jpg</g:image_link>
+      <g:price>339.00 USD</g:price>
+      <g:brand>JLG</g:brand>
+      <g:mpn>1600157</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>Joysticks &amp; Controls</g:product_type>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>37.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>JL7026900-BACK</g:id>
       <title>JLG 7026900 Seat Back Cushion (Vinyl)</title>
       <description>JLG 7026900 replacement vinyl seat back cushion. Fits JLG G10-43A, G10-55A, G12-55A, G6-42A, and G9-43A telehandler seat platforms.
