@@ -624,38 +624,6 @@
     "custom_label_0": "priority_jcb"
   },
   {
-    "id": "17927800",
-    "title": "JCB 17/927800 Replacement Part",
-    "description": "Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 17/927800.",
-    "link": "https://www.flatearthequipment.com/parts/17927800",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "72.19 USD",
-    "brand": "JCB",
-    "mpn": "17/927800",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB General Parts",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
-    "id": "19040803",
-    "title": "JCB 190/40803 SHEAVE - CHAIN",
-    "description": "High-quality replacement sheave - chain for JCB equipment. Direct fit for OEM part number 190/40803.",
-    "link": "https://www.flatearthequipment.com/parts/19040803",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "383.70 USD",
-    "brand": "JCB",
-    "mpn": "190/40803",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB General Parts",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
     "id": "19100618",
     "title": "JCB 191/00618 PIN - KING 2WD",
     "description": "High-quality replacement pin - king 2wd for JCB equipment. Direct fit for OEM part number 191/00618.",
@@ -800,22 +768,6 @@
     "custom_label_0": "priority_jcb"
   },
   {
-    "id": "20925588",
-    "title": "JCB 20/925588 Replacement Part",
-    "description": "Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 20/925588.",
-    "link": "https://www.flatearthequipment.com/parts/20925588",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "2386.60 USD",
-    "brand": "JCB",
-    "mpn": "20/925588",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB General Parts",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
     "id": "20925647",
     "title": "JCB 20/925647 ABI TWIN PUMP",
     "description": "High-quality replacement abi twin pump for JCB equipment. Direct fit for OEM part number 20/925647.",
@@ -828,22 +780,6 @@
     "availability": "in stock",
     "google_product_category": "Business & Industrial > Material Handling",
     "product_type": "JCB Hydraulics",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
-    "id": "23326600",
-    "title": "JCB 233/26600 Replacement Part",
-    "description": "Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 233/26600.",
-    "link": "https://www.flatearthequipment.com/parts/23326600",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "592.03 USD",
-    "brand": "JCB",
-    "mpn": "233/26600",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB General Parts",
     "identifier_exists": "no",
     "custom_label_0": "priority_jcb"
   },
@@ -1120,38 +1056,6 @@
     "custom_label_0": "priority_jcb"
   },
   {
-    "id": "29500076",
-    "title": "JCB 295/00076 BLOCK AXLE DAMPING",
-    "description": "High-quality replacement block axle damping for JCB equipment. Direct fit for OEM part number 295/00076.",
-    "link": "https://www.flatearthequipment.com/parts/29500076",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "310.74 USD",
-    "brand": "JCB",
-    "mpn": "295/00076",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB Pins & Bushings",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
-    "id": "30917300",
-    "title": "JCB 30/917300 Replacement Part",
-    "description": "Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 30/917300.",
-    "link": "https://www.flatearthequipment.com/parts/30917300",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "1165.06 USD",
-    "brand": "JCB",
-    "mpn": "30/917300",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB General Parts",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
     "id": "30925759",
     "title": "JCB 30/925759 Replacement Part",
     "description": "Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 30/925759.",
@@ -1196,22 +1100,6 @@
     "availability": "in stock",
     "google_product_category": "Business & Industrial > Material Handling",
     "product_type": "JCB Engine Parts",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
-    "id": "32004133A",
-    "title": "JCB 320/04133A Replacement Part",
-    "description": "Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 320/04133A.",
-    "link": "https://www.flatearthequipment.com/parts/32004133A",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "43.19 USD",
-    "brand": "JCB",
-    "mpn": "320/04133A",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB General Parts",
     "identifier_exists": "no",
     "custom_label_0": "priority_jcb"
   },
@@ -1296,22 +1184,6 @@
     "custom_label_0": "priority_jcb"
   },
   {
-    "id": "32006168",
-    "title": "JCB 320/06168 56KW+ EGR VALVE (32006313",
-    "description": "High-quality replacement 56kw+ egr valve (32006313 for JCB equipment. Direct fit for OEM part number 320/06168.",
-    "link": "https://www.flatearthequipment.com/parts/32006168",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "2765.09 USD",
-    "brand": "JCB",
-    "mpn": "320/06168",
-    "condition": "new",
-    "availability": "out of stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB Engine Parts",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
     "id": "32006177",
     "title": "JCB 320/06177 TURBO - BV55",
     "description": "High-quality replacement turbo - bv55 for JCB equipment. Direct fit for OEM part number 320/06177.",
@@ -1336,22 +1208,6 @@
     "price": "1410.14 USD",
     "brand": "JCB",
     "mpn": "320/06179",
-    "condition": "new",
-    "availability": "out of stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB General Parts",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
-    "id": "32006186-1",
-    "title": "JCB 320/06186-1 Replacement Part",
-    "description": "Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 320/06186-1.",
-    "link": "https://www.flatearthequipment.com/parts/32006186-1",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "3393.21 USD",
-    "brand": "JCB",
-    "mpn": "320/06186-1",
     "condition": "new",
     "availability": "out of stock",
     "google_product_category": "Business & Industrial > Material Handling",
@@ -1408,22 +1264,6 @@
     "custom_label_0": "priority_jcb"
   },
   {
-    "id": "32006825",
-    "title": "JCB 320/06825 FUEL INJECTION PUMP",
-    "description": "High-quality replacement fuel injection pump for JCB equipment. Direct fit for OEM part number 320/06825.",
-    "link": "https://www.flatearthequipment.com/parts/32006825",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "1321.80 USD",
-    "brand": "JCB",
-    "mpn": "320/06825",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB Fuel System",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
     "id": "32006827",
     "title": "JCB 320/06827 INJECTOR 56-93KW T4",
     "description": "High-quality replacement injector 56-93kw t4 for JCB equipment. Direct fit for OEM part number 320/06827.",
@@ -1456,22 +1296,6 @@
     "custom_label_0": "priority_jcb"
   },
   {
-    "id": "32006874",
-    "title": "JCB 320/06874 Replacement Part",
-    "description": "Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 320/06874.",
-    "link": "https://www.flatearthequipment.com/parts/32006874",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "2450.64 USD",
-    "brand": "JCB",
-    "mpn": "320/06874",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB General Parts",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
     "id": "32006881",
     "title": "JCB 320/06881 T4I 55KW INJECTOR(2831715",
     "description": "High-quality replacement t4i 55kw injector(2831715 for JCB equipment. Direct fit for OEM part number 320/06881.",
@@ -1500,22 +1324,6 @@
     "availability": "out of stock",
     "google_product_category": "Business & Industrial > Material Handling",
     "product_type": "JCB Fuel System",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
-    "id": "32006933",
-    "title": "JCB 320/06933 FIP 55KW 12V MT3",
-    "description": "High-quality replacement fip 55kw 12v mt3 for JCB equipment. Direct fit for OEM part number 320/06933.",
-    "link": "https://www.flatearthequipment.com/parts/32006933",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "2190.75 USD",
-    "brand": "JCB",
-    "mpn": "320/06933",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB General Parts",
     "identifier_exists": "no",
     "custom_label_0": "priority_jcb"
   },
@@ -1612,22 +1420,6 @@
     "availability": "in stock",
     "google_product_category": "Business & Industrial > Material Handling",
     "product_type": "JCB Filters",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
-    "id": "32008560",
-    "title": "JCB 320/08560 Replacement Part",
-    "description": "Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 320/08560.",
-    "link": "https://www.flatearthequipment.com/parts/32008560",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "322.62 USD",
-    "brand": "JCB",
-    "mpn": "320/08560",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB General Parts",
     "identifier_exists": "no",
     "custom_label_0": "priority_jcb"
   },
@@ -2160,22 +1952,6 @@
     "custom_label_0": "priority_jcb"
   },
   {
-    "id": "320A7161",
-    "title": "JCB 320/A7161 PUMP - FUEL LIFT",
-    "description": "High-quality replacement pump - fuel lift for JCB equipment. Direct fit for OEM part number 320/A7161.",
-    "link": "https://www.flatearthequipment.com/parts/320A7161",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "51.51 USD",
-    "brand": "JCB",
-    "mpn": "320/A7161",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB Fuel System",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
     "id": "320A7170",
     "title": "JCB 320/A7170 D/S,FUEL FILTER, IN-LINE",
     "description": "High-quality replacement d/s,fuel filter, in-line for JCB equipment. Direct fit for OEM part number 320/A7170.",
@@ -2314,22 +2090,6 @@
     "mpn": "320/A9105",
     "condition": "new",
     "availability": "out of stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB General Parts",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
-    "id": "320B4420",
-    "title": "JCB 320/B4420 Replacement Part",
-    "description": "Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 320/B4420.",
-    "link": "https://www.flatearthequipment.com/parts/320B4420",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "43.19 USD",
-    "brand": "JCB",
-    "mpn": "320/B4420",
-    "condition": "new",
-    "availability": "in stock",
     "google_product_category": "Business & Industrial > Material Handling",
     "product_type": "JCB General Parts",
     "identifier_exists": "no",
@@ -2912,22 +2672,6 @@
     "custom_label_0": "priority_jcb"
   },
   {
-    "id": "32925801",
-    "title": "JCB 32/925801 Replacement Part",
-    "description": "Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 32/925801.",
-    "link": "https://www.flatearthequipment.com/parts/32925801",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "120.15 USD",
-    "brand": "JCB",
-    "mpn": "32/925801",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB General Parts",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
     "id": "32925865",
     "title": "JCB 32/925865 ELEMENT FILTER",
     "description": "High-quality replacement element filter for JCB equipment. Direct fit for OEM part number 32/925865.",
@@ -3084,22 +2828,6 @@
     "availability": "in stock",
     "google_product_category": "Business & Industrial > Material Handling",
     "product_type": "JCB General Parts",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
-    "id": "33150108",
-    "title": "JCB 331/50108 GAITER -H/BRAKE",
-    "description": "High-quality replacement gaiter -h/brake for JCB equipment. Direct fit for OEM part number 331/50108.",
-    "link": "https://www.flatearthequipment.com/parts/33150108",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "64.48 USD",
-    "brand": "JCB",
-    "mpn": "331/50108",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB Brakes",
     "identifier_exists": "no",
     "custom_label_0": "priority_jcb"
   },
@@ -3508,22 +3236,6 @@
     "custom_label_0": "priority_jcb"
   },
   {
-    "id": "40000994",
-    "title": "JCB 400/00994 MAIN PUMP COUPLING",
-    "description": "Aftermarket main pump coupling for JCB part number 400/00994 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.\n\nMatches JCB OEM part number 400/00994. Order by this PN for a confident fit.\n\nQuestions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.",
-    "link": "https://www.flatearthequipment.com/parts/40000994",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "530.10 USD",
-    "brand": "JCB",
-    "mpn": "400/00994",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB Hydraulics",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
     "id": "400A3828",
     "title": "JCB 400/A3828 Diesel Fuel Cap",
     "description": "Aftermarket vented, lockable diesel fuel cap for JCB equipment. Replaces OEM part number 400/A3828.\n\nTeal-green plastic cap with DIESEL molded on the top, a twist-grip handle, and a metal retaining chain. Vented and lockable. This is the diesel filler cap — not a hydraulic or DEF cap.\n\nEligible JCB aftermarket parts carry a 2-year warranty. In stock. Ships about 1 lb.",
@@ -3546,22 +3258,6 @@
         "price": "31.00 USD"
       }
     ]
-  },
-  {
-    "id": "400E8363",
-    "title": "JCB 400/E8363 Aftermarket Non-Locking DEF Cap",
-    "description": "Aftermarket non-locking vented DEF filler cap for JCB equipment. Replaces OEM part number 400/E8363 — built to fit the same application. Light blue plastic cap with cross-ridge grip and tether loop. Match the part number on your existing cap or in the parts manual before ordering. In stock with same-day shipping.",
-    "link": "https://www.flatearthequipment.com/parts/400E8363",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/jcb/400E8363-filler-cap.png",
-    "price": "98.00 USD",
-    "brand": "JCB",
-    "mpn": "400/E8363",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB General Parts",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
   },
   {
     "id": "400X4858",
@@ -4224,29 +3920,6 @@
     ]
   },
   {
-    "id": "bobcat-7006077-front-upper-windshield",
-    "title": "Bobcat 7006077 Front Upper Windshield",
-    "description": "Aftermarket green-tint tempered safety glass front upper windshield for Bobcat compact equipment. Direct replacement for OEM part number 7006077. Fits Bobcat E63, E85. Specs: 5 mm thick, 840 mm max width, 775 mm height. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
-    "link": "https://www.flatearthequipment.com/parts/bobcat-7006077-front-upper-windshield",
-    "image_link": "https://www.flatearthequipment.com/images/parts/glass/bobcat-7006077-front-upper-windshield.jpg",
-    "price": "67.00 USD",
-    "brand": "Bobcat",
-    "mpn": "7006077",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Construction > Construction Machinery Accessories",
-    "product_type": "Cab Glass",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_cab_glass",
-    "shipping": [
-      {
-        "country": "US",
-        "service": "Ground",
-        "price": "25.00 USD"
-      }
-    ]
-  },
-  {
     "id": "bobcat-7006172-front-lower-windshield",
     "title": "Bobcat 7006172 Front Lower Windshield",
     "description": "Aftermarket green-tint tempered safety glass front lower windshield for Bobcat compact equipment. Direct replacement for OEM part number 7006172. Fits Bobcat E63, E85. Specs: 5 mm thick, 805 mm max width. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
@@ -4500,29 +4173,6 @@
     ]
   },
   {
-    "id": "bobcat-7170289-lower-door-panel",
-    "title": "Bobcat 7170289 Lower Door Panel",
-    "description": "Aftermarket green-tint tempered safety glass lower door panel for Bobcat compact equipment. Direct replacement for OEM part number 7170289. Fits Bobcat E26, E32, E42, E50. Specs: 5 mm thick, 530 mm max width, 540 mm height. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
-    "link": "https://www.flatearthequipment.com/parts/bobcat-7170289-lower-door-panel",
-    "image_link": "https://www.flatearthequipment.com/images/parts/glass/bobcat-7170289-lower-door-panel.jpg",
-    "price": "77.00 USD",
-    "brand": "Bobcat",
-    "mpn": "7170289",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Construction > Construction Machinery Accessories",
-    "product_type": "Cab Glass",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_cab_glass",
-    "shipping": [
-      {
-        "country": "US",
-        "service": "Ground",
-        "price": "25.00 USD"
-      }
-    ]
-  },
-  {
     "id": "bobcat-7178678-front-upper-window",
     "title": "Bobcat 7178678 Front Upper Window",
     "description": "Aftermarket green-tint tempered safety glass front upper window for Bobcat compact equipment. Direct replacement for OEM part number 7178678. Fits Bobcat E32. Specs: 5 mm thick, 705 mm max width, 840 mm height. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
@@ -4668,29 +4318,6 @@
     "price": "78.00 USD",
     "brand": "Bobcat",
     "mpn": "7261608",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Construction > Construction Machinery Accessories",
-    "product_type": "Cab Glass",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_cab_glass",
-    "shipping": [
-      {
-        "country": "US",
-        "service": "Ground",
-        "price": "25.00 USD"
-      }
-    ]
-  },
-  {
-    "id": "bobcat-7261609-right-rear-fixed",
-    "title": "Bobcat 7261609 Right Rear Fixed",
-    "description": "Aftermarket green-tint tempered safety glass right rear fixed for Bobcat compact equipment. Direct replacement for OEM part number 7261609. Fits Bobcat S450, S510, S530, S550, S570, S590, S595, S650, T450, T550, T590, T630, T650, T740, T750, T870. Specs: 5 mm thick, 445 mm max width, 470 mm height. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
-    "link": "https://www.flatearthequipment.com/parts/bobcat-7261609-right-rear-fixed",
-    "image_link": "https://www.flatearthequipment.com/images/parts/glass/bobcat-7261609-right-rear-fixed.jpg",
-    "price": "69.00 USD",
-    "brand": "Bobcat",
-    "mpn": "7261609",
     "condition": "new",
     "availability": "in stock",
     "google_product_category": "Business & Industrial > Construction > Construction Machinery Accessories",
@@ -6855,29 +6482,6 @@
     ]
   },
   {
-    "id": "JC40/910489-BACK",
-    "title": "JCB 40/910489 Seat Back Cushion",
-    "description": "Aftermarket seat back cushion for JCB telehandlers. Replaces OEM part number 40/910489. Fits 506-36, 535-95, and 535-140.",
-    "link": "https://www.flatearthequipment.com/parts/jcb-40-910489-seat-back-cushion",
-    "image_link": "https://www.flatearthequipment.com/images/parts/seats/jcb-40-910489-seat-back-cushion.jpg",
-    "price": "196.00 USD",
-    "brand": "JCB",
-    "mpn": "40/910489",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling > Forklifts",
-    "product_type": "Seat cushions",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_seats",
-    "shipping": [
-      {
-        "country": "US",
-        "service": "Ground",
-        "price": "29.00 USD"
-      }
-    ]
-  },
-  {
     "id": "40910649",
     "title": "JCB 40/910649 Replacement Seat Assembly (Fabric/PVC)",
     "description": "Premium aftermarket replacement seat for JCB agricultural and industrial equipment. This heavy-duty seat features a durable fabric and PVC hybrid upholstery, designed for long-lasting comfort and resilience in demanding environments.\n\nKey Features:\n• High-quality fabric and PVC upholstery\n• Non-suspension design for specific cab configurations\n• Compact dimensions: 19\" width x 20\" length x 19\" total height\n• Integrated document holder for manuals and records\n• Direct replacement for JCB part number 40/910649\n• Fast 1-2 day delivery in the continental USA\n\nFits a wide range of JCB machinery including loaders and telehandlers where a non-suspension seat is required. Restore your machine's interior with this professional-grade seating solution.\n\nReplaces OEM Part Number: 40/910649",
@@ -6898,29 +6502,6 @@
         "country": "US",
         "service": "Ground",
         "price": "25.00 USD"
-      }
-    ]
-  },
-  {
-    "id": "JC40/910651-BACK",
-    "title": "JCB 40/910651 Seat Foam Cushion Kit (Back)",
-    "description": "JCB 40/910651 seat back foam cushion kit. Fits JCB 506-36, 507-42, 509-42, 510-56, 512-56, 514-56, and 535-95 Loadall models.\n\nReplacement molded foam back cushion for rebuilding a worn JCB operator seat. Pair with 40/910654 bottom foam kit for a complete cushion rebuild.",
-    "link": "https://www.flatearthequipment.com/parts/jcb-40-910651-seat-back-cushion",
-    "image_link": "https://www.flatearthequipment.com/images/parts/seats/jcb-40-910651-seat-back-cushion.jpg",
-    "price": "78.00 USD",
-    "brand": "JCB",
-    "mpn": "40/910651",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling > Forklifts",
-    "product_type": "Seat cushions",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_seats",
-    "shipping": [
-      {
-        "country": "US",
-        "service": "Ground",
-        "price": "29.00 USD"
       }
     ]
   },
@@ -7001,38 +6582,6 @@
     "google_product_category": "Business & Industrial > Material Handling > Forklifts",
     "product_type": "Undercarriage",
     "shipping_weight": "59 lb",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
-    "id": "458M9602",
-    "title": "JCB 458/M9602 Steer Link",
-    "description": "Aftermarket GA steer link for JCB equipment. Replaces OEM part number 458/M9602.\n\nHeavy-duty pivot link with greased bushings at both ends. Eligible JCB aftermarket parts carry a 2-year warranty.\n\nCurrently backordered — expected early September. Contact us to confirm availability and lead time before ordering.\n\nConfirm machine model and serial before ordering.",
-    "link": "https://www.flatearthequipment.com/parts/jcb-458-m9602-steer-link",
-    "image_link": "https://www.flatearthequipment.com/images/parts/jcb-458-m9602-steer-link.jpg",
-    "price": "109.00 USD",
-    "brand": "JCB",
-    "mpn": "458/M9602",
-    "condition": "new",
-    "availability": "out of stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB Steering",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
-    "id": "320/04133",
-    "title": "Engine Oil Filter - JCB 507-42",
-    "description": "OEM engine oil filter for JCB 507-42 Loadall telehandler. Tier 4 Final engine compatible. Replace at every 500 hour service interval. Contact for availability and pricing.",
-    "link": "https://www.flatearthequipment.com/parts/jcb-507-42-oil-filter",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "43.19 USD",
-    "brand": "JCB",
-    "mpn": "320/04133",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "Fluids & Filters",
     "identifier_exists": "no",
     "custom_label_0": "priority_jcb"
   },
