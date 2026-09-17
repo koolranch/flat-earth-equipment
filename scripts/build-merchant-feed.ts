@@ -242,6 +242,7 @@ const GLASS_IMAGE_CACHE_BUST: Record<string, string> = {
   "bobcat-6729776-door-glass": "20260818",
   "kubota-rd158-46450-rear-window": "20260825",
   "bobcat-7178678-front-upper-window": "20260917",
+  "bobcat-7219974-rear-window": "20260917",
 };
 
 /** Unique per-SKU cab glass cards — never fall back to the shared placeholder. */
