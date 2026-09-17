@@ -21,6 +21,117 @@
       "slug": "333E1715",
       "mag_price": 533.75,
       "reason": "Mag marks supplier special-order / non-cancellable. Direct OEM buy — sticker will sit too high. Leave quote_only."
+    },
+    {
+      "sku": "400U9908",
+      "oem": "400/U9908",
+      "name": "Joystick servo",
+      "reason": "Mag $2126.48 backordered + supplier special-order / non-cancellable."
+    },
+    {
+      "sku": "401C0279",
+      "oem": "401/C0279",
+      "name": "Joystick controlbox",
+      "reason": "Mag $1215.80 backordered (Oct 9–23)."
+    },
+    {
+      "sku": "400G3280",
+      "oem": "400/G3280",
+      "name": "HVAC control panel",
+      "reason": "Mag $314.47 with 4 on hand, but flagged supplier special-order / non-cancellable."
+    },
+    {
+      "sku": "333C5740",
+      "oem": "333/C5740",
+      "name": "Control valve block",
+      "reason": "Mag $6543.59 backordered + special-order. Too high and not stocked."
+    },
+    {
+      "sku": "71440153",
+      "oem": "714/40153",
+      "name": "Alternator 75A",
+      "reason": "Mag contact-for-price — no public sticker."
+    }
+  ],
+  "ready_batch2": [
+    {
+      "sku": "71440231",
+      "oem": "714/40231",
+      "name": "Starter (new)",
+      "slug": "71440231",
+      "mag_url": "https://www.magnasourceinc.com/itemdetail/JC714/40231",
+      "mag_price": 753.45,
+      "mag_qty": 42,
+      "mag_stock": "in_stock",
+      "mag_weight_lb": 19.8,
+      "proposed_sell": 719,
+      "freight": 35,
+      "status": "live",
+      "hero": "public/images/parts/jcb-714-40231-starter.jpg",
+      "stripe_product_id": "prod_VH2XEQm9CpBtIm",
+      "stripe_price_id": "price_1UGUSHHJI548rO8JtVRZX4zd",
+      "sell": 719,
+      "why": "42 on hand, 19.8 lb Ground. Same electrical lane as live 333/H7722."
+    },
+    {
+      "sku": "71416700",
+      "oem": "714/16700",
+      "name": "Alternator",
+      "slug": "71416700",
+      "mag_url": "https://www.magnasourceinc.com/itemdetail/JC714/16700",
+      "mag_price": 658.71,
+      "mag_qty": 2,
+      "mag_stock": "in_stock",
+      "mag_weight_lb": 11.35,
+      "proposed_sell": 629,
+      "freight": 35,
+      "status": "need_photo",
+      "why": "2 on hand, sibling of tonight's 333/H7722."
+    },
+    {
+      "sku": "333H8243",
+      "oem": "333/H8243",
+      "name": "Water pump",
+      "slug": "333H8243",
+      "mag_url": "https://www.magnasourceinc.com/itemdetail/JC333/H8243",
+      "mag_price": 468.87,
+      "mag_qty": 1,
+      "mag_stock": "limited",
+      "mag_weight_lb": 5,
+      "proposed_sell": 449,
+      "freight": 35,
+      "status": "need_photo",
+      "why": "Sibling of live 333/H8218. Mag 1 on hand, 5 lb."
+    },
+    {
+      "sku": "400X4858",
+      "oem": "400/X4858",
+      "name": "Fuel pump",
+      "slug": "400X4858",
+      "mag_url": "https://www.magnasourceinc.com/itemdetail/JC400/X4858",
+      "mag_price": 247.14,
+      "mag_qty": 37,
+      "mag_stock": "in_stock",
+      "mag_weight_lb": 1.34,
+      "proposed_sell": 235,
+      "freight": 29,
+      "status": "need_photo",
+      "why": "37 on hand, 1.3 lb. Fast-moving fuel-system PN."
+    },
+    {
+      "sku": "728H5436",
+      "oem": "728/H5436",
+      "name": "Controller",
+      "slug": "728H5436",
+      "mag_url": "https://www.magnasourceinc.com/itemdetail/JC728/H5436",
+      "mag_price": 134.33,
+      "mag_qty": 6,
+      "mag_stock": "in_stock",
+      "mag_weight_lb": 0.35,
+      "proposed_sell": 128,
+      "freight": 24,
+      "status": "need_photo",
+      "why": "6 on hand, 0.35 lb. Lower ticket than the others — skip if photo is weak."
     }
   ],
   "ready": [
