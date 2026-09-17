@@ -130,17 +130,20 @@ not send a price — the server recomputes `calculateSellPrice` from the stored 
 | `apply` | Vendor in stock or limited, read ≤ 3 days old, proposal differs by ≥ $1, and the gap is trustworthy | **Cut to $X** / **Raise to $X** |
 | `hold` | Vendor sticker at or under our known cost (cost reset or different item), or an operator lock | none, reason shown |
 | `verify` | No cost on file and we are > 1.5× the sticker, or the proposal is > 3× our price | none, reason shown |
-| `skip` | Not Buy Now, out of scope, seat, skip-comps OEM, sold out (pull lane), LTL weight, stale read, no Stripe product, already at proposal | none |
+| `skip` | Not Buy Now, out of scope, skip-comps OEM, sold out (pull lane), LTL weight, stale read, no Stripe product, already at proposal | none |
 
 With a cost on file the calculator's margin floor protects the cut, so larger gaps are
 trusted. Without one, only modest gaps are — a $89 switch that Mag reads at $10 is almost
 always a different item, and a $16 switch Mag reads at $539 is the same problem in the
 other direction.
 
+Seats, cushions, and covers use the same gate as any other TVH-network part. The
+`data/seats/skip-comps.json` OEM list still refuses the thin-margin rows we already
+decided not to sell (Bobcat `7505149` / `6669135` / `7338638`).
+
 Operator locks: `parts.metadata.reprice_hold = { reason }` keeps a row in `hold` whatever
 the vendor reads. Set on the live JCB joystick `332/X6237` (do not cut) and Bobcat
-`7123864` (priced against the OEM shop, not Mag). `data/seats/skip-comps.json` OEMs are
-refused too, so a click cannot undo a deliberate skip.
+`7123864` (priced against the OEM shop, not Mag).
 
 Apply creates a new Stripe price on the row's product, updates `price` /
 `stripe_price_id`, archives the old price, and writes `last_comp_pricing` plus

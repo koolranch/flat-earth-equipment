@@ -174,9 +174,13 @@ cost. The verify set is the class of $89-switch-vs-$10-sticker rows the operator
 likely wrong items; they show a reason instead of a button.
 
 Unit tests cover every band boundary (1.5× above, 3× raise, sticker ≤ cost, lock,
-skip-comps, seats, LTL, stale, sold out, no product), the create → update → archive → audit
+skip-comps, LTL, stale, sold out, no product), the create → update → archive → audit
 call order, the no-cost provisional flag, dry run, and the DB-failure branch that archives
 the new price.
+
+Same day: dropped the blanket "seats are priced by hand" skip. Seats, cushions, and
+covers now go through the same Apply / hold / verify path; skip-comps still refuses
+`7505149` / `6669135` / `7338638`.
 
 Next lanes: convert quote-only → Buy Now (gated on an approved photo), then the image tray
 that feeds it.

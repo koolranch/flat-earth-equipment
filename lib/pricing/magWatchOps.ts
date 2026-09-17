@@ -202,11 +202,6 @@ function magReading(row: WatchRow): {
   };
 }
 
-function isSeatLike(row: WatchRow): boolean {
-  const cat = (row.category ?? '').toLowerCase();
-  return /seat/.test(cat) || /\bseat\b/i.test(row.name);
-}
-
 /** Minimum change before a new Stripe price is worth creating. */
 const MIN_REPRICE_DELTA_DOLLARS = 1;
 
@@ -217,7 +212,6 @@ export function repriceEligibility(
   const now = opts.now ?? new Date();
   if (!isBuyNow(row)) return { kind: 'skip', why: 'not a live Buy Now row' };
   if (isSkip(classifyRow(row))) return { kind: 'skip', why: 'outside the watch scope' };
-  if (isSeatLike(row)) return { kind: 'skip', why: 'seats are priced by hand' };
   if (opts.skipOems?.has(row.oem_reference ?? '')) return { kind: 'skip', why: 'on the skip-comps list' };
 
   const ourSell = Number(row.price ?? 0);

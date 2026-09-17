@@ -464,12 +464,14 @@ const plan = (r: WatchRow) => ({ row: r, availability: 'backorder' as const, str
   // ≥75 lb → skip.
   assert.equal(repriceEligibility(pricedRow({ ourSell: 120, mag: 100, weightLb: 80 }), { now: NOW }).kind, 'skip');
 
-  // Seats are hand-priced.
-  assert.equal(repriceEligibility(pricedRow({ ourSell: 120, mag: 100, category: 'Seats' }), { now: NOW }).kind, 'skip');
-  assert.equal(
-    repriceEligibility(pricedRow({ ourSell: 120, mag: 100, name: 'JCB Operator Seat Assembly' }), { now: NOW }).kind,
-    'skip'
+  // Seats and cushions use the same gate as any other TVH-network part. Skip-comps
+  // plus the cost/verify bands already cover the thin-margin rows we refused to list.
+  assert.equal(repriceEligibility(pricedRow({ ourSell: 120, mag: 100, category: 'Seats' }), { now: NOW }).kind, 'apply');
+  const cushion = repriceEligibility(
+    pricedRow({ ourSell: 265, mag: 250, category: 'Seat cushions' }),
+    { now: NOW }
   );
+  assert.equal(cushion.kind, 'apply');
 
   // Skip-comps list wins.
   const skipped = repriceEligibility(pricedRow({ ourSell: 120, mag: 100, oem: '7338638' }), {
