@@ -256,19 +256,25 @@ export function dedupeCandidates(candidates: WatchCandidate[]): {
   return { unique: [...best.values()], duplicates };
 }
 
-/** Which tiers are due on a given weekday (0 = Sunday). Weekdays only. */
+/**
+ * Which tiers are due on a given weekday (0 = Sunday). Weekdays only.
+ *
+ * Balanced so no single run exceeds roughly 550 pages: tier A daily, B twice weekly,
+ * C weekly, and the quote-only pool three times weekly at 90 rows a run, which cycles all
+ * ~1,050 stubs about once a month.
+ */
 export function tiersDue(weekday: number): WatchTier[] {
   switch (weekday) {
-    case 1: // Monday
-      return ['A', 'B', 'C', 'D'];
+    case 1: // Monday — A + the whole sub-$100 Buy Now tail
+      return ['A', 'C'];
     case 2:
-      return ['A'];
-    case 3:
       return ['A', 'D'];
-    case 4: // Thursday
+    case 3: // Wednesday
       return ['A', 'B'];
-    case 5:
+    case 4:
       return ['A', 'D'];
+    case 5: // Friday
+      return ['A', 'B', 'D'];
     case 0:
     case 6:
       return [];

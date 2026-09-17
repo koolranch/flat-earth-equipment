@@ -57,14 +57,15 @@ Slices: `baseline` (core-six Buy Now that already have a Magnasource snapshot),
 
 ## Cadence
 
-| Tier | Rows | Selector | Frequency |
+| Tier | Rows | Selector | Days |
 |---|---|---|---|
 | A | 218 | Buy Now, sticker ≥ $300 | Every weekday |
-| B | 185 | Buy Now, $100–299 | Monday + Thursday |
-| C | 325 | Buy Now, under $100 | Monday |
-| D | 1,057 | Quote-only stubs | Rotating, capped at 90/run |
+| B | 185 | Buy Now, $100–299 | Wed + Fri |
+| C | 325 | Buy Now, under $100 | Mon |
+| D | 1,057 | Quote-only stubs | Tue, Thu, Fri — stalest 90 per run |
 
-Roughly 2,100 page reads a week. Requests go through Firecrawl, so Magnasource sees
+Roughly 2,100 page reads a week, balanced so no single run exceeds ~550 pages. The
+quote-only pool cycles about once a month. Requests go through Firecrawl, so Magnasource sees
 Firecrawl's proxies rather than our IP or Vercel's, and we never touch the authenticated
 vendor portal — bulk cost lookups there flag the account. Concurrency is capped at 2 with
 1.5–3s jitter. A URL that fails to parse three times in a row is retired

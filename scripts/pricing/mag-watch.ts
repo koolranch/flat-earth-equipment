@@ -17,7 +17,7 @@
  *
  * Flags:
  *   --universe        Print scope counts and exit (no network calls).
- *   --slice=          baseline | core-six | direct | all   (default: core-six)
+ *   --slice=          baseline | core-six | direct | all   (default: all)
  *   --tier=           A,B,C,D  (default: tiers due for today's weekday)
  *   --limit=N         Cap rows fetched this run.
  *   --dry-run         Fetch and report, write nothing to Supabase.
@@ -85,7 +85,7 @@ function parseArgs(argv: string[]): Args {
     const hit = argv.find((a) => a.startsWith(`--${name}=`));
     return hit ? hit.slice(name.length + 3) : null;
   };
-  const sliceRaw = get('slice') ?? 'core-six';
+  const sliceRaw = get('slice') ?? 'all';
   const slice = (['baseline', 'core-six', 'direct', 'all'] as const).find((s) => s === sliceRaw);
   if (!slice) throw new Error(`Unknown --slice=${sliceRaw}`);
 
