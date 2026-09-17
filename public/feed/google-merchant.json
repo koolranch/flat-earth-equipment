@@ -3694,6 +3694,22 @@
     "custom_label_0": "priority_jcb"
   },
   {
+    "id": "704E4202",
+    "title": "JCB 704/E4202 Fuel Level Sender",
+    "description": "Aftermarket fuel level sender for JCB equipment. Replaces OEM part number 704/E4202.\n\nRound mounting flange with a black pickup tube, a float arm with a black foam float, a 2-pin pigtail, and two metal hose nipples.\n\nEligible JCB aftermarket parts carry a 2-year warranty. In stock.",
+    "link": "https://www.flatearthequipment.com/parts/704E4202",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/jcb-704-e4202-fuel-level-sender.jpg",
+    "price": "135.00 USD",
+    "brand": "JCB",
+    "mpn": "704/E4202",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "JCB Fuel System",
+    "identifier_exists": "no",
+    "custom_label_0": "priority_jcb"
+  },
+  {
     "id": "71416700",
     "title": "JCB 714/16700 Alternator",
     "description": "Aftermarket alternator for JCB equipment. Replaces OEM part number 714/16700.\n\nCast aluminum housing with a multi-blade cooling fan, a black dual-groove pulley, a hex nut on the shaft, a rear mounting flange, and rear electrical studs.\n\nEligible JCB aftermarket parts carry a 2-year warranty. In stock.",

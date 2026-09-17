@@ -99,6 +99,14 @@
       "oem": "1256727GT",
       "name": "Genie joystick control box",
       "reason": "Mag $711.05 backordered Oct 9–23."
+    },
+    {
+      "sku": "334C9450",
+      "oem": "334/C9450",
+      "name": "Handbrake mini lever",
+      "mag_price": 1130.07,
+      "mag_qty": 1,
+      "reason": "No product photo. Vendor confirmed 1 on hand (matches Mag). Leave quote_only until a real hero exists — do not use brand logo or invent a photo."
     }
   ],
   "ready_batch3": [
@@ -143,22 +151,6 @@
       "why": "11 on hand. First JLG Buy Now from this wave — joystick lane already sold on JCB tonight. Freight $37 TVH band (not JCB $35 cap)."
     },
     {
-      "sku": "334C9450",
-      "oem": "334/C9450",
-      "name": "Handbrake mini lever",
-      "slug": "334C9450",
-      "brand": "JCB",
-      "mag_url": "https://www.magnasourceinc.com/itemdetail/JC334/C9450",
-      "mag_price": 1130.07,
-      "mag_qty": 1,
-      "mag_stock": "in_stock",
-      "mag_weight_lb": 0.17,
-      "proposed_sell": 1069,
-      "freight": 35,
-      "status": "awaiting_photo",
-      "why": "High-ticket unique PN. Mag shows 1 and no product photo — confirm your stock; your photo is the hero."
-    },
-    {
       "sku": "704E4202",
       "oem": "704/E4202",
       "name": "Fuel level sender",
@@ -171,7 +163,11 @@
       "mag_weight_lb": 6.39,
       "proposed_sell": 135,
       "freight": 24,
-      "status": "awaiting_photo",
+      "status": "live",
+      "hero": "public/images/parts/jcb-704-e4202-fuel-level-sender.jpg",
+      "stripe_product_id": "prod_VH2sSZLen6DhJO",
+      "stripe_price_id": "price_1UGUmOHJI548rO8JE3KD2qVI",
+      "sell": 135,
       "why": "17 on hand, 6.4 lb. Fuel-system daily mover next to live 400/X4858."
     },
     {
