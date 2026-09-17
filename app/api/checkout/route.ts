@@ -487,9 +487,9 @@ export async function POST(req: NextRequest) {
         }
       }
 
-      // ── JCB cost-based freight tiers ──────────────────────────────
-      // Freight is determined by the part's sell price, matching vendor tiers.
-      // Each JCB item (not free_freight) gets its own freight line based on price.
+      // ── JCB Ground freight ────────────────────────────────────────
+      // Sell-price bands for unknown cost. Cap at $35 so a $900 pump does
+      // not look like LTL. Known TVH net ≥ $650 (not LTL) uses free_freight.
       const jcbItems = itemsUsingCategoryFreight.filter(
         (item: any) =>
           item.category === 'JCB Parts' ||
@@ -501,9 +501,7 @@ export async function POST(req: NextRequest) {
           if (priceDollars < 25)   return 1700;  // $17.00
           if (priceDollars < 150)  return 2400;  // $24.00
           if (priceDollars < 300)  return 2900;  // $29.00
-          if (priceDollars < 500)  return 3500;  // $35.00
-          if (priceDollars < 650)  return 3900;  // $39.00
-          return 4900; // $49.00 for $650+
+          return 3500; // $35.00 Ground cap
         }
 
         let totalJcbFreight = 0;
