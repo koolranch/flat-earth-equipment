@@ -3,6 +3,8 @@
  * Magnasource is confirmed TVH-aligned for benchmarking sell price.
  */
 
+import { buildMagItemUrl, magPartId } from '../parts/tvhOePrefixes';
+
 export type CompSourceId = 'magnasource' | 'intella' | 'gciron';
 
 export type CompSource = {
@@ -13,9 +15,15 @@ export type CompSource = {
   buildUrl: (oemReference: string, brand?: string) => string | null;
 };
 
-/** Strip vendor prefixes and separators for Magnasource itemdetail URLs. */
-export function toMagnasourcePartId(oemReference: string): string {
-  return oemReference.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+/**
+ * Magnasource itemdetail id for an OEM number.
+ *
+ * Separators must survive: JCB needs its slash (JC333/D1629) and Toyota its dashes
+ * (TY16420-U1280-71). A stripped id serves an HTTP 200 "no longer valid" page, so the
+ * old strip-everything behaviour produced dead URLs for every JCB part.
+ */
+export function toMagnasourcePartId(oemReference: string, brand?: string): string | null {
+  return magPartId(brand, oemReference);
 }
 
 export const COMP_SOURCES: Record<CompSourceId, CompSource> = {
@@ -23,7 +31,7 @@ export const COMP_SOURCES: Record<CompSourceId, CompSource> = {
     id: 'magnasource',
     name: 'MagnaSource',
     tvhAligned: true,
-    buildUrl: (oem) => `https://www.magnasourceinc.com/itemdetail/${toMagnasourcePartId(oem)}`,
+    buildUrl: (oem, brand) => buildMagItemUrl(brand, oem),
   },
   intella: {
     id: 'intella',

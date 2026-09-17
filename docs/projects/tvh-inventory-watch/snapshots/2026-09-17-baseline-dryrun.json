@@ -1,0 +1,81 @@
+{
+  "generated_at": "2026-09-17T02:48:15.431Z",
+  "slice": "baseline",
+  "tiers": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "dry_run": true,
+  "universe": {
+    "catalog_rows": 2148,
+    "in_scope": 1785,
+    "buy_now": 731,
+    "quote_only": 1054,
+    "duplicates_collapsed": 9,
+    "tier_a": 218,
+    "tier_b": 188,
+    "tier_c": 325,
+    "tier_d": 1054,
+    "skipped_no_oem": 14,
+    "skipped_no_prefix": 0,
+    "skipped_category": 116,
+    "skipped_supply_chain": 0,
+    "skipped_brand": 224,
+    "url_retired": 0,
+    "with_prior_mag_snapshot": 186
+  },
+  "checked": 6,
+  "pull_candidates": [],
+  "limited_review": [
+    {
+      "sku": "jlg-1600157-joystick-controller",
+      "brand": "JLG",
+      "oem": "1600157",
+      "slug": "jlg-1600157-joystick-controller",
+      "tier": "A",
+      "mag_url": "https://www.magnasourceinc.com/itemdetail/JL1600157",
+      "our_sell": 339,
+      "buy_now": true,
+      "qty_on_hand": 1,
+      "note": "Flag only — Magnasource has read low while the vendor held stock."
+    },
+    {
+      "sku": "101174",
+      "brand": "Genie",
+      "oem": "101174",
+      "slug": "genie-101174-joystick",
+      "tier": "B",
+      "mag_url": "https://www.magnasourceinc.com/itemdetail/GN101174",
+      "our_sell": 192,
+      "buy_now": true,
+      "qty_on_hand": 1,
+      "note": "Flag only — Magnasource has read low while the vendor held stock."
+    }
+  ],
+  "sticker_movers": [
+    {
+      "sku": "159109",
+      "brand": "Skyjack",
+      "oem": "159109",
+      "slug": "skyjack-159109-joystick",
+      "tier": "A",
+      "mag_url": "https://www.magnasourceinc.com/itemdetail/SJ159109",
+      "our_sell": 409,
+      "mag_price": 457.53,
+      "prior_mag_price": 426.66,
+      "mag_list_price": 602.11,
+      "actual_discount_pct": 10.6,
+      "drift_points": 5.6,
+      "above_mag": false,
+      "proposed_sell": 429,
+      "cost_wholesale": null,
+      "confirm_cost_on_next_po": null,
+      "margin_warning": null
+    }
+  ],
+  "convertible_stubs": [],
+  "failures": [],
+  "unverified_prefix_brands": []
+}

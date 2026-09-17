@@ -16,7 +16,7 @@ import fs from 'fs';
 import path from 'path';
 import { createClient } from '@supabase/supabase-js';
 import * as dotenv from 'dotenv';
-import { COMP_SOURCES, toMagnasourcePartId } from '../lib/pricing/compSources';
+import { COMP_SOURCES } from '../lib/pricing/compSources';
 
 dotenv.config({ path: path.resolve(process.cwd(), '.env.production.local') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
@@ -85,7 +85,19 @@ async function lookupGcIron(oem: string): Promise<CompHit | null> {
 }
 
 async function lookupMagnasource(oem: string, brand: string): Promise<CompHit> {
-  const url = COMP_SOURCES.magnasource.buildUrl(oem, brand)!;
+  const url = COMP_SOURCES.magnasource.buildUrl(oem, brand);
+  if (!url) {
+    return {
+      sku: oem,
+      oem,
+      brand,
+      source: 'magnasource',
+      priceUsd: null,
+      url: '',
+      status: 'not_found',
+      note: `No OE prefix mapped for brand "${brand}" — add it to lib/parts/tvhOePrefixes.ts`,
+    };
+  }
   const html = await fetchText(url);
   if (!html) {
     return { sku: oem, oem, brand, source: 'magnasource', priceUsd: null, url, status: 'error' };

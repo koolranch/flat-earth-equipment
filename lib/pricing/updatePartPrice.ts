@@ -1,6 +1,7 @@
 import Stripe from 'stripe';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { CompSourceId } from './compSources';
+import type { MagAvailability } from './magSnapshot';
 import { calculateSellPrice, categoryFromPartCategory, type SellPriceResult } from './calculateSellPrice';
 
 export type CompetitorPriceEntry = {
@@ -8,6 +9,33 @@ export type CompetitorPriceEntry = {
   price: number;
   url?: string;
   fetched_at: string;
+  /** Magnasource on-hand (TVH network). Snapshot only — does not drive is_in_stock. */
+  qty_on_hand?: number | null;
+  availability?: MagAvailability;
+  weight_lb?: number | null;
+  /** Struck-through list price when the comp page shows one. */
+  list_price?: number | null;
+  /** True when the comp caps the count, e.g. "100+ in stock". */
+  qty_is_floor?: boolean;
+  selling_unit?: string | null;
+  /** Comp's own "confirmed by supplier at" stamp — freshness proof for the reading. */
+  supplier_confirmed_at?: string | null;
+};
+
+/** Per-row state for the Magnasource inventory/sticker watch job. */
+export type MagWatchState = {
+  last_checked_at: string;
+  last_availability: MagAvailability;
+  /** Consecutive affirmative sold-out readings. A pull requires 2. */
+  sold_out_streak: number;
+  /** Consecutive invalid-PN / parse failures. Retires the URL at 3. */
+  miss_count: number;
+  url?: string | null;
+  pulled_at?: string | null;
+  pull_reason?: string | null;
+  /** Saved so a relist can restore Buy Now exactly. */
+  prior_stripe_price_id?: string | null;
+  prior_sales_type?: string | null;
 };
 
 export async function updatePartStripePrice(
@@ -86,6 +114,9 @@ export async function applyCompPricing(params: {
   compPrice: number;
   compSource?: CompSourceId | string;
   compUrl?: string;
+  compQty?: number | null;
+  compAvailability?: CompetitorPriceEntry['availability'];
+  compWeightLb?: number | null;
   compDiscount?: number;
   enableBuyNow?: boolean;
   backordered?: boolean;
@@ -110,6 +141,9 @@ export async function applyCompPricing(params: {
     price: params.compPrice,
     url: params.compUrl,
     fetched_at: new Date().toISOString(),
+    ...(params.compQty != null ? { qty_on_hand: params.compQty } : {}),
+    ...(params.compAvailability ? { availability: params.compAvailability } : {}),
+    ...(params.compWeightLb != null ? { weight_lb: params.compWeightLb } : {}),
   };
 
   const metadata = buildCompetitorMetadata(params.part.metadata, [competitorEntry], pricing);
