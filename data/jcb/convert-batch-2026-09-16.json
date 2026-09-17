@@ -85,7 +85,11 @@
       "mag_weight_lb": 11.35,
       "proposed_sell": 629,
       "freight": 35,
-      "status": "need_photo",
+      "status": "live",
+      "hero": "public/images/parts/jcb-714-16700-alternator.jpg",
+      "stripe_product_id": "prod_VH2aXzmIFVNLCj",
+      "stripe_price_id": "price_1UGUV9HJI548rO8JaoKNHQ5h",
+      "sell": 629,
       "why": "2 on hand, sibling of tonight's 333/H7722."
     },
     {
