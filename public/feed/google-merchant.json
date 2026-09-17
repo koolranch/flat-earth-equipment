@@ -2348,7 +2348,7 @@
     "description": "Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 32-915801.",
     "link": "https://www.flatearthequipment.com/parts/32-915801",
     "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "19.93 USD",
+    "price": "134.00 USD",
     "brand": "JCB",
     "mpn": "32-915801",
     "condition": "new",
@@ -3586,19 +3586,27 @@
   },
   {
     "id": "716D3632",
-    "title": "JCB 716/D3632 ABI ENGINE POD FUSE BOX",
-    "description": "Aftermarket abi engine pod fuse box for JCB part number 716/D3632 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.\n\nMatches JCB OEM part number 716/D3632. Order by this PN for a confident fit.\n\nQuestions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.",
+    "title": "JCB 716/D3632 Engine Pod Fuse Box",
+    "description": "Aftermarket engine pod fuse box for JCB equipment. Replaces OEM part number 716/D3632.\n\nSealed black rectangular module with a circular multi-pin connector on the top face and a single-hole mounting flange on one end. This is the sealed engine-pod box — not an open blade-fuse panel. Ships about 1.5 lb.\n\nEligible JCB aftermarket parts carry a 2-year warranty. In stock. Free freight to the contiguous US.",
     "link": "https://www.flatearthequipment.com/parts/716D3632",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "180.25 USD",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/jcb-716-d3632-engine-pod-fuse-box.jpg",
+    "price": "1199.00 USD",
     "brand": "JCB",
     "mpn": "716/D3632",
     "condition": "new",
     "availability": "in stock",
     "google_product_category": "Business & Industrial > Material Handling",
     "product_type": "JCB Electrical",
+    "shipping_weight": "1.66 lb",
     "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
+    "custom_label_0": "priority_jcb",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "Ground",
+        "price": "0.00 USD"
+      }
+    ]
   },
   {
     "id": "71720040",
@@ -3768,16 +3776,17 @@
   {
     "id": "bobcat-6691001-left-rear-side-window",
     "title": "Bobcat 6691001 Left Rear Side Window",
-    "description": "Aftermarket green-tint tempered safety glass left rear side window for Bobcat compact equipment. Direct replacement for OEM part number 6691001. Fits Bobcat 963, S100, S130, S175, S185, S300, T110, T190. Specs: 5 mm thick, 646 mm max width, 809 mm height. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
+    "description": "Aftermarket green-tint tempered left rear side window for Bobcat equipment. Replaces OEM part number 6691001.\n\n5 mm thick, 646 mm max width, 809 mm height, no holes. Irregular pane with a cut corner — not the rectangular sliding window. Fits 963, S100, S130, S175, S185, S300, T110, T190.\n\nEligible Bobcat aftermarket parts carry a 2-year warranty. In stock.",
     "link": "https://www.flatearthequipment.com/parts/bobcat-6691001-left-rear-side-window",
     "image_link": "https://www.flatearthequipment.com/images/parts/glass/bobcat-6691001-left-rear-side-window.jpg",
-    "price": "47.00 USD",
+    "price": "186.00 USD",
     "brand": "Bobcat",
     "mpn": "6691001",
     "condition": "new",
     "availability": "in stock",
     "google_product_category": "Business & Industrial > Construction > Construction Machinery Accessories",
     "product_type": "Cab Glass",
+    "shipping_weight": "15.43 lb",
     "identifier_exists": "no",
     "custom_label_0": "priority_cab_glass",
     "shipping": [
@@ -3860,23 +3869,24 @@
   {
     "id": "bobcat-7003481-left-sliding-window",
     "title": "Bobcat 7003481 Left Sliding Window",
-    "description": "Aftermarket green-tint tempered safety glass left sliding window for Bobcat compact equipment. Direct replacement for OEM part number 7003481. Fits Bobcat 751, 753, 763, 773, S130, S175, S185, S220, S250, S300, T190, T250, T300. Specs: 5 mm thick, 575 mm max width, 775 mm height. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
+    "description": "Aftermarket green-tint tempered left sliding window for Bobcat equipment. Replaces OEM part number 7003481.\n\n5 mm thick, 575 mm max width, 775 mm height, no holes. Rectangular sliding pane with a black edge and handle slot — not the fixed rear side glass. Fits 751, 753, 763, 773, S130, S175, S185, S220, S250, S300, T190, T250, T300.\n\nEligible Bobcat aftermarket parts carry a 2-year warranty. In stock.",
     "link": "https://www.flatearthequipment.com/parts/bobcat-7003481-left-sliding-window",
     "image_link": "https://www.flatearthequipment.com/images/parts/glass/bobcat-7003481-left-sliding-window.jpg",
-    "price": "50.00 USD",
+    "price": "225.00 USD",
     "brand": "Bobcat",
     "mpn": "7003481",
     "condition": "new",
     "availability": "in stock",
     "google_product_category": "Business & Industrial > Construction > Construction Machinery Accessories",
     "product_type": "Cab Glass",
+    "shipping_weight": "10.27 lb",
     "identifier_exists": "no",
     "custom_label_0": "priority_cab_glass",
     "shipping": [
       {
         "country": "US",
         "service": "Ground",
-        "price": "25.00 USD"
+        "price": "31.00 USD"
       }
     ]
   },
@@ -6470,7 +6480,7 @@
     "description": "High-quality replacement seat cushion for JCB equipment. This aftermarket cushion is designed to restore operator comfort and support, providing a direct fit for JCB part number 40/212705. Made from durable polyurethane foam, it's built to withstand the rigors of daily industrial use.\n\nKey Features:\n• Direct OEM fitment for JCB 40/212705\n• Premium polyurethane foam filling for lasting support\n• Large 19\" x 19\" seating surface\n• 5\" thickness for maximum operator comfort\n• Easy to install replacement for worn or damaged cushions\n• Fast 1-2 day delivery in the continental USA\n\nFits a wide range of JCB machinery including Loadall telehandlers and wheeled loaders. Maintain productivity by keeping your operators comfortable throughout the shift.\n\nReplaces OEM Part Number: 40/212705",
     "link": "https://www.flatearthequipment.com/parts/jcb-40-212705-seat-cushion",
     "image_link": "https://www.flatearthequipment.com/images/parts/seats/jcb-40-212705-seat-cushion.jpg",
-    "price": "265.00 USD",
+    "price": "238.00 USD",
     "brand": "JCB",
     "mpn": "40/212705",
     "condition": "new",
@@ -6565,7 +6575,7 @@
     "description": "Aftermarket seat damper kit for JCB equipment. Replaces OEM part number 40/910659.\n\nIncludes the gas strut damper plus mounting hardware (pins, bushings, washers, and clips) for a complete seat damper replacement. Eligible JCB aftermarket parts carry a 2-year warranty.",
     "link": "https://www.flatearthequipment.com/parts/jcb-40-910659-seat-damper-kit",
     "image_link": "https://www.flatearthequipment.com/images/parts/jcb-40-910659-seat-damper-kit.jpg",
-    "price": "180.00 USD",
+    "price": "148.00 USD",
     "brand": "JCB",
     "mpn": "40/910659",
     "condition": "new",
@@ -6720,7 +6730,7 @@
     "description": "JLG 91563158 vinyl suspension seat assembly (GS12 platform). Fits JLG G10-43A, G10-55A, G10-55A ACCUPLACE, G12-55A, G12-55A ACCUPLACE, G6-42A, and G9-43A telehandlers.\n\nMechanical stepless suspension, slide rails, right-hand armrest, and seat belt provision. Approximately 24.5\" H × 23.5\" W × 23.5\" D. Black PVC upholstery.\n\nReplacement cushion pair: 7026900 (back) + 7026901 (bottom).",
     "link": "https://www.flatearthequipment.com/parts/jlg-91563158-seat-assembly",
     "image_link": "https://www.flatearthequipment.com/images/parts/seats/jlg-91563158-seat-assembly.jpg",
-    "price": "979.00 USD",
+    "price": "948.00 USD",
     "brand": "JLG",
     "mpn": "91563158",
     "condition": "new",
