@@ -43,6 +43,11 @@
       "mag_qty": 17,
       "mag_stock": "in_stock",
       "proposed_sell": 309,
+      "status": "live",
+      "hero": "public/images/parts/jcb-400-00380-joystick.jpg",
+      "stripe_product_id": "prod_VH2IMUMY7Zc4JZ",
+      "stripe_price_id": "price_1UGUEGHJI548rO8JIZd3wsjM",
+      "sell": 309,
       "why": "In-stock joystick, 17 on hand."
     },
     {
