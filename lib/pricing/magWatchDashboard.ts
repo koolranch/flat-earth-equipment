@@ -9,6 +9,7 @@
  * run's readings.
  */
 
+import { currentHeroKind, isSeatCategory, type StoredHeroReading } from './magHero';
 import {
   isSoldOutReading,
   stickerDrift,
@@ -146,9 +147,41 @@ export type TierFreshness = {
   dueToday: boolean;
 };
 
+/**
+ * Where the catalog stands on product photography, split by whether the row is live.
+ * "Gap" means the row has no real photo (empty, brand logo, or placeholder). The vendor
+ * columns count rows whose last read exposed a hero and how many passed the identity gate.
+ */
+export type HeroCoverageRow = {
+  label: 'Buy Now' | 'Quote-only';
+  total: number;
+  realPhoto: number;
+  brandLogo: number;
+  noPhoto: number;
+  /** Gap rows that are eligible for a vendor hero (not seats/cushions/covers). */
+  gapEligible: number;
+  /** Eligible gap rows where the last read exposed a hero. */
+  vendorHeroSeen: number;
+  /** …and the hero filename matched the part id and is not a placeholder. */
+  vendorHeroUsable: number;
+  /** Eligible gap rows that have never had a read yet, so nothing is known. */
+  notYetRead: number;
+};
+
+export type HeroCoverage = {
+  rows: HeroCoverageRow[];
+  /** Gap rows with a usable vendor hero, ready for a review tray once one exists. */
+  trayReady: number;
+  /** Rows where the vendor exposed a hero whose filename did not match the part id. */
+  identityFailed: number;
+  /** Seat/cushion/cover rows with a gap — these never take a vendor hero. */
+  seatGapExcluded: number;
+};
+
 export type WatchDashboard = {
   generatedAt: string;
   lastReadingAt: string | null;
+  hero: HeroCoverage;
   counts: {
     catalogRows: number;
     inScope: number;
@@ -229,7 +262,21 @@ type WatchState = {
   pullReason: string | null;
   priorSalesType: string | null;
   priorStripePriceId: string | null;
+  hero: StoredHeroReading | null;
 };
+
+function storedHero(value: unknown): StoredHeroReading | null {
+  if (!value || typeof value !== 'object') return null;
+  const h = value as Record<string, unknown>;
+  const checkedAt = asString(h.checked_at);
+  if (!checkedAt) return null;
+  return {
+    checked_at: checkedAt,
+    filename: asString(h.filename),
+    identity_ok: h.identity_ok === true,
+    placeholder_suspect: h.placeholder_suspect === true,
+  };
+}
 
 function watchState(row: WatchRow): WatchState {
   const raw = row.metadata?.mag_watch;
@@ -241,7 +288,63 @@ function watchState(row: WatchRow): WatchState {
     pullReason: asString(meta.pull_reason),
     priorSalesType: asString(meta.prior_sales_type),
     priorStripePriceId: asString(meta.prior_stripe_price_id),
+    hero: storedHero(meta.hero),
   };
+}
+
+function emptyHeroRow(label: HeroCoverageRow['label']): HeroCoverageRow {
+  return {
+    label,
+    total: 0,
+    realPhoto: 0,
+    brandLogo: 0,
+    noPhoto: 0,
+    gapEligible: 0,
+    vendorHeroSeen: 0,
+    vendorHeroUsable: 0,
+    notYetRead: 0,
+  };
+}
+
+/** Fold one row into the hero coverage tallies. Pure counting; no decisions. */
+function tallyHero(
+  coverage: HeroCoverage,
+  bucket: HeroCoverageRow,
+  row: WatchRow,
+  state: WatchState
+): void {
+  bucket.total++;
+  const kind = currentHeroKind(row.image_url);
+  if (kind === 'real') {
+    bucket.realPhoto++;
+    return;
+  }
+  if (kind === 'brand_logo') bucket.brandLogo++;
+  else bucket.noPhoto++;
+
+  if (isSeatCategory(row.category)) {
+    coverage.seatGapExcluded++;
+    return;
+  }
+
+  bucket.gapEligible++;
+  if (!state.lastCheckedAt) {
+    bucket.notYetRead++;
+    return;
+  }
+  const hero = state.hero;
+  if (!hero?.filename) return;
+
+  bucket.vendorHeroSeen++;
+  // A stock "no image" graphic is a vendor gap, not a mismatched part.
+  if (hero.placeholder_suspect) return;
+  if (!hero.identity_ok) {
+    coverage.identityFailed++;
+    return;
+  }
+
+  bucket.vendorHeroUsable++;
+  coverage.trayReady++;
 }
 
 function partRef(candidate: WatchCandidate): PartRef {
@@ -292,9 +395,18 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date()): WatchDa
 
   const dueToday = tiersDue(now.getDay());
 
+  const heroBuyNow = emptyHeroRow('Buy Now');
+  const heroQuote = emptyHeroRow('Quote-only');
+
   const dashboard: WatchDashboard = {
     generatedAt: now.toISOString(),
     lastReadingAt: null,
+    hero: {
+      rows: [heroBuyNow, heroQuote],
+      trayReady: 0,
+      identityFailed: 0,
+      seatGapExcluded: 0,
+    },
     counts: {
       catalogRows: rows.length,
       inScope: unique.length,
@@ -348,6 +460,8 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date()): WatchDa
     const lastCheckedAt = state.lastCheckedAt ?? snapshot.fetchedAt;
     const ref = partRef(candidate);
     const bucket = tierBuckets.get(candidate.tier)!;
+
+    tallyHero(dashboard.hero, candidate.isBuyNow ? heroBuyNow : heroQuote, row, state);
 
     bucket.total++;
     const ageDays = daysSince(lastCheckedAt, nowMs);

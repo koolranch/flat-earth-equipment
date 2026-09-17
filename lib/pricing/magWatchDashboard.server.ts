@@ -8,10 +8,9 @@
 
 import { supabaseService } from '../supabase/service.server';
 import { buildWatchDashboard, type WatchDashboard } from './magWatchDashboard';
-import type { WatchRow } from './magWatchUniverse';
+import { WATCH_ROW_SELECT, type WatchRow } from './magWatchUniverse';
 
-const SELECT =
-  'id, sku, slug, name, brand, category, category_slug, sales_type, is_in_stock, price, price_cents, oem_reference, stripe_price_id, metadata';
+const SELECT = WATCH_ROW_SELECT;
 
 /** Supabase caps a plain select at 1000 rows — page through the whole catalog. */
 async function fetchAllParts(): Promise<WatchRow[]> {

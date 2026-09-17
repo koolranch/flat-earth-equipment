@@ -13,7 +13,9 @@ function row(overrides: {
   oem?: string;
   price?: number | null;
   salesType?: string;
+  category?: string | null;
   categorySlug?: string | null;
+  imageUrl?: string | null;
   metadata?: Record<string, unknown>;
 }): WatchRow {
   nextId++;
@@ -24,7 +26,7 @@ function row(overrides: {
     slug: `slug-${nextId}`,
     name: `Part ${nextId}`,
     brand: overrides.brand === undefined ? 'JCB' : overrides.brand,
-    category: 'Construction Equipment Parts',
+    category: overrides.category === undefined ? 'Construction Equipment Parts' : overrides.category,
     category_slug: overrides.categorySlug ?? 'construction-equipment-parts',
     sales_type: overrides.salesType ?? 'direct',
     is_in_stock: true,
@@ -32,9 +34,13 @@ function row(overrides: {
     price_cents: null,
     oem_reference: oem,
     stripe_price_id: 'price_live_test',
+    image_url: overrides.imageUrl === undefined ? null : overrides.imageUrl,
     metadata: overrides.metadata ?? null,
   };
 }
+
+const LOGO = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp';
+const REAL = '/images/parts/jcb-716-c8932-throttle-pedal.jpg';
 
 /** Shape the watch script writes: the vendor snapshot plus the per-row job state. */
 function meta(opts: {
@@ -50,6 +56,8 @@ function meta(opts: {
   backorderEta?: string | null;
   weightLb?: number | null;
   cost?: number;
+  /** Hero reading as the watch script stores it. Omit to simulate a pre-hero read. */
+  hero?: { filename: string | null; identityOk?: boolean; placeholder?: boolean };
 }): Record<string, unknown> {
   const fetchedAt = opts.fetchedAt ?? HOURS_AGO(6);
   return {
@@ -73,6 +81,16 @@ function meta(opts: {
       last_availability: opts.availability ?? 'in_stock',
       sold_out_streak: opts.soldOutStreak ?? 0,
       miss_count: opts.missCount ?? 0,
+      ...(opts.hero
+        ? {
+            hero: {
+              checked_at: fetchedAt,
+              filename: opts.hero.filename,
+              identity_ok: opts.hero.identityOk ?? false,
+              placeholder_suspect: opts.hero.placeholder ?? false,
+            },
+          }
+        : {}),
       ...(opts.pulledAt
         ? {
             pulled_at: opts.pulledAt,
@@ -356,6 +374,63 @@ function meta(opts: {
   assert.equal(saturday.getDay(), 6);
   const weekend = buildWatchDashboard([row({})], saturday);
   assert.equal(weekend.tiers.filter((t) => t.dueToday).length, 0, 'no tiers due on a weekend');
+}
+
+// ---------------------------------------------------------------------------
+// Hero coverage: gaps, eligibility, and what the vendor page exposed.
+// ---------------------------------------------------------------------------
+{
+  const usable = { filename: 'electronic-sensor-jc333d1629.jpg', identityOk: true };
+  const rows = [
+    // Buy Now, real photo — no gap regardless of vendor hero.
+    row({ imageUrl: REAL, metadata: meta({ hero: usable }) }),
+    // Buy Now, brand logo, vendor hero usable → tray-ready.
+    row({ imageUrl: LOGO, metadata: meta({ hero: usable }) }),
+    // Buy Now, no photo, vendor hero failed identity (carousel image).
+    row({ imageUrl: null, metadata: meta({ hero: { filename: 'sensor-gb106100.jpg', identityOk: false } }) }),
+    // Buy Now, no photo, vendor hero is a placeholder graphic.
+    row({
+      imageUrl: null,
+      metadata: meta({ hero: { filename: 'no-image-available.jpg', identityOk: false, placeholder: true } }),
+    }),
+    // Buy Now, no photo, read happened but page exposed no hero.
+    row({ imageUrl: null, metadata: meta({ hero: { filename: null } }) }),
+    // Buy Now, no photo, never read.
+    row({ imageUrl: null }),
+    // Buy Now, logo, read before hero capture existed (no hero key at all).
+    row({ imageUrl: LOGO, metadata: meta({}) }),
+    // Seat with a logo and a usable vendor hero — excluded, never tray-ready.
+    row({ imageUrl: LOGO, category: 'Seats', metadata: meta({ hero: usable }) }),
+    // Quote-only, no photo, usable hero → tray-ready on the quote side.
+    row({ salesType: 'quote_only', price: 0, imageUrl: null, metadata: meta({ hero: usable }) }),
+    // Quote-only with a real CDN photo.
+    row({
+      salesType: 'quote_only',
+      price: 0,
+      imageUrl: 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/x.jpg',
+    }),
+  ];
+  const d = buildWatchDashboard(rows, NOW);
+
+  const buy = d.hero.rows.find((r) => r.label === 'Buy Now')!;
+  assert.equal(buy.total, 8);
+  assert.equal(buy.realPhoto, 1);
+  assert.equal(buy.brandLogo, 3, 'two logo parts plus the logo seat');
+  assert.equal(buy.noPhoto, 4);
+  assert.equal(buy.gapEligible, 6, 'seven gap rows minus the seat');
+  assert.equal(buy.notYetRead, 1);
+  assert.equal(buy.vendorHeroSeen, 3, 'usable + carousel + placeholder; the no-hero read and pre-hero read do not count');
+  assert.equal(buy.vendorHeroUsable, 1);
+
+  const quote = d.hero.rows.find((r) => r.label === 'Quote-only')!;
+  assert.equal(quote.total, 2);
+  assert.equal(quote.realPhoto, 1);
+  assert.equal(quote.gapEligible, 1);
+  assert.equal(quote.vendorHeroUsable, 1);
+
+  assert.equal(d.hero.trayReady, 2, 'one Buy Now logo row and one quote-only gap row');
+  assert.equal(d.hero.identityFailed, 1, 'placeholder is counted as placeholder, not as an identity failure');
+  assert.equal(d.hero.seatGapExcluded, 1);
 }
 
 console.log('magWatchDashboard.test.ts: all assertions passed');

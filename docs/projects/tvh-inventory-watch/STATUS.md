@@ -91,3 +91,32 @@ against a per-run cap of 10. Clearing a first-run backlog needs a reviewed, expl
 - JCB `20/915900`: our $299 against a Magnasource sticker of $560.12, 46.6% under target.
   Flagged as a possible cost reset — confirm cost on the next PO before repricing.
 - 12 of 53 baseline rows read limited or low on hand. All flag-only, none disabled.
+
+## 2026-09-17 — hero-image measurement wired into the watch
+
+Catalog audit of in-scope rows by current `image_url`: **~135 real photos, 667 brand logos
+(196 live Buy Now), 816 empty (310 live Buy Now).** Photos, not price, are the constraint
+on converting the 1,087 quote-only stubs.
+
+One read-only look at the JCB `333/D1629` page showed Magnasource publishes the hero as
+`og:image` at `/services/getimage/electronic-sensor-jc333d1629.jpg?key=…` — a 250×250
+JPEG on white, no watermark, filename carrying the part id. The same Firecrawl response the
+watch already receives includes that metadata, so hero capture costs no extra vendor reads.
+An LLM "pick the hero" extraction on the same page returned a Gehl part from the
+related-items carousel; the filename identity gate is what makes this safe.
+
+Shipped: `lib/pricing/magHero.ts` (filename identity gate, placeholder heuristic, current
+hero classification, seat exclusion) with tests; each watch read now stores
+`mag_watch.hero` (filename + gate results, never the signed URL); the run digest and
+`/parts-watch` gained a *Product photos* block (real / logo / none by Buy Now vs quote,
+plus how many gap rows have a usable vendor hero on record). `WATCH_ROW_SELECT` is now the
+one column list for every watch reader so `image_url` landed everywhere at once.
+
+Verified with a two-SKU dry run: both pages exposed a hero, both passed identity, zero
+gap-fill because both rows already have real photos. Nothing downloaded, `image_url`
+untouched.
+
+Not built yet, by design: bytes download, private intake bucket, review table, deterministic
+rework, approve/reject UI. Those wait on a week of measurement so the tray is sized from
+data rather than assumed. Generative cleanup stays interactive; approve will mean
+"set `image_url`" and nothing else.

@@ -34,6 +34,13 @@ import {
   DEFAULT_COMP_DISCOUNT,
 } from '../../lib/pricing/calculateSellPrice';
 import {
+  currentHeroKind,
+  heroCandidateFromOgImage,
+  isSeatCategory,
+  toStoredHeroReading,
+  type HeroCandidate,
+} from '../../lib/pricing/magHero';
+import {
   isActionableReading,
   isSoldOutReading,
   parseMagSnapshot,
@@ -50,6 +57,7 @@ import {
   tiersDue,
   MAX_MISSES,
   SOLD_OUT_STREAK_TO_PULL,
+  WATCH_ROW_SELECT,
   type WatchCandidate,
   type WatchRow,
   type WatchSkip,
@@ -120,9 +128,7 @@ async function fetchAllParts(supabase: SupabaseClient): Promise<WatchRow[]> {
   for (let from = 0; ; from += pageSize) {
     const { data, error } = await supabase
       .from('parts')
-      .select(
-        'id, sku, slug, name, brand, category, category_slug, sales_type, is_in_stock, price, price_cents, oem_reference, stripe_price_id, metadata'
-      )
+      .select(WATCH_ROW_SELECT)
       .order('id', { ascending: true })
       .range(from, from + pageSize - 1);
     if (error) throw new Error(error.message);
@@ -133,11 +139,17 @@ async function fetchAllParts(supabase: SupabaseClient): Promise<WatchRow[]> {
   return rows;
 }
 
+type MagPage = {
+  markdown: string;
+  /** Magnasource's og:image — the product hero. Present on the same response, no extra read. */
+  ogImage: string | null;
+};
+
 async function scrapeMag(
   url: string,
   apiKey: string,
   opts: { maxAge: number; waitFor?: number }
-): Promise<string> {
+): Promise<MagPage> {
   const res = await fetch('https://api.firecrawl.dev/v2/scrape', {
     method: 'POST',
     headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
@@ -150,8 +162,17 @@ async function scrapeMag(
     }),
   });
   if (!res.ok) throw new Error(`firecrawl ${res.status}`);
-  const json = (await res.json()) as { data?: { markdown?: string }; markdown?: string };
-  return json.data?.markdown ?? json.markdown ?? '';
+  const json = (await res.json()) as {
+    data?: { markdown?: string; metadata?: Record<string, unknown> };
+    markdown?: string;
+    metadata?: Record<string, unknown>;
+  };
+  const metadata = json.data?.metadata ?? json.metadata ?? {};
+  const og = metadata.ogImage ?? metadata['og:image'];
+  return {
+    markdown: json.data?.markdown ?? json.markdown ?? '',
+    ogImage: typeof og === 'string' && og.length > 0 ? og : null,
+  };
 }
 
 /**
@@ -166,6 +187,7 @@ function needsHydrationRetry(snapshot: MagSnapshot): boolean {
 type Reading = {
   candidate: WatchCandidate;
   snapshot: MagSnapshot | null;
+  hero: HeroCandidate | null;
   error?: string;
 };
 
@@ -180,7 +202,12 @@ function existingMagPrice(row: WatchRow): number | null {
 }
 
 /** Merge the fresh reading into competitor_prices + mag_watch without dropping other keys. */
-function buildMetadata(row: WatchRow, candidate: WatchCandidate, snapshot: MagSnapshot) {
+function buildMetadata(
+  row: WatchRow,
+  candidate: WatchCandidate,
+  snapshot: MagSnapshot,
+  hero: HeroCandidate | null
+) {
   const prev = (row.metadata ?? {}) as Record<string, unknown>;
   const comps = Array.isArray(prev.competitor_prices)
     ? (prev.competitor_prices as Array<Record<string, unknown>>)
@@ -219,6 +246,8 @@ function buildMetadata(row: WatchRow, candidate: WatchCandidate, snapshot: MagSn
       last_availability: snapshot.availability,
       sold_out_streak: soldOut ? soldOutStreak(row) + 1 : 0,
       miss_count: actionable ? 0 : missCount(row) + 1,
+      // Hero facts only — never the signed URL, never an image_url write.
+      hero: toStoredHeroReading(hero, now),
     },
   };
 }
@@ -238,6 +267,15 @@ type Digest = {
   convertible_stubs: DigestRow[];
   failures: DigestRow[];
   unverified_prefix_brands: string[];
+  /** Hero-image facts from this run's reads. Measurement only; nothing is downloaded. */
+  hero: {
+    pages_with_hero: number;
+    identity_ok: number;
+    identity_failed: number;
+    placeholder_suspect: number;
+    /** identity_ok heroes on rows whose current image is a logo, placeholder, or empty. */
+    would_fill_gap: number;
+  };
 };
 
 function proposedSell(row: WatchRow, magPrice: number): number | null {
@@ -269,12 +307,28 @@ function buildDigest(
     convertible_stubs: [],
     failures: [],
     unverified_prefix_brands: [],
+    hero: {
+      pages_with_hero: 0,
+      identity_ok: 0,
+      identity_failed: 0,
+      placeholder_suspect: 0,
+      would_fill_gap: 0,
+    },
   };
 
   const unverified = new Set<string>();
 
-  for (const { candidate, snapshot, error } of readings) {
+  for (const { candidate, snapshot, hero, error } of readings) {
     const { row } = candidate;
+
+    if (hero) {
+      digest.hero.pages_with_hero++;
+      if (hero.identityOk) digest.hero.identity_ok++;
+      else digest.hero.identity_failed++;
+      if (hero.placeholderSuspect) digest.hero.placeholder_suspect++;
+      const gap = currentHeroKind(row.image_url) !== 'real' && !isSeatCategory(row.category);
+      if (hero.identityOk && !hero.placeholderSuspect && gap) digest.hero.would_fill_gap++;
+    }
     const base = {
       sku: row.sku,
       brand: candidate.brand,
@@ -443,6 +497,12 @@ function renderDigest(digest: Digest): string {
     lines.push(`- …and ${digest.failures.length - 40} more in the JSON.`);
   }
 
+  lines.push('');
+  lines.push('## Hero images seen (measurement only, nothing downloaded)');
+  lines.push(
+    `${digest.hero.pages_with_hero} of ${digest.checked} pages exposed a hero · ${digest.hero.identity_ok} matched the part id · ${digest.hero.identity_failed} did not · ${digest.hero.placeholder_suspect} look like placeholders · **${digest.hero.would_fill_gap} would fill a row that has no real photo today**`
+  );
+
   if (digest.unverified_prefix_brands.length) {
     lines.push('');
     lines.push('## Brands with an unconfirmed OE prefix');
@@ -589,23 +649,28 @@ async function run(
             brand: candidate.brand,
           });
 
-        let snapshot = parse(await scrapeMag(candidate.magUrl, apiKey, { maxAge }));
+        let page = await scrapeMag(candidate.magUrl, apiKey, { maxAge });
+        let snapshot = parse(page.markdown);
         if (needsHydrationRetry(snapshot)) {
           await sleep(BASE_DELAY_MS);
-          const retry = parse(
-            await scrapeMag(candidate.magUrl, apiKey, { maxAge: 0, waitFor: 4000 })
-          );
+          page = await scrapeMag(candidate.magUrl, apiKey, { maxAge: 0, waitFor: 4000 });
+          const retry = parse(page.markdown);
           if (!needsHydrationRetry(retry)) retry.notes.push('recovered_after_hydration_retry');
           snapshot = retry;
         }
-        readings.push({ candidate, snapshot });
+        // Only trust a hero on a page whose text identity already passed.
+        const hero = snapshot.identityOk
+          ? heroCandidateFromOgImage(page.ogImage, candidate.magPartId)
+          : null;
+        readings.push({ candidate, snapshot, hero });
         done++;
+        const heroNote = hero ? (hero.identityOk ? ' · hero ✓' : ' · hero ✗ id') : '';
         process.stdout.write(
-          `[${done}/${queue.length}] ${candidate.brand} ${candidate.oem} → ${snapshot.availability}${snapshot.price != null ? ` $${snapshot.price}` : ''}\n`
+          `[${done}/${queue.length}] ${candidate.brand} ${candidate.oem} → ${snapshot.availability}${snapshot.price != null ? ` $${snapshot.price}` : ''}${heroNote}\n`
         );
 
         if (!args.dryRun) {
-          const metadata = buildMetadata(candidate.row, candidate, snapshot);
+          const metadata = buildMetadata(candidate.row, candidate, snapshot, hero);
           const { error } = await supabase
             .from('parts')
             .update({ metadata, updated_at: new Date().toISOString() })
@@ -613,7 +678,12 @@ async function run(
           if (error) console.warn(`   snapshot write failed: ${error.message}`);
         }
       } catch (e) {
-        readings.push({ candidate, snapshot: null, error: (e as Error).message.slice(0, 80) });
+        readings.push({
+          candidate,
+          snapshot: null,
+          hero: null,
+          error: (e as Error).message.slice(0, 80),
+        });
         done++;
         process.stdout.write(
           `[${done}/${queue.length}] ${candidate.brand} ${candidate.oem} → ERROR ${(e as Error).message.slice(0, 60)}\n`

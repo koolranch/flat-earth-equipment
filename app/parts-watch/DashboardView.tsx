@@ -247,6 +247,55 @@ export default function DashboardView({ data }: { data: WatchDashboard }) {
           </div>
         </section>
 
+        <section className="rounded-2xl border border-slate-800 bg-slate-900/40">
+          <header className="border-b border-slate-800 px-5 py-4">
+            <h2 className="text-base font-semibold text-white">Product photos</h2>
+            <p className="mt-1 text-sm text-slate-400">
+              Brand logos and empty heroes both count as a gap. Each weekday read also notes
+              whether the vendor page exposes a hero whose filename matches the part id — a
+              measurement only; nothing is downloaded or published from it.
+            </p>
+          </header>
+          <div className="overflow-x-auto">
+            <Table
+              head={[
+                'Listing',
+                'Rows',
+                'Real photo',
+                'Brand logo',
+                'No photo',
+                'Gap, eligible',
+                'Not yet read',
+                'Vendor hero seen',
+                'Usable',
+              ]}
+            >
+              {data.hero.rows.map((h) => (
+                <tr key={h.label}>
+                  <td className="px-5 py-3 font-medium text-white">{h.label}</td>
+                  <td className="px-5 py-3 tabular-nums">{h.total}</td>
+                  <td className="px-5 py-3 tabular-nums">{h.realPhoto}</td>
+                  <td className={`px-5 py-3 tabular-nums ${h.brandLogo ? 'text-amber-300' : ''}`}>
+                    {h.brandLogo}
+                  </td>
+                  <td className={`px-5 py-3 tabular-nums ${h.noPhoto ? 'text-amber-300' : ''}`}>
+                    {h.noPhoto}
+                  </td>
+                  <td className="px-5 py-3 tabular-nums">{h.gapEligible}</td>
+                  <td className="px-5 py-3 tabular-nums text-slate-400">{h.notYetRead}</td>
+                  <td className="px-5 py-3 tabular-nums">{h.vendorHeroSeen}</td>
+                  <td className="px-5 py-3 tabular-nums text-white">{h.vendorHeroUsable}</td>
+                </tr>
+              ))}
+            </Table>
+          </div>
+          <p className="border-t border-slate-800 px-5 py-3 text-xs text-slate-500">
+            {data.hero.trayReady} gap rows have a usable vendor hero on record ·{' '}
+            {data.hero.identityFailed} vendor heroes failed the part-id check ·{' '}
+            {data.hero.seatGapExcluded} seat/cushion/cover gaps excluded (never vendor-sourced)
+          </p>
+        </section>
+
         <Section
           title="Sold out — pull queue"
           count={data.pullQueue.length}

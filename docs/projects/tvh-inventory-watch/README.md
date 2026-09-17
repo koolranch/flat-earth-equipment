@@ -134,6 +134,43 @@ A sibling `metadata.mag_watch` object holds job state only: `last_checked_at`,
 `last_availability`, `sold_out_streak`, `miss_count`, and on a pull `pulled_at`,
 `pull_reason`, `prior_stripe_price_id`, `prior_sales_type`.
 
+## Hero images (measurement stage)
+
+Catalog growth is blocked on product photos, not on price: at the time of writing only
+~135 in-scope rows have a real photo; 667 show a brand logo and 816 nothing. Magnasource
+exposes the product hero as `og:image` on the same page response the watch already reads,
+so each read now records a hero fact on `mag_watch.hero` at zero extra vendor load:
+
+```json
+{ "checked_at": "…", "filename": "electronic-sensor-jc333d1629.jpg",
+  "identity_ok": true, "placeholder_suspect": false }
+```
+
+`identity_ok` means the filename contains the Magnasource part id — the image equivalent
+of the PN + brand gate. It exists because the related-items carousel on the same page
+shows other brands' parts, and a naive "first product image" pick lands on those. The
+signed `?key=` URL is never stored.
+
+This stage **downloads nothing and never writes `image_url`**. It answers, per brand, how
+many gap rows have a usable vendor hero — visible on `/parts-watch` under *Product photos*
+and in each run's digest. Whether a review tray, storage, and approve/reject UI are worth
+building is decided from that number. Seats, cushions and covers are excluded outright.
+
+Decided direction for the next stage, once the numbers justify it:
+
+- Raw bytes land in a **private** storage bucket, keyed by content hash. Nothing pending
+  is publicly addressable.
+- A deterministic rework (trim, square-pad on white, size cap, mild sharpen, strip EXIF,
+  re-encode) runs automatically and sits next to the raw in the tray. Generative cleanup
+  (watermark removal, background repair) is **not** automated in the scheduled job — it is
+  an interactive step whose output re-enters the tray as another candidate.
+- **Approve** copies the chosen file into the public `products` bucket and sets
+  `parts.image_url` to that CDN URL. That is the whole meaning of approve: it does not
+  change `sales_type`, does not create a Stripe price, does not touch stock. Buy Now still
+  needs the convert step. Approved heroes do not go into git.
+- Review state lives in a small table keyed by brand + OEM, not in `parts.metadata`, so a
+  future list-intake row can use the same tray before a `parts` row exists.
+
 ## URL construction
 
 `https://www.magnasourceinc.com/itemdetail/{PREFIX}{OEM}`, prefix from

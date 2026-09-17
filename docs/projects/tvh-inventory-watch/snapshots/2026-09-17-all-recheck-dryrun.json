@@ -1,0 +1,53 @@
+{
+  "generated_at": "2026-09-17T16:12:01.153Z",
+  "slice": "all",
+  "tiers": [
+    "A"
+  ],
+  "dry_run": true,
+  "universe": {
+    "catalog_rows": 2148,
+    "in_scope": 1785,
+    "buy_now": 698,
+    "quote_only": 1087,
+    "duplicates_collapsed": 9,
+    "tier_a": 204,
+    "tier_b": 184,
+    "tier_c": 310,
+    "tier_d": 1087,
+    "skipped_no_oem": 14,
+    "skipped_no_prefix": 0,
+    "skipped_category": 116,
+    "skipped_supply_chain": 0,
+    "skipped_brand": 224,
+    "url_retired": 0,
+    "with_prior_mag_snapshot": 617
+  },
+  "checked": 2,
+  "pull_candidates": [],
+  "limited_review": [
+    {
+      "sku": "333H8243",
+      "brand": "JCB",
+      "oem": "333/H8243",
+      "slug": "333H8243",
+      "tier": "A",
+      "mag_url": "https://www.magnasourceinc.com/itemdetail/JC333/H8243",
+      "our_sell": 449,
+      "buy_now": true,
+      "qty_on_hand": 1,
+      "note": "Flag only — Magnasource has read low while the vendor held stock."
+    }
+  ],
+  "sticker_movers": [],
+  "convertible_stubs": [],
+  "failures": [],
+  "unverified_prefix_brands": [],
+  "hero": {
+    "pages_with_hero": 2,
+    "identity_ok": 2,
+    "identity_failed": 0,
+    "placeholder_suspect": 0,
+    "would_fill_gap": 0
+  }
+}

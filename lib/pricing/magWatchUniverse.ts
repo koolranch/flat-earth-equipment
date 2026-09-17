@@ -92,8 +92,13 @@ export type WatchRow = {
   price_cents: number | null;
   oem_reference: string | null;
   stripe_price_id: string | null;
+  image_url: string | null;
   metadata: Record<string, unknown> | null;
 };
+
+/** The one column list every watch reader uses, so a new field lands everywhere at once. */
+export const WATCH_ROW_SELECT =
+  'id, sku, slug, name, brand, category, category_slug, sales_type, is_in_stock, price, price_cents, oem_reference, stripe_price_id, image_url, metadata';
 
 export type WatchTier = 'A' | 'B' | 'C' | 'D';
 

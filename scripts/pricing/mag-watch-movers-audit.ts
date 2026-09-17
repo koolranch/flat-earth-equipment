@@ -10,14 +10,13 @@ import path from 'path';
 import { createClient } from '@supabase/supabase-js';
 import * as dotenv from 'dotenv';
 import { buildWatchDashboard } from '../../lib/pricing/magWatchDashboard';
-import type { WatchRow } from '../../lib/pricing/magWatchUniverse';
+import { WATCH_ROW_SELECT, type WatchRow } from '../../lib/pricing/magWatchUniverse';
 
 dotenv.config({ path: path.resolve(process.cwd(), '.env.production.local') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
-const SELECT =
-  'id, sku, slug, name, brand, category, category_slug, sales_type, is_in_stock, price, price_cents, oem_reference, stripe_price_id, metadata';
+const SELECT = WATCH_ROW_SELECT;
 
 async function main() {
   // Some entries in the local env files are quoted; strip them before use.

@@ -37,6 +37,7 @@ import {
   soldOutStreak,
   MAX_PULLS_PER_RUN,
   SOLD_OUT_STREAK_TO_PULL,
+  WATCH_ROW_SELECT,
   type WatchRow,
 } from '../../lib/pricing/magWatchUniverse';
 
@@ -47,8 +48,7 @@ dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 /** A reading older than this is too stale to act on. */
 const MAX_READING_AGE_DAYS = 3;
 
-const SELECT =
-  'id, sku, slug, name, brand, category, category_slug, sales_type, is_in_stock, price, price_cents, oem_reference, stripe_price_id, metadata';
+const SELECT = WATCH_ROW_SELECT;
 
 type MagWatchMeta = {
   last_checked_at?: string;
