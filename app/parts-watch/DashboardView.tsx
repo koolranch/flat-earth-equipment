@@ -154,7 +154,24 @@ function Command({ children }: { children: string }) {
   );
 }
 
-export default function DashboardView({ data }: { data: WatchDashboard }) {
+export type Banner = { kind: 'ok' | 'warn' | 'error'; message: string };
+
+const BANNER_TONES: Record<Banner['kind'], string> = {
+  ok: 'border-emerald-800 bg-emerald-950/40 text-emerald-200',
+  warn: 'border-amber-800 bg-amber-950/40 text-amber-200',
+  error: 'border-red-800 bg-red-950/40 text-red-200',
+};
+
+const ACTION_BUTTON =
+  'min-h-[44px] rounded-lg px-3 py-2 text-xs font-semibold transition disabled:cursor-not-allowed disabled:opacity-40';
+
+export default function DashboardView({
+  data,
+  banner,
+}: {
+  data: WatchDashboard;
+  banner?: Banner | null;
+}) {
   const ready = data.pullQueue.filter((p) => p.readyToPull);
   const watching = data.pullQueue.filter((p) => !p.readyToPull);
   const retired = data.failures.filter((f) => f.retired);
@@ -165,14 +182,15 @@ export default function DashboardView({ data }: { data: WatchDashboard }) {
         <header className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-canyon-rust">
-              Internal · read only
+              Internal
             </p>
             <h1 className="mt-1 text-2xl font-semibold text-white sm:text-3xl">
               Parts inventory &amp; sticker watch
             </h1>
             <p className="mt-1 text-sm text-slate-400">
-              Last vendor reading {ago(data.lastReadingAt)}. This page only displays stored
-              readings — it never scrapes and never changes what is for sale.
+              Last vendor reading {ago(data.lastReadingAt)}. Readings are stored by the weekday
+              job; this page never scrapes. The only writes it can make are the Pull and Relist
+              buttons below, and every one is logged.
             </p>
           </div>
           <form action="/parts-watch/logout" method="post">
@@ -184,6 +202,31 @@ export default function DashboardView({ data }: { data: WatchDashboard }) {
             </button>
           </form>
         </header>
+
+        {banner && (
+          <div
+            role="status"
+            className={`rounded-xl border px-4 py-3 text-sm ${BANNER_TONES[banner.kind]}`}
+          >
+            {banner.message}
+          </div>
+        )}
+
+        {data.feed.changesSinceBuild > 0 && (
+          <div className="rounded-xl border border-slate-800 bg-slate-900/50 px-4 py-3 text-sm text-slate-300">
+            <span className="font-medium text-white">
+              {data.feed.changesSinceBuild} Buy Now{' '}
+              {data.feed.changesSinceBuild === 1 ? 'change' : 'changes'}
+            </span>{' '}
+            since the Merchant feed was last built{' '}
+            {data.feed.builtAt ? `(${ago(data.feed.builtAt)})` : '(build time unknown)'}. Shopping
+            catches up after:{' '}
+            <code className="font-mono text-xs text-slate-200">
+              npx tsx scripts/build-merchant-feed.ts
+            </code>{' '}
+            + commit.
+          </div>
+        )}
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           <Stat label="In scope" value={data.counts.inScope} hint={`of ${data.counts.catalogRows} rows`} />
@@ -301,7 +344,7 @@ export default function DashboardView({ data }: { data: WatchDashboard }) {
           count={data.pullQueue.length}
           blurb="Live Buy Now parts the vendor is showing at zero, on backorder, or special order."
         >
-          <Table head={['Part', 'Our sell', 'Vendor', 'ETA', 'Reads', 'Status']}>
+          <Table head={['Part', 'Our sell', 'Vendor', 'ETA', 'Reads', 'Action']}>
             {[...ready, ...watching].map((p: PullQueueEntry) => (
               <tr key={p.sku} className={p.readyToPull ? 'bg-red-500/5' : undefined}>
                 <PartCell {...p} />
@@ -314,31 +357,30 @@ export default function DashboardView({ data }: { data: WatchDashboard }) {
                 <td className="px-5 py-3 tabular-nums">{p.streak}/2</td>
                 <td className="px-5 py-3">
                   {p.readyToPull ? (
-                    <span className="font-medium text-red-400">Ready to pull</span>
+                    <form action="/parts-watch/actions/pull" method="post">
+                      <input type="hidden" name="sku" value={p.sku} />
+                      <button
+                        type="submit"
+                        className={`${ACTION_BUTTON} border border-red-800 bg-red-950/40 text-red-200 hover:border-red-600 hover:text-white`}
+                      >
+                        Pull off Buy Now
+                      </button>
+                    </form>
                   ) : (
-                    <span className="text-slate-400">First sighting</span>
+                    <span className="text-xs text-slate-500">{p.notReadyWhy ?? 'Not ready'}</span>
                   )}
                 </td>
               </tr>
             ))}
           </Table>
-        </Section>
-
-        {ready.length > 0 && (
-          <div className="rounded-2xl border border-red-900/60 bg-red-950/20 p-5">
-            <h3 className="text-sm font-semibold text-white">
-              {ready.length} {ready.length === 1 ? 'part is' : 'parts are'} ready to come off Buy Now
-            </h3>
-            <p className="mt-1 text-sm text-slate-400">
-              Pulls stay manual. Review the rows above, then run the dry run first — it archives
-              the Stripe price, clears the price id, and flips the row to quote-only.
+          {ready.length > 0 && (
+            <p className="border-t border-slate-800 px-5 py-3 text-xs text-slate-500">
+              Pull archives the Stripe price, clears the price id, and flips the row to
+              quote-only in one step. Reversible from the Pulled section below. The same gate
+              is re-checked server-side on click.
             </p>
-            <div className="mt-3 space-y-2">
-              <Command>npx tsx scripts/pricing/mag-watch-apply.ts --dry-run</Command>
-              <Command>npx tsx scripts/pricing/mag-watch-apply.ts</Command>
-            </div>
-          </div>
-        )}
+          )}
+        </Section>
 
         <section className="rounded-2xl border border-slate-800 bg-slate-900/40">
           <header className="border-b border-slate-800 px-5 py-4">
@@ -498,11 +540,79 @@ export default function DashboardView({ data }: { data: WatchDashboard }) {
                 </td>
                 <td className="px-5 py-3">
                   {p.canRelist ? (
-                    <code className="font-mono text-xs text-slate-300">--relist={p.sku}</code>
+                    <form
+                      action="/parts-watch/actions/relist"
+                      method="post"
+                      className="flex flex-col items-start gap-2"
+                    >
+                      <input type="hidden" name="sku" value={p.sku} />
+                      <label className="flex min-h-[44px] cursor-pointer items-center gap-2 text-xs text-slate-300">
+                        <input
+                          type="checkbox"
+                          name="stock_confirmed"
+                          required
+                          className="h-4 w-4 rounded border-slate-600 bg-slate-900 accent-canyon-rust"
+                        />
+                        I confirmed vendor stock
+                      </label>
+                      <button
+                        type="submit"
+                        className={`${ACTION_BUTTON} border border-emerald-800 bg-emerald-950/40 text-emerald-200 hover:border-emerald-600 hover:text-white`}
+                      >
+                        Relist
+                      </button>
+                    </form>
                   ) : (
                     <span className="text-xs text-slate-500">By hand — no saved price id</span>
                   )}
                 </td>
+              </tr>
+            ))}
+          </Table>
+          {data.pulled.some((p) => p.canRelist) && (
+            <p className="border-t border-slate-800 px-5 py-3 text-xs text-slate-500">
+              The vendor reading beside each row is a reference, not stock. Relist restores the
+              archived Stripe price and the prior sales type; the checkbox is your stock
+              confirmation and is recorded with the action.
+            </p>
+          )}
+        </Section>
+
+        <Section
+          title="Recent actions"
+          count={data.recentActions.length}
+          blurb="Every Pull and Relist, from this page or the command line, with the Stripe price it touched."
+        >
+          <Table head={['When', 'Action', 'Part', 'Source', 'Stripe', 'Note']}>
+            {data.recentActions.map((a) => (
+              <tr key={a.id}>
+                <td className="px-5 py-3 text-slate-400">{ago(a.createdAt)}</td>
+                <td className="px-5 py-3">
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-xs font-medium ${
+                      a.action === 'pull'
+                        ? 'bg-red-500/15 text-red-300'
+                        : 'bg-emerald-500/15 text-emerald-300'
+                    }`}
+                  >
+                    {a.action === 'pull' ? 'Pulled' : 'Relisted'}
+                  </span>
+                </td>
+                <td className="px-5 py-3">
+                  <a
+                    href={`/parts/${a.slug ?? a.sku}`}
+                    className="font-medium text-white hover:text-canyon-rust"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {a.sku}
+                  </a>
+                </td>
+                <td className="px-5 py-3 text-slate-400">{a.source}</td>
+                <td className="px-5 py-3">
+                  <code className="font-mono text-xs text-slate-400">{a.stripePriceId ?? '—'}</code>
+                </td>
+                <td className="px-5 py-3 text-xs text-slate-400">{a.note ?? '—'}</td>
               </tr>
             ))}
           </Table>

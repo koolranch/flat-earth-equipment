@@ -10,6 +10,7 @@
  */
 
 import { currentHeroKind, isSeatCategory, type StoredHeroReading } from './magHero';
+import { pullEligibility } from './magWatchOps';
 import {
   isSoldOutReading,
   stickerDrift,
@@ -29,7 +30,6 @@ import {
   soldOutStreak,
   tiersDue,
   MAX_MISSES,
-  SOLD_OUT_STREAK_TO_PULL,
   type WatchCandidate,
   type WatchRow,
   type WatchSkip,
@@ -70,6 +70,8 @@ export type PullQueueEntry = PartRef & {
   backorderEta: string | null;
   streak: number;
   readyToPull: boolean;
+  /** Why the Pull button is withheld, in the same words the route would refuse with. */
+  notReadyWhy: string | null;
   lastCheckedAt: string | null;
 };
 
@@ -178,10 +180,35 @@ export type HeroCoverage = {
   seatGapExcluded: number;
 };
 
+/** One row of `parts_ops_audit`, flattened for display. */
+export type RecentAction = {
+  id: number;
+  createdAt: string;
+  source: 'cli' | 'dashboard';
+  action: 'pull' | 'relist';
+  sku: string;
+  slug: string | null;
+  stripePriceId: string | null;
+  note: string | null;
+};
+
+/**
+ * Google reads the committed Merchant XML, so Buy Now flips made here do not reach Shopping
+ * until the feed is rebuilt and committed. `changesSinceBuild` counts audit rows newer than
+ * the last build so the operator can see when a rebuild is owed.
+ */
+export type FeedStaleness = {
+  builtAt: string | null;
+  changesSinceBuild: number;
+};
+
 export type WatchDashboard = {
   generatedAt: string;
   lastReadingAt: string | null;
   hero: HeroCoverage;
+  /** Filled by the server loader; the pure builder leaves these empty. */
+  recentActions: RecentAction[];
+  feed: FeedStaleness;
   counts: {
     catalogRows: number;
     inScope: number;
@@ -407,6 +434,8 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date()): WatchDa
       identityFailed: 0,
       seatGapExcluded: 0,
     },
+    recentActions: [],
+    feed: { builtAt: null, changesSinceBuild: 0 },
     counts: {
       catalogRows: rows.length,
       inScope: unique.length,
@@ -517,15 +546,17 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date()): WatchDa
 
     if (isSoldOutReading(availability)) {
       if (candidate.isBuyNow) {
-        const streak = soldOutStreak(row);
+        // The button state is the same gate the pull route enforces — streak and freshness.
+        const eligibility = pullEligibility(row, now);
         dashboard.pullQueue.push({
           ...ref,
           ourSell: row.price,
           availability,
           qtyOnHand: snapshot.qtyOnHand,
           backorderEta: snapshot.backorderEta,
-          streak,
-          readyToPull: streak >= SOLD_OUT_STREAK_TO_PULL,
+          streak: soldOutStreak(row),
+          readyToPull: eligibility.ok,
+          notReadyWhy: eligibility.ok ? null : eligibility.why,
           lastCheckedAt,
         });
       }

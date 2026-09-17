@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { partsWatchStatus, PARTS_WATCH_ENV } from '@/lib/internal/passwordGate';
 import { loadWatchDashboard } from '@/lib/pricing/magWatchDashboard.server';
-import DashboardView from './DashboardView';
+import DashboardView, { type Banner } from './DashboardView';
 import LockScreen from './LockScreen';
 
 export const dynamic = 'force-dynamic';
@@ -11,10 +11,19 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+const BANNER_KINDS = new Set<Banner['kind']>(['ok', 'warn', 'error']);
+
+function bannerFrom(params?: { k?: string; m?: string }): Banner | null {
+  const kind = params?.k;
+  const message = params?.m;
+  if (!kind || !message || !BANNER_KINDS.has(kind as Banner['kind'])) return null;
+  return { kind: kind as Banner['kind'], message };
+}
+
 export default async function PartsWatchPage({
   searchParams,
 }: {
-  searchParams?: { e?: string };
+  searchParams?: { e?: string; k?: string; m?: string };
 }) {
   const status = partsWatchStatus();
 
@@ -36,5 +45,5 @@ export default async function PartsWatchPage({
     return <LockScreen error={searchParams?.e === '1'} />;
   }
 
-  return <DashboardView data={await loadWatchDashboard()} />;
+  return <DashboardView data={await loadWatchDashboard()} banner={bannerFrom(searchParams)} />;
 }

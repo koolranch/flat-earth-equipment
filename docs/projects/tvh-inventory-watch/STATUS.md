@@ -120,3 +120,35 @@ Not built yet, by design: bytes download, private intake bucket, review table, d
 rework, approve/reject UI. Those wait on a week of measurement so the tray is sized from
 data rather than assumed. Generative cleanup stays interactive; approve will mean
 "set `image_url`" and nothing else.
+
+## 2026-09-17 — first dashboard write lane: Pull and Relist
+
+Sixty days of git history showed 46 one-off scripts touching parts rows (25 convert, 11
+add, 7 pricing, 3 update). The dashboard is the place to absorb that, starting with the two
+operations that already had guardrails.
+
+Shipped: `lib/pricing/magWatchOps.ts` extracts pull and relist from the CLI into shared
+functions with the eligibility gate split out as pure code; `mag-watch-apply.ts` is now a
+thin wrapper (dry run against the live universe produced the same "nothing to pull" as
+before the refactor). New `parts_ops_audit` table (RLS, service-role only) logs every write
+from either caller. `/parts-watch` gained a Pull button on ready rows, a Relist form with a
+required stock-confirm checkbox on pulled rows, a Recent actions section, a result banner,
+and a "changes since the Merchant feed was built" notice fed by a new
+`google-merchant.meta.json` sidecar (rebuilt XML was byte-identical; only the sidecar is
+new).
+
+Verified locally against a dev server: eleven refusal paths (no cookie, cross-origin,
+missing Origin, malformed SKU, unknown SKU, ineligible live row, relist without checkbox,
+relist on a non-pulled row, GET, banner rendering, bogus banner kind) all refused with the
+right message and wrote zero audit rows. Unit tests cover eligibility, metadata shapes, the
+happy paths, the ownership-mismatch path (row goes quote-only, Stripe untouched), and both
+rollback branches (DB failure after archive restores the price; DB failure after restore
+re-archives it).
+
+Not yet exercised live: an actual Pull click. The sold-out queue is empty today (the 33-row
+backlog was cleared yesterday), so the first real click happens when the weekday read
+surfaces the next confirmed sold-out row. The Stripe and Supabase calls are unchanged from
+the CLI that pulled those 33.
+
+Next lanes, in order: image approve/reject (after a week of hero measurement), then the
+convert quote-only → Buy Now panel, then accept-reprice on sticker movers.

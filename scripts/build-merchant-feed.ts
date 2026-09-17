@@ -32,6 +32,7 @@ import {
 } from "../lib/parts/seatFreight";
 import { CHARGER_MODULES } from "../constants/chargerOptions";
 import { buildLithiumRhinoMetaTitle } from "../constants/lithiumRhinoSeo";
+import { MERCHANT_FEED_META_PATH, type MerchantFeedMeta } from "../lib/merchant/feedMeta";
 
 dotenv.config({ path: path.resolve(process.cwd(), ".env.production.local") });
 dotenv.config({ path: path.resolve(process.cwd(), ".env.local") });
@@ -713,6 +714,12 @@ ${itemsXml}
 `;
 
   writeFileSync("public/feed/google-merchant.xml", xml);
+
+  const meta: MerchantFeedMeta = {
+    built_at: new Date().toISOString(),
+    item_count: feedItems.length,
+  };
+  writeFileSync(MERCHANT_FEED_META_PATH, JSON.stringify(meta, null, 2) + "\n");
 
   // -- Summary ----------------------------------------------------------------
   const byCategory: Record<string, number> = {};

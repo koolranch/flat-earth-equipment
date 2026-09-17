@@ -110,6 +110,37 @@ restored so the two systems cannot disagree.
 Pulled rows leave Google Shopping only after `npx tsx scripts/build-merchant-feed.ts`
 plus a commit and deploy, since Google reads the committed XML.
 
+## Dashboard writes
+
+`/parts-watch` (password-gated, noindexed) can perform the same two operations as the CLI:
+**Pull off Buy Now** on rows the sold-out queue shows as ready, and **Relist** on rows in the
+Pulled section. Both call the shared functions in `lib/pricing/magWatchOps.ts`, so the gate
+is identical whichever way the action is taken; the only CLI-specific guardrail is the
+per-run cap, which the dashboard replaces with one row per click.
+
+Every mutation request must pass three checks before touching Stripe or Supabase: a valid
+gate cookie, a same-origin `Origin` header (a form post from another site is refused even
+with our cookie attached), and the operation's eligibility re-evaluated server-side —
+buttons are hints, never authority. Relist additionally requires the *"I confirmed vendor
+stock"* checkbox, which is the stock confirm the process has always required; vendor
+on-hand next to the row is a reference, not our stock flag.
+
+Every successful write, from the dashboard or the CLI, lands a row in `parts_ops_audit`
+(`source`, `action`, `sku`, before/after of `sales_type` / `is_in_stock` /
+`stripe_price_id` / `price` / `mag_watch`, the Stripe price archived or restored, and a
+note). The dashboard's *Recent actions* section reads it. The table is RLS-enabled with no
+policies — service role only.
+
+Because Google reads the committed Merchant XML, Buy Now flips made here do not reach
+Shopping until the feed is rebuilt. `build-merchant-feed.ts` now writes
+`public/feed/google-merchant.meta.json` with `built_at`; the dashboard counts audit rows
+newer than that and shows *"N Buy Now changes since the feed was last built"*.
+
+The gate is a shared password. That was fine for a read-only page; with writes behind it,
+anyone holding the password can archive prices. Same-origin plus the audit trail plus
+reversibility make that acceptable for a single operator. If a second person ever needs this
+page, move it to Supabase auth with an admin role before handing out the URL.
+
 ## Metadata
 
 Snapshots extend the existing `competitor_prices[]` entry — no new tables:
