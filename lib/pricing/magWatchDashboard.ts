@@ -10,7 +10,7 @@
  */
 
 import { currentHeroKind, isSeatCategory, type StoredHeroReading } from './magHero';
-import { pullEligibility } from './magWatchOps';
+import { pullEligibility, repriceEligibility } from './magWatchOps';
 import {
   isSoldOutReading,
   stickerDrift,
@@ -99,6 +99,13 @@ export type LimitedEntry = PartRef & {
  */
 export type MoverSeverity = 'above_vendor' | 'far_below' | 'off_target';
 
+/** What the Apply button may do for this row, decided by `repriceEligibility` server-side. */
+export type RepriceDecision =
+  | { kind: 'apply' }
+  | { kind: 'hold'; why: string }
+  | { kind: 'verify'; why: string }
+  | { kind: 'skip'; why: string };
+
 export type MoverEntry = PartRef & {
   ourSell: number;
   magPrice: number;
@@ -111,6 +118,7 @@ export type MoverEntry = PartRef & {
   severity: MoverSeverity;
   /** Dollars per unit between our price and the proposed price. Positive means we gain. */
   opportunity: number;
+  reprice: RepriceDecision;
   lastCheckedAt: string | null;
 };
 
@@ -121,6 +129,10 @@ export type MoverSummary = {
   /** Per-unit dollars recoverable across the far-below rows. */
   farBelowOpportunity: number;
   missingCost: number;
+  /** Rows the Apply button is armed for right now. */
+  applyReady: number;
+  hold: number;
+  verify: number;
 };
 
 export type ConvertibleEntry = PartRef & {
@@ -185,7 +197,7 @@ export type RecentAction = {
   id: number;
   createdAt: string;
   source: 'cli' | 'dashboard';
-  action: 'pull' | 'relist';
+  action: 'pull' | 'relist' | 'reprice';
   sku: string;
   slug: string | null;
   stripePriceId: string | null;
@@ -414,8 +426,14 @@ function byRecencyDesc(a: { lastCheckedAt: string | null }, b: { lastCheckedAt: 
  * scope rules here match the watch script exactly, so the counts on the page and the counts
  * in a run's digest describe the same universe.
  */
-export function buildWatchDashboard(rows: WatchRow[], now = new Date()): WatchDashboard {
+export type BuildOptions = {
+  /** OEM numbers on the operator's skip-comps list; the reprice gate refuses them. */
+  skipOems?: Set<string>;
+};
+
+export function buildWatchDashboard(rows: WatchRow[], now = new Date(), opts: BuildOptions = {}): WatchDashboard {
   const nowMs = now.getTime();
+  const skipOems = opts.skipOems ?? new Set<string>();
   const classified = rows.map(classifyRow);
   const skips = classified.filter(isSkip) as WatchSkip[];
   const { unique } = dedupeCandidates(classified.filter((c): c is WatchCandidate => !isSkip(c)));
@@ -459,6 +477,9 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date()): WatchDa
       offTarget: 0,
       farBelowOpportunity: 0,
       missingCost: 0,
+      applyReady: 0,
+      hold: 0,
+      verify: 0,
     },
     convertible: [],
     failures: [],
@@ -589,6 +610,10 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date()): WatchDa
           ? 'far_below'
           : 'off_target';
 
+      const eligibility = repriceEligibility(row, { skipOems, now });
+      const reprice: RepriceDecision =
+        eligibility.kind === 'apply' ? { kind: 'apply' } : { kind: eligibility.kind, why: eligibility.why };
+
       dashboard.movers.push({
         ...ref,
         ourSell,
@@ -601,6 +626,7 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date()): WatchDa
         costWholesale: metaNumber(row, 'cost_wholesale'),
         severity,
         opportunity: proposed === null ? 0 : Math.round((proposed - ourSell) * 100) / 100,
+        reprice,
         lastCheckedAt,
       });
     } else {
@@ -644,6 +670,9 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date()): WatchDa
         .reduce((sum, m) => sum + Math.max(0, m.opportunity), 0)
     ),
     missingCost: dashboard.movers.filter((m) => m.costWholesale === null).length,
+    applyReady: dashboard.movers.filter((m) => m.reprice.kind === 'apply').length,
+    hold: dashboard.movers.filter((m) => m.reprice.kind === 'hold').length,
+    verify: dashboard.movers.filter((m) => m.reprice.kind === 'verify').length,
   };
 
   dashboard.convertible.sort((a, b) => b.magPrice - a.magPrice);

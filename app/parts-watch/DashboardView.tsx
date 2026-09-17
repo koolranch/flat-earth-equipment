@@ -5,9 +5,22 @@ import type {
   MoverEntry,
   PullQueueEntry,
   PulledEntry,
+  RecentAction,
   WatchDashboard,
 } from '@/lib/pricing/magWatchDashboard';
 import { STALE_AFTER_DAYS } from '@/lib/pricing/magWatchDashboard';
+
+const ACTION_LABEL: Record<RecentAction['action'], string> = {
+  pull: 'Pulled',
+  relist: 'Relisted',
+  reprice: 'Repriced',
+};
+
+const ACTION_BADGE: Record<RecentAction['action'], string> = {
+  pull: 'bg-red-500/15 text-red-300',
+  relist: 'bg-emerald-500/15 text-emerald-300',
+  reprice: 'bg-sky-500/15 text-sky-300',
+};
 
 const AVAILABILITY_LABELS: Record<string, string> = {
   in_stock: 'In stock',
@@ -392,9 +405,19 @@ export default function DashboardView({
             </div>
             <p className="mt-1 text-sm text-slate-400">
               Live Buy Now rows whose price no longer sits about 5% under the vendor sticker.
-              Nothing reprices automatically — these are proposals.
+              Nothing reprices until you click Apply; the price is recomputed server-side from
+              the stored vendor read, never taken from the page.
             </p>
             <div className="mt-3 flex flex-wrap gap-2 text-xs">
+              <span className="rounded-full bg-emerald-500/10 px-3 py-1 font-medium text-emerald-300">
+                {data.moverSummary.applyReady} ready to apply
+              </span>
+              <span className="rounded-full bg-slate-800 px-3 py-1 text-slate-400">
+                {data.moverSummary.hold} held on cost
+              </span>
+              <span className="rounded-full bg-slate-800 px-3 py-1 text-slate-400">
+                {data.moverSummary.verify} need item verification
+              </span>
               <span className="rounded-full bg-red-500/10 px-3 py-1 font-medium text-red-300">
                 {data.moverSummary.aboveVendor} priced above the vendor
               </span>
@@ -414,9 +437,9 @@ export default function DashboardView({
           {data.movers.length === 0 ? (
             <p className="px-5 py-6 text-sm text-slate-500">Nothing here right now.</p>
           ) : (
-            <div className="overflow-x-auto">
+            <form action="/parts-watch/actions/reprice" method="post" className="overflow-x-auto">
               <Table
-                head={['Part', 'Our sell', 'Vendor sticker', 'Gap', 'Proposed sell', 'Why it matters']}
+                head={['', 'Part', 'Our sell', 'Vendor sticker', 'Gap', 'Proposed sell', 'Why it matters', 'Action']}
               >
                 {data.movers.slice(0, 80).map((m: MoverEntry) => (
                   <tr
@@ -429,8 +452,24 @@ export default function DashboardView({
                           : undefined
                     }
                   >
+                    <td className="px-3 py-3">
+                      {m.reprice.kind === 'apply' && (
+                        <input
+                          type="checkbox"
+                          name="sku"
+                          value={m.sku}
+                          aria-label={`Select ${m.sku} for bulk apply`}
+                          className="h-4 w-4 rounded border-slate-600 bg-slate-900 accent-emerald-500"
+                        />
+                      )}
+                    </td>
                     <PartCell {...m} />
-                    <td className="px-5 py-3 tabular-nums">{money(m.ourSell)}</td>
+                    <td className="px-5 py-3 tabular-nums">
+                      {money(m.ourSell)}
+                      <div className="text-xs text-slate-500">
+                        {m.costWholesale == null ? 'no cost' : `cost ${money(m.costWholesale)}`}
+                      </div>
+                    </td>
                     <td className="px-5 py-3 tabular-nums">
                       {money(m.magPrice)}
                       <div className="text-xs text-slate-500">{ago(m.lastCheckedAt)}</div>
@@ -461,17 +500,51 @@ export default function DashboardView({
                         : m.severity === 'far_below'
                           ? 'Less than half the sticker. Check our price, not theirs.'
                           : `${m.driftPoints > 0 ? 'Deeper' : 'Shallower'} than the 5% target.`}
-                      {m.costWholesale == null && ' No confirmed cost on file.'}
+                    </td>
+                    <td className="px-5 py-3">
+                      {m.reprice.kind === 'apply' ? (
+                        <button
+                          type="submit"
+                          name="only"
+                          value={m.sku}
+                          className={`${ACTION_BUTTON} border ${
+                            m.opportunity > 0
+                              ? 'border-emerald-800 bg-emerald-950/40 text-emerald-200 hover:border-emerald-500'
+                              : 'border-sky-800 bg-sky-950/40 text-sky-200 hover:border-sky-500'
+                          } hover:text-white`}
+                        >
+                          {m.opportunity > 0 ? 'Raise to' : 'Cut to'} {money(m.proposedSell)}
+                        </button>
+                      ) : (
+                        <span className="block max-w-[14rem] text-xs text-slate-500">
+                          <span className="font-medium uppercase tracking-wide text-slate-400">
+                            {m.reprice.kind}
+                          </span>{' '}
+                          · {m.reprice.why}
+                        </span>
+                      )}
                     </td>
                   </tr>
                 ))}
               </Table>
-              {data.movers.length > 80 && (
-                <p className="px-5 py-3 text-xs text-slate-500">
-                  Showing the 80 most consequential rows of {data.movers.length}.
+              <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-800 px-5 py-3">
+                <p className="text-xs text-slate-500">
+                  {data.movers.length > 80
+                    ? `Showing the 80 most consequential rows of ${data.movers.length}. `
+                    : ''}
+                  Apply creates a new Stripe price, archives the old one, and records the realign.
+                  Rows with no cost are marked provisional until the first PO. Max 25 per click.
                 </p>
-              )}
-            </div>
+                {data.moverSummary.applyReady > 0 && (
+                  <button
+                    type="submit"
+                    className={`${ACTION_BUTTON} border border-emerald-700 bg-emerald-900/40 text-emerald-100 hover:border-emerald-400 hover:text-white`}
+                  >
+                    Apply selected
+                  </button>
+                )}
+              </div>
+            </form>
           )}
         </section>
 
@@ -589,13 +662,9 @@ export default function DashboardView({
                 <td className="px-5 py-3 text-slate-400">{ago(a.createdAt)}</td>
                 <td className="px-5 py-3">
                   <span
-                    className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-                      a.action === 'pull'
-                        ? 'bg-red-500/15 text-red-300'
-                        : 'bg-emerald-500/15 text-emerald-300'
-                    }`}
+                    className={`rounded-full px-2 py-0.5 text-xs font-medium ${ACTION_BADGE[a.action]}`}
                   >
-                    {a.action === 'pull' ? 'Pulled' : 'Relisted'}
+                    {ACTION_LABEL[a.action]}
                   </span>
                 </td>
                 <td className="px-5 py-3">

@@ -152,3 +152,31 @@ the CLI that pulled those 33.
 
 Next lanes, in order: image approve/reject (after a week of hero measurement), then the
 convert quote-only → Buy Now panel, then accept-reprice on sticker movers.
+
+## 2026-09-17 — second write lane: Apply reprice on sticker movers
+
+Decision from the operator: the vendor sticker plus on-hand is the pricing signal for the
+whole TVH-network catalog; true cost lands at the first PO. So for rows that already have a
+public price and now sit off the ~5%-under target, the dashboard proposes the recomputed
+sell and the operator clicks. Nothing auto-reprices.
+
+Shipped: `repriceEligibility` / `applyReprice` in `magWatchOps.ts` (four states — apply,
+hold, verify, skip — documented in the README), `POST /parts-watch/actions/reprice` taking
+one `only=` SKU or up to 25 checkbox `sku`s and re-gating each server-side, Apply buttons
+and a bulk "Apply selected" on Price problems, `reprice` as a third audit action, and a
+`reprice_hold` operator lock honoured by the gate. `stripe_product_id` joined the shared
+watch select so a new price can attach to the existing product.
+
+Preview against the live 1,017 Buy Now rows before deploy: 262 apply (94 cuts, 168 raises,
+17 with a confirmed cost), 62 verify, 3 hold, 690 skip. The three holds are the two operator
+locks (JCB `332/X6237`, Bobcat `7123864`) and JCB `333/H5787` where Mag reads under our
+cost. The verify set is the class of $89-switch-vs-$10-sticker rows the operator flagged as
+likely wrong items; they show a reason instead of a button.
+
+Unit tests cover every band boundary (1.5× above, 3× raise, sticker ≤ cost, lock,
+skip-comps, seats, LTL, stale, sold out, no product), the create → update → archive → audit
+call order, the no-cost provisional flag, dry run, and the DB-failure branch that archives
+the new price.
+
+Next lanes: convert quote-only → Buy Now (gated on an approved photo), then the image tray
+that feeds it.

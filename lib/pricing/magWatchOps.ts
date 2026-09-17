@@ -20,6 +20,11 @@
 
 import type Stripe from 'stripe';
 import type { SupabaseClient } from '@supabase/supabase-js';
+import {
+  calculateSellPrice,
+  categoryFromPartCategory,
+  type SellPriceResult,
+} from './calculateSellPrice';
 import { isSoldOutReading, type MagAvailability } from './magSnapshot';
 import {
   classifyRow,
@@ -35,7 +40,32 @@ import {
 export const MAX_READING_AGE_DAYS = 3;
 
 export type OpsSource = 'cli' | 'dashboard';
-export type OpsAction = 'pull' | 'relist';
+export type OpsAction = 'pull' | 'relist' | 'reprice';
+
+/**
+ * Above this multiple of the vendor sticker, a no-cost row is more likely a wrong item, a
+ * pack-vs-each mismatch, or a channel we do not buy from than a real overprice. Those need a
+ * human look at the part, not a price cut.
+ */
+export const REPRICE_VERIFY_ABOVE_MULTIPLE = 1.5;
+
+/**
+ * A raise this large on a no-cost row is the mirror image: our seed price may have been for
+ * a different part. Raising cannot lose money, but listing a $16 switch at $539 is still wrong.
+ */
+export const REPRICE_VERIFY_RAISE_MULTIPLE = 3;
+
+/**
+ * Operator lock. `parts.metadata.reprice_hold = { reason }` keeps the Apply button off a row
+ * regardless of what the vendor reads — for judgment SKUs (unique high-ticket PNs priced
+ * against OEM, not Mag; live joysticks we have decided not to cut).
+ */
+export function repriceHold(row: WatchRow): string | null {
+  const hold = row.metadata?.reprice_hold;
+  if (!hold || typeof hold !== 'object') return null;
+  const reason = (hold as Record<string, unknown>).reason;
+  return typeof reason === 'string' && reason.trim() ? reason.trim() : 'operator hold';
+}
 
 export type MagWatchMeta = {
   last_checked_at?: string;
@@ -122,6 +152,155 @@ export function relistEligibility(row: WatchRow): RelistEligibility {
   }
   if (isBuyNow(row)) return { ok: false, why: 'row is already Buy Now' };
   return { ok: true, priorPriceId, priorSalesType: meta.prior_sales_type ?? 'direct' };
+}
+
+// ---------------------------------------------------------------------------
+// Reprice eligibility (pure)
+// ---------------------------------------------------------------------------
+
+export type RepricePlan = {
+  row: WatchRow;
+  ourSell: number;
+  magPrice: number;
+  cost: number | null;
+  proposedSell: number;
+  /** Positive = we lower the price, negative = we raise it. */
+  deltaDollars: number;
+  marginPct: number | null;
+  method: string;
+  notes: string[];
+};
+
+export type RepriceEligibility =
+  /** Button shows; server will apply `plan.proposedSell`. */
+  | { kind: 'apply'; plan: RepricePlan }
+  /** No button. Row is fine or the change is not worth a Stripe price. */
+  | { kind: 'skip'; why: string }
+  /** No button. Proposal would not clear our cost — needs a cost/PO decision, not a click. */
+  | { kind: 'hold'; why: string; plan: RepricePlan }
+  /** No button. Gap is so large the reading is suspect — verify the item first. */
+  | { kind: 'verify'; why: string; plan: RepricePlan };
+
+function magReading(row: WatchRow): {
+  price: number | null;
+  availability: MagAvailability | null;
+  fetchedAt: string | null;
+  weightLb: number | null;
+} {
+  const comps = row.metadata?.competitor_prices;
+  const entry = Array.isArray(comps)
+    ? (comps.find(
+        (c) => c && typeof c === 'object' && (c as Record<string, unknown>).source === 'magnasource'
+      ) as Record<string, unknown> | undefined)
+    : undefined;
+  const num = (v: unknown) => (typeof v === 'number' && Number.isFinite(v) ? v : null);
+  return {
+    price: num(entry?.price),
+    availability: (entry?.availability as MagAvailability | undefined) ?? null,
+    fetchedAt: typeof entry?.fetched_at === 'string' ? entry.fetched_at : null,
+    weightLb: num(entry?.weight_lb),
+  };
+}
+
+function isSeatLike(row: WatchRow): boolean {
+  const cat = (row.category ?? '').toLowerCase();
+  return /seat/.test(cat) || /\bseat\b/i.test(row.name);
+}
+
+/** Minimum change before a new Stripe price is worth creating. */
+const MIN_REPRICE_DELTA_DOLLARS = 1;
+
+export function repriceEligibility(
+  row: WatchRow,
+  opts: { skipOems?: Set<string>; now?: Date } = {}
+): RepriceEligibility {
+  const now = opts.now ?? new Date();
+  if (!isBuyNow(row)) return { kind: 'skip', why: 'not a live Buy Now row' };
+  if (isSkip(classifyRow(row))) return { kind: 'skip', why: 'outside the watch scope' };
+  if (isSeatLike(row)) return { kind: 'skip', why: 'seats are priced by hand' };
+  if (opts.skipOems?.has(row.oem_reference ?? '')) return { kind: 'skip', why: 'on the skip-comps list' };
+
+  const ourSell = Number(row.price ?? 0);
+  if (!(ourSell > 0)) return { kind: 'skip', why: 'no sell price' };
+  if (!row.stripe_product_id) return { kind: 'skip', why: 'no Stripe product on the row' };
+
+  const mag = magReading(row);
+  if (mag.price === null) return { kind: 'skip', why: 'no vendor sticker on file' };
+  if (mag.availability !== 'in_stock' && mag.availability !== 'limited') {
+    return { kind: 'skip', why: `vendor reads ${mag.availability ?? 'unknown'} — pull, do not reprice` };
+  }
+  const age = ageDays(mag.fetchedAt ?? undefined, now.getTime());
+  if (age > MAX_READING_AGE_DAYS) {
+    return { kind: 'skip', why: `vendor reading is ${age.toFixed(1)} days old` };
+  }
+  if ((mag.weightLb ?? 0) >= 75) return { kind: 'skip', why: 'LTL weight — freight-quoted, not matrix priced' };
+
+  const costRaw = row.metadata?.cost_wholesale;
+  const cost =
+    typeof costRaw === 'number' && costRaw > 0
+      ? costRaw
+      : typeof costRaw === 'string' && Number(costRaw) > 0
+        ? Number(costRaw)
+        : null;
+
+  let result: SellPriceResult;
+  try {
+    result = calculateSellPrice({
+      cost,
+      compPrice: mag.price,
+      category: categoryFromPartCategory(row.category),
+    });
+  } catch (e) {
+    return { kind: 'skip', why: (e as Error).message };
+  }
+
+  const plan: RepricePlan = {
+    row,
+    ourSell,
+    magPrice: mag.price,
+    cost,
+    proposedSell: result.sellPrice,
+    deltaDollars: Math.round((ourSell - result.sellPrice) * 100) / 100,
+    marginPct: cost === null ? null : Math.round(result.marginPct * 1000) / 10,
+    method: result.method,
+    notes: result.notes,
+  };
+
+  if (Math.abs(plan.deltaDollars) < MIN_REPRICE_DELTA_DOLLARS) {
+    return { kind: 'skip', why: 'already at the proposed price' };
+  }
+
+  const locked = repriceHold(row);
+  if (locked) return { kind: 'hold', why: locked, plan };
+
+  // With a real cost: the calculator already applied the margin floor, so a cut to the floor
+  // is safe even when it lands above the vendor. The one case to hold is a vendor sticker at
+  // or under our cost — that is a cost reset or a different item, not a price to chase.
+  if (cost !== null) {
+    if (mag.price <= cost) {
+      return { kind: 'hold', why: `vendor sticker $${mag.price} is at/under our cost $${cost} — confirm cost on next PO`, plan };
+    }
+    if (result.sellPrice <= cost) return { kind: 'hold', why: 'proposal would not clear cost', plan };
+    return { kind: 'apply', plan };
+  }
+
+  // No cost on file: only trust a modest gap in either direction. A huge gap means verify the
+  // part, not move the price.
+  if (ourSell > mag.price * REPRICE_VERIFY_ABOVE_MULTIPLE) {
+    return {
+      kind: 'verify',
+      why: `we are ${(ourSell / mag.price).toFixed(1)}× the vendor sticker — confirm it is the same item`,
+      plan,
+    };
+  }
+  if (result.sellPrice > ourSell * REPRICE_VERIFY_RAISE_MULTIPLE) {
+    return {
+      kind: 'verify',
+      why: `proposal is ${(result.sellPrice / ourSell).toFixed(1)}× our price — confirm it is the same item before raising`,
+      plan,
+    };
+  }
+  return { kind: 'apply', plan };
 }
 
 // ---------------------------------------------------------------------------
@@ -323,6 +502,103 @@ export async function pullSoldOut(
   });
 
   return { ok: true, note: `archived ${verified.price.id}, set quote_only`, auditError };
+}
+
+/**
+ * Apply a reprice plan: new Stripe price on the existing product, archive the old price,
+ * update the row, audit. If the row update fails, the new price is archived and the old one
+ * reactivated so the live `stripe_price_id` always points at an active price.
+ */
+export async function applyReprice(
+  stripe: Stripe,
+  supabase: SupabaseClient,
+  plan: RepricePlan,
+  opts: { dryRun: boolean; source: OpsSource; note?: string }
+): Promise<OpResult> {
+  const { row } = plan;
+  if (!row.stripe_product_id) return { ok: false, note: 'row has no stripe_product_id' };
+
+  if (opts.dryRun) {
+    return {
+      ok: true,
+      note: `would price $${plan.ourSell} → $${plan.proposedSell} (Mag $${plan.magPrice})`,
+    };
+  }
+
+  const before = auditSnapshot(row);
+  const newPrice = await stripe.prices.create({
+    product: row.stripe_product_id,
+    unit_amount: Math.round(plan.proposedSell * 100),
+    currency: 'usd',
+    metadata: {
+      sku: row.sku,
+      previous_price_cents: String(row.price_cents ?? Math.round(plan.ourSell * 100)),
+      reason: plan.cost === null ? 'mag_realign_no_cost' : 'mag_realign_with_cost',
+    },
+  });
+
+  const prev = (row.metadata ?? {}) as Record<string, unknown>;
+  const patch = {
+    price: plan.proposedSell,
+    price_cents: Math.round(plan.proposedSell * 100),
+    stripe_price_id: newPrice.id,
+    metadata: {
+      ...prev,
+      ...(plan.cost === null
+        ? {
+            provisional_pricing: true,
+            provisional_pricing_note:
+              'Sell price realigned to the vendor sticker — wholesale cost not verified yet.',
+          }
+        : { provisional_pricing: false, provisional_pricing_note: null }),
+      last_comp_pricing: {
+        at: new Date().toISOString(),
+        method: plan.method,
+        comp_discount: 0.05,
+        margin_pct: plan.marginPct,
+        notes: [
+          ...plan.notes,
+          `Realigned $${plan.ourSell} → $${plan.proposedSell} against Mag $${plan.magPrice}${plan.cost === null ? ' (no cost on file)' : ` · cost $${plan.cost}`}`,
+        ],
+      },
+    },
+    updated_at: new Date().toISOString(),
+  };
+
+  const { error } = await supabase.from('parts').update(patch).eq('id', row.id);
+  if (error) {
+    await stripe.prices.update(newPrice.id, { active: false });
+    return { ok: false, note: `db update failed, new price archived: ${error.message}` };
+  }
+
+  if (row.stripe_price_id && row.stripe_price_id !== newPrice.id) {
+    try {
+      await stripe.prices.update(row.stripe_price_id, { active: false });
+    } catch (e) {
+      // Row already points at the new price; an un-archived old one is harmless but worth noting.
+      return {
+        ok: true,
+        note: `priced $${plan.ourSell} → $${plan.proposedSell}; old price ${row.stripe_price_id} could not be archived: ${(e as Error).message.slice(0, 60)}`,
+      };
+    }
+  }
+
+  const auditError = await writeAudit(supabase, {
+    source: opts.source,
+    action: 'reprice',
+    sku: row.sku,
+    part_id: row.id,
+    before,
+    after: auditSnapshot({ ...row, ...patch }),
+    stripe: { created: newPrice.id, archived: row.stripe_price_id, mag_price: plan.magPrice },
+    note: opts.note ?? null,
+  });
+
+  return {
+    ok: true,
+    note: `priced $${plan.ourSell} → $${plan.proposedSell} (Mag $${plan.magPrice}), ${newPrice.id}`,
+    auditError,
+  };
 }
 
 export async function relist(

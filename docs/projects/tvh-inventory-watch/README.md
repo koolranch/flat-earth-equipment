@@ -112,11 +112,41 @@ plus a commit and deploy, since Google reads the committed XML.
 
 ## Dashboard writes
 
-`/parts-watch` (password-gated, noindexed) can perform the same two operations as the CLI:
-**Pull off Buy Now** on rows the sold-out queue shows as ready, and **Relist** on rows in the
-Pulled section. Both call the shared functions in `lib/pricing/magWatchOps.ts`, so the gate
-is identical whichever way the action is taken; the only CLI-specific guardrail is the
-per-run cap, which the dashboard replaces with one row per click.
+`/parts-watch` (password-gated, noindexed) can perform three operations: **Pull off Buy Now**
+on rows the sold-out queue shows as ready, **Relist** on rows in the Pulled section, and
+**Apply** (cut or raise) on rows in Price problems. All call the shared functions in
+`lib/pricing/magWatchOps.ts`, so the gate is identical whichever way the action is taken; the
+only CLI-specific guardrail is the per-run cap, which the dashboard replaces with one row per
+click (or up to 25 per click for a bulk Apply).
+
+### Reprice gate
+
+Price problems is a proposal list; nothing moves until Apply is clicked, and the click does
+not send a price — the server recomputes `calculateSellPrice` from the stored vendor read.
+`repriceEligibility` decides which of four states a row is in:
+
+| State | Meaning | Button |
+|---|---|---|
+| `apply` | Vendor in stock or limited, read ≤ 3 days old, proposal differs by ≥ $1, and the gap is trustworthy | **Cut to $X** / **Raise to $X** |
+| `hold` | Vendor sticker at or under our known cost (cost reset or different item), or an operator lock | none, reason shown |
+| `verify` | No cost on file and we are > 1.5× the sticker, or the proposal is > 3× our price | none, reason shown |
+| `skip` | Not Buy Now, out of scope, seat, skip-comps OEM, sold out (pull lane), LTL weight, stale read, no Stripe product, already at proposal | none |
+
+With a cost on file the calculator's margin floor protects the cut, so larger gaps are
+trusted. Without one, only modest gaps are — a $89 switch that Mag reads at $10 is almost
+always a different item, and a $16 switch Mag reads at $539 is the same problem in the
+other direction.
+
+Operator locks: `parts.metadata.reprice_hold = { reason }` keeps a row in `hold` whatever
+the vendor reads. Set on the live JCB joystick `332/X6237` (do not cut) and Bobcat
+`7123864` (priced against the OEM shop, not Mag). `data/seats/skip-comps.json` OEMs are
+refused too, so a click cannot undo a deliberate skip.
+
+Apply creates a new Stripe price on the row's product, updates `price` /
+`stripe_price_id`, archives the old price, and writes `last_comp_pricing` plus
+`provisional_pricing: true` when no cost exists (cleared once a cost lands). If the row
+update fails the new price is archived so `stripe_price_id` always points at an active
+price. Repriced rows do not reach Shopping until the Merchant XML is rebuilt.
 
 Every mutation request must pass three checks before touching Stripe or Supabase: a valid
 gate cookie, a same-origin `Origin` header (a form post from another site is refused even
@@ -126,9 +156,9 @@ stock"* checkbox, which is the stock confirm the process has always required; ve
 on-hand next to the row is a reference, not our stock flag.
 
 Every successful write, from the dashboard or the CLI, lands a row in `parts_ops_audit`
-(`source`, `action`, `sku`, before/after of `sales_type` / `is_in_stock` /
-`stripe_price_id` / `price` / `mag_watch`, the Stripe price archived or restored, and a
-note). The dashboard's *Recent actions* section reads it. The table is RLS-enabled with no
+(`source`, `action` pull/relist/reprice, `sku`, before/after of `sales_type` /
+`is_in_stock` / `stripe_price_id` / `price` / `mag_watch`, the Stripe price created,
+archived, or restored, and a note). The dashboard's *Recent actions* section reads it. The table is RLS-enabled with no
 policies — service role only.
 
 Because Google reads the committed Merchant XML, Buy Now flips made here do not reach

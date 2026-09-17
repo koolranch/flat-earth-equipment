@@ -12,6 +12,7 @@ import { MERCHANT_FEED_META_PATH } from '../merchant/feedMeta';
 import { supabaseService } from '../supabase/service.server';
 import { buildWatchDashboard, type RecentAction, type WatchDashboard } from './magWatchDashboard';
 import { WATCH_ROW_SELECT, type WatchRow } from './magWatchUniverse';
+import { loadSkipOems } from './skipComps.server';
 
 const SELECT = WATCH_ROW_SELECT;
 
@@ -39,7 +40,7 @@ type AuditRow = {
   id: number;
   created_at: string;
   source: 'cli' | 'dashboard';
-  action: 'pull' | 'relist';
+  action: 'pull' | 'relist' | 'reprice';
   sku: string;
   stripe: Record<string, unknown> | null;
   note: string | null;
@@ -56,7 +57,7 @@ async function fetchRecentActions(rows: WatchRow[], limit = 25): Promise<RecentA
 
   const slugBySku = new Map(rows.map((r) => [r.sku, r.slug]));
   return ((data ?? []) as AuditRow[]).map((a) => {
-    const touched = a.stripe?.archived ?? a.stripe?.restored;
+    const touched = a.stripe?.created ?? a.stripe?.archived ?? a.stripe?.restored;
     return {
       id: a.id,
       createdAt: a.created_at,
@@ -101,7 +102,7 @@ export async function loadWatchDashboard(): Promise<WatchDashboard> {
   const changesSinceBuild = await countChangesSince(builtAt);
 
   return {
-    ...buildWatchDashboard(rows),
+    ...buildWatchDashboard(rows, new Date(), { skipOems: loadSkipOems() }),
     recentActions,
     feed: { builtAt, changesSinceBuild },
   };

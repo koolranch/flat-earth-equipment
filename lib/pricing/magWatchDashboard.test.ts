@@ -34,6 +34,7 @@ function row(overrides: {
     price_cents: null,
     oem_reference: oem,
     stripe_price_id: 'price_live_test',
+    stripe_product_id: 'prod_live_test',
     image_url: overrides.imageUrl === undefined ? null : overrides.imageUrl,
     metadata: overrides.metadata ?? null,
   };
@@ -236,6 +237,47 @@ function meta(opts: {
   assert.equal(d.moverSummary.offTarget, 0);
   assert.ok(d.moverSummary.farBelowOpportunity > 0);
   assert.equal(d.moverSummary.missingCost, 2, 'these fixtures record no wholesale cost');
+
+  // Apply is armed for the modest gap and the under-half row, and the summary counts them.
+  assert.equal(above.reprice.kind, 'apply');
+  assert.equal(cheap.reprice.kind, 'apply', 'a 2.8× raise is under the 3× verify line');
+  assert.equal(d.moverSummary.applyReady, 2);
+  assert.equal(d.moverSummary.hold, 0);
+  assert.equal(d.moverSummary.verify, 0);
+}
+
+// ---------------------------------------------------------------------------
+// The reprice decision on each mover mirrors the server-side gate.
+// ---------------------------------------------------------------------------
+{
+  const d = buildWatchDashboard(
+    [
+      // 8.9× the sticker, no cost → verify, never a button.
+      row({ oem: '333/C1', price: 89, metadata: meta({ price: 10 }) }),
+      // Skip-comps OEM → skip even though the gap is modest.
+      row({ oem: '7338638', brand: 'Bobcat', price: 520, metadata: meta({ price: 476 }) }),
+      // Sticker under our cost → hold.
+      row({ oem: '333/C3', price: 419, metadata: meta({ price: 332, cost: 389 }) }),
+      // Operator lock → hold with the operator's words.
+      row({
+        oem: '333/C4',
+        price: 1699,
+        metadata: { ...meta({ price: 1721, cost: 1310 }), reprice_hold: { reason: 'do not cut' } },
+      }),
+    ],
+    NOW,
+    { skipOems: new Set(['7338638']) }
+  );
+  const by = (oem: string) => d.movers.find((m) => m.oem === oem)!;
+  assert.equal(by('333/C1').reprice.kind, 'verify');
+  assert.equal(by('7338638').reprice.kind, 'skip');
+  assert.equal(by('333/C3').reprice.kind, 'hold');
+  const locked = by('333/C4').reprice;
+  assert.equal(locked.kind, 'hold');
+  if (locked.kind === 'hold') assert.equal(locked.why, 'do not cut');
+  assert.equal(d.moverSummary.applyReady, 0);
+  assert.equal(d.moverSummary.hold, 2);
+  assert.equal(d.moverSummary.verify, 1);
 }
 
 // ---------------------------------------------------------------------------
