@@ -142,8 +142,12 @@
       "mag_weight_lb": 0.35,
       "proposed_sell": 128,
       "freight": 24,
-      "status": "need_photo",
-      "why": "6 on hand, 0.35 lb. Lower ticket than the others — skip if photo is weak."
+      "status": "live",
+      "hero": "public/images/parts/jcb-728-h5436-controller.jpg",
+      "stripe_product_id": "prod_VH2f3Kz8QcEJur",
+      "stripe_price_id": "price_1UGUaDHJI548rO8JjQP9pylc",
+      "sell": 128,
+      "why": "6 on hand, 0.35 lb."
     }
   ],
   "ready": [

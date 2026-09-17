@@ -3774,6 +3774,22 @@
     "custom_label_0": "priority_jcb"
   },
   {
+    "id": "728H5436",
+    "title": "JCB 728/H5436 6-Pin Controller",
+    "description": "Aftermarket 6-pin controller for JCB equipment. Replaces OEM part number 728/H5436.\n\nBlack plastic housing with a 6-cavity connector, an orange flange gasket, two mounting ears, and six steel pins.\n\nEligible JCB aftermarket parts carry a 2-year warranty. In stock.",
+    "link": "https://www.flatearthequipment.com/parts/728H5436",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/jcb-728-h5436-controller.jpg",
+    "price": "128.00 USD",
+    "brand": "JCB",
+    "mpn": "728/H5436",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "JCB Controls",
+    "identifier_exists": "no",
+    "custom_label_0": "priority_jcb"
+  },
+  {
     "id": "89201154",
     "title": "JCB 892/01154 TOOL REMOVER F.I.P GEAR C",
     "description": "High-quality replacement tool remover f.i.p gear c for JCB equipment. Direct fit for OEM part number 892/01154.",
