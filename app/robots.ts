@@ -19,6 +19,8 @@ export default function robots(): MetadataRoute.Robots {
           '/admin/',
           '/dashboard/',
           '/trainer/',
+          // Internal, password-gated operations tooling
+          '/parts-watch',
         ]
       }
     ],

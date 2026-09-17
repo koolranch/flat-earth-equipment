@@ -1,0 +1,438 @@
+import type {
+  ConvertibleEntry,
+  FailureEntry,
+  LimitedEntry,
+  MoverEntry,
+  PullQueueEntry,
+  PulledEntry,
+  WatchDashboard,
+} from '@/lib/pricing/magWatchDashboard';
+import { STALE_AFTER_DAYS } from '@/lib/pricing/magWatchDashboard';
+
+const AVAILABILITY_LABELS: Record<string, string> = {
+  in_stock: 'In stock',
+  limited: 'Limited',
+  backorder: 'Backorder',
+  special_order: 'Special order',
+  contact_for_price: 'Price hidden',
+  invalid_pn: 'Invalid PN',
+  unknown: 'No reading',
+};
+
+function money(value: number | null | undefined): string {
+  if (value == null || !Number.isFinite(Number(value))) return '—';
+  return `$${Number(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
+function ago(iso: string | null): string {
+  if (!iso) return 'never';
+  const then = Date.parse(iso);
+  if (!Number.isFinite(then)) return 'never';
+  const hours = (Date.now() - then) / 3_600_000;
+  if (hours < 1) return 'just now';
+  if (hours < 24) return `${Math.round(hours)}h ago`;
+  const days = Math.round(hours / 24);
+  return days === 1 ? 'yesterday' : `${days}d ago`;
+}
+
+function Stat({
+  label,
+  value,
+  hint,
+  tone = 'neutral',
+}: {
+  label: string;
+  value: string | number;
+  hint?: string;
+  tone?: 'neutral' | 'warn' | 'alert';
+}) {
+  const valueTone =
+    tone === 'alert' ? 'text-red-400' : tone === 'warn' ? 'text-amber-300' : 'text-white';
+  return (
+    <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
+      <p className="text-xs uppercase tracking-wide text-slate-500">{label}</p>
+      <p className={`mt-1 text-2xl font-semibold tabular-nums ${valueTone}`}>{value}</p>
+      {hint && <p className="mt-1 text-xs text-slate-500">{hint}</p>}
+    </div>
+  );
+}
+
+function Section({
+  title,
+  count,
+  blurb,
+  children,
+}: {
+  title: string;
+  count: number;
+  blurb: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="rounded-2xl border border-slate-800 bg-slate-900/40">
+      <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-slate-800 px-5 py-4">
+        <h2 className="text-base font-semibold text-white">{title}</h2>
+        <span className="rounded-full bg-slate-800 px-2 py-0.5 text-xs font-medium tabular-nums text-slate-300">
+          {count}
+        </span>
+        <p className="w-full text-sm text-slate-400 sm:w-auto sm:flex-1">{blurb}</p>
+      </header>
+      {count === 0 ? (
+        <p className="px-5 py-6 text-sm text-slate-500">Nothing here right now.</p>
+      ) : (
+        <div className="overflow-x-auto">{children}</div>
+      )}
+    </section>
+  );
+}
+
+function Table({ head, children }: { head: string[]; children: React.ReactNode }) {
+  return (
+    <table className="w-full min-w-[42rem] text-sm">
+      <thead>
+        <tr className="border-b border-slate-800 text-left text-xs uppercase tracking-wide text-slate-500">
+          {head.map((h) => (
+            <th key={h} scope="col" className="px-5 py-2 font-medium">
+              {h}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody className="divide-y divide-slate-800/70">{children}</tbody>
+    </table>
+  );
+}
+
+function PartCell({
+  brand,
+  oem,
+  name,
+  slug,
+  magUrl,
+}: {
+  brand: string;
+  oem: string;
+  name: string;
+  slug: string;
+  magUrl: string;
+}) {
+  return (
+    <td className="px-5 py-3">
+      <div className="font-medium text-white">
+        {brand} {oem}
+      </div>
+      <div className="max-w-[22rem] truncate text-xs text-slate-500" title={name}>
+        {name}
+      </div>
+      <div className="mt-1 flex gap-3 text-xs">
+        <a
+          href={`/parts/${slug}`}
+          target="_blank"
+          rel="noreferrer"
+          className="text-slate-400 underline decoration-slate-600 hover:text-white"
+        >
+          PDP
+        </a>
+        <a
+          href={magUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="text-slate-400 underline decoration-slate-600 hover:text-white"
+        >
+          Vendor page
+        </a>
+      </div>
+    </td>
+  );
+}
+
+function Command({ children }: { children: string }) {
+  return (
+    <code className="block overflow-x-auto rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 font-mono text-xs text-slate-300">
+      {children}
+    </code>
+  );
+}
+
+export default function DashboardView({ data }: { data: WatchDashboard }) {
+  const ready = data.pullQueue.filter((p) => p.readyToPull);
+  const watching = data.pullQueue.filter((p) => !p.readyToPull);
+  const retired = data.failures.filter((f) => f.retired);
+
+  return (
+    <main className="min-h-screen bg-slate-950 px-4 py-8 text-slate-200 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl space-y-6">
+        <header className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-canyon-rust">
+              Internal · read only
+            </p>
+            <h1 className="mt-1 text-2xl font-semibold text-white sm:text-3xl">
+              Parts inventory &amp; sticker watch
+            </h1>
+            <p className="mt-1 text-sm text-slate-400">
+              Last vendor reading {ago(data.lastReadingAt)}. This page only displays stored
+              readings — it never scrapes and never changes what is for sale.
+            </p>
+          </div>
+          <form action="/parts-watch/logout" method="post">
+            <button
+              type="submit"
+              className="min-h-[44px] rounded-lg border border-slate-700 px-4 py-2 text-sm text-slate-300 transition hover:border-slate-500 hover:text-white"
+            >
+              Lock
+            </button>
+          </form>
+        </header>
+
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+          <Stat label="In scope" value={data.counts.inScope} hint={`of ${data.counts.catalogRows} rows`} />
+          <Stat label="Buy Now" value={data.counts.buyNow} />
+          <Stat label="Quote-only" value={data.counts.quoteOnly} />
+          <Stat
+            label="Read this week"
+            value={data.counts.checkedLast7Days}
+            hint={`${data.counts.everChecked} read ever`}
+          />
+          <Stat
+            label="Never read"
+            value={data.counts.neverChecked}
+            tone={data.counts.neverChecked > 0 ? 'warn' : 'neutral'}
+          />
+          <Stat
+            label="Ready to pull"
+            value={ready.length}
+            tone={ready.length > 0 ? 'alert' : 'neutral'}
+            hint="Buy Now, sold out twice"
+          />
+        </div>
+
+        <section className="rounded-2xl border border-slate-800 bg-slate-900/40">
+          <header className="border-b border-slate-800 px-5 py-4">
+            <h2 className="text-base font-semibold text-white">Coverage by tier</h2>
+            <p className="mt-1 text-sm text-slate-400">
+              A reading older than {STALE_AFTER_DAYS} days counts as stale. Quote-only stubs
+              rotate slowly by design, so some staleness there is expected.
+            </p>
+          </header>
+          <div className="overflow-x-auto">
+            <Table head={['Tier', 'Rows', 'Read', 'Never read', 'Stale', 'Oldest reading', 'Due today']}>
+              {data.tiers.map((t) => (
+                <tr key={t.tier}>
+                  <td className="px-5 py-3">
+                    <span className="font-medium text-white">{t.tier}</span>
+                    <span className="ml-2 text-xs text-slate-500">{t.label}</span>
+                  </td>
+                  <td className="px-5 py-3 tabular-nums">{t.total}</td>
+                  <td className="px-5 py-3 tabular-nums">{t.checked}</td>
+                  <td className={`px-5 py-3 tabular-nums ${t.neverChecked ? 'text-amber-300' : ''}`}>
+                    {t.neverChecked}
+                  </td>
+                  <td className={`px-5 py-3 tabular-nums ${t.stale ? 'text-amber-300' : ''}`}>
+                    {t.stale}
+                  </td>
+                  <td className="px-5 py-3 text-slate-400">{ago(t.oldestCheckedAt)}</td>
+                  <td className="px-5 py-3">
+                    {t.dueToday ? (
+                      <span className="rounded-full bg-canyon-rust/15 px-2 py-0.5 text-xs font-medium text-canyon-rust">
+                        Due
+                      </span>
+                    ) : (
+                      <span className="text-xs text-slate-600">—</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </Table>
+          </div>
+        </section>
+
+        <Section
+          title="Sold out — pull queue"
+          count={data.pullQueue.length}
+          blurb="Live Buy Now parts the vendor is showing at zero, on backorder, or special order."
+        >
+          <Table head={['Part', 'Our sell', 'Vendor', 'ETA', 'Reads', 'Status']}>
+            {[...ready, ...watching].map((p: PullQueueEntry) => (
+              <tr key={p.sku} className={p.readyToPull ? 'bg-red-500/5' : undefined}>
+                <PartCell {...p} />
+                <td className="px-5 py-3 tabular-nums">{money(p.ourSell)}</td>
+                <td className="px-5 py-3">
+                  {AVAILABILITY_LABELS[p.availability ?? 'unknown']}
+                  <div className="text-xs text-slate-500">{ago(p.lastCheckedAt)}</div>
+                </td>
+                <td className="px-5 py-3 text-slate-400">{p.backorderEta ?? 'unstated'}</td>
+                <td className="px-5 py-3 tabular-nums">{p.streak}/2</td>
+                <td className="px-5 py-3">
+                  {p.readyToPull ? (
+                    <span className="font-medium text-red-400">Ready to pull</span>
+                  ) : (
+                    <span className="text-slate-400">First sighting</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </Table>
+        </Section>
+
+        {ready.length > 0 && (
+          <div className="rounded-2xl border border-red-900/60 bg-red-950/20 p-5">
+            <h3 className="text-sm font-semibold text-white">
+              {ready.length} {ready.length === 1 ? 'part is' : 'parts are'} ready to come off Buy Now
+            </h3>
+            <p className="mt-1 text-sm text-slate-400">
+              Pulls stay manual. Review the rows above, then run the dry run first — it archives
+              the Stripe price, clears the price id, and flips the row to quote-only.
+            </p>
+            <div className="mt-3 space-y-2">
+              <Command>npx tsx scripts/pricing/mag-watch-apply.ts --dry-run</Command>
+              <Command>npx tsx scripts/pricing/mag-watch-apply.ts</Command>
+            </div>
+          </div>
+        )}
+
+        <Section
+          title="Sticker movers"
+          count={data.movers.length}
+          blurb="Our sell price has drifted off the target 5% under the vendor sticker. Nothing reprices automatically."
+        >
+          <Table head={['Part', 'Our sell', 'Vendor sticker', 'Under by', 'Proposed sell', 'Note']}>
+            {data.movers.map((m: MoverEntry) => (
+              <tr key={m.sku} className={m.aboveMag ? 'bg-red-500/5' : undefined}>
+                <PartCell {...m} />
+                <td className="px-5 py-3 tabular-nums">{money(m.ourSell)}</td>
+                <td className="px-5 py-3 tabular-nums">
+                  {money(m.magPrice)}
+                  <div className="text-xs text-slate-500">{ago(m.lastCheckedAt)}</div>
+                </td>
+                <td
+                  className={`px-5 py-3 tabular-nums ${m.aboveMag ? 'text-red-400' : 'text-slate-300'}`}
+                >
+                  {m.actualDiscountPct}%
+                </td>
+                <td className="px-5 py-3 tabular-nums text-white">{money(m.proposedSell)}</td>
+                <td className="px-5 py-3 text-xs text-slate-400">
+                  {m.aboveMag
+                    ? 'We are priced above the vendor sticker.'
+                    : m.flag === 'collapse'
+                      ? 'Sticker collapsed — consider skipping rather than matching.'
+                      : `${m.driftPoints > 0 ? 'Deeper' : 'Shallower'} than the 5% target.`}
+                  {m.costWholesale == null && ' No confirmed cost on file.'}
+                </td>
+              </tr>
+            ))}
+          </Table>
+        </Section>
+
+        <Section
+          title="Limited / low on hand"
+          count={data.limited.length}
+          blurb="Review only. The vendor has held real stock while this page read low, so these never auto-disable."
+        >
+          <Table head={['Part', 'Our sell', 'On hand', 'Listing', 'Last read']}>
+            {data.limited.map((l: LimitedEntry) => (
+              <tr key={l.sku}>
+                <PartCell {...l} />
+                <td className="px-5 py-3 tabular-nums">{money(l.ourSell)}</td>
+                <td className="px-5 py-3 tabular-nums">{l.qtyOnHand ?? '—'}</td>
+                <td className="px-5 py-3">
+                  {l.isBuyNow ? (
+                    <span className="text-white">Buy Now</span>
+                  ) : (
+                    <span className="text-slate-400">Quote-only</span>
+                  )}
+                </td>
+                <td className="px-5 py-3 text-slate-400">{ago(l.lastCheckedAt)}</td>
+              </tr>
+            ))}
+          </Table>
+        </Section>
+
+        <Section
+          title="Quote-only stubs reading in stock"
+          count={data.convertible.length}
+          blurb="Candidates for a future Buy Now conversion. Each still needs a photo, freight and your stock confirm."
+        >
+          <Table head={['Part', 'Vendor sticker', 'On hand', 'Weight', 'Proposed sell', 'Last read']}>
+            {data.convertible.slice(0, 60).map((c: ConvertibleEntry) => (
+              <tr key={c.sku}>
+                <PartCell {...c} />
+                <td className="px-5 py-3 tabular-nums">{money(c.magPrice)}</td>
+                <td className="px-5 py-3 tabular-nums">{c.qtyOnHand ?? '—'}</td>
+                <td className="px-5 py-3 tabular-nums">{c.weightLb ? `${c.weightLb} lb` : '—'}</td>
+                <td className="px-5 py-3 tabular-nums text-white">{money(c.proposedSell)}</td>
+                <td className="px-5 py-3 text-slate-400">{ago(c.lastCheckedAt)}</td>
+              </tr>
+            ))}
+          </Table>
+          {data.convertible.length > 60 && (
+            <p className="px-5 py-3 text-xs text-slate-500">
+              Showing the 60 highest-sticker rows of {data.convertible.length}.
+            </p>
+          )}
+        </Section>
+
+        <Section
+          title="Pulled off Buy Now"
+          count={data.pulled.length}
+          blurb="Already switched to quote-only with the Stripe price archived. Relist once you confirm stock."
+        >
+          <Table head={['Part', 'Pulled', 'Reason', 'Latest reading', 'Relist']}>
+            {data.pulled.map((p: PulledEntry) => (
+              <tr key={p.sku}>
+                <PartCell {...p} />
+                <td className="px-5 py-3 text-slate-400">{ago(p.pulledAt)}</td>
+                <td className="px-5 py-3 text-xs text-slate-400">{p.pullReason ?? '—'}</td>
+                <td className="px-5 py-3">
+                  {AVAILABILITY_LABELS[p.lastAvailability ?? 'unknown']}
+                  <div className="text-xs text-slate-500">{ago(p.lastCheckedAt)}</div>
+                </td>
+                <td className="px-5 py-3">
+                  {p.canRelist ? (
+                    <code className="font-mono text-xs text-slate-300">--relist={p.sku}</code>
+                  ) : (
+                    <span className="text-xs text-slate-500">By hand — no saved price id</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </Table>
+        </Section>
+
+        <Section
+          title="Read failures"
+          count={data.failures.length}
+          blurb={`A row is retired after 3 consecutive misses, which usually means a wrong part number rather than a dead part. ${retired.length} retired.`}
+        >
+          <Table head={['Part', 'Last reading', 'Misses', 'Status', 'Last attempt']}>
+            {data.failures.slice(0, 60).map((f: FailureEntry) => (
+              <tr key={f.sku}>
+                <PartCell {...f} />
+                <td className="px-5 py-3">{AVAILABILITY_LABELS[f.availability ?? 'unknown']}</td>
+                <td className="px-5 py-3 tabular-nums">{f.missCount}</td>
+                <td className="px-5 py-3">
+                  {f.retired ? (
+                    <span className="text-amber-300">Retired</span>
+                  ) : (
+                    <span className="text-slate-400">Retrying</span>
+                  )}
+                </td>
+                <td className="px-5 py-3 text-slate-400">{ago(f.lastCheckedAt)}</td>
+              </tr>
+            ))}
+          </Table>
+          {data.failures.length > 60 && (
+            <p className="px-5 py-3 text-xs text-slate-500">
+              Showing 60 of {data.failures.length}.
+            </p>
+          )}
+        </Section>
+
+        <footer className="pb-4 text-xs text-slate-600">
+          Built from stored readings at {new Date(data.generatedAt).toLocaleString('en-US')}. The
+          weekday snapshot job writes those readings; this page does not.
+        </footer>
+      </div>
+    </main>
+  );
+}
