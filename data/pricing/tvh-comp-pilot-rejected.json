@@ -1,0 +1,33 @@
+[
+  {
+    "sku": "skyjack-153336-steer",
+    "slug": "skyjack-153336-steer",
+    "brand": "Skyjack",
+    "oem": "153336",
+    "category": "Hydraulics",
+    "source": "rt_scissor_qrg_2003034",
+    "bucket": "valves",
+    "reason": "tvh_no_on_page_price",
+    "candidateUrls": [
+      "https://www.magnasourceinc.com/itemdetail/153336",
+      "https://www.magnasourceinc.com/itemdetail/SJ153336"
+    ],
+    "notes": "QRG confirms SJ153336 Steer / VALVE 12V; public priced Intella/Magna comp not available."
+  },
+  {
+    "sku": "kubota-rg158-46930-upper-door-glass",
+    "slug": "kubota-rg158-46930-upper-door-glass",
+    "brand": "Kubota",
+    "oem": "RG158-46930",
+    "category": "Cab Glass",
+    "source": "cpa_glass_qrg_2110094T",
+    "bucket": "glass",
+    "reason": "tvh_no_on_page_price",
+    "candidateUrls": [
+      "https://www.magnasourceinc.com/itemdetail/RG15846930",
+      "https://www.magnasourceinc.com/itemdetail/KBRG15846930",
+      "https://www.magnasourceinc.com/itemdetail/KBRG158-46930"
+    ],
+    "notes": "QRG confirms KBRG158-46930 Upper door glass; public priced Intella/Magna comp not available."
+  }
+]
