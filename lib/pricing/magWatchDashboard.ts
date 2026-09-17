@@ -88,6 +88,14 @@ export type LimitedEntry = PartRef & {
   lastCheckedAt: string | null;
 };
 
+/**
+ * Why a row is worth looking at. `above_vendor` means we are asking more than the vendor's
+ * own public price, so we lose the sale. `far_below` means our price is less than half the
+ * sticker, which at this magnitude is a bad price in our row rather than a competitive one —
+ * every sale gives away margin. `off_target` is ordinary drift from the 5% goal.
+ */
+export type MoverSeverity = 'above_vendor' | 'far_below' | 'off_target';
+
 export type MoverEntry = PartRef & {
   ourSell: number;
   magPrice: number;
@@ -97,8 +105,19 @@ export type MoverEntry = PartRef & {
   aboveMag: boolean;
   proposedSell: number | null;
   costWholesale: number | null;
-  flag: 'cost_reset' | 'collapse' | null;
+  severity: MoverSeverity;
+  /** Dollars per unit between our price and the proposed price. Positive means we gain. */
+  opportunity: number;
   lastCheckedAt: string | null;
+};
+
+export type MoverSummary = {
+  aboveVendor: number;
+  farBelow: number;
+  offTarget: number;
+  /** Per-unit dollars recoverable across the far-below rows. */
+  farBelowOpportunity: number;
+  missingCost: number;
 };
 
 export type ConvertibleEntry = PartRef & {
@@ -147,6 +166,7 @@ export type WatchDashboard = {
   pulled: PulledEntry[];
   limited: LimitedEntry[];
   movers: MoverEntry[];
+  moverSummary: MoverSummary;
   convertible: ConvertibleEntry[];
   failures: FailureEntry[];
 };
@@ -292,6 +312,13 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date()): WatchDa
     pulled: [],
     limited: [],
     movers: [],
+    moverSummary: {
+      aboveVendor: 0,
+      farBelow: 0,
+      offTarget: 0,
+      farBelowOpportunity: 0,
+      missingCost: 0,
+    },
     convertible: [],
     failures: [],
   };
@@ -411,6 +438,12 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date()): WatchDa
       if (!drift.aboveMag && Math.abs(drift.driftPoints) < DRIFT_ALERT_POINTS) continue;
 
       const proposed = proposedSell(row, magPrice);
+      const severity: MoverSeverity = drift.aboveMag
+        ? 'above_vendor'
+        : ourSell < magPrice * 0.5
+          ? 'far_below'
+          : 'off_target';
+
       dashboard.movers.push({
         ...ref,
         ourSell,
@@ -421,7 +454,8 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date()): WatchDa
         aboveMag: drift.aboveMag,
         proposedSell: proposed,
         costWholesale: metaNumber(row, 'cost_wholesale'),
-        flag: drift.aboveMag ? 'cost_reset' : proposed !== null && proposed < ourSell * 0.8 ? 'collapse' : null,
+        severity,
+        opportunity: proposed === null ? 0 : Math.round((proposed - ourSell) * 100) / 100,
         lastCheckedAt,
       });
     } else {
@@ -441,7 +475,32 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date()): WatchDa
     (a, b) => Number(b.readyToPull) - Number(a.readyToPull) || Number(b.ourSell ?? 0) - Number(a.ourSell ?? 0)
   );
   dashboard.limited.sort((a, b) => Number(b.isBuyNow) - Number(a.isBuyNow) || byRecencyDesc(a, b));
-  dashboard.movers.sort((a, b) => Math.abs(b.driftPoints) - Math.abs(a.driftPoints));
+
+  // Lead with the rows that cost money today: priced over the vendor first, then the ones
+  // giving margin away, biggest dollar gap first. Ordinary drift sorts last.
+  const severityRank: Record<MoverSeverity, number> = {
+    above_vendor: 0,
+    far_below: 1,
+    off_target: 2,
+  };
+  dashboard.movers.sort(
+    (a, b) =>
+      severityRank[a.severity] - severityRank[b.severity] ||
+      Math.abs(b.opportunity) - Math.abs(a.opportunity)
+  );
+
+  dashboard.moverSummary = {
+    aboveVendor: dashboard.movers.filter((m) => m.severity === 'above_vendor').length,
+    farBelow: dashboard.movers.filter((m) => m.severity === 'far_below').length,
+    offTarget: dashboard.movers.filter((m) => m.severity === 'off_target').length,
+    farBelowOpportunity: Math.round(
+      dashboard.movers
+        .filter((m) => m.severity === 'far_below')
+        .reduce((sum, m) => sum + Math.max(0, m.opportunity), 0)
+    ),
+    missingCost: dashboard.movers.filter((m) => m.costWholesale === null).length,
+  };
+
   dashboard.convertible.sort((a, b) => b.magPrice - a.magPrice);
   dashboard.failures.sort((a, b) => b.missCount - a.missCount || byRecencyDesc(a, b));
   dashboard.tiers = [...tierBuckets.values()];

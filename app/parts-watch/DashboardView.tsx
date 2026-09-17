@@ -291,38 +291,98 @@ export default function DashboardView({ data }: { data: WatchDashboard }) {
           </div>
         )}
 
-        <Section
-          title="Sticker movers"
-          count={data.movers.length}
-          blurb="Our sell price has drifted off the target 5% under the vendor sticker. Nothing reprices automatically."
-        >
-          <Table head={['Part', 'Our sell', 'Vendor sticker', 'Under by', 'Proposed sell', 'Note']}>
-            {data.movers.map((m: MoverEntry) => (
-              <tr key={m.sku} className={m.aboveMag ? 'bg-red-500/5' : undefined}>
-                <PartCell {...m} />
-                <td className="px-5 py-3 tabular-nums">{money(m.ourSell)}</td>
-                <td className="px-5 py-3 tabular-nums">
-                  {money(m.magPrice)}
-                  <div className="text-xs text-slate-500">{ago(m.lastCheckedAt)}</div>
-                </td>
-                <td
-                  className={`px-5 py-3 tabular-nums ${m.aboveMag ? 'text-red-400' : 'text-slate-300'}`}
-                >
-                  {m.actualDiscountPct}%
-                </td>
-                <td className="px-5 py-3 tabular-nums text-white">{money(m.proposedSell)}</td>
-                <td className="px-5 py-3 text-xs text-slate-400">
-                  {m.aboveMag
-                    ? 'We are priced above the vendor sticker.'
-                    : m.flag === 'collapse'
-                      ? 'Sticker collapsed — consider skipping rather than matching.'
-                      : `${m.driftPoints > 0 ? 'Deeper' : 'Shallower'} than the 5% target.`}
-                  {m.costWholesale == null && ' No confirmed cost on file.'}
-                </td>
-              </tr>
-            ))}
-          </Table>
-        </Section>
+        <section className="rounded-2xl border border-slate-800 bg-slate-900/40">
+          <header className="border-b border-slate-800 px-5 py-4">
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <h2 className="text-base font-semibold text-white">Price problems</h2>
+              <span className="rounded-full bg-slate-800 px-2 py-0.5 text-xs font-medium tabular-nums text-slate-300">
+                {data.movers.length}
+              </span>
+            </div>
+            <p className="mt-1 text-sm text-slate-400">
+              Live Buy Now rows whose price no longer sits about 5% under the vendor sticker.
+              Nothing reprices automatically — these are proposals.
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2 text-xs">
+              <span className="rounded-full bg-red-500/10 px-3 py-1 font-medium text-red-300">
+                {data.moverSummary.aboveVendor} priced above the vendor
+              </span>
+              <span className="rounded-full bg-amber-400/10 px-3 py-1 font-medium text-amber-300">
+                {data.moverSummary.farBelow} under half the sticker
+                {data.moverSummary.farBelowOpportunity > 0 &&
+                  ` · ${money(data.moverSummary.farBelowOpportunity)} per unit set`}
+              </span>
+              <span className="rounded-full bg-slate-800 px-3 py-1 text-slate-400">
+                {data.moverSummary.offTarget} ordinary drift
+              </span>
+              <span className="rounded-full bg-slate-800 px-3 py-1 text-slate-400">
+                {data.moverSummary.missingCost} with no confirmed cost
+              </span>
+            </div>
+          </header>
+          {data.movers.length === 0 ? (
+            <p className="px-5 py-6 text-sm text-slate-500">Nothing here right now.</p>
+          ) : (
+            <div className="overflow-x-auto">
+              <Table
+                head={['Part', 'Our sell', 'Vendor sticker', 'Gap', 'Proposed sell', 'Why it matters']}
+              >
+                {data.movers.slice(0, 80).map((m: MoverEntry) => (
+                  <tr
+                    key={m.sku}
+                    className={
+                      m.severity === 'above_vendor'
+                        ? 'bg-red-500/5'
+                        : m.severity === 'far_below'
+                          ? 'bg-amber-400/5'
+                          : undefined
+                    }
+                  >
+                    <PartCell {...m} />
+                    <td className="px-5 py-3 tabular-nums">{money(m.ourSell)}</td>
+                    <td className="px-5 py-3 tabular-nums">
+                      {money(m.magPrice)}
+                      <div className="text-xs text-slate-500">{ago(m.lastCheckedAt)}</div>
+                    </td>
+                    <td
+                      className={`px-5 py-3 tabular-nums ${
+                        m.severity === 'above_vendor'
+                          ? 'text-red-400'
+                          : m.severity === 'far_below'
+                            ? 'text-amber-300'
+                            : 'text-slate-300'
+                      }`}
+                    >
+                      {m.actualDiscountPct}%
+                    </td>
+                    <td className="px-5 py-3 tabular-nums text-white">
+                      {money(m.proposedSell)}
+                      {m.opportunity !== 0 && (
+                        <div className="text-xs text-slate-500">
+                          {m.opportunity > 0 ? '+' : ''}
+                          {money(m.opportunity)}
+                        </div>
+                      )}
+                    </td>
+                    <td className="px-5 py-3 text-xs text-slate-400">
+                      {m.severity === 'above_vendor'
+                        ? 'We ask more than the vendor does publicly — we lose this sale.'
+                        : m.severity === 'far_below'
+                          ? 'Less than half the sticker. Check our price, not theirs.'
+                          : `${m.driftPoints > 0 ? 'Deeper' : 'Shallower'} than the 5% target.`}
+                      {m.costWholesale == null && ' No confirmed cost on file.'}
+                    </td>
+                  </tr>
+                ))}
+              </Table>
+              {data.movers.length > 80 && (
+                <p className="px-5 py-3 text-xs text-slate-500">
+                  Showing the 80 most consequential rows of {data.movers.length}.
+                </p>
+              )}
+            </div>
+          )}
+        </section>
 
         <Section
           title="Limited / low on hand"

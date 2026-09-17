@@ -195,7 +195,7 @@ function meta(opts: {
   const rows = [
     row({ oem: '333/A1', price: 400, metadata: meta({ price: 340.83 }) }), // above vendor
     row({ oem: '333/A2', price: 323, metadata: meta({ price: 340.83 }) }), // ~5% under, on target
-    row({ oem: '333/A3', price: 200, metadata: meta({ price: 340.83 }) }), // far too cheap
+    row({ oem: '333/A3', price: 120, metadata: meta({ price: 340.83 }) }), // under half the sticker
   ];
   const d = buildWatchDashboard(rows, NOW);
   const oems = d.movers.map((m) => m.oem);
@@ -205,8 +205,36 @@ function meta(opts: {
 
   const above = d.movers.find((m) => m.oem === '333/A1')!;
   assert.equal(above.aboveMag, true);
+  assert.equal(above.severity, 'above_vendor');
   assert.ok(above.actualDiscountPct < 0, 'negative discount means above the sticker');
-  assert.ok(Math.abs(d.movers[0].driftPoints) >= Math.abs(d.movers[1].driftPoints), 'sorted by drift');
+
+  const cheap = d.movers.find((m) => m.oem === '333/A3')!;
+  assert.equal(cheap.severity, 'far_below', 'under half the sticker is its own problem class');
+  assert.ok(cheap.opportunity > 0, 'raising the price is the opportunity');
+
+  assert.equal(d.movers[0].severity, 'above_vendor', 'priced-above rows sort first');
+  assert.equal(d.moverSummary.aboveVendor, 1);
+  assert.equal(d.moverSummary.farBelow, 1);
+  assert.equal(d.moverSummary.offTarget, 0);
+  assert.ok(d.moverSummary.farBelowOpportunity > 0);
+  assert.equal(d.moverSummary.missingCost, 2, 'these fixtures record no wholesale cost');
+}
+
+// ---------------------------------------------------------------------------
+// Ordinary drift is separated from the two money-losing classes.
+// ---------------------------------------------------------------------------
+{
+  const d = buildWatchDashboard(
+    // 12% under a $100 sticker: off target, but not below half and not above the vendor.
+    [row({ oem: '333/B1', price: 88, metadata: meta({ price: 100 }) })],
+    NOW
+  );
+  assert.equal(d.movers.length, 1);
+  assert.equal(d.movers[0].severity, 'off_target');
+  assert.equal(d.moverSummary.offTarget, 1);
+  assert.equal(d.moverSummary.aboveVendor, 0);
+  assert.equal(d.moverSummary.farBelow, 0);
+  assert.equal(d.moverSummary.farBelowOpportunity, 0);
 }
 
 // ---------------------------------------------------------------------------
