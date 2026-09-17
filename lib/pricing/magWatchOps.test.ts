@@ -4,6 +4,8 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import {
   applyReprice,
   auditSnapshot,
+  publishEligibility,
+  publishStub,
   pullEligibility,
   pullSoldOut,
   pulledMetadata,
@@ -208,7 +210,13 @@ function pricedRow(opts: {
 // IO with stubs: Stripe + Supabase + audit
 // ---------------------------------------------------------------------------
 type Call = {
-  kind: 'stripe.retrieve' | 'stripe.update' | 'stripe.create' | 'parts.update' | 'audit.insert';
+  kind:
+    | 'stripe.retrieve'
+    | 'stripe.update'
+    | 'stripe.create'
+    | 'stripe.product.create'
+    | 'parts.update'
+    | 'audit.insert';
   args: unknown;
 };
 
@@ -239,6 +247,12 @@ function stubs(opts: {
       create: async (params: unknown) => {
         calls.push({ kind: 'stripe.create', args: params });
         return { id: 'price_new' } as Stripe.Price;
+      },
+    },
+    products: {
+      create: async (params: unknown) => {
+        calls.push({ kind: 'stripe.product.create', args: params });
+        return { id: 'prod_new' } as Stripe.Product;
       },
     },
   } as unknown as Stripe;
@@ -564,6 +578,183 @@ const plan = (r: WatchRow) => ({ row: r, availability: 'backorder' as const, str
   const updates = calls.filter((c) => c.kind === 'stripe.update').map((c) => c.args as { id: string; params: { active: boolean } });
   assert.deepEqual(updates, [{ id: 'price_new', params: { active: false } }]);
   assert.equal(calls.some((c) => c.kind === 'audit.insert'), false);
+}
+
+// ---------------------------------------------------------------------------
+// publishEligibility
+// ---------------------------------------------------------------------------
+
+/** A quote-only stub carrying a fresh Magnasource read, the publish lane's input shape. */
+function stubRow(opts: {
+  mag?: number | null;
+  cost?: number;
+  availability?: string;
+  ageHours?: number;
+  weightLb?: number;
+  qty?: number;
+  imageUrl?: string | null;
+  category?: string;
+  oem?: string;
+  stripeProductId?: string | null;
+  magWatch?: Record<string, unknown>;
+}): WatchRow {
+  return row({
+    sales_type: 'quote_only',
+    is_in_stock: false,
+    price: 0,
+    price_cents: 0,
+    stripe_price_id: null,
+    stripe_product_id: opts.stripeProductId === undefined ? null : opts.stripeProductId,
+    image_url: opts.imageUrl === undefined ? '/images/parts/real-photo.jpg' : opts.imageUrl,
+    ...(opts.category !== undefined ? { category: opts.category } : {}),
+    ...(opts.oem !== undefined ? { oem_reference: opts.oem } : {}),
+    metadata: {
+      ...(opts.cost !== undefined ? { cost_wholesale: opts.cost } : {}),
+      ...(opts.magWatch ? { mag_watch: opts.magWatch } : {}),
+      competitor_prices:
+        opts.mag === null
+          ? []
+          : [
+              {
+                source: 'magnasource',
+                price: opts.mag ?? 100,
+                availability: opts.availability ?? 'in_stock',
+                fetched_at: hoursAgo(opts.ageHours ?? 6),
+                weight_lb: opts.weightLb ?? null,
+                qty_on_hand: opts.qty ?? 8,
+              },
+            ],
+    },
+  });
+}
+
+// Ready: in stock, fresh sticker, real photo → ~5% under Mag.
+{
+  const e = publishEligibility(stubRow({ mag: 100 }), { now: NOW });
+  assert.equal(e.kind, 'ready');
+  if (e.kind === 'ready') {
+    assert.equal(e.plan.proposedSell, 95);
+    assert.equal(e.plan.qtyOnHand, 8);
+    assert.equal(e.plan.cost, null);
+  }
+}
+
+// No real photo → photo queue, never publishable. Logos and placeholders count as no photo.
+{
+  const none = publishEligibility(stubRow({ mag: 100, imageUrl: null }), { now: NOW });
+  assert.equal(none.kind, 'needs_photo');
+  if (none.kind === 'needs_photo') assert.equal(none.currentHero, 'none');
+
+  const logo = publishEligibility(
+    stubRow({ mag: 100, imageUrl: 'https://cdn.example.com/brand-logos/jcb.webp' }),
+    { now: NOW }
+  );
+  assert.equal(logo.kind, 'needs_photo');
+  if (logo.kind === 'needs_photo') assert.equal(logo.currentHero, 'brand_logo');
+}
+
+// Already Buy Now, limited stock, sold-out reads, stale reads, LTL, no sticker → skip.
+{
+  assert.equal(publishEligibility(pricedRow({ ourSell: 120, mag: 100 }), { now: NOW }).kind, 'skip');
+  assert.equal(publishEligibility(stubRow({ availability: 'limited' }), { now: NOW }).kind, 'skip');
+  assert.equal(publishEligibility(stubRow({ availability: 'backorder' }), { now: NOW }).kind, 'skip');
+  assert.equal(publishEligibility(stubRow({ ageHours: 24 * 4 }), { now: NOW }).kind, 'skip');
+  assert.equal(publishEligibility(stubRow({ weightLb: 80 }), { now: NOW }).kind, 'skip');
+  assert.equal(publishEligibility(stubRow({ mag: null }), { now: NOW }).kind, 'skip');
+}
+
+// Skip-comps OEMs and pulled rows stay out (pulled rows belong to Relist).
+{
+  const skipped = publishEligibility(stubRow({ oem: '7338638' }), {
+    now: NOW,
+    skipOems: new Set(['7338638']),
+  });
+  assert.equal(skipped.kind, 'skip');
+
+  const pulled = publishEligibility(
+    stubRow({ magWatch: { pulled_at: hoursAgo(48), prior_stripe_price_id: 'price_old' } }),
+    { now: NOW }
+  );
+  assert.equal(pulled.kind, 'skip');
+  if (pulled.kind === 'skip') assert.match(pulled.why, /Relist/);
+}
+
+// A sticker at/under a known cost never publishes.
+{
+  const e = publishEligibility(stubRow({ mag: 50, cost: 55 }), { now: NOW });
+  assert.equal(e.kind, 'skip');
+  if (e.kind === 'skip') assert.match(e.why, /at\/under our cost/);
+}
+
+// ---------------------------------------------------------------------------
+// publishStub IO
+// ---------------------------------------------------------------------------
+
+// Happy path with no Stripe product yet: create product → create price → flip row → audit.
+{
+  const r = stubRow({ mag: 100 });
+  r.sku = 'PUB1';
+  const e = publishEligibility(r, { now: NOW });
+  if (e.kind !== 'ready') throw new Error('expected ready');
+  const { stripe, supabase, calls } = stubs({});
+  const res = await publishStub(stripe, supabase, e.plan, { dryRun: false, source: 'dashboard' });
+  assert.equal(res.ok, true);
+  assert.deepEqual(
+    calls.map((c) => c.kind),
+    ['stripe.product.create', 'stripe.create', 'parts.update', 'audit.insert']
+  );
+  const product = calls[0].args as { name: string; images?: string[]; metadata: Record<string, string> };
+  assert.equal(product.metadata.sku, 'PUB1');
+  assert.deepEqual(product.images, ['https://www.flatearthequipment.com/images/parts/real-photo.jpg']);
+  const price = calls[1].args as { product: string; unit_amount: number };
+  assert.equal(price.product, 'prod_new');
+  assert.equal(price.unit_amount, 9500);
+  const patch = (calls[2].args as { patch: Record<string, unknown> }).patch;
+  assert.equal(patch.sales_type, 'direct');
+  assert.equal(patch.is_in_stock, true);
+  assert.equal(patch.price, 95);
+  assert.equal(patch.stripe_product_id, 'prod_new');
+  assert.equal(patch.stripe_price_id, 'price_new');
+  assert.equal((patch.metadata as Record<string, unknown>).provisional_pricing, true);
+  const audit = (calls[3].args as { entry: AuditEntry }).entry;
+  assert.equal(audit.action, 'publish');
+  assert.equal(audit.stripe?.product_created, true);
+}
+
+// Existing Stripe product is reused, and a known cost clears the provisional flag.
+{
+  const r = stubRow({ mag: 100, cost: 40, stripeProductId: 'prod_live' });
+  const e = publishEligibility(r, { now: NOW });
+  if (e.kind !== 'ready') throw new Error('expected ready');
+  const { stripe, supabase, calls } = stubs({});
+  const res = await publishStub(stripe, supabase, e.plan, { dryRun: false, source: 'cli' });
+  assert.equal(res.ok, true);
+  assert.deepEqual(calls.map((c) => c.kind), ['stripe.create', 'parts.update', 'audit.insert']);
+  const patch = (calls[1].args as { patch: Record<string, unknown> }).patch;
+  assert.equal((patch.metadata as Record<string, unknown>).provisional_pricing, false);
+}
+
+// Dry run creates nothing; DB failure archives the fresh price.
+{
+  const r = stubRow({ mag: 100 });
+  const e = publishEligibility(r, { now: NOW });
+  if (e.kind !== 'ready') throw new Error('expected ready');
+
+  const dry = stubs({});
+  const dryRes = await publishStub(dry.stripe, dry.supabase, e.plan, { dryRun: true, source: 'cli' });
+  assert.equal(dryRes.ok, true);
+  assert.match(dryRes.note, /would publish at \$95/);
+  assert.equal(dry.calls.length, 0);
+
+  const wet = stubs({ partsUpdateError: 'boom' });
+  const wetRes = await publishStub(wet.stripe, wet.supabase, e.plan, { dryRun: false, source: 'dashboard' });
+  assert.equal(wetRes.ok, false);
+  assert.match(wetRes.note, /new price archived/);
+  const updates = wet.calls
+    .filter((c) => c.kind === 'stripe.update')
+    .map((c) => c.args as { id: string; params: { active: boolean } });
+  assert.deepEqual(updates, [{ id: 'price_new', params: { active: false } }]);
+  assert.equal(wet.calls.some((c) => c.kind === 'audit.insert'), false);
 }
 
 // auditSnapshot keeps only the fields that matter.

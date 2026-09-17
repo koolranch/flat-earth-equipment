@@ -9,8 +9,8 @@
  * run's readings.
  */
 
-import { currentHeroKind, isSeatCategory, type StoredHeroReading } from './magHero';
-import { pullEligibility, repriceEligibility } from './magWatchOps';
+import { currentHeroKind, isSeatCategory, type CurrentHeroKind, type StoredHeroReading } from './magHero';
+import { publishEligibility, pullEligibility, repriceEligibility } from './magWatchOps';
 import {
   isSoldOutReading,
   stickerDrift,
@@ -135,12 +135,26 @@ export type MoverSummary = {
   verify: number;
 };
 
+/** What the Publish button may do for this stub, decided by `publishEligibility` server-side. */
+export type PublishDecision =
+  | { kind: 'ready' }
+  | { kind: 'needs_photo'; currentHero: CurrentHeroKind; heroSeenOnVendor: boolean }
+  | { kind: 'skip'; why: string };
+
 export type ConvertibleEntry = PartRef & {
   magPrice: number;
   qtyOnHand: number | null;
   weightLb: number | null;
   proposedSell: number | null;
+  publish: PublishDecision;
   lastCheckedAt: string | null;
+};
+
+export type ConvertibleSummary = {
+  ready: number;
+  needsPhoto: number;
+  /** needs_photo rows where the vendor page exposed a usable identity-passing hero. */
+  photoQueueWithVendorHero: number;
 };
 
 export type FailureEntry = PartRef & {
@@ -197,7 +211,7 @@ export type RecentAction = {
   id: number;
   createdAt: string;
   source: 'cli' | 'dashboard';
-  action: 'pull' | 'relist' | 'reprice';
+  action: 'pull' | 'relist' | 'reprice' | 'publish';
   sku: string;
   slug: string | null;
   stripePriceId: string | null;
@@ -240,6 +254,7 @@ export type WatchDashboard = {
   movers: MoverEntry[];
   moverSummary: MoverSummary;
   convertible: ConvertibleEntry[];
+  convertibleSummary: ConvertibleSummary;
   failures: FailureEntry[];
 };
 
@@ -482,6 +497,7 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date(), opts: Bu
       verify: 0,
     },
     convertible: [],
+    convertibleSummary: { ready: 0, needsPhoto: 0, photoQueueWithVendorHero: 0 },
     failures: [],
   };
 
@@ -630,12 +646,33 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date(), opts: Bu
         lastCheckedAt,
       });
     } else {
+      const eligibility = publishEligibility(row, { skipOems, now });
+      let publish: PublishDecision;
+      if (eligibility.kind === 'ready') {
+        publish = { kind: 'ready' };
+        dashboard.convertibleSummary.ready++;
+      } else if (eligibility.kind === 'needs_photo') {
+        const vendorHeroUsable = Boolean(
+          state.hero?.filename && state.hero.identity_ok && !state.hero.placeholder_suspect
+        );
+        publish = {
+          kind: 'needs_photo',
+          currentHero: eligibility.currentHero,
+          heroSeenOnVendor: vendorHeroUsable,
+        };
+        dashboard.convertibleSummary.needsPhoto++;
+        if (vendorHeroUsable) dashboard.convertibleSummary.photoQueueWithVendorHero++;
+      } else {
+        publish = { kind: 'skip', why: eligibility.why };
+      }
+
       dashboard.convertible.push({
         ...ref,
         magPrice,
         qtyOnHand: snapshot.qtyOnHand,
         weightLb: snapshot.weightLb,
         proposedSell: proposedSell(row, magPrice),
+        publish,
         lastCheckedAt,
       });
     }
@@ -675,7 +712,14 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date(), opts: Bu
     verify: dashboard.movers.filter((m) => m.reprice.kind === 'verify').length,
   };
 
-  dashboard.convertible.sort((a, b) => b.magPrice - a.magPrice);
+  // Publishable rows first, then the photo queue (vendor hero in hand before the rest),
+  // then everything else — each band biggest sticker first.
+  const publishRank = (e: ConvertibleEntry): number => {
+    if (e.publish.kind === 'ready') return 0;
+    if (e.publish.kind === 'needs_photo') return e.publish.heroSeenOnVendor ? 1 : 2;
+    return 3;
+  };
+  dashboard.convertible.sort((a, b) => publishRank(a) - publishRank(b) || b.magPrice - a.magPrice);
   dashboard.failures.sort((a, b) => b.missCount - a.missCount || byRecencyDesc(a, b));
   dashboard.tiers = [...tierBuckets.values()];
 

@@ -14,12 +14,14 @@ const ACTION_LABEL: Record<RecentAction['action'], string> = {
   pull: 'Pulled',
   relist: 'Relisted',
   reprice: 'Repriced',
+  publish: 'Published',
 };
 
 const ACTION_BADGE: Record<RecentAction['action'], string> = {
   pull: 'bg-red-500/15 text-red-300',
   relist: 'bg-emerald-500/15 text-emerald-300',
   reprice: 'bg-sky-500/15 text-sky-300',
+  publish: 'bg-violet-500/15 text-violet-300',
 };
 
 const AVAILABILITY_LABELS: Record<string, string> = {
@@ -572,29 +574,81 @@ export default function DashboardView({
           </Table>
         </Section>
 
-        <Section
-          title="Quote-only stubs reading in stock"
-          count={data.convertible.length}
-          blurb="Candidates for a future Buy Now conversion. Each still needs a photo, freight and your stock confirm."
-        >
-          <Table head={['Part', 'Vendor sticker', 'On hand', 'Weight', 'Proposed sell', 'Last read']}>
-            {data.convertible.slice(0, 60).map((c: ConvertibleEntry) => (
-              <tr key={c.sku}>
-                <PartCell {...c} />
-                <td className="px-5 py-3 tabular-nums">{money(c.magPrice)}</td>
-                <td className="px-5 py-3 tabular-nums">{c.qtyOnHand ?? '—'}</td>
-                <td className="px-5 py-3 tabular-nums">{c.weightLb ? `${c.weightLb} lb` : '—'}</td>
-                <td className="px-5 py-3 tabular-nums text-white">{money(c.proposedSell)}</td>
-                <td className="px-5 py-3 text-slate-400">{ago(c.lastCheckedAt)}</td>
-              </tr>
-            ))}
-          </Table>
-          {data.convertible.length > 60 && (
-            <p className="px-5 py-3 text-xs text-slate-500">
-              Showing the 60 highest-sticker rows of {data.convertible.length}.
+        <section className="rounded-2xl border border-slate-800 bg-slate-900/40">
+          <header className="border-b border-slate-800 px-5 py-4">
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <h2 className="text-base font-semibold text-white">Publish: quote-only stubs reading in stock</h2>
+              <span className="rounded-full bg-slate-800 px-2 py-0.5 text-xs font-medium tabular-nums text-slate-300">
+                {data.convertible.length}
+              </span>
+            </div>
+            <p className="mt-1 text-sm text-slate-400">
+              Vendor shows solid stock and a sticker. Publish flips the stub to Buy Now at ~5%
+              under the sticker (recomputed server-side) — but only when the row already carries a
+              real product photo. Vendor images are watermarked and never go live raw; rows in the
+              photo queue need a cleaned hero first.
             </p>
+            <div className="mt-3 flex flex-wrap gap-2 text-xs">
+              <span className="rounded-full bg-violet-500/10 px-3 py-1 font-medium text-violet-300">
+                {data.convertibleSummary.ready} ready to publish
+              </span>
+              <span className="rounded-full bg-amber-400/10 px-3 py-1 font-medium text-amber-300">
+                {data.convertibleSummary.needsPhoto} waiting on a photo
+              </span>
+              <span className="rounded-full bg-slate-800 px-3 py-1 text-slate-400">
+                {data.convertibleSummary.photoQueueWithVendorHero} of those have a usable vendor
+                image to rework
+              </span>
+            </div>
+          </header>
+          {data.convertible.length === 0 ? (
+            <p className="px-5 py-6 text-sm text-slate-500">Nothing here right now.</p>
+          ) : (
+            <form action="/parts-watch/actions/publish" method="post" className="overflow-x-auto">
+              <Table head={['Part', 'Vendor sticker', 'On hand', 'Weight', 'Proposed sell', 'Last read', 'Action']}>
+                {data.convertible.slice(0, 60).map((c: ConvertibleEntry) => (
+                  <tr key={c.sku} className={c.publish.kind === 'ready' ? 'bg-violet-500/5' : undefined}>
+                    <PartCell {...c} />
+                    <td className="px-5 py-3 tabular-nums">{money(c.magPrice)}</td>
+                    <td className="px-5 py-3 tabular-nums">{c.qtyOnHand ?? '—'}</td>
+                    <td className="px-5 py-3 tabular-nums">{c.weightLb ? `${c.weightLb} lb` : '—'}</td>
+                    <td className="px-5 py-3 tabular-nums text-white">{money(c.proposedSell)}</td>
+                    <td className="px-5 py-3 text-slate-400">{ago(c.lastCheckedAt)}</td>
+                    <td className="px-5 py-3">
+                      {c.publish.kind === 'ready' ? (
+                        <button
+                          type="submit"
+                          name="sku"
+                          value={c.sku}
+                          className={`${ACTION_BUTTON} border border-violet-700 bg-violet-950/40 text-violet-200 hover:border-violet-400 hover:text-white`}
+                        >
+                          Publish at {money(c.proposedSell)}
+                        </button>
+                      ) : c.publish.kind === 'needs_photo' ? (
+                        <span className="block max-w-[14rem] text-xs text-amber-300/80">
+                          Needs photo
+                          {c.publish.heroSeenOnVendor
+                            ? ' · vendor image available to rework'
+                            : ' · no vendor image seen'}
+                        </span>
+                      ) : (
+                        <span className="block max-w-[14rem] text-xs text-slate-500">{c.publish.why}</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </Table>
+              <p className="border-t border-slate-800 px-5 py-3 text-xs text-slate-500">
+                {data.convertible.length > 60
+                  ? `Showing 60 of ${data.convertible.length} (publishable first, then the photo queue). `
+                  : ''}
+                Publish creates the Stripe product/price, flips the row to Buy Now, and records the
+                audit. Pricing without a confirmed cost is marked provisional until the first PO.
+                One SKU per click.
+              </p>
+            </form>
           )}
-        </Section>
+        </section>
 
         <Section
           title="Pulled off Buy Now"

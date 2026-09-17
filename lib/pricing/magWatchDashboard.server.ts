@@ -40,7 +40,7 @@ type AuditRow = {
   id: number;
   created_at: string;
   source: 'cli' | 'dashboard';
-  action: 'pull' | 'relist' | 'reprice';
+  action: 'pull' | 'relist' | 'reprice' | 'publish';
   sku: string;
   stripe: Record<string, unknown> | null;
   note: string | null;

@@ -25,6 +25,7 @@ import {
   categoryFromPartCategory,
   type SellPriceResult,
 } from './calculateSellPrice';
+import { currentHeroKind, type CurrentHeroKind } from './magHero';
 import { isSoldOutReading, type MagAvailability } from './magSnapshot';
 import {
   classifyRow,
@@ -40,7 +41,7 @@ import {
 export const MAX_READING_AGE_DAYS = 3;
 
 export type OpsSource = 'cli' | 'dashboard';
-export type OpsAction = 'pull' | 'relist' | 'reprice';
+export type OpsAction = 'pull' | 'relist' | 'reprice' | 'publish';
 
 /**
  * Above this multiple of the vendor sticker, a no-cost row is more likely a wrong item, a
@@ -295,6 +296,107 @@ export function repriceEligibility(
     };
   }
   return { kind: 'apply', plan };
+}
+
+// ---------------------------------------------------------------------------
+// Publish eligibility (pure): quote-only stub → Buy Now
+// ---------------------------------------------------------------------------
+
+export type PublishPlan = {
+  row: WatchRow;
+  magPrice: number;
+  qtyOnHand: number | null;
+  proposedSell: number;
+  cost: number | null;
+  marginPct: number | null;
+  method: string;
+  notes: string[];
+};
+
+export type PublishEligibility =
+  /** Priced, fresh, in stock, real photo — the Publish button is armed. */
+  | { kind: 'ready'; plan: PublishPlan }
+  /** Everything checks out except product photography. The photo queue feeds these. */
+  | { kind: 'needs_photo'; plan: PublishPlan; currentHero: CurrentHeroKind }
+  | { kind: 'skip'; why: string };
+
+function magQty(row: WatchRow): number | null {
+  const comps = row.metadata?.competitor_prices;
+  const entry = Array.isArray(comps)
+    ? (comps.find(
+        (c) => c && typeof c === 'object' && (c as Record<string, unknown>).source === 'magnasource'
+      ) as Record<string, unknown> | undefined)
+    : undefined;
+  const v = entry?.qty_on_hand;
+  return typeof v === 'number' && Number.isFinite(v) ? v : null;
+}
+
+export function publishEligibility(
+  row: WatchRow,
+  opts: { skipOems?: Set<string>; now?: Date } = {}
+): PublishEligibility {
+  const now = opts.now ?? new Date();
+  if (isBuyNow(row)) return { kind: 'skip', why: 'already Buy Now' };
+  if (isSkip(classifyRow(row))) return { kind: 'skip', why: 'outside the watch scope' };
+  if (opts.skipOems?.has(row.oem_reference ?? '')) return { kind: 'skip', why: 'on the skip-comps list' };
+
+  // Rows the watch pulled keep their archived price and go back through Relist,
+  // where the operator confirms stock — not through a fresh publish.
+  if (watchMeta(row).pulled_at) return { kind: 'skip', why: 'pulled row — use Relist' };
+
+  const mag = magReading(row);
+  if (mag.price === null) return { kind: 'skip', why: 'no vendor sticker on file' };
+  if (mag.availability !== 'in_stock') {
+    return {
+      kind: 'skip',
+      why:
+        mag.availability === 'limited'
+          ? 'vendor shows limited on hand — not enough for a new Buy Now'
+          : `vendor reads ${mag.availability ?? 'unknown'}`,
+    };
+  }
+  const age = ageDays(mag.fetchedAt ?? undefined, now.getTime());
+  if (age > MAX_READING_AGE_DAYS) {
+    return { kind: 'skip', why: `vendor reading is ${age.toFixed(1)} days old` };
+  }
+  if ((mag.weightLb ?? 0) >= 75) return { kind: 'skip', why: 'LTL weight — quote or special freight' };
+
+  const costRaw = row.metadata?.cost_wholesale;
+  const cost =
+    typeof costRaw === 'number' && costRaw > 0
+      ? costRaw
+      : typeof costRaw === 'string' && Number(costRaw) > 0
+        ? Number(costRaw)
+        : null;
+
+  let result: SellPriceResult;
+  try {
+    result = calculateSellPrice({
+      cost,
+      compPrice: mag.price,
+      category: categoryFromPartCategory(row.category),
+    });
+  } catch (e) {
+    return { kind: 'skip', why: (e as Error).message };
+  }
+  if (cost !== null && mag.price <= cost) {
+    return { kind: 'skip', why: `vendor sticker $${mag.price} is at/under our cost $${cost}` };
+  }
+
+  const plan: PublishPlan = {
+    row,
+    magPrice: mag.price,
+    qtyOnHand: magQty(row),
+    proposedSell: result.sellPrice,
+    cost,
+    marginPct: cost === null ? null : Math.round(result.marginPct * 1000) / 10,
+    method: result.method,
+    notes: result.notes,
+  };
+
+  const hero = currentHeroKind(row.image_url);
+  if (hero !== 'real') return { kind: 'needs_photo', plan, currentHero: hero };
+  return { kind: 'ready', plan };
 }
 
 // ---------------------------------------------------------------------------
@@ -638,4 +740,115 @@ export async function relist(
   });
 
   return { ok: true, note: `restored ${priorPriceId}, set ${priorSalesType}`, auditError };
+}
+
+const SITE_URL = 'https://www.flatearthequipment.com';
+
+/** Stripe wants an absolute image URL; catalog rows store relative paths or CDN URLs. */
+function absoluteImage(imageUrl: string | null): string | null {
+  if (!imageUrl) return null;
+  return imageUrl.startsWith('http') ? imageUrl : `${SITE_URL}${imageUrl}`;
+}
+
+/**
+ * Publish a quote-only stub as Buy Now: create the Stripe product if the row has none,
+ * create a price at the plan's proposed sell, flip the row to `direct`, audit. If the row
+ * update fails the new price is archived so nothing purchasable dangles.
+ */
+export async function publishStub(
+  stripe: Stripe,
+  supabase: SupabaseClient,
+  plan: PublishPlan,
+  opts: { dryRun: boolean; source: OpsSource; note?: string }
+): Promise<OpResult> {
+  const { row } = plan;
+
+  if (opts.dryRun) {
+    return { ok: true, note: `would publish at $${plan.proposedSell} (Mag $${plan.magPrice})` };
+  }
+
+  const before = auditSnapshot(row);
+  const heroUrl = absoluteImage(row.image_url);
+
+  let productId = row.stripe_product_id;
+  let createdProduct = false;
+  if (!productId) {
+    const product = await stripe.products.create({
+      name: row.name,
+      images: heroUrl ? [heroUrl] : undefined,
+      metadata: {
+        sku: row.sku,
+        oem_reference: row.oem_reference ?? '',
+        brand: row.brand ?? '',
+      },
+    });
+    productId = product.id;
+    createdProduct = true;
+  }
+
+  const newPrice = await stripe.prices.create({
+    product: productId,
+    unit_amount: Math.round(plan.proposedSell * 100),
+    currency: 'usd',
+    metadata: { sku: row.sku, reason: 'mag_publish' },
+  });
+
+  const prev = (row.metadata ?? {}) as Record<string, unknown>;
+  const patch = {
+    sales_type: 'direct',
+    is_in_stock: true,
+    price: plan.proposedSell,
+    price_cents: Math.round(plan.proposedSell * 100),
+    stripe_product_id: productId,
+    stripe_price_id: newPrice.id,
+    metadata: {
+      ...prev,
+      ...(plan.cost === null
+        ? {
+            provisional_pricing: true,
+            provisional_pricing_note:
+              'First sell generated from the vendor sticker — wholesale cost lands with the first PO.',
+          }
+        : { provisional_pricing: false, provisional_pricing_note: null }),
+      last_comp_pricing: {
+        at: new Date().toISOString(),
+        method: plan.method,
+        comp_discount: 0.05,
+        margin_pct: plan.marginPct,
+        notes: [
+          ...plan.notes,
+          `Published at $${plan.proposedSell} against Mag $${plan.magPrice}${plan.cost === null ? ' (no cost on file)' : ` · cost $${plan.cost}`}`,
+        ],
+      },
+    },
+    updated_at: new Date().toISOString(),
+  };
+
+  const { error } = await supabase.from('parts').update(patch).eq('id', row.id);
+  if (error) {
+    await stripe.prices.update(newPrice.id, { active: false });
+    return { ok: false, note: `db update failed, new price archived: ${error.message}` };
+  }
+
+  const auditError = await writeAudit(supabase, {
+    source: opts.source,
+    action: 'publish',
+    sku: row.sku,
+    part_id: row.id,
+    before,
+    after: auditSnapshot({ ...row, ...patch }),
+    stripe: {
+      created: newPrice.id,
+      product: productId,
+      product_created: createdProduct,
+      mag_price: plan.magPrice,
+    },
+    note: opts.note ?? null,
+  });
+
+  return {
+    ok: true,
+    note: `published at $${plan.proposedSell} (Mag $${plan.magPrice}), ${newPrice.id}`,
+    auditError,
+  };
 }

@@ -112,9 +112,10 @@ plus a commit and deploy, since Google reads the committed XML.
 
 ## Dashboard writes
 
-`/parts-watch` (password-gated, noindexed) can perform three operations: **Pull off Buy Now**
-on rows the sold-out queue shows as ready, **Relist** on rows in the Pulled section, and
-**Apply** (cut or raise) on rows in Price problems. All call the shared functions in
+`/parts-watch` (password-gated, noindexed) can perform four operations: **Pull off Buy Now**
+on rows the sold-out queue shows as ready, **Relist** on rows in the Pulled section,
+**Apply** (cut or raise) on rows in Price problems, and **Publish** on quote-only stubs the
+vendor reads as solidly in stock. All call the shared functions in
 `lib/pricing/magWatchOps.ts`, so the gate is identical whichever way the action is taken; the
 only CLI-specific guardrail is the per-run cap, which the dashboard replaces with one row per
 click (or up to 25 per click for a bulk Apply).
@@ -151,6 +152,28 @@ Apply creates a new Stripe price on the row's product, updates `price` /
 update fails the new price is archived so `stripe_price_id` always points at an active
 price. Repriced rows do not reach Shopping until the Merchant XML is rebuilt.
 
+### Publish gate
+
+The *"quote-only stubs reading in stock"* section is a Publish panel. `publishEligibility`
+arms the button only when every one of these holds:
+
+- the row is quote-only and in watch scope, not on `skip-comps.json`, and not a pulled row
+  (pulled rows keep their archived Stripe price and go back through Relist);
+- the latest vendor read is `in_stock` — `limited` is not enough basis for a *new* Buy Now —
+  no older than 3 days, with a sticker, under the 75 lb LTL line;
+- a known cost, if any, sits under the sticker;
+- **the row already carries a real product photo** (`currentHeroKind === 'real'`). Brand
+  logos, placeholders, and empty `image_url` all read as no photo. Vendor og:image heroes are
+  watermarked and never go live raw — rows missing a photo queue up with a *"vendor image
+  available to rework"* flag when the Mag page exposed an identity-passing hero, and get a
+  cleaned watermark-free hero in a Cursor session before the button appears.
+
+Publish recomputes `calculateSellPrice` (~5% under the sticker) server-side, creates the
+Stripe product when the stub has none, creates the price, flips `sales_type: 'direct'` /
+`is_in_stock: true`, marks pricing provisional until the first PO, and audits as `publish`.
+One SKU per click — no bulk publish. Standard freight bands apply at checkout by category, so
+no per-SKU freight work is needed unless the SKU warrants `metadata.freight_cents`.
+
 Every mutation request must pass three checks before touching Stripe or Supabase: a valid
 gate cookie, a same-origin `Origin` header (a form post from another site is refused even
 with our cookie attached), and the operation's eligibility re-evaluated server-side —
@@ -159,7 +182,7 @@ stock"* checkbox, which is the stock confirm the process has always required; ve
 on-hand next to the row is a reference, not our stock flag.
 
 Every successful write, from the dashboard or the CLI, lands a row in `parts_ops_audit`
-(`source`, `action` pull/relist/reprice, `sku`, before/after of `sales_type` /
+(`source`, `action` pull/relist/reprice/publish, `sku`, before/after of `sales_type` /
 `is_in_stock` / `stripe_price_id` / `price` / `mag_watch`, the Stripe price created,
 archived, or restored, and a note). The dashboard's *Recent actions* section reads it. The table is RLS-enabled with no
 policies — service role only.

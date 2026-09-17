@@ -320,6 +320,70 @@ function meta(opts: {
     d.convertible[0].proposedSell !== null && d.convertible[0].proposedSell < 1200,
     'proposed sell undercuts the vendor sticker'
   );
+  // No image on the row → photo queue, never a Publish button.
+  assert.equal(d.convertible[0].publish.kind, 'needs_photo');
+  assert.equal(d.convertibleSummary.ready, 0);
+  assert.equal(d.convertibleSummary.needsPhoto, 1);
+}
+
+// ---------------------------------------------------------------------------
+// Publish decisions: real photo arms the button; the vendor-hero flag drives the
+// photo queue ordering; limited stock is a skip.
+// ---------------------------------------------------------------------------
+{
+  const d = buildWatchDashboard(
+    [
+      // Real photo + solid stock → ready.
+      row({
+        oem: '333/PUB1',
+        salesType: 'quote_only',
+        price: 0,
+        imageUrl: REAL,
+        metadata: meta({ price: 300, qty: 6 }),
+      }),
+      // No photo, but the vendor page showed an identity-passing hero → front of photo queue.
+      row({
+        oem: '333/PUB2',
+        salesType: 'quote_only',
+        price: 0,
+        metadata: meta({ price: 200, qty: 5, hero: { filename: 'x-333pub2.jpg', identityOk: true } }),
+      }),
+      // Brand logo hero and no vendor image → back of photo queue.
+      row({
+        oem: '333/PUB3',
+        salesType: 'quote_only',
+        price: 0,
+        imageUrl: LOGO,
+        metadata: meta({ price: 900, qty: 3 }),
+      }),
+      // Limited on hand → skip, not enough for a new Buy Now.
+      row({
+        oem: '333/PUB4',
+        salesType: 'quote_only',
+        price: 0,
+        imageUrl: REAL,
+        metadata: meta({ price: 400, qty: 1, availability: 'limited' }),
+      }),
+    ],
+    NOW
+  );
+  assert.equal(d.convertibleSummary.ready, 1);
+  assert.equal(d.convertibleSummary.needsPhoto, 2);
+  assert.equal(d.convertibleSummary.photoQueueWithVendorHero, 1);
+  // Ready first, then vendor-hero-in-hand, then the bare logo row despite its bigger
+  // sticker, then skips (the limited row shows with its reason but no button).
+  assert.deepEqual(
+    d.convertible.map((c) => c.oem),
+    ['333/PUB1', '333/PUB2', '333/PUB3', '333/PUB4']
+  );
+  assert.equal(d.convertible[1].publish.kind, 'needs_photo');
+  if (d.convertible[1].publish.kind === 'needs_photo') {
+    assert.equal(d.convertible[1].publish.heroSeenOnVendor, true);
+  }
+  const limitedRow = d.convertible[3];
+  assert.equal(limitedRow.publish.kind, 'skip');
+  if (limitedRow.publish.kind === 'skip') assert.match(limitedRow.publish.why, /limited/);
+  assert.equal(d.limited.length, 1, 'limited row also surfaces in the Limited review list');
 }
 
 // ---------------------------------------------------------------------------

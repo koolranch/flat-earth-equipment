@@ -184,3 +184,27 @@ covers now go through the same Apply / hold / verify path; skip-comps still refu
 
 Next lanes: convert quote-only → Buy Now (gated on an approved photo), then the image tray
 that feeds it.
+
+## 2026-09-17 — third write lane: Publish quote-only stubs, photo-gated
+
+The "stubs Mag says are in stock" list is now a Publish panel. `publishEligibility` in
+`lib/pricing/magWatchOps.ts` arms a per-row Publish button only when the stub has a fresh
+(≤3 day) `in_stock` read with a sticker, sits under the LTL line, is not on skip-comps and
+not a pulled row (those go through Relist), any known cost sits under the sticker, and —
+the hard gate — the row already carries a real product photo. Brand logos, placeholders,
+and empty `image_url` all count as no photo; vendor og:image heroes are watermarked and
+never go live raw. Rows blocked only on photography sort to the front of the queue with a
+"vendor image available to rework" flag when the Mag page exposed an identity-passing
+hero; cleaned heroes are produced in a Cursor session (same flow as the seven verify-queue
+photos cleaned earlier today), committed, and the button appears on the next page load.
+
+Publish recomputes the sell (~5% under sticker) server-side, creates the Stripe product if
+the stub has none, creates the price, flips to `direct` / in stock, marks pricing
+provisional until the first PO, and audits as `publish` (constraint widened by migration
+`parts_ops_audit_publish`). One SKU per click; no bulk publish. Limited on-hand is a skip
+for new listings — enough to keep selling, not enough to start.
+
+At ship time the panel was empty because only the 33 pulled rows had stub reads; the tier D
+rotation (1,087 stubs, 90/run oldest-first) had not started. Seeded with a one-off
+`--tier=D --quote-cap=250` snapshot pass; `scripts/pricing/preview-publish-queue.mts`
+prints the panel's counts from live data.
