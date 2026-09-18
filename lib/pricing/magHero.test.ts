@@ -4,6 +4,7 @@ import {
   heroCandidateFromOgImage,
   heroFilename,
   isSeatCategory,
+  isSeatFamily,
   toStoredHeroReading,
 } from './magHero';
 
@@ -101,5 +102,9 @@ assert.equal(isSeatCategory('Seat covers'), true);
 assert.equal(isSeatCategory('seat'), true);
 assert.equal(isSeatCategory('Construction Equipment Parts'), false);
 assert.equal(isSeatCategory(null), false);
+assert.equal(isSeatFamily('JCB Seats', 'JCB Operator Seat'), true);
+assert.equal(isSeatFamily('Construction Equipment Parts', 'Bobcat Operator Seat Assembly'), true);
+assert.equal(isSeatFamily('JCB General Parts', 'JCB 332/C4873 Replacement Part', 'seat-vinyl-jc332c4873.jpg'), true);
+assert.equal(isSeatFamily('Construction Equipment Parts', 'JCB Lower Door 333/D2714'), false);
 
 console.log('magHero.test.ts: all assertions passed');

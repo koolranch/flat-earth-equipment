@@ -41,7 +41,7 @@ import {
 export const MAX_READING_AGE_DAYS = 3;
 
 export type OpsSource = 'cli' | 'dashboard';
-export type OpsAction = 'pull' | 'relist' | 'reprice' | 'publish';
+export type OpsAction = 'pull' | 'relist' | 'reprice' | 'publish' | 'hero_approve' | 'hero_reject';
 
 /**
  * Above this multiple of the vendor sticker, a no-cost row is more likely a wrong item, a

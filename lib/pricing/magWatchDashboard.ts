@@ -9,7 +9,7 @@
  * run's readings.
  */
 
-import { currentHeroKind, isSeatCategory, type CurrentHeroKind, type StoredHeroReading } from './magHero';
+import { currentHeroKind, isSeatFamily, type CurrentHeroKind, type StoredHeroReading } from './magHero';
 import { publishEligibility, pullEligibility, repriceEligibility } from './magWatchOps';
 import {
   isSoldOutReading,
@@ -211,12 +211,44 @@ export type RecentAction = {
   id: number;
   createdAt: string;
   source: 'cli' | 'dashboard';
-  action: 'pull' | 'relist' | 'reprice' | 'publish';
+  action: 'pull' | 'relist' | 'reprice' | 'publish' | 'hero_approve' | 'hero_reject';
   sku: string;
   slug: string | null;
   stripePriceId: string | null;
   note: string | null;
 };
+
+export type ImageTrayStatus = 'pending_raw' | 'cleaned' | 'approved' | 'rejected';
+
+export type ImageTrayEntry = {
+  sku: string;
+  slug: string;
+  name: string;
+  brand: string;
+  oem: string;
+  magUrl: string;
+  status: ImageTrayStatus;
+  rawSignedUrl: string | null;
+  cleanedSignedUrl: string | null;
+  publicUrl: string | null;
+  filename: string | null;
+  identityOk: boolean;
+  magPrice: number | null;
+  proposedSell: number | null;
+  qtyOnHand: number | null;
+  note: string | null;
+};
+
+export type ImageTray = {
+  pending: ImageTrayEntry[];
+  cleaned: ImageTrayEntry[];
+  rejected: ImageTrayEntry[];
+  approved: ImageTrayEntry[];
+};
+
+export function emptyImageTray(): ImageTray {
+  return { pending: [], cleaned: [], rejected: [], approved: [] };
+}
 
 /**
  * Google reads the committed Merchant XML, so Buy Now flips made here do not reach Shopping
@@ -234,6 +266,8 @@ export type WatchDashboard = {
   hero: HeroCoverage;
   /** Filled by the server loader; the pure builder leaves these empty. */
   recentActions: RecentAction[];
+  /** Filled by the server loader from `part_image_reviews`; the pure builder leaves this empty. */
+  imageTray: ImageTray;
   feed: FeedStaleness;
   counts: {
     catalogRows: number;
@@ -376,7 +410,7 @@ function tallyHero(
   if (kind === 'brand_logo') bucket.brandLogo++;
   else bucket.noPhoto++;
 
-  if (isSeatCategory(row.category)) {
+  if (isSeatFamily(row.category, row.name, state.hero?.filename)) {
     coverage.seatGapExcluded++;
     return;
   }
@@ -468,6 +502,7 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date(), opts: Bu
       seatGapExcluded: 0,
     },
     recentActions: [],
+    imageTray: emptyImageTray(),
     feed: { builtAt: null, changesSinceBuild: 0 },
     counts: {
       catalogRows: rows.length,

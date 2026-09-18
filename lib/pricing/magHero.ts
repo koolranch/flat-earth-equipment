@@ -92,8 +92,24 @@ export function currentHeroKind(imageUrl: string | null | undefined): CurrentHer
   return 'real';
 }
 
-/** Seats, cushions and covers never take a vendor-derived hero. */
+/** Exact catalog shelves: Seats / Seat cushions / Seat covers. */
 export function isSeatCategory(category: string | null | undefined): boolean {
   if (!category) return false;
   return /^seat(s| cushions| covers)?$/i.test(category.trim());
+}
+
+/**
+ * Broader seat-family gate for the image tray. Brand-prefixed shelves (`JCB Seats`)
+ * and names that are the seat itself never take a vendor-derived hero.
+ */
+export function isSeatFamily(
+  category: string | null | undefined,
+  name?: string | null,
+  filename?: string | null
+): boolean {
+  if (isSeatCategory(category)) return true;
+  if (category && /seat/i.test(category)) return true;
+  if (name && /\bseats?\b/i.test(name)) return true;
+  if (filename && /seat/i.test(filename)) return true;
+  return false;
 }

@@ -1,5 +1,18 @@
 # STATUS — TVH-network inventory + sticker watch
 
+## 2026-09-17 — image tray live
+
+Vendor heroes no longer have to be screenshot one-by-one. `scripts/pricing/mag-hero-intake.ts`
+downloads identity-ok Magnasource og:images into the private `part-hero-pending` bucket and
+writes `part_image_reviews`. `/parts-watch` shows the tray: upload a cleaned file, Approve
+copies it to public `part-heroes` and sets `parts.image_url`, Reject leaves the PDP alone.
+Raw vendor photos never go live. Seats / cushions / covers are refused at every gate.
+Approve does not Publish — that is still its own click once the photo is real.
+
+First intake: 103 pending (high-ticket plus the cheaper photo-queue) and 2 rejected
+(JCB `332/C4873` vinyl seat, JCB `444/E0383` battery charger). Filename/name gates now
+catch those even when the catalog row is a generic "Replacement Part".
+
 ## 2026-09-17 — built, Stage 2 baseline established
 
 Live. Snapshot pass runs against the core-six Buy Now slice; the sold-out pull step is

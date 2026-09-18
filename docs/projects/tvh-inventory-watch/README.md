@@ -49,6 +49,9 @@ npx tsx scripts/pricing/mag-watch-apply.ts
 
 # Relist after your stock confirm.
 npx tsx scripts/pricing/mag-watch-apply.ts --relist=333D1629
+
+# Pull identity-ok vendor heroes into the private image tray (never sets image_url).
+npx tsx scripts/pricing/mag-hero-intake.ts --min-sticker=150 --limit=40
 ```
 
 Slices: `baseline` (core-six Buy Now that already have a Magnasource snapshot),
@@ -112,13 +115,12 @@ plus a commit and deploy, since Google reads the committed XML.
 
 ## Dashboard writes
 
-`/parts-watch` (password-gated, noindexed) can perform four operations: **Pull off Buy Now**
-on rows the sold-out queue shows as ready, **Relist** on rows in the Pulled section,
-**Apply** (cut or raise) on rows in Price problems, and **Publish** on quote-only stubs the
-vendor reads as solidly in stock. All call the shared functions in
-`lib/pricing/magWatchOps.ts`, so the gate is identical whichever way the action is taken; the
-only CLI-specific guardrail is the per-run cap, which the dashboard replaces with one row per
-click (or up to 25 per click for a bulk Apply).
+`/parts-watch` (password-gated, noindexed) can perform Pull, Relist, Reprice, Publish, and
+the image-tray writes (upload cleaned / approve / reject). Pull, Relist, Reprice, and
+Publish call `lib/pricing/magWatchOps.ts`; the tray calls `lib/pricing/heroTray.ts`. The
+gate is identical whichever way the action is taken; the only CLI-specific guardrail is the
+per-run pull cap, which the dashboard replaces with one row per click (or up to 25 per click
+for a bulk Apply).
 
 ### Reprice gate
 
@@ -166,7 +168,7 @@ arms the button only when every one of these holds:
   logos, placeholders, and empty `image_url` all read as no photo. Vendor og:image heroes are
   watermarked and never go live raw — rows missing a photo queue up with a *"vendor image
   available to rework"* flag when the Mag page exposed an identity-passing hero, and get a
-  cleaned watermark-free hero in a Cursor session before the button appears.
+  cleaned watermark-free hero via the Image tray before the button appears.
 
 Publish recomputes `calculateSellPrice` (~5% under the sticker) server-side, creates the
 Stripe product when the stub has none, creates the price, flips `sales_type: 'direct'` /
@@ -182,10 +184,10 @@ stock"* checkbox, which is the stock confirm the process has always required; ve
 on-hand next to the row is a reference, not our stock flag.
 
 Every successful write, from the dashboard or the CLI, lands a row in `parts_ops_audit`
-(`source`, `action` pull/relist/reprice/publish, `sku`, before/after of `sales_type` /
-`is_in_stock` / `stripe_price_id` / `price` / `mag_watch`, the Stripe price created,
-archived, or restored, and a note). The dashboard's *Recent actions* section reads it. The table is RLS-enabled with no
-policies — service role only.
+(`source`, `action` pull/relist/reprice/publish/hero_approve/hero_reject, `sku`, before/after
+of the columns that changed, the Stripe price created, archived, or restored when relevant,
+and a note). The dashboard's *Recent actions* section reads it. The table is RLS-enabled
+with no policies — service role only.
 
 Because Google reads the committed Merchant XML, Buy Now flips made here do not reach
 Shopping until the feed is rebuilt. `build-merchant-feed.ts` now writes
@@ -221,42 +223,28 @@ A sibling `metadata.mag_watch` object holds job state only: `last_checked_at`,
 `last_availability`, `sold_out_streak`, `miss_count`, and on a pull `pulled_at`,
 `pull_reason`, `prior_stripe_price_id`, `prior_sales_type`.
 
-## Hero images (measurement stage)
+## Hero images (review tray)
 
-Catalog growth is blocked on product photos, not on price: at the time of writing only
-~135 in-scope rows have a real photo; 667 show a brand logo and 816 nothing. Magnasource
-exposes the product hero as `og:image` on the same page response the watch already reads,
-so each read now records a hero fact on `mag_watch.hero` at zero extra vendor load:
+Catalog growth is blocked on product photos, not on price. Magnasource exposes the product
+hero as `og:image` on the same page response the watch already reads, so each read records
+a hero fact on `mag_watch.hero` (filename + identity/placeholder gates — the signed `?key=`
+URL is never stored).
 
-```json
-{ "checked_at": "…", "filename": "electronic-sensor-jc333d1629.jpg",
-  "identity_ok": true, "placeholder_suspect": false }
+Identity-ok heroes for photo-gap rows are downloaded into a **private** `part-hero-pending`
+bucket by `scripts/pricing/mag-hero-intake.ts` and listed on `/parts-watch` under *Image
+tray*. Seats, cushions, and covers are refused at every gate.
+
+```bash
+npx tsx scripts/pricing/mag-hero-intake.ts --min-sticker=150 --limit=40
 ```
 
-`identity_ok` means the filename contains the Magnasource part id — the image equivalent
-of the PN + brand gate. It exists because the related-items carousel on the same page
-shows other brands' parts, and a naive "first product image" pick lands on those. The
-signed `?key=` URL is never stored.
+The operator strips the watermark, uploads the cleaned file on the tray card, then
+**Approve**. Approve copies the cleaned file into the public `part-heroes` bucket and sets
+`parts.image_url` to that CDN URL. That is the whole meaning of approve: it does not change
+`sales_type`, does not create a Stripe price, does not touch stock. Publish still needs its
+own click. Raw vendor photos never go live. Approved heroes do not go into git.
 
-This stage **downloads nothing and never writes `image_url`**. It answers, per brand, how
-many gap rows have a usable vendor hero — visible on `/parts-watch` under *Product photos*
-and in each run's digest. Whether a review tray, storage, and approve/reject UI are worth
-building is decided from that number. Seats, cushions and covers are excluded outright.
-
-Decided direction for the next stage, once the numbers justify it:
-
-- Raw bytes land in a **private** storage bucket, keyed by content hash. Nothing pending
-  is publicly addressable.
-- A deterministic rework (trim, square-pad on white, size cap, mild sharpen, strip EXIF,
-  re-encode) runs automatically and sits next to the raw in the tray. Generative cleanup
-  (watermark removal, background repair) is **not** automated in the scheduled job — it is
-  an interactive step whose output re-enters the tray as another candidate.
-- **Approve** copies the chosen file into the public `products` bucket and sets
-  `parts.image_url` to that CDN URL. That is the whole meaning of approve: it does not
-  change `sales_type`, does not create a Stripe price, does not touch stock. Buy Now still
-  needs the convert step. Approved heroes do not go into git.
-- Review state lives in a small table keyed by brand + OEM, not in `parts.metadata`, so a
-  future list-intake row can use the same tray before a `parts` row exists.
+Review state lives in `part_image_reviews` (service role only), not in `parts.metadata`.
 
 ## URL construction
 

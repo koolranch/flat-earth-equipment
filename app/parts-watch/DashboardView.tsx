@@ -1,6 +1,7 @@
 import type {
   ConvertibleEntry,
   FailureEntry,
+  ImageTrayEntry,
   LimitedEntry,
   MoverEntry,
   PullQueueEntry,
@@ -15,6 +16,8 @@ const ACTION_LABEL: Record<RecentAction['action'], string> = {
   relist: 'Relisted',
   reprice: 'Repriced',
   publish: 'Published',
+  hero_approve: 'Hero approved',
+  hero_reject: 'Hero rejected',
 };
 
 const ACTION_BADGE: Record<RecentAction['action'], string> = {
@@ -22,6 +25,8 @@ const ACTION_BADGE: Record<RecentAction['action'], string> = {
   relist: 'bg-emerald-500/15 text-emerald-300',
   reprice: 'bg-sky-500/15 text-sky-300',
   publish: 'bg-violet-500/15 text-violet-300',
+  hero_approve: 'bg-teal-500/15 text-teal-300',
+  hero_reject: 'bg-slate-500/15 text-slate-300',
 };
 
 const AVAILABILITY_LABELS: Record<string, string> = {
@@ -180,6 +185,130 @@ const BANNER_TONES: Record<Banner['kind'], string> = {
 const ACTION_BUTTON =
   'min-h-[44px] rounded-lg px-3 py-2 text-xs font-semibold transition disabled:cursor-not-allowed disabled:opacity-40';
 
+function TrayCard({
+  entry,
+  mode,
+}: {
+  entry: ImageTrayEntry;
+  mode: 'pending' | 'cleaned' | 'rejected' | 'approved';
+}) {
+  const src =
+    mode === 'approved'
+      ? entry.publicUrl
+      : mode === 'cleaned'
+        ? entry.cleanedSignedUrl ?? entry.rawSignedUrl
+        : entry.rawSignedUrl;
+
+  return (
+    <article className="overflow-hidden rounded-xl border border-slate-800 bg-slate-950/60">
+      <div className="relative aspect-square bg-slate-900">
+        {src ? (
+          // Signed / CDN URLs carry tokens; skip next/image so the token is not cached as a path.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={src} alt={`${entry.brand} ${entry.oem}`} className="h-full w-full object-contain" />
+        ) : (
+          <p className="flex h-full items-center justify-center text-xs text-slate-600">No image</p>
+        )}
+        {mode === 'pending' && (
+          <span className="absolute left-2 top-2 rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-amber-200">
+            Raw vendor
+          </span>
+        )}
+        {mode === 'cleaned' && (
+          <span className="absolute left-2 top-2 rounded-full bg-teal-500/15 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-teal-200">
+            Cleaned
+          </span>
+        )}
+      </div>
+      <div className="space-y-3 p-4">
+        <div>
+          <p className="font-medium text-white">
+            {entry.brand} {entry.oem}
+          </p>
+          <p className="truncate text-xs text-slate-500" title={entry.name}>
+            {entry.name}
+          </p>
+          <p className="mt-1 text-xs text-slate-400">
+            {money(entry.magPrice)} sticker
+            {entry.proposedSell != null ? ` · propose ${money(entry.proposedSell)}` : ''}
+            {entry.qtyOnHand != null ? ` · ${entry.qtyOnHand} on hand` : ''}
+          </p>
+          <div className="mt-1 flex gap-3 text-xs">
+            <a
+              href={`/parts/${entry.slug}`}
+              target="_blank"
+              rel="noreferrer"
+              className="text-slate-400 underline decoration-slate-600 hover:text-white"
+            >
+              PDP
+            </a>
+            <a
+              href={entry.magUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="text-slate-400 underline decoration-slate-600 hover:text-white"
+            >
+              Vendor page
+            </a>
+          </div>
+        </div>
+
+        {mode === 'pending' || mode === 'cleaned' ? (
+          <form
+            action="/parts-watch/actions/hero-upload"
+            method="post"
+            encType="multipart/form-data"
+            className="space-y-2"
+          >
+            <input type="hidden" name="sku" value={entry.sku} />
+            <label className="block text-xs text-slate-400">
+              Cleaned photo
+              <input
+                type="file"
+                name="cleaned"
+                accept="image/jpeg,image/png,image/webp"
+                required
+                className="mt-1 block w-full text-xs text-slate-300 file:mr-3 file:rounded-md file:border-0 file:bg-slate-800 file:px-3 file:py-1.5 file:text-xs file:text-white"
+              />
+            </label>
+            <button
+              type="submit"
+              className={`${ACTION_BUTTON} w-full border border-slate-700 bg-slate-900 text-slate-200 hover:border-slate-500 hover:text-white`}
+            >
+              Upload cleaned
+            </button>
+          </form>
+        ) : null}
+
+        <div className="flex flex-wrap gap-2">
+          {mode === 'cleaned' ? (
+            <form action="/parts-watch/actions/hero-approve" method="post">
+              <input type="hidden" name="sku" value={entry.sku} />
+              <button
+                type="submit"
+                className={`${ACTION_BUTTON} border border-teal-700 bg-teal-950/40 text-teal-200 hover:border-teal-400 hover:text-white`}
+              >
+                Approve
+              </button>
+            </form>
+          ) : null}
+          {mode === 'pending' || mode === 'cleaned' ? (
+            <form action="/parts-watch/actions/hero-reject" method="post">
+              <input type="hidden" name="sku" value={entry.sku} />
+              <button
+                type="submit"
+                className={`${ACTION_BUTTON} border border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white`}
+              >
+                Reject
+              </button>
+            </form>
+          ) : null}
+        </div>
+      </div>
+    </article>
+  );
+}
+
 export default function DashboardView({
   data,
   banner,
@@ -204,8 +333,8 @@ export default function DashboardView({
             </h1>
             <p className="mt-1 text-sm text-slate-400">
               Last vendor reading {ago(data.lastReadingAt)}. Readings are stored by the weekday
-              job; this page never scrapes. The only writes it can make are the Pull and Relist
-              buttons below, and every one is logged.
+              job; this page never scrapes. Writes are Pull, Relist, Reprice, Publish, and the
+              image tray — every one is logged.
             </p>
           </div>
           <form action="/parts-watch/logout" method="post">
@@ -577,6 +706,67 @@ export default function DashboardView({
         <section className="rounded-2xl border border-slate-800 bg-slate-900/40">
           <header className="border-b border-slate-800 px-5 py-4">
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <h2 className="text-base font-semibold text-white">Image tray</h2>
+              <span className="rounded-full bg-slate-800 px-2 py-0.5 text-xs font-medium tabular-nums text-slate-300">
+                {data.imageTray.pending.length + data.imageTray.cleaned.length}
+              </span>
+            </div>
+            <p className="mt-1 text-sm text-slate-400">
+              Vendor heroes land here privately. Strip the watermark, upload the cleaned file,
+              then Approve — that is what sets the catalog photo. Raw vendor images never go
+              live. Seats, cushions, and covers are excluded.
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2 text-xs">
+              <span className="rounded-full bg-amber-400/10 px-3 py-1 font-medium text-amber-300">
+                {data.imageTray.pending.length} waiting on a clean
+              </span>
+              <span className="rounded-full bg-teal-500/10 px-3 py-1 font-medium text-teal-300">
+                {data.imageTray.cleaned.length} ready to approve
+              </span>
+              <span className="rounded-full bg-slate-800 px-3 py-1 text-slate-400">
+                {data.imageTray.rejected.length} rejected
+              </span>
+            </div>
+          </header>
+          {data.imageTray.pending.length + data.imageTray.cleaned.length === 0 ? (
+            <p className="px-5 py-6 text-sm text-slate-500">
+              Tray is empty. Run{' '}
+              <code className="font-mono text-slate-400">npx tsx scripts/pricing/mag-hero-intake.ts</code>{' '}
+              to pull identity-ok vendor photos into review.
+            </p>
+          ) : (
+            <div className="space-y-6 px-5 py-5">
+              {data.imageTray.cleaned.length > 0 && (
+                <div>
+                  <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-teal-300">
+                    Cleaned — approve to set the PDP photo
+                  </h3>
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {data.imageTray.cleaned.map((entry) => (
+                      <TrayCard key={entry.sku} entry={entry} mode="cleaned" />
+                    ))}
+                  </div>
+                </div>
+              )}
+              {data.imageTray.pending.length > 0 && (
+                <div>
+                  <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-amber-300">
+                    Raw vendor — clean and upload
+                  </h3>
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {data.imageTray.pending.map((entry) => (
+                      <TrayCard key={entry.sku} entry={entry} mode="pending" />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </section>
+
+        <section className="rounded-2xl border border-slate-800 bg-slate-900/40">
+          <header className="border-b border-slate-800 px-5 py-4">
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
               <h2 className="text-base font-semibold text-white">Publish: quote-only stubs reading in stock</h2>
               <span className="rounded-full bg-slate-800 px-2 py-0.5 text-xs font-medium tabular-nums text-slate-300">
                 {data.convertible.length}
@@ -708,7 +898,7 @@ export default function DashboardView({
         <Section
           title="Recent actions"
           count={data.recentActions.length}
-          blurb="Every Pull and Relist, from this page or the command line, with the Stripe price it touched."
+          blurb="Every write from this page or the command line, with the Stripe price it touched when relevant."
         >
           <Table head={['When', 'Action', 'Part', 'Source', 'Stripe', 'Note']}>
             {data.recentActions.map((a) => (
