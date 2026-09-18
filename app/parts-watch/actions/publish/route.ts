@@ -1,4 +1,4 @@
-import { type NextRequest } from 'next/request';
+import { type NextRequest } from 'next/server';
 import {
   opsSupabase,
   readSku,
