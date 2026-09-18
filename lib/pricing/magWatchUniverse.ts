@@ -137,6 +137,25 @@ export const SOLD_OUT_STREAK_TO_PULL = 2;
  */
 export const MAX_PULLS_PER_RUN = 10;
 
+/**
+ * Live Buy Now whose last Mag on-hand is at or below this refresh every weekday, even
+ * when their price tier is not due. That is the actual sell-out window. Qty 0 still
+ * Buy Now needs the confirming second sold-out read; Mag "1" is a flag, not a pull.
+ */
+export const LOW_QTY_REFRESH_MAX = 3;
+
+/**
+ * Safety cap so a parser that started reading everything as "1" cannot explode a
+ * weekday run. Real low-qty Buy Now is dozens, not hundreds.
+ */
+export const LOW_QTY_REFRESH_CAP = 80;
+
+/**
+ * Quote-only stubs per D run. 200 × Tue/Thu/Fri cycles the unread pool in about two
+ * weeks instead of a month. Does not change C (Monday) or the A/B sticker cadence.
+ */
+export const DEFAULT_QUOTE_CAP = 200;
+
 function metaString(row: WatchRow, key: string): string | null {
   const value = row.metadata?.[key];
   return typeof value === 'string' ? value : null;
@@ -263,11 +282,91 @@ export function dedupeCandidates(candidates: WatchCandidate[]): {
 }
 
 /**
+ * Last Magnasource on-hand from the stored snapshot. Null when we have never read the
+ * page or the read had no usable qty (backorder / special-order / parse miss).
+ */
+export function lastMagQty(row: WatchRow): number | null {
+  const comps = row.metadata?.competitor_prices;
+  const entry = Array.isArray(comps)
+    ? (comps.find(
+        (c) => c && typeof c === 'object' && (c as Record<string, unknown>).source === 'magnasource'
+      ) as Record<string, unknown> | undefined)
+    : undefined;
+  const v = entry?.qty_on_hand;
+  return typeof v === 'number' && Number.isFinite(v) && v >= 0 ? v : null;
+}
+
+export function lastCheckedAt(row: WatchRow): string {
+  const watch = row.metadata?.mag_watch;
+  if (watch && typeof watch === 'object' && 'last_checked_at' in watch) {
+    const value = (watch as Record<string, unknown>).last_checked_at;
+    return typeof value === 'string' ? value : '';
+  }
+  return '';
+}
+
+/** Live Buy Now whose last Mag qty is 0–3. Quote-only stubs never qualify. */
+export function needsLowQtyRefresh(candidate: WatchCandidate): boolean {
+  if (!candidate.isBuyNow) return false;
+  const qty = lastMagQty(candidate.row);
+  return qty !== null && qty <= LOW_QTY_REFRESH_MAX;
+}
+
+function byStalest(a: WatchCandidate, b: WatchCandidate): number {
+  return lastCheckedAt(a.row).localeCompare(lastCheckedAt(b.row));
+}
+
+export type WatchQueueSelection = {
+  buyNow: WatchCandidate[];
+  lowQty: WatchCandidate[];
+  stubs: WatchCandidate[];
+  queue: WatchCandidate[];
+};
+
+/**
+ * Build the fetch queue for one run. Due-tier Buy Now always go; quote-only stubs
+ * rotate by stalest-first up to `quoteCap`; weekday default also unions live Buy Now
+ * whose last Mag qty is ≤ 3 (capped) so a $40 switch at 2 on hand is not waiting for Monday.
+ */
+export function selectWatchQueue(
+  unique: WatchCandidate[],
+  opts: {
+    tiers: WatchTier[];
+    quoteCap: number;
+    includeLowQty: boolean;
+    lowQtyOnly?: boolean;
+  }
+): WatchQueueSelection {
+  if (opts.lowQtyOnly) {
+    const lowQty = unique.filter(needsLowQtyRefresh).sort(byStalest).slice(0, LOW_QTY_REFRESH_CAP);
+    return { buyNow: [], lowQty, stubs: [], queue: [...lowQty] };
+  }
+
+  const due = unique.filter((c) => opts.tiers.includes(c.tier));
+  const buyNow = due.filter((c) => c.isBuyNow);
+  const stubs = due
+    .filter((c) => !c.isBuyNow)
+    .sort(byStalest)
+    .slice(0, opts.quoteCap);
+
+  const already = new Set(buyNow.map((c) => c.identityKey));
+  const lowQty = opts.includeLowQty
+    ? unique
+        .filter((c) => needsLowQtyRefresh(c) && !already.has(c.identityKey))
+        .sort(byStalest)
+        .slice(0, LOW_QTY_REFRESH_CAP)
+    : [];
+
+  return { buyNow, lowQty, stubs, queue: [...buyNow, ...lowQty, ...stubs] };
+}
+
+/**
  * Which tiers are due on a given weekday (0 = Sunday). Weekdays only.
  *
- * Balanced so no single run exceeds roughly 550 pages: tier A daily, B twice weekly,
- * C weekly, and the quote-only pool three times weekly at 90 rows a run, which cycles all
- * ~1,050 stubs about once a month.
+ * Balanced so no single run exceeds roughly 550 pages plus a small low-qty overlay:
+ * tier A daily, B twice weekly, C weekly, and the quote-only pool three times weekly
+ * at 200 rows a run, which cycles the unread stubs in about two weeks. Live Buy Now
+ * whose last Mag qty is ≤ 3 also refresh every weekday (see `selectWatchQueue`).
  */
 export function tiersDue(weekday: number): WatchTier[] {
   switch (weekday) {

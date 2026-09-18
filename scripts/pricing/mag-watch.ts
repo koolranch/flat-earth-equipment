@@ -21,7 +21,9 @@
  *   --tier=           A,B,C,D  (default: tiers due for today's weekday)
  *   --limit=N         Cap rows fetched this run.
  *   --dry-run         Fetch and report, write nothing to Supabase.
- *   --quote-cap=N     Max quote-only (tier D) rows per run. Default 90.
+ *   --quote-cap=N     Max quote-only (tier D) rows per run. Default 200.
+ *   --low-qty-only    Weekday sell-out overlay only (live Buy Now, last Mag qty ≤ 3).
+ *   --no-low-qty      Skip the ≤3 overlay (explicit --tier= already skips it).
  */
 
 import fs from 'fs';
@@ -54,7 +56,11 @@ import {
   metaNumber,
   missCount,
   soldOutStreak,
+  needsLowQtyRefresh,
+  selectWatchQueue,
   tiersDue,
+  DEFAULT_QUOTE_CAP,
+  LOW_QTY_REFRESH_MAX,
   MAX_MISSES,
   SOLD_OUT_STREAK_TO_PULL,
   WATCH_ROW_SELECT,
@@ -84,6 +90,9 @@ type Args = {
   limit: number | null;
   dryRun: boolean;
   quoteCap: number;
+  /** Weekday sell-out overlay: live Buy Now whose last Mag qty is ≤ 3. */
+  includeLowQty: boolean;
+  lowQtyOnly: boolean;
   /** Re-check an explicit SKU list, ignoring slice and tier. */
   skus: string[] | null;
 };
@@ -106,13 +115,21 @@ function parseArgs(argv: string[]): Args {
   const quoteRaw = get('quote-cap');
   const skusRaw = get('skus');
 
+  const lowQtyOnly = argv.includes('--low-qty-only');
+  const noLowQty = argv.includes('--no-low-qty');
+  const forceLowQty = argv.includes('--low-qty');
+
   return {
     universe: argv.includes('--universe'),
     slice,
     tiers,
     limit: limitRaw ? Number(limitRaw) : null,
     dryRun: argv.includes('--dry-run'),
-    quoteCap: quoteRaw ? Number(quoteRaw) : 90,
+    quoteCap: quoteRaw ? Number(quoteRaw) : DEFAULT_QUOTE_CAP,
+    // Weekday default includes the ≤3 overlay. An explicit --tier= list is a
+    // targeted pass (D catch-up, A-only) unless --low-qty forces it on.
+    includeLowQty: lowQtyOnly || (forceLowQty ? true : !noLowQty && !tiers),
+    lowQtyOnly,
     skus: skusRaw ? skusRaw.split(',').map((s) => s.trim()).filter(Boolean) : null,
   };
 }
@@ -191,14 +208,22 @@ type Reading = {
   error?: string;
 };
 
-function existingMagPrice(row: WatchRow): number | null {
+function existingMagEntry(row: WatchRow): Record<string, unknown> | undefined {
   const comps = row.metadata?.competitor_prices;
-  if (!Array.isArray(comps)) return null;
-  const mag = comps.find(
+  if (!Array.isArray(comps)) return undefined;
+  return comps.find(
     (c) => c && typeof c === 'object' && (c as Record<string, unknown>).source === 'magnasource'
   ) as Record<string, unknown> | undefined;
-  const price = Number(mag?.price);
+}
+
+function existingMagPrice(row: WatchRow): number | null {
+  const price = Number(existingMagEntry(row)?.price);
   return Number.isFinite(price) ? price : null;
+}
+
+function existingMagTitle(row: WatchRow): string | null {
+  const title = existingMagEntry(row)?.title;
+  return typeof title === 'string' && title.trim() ? title.trim() : null;
 }
 
 /** Merge the fresh reading into competitor_prices + mag_watch without dropping other keys. */
@@ -231,6 +256,11 @@ function buildMetadata(
   // Keep the last known price rather than overwriting it with null on a parse miss.
   const price = snapshot.price ?? existingMagPrice(row);
   if (price !== null) magEntry.price = price;
+  const title =
+    snapshot.identityOk && snapshot.pageTitle?.trim()
+      ? snapshot.pageTitle.trim()
+      : existingMagTitle(row);
+  if (title) magEntry.title = title;
 
   const priorWatch = (prev.mag_watch ?? {}) as Record<string, unknown>;
   const actionable = isActionableReading(snapshot.availability);
@@ -584,37 +614,35 @@ async function main() {
     return;
   }
 
-  const tiers = args.tiers ?? tiersDue(new Date().getDay());
-  if (!tiers.length) {
+  const tiers = args.lowQtyOnly ? [] : (args.tiers ?? tiersDue(new Date().getDay()));
+  if (!args.lowQtyOnly && !tiers.length) {
     console.log('\nNo tiers due today (weekend). Nothing to do.');
     return;
   }
 
-  let selected = unique.filter((c) => tiers.includes(c.tier));
-
+  let pool = unique;
   if (args.slice === 'baseline') {
-    selected = selected.filter(
-      (c) => CORE_SIX.has(c.brand) && c.isBuyNow && existingMagPrice(c.row) !== null
-    );
+    pool = pool.filter((c) => CORE_SIX.has(c.brand) && c.isBuyNow && existingMagPrice(c.row) !== null);
   } else if (args.slice === 'core-six') {
-    selected = selected.filter((c) => CORE_SIX.has(c.brand) && c.isBuyNow);
+    pool = pool.filter((c) => CORE_SIX.has(c.brand) && c.isBuyNow);
   } else if (args.slice === 'direct') {
-    selected = selected.filter((c) => c.isBuyNow);
+    pool = pool.filter((c) => c.isBuyNow);
   }
 
-  // Quote-only rotates: take the stalest first so the pool cycles roughly monthly.
-  const buyNow = selected.filter((c) => c.isBuyNow);
-  const stubs = selected
-    .filter((c) => !c.isBuyNow)
-    .sort((a, b) => {
-      const at = String((a.row.metadata?.mag_watch as Record<string, unknown>)?.last_checked_at ?? '');
-      const bt = String((b.row.metadata?.mag_watch as Record<string, unknown>)?.last_checked_at ?? '');
-      return at.localeCompare(bt);
-    })
-    .slice(0, args.quoteCap);
-
-  let queue = [...buyNow, ...stubs];
+  const selected = selectWatchQueue(pool, {
+    tiers,
+    quoteCap: args.quoteCap,
+    includeLowQty: args.includeLowQty,
+    lowQtyOnly: args.lowQtyOnly,
+  });
+  let queue = selected.queue;
   if (args.limit) queue = queue.slice(0, args.limit);
+
+  if (selected.lowQty.length) {
+    console.log(
+      `\nLow-qty overlay · ${selected.lowQty.length} live Buy Now at ≤${LOW_QTY_REFRESH_MAX} on hand (not already in today's tiers)`
+    );
+  }
 
   await run(queue, tiers, universe, args, supabase);
 }
@@ -627,7 +655,9 @@ async function run(
   supabase: SupabaseClient
 ) {
   console.log(
-    `\nTiers ${tiers.join(',')} · slice ${args.slice} · ${queue.length} pages to read${args.dryRun ? ' (dry run)' : ''}\n`
+    `\nTiers ${tiers.join(',') || 'low-qty-only'} · slice ${args.slice} · ${queue.length} pages to read${args.dryRun ? ' (dry run)' : ''}${
+      args.includeLowQty && !args.lowQtyOnly ? ' · ≤3 overlay on' : ''
+    }\n`
   );
   if (!queue.length) return;
 
@@ -640,8 +670,8 @@ async function run(
   const worker = async (lane: number) => {
     for (let i = lane; i < queue.length; i += CONCURRENCY) {
       const candidate = queue[i];
-      // Tier A wants a genuinely fresh read; slower tiers may reuse a cached page.
-      const maxAge = candidate.tier === 'A' ? 0 : 6 * 60 * 60 * 1000;
+      // Tier A and the ≤3 sell-out overlay need a live page; slower tiers may reuse cache.
+      const maxAge = candidate.tier === 'A' || needsLowQtyRefresh(candidate) ? 0 : 6 * 60 * 60 * 1000;
       try {
         const parse = (markdown: string) =>
           parseMagSnapshot(markdown, {
@@ -705,7 +735,9 @@ async function run(
   const outDir = path.resolve(process.cwd(), 'docs/projects/tvh-inventory-watch/snapshots');
   fs.mkdirSync(outDir, { recursive: true });
   const stamp = new Date().toISOString().slice(0, 10);
-  const suffix = `${args.skus ? '-recheck' : ''}${args.dryRun ? '-dryrun' : ''}`;
+  const suffix = `${args.skus ? '-recheck' : ''}${args.lowQtyOnly ? '-lowqty' : ''}${
+    args.tiers ? `-${args.tiers.join('')}` : ''
+  }${args.dryRun ? '-dryrun' : ''}`;
   const jsonPath = path.join(outDir, `${stamp}-${args.slice}${suffix}.json`);
   const mdPath = path.join(outDir, `${stamp}-${args.slice}${suffix}.md`);
   fs.writeFileSync(jsonPath, JSON.stringify(digest, null, 2));

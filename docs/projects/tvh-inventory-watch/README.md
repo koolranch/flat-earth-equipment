@@ -41,7 +41,9 @@ npx tsx scripts/pricing/mag-watch.ts --universe
 
 # Read pages, record snapshots, write a digest. Never changes price or availability.
 npx tsx scripts/pricing/mag-watch.ts --slice=core-six --tier=A,B,C
-npx tsx scripts/pricing/mag-watch.ts                       # tiers due for today
+npx tsx scripts/pricing/mag-watch.ts                       # tiers due today + ≤3 overlay
+npx tsx scripts/pricing/mag-watch.ts --tier=D              # stub catch-up only
+npx tsx scripts/pricing/mag-watch.ts --low-qty-only        # sell-out window only
 
 # The only automated write path: pull sold-out SKUs off Buy Now.
 npx tsx scripts/pricing/mag-watch-apply.ts --dry-run
@@ -65,14 +67,17 @@ Slices: `baseline` (core-six Buy Now that already have a Magnasource snapshot),
 | A | 218 | Buy Now, sticker ≥ $300 | Every weekday |
 | B | 185 | Buy Now, $100–299 | Wed + Fri |
 | C | 325 | Buy Now, under $100 | Mon |
-| D | 1,057 | Quote-only stubs | Tue, Thu, Fri — stalest 90 per run |
+| D | 1,057 | Quote-only stubs | Tue, Thu, Fri — stalest 200 per run |
+| Low-qty overlay | dozens | Live Buy Now, last Mag qty ≤ 3 | Every weekday (capped at 80) |
 
-Roughly 2,100 page reads a week, balanced so no single run exceeds ~550 pages. The
-quote-only pool cycles about once a month. Requests go through Firecrawl, so Magnasource sees
-Firecrawl's proxies rather than our IP or Vercel's, and we never touch the authenticated
-vendor portal — bulk cost lookups there flag the account. Concurrency is capped at 2 with
-1.5–3s jitter. A URL that fails to parse three times in a row is retired
-(`mag_watch.miss_count`) so we stop paying to fetch it.
+Roughly 2,400 page reads a week once the unread D pool is cycling. No single run should
+exceed ~550 due-tier pages plus the small low-qty overlay. The quote-only pool cycles in
+about two weeks. The ≤3 overlay is the sell-out window — it does not raise C to daily and
+does not scrape unread stubs just because they have never been read. Requests go through
+Firecrawl, so Magnasource sees Firecrawl's proxies rather than our IP or Vercel's, and we
+never touch the authenticated vendor portal — bulk cost lookups there flag the account.
+Concurrency is capped at 2 with 1.5–3s jitter. A URL that fails to parse three times in a
+row is retired (`mag_watch.miss_count`) so we stop paying to fetch it.
 
 ## Process
 
