@@ -126,6 +126,7 @@ function meta(opts: {
   assert.equal(d.counts.outOfScope, 4);
   assert.equal(d.counts.neverChecked, 2, 'no readings written yet');
   assert.equal(d.lastReadingAt, null);
+  assert.equal(d.inventoryBook.liveBuyNowCount, 0, 'no vendor in-stock reading yet');
 }
 
 // ---------------------------------------------------------------------------
@@ -377,6 +378,15 @@ function meta(opts: {
     ['333/PUB1', '333/PUB2', '333/PUB3', '333/PUB4']
   );
   assert.equal(d.convertible[1].publish.kind, 'needs_photo');
+  assert.equal(d.inventoryBook.readyToPublishCount, 1);
+  assert.equal(d.inventoryBook.readyToPublishUnits, 6);
+  assert.equal(
+    d.inventoryBook.readyToPublishDollars,
+    (d.convertible[0].proposedSell ?? 0) * 6
+  );
+  assert.equal(d.inventoryBook.waitingOnPhotoCount, 2);
+  assert.equal(d.inventoryBook.waitingOnPhotoUnits, 5 + 3);
+  assert.ok(d.inventoryBook.waitingOnPhotoDollars > 0);
   if (d.convertible[1].publish.kind === 'needs_photo') {
     assert.equal(d.convertible[1].publish.heroSeenOnVendor, true);
   }
@@ -384,6 +394,29 @@ function meta(opts: {
   assert.equal(limitedRow.publish.kind, 'skip');
   if (limitedRow.publish.kind === 'skip') assert.match(limitedRow.publish.why, /limited/);
   assert.equal(d.limited.length, 1, 'limited row also surfaces in the Limited review list');
+}
+
+{
+  const d = buildWatchDashboard(
+    [
+      row({
+        oem: '333/LIVE1',
+        price: 200,
+        imageUrl: REAL,
+        metadata: meta({ price: 210, qty: 10, availability: 'in_stock' }),
+      }),
+      row({
+        oem: '333/GONE1',
+        price: 400,
+        imageUrl: REAL,
+        metadata: meta({ price: 420, qty: 0, availability: 'backorder' }),
+      }),
+    ],
+    NOW
+  );
+  assert.equal(d.inventoryBook.liveBuyNowCount, 1);
+  assert.equal(d.inventoryBook.liveBuyNowUnits, 10);
+  assert.equal(d.inventoryBook.liveBuyNowDollars, 2000);
 }
 
 // ---------------------------------------------------------------------------

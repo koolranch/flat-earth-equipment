@@ -26,6 +26,7 @@ import {
   type SellPriceResult,
 } from './calculateSellPrice';
 import { currentHeroKind, type CurrentHeroKind } from './magHero';
+import { MAX_PUBLISH_BATCH } from './magWatchLimits';
 import { isSoldOutReading, type MagAvailability } from './magSnapshot';
 import {
   classifyRow,
@@ -36,6 +37,8 @@ import {
   WATCH_ROW_SELECT,
   type WatchRow,
 } from './magWatchUniverse';
+
+export { MAX_PUBLISH_BATCH };
 
 /** A reading older than this is too stale to act on. */
 export const MAX_READING_AGE_DAYS = 3;

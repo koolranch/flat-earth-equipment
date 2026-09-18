@@ -157,6 +157,48 @@ export type ConvertibleSummary = {
   photoQueueWithVendorHero: number;
 };
 
+/**
+ * Drop-ship sellable book: vendor-warehouse units on hand × our sell (or proposed
+ * sell). Mag qty is the shared warehouse pool, not `parts.is_in_stock`.
+ */
+export type InventoryBook = {
+  liveBuyNowDollars: number;
+  liveBuyNowCount: number;
+  liveBuyNowUnits: number;
+  readyToPublishDollars: number;
+  readyToPublishCount: number;
+  readyToPublishUnits: number;
+  waitingOnPhotoDollars: number;
+  waitingOnPhotoCount: number;
+  waitingOnPhotoUnits: number;
+};
+
+function emptyInventoryBook(): InventoryBook {
+  return {
+    liveBuyNowDollars: 0,
+    liveBuyNowCount: 0,
+    liveBuyNowUnits: 0,
+    readyToPublishDollars: 0,
+    readyToPublishCount: 0,
+    readyToPublishUnits: 0,
+    waitingOnPhotoDollars: 0,
+    waitingOnPhotoCount: 0,
+    waitingOnPhotoUnits: 0,
+  };
+}
+
+/** Vendor on-hand for the sellable book. Missing/zero still counts as one listable unit. */
+function sellableUnits(qtyOnHand: number | null): number {
+  if (qtyOnHand != null && Number.isFinite(qtyOnHand) && qtyOnHand >= 1) {
+    return Math.floor(qtyOnHand);
+  }
+  return 1;
+}
+
+function roundMoney(value: number): number {
+  return Math.round(value * 100) / 100;
+}
+
 export type FailureEntry = PartRef & {
   availability: MagAvailability | null;
   missCount: number;
@@ -289,6 +331,7 @@ export type WatchDashboard = {
   moverSummary: MoverSummary;
   convertible: ConvertibleEntry[];
   convertibleSummary: ConvertibleSummary;
+  inventoryBook: InventoryBook;
   failures: FailureEntry[];
 };
 
@@ -533,6 +576,7 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date(), opts: Bu
     },
     convertible: [],
     convertibleSummary: { ready: 0, needsPhoto: 0, photoQueueWithVendorHero: 0 },
+    inventoryBook: emptyInventoryBook(),
     failures: [],
   };
 
@@ -563,6 +607,20 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date(), opts: Bu
     const bucket = tierBuckets.get(candidate.tier)!;
 
     tallyHero(dashboard.hero, candidate.isBuyNow ? heroBuyNow : heroQuote, row, state);
+
+    const liveAvailability = state.lastAvailability ?? snapshot.availability;
+    if (candidate.isBuyNow) {
+      const liveSell = Number(row.price ?? 0);
+      if (
+        liveSell > 0 &&
+        (liveAvailability === 'in_stock' || liveAvailability === 'limited')
+      ) {
+        const units = sellableUnits(snapshot.qtyOnHand);
+        dashboard.inventoryBook.liveBuyNowDollars += liveSell * units;
+        dashboard.inventoryBook.liveBuyNowCount++;
+        dashboard.inventoryBook.liveBuyNowUnits += units;
+      }
+    }
 
     bucket.total++;
     const ageDays = daysSince(lastCheckedAt, nowMs);
@@ -681,11 +739,18 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date(), opts: Bu
         lastCheckedAt,
       });
     } else {
+      const proposed = proposedSell(row, magPrice);
       const eligibility = publishEligibility(row, { skipOems, now });
       let publish: PublishDecision;
       if (eligibility.kind === 'ready') {
         publish = { kind: 'ready' };
         dashboard.convertibleSummary.ready++;
+        if (proposed != null) {
+          const units = sellableUnits(snapshot.qtyOnHand);
+          dashboard.inventoryBook.readyToPublishDollars += proposed * units;
+          dashboard.inventoryBook.readyToPublishCount++;
+          dashboard.inventoryBook.readyToPublishUnits += units;
+        }
       } else if (eligibility.kind === 'needs_photo') {
         const vendorHeroUsable = Boolean(
           state.hero?.filename && state.hero.identity_ok && !state.hero.placeholder_suspect
@@ -697,6 +762,12 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date(), opts: Bu
         };
         dashboard.convertibleSummary.needsPhoto++;
         if (vendorHeroUsable) dashboard.convertibleSummary.photoQueueWithVendorHero++;
+        if (proposed != null) {
+          const units = sellableUnits(snapshot.qtyOnHand);
+          dashboard.inventoryBook.waitingOnPhotoDollars += proposed * units;
+          dashboard.inventoryBook.waitingOnPhotoCount++;
+          dashboard.inventoryBook.waitingOnPhotoUnits += units;
+        }
       } else {
         publish = { kind: 'skip', why: eligibility.why };
       }
@@ -706,7 +777,7 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date(), opts: Bu
         magPrice,
         qtyOnHand: snapshot.qtyOnHand,
         weightLb: snapshot.weightLb,
-        proposedSell: proposedSell(row, magPrice),
+        proposedSell: proposed,
         publish,
         lastCheckedAt,
       });
@@ -757,6 +828,10 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date(), opts: Bu
   dashboard.convertible.sort((a, b) => publishRank(a) - publishRank(b) || b.magPrice - a.magPrice);
   dashboard.failures.sort((a, b) => b.missCount - a.missCount || byRecencyDesc(a, b));
   dashboard.tiers = [...tierBuckets.values()];
+
+  dashboard.inventoryBook.liveBuyNowDollars = roundMoney(dashboard.inventoryBook.liveBuyNowDollars);
+  dashboard.inventoryBook.readyToPublishDollars = roundMoney(dashboard.inventoryBook.readyToPublishDollars);
+  dashboard.inventoryBook.waitingOnPhotoDollars = roundMoney(dashboard.inventoryBook.waitingOnPhotoDollars);
 
   return dashboard;
 }

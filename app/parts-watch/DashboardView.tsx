@@ -1,5 +1,4 @@
 import type {
-  ConvertibleEntry,
   FailureEntry,
   ImageTrayEntry,
   LimitedEntry,
@@ -10,6 +9,7 @@ import type {
   WatchDashboard,
 } from '@/lib/pricing/magWatchDashboard';
 import { STALE_AFTER_DAYS } from '@/lib/pricing/magWatchDashboard';
+import PublishBatchForm from './PublishBatchForm';
 
 const ACTION_LABEL: Record<RecentAction['action'], string> = {
   pull: 'Pulled',
@@ -383,6 +383,29 @@ export default function DashboardView({
             + commit.
           </div>
         )}
+
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <Stat
+            label="Sellable now"
+            value={money(data.inventoryBook.liveBuyNowDollars)}
+            hint={`${data.inventoryBook.liveBuyNowUnits.toLocaleString()} vendor-warehouse units · ${data.inventoryBook.liveBuyNowCount} live SKUs`}
+          />
+          <Stat
+            label="Ready to list"
+            value={money(data.inventoryBook.readyToPublishDollars)}
+            hint={`${data.inventoryBook.readyToPublishUnits.toLocaleString()} units · ${data.inventoryBook.readyToPublishCount} photo-ready stubs`}
+          />
+          <Stat
+            label="Waiting on a photo"
+            value={money(data.inventoryBook.waitingOnPhotoDollars)}
+            hint={`${data.inventoryBook.waitingOnPhotoUnits.toLocaleString()} units still photo-gated`}
+          />
+        </div>
+        <p className="-mt-1 text-xs text-slate-500">
+          Sellable inventory is vendor-warehouse units we can drop-ship × our sell (or proposed
+          sell). On-hand readings often cap around 100 — it is the shared warehouse pool, not a
+          count we own on a shelf.
+        </p>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           <Stat label="In scope" value={data.counts.inScope} hint={`of ${data.counts.catalogRows} rows`} />
@@ -807,49 +830,17 @@ export default function DashboardView({
           {data.convertible.length === 0 ? (
             <p className="px-5 py-6 text-sm text-slate-500">Nothing here right now.</p>
           ) : (
-            <form action="/parts-watch/actions/publish" method="post" className="overflow-x-auto">
-              <Table head={['Part', 'Vendor sticker', 'On hand', 'Weight', 'Proposed sell', 'Last read', 'Action']}>
-                {data.convertible.slice(0, 60).map((c: ConvertibleEntry) => (
-                  <tr key={c.sku} className={c.publish.kind === 'ready' ? 'bg-violet-500/5' : undefined}>
-                    <PartCell {...c} />
-                    <td className="px-5 py-3 tabular-nums">{money(c.magPrice)}</td>
-                    <td className="px-5 py-3 tabular-nums">{c.qtyOnHand ?? '—'}</td>
-                    <td className="px-5 py-3 tabular-nums">{c.weightLb ? `${c.weightLb} lb` : '—'}</td>
-                    <td className="px-5 py-3 tabular-nums text-white">{money(c.proposedSell)}</td>
-                    <td className="px-5 py-3 text-slate-400">{ago(c.lastCheckedAt)}</td>
-                    <td className="px-5 py-3">
-                      {c.publish.kind === 'ready' ? (
-                        <button
-                          type="submit"
-                          name="sku"
-                          value={c.sku}
-                          className={`${ACTION_BUTTON} border border-violet-700 bg-violet-950/40 text-violet-200 hover:border-violet-400 hover:text-white`}
-                        >
-                          Publish at {money(c.proposedSell)}
-                        </button>
-                      ) : c.publish.kind === 'needs_photo' ? (
-                        <span className="block max-w-[14rem] text-xs text-amber-300/80">
-                          Needs photo
-                          {c.publish.heroSeenOnVendor
-                            ? ' · vendor image available to rework'
-                            : ' · no vendor image seen'}
-                        </span>
-                      ) : (
-                        <span className="block max-w-[14rem] text-xs text-slate-500">{c.publish.why}</span>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </Table>
+            <>
+              <PublishBatchForm rows={data.convertible.slice(0, 60)} />
               <p className="border-t border-slate-800 px-5 py-3 text-xs text-slate-500">
                 {data.convertible.length > 60
                   ? `Showing 60 of ${data.convertible.length} (publishable first, then the photo queue). `
                   : ''}
                 Publish creates the Stripe product/price, flips the row to Buy Now, and records the
                 audit. Pricing without a confirmed cost is marked provisional until the first PO.
-                One SKU per click.
+                Batch is capped at 15 so a Stripe create does not time out — run again for the rest.
               </p>
-            </form>
+            </>
           )}
         </section>
 
