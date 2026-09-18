@@ -78,31 +78,36 @@ function review(overrides: Partial<HeroReviewRow> = {}): HeroReviewRow {
     row({
       category: 'JCB Seats',
       name: 'JCB Operator Seat',
+      oem_reference: '40/910649',
+      sku: '40910649',
       hero: { filename: 'seat-jc40910649.jpg' },
     })
   );
-  assert.equal(seat.ok, false);
-  if (!seat.ok) assert.match(seat.why, /seat/i);
+  assert.equal(seat.ok, true);
 }
 
 {
   const named = trayIntakeEligibility(
     row({
       name: 'Bobcat Operator Seat Assembly',
+      oem_reference: '7505149',
+      sku: '7505149',
       hero: { filename: 'bobcat-7505149.jpg' },
     })
   );
-  assert.equal(named.ok, false);
+  assert.equal(named.ok, true);
 }
 
 {
   const byFile = trayIntakeEligibility(
     row({
       name: 'JCB 332/C4873 Replacement Part',
+      oem_reference: '332/C4873',
+      sku: '332C4873',
       hero: { filename: 'seat-vinyl-jc332c4873.jpg' },
     })
   );
-  assert.equal(byFile.ok, false);
+  assert.equal(byFile.ok, true);
 }
 
 {

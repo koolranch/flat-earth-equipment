@@ -9,7 +9,7 @@
  * run's readings.
  */
 
-import { currentHeroKind, isSeatFamily, type CurrentHeroKind, type StoredHeroReading } from './magHero';
+import { currentHeroKind, type CurrentHeroKind, type StoredHeroReading } from './magHero';
 import { publishEligibility, pullEligibility, repriceEligibility } from './magWatchOps';
 import {
   isSoldOutReading,
@@ -228,7 +228,7 @@ export type HeroCoverageRow = {
   realPhoto: number;
   brandLogo: number;
   noPhoto: number;
-  /** Gap rows that are eligible for a vendor hero (not seats/cushions/covers). */
+  /** Gap rows that are eligible for a vendor hero. */
   gapEligible: number;
   /** Eligible gap rows where the last read exposed a hero. */
   vendorHeroSeen: number;
@@ -244,8 +244,6 @@ export type HeroCoverage = {
   trayReady: number;
   /** Rows where the vendor exposed a hero whose filename did not match the part id. */
   identityFailed: number;
-  /** Seat/cushion/cover rows with a gap — these never take a vendor hero. */
-  seatGapExcluded: number;
 };
 
 /** One row of `parts_ops_audit`, flattened for display. */
@@ -453,11 +451,6 @@ function tallyHero(
   if (kind === 'brand_logo') bucket.brandLogo++;
   else bucket.noPhoto++;
 
-  if (isSeatFamily(row.category, row.name, state.hero?.filename)) {
-    coverage.seatGapExcluded++;
-    return;
-  }
-
   bucket.gapEligible++;
   if (!state.lastCheckedAt) {
     bucket.notYetRead++;
@@ -542,7 +535,6 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date(), opts: Bu
       rows: [heroBuyNow, heroQuote],
       trayReady: 0,
       identityFailed: 0,
-      seatGapExcluded: 0,
     },
     recentActions: [],
     imageTray: emptyImageTray(),

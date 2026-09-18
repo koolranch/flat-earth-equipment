@@ -3,11 +3,11 @@
  * bucket so they can be cleaned; Approve is the only path that writes
  * `parts.image_url`. Raw vendor photos never go live.
  *
- * Seats / cushions / covers are refused at every gate.
+ * Seats / cushions / covers use the same tray. Raw vendor photos still never go live.
  */
 
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { currentHeroKind, isSeatFamily } from './magHero';
+import { currentHeroKind } from './magHero';
 import { classifyRow, isSkip, type WatchRow } from './magWatchUniverse';
 import { calculateSellPrice, categoryFromPartCategory } from './calculateSellPrice';
 
@@ -88,9 +88,6 @@ function looksLikeChargerShelf(row: WatchRow, filename: string | null): boolean 
 /** A row the intake script may fetch a vendor hero for. */
 export function trayIntakeEligibility(row: WatchRow): TrayGate {
   const hero = magHeroFacts(row);
-  if (isSeatFamily(row.category, row.name, hero.filename)) {
-    return { ok: false, why: 'seats, cushions, and covers never take a vendor hero' };
-  }
   if (looksLikeChargerShelf(row, hero.filename)) {
     return { ok: false, why: 'charger shelves are a different supply chain' };
   }
@@ -106,9 +103,6 @@ export function trayIntakeEligibility(row: WatchRow): TrayGate {
 }
 
 export function heroUploadEligibility(row: WatchRow, review: HeroReviewRow | null): TrayGate {
-  if (isSeatFamily(row.category, row.name, review?.filename ?? magHeroFacts(row).filename)) {
-    return { ok: false, why: 'seats, cushions, and covers never take a vendor hero' };
-  }
   if (!review) return { ok: false, why: 'no tray row — run intake first' };
   if (review.status === 'approved') return { ok: false, why: 'already approved' };
   return { ok: true };
@@ -123,9 +117,6 @@ export function heroAiCleanEligibility(row: WatchRow, review: HeroReviewRow | nu
 }
 
 export function heroApproveEligibility(row: WatchRow, review: HeroReviewRow | null): TrayGate {
-  if (isSeatFamily(row.category, row.name, review?.filename ?? magHeroFacts(row).filename)) {
-    return { ok: false, why: 'seats, cushions, and covers never take a vendor hero' };
-  }
   if (!review) return { ok: false, why: 'no tray row' };
   if (review.status === 'approved') return { ok: false, why: 'already approved' };
   if (review.status !== 'cleaned' || !review.cleaned_path) {

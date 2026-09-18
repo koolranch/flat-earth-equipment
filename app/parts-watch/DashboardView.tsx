@@ -513,8 +513,7 @@ export default function DashboardView({
           </div>
           <p className="border-t border-slate-800 px-5 py-3 text-xs text-slate-500">
             {data.hero.trayReady} gap rows have a usable vendor hero on record ·{' '}
-            {data.hero.identityFailed} vendor heroes failed the part-id check ·{' '}
-            {data.hero.seatGapExcluded} seat/cushion/cover gaps excluded (never vendor-sourced)
+            {data.hero.identityFailed} vendor heroes failed the part-id check
           </p>
         </section>
 

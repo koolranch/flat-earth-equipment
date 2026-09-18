@@ -538,7 +538,7 @@ function meta(opts: {
     row({ imageUrl: null }),
     // Buy Now, logo, read before hero capture existed (no hero key at all).
     row({ imageUrl: LOGO, metadata: meta({}) }),
-    // Seat with a logo and a usable vendor hero — excluded, never tray-ready.
+    // Seat with a logo and a usable vendor hero — same tray path as any other gap.
     row({ imageUrl: LOGO, category: 'Seats', metadata: meta({ hero: usable }) }),
     // Quote-only, no photo, usable hero → tray-ready on the quote side.
     row({ salesType: 'quote_only', price: 0, imageUrl: null, metadata: meta({ hero: usable }) }),
@@ -556,10 +556,10 @@ function meta(opts: {
   assert.equal(buy.realPhoto, 1);
   assert.equal(buy.brandLogo, 3, 'two logo parts plus the logo seat');
   assert.equal(buy.noPhoto, 4);
-  assert.equal(buy.gapEligible, 6, 'seven gap rows minus the seat');
+  assert.equal(buy.gapEligible, 7);
   assert.equal(buy.notYetRead, 1);
-  assert.equal(buy.vendorHeroSeen, 3, 'usable + carousel + placeholder; the no-hero read and pre-hero read do not count');
-  assert.equal(buy.vendorHeroUsable, 1);
+  assert.equal(buy.vendorHeroSeen, 4, 'two usable + carousel + placeholder; the no-hero read and pre-hero read do not count');
+  assert.equal(buy.vendorHeroUsable, 2);
 
   const quote = d.hero.rows.find((r) => r.label === 'Quote-only')!;
   assert.equal(quote.total, 2);
@@ -567,9 +567,8 @@ function meta(opts: {
   assert.equal(quote.gapEligible, 1);
   assert.equal(quote.vendorHeroUsable, 1);
 
-  assert.equal(d.hero.trayReady, 2, 'one Buy Now logo row and one quote-only gap row');
+  assert.equal(d.hero.trayReady, 3, 'two Buy Now logo rows (including the seat) and one quote-only gap row');
   assert.equal(d.hero.identityFailed, 1, 'placeholder is counted as placeholder, not as an identity failure');
-  assert.equal(d.hero.seatGapExcluded, 1);
 }
 
 console.log('magWatchDashboard.test.ts: all assertions passed');
