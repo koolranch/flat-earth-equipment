@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {
   extForMime,
+  heroAiCleanEligibility,
   heroApproveEligibility,
   heroRejectEligibility,
   heroUploadEligibility,
@@ -140,8 +141,11 @@ function review(overrides: Partial<HeroReviewRow> = {}): HeroReviewRow {
 
 {
   const pending = review();
-  assert.equal(heroUploadEligibility(row({ hero: { filename: 'x.jpg' } }), pending).ok, true);
-  const approveRaw = heroApproveEligibility(row({ hero: { filename: 'x.jpg' } }), pending);
+  const part = row({ hero: { filename: 'x.jpg' } });
+  assert.equal(heroUploadEligibility(part, pending).ok, true);
+  assert.equal(heroAiCleanEligibility(part, pending).ok, true);
+  assert.equal(heroAiCleanEligibility(part, review({ raw_path: null })).ok, false);
+  const approveRaw = heroApproveEligibility(part, pending);
   assert.equal(approveRaw.ok, false);
   if (!approveRaw.ok) assert.match(approveRaw.why, /cleaned/i);
 }

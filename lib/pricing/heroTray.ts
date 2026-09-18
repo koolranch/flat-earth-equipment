@@ -114,6 +114,14 @@ export function heroUploadEligibility(row: WatchRow, review: HeroReviewRow | nul
   return { ok: true };
 }
 
+/** AI clean rewrites the cleaned candidate from the stored raw. It never sets image_url. */
+export function heroAiCleanEligibility(row: WatchRow, review: HeroReviewRow | null): TrayGate {
+  const upload = heroUploadEligibility(row, review);
+  if (!upload.ok) return upload;
+  if (!review?.raw_path) return { ok: false, why: 'no raw vendor photo to clean' };
+  return { ok: true };
+}
+
 export function heroApproveEligibility(row: WatchRow, review: HeroReviewRow | null): TrayGate {
   if (isSeatFamily(row.category, row.name, review?.filename ?? magHeroFacts(row).filename)) {
     return { ok: false, why: 'seats, cushions, and covers never take a vendor hero' };
@@ -232,7 +240,8 @@ export async function recordCleaned(
   row: WatchRow,
   review: HeroReviewRow,
   bytes: Uint8Array,
-  mime: string
+  mime: string,
+  opts?: { note?: string }
 ): Promise<{ path: string }> {
   const gate = heroUploadEligibility(row, review);
   if (!gate.ok) throw new Error(gate.why);
@@ -252,6 +261,7 @@ export async function recordCleaned(
     .update({
       status: 'cleaned',
       cleaned_path: cleanedPath,
+      note: opts?.note ?? review.note,
       updated_at: new Date().toISOString(),
     })
     .eq('sku', row.sku);

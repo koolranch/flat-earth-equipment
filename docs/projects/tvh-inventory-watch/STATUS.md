@@ -13,6 +13,9 @@ First intake: 103 pending (high-ticket plus the cheaper photo-queue) and 2 rejec
 (JCB `332/C4873` vinyl seat, JCB `444/E0383` battery charger). Filename/name gates now
 catch those even when the catalog row is a generic "Replacement Part".
 
+Each tray card has **AI clean** (Gemini image edit via AI Gateway) plus a manual upload.
+AI clean writes the cleaned candidate only; Approve is still required.
+
 ## 2026-09-17 — built, Stage 2 baseline established
 
 Live. Snapshot pass runs against the core-six Buy Now slice; the sold-out pull step is

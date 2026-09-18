@@ -238,8 +238,10 @@ tray*. Seats, cushions, and covers are refused at every gate.
 npx tsx scripts/pricing/mag-hero-intake.ts --min-sticker=150 --limit=40
 ```
 
-The operator strips the watermark, uploads the cleaned file on the tray card, then
-**Approve**. Approve copies the cleaned file into the public `part-heroes` bucket and sets
+**AI clean** on each tray card rewrites a watermark-free white-studio candidate from the
+stored raw (Gemini via Vercel AI Gateway). It never sets `parts.image_url`. The operator
+can also upload a cleaned file by hand. Then **Approve**. Approve copies the cleaned file
+into the public `part-heroes` bucket and sets
 `parts.image_url` to that CDN URL. That is the whole meaning of approve: it does not change
 `sales_type`, does not create a Stripe price, does not touch stock. Publish still needs its
 own click. Raw vendor photos never go live. Approved heroes do not go into git.

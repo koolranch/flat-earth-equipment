@@ -254,6 +254,18 @@ function TrayCard({
         </div>
 
         {mode === 'pending' || mode === 'cleaned' ? (
+          <form action="/parts-watch/actions/hero-ai-clean" method="post">
+            <input type="hidden" name="sku" value={entry.sku} />
+            <button
+              type="submit"
+              className={`${ACTION_BUTTON} w-full border border-sky-700 bg-sky-950/40 text-sky-200 hover:border-sky-400 hover:text-white`}
+            >
+              {mode === 'cleaned' ? 'AI clean again' : 'AI clean'}
+            </button>
+          </form>
+        ) : null}
+
+        {mode === 'pending' || mode === 'cleaned' ? (
           <form
             action="/parts-watch/actions/hero-upload"
             method="post"
@@ -712,9 +724,10 @@ export default function DashboardView({
               </span>
             </div>
             <p className="mt-1 text-sm text-slate-400">
-              Vendor heroes land here privately. Strip the watermark, upload the cleaned file,
-              then Approve — that is what sets the catalog photo. Raw vendor images never go
-              live. Seats, cushions, and covers are excluded.
+              Vendor heroes land here privately. Use <span className="text-slate-300">AI clean</span> to
+              strip the watermark and square it on white, or upload your own cleaned file, then
+              Approve — that is what sets the catalog photo. Raw vendor images never go live.
+              Seats, cushions, and covers are excluded.
             </p>
             <div className="mt-3 flex flex-wrap gap-2 text-xs">
               <span className="rounded-full bg-amber-400/10 px-3 py-1 font-medium text-amber-300">
