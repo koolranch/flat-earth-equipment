@@ -5,9 +5,10 @@
  * part, records the on-hand count and sticker onto
  * `parts.metadata.competitor_prices[magnasource]`, and writes a digest.
  *
- * This script never changes `sales_type`, `is_in_stock`, `price`, or any Stripe object.
- * Taking a sold-out SKU off Buy Now is a separate, capped step:
- * `scripts/pricing/mag-watch-apply.ts`.
+ * This script never changes `sales_type`, `is_in_stock`, `price`, `image_url`, or any
+ * Stripe object. Identity-ok Mag-in-stock heroes on photo-gap rows are downloaded into
+ * the private image tray (capped) so `/parts-watch` can AI-clean + Approve. Taking a
+ * sold-out SKU off Buy Now is a separate, capped step: `scripts/pricing/mag-watch-apply.ts`.
  *
  * Usage:
  *   npx tsx scripts/pricing/mag-watch.ts --universe                  # counts only, no fetching
@@ -24,6 +25,8 @@
  *   --quote-cap=N     Max quote-only (tier D) rows per run. Default 200.
  *   --low-qty-only    Weekday sell-out overlay only (live Buy Now, last Mag qty ≤ 3).
  *   --no-low-qty      Skip the ≤3 overlay (explicit --tier= already skips it).
+ *   --hero-intake-cap=N  Max tray downloads this run. Default 40 (32 quote-only / 8 Buy Now).
+ *   --no-hero-intake     Record hero facts only; do not download into the tray.
  */
 
 import fs from 'fs';
@@ -36,12 +39,24 @@ import {
   DEFAULT_COMP_DISCOUNT,
 } from '../../lib/pricing/calculateSellPrice';
 import {
+  fetchHeroReview,
+  recordIntake,
+  sniffHeroMime,
+  weekdayHeroIntakeEligibility,
+} from '../../lib/pricing/heroTray';
+import {
   currentHeroKind,
   heroCandidateFromOgImage,
-  isSeatCategory,
   toStoredHeroReading,
   type HeroCandidate,
 } from '../../lib/pricing/magHero';
+import {
+  DEFAULT_HERO_INTAKE_CAP,
+  HERO_INTAKE_QUOTE_RESERVE,
+  emptyHeroIntakeBudget,
+  takeHeroIntakeSlot,
+  type HeroIntakeBudget,
+} from '../../lib/pricing/magWatchLimits';
 import {
   isActionableReading,
   isSoldOutReading,
@@ -93,6 +108,8 @@ type Args = {
   /** Weekday sell-out overlay: live Buy Now whose last Mag qty is ≤ 3. */
   includeLowQty: boolean;
   lowQtyOnly: boolean;
+  heroIntake: boolean;
+  heroIntakeCap: number;
   /** Re-check an explicit SKU list, ignoring slice and tier. */
   skus: string[] | null;
 };
@@ -113,6 +130,7 @@ function parseArgs(argv: string[]): Args {
 
   const limitRaw = get('limit');
   const quoteRaw = get('quote-cap');
+  const intakeCapRaw = get('hero-intake-cap');
   const skusRaw = get('skus');
 
   const lowQtyOnly = argv.includes('--low-qty-only');
@@ -130,12 +148,40 @@ function parseArgs(argv: string[]): Args {
     // targeted pass (D catch-up, A-only) unless --low-qty forces it on.
     includeLowQty: lowQtyOnly || (forceLowQty ? true : !noLowQty && !tiers),
     lowQtyOnly,
+    heroIntake: !argv.includes('--no-hero-intake') && !argv.includes('--dry-run'),
+    heroIntakeCap: intakeCapRaw ? Number(intakeCapRaw) : DEFAULT_HERO_INTAKE_CAP,
     skus: skusRaw ? skusRaw.split(',').map((s) => s.trim()).filter(Boolean) : null,
   };
 }
 
 function sleep(ms: number): Promise<void> {
   return new Promise((r) => setTimeout(r, ms));
+}
+
+function loadSkipOems(): Set<string> {
+  try {
+    const raw = JSON.parse(
+      fs.readFileSync(path.resolve(process.cwd(), 'data/seats/skip-comps.json'), 'utf8')
+    ) as Array<{ oem?: string }>;
+    return new Set(raw.map((r) => String(r.oem ?? '').trim()).filter(Boolean));
+  } catch {
+    return new Set();
+  }
+}
+
+async function downloadHero(url: string): Promise<{ bytes: Uint8Array; mime: string }> {
+  const res = await fetch(url, {
+    headers: {
+      'User-Agent':
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+      Accept: 'image/avif,image/webp,image/png,image/jpeg,*/*;q=0.8',
+    },
+  });
+  if (!res.ok) throw new Error(`hero fetch ${res.status}`);
+  const bytes = new Uint8Array(await res.arrayBuffer());
+  const mime = sniffHeroMime(bytes, res.headers.get('content-type'));
+  if (!mime) throw new Error('hero bytes are not jpeg/png/webp');
+  return { bytes, mime };
 }
 
 /** Supabase caps a plain select at 1000 rows — page through the whole catalog. */
@@ -305,6 +351,10 @@ type Digest = {
     placeholder_suspect: number;
     /** identity_ok heroes on rows whose current image is a logo, placeholder, or empty. */
     would_fill_gap: number;
+    /** Downloaded into the private tray this run (Approve still required). */
+    intaken: number;
+    intake_failed: number;
+    intake_skipped_cap: number;
   };
 };
 
@@ -322,7 +372,13 @@ function proposedSell(row: WatchRow, magPrice: number): number | null {
 
 function buildDigest(
   readings: Reading[],
-  meta: { slice: string; tiers: WatchTier[]; dryRun: boolean; universe: Record<string, number> }
+  meta: {
+    slice: string;
+    tiers: WatchTier[];
+    dryRun: boolean;
+    universe: Record<string, number>;
+    intake: { intaken: number; failed: number; skippedCap: number };
+  }
 ): Digest {
   const digest: Digest = {
     generated_at: new Date().toISOString(),
@@ -343,6 +399,9 @@ function buildDigest(
       identity_failed: 0,
       placeholder_suspect: 0,
       would_fill_gap: 0,
+      intaken: meta.intake.intaken,
+      intake_failed: meta.intake.failed,
+      intake_skipped_cap: meta.intake.skippedCap,
     },
   };
 
@@ -356,7 +415,7 @@ function buildDigest(
       if (hero.identityOk) digest.hero.identity_ok++;
       else digest.hero.identity_failed++;
       if (hero.placeholderSuspect) digest.hero.placeholder_suspect++;
-      const gap = currentHeroKind(row.image_url) !== 'real' && !isSeatCategory(row.category);
+      const gap = currentHeroKind(row.image_url) !== 'real';
       if (hero.identityOk && !hero.placeholderSuspect && gap) digest.hero.would_fill_gap++;
     }
     const base = {
@@ -528,9 +587,12 @@ function renderDigest(digest: Digest): string {
   }
 
   lines.push('');
-  lines.push('## Hero images seen (measurement only, nothing downloaded)');
+  lines.push('## Hero images');
   lines.push(
     `${digest.hero.pages_with_hero} of ${digest.checked} pages exposed a hero · ${digest.hero.identity_ok} matched the part id · ${digest.hero.identity_failed} did not · ${digest.hero.placeholder_suspect} look like placeholders · **${digest.hero.would_fill_gap} would fill a row that has no real photo today**`
+  );
+  lines.push(
+    `Tray intake this run: ${digest.hero.intaken} stored · ${digest.hero.intake_failed} failed · ${digest.hero.intake_skipped_cap} skipped (cap). Raw never goes live — Approve on /parts-watch.`
   );
 
   if (digest.unverified_prefix_brands.length) {
@@ -666,6 +728,12 @@ async function run(
 
   const readings: Reading[] = [];
   let done = 0;
+  const skipOems = loadSkipOems();
+  const quoteReserve = Math.min(HERO_INTAKE_QUOTE_RESERVE, args.heroIntakeCap);
+  const intakeBudget: HeroIntakeBudget = args.heroIntake
+    ? emptyHeroIntakeBudget(args.heroIntakeCap, quoteReserve)
+    : { quote: 0, buyNow: 0 };
+  const intake = { intaken: 0, failed: 0, skippedCap: 0 };
 
   const worker = async (lane: number) => {
     for (let i = lane; i < queue.length; i += CONCURRENCY) {
@@ -706,6 +774,39 @@ async function run(
             .update({ metadata, updated_at: new Date().toISOString() })
             .eq('id', candidate.row.id);
           if (error) console.warn(`   snapshot write failed: ${error.message}`);
+
+          const merged: WatchRow = { ...candidate.row, metadata };
+          const gate = weekdayHeroIntakeEligibility(merged, {
+            availability: snapshot.availability,
+            ogImage: page.ogImage,
+            skipOems,
+            weightLb: snapshot.weightLb,
+          });
+          if (args.heroIntake && gate.ok && hero && page.ogImage) {
+            const existing = await fetchHeroReview(supabase, candidate.row.sku);
+            const alreadyInTray =
+              existing &&
+              (existing.status === 'pending_raw' ||
+                existing.status === 'cleaned' ||
+                existing.status === 'approved');
+            if (!alreadyInTray) {
+              if (!takeHeroIntakeSlot(candidate.isBuyNow, intakeBudget)) {
+                intake.skippedCap++;
+              } else {
+                try {
+                  const { bytes, mime } = await downloadHero(page.ogImage);
+                  await recordIntake(supabase, merged, bytes, mime, hero.filename);
+                  intake.intaken++;
+                  process.stdout.write(`   tray ← ${hero.filename} (${bytes.length} b)\n`);
+                } catch (e) {
+                  intake.failed++;
+                  process.stdout.write(
+                    `   tray intake failed: ${(e as Error).message.slice(0, 80)}\n`
+                  );
+                }
+              }
+            }
+          }
         }
       } catch (e) {
         readings.push({
@@ -730,6 +831,7 @@ async function run(
     tiers,
     dryRun: args.dryRun,
     universe,
+    intake,
   });
 
   const outDir = path.resolve(process.cwd(), 'docs/projects/tvh-inventory-watch/snapshots');

@@ -52,8 +52,8 @@ npx tsx scripts/pricing/mag-watch-apply.ts
 # Relist after your stock confirm.
 npx tsx scripts/pricing/mag-watch-apply.ts --relist=333D1629
 
-# Pull identity-ok vendor heroes into the private image tray (never sets image_url).
-npx tsx scripts/pricing/mag-hero-intake.ts --min-sticker=150 --limit=40
+# Manual tray catch-up (weekday mag-watch already intakes a capped set).
+npx tsx scripts/pricing/mag-hero-intake.ts --min-sticker=0
 ```
 
 Slices: `baseline` (core-six Buy Now that already have a Magnasource snapshot),
@@ -235,12 +235,16 @@ hero as `og:image` on the same page response the watch already reads, so each re
 a hero fact on `mag_watch.hero` (filename + identity/placeholder gates — the signed `?key=`
 URL is never stored).
 
-Identity-ok heroes for photo-gap rows are downloaded into a **private** `part-hero-pending`
-bucket by `scripts/pricing/mag-hero-intake.ts` and listed on `/parts-watch` under *Image
-tray*. Seats, cushions, and covers are refused at every gate.
+Identity-ok Mag-in-stock heroes for photo-gap rows are downloaded into a **private**
+`part-hero-pending` bucket during the weekday `mag-watch.ts` run (same page read, cap 40:
+32 quote-only / 8 Buy Now) and listed on `/parts-watch` under *Image tray*. Limited,
+backorder, LTL ≥75 lb, skip-comps, and rows that already have a real photo are skipped.
+Seats, cushions, and covers use the same tray. Raw vendor photos never go live.
+
+A manual catch-up still exists:
 
 ```bash
-npx tsx scripts/pricing/mag-hero-intake.ts --min-sticker=150 --limit=40
+npx tsx scripts/pricing/mag-hero-intake.ts --min-sticker=0
 ```
 
 **AI clean** on each tray card rewrites a watermark-free white-studio candidate from the

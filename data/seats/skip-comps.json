@@ -1,0 +1,40 @@
+[
+  {
+    "oem": "7505149",
+    "brand": "Bobcat",
+    "slug": "bobcat-7505149-seat-assembly",
+    "category": "Seats",
+    "cost_wholesale": 403.36,
+    "magnasource_comp": 399,
+    "comp_date": "2026-08-26",
+    "skip_reason": "Magnasource sticker below our cost",
+    "image_url": "/images/parts/seats/bobcat-7505149-seat-assembly.jpg",
+    "replaces": ["6669135", "6598809"],
+    "notes": "Current OEM skid-steer operator seat. Do not publish until Magnasource moves above a profitable sticker. Cleaned hero is ready."
+  },
+  {
+    "oem": "7338638",
+    "brand": "Bobcat",
+    "category": "Hydraulic cylinders",
+    "cost_wholesale": 470.48,
+    "public_comps": [
+      { "source": "All States Ag / TractorPartsASAP", "price": 476.67, "shipping": 35.95 },
+      { "source": "All Skid Steers", "price": 476.67 }
+    ],
+    "comp_date": "2026-08-26",
+    "skip_reason": "Public comps within ~$6 of cost; matching loses money after Stripe"
+  },
+  {
+    "oem": "6669135",
+    "brand": "Bobcat",
+    "category": "Seats",
+    "cost_wholesale": 129.43,
+    "public_comps": [
+      { "source": "aftermarket floor (Worthington / LPS / All States)", "price_range": [148, 209] }
+    ],
+    "comp_date": "2026-08-26",
+    "skip_reason": "Comps too cheap; race-to-bottom pan seat. User skip.",
+    "superseded_by": "7505149",
+    "notes": "Old OEM number replaced by 7505149. Do not list."
+  }
+]

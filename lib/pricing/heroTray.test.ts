@@ -7,8 +7,10 @@ import {
   heroUploadEligibility,
   sniffHeroMime,
   trayIntakeEligibility,
+  weekdayHeroIntakeEligibility,
   type HeroReviewRow,
 } from './heroTray';
+import { emptyHeroIntakeBudget, takeHeroIntakeSlot } from './magWatchLimits';
 import type { WatchRow } from './magWatchUniverse';
 
 function row(overrides: Partial<WatchRow> & { hero?: { filename: string; identityOk?: boolean; placeholder?: boolean } }): WatchRow {
@@ -165,6 +167,41 @@ function review(overrides: Partial<HeroReviewRow> = {}): HeroReviewRow {
   assert.equal(heroApproveEligibility(row({ hero: { filename: 'x.jpg' } }), approved).ok, false);
   assert.equal(heroRejectEligibility(approved).ok, false);
   assert.equal(heroRejectEligibility(review()).ok, true);
+}
+
+{
+  const ready = row({ hero: { filename: 'lower-door-jc333d2714.jpg' } });
+  const og = 'https://www.magnasourceinc.com/services/getimage/lower-door-jc333d2714.jpg?key=x';
+  assert.equal(
+    weekdayHeroIntakeEligibility(ready, { availability: 'in_stock', ogImage: og }).ok,
+    true
+  );
+  const limited = weekdayHeroIntakeEligibility(ready, { availability: 'limited', ogImage: og });
+  assert.equal(limited.ok, false);
+  const skip = weekdayHeroIntakeEligibility(ready, {
+    availability: 'in_stock',
+    ogImage: og,
+    skipOems: new Set(['333/D2714']),
+  });
+  assert.equal(skip.ok, false);
+  const heavy = weekdayHeroIntakeEligibility(ready, {
+    availability: 'in_stock',
+    ogImage: og,
+    weightLb: 106,
+  });
+  assert.equal(heavy.ok, false);
+}
+
+{
+  const budget = emptyHeroIntakeBudget(40, 32);
+  assert.equal(budget.quote, 32);
+  assert.equal(budget.buyNow, 8);
+  let taken = 0;
+  for (let i = 0; i < 40; i++) taken += takeHeroIntakeSlot(true, budget) ? 1 : 0;
+  assert.equal(taken, 8, 'Buy Now cannot spend the quote-only reserve');
+  const quotes = emptyHeroIntakeBudget();
+  for (let i = 0; i < 32; i++) assert.equal(takeHeroIntakeSlot(false, quotes), true);
+  assert.equal(takeHeroIntakeSlot(false, quotes), false);
 }
 
 assert.equal(extForMime('image/png'), 'png');

@@ -85,6 +85,33 @@ function looksLikeChargerShelf(row: WatchRow, filename: string | null): boolean 
   return /battery charger|charger module|\bquiq\b|\bdelta-?q\b/i.test(hay);
 }
 
+/**
+ * Weekday Mag-watch may download this hero into the private tray on the same
+ * page read. Tighter than `trayIntakeEligibility`: Mag must be in stock (not
+ * limited), under the LTL line, and off skip-comps. Never writes `image_url`.
+ */
+export function weekdayHeroIntakeEligibility(
+  row: WatchRow,
+  opts: {
+    availability: string | null;
+    ogImage: string | null;
+    skipOems?: Set<string>;
+    weightLb?: number | null;
+  }
+): TrayGate {
+  if (opts.skipOems?.has(row.oem_reference ?? '')) {
+    return { ok: false, why: 'on the skip-comps list' };
+  }
+  if (opts.availability !== 'in_stock') {
+    return { ok: false, why: 'vendor not in stock — limited/backorder stay out of the tray' };
+  }
+  if ((opts.weightLb ?? 0) >= 75) {
+    return { ok: false, why: 'LTL weight — quote or special freight' };
+  }
+  if (!opts.ogImage) return { ok: false, why: 'no og:image on this read' };
+  return trayIntakeEligibility(row);
+}
+
 /** A row the intake script may fetch a vendor hero for. */
 export function trayIntakeEligibility(row: WatchRow): TrayGate {
   const hero = magHeroFacts(row);
