@@ -202,6 +202,10 @@ export default function ProductDetails({
     qtyDefaultsToPair && Number.isFinite(pairFreightCents) && pairFreightCents > 0
       ? pairFreightCents / 100
       : 0;
+  const ltlFreight =
+    !qtyDefaultsToPair && Number.isFinite(pairFreightCents) && pairFreightCents >= 10000
+      ? pairFreightCents / 100
+      : 0;
   // Market list price (e.g. comp sticker) for strikethrough display; the
   // charged price is always unitPrice. Only shown when meaningfully higher.
   const listPriceCents = Number(partMetadata.list_price_cents);
@@ -386,9 +390,15 @@ export default function ProductDetails({
             Contact us to confirm availability before ordering.
           </p>
         )}
+      {ltlFreight > 0 && !hasFreeFreight && !isRubberTrack && (
+        <p className="text-sm text-slate-600 mb-4">
+          Freight is ${ltlFreight.toFixed(0)} at checkout — this ships LTL on a pallet.
+        </p>
+      )}
       {part.category_slug === 'cab-glass' &&
         !hasFreeFreight &&
-        !isRubberTrack && (
+        !isRubberTrack &&
+        ltlFreight === 0 && (
           <p className="text-sm text-slate-600 mb-4">
             Ships ground — freight is added at checkout.
           </p>

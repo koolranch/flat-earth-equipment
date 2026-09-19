@@ -8408,7 +8408,7 @@
   {
     "id": "332H1528",
     "title": "JCB 332/H1528 Tinted Front Windshield",
-    "description": "Aftermarket tinted front windshield for JCB equipment. Replaces OEM part number 332/H1528.\n\nTinted front screen for the cab. Also referenced as 827/80139. Order by this PN for a confident cross.\n\nQuestions? Contact our parts team for same-day help.",
+    "description": "Aftermarket tinted front windshield for JCB part number 332/H1528. Also referenced as 827/80139. This screen ships LTL — freight is $250 at checkout.",
     "link": "https://www.flatearthequipment.com/parts/jcb-332-h1528-tinted-front-windshield",
     "image_link": "https://www.flatearthequipment.com/images/parts/glass/jcb-332-h1528-tinted-front-windshield.jpg",
     "price": "379.00 USD",
@@ -8418,13 +8418,14 @@
     "availability": "in stock",
     "google_product_category": "Business & Industrial > Construction > Construction Machinery Accessories",
     "product_type": "Cab Glass",
+    "shipping_weight": "130 lb",
     "identifier_exists": "no",
     "custom_label_0": "priority_cab_glass",
     "shipping": [
       {
         "country": "US",
         "service": "Ground",
-        "price": "37.00 USD"
+        "price": "250.00 USD"
       }
     ]
   },
