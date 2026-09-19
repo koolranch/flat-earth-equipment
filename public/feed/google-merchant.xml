@@ -3387,10 +3387,10 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
     <item>
       <g:id>333C3422</g:id>
       <title>JCB 333/C3422 Aftermarket 48&quot; Fork</title>
-      <description>Aftermarket 48&quot; forklift fork for JCB equipment. Replaces OEM part number 333/C3422 — built to fit the same application. Single forged fork with carriage hooks; sold per fork. Match the part number and length on your existing fork before ordering. In stock with same-day shipping. Freight is added at checkout due to size and weight.</description>
+      <description>Aftermarket 48&quot; fork for JCB part number 333/C3422. Single forged tine with carriage hooks, sold per fork. Most operators replace both sides. Freight is $250 per shipment and covers a pair on one pallet. Match the part number and length on the fork you are replacing.</description>
       <link>https://www.flatearthequipment.com/parts/333C3422</link>
       <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/jcb/333C3422-fork.png</g:image_link>
-      <g:price>629.00 USD</g:price>
+      <g:price>268.00 USD</g:price>
       <g:brand>JCB</g:brand>
       <g:mpn>333/C3422</g:mpn>
       <g:condition>new</g:condition>
@@ -3399,6 +3399,12 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
       <g:product_type>Forks</g:product_type>
       <g:custom_label_0>priority_jcb</g:custom_label_0>
+      <g:shipping_weight>113 lb</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>250.00 USD</g:price>
+      </g:shipping>
     </item>
     <item>
       <g:id>333C3432</g:id>

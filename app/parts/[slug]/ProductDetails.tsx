@@ -148,6 +148,8 @@ export default function ProductDetails({
   const isCabGlass =
     part.category_slug === 'cab-glass' || part.category === 'Cab Glass';
   const isSeatListing = isSeatCategory(part.category, part.category_slug);
+  const qtyDefaultsToPair =
+    Number((part.metadata as Record<string, unknown> | null)?.qty_default) === 2;
   const cabGlassHubHref = isCabGlass
     ? cabGlassHubHrefForPart(part.brand, part.compatible_models)
     : '/cab-glass';
@@ -160,7 +162,7 @@ export default function ProductDetails({
   const lithiumCapacityPositioning = isLithiumBattery
     ? lithiumCapacityPositioningForProduct({ metadata: part.metadata })
     : null;
-  const [quantity, setQuantity] = useState(isRubberTrack ? 2 : 1);
+  const [quantity, setQuantity] = useState(isRubberTrack || qtyDefaultsToPair ? 2 : 1);
   const { addItem } = useCart();
 
   const partMetadata = (part.metadata as Record<string, unknown> | null) ?? {};
@@ -195,6 +197,11 @@ export default function ProductDetails({
 
   const unitPrice = selected?.price ?? part.price;
   const lineTotal = unitPrice * quantity;
+  const pairFreightCents = Number(partMetadata.freight_cents);
+  const pairFreight =
+    qtyDefaultsToPair && Number.isFinite(pairFreightCents) && pairFreightCents > 0
+      ? pairFreightCents / 100
+      : 0;
   // Market list price (e.g. comp sticker) for strikethrough display; the
   // charged price is always unitPrice. Only shown when meaningfully higher.
   const listPriceCents = Number(partMetadata.list_price_cents);
@@ -337,6 +344,9 @@ export default function ProductDetails({
         {isRubberTrack && (
           <span className="text-base font-medium text-gray-500"> / track</span>
         )}
+        {qtyDefaultsToPair && !isRubberTrack && (
+          <span className="text-base font-medium text-gray-500"> / fork</span>
+        )}
       </div>
       {isRubberTrack && (
         <p className="text-sm text-slate-600 mb-2">
@@ -346,6 +356,15 @@ export default function ProductDetails({
           for {quantity === 2 ? 'a pair' : 'one track'} — free shipping and{' '}
           {warrantyMonths ? `${warrantyMonths / 12}-year warranty` : 'warranty'} included.
           Many sellers add $150+ freight at checkout.
+        </p>
+      )}
+      {qtyDefaultsToPair && !isRubberTrack && pairFreight > 0 && (
+        <p className="text-sm text-slate-600 mb-2">
+          <span className="font-semibold text-slate-900">
+            ${(lineTotal + pairFreight).toFixed(2)} at checkout
+          </span>{' '}
+          for {quantity === 2 ? 'a pair' : 'one fork'} — ${pairFreight.toFixed(0)} freight
+          per shipment covers a pair on one pallet.
         </p>
       )}
       {isRubberTrack && part.is_in_stock !== false && (
@@ -427,7 +446,7 @@ export default function ProductDetails({
     </div>
   );
 
-  const quantitySelector = isRubberTrack && (
+  const quantitySelector = (isRubberTrack || qtyDefaultsToPair) && (
     <div className="mb-6">
       <label className="block text-sm font-medium text-gray-700 mb-2">Quantity</label>
       <div className="flex gap-2">
@@ -440,7 +459,9 @@ export default function ProductDetails({
               : 'border-gray-200 hover:border-gray-300'
           }`}
         >
-          <div className="font-semibold text-slate-900">Single Track</div>
+          <div className="font-semibold text-slate-900">
+            {isRubberTrack ? 'Single Track' : 'Single Fork'}
+          </div>
           <div className="text-sm text-gray-600">${part.price.toFixed(2)}</div>
         </button>
         <button
@@ -458,7 +479,9 @@ export default function ProductDetails({
       </div>
       {quantity === 2 && (
         <p className="text-xs text-gray-500 mt-2">
-          Recommended — running a new track opposite a worn one shortens the life of both.
+          {isRubberTrack
+            ? 'Recommended — running a new track opposite a worn one shortens the life of both.'
+            : 'Recommended — most operators replace both forks. Freight is $250 per shipment and covers the pair.'}
         </p>
       )}
     </div>
