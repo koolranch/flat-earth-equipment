@@ -262,6 +262,7 @@ function cabGlassImageLink(slug: string, imageUrl: string | null): string {
 /** Bump when a seat JPG is replaced so Merchant recrawls the same path. */
 const SEAT_IMAGE_CACHE_BUST: Record<string, string> = {
   "jcb-40-910649-replacement-seat": "20260826",
+  "skytrack-1001101085-seat-assembly": "20260919",
 };
 
 /**
