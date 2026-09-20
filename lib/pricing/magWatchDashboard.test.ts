@@ -10,7 +10,7 @@ let nextId = 0;
 
 function row(overrides: {
   brand?: string | null;
-  oem?: string;
+  oem?: string | null;
   price?: number | null;
   salesType?: string;
   category?: string | null;
@@ -19,7 +19,7 @@ function row(overrides: {
   metadata?: Record<string, unknown>;
 }): WatchRow {
   nextId++;
-  const oem = overrides.oem ?? `PN${nextId}`;
+  const oem = overrides.oem === undefined ? `PN${nextId}` : overrides.oem;
   return {
     id: `row-${nextId}`,
     sku: `SKU-${nextId}`,
@@ -113,7 +113,7 @@ function meta(opts: {
     row({ brand: 'JCB' }),
     row({ brand: 'Genie' }),
     row({ brand: 'Lithium Rhino' }), // brand out of scope
-    row({ brand: 'JCB', categorySlug: 'rubber-tracks' }), // excluded category
+    row({ brand: 'JCB', categorySlug: 'rubber-tracks', oem: null }), // size-only track — no Mag URL to scrape
     row({ brand: 'JCB', categorySlug: 'charger-modules' }), // excluded category
     row({
       brand: 'JCB',
@@ -191,6 +191,29 @@ function meta(opts: {
   const watching = d.pullQueue.filter((p) => !p.readyToPull);
   assert.equal(watching.length, 1);
   assert.equal(watching[0].oem, '333/D2222');
+}
+
+{
+  const inherited = buildWatchDashboard(
+    [
+      row({
+        brand: 'Bobcat',
+        oem: null,
+        price: 999,
+        category: 'Rubber Tracks',
+        categorySlug: 'rubber-tracks',
+        metadata: meta({
+          availability: 'backorder',
+          qty: 0,
+          soldOutStreak: 2,
+        }),
+      }),
+    ],
+    NOW
+  );
+  assert.equal(inherited.counts.inScope, 0, 'size-only track PDPs are not Mag scrape targets');
+  assert.equal(inherited.pullQueue.length, 1);
+  assert.equal(inherited.pullQueue[0].readyToPull, true);
 }
 
 // ---------------------------------------------------------------------------

@@ -37,6 +37,7 @@ import {
   WATCH_ROW_SELECT,
   type WatchRow,
 } from './magWatchUniverse';
+import { isRubberTrackCategory, isTrackStockRow } from './trackMagStock';
 
 export { MAX_PUBLISH_BATCH };
 
@@ -111,7 +112,9 @@ export type PullEligibility =
 
 export function pullEligibility(row: WatchRow, now = new Date()): PullEligibility {
   if (!isBuyNow(row)) return { ok: false, why: 'not a live Buy Now row', watching: false };
-  if (isSkip(classifyRow(row))) return { ok: false, why: 'row is outside the watch scope', watching: false };
+  if (isSkip(classifyRow(row)) && !isTrackStockRow(row)) {
+    return { ok: false, why: 'row is outside the watch scope', watching: false };
+  }
 
   const meta = watchMeta(row);
   const availability = meta.last_availability;
@@ -215,6 +218,9 @@ export function repriceEligibility(
 ): RepriceEligibility {
   const now = opts.now ?? new Date();
   if (!isBuyNow(row)) return { kind: 'skip', why: 'not a live Buy Now row' };
+  if (isRubberTrackCategory(row)) {
+    return { kind: 'skip', why: 'rubber tracks keep track pricing, not Mag matrix cuts' };
+  }
   if (isSkip(classifyRow(row))) return { kind: 'skip', why: 'outside the watch scope' };
   if (opts.skipOems?.has(row.oem_reference ?? '')) return { kind: 'skip', why: 'on the skip-comps list' };
 
@@ -340,6 +346,9 @@ export function publishEligibility(
 ): PublishEligibility {
   const now = opts.now ?? new Date();
   if (isBuyNow(row)) return { kind: 'skip', why: 'already Buy Now' };
+  if (isRubberTrackCategory(row)) {
+    return { kind: 'skip', why: 'rubber tracks list from the track intake, not Mag Publish' };
+  }
   if (isSkip(classifyRow(row))) return { kind: 'skip', why: 'outside the watch scope' };
   if (opts.skipOems?.has(row.oem_reference ?? '')) return { kind: 'skip', why: 'on the skip-comps list' };
 

@@ -6,13 +6,20 @@
  * risk actually costs us — and quote-only stubs, whose stock/sticker readings tell us what
  * is safe to convert later.
  *
- * Out of scope: the FSIP / golf-cart / lithium / charger lane and the separate rubber-track
- * vendor. Those run on different cost and stock systems, so a Magnasource reading says
- * nothing about them. "Electronic items" means that lane only — JCB/Genie/JLG sensors,
- * switches, joysticks, solenoids and senders are equipment parts and stay in scope.
+ * Out of scope: the FSIP / golf-cart / lithium / charger lane. Rubber tracks are the
+ * same TVH warehouse Magnasource reads — OEM-numbered track PDPs are scraped; size-only
+ * model URLs inherit that reading by size+tread. "Electronic items" means the FSIP lane
+ * only — JCB/Genie/JLG sensors, switches, joysticks, solenoids and senders stay in scope.
  */
 
-import { buildMagItemUrl, canonicalBrand, isMappableOem, oePrefixForBrand, partIdentityKey } from '../parts/tvhOePrefixes';
+import {
+  buildMagItemUrl,
+  canonicalBrand,
+  isMappableOem,
+  oePrefixForBrand,
+  partIdentityKey,
+  stripOePrefix,
+} from '../parts/tvhOePrefixes';
 
 /** Brands whose parts move through the same supplier network Magnasource sells from. */
 export const IN_SCOPE_BRANDS: readonly string[] = [
@@ -66,7 +73,6 @@ export const IN_SCOPE_BRANDS: readonly string[] = [
  * because that shelf is mostly FSIP-sourced, not TVH.
  */
 export const EXCLUDED_CATEGORY_SLUGS: readonly string[] = [
-  'rubber-tracks',
   'lithium-batteries',
   'controller-kits',
   'charger-modules',
@@ -221,11 +227,19 @@ export function classifyRow(row: WatchRow): WatchCandidate | WatchSkip {
     return { row, reason: 'supply_chain_excluded' };
   }
 
-  const oem = row.oem_reference ?? '';
-  if (!isMappableOem(oem)) return { row, reason: 'no_mappable_oem' };
-
   const prefix = oePrefixForBrand(brand);
   if (!prefix) return { row, reason: 'no_prefix_for_brand' };
+
+  // Track model PDPs store the Mag id on vendor_pn (JC333/L4732). The public OEM
+  // field is often the short cross-ref (L4732) and would build the wrong URL.
+  let oem = row.oem_reference ?? '';
+  if (row.category_slug === 'rubber-tracks') {
+    const vendorPn = metaString(row, 'vendor_pn');
+    if (vendorPn && vendorPn.toUpperCase().startsWith(prefix.prefix)) {
+      oem = stripOePrefix(vendorPn, brand);
+    }
+  }
+  if (!isMappableOem(oem)) return { row, reason: 'no_mappable_oem' };
 
   const magUrl = buildMagItemUrl(brand, oem);
   if (!magUrl) return { row, reason: 'no_prefix_for_brand' };

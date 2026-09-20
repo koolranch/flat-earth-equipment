@@ -162,4 +162,28 @@ const capped = selectWatchQueue(manyLow, {
 });
 assert.equal(capped.lowQty.length, LOW_QTY_REFRESH_CAP);
 
+{
+  const withVendorPn = classifyRow({
+    ...row({ price: 2049, oem: 'L4732' }),
+    category_slug: 'rubber-tracks',
+    category: 'Rubber Tracks',
+    name: 'JCB 150T Rubber Track 320x86x48 Block Tread',
+    metadata: { vendor_pn: 'JC333/L4732' },
+  });
+  assert.equal('reason' in withVendorPn, false, 'OEM-numbered track PDPs stay in the scrape universe');
+  if (!('reason' in withVendorPn)) {
+    assert.equal(withVendorPn.magPartId, 'JC333/L4732');
+    assert.equal(withVendorPn.oem, '333/L4732');
+  }
+
+  const sizeOnly = classifyRow({
+    ...row({ price: 999, oem: '' }),
+    category_slug: 'rubber-tracks',
+    oem_reference: null,
+    name: 'JCB 1CXT Rubber Track 320x86x50 C Pattern',
+    metadata: { vendor_pn: 'TSA/SY320X86X50C' },
+  });
+  assert.equal('reason' in sizeOnly && sizeOnly.reason === 'no_mappable_oem', true);
+}
+
 console.log('magWatchUniverse.test.ts: ok');

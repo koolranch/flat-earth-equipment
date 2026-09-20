@@ -24,10 +24,12 @@ import {
 import {
   classifyRow,
   dedupeCandidates,
+  isBuyNow,
   isSkip,
   metaNumber,
   missCount,
   soldOutStreak,
+  tierFor,
   tiersDue,
   MAX_MISSES,
   type WatchCandidate,
@@ -35,6 +37,7 @@ import {
   type WatchSkip,
   type WatchTier,
 } from './magWatchUniverse';
+import { isRubberTrackCategory, isTrackStockRow } from './trackMagStock';
 
 /** Percentage points of sticker drift before a row is worth surfacing. */
 const DRIFT_ALERT_POINTS = 3;
@@ -483,6 +486,19 @@ function partRef(candidate: WatchCandidate): PartRef {
   };
 }
 
+function inheritedTrackRef(row: WatchRow): PartRef {
+  const snapshot = storedSnapshot(row);
+  return {
+    sku: row.sku,
+    slug: row.slug,
+    name: row.name,
+    brand: row.brand ?? '',
+    oem: row.oem_reference ?? '',
+    tier: tierFor(row),
+    magUrl: snapshot.url || '',
+  };
+}
+
 function proposedSell(row: WatchRow, magPrice: number): number | null {
   try {
     return calculateSellPrice({
@@ -698,7 +714,7 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date(), opts: Bu
     const magPrice = snapshot.price;
     if (magPrice === null) continue;
 
-    if (candidate.isBuyNow) {
+    if (candidate.isBuyNow && !isRubberTrackCategory(row)) {
       const ourSell = Number(row.price ?? 0);
       if (ourSell <= 0) continue;
       const drift = stickerDrift({ ourSell, magPrice, targetDiscount: DEFAULT_COMP_DISCOUNT });
@@ -774,6 +790,27 @@ export function buildWatchDashboard(rows: WatchRow[], now = new Date(), opts: Bu
         lastCheckedAt,
       });
     }
+  }
+
+  const seenIds = new Set(unique.map((c) => c.row.id));
+  for (const row of rows) {
+    if (seenIds.has(row.id) || !isTrackStockRow(row) || !isBuyNow(row)) continue;
+    const snapshot = storedSnapshot(row);
+    const state = watchState(row);
+    const availability = state.lastAvailability ?? snapshot.availability;
+    if (!availability || !isSoldOutReading(availability)) continue;
+    const eligibility = pullEligibility(row, now);
+    dashboard.pullQueue.push({
+      ...inheritedTrackRef(row),
+      ourSell: row.price,
+      availability,
+      qtyOnHand: snapshot.qtyOnHand,
+      backorderEta: snapshot.backorderEta,
+      streak: soldOutStreak(row),
+      readyToPull: eligibility.ok,
+      notReadyWhy: eligibility.ok ? null : eligibility.why,
+      lastCheckedAt: state.lastCheckedAt ?? snapshot.fetchedAt,
+    });
   }
 
   dashboard.pulled = pulledRows.sort((a, b) => b.pulledAt.localeCompare(a.pulledAt));

@@ -35,6 +35,7 @@ import {
   lithiumCapacityPositioningForProduct,
   lithiumCartPathsForProduct,
 } from '@/constants/lithiumRhinoSeo';
+import { isTrackBeltName } from '@/lib/pricing/trackWarehouseKey';
 
 interface Variant {
   id: string;
@@ -143,7 +144,8 @@ export default function ProductDetails({
   optionalAccessory = null,
 }: ProductDetailsProps) {
   const [selected, setSelected] = useState<Variant | null>(variants?.[0] || null);
-  const isRubberTrack = part.category === 'Rubber Tracks';
+  const isRubberTrack =
+    part.category === 'Rubber Tracks' || isTrackBeltName(part.name);
   const isLithiumBattery = part.category === 'Lithium Batteries';
   const isCabGlass =
     part.category_slug === 'cab-glass' || part.category === 'Cab Glass';

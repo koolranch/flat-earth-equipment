@@ -27,6 +27,7 @@
  *   --no-low-qty      Skip the ≤3 overlay (explicit --tier= already skips it).
  *   --hero-intake-cap=N  Max tray downloads this run. Default 40 (32 quote-only / 8 Buy Now).
  *   --no-hero-intake     Record hero facts only; do not download into the tray.
+ *   --fan-out-only    Copy stored Mag readings onto size-matched track PDPs (no fetch).
  */
 
 import fs from 'fs';
@@ -84,6 +85,11 @@ import {
   type WatchSkip,
   type WatchTier,
 } from '../../lib/pricing/magWatchUniverse';
+import {
+  applyTrackFanOutMetadata,
+  trackFanOutTargets,
+  warehouseKeyForRow,
+} from '../../lib/pricing/trackMagStock';
 
 dotenv.config({ path: path.resolve(process.cwd(), '.env.production.local') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
@@ -112,6 +118,8 @@ type Args = {
   heroIntakeCap: number;
   /** Re-check an explicit SKU list, ignoring slice and tier. */
   skus: string[] | null;
+  /** Copy stored Mag readings onto size-matched track PDPs. No Firecrawl. */
+  fanOutOnly: boolean;
 };
 
 function parseArgs(argv: string[]): Args {
@@ -151,6 +159,7 @@ function parseArgs(argv: string[]): Args {
     heroIntake: !argv.includes('--no-hero-intake') && !argv.includes('--dry-run'),
     heroIntakeCap: intakeCapRaw ? Number(intakeCapRaw) : DEFAULT_HERO_INTAKE_CAP,
     skus: skusRaw ? skusRaw.split(',').map((s) => s.trim()).filter(Boolean) : null,
+    fanOutOnly: argv.includes('--fan-out-only'),
   };
 }
 
@@ -245,6 +254,51 @@ async function scrapeMag(
  */
 function needsHydrationRetry(snapshot: MagSnapshot): boolean {
   return snapshot.identityOk && snapshot.price === null && snapshot.availability === 'unknown';
+}
+
+function watchCheckedAt(row: WatchRow): string {
+  const watch = row.metadata?.mag_watch;
+  if (watch && typeof watch === 'object' && 'last_checked_at' in watch) {
+    const iso = (watch as { last_checked_at?: unknown }).last_checked_at;
+    return typeof iso === 'string' ? iso : '';
+  }
+  return '';
+}
+
+async function fanOutExistingReadings(
+  catalog: WatchRow[],
+  supabase: SupabaseClient,
+  dryRun: boolean
+) {
+  const sources = catalog
+    .filter((row) => warehouseKeyForRow(row) && watchCheckedAt(row))
+    .sort((a, b) => watchCheckedAt(b).localeCompare(watchCheckedAt(a)));
+
+  let wrote = 0;
+  for (const source of sources) {
+    const metadata = (source.metadata ?? {}) as Record<string, unknown>;
+    const targets = trackFanOutTargets(source, catalog);
+    for (const target of targets) {
+      if (watchCheckedAt(target) >= watchCheckedAt(source)) continue;
+      const siblingMeta = applyTrackFanOutMetadata(target, source, metadata);
+      console.log(
+        `${dryRun ? 'dry ' : ''}${source.sku} → ${target.sku} · ${warehouseKeyForRow(source)}`
+      );
+      if (dryRun) continue;
+      const { error } = await supabase
+        .from('parts')
+        .update({ metadata: siblingMeta, updated_at: new Date().toISOString() })
+        .eq('id', target.id);
+      if (error) {
+        console.warn(`  write failed: ${error.message}`);
+        continue;
+      }
+      const idx = catalog.findIndex((r) => r.id === target.id);
+      if (idx >= 0) catalog[idx] = { ...target, metadata: siblingMeta };
+      wrote++;
+    }
+  }
+  console.log(`\nTrack stock fan-out: ${wrote} model PDP${wrote === 1 ? '' : 's'} updated${dryRun ? ' (dry run)' : ''}`);
 }
 
 type Reading = {
@@ -643,6 +697,11 @@ async function main() {
   console.log('\nUniverse');
   for (const [k, v] of Object.entries(universe)) console.log(`  ${k.padEnd(24)} ${v}`);
 
+  if (args.fanOutOnly) {
+    await fanOutExistingReadings(all, supabase, args.dryRun);
+    return;
+  }
+
   if (args.universe) {
     const skipsByBrand = new Map<string, number>();
     for (const s of skips.filter((x) => x.reason === 'no_prefix_for_brand')) {
@@ -672,7 +731,7 @@ async function main() {
         )
     );
     if (missing.length) console.warn(`\nNot found in scope: ${missing.join(', ')}`);
-    await run(queue, ['A'], universe, args, supabase);
+    await run(queue, ['A'], universe, args, supabase, all);
     return;
   }
 
@@ -706,7 +765,7 @@ async function main() {
     );
   }
 
-  await run(queue, tiers, universe, args, supabase);
+  await run(queue, tiers, universe, args, supabase, all);
 }
 
 async function run(
@@ -714,7 +773,8 @@ async function run(
   tiers: WatchTier[],
   universe: Record<string, number>,
   args: Args,
-  supabase: SupabaseClient
+  supabase: SupabaseClient,
+  catalog: WatchRow[]
 ) {
   console.log(
     `\nTiers ${tiers.join(',') || 'low-qty-only'} · slice ${args.slice} · ${queue.length} pages to read${args.dryRun ? ' (dry run)' : ''}${
@@ -775,7 +835,24 @@ async function run(
             .eq('id', candidate.row.id);
           if (error) console.warn(`   snapshot write failed: ${error.message}`);
 
-          const merged: WatchRow = { ...candidate.row, metadata };
+          const sourceAfterWrite: WatchRow = { ...candidate.row, metadata };
+          const siblings = trackFanOutTargets(sourceAfterWrite, catalog);
+          for (const sibling of siblings) {
+            const siblingMeta = applyTrackFanOutMetadata(sibling, sourceAfterWrite, metadata);
+            const { error: fanOutError } = await supabase
+              .from('parts')
+              .update({ metadata: siblingMeta, updated_at: new Date().toISOString() })
+              .eq('id', sibling.id);
+            if (fanOutError) {
+              console.warn(`   track fan-out ${sibling.sku} failed: ${fanOutError.message}`);
+              continue;
+            }
+            const idx = catalog.findIndex((r) => r.id === sibling.id);
+            if (idx >= 0) catalog[idx] = { ...sibling, metadata: siblingMeta };
+            process.stdout.write(`   ↳ stock → ${sibling.sku}\n`);
+          }
+
+          const merged: WatchRow = sourceAfterWrite;
           const gate = weekdayHeroIntakeEligibility(merged, {
             availability: snapshot.availability,
             ogImage: page.ogImage,

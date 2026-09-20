@@ -28,6 +28,7 @@ import {
   type PullPlan,
 } from '../../lib/pricing/magWatchOps';
 import { MAX_PULLS_PER_RUN, WATCH_ROW_SELECT, type WatchRow } from '../../lib/pricing/magWatchUniverse';
+import { pullCapIdentity } from '../../lib/pricing/trackMagStock';
 
 dotenv.config({ path: path.resolve(process.cwd(), '.env.production.local') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
@@ -119,12 +120,13 @@ async function main() {
     return;
   }
 
-  if (plans.length > cap) {
+  const capKeys = new Set(plans.map((p) => pullCapIdentity(p.row)));
+  if (capKeys.size > cap) {
     console.error(
-      `\nABORT: ${plans.length} rows qualify but the per-run cap is ${cap}.\n` +
+      `\nABORT: ${plans.length} rows (${capKeys.size} warehouse items) qualify but the per-run cap is ${cap}.\n` +
         'That many at once usually means the Magnasource page changed and the parser is wrong, ' +
         'not that the catalog sold out. Review the latest digest, then re-run with ' +
-        `--override-cap=${plans.length} if the readings are real.`
+        `--override-cap=${capKeys.size} if the readings are real.`
     );
     process.exit(2);
   }

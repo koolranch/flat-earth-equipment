@@ -134,16 +134,36 @@ function pricedRow(opts: {
   );
   assert.equal(quote.ok, false);
 
-  // Out-of-scope category (rubber tracks) is never pulled by this job.
+  // Size-only track PDPs can be pulled after they inherit a confirming Mag sold-out read.
   const track = pullEligibility(
     row({
       brand: 'Bobcat',
+      name: 'Bobcat T66 Rubber Track 320x86x50 C Pattern',
+      category: 'Rubber Tracks',
       category_slug: 'rubber-tracks',
+      oem_reference: null,
       magWatch: { last_availability: 'backorder', sold_out_streak: 2, last_checked_at: hoursAgo(1) },
     }),
     NOW
   );
-  assert.equal(track.ok, false);
+  assert.equal(track.ok, true);
+}
+
+{
+  const priced = repriceEligibility(
+    row({
+      category: 'Rubber Tracks',
+      category_slug: 'rubber-tracks',
+      price: 999,
+      metadata: {
+        mag_watch: { last_availability: 'in_stock', last_checked_at: hoursAgo(1) },
+        competitor_prices: [{ source: 'magnasource', price: 1057.8, availability: 'in_stock' }],
+      },
+    }),
+    { now: NOW }
+  );
+  assert.equal(priced.kind, 'skip');
+  if (priced.kind === 'skip') assert.match(priced.why, /track pricing/);
 }
 
 // ---------------------------------------------------------------------------
