@@ -11,7 +11,7 @@ export type SitemapQueryResult<T> = {
  * complete table scan — no slug cutoff.
  */
 export async function fetchAllSitemapRows<T>(
-  loadPage: (from: number, to: number) => Promise<SitemapQueryResult<T>>
+  loadPage: (from: number, to: number) => PromiseLike<SitemapQueryResult<T>>
 ): Promise<T[]> {
   const rows: T[] = [];
   for (let from = 0; ; from += SITEMAP_PAGE_SIZE) {
