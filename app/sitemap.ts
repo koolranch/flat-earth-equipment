@@ -8,6 +8,7 @@ import { CART_MODELS } from "@/constants/golfCartModels";
 import { CHARGER_MODULES } from "@/constants/chargerOptions";
 import * as fs from "fs";
 import * as path from "path";
+import { fetchAllSitemapRows } from "@/lib/seo/fetchSitemapRows";
 
 const BASE = "https://www.flatearthequipment.com";
 
@@ -43,11 +44,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // ── 1. All parts in the database ─────────────────────────────────────────
   // Includes quote-only JCB SEO stubs (those pages exist for indexing).
-  const { data: parts } = await sb
-    .from("parts")
-    .select("slug, updated_at, category_slug, category, sales_type")
-    .order("slug", { ascending: true })
-    .limit(2000);
+  const parts = await fetchAllSitemapRows((from, to) =>
+    sb
+      .from("parts")
+      .select("slug, updated_at, category_slug, category, sales_type")
+      .order("slug", { ascending: true })
+      .range(from, to)
+  );
 
   const partItems = (parts ?? [])
     .filter((p) => p.slug)
@@ -78,12 +81,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
 
   // ── 2. Charger product pages (legacy /chargers/ route) ───────────────────
-  const { data: chargers } = await sb
-    .from("parts")
-    .select("slug, updated_at")
-    .eq("category_slug", "battery-chargers")
-    .order("slug", { ascending: true })
-    .limit(2000);
+  const chargers = await fetchAllSitemapRows((from, to) =>
+    sb
+      .from("parts")
+      .select("slug, updated_at")
+      .eq("category_slug", "battery-chargers")
+      .order("slug", { ascending: true })
+      .range(from, to)
+  );
 
   const chargerItems = [
     ...INDEXABLE_CHARGER_SERIES_SLUGS.map((slug) => ({
