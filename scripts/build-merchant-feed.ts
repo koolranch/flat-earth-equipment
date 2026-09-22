@@ -166,6 +166,7 @@ const MERCHANT_KEEP_SLUGS = new Set([
   "skyjack-211751-joystick",
   "skyjack-159230-joystick-controller",
   "jlg-4360407-switch",
+  "jlg-1001110774-drive-wheel",
 ]);
 
 /** Catalog lines we will submit while Merchant is still approving the first wave. */
