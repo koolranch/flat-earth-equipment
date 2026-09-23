@@ -2,6 +2,7 @@ import 'server-only';
 import Stripe from 'stripe';
 import { NextResponse, type NextRequest } from 'next/server';
 import { PARTS_WATCH_PATH, partsWatchStatus } from './passwordGate';
+import { isCatalogSku } from './partsWatchSku';
 import { supabaseService } from '../supabase/service.server';
 
 /**
@@ -47,12 +48,10 @@ export function refuseUnlessAllowed(request: NextRequest): NextResponse | null {
   return null;
 }
 
-const SKU_PATTERN = /^[A-Za-z0-9][A-Za-z0-9._\/-]{0,63}$/;
-
-/** SKUs are catalog identifiers like `333D1629` or `RT-T190-400X86X49-C`; nothing else gets through. */
+/** SKUs are catalog identifiers like `333D1629`, `RT-T190-400X86X49-C`, or `RA 590-726`. */
 export function readSku(form: FormData): string | null {
   const raw = String(form.get('sku') ?? '').trim();
-  return SKU_PATTERN.test(raw) ? raw : null;
+  return isCatalogSku(raw) ? raw : null;
 }
 
 /** Valid SKUs from a list of raw form values, de-duplicated, in order. Invalid values are dropped. */
@@ -60,7 +59,7 @@ export function readSkus(values: Iterable<FormDataEntryValue | string>): string[
   const seen = new Set<string>();
   for (const value of values) {
     const raw = String(value ?? '').trim();
-    if (SKU_PATTERN.test(raw)) seen.add(raw);
+    if (isCatalogSku(raw)) seen.add(raw);
   }
   return [...seen];
 }
