@@ -309,7 +309,7 @@
     "description": "High-quality replacement cylinder - master 1.25 dia for JCB equipment. Direct fit for OEM part number 15/904101.",
     "link": "https://www.flatearthequipment.com/parts/15904101",
     "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "263.06 USD",
+    "price": "226.00 USD",
     "brand": "JCB",
     "mpn": "15/904101",
     "condition": "new",
@@ -644,7 +644,7 @@
     "title": "JCB 191/56600 Pad - Wear",
     "description": "Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 191/56600.",
     "link": "https://www.flatearthequipment.com/parts/19156600",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/19156600.jpg",
     "price": "206.00 USD",
     "brand": "JCB",
     "mpn": "191/56600",
@@ -740,7 +740,7 @@
     "title": "JCB 20/915900 Transmission Pump",
     "description": "Aftermarket transmission / oil pump for JCB equipment. Replaces OEM part number 20/915900 (also listed as JC20/915900; cross-refs often include 20/925327 and 20/900400).\n\nFlat shipping is added at checkout per the standard JCB parts freight bands.",
     "link": "https://www.flatearthequipment.com/parts/20915900",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/20915900.jpg",
     "price": "529.00 USD",
     "brand": "JCB",
     "mpn": "20/915900",
@@ -788,30 +788,14 @@
     "title": "JCB 25/104700 VALVE - SOLENOID",
     "description": "High-quality replacement valve - solenoid for JCB equipment. Direct fit for OEM part number 25/104700.",
     "link": "https://www.flatearthequipment.com/parts/25104700",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "276.00 USD",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/25104700.jpg",
+    "price": "419.00 USD",
     "brand": "JCB",
     "mpn": "25/104700",
     "condition": "new",
     "availability": "in stock",
     "google_product_category": "Business & Industrial > Material Handling",
     "product_type": "JCB Electrical",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb"
-  },
-  {
-    "id": "25207300",
-    "title": "JCB 25/207300 CARTRIDGE COUNTER",
-    "description": "High-quality replacement cartridge counter for JCB equipment. Direct fit for OEM part number 25/207300.",
-    "link": "https://www.flatearthequipment.com/parts/25207300",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "276.00 USD",
-    "brand": "JCB",
-    "mpn": "25/207300",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB Hydraulic Valves",
     "identifier_exists": "no",
     "custom_label_0": "priority_jcb"
   },
@@ -997,7 +981,7 @@
     "description": "Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 25/MM6396.",
     "link": "https://www.flatearthequipment.com/parts/25MM6396",
     "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
-    "price": "236.00 USD",
+    "price": "249.00 USD",
     "brand": "JCB",
     "mpn": "25/MM6396",
     "condition": "new",
@@ -2635,7 +2619,7 @@
     "title": "JCB 32-925753 Filter - Air",
     "description": "Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 32-925753.",
     "link": "https://www.flatearthequipment.com/parts/32-925753",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/32-925753.jpg",
     "price": "110.80 USD",
     "brand": "JCB",
     "mpn": "32-925753",
@@ -3213,29 +3197,6 @@
     "custom_label_0": "priority_jcb"
   },
   {
-    "id": "332X6237",
-    "title": "JCB 332/X6237 Aftermarket Left-Hand Joystick",
-    "description": "Aftermarket left-hand joystick for JCB equipment. Replaces OEM part number 332/X6237 — built to fit the same application (LH SP 3-function style). Contoured grip with top-mounted switches, rubber dust boot, and dual harness connectors. Match the part number on your existing joystick or in the parts manual before ordering. In stock. Free freight to the contiguous US.",
-    "link": "https://www.flatearthequipment.com/parts/332X6237",
-    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/jcb/332X6237-joystick.png",
-    "price": "1699.00 USD",
-    "brand": "JCB",
-    "mpn": "332/X6237",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Material Handling",
-    "product_type": "JCB Controls",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_jcb",
-    "shipping": [
-      {
-        "country": "US",
-        "service": "Ground",
-        "price": "0.00 USD"
-      }
-    ]
-  },
-  {
     "id": "33302696",
     "title": "JCB 333/02696 Filter - Air",
     "description": "Aftermarket replacement for JCB part number 333/02696 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.\n\nMatches JCB OEM part number 333/02696. Order by this PN for a confident fit.\n\nQuestions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.",
@@ -3424,7 +3385,7 @@
     "description": "Aftermarket painted lower door for JCB equipment. Replaces OEM part number 333/D2714.\n\nBlack painted steel lower door — not the upper door and not glass. Open rectangular frame with a chamfered corner and circular opening, hinge and mounting brackets on the edges, and a seal channel around the inner lip. This is the painted door, not a bare unfinished frame. Ships about 34 lb.\n\nEligible JCB aftermarket parts carry a 2-year warranty. In stock. Free freight to the contiguous US.",
     "link": "https://www.flatearthequipment.com/parts/333D2714",
     "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/jcb-333-d2714-lower-cab-door.jpg",
-    "price": "1719.00 USD",
+    "price": "1799.00 USD",
     "brand": "JCB",
     "mpn": "333/D2714",
     "condition": "new",
@@ -3880,7 +3841,7 @@
     "description": "Aftermarket coolant header tank for JCB equipment. Replaces OEM part number 334/G3689.\n\nTranslucent expansion tank with a 1.5 bar cap, two hose nipples, and mounting tabs. About 4 lb.\n\nEligible JCB aftermarket parts carry a 2-year warranty. In stock.",
     "link": "https://www.flatearthequipment.com/parts/334G3689",
     "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/jcb-334-g3689-header-tank.jpg",
-    "price": "116.00 USD",
+    "price": "143.00 USD",
     "brand": "JCB",
     "mpn": "334/G3689",
     "condition": "new",
@@ -4232,7 +4193,7 @@
     "description": "Aftermarket fender rh trim 4 for JCB part number 400/D6984 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.\n\nMatches JCB OEM part number 400/D6984. Order by this PN for a confident fit.\n\nQuestions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.",
     "link": "https://www.flatearthequipment.com/parts/400D6984",
     "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/400D6984.jpg",
-    "price": "266.00 USD",
+    "price": "257.00 USD",
     "brand": "JCB",
     "mpn": "400/D6984",
     "condition": "new",
@@ -4312,7 +4273,7 @@
     "description": "Aftermarket led amber beacon for JCB part number 401/E0088 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.\n\nMatches JCB OEM part number 401/E0088. Order by this PN for a confident fit.\n\nQuestions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.",
     "link": "https://www.flatearthequipment.com/parts/401E0088",
     "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/401E0088.jpg",
-    "price": "147.00 USD",
+    "price": "157.00 USD",
     "brand": "JCB",
     "mpn": "401/E0088",
     "condition": "new",
@@ -7071,29 +7032,6 @@
     ]
   },
   {
-    "id": "case-khn30460-front-upper-windshield",
-    "title": "Case KHN30460 Front Upper Windshield",
-    "description": "Aftermarket green-tint tempered safety glass front upper windshield for Case compact equipment. Direct replacement for OEM part number KHN30460. Fits Case CX75C SR, CX80C. Specs: 5 mm thick, 750 mm max width, 945 mm height. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
-    "link": "https://www.flatearthequipment.com/parts/case-khn30460-front-upper-windshield",
-    "image_link": "https://www.flatearthequipment.com/images/parts/glass/case-khn30460-front-upper-windshield.jpg",
-    "price": "141.00 USD",
-    "brand": "Case",
-    "mpn": "KHN30460",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Construction > Construction Machinery Accessories",
-    "product_type": "Cab Glass",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_cab_glass",
-    "shipping": [
-      {
-        "country": "US",
-        "service": "Ground",
-        "price": "25.00 USD"
-      }
-    ]
-  },
-  {
     "id": "case-khn30640-front-lower-windshield",
     "title": "Case KHN30640 Front Lower Windshield",
     "description": "Aftermarket green-tint tempered safety glass front lower windshield for Case compact equipment. Direct replacement for OEM part number KHN30640. Fits Case CX75C SR, CX80C. Specs: 5 mm thick, 760 mm max width, 420 mm height. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
@@ -7790,7 +7728,7 @@
     "description": "Premium Caterpillar 91A1431010 Seat Assembly with full suspension. This heavy-duty black PVC replacement seat is designed for maximum operator comfort and durability in demanding industrial environments.\n\nKey Features:\n• Mechanical stepless suspension system for superior ride quality\n• Adjustable weight capacity: 99 lbs to 276 lbs\n• Integrated seat belt with automatic locking retractor\n• Durable, easy-clean black PVC upholstery\n• Built-in microswitch seat safety switch\n• Integrated lumbar support and document holder\n• Adjustable front-to-back positioning with slide rails\n• Standard mounting pattern: 6.0\" x 13\"\n\nThis professional-grade seat is a direct replacement for Caterpillar OEM part number 91A1431010. Ships with FREE FREIGHT to the continental US.\n\nReplaces Part Number: 91A1431010",
     "link": "https://www.flatearthequipment.com/parts/caterpillar-seat-assembly-suspension-91a1431010",
     "image_link": "https://www.flatearthequipment.com/images/parts/seats/caterpillar-seat-assembly-suspension-91a1431010.jpg",
-    "price": "1000.00 USD",
+    "price": "972.00 USD",
     "brand": "Caterpillar",
     "mpn": "91A1431010",
     "condition": "new",
@@ -7860,7 +7798,7 @@
     "description": "Aftermarket seat bottom cushion without operator presence switch for Columbia industrial equipment. Replaces OEM part number 51711-04.\n\nFits Columbia BC2 and BC3 series models including BC2-L-36A, BC2-L-36S, BC2-L-48A, BC2-S-36A, BC2-S-36S, BC2-S-48A, BC3-L-36A, and BC3-L-48A. This is the no-switch bottom cushion — if your seat uses an operator presence switch, use Columbia 51712-04 instead: https://www.flatearthequipment.com/parts/columbia-51712-04-seat-bottom-cushion\n\nFlat $25 shipping is added at checkout.",
     "link": "https://www.flatearthequipment.com/parts/columbia-51711-04-seat-bottom-cushion",
     "image_link": "https://www.flatearthequipment.com/images/parts/seats/columbia-51711-04-seat-bottom-cushion.jpg",
-    "price": "102.00 USD",
+    "price": "116.00 USD",
     "brand": "Columbia",
     "mpn": "51711-04",
     "condition": "new",
@@ -9303,7 +9241,7 @@
     "description": "Aftermarket green-tint tempered safety glass rear window for John Deere compact equipment. Direct replacement for OEM part number 4683794. Fits John Deere 27D, 35D. Specs: 5 mm thick, 965 mm max width. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
     "link": "https://www.flatearthequipment.com/parts/john-deere-4683794-rear-window",
     "image_link": "https://www.flatearthequipment.com/images/parts/glass/john-deere-4683794-rear-window.jpg",
-    "price": "115.00 USD",
+    "price": "76.00 USD",
     "brand": "John Deere",
     "mpn": "4683794",
     "condition": "new",
@@ -9418,7 +9356,7 @@
     "description": "Aftermarket green-tint tempered safety glass lower door panel for John Deere compact equipment. Direct replacement for OEM part number FYD00004962. Fits John Deere 60G. Specs: 4 mm thick, 530 mm max width, 535 mm height. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
     "link": "https://www.flatearthequipment.com/parts/john-deere-fyd00004962-lower-door-panel",
     "image_link": "https://www.flatearthequipment.com/images/parts/glass/john-deere-fyd00004962-lower-door-panel.jpg",
-    "price": "135.00 USD",
+    "price": "129.00 USD",
     "brand": "John Deere",
     "mpn": "FYD00004962",
     "condition": "new",
@@ -9459,87 +9397,19 @@
     ]
   },
   {
-    "id": "john-deere-fyd00005004-left-side-window",
-    "title": "John Deere FYD00005004 Left Side Window",
-    "description": "Aftermarket green-tint tempered safety glass left side window for John Deere compact equipment. Direct replacement for OEM part number FYD00005004. Fits John Deere 60G. Specs: 4 mm thick, 505 mm max width, 860 mm height. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
-    "link": "https://www.flatearthequipment.com/parts/john-deere-fyd00005004-left-side-window",
-    "image_link": "https://www.flatearthequipment.com/images/parts/glass/john-deere-fyd00005004-left-side-window.jpg",
-    "price": "275.00 USD",
-    "brand": "John Deere",
-    "mpn": "FYD00005004",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Construction > Construction Machinery Accessories",
-    "product_type": "Cab Glass",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_cab_glass",
-    "shipping": [
-      {
-        "country": "US",
-        "service": "Ground",
-        "price": "31.00 USD"
-      }
-    ]
-  },
-  {
     "id": "john-deere-fyd00005006-rear-window",
     "title": "John Deere FYD00005006 Rear Window",
     "description": "Aftermarket green-tint tempered safety glass rear window for John Deere compact equipment. Direct replacement for OEM part number FYD00005006. Fits John Deere 60G. Specs: 4 mm thick, 840 mm max width, 625 mm height. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
     "link": "https://www.flatearthequipment.com/parts/john-deere-fyd00005006-rear-window",
     "image_link": "https://www.flatearthequipment.com/images/parts/glass/john-deere-fyd00005006-rear-window.jpg",
-    "price": "309.00 USD",
+    "price": "116.00 USD",
     "brand": "John Deere",
     "mpn": "FYD00005006",
     "condition": "new",
     "availability": "in stock",
     "google_product_category": "Business & Industrial > Construction > Construction Machinery Accessories",
     "product_type": "Cab Glass",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_cab_glass",
-    "shipping": [
-      {
-        "country": "US",
-        "service": "Ground",
-        "price": "37.00 USD"
-      }
-    ]
-  },
-  {
-    "id": "john-deere-fyd00006271-front-upper-windshield",
-    "title": "John Deere FYD00006271 Front Upper Windshield",
-    "description": "Aftermarket green-tint tempered safety glass front upper windshield for John Deere compact equipment. Direct replacement for OEM part number FYD00006271. Fits John Deere 26G, 35G. Specs: 5 mm thick, 795 mm max width, 850 mm height. Includes 1 mounting hole. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
-    "link": "https://www.flatearthequipment.com/parts/john-deere-fyd00006271-front-upper-windshield",
-    "image_link": "https://www.flatearthequipment.com/images/parts/glass/john-deere-fyd00006271-front-upper-windshield.jpg",
-    "price": "139.00 USD",
-    "brand": "John Deere",
-    "mpn": "FYD00006271",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Construction > Construction Machinery Accessories",
-    "product_type": "Cab Glass",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_cab_glass",
-    "shipping": [
-      {
-        "country": "US",
-        "service": "Ground",
-        "price": "25.00 USD"
-      }
-    ]
-  },
-  {
-    "id": "john-deere-fyd00006272-front-lower-windshield",
-    "title": "John Deere FYD00006272 Front Lower Windshield",
-    "description": "Aftermarket green-tint tempered safety glass front lower windshield for John Deere compact equipment. Direct replacement for OEM part number FYD00006272. Fits John Deere 26G, 35G, 50G. Specs: 6 mm thick, 805 mm max width, 535 mm height. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
-    "link": "https://www.flatearthequipment.com/parts/john-deere-fyd00006272-front-lower-windshield",
-    "image_link": "https://www.flatearthequipment.com/images/parts/glass/john-deere-fyd00006272-front-lower-windshield.jpg",
-    "price": "139.00 USD",
-    "brand": "John Deere",
-    "mpn": "FYD00006272",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Construction > Construction Machinery Accessories",
-    "product_type": "Cab Glass",
+    "shipping_weight": "8.5 lb",
     "identifier_exists": "no",
     "custom_label_0": "priority_cab_glass",
     "shipping": [
@@ -9625,7 +9495,7 @@
     "description": "Aftermarket green-tint tempered safety glass left side rear for John Deere compact equipment. Direct replacement for OEM part number FYD00006280. Fits John Deere 26G, 35G, 50G. Specs: 5 mm thick, 240 mm max width, 715 mm height. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
     "link": "https://www.flatearthequipment.com/parts/john-deere-fyd00006280-left-side-rear",
     "image_link": "https://www.flatearthequipment.com/images/parts/glass/john-deere-fyd00006280-left-side-rear.jpg",
-    "price": "100.00 USD",
+    "price": "77.00 USD",
     "brand": "John Deere",
     "mpn": "FYD00006280",
     "condition": "new",
@@ -9712,35 +9582,12 @@
     ]
   },
   {
-    "id": "john-deere-t312628-door-glass",
-    "title": "John Deere T312628 Door Glass",
-    "description": "Aftermarket green-tint tempered safety glass door glass for John Deere compact equipment. Direct replacement for OEM part number T312628. Fits John Deere 318D, 320D, 323E, 326E, 332E, 333E. Specs: 5 mm thick, 800 mm max width, 1165 mm height. Includes 11 mounting holes. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
-    "link": "https://www.flatearthequipment.com/parts/john-deere-t312628-door-glass",
-    "image_link": "https://www.flatearthequipment.com/images/parts/glass/john-deere-t312628-door-glass.jpg?v=20260818",
-    "price": "143.00 USD",
-    "brand": "John Deere",
-    "mpn": "T312628",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Construction > Construction Machinery Accessories",
-    "product_type": "Cab Glass",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_cab_glass",
-    "shipping": [
-      {
-        "country": "US",
-        "service": "Ground",
-        "price": "25.00 USD"
-      }
-    ]
-  },
-  {
     "id": "kubota-rd158-46450-rear-window",
     "title": "Kubota RD158-46450 Rear Window",
     "description": "Aftermarket green-tint tempered safety glass rear window for Kubota compact equipment. Direct replacement for OEM part number RD158-46450. Fits Kubota U55-4, U48-4. Specs: 5 mm thick, 745 mm max width, 695 mm height. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
     "link": "https://www.flatearthequipment.com/parts/kubota-rd158-46450-rear-window",
     "image_link": "https://www.flatearthequipment.com/images/parts/glass/kubota-rd158-46450-rear-window.jpg?v=20260825",
-    "price": "179.00 USD",
+    "price": "141.00 USD",
     "brand": "Kubota",
     "mpn": "RD158-46450",
     "condition": "new",
@@ -9753,30 +9600,7 @@
       {
         "country": "US",
         "service": "Ground",
-        "price": "31.00 USD"
-      }
-    ]
-  },
-  {
-    "id": "kubota-rd158-46570-lower-door-panel",
-    "title": "Kubota RD158-46570 Lower Door Panel",
-    "description": "Aftermarket green-tint tempered safety glass lower door panel for Kubota compact equipment. Direct replacement for OEM part number RD158-46570. Fits Kubota U55-4, U48-4. Specs: 5 mm thick, 555 mm max width, 520 mm height. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
-    "link": "https://www.flatearthequipment.com/parts/kubota-rd158-46570-lower-door-panel",
-    "image_link": "https://www.flatearthequipment.com/images/parts/glass/kubota-rd158-46570-lower-door-panel.jpg",
-    "price": "179.00 USD",
-    "brand": "Kubota",
-    "mpn": "RD158-46570",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Construction > Construction Machinery Accessories",
-    "product_type": "Cab Glass",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_cab_glass",
-    "shipping": [
-      {
-        "country": "US",
-        "service": "Ground",
-        "price": "31.00 USD"
+        "price": "25.00 USD"
       }
     ]
   },
@@ -10053,29 +9877,6 @@
         "country": "US",
         "service": "Ground",
         "price": "0.00 USD"
-      }
-    ]
-  },
-  {
-    "id": "kubota-v0511-33150-rear-window",
-    "title": "Kubota V0511-33150 Rear Window",
-    "description": "Aftermarket clear polycarbonate rear window for Kubota compact equipment. Direct replacement for OEM part number V0511-33150. Fits Kubota SVL75-2, SVL90-2, SVL95-2S. Specs: 4 mm thick, 640 mm max width, 285 mm height. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
-    "link": "https://www.flatearthequipment.com/parts/kubota-v0511-33150-rear-window",
-    "image_link": "https://www.flatearthequipment.com/images/parts/glass/kubota-v0511-33150-rear-window.jpg",
-    "price": "198.00 USD",
-    "brand": "Kubota",
-    "mpn": "V0511-33150",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Construction > Construction Machinery Accessories",
-    "product_type": "Cab Glass",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_cab_glass",
-    "shipping": [
-      {
-        "country": "US",
-        "service": "Ground",
-        "price": "31.00 USD"
       }
     ]
   },
@@ -11040,7 +10841,7 @@
     "description": "Aftermarket green-tint tempered safety glass rear window for Takeuchi compact equipment. Direct replacement for OEM part number 03386-30820. Fits Takeuchi TB016, TB125, TB135, TB145. Specs: 4 mm thick, 820 mm max width, 865 mm height. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
     "link": "https://www.flatearthequipment.com/parts/takeuchi-03386-30820-rear-window",
     "image_link": "https://www.flatearthequipment.com/images/parts/glass/takeuchi-03386-30820-rear-window.jpg",
-    "price": "133.00 USD",
+    "price": "309.00 USD",
     "brand": "Takeuchi",
     "mpn": "03386-30820",
     "condition": "new",
@@ -11053,7 +10854,7 @@
       {
         "country": "US",
         "service": "Ground",
-        "price": "25.00 USD"
+        "price": "37.00 USD"
       }
     ]
   },
@@ -11086,7 +10887,7 @@
     "description": "Aftermarket green-tint tempered safety glass left side glass for Takeuchi compact equipment. Direct replacement for OEM part number 03586-00077. Fits Takeuchi TB230. Specs: 5 mm thick, 490 mm max width, 1315 mm height. Includes 1 mounting hole. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
     "link": "https://www.flatearthequipment.com/parts/takeuchi-03586-00077-left-side-glass",
     "image_link": "https://www.flatearthequipment.com/images/parts/glass/takeuchi-03586-00077-left-side-glass.jpg",
-    "price": "190.00 USD",
+    "price": "148.00 USD",
     "brand": "Takeuchi",
     "mpn": "03586-00077",
     "condition": "new",
@@ -11099,7 +10900,7 @@
       {
         "country": "US",
         "service": "Ground",
-        "price": "31.00 USD"
+        "price": "25.00 USD"
       }
     ]
   },
@@ -11109,7 +10910,7 @@
     "description": "Aftermarket green-tint tempered safety glass door glass for Takeuchi compact equipment. Direct replacement for OEM part number 03586-00096. Fits Takeuchi TB230. Specs: 4 mm thick, 595 mm max width, 1495 mm height. Includes 2 mounting holes. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
     "link": "https://www.flatearthequipment.com/parts/takeuchi-03586-00096-door-glass",
     "image_link": "https://www.flatearthequipment.com/images/parts/glass/takeuchi-03586-00096-door-glass.jpg",
-    "price": "176.00 USD",
+    "price": "156.00 USD",
     "brand": "Takeuchi",
     "mpn": "03586-00096",
     "condition": "new",
@@ -11146,29 +10947,6 @@
         "country": "US",
         "service": "Ground",
         "price": "25.00 USD"
-      }
-    ]
-  },
-  {
-    "id": "takeuchi-03586-00142-rear-window",
-    "title": "Takeuchi 03586-00142 Rear Window",
-    "description": "Aftermarket green-tint tempered safety glass rear window for Takeuchi compact equipment. Direct replacement for OEM part number 03586-00142. Fits Takeuchi TB230. Specs: 4 mm thick, 828 mm max width, 932 mm height. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
-    "link": "https://www.flatearthequipment.com/parts/takeuchi-03586-00142-rear-window",
-    "image_link": "https://www.flatearthequipment.com/images/parts/glass/takeuchi-03586-00142-rear-window.jpg",
-    "price": "186.00 USD",
-    "brand": "Takeuchi",
-    "mpn": "03586-00142",
-    "condition": "new",
-    "availability": "in stock",
-    "google_product_category": "Business & Industrial > Construction > Construction Machinery Accessories",
-    "product_type": "Cab Glass",
-    "identifier_exists": "no",
-    "custom_label_0": "priority_cab_glass",
-    "shipping": [
-      {
-        "country": "US",
-        "service": "Ground",
-        "price": "31.00 USD"
       }
     ]
   },
@@ -11270,7 +11048,7 @@
     "description": "Aftermarket green-tint tempered safety glass door glass for Takeuchi compact equipment. Direct replacement for OEM part number 05586-03910. Fits Takeuchi TB260. Specs: 5 mm thick, 595 mm max width, 1495 mm height. Includes 2 mounting holes. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.",
     "link": "https://www.flatearthequipment.com/parts/takeuchi-05586-03910-door-glass",
     "image_link": "https://www.flatearthequipment.com/images/parts/glass/takeuchi-05586-03910-door-glass.jpg",
-    "price": "185.00 USD",
+    "price": "156.00 USD",
     "brand": "Takeuchi",
     "mpn": "05586-03910",
     "condition": "new",
@@ -11615,7 +11393,7 @@
     "description": "Aftermarket accelerator module for Taylor Dunn industrial and utility vehicles. Replaces OEM part number 62-033-48 (also listed as TA62-033-48).\n\nThrottle / accelerator control assembly with multi-pin connector, spring-return lever, and sealed black housing. Used on electric Taylor Dunn platforms that take this pedal module — confirm connector pinout and lever orientation for your model before install.\n\nFlat $37 shipping is added at checkout.",
     "link": "https://www.flatearthequipment.com/parts/taylor-dunn-62-033-48-accelerator-module",
     "image_link": "https://www.flatearthequipment.com/images/parts/taylor-dunn-62-033-48-accelerator-module.jpg",
-    "price": "271.00 USD",
+    "price": "296.00 USD",
     "brand": "Taylor Dunn",
     "mpn": "62-033-48",
     "condition": "new",
