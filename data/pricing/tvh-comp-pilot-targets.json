@@ -1,0 +1,110 @@
+[
+  {
+    "sku": "genie-44170-solenoid-brake",
+    "slug": "genie-44170-solenoid-brake",
+    "brand": "Genie",
+    "oem": "44170",
+    "category": "Hydraulics",
+    "source": "rt_scissor_qrg_2003034",
+    "bucket": "valves"
+  },
+  {
+    "sku": "genie-79154-solenoid-steering",
+    "slug": "genie-79154-solenoid-steering",
+    "brand": "Genie",
+    "oem": "79154",
+    "category": "Hydraulics",
+    "source": "rt_scissor_qrg_2003034",
+    "bucket": "valves"
+  },
+  {
+    "sku": "jlg-4641090-solenoid-steering",
+    "slug": "jlg-4641090-solenoid-steering",
+    "brand": "JLG",
+    "oem": "4641090",
+    "category": "Hydraulics",
+    "source": "rt_scissor_qrg_2003034",
+    "bucket": "valves"
+  },
+  {
+    "sku": "jlg-7012910-solenoid-dump",
+    "slug": "jlg-7012910-solenoid-dump",
+    "brand": "JLG",
+    "oem": "7012910",
+    "category": "Hydraulics",
+    "source": "rt_scissor_qrg_2003034",
+    "bucket": "valves"
+  },
+  {
+    "sku": "jlg-7021365-solenoid-steering",
+    "slug": "jlg-7021365-solenoid-steering",
+    "brand": "JLG",
+    "oem": "7021365",
+    "category": "Hydraulics",
+    "source": "rt_scissor_qrg_2003034",
+    "bucket": "valves"
+  },
+  {
+    "sku": "skyjack-153336-steer",
+    "slug": "skyjack-153336-steer",
+    "brand": "Skyjack",
+    "oem": "153336",
+    "category": "Hydraulics",
+    "source": "rt_scissor_qrg_2003034",
+    "bucket": "valves"
+  },
+  {
+    "sku": "bobcat-7006172-front-lower-windshield",
+    "slug": "bobcat-7006172-front-lower-windshield",
+    "brand": "Bobcat",
+    "oem": "7006172",
+    "category": "Cab Glass",
+    "source": "cpa_glass_qrg_2110094T",
+    "bucket": "glass"
+  },
+  {
+    "sku": "caterpillar-223-0609-door-center-panel",
+    "slug": "caterpillar-223-0609-door-center-panel",
+    "brand": "Caterpillar",
+    "oem": "223-0609",
+    "category": "Cab Glass",
+    "source": "cpa_glass_qrg_2110094T",
+    "bucket": "glass"
+  },
+  {
+    "sku": "case-khn30460-front-upper-windshield",
+    "slug": "case-khn30460-front-upper-windshield",
+    "brand": "Case",
+    "oem": "KHN30460",
+    "category": "Cab Glass",
+    "source": "cpa_glass_qrg_2110094T",
+    "bucket": "glass"
+  },
+  {
+    "sku": "john-deere-t242807-roof-glass",
+    "slug": "john-deere-t242807-roof-glass",
+    "brand": "John Deere",
+    "oem": "T242807",
+    "category": "Cab Glass",
+    "source": "cpa_glass_qrg_2110094T",
+    "bucket": "glass"
+  },
+  {
+    "sku": "kubota-rg158-46930-upper-door-glass",
+    "slug": "kubota-rg158-46930-upper-door-glass",
+    "brand": "Kubota",
+    "oem": "RG158-46930",
+    "category": "Cab Glass",
+    "source": "cpa_glass_qrg_2110094T",
+    "bucket": "glass"
+  },
+  {
+    "sku": "takeuchi-03586-00076-front-lower-window",
+    "slug": "takeuchi-03586-00076-front-lower-window",
+    "brand": "Takeuchi",
+    "oem": "03586-00076",
+    "category": "Cab Glass",
+    "source": "cpa_glass_qrg_2110094T",
+    "bucket": "glass"
+  }
+]
