@@ -134,8 +134,8 @@ export type WatchSkip = { row: WatchRow; reason: SkipReason };
 /** Consecutive parse/invalid failures before we stop paying to fetch a URL. */
 export const MAX_MISSES = 3;
 
-/** Consecutive affirmative sold-out readings required before a Buy Now row is pulled. */
-export const SOLD_OUT_STREAK_TO_PULL = 2;
+/** Affirmative identity-ok Mag sold-out readings required before a Buy Now row is pulled. */
+export const SOLD_OUT_STREAK_TO_PULL = 1;
 
 /**
  * Hard ceiling on automated pulls per run. A Magnasource markup change that broke the
@@ -145,8 +145,8 @@ export const MAX_PULLS_PER_RUN = 10;
 
 /**
  * Live Buy Now whose last Mag on-hand is at or below this refresh every weekday, even
- * when their price tier is not due. That is the actual sell-out window. Qty 0 still
- * Buy Now needs the confirming second sold-out read; Mag "1" is a flag, not a pull.
+ * when their price tier is not due. That is the actual sell-out window. A clean Mag
+ * sold-out (backorder / special-order / zero) is enough to pull; Mag "1" is a flag.
  */
 export const LOW_QTY_REFRESH_MAX = 3;
 

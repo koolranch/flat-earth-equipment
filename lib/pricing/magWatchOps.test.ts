@@ -6,6 +6,8 @@ import {
   auditSnapshot,
   publishEligibility,
   publishStub,
+  collectPullPlans,
+  partitionAutoPulls,
   pullEligibility,
   pullSoldOut,
   pulledMetadata,
@@ -99,11 +101,8 @@ function pricedRow(opts: {
     row({ magWatch: { last_availability: 'backorder', sold_out_streak: 1, last_checked_at: hoursAgo(6) } }),
     NOW
   );
-  assert.equal(oneRead.ok, false);
-  if (!oneRead.ok) {
-    assert.equal(oneRead.watching, true);
-    assert.match(oneRead.why, /needs one more confirming read/);
-  }
+  assert.equal(oneRead.ok, true);
+  if (oneRead.ok) assert.equal(oneRead.plan.streak, 1);
 
   const stale = pullEligibility(
     row({ magWatch: { last_availability: 'special_order', sold_out_streak: 3, last_checked_at: hoursAgo(24 * 4) } }),
@@ -147,6 +146,30 @@ function pricedRow(opts: {
     NOW
   );
   assert.equal(track.ok, true);
+}
+
+{
+  const fresh = (id: string) =>
+    row({
+      id,
+      magWatch: { last_availability: 'backorder', sold_out_streak: 1, last_checked_at: hoursAgo(1) },
+    });
+  const ten = collectPullPlans(Array.from({ length: 10 }, (_, i) => fresh(`id-${i}`)), NOW);
+  const underCap = partitionAutoPulls(ten, 10);
+  assert.equal(underCap.aborted, false);
+  assert.equal(underCap.toPull.length, 10);
+
+  const eleven = collectPullPlans(Array.from({ length: 11 }, (_, i) => fresh(`over-${i}`)), NOW);
+  const overCap = partitionAutoPulls(eleven, 10);
+  assert.equal(overCap.aborted, true);
+  assert.equal(overCap.toPull.length, 0);
+  assert.equal(overCap.held.length, 11);
+
+  const notSoldOut = collectPullPlans(
+    [row({ magWatch: { last_availability: 'limited', sold_out_streak: 4, last_checked_at: hoursAgo(1) } })],
+    NOW
+  );
+  assert.equal(notSoldOut.length, 0);
 }
 
 {
@@ -214,7 +237,7 @@ function pricedRow(opts: {
   assert.equal(mw.prior_sales_type, 'direct');
   assert.equal(mw.pulled_at, NOW.toISOString());
   assert.deepEqual(mw.hero, { x: 1 }, 'hero facts survive a pull');
-  assert.match(String(mw.pull_reason), /backorder on 2 consecutive reads/);
+  assert.match(String(mw.pull_reason), /backorder on a clean Mag read/);
 
   const relisted = relistedMetadata({ ...r, metadata: pulled }, NOW);
   assert.equal('availability_note' in relisted, false);
@@ -676,7 +699,14 @@ function stubRow(opts: {
 // Already Buy Now, limited stock, sold-out reads, stale reads, LTL, no sticker → skip.
 {
   assert.equal(publishEligibility(pricedRow({ ourSell: 120, mag: 100 }), { now: NOW }).kind, 'skip');
-  assert.equal(publishEligibility(stubRow({ availability: 'limited' }), { now: NOW }).kind, 'skip');
+  assert.equal(
+    publishEligibility(stubRow({ availability: 'limited', qty: 1 }), { now: NOW }).kind,
+    'skip'
+  );
+  const limitedEnough = publishEligibility(stubRow({ availability: 'limited', qty: 4 }), {
+    now: NOW,
+  });
+  assert.equal(limitedEnough.kind, 'ready');
   assert.equal(publishEligibility(stubRow({ availability: 'backorder' }), { now: NOW }).kind, 'skip');
   assert.equal(publishEligibility(stubRow({ ageHours: 24 * 4 }), { now: NOW }).kind, 'skip');
   assert.equal(publishEligibility(stubRow({ weightLb: 80 }), { now: NOW }).kind, 'skip');

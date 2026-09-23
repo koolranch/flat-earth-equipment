@@ -5,10 +5,13 @@
  * part, records the on-hand count and sticker onto
  * `parts.metadata.competitor_prices[magnasource]`, and writes a digest.
  *
- * This script never changes `sales_type`, `is_in_stock`, `price`, `image_url`, or any
- * Stripe object. Identity-ok Mag-in-stock heroes on photo-gap rows are downloaded into
- * the private image tray (capped) so `/parts-watch` can AI-clean + Approve. Taking a
- * sold-out SKU off Buy Now is a separate, capped step: `scripts/pricing/mag-watch-apply.ts`.
+ * Identity-ok Mag-in-stock heroes on photo-gap rows are downloaded into the private
+ * image tray (capped) so `/parts-watch` can AI-clean + Approve. A clean sold-out read
+ * on a live Buy Now row (backorder, special-order, or zero) pulls that row in the same
+ * run: quote-only, out of stock, Stripe price archived. Limited stock is never a pull.
+ * If more than 10 warehouse items qualify, the run pulls none of them and leaves the
+ * list on `/parts-watch`. Fetch failures never pull. The script does not change price
+ * or `image_url`.
  *
  * Usage:
  *   npx tsx scripts/pricing/mag-watch.ts --universe                  # counts only, no fetching
@@ -28,10 +31,13 @@
  *   --hero-intake-cap=N  Max tray downloads this run. Default 40 (32 quote-only / 8 Buy Now).
  *   --no-hero-intake     Record hero facts only; do not download into the tray.
  *   --fan-out-only    Copy stored Mag readings onto size-matched track PDPs (no fetch).
+ *   --from-failures=  Resume `fetch failed` SKUs from a prior digest JSON.
+ *   --offset=N        Skip the first N SKUs of that failures list (batching).
  */
 
 import fs from 'fs';
 import path from 'path';
+import Stripe from 'stripe';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import * as dotenv from 'dotenv';
 import {
@@ -59,6 +65,12 @@ import {
   type HeroIntakeBudget,
 } from '../../lib/pricing/magWatchLimits';
 import {
+  collectPullPlans,
+  partitionAutoPulls,
+  pullSoldOut,
+  type PullPlan,
+} from '../../lib/pricing/magWatchOps';
+import {
   isActionableReading,
   isSoldOutReading,
   parseMagSnapshot,
@@ -78,6 +90,7 @@ import {
   DEFAULT_QUOTE_CAP,
   LOW_QTY_REFRESH_MAX,
   MAX_MISSES,
+  MAX_PULLS_PER_RUN,
   SOLD_OUT_STREAK_TO_PULL,
   WATCH_ROW_SELECT,
   type WatchCandidate,
@@ -103,6 +116,8 @@ const DRIFT_ALERT_POINTS = 3;
 const CONCURRENCY = 2;
 const BASE_DELAY_MS = 1500;
 const JITTER_MS = 1500;
+const FETCH_RETRY_DELAY_MS = 5000;
+const FETCH_FAIL_ABORT = 8;
 
 type Args = {
   universe: boolean;
@@ -118,6 +133,10 @@ type Args = {
   heroIntakeCap: number;
   /** Re-check an explicit SKU list, ignoring slice and tier. */
   skus: string[] | null;
+  /** Resume `fetch failed` SKUs from a prior digest JSON. */
+  fromFailures: string | null;
+  /** Skip the first N SKUs of --skus / --from-failures (batching). */
+  offset: number;
   /** Copy stored Mag readings onto size-matched track PDPs. No Firecrawl. */
   fanOutOnly: boolean;
 };
@@ -140,6 +159,7 @@ function parseArgs(argv: string[]): Args {
   const quoteRaw = get('quote-cap');
   const intakeCapRaw = get('hero-intake-cap');
   const skusRaw = get('skus');
+  const offsetRaw = get('offset');
 
   const lowQtyOnly = argv.includes('--low-qty-only');
   const noLowQty = argv.includes('--no-low-qty');
@@ -159,12 +179,30 @@ function parseArgs(argv: string[]): Args {
     heroIntake: !argv.includes('--no-hero-intake') && !argv.includes('--dry-run'),
     heroIntakeCap: intakeCapRaw ? Number(intakeCapRaw) : DEFAULT_HERO_INTAKE_CAP,
     skus: skusRaw ? skusRaw.split(',').map((s) => s.trim()).filter(Boolean) : null,
+    fromFailures: get('from-failures'),
+    offset: offsetRaw ? Number(offsetRaw) : 0,
     fanOutOnly: argv.includes('--fan-out-only'),
   };
 }
 
 function sleep(ms: number): Promise<void> {
   return new Promise((r) => setTimeout(r, ms));
+}
+
+function loadFetchFailedSkus(digestPath: string): string[] {
+  const raw = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), digestPath), 'utf8')) as {
+    failures?: Array<{ sku?: string; slug?: string; reason?: string }>;
+  };
+  const seen = new Set<string>();
+  const skus: string[] = [];
+  for (const row of raw.failures ?? []) {
+    if (row.reason !== 'fetch failed') continue;
+    const key = (row.sku || row.slug || '').trim();
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    skus.push(key);
+  }
+  return skus;
 }
 
 function loadSkipOems(): Set<string> {
@@ -217,7 +255,12 @@ type MagPage = {
   ogImage: string | null;
 };
 
-async function scrapeMag(
+function isTransientFirecrawlError(error: unknown): boolean {
+  const message = error instanceof Error ? error.message : String(error);
+  return message === 'fetch failed' || /firecrawl (429|5\d\d)/.test(message);
+}
+
+async function scrapeMagOnce(
   url: string,
   apiKey: string,
   opts: { maxAge: number; waitFor?: number }
@@ -245,6 +288,20 @@ async function scrapeMag(
     markdown: json.data?.markdown ?? json.markdown ?? '',
     ogImage: typeof og === 'string' && og.length > 0 ? og : null,
   };
+}
+
+async function scrapeMag(
+  url: string,
+  apiKey: string,
+  opts: { maxAge: number; waitFor?: number }
+): Promise<MagPage> {
+  try {
+    return await scrapeMagOnce(url, apiKey, opts);
+  } catch (error) {
+    if (!isTransientFirecrawlError(error)) throw error;
+    await sleep(FETCH_RETRY_DELAY_MS);
+    return scrapeMagOnce(url, apiKey, opts);
+  }
 }
 
 /**
@@ -410,6 +467,13 @@ type Digest = {
     intake_failed: number;
     intake_skipped_cap: number;
   };
+  auto_pull: {
+    aborted: boolean;
+    identities: number;
+    pulled: Array<{ sku: string; note: string }>;
+    failed: Array<{ sku: string; note: string }>;
+    held: string[];
+  };
 };
 
 function proposedSell(row: WatchRow, magPrice: number): number | null {
@@ -457,6 +521,7 @@ function buildDigest(
       intake_failed: meta.intake.failed,
       intake_skipped_cap: meta.intake.skippedCap,
     },
+    auto_pull: { aborted: false, identities: 0, pulled: [], failed: [], held: [] },
   };
 
   const unverified = new Set<string>();
@@ -572,6 +637,17 @@ function buildDigest(
   return digest;
 }
 
+function pullLine(digest: Digest, row: DigestRow): string {
+  const sku = String(row.sku ?? '');
+  if (!row.ready_to_pull) return ' · not ready';
+  if (digest.auto_pull.aborted) return ' · held — over the 10-item pull cap';
+  if (digest.auto_pull.pulled.some((item) => item.sku === sku)) {
+    return digest.dry_run ? ' · would pull' : ' · **pulled**';
+  }
+  if (digest.auto_pull.failed.some((item) => item.sku === sku)) return ' · pull failed';
+  return '';
+}
+
 function renderDigest(digest: Digest): string {
   const lines: string[] = [];
   const money = (v: unknown) => (v == null ? '—' : `$${Number(v).toFixed(2)}`);
@@ -591,7 +667,7 @@ function renderDigest(digest: Digest): string {
   if (!digest.pull_candidates.length) lines.push('None.');
   for (const r of digest.pull_candidates) {
     lines.push(
-      `- **${r.brand} ${r.oem}** (${r.sku}) sell ${money(r.our_sell)} · ${r.availability} · ETA ${r.backorder_eta ?? 'unstated'} · streak ${r.sold_out_streak}/${SOLD_OUT_STREAK_TO_PULL}${r.ready_to_pull ? ' · **ready to pull**' : ' · first sighting, flag only'}`
+      `- **${r.brand} ${r.oem}** (${r.sku}) sell ${money(r.our_sell)} · ${r.availability} · ETA ${r.backorder_eta ?? 'unstated'} · streak ${r.sold_out_streak}/${SOLD_OUT_STREAK_TO_PULL}${pullLine(digest, r)}`
     );
   }
   lines.push('');
@@ -719,18 +795,29 @@ async function main() {
 
   // An explicit SKU list is a targeted re-check — a second confirming read on rows the
   // last run flagged. Slice and tier do not apply.
-  if (args.skus) {
-    const wanted = new Set(args.skus.map((s) => s.toLowerCase()));
-    const queue = unique.filter(
-      (c) => wanted.has(c.row.sku.toLowerCase()) || wanted.has(c.row.slug.toLowerCase())
-    );
-    const missing = args.skus.filter(
-      (s) =>
-        !queue.some(
-          (c) => c.row.sku.toLowerCase() === s.toLowerCase() || c.row.slug.toLowerCase() === s.toLowerCase()
-        )
-    );
+  const resumeSkus = args.fromFailures
+    ? loadFetchFailedSkus(args.fromFailures)
+    : args.skus;
+  if (resumeSkus) {
+    const byKey = new Map<string, (typeof unique)[number]>();
+    for (const c of unique) {
+      byKey.set(c.row.sku.toLowerCase(), c);
+      byKey.set(c.row.slug.toLowerCase(), c);
+    }
+    const matched: typeof unique = [];
+    const missing: string[] = [];
+    for (const sku of resumeSkus) {
+      const hit = byKey.get(sku.toLowerCase());
+      if (hit) matched.push(hit);
+      else missing.push(sku);
+    }
     if (missing.length) console.warn(`\nNot found in scope: ${missing.join(', ')}`);
+    const start = Math.max(0, args.offset);
+    const end = args.limit != null ? start + args.limit : matched.length;
+    const queue = matched.slice(start, end);
+    console.log(
+      `\nResume ${args.fromFailures ? 'fetch-failed' : 'SKU'} list · ${matched.length} in scope · ${queue.length} this batch (offset ${start})`
+    );
     await run(queue, ['A'], universe, args, supabase, all);
     return;
   }
@@ -768,6 +855,76 @@ async function main() {
   await run(queue, tiers, universe, args, supabase, all);
 }
 
+function rowsReadyToPull(readings: Reading[], catalog: WatchRow[], dryRun: boolean): WatchRow[] {
+  const rows: WatchRow[] = [];
+  for (const { candidate, snapshot, hero } of readings) {
+    if (!snapshot?.identityOk || !isSoldOutReading(snapshot.availability)) continue;
+    const metadata = buildMetadata(candidate.row, candidate, snapshot, hero);
+    const source: WatchRow = { ...candidate.row, metadata };
+    rows.push(source);
+    for (const sibling of trackFanOutTargets(source, catalog)) {
+      const live = dryRun ? null : catalog.find((row) => row.id === sibling.id);
+      rows.push(
+        live ?? { ...sibling, metadata: applyTrackFanOutMetadata(sibling, source, metadata) }
+      );
+    }
+  }
+  return rows;
+}
+
+async function autoPullSoldOut(
+  plans: PullPlan[],
+  supabase: SupabaseClient,
+  dryRun: boolean
+): Promise<Digest['auto_pull']> {
+  const partition = partitionAutoPulls(plans, MAX_PULLS_PER_RUN);
+  const result: Digest['auto_pull'] = {
+    aborted: partition.aborted,
+    identities: partition.identities,
+    pulled: [],
+    failed: [],
+    held: partition.held.map((plan) => plan.row.sku),
+  };
+  if (partition.aborted) {
+    console.error(
+      `\nAUTO-PULL HELD: ${partition.identities} warehouse items sold out (cap ${MAX_PULLS_PER_RUN}). Nothing pulled — review them on /parts-watch.`
+    );
+    return result;
+  }
+  if (!partition.toPull.length) return result;
+
+  if (dryRun) {
+    for (const plan of partition.toPull) {
+      result.pulled.push({ sku: plan.row.sku, note: 'dry run' });
+      console.log(`  would pull ${plan.row.sku} · ${plan.availability} · streak ${plan.streak}`);
+    }
+    return result;
+  }
+
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) {
+    result.failed = partition.toPull.map((plan) => ({ sku: plan.row.sku, note: 'STRIPE_SECRET_KEY missing' }));
+    console.error('\nAUTO-PULL SKIPPED: STRIPE_SECRET_KEY missing. Rows stay Buy Now.');
+    return result;
+  }
+  const stripe = new Stripe(key);
+  for (const plan of partition.toPull) {
+    const pulled = await pullSoldOut(stripe, supabase, plan, {
+      dryRun: false,
+      source: 'cli',
+      note: 'weekday auto-pull on a clean Mag sold-out read',
+    });
+    if (pulled.ok) {
+      result.pulled.push({ sku: plan.row.sku, note: pulled.note });
+      console.log(`  pulled ${plan.row.sku}: ${pulled.note}`);
+    } else {
+      result.failed.push({ sku: plan.row.sku, note: pulled.note });
+      console.error(`  pull failed ${plan.row.sku}: ${pulled.note}`);
+    }
+  }
+  return result;
+}
+
 async function run(
   queue: WatchCandidate[],
   tiers: WatchTier[],
@@ -788,6 +945,8 @@ async function run(
 
   const readings: Reading[] = [];
   let done = 0;
+  let abortRun = false;
+  let consecutiveFetchFails = 0;
   const skipOems = loadSkipOems();
   const quoteReserve = Math.min(HERO_INTAKE_QUOTE_RESERVE, args.heroIntakeCap);
   const intakeBudget: HeroIntakeBudget = args.heroIntake
@@ -797,6 +956,7 @@ async function run(
 
   const worker = async (lane: number) => {
     for (let i = lane; i < queue.length; i += CONCURRENCY) {
+      if (abortRun) return;
       const candidate = queue[i];
       // Tier A and the ≤3 sell-out overlay need a live page; slower tiers may reuse cache.
       const maxAge = candidate.tier === 'A' || needsLowQtyRefresh(candidate) ? 0 : 6 * 60 * 60 * 1000;
@@ -820,6 +980,7 @@ async function run(
         const hero = snapshot.identityOk
           ? heroCandidateFromOgImage(page.ogImage, candidate.magPartId)
           : null;
+        consecutiveFetchFails = 0;
         readings.push({ candidate, snapshot, hero });
         done++;
         const heroNote = hero ? (hero.identityOk ? ' · hero ✓' : ' · hero ✗ id') : '';
@@ -896,6 +1057,18 @@ async function run(
         process.stdout.write(
           `[${done}/${queue.length}] ${candidate.brand} ${candidate.oem} → ERROR ${(e as Error).message.slice(0, 60)}\n`
         );
+        if (isTransientFirecrawlError(e)) {
+          consecutiveFetchFails++;
+          if (consecutiveFetchFails >= FETCH_FAIL_ABORT) {
+            abortRun = true;
+            process.stdout.write(
+              `\nFirecrawl cliff after ${FETCH_FAIL_ABORT} consecutive fetch failures — stopping remaining queue.\n`
+            );
+            return;
+          }
+        } else {
+          consecutiveFetchFails = 0;
+        }
       }
       await sleep(BASE_DELAY_MS + Math.random() * JITTER_MS);
     }
@@ -910,11 +1083,18 @@ async function run(
     universe,
     intake,
   });
+  const plans = collectPullPlans(rowsReadyToPull(readings, catalog, args.dryRun));
+  digest.auto_pull = await autoPullSoldOut(plans, supabase, args.dryRun);
 
   const outDir = path.resolve(process.cwd(), 'docs/projects/tvh-inventory-watch/snapshots');
   fs.mkdirSync(outDir, { recursive: true });
   const stamp = new Date().toISOString().slice(0, 10);
-  const suffix = `${args.skus ? '-recheck' : ''}${args.lowQtyOnly ? '-lowqty' : ''}${
+  const resumeTag = args.fromFailures
+    ? `-resume${args.offset ? `-${args.offset}` : ''}`
+    : args.skus
+      ? '-recheck'
+      : '';
+  const suffix = `${resumeTag}${args.lowQtyOnly ? '-lowqty' : ''}${
     args.tiers ? `-${args.tiers.join('')}` : ''
   }${args.dryRun ? '-dryrun' : ''}`;
   const jsonPath = path.join(outDir, `${stamp}-${args.slice}${suffix}.json`);
@@ -925,9 +1105,13 @@ async function run(
   console.log(`\n${renderDigest(digest)}`);
   console.log(`Digest: ${path.relative(process.cwd(), mdPath)}`);
   console.log(`JSON:   ${path.relative(process.cwd(), jsonPath)}`);
-  if (digest.pull_candidates.some((p) => p.ready_to_pull)) {
+  if (digest.auto_pull.aborted) {
     console.log(
-      '\nPull candidates are ready. Review the digest, then run:\n  npx tsx scripts/pricing/mag-watch-apply.ts --dry-run'
+      `\n${digest.auto_pull.held.length} sold-out rows were left on /parts-watch because ${digest.auto_pull.identities} warehouse items qualified (cap ${MAX_PULLS_PER_RUN}).`
+    );
+  } else if (digest.auto_pull.pulled.length && !args.dryRun) {
+    console.log(
+      '\nPulled rows leave Shopping after the Merchant feed is rebuilt, committed, and deployed.'
     );
   }
 }

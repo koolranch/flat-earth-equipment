@@ -33,16 +33,23 @@ import {
   isBuyNow,
   isSkip,
   soldOutStreak,
+  MAX_PULLS_PER_RUN,
   SOLD_OUT_STREAK_TO_PULL,
   WATCH_ROW_SELECT,
   type WatchRow,
 } from './magWatchUniverse';
-import { isRubberTrackCategory, isTrackStockRow } from './trackMagStock';
+import { isRubberTrackCategory, isTrackStockRow, pullCapIdentity } from './trackMagStock';
 
 export { MAX_PUBLISH_BATCH };
 
 /** A reading older than this is too stale to act on. */
 export const MAX_READING_AGE_DAYS = 3;
+
+/**
+ * Mag 1–2 is too thin to start a Buy Now (and Mag "1" has been wrong-low before).
+ * Qty 3+ is enough to Publish even when the page still says Limited Availability.
+ */
+export const MIN_PUBLISH_QTY = 3;
 
 export type OpsSource = 'cli' | 'dashboard';
 export type OpsAction = 'pull' | 'relist' | 'reprice' | 'publish' | 'hero_approve' | 'hero_reject';
@@ -141,6 +148,40 @@ export function pullEligibility(row: WatchRow, now = new Date()): PullEligibilit
   }
 
   return { ok: true, plan: { row, availability, streak, readingAgeDays } };
+}
+
+/** Rows that pass the pull gate, one plan per part. */
+export function collectPullPlans(rows: WatchRow[], now = new Date()): PullPlan[] {
+  const plans: PullPlan[] = [];
+  const seen = new Set<string>();
+  for (const row of rows) {
+    if (seen.has(row.id)) continue;
+    const eligibility = pullEligibility(row, now);
+    if (!eligibility.ok) continue;
+    seen.add(row.id);
+    plans.push(eligibility.plan);
+  }
+  return plans;
+}
+
+export type AutoPullPartition = {
+  /** True when too many warehouse items qualify. Nothing is pulled. */
+  aborted: boolean;
+  toPull: PullPlan[];
+  held: PullPlan[];
+  identities: number;
+};
+
+/**
+ * A parser that marks the catalog sold out must not empty it. Over the cap, pull
+ * nothing and leave every candidate on the dashboard.
+ */
+export function partitionAutoPulls(plans: PullPlan[], cap = MAX_PULLS_PER_RUN): AutoPullPartition {
+  const identities = new Set(plans.map((plan) => pullCapIdentity(plan.row))).size;
+  if (plans.length > 0 && identities > cap) {
+    return { aborted: true, toPull: [], held: plans, identities };
+  }
+  return { aborted: false, toPull: plans, held: [], identities };
 }
 
 export type RelistEligibility =
@@ -358,14 +399,15 @@ export function publishEligibility(
 
   const mag = magReading(row);
   if (mag.price === null) return { kind: 'skip', why: 'no vendor sticker on file' };
-  if (mag.availability !== 'in_stock') {
+  const qty = magQty(row);
+  if (mag.availability === 'limited' && (qty === null || qty < MIN_PUBLISH_QTY)) {
     return {
       kind: 'skip',
-      why:
-        mag.availability === 'limited'
-          ? 'vendor shows limited on hand — not enough for a new Buy Now'
-          : `vendor reads ${mag.availability ?? 'unknown'}`,
+      why: 'vendor shows 1–2 on hand — not enough for a new Buy Now',
     };
+  }
+  if (mag.availability !== 'in_stock' && mag.availability !== 'limited') {
+    return { kind: 'skip', why: `vendor reads ${mag.availability ?? 'unknown'}` };
   }
   const age = ageDays(mag.fetchedAt ?? undefined, now.getTime());
   if (age > MAX_READING_AGE_DAYS) {
@@ -398,7 +440,7 @@ export function publishEligibility(
   const plan: PublishPlan = {
     row,
     magPrice: mag.price,
-    qtyOnHand: magQty(row),
+    qtyOnHand: qty,
     proposedSell: result.sellPrice,
     cost,
     marginPct: cost === null ? null : Math.round(result.marginPct * 1000) / 10,
@@ -431,7 +473,7 @@ export function pulledMetadata(
     mag_watch: {
       ...watchMeta(row),
       pulled_at: now.toISOString(),
-      pull_reason: `magnasource ${plan.availability} on ${plan.streak} consecutive reads`,
+      pull_reason: `magnasource ${plan.availability} on a clean Mag read`,
       prior_stripe_price_id: archivedPriceId ?? row.stripe_price_id ?? null,
       prior_sales_type: row.sales_type ?? 'direct',
     },

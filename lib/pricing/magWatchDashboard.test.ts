@@ -95,7 +95,7 @@ function meta(opts: {
       ...(opts.pulledAt
         ? {
             pulled_at: opts.pulledAt,
-            pull_reason: 'magnasource backorder on 2 consecutive reads',
+            pull_reason: 'magnasource backorder on a clean Mag read',
             prior_sales_type: 'direct',
             prior_stripe_price_id:
               'priorStripePriceId' in opts ? opts.priorStripePriceId : 'price_archived_1',
@@ -150,7 +150,7 @@ function meta(opts: {
 }
 
 // ---------------------------------------------------------------------------
-// Pull queue: a second sold-out read arms the pull, the first only watches.
+// Pull queue: a clean Mag sold-out arms the pull; quote-only stays out.
 // ---------------------------------------------------------------------------
 {
   const rows = [
@@ -181,7 +181,7 @@ function meta(opts: {
   assert.equal(d.pullQueue.length, 2, 'quote-only sold-out rows stay out of the pull queue');
 
   const ready = d.pullQueue.filter((p) => p.readyToPull);
-  assert.equal(ready.length, 1);
+  assert.equal(ready.length, 2);
   assert.equal(ready[0].oem, '333/D1111');
   assert.equal(ready[0].streak, 2);
   assert.equal(ready[0].backorderEta, 'Oct 2 – Oct 9');
@@ -189,8 +189,8 @@ function meta(opts: {
   assert.equal(d.pullQueue[0].readyToPull, true, 'ready rows sort first');
 
   const watching = d.pullQueue.filter((p) => !p.readyToPull);
-  assert.equal(watching.length, 1);
-  assert.equal(watching[0].oem, '333/D2222');
+  assert.equal(watching.length, 0);
+  assert.equal(ready[1].oem, '333/D2222');
 }
 
 {
@@ -380,7 +380,7 @@ function meta(opts: {
         imageUrl: LOGO,
         metadata: meta({ price: 900, qty: 3 }),
       }),
-      // Limited on hand → skip, not enough for a new Buy Now.
+      // Mag 1–2 limited → skip. Qty ≥ 3 limited is allowed (tested below).
       row({
         oem: '333/PUB4',
         salesType: 'quote_only',
@@ -415,8 +415,24 @@ function meta(opts: {
   }
   const limitedRow = d.convertible[3];
   assert.equal(limitedRow.publish.kind, 'skip');
-  if (limitedRow.publish.kind === 'skip') assert.match(limitedRow.publish.why, /limited/);
+  if (limitedRow.publish.kind === 'skip') assert.match(limitedRow.publish.why, /1–2 on hand/);
   assert.equal(d.limited.length, 1, 'limited row also surfaces in the Limited review list');
+}
+
+{
+  const d = buildWatchDashboard(
+    [
+      row({
+        oem: '557/60210',
+        salesType: 'quote_only',
+        price: 0,
+        imageUrl: REAL,
+        metadata: meta({ price: 2106.85, qty: 4, availability: 'limited', weightLb: 40 }),
+      }),
+    ],
+    NOW
+  );
+  assert.equal(d.convertible[0].publish.kind, 'ready');
 }
 
 {

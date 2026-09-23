@@ -39,13 +39,14 @@ or supplier special-order reading can take a SKU off Buy Now.
 # Scope counts only. No network calls, no writes.
 npx tsx scripts/pricing/mag-watch.ts --universe
 
-# Read pages, record snapshots, write a digest. Never changes price or availability.
+# Read pages, record snapshots, write a digest. A clean sold-out read pulls Buy Now
+# in the same run (cap 10 warehouse items; over the cap, pull none). Never changes price.
 npx tsx scripts/pricing/mag-watch.ts --slice=core-six --tier=A,B,C
 npx tsx scripts/pricing/mag-watch.ts                       # tiers due today + ≤3 overlay
 npx tsx scripts/pricing/mag-watch.ts --tier=D              # stub catch-up only
 npx tsx scripts/pricing/mag-watch.ts --low-qty-only        # sell-out window only
 
-# The only automated write path: pull sold-out SKUs off Buy Now.
+# Manual pull of whatever is already eligible, including a reviewed over-cap backlog.
 npx tsx scripts/pricing/mag-watch-apply.ts --dry-run
 npx tsx scripts/pricing/mag-watch-apply.ts
 
@@ -83,7 +84,7 @@ row is retired (`mag_watch.miss_count`) so we stop paying to fetch it.
 
 | Magnasource reading | Action | Automated |
 |---|---|---|
-| Zero on hand / backorder / special-order, **Buy Now row** | Pull off Buy Now | Yes, after 2 consecutive reads |
+| Zero on hand / backorder / special-order, **Buy Now row** | Pull off Buy Now | Yes, on a clean identity-ok Mag read |
 | Same, quote-only row | Snapshot only | Snapshot |
 | Limited / 1–2 on hand | Digest flag. Never disables | Flag only |
 | Sticker moved so our sell is no longer ~5% under | Digest row with current sell, Mag, and proposed sell | No — propose only |
@@ -108,7 +109,7 @@ Flipping `sales_type` alone does not stop a sale. `/api/checkout` trusts a clien
 4. `stripe_price_id` → `null`, with the old id saved to
    `metadata.mag_watch.prior_stripe_price_id` so a relist restores it exactly
 
-Guardrails: two consecutive affirmative sold-out readings, a reading no older than 3 days,
+Guardrails: one clean identity-ok sold-out reading (unknown / fetch failed / invalid_pn never pull), a reading no older than 3 days,
 Stripe price ownership verified against `price_cents` and `metadata.sku` before archiving,
 and a hard cap of 10 pulls per run. If more rows than that qualify, the run **aborts** —
 that many at once means the page markup changed and the parser is wrong, not that the

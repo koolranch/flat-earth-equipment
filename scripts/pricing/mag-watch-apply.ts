@@ -1,6 +1,6 @@
 /**
- * Act on Magnasource watch findings from the command line. The only automated action is
- * pulling a sold-out SKU off Buy Now; relist is one SKU at a time after a stock confirm.
+ * Manual Magnasource pull and relist. The weekday watch already pulls a clean sold-out
+ * read. Use this for a reviewed backlog, or to relist one SKU after a stock confirm.
  *
  * The operations themselves live in `lib/pricing/magWatchOps.ts` and are shared with the
  * `/parts-watch` dashboard, so the gate is identical in both places. This file adds the
@@ -21,6 +21,7 @@ import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import * as dotenv from 'dotenv';
 import {
   fetchWatchRowBySku,
+  partitionAutoPulls,
   pullEligibility,
   pullSoldOut,
   relist,
@@ -28,7 +29,6 @@ import {
   type PullPlan,
 } from '../../lib/pricing/magWatchOps';
 import { MAX_PULLS_PER_RUN, WATCH_ROW_SELECT, type WatchRow } from '../../lib/pricing/magWatchUniverse';
-import { pullCapIdentity } from '../../lib/pricing/trackMagStock';
 
 dotenv.config({ path: path.resolve(process.cwd(), '.env.production.local') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
@@ -120,19 +120,19 @@ async function main() {
     return;
   }
 
-  const capKeys = new Set(plans.map((p) => pullCapIdentity(p.row)));
-  if (capKeys.size > cap) {
+  const partition = partitionAutoPulls(plans, cap);
+  if (partition.aborted) {
     console.error(
-      `\nABORT: ${plans.length} rows (${capKeys.size} warehouse items) qualify but the per-run cap is ${cap}.\n` +
+      `\nABORT: ${plans.length} rows (${partition.identities} warehouse items) qualify but the per-run cap is ${cap}.\n` +
         'That many at once usually means the Magnasource page changed and the parser is wrong, ' +
-        'not that the catalog sold out. Review the latest digest, then re-run with ' +
-        `--override-cap=${capKeys.size} if the readings are real.`
+        'not that the catalog sold out. Nothing was pulled. Review the latest digest, then re-run with ' +
+        `--override-cap=${partition.identities} if the readings are real.`
     );
     process.exit(2);
   }
 
-  console.log(`\n${dryRun ? 'DRY RUN — ' : ''}pulling ${plans.length} row(s)\n`);
-  for (const plan of plans) {
+  console.log(`\n${dryRun ? 'DRY RUN — ' : ''}pulling ${partition.toPull.length} row(s)\n`);
+  for (const plan of partition.toPull) {
     const result = await pullSoldOut(stripe, supabase, plan, { dryRun, source: 'cli' });
     console.log(`  ${result.ok ? 'ok' : 'FAIL'} ${plan.row.sku}: ${result.note}`);
     if (result.auditError) console.warn(`    audit row failed: ${result.auditError}`);
