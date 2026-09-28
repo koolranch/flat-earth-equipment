@@ -263,14 +263,25 @@ export default function CartPage() {
 
               <div className="flex items-center gap-2">
                 <button
-                  onClick={() => updateQuantity(item.id, Math.max(0, item.quantity - 1))}
+                  onClick={() => {
+                    const pairOnly =
+                      item.metadata?.pair_only === true ||
+                      item.metadata?.pair_only === 'true';
+                    const next = item.quantity - (pairOnly ? 2 : 1);
+                    updateQuantity(item.id, next < (pairOnly ? 2 : 1) ? 0 : next);
+                  }}
                   className="px-2 py-1 border rounded hover:bg-gray-100"
                 >
                   -
                 </button>
                 <span className="w-8 text-center">{item.quantity}</span>
                 <button
-                  onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                  onClick={() => {
+                    const pairOnly =
+                      item.metadata?.pair_only === true ||
+                      item.metadata?.pair_only === 'true';
+                    updateQuantity(item.id, item.quantity + (pairOnly ? 2 : 1));
+                  }}
                   className="px-2 py-1 border rounded hover:bg-gray-100"
                 >
                   +

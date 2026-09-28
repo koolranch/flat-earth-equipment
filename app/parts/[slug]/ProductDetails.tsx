@@ -168,6 +168,8 @@ export default function ProductDetails({
   const { addItem } = useCart();
 
   const partMetadata = (part.metadata as Record<string, unknown> | null) ?? {};
+  const pairOnly =
+    partMetadata.pair_only === true || partMetadata.pair_only === 'true';
   const currentGrade =
     typeof partMetadata.grade === 'string' ? partMetadata.grade : null;
   const currentGradeLabel =
@@ -250,6 +252,7 @@ export default function ProductDetails({
       ? { is_glass_accessory: true }
       : {}),
     ...(part.category_slug ? { category_slug: part.category_slug } : {}),
+    ...(pairOnly ? { pair_only: true } : {}),
   };
 
   const [buyingNow, setBuyingNow] = useState(false);
@@ -462,20 +465,22 @@ export default function ProductDetails({
     <div className="mb-6">
       <label className="block text-sm font-medium text-gray-700 mb-2">Quantity</label>
       <div className="flex gap-2">
-        <button
-          type="button"
-          onClick={() => setQuantity(1)}
-          className={`flex-1 border-2 rounded-lg px-4 py-3 text-left transition-colors ${
-            quantity === 1
-              ? 'border-canyon-rust bg-orange-50'
-              : 'border-gray-200 hover:border-gray-300'
-          }`}
-        >
-          <div className="font-semibold text-slate-900">
-            {isRubberTrack ? 'Single Track' : 'Single Fork'}
-          </div>
-          <div className="text-sm text-gray-600">${part.price.toFixed(2)}</div>
-        </button>
+        {!pairOnly && (
+          <button
+            type="button"
+            onClick={() => setQuantity(1)}
+            className={`flex-1 border-2 rounded-lg px-4 py-3 text-left transition-colors ${
+              quantity === 1
+                ? 'border-canyon-rust bg-orange-50'
+                : 'border-gray-200 hover:border-gray-300'
+            }`}
+          >
+            <div className="font-semibold text-slate-900">
+              {isRubberTrack ? 'Single Track' : 'Single Fork'}
+            </div>
+            <div className="text-sm text-gray-600">${part.price.toFixed(2)}</div>
+          </button>
+        )}
         <button
           type="button"
           onClick={() => setQuantity(2)}
@@ -493,7 +498,9 @@ export default function ProductDetails({
         <p className="text-xs text-gray-500 mt-2">
           {isRubberTrack
             ? 'Recommended — running a new track opposite a worn one shortens the life of both.'
-            : 'Recommended — most operators replace both forks. Freight is $250 per shipment and covers the pair.'}
+            : `Recommended — most operators replace both forks. Freight is $${
+                pairFreight > 0 ? pairFreight.toFixed(0) : '250'
+              } per shipment and covers the pair.`}
         </p>
       )}
     </div>

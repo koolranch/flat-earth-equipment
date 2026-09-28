@@ -41,17 +41,24 @@ export function stripSkuSuffix(sku: string): string {
   return sku.replace(SKU_SUFFIX_RE, '');
 }
 
+/** Class/size forks use a house SKU or a Helmar catalog number, not an OEM PN. */
+function isInternalForkIdentifier(value: string): boolean {
+  return /^FEE-F\d/i.test(value) || /^FORK-\d/i.test(value);
+}
+
 export function getCustomerPartNumber(input: {
   brand?: string | null;
   sku?: string | null;
   oemReference?: string | null;
 }): string {
   if (input.oemReference?.trim()) {
-    return stripVendorCatalogPrefix(input.oemReference, input.brand);
+    const oem = stripVendorCatalogPrefix(input.oemReference, input.brand);
+    if (!isInternalForkIdentifier(oem)) return oem;
   }
 
   if (input.sku?.trim()) {
-    return stripVendorCatalogPrefix(stripSkuSuffix(input.sku), input.brand);
+    const sku = stripVendorCatalogPrefix(stripSkuSuffix(input.sku), input.brand);
+    if (!isInternalForkIdentifier(sku)) return sku;
   }
 
   return '';
