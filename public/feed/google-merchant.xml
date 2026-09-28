@@ -489,7 +489,7 @@
       <title>JCB 15/M04040 Brake Caliper Park</title>
       <description>Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 15/M04040.</description>
       <link>https://www.flatearthequipment.com/parts/15M04040</link>
-      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp</g:image_link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/15M04040.jpg</g:image_link>
       <g:price>669.00 USD</g:price>
       <g:brand>JCB</g:brand>
       <g:mpn>15/M04040</g:mpn>
@@ -506,7 +506,7 @@
       <description>Aftermarket Hayes brake caliper for JCB equipment. Replaces OEM 15/M4039.</description>
       <link>https://www.flatearthequipment.com/parts/15M4039</link>
       <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp</g:image_link>
-      <g:price>559.00 USD</g:price>
+      <g:price>679.00 USD</g:price>
       <g:brand>JCB</g:brand>
       <g:mpn>15/M4039</g:mpn>
       <g:condition>new</g:condition>
@@ -1119,7 +1119,7 @@ Flat shipping is added at checkout per the standard JCB parts freight bands.</de
       <title>JCB 320/05763 Filter - Air</title>
       <description>Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 320/05763.</description>
       <link>https://www.flatearthequipment.com/parts/32005763</link>
-      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp</g:image_link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/32005763.jpg</g:image_link>
       <g:price>107.32 USD</g:price>
       <g:brand>JCB</g:brand>
       <g:mpn>320/05763</g:mpn>
@@ -1147,27 +1147,11 @@ Flat shipping is added at checkout per the standard JCB parts freight bands.</de
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
-      <g:id>32006160</g:id>
-      <title>JCB 320/06160 TURBO 74KW MT3 (ACROSS)</title>
-      <description>High-quality replacement turbo 74kw mt3 (across) for JCB equipment. Direct fit for OEM part number 320/06160.</description>
-      <link>https://www.flatearthequipment.com/parts/32006160</link>
-      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp</g:image_link>
-      <g:price>1309.00 USD</g:price>
-      <g:brand>JCB</g:brand>
-      <g:mpn>320/06160</g:mpn>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
-      <g:product_type>JCB Engine Parts</g:product_type>
-      <g:custom_label_0>priority_jcb</g:custom_label_0>
-    </item>
-    <item>
       <g:id>32006165</g:id>
       <title>JCB 320/06165 EGR COOLER</title>
       <description>High-quality replacement egr cooler for JCB equipment. Direct fit for OEM part number 320/06165.</description>
       <link>https://www.flatearthequipment.com/parts/32006165</link>
-      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp</g:image_link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/32006165.jpg</g:image_link>
       <g:price>659.00 USD</g:price>
       <g:brand>JCB</g:brand>
       <g:mpn>320/06165</g:mpn>
@@ -1227,22 +1211,6 @@ Flat shipping is added at checkout per the standard JCB parts freight bands.</de
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
-      <g:id>32006377</g:id>
-      <title>JCB 320/06377 TURBO</title>
-      <description>High-quality replacement turbo for JCB equipment. Direct fit for OEM part number 320/06377.</description>
-      <link>https://www.flatearthequipment.com/parts/32006377</link>
-      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/32006377.jpg</g:image_link>
-      <g:price>5340.00 USD</g:price>
-      <g:brand>JCB</g:brand>
-      <g:mpn>320/06377</g:mpn>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
-      <g:product_type>JCB Engine Parts</g:product_type>
-      <g:custom_label_0>priority_jcb</g:custom_label_0>
-    </item>
-    <item>
       <g:id>32006548</g:id>
       <title>JCB 320/06548 ABI HP PIPES - T4</title>
       <description>High-quality replacement abi hp pipes - t4 for JCB equipment. Direct fit for OEM part number 320/06548.</description>
@@ -1279,7 +1247,7 @@ Flat shipping is added at checkout per the standard JCB parts freight bands.</de
       <title>JCB 320/06872 FUEL RAIL-T4-MICRODRILLED</title>
       <description>High-quality replacement fuel rail-t4-microdrilled for JCB equipment. Direct fit for OEM part number 320/06872.</description>
       <link>https://www.flatearthequipment.com/parts/32006872</link>
-      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp</g:image_link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/32006872.jpg</g:image_link>
       <g:price>898.87 USD</g:price>
       <g:brand>JCB</g:brand>
       <g:mpn>320/06872</g:mpn>
@@ -2618,7 +2586,7 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <title>JCB 32-925752 Filter - Air</title>
       <description>Aftermarket replacement part for JCB industrial and construction machinery. Replaces OEM part number 32-925752.</description>
       <link>https://www.flatearthequipment.com/parts/32-925752</link>
-      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp</g:image_link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/32-925752.jpg</g:image_link>
       <g:price>215.17 USD</g:price>
       <g:brand>JCB</g:brand>
       <g:mpn>32-925752</g:mpn>
@@ -2918,6 +2886,26 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
+      <g:id>332C5000</g:id>
+      <title>JCB 332/C5000 RADIATOR TIII MECH ENG</title>
+      <description>Aftermarket radiator tiii mech eng for JCB part number 332/C5000 — a direct cross-reference to the OEM specification. Commonly used in the cab, latch, and accessory group on JCB Loadall telehandlers and JS series excavators.
+
+Matches JCB OEM part number 332/C5000. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/332C5000</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/332C5000.jpg</g:image_link>
+      <g:price>1129.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>332/C5000</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Cooling</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
       <g:id>332C5247</g:id>
       <title>JCB 332/C5247 Mirror - Exterior</title>
       <description>Aftermarket replacement for JCB part number 332/C5247 — a direct cross-reference to the OEM specification. Commonly used in the cab, latch, and accessory group on JCB Loadall telehandlers and JS series excavators.
@@ -2935,6 +2923,26 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:identifier_exists>no</g:identifier_exists>
       <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
       <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>332C6848</g:id>
+      <title>JCB 332/C6848 Brake Master Cyl 11/2 D</title>
+      <description>Aftermarket brake master cyl 11/2 d for JCB part number 332/C6848 — a direct cross-reference to the OEM specification. Commonly used in the cab, latch, and accessory group on JCB Loadall telehandlers and JS series excavators.
+
+Matches JCB OEM part number 332/C6848. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/332C6848</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/332C6848.jpg</g:image_link>
+      <g:price>243.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>332/C6848</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Brakes</g:product_type>
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
@@ -3300,6 +3308,26 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
+      <g:id>333C0085</g:id>
+      <title>JCB 333/C0085 Seat - Vinyl</title>
+      <description>Aftermarket replacement for JCB part number 333/C0085 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 333/C0085. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/333C0085</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/333C0085.jpg</g:image_link>
+      <g:price>1679.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>333/C0085</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
       <g:id>333C0450</g:id>
       <title>JCB 333/C0450 ROLLER BEARI</title>
       <description>Aftermarket roller beari for JCB part number 333/C0450 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
@@ -3394,6 +3422,46 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:price>339.00 USD</g:price>
       <g:brand>JCB</g:brand>
       <g:mpn>333/C6098</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Hoses</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>333C6860</g:id>
+      <title>JCB 333/C6860 STRAINER - SUCTION</title>
+      <description>Aftermarket strainer - suction for JCB part number 333/C6860 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 333/C6860. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/333C6860</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/333C6860.jpg</g:image_link>
+      <g:price>88.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>333/C6860</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>333C7024</g:id>
+      <title>JCB 333/C7024 SA HOSE 9350MM LIGHT BLUE</title>
+      <description>Aftermarket sa hose 9350mm light blue for JCB part number 333/C7024 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 333/C7024. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/333C7024</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/333C7024.jpg</g:image_link>
+      <g:price>225.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>333/C7024</g:mpn>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
       <g:identifier_exists>no</g:identifier_exists>
@@ -3515,6 +3583,26 @@ Eligible JCB aftermarket parts carry a 2-year warranty. In stock. Free freight t
       </g:shipping>
     </item>
     <item>
+      <g:id>333D2931</g:id>
+      <title>JCB 333/D2931 SEAL KIT - LIFT CYLINDER</title>
+      <description>Aftermarket seal kit - lift cylinder for JCB part number 333/D2931 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 333/D2931. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/333D2931</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/333D2931.jpg</g:image_link>
+      <g:price>132.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>333/D2931</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Hydraulics</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
       <g:id>333D4210</g:id>
       <title>JCB 333/D4210 Alternator - 75 Amp</title>
       <description>Aftermarket replacement for JCB part number 333/D4210 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
@@ -3575,6 +3663,26 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
+      <g:id>333F1979</g:id>
+      <title>JCB 333/F1979 SA Wear Pad</title>
+      <description>Aftermarket replacement for JCB part number 333/F1979 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 333/F1979. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/333F1979</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/333F1979.jpg</g:image_link>
+      <g:price>100.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>333/F1979</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
       <g:id>333F3745</g:id>
       <title>JCB 333/F3745 Striker Assy</title>
       <description>Aftermarket striker assy for JCB part number 333/F3745 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
@@ -3627,6 +3735,26 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:price>18.00 USD</g:price>
       <g:brand>JCB</g:brand>
       <g:mpn>333/G5549</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>333G6057</g:id>
+      <title>JCB 333/G6057 Filter - Fuel</title>
+      <description>Aftermarket replacement for JCB part number 333/G6057 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 333/G6057. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/333G6057</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/333G6057.jpg</g:image_link>
+      <g:price>100.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>333/G6057</g:mpn>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
       <g:identifier_exists>no</g:identifier_exists>
@@ -3699,6 +3827,26 @@ Eligible JCB aftermarket parts carry a 2-year warranty. In stock.</description>
         <g:service>Ground</g:service>
         <g:price>31.00 USD</g:price>
       </g:shipping>
+    </item>
+    <item>
+      <g:id>333H5810</g:id>
+      <title>JCB 333/H5810 SENSOR WATER TEMPE</title>
+      <description>Aftermarket sensor water tempe for JCB part number 333/H5810 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 333/H5810. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/333H5810</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/333H5810.jpg</g:image_link>
+      <g:price>95.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>333/H5810</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Switches &amp; Sensors</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
       <g:id>333H7722</g:id>
@@ -3781,6 +3929,26 @@ Eligible JCB aftermarket parts carry a 2-year warranty. In stock.</description>
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
+      <g:id>333W2655</g:id>
+      <title>JCB 333/W2655 Hyd Filter Element</title>
+      <description>Aftermarket replacement for JCB part number 333/W2655 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 333/W2655. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/333W2655</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/333W2655.jpg</g:image_link>
+      <g:price>95.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>333/W2655</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
       <g:id>333W5100</g:id>
       <title>JCB 333/W5100 FILTER FUEL STANAD</title>
       <description>Aftermarket filter fuel stanad for JCB part number 333/W5100 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
@@ -3813,6 +3981,66 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:price>208.00 USD</g:price>
       <g:brand>JCB</g:brand>
       <g:mpn>333/X2747</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>333X7708</g:id>
+      <title>JCB 333/X7708 Filter</title>
+      <description>Aftermarket replacement for JCB part number 333/X7708 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 333/X7708. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/333X7708</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/333X7708.jpg</g:image_link>
+      <g:price>132.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>333/X7708</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>334C3161</g:id>
+      <title>JCB 334/C3161 HYDRAULIC HOSE ASSEMBLY</title>
+      <description>Aftermarket hydraulic hose assembly for JCB part number 334/C3161 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 334/C3161. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/334C3161</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/334C3161.jpg</g:image_link>
+      <g:price>260.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>334/C3161</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Hydraulics</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>334C8060</g:id>
+      <title>JCB 334/C8060 Cap</title>
+      <description>Aftermarket cap for JCB part number 334/C8060 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 334/C8060. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/334C8060</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/334C8060.jpg</g:image_link>
+      <g:price>5.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>334/C8060</g:mpn>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
       <g:identifier_exists>no</g:identifier_exists>
@@ -4153,6 +4381,26 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
+      <g:id>334V5789</g:id>
+      <title>JCB 334/V5789 FILTER- RECIRCULATION</title>
+      <description>Aftermarket filter- recirculation for JCB part number 334/V5789 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 334/V5789. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/334V5789</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/334V5789.jpg</g:image_link>
+      <g:price>74.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>334/V5789</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Filters</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
       <g:id>334V5790</g:id>
       <title>JCB 334/V5790 FILTER - AIR CABIN</title>
       <description>Aftermarket filter - air cabin for JCB part number 334/V5790 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
@@ -4201,6 +4449,26 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:price>226.00 USD</g:price>
       <g:brand>JCB</g:brand>
       <g:mpn>335/A0218</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>335A0226</g:id>
+      <title>JCB 335/A0226 CAPSCREW</title>
+      <description>Aftermarket capscrew for JCB part number 335/A0226 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 335/A0226. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/335A0226</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/335A0226.jpg</g:image_link>
+      <g:price>18.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>335/A0226</g:mpn>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
       <g:identifier_exists>no</g:identifier_exists>
@@ -4269,6 +4537,26 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
+      <g:id>335B8854</g:id>
+      <title>JCB 335/B8854 Seat Cover Fabric</title>
+      <description>Aftermarket seat cover fabric for JCB part number 335/B8854 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 335/B8854. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/335B8854</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/335B8854.jpg</g:image_link>
+      <g:price>339.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>335/B8854</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Seats</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
       <g:id>335D8226</g:id>
       <title>JCB 335/D8226 Element</title>
       <description>Aftermarket element for JCB part number 335/D8226 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
@@ -4301,6 +4589,46 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:price>151.00 USD</g:price>
       <g:brand>JCB</g:brand>
       <g:mpn>335/D8924</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>335G3399</g:id>
+      <title>JCB 335/G3399 Bushing</title>
+      <description>Aftermarket replacement for JCB part number 335/G3399 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 335/G3399. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/335G3399</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/335G3399.jpg</g:image_link>
+      <g:price>58.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>335/G3399</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>335G3401</g:id>
+      <title>JCB 335/G3401 Seal - Oil</title>
+      <description>Aftermarket replacement for JCB part number 335/G3401 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 335/G3401. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/335G3401</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/335G3401.jpg</g:image_link>
+      <g:price>19.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>335/G3401</g:mpn>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
       <g:identifier_exists>no</g:identifier_exists>
@@ -4349,6 +4677,46 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
+      <g:id>336E7420</g:id>
+      <title>JCB 336/E7420 Filter - Oil</title>
+      <description>Aftermarket replacement for JCB part number 336/E7420 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 336/E7420. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/336E7420</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/336E7420.jpg</g:image_link>
+      <g:price>80.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>336/E7420</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>336E8557</g:id>
+      <title>JCB 336/E8557 TIE ROD - ARTICULATED</title>
+      <description>Aftermarket tie rod - articulated for JCB part number 336/E8557 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 336/E8557. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/336E8557</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/336E8557.jpg</g:image_link>
+      <g:price>319.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>336/E8557</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Steering</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
       <g:id>40000380</g:id>
       <title>JCB 400/00380 Joystick Assembly</title>
       <description>Aftermarket joystick assembly for JCB equipment. Replaces OEM part number 400/00380.
@@ -4381,6 +4749,26 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:price>206.00 USD</g:price>
       <g:brand>JCB</g:brand>
       <g:mpn>400/03642</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>40003648</g:id>
+      <title>JCB 400/03648 SERVICE KIT</title>
+      <description>Aftermarket service kit for JCB part number 400/03648 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 400/03648. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/40003648</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/40003648.jpg</g:image_link>
+      <g:price>206.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>400/03648</g:mpn>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
       <g:identifier_exists>no</g:identifier_exists>
@@ -4535,6 +4923,26 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
+      <g:id>400H2604</g:id>
+      <title>JCB 400/H2604 SA ADBLUE CAP (VENTED)</title>
+      <description>Aftermarket sa adblue cap (vented) for JCB part number 400/H2604 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 400/H2604. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/400H2604</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/400H2604.jpg</g:image_link>
+      <g:price>62.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>400/H2604</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
       <g:id>400X4858</g:id>
       <title>JCB 400/X4858 Fuel Pump</title>
       <description>Aftermarket electric fuel pump for JCB equipment. Replaces OEM part number 400/X4858.
@@ -4552,6 +4960,26 @@ Eligible JCB aftermarket parts carry a 2-year warranty. In stock.</description>
       <g:identifier_exists>no</g:identifier_exists>
       <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
       <g:product_type>JCB Fuel System</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>400Y6758</g:id>
+      <title>JCB 400/Y6758 Vented Diesel Filler Cap</title>
+      <description>Aftermarket vented diesel filler cap for JCB part number 400/Y6758 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 400/Y6758. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/400Y6758</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/400Y6758.jpg</g:image_link>
+      <g:price>82.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>400/Y6758</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
@@ -4615,6 +5043,26 @@ Eligible JCB aftermarket parts carry a 2-year warranty. In stock.</description>
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
+      <g:id>401J5527</g:id>
+      <title>JCB 401/J5527 ARM - WIPER WASHER - PANTO</title>
+      <description>Aftermarket arm - wiper washer - panto for JCB part number 401/J5527 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 401/J5527. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/401J5527</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/401J5527.jpg</g:image_link>
+      <g:price>128.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>401/J5527</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Cab &amp; Body</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
       <g:id>401L8899</g:id>
       <title>JCB 401/L8899 HORN</title>
       <description>Aftermarket horn for JCB part number 401/L8899 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
@@ -4627,6 +5075,26 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:price>45.00 USD</g:price>
       <g:brand>JCB</g:brand>
       <g:mpn>401/L8899</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>401M9995</g:id>
+      <title>JCB 401/M9995 Block Assembly - Hinge</title>
+      <description>Aftermarket replacement for JCB part number 401/M9995 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 401/M9995. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/401M9995</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/401M9995.jpg</g:image_link>
+      <g:price>43.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>401/M9995</g:mpn>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
       <g:identifier_exists>no</g:identifier_exists>
@@ -4775,6 +5243,26 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
+      <g:id>443E0390</g:id>
+      <title>JCB 443/E0390 LAMP, LED STROBE</title>
+      <description>Aftermarket lamp, led strobe for JCB part number 443/E0390 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 443/E0390. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/443E0390</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/443E0390.jpg</g:image_link>
+      <g:price>71.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>443/E0390</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Lights</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
       <g:id>443E0391</g:id>
       <title>JCB 443/E0391 Switch - Limit</title>
       <description>Aftermarket switch - limit for JCB part number 443/E0391 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
@@ -4812,6 +5300,46 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:identifier_exists>no</g:identifier_exists>
       <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
       <g:product_type>JCB Switches &amp; Sensors</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>443E4276</g:id>
+      <title>JCB 443/E4276 POTENTIOMETER</title>
+      <description>Aftermarket potentiometer for JCB part number 443/E4276 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 443/E4276. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/443E4276</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/443E4276.jpg</g:image_link>
+      <g:price>181.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>443/E4276</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>443E4310</g:id>
+      <title>JCB 443/E4310 SUPPORT, GAS</title>
+      <description>Aftermarket support, gas for JCB part number 443/E4310 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 443/E4310. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/443E4310</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/443E4310.jpg</g:image_link>
+      <g:price>84.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>443/E4310</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
@@ -5457,6 +5985,26 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
+      <g:id>71432700</g:id>
+      <title>JCB 714/32700 Arm - Wiper - Panto Wet</title>
+      <description>Aftermarket replacement for JCB part number 714/32700 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 714/32700. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/71432700</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/71432700.jpg</g:image_link>
+      <g:price>132.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>714/32700</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
       <g:id>71440153</g:id>
       <title>JCB 714/40153 ALTERNATOR - 75 AMP</title>
       <description>Aftermarket alternator - 75 amp for JCB part number 714/40153 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
@@ -5563,6 +6111,26 @@ Eligible JCB aftermarket parts carry a 2-year warranty. In stock. Free freight t
       </g:shipping>
     </item>
     <item>
+      <g:id>716D8420</g:id>
+      <title>JCB 716/D8420 Throttle Pedal Electric (</title>
+      <description>Aftermarket replacement for JCB part number 716/D8420 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 716/D8420. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/716D8420</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/716D8420.jpg</g:image_link>
+      <g:price>479.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>716/D8420</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
       <g:id>716E0156</g:id>
       <title>JCB 716/E0156 HIGH CAPACITY MICRO INTERPART</title>
       <description>Aftermarket high capacity micro interpart for JCB part number 716/E0156 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
@@ -5656,6 +6224,26 @@ Eligible JCB aftermarket parts carry a 2-year warranty. In stock.</description>
       <g:identifier_exists>no</g:identifier_exists>
       <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
       <g:product_type>JCB Controls</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>80800246</g:id>
+      <title>JCB 808/00246 LINER - BEARING</title>
+      <description>Aftermarket liner - bearing for JCB part number 808/00246 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 808/00246. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/80800246</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/80800246.jpg</g:image_link>
+      <g:price>73.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>808/00246</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Engine Parts</g:product_type>
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
@@ -5779,6 +6367,26 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
+      <g:id>82601187</g:id>
+      <title>JCB 826/01187 LATCH BUDGET</title>
+      <description>Aftermarket latch budget for JCB part number 826/01187 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 826/01187. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/82601187</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/82601187.jpg</g:image_link>
+      <g:price>30.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>826/01187</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Cab &amp; Body</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
       <g:id>82601363</g:id>
       <title>JCB 826/01363 Screw</title>
       <description>Aftermarket replacement for JCB part number 826/01363 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
@@ -5791,6 +6399,46 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:price>7.00 USD</g:price>
       <g:brand>JCB</g:brand>
       <g:mpn>826/01363</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>82780212</g:id>
+      <title>JCB 827/80212 RIGHT SIDE WINDOW-GREEN</title>
+      <description>Aftermarket right side window-green for JCB part number 827/80212 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 827/80212. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/82780212</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/82780212.jpg</g:image_link>
+      <g:price>227.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>827/80212</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Cab &amp; Body</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>82780226</g:id>
+      <title>JCB 827/80226 Window Panel Glass Cabin Roof</title>
+      <description>Aftermarket replacement for JCB part number 827/80226 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 827/80226. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/82780226</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/82780226.jpg</g:image_link>
+      <g:price>190.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>827/80226</g:mpn>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
       <g:identifier_exists>no</g:identifier_exists>
@@ -5843,10 +6491,50 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <title>JCB 892/01154 TOOL REMOVER F.I.P GEAR C</title>
       <description>High-quality replacement tool remover f.i.p gear c for JCB equipment. Direct fit for OEM part number 892/01154.</description>
       <link>https://www.flatearthequipment.com/parts/89201154</link>
-      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/brand-logos/jcb.webp</g:image_link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/89201154.jpg</g:image_link>
       <g:price>100.00 USD</g:price>
       <g:brand>JCB</g:brand>
       <g:mpn>892/01154</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>90409300</g:id>
+      <title>JCB 904/09300 Seal - Oil</title>
+      <description>Aftermarket replacement for JCB part number 904/09300 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 904/09300. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/90409300</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/90409300.jpg</g:image_link>
+      <g:price>19.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>904/09300</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>90450033</g:id>
+      <title>JCB 904/50033 Seal - Oil</title>
+      <description>Aftermarket replacement for JCB part number 904/50033 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 904/50033. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/90450033</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/90450033.jpg</g:image_link>
+      <g:price>70.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>904/50033</g:mpn>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
       <g:identifier_exists>no</g:identifier_exists>
@@ -5872,6 +6560,106 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:identifier_exists>no</g:identifier_exists>
       <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
       <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>90708400</g:id>
+      <title>JCB 907/08400 BEARING - ROLLER</title>
+      <description>Aftermarket bearing - roller for JCB part number 907/08400 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 907/08400. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/90708400</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/90708400.jpg</g:image_link>
+      <g:price>57.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>907/08400</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Undercarriage</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>90710200</g:id>
+      <title>JCB 907/10200 BEARING - MAST ROLLER</title>
+      <description>Aftermarket bearing - mast roller for JCB part number 907/10200 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 907/10200. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/90710200</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/90710200.jpg</g:image_link>
+      <g:price>133.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>907/10200</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Undercarriage</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>907M5375</g:id>
+      <title>JCB 907/M5375 BEARING - TAPER ROLLER</title>
+      <description>Aftermarket bearing - taper roller for JCB part number 907/M5375 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 907/M5375. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/907M5375</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/907M5375.jpg</g:image_link>
+      <g:price>72.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>907/M5375</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Undercarriage</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>91033400</g:id>
+      <title>JCB 910/33400 CABLE - PARKING BRAKE</title>
+      <description>Aftermarket cable - parking brake for JCB part number 910/33400 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 910/33400. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/91033400</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/91033400.jpg</g:image_link>
+      <g:price>94.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>910/33400</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Brakes</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>91037700</g:id>
+      <title>JCB 910/37700 CABLE - ACCELERATOR</title>
+      <description>Aftermarket cable - accelerator for JCB part number 910/37700 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 910/37700. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/91037700</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/91037700.jpg</g:image_link>
+      <g:price>123.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>910/37700</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB Cab &amp; Body</g:product_type>
       <g:custom_label_0>priority_jcb</g:custom_label_0>
     </item>
     <item>
@@ -5952,6 +6740,26 @@ Questions about your machine? Contact our parts team for same-day help. We ship 
       <g:price>74.00 USD</g:price>
       <g:brand>JCB</g:brand>
       <g:mpn>914/56401</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
+      <g:product_type>JCB General Parts</g:product_type>
+      <g:custom_label_0>priority_jcb</g:custom_label_0>
+    </item>
+    <item>
+      <g:id>91487600</g:id>
+      <title>JCB 914/87600 Shaft Drive</title>
+      <description>Aftermarket replacement for JCB part number 914/87600 — a direct cross-reference to the OEM specification. Built for JCB construction and material-handling equipment.
+
+Matches JCB OEM part number 914/87600. Order by this PN for a confident fit.
+
+Questions about your machine? Contact our parts team for same-day help. We ship aftermarket JCB parts nationwide, and eligible parts carry a 2-year warranty.</description>
+      <link>https://www.flatearthequipment.com/parts/91487600</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/91487600.jpg</g:image_link>
+      <g:price>1299.00 USD</g:price>
+      <g:brand>JCB</g:brand>
+      <g:mpn>914/87600</g:mpn>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
       <g:identifier_exists>no</g:identifier_exists>
@@ -6196,6 +7004,29 @@ Request a quote for availability and freight to your location.</description>
       </g:shipping>
     </item>
     <item>
+      <g:id>AD56383291</g:id>
+      <title>Advance 56383291 Seat Assembly</title>
+      <description>Aftermarket seat assembly for Advance industrial equipment. Replaces OEM part number 56383291. Verified fitment for 1 machine model including CS7010.
+
+Request a quote for availability and freight to your location.</description>
+      <link>https://www.flatearthequipment.com/parts/advance-ad56383291-seat-assembly</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/advance-ad56383291-seat-assembly.jpg</g:image_link>
+      <g:price>185.00 USD</g:price>
+      <g:brand>Advance</g:brand>
+      <g:mpn>56383291</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling &gt; Forklifts</g:google_product_category>
+      <g:product_type>Seats</g:product_type>
+      <g:custom_label_0>priority_seats</g:custom_label_0>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>25.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>AD56383292-SINGLE</g:id>
       <title>Advance 56383292 Seat Cushion</title>
       <description>Aftermarket seat cushion for Advance industrial equipment. Replaces OEM part number 56383292. Verified fitment for 8 machine models including SC6000-34D, SC6000-36C, SC6000-40D, SC6500-40C, SC6500-40C-ECOFLEX, SC6500-40D, SC6500-40D-ECOFLEX, SC6500-.
@@ -6243,6 +7074,56 @@ Request a quote for availability and freight to your location.</description>
         <g:country>US</g:country>
         <g:service>Ground</g:service>
         <g:price>25.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>AD56507052</g:id>
+      <title>Advance 56507052 Seat Assembly</title>
+      <description>Aftermarket seat assembly for Advance industrial equipment. Replaces OEM part number 56507052. Verified fitment for 1 machine model including EXTERRA SR1900.
+
+Overall seat dimensions: 18.7&quot; H × 18.4&quot; W × 21.5&quot; D.
+
+Upholstery: Vinyl.
+
+Request a quote for availability and freight to your location.</description>
+      <link>https://www.flatearthequipment.com/parts/advance-ad56507052-seat-assembly</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/advance-ad56507052-seat-assembly.jpg</g:image_link>
+      <g:price>185.00 USD</g:price>
+      <g:brand>Advance</g:brand>
+      <g:mpn>56507052</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling &gt; Forklifts</g:google_product_category>
+      <g:product_type>Seats</g:product_type>
+      <g:custom_label_0>priority_seats</g:custom_label_0>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>25.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>AD7-69-00008-SINGLE</g:id>
+      <title>Advance 7-69-00008 Seat Cushion</title>
+      <description>Aftermarket seat cushion for Advance industrial equipment. Replaces OEM part number 7-69-00008. Verified fitment for 6 machine models including SC8000-48, SC8000-48-ECOFLEX, SC8000-60, SC8000-60-ECOFLEX, SC8000-62, SC8000-62-ECOFLEX.
+
+Request a quote for availability and freight to your location.</description>
+      <link>https://www.flatearthequipment.com/parts/advance-ad7-69-00008-seat-cushion</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/advance-ad7-69-00008-seat-cushion.jpg</g:image_link>
+      <g:price>185.00 USD</g:price>
+      <g:brand>Advance</g:brand>
+      <g:mpn>7-69-00008</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling &gt; Forklifts</g:google_product_category>
+      <g:product_type>Seat cushions</g:product_type>
+      <g:custom_label_0>priority_seats</g:custom_label_0>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>29.00 USD</g:price>
       </g:shipping>
     </item>
     <item>
@@ -6511,6 +7392,27 @@ Eligible Bobcat aftermarket parts carry a 2-year warranty. In stock.</descriptio
       <g:price>68.00 USD</g:price>
       <g:brand>Bobcat</g:brand>
       <g:mpn>7006174</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Construction &gt; Construction Machinery Accessories</g:google_product_category>
+      <g:product_type>Cab Glass</g:product_type>
+      <g:custom_label_0>priority_cab_glass</g:custom_label_0>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>25.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>bobcat-7006782-right-front-slider</g:id>
+      <title>Bobcat 7006782 Right Front Slider</title>
+      <description>Aftermarket green-tint tempered safety glass right front slider for Bobcat compact equipment. Direct replacement for OEM part number 7006782. Fits Bobcat E63, E85. Specs: 5 mm thick, 570 mm max width, 795 mm height. Includes 2 mounting holes. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.</description>
+      <link>https://www.flatearthequipment.com/parts/bobcat-7006782-right-front-slider</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/bobcat-7006782-right-front-slider.jpg</g:image_link>
+      <g:price>92.00 USD</g:price>
+      <g:brand>Bobcat</g:brand>
+      <g:mpn>7006782</g:mpn>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
       <g:identifier_exists>no</g:identifier_exists>
@@ -9286,24 +10188,6 @@ Replaces OEM Part Number: 331/63982</description>
       <g:shipping_weight>1.42 lb</g:shipping_weight>
     </item>
     <item>
-      <g:id>332E3856</g:id>
-      <title>JCB 332/E3856 Steer Valve (No Shock)</title>
-      <description>Aftermarket steering control valve for JCB equipment. Replaces OEM part number 332/E3856 (no-shock VVS style orbitrol / steer valve).
-
-Order by this PN for a confident cross. Eligible JCB aftermarket parts carry a 2-year warranty.</description>
-      <link>https://www.flatearthequipment.com/parts/jcb-332-e3856-steer-valve</link>
-      <g:image_link>https://www.flatearthequipment.com/images/parts/jcb-332-e3856-steer-valve.jpg</g:image_link>
-      <g:price>629.00 USD</g:price>
-      <g:brand>JCB</g:brand>
-      <g:mpn>332/E3856</g:mpn>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:google_product_category>Business &amp; Industrial &gt; Material Handling</g:google_product_category>
-      <g:product_type>JCB Hydraulic Valves</g:product_type>
-      <g:custom_label_0>priority_jcb</g:custom_label_0>
-    </item>
-    <item>
       <g:id>332H1528</g:id>
       <title>JCB 332/H1528 Tinted Front Windshield</title>
       <description>Aftermarket tinted front windshield for JCB part number 332/H1528. Also referenced as 827/80139. This screen ships LTL — freight is $250 at checkout.</description>
@@ -10515,7 +11399,7 @@ Most operators replace tracks in pairs: running a new track opposite a worn one 
       <description>Aftermarket green-tint tempered safety glass rear window for John Deere compact equipment. Direct replacement for OEM part number FYD00006282. Fits John Deere 26G, 35G. Specs: 5 mm thick, 565 mm max width, 825 mm height. Built for cab visibility and weather sealing on skid steers, compact track loaders, and mini excavators. Ships via standard ground surface freight.</description>
       <link>https://www.flatearthequipment.com/parts/john-deere-fyd00006282-rear-window</link>
       <g:image_link>https://www.flatearthequipment.com/images/parts/glass/john-deere-fyd00006282-rear-window.jpg</g:image_link>
-      <g:price>139.00 USD</g:price>
+      <g:price>95.00 USD</g:price>
       <g:brand>John Deere</g:brand>
       <g:mpn>FYD00006282</g:mpn>
       <g:condition>new</g:condition>
@@ -12732,6 +13616,37 @@ Request a quote for availability and freight to your location.</description>
       </g:shipping>
     </item>
     <item>
+      <g:id>TN1056543</g:id>
+      <title>Tennant 1056543 Seat Assembly</title>
+      <description>Aftermarket seat assembly for Tennant industrial equipment. Replaces OEM part number 1056543. Verified fitment for 1 machine model including S20.
+
+Overall seat dimensions: 19.37&quot; H × 18.9&quot; W × 20.08&quot; D.
+
+Upholstery: Vinyl.
+
+Includes seat adjusters and seat switch / safety interlock.
+
+Replacement cushion cross-references: SY91809 / SY91808. Contact us if you need cushions only instead of a full assembly.
+
+Request a quote for availability and freight to your location.</description>
+      <link>https://www.flatearthequipment.com/parts/tennant-tn1056543-seat-assembly</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/tennant-tn1056543-seat-assembly.jpg</g:image_link>
+      <g:price>208.00 USD</g:price>
+      <g:brand>Tennant</g:brand>
+      <g:mpn>1056543</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling &gt; Forklifts</g:google_product_category>
+      <g:product_type>Seats</g:product_type>
+      <g:custom_label_0>priority_seats</g:custom_label_0>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>25.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>TN377070</g:id>
       <title>Tennant 377070 Seat Assembly</title>
       <description>Aftermarket seat assembly for Tennant industrial equipment. Replaces OEM part number 377070. Verified fitment for 3 machine models including YesNo, 6650XP, 6650XS.
@@ -12837,6 +13752,29 @@ Request a quote for availability and freight to your location.</description>
       <g:price>165.00 USD</g:price>
       <g:brand>Tennant</g:brand>
       <g:mpn>9005082</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling &gt; Forklifts</g:google_product_category>
+      <g:product_type>Seat cushions</g:product_type>
+      <g:custom_label_0>priority_seats</g:custom_label_0>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>29.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>TX07.0703.0509-BOTTOM</g:id>
+      <title>Terex 07.0703.0509 Seat Bottom Cushion</title>
+      <description>Aftermarket seat bottom cushion for Terex industrial equipment. Replaces OEM part number 07.0703.0509. Verified fitment for 2 machine models including AGRILIFT 625, TELELIFT 2506.
+
+Request a quote for availability and freight to your location.</description>
+      <link>https://www.flatearthequipment.com/parts/terex-tx07-0703-0509-seat-bottom-cushion</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/terex-tx07-0703-0509-seat-bottom-cushion.jpg</g:image_link>
+      <g:price>216.00 USD</g:price>
+      <g:brand>Terex</g:brand>
+      <g:mpn>07.0703.0509</g:mpn>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
       <g:identifier_exists>no</g:identifier_exists>
@@ -13204,6 +14142,31 @@ Replaces Part Number: 53720-U2241-71</description>
       <g:product_type>Seats</g:product_type>
       <g:custom_label_0>priority_seats</g:custom_label_0>
       <g:shipping_weight>58 lb</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Ground</g:service>
+        <g:price>25.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>53720-UAAA6-71</g:id>
+      <title>Toyota 53720-UAAA6-71 Seat Assembly (Vinyl)</title>
+      <description>Aftermarket replacement seat for Toyota forklifts, equivalent to OEM part number 53720-UAAA6-71. Built for industrial duty cycles where operators need a durable vinyl or cloth seat without dealer markup.
+
+Contact parts@flatearthequipment.com if you need help matching your plate.
+
+1-year warranty. Freight calculated at checkout (seat assemblies typically ship in the $25 band; heavier suspension seats may ship LTL).</description>
+      <link>https://www.flatearthequipment.com/parts/toyota-seat-assembly-vinyl-53720-uaaa6-71</link>
+      <g:image_link>https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/part-heroes/toyota-seat-assembly-vinyl-53720-uaaa6-71.jpg</g:image_link>
+      <g:price>809.00 USD</g:price>
+      <g:brand>Toyota</g:brand>
+      <g:mpn>53720-UAAA6-71</g:mpn>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Business &amp; Industrial &gt; Material Handling &gt; Forklifts</g:google_product_category>
+      <g:product_type>Seats</g:product_type>
+      <g:custom_label_0>priority_seats</g:custom_label_0>
       <g:shipping>
         <g:country>US</g:country>
         <g:service>Ground</g:service>

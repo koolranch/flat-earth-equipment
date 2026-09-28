@@ -169,8 +169,15 @@ const MERCHANT_KEEP_SLUGS = new Set([
   "jlg-1001110774-drive-wheel",
 ]);
 
+/**
+ * OEM belt pages listed near the street sticker. They are Buy Now on the site
+ * and stay out of Shopping until we add them on purpose.
+ */
+const MERCHANT_EXCLUDE_SLUGS = new Set(["333P6274", "333W2422", "334U3080"]);
+
 /** Catalog lines we will submit while Merchant is still approving the first wave. */
 function isKeepSetPart(p: PartRow): boolean {
+  if (MERCHANT_EXCLUDE_SLUGS.has(p.slug)) return false;
   if (isRubberTrack(p)) return true;
   if (isCabGlass(p)) return true;
   if (isLithiumBattery(p)) return true;
