@@ -29,6 +29,7 @@ export const IN_SCOPE_BRANDS: readonly string[] = [
   'Skytrack',
   'Sky Trak',
   'Skyjack',
+  'Sinoboom',
   'Bobcat',
   'Caterpillar',
   'Case',

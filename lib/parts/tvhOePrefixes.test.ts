@@ -54,5 +54,9 @@ assert.equal(buildMagItemUrl('Lancer Boss', '333/'), null);
 // Dedup collapses brand-spelling duplicates onto one identity.
 assert.equal(partIdentityKey('Power Boss', '3305663PH'), partIdentityKey('Powerboss', '3305663PH'));
 assert.equal(partIdentityKey('JCB', '333/D1629'), 'JCB|333/D1629');
+assert.equal(
+  buildMagItemUrl('Sinoboom', '201990000025'),
+  'https://www.magnasourceinc.com/itemdetail/UQ201990000025'
+);
 
 console.log('tvhOePrefixes.test.ts: all assertions passed');

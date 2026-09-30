@@ -62,6 +62,7 @@ export const BRAND_OE_PREFIX: Record<string, OeBrandPrefix> = {
   Nissan: { prefix: 'NI', verified: false },
   Powerboss: { prefix: 'PB', verified: false },
   Raymond: { prefix: 'RA', verified: false },
+  Sinoboom: { prefix: 'UQ', verified: true },
   Skyjack: { prefix: 'SJ', verified: true },
   Skytrack: { prefix: 'SA', verified: false },
   Takeuchi: { prefix: 'TK', verified: false },
