@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {
   canonicalShelfBrand,
+  machineShelfHref,
   cleanShelfModels,
   formatShelfPrice,
   presentFeaturedMachines,
@@ -28,6 +29,12 @@ assert.equal(canonicalShelfBrand('Powerboss'), 'Power Boss');
 assert.equal(canonicalShelfBrand('PowerBoss'), 'Power Boss');
 assert.equal(canonicalShelfBrand('  Power Boss '), 'Power Boss');
 assert.equal(canonicalShelfBrand('Skytrack'), 'Skytrack');
+assert.equal(
+  machineShelfHref('Bobcat', ' T650 '),
+  '/parts/for-your-machine?brand=Bobcat&model=T650',
+);
+assert.equal(machineShelfHref('JCB', ''), '/parts/for-your-machine?brand=JCB');
+assert.equal(machineShelfHref('Powerboss', 'S650'), '/parts/for-your-machine?brand=Power+Boss&model=S650');
 
 assert.deepEqual(cleanShelfModels([' T650 ', 't650', 'Universal — fits all', 'A', '95'], 'Bobcat'), [
   'T650',

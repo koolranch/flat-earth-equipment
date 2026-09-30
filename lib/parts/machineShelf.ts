@@ -178,6 +178,17 @@ export function canonicalShelfBrand(brand: string | null | undefined): string {
   return trimmed;
 }
 
+/** Shelf URL for a lookup result. Model is optional; the shelf matches it case-insensitively. */
+export function machineShelfHref(brand: string, model?: string | null): string {
+  const params = new URLSearchParams();
+  const brandName = brand.trim();
+  if (brandName) params.set('brand', canonicalShelfBrand(brandName));
+  const modelName = model?.trim() ?? '';
+  if (modelName) params.set('model', modelName);
+  const query = params.toString();
+  return query ? `/parts/for-your-machine?${query}` : '/parts/for-your-machine';
+}
+
 export function cleanShelfModels(
   models: string[] | null | undefined,
   brand: string | null | undefined,

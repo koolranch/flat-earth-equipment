@@ -7,6 +7,7 @@ import BrandHubBanner from '@/components/brand/BrandHubBanner';
 import SerialToolJsonLd from '@/components/seo/SerialToolJsonLd';
 import BrandRubberTracksSection from '@/components/parts/BrandRubberTracksSection';
 import BrandCabGlassSection from '@/components/parts/BrandCabGlassSection';
+import ShopMachineShelfLink from '@/components/parts/ShopMachineShelfLink';
 
 type PartFit = { slug: string; name: string; sales_type: string | null; price_cents: number | null; is_fast_moving: boolean | null };
 
@@ -489,6 +490,11 @@ export default function CaseSerialLookupPage() {
                       >
                         Get a Case parts quote
                       </a>
+                      <ShopMachineShelfLink
+                        brand="Case"
+                        model={result?.input?.model || model}
+                        className="inline-flex min-h-[44px] items-center rounded-lg border border-amber-400 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:border-amber-700"
+                      />
                       <Link
                         href="/parts/construction-equipment-parts"
                         className="text-sm text-slate-700 underline hover:text-amber-700"

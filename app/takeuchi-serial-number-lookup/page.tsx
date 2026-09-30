@@ -2,6 +2,7 @@
 import { useState } from "react";
 import BrandRubberTracksSection from "@/components/parts/BrandRubberTracksSection";
 import BrandCabGlassSection from "@/components/parts/BrandCabGlassSection";
+import ShopMachineShelfLink from "@/components/parts/ShopMachineShelfLink";
 
 type PlateTip = {
   equipment_type: string;
@@ -315,6 +316,11 @@ export default function Page() {
                     >
                       Get a Takeuchi parts quote
                     </a>
+                    <ShopMachineShelfLink
+                      brand="Takeuchi"
+                      model={data?.input?.model || model}
+                      className="inline-flex min-h-[44px] items-center rounded-lg border border-orange-400 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:border-orange-700"
+                    />
                     <a
                       href="/parts/construction-equipment-parts"
                       className="text-sm text-slate-700 underline hover:text-orange-700"

@@ -3,6 +3,7 @@ import { useState } from "react";
 import BrandHubBanner from '@/components/brand/BrandHubBanner';
 import SerialToolJsonLd from '@/components/seo/SerialToolJsonLd';
 import BrandRubberTracksSection from '@/components/parts/BrandRubberTracksSection';
+import ShopMachineShelfLink from '@/components/parts/ShopMachineShelfLink';
 
 type PlateTip = { equipment_type: string; series: string | null; location_notes: string; };
 type Series = { code: string; example_note: string };
@@ -278,6 +279,11 @@ export default function Page() {
                     >
                       Get a JCB parts quote
                     </a>
+                    <ShopMachineShelfLink
+                      brand="JCB"
+                      model={data?.input?.model || model}
+                      className="inline-flex min-h-[44px] items-center rounded-lg border border-yellow-500 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:border-yellow-700"
+                    />
                     <a
                       href="/parts/construction-equipment-parts"
                       className="text-sm text-slate-700 underline hover:text-yellow-700"

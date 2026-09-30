@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Search, CheckCircle, AlertTriangle, MapPin, Wrench, Settings, Calendar, Truck } from "lucide-react";
 import BrandRubberTracksSection from "@/components/parts/BrandRubberTracksSection";
 import BrandCabGlassSection from "@/components/parts/BrandCabGlassSection";
+import ShopMachineShelfLink from "@/components/parts/ShopMachineShelfLink";
 
 type PlateTip = {
   equipment_type: string;
@@ -495,6 +496,11 @@ export default function BobcatLookupPage() {
                       >
                         Get a Bobcat parts quote
                       </a>
+                      <ShopMachineShelfLink
+                        brand="Bobcat"
+                        model={data?.input?.model || model}
+                        className="inline-flex min-h-[44px] items-center rounded-lg border border-red-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:border-red-600"
+                      />
                       <Link
                         href="/parts/construction-equipment-parts"
                         className="text-sm text-slate-700 underline hover:text-red-700"
