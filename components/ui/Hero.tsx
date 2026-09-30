@@ -79,6 +79,15 @@ export function Hero({ locale = 'en' }: { locale?: 'en' | 'es' }) {
             {content.cta.text}
           </Link>
           
+          <p className="mb-4">
+            <Link
+              href="/parts/for-your-machine"
+              className="inline-flex min-h-[44px] items-center text-sm font-medium text-white/90 underline hover:text-white"
+            >
+              {locale === 'es' ? 'Partes para su máquina →' : 'Shop by machine →'}
+            </Link>
+          </p>
+
           {/* Trust Signals */}
           <div className="flex flex-wrap justify-center gap-4 text-sm text-white/90 mb-4">
             {content.trustSignals.map((signal, i) => (

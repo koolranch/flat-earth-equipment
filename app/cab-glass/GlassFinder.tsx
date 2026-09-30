@@ -158,6 +158,14 @@ export default function GlassFinder({ parts }: { parts: FinderGlass[] }) {
               );
             })
           )}
+          <p className="pt-2 text-sm text-slate-300">
+            <Link
+              href={`/parts/for-your-machine?brand=${encodeURIComponent(brand)}&model=${encodeURIComponent(model)}`}
+              className="text-orange-300 underline"
+            >
+              All parts for this model
+            </Link>
+          </p>
         </div>
       )}
     </div>

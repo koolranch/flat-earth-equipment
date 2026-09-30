@@ -65,7 +65,7 @@ export function buildCatalogItemListJsonLd(parts: CatalogPart[]) {
 export const PARTS_CATALOG_FAQ = [
   {
     q: 'How do I find the right part for my machine?',
-    a: 'Search by OEM part number, vendor SKU, or brand name in the catalog search bar. For serial-number fitment on Bobcat, Kubota, JCB, Case, and Takeuchi equipment, use our free serial lookup tools linked above the product grid.',
+    a: 'Search by OEM part number, vendor SKU, or brand name in the catalog search bar. Shop by machine, under Popular categories, lists the tracks, cab glass, seats, and other parts already tagged to one model. For serial-number fitment on Bobcat, Kubota, JCB, Case, and Takeuchi equipment, use the free serial lookup tools linked above the product grid.',
   },
   {
     q: 'What is the difference between Shop Online and Request Quote?',

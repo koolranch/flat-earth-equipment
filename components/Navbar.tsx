@@ -85,6 +85,7 @@ export default function Navbar({ locale }: Props) {
           href: '/parts',
           dropdown: [
             { name: 'Todas las partes', href: '/parts' },
+            { name: 'Partes para su máquina', href: '/parts/for-your-machine' },
             { name: 'Orugas de goma', href: '/rubber-tracks' },
             { name: 'Vidrio de cabina', href: '/cab-glass' },
             { name: 'Baterías de litio para carritos de golf', href: '/lithium-batteries' },
@@ -104,6 +105,7 @@ export default function Navbar({ locale }: Props) {
           href: '/parts',
           dropdown: [
             { name: 'All Parts', href: '/parts' },
+            { name: 'Shop by machine', href: '/parts/for-your-machine' },
             { name: 'Rubber Tracks', href: '/rubber-tracks' },
             { name: 'Cab Glass', href: '/cab-glass' },
             { name: 'Lithium Golf Cart Batteries', href: '/lithium-batteries' },

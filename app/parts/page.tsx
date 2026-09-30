@@ -94,6 +94,8 @@ export default async function PartsPage({
       noResults: 'No parts matched your search.',
       noResultsHelp:
         'Try a different part number, or request a quote and our team will cross-reference OEM numbers.',
+      shopByMachine: 'Or shop by machine',
+      shopBrand: 'Shop {brand} by machine',
       requestQuote: 'Request a Quote',
       trustWarranty: '2-Year Warranty',
       trustWarrantyDesc:
@@ -141,6 +143,8 @@ export default async function PartsPage({
       noResults: 'No se encontraron partes.',
       noResultsHelp:
         'Pruebe otro número de parte o solicite una cotización y cruzaremos referencias OEM.',
+      shopByMachine: 'O ver partes para su máquina',
+      shopBrand: 'Partes para máquinas {brand}',
       requestQuote: 'Solicitar cotización',
       trustWarranty: 'Garantía de 2 años',
       trustWarrantyDesc:
@@ -305,6 +309,17 @@ export default async function PartsPage({
               }}
             />
 
+            {typeof searchParams.brand === 'string' && searchParams.brand && (
+              <p className="mb-4">
+                <Link
+                  href={`/parts/for-your-machine?brand=${encodeURIComponent(searchParams.brand)}`}
+                  className="inline-flex min-h-[44px] items-center font-medium text-slate-900 underline"
+                >
+                  {t.shopBrand.replace('{brand}', searchParams.brand)}
+                </Link>
+              </p>
+            )}
+
             {parts.length > 0 ? (
               <PartsCatalogGrid
                 parts={parts}
@@ -321,6 +336,11 @@ export default async function PartsPage({
                 >
                   {t.requestQuote}
                 </Link>
+                <p className="mt-4">
+                  <Link href="/parts/for-your-machine" className="font-medium text-slate-900 underline">
+                    {t.shopByMachine}
+                  </Link>
+                </p>
               </div>
             )}
 

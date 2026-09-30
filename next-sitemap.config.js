@@ -418,6 +418,7 @@ const config = {
     }
     // Rubber tracks category hub
     add('/rubber-tracks', 0.8);
+    add('/cab-glass', 0.8);
     
     // =========================================================================
     // 7. Individual product pages from Supabase (~925 products)

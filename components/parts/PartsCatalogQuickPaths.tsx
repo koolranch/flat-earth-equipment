@@ -14,7 +14,7 @@ export default function PartsCatalogQuickPaths({ heading }: Props) {
       >
         {heading}
       </h2>
-      {/* Horizontal scroll row on mobile so 9 cards don't push products below the fold; grid from sm up. */}
+      {/* Horizontal scroll row on mobile so the path cards don't push products below the fold; grid from sm up. */}
       <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3">
         {CATALOG_QUICK_PATHS.map((path) => (
           <Link

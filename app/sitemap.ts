@@ -140,6 +140,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const corePages = [
     { url: `${BASE}/`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 1.0 },
     { url: `${BASE}/parts`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.95 },
+    { url: `${BASE}/rubber-tracks`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.9 },
+    { url: `${BASE}/cab-glass`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.9 },
     { url: `${BASE}/lithium-batteries`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.95 },
     { url: `${BASE}/navitas-controllers`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.9 },
     { url: `${BASE}/charger-modules`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.9 },

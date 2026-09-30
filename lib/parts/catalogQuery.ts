@@ -259,6 +259,12 @@ export async function fetchCatalogFacets(supabase: SupabaseClient) {
 
 export const CATALOG_QUICK_PATHS = [
   {
+    label: 'Shop by machine',
+    href: '/parts/for-your-machine',
+    description: 'Tracks, glass, seats, and more',
+    accent: 'bg-slate-950',
+  },
+  {
     label: 'Rubber Tracks',
     href: '/rubber-tracks',
     description: 'Free shipping · 2-year warranty',

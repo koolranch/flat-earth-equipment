@@ -136,6 +136,14 @@ export default function RtFinder({ parts }: { parts: FinderPart[] }) {
               </li>
             ))}
           </ul>
+          <p className="pt-3 text-sm text-slate-300">
+            <Link
+              href={`/parts/for-your-machine?brand=${encodeURIComponent(brand)}&model=${encodeURIComponent(model)}`}
+              className="text-orange-300 underline"
+            >
+              All parts for this model
+            </Link>
+          </p>
         </div>
       )}
     </div>
