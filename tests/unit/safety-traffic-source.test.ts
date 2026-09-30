@@ -52,9 +52,9 @@ test('checkout route is never gated by FEATURE_GA', () => {
 test('training checkout skips shipping; parts checkout still collects it', () => {
   const source = readFileSync('app/api/checkout/route.ts', 'utf8');
   assert.match(source, /!isTrainingPurchase/);
-  assert.match(source, /shipping_address_collection: \{ allowed_countries: \["US", "CA"\] \}/);
+  assert.match(source, /shipping_address_collection: \{ allowed_countries: \["US"\] \}/);
   assert.equal(
-    source.includes('shipping_address_collection: { allowed_countries: ["US", "CA"] },\n      ...(checkoutMode'),
+    source.includes('shipping_address_collection: { allowed_countries: ["US"] },\n      ...(checkoutMode'),
     false,
     'shipping must not be applied unconditionally to every checkout session',
   );

@@ -687,7 +687,7 @@ export async function POST(req: NextRequest) {
       billing_address_collection: isGfcSession ? "auto" : "required",
       ...(isGfcSession ? { payment_method_types: ["card", "link"] } : {}),
       ...(!isTrainingPurchase
-        ? { shipping_address_collection: { allowed_countries: ["US", "CA"] } }
+        ? { shipping_address_collection: { allowed_countries: ["US"] } }
         : {}),
       ...(checkoutMode === 'subscription'
         ? {
