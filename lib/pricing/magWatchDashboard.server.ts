@@ -8,6 +8,7 @@
 
 import { readFile } from 'fs/promises';
 import path from 'path';
+import type { SupabaseClient } from '@supabase/supabase-js';
 import { MERCHANT_FEED_META_PATH } from '../merchant/feedMeta';
 import { supabaseService } from '../supabase/service.server';
 import {
@@ -104,6 +105,27 @@ async function countChangesSince(builtAt: string | null): Promise<number> {
   return count ?? 0;
 }
 
+/** Supabase createSignedUrls rejects a body with more than 1,000 paths. */
+const SIGNED_URL_BATCH = 100;
+
+async function signPendingHeroes(
+  supabase: SupabaseClient,
+  paths: string[]
+): Promise<Map<string, string>> {
+  const signedByPath = new Map<string, string>();
+  for (let i = 0; i < paths.length; i += SIGNED_URL_BATCH) {
+    const batch = paths.slice(i, i + SIGNED_URL_BATCH);
+    const { data: signed, error } = await supabase.storage
+      .from(HERO_PENDING_BUCKET)
+      .createSignedUrls(batch, 3600);
+    if (error) throw new Error(error.message);
+    for (const item of signed ?? []) {
+      if (item.path && item.signedUrl) signedByPath.set(item.path, item.signedUrl);
+    }
+  }
+  return signedByPath;
+}
+
 async function fetchImageTray(rows: WatchRow[]): Promise<ImageTray> {
   const supabase = supabaseService();
   const { data, error } = await supabase
@@ -118,17 +140,18 @@ async function fetchImageTray(rows: WatchRow[]): Promise<ImageTray> {
   if (reviews.length === 0) return emptyImageTray();
 
   const bySku = new Map(rows.map((r) => [r.sku, r]));
-  const paths = reviews.flatMap((r) => [r.raw_path, r.cleaned_path].filter((p): p is string => Boolean(p)));
-  const signedByPath = new Map<string, string>();
-  if (paths.length > 0) {
-    const { data: signed, error: signErr } = await supabase.storage
-      .from(HERO_PENDING_BUCKET)
-      .createSignedUrls(paths, 3600);
-    if (signErr) throw new Error(signErr.message);
-    for (const item of signed ?? []) {
-      if (item.path && item.signedUrl) signedByPath.set(item.path, item.signedUrl);
-    }
-  }
+  // Approved cards use the public hero. Signing every archived raw/cleaned file blows
+  // past Supabase's 1,000-path cap and 500s the whole dashboard.
+  const paths = [
+    ...new Set(
+      reviews.flatMap((r) =>
+        r.status === 'approved'
+          ? []
+          : [r.raw_path, r.cleaned_path].filter((p): p is string => Boolean(p))
+      )
+    ),
+  ];
+  const signedByPath = await signPendingHeroes(supabase, paths);
 
   const tray = emptyImageTray();
   for (const review of reviews) {
