@@ -13114,5 +13114,28 @@
         "price": "0.00 USD"
       }
     ]
+  },
+  {
+    "id": "genie-52372-solenoid-proportional",
+    "title": "Genie 52372 Proportional Solenoid Valve",
+    "description": "Aftermarket proportional solenoid valve for Genie equipment. Replaces OEM part number 52372 (also 52372GT).\n\nCartridge-style valve: hex nut on the coil end, hex body, threaded cartridge with two O-rings and a dark nose. This is the proportional solenoid valve \u2014 not a relief or on/off cartridge. Fits GS68 RT. Ships about 0.8 lb.\n\nIn stock.",
+    "link": "https://www.flatearthequipment.com/parts/genie-52372-solenoid-proportional",
+    "image_link": "https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/genie-52372-proportional-solenoid-valve.jpg",
+    "price": "539.00 USD",
+    "brand": "Genie",
+    "mpn": "52372",
+    "condition": "new",
+    "availability": "in stock",
+    "google_product_category": "Business & Industrial > Material Handling",
+    "product_type": "Hydraulics",
+    "shipping_weight": "0.8 lb",
+    "identifier_exists": "no",
+    "shipping": [
+      {
+        "country": "US",
+        "service": "Ground",
+        "price": "31.00 USD"
+      }
+    ]
   }
 ]

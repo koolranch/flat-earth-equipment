@@ -167,6 +167,7 @@ const MERCHANT_KEEP_SLUGS = new Set([
   "skyjack-159230-joystick-controller",
   "jlg-4360407-switch",
   "jlg-1001110774-drive-wheel",
+  "genie-52372-solenoid-proportional",
 ]);
 
 /**
