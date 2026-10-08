@@ -10,12 +10,19 @@ import {
   trackChargerBeginCheckout,
 } from '@/lib/analytics/charger-modules';
 import { skuFreightDollars } from '@/lib/parts/skuFreight';
+import {
+  chargerModuleWholesaleCents,
+  shipTaxPerUnitCents,
+  shipToStateName,
+  US_SHIP_TO_STATES,
+} from '@/lib/pricing/chargerModuleShipTax';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 export default function CartPage() {
   const { items, removeItem, updateQuantity, clearCart } = useCart();
   const [locale, setLocale] = useState<'en' | 'es'>('en');
+  const [shipToState, setShipToState] = useState('');
 
   useEffect(() => {
     // Get locale from cookie on client side
@@ -40,7 +47,10 @@ export default function CartPage() {
       subtotal: 'Subtotal',
       coreCharges: 'Core Charges',
       total: 'Total',
-      proceedToCheckout: 'Proceed to Checkout'
+      proceedToCheckout: 'Proceed to Checkout',
+      shipToState: 'Ship-to state',
+      selectState: 'Select a state',
+      shipToTaxHelp: 'The module price stays the same. Tax is added as its own line from the delivery state.',
     },
     es: {
       cartEmpty: 'Su Carrito Está Vacío',
@@ -54,12 +64,33 @@ export default function CartPage() {
       subtotal: 'Subtotal',
       coreCharges: 'Cargos de Núcleo',
       total: 'Total',
-      proceedToCheckout: 'Proceder al Pago'
+      proceedToCheckout: 'Proceder al Pago',
+      shipToState: 'Estado de entrega',
+      selectState: 'Seleccione un estado',
+      shipToTaxHelp: 'El precio del módulo no cambia. El impuesto va en su propia línea según el estado de entrega.',
     }
   }[locale]
 
+  const needsChargerShipTax = items.some(
+    (item) => chargerModuleWholesaleCents(item.stripe_price_id) != null
+  );
+  const shipToStateLabel = shipToStateName(shipToState);
+  const shipTaxCents = shipToStateLabel
+    ? items.reduce((sum, item) => {
+        const unit = shipTaxPerUnitCents(item.stripe_price_id, shipToState);
+        if (!unit) return sum;
+        return sum + unit * Math.max(1, item.quantity);
+      }, 0)
+    : 0;
+
   const handleCheckout = async () => {
     try {
+      if (needsChargerShipTax && !shipToStateLabel) {
+        alert(locale === 'es'
+          ? 'Seleccione el estado de entrega para agregar el impuesto.'
+          : 'Select the ship-to state so charger module tax can be added.');
+        return;
+      }
       const chargerItems = items.filter(
         (item) =>
           item.category === 'Charger Modules' ||
@@ -90,6 +121,7 @@ export default function CartPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          ...(needsChargerShipTax ? { shipToState } : {}),
           items: items.map(item => ({
             priceId: item.stripe_price_id,
             quantity: item.quantity,
@@ -328,15 +360,41 @@ export default function CartPage() {
                   <span>${freightCharges.toFixed(2)}</span>
                 </div>
               )}
+              {shipTaxCents > 0 && shipToStateLabel && (
+                <div className="flex justify-between">
+                  <span>{shipToStateLabel} ship-to tax</span>
+                  <span>${(shipTaxCents / 100).toFixed(2)}</span>
+                </div>
+              )}
               <div className="flex justify-between font-semibold pt-2 border-t">
                 <span>{t.total}</span>
-                <span>${(total + coreCharges + freightCharges).toFixed(2)}</span>
+                <span>${(total + coreCharges + freightCharges + shipTaxCents / 100).toFixed(2)}</span>
               </div>
             </div>
 
+            {needsChargerShipTax && (
+              <label className="block mb-4 text-sm">
+                <span className="font-medium">{t.shipToState}</span>
+                <select
+                  value={shipToState}
+                  onChange={(event) => setShipToState(event.target.value)}
+                  className="mt-1 w-full rounded border border-gray-300 bg-white p-2"
+                >
+                  <option value="">{t.selectState}</option>
+                  {US_SHIP_TO_STATES.map((state) => (
+                    <option key={state.code} value={state.code}>
+                      {state.name}
+                    </option>
+                  ))}
+                </select>
+                <span className="mt-1 block text-gray-600">{t.shipToTaxHelp}</span>
+              </label>
+            )}
+
             <button
               onClick={handleCheckout}
-              className="w-full bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition-colors"
+              disabled={needsChargerShipTax && !shipToStateLabel}
+              className="w-full bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
             >
               {t.proceedToCheckout}
             </button>

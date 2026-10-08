@@ -28,14 +28,16 @@ export default function OptionSelectorCard({ module, locale = 'en', showDetailsL
       buyShipToday: "Buy & Ship Today →",
       startRepairOrder: "Start Repair Order →", 
       coreRefundTitle: "How the core refund works",
-      coreRefundDesc: "We pre-charge a refundable $350 deposit. Ship your old module back within 30 days using the prepaid label. Refund issued within 48 hours of arrival."
+      coreRefundDesc: "We pre-charge a refundable $350 deposit. Ship your old module back within 30 days using the prepaid label. Refund issued within 48 hours of arrival.",
+      shipToTax: "Ship-to tax is added as its own line in the cart, from the delivery state.",
     },
     es: {
       chooseOption: "Elegir opción",
       buyShipToday: "Comprar y Enviar Hoy →",
       startRepairOrder: "Iniciar Orden de Reparación →",
       coreRefundTitle: "Cómo funciona el reembolso del núcleo",
-      coreRefundDesc: "Cobramos por adelantado un depósito reembolsable de $350. Envíe su módulo usado de vuelta dentro de 30 días usando la etiqueta prepagada. Reembolso emitido dentro de 48 horas de llegada."
+      coreRefundDesc: "Cobramos por adelantado un depósito reembolsable de $350. Envíe su módulo usado de vuelta dentro de 30 días usando la etiqueta prepagada. Reembolso emitido dentro de 48 horas de llegada.",
+      shipToTax: "El impuesto de entrega se agrega como línea aparte en el carrito, según el estado.",
     }
   }[locale];
 
@@ -179,6 +181,8 @@ export default function OptionSelectorCard({ module, locale = 'en', showDetailsL
           </tbody>
         </table>
       </details>
+
+      <p className="text-sm text-gray-600">{t.shipToTax}</p>
 
       <AddToCartButton
         sku={offer.sku}

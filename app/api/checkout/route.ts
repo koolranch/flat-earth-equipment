@@ -4,6 +4,11 @@ import Stripe from "stripe";
 import { supabaseService } from '@/lib/supabase/service.server';
 import { qualifiesForSeatFreeFreight } from '@/lib/parts/seatFreight';
 import { skuFreightQuantity } from '@/lib/parts/skuFreight';
+import {
+  chargerModuleWholesaleCents,
+  shipTaxPerUnitCents,
+  shipToStateName,
+} from '@/lib/pricing/chargerModuleShipTax';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -72,8 +77,26 @@ export async function POST(req: NextRequest) {
     let successSlug = "";
     let checkoutMode: "payment" | "subscription" = "payment";
     let subscriptionTrialDays = 0;
+    let chargerShipToStateName: string | null = null;
     
     if (body.items && Array.isArray(body.items)) {
+      const shipToState =
+        typeof body.shipToState === 'string' ? body.shipToState.trim().toUpperCase() : '';
+      const needsChargerShipTax = body.items.some(
+        (item: { priceId?: string }) => chargerModuleWholesaleCents(item?.priceId) != null
+      );
+      if (needsChargerShipTax) {
+        const stateName = shipToStateName(shipToState);
+        if (!stateName) {
+          return NextResponse.json(
+            { error: 'Select the ship-to state so charger module tax can be added.' },
+            { status: 400 }
+          );
+        }
+        metadata.charger_ship_to_state = shipToState;
+        chargerShipToStateName = stateName;
+      }
+
       // Cart checkout format: { items: [{ priceId, quantity, metadata, coreCharge, isTraining, ... }] }
       for (let i = 0; i < body.items.length; i++) {
         const item = body.items[i];
@@ -152,6 +175,24 @@ export async function POST(req: NextRequest) {
               unit_amount: coreChargeAmount
             },
             quantity: Math.max(1, Number(item.quantity) || 1)
+          });
+        }
+
+        const shipTaxUnit = chargerShipToStateName
+          ? shipTaxPerUnitCents(item.priceId, metadata.charger_ship_to_state)
+          : null;
+        if (shipTaxUnit && shipTaxUnit > 0) {
+          lineItems.push({
+            price_data: {
+              currency: 'usd',
+              product_data: {
+                name: `${chargerShipToStateName} ship-to tax`,
+                description: `Tax on delivery of ${item.name || 'charger module'} into ${chargerShipToStateName}.`,
+                tax_code: 'txcd_00000000',
+              },
+              unit_amount: shipTaxUnit,
+            },
+            quantity: Math.max(1, Number(item.quantity) || 1),
           });
         }
         
@@ -716,6 +757,15 @@ export async function POST(req: NextRequest) {
       // step: "what happens after I pay?" and "who is Flat Earth Equipment?"
       // Trial wording only on subscriptions; a one-time purchase must not
       // promise "you won't be charged".
+      ...(chargerShipToStateName && !isGfcSession
+        ? {
+            custom_text: {
+              shipping_address: {
+                message: `Ship-to tax on this order is for ${chargerShipToStateName}.`,
+              },
+            },
+          }
+        : {}),
       ...(isGfcSession
         ? {
             custom_text: {
