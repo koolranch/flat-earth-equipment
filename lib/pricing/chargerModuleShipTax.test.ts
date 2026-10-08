@@ -31,14 +31,14 @@ assert.equal(shipTaxPerUnitCents(ACT_36_REPAIR, 'MI'), null);
 assert.equal(shipTaxPerUnitCents('price_unknown', 'MI'), null);
 assert.equal(shipTaxPerUnitCents(HAWKER_REMAN, 'ZZ'), null);
 
-for (const module of CHARGER_MODULES) {
-  for (const offer of module.offers) {
+for (const charger of CHARGER_MODULES) {
+  for (const offer of charger.offers) {
     const cost = chargerModuleWholesaleCents(offer.sku);
-    const isActRepair = module.brand === 'ACT' && offer.label === 'Repair & Return';
+    const isActRepair = charger.brand === 'ACT' && offer.label === 'Repair & Return';
     if (isActRepair) {
       assert.equal(cost, null, offer.sku);
     } else {
-      assert.ok(cost && cost > 0, `${module.slug} ${offer.label} needs a wholesale cost`);
+      assert.ok(cost && cost > 0, `${charger.slug} ${offer.label} needs a wholesale cost`);
     }
   }
 }
