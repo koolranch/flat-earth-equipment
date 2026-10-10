@@ -347,13 +347,13 @@ export default function GenieLookupPage() {
                     <Link href="/parts" className="group block p-4 rounded-2xl border border-slate-200 hover:border-slate-300 transition-colors bg-white hover:bg-slate-50">
                       <div className="text-2xl mb-2">🔧</div>
                       <h4 className="font-medium text-slate-900 group-hover:text-black">Genie Parts</h4>
-                      <p className="text-sm text-slate-600 mt-1">Genuine and aftermarket parts</p>
+                      <p className="text-sm text-slate-600 mt-1">Parts we currently list. A listing is not a fit for every machine.</p>
                     </Link>
 
-                    <Link href="/brand/genie/fault-codes" className="group block p-4 rounded-2xl border border-slate-200 hover:border-slate-300 transition-colors bg-white hover:bg-slate-50">
+                    <Link href="/parts/aerial-equipment/genie-scissor-lift-error-codes" className="group block p-4 rounded-2xl border border-slate-200 hover:border-slate-300 transition-colors bg-white hover:bg-slate-50">
                       <div className="text-2xl mb-2">⚠️</div>
-                      <h4 className="font-medium text-slate-900 group-hover:text-black">Genie Fault Codes</h4>
-                      <p className="text-sm text-slate-600 mt-1">Troubleshoot error codes</p>
+                      <h4 className="font-medium text-slate-900 group-hover:text-black">Genie scissor lift codes</h4>
+                      <p className="text-sm text-slate-600 mt-1">GS-series error codes and the parts we list for them.</p>
                     </Link>
                   </div>
                 </div>

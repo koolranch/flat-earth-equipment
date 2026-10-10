@@ -128,7 +128,7 @@ export default function Page(){
                   <Link href="/parts" className="group block p-4 rounded-2xl border border-slate-200 hover:border-slate-300 transition-colors bg-white hover:bg-slate-50">
                     <div className="text-2xl mb-2">🔧</div>
                     <h4 className="font-medium text-slate-900 group-hover:text-black">Mitsubishi Parts</h4>
-                    <p className="text-sm text-slate-600 mt-1">Genuine and aftermarket parts</p>
+                    <p className="text-sm text-slate-600 mt-1">Parts we currently list. A listing is not a fit for every machine.</p>
                   </Link>
 
                   <Link href="/battery-chargers" className="group block p-4 rounded-2xl border border-slate-200 hover:border-slate-300 transition-colors bg-white hover:bg-slate-50">
@@ -141,7 +141,7 @@ export default function Page(){
 
               <section className="mt-8 text-sm text-slate-600">
                 More lookups:{" "}
-                <a className="underline" href="/toyota-forklift-serial-number-lookup">Toyota</a> ·{" "}
+                <a className="underline" href="/toyota-forklift-serial-lookup">Toyota</a> ·{" "}
                 <a className="underline" href="/hyster-serial-number-lookup">Hyster</a> ·{" "}
                 <a className="underline" href="/yale-serial-number-lookup">Yale</a> ·{" "}
                 <a className="underline" href="/komatsu-serial-number-lookup">Komatsu</a> ·{" "}

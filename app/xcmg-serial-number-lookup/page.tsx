@@ -124,14 +124,14 @@ export default function Page() {
                     </div>
                   </a>
                   <a
-                    href="/parts/construction-equipment-parts"
+                    href="/quote?equipment=XCMG&notes=Need%20parts%20fitment%20help%20with%20serial%20number"
                     className="group p-3 rounded-lg border hover:border-blue-300 hover:shadow-md transition-all"
                   >
                     <div className="text-sm font-medium text-gray-900 group-hover:text-blue-600">
-                      XCMG Parts
+                      Request an XCMG part
                     </div>
                     <div className="text-xs text-gray-500 mt-1">
-                      Construction equipment parts
+                      Send the plate serial with the quote.
                     </div>
                   </a>
                   <a
@@ -150,7 +150,7 @@ export default function Page() {
 
               <section className="mt-8 text-sm text-slate-600">
                 More lookups:{" "}
-                <a className="underline" href="/toyota-forklift-serial-number-lookup">Toyota</a> ·{" "}
+                <a className="underline" href="/toyota-forklift-serial-lookup">Toyota</a> ·{" "}
                 <a className="underline" href="/hyster-serial-number-lookup">Hyster</a> ·{" "}
                 <a className="underline" href="/yale-serial-number-lookup">Yale</a> ·{" "}
                 <a className="underline" href="/cat-serial-number-lookup">CAT</a> ·{" "}

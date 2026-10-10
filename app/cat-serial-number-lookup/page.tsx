@@ -273,7 +273,7 @@ export default function CATLookupPage() {
                 <section className="mt-8 pt-6 border-t border-gray-200 text-center">
                   <p className="text-sm text-slate-600 mb-3">Looking up other brands?</p>
                   <div className="flex flex-wrap justify-center gap-3">
-                    <a className="text-blue-600 hover:text-blue-800 text-sm font-medium underline" href="/toyota-forklift-serial-number-lookup">Toyota</a>
+                    <a className="text-blue-600 hover:text-blue-800 text-sm font-medium underline" href="/toyota-forklift-serial-lookup">Toyota</a>
                     <a className="text-blue-600 hover:text-blue-800 text-sm font-medium underline" href="/hyster-serial-number-lookup">Hyster</a>
                     <a className="text-blue-600 hover:text-blue-800 text-sm font-medium underline" href="/yale-serial-number-lookup">Yale</a>
                     <a className="text-blue-600 hover:text-blue-800 text-sm font-medium underline" href="/raymond-serial-number-lookup">Raymond</a>

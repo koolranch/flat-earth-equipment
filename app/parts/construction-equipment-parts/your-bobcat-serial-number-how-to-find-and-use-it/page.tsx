@@ -136,8 +136,8 @@ const breadcrumbLd = {
     {
       "@type": "ListItem",
       position: 2,
-      name: "Construction equipment parts",
-      item: "https://www.flatearthequipment.com/parts/construction-equipment-parts",
+      name: "Bobcat parts",
+      item: "https://www.flatearthequipment.com/parts?brand=Bobcat",
     },
     {
       "@type": "ListItem",
@@ -294,10 +294,10 @@ export default function BobcatSerialNumberGuide() {
             <li aria-hidden="true">/</li>
             <li>
               <Link
-                href="/parts/construction-equipment-parts"
+                href="/parts?brand=Bobcat"
                 className="hover:text-canyon-rust"
               >
-                Construction equipment parts
+                Bobcat parts
               </Link>
             </li>
             <li aria-hidden="true">/</li>

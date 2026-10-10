@@ -433,7 +433,7 @@ export default function YaleLookupPage() {
                   <h3 className="font-semibold text-slate-900 group-hover:text-blue-600">Yale Forklift Parts</h3>
                 </div>
                 <p className="text-sm text-slate-600">
-                  Browse our complete inventory of Yale forklift parts by model and serial number.
+                  Yale parts we currently list. A listing is not a fit for every truck.
                 </p>
               </div>
             </Link>

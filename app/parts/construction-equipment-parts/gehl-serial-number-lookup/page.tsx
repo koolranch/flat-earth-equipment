@@ -1,5 +1,14 @@
 "use client";
+import Link from "next/link";
 import { useState, useMemo } from "react";
+
+function gehlQuoteHref(serial: string, model: string) {
+  const equipment = ["Gehl", model.trim()].filter(Boolean).join(" ");
+  const notes = serial.trim()
+    ? `Serial: ${serial.trim()}`
+    : "Need parts fitment help with serial number";
+  return `/quote?${new URLSearchParams({ equipment, notes }).toString()}`;
+}
 
 type PlateTip = { equipment_type:string; series:string|null; location_notes:string; };
 type RangeRow = { model_code:string; serial_range:string; notes:string|null };
@@ -119,6 +128,18 @@ export default function Page(){
                 {data.notes.map((n,i)=>(<p key={i}>• {n}</p>))}
               </div>
             ) : null}
+
+            <div className="mt-5">
+              <Link
+                href={gehlQuoteHref(data.input?.serial || serial, data.input?.model || model)}
+                className="inline-flex min-h-[44px] items-center rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white"
+              >
+                Request parts for this serial
+              </Link>
+              <p className="mt-2 text-xs text-slate-500">
+                Send the full plate serial with the quote. There is no Gehl parts list on this site yet.
+              </p>
+            </div>
           </>
         )}
       </div>
@@ -135,6 +156,12 @@ export default function Page(){
           <li><strong>Do I get a model year from the serial?</strong> No—use the serial to select the correct parts/manuals.</li>
           <li><strong>What else should I record?</strong> Engine serial (from the engine plate) and attachments where applicable.</li>
         </ul>
+        <p>
+          <Link href="/quote?equipment=Gehl&notes=Need%20parts%20fitment%20help%20with%20serial%20number">
+            Request a Gehl parts quote
+          </Link>{" "}
+          and include the full serial from the plate.
+        </p>
       </section>
     </div>
   );

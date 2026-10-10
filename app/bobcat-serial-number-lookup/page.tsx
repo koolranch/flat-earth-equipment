@@ -502,10 +502,10 @@ export default function BobcatLookupPage() {
                         className="inline-flex min-h-[44px] items-center rounded-lg border border-red-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:border-red-600"
                       />
                       <Link
-                        href="/parts/construction-equipment-parts"
+                        href="/parts?brand=Bobcat"
                         className="text-sm text-slate-700 underline hover:text-red-700"
                       >
-                        Browse construction parts
+                        Bobcat parts in stock
                       </Link>
                       <a
                         href="tel:+18883929175"
@@ -615,14 +615,14 @@ export default function BobcatLookupPage() {
         <div className="bg-white border border-slate-200 rounded-lg p-8 mt-8">
           <h2 className="text-2xl font-bold text-slate-900 mb-6">Related Resources</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Link href="/parts/construction-equipment-parts" className="group">
+            <Link href="/parts?brand=Bobcat" className="group">
               <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 hover:shadow-md transition-all group-hover:border-red-300">
                 <div className="flex items-center gap-3 mb-3">
                   <Wrench className="h-5 w-5 text-red-600" />
-                  <h3 className="font-semibold text-slate-900 group-hover:text-red-600">Bobcat Parts</h3>
+                  <h3 className="font-semibold text-slate-900 group-hover:text-red-600">Bobcat parts in stock</h3>
                 </div>
                 <p className="text-sm text-slate-600">
-                  Browse our complete inventory of Bobcat parts by model and equipment type.
+                  Bobcat parts we currently list. A listing is not a fit for every machine.
                 </p>
               </div>
             </Link>

@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -114,7 +113,7 @@ export default function NewHollandSkidSteerSerialNumberLookup() {
 
         <h2>Year Identification</h2>
         <p>
-          The serial number can help identify your machine's year:
+          The year printed on the product identification plate is the one to use. The bands below are only a rough orientation. They are not a parts match.
         </p>
         <ul>
           <li>2000-2004: Early L Series models</li>
@@ -149,18 +148,26 @@ export default function NewHollandSkidSteerSerialNumberLookup() {
           <li>Locate all serial number locations on your machine</li>
           <li>Compare numbers to ensure they match</li>
           <li>Check against your operator's manual</li>
-          <li>Contact your dealer for verification if needed</li>
+          <li>If the numbers still do not match, request a parts quote and include the serial</li>
         </ol>
 
         <h2>Professional Assistance</h2>
         <p>
-          If you need help with serial number identification:
+          Record the plate serial first, then use it when you ask for parts.
         </p>
         <ul>
-          <li>Contact your local New Holland dealer</li>
-          <li>Use the New Holland parts lookup system</li>
-          <li>Consult with equipment specialists</li>
-          <li>Check online parts catalogs</li>
+          <li>
+            <Link href="/new-holland-serial-number-lookup">Open the New Holland serial lookup</Link> for the plate location on your equipment type.
+          </li>
+          <li>
+            <Link href="/quote?equipment=New%20Holland%20skid%20steer&notes=Need%20parts%20fitment%20help%20with%20serial%20number">
+              Request a parts quote
+            </Link>{" "}
+            and include the full serial.
+          </li>
+          <li>
+            <Link href="/parts?brand=New%20Holland">New Holland parts currently listed</Link> are not a fit list for every skid steer. Confirm the serial before you order.
+          </li>
         </ul>
 
         <h2>Why Serial Beats "Model Year" for Parts</h2>
@@ -170,7 +177,7 @@ export default function NewHollandSkidSteerSerialNumberLookup() {
 
         <h2>Conclusion</h2>
         <p>
-          Understanding your New Holland skid steer's serial number is essential for proper maintenance and parts ordering. Keep your serial number in a safe place and always reference it when ordering parts or seeking service. If you're unsure about your serial number or need assistance, don't hesitate to contact your dealer or equipment specialist.
+          Understanding your New Holland skid steer's serial number is essential for proper maintenance and parts ordering. Keep your serial number in a safe place and always reference it when ordering parts. If the plate is hard to read, request a parts quote and include the model plus any numbers you can see.
         </p>
 
         <p className="text-xs text-slate-500">

@@ -350,10 +350,10 @@ export default function RaymondLookupPage() {
                 {/* Action Buttons */}
                 <div className="flex flex-wrap gap-3 pt-4 border-t">
                   <Link 
-                    href="/parts/forklift-parts"
-                    className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
+                    href="/parts?brand=Raymond"
+                    className="inline-flex min-h-[44px] items-center bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
                   >
-                    Find Raymond Parts
+                    Raymond parts in stock
                   </Link>
                   <Link 
                     href="/quote"
@@ -469,14 +469,14 @@ export default function RaymondLookupPage() {
         <div className="bg-white border border-slate-200 rounded-lg p-8 mt-8">
           <h2 className="text-2xl font-bold text-slate-900 mb-6">Related Resources</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Link href="/parts/forklift-parts" className="group">
+            <Link href="/parts?brand=Raymond" className="group">
               <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 hover:shadow-md transition-all group-hover:border-blue-300">
                 <div className="flex items-center gap-3 mb-3">
                   <Wrench className="h-5 w-5 text-blue-600" />
-                  <h3 className="font-semibold text-slate-900 group-hover:text-blue-600">Raymond Forklift Parts</h3>
+                  <h3 className="font-semibold text-slate-900 group-hover:text-blue-600">Raymond parts in stock</h3>
                 </div>
                 <p className="text-sm text-slate-600">
-                  Browse our complete inventory of Raymond forklift parts by model and serial number.
+                  Parts we currently list for Raymond. A listing is not a fit for every truck. Use the plate serial on the quote.
                 </p>
               </div>
             </Link>

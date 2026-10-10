@@ -22,6 +22,16 @@ type ApiResponse = {
 
 const TYPES = ["Skid Steer","Tractor","Track Loader","Excavator","Combine","Forage Harvester","Backhoe","Telehandler"];
 
+const TRACK_ROLLER_MODELS = new Set(["c227", "c232", "c238", "l225", "l230", "tv380"]);
+
+function newHollandQuoteHref(serial: string, model: string, equipmentType: string) {
+  const equipment = ["New Holland", model.trim(), equipmentType.trim()].filter(Boolean).join(" ");
+  const notes = serial.trim()
+    ? `Serial: ${serial.trim()}`
+    : "Need parts fitment help with serial number";
+  return `/quote?${new URLSearchParams({ equipment, notes }).toString()}`;
+}
+
 export default function NewHollandLookupPage() {
   const [equipmentType, setEquipmentType] = useState<string>("Skid Steer");
   const [model, setModel] = useState<string>(""); // optional (e.g., L170, 5030, 7740, T8.350)
@@ -261,8 +271,8 @@ export default function NewHollandLookupPage() {
                       <h4 className="font-semibold text-slate-900">No Year Estimate Available</h4>
                     </div>
                     <p className="text-slate-700 text-sm">
-                      No year estimate for this model/serial combination. Please use the year printed on your 
-                      product identification plate or check with a dealer.
+                      No year estimate for this model/serial combination. Use the year printed on the
+                      product identification plate.
                     </p>
                   </div>
                 )}
@@ -314,17 +324,29 @@ export default function NewHollandLookupPage() {
 
                 {/* Action Buttons */}
                 <div className="flex flex-wrap gap-3 pt-4 border-t">
-                  <Link 
-                    href="/parts/construction-equipment-parts"
-                    className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
+                  <Link
+                    href={newHollandQuoteHref(
+                      data.input?.serial || serial,
+                      data.input?.model || model,
+                      data.input?.equipmentType || equipmentType,
+                    )}
+                    className="inline-flex min-h-[44px] items-center bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
                   >
-                    Find Parts for This Model
+                    Request parts for this serial
                   </Link>
-                  <Link 
-                    href="/quote"
-                    className="bg-slate-600 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition"
+                  {TRACK_ROLLER_MODELS.has((data.input?.model || model).trim().toLowerCase()) ? (
+                    <Link
+                      href="/parts/new-holland-87535297-bottom-track-roller"
+                      className="inline-flex min-h-[44px] items-center bg-white text-slate-800 border border-slate-300 px-4 py-2 rounded-lg hover:border-slate-900 transition"
+                    >
+                      New Holland 87535297 track roller
+                    </Link>
+                  ) : null}
+                  <Link
+                    href="/parts?brand=New%20Holland"
+                    className="inline-flex min-h-[44px] items-center bg-slate-600 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition"
                   >
-                    Get Parts Quote
+                    New Holland parts in stock
                   </Link>
                 </div>
 
@@ -420,14 +442,14 @@ export default function NewHollandLookupPage() {
         <div className="bg-white border border-slate-200 rounded-lg p-8 mt-8">
           <h2 className="text-2xl font-bold text-slate-900 mb-6">Related Resources</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Link href="/parts/construction-equipment-parts" className="group">
+            <Link href="/parts?brand=New%20Holland" className="group">
               <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 hover:shadow-md transition-all group-hover:border-blue-300">
                 <div className="flex items-center gap-3 mb-3">
                   <Wrench className="h-5 w-5 text-blue-600" />
-                  <h3 className="font-semibold text-slate-900 group-hover:text-blue-600">New Holland Parts</h3>
+                  <h3 className="font-semibold text-slate-900 group-hover:text-blue-600">New Holland parts in stock</h3>
                 </div>
                 <p className="text-sm text-slate-600">
-                  Browse our complete inventory of New Holland parts by model and equipment type.
+                  Parts we currently list for New Holland. A listing is not a fit for every model. Use the plate serial on the quote.
                 </p>
               </div>
             </Link>

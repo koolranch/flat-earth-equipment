@@ -85,7 +85,7 @@ export default function NissanK21EnginePage() {
           <span>/</span>
           <Link href="/parts" className="hover:text-slate-900">Parts</Link>
           <span>/</span>
-          <Link href="/parts/forklift-parts" className="hover:text-slate-900">Forklift Parts</Link>
+          <Link href="/parts" className="hover:text-slate-900">Forklift Parts</Link>
           <span>/</span>
           <span className="text-slate-900 font-medium">K21 Engine</span>
         </nav>
@@ -564,29 +564,18 @@ export default function NissanK21EnginePage() {
               </div>
             </Link>
             
-            <Link href="/parts/forklift-parts" className="group">
+            <Link href="/parts" className="group">
               <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 hover:shadow-md transition-all group-hover:border-green-300">
                 <div className="flex items-center gap-3 mb-3">
                   <Settings className="h-5 w-5 text-green-600" />
-                  <h3 className="font-semibold text-slate-900 group-hover:text-green-600">Forklift Parts Catalog</h3>
+                  <h3 className="font-semibold text-slate-900 group-hover:text-green-600">Parts catalog</h3>
                 </div>
                 <p className="text-sm text-slate-600">
-                  Browse our complete inventory of forklift parts for all major brands and models.
+                  Parts we currently list. Use the plate serial when a listing does not name your truck.
                 </p>
               </div>
             </Link>
             
-            <Link href="/rental/forklifts" className="group">
-              <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 hover:shadow-md transition-all group-hover:border-orange-300">
-                <div className="flex items-center gap-3 mb-3">
-                  <Users className="h-5 w-5 text-orange-600" />
-                  <h3 className="font-semibold text-slate-900 group-hover:text-orange-600">Forklift Rentals</h3>
-                </div>
-                <p className="text-sm text-slate-600">
-                  Rent quality forklifts with K21 engines for short-term or long-term projects.
-                </p>
-              </div>
-            </Link>
           </div>
         </div>
       </main>

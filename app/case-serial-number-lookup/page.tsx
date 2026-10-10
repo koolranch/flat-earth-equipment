@@ -496,10 +496,10 @@ export default function CaseSerialLookupPage() {
                         className="inline-flex min-h-[44px] items-center rounded-lg border border-amber-400 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:border-amber-700"
                       />
                       <Link
-                        href="/parts/construction-equipment-parts"
+                        href="/parts?brand=Case"
                         className="text-sm text-slate-700 underline hover:text-amber-700"
                       >
-                        Browse construction parts
+                        Case parts in stock
                       </Link>
                       <a
                         href="tel:+18883929175"

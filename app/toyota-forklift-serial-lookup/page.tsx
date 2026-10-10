@@ -411,7 +411,7 @@ export default function ToyotaLookupPage() {
                 <h3 className="font-semibold text-slate-900 group-hover:text-blue-600">Toyota Forklift Parts</h3>
               </div>
               <p className="text-sm text-slate-600">
-                Browse our complete inventory of Toyota forklift parts by model and year.
+                Toyota parts we currently list. A listing is not a fit for every truck.
               </p>
             </div>
           </Link>

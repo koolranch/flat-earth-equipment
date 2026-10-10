@@ -285,10 +285,10 @@ export default function Page() {
                       className="inline-flex min-h-[44px] items-center rounded-lg border border-yellow-500 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:border-yellow-700"
                     />
                     <a
-                      href="/parts/construction-equipment-parts"
+                      href="/parts?brand=JCB"
                       className="text-sm text-slate-700 underline hover:text-yellow-700"
                     >
-                      Browse JCB parts
+                      JCB parts in stock
                     </a>
                     <a
                       href="tel:+18883929175"
@@ -327,14 +327,14 @@ export default function Page() {
                     </div>
                   </a>
                   <a
-                    href="/parts/construction-equipment-parts"
+                    href="/parts?brand=JCB"
                     className="group p-3 rounded-lg border hover:border-blue-300 hover:shadow-md transition-all"
                   >
                     <div className="text-sm font-medium text-gray-900 group-hover:text-blue-600">
-                      JCB Parts
+                      JCB parts in stock
                     </div>
                     <div className="text-xs text-gray-500 mt-1">
-                      Construction equipment parts
+                      Parts we currently list. A listing is not a fit for every machine.
                     </div>
                   </a>
                   <a
@@ -353,7 +353,7 @@ export default function Page() {
 
               <section className="mt-8 text-sm text-slate-600">
                 More lookups:{" "}
-                <a className="underline" href="/toyota-forklift-serial-number-lookup">Toyota</a> ·{" "}
+                <a className="underline" href="/toyota-forklift-serial-lookup">Toyota</a> ·{" "}
                 <a className="underline" href="/hyster-serial-number-lookup">Hyster</a> ·{" "}
                 <a className="underline" href="/yale-serial-number-lookup">Yale</a> ·{" "}
                 <a className="underline" href="/cat-serial-number-lookup">CAT</a> ·{" "}

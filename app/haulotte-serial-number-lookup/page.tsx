@@ -83,7 +83,7 @@ export default function Page(){
 
               <section className="mt-8 text-sm text-slate-600">
                 More lookups:{" "}
-                <a className="underline" href="/toyota-forklift-serial-number-lookup">Toyota</a> ·{" "}
+                <a className="underline" href="/toyota-forklift-serial-lookup">Toyota</a> ·{" "}
                 <a className="underline" href="/hyster-serial-number-lookup">Hyster</a> ·{" "}
                 <a className="underline" href="/jlg-serial-number-lookup">JLG</a> ·{" "}
                 <a className="underline" href="/genie-serial-number-lookup">Genie</a> ·{" "}
