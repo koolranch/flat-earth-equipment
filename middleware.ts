@@ -48,7 +48,9 @@ export async function middleware(request: NextRequest) {
       destination.protocol = 'https:';
       destination.host = 'www.flatearthequipment.com';
       destination.port = '';
-      return NextResponse.redirect(destination, 307);
+      // Permanent (308) so Google drops stray app-host URLs it indexed earlier
+      // (e.g. /shipping-returns) and consolidates them onto the primary domain.
+      return NextResponse.redirect(destination, 308);
     }
   }
 
