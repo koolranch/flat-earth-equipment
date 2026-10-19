@@ -24,14 +24,7 @@ export default async function QuizPage({ params }: { params: { slug: string } })
       </header>
 
       <section>
-        <DynamicQuiz 
-          slug={params.slug} 
-          locale={locale}
-          onComplete={() => {
-            // Optional: Handle completion at page level
-            console.log(`Quiz ${params.slug} completed`);
-          }}
-        />
+        <DynamicQuiz slug={params.slug} locale={locale} />
       </section>
 
       <footer className="text-center space-y-2">

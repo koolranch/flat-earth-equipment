@@ -230,10 +230,10 @@ export default function Contact() {
                     </li>
                   </ul>
                   <Link 
-                    href="/service"
+                    href="/quote"
                     className="block w-full text-center bg-slate-700 hover:bg-slate-800 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
                   >
-                    Request Service/Repair
+                    Request a parts quote
                   </Link>
                 </div>
               </div>

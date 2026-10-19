@@ -478,13 +478,13 @@ export default function GenieScissorLiftErrorCodes() {
                 <div className="text-sm text-slate-600">Helpful for recurring E4 low-voltage faults</div>
               </div>
             </Link>
-            <Link href="/brand/genie" className="flex items-start gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-lg">
+            <Link href="/parts?brand=Genie" className="flex items-start gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-lg">
               <span className="text-2xl" aria-hidden>
                 📚
               </span>
               <div>
-                <div className="font-semibold">Genie Brand Hub</div>
-                <div className="text-sm text-slate-600">Parts, guides, and resources</div>
+                <div className="font-semibold">Genie parts in stock</div>
+                <div className="text-sm text-slate-600">Parts we currently list. A listing is not a fit for every lift.</div>
               </div>
             </Link>
           </div>

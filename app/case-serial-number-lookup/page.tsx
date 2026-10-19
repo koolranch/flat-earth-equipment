@@ -699,7 +699,13 @@ export default function CaseSerialLookupPage() {
           </div>
 
           {/* Brand Hub Banner */}
-          <BrandHubBanner slug="case-construction" name="Case Construction" />
+          <BrandHubBanner
+            slug="case"
+            name="Case"
+            href="/parts?brand=Case"
+            cta="Case parts in stock"
+            detail="Parts we currently list. A listing is not a fit for every machine."
+          />
 
           {/* Rubber tracks cross-links (static, crawlable) */}
           <div className="mb-8">

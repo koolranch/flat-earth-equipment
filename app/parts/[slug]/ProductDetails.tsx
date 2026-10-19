@@ -445,7 +445,7 @@ export default function ProductDetails({
       )}
       {isRubberTrack && (
         <Link
-          href="/returns"
+          href="/policies/shipping-and-returns"
           className="inline-flex items-center gap-1.5 bg-slate-50 border border-slate-200 text-slate-700 text-sm font-semibold px-3 py-1.5 rounded-full hover:border-slate-300"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">

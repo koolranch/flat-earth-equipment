@@ -208,7 +208,7 @@ export default function ForkliftRecertification() {
               <div className="text-sm text-gray-600">¿Necesitas la versión en español? Curso completo disponible.</div>
             </Link>
             
-            <Link href="/safety/forklift/texas" className="block p-4 border rounded-lg hover:bg-gray-50 transition-colors">
+            <Link href="/safety/forklift/tx" className="block p-4 border rounded-lg hover:bg-gray-50 transition-colors">
               <div className="font-medium text-blue-600">🤠 Texas Forklift Certification</div>
               <div className="text-sm text-gray-600">State-specific requirements and OSHA compliance for Texas operators.</div>
             </Link>

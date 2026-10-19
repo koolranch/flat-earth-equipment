@@ -99,7 +99,7 @@ export default function GenieLookupPage() {
           <span>/</span>
           <Link href="/parts" className="hover:text-slate-900">Parts</Link>
           <span>/</span>
-          <Link href="/brand/genie" className="hover:text-slate-900">Genie</Link>
+          <Link href="/parts?brand=Genie" className="hover:text-slate-900">Genie parts</Link>
           <span>/</span>
           <span className="text-slate-900 font-medium">Serial Lookup</span>
         </nav>
@@ -120,7 +120,13 @@ export default function GenieLookupPage() {
             </div>
           </div>
 
-          <BrandHubBanner slug="genie" name="Genie" />
+          <BrandHubBanner
+            slug="genie"
+            name="Genie"
+            href="/parts?brand=Genie"
+            cta="Genie parts in stock"
+            detail="Parts we currently list. A listing is not a fit for every lift."
+          />
 
           <p className="text-slate-700 leading-relaxed">
             Enter your Genie serial number to decode equipment type, model specifications, and find where the serial plate 

@@ -265,7 +265,7 @@ export default function CertificacionMontacargasEspanol() {
               <Link href="/safety" className="block text-blue-600 hover:text-blue-800 underline">
                 → Ver curso principal (inglés/español)
               </Link>
-              <Link href="/safety/forklift/texas" className="block text-blue-600 hover:text-blue-800 underline">
+              <Link href="/safety/forklift/tx" className="block text-blue-600 hover:text-blue-800 underline">
                 → Certificación específica para Texas
               </Link>
               <Link href="/safety/forklift/ca" className="block text-blue-600 hover:text-blue-800 underline">

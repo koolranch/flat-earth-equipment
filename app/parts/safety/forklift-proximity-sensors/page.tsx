@@ -89,7 +89,7 @@ export default function ForkliftProximitySensorsPage() {
         <span>/</span>
         <Link href="/parts" className="hover:text-canyon-rust transition-colors">Parts</Link>
         <span>/</span>
-        <Link href="/parts/safety" className="hover:text-canyon-rust transition-colors">Safety Equipment</Link>
+        <span>Safety Equipment</span>
         <span>/</span>
         <span className="text-slate-900">Forklift Proximity Sensors</span>
       </nav>
@@ -617,7 +617,7 @@ export default function ForkliftProximitySensorsPage() {
               Forklift Operator Certification
             </h3>
             <p className="text-sm text-slate-600 mb-3">
-              OSHA-compliant online forklift certification. Complete in 60 minutes. Just $59.
+              OSHA-compliant online forklift certification. Complete in 60 minutes. $49 at the final exam.
             </p>
             <span className="text-sm text-canyon-rust font-medium group-hover:underline">
               Get certified →

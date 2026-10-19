@@ -71,7 +71,7 @@ export default function ToroDingoErrorCodesPage() {
 
     <main className="max-w-4xl mx-auto px-4 py-12">
       <div className="not-prose mb-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <Link href="/toro-dingo-serial-lookup" className="flex flex-col items-center gap-2 p-4 bg-red-50 hover:bg-red-100 border-2 border-red-200 rounded-xl transition-all">
+        <Link href="/toro-serial-number-lookup" className="flex flex-col items-center gap-2 p-4 bg-red-50 hover:bg-red-100 border-2 border-red-200 rounded-xl transition-all">
           <span className="text-2xl">🔍</span>
           <span className="text-xs font-semibold text-center">Dingo Serial Lookup</span>
         </Link>
@@ -79,9 +79,9 @@ export default function ToroDingoErrorCodesPage() {
           <span className="text-2xl">🔋</span>
           <span className="text-xs font-semibold text-center">Dingo Parts</span>
         </Link>
-        <Link href="/brand/toro" className="flex flex-col items-center gap-2 p-4 bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 rounded-xl transition-all">
+        <Link href="/battery-chargers" className="flex flex-col items-center gap-2 p-4 bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 rounded-xl transition-all">
           <span className="text-2xl">📚</span>
-          <span className="text-xs font-semibold text-center">Toro Resources</span>
+          <span className="text-xs font-semibold text-center">Chargers</span>
         </Link>
         <Link href="/quote" className="flex flex-col items-center gap-2 p-4 bg-orange-50 hover:bg-orange-100 border-2 border-orange-200 rounded-xl transition-all">
           <span className="text-2xl">💬</span>
@@ -201,7 +201,7 @@ export default function ToroDingoErrorCodesPage() {
       <div className="bg-white border-2 border-slate-200 rounded-xl p-6">
         <h2 className="text-xl font-bold mb-4">Related Toro Dingo Resources</h2>
         <div className="grid sm:grid-cols-2 gap-4">
-          <Link href="/toro-dingo-serial-lookup" className="flex items-start gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-lg">
+          <Link href="/toro-serial-number-lookup" className="flex items-start gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-lg">
             <span className="text-2xl">🔍</span>
             <div>
               <div className="font-semibold">Dingo Serial Number Lookup</div>
