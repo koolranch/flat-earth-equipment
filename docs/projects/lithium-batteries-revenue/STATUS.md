@@ -1,63 +1,65 @@
 # Lithium Batteries — Status
 
-**Last updated:** 2026-09-01
+**Last updated:** 2026-10-19
 **Active phase:** Convert already-ranking brand/PN URLs (Phase 2–3). Phase 4 generic expand still deferred.
-**Weekly automation:** Still stale — last Cloud Agent run was 2026-07-28. Manual refresh 2026-09-01 (11 days after the Aug 20 cannibalization fix).
-**Baseline ranks:** DataForSEO 2026-07-28 vs **2026-08-20** vs **2026-09-01** (`scripts/seo/rank-snapshots/lithium-rhino/`)
+**Weekly automation:** Refreshed 2026-10-19 (Monday Cloud Agent). On-disk compare baseline is still **2026-09-01** — interim agent-branch snapshots (Sep 7–Oct 12) were never merged to `main`.
+**Baseline ranks:** DataForSEO 2026-07-28 vs **2026-08-20** vs **2026-09-01** vs **2026-10-19** (`scripts/seo/rank-snapshots/lithium-rhino/`)
 
 ## Phase checklist
 
 | Phase | Status | Notes |
 |-------|--------|-------|
 | 0 Foundation | ✅ | Hub + carts + PDPs + Merchant + docs + keyword map |
-| 1 Measurement | ✅ | Rank script live; weekly automation has not refreshed since Jul 28 |
+| 1 Measurement | ✅ | Rank script live; weekly Monday automation refreshed 2026-10-19 |
 | 2 Conversion | ✅ shipped | Hub CTAs / featured kits / kit finder; PDP HazMat + cart links |
-| 3 Brand/Ah URLs | ✅ shipped | Exact-capacity copy/links + cart-schema deconfliction (2026-08-20). Recrawl is working on the intended mismatches. |
-| 4 Expand | ⬜ | Generic head terms still out except conversion-kit foothold #68 → **#66** |
+| 3 Brand/Ah URLs | ✅ shipped | Exact-capacity copy/links + cart-schema deconfliction (2026-08-20). Capacity SERPs mostly on correct PDPs; broad brand terms still stolen by Goliath/heated/170Ah. |
+| 4 Expand | ⬜ | Generic head terms still out; conversion-kit foothold **LOST** (#66→out); soft foothold on `48v 65ah lithium golf cart battery` #74 |
 
-## Progress vs Aug 20 (Google US)
+## Progress vs Sep 1 (Google US)
 
-**The cannibalization fix is taking.** Ranked count is flat (**13/26**), but wrong winning URLs **8 → 4**. The 48V 105Ah kit no longer owns 65Ah or “conversion kit.” Two part numbers are now top 10.
+**Ranked count up slightly (13→14); depth softer.** One PN remains top 10; second PN recovered to top 30 after retry. Broad brand hub terms slipped past #100 onto wrong PDPs (Goliath / heated / 170Ah). **`lithium rhino 48v 65ah` stays on the correct 65Ah kit PDP — not the hub.**
 
-| Metric | Jul 28 | Aug 20 | Sep 1 |
-|--------|-------:|-------:|------:|
-| Ranked / checked | 10/22 | 13/26 | 13/26 |
-| Top 10 | 0 | 1 | **2** (`113-LR51V65AH` #9, `113-LR51V105AH` #9) |
-| Top 30 | 3 | 2 | 2 |
-| Wrong winning URL | 2 | 8 | **4** |
+| Metric | Jul 28 | Aug 20 | Sep 1 | Oct 19 |
+|--------|-------:|-------:|------:|------:|
+| Ranked / checked | 10/22 | 13/26 | 13/26 | **14/26** |
+| Top 10 | 0 | 1 | 2 | **1** (`113-LR51V50AH` #9) |
+| Top 30 | 3 | 2 | 2 | **2** (`113-LR51V50AH` #9, `113-LR51V65AH` #12) |
+| Wrong winning URL | 2 | 8 | 4 | **5** |
 
-`113-LR51V50AH` errored on Sep 1 (DataForSEO partial results; not charged). Last good read was Aug 20 #34 on the hub.
+`113-LR51V65AH` errored on first pass (DataForSEO partial results; not charged); retry landed #12 on the correct 65Ah kit.
 
-## Rank snapshot (Google US) — 2026-09-01
+## Rank snapshot (Google US) — 2026-10-19
 
-| Keyword | Aug 20 | Sep 1 | Winning URL | Target | Notes |
-|---------|-------:|------:|-------------|---------|-------|
-| `lithium golf cart battery conversion kit` | #68 | **#66** ↑ | `/lithium-batteries` | hub ✅ | Still the only generic commercial hit |
-| `lithium rhino battery` | #40 | **#40** = | `/lithium-batteries` | hub ✅ | Holding |
-| `lithium rhino golf cart battery` | #41 | **#41** = | `/lithium-batteries` | hub ✅ | |
-| `lithium rhino conversion kit` | #37 ⚠ 105Ah | **#37** = | hub | hub ✅ | **Fixed** — was 105Ah PDP |
-| `lithium rhino 48v 65ah` | #60 ⚠ 105Ah | **#52** ↑ | 65Ah kit | 65Ah ✅ | **Fixed** — +8 and correct URL |
-| `lithium rhino 48v 65ah kit` | #52 | **#58** ↓ | 65Ah kit | 65Ah ✅ | Right URL, slipped 6 |
-| `lithium rhino 48v 105ah` | #57 | **#58** ↓ | 105Ah kit | 105Ah ✅ | |
-| `lithium rhino 72v` | #58 ⚠ hub | **#54** ↑ | 72V kit | 72V ✅ | **Fixed** |
-| `lithium rhino 48v` | #55 ⚠ 105Ah | **#54** ↑ | 120Ah kit | hub ⚠ | Cannibalizer moved 105 → 120 |
-| `lithium rhino 48v 50ah` | #54 ⚠ 105Ah | **#54** = | 120Ah kit | 50Ah ⚠ | Same 120Ah steal |
-| `lithium rhino 36v` | #58 ⚠ 36V 105Ah | **#67** ↓ | hub | 36V 65Ah ⚠ | Worse rank, different wrong URL |
-| `lithium rhino` | out | out | — | hub | Still missing live top 100 |
-| `113-LR51V65AH` | #10 ⚠ Club Car DS | **#9** ↑ | hub | 65Ah ⚠ | Cart no longer wins; still not the kit PDP |
-| `113-LR51V105AH` | #13 ⚠ cube | **#9** ↑ | 105Ah kit | 105Ah ✅ | **Fixed** — cube → kit |
-| `113-LR51V50AH` | #34 ⚠ hub | error | — | 50Ah | Retry later |
+| Keyword | Sep 1 | Oct 19 | Winning URL | Target | Notes |
+|---------|------:|-------:|-------------|---------|-------|
+| `lithium golf cart battery conversion kit` | #66 | **out** LOST | — | hub | Only prior generic foothold gone |
+| `48v 65ah lithium golf cart battery` | out | **#74** NEW | 65Ah kit | 65Ah ✅ | Soft generic→PDP foothold |
+| `lithium rhino` | out | **#53** NEW | hub | hub ✅ | Brand head finally live |
+| `lithium rhino battery` | #40 | **#113** ↓ | 170Ah battery | hub ⚠ | Soft + wrong URL |
+| `lithium rhino golf cart battery` | #41 | **#115** ↓ | 120Ah heated | hub ⚠ | Soft + wrong URL |
+| `lithium rhino conversion kit` | #37 | **#105** ↓ | Goliath kit | hub ⚠ | Soft + wrong URL |
+| `lithium rhino 48v` | #54 | **#97** ↓ | 170Ah battery | hub ⚠ | Same 170Ah thief |
+| `lithium rhino 48v 65ah` | #52 | **#51** ↑ | 65Ah kit | 65Ah ✅ | **Not hub** — correct PDP |
+| `lithium rhino 48v 65ah kit` | #58 | **#94** ↓ | 65Ah kit | 65Ah ✅ | Right URL, slipped 36 |
+| `lithium rhino 48v 105ah` | #58 | **#59** ↓ | 105Ah kit | 105Ah ✅ | |
+| `lithium rhino 48v 50ah` | #54 | **#91** ↓ | 50Ah kit | 50Ah ✅ | Right URL, soft |
+| `lithium rhino 36v` | #67 | **#63** ↑ | 36V 105Ah | 36V 65Ah ⚠ | Sibling Ah mismatch |
+| `lithium rhino 72v` | #54 | **#57** ↓ | 72V kit | 72V ✅ | |
+| `113-LR51V50AH` | error | **#9** NEW | 50Ah kit | 50Ah ✅ | Top-10 protect |
+| `113-LR51V65AH` | #9 ⚠ hub | **#12** ↓ | 65Ah kit | 65Ah ✅ | Retry; correct URL (was hub on Sep 1) |
+| `113-LR51V105AH` | #9 | **out** LOST | — | 105Ah | |
 | Generic heads (`lithium golf cart battery`, `48v lithium…`) | out | out | — | hub | Still Phase 4 |
 | Cart terms (EZGO/Club Car/Yamaha) | out | out | — | cart pages | Still no traction |
 
-**Summary:** 13/26 ranked · 2 top 10 · 2 top 30 · 4 wrong winning URL · 1 API error (`113-LR51V50AH`).
-Source: DataForSEO via `scripts/seo/lithium-rhino-rank-check.ts` (PN retries patched into the same snapshot).
+**Summary:** 14/26 ranked · 1 top 10 · 2 top 30 · 5 wrong winning URL · 0 API errors (after PN retry).
+Source: DataForSEO via `scripts/seo/lithium-rhino-rank-check.ts` (`113-LR51V65AH` retried into the same snapshot).
 
 ### Remaining target-URL mismatches
 
-1. **48V 120Ah kit is the new sibling thief** — `lithium rhino 48v` and `lithium rhino 48v 50ah` now land on `/parts/lithium-rhino-48v-120ah-kit` (was 105Ah).
-2. `113-LR51V65AH` → `/lithium-batteries` · want `/parts/lithium-rhino-48v-65ah-kit` (Club Car cart is no longer the winner).
-3. `lithium rhino 36v` → hub · want `/parts/lithium-rhino-36v-65ah-kit`.
+1. **Goliath / heated / 170Ah PDPs steal broad brand hub SERPs** — `lithium rhino battery`, `lithium rhino golf cart battery`, `lithium rhino conversion kit`, and `lithium rhino 48v` land on `/parts/lithium-rhino-48v-170ah-*` or heated/Goliath instead of `/lithium-batteries`.
+2. `lithium rhino 36v` → `/parts/lithium-rhino-36v-105ah-kit` · want `/parts/lithium-rhino-36v-65ah-kit`.
+
+**Not a mismatch this week:** `lithium rhino 48v 65ah` → `/parts/lithium-rhino-48v-65ah-kit` (correct; do not flag hub).
 
 ## Live surfaces
 
@@ -70,16 +72,16 @@ Source: DataForSEO via `scripts/seo/lithium-rhino-rank-check.ts` (PN retries pat
 
 ## Open blockers / needs from Christopher
 
-1. Optional: resume the Monday Cloud Agent rank job (or keep manual refreshes).
-2. Approve before any checkout / HazMat freight / price changes.
-3. No new generic head-term content until the four remaining wrong URLs settle.
+1. Approve before any checkout / HazMat freight / price changes.
+2. No new generic head-term content until broad brand hub SERPs stop landing on Goliath/heated/170Ah.
+3. Optional: merge weekly STATUS/snapshot PRs (or commit to `main`) so the next Monday compare baseline is not stuck on Sep 1.
 
 ## Next actions
 
-1. Watch the 120Ah PDP the same way we watched 105Ah — it is now the leftover cannibal.
-2. Recheck `113-LR51V65AH` until it leaves the hub for the 65Ah kit (cart schema already did its job).
-3. Convert the **#66 conversion-kit** query on the hub (already the right URL).
-4. Cart pages stay watch-only.
+1. Watch Goliath / 170Ah / heated PDPs the same way we watched 105Ah then 120Ah — they are the leftover broad-brand cannibals.
+2. Hold `lithium rhino 48v 65ah` on the 65Ah kit (already correct); convert soft #51 / #74 capacity queries.
+3. Protect PN top ranks (`113-LR51V50AH` #9, `113-LR51V65AH` #12); recheck `113-LR51V105AH` next Monday.
+4. Cart pages stay watch-only. Phase 4 still deferred after conversion-kit LOST.
 
 ## Decision log
 
@@ -95,3 +97,4 @@ Source: DataForSEO via `scripts/seo/lithium-rhino-rank-check.ts` (PN retries pat
 | 2026-08-20 | Shipped exact-capacity PDP copy/links and removed exact SKU/MPN Product schema from broad cart guides |
 | 2026-08-25 | Shopping free-freight test on three Demand-kit SKUs only: `113-LR51V65AH`, `113-LR38V105AH`, `113-LR51V105AH`. Checkout + Merchant must both show $0. Leave 120Ah / 72V / Goliath / battery-only on paid HazMat bands. |
 | 2026-09-01 | Recrawl check: 105Ah cannibalization largely cleared; 120Ah is the leftover thief; two PNs now top 10. Phase 4 still deferred. |
+| 2026-10-19 | Weekly automation: 14/26 ranked; `48v 65ah` correct PDP (not hub); Goliath/heated/170Ah steal broad brand hub SERPs; conversion-kit generic LOST; Phase 4 still deferred. No code PR. |
