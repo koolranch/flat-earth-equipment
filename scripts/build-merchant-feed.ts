@@ -28,8 +28,10 @@ import * as dotenv from "dotenv";
 import * as path from "path";
 import { getDisplayBrand, sanitizeCustomerFacingCopy } from "../lib/parts/displayBrand";
 import {
+  getWholesaleCostUsd,
   qualifiesForSeatFreeFreight,
 } from "../lib/parts/seatFreight";
+import { cabGlassOrderFreightCents } from "../lib/parts/cabGlassFreight";
 import { CHARGER_MODULES } from "../constants/chargerOptions";
 import { buildLithiumRhinoMetaTitle } from "../constants/lithiumRhinoSeo";
 import { MERCHANT_FEED_META_PATH, type MerchantFeedMeta } from "../lib/merchant/feedMeta";
@@ -234,6 +236,30 @@ const MERCHANT_KEEP_SLUGS = new Set([
   "134716",
   "158436",
   "158437",
+  // 2026-10-13 dashboard publish. g:id stays the catalog sku.
+  "tennant-1031610-hose",
+  "jlg-1060846-emergency-down-cable",
+  "clark-2791707-bald-air-filter",
+  "skyjack-137919-25a-circuit-breaker",
+  "jlg-4360212-3a-circuit-breaker",
+  "genie-19274-spdt-12v-relay",
+  "toyota-67620-u2233-71-control-valve",
+  "toyota-67110-30510-71-hydraulic-pump",
+  "tennant-35324-broom",
+  // 2026-10-20 dashboard publish. g:id stays the catalog sku.
+  "tennant-28007p-broom",
+  "case-84253577-maxi-fuse",
+  "case-121415a1-fuse",
+  "case-121411a1-fuse",
+  "case-121413a1-fuse",
+  "case-121416a1-fuse",
+  "case-121414a1-fuse",
+  "case-121412a1-fuse",
+  "case-121410a1-fuse",
+  "tennant-25791-squeegee",
+  "crown-132939-controller",
+  "62256gt",
+  "genie-44170-solenoid-brake",
 ]);
 
 /**
@@ -450,17 +476,12 @@ function lithiumFreightUsd(weightLbs: number): string {
   return `${(cents / 100).toFixed(2)} USD`;
 }
 
-/** Surface freight for a single cab-glass item (TVH-style bands on sell price). */
-function cabGlassFreightUsd(priceCents: number): string {
-  const dollars = priceCents / 100;
-  let cents = 0;
-  if (dollars <= 0) cents = 0;
-  else if (dollars < 25) cents = 1800;
-  else if (dollars < 150) cents = 2500;
-  else if (dollars < 300) cents = 3100;
-  else if (dollars < 500) cents = 3700;
-  else if (dollars < 650) cents = 4100;
-  // $650+ surface freight prepaid
+/** Surface freight for a single cab-glass item. Same bands as checkout. */
+function cabGlassFreightUsd(priceCents: number, metadata?: Record<string, unknown> | null): string {
+  const cents = cabGlassOrderFreightCents({
+    sellDollars: priceCents / 100,
+    costDollars: getWholesaleCostUsd(metadata),
+  });
   return `${(cents / 100).toFixed(2)} USD`;
 }
 
@@ -513,7 +534,7 @@ function partShipping(p: PartRow): FeedShipping[] | undefined {
       {
         country: "US",
         service: "Ground",
-        price: cabGlassFreightUsd(p.price_cents),
+        price: cabGlassFreightUsd(p.price_cents, p.metadata),
       },
     ];
   }
