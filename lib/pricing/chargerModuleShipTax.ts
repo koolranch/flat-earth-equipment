@@ -78,13 +78,18 @@ const STATE_BY_CODE = new Map(US_SHIP_TO_STATES.map((state) => [state.code, stat
 
 /** Wholesale cost in cents, keyed by the live Stripe price id. */
 const WHOLESALE_CENTS_BY_PRICE_ID: Record<string, number> = {
-  // Enersys 6LA20671 reman / repair
+  // Enersys 6LA20671 reman / repair. Prior reman price stays mapped until that Stripe price is archived.
+  price_1USyGDHJI548rO8J23ZhwOml: 52600,
   price_1TVz7dHJI548rO8J6EyQMzlr: 52600,
   price_1RsZDBHJI548rO8JhS1sUEAQ: 44400,
   // Hawker 6LA20671 reman / repair
+  price_1USyGEHJI548rO8JSVLUvM5x: 52600,
   price_1TVz7eHJI548rO8JLoKh6iIk: 52600,
   price_1TbkeEHJI548rO8JRm07O00v: 44400,
   // ACT Quantum reman exchange (36 / 48 / 80 VDC)
+  price_1USyGEHJI548rO8JflrXEBFo: 51300,
+  price_1USyGEHJI548rO8JkolMlvHi: 51300,
+  price_1USyGEHJI548rO8JtQj0z2QH: 51300,
   price_1TWyysHJI548rO8JuLkbioA4: 51300,
   price_1TWyyuHJI548rO8J1rqhn4G5: 51300,
   price_1TWyyvHJI548rO8JOYD7C9LJ: 51300,

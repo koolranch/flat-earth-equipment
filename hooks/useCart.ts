@@ -39,7 +39,13 @@ const createCartStore: StateCreator<CartStore> = (set) => ({
         return {
           items: state.items.map((i: CartItem) =>
             i.id === item.id
-              ? { ...i, quantity: i.quantity + 1 }
+              ? {
+                  ...i,
+                  quantity: i.quantity + 1,
+                  ...(item.has_core_charge
+                    ? { has_core_charge: true, core_charge: item.core_charge }
+                    : {}),
+                }
               : i
           ),
         };

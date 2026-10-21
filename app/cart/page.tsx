@@ -11,6 +11,11 @@ import {
 } from '@/lib/analytics/charger-modules';
 import { skuFreightDollars } from '@/lib/parts/skuFreight';
 import {
+  cabGlassLinesCostDollars,
+  cabGlassOrderFreightCents,
+  isCabGlassCheckoutItem,
+} from '@/lib/parts/cabGlassFreight';
+import {
   chargerModuleWholesaleCents,
   shipTaxPerUnitCents,
   shipToStateName,
@@ -212,19 +217,17 @@ export default function CartPage() {
       (item) =>
         !item.metadata?.free_freight &&
         !(Number(item.metadata?.freight_cents) > 0) &&
-        (item.category === 'Cab Glass' ||
-          item.metadata?.category_slug === 'cab-glass')
+        isCabGlassCheckoutItem(item)
     );
     if (cabGlassItems.length > 0) {
       const cabGlassNet = cabGlassItems.reduce(
         (sum, item) => sum + item.price * Math.max(1, item.quantity),
         0
       );
-      if (cabGlassNet > 0 && cabGlassNet < 25) freight += 18;
-      else if (cabGlassNet < 150) freight += 25;
-      else if (cabGlassNet < 300) freight += 31;
-      else if (cabGlassNet < 500) freight += 37;
-      else if (cabGlassNet < 650) freight += 41;
+      freight += cabGlassOrderFreightCents({
+        sellDollars: cabGlassNet,
+        costDollars: cabGlassLinesCostDollars(cabGlassItems),
+      }) / 100;
     }
     // Lithium battery HazMat freight estimate — mirrors the authoritative
     // tiers in /api/checkout (Class 9 ground, free on 3+ batteries).

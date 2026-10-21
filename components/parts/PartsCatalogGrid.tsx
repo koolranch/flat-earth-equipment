@@ -3,6 +3,7 @@ import { getForkClassStripeClass, getAvailabilityFilter } from '@/lib/parts/cata
 import { getDisplayBrand } from '@/lib/parts/displayBrand';
 import { parsePartSpecs } from '@/lib/parts/parseSpecs';
 import type { CatalogPart, CatalogSearchParams } from '@/lib/parts/catalogQuery';
+import { coreChargeCents } from '@/lib/parts/coreCharge';
 
 type Props = {
   parts: CatalogPart[];
@@ -19,6 +20,7 @@ function toCardProduct(
     part.sales_type === 'quote_only' || !part.stripe_price_id || part.price <= 0
       ? ('quote_only' as const)
       : ('direct' as const);
+  const coreCents = coreChargeCents(part);
 
   return {
     id: part.id,
@@ -33,6 +35,8 @@ function toCardProduct(
     oemReference: part.oem_reference ?? undefined,
     isInStock: part.is_in_stock,
     stripePriceId: part.stripe_price_id ?? undefined,
+    hasCoreCharge: coreCents > 0,
+    coreCharge: coreCents > 0 ? coreCents / 100 : undefined,
     backordered: part.metadata?.backordered === true,
     specChips: parsePartSpecs({
       name: part.name,

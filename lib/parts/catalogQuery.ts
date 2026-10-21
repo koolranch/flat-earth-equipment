@@ -31,13 +31,15 @@ export type CatalogPart = {
   is_in_stock: boolean;
   oem_reference: string | null;
   stripe_price_id: string | null;
+  has_core_charge: boolean | null;
+  core_charge: number | string | null;
   category: string;
   category_slug: string | null;
   metadata: Record<string, unknown> | null;
 };
 
 const PARTS_SELECT =
-  'id, slug, name, sku, brand, description, price, image_url, sales_type, is_in_stock, oem_reference, stripe_price_id, category, category_slug, metadata';
+  'id, slug, name, sku, brand, description, price, image_url, sales_type, is_in_stock, oem_reference, stripe_price_id, has_core_charge, core_charge, category, category_slug, metadata';
 
 export function sanitizeSearchTerm(raw: string): string {
   return raw

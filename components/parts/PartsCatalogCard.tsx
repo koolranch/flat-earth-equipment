@@ -38,6 +38,8 @@ export type CatalogCardProduct = {
   oemReference?: string;
   isInStock?: boolean;
   stripePriceId?: string;
+  hasCoreCharge?: boolean;
+  coreCharge?: number;
   backordered?: boolean;
   specChips?: SpecChip[];
   classStripeClass?: string | null;
@@ -179,6 +181,15 @@ export default function PartsCatalogCard({ product }: { product: CatalogCardProd
     }
 
     setIsAddingToCart(true);
+    const sourceMeta = product.metadata ?? {};
+    const checkoutMeta: Record<string, unknown> = {};
+    if (product.categorySlug) checkoutMeta.category_slug = product.categorySlug;
+    if (sourceMeta.freight_cents != null) checkoutMeta.freight_cents = sourceMeta.freight_cents;
+    if (sourceMeta.free_freight === true || sourceMeta.free_freight === 'true') {
+      checkoutMeta.free_freight = true;
+    }
+    if (sourceMeta.cost_wholesale != null) checkoutMeta.cost_wholesale = sourceMeta.cost_wholesale;
+
     addItem({
       id: product.id,
       name: product.name,
@@ -186,6 +197,10 @@ export default function PartsCatalogCard({ product }: { product: CatalogCardProd
       stripe_price_id: product.stripePriceId,
       image_url: product.imageUrl,
       quantity: 1,
+      has_core_charge: product.hasCoreCharge,
+      core_charge: product.coreCharge,
+      category: product.category,
+      ...(Object.keys(checkoutMeta).length > 0 ? { metadata: checkoutMeta } : {}),
     });
 
     toast.success('Added to cart!', {

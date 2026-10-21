@@ -4,6 +4,13 @@ import Stripe from "stripe";
 import { supabaseService } from '@/lib/supabase/service.server';
 import { qualifiesForSeatFreeFreight } from '@/lib/parts/seatFreight';
 import { skuFreightQuantity } from '@/lib/parts/skuFreight';
+import { loadCoreByPriceId, resolveCheckoutCoreCents } from '@/lib/parts/coreCharge';
+import { fillCheckoutFreightFromCatalog } from '@/lib/parts/checkoutFreight';
+import {
+  cabGlassLinesCostDollars,
+  cabGlassOrderFreightCents,
+  isCabGlassCheckoutItem,
+} from '@/lib/parts/cabGlassFreight';
 import {
   chargerModuleWholesaleCents,
   shipTaxPerUnitCents,
@@ -11,6 +18,26 @@ import {
 } from '@/lib/pricing/chargerModuleShipTax';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+function pushCoreDeposit(
+  lineItems: Array<Record<string, unknown>>,
+  unitAmountCents: number,
+  quantity: number,
+  productName?: string | null,
+) {
+  if (unitAmountCents <= 0) return;
+  lineItems.push({
+    price_data: {
+      currency: 'usd',
+      product_data: {
+        name: `Core Charge - ${productName?.trim() || 'Part'}`,
+        description: 'Refundable core deposit - refunded when the old unit is returned',
+      },
+      unit_amount: unitAmountCents,
+    },
+    quantity: Math.max(1, Number(quantity) || 1),
+  });
+}
 
 function siteUrlFrom(req: NextRequest) {
   const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
@@ -80,6 +107,11 @@ export async function POST(req: NextRequest) {
     let chargerShipToStateName: string | null = null;
     
     if (body.items && Array.isArray(body.items)) {
+      await fillCheckoutFreightFromCatalog(
+        supabaseService() as unknown as Parameters<typeof fillCheckoutFreightFromCatalog>[0],
+        body.items,
+      );
+
       const shipToState =
         typeof body.shipToState === 'string' ? body.shipToState.trim().toUpperCase() : '';
       const needsChargerShipTax = body.items.some(
@@ -96,6 +128,11 @@ export async function POST(req: NextRequest) {
         metadata.charger_ship_to_state = shipToState;
         chargerShipToStateName = stateName;
       }
+
+      const coreByPriceId = await loadCoreByPriceId(
+        supabaseService(),
+        body.items.map((item: { priceId?: string }) => item?.priceId),
+      );
 
       // Cart checkout format: { items: [{ priceId, quantity, metadata, coreCharge, isTraining, ... }] }
       for (let i = 0; i < body.items.length; i++) {
@@ -161,22 +198,13 @@ export async function POST(req: NextRequest) {
           }
         }
         
-        // Add core charge as separate line item if applicable
-        if (item.coreCharge && Number(item.coreCharge) > 0) {
-          // Create a one-time price for the core charge
-          const coreChargeAmount = Math.round(Number(item.coreCharge) * 100); // Convert to cents
-          lineItems.push({
-            price_data: {
-              currency: 'usd',
-              product_data: {
-                name: `Core Charge - ${item.name || 'Charger Module'}`,
-                description: 'Refundable core deposit - refunded when old unit is returned'
-              },
-              unit_amount: coreChargeAmount
-            },
-            quantity: Math.max(1, Number(item.quantity) || 1)
-          });
-        }
+        const catalogedCore = coreByPriceId.get(item.priceId);
+        pushCoreDeposit(
+          lineItems,
+          resolveCheckoutCoreCents(catalogedCore, item.coreCharge),
+          Math.max(1, Number(item.quantity) || 1),
+          item.name || catalogedCore?.name,
+        );
 
         const shipTaxUnit = chargerShipToStateName
           ? shipTaxPerUnitCents(item.priceId, metadata.charger_ship_to_state)
@@ -379,14 +407,13 @@ export async function POST(req: NextRequest) {
         });
       }
 
-      // Cab glass: standard surface freight matrix (not LTL).
-      // Bands match vendor contiguous-US policy on net invoice value.
-      // $650+ surface freight prepaid → no customer freight line.
+      // Cab glass: surface freight from the catalog row, not the client category.
+      // Prepaid ground only when wholesale cost is at least $650. Explicit
+      // freight_cents (LTL windshields, a few cost-banded panels) is applied
+      // above and skipped here.
       {
-        const cabGlassItems = itemsUsingCategoryFreight.filter(
-          (item: any) =>
-            item.category === 'Cab Glass' ||
-            item.metadata?.category_slug === 'cab-glass'
+        const cabGlassItems = itemsUsingCategoryFreight.filter((item: any) =>
+          isCabGlassCheckoutItem(item)
         );
 
         if (cabGlassItems.length > 0) {
@@ -396,17 +423,10 @@ export async function POST(req: NextRequest) {
             return sum + price * qty;
           }, 0);
 
-          function cabGlassFreightCents(netDollars: number): number {
-            if (netDollars <= 0) return 0;
-            if (netDollars < 25) return 1800; // $18.00
-            if (netDollars < 150) return 2500; // $25.00
-            if (netDollars < 300) return 3100; // $31.00
-            if (netDollars < 500) return 3700; // $37.00
-            if (netDollars < 650) return 4100; // $41.00
-            return 0; // $650+ surface freight prepaid
-          }
-
-          const freightCents = cabGlassFreightCents(cabGlassNet);
+          const freightCents = cabGlassOrderFreightCents({
+            sellDollars: cabGlassNet,
+            costDollars: cabGlassLinesCostDollars(cabGlassItems),
+          });
           if (freightCents > 0) {
             lineItems.push({
               price_data: {
@@ -574,12 +594,65 @@ export async function POST(req: NextRequest) {
       if (!priceId || typeof priceId !== "string") {
         return NextResponse.json({ error: "Missing priceId" }, { status: 400 });
       }
+      const quantity = Math.max(1, Number(qty) || 1);
       lineItems.push({
         price: priceId,
-        quantity: Math.max(1, Number(qty) || 1)
+        quantity,
       });
+      const catalogedCore = (await loadCoreByPriceId(supabaseService(), [priceId])).get(priceId);
+      pushCoreDeposit(
+        lineItems,
+        resolveCheckoutCoreCents(catalogedCore, undefined),
+        quantity,
+        catalogedCore?.name,
+      );
       metadata = { slug: slug ?? "" };
       successSlug = slug ?? "";
+
+      const simpleItem: {
+        priceId: string;
+        quantity: number;
+        price?: number;
+        category?: string;
+        metadata: Record<string, unknown>;
+      } = { priceId, quantity, metadata: {} };
+      await fillCheckoutFreightFromCatalog(
+        supabaseService() as unknown as Parameters<typeof fillCheckoutFreightFromCatalog>[0],
+        [simpleItem],
+      );
+      const overrideCents = Number(simpleItem.metadata?.freight_cents);
+      if (Number.isFinite(overrideCents) && overrideCents > 0) {
+        lineItems.push({
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Freight Shipping',
+              description: 'Ground shipping for equipment part',
+            },
+            unit_amount: overrideCents,
+          },
+          quantity: skuFreightQuantity(simpleItem),
+        });
+      } else if (isCabGlassCheckoutItem(simpleItem) && simpleItem.metadata?.free_freight !== true) {
+        const glassCents = cabGlassOrderFreightCents({
+          sellDollars: Number(simpleItem.price) * quantity,
+          costDollars: cabGlassLinesCostDollars([simpleItem]),
+        });
+        if (glassCents > 0) {
+          lineItems.push({
+            price_data: {
+              currency: 'usd',
+              product_data: {
+                name: 'Freight Shipping - Cab Glass',
+                description:
+                  'Ground surface freight for cab glass and glass accessories (standard freight bands)',
+              },
+              unit_amount: glassCents,
+            },
+            quantity: 1,
+          });
+        }
+      }
     }
 
     // Google Ads click ids → Stripe Checkout Session metadata (for ad attribution).

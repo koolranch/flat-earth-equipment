@@ -34,8 +34,8 @@ export const CHARGER_MODULES: ChargerModule[] = [
     offers: [
       {
         label: "Reman Exchange",
-        sku: "price_1TVz7dHJI548rO8J6EyQMzlr",
-        price: 74900,
+        sku: "price_1USyGDHJI548rO8J23ZhwOml",
+        price: 82900,
         coreInfo: "+ $350 refundable core deposit",
         coreCharge: 350,
         desc: "Ships today if ordered before 3 PM EST.",
@@ -59,8 +59,8 @@ export const CHARGER_MODULES: ChargerModule[] = [
     offers: [
       {
         label: "Reman Exchange",
-        sku: "price_1TVz7eHJI548rO8JLoKh6iIk",
-        price: 74900,
+        sku: "price_1USyGEHJI548rO8JSVLUvM5x",
+        price: 82900,
         coreInfo: "+ $350 refundable core deposit",
         coreCharge: 350,
         desc: "Ships today if ordered before 3 PM EST.",
@@ -85,8 +85,8 @@ export const CHARGER_MODULES: ChargerModule[] = [
     offers: [
       {
         label: "Reman Exchange",
-        sku: "price_1TWyysHJI548rO8JuLkbioA4",
-        price: 80000,
+        sku: "price_1USyGEHJI548rO8JflrXEBFo",
+        price: 82900,
         coreInfo: "+ $350 refundable core deposit",
         coreCharge: 350,
         desc: "Ships today if ordered before 3 PM EST. Cross-references Hyster/Yale Premier 81063658R.",
@@ -111,8 +111,8 @@ export const CHARGER_MODULES: ChargerModule[] = [
     offers: [
       {
         label: "Reman Exchange",
-        sku: "price_1TWyyuHJI548rO8J1rqhn4G5",
-        price: 80000,
+        sku: "price_1USyGEHJI548rO8JkolMlvHi",
+        price: 82900,
         coreInfo: "+ $350 refundable core deposit",
         coreCharge: 350,
         desc: "Ships today if ordered before 3 PM EST. Cross-references Hyster/Yale Premier 81063577R.",
@@ -137,8 +137,8 @@ export const CHARGER_MODULES: ChargerModule[] = [
     offers: [
       {
         label: "Reman Exchange",
-        sku: "price_1TWyyvHJI548rO8JOYD7C9LJ",
-        price: 80000,
+        sku: "price_1USyGEHJI548rO8JtQj0z2QH",
+        price: 82900,
         coreInfo: "+ $350 refundable core deposit",
         coreCharge: 350,
         desc: "Ships today if ordered before 3 PM EST. Cross-references Hyster/Yale Premier 81063578R.",
