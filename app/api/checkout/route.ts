@@ -130,7 +130,7 @@ export async function POST(req: NextRequest) {
       }
 
       const coreByPriceId = await loadCoreByPriceId(
-        supabaseService(),
+        supabaseService() as unknown as Parameters<typeof loadCoreByPriceId>[0],
         body.items.map((item: { priceId?: string }) => item?.priceId),
       );
 
@@ -599,7 +599,12 @@ export async function POST(req: NextRequest) {
         price: priceId,
         quantity,
       });
-      const catalogedCore = (await loadCoreByPriceId(supabaseService(), [priceId])).get(priceId);
+      const catalogedCore = (
+        await loadCoreByPriceId(
+          supabaseService() as unknown as Parameters<typeof loadCoreByPriceId>[0],
+          [priceId],
+        )
+      ).get(priceId);
       pushCoreDeposit(
         lineItems,
         resolveCheckoutCoreCents(catalogedCore, undefined),
