@@ -86,7 +86,7 @@ export default function JCBTelehandlerBatteryLocation() {
         <div className="grid sm:grid-cols-2 gap-4 text-sm">
           <div>
             <div className="font-semibold text-yellow-800 mb-1">🔋 Type:</div>
-            <div className="text-slate-700">12V commercial, 800-1000 CCA</div>
+            <div className="text-slate-700">Match the label on the battery in the machine</div>
           </div>
           <div>
             <div className="font-semibold text-yellow-800 mb-1">📦 Size:</div>
@@ -208,14 +208,8 @@ export default function JCBTelehandlerBatteryLocation() {
 
         <h2>Battery Specifications</h2>
         <p>
-          JCB telehandlers typically use:
+          Use the voltage, CCA, and group size printed on the battery in the machine, or the figure in the service manual.
         </p>
-        <ul>
-          <li>12V heavy-duty commercial batteries</li>
-          <li>Cold cranking amps (CCA) rating of 800-1000</li>
-          <li>Group size 31 or 4D</li>
-          <li>Maintenance-free design</li>
-        </ul>
 
         <h2>Battery Maintenance Tips</h2>
         <ul>
@@ -269,7 +263,7 @@ export default function JCBTelehandlerBatteryLocation() {
         <div className="text-center">
           <h2 className="text-2xl font-bold text-slate-900 mb-3">Need a Replacement Battery for Your JCB?</h2>
           <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
-            We stock heavy-duty commercial batteries for JCB telehandlers. Group 31, 4D, 800-1000 CCA ratings available.
+            JCB parts we list are on the catalog. Send the battery part number with a quote. A listing is not a fit for every machine.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/parts?brand=jcb&category=batteries" className="inline-flex items-center gap-2 bg-[#F76511] text-white px-8 py-3 rounded-xl font-bold hover:bg-orange-600 transition-all shadow-md hover:shadow-lg">

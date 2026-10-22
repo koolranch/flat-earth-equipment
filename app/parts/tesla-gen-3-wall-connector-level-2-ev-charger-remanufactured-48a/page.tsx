@@ -7,7 +7,7 @@ import { createClient } from '@/utils/supabase/server';
 
 export const metadata = {
   title: "Tesla Gen 3 Wall Connector Level 2 EV Charger - 48A Remanufactured | Fast Charging",
-  description: "Tesla Gen 3 Wall Connector Level 2 EV charger delivers 11.5kW fast charging (48A). Remanufactured with Tesla app integration, weather-resistant design. Ships today!",
+  description: "Tesla Gen 3 Wall Connector Level 2 EV charger delivers 11.5kW fast charging (48A). Remanufactured with Tesla app integration and a weather-resistant design. Freight is calculated at checkout.",
   keywords: "tesla wall connector, tesla gen 3 charger, level 2 ev charger, tesla home charger, 48a ev charger, tesla charging station, remanufactured tesla charger",
   openGraph: {
     title: "Tesla Gen 3 Wall Connector - Professional Level 2 EV Charging",
@@ -193,7 +193,7 @@ export default async function TeslaGen3WallConnectorPage() {
                   </div>
                 )}
                 <div className="text-sm text-green-600 font-medium">
-                  ✓ In Stock - Ships Today
+                  ✓ In stock
                 </div>
               </div>
 
@@ -214,7 +214,7 @@ export default async function TeslaGen3WallConnectorPage() {
               <div className="grid grid-cols-3 gap-4 text-center text-sm">
                 <div className="flex flex-col items-center gap-1">
                   <Truck className="h-5 w-5 text-gray-600" />
-                  <span className="text-gray-600">Same-Day Ship</span>
+                  <span className="text-gray-600">Freight at checkout</span>
                 </div>
                 <div className="flex flex-col items-center gap-1">
                   <Shield className="h-5 w-5 text-gray-600" />
@@ -516,8 +516,8 @@ export default async function TeslaGen3WallConnectorPage() {
               </div>
               <h3 className="font-semibold">Order & Receive</h3>
               <p className="text-sm text-gray-600">
-                We temporarily charge the ${product.core_charge.toFixed(0)} refundable core deposit. 
-                Your Tesla charger ships immediately.
+                We temporarily charge the ${product.core_charge.toFixed(0)} refundable core deposit.
+                Freight is calculated at checkout.
               </p>
             </div>
             <div className="text-center space-y-3">
@@ -545,7 +545,7 @@ export default async function TeslaGen3WallConnectorPage() {
         {/* Trust Badges */}
         <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { icon: Truck, title: "Same-Day Dispatch", desc: "Ships today if ordered before 3 PM EST" },
+            { icon: Truck, title: "Freight at checkout", desc: "Freight is calculated at checkout" },
             { icon: Shield, title: "Quality Guaranteed", desc: "Professionally remanufactured to exceed Tesla specs" },
             { icon: Clock, title: "Fast Installation", desc: "Professional hardwired setup available" },
             { icon: Leaf, title: "Eco-Friendly Choice", desc: "Sustainable remanufacturing reduces environmental impact" }
@@ -589,7 +589,7 @@ export default async function TeslaGen3WallConnectorPage() {
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Get Tesla-optimized Level 2 charging with smart app integration, weather-resistant durability, 
-            and professional remanufacturing quality. Ships today with our satisfaction guarantee.
+            and professional remanufacturing quality. Freight is calculated at checkout.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <AddToCartButton

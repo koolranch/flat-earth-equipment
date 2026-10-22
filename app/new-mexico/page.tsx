@@ -5,7 +5,7 @@ import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: "New Mexico Equipment Parts & Rentals | Flat Earth Equipment",
-  description: "Industrial equipment parts and rentals across New Mexico. Fast shipping from our Western hubs to Albuquerque, Las Cruces, and beyond.",
+  description: "Parts ship to Albuquerque, Las Cruces, and the rest of New Mexico. Freight is calculated at checkout.",
   alternates: generatePageAlternates("/new-mexico"),
 };
 
@@ -18,7 +18,7 @@ export default function NewMexicoPage() {
         <div>
           <h2 className="text-2xl font-semibold mb-4">Albuquerque</h2>
           <p className="text-slate-700 mb-4">
-            Serving the greater Albuquerque metro area with fast parts delivery and equipment rentals. Our coverage includes the I-25 corridor, Mesa del Sol industrial zone, and South Valley logistics hubs.
+            Parts ship to the greater Albuquerque metro area, including the I-25 corridor. Freight is calculated at checkout.
           </p>
           <Link 
             href="/new-mexico/albuquerque"
@@ -30,7 +30,7 @@ export default function NewMexicoPage() {
         <div>
           <h2 className="text-2xl font-semibold mb-4">Las Cruces</h2>
           <p className="text-slate-700 mb-4">
-            Supporting industrial operations in Las Cruces and the surrounding region with reliable parts supply and equipment rentals. Quick delivery to all major industrial areas.
+            Parts ship to Las Cruces and the surrounding region. Freight is calculated at checkout.
           </p>
           <Link 
             href="/new-mexico/las-cruces"
@@ -47,10 +47,10 @@ export default function NewMexicoPage() {
           <div>
             <h3 className="text-lg font-medium mb-2">Parts & Equipment</h3>
             <ul className="list-disc pl-5 space-y-2 text-slate-700">
-              <li>Forklift parts and service</li>
-              <li>Scissor lift components</li>
+              <li>Forklift parts</li>
+              <li>Scissor lift parts</li>
               <li>Telehandler parts</li>
-              <li>Heavy equipment rentals</li>
+              <li>Parts quotes</li>
             </ul>
           </div>
           <div>
@@ -68,7 +68,7 @@ export default function NewMexicoPage() {
       <section className="mb-12">
         <h2 className="text-2xl font-semibold mb-6">Need a Quote?</h2>
         <p className="text-lg text-slate-700 mb-6">
-          Get fast quotes for parts and equipment rentals in your area. Our team is ready to help you find the right solutions for your operation.
+          Send the part number for a quote. Freight is calculated at checkout.
         </p>
         <Link
           href="/contact"

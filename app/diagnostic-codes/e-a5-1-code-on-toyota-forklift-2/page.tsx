@@ -453,7 +453,7 @@ export default function EA51ToyotaForkliftPage() {
         <div className="text-center">
           <h2 className="text-2xl font-bold text-slate-900 mb-3">Need Speed Control Parts for Your Toyota?</h2>
           <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
-            We stock sensors, controllers, potentiometers, and electrical components for Toyota forklifts. Get the right part to fix your E A5-1 code.
+            Toyota parts we list are on the catalog. A listing is not a fit for every machine. Freight is calculated at checkout.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/parts?brand=toyota" className="inline-flex items-center gap-2 bg-[#F76511] text-white px-8 py-3 rounded-xl font-bold hover:bg-orange-600 transition-all shadow-md hover:shadow-lg">

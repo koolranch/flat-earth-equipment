@@ -130,8 +130,8 @@ export default async function RentEquipmentPage() {
                   <div className="text-sm text-slate-300">Quote Response</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-canyon-rust">5 States</div>
-                  <div className="text-sm text-slate-300">Service Area</div>
+                  <div className="text-2xl font-bold text-canyon-rust">Quote</div>
+                  <div className="text-sm text-slate-300">Rate comes back on the quote</div>
                 </div>
               </div>
 

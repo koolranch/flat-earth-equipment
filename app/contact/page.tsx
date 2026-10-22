@@ -5,12 +5,12 @@ import EnhancedContactForm from './EnhancedContactForm';
 
 export const metadata: Metadata = {
   title: 'Contact Flat Earth Equipment | Parts & Training',
-  description: 'Contact Flat Earth Equipment for forklift parts, rentals, and OSHA training. Expert technical support, fast shipping, and professional service nationwide.',
+  description: 'Contact Flat Earth Equipment for parts and OSHA forklift training. Freight on parts is calculated at checkout.',
   alternates: generatePageAlternates('/contact'),
   keywords: ['equipment rental', 'forklift service', 'operator training', 'OSHA certification', 'telehandler rental', 'boom lift rental'],
   openGraph: {
     title: 'Contact Flat Earth Equipment | Rentals, Service & Training',
-    description: 'Equipment rentals, service & repair, and OSHA operator training. Nationwide logistics from our Western & Southern service hubs.',
+    description: 'Parts and OSHA forklift certification. Freight on parts is calculated at checkout.',
     type: 'website',
     url: 'https://www.flatearthequipment.com/contact',
   },
@@ -44,7 +44,7 @@ const jsonLd = {
       '@type': 'LocalBusiness',
       '@id': 'https://www.flatearthequipment.com/#localbusiness',
       name: 'Flat Earth Equipment',
-      description: 'Industrial equipment rentals, service & repair, and OSHA-compliant operator training. Telehandlers, boom lifts, scissor lifts, and forklifts.',
+      description: 'Parts and OSHA forklift certification. Freight on parts is calculated at checkout.',
       url: 'https://www.flatearthequipment.com',
       telephone: '+1-888-392-9175',
       priceRange: '$$',
@@ -131,7 +131,7 @@ export default function Contact() {
                 Rentals. Service. Training.
               </h1>
               <p className="text-xl text-slate-300 mb-6">
-                Your single point of contact for equipment rentals, maintenance, and OSHA-compliant operator certification.
+                Parts and OSHA forklift certification. Freight on parts is calculated at checkout.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <a 
@@ -209,24 +209,21 @@ export default function Contact() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-bold">Service & Repair</h3>
+                  <h3 className="text-2xl font-bold">Parts</h3>
                 </div>
                 <div className="p-6">
                   <p className="text-slate-600 mb-4">
-                    Nationwide maintenance network for rentals and customer-owned fleets.
+                    Parts questions go to the quote form. Freight is calculated at checkout.
                   </p>
                   <ul className="space-y-2 mb-6 text-slate-700">
                     <li className="flex items-center gap-2">
-                      <span className="text-slate-500">•</span> Preventive Maintenance
+                      <span className="text-slate-500">•</span> Part-number quotes
                     </li>
                     <li className="flex items-center gap-2">
-                      <span className="text-slate-500">•</span> Emergency Repairs
+                      <span className="text-slate-500">•</span> Catalog listings
                     </li>
                     <li className="flex items-center gap-2">
-                      <span className="text-slate-500">•</span> Fleet Management
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="text-slate-500">•</span> Parts & Diagnostics
+                      <span className="text-slate-500">•</span> Freight at checkout
                     </li>
                   </ul>
                   <Link 

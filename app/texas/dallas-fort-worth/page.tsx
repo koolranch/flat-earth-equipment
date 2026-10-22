@@ -20,7 +20,7 @@ import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: "Forklift Parts in Dallas-Fort Worth, TX",
-  description: "Shop forklift, scissor lift, and heavy equipment parts in Dallas-Fort Worth Metroplex. Fast shipping to 76101 & 50+ zip codes. Request a quote today.",
+  description: "Shop forklift, scissor lift, and heavy equipment parts in Dallas-Fort Worth Metroplex. Freight is calculated at checkout.",
   alternates: generatePageAlternates("/texas/dallas-fort-worth"),
 };
 
@@ -58,7 +58,7 @@ export default async function DallasFortWorthPage() {
         <div className="relative z-10 flex items-center justify-center h-full px-6 text-center sm:text-left">
           <div className="max-w-4xl w-full">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1 mb-6 text-sm text-white font-medium">
-              <span className="text-green-400">●</span> Serving 76101 & 50+ DFW Zip Codes
+              <span className="text-green-400">●</span> Parts ship to Dallas-Fort Worth
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold leading-tight text-white mb-6">
@@ -66,7 +66,7 @@ export default async function DallasFortWorthPage() {
             </h1>
             
             <p className="text-slate-200 text-lg md:text-xl mb-8 max-w-2xl">
-              Serving the Metroplex, Arlington, Plano, and North Texas with precision-fit parts and fast dispatch.
+              Parts ship to Dallas-Fort Worth. Freight is calculated at checkout.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -111,19 +111,19 @@ export default async function DallasFortWorthPage() {
       <section className="max-w-5xl mx-auto px-4 py-16">
         <div className="grid md:grid-cols-3 gap-12 items-start">
           <div className="md:col-span-2">
-            <h2 className="text-3xl font-bold text-slate-900 mb-6">Powering the Metroplex</h2>
+            <h2 className="text-3xl font-bold text-slate-900 mb-6">Parts ship to Dallas–Fort Worth</h2>
             <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-              Flat Earth Equipment is your trusted source for forklift, scissor lift, and heavy equipment parts in the Dallas-Fort Worth Metroplex. We supply precision-fit components to warehouses, distribution centers, and contractors throughout DFW, Arlington, Irving, Plano, and surrounding areas.
+              Parts ship to the Dallas-Fort Worth Metroplex, including Arlington, Irving, and Plano. Freight is calculated at checkout. A listing is not a fit for every machine.
             </p>
             <p className="text-lg text-slate-700 mb-8 leading-relaxed">
-              Our strategic partnerships enable quick shipping to all major industrial corridors including the I-35E corridor, I-20 industrial zone, DFW Airport area warehouses, and Alliance Global Logistics Hub.
+              Parts ship to the I-35E corridor, the I-20 corridor, and the DFW Airport area. Freight is calculated at checkout.
             </p>
             
             {/* Service Radius Visual */}
             <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                Active Delivery Zones
+                Parts ship to
               </h3>
               <div className="flex flex-wrap gap-2">
                 {[
@@ -202,42 +202,42 @@ export default async function DallasFortWorthPage() {
                 slug: 'forklift-parts',
                 href: '/parts',
                 Icon: ForkliftIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Scissor Lift Hydraulics',
                 slug: 'scissor-lift-hydraulics',
                 href: '/parts',
                 Icon: ScissorLiftIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Telehandler Filters',
                 slug: 'telehandler-filters',
                 href: '/parts',
                 Icon: TelehandlerIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Mini Excavator Rollers',
                 slug: 'mini-excavator-rollers',
                 href: '/parts',
                 Icon: RollerIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Track Systems',
                 slug: 'track-systems',
                 href: '/parts',
                 Icon: TrackIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Battery Chargers & Modules',
                 slug: 'battery-chargers-modules',
                 href: '/charger-modules',
                 Icon: BatteryIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               }
             ].map((category) => (
               <Link
@@ -270,15 +270,15 @@ export default async function DallasFortWorthPage() {
         <div className="space-y-4">
           <div className="bg-white rounded-lg border border-slate-200 p-6 hover:border-canyon-rust/30 transition-colors">
             <h3 className="text-lg font-bold text-slate-900 mb-2">Do you ship forklift parts within Dallas-Fort Worth same day?</h3>
-            <p className="text-slate-600">Yes, we offer same-day delivery for most forklift parts within the DFW Metroplex when ordered before 2 PM. Our logistics network ensures your parts arrive when you need them across Dallas, Fort Worth, and surrounding cities.</p>
+            <p className="text-slate-600">Parts ship to Dallas, Fort Worth, and surrounding cities. Freight is calculated at checkout.</p>
           </div>
           <div className="bg-white rounded-lg border border-slate-200 p-6 hover:border-canyon-rust/30 transition-colors">
             <h3 className="text-lg font-bold text-slate-900 mb-2">Which brands do you carry parts for in Texas?</h3>
-            <p className="text-slate-600">We stock parts for all major brands including Toyota, Hyster, Yale, Crown, and Raymond, with special emphasis on models commonly used in Texas warehouse and distribution facilities.</p>
+            <p className="text-slate-600">Toyota, Hyster, Yale, Crown, and Raymond parts we list are on the catalog. A listing is not a fit for every machine.</p>
           </div>
           <div className="bg-white rounded-lg border border-slate-200 p-6 hover:border-canyon-rust/30 transition-colors">
             <h3 className="text-lg font-bold text-slate-900 mb-2">Do you offer volume pricing for DFW businesses?</h3>
-            <p className="text-slate-600">Yes, we provide competitive volume pricing for Dallas-Fort Worth businesses with regular parts needs, including special fleet maintenance programs for companies with multiple pieces of equipment.</p>
+            <p className="text-slate-600">Send the part numbers for a quote. This page does not publish a volume price or a fleet maintenance program.</p>
           </div>
         </div>
       </section>
@@ -305,7 +305,7 @@ export default async function DallasFortWorthPage() {
             { '@type': 'City', 'name': 'Irving' },
             { '@type': 'City', 'name': 'Plano' }
           ],
-          'description': 'Flat Earth Equipment provides rental equipment and parts to contractors, facilities, and warehouses in the Dallas-Fort Worth Metroplex. Fast shipping from regional hubs.',
+          'description': 'Parts ship to contractors, facilities, and warehouses in the Dallas-Fort Worth Metroplex. Freight is calculated at checkout.',
           'telephone': '+1-888-392-9175',
           'openingHours': 'Mo-Fr 07:00-17:00',
           'priceRange': '$$',
@@ -330,7 +330,7 @@ export default async function DallasFortWorthPage() {
               'name': 'Do you ship forklift parts within Dallas-Fort Worth same day?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Yes, we offer same-day delivery for most forklift parts within the DFW Metroplex when ordered before 2 PM. Our logistics network ensures your parts arrive when you need them across Dallas, Fort Worth, and surrounding cities.'
+                'text': 'Parts ship to Dallas, Fort Worth, and surrounding cities. Freight is calculated at checkout.'
               }
             },
             {
@@ -338,7 +338,7 @@ export default async function DallasFortWorthPage() {
               'name': 'Which brands do you carry parts for in Texas?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'We stock parts for all major brands including Toyota, Hyster, Yale, Crown, and Raymond, with special emphasis on models commonly used in Texas warehouse and distribution facilities.'
+                'text': 'Toyota, Hyster, Yale, Crown, and Raymond parts we list are on the catalog. A listing is not a fit for every machine.'
               }
             },
             {
@@ -346,7 +346,7 @@ export default async function DallasFortWorthPage() {
               'name': 'Do you offer volume pricing for DFW businesses?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Yes, we provide competitive volume pricing for Dallas-Fort Worth businesses with regular parts needs, including special fleet maintenance programs for companies with multiple pieces of equipment.'
+                'text': 'Send the part numbers for a quote. This page does not publish a volume price or a fleet maintenance program.'
               }
             }
           ]

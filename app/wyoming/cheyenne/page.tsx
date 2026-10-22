@@ -19,7 +19,7 @@ import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: "Forklift & Equipment Parts in Cheyenne, WY | Flat Earth Equipment",
-  description: "Shop forklift, scissor lift, and heavy equipment parts in Cheyenne, Wyoming. Fast shipping across southeastern Wyoming. Request a quote today from Flat Earth Equipment.",
+  description: "Shop forklift, scissor lift, and heavy equipment parts in Cheyenne, Wyoming. Freight is calculated at checkout.",
   alternates: generatePageAlternates("/wyoming/cheyenne"),
 };
 
@@ -57,7 +57,7 @@ export default async function CheyennePage() {
         <div className="relative z-10 flex items-center justify-center h-full px-6 text-center sm:text-left">
           <div className="max-w-4xl w-full">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1 mb-6 text-sm text-white font-medium">
-              <span className="text-green-400">●</span> Serving 82001 & 20+ Wyoming Zip Codes
+              <span className="text-green-400">●</span> Parts ship to Cheyenne
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold leading-tight text-white mb-6">
@@ -65,7 +65,7 @@ export default async function CheyennePage() {
             </h1>
             
             <p className="text-slate-200 text-lg md:text-xl mb-8 max-w-2xl">
-              Serving Southeastern Wyoming, Laramie County, and the I-80 Corridor with precision-fit parts.
+              Parts ship to Cheyenne. Freight is calculated at checkout.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -110,19 +110,19 @@ export default async function CheyennePage() {
       <section className="max-w-5xl mx-auto px-4 py-16">
         <div className="grid md:grid-cols-3 gap-12 items-start">
           <div className="md:col-span-2">
-            <h2 className="text-3xl font-bold text-slate-900 mb-6">Powering the High Plains</h2>
+            <h2 className="text-3xl font-bold text-slate-900 mb-6">Parts ship to Cheyenne</h2>
             <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-              Flat Earth Equipment proudly serves Cheyenne and southeastern Wyoming with precision-fit parts, dispatch-ready rentals, and expert support. Located at the crossroads of I-25 and I-80, we deliver industrial equipment parts to warehouses, contractors, and facilities throughout the region.
+              Parts ship to Cheyenne and southeastern Wyoming. Freight is calculated at checkout. A listing is not a fit for every machine.
             </p>
             <p className="text-lg text-slate-700 mb-8 leading-relaxed">
-              Our low-overhead model means fast service, competitive pricing, and Western-tough reliability without the delays of traditional distribution. From <strong>wind farms on the plains</strong> to <strong>distribution centers in Cheyenne</strong>, we keep your operations moving.
+              A listing is not a fit for every machine. Freight is calculated at checkout.
             </p>
             
             {/* Service Radius Visual */}
             <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                Active Delivery Zones
+                Parts ship to
               </h3>
               <div className="flex flex-wrap gap-2">
                 {[
@@ -191,42 +191,42 @@ export default async function CheyennePage() {
                 slug: 'forklift-parts',
                 href: '/parts',
                 Icon: ForkliftIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Scissor Lift Hydraulics',
                 slug: 'scissor-lift-hydraulics',
                 href: '/parts',
                 Icon: ScissorLiftIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Telehandler Filters',
                 slug: 'telehandler-filters',
                 href: '/parts',
                 Icon: TelehandlerIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Mini Excavator Rollers',
                 slug: 'mini-excavator-rollers',
                 href: '/parts',
                 Icon: RollerIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Track Systems',
                 slug: 'track-systems',
                 href: '/parts',
                 Icon: TrackIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Battery Chargers & Modules',
                 slug: 'battery-chargers-modules',
                 href: '/charger-modules',
                 Icon: BatteryIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               }
             ].map((category) => (
               <Link
@@ -292,7 +292,7 @@ export default async function CheyennePage() {
         <h2 className="text-2xl font-semibold text-slate-800 mb-4">Cheyenne Delivery Coverage</h2>
         <div className="bg-white rounded-lg shadow-sm p-6">
           <p className="text-lg text-slate-700">
-            We provide fast delivery throughout Cheyenne and southeastern Wyoming, including Downtown Cheyenne (82001), the I-25 corridor north to Chugwater, west to Laramie County, and south toward the Colorado border. Our strategic location enables quick shipping to municipalities, contractors, and facilities throughout the region, with same-day delivery available for most parts when ordered before 2 PM.
+            Parts ship to Cheyenne and southeastern Wyoming, including Downtown Cheyenne (82001), the I-25 corridor, Laramie County, and toward the Colorado border. Freight is calculated at checkout.
           </p>
         </div>
       </section>
@@ -303,15 +303,15 @@ export default async function CheyennePage() {
         <div className="space-y-6">
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h3 className="text-lg font-semibold mb-2">Do you ship forklift parts within Cheyenne same day?</h3>
-            <p className="text-slate-700">Yes, we offer same-day delivery for most forklift parts within Cheyenne and Laramie County when ordered before 2 PM. Our regional distribution network ensures reliable delivery across southeastern Wyoming.</p>
+            <p className="text-slate-700">Parts ship to Cheyenne and Laramie County. Freight is calculated at checkout.</p>
           </div>
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h3 className="text-lg font-semibold mb-2">Which brands do you carry parts for in Wyoming?</h3>
-            <p className="text-slate-700">We stock parts for all major brands including Toyota, Hyster, Yale, Crown, and Raymond, serving Wyoming's agriculture, municipal, and industrial sectors.</p>
+            <p className="text-slate-700">Toyota, Hyster, Yale, Crown, and Raymond parts we list are on the catalog. A listing is not a fit for every machine.</p>
           </div>
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h3 className="text-lg font-semibold mb-2">Do you offer volume pricing for Wyoming businesses?</h3>
-            <p className="text-slate-700">Yes, we provide competitive volume pricing for Wyoming businesses and municipalities with regular parts needs, including fleet maintenance programs.</p>
+            <p className="text-slate-700">Send the part numbers for a quote. This page does not publish a volume price or a fleet maintenance program.</p>
           </div>
         </div>
       </section>
@@ -333,7 +333,7 @@ export default async function CheyennePage() {
             'postalCode': '82001'
           },
           'areaServed': { '@type': 'Place', 'name': 'Cheyenne, WY' },
-          'description': 'Flat Earth Equipment provides rental equipment and parts to contractors and facilities in Cheyenne, Wyoming. Fast shipping from regional hubs.',
+          'description': 'Parts ship to contractors and facilities in Cheyenne, Wyoming. Freight is calculated at checkout.',
           'telephone': '+1-888-392-9175',
           'openingHours': 'Mo-Fr 07:00-17:00',
           'priceRange': '$$',
@@ -358,7 +358,7 @@ export default async function CheyennePage() {
               'name': 'Do you ship forklift parts within Cheyenne same day?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Yes, we offer same-day delivery for most forklift parts within Cheyenne and Laramie County when ordered before 2 PM. Our regional distribution network ensures reliable delivery across southeastern Wyoming.'
+                'text': 'Parts ship to Cheyenne and Laramie County. Freight is calculated at checkout.'
               }
             },
             {
@@ -366,7 +366,7 @@ export default async function CheyennePage() {
               'name': 'Which brands do you carry parts for in Wyoming?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'We stock parts for all major brands including Toyota, Hyster, Yale, Crown, and Raymond, serving Wyoming\'s agriculture, municipal, and industrial sectors.'
+                'text': 'Toyota, Hyster, Yale, Crown, and Raymond parts we list are on the catalog. A listing is not a fit for every machine.'
               }
             },
             {
@@ -374,7 +374,7 @@ export default async function CheyennePage() {
               'name': 'Do you offer volume pricing for Wyoming businesses?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Yes, we provide competitive volume pricing for Wyoming businesses and municipalities with regular parts needs, including fleet maintenance programs.'
+                'text': 'Send the part numbers for a quote. This page does not publish a volume price or a fleet maintenance program.'
               }
             }
           ]

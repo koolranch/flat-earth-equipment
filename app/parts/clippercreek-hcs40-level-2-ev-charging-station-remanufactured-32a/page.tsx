@@ -32,8 +32,8 @@ export default async function ClipperCreekChargerPage() {
   const features = [
     {
       icon: Zap,
-      title: "5x Faster Charging",
-      description: "Level 2 charging adds up to 25 miles of range per hour - significantly faster than standard 120V outlets"
+      title: "Level 2 charging",
+      description: "This page does not publish a miles-per-hour range."
     },
     {
       icon: Gauge,
@@ -75,8 +75,8 @@ export default async function ClipperCreekChargerPage() {
     { label: "Enclosure Rating", value: "NEMA 4 (Weatherproof)" },
     { label: "Safety Certification", value: "UL Listed" },
     { label: "Installation", value: "Hardwired (240V)" },
-    { label: "Compatibility", value: "All J1772 EVs + Tesla (with adapter)" },
-    { label: "Charging Speed", value: "Up to 25 miles range/hour" }
+    { label: "Compatibility", value: "A listing is not a fit for every vehicle." },
+    { label: "Charging Speed", value: "This page does not publish a miles-per-hour range." }
   ];
 
   return (
@@ -174,13 +174,13 @@ export default async function ClipperCreekChargerPage() {
                 }}
                 className="w-full bg-canyon-rust text-white py-4 rounded-lg font-semibold hover:bg-canyon-rust/90 transition-colors text-lg"
               >
-                Buy Now & Ship Today →
+                Buy Now →
               </AddToCartButton>
               
               <div className="flex justify-center gap-4 mt-4 text-xs text-gray-600">
                 <span className="flex items-center gap-1">
                   <Truck className="h-3 w-3" />
-                  Same-Day Ship
+                  Freight at checkout
                 </span>
                 <span className="flex items-center gap-1">
                   <Shield className="h-3 w-3" />
@@ -297,7 +297,7 @@ export default async function ClipperCreekChargerPage() {
             <div className="text-center space-y-3">
               <div className="bg-canyon-rust text-white w-10 h-10 rounded-full flex items-center justify-center mx-auto font-bold">1</div>
               <h3 className="font-semibold">Order & Receive</h3>
-              <p className="text-sm text-gray-600">We temporarily charge the refundable core deposit. Your remanufactured charger ships immediately.</p>
+              <p className="text-sm text-gray-600">We temporarily charge the refundable core deposit. Freight is calculated at checkout.</p>
             </div>
             <div className="text-center space-y-3">
               <div className="bg-canyon-rust text-white w-10 h-10 rounded-full flex items-center justify-center mx-auto font-bold">2</div>

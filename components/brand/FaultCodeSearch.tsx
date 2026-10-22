@@ -300,8 +300,7 @@ export default function FaultCodeSearch({ brandSlug, brandName }: FaultCodeSearc
       <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
         <h4 className="font-medium text-blue-900 mb-2">Need Additional Help?</h4>
         <p className="text-blue-700 text-sm">
-          Can't find the fault code you're looking for? Our technical team can help identify the issue and recommend solutions. 
-          Use the Parts Request tab to describe your problem and we'll get back to you with expert guidance.
+          This page does not diagnose a code. A listing is not a fit for every machine.
         </p>
       </div>
     </div>

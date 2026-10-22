@@ -106,8 +106,7 @@ export default function RelatedResources({
             Equipment in Other Regions
           </h2>
           <p className="text-slate-600 mb-8">
-            Flat Earth Equipment serves contractors and fleet operators across the Western U.S. 
-            Find parts and rentals in these service areas:
+            Parts ship to these areas. Freight is calculated at checkout.
           </p>
           
           <div className="grid md:grid-cols-2 gap-8">

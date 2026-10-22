@@ -169,8 +169,8 @@ export function StructuredData({ title, description, publishDate, faqs }: SEOCom
       },
       {
         "@type": "HowToStep",
-        "name": "Calculate Required Amperage",
-        "text": "Use the formula: Required Amps = (Battery Ah ÷ Charge Hours) ÷ 0.85. For maximum battery life, use C/10 rate (10% of capacity).",
+        "name": "Match the charger to the battery",
+        "text": "This page does not publish a required amperage. Voltage still has to match the battery. The price is on the product page.",
         "position": 3
       },
       {

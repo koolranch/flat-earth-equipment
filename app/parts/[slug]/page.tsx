@@ -386,7 +386,7 @@ function buildPartMetaDescription(product: {
     extras.push('2-year warranty');
   }
   if (product.sales_type === 'direct' && product.is_in_stock !== false) {
-    extras.push('Same-day shipping');
+    extras.push('Freight is calculated at checkout');
   }
   extras.push('30-day returns');
 

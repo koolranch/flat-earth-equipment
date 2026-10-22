@@ -67,9 +67,8 @@ export default function PrivacyPolicyPage() {
         title: '6. Contact Us',
         description: 'If you have any questions about our Privacy Policy, please contact us:',
         items: [
-          'Email: privacy@flatearthequipment.com',
-          'Phone: (555) 123-4567',
-          'Address: 123 Business Street, City, State 12345'
+          'Email: contact@flatearthequipment.com',
+          'Address: 30 N Gould St, Ste R, Sheridan, WY 82801'
         ]
       }
     },
@@ -127,9 +126,8 @@ export default function PrivacyPolicyPage() {
         title: '6. Contáctanos',
         description: 'Si tiene alguna pregunta sobre nuestra Política de Privacidad, por favor contáctenos:',
         items: [
-          'Correo electrónico: privacy@flatearthequipment.com',
-          'Teléfono: (555) 123-4567',
-          'Dirección: 123 Business Street, City, State 12345'
+          'Correo electrónico: contact@flatearthequipment.com',
+          'Dirección: 30 N Gould St, Ste R, Sheridan, WY 82801'
         ]
       }
     }

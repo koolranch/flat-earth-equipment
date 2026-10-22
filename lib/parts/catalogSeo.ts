@@ -5,7 +5,7 @@ import { getCatalogPageTitle } from '@/lib/parts/catalogContext';
 
 const BASE_TITLE = 'Forklift & Equipment Parts Catalog';
 const BASE_DESCRIPTION =
-  'Shop forklift parts, JCB aftermarket components, rubber tracks, lithium batteries, charger modules, and aerial lift parts. Search by OEM part number or browse by brand — fast shipping nationwide.';
+  'Shop forklift parts, JCB aftermarket components, rubber tracks, lithium batteries, charger modules, and aerial lift parts. Search by OEM part number or browse by brand. Freight is calculated at checkout.';
 
 type CategoryFacet = { slug: string; name: string };
 
@@ -21,7 +21,7 @@ export function buildCatalogMetadata(
 
   if (!isBasePage) {
     title = `${pageTitle} | Parts Catalog`;
-    description = `Browse ${pageTitle.toLowerCase()} from Flat Earth Equipment. Aftermarket replacements with 2-year warranty on JCB, Bobcat, forklift parts, and rubber tracks — same-day shipping on in-stock items.`;
+    description = `Browse ${pageTitle.toLowerCase()} from Flat Earth Equipment. Aftermarket replacements with 2-year warranty on JCB, Bobcat, forklift parts, and rubber tracks. Freight is calculated at checkout.`;
   }
 
   if (searchParams.q) {
@@ -77,7 +77,7 @@ export const PARTS_CATALOG_FAQ = [
   },
   {
     q: 'How fast do in-stock parts ship?',
-    a: 'In-stock parts with online checkout typically ship the same business day when ordered before cutoff. Filter by Ships Today to see items ready for immediate shipment.',
+    a: 'Freight is calculated at checkout. Filter by In stock to see parts with online checkout.',
   },
 ] as const;
 

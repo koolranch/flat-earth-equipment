@@ -860,8 +860,8 @@ export default function BobcatSerialNumberGuide() {
             Found your serial? Next steps
           </h2>
           <p className="mt-1 text-sm text-slate-600">
-            Use the serial to confirm fitment, then shop the parts we stock for
-            Bobcat machines.
+            Use the serial to confirm fitment, then shop the Bobcat parts on the catalog.
+            A listing is not a fit for every machine.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             <Link

@@ -291,9 +291,7 @@ export default async function CartLithiumLanding({
           ))}
         </ul>
         <p className="text-sm text-slate-500 pt-2 border-t border-slate-100">
-          Most {cart.brand} {cart.model} installs take 2–4 hours with basic hand tools. Step-by-step
-          instructions and a video walkthrough are included with every kit. Prefer professional
-          install? Most golf cart shops complete the swap for $100–$200.
+          This page does not publish an install time or a shop labor price.
         </p>
       </section>
 

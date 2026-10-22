@@ -152,7 +152,7 @@ export default function Toyota0101Page() {
 
       <div className="not-prose my-8 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-300 rounded-xl p-6 text-center">
         <h2 className="text-2xl font-bold text-slate-900 mb-3">Need O2 Sensors or Fuel System Parts?</h2>
-        <p className="text-slate-700 mb-6">We stock sensors, injectors, and fuel system components for Toyota 4Y-ECS engines.</p>
+        <p className="text-slate-700 mb-6">Toyota parts we list are on the catalog. A listing is not a fit for every machine. Freight is calculated at checkout.</p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link href="/parts?brand=toyota&category=sensors" className="bg-[#F76511] text-white px-8 py-3 rounded-xl font-bold hover:bg-orange-600 transition-all">
             Shop Toyota Sensors →

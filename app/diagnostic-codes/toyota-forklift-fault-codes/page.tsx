@@ -97,7 +97,7 @@ export default function ToyotaFaultCodesPage() {
         <div className="text-center">
           <h2 className="text-2xl font-bold text-slate-900 mb-3">Need Toyota Forklift Parts?</h2>
           <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
-            We stock sensors, controllers, motors, and electrical components for Toyota forklifts. Get genuine parts to fix your fault codes.
+            Toyota parts we list are on the catalog. A listing is not a fit for every machine. Freight is calculated at checkout.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/parts?brand=toyota" className="inline-flex items-center gap-2 bg-[#F76511] text-white px-8 py-3 rounded-xl font-bold hover:bg-orange-600 transition-all shadow-md hover:shadow-lg">
@@ -149,7 +149,7 @@ export default function ToyotaFaultCodesPage() {
       <div className="bg-amber-50 border border-amber-200 rounded-xl p-6">
         <h3 className="font-bold text-amber-900 mb-2">Important Notice</h3>
         <p className="text-sm text-amber-800">
-          Fault codes can vary by Toyota forklift model, year, and system type (electric vs IC). Always consult your specific model's service manual for accurate diagnostics. If you need help identifying codes specific to your Toyota forklift, <Link href="/quote" className="underline font-semibold">contact our technical team</Link> with your model and serial number.
+          Fault codes can vary by Toyota forklift model, year, and system type (electric vs IC). Always consult your specific model's service manual for accurate diagnostics. This page does not diagnose a code. <Link href="/quote" className="underline font-semibold">Request a quote</Link> with the model and serial if you need a part.
         </p>
       </div>
       </main>

@@ -218,7 +218,7 @@ export default function FastQuoteForm({ currentLocation = '' }: FastQuoteFormPro
         </button>
 
         <p className="mt-2 text-sm text-gray-500">
-          🚚 Same-day dispatch • 📦 Shipped Nationwide • 🤠 Western U.S. Focus
+          Freight is calculated at checkout. We ship in the United States.
         </p>
       </form>
     </section>

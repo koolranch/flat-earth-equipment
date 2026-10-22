@@ -1171,9 +1171,7 @@ export default function ProductDetails({
             <div className="flex-1">
               <h3 className="font-bold text-lg mb-1">Corporate Buyer?</h3>
               <p className="text-sm text-slate-300 mb-3">
-                Fleet pricing, NET-30 terms, and dedicated account management for orders of 10+
-                forks.
-                <strong className="text-white"> FREE FREIGHT on orders of 15+ forks!</strong>
+                Send a fleet list for a quote. Freight is calculated at checkout.
               </p>
               <div className="flex flex-wrap gap-3">
                 <Link

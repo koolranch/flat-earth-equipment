@@ -7,8 +7,8 @@ export default function ChargerModuleTrustBadges({ locale = 'en' }: { locale?: L
     en: {
       badges: [
         {
-          title: "Same-Day Dispatch",
-          description: "Ships today if ordered before 3 PM EST"
+          title: "Ships in the US",
+          description: "Freight is calculated at checkout"
         },
         {
           title: "Free Shipping",
@@ -16,11 +16,11 @@ export default function ChargerModuleTrustBadges({ locale = 'en' }: { locale?: L
         },
         {
           title: "6-Month Warranty", 
-          description: "Western-tough reliability guarantee"
+          description: "Coverage on remanufactured modules and repairs"
         },
         {
           title: "Expert Rebuilt",
-          description: "Bench-tested to exceed OEM specs"
+          description: "Bench-tested before it ships"
         },
         {
           title: "U.S.-Based Support",
@@ -31,8 +31,8 @@ export default function ChargerModuleTrustBadges({ locale = 'en' }: { locale?: L
     es: {
       badges: [
         {
-          title: "Envío el Mismo Día",
-          description: "Se envía hoy si se ordena antes de las 3 PM EST"
+          title: "Envío en EE.UU.",
+          description: "El flete se calcula al pagar"
         },
         {
           title: "Envío Gratuito",
@@ -40,11 +40,11 @@ export default function ChargerModuleTrustBadges({ locale = 'en' }: { locale?: L
         },
         {
           title: "Garantía de 6 Meses",
-          description: "Garantía de confiabilidad resistente del oeste"
+          description: "Cobertura en módulos remanufacturados y reparaciones"
         },
         {
           title: "Reconstruido por Expertos", 
-          description: "Probado en banco para superar especificaciones OEM"
+          description: "Probado en banco antes de enviarse"
         },
         {
           title: "Soporte con Base en EE.UU.",

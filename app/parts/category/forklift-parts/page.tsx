@@ -4,7 +4,7 @@ import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: "Forklift Parts | Flat Earth Equipment",
-  description: "High-quality forklift parts for all major brands. Fast shipping and same-day quotes available.",
+  description: "Forklift parts for major brands. Freight is calculated at checkout.",
 };
 
 export default function ForkliftPartsPage() {
@@ -23,13 +23,13 @@ export default function ForkliftPartsPage() {
                 <Link href="/new-mexico/albuquerque" className="text-canyon-rust hover:underline">
                   Forklift parts available in Albuquerque
                 </Link>
-                <span className="text-sm text-slate-500 block">Fast delivery to 87101-87124</span>
+                <span className="text-sm text-slate-500 block">Parts ship to Albuquerque. Freight is calculated at checkout.</span>
               </li>
               <li>
                 <Link href="/new-mexico/las-cruces" className="text-canyon-rust hover:underline">
                   Forklift parts available in Las Cruces
                 </Link>
-                <span className="text-sm text-slate-500 block">Quick shipping to 88001-88012</span>
+                <span className="text-sm text-slate-500 block">Parts ship to Las Cruces. Freight is calculated at checkout.</span>
               </li>
             </ul>
           </div>
@@ -40,7 +40,7 @@ export default function ForkliftPartsPage() {
                 <Link href="/colorado/pueblo" className="text-canyon-rust hover:underline">
                   Forklift parts available in Pueblo
                 </Link>
-                <span className="text-sm text-slate-500 block">Same-day delivery available</span>
+                <span className="text-sm text-slate-500 block">Parts ship to Pueblo. Freight is calculated at checkout.</span>
               </li>
             </ul>
           </div>

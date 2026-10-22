@@ -86,13 +86,13 @@ export default function Page() {
                 <Link href="/new-mexico/albuquerque" className="text-[#F76511] hover:text-orange-600 font-semibold">
                   Toyota forklift parts in Albuquerque →
                 </Link>
-                <span className="text-sm text-slate-500 block mt-1">Fast delivery to 87101-87124</span>
+                <span className="text-sm text-slate-500 block mt-1">Parts ship to Albuquerque. Freight is calculated at checkout.</span>
               </li>
               <li>
                 <Link href="/new-mexico/las-cruces" className="text-[#F76511] hover:text-orange-600 font-semibold">
                   Toyota forklift parts in Las Cruces →
                 </Link>
-                <span className="text-sm text-slate-500 block mt-1">Quick shipping to 88001-88012</span>
+                <span className="text-sm text-slate-500 block mt-1">Parts ship to Las Cruces. Freight is calculated at checkout.</span>
               </li>
             </ul>
           </div>
@@ -103,7 +103,7 @@ export default function Page() {
                 <Link href="/colorado/pueblo" className="text-[#F76511] hover:text-orange-600 font-semibold">
                   Toyota forklift parts in Pueblo →
                 </Link>
-                <span className="text-sm text-slate-500 block mt-1">Same-day delivery available</span>
+                <span className="text-sm text-slate-500 block mt-1">Parts ship to Pueblo. Freight is calculated at checkout.</span>
               </li>
               <li>
                 <Link href="/texas/dallas-fort-worth" className="text-[#F76511] hover:text-orange-600 font-semibold">
@@ -120,7 +120,7 @@ export default function Page() {
       <section className="bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-300 rounded-xl p-8 text-center">
         <h2 className="text-2xl font-bold text-slate-900 mb-3">Need Toyota Forklift Parts?</h2>
         <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
-          From sensors to controllers, we stock precision-fit parts for all Toyota forklift models. Fast shipping nationwide.
+          Toyota parts we list are on the catalog. A listing is not a fit for every machine. Freight is calculated at checkout.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link href="/parts?brand=toyota" className="inline-flex items-center gap-2 bg-[#F76511] text-white px-8 py-3 rounded-xl font-bold hover:bg-orange-600 transition-all shadow-lg">

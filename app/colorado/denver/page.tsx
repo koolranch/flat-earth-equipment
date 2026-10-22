@@ -40,12 +40,12 @@ const FAQ_ITEMS = [
   {
     question: 'Do you offer equipment rentals or on-site repairs in Denver?',
     answer:
-      'No. We do not provide equipment rentals or field service in the Denver Metro area. This page covers parts sales and shipping only. For rentals in our service areas, see our rent equipment hub or contact us for availability elsewhere.',
+      'This page covers parts that ship to Denver. Freight is calculated at checkout. It does not cover local equipment rentals or on-site repair.',
   },
   {
     question: 'Which equipment brands do you support for Denver customers?',
     answer:
-      'We stock and source parts for JCB, Genie, JLG, Toyota, Hyster, Bobcat, Caterpillar, and other major industrial brands. Browse the parts catalog or send your serial number and part number for fitment help.',
+      'JCB, Genie, JLG, Toyota, Hyster, Bobcat, and Caterpillar parts we list are on the catalog. A listing is not a fit for every machine. Send the serial and part number with a quote.',
   },
 ];
 

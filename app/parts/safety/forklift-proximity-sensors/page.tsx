@@ -4,14 +4,14 @@ import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Forklift Proximity Sensors | Pedestrian Detection Systems | Safety Equipment",
-  description: "Shop forklift proximity sensors, pedestrian detection systems, and safety equipment. Ultrasonic, RFID, laser sensors for Toyota, Crown, Yale, Hyster forklifts. Same-day shipping.",
+  description: "Shop forklift proximity sensors, pedestrian detection systems, and safety equipment. Ultrasonic, RFID, and laser sensors. Freight is calculated at checkout.",
   keywords: "forklift proximity sensor, pedestrian detection system, forklift safety sensors, ultrasonic forklift sensor, RFID pedestrian alert, warehouse safety equipment",
   alternates: {
     canonical: "https://www.flatearthequipment.com/parts/safety/forklift-proximity-sensors"
   },
   openGraph: {
     title: "Forklift Proximity Sensors & Pedestrian Detection Systems",
-    description: "Professional-grade proximity sensors and pedestrian detection systems for all major forklift brands. Reduce accidents and improve warehouse safety.",
+    description: "Proximity sensors and pedestrian detection. Request a quote with the truck brand and model. Freight is calculated at checkout.",
     url: "https://www.flatearthequipment.com/parts/safety/forklift-proximity-sensors"
   }
 };
@@ -28,57 +28,32 @@ export default function ForkliftProximitySensorsPage() {
   const sensorTypes = [
     {
       name: "Ultrasonic Proximity Sensors",
-      description: "High-frequency sound wave sensors detect objects and pedestrians within the forklift's path",
-      features: [
-        "Detection range: 0.5m - 8m",
-        "Works in dusty/dirty environments",
-        "Weather-resistant housing",
-        "Adjustable sensitivity levels"
-      ],
-      applications: ["Warehouse blind corners", "Loading dock areas", "High-traffic zones"],
+      description: "Send the part number with the quote. This page does not publish a detection range.",
+      features: ["This page does not publish a detection range"],
+      applications: ["Send the part number with the quote"],
       icon: "🔊"
     },
     {
       name: "RFID Pedestrian Detection",
-      description: "Radio frequency identification tags worn by personnel trigger alerts when they enter forklift zones",
-      features: [
-        "360° detection coverage",
-        "Wearable tags for workers",
-        "Real-time proximity alerts",
-        "Multi-zone configuration"
-      ],
-      applications: ["High-density warehouses", "Mixed pedestrian/forklift areas", "Cross-dock facilities"],
+      description: "Send the part number with the quote. This page does not publish a detection range.",
+      features: ["This page does not publish a detection range"],
+      applications: ["Send the part number with the quote"],
       icon: "📡"
     },
     {
       name: "Laser Object Detection",
-      description: "Precision laser sensors create detection zones around forklifts for maximum safety",
-      features: [
-        "Precise detection accuracy",
-        "Configurable detection zones",
-        "Speed-based alert adjustment",
-        "Visual & audible warnings"
-      ],
-      applications: ["Narrow aisle operations", "Precision manufacturing", "Cold storage facilities"],
+      description: "Send the part number with the quote. This page does not publish a detection range.",
+      features: ["This page does not publish a detection range"],
+      applications: ["Send the part number with the quote"],
       icon: "⚡"
     },
     {
       name: "Camera-Based Systems",
-      description: "Integrated camera systems with AI-powered object detection and blind spot monitoring",
-      features: [
-        "360° camera coverage",
-        "AI pedestrian recognition",
-        "Recording capability",
-        "Night vision options"
-      ],
-      applications: ["24/7 operations", "Outdoor yards", "Multi-shift facilities"],
+      description: "Send the part number with the quote. This page does not publish a detection range.",
+      features: ["This page does not publish a detection range"],
+      applications: ["Send the part number with the quote"],
       icon: "📹"
     }
-  ];
-
-  const compatibleBrands = [
-    "Toyota", "Crown", "Yale", "Hyster", "Raymond", "Caterpillar", 
-    "Nissan", "Mitsubishi", "Clark", "Komatsu", "Doosan", "Jungheinrich"
   ];
 
   return (
@@ -105,8 +80,7 @@ export default function ForkliftProximitySensorsPage() {
               Forklift Proximity Sensors & Pedestrian Detection Systems
             </h1>
             <p className="text-xl text-slate-700 mb-8 leading-relaxed">
-              Reduce forklift accidents by up to 80% with professional-grade proximity sensors and pedestrian detection systems. 
-              Compatible with Toyota, Crown, Yale, Hyster, and all major forklift brands. Same-day shipping available.
+              Request a quote for proximity sensors and pedestrian detection. Freight is calculated at checkout. A listing is not a fit for every machine.
             </p>
             
             <div className="flex flex-wrap gap-4 mb-6">
@@ -120,7 +94,7 @@ export default function ForkliftProximitySensorsPage() {
                 href="/contact" 
                 className="border-2 border-canyon-rust text-canyon-rust px-8 py-4 rounded-lg font-semibold hover:bg-canyon-rust hover:text-white transition-colors text-lg"
               >
-                Technical Consultation
+                Technical questions
               </Link>
             </div>
 
@@ -129,19 +103,19 @@ export default function ForkliftProximitySensorsPage() {
                 <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                 </svg>
-                <span>Professional installation support</span>
+                <span>Quote, not on-site installation</span>
               </div>
               <div className="flex items-center gap-2">
                 <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                 </svg>
-                <span>All major forklift brands</span>
+                <span>Send the truck brand and model</span>
               </div>
               <div className="flex items-center gap-2">
                 <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                 </svg>
-                <span>Expert technical support</span>
+                <span>Freight at checkout</span>
               </div>
             </div>
           </div>
@@ -179,7 +153,7 @@ export default function ForkliftProximitySensorsPage() {
         <div className="text-center mb-10">
           <h2 className="text-3xl font-bold text-slate-900 mb-4">Why Add Proximity Sensors to Your Forklifts?</h2>
           <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-            Protect your workers and reduce liability with proven safety technology
+            Protect workers by asking for a quote with the truck brand and model. A listing is not a fit for every machine.
           </p>
         </div>
 
@@ -188,12 +162,11 @@ export default function ForkliftProximitySensorsPage() {
             <div className="text-5xl mb-4">🛡️</div>
             <h3 className="text-xl font-bold mb-3 text-slate-900">Prevent Accidents</h3>
             <p className="text-slate-700 mb-4">
-              Reduce pedestrian-forklift accidents by up to 80%. Sensors detect people and objects before collisions occur.
+              Sensors detect people and objects around the truck. Request a quote with the truck brand and model.
             </p>
             <ul className="text-sm text-slate-600 space-y-2">
-              <li>• Automatic speed reduction</li>
-              <li>• Visual & audible warnings</li>
-              <li>• Blind spot elimination</li>
+              <li>• Send the truck brand and model</li>
+              <li>• A listing is not a fit for every machine</li>
             </ul>
           </div>
 
@@ -201,12 +174,11 @@ export default function ForkliftProximitySensorsPage() {
             <div className="text-5xl mb-4">💰</div>
             <h3 className="text-xl font-bold mb-3 text-slate-900">Reduce Costs</h3>
             <p className="text-slate-700 mb-4">
-              Lower insurance premiums, workers' comp claims, and equipment damage costs with proven safety systems.
+              This page does not publish insurance savings or claim counts. Freight is calculated at checkout.
             </p>
             <ul className="text-sm text-slate-600 space-y-2">
-              <li>• Lower insurance rates</li>
-              <li>• Fewer injury claims</li>
-              <li>• Reduced equipment damage</li>
+              <li>• Request a quote</li>
+              <li>• Price comes back on the quote</li>
             </ul>
           </div>
 
@@ -214,12 +186,11 @@ export default function ForkliftProximitySensorsPage() {
             <div className="text-5xl mb-4">✅</div>
             <h3 className="text-xl font-bold mb-3 text-slate-900">OSHA Compliance</h3>
             <p className="text-slate-700 mb-4">
-              Demonstrate proactive safety measures during OSHA inspections. Shows commitment to worker protection.
+              A sensor quote is not an OSHA compliance program. Forklift certification is a separate online course.
             </p>
             <ul className="text-sm text-slate-600 space-y-2">
-              <li>• Reduces OSHA violations</li>
-              <li>• Documented safety measures</li>
-              <li>• Liability protection</li>
+              <li>• Online forklift certification is $49 at the exam</li>
+              <li>• This page does not claim a sensor reduces violations</li>
             </ul>
           </div>
         </div>
@@ -286,22 +257,14 @@ export default function ForkliftProximitySensorsPage() {
       <section className="mb-16">
         <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">
           <h2 className="text-2xl font-bold text-slate-900 mb-4 text-center">
-            Compatible with All Major Forklift Brands
+            Send the truck brand and model
           </h2>
           <p className="text-center text-slate-600 mb-6 max-w-2xl mx-auto">
-            Our proximity sensor systems are designed to integrate seamlessly with forklifts from all major manufacturers
+            A listing is not a fit for every machine. Send the brand, model, and serial with the quote.
           </p>
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            {compatibleBrands.map((brand) => (
-              <div key={brand} className="bg-white px-4 py-2 rounded-lg border border-slate-200 text-slate-700 font-medium">
-                {brand}
-              </div>
-            ))}
-          </div>
           <p className="text-sm text-center text-slate-600">
-            Not sure which system fits your forklift? Our technical team provides free consultation.{" "}
-            <Link href="/contact" className="text-canyon-rust hover:underline font-medium">
-              Contact us →
+            <Link href="/quote" className="text-canyon-rust hover:underline font-medium">
+              Request a quote
             </Link>
           </p>
         </div>
@@ -318,43 +281,30 @@ export default function ForkliftProximitySensorsPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-slate-900">Professional Installation</h3>
+              <h3 className="text-2xl font-bold text-slate-900">Quote</h3>
             </div>
             <p className="text-slate-700 mb-4">
-              Our certified technicians provide on-site installation and system integration. We ensure proper sensor placement, 
-              calibration, and operator training for optimal safety performance.
+              We do not install sensors on site. Send the truck brand, model, and the sensor you need. A listing is not a fit for every machine. Freight is calculated at checkout.
             </p>
             <ul className="space-y-2 mb-6">
               <li className="flex items-start gap-2 text-slate-700">
                 <svg className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                 </svg>
-                <span>Complete system installation</span>
+                <span>Send the part number or a photo of the sensor</span>
               </li>
               <li className="flex items-start gap-2 text-slate-700">
                 <svg className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                 </svg>
-                <span>Sensor calibration & testing</span>
-              </li>
-              <li className="flex items-start gap-2 text-slate-700">
-                <svg className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Operator training included</span>
-              </li>
-              <li className="flex items-start gap-2 text-slate-700">
-                <svg className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Documentation & compliance support</span>
+                <span>We reply with a price and freight</span>
               </li>
             </ul>
             <Link 
-              href={proximityQuoteHref("Proximity sensor installation / integration questions")}
+              href={proximityQuoteHref("Proximity sensor quote")}
               className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold"
             >
-              Schedule Installation
+              Request a quote
               <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
               </svg>
@@ -368,43 +318,30 @@ export default function ForkliftProximitySensorsPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-slate-900">Technical Support</h3>
+              <h3 className="text-2xl font-bold text-slate-900">Catalog</h3>
             </div>
             <p className="text-slate-700 mb-4">
-              Our team of safety equipment specialists provides ongoing technical support, troubleshooting, 
-              and maintenance guidance to keep your systems operating at peak performance.
+              Send the truck brand and model with the quote. We do not provide on-site troubleshooting or operator training with the part.
             </p>
             <ul className="space-y-2 mb-6">
               <li className="flex items-start gap-2 text-slate-700">
                 <svg className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                 </svg>
-                <span>Free system consultation</span>
+                <span>Quote for the sensor you need</span>
               </li>
               <li className="flex items-start gap-2 text-slate-700">
                 <svg className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                 </svg>
-                <span>Troubleshooting assistance</span>
-              </li>
-              <li className="flex items-start gap-2 text-slate-700">
-                <svg className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Maintenance planning</span>
-              </li>
-              <li className="flex items-start gap-2 text-slate-700">
-                <svg className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Fleet-wide implementation</span>
+                <span>A listing is not a fit for every machine</span>
               </li>
             </ul>
             <Link 
               href="/contact"
               className="inline-flex items-center text-orange-600 hover:text-orange-700 font-semibold"
             >
-              Contact Technical Team
+              Contact
               <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
               </svg>
@@ -415,45 +352,10 @@ export default function ForkliftProximitySensorsPage() {
 
       {/* System Comparison */}
       <section className="mb-16">
-        <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">Choose the Right System for Your Operation</h2>
-        <div className="overflow-x-auto">
-          <table className="w-full bg-white rounded-xl shadow-md border border-slate-200">
-            <thead>
-              <tr className="bg-slate-100 border-b border-slate-200">
-                <th className="py-4 px-6 text-left font-semibold text-slate-900">Sensor Type</th>
-                <th className="py-4 px-6 text-left font-semibold text-slate-900">Detection Range</th>
-                <th className="py-4 px-6 text-left font-semibold text-slate-900">Environment</th>
-                <th className="py-4 px-6 text-left font-semibold text-slate-900">Best Use</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-b border-slate-100 hover:bg-slate-50">
-                <td className="py-4 px-6 font-semibold text-slate-900">Ultrasonic</td>
-                <td className="py-4 px-6 text-slate-700">0.5m - 8m</td>
-                <td className="py-4 px-6 text-slate-700">Indoor/Outdoor, Dusty</td>
-                <td className="py-4 px-6 text-slate-700">General warehouse, loading docks</td>
-              </tr>
-              <tr className="border-b border-slate-100 hover:bg-slate-50">
-                <td className="py-4 px-6 font-semibold text-slate-900">RFID</td>
-                <td className="py-4 px-6 text-slate-700">2m - 10m (360°)</td>
-                <td className="py-4 px-6 text-slate-700">Indoor, climate controlled</td>
-                <td className="py-4 px-6 text-slate-700">High-density pedestrian areas</td>
-              </tr>
-              <tr className="border-b border-slate-100 hover:bg-slate-50">
-                <td className="py-4 px-6 font-semibold text-slate-900">Laser</td>
-                <td className="py-4 px-6 text-slate-700">0.1m - 50m</td>
-                <td className="py-4 px-6 text-slate-700">Indoor, clean environments</td>
-                <td className="py-4 px-6 text-slate-700">Narrow aisles, precision ops</td>
-              </tr>
-              <tr className="hover:bg-slate-50">
-                <td className="py-4 px-6 font-semibold text-slate-900">Camera + AI</td>
-                <td className="py-4 px-6 text-slate-700">5m - 20m (visual)</td>
-                <td className="py-4 px-6 text-slate-700">Any environment, 24/7</td>
-                <td className="py-4 px-6 text-slate-700">Multi-shift, outdoor yards</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">Sensor types</h2>
+        <p className="text-slate-700 max-w-3xl mx-auto text-center">
+          This page does not publish detection ranges. Send the part number on the sensor with the quote. A listing is not a fit for every machine.
+        </p>
       </section>
 
       {/* Fleet Solutions */}
@@ -462,31 +364,30 @@ export default function ForkliftProximitySensorsPage() {
           <div className="max-w-4xl">
             <h2 className="text-3xl font-bold text-slate-900 mb-4">Fleet-Wide Safety Upgrades</h2>
             <p className="text-lg text-slate-700 mb-6">
-              Upgrading multiple forklifts? We offer volume pricing and fleet implementation services to help you improve 
-              safety across your entire operation efficiently and cost-effectively.
+              Send the truck count and the sensor part number. We quote the parts. We do not install them or run an on-site training program. Freight is calculated at checkout.
             </p>
             
             <div className="grid sm:grid-cols-2 gap-4 mb-8">
               <div className="bg-white rounded-lg p-4 border border-indigo-200">
-                <h4 className="font-semibold text-slate-900 mb-2">✓ Volume Pricing</h4>
-                <p className="text-sm text-slate-600">Discounts for 5+ forklifts</p>
+                <h4 className="font-semibold text-slate-900 mb-2">Fleet quote</h4>
+                <p className="text-sm text-slate-600">Send the truck count and sensor type</p>
               </div>
               <div className="bg-white rounded-lg p-4 border border-indigo-200">
-                <h4 className="font-semibold text-slate-900 mb-2">✓ Phased Rollout</h4>
-                <p className="text-sm text-slate-600">Implement gradually across fleet</p>
+                <h4 className="font-semibold text-slate-900 mb-2">Same catalog</h4>
+                <p className="text-sm text-slate-600">Each truck still needs its own fitment check</p>
               </div>
               <div className="bg-white rounded-lg p-4 border border-indigo-200">
-                <h4 className="font-semibold text-slate-900 mb-2">✓ Standardization</h4>
-                <p className="text-sm text-slate-600">Consistent systems fleet-wide</p>
+                <h4 className="font-semibold text-slate-900 mb-2">Part number</h4>
+                <p className="text-sm text-slate-600">Send the number on the sensor</p>
               </div>
               <div className="bg-white rounded-lg p-4 border border-indigo-200">
-                <h4 className="font-semibold text-slate-900 mb-2">✓ Training Programs</h4>
-                <p className="text-sm text-slate-600">Operator training for all shifts</p>
+                <h4 className="font-semibold text-slate-900 mb-2">No on-site training</h4>
+                <p className="text-sm text-slate-600">Forklift certification is a separate online course</p>
               </div>
             </div>
 
             <Link 
-              href={proximityQuoteHref("Fleet-wide proximity sensor upgrade — request volume pricing")}
+              href={proximityQuoteHref("Proximity sensors for more than one truck")}
               className="inline-flex items-center px-8 py-4 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors shadow-lg text-lg"
             >
               Request Fleet Quote
@@ -507,9 +408,7 @@ export default function ForkliftProximitySensorsPage() {
               How much do forklift proximity sensors cost?
             </h3>
             <p className="text-slate-700">
-              Proximity sensor systems typically range from $800-$3,500 per forklift depending on the technology type and features. 
-              Ultrasonic sensors are the most cost-effective ($800-$1,500), while advanced camera-based AI systems cost $2,500-$3,500. 
-              We offer volume discounts for fleet installations and provide custom quotes based on your specific needs.
+              Request a quote with the truck brand, model, and the sensor type you need. Freight is calculated at checkout.
             </p>
           </div>
 
@@ -518,9 +417,7 @@ export default function ForkliftProximitySensorsPage() {
               Can proximity sensors be retrofitted to existing forklifts?
             </h3>
             <p className="text-slate-700">
-              Yes! Most proximity sensor systems can be retrofitted to any forklift, regardless of age or brand. Our systems are designed 
-              for universal compatibility with Toyota, Crown, Yale, Hyster, Raymond, and all major forklift manufacturers. Installation 
-              typically takes 2-4 hours per unit with minimal downtime.
+              Send the truck brand, model, and serial with the quote. A listing is not a fit for every machine.
             </p>
           </div>
 
@@ -529,9 +426,7 @@ export default function ForkliftProximitySensorsPage() {
               What's the difference between ultrasonic and RFID proximity sensors?
             </h3>
             <p className="text-slate-700">
-              Ultrasonic sensors use sound waves to detect ANY object or person within range, providing general proximity alerts. 
-              RFID systems require workers to wear tags and provide more precise person-specific alerts with 360° coverage. 
-              Ultrasonic is better for general object detection, while RFID excels in high-pedestrian environments where workers wear tags.
+              This page does not publish a detection range for either type. Send the part number on the sensor with the quote.
             </p>
           </div>
 
@@ -540,9 +435,7 @@ export default function ForkliftProximitySensorsPage() {
               Do proximity sensors reduce insurance costs?
             </h3>
             <p className="text-slate-700">
-              Many insurance providers offer premium reductions of 5-15% for warehouses that implement proven safety technologies like 
-              proximity sensors. The ROI typically comes from reduced accident rates, lower workers' compensation claims, and decreased 
-              equipment damage. Most facilities see payback within 12-18 months through combined savings.
+              This page does not publish an insurance discount, a payback period, or a claim reduction.
             </p>
           </div>
 
@@ -551,9 +444,7 @@ export default function ForkliftProximitySensorsPage() {
               Are proximity sensors required by OSHA?
             </h3>
             <p className="text-slate-700">
-              While OSHA doesn't specifically mandate proximity sensors, they require employers to provide a safe workplace and take 
-              measures to prevent forklift accidents (29 CFR 1910.178). Installing proximity sensors demonstrates proactive safety 
-              compliance and can significantly reduce OSHA violation risks and penalties.
+              This page does not say sensors are required, and it does not publish a penalty reduction. Forklift certification is a separate online course.
             </p>
           </div>
         </div>
@@ -566,7 +457,7 @@ export default function ForkliftProximitySensorsPage() {
             Ready to Improve Your Forklift Safety?
           </h2>
           <p className="text-xl mb-8 text-orange-100 max-w-2xl mx-auto">
-            Get a custom quote for proximity sensors tailored to your fleet and facility requirements
+            Request a quote with the truck brand, model, and sensor part number. Freight is calculated at checkout.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link 
@@ -583,7 +474,7 @@ export default function ForkliftProximitySensorsPage() {
             </Link>
           </div>
           <p className="text-sm text-orange-100 mt-6">
-            📞 Call for urgent safety upgrades • ⚡ Same-day shipping available • 🛡️ Reduce accidents by 80%
+            Freight is calculated at checkout.
           </p>
         </div>
       </section>

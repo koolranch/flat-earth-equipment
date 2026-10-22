@@ -12,7 +12,7 @@ import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: 'Bulk Forklift Certification | Team Training',
-  description: 'Manage forklift certification for your entire team. Bulk training discounts, seat management, and progress tracking for facility trainers and safety managers.',
+  description: 'Team forklift certification. Team 5-pack is $225. Team 25-pack is $999. A single operator pays $49 at the exam. Study is free.',
   keywords: [
     'facility training',
     'bulk forklift certification',
@@ -42,8 +42,8 @@ function PublicTrainerLanding() {
             {/* Quick Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-8">
               <div className="text-center">
-                <div className="text-2xl font-bold text-canyon-rust">Bulk Pricing</div>
-                <div className="text-sm text-slate-300">Volume Discounts</div>
+                <div className="text-2xl font-bold text-canyon-rust">$225 / $999</div>
+                <div className="text-sm text-slate-300">Team 5-pack and 25-pack</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-canyon-rust">Seat Management</div>
@@ -95,9 +95,9 @@ function PublicTrainerLanding() {
             
             <div className="text-center p-6 bg-white rounded-xl shadow-lg border">
               <div className="text-4xl mb-4">💰</div>
-              <h3 className="text-xl font-semibold mb-3">Volume Discounts</h3>
+              <h3 className="text-xl font-semibold mb-3">Team packs</h3>
               <p className="text-slate-600">
-                Save significantly with bulk training packages. The more seats you need, the more you save on per-employee certification costs.
+                Team 5-pack is $225. Team 25-pack is $999. A single operator pays $49 at the exam. Study is free.
               </p>
             </div>
             
@@ -162,49 +162,26 @@ function PublicTrainerLanding() {
         {/* Pricing Tiers */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-center mb-12 text-slate-900">
-            Volume Pricing Tiers
+            Team checkout
           </h2>
           
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-white rounded-xl p-6 shadow-lg border">
-              <h3 className="text-lg font-semibold mb-2">Small Team</h3>
-              <div className="text-3xl font-bold text-canyon-rust mb-4">5-15 seats</div>
-              <ul className="space-y-2 text-sm text-slate-600 mb-6">
-                <li>• Basic seat management</li>
-                <li>• Progress tracking</li>
-                <li>• Email support</li>
-                <li>• Standard reporting</li>
-              </ul>
-              <p className="text-sm text-slate-500">Contact for pricing</p>
-            </div>
-            
-            <div className="bg-canyon-rust text-white rounded-xl p-6 shadow-lg border-2 border-canyon-rust relative">
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-white text-canyon-rust px-4 py-1 rounded-full text-sm font-semibold">
-                Most Popular
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Medium Facility</h3>
-              <div className="text-3xl font-bold mb-4">16-50 seats</div>
-              <ul className="space-y-2 text-sm text-canyon-rust-100 mb-6">
-                <li>• Advanced seat management</li>
-                <li>• Detailed analytics</li>
-                <li>• Priority support</li>
-                <li>• Custom reporting</li>
-                <li>• Bulk discounts</li>
-              </ul>
-              <p className="text-sm text-canyon-rust-200">Best value per seat</p>
+              <h3 className="text-lg font-semibold mb-2">Single operator</h3>
+              <div className="text-3xl font-bold text-canyon-rust mb-4">$49</div>
+              <p className="text-sm text-slate-600">Paid at the final exam. Study is free.</p>
             </div>
             
             <div className="bg-white rounded-xl p-6 shadow-lg border">
-              <h3 className="text-lg font-semibold mb-2">Large Enterprise</h3>
-              <div className="text-3xl font-bold text-canyon-rust mb-4">51+ seats</div>
-              <ul className="space-y-2 text-sm text-slate-600 mb-6">
-                <li>• Enterprise features</li>
-                <li>• Dedicated support</li>
-                <li>• Custom integrations</li>
-                <li>• Advanced reporting</li>
-                <li>• Maximum discounts</li>
-              </ul>
-              <p className="text-sm text-slate-500">Custom pricing</p>
+              <h3 className="text-lg font-semibold mb-2">Team 5-pack</h3>
+              <div className="text-3xl font-bold text-canyon-rust mb-4">$225</div>
+              <p className="text-sm text-slate-600">Five seats. Study is free.</p>
+            </div>
+            
+            <div className="bg-white rounded-xl p-6 shadow-lg border">
+              <h3 className="text-lg font-semibold mb-2">Team 25-pack</h3>
+              <div className="text-3xl font-bold text-canyon-rust mb-4">$999</div>
+              <p className="text-sm text-slate-600">Twenty-five seats. Study is free.</p>
             </div>
           </div>
         </section>
@@ -258,8 +235,7 @@ function PublicTrainerLanding() {
           <div className="bg-gradient-to-r from-canyon-rust to-canyon-rust/90 text-white rounded-xl p-8">
             <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Contact our team to discuss your facility's training needs and get a custom quote 
-              with volume pricing for your team size.
+              Team checkout is $225 for 5 seats and $999 for 25 seats. A single operator pays $49 at the exam. Study is free.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">

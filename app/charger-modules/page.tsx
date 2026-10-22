@@ -122,18 +122,6 @@ export default function ChargersLanding() {
         ))}
       </section>
 
-      {/* Customer Testimonial */}
-      <section className="bg-blue-50 border-l-4 border-blue-500 rounded-r-lg p-6 lg:p-8 max-w-4xl mx-auto">
-        <blockquote className="space-y-3">
-          <p className="text-lg lg:text-xl italic text-slate-700 leading-relaxed">
-            "Ordered at 2 PM, charger arrived next day. Back up and running in 24 hours. Saved $400 vs buying new."
-          </p>
-          <footer className="text-sm text-slate-600 font-medium">
-            — Mike R., Maintenance Manager, Dallas TX
-          </footer>
-        </blockquote>
-      </section>
-
       {/* Corporate Buyer / Fleet CTA */}
       <section className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 lg:p-10 text-white shadow-xl">
         <div className="max-w-4xl mx-auto">
@@ -146,7 +134,7 @@ export default function ChargersLanding() {
                 Corporate & Fleet Buyer?
               </h2>
               <p className="text-slate-200 text-lg">
-                Get volume pricing, NET-30 terms, and dedicated support for your fleet operations.
+                Send the fleet list for a quote. Freight is calculated at checkout.
               </p>
             </div>
           </div>
@@ -155,22 +143,22 @@ export default function ChargersLanding() {
             <div className="flex items-start gap-3">
               <TrendingDown className="h-5 w-5 text-orange-400 flex-shrink-0 mt-0.5" />
               <div>
-                <div className="font-semibold text-white">Volume Pricing</div>
-                <div className="text-slate-300 text-sm">Save on orders of 4+ units</div>
+                <div className="font-semibold text-white">Fleet quote</div>
+                <div className="text-slate-300 text-sm">Send the part numbers</div>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <FileText className="h-5 w-5 text-orange-400 flex-shrink-0 mt-0.5" />
               <div>
-                <div className="font-semibold text-white">Purchase Orders</div>
-                <div className="text-slate-300 text-sm">NET-30 payment terms available</div>
+                <div className="font-semibold text-white">Quote</div>
+                <div className="text-slate-300 text-sm">Price and freight come back on the quote</div>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <Building2 className="h-5 w-5 text-orange-400 flex-shrink-0 mt-0.5" />
               <div>
-                <div className="font-semibold text-white">Fleet Support</div>
-                <div className="text-slate-300 text-sm">Dedicated account management</div>
+                <div className="font-semibold text-white">Listed modules</div>
+                <div className="text-slate-300 text-sm">Prices are on this page</div>
               </div>
             </div>
           </div>
@@ -205,7 +193,7 @@ export default function ChargersLanding() {
               </div>
               <h3 className="font-bold text-lg text-slate-900">Environmental Impact</h3>
               <p className="text-slate-700 leading-relaxed">
-                Reduces electronic waste and carbon footprint. Each remanufactured module keeps 15-20 lbs of materials out of landfills.
+                Each remanufactured module is a repaired unit.
               </p>
             </div>
             <div className="text-center space-y-3">
@@ -214,7 +202,7 @@ export default function ChargersLanding() {
               </div>
               <h3 className="font-bold text-lg text-slate-900">Certified Quality</h3>
               <p className="text-slate-700 leading-relaxed">
-                Bench-tested to exceed OEM specifications. Every module undergoes rigorous multi-point inspection and performance validation.
+                Bench-tested before it ships.
               </p>
             </div>
             <div className="text-center space-y-3">
@@ -223,7 +211,7 @@ export default function ChargersLanding() {
               </div>
               <h3 className="font-bold text-lg text-slate-900">Significant Savings</h3>
               <p className="text-slate-700 leading-relaxed">
-                Save 40-60% compared to new OEM parts with identical performance and reliability. Same 6-month warranty coverage.
+                The price is on this page. Remanufactured modules and repairs include a 6-month warranty.
               </p>
             </div>
           </div>
@@ -233,7 +221,7 @@ export default function ChargersLanding() {
         <section className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold mb-4 text-slate-900">Technical Specifications</h2>
           <p className="text-slate-600 mb-6">
-            All remanufactured charger modules are tested to exceed OEM specifications.
+            All remanufactured charger modules are bench-tested before they ship.
           </p>
           <TechnicalSpecsTable 
             title="Enersys / Hawker / ACT Quantum Charger Module Specifications"
@@ -252,7 +240,7 @@ export default function ChargersLanding() {
                 <span className="text-slate-500 group-open:rotate-180 transition-transform ml-2">▼</span>
               </summary>
               <p className="text-base text-slate-700 mt-3 leading-relaxed">
-                Every module undergoes complete disassembly, component-level inspection, replacement of worn parts, firmware updates, and rigorous bench testing. We test at multiple voltage levels and load conditions to ensure it meets or exceeds OEM specifications before shipping.
+                Every module is disassembled, inspected, and bench-tested before it ships. Worn parts are replaced.
               </p>
             </details>
 
@@ -272,7 +260,7 @@ export default function ChargersLanding() {
                 <span className="text-slate-500 group-open:rotate-180 transition-transform ml-2">▼</span>
               </summary>
               <p className="text-base text-slate-700 mt-3 leading-relaxed">
-                Leave the firmware field blank or enter "unknown." Our team will email you within 2 hours to confirm compatibility before shipping. We maintain multiple firmware versions in stock and can match your specific charger model.
+                Leave the firmware field blank and include the charger model on the quote.
               </p>
             </details>
 

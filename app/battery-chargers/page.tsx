@@ -286,7 +286,7 @@ function organizationSchemaJsonLd() {
     },
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+1-800-XXX-XXXX",
+      "telephone": "+1-888-392-9175",
       "contactType": "Customer Service",
       "availableLanguage": ["English", "Spanish"]
     },

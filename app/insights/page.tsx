@@ -83,8 +83,8 @@ export default async function InsightsPage({ searchParams }: Props) {
           </h1>
           
           <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-8">
-            Expert guides and insights on forklift parts, scissor lifts, and industrial equipment maintenance. 
-            Written by our technical team with real-world experience.
+            Expert guides on forklift parts, scissor lifts, and equipment maintenance.
+            A listing is not a fit for every machine.
           </p>
           
           {/* Quick Stats */}

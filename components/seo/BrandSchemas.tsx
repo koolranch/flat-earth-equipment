@@ -14,14 +14,12 @@ interface BrandSchemasProps {
 }
 
 export function BrandSchemas({ brand }: BrandSchemasProps) {
-  const equipmentList = brand.equipment_types?.join(', ') || 'equipment';
-  
   // Organization Schema for the brand
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": brand.name,
-    "description": brand.description || `${brand.name} equipment parts, serial number lookup, and fault code support`,
+    "description": brand.description || `Parts for ${brand.name} are on the catalog. A listing is not a fit for every machine.`,
     "url": brand.website_url,
     "logo": brand.logo_url,
     "sameAs": brand.website_url ? [brand.website_url] : undefined
@@ -32,21 +30,18 @@ export function BrandSchemas({ brand }: BrandSchemasProps) {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": `${brand.name} Equipment Support Tool`,
-    "description": `Comprehensive support tool for ${brand.name} ${equipmentList} including serial number lookup, fault code database, and parts sourcing`,
+    "description": `Parts for ${brand.name} are on the catalog. A listing is not a fit for every machine.`,
     "url": `https://flatearthequipment.com/brand/${brand.slug}`,
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web Browser",
     "offers": {
       "@type": "Offer",
-      "price": "0",
       "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock"
+      "description": "Freight is calculated at checkout"
     },
     "featureList": [
-      "Serial Number Lookup",
-      "Fault Code Database", 
-      "Parts Request System",
-      "Technical Support"
+      "Serial number lookup where that page exists",
+      "Parts catalog"
     ],
     "provider": {
       "@type": "Organization",
@@ -65,7 +60,7 @@ export function BrandSchemas({ brand }: BrandSchemasProps) {
         "name": `How do I find the serial number on my ${brand.name} equipment?`,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": `Use our ${brand.name} serial lookup tool to get step-by-step guidance on locating the serial number plate for your specific model. Common locations include the data plate on the counterweight, mast, operator compartment, or frame rails.`
+          "text": `Use the ${brand.name} serial lookup when that page exists. This page does not list plate locations.`
         }
       },
       {
@@ -73,7 +68,7 @@ export function BrandSchemas({ brand }: BrandSchemasProps) {
         "name": `What information can I get from my ${brand.name} serial number?`,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": `Your ${brand.name} serial number can reveal the model year, manufacturing date, specifications, and help identify the correct parts for your equipment. Our lookup tool provides detailed decoding information.`
+          "text": `This page does not publish a model year from the serial number.`
         }
       },
       {
@@ -81,7 +76,7 @@ export function BrandSchemas({ brand }: BrandSchemasProps) {
         "name": `How quickly can you source ${brand.name} parts?`,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Most standard ${brand.name} parts ship the same day for orders placed by 3 PM EST. We offer free shipping on standard items, with larger freight items shipping at cost. Our team responds to parts requests within 24 hours."
+          "text": `Parts we list are on the catalog. Freight is calculated at checkout.`
         }
       },
       {
@@ -89,7 +84,7 @@ export function BrandSchemas({ brand }: BrandSchemasProps) {
         "name": `Do you have ${brand.name} fault code information?`,
         "acceptedAnswer": {
           "@type": "Answer", 
-          "text": `Yes, our database includes ${brand.name} fault codes with descriptions, severity levels, and recommended solutions. Search by code number or description to quickly identify and resolve equipment issues.`
+          "text": `This page does not publish a fault-code database for every brand.`
         }
       }
     ]
@@ -100,12 +95,12 @@ export function BrandSchemas({ brand }: BrandSchemasProps) {
     "@context": "https://schema.org",
     "@type": "Service",
     "name": `${brand.name} Equipment Parts & Support`,
-    "description": `Professional parts sourcing, serial number lookup, and technical support for ${brand.name} ${equipmentList}`,
+    "description": `Parts for ${brand.name} are on the catalog. A listing is not a fit for every machine. Freight is calculated at checkout.`,
     "provider": {
       "@type": "Organization",
       "name": "Flat Earth Equipment",
       "url": "https://flatearthequipment.com",
-      "telephone": "+1-555-123-4567"
+      "telephone": "+1-888-392-9175"
     },
     "areaServed": {
       "@type": "Country",
@@ -114,12 +109,10 @@ export function BrandSchemas({ brand }: BrandSchemasProps) {
     "serviceType": "Equipment Parts & Support",
     "offers": {
       "@type": "Offer",
-      "availability": "https://schema.org/InStock",
       "priceSpecification": {
         "@type": "PriceSpecification",
-        "price": "0",
         "priceCurrency": "USD",
-        "description": "Free shipping on standard items"
+        "description": "Freight is calculated at checkout"
       }
     }
   };

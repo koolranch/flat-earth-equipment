@@ -20,7 +20,7 @@ import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: "Forklift & Equipment Parts in Houston, TX | Flat Earth Equipment",
-  description: "Shop forklift, scissor lift, and heavy equipment parts in Houston, Pasadena, and the Port region. Fast shipping to 77002 & 50+ zip codes. Request a quote today.",
+  description: "Shop forklift, scissor lift, and heavy equipment parts in Houston, Pasadena, and the Port region. Freight is calculated at checkout.",
   alternates: generatePageAlternates("/texas/houston"),
 };
 
@@ -58,7 +58,7 @@ export default async function HoustonPage() {
         <div className="relative z-10 flex items-center justify-center h-full px-6 text-center sm:text-left">
           <div className="max-w-4xl w-full">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1 mb-6 text-sm text-white font-medium">
-              <span className="text-green-400">●</span> Serving 77002 & 50+ Houston Zip Codes
+              <span className="text-green-400">●</span> Parts ship to Houston
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold leading-tight text-white mb-6">
@@ -66,7 +66,7 @@ export default async function HoustonPage() {
             </h1>
             
             <p className="text-slate-200 text-lg md:text-xl mb-8 max-w-2xl">
-              Serving the Energy Corridor, Port of Houston, and Greater Metroplex with precision-fit parts and fast dispatch.
+              Parts ship to Houston. Freight is calculated at checkout.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -111,19 +111,19 @@ export default async function HoustonPage() {
       <section className="max-w-5xl mx-auto px-4 py-16">
         <div className="grid md:grid-cols-3 gap-12 items-start">
           <div className="md:col-span-2">
-            <h2 className="text-3xl font-bold text-slate-900 mb-6">Your Partner in the Energy Capital</h2>
+            <h2 className="text-3xl font-bold text-slate-900 mb-6">Parts ship to Houston</h2>
             <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-              Flat Earth Equipment connects Houston's industrial powerhouse with the heavy-duty parts needed to keep operations moving. From the <strong>Port of Houston</strong> to the <strong>Energy Corridor</strong> and <strong>Pasadena refineries</strong>, we understand the unique demands of the Bayou City.
+              Parts ship to Houston. Freight is calculated at checkout. A listing is not a fit for every machine.
             </p>
             <p className="text-lg text-slate-700 mb-8 leading-relaxed">
-              We supply spark-proof components for chemical plants, heavy-capacity forklift parts for port operations, and reliable telehandler equipment for the booming construction sector across Harris, Fort Bend, and Montgomery counties.
+              Parts we list are on the catalog. A listing is not a fit for every machine. Freight is calculated at checkout.
             </p>
             
             {/* Service Radius Visual */}
             <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                Active Delivery Zones
+                Parts ship to
               </h3>
               <div className="flex flex-wrap gap-2">
                 {[
@@ -304,15 +304,15 @@ export default async function HoustonPage() {
         <div className="space-y-4">
           <div className="bg-white rounded-lg border border-slate-200 p-6 hover:border-canyon-rust/30 transition-colors">
             <h3 className="text-lg font-bold text-slate-900 mb-2">Do you serve the Port of Houston area?</h3>
-            <p className="text-slate-600">Yes, we prioritize delivery to the Port of Houston, Bayport Container Terminal, and Barbours Cut. We understand the TWIC and security requirements for deliveries in these zones.</p>
+            <p className="text-slate-600">Parts ship to the Houston area, including the Port of Houston. Freight is calculated at checkout.</p>
           </div>
           <div className="bg-white rounded-lg border border-slate-200 p-6 hover:border-canyon-rust/30 transition-colors">
             <h3 className="text-lg font-bold text-slate-900 mb-2">Do you carry explosion-proof parts for refineries?</h3>
-            <p className="text-slate-600">We supply EE and EX rated components suitable for hazardous environments common in Pasadena and Deer Park refineries. Contact our technical team for specific compliance requirements.</p>
+            <p className="text-slate-600">Send the part number and the area classification with a quote. A listing is not a fit for every machine.</p>
           </div>
           <div className="bg-white rounded-lg border border-slate-200 p-6 hover:border-canyon-rust/30 transition-colors">
             <h3 className="text-lg font-bold text-slate-900 mb-2">How fast is shipping to The Woodlands or Sugar Land?</h3>
-            <p className="text-slate-600">We offer next-day ground shipping to all Greater Houston suburbs including The Woodlands, Sugar Land, Katy, and Pearland for in-stock items ordered before 2 PM CST.</p>
+            <p className="text-slate-600">Parts ship to The Woodlands, Sugar Land, Katy, and Pearland. Freight is calculated at checkout.</p>
           </div>
         </div>
       </section>
@@ -342,7 +342,7 @@ export default async function HoustonPage() {
             { '@type': 'City', 'name': 'Sugar Land' },
             { '@type': 'City', 'name': 'Katy' }
           ],
-          'description': 'Industrial equipment parts supplier for Houston, the Energy Corridor, and Port of Houston. Specializing in forklift, telehandler, and heavy equipment components.',
+          'description': 'Parts ship to Houston. Freight is calculated at checkout.',
           'openingHours': 'Mo-Fr 07:00-17:00',
           'priceRange': '$$',
           'serviceType': ['Equipment Rental', 'Industrial Parts', 'Port Equipment', 'Refinery Equipment'],
@@ -368,7 +368,7 @@ export default async function HoustonPage() {
               'name': 'Do you serve the Port of Houston area?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Yes, we prioritize delivery to the Port of Houston, Bayport Container Terminal, and Barbours Cut. We understand the TWIC and security requirements for deliveries in these zones.'
+                'text': 'Parts ship to the Houston area, including the Port of Houston. Freight is calculated at checkout.'
               }
             },
             {
@@ -376,7 +376,7 @@ export default async function HoustonPage() {
               'name': 'Do you carry explosion-proof parts for refineries?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'We supply EE and EX rated components suitable for hazardous environments common in Pasadena and Deer Park refineries. Contact our technical team for specific compliance requirements.'
+                'text': 'Send the part number and the area classification with a quote. A listing is not a fit for every machine.'
               }
             },
             {
@@ -384,7 +384,7 @@ export default async function HoustonPage() {
               'name': 'How fast is shipping to The Woodlands or Sugar Land?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'We offer next-day ground shipping to all Greater Houston suburbs including The Woodlands, Sugar Land, Katy, and Pearland for in-stock items ordered before 2 PM CST.'
+                'text': 'Parts ship to The Woodlands, Sugar Land, Katy, and Pearland. Freight is calculated at checkout.'
               }
             }
           ]
@@ -401,7 +401,7 @@ export default async function HoustonPage() {
             Ready to keep Houston moving?
           </h2>
           <p className="text-slate-300 mb-8 text-lg">
-            From the ship channel to the suburbs, we deliver the parts you need to minimize downtime and maximize productivity.
+            Parts ship to Houston. Freight is calculated at checkout.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

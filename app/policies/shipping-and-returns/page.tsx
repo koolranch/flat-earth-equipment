@@ -17,14 +17,13 @@ export default function ShippingAndReturnsPage() {
       title: 'Shipping & Returns Policy',
       shipping: {
         title: 'Shipping Information',
-        intro: 'We offer shipping to all 50 states and Canada. Most orders are processed and shipped within 1-2 business days.',
-        methodsTitle: 'Shipping Methods',
+        intro: 'We ship in the United States. Freight is calculated at checkout.',
+        methodsTitle: 'Shipping',
         methods: [
-          'Standard Ground Shipping (3-5 business days)',
-          'Expedited Shipping (2-3 business days)',
-          'Express Shipping (1-2 business days)'
+          'Freight is calculated at checkout',
+          'Checkout is limited to United States shipping addresses'
         ],
-        costs: 'Shipping costs are calculated based on the weight and dimensions of your order, as well as the destination.'
+        costs: 'Freight is calculated at checkout from the part and the ship-to address.'
       },
       returns: {
         title: 'Returns Policy',
@@ -34,7 +33,7 @@ export default function ShippingAndReturnsPage() {
           'Contact our customer service team to initiate a return',
           'Package the item securely with all original packaging',
           'Include the return authorization number on the package',
-          'Ship the item back to our warehouse'
+          'We send the return address with the authorization'
         ],
         refund: 'Once your return is received and inspected, we will process your refund within 5-7 business days.'
       },
@@ -42,9 +41,8 @@ export default function ShippingAndReturnsPage() {
         title: 'Contact Us',
         description: 'If you have any questions about our shipping or returns policy, please contact us:',
         items: [
-          'Email: support@flatearthequipment.com',
-          'Phone: (555) 123-4567',
-          'Hours: Monday-Friday, 9am-5pm EST'
+          'Email: contact@flatearthequipment.com',
+          'Address: 30 N Gould St, Ste R, Sheridan, WY 82801'
         ]
       }
     },
@@ -52,14 +50,13 @@ export default function ShippingAndReturnsPage() {
       title: 'Política de Envío y Devoluciones',
       shipping: {
         title: 'Información de Envío',
-        intro: 'Ofrecemos envío a los 50 estados y Canadá. La mayoría de los pedidos se procesan y envían dentro de 1-2 días hábiles.',
-        methodsTitle: 'Métodos de Envío',
+        intro: 'Enviamos dentro de Estados Unidos. El flete se calcula al pagar.',
+        methodsTitle: 'Envío',
         methods: [
-          'Envío Terrestre Estándar (3-5 días hábiles)',
-          'Envío Acelerado (2-3 días hábiles)',
-          'Envío Express (1-2 días hábiles)'
+          'El flete se calcula al pagar',
+          'El pago solo acepta direcciones de envío en Estados Unidos'
         ],
-        costs: 'Los costos de envío se calculan basándose en el peso y dimensiones de su pedido, así como el destino.'
+        costs: 'El flete se calcula al pagar, según la pieza y la dirección de envío.'
       },
       returns: {
         title: 'Política de Devoluciones',
@@ -69,7 +66,7 @@ export default function ShippingAndReturnsPage() {
           'Contacte a nuestro equipo de servicio al cliente para iniciar una devolución',
           'Empaque el artículo de forma segura con todo el empaque original',
           'Incluya el número de autorización de devolución en el paquete',
-          'Envíe el artículo de vuelta a nuestro almacén'
+          'Enviamos la dirección de devolución con la autorización'
         ],
         refund: 'Una vez que su devolución sea recibida e inspeccionada, procesaremos su reembolso dentro de 5-7 días hábiles.'
       },
@@ -77,9 +74,8 @@ export default function ShippingAndReturnsPage() {
         title: 'Contáctanos',
         description: 'Si tiene alguna pregunta sobre nuestra política de envío o devoluciones, por favor contáctenos:',
         items: [
-          'Correo electrónico: support@flatearthequipment.com',
-          'Teléfono: (555) 123-4567',
-          'Horario: Lunes-Viernes, 9am-5pm EST'
+          'Correo electrónico: contact@flatearthequipment.com',
+          'Dirección: 30 N Gould St, Ste R, Sheridan, WY 82801'
         ]
       }
     }

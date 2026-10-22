@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Construction Equipment Parts | Flat Earth Equipment",
-  description: "Find high-quality replacement parts for your construction equipment. Expert guidance and fast shipping.",
+  description: "Find high-quality replacement parts for your construction equipment. Freight is calculated at checkout.",
 };
 
 export default function ConstructionEquipmentPartsLayout({

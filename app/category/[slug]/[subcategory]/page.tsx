@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: { slug: string; sub
 
   return {
     title: `${subcategoryTitle} | ${category.name} | Flat Earth Equipment`,
-    description: `Shop ${subcategoryTitle.toLowerCase()} in our ${category.name.toLowerCase()} category. OEM-compatible parts for all major brands with fast shipping.`,
+    description: `Shop ${subcategoryTitle.toLowerCase()} in our ${category.name.toLowerCase()} category. A listing is not a fit for every machine. Freight is calculated at checkout.`,
     alternates: {
       canonical: `/category/${params.slug}/${params.subcategory}`,
     },

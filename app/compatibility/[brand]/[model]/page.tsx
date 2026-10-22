@@ -230,7 +230,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     descriptionParts.push('forks,');
   }
   
-  descriptionParts.push('and common wear parts. OEM cross-reference included. Ships same-day with 6-month warranty.');
+  descriptionParts.push('and common wear parts. OEM cross-reference included. Freight is calculated at checkout.');
   
   const description = machineModel?.meta_description || descriptionParts.join(' ');
 
@@ -629,11 +629,11 @@ export default async function CompatibilityPage({ params }: PageProps) {
                     <div className="grid grid-cols-2 gap-4 mb-6">
                       <div className="flex items-center gap-2 text-sm text-slate-700">
                         <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                        6-Month Warranty
+                        Aftermarket part
                       </div>
                       <div className="flex items-center gap-2 text-sm text-slate-700">
                         <Truck className="w-4 h-4 text-blue-600" />
-                        Same-Day Shipping
+                        Freight at checkout
                       </div>
                       <div className="flex items-center gap-2 text-sm text-slate-700">
                         <Wrench className="w-4 h-4 text-amber-600" />

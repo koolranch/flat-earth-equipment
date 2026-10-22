@@ -59,7 +59,7 @@ export default function OEMPartsSection({
           </div>
           <div>
             <h2 className="text-2xl font-bold text-slate-900">Common Wear Parts</h2>
-            <p className="text-slate-600">OEM replacement parts for {machineBrand} {machineModel}</p>
+            <p className="text-slate-600">Aftermarket parts listed for {machineBrand} {machineModel}</p>
           </div>
         </div>
 
@@ -159,10 +159,10 @@ export default function OEMPartsSection({
           <div className="px-6 py-4 bg-slate-50 border-t flex items-start gap-3">
             <AlertCircle className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
             <div className="text-sm text-slate-600">
-              <p className="font-medium text-slate-700 mb-1">OEM Part Sourcing</p>
+              <p className="font-medium text-slate-700 mb-1">Aftermarket parts</p>
               <p>
-                These are genuine OEM parts that require verification for your specific serial number.
-                Request a quote for current pricing and lead times. Most parts ship within 3-7 business days.
+                These listings are aftermarket. A listing is not a fit for every machine.
+                Request a quote for current pricing. Freight is calculated at checkout.
               </p>
             </div>
           </div>

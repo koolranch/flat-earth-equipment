@@ -47,8 +47,8 @@ export default function Footer({ locale = 'en' }: { locale?: 'en' | 'es' }) {
             <div className="text-2xl font-bold">Flat Earth Equipment</div>
             <p className="text-slate-600 text-sm">
               {es
-                ? 'Flat Earth Equipment ofrece partes industriales de ajuste preciso, rentas listas para trabajar y capacitación de seguridad para montacargas en todo Estados Unidos.'
-                : 'Flat Earth Equipment is built Western tough — precision-fit industrial parts and dispatch-ready rentals, shipped nationwide.'}
+                ? 'Partes industriales que se envían en Estados Unidos. El flete se calcula al pagar. Las rentas se cotizan. La certificación de montacargas es en línea.'
+                : 'Industrial parts ship in the United States. Freight is calculated at checkout. Equipment rentals are quoted. Forklift certification is online.'}
             </p>
           </div>
 

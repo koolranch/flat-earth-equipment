@@ -187,7 +187,7 @@ export default function ToroDingoErrorCodesPage() {
 
       <div className="not-prose my-8 bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-300 rounded-xl p-6 text-center">
         <h2 className="text-2xl font-bold text-slate-900 mb-3">Need Toro Dingo Parts or Batteries?</h2>
-        <p className="text-slate-700 mb-6">We stock batteries, chargers, sensors, and components for Toro Dingo e-Dingo 500 and TX series loaders.</p>
+        <p className="text-slate-700 mb-6">Toro parts we list are on the catalog. A listing is not a fit for every machine. Freight is calculated at checkout.</p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link href="/parts?brand=toro&product=dingo" className="bg-[#F76511] text-white px-8 py-3 rounded-xl font-bold hover:bg-orange-600 transition-all">
             Shop Dingo Parts →

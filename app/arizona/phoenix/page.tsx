@@ -19,13 +19,13 @@ import RelatedResources from '@/components/seo/RelatedResources';
 
 export const metadata: Metadata = {
   title: "Forklift & Equipment Parts in Phoenix, AZ | Flat Earth Equipment",
-  description: "Shop forklift, scissor lift, and heavy equipment parts in Phoenix Metro. Fast shipping to 85001 & 50+ zip codes. Request a quote today from Flat Earth Equipment.",
+  description: "Shop forklift, scissor lift, and heavy equipment parts in Phoenix Metro. Freight is calculated at checkout.",
   alternates: {
     canonical: '/arizona/phoenix'
   },
   openGraph: {
     title: "Forklift & Equipment Parts in Phoenix, AZ | Flat Earth Equipment",
-    description: "Shop forklift, scissor lift, and heavy equipment parts in Phoenix Metro. Fast shipping, Western-tough reliability.",
+    description: "Shop forklift, scissor lift, and heavy equipment parts in Phoenix Metro. Freight is calculated at checkout.",
     url: "https://www.flatearthequipment.com/arizona/phoenix"
   }
 };
@@ -64,7 +64,7 @@ export default async function PhoenixPage() {
         <div className="relative z-10 flex items-center justify-center h-full px-6 text-center sm:text-left">
           <div className="max-w-4xl w-full">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1 mb-6 text-sm text-white font-medium">
-              <span className="text-green-400">●</span> Serving 85001 & 50+ Phoenix Zip Codes
+              <span className="text-green-400">●</span> Parts ship to Phoenix
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold leading-tight text-white mb-6">
@@ -72,7 +72,7 @@ export default async function PhoenixPage() {
             </h1>
             
             <p className="text-slate-200 text-lg md:text-xl mb-8 max-w-2xl">
-              Serving the Valley of the Sun, Scottsdale, and Mesa with precision-fit parts and fast dispatch.
+              Parts ship to Phoenix. Freight is calculated at checkout.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -117,19 +117,19 @@ export default async function PhoenixPage() {
       <section className="max-w-5xl mx-auto px-4 py-16">
         <div className="grid md:grid-cols-3 gap-12 items-start">
           <div className="md:col-span-2">
-            <h2 className="text-3xl font-bold text-slate-900 mb-6">Powering the Valley of the Sun</h2>
+            <h2 className="text-3xl font-bold text-slate-900 mb-6">Parts ship to Phoenix</h2>
             <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-              Flat Earth Equipment connects the Phoenix Metro area with the heavy-duty parts needed to keep operations moving. From the <strong>West Valley logistics hubs</strong> to <strong>Scottsdale construction sites</strong>, we understand the unique demands of the desert climate.
+              Parts ship to Phoenix. Freight is calculated at checkout. A listing is not a fit for every machine.
             </p>
             <p className="text-lg text-slate-700 mb-8 leading-relaxed">
-              We supply heat-resistant hydraulic components, high-capacity cooling systems for forklifts, and reliable telehandler equipment for the booming construction sector across Maricopa and Pinal counties.
+              Parts we list are on the catalog. A listing is not a fit for every machine. Freight is calculated at checkout.
             </p>
             
             {/* Service Radius Visual */}
             <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                Active Delivery Zones
+                Parts ship to
               </h3>
               <div className="flex flex-wrap gap-2">
                 {[
@@ -208,42 +208,42 @@ export default async function PhoenixPage() {
                 slug: 'forklift-parts',
                 href: '/parts',
                 Icon: ForkliftIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Scissor Lift Hydraulics',
                 slug: 'scissor-lift-hydraulics',
                 href: '/parts',
                 Icon: ScissorLiftIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Telehandler Filters',
                 slug: 'telehandler-filters',
                 href: '/parts',
                 Icon: TelehandlerIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Mini Excavator Rollers',
                 slug: 'mini-excavator-rollers',
                 href: '/parts',
                 Icon: RollerIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Track Systems',
                 slug: 'track-systems',
                 href: '/parts',
                 Icon: TrackIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Battery Chargers & Modules',
                 slug: 'battery-chargers-modules',
                 href: '/charger-modules',
                 Icon: BatteryIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               }
             ].map((category) => (
               <Link
@@ -310,15 +310,15 @@ export default async function PhoenixPage() {
         <div className="space-y-4">
           <div className="bg-white rounded-lg border border-slate-200 p-6 hover:border-canyon-rust/30 transition-colors">
             <h3 className="text-lg font-bold text-slate-900 mb-2">Do you ship forklift parts within Phoenix same day?</h3>
-            <p className="text-slate-600">Yes, we offer same-day delivery for most forklift parts within the Phoenix Metro area when ordered before 2 PM. Our logistics network ensures your parts arrive when you need them across Phoenix, Scottsdale, Mesa, and surrounding Valley cities.</p>
+            <p className="text-slate-600">Parts ship to Phoenix, Scottsdale, Mesa, and surrounding Valley cities. Freight is calculated at checkout.</p>
           </div>
           <div className="bg-white rounded-lg border border-slate-200 p-6 hover:border-canyon-rust/30 transition-colors">
             <h3 className="text-lg font-bold text-slate-900 mb-2">Which brands do you carry parts for in Arizona?</h3>
-            <p className="text-slate-600">We stock parts for all major brands including Toyota, Hyster, Yale, Crown, and Raymond, with special emphasis on models commonly used in Arizona's distribution centers, manufacturing facilities, and construction sites.</p>
+            <p className="text-slate-600">Toyota, Hyster, Yale, Crown, and Raymond parts we list are on the catalog. A listing is not a fit for every machine.</p>
           </div>
           <div className="bg-white rounded-lg border border-slate-200 p-6 hover:border-canyon-rust/30 transition-colors">
             <h3 className="text-lg font-bold text-slate-900 mb-2">Do you offer volume pricing for Phoenix businesses?</h3>
-            <p className="text-slate-600">Yes, we provide competitive volume pricing for Phoenix Metro businesses with regular parts needs, including special fleet maintenance programs for companies with multiple pieces of equipment operating in the Valley of the Sun.</p>
+            <p className="text-slate-600">Send the part numbers for a quote. This page does not publish a volume price or a fleet maintenance program.</p>
           </div>
         </div>
       </section>
@@ -347,7 +347,7 @@ export default async function PhoenixPage() {
             { '@type': 'City', 'name': 'Chandler' },
             { '@type': 'City', 'name': 'Gilbert' }
           ],
-          'description': 'Flat Earth Equipment provides rental equipment and parts to contractors, facilities, and warehouses in the Phoenix Metro area. Fast shipping from regional hubs.',
+          'description': 'Parts ship to contractors and facilities in the Phoenix Metro area. Freight is calculated at checkout.',
           'telephone': '+1-888-392-9175',
           'openingHours': 'Mo-Fr 07:00-17:00',
           'priceRange': '$$',
@@ -372,7 +372,7 @@ export default async function PhoenixPage() {
               'name': 'Do you ship forklift parts within Phoenix same day?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Yes, we offer same-day delivery for most forklift parts within the Phoenix Metro area when ordered before 2 PM. Our logistics network ensures your parts arrive when you need them across Phoenix, Scottsdale, Mesa, and surrounding Valley cities.'
+                'text': 'Parts ship to Phoenix, Scottsdale, Mesa, and surrounding Valley cities. Freight is calculated at checkout.'
               }
             },
             {
@@ -380,7 +380,7 @@ export default async function PhoenixPage() {
               'name': 'Which brands do you carry parts for in Arizona?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'We stock parts for all major brands including Toyota, Hyster, Yale, Crown, and Raymond, with special emphasis on models commonly used in Arizona\'s distribution centers, manufacturing facilities, and construction sites.'
+                'text': 'Toyota, Hyster, Yale, Crown, and Raymond parts we list are on the catalog. A listing is not a fit for every machine.'
               }
             },
             {
@@ -388,7 +388,7 @@ export default async function PhoenixPage() {
               'name': 'Do you offer volume pricing for Phoenix businesses?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Yes, we provide competitive volume pricing for Phoenix Metro businesses with regular parts needs, including special fleet maintenance programs for companies with multiple pieces of equipment operating in the Valley of the Sun.'
+                'text': 'Send the part numbers for a quote. This page does not publish a volume price or a fleet maintenance program.'
               }
             }
           ]

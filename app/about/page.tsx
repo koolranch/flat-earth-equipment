@@ -5,7 +5,7 @@ import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: 'About Flat Earth Equipment | Flat Earth Equipment',
-  description: 'Flat Earth Equipment delivers precision-fit industrial parts and OSHA training nationwide. Built Western tough for contractors, fleets, and facilities.',
+  description: 'Flat Earth Equipment sells industrial parts in the United States and online forklift certification. Freight is calculated at checkout.',
   alternates: generatePageAlternates('/about'),
 };
 
@@ -19,13 +19,13 @@ export default function AboutPage() {
       intro: 'Flat Earth Equipment was built to serve the real operators — the mechanics, the parts managers, the fleet supervisors keeping America\'s equipment moving. We don\'t waste time, and we don\'t cut corners.',
       whatWeDo: {
         title: 'What We Do',
-        para1: 'We supply precision-fit replacement parts for forklifts, scissor lifts, aerial equipment, and construction machines. Whether you\'re managing a municipal fleet or a rental yard in Wyoming, we get you the part — fast.',
-        para2: 'Our team specializes in parts compatibility, sourcing, and speed. We ship anywhere in the U.S., but our brand runs on Western grit — from oil rigs in New Mexico to warehouses in Montana.'
+        para1: 'We supply replacement parts for forklifts, scissor lifts, aerial equipment, and construction machines. Parts ship in the United States. Freight is calculated at checkout. A listing is not a fit for every machine.',
+        para2: 'We ship in the United States. Questions go through the contact page.'
       },
       howWeOperate: {
         title: 'How We Operate',
         items: [
-          'Parts in stock and ready to ship',
+          'Freight is calculated at checkout',
           'Same-day quotes with no middleman delays', 
           'Transparent pricing and responsive support'
         ]
@@ -51,13 +51,13 @@ export default function AboutPage() {
       intro: 'Flat Earth Equipment fue construido para servir a los operadores reales: los mecánicos, los gerentes de partes, los supervisores de flotas que mantienen en movimiento el equipo de América. No perdemos tiempo, y no tomamos atajos.',
       whatWeDo: {
         title: 'Qué Hacemos',
-        para1: 'Suministramos partes de repuesto de ajuste preciso para montacargas, elevadores de tijera, equipo aéreo y máquinas de construcción. Ya sea que esté manejando una flota municipal o un patio de alquiler en Wyoming, le conseguimos la parte — rápido.',
-        para2: 'Nuestro equipo se especializa en compatibilidad de partes, abastecimiento y velocidad. Enviamos a cualquier lugar de los EE.UU., pero nuestra marca funciona con determinación del Oeste — desde plataformas petroleras en Nuevo México hasta almacenes en Montana.'
+        para1: 'Suministramos partes de repuesto para montacargas, elevadores de tijera, equipo aéreo y máquinas de construcción. Las partes se envían en Estados Unidos. El flete se calcula al pagar. Un listado no sirve para todas las máquinas.',
+        para2: 'Enviamos en Estados Unidos. Las preguntas van por la página de contacto.'
       },
       howWeOperate: {
         title: 'Cómo Operamos',
         items: [
-          'Partes en stock y listas para enviar',
+          'El flete se calcula al pagar',
           'Cotizaciones el mismo día sin retrasos de intermediarios',
           'Precios transparentes y soporte receptivo'
         ]

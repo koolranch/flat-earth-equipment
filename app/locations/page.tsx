@@ -20,7 +20,7 @@ const locations: LocationMap = {
     address: '',
     phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Serving the DFW Metroplex with fast shipping and same-day quotes.',
+    description: 'Parts ship to the DFW Metroplex. Freight is calculated at checkout.',
     shortDescription: 'DFW Metroplex and North Texas parts & equipment.',
   },
   'houston': {
@@ -28,15 +28,15 @@ const locations: LocationMap = {
     address: '',
     phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Serving the Energy Corridor, Port of Houston, and Greater Metroplex.',
-    shortDescription: 'Industrial parts for Houston, Pasadena, and the Port region.',
+    description: 'Parts ship to Houston. Freight is calculated at checkout.',
+    shortDescription: 'Parts ship to Houston. Freight is calculated at checkout.',
   },
   'el-paso': {
     name: 'El Paso, TX',
     address: '',
     phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Serving West Texas and the borderland region.',
+    description: 'Parts ship to El Paso and West Texas. Freight is calculated at checkout.',
     shortDescription: 'West Texas and borderland industrial parts.',
   },
   'phoenix': {
@@ -44,7 +44,7 @@ const locations: LocationMap = {
     address: '',
     phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Serving the Phoenix Metro and Valley of the Sun.',
+    description: 'Parts ship to Phoenix. Freight is calculated at checkout.',
     shortDescription: 'Phoenix Metro and Valley of the Sun parts & equipment.',
   },
   'denver': {
@@ -52,7 +52,7 @@ const locations: LocationMap = {
     address: '',
     phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Serving the Denver Metro and Front Range.',
+    description: 'Parts ship to Denver. Freight is calculated at checkout. No Denver storefront, rentals, or field repair.',
     shortDescription: 'Denver Metro and Front Range parts & equipment.',
   },
   'pueblo': {
@@ -60,46 +60,46 @@ const locations: LocationMap = {
     address: '',
     phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Serving southern Colorado with quality parts and exceptional service.',
-    shortDescription: 'Southern Colorado rentals and parts shipped same-day.',
+    description: 'Parts ship to Pueblo and southern Colorado. Freight is calculated at checkout.',
+    shortDescription: 'Parts ship to southern Colorado. Freight is calculated at checkout.',
   },
   'albuquerque': {
     name: 'Albuquerque, NM',
     address: '',
     phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Serving central New Mexico with fast shipping and same-day quotes.',
-    shortDescription: 'Serving central New Mexico contractors with parts and equipment.',
+    description: 'Parts ship to central New Mexico. Freight is calculated at checkout.',
+    shortDescription: 'Parts ship to central New Mexico. Freight is calculated at checkout.',
   },
   'las-cruces': {
     name: 'Las Cruces, NM',
     address: '',
     phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Serving southern New Mexico with fast shipping and same-day quotes.',
-    shortDescription: 'Serving southern New Mexico contractors with parts and equipment.',
+    description: 'Parts ship to southern New Mexico. Freight is calculated at checkout.',
+    shortDescription: 'Parts ship to southern New Mexico. Freight is calculated at checkout.',
   },
   'bozeman': {
     name: 'Bozeman, MT',
     address: '',
     phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Your trusted source for equipment parts in Montana.',
-    shortDescription: 'Rental-ready gear from Belgrade to Big Sky and the Gallatin Valley.',
+    description: 'Parts ship to Bozeman and the Gallatin Valley. Freight is calculated at checkout.',
+    shortDescription: 'Parts ship to Bozeman and the Gallatin Valley. Freight is calculated at checkout.',
   },
   'cheyenne': {
     name: 'Cheyenne, WY',
     address: '',
     phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Providing Wyoming with reliable equipment parts and service.',
-    shortDescription: 'Forklifts, scissor lifts, and job-site rentals in southeastern Wyoming.',
+    description: 'Parts ship to Cheyenne and southeastern Wyoming. Freight is calculated at checkout.',
+    shortDescription: 'Parts ship to southeastern Wyoming. Freight is calculated at checkout.',
   },
 };
 
 export const metadata: Metadata = {
   title: "Service Areas | Rentals & Parts",
-  description: "Explore the locations Flat Earth Equipment serves across the Western U.S. Same-day shipping, rugged rental equipment, and expert support in Texas, Arizona, Colorado, New Mexico, Montana, and Wyoming.",
+  description: "Parts ship to Texas, Arizona, Colorado, New Mexico, Montana, and Wyoming. Freight is calculated at checkout.",
   alternates: {
     canonical: '/locations'
   }
@@ -111,14 +111,14 @@ export default function LocationsPage() {
       <h1 className="text-3xl font-bold text-slate-900 mb-6">Rental Service Areas</h1>
 
       <p className="text-slate-700 mb-8">
-        Flat Earth Equipment provides fast-dispatch rental coverage across the Western U.S. Browse our key service regions below:
+        Parts ship to the areas below. Freight is calculated at checkout.
       </p>
 
       <section className="bg-white py-16 mb-16">
         <div className="max-w-5xl mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold text-slate-900 mb-6">Where We Deliver</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-6">Parts ship to</h2>
           <p className="text-slate-600 text-sm mb-10 max-w-xl mx-auto">
-            We serve contractors, facilities, and fleet operators across these key Western regions — and beyond.
+            Parts ship to these areas. Freight is calculated at checkout.
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 text-sm text-slate-700">
             <Link href="/texas/dallas-fort-worth" className="hover:text-canyon-rust transition">
@@ -176,7 +176,7 @@ export default function LocationsPage() {
           <Link href="/texas/houston" className="block text-xl font-semibold text-canyon-rust hover:underline">
             Houston, TX
           </Link>
-          <p className="text-slate-700 text-sm">Industrial parts for Houston, Pasadena, and the Port region.</p>
+          <p className="text-slate-700 text-sm">Parts ship to Houston. Freight is calculated at checkout.</p>
         </li>
         <li>
           <Link href="/texas/el-paso" className="block text-xl font-semibold text-canyon-rust hover:underline">
@@ -200,37 +200,37 @@ export default function LocationsPage() {
           <Link href="/colorado/pueblo" className="block text-xl font-semibold text-canyon-rust hover:underline">
             Pueblo, CO
           </Link>
-          <p className="text-slate-700 text-sm">Southern Colorado rentals and parts shipped same-day.</p>
+          <p className="text-slate-700 text-sm">Parts ship to southern Colorado. Freight is calculated at checkout.</p>
         </li>
         <li>
           <Link href="/new-mexico/albuquerque" className="block text-xl font-semibold text-canyon-rust hover:underline">
             Albuquerque, NM
           </Link>
-          <p className="text-slate-700 text-sm">Serving central New Mexico contractors with parts and equipment.</p>
+          <p className="text-slate-700 text-sm">Parts ship to central New Mexico. Freight is calculated at checkout.</p>
         </li>
         <li>
           <Link href="/new-mexico/las-cruces" className="block text-xl font-semibold text-canyon-rust hover:underline">
             Las Cruces, NM
           </Link>
-          <p className="text-slate-700 text-sm">Serving southern New Mexico contractors with parts and equipment.</p>
+          <p className="text-slate-700 text-sm">Parts ship to southern New Mexico. Freight is calculated at checkout.</p>
         </li>
         <li>
           <Link href="/montana/bozeman" className="block text-xl font-semibold text-canyon-rust hover:underline">
             Bozeman, MT
           </Link>
-          <p className="text-slate-700 text-sm">Rental-ready gear from Belgrade to Big Sky and the Gallatin Valley.</p>
+          <p className="text-slate-700 text-sm">Parts ship to Bozeman and the Gallatin Valley. Freight is calculated at checkout.</p>
         </li>
         <li>
           <Link href="/wyoming/cheyenne" className="block text-xl font-semibold text-canyon-rust hover:underline">
             Cheyenne, WY
           </Link>
-          <p className="text-slate-700 text-sm">Forklifts, scissor lifts, and job-site rentals in southeastern Wyoming.</p>
+          <p className="text-slate-700 text-sm">Parts ship to southeastern Wyoming. Freight is calculated at checkout.</p>
         </li>
       </ul>
 
       <hr className="my-10" />
       <p className="text-xs text-slate-500">
-        Flat Earth Equipment delivers rental equipment to these and other job sites from regional hubs. No walk-in storefronts.
+        Parts ship to these areas. Freight is calculated at checkout.
       </p>
     </main>
   );

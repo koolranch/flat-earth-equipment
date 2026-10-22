@@ -127,7 +127,7 @@ function moduleMetaDescription(m: ChargerModule): string {
   return (
     `In-stock remanufactured ${m.brand} ${m.partNumber} forklift charger module.${crossRef} ` +
     `Reman exchange $${((reman?.price ?? 0) / 100).toFixed(0)} or send-in repair $${((repair?.price ?? 0) / 100).toFixed(0)}. ` +
-    `6-month warranty, free shipping, ships same day.`
+    `6-month warranty and free shipping.`
   );
 }
 
@@ -176,7 +176,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const description = product.description
     ? product.description.slice(0, 160)
-    : `Buy ${product.name} battery charger. Industrial grade, OSHA-compliant. Free shipping, 6-month warranty.`;
+    : `Buy ${product.name}. 6-month warranty and free shipping.`;
 
   return {
     title: `${product.name} | Industrial Battery Charger | Flat Earth Equipment`,
@@ -293,9 +293,8 @@ function ChargerModulePage({ module }: { module: ChargerModule }) {
             {h1}
           </h1>
           <p className="text-lg text-slate-600 leading-relaxed">
-            Remanufactured {module.brand} {module.partNumber} charger module, bench-tested to exceed
-            OEM specifications.{crossRefLine} Choose an instant reman exchange that ships today, or
-            send your unit in for repair and return. Both options include a 6-month warranty and
+            Remanufactured {module.brand} {module.partNumber} charger module, bench-tested before it ships.
+            {crossRefLine} Choose a reman exchange or send your unit in for repair and return. Both options include a 6-month warranty and
             free nationwide shipping.
           </p>
         </header>
@@ -317,7 +316,7 @@ function ChargerModulePage({ module }: { module: ChargerModule }) {
           </div>
           <div className="flex items-center gap-2 text-sm text-slate-600">
             <Clock className="w-5 h-5 text-amber-600" />
-            <span>Same-Day Dispatch</span>
+            <span>Ships in the US</span>
           </div>
           <div className="flex items-center gap-2 text-sm text-slate-600">
             <Wrench className="w-5 h-5 text-purple-600" />
@@ -357,8 +356,8 @@ function ChargerModulePage({ module }: { module: ChargerModule }) {
                 <span className="text-slate-500 group-open:rotate-180 transition-transform ml-2">▼</span>
               </summary>
               <p className="text-base text-slate-700 mt-3 leading-relaxed">
-                Leave the firmware field blank. Our team will email you within 2 hours to confirm compatibility
-                before anything ships. We stock multiple firmware versions and can match your specific charger.
+                Leave the firmware field blank and include the charger model on the quote.
+                Freight is calculated at checkout.
               </p>
             </details>
 
@@ -513,7 +512,7 @@ export default async function ChargerModuleDetailPage({ params }: PageProps) {
                   </span>
                 </div>
                 <p className="text-sm text-slate-600 mb-3">
-                  Get personalized pricing for {product.name}. Free shipping and professional support included.
+                  Get a quote for {product.name}. Charger modules ship free. Freight on other parts is calculated at checkout.
                 </p>
                 <QuoteButton 
                   product={{
@@ -537,7 +536,7 @@ export default async function ChargerModuleDetailPage({ params }: PageProps) {
               </div>
               <div className="flex items-center gap-2 text-sm text-slate-600">
                 <Clock className="w-5 h-5 text-amber-600" />
-                <span>Same-Day Dispatch</span>
+                <span>Ships in the US</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-slate-600">
                 <Wrench className="w-5 h-5 text-purple-600" />

@@ -38,9 +38,9 @@ interface QuoteRequestModalProps {
 type UrgencyLevel = 'standard' | 'urgent' | 'emergency';
 
 const URGENCY_OPTIONS: { value: UrgencyLevel; label: string; description: string; icon: string }[] = [
-  { value: 'standard', label: 'Standard', description: '3-5 business days', icon: '📦' },
-  { value: 'urgent', label: 'Urgent', description: '1-2 business days', icon: '⚡' },
-  { value: 'emergency', label: 'Emergency', description: 'Same day if possible', icon: '🚨' },
+  { value: 'standard', label: 'Standard', description: 'We reply with a quote', icon: '📦' },
+  { value: 'urgent', label: 'Urgent', description: 'Say so in the notes', icon: '⚡' },
+  { value: 'emergency', label: 'Emergency', description: 'Put the deadline in the notes', icon: '🚨' },
 ];
 
 export default function QuoteRequestModal({
@@ -392,10 +392,11 @@ export default function QuoteRequestModal({
                       </button>
 
                       <p className="text-xs text-center text-slate-500">
-                        We typically respond within 24 hours. For emergency parts, call{' '}
-                        <a href="tel:+18005551234" className="text-canyon-rust font-medium">
-                          1-800-555-1234
+                        Questions go to{' '}
+                        <a href="tel:+18883929175" className="text-canyon-rust font-medium">
+                          (888) 392-9175
                         </a>
+                        {' '}or contact@flatearthequipment.com.
                       </p>
                     </form>
                   </>

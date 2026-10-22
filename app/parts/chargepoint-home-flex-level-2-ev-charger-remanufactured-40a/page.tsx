@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation';
 
 export const metadata = {
   title: "ChargePoint Home Flex Level 2 EV Charger (Remanufactured) - 40A, 9.6kW | Flat Earth Equipment",
-  description: "Remanufactured ChargePoint Home Flex Level 2 EV charger with 40A output and 9.6kW power. Smart charging, weather-resistant, universal J1772 compatibility. $450 + $300 refundable core deposit.",
+  description: "Remanufactured ChargePoint Home Flex Level 2 EV charger with 40A output and 9.6kW power. $450 + $300 refundable core deposit. Freight is calculated at checkout.",
   keywords: "chargepoint home flex, level 2 ev charger, remanufactured ev charger, 40 amp ev charger, electric vehicle charging station, j1772 charger",
 };
 
@@ -32,8 +32,8 @@ export default async function ChargePointChargerPage() {
   const features = [
     {
       icon: Zap,
-      title: "6x Faster Charging",
-      description: "Level 2 charging adds 25-30 miles of range per hour - dramatically faster than standard 120V outlets"
+      title: "Level 2 charging",
+      description: "This page does not publish a miles-per-hour range."
     },
     {
       icon: Gauge,
@@ -42,8 +42,8 @@ export default async function ChargePointChargerPage() {
     },
     {
       icon: Shield,
-      title: "Universal Compatibility",
-      description: "Works with all J1772-compliant EVs, including Tesla models with adapter"
+      title: "Connector",
+      description: "A listing is not a fit for every vehicle."
     },
     {
       icon: Smartphone,
@@ -55,14 +55,13 @@ export default async function ChargePointChargerPage() {
   const environmentalBenefits = [
     "Reduces electronic waste by giving equipment a second life",
     "Lower carbon footprint compared to manufacturing new units",
-    "Professionally refurbished to exceed original specifications",
     "Supports sustainable practices in the EV charging industry"
   ];
 
   const whyChargePoint = [
     {
       title: "Proven Industry Leadership",
-      description: "ChargePoint leads the EV charging market with reliable, cutting-edge technology trusted by millions of drivers worldwide."
+      description: "ChargePoint is the brand on the unit. This page does not publish a driver count."
     },
     {
       title: "Superior Charging Performance", 
@@ -153,7 +152,7 @@ export default async function ChargePointChargerPage() {
                 }}
                 className="bg-canyon-rust text-white px-8 py-3 rounded-lg font-semibold hover:bg-canyon-rust/90 transition-colors"
               >
-                Buy Now & Ship Today →
+                Buy Now →
               </AddToCartButton>
             </div>
           </div>
@@ -241,7 +240,7 @@ export default async function ChargePointChargerPage() {
                 </div>
                 <h3 className="font-semibold">Order & Receive</h3>
                 <p className="text-sm text-blue-800">
-                  We charge ${product.core_charge.toFixed(0)} refundable deposit. Your remanufactured charger ships immediately.
+                  We charge ${product.core_charge.toFixed(0)} refundable deposit. Freight is calculated at checkout.
                 </p>
               </div>
               <div className="text-center space-y-3">
@@ -269,8 +268,8 @@ export default async function ChargePointChargerPage() {
         {/* Trust Badges */}
         <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { icon: Truck, title: "Same-Day Dispatch", desc: "Ships today if ordered before 3 PM EST" },
-            { icon: Shield, title: "Quality Guaranteed", desc: "Professionally remanufactured to exceed OEM specs" },
+            { icon: Truck, title: "Freight at checkout", desc: "Freight is calculated at checkout" },
+            { icon: Shield, title: "Quality Guaranteed", desc: "Professionally remanufactured and bench-tested" },
             { icon: Clock, title: "Fast Installation", desc: "Professional hardwired setup for reliable performance" },
             { icon: Recycle, title: "Eco-Friendly", desc: "Sustainable choice supporting environmental responsibility" }
           ].map((badge, index) => (
@@ -294,13 +293,13 @@ export default async function ChargePointChargerPage() {
                 <li><span className="font-medium">Power Output:</span> 9.6kW (40A)</li>
                 <li><span className="font-medium">Voltage:</span> 220-240V AC</li>
                 <li><span className="font-medium">Connector:</span> J1772 Universal</li>
-                <li><span className="font-medium">Charging Speed:</span> 25-30 miles range/hour</li>
+                <li><span className="font-medium">Charging Speed:</span> This page does not publish a miles-per-hour range.</li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold mb-4">Installation & Features</h3>
               <ul className="space-y-2 text-sm">
-                <li><span className="font-medium">Installation:</span> Professional hardwired</li>
+                <li><span className="font-medium">Installation:</span> This page does not cover installation.</li>
                 <li><span className="font-medium">Enclosure:</span> NEMA 3R weather-resistant</li>
                 <li><span className="font-medium">Smart Features:</span> ChargePoint app compatible</li>
                 <li><span className="font-medium">Safety:</span> Multiple protection systems</li>
@@ -328,7 +327,7 @@ export default async function ChargePointChargerPage() {
             }}
             className="bg-canyon-rust text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-canyon-rust/90 transition-colors"
           >
-            Order Now - Ships Today →
+            Order Now →
           </AddToCartButton>
         </section>
       </main>

@@ -78,7 +78,7 @@ export default function Page() {
       {/* Parts by Category */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-slate-900 mb-2">Shop JCB Parts by Category</h2>
-        <p className="text-slate-600 mb-6">Browse 700+ aftermarket JCB replacement parts. Competitive pricing — fast shipping nationwide.</p>
+        <p className="text-slate-600 mb-6">Browse aftermarket JCB replacement parts. Freight is calculated at checkout.</p>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {[
             { name: 'Filters',            slug: 'jcb-filters',          count: 32 },
@@ -195,7 +195,7 @@ export default function Page() {
       <section className="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-300 rounded-xl p-8 text-center">
         <h2 className="text-2xl font-bold text-slate-900 mb-3">Need JCB Telehandler Parts?</h2>
         <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
-          From batteries to hydraulic components, we stock precision-fit parts for all JCB Loadall and excavator models. Fast shipping nationwide.
+          JCB parts we list are on the catalog. A listing is not a fit for every machine. Freight is calculated at checkout.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link href="/parts?brand=jcb" className="inline-flex items-center gap-2 bg-[#F76511] text-white px-8 py-3 rounded-xl font-bold hover:bg-orange-600 transition-all shadow-lg">

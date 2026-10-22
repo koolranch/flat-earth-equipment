@@ -19,7 +19,7 @@ import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: "Forklift & Equipment Parts in Albuquerque, NM | Flat Earth Equipment",
-  description: "Shop forklift, scissor lift, and heavy equipment parts in Albuquerque, NM. Fast shipping, Western-tough reliability. Request a quote today from Flat Earth Equipment.",
+  description: "Shop forklift, scissor lift, and heavy equipment parts in Albuquerque, NM. Freight is calculated at checkout.",
   alternates: generatePageAlternates("/new-mexico/albuquerque"),
 };
 
@@ -57,7 +57,7 @@ export default async function AlbuquerquePage() {
         <div className="relative z-10 flex items-center justify-center h-full px-6 text-center sm:text-left">
           <div className="max-w-4xl w-full">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1 mb-6 text-sm text-white font-medium">
-              <span className="text-green-400">●</span> Serving 87101 & 50+ ABQ Zip Codes
+              <span className="text-green-400">●</span> Parts ship to Albuquerque
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold leading-tight text-white mb-6">
@@ -65,7 +65,7 @@ export default async function AlbuquerquePage() {
             </h1>
             
             <p className="text-slate-200 text-lg md:text-xl mb-8 max-w-2xl">
-              Serving the Duke City, Rio Rancho, and Santa Fe with precision-fit parts and fast dispatch.
+              Parts ship to Albuquerque. Freight is calculated at checkout.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -110,19 +110,19 @@ export default async function AlbuquerquePage() {
       <section className="max-w-5xl mx-auto px-4 py-16">
         <div className="grid md:grid-cols-3 gap-12 items-start">
           <div className="md:col-span-2">
-            <h2 className="text-3xl font-bold text-slate-900 mb-6">Powering the Land of Enchantment</h2>
+            <h2 className="text-3xl font-bold text-slate-900 mb-6">Parts ship to Albuquerque</h2>
             <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-              Flat Earth Equipment is your trusted source for forklift, scissor lift, and heavy equipment parts in Albuquerque and the greater Rio Grande Valley. We supply precision-fit components to warehouses, public utilities, and contractors throughout the region, with fast shipping from our nearby Western hubs.
+              Flat Earth Equipment ships parts to Albuquerque and the greater Rio Grande Valley. Freight is calculated at checkout.
             </p>
             <p className="text-lg text-slate-700 mb-8 leading-relaxed">
-              From <strong>Rio Rancho construction sites</strong> to <strong>Albuquerque Studios</strong>, we understand the diverse needs of New Mexico's economy. Our team ensures you get the right part, every time, whether for routine maintenance or emergency repairs.
+              A listing is not a fit for every machine. Freight is calculated at checkout.
             </p>
             
             {/* Service Radius Visual */}
             <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                Active Delivery Zones
+                Parts ship to
               </h3>
               <div className="flex flex-wrap gap-2">
                 {[
@@ -191,42 +191,42 @@ export default async function AlbuquerquePage() {
                 slug: 'forklift-parts',
                 href: '/parts',
                 Icon: ForkliftIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Scissor Lift Hydraulics',
                 slug: 'scissor-lift-hydraulics',
                 href: '/parts',
                 Icon: ScissorLiftIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Telehandler Filters',
                 slug: 'telehandler-filters',
                 href: '/parts',
                 Icon: TelehandlerIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Mini Excavator Rollers',
                 slug: 'mini-excavator-rollers',
                 href: '/parts',
                 Icon: RollerIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Track Systems',
                 slug: 'track-systems',
                 href: '/parts',
                 Icon: TrackIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Battery Chargers & Modules',
                 slug: 'battery-chargers-modules',
                 href: '/charger-modules',
                 Icon: BatteryIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               }
             ].map((category) => (
               <Link
@@ -289,10 +289,10 @@ export default async function AlbuquerquePage() {
 
       {/* Delivery Zones Section */}
       <section className="mb-12 max-w-5xl mx-auto px-4">
-        <h2 className="text-2xl font-semibold text-slate-800 mb-4">Albuquerque Delivery Zones</h2>
+        <h2 className="text-2xl font-semibold text-slate-800 mb-4">Parts ship to Albuquerque</h2>
         <div className="bg-white rounded-lg shadow-sm p-6">
           <p className="text-lg text-slate-700">
-            We provide fast delivery throughout Albuquerque's key industrial areas, including the I-25 corridor from downtown (87101) to Rio Rancho, the Mesa del Sol industrial zone (87106), and South Valley logistics hubs (87105). Our strategic location near the intersection of I-25 and I-40 enables quick shipping to all Albuquerque ZIP codes (87101–87124) and surrounding areas. Whether you're in the North Valley (87107) or the Westside industrial parks (87120), we ensure prompt delivery of your industrial parts and equipment.
+            Parts ship to Albuquerque, including the I-25 corridor, Rio Rancho, and the South Valley. Freight is calculated at checkout.
           </p>
         </div>
       </section>
@@ -303,15 +303,15 @@ export default async function AlbuquerquePage() {
         <div className="space-y-6">
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h3 className="text-lg font-semibold mb-2">Do you ship forklift parts within Albuquerque same day?</h3>
-            <p className="text-slate-700">Yes, we offer same-day delivery for most forklift parts within Albuquerque's main industrial areas when ordered before 2 PM. Our local delivery network ensures your parts arrive when you need them.</p>
+            <p className="text-slate-700">Parts ship to Albuquerque. Freight is calculated at checkout.</p>
           </div>
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h3 className="text-lg font-semibold mb-2">Which brands do you carry parts for in New Mexico?</h3>
-            <p className="text-slate-700">We stock parts for all major brands including Toyota, Hyster, Yale, Crown, and Raymond, with special emphasis on models commonly used in New Mexico's industrial and warehouse facilities.</p>
+            <p className="text-slate-700">Toyota, Hyster, Yale, Crown, and Raymond parts we list are on the catalog. A listing is not a fit for every machine.</p>
           </div>
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h3 className="text-lg font-semibold mb-2">Do you offer volume pricing for Albuquerque businesses?</h3>
-            <p className="text-slate-700">Yes, we provide competitive volume pricing for Albuquerque businesses with regular parts needs, including special fleet maintenance programs for companies with multiple pieces of equipment.</p>
+            <p className="text-slate-700">Send the part numbers for a quote. This page does not publish a volume price or a fleet maintenance program.</p>
           </div>
         </div>
       </section>
@@ -337,7 +337,7 @@ export default async function AlbuquerquePage() {
             'name': 'Albuquerque, NM',
             'postalCode': '87101-87124'
           },
-          'description': 'Flat Earth Equipment provides rental equipment and parts to contractors, facilities, and municipalities in Albuquerque, NM. Fast shipping from regional hubs.',
+          'description': 'Parts ship to contractors and facilities in Albuquerque, NM. Freight is calculated at checkout.',
           'telephone': '+1-888-392-9175',
           'openingHours': 'Mo-Fr 07:00-17:00',
           'priceRange': '$$',
@@ -362,7 +362,7 @@ export default async function AlbuquerquePage() {
               'name': 'Do you ship forklift parts within Albuquerque same day?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Yes, we offer same-day delivery for most forklift parts within Albuquerque\'s main industrial areas when ordered before 2 PM. Our local delivery network ensures your parts arrive when you need them.'
+                'text': 'Parts ship to Albuquerque. Freight is calculated at checkout.'
               }
             },
             {
@@ -370,7 +370,7 @@ export default async function AlbuquerquePage() {
               'name': 'Which brands do you carry parts for in New Mexico?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'We stock parts for all major brands including Toyota, Hyster, Yale, Crown, and Raymond, with special emphasis on models commonly used in New Mexico\'s industrial and warehouse facilities.'
+                'text': 'Toyota, Hyster, Yale, Crown, and Raymond parts we list are on the catalog. A listing is not a fit for every machine.'
               }
             },
             {
@@ -378,7 +378,7 @@ export default async function AlbuquerquePage() {
               'name': 'Do you offer volume pricing for Albuquerque businesses?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Yes, we provide competitive volume pricing for Albuquerque businesses with regular parts needs, including special fleet maintenance programs for companies with multiple pieces of equipment.'
+                'text': 'Send the part numbers for a quote. This page does not publish a volume price or a fleet maintenance program.'
               }
             }
           ]
@@ -393,7 +393,7 @@ export default async function AlbuquerquePage() {
         <h2 className="text-2xl font-bold text-white mb-4">
           Keep your fleet running in the 505
         </h2>
-        <p className="text-slate-300 mb-6">Parts, rentals, and service for Albuquerque's toughest jobs.</p>
+        <p className="text-slate-300 mb-6">Parts ship to Albuquerque. Freight is calculated at checkout.</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
           <Link
             href="/parts"

@@ -4,14 +4,14 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Fork Extensions for Forklifts | Heavy-Duty Forklift Fork Extensions | Flat Earth Equipment",
-  description: "Professional fork extensions for forklifts - extend your reach safely. Quality forklift fork extensions for all major brands. Free shipping & expert support.",
+  description: "Fork extensions for forklifts. A listing is not a fit for every machine. Freight is calculated at checkout.",
   keywords: "fork extensions for forklifts, forklift fork extensions, fork extensions, forklift attachments, pallet fork extensions, fork slippers, sliding fork extensions",
   alternates: {
     canonical: "/attachments/forklift-forks/fork-extensions-for-forklifts",
   },
   openGraph: {
     title: "Fork Extensions for Forklifts | Flat Earth Equipment",
-    description: "Professional fork extensions for forklifts - extend your reach safely. Quality forklift fork extensions for all major brands.",
+    description: "Fork extensions for forklifts. A listing is not a fit for every machine. Freight is calculated at checkout.",
     type: "website",
     url: "https://www.flatearthequipment.com/attachments/forklift-forks/fork-extensions-for-forklifts",
   },
@@ -253,7 +253,7 @@ export default function ForkExtensionsPage() {
           <Link href="/forks" className="group">
             <div className="bg-white rounded-lg p-6 shadow hover:shadow-lg transition-shadow">
               <h3 className="font-semibold mb-2 group-hover:text-canyon-rust">Forklift Forks</h3>
-              <p className="text-gray-600 text-sm">Replacement forks for all major forklift brands</p>
+              <p className="text-gray-600 text-sm">A listing is not a fit for every machine. Freight is calculated at checkout.</p>
             </div>
           </Link>
           <Link href="/parts" className="group">

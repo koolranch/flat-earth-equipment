@@ -129,7 +129,7 @@ export default function AttachmentsPage() {
         <div className="text-center p-6">
           <div className="text-4xl mb-4">🚚</div>
           <h3 className="font-semibold mb-2">Fast Delivery</h3>
-          <p className="text-sm text-slate-600">Same-day quotes and expedited shipping available</p>
+          <p className="text-sm text-slate-600">Freight is calculated at checkout.</p>
         </div>
       </div>
 
@@ -260,10 +260,10 @@ export default function AttachmentsPage() {
 
       {/* Call to Action */}
       <section className="bg-gradient-to-r from-canyon-rust to-canyon-rust/90 text-white rounded-xl p-8 text-center">
-        <h2 className="text-3xl font-bold mb-4">Need Help Selecting Attachments?</h2>
+        <h2 className="text-3xl font-bold mb-4">Attachments on the catalog</h2>
         <p className="text-xl mb-8 max-w-3xl mx-auto">
-          Our technical experts provide free consultation to help you choose the right attachments for your 
-          specific application, ensuring optimal performance, safety, and ROI.
+          This page does not offer a consultation. A listing is not a fit for every machine.
+          The price is on the product page. Freight is calculated at checkout.
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center">

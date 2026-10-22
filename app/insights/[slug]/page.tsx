@@ -106,7 +106,7 @@ export default async function BlogPost({ params }: Props) {
         {
           question: 'How much does forklift certification cost?',
           answer:
-            'Flat Earth Equipment formal instruction is $49 online, or free to study in the app with $49 due only at the final exam. Traditional classroom packages often run $200–$500 per operator. The employer still handles the required on-site evaluation.',
+            'Flat Earth Equipment formal instruction is $49 online, or free to study in the app with $49 due only at the final exam. This page does not publish an in-person price. The employer still handles the required hands-on evaluation.',
         },
         {
           question: 'How long does it take to get forklift certified?',
@@ -163,23 +163,23 @@ export default async function BlogPost({ params }: Props) {
         },
         {
           question: "How do I calculate the right amperage for my forklift charger?",
-          answer: "Use this formula: Required Amps = (Battery Ah ÷ Desired Charge Hours) ÷ 0.85. For example, a 750Ah battery charged in 8 hours needs: (750 ÷ 8) ÷ 0.85 = 110A charger. For overnight charging, use C/10 rate (10% of battery capacity). For fast charging, use C/5 to C/3 rates."
+          answer: "This page does not publish a required amperage or a charge-time formula. Voltage still has to match the battery."
         },
         {
           question: "Can I use a higher amperage charger to charge faster?",
-          answer: "Yes, but with trade-offs. Higher amperage reduces charging time but also reduces battery life. C/10 rate (overnight) gives 5-7 years battery life, while C/3 rate (fast charging) gives 2-4 years. Also ensure your electrical system can handle the higher current draw."
+          answer: "This page does not publish a battery-life year count for a charge rate."
         },
         {
           question: "What's the difference between single-phase and three-phase chargers?",
-          answer: "Single-phase chargers use standard 208V-240V power, suitable for smaller chargers (under 100A output). Three-phase chargers use 480V-600V industrial power, offering 5-10% better efficiency and supporting higher amperages (200A+). Choose based on your facility's electrical infrastructure."
+          answer: "This page does not publish an input voltage or an output amp."
         },
         {
           question: "Do I need special ventilation for forklift battery charging?",
-          answer: "Yes, lead-acid batteries produce hydrogen gas during charging, which is explosive at 4% concentration. Install exhaust fans providing 6-12 air changes per hour. Calculate CFM needed: (Number of batteries × Ah capacity × 0.05) ÷ 0.25. Lithium batteries don't require special ventilation."
+          answer: "This page does not publish a ventilation rate or a CFM formula."
         },
         {
           question: "Can I use aftermarket chargers with my Crown/Toyota/Yale forklift?",
-          answer: "Yes, most forklift brands use standard Anderson SB connectors and charging profiles. Aftermarket chargers are fully compatible and often cost 30-50% less than OEM chargers. Ensure voltage matches exactly and amperage is appropriate for your battery capacity."
+          answer: "A listing is not a fit for every truck. Voltage and amperage still have to match the battery. This page does not publish a percent off an OEM charger."
         }
       ];
     } else if (slug === 'how-to-choose-forklift-battery-charger') {
@@ -190,30 +190,30 @@ export default async function BlogPost({ params }: Props) {
         },
         {
           question: "What happens if I use the wrong amperage charger?",
-          answer: "Too low amperage results in incomplete charging and reduced battery life. Too high amperage can overheat the battery and reduce its lifespan. For optimal battery life, use C/10 rate (10% of battery capacity) for overnight charging, or C/5 rate for faster charging."
+          answer: "This page does not publish a required amperage or a charge rate. Voltage still has to match the battery."
         },
         {
           question: "Can I use any charger brand with my forklift?",
-          answer: "Yes, most forklift brands use standard Anderson SB connectors and charging profiles. Aftermarket chargers are fully compatible with Crown, Toyota, Yale, Hyster, and other major brands. Just ensure voltage and amperage match your requirements."
+          answer: "A listing is not a fit for every truck. Voltage still has to match the battery. This page does not publish a connector for every brand."
         },
         {
           question: "Do I need single-phase or three-phase power?",
-          answer: "Single-phase (208V-240V) works for smaller chargers under 100A output. Three-phase (480V-600V) is required for higher amperage chargers and provides 5-10% better efficiency. Choose based on your facility's available electrical infrastructure."
+          answer: "This page does not publish an input voltage or an output amp."
         },
         {
           question: "How much should I expect to spend on a forklift charger?",
-          answer: "Prices range from $800-1,500 for 24V chargers, $1,000-2,000 for 36V, $1,200-3,500 for 48V, and $2,500-5,000+ for 80V chargers. Higher amperage and advanced features increase cost, but quality chargers pay for themselves through extended battery life."
+          answer: "The price is on the product page. This page does not publish a price band by voltage."
         },
         {
           question: "What's the difference between overnight and fast charging?",
-          answer: "Overnight charging (8-12 hours) uses lower amperage, extends battery life to 5-7 years, and requires standard electrical infrastructure. Fast charging (4-6 hours) uses higher amperage, reduces battery life to 3-5 years, but enables multi-shift operations with better productivity."
+          answer: "This page does not publish a battery-life year count for a charge rate."
         }
       ];
     } else if (slug === 'lithium-forklift-battery-chargers-complete-guide') {
       return [
         {
           question: "What makes lithium forklift chargers different from lead-acid chargers?",
-          answer: "Lithium chargers must communicate with the battery's BMS (Battery Management System) for cell balancing, temperature monitoring, and safety protection. They charge much faster (1-3 hours vs 8-12 hours), are more efficient (95-98% vs 80-85%), and don't require ventilation since lithium batteries don't produce hydrogen gas."
+          answer: "A lead-acid charger is not a lithium charger. This page does not publish a charge time or an efficiency percent."
         },
         {
           question: "Do I need a special charger for lithium forklift batteries?",
@@ -221,11 +221,11 @@ export default async function BlogPost({ params }: Props) {
         },
         {
           question: "How fast can lithium forklift batteries charge?",
-          answer: "Lithium forklift batteries can charge in 1-3 hours depending on the charger amperage. Standard charging (2-4 hours) uses Battery Ah ÷ 3 amperage. Fast charging (1-2 hours) uses Battery Ah ÷ 2 amperage. Opportunity charging can add significant capacity in just 15-30 minutes."
+          answer: "This page does not publish a required amperage or a charge-time formula. Voltage still has to match the battery. A lead-acid charger is not a lithium charger."
         },
         {
           question: "Are lithium forklift chargers more expensive?",
-          answer: "Yes, lithium chargers typically cost 25-50% more than lead-acid chargers ($3,000-$15,000 depending on features). However, they provide 20-40% lower total cost of ownership over 5 years through energy savings, reduced maintenance, and longer battery life."
+          answer: "The price is on the product page. This page does not publish a percent more than a lead-acid charger or a five-year total."
         },
         {
           question: "Can I use opportunity charging with lithium forklift batteries?",
@@ -240,11 +240,11 @@ export default async function BlogPost({ params }: Props) {
       return [
         {
           question: "What's the main difference between lead-acid and lithium forklift chargers?",
-          answer: "Lead-acid chargers use simple voltage control and take 8-12 hours to charge, while lithium chargers use advanced BMS communication and charge in 1-3 hours. Lithium chargers are 95-98% efficient vs 80-85% for lead-acid, but cost 25-50% more initially."
+          answer: "This page does not publish a charge time, an efficiency percent, or a price gap versus lead-acid. A lead-acid charger is not a lithium charger."
         },
         {
           question: "Which is more cost-effective: lead-acid or lithium forklift chargers?",
-          answer: "Lithium chargers have higher initial costs ($3,000-$8,000 vs $1,500-$4,000) but provide 20-40% lower total cost of ownership over 5 years through energy savings, reduced maintenance, and longer battery life. ROI typically occurs in 2-3 years."
+          answer: "The price is on the product page. This page does not publish a percent more than a lead-acid charger or a five-year total."
         },
         {
           question: "Can I upgrade from lead-acid to lithium chargers?",
@@ -256,11 +256,11 @@ export default async function BlogPost({ params }: Props) {
         },
         {
           question: "Do lithium forklift chargers require special safety considerations?",
-          answer: "Lithium chargers are actually safer in many ways - no hydrogen gas emission, no acid spills, and no heavy battery handling. They do require thermal runaway prevention and Class D fire suppression, but eliminate the ventilation requirements of lead-acid charging."
+          answer: "This page does not publish a fire class or a ventilation requirement."
         },
         {
           question: "How long do lead-acid vs lithium forklift chargers last?",
-          answer: "Lead-acid chargers typically last 3-5 years and require weekly maintenance. Lithium chargers last 7-10 years with minimal monthly maintenance. The longer lifespan and reduced maintenance contribute significantly to lithium's lower total cost of ownership."
+          answer: "This page does not publish a charger lifespan or a maintenance interval."
         }
       ];
     } else if (slug === 'bms-integration-lithium-forklift-chargers') {
@@ -271,7 +271,7 @@ export default async function BlogPost({ params }: Props) {
         },
         {
           question: "What communication protocols do lithium forklift chargers use?",
-          answer: "Most lithium forklift chargers use CAN bus communication (125 kbps to 1 Mbps) with twisted pair cables and 120Ω termination. Alternative protocols include RS485/Modbus for industrial applications and proprietary protocols for manufacturer-specific optimizations."
+          answer: "This page does not publish a protocol, a baud rate, or a termination resistance."
         },
         {
           question: "Can any lithium charger work with any lithium forklift battery?",
@@ -279,7 +279,7 @@ export default async function BlogPost({ params }: Props) {
         },
         {
           question: "How do I troubleshoot BMS communication errors?",
-          answer: "Start by checking physical connections and cable integrity, then verify termination resistors (120Ω at each CAN bus end). Check protocol settings like baud rate and message IDs. If issues persist, update firmware for both charger and BMS, and consult manufacturer documentation for specific fault codes."
+          answer: "This page does not publish a troubleshooting procedure, a termination resistance, or a baud rate."
         },
         {
           question: "What safety features does BMS integration provide?",
@@ -294,11 +294,11 @@ export default async function BlogPost({ params }: Props) {
       return [
         {
           question: "What's the difference between 24V, 36V, 48V, and 80V forklift chargers?",
-          answer: "The voltage determines the forklift's power and application: 24V for small pallet jacks, 36V for medium warehouse forklifts, 48V for most industrial applications (most common), and 80V for heavy-duty industrial forklifts. Higher voltage provides more power but requires different electrical infrastructure."
+          answer: "The charger voltage has to match the battery. This page does not publish which truck uses 24V, 36V, 48V, or 80V."
         },
         {
           question: "Which forklift charger voltage is most common?",
-          answer: "48V is the most common voltage for industrial forklifts because it provides the optimal balance of power, efficiency, and compatibility. Most counterbalance forklifts, reach trucks, and industrial warehouse equipment use 48V systems."
+          answer: "This page does not publish a most-common voltage. The charger voltage has to match the battery on the truck."
         },
         {
           question: "Can I use a different voltage charger than my battery?",
@@ -306,7 +306,7 @@ export default async function BlogPost({ params }: Props) {
         },
         {
           question: "Do I need single-phase or three-phase power for different voltages?",
-          answer: "24V and 36V chargers typically use single-phase power (110V-240V). 48V chargers can use either single-phase (for lower amperage) or three-phase (for higher amperage). 80V chargers require three-phase power (480V-600V) due to their high power requirements."
+          answer: "This page does not publish an input voltage or an output amp."
         },
         {
           question: "How do I know what voltage my forklift battery is?",
@@ -314,22 +314,22 @@ export default async function BlogPost({ params }: Props) {
         },
         {
           question: "Which voltage is best for my warehouse operation?",
-          answer: "For small warehouses and retail: 24V-36V. For standard distribution centers: 36V-48V. For manufacturing and heavy industry: 48V-80V. The choice depends on your forklift capacity, operating hours, and facility electrical infrastructure."
+          answer: "This page does not assign a voltage to a warehouse. The charger voltage has to match the battery."
         }
       ];
     } else if (slug === 'fast-vs-overnight-forklift-charging') {
       return [
         {
           question: "What's the difference between fast charging and overnight charging for forklifts?",
-          answer: "Overnight charging uses lower amperage (C/10 rate) over 8-12 hours, extending battery life to 5-7 years but requiring longer downtime. Fast charging uses higher amperage (C/5 rate) over 4-6 hours, reducing downtime but potentially shortening battery life to 3-5 years."
+          answer: "This page does not publish a battery-life year count for a charge rate."
         },
         {
           question: "Which charging method is more cost-effective?",
-          answer: "Overnight charging has lower total cost of ownership ($12,500-22,000 over 5 years) due to cheaper chargers, less electrical infrastructure, and longer battery life. Fast charging costs more ($21,500-42,000 over 5 years) but can provide ROI through increased productivity in multi-shift operations."
+          answer: "The price is on the product page. This page does not publish a setup cost or a five-year total."
         },
         {
           question: "Does fast charging damage forklift batteries?",
-          answer: "Fast charging doesn't damage batteries when done properly, but it does reduce their lifespan. With proper temperature management, ventilation, and quality chargers, fast charging can still provide 3-5 years of battery life compared to 5-7 years with overnight charging."
+          answer: "This page does not publish a battery-life year count for a charge rate."
         },
         {
           question: "Can I use both fast and overnight charging on the same battery?",
@@ -337,7 +337,7 @@ export default async function BlogPost({ params }: Props) {
         },
         {
           question: "What electrical upgrades do I need for fast charging?",
-          answer: "Fast charging typically requires higher amperage circuits (often 60-200A), three-phase power for larger chargers, upgraded electrical panels, and enhanced ventilation. Professional electrical assessment is recommended to determine specific requirements for your facility."
+          answer: "This page does not publish an amperage, an input voltage, or an installation step."
         },
         {
           question: "Which charging method is better for multi-shift operations?",
@@ -484,15 +484,15 @@ export default async function BlogPost({ params }: Props) {
                     <div className="text-sm text-slate-300">Voltage Range</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-canyon-rust">15A-200A+</div>
+                    <div className="text-2xl font-bold text-canyon-rust">Not published</div>
                     <div className="text-sm text-slate-300">Amperage Range</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-canyon-rust">5+ Brands</div>
+                    <div className="text-2xl font-bold text-canyon-rust">Not every truck</div>
                     <div className="text-sm text-slate-300">Compatibility</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-canyon-rust">12 Steps</div>
+                    <div className="text-2xl font-bold text-canyon-rust">On the product page</div>
                     <div className="text-sm text-slate-300">Selection Guide</div>
                   </div>
                 </>
@@ -500,20 +500,20 @@ export default async function BlogPost({ params }: Props) {
                 // Lithium guide stats
                 <>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-canyon-rust">1-3 Hours</div>
-                    <div className="text-sm text-slate-300">Fast Charging</div>
+                    <div className="text-2xl font-bold text-canyon-rust">Product page</div>
+                    <div className="text-sm text-slate-300">Price</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-canyon-rust">95-98%</div>
+                    <div className="text-2xl font-bold text-canyon-rust">Not published</div>
+                    <div className="text-sm text-slate-300">Charge time</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-canyon-rust">Not published</div>
                     <div className="text-sm text-slate-300">Efficiency</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-canyon-rust">3,000+</div>
-                    <div className="text-sm text-slate-300">Charge Cycles</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-canyon-rust">No Venting</div>
-                    <div className="text-sm text-slate-300">Required</div>
+                    <div className="text-2xl font-bold text-canyon-rust">Not every truck</div>
+                    <div className="text-sm text-slate-300">Fit</div>
                   </div>
                 </>
               ) : params.slug === 'lead-acid-vs-lithium-forklift-chargers' ? (
@@ -638,27 +638,27 @@ export default async function BlogPost({ params }: Props) {
                   </div>
                   <div>
                     <div className="font-medium text-slate-900">Fast Charging</div>
-                    <div className="text-slate-600">1-3 hour charging, opportunity charging optimized</div>
+                    <div className="text-slate-600">This page does not publish a charge time.</div>
                   </div>
                   <div>
                     <div className="font-medium text-slate-900">ROI Benefits</div>
-                    <div className="text-slate-600">20-40% lower TCO, reduced maintenance</div>
+                    <div className="text-slate-600">The price is on the product page</div>
                   </div>
                 </>
               ) : (
                 // Default for other guides
                 <>
                   <div>
-                    <div className="font-medium text-slate-900">Step-by-Step Process</div>
-                    <div className="text-slate-600">6 clear steps to find your perfect charger</div>
+                    <div className="font-medium text-slate-900">Voltage</div>
+                    <div className="text-slate-600">The charger voltage has to match the battery.</div>
                   </div>
                   <div>
-                    <div className="font-medium text-slate-900">Interactive Tools</div>
-                    <div className="text-slate-600">Amperage calculator and quick reference cards</div>
+                    <div className="font-medium text-slate-900">Amperage</div>
+                    <div className="text-slate-600">This page does not publish a required amperage.</div>
                   </div>
                   <div>
-                    <div className="font-medium text-slate-900">Expert Support</div>
-                    <div className="text-slate-600">Free consultation available for complex needs</div>
+                    <div className="font-medium text-slate-900">Price</div>
+                    <div className="text-slate-600">The price is on the product page.</div>
                   </div>
                 </>
               )}
@@ -810,18 +810,18 @@ export default async function BlogPost({ params }: Props) {
         {isChargerGuide && (
           <div className="mt-12 bg-slate-50 border border-slate-200 rounded-xl p-8 text-center">
             <h3 className="text-xl font-semibold text-slate-900 mb-3">
-              Expert Technical Support
+              Charger catalog
             </h3>
             <p className="text-slate-600 mb-6 max-w-2xl mx-auto">
-              Our technical team provides free consultation for charger selection, installation planning,
-              and fleet optimization. Get personalized recommendations based on your specific requirements.
+              This page does not offer a consultation, installation planning, or a repair visit.
+              The price is on the product page. A listing is not a fit for every truck.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="/contact"
+                href="/battery-chargers"
                 className="bg-canyon-rust text-white px-6 py-3 rounded-lg font-semibold hover:bg-canyon-rust/90 transition-colors"
               >
-                Contact Technical Team
+                Browse chargers
               </a>
               <a
                 href="tel:+1-888-392-9175"

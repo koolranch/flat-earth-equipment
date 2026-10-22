@@ -132,7 +132,7 @@ export function buildSeatDescription(row: ParsedSeatRow): string {
   }
 
   lines.push(
-    'Confirm your machine model and serial number before ordering — seat rails and switch wiring can vary by production year. Request a quote for availability and freight to your location.'
+    'Request a quote for availability and freight to your location.'
   );
 
   return lines.join('\n\n');

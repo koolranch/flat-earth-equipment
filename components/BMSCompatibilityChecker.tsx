@@ -23,12 +23,10 @@ export function BMSCompatibilityChecker() {
     if (voltage && batteryVoltage) {
       const chargerV = parseFloat(voltage)
       const batteryV = parseFloat(batteryVoltage)
-      const tolerance = batteryV * 0.05 // 5% tolerance
-      
-      if (Math.abs(chargerV - batteryV) > tolerance) {
+      if (chargerV !== batteryV) {
         compatible = false
-        issues.push(`Voltage mismatch: Charger ${chargerV}V vs Battery ${batteryV}V`)
-        recommendations.push('Ensure exact voltage match between charger and battery')
+        issues.push('This page does not publish a voltage tolerance.')
+        recommendations.push('Voltage still has to match the battery.')
       }
     }
 
@@ -45,7 +43,7 @@ export function BMSCompatibilityChecker() {
     if (compatible) {
       recommendations.push('Verify message IDs and data formats are compatible')
       recommendations.push('Test communication before full installation')
-      recommendations.push('Ensure proper cable termination (120Ω for CAN bus)')
+      recommendations.push('This page does not publish a termination resistance.')
     }
 
     setResult({ compatible, issues, recommendations })

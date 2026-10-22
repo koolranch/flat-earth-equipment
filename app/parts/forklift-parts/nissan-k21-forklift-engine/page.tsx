@@ -455,8 +455,9 @@ export default function NissanK21EnginePage() {
                   <span className="transition-transform group-open:rotate-180">▼</span>
                 </summary>
                 <div className="p-4 text-slate-700">
-                  Flat Earth Equipment stocks genuine and aftermarket <strong>K21 engine parts</strong> with same-day dispatch. 
-                  Use our quote form below to get pricing on specific parts for your forklift.
+                  We do not currently list a Nissan K21 long-block engine. Nissan parts we list are on the{" "}
+                  <Link href="/parts?brand=Nissan" className="text-canyon-rust hover:underline">Nissan catalog</Link>.
+                  Use the quote form for a specific part number. Freight is calculated at checkout.
                 </div>
               </details>
             </div>
@@ -474,8 +475,8 @@ export default function NissanK21EnginePage() {
           </div>
           
           <p className="text-orange-100 mb-6">
-            Need <strong>K21 engine parts</strong>? Get a fast, accurate quote from our experts. 
-            We stock genuine and aftermarket parts for all Nissan forklift models.
+            Need <strong>K21 engine parts</strong>? Send the truck model, serial, and part number.
+            Nissan parts we list are on the catalog. Freight is calculated at checkout.
           </p>
           <form
             method="POST"
@@ -534,7 +535,7 @@ export default function NissanK21EnginePage() {
             <div className="flex items-center justify-center gap-6 text-orange-100 text-sm">
               <div className="flex items-center gap-2">
                 <CheckCircle className="h-4 w-4" />
-                <span>Same-day dispatch</span>
+                <span>Freight at checkout</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle className="h-4 w-4" />

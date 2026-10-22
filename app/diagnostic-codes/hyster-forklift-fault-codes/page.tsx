@@ -133,7 +133,7 @@ export default function HysterFaultCodesPage() {
         <div className="text-center">
           <h2 className="text-2xl font-bold text-slate-900 mb-3">Need Hyster Forklift Parts?</h2>
           <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
-            We stock sensors, controllers, contactors, and electrical components for Hyster forklifts. Get the right parts to fix your fault codes.
+            Hyster parts we list are on the catalog. A listing is not a fit for every machine. Freight is calculated at checkout.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/parts?brand=hyster" className="inline-flex items-center gap-2 bg-[#F76511] text-white px-8 py-3 rounded-xl font-bold hover:bg-orange-600 transition-all shadow-md hover:shadow-lg">
@@ -195,7 +195,7 @@ export default function HysterFaultCodesPage() {
           Hyster fault codes can vary significantly by model series (A380, H40-60XT, S55FTS, etc.) and power type (electric, diesel, LPG). Many codes are shared with Yale forklifts due to common parent company and control systems.
         </p>
         <p className="text-sm text-blue-800">
-          For the most accurate diagnosis, always consult your specific model's service manual via Hypass Online or contact <Link href="/quote" className="underline font-semibold">our technical team</Link> with your model and serial number.
+          This page does not diagnose a code. <Link href="/quote" className="underline font-semibold">Request a quote</Link> with the model and serial if you need a part.
         </p>
       </div>
     </main>

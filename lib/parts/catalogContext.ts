@@ -40,7 +40,7 @@ export function getCatalogPageTitle(
   if (searchParams.brand) return `${searchParams.brand} Parts`;
 
   if (searchParams.sales_type === 'direct' && searchParams.in_stock === '1') {
-    return 'Ships Today';
+    return 'In stock';
   }
 
   if (searchParams.sales_type === 'direct') {

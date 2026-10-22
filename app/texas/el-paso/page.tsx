@@ -20,7 +20,7 @@ import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: "Forklift & Equipment Parts in El Paso, TX | Flat Earth Equipment",
-  description: "Shop forklift, scissor lift, and heavy equipment parts in El Paso, TX. Fast shipping across West Texas and Southern New Mexico. Request a quote today from Flat Earth Equipment.",
+  description: "Shop forklift, scissor lift, and heavy equipment parts in El Paso, TX. Freight is calculated at checkout.",
   alternates: generatePageAlternates("/texas/el-paso"),
 };
 
@@ -58,7 +58,7 @@ export default async function ElPasoPage() {
         <div className="relative z-10 flex items-center justify-center h-full px-6 text-center sm:text-left">
           <div className="max-w-4xl w-full">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1 mb-6 text-sm text-white font-medium">
-              <span className="text-green-400">●</span> Serving 79901 & 50+ Borderland Zip Codes
+              <span className="text-green-400">●</span> Parts ship to El Paso
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold leading-tight text-white mb-6">
@@ -66,7 +66,7 @@ export default async function ElPasoPage() {
             </h1>
             
             <p className="text-slate-200 text-lg md:text-xl mb-8 max-w-2xl">
-              Serving West Texas, Santa Teresa, and the Borderland with precision-fit parts and fast dispatch.
+              Parts ship to El Paso. Freight is calculated at checkout.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -111,19 +111,19 @@ export default async function ElPasoPage() {
       <section className="max-w-5xl mx-auto px-4 py-16">
         <div className="grid md:grid-cols-3 gap-12 items-start">
           <div className="md:col-span-2">
-            <h2 className="text-3xl font-bold text-slate-900 mb-6">Powering the Borderplex</h2>
+            <h2 className="text-3xl font-bold text-slate-900 mb-6">Parts ship to El Paso</h2>
             <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-              Flat Earth Equipment is your trusted source for forklift, scissor lift, and heavy equipment parts in El Paso and West Texas. We supply precision-fit components to warehouses, manufacturing facilities, and contractors throughout the region, including Fort Bliss, the Santa Teresa industrial corridor, and cross-border logistics operations.
+              Parts ship to El Paso and West Texas, including Fort Bliss and the Santa Teresa industrial corridor. Freight is calculated at checkout. A listing is not a fit for every machine.
             </p>
             <p className="text-lg text-slate-700 mb-8 leading-relaxed">
-              Our extensive inventory includes parts for all major brands, and our team of experienced technicians ensures you get the right part, every time. Whether you need routine maintenance parts or emergency replacements, we're here to keep your equipment running with minimal downtime across the borderland region.
+              Parts we list are on the catalog. A listing is not a fit for every machine. Freight is calculated at checkout.
             </p>
             
             {/* Service Radius Visual */}
             <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                Active Delivery Zones
+                Parts ship to
               </h3>
               <div className="flex flex-wrap gap-2">
                 {[
@@ -202,42 +202,42 @@ export default async function ElPasoPage() {
                 slug: 'forklift-parts',
                 href: '/parts',
                 Icon: ForkliftIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Scissor Lift Hydraulics',
                 slug: 'scissor-lift-hydraulics',
                 href: '/parts',
                 Icon: ScissorLiftIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Telehandler Filters',
                 slug: 'telehandler-filters',
                 href: '/parts',
                 Icon: TelehandlerIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Mini Excavator Rollers',
                 slug: 'mini-excavator-rollers',
                 href: '/parts',
                 Icon: RollerIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Track Systems',
                 slug: 'track-systems',
                 href: '/parts',
                 Icon: TrackIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Battery Chargers & Modules',
                 slug: 'battery-chargers-modules',
                 href: '/charger-modules',
                 Icon: BatteryIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               }
             ].map((category) => (
               <Link
@@ -300,10 +300,10 @@ export default async function ElPasoPage() {
 
       {/* Delivery Zones Section */}
       <section className="mb-12 max-w-5xl mx-auto px-4">
-        <h2 className="text-2xl font-semibold text-slate-800 mb-4">El Paso Delivery Coverage</h2>
+        <h2 className="text-2xl font-semibold text-slate-800 mb-4">Parts ship to El Paso</h2>
         <div className="bg-white rounded-lg shadow-sm p-6">
           <p className="text-lg text-slate-700">
-            We provide fast delivery throughout El Paso and West Texas, including East El Paso (79901-79938), the Westside industrial zones, Fort Bliss military installation, and the Santa Teresa logistics corridor in New Mexico. Our strategic location near the I-10 corridor enables quick shipping to all El Paso ZIP codes and surrounding communities including Socorro, Horizon City, Canutillo, and Sunland Park. Whether you're operating in the Mission Valley warehouses, Airport industrial park, or cross-border logistics facilities, we ensure prompt delivery of your industrial parts and equipment.
+            Parts ship to El Paso and West Texas, including Socorro, Horizon City, and Canutillo. Freight is calculated at checkout.
           </p>
         </div>
       </section>
@@ -314,15 +314,15 @@ export default async function ElPasoPage() {
         <div className="space-y-6">
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h3 className="text-lg font-semibold mb-2">Do you ship forklift parts within El Paso same day?</h3>
-            <p className="text-slate-700">Yes, we offer same-day delivery for most forklift parts within El Paso's main industrial areas when ordered before 2 PM. Our local delivery network serves El Paso, Fort Bliss, and the borderland region efficiently.</p>
+            <p className="text-slate-700">Parts ship to El Paso, Fort Bliss, and the borderland. Freight is calculated at checkout.</p>
           </div>
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h3 className="text-lg font-semibold mb-2">Which brands do you carry parts for in West Texas?</h3>
-            <p className="text-slate-700">We stock parts for all major brands including Toyota, Hyster, Yale, Crown, and Raymond, with special emphasis on models commonly used in West Texas warehousing, logistics, and cross-border operations.</p>
+            <p className="text-slate-700">Toyota, Hyster, Yale, Crown, and Raymond parts we list are on the catalog. A listing is not a fit for every machine.</p>
           </div>
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h3 className="text-lg font-semibold mb-2">Do you serve the Santa Teresa logistics corridor?</h3>
-            <p className="text-slate-700">Yes, we provide fast shipping to the Santa Teresa industrial area and New Mexico portion of the borderland region, supporting cross-border logistics operations with reliable parts delivery.</p>
+            <p className="text-slate-700">Parts ship to the Santa Teresa industrial area and the New Mexico side of the borderland. Freight is calculated at checkout.</p>
           </div>
         </div>
       </section>
@@ -365,7 +365,7 @@ export default async function ElPasoPage() {
               'name': 'Socorro, TX'
             }
           ],
-          'description': 'Flat Earth Equipment provides rental equipment and parts to contractors, facilities, and logistics operations in El Paso and West Texas. Fast shipping across the borderland region.',
+          'description': 'Parts ship to contractors and facilities in El Paso and West Texas. Freight is calculated at checkout.',
           'telephone': '+1-888-392-9175',
           'openingHours': 'Mo-Fr 07:00-17:00',
           'priceRange': '$$',
@@ -390,7 +390,7 @@ export default async function ElPasoPage() {
               'name': 'Do you ship forklift parts within El Paso same day?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Yes, we offer same-day delivery for most forklift parts within El Paso\'s main industrial areas when ordered before 2 PM. Our local delivery network serves El Paso, Fort Bliss, and the borderland region efficiently.'
+                'text': 'Parts ship to El Paso, Fort Bliss, and the borderland. Freight is calculated at checkout.'
               }
             },
             {
@@ -398,7 +398,7 @@ export default async function ElPasoPage() {
               'name': 'Which brands do you carry parts for in West Texas?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'We stock parts for all major brands including Toyota, Hyster, Yale, Crown, and Raymond, with special emphasis on models commonly used in West Texas warehousing, logistics, and cross-border operations.'
+                'text': 'Toyota, Hyster, Yale, Crown, and Raymond parts we list are on the catalog. A listing is not a fit for every machine.'
               }
             },
             {
@@ -406,7 +406,7 @@ export default async function ElPasoPage() {
               'name': 'Do you serve the Santa Teresa logistics corridor?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Yes, we provide fast shipping to the Santa Teresa industrial area and New Mexico portion of the borderland region, supporting cross-border logistics operations with reliable parts delivery.'
+                'text': 'Parts ship to the Santa Teresa industrial area and the New Mexico side of the borderland. Freight is calculated at checkout.'
               }
             }
           ]

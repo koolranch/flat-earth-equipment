@@ -45,11 +45,11 @@ const translations = {
     },
     inventory: {
       title: "In-Stock EV Charging Solutions",
-      subtitle: "Professional-grade electric vehicle chargers ready to ship today. All units are expertly remanufactured and backed by our quality guarantee.",
-      sameDayShip: "Same-Day Ship",
+      subtitle: "Freight is calculated at checkout. A listing is not a fit for every machine.",
+      sameDayShip: "Freight at checkout",
       qualityGuaranteed: "Quality Guaranteed",
       coreDeposit: "refundable core deposit",
-      buyNow: "Buy Now & Ship Today →",
+      buyNow: "Buy Now →",
       noChargers: {
         title: "More EV Chargers Coming Soon",
         description: "We're expanding our electric vehicle charger inventory. Contact us for specific EV charging requirements.",
@@ -90,7 +90,7 @@ const translations = {
         },
         {
           title: "Quality Assured",
-          description: "Professional remanufacturing process ensures reliability that exceeds original specifications"
+          description: "Professionally remanufactured and bench-tested before it ships"
         }
       ]
     },
@@ -100,7 +100,7 @@ const translations = {
       steps: [
         {
           title: "Order & Receive",
-          description: "We temporarily charge the refundable core deposit. Your remanufactured EV charger ships immediately."
+          description: "We temporarily charge the refundable core deposit. Freight is calculated at checkout."
         },
         {
           title: "Return Your Old Unit",
@@ -113,8 +113,8 @@ const translations = {
       ]
     },
     trustBadges: [
-      { title: "Same-Day Dispatch", desc: "Ships today if ordered before 3 PM EST" },
-      { title: "Quality Guaranteed", desc: "Professionally remanufactured to exceed OEM specs" },
+      { title: "Freight at checkout", desc: "Freight is calculated at checkout" },
+      { title: "Quality Guaranteed", desc: "Professionally remanufactured and bench-tested" },
       { title: "Fast Installation", desc: "Professional hardwired setup available" },
       { title: "Eco-Friendly", desc: "Sustainable choice supporting environmental responsibility" }
     ],
@@ -141,7 +141,7 @@ const translations = {
         },
         {
           question: "What does 'remanufactured' mean?",
-          answer: "Our chargers go through a professional remanufacturing process where they are completely inspected, repaired, and tested to exceed original manufacturer specifications."
+          answer: "Chargers are inspected, repaired, and bench-tested before they ship."
         },
         {
           question: "Do they include smart features?",
@@ -194,11 +194,11 @@ const translations = {
     },
     inventory: {
       title: "Soluciones de Carga EV en Inventario",
-      subtitle: "Cargadores de vehículos eléctricos de grado profesional listos para envío hoy. Todas las unidades están expertamente remanufacturadas y respaldadas por nuestra garantía de calidad.",
-      sameDayShip: "Envío Mismo Día",
+      subtitle: "El flete se calcula al pagar. Un listado no sirve para todas las máquinas.",
+      sameDayShip: "Flete al pagar",
       qualityGuaranteed: "Calidad Garantizada",
       coreDeposit: "depósito de núcleo reembolsable",
-      buyNow: "Comprar Ahora & Envío Hoy →",
+      buyNow: "Comprar ahora →",
       noChargers: {
         title: "Más Cargadores EV Próximamente",
         description: "Estamos expandiendo nuestro inventario de cargadores de vehículos eléctricos. Contáctanos para requisitos específicos de carga EV.",
@@ -239,7 +239,7 @@ const translations = {
         },
         {
           title: "Calidad Asegurada",
-          description: "El proceso profesional de remanufactura asegura confiabilidad que supera las especificaciones originales"
+          description: "Remanufacturado y probado en banco antes de enviarse"
         }
       ]
     },
@@ -249,7 +249,7 @@ const translations = {
       steps: [
         {
           title: "Ordenar y Recibir",
-          description: "Cobramos temporalmente el depósito de núcleo reembolsable. Tu cargador EV remanufacturado se envía inmediatamente."
+          description: "Cobramos temporalmente el depósito de núcleo reembolsable. El flete se calcula al pagar."
         },
         {
           title: "Devolver Tu Unidad Vieja",
@@ -262,8 +262,8 @@ const translations = {
       ]
     },
     trustBadges: [
-      { title: "Despacho Mismo Día", desc: "Se envía hoy si se ordena antes de 3 PM EST" },
-      { title: "Calidad Garantizada", desc: "Profesionalmente remanufacturado para superar especificaciones OEM" },
+      { title: "Flete al pagar", desc: "El flete se calcula al pagar" },
+      { title: "Calidad Garantizada", desc: "Remanufacturado y probado en banco" },
       { title: "Instalación Rápida", desc: "Configuración cableada profesional disponible" },
       { title: "Ecológico", desc: "Opción sostenible que apoya la responsabilidad ambiental" }
     ],
@@ -290,7 +290,7 @@ const translations = {
         },
         {
           question: "¿Qué significa 'remanufacturado'?",
-          answer: "Nuestros cargadores pasan por un proceso profesional de remanufactura donde son completamente inspeccionados, reparados y probados para superar las especificaciones originales del fabricante."
+          answer: "Los cargadores se inspeccionan, reparan y prueban en banco antes de enviarse."
         },
         {
           question: "¿Incluyen características inteligentes?",

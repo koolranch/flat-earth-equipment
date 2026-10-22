@@ -20,80 +20,80 @@ type LocationMap = {
 const locations: LocationMap = {
   'las-cruces-nm': {
     name: 'Las Cruces, NM',
-    address: '123 Main St',
-    phone: '(555) 123-4567',
+    address: '',
+    phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Our Las Cruces location serves southern New Mexico with a full range of equipment parts and service.',
+    description: 'Parts ship to Las Cruces and southern New Mexico. Freight is calculated at checkout.',
   },
   'pueblo-co': {
     name: 'Pueblo, CO',
-    address: '456 Oak Ave',
-    phone: '(555) 234-5678',
+    address: '',
+    phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Serving southern Colorado with quality parts and exceptional service.',
+    description: 'Parts ship to Pueblo and the southern Colorado Front Range. Freight is calculated at checkout.',
   },
   'bozeman-mt': {
     name: 'Bozeman, MT',
-    address: '789 Pine St',
-    phone: '(555) 345-6789',
+    address: '',
+    phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Your trusted source for equipment parts in Montana.',
+    description: 'Parts ship to Bozeman and the Gallatin Valley. Freight is calculated at checkout.',
   },
   'cheyenne-wy': {
     name: 'Cheyenne, WY',
-    address: '321 Elm St',
-    phone: '(555) 456-7890',
+    address: '',
+    phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Providing Wyoming with reliable equipment parts and service.',
+    description: 'Parts ship to Cheyenne and southeastern Wyoming. Freight is calculated at checkout.',
   },
   'albuquerque-nm': {
     name: 'Albuquerque, NM',
-    address: '1001 Central Ave',
-    phone: '(505) 555-1234',
+    address: '',
+    phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Our Albuquerque location serves central New Mexico with a full range of equipment parts and service.',
+    description: 'Parts ship to Albuquerque and central New Mexico. Freight is calculated at checkout.',
   },
   'dallas-fort-worth-tx': {
     name: 'Dallas-Fort Worth, TX',
     address: 'DFW Metroplex',
     phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Serving the Dallas-Fort Worth Metroplex with fast shipping and equipment rental support.',
+    description: 'Parts ship to the Dallas-Fort Worth Metroplex. Freight is calculated at checkout.',
   },
   'houston-tx': {
     name: 'Houston, TX',
     address: 'Greater Houston',
     phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Serving Houston, Pasadena, and the Port region with fast shipping and equipment rental support.',
+    description: 'Parts ship to Houston. Freight is calculated at checkout.',
   },
   'el-paso-tx': {
     name: 'El Paso, TX',
     address: 'West Texas',
     phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Serving El Paso and West Texas with precision-fit parts and cross-border logistics support.',
+    description: 'Parts ship to El Paso and West Texas. Freight is calculated at checkout.',
   },
   'bozeman-mt-full': {
     name: 'Bozeman, MT',
     address: 'Gallatin Valley',
     phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Serving Bozeman and the Gallatin Valley with fast-shipped industrial parts.',
+    description: 'Parts ship to Bozeman and the Gallatin Valley. Freight is calculated at checkout.',
   },
   'pueblo-co-full': {
     name: 'Pueblo, CO',
     address: 'Southern Colorado',
     phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Serving Pueblo and southern Colorado Front Range with precision parts.',
+    description: 'Parts ship to Pueblo and the southern Colorado Front Range. Freight is calculated at checkout.',
   },
   'las-cruces-nm-full': {
     name: 'Las Cruces, NM',
     address: 'Mesilla Valley',
     phone: '',
     hours: 'Mon-Fri: 8am-5pm',
-    description: 'Serving Las Cruces and the Mesilla Valley with fast delivery.',
+    description: 'Parts ship to Las Cruces and the Mesilla Valley. Freight is calculated at checkout.',
   },
 };
 
@@ -137,8 +137,7 @@ export async function generateMetadata({ params }: { params: { city: string } })
           'name': location.name
         },
         'description': location.description,
-        'openingHours': 'Mo-Fr 07:00-17:00',
-        'serviceType': ['Equipment Rental', 'Industrial Parts', 'Fleet Support']
+        'serviceType': ['Parts']
       })
     }
   };
@@ -186,53 +185,41 @@ export default async function LocationPage({ params }: { params: { city: string 
       <h1 className="text-3xl font-bold">{locationData?.location || location.name}</h1>
       {params.city === 'pueblo-co' ? (
         <p className="text-lg text-slate-700 mb-6">
-          Flat Earth Equipment proudly serves Pueblo and the southern Colorado Front Range with precision-fit parts, dispatch-ready rentals, and expert support. With fulfillment centers across the Western U.S., we deliver the equipment you need — fast — without the overhead of local storefronts.
+          Flat Earth Equipment ships parts to Pueblo and the southern Colorado Front Range. Freight is calculated at checkout.
         </p>
       ) : params.city === 'bozeman-mt' ? (
         <p className="text-lg text-slate-700 mb-6">
-          Flat Earth Equipment supports Bozeman and the greater Gallatin Valley with fast-shipped industrial parts, equipment rentals, and expert service. We operate from regional hubs across the Western U.S. — delivering what you need, without the cost or delays of a local storefront.
+          Flat Earth Equipment ships parts to Bozeman and the Gallatin Valley. Freight is calculated at checkout.
         </p>
       ) : params.city === 'las-cruces-nm' ? (
         <p className="text-lg text-slate-700 mb-6">
-          Flat Earth Equipment serves Las Cruces and southern New Mexico with precision-fit parts and rugged rental gear — delivered fast from our Western regional hubs. We keep costs low and response times sharp by operating without local storefronts.
+          Flat Earth Equipment ships parts to Las Cruces and southern New Mexico. Freight is calculated at checkout.
         </p>
       ) : params.city === 'cheyenne-wy' ? (
         <p className="text-lg text-slate-700 mb-6">
-          Flat Earth Equipment proudly supports Cheyenne and southeastern Wyoming with same-day parts shipping and rental dispatch — all without relying on a local storefront. Our low-overhead model means fast service, lower costs, and rugged reliability.
+          Flat Earth Equipment ships parts to Cheyenne and southeastern Wyoming. Freight is calculated at checkout.
         </p>
       ) : params.city === 'albuquerque-nm' ? (
         <p className="text-lg text-slate-700 mb-6">
-          Flat Earth Equipment serves central New Mexico with precision-fit parts and rugged rental gear — delivered fast from our Western regional hubs. We keep costs low and response times sharp by operating without local storefronts.
+          Flat Earth Equipment ships parts to Albuquerque and central New Mexico. Freight is calculated at checkout.
         </p>
       ) : params.city === 'dallas-fort-worth-tx' ? (
         <p className="text-lg text-slate-700 mb-6">
-          Flat Earth Equipment serves the Dallas-Fort Worth Metroplex and North Texas with precision-fit parts and rugged rental gear — delivered fast from our regional distribution network. We keep costs low and response times sharp by leveraging strategic partnerships across Texas.
+          Flat Earth Equipment ships parts to the Dallas-Fort Worth Metroplex. Freight is calculated at checkout.
         </p>
       ) : params.city === 'houston-tx' ? (
         <p className="text-lg text-slate-700 mb-6">
-          Flat Earth Equipment serves Houston and the Gulf Coast with precision-fit parts and rugged rental gear. From the Energy Corridor to the Port of Houston, we deliver fast from our regional distribution network.
+          Flat Earth Equipment ships parts to Houston and the Gulf Coast. Freight is calculated at checkout.
         </p>
       ) : params.city === 'el-paso-tx' ? (
         <p className="text-lg text-slate-700 mb-6">
-          Flat Earth Equipment serves El Paso and West Texas with precision-fit parts and rugged rental gear — delivered fast from our regional distribution network. Strategically positioned to serve both Texas and Southern New Mexico, including the Santa Teresa logistics corridor.
+          Flat Earth Equipment ships parts to El Paso and West Texas. Freight is calculated at checkout.
         </p>
       ) : null}
 
       <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-        <div className="grid md:grid-cols-2 gap-8">
-          <div>
-            <h2 className="text-xl font-semibold mb-4">Contact Information</h2>
-            <ul className="space-y-2">
-              <li>
-                <strong>Hours:</strong> {location.hours}
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h2 className="text-xl font-semibold mb-4">About This Location</h2>
-            <p className="text-gray-600">{location.description}</p>
-          </div>
-        </div>
+        <h2 className="text-xl font-semibold mb-4">About This Location</h2>
+        <p className="text-gray-600">{location.description}</p>
       </div>
 
       <section className="bg-slate-50 rounded-lg p-6">
@@ -241,14 +228,6 @@ export default async function LocationPage({ params }: { params: { city: string 
           <li className="flex items-center">
             <span className="text-green-500 mr-2">✓</span>
             Parts Sales
-          </li>
-          <li className="flex items-center">
-            <span className="text-green-500 mr-2">✓</span>
-            Equipment Rentals
-          </li>
-          <li className="flex items-center">
-            <span className="text-green-500 mr-2">✓</span>
-            Technical Support
           </li>
           <li className="flex items-center">
             <span className="text-green-500 mr-2">✓</span>

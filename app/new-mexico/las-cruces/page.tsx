@@ -19,7 +19,7 @@ import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: "Forklift & Equipment Parts in Las Cruces, NM | Flat Earth Equipment",
-  description: "Shop forklift, scissor lift, and heavy equipment parts in Las Cruces and southern New Mexico. Fast shipping across the Mesilla Valley. Request a quote today from Flat Earth Equipment.",
+  description: "Shop forklift, scissor lift, and heavy equipment parts in Las Cruces and southern New Mexico. Freight is calculated at checkout.",
   alternates: generatePageAlternates("/new-mexico/las-cruces"),
 };
 
@@ -57,7 +57,7 @@ export default async function LasCrucesPage() {
         <div className="relative z-10 flex items-center justify-center h-full px-6 text-center sm:text-left">
           <div className="max-w-4xl w-full">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1 mb-6 text-sm text-white font-medium">
-              <span className="text-green-400">●</span> Serving 88001 & 50+ Borderland Zip Codes
+              <span className="text-green-400">●</span> Parts ship to Las Cruces
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold leading-tight text-white mb-6">
@@ -65,7 +65,7 @@ export default async function LasCrucesPage() {
             </h1>
             
             <p className="text-slate-200 text-lg md:text-xl mb-8 max-w-2xl">
-              Serving the Mesilla Valley, Doña Ana County, and Southern New Mexico with precision-fit parts.
+              Parts ship to Las Cruces. Freight is calculated at checkout.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -110,19 +110,19 @@ export default async function LasCrucesPage() {
       <section className="max-w-5xl mx-auto px-4 py-16">
         <div className="grid md:grid-cols-3 gap-12 items-start">
           <div className="md:col-span-2">
-            <h2 className="text-3xl font-bold text-slate-900 mb-6">Powering the Mesilla Valley</h2>
+            <h2 className="text-3xl font-bold text-slate-900 mb-6">Parts ship to Las Cruces</h2>
             <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-              Flat Earth Equipment serves Las Cruces and southern New Mexico with precision-fit parts and rugged rental gear — delivered fast from our Western regional hubs. We support agricultural operations, municipalities, and contractors throughout the Mesilla Valley, Doña Ana County, and the borderland region.
+              Flat Earth Equipment ships parts to Las Cruces and southern New Mexico, including the Mesilla Valley, Doña Ana County, and the borderland. Freight is calculated at checkout.
             </p>
             <p className="text-lg text-slate-700 mb-8 leading-relaxed">
-              Our low-overhead model keeps costs competitive while maintaining reliable service. From <strong>pecan orchards in the valley</strong> to <strong>industrial parks near the border</strong>, we ensure you have the equipment uptime you need.
+              A listing is not a fit for every machine. Freight is calculated at checkout.
             </p>
             
             {/* Service Radius Visual */}
             <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                Active Delivery Zones
+                Parts ship to
               </h3>
               <div className="flex flex-wrap gap-2">
                 {[
@@ -191,42 +191,42 @@ export default async function LasCrucesPage() {
                 slug: 'forklift-parts',
                 href: '/parts',
                 Icon: ForkliftIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Scissor Lift Hydraulics',
                 slug: 'scissor-lift-hydraulics',
                 href: '/parts',
                 Icon: ScissorLiftIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Telehandler Filters',
                 slug: 'telehandler-filters',
                 href: '/parts',
                 Icon: TelehandlerIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Mini Excavator Rollers',
                 slug: 'mini-excavator-rollers',
                 href: '/parts',
                 Icon: RollerIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Track Systems',
                 slug: 'track-systems',
                 href: '/parts',
                 Icon: TrackIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Battery Chargers & Modules',
                 slug: 'battery-chargers-modules',
                 href: '/charger-modules',
                 Icon: BatteryIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               }
             ].map((category) => (
               <Link
@@ -289,10 +289,10 @@ export default async function LasCrucesPage() {
 
       {/* Delivery Zones Section */}
       <section className="mb-12 max-w-5xl mx-auto px-4">
-        <h2 className="text-2xl font-semibold text-slate-800 mb-4">Las Cruces Delivery Coverage</h2>
+        <h2 className="text-2xl font-semibold text-slate-800 mb-4">Parts ship to Las Cruces</h2>
         <div className="bg-white rounded-lg shadow-sm p-6">
           <p className="text-lg text-slate-700">
-            We provide fast delivery throughout Las Cruces and the Mesilla Valley, including Doña Ana County, Mesilla, University Park, and surrounding communities. Our proximity to I-10 and I-25 enables efficient shipping to agricultural operations, municipal facilities, and contractors across southern New Mexico.
+            Parts ship to Las Cruces and the Mesilla Valley, including Doña Ana County and Mesilla. Freight is calculated at checkout.
           </p>
         </div>
       </section>
@@ -303,15 +303,15 @@ export default async function LasCrucesPage() {
         <div className="space-y-6">
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h3 className="text-lg font-semibold mb-2">Do you ship forklift parts within Las Cruces same day?</h3>
-            <p className="text-slate-700">Yes, we offer same-day delivery for most forklift parts within Las Cruces and Doña Ana County when ordered before 2 PM. Our regional network serves southern New Mexico reliably.</p>
+            <p className="text-slate-700">Parts ship to Las Cruces and Doña Ana County. Freight is calculated at checkout.</p>
           </div>
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h3 className="text-lg font-semibold mb-2">Which brands do you carry parts for in southern New Mexico?</h3>
-            <p className="text-slate-700">We stock parts for all major brands including Toyota, Hyster, Yale, Crown, and Raymond, serving New Mexico's agricultural, municipal, and industrial operations.</p>
+            <p className="text-slate-700">Toyota, Hyster, Yale, Crown, and Raymond parts we list are on the catalog. A listing is not a fit for every machine.</p>
           </div>
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h3 className="text-lg font-semibold mb-2">Do you serve agricultural operations in the Mesilla Valley?</h3>
-            <p className="text-slate-700">Yes, we provide parts and equipment support to agricultural operations throughout the Mesilla Valley and Doña Ana County, understanding the unique needs of the region.</p>
+            <p className="text-slate-700">Parts ship to the Mesilla Valley. Freight is calculated at checkout. This page does not offer on-site agricultural support.</p>
           </div>
         </div>
       </section>
@@ -337,7 +337,7 @@ export default async function LasCrucesPage() {
             { '@type': 'Place', 'name': 'Mesilla Valley, NM' },
             { '@type': 'Place', 'name': 'Doña Ana County, NM' }
           ],
-          'description': 'Flat Earth Equipment provides rental equipment and parts to contractors, agriculture, and facilities in Las Cruces, NM. Fast shipping from regional hubs.',
+          'description': 'Parts ship to contractors and facilities in Las Cruces, NM. Freight is calculated at checkout.',
           'telephone': '+1-888-392-9175',
           'openingHours': 'Mo-Fr 07:00-17:00',
           'priceRange': '$$',
@@ -362,7 +362,7 @@ export default async function LasCrucesPage() {
               'name': 'Do you ship forklift parts within Las Cruces same day?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Yes, we offer same-day delivery for most forklift parts within Las Cruces and Doña Ana County when ordered before 2 PM. Our regional network serves southern New Mexico reliably.'
+                'text': 'Parts ship to Las Cruces and Doña Ana County. Freight is calculated at checkout.'
               }
             },
             {
@@ -370,7 +370,7 @@ export default async function LasCrucesPage() {
               'name': 'Which brands do you carry parts for in southern New Mexico?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'We stock parts for all major brands including Toyota, Hyster, Yale, Crown, and Raymond, serving New Mexico\'s agricultural, municipal, and industrial operations.'
+                'text': 'Toyota, Hyster, Yale, Crown, and Raymond parts we list are on the catalog. A listing is not a fit for every machine.'
               }
             },
             {
@@ -378,7 +378,7 @@ export default async function LasCrucesPage() {
               'name': 'Do you serve agricultural operations in the Mesilla Valley?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Yes, we provide parts and equipment support to agricultural operations throughout the Mesilla Valley and Doña Ana County, understanding the unique needs of the region.'
+                'text': 'Parts ship to the Mesilla Valley. Freight is calculated at checkout. This page does not offer on-site agricultural support.'
               }
             }
           ]
@@ -391,7 +391,7 @@ export default async function LasCrucesPage() {
       {/* Final CTA Section */}
       <section className="mt-16 bg-slate-900 rounded-lg p-8 text-center max-w-5xl mx-auto px-4">
         <h2 className="text-2xl font-bold text-white mb-4">
-          Serving the Mesilla Valley with rugged reliability.
+          Parts ship to the Mesilla Valley. Freight is calculated at checkout.
         </h2>
         <p className="text-slate-300 mb-6">Get the parts you need delivered fast.</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">

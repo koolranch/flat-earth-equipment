@@ -8,21 +8,21 @@ const today = new Date().toISOString().split('T')[0];
 
 export const metadata: Metadata = {
   title: 'Toyota Forklift Manuals (PDF) | Free Downloads & Parts Help',
-  description: 'Find Toyota forklift operator, parts, and service manuals (PDF). Filter by model or series. Missing one? Request it. Get parts help with fast shipping.',
+  description: 'Find Toyota forklift operator, parts, and service manuals (PDF). Filter by model or series. Missing one? Request it. Freight on parts is calculated at checkout.',
   robots: 'index,follow',
   alternates: {
     canonical: '/parts/toyota-forklift-manuals'
   },
   openGraph: {
     title: 'Toyota Forklift Manuals (PDF) | Free Downloads & Parts Help',
-    description: 'Find Toyota forklift operator, parts, and service manuals (PDF). Filter by model or series. Missing one? Request it. Get parts help with fast shipping.',
+    description: 'Find Toyota forklift operator, parts, and service manuals (PDF). Filter by model or series. Missing one? Request it. Freight on parts is calculated at checkout.',
     url: '/parts/toyota-forklift-manuals',
     type: 'website'
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Toyota Forklift Manuals (PDF) | Free Downloads & Parts Help',
-    description: 'Find Toyota forklift operator, parts, and service manuals (PDF). Filter by model or series. Missing one? Request it. Get parts help with fast shipping.'
+    description: 'Find Toyota forklift operator, parts, and service manuals (PDF). Filter by model or series. Missing one? Request it. Freight on parts is calculated at checkout.'
   }
 };
 
@@ -194,8 +194,8 @@ export default function ToyotaForkliftManualsPage() {
         <div className="bg-slate-50 rounded-2xl shadow-sm border p-8 text-center">
           <h2 className="text-2xl font-bold text-slate-900 mb-4">Need Parts or Additional Help?</h2>
           <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
-            Our parts specialists can help you identify components from manual diagrams, provide quotes, 
-            and ensure fast shipping for your Toyota forklift parts needs.
+            Our parts specialists can help you identify components from manual diagrams and quote the part number.
+            Toyota parts we list are on the catalog. Freight is calculated at checkout.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

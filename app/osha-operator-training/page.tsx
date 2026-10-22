@@ -2,14 +2,14 @@ import { Metadata } from "next";
 import Link from "next/link";
 export const metadata: Metadata = {
   title: "Corporate OSHA Operator Training | Onsite Fleet Certification",
-  description: "Professional onsite OSHA training for companies and fleets. Forklift, aerial lift, and MEWP certification for teams of 3+ operators. Volume pricing available nationwide.",
+  description: "Online forklift certification for a fleet. Study is free. $49 is paid at the final exam. Team 5-pack is $225. Team 25-pack is $999. We do not send a trainer to your site.",
   keywords: "corporate forklift training, fleet operator certification, onsite OSHA training, group forklift certification, aerial lift training, MEWP training companies",
   alternates: {
     canonical: "/osha-operator-training",
   },
   openGraph: {
     title: "Corporate OSHA Operator Training | Onsite Fleet Certification",
-    description: "Professional onsite training for companies with multiple operators. OSHA-compliant certification for forklifts, aerial lifts, and MEWPs.",
+    description: "Online forklift certification. $49 at the final exam. Team 5-pack $225. Team 25-pack $999. The workplace supervisor does the hands-on evaluation.",
     type: "website",
   },
 };
@@ -34,7 +34,7 @@ export default function OSHAOperatorTrainingPage() {
     },
     "offers": {
       "@type": "Offer",
-      "description": "Onsite OSHA training for forklift, aerial lift, and MEWP operators"
+      "description": "Online forklift certification. $49 at the final exam. Team 5-pack $225. Team 25-pack $999."
     }
   };
 
@@ -55,8 +55,7 @@ export default function OSHAOperatorTrainingPage() {
             Corporate OSHA Operator Training for Your Fleet
           </h1>
           <p className="text-xl text-gray-700 mb-6">
-            Professional onsite training for companies operating forklifts, aerial lifts, and MEWPs. 
-            Flexible scheduling, volume pricing, and comprehensive documentation for teams of 3+ operators.
+            Online forklift certification for a fleet. Study is free. $49 is paid at the final exam. Team 5-pack is $225. Team 25-pack is $999. We do not send a trainer to your site, and we do not offer aerial-lift or MEWP certification. The hands-on evaluation is done by the workplace supervisor.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
             <Link
@@ -97,12 +96,12 @@ export default function OSHAOperatorTrainingPage() {
             <div className="text-sm text-gray-600">Companies Trained</div>
           </div>
           <div className="bg-white border border-gray-200 rounded-lg p-6 text-center">
-            <div className="text-3xl font-bold text-blue-600 mb-2">2,000+</div>
-            <div className="text-sm text-gray-600">Operators Certified</div>
+            <div className="text-3xl font-bold text-blue-600 mb-2">$49</div>
+            <div className="text-sm text-gray-600">Paid at the final exam</div>
           </div>
           <div className="bg-white border border-gray-200 rounded-lg p-6 text-center">
-            <div className="text-3xl font-bold text-blue-600 mb-2">Nationwide</div>
-            <div className="text-sm text-gray-600">Service Coverage</div>
+            <div className="text-3xl font-bold text-blue-600 mb-2">Online</div>
+            <div className="text-sm text-gray-600">Forklift course</div>
           </div>
           <div className="bg-white border border-gray-200 rounded-lg p-6 text-center">
             <div className="text-3xl font-bold text-blue-600 mb-2">3 Years</div>
@@ -114,26 +113,25 @@ export default function OSHAOperatorTrainingPage() {
         <section className="mb-16">
           <h2 className="text-3xl font-bold mb-6">Comprehensive Equipment Coverage</h2>
           <p className="text-lg text-gray-700 mb-6">
-            We provide OSHA-compliant training and certification for all types of powered industrial 
-            trucks and aerial work platforms your fleet operates.
+            The online course is forklift operator certification. We do not offer aerial-lift or MEWP certification.
           </p>
           <div className="grid md:grid-cols-2 gap-4">
             <div className="bg-gray-50 rounded-lg p-6">
               <h3 className="font-semibold text-lg mb-3">🚜 Forklift Training (OSHA 1910.178)</h3>
               <ul className="list-disc list-inside text-gray-700 space-y-2">
-                <li>Class I–VII forklift certification</li>
-                <li>Counterbalance, reach, & stand-up forklifts</li>
-                <li>Pallet jacks & order pickers</li>
-                <li>Telehandlers & rough terrain forklifts</li>
+                <li>Online forklift operator course</li>
+                <li>$49 at the final exam</li>
+                <li>Team 5-pack $225</li>
+                <li>Team 25-pack $999</li>
               </ul>
             </div>
             <div className="bg-gray-50 rounded-lg p-6">
-              <h3 className="font-semibold text-lg mb-3">📐 Aerial Lift Training (ANSI A92.24)</h3>
+              <h3 className="font-semibold text-lg mb-3">Aerial lifts</h3>
               <ul className="list-disc list-inside text-gray-700 space-y-2">
-                <li>Scissor lift certification (MEWP 3A)</li>
-                <li>Boom lift training (MEWP 3B)</li>
-                <li>Vertical mast lifts</li>
-                <li>Aerial work platform evaluations</li>
+                <li>We do not offer MEWP certification</li>
+                <li>Scissor-lift and boom-lift training is not on this site</li>
+                <li>Forklift certification does not cover aerial lifts</li>
+                <li>Parts for Genie and JLG are in the catalog</li>
               </ul>
             </div>
           </div>
@@ -146,32 +144,27 @@ export default function OSHAOperatorTrainingPage() {
             <div className="bg-white border-2 border-blue-200 shadow-lg rounded-xl p-8">
               <div className="flex items-center gap-3 mb-4">
                 <div className="text-4xl">📍</div>
-                <h3 className="text-2xl font-semibold">Onsite Training</h3>
+                <h3 className="text-2xl font-semibold">Online course</h3>
               </div>
               <p className="text-gray-700 mb-4">
-                We bring certified trainers to your facility. Ideal for companies with 3+ operators 
-                or specialized equipment. Minimize downtime and train on your actual equipment.
+                We do not send a trainer to your site. Operators take the forklift course online. Study is free. $49 is paid at the final exam.
               </p>
               <ul className="space-y-2 mb-6">
                 <li className="flex items-start gap-2">
                   <span className="text-blue-600 mt-1">✓</span>
-                  <span className="text-gray-700">2–3 hour training sessions at your site</span>
+                  <span className="text-gray-700">Team 5-pack is $225</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-blue-600 mt-1">✓</span>
-                  <span className="text-gray-700">Theory + hands-on evaluation included</span>
+                  <span className="text-gray-700">Team 25-pack is $999</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-blue-600 mt-1">✓</span>
-                  <span className="text-gray-700">Custom documentation packets for compliance</span>
+                  <span className="text-gray-700">The workplace supervisor does the hands-on evaluation</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-blue-600 mt-1">✓</span>
-                  <span className="text-gray-700">Volume pricing for fleets (3+ operators)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-blue-600 mt-1">✓</span>
-                  <span className="text-gray-700">Available nationwide</span>
+                  <span className="text-gray-700">Checkout is on the forklift certification page</span>
                 </li>
               </ul>
               <div className="bg-blue-50 rounded-lg p-4">
@@ -188,8 +181,7 @@ export default function OSHAOperatorTrainingPage() {
                 <h3 className="text-2xl font-semibold">Hybrid Training</h3>
               </div>
               <p className="text-gray-700 mb-4">
-                Operators complete theory portion online at their own pace, then your site supervisor 
-                or our certified trainer conducts the hands-on evaluation.
+                Operators complete the forklift course online. The workplace supervisor does the hands-on evaluation. We do not send a trainer.
               </p>
               <ul className="space-y-2 mb-6">
                 <li className="flex items-start gap-2">
@@ -241,10 +233,8 @@ export default function OSHAOperatorTrainingPage() {
               <div className="text-3xl mb-3">💰</div>
               <h3 className="font-semibold text-lg mb-2">Financial Risk</h3>
               <ul className="text-sm text-gray-700 space-y-2">
-                <li>• OSHA fines: $15,625 per violation</li>
-                <li>• Repeat violations: $156,259</li>
-                <li>• Accident liability: $100,000+</li>
-                <li>• Workers' comp premium increases</li>
+                <li>• OSHA publishes the current penalty amounts. This page does not.</li>
+                <li>• This page does not publish an accident-liability dollar amount.</li>
               </ul>
             </div>
 
@@ -311,8 +301,7 @@ export default function OSHAOperatorTrainingPage() {
               <div>
                 <h3 className="font-semibold mb-2">Ongoing Support</h3>
                 <p className="text-gray-700">
-                  3-year certification reminders, refresher training coordination, and incident 
-                  response retraining when needed.
+                  The certificate is issued after the final exam is passed. We do not run refresher classes or incident-response training.
                 </p>
               </div>
             </div>
@@ -329,10 +318,7 @@ export default function OSHAOperatorTrainingPage() {
                 <span className="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
               </summary>
               <p className="mt-4 text-gray-700">
-                Onsite sessions typically run 2-3 hours per group, including theory, hands-on evaluation, 
-                and documentation. We can train multiple groups in a single day to accommodate your schedule. 
-                Hybrid training allows operators to complete theory online (35-45 min) before a shorter 
-                onsite evaluation (30-45 min per operator).
+                The forklift course is online. Study is free and $49 is paid at the final exam. The workplace supervisor does the hands-on evaluation. We do not run a 2–3 hour session at your site.
               </p>
             </details>
 
@@ -342,9 +328,7 @@ export default function OSHAOperatorTrainingPage() {
                 <span className="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
               </summary>
               <p className="mt-4 text-gray-700">
-                We recommend onsite training for companies with 3+ operators to maximize value. For smaller 
-                teams, our hybrid model (online theory + supervisor evaluation) is more cost-effective. 
-                Contact us to discuss the best option for your fleet size.
+                There is no on-site minimum. A single operator is $49 at the final exam. Team 5-pack is $225. Team 25-pack is $999.
               </p>
             </details>
 
@@ -354,9 +338,7 @@ export default function OSHAOperatorTrainingPage() {
                 <span className="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
               </summary>
               <p className="mt-4 text-gray-700">
-                Yes. We offer tiered pricing for teams of 3+, 10+, and 25+ operators. Enterprise agreements 
-                are available for large fleets with ongoing training needs. Request a quote to see specific 
-                pricing for your company size.
+                Single operator is $49 at the final exam. Team 5-pack is $225. Team 25-pack is $999. Those are the listed prices.
               </p>
             </details>
 
@@ -379,10 +361,7 @@ export default function OSHAOperatorTrainingPage() {
                 <span className="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
               </summary>
               <p className="mt-4 text-gray-700">
-                Yes, if your supervisor is qualified per OSHA standards (knowledge, training, and experience). 
-                With our hybrid model, operators complete online theory, then your supervisor uses our 
-                evaluation checklist for the hands-on portion. We provide the checklist and can train your 
-                evaluator if needed.
+                The workplace supervisor does the hands-on evaluation. We do not send a trainer, and we do not train the evaluator.
               </p>
             </details>
 
@@ -405,10 +384,7 @@ export default function OSHAOperatorTrainingPage() {
                 <span className="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
               </summary>
               <p className="mt-4 text-gray-700">
-                Yes. Scissor lifts and boom lifts fall under ANSI A92.24, not OSHA 1910.178. Forklift 
-                certification does not cover aerial work platforms. We provide separate MEWP training for 
-                Category 3A (scissor lifts) and 3B (boom lifts), which can be bundled with forklift training 
-                at a discounted rate.
+                Forklift certification on this site does not cover aerial lifts. We do not offer MEWP training.
               </p>
             </details>
 
@@ -418,9 +394,7 @@ export default function OSHAOperatorTrainingPage() {
                 <span className="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
               </summary>
               <p className="mt-4 text-gray-700">
-                We provide onsite training nationwide, with priority scheduling in the Mountain West, Southwest, 
-                and Texas regions. Our hybrid training option (online theory + local evaluation) is available 
-                to all companies in the US, allowing you to use qualified local evaluators.
+                The course is online. We do not travel to a site. The workplace supervisor does the hands-on evaluation.
               </p>
             </details>
           </div>
@@ -430,7 +404,7 @@ export default function OSHAOperatorTrainingPage() {
         <section className="bg-blue-600 text-white rounded-xl p-8 md:p-12 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Get Your Fleet Certified?</h2>
           <p className="text-xl mb-8 text-blue-100">
-            Request a custom quote for your company. Volume pricing available for teams of 3+ operators.
+            Single operator is $49 at the final exam. Team 5-pack is $225. Team 25-pack is $999. The listed checkout is the forklift certification page.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -447,7 +421,7 @@ export default function OSHAOperatorTrainingPage() {
             </a>
           </div>
           <p className="mt-6 text-sm text-blue-200">
-            Nationwide service • Volume discounts • Same-day documentation
+            Online course. The workplace supervisor does the hands-on evaluation.
           </p>
         </section>
       </main>

@@ -493,8 +493,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 <QuoteButton product={{ name: product.name, slug: product.slug, sku: product.sku }} />
               </div>
               <p className="mt-3 text-sm text-gray-600">
-                💼 <strong>Bulk orders or purchase order?</strong> Get volume pricing and NET-30
-                terms with a custom quote.
+                💼 <strong>Bulk orders or purchase order?</strong> Send the part numbers for a
+                quote. Freight is calculated at checkout.
               </p>
             </div>
 

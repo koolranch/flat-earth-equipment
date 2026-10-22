@@ -129,7 +129,7 @@ export default function SimpleQuoteModal({ open, onClose, product }: Props) {
               Our team will review your request and get back to you within 24 hours with pricing and availability.
             </p>
             <p className="text-sm text-gray-500">
-              We'll include volume pricing and NET-30 terms information if applicable.
+              We'll reply with the price and freight.
             </p>
           </div>
         ) : (
@@ -251,7 +251,7 @@ export default function SimpleQuoteModal({ open, onClose, product }: Props) {
                       I need to pay with a Purchase Order
                     </span>
                     <p className="text-xs text-gray-500 mt-0.5">
-                      We'll send NET-30 terms and setup instructions
+                      We'll reply with the price and freight.
                     </p>
                   </div>
                 </label>

@@ -92,7 +92,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       .join(', ');
     
     // Enhanced description with OEM part numbers
-    const description = `Verified fitment for ${brandDisplay} equipment. Find ${oemRefs ? `${oemRefs} ` : ''}chargers, forks, and common wear parts. ${staticModels.length} models: ${modelList}. Ships same-day with 6-month warranty.`;
+    const description = `Verified fitment for ${brandDisplay} equipment. Find ${oemRefs ? `${oemRefs} ` : ''}chargers, forks, and common wear parts. ${staticModels.length} models: ${modelList}. Freight is calculated at checkout.`;
     
     // Ensure canonical URL has no trailing slash
     const canonicalUrl = `https://www.flatearthequipment.com/compatibility/${params.brand}`.replace(/\/+$/, '');
@@ -131,7 +131,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     .join('');
   
   // Enhanced description with model specifics
-  const description = `Verified fitment for ${brandDisplay} equipment. Find ${voltageInfo ? `${voltageInfo} ` : ''}chargers, forks, and common wear parts. ${supabaseModels.length} models: ${modelNames}. OEM cross-reference included. Ships same-day.`;
+  const description = `Verified fitment for ${brandDisplay} equipment. Find ${voltageInfo ? `${voltageInfo} ` : ''}chargers, forks, and common wear parts. ${supabaseModels.length} models: ${modelNames}. OEM cross-reference included. Freight is calculated at checkout.`;
   
   // Ensure canonical URL has no trailing slash
   const canonicalUrl = `https://www.flatearthequipment.com/compatibility/${params.brand}`.replace(/\/+$/, '');
@@ -258,8 +258,7 @@ export default async function BrandCompatibilityPage({ params }: PageProps) {
             <span className="text-canyon-rust">{brandDisplay}</span> Charger Replacements
           </h1>
           <p className="text-lg text-slate-300 max-w-3xl">
-            Verified replacement chargers for {brandDisplay} equipment. All chargers are tested, 
-            certified, and ship same-day with our 6-month warranty.
+            Aftermarket replacement chargers for {brandDisplay} equipment. A listing is not a fit for every machine. Freight is calculated at checkout.
           </p>
 
           <div className="mt-8 flex items-center gap-6">

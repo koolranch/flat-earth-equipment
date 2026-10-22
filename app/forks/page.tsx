@@ -9,7 +9,7 @@ import TechnicalSpecsTable, { FORK_SPECS } from "@/components/seo/TechnicalSpecs
 
 export const metadata: Metadata = {
   title: "Forklift Forks | Heavy-Duty Equipment",
-  description: "Premium forklift forks for all major brands. Class II, III, IV forks, pallet forks, telehandler forks, and custom lengths. ANSI/ITSDF certified with same-day quotes and expert technical support.",
+  description: "Class II, III, and IV forklift forks, pallet forks, and telehandler forks. A listing is not a fit for every machine. Freight is calculated at checkout.",
   keywords: [
     "forklift forks",
     "pallet forks", 
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Forklift Forks | Heavy-Duty Material Handling Equipment",
-    description: "Premium forklift forks for all major brands. ANSI/ITSDF certified with same-day quotes.",
+    description: "Class II, III, and IV forklift forks. A listing is not a fit for every machine. Freight is calculated at checkout.",
     type: "website",
     images: [
       {
@@ -55,7 +55,7 @@ export default async function ForksPage() {
           "@context": "https://schema.org",
           "@type": "Product",
           "name": "Forklift Forks",
-          "description": "Premium forklift forks for all major brands. Class II, III, IV forks, pallet forks, telehandler forks, and custom lengths.",
+          "description": "Class II, III, and IV forklift forks, pallet forks, and telehandler forks. A listing is not a fit for every machine. Freight is calculated at checkout.",
           "brand": {
             "@type": "Brand",
             "name": "Flat Earth Equipment"
@@ -134,12 +134,12 @@ export default async function ForksPage() {
         <div className="bg-white rounded-2xl p-6 shadow-lg border">
           <div className="text-3xl mb-4">🏗️</div>
           <h3 className="text-xl font-semibold mb-2">Heavy-Duty Construction</h3>
-          <p className="text-slate-600">High-strength alloy steel construction with heat treatment for maximum durability and load capacity.</p>
+          <p className="text-slate-600">This page does not publish a steel grade or a heat treatment.</p>
         </div>
         <div className="bg-white rounded-2xl p-6 shadow-lg border">
           <div className="text-3xl mb-4">✅</div>
-          <h3 className="text-xl font-semibold mb-2">ANSI Certified</h3>
-          <p className="text-slate-600">All forks meet or exceed ANSI/ITSDF B56.1 safety standards with full documentation and certification.</p>
+          <h3 className="text-xl font-semibold mb-2">Listing</h3>
+          <p className="text-slate-600">This page does not publish a certification. A listing is not a fit for every machine.</p>
         </div>
         <div className="bg-white rounded-2xl p-6 shadow-lg border">
           <div className="text-3xl mb-4">🔧</div>
@@ -235,9 +235,8 @@ export default async function ForksPage() {
 
       <div className="space-y-6 text-gray-800 max-w-3xl">
         <p>
-          Our forks meet or exceed ANSI/ITSDF B56.1 standards. All products are inspected for
-          thickness, heel wear, and weld quality. Need help matching forks to your machine? Our team
-          can assist with fork charts and ITA class selection.
+          This page does not publish a certification. A listing is not a fit for every machine.
+          The price is on the product page. Freight is calculated at checkout.
         </p>
 
         <p>
@@ -254,11 +253,11 @@ export default async function ForksPage() {
             </div>
             <div className="bg-white rounded-xl p-6 shadow-lg border">
               <h3 className="text-lg font-semibold mb-3 text-slate-900">How do I measure forklift forks?</h3>
-              <p className="text-slate-700">Measure the overall length (tip to heel), width (side to side), and thickness (top to bottom). Also check hook spacing and carriage class. Our technical team can help verify measurements for proper fit.</p>
+              <p className="text-slate-700">Measure the overall length (tip to heel), width (side to side), and thickness (top to bottom). Also check hook spacing and carriage class. This page does not verify a measurement.</p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-lg border">
               <h3 className="text-lg font-semibold mb-3 text-slate-900">Are your forks OEM quality?</h3>
-              <p className="text-slate-700">We sell high-quality aftermarket forks manufactured to meet or exceed OEM specifications. They're fully compatible with major brands like Toyota, Hyster, Yale, Crown, and Cat, often at significant cost savings.</p>
+              <p className="text-slate-700">We sell aftermarket forks. A listing is not a fit for every machine. Freight is calculated at checkout.</p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-lg border">
               <h3 className="text-lg font-semibold mb-3 text-slate-900">What&apos;s the difference between standard and telehandler forks?</h3>
@@ -266,11 +265,11 @@ export default async function ForksPage() {
             </div>
             <div className="bg-white rounded-xl p-6 shadow-lg border">
               <h3 className="text-lg font-semibold mb-3 text-slate-900">What capacity forks do I need?</h3>
-              <p className="text-slate-700">Fork capacity should match or exceed your forklift&apos;s rated capacity at the load center you&apos;ll be operating. Consider the weight distribution and type of loads you&apos;ll be handling. Our technical team can help calculate the proper capacity for your application.</p>
+              <p className="text-slate-700">This page does not publish a capacity calculation. A listing is not a fit for every machine. The price is on the product page.</p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-lg border">
               <h3 className="text-lg font-semibold mb-3 text-slate-900">Do you offer custom length forks?</h3>
-              <p className="text-slate-700">Yes, we manufacture custom length forks from 36&quot; up to 120&quot; or longer for specialized applications. Custom forks require load calculations and typically have a 2-3 week lead time.</p>
+              <p className="text-slate-700">This page does not publish a custom length or a lead time. A listing is not a fit for every machine.</p>
             </div>
           </div>
         </section>
@@ -290,7 +289,7 @@ export default async function ForksPage() {
               ))}
             </div>
             <p className="text-sm text-slate-600 mt-6">
-              Don&apos;t see your brand? Contact our technical team for compatibility verification and custom solutions.
+              A listing is not a fit for every machine. This page does not offer a custom fork.
             </p>
           </div>
         </section>
@@ -303,15 +302,15 @@ export default async function ForksPage() {
               <ul className="space-y-2 text-slate-700">
                 <li className="flex items-start">
                   <span className="text-green-600 mr-2">✓</span>
-                  ANSI/ITSDF B56.1 compliance for all fork designs
+                  This page does not publish a certification.
                 </li>
                 <li className="flex items-start">
                   <span className="text-green-600 mr-2">✓</span>
-                  High-strength alloy steel construction
+                  This page does not publish a steel grade.
                 </li>
                 <li className="flex items-start">
                   <span className="text-green-600 mr-2">✓</span>
-                  Heat treatment for optimal strength-to-weight ratio
+                  This page does not publish a heat treatment.
                 </li>
                 <li className="flex items-start">
                   <span className="text-green-600 mr-2">✓</span>
@@ -367,13 +366,7 @@ export default async function ForksPage() {
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-4 text-slate-900">Maintenance Schedule</h3>
-                <ul className="space-y-2 text-slate-700">
-                  <li>• Daily visual inspection for damage or wear</li>
-                  <li>• Weekly measurement of heel thickness</li>
-                  <li>• Monthly check of mounting hardware</li>
-                  <li>• Quarterly load testing and documentation</li>
-                  <li>• Annual professional inspection and certification</li>
-                </ul>
+                <p className="text-slate-700">This page does not publish an inspection interval or a certification.</p>
               </div>
             </div>
           </div>
@@ -381,10 +374,10 @@ export default async function ForksPage() {
 
         {/* Call to Action */}
         <section className="bg-gradient-to-r from-canyon-rust to-canyon-rust/90 text-white rounded-xl p-8 text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Need Expert Fork Selection?</h2>
+          <h2 className="text-3xl font-bold mb-4">Forks on the catalog</h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Our technical experts provide free consultation to help you choose the perfect forks for your 
-            specific application, ensuring safety, efficiency, and compliance.
+            This page does not offer a consultation. A listing is not a fit for every machine.
+            The price is on the product page. Freight is calculated at checkout.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -433,9 +426,9 @@ export default async function ForksPage() {
               className="group block bg-white rounded-xl p-6 shadow-lg border hover:shadow-xl transition-shadow"
             >
               <h3 className="text-xl font-semibold mb-2 text-slate-900 group-hover:text-canyon-rust transition-colors">
-                Technical Support
+                Contact
               </h3>
-              <p className="text-slate-600">Get expert guidance on fork selection, load calculations, and safety compliance from our technical team.</p>
+              <p className="text-slate-600">This page does not publish a load calculation. Freight is calculated at checkout.</p>
             </Link>
           </div>
         </section>

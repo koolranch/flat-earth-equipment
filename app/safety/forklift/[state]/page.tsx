@@ -485,7 +485,7 @@ export default function StateForkliftPage({ params }: Props) {
         <div className="space-y-4 sm:hidden">
           {[
             { icon: '⏰', label: 'Time', old: '8 hours', new: 'Under 30 min' },
-            { icon: '💵', label: 'Cost', old: '$200-$500', new: '$49' },
+            { icon: '💵', label: 'Cost', old: 'Not published here', new: '$49' },
             { icon: '📍', label: 'Location', old: 'Travel required', new: 'Anywhere' },
             { icon: '📜', label: 'Certificate', old: '1-2 weeks', new: 'Instant' },
           ].map((item, i) => (
@@ -526,7 +526,7 @@ export default function StateForkliftPage({ params }: Props) {
               </tr>
               <tr className="border-b border-blue-100">
                 <td className="py-3 font-medium text-slate-700">💵 Cost</td>
-                <td className="py-3 text-slate-600">$200-$500</td>
+                <td className="py-3 text-slate-600">Not published here</td>
                 <td className="py-3 text-[#F76511] font-semibold">$49</td>
               </tr>
               <tr className="border-b border-blue-100">

@@ -38,7 +38,7 @@ export const CHARGER_MODULES: ChargerModule[] = [
         price: 82900,
         coreInfo: "+ $350 refundable core deposit",
         coreCharge: 350,
-        desc: "Ships today if ordered before 3 PM EST.",
+        desc: "Freight is calculated at checkout.",
       },
       {
         label: "Repair & Return",
@@ -63,7 +63,7 @@ export const CHARGER_MODULES: ChargerModule[] = [
         price: 82900,
         coreInfo: "+ $350 refundable core deposit",
         coreCharge: 350,
-        desc: "Ships today if ordered before 3 PM EST.",
+        desc: "Freight is calculated at checkout.",
       },
       {
         label: "Repair & Return",
@@ -89,7 +89,7 @@ export const CHARGER_MODULES: ChargerModule[] = [
         price: 82900,
         coreInfo: "+ $350 refundable core deposit",
         coreCharge: 350,
-        desc: "Ships today if ordered before 3 PM EST. Cross-references Hyster/Yale Premier 81063658R.",
+        desc: "Freight is calculated at checkout. Cross-references Hyster/Yale Premier 81063658R.",
       },
       {
         label: "Repair & Return",
@@ -115,7 +115,7 @@ export const CHARGER_MODULES: ChargerModule[] = [
         price: 82900,
         coreInfo: "+ $350 refundable core deposit",
         coreCharge: 350,
-        desc: "Ships today if ordered before 3 PM EST. Cross-references Hyster/Yale Premier 81063577R.",
+        desc: "Freight is calculated at checkout. Cross-references Hyster/Yale Premier 81063577R.",
       },
       {
         label: "Repair & Return",
@@ -141,7 +141,7 @@ export const CHARGER_MODULES: ChargerModule[] = [
         price: 82900,
         coreInfo: "+ $350 refundable core deposit",
         coreCharge: 350,
-        desc: "Ships today if ordered before 3 PM EST. Cross-references Hyster/Yale Premier 81063578R.",
+        desc: "Freight is calculated at checkout. Cross-references Hyster/Yale Premier 81063578R.",
       },
       {
         label: "Repair & Return",

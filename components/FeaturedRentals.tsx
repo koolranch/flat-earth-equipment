@@ -216,16 +216,15 @@ export default async function FeaturedRentals() {
               id="featured-rentals-heading"
               className="text-3xl font-bold leading-tight text-slate-900 lg:text-4xl"
             >
-              Rental fleet ready to ship across the West.
+              Equipment rentals are quoted.
             </h2>
 
             <p className="mt-4 text-base leading-relaxed text-slate-600">
-              Forklifts, scissor lifts, telehandlers, and utility loaders delivered same-week to
-              WY, MT, CO, NM, and TX.
+              Send the machine and the dates. This page does not publish a rate.
             </p>
 
             <p className="mt-4 text-sm text-slate-500">
-              Insured fleet · DOT delivery · Daily, weekly, and monthly terms
+              Terms come back on the quote.
             </p>
 
             <div className="mt-8 hidden lg:block">

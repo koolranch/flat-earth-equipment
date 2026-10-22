@@ -233,8 +233,8 @@ export default async function CompatibilityHubPage() {
                     <Zap className="w-5 h-5 text-amber-400" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold">24hr</p>
-                    <p className="text-sm text-slate-400">Same-Day Ship</p>
+                    <p className="text-2xl font-bold">US</p>
+                    <p className="text-sm text-slate-400">Freight at checkout</p>
                   </div>
                 </div>
               </div>
@@ -515,8 +515,7 @@ export default async function CompatibilityHubPage() {
               Why Trust Our Compatibility Data?
             </h2>
             <p className="text-slate-600 mb-8">
-              Every charger-to-equipment match in our database is verified through multiple sources 
-              including OEM parts manuals, field technician feedback, and physical testing in our facility.
+              A listing is not a fit for every machine. Freight is calculated at checkout.
             </p>
             <div className="grid sm:grid-cols-3 gap-6">
               <div className="bg-white rounded-xl p-6 shadow-sm">
@@ -532,18 +531,18 @@ export default async function CompatibilityHubPage() {
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
                   <Wrench className="w-6 h-6 text-blue-600" />
                 </div>
-                <h3 className="font-bold text-slate-900 mb-2">Field Tested</h3>
+                <h3 className="font-bold text-slate-900 mb-2">Fitment notes</h3>
                 <p className="text-sm text-slate-600">
-                  Validated by our network of certified field technicians
+                  Match the part number on the listing. A listing is not a fit for every machine.
                 </p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-sm">
                 <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mx-auto mb-4">
                   <ShieldCheck className="w-6 h-6 text-amber-600" />
                 </div>
-                <h3 className="font-bold text-slate-900 mb-2">6-Month Warranty</h3>
+                <h3 className="font-bold text-slate-900 mb-2">Warranty on the product page</h3>
                 <p className="text-sm text-slate-600">
-                  We stand behind our fitment data with a full warranty
+                  Coverage is listed on the product page. Freight is calculated at checkout.
                 </p>
               </div>
             </div>

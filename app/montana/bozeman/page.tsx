@@ -19,7 +19,7 @@ import { generatePageAlternates } from '@/app/seo-defaults';
 
 export const metadata: Metadata = {
   title: "Forklift & Equipment Parts in Bozeman, MT | Flat Earth Equipment",
-  description: "Shop forklift, scissor lift, and heavy equipment parts in Bozeman and the Gallatin Valley. Fast shipping across Montana. Request a quote today from Flat Earth Equipment.",
+  description: "Shop forklift, scissor lift, and heavy equipment parts in Bozeman and the Gallatin Valley. Freight is calculated at checkout.",
   alternates: generatePageAlternates("/montana/bozeman"),
 };
 
@@ -48,7 +48,7 @@ export default async function BozemanPage() {
         <div className="relative z-10 flex items-center justify-center h-full px-6 text-center sm:text-left">
           <div className="max-w-4xl w-full">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1 mb-6 text-sm text-white font-medium">
-              <span className="text-green-400">●</span> Serving 59715 & 20+ Gallatin Zip Codes
+              <span className="text-green-400">●</span> Parts ship to Bozeman
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold leading-tight text-white mb-6">
@@ -56,7 +56,7 @@ export default async function BozemanPage() {
             </h1>
             
             <p className="text-slate-200 text-lg md:text-xl mb-8 max-w-2xl">
-              Serving the Gallatin Valley, Big Sky, and Belgrade with precision-fit parts and fast dispatch.
+              Parts ship to Bozeman. Freight is calculated at checkout.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -101,19 +101,19 @@ export default async function BozemanPage() {
       <section className="max-w-5xl mx-auto px-4 py-16">
         <div className="grid md:grid-cols-3 gap-12 items-start">
           <div className="md:col-span-2">
-            <h2 className="text-3xl font-bold text-slate-900 mb-6">Supporting Growth in the Gallatin Valley</h2>
+            <h2 className="text-3xl font-bold text-slate-900 mb-6">Parts ship to Bozeman</h2>
             <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-              Flat Earth Equipment supports Bozeman and the greater Gallatin Valley with fast-shipped industrial parts, equipment rentals, and expert service. We serve contractors, agricultural operations, and facilities from Belgrade to Big Sky, delivering precision-fit components without the cost or delays of a local storefront.
+              Parts ship to Bozeman and the Gallatin Valley, including Belgrade and Big Sky. Freight is calculated at checkout. A listing is not a fit for every machine.
             </p>
             <p className="text-lg text-slate-700 mb-8 leading-relaxed">
-              Our extensive inventory includes parts for all major brands, ensuring you get the right part for Montana's demanding conditions. From <strong>ski resort maintenance</strong> to <strong>commercial construction</strong>, we keep your fleet running.
+              Parts we list are on the catalog. A listing is not a fit for every machine. Freight is calculated at checkout.
             </p>
             
             {/* Service Radius Visual */}
             <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                Active Delivery Zones
+                Parts ship to
               </h3>
               <div className="flex flex-wrap gap-2">
                 {[
@@ -182,42 +182,42 @@ export default async function BozemanPage() {
                 slug: 'forklift-parts',
                 href: '/parts',
                 Icon: ForkliftIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Scissor Lift Hydraulics',
                 slug: 'scissor-lift-hydraulics',
                 href: '/parts',
                 Icon: ScissorLiftIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Telehandler Filters',
                 slug: 'telehandler-filters',
                 href: '/parts',
                 Icon: TelehandlerIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Mini Excavator Rollers',
                 slug: 'mini-excavator-rollers',
                 href: '/parts',
                 Icon: RollerIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Track Systems',
                 slug: 'track-systems',
                 href: '/parts',
                 Icon: TrackIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               },
               {
                 name: 'Battery Chargers & Modules',
                 slug: 'battery-chargers-modules',
                 href: '/charger-modules',
                 Icon: BatteryIcon,
-                label: 'Available for fast shipping'
+                label: 'Freight at checkout'
               }
             ].map((category) => (
               <Link
@@ -280,10 +280,10 @@ export default async function BozemanPage() {
 
       {/* Delivery Zones Section */}
       <section className="mb-12 max-w-5xl mx-auto px-4">
-        <h2 className="text-2xl font-semibold text-slate-800 mb-4">Bozeman Delivery Coverage</h2>
+        <h2 className="text-2xl font-semibold text-slate-800 mb-4">Parts ship to Bozeman</h2>
         <div className="bg-white rounded-lg shadow-sm p-6">
           <p className="text-lg text-slate-700">
-            We provide fast delivery throughout Bozeman and the Gallatin Valley, including Belgrade, Four Corners, Manhattan, and the Big Sky corridor. Our strategic location enables quick shipping to agricultural operations, ski resorts, municipalities, and industrial facilities throughout southwestern Montana.
+            Parts ship to Bozeman and the Gallatin Valley, including Belgrade and Four Corners. Freight is calculated at checkout.
           </p>
         </div>
       </section>
@@ -294,15 +294,15 @@ export default async function BozemanPage() {
         <div className="space-y-6">
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h3 className="text-lg font-semibold mb-2">Do you ship forklift parts within Bozeman same day?</h3>
-            <p className="text-slate-700">Yes, we offer same-day delivery for most forklift parts within Bozeman and the Gallatin Valley when ordered before 2 PM. Our regional network serves Bozeman, Belgrade, and surrounding areas efficiently.</p>
+            <p className="text-slate-700">Parts ship to Bozeman and the Gallatin Valley. Freight is calculated at checkout.</p>
           </div>
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h3 className="text-lg font-semibold mb-2">Which brands do you carry parts for in Montana?</h3>
-            <p className="text-slate-700">We stock parts for all major brands including Toyota, Hyster, Yale, Crown, and Raymond, with inventory suited for Montana's agriculture, ski resort, and industrial operations.</p>
+            <p className="text-slate-700">Toyota, Hyster, Yale, Crown, and Raymond parts we list are on the catalog. A listing is not a fit for every machine.</p>
           </div>
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h3 className="text-lg font-semibold mb-2">Do you serve Big Sky and resort areas?</h3>
-            <p className="text-slate-700">Yes, we provide delivery to Big Sky, ski resort facilities, and mountain communities throughout the Gallatin Valley with reliable parts and equipment support.</p>
+            <p className="text-slate-700">Parts ship to Big Sky. Freight is calculated at checkout. This page does not promise delivery to a resort.</p>
           </div>
         </div>
       </section>
@@ -328,7 +328,7 @@ export default async function BozemanPage() {
             { '@type': 'Place', 'name': 'Big Sky, MT' },
             { '@type': 'Place', 'name': 'Gallatin Valley, MT' }
           ],
-          'description': 'Flat Earth Equipment provides rental equipment and parts to contractors, ski resorts, and agriculture in Bozeman, MT. Fast shipping from regional hubs.',
+          'description': 'Parts ship to contractors in Bozeman, MT. Freight is calculated at checkout.',
           'telephone': '+1-888-392-9175',
           'openingHours': 'Mo-Fr 07:00-17:00',
           'priceRange': '$$',
@@ -353,7 +353,7 @@ export default async function BozemanPage() {
               'name': 'Do you ship forklift parts within Bozeman same day?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Yes, we offer same-day delivery for most forklift parts within Bozeman and the Gallatin Valley when ordered before 2 PM. Our regional network serves Bozeman, Belgrade, and surrounding areas efficiently.'
+                'text': 'Parts ship to Bozeman and the Gallatin Valley. Freight is calculated at checkout.'
               }
             },
             {
@@ -361,7 +361,7 @@ export default async function BozemanPage() {
               'name': 'Which brands do you carry parts for in Montana?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'We stock parts for all major brands including Toyota, Hyster, Yale, Crown, and Raymond, with inventory suited for Montana\'s agriculture, ski resort, and industrial operations.'
+                'text': 'Toyota, Hyster, Yale, Crown, and Raymond parts we list are on the catalog. A listing is not a fit for every machine.'
               }
             },
             {
@@ -369,7 +369,7 @@ export default async function BozemanPage() {
               'name': 'Do you serve Big Sky and resort areas?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Yes, we provide delivery to Big Sky, ski resort facilities, and mountain communities throughout the Gallatin Valley with reliable parts and equipment support.'
+                'text': 'Parts ship to Big Sky. Freight is calculated at checkout. This page does not promise delivery to a resort.'
               }
             }
           ]

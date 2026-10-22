@@ -25,7 +25,7 @@ export default function OptionSelectorCard({ module, locale = 'en', showDetailsL
   const t = {
     en: {
       chooseOption: "Choose option",
-      buyShipToday: "Buy & Ship Today →",
+      buyShipToday: "Buy now →",
       startRepairOrder: "Start Repair Order →", 
       coreRefundTitle: "How the core refund works",
       coreRefundDesc: "We pre-charge a refundable $350 deposit. Ship your old module back within 30 days using the prepaid label. Refund issued within 48 hours of arrival.",
@@ -33,7 +33,7 @@ export default function OptionSelectorCard({ module, locale = 'en', showDetailsL
     },
     es: {
       chooseOption: "Elegir opción",
-      buyShipToday: "Comprar y Enviar Hoy →",
+      buyShipToday: "Comprar ahora →",
       startRepairOrder: "Iniciar Orden de Reparación →",
       coreRefundTitle: "Cómo funciona el reembolso del núcleo",
       coreRefundDesc: "Cobramos por adelantado un depósito reembolsable de $350. Envíe su módulo usado de vuelta dentro de 30 días usando la etiqueta prepagada. Reembolso emitido dentro de 48 horas de llegada.",
@@ -176,8 +176,8 @@ export default function OptionSelectorCard({ module, locale = 'en', showDetailsL
           <tbody className="[&>tr>*]:py-1">
             <tr><td>Unit&nbsp;price</td><td>{remanOffer ? formatUsd(remanOffer.price) : '—'}</td><td>{repairOffer ? formatUsd(repairOffer.price) : '—'}</td></tr>
             <tr><td>Core&nbsp;deposit</td><td>{formatUsd(CORE_DEPOSIT)} (refunded)</td><td>None</td></tr>
-            <tr><td>Ship out</td><td>Today (order ≤ 3 PM&nbsp;EST)</td><td>After we refurbish</td></tr>
-            <tr><td>Total&nbsp;turn-around</td><td>1-3 days (ground)</td><td>3-5 business days</td></tr>
+            <tr><td>Ship out</td><td>US shipping</td><td>After we refurbish</td></tr>
+            <tr><td>Total&nbsp;turn-around</td><td>Freight at checkout</td><td>3-5 business days</td></tr>
           </tbody>
         </table>
       </details>

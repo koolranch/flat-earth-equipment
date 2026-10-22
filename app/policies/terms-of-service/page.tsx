@@ -42,9 +42,8 @@ export default function TermsOfServicePage() {
         title: '5. Contact Information',
         description: 'If you have any questions about these Terms of Service, please contact us:',
         items: [
-          'Email: legal@flatearthequipment.com',
-          'Phone: (555) 123-4567',
-          'Address: 123 Business Street, City, State 12345'
+          'Email: contact@flatearthequipment.com',
+          'Address: 30 N Gould St, Ste R, Sheridan, WY 82801'
         ]
       }
     },
@@ -77,9 +76,8 @@ export default function TermsOfServicePage() {
         title: '5. Información de Contacto',
         description: 'Si tiene alguna pregunta sobre estos Términos de Servicio, por favor contáctenos:',
         items: [
-          'Correo electrónico: legal@flatearthequipment.com',
-          'Teléfono: (555) 123-4567',
-          'Dirección: 123 Business Street, City, State 12345'
+          'Correo electrónico: contact@flatearthequipment.com',
+          'Dirección: 30 N Gould St, Ste R, Sheridan, WY 82801'
         ]
       }
     }

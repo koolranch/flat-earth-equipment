@@ -75,7 +75,7 @@ export default async function WallboxPulsar40APage() {
     { label: "Mobile App", value: "Wallbox App (iOS/Android)" },
     { label: "Installation", value: "Hardwired (240V)" },
     { label: "Design", value: "Compact, Space-Efficient" },
-    { label: "Compatibility", value: "All J1772 EVs + Tesla (with adapter)" },
+    { label: "Compatibility", value: "A listing is not a fit for every vehicle." },
     { label: "Energy Tracking", value: "Real-time usage monitoring" }
   ];
 
@@ -176,13 +176,13 @@ export default async function WallboxPulsar40APage() {
                 }}
                 className="w-full bg-canyon-rust text-white py-4 rounded-lg font-semibold hover:bg-canyon-rust/90 transition-colors text-lg"
               >
-                Buy Now & Ship Today →
+                Buy Now →
               </AddToCartButton>
               
               <div className="flex justify-center gap-4 mt-4 text-xs text-gray-600">
                 <span className="flex items-center gap-1">
                   <Truck className="h-3 w-3" />
-                  Same-Day Ship
+                  Freight at checkout
                 </span>
                 <span className="flex items-center gap-1">
                   <Shield className="h-3 w-3" />
@@ -365,7 +365,7 @@ export default async function WallboxPulsar40APage() {
             <div className="text-center space-y-3">
               <div className="bg-canyon-rust text-white w-10 h-10 rounded-full flex items-center justify-center mx-auto font-bold">1</div>
               <h3 className="font-semibold">Order & Receive</h3>
-              <p className="text-sm text-gray-600">We temporarily charge the refundable core deposit. Your smart charger ships immediately.</p>
+              <p className="text-sm text-gray-600">We temporarily charge the refundable core deposit. Freight is calculated at checkout.</p>
             </div>
             <div className="text-center space-y-3">
               <div className="bg-canyon-rust text-white w-10 h-10 rounded-full flex items-center justify-center mx-auto font-bold">2</div>

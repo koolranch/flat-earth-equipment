@@ -171,7 +171,7 @@ export async function generateMetadata({ params }: { params: { category_slug: st
     title: `${categoryDisplay} | Aftermarket OEM Replacement Parts | Flat Earth Equipment`,
     description: intro?.body
       ? intro.body.slice(0, 160)
-      : `Shop aftermarket ${categoryDisplay} — OEM-equivalent replacement parts with 2-year warranty. Direct fit, fast shipping nationwide.`,
+      : `Shop aftermarket ${categoryDisplay}. A listing is not a fit for every machine. Freight is calculated at checkout.`,
     alternates: generatePageAlternates(`/parts/category/${params.category_slug}`),
     robots: { index: true, follow: true, 'max-image-preview': 'large' as const, 'max-snippet': -1 },
   }
@@ -233,7 +233,7 @@ export default async function CategoryPage({
           "@context": "https://schema.org",
           "@type": "CollectionPage",
           "name": categoryDisplay,
-          "description": intro?.body || `Shop ${categoryDisplay} — aftermarket OEM replacement parts with 2-year warranty.`,
+          "description": intro?.body || `Shop ${categoryDisplay}. A listing is not a fit for every machine. Freight is calculated at checkout.`,
           "url": pageUrl,
           "numberOfItems": sorted.length,
           "itemListElement": sorted
@@ -358,16 +358,16 @@ export default async function CategoryPage({
         <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-12">
           <div className="grid sm:grid-cols-3 gap-6 text-center">
             <div>
-              <p className="text-2xl font-bold text-slate-900 mb-1">12-Month</p>
+              <p className="text-2xl font-bold text-slate-900 mb-1">2-Year</p>
               <p className="text-sm text-slate-600">2-year warranty from date of purchase on covered aftermarket parts</p>
             </div>
             <div>
               <p className="text-2xl font-bold text-slate-900 mb-1">OEM Equivalent</p>
-              <p className="text-sm text-slate-600">Direct fit — replaces original JCB part number, no modifications</p>
+              <p className="text-sm text-slate-600">Match the part number on the listing. A listing is not a fit for every machine.</p>
             </div>
             <div>
-              <p className="text-2xl font-bold text-slate-900 mb-1">Fast Shipping</p>
-              <p className="text-sm text-slate-600">In-stock parts ship same day. Nationwide ground delivery.</p>
+              <p className="text-2xl font-bold text-slate-900 mb-1">Freight</p>
+              <p className="text-sm text-slate-600">Freight is calculated at checkout.</p>
             </div>
           </div>
         </div>
@@ -394,7 +394,7 @@ export default async function CategoryPage({
         <section className="bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-orange-200 rounded-2xl p-8 text-center">
           <h2 className="text-2xl font-bold text-slate-900 mb-3">Need help finding the right part?</h2>
           <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
-            Our team can cross-reference OEM part numbers and confirm fitment for your specific JCB model. Same-day quotes on any part.
+            Send the brand, model, and part number. Freight is calculated at checkout.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link

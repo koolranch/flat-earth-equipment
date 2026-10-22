@@ -52,7 +52,7 @@ const CODE_PART_MAP = [
     issue: "Ground ↔ platform communication",
     href: "/parts/genie-gen-6-ground-control-box",
     label: "Gen 6 Ground Control Box",
-    note: "$250 core credit",
+    note: "$250 core charge",
   },
   {
     codes: "E9 / E14 / A5",
@@ -305,7 +305,7 @@ export default function GenieScissorLiftErrorCodes() {
 
         {/* Code → Parts soft-sell */}
         <div className="not-prose my-12">
-          <h2 className="text-2xl font-bold text-slate-900 mb-2">Common Codes → Parts We Stock</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-2">Common Codes and Listed Parts</h2>
           <p className="text-slate-600 mb-6">
             Diagnose first, then grab the usual replacement when the fault points at hardware—not just a reset.
           </p>
@@ -339,15 +339,14 @@ export default function GenieScissorLiftErrorCodes() {
           <div className="not-prose bg-orange-50 border border-orange-200 rounded-lg p-4 my-6">
             <h3 className="text-lg font-semibold text-orange-800 mb-2">Ground Control Issues (E12, E13, E15)?</h3>
             <p className="text-orange-700">
-              If communication errors persist after harness checks, the issue is often control-box hardware. We stock
-              the{" "}
+              If communication errors persist after harness checks, the issue is often control-box hardware. The{" "}
               <Link
                 href="/parts/genie-gen-6-ground-control-box"
                 className="text-orange-600 hover:text-orange-700 underline font-medium"
               >
                 Genie Gen 6 Ground Control Box
               </Link>{" "}
-              with a $250 core credit.
+              is listed at $750, plus a $250 core charge.
             </p>
           </div>
 
@@ -380,8 +379,8 @@ export default function GenieScissorLiftErrorCodes() {
           <div className="text-center">
             <h2 className="text-2xl font-bold text-slate-900 mb-3">Having E12, E13, or E15 Communication Errors?</h2>
             <p className="text-slate-700 mb-6">
-              Persistent ground control communication errors often require control box replacement. We stock{" "}
-              <strong>Genie Gen 6 Ground Control Boxes</strong> with $250 core credit.
+              Persistent ground control communication errors often require control box replacement. The{" "}
+              <strong>Genie Gen 6 Ground Control Box</strong> is listed at $750, plus a $250 core charge.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
@@ -407,8 +406,7 @@ export default function GenieScissorLiftErrorCodes() {
         <div className="not-prose my-8 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-300 rounded-xl p-6 text-center">
           <h2 className="text-2xl font-bold text-slate-900 mb-3">Need Genie Scissor Lift Parts?</h2>
           <p className="text-slate-700 mb-6">
-            We stock sensors, joysticks, control boxes, chargers, hydraulic components, and electrical parts for Genie
-            GS and boom lift models.
+            Genie parts we list are on the catalog. A listing is not a fit for every machine. Freight is calculated at checkout.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
@@ -451,7 +449,7 @@ export default function GenieScissorLiftErrorCodes() {
               </span>
               <div>
                 <div className="font-semibold">Gen 6 Ground Control Box</div>
-                <div className="text-sm text-slate-600">Fix E12/E13/E15 errors — $250 core credit</div>
+                <div className="text-sm text-slate-600">Fix E12/E13/E15 errors — $250 core charge</div>
               </div>
             </Link>
             <Link
