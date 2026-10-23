@@ -25,7 +25,7 @@ const PRODUCTS = [
 
 export function JcbCabPartsStrip({
   headline = 'Need the stick — or the cab parts around it?',
-  body = 'Confirm LH/RH and function count against your model/serial before ordering. Aftermarket JCB parts ship with a 2-year warranty on eligible SKUs.',
+  body = 'LH and RH are not interchangeable. Function count and the cab side have to match. A listing is not a fit for every machine. Eligible aftermarket JCB parts carry a 2-year warranty.',
 }: {
   headline?: string
   body?: string

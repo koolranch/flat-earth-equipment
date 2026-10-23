@@ -651,8 +651,7 @@ export default function BobcatSerialNumberGuide() {
 
           <h3>Compact Track Loaders (T-Series) Model Year Chart</h3>
           <p className="text-sm text-slate-600">
-            Linked models have rubber tracks in stock — confirm serial prefixes on
-            the product page before ordering.
+            Linked models have a rubber-track page. The serial prefix has to match. A listing is not a fit for every machine.
           </p>
           <div className="mb-8 overflow-x-auto">
             <table className="min-w-full border-collapse text-sm">

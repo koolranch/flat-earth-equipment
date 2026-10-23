@@ -134,7 +134,7 @@ export default function ChargersLanding() {
                 Corporate & Fleet Buyer?
               </h2>
               <p className="text-slate-200 text-lg">
-                Send the fleet list for a quote. Freight is calculated at checkout.
+                Send the fleet list for a quote. Shipping is free on these modules.
               </p>
             </div>
           </div>
@@ -226,7 +226,7 @@ export default function ChargersLanding() {
           <TechnicalSpecsTable 
             title="Enersys / Hawker / ACT Quantum Charger Module Specifications"
             specs={CHARGER_MODULE_SPECS}
-            footnote="Specifications vary by model. Contact us for compatibility verification with your specific charger."
+            footnote="A listing is not a fit for every charger."
           />
         </section>
 
@@ -297,7 +297,7 @@ export default function ChargersLanding() {
           </h2>
           <p className="text-orange-800 max-w-2xl mx-auto">
             Drop-in LiFePO4 conversion kits for EZGO, Club Car, and Yamaha golf carts.
-            36V, 48V, and 72V options. 6,000+ cycles, 8-year warranty, free shipping on 3+ batteries.
+            36V, 48V, and 72V options. 8-year warranty. Free shipping on 3+ batteries.
           </p>
           <Link
             href="/lithium-batteries"

@@ -84,9 +84,9 @@ export default async function ForksPage() {
         <h1 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900">Forklift Forks</h1>
         <p className="mb-8 max-w-4xl text-xl text-slate-700 leading-relaxed">
           Whether you run a single warehouse or a multi-site fleet, Flat Earth Equipment supplies
-          heavy-duty forklift forks built for the toughest material handling demands. We offer Class II,
-          Class III, and Class IV forks in standard and custom lengths, including tapered pallet forks,
-          block forks, and telehandler-compatible styles.
+          heavy-duty forklift forks built for the toughest material handling demands. We list Class II,
+          Class III, and Class IV forks, including tapered pallet forks,
+          block forks, and telehandler-compatible styles. This page does not publish a custom length. A listing is not a fit for every machine.
         </p>
 
         {/* Fork Finder Tool */}
@@ -279,7 +279,7 @@ export default async function ForksPage() {
           <h2 className="text-3xl font-bold mb-8 text-slate-900">Compatible Forklift Brands</h2>
           <div className="bg-white rounded-xl p-8 shadow-lg border">
             <p className="text-lg text-slate-700 mb-6">
-              Our forklift forks are compatible with all major forklift and material handling equipment brands:
+              Forks we list are on this page. A listing is not a fit for every machine.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
               {["Toyota", "Hyster", "Yale", "Crown", "Clark", "Cat", "Komatsu", "Mitsubishi", "Nissan", "Raymond", "Doosan", "JLG", "Genie", "Skytrak"].map((brand, index) => (

@@ -353,7 +353,7 @@ export default function RaymondLookupPage() {
                     href="/parts?brand=Raymond"
                     className="inline-flex min-h-[44px] items-center bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
                   >
-                    Raymond parts in stock
+                    Raymond parts we list
                   </Link>
                   <Link 
                     href="/quote"
@@ -473,7 +473,7 @@ export default function RaymondLookupPage() {
               <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 hover:shadow-md transition-all group-hover:border-blue-300">
                 <div className="flex items-center gap-3 mb-3">
                   <Wrench className="h-5 w-5 text-blue-600" />
-                  <h3 className="font-semibold text-slate-900 group-hover:text-blue-600">Raymond parts in stock</h3>
+                  <h3 className="font-semibold text-slate-900 group-hover:text-blue-600">Raymond parts we list</h3>
                 </div>
                 <p className="text-sm text-slate-600">
                   Parts we currently list for Raymond. A listing is not a fit for every truck. Use the plate serial on the quote.

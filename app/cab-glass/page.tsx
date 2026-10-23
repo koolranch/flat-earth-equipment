@@ -36,11 +36,11 @@ type GlassRow = {
 const FAQS = [
   {
     q: 'How do I know which cab glass fits my machine?',
-    a: 'Start with brand and model in the finder above. Each listing shows the OEM part number and the models it fits from the manufacturer fitment catalog. Confirm your cab configuration (door style, wiper hole count, polycarbonate vs tempered) before ordering — some machines share a model badge but use different door frames.',
+    a: 'Start with brand and model in the finder. Door style, wiper-hole count, and polycarbonate versus tempered glass differ by cab. A listing is not a fit for every machine. Freight is calculated at checkout.',
   },
   {
     q: 'Is this OEM or aftermarket glass?',
-    a: 'These are aftermarket tempered or polycarbonate panels built to match OEM dimensions and mounting patterns. Titles show the OEM part number for cross-reference so you can match what your dealer would sell.',
+    a: 'These are aftermarket panels. The title shows the OEM part number. A listing is not a fit for every machine.',
   },
   {
     q: 'How does shipping work for cab glass?',
@@ -269,9 +269,8 @@ export default async function CabGlassPage() {
                 Match the OEM number on the pane
               </h3>
               <p>
-                Broken glass often still shows a part number molded or etched near the
-                edge. Cross-check that number against our OEM reference before you order —
-                especially on machines with mid-run cab updates.
+                The number molded or etched near the edge is the one to match.
+                A listing is not a fit for every machine. Mid-run cabs can use a different pane.
               </p>
             </div>
             <div>

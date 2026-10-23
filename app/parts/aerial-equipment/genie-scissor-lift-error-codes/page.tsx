@@ -481,7 +481,7 @@ export default function GenieScissorLiftErrorCodes() {
                 📚
               </span>
               <div>
-                <div className="font-semibold">Genie parts in stock</div>
+                <div className="font-semibold">Genie parts we list</div>
                 <div className="text-sm text-slate-600">Parts we currently list. A listing is not a fit for every lift.</div>
               </div>
             </Link>

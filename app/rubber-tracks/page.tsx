@@ -45,7 +45,7 @@ const FAQS = [
   },
   {
     q: 'What warranty do the tracks carry?',
-    a: 'Every track includes a 2-year warranty against manufacturing defects — longer than the 12–18 months typical for aftermarket tracks.',
+    a: 'Every track on this site includes a 2-year warranty. This page does not publish another brand’s warranty term.',
   },
   {
     q: 'How do I verify fitment with my serial number?',
@@ -53,7 +53,7 @@ const FAQS = [
   },
   {
     q: 'Are these OEM or aftermarket tracks?',
-    a: 'These are premium aftermarket tracks built to OEM specifications, and select listings carry direct OEM cross-reference part numbers (for example Bobcat 7394912). Aftermarket tracks deliver comparable wear life at a significantly lower price than dealer OEM.',
+    a: 'These are aftermarket. A listing is not a fit for every machine. The serial prefix on the listing has to match. Free shipping and a 2-year warranty are on the product page.',
   },
 ];
 
@@ -190,9 +190,9 @@ export default async function RubberTracksHubPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
           {[
             ['Free shipping', 'No freight surcharge at checkout'],
-            ['2-year warranty', 'vs 12–18 months industry typical'],
-            ['Serial-verified fitment', 'Matched to your serial prefix'],
-            ['Ships fast', 'In-stock tracks ship right away'],
+            ['2-year warranty', 'On every track on this site'],
+            ['Serial prefix', 'The prefix on the listing has to match'],
+            ['Freight', 'Free shipping on these tracks'],
           ].map(([title, sub]) => (
             <div key={title} className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3">
               <p className="font-semibold text-slate-900 text-sm">{title}</p>

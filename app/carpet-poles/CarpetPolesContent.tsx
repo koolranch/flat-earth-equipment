@@ -291,19 +291,19 @@ export default function CarpetPolesContent() {
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <Shield className="w-5 h-5 text-canyon-rust mt-1" />
-                <span>Heavy-duty steel construction</span>
+                <span>This page does not publish a steel grade</span>
               </li>
               <li className="flex items-start gap-3">
                 <Truck className="w-5 h-5 text-canyon-rust mt-1" />
-                <span>Compatible with all standard forklifts</span>
+                <span>A listing is not a fit for every forklift</span>
               </li>
               <li className="flex items-start gap-3">
                 <Package className="w-5 h-5 text-canyon-rust mt-1" />
-                <span>Custom lengths available</span>
+                <span>This page does not publish a custom length</span>
               </li>
               <li className="flex items-start gap-3">
                 <AlertTriangle className="w-5 h-5 text-canyon-rust mt-1" />
-                <span>OSHA-compliant safety features</span>
+                <span>This page does not publish a safety certification</span>
               </li>
             </ul>
           </div>
@@ -311,11 +311,11 @@ export default function CarpetPolesContent() {
           <div className="bg-slate-50 p-6 rounded-lg">
             <h2 className="text-xl font-semibold mb-4">Specifications</h2>
             <ul className="space-y-3">
-              <li><strong>Material:</strong> High-grade steel</li>
-              <li><strong>Standard Lengths:</strong> 8', 10', 12', 14'</li>
-              <li><strong>Load Capacity:</strong> Up to 2,000 lbs</li>
-              <li><strong>Finish:</strong> Powder-coated for durability</li>
-              <li><strong>Warranty:</strong> 1 year standard</li>
+              <li><strong>Material:</strong> This page does not publish a steel grade</li>
+              <li><strong>Lengths:</strong> This page does not publish a length list</li>
+              <li><strong>Load Capacity:</strong> This page does not publish a capacity</li>
+              <li><strong>Finish:</strong> This page does not publish a finish</li>
+              <li><strong>Warranty:</strong> This page does not publish a warranty term</li>
             </ul>
           </div>
         </div>
@@ -360,25 +360,25 @@ export default function CarpetPolesContent() {
             <div>
               <h3 className="font-semibold">Quality Construction</h3>
               <p className="text-slate-600 mt-1">
-                Built with high-grade steel and precision engineering for maximum durability and safety.
+                This page does not publish a steel grade.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold">Custom Solutions</h3>
+              <h3 className="font-semibold">Lengths</h3>
               <p className="text-slate-600 mt-1">
-                Available in various lengths and can be customized to meet your specific requirements.
+                This page does not publish a custom length. Ask for a quote.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold">Safety Certified</h3>
+              <h3 className="font-semibold">Safety</h3>
               <p className="text-slate-600 mt-1">
-                Meets all OSHA safety standards and includes proper weight distribution features.
+                This page does not publish a safety certification.
               </p>
             </div>
             <div>
               <h3 className="font-semibold">Expert Support</h3>
               <p className="text-slate-600 mt-1">
-                Our team provides professional guidance on selection, installation, and maintenance.
+                Ask for a quote. We do not install the pole.
               </p>
             </div>
           </div>

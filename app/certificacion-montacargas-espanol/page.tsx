@@ -5,7 +5,7 @@ import { getUserLocale } from "@/lib/getUserLocale"
 export const metadata = {
   title: "Certificación de Montacargas en Línea – OSHA en Español (30 min)",
   description:
-    "Completa tu curso de montacargas en menos de 1 hora. Obtén tu certificado PDF inmediato. Español e inglés incluidos – solo $59.",
+    "Estudias gratis. El examen cuesta $49. La instrucción formal toma menos de 30 minutos. El supervisor del trabajo hace la evaluación práctica.",
   alternates: {
     canonical: "https://www.flatearthequipment.com/certificacion-montacargas-espanol",
     languages: { 
@@ -42,7 +42,7 @@ export default function CertificacionMontacargasEspanol() {
           "inLanguage": ["es", "en"],
           "offers": {
             "@type": "Offer",
-            "price": "59",
+            "price": "49",
             "priceCurrency": "USD"
           },
           "hasCourseInstance": {
@@ -105,7 +105,7 @@ export default function CertificacionMontacargasEspanol() {
               href="/safety"
               className="inline-block rounded-xl bg-orange-600 px-8 py-4 text-xl font-semibold text-white no-underline transition hover:bg-orange-700 shadow-lg"
             >
-              Empieza Ahora – $59
+              Empieza Ahora – $49
             </Link>
             <p className="text-sm text-gray-600 mt-2">
               ✓ Acceso inmediato ✓ Garantía de devolución ✓ Soporte 24/7
@@ -255,7 +255,7 @@ export default function CertificacionMontacargasEspanol() {
               href="/safety"
               className="inline-block rounded-xl bg-orange-600 px-8 py-4 text-xl font-semibold text-white no-underline transition hover:bg-orange-700"
             >
-              Comenzar Ahora – $59
+              Comenzar Ahora – $49
             </Link>
           </div>
 

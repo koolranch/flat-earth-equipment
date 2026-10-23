@@ -101,8 +101,8 @@ export default function ToroDingoErrorCodesPage() {
         <h2 className="text-xl font-bold mb-4">⚡ e-Dingo 500: At a Glance</h2>
         <div className="grid sm:grid-cols-2 gap-4 text-sm">
           <div><span className="font-semibold text-red-800">Battery:</span> 48V lithium-ion with BMS</div>
-          <div><span className="font-semibold text-red-800">Charge Time:</span> ~8 hours (full)</div>
-          <div><span className="font-semibold text-red-800">Runtime:</span> 4-6 hours moderate use</div>
+          <div><span className="font-semibold text-red-800">Charge Time:</span> This page does not publish a charge time.</div>
+          <div><span className="font-semibold text-red-800">Runtime:</span> This page does not publish a runtime.</div>
           <div><span className="font-semibold text-red-800">Temp Range:</span> -5°C to 60°C (charging)</div>
         </div>
       </div>

@@ -124,7 +124,7 @@ export default function GenieLookupPage() {
             slug="genie"
             name="Genie"
             href="/parts?brand=Genie"
-            cta="Genie parts in stock"
+            cta="Genie parts we list"
             detail="Parts we currently list. A listing is not a fit for every lift."
           />
 

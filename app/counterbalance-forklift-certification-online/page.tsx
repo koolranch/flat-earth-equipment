@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Online Counterbalance Forklift Certification (Class IV & V)",
     description:
-      "Get certified fast – instant PDF card, unlimited exam retakes – only $49.",
+      "Formal instruction is under 30 minutes. $49 at the final exam. This page does not publish a retake fee.",
     url: "/counterbalance-forklift-certification-online",
     type: "website",
   },
@@ -41,7 +41,7 @@ export default function CounterbalanceForkliftPage() {
                 },
                 "offers": {
                   "@type": "Offer",
-                  "price": "59",
+                  "price": "49",
                   "priceCurrency": "USD",
                   "url": "/counterbalance-forklift-certification-online"
                 },
@@ -148,7 +148,7 @@ export default function CounterbalanceForkliftPage() {
           <li>Load-capacity plate calculations & center-of-gravity demo</li>
           <li>Travel, tilt & stack best practices</li>
           <li>Blind-corner horn use & pedestrian safety</li>
-          <li>Final 30-question exam – unlimited retakes</li>
+          <li>This page does not publish a question count or a retake fee.</li>
         </ol>
 
         <h2>Get Certified in 3 Easy Steps</h2>

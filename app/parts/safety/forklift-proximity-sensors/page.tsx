@@ -508,7 +508,7 @@ export default function ForkliftProximitySensorsPage() {
               Forklift Operator Certification
             </h3>
             <p className="text-sm text-slate-600 mb-3">
-              OSHA-compliant online forklift certification. Complete in 60 minutes. $49 at the final exam.
+              Online forklift certification. Formal instruction is under 30 minutes. $49 at the final exam.
             </p>
             <span className="text-sm text-canyon-rust font-medium group-hover:underline">
               Get certified →

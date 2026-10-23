@@ -90,15 +90,15 @@ export default function JCBTelehandlerBatteryLocation() {
           </div>
           <div>
             <div className="font-semibold text-yellow-800 mb-1">📦 Size:</div>
-            <div className="text-slate-700">Group 31 or 4D</div>
+            <div className="text-slate-700">This page does not publish a group size.</div>
           </div>
           <div>
             <div className="font-semibold text-yellow-800 mb-1">⏱️ Replacement time:</div>
-            <div className="text-slate-700">30-45 minutes</div>
+            <div className="text-slate-700">This page does not publish a job time.</div>
           </div>
           <div>
             <div className="font-semibold text-yellow-800 mb-1">💰 Cost:</div>
-            <div className="text-slate-700">$150-400 (battery + labor)</div>
+            <div className="text-slate-700">This page does not publish a battery price or a labor rate.</div>
           </div>
         </div>
       </div>

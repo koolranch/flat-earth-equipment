@@ -4,11 +4,11 @@ import { generatePageAlternates } from "@/app/seo-defaults";
 
 export const metadata: Metadata = {
   title: "Toyota Forklift A5-1 (E A5-1) Code: Meaning & How to Fix It",
-  description: "A5-1 on a Toyota forklift = vehicle speed control fault. Most fixes: seat switch wiring, accelerator potentiometer, or speed sensor. 5-step checklist, battery reset procedure, and typical repair cost inside.",
+  description: "A5-1 on a Toyota forklift is a vehicle speed control fault. This page does not publish a repair time or a repair price.",
   alternates: generatePageAlternates("/diagnostic-codes/e-a5-1-code-on-toyota-forklift-2"),
   openGraph: {
     title: "Toyota Forklift E A5-1 Error Code: Diagnosis & Fix Guide",
-    description: "Step-by-step troubleshooting for E A5-1 speed control system fault. Expert guidance for Toyota 8FGU25, 8FGU30, and other models.",
+    description: "This page does not publish a reset time or a repair price.",
     type: "article",
     url: "https://www.flatearthequipment.com/diagnostic-codes/e-a5-1-code-on-toyota-forklift-2",
   },
@@ -22,13 +22,7 @@ export default function EA51ToyotaForkliftPage() {
           "@context": "https://schema.org",
           "@type": "HowTo",
           "name": "How to Diagnose Toyota Forklift E A5-1 Error Code",
-          "description": "Step-by-step guide to troubleshooting the E A5-1 speed control system fault on Toyota forklifts",
-          "totalTime": "PT2H",
-          "estimatedCost": {
-            "@type": "MonetaryAmount",
-            "currency": "USD",
-            "value": "50-500"
-          },
+          "description": "This page does not publish a repair time or a repair price.",
           "tool": [
             {
               "@type": "HowToTool",
@@ -47,31 +41,31 @@ export default function EA51ToyotaForkliftPage() {
             {
               "@type": "HowToStep",
               "name": "Inspect Seat Switch Wiring",
-              "text": "Check for bypass or damage in seat switch wiring. This is a common cause of E A5-1 code.",
+              "text": "This page does not publish a wiring check or a repair time.",
               "position": 1
             },
             {
               "@type": "HowToStep",
               "name": "Test Accelerator Potentiometer",
-              "text": "Verify accelerator potentiometer is sending correct signals and idle speed is normal.",
+              "text": "This page does not publish a repair time.",
               "position": 2
             },
             {
               "@type": "HowToStep",
               "name": "Scan with OBD Tool",
-              "text": "Use OBD scanner to read stored fault codes and identify affected systems.",
+              "text": "This page does not publish a repair time.",
               "position": 3
             },
             {
               "@type": "HowToStep",
               "name": "Inspect Electrical Connections",
-              "text": "Check battery, fuses, and wiring harness for corrosion or loose connections.",
+              "text": "This page does not publish a repair time.",
               "position": 4
             },
             {
               "@type": "HowToStep",
               "name": "Check Fuel System",
-              "text": "Inspect fuel injectors, pump, and feedback control for clogs or malfunctions.",
+              "text": "This page does not publish a repair time.",
               "position": 5
             }
           ]
@@ -87,7 +81,7 @@ export default function EA51ToyotaForkliftPage() {
               "name": "How can the E A5-1 error be resolved in a Toyota forklift?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "To resolve the E A5-1 error, check the vehicle speed control system including the accelerator pedal and sensors. Inspect seat switch wiring, test the accelerator potentiometer, and use an OBD scanner. If needed, consult a professional technician."
+                "text": "This page does not publish a repair time."
               }
             },
             {
@@ -95,7 +89,7 @@ export default function EA51ToyotaForkliftPage() {
               "name": "What are the steps to reset an A5-1 code on a Toyota forklift?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Resetting the A5-1 code typically requires disconnecting the battery for a few minutes with the forklift turned off. Reconnect the battery to clear the error. Consult your specific model's manual for exact reset procedures."
+                "text": "This page does not publish a reset time. The service manual for that model is where the reset is written."
               }
             },
             {
@@ -151,7 +145,7 @@ export default function EA51ToyotaForkliftPage() {
           <strong>The Toyota E A5-1 error code indicates a vehicle speed control system fault.</strong> This code typically points to issues with the accelerator potentiometer, seat switch wiring, or speed sensors.
         </p>
         <p className="text-slate-700">
-          <strong>To fix it:</strong> (1) Check seat switch wiring for bypass or damage, (2) Test accelerator potentiometer for correct signal, (3) Use an OBD scanner to read stored codes, (4) Inspect electrical connections and wiring harness. Reset by disconnecting battery for 2-3 minutes.
+          <strong>To fix it:</strong> This page does not publish a repair time.
         </p>
       </div>
 
@@ -191,11 +185,11 @@ export default function EA51ToyotaForkliftPage() {
           </div>
           <div>
             <div className="font-semibold text-orange-800 mb-1">🔧 Fix time:</div>
-            <div className="text-slate-700">30 minutes - 2 hours</div>
+            <div className="text-slate-700">This page does not publish a repair time.</div>
           </div>
           <div>
             <div className="font-semibold text-orange-800 mb-1">💰 Est. cost:</div>
-            <div className="text-slate-700">$50-500 (parts dependent)</div>
+            <div className="text-slate-700">This page does not publish a repair price.</div>
           </div>
         </div>
       </div>
@@ -269,35 +263,35 @@ export default function EA51ToyotaForkliftPage() {
             <span className="text-xl flex-shrink-0">☐</span>
             <div>
               <div className="font-semibold text-slate-900">Step 1: Inspect Seat Switch Wiring</div>
-              <div className="text-sm text-slate-600 mt-1">Check for bypass or damage. Time: ~5 minutes</div>
+              <div className="text-sm text-slate-600 mt-1">This page does not publish a check time.</div>
             </div>
           </div>
           <div className="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-lg">
             <span className="text-xl flex-shrink-0">☐</span>
             <div>
               <div className="font-semibold text-slate-900">Step 2: Test Accelerator Potentiometer</div>
-              <div className="text-sm text-slate-600 mt-1">Check for correct signal and idle speed. Time: ~10 minutes</div>
+              <div className="text-sm text-slate-600 mt-1">This page does not publish a check time.</div>
             </div>
           </div>
           <div className="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-lg">
             <span className="text-xl flex-shrink-0">☐</span>
             <div>
               <div className="font-semibold text-slate-900">Step 3: Scan with OBD Diagnostic Tool</div>
-              <div className="text-sm text-slate-600 mt-1">Read stored fault codes and live data. Time: ~5 minutes</div>
+              <div className="text-sm text-slate-600 mt-1">This page does not publish a check time.</div>
             </div>
           </div>
           <div className="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-lg">
             <span className="text-xl flex-shrink-0">☐</span>
             <div>
               <div className="font-semibold text-slate-900">Step 4: Inspect Electrical Connections</div>
-              <div className="text-sm text-slate-600 mt-1">Battery, fuses, wiring harness. Time: ~15 minutes</div>
+              <div className="text-sm text-slate-600 mt-1">This page does not publish a check time.</div>
             </div>
           </div>
           <div className="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-lg">
             <span className="text-xl flex-shrink-0">☐</span>
             <div>
               <div className="font-semibold text-slate-900">Step 5: Check Fuel System (if applicable)</div>
-              <div className="text-sm text-slate-600 mt-1">Injectors, fuel pump, feedback control. Time: ~20 minutes</div>
+              <div className="text-sm text-slate-600 mt-1">This page does not publish a check time.</div>
             </div>
           </div>
         </div>
@@ -314,7 +308,7 @@ export default function EA51ToyotaForkliftPage() {
       <div className="prose prose-slate max-w-none">
       <h3>Initial Steps for Troubleshooting</h3>
       <p>When the E A5-1 code appears, begin by checking basic components.</p>
-      <p>First, inspect the seat switch wiring, as a bypass can cause this fault. If the switch seems intact, ensure that the accelerator potentiometer is functioning correctly, since changes in idle speed might occur if it's faulty.</p>
+      <p>This page does not publish a wiring check or a repair time.</p>
       <p>Next, use an OBD (On-Board Diagnostics) scanner to read any stored fault codes. This tool can help clarify the root cause, showing if other systems are affected.</p>
       <p>Remember, keeping all maintenance records is key to identifying patterns that might help diagnose the problem.</p>
       </div>
@@ -536,7 +530,7 @@ export default function EA51ToyotaForkliftPage() {
       <h3>How can the E A5-1 error be resolved in a Toyota forklift?</h3>
       <p>To resolve the E A5-1 error, it is important to check the vehicle speed control system. This involves inspecting components like the accelerator pedal and sensors. If needed, a professional technician can provide further assistance.</p>
       <h3>What are the steps to reset an A5-1 code on a Toyota forklift?</h3>
-      <p>Resetting the A5-1 code often requires disconnecting the battery for a few minutes. Make sure the forklift is turned off during this process. Reconnecting the battery can sometimes clear the error, but consult the manual for specific instructions for the model.</p>
+      <p>This page does not publish a reset time. The service manual for that model is where the reset is written.</p>
       <h3>What does the A5 code represent in Toyota forklift diagnostics?</h3>
       <p>The A5 code in Toyota forklift diagnostics indicates an issue with the speed control system. This code usually arises from discrepancies within the system's components, signaling the need for inspection and potential repairs.</p>
       <h3>Is there a known fix for a 2014 Toyota forklift showing an E A5-1 code?</h3>

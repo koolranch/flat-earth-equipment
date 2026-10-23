@@ -40,7 +40,7 @@ export async function generateMetadata({
   if (!cart) return { title: 'Not Found' };
 
   const title = `${cart.fullName} Lithium Battery Conversion | LiFePO4 Drop-In Kit`;
-  const description = `${cart.fullName} (${cart.yearRange}) lithium battery upgrade. Drop-in LiFePO4 conversion kit with charger, DC converter, LCD display, and mounting hardware. ${cart.rangeEstimate}. 8-year warranty, free shipping on 3+.`;
+  const description = `${cart.fullName} (${cart.yearRange}) lithium battery upgrade. Drop-in LiFePO4 conversion kit with charger, DC converter, LCD display, and mounting hardware. 8-year warranty. Free shipping on 3+. This page does not publish a range or a weight.`;
   const ogImage = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/products/lithium-rhino.png';
 
   return {
@@ -230,8 +230,7 @@ export default async function CartLithiumLanding({
           {cart.fullName} Lithium Battery Conversion
         </h1>
         <p className="text-xl text-slate-600 max-w-3xl">
-          Drop-in LiFePO4 upgrade for the {cart.fullName} ({cart.yearRange}). Get{' '}
-          {cart.rangeEstimate}, lose 200+ lb of dead lead-acid weight, and forget about battery maintenance for the next decade.
+          Drop-in LiFePO4 upgrade for the {cart.fullName} ({cart.yearRange}). The price is on this page. 8-year warranty. Free shipping on 3+. This page does not publish a range or a weight.
         </p>
       </header>
 
@@ -299,7 +298,7 @@ export default async function CartLithiumLanding({
       <section className="grid md:grid-cols-4 gap-4">
         {[
           { icon: Award, label: '8-Year Warranty', sub: '6 yr full + 2 yr pro-rated' },
-          { icon: Battery, label: '6,000+ Cycles', sub: 'IP65 weatherproof' },
+          { icon: Battery, label: 'Listed kit', sub: 'This page does not publish a cycle count.' },
           { icon: Truck, label: 'HazMat Ground Ship', sub: 'Free on 3+ batteries' },
           { icon: Zap, label: 'Bluetooth + BMS', sub: 'Anti-theft lockout' },
         ].map(({ icon: Icon, label, sub }) => (
@@ -375,8 +374,7 @@ export default async function CartLithiumLanding({
       <section className="bg-slate-50 rounded-2xl p-8 space-y-3">
         <h2 className="text-xl font-bold text-slate-900">Learn More Before You Buy</h2>
         <p className="text-slate-700">
-          Not sure if lithium is right for your {cart.model}? Read our complete buyer's guide
-          covering 10-year cost-of-ownership math, range calculations, and cold-weather behavior.
+          Not sure if lithium is right for your {cart.model}? The buyer's guide lists the kit price. It does not publish a range, a weight, or a 10-year savings figure.
         </p>
         <Link
           href="/insights/lithium-vs-lead-acid-golf-cart-batteries-2026-guide"

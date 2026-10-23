@@ -83,12 +83,12 @@ export default function SimpleQuoteModal({ open, onClose, product }: Props) {
           statusText: response.statusText,
           error: errorText
         });
-        alert(`Unable to submit your request (Error ${response.status}). Please email us directly at sales@flatearthequipment.com or call (888) 392-9175.`);
+        alert(`Unable to submit your request (Error ${response.status}). Please email us directly at contact@flatearthequipment.com or call (888) 392-9175.`);
       }
       
     } catch (error) {
       console.error('❌ Form submission error:', error);
-      alert('Network error. Please check your connection or email us directly at sales@flatearthequipment.com');
+      alert('Network error. Please check your connection or email us directly at contact@flatearthequipment.com');
     } finally {
       setIsSubmitting(false);
     }

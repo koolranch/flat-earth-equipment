@@ -78,7 +78,7 @@ export default function ExamPage(){
           Your training is saved. The final exam and your certificate are a one-time $49 purchase.
         </p>
         <ul className="text-sm text-slate-600 space-y-1">
-          <li>15-minute exam, 80% to pass, unlimited retakes</li>
+          <li>This page does not publish an exam time, a passing score, or a retake fee.</li>
           <li>OSHA-aligned certificate, accepted in all 50 states</li>
           <li>Issued the same day, in your name</li>
         </ul>

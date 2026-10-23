@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Quote Request Received | Flat Earth Equipment",
-  description: "Thank you for your quote request. We'll get back to you within one hour.",
+  description: "Thank you for your quote request. We will reply within one business day.",
 };
 
 export default function QuoteThankYouPage() {
@@ -11,7 +11,7 @@ export default function QuoteThankYouPage() {
     <main className="max-w-4xl mx-auto px-4 py-16 text-center">
       <h1 className="text-3xl font-bold text-slate-900 mb-4">Quote Request Received!</h1>
       <p className="text-slate-600 mb-8">
-        We're working on your quote and will get back to you within one hour during business hours.
+        We're working on your quote and will reply within one business day.
       </p>
       <div className="space-y-4">
         <p className="text-slate-700">

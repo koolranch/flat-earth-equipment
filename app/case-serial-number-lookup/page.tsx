@@ -499,7 +499,7 @@ export default function CaseSerialLookupPage() {
                         href="/parts?brand=Case"
                         className="text-sm text-slate-700 underline hover:text-amber-700"
                       >
-                        Case parts in stock
+                        Case parts we list
                       </Link>
                       <a
                         href="tel:+18883929175"
@@ -703,7 +703,7 @@ export default function CaseSerialLookupPage() {
             slug="case"
             name="Case"
             href="/parts?brand=Case"
-            cta="Case parts in stock"
+            cta="Case parts we list"
             detail="Parts we currently list. A listing is not a fit for every machine."
           />
 
@@ -736,7 +736,7 @@ export default function CaseSerialLookupPage() {
           <div className="bg-gradient-to-r from-amber-600 to-yellow-600 rounded-2xl p-8 text-white text-center">
             <h2 className="text-2xl font-bold mb-4">Need Case Parts?</h2>
             <p className="text-amber-100 mb-6 max-w-lg mx-auto">
-              Flat Earth Equipment stocks genuine and aftermarket Case parts for backhoes, excavators, skid steers, and more. Get the right parts for your machine.
+              <Link href="/parts?brand=Case" className="underline">Case parts we list</Link> are aftermarket. A listing is not a fit for every machine. Freight is calculated at checkout.
             </p>
             <Link
               href="/brand/case-construction/serial-lookup#parts-request"

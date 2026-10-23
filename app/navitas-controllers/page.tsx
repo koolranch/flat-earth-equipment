@@ -327,7 +327,7 @@ export default function NavitasControllersHubPage() {
             <div>
               <p className="font-semibold text-slate-900">Unsure which number you have?</p>
               <p className="text-sm text-slate-600 mt-0.5">
-                Email a clear photo of the controller label — we will confirm the kit before you order.
+                Email a clear photo of the controller label. A listing is not a fit for every cart.
               </p>
             </div>
           </div>
@@ -722,7 +722,7 @@ export default function NavitasControllersHubPage() {
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 backdrop-blur px-4 py-3 lg:hidden">
         <div className="container mx-auto space-y-2">
           <p className="text-center text-xs text-slate-600">
-            Not sure? Email a photo of the label — we confirm before you order.
+            Not sure? Email a photo of the label. A listing is not a fit for every cart.
           </p>
           <div className="flex gap-2">
             <a

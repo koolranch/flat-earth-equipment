@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Forklift Attachments | Material Handling Equipment | Flat Earth Equipment",
-  description: "Complete selection of forklift attachments and material handling equipment. Forks, clamps, rotators, and specialized attachments for all major forklift brands.",
+  description: "Forklift attachments on this site. A listing is not a fit for every machine. This page does not publish a custom attachment.",
   keywords: [
     "forklift attachments",
     "material handling attachments", 
@@ -25,48 +25,48 @@ export default function AttachmentsPage() {
       name: "Forks",
       slug: "forks",
       href: "/forks", // Dedicated forks page exists
-      description: "Standard pallet forks, telehandler forks, block forks, and custom length options",
-      features: ["Class II/III/IV", "36\"-96\" lengths", "ANSI certified", "All major brands"],
+      description: "Standard pallet forks, telehandler forks, and block forks.",
+      features: ["Class II/III/IV", "Listed lengths are on the product page", "A listing is not a fit for every machine"],
       image: "🍴"
     },
     {
       name: "Clamps",
       slug: "clamps",
       href: "/parts", // No dedicated page - link to parts catalog
-      description: "Paper roll clamps, bale clamps, carton clamps, and specialized clamping attachments",
-      features: ["Hydraulic operation", "Custom jaw configurations", "Side-shift compatible", "Heavy-duty construction"],
+      description: "Ask for a quote. This page does not publish a jaw size.",
+      features: ["Aftermarket", "A listing is not a fit for every machine", "Freight is calculated at checkout"],
       image: "🗜️"
     },
     {
       name: "Rotators",
       slug: "rotators",
       href: "/parts", // No dedicated page - link to parts catalog
-      description: "Fork rotators, load rotators, and rotating attachments for specialized handling",
-      features: ["360° rotation", "Hydraulic drive", "Load sensing", "Precision control"],
+      description: "Ask for a quote. This page does not publish a rotation spec.",
+      features: ["Aftermarket", "A listing is not a fit for every machine", "Freight is calculated at checkout"],
       image: "🔄"
     },
     {
       name: "Side Shifters",
       slug: "side-shifters",
       href: "/parts", // No dedicated page - link to parts catalog
-      description: "Hydraulic side shifters for precise load positioning and increased efficiency",
-      features: ["Left/right positioning", "Integrated fork mounting", "Smooth operation", "High capacity"],
+      description: "Ask for a quote. This page does not publish a capacity.",
+      features: ["Aftermarket", "A listing is not a fit for every machine", "Freight is calculated at checkout"],
       image: "↔️"
     },
     {
       name: "Push-Pull Attachments",
       slug: "push-pull",
       href: "/parts", // No dedicated page - link to parts catalog
-      description: "Slip sheet handling, push-pull attachments for efficient material transport",
-      features: ["Slip sheet compatible", "Reduced packaging", "Fast cycle times", "Cost effective"],
+      description: "Ask for a quote. This page does not publish a cycle time.",
+      features: ["Aftermarket", "A listing is not a fit for every machine", "Freight is calculated at checkout"],
       image: "⬅️➡️"
     },
     {
       name: "Specialized Attachments",
       slug: "specialized",
       href: "/parts", // No dedicated page - link to parts catalog
-      description: "Custom and specialized attachments for unique material handling requirements",
-      features: ["Custom engineering", "Application specific", "Heavy-duty design", "Expert support"],
+      description: "Ask for a quote. This page does not publish a custom attachment.",
+      features: ["Aftermarket", "A listing is not a fit for every machine", "Freight is calculated at checkout"],
       image: "🔧"
     }
   ];
@@ -88,9 +88,7 @@ export default function AttachmentsPage() {
           Forklift Attachments & Material Handling Equipment
         </h1>
         <p className="text-xl text-slate-700 mb-8 max-w-4xl leading-relaxed">
-          Expand your forklift's capabilities with our comprehensive selection of attachments and specialized 
-          material handling equipment. From standard forks to custom-engineered solutions, we provide 
-          high-quality attachments for all major forklift brands and applications.
+          Attachments we list are on the parts catalog. A listing is not a fit for every machine. This page does not publish a custom attachment.
         </p>
         
         <div className="flex flex-wrap gap-4">
@@ -114,17 +112,17 @@ export default function AttachmentsPage() {
         <div className="text-center p-6">
           <div className="text-4xl mb-4">🏗️</div>
           <h3 className="font-semibold mb-2">Heavy-Duty Construction</h3>
-          <p className="text-sm text-slate-600">Built for industrial applications with high-strength materials</p>
+          <p className="text-sm text-slate-600">This page does not publish a steel grade</p>
         </div>
         <div className="text-center p-6">
           <div className="text-4xl mb-4">✅</div>
-          <h3 className="font-semibold mb-2">Safety Certified</h3>
-          <p className="text-sm text-slate-600">ANSI/ITSDF compliant with full documentation</p>
+          <h3 className="font-semibold mb-2">Certification</h3>
+          <p className="text-sm text-slate-600">This page does not publish a safety certification</p>
         </div>
         <div className="text-center p-6">
           <div className="text-4xl mb-4">🔧</div>
-          <h3 className="font-semibold mb-2">Custom Solutions</h3>
-          <p className="text-sm text-slate-600">Engineering support for specialized applications</p>
+          <h3 className="font-semibold mb-2">Lengths</h3>
+          <p className="text-sm text-slate-600">This page does not publish a custom attachment</p>
         </div>
         <div className="text-center p-6">
           <div className="text-4xl mb-4">🚚</div>
@@ -225,11 +223,11 @@ export default function AttachmentsPage() {
                 </li>
                 <li className="flex items-start">
                   <span className="text-green-600 mr-2">✓</span>
-                  Compatibility verification for all brands
+                  A listing is not a fit for every machine
                 </li>
                 <li className="flex items-start">
                   <span className="text-green-600 mr-2">✓</span>
-                  Installation guidance and support
+                  We do not install the attachment
                 </li>
               </ul>
             </div>
@@ -238,15 +236,15 @@ export default function AttachmentsPage() {
               <ul className="space-y-2 text-slate-700">
                 <li className="flex items-start">
                   <span className="text-green-600 mr-2">✓</span>
-                  ANSI/ITSDF B56.1 compliance
+                  This page does not publish a safety certification
                 </li>
                 <li className="flex items-start">
                   <span className="text-green-600 mr-2">✓</span>
-                  Rigorous quality control testing
+                  This page does not publish a test record
                 </li>
                 <li className="flex items-start">
                   <span className="text-green-600 mr-2">✓</span>
-                  High-strength materials and construction
+                  This page does not publish a steel grade
                 </li>
                 <li className="flex items-start">
                   <span className="text-green-600 mr-2">✓</span>

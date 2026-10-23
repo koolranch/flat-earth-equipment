@@ -37,7 +37,7 @@ export default function NissanK21EnginePage() {
     "@context": "https://schema.org",
     "@type": "Product",
     "name": "Nissan K21 Engine",
-    "description": "Reliable 2.1L 4-cylinder engine for Nissan forklifts. The K21 engine offers 45-50 HP power output and runs on LPG/Propane fuel.",
+    "description": "We do not currently list a Nissan K21 engine. This page does not publish a horsepower rating or a displacement.",
     "brand": {
       "@type": "Brand",
       "name": "Nissan"
@@ -47,12 +47,12 @@ export default function NissanK21EnginePage() {
       {
         "@type": "PropertyValue",
         "name": "Displacement",
-        "value": "2.1L (2,068 cc)"
+        "value": "This page does not publish a displacement."
       },
       {
         "@type": "PropertyValue", 
         "name": "Power Output",
-        "value": "45-50 HP"
+        "value": "This page does not publish a horsepower rating."
       },
       {
         "@type": "PropertyValue",
@@ -109,22 +109,22 @@ export default function NissanK21EnginePage() {
             <div className="flex items-center gap-3 bg-white p-4 rounded-lg shadow-sm">
               <Zap className="h-6 w-6 text-blue-600" />
               <div>
-                <h3 className="font-semibold text-slate-900">45-50 HP</h3>
+                <h3 className="font-semibold text-slate-900">Horsepower</h3>
                 <p className="text-sm text-slate-600">Power Output</p>
               </div>
             </div>
             <div className="flex items-center gap-3 bg-white p-4 rounded-lg shadow-sm">
               <Settings className="h-6 w-6 text-green-600" />
               <div>
-                <h3 className="font-semibold text-slate-900">2.1L Displacement</h3>
+                <h3 className="font-semibold text-slate-900">Displacement</h3>
                 <p className="text-sm text-slate-600">Engine Size</p>
               </div>
             </div>
             <div className="flex items-center gap-3 bg-white p-4 rounded-lg shadow-sm">
               <CheckCircle className="h-6 w-6 text-orange-600" />
               <div>
-                <h3 className="font-semibold text-slate-900">LPG/Propane</h3>
-                <p className="text-sm text-slate-600">Fuel Type</p>
+                <h3 className="font-semibold text-slate-900">Fuel</h3>
+                <p className="text-sm text-slate-600">This page does not publish a fuel type.</p>
               </div>
             </div>
           </div>
@@ -156,11 +156,11 @@ export default function NissanK21EnginePage() {
               </div>
               <div className="flex justify-between items-center p-3 bg-slate-50 rounded">
                 <span className="font-medium text-slate-700">Displacement:</span>
-                <span className="text-slate-900">2.1L (2,068 cc)</span>
+                <span className="text-slate-900">This page does not publish a displacement.</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-slate-50 rounded">
                 <span className="font-medium text-slate-700">Power Output:</span>
-                <span className="text-slate-900">45-50 HP</span>
+                <span className="text-slate-900">This page does not publish a horsepower rating.</span>
               </div>
             </div>
             <div className="space-y-4">
@@ -422,7 +422,7 @@ export default function NissanK21EnginePage() {
                   <span className="transition-transform group-open:rotate-180">▼</span>
                 </summary>
                 <div className="p-4 text-slate-700">
-                  The <strong>K21 engine</strong> produces 45-50 horsepower, making it ideal for mid-size forklift applications 
+                  This page does not publish a horsepower rating. We do not currently list a Nissan K21 engine. 
                   including the Nissan FD30, FD40, FD50, and FD60 models.
                 </div>
               </details>

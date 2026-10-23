@@ -39,7 +39,7 @@ const FAQS = [
   },
   {
     q: 'Are these OEM brooms?',
-    a: 'These are aftermarket replacements built to match OEM size and mounting. Listings show the catalog part number for cross-reference. Confirm your machine model and broom dimensions before ordering.',
+    a: 'These are aftermarket. Broom length, diameter, and filament have to match the machine. A listing is not a fit for every machine.',
   },
   {
     q: 'What does single-row vs double-row mean?',

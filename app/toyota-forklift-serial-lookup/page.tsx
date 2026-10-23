@@ -346,10 +346,10 @@ export default function ToyotaLookupPage() {
           <h2 className="text-xl font-bold text-slate-900 mb-4">Understanding Model Codes</h2>
           <div className="space-y-3 text-slate-700">
             <p>
-              <strong>7F Series:</strong> Older generation Toyota forklifts (typically 1999-2007)
+              <strong>7F Series:</strong> This page does not publish a model-year range.
             </p>
             <p>
-              <strong>8F Series:</strong> Newer generation Toyota forklifts (typically 2007+)
+              <strong>8F Series:</strong> This page does not publish a model-year range.
             </p>
             <p className="text-sm text-slate-600 bg-slate-50 p-3 rounded">
               <strong>Tip:</strong> The generation (7F, 8F) indicates the design series, but the exact 

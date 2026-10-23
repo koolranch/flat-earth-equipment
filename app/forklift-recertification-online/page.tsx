@@ -4,7 +4,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Forklift Recertification Online – Renew OSHA Card in 45 Minutes",
   description:
-    "Renew your forklift license fast. Complete the OSHA-compliant refresher course and print your 3-year certificate today for just $49.",
+    "Renew your forklift license. Study is free. $49 is paid at the final exam. Formal instruction is under 30 minutes. The workplace supervisor does the hands-on evaluation.",
   alternates: {
     canonical: "/forklift-recertification-online",
     languages: {
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Online Forklift License Renewal",
     description:
-      "Finish the refresher in <45 min, instant printable card, unlimited exam retakes.",
+      "Formal instruction is under 30 minutes. $49 at the final exam. The workplace supervisor does the hands-on evaluation.",
     url: "/forklift-recertification-online",
     type: "website",
   },
@@ -41,12 +41,11 @@ export default function ForkliftRecertification() {
                 },
                 "offers": {
                   "@type": "Offer",
-                  "price": "59",
+                  "price": "49",
                   "priceCurrency": "USD",
                   "url": "/forklift-recertification-online"
                 },
                 "educationalLevel": "Professional",
-                "timeRequired": "PT45M",
                 "courseMode": "online",
                 "inLanguage": ["en", "es"]
               },
@@ -66,7 +65,7 @@ export default function ForkliftRecertification() {
                     "name": "What if I fail the quiz?",
                     "acceptedAnswer": {
                       "@type": "Answer",
-                      "text": "Retake it immediately – unlimited attempts, free of charge."
+                      "text": "This page does not publish a retake fee."
                     }
                   },
                   {
@@ -89,8 +88,8 @@ export default function ForkliftRecertification() {
 
         <p className="lead text-xl text-gray-700 mb-8">
           Already certified? OSHA requires <strong>recertification every 3 years</strong> 
-          or sooner after an accident. Knock out the theory refresher in
-          <strong> under 45 minutes</strong> and download your updated card instantly.
+          or sooner after an accident. Formal instruction is
+          <strong> under 30 minutes</strong>. The workplace supervisor does the hands-on evaluation. $49 is paid at the final exam.
         </p>
 
         <div className="not-prose mb-8">
@@ -117,7 +116,7 @@ export default function ForkliftRecertification() {
           <li>New stability triangle & load capacity demonstrations</li>
           <li>Video case studies of recent forklift incidents</li>
           <li>Interactive hazard recognition exercises</li>
-          <li>30-question exam with unlimited retakes</li>
+          <li>This page does not publish a question count or a retake fee.</li>
         </ol>
 
         <h2>Finish in 3 Simple Steps</h2>
@@ -132,7 +131,7 @@ export default function ForkliftRecertification() {
             <div className="flex items-start gap-4">
               <div className="w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold">2</div>
               <div>
-                <strong>Watch bite-size videos</strong> & pass the quiz (&lt; 45 min)
+                <strong>Watch the modules</strong> and pass the exam. Formal instruction is under 30 minutes.
               </div>
             </div>
             <div className="flex items-start gap-4">
@@ -172,7 +171,7 @@ export default function ForkliftRecertification() {
         
         <details className="border rounded-lg p-4 mb-4">
           <summary className="cursor-pointer font-medium">What if I fail the quiz?</summary>
-          <p className="mt-2 text-gray-700">Retake it immediately – unlimited attempts, free of charge.</p>
+          <p className="mt-2 text-gray-700">This page does not publish a retake fee.</p>
         </details>
         
         <details className="border rounded-lg p-4 mb-4">

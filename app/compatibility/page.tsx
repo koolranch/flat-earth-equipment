@@ -65,7 +65,7 @@ async function getBrandStats() {
 
 export const metadata: Metadata = {
   title: 'Universal Compatibility Hub | Equipment Charger Fitment Guide',
-  description: 'Find the right replacement charger for your forklift, scissor lift, or aerial work platform. Verified OEM fitment for JLG, Genie, Toyota, Hyster, Yale, and more. 2026 Fleet Compliant.',
+  description: 'Charger listings for forklifts, scissor lifts, and aerial platforms. A listing is not a fit for every truck. This page does not publish an OEM-spec test.',
   keywords: [
     'forklift charger compatibility',
     'scissor lift charger replacement',
@@ -92,7 +92,7 @@ function generateCollectionSchema(brands: { brand: string; slug: string; count: 
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: 'Universal Compatibility Hub',
-    description: 'Find verified replacement chargers and OEM parts for industrial equipment including forklifts, scissor lifts, aerial work platforms, and construction equipment.',
+    description: 'Charger listings are on this site. A listing is not a fit for every truck. This page does not publish an OEM-spec test.',
     url: 'https://www.flatearthequipment.com/compatibility',
     mainEntity: {
       '@type': 'ItemList',
@@ -187,11 +187,11 @@ export default async function CompatibilityHubPage() {
             <div className="flex flex-wrap items-center gap-3 mb-6">
               <span className="px-3 py-1 bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-sm font-semibold rounded-full flex items-center gap-1">
                 <ShieldCheck className="w-4 h-4" />
-                Verified OEM Fitment
+                A listing is not a fit for every truck
               </span>
               <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/40 text-blue-300 text-sm font-semibold rounded-full flex items-center gap-1">
                 <Calendar className="w-4 h-4" />
-                2026 Fleet Compliant
+                This page does not publish a fleet certification
               </span>
             </div>
 
@@ -199,8 +199,7 @@ export default async function CompatibilityHubPage() {
               Universal Compatibility Hub
             </h1>
             <p className="text-xl text-slate-300 max-w-3xl mb-8">
-              Find the exact replacement charger for your equipment. Every fitment is 
-              verified against OEM specifications and tested for fleet compliance.
+              Charger listings are on the charger pages. A listing is not a fit for every truck. This page does not publish an OEM-spec test.
             </p>
 
             {/* Quick Stats */}

@@ -35,7 +35,7 @@ const FAQ_ITEMS = [
   {
     question: 'Do you ship forklift and telehandler parts to Denver?',
     answer:
-      'Yes. Flat Earth Equipment ships precision-fit forklift, scissor lift, and telehandler parts to Denver and the surrounding Front Range. Order online or contact our parts team with your make, model, and part number for a quote.',
+      'Yes. Flat Earth Equipment ships forklift, scissor lift, and telehandler parts to Denver and the surrounding Front Range. A listing is not a fit for every machine. Freight is calculated at checkout.',
   },
   {
     question: 'Do you offer equipment rentals or on-site repairs in Denver?',
@@ -147,7 +147,7 @@ export default function DenverPage() {
             <h2 className="text-3xl font-bold text-slate-900 mb-6">Parts for the Front Range</h2>
             <p className="text-lg text-slate-700 mb-6 leading-relaxed">
               Flat Earth Equipment supplies forklift, scissor lift, telehandler, and heavy equipment
-              parts to customers in the Denver Metro area. We ship precision-fit components to
+              parts to customers in the Denver Metro area. A listing is not a fit for every machine. Freight is calculated at checkout. We ship to
               warehouses, distribution centers, contractors, and facilities throughout Denver,
               Aurora, Lakewood, Westminster, Thornton, and nearby Front Range communities.
             </p>
@@ -347,8 +347,7 @@ export default function DenverPage() {
           <div className="flex-1">
             <h2 className="text-2xl font-bold text-slate-900 mb-4">Need Certified Operators?</h2>
             <p className="text-slate-700 mb-4">
-              Get your Denver team OSHA-certified in under 60 minutes. Our online training is valid
-              statewide and accepted by major Colorado employers.
+              Get your Denver team through the online course. Formal instruction is under 30 minutes. The course is $49 at the final exam.
             </p>
             <ul className="space-y-2 mb-6">
               <li className="flex items-center text-sm text-slate-600">

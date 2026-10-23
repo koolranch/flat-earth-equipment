@@ -144,7 +144,7 @@ export default async function ForYourMachinePage({
           browseAll: 'Browse all',
           serial: 'Not sure of the model? Find the serial plate',
           trackNote:
-            'Track fitment still depends on the serial-number prefix. Open the product page before you order.',
+            'Track fitment still depends on the serial-number prefix. A listing is not a fit for every machine.',
           requestQuote: 'Request a quote',
           loadError: 'The catalog could not be loaded. Try again.',
         };

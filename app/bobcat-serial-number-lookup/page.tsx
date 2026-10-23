@@ -505,7 +505,7 @@ export default function BobcatLookupPage() {
                         href="/parts?brand=Bobcat"
                         className="text-sm text-slate-700 underline hover:text-red-700"
                       >
-                        Bobcat parts in stock
+                        Bobcat parts we list
                       </Link>
                       <a
                         href="tel:+18883929175"
@@ -619,7 +619,7 @@ export default function BobcatLookupPage() {
               <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 hover:shadow-md transition-all group-hover:border-red-300">
                 <div className="flex items-center gap-3 mb-3">
                   <Wrench className="h-5 w-5 text-red-600" />
-                  <h3 className="font-semibold text-slate-900 group-hover:text-red-600">Bobcat parts in stock</h3>
+                  <h3 className="font-semibold text-slate-900 group-hover:text-red-600">Bobcat parts we list</h3>
                 </div>
                 <p className="text-sm text-slate-600">
                   Bobcat parts we currently list. A listing is not a fit for every machine.

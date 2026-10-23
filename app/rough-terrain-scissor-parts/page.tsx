@@ -40,7 +40,7 @@ type PartRow = {
 const FAQS = [
   {
     q: 'Which rough-terrain scissor models are covered?',
-    a: 'Genie GS68 RT, GS84 RT, and GS90 RT; JLG 260 MRT, 400/500 RTS, and 3394/4394 RT; Skyjack SJRT 6826/6832, 7127/7135, 8831, 8841, and 9241/9250. Fitment follows manufacturer serial breaks where published — always confirm your serial before ordering.',
+    a: 'Genie GS68 RT, GS84 RT, and GS90 RT; JLG 260 MRT, 400/500 RTS, and 3394/4394 RT; Skyjack SJRT 6826/6832, 7127/7135, 8831, 8841, and 9241/9250. The serial prefix has to match. A listing is not a fit for every machine.',
   },
   {
     q: 'Are these OEM or aftermarket parts?',

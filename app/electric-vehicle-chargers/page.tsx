@@ -14,20 +14,20 @@ const translations = {
   en: {
     metadata: {
       title: "Electric Vehicle Chargers | Level 2 EV Charging Stations | Flat Earth Equipment",
-      description: "Professional-grade electric vehicle chargers and EV charging stations. Remanufactured Level 2 chargers with smart features, weather-resistant design, and eco-friendly sustainability.",
+      description: "Remanufactured Level 2 electric vehicle chargers. The price and the core deposit are on each listing. Freight is calculated at checkout.",
       keywords: "electric vehicle chargers, ev chargers, level 2 charging station, ev charging equipment, remanufactured ev chargers, chargepoint, electric car chargers",
     },
     header: {
       badge: "Eco-Friendly Remanufactured Solutions",
       title: "Professional Electric Vehicle Chargers",
-      subtitle: "Smart Level 2 EV charging stations for faster, more efficient charging at home, work, and commercial locations. Professionally remanufactured for reliability and sustainability."
+      subtitle: "Remanufactured Level 2 chargers. The price and the core deposit are on each listing. Freight is calculated at checkout. A listing is not a fit for every vehicle.",
     },
     features: {
       title: "Advanced EV Charging Technology",
       items: [
         {
           title: "Fast Level 2 Charging",
-          description: "Dramatically reduce charging time with 6x faster speeds than standard 120V outlets"
+          description: "This page does not publish a charge speed."
         },
         {
           title: "Smart Connectivity", 
@@ -51,28 +51,25 @@ const translations = {
       coreDeposit: "refundable core deposit",
       buyNow: "Buy Now →",
       noChargers: {
-        title: "More EV Chargers Coming Soon",
-        description: "We're expanding our electric vehicle charger inventory. Contact us for specific EV charging requirements.",
-        contact: "Contact for EV Charging Solutions"
+        title: "Ask about a charger we do not list",
+        description: "Listed chargers are on this page. This page does not publish a price for a charger that is not listed.",
+        contact: "Contact"
       }
     },
     whyEV: {
       title: "Why Install Electric Vehicle Charging?",
       benefits: [
         "Reduce dependency on public charging networks",
-        "Convenient overnight charging at home or work", 
-        "Significant cost savings compared to public charging",
-        "Increase property value with EV charging infrastructure",
-        "Support the growing electric vehicle ecosystem"
+        "Charge at home or at work",
       ],
       fastCharging: {
         title: "Fast Charging Benefits",
         items: [
-          "Level 2 charging: 6x faster than standard outlets",
-          "Add 25-30 miles of range per hour of charging",
-          "Full overnight charging for daily commuting",
-          "Smart scheduling for off-peak electricity rates",
-          "Weather-resistant for year-round reliability"
+          "This page does not publish a charge speed or a miles-per-hour figure.",
+          "This page does not publish a range added per hour.",
+          "A full charge depends on the vehicle and the charger.",
+          "This page does not publish an electricity rate.",
+          "Check the charger listing for an indoor or outdoor rating.",
         ]
       }
     },
@@ -129,7 +126,7 @@ const translations = {
       items: [
         {
           question: "What is Level 2 charging?",
-          answer: "Level 2 chargers operate at 240V and provide 6x faster charging than standard 120V household outlets, typically adding 25-30 miles of range per hour."
+          answer: "This page does not publish a charge speed or a miles-per-hour figure. Match the charger to the vehicle."
         },
         {
           question: "Do they work with all electric vehicles?",
@@ -163,20 +160,20 @@ const translations = {
   es: {
     metadata: {
       title: "Cargadores de Vehículos Eléctricos | Estaciones de Carga EV Nivel 2 | Flat Earth Equipment",
-      description: "Cargadores de vehículos eléctricos de grado profesional y estaciones de carga EV. Cargadores Nivel 2 remanufacturados con características inteligentes, diseño resistente al clima y sostenibilidad ecológica.",
+      description: "Cargadores de vehículos eléctricos remanufacturados de Nivel 2. El precio y el depósito de núcleo están en cada listado. El flete se calcula al pagar.",
       keywords: "cargadores vehículos eléctricos, cargadores ev, estación carga nivel 2, equipo carga ev, cargadores ev remanufacturados, chargepoint, cargadores autos eléctricos",
     },
     header: {
       badge: "Soluciones Remanufacturadas Ecológicas",
       title: "Cargadores Profesionales de Vehículos Eléctricos", 
-      subtitle: "Estaciones de carga EV Nivel 2 inteligentes para carga más rápida y eficiente en casa, trabajo y ubicaciones comerciales. Profesionalmente remanufacturados para confiabilidad y sostenibilidad."
+      subtitle: "Cargadores Nivel 2 remanufacturados. El precio y el depósito de núcleo están en cada listado. El flete se calcula al pagar. Un listado no sirve para todos los vehículos.",
     },
     features: {
       title: "Tecnología Avanzada de Carga EV",
       items: [
         {
           title: "Carga Rápida Nivel 2",
-          description: "Reduce dramáticamente el tiempo de carga con velocidades 6x más rápidas que tomacorrientes estándar de 120V"
+          description: "Esta página no publica una velocidad de carga."
         },
         {
           title: "Conectividad Inteligente",
@@ -200,28 +197,25 @@ const translations = {
       coreDeposit: "depósito de núcleo reembolsable",
       buyNow: "Comprar ahora →",
       noChargers: {
-        title: "Más Cargadores EV Próximamente",
-        description: "Estamos expandiendo nuestro inventario de cargadores de vehículos eléctricos. Contáctanos para requisitos específicos de carga EV.",
-        contact: "Contactar para Soluciones de Carga EV"
+        title: "Pregunta por un cargador que no está listado",
+        description: "Los cargadores listados están en esta página. Esta página no publica un precio para un cargador que no está listado.",
+        contact: "Contacto"
       }
     },
     whyEV: {
       title: "¿Por Qué Instalar Carga de Vehículos Eléctricos?",
       benefits: [
         "Reduce la dependencia en redes de carga pública",
-        "Carga conveniente durante la noche en casa o trabajo",
-        "Ahorros significativos comparado con carga pública", 
-        "Aumenta el valor de la propiedad con infraestructura de carga EV",
-        "Apoya el creciente ecosistema de vehículos eléctricos"
+        "Carga en casa o en el trabajo",
       ],
       fastCharging: {
         title: "Beneficios de Carga Rápida",
         items: [
-          "Carga Nivel 2: 6x más rápida que tomacorrientes estándar",
-          "Agrega 25-30 millas de autonomía por hora de carga",
-          "Carga completa nocturna para desplazamientos diarios",
-          "Programación inteligente para tarifas eléctricas fuera de pico",
-          "Resistente al clima para confiabilidad durante todo el año"
+          "Esta página no publica una velocidad de carga.",
+          "Esta página no publica millas por hora.",
+          "Una carga completa depende del vehículo y del cargador.",
+          "Esta página no publica una tarifa eléctrica.",
+          "Revisa el listado para saber si es interior o exterior.",
         ]
       }
     },
@@ -278,7 +272,7 @@ const translations = {
       items: [
         {
           question: "¿Qué es un cargador Nivel 2?",
-          answer: "Los cargadores Nivel 2 operan a 240V y proporcionan carga 6x más rápida que tomacorrientes domésticos estándar de 120V, agregando típicamente 25-30 millas de autonomía por hora."
+          answer: "Esta página no publica una velocidad de carga ni millas por hora. El cargador tiene que coincidir con el vehículo."
         },
         {
           question: "¿Funcionan con todos los vehículos eléctricos?",
@@ -376,8 +370,8 @@ export default function ElectricVehicleChargersPage() {
             "@type": "ItemList",
             "name": language === 'es' ? "Cargadores de Vehículos Eléctricos" : "Electric Vehicle Chargers",
             "description": language === 'es' ? 
-              "Cargadores de vehículos eléctricos de grado profesional y estaciones de carga EV. Cargadores Nivel 2 remanufacturados con características inteligentes." :
-              "Professional-grade electric vehicle chargers and EV charging stations. Remanufactured Level 2 chargers with smart features.",
+              "Cargadores de vehículos eléctricos remanufacturados de Nivel 2. El precio está en cada listado." :
+              "Remanufactured Level 2 electric vehicle chargers. The price is on each listing.",
             "url": "https://www.flatearthequipment.com/electric-vehicle-chargers",
             "inLanguage": language,
             "numberOfItems": evChargers.length,

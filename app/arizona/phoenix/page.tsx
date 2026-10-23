@@ -276,7 +276,7 @@ export default async function PhoenixPage() {
           <div className="flex-1">
             <h2 className="text-2xl font-bold text-slate-900 mb-4">Need Certified Operators?</h2>
             <p className="text-slate-700 mb-4">
-              Get your Phoenix team OSHA-certified in under 60 minutes. Our online training is valid statewide and accepted by major Arizona companies.
+              Get your Phoenix team through the online course. Formal instruction is under 30 minutes. The course is $49 at the final exam.
             </p>
             <ul className="space-y-2 mb-6">
               <li className="flex items-center text-sm text-slate-600">

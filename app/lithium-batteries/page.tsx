@@ -14,14 +14,14 @@ const LITHIUM_OG_IMAGE = 'https://mzsozezflbhebykncbmr.supabase.co/storage/v1/ob
 export const metadata = {
   title: 'Lithium Golf Cart Batteries | Lithium Rhino LiFePO4 Conversion Kits | 36V 48V 72V',
   description:
-    'In-stock Lithium Rhino LiFePO4 golf cart battery conversion kits and replacement batteries for EZGO, Club Car, Yamaha. 6,000+ cycles, 8-year warranty, IP65, Bluetooth. Free shipping on 3+.',
+    'In-stock Lithium Rhino LiFePO4 golf cart battery conversion kits and replacement batteries for EZGO, Club Car, and Yamaha. 8-year warranty: 6 years full replacement, then 2 years pro-rated with a $500 deductible. Free shipping on 3+.',
   keywords:
     'lithium golf cart battery, lithium rhino, LiFePO4 golf cart battery, 48V 105Ah lithium, 36V 105Ah lithium, EZGO lithium conversion, Club Car lithium conversion, Yamaha lithium conversion, golf cart battery upgrade, heated lithium battery',
   alternates: generatePageAlternates('/lithium-batteries'),
   openGraph: {
     title: 'Lithium Golf Cart Batteries | Lithium Rhino LiFePO4',
     description:
-      'In-stock Lithium Rhino LiFePO4 golf cart battery conversion kits and replacement batteries. 6,000+ cycles, 8-year warranty, free shipping on 3+ batteries.',
+      'In-stock Lithium Rhino LiFePO4 golf cart battery conversion kits and replacement batteries. 8-year warranty. Free shipping on 3+ batteries.',
     type: 'website',
     url: 'https://www.flatearthequipment.com/lithium-batteries',
     images: [{ url: LITHIUM_OG_IMAGE, width: 1200, height: 1200, alt: 'Lithium Rhino LiFePO4 Golf Cart Battery' }],
@@ -30,7 +30,7 @@ export const metadata = {
     card: 'summary_large_image' as const,
     title: 'Lithium Golf Cart Batteries | Lithium Rhino LiFePO4',
     description:
-      'In-stock conversion kits and replacement batteries for EZGO, Club Car, Yamaha. 6,000+ cycles, 8-year warranty, free shipping on 3+.',
+      'In-stock conversion kits and replacement batteries for EZGO, Club Car, and Yamaha. 8-year warranty. Free shipping on 3+.',
     images: [LITHIUM_OG_IMAGE],
   },
 };
@@ -78,7 +78,7 @@ const FAQ_ITEMS: Array<{ q: string; a: string }> = [
   },
   {
     q: 'How long does it take to install?',
-    a: 'Most DIY installations take 2-4 hours. The kit includes mounting hardware and instructions. If you prefer professional installation, most golf cart shops can complete the swap in under 2 hours.',
+    a: 'This page does not publish an install time. The kit includes the hardware listed on the product page. We do not install it.',
   },
   {
     q: 'What is HazMat shipping and how does it affect my order?',
@@ -196,7 +196,7 @@ export default async function LithiumBatteriesLanding() {
         </h1>
         <p className="text-xl text-slate-600 max-w-3xl mx-auto">
           In-stock LiFePO4 conversion kits and replacement batteries for EZGO, Club Car, and Yamaha.
-          50% more range, 60% less weight, 12+ year lifespan — backed by an industry-leading 8-year warranty.
+          The 8-year warranty is 6 years of full replacement, then 2 years pro-rated with a $500 deductible. This page does not publish a range percent, a weight percent, or a lifespan beyond that warranty.
         </p>
         <div className="flex flex-wrap justify-center gap-3 pt-3">
           <a
@@ -213,7 +213,7 @@ export default async function LithiumBatteriesLanding() {
           </a>
         </div>
         <p className="text-sm text-slate-500 pt-1">
-          6,000+ cycles · 8-year warranty · IP65 · Free HazMat freight on 3+ batteries
+          8-year warranty · Free shipping on 3+ batteries
         </p>
       </header>
 
@@ -292,10 +292,10 @@ export default async function LithiumBatteriesLanding() {
         <h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">Why Convert to Lithium?</h2>
         <div className="grid md:grid-cols-4 gap-6">
           {[
-            { icon: Zap, title: '50% More Range', desc: 'Same voltage, more usable capacity. Get 40-50 miles per charge instead of 20-25.' },
-            { icon: Battery, title: '60% Lighter', desc: 'A 48V LiFePO4 pack weighs ~100 lb vs. ~340 lb for lead-acid — better acceleration, less wear.' },
+            { icon: Zap, title: 'Listed kits', desc: 'The price is on the product page. This page does not publish a range or a miles-per-charge figure.' },
+            { icon: Battery, title: 'Warranty', desc: '6 years full replacement, then 2 years pro-rated with a $500 deductible. This page does not publish a weight.' },
             { icon: Wrench, title: 'Zero Maintenance', desc: 'No watering, no terminal cleaning, no equalization charges. Install once and forget it.' },
-            { icon: Award, title: '12+ Year Lifespan', desc: '6,000+ cycles vs. 500-1,000 for flooded lead-acid. Pays for itself in 2-3 years.' },
+            { icon: Award, title: '8-year warranty', desc: '6 years full replacement, then 2 years pro-rated with a $500 deductible. This page does not publish a cycle count or a payback period.' },
           ].map(({ icon: Icon, title, desc }) => (
             <div key={title} className="text-center space-y-2">
               <div className="w-12 h-12 mx-auto bg-orange-100 rounded-full flex items-center justify-center">

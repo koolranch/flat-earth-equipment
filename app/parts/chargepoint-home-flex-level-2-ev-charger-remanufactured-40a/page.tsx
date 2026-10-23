@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation';
 
 export const metadata = {
   title: "ChargePoint Home Flex Level 2 EV Charger (Remanufactured) - 40A, 9.6kW | Flat Earth Equipment",
-  description: "Remanufactured ChargePoint Home Flex Level 2 EV charger with 40A output and 9.6kW power. $450 + $300 refundable core deposit. Freight is calculated at checkout.",
+  description: "Remanufactured ChargePoint Home Flex. The price is $450 plus a $300 core. Freight is calculated at checkout. This page does not publish a kilowatt rating.",
   keywords: "chargepoint home flex, level 2 ev charger, remanufactured ev charger, 40 amp ev charger, electric vehicle charging station, j1772 charger",
 };
 
@@ -37,8 +37,8 @@ export default async function ChargePointChargerPage() {
     },
     {
       icon: Gauge,
-      title: "High-Power 9.6kW Output",
-      description: "40-amp charging station operates on 220-240V circuits for maximum efficiency"
+      title: "40A listing",
+      description: "40A listing. This page does not publish a voltage. We do not install the charger."
     },
     {
       icon: Shield,
@@ -82,7 +82,7 @@ export default async function ChargePointChargerPage() {
             "@context": "https://schema.org",
             "@type": "Product",
             "name": product.name,
-            "description": product.description,
+            "description": "Remanufactured ChargePoint Home Flex. The price is $450 plus a $300 core. This page does not publish a kilowatt rating or an enclosure rating.",
             "sku": product.sku,
             "brand": {
               "@type": "Brand",
@@ -105,7 +105,7 @@ export default async function ChargePointChargerPage() {
               {
                 "@type": "PropertyValue", 
                 "name": "Power Output",
-                "value": "9.6kW"
+                "value": "See the listing"
               },
               {
                 "@type": "PropertyValue",
@@ -127,7 +127,7 @@ export default async function ChargePointChargerPage() {
               ChargePoint Home Flex Level 2 EV Charger
             </h1>
             <p className="text-xl text-gray-600">
-              Professional-grade 40A charging station delivering 9.6kW of power for faster, smarter EV charging at home and work.
+              The price is on this listing. Freight is calculated at checkout. This page does not publish a kilowatt rating.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 items-center">
@@ -290,8 +290,8 @@ export default async function ChargePointChargerPage() {
             <div>
               <h3 className="font-semibold mb-4">Power & Performance</h3>
               <ul className="space-y-2 text-sm">
-                <li><span className="font-medium">Power Output:</span> 9.6kW (40A)</li>
-                <li><span className="font-medium">Voltage:</span> 220-240V AC</li>
+                <li><span className="font-medium">Power Output:</span> See the listing</li>
+                <li><span className="font-medium">Voltage:</span> This page does not publish a voltage.</li>
                 <li><span className="font-medium">Connector:</span> J1772 Universal</li>
                 <li><span className="font-medium">Charging Speed:</span> This page does not publish a miles-per-hour range.</li>
               </ul>
@@ -300,7 +300,7 @@ export default async function ChargePointChargerPage() {
               <h3 className="font-semibold mb-4">Installation & Features</h3>
               <ul className="space-y-2 text-sm">
                 <li><span className="font-medium">Installation:</span> This page does not cover installation.</li>
-                <li><span className="font-medium">Enclosure:</span> NEMA 3R weather-resistant</li>
+                <li><span className="font-medium">Enclosure:</span> This page does not publish an enclosure rating.</li>
                 <li><span className="font-medium">Smart Features:</span> ChargePoint app compatible</li>
                 <li><span className="font-medium">Safety:</span> Multiple protection systems</li>
               </ul>

@@ -111,7 +111,7 @@ export default async function BlogPost({ params }: Props) {
         {
           question: 'How long does it take to get forklift certified?',
           answer:
-            'Formal instruction often takes under an hour online or in the app. On-site practice and evaluation usually happen the same day or within a few days. Many operators go from start to evaluated within a week.',
+            'Formal instruction is under 30 minutes online or in the app. The workplace supervisor schedules the hands-on evaluation. This page does not publish that time.',
         },
         {
           question: 'Does forklift certification transfer to a new employer?',
@@ -138,7 +138,7 @@ export default async function BlogPost({ params }: Props) {
         {
           question: 'Are left-hand and right-hand joysticks interchangeable?',
           answer:
-            'No. LH and RH joystick assemblies are built for a specific cab mounting position and are not interchangeable. Always confirm LH/RH, function count, and your model/serial number before ordering.',
+            'No. LH and RH joystick assemblies are built for a specific cab side and are not interchangeable. Function count and the cab side have to match. A listing is not a fit for every machine.',
         },
         {
           question: 'Can I use an aftermarket JCB joystick like 332/X6237?',

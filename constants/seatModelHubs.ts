@@ -22,7 +22,7 @@ export const SEAT_MODEL_HUBS: SeatModelHub[] = [
     popularity: 'High',
     primaryAssemblyOem: 'JC333/D1371',
     intro:
-      'The JCB 541-70WM is one of the most common telehandlers in rental and construction fleets. Multiple OEM seat assemblies and back/bottom cushion kits fit this platform — confirm your cab style and seat switch wiring before ordering.',
+      'The JCB 541-70WM is one of the most common telehandlers in rental and construction fleets. Seat assemblies and cushion kits on this page are aftermarket. Cab style and seat-switch wiring have to match. A listing is not a fit for every machine.',
   },
   {
     slug: 'caterpillar-th336',

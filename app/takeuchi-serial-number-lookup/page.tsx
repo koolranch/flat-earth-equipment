@@ -325,7 +325,7 @@ export default function Page() {
                       href="/parts?brand=Takeuchi"
                       className="text-sm text-slate-700 underline hover:text-orange-700"
                     >
-                      Takeuchi parts in stock
+                      Takeuchi parts we list
                     </a>
                     <a
                       href="tel:+18883929175"
@@ -359,7 +359,7 @@ export default function Page() {
                     href="/parts?brand=Takeuchi" 
                     className="block p-3 border rounded-lg hover:border-blue-300 transition-colors"
                   >
-                    <div className="font-medium mb-1">Takeuchi parts in stock</div>
+                    <div className="font-medium mb-1">Takeuchi parts we list</div>
                     <div className="text-slate-600">Parts we currently list. A listing is not a fit for every machine.</div>
                   </a>
                   <a 

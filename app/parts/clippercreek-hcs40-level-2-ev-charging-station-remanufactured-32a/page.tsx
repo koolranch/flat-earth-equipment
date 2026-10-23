@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation';
 
 export const metadata = {
   title: "ClipperCreek HCS-40 Level 2 EV Charging Station (Remanufactured) - 32A, 7.7kW | Flat Earth Equipment",
-  description: "Remanufactured ClipperCreek HCS-40 Level 2 EV charger with 32A output and 7.7kW power. UL-listed safety, 25ft cable, weatherproof NEMA 4 design. $550 + $350 refundable core deposit.",
+  description: "Remanufactured ClipperCreek HCS-40. The price is $550 plus a $350 core. Freight is calculated at checkout. This page does not publish a kilowatt rating, a cable length, or an enclosure rating.",
   keywords: "clippercreek hcs-40, level 2 ev charger, remanufactured ev charger, 32 amp ev charger, electric vehicle charging station, j1772 charger, weatherproof ev charger",
 };
 
@@ -37,44 +37,44 @@ export default async function ClipperCreekChargerPage() {
     },
     {
       icon: Gauge,
-      title: "Reliable 7.7kW Output",
-      description: "32-amp charging station operates on 220-240V circuits for consistent, efficient charging"
+      title: "32A listing",
+      description: "This page does not publish a circuit voltage."
     },
     {
       icon: Shield,
       title: "UL-Listed Safety",
-      description: "Built-in overcurrent, overvoltage, and surge protection with professional UL certification"
+      description: "This page does not publish a safety certification."
     },
     {
       icon: Cable,
-      title: "Extended 25ft Cable",
-      description: "Extra-long charging cable provides flexibility for different parking positions and configurations"
+      title: "Cable",
+      description: "This page does not publish a cable length."
     },
     {
       icon: Clock,
-      title: "Weather-Resistant Design",
-      description: "NEMA 4-rated weatherproof enclosure suitable for both indoor and outdoor installations"
+      title: "Enclosure",
+      description: "This page does not publish an enclosure rating."
     },
     {
       icon: Truck,
       title: "Hardwired Reliability",
-      description: "Professional hardwired installation ensures secure connection and reduces risk of interruptions"
+      description: "We do not install the charger."
     }
   ];
 
   const benefits = [
-    "Proven Industry Reliability – ClipperCreek is a trusted American manufacturer with decades of EV charging expertise",
-    "Enhanced Safety Standards – UL-listed with comprehensive protection systems for secure charging operations", 
-    "Installation Flexibility – Extended cable length and weatherproof design accommodate various installation scenarios"
+    "This page does not publish a country of manufacture.",
+    "This page does not publish a safety certification.",
+    "This page does not publish a cable length or an enclosure rating."
   ];
 
   const specs = [
-    { label: "Power Output", value: "7.7kW (32A @ 240V)" },
+    { label: "Power Output", value: "See the listing" },
     { label: "Connector Type", value: "Universal J1772" },
-    { label: "Cable Length", value: "25 feet" },
-    { label: "Enclosure Rating", value: "NEMA 4 (Weatherproof)" },
-    { label: "Safety Certification", value: "UL Listed" },
-    { label: "Installation", value: "Hardwired (240V)" },
+    { label: "Cable Length", value: "This page does not publish a cable length." },
+    { label: "Enclosure Rating", value: "This page does not publish an enclosure rating." },
+    { label: "Safety Certification", value: "This page does not publish a safety certification." },
+    { label: "Installation", value: "We do not install the charger." },
     { label: "Compatibility", value: "A listing is not a fit for every vehicle." },
     { label: "Charging Speed", value: "This page does not publish a miles-per-hour range." }
   ];
@@ -93,7 +93,7 @@ export default async function ClipperCreekChargerPage() {
               "@type": "Brand",
               "name": "ClipperCreek"
             },
-            "description": product.description,
+            "description": "Remanufactured ClipperCreek HCS-40. The price is $550 plus a $350 core. This page does not publish a kilowatt rating, a cable length, or an enclosure rating.",
             "image": product.image_url,
             "sku": product.sku,
             "offers": {
@@ -112,7 +112,7 @@ export default async function ClipperCreekChargerPage() {
               {
                 "@type": "PropertyValue",
                 "name": "Power Output",
-                "value": "7.7kW"
+                "value": "See the listing"
               },
               {
                 "@type": "PropertyValue",
@@ -158,8 +158,8 @@ export default async function ClipperCreekChargerPage() {
                   <div className="text-sm text-gray-600">+ ${product.core_charge} refundable core deposit</div>
                 </div>
                 <div className="text-right">
-                  <div className="text-sm font-medium text-gray-700">7.7kW Power Output</div>
-                  <div className="text-sm text-gray-500">32A @ 240V</div>
+                  <div className="text-sm font-medium text-gray-700">32A listing</div>
+                  <div className="text-sm text-gray-500">See the listing</div>
                 </div>
               </div>
               
@@ -279,8 +279,8 @@ export default async function ClipperCreekChargerPage() {
                 <Truck className="h-6 w-6 text-green-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-lg mb-2">American Made</h3>
-                <p className="text-green-800 text-sm">ClipperCreek chargers are designed and manufactured in the USA with proven reliability</p>
+                <h3 className="font-semibold text-lg mb-2">Remanufactured</h3>
+                <p className="text-green-800 text-sm">This page does not publish a country of manufacture. Price and core are on this listing. We do not install the charger.</p>
               </div>
             </div>
           </div>
@@ -318,7 +318,7 @@ export default async function ClipperCreekChargerPage() {
             Ready for Professional EV Charging?
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Upgrade to reliable, UL-listed Level 2 charging with the trusted ClipperCreek HCS-40. 
+            The price is $550 plus a $350 core. We do not install the charger. 
             Professional performance with environmental responsibility.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

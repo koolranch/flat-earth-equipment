@@ -28,8 +28,8 @@ export default function BrandRtScissorSection({
       </h2>
       <p className="text-sm text-slate-600 mb-4">
         Controllers, switches, relays, alarms, and solenoids for popular{' '}
-        {brandLabel} RT scissor models. Match OEM part numbers and confirm serial
-        breaks before ordering.
+        {brandLabel} RT scissor models. The part number and the serial prefix have to match.
+        A listing is not a fit for every machine.
       </p>
       <div className="flex flex-wrap gap-2 mb-4">
         {links.map((l) => (

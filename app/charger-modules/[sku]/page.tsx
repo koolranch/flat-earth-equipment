@@ -330,7 +330,7 @@ function ChargerModulePage({ module }: { module: ChargerModule }) {
           <TechnicalSpecsTable
             title={`${module.brand} ${module.partNumber} Charger Module Specifications`}
             specs={CHARGER_MODULE_SPECS}
-            footnote="Specifications based on standard OEM configuration. Contact us to verify compatibility with your specific charger."
+            footnote="A listing is not a fit for every charger."
           />
         </section>
 
@@ -357,7 +357,7 @@ function ChargerModulePage({ module }: { module: ChargerModule }) {
               </summary>
               <p className="text-base text-slate-700 mt-3 leading-relaxed">
                 Leave the firmware field blank and include the charger model on the quote.
-                Freight is calculated at checkout.
+                Shipping is free on these modules.
               </p>
             </details>
 
@@ -572,7 +572,7 @@ export default async function ChargerModuleDetailPage({ params }: PageProps) {
             title={`${product.name} Specifications`}
             metadata={metadata}
             proTip={metadata.seo_pro_tip}
-            footnote="Specifications based on standard OEM configuration. Consult documentation for your specific model."
+            footnote="A listing is not a fit for every charger."
           />
         </section>
 
@@ -604,7 +604,7 @@ export default async function ChargerModuleDetailPage({ params }: PageProps) {
                 ))}
               </div>
               <p className="mt-4 text-sm text-slate-500">
-                Not sure if this module fits your charger? Contact us for compatibility verification.
+                A listing is not a fit for every charger.
               </p>
             </div>
           </section>

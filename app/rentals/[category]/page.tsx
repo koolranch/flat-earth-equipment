@@ -65,8 +65,7 @@ export default async function RentalCategoryPage({ params }: PageProps) {
           </h1>
           
           <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
-            We're currently expanding our {dbCategory.toLowerCase()} rental inventory. 
-            Contact us to discuss your specific equipment needs and availability.
+            This category does not list equipment right now. Ask for a quote.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

@@ -23,7 +23,7 @@ export default function BrandRubberTracksSection({
   return (
     <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-6">
       <h2 className="text-xl font-bold text-slate-900 mb-1">
-        Rubber tracks for your {brandLabel} — in stock
+        Rubber tracks we list for {brandLabel}
       </h2>
       <p className="text-sm text-slate-600 mb-4">
         Found your serial number? Use it to verify track fitment — every listing shows

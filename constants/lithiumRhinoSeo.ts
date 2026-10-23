@@ -257,29 +257,29 @@ export function lithiumCapacityPositioningForProduct(product: {
         'The 65Ah kit is the lower-cost 36V conversion for neighborhood driving, short course loops and lighter passenger loads. Choose 105Ah instead for longer daily routes, hills or fleet duty.',
     },
     '36V-105Ah': {
-      heading: 'Choose 36V 105Ah for longer range and heavier use',
+      heading: 'Choose 36V 105Ah',
       summary:
-        'The 105Ah kit adds reserve capacity for longer routes, hills, rear seats and repeated daily use while keeping a 36V drivetrain. Choose 65Ah when lower upfront cost matters more than maximum range.',
+        '105Ah is the larger 36V pack on this page. This page does not publish a miles figure. A listing is not a fit for every cart.',
     },
     '48V-50Ah': {
-      heading: 'Choose 48V 50Ah for short-range, light-duty use',
+      heading: 'Choose 48V 50Ah',
       summary:
-        'The 50Ah kit is the entry-price 48V conversion for short neighborhood trips, light passenger loads and carts that return to charge frequently. Move to 65Ah or 105Ah for longer routes, hills or fleet schedules.',
+        '50Ah is the smaller 48V pack on this page. This page does not publish a miles figure. A listing is not a fit for every cart.',
     },
     '48V-65Ah': {
-      heading: 'Choose 48V 65Ah for balanced cost and everyday range',
+      heading: 'Choose 48V 65Ah',
       summary:
-        'The 65Ah kit is the mid-capacity 48V choice for regular neighborhood and course use without paying for maximum reserve. Choose 50Ah for the lowest entry price or 105Ah for hills, rear seats and longer daily mileage.',
+        '65Ah is the mid-size 48V pack on this page. This page does not publish a miles figure. A listing is not a fit for every cart.',
     },
     '48V-105Ah': {
-      heading: 'Choose 48V 105Ah for extended range and demanding routes',
+      heading: 'Choose 48V 105Ah',
       summary:
-        'The 105Ah kit provides the most reserve of the standard 48V lineup for hills, heavier passenger loads, long routes and repeated daily use. Choose 50Ah or 65Ah when shorter range and lower upfront cost are the priority.',
+        '105Ah is the larger 48V pack on this page. This page does not publish a miles figure. A listing is not a fit for every cart.',
     },
     '72V-105Ah': {
-      heading: 'Choose 72V 105Ah for high-performance 72V builds',
+      heading: 'Choose 72V 105Ah',
       summary:
-        'This kit is specifically for compatible 72V high-performance carts, custom builds and commercial fleets. It is not a replacement for a 36V or 48V pack; confirm your complete system voltage before ordering.',
+        'This kit is for compatible 72V carts. It is not a replacement for a 36V or 48V pack. System voltage has to match. A listing is not a fit for every cart.',
     },
   };
 

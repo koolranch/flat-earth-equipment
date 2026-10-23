@@ -8,7 +8,7 @@ import { getUserLocale } from '@/lib/getUserLocale';
 export const metadata: Metadata = {
   title: "Equipment Rentals | Flat Earth Equipment",
   description:
-    "Rent forklifts, boom lifts, scissor lifts, telehandlers, and more from top brands with fast availability.",
+    "Rental categories listed on this page. Ask for a quote. This page does not publish local delivery.",
   alternates: { canonical: "/rent-equipment" },
 };
 
@@ -60,12 +60,12 @@ export default async function RentEquipmentPage() {
   const t = {
     en: {
       title: 'Equipment Rentals',
-      intro: 'We offer a wide selection of industrial rental equipment from trusted brands such as Genie, JLG, Skyjack, Toyota, and Bobcat. Select a category below to see available models, detailed specs, and request a rental quote.',
+      intro: 'The categories below are the rental listings on this page. Ask for a quote. This page does not publish local delivery.',
       viewModels: 'View available models & rental options'
     },
     es: {
       title: 'Alquiler de Equipos',
-      intro: 'Ofrecemos una amplia selección de equipos de alquiler industriales de marcas confiables como Genie, JLG, Skyjack, Toyota y Bobcat. Seleccione una categoría a continuación para ver modelos disponibles, especificaciones detalladas y solicitar una cotización de alquiler.',
+      intro: 'Las categorías de abajo son los alquileres de esta página. Pida una cotización. Esta página no publica entrega local.',
       viewModels: 'Ver modelos disponibles y opciones de alquiler'
     }
   }[locale]

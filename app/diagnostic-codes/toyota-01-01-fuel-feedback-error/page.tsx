@@ -53,7 +53,7 @@ export default function Toyota0101Page() {
           <div><span className="font-semibold text-red-800">System:</span> 4Y-ECS (Gasoline Engine)</div>
           <div><span className="font-semibold text-red-800">Severity:</span> 🔴 High - Engine may stop</div>
           <div><span className="font-semibold text-red-800">Symptom:</span> Unstable engine speed</div>
-          <div><span className="font-semibold text-red-800">Fix Time:</span> 1-3 hours</div>
+          <div><span className="font-semibold text-red-800">Fix Time:</span> This page does not publish a fix time.</div>
         </div>
       </div>
 
@@ -128,7 +128,7 @@ export default function Toyota0101Page() {
       <div className="prose prose-slate max-w-none">
         <h2>How to Fix Code 01-01</h2>
         <h3>1. Replace O2 Sensor (Most Common Solution)</h3>
-        <p>The oxygen sensor is the most frequent culprit. If sensor is over 3 years old or shows irregular voltage, replace it. Cost: $80-200 for sensor + labor.</p>
+        <p>This page does not publish a sensor price.</p>
 
         <h3>2. Repair Intake/Exhaust Leaks</h3>
         <p>Inspect all vacuum hoses, intake manifold gaskets, and exhaust connections. Even small leaks can trigger this code.</p>

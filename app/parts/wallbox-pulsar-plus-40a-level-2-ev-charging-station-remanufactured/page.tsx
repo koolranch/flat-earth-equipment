@@ -69,11 +69,11 @@ export default async function WallboxPulsar40APage() {
   ];
 
   const specs = [
-    { label: "Power Output", value: "40A @ 240V" },
+    { label: "Power Output", value: "See the listing" },
     { label: "Connector Type", value: "Universal J1772" },
     { label: "Smart Features", value: "WiFi + Bluetooth" },
     { label: "Mobile App", value: "Wallbox App (iOS/Android)" },
-    { label: "Installation", value: "Hardwired (240V)" },
+    { label: "Installation", value: "We do not install the charger." },
     { label: "Design", value: "Compact, Space-Efficient" },
     { label: "Compatibility", value: "A listing is not a fit for every vehicle." },
     { label: "Energy Tracking", value: "Real-time usage monitoring" }
@@ -161,7 +161,7 @@ export default async function WallboxPulsar40APage() {
                 </div>
                 <div className="text-right">
                   <div className="text-sm font-medium text-gray-700">Smart EV Charging</div>
-                  <div className="text-sm text-gray-500">40A @ 240V</div>
+                  <div className="text-sm text-gray-500">See the listing</div>
                 </div>
               </div>
               

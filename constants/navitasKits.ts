@@ -286,7 +286,7 @@ export const NAVITAS_FITMENT_PHOTO_MAILTO =
   'mailto:parts@flatearthequipment.com?subject=Navitas%20kit%20fitment%20check%20%E2%80%94%20controller%20photo&body=Hi%20Parts%20team%2C%0A%0AI%27m%20confirming%20the%20correct%20Navitas%20kit.%20Photo%20of%20my%20OEM%20controller%20label%20is%20attached.%0A%0ACart%20brand%2Fmodel%3A%0AController%20numbers%20I%20see%3A%0A%0AThanks.';
 
 export const NAVITAS_BUY_TRUST_LINE =
-  'Free ground · Contiguous US · Confirm OEM before ordering';
+  'Free ground · Contiguous US · A listing is not a fit for every cart';
 
 /** Jump chips under the cheat-sheet (secondary browse — primary buy is the OEM table). */
 export const NAVITAS_HUB_JUMP_LINKS: { href: string; label: string }[] = [
@@ -318,7 +318,7 @@ export const NAVITAS_OEM_UNSUPPORTED: { label: string; reason: string }[] = [
   },
   {
     label: 'EZGO RXV / other factory AC carts',
-    reason: 'Not on this TSX/TAC shelf — email parts@ before ordering.',
+    reason: 'Not on this TSX/TAC shelf. Email parts@flatearthequipment.com.',
   },
   {
     label: 'Yamaha G19 / G22',

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     'bulk forklift certification',
     'team training management',
     'safety manager tools',
-    'group training discounts'
+    'team training'
   ],
   alternates: generatePageAlternates('/trainer'),
 };
@@ -61,10 +61,10 @@ function PublicTrainerLanding() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/contact"
+                href="#team-pricing"
                 className="bg-canyon-rust text-white px-8 py-3 rounded-lg font-semibold hover:bg-canyon-rust/90 transition-colors"
               >
-                Contact for Bulk Pricing
+                See team prices
               </Link>
               <Link
                 href="/safety"
@@ -160,7 +160,7 @@ function PublicTrainerLanding() {
         </section>
 
         {/* Pricing Tiers */}
-        <section className="mb-16">
+        <section id="team-pricing" className="mb-16">
           <h2 className="text-3xl font-bold text-center mb-12 text-slate-900">
             Team checkout
           </h2>
@@ -186,31 +186,12 @@ function PublicTrainerLanding() {
           </div>
         </section>
 
-        {/* Coming Soon Features */}
         <section className="mb-16">
           <div className="bg-slate-100 rounded-xl p-8 text-center">
-            <h2 className="text-2xl font-bold mb-4 text-slate-900">🚀 Enhanced Features Coming Soon</h2>
-            <p className="text-slate-600 mb-6">
-              Our trainer platform is continuously evolving. Here's what's coming next:
+            <h2 className="text-2xl font-bold mb-4 text-slate-900">Trainer dashboard</h2>
+            <p className="text-slate-600">
+              Assign seats and track progress from the trainer dashboard. This page does not publish an API, a white-label option, or a separate manager app.
             </p>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
-              <div className="bg-white rounded-lg p-4">
-                <div className="font-semibold">Advanced Analytics</div>
-                <div className="text-slate-500">Detailed completion metrics</div>
-              </div>
-              <div className="bg-white rounded-lg p-4">
-                <div className="font-semibold">API Integration</div>
-                <div className="text-slate-500">Connect with your HRIS</div>
-              </div>
-              <div className="bg-white rounded-lg p-4">
-                <div className="font-semibold">Custom Branding</div>
-                <div className="text-slate-500">White-label options</div>
-              </div>
-              <div className="bg-white rounded-lg p-4">
-                <div className="font-semibold">Mobile App</div>
-                <div className="text-slate-500">On-the-go management</div>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -240,10 +221,10 @@ function PublicTrainerLanding() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
               <Link
-                href="/contact"
+                href="#team-pricing"
                 className="bg-white text-canyon-rust px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
               >
-                Request Bulk Pricing Quote
+                See team prices
               </Link>
               
               <a
@@ -343,7 +324,6 @@ async function AuthenticatedTrainerDashboard(orgId: string, role: string) {
         <h2 className="text-lg font-medium">Actions</h2>
         <div className="mt-3 flex gap-3">
           <a href="/trainer/invites" className="btn-primary">Manage Invites</a>
-          <span className="text-sm text-muted-foreground">More tools coming soon</span>
         </div>
       </section>
     </div>

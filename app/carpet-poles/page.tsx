@@ -3,13 +3,13 @@ import CarpetPolesContent from './CarpetPolesContent';
 
 export const metadata: Metadata = {
   title: "Forklift Carpet Poles | Heavy-Duty Carpet Handling Equipment",
-  description: "High-quality forklift carpet poles for safe and efficient carpet handling. Custom sizes available. Get a quote for your carpet handling needs.",
+  description: "Forklift carpet poles. This page does not publish a custom length. Ask for a quote. Freight is $1,000 on the quote.",
   alternates: {
     canonical: "/carpet-poles",
   },
   openGraph: {
     title: "Forklift Carpet Poles | Heavy-Duty Carpet Handling Equipment",
-    description: "High-quality forklift carpet poles for safe and efficient carpet handling. Custom sizes available. Get a quote for your carpet handling needs.",
+    description: "Forklift carpet poles. This page does not publish a custom length. Ask for a quote. Freight is $1,000 on the quote.",
     url: "https://www.flatearthequipment.com/carpet-poles",
     type: "website",
     images: [

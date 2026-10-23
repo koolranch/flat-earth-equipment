@@ -186,7 +186,7 @@ export default function OSHAOperatorTrainingPage() {
               <ul className="space-y-2 mb-6">
                 <li className="flex items-start gap-2">
                   <span className="text-green-600 mt-1">✓</span>
-                  <span className="text-gray-700">Self-paced online modules (35-45 min)</span>
+                  <span className="text-gray-700">Self-paced online modules (under 30 minutes)</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-600 mt-1">✓</span>

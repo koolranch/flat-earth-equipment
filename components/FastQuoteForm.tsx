@@ -84,7 +84,7 @@ export default function FastQuoteForm({ currentLocation = '' }: FastQuoteFormPro
         Need a Fast Quote?
       </h2>
       <p className="mb-4 text-gray-700">
-        Parts or equipment rental—with a reply in under 1 hour.
+        Ask for a quote. This form does not publish a reply time.
       </p>
       
       {status === 'error' && (

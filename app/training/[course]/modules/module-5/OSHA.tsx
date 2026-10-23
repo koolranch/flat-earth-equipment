@@ -194,7 +194,7 @@ export default function Module5OSHA() {
           </ul>
           <p className="font-semibold mt-2">Documentation to Maintain:</p>
           <p>Records must include operator name, training dates, evaluation dates, and identity of persons who trained and evaluated the operator. These records prove OSHA compliance.</p>
-          <p className="text-orange-600 font-medium mt-2">⚠️ Operating without current certification violates OSHA and exposes employer to penalties up to $156,000+ per violation.</p>
+          <p className="text-orange-600 font-medium mt-2">Operating without current certification violates OSHA. This page does not publish a penalty amount.</p>
         </>
       )
     },

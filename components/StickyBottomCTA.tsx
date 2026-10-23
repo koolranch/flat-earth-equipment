@@ -26,11 +26,11 @@ export default function StickyBottomCTA({
   const t = {
     en: {
       cta: "Get Your Module →",
-      subtitle: "6-month warranty • Same-day dispatch"
+      subtitle: "6-month warranty • Free shipping"
     },
     es: {
       cta: "Obtén Tu Módulo →",
-      subtitle: "Garantía de 6 meses • Envío el mismo día"
+      subtitle: "Garantía de 6 meses • Envío gratis"
     }
   }[locale];
 

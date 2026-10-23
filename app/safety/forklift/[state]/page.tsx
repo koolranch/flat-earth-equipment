@@ -484,7 +484,7 @@ export default function StateForkliftPage({ params }: Props) {
         {/* Mobile: Stacked comparison cards */}
         <div className="space-y-4 sm:hidden">
           {[
-            { icon: '⏰', label: 'Time', old: '8 hours', new: 'Under 30 min' },
+            { icon: '⏰', label: 'Time', old: 'Not published here', new: 'Under 30 min' },
             { icon: '💵', label: 'Cost', old: 'Not published here', new: '$49' },
             { icon: '📍', label: 'Location', old: 'Travel required', new: 'Anywhere' },
             { icon: '📜', label: 'Certificate', old: '1-2 weeks', new: 'Instant' },
@@ -521,7 +521,7 @@ export default function StateForkliftPage({ params }: Props) {
             <tbody className="text-sm">
               <tr className="border-b border-blue-100">
                 <td className="py-3 font-medium text-slate-700">⏰ Time Required</td>
-                <td className="py-3 text-slate-600">8 hours (full day)</td>
+                <td className="py-3 text-slate-600">Not published here</td>
                 <td className="py-3 text-[#F76511] font-semibold">Under 30 minutes</td>
               </tr>
               <tr className="border-b border-blue-100">
@@ -551,8 +551,8 @@ export default function StateForkliftPage({ params }: Props) {
               </tr>
               <tr>
                 <td className="py-3 font-medium text-slate-700">🔄 Retakes</td>
-                <td className="py-3 text-slate-600">Pay again</td>
-                <td className="py-3 text-[#F76511] font-semibold">Free unlimited</td>
+                <td className="py-3 text-slate-600">Not published here</td>
+                <td className="py-3 text-[#F76511] font-semibold">Not published here</td>
               </tr>
             </tbody>
           </table>
@@ -560,7 +560,7 @@ export default function StateForkliftPage({ params }: Props) {
         
         <div className="mt-6 text-center p-4 bg-white rounded-xl border border-blue-200">
           <p className="text-base sm:text-lg font-bold text-slate-900">
-            💰 You save: $151-$451 + 7 hours
+            This page does not publish a savings amount. Formal instruction is under 30 minutes.
           </p>
           <p className="text-sm text-slate-600 mt-1">
             Same OSHA certification. Faster and more convenient.
@@ -636,7 +636,7 @@ export default function StateForkliftPage({ params }: Props) {
               <p className="mt-3 text-gray-700 text-lg">
                 Local Texas schools and nonprofits often sell multi-hour classroom seats. If you need
                 OSHA-compliant theory fast—especially for Houston or Dallas–Fort Worth hiring—complete
-                online instruction for <strong>$49</strong> (about 30 minutes), download your certificate,
+                online instruction for <strong>$49</strong> (under 30 minutes), download your certificate,
                 then have your supervisor finish the required hands-on evaluation on your equipment.
               </p>
               <ol className="mt-4 list-decimal pl-5 text-gray-700 space-y-2">
@@ -728,7 +728,7 @@ export default function StateForkliftPage({ params }: Props) {
               </h2>
               <p className="mt-3 text-gray-700 text-lg">
                 Serving Dallas, Fort Worth, Arlington, Irving, Grand Prairie, Mesquite, and Garland.
-                Complete the online theory in about 30 minutes (English &amp; Spanish), then your supervisor
+                Complete the online theory in under 30 minutes (English &amp; Spanish), then your supervisor
                 performs the onsite practical using our evaluation checklist. Same-day wallet card; renewal every 3 years.
               </p>
 
@@ -925,7 +925,7 @@ export default function StateForkliftPage({ params }: Props) {
               <p className="mt-3 text-gray-700 text-lg">
                 New Jersey search results often surface .gov workforce pages and local driving schools.
                 If you need OSHA-compliant theory fast, complete online instruction for{' '}
-                <strong>$49</strong> (about 30 minutes), download your certificate, then have a
+                <strong>$49</strong> (under 30 minutes), download your certificate, then have a
                 qualified person at your NJ workplace finish the required hands-on evaluation.
               </p>
               <ol className="mt-4 list-decimal pl-5 text-gray-700 space-y-2">
@@ -1704,7 +1704,7 @@ export default function StateForkliftPage({ params }: Props) {
               <h3 className="text-lg font-semibold mb-3">📦 Warehousing & Distribution</h3>
               <p className="text-sm text-gray-700">
                 Major retailers and e-commerce companies operate massive distribution centers throughout Illinois. 
-                Our certification meets requirements for Amazon, Walmart, and other major employers.
+                This page does not name employers that accept the card.
               </p>
             </div>
           </div>
@@ -1852,9 +1852,7 @@ export default function StateForkliftPage({ params }: Props) {
               Is this certification accepted at Philadelphia port operations and warehouses?
             </summary>
             <p className="mt-2">
-              Yes! Our OSHA-compliant certification is accepted by major employers throughout Pennsylvania, 
-              including port operations in Philadelphia, logistics companies, and warehouse facilities 
-              across the state's major industrial corridors.
+              This page does not name employers that accept the card. Formal instruction is under 30 minutes, and the course is $49 at the final exam.
             </p>
           </details>
           <details className="rounded-lg bg-neutral-50 p-4">
@@ -1950,8 +1948,7 @@ export default function StateForkliftPage({ params }: Props) {
               Is this certification accepted at Ohio automotive plants and manufacturing facilities?
             </summary>
             <p className="mt-2">
-              Absolutely! Our OSHA-compliant certification is accepted by major Ohio automotive manufacturers 
-              including Honda, Ford, GM, and their suppliers throughout Ohio. The training meets automotive 
+              This page does not name employers that accept the card. Formal instruction is under 30 minutes, and the course is $49 at the final exam. The training meets automotive 
               industry safety standards and lean manufacturing requirements.
             </p>
           </details>
@@ -1960,9 +1957,7 @@ export default function StateForkliftPage({ params }: Props) {
               Do Ohio distribution centers and logistics companies require forklift certification?
             </summary>
             <p className="mt-2">
-              Yes! Ohio's strategic location makes it a major distribution hub, and logistics companies like 
-              Amazon, FedEx, UPS, and DHL require certified forklift operators. Our certification is accepted 
-              at major distribution centers throughout Ohio.
+              This page does not name employers that accept the card. Formal instruction is under 30 minutes, and the course is $49 at the final exam.
             </p>
           </details>
           <details className="rounded-lg bg-neutral-50 p-4">
@@ -2048,9 +2043,7 @@ export default function StateForkliftPage({ params }: Props) {
               Is this certification accepted at the Port of Savannah and Atlanta distribution centers?
             </summary>
             <p className="mt-2">
-              Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Georgia, 
-              including port operations in Savannah, logistics companies in Atlanta's distribution corridor, 
-              and warehouse facilities across Georgia's major transportation hubs.
+              This page does not name employers that accept the card. Formal instruction is under 30 minutes, and the course is $49 at the final exam.
             </p>
           </details>
           <details className="rounded-lg bg-neutral-50 p-4">
@@ -2146,9 +2139,7 @@ export default function StateForkliftPage({ params }: Props) {
               Is this certification accepted at Charlotte financial institutions and Research Triangle tech companies?
             </summary>
             <p className="mt-2">
-              Absolutely! Our OSHA-compliant certification is accepted by major employers throughout North Carolina, 
-              including financial institutions in Charlotte, tech companies in the Research Triangle, and corporate 
-              facilities across the state's major business centers.
+              This page does not name employers that accept the card. Formal instruction is under 30 minutes, and the course is $49 at the final exam.
             </p>
           </details>
           <details className="rounded-lg bg-neutral-50 p-4">
@@ -2244,8 +2235,7 @@ export default function StateForkliftPage({ params }: Props) {
               Is this certification accepted at Michigan automotive plants and assembly facilities?
             </summary>
             <p className="mt-2">
-              Absolutely! Our OSHA-compliant certification is accepted by major Michigan automotive manufacturers 
-              including Ford, GM, Chrysler, and their tier-one suppliers throughout Michigan. The training meets 
+              This page does not name employers that accept the card. Formal instruction is under 30 minutes, and the course is $49 at the final exam. The training meets 
               automotive industry safety standards and lean manufacturing requirements.
             </p>
           </details>
@@ -2342,9 +2332,7 @@ export default function StateForkliftPage({ params }: Props) {
               Is this certification accepted at Virginia military installations and defense contractors?
             </summary>
             <p className="mt-2">
-              Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Virginia, 
-              including defense contractors serving Norfolk Naval Base, Pentagon operations, Quantico, and other 
-              military installations. The training meets defense industry security and safety standards.
+              This page does not name employers that accept the card. Formal instruction is under 30 minutes, and the course is $49 at the final exam. The training meets defense industry security and safety standards.
             </p>
           </details>
           <details className="rounded-lg bg-neutral-50 p-4">
@@ -3230,8 +3218,7 @@ export default function StateForkliftPage({ params }: Props) {
               Is this certification accepted at Indiana automotive and RV manufacturing plants?
             </summary>
             <p className="mt-2">
-              Absolutely! Our OSHA-compliant certification is accepted by major Indiana automotive manufacturers 
-              including Toyota, Honda, Subaru, and major RV manufacturers in Elkhart. The training meets automotive 
+              This page does not name employers that accept the card. Formal instruction is under 30 minutes, and the course is $49 at the final exam. The training meets automotive 
               and RV industry safety standards.
             </p>
           </details>
@@ -3240,9 +3227,7 @@ export default function StateForkliftPage({ params }: Props) {
               Do Indianapolis logistics companies and distribution centers require forklift certification?
             </summary>
             <p className="mt-2">
-              Yes! Indiana's central location makes it a major distribution hub, and logistics companies like 
-              Amazon, FedEx, and regional distributors require OSHA-compliant forklift certification. Our training 
-              is accepted at major warehouses and distribution centers throughout Indiana.
+              This page does not name employers that accept the card. Formal instruction is under 30 minutes, and the course is $49 at the final exam.
             </p>
           </details>
           <details className="rounded-lg bg-neutral-50 p-4">
@@ -3328,8 +3313,7 @@ export default function StateForkliftPage({ params }: Props) {
               Is this certification accepted at Washington tech companies and Amazon facilities?
             </summary>
             <p className="mt-2">
-              Absolutely! Our OSHA-compliant certification is accepted by major Washington employers including 
-              Amazon fulfillment centers, Microsoft facilities, and tech companies throughout the Seattle area. 
+              This page does not name employers that accept the card. Formal instruction is under 30 minutes, and the course is $49 at the final exam. 
               The training meets e-commerce and high-tech warehouse safety standards.
             </p>
           </details>
@@ -3491,7 +3475,7 @@ export default function StateForkliftPage({ params }: Props) {
                       name: "Is this certification accepted at Philadelphia port operations and warehouses?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "Yes! Our OSHA-compliant certification is accepted by major employers throughout Pennsylvania, including port operations in Philadelphia, logistics companies, and warehouse facilities across the state's major industrial corridors.",
+                        text: "This page does not name employers that accept the card. Formal instruction is under 30 minutes, and the course is $49 at the final exam.",
                       },
                     },
                     {
@@ -3517,7 +3501,7 @@ export default function StateForkliftPage({ params }: Props) {
                       name: "Is this certification accepted at Ohio automotive plants and manufacturing facilities?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "Absolutely! Our OSHA-compliant certification is accepted by major Ohio automotive manufacturers including Honda, Ford, GM, and their suppliers throughout Ohio. The training meets automotive industry safety standards and lean manufacturing requirements.",
+                        text: "This page does not name employers that accept the card. Formal instruction is under 30 minutes, and the course is $49 at the final exam. The training meets automotive industry safety standards and lean manufacturing requirements.",
                       },
                     },
                     {
@@ -3525,7 +3509,7 @@ export default function StateForkliftPage({ params }: Props) {
                       name: "Do Ohio distribution centers and logistics companies require forklift certification?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "Yes! Ohio's strategic location makes it a major distribution hub, and logistics companies like Amazon, FedEx, UPS, and DHL require certified forklift operators. Our certification is accepted at major distribution centers throughout Ohio.",
+                        text: "This page does not name employers that accept the card. Formal instruction is under 30 minutes, and the course is $49 at the final exam.",
                       },
                     },
                     {
@@ -3543,7 +3527,7 @@ export default function StateForkliftPage({ params }: Props) {
                       name: "Is this certification accepted at the Port of Savannah and Atlanta distribution centers?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Georgia, including port operations in Savannah, logistics companies in Atlanta's distribution corridor, and warehouse facilities across Georgia's major transportation hubs.",
+                        text: "This page does not name employers that accept the card. Formal instruction is under 30 minutes, and the course is $49 at the final exam.",
                       },
                     },
                     {
@@ -3569,7 +3553,7 @@ export default function StateForkliftPage({ params }: Props) {
                       name: "Is this certification accepted at Charlotte financial institutions and Research Triangle tech companies?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "Absolutely! Our OSHA-compliant certification is accepted by major employers throughout North Carolina, including financial institutions in Charlotte, tech companies in the Research Triangle, and corporate facilities across the state's major business centers.",
+                        text: "This page does not name employers that accept the card. Formal instruction is under 30 minutes, and the course is $49 at the final exam.",
                       },
                     },
                     {
@@ -3595,7 +3579,7 @@ export default function StateForkliftPage({ params }: Props) {
                       name: "Is this certification accepted at Michigan automotive plants and assembly facilities?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "Absolutely! Our OSHA-compliant certification is accepted by major Michigan automotive manufacturers including Ford, GM, Chrysler, and their tier-one suppliers throughout Michigan. The training meets automotive industry safety standards and lean manufacturing requirements.",
+                        text: "This page does not name employers that accept the card. Formal instruction is under 30 minutes, and the course is $49 at the final exam. The training meets automotive industry safety standards and lean manufacturing requirements.",
                       },
                     },
                     {
@@ -3621,7 +3605,7 @@ export default function StateForkliftPage({ params }: Props) {
                       name: "Is this certification accepted at Virginia military installations and defense contractors?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "Absolutely! Our OSHA-compliant certification is accepted by major employers throughout Virginia, including defense contractors serving Norfolk Naval Base, Pentagon operations, Quantico, and other military installations. The training meets defense industry security and safety standards.",
+                        text: "This page does not name employers that accept the card. Formal instruction is under 30 minutes, and the course is $49 at the final exam. The training meets defense industry security and safety standards.",
                       },
                     },
                     {
@@ -3781,7 +3765,7 @@ export default function StateForkliftPage({ params }: Props) {
                       name: "Is this certification accepted at Indiana automotive and RV manufacturing plants?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "Absolutely! Our OSHA-compliant certification is accepted by major Indiana automotive manufacturers including Toyota, Honda, Subaru, and major RV manufacturers in Elkhart.",
+                        text: "This page does not name employers that accept the card. Formal instruction is under 30 minutes, and the course is $49 at the final exam.",
                       },
                     },
                   ] : []),
@@ -3791,7 +3775,7 @@ export default function StateForkliftPage({ params }: Props) {
                       name: "Is this certification accepted at Washington tech companies and Amazon facilities?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "Absolutely! Our OSHA-compliant certification is accepted by major Washington employers including Amazon fulfillment centers, Microsoft facilities, and tech companies throughout the Seattle area.",
+                        text: "This page does not name employers that accept the card. Formal instruction is under 30 minutes, and the course is $49 at the final exam.",
                       },
                     },
                   ] : []),

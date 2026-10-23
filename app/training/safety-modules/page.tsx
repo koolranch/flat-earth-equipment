@@ -13,24 +13,11 @@ export default function SafetyModules() {
           Safety Micro-Modules
         </h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Quick, focused safety training modules coming soon.
+          This page does not list separate micro-modules. Formal instruction is on the certification page, and it is under 30 minutes.
         </p>
-        
-        {/* TODO: Implement safety micro-modules functionality */}
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 max-w-2xl mx-auto">
-          <h2 className="text-lg font-semibold text-yellow-800 mb-2">
-            🚧 Under Development
-          </h2>
-          <p className="text-yellow-700">
-            <strong>TODO:</strong> Build out safety micro-modules with:
-          </p>
-          <ul className="text-left text-yellow-700 mt-2 space-y-1">
-            <li>• Hazard recognition training</li>
-            <li>• Equipment-specific safety protocols</li>
-            <li>• Quick refresher courses</li>
-            <li>• Workplace safety compliance</li>
-          </ul>
-        </div>
+        <p className="text-lg">
+          <a href="/safety" className="text-[#F76511] font-semibold">Forklift certification</a>
+        </p>
       </div>
     </main>
   );

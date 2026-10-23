@@ -288,7 +288,7 @@ export default function Page() {
                       href="/parts?brand=JCB"
                       className="text-sm text-slate-700 underline hover:text-yellow-700"
                     >
-                      JCB parts in stock
+                      JCB parts we list
                     </a>
                     <a
                       href="tel:+18883929175"
@@ -331,7 +331,7 @@ export default function Page() {
                     className="group p-3 rounded-lg border hover:border-blue-300 hover:shadow-md transition-all"
                   >
                     <div className="text-sm font-medium text-gray-900 group-hover:text-blue-600">
-                      JCB parts in stock
+                      JCB parts we list
                     </div>
                     <div className="text-xs text-gray-500 mt-1">
                       Parts we currently list. A listing is not a fit for every machine.

@@ -32,8 +32,8 @@ export default async function WallboxPulsar48APage() {
   const features = [
     {
       icon: Bolt,
-      title: "Maximum 48A Charging",
-      description: "Industry-leading 48-amp output delivers fastest possible Level 2 charging speeds for residential installations"
+      title: "48A listing",
+      description: "This page does not publish a charge speed."
     },
     {
       icon: Smartphone,
@@ -63,17 +63,17 @@ export default async function WallboxPulsar48APage() {
   ];
 
   const benefits = [
-    "Maximum Charging Performance – 48A output provides the fastest residential Level 2 charging available",
+    "48A is the model on this page. This page does not publish a charge speed.",
     "Premium Smart Technology – Award-winning Wallbox innovation with intuitive mobile app experience", 
     "Intelligent Energy Management – Advanced scheduling and load balancing optimize cost and efficiency"
   ];
 
   const specs = [
-    { label: "Power Output", value: "48A @ 240V (Maximum)" },
+    { label: "Power Output", value: "See the listing" },
     { label: "Connector Type", value: "Universal J1772" },
     { label: "Smart Features", value: "WiFi + Bluetooth" },
     { label: "Mobile App", value: "Wallbox App (iOS/Android)" },
-    { label: "Installation", value: "Hardwired (240V)" },
+    { label: "Installation", value: "We do not install the charger." },
     { label: "Design", value: "Compact, High-Power" },
     { label: "Compatibility", value: "A listing is not a fit for every vehicle." },
     { label: "Charging Speed", value: "This page does not publish a miles-per-hour range." }
@@ -145,7 +145,7 @@ export default async function WallboxPulsar48APage() {
               </div>
               <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-800 px-4 py-2 rounded-full text-sm font-medium">
                 <Bolt className="h-4 w-4" />
-                Maximum Power
+                Remanufactured
               </div>
             </div>
             
@@ -153,8 +153,7 @@ export default async function WallboxPulsar48APage() {
               Wallbox Pulsar Plus 48A
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed">
-              Maximum-power intelligent Level 2 EV charging with industry-leading 48A output, 
-              advanced app control, and smart connectivity for the fastest residential charging available.
+              The 48A model is the one on this page. This page does not publish a kilowatt rating or a miles-per-hour figure. Freight is calculated at checkout. A listing is not a fit for every vehicle.
             </p>
             
             <div className="bg-white rounded-xl p-6 shadow-sm border">
@@ -166,8 +165,8 @@ export default async function WallboxPulsar48APage() {
                   )}
                 </div>
                 <div className="text-right">
-                  <div className="text-sm font-medium text-gray-700">Maximum Power</div>
-                  <div className="text-sm text-gray-500">48A @ 240V</div>
+                  <div className="text-sm font-medium text-gray-700">48A listing</div>
+                  <div className="text-sm text-gray-500">See the listing</div>
                 </div>
               </div>
               
@@ -202,10 +201,9 @@ export default async function WallboxPulsar48APage() {
         {/* Key Features */}
         <section className="space-y-8">
           <div className="text-center space-y-4">
-            <h2 className="text-3xl font-bold">Maximum-Power Smart EV Charging</h2>
+            <h2 className="text-3xl font-bold">48A Wallbox listing</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              The Wallbox Pulsar Plus 48A delivers the fastest residential Level 2 charging available, 
-              combined with intelligent connectivity and advanced features.
+              This page does not publish a charge speed. The price and the core deposit are on this page. Freight is calculated at checkout.
             </p>
           </div>
           
@@ -229,24 +227,22 @@ export default async function WallboxPulsar48APage() {
               <Bolt className="h-4 w-4" />
               Maximum Residential Power
             </div>
-            <h2 className="text-2xl font-bold text-gray-900">Fastest Level 2 Charging Available</h2>
+            <h2 className="text-2xl font-bold text-gray-900">48A listing</h2>
             <p className="text-gray-700 max-w-2xl mx-auto">
-              At 48 amps, this Wallbox Pulsar Plus delivers the maximum power possible for residential 
-              Level 2 charging installations. Experience the fastest home charging speeds available without 
-              upgrading to expensive commercial-grade infrastructure.
+              This page does not publish a kilowatt rating or a miles-per-hour figure. The price and the core deposit are on this page. Freight is calculated at checkout.
             </p>
             <div className="grid md:grid-cols-3 gap-6 mt-8">
               <div className="text-center">
                 <div className="text-3xl font-bold text-orange-600">48A</div>
-                <div className="text-sm text-gray-600">Maximum Amperage</div>
+                <div className="text-sm text-gray-600">Listed amperage</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-orange-600">11.5kW</div>
-                <div className="text-sm text-gray-600">Peak Power Output</div>
+                <div className="text-3xl font-bold text-orange-600">—</div>
+                <div className="text-sm text-gray-600">Kilowatts not published</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-orange-600">40+</div>
-                <div className="text-sm text-gray-600">Miles/Hour Range</div>
+                <div className="text-3xl font-bold text-orange-600">—</div>
+                <div className="text-sm text-gray-600">Miles per hour not published</div>
               </div>
             </div>
           </div>
@@ -351,7 +347,7 @@ export default async function WallboxPulsar48APage() {
         {/* Environmental Benefits */}
         <section className="space-y-8">
           <div className="text-center space-y-4">
-            <h2 className="text-2xl font-bold">Maximum Power, Sustainable Choice</h2>
+            <h2 className="text-2xl font-bold">48A listing</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Our remanufactured Wallbox chargers deliver maximum charging performance while prioritizing environmental responsibility.
             </p>
@@ -419,11 +415,10 @@ export default async function WallboxPulsar48APage() {
         {/* Final CTA */}
         <section className="text-center space-y-6 bg-canyon-rust/5 rounded-2xl p-8">
           <h2 className="text-2xl font-bold">
-            Ready for Maximum EV Charging Power?
+            Ready to order this 48A listing?
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Experience the fastest residential Level 2 charging available with intelligent connectivity, 
-            mobile app control, and industry-leading 48A performance.
+            The price and the core deposit are on this page. Freight is calculated at checkout. We do not install the charger.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <AddToCartButton 
@@ -443,7 +438,7 @@ export default async function WallboxPulsar48APage() {
               href="/contact"
               className="border border-canyon-rust text-canyon-rust px-8 py-3 rounded-lg font-semibold hover:bg-canyon-rust/10 transition-colors"
             >
-              Get Maximum Power Installation Quote
+              Ask a question
             </a>
           </div>
         </section>
