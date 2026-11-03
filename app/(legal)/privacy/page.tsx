@@ -19,6 +19,8 @@ export default function Page(){
       </ul>
       <h2>Asking your employer to pay</h2>
       <p>If you use the &ldquo;Ask your employer to pay&rdquo; feature in our mobile app, we collect the employer name and email address you provide, along with an optional message. We use this information solely to send a one-time email to the employer on your behalf. We do not share it with third parties or use it for marketing. We retain these records for 7 years to comply with business records retention requirements tied to financial transactions.</p>
+      <h2>Text messages</h2>
+      <p>No mobile information will be shared with third parties or affiliates for marketing or promotional purposes. Text messaging originator opt-in data and consent will not be shared with any third parties.</p>
       <h2>Your Rights</h2>
       <p>Request access or deletion at <a href={`mailto:${CONTACT}`}>{CONTACT}</a>.</p>
     </article>

@@ -12,6 +12,8 @@ export default function Page(){
       <p>Training content is provided for educational purposes and to assist OSHA compliance. Employers remain responsible for site-specific training and evaluation.</p>
       <h2>Payments & Refunds</h2>
       <p>Payments are processed securely via our provider. Refunds are handled per our Refund Policy.</p>
+      <h2>Text messages</h2>
+      <p>If you opt in, Flat Earth Equipment may text the mobile number you provide about quotes, orders, and shipping updates. Message frequency varies. Message and data rates may apply. Reply STOP to opt out and HELP for help. Consent is not a condition of purchase.</p>
       <h2>Contact</h2>
       <p>Questions? Email <a href={`mailto:${CONTACT}`}>{CONTACT}</a>.</p>
     </article>

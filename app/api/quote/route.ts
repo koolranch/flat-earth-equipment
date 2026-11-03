@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendMail } from '@/lib/email/mailer';
+import { readSmsConsent, recordSmsConsent } from '@/lib/sms/recordConsent.server';
+import { supabaseService } from '@/lib/supabase/service.server';
 
 export async function POST(req: NextRequest) {
   try {
@@ -19,13 +21,17 @@ export async function POST(req: NextRequest) {
       productSlug,
       productSku,
       needsPO,
-      timeline
+      timeline,
+      smsConsent,
+      source,
     } = body;
 
     // Support both old and new field names
     const customerName = fullname || name;
     const requestedQty = quantity || qty || '1';
     const productDescription = productName || part || equipment;
+    const consent = readSmsConsent(smsConsent);
+    const phoneValue = typeof phone === 'string' ? phone.trim() : '';
 
     // Validate required fields
     if (!customerName || !email || !productDescription) {
@@ -76,6 +82,10 @@ export async function POST(req: NextRequest) {
         <td style="padding: 8px 0;"><a href="tel:${phone}" style="color: #A0522D;">${phone}</a></td>
       </tr>
       ` : ''}
+      <tr>
+        <td style="padding: 8px 0; font-weight: bold; color: #6b7280;">SMS consent:</td>
+        <td style="padding: 8px 0;">${consent.sms_consent ? 'Yes' : 'No'}</td>
+      </tr>
     </table>
   </div>
   
@@ -109,6 +119,36 @@ export async function POST(req: NextRequest) {
 </body>
 </html>
     `;
+
+    const qtyNum = Number.parseInt(String(requestedQty), 10);
+    try {
+      const svc = supabaseService();
+      const { error: saveError } = await svc.from('quote_requests').insert({
+        name: customerName,
+        email: String(email).toLowerCase().trim(),
+        company: company || null,
+        phone: phoneValue || null,
+        part_name: String(productDescription).slice(0, 500),
+        quantity: Number.isFinite(qtyNum) && qtyNum > 0 ? qtyNum : 1,
+        notes: notes || null,
+        source: typeof source === 'string' && source.trim() ? source.trim().slice(0, 80) : 'website',
+        status: 'new',
+        sms_consent: consent.sms_consent,
+        sms_consent_at: consent.sms_consent_at,
+      });
+      if (saveError) console.error('quote request save failed', saveError.message);
+    } catch (saveErr) {
+      console.error('quote request save failed', saveErr);
+    }
+
+    await recordSmsConsent({
+      source: 'quote',
+      name: customerName,
+      email: String(email),
+      phone: phoneValue || null,
+      sms_consent: consent.sms_consent,
+      sms_consent_at: consent.sms_consent_at,
+    });
 
     // Send email using Resend (same as certification emails)
     await sendMail({

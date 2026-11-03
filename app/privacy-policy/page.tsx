@@ -25,7 +25,8 @@ export default function PrivacyPolicy() {
       </ul>
       <h2>Data Sharing</h2>
       <p>We do not sell your data. We share it only with payment processors and logistics partners.</p>
-      <p>All the above categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.</p>
+      <h2>Text messages</h2>
+      <p>No mobile information will be shared with third parties or affiliates for marketing or promotional purposes. Text messaging originator opt-in data and consent will not be shared with any third parties.</p>
       <h2>Your Choices</h2>
       <p>Contact <a href="mailto:contact@flatearthequipment.com">contact@flatearthequipment.com</a> to view, update, or delete your data.</p>
       <h2>Security</h2>

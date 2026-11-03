@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import SmsConsentCheckbox from "@/components/SmsConsentCheckbox";
 
 type Props = {
   open: boolean;
@@ -42,6 +43,7 @@ export default function SimpleQuoteModal({ open, onClose, product }: Props) {
     const needsPO = formData.get('needsPO') === 'yes';
     const timeline = formData.get('timeline') as string;
     const notes = formData.get('notes') as string;
+    const smsConsent = formData.get('smsConsent');
     
     // Send via internal API (uses Resend, same as certificate emails)
     console.log('Submitting quote form via Resend API');
@@ -63,7 +65,9 @@ export default function SimpleQuoteModal({ open, onClose, product }: Props) {
           notes,
           productName: product.name,
           productSlug: product.slug,
-          productSku: product.sku || ''
+          productSku: product.sku || '',
+          smsConsent,
+          source: 'quote_modal',
         }),
       });
       
@@ -187,7 +191,7 @@ export default function SimpleQuoteModal({ open, onClose, product }: Props) {
 
               <div>
                 <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                  Phone Number
+                  Mobile phone (optional)
                 </label>
                 <input
                   type="tel"
@@ -271,6 +275,8 @@ export default function SimpleQuoteModal({ open, onClose, product }: Props) {
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none text-slate-900 placeholder:text-slate-500"
               />
             </div>
+
+            <SmsConsentCheckbox id="simple-quote-sms-consent" />
 
             <div className="flex justify-end gap-3 pt-4">
               <button

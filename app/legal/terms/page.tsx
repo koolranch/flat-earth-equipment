@@ -23,6 +23,8 @@ export default function Terms() {
       <h2>Liability</h2>
       <p>We do not control your worksite. Always follow your company rules and OSHA.</p>
       
+      <h2>Text messages</h2>
+      <p>If you opt in, Flat Earth Equipment may text the mobile number you provide about quotes, orders, and shipping updates. Message frequency varies. Message and data rates may apply. Reply STOP to opt out and HELP for help. Consent is not a condition of purchase.</p>
       <h2>Updates</h2>
       <p>We may update these terms. Continued use means you accept changes.</p>
       

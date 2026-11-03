@@ -17,6 +17,7 @@ import {
   MessageSquare,
   Zap
 } from 'lucide-react';
+import SmsConsentCheckbox from '@/components/SmsConsentCheckbox';
 
 interface QuoteRequestModalProps {
   isOpen: boolean;
@@ -58,6 +59,7 @@ export default function QuoteRequestModal({
     machineSerial: machine?.serial || '',
     notes: '',
     urgency: 'standard' as UrgencyLevel,
+    smsConsent: false,
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -116,6 +118,7 @@ export default function QuoteRequestModal({
           machineSerial: '',
           notes: '',
           urgency: 'standard',
+          smsConsent: false,
         });
       }, 2000);
     } catch (err) {
@@ -281,7 +284,7 @@ export default function QuoteRequestModal({
                         <div>
                           <label className="flex items-center gap-1.5 text-sm font-medium text-slate-700 mb-1.5">
                             <Phone className="w-4 h-4" />
-                            Phone
+                            Mobile phone (optional)
                           </label>
                           <input
                             type="tel"
@@ -371,6 +374,13 @@ export default function QuoteRequestModal({
                           placeholder="Any special requirements or questions..."
                         />
                       </div>
+
+                      <SmsConsentCheckbox
+                        id="quote-modal-sms-consent"
+                        checked={formData.smsConsent}
+                        onCheckedChange={(smsConsent) => setFormData((prev) => ({ ...prev, smsConsent }))}
+                        disabled={isSubmitting}
+                      />
 
                       {/* Submit Button */}
                       <button

@@ -31,6 +31,8 @@ export default function Privacy() {
         <li>Optional message text (when you use the ask-employer feature) — optional, encrypted in transit, retained 7 years, not shared with third parties beyond the named employer.</li>
       </ul>
 
+      <h2>Text messages</h2>
+      <p>No mobile information will be shared with third parties or affiliates for marketing or promotional purposes. Text messaging originator opt-in data and consent will not be shared with any third parties.</p>
       <h2>Your Rights</h2>
       <p>You can request your data or account deletion. Some training records may need to be retained for compliance.</p>
       

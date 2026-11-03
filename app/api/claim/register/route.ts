@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabaseService } from '@/lib/supabase/service.server';
 import { claimSeatForUser } from '@/lib/training/claimSeat';
+import { readSmsConsent, recordSmsConsent } from '@/lib/sms/recordConsent.server';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -15,7 +16,9 @@ export const dynamic = 'force-dynamic';
 export async function POST(req: Request) {
   const svc = supabaseService();
 
-  const { token, firstName, lastName, password } = await req.json();
+  const { token, firstName, lastName, password, phone, smsConsent } = await req.json();
+  const consent = readSmsConsent(smsConsent);
+  const phoneValue = typeof phone === 'string' ? phone.trim().slice(0, 40) : '';
 
   if (!token) {
     return NextResponse.json({ ok: false, error: 'missing_token' }, { status: 400 });
@@ -82,6 +85,16 @@ export async function POST(req: Request) {
     } catch (profileError) {
       console.error('Profile upsert failed (non-blocking):', profileError);
     }
+
+    await recordSmsConsent({
+      source: 'signup',
+      name: fullName,
+      email: inv.email,
+      phone: phoneValue || null,
+      sms_consent: consent.sms_consent,
+      sms_consent_at: consent.sms_consent_at,
+      user_id: created.user.id,
+    });
 
     const result = await claimSeatForUser(svc, {
       inv,

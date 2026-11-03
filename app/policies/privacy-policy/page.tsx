@@ -174,6 +174,16 @@ export default function PrivacyPolicyPage() {
       </section>
 
       <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">{locale === 'es' ? 'Mensajes de texto' : 'Text messages'}</h2>
+        <div className="prose prose-slate">
+          {locale === 'es' ? (
+            <p>No compartiremos información de telefonía móvil con terceros ni afiliados para fines de marketing o promoción.</p>
+          ) : null}
+          <p>No mobile information will be shared with third parties or affiliates for marketing or promotional purposes. Text messaging originator opt-in data and consent will not be shared with any third parties.</p>
+        </div>
+      </section>
+
+      <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">{t.askEmployer.title}</h2>
         <div className="prose prose-slate">
           <p>{t.askEmployer.description}</p>

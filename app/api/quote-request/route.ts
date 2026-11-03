@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabase/server';
 import { sendQuoteNotificationEmail, sendQuoteConfirmationEmail, type QuoteRequestEmailData } from '@/lib/email/resend';
+import { readSmsConsent, recordSmsConsent } from '@/lib/sms/recordConsent.server';
 
 interface QuoteRequestBody {
   name: string;
@@ -17,6 +18,7 @@ interface QuoteRequestBody {
   notes?: string;
   urgency?: 'standard' | 'urgent' | 'emergency';
   source?: string;
+  smsConsent?: boolean | string;
 }
 
 export async function POST(request: NextRequest) {
@@ -44,6 +46,8 @@ export async function POST(request: NextRequest) {
     const forwarded = request.headers.get('x-forwarded-for');
     const ip = forwarded ? forwarded.split(',')[0] : request.headers.get('x-real-ip') || null;
     const userAgent = request.headers.get('user-agent') || null;
+    const consent = readSmsConsent(body.smsConsent);
+    const phoneValue = typeof body.phone === 'string' ? body.phone.trim() : '';
 
     // Insert into Supabase
     const supabase = supabaseServer();
@@ -54,7 +58,7 @@ export async function POST(request: NextRequest) {
         name: body.name,
         email: body.email.toLowerCase().trim(),
         company: body.company || null,
-        phone: body.phone || null,
+        phone: phoneValue || null,
         part_id: body.partId || null,
         part_name: body.partName,
         oem_reference: body.oemReference || null,
@@ -68,6 +72,8 @@ export async function POST(request: NextRequest) {
         ip_address: ip,
         user_agent: userAgent,
         status: 'new',
+        sms_consent: consent.sms_consent,
+        sms_consent_at: consent.sms_consent_at,
       })
       .select()
       .single();
@@ -85,7 +91,8 @@ export async function POST(request: NextRequest) {
       requestId: data.id,
       customerName: body.name,
       customerEmail: body.email.toLowerCase().trim(),
-      customerPhone: body.phone,
+      customerPhone: phoneValue || null,
+      smsConsent: consent.sms_consent,
       company: body.company,
       partName: body.partName,
       oemReference: body.oemReference,
@@ -96,6 +103,15 @@ export async function POST(request: NextRequest) {
       urgency: body.urgency || 'standard',
       notes: body.notes,
     };
+
+    await recordSmsConsent({
+      source: 'quote',
+      name: body.name,
+      email: body.email,
+      phone: phoneValue || null,
+      sms_consent: consent.sms_consent,
+      sms_consent_at: consent.sms_consent_at,
+    });
 
     // Send emails in parallel (non-blocking - failures logged but don't break request)
     await Promise.allSettled([

@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import SmsConsentCheckbox from "@/components/SmsConsentCheckbox";
 
 export default function EnhancedContactForm() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -9,7 +10,8 @@ export default function EnhancedContactForm() {
     phone: '',
     zipcode: '',
     reason: '',
-    message: ''
+    message: '',
+    smsConsent: false,
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -27,7 +29,7 @@ export default function EnhancedContactForm() {
 
       if (response.ok) {
         setStatus('success');
-        setFormData({ name: '', email: '', phone: '', zipcode: '', reason: '', message: '' });
+        setFormData({ name: '', email: '', phone: '', zipcode: '', reason: '', message: '', smsConsent: false });
       } else {
         setStatus('error');
       }
@@ -100,7 +102,7 @@ export default function EnhancedContactForm() {
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-2">Phone Number</label>
+          <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-2">Mobile phone (optional)</label>
           <input 
             type="tel" 
             id="phone" 
@@ -162,6 +164,13 @@ export default function EnhancedContactForm() {
           placeholder="Tell us about your project or question..."
         />
       </div>
+
+      <SmsConsentCheckbox
+        id="contact-sms-consent"
+        checked={formData.smsConsent}
+        onCheckedChange={(smsConsent) => setFormData((prev) => ({ ...prev, smsConsent }))}
+        disabled={status === 'loading'}
+      />
 
       <button 
         type="submit"

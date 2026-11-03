@@ -24,7 +24,9 @@ export default function TermsOfService() {
       <p>We are not liable for indirect or consequential damages.</p>
       <h2>6. Governing Law</h2>
       <p>These terms are governed by Wyoming law, USA.</p>
-      <h2>7. Contact</h2>
+      <h2>7. Text messages</h2>
+      <p>If you opt in, Flat Earth Equipment may text the mobile number you provide about quotes, orders, and shipping updates. Message frequency varies. Message and data rates may apply. Reply STOP to opt out and HELP for help. Consent is not a condition of purchase.</p>
+      <h2>8. Contact</h2>
       <p>Questions? <a href="mailto:contact@flatearthequipment.com">contact@flatearthequipment.com</a></p>
     </main>
   )

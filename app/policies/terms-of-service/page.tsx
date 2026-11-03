@@ -38,8 +38,12 @@ export default function TermsOfServicePage() {
         title: '4. Limitations',
         content: 'In no event shall Flat Earth Equipment or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Flat Earth Equipment\'s website.'
       },
+      sms: {
+        title: '5. Text messages',
+        content: 'If you opt in, Flat Earth Equipment may text the mobile number you provide about quotes, orders, and shipping updates. Message frequency varies. Message and data rates may apply. Reply STOP to opt out and HELP for help. Consent is not a condition of purchase.'
+      },
       contact: {
-        title: '5. Contact Information',
+        title: '6. Contact Information',
         description: 'If you have any questions about these Terms of Service, please contact us:',
         items: [
           'Email: contact@flatearthequipment.com',
@@ -72,8 +76,12 @@ export default function TermsOfServicePage() {
         title: '4. Limitaciones',
         content: 'En ningún evento Flat Earth Equipment o sus proveedores serán responsables por cualquier daño (incluyendo, sin limitación, daños por pérdida de datos o ganancias, o debido a interrupción del negocio) que surja del uso o la incapacidad de usar los materiales en el sitio web de Flat Earth Equipment.'
       },
+      sms: {
+        title: '5. Mensajes de texto',
+        content: 'Si usted acepta, Flat Earth Equipment puede enviar mensajes de texto al número móvil que proporcione sobre cotizaciones, pedidos y actualizaciones de envío. La frecuencia de los mensajes varía. Pueden aplicarse tarifas de mensajes y datos. Responda STOP para cancelar y HELP para obtener ayuda. El consentimiento no es una condición de compra.'
+      },
       contact: {
-        title: '5. Información de Contacto',
+        title: '6. Información de Contacto',
         description: 'Si tiene alguna pregunta sobre estos Términos de Servicio, por favor contáctenos:',
         items: [
           'Correo electrónico: contact@flatearthequipment.com',
@@ -118,6 +126,13 @@ export default function TermsOfServicePage() {
         <h2 className="text-2xl font-semibold mb-4">{t.limitations.title}</h2>
         <div className="prose prose-slate">
           <p>{t.limitations.content}</p>
+        </div>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">{t.sms.title}</h2>
+        <div className="prose prose-slate">
+          <p>{t.sms.content}</p>
         </div>
       </section>
 

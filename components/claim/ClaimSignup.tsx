@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { signInWithPasswordAction } from '@/app/login/actions';
+import SmsConsentCheckbox from '@/components/SmsConsentCheckbox';
 
 interface ClaimSignupProps {
   token: string;
@@ -17,6 +18,8 @@ export default function ClaimSignup({ token, email }: ClaimSignupProps) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('');
+  const [smsConsent, setSmsConsent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [accountExists, setAccountExists] = useState(false);
@@ -45,6 +48,8 @@ export default function ClaimSignup({ token, email }: ClaimSignupProps) {
           firstName: firstName.trim(),
           lastName: lastName.trim(),
           password,
+          phone: phone.trim(),
+          smsConsent,
         }),
       });
       const result = await response.json();
@@ -163,6 +168,28 @@ export default function ClaimSignup({ token, email }: ClaimSignupProps) {
           <p className="mt-1 text-xs text-slate-500">
             You'll use this email and password to sign in to the app.
           </p>
+        </div>
+        <div className="mt-3">
+          <label className="block text-sm font-medium text-slate-700 mb-1">
+            Mobile phone (optional)
+          </label>
+          <input
+            type="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="(555) 123-4567"
+            autoComplete="tel"
+            disabled={loading}
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 placeholder-slate-400 focus:border-[#F76511] focus:ring-2 focus:ring-orange-100 focus:outline-none disabled:opacity-50"
+          />
+        </div>
+        <div className="mt-3">
+          <SmsConsentCheckbox
+            id="signup-sms-consent"
+            checked={smsConsent}
+            onCheckedChange={setSmsConsent}
+            disabled={loading}
+          />
         </div>
       </div>
 

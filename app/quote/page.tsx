@@ -2,6 +2,7 @@
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
+import SmsConsentCheckbox from "@/components/SmsConsentCheckbox";
 
 function QuoteForm() {
   const searchParams = useSearchParams();
@@ -18,7 +19,8 @@ function QuoteForm() {
     equipment: prefilledEquipment,
     part: prefilledSku,
     qty: '',
-    notes: prefilledNotes
+    notes: prefilledNotes,
+    smsConsent: false,
   });
 
   useEffect(() => {
@@ -46,7 +48,7 @@ function QuoteForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, source: 'quote_page' }),
       });
 
       if (response.ok) {
@@ -60,7 +62,8 @@ function QuoteForm() {
           equipment: '',
           part: '',
           qty: '',
-          notes: ''
+          notes: '',
+          smsConsent: false,
         });
       } else {
         setStatus('error');
@@ -88,7 +91,7 @@ function QuoteForm() {
         name: 'Your Name',
         company: 'Company (optional)',
         email: 'Email',
-        phone: 'Phone (optional)',
+        phone: 'Mobile phone (optional)',
         equipment: 'Make & Model (e.g. JLG 1930ES)',
         part: 'Part Number or Description',
         qty: 'Quantity (optional)',
@@ -107,7 +110,7 @@ function QuoteForm() {
         name: 'Su Nombre',
         company: 'Empresa (opcional)',
         email: 'Correo Electrónico',
-        phone: 'Teléfono (opcional)',
+        phone: 'Teléfono móvil (opcional)',
         equipment: 'Marca y Modelo (ej. JLG 1930ES)',
         part: 'Número de Parte o Descripción',
         qty: 'Cantidad (opcional)',
@@ -221,6 +224,12 @@ function QuoteForm() {
           rows={4}
           disabled={status === 'loading'}
           className="w-full border border-slate-300 px-4 py-2 rounded disabled:opacity-50"
+        />
+
+        <SmsConsentCheckbox
+          checked={formData.smsConsent}
+          onCheckedChange={(smsConsent) => setFormData((prev) => ({ ...prev, smsConsent }))}
+          disabled={status === 'loading'}
         />
 
         <button

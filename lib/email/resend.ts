@@ -373,6 +373,7 @@ export interface QuoteRequestEmailData {
   machineSerial?: string | null;
   urgency: 'standard' | 'urgent' | 'emergency';
   notes?: string | null;
+  smsConsent?: boolean;
 }
 
 const urgencyLabels = {
@@ -422,6 +423,7 @@ CUSTOMER INFORMATION
 Name:          ${data.customerName}
 Email:         ${data.customerEmail}
 Phone:         ${data.customerPhone || 'Not provided'}
+SMS consent:   ${data.smsConsent ? 'Yes' : 'No'}
 Company:       ${data.company || 'Not provided'}
 
 ${data.notes ? `NOTES\n────────────────────────────────────────\n${data.notes}\n` : ''}
