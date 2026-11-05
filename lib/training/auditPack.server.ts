@@ -139,13 +139,15 @@ export async function buildAuditPackPdf(trainerUserId: string): Promise<Uint8Arr
   /* ── Roster table ── */
   newPage();
   text('Operator Roster', { size: 16, font: bold, dy: 24 });
+  // Each cell must fit its width: pdf-lib draws text without wrapping, so an
+  // over-long value runs into the next column.
   const cols = [
-    { label: 'Operator', x: PAGE.margin, w: 130 },
-    { label: 'Status', x: 190, w: 60 },
-    { label: 'Evaluation', x: 252, w: 70 },
-    { label: 'Cert #', x: 324, w: 80 },
-    { label: 'Issued', x: 406, w: 70 },
-    { label: 'Expires', x: 478, w: 80 },
+    { label: 'Operator', x: PAGE.margin, w: 128 },
+    { label: 'Status', x: 190, w: 62 },
+    { label: 'Evaluation', x: 260, w: 62 },
+    { label: 'Cert #', x: 330, w: 86 },
+    { label: 'Issued', x: 424, w: 62 },
+    { label: 'Expires', x: 494, w: 64 },
   ];
   const drawHeader = () => {
     for (const c of cols) page.drawText(c.label, { x: c.x, y, size: 8, font: bold, color: GRAY });
@@ -163,12 +165,15 @@ export async function buildAuditPackPdf(trainerUserId: string): Promise<Uint8Arr
     ensureRoom(34);
     if (y === PAGE.h - PAGE.margin) { text('Operator Roster (continued)', { size: 12, font: bold, dy: 20 }); drawHeader(); }
     page.drawText(clip(r.name, bold, 9, cols[0].w), { x: cols[0].x, y, size: 9, font: bold, color: DARK });
-    page.drawText(clip(r.email, font, 7.5, cols[0].w + 50), { x: cols[0].x, y: y - 10, size: 7.5, font, color: GRAY });
-    page.drawText(`${r.status} (${r.progress}%)`, { x: cols[1].x, y, size: 8.5, font, color: DARK });
-    page.drawText(r.evalResult + (r.evalDate ? ` ${fmtDate(r.evalDate)}` : ''), { x: cols[2].x, y, size: 8.5, font, color: r.evalResult === 'Pass' ? rgb(0.02, 0.55, 0.35) : r.evalResult === 'Fail' ? rgb(0.8, 0.15, 0.15) : GRAY });
-    page.drawText(r.certCode || '—', { x: cols[3].x, y, size: 8.5, font, color: DARK });
-    page.drawText(fmtDate(r.issued), { x: cols[4].x, y, size: 8.5, font, color: DARK });
-    page.drawText(fmtDate(r.expires), { x: cols[5].x, y, size: 8.5, font, color: DARK });
+    page.drawText(clip(r.email, font, 7.5, cols[0].w), { x: cols[0].x, y: y - 10, size: 7.5, font, color: GRAY });
+    page.drawText(clip(r.status, font, 8.5, cols[1].w), { x: cols[1].x, y, size: 8.5, font, color: DARK });
+    page.drawText(`${r.progress}% complete`, { x: cols[1].x, y: y - 10, size: 7.5, font, color: GRAY });
+    const evalColor = r.evalResult === 'Pass' ? rgb(0.02, 0.55, 0.35) : r.evalResult === 'Fail' ? rgb(0.8, 0.15, 0.15) : GRAY;
+    page.drawText(clip(r.evalResult, bold, 8.5, cols[2].w), { x: cols[2].x, y, size: 8.5, font: bold, color: evalColor });
+    if (r.evalDate) page.drawText(clip(fmtDate(r.evalDate), font, 7.5, cols[2].w), { x: cols[2].x, y: y - 10, size: 7.5, font, color: GRAY });
+    page.drawText(clip(r.certCode || '—', font, 8.5, cols[3].w), { x: cols[3].x, y, size: 8.5, font, color: DARK });
+    page.drawText(clip(fmtDate(r.issued), font, 8.5, cols[4].w), { x: cols[4].x, y, size: 8.5, font, color: DARK });
+    page.drawText(clip(fmtDate(r.expires), font, 8.5, cols[5].w), { x: cols[5].x, y, size: 8.5, font, color: DARK });
     y -= 30;
   }
 
