@@ -17,8 +17,8 @@ const BRAND_ORANGE = '#F76511';
 const PLAN_LABELS: Record<string, string> = {
   crew_monthly: 'Crew plan — 10 training seats, $99/month',
   crew_annual: 'Crew plan — 10 training seats, $990/year',
-  facility_monthly: 'Facility plan — unlimited seats, $199/month',
-  unlimited: 'Facility plan — unlimited seats, $1,999/year',
+  facility_monthly: 'Facility plan — 50 training seats, $199/month',
+  unlimited: 'Facility plan — 50 training seats, $1,999/year',
 };
 
 export function gfcPlanLabel(planId: string): string {
