@@ -260,6 +260,34 @@ const MERCHANT_KEEP_SLUGS = new Set([
   "crown-132939-controller",
   "62256gt",
   "genie-44170-solenoid-brake",
+  // 2026-10-22 dashboard publish. g:id stays the catalog sku.
+  "04.4238.0059gt",
+  "141656",
+  "73994gt",
+  "36179gt",
+  "05.4309.0001gt",
+  "236259gt",
+  "91473031",
+  "04.4239.0005gt",
+  "139972gt",
+  "91514219",
+  "0610101",
+  "139709gt",
+  "100755gt",
+  "7027792",
+  "203040000023",
+  "8036476",
+  "100839gt",
+  "151207",
+  "7023543",
+  "22052gt",
+  "1001108293",
+  "4000008",
+  "4130356",
+  "8036477",
+  "111417gt",
+  "214228gt",
+  "236260gt",
 ]);
 
 /**
@@ -344,6 +372,7 @@ const GLASS_IMAGE_CACHE_BUST: Record<string, string> = {
   "kubota-rd158-46450-rear-window": "20260825",
   "bobcat-7178678-front-upper-window": "20260917",
   "bobcat-7219974-rear-window": "20260917",
+  "case-khn32020-side-window": "20261023",
 };
 
 /** Unique per-SKU cab glass cards — never fall back to the shared placeholder. */
