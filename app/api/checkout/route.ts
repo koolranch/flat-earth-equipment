@@ -773,7 +773,11 @@ export async function POST(req: NextRequest) {
         gfcOperatorCustomerEmail = candidate;
       }
     }
-    const isGfcOperatorSession = isGfcSession && checkoutMode === 'payment' && isTrainingPurchase;
+    // Single-seat only: a GFC one-time team pack is a manager purchase and must
+    // not get the operator TTL, recovery emails, or operator submit copy.
+    const isGfcTeamPack = isGfcSession && checkoutMode === 'payment' && isTrainingPurchase && metadata.quantity !== '1';
+    const isGfcOperatorSession =
+      isGfcSession && checkoutMode === 'payment' && isTrainingPurchase && !isGfcTeamPack;
     // GFC employer trials (Crew / Facility) collect no card up front. Stripe
     // pauses the subscription if the trial ends without a payment method; the
     // trainer adds a card from the dashboard (customer portal) and
@@ -853,7 +857,9 @@ export async function POST(req: NextRequest) {
                     ? isGfcNoCardTrial
                       ? `No card needed to start. Your ${subscriptionTrialDays}-day free trial begins now and nothing is ever billed unless you add a card from your dashboard to keep the plan. Forklift Certified is operated by Flat Earth Equipment.`
                       : "You won't be charged today. Cancel anytime during the trial from your dashboard. Forklift Certified is operated by Flat Earth Equipment — that's the name on your receipt."
-                    : 'Instant access: your login arrives by email right after payment. Unlimited exam retakes included. Your receipt comes from Flat Earth Equipment, the forklift company that issues your certificate.',
+                    : isGfcTeamPack
+                      ? 'One-time payment, no subscription. Your manager dashboard login arrives by email right after payment, and you invite your operators from there. Your receipt comes from Flat Earth Equipment, the forklift company that issues the certificates.'
+                      : 'Instant access: your login arrives by email right after payment. Unlimited exam retakes included. Your receipt comes from Flat Earth Equipment, the forklift company that issues your certificate.',
               },
             },
           }

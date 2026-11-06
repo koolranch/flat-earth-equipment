@@ -19,6 +19,7 @@ const PLAN_LABELS: Record<string, string> = {
   crew_annual: 'Crew plan — 10 training seats, $990/year',
   facility_monthly: 'Facility plan — 50 training seats, $199/month',
   unlimited: 'Facility plan — 50 training seats, $1,999/year',
+  pack5: 'Team pack — 5 training seats, $225 one-time',
 };
 
 export function gfcPlanLabel(planId: string): string {

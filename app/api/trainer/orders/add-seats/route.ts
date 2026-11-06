@@ -7,10 +7,9 @@ import { supabaseService } from '@/lib/supabase/service.server';
 import { stripe } from '@/lib/payments/stripeServer';
 import { getAuthUser } from '@/lib/supabase/mobile-auth';
 import { isSubscriptionOrderActive } from '@/lib/training/orderEntitlements';
+import { MAX_EXTRA_SEATS_PER_PURCHASE, extraSeatsAllowed } from '@/lib/training/seatLimits';
 
 export const dynamic = 'force-dynamic';
-
-const MAX_EXTRA_SEATS_PER_PURCHASE = 25;
 
 export async function POST(req: Request) {
   const { user } = await getAuthUser(req);
@@ -48,6 +47,10 @@ export async function POST(req: Request) {
   }
   if (!order.stripe_subscription_id || !isSubscriptionOrderActive(order)) {
     return NextResponse.json({ ok: false, error: 'subscription_not_active' }, { status: 400 });
+  }
+  const allowed = extraSeatsAllowed(order.seats);
+  if (quantity > allowed) {
+    return NextResponse.json({ ok: false, error: 'seat_cap_reached', allowed }, { status: 400 });
   }
 
   // GFC trainers manage seats on app.getforkliftcertified.com; send them back
