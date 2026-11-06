@@ -776,8 +776,7 @@ export async function POST(req: NextRequest) {
     // Single-seat only: a GFC one-time team pack is a manager purchase and must
     // not get the operator TTL, recovery emails, or operator submit copy.
     const isGfcTeamPack = isGfcSession && checkoutMode === 'payment' && isTrainingPurchase && metadata.quantity !== '1';
-    const isGfcOperatorSession =
-      isGfcSession && checkoutMode === 'payment' && isTrainingPurchase && !isGfcTeamPack;
+    const isGfcOperatorSession = isGfcSession && checkoutMode === 'payment' && isTrainingPurchase && !isGfcTeamPack;
     // GFC employer trials (Crew / Facility) collect no card up front. Stripe
     // pauses the subscription if the trial ends without a payment method; the
     // trainer adds a card from the dashboard (customer portal) and

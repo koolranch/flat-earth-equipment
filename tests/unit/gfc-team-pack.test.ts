@@ -8,7 +8,7 @@ const welcome = readFileSync('lib/email/gfcTrainerWelcome.ts', 'utf8');
 
 test('GFC team packs are excluded from operator checkout behavior', () => {
   assert.match(checkout, /isGfcTeamPack\s*=\s*isGfcSession && checkoutMode === 'payment' && isTrainingPurchase && metadata\.quantity !== '1'/);
-  assert.match(checkout, /isGfcOperatorSession\s*=\s*isGfcSession && checkoutMode === 'payment' && isTrainingPurchase && !isGfcTeamPack/);
+  assert.match(checkout, /const isGfcOperatorSession = isGfcSession && checkoutMode === 'payment' && isTrainingPurchase && !isGfcTeamPack;/);
 });
 
 test('GFC team packs get manager submit copy, not operator copy', () => {
