@@ -74,7 +74,8 @@ export default function DashboardInner() {
   const [remindState, setRemindState] = useState<Record<string, RemindState>>({});
   const [former, setFormer] = useState<Row[]>([]);
   const [removing, setRemoving] = useState<Record<string, boolean>>({});
-  const [addSeatsOrderId, setAddSeatsOrderId] = useState<string | null>(null);
+  const [addSeats, setAddSeats] = useState<{ orderId: string; max: number } | null>(null);
+  const [seatCapReached, setSeatCapReached] = useState(false);
   const [trialInfo, setTrialInfo] = useState<TrialInfo | null>(null);
   const autoOpenedAssign = useRef(false);
 
@@ -154,7 +155,8 @@ export default function DashboardInner() {
             remainingLabel: hasUnlimited ? 'Unlimited' : String(totals.remaining),
           });
           const extendable = j.items.find((order: any) => order.can_add_seats);
-          setAddSeatsOrderId(extendable ? extendable.order_id : null);
+          setAddSeats(extendable ? { orderId: extendable.order_id, max: extendable.max_extra_seats || 1 } : null);
+          setSeatCapReached(!extendable && j.items.some((order: any) => order.seat_cap_reached));
           // Most recent order carrying trial state (trialing, or paused after a
           // no-card trial). Orders come back newest first.
           const trialOrder = j.items.find((order: any) => order.trial);
@@ -278,8 +280,13 @@ export default function DashboardInner() {
         )}
         {/* Out of (or nearly out of) seats on a live Crew subscription: offer
             the $29 extra-seat purchase instead of silently hiding invites. */}
-        {addSeatsOrderId && seatsInfo && !seatsInfo.hasUnlimited && seatsInfo.remaining <= 2 && (
-          <AddSeatsButton orderId={addSeatsOrderId} prominent={seatsInfo.remaining === 0} />
+        {addSeats && seatsInfo && !seatsInfo.hasUnlimited && seatsInfo.remaining <= 2 && (
+          <AddSeatsButton orderId={addSeats.orderId} max={addSeats.max} prominent={seatsInfo.remaining === 0} />
+        )}
+        {seatCapReached && seatsInfo && !seatsInfo.hasUnlimited && seatsInfo.remaining <= 2 && (
+          <p className="max-w-xs text-sm text-slate-600">
+            Crew tops out at 25 seats. Contact support to move to the Facility plan (50 seats).
+          </p>
         )}
       </header>
 
@@ -611,7 +618,7 @@ export default function DashboardInner() {
   );
 }
 
-function AddSeatsButton({ orderId, prominent }: { orderId: string; prominent?: boolean }) {
+function AddSeatsButton({ orderId, max, prominent }: { orderId: string; max: number; prominent?: boolean }) {
   const [qty, setQty] = useState(1);
   const [busy, setBusy] = useState(false);
 
@@ -641,9 +648,9 @@ function AddSeatsButton({ orderId, prominent }: { orderId: string; prominent?: b
       <input
         type="number"
         min={1}
-        max={25}
+        max={max}
         value={qty}
-        onChange={e => setQty(Math.min(25, Math.max(1, parseInt(e.target.value, 10) || 1)))}
+        onChange={e => setQty(Math.min(max, Math.max(1, parseInt(e.target.value, 10) || 1)))}
         className="w-16 rounded-lg border border-slate-300 px-2 py-2 text-sm text-slate-900 focus:border-[#F76511] focus:outline-none focus:ring-2 focus:ring-[#F76511]/20"
         aria-label="Number of extra seats to add"
       />

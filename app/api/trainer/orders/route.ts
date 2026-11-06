@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabaseService } from '@/lib/supabase/service.server';
 import { getOrderSeatSummary } from '@/lib/training/orderEntitlements';
+import { extraSeatsAllowed } from '@/lib/training/seatLimits';
 import { getAuthUser } from '@/lib/supabase/mobile-auth';
 import { stripe } from '@/lib/payments/stripeServer';
 import {
@@ -76,6 +77,8 @@ export async function GET(req: Request) {
   const rows = (orders || []).map((o: any) => {
     const summary = getOrderSeatSummary(o, seatMap[o.id]?.claimed || 0);
     const trial = trialState[o.id];
+    const extendable = !summary.isUnlimited && summary.active && !!o.stripe_subscription_id;
+    const maxExtraSeats = extendable ? extraSeatsAllowed(o.seats) : 0;
     return {
       order_id: o.id,
       course_slug: o.course_slug || 'forklift_operator',
@@ -86,8 +89,11 @@ export async function GET(req: Request) {
       remaining_label: summary.remainingLabel,
       is_unlimited: summary.isUnlimited,
       active: summary.active,
-      // Extra seats can only be added to live subscription orders (Crew).
-      can_add_seats: !summary.isUnlimited && summary.active && !!o.stripe_subscription_id,
+      // Extra seats can only be added to live capped subscription orders, and
+      // Crew stops at CREW_MAX_SEATS so larger crews move to Facility.
+      can_add_seats: maxExtraSeats > 0,
+      max_extra_seats: maxExtraSeats,
+      seat_cap_reached: extendable && maxExtraSeats === 0,
       cancel_at_period_end: !!o.cancel_at_period_end,
       current_period_end: o.current_period_end || null,
       subscription_status: o.subscription_status || null,

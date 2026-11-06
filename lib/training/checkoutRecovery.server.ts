@@ -36,7 +36,8 @@ export function isGfcOperatorCheckoutSession(session: Stripe.Checkout.Session): 
     session.mode === 'payment' &&
     session.metadata?.item_0_utm_source === 'getforkliftcertified.com' &&
     session.metadata?.course_slug === 'forklift' &&
-    session.metadata?.purchase_type !== 'extra_seats'
+    session.metadata?.purchase_type !== 'extra_seats' &&
+    (session.metadata?.quantity ?? '1') === '1'
   );
 }
 
