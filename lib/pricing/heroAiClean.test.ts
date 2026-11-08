@@ -23,8 +23,8 @@ const row: WatchRow = {
 
 const prompt = buildHeroCleanPrompt(row);
 assert.match(prompt, /333\/D2714/);
-assert.match(prompt, /watermark/i);
+assert.match(prompt, /faint repeating overlay letters/i);
 assert.match(prompt, /Do not add any lettering/);
-assert.equal(HERO_AI_CLEAN_MODEL, 'google/gemini-3.1-flash-image-preview');
+assert.equal(HERO_AI_CLEAN_MODEL, 'google/gemini-3.1-flash-image');
 
 console.log('heroAiClean.test.ts: ok');

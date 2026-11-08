@@ -16,7 +16,7 @@ import {
 } from './heroTray';
 import type { WatchRow } from './magWatchUniverse';
 
-export const HERO_AI_CLEAN_MODEL = 'google/gemini-3.1-flash-image-preview';
+export const HERO_AI_CLEAN_MODEL = 'google/gemini-3.1-flash-image';
 
 export function buildHeroCleanPrompt(row: WatchRow): string {
   const identity = [row.brand, row.oem_reference, row.name].filter(Boolean).join(' — ');
@@ -24,7 +24,7 @@ export function buildHeroCleanPrompt(row: WatchRow): string {
     'Clean this industrial-parts product photo for an ecommerce catalog.',
     `The part is: ${identity}.`,
     'Keep the exact same physical part, camera angle, ports, threads, connectors, and proportions.',
-    'Remove watermarks, logos, website URLs, price tags, and overlay text.',
+    'Remove faint repeating overlay letters, logos, price tags, and any text that is not physically printed on the part.',
     'Place the part on a clean seamless white studio background.',
     'Soft even lighting, sharp, no crop of the part.',
     'Do not add any lettering, brand names, part numbers, labels, or invented markings.',
