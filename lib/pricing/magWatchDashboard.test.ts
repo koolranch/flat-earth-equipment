@@ -217,6 +217,62 @@ function meta(opts: {
 }
 
 // ---------------------------------------------------------------------------
+// Tracks read by warehouse number: one page for every SKU on the number, stock only.
+// The reading has no sticker, so it can never become a reprice or publish proposal.
+// ---------------------------------------------------------------------------
+{
+  const stockOnly = (availability: string, qty: number | null, streak: number) => ({
+    vendor_pn: 'TSA/SY320X86X50C',
+    cost_wholesale: 820,
+    competitor_prices: [
+      {
+        source: 'magnasource',
+        url: 'https://www.magnasourceinc.com/itemdetail/SY320X86X50C',
+        fetched_at: HOURS_AGO(6),
+        availability,
+        qty_on_hand: qty,
+        stock_only: true,
+      },
+    ],
+    mag_watch: {
+      warehouse_number: 'SY320X86X50C',
+      last_checked_at: HOURS_AGO(6),
+      last_availability: availability,
+      sold_out_streak: streak,
+      miss_count: 0,
+    },
+  });
+  const trackRow = (price: number, metadata: Record<string, unknown>) =>
+    row({
+      brand: 'Bobcat',
+      oem: null,
+      price,
+      category: 'Rubber Tracks',
+      categorySlug: 'rubber-tracks',
+      imageUrl: REAL,
+      metadata,
+    });
+
+  const healthy = buildWatchDashboard(
+    [trackRow(1129, stockOnly('in_stock', 66, 0)), trackRow(1099, stockOnly('in_stock', 66, 0))],
+    NOW
+  );
+  assert.equal(healthy.counts.inScope, 1, 'two SKUs on one warehouse number are one page');
+  assert.equal(healthy.counts.everChecked, 1);
+  assert.equal(healthy.movers.length, 0, 'no sticker is stored, so there is nothing to reprice');
+  assert.equal(healthy.convertible.length, 0);
+  assert.equal(healthy.pullQueue.length, 0);
+
+  const soldOut = buildWatchDashboard(
+    [trackRow(1129, stockOnly('backorder', 0, 1)), trackRow(1099, stockOnly('backorder', 0, 1))],
+    NOW
+  );
+  assert.equal(soldOut.pullQueue.length, 2, 'every live SKU on the number is offered for a manual pull');
+  assert.equal(soldOut.movers.length, 0);
+  assert.equal(soldOut.convertible.length, 0);
+}
+
+// ---------------------------------------------------------------------------
 // Limited never lands in the pull queue — the vendor has held stock while the
 // public page read low.
 // ---------------------------------------------------------------------------

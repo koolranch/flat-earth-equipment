@@ -7,8 +7,9 @@
  * is safe to convert later.
  *
  * Out of scope: the FSIP / golf-cart / lithium / charger lane. Rubber tracks are the
- * same TVH warehouse Magnasource reads — OEM-numbered track PDPs are scraped; size-only
- * model URLs inherit that reading by size+tread. "Electronic items" means the FSIP lane
+ * same TVH warehouse Magnasource reads. OEM-numbered track PDPs are read by that OEM
+ * number. Model PDPs with no OEM are read by their warehouse number (`SY320X86X50C`),
+ * for stock only. "Electronic items" means the FSIP lane
  * only — JCB/Genie/JLG sensors, switches, joysticks, solenoids and senders stay in scope.
  */
 
@@ -20,6 +21,7 @@ import {
   partIdentityKey,
   stripOePrefix,
 } from '../parts/tvhOePrefixes';
+import { warehouseNumberFromVendorPn } from './trackWarehouseKey';
 
 /** Brands whose parts move through the same supplier network Magnasource sells from. */
 export const IN_SCOPE_BRANDS: readonly string[] = [
@@ -120,6 +122,12 @@ export type WatchCandidate = {
   identityKey: string;
   prefixVerified: boolean;
   isBuyNow: boolean;
+  /**
+   * Set when the page is filed under a warehouse number instead of an OEM number
+   * (rubber tracks with no OEM). That reading is stock only: no sticker, no photo,
+   * and no automatic pull. `oem` is empty on these rows.
+   */
+  warehouseNumber: string | null;
 };
 
 export type SkipReason =
@@ -235,6 +243,35 @@ export function soldOutStreak(row: WatchRow): number {
   return 0;
 }
 
+const MAG_ITEM_BASE = 'https://www.magnasourceinc.com/itemdetail/';
+
+/**
+ * OEM number that addresses the row's page. Track model PDPs store the Mag id on
+ * vendor_pn (JC333/L4732). The public OEM field is often the short cross-ref (L4732)
+ * and would build the wrong URL.
+ */
+function readableOem(row: WatchRow): string {
+  if (row.category_slug === 'rubber-tracks') {
+    const prefix = oePrefixForBrand(row.brand);
+    const vendorPn = metaString(row, 'vendor_pn');
+    if (prefix && vendorPn && vendorPn.toUpperCase().startsWith(prefix.prefix)) {
+      return stripOePrefix(vendorPn, row.brand);
+    }
+  }
+  return row.oem_reference ?? '';
+}
+
+/**
+ * Warehouse number a rubber track is read by, or null. Only tracks with no OEM
+ * number qualify. A track that has an OEM keeps its OEM page, and nothing here
+ * invents a cross. Retired numbers still return their number.
+ */
+export function trackWarehouseNumber(row: WatchRow): string | null {
+  if (row.category_slug !== 'rubber-tracks') return null;
+  if (isMappableOem(readableOem(row))) return null;
+  return warehouseNumberFromVendorPn(metaString(row, 'vendor_pn'));
+}
+
 /** Classify one catalog row into a fetch candidate or a skip with a reason. */
 export function classifyRow(row: WatchRow): WatchCandidate | WatchSkip {
   const brand = canonicalBrand(row.brand);
@@ -254,16 +291,26 @@ export function classifyRow(row: WatchRow): WatchCandidate | WatchSkip {
   const prefix = oePrefixForBrand(brand);
   if (!prefix) return { row, reason: 'no_prefix_for_brand' };
 
-  // Track model PDPs store the Mag id on vendor_pn (JC333/L4732). The public OEM
-  // field is often the short cross-ref (L4732) and would build the wrong URL.
-  let oem = row.oem_reference ?? '';
-  if (row.category_slug === 'rubber-tracks') {
-    const vendorPn = metaString(row, 'vendor_pn');
-    if (vendorPn && vendorPn.toUpperCase().startsWith(prefix.prefix)) {
-      oem = stripOePrefix(vendorPn, brand);
-    }
+  const oem = readableOem(row);
+  if (!isMappableOem(oem)) {
+    const warehouseNumber = trackWarehouseNumber(row);
+    if (!warehouseNumber) return { row, reason: 'no_mappable_oem' };
+    if (missCount(row) >= MAX_MISSES) return { row, reason: 'url_retired' };
+    return {
+      row,
+      brand,
+      oem: '',
+      magPartId: warehouseNumber,
+      magUrl: `${MAG_ITEM_BASE}${warehouseNumber}`,
+      tier: tierFor(row),
+      // One key per warehouse number, so SKUs that share a belt are read once.
+      identityKey: `WAREHOUSE|${warehouseNumber}`,
+      // No brand prefix is involved, so a miss is never a prefix question.
+      prefixVerified: true,
+      isBuyNow: isBuyNow(row),
+      warehouseNumber,
+    };
   }
-  if (!isMappableOem(oem)) return { row, reason: 'no_mappable_oem' };
 
   const magUrl = buildMagItemUrl(brand, oem);
   if (!magUrl) return { row, reason: 'no_prefix_for_brand' };
@@ -280,6 +327,7 @@ export function classifyRow(row: WatchRow): WatchCandidate | WatchSkip {
     identityKey: partIdentityKey(brand, oem),
     prefixVerified: prefix.verified,
     isBuyNow: isBuyNow(row),
+    warehouseNumber: null,
   };
 }
 
@@ -324,14 +372,17 @@ export function dedupeCandidates(candidates: WatchCandidate[]): {
  * page or the read had no usable qty (backorder / special-order / parse miss).
  */
 export function lastMagQty(row: WatchRow): number | null {
+  const v = storedMagEntry(row)?.qty_on_hand;
+  return typeof v === 'number' && Number.isFinite(v) && v >= 0 ? v : null;
+}
+
+function storedMagEntry(row: WatchRow): Record<string, unknown> | undefined {
   const comps = row.metadata?.competitor_prices;
-  const entry = Array.isArray(comps)
+  return Array.isArray(comps)
     ? (comps.find(
         (c) => c && typeof c === 'object' && (c as Record<string, unknown>).source === 'magnasource'
       ) as Record<string, unknown> | undefined)
     : undefined;
-  const v = entry?.qty_on_hand;
-  return typeof v === 'number' && Number.isFinite(v) && v >= 0 ? v : null;
 }
 
 export function lastCheckedAt(row: WatchRow): string {
@@ -343,15 +394,40 @@ export function lastCheckedAt(row: WatchRow): string {
   return '';
 }
 
-/** Live Buy Now whose last Mag qty is 0–3. Quote-only stubs never qualify. */
+/**
+ * Live Buy Now track with 3 or fewer on hand, or with no on-hand count on file.
+ * No count means never read, or a sold-out reading still waiting on a pull decision.
+ * A track read by warehouse number also has no count until that page itself has
+ * given one. A count it inherited earlier from an OEM page by size does not stand in.
+ */
+export function isTrackSellOutWatch(candidate: WatchCandidate): boolean {
+  if (!candidate.isBuyNow || candidate.row.category_slug !== 'rubber-tracks') return false;
+  if (candidate.warehouseNumber && storedMagEntry(candidate.row)?.stock_only !== true) return true;
+  const qty = lastMagQty(candidate.row);
+  return qty === null || qty <= LOW_QTY_REFRESH_MAX;
+}
+
+/**
+ * Live Buy Now whose last Mag qty is 0–3, plus live tracks with no count on file.
+ * Quote-only stubs never qualify.
+ */
 export function needsLowQtyRefresh(candidate: WatchCandidate): boolean {
   if (!candidate.isBuyNow) return false;
+  if (isTrackSellOutWatch(candidate)) return true;
   const qty = lastMagQty(candidate.row);
   return qty !== null && qty <= LOW_QTY_REFRESH_MAX;
 }
 
 function byStalest(a: WatchCandidate, b: WatchCandidate): number {
   return lastCheckedAt(a.row).localeCompare(lastCheckedAt(b.row));
+}
+
+/** Sell-out slice order: low or unread tracks first, then everything else, stalest first. */
+function byTracksThenStalest(a: WatchCandidate, b: WatchCandidate): number {
+  const aTrack = isTrackSellOutWatch(a);
+  const bTrack = isTrackSellOutWatch(b);
+  if (aTrack !== bTrack) return aTrack ? -1 : 1;
+  return byStalest(a, b);
 }
 
 /**
@@ -399,7 +475,10 @@ export function selectWatchQueue(
   }
 ): WatchQueueSelection {
   if (opts.lowQtyOnly) {
-    const lowQty = unique.filter(needsLowQtyRefresh).sort(byStalest).slice(0, LOW_QTY_REFRESH_CAP);
+    const lowQty = unique
+      .filter(needsLowQtyRefresh)
+      .sort(byTracksThenStalest)
+      .slice(0, LOW_QTY_REFRESH_CAP);
     return { buyNow: [], lowQty, stubs: [], queue: [...lowQty] };
   }
 
@@ -414,7 +493,7 @@ export function selectWatchQueue(
   const lowQty = opts.includeLowQty
     ? unique
         .filter((c) => needsLowQtyRefresh(c) && !already.has(c.identityKey))
-        .sort(byStalest)
+        .sort(byTracksThenStalest)
         .slice(0, LOW_QTY_REFRESH_CAP)
     : [];
 
@@ -423,8 +502,9 @@ export function selectWatchQueue(
 
 /**
  * Weekday default. One page budget for the whole run, filled in order:
- * live Buy Now at ≤3 on hand (stalest, reserved slice), then the stalest
- * high-ticket Buy Now, then quote-only stubs with whatever is left.
+ * the sell-out slice (live tracks at ≤3 or with no count first, then other live
+ * Buy Now at ≤3, stalest first, reserved slice), then the stalest high-ticket
+ * Buy Now, then quote-only stubs with whatever is left.
  * A row is fetched once. $100-and-under Buy Now with more than 3 on hand waits.
  */
 export function selectBudgetedWatchQueue(
@@ -437,7 +517,7 @@ export function selectBudgetedWatchQueue(
   const lowQty = includeLowQty
     ? unique
         .filter(needsLowQtyRefresh)
-        .sort(byStalest)
+        .sort(byTracksThenStalest)
         .slice(0, Math.min(LOW_QTY_DAILY_RESERVE, room))
     : [];
 

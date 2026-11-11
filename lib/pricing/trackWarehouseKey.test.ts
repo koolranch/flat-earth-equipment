@@ -5,6 +5,7 @@ import {
   trackPatternFromText,
   trackPatternFromVendorPn,
   trackWarehouseKey,
+  warehouseNumberFromVendorPn,
 } from './trackWarehouseKey';
 
 assert.equal(normalizeTrackSize('320x86x50 C Pattern'), '320x86x50');
@@ -57,5 +58,15 @@ assert.equal(
   trackWarehouseKey({ name: 'JCB 333/D8766 Fuel Filter', categorySlug: 'jcb-general' }),
   null
 );
+
+// The warehouse number is the vendor number with its wrapper removed. Nothing is added.
+assert.equal(warehouseNumberFromVendorPn('TSA/SY320X86X50C'), 'SY320X86X50C');
+assert.equal(warehouseNumberFromVendorPn(' tsa/sy320x86x50c '), 'SY320X86X50C');
+assert.equal(warehouseNumberFromVendorPn('TSA/SY400X86CNX52/323E'), 'SY400X86CNX52/323E', 'separators stay');
+assert.equal(warehouseNumberFromVendorPn('TSA/SY380X86X52SVL65-2'), 'SY380X86X52SVL65-2');
+assert.equal(warehouseNumberFromVendorPn('SY320X86X50C'), null, 'no wrapper, no guess');
+assert.equal(warehouseNumberFromVendorPn('TSA/'), null);
+assert.equal(warehouseNumberFromVendorPn(null), null);
+assert.equal(warehouseNumberFromVendorPn(undefined), null);
 
 console.log('trackWarehouseKey.test.ts passed');

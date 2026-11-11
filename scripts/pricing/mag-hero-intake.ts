@@ -138,6 +138,8 @@ async function main() {
     if (magPrice(row) < args.minSticker) continue;
     const classified = classifyRow(row);
     if (isSkip(classified)) continue;
+    // Tracks read by warehouse number are stock only. No photo is taken from that page.
+    if (classified.warehouseNumber) continue;
     queue.push(classified);
   }
 

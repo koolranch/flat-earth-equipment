@@ -5,14 +5,18 @@
  * part, records the on-hand count and sticker onto
  * `parts.metadata.competitor_prices[magnasource]`, and writes a digest.
  *
- * Identity-ok Mag-in-stock heroes are not downloaded here. A direct image fetch
- * would show this machine's address to Magnasource, and Firecrawl does not return
- * an intact file. Page reads still go through Firecrawl. A clean sold-out read
+ * Every request goes through Firecrawl, page reads and image-file reads alike. This
+ * machine never opens its own connection to Magnasource. A clean sold-out read
  * on a live Buy Now row (backorder, special-order, or zero) pulls that row in the same
  * run: quote-only, out of stock, Stripe price archived. Limited stock is never a pull.
  * If more than 10 warehouse items qualify, the run pulls none of them and leaves the
  * list on `/parts-watch`. Fetch failures never pull. The script does not change price
  * or `image_url`.
+ *
+ * Rubber tracks with no OEM number are read by warehouse number: one page per number,
+ * written to every SKU that shares it. Those reads are stock only (no sticker, no
+ * photo) and the run never pulls on them. A sold-out reading on a live Buy Now track
+ * is listed in the digest as a pull candidate for a manual decision.
  *
  * Usage:
  *   npx tsx scripts/pricing/mag-watch.ts --universe                  # counts only, no fetching
@@ -80,6 +84,7 @@ import {
 import {
   classifyRow,
   dedupeCandidates,
+  isBuyNow,
   isSkip,
   metaNumber,
   missCount,
@@ -96,6 +101,7 @@ import {
   MAX_PULLS_PER_RUN,
   SOLD_OUT_STREAK_TO_PULL,
   WATCH_ROW_SELECT,
+  trackWarehouseNumber,
   type WatchCandidate,
   type WatchRow,
   type WatchSkip,
@@ -103,8 +109,14 @@ import {
 } from '../../lib/pricing/magWatchUniverse';
 import {
   applyTrackFanOutMetadata,
+  applyTrackStockRead,
+  isCountedTrackRead,
+  isRubberTrackCategory,
+  shouldReceiveTrackFanOut,
   trackFanOutTargets,
+  trackNumberSharers,
   warehouseKeyForRow,
+  type TrackStockRead,
 } from '../../lib/pricing/trackMagStock';
 
 dotenv.config({ path: path.resolve(process.cwd(), '.env.production.local') });
@@ -200,6 +212,11 @@ function pageCeiling(args: Args): number {
 
 function sleep(ms: number): Promise<void> {
   return new Promise((r) => setTimeout(r, ms));
+}
+
+/** The gap between two page reads on one lane. */
+function pace(): Promise<void> {
+  return sleep(BASE_DELAY_MS + Math.random() * JITTER_MS);
 }
 
 function loadFetchFailedSkus(digestPath: string): string[] {
@@ -360,8 +377,40 @@ type Reading = {
   candidate: WatchCandidate;
   snapshot: MagSnapshot | null;
   hero: HeroCandidate | null;
+  /** Other SKUs on the same warehouse number, as they stood before this read was written. */
+  sharers: WatchRow[];
   error?: string;
 };
+
+/**
+ * Write one warehouse-number reading onto the SKU it was read through and onto every
+ * SKU that shares the number. Stock fields only. An unread page moves the miss counter
+ * on all of them so a dead number retires once, not once per SKU.
+ */
+async function writeTrackStockRead(
+  supabase: SupabaseClient,
+  catalog: WatchRow[],
+  candidate: WatchCandidate,
+  sharers: WatchRow[],
+  read: TrackStockRead
+): Promise<void> {
+  const counted = isCountedTrackRead(read.snapshot);
+  for (const row of [candidate.row, ...sharers]) {
+    const isSharer = row.id !== candidate.row.id;
+    const metadata = applyTrackStockRead(row, read, isSharer ? candidate.row.sku : undefined);
+    const { error } = await supabase
+      .from('parts')
+      .update({ metadata, updated_at: read.at })
+      .eq('id', row.id);
+    if (error) {
+      console.warn(`   track stock write ${row.sku} failed: ${error.message}`);
+      continue;
+    }
+    const idx = catalog.findIndex((r) => r.id === row.id);
+    if (idx >= 0) catalog[idx] = { ...row, metadata };
+    if (isSharer) process.stdout.write(`   ↳ ${counted ? 'stock' : 'unread'} → ${row.sku}\n`);
+  }
+}
 
 function existingMagEntry(row: WatchRow): Record<string, unknown> | undefined {
   const comps = row.metadata?.competitor_prices;
@@ -472,7 +521,49 @@ type Digest = {
     failed: Array<{ sku: string; note: string }>;
     held: string[];
   };
+  /** Rubber tracks read by warehouse number. Stock only; the run pulls none of them. */
+  track_stock: TrackCoverage & {
+    /** Numbers whose page showed the same number back and stated stock. */
+    read: DigestRow[];
+    /** Fetch failed, or the page did not show the number back. Not sold out. */
+    unread: DigestRow[];
+  };
 };
+
+type TrackCoverage = {
+  /** Warehouse numbers the watch reads, one page each. */
+  numbers_in_scope: number;
+  /** Live Buy Now tracks with no page to read and no reading to inherit. */
+  no_read_path: DigestRow[];
+};
+
+/** Which live Buy Now tracks nothing reads, so a gap shows in the digest instead of hiding. */
+function trackCoverage(unique: WatchCandidate[], skips: WatchSkip[]): TrackCoverage {
+  const numbers = new Set(
+    unique.map((c) => c.warehouseNumber).filter((n): n is string => Boolean(n))
+  );
+  const noReadPath: DigestRow[] = [];
+  for (const { row, reason } of skips) {
+    if (!isRubberTrackCategory(row) || !isBuyNow(row)) continue;
+    const number = trackWarehouseNumber(row);
+    // Retired by its own miss count, but another SKU on the same number is still read.
+    if (number && numbers.has(number)) continue;
+    if (unique.some((c) => shouldReceiveTrackFanOut(c.row, row))) continue;
+    noReadPath.push({
+      sku: row.sku,
+      slug: row.slug,
+      reason,
+      warehouse_number: number,
+      marked_in_stock: row.is_in_stock,
+    });
+  }
+  return { numbers_in_scope: numbers.size, no_read_path: noReadPath };
+}
+
+/** SKUs on a reading, the read SKU first. */
+function skusOnReading(reading: Reading): WatchRow[] {
+  return [reading.candidate.row, ...reading.sharers];
+}
 
 function proposedSell(row: WatchRow, magPrice: number): number | null {
   try {
@@ -486,6 +577,78 @@ function proposedSell(row: WatchRow, magPrice: number): number | null {
   }
 }
 
+/**
+ * One warehouse-number reading. It never reaches the sticker or convert lists, and a
+ * sold-out reading is listed per live SKU as a manual pull candidate.
+ */
+function addTrackReading(digest: Digest, reading: Reading): void {
+  const { candidate, snapshot, error } = reading;
+  const rows = skusOnReading(reading);
+  const live = rows.filter(isBuyNow);
+  const base = {
+    warehouse_number: candidate.warehouseNumber,
+    mag_url: candidate.magUrl,
+    skus: rows.map((r) => r.sku),
+    live_buy_now_skus: live.map((r) => r.sku),
+  };
+
+  if (error || !snapshot || !isCountedTrackRead(snapshot)) {
+    // A failed fetch writes nothing. Only a page that came back wrong counts as a miss.
+    const misses = missCount(candidate.row) + (error ? 0 : 1);
+    const unread = {
+      ...base,
+      sku: candidate.row.sku,
+      reason: error ?? snapshot?.notes[0] ?? snapshot?.availability ?? 'unknown',
+      notes: snapshot?.notes ?? [],
+      miss_count: misses,
+      retired_after_this_run: !error && misses >= MAX_MISSES,
+    };
+    digest.track_stock.unread.push(unread);
+    digest.failures.push(unread);
+    return;
+  }
+
+  digest.track_stock.read.push({
+    ...base,
+    availability: snapshot.availability,
+    qty_on_hand: snapshot.qtyOnHand,
+    backorder_eta: snapshot.backorderEta,
+    supplier_confirmed_at: snapshot.supplierConfirmedAt,
+    page_title: snapshot.pageTitle,
+  });
+
+  if (isSoldOutReading(snapshot.availability)) {
+    for (const row of live) {
+      digest.pull_candidates.push({
+        sku: row.sku,
+        brand: row.brand,
+        slug: row.slug,
+        warehouse_number: candidate.warehouseNumber,
+        mag_url: candidate.magUrl,
+        our_sell: row.price,
+        availability: snapshot.availability,
+        qty_on_hand: snapshot.qtyOnHand,
+        backorder_eta: snapshot.backorderEta,
+        sold_out_streak: soldOutStreak(row) + 1,
+        ready_to_pull: false,
+        manual_only: true,
+        supplier_confirmed_at: snapshot.supplierConfirmedAt,
+      });
+    }
+    return;
+  }
+
+  if (snapshot.availability === 'limited' && live.length) {
+    digest.limited_review.push({
+      ...base,
+      sku: candidate.row.sku,
+      buy_now: true,
+      qty_on_hand: snapshot.qtyOnHand,
+      note: 'Flag only. The page has read low while the vendor held stock.',
+    });
+  }
+}
+
 function buildDigest(
   readings: Reading[],
   meta: {
@@ -494,6 +657,7 @@ function buildDigest(
     dryRun: boolean;
     universe: Record<string, number>;
     intake: { intaken: number; failed: number; skippedCap: number };
+    tracks: TrackCoverage;
   }
 ): Digest {
   const digest: Digest = {
@@ -520,12 +684,19 @@ function buildDigest(
       intake_skipped_cap: meta.intake.skippedCap,
     },
     auto_pull: { aborted: false, identities: 0, pulled: [], failed: [], held: [] },
+    track_stock: { ...meta.tracks, read: [], unread: [] },
   };
 
   const unverified = new Set<string>();
 
-  for (const { candidate, snapshot, hero, error } of readings) {
+  for (const reading of readings) {
+    const { candidate, snapshot, hero, error } = reading;
     const { row } = candidate;
+
+    if (candidate.warehouseNumber) {
+      addTrackReading(digest, reading);
+      continue;
+    }
 
     if (hero) {
       digest.hero.pages_with_hero++;
@@ -635,8 +806,19 @@ function buildDigest(
   return digest;
 }
 
+/** `Bobcat 7316759`, or `Track SY320X86X50C` for a track read by warehouse number. */
+function partLabel(row: DigestRow): string {
+  return row.warehouse_number ? `Track ${row.warehouse_number}` : `${row.brand} ${row.oem}`;
+}
+
+/** The SKU, or every SKU on a shared warehouse number. */
+function skuLabel(row: DigestRow): string {
+  return Array.isArray(row.skus) ? row.skus.join(', ') : String(row.sku ?? '');
+}
+
 function pullLine(digest: Digest, row: DigestRow): string {
   const sku = String(row.sku ?? '');
+  if (row.manual_only) return ' · **not pulled by the run. Your call on /parts-watch**';
   if (!row.ready_to_pull) return ' · not ready';
   if (digest.auto_pull.aborted) return ' · held — over the 10-item pull cap';
   if (digest.auto_pull.pulled.some((item) => item.sku === sku)) {
@@ -657,7 +839,7 @@ function renderDigest(digest: Digest): string {
   );
   lines.push('');
   lines.push(
-    `Universe: ${digest.universe.in_scope} in scope (${digest.universe.buy_now} Buy Now, ${digest.universe.quote_only} quote-only), ${digest.universe.skipped_no_oem} skipped for no mappable OEM, ${digest.universe.skipped_no_prefix} skipped for no OE prefix.`
+    `Universe: ${digest.universe.in_scope} in scope (${digest.universe.buy_now} Buy Now, ${digest.universe.quote_only} quote-only), ${digest.universe.skipped_no_oem} skipped for no mappable OEM, ${digest.universe.skipped_no_prefix} skipped for no OE prefix. ${digest.universe.track_skus_on_numbers} rubber tracks are read through ${digest.universe.track_numbers} warehouse numbers.`
   );
   lines.push('');
 
@@ -665,7 +847,7 @@ function renderDigest(digest: Digest): string {
   if (!digest.pull_candidates.length) lines.push('None.');
   for (const r of digest.pull_candidates) {
     lines.push(
-      `- **${r.brand} ${r.oem}** (${r.sku}) sell ${money(r.our_sell)} · ${r.availability} · ETA ${r.backorder_eta ?? 'unstated'} · streak ${r.sold_out_streak}/${SOLD_OUT_STREAK_TO_PULL}${pullLine(digest, r)}`
+      `- **${partLabel(r)}** (${r.sku}) sell ${money(r.our_sell)} · ${r.availability} · ETA ${r.backorder_eta ?? 'unstated'} · streak ${r.sold_out_streak}/${SOLD_OUT_STREAK_TO_PULL}${pullLine(digest, r)}`
     );
   }
   lines.push('');
@@ -674,7 +856,7 @@ function renderDigest(digest: Digest): string {
   if (!digest.limited_review.length) lines.push('None.');
   for (const r of digest.limited_review) {
     lines.push(
-      `- ${r.brand} ${r.oem} (${r.sku}) on hand ${r.qty_on_hand ?? '—'}${r.buy_now ? ' · live Buy Now' : ' · quote-only'}`
+      `- ${partLabel(r)} (${skuLabel(r)}) on hand ${r.qty_on_hand ?? '—'}${r.buy_now ? ' · live Buy Now' : ' · quote-only'}`
     );
   }
   lines.push('');
@@ -707,11 +889,43 @@ function renderDigest(digest: Digest): string {
   if (!digest.failures.length) lines.push('None.');
   for (const r of digest.failures.slice(0, 40)) {
     lines.push(
-      `- ${r.brand} ${r.oem} (${r.sku}): ${r.reason}${r.retired_after_this_run ? ' · **URL retired**' : ''} · ${r.mag_url}`
+      `- ${partLabel(r)} (${skuLabel(r)}): ${r.reason}${r.retired_after_this_run ? ' · **URL retired**' : ''} · ${r.mag_url}`
     );
   }
   if (digest.failures.length > 40) {
     lines.push(`- …and ${digest.failures.length - 40} more in the JSON.`);
+  }
+
+  const tracks = digest.track_stock;
+  lines.push('');
+  lines.push(
+    `## Rubber tracks by warehouse number (${tracks.read.length} read · ${tracks.unread.length} unread · ${tracks.numbers_in_scope} numbers in scope)`
+  );
+  lines.push('Stock only. No sticker or photo is kept, and the run does not pull these.');
+  for (const r of tracks.read) {
+    const skus = r.skus as string[];
+    const live = r.live_buy_now_skus as string[];
+    lines.push(
+      `- ${r.warehouse_number} · ${r.availability}${r.qty_on_hand != null ? ` · ${r.qty_on_hand} on hand` : ''} · ${skus.length} SKU${skus.length === 1 ? '' : 's'} (${live.length} live Buy Now)`
+    );
+  }
+  if (tracks.unread.length) {
+    lines.push('');
+    lines.push('Unread. Stock is unknown, not sold out:');
+    for (const r of tracks.unread) {
+      lines.push(
+        `- ${r.warehouse_number} (${skuLabel(r)}): ${r.reason}${r.retired_after_this_run ? ' · **number retired after three misses**' : ''}`
+      );
+    }
+  }
+  if (tracks.no_read_path.length) {
+    lines.push('');
+    lines.push(`Live Buy Now tracks nothing reads (${tracks.no_read_path.length}):`);
+    for (const r of tracks.no_read_path) {
+      lines.push(
+        `- ${r.sku}: ${r.reason}${r.warehouse_number ? ` · ${r.warehouse_number}` : ''}${r.marked_in_stock === false ? ' · marked out of stock' : ''}`
+      );
+    }
   }
 
   lines.push('');
@@ -766,7 +980,10 @@ async function main() {
     skipped_brand: skips.filter((s) => s.reason === 'brand_out_of_scope').length,
     url_retired: skips.filter((s) => s.reason === 'url_retired').length,
     with_prior_mag_snapshot: unique.filter((c) => existingMagPrice(c.row) !== null).length,
+    track_numbers: unique.filter((c) => c.warehouseNumber).length,
+    track_skus_on_numbers: candidatesAll.filter((c) => c.warehouseNumber).length,
   };
+  const tracks = trackCoverage(unique, skips);
 
   console.log('\nUniverse');
   for (const [k, v] of Object.entries(universe)) console.log(`  ${k.padEnd(24)} ${v}`);
@@ -777,6 +994,12 @@ async function main() {
   }
 
   if (args.universe) {
+    if (tracks.no_read_path.length) {
+      console.log('\nLive Buy Now tracks nothing reads:');
+      for (const r of tracks.no_read_path) {
+        console.log(`  ${String(r.sku).padEnd(28)} ${r.reason}${r.warehouse_number ? ` · ${r.warehouse_number}` : ''}`);
+      }
+    }
     const skipsByBrand = new Map<string, number>();
     for (const s of skips.filter((x) => x.reason === 'no_prefix_for_brand')) {
       const b = s.row.brand ?? '(none)';
@@ -817,7 +1040,7 @@ async function main() {
     console.log(
       `\nResume ${args.fromFailures ? 'fetch-failed' : 'SKU'} list · ${matched.length} in scope · ${queue.length} this batch (offset ${start})`
     );
-    await run(queue, ['A'], universe, args, supabase, all);
+    await run(queue, ['A'], universe, tracks, args, supabase, all);
     return;
   }
 
@@ -850,7 +1073,7 @@ async function main() {
 
   if (!args.tiers && !args.lowQtyOnly) {
     console.log(
-      `\nDaily budget ${DAILY_PAGE_BUDGET} · ${selected.lowQty.length} at ≤${LOW_QTY_REFRESH_MAX} on hand · ${selected.buyNow.length} other high-ticket · ${selected.stubs.length} quote-only · up to ${args.heroIntake ? args.heroIntakeCap : 0} images`
+      `\nDaily budget ${DAILY_PAGE_BUDGET} · ${selected.lowQty.length} sell-out watch (≤${LOW_QTY_REFRESH_MAX} on hand, or a live track with no count) · ${selected.buyNow.length} other high-ticket · ${selected.stubs.length} quote-only · up to ${args.heroIntake ? args.heroIntakeCap : 0} images`
     );
   } else if (selected.lowQty.length) {
     console.log(
@@ -861,12 +1084,15 @@ async function main() {
     console.log(`Trimmed to the daily page budget · ${selected.queue.length} → ${queue.length}`);
   }
 
-  await run(queue, tiers, universe, args, supabase, all);
+  await run(queue, tiers, universe, tracks, args, supabase, all);
 }
 
 function rowsReadyToPull(readings: Reading[], catalog: WatchRow[], dryRun: boolean): WatchRow[] {
   const rows: WatchRow[] = [];
   for (const { candidate, snapshot, hero } of readings) {
+    // A track read by warehouse number is never pulled by the run. It is listed in the
+    // digest for a manual decision.
+    if (candidate.warehouseNumber) continue;
     if (!snapshot?.identityOk || !isSoldOutReading(snapshot.availability)) continue;
     const metadata = buildMetadata(candidate.row, candidate, snapshot, hero);
     const source: WatchRow = { ...candidate.row, metadata };
@@ -938,6 +1164,7 @@ async function run(
   queue: WatchCandidate[],
   tiers: WatchTier[],
   universe: Record<string, number>,
+  tracks: TrackCoverage,
   args: Args,
   supabase: SupabaseClient,
   catalog: WatchRow[]
@@ -978,7 +1205,9 @@ async function run(
         const parse = (markdown: string) =>
           parseMagSnapshot(markdown, {
             magPartId: candidate.magPartId,
-            brand: candidate.brand,
+            // A warehouse-number page carries the warehouse's own brand line, so the
+            // number the page shows back is the whole identity check.
+            brand: candidate.warehouseNumber ? null : candidate.brand,
           });
 
         let page = await scrapeMag(candidate.magUrl, apiKey, { maxAge });
@@ -990,12 +1219,39 @@ async function run(
           if (!needsHydrationRetry(retry)) retry.notes.push('recovered_after_hydration_retry');
           snapshot = retry;
         }
+
+        if (candidate.warehouseNumber) {
+          // Stock only: no hero facts, no tray intake, no sticker.
+          const sharers = trackNumberSharers(candidate.row, catalog);
+          consecutiveFetchFails = 0;
+          readings.push({ candidate, snapshot, hero: null, sharers });
+          done++;
+          const counted = isCountedTrackRead(snapshot);
+          process.stdout.write(
+            `[${done}/${queue.length}] Track ${candidate.warehouseNumber} → ${
+              counted
+                ? `${snapshot.availability}${snapshot.qtyOnHand != null ? ` · ${snapshot.qtyOnHand} on hand` : ''}`
+                : `UNREAD ${snapshot.notes[0] ?? snapshot.availability}`
+            } · ${sharers.length + 1} SKU${sharers.length ? 's' : ''}\n`
+          );
+          if (!args.dryRun) {
+            await writeTrackStockRead(supabase, catalog, candidate, sharers, {
+              warehouseNumber: candidate.warehouseNumber,
+              url: candidate.magUrl,
+              snapshot,
+              at: new Date().toISOString(),
+            });
+          }
+          await pace();
+          continue;
+        }
+
         // Only trust a hero on a page whose text identity already passed.
         const hero = snapshot.identityOk
           ? heroCandidateFromOgImage(page.ogImage, candidate.magPartId)
           : null;
         consecutiveFetchFails = 0;
-        readings.push({ candidate, snapshot, hero });
+        readings.push({ candidate, snapshot, hero, sharers: [] });
         done++;
         const heroNote = hero ? (hero.identityOk ? ' · hero ✓' : ' · hero ✗ id') : '';
         process.stdout.write(
@@ -1065,11 +1321,16 @@ async function run(
           candidate,
           snapshot: null,
           hero: null,
+          sharers: trackNumberSharers(candidate.row, catalog),
           error: (e as Error).message.slice(0, 80),
         });
         done++;
         process.stdout.write(
-          `[${done}/${queue.length}] ${candidate.brand} ${candidate.oem} → ERROR ${(e as Error).message.slice(0, 60)}\n`
+          `[${done}/${queue.length}] ${
+            candidate.warehouseNumber
+              ? `Track ${candidate.warehouseNumber}`
+              : `${candidate.brand} ${candidate.oem}`
+          } → ERROR ${(e as Error).message.slice(0, 60)}\n`
         );
         if (isTransientFirecrawlError(e)) {
           consecutiveFetchFails++;
@@ -1084,7 +1345,7 @@ async function run(
           consecutiveFetchFails = 0;
         }
       }
-      await sleep(BASE_DELAY_MS + Math.random() * JITTER_MS);
+      await pace();
     }
   };
 
@@ -1096,6 +1357,7 @@ async function run(
     dryRun: args.dryRun,
     universe,
     intake,
+    tracks,
   });
   const plans = collectPullPlans(rowsReadyToPull(readings, catalog, args.dryRun));
   digest.auto_pull = await autoPullSoldOut(plans, supabase, args.dryRun);

@@ -1,11 +1,14 @@
 import assert from 'node:assert/strict';
 import {
   classifyRow,
+  dedupeCandidates,
+  isTrackSellOutWatch,
   lastMagQty,
   needsLowQtyRefresh,
   selectBudgetedWatchQueue,
   selectWatchQueue,
   tiersDue,
+  trackWarehouseNumber,
   DAILY_PAGE_BUDGET,
   DEFAULT_QUOTE_CAP,
   HERO_FETCH_RESERVE,
@@ -63,6 +66,53 @@ function row(over: {
 
 function candidate(over: Parameters<typeof row>[0]): WatchCandidate {
   const classified = classifyRow(row(over));
+  if ('reason' in classified) throw new Error(`unexpected skip ${classified.reason}`);
+  return classified;
+}
+
+/** A rubber-track model PDP. No OEM unless one is given. */
+function track(over: {
+  vendorPn: string | null;
+  oem?: string;
+  price?: number;
+  salesType?: string;
+  qty?: number | null;
+  /** The stored reading came from the row's own warehouse page. */
+  stockOnly?: boolean;
+  lastCheckedAt?: string;
+  missCount?: number;
+}): WatchRow {
+  const base = row({ price: over.price ?? 999, salesType: over.salesType, oem: over.oem ?? '' });
+  const hasReading = over.qty !== undefined;
+  return {
+    ...base,
+    brand: 'Bobcat',
+    category: 'Rubber Tracks',
+    category_slug: 'rubber-tracks',
+    name: 'Bobcat T66 Rubber Track',
+    oem_reference: over.oem ?? null,
+    metadata: {
+      ...(over.vendorPn === null ? {} : { vendor_pn: over.vendorPn }),
+      competitor_prices: hasReading
+        ? [
+            {
+              source: 'magnasource',
+              qty_on_hand: over.qty,
+              availability: over.qty === null ? 'special_order' : 'in_stock',
+              ...(over.stockOnly ? { stock_only: true } : {}),
+            },
+          ]
+        : [],
+      mag_watch: {
+        ...(over.lastCheckedAt ? { last_checked_at: over.lastCheckedAt } : {}),
+        ...(over.missCount ? { miss_count: over.missCount } : {}),
+      },
+    },
+  };
+}
+
+function trackCandidate(over: Parameters<typeof track>[0]): WatchCandidate {
+  const classified = classifyRow(track(over));
   if ('reason' in classified) throw new Error(`unexpected skip ${classified.reason}`);
   return classified;
 }
@@ -220,14 +270,106 @@ assert.deepEqual(
     assert.equal(withVendorPn.oem, '333/L4732');
   }
 
-  const sizeOnly = classifyRow({
-    ...row({ price: 999, oem: '' }),
-    category_slug: 'rubber-tracks',
-    oem_reference: null,
-    name: 'JCB 1CXT Rubber Track 320x86x50 C Pattern',
-    metadata: { vendor_pn: 'TSA/SY320X86X50C' },
-  });
-  assert.equal('reason' in sizeOnly && sizeOnly.reason === 'no_mappable_oem', true);
+  const sizeOnly = classifyRow(track({ vendorPn: 'TSA/SY320X86X50C' }));
+  assert.equal('reason' in sizeOnly, false, 'a track with no OEM is read by its warehouse number');
+  if (!('reason' in sizeOnly)) {
+    assert.equal(sizeOnly.warehouseNumber, 'SY320X86X50C');
+    assert.equal(sizeOnly.magPartId, 'SY320X86X50C');
+    assert.equal(sizeOnly.magUrl, 'https://www.magnasourceinc.com/itemdetail/SY320X86X50C');
+    assert.equal(sizeOnly.oem, '', 'the warehouse number is never presented as an OEM cross');
+    assert.equal(sizeOnly.identityKey, 'WAREHOUSE|SY320X86X50C');
+  }
+  if (!('reason' in withVendorPn)) assert.equal(withVendorPn.warehouseNumber, null);
+}
+
+// Warehouse-number reads: only the TSA/ wrapper comes off, and only on tracks with no OEM.
+{
+  const slash = classifyRow(track({ vendorPn: 'TSA/SY400X86CNX52/323E' }));
+  assert.equal('reason' in slash ? null : slash.magPartId, 'SY400X86CNX52/323E', 'separators are kept');
+
+  assert.equal(trackWarehouseNumber(track({ vendorPn: 'TSA/SY320X86X50C' })), 'SY320X86X50C');
+  assert.equal(trackWarehouseNumber(track({ vendorPn: 'SY320X86X50C' })), null, 'no TSA/ wrapper, no guess');
+  assert.equal(trackWarehouseNumber(track({ vendorPn: 'TSA/' })), null);
+  assert.equal(trackWarehouseNumber(track({ vendorPn: null })), null);
+  assert.equal(
+    trackWarehouseNumber(track({ vendorPn: 'TSA/SY400X86X49C', oem: '7316759' })),
+    null,
+    'a track that has an OEM keeps its OEM page'
+  );
+  assert.equal(
+    trackWarehouseNumber({ ...track({ vendorPn: 'TSA/SY320X86X50C' }), category_slug: 'jcb-general' }),
+    null,
+    'only the rubber-tracks category is read this way'
+  );
+
+  const noNumber = classifyRow(track({ vendorPn: null }));
+  assert.equal('reason' in noNumber && noNumber.reason === 'no_mappable_oem', true);
+
+  const retired = classifyRow(track({ vendorPn: 'TSA/SY84914', missCount: 3 }));
+  assert.equal('reason' in retired && retired.reason === 'url_retired', true);
+
+  // Seven SKUs on one belt are one page read. Buy Now wins, then the higher sticker.
+  const sharers = [
+    trackCandidate({ vendorPn: 'TSA/SY320X86X50C', price: 999 }),
+    trackCandidate({ vendorPn: 'TSA/SY320X86X50C', price: 1049 }),
+    trackCandidate({ vendorPn: 'TSA/SY320X86X50C', price: 2000, salesType: 'quote_only' }),
+    trackCandidate({ vendorPn: 'TSA/SY320X86X50Z', price: 999 }),
+  ];
+  const { unique, duplicates } = dedupeCandidates(sharers);
+  assert.deepEqual(
+    unique.map((c) => `${c.warehouseNumber}@${c.row.price}`).sort(),
+    ['SY320X86X50C@1049', 'SY320X86X50Z@999']
+  );
+  assert.equal(duplicates.length, 2);
+}
+
+// Sell-out slice: live tracks that are low or have no count of their own go first.
+{
+  const unread = trackCandidate({ vendorPn: 'TSA/SY84914' });
+  const inheritedOnly = trackCandidate({ vendorPn: 'TSA/SY320X86X50C', qty: 66, lastCheckedAt: '2026-11-10T14:00:00.000Z' });
+  const ownHealthy = trackCandidate({ vendorPn: 'TSA/SY450X86X58C', qty: 30, stockOnly: true, lastCheckedAt: '2026-11-09T14:00:00.000Z' });
+  const ownLow = trackCandidate({ vendorPn: 'TSA/SY84988', qty: 3, stockOnly: true, lastCheckedAt: '2026-11-08T14:00:00.000Z' });
+  const ownSoldOut = trackCandidate({ vendorPn: 'TSA/SY84940', qty: null, stockOnly: true, lastCheckedAt: '2026-11-07T14:00:00.000Z' });
+  const quoteTrack = trackCandidate({ vendorPn: 'TSA/SY84945', salesType: 'quote_only' });
+
+  assert.equal(isTrackSellOutWatch(unread), true, 'never read');
+  assert.equal(isTrackSellOutWatch(inheritedOnly), true, 'a count inherited by size is not its own reading');
+  assert.equal(isTrackSellOutWatch(ownLow), true);
+  assert.equal(isTrackSellOutWatch(ownSoldOut), true, 'sold out and still live waits on a pull decision');
+  assert.equal(isTrackSellOutWatch(ownHealthy), false, 'a healthy track rotates with the high-ticket rows');
+  assert.equal(isTrackSellOutWatch(quoteTrack), false, 'quote-only tracks are not in the sell-out slice');
+  assert.equal(needsLowQtyRefresh(ownHealthy), false);
+  assert.equal(needsLowQtyRefresh(unread), true);
+
+  const lowSwitch = candidate({ price: 40, qty: 1, oem: '333/LOWSW', lastCheckedAt: '2020-01-01T00:00:00.000Z' });
+  const highTicket = candidate({ price: 900, qty: 30, oem: '333/HIGHT', lastCheckedAt: '2020-01-02T00:00:00.000Z' });
+  const budgeted = selectBudgetedWatchQueue(
+    [highTicket, lowSwitch, ownHealthy, ownSoldOut, ownLow, inheritedOnly, unread, quoteTrack],
+    DAILY_PAGE_BUDGET
+  );
+  assert.deepEqual(
+    budgeted.lowQty.map((c) => c.warehouseNumber ?? c.oem),
+    ['SY84914', 'SY84940', 'SY84988', 'SY320X86X50C', '333/LOWSW'],
+    'tracks lead the sell-out slice, stalest first, ahead of an older low-qty switch'
+  );
+  assert.deepEqual(
+    budgeted.buyNow.map((c) => c.warehouseNumber ?? c.oem),
+    ['333/HIGHT', 'SY450X86X58C'],
+    'a healthy track waits its turn in the high-ticket rotation'
+  );
+  assert.deepEqual(budgeted.stubs.map((c) => c.warehouseNumber), ['SY84945']);
+
+  // The tracks do not add pages. They take slots inside the same reserve and budget.
+  const crowd: WatchCandidate[] = [];
+  for (let i = 0; i < 32; i++) crowd.push(trackCandidate({ vendorPn: `TSA/SY${90000 + i}` }));
+  for (let i = 0; i < 118; i++) crowd.push(candidate({ price: 40, qty: 1, oem: `333/L${5000 + i}`, lastCheckedAt: '2026-01-01T00:00:00.000Z' }));
+  for (let i = 0; i < 200; i++) crowd.push(candidate({ price: 800, qty: 20, oem: `333/H${6000 + i}`, lastCheckedAt: '2026-02-01T00:00:00.000Z' }));
+  const pages = DAILY_PAGE_BUDGET - HERO_FETCH_RESERVE;
+  const dayOne = selectBudgetedWatchQueue(crowd, pages);
+  assert.equal(dayOne.queue.length, pages);
+  assert.equal(dayOne.lowQty.length, LOW_QTY_DAILY_RESERVE);
+  assert.equal(dayOne.lowQty.filter((c) => c.warehouseNumber).length, 32);
+  assert.equal(dayOne.lowQty.slice(0, 32).every((c) => c.warehouseNumber !== null), true);
 }
 
 {

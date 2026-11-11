@@ -1,5 +1,22 @@
 /** Shared TVH warehouse identity for a rubber track (size + tread), not a catalog slug. */
 
+import { isMappableOem, normalizeMagPartNumber } from '../parts/tvhOePrefixes';
+
+const WAREHOUSE_WRAPPER = 'TSA/';
+
+/**
+ * `TSA/SY320X86X50C` → `SY320X86X50C`, the number the warehouse page is filed under.
+ * Only the `TSA/` wrapper comes off. Nothing is guessed: a vendor_pn without the
+ * wrapper, or with nothing addressable after it, returns null.
+ */
+export function warehouseNumberFromVendorPn(vendorPn: string | null | undefined): string | null {
+  if (!vendorPn) return null;
+  const compact = normalizeMagPartNumber(vendorPn);
+  if (!compact.startsWith(WAREHOUSE_WRAPPER)) return null;
+  const number = compact.slice(WAREHOUSE_WRAPPER.length);
+  return isMappableOem(number) ? number : null;
+}
+
 const SIZE_RE = /(\d+(?:\.\d+)?)\s*[xX×]\s*(\d+(?:\.\d+)?)\s*[xX×]\s*(\d+)/;
 
 export function normalizeTrackSize(text: string): string | null {

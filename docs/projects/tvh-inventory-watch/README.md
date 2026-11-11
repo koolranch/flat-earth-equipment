@@ -17,14 +17,17 @@ Case, Crown, Tennant, Advance, Power Boss, Takeuchi, Manitou and the rest). Live
 rows and quote-only stubs both, and cab glass. Sensors, switches, joysticks, solenoids and
 senders are equipment parts and stay in.
 
-**Out:** anything on a different cost or stock system — the separate rubber-track vendor,
-Lithium Rhino, Navitas kits, Delta-Q / QuiQ / FSIP chargers, Sevcon DC/DC, reman charger
+**In, stock only:** rubber tracks. They ship from the same warehouse these pages read, so
+the watch reads their on-hand count and nothing else. See *Rubber tracks* below.
+
+**Out:** anything on a different cost or stock system — Lithium Rhino, Navitas kits, Delta-Q / QuiQ / FSIP chargers, Sevcon DC/DC, reman charger
 modules and Repair & Return, and training/rentals. The `chargers` and `battery-chargers`
 category shelves are excluded because they are mostly FSIP-sourced. Scope lives in
 `lib/pricing/magWatchUniverse.ts`; edit it there rather than in the scripts.
 
-Current universe (see `--universe`): **1,785** rows in scope — 728 live Buy Now, 1,057
-quote-only. 14 rows are skipped for an unusable OEM value, 116 for an excluded category.
+Current universe (see `--universe`, 2026-11-10): **1,706** rows in scope — 1,154 live Buy
+Now, 552 quote-only. 14 rows are skipped for an unusable OEM value, 51 for an excluded
+category. 55 rubber tracks are read through 32 warehouse numbers.
 
 ## Why Magnasource on-hand is a reference, not our stock flag
 
@@ -42,8 +45,8 @@ npx tsx scripts/pricing/mag-watch.ts --universe
 # Read pages, record snapshots, write a digest. A clean sold-out read pulls Buy Now
 # in the same run (cap 10 warehouse items; over the cap, pull none). Never changes price.
 npx tsx scripts/pricing/mag-watch.ts --slice=core-six --tier=A,B,C
-npx tsx scripts/pricing/mag-watch.ts                       # tiers due today + ≤3 overlay
-npx tsx scripts/pricing/mag-watch.ts --tier=D              # stub catch-up only
+npx tsx scripts/pricing/mag-watch.ts                       # weekday default: one 90-request budget
+npx tsx scripts/pricing/mag-watch.ts --tier=D              # stub catch-up only, same budget
 npx tsx scripts/pricing/mag-watch.ts --low-qty-only        # sell-out window only
 
 # Manual pull of whatever is already eligible, including a reviewed over-cap backlog.
@@ -63,28 +66,62 @@ Slices: `baseline` (core-six Buy Now that already have a Magnasource snapshot),
 
 ## Cadence
 
-| Tier | Rows | Selector | Days |
-|---|---|---|---|
-| A | 218 | Buy Now, sticker ≥ $300 | Every weekday |
-| B | 185 | Buy Now, $100–299 | Wed + Fri |
-| C | 325 | Buy Now, under $100 | Mon |
-| D | 1,057 | Quote-only stubs | Tue, Thu, Fri — stalest 200 per run |
-| Low-qty overlay | dozens | Live Buy Now, last Mag qty ≤ 3 | Every weekday (capped at 80) |
+The weekday run has one budget: **90 Firecrawl requests** that load Magnasource, pages and
+image files together (`DAILY_PAGE_BUDGET`). Up to 15 are held for image files, which leaves
+75 pages. Magnasource flags an exit address above about 100 hits a day, so the budget does
+not go up, and nothing reads off the weekday schedule.
 
-Roughly 2,400 page reads a week once the unread D pool is cycling. No single run should
-exceed ~550 due-tier pages plus the small low-qty overlay. The quote-only pool cycles in
-about two weeks. The ≤3 overlay is the sell-out window — it does not raise C to daily and
-does not scrape unread stubs just because they have never been read. Requests go through
-Firecrawl, so Magnasource sees Firecrawl's proxies rather than our IP or Vercel's, and we
-never touch the authenticated vendor portal — bulk cost lookups there flag the account.
-Concurrency is capped at 2 with 1.5–3s jitter. A URL that fails to parse three times in a
-row is retired (`mag_watch.miss_count`) so we stop paying to fetch it.
+The 75 pages fill in this order (`selectBudgetedWatchQueue`):
+
+| Order | Rows | Pages |
+|---|---|---|
+| 1. Sell-out watch | Live Buy Now tracks at 3 or fewer on hand, or with no count on file. Then other live Buy Now at 3 or fewer. Stalest first | Up to 40 |
+| 2. High-ticket Buy Now | Tier A (sticker ≥ $300), stalest first | The rest |
+| 3. Quote-only stubs | Never-read `mag_queue` ranks first, then stalest | Only if pages are left |
+
+Tiers A to D still describe an explicit `--tier=` pass (A: Buy Now ≥ $300, B: $100–299,
+C: under $100, D: quote-only). That pass is sliced to the same budget.
+
+Requests go through Firecrawl, so Magnasource sees Firecrawl's proxies rather than our IP
+or Vercel's, and we never touch the authenticated vendor portal — bulk cost lookups there
+flag the account. Concurrency is capped at 2 with 1.5–3s jitter. A URL that fails to parse
+three times in a row is retired (`mag_watch.miss_count`) so we stop paying to fetch it.
+
+## Rubber tracks
+
+Tracks are read for stock only. The watch never reprices or publishes a track, and it
+keeps no sticker, weight, or photo from a track page read by warehouse number.
+
+A track with a mappable OEM number keeps its own OEM page. That reading still copies by
+size and tread onto track rows of the same size that are not read by warehouse number. A
+track with no OEM number is read by its warehouse number instead: `metadata.vendor_pn` with the `TSA/` wrapper removed
+(`TSA/SY320X86X50C` reads `itemdetail/SY320X86X50C`). Nothing else is added to the number
+and no OEM cross is written.
+
+- **One read per number.** Each number is read once per run and the result is written to
+  every SKU that shares it. The sharers carry `mag_watch.inherited_from_sku`.
+- **The page must show the same number back.** These pages carry the warehouse's own brand
+  line, so the echoed part number is the whole identity check. HTTP 200 alone is not a
+  reading.
+- **Unread is not sold out.** A failed fetch writes nothing. A page that shows a different
+  number, an invalid-item page, or a page with no stock block leaves the last reading in
+  place and only moves the miss counter. Three misses retire the number.
+- **No automatic pull.** A zero, backorder, or special-order reading on a live Buy Now
+  track is listed in the digest as a pull candidate. Pulling it is a manual decision on
+  `/parts-watch`.
+- **Where they sit in the run.** Live tracks with 3 or fewer on hand, no count yet, or a
+  sold-out reading that is still live go at the front of the sell-out slice every weekday.
+  A track with a healthy count rotates with the other high-ticket Buy Now.
+
+The digest has a *Rubber tracks by warehouse number* block: numbers read with their count,
+numbers left unread, and any live Buy Now track that nothing reads.
 
 ## Process
 
 | Magnasource reading | Action | Automated |
 |---|---|---|
 | Zero on hand / backorder / special-order, **Buy Now row** | Pull off Buy Now | Yes, on a clean identity-ok Mag read |
+| Same, **Buy Now track read by warehouse number** | Digest pull candidate | No. Manual pull only |
 | Same, quote-only row | Snapshot only | Snapshot |
 | Limited / 1–2 on hand | Digest flag. Never disables | Flag only |
 | Sticker moved so our sell is no longer ~5% under | Digest row with current sell, Mag, and proposed sell | No — propose only |
@@ -229,6 +266,27 @@ A sibling `metadata.mag_watch` object holds job state only: `last_checked_at`,
 `last_availability`, `sold_out_streak`, `miss_count`, and on a pull `pulled_at`,
 `pull_reason`, `prior_stripe_price_id`, `prior_sales_type`.
 
+A track read by warehouse number stores a shorter entry marked `stock_only`. It has no
+`price`, `list_price`, `weight_lb`, or title, so the reprice and publish paths have nothing
+to act on:
+
+```json
+{
+  "source": "magnasource",
+  "url": "https://www.magnasourceinc.com/itemdetail/SY84914",
+  "qty_on_hand": 22,
+  "qty_is_floor": false,
+  "availability": "in_stock",
+  "supplier_confirmed_at": "11/10/2026 9:02:39 PM",
+  "backorder_eta": null,
+  "fetched_at": "2026-11-11T03:26:22.260Z",
+  "stock_only": true
+}
+```
+
+Its `mag_watch` also carries `warehouse_number`, and `last_miss_at` / `last_miss_reason`
+after an unread page.
+
 ## Hero images (review tray)
 
 Catalog growth is blocked on product photos, not on price. Magnasource exposes the product
@@ -236,9 +294,10 @@ hero as `og:image` on the same page response the watch already reads, so each re
 a hero fact on `mag_watch.hero` (filename + identity/placeholder gates — the signed `?key=`
 URL is never stored).
 
-Identity-ok Mag-in-stock heroes for photo-gap rows are downloaded into a **private**
-`part-hero-pending` bucket during the weekday `mag-watch.ts` run (same page read, cap 40:
-32 quote-only / 8 Buy Now) and listed on `/parts-watch` under *Image tray*. Limited,
+Identity-ok Mag-in-stock heroes for photo-gap rows are copied into a **private**
+`part-hero-pending` bucket during the weekday `mag-watch.ts` run and listed on
+`/parts-watch` under *Image tray*. The file is read through Firecrawl, never by a direct
+download, and at most 15 files a run come out of the same 90-request budget. Limited,
 backorder, LTL ≥75 lb, skip-comps, and rows that already have a real photo are skipped.
 Seats, cushions, and covers use the same tray. Raw vendor photos never go live.
 
@@ -266,6 +325,11 @@ its slash (`JC333/D1629`) and Toyota its dashes (`TY16420-U1280-71`). A stripped
 **HTTP 200** with "Sorry, the requested item is no longer valid", so a 200 status is never
 proof the item exists — the parser treats that string as the invalid signal and requires
 both the echoed part number and brand to match before trusting any number.
+
+Rubber tracks with no OEM number use the warehouse number with no prefix:
+`https://www.magnasourceinc.com/itemdetail/{warehouse number}`, separators kept
+(`SY400X86CNX52/323E`). The echoed part number must match. The brand line is not checked
+on those pages.
 
 Prefixes marked `verified: false` in that file have not been seen resolving on a real page.
 Misses on those brands may be a wrong prefix rather than a dead part number; the digest

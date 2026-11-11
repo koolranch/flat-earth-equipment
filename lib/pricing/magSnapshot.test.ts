@@ -268,6 +268,97 @@ const policyNoise = parseMagSnapshot(
 assert.equal(policyNoise.availability, 'in_stock');
 assert.equal(isSoldOutReading(policyNoise.availability), false);
 
+/**
+ * Trimmed capture of /itemdetail/SY320X86X52C (2026-11-10). A rubber track filed under
+ * its warehouse number. The brand line reads TVH, not the machine brand.
+ */
+const TRACK_BY_NUMBER = `
+# TRACK - RUBBER 320X86X52 B-STYLE, C PATTERN
+
+## 320X86X52C\u00a0for\u00a0TVH
+
+### Part Number:\u00a0SY320X86X52C
+
+61 on hand and ready to ship today
+
+Inventory availability confirmed by supplier at 11/10/2026 9:02:27 PM
+
+$1210
+
+.88
+
+$1,674.30
+
+Save\u00a0$463.42\u00a0(28%)
+
+TOTAL PRICE
+
+$1,210.88
+
+Weight:
+
+346.1258\u00a0lbs.
+
+In Stock.
+
+Related Items...
+
+SY320X86X52Z-ALT
+
+TRACK - RUBBER 320X86X52 B-STYLE C PATTERN
+`;
+
+/** Trimmed capture of /itemdetail/WA1000397806 (2026-11-10). Special order, no count. */
+const TRACK_SPECIAL_ORDER = `
+# TRACK - RUBBER 450X86X56 B-STYLE, MULTIBAR
+
+## 1000397806\u00a0for\u00a0Wacker
+
+### Part Number:\u00a0WA1000397806
+
+TOTAL PRICE
+
+$1,316.49
+
+**1** Backordered items. Estimated delivery not available.
+
+This item is special ordered directly from our suppliers. Special orders can not be cancelled after it has been ordered.
+
+Related Items...
+
+SY450X86X56C
+`;
+
+// Warehouse-number read: the echoed number is the whole identity gate.
+const trackByNumber = parseMagSnapshot(TRACK_BY_NUMBER, { magPartId: 'SY320X86X52C', brand: null });
+assert.equal(trackByNumber.identityOk, true);
+assert.equal(trackByNumber.pagePartNumber, 'SY320X86X52C');
+assert.equal(trackByNumber.pageBrand, 'TVH');
+assert.equal(trackByNumber.availability, 'in_stock');
+assert.equal(trackByNumber.qtyOnHand, 61);
+assert.deepEqual(trackByNumber.notes, []);
+
+// The machine brand never matches that page, which is why these rows were unreadable before.
+assert.equal(
+  parseMagSnapshot(TRACK_BY_NUMBER, { magPartId: 'SY320X86X52C', brand: 'Bobcat' }).identityOk,
+  false
+);
+
+// A page that echoes a different number is unread, whatever its stock block says.
+const otherTrack = parseMagSnapshot(TRACK_BY_NUMBER, { magPartId: 'SY320X86X52Z', brand: null });
+assert.equal(otherTrack.identityOk, false);
+assert.equal(otherTrack.availability, 'unknown');
+assert.equal(isSoldOutReading(otherTrack.availability), false);
+
+const trackSpecial = parseMagSnapshot(TRACK_SPECIAL_ORDER, { magPartId: 'WA1000397806', brand: null });
+assert.equal(trackSpecial.identityOk, true);
+assert.equal(trackSpecial.availability, 'special_order');
+assert.equal(trackSpecial.qtyOnHand, null);
+assert.equal(trackSpecial.backorderEta, 'not available');
+
+// An invalid item page stays invalid without a brand to check.
+assert.equal(parseMagSnapshot(INVALID, { magPartId: 'SY99999', brand: null }).availability, 'invalid_pn');
+
 // Sticker drift math.
 const onTarget = stickerDrift({ ourSell: 323, magPrice: 340.83, targetDiscount: 0.05 });
 assert.equal(onTarget.aboveMag, false);
