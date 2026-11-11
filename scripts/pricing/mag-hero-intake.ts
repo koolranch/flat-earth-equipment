@@ -1,11 +1,13 @@
 /**
  * Pull identity-ok Magnasource og:images into the private image tray.
  *
- * Downloads the vendor hero at scrape time (the `?key=` expires) and stores
- * bytes in `part-hero-pending`. Never writes `parts.image_url`.
+ * Copies the vendor hero through Firecrawl (`rawBase64`). This process never
+ * opens its own connection to Magnasource. Default 15 rows; each row is a page
+ * read plus an image read, and the run cannot exceed half the daily budget.
+ * Never writes `parts.image_url`.
  *
  *   npx tsx scripts/pricing/mag-hero-intake.ts --dry-run
- *   npx tsx scripts/pricing/mag-hero-intake.ts --min-sticker=150 --limit=40
+ *   npx tsx scripts/pricing/mag-hero-intake.ts --min-sticker=150 --limit=15
  *   npx tsx scripts/pricing/mag-hero-intake.ts --skus=333D2714,320A6064
  */
 
@@ -13,10 +15,13 @@ import path from 'path';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import * as dotenv from 'dotenv';
 import { heroCandidateFromOgImage } from '../../lib/pricing/magHero';
-import { fetchHeroReview, recordIntake, sniffHeroMime, trayIntakeEligibility } from '../../lib/pricing/heroTray';
+import { fetchHeroReview, recordIntake, trayIntakeEligibility } from '../../lib/pricing/heroTray';
+import { fetchMagHeroBytes } from '../../lib/pricing/magHeroBytes';
 import { parseMagSnapshot } from '../../lib/pricing/magSnapshot';
 import {
   classifyRow,
+  DAILY_PAGE_BUDGET,
+  HERO_FETCH_RESERVE,
   isSkip,
   WATCH_ROW_SELECT,
   type WatchCandidate,
@@ -114,21 +119,6 @@ async function scrapeOgImage(
   };
 }
 
-async function downloadHero(url: string): Promise<{ bytes: Uint8Array; mime: string }> {
-  const res = await fetch(url, {
-    headers: {
-      'User-Agent':
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
-      Accept: 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
-    },
-  });
-  if (!res.ok) throw new Error(`hero fetch ${res.status}`);
-  const bytes = new Uint8Array(await res.arrayBuffer());
-  const mime = sniffHeroMime(bytes, res.headers.get('content-type'));
-  if (!mime) throw new Error('hero bytes are not jpeg/png/webp');
-  return { bytes, mime };
-}
-
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL;
@@ -152,7 +142,10 @@ async function main() {
   }
 
   queue.sort((a, b) => magPrice(b.row) - magPrice(a.row));
-  const sliced = args.limit ? queue.slice(0, args.limit) : queue;
+  // Each row is a page read plus an image-file read, both through Firecrawl.
+  const maxRows = Math.floor(DAILY_PAGE_BUDGET / 2);
+  const requested = args.limit ?? HERO_FETCH_RESERVE;
+  const sliced = queue.slice(0, Math.min(requested, maxRows));
 
   console.log(
     `Image tray intake · ${sliced.length} of ${queue.length} eligible${args.dryRun ? ' (dry run)' : ''}${
@@ -199,7 +192,7 @@ async function main() {
             `[${i + 1}/${sliced.length}] ${candidate.brand} ${candidate.oem} → would store ${hero.filename}\n`
           );
         } else {
-          const { bytes, mime } = await downloadHero(page.ogImage);
+          const { bytes, mime } = await fetchMagHeroBytes(page.ogImage, apiKey);
           await recordIntake(supabase, candidate.row, bytes, mime, hero.filename);
           stored++;
           process.stdout.write(

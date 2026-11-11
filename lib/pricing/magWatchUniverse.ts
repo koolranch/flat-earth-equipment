@@ -153,13 +153,36 @@ export const LOW_QTY_REFRESH_MAX = 3;
 
 /**
  * Safety cap so a parser that started reading everything as "1" cannot explode a
- * weekday run. Real low-qty Buy Now is dozens, not hundreds.
+ * weekday run. Real low-qty Buy Now is dozens, not hundreds. Explicit --low-qty-only
+ * still uses this. The weekday budget reserves a smaller slice (see below).
  */
 export const LOW_QTY_REFRESH_CAP = 80;
 
 /**
- * Quote-only stubs per D run. 200 × Tue/Thu/Fri cycles the unread pool in about two
- * weeks instead of a month. Does not change C (Monday) or the A/B sticker cadence.
+ * Whole weekday run, every Firecrawl request that loads Magnasource. That includes
+ * product pages and image files. Magnasource flags an exit address above about 100
+ * hits a day. Ninety leaves room for the one retry a failed page gets. Firecrawl
+ * chooses the exit, so this is the part of that line we can enforce.
+ */
+export const DAILY_PAGE_BUDGET = 90;
+
+/**
+ * Image-file reads reserved inside the daily budget. The page queue uses the rest.
+ * Each file is one Firecrawl request, not a connection from this machine.
+ */
+export const HERO_FETCH_RESERVE = 15;
+
+/**
+ * Sell-out rows reserved inside the daily budget. The rest goes to the stalest
+ * high-ticket Buy Now, then quote-only stubs only if both of those leave room.
+ * 118 low-qty rows at 40 a day is about every third weekday.
+ */
+export const LOW_QTY_DAILY_RESERVE = 40;
+
+/**
+ * Quote-only stubs on an explicit --tier=D pass, before the daily page budget
+ * slices the run. The weekday default does not use this; stubs get only the
+ * pages left after sell-out and high-ticket rows.
  */
 export const DEFAULT_QUOTE_CAP = 200;
 
@@ -331,6 +354,28 @@ function byStalest(a: WatchCandidate, b: WatchCandidate): number {
   return lastCheckedAt(a.row).localeCompare(lastCheckedAt(b.row));
 }
 
+/**
+ * Dollar-ranked queue rows jump the quote-only line only until their first read.
+ * After that they rotate with every other stub, so a finished queue cannot block
+ * the rest of the D tier.
+ */
+function unreadQueueRank(candidate: WatchCandidate): number | null {
+  if (lastCheckedAt(candidate.row)) return null;
+  const queue = candidate.row.metadata?.mag_queue;
+  if (!queue || typeof queue !== 'object') return null;
+  const rank = (queue as Record<string, unknown>).rank;
+  return typeof rank === 'number' && Number.isFinite(rank) ? rank : null;
+}
+
+function byQueueThenStale(a: WatchCandidate, b: WatchCandidate): number {
+  const aRank = unreadQueueRank(a);
+  const bRank = unreadQueueRank(b);
+  if (aRank !== null && bRank !== null && aRank !== bRank) return aRank - bRank;
+  if (aRank !== null && bRank === null) return -1;
+  if (aRank === null && bRank !== null) return 1;
+  return byStalest(a, b);
+}
+
 export type WatchQueueSelection = {
   buyNow: WatchCandidate[];
   lowQty: WatchCandidate[];
@@ -340,7 +385,8 @@ export type WatchQueueSelection = {
 
 /**
  * Build the fetch queue for one run. Due-tier Buy Now always go; quote-only stubs
- * rotate by stalest-first up to `quoteCap`; weekday default also unions live Buy Now
+ * rotate by stalest-first up to `quoteCap`, except never-read `metadata.mag_queue`
+ * rows, which go first in rank order. Weekday default also unions live Buy Now
  * whose last Mag qty is ≤ 3 (capped) so a $40 switch at 2 on hand is not waiting for Monday.
  */
 export function selectWatchQueue(
@@ -361,7 +407,7 @@ export function selectWatchQueue(
   const buyNow = due.filter((c) => c.isBuyNow);
   const stubs = due
     .filter((c) => !c.isBuyNow)
-    .sort(byStalest)
+    .sort(byQueueThenStale)
     .slice(0, opts.quoteCap);
 
   const already = new Set(buyNow.map((c) => c.identityKey));
@@ -376,12 +422,46 @@ export function selectWatchQueue(
 }
 
 /**
+ * Weekday default. One page budget for the whole run, filled in order:
+ * live Buy Now at ≤3 on hand (stalest, reserved slice), then the stalest
+ * high-ticket Buy Now, then quote-only stubs with whatever is left.
+ * A row is fetched once. $100-and-under Buy Now with more than 3 on hand waits.
+ */
+export function selectBudgetedWatchQueue(
+  unique: WatchCandidate[],
+  budget: number,
+  opts?: { includeLowQty?: boolean }
+): WatchQueueSelection {
+  const room = Math.max(0, Math.floor(budget));
+  const includeLowQty = opts?.includeLowQty !== false;
+  const lowQty = includeLowQty
+    ? unique
+        .filter(needsLowQtyRefresh)
+        .sort(byStalest)
+        .slice(0, Math.min(LOW_QTY_DAILY_RESERVE, room))
+    : [];
+
+  const taken = new Set(lowQty.map((c) => c.identityKey));
+  const buyNow = unique
+    .filter((c) => c.tier === 'A' && !taken.has(c.identityKey))
+    .sort(byStalest)
+    .slice(0, room - lowQty.length);
+  for (const candidate of buyNow) taken.add(candidate.identityKey);
+
+  const stubs = unique
+    .filter((c) => c.tier === 'D' && !taken.has(c.identityKey))
+    .sort(byQueueThenStale)
+    .slice(0, room - lowQty.length - buyNow.length);
+
+  return { buyNow, lowQty, stubs, queue: [...lowQty, ...buyNow, ...stubs] };
+}
+
+/**
  * Which tiers are due on a given weekday (0 = Sunday). Weekdays only.
  *
- * Balanced so no single run exceeds roughly 550 pages plus a small low-qty overlay:
- * tier A daily, B twice weekly, C weekly, and the quote-only pool three times weekly
- * at 200 rows a run, which cycles the unread stubs in about two weeks. Live Buy Now
- * whose last Mag qty is ≤ 3 also refresh every weekday (see `selectWatchQueue`).
+ * The default run no longer fetches every due tier. `selectBudgetedWatchQueue`
+ * keeps the morning at `DAILY_PAGE_BUDGET` pages. These tiers still describe an
+ * explicit `--tier=` pass, which is then sliced to that same budget.
  */
 export function tiersDue(weekday: number): WatchTier[] {
   switch (weekday) {

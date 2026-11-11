@@ -5,8 +5,9 @@
  * part, records the on-hand count and sticker onto
  * `parts.metadata.competitor_prices[magnasource]`, and writes a digest.
  *
- * Identity-ok Mag-in-stock heroes on photo-gap rows are downloaded into the private
- * image tray (capped) so `/parts-watch` can AI-clean + Approve. A clean sold-out read
+ * Identity-ok Mag-in-stock heroes are not downloaded here. A direct image fetch
+ * would show this machine's address to Magnasource, and Firecrawl does not return
+ * an intact file. Page reads still go through Firecrawl. A clean sold-out read
  * on a live Buy Now row (backorder, special-order, or zero) pulls that row in the same
  * run: quote-only, out of stock, Stripe price archived. Limited stock is never a pull.
  * If more than 10 warehouse items qualify, the run pulls none of them and leaves the
@@ -17,18 +18,18 @@
  *   npx tsx scripts/pricing/mag-watch.ts --universe                  # counts only, no fetching
  *   npx tsx scripts/pricing/mag-watch.ts --slice=baseline --dry-run  # rows with a prior Mag snapshot
  *   npx tsx scripts/pricing/mag-watch.ts --slice=core-six --tier=A
- *   npx tsx scripts/pricing/mag-watch.ts                             # tiers due today
+ *   npx tsx scripts/pricing/mag-watch.ts                             # 90-page weekday budget
  *
  * Flags:
  *   --universe        Print scope counts and exit (no network calls).
  *   --slice=          baseline | core-six | direct | all   (default: all)
- *   --tier=           A,B,C,D  (default: tiers due for today's weekday)
- *   --limit=N         Cap rows fetched this run.
+ *   --tier=           A,B,C,D  Explicit pass. Still sliced to the daily page budget.
+ *   --limit=N         Cap rows fetched this run, never above the daily page budget.
  *   --dry-run         Fetch and report, write nothing to Supabase.
- *   --quote-cap=N     Max quote-only (tier D) rows per run. Default 200.
+ *   --quote-cap=N     Max quote-only rows on an explicit --tier= pass. Default 200.
  *   --low-qty-only    Weekday sell-out overlay only (live Buy Now, last Mag qty ≤ 3).
  *   --no-low-qty      Skip the ≤3 overlay (explicit --tier= already skips it).
- *   --hero-intake-cap=N  Max tray downloads this run. Default 40 (32 quote-only / 8 Buy Now).
+ *   --hero-intake-cap=N  Max image-file reads this run. Default 15, and never higher.
  *   --no-hero-intake     Record hero facts only; do not download into the tray.
  *   --fan-out-only    Copy stored Mag readings onto size-matched track PDPs (no fetch).
  *   --from-failures=  Resume `fetch failed` SKUs from a prior digest JSON.
@@ -48,9 +49,9 @@ import {
 import {
   fetchHeroReview,
   recordIntake,
-  sniffHeroMime,
   weekdayHeroIntakeEligibility,
 } from '../../lib/pricing/heroTray';
+import { fetchMagHeroBytes } from '../../lib/pricing/magHeroBytes';
 import {
   currentHeroKind,
   heroCandidateFromOgImage,
@@ -58,7 +59,6 @@ import {
   type HeroCandidate,
 } from '../../lib/pricing/magHero';
 import {
-  DEFAULT_HERO_INTAKE_CAP,
   HERO_INTAKE_QUOTE_RESERVE,
   emptyHeroIntakeBudget,
   takeHeroIntakeSlot,
@@ -85,9 +85,12 @@ import {
   missCount,
   soldOutStreak,
   needsLowQtyRefresh,
+  selectBudgetedWatchQueue,
   selectWatchQueue,
   tiersDue,
+  DAILY_PAGE_BUDGET,
   DEFAULT_QUOTE_CAP,
+  HERO_FETCH_RESERVE,
   LOW_QTY_REFRESH_MAX,
   MAX_MISSES,
   MAX_PULLS_PER_RUN,
@@ -177,12 +180,22 @@ function parseArgs(argv: string[]): Args {
     includeLowQty: lowQtyOnly || (forceLowQty ? true : !noLowQty && !tiers),
     lowQtyOnly,
     heroIntake: !argv.includes('--no-hero-intake') && !argv.includes('--dry-run'),
-    heroIntakeCap: intakeCapRaw ? Number(intakeCapRaw) : DEFAULT_HERO_INTAKE_CAP,
+    heroIntakeCap: Math.min(
+      intakeCapRaw ? Number(intakeCapRaw) : HERO_FETCH_RESERVE,
+      HERO_FETCH_RESERVE
+    ),
     skus: skusRaw ? skusRaw.split(',').map((s) => s.trim()).filter(Boolean) : null,
     fromFailures: get('from-failures'),
     offset: offsetRaw ? Number(offsetRaw) : 0,
     fanOutOnly: argv.includes('--fan-out-only'),
   };
+}
+
+/** Pages this run may load. Image-file reads keep the rest of the daily budget. */
+function pageCeiling(args: Args): number {
+  const reserve = args.heroIntake ? HERO_FETCH_RESERVE : 0;
+  const forPages = Math.max(0, DAILY_PAGE_BUDGET - reserve);
+  return Math.min(forPages, args.limit ?? forPages);
 }
 
 function sleep(ms: number): Promise<void> {
@@ -214,21 +227,6 @@ function loadSkipOems(): Set<string> {
   } catch {
     return new Set();
   }
-}
-
-async function downloadHero(url: string): Promise<{ bytes: Uint8Array; mime: string }> {
-  const res = await fetch(url, {
-    headers: {
-      'User-Agent':
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
-      Accept: 'image/avif,image/webp,image/png,image/jpeg,*/*;q=0.8',
-    },
-  });
-  if (!res.ok) throw new Error(`hero fetch ${res.status}`);
-  const bytes = new Uint8Array(await res.arrayBuffer());
-  const mime = sniffHeroMime(bytes, res.headers.get('content-type'));
-  if (!mime) throw new Error('hero bytes are not jpeg/png/webp');
-  return { bytes, mime };
 }
 
 /** Supabase caps a plain select at 1000 rows — page through the whole catalog. */
@@ -813,7 +811,8 @@ async function main() {
     }
     if (missing.length) console.warn(`\nNot found in scope: ${missing.join(', ')}`);
     const start = Math.max(0, args.offset);
-    const end = args.limit != null ? start + args.limit : matched.length;
+    const ceiling = pageCeiling(args);
+    const end = start + ceiling;
     const queue = matched.slice(start, end);
     console.log(
       `\nResume ${args.fromFailures ? 'fetch-failed' : 'SKU'} list · ${matched.length} in scope · ${queue.length} this batch (offset ${start})`
@@ -837,19 +836,29 @@ async function main() {
     pool = pool.filter((c) => c.isBuyNow);
   }
 
-  const selected = selectWatchQueue(pool, {
-    tiers,
-    quoteCap: args.quoteCap,
-    includeLowQty: args.includeLowQty,
-    lowQtyOnly: args.lowQtyOnly,
-  });
+  const pagesThisRun = pageCeiling(args);
+  const selected = args.tiers || args.lowQtyOnly
+    ? selectWatchQueue(pool, {
+        tiers,
+        quoteCap: args.quoteCap,
+        includeLowQty: args.includeLowQty,
+        lowQtyOnly: args.lowQtyOnly,
+      })
+    : selectBudgetedWatchQueue(pool, pagesThisRun, { includeLowQty: args.includeLowQty });
   let queue = selected.queue;
-  if (args.limit) queue = queue.slice(0, args.limit);
+  if (queue.length > pagesThisRun) queue = queue.slice(0, pagesThisRun);
 
-  if (selected.lowQty.length) {
+  if (!args.tiers && !args.lowQtyOnly) {
+    console.log(
+      `\nDaily budget ${DAILY_PAGE_BUDGET} · ${selected.lowQty.length} at ≤${LOW_QTY_REFRESH_MAX} on hand · ${selected.buyNow.length} other high-ticket · ${selected.stubs.length} quote-only · up to ${args.heroIntake ? args.heroIntakeCap : 0} images`
+    );
+  } else if (selected.lowQty.length) {
     console.log(
       `\nLow-qty overlay · ${selected.lowQty.length} live Buy Now at ≤${LOW_QTY_REFRESH_MAX} on hand (not already in today's tiers)`
     );
+  }
+  if (queue.length < selected.queue.length) {
+    console.log(`Trimmed to the daily page budget · ${selected.queue.length} → ${queue.length}`);
   }
 
   await run(queue, tiers, universe, args, supabase, all);
@@ -933,8 +942,13 @@ async function run(
   supabase: SupabaseClient,
   catalog: WatchRow[]
 ) {
+  const mode = args.lowQtyOnly
+    ? 'low-qty-only'
+    : args.tiers
+      ? `tiers ${tiers.join(',')}`
+      : 'daily budget';
   console.log(
-    `\nTiers ${tiers.join(',') || 'low-qty-only'} · slice ${args.slice} · ${queue.length} pages to read${args.dryRun ? ' (dry run)' : ''}${
+    `\n${mode} · slice ${args.slice} · ${queue.length} pages to read${args.dryRun ? ' (dry run)' : ''}${
       args.includeLowQty && !args.lowQtyOnly ? ' · ≤3 overlay on' : ''
     }\n`
   );
@@ -948,7 +962,7 @@ async function run(
   let abortRun = false;
   let consecutiveFetchFails = 0;
   const skipOems = loadSkipOems();
-  const quoteReserve = Math.min(HERO_INTAKE_QUOTE_RESERVE, args.heroIntakeCap);
+  const quoteReserve = args.tiers ? Math.min(HERO_INTAKE_QUOTE_RESERVE, args.heroIntakeCap) : 0;
   const intakeBudget: HeroIntakeBudget = args.heroIntake
     ? emptyHeroIntakeBudget(args.heroIntakeCap, quoteReserve)
     : { quote: 0, buyNow: 0 };
@@ -1032,7 +1046,7 @@ async function run(
                 intake.skippedCap++;
               } else {
                 try {
-                  const { bytes, mime } = await downloadHero(page.ogImage);
+                  const { bytes, mime } = await fetchMagHeroBytes(page.ogImage, apiKey);
                   await recordIntake(supabase, merged, bytes, mime, hero.filename);
                   intake.intaken++;
                   process.stdout.write(`   tray ← ${hero.filename} (${bytes.length} b)\n`);

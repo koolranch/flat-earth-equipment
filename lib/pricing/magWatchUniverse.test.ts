@@ -3,9 +3,13 @@ import {
   classifyRow,
   lastMagQty,
   needsLowQtyRefresh,
+  selectBudgetedWatchQueue,
   selectWatchQueue,
   tiersDue,
+  DAILY_PAGE_BUDGET,
   DEFAULT_QUOTE_CAP,
+  HERO_FETCH_RESERVE,
+  LOW_QTY_DAILY_RESERVE,
   LOW_QTY_REFRESH_CAP,
   LOW_QTY_REFRESH_MAX,
   type WatchCandidate,
@@ -20,6 +24,7 @@ function row(over: {
   oem?: string;
   qty?: number | null;
   lastCheckedAt?: string;
+  queueRank?: number;
 }): WatchRow {
   n++;
   const oem = over.oem ?? `333/D${1000 + n}`;
@@ -51,6 +56,7 @@ function row(over: {
               },
             ],
       mag_watch: over.lastCheckedAt ? { last_checked_at: over.lastCheckedAt } : {},
+      ...(over.queueRank === undefined ? {} : { mag_queue: { rank: over.queueRank } }),
     },
   };
 }
@@ -63,6 +69,10 @@ function candidate(over: Parameters<typeof row>[0]): WatchCandidate {
 
 assert.equal(LOW_QTY_REFRESH_MAX, 3);
 assert.equal(LOW_QTY_REFRESH_CAP, 80);
+assert.equal(DAILY_PAGE_BUDGET, 90);
+assert.equal(HERO_FETCH_RESERVE, 15);
+assert.ok(LOW_QTY_DAILY_RESERVE + HERO_FETCH_RESERVE <= DAILY_PAGE_BUDGET);
+assert.equal(LOW_QTY_DAILY_RESERVE, 40);
 assert.equal(DEFAULT_QUOTE_CAP, 200);
 
 assert.deepEqual(tiersDue(1), ['A', 'C']);
@@ -162,6 +172,40 @@ const capped = selectWatchQueue(manyLow, {
 });
 assert.equal(capped.lowQty.length, LOW_QTY_REFRESH_CAP);
 
+const rankedFirst = candidate({ price: 0, salesType: 'quote_only', oem: '333/Q1', queueRank: 1 });
+const rankedSecond = candidate({ price: 0, salesType: 'quote_only', oem: '333/Q2', queueRank: 2 });
+const rankedAlreadyRead = candidate({
+  price: 0,
+  salesType: 'quote_only',
+  oem: '333/Q3',
+  queueRank: 1,
+  lastCheckedAt: '2026-10-01T00:00:00.000Z',
+});
+const olderStub = candidate({
+  price: 0,
+  salesType: 'quote_only',
+  oem: '333/Q4',
+  lastCheckedAt: '2020-01-01T00:00:00.000Z',
+});
+const queued = selectWatchQueue(
+  [olderStub, rankedSecond, rankedAlreadyRead, rankedFirst],
+  { tiers: ['D'], quoteCap: 2, includeLowQty: false }
+);
+assert.deepEqual(
+  queued.stubs.map((c) => c.oem),
+  ['333/Q1', '333/Q2'],
+  'unread mag_queue ranks fill the quote cap before older stubs'
+);
+const queuedAll = selectWatchQueue(
+  [olderStub, rankedSecond, rankedAlreadyRead, rankedFirst],
+  { tiers: ['D'], quoteCap: 10, includeLowQty: false }
+);
+assert.deepEqual(
+  queuedAll.stubs.map((c) => c.oem),
+  ['333/Q1', '333/Q2', '333/Q4', '333/Q3'],
+  'a queue rank stops applying after the first read'
+);
+
 {
   const withVendorPn = classifyRow({
     ...row({ price: 2049, oem: 'L4732' }),
@@ -184,6 +228,55 @@ assert.equal(capped.lowQty.length, LOW_QTY_REFRESH_CAP);
     metadata: { vendor_pn: 'TSA/SY320X86X50C' },
   });
   assert.equal('reason' in sizeOnly && sizeOnly.reason === 'no_mappable_oem', true);
+}
+
+{
+  const pool: WatchCandidate[] = [];
+  for (let i = 0; i < 50; i++) {
+    pool.push(candidate({ price: 40, qty: 1, oem: `333/C${3000 + i}`, lastCheckedAt: `2026-01-${String((i % 28) + 1).padStart(2, '0')}T00:00:00.000Z` }));
+  }
+  for (let i = 0; i < 60; i++) {
+    pool.push(candidate({ price: 800, qty: 20, oem: `333/A${4000 + i}`, lastCheckedAt: `2026-02-${String((i % 28) + 1).padStart(2, '0')}T00:00:00.000Z` }));
+  }
+  pool.push(candidate({ price: 0, salesType: 'quote_only', oem: '333/STUB1', queueRank: 1 }));
+  const budgeted = selectBudgetedWatchQueue(pool, DAILY_PAGE_BUDGET);
+  assert.equal(budgeted.queue.length, DAILY_PAGE_BUDGET);
+  assert.equal(budgeted.lowQty.length, LOW_QTY_DAILY_RESERVE);
+  assert.equal(budgeted.buyNow.length, DAILY_PAGE_BUDGET - LOW_QTY_DAILY_RESERVE);
+  assert.equal(budgeted.stubs.length, 0, 'stubs wait while high-ticket still needs pages');
+  assert.equal(new Set(budgeted.queue.map((c) => c.identityKey)).size, DAILY_PAGE_BUDGET);
+  assert.deepEqual(
+    budgeted.queue.slice(0, LOW_QTY_DAILY_RESERVE).map((c) => c.identityKey),
+    budgeted.lowQty.map((c) => c.identityKey)
+  );
+}
+
+{
+  const open = selectBudgetedWatchQueue(
+    [
+      candidate({ price: 40, qty: 1, oem: '333/LOW1', lastCheckedAt: '2026-09-01T00:00:00.000Z' }),
+      candidate({ price: 900, qty: 30, oem: '333/HIGH1', lastCheckedAt: '2026-09-02T00:00:00.000Z' }),
+      candidate({ price: 0, salesType: 'quote_only', oem: '333/STUB9', queueRank: 1 }),
+    ],
+    90
+  );
+  assert.deepEqual(
+    open.queue.map((c) => c.oem),
+    ['333/LOW1', '333/HIGH1', '333/STUB9']
+  );
+}
+
+{
+  const noLow = selectBudgetedWatchQueue(
+    [
+      candidate({ price: 40, qty: 1, oem: '333/LOW2' }),
+      candidate({ price: 900, qty: 30, oem: '333/HIGH2' }),
+    ],
+    90,
+    { includeLowQty: false }
+  );
+  assert.equal(noLow.lowQty.length, 0);
+  assert.deepEqual(noLow.queue.map((c) => c.oem), ['333/HIGH2']);
 }
 
 console.log('magWatchUniverse.test.ts: ok');
