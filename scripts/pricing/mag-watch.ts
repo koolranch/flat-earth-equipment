@@ -15,8 +15,9 @@
  *
  * Rubber tracks with no OEM number are read by warehouse number: one page per number,
  * written to every SKU that shares it. Those reads are stock only (no sticker, no
- * photo) and the run never pulls on them. A sold-out reading on a live Buy Now track
- * is listed in the digest as a pull candidate for a manual decision.
+ * photo). A sold-out reading counts only when the page shows the same number back,
+ * and then pulls every live SKU on that number under the same 10-item cap. Every live
+ * track page is read again every other weekday.
  *
  * Usage:
  *   npx tsx scripts/pricing/mag-watch.ts --universe                  # counts only, no fetching
@@ -85,6 +86,7 @@ import {
   classifyRow,
   dedupeCandidates,
   isBuyNow,
+  isLiveTrack,
   isSkip,
   metaNumber,
   missCount,
@@ -115,6 +117,7 @@ import {
   shouldReceiveTrackFanOut,
   trackFanOutTargets,
   trackNumberSharers,
+  trackRowsSoldOut,
   warehouseKeyForRow,
   type TrackStockRead,
 } from '../../lib/pricing/trackMagStock';
@@ -379,6 +382,8 @@ type Reading = {
   hero: HeroCandidate | null;
   /** Other SKUs on the same warehouse number, as they stood before this read was written. */
   sharers: WatchRow[];
+  /** Set on a warehouse-number read. The same reading every SKU on the number receives. */
+  trackRead?: TrackStockRead;
   error?: string;
 };
 
@@ -521,7 +526,7 @@ type Digest = {
     failed: Array<{ sku: string; note: string }>;
     held: string[];
   };
-  /** Rubber tracks read by warehouse number. Stock only; the run pulls none of them. */
+  /** Rubber tracks read by warehouse number. Stock only. */
   track_stock: TrackCoverage & {
     /** Numbers whose page showed the same number back and stated stock. */
     read: DigestRow[];
@@ -578,8 +583,8 @@ function proposedSell(row: WatchRow, magPrice: number): number | null {
 }
 
 /**
- * One warehouse-number reading. It never reaches the sticker or convert lists, and a
- * sold-out reading is listed per live SKU as a manual pull candidate.
+ * One warehouse-number reading. It never reaches the sticker or convert lists. A
+ * sold-out reading is listed once per live SKU, since each one is pulled.
  */
 function addTrackReading(digest: Digest, reading: Reading): void {
   const { candidate, snapshot, error } = reading;
@@ -630,8 +635,7 @@ function addTrackReading(digest: Digest, reading: Reading): void {
         qty_on_hand: snapshot.qtyOnHand,
         backorder_eta: snapshot.backorderEta,
         sold_out_streak: soldOutStreak(row) + 1,
-        ready_to_pull: false,
-        manual_only: true,
+        ready_to_pull: soldOutStreak(row) + 1 >= SOLD_OUT_STREAK_TO_PULL,
         supplier_confirmed_at: snapshot.supplierConfirmedAt,
       });
     }
@@ -818,7 +822,6 @@ function skuLabel(row: DigestRow): string {
 
 function pullLine(digest: Digest, row: DigestRow): string {
   const sku = String(row.sku ?? '');
-  if (row.manual_only) return ' · **not pulled by the run. Your call on /parts-watch**';
   if (!row.ready_to_pull) return ' · not ready';
   if (digest.auto_pull.aborted) return ' · held — over the 10-item pull cap';
   if (digest.auto_pull.pulled.some((item) => item.sku === sku)) {
@@ -901,7 +904,7 @@ function renderDigest(digest: Digest): string {
   lines.push(
     `## Rubber tracks by warehouse number (${tracks.read.length} read · ${tracks.unread.length} unread · ${tracks.numbers_in_scope} numbers in scope)`
   );
-  lines.push('Stock only. No sticker or photo is kept, and the run does not pull these.');
+  lines.push('Stock only. No sticker or photo is kept. Sold-out numbers are listed under pull candidates above.');
   for (const r of tracks.read) {
     const skus = r.skus as string[];
     const live = r.live_buy_now_skus as string[];
@@ -1073,7 +1076,7 @@ async function main() {
 
   if (!args.tiers && !args.lowQtyOnly) {
     console.log(
-      `\nDaily budget ${DAILY_PAGE_BUDGET} · ${selected.lowQty.length} sell-out watch (≤${LOW_QTY_REFRESH_MAX} on hand, or a live track with no count) · ${selected.buyNow.length} other high-ticket · ${selected.stubs.length} quote-only · up to ${args.heroIntake ? args.heroIntakeCap : 0} images`
+      `\nDaily budget ${DAILY_PAGE_BUDGET} · ${selected.lowQty.length} sell-out watch (≤${LOW_QTY_REFRESH_MAX} on hand, or a live track with no count) · ${selected.trackRereads.length} track re-reads · ${selected.buyNow.length} other high-ticket · ${selected.stubs.length} quote-only · up to ${args.heroIntake ? args.heroIntakeCap : 0} images`
     );
   } else if (selected.lowQty.length) {
     console.log(
@@ -1089,10 +1092,12 @@ async function main() {
 
 function rowsReadyToPull(readings: Reading[], catalog: WatchRow[], dryRun: boolean): WatchRow[] {
   const rows: WatchRow[] = [];
-  for (const { candidate, snapshot, hero } of readings) {
-    // A track read by warehouse number is never pulled by the run. It is listed in the
-    // digest for a manual decision.
-    if (candidate.warehouseNumber) continue;
+  for (const { candidate, snapshot, hero, sharers, trackRead } of readings) {
+    if (candidate.warehouseNumber) {
+      // Unread pages and failed fetches carry no reading, so they can never pull.
+      if (trackRead) rows.push(...trackRowsSoldOut(candidate.row, sharers, trackRead));
+      continue;
+    }
     if (!snapshot?.identityOk || !isSoldOutReading(snapshot.availability)) continue;
     const metadata = buildMetadata(candidate.row, candidate, snapshot, hero);
     const source: WatchRow = { ...candidate.row, metadata };
@@ -1199,8 +1204,11 @@ async function run(
     for (let i = lane; i < queue.length; i += CONCURRENCY) {
       if (abortRun) return;
       const candidate = queue[i];
-      // Tier A and the ≤3 sell-out overlay need a live page; slower tiers may reuse cache.
-      const maxAge = candidate.tier === 'A' || needsLowQtyRefresh(candidate) ? 0 : 6 * 60 * 60 * 1000;
+      // Tier A, the ≤3 sell-out overlay, and live tracks need a live page; slower tiers may reuse cache.
+      const maxAge =
+        candidate.tier === 'A' || needsLowQtyRefresh(candidate) || isLiveTrack(candidate)
+          ? 0
+          : 6 * 60 * 60 * 1000;
       try {
         const parse = (markdown: string) =>
           parseMagSnapshot(markdown, {
@@ -1223,8 +1231,14 @@ async function run(
         if (candidate.warehouseNumber) {
           // Stock only: no hero facts, no tray intake, no sticker.
           const sharers = trackNumberSharers(candidate.row, catalog);
+          const trackRead: TrackStockRead = {
+            warehouseNumber: candidate.warehouseNumber,
+            url: candidate.magUrl,
+            snapshot,
+            at: new Date().toISOString(),
+          };
           consecutiveFetchFails = 0;
-          readings.push({ candidate, snapshot, hero: null, sharers });
+          readings.push({ candidate, snapshot, hero: null, sharers, trackRead });
           done++;
           const counted = isCountedTrackRead(snapshot);
           process.stdout.write(
@@ -1235,12 +1249,7 @@ async function run(
             } · ${sharers.length + 1} SKU${sharers.length ? 's' : ''}\n`
           );
           if (!args.dryRun) {
-            await writeTrackStockRead(supabase, catalog, candidate, sharers, {
-              warehouseNumber: candidate.warehouseNumber,
-              url: candidate.magUrl,
-              snapshot,
-              at: new Date().toISOString(),
-            });
+            await writeTrackStockRead(supabase, catalog, candidate, sharers, trackRead);
           }
           await pace();
           continue;

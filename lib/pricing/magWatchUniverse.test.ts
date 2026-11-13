@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import {
   classifyRow,
   dedupeCandidates,
+  isLiveTrack,
+  isTrackRereadDue,
   isTrackSellOutWatch,
   lastMagQty,
   needsLowQtyRefresh,
@@ -15,6 +17,8 @@ import {
   LOW_QTY_DAILY_RESERVE,
   LOW_QTY_REFRESH_CAP,
   LOW_QTY_REFRESH_MAX,
+  TRACK_REREAD_AFTER_HOURS,
+  TRACK_REREAD_DAILY_CAP,
   type WatchCandidate,
   type WatchRow,
 } from './magWatchUniverse';
@@ -343,10 +347,11 @@ assert.deepEqual(
 
   const lowSwitch = candidate({ price: 40, qty: 1, oem: '333/LOWSW', lastCheckedAt: '2020-01-01T00:00:00.000Z' });
   const highTicket = candidate({ price: 900, qty: 30, oem: '333/HIGHT', lastCheckedAt: '2020-01-02T00:00:00.000Z' });
-  const budgeted = selectBudgetedWatchQueue(
-    [highTicket, lowSwitch, ownHealthy, ownSoldOut, ownLow, inheritedOnly, unread, quoteTrack],
-    DAILY_PAGE_BUDGET
-  );
+  const pool = [highTicket, lowSwitch, ownHealthy, ownSoldOut, ownLow, inheritedOnly, unread, quoteTrack];
+  // The morning after the healthy track was read.
+  const budgeted = selectBudgetedWatchQueue(pool, DAILY_PAGE_BUDGET, {
+    now: new Date('2026-11-10T14:00:00.000Z'),
+  });
   assert.deepEqual(
     budgeted.lowQty.map((c) => c.warehouseNumber ?? c.oem),
     ['SY84914', 'SY84940', 'SY84988', 'SY320X86X50C', '333/LOWSW'],
@@ -355,9 +360,21 @@ assert.deepEqual(
   assert.deepEqual(
     budgeted.buyNow.map((c) => c.warehouseNumber ?? c.oem),
     ['333/HIGHT', 'SY450X86X58C'],
-    'a healthy track waits its turn in the high-ticket rotation'
+    'a healthy track read yesterday is not due, so it only rides the high-ticket rotation'
   );
+  assert.deepEqual(budgeted.trackRereads, []);
   assert.deepEqual(budgeted.stubs.map((c) => c.warehouseNumber), ['SY84945']);
+
+  // One more morning and it is due, ahead of a high-ticket row that is years stale.
+  const nextDay = selectBudgetedWatchQueue(pool, DAILY_PAGE_BUDGET, {
+    now: new Date('2026-11-11T14:00:00.000Z'),
+  });
+  assert.deepEqual(nextDay.trackRereads.map((c) => c.warehouseNumber), ['SY450X86X58C']);
+  assert.deepEqual(nextDay.buyNow.map((c) => c.oem), ['333/HIGHT']);
+  assert.deepEqual(
+    nextDay.queue.map((c) => c.warehouseNumber ?? c.oem),
+    ['SY84914', 'SY84940', 'SY84988', 'SY320X86X50C', '333/LOWSW', 'SY450X86X58C', '333/HIGHT', 'SY84945']
+  );
 
   // The tracks do not add pages. They take slots inside the same reserve and budget.
   const crowd: WatchCandidate[] = [];
@@ -370,6 +387,93 @@ assert.deepEqual(
   assert.equal(dayOne.lowQty.length, LOW_QTY_DAILY_RESERVE);
   assert.equal(dayOne.lowQty.filter((c) => c.warehouseNumber).length, 32);
   assert.equal(dayOne.lowQty.slice(0, 32).every((c) => c.warehouseNumber !== null), true);
+}
+
+// Every live track page is read every other weekday, whichever number files its page.
+{
+  assert.equal(TRACK_REREAD_AFTER_HOURS, 36);
+  assert.equal(TRACK_REREAD_DAILY_CAP, 20);
+
+  const monday = new Date('2026-11-16T10:30:00.000Z');
+  const hoursBefore = (date: Date, h: number) => new Date(date.getTime() - h * 3_600_000).toISOString();
+  const healthy = (lastCheckedAt: string) =>
+    trackCandidate({ vendorPn: 'TSA/SY450X86X58C', qty: 30, stockOnly: true, lastCheckedAt });
+
+  assert.equal(isTrackRereadDue(healthy(hoursBefore(monday, 24)), monday), false, 'read yesterday');
+  assert.equal(isTrackRereadDue(healthy(hoursBefore(monday, 47.9)), monday), true, 'read two mornings ago');
+  assert.equal(isTrackRereadDue(healthy(hoursBefore(monday, 72)), monday), true, 'read Friday, due Monday');
+  assert.equal(
+    isTrackRereadDue(trackCandidate({ vendorPn: 'TSA/SY84945', salesType: 'quote_only' }), monday),
+    false,
+    'a track that cannot be bought is not re-read on this rule'
+  );
+  assert.equal(
+    isTrackRereadDue(candidate({ price: 900, qty: 30, lastCheckedAt: hoursBefore(monday, 500) }), monday),
+    false,
+    'other parts are not tracks'
+  );
+
+  // An OEM-numbered belt filed on a JCB shelf is still a live track.
+  const oemBelt = (lastCheckedAt: string) => {
+    const classified = classifyRow({
+      ...row({ price: 1004, qty: 66, oem: '331/55510', lastCheckedAt }),
+      name: 'JCB 331/55510 Track - Rubber 320X86X50 B-Style, C Pattern',
+      category_slug: 'jcb-general',
+    });
+    if ('reason' in classified) throw new Error(`unexpected skip ${classified.reason}`);
+    return classified;
+  };
+  assert.equal(isLiveTrack(oemBelt(hoursBefore(monday, 48))), true);
+  assert.equal(oemBelt(hoursBefore(monday, 48)).warehouseNumber, null);
+  assert.equal(isTrackRereadDue(oemBelt(hoursBefore(monday, 48)), monday), true);
+  assert.equal(isTrackRereadDue(oemBelt(hoursBefore(monday, 24)), monday), false);
+
+  // 38 live track pages, the rest of the catalog competing for the same 75 pages.
+  const others: WatchCandidate[] = [];
+  for (let i = 0; i < 100; i++) others.push(candidate({ price: 40, qty: 1, oem: `333/R${1000 + i}`, lastCheckedAt: '2026-01-01T00:00:00.000Z' }));
+  for (let i = 0; i < 300; i++) others.push(candidate({ price: 800, qty: 20, oem: `333/S${2000 + i}`, lastCheckedAt: '2026-02-01T00:00:00.000Z' }));
+  const trackPages = (lastRead: (i: number) => string): WatchCandidate[] => {
+    const pages: WatchCandidate[] = [];
+    for (let i = 0; i < 37; i++) {
+      pages.push(trackCandidate({ vendorPn: `TSA/SY${70000 + i}`, qty: 30, stockOnly: true, lastCheckedAt: lastRead(i) }));
+    }
+    pages.push(oemBelt(lastRead(37)));
+    return pages;
+  };
+  const pages = DAILY_PAGE_BUDGET - HERO_FETCH_RESERVE;
+  const label = (c: WatchCandidate) => c.warehouseNumber ?? c.oem;
+
+  // Wednesday: all 38 were last read Monday, one minute apart.
+  const wednesday = new Date('2026-11-18T10:30:00.000Z');
+  const readMonday = (i: number) => new Date(monday.getTime() + i * 60_000).toISOString();
+  const day1 = selectBudgetedWatchQueue([...others, ...trackPages(readMonday)], pages, { now: wednesday });
+  assert.equal(day1.queue.length, pages, 'the run is still 75 pages');
+  assert.equal(day1.trackRereads.length, TRACK_REREAD_DAILY_CAP);
+  assert.deepEqual(day1.trackRereads.map(label).slice(0, 2), ['SY70000', 'SY70001'], 'stalest first');
+  assert.equal(day1.lowQty.length, LOW_QTY_DAILY_RESERVE, 'the sell-out slice for other parts is not cut');
+  assert.equal(day1.lowQty.some(isLiveTrack), false);
+  assert.equal(day1.buyNow.length, pages - LOW_QTY_DAILY_RESERVE - TRACK_REREAD_DAILY_CAP);
+  assert.equal(day1.buyNow.some(isLiveTrack), false, 'tracks not yet due do not jump the rotation twice');
+  assert.equal(new Set(day1.queue.map((c) => c.identityKey)).size, pages);
+
+  // Thursday: the 20 read Wednesday rest. The other 18 are read.
+  const thursday = new Date('2026-11-19T10:30:00.000Z');
+  const readOnDay1 = new Set(day1.trackRereads.map(label));
+  const afterDay1 = trackPages(readMonday).map((c, i) =>
+    readOnDay1.has(label(c)) ? trackPages(() => wednesday.toISOString())[i] : c
+  );
+  const day2 = selectBudgetedWatchQueue([...others, ...afterDay1], pages, { now: thursday });
+  assert.equal(day2.trackRereads.length, 18);
+  assert.equal(day2.trackRereads.some((c) => readOnDay1.has(label(c))), false);
+  assert.equal(day2.trackRereads.map(label).includes('331/55510'), true, 'the OEM-numbered belt takes its turn too');
+
+  // An explicit tier pass or the low-qty-only pass does not add track re-reads.
+  const explicit = selectWatchQueue([...others, ...trackPages(readMonday)], {
+    tiers: ['A'],
+    quoteCap: DEFAULT_QUOTE_CAP,
+    includeLowQty: false,
+  });
+  assert.deepEqual(explicit.trackRereads, []);
 }
 
 {

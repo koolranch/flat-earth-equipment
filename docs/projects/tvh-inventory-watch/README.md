@@ -76,8 +76,13 @@ The 75 pages fill in this order (`selectBudgetedWatchQueue`):
 | Order | Rows | Pages |
 |---|---|---|
 | 1. Sell-out watch | Live Buy Now tracks at 3 or fewer on hand, or with no count on file. Then other live Buy Now at 3 or fewer. Stalest first | Up to 40 |
-| 2. High-ticket Buy Now | Tier A (sticker ≥ $300), stalest first | The rest |
-| 3. Quote-only stubs | Never-read `mag_queue` ranks first, then stalest | Only if pages are left |
+| 2. Track re-reads | Every other live track page whose last reading is 36 hours old or more, stalest first | Up to 20 |
+| 3. High-ticket Buy Now | Tier A (sticker ≥ $300), stalest first | The rest |
+| 4. Quote-only stubs | Never-read `mag_queue` ranks first, then stalest | Only if pages are left |
+
+Measured on the 2026-11-13 catalog: 38 live track pages each read every other weekday,
+82 other low-stock Buy Now rows about every 2 weekdays, and 327 other high-ticket rows
+about every 18 weekdays.
 
 Tiers A to D still describe an explicit `--tier=` pass (A: Buy Now ≥ $300, B: $100–299,
 C: under $100, D: quote-only). That pass is sliced to the same budget.
@@ -106,22 +111,27 @@ and no OEM cross is written.
 - **Unread is not sold out.** A failed fetch writes nothing. A page that shows a different
   number, an invalid-item page, or a page with no stock block leaves the last reading in
   place and only moves the miss counter. Three misses retire the number.
-- **No automatic pull.** A zero, backorder, or special-order reading on a live Buy Now
-  track is listed in the digest as a pull candidate. Pulling it is a manual decision on
-  `/parts-watch`.
-- **Where they sit in the run.** Live tracks with 3 or fewer on hand, no count yet, or a
-  sold-out reading that is still live go at the front of the sell-out slice every weekday.
-  A track with a healthy count rotates with the other high-ticket Buy Now.
+- **Sold out pulls every listing on the number.** A zero, backorder, or special-order
+  reading that showed the same number back takes each live Buy Now SKU on that number
+  off Buy Now in the same run, exactly as *What a pull actually does* describes. One
+  number counts once against the 10-item cap, and over the cap nothing is pulled.
+  Relist still needs your stock confirm.
+- **Every live track page is read every other weekday.** That covers the pages read by
+  warehouse number and the OEM-numbered belts, including JCB belts filed on a JCB shelf.
+  A page is due once its last reading is 36 hours old, and a run takes at most 20 of
+  them, stalest first. Live tracks with 3 or fewer on hand, no count yet, or a sold-out
+  reading that is still live are read every weekday at the front of the sell-out slice.
 
 The digest has a *Rubber tracks by warehouse number* block: numbers read with their count,
-numbers left unread, and any live Buy Now track that nothing reads.
+numbers left unread, and any live Buy Now track that nothing reads. Sold-out numbers
+appear under pull candidates, one line per SKU pulled.
 
 ## Process
 
 | Magnasource reading | Action | Automated |
 |---|---|---|
 | Zero on hand / backorder / special-order, **Buy Now row** | Pull off Buy Now | Yes, on a clean identity-ok Mag read |
-| Same, **Buy Now track read by warehouse number** | Digest pull candidate | No. Manual pull only |
+| Same, **Buy Now track read by warehouse number** | Pull every live SKU on that number | Yes, when the page shows the same number back |
 | Same, quote-only row | Snapshot only | Snapshot |
 | Limited / 1–2 on hand | Digest flag. Never disables | Flag only |
 | Sticker moved so our sell is no longer ~5% under | Digest row with current sell, Mag, and proposed sell | No — propose only |

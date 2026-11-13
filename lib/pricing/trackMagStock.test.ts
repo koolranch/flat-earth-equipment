@@ -9,9 +9,11 @@ import {
   shouldReceiveTrackFanOut,
   trackFanOutTargets,
   trackNumberSharers,
+  trackRowsSoldOut,
   warehouseKeyForRow,
   type TrackStockRead,
 } from './trackMagStock';
+import { collectPullPlans, partitionAutoPulls } from './magWatchOps';
 import { parseMagSnapshot, type MagSnapshot } from './magSnapshot';
 import type { WatchRow } from './magWatchUniverse';
 
@@ -105,8 +107,11 @@ assert.deepEqual(
 );
 assert.deepEqual(trackFanOutTargets(modelPdp, [oemStub, oemModelPdp, modelPdp, zigzag]), []);
 
-assert.equal(pullCapIdentity(modelPdp), '320x86x50|c');
-assert.equal(pullCapIdentity(zigzag), '320x86x50|zigzag');
+// The pull cap counts warehouse items. A track read by number is that number.
+assert.equal(pullCapIdentity(modelPdp), 'WAREHOUSE|SY320X86X50C');
+assert.equal(pullCapIdentity(zigzag), 'WAREHOUSE|SY320X86X50Z');
+assert.equal(pullCapIdentity(oemModelPdp), '320x86x50|c');
+assert.equal(pullCapIdentity(oemStub), '320x86x50|c');
 
 const inherited = applyTrackFanOutMetadata(oemModelPdp, oemStub, {
   competitor_prices: [
@@ -263,5 +268,76 @@ assert.equal(
   (applyTrackStockRead(priced, read(invalidPage)).mag_watch as Record<string, unknown>).last_miss_reason,
   'page_reports_item_not_valid'
 );
+
+// --- A counted sold-out reading pulls every live SKU on the number ----------------------
+
+const READ_AT = new Date('2026-11-11T14:00:00.000Z');
+const SOON_AFTER = new Date(READ_AT.getTime() + 20 * 60_000);
+const quoteSharer = row({
+  sku: 'RT-TR270-320X86X50-C',
+  name: 'Case TR270 Rubber Track 320x86x50 C Pattern',
+  sales_type: 'quote_only',
+  metadata: { vendor_pn: 'TSA/SY320X86X50C' },
+});
+
+const soldOutRows = trackRowsSoldOut(priced, [sharerA, quoteSharer], read(soldOut));
+assert.deepEqual(
+  soldOutRows.map((r) => r.sku),
+  ['RT-JCB190T-320X86X50-C', 'RT-T66-320X86X50-C', 'RT-TR270-320X86X50-C']
+);
+const plans = collectPullPlans(soldOutRows, SOON_AFTER);
+assert.deepEqual(
+  plans.map((p) => p.row.sku),
+  ['RT-JCB190T-320X86X50-C', 'RT-T66-320X86X50-C'],
+  'both live SKUs are pulled. The quote-only one has nothing to pull'
+);
+assert.equal(plans.every((p) => p.availability === 'backorder' && p.streak === 1), true);
+const oneNumber = partitionAutoPulls(plans);
+assert.equal(oneNumber.aborted, false);
+assert.equal(oneNumber.identities, 1, 'one warehouse number counts once against the cap');
+assert.equal(oneNumber.toPull.length, 2);
+
+// Nothing but a counted sold-out reading produces a pull.
+assert.deepEqual(trackRowsSoldOut(priced, [sharerA], read(inStock)), []);
+assert.deepEqual(trackRowsSoldOut(priced, [sharerA], read(wrongNumber)), [], 'the wrong page said 0 on hand');
+assert.deepEqual(trackRowsSoldOut(priced, [sharerA], read(invalidPage)), []);
+assert.deepEqual(
+  trackRowsSoldOut(priced, [sharerA], read({ ...soldOut, identityOk: false })),
+  [],
+  'a sold-out reading without the number shown back is not a reading'
+);
+assert.deepEqual(
+  collectPullPlans(
+    [priced, sharerA].map((r) => ({ ...r, metadata: applyTrackStockRead(r, read(wrongNumber)) })),
+    SOON_AFTER
+  ),
+  [],
+  'an unread page leaves the row in stock as far as the pull gate can tell'
+);
+assert.deepEqual(
+  collectPullPlans(soldOutRows, new Date(READ_AT.getTime() + 5 * 86_400_000)),
+  [],
+  'a reading older than three days does not pull'
+);
+
+// Eleven numbers sold out in one run is a broken parser, not a sold-out catalog.
+const manySoldOut: WatchRow[] = [];
+for (let i = 0; i < 11; i++) {
+  const number = `SY9${1000 + i}`;
+  const source = row({ sku: `RT-MANY-${i}`, name: 'Rubber Track 400x86x52 Block', metadata: { vendor_pn: `TSA/${number}` } });
+  manySoldOut.push(
+    ...trackRowsSoldOut(source, [], {
+      warehouseNumber: number,
+      url: `https://www.magnasourceinc.com/itemdetail/${number}`,
+      snapshot: soldOut,
+      at: READ_AT.toISOString(),
+    })
+  );
+}
+const overCap = partitionAutoPulls(collectPullPlans(manySoldOut, SOON_AFTER));
+assert.equal(overCap.identities, 11, 'same size and tread, but eleven different warehouse numbers');
+assert.equal(overCap.aborted, true);
+assert.equal(overCap.toPull.length, 0);
+assert.equal(overCap.held.length, 11);
 
 console.log('trackMagStock.test.ts passed');

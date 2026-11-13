@@ -21,7 +21,7 @@ import {
   partIdentityKey,
   stripOePrefix,
 } from '../parts/tvhOePrefixes';
-import { warehouseNumberFromVendorPn } from './trackWarehouseKey';
+import { isTrackListing, warehouseNumberFromVendorPn } from './trackWarehouseKey';
 
 /** Brands whose parts move through the same supplier network Magnasource sells from. */
 export const IN_SCOPE_BRANDS: readonly string[] = [
@@ -124,8 +124,8 @@ export type WatchCandidate = {
   isBuyNow: boolean;
   /**
    * Set when the page is filed under a warehouse number instead of an OEM number
-   * (rubber tracks with no OEM). That reading is stock only: no sticker, no photo,
-   * and no automatic pull. `oem` is empty on these rows.
+   * (rubber tracks with no OEM). That reading is stock only: no sticker and no
+   * photo. `oem` is empty on these rows.
    */
   warehouseNumber: string | null;
 };
@@ -186,6 +186,19 @@ export const HERO_FETCH_RESERVE = 15;
  * 118 low-qty rows at 40 a day is about every third weekday.
  */
 export const LOW_QTY_DAILY_RESERVE = 40;
+
+/**
+ * A live track page is read again once its last reading is this old. The run is once
+ * a weekday, so 36 hours means every other weekday: not due at 24, due at 48.
+ */
+export const TRACK_REREAD_AFTER_HOURS = 36;
+
+/**
+ * Most track re-reads one run takes, stalest first. About 38 live track pages at 20 a
+ * day is each page every other weekday. More track pages than that stretch the
+ * interval. They do not take more of the budget.
+ */
+export const TRACK_REREAD_DAILY_CAP = 20;
 
 /**
  * Quote-only stubs on an explicit --tier=D pass, before the daily page budget
@@ -394,6 +407,19 @@ export function lastCheckedAt(row: WatchRow): string {
   return '';
 }
 
+/** A track belt that can be bought right now, whichever number its page is filed under. */
+export function isLiveTrack(candidate: WatchCandidate): boolean {
+  return candidate.isBuyNow && isTrackListing(candidate.row);
+}
+
+/** A live track whose last reading is old enough to read again, or that has none. */
+export function isTrackRereadDue(candidate: WatchCandidate, now: Date): boolean {
+  if (!isLiveTrack(candidate)) return false;
+  const last = Date.parse(lastCheckedAt(candidate.row));
+  if (!Number.isFinite(last)) return true;
+  return now.getTime() - last >= TRACK_REREAD_AFTER_HOURS * 3_600_000;
+}
+
 /**
  * Live Buy Now track with 3 or fewer on hand, or with no on-hand count on file.
  * No count means never read, or a sold-out reading still waiting on a pull decision.
@@ -401,7 +427,7 @@ export function lastCheckedAt(row: WatchRow): string {
  * given one. A count it inherited earlier from an OEM page by size does not stand in.
  */
 export function isTrackSellOutWatch(candidate: WatchCandidate): boolean {
-  if (!candidate.isBuyNow || candidate.row.category_slug !== 'rubber-tracks') return false;
+  if (!isLiveTrack(candidate)) return false;
   if (candidate.warehouseNumber && storedMagEntry(candidate.row)?.stock_only !== true) return true;
   const qty = lastMagQty(candidate.row);
   return qty === null || qty <= LOW_QTY_REFRESH_MAX;
@@ -455,6 +481,8 @@ function byQueueThenStale(a: WatchCandidate, b: WatchCandidate): number {
 export type WatchQueueSelection = {
   buyNow: WatchCandidate[];
   lowQty: WatchCandidate[];
+  /** Healthy live tracks due their every-other-weekday read. Weekday default only. */
+  trackRereads: WatchCandidate[];
   stubs: WatchCandidate[];
   queue: WatchCandidate[];
 };
@@ -479,7 +507,7 @@ export function selectWatchQueue(
       .filter(needsLowQtyRefresh)
       .sort(byTracksThenStalest)
       .slice(0, LOW_QTY_REFRESH_CAP);
-    return { buyNow: [], lowQty, stubs: [], queue: [...lowQty] };
+    return { buyNow: [], lowQty, trackRereads: [], stubs: [], queue: [...lowQty] };
   }
 
   const due = unique.filter((c) => opts.tiers.includes(c.tier));
@@ -497,20 +525,21 @@ export function selectWatchQueue(
         .slice(0, LOW_QTY_REFRESH_CAP)
     : [];
 
-  return { buyNow, lowQty, stubs, queue: [...buyNow, ...lowQty, ...stubs] };
+  return { buyNow, lowQty, trackRereads: [], stubs, queue: [...buyNow, ...lowQty, ...stubs] };
 }
 
 /**
  * Weekday default. One page budget for the whole run, filled in order:
  * the sell-out slice (live tracks at ≤3 or with no count first, then other live
- * Buy Now at ≤3, stalest first, reserved slice), then the stalest high-ticket
+ * Buy Now at ≤3, stalest first, reserved slice), then every other live track that
+ * is due its every-other-weekday read (capped), then the stalest high-ticket
  * Buy Now, then quote-only stubs with whatever is left.
  * A row is fetched once. $100-and-under Buy Now with more than 3 on hand waits.
  */
 export function selectBudgetedWatchQueue(
   unique: WatchCandidate[],
   budget: number,
-  opts?: { includeLowQty?: boolean }
+  opts?: { includeLowQty?: boolean; now?: Date }
 ): WatchQueueSelection {
   const room = Math.max(0, Math.floor(budget));
   const includeLowQty = opts?.includeLowQty !== false;
@@ -522,18 +551,32 @@ export function selectBudgetedWatchQueue(
     : [];
 
   const taken = new Set(lowQty.map((c) => c.identityKey));
+  const now = opts?.now ?? new Date();
+  const trackRereads = unique
+    .filter((c) => !taken.has(c.identityKey) && isTrackRereadDue(c, now))
+    .sort(byStalest)
+    .slice(0, Math.min(TRACK_REREAD_DAILY_CAP, room - lowQty.length));
+  for (const candidate of trackRereads) taken.add(candidate.identityKey);
+
+  const afterTracks = room - lowQty.length - trackRereads.length;
   const buyNow = unique
     .filter((c) => c.tier === 'A' && !taken.has(c.identityKey))
     .sort(byStalest)
-    .slice(0, room - lowQty.length);
+    .slice(0, afterTracks);
   for (const candidate of buyNow) taken.add(candidate.identityKey);
 
   const stubs = unique
     .filter((c) => c.tier === 'D' && !taken.has(c.identityKey))
     .sort(byQueueThenStale)
-    .slice(0, room - lowQty.length - buyNow.length);
+    .slice(0, afterTracks - buyNow.length);
 
-  return { buyNow, lowQty, stubs, queue: [...lowQty, ...buyNow, ...stubs] };
+  return {
+    buyNow,
+    lowQty,
+    trackRereads,
+    stubs,
+    queue: [...lowQty, ...trackRereads, ...buyNow, ...stubs],
+  };
 }
 
 /**

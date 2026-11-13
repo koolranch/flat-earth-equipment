@@ -4,8 +4,9 @@
  * reading by size and tread.
  *
  * Model PDPs with no OEM are read by their warehouse number (`SY320X86X50C`). One
- * page read covers every SKU that shares the number. That reading is stock only,
- * counts only when the page echoes the same number, and never pulls a row by itself.
+ * page read covers every SKU that shares the number. That reading is stock only and
+ * counts only when the page echoes the same number. A counted sold-out reading pulls
+ * every live SKU on the number, under the same per-run cap as any other part.
  *
  * Does not reprice or publish tracks. Relist still needs a stock confirm.
  */
@@ -18,7 +19,7 @@ import {
 } from './magSnapshot';
 import { isMappableOem } from '../parts/tvhOePrefixes';
 import {
-  isTrackBeltName,
+  isTrackListing,
   trackWarehouseKey,
   type TrackKeyInput,
 } from './trackWarehouseKey';
@@ -34,7 +35,7 @@ export function isRubberTrackCategory(row: Pick<WatchRow, 'category_slug'>): boo
 }
 
 export function isTrackStockRow(row: Pick<WatchRow, 'name' | 'category_slug'>): boolean {
-  return isRubberTrackCategory(row) || isTrackBeltName(row.name);
+  return isTrackListing(row);
 }
 
 function vendorPn(row: WatchRow): string | null {
@@ -63,6 +64,8 @@ export function warehouseKeyForRow(row: WatchRow): string | null {
 
 /** Cap identity: one warehouse belt counts once even when six model URLs qualify. */
 export function pullCapIdentity(row: WatchRow): string {
+  const number = trackWarehouseNumber(row);
+  if (number) return `WAREHOUSE|${number}`;
   return warehouseKeyForRow(row) ?? row.id;
 }
 
@@ -153,10 +156,27 @@ export function trackNumberSharers(source: WatchRow, catalog: WatchRow[]): Watch
 }
 
 /**
+ * Every SKU on a counted sold-out reading, carrying that reading, for the pull gate.
+ * Empty for an unread page or any reading that is not sold out. The pull gate still
+ * decides per row, so quote-only sharers drop out there.
+ */
+export function trackRowsSoldOut(
+  source: WatchRow,
+  sharers: WatchRow[],
+  read: TrackStockRead
+): WatchRow[] {
+  if (!isCountedTrackRead(read.snapshot) || !isSoldOutReading(read.snapshot.availability)) return [];
+  return [
+    { ...source, metadata: applyTrackStockRead(source, read) },
+    ...sharers.map((row) => ({ ...row, metadata: applyTrackStockRead(row, read, source.sku) })),
+  ];
+}
+
+/**
  * Metadata for one SKU after its warehouse number was read. Stock fields only: no
  * sticker, no weight, no photo facts, so nothing downstream can reprice or publish
  * from it. An unread page leaves the last counted reading and its date untouched and
- * only moves the miss counter.
+ * only moves the miss counter, so it can never look sold out.
  *
  * `readViaSku` is the SKU whose page read this was, when `row` is a sharer.
  */

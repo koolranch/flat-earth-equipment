@@ -267,7 +267,7 @@ function meta(opts: {
     [trackRow(1129, stockOnly('backorder', 0, 1)), trackRow(1099, stockOnly('backorder', 0, 1))],
     NOW
   );
-  assert.equal(soldOut.pullQueue.length, 2, 'every live SKU on the number is offered for a manual pull');
+  assert.equal(soldOut.pullQueue.length, 2, 'every live SKU on the number is in the pull queue');
   assert.equal(soldOut.movers.length, 0);
   assert.equal(soldOut.convertible.length, 0);
 }

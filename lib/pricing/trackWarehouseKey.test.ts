@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {
   isTrackBeltName,
+  isTrackListing,
   normalizeTrackSize,
   trackPatternFromText,
   trackPatternFromVendorPn,
@@ -58,6 +59,18 @@ assert.equal(
   trackWarehouseKey({ name: 'JCB 333/D8766 Fuel Filter', categorySlug: 'jcb-general' }),
   null
 );
+
+assert.equal(isTrackListing({ name: 'Bobcat T66 Track', category_slug: 'rubber-tracks' }), true);
+assert.equal(
+  isTrackListing({ name: 'JCB 331/55510 Track - Rubber 320X86X50', category_slug: 'jcb-general' }),
+  true,
+  'an OEM-numbered belt on another shelf is still a track'
+);
+assert.equal(
+  isTrackListing({ name: 'JCB 334/S3146 8T IDLER GA RUBBER TRACK', category_slug: 'jcb-undercarriage' }),
+  false
+);
+assert.equal(isTrackListing({ name: 'JCB 333/D8766 Fuel Filter', category_slug: 'jcb-general' }), false);
 
 // The warehouse number is the vendor number with its wrapper removed. Nothing is added.
 assert.equal(warehouseNumberFromVendorPn('TSA/SY320X86X50C'), 'SY320X86X50C');

@@ -31,6 +31,14 @@ export function isTrackBeltName(text: string | null | undefined): boolean {
   return /rubber\s+track|track\s*-?\s*rubber/i.test(text);
 }
 
+/** A track belt listing: the rubber-tracks shelf, or an OEM-numbered belt filed elsewhere. */
+export function isTrackListing(row: {
+  name: string | null | undefined;
+  category_slug: string | null | undefined;
+}): boolean {
+  return row.category_slug === 'rubber-tracks' || isTrackBeltName(row.name);
+}
+
 export function trackPatternFromText(text: string): string | null {
   const t = text.toLowerCase();
   if (/\bidler\b/.test(t)) return null;
