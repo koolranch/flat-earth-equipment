@@ -8,7 +8,7 @@
  * shows other brands' parts, and a naive "first product image" pick lands on those.
  *
  * The `?key=` is a per-render signature, so the URL itself is never stored — only the
- * filename and the gate results. Bytes are fetched (later, in a separate step) at read time.
+ * filename and the gate results. Bytes are copied through Firecrawl at read time.
  *
  * Nothing here touches `parts.image_url`. A candidate is a fact about the vendor page, not
  * a decision about our catalog.

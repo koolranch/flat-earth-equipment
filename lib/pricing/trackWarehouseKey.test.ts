@@ -1,10 +1,12 @@
 import assert from 'node:assert/strict';
 import {
   isTrackBeltName,
+  isTrackListing,
   normalizeTrackSize,
   trackPatternFromText,
   trackPatternFromVendorPn,
   trackWarehouseKey,
+  warehouseNumberFromVendorPn,
 } from './trackWarehouseKey';
 
 assert.equal(normalizeTrackSize('320x86x50 C Pattern'), '320x86x50');
@@ -57,5 +59,27 @@ assert.equal(
   trackWarehouseKey({ name: 'JCB 333/D8766 Fuel Filter', categorySlug: 'jcb-general' }),
   null
 );
+
+assert.equal(isTrackListing({ name: 'Bobcat T66 Track', category_slug: 'rubber-tracks' }), true);
+assert.equal(
+  isTrackListing({ name: 'JCB 331/55510 Track - Rubber 320X86X50', category_slug: 'jcb-general' }),
+  true,
+  'an OEM-numbered belt on another shelf is still a track'
+);
+assert.equal(
+  isTrackListing({ name: 'JCB 334/S3146 8T IDLER GA RUBBER TRACK', category_slug: 'jcb-undercarriage' }),
+  false
+);
+assert.equal(isTrackListing({ name: 'JCB 333/D8766 Fuel Filter', category_slug: 'jcb-general' }), false);
+
+// The warehouse number is the vendor number with its wrapper removed. Nothing is added.
+assert.equal(warehouseNumberFromVendorPn('TSA/SY320X86X50C'), 'SY320X86X50C');
+assert.equal(warehouseNumberFromVendorPn(' tsa/sy320x86x50c '), 'SY320X86X50C');
+assert.equal(warehouseNumberFromVendorPn('TSA/SY400X86CNX52/323E'), 'SY400X86CNX52/323E', 'separators stay');
+assert.equal(warehouseNumberFromVendorPn('TSA/SY380X86X52SVL65-2'), 'SY380X86X52SVL65-2');
+assert.equal(warehouseNumberFromVendorPn('SY320X86X50C'), null, 'no wrapper, no guess');
+assert.equal(warehouseNumberFromVendorPn('TSA/'), null);
+assert.equal(warehouseNumberFromVendorPn(null), null);
+assert.equal(warehouseNumberFromVendorPn(undefined), null);
 
 console.log('trackWarehouseKey.test.ts passed');
