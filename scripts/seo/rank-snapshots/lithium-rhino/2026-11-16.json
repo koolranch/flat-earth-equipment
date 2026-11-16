@@ -1,0 +1,268 @@
+{
+  "date": "2026-11-16",
+  "domain": "flatearthequipment.com",
+  "source": "dataforseo-live-advanced-breadcrumb",
+  "note": "live/regular returned google.com/goto obfuscated organic URLs on 2026-11-16; recovered via live/advanced using website_name/breadcrumb + title capacity inference",
+  "rows": [
+    {
+      "keyword": "lithium golf cart battery",
+      "lane": "generic",
+      "targetUrl": "/lithium-batteries",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "okmotech.com",
+      "topUrl": "https://okmotech.com › blogs › news › top-10-lithium-g..."
+    },
+    {
+      "keyword": "golf cart lithium battery",
+      "lane": "generic",
+      "targetUrl": "/lithium-batteries",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "patriotpowersource.com",
+      "topUrl": "https://patriotpowersource.com › blogs › best-lithium-b..."
+    },
+    {
+      "keyword": "48v lithium golf cart battery",
+      "lane": "generic",
+      "targetUrl": "/lithium-batteries",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "vatrerpower.com",
+      "topUrl": "https://www.vatrerpower.com › News"
+    },
+    {
+      "keyword": "lithium golf cart battery conversion kit",
+      "lane": "generic",
+      "targetUrl": "/lithium-batteries",
+      "position": 43,
+      "url": "/lithium-batteries",
+      "urlMatchesTarget": true,
+      "topCompetitor": "ebay.com",
+      "topUrl": "https://www.ebay.com › mye › watch › unwatchInline"
+    },
+    {
+      "keyword": "48v lithium golf cart conversion kit",
+      "lane": "generic",
+      "targetUrl": "/lithium-batteries",
+      "position": 26,
+      "url": "/parts/lithium-rhino-48v-120ah-kit",
+      "urlMatchesTarget": false,
+      "topCompetitor": "huanduylithiumbattery.com",
+      "topUrl": "https://huanduylithiumbattery.com › Tag"
+    },
+    {
+      "keyword": "lifepo4 golf cart battery 48v",
+      "lane": "generic",
+      "targetUrl": "/lithium-batteries",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "hiitio.com",
+      "topUrl": "https://www.hiitio.com › product › 48v-150ah-lifepo4-..."
+    },
+    {
+      "keyword": "48v 65ah lithium golf cart battery",
+      "lane": "generic",
+      "targetUrl": "/parts/lithium-rhino-48v-65ah-kit",
+      "position": 96,
+      "url": "/parts/lithium-rhino-48v-65ah",
+      "urlMatchesTarget": false,
+      "topCompetitor": "EmergencyLighting.com",
+      "topUrl": "https://www.emergencylighting.com › products › 48v-lit..."
+    },
+    {
+      "keyword": "lithium rhino",
+      "lane": "brand",
+      "targetUrl": "/lithium-batteries",
+      "position": 116,
+      "url": "/parts/lithium-rhino-48v-120ah-kit",
+      "urlMatchesTarget": false,
+      "topCompetitor": "lithiumrhino.com",
+      "topUrl": "https://lithiumrhino.com › products › 48v-120ah-lithiu..."
+    },
+    {
+      "keyword": "lithium rhino battery",
+      "lane": "brand",
+      "targetUrl": "/lithium-batteries",
+      "position": 100,
+      "url": "/lithium-batteries",
+      "urlMatchesTarget": true,
+      "topCompetitor": "lithiumrhino.com",
+      "topUrl": "https://lithiumrhino.com › products › 48v-120ah-lithiu..."
+    },
+    {
+      "keyword": "lithium rhino golf cart battery",
+      "lane": "brand",
+      "targetUrl": "/lithium-batteries",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "lithiumrhino.com",
+      "topUrl": "https://lithiumrhino.com › products › 48v-120ah-lithiu..."
+    },
+    {
+      "keyword": "lithium rhino conversion kit",
+      "lane": "brand",
+      "targetUrl": "/lithium-batteries",
+      "position": 18,
+      "url": "/parts/lithium-rhino-36v-105ah-kit",
+      "urlMatchesTarget": false,
+      "topCompetitor": "thegolfcartfarm.com",
+      "topUrl": "https://thegolfcartfarm.com › products › lithium-rhino-..."
+    },
+    {
+      "keyword": "lithium rhino 48v",
+      "lane": "brand",
+      "targetUrl": "/lithium-batteries",
+      "position": 13,
+      "url": "/parts/lithium-rhino-48v-170ah",
+      "urlMatchesTarget": false,
+      "topCompetitor": "GolfCartParts.com",
+      "topUrl": "https://golfcartparts.com › collections › 48v-lithium-batte..."
+    },
+    {
+      "keyword": "lithium rhino 48v 65ah",
+      "lane": "brand",
+      "targetUrl": "/parts/lithium-rhino-48v-65ah-kit",
+      "position": 36,
+      "url": "/parts/lithium-rhino-36v-65ah-kit",
+      "urlMatchesTarget": false,
+      "topCompetitor": "instagram.com",
+      "topUrl": "https://www.instagram.com › reel › DIJtrbixHNj"
+    },
+    {
+      "keyword": "lithium rhino 48v 65ah kit",
+      "lane": "brand",
+      "targetUrl": "/parts/lithium-rhino-48v-65ah-kit",
+      "position": 80,
+      "url": "/parts/lithium-rhino-48v-120ah-kit",
+      "urlMatchesTarget": false,
+      "topCompetitor": "lithiumrhino.com",
+      "topUrl": "https://lithiumrhino.com › pages › weekend-deal"
+    },
+    {
+      "keyword": "lithium rhino 48v 105ah",
+      "lane": "brand",
+      "targetUrl": "/parts/lithium-rhino-48v-105ah-kit",
+      "position": 31,
+      "url": "/parts/lithium-rhino-48v-65ah",
+      "urlMatchesTarget": false,
+      "topCompetitor": "GolfCartParts.com",
+      "topUrl": "https://golfcartparts.com › collections › 48v-lithium-batte..."
+    },
+    {
+      "keyword": "lithium rhino 48v 50ah",
+      "lane": "brand",
+      "targetUrl": "/parts/lithium-rhino-48v-50ah-kit",
+      "position": 43,
+      "url": "/lithium-batteries",
+      "urlMatchesTarget": false,
+      "topCompetitor": "lithiumrhino.com",
+      "topUrl": "https://lithiumrhino.com › collections › icon"
+    },
+    {
+      "keyword": "lithium rhino 36v",
+      "lane": "brand",
+      "targetUrl": "/parts/lithium-rhino-36v-65ah-kit",
+      "position": 92,
+      "url": "/parts/lithium-rhino-36v-105ah-kit",
+      "urlMatchesTarget": false,
+      "topCompetitor": "lithiumrhino.com",
+      "topUrl": "https://lithiumrhino.com › products › 36v-105ah-lithiu..."
+    },
+    {
+      "keyword": "lithium rhino 72v",
+      "lane": "brand",
+      "targetUrl": "/parts/lithium-rhino-72v-105ah-kit",
+      "position": 30,
+      "url": "/parts/lithium-rhino-48v-170ah",
+      "urlMatchesTarget": false,
+      "topCompetitor": "batteryevo.com",
+      "topUrl": "https://www.batteryevo.com › products › 72v-falcon-4x-..."
+    },
+    {
+      "keyword": "ezgo txt 48v lithium battery conversion",
+      "lane": "cart",
+      "targetUrl": "/lithium-batteries/ezgo-txt-48v",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "thehomeupgrade.com",
+      "topUrl": "https://thehomeupgrade.com › collections › all › products"
+    },
+    {
+      "keyword": "ezgo rxv lithium battery",
+      "lane": "cart",
+      "targetUrl": "/lithium-batteries/ezgo-rxv-48v",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "ecobattery.com",
+      "topUrl": "https://ecobattery.com › collections › battery-bundles"
+    },
+    {
+      "keyword": "club car precedent lithium battery",
+      "lane": "cart",
+      "targetUrl": "/lithium-batteries/club-car-precedent-48v",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "facebook.com",
+      "topUrl": "https://www.facebook.com › groups › CCFSC › posts"
+    },
+    {
+      "keyword": "club car ds lithium battery",
+      "lane": "cart",
+      "targetUrl": "/lithium-batteries/club-car-ds-48v",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "facebook.com",
+      "topUrl": "https://www.facebook.com › GolfCartsModified › posts"
+    },
+    {
+      "keyword": "yamaha drive lithium battery",
+      "lane": "cart",
+      "targetUrl": "/lithium-batteries/yamaha-drive-48v",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "fleetlithium.com",
+      "topUrl": "https://fleetlithium.com › products › yamaha-drive2-20..."
+    },
+    {
+      "keyword": "113-LR51V65AH",
+      "lane": "pn",
+      "targetUrl": "/parts/lithium-rhino-48v-65ah-kit",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "walmart.com",
+      "topUrl": "https://www.walmart.com › ..."
+    },
+    {
+      "keyword": "113-LR51V50AH",
+      "lane": "pn",
+      "targetUrl": "/parts/lithium-rhino-48v-50ah-kit",
+      "position": 5,
+      "url": "/parts/lithium-rhino-48v-50ah-kit",
+      "urlMatchesTarget": true,
+      "topCompetitor": "shop.fsip.biz",
+      "topUrl": "https://shop.fsip.biz › product › lithium-rhino-48v-50ah-..."
+    },
+    {
+      "keyword": "113-LR51V105AH",
+      "lane": "pn",
+      "targetUrl": "/parts/lithium-rhino-48v-105ah-kit",
+      "position": null,
+      "url": null,
+      "urlMatchesTarget": null,
+      "topCompetitor": "ebay.com",
+      "topUrl": "https://www.ebay.com › ... › Other Golf Cart Parts"
+    }
+  ]
+}
