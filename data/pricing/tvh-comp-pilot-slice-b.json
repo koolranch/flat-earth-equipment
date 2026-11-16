@@ -1,0 +1,79 @@
+{
+  "slice": "b",
+  "results": [
+    {
+      "sku": "jlg-7021365-solenoid-steering",
+      "slug": "jlg-7021365-solenoid-steering",
+      "brand": "JLG",
+      "oem": "7021365",
+      "status": "apply",
+      "compPrice": 379.33,
+      "sellPrice": 360.36,
+      "compSource": "magnasource",
+      "compUrl": "https://www.magnasourceinc.com/itemdetail/JL7021365",
+      "inStockHint": "in_stock",
+      "tvhAligned": true,
+      "candidateUrls": [
+        "https://www.magnasourceinc.com/itemdetail/7021365",
+        "https://www.magnasourceinc.com/itemdetail/JL7021365"
+      ],
+      "notes": "Magna JL7021365 ASSEMBLY VALVE; OEM 7021365 on page; $379.33; Limited Availability 1 on hand / In Stock. Bare /itemdetail/7021365 invalid. No Intella hit. Within solenoid $15–$500 band."
+    },
+    {
+      "sku": "skyjack-153336-steer",
+      "slug": "skyjack-153336-steer",
+      "brand": "Skyjack",
+      "oem": "153336",
+      "status": "rejected",
+      "compPrice": null,
+      "sellPrice": null,
+      "compSource": null,
+      "compUrl": null,
+      "inStockHint": null,
+      "tvhAligned": true,
+      "reason": "Magnasource SJ153336 lists OEM 153336 but price-hidden (contact support). Bare /itemdetail/153336 invalid. No Intella product page with visible $. gciron fallback not allowed for non-JLG.",
+      "candidateUrls": [
+        "https://www.magnasourceinc.com/itemdetail/153336",
+        "https://www.magnasourceinc.com/itemdetail/SJ153336"
+      ],
+      "notes": "QRG confirms SJ153336 Steer / VALVE 12V; public priced Intella/Magna comp not available."
+    },
+    {
+      "sku": "bobcat-7006172-front-lower-windshield",
+      "slug": "bobcat-7006172-front-lower-windshield",
+      "brand": "Bobcat",
+      "oem": "7006172",
+      "status": "apply",
+      "compPrice": 48.78,
+      "sellPrice": 46.34,
+      "compSource": "magnasource",
+      "compUrl": "https://www.magnasourceinc.com/itemdetail/BC7006172",
+      "inStockHint": "in_stock",
+      "tvhAligned": true,
+      "candidateUrls": [
+        "https://www.magnasourceinc.com/itemdetail/7006172",
+        "https://www.magnasourceinc.com/itemdetail/BC7006172"
+      ],
+      "notes": "Magna BC7006172 WINDOW PANEL GLASS CABIN FRONT (LOWER); OEM 7006172 on page; $48.78; Limited Availability 1 on hand / In Stock. Bare /itemdetail/7006172 invalid. No Intella hit. Within glass $25–$2500 band."
+    },
+    {
+      "sku": "caterpillar-223-0609-door-center-panel",
+      "slug": "caterpillar-223-0609-door-center-panel",
+      "brand": "Caterpillar",
+      "oem": "223-0609",
+      "status": "apply",
+      "compPrice": 95.6,
+      "sellPrice": 90.82,
+      "compSource": "magnasource",
+      "compUrl": "https://www.magnasourceinc.com/itemdetail/CT223-0609",
+      "inStockHint": "in_stock",
+      "tvhAligned": true,
+      "candidateUrls": [
+        "https://www.magnasourceinc.com/itemdetail/2230609",
+        "https://www.magnasourceinc.com/itemdetail/CT2230609",
+        "https://www.magnasourceinc.com/itemdetail/CT223-0609"
+      ],
+      "notes": "Magna CT223-0609 WINDOW PANEL GLASS CABIN FRONT/DOOR; OEM 223-0609 on page; $95.60; Limited Availability 1 on hand / In Stock. CT2230609 same $95.60 with 20 on hand. Bare /itemdetail/2230609 invalid. No Intella hit. Within glass $25–$2500 band."
+    }
+  ]
+}

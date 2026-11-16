@@ -1,0 +1,80 @@
+{
+  "slice": "c",
+  "results": [
+    {
+      "sku": "case-khn30460-front-upper-windshield",
+      "slug": "case-khn30460-front-upper-windshield",
+      "brand": "Case",
+      "oem": "KHN30460",
+      "status": "apply",
+      "compPrice": 149.0,
+      "sellPrice": 141.55,
+      "compSource": "magnasource",
+      "compUrl": "https://www.magnasourceinc.com/itemdetail/CSKHN30460",
+      "inStockHint": "out_of_stock",
+      "tvhAligned": true,
+      "candidateUrls": [
+        "https://www.magnasourceinc.com/itemdetail/KHN30460",
+        "https://www.magnasourceinc.com/itemdetail/CSKHN30460"
+      ],
+      "notes": "Magna CSKHN30460 WINDOW PANEL GLASS CABIN FRONT (UPPER); OEM KHN30460 on page; $149.00 (was $202.00); 1 Backordered. Bare /itemdetail/KHN30460 invalid. No Intella hit. Within glass $25–$2500 band."
+    },
+    {
+      "sku": "john-deere-t242807-roof-glass",
+      "slug": "john-deere-t242807-roof-glass",
+      "brand": "John Deere",
+      "oem": "T242807",
+      "status": "apply",
+      "compPrice": 93.41,
+      "sellPrice": 88.74,
+      "compSource": "magnasource",
+      "compUrl": "https://www.magnasourceinc.com/itemdetail/JDT242807",
+      "inStockHint": "in_stock",
+      "tvhAligned": true,
+      "candidateUrls": [
+        "https://www.magnasourceinc.com/itemdetail/T242807",
+        "https://www.magnasourceinc.com/itemdetail/JDT242807"
+      ],
+      "notes": "Magna JDT242807 WINDOW PANEL PLEXIGLAS CABIN ROOF; OEM T242807 on page; $93.41; Limited Availability 1 on hand / In Stock. Bare /itemdetail/T242807 invalid. No Intella hit. Within glass $25–$2500 band."
+    },
+    {
+      "sku": "kubota-rg158-46930-upper-door-glass",
+      "slug": "kubota-rg158-46930-upper-door-glass",
+      "brand": "Kubota",
+      "oem": "RG158-46930",
+      "status": "rejected",
+      "compPrice": null,
+      "sellPrice": null,
+      "compSource": null,
+      "compUrl": null,
+      "inStockHint": null,
+      "tvhAligned": true,
+      "reason": "Magnasource KBRG158-46930 lists OEM RG158-46930 but price-hidden (contact support). Bare alphanumeric /itemdetail/RG15846930 and KBRG15846930 invalid. No Intella product page with visible $.",
+      "candidateUrls": [
+        "https://www.magnasourceinc.com/itemdetail/RG15846930",
+        "https://www.magnasourceinc.com/itemdetail/KBRG15846930",
+        "https://www.magnasourceinc.com/itemdetail/KBRG158-46930"
+      ],
+      "notes": "QRG confirms KBRG158-46930 Upper door glass; public priced Intella/Magna comp not available."
+    },
+    {
+      "sku": "takeuchi-03586-00076-front-lower-window",
+      "slug": "takeuchi-03586-00076-front-lower-window",
+      "brand": "Takeuchi",
+      "oem": "03586-00076",
+      "status": "apply",
+      "compPrice": 60.71,
+      "sellPrice": 57.67,
+      "compSource": "magnasource",
+      "compUrl": "https://www.magnasourceinc.com/itemdetail/TK03586-00076",
+      "inStockHint": "in_stock",
+      "tvhAligned": true,
+      "candidateUrls": [
+        "https://www.magnasourceinc.com/itemdetail/0358600076",
+        "https://www.magnasourceinc.com/itemdetail/TK0358600076",
+        "https://www.magnasourceinc.com/itemdetail/TK03586-00076"
+      ],
+      "notes": "Magna TK03586-00076 WINDOW PANEL GLASS CABIN FRONT (LOWER); OEM 03586-00076 on page; $60.71 (was $113.79); 9 on hand / In Stock. Bare /itemdetail/0358600076 invalid. No Intella hit. Within glass $25–$2500 band."
+    }
+  ]
+}
