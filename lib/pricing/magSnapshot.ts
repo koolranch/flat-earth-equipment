@@ -10,6 +10,8 @@
  *
  * Safety contract:
  *   - Both identity gates (part number + brand) must pass before any number is trusted.
+ *     A track read by warehouse number has no brand to expect, so the echoed number is
+ *     its whole gate.
  *   - An unparseable page yields `unknown`, never a sold-out verdict. Only an
  *     affirmative zero / backorder / special-order reading may take a SKU off Buy Now.
  *   - HTTP 200 is not proof of existence: a bad item id returns 200 with
@@ -136,9 +138,14 @@ function parseQty(markdown: string): { qty: number | null; isFloor: boolean } {
   return { qty: null, isFloor: false };
 }
 
+/**
+ * `brand: null` is for pages filed under a warehouse number (rubber tracks with no
+ * OEM). Those pages carry the warehouse's own brand line, so only the echoed part
+ * number is checked. Every OEM-number read still passes both gates.
+ */
 export function parseMagSnapshot(
   markdown: string,
-  expected: { magPartId: string; brand: string }
+  expected: { magPartId: string; brand: string | null }
 ): MagSnapshot {
   const notes: string[] = [];
   const base: MagSnapshot = {
@@ -181,7 +188,8 @@ export function parseMagSnapshot(
     pagePartNumber.replace(/\s+/g, '').toUpperCase() ===
       expected.magPartId.replace(/\s+/g, '').toUpperCase();
   const brandOk =
-    pageBrand !== null && pageBrand.toLowerCase() === expected.brand.toLowerCase();
+    expected.brand === null ||
+    (pageBrand !== null && pageBrand.toLowerCase() === expected.brand.toLowerCase());
 
   if (!pnOk) notes.push(`part_number_mismatch:${pagePartNumber ?? 'none'}`);
   if (!brandOk) notes.push(`brand_mismatch:${pageBrand ?? 'none'}`);
