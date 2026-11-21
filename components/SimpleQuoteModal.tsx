@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import SmsConsentCheckbox from "@/components/SmsConsentCheckbox";
+import { quoteLeadAlreadyTracked, trackQuoteLead } from "@/lib/analytics/partsFunnel";
 
 type Props = {
   open: boolean;
@@ -75,6 +76,9 @@ export default function SimpleQuoteModal({ open, onClose, product }: Props) {
       
       if (response.ok) {
         console.log('✅ Form submitted successfully');
+        if (!quoteLeadAlreadyTracked(product)) {
+          trackQuoteLead('quote_modal');
+        }
         setIsSubmitted(true);
         setTimeout(() => {
           onClose();

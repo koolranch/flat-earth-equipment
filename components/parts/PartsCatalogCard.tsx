@@ -24,6 +24,11 @@ import {
   shouldUseBrandLogoForCategory,
 } from '@/lib/parts/seatVisualUtils';
 import { qualifiesForTwoYearAftermarketWarranty } from '@/lib/parts/aftermarketWarranty';
+import {
+  isPartsCartLine,
+  partsFunnelItem,
+  trackPartsAddToCart,
+} from '@/lib/analytics/partsFunnel';
 
 export type CatalogCardProduct = {
   id: string;
@@ -190,10 +195,27 @@ export default function PartsCatalogCard({ product }: { product: CatalogCardProd
     }
     if (sourceMeta.cost_wholesale != null) checkoutMeta.cost_wholesale = sourceMeta.cost_wholesale;
 
+    const analyticsItemId = displayPartNumber || product.slug;
+    if (
+      isPartsCartLine({
+        category: product.category,
+        stripe_price_id: product.stripePriceId,
+      })
+    ) {
+      trackPartsAddToCart(
+        partsFunnelItem({
+          itemId: analyticsItemId,
+          itemName: displayName,
+          price: product.price ?? 0,
+          quantity: 1,
+        })
+      );
+    }
     addItem({
       id: product.id,
       name: product.name,
       price: product.price ?? 0,
+      sku: analyticsItemId,
       stripe_price_id: product.stripePriceId,
       image_url: product.imageUrl,
       quantity: 1,

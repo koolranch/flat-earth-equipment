@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import SmsConsentCheckbox from "@/components/SmsConsentCheckbox";
+import { trackQuoteLead } from "@/lib/analytics/partsFunnel";
 
 function QuoteForm() {
   const searchParams = useSearchParams();
@@ -52,6 +53,7 @@ function QuoteForm() {
       });
 
       if (response.ok) {
+        trackQuoteLead('quote_page');
         setStatus('success');
         // Reset form
         setFormData({

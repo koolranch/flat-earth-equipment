@@ -18,6 +18,7 @@ import {
   Zap
 } from 'lucide-react';
 import SmsConsentCheckbox from '@/components/SmsConsentCheckbox';
+import { trackQuoteLead } from '@/lib/analytics/partsFunnel';
 
 interface QuoteRequestModalProps {
   isOpen: boolean;
@@ -103,6 +104,7 @@ export default function QuoteRequestModal({
         throw new Error(data.error || 'Failed to submit quote request');
       }
 
+      trackQuoteLead('compatibility_hub');
       setIsSuccess(true);
       
       // Close after success animation

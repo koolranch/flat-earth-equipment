@@ -9,6 +9,11 @@ import {
   isChargerModulePriceId,
   trackChargerBeginCheckout,
 } from '@/lib/analytics/charger-modules';
+import {
+  isPartsCartLine,
+  partsFunnelItem,
+  trackPartsBeginCheckout,
+} from '@/lib/analytics/partsFunnel';
 import { skuFreightDollars } from '@/lib/parts/skuFreight';
 import {
   cabGlassLinesCostDollars,
@@ -120,6 +125,19 @@ export default function CartPage() {
             slug: typeof item.metadata?.slug === 'string' ? item.metadata.slug : undefined,
           })),
         });
+      }
+      const partsItems = items.filter((item) => isPartsCartLine(item));
+      if (partsItems.length > 0) {
+        trackPartsBeginCheckout(
+          partsItems.map((item) =>
+            partsFunnelItem({
+              itemId: item.sku || item.stripe_price_id,
+              itemName: item.name,
+              price: item.price,
+              quantity: item.quantity,
+            })
+          )
+        );
       }
 
       const response = await fetch('/api/checkout', {

@@ -10,6 +10,8 @@ interface CartItem {
   price: number;
   quantity: number;
   image_url?: string;
+  /** Customer part number for GA4. Not sent to checkout. */
+  sku?: string;
   stripe_price_id: string;
   has_core_charge?: boolean;
   core_charge?: number;

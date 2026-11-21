@@ -15,6 +15,15 @@ import {
 } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 import QuoteRequestModal from './QuoteRequestModal';
+import {
+  getCustomerPartNumber,
+  getCustomerProductName,
+} from '@/lib/parts/vendorOemPrefix';
+import {
+  isPartsCartLine,
+  partsFunnelItem,
+  trackPartsAddToCart,
+} from '@/lib/analytics/partsFunnel';
 
 interface SmartProductCardProps {
   product: {
@@ -66,10 +75,28 @@ export default function SmartProductCard({
     }
 
     setIsAddingToCart(true);
+    const analyticsItemId =
+      getCustomerPartNumber({
+        brand: product.brand,
+        sku: product.sku,
+        oemReference: product.oemReference,
+      }) || product.slug;
+    const price = product.price ?? (product.priceCents ? product.priceCents / 100 : 0);
+    if (isPartsCartLine({ stripe_price_id: product.stripePriceId })) {
+      trackPartsAddToCart(
+        partsFunnelItem({
+          itemId: analyticsItemId,
+          itemName: getCustomerProductName(product.name, product.brand),
+          price,
+          quantity: 1,
+        })
+      );
+    }
     addItem({
       id: product.id,
       name: product.name,
-      price: product.price ?? (product.priceCents ? product.priceCents / 100 : 0),
+      price,
+      sku: analyticsItemId,
       stripe_price_id: product.stripePriceId,
       image_url: product.imageUrl,
       quantity: 1,

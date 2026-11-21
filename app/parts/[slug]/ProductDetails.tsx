@@ -1,6 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import {
+  partsFunnelItem,
+  trackPartsAddToCart,
+  trackPartsViewItem,
+} from '@/lib/analytics/partsFunnel';
 import { useCart } from '@/hooks/useCart';
 import { getDisplayBrand } from '@/lib/parts/displayBrand';
 import {
@@ -230,6 +235,18 @@ export default function ProductDetails({
     oemReference: part.oem_reference,
   });
   const quoteHref = `/quote?sku=${encodeURIComponent(part.sku || part.slug)}&equipment=${encodeURIComponent(getDisplayBrand(part.brand))}&notes=${encodeURIComponent(`${displayName} — request pricing`)}`;
+  const analyticsItemId = displayPartNumber || part.slug;
+
+  useEffect(() => {
+    trackPartsViewItem(
+      partsFunnelItem({
+        itemId: analyticsItemId,
+        itemName: displayName,
+        price: Number(unitPrice) > 0 ? unitPrice : 0,
+        quantity: 1,
+      })
+    );
+  }, [analyticsItemId, displayName, unitPrice]);
 
   const seatFreeFreight = qualifiesForSeatFreeFreight(part.category, partMetadata);
   const wholesaleCostUsd = getWholesaleCostUsd(partMetadata);
@@ -305,10 +322,19 @@ export default function ProductDetails({
       console.error('No stripe_price_id available for item:', item);
       return;
     }
+    trackPartsAddToCart(
+      partsFunnelItem({
+        itemId: analyticsItemId,
+        itemName: displayName,
+        price: item.price,
+        quantity,
+      })
+    );
     addItem({
       id: item.id,
       name: part.name + (selected ? ` (${selected.firmware_version})` : ''),
       price: item.price,
+      sku: analyticsItemId,
       stripe_price_id: item.stripe_price_id,
       has_core_charge: item.has_core_charge,
       core_charge: item.core_charge,
