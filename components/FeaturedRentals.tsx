@@ -267,6 +267,8 @@ export default async function FeaturedRentals() {
                         src={category.fallbackIcon}
                         alt=""
                         className="h-24 w-24 opacity-80"
+                        loading="lazy"
+                        decoding="async"
                       />
                     </div>
                   )}

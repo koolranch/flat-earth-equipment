@@ -62,7 +62,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['var(--font-inter)', ...defaultTheme.fontFamily.sans],
-        heading: ["Barlow Semi Condensed", "Inter", "system-ui", "sans-serif"],
+        heading: ["var(--font-barlow)", "system-ui", "sans-serif"],
         body: ['var(--font-inter)', 'sans-serif'],
       },
       borderRadius: {

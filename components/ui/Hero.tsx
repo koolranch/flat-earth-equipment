@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import heroBg from "../../public/images/hero-bg-mountains.webp";
 
 interface HeroContent {
   badge: { label: string; highlight: string };
@@ -39,11 +41,15 @@ export function Hero({ locale = 'en' }: { locale?: 'en' | 'es' }) {
   return (
     <section className="relative h-[500px] md:h-[600px] w-full overflow-hidden">
       {/* Background image */}
-      <img
-        src="https://mzsozezflbhebykncbmr.supabase.co/storage/v1/object/public/site-assets/hero-bg-mountains.webp"
+      <Image
+        src={heroBg}
         alt=""
-        className="absolute inset-0 w-full h-full object-cover object-center"
-        loading="eager"
+        fill
+        priority
+        sizes="100vw"
+        quality={75}
+        placeholder="blur"
+        className="object-cover object-center"
       />
 
       {/* Dark overlay */}

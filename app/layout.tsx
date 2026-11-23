@@ -1,5 +1,5 @@
 import '../sentry.client.config';
-import { Inter } from 'next/font/google';
+import { Barlow_Semi_Condensed, Inter } from 'next/font/google';
 import type { Metadata } from 'next';
 import React from 'react';
 import Script from 'next/script';
@@ -32,6 +32,17 @@ import SafetyRouteGate from '@/components/safety/SafetyRouteGate';
 import PerformanceMonitor from '@/components/PerformanceMonitor';
 
 const inter = Inter({ subsets: ['latin'] });
+
+// Self-hosted replacement for the old render-blocking Google Fonts CSS
+// import. Not preloaded: homepage text uses Inter, and this face is only
+// for heading utilities.
+const barlow = Barlow_Semi_Condensed({
+  subsets: ['latin'],
+  weight: ['600', '700'],
+  display: 'swap',
+  preload: false,
+  variable: '--font-barlow',
+});
 
 // CANONICAL DOMAIN: Force all stray backlink authority to www version
 const CANONICAL_DOMAIN = 'https://www.flatearthequipment.com';
@@ -75,7 +86,7 @@ export default async function RootLayout({
   const adminStatus = await getAdminStatus();
   
   return (
-    <html lang={locale} className={inter.className}>
+    <html lang={locale} className={`${inter.className} ${barlow.variable}`}>
       <head>
         {/* Google Search Console Verification */}
         <meta name="google-site-verification" content="O7ZIN2n38dDBmoeD1-7x92JUIMyo02CeMaPZMuoH7cE" />
@@ -92,9 +103,8 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="//image.mux.com" />
         <link rel="preconnect" href="https://stream.mux.com" />
         
-        {/* Perf: Stripe and Google Fonts for checkout */}
+        {/* Perf: Stripe.js */}
         <link rel="preconnect" href="https://js.stripe.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
         {/* SEO: hreflang tags are set per-page via generateMetadata() */}
         {/* Do NOT add global hreflang here - it causes "more than one page for same language" errors */}
