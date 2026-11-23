@@ -3,6 +3,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { StateCreator } from 'zustand';
+import { qtyMaxFromMetadata } from '@/lib/parts/qtyMax';
 
 interface CartItem {
   id: string;
@@ -32,6 +33,12 @@ interface CartStore {
   clearCart: () => void;
 }
 
+function cappedQuantity(item: CartItem, quantity: number): number {
+  const max = qtyMaxFromMetadata(item.metadata);
+  if (max == null) return quantity;
+  return Math.min(quantity, max);
+}
+
 const createCartStore: StateCreator<CartStore> = (set) => ({
   items: [],
   addItem: (item: CartItem) =>
@@ -39,17 +46,21 @@ const createCartStore: StateCreator<CartStore> = (set) => ({
       const existingItem = state.items.find((i: CartItem) => i.id === item.id);
       if (existingItem) {
         return {
-          items: state.items.map((i: CartItem) =>
-            i.id === item.id
-              ? {
-                  ...i,
-                  quantity: i.quantity + 1,
-                  ...(item.has_core_charge
-                    ? { has_core_charge: true, core_charge: item.core_charge }
-                    : {}),
-                }
-              : i
-          ),
+          items: state.items.map((i: CartItem) => {
+            if (i.id !== item.id) return i;
+            const metadata = {
+              ...i.metadata,
+              ...(item.metadata?.qty_max != null ? { qty_max: item.metadata.qty_max } : {}),
+            };
+            const next = { ...i, metadata };
+            return {
+              ...next,
+              quantity: cappedQuantity(next, i.quantity + 1),
+              ...(item.has_core_charge
+                ? { has_core_charge: true, core_charge: item.core_charge }
+                : {}),
+            };
+          }),
         };
       }
       return { items: [...state.items, { ...item, quantity: 1 }] };
@@ -61,7 +72,9 @@ const createCartStore: StateCreator<CartStore> = (set) => ({
   updateQuantity: (id: string, quantity: number) =>
     set((state: CartStore) => ({
       items: state.items.map((item: CartItem) =>
-        item.id === id ? { ...item, quantity } : item
+        item.id === id
+          ? { ...item, quantity: quantity <= 0 ? quantity : cappedQuantity(item, quantity) }
+          : item
       ),
     })),
   clearCart: () => set({ items: [] }),

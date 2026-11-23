@@ -7,6 +7,11 @@ import { skuFreightQuantity } from '@/lib/parts/skuFreight';
 import { loadCoreByPriceId, resolveCheckoutCoreCents } from '@/lib/parts/coreCharge';
 import { fillCheckoutFreightFromCatalog } from '@/lib/parts/checkoutFreight';
 import {
+  defaultFreightForItems,
+  defaultFreightForSimpleItem,
+} from '@/lib/parts/defaultFreight';
+import { qtyExceedsCatalogMax } from '@/lib/parts/qtyMax';
+import {
   cabGlassLinesCostDollars,
   cabGlassOrderFreightCents,
   isCabGlassCheckoutItem,
@@ -111,6 +116,10 @@ export async function POST(req: NextRequest) {
         supabaseService() as unknown as Parameters<typeof fillCheckoutFreightFromCatalog>[0],
         body.items,
       );
+      const qtyCapError = qtyExceedsCatalogMax(body.items);
+      if (qtyCapError) {
+        return NextResponse.json({ error: qtyCapError }, { status: 400 });
+      }
 
       const shipToState =
         typeof body.shipToState === 'string' ? body.shipToState.trim().toUpperCase() : '';
@@ -463,9 +472,8 @@ export async function POST(req: NextRequest) {
       // Weight-tiered ground freight for lithium golf cart batteries (UN3480).
       // Free shipping when 3+ batteries are ordered in the same cart
       // (mirrors FSIP wholesale fleet incentive).
-      const lithiumItems = body.items.filter((item: any) =>
-        !item.metadata?.free_freight &&
-        item.category === 'Lithium Batteries'
+      const lithiumItems = body.items.filter(
+        (item: any) => item.category === 'Lithium Batteries',
       );
 
       if (lithiumItems.length > 0) {
@@ -586,6 +594,25 @@ export async function POST(req: NextRequest) {
           });
         }
       }
+
+      // Lines that missed every rule above. One charge for that group.
+      const defaultFreight = defaultFreightForItems(body.items);
+      if (defaultFreight.unitAmountCents > 0) {
+        lineItems.push({
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: defaultFreight.name,
+              description: defaultFreight.description,
+            },
+            unit_amount: defaultFreight.unitAmountCents,
+          },
+          quantity: 1,
+        });
+      }
+      if (defaultFreight.freightFlag) {
+        metadata.freight_flag = defaultFreight.freightFlag;
+      }
       
       successSlug = body.items[0]?.name || "";
     } else {
@@ -617,6 +644,7 @@ export async function POST(req: NextRequest) {
       const simpleItem: {
         priceId: string;
         quantity: number;
+        name?: string;
         price?: number;
         category?: string;
         metadata: Record<string, unknown>;
@@ -625,6 +653,10 @@ export async function POST(req: NextRequest) {
         supabaseService() as unknown as Parameters<typeof fillCheckoutFreightFromCatalog>[0],
         [simpleItem],
       );
+      const simpleQtyCapError = qtyExceedsCatalogMax([simpleItem]);
+      if (simpleQtyCapError) {
+        return NextResponse.json({ error: simpleQtyCapError }, { status: 400 });
+      }
       const overrideCents = Number(simpleItem.metadata?.freight_cents);
       if (Number.isFinite(overrideCents) && overrideCents > 0) {
         lineItems.push({
@@ -656,6 +688,26 @@ export async function POST(req: NextRequest) {
             },
             quantity: 1,
           });
+        }
+      } else {
+        // Rule categories (JCB, Seats, lithium, and the flat rates) stay $0
+        // on this branch. Only a classified no-rule part gets the default.
+        const simpleFreight = defaultFreightForSimpleItem(simpleItem);
+        if (simpleFreight.unitAmountCents > 0) {
+          lineItems.push({
+            price_data: {
+              currency: 'usd',
+              product_data: {
+                name: simpleFreight.name,
+                description: simpleFreight.description,
+              },
+              unit_amount: simpleFreight.unitAmountCents,
+            },
+            quantity: 1,
+          });
+        }
+        if (simpleFreight.freightFlag) {
+          metadata.freight_flag = simpleFreight.freightFlag;
         }
       }
     }

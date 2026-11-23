@@ -14,6 +14,9 @@ import {
 } from '@/lib/parts/vendorOemPrefix';
 import { getSerialLookupPath } from '@/lib/parts/serialLookupRoutes';
 import { cabGlassHubHrefForPart } from '@/lib/parts/cabGlassLinks';
+import { cabGlassOrderFreightCents } from '@/lib/parts/cabGlassFreight';
+import { catalogWeightLbs } from '@/lib/parts/checkoutFreight';
+import { defaultFreightForItems } from '@/lib/parts/defaultFreight';
 import {
   formatTrackLabel,
   getRubberTrackIntro,
@@ -41,6 +44,7 @@ import {
   lithiumCartPathsForProduct,
 } from '@/constants/lithiumRhinoSeo';
 import { isTrackBeltName } from '@/lib/pricing/trackWarehouseKey';
+import { qtyMaxFromMetadata } from '@/lib/parts/qtyMax';
 
 interface Variant {
   id: string;
@@ -126,14 +130,16 @@ function TrackSpecTable({
             <th className="px-4 py-2 text-left font-medium text-slate-600">Pitch</th>
             <td className="px-4 py-2 text-slate-900">{specs.pitchMm} mm</td>
           </tr>
-          <tr className="border-b border-slate-100">
+          <tr className={treadPattern ? 'border-b border-slate-100' : undefined}>
             <th className="px-4 py-2 text-left font-medium text-slate-600">Links</th>
             <td className="px-4 py-2 text-slate-900">{specs.links}</td>
           </tr>
-          <tr>
-            <th className="px-4 py-2 text-left font-medium text-slate-600">Tread</th>
-            <td className="px-4 py-2 capitalize text-slate-900">{treadPattern}</td>
-          </tr>
+          {treadPattern ? (
+            <tr>
+              <th className="px-4 py-2 text-left font-medium text-slate-600">Tread</th>
+              <td className="px-4 py-2 capitalize text-slate-900">{treadPattern}</td>
+            </tr>
+          ) : null}
         </tbody>
       </table>
     </div>
@@ -175,6 +181,7 @@ export default function ProductDetails({
   const partMetadata = (part.metadata as Record<string, unknown> | null) ?? {};
   const pairOnly =
     partMetadata.pair_only === true || partMetadata.pair_only === 'true';
+  const qtyMax = qtyMaxFromMetadata(partMetadata);
   const currentGrade =
     typeof partMetadata.grade === 'string' ? partMetadata.grade : null;
   const currentGradeLabel =
@@ -200,9 +207,7 @@ export default function ProductDetails({
   const trackSize =
     typeof partMetadata.track_size === 'string' ? partMetadata.track_size : undefined;
   const treadPattern =
-    typeof partMetadata.tread_pattern === 'string'
-      ? partMetadata.tread_pattern
-      : 'C pattern';
+    typeof partMetadata.tread_pattern === 'string' ? partMetadata.tread_pattern : '';
 
   const unitPrice = selected?.price ?? part.price;
   const lineTotal = unitPrice * quantity;
@@ -215,6 +220,16 @@ export default function ProductDetails({
     !qtyDefaultsToPair && Number.isFinite(pairFreightCents) && pairFreightCents >= 10000
       ? pairFreightCents / 100
       : 0;
+  const cabGlassCostUsd = getWholesaleCostUsd(partMetadata);
+  const cabGlassGroundCents =
+    part.category_slug === 'cab-glass' && Number.isFinite(pairFreightCents) && pairFreightCents > 0
+      ? pairFreightCents
+      : part.category_slug === 'cab-glass'
+        ? cabGlassOrderFreightCents({
+            sellDollars: lineTotal,
+            costDollars: cabGlassCostUsd == null ? null : cabGlassCostUsd * quantity,
+          })
+        : 0;
   // Market list price (e.g. comp sticker) for strikethrough display; the
   // charged price is always unitPrice. Only shown when meaningfully higher.
   const listPriceCents = Number(partMetadata.list_price_cents);
@@ -257,8 +272,24 @@ export default function ProductDetails({
 
   // Same metadata shape the cart page forwards to /api/checkout — freight_cents,
   // free_freight, and category_slug drive the server-side freight line.
+  const catalogWeight = catalogWeightLbs(part.weight_lbs, partMetadata);
+  const defaultFreight = defaultFreightForItems([
+    {
+      name: part.name,
+      category: part.category,
+      price: part.price,
+      quantity: 1,
+      weight_lbs: catalogWeight,
+      metadata: {
+        ...partMetadata,
+        ...(part.category_slug ? { category_slug: part.category_slug } : {}),
+      },
+    },
+  ]);
+  const defaultLtlFreight =
+    defaultFreight.freightFlag === 'ltl' ? defaultFreight.unitAmountCents / 100 : 0;
   const checkoutItemMetadata = {
-    ...(part.weight_lbs ? { weight_lbs: part.weight_lbs } : {}),
+    ...(catalogWeight != null ? { weight_lbs: catalogWeight } : {}),
     ...(partMetadata.freight_cents != null
       ? { freight_cents: partMetadata.freight_cents }
       : {}),
@@ -270,6 +301,7 @@ export default function ProductDetails({
       : {}),
     ...(part.category_slug ? { category_slug: part.category_slug } : {}),
     ...(pairOnly ? { pair_only: true } : {}),
+    ...(qtyMax != null ? { qty_max: qtyMax } : {}),
   };
 
   const [buyingNow, setBuyingNow] = useState(false);
@@ -413,6 +445,9 @@ export default function ProductDetails({
           Free freight to the contiguous US — no shipping line at checkout.
         </p>
       )}
+      {qtyMax === 1 && (
+        <p className="text-sm font-medium text-slate-700 mb-4">Only 1 available.</p>
+      )}
       {(partMetadata.confirm_freight === true ||
         partMetadata.confirm_freight === 'true') &&
         !hasFreeFreight &&
@@ -426,12 +461,29 @@ export default function ProductDetails({
           Freight is ${ltlFreight.toFixed(0)} at checkout — this ships LTL on a pallet.
         </p>
       )}
+      {defaultLtlFreight > 0 && ltlFreight === 0 && !hasFreeFreight && !isRubberTrack && (
+        <p className="text-sm text-slate-600 mb-4">
+          Freight is ${defaultLtlFreight.toFixed(0)} at checkout — this ships LTL on a pallet.
+        </p>
+      )}
       {part.category_slug === 'cab-glass' &&
         !hasFreeFreight &&
         !isRubberTrack &&
-        ltlFreight === 0 && (
+        ltlFreight === 0 &&
+        cabGlassGroundCents > 0 && (
           <p className="text-sm text-slate-600 mb-4">
-            Ships ground — freight is added at checkout.
+            Ships ground — ${Math.round(cabGlassGroundCents / 100)} freight at checkout.
+          </p>
+        )}
+      {part.category_slug === 'cab-glass' &&
+        !hasFreeFreight &&
+        !isRubberTrack &&
+        ltlFreight === 0 &&
+        cabGlassGroundCents === 0 &&
+        cabGlassCostUsd != null &&
+        cabGlassCostUsd * quantity >= 650 && (
+          <p className="text-sm text-slate-600 mb-4">
+            Ground freight is prepaid on this order.
           </p>
         )}
     </>

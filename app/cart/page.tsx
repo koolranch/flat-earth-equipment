@@ -14,12 +14,8 @@ import {
   partsFunnelItem,
   trackPartsBeginCheckout,
 } from '@/lib/analytics/partsFunnel';
-import { skuFreightDollars } from '@/lib/parts/skuFreight';
-import {
-  cabGlassLinesCostDollars,
-  cabGlassOrderFreightCents,
-  isCabGlassCheckoutItem,
-} from '@/lib/parts/cabGlassFreight';
+import { quoteCheckoutFreight } from '@/lib/parts/checkoutFreightQuote';
+import { qtyMaxFromMetadata } from '@/lib/parts/qtyMax';
 import {
   chargerModuleWholesaleCents,
   shipTaxPerUnitCents,
@@ -193,81 +189,8 @@ export default function CartPage() {
   const coreCharges = items.reduce((sum, item) => 
     sum + ((item.has_core_charge && item.core_charge) ? item.core_charge * item.quantity : 0), 0);
   
-  // Estimate freight (checkout API is authoritative)
-  const freightCharges = (() => {
-    let freight = 0;
-    for (const item of items) {
-      const skuFreight = skuFreightDollars(item);
-      if (skuFreight > 0) {
-        freight += skuFreight;
-        continue;
-      }
-    }
-    const categories = items
-      .filter((item) => !(Number(item.metadata?.freight_cents) > 0))
-      .map((item) => item.category)
-      .filter(Boolean);
-    const hasForks = categories.some(
-      (cat) =>
-        cat === 'forks' ||
-        cat === 'Class II Forks' ||
-        cat === 'Class III Forks' ||
-        cat === 'Class IV Forks'
-    );
-    if (hasForks) freight += 395;
-    if (categories.includes('Rug / Carpet Rams')) freight += 1000;
-    const mitsubishiItems = items.filter(
-      (item) =>
-        !(Number(item.metadata?.freight_cents) > 0) &&
-        (item.category === 'Mitsubishi Parts' ||
-          (item.category?.startsWith('Mitsubishi ') ?? false))
-    );
-    for (const item of mitsubishiItems) {
-      const p = item.price;
-      if (p < 25) freight += 18;
-      else if (p < 150) freight += 25;
-      else if (p < 300) freight += 31;
-      else if (p < 500) freight += 37;
-      else if (p < 650) freight += 41;
-      else freight += 50;
-    }
-    const cabGlassItems = items.filter(
-      (item) =>
-        !item.metadata?.free_freight &&
-        !(Number(item.metadata?.freight_cents) > 0) &&
-        isCabGlassCheckoutItem(item)
-    );
-    if (cabGlassItems.length > 0) {
-      const cabGlassNet = cabGlassItems.reduce(
-        (sum, item) => sum + item.price * Math.max(1, item.quantity),
-        0
-      );
-      freight += cabGlassOrderFreightCents({
-        sellDollars: cabGlassNet,
-        costDollars: cabGlassLinesCostDollars(cabGlassItems),
-      }) / 100;
-    }
-    // Lithium battery HazMat freight estimate — mirrors the authoritative
-    // tiers in /api/checkout (Class 9 ground, free on 3+ batteries).
-    const lithiumItems = items.filter(
-      (item) =>
-        !(Number(item.metadata?.freight_cents) > 0) &&
-        item.category === 'Lithium Batteries'
-    );
-    const lithiumQty = lithiumItems.reduce((sum, item) => sum + Math.max(1, item.quantity), 0);
-    if (lithiumQty > 0 && lithiumQty < 3) {
-      for (const item of lithiumItems) {
-        const weight = Number(item.metadata?.weight_lbs ?? 100);
-        let perUnit = 349;
-        if (weight < 50) perUnit = 99;
-        else if (weight < 100) perUnit = 149;
-        else if (weight < 150) perUnit = 199;
-        else if (weight < 200) perUnit = 279;
-        freight += perUnit * Math.max(1, item.quantity);
-      }
-    }
-    return freight;
-  })();
+  // Same helpers as /api/checkout, so the preview total matches Stripe.
+  const freightCharges = quoteCheckoutFreight(items).totalCents / 100;
 
 
   if (items.length === 0) {
@@ -329,16 +252,24 @@ export default function CartPage() {
                 </button>
                 <span className="w-8 text-center">{item.quantity}</span>
                 <button
+                  type="button"
+                  disabled={
+                    qtyMaxFromMetadata(item.metadata) != null &&
+                    item.quantity >= (qtyMaxFromMetadata(item.metadata) as number)
+                  }
                   onClick={() => {
                     const pairOnly =
                       item.metadata?.pair_only === true ||
                       item.metadata?.pair_only === 'true';
                     updateQuantity(item.id, item.quantity + (pairOnly ? 2 : 1));
                   }}
-                  className="px-2 py-1 border rounded hover:bg-gray-100"
+                  className="px-2 py-1 border rounded hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent"
                 >
                   +
                 </button>
+                {qtyMaxFromMetadata(item.metadata) === 1 && (
+                  <span className="text-sm text-slate-600">Only 1 available</span>
+                )}
               </div>
 
               <button
