@@ -216,15 +216,12 @@ export default async function FeaturedRentals() {
               id="featured-rentals-heading"
               className="text-3xl font-bold leading-tight text-slate-900 lg:text-4xl"
             >
-              Equipment rentals are quoted.
+              Need a machine for the job? Get a rental quote.
             </h2>
 
             <p className="mt-4 text-base leading-relaxed text-slate-600">
-              Send the machine and the dates. This page does not publish a rate.
-            </p>
-
-            <p className="mt-4 text-sm text-slate-500">
-              Terms come back on the quote.
+              Tell us the machine, the job site, and your dates. We&apos;ll check availability
+              and send back pricing and terms.
             </p>
 
             <div className="mt-8 hidden lg:block">
@@ -277,13 +274,8 @@ export default async function FeaturedRentals() {
 
                   <div className="absolute right-3 top-3 rounded-full border border-white/70 bg-white/95 px-3 py-1 text-xs font-semibold text-slate-700 shadow-sm">
                     <span className="inline-flex items-center gap-1.5">
-                      <span
-                        aria-hidden="true"
-                        className={`h-2 w-2 rounded-full ${
-                          category.hasPhoto ? 'bg-emerald-500' : 'bg-slate-400'
-                        }`}
-                      />
-                      {category.hasPhoto ? 'Available' : 'Quote required'}
+                      <span aria-hidden="true" className="h-2 w-2 rounded-full bg-canyon-rust" />
+                      Quote
                     </span>
                   </div>
                 </div>

@@ -28,8 +28,9 @@ export default function TrainingCTA() {
         </h2>
 
         <p className="mx-auto mb-10 max-w-2xl text-lg text-slate-300 md:text-xl">
-          Interactive modules, hands-on demos, and QR-verifiable certificates that meet OSHA 29 CFR
-          1910.178 requirements—no all-day classroom, no shipping waits.
+          Interactive modules, demos, and QR-verifiable certificates covering the OSHA 29 CFR
+          1910.178 classroom requirement—no all-day classroom. Study free in the app; pay $49
+          only when you take the final exam.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-4">

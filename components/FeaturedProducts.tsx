@@ -84,11 +84,10 @@ export default async function FeaturedProducts() {
             id="featured-products-heading"
             className="text-3xl font-bold leading-tight text-slate-900 lg:text-4xl"
           >
-            Stocked, tested, and ready to ship.
+            Popular parts, ready to order.
           </h2>
           <p className="mt-4 text-base text-slate-600">
-            A few of the parts our customers reorder most—batteries, forks, and operator seats
-            built for hard-working fleets.
+            A few popular picks—batteries, forks, and operator seats for working fleets.
           </p>
         </div>
 
