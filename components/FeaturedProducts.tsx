@@ -20,12 +20,12 @@ const FEATURED_SLUGS: FeaturedSlug[] = [
     badge: 'Best seller',
   },
   {
-    slug: 'fee-f4-007-class-iv-fork-2-1-2x6x60',
-    tagline: 'Heavy-duty Class IV forks, ITA-mounted, ready for hard use.',
+    slug: 'bobcat-t770-rubber-track-450x86x55',
+    tagline: 'Standard 450 mm C-pattern track for the T770. Free shipping and a 2-year warranty.',
   },
   {
-    slug: 'toyota-seat-assembly-vinyl-53720-u224171',
-    tagline: 'OEM-spec replacement vinyl seat for Toyota lift trucks.',
+    slug: 'jcb-400-h9799-suspension-seat-vinyl',
+    tagline: 'Aftermarket vinyl suspension seat for JCB machines. Ships free.',
   },
 ];
 
@@ -87,7 +87,7 @@ export default async function FeaturedProducts() {
             Popular parts, ready to order.
           </h2>
           <p className="mt-4 text-base text-slate-600">
-            A few popular picks—batteries, forks, and operator seats for working fleets.
+            A few popular picks—batteries, rubber tracks, and operator seats for working fleets.
           </p>
         </div>
 
