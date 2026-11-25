@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <ellipse cx="120" cy="145" rx="96" ry="5" fill="#0F172A" opacity="0.08"/>
+  <!-- guardrails -->
+  <path d="M42 46 V16 H198 V46" stroke="#334155" stroke-width="3.5"/>
+  <line x1="42" y1="30" x2="198" y2="30" stroke="#334155" stroke-width="2.5"/>
+  <line x1="120" y1="16" x2="120" y2="46" stroke="#334155" stroke-width="2.5"/>
+  <!-- platform -->
+  <rect x="36" y="44" width="168" height="10" rx="2" fill="#334155"/>
+  <!-- scissor stack -->
+  <g stroke="#475569" stroke-width="5">
+    <line x1="62" y1="54" x2="178" y2="83"/>
+    <line x1="178" y1="54" x2="62" y2="83"/>
+    <line x1="62" y1="83" x2="178" y2="112"/>
+    <line x1="178" y1="83" x2="62" y2="112"/>
+  </g>
+  <circle cx="120" cy="68.5" r="4" fill="#FFFFFF" stroke="#334155" stroke-width="2.5"/>
+  <circle cx="120" cy="97.5" r="4" fill="#FFFFFF" stroke="#334155" stroke-width="2.5"/>
+  <circle cx="62" cy="83" r="3.5" fill="#334155"/>
+  <circle cx="178" cy="83" r="3.5" fill="#334155"/>
+  <!-- chassis -->
+  <rect x="38" y="110" width="164" height="20" rx="5" fill="#C45A38" stroke="#334155" stroke-width="3"/>
+  <rect x="54" y="115" width="28" height="10" rx="2" fill="#FFFFFF" opacity="0.35"/>
+  <!-- wheels -->
+  <circle cx="64" cy="134" r="10" fill="#1E293B"/>
+  <circle cx="64" cy="134" r="3.5" fill="#CBD5E1"/>
+  <circle cx="176" cy="134" r="10" fill="#1E293B"/>
+  <circle cx="176" cy="134" r="3.5" fill="#CBD5E1"/>
+</svg>

@@ -1,37 +1,26 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { createClient } from '@/utils/supabase/server';
 
 type RentalCategory = {
   name: string;
   slug: string;
-  fallbackIcon: string;
+  illustration: string;
   useCase: string;
   fallbackSpec: string;
   ctaLabel: string;
 };
 
-type RentalEquipmentRow = {
-  name: string;
-  slug: string;
-  category: string;
-  image_url: string | null;
-  brand: string;
+type RentalSpecRow = {
   weight_capacity_lbs: number | null;
   lift_height_ft: number | null;
   power_source: string | null;
 };
 
-type RentalSpecRow = Pick<
-  RentalEquipmentRow,
-  'weight_capacity_lbs' | 'lift_height_ft' | 'power_source'
->;
-
 const rentalCategories: RentalCategory[] = [
   {
     name: 'Forklifts',
     slug: 'forklift',
-    fallbackIcon: '/rental-icons/forklift.svg',
+    illustration: '/rental-illustrations/forklift.svg',
     useCase: 'Warehouse, dock, and yard work.',
     fallbackSpec: '3K–10K lb · Electric, LP, diesel',
     ctaLabel: 'See forklift rentals',
@@ -39,7 +28,7 @@ const rentalCategories: RentalCategory[] = [
   {
     name: 'Scissor Lifts',
     slug: 'scissor-lift',
-    fallbackIcon: '/rental-icons/scissor.svg',
+    illustration: '/rental-illustrations/scissor-lift.svg',
     useCase: 'Indoor and outdoor elevated access.',
     fallbackSpec: 'Up to 40 ft · Indoor and rough terrain',
     ctaLabel: 'See scissor lift rentals',
@@ -47,7 +36,7 @@ const rentalCategories: RentalCategory[] = [
   {
     name: 'Telehandlers',
     slug: 'telehandler',
-    fallbackIcon: '/rental-icons/telehandler.svg',
+    illustration: '/rental-illustrations/telehandler.svg',
     useCase: 'Roofing, framing, and material placement.',
     fallbackSpec: '5K–10K lb · 30–40 ft reach',
     ctaLabel: 'See telehandler rentals',
@@ -55,7 +44,7 @@ const rentalCategories: RentalCategory[] = [
   {
     name: 'Compact Utility Loaders',
     slug: 'compact-utility-loader',
-    fallbackIcon: '/rental-icons/dingo.svg',
+    illustration: '/rental-illustrations/compact-utility-loader.svg',
     useCase: 'Landscaping, trenching, and tight access.',
     fallbackSpec: 'Toro Dingo-style · Tracked',
     ctaLabel: 'See utility loader rentals',
@@ -143,39 +132,6 @@ async function fetchCategoryData(
 ) {
   const dbCategory = dbCategoryFromSlug(category.slug);
 
-  const { data: withImage } = await supabase
-    .from('rental_equipment')
-    .select(
-      'name, slug, category, image_url, brand, weight_capacity_lbs, lift_height_ft, power_source'
-    )
-    .ilike('category', `%${dbCategory}%`)
-    .not('image_url', 'is', null)
-    .limit(1)
-    .maybeSingle();
-
-  let equipment: RentalEquipmentRow | null = withImage;
-
-  if (!equipment) {
-    const { data: fallbackEquipment } = await supabase
-      .from('rental_equipment')
-      .select(
-        'name, slug, category, image_url, brand, weight_capacity_lbs, lift_height_ft, power_source'
-      )
-      .ilike('category', `%${dbCategory}%`)
-      .limit(1)
-      .maybeSingle();
-
-    equipment = fallbackEquipment;
-
-    if (!equipment) {
-      console.warn(`[FeaturedRentals] No equipment found for category: ${category.slug}`);
-    } else if (!equipment.image_url) {
-      console.warn(
-        `[FeaturedRentals] Using icon fallback for category: ${category.slug} (no image_url in fleet data)`
-      );
-    }
-  }
-
   const { data: specRows } = await supabase
     .from('rental_equipment')
     .select('weight_capacity_lbs, lift_height_ft, power_source')
@@ -183,9 +139,7 @@ async function fetchCategoryData(
 
   return {
     ...category,
-    equipment,
     specLine: buildSpecLine(category.slug, specRows ?? [], category.fallbackSpec),
-    hasPhoto: Boolean(equipment?.image_url),
   };
 }
 
@@ -250,25 +204,17 @@ export default async function FeaturedRentals() {
                 className="group block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-canyon-rust/40 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-canyon-rust"
               >
                 <div className="relative h-48 overflow-hidden bg-slate-100">
-                  {category.hasPhoto && category.equipment?.image_url ? (
-                    <Image
-                      src={category.equipment.image_url}
-                      alt={category.equipment.name || category.name}
-                      fill
-                      className="object-cover transition duration-300 group-hover:scale-105"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  <div className="flex h-full items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 px-6 pt-10">
+                    <img
+                      src={category.illustration}
+                      alt={`${category.name} illustration`}
+                      width={240}
+                      height={160}
+                      className="h-32 w-auto transition duration-300 group-hover:scale-105"
+                      loading="lazy"
+                      decoding="async"
                     />
-                  ) : (
-                    <div className="flex h-full items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
-                      <img
-                        src={category.fallbackIcon}
-                        alt=""
-                        className="h-24 w-24 opacity-80"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </div>
-                  )}
+                  </div>
 
                   <div className="absolute inset-0 shadow-[inset_0_-24px_32px_rgba(15,23,42,0.08)]" />
 

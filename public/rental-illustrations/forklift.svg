@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <ellipse cx="124" cy="143" rx="104" ry="5" fill="#0F172A" opacity="0.08"/>
+  <!-- mast -->
+  <rect x="170" y="22" width="9" height="106" rx="2" fill="#E2E8F0" stroke="#334155" stroke-width="3"/>
+  <rect x="181" y="34" width="7" height="94" rx="2" fill="#F1F5F9" stroke="#334155" stroke-width="3"/>
+  <line x1="170" y1="52" x2="188" y2="52" stroke="#334155" stroke-width="2"/>
+  <line x1="170" y1="92" x2="188" y2="92" stroke="#334155" stroke-width="2"/>
+  <!-- carriage + forks -->
+  <rect x="190" y="84" width="6" height="44" rx="1.5" fill="#334155"/>
+  <path d="M190 124 H228 Q231 124 231 127 V129 Q231 131 228 131 H190 Z" fill="#334155"/>
+  <!-- overhead guard -->
+  <path d="M72 90 L80 38 H140 L150 90" stroke="#334155" stroke-width="4"/>
+  <line x1="80" y1="38" x2="76" y2="34" stroke="#334155" stroke-width="3"/>
+  <!-- counterweight + body -->
+  <path d="M28 104 Q28 90 42 90 H164 Q168 90 168 94 V118 Q168 122 164 122 H42 Q28 122 28 108 Z" fill="#C45A38" stroke="#334155" stroke-width="3"/>
+  <line x1="40" y1="100" x2="64" y2="100" stroke="#FFFFFF" stroke-width="2" opacity="0.5"/>
+  <line x1="168" y1="104" x2="170" y2="104" stroke="#334155" stroke-width="4"/>
+  <!-- seat -->
+  <path d="M90 90 L87 68 Q86 63 91 63 H97 Q100 63 100 66 L102 80 H116 Q119 80 119 83 V90" fill="#334155"/>
+  <!-- steering -->
+  <line x1="128" y1="90" x2="136" y2="66" stroke="#334155" stroke-width="3.5"/>
+  <line x1="130" y1="64" x2="143" y2="68" stroke="#334155" stroke-width="3.5"/>
+  <!-- wheels -->
+  <circle cx="64" cy="124" r="18" fill="#1E293B"/>
+  <circle cx="64" cy="124" r="7" fill="#CBD5E1"/>
+  <circle cx="146" cy="124" r="18" fill="#1E293B"/>
+  <circle cx="146" cy="124" r="7" fill="#CBD5E1"/>
+</svg>
