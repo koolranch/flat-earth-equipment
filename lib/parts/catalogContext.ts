@@ -113,7 +113,7 @@ export function getActiveFilters(
     filters.push({
       key: 'in_stock',
       label: labels.inStock,
-      href: buildCatalogUrl(searchParams, { in_stock: undefined }),
+      href: buildCatalogUrl(searchParams, { sales_type: undefined, in_stock: undefined }),
     });
   } else if (searchParams.sales_type === 'direct') {
     filters.push({

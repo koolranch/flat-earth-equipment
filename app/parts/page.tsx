@@ -83,7 +83,7 @@ export default async function PartsPage({
       availability: 'Availability',
       allParts: 'All Parts',
       buyNow: 'Shop Online',
-      inStock: 'In stock',
+      inStock: 'Buy Online',
       quoteOnly: 'Request Quote',
       clearFilters: 'Clear all filters',
       showAllBrands: 'Show all brands',
@@ -132,7 +132,7 @@ export default async function PartsPage({
       availability: 'Disponibilidad',
       allParts: 'Todas las partes',
       buyNow: 'Tienda en línea',
-      inStock: 'En stock',
+      inStock: 'Comprar en línea',
       quoteOnly: 'Solicitar cotización',
       clearFilters: 'Borrar filtros',
       showAllBrands: 'Ver todas las marcas',
@@ -240,7 +240,6 @@ export default async function PartsPage({
           searchParams={searchParams}
           counts={facets.availability}
           labels={{
-            buyNow: t.buyNow,
             inStock: t.inStock,
             quoteOnly: t.quoteOnly,
             allParts: t.allParts,
@@ -259,7 +258,6 @@ export default async function PartsPage({
               categories: t.categories,
               availability: t.availability,
               allParts: t.allParts,
-              buyNow: t.buyNow,
               inStock: t.inStock,
               quoteOnly: t.quoteOnly,
               clearFilters: t.clearFilters,
@@ -285,7 +283,6 @@ export default async function PartsPage({
                   categories: t.categories,
                   availability: t.availability,
                   allParts: t.allParts,
-                  buyNow: t.buyNow,
                   inStock: t.inStock,
                   quoteOnly: t.quoteOnly,
                   clearFilters: t.clearFilters,

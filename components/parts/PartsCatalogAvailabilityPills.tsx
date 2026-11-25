@@ -9,7 +9,6 @@ type Props = {
   searchParams: CatalogSearchParams;
   counts: AvailabilityCounts;
   labels: {
-    buyNow: string;
     inStock: string;
     quoteOnly: string;
     allParts: string;
@@ -36,12 +35,6 @@ export default function PartsCatalogAvailabilityPills({
       count: counts.shipsToday,
       href: buildCatalogUrl(searchParams, { sales_type: 'direct', in_stock: '1' }),
       active: searchParams.sales_type === 'direct' && searchParams.in_stock === '1',
-    },
-    {
-      label: labels.buyNow,
-      count: counts.shopOnline,
-      href: buildCatalogUrl(searchParams, { sales_type: 'direct', in_stock: undefined }),
-      active: searchParams.sales_type === 'direct' && !searchParams.in_stock,
     },
     {
       label: labels.quoteOnly,

@@ -25,7 +25,6 @@ type Props = {
     categories: string;
     availability: string;
     allParts: string;
-    buyNow: string;
     inStock: string;
     quoteOnly: string;
     clearFilters: string;
@@ -152,7 +151,6 @@ export default function PartsCatalogSidebar({
     all: !searchParams.sales_type && !searchParams.in_stock,
     shipsToday:
       searchParams.sales_type === 'direct' && searchParams.in_stock === '1',
-    shopOnline: searchParams.sales_type === 'direct' && !searchParams.in_stock,
     quote: searchParams.sales_type === 'quote_only',
   };
 
@@ -205,20 +203,6 @@ export default function PartsCatalogSidebar({
           >
             <span>{labels.inStock}</span>
             <CountBadge count={availability.shipsToday} active={availabilityActive.shipsToday} />
-          </FilterLink>
-          <FilterLink
-            href={
-              availabilityActive.shopOnline
-                ? clearAvailability
-                : buildCatalogUrl(searchParams, {
-                    sales_type: 'direct',
-                    in_stock: undefined,
-                  })
-            }
-            active={availabilityActive.shopOnline}
-          >
-            <span>{labels.buyNow}</span>
-            <CountBadge count={availability.shopOnline} active={availabilityActive.shopOnline} />
           </FilterLink>
           <FilterLink
             href={
