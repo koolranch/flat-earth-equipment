@@ -27,22 +27,21 @@ export default function ShippingAndReturnsPage() {
       },
       returns: {
         title: 'Returns Policy',
-        intro: 'We accept returns within 30 days of delivery for most items. To be eligible for a return, your item must be unused and in the same condition that you received it.',
-        processTitle: 'Return Process',
+        intro: 'You can return an unused, uninstalled part within 90 days of delivery. Email parts@flatearthequipment.com with your order number before you ship anything. We reply with return instructions for every return, including where to send the part. Do not ship a return to our Sheridan, Wyoming office.',
+        processTitle: 'Restocking and warranty',
         process: [
-          'Contact our customer service team to initiate a return',
-          'Package the item securely with all original packaging',
-          'Include the return authorization number on the package',
-          'We send the return address with the authorization'
+          'A return that is not a defective part and not a warranty claim has a 25% restocking fee. You pay the return freight unless the instructions say we cover it.',
+          'Defective parts, parts we sent by mistake, and warranty claims do not have a restocking fee. The instructions say where to send the part and whether we cover the return freight.',
+          'A core deposit is separate from the part price and from the restocking fee. Follow the return instructions for the core.',
+          'Eligible aftermarket parts carry a 2-year warranty. Battery chargers, controllers, charger modules, and parts with a core charge follow the coverage on the product page.'
         ],
-        refund: 'Once your return is received and inspected, we will process your refund within 5-7 business days.'
+        refund: 'After the return arrives and we inspect it, we refund the eligible amount to the original payment method within 5 business days.'
       },
       contact: {
         title: 'Contact Us',
-        description: 'If you have any questions about our shipping or returns policy, please contact us:',
+        description: 'Questions about shipping or a return:',
         items: [
-          'Email: contact@flatearthequipment.com',
-          'Address: 30 N Gould St, Ste R, Sheridan, WY 82801'
+          'Email: parts@flatearthequipment.com'
         ]
       }
     },
@@ -60,22 +59,21 @@ export default function ShippingAndReturnsPage() {
       },
       returns: {
         title: 'Política de Devoluciones',
-        intro: 'Aceptamos devoluciones dentro de 30 días de entrega para la mayoría de artículos. Para ser elegible para una devolución, su artículo debe estar sin usar y en la misma condición en que lo recibió.',
-        processTitle: 'Proceso de Devolución',
+        intro: 'Puede devolver una pieza sin usar y sin instalar dentro de 90 días de la entrega. Escriba a parts@flatearthequipment.com con su número de pedido antes de enviar algo. Respondemos con instrucciones de devolución en cada caso, incluida la dirección. No envíe una devolución a nuestra oficina de Sheridan, Wyoming.',
+        processTitle: 'Reposición y garantía',
         process: [
-          'Contacte a nuestro equipo de servicio al cliente para iniciar una devolución',
-          'Empaque el artículo de forma segura con todo el empaque original',
-          'Incluya el número de autorización de devolución en el paquete',
-          'Enviamos la dirección de devolución con la autorización'
+          'Una devolución que no es una pieza defectuosa ni un reclamo de garantía tiene un cargo de reposición del 25%. Usted paga el flete de devolución, salvo que las instrucciones digan que lo cubrimos.',
+          'Las piezas defectuosas, las piezas enviadas por error y los reclamos de garantía no tienen cargo de reposición. Las instrucciones indican adónde enviar la pieza y si cubrimos el flete de devolución.',
+          'El depósito de núcleo es aparte del precio de la pieza y del cargo de reposición. Siga las instrucciones de devolución para el núcleo.',
+          'Las piezas de posventa elegibles tienen garantía de 2 años. Cargadores, controladores, módulos de cargador y piezas con depósito de núcleo siguen la cobertura de la página del producto.'
         ],
-        refund: 'Una vez que su devolución sea recibida e inspeccionada, procesaremos su reembolso dentro de 5-7 días hábiles.'
+        refund: 'Cuando la devolución llega y la revisamos, reembolsamos el monto correspondiente al método de pago original dentro de 5 días hábiles.'
       },
       contact: {
         title: 'Contáctanos',
-        description: 'Si tiene alguna pregunta sobre nuestra política de envío o devoluciones, por favor contáctenos:',
+        description: 'Preguntas sobre envío o una devolución:',
         items: [
-          'Correo electrónico: contact@flatearthequipment.com',
-          'Dirección: 30 N Gould St, Ste R, Sheridan, WY 82801'
+          'Correo electrónico: parts@flatearthequipment.com'
         ]
       }
     }

@@ -533,7 +533,7 @@ export default function ProductDetails({
               clipRule="evenodd"
             />
           </svg>
-          30-Day Returns
+          90-Day Returns
         </Link>
       )}
     </div>
