@@ -159,7 +159,35 @@ type Args = {
   fanOutOnly: boolean;
 };
 
+/**
+ * Eastern dates whose plain weekday run spends the whole budget on quote-only
+ * stubs (same as `--tier=D --no-hero-intake`) instead of the normal mix. This
+ * replaces that morning's run, so the day still stays inside one 90-page budget.
+ */
+const QUEUE_PUSH_DATES_ET: readonly string[] = ['2026-11-25', '2026-11-26', '2026-11-27'];
+
+function easternDate(now: Date): string {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(now);
+}
+
 function parseArgs(argv: string[]): Args {
+  const parsed = parseCliArgs(argv);
+  const plainRun =
+    !parsed.universe &&
+    !parsed.tiers &&
+    !parsed.lowQtyOnly &&
+    !parsed.skus &&
+    !parsed.fromFailures &&
+    !parsed.fanOutOnly &&
+    parsed.slice === 'all';
+  if (plainRun && QUEUE_PUSH_DATES_ET.includes(easternDate(new Date()))) {
+    console.log('\nQueue push day: whole budget goes to quote-only stubs, no sell-out slice, no images.');
+    return { ...parsed, tiers: ['D'], includeLowQty: false, heroIntake: false };
+  }
+  return parsed;
+}
+
+function parseCliArgs(argv: string[]): Args {
   const get = (name: string): string | null => {
     const hit = argv.find((a) => a.startsWith(`--${name}=`));
     return hit ? hit.slice(name.length + 3) : null;

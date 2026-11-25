@@ -1,0 +1,5365 @@
+{
+  "source": "construction parts workbook, ranked by sales volume (rank 1 = highest)",
+  "saved": "2026-11-24",
+  "parts": [
+    {
+      "rank": 1,
+      "token": "CS1987559C1",
+      "brand": "Case",
+      "oem": "1987559C1",
+      "status": "queued"
+    },
+    {
+      "rank": 2,
+      "token": "CS1966169C1",
+      "brand": "Case",
+      "oem": "1966169C1",
+      "status": "queued"
+    },
+    {
+      "rank": 3,
+      "token": "BC7120401",
+      "brand": "Bobcat",
+      "oem": "7120401",
+      "status": "listed"
+    },
+    {
+      "rank": 4,
+      "token": "TK03586-00096",
+      "brand": "Takeuchi",
+      "oem": "03586-00096",
+      "status": "listed"
+    },
+    {
+      "rank": 5,
+      "token": "CS338425A1",
+      "brand": "Case",
+      "oem": "338425A1",
+      "status": "queued"
+    },
+    {
+      "rank": 6,
+      "token": "RR125452",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 7,
+      "token": "BC7254098",
+      "brand": "Bobcat",
+      "oem": "7254098",
+      "status": "queued"
+    },
+    {
+      "rank": 8,
+      "token": "CS47710533",
+      "brand": "Case",
+      "oem": "47710533",
+      "status": "queued"
+    },
+    {
+      "rank": 9,
+      "token": "CS182445A1",
+      "brand": "Case",
+      "oem": "182445A1",
+      "status": "queued"
+    },
+    {
+      "rank": 10,
+      "token": "CSR52882",
+      "brand": "Case",
+      "oem": "R52882",
+      "status": "queued"
+    },
+    {
+      "rank": 11,
+      "token": "CS338424A1",
+      "brand": "Case",
+      "oem": "338424A1",
+      "status": "queued"
+    },
+    {
+      "rank": 12,
+      "token": "CS144457A1",
+      "brand": "Case",
+      "oem": "144457A1",
+      "status": "listed"
+    },
+    {
+      "rank": 13,
+      "token": "JC332/F9519",
+      "brand": "JCB",
+      "oem": "332/F9519",
+      "status": "listed"
+    },
+    {
+      "rank": 14,
+      "token": "CS112946A1",
+      "brand": "Case",
+      "oem": "112946A1",
+      "status": "queued"
+    },
+    {
+      "rank": 15,
+      "token": "JC15/M04039",
+      "brand": "JCB",
+      "oem": "15/M04039",
+      "status": "listed"
+    },
+    {
+      "rank": 16,
+      "token": "JDT344818",
+      "brand": "John Deere",
+      "oem": "T344818",
+      "status": "queued"
+    },
+    {
+      "rank": 17,
+      "token": "CS84239751",
+      "brand": "Case",
+      "oem": "84239751",
+      "status": "queued"
+    },
+    {
+      "rank": 18,
+      "token": "CSA168790",
+      "brand": "Case",
+      "oem": "A168790",
+      "status": "queued"
+    },
+    {
+      "rank": 19,
+      "token": "CSA187873",
+      "brand": "Case",
+      "oem": "A187873",
+      "status": "queued"
+    },
+    {
+      "rank": 20,
+      "token": "KBV0621-34520",
+      "brand": "Kubota",
+      "oem": "V0621-34520",
+      "status": "queued"
+    },
+    {
+      "rank": 21,
+      "token": "JD4684428",
+      "brand": "John Deere",
+      "oem": "4684428",
+      "status": "queued"
+    },
+    {
+      "rank": 22,
+      "token": "CSD136510",
+      "brand": "Case",
+      "oem": "D136510",
+      "status": "queued"
+    },
+    {
+      "rank": 23,
+      "token": "BC7175041",
+      "brand": "Bobcat",
+      "oem": "7175041",
+      "status": "queued"
+    },
+    {
+      "rank": 24,
+      "token": "CT419-1289",
+      "brand": "Caterpillar",
+      "oem": "419-1289",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 25,
+      "token": "V1311-34522",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 26,
+      "token": "JC827/80225",
+      "brand": "JCB",
+      "oem": "827/80225",
+      "status": "listed"
+    },
+    {
+      "rank": 27,
+      "token": "CS1349265C1",
+      "brand": "Case",
+      "oem": "1349265C1",
+      "status": "queued"
+    },
+    {
+      "rank": 28,
+      "token": "BCP550133",
+      "brand": "Bobcat",
+      "oem": "P550133",
+      "status": "queued"
+    },
+    {
+      "rank": 29,
+      "token": "JC332/C6848",
+      "brand": "JCB",
+      "oem": "332/C6848",
+      "status": "listed"
+    },
+    {
+      "rank": 30,
+      "token": "CS257953A1",
+      "brand": "Case",
+      "oem": "257953A1",
+      "status": "queued"
+    },
+    {
+      "rank": 31,
+      "token": "CSG35361",
+      "brand": "Case",
+      "oem": "G35361",
+      "status": "queued"
+    },
+    {
+      "rank": 32,
+      "token": "VO15079714",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 33,
+      "token": "AT318141",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 34,
+      "token": "JDAT169333",
+      "brand": "John Deere",
+      "oem": "AT169333",
+      "status": "queued"
+    },
+    {
+      "rank": 35,
+      "token": "CS393231A1",
+      "brand": "Case",
+      "oem": "393231A1",
+      "status": "queued"
+    },
+    {
+      "rank": 36,
+      "token": "CS1995361C1",
+      "brand": "Case",
+      "oem": "1995361C1",
+      "status": "queued"
+    },
+    {
+      "rank": 37,
+      "token": "CS84344565",
+      "brand": "Case",
+      "oem": "84344565",
+      "status": "listed"
+    },
+    {
+      "rank": 38,
+      "token": "TK01350135PA",
+      "brand": "Takeuchi",
+      "oem": "01350135PA",
+      "status": "hold",
+      "reason": "number does not fit the Takeuchi format"
+    },
+    {
+      "rank": 39,
+      "token": "KBRD829-46030",
+      "brand": "Kubota",
+      "oem": "RD829-46030",
+      "status": "queued"
+    },
+    {
+      "rank": 40,
+      "token": "JC333/D6291",
+      "brand": "JCB",
+      "oem": "333/D6291",
+      "status": "listed"
+    },
+    {
+      "rank": 41,
+      "token": "HC4664383",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 42,
+      "token": "CSD129967",
+      "brand": "Case",
+      "oem": "D129967",
+      "status": "queued"
+    },
+    {
+      "rank": 43,
+      "token": "BCP179342",
+      "brand": "Bobcat",
+      "oem": "P179342",
+      "status": "queued"
+    },
+    {
+      "rank": 44,
+      "token": "CSKHN25610",
+      "brand": "Case",
+      "oem": "KHN25610",
+      "status": "queued"
+    },
+    {
+      "rank": 45,
+      "token": "CS1543271C1",
+      "brand": "Case",
+      "oem": "1543271C1",
+      "status": "queued"
+    },
+    {
+      "rank": 46,
+      "token": "CS257948A1",
+      "brand": "Case",
+      "oem": "257948A1",
+      "status": "queued"
+    },
+    {
+      "rank": 47,
+      "token": "CSD141142",
+      "brand": "Case",
+      "oem": "D141142",
+      "status": "queued"
+    },
+    {
+      "rank": 48,
+      "token": "DNP576047",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 49,
+      "token": "JDAT331223",
+      "brand": "John Deere",
+      "oem": "AT331223",
+      "status": "queued"
+    },
+    {
+      "rank": 50,
+      "token": "VO11007976",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 51,
+      "token": "IP332/X3157",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 52,
+      "token": "IP332/G0879",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 53,
+      "token": "CSD126204",
+      "brand": "Case",
+      "oem": "D126204",
+      "status": "queued"
+    },
+    {
+      "rank": 54,
+      "token": "JC332/H1528",
+      "brand": "JCB",
+      "oem": "332/H1528",
+      "status": "listed"
+    },
+    {
+      "rank": 55,
+      "token": "TK1914109072",
+      "brand": "Takeuchi",
+      "oem": "19141-09072",
+      "status": "queued"
+    },
+    {
+      "rank": 56,
+      "token": "CS247546A1",
+      "brand": "Case",
+      "oem": "247546A1",
+      "status": "queued"
+    },
+    {
+      "rank": 57,
+      "token": "CS352208A1",
+      "brand": "Case",
+      "oem": "352208A1",
+      "status": "queued"
+    },
+    {
+      "rank": 58,
+      "token": "BCP537405",
+      "brand": "Bobcat",
+      "oem": "P537405",
+      "status": "queued"
+    },
+    {
+      "rank": 59,
+      "token": "CT385-5044",
+      "brand": "Caterpillar",
+      "oem": "385-5044",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 60,
+      "token": "JD4651654",
+      "brand": "John Deere",
+      "oem": "4651654",
+      "status": "queued"
+    },
+    {
+      "rank": 61,
+      "token": "CS87434783",
+      "brand": "Case",
+      "oem": "87434783",
+      "status": "queued"
+    },
+    {
+      "rank": 62,
+      "token": "TKY129400-77012",
+      "brand": "Takeuchi",
+      "oem": "Y129400-77012",
+      "status": "queued"
+    },
+    {
+      "rank": 63,
+      "token": "CT223-0609",
+      "brand": "Caterpillar",
+      "oem": "223-0609",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 64,
+      "token": "KB1J520-10700",
+      "brand": "Kubota",
+      "oem": "1J520-10700",
+      "status": "queued"
+    },
+    {
+      "rank": 65,
+      "token": "TKK28857012",
+      "brand": "Takeuchi",
+      "oem": "K288-57012",
+      "status": "queued"
+    },
+    {
+      "rank": 66,
+      "token": "CS84475948",
+      "brand": "Case",
+      "oem": "84475948",
+      "status": "queued"
+    },
+    {
+      "rank": 67,
+      "token": "CSR29799",
+      "brand": "Case",
+      "oem": "R29799",
+      "status": "queued"
+    },
+    {
+      "rank": 68,
+      "token": "CS85824343",
+      "brand": "Case",
+      "oem": "85824343",
+      "status": "queued"
+    },
+    {
+      "rank": 69,
+      "token": "TK19017-59900",
+      "brand": "Takeuchi",
+      "oem": "19017-59900",
+      "status": "queued"
+    },
+    {
+      "rank": 70,
+      "token": "CT385-5043",
+      "brand": "Caterpillar",
+      "oem": "385-5043",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 71,
+      "token": "JDT164705",
+      "brand": "John Deere",
+      "oem": "T164705",
+      "status": "queued"
+    },
+    {
+      "rank": 72,
+      "token": "TK0658600077",
+      "brand": "Takeuchi",
+      "oem": "06586-00077",
+      "status": "queued"
+    },
+    {
+      "rank": 73,
+      "token": "HC4602562",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 74,
+      "token": "TK0880865124",
+      "brand": "Takeuchi",
+      "oem": "08808-65124",
+      "status": "queued"
+    },
+    {
+      "rank": 75,
+      "token": "TK05686-00265",
+      "brand": "Takeuchi",
+      "oem": "05686-00265",
+      "status": "queued"
+    },
+    {
+      "rank": 76,
+      "token": "FYA00001495",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 77,
+      "token": "CS394700A1",
+      "brand": "Case",
+      "oem": "394700A1",
+      "status": "queued"
+    },
+    {
+      "rank": 78,
+      "token": "CM3936203",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 79,
+      "token": "CSD37495",
+      "brand": "Case",
+      "oem": "D37495",
+      "status": "queued"
+    },
+    {
+      "rank": 80,
+      "token": "CS352210A1",
+      "brand": "Case",
+      "oem": "352210A1",
+      "status": "queued"
+    },
+    {
+      "rank": 81,
+      "token": "CSD131288",
+      "brand": "Case",
+      "oem": "D131288",
+      "status": "queued"
+    },
+    {
+      "rank": 82,
+      "token": "CS47405930",
+      "brand": "Case",
+      "oem": "47405930",
+      "status": "queued"
+    },
+    {
+      "rank": 83,
+      "token": "360046A1",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 84,
+      "token": "CS311569A1",
+      "brand": "Case",
+      "oem": "311569A1",
+      "status": "queued"
+    },
+    {
+      "rank": 85,
+      "token": "CS1966169C1-E",
+      "brand": "Case",
+      "oem": "1966169C1",
+      "status": "duplicate"
+    },
+    {
+      "rank": 86,
+      "token": "FYA00001496",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 87,
+      "token": "CSD127167",
+      "brand": "Case",
+      "oem": "D127167",
+      "status": "queued"
+    },
+    {
+      "rank": 88,
+      "token": "CS144463A1",
+      "brand": "Case",
+      "oem": "144463A1",
+      "status": "queued"
+    },
+    {
+      "rank": 89,
+      "token": "CT261-2208",
+      "brand": "Caterpillar",
+      "oem": "261-2208",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 90,
+      "token": "CT418-5941",
+      "brand": "Caterpillar",
+      "oem": "418-5941",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 91,
+      "token": "TK0681600009",
+      "brand": "Takeuchi",
+      "oem": "06816-00009",
+      "status": "queued"
+    },
+    {
+      "rank": 92,
+      "token": "BC6729776",
+      "brand": "Bobcat",
+      "oem": "6729776",
+      "status": "listed"
+    },
+    {
+      "rank": 93,
+      "token": "CSD129969",
+      "brand": "Case",
+      "oem": "D129969",
+      "status": "queued"
+    },
+    {
+      "rank": 94,
+      "token": "CS84258434",
+      "brand": "Case",
+      "oem": "84258434",
+      "status": "queued"
+    },
+    {
+      "rank": 95,
+      "token": "JC332/D2730",
+      "brand": "JCB",
+      "oem": "332/D2730",
+      "status": "listed"
+    },
+    {
+      "rank": 96,
+      "token": "KBRD829-49180",
+      "brand": "Kubota",
+      "oem": "RD829-49180",
+      "status": "queued"
+    },
+    {
+      "rank": 97,
+      "token": "CS222422A1",
+      "brand": "Case",
+      "oem": "222422A1",
+      "status": "queued"
+    },
+    {
+      "rank": 98,
+      "token": "CS175977A1",
+      "brand": "Case",
+      "oem": "175977A1",
+      "status": "queued"
+    },
+    {
+      "rank": 99,
+      "token": "BC7250149",
+      "brand": "Bobcat",
+      "oem": "7250149",
+      "status": "queued"
+    },
+    {
+      "rank": 100,
+      "token": "TK1914102071",
+      "brand": "Takeuchi",
+      "oem": "19141-02071",
+      "status": "queued"
+    },
+    {
+      "rank": 101,
+      "token": "CS86989616",
+      "brand": "Case",
+      "oem": "86989616",
+      "status": "queued"
+    },
+    {
+      "rank": 102,
+      "token": "JDFYD00006272",
+      "brand": "John Deere",
+      "oem": "FYD00006272",
+      "status": "listed"
+    },
+    {
+      "rank": 103,
+      "token": "CSD129968",
+      "brand": "Case",
+      "oem": "D129968",
+      "status": "queued"
+    },
+    {
+      "rank": 104,
+      "token": "HC4651653",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 105,
+      "token": "CSD129264",
+      "brand": "Case",
+      "oem": "D129264",
+      "status": "queued"
+    },
+    {
+      "rank": 106,
+      "token": "CS84262831",
+      "brand": "Case",
+      "oem": "84262831",
+      "status": "queued"
+    },
+    {
+      "rank": 107,
+      "token": "CSJ936203",
+      "brand": "Case",
+      "oem": "J936203",
+      "status": "queued"
+    },
+    {
+      "rank": 108,
+      "token": "JC334/G3689",
+      "brand": "JCB",
+      "oem": "334/G3689",
+      "status": "listed"
+    },
+    {
+      "rank": 109,
+      "token": "CS85824345",
+      "brand": "Case",
+      "oem": "85824345",
+      "status": "queued"
+    },
+    {
+      "rank": 110,
+      "token": "DNP179342",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 111,
+      "token": "TK1552101200",
+      "brand": "Takeuchi",
+      "oem": "15521-01200",
+      "status": "queued"
+    },
+    {
+      "rank": 112,
+      "token": "JD4675257",
+      "brand": "John Deere",
+      "oem": "4675257",
+      "status": "queued"
+    },
+    {
+      "rank": 113,
+      "token": "CSD138047",
+      "brand": "Case",
+      "oem": "D138047",
+      "status": "queued"
+    },
+    {
+      "rank": 114,
+      "token": "CSD136083",
+      "brand": "Case",
+      "oem": "D136083",
+      "status": "queued"
+    },
+    {
+      "rank": 115,
+      "token": "JDFYD00005004",
+      "brand": "John Deere",
+      "oem": "FYD00005004",
+      "status": "listed"
+    },
+    {
+      "rank": 116,
+      "token": "87710157",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 117,
+      "token": "DNP608665",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 118,
+      "token": "CSD127833",
+      "brand": "Case",
+      "oem": "D127833",
+      "status": "queued"
+    },
+    {
+      "rank": 119,
+      "token": "CSD88492",
+      "brand": "Case",
+      "oem": "D88492",
+      "status": "queued"
+    },
+    {
+      "rank": 120,
+      "token": "JDAT366460",
+      "brand": "John Deere",
+      "oem": "AT366460",
+      "status": "queued"
+    },
+    {
+      "rank": 121,
+      "token": "CSG49041",
+      "brand": "Case",
+      "oem": "G49041",
+      "status": "queued"
+    },
+    {
+      "rank": 122,
+      "token": "TKK28857010",
+      "brand": "Takeuchi",
+      "oem": "K288-57010",
+      "status": "queued"
+    },
+    {
+      "rank": 123,
+      "token": "CSN14372",
+      "brand": "Case",
+      "oem": "N14372",
+      "status": "queued"
+    },
+    {
+      "rank": 124,
+      "token": "CS87340754",
+      "brand": "Case",
+      "oem": "87340754",
+      "status": "queued"
+    },
+    {
+      "rank": 125,
+      "token": "DNP181052",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 126,
+      "token": "CS1346108C2",
+      "brand": "Case",
+      "oem": "1346108C2",
+      "status": "queued"
+    },
+    {
+      "rank": 127,
+      "token": "NHCAR48979",
+      "brand": "New Holland",
+      "oem": "CAR48979",
+      "status": "queued"
+    },
+    {
+      "rank": 128,
+      "token": "CS292385A1",
+      "brand": "Case",
+      "oem": "292385A1",
+      "status": "queued"
+    },
+    {
+      "rank": 129,
+      "token": "BC7151185",
+      "brand": "Bobcat",
+      "oem": "7151185",
+      "status": "queued"
+    },
+    {
+      "rank": 130,
+      "token": "CT487-2952",
+      "brand": "Caterpillar",
+      "oem": "487-2952",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 131,
+      "token": "CS85827070",
+      "brand": "Case",
+      "oem": "85827070",
+      "status": "queued"
+    },
+    {
+      "rank": 132,
+      "token": "CS85801621",
+      "brand": "Case",
+      "oem": "85801621",
+      "status": "queued"
+    },
+    {
+      "rank": 133,
+      "token": "JD22P-53-18410",
+      "brand": "John Deere",
+      "oem": "22P-53-18410",
+      "status": "queued"
+    },
+    {
+      "rank": 134,
+      "token": "TKK1G377-64012",
+      "brand": "Takeuchi",
+      "oem": "K1G377-64012",
+      "status": "queued"
+    },
+    {
+      "rank": 135,
+      "token": "JC332/F3483",
+      "brand": "JCB",
+      "oem": "332/F3483",
+      "status": "listed"
+    },
+    {
+      "rank": 136,
+      "token": "TK0568639430",
+      "brand": "Takeuchi",
+      "oem": "05686-39430",
+      "status": "listed"
+    },
+    {
+      "rank": 137,
+      "token": "JDFYD00006271",
+      "brand": "John Deere",
+      "oem": "FYD00006271",
+      "status": "listed"
+    },
+    {
+      "rank": 138,
+      "token": "JC991/20017",
+      "brand": "JCB",
+      "oem": "991/20017",
+      "status": "listed"
+    },
+    {
+      "rank": 139,
+      "token": "JC400/Y6758",
+      "brand": "JCB",
+      "oem": "400/Y6758",
+      "status": "listed"
+    },
+    {
+      "rank": 140,
+      "token": "DNP829333",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 141,
+      "token": "JC333/V3930",
+      "brand": "JCB",
+      "oem": "333/V3930",
+      "status": "listed"
+    },
+    {
+      "rank": 142,
+      "token": "CSH71514",
+      "brand": "Case",
+      "oem": "H71514",
+      "status": "queued"
+    },
+    {
+      "rank": 143,
+      "token": "CS87355337",
+      "brand": "Case",
+      "oem": "87355337",
+      "status": "queued"
+    },
+    {
+      "rank": 144,
+      "token": "CSD149079",
+      "brand": "Case",
+      "oem": "D149079",
+      "status": "queued"
+    },
+    {
+      "rank": 145,
+      "token": "TK0431610100",
+      "brand": "Takeuchi",
+      "oem": "04316-10100",
+      "status": "queued"
+    },
+    {
+      "rank": 146,
+      "token": "CS9968084",
+      "brand": "Case",
+      "oem": "9968084",
+      "status": "queued"
+    },
+    {
+      "rank": 147,
+      "token": "BCP174552",
+      "brand": "Bobcat",
+      "oem": "P174552",
+      "status": "queued"
+    },
+    {
+      "rank": 148,
+      "token": "KLYT02C01156P1",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 149,
+      "token": "CS141513A1",
+      "brand": "Case",
+      "oem": "141513A1",
+      "status": "queued"
+    },
+    {
+      "rank": 150,
+      "token": "CSD151065",
+      "brand": "Case",
+      "oem": "D151065",
+      "status": "queued"
+    },
+    {
+      "rank": 151,
+      "token": "VO15053831",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 152,
+      "token": "CT345-6230",
+      "brand": "Caterpillar",
+      "oem": "345-6230",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 153,
+      "token": "CSD52276",
+      "brand": "Case",
+      "oem": "D52276",
+      "status": "queued"
+    },
+    {
+      "rank": 154,
+      "token": "CSA52267",
+      "brand": "Case",
+      "oem": "A52267",
+      "status": "queued"
+    },
+    {
+      "rank": 155,
+      "token": "CSD141164",
+      "brand": "Case",
+      "oem": "D141164",
+      "status": "queued"
+    },
+    {
+      "rank": 156,
+      "token": "BC7217625",
+      "brand": "Bobcat",
+      "oem": "7217625",
+      "status": "queued"
+    },
+    {
+      "rank": 157,
+      "token": "JDT164707",
+      "brand": "John Deere",
+      "oem": "T164707",
+      "status": "queued"
+    },
+    {
+      "rank": 158,
+      "token": "CS137248A1",
+      "brand": "Case",
+      "oem": "137248A1",
+      "status": "queued"
+    },
+    {
+      "rank": 159,
+      "token": "IP910/60093",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 160,
+      "token": "CS1547924C1",
+      "brand": "Case",
+      "oem": "1547924C1",
+      "status": "queued"
+    },
+    {
+      "rank": 161,
+      "token": "BC7351797",
+      "brand": "Bobcat",
+      "oem": "7351797",
+      "status": "queued"
+    },
+    {
+      "rank": 162,
+      "token": "JDT242807",
+      "brand": "John Deere",
+      "oem": "T242807",
+      "status": "listed"
+    },
+    {
+      "rank": 163,
+      "token": "JC15-920112",
+      "brand": "JCB",
+      "oem": "15/920112",
+      "status": "queued"
+    },
+    {
+      "rank": 164,
+      "token": "JC320/A7046-INT",
+      "brand": "JCB",
+      "oem": "320/A7046",
+      "status": "listed"
+    },
+    {
+      "rank": 165,
+      "token": "CSL30487",
+      "brand": "Case",
+      "oem": "L30487",
+      "status": "queued"
+    },
+    {
+      "rank": 166,
+      "token": "CS5194160",
+      "brand": "Case",
+      "oem": "5194160",
+      "status": "queued"
+    },
+    {
+      "rank": 167,
+      "token": "JDT165158",
+      "brand": "John Deere",
+      "oem": "T165158",
+      "status": "queued"
+    },
+    {
+      "rank": 168,
+      "token": "KBV0511-33150",
+      "brand": "Kubota",
+      "oem": "V0511-33150",
+      "status": "listed"
+    },
+    {
+      "rank": 169,
+      "token": "CS135248A1",
+      "brand": "Case",
+      "oem": "135248A1",
+      "status": "queued"
+    },
+    {
+      "rank": 170,
+      "token": "KBHHTA0-59900",
+      "brand": "Kubota",
+      "oem": "HHTA0-59900",
+      "status": "queued"
+    },
+    {
+      "rank": 171,
+      "token": "CSKHN15780",
+      "brand": "Case",
+      "oem": "KHN15780",
+      "status": "queued"
+    },
+    {
+      "rank": 172,
+      "token": "CS117844A1",
+      "brand": "Case",
+      "oem": "117844A1",
+      "status": "queued"
+    },
+    {
+      "rank": 173,
+      "token": "CS135249A1",
+      "brand": "Case",
+      "oem": "135249A1",
+      "status": "queued"
+    },
+    {
+      "rank": 174,
+      "token": "CSD131289",
+      "brand": "Case",
+      "oem": "D131289",
+      "status": "queued"
+    },
+    {
+      "rank": 175,
+      "token": "CSD25279",
+      "brand": "Case",
+      "oem": "D25279",
+      "status": "queued"
+    },
+    {
+      "rank": 176,
+      "token": "DNP611189",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 177,
+      "token": "JDFYD00006282",
+      "brand": "John Deere",
+      "oem": "FYD00006282",
+      "status": "listed"
+    },
+    {
+      "rank": 178,
+      "token": "JDFYD00004958",
+      "brand": "John Deere",
+      "oem": "FYD00004958",
+      "status": "listed"
+    },
+    {
+      "rank": 179,
+      "token": "JD4635167",
+      "brand": "John Deere",
+      "oem": "4635167",
+      "status": "queued"
+    },
+    {
+      "rank": 180,
+      "token": "CSN14373",
+      "brand": "Case",
+      "oem": "N14373",
+      "status": "queued"
+    },
+    {
+      "rank": 181,
+      "token": "JC332/G0879-INT",
+      "brand": "JCB",
+      "oem": "332/G0879",
+      "status": "listed"
+    },
+    {
+      "rank": 182,
+      "token": "KBRD158-46560",
+      "brand": "Kubota",
+      "oem": "RD158-46560",
+      "status": "listed"
+    },
+    {
+      "rank": 183,
+      "token": "CSD78336",
+      "brand": "Case",
+      "oem": "D78336",
+      "status": "queued"
+    },
+    {
+      "rank": 184,
+      "token": "JC400/H2604",
+      "brand": "JCB",
+      "oem": "400/H2604",
+      "status": "listed"
+    },
+    {
+      "rank": 185,
+      "token": "JDT312628",
+      "brand": "John Deere",
+      "oem": "T312628",
+      "status": "listed"
+    },
+    {
+      "rank": 186,
+      "token": "VO15053915",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 187,
+      "token": "CSD30932",
+      "brand": "Case",
+      "oem": "D30932",
+      "status": "queued"
+    },
+    {
+      "rank": 188,
+      "token": "DNP130764",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 189,
+      "token": "CSR52879",
+      "brand": "Case",
+      "oem": "R52879",
+      "status": "queued"
+    },
+    {
+      "rank": 190,
+      "token": "BCP537716",
+      "brand": "Bobcat",
+      "oem": "P537716",
+      "status": "queued"
+    },
+    {
+      "rank": 191,
+      "token": "CT3168854",
+      "brand": "Caterpillar",
+      "oem": "3168854",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 192,
+      "token": "CS82988916-BALD",
+      "brand": "Case",
+      "oem": "82988916",
+      "status": "queued"
+    },
+    {
+      "rank": 193,
+      "token": "TK16539-00076",
+      "brand": "Takeuchi",
+      "oem": "16539-00076",
+      "status": "queued"
+    },
+    {
+      "rank": 194,
+      "token": "CS1966169C1-RFX",
+      "brand": "Case",
+      "oem": "1966169C1",
+      "status": "duplicate"
+    },
+    {
+      "rank": 195,
+      "token": "CS97290C1",
+      "brand": "Case",
+      "oem": "97290C1",
+      "status": "queued"
+    },
+    {
+      "rank": 196,
+      "token": "TK03516-08210",
+      "brand": "Takeuchi",
+      "oem": "03516-08210",
+      "status": "queued"
+    },
+    {
+      "rank": 197,
+      "token": "BC7251263",
+      "brand": "Bobcat",
+      "oem": "7251263",
+      "status": "queued"
+    },
+    {
+      "rank": 198,
+      "token": "HC4678909",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 199,
+      "token": "CSD30756",
+      "brand": "Case",
+      "oem": "D30756",
+      "status": "queued"
+    },
+    {
+      "rank": 200,
+      "token": "JDAT362147",
+      "brand": "John Deere",
+      "oem": "AT362147",
+      "status": "queued"
+    },
+    {
+      "rank": 201,
+      "token": "JC320/07355",
+      "brand": "JCB",
+      "oem": "320/07355",
+      "status": "listed"
+    },
+    {
+      "rank": 202,
+      "token": "CS451384A1",
+      "brand": "Case",
+      "oem": "451384A1",
+      "status": "queued"
+    },
+    {
+      "rank": 203,
+      "token": "CSJ908616",
+      "brand": "Case",
+      "oem": "J908616",
+      "status": "queued"
+    },
+    {
+      "rank": 204,
+      "token": "JC333/C7305",
+      "brand": "JCB",
+      "oem": "333/C7305",
+      "status": "listed"
+    },
+    {
+      "rank": 205,
+      "token": "CS87611723",
+      "brand": "Case",
+      "oem": "87611723",
+      "status": "queued"
+    },
+    {
+      "rank": 206,
+      "token": "BC7365125",
+      "brand": "Bobcat",
+      "oem": "7365125",
+      "status": "queued"
+    },
+    {
+      "rank": 207,
+      "token": "JD4684423",
+      "brand": "John Deere",
+      "oem": "4684423",
+      "status": "queued"
+    },
+    {
+      "rank": 208,
+      "token": "CT4P3802",
+      "brand": "Caterpillar",
+      "oem": "4P3802",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 209,
+      "token": "KLYN02C01563P2",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 210,
+      "token": "DNP550110",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 211,
+      "token": "HC4664382",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 212,
+      "token": "CSA38208",
+      "brand": "Case",
+      "oem": "A38208",
+      "status": "queued"
+    },
+    {
+      "rank": 213,
+      "token": "BCP829332-ALT",
+      "brand": "Bobcat",
+      "oem": "P829332",
+      "status": "queued"
+    },
+    {
+      "rank": 214,
+      "token": "KLLQ02C01301S001",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 215,
+      "token": "JD4635163",
+      "brand": "John Deere",
+      "oem": "4635163",
+      "status": "listed"
+    },
+    {
+      "rank": 216,
+      "token": "CSN7841",
+      "brand": "Case",
+      "oem": "N7841",
+      "status": "queued"
+    },
+    {
+      "rank": 217,
+      "token": "47832496",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 218,
+      "token": "KBRG158-4680-0",
+      "brand": "Kubota",
+      "oem": "RG158-46800",
+      "status": "listed"
+    },
+    {
+      "rank": 219,
+      "token": "JC91060096",
+      "brand": "JCB",
+      "oem": "91060096",
+      "status": "hold",
+      "reason": "JCB number has no slash and the section break is ambiguous"
+    },
+    {
+      "rank": 220,
+      "token": "CS232366A1",
+      "brand": "Case",
+      "oem": "232366A1",
+      "status": "queued"
+    },
+    {
+      "rank": 221,
+      "token": "JDL100238",
+      "brand": "John Deere",
+      "oem": "L100238",
+      "status": "queued"
+    },
+    {
+      "rank": 222,
+      "token": "RR128653",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 223,
+      "token": "CS86631598",
+      "brand": "Case",
+      "oem": "86631598",
+      "status": "queued"
+    },
+    {
+      "rank": 224,
+      "token": "CS87038475",
+      "brand": "Case",
+      "oem": "87038475",
+      "status": "queued"
+    },
+    {
+      "rank": 225,
+      "token": "CS280681A1",
+      "brand": "Case",
+      "oem": "280681A1",
+      "status": "queued"
+    },
+    {
+      "rank": 226,
+      "token": "HC4635166",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 227,
+      "token": "CSD126606",
+      "brand": "Case",
+      "oem": "D126606",
+      "status": "queued"
+    },
+    {
+      "rank": 228,
+      "token": "DNP569383",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 229,
+      "token": "CS219-55",
+      "brand": "Case",
+      "oem": "219-55",
+      "status": "queued"
+    },
+    {
+      "rank": 230,
+      "token": "CS84171217",
+      "brand": "Case",
+      "oem": "84171217",
+      "status": "queued"
+    },
+    {
+      "rank": 231,
+      "token": "JC717/20122",
+      "brand": "JCB",
+      "oem": "717/20122",
+      "status": "listed"
+    },
+    {
+      "rank": 232,
+      "token": "KO20Y-53-11611",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 233,
+      "token": "JDT165336",
+      "brand": "John Deere",
+      "oem": "T165336",
+      "status": "queued"
+    },
+    {
+      "rank": 234,
+      "token": "CS118901A1",
+      "brand": "Case",
+      "oem": "118901A1",
+      "status": "queued"
+    },
+    {
+      "rank": 235,
+      "token": "BC7269057",
+      "brand": "Bobcat",
+      "oem": "7269057",
+      "status": "queued"
+    },
+    {
+      "rank": 236,
+      "token": "CSD127974",
+      "brand": "Case",
+      "oem": "D127974",
+      "status": "queued"
+    },
+    {
+      "rank": 237,
+      "token": "CS100561A1",
+      "brand": "Case",
+      "oem": "100561A1",
+      "status": "queued"
+    },
+    {
+      "rank": 238,
+      "token": "DNP821575",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 239,
+      "token": "CS47537888",
+      "brand": "Case",
+      "oem": "47537888",
+      "status": "queued"
+    },
+    {
+      "rank": 240,
+      "token": "JDRE70728",
+      "brand": "John Deere",
+      "oem": "RE70728",
+      "status": "queued"
+    },
+    {
+      "rank": 241,
+      "token": "VO14506844",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 242,
+      "token": "CSD32865",
+      "brand": "Case",
+      "oem": "D32865",
+      "status": "queued"
+    },
+    {
+      "rank": 243,
+      "token": "NHSBA185046320",
+      "brand": "New Holland",
+      "oem": "SBA185046320",
+      "status": "queued"
+    },
+    {
+      "rank": 244,
+      "token": "CS190493A1",
+      "brand": "Case",
+      "oem": "190493A1",
+      "status": "queued"
+    },
+    {
+      "rank": 245,
+      "token": "CS47380449",
+      "brand": "Case",
+      "oem": "47380449",
+      "status": "queued"
+    },
+    {
+      "rank": 246,
+      "token": "VO15082401",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 247,
+      "token": "CT2612209",
+      "brand": "Caterpillar",
+      "oem": "2612209",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 248,
+      "token": "CS130049A1",
+      "brand": "Case",
+      "oem": "130049A1",
+      "status": "queued"
+    },
+    {
+      "rank": 249,
+      "token": "JC700/50042",
+      "brand": "JCB",
+      "oem": "700/50042",
+      "status": "listed"
+    },
+    {
+      "rank": 250,
+      "token": "CS65457C1",
+      "brand": "Case",
+      "oem": "65457C1",
+      "status": "queued"
+    },
+    {
+      "rank": 251,
+      "token": "JC333/H5787",
+      "brand": "JCB",
+      "oem": "333/H5787",
+      "status": "listed"
+    },
+    {
+      "rank": 252,
+      "token": "CSD151034",
+      "brand": "Case",
+      "oem": "D151034",
+      "status": "queued"
+    },
+    {
+      "rank": 253,
+      "token": "CS561201",
+      "brand": "Case",
+      "oem": "561201",
+      "status": "queued"
+    },
+    {
+      "rank": 254,
+      "token": "JDFYD00005006",
+      "brand": "John Deere",
+      "oem": "FYD00005006",
+      "status": "listed"
+    },
+    {
+      "rank": 255,
+      "token": "MF3907221M1",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 256,
+      "token": "CS100092",
+      "brand": "Case",
+      "oem": "100092",
+      "status": "queued"
+    },
+    {
+      "rank": 257,
+      "token": "TKK1K411-64010",
+      "brand": "Takeuchi",
+      "oem": "K1K411-64010",
+      "status": "queued"
+    },
+    {
+      "rank": 258,
+      "token": "CS84170654",
+      "brand": "Case",
+      "oem": "84170654",
+      "status": "queued"
+    },
+    {
+      "rank": 259,
+      "token": "CS84143871",
+      "brand": "Case",
+      "oem": "84143871",
+      "status": "queued"
+    },
+    {
+      "rank": 260,
+      "token": "CSPY51D01006P1",
+      "brand": "Case",
+      "oem": "PY51D01006P1",
+      "status": "queued"
+    },
+    {
+      "rank": 261,
+      "token": "CSA27365",
+      "brand": "Case",
+      "oem": "A27365",
+      "status": "queued"
+    },
+    {
+      "rank": 262,
+      "token": "CSD144423",
+      "brand": "Case",
+      "oem": "D144423",
+      "status": "queued"
+    },
+    {
+      "rank": 263,
+      "token": "JC32/926001",
+      "brand": "JCB",
+      "oem": "32/926001",
+      "status": "listed"
+    },
+    {
+      "rank": 264,
+      "token": "CSA20229",
+      "brand": "Case",
+      "oem": "A20229",
+      "status": "queued"
+    },
+    {
+      "rank": 265,
+      "token": "CSKHN30460",
+      "brand": "Case",
+      "oem": "KHN30460",
+      "status": "listed"
+    },
+    {
+      "rank": 266,
+      "token": "FYA00001499",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 267,
+      "token": "BC7142021",
+      "brand": "Bobcat",
+      "oem": "7142021",
+      "status": "queued"
+    },
+    {
+      "rank": 268,
+      "token": "FYA00018907",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 269,
+      "token": "BC7179045",
+      "brand": "Bobcat",
+      "oem": "7179045",
+      "status": "listed"
+    },
+    {
+      "rank": 270,
+      "token": "CMAF1739",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 271,
+      "token": "JDT164706",
+      "brand": "John Deere",
+      "oem": "T164706",
+      "status": "queued"
+    },
+    {
+      "rank": 272,
+      "token": "BCP165659",
+      "brand": "Bobcat",
+      "oem": "P165659",
+      "status": "queued"
+    },
+    {
+      "rank": 273,
+      "token": "TKY129240-77200",
+      "brand": "Takeuchi",
+      "oem": "Y129240-77200",
+      "status": "queued"
+    },
+    {
+      "rank": 274,
+      "token": "JDMIA880601",
+      "brand": "John Deere",
+      "oem": "MIA880601",
+      "status": "queued"
+    },
+    {
+      "rank": 275,
+      "token": "CT156-6647",
+      "brand": "Caterpillar",
+      "oem": "156-6647",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 276,
+      "token": "IP15/920292",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 277,
+      "token": "KO20Y-53-11841",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 278,
+      "token": "TM3822RB",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 279,
+      "token": "CS341171A1",
+      "brand": "Case",
+      "oem": "341171A1",
+      "status": "queued"
+    },
+    {
+      "rank": 280,
+      "token": "CSG35540",
+      "brand": "Case",
+      "oem": "G35540",
+      "status": "queued"
+    },
+    {
+      "rank": 281,
+      "token": "CS906009R1",
+      "brand": "Case",
+      "oem": "906009R1",
+      "status": "queued"
+    },
+    {
+      "rank": 282,
+      "token": "JC158/30491",
+      "brand": "JCB",
+      "oem": "158/30491",
+      "status": "listed"
+    },
+    {
+      "rank": 283,
+      "token": "CS87655043",
+      "brand": "Case",
+      "oem": "87655043",
+      "status": "queued"
+    },
+    {
+      "rank": 284,
+      "token": "YA119653-77950",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 285,
+      "token": "JDRE508922",
+      "brand": "John Deere",
+      "oem": "RE508922",
+      "status": "queued"
+    },
+    {
+      "rank": 286,
+      "token": "DNP777638",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 287,
+      "token": "BC7209964",
+      "brand": "Bobcat",
+      "oem": "7209964",
+      "status": "listed"
+    },
+    {
+      "rank": 288,
+      "token": "BCP555603",
+      "brand": "Bobcat",
+      "oem": "P555603",
+      "status": "queued"
+    },
+    {
+      "rank": 289,
+      "token": "CS307186A1",
+      "brand": "Case",
+      "oem": "307186A1",
+      "status": "queued"
+    },
+    {
+      "rank": 290,
+      "token": "CS187471A1",
+      "brand": "Case",
+      "oem": "187471A1",
+      "status": "queued"
+    },
+    {
+      "rank": 291,
+      "token": "CT2059607",
+      "brand": "Caterpillar",
+      "oem": "2059607",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 292,
+      "token": "BC6735884",
+      "brand": "Bobcat",
+      "oem": "6735884",
+      "status": "queued"
+    },
+    {
+      "rank": 293,
+      "token": "DNP551422",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 294,
+      "token": "DNP551433",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 295,
+      "token": "KBRG158-4651-0",
+      "brand": "Kubota",
+      "oem": "RG158-46510",
+      "status": "listed"
+    },
+    {
+      "rank": 296,
+      "token": "JC02/630880",
+      "brand": "JCB",
+      "oem": "02/630880",
+      "status": "queued"
+    },
+    {
+      "rank": 297,
+      "token": "NH86570933",
+      "brand": "New Holland",
+      "oem": "86570933",
+      "status": "queued"
+    },
+    {
+      "rank": 298,
+      "token": "JC333/J7857",
+      "brand": "JCB",
+      "oem": "333/J7857",
+      "status": "queued"
+    },
+    {
+      "rank": 299,
+      "token": "CS116426A1",
+      "brand": "Case",
+      "oem": "116426A1",
+      "status": "queued"
+    },
+    {
+      "rank": 300,
+      "token": "DNP606121",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 301,
+      "token": "JDFYD00006276",
+      "brand": "John Deere",
+      "oem": "FYD00006276",
+      "status": "listed"
+    },
+    {
+      "rank": 302,
+      "token": "CSD141555",
+      "brand": "Case",
+      "oem": "D141555",
+      "status": "queued"
+    },
+    {
+      "rank": 303,
+      "token": "CS84270815",
+      "brand": "Case",
+      "oem": "84270815",
+      "status": "queued"
+    },
+    {
+      "rank": 304,
+      "token": "VO11205358",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 305,
+      "token": "JC332/F4944",
+      "brand": "JCB",
+      "oem": "332/F4944",
+      "status": "listed"
+    },
+    {
+      "rank": 306,
+      "token": "KBRA139-14430",
+      "brand": "Kubota",
+      "oem": "RA139-14430",
+      "status": "queued"
+    },
+    {
+      "rank": 307,
+      "token": "KBRA111-14430",
+      "brand": "Kubota",
+      "oem": "RA111-14430",
+      "status": "queued"
+    },
+    {
+      "rank": 308,
+      "token": "TKK1C010-73034",
+      "brand": "Takeuchi",
+      "oem": "K1C010-73034",
+      "status": "queued"
+    },
+    {
+      "rank": 309,
+      "token": "JC320/09295",
+      "brand": "JCB",
+      "oem": "320/09295",
+      "status": "queued"
+    },
+    {
+      "rank": 310,
+      "token": "CSR52883",
+      "brand": "Case",
+      "oem": "R52883",
+      "status": "queued"
+    },
+    {
+      "rank": 311,
+      "token": "CS400472A1",
+      "brand": "Case",
+      "oem": "400472A1",
+      "status": "queued"
+    },
+    {
+      "rank": 312,
+      "token": "KBRD80962240",
+      "brand": "Kubota",
+      "oem": "RD809-62240",
+      "status": "queued"
+    },
+    {
+      "rank": 313,
+      "token": "DWP550433",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 314,
+      "token": "BC6680310",
+      "brand": "Bobcat",
+      "oem": "6680310",
+      "status": "queued"
+    },
+    {
+      "rank": 315,
+      "token": "CSD136391",
+      "brand": "Case",
+      "oem": "D136391",
+      "status": "queued"
+    },
+    {
+      "rank": 316,
+      "token": "DWP553995",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 317,
+      "token": "BC6680018",
+      "brand": "Bobcat",
+      "oem": "6680018",
+      "status": "queued"
+    },
+    {
+      "rank": 318,
+      "token": "CS109268A1",
+      "brand": "Case",
+      "oem": "109268A1",
+      "status": "queued"
+    },
+    {
+      "rank": 319,
+      "token": "DNP553226",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 320,
+      "token": "CS380021A1",
+      "brand": "Case",
+      "oem": "380021A1",
+      "status": "queued"
+    },
+    {
+      "rank": 321,
+      "token": "CSJ903410",
+      "brand": "Case",
+      "oem": "J903410",
+      "status": "queued"
+    },
+    {
+      "rank": 322,
+      "token": "JDMIU802262",
+      "brand": "John Deere",
+      "oem": "MIU802262",
+      "status": "queued"
+    },
+    {
+      "rank": 323,
+      "token": "CS87538515",
+      "brand": "Case",
+      "oem": "87538515",
+      "status": "queued"
+    },
+    {
+      "rank": 324,
+      "token": "TK05686-39330",
+      "brand": "Takeuchi",
+      "oem": "05686-39330",
+      "status": "queued"
+    },
+    {
+      "rank": 325,
+      "token": "BC7180309",
+      "brand": "Bobcat",
+      "oem": "7180309",
+      "status": "listed"
+    },
+    {
+      "rank": 326,
+      "token": "BC7022731",
+      "brand": "Bobcat",
+      "oem": "7022731",
+      "status": "queued"
+    },
+    {
+      "rank": 327,
+      "token": "KBRD158-46570",
+      "brand": "Kubota",
+      "oem": "RD158-46570",
+      "status": "listed"
+    },
+    {
+      "rank": 328,
+      "token": "CSD149725",
+      "brand": "Case",
+      "oem": "D149725",
+      "status": "queued"
+    },
+    {
+      "rank": 329,
+      "token": "BC6685190",
+      "brand": "Bobcat",
+      "oem": "6685190",
+      "status": "listed"
+    },
+    {
+      "rank": 330,
+      "token": "CSJ286503",
+      "brand": "Case",
+      "oem": "J286503",
+      "status": "queued"
+    },
+    {
+      "rank": 331,
+      "token": "KBRD451-62210",
+      "brand": "Kubota",
+      "oem": "RD451-62210",
+      "status": "queued"
+    },
+    {
+      "rank": 332,
+      "token": "CS386092A1",
+      "brand": "Case",
+      "oem": "386092A1",
+      "status": "queued"
+    },
+    {
+      "rank": 333,
+      "token": "CSKHN15000",
+      "brand": "Case",
+      "oem": "KHN15000",
+      "status": "queued"
+    },
+    {
+      "rank": 334,
+      "token": "CT1566473",
+      "brand": "Caterpillar",
+      "oem": "1566473",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 335,
+      "token": "JC126/02253",
+      "brand": "JCB",
+      "oem": "126/02253",
+      "status": "listed"
+    },
+    {
+      "rank": 336,
+      "token": "DNP551352",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 337,
+      "token": "CSA57641",
+      "brand": "Case",
+      "oem": "A57641",
+      "status": "queued"
+    },
+    {
+      "rank": 338,
+      "token": "CS104452A1",
+      "brand": "Case",
+      "oem": "104452A1",
+      "status": "queued"
+    },
+    {
+      "rank": 339,
+      "token": "JDT300704",
+      "brand": "John Deere",
+      "oem": "T300704",
+      "status": "queued"
+    },
+    {
+      "rank": 340,
+      "token": "DNP165876",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 341,
+      "token": "CSKHN30640",
+      "brand": "Case",
+      "oem": "KHN30640",
+      "status": "listed"
+    },
+    {
+      "rank": 342,
+      "token": "JC45/920049",
+      "brand": "JCB",
+      "oem": "45/920049",
+      "status": "listed"
+    },
+    {
+      "rank": 343,
+      "token": "DWP551437",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 344,
+      "token": "CSR52884",
+      "brand": "Case",
+      "oem": "R52884",
+      "status": "queued"
+    },
+    {
+      "rank": 345,
+      "token": "IP910/60092",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 346,
+      "token": "CSR52881",
+      "brand": "Case",
+      "oem": "R52881",
+      "status": "queued"
+    },
+    {
+      "rank": 347,
+      "token": "DNP558615",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 348,
+      "token": "TK08808-65104",
+      "brand": "Takeuchi",
+      "oem": "08808-65104",
+      "status": "listed"
+    },
+    {
+      "rank": 349,
+      "token": "CM3939258",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 350,
+      "token": "JDFYD00004960",
+      "brand": "John Deere",
+      "oem": "FYD00004960",
+      "status": "listed"
+    },
+    {
+      "rank": 351,
+      "token": "CS84527831-BALD",
+      "brand": "Case",
+      "oem": "84527831",
+      "status": "queued"
+    },
+    {
+      "rank": 352,
+      "token": "CSVV12924277010",
+      "brand": "Case",
+      "oem": "VV12924277010",
+      "status": "queued"
+    },
+    {
+      "rank": 353,
+      "token": "CS100520A1",
+      "brand": "Case",
+      "oem": "100520A1",
+      "status": "queued"
+    },
+    {
+      "rank": 354,
+      "token": "JC320/08933",
+      "brand": "JCB",
+      "oem": "320/08933",
+      "status": "queued"
+    },
+    {
+      "rank": 355,
+      "token": "JD4664383",
+      "brand": "John Deere",
+      "oem": "4664383",
+      "status": "queued"
+    },
+    {
+      "rank": 356,
+      "token": "CSPM11P00012S006",
+      "brand": "Case",
+      "oem": "PM11P00012S006",
+      "status": "queued"
+    },
+    {
+      "rank": 357,
+      "token": "DNP502508",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 358,
+      "token": "BC6680852",
+      "brand": "Bobcat",
+      "oem": "6680852",
+      "status": "queued"
+    },
+    {
+      "rank": 359,
+      "token": "CS84355357",
+      "brand": "Case",
+      "oem": "84355357",
+      "status": "queued"
+    },
+    {
+      "rank": 360,
+      "token": "JC331/63982",
+      "brand": "JCB",
+      "oem": "331/63982",
+      "status": "listed"
+    },
+    {
+      "rank": 361,
+      "token": "KBRC461-62150",
+      "brand": "Kubota",
+      "oem": "RC461-62150",
+      "status": "queued"
+    },
+    {
+      "rank": 362,
+      "token": "CS496-81000",
+      "brand": "Case",
+      "oem": "496-81000",
+      "status": "queued"
+    },
+    {
+      "rank": 363,
+      "token": "DNP502051",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 364,
+      "token": "CSR52880",
+      "brand": "Case",
+      "oem": "R52880",
+      "status": "queued"
+    },
+    {
+      "rank": 365,
+      "token": "DNP551423",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 366,
+      "token": "TKK1G938-52033",
+      "brand": "Takeuchi",
+      "oem": "K1G938-52033",
+      "status": "queued"
+    },
+    {
+      "rank": 367,
+      "token": "CS279261A2",
+      "brand": "Case",
+      "oem": "279261A2",
+      "status": "queued"
+    },
+    {
+      "rank": 368,
+      "token": "JDRE25151",
+      "brand": "John Deere",
+      "oem": "RE25151",
+      "status": "queued"
+    },
+    {
+      "rank": 369,
+      "token": "CSJ911213",
+      "brand": "Case",
+      "oem": "J911213",
+      "status": "queued"
+    },
+    {
+      "rank": 370,
+      "token": "CT1566472",
+      "brand": "Caterpillar",
+      "oem": "1566472",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 371,
+      "token": "KLYN51C01096P1",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 372,
+      "token": "MQ420-35877",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 373,
+      "token": "JDT230096",
+      "brand": "John Deere",
+      "oem": "T230096",
+      "status": "queued"
+    },
+    {
+      "rank": 374,
+      "token": "TKY129916-44740",
+      "brand": "Takeuchi",
+      "oem": "Y129916-44740",
+      "status": "queued"
+    },
+    {
+      "rank": 375,
+      "token": "TKY129917-55821",
+      "brand": "Takeuchi",
+      "oem": "Y129917-55821",
+      "status": "queued"
+    },
+    {
+      "rank": 376,
+      "token": "JC331/59793",
+      "brand": "JCB",
+      "oem": "331/59793",
+      "status": "listed"
+    },
+    {
+      "rank": 377,
+      "token": "CSJ931063",
+      "brand": "Case",
+      "oem": "J931063",
+      "status": "queued"
+    },
+    {
+      "rank": 378,
+      "token": "CSR39392",
+      "brand": "Case",
+      "oem": "R39392",
+      "status": "queued"
+    },
+    {
+      "rank": 379,
+      "token": "TK1700100072",
+      "brand": "Takeuchi",
+      "oem": "17001-00072",
+      "status": "queued"
+    },
+    {
+      "rank": 380,
+      "token": "CSD138492",
+      "brand": "Case",
+      "oem": "D138492",
+      "status": "queued"
+    },
+    {
+      "rank": 381,
+      "token": "CT195-0189",
+      "brand": "Caterpillar",
+      "oem": "195-0189",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 382,
+      "token": "KBV0511-76190",
+      "brand": "Kubota",
+      "oem": "V0511-76190",
+      "status": "queued"
+    },
+    {
+      "rank": 383,
+      "token": "KBRC101-13320",
+      "brand": "Kubota",
+      "oem": "RC101-13320",
+      "status": "queued"
+    },
+    {
+      "rank": 384,
+      "token": "KB1J574-59710",
+      "brand": "Kubota",
+      "oem": "1J574-59710",
+      "status": "queued"
+    },
+    {
+      "rank": 385,
+      "token": "DNP556245",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 386,
+      "token": "JC334-D8880",
+      "brand": "JCB",
+      "oem": "334/D8880",
+      "status": "listed"
+    },
+    {
+      "rank": 387,
+      "token": "KBV0511-76620",
+      "brand": "Kubota",
+      "oem": "V0511-76620",
+      "status": "queued"
+    },
+    {
+      "rank": 388,
+      "token": "CS8001134",
+      "brand": "Case",
+      "oem": "8001134",
+      "status": "queued"
+    },
+    {
+      "rank": 389,
+      "token": "CSD131147",
+      "brand": "Case",
+      "oem": "D131147",
+      "status": "queued"
+    },
+    {
+      "rank": 390,
+      "token": "KB32721-58242",
+      "brand": "Kubota",
+      "oem": "32721-58242",
+      "status": "queued"
+    },
+    {
+      "rank": 391,
+      "token": "CS321204",
+      "brand": "Case",
+      "oem": "321204",
+      "status": "queued"
+    },
+    {
+      "rank": 392,
+      "token": "CS47857124",
+      "brand": "Case",
+      "oem": "47857124",
+      "status": "queued"
+    },
+    {
+      "rank": 393,
+      "token": "BC7120411",
+      "brand": "Bobcat",
+      "oem": "7120411",
+      "status": "listed"
+    },
+    {
+      "rank": 394,
+      "token": "DNP576918",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 395,
+      "token": "CS87724438",
+      "brand": "Case",
+      "oem": "87724438",
+      "status": "queued"
+    },
+    {
+      "rank": 396,
+      "token": "JDMIU801090-BALD",
+      "brand": "John Deere",
+      "oem": "MIU801090",
+      "status": "queued"
+    },
+    {
+      "rank": 397,
+      "token": "CS134167A1",
+      "brand": "Case",
+      "oem": "134167A1",
+      "status": "queued"
+    },
+    {
+      "rank": 398,
+      "token": "CS317329A1",
+      "brand": "Case",
+      "oem": "317329A1",
+      "status": "queued"
+    },
+    {
+      "rank": 399,
+      "token": "BCP165332",
+      "brand": "Bobcat",
+      "oem": "P165332",
+      "status": "queued"
+    },
+    {
+      "rank": 400,
+      "token": "TK1911505422",
+      "brand": "Takeuchi",
+      "oem": "19115-05422",
+      "status": "queued"
+    },
+    {
+      "rank": 401,
+      "token": "YA119233-77932",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 402,
+      "token": "CS87326813",
+      "brand": "Case",
+      "oem": "87326813",
+      "status": "queued"
+    },
+    {
+      "rank": 403,
+      "token": "JC332-D4842",
+      "brand": "JCB",
+      "oem": "332/D4842",
+      "status": "queued"
+    },
+    {
+      "rank": 404,
+      "token": "4647228",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 405,
+      "token": "KBRD158-46450",
+      "brand": "Kubota",
+      "oem": "RD158-46450",
+      "status": "listed"
+    },
+    {
+      "rank": 406,
+      "token": "YA172455-64200",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 407,
+      "token": "JDRE533516",
+      "brand": "John Deere",
+      "oem": "RE533516",
+      "status": "queued"
+    },
+    {
+      "rank": 408,
+      "token": "DNP765352",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 409,
+      "token": "JDFYD00006274",
+      "brand": "John Deere",
+      "oem": "FYD00006274",
+      "status": "listed"
+    },
+    {
+      "rank": 410,
+      "token": "JC333/R4243",
+      "brand": "JCB",
+      "oem": "333/R4243",
+      "status": "queued"
+    },
+    {
+      "rank": 411,
+      "token": "DNP551421-DON",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 412,
+      "token": "JC400/H2604-INT",
+      "brand": "JCB",
+      "oem": "400/H2604",
+      "status": "duplicate"
+    },
+    {
+      "rank": 413,
+      "token": "KB1J500-18522",
+      "brand": "Kubota",
+      "oem": "1J500-18522",
+      "status": "queued"
+    },
+    {
+      "rank": 414,
+      "token": "CS107234A1",
+      "brand": "Case",
+      "oem": "107234A1",
+      "status": "queued"
+    },
+    {
+      "rank": 415,
+      "token": "JC332/H0896",
+      "brand": "JCB",
+      "oem": "332/H0896",
+      "status": "queued"
+    },
+    {
+      "rank": 416,
+      "token": "CLAF1980",
+      "brand": "Clark",
+      "oem": "AF1980",
+      "status": "hold",
+      "reason": "filter cross number, not a Clark part number"
+    },
+    {
+      "rank": 417,
+      "token": "KB3G710-75910",
+      "brand": "Kubota",
+      "oem": "3G710-75910",
+      "status": "queued"
+    },
+    {
+      "rank": 418,
+      "token": "BC6691498",
+      "brand": "Bobcat",
+      "oem": "6691498",
+      "status": "queued"
+    },
+    {
+      "rank": 419,
+      "token": "CSD145357",
+      "brand": "Case",
+      "oem": "D145357",
+      "status": "queued"
+    },
+    {
+      "rank": 420,
+      "token": "JC401/J5527",
+      "brand": "JCB",
+      "oem": "401/J5527",
+      "status": "listed"
+    },
+    {
+      "rank": 421,
+      "token": "IS8973112542",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 422,
+      "token": "BCP550048",
+      "brand": "Bobcat",
+      "oem": "P550048",
+      "status": "queued"
+    },
+    {
+      "rank": 423,
+      "token": "JDT201953",
+      "brand": "John Deere",
+      "oem": "T201953",
+      "status": "queued"
+    },
+    {
+      "rank": 424,
+      "token": "CT415-2547",
+      "brand": "Caterpillar",
+      "oem": "415-2547",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 425,
+      "token": "JDFYD00004962",
+      "brand": "John Deere",
+      "oem": "FYD00004962",
+      "status": "listed"
+    },
+    {
+      "rank": 426,
+      "token": "JDT396635",
+      "brand": "John Deere",
+      "oem": "T396635",
+      "status": "queued"
+    },
+    {
+      "rank": 427,
+      "token": "BCP822858-E",
+      "brand": "Bobcat",
+      "oem": "P822858",
+      "status": "queued"
+    },
+    {
+      "rank": 428,
+      "token": "IP332/C9086",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 429,
+      "token": "JDRE66153",
+      "brand": "John Deere",
+      "oem": "RE66153",
+      "status": "queued"
+    },
+    {
+      "rank": 430,
+      "token": "JDFYD40000253",
+      "brand": "John Deere",
+      "oem": "FYD40000253",
+      "status": "queued"
+    },
+    {
+      "rank": 431,
+      "token": "CT2250329",
+      "brand": "Caterpillar",
+      "oem": "2250329",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 432,
+      "token": "BC7170290",
+      "brand": "Bobcat",
+      "oem": "7170290",
+      "status": "queued"
+    },
+    {
+      "rank": 433,
+      "token": "CSA150317",
+      "brand": "Case",
+      "oem": "A150317",
+      "status": "queued"
+    },
+    {
+      "rank": 434,
+      "token": "CSPW11P01038P1",
+      "brand": "Case",
+      "oem": "PW11P01038P1",
+      "status": "queued"
+    },
+    {
+      "rank": 435,
+      "token": "KBTA240-59900",
+      "brand": "Kubota",
+      "oem": "TA240-59900",
+      "status": "queued"
+    },
+    {
+      "rank": 436,
+      "token": "CS84355325",
+      "brand": "Case",
+      "oem": "84355325",
+      "status": "queued"
+    },
+    {
+      "rank": 437,
+      "token": "BCP550758",
+      "brand": "Bobcat",
+      "oem": "P550758",
+      "status": "queued"
+    },
+    {
+      "rank": 438,
+      "token": "JC332/C9086",
+      "brand": "JCB",
+      "oem": "332/C9086",
+      "status": "listed"
+    },
+    {
+      "rank": 439,
+      "token": "TK05733-00610",
+      "brand": "Takeuchi",
+      "oem": "05733-00610",
+      "status": "queued"
+    },
+    {
+      "rank": 440,
+      "token": "DNP777639",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 441,
+      "token": "TK08808-65301",
+      "brand": "Takeuchi",
+      "oem": "08808-65301",
+      "status": "listed"
+    },
+    {
+      "rank": 442,
+      "token": "CSG34000",
+      "brand": "Case",
+      "oem": "G34000",
+      "status": "queued"
+    },
+    {
+      "rank": 443,
+      "token": "CSD138042",
+      "brand": "Case",
+      "oem": "D138042",
+      "status": "queued"
+    },
+    {
+      "rank": 444,
+      "token": "CSD141486",
+      "brand": "Case",
+      "oem": "D141486",
+      "status": "queued"
+    },
+    {
+      "rank": 445,
+      "token": "JDFYD00000189",
+      "brand": "John Deere",
+      "oem": "FYD00000189",
+      "status": "listed"
+    },
+    {
+      "rank": 446,
+      "token": "TK03786-01610",
+      "brand": "Takeuchi",
+      "oem": "03786-01610",
+      "status": "listed"
+    },
+    {
+      "rank": 447,
+      "token": "JC32/925863",
+      "brand": "JCB",
+      "oem": "32/925863",
+      "status": "queued"
+    },
+    {
+      "rank": 448,
+      "token": "CS87488319-INT",
+      "brand": "Case",
+      "oem": "87488319",
+      "status": "queued"
+    },
+    {
+      "rank": 449,
+      "token": "BC6676338",
+      "brand": "Bobcat",
+      "oem": "6676338",
+      "status": "queued"
+    },
+    {
+      "rank": 450,
+      "token": "IP809/10076",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 451,
+      "token": "VO14551131",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 452,
+      "token": "DNP550576PM",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 453,
+      "token": "CSD47524",
+      "brand": "Case",
+      "oem": "D47524",
+      "status": "queued"
+    },
+    {
+      "rank": 454,
+      "token": "CSLQ50C00002S002",
+      "brand": "Case",
+      "oem": "LQ50C00002S002",
+      "status": "queued"
+    },
+    {
+      "rank": 455,
+      "token": "NHD1NN9R500A",
+      "brand": "New Holland",
+      "oem": "D1NN9R500A",
+      "status": "queued"
+    },
+    {
+      "rank": 456,
+      "token": "CSAF26250",
+      "brand": "Case",
+      "oem": "AF26250",
+      "status": "queued"
+    },
+    {
+      "rank": 457,
+      "token": "BC7170289",
+      "brand": "Bobcat",
+      "oem": "7170289",
+      "status": "listed"
+    },
+    {
+      "rank": 458,
+      "token": "CS85806008",
+      "brand": "Case",
+      "oem": "85806008",
+      "status": "queued"
+    },
+    {
+      "rank": 459,
+      "token": "NH84343800",
+      "brand": "New Holland",
+      "oem": "84343800",
+      "status": "queued"
+    },
+    {
+      "rank": 460,
+      "token": "JC334/G3688",
+      "brand": "JCB",
+      "oem": "334/G3688",
+      "status": "listed"
+    },
+    {
+      "rank": 461,
+      "token": "BC7142371",
+      "brand": "Bobcat",
+      "oem": "7142371",
+      "status": "queued"
+    },
+    {
+      "rank": 462,
+      "token": "BC7251264",
+      "brand": "Bobcat",
+      "oem": "7251264",
+      "status": "queued"
+    },
+    {
+      "rank": 463,
+      "token": "KB16791-64014",
+      "brand": "Kubota",
+      "oem": "16791-64014",
+      "status": "queued"
+    },
+    {
+      "rank": 464,
+      "token": "BC7167301",
+      "brand": "Bobcat",
+      "oem": "7167301",
+      "status": "queued"
+    },
+    {
+      "rank": 465,
+      "token": "JC721/P6650",
+      "brand": "JCB",
+      "oem": "721/P6650",
+      "status": "queued"
+    },
+    {
+      "rank": 466,
+      "token": "CSN14254",
+      "brand": "Case",
+      "oem": "N14254",
+      "status": "queued"
+    },
+    {
+      "rank": 467,
+      "token": "BG25580",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 468,
+      "token": "HC4294132",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 469,
+      "token": "CSKHN31800",
+      "brand": "Case",
+      "oem": "KHN31800",
+      "status": "listed"
+    },
+    {
+      "rank": 470,
+      "token": "IP811/50483",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 471,
+      "token": "JL70024608",
+      "brand": "JLG",
+      "oem": "70024608",
+      "status": "queued"
+    },
+    {
+      "rank": 472,
+      "token": "BCP772550-BALD",
+      "brand": "Bobcat",
+      "oem": "P772550",
+      "status": "queued"
+    },
+    {
+      "rank": 473,
+      "token": "CSVAMM43317001",
+      "brand": "Case",
+      "oem": "VAMM43317001",
+      "status": "queued"
+    },
+    {
+      "rank": 474,
+      "token": "BC6803309",
+      "brand": "Bobcat",
+      "oem": "6803309",
+      "status": "queued"
+    },
+    {
+      "rank": 475,
+      "token": "IP32/903201",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 476,
+      "token": "JC15920292",
+      "brand": "JCB",
+      "oem": "15/920292",
+      "status": "queued"
+    },
+    {
+      "rank": 477,
+      "token": "JC15/920292",
+      "brand": "JCB",
+      "oem": "15/920292",
+      "status": "duplicate"
+    },
+    {
+      "rank": 478,
+      "token": "CS237-6010",
+      "brand": "Case",
+      "oem": "237-6010",
+      "status": "queued"
+    },
+    {
+      "rank": 479,
+      "token": "TK0378610403",
+      "brand": "Takeuchi",
+      "oem": "03786-10403",
+      "status": "queued"
+    },
+    {
+      "rank": 480,
+      "token": "TK08808-65422",
+      "brand": "Takeuchi",
+      "oem": "08808-65422",
+      "status": "listed"
+    },
+    {
+      "rank": 481,
+      "token": "CS84259722",
+      "brand": "Case",
+      "oem": "84259722",
+      "status": "listed"
+    },
+    {
+      "rank": 482,
+      "token": "BC7188108",
+      "brand": "Bobcat",
+      "oem": "7188108",
+      "status": "queued"
+    },
+    {
+      "rank": 483,
+      "token": "DNP551424",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 484,
+      "token": "CSYT02C01072P1",
+      "brand": "Case",
+      "oem": "YT02C01072P1",
+      "status": "queued"
+    },
+    {
+      "rank": 485,
+      "token": "CS9968077",
+      "brand": "Case",
+      "oem": "9968077",
+      "status": "queued"
+    },
+    {
+      "rank": 486,
+      "token": "DNP181054-BALD",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 487,
+      "token": "CS129004-55612",
+      "brand": "Case",
+      "oem": "129004-55612",
+      "status": "queued"
+    },
+    {
+      "rank": 488,
+      "token": "JDT251258",
+      "brand": "John Deere",
+      "oem": "T251258",
+      "status": "listed"
+    },
+    {
+      "rank": 489,
+      "token": "NH85802793",
+      "brand": "New Holland",
+      "oem": "85802793",
+      "status": "queued"
+    },
+    {
+      "rank": 490,
+      "token": "CSD136392",
+      "brand": "Case",
+      "oem": "D136392",
+      "status": "queued"
+    },
+    {
+      "rank": 491,
+      "token": "JD4635164",
+      "brand": "John Deere",
+      "oem": "4635164",
+      "status": "listed"
+    },
+    {
+      "rank": 492,
+      "token": "DNP550643",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 493,
+      "token": "BC7261608",
+      "brand": "Bobcat",
+      "oem": "7261608",
+      "status": "listed"
+    },
+    {
+      "rank": 494,
+      "token": "CS47456328",
+      "brand": "Case",
+      "oem": "47456328",
+      "status": "queued"
+    },
+    {
+      "rank": 495,
+      "token": "CSJ928161",
+      "brand": "Case",
+      "oem": "J928161",
+      "status": "queued"
+    },
+    {
+      "rank": 496,
+      "token": "BC7107271",
+      "brand": "Bobcat",
+      "oem": "7107271",
+      "status": "queued"
+    },
+    {
+      "rank": 497,
+      "token": "DNP171885",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 498,
+      "token": "DNP165185",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 499,
+      "token": "TKY121850-49801",
+      "brand": "Takeuchi",
+      "oem": "Y121850-49801",
+      "status": "queued"
+    },
+    {
+      "rank": 500,
+      "token": "CT377-6959",
+      "brand": "Caterpillar",
+      "oem": "377-6959",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 501,
+      "token": "JDFYA00018907",
+      "brand": "John Deere",
+      "oem": "FYA00018907",
+      "status": "queued"
+    },
+    {
+      "rank": 502,
+      "token": "JC02200018",
+      "brand": "JCB",
+      "oem": "02200018",
+      "status": "hold",
+      "reason": "JCB number has no slash and the section break is ambiguous"
+    },
+    {
+      "rank": 503,
+      "token": "CSG34001",
+      "brand": "Case",
+      "oem": "G34001",
+      "status": "queued"
+    },
+    {
+      "rank": 504,
+      "token": "CMAF25886",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 505,
+      "token": "JDFYD00006278",
+      "brand": "John Deere",
+      "oem": "FYD00006278",
+      "status": "listed"
+    },
+    {
+      "rank": 506,
+      "token": "TK1911513680-BALD",
+      "brand": "Takeuchi",
+      "oem": "19115-13680",
+      "status": "queued"
+    },
+    {
+      "rank": 507,
+      "token": "SY84214564-BALD",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 508,
+      "token": "JC15/920315",
+      "brand": "JCB",
+      "oem": "15/920315",
+      "status": "queued"
+    },
+    {
+      "rank": 509,
+      "token": "GBL99883",
+      "brand": "Gehl",
+      "oem": "L99883",
+      "status": "queued"
+    },
+    {
+      "rank": 510,
+      "token": "CS381809A1",
+      "brand": "Case",
+      "oem": "381809A1",
+      "status": "queued"
+    },
+    {
+      "rank": 511,
+      "token": "DNP822769",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 512,
+      "token": "KB16419-53900",
+      "brand": "Kubota",
+      "oem": "16419-53900",
+      "status": "queued"
+    },
+    {
+      "rank": 513,
+      "token": "DNP550020",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 514,
+      "token": "CS84300765",
+      "brand": "Case",
+      "oem": "84300765",
+      "status": "queued"
+    },
+    {
+      "rank": 515,
+      "token": "JD4602563",
+      "brand": "John Deere",
+      "oem": "4602563",
+      "status": "queued"
+    },
+    {
+      "rank": 516,
+      "token": "FDD5NN-9601-B",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 517,
+      "token": "CSKHN25620",
+      "brand": "Case",
+      "oem": "KHN25620",
+      "status": "queued"
+    },
+    {
+      "rank": 518,
+      "token": "CS84378453",
+      "brand": "Case",
+      "oem": "84378453",
+      "status": "queued"
+    },
+    {
+      "rank": 519,
+      "token": "KBRD411-62210",
+      "brand": "Kubota",
+      "oem": "RD411-62210",
+      "status": "queued"
+    },
+    {
+      "rank": 520,
+      "token": "DNP574888",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 521,
+      "token": "DNP119539",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 522,
+      "token": "JDRE20434",
+      "brand": "John Deere",
+      "oem": "RE20434",
+      "status": "queued"
+    },
+    {
+      "rank": 523,
+      "token": "JDAT175345",
+      "brand": "John Deere",
+      "oem": "AT175345",
+      "status": "queued"
+    },
+    {
+      "rank": 524,
+      "token": "BCP130763",
+      "brand": "Bobcat",
+      "oem": "P130763",
+      "status": "queued"
+    },
+    {
+      "rank": 525,
+      "token": "JC332/A3729",
+      "brand": "JCB",
+      "oem": "332/A3729",
+      "status": "listed"
+    },
+    {
+      "rank": 526,
+      "token": "KBRD411-62120",
+      "brand": "Kubota",
+      "oem": "RD411-62120",
+      "status": "queued"
+    },
+    {
+      "rank": 527,
+      "token": "YA129612-52100",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 528,
+      "token": "JDAT318139",
+      "brand": "John Deere",
+      "oem": "AT318139",
+      "status": "queued"
+    },
+    {
+      "rank": 529,
+      "token": "NH86507789",
+      "brand": "New Holland",
+      "oem": "86507789",
+      "status": "queued"
+    },
+    {
+      "rank": 530,
+      "token": "JDAT191102",
+      "brand": "John Deere",
+      "oem": "AT191102",
+      "status": "queued"
+    },
+    {
+      "rank": 531,
+      "token": "CS800-44040",
+      "brand": "Case",
+      "oem": "800-44040",
+      "status": "queued"
+    },
+    {
+      "rank": 532,
+      "token": "DNP556745",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 533,
+      "token": "TK1653900077",
+      "brand": "Takeuchi",
+      "oem": "16539-00077",
+      "status": "queued"
+    },
+    {
+      "rank": 534,
+      "token": "DNP182072",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 535,
+      "token": "DNP575188",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 536,
+      "token": "KBRD45146380",
+      "brand": "Kubota",
+      "oem": "RD451-46380",
+      "status": "queued"
+    },
+    {
+      "rank": 537,
+      "token": "DNP611190",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 538,
+      "token": "DNP182072-BALD",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 539,
+      "token": "FLP827653-E",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 540,
+      "token": "NH81866927",
+      "brand": "New Holland",
+      "oem": "81866927",
+      "status": "queued"
+    },
+    {
+      "rank": 541,
+      "token": "CSVV11980255801",
+      "brand": "Case",
+      "oem": "VV11980255801",
+      "status": "queued"
+    },
+    {
+      "rank": 542,
+      "token": "BC7170288",
+      "brand": "Bobcat",
+      "oem": "7170288",
+      "status": "listed"
+    },
+    {
+      "rank": 543,
+      "token": "PK130506351",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 544,
+      "token": "CT416-5807",
+      "brand": "Caterpillar",
+      "oem": "416-5807",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 545,
+      "token": "JC45/920047",
+      "brand": "JCB",
+      "oem": "45/920047",
+      "status": "listed"
+    },
+    {
+      "rank": 546,
+      "token": "TK19115-05421",
+      "brand": "Takeuchi",
+      "oem": "19115-05421",
+      "status": "queued"
+    },
+    {
+      "rank": 547,
+      "token": "DNP566922",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 548,
+      "token": "HC4651658",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 549,
+      "token": "BC6674315",
+      "brand": "Bobcat",
+      "oem": "6674315",
+      "status": "queued"
+    },
+    {
+      "rank": 550,
+      "token": "JDFYD00004957",
+      "brand": "John Deere",
+      "oem": "FYD00004957",
+      "status": "listed"
+    },
+    {
+      "rank": 551,
+      "token": "CS84241623",
+      "brand": "Case",
+      "oem": "84241623",
+      "status": "queued"
+    },
+    {
+      "rank": 552,
+      "token": "TK03786-01320",
+      "brand": "Takeuchi",
+      "oem": "03786-01320",
+      "status": "listed"
+    },
+    {
+      "rank": 553,
+      "token": "CS272142",
+      "brand": "Case",
+      "oem": "272142",
+      "status": "queued"
+    },
+    {
+      "rank": 554,
+      "token": "DNP780522-DON",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 555,
+      "token": "CS339898A1",
+      "brand": "Case",
+      "oem": "339898A1",
+      "status": "queued"
+    },
+    {
+      "rank": 556,
+      "token": "CS9968051",
+      "brand": "Case",
+      "oem": "9968051",
+      "status": "queued"
+    },
+    {
+      "rank": 557,
+      "token": "KO20Y-54-52850",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 558,
+      "token": "BC7219974",
+      "brand": "Bobcat",
+      "oem": "7219974",
+      "status": "listed"
+    },
+    {
+      "rank": 559,
+      "token": "CS87701313",
+      "brand": "Case",
+      "oem": "87701313",
+      "status": "queued"
+    },
+    {
+      "rank": 560,
+      "token": "BC6661785",
+      "brand": "Bobcat",
+      "oem": "6661785",
+      "status": "queued"
+    },
+    {
+      "rank": 561,
+      "token": "CSKAJ11040",
+      "brand": "Case",
+      "oem": "KAJ11040",
+      "status": "queued"
+    },
+    {
+      "rank": 562,
+      "token": "BC7176092",
+      "brand": "Bobcat",
+      "oem": "7176092",
+      "status": "queued"
+    },
+    {
+      "rank": 563,
+      "token": "BCP119375",
+      "brand": "Bobcat",
+      "oem": "P119375",
+      "status": "queued"
+    },
+    {
+      "rank": 564,
+      "token": "JC991/20024",
+      "brand": "JCB",
+      "oem": "991/20024",
+      "status": "listed"
+    },
+    {
+      "rank": 565,
+      "token": "CSD61950",
+      "brand": "Case",
+      "oem": "D61950",
+      "status": "queued"
+    },
+    {
+      "rank": 566,
+      "token": "DNP609221",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 567,
+      "token": "CSD82775",
+      "brand": "Case",
+      "oem": "D82775",
+      "status": "queued"
+    },
+    {
+      "rank": 568,
+      "token": "CS72282317",
+      "brand": "Case",
+      "oem": "72282317",
+      "status": "queued"
+    },
+    {
+      "rank": 569,
+      "token": "CSA18036",
+      "brand": "Case",
+      "oem": "A18036",
+      "status": "queued"
+    },
+    {
+      "rank": 570,
+      "token": "CS293636A1",
+      "brand": "Case",
+      "oem": "293636A1",
+      "status": "queued"
+    },
+    {
+      "rank": 571,
+      "token": "JDFYD00004974",
+      "brand": "John Deere",
+      "oem": "FYD00004974",
+      "status": "listed"
+    },
+    {
+      "rank": 572,
+      "token": "KOCA0040837",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 573,
+      "token": "FGFF251",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 574,
+      "token": "BC7102991",
+      "brand": "Bobcat",
+      "oem": "7102991",
+      "status": "queued"
+    },
+    {
+      "rank": 575,
+      "token": "VO11716631-INT",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 576,
+      "token": "TKK288-57012",
+      "brand": "Takeuchi",
+      "oem": "K288-57012",
+      "status": "duplicate"
+    },
+    {
+      "rank": 577,
+      "token": "CSD136700",
+      "brand": "Case",
+      "oem": "D136700",
+      "status": "queued"
+    },
+    {
+      "rank": 578,
+      "token": "JDAH212089",
+      "brand": "John Deere",
+      "oem": "AH212089",
+      "status": "queued"
+    },
+    {
+      "rank": 579,
+      "token": "BC1321608",
+      "brand": "Bobcat",
+      "oem": "1321608",
+      "status": "queued"
+    },
+    {
+      "rank": 580,
+      "token": "BCP551779",
+      "brand": "Bobcat",
+      "oem": "P551779",
+      "status": "queued"
+    },
+    {
+      "rank": 581,
+      "token": "YA129900-44700",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 582,
+      "token": "CS86625096",
+      "brand": "Case",
+      "oem": "86625096",
+      "status": "queued"
+    },
+    {
+      "rank": 583,
+      "token": "KBT70-31410",
+      "brand": "Kubota",
+      "oem": "T70-31410",
+      "status": "queued"
+    },
+    {
+      "rank": 584,
+      "token": "JDFYD00001540R",
+      "brand": "John Deere",
+      "oem": "FYD00001540R",
+      "status": "queued"
+    },
+    {
+      "rank": 585,
+      "token": "DNP120307",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 586,
+      "token": "DNP182064",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 587,
+      "token": "JC331-26974-INT",
+      "brand": "JCB",
+      "oem": "331/26974",
+      "status": "queued"
+    },
+    {
+      "rank": 588,
+      "token": "SYP550935",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 589,
+      "token": "KB6A100-82630",
+      "brand": "Kubota",
+      "oem": "6A100-82630",
+      "status": "queued"
+    },
+    {
+      "rank": 590,
+      "token": "JDRE522878",
+      "brand": "John Deere",
+      "oem": "RE522878",
+      "status": "queued"
+    },
+    {
+      "rank": 591,
+      "token": "JC332/W4424",
+      "brand": "JCB",
+      "oem": "332/W4424",
+      "status": "queued"
+    },
+    {
+      "rank": 592,
+      "token": "CS181136A1",
+      "brand": "Case",
+      "oem": "181136A1",
+      "status": "queued"
+    },
+    {
+      "rank": 593,
+      "token": "BC6670284",
+      "brand": "Bobcat",
+      "oem": "6670284",
+      "status": "queued"
+    },
+    {
+      "rank": 594,
+      "token": "DNP551757",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 595,
+      "token": "KB1J770-05810",
+      "brand": "Kubota",
+      "oem": "1J770-05810",
+      "status": "queued"
+    },
+    {
+      "rank": 596,
+      "token": "TKK1J520-18600",
+      "brand": "Takeuchi",
+      "oem": "K1J520-18600",
+      "status": "queued"
+    },
+    {
+      "rank": 597,
+      "token": "CMLF16045-DON",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 598,
+      "token": "CLAF409K-DON",
+      "brand": "Clark",
+      "oem": "AF409K",
+      "status": "hold",
+      "reason": "filter cross number, not a Clark part number"
+    },
+    {
+      "rank": 599,
+      "token": "CS122897A1",
+      "brand": "Case",
+      "oem": "122897A1",
+      "status": "queued"
+    },
+    {
+      "rank": 600,
+      "token": "CSN14784",
+      "brand": "Case",
+      "oem": "N14784",
+      "status": "queued"
+    },
+    {
+      "rank": 601,
+      "token": "BCP550008-BALD",
+      "brand": "Bobcat",
+      "oem": "P550008",
+      "status": "queued"
+    },
+    {
+      "rank": 602,
+      "token": "CSG107675",
+      "brand": "Case",
+      "oem": "G107675",
+      "status": "queued"
+    },
+    {
+      "rank": 603,
+      "token": "JDAT226281",
+      "brand": "John Deere",
+      "oem": "AT226281",
+      "status": "queued"
+    },
+    {
+      "rank": 604,
+      "token": "JC991/20062",
+      "brand": "JCB",
+      "oem": "991/20062",
+      "status": "listed"
+    },
+    {
+      "rank": 605,
+      "token": "BCP132935",
+      "brand": "Bobcat",
+      "oem": "P132935",
+      "status": "queued"
+    },
+    {
+      "rank": 606,
+      "token": "DNP616648",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 607,
+      "token": "BCP132939-DON",
+      "brand": "Bobcat",
+      "oem": "P132939",
+      "status": "queued"
+    },
+    {
+      "rank": 608,
+      "token": "JC453/00303",
+      "brand": "JCB",
+      "oem": "453/00303",
+      "status": "queued"
+    },
+    {
+      "rank": 609,
+      "token": "CSD146735-BALD",
+      "brand": "Case",
+      "oem": "D146735",
+      "status": "queued"
+    },
+    {
+      "rank": 610,
+      "token": "CSD38907",
+      "brand": "Case",
+      "oem": "D38907",
+      "status": "queued"
+    },
+    {
+      "rank": 611,
+      "token": "CSD123806",
+      "brand": "Case",
+      "oem": "D123806",
+      "status": "queued"
+    },
+    {
+      "rank": 612,
+      "token": "CS86513279",
+      "brand": "Case",
+      "oem": "86513279",
+      "status": "queued"
+    },
+    {
+      "rank": 613,
+      "token": "CS47728955",
+      "brand": "Case",
+      "oem": "47728955",
+      "status": "queued"
+    },
+    {
+      "rank": 614,
+      "token": "KBHHV00-51640",
+      "brand": "Kubota",
+      "oem": "HHV00-51640",
+      "status": "queued"
+    },
+    {
+      "rank": 615,
+      "token": "CS47832497",
+      "brand": "Case",
+      "oem": "47832497",
+      "status": "queued"
+    },
+    {
+      "rank": 616,
+      "token": "JC716/E0156",
+      "brand": "JCB",
+      "oem": "716/E0156",
+      "status": "listed"
+    },
+    {
+      "rank": 617,
+      "token": "JDFYD00001327",
+      "brand": "John Deere",
+      "oem": "FYD00001327",
+      "status": "queued"
+    },
+    {
+      "rank": 618,
+      "token": "JDAT309435",
+      "brand": "John Deere",
+      "oem": "AT309435",
+      "status": "queued"
+    },
+    {
+      "rank": 619,
+      "token": "CS9706714",
+      "brand": "Case",
+      "oem": "9706714",
+      "status": "queued"
+    },
+    {
+      "rank": 620,
+      "token": "CS229317",
+      "brand": "Case",
+      "oem": "229317",
+      "status": "queued"
+    },
+    {
+      "rank": 621,
+      "token": "BC6652753",
+      "brand": "Bobcat",
+      "oem": "6652753",
+      "status": "queued"
+    },
+    {
+      "rank": 622,
+      "token": "CSA45625",
+      "brand": "Case",
+      "oem": "A45625",
+      "status": "queued"
+    },
+    {
+      "rank": 623,
+      "token": "CS133715A1",
+      "brand": "Case",
+      "oem": "133715A1",
+      "status": "queued"
+    },
+    {
+      "rank": 624,
+      "token": "JDAT162848",
+      "brand": "John Deere",
+      "oem": "AT162848",
+      "status": "queued"
+    },
+    {
+      "rank": 625,
+      "token": "JDAT125596",
+      "brand": "John Deere",
+      "oem": "AT125596",
+      "status": "queued"
+    },
+    {
+      "rank": 626,
+      "token": "KBRG158-4670-0",
+      "brand": "Kubota",
+      "oem": "RG158-46700",
+      "status": "listed"
+    },
+    {
+      "rank": 627,
+      "token": "CSSBA145017730",
+      "brand": "Case",
+      "oem": "SBA145017730",
+      "status": "queued"
+    },
+    {
+      "rank": 628,
+      "token": "DNP550318",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 629,
+      "token": "BG25520",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 630,
+      "token": "CSJ927154",
+      "brand": "Case",
+      "oem": "J927154",
+      "status": "queued"
+    },
+    {
+      "rank": 631,
+      "token": "DNP606953",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 632,
+      "token": "CT3635819",
+      "brand": "Caterpillar",
+      "oem": "3635819",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 633,
+      "token": "KBV0621-77450",
+      "brand": "Kubota",
+      "oem": "V0621-77450",
+      "status": "queued"
+    },
+    {
+      "rank": 634,
+      "token": "DNP608599",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 635,
+      "token": "DWP822768",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 636,
+      "token": "KBRD158-42270",
+      "brand": "Kubota",
+      "oem": "RD158-42270",
+      "status": "queued"
+    },
+    {
+      "rank": 637,
+      "token": "CSSBA145206220",
+      "brand": "Case",
+      "oem": "SBA145206220",
+      "status": "queued"
+    },
+    {
+      "rank": 638,
+      "token": "JDKV14219",
+      "brand": "John Deere",
+      "oem": "KV14219",
+      "status": "queued"
+    },
+    {
+      "rank": 639,
+      "token": "BC7233244",
+      "brand": "Bobcat",
+      "oem": "7233244",
+      "status": "queued"
+    },
+    {
+      "rank": 640,
+      "token": "CS9968059-INT",
+      "brand": "Case",
+      "oem": "9968059",
+      "status": "queued"
+    },
+    {
+      "rank": 641,
+      "token": "CS84355357-INT",
+      "brand": "Case",
+      "oem": "84355357",
+      "status": "duplicate"
+    },
+    {
+      "rank": 642,
+      "token": "TK0378601900",
+      "brand": "Takeuchi",
+      "oem": "03786-01900",
+      "status": "listed"
+    },
+    {
+      "rank": 643,
+      "token": "TK03786-01900",
+      "brand": "Takeuchi",
+      "oem": "03786-01900",
+      "status": "duplicate"
+    },
+    {
+      "rank": 644,
+      "token": "DNP629465",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 645,
+      "token": "TK1551103900",
+      "brand": "Takeuchi",
+      "oem": "15511-03900",
+      "status": "queued"
+    },
+    {
+      "rank": 646,
+      "token": "TK15511-03900",
+      "brand": "Takeuchi",
+      "oem": "15511-03900",
+      "status": "duplicate"
+    },
+    {
+      "rank": 647,
+      "token": "MB91443-25200",
+      "brand": "Mitsubishi",
+      "oem": "91443-25200",
+      "status": "queued"
+    },
+    {
+      "rank": 648,
+      "token": "JDFYD00001541",
+      "brand": "John Deere",
+      "oem": "FYD00001541",
+      "status": "queued"
+    },
+    {
+      "rank": 649,
+      "token": "BC7261610",
+      "brand": "Bobcat",
+      "oem": "7261610",
+      "status": "listed"
+    },
+    {
+      "rank": 650,
+      "token": "DNP551421",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 651,
+      "token": "NH87803192",
+      "brand": "New Holland",
+      "oem": "87803192",
+      "status": "queued"
+    },
+    {
+      "rank": 652,
+      "token": "CS47367164",
+      "brand": "Case",
+      "oem": "47367164",
+      "status": "queued"
+    },
+    {
+      "rank": 653,
+      "token": "KBR5511-42250",
+      "brand": "Kubota",
+      "oem": "R5511-42250",
+      "status": "queued"
+    },
+    {
+      "rank": 654,
+      "token": "JC701/80184",
+      "brand": "JCB",
+      "oem": "701/80184",
+      "status": "listed"
+    },
+    {
+      "rank": 655,
+      "token": "CS181166A1",
+      "brand": "Case",
+      "oem": "181166A1",
+      "status": "queued"
+    },
+    {
+      "rank": 656,
+      "token": "BCR804523",
+      "brand": "Bobcat",
+      "oem": "R804523",
+      "status": "queued"
+    },
+    {
+      "rank": 657,
+      "token": "BC7176090",
+      "brand": "Bobcat",
+      "oem": "7176090",
+      "status": "queued"
+    },
+    {
+      "rank": 658,
+      "token": "DNP553995",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 659,
+      "token": "DNP502422",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 660,
+      "token": "BCP551348",
+      "brand": "Bobcat",
+      "oem": "P551348",
+      "status": "queued"
+    },
+    {
+      "rank": 661,
+      "token": "DNP141278",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 662,
+      "token": "CS87344859",
+      "brand": "Case",
+      "oem": "87344859",
+      "status": "queued"
+    },
+    {
+      "rank": 663,
+      "token": "BC7266739",
+      "brand": "Bobcat",
+      "oem": "7266739",
+      "status": "listed"
+    },
+    {
+      "rank": 664,
+      "token": "DNP119410",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 665,
+      "token": "DNP551432",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 666,
+      "token": "JDAT280866",
+      "brand": "John Deere",
+      "oem": "AT280866",
+      "status": "queued"
+    },
+    {
+      "rank": 667,
+      "token": "DNP822858-DON",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 668,
+      "token": "JDMIA882121",
+      "brand": "John Deere",
+      "oem": "MIA882121",
+      "status": "queued"
+    },
+    {
+      "rank": 669,
+      "token": "JDH177195",
+      "brand": "John Deere",
+      "oem": "H177195",
+      "status": "queued"
+    },
+    {
+      "rank": 670,
+      "token": "JC333/C4690",
+      "brand": "JCB",
+      "oem": "333/C4690",
+      "status": "queued"
+    },
+    {
+      "rank": 671,
+      "token": "JC331/66778",
+      "brand": "JCB",
+      "oem": "331/66778",
+      "status": "queued"
+    },
+    {
+      "rank": 672,
+      "token": "DNP502138",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 673,
+      "token": "HC4635167",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 674,
+      "token": "CS218-5009",
+      "brand": "Case",
+      "oem": "218-5009",
+      "status": "queued"
+    },
+    {
+      "rank": 675,
+      "token": "JDT218785",
+      "brand": "John Deere",
+      "oem": "T218785",
+      "status": "queued"
+    },
+    {
+      "rank": 676,
+      "token": "CS504075145",
+      "brand": "Case",
+      "oem": "504075145",
+      "status": "queued"
+    },
+    {
+      "rank": 677,
+      "token": "JDR135195",
+      "brand": "John Deere",
+      "oem": "R135195",
+      "status": "queued"
+    },
+    {
+      "rank": 678,
+      "token": "JC333/D9799",
+      "brand": "JCB",
+      "oem": "333/D9799",
+      "status": "queued"
+    },
+    {
+      "rank": 679,
+      "token": "BC1321607",
+      "brand": "Bobcat",
+      "oem": "1321607",
+      "status": "queued"
+    },
+    {
+      "rank": 680,
+      "token": "JC701/M7305",
+      "brand": "JCB",
+      "oem": "701/M7305",
+      "status": "queued"
+    },
+    {
+      "rank": 681,
+      "token": "JC02/634247",
+      "brand": "JCB",
+      "oem": "02/634247",
+      "status": "queued"
+    },
+    {
+      "rank": 682,
+      "token": "TK378601320",
+      "brand": "Takeuchi",
+      "oem": "03786-01320",
+      "status": "duplicate"
+    },
+    {
+      "rank": 683,
+      "token": "TKK16631-43560-DON",
+      "brand": "Takeuchi",
+      "oem": "K16631-43560",
+      "status": "queued"
+    },
+    {
+      "rank": 684,
+      "token": "KO20Y-54-36113",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 685,
+      "token": "DNP112212",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 686,
+      "token": "DNP550083-DON",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 687,
+      "token": "JDT242805",
+      "brand": "John Deere",
+      "oem": "T242805",
+      "status": "listed"
+    },
+    {
+      "rank": 688,
+      "token": "CSVV12961242380",
+      "brand": "Case",
+      "oem": "VV12961242380",
+      "status": "queued"
+    },
+    {
+      "rank": 689,
+      "token": "FGHF29053",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 690,
+      "token": "DNP55-0428",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 691,
+      "token": "CS47046183",
+      "brand": "Case",
+      "oem": "47046183",
+      "status": "queued"
+    },
+    {
+      "rank": 692,
+      "token": "CSD138038",
+      "brand": "Case",
+      "oem": "D138038",
+      "status": "queued"
+    },
+    {
+      "rank": 693,
+      "token": "JD4692230",
+      "brand": "John Deere",
+      "oem": "4692230",
+      "status": "queued"
+    },
+    {
+      "rank": 694,
+      "token": "TK19115-06095",
+      "brand": "Takeuchi",
+      "oem": "19115-06095",
+      "status": "queued"
+    },
+    {
+      "rank": 695,
+      "token": "CS87729947",
+      "brand": "Case",
+      "oem": "87729947",
+      "status": "queued"
+    },
+    {
+      "rank": 696,
+      "token": "JDMIU801849",
+      "brand": "John Deere",
+      "oem": "MIU801849",
+      "status": "queued"
+    },
+    {
+      "rank": 697,
+      "token": "JC162/03203-INT",
+      "brand": "JCB",
+      "oem": "162/03203",
+      "status": "listed"
+    },
+    {
+      "rank": 698,
+      "token": "BC6652915",
+      "brand": "Bobcat",
+      "oem": "6652915",
+      "status": "queued"
+    },
+    {
+      "rank": 699,
+      "token": "BCP772579",
+      "brand": "Bobcat",
+      "oem": "P772579",
+      "status": "queued"
+    },
+    {
+      "rank": 700,
+      "token": "DNP536941-RFX",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 701,
+      "token": "CS128782A1-RFX",
+      "brand": "Case",
+      "oem": "128782A1",
+      "status": "queued"
+    },
+    {
+      "rank": 702,
+      "token": "CS128782A1-BSL",
+      "brand": "Case",
+      "oem": "128782A1",
+      "status": "duplicate"
+    },
+    {
+      "rank": 703,
+      "token": "BCP536941-BSL",
+      "brand": "Bobcat",
+      "oem": "P536941",
+      "status": "queued"
+    },
+    {
+      "rank": 704,
+      "token": "LD6503990M1",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 705,
+      "token": "CS183443A1",
+      "brand": "Case",
+      "oem": "183443A1",
+      "status": "queued"
+    },
+    {
+      "rank": 706,
+      "token": "JDR74012",
+      "brand": "John Deere",
+      "oem": "R74012",
+      "status": "queued"
+    },
+    {
+      "rank": 707,
+      "token": "CS87366",
+      "brand": "Case",
+      "oem": "87366",
+      "status": "queued"
+    },
+    {
+      "rank": 708,
+      "token": "CT91243-15701",
+      "brand": "Caterpillar",
+      "oem": "91243-15701",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 709,
+      "token": "DNP551435",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 710,
+      "token": "BCP536940-BSL",
+      "brand": "Bobcat",
+      "oem": "P536940",
+      "status": "queued"
+    },
+    {
+      "rank": 711,
+      "token": "TK1911513680",
+      "brand": "Takeuchi",
+      "oem": "19115-13680",
+      "status": "duplicate"
+    },
+    {
+      "rank": 712,
+      "token": "DNP550090",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 713,
+      "token": "CSD141075",
+      "brand": "Case",
+      "oem": "D141075",
+      "status": "queued"
+    },
+    {
+      "rank": 714,
+      "token": "DNP551615",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 715,
+      "token": "JC30/925759",
+      "brand": "JCB",
+      "oem": "30/925759",
+      "status": "listed"
+    },
+    {
+      "rank": 716,
+      "token": "CSFS19560",
+      "brand": "Case",
+      "oem": "FS19560",
+      "status": "queued"
+    },
+    {
+      "rank": 717,
+      "token": "JDAA2092R",
+      "brand": "John Deere",
+      "oem": "AA2092R",
+      "status": "queued"
+    },
+    {
+      "rank": 718,
+      "token": "KB6C356-30832",
+      "brand": "Kubota",
+      "oem": "6C356-30832",
+      "status": "queued"
+    },
+    {
+      "rank": 719,
+      "token": "VO11429056",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 720,
+      "token": "TK1653900080",
+      "brand": "Takeuchi",
+      "oem": "16539-00080",
+      "status": "queued"
+    },
+    {
+      "rank": 721,
+      "token": "CSF44881",
+      "brand": "Case",
+      "oem": "F44881",
+      "status": "queued"
+    },
+    {
+      "rank": 722,
+      "token": "CS107230A1",
+      "brand": "Case",
+      "oem": "107230A1",
+      "status": "queued"
+    },
+    {
+      "rank": 723,
+      "token": "KBT1855-71600",
+      "brand": "Kubota",
+      "oem": "T1855-71600",
+      "status": "queued"
+    },
+    {
+      "rank": 724,
+      "token": "FGAF5575800MX",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 725,
+      "token": "CSD132076",
+      "brand": "Case",
+      "oem": "D132076",
+      "status": "queued"
+    },
+    {
+      "rank": 726,
+      "token": "KBRD158-42280",
+      "brand": "Kubota",
+      "oem": "RD158-42280",
+      "status": "queued"
+    },
+    {
+      "rank": 727,
+      "token": "KB16851-65510",
+      "brand": "Kubota",
+      "oem": "16851-65510",
+      "status": "queued"
+    },
+    {
+      "rank": 728,
+      "token": "KB1J520-18600",
+      "brand": "Kubota",
+      "oem": "1J520-18600",
+      "status": "queued"
+    },
+    {
+      "rank": 729,
+      "token": "CS85806006",
+      "brand": "Case",
+      "oem": "85806006",
+      "status": "queued"
+    },
+    {
+      "rank": 730,
+      "token": "BC6655752",
+      "brand": "Bobcat",
+      "oem": "6655752",
+      "status": "queued"
+    },
+    {
+      "rank": 731,
+      "token": "VO20392751",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 732,
+      "token": "KB15241-32094",
+      "brand": "Kubota",
+      "oem": "15241-32094",
+      "status": "queued"
+    },
+    {
+      "rank": 733,
+      "token": "DNP181054",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 734,
+      "token": "JC333/C6860",
+      "brand": "JCB",
+      "oem": "333/C6860",
+      "status": "listed"
+    },
+    {
+      "rank": 735,
+      "token": "CS1966164C1",
+      "brand": "Case",
+      "oem": "1966164C1",
+      "status": "queued"
+    },
+    {
+      "rank": 736,
+      "token": "CSG33686",
+      "brand": "Case",
+      "oem": "G33686",
+      "status": "queued"
+    },
+    {
+      "rank": 737,
+      "token": "CT91243-15301",
+      "brand": "Caterpillar",
+      "oem": "91243-15301",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 738,
+      "token": "JLK1G938-52033",
+      "brand": "JLG",
+      "oem": "K1G938-52033",
+      "status": "duplicate"
+    },
+    {
+      "rank": 739,
+      "token": "DW129612-52100",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 740,
+      "token": "CS13407211",
+      "brand": "Case",
+      "oem": "13407211",
+      "status": "queued"
+    },
+    {
+      "rank": 741,
+      "token": "KBV0521-51940",
+      "brand": "Kubota",
+      "oem": "V0521-51940",
+      "status": "queued"
+    },
+    {
+      "rank": 742,
+      "token": "DNP551042",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 743,
+      "token": "DNP502563",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 744,
+      "token": "BCP524348",
+      "brand": "Bobcat",
+      "oem": "P524348",
+      "status": "queued"
+    },
+    {
+      "rank": 745,
+      "token": "DNP528216",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 746,
+      "token": "CSA156960",
+      "brand": "Case",
+      "oem": "A156960",
+      "status": "queued"
+    },
+    {
+      "rank": 747,
+      "token": "CS167704A1",
+      "brand": "Case",
+      "oem": "167704A1",
+      "status": "queued"
+    },
+    {
+      "rank": 748,
+      "token": "JDRE51650-INT",
+      "brand": "John Deere",
+      "oem": "RE51650",
+      "status": "queued"
+    },
+    {
+      "rank": 749,
+      "token": "BC7170287",
+      "brand": "Bobcat",
+      "oem": "7170287",
+      "status": "listed"
+    },
+    {
+      "rank": 750,
+      "token": "JDMIU801025",
+      "brand": "John Deere",
+      "oem": "MIU801025",
+      "status": "queued"
+    },
+    {
+      "rank": 751,
+      "token": "BCP554407-DON",
+      "brand": "Bobcat",
+      "oem": "P554407",
+      "status": "queued"
+    },
+    {
+      "rank": 752,
+      "token": "SYP550935-DON",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 753,
+      "token": "JDAT104755",
+      "brand": "John Deere",
+      "oem": "AT104755",
+      "status": "queued"
+    },
+    {
+      "rank": 754,
+      "token": "KBR5511-42270",
+      "brand": "Kubota",
+      "oem": "R5511-42270",
+      "status": "queued"
+    },
+    {
+      "rank": 755,
+      "token": "DNP550385",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 756,
+      "token": "NH8603559",
+      "brand": "New Holland",
+      "oem": "8603559",
+      "status": "queued"
+    },
+    {
+      "rank": 757,
+      "token": "KB6C060-99414",
+      "brand": "Kubota",
+      "oem": "6C060-99414",
+      "status": "queued"
+    },
+    {
+      "rank": 758,
+      "token": "CSJ930906",
+      "brand": "Case",
+      "oem": "J930906",
+      "status": "queued"
+    },
+    {
+      "rank": 759,
+      "token": "DNP551770",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 760,
+      "token": "JC333-H5477-BALD",
+      "brand": "JCB",
+      "oem": "333/H5477",
+      "status": "queued"
+    },
+    {
+      "rank": 761,
+      "token": "JC809-10074",
+      "brand": "JCB",
+      "oem": "809/10074",
+      "status": "queued"
+    },
+    {
+      "rank": 762,
+      "token": "BC7012303",
+      "brand": "Bobcat",
+      "oem": "7012303",
+      "status": "queued"
+    },
+    {
+      "rank": 763,
+      "token": "KBT0270-93220",
+      "brand": "Kubota",
+      "oem": "T0270-93220",
+      "status": "queued"
+    },
+    {
+      "rank": 764,
+      "token": "JC32/926087",
+      "brand": "JCB",
+      "oem": "32/926087",
+      "status": "queued"
+    },
+    {
+      "rank": 765,
+      "token": "JL6667352",
+      "brand": "JLG",
+      "oem": "6667352",
+      "status": "hold",
+      "reason": "number is a Bobcat part already in the catalog, not a JLG number"
+    },
+    {
+      "rank": 766,
+      "token": "BC7137770",
+      "brand": "Bobcat",
+      "oem": "7137770",
+      "status": "queued"
+    },
+    {
+      "rank": 767,
+      "token": "CS195215A1",
+      "brand": "Case",
+      "oem": "195215A1",
+      "status": "queued"
+    },
+    {
+      "rank": 768,
+      "token": "DNP550939-DON",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 769,
+      "token": "JC991/20022",
+      "brand": "JCB",
+      "oem": "991/20022",
+      "status": "listed"
+    },
+    {
+      "rank": 770,
+      "token": "JDFYD00000374",
+      "brand": "John Deere",
+      "oem": "FYD00000374",
+      "status": "queued"
+    },
+    {
+      "rank": 771,
+      "token": "DNP551352PM",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 772,
+      "token": "JC265/00678",
+      "brand": "JCB",
+      "oem": "265/00678",
+      "status": "listed"
+    },
+    {
+      "rank": 773,
+      "token": "CT9124306300",
+      "brand": "Caterpillar",
+      "oem": "9124306300",
+      "status": "hold",
+      "reason": "Caterpillar numbers have not read on the warehouse watch (every Cat row retired after 3 misses)"
+    },
+    {
+      "rank": 774,
+      "token": "JDRE57575",
+      "brand": "John Deere",
+      "oem": "RE57575",
+      "status": "queued"
+    },
+    {
+      "rank": 775,
+      "token": "JDAT370983",
+      "brand": "John Deere",
+      "oem": "AT370983",
+      "status": "queued"
+    },
+    {
+      "rank": 776,
+      "token": "CS800-4155",
+      "brand": "Case",
+      "oem": "800-4155",
+      "status": "queued"
+    },
+    {
+      "rank": 777,
+      "token": "CSA65854",
+      "brand": "Case",
+      "oem": "A65854",
+      "status": "queued"
+    },
+    {
+      "rank": 778,
+      "token": "CS238-7113",
+      "brand": "Case",
+      "oem": "238-7113",
+      "status": "queued"
+    },
+    {
+      "rank": 779,
+      "token": "DNP550486",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 780,
+      "token": "CS84343800",
+      "brand": "Case",
+      "oem": "84343800",
+      "status": "duplicate"
+    },
+    {
+      "rank": 781,
+      "token": "TK17001-00096",
+      "brand": "Takeuchi",
+      "oem": "17001-00096",
+      "status": "queued"
+    },
+    {
+      "rank": 782,
+      "token": "DNP550048PM",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 783,
+      "token": "DNP182052",
+      "status": "off_list",
+      "reason": "no confirmed brand code"
+    },
+    {
+      "rank": 784,
+      "token": "CSD40349",
+      "brand": "Case",
+      "oem": "D40349",
+      "status": "queued"
+    }
+  ]
+}
