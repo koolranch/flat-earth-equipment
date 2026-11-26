@@ -65,6 +65,9 @@ export default async function PartsPage({
     en: {
       title: 'Forklift & Equipment Parts',
       subtitle: 'Search by part number, SKU, or OEM reference',
+      headline: "Replacement parts for machines that can't sit idle",
+      headlineSubtitle:
+        'Search by part number, SKU, or OEM reference. 2-year warranty on aftermarket JCB, Bobcat, forklift parts, and rubber tracks.',
       intro:
         'Browse forklift parts, JCB aftermarket components, rubber tracks, charger modules, and aerial lift parts. Every listing is an OEM-equivalent replacement — search by part number or use our serial lookup tools to confirm fitment.',
       serialLookup: 'Serial lookup',
@@ -114,6 +117,9 @@ export default async function PartsPage({
     es: {
       title: 'Partes para montacargas y equipo',
       subtitle: 'Busque por número de parte, SKU o referencia OEM',
+      headline: 'Partes de repuesto para máquinas que no pueden parar',
+      headlineSubtitle:
+        'Busque por número de parte, SKU o referencia OEM. Garantía de 2 años en partes aftermarket para JCB, Bobcat, montacargas y bandas de goma.',
       intro:
         'Explore partes para montacargas, componentes JCB, bandas de goma, módulos de cargador y partes para elevadores. Cada listado es un reemplazo equivalente OEM.',
       serialLookup: 'Búsqueda por serial',
@@ -218,9 +224,15 @@ export default async function PartsPage({
       />
       <main className="container mx-auto px-4 py-12">
         <div className="mb-8">
-          <h1 className="mb-2 text-4xl font-bold text-slate-900">{pageTitle}</h1>
+          <h1 className="mb-2 text-4xl font-bold text-slate-900">
+            {showBaseContent ? t.headline : pageTitle}
+          </h1>
           <p className="text-slate-600">
-            {count ? `${countLabel} · ${t.subtitle}` : t.subtitle}
+            {showBaseContent
+              ? t.headlineSubtitle
+              : count
+                ? `${countLabel} · ${t.subtitle}`
+                : t.subtitle}
           </p>
         </div>
 
