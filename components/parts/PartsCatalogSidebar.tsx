@@ -14,6 +14,9 @@ type CategoryFacet = { slug: string; name: string; count: number };
 /** Brands always visible before the "show all" expander. */
 const VISIBLE_BRAND_COUNT = 8;
 
+/** House-brand rows (forks, tracks, lithium) are browsed by category, not as a brand. */
+const HIDDEN_FROM_BRAND_LIST = new Set(['Flat Earth Equipment']);
+
 type Props = {
   searchParams: CatalogSearchParams;
   brands: BrandFacet[];
@@ -118,11 +121,14 @@ function BrandLink({
 
 export default function PartsCatalogSidebar({
   searchParams,
-  brands,
+  brands: allBrands,
   categories,
   availability,
   labels,
 }: Props) {
+  const brands = allBrands.filter(
+    (brand) => !HIDDEN_FROM_BRAND_LIST.has(brand.name),
+  );
   // Roughly half the category facets are JCB sub-categories, which crowded out
   // everything else; collapse them behind one entry.
   const jcbCategories = categories.filter((c) => c.slug.startsWith('jcb-'));
