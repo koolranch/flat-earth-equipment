@@ -259,65 +259,84 @@ export async function fetchCatalogFacets(supabase: SupabaseClient) {
   return { brands, categories, availability };
 }
 
-export const CATALOG_QUICK_PATHS = [
-  {
-    label: 'Shop by machine',
-    href: '/parts/for-your-machine',
-    description: 'Tracks, glass, seats, and more',
-    accent: 'bg-slate-950',
-  },
+export type CatalogQuickPathIcon =
+  | 'tracks'
+  | 'glass'
+  | 'lithium'
+  | 'chargerModules'
+  | 'jcb'
+  | 'seats'
+  | 'forks'
+  | 'scissor'
+  | 'brooms'
+  | 'machine';
+
+// Ordered by what we want customers to see first. Shop by machine stays
+// last and unhighlighted until it has more data behind it.
+export const CATALOG_QUICK_PATHS: readonly {
+  label: string;
+  href: string;
+  description: string;
+  icon: CatalogQuickPathIcon;
+}[] = [
   {
     label: 'Rubber Tracks',
     href: '/rubber-tracks',
     description: 'Free shipping · 2-year warranty',
-    accent: 'bg-emerald-600',
+    icon: 'tracks',
   },
   {
     label: 'Cab Glass',
     href: '/cab-glass',
     description: 'Door · windshield · by model',
-    accent: 'bg-sky-700',
-  },
-  {
-    label: 'RT Scissor Parts',
-    href: '/rough-terrain-scissor-parts',
-    description: 'Genie · JLG · Skyjack controls',
-    accent: 'bg-slate-900',
-  },
-  {
-    label: 'Sweeper Brooms',
-    href: '/brooms',
-    description: 'Tennant · Advance · Power Boss',
-    accent: 'bg-amber-800',
-  },
-  {
-    label: 'Forklift Forks',
-    href: '/forks',
-    description: 'Class II–IV · ANSI certified',
-    accent: 'bg-[#F76511]',
-  },
-  {
-    label: 'JCB Parts',
-    href: '/brand/jcb',
-    description: 'Aftermarket OEM replacements',
-    accent: 'bg-slate-800',
-  },
-  {
-    label: 'Industrial Seats',
-    href: '/parts?category_slug=seats',
-    description: 'Forklift & equipment seats',
-    accent: 'bg-slate-700',
-  },
-  {
-    label: 'Charger Modules',
-    href: '/charger-modules',
-    description: 'Reman repair & exchange',
-    accent: 'bg-blue-600',
+    icon: 'glass',
   },
   {
     label: 'Lithium Batteries',
     href: '/lithium-batteries',
     description: 'Drop-in LiFePO4 kits',
-    accent: 'bg-purple-600',
+    icon: 'lithium',
   },
-] as const;
+  {
+    label: 'Charger Modules',
+    href: '/charger-modules',
+    description: 'Reman repair & exchange',
+    icon: 'chargerModules',
+  },
+  {
+    label: 'JCB Parts',
+    href: '/brand/jcb',
+    description: 'Aftermarket OEM replacements',
+    icon: 'jcb',
+  },
+  {
+    label: 'Industrial Seats',
+    href: '/parts?category_slug=seats',
+    description: 'Forklift & equipment seats',
+    icon: 'seats',
+  },
+  {
+    label: 'Forklift Forks',
+    href: '/forks',
+    description: 'Class II–IV · ITA hook-type',
+    icon: 'forks',
+  },
+  {
+    label: 'RT Scissor Parts',
+    href: '/rough-terrain-scissor-parts',
+    description: 'Genie · JLG · Skyjack controls',
+    icon: 'scissor',
+  },
+  {
+    label: 'Sweeper Brooms',
+    href: '/brooms',
+    description: 'Tennant · Advance · Power Boss',
+    icon: 'brooms',
+  },
+  {
+    label: 'Shop by machine',
+    href: '/parts/for-your-machine',
+    description: 'Tracks, glass, seats, and more',
+    icon: 'machine',
+  },
+];

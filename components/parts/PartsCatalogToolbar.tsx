@@ -14,6 +14,12 @@ const MIN_SUGGEST_LENGTH = 3;
 const SUGGEST_DEBOUNCE_MS = 180;
 
 type Props = {
+  /**
+   * `full` renders search plus the count/sort row. `search` and `results` render
+   * one half each so the catalog can put search at the top of the page and keep
+   * the count/sort row above the product grid.
+   */
+  mode?: 'full' | 'search' | 'results';
   searchParams: CatalogSearchParams;
   totalCount: number;
   showingFrom: number;
@@ -35,6 +41,7 @@ type Props = {
 };
 
 export default function PartsCatalogToolbar({
+  mode = 'full',
   searchParams,
   totalCount,
   showingFrom,
@@ -150,9 +157,12 @@ export default function PartsCatalogToolbar({
   };
 
   const currentSort = searchParams.sort ?? 'recommended';
+  const showSearch = mode !== 'results';
+  const showResults = mode !== 'search';
 
   return (
-    <div className="mb-6 space-y-4">
+    <div className={mode === 'search' ? 'mb-6' : 'mb-6 space-y-4'}>
+      {showSearch && (
       <form onSubmit={onSearch} className="flex gap-2">
         <div ref={containerRef} className="relative flex-1">
           <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
@@ -221,7 +231,9 @@ export default function PartsCatalogToolbar({
           {labels.searchButton}
         </button>
       </form>
+      )}
 
+      {showResults && (
       <div className="flex flex-wrap items-center justify-between gap-3">
         {totalCount > 0 ? (
           <p className="text-sm text-slate-600">
@@ -250,6 +262,7 @@ export default function PartsCatalogToolbar({
           </select>
         </div>
       </div>
+      )}
     </div>
   );
 }

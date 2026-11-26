@@ -186,6 +186,27 @@ export default async function PartsPage({
     quoteOnly: `${t.quoteOnly} (${facets.availability.quoteOnly.toLocaleString()})`,
   });
 
+  const toolbarProps = {
+    searchParams,
+    totalCount: count ?? 0,
+    showingFrom,
+    showingTo,
+    labels: {
+      searchPlaceholder: t.searchPlaceholder,
+      searchButton: t.searchButton,
+      sortLabel: t.sortLabel,
+      showing: t.showing,
+      of: t.of,
+      parts: t.parts,
+      filters: t.filters,
+      sortRecommended: t.sortRecommended,
+      sortPriceAsc: t.sortPriceAsc,
+      sortPriceDesc: t.sortPriceDesc,
+      sortName: t.sortName,
+      suggestQuote: t.suggestQuote,
+    },
+  };
+
   return (
     <>
       <PartsCatalogJsonLd parts={parts} showFaq={showBaseContent} />
@@ -203,37 +224,25 @@ export default async function PartsPage({
           </p>
         </div>
 
+        {/* Base view: search first, then category tiles, then the intro and serial
+            lookup shortcuts, then the count/sort row above the grid. Filtered
+            views keep the single combined toolbar. */}
         {showBaseContent && (
           <>
+            <PartsCatalogToolbar mode="search" {...toolbarProps} />
+            <PartsCatalogQuickPaths heading={t.shopBy} />
             <PartsCatalogIntro
               labels={{
                 intro: t.intro,
                 serialLookup: t.serialLookup,
               }}
             />
-            <PartsCatalogQuickPaths heading={t.shopBy} />
           </>
         )}
 
         <PartsCatalogToolbar
-          searchParams={searchParams}
-          totalCount={count}
-          showingFrom={showingFrom}
-          showingTo={showingTo}
-          labels={{
-            searchPlaceholder: t.searchPlaceholder,
-            searchButton: t.searchButton,
-            sortLabel: t.sortLabel,
-            showing: t.showing,
-            of: t.of,
-            parts: t.parts,
-            filters: t.filters,
-            sortRecommended: t.sortRecommended,
-            sortPriceAsc: t.sortPriceAsc,
-            sortPriceDesc: t.sortPriceDesc,
-            sortName: t.sortName,
-            suggestQuote: t.suggestQuote,
-          }}
+          mode={showBaseContent ? 'results' : 'full'}
+          {...toolbarProps}
         />
 
         <PartsCatalogAvailabilityPills
