@@ -10,6 +10,9 @@ type Props = {
   active?: boolean;
 };
 
+/** Every mark sits in the same fixed slot so brand names line up in the sidebar. */
+const SLOT_CLASS = 'flex h-6 w-12 shrink-0 items-center justify-center';
+
 function BrandMonogram({ brand, active }: { brand: string; active?: boolean }) {
   return (
     <span
@@ -30,16 +33,20 @@ export default function BrandMark({ brand, logoUrl, active = false }: Props) {
   const resolvedLogoUrl = getBrandLogoUrl(brand, logoUrl);
 
   if (!resolvedLogoUrl || imageFailed) {
-    return <BrandMonogram brand={brand} active={active} />;
+    return (
+      <span className={SLOT_CLASS}>
+        <BrandMonogram brand={brand} active={active} />
+      </span>
+    );
   }
 
   return (
-    <span className="relative h-5 w-12 shrink-0">
+    <span className={`relative ${SLOT_CLASS}`}>
       <Image
         src={resolvedLogoUrl}
         alt=""
         fill
-        className="object-contain object-left"
+        className="object-contain object-center"
         sizes="48px"
         onError={() => setImageFailed(true)}
       />
