@@ -1,56 +1,41 @@
-import React from 'react';
+import { FileText, LayoutGrid, MessageCircle, Package, type LucideIcon } from 'lucide-react';
+
+const TILES: { icon: LucideIcon; title: string; body: string }[] = [
+  {
+    icon: FileText,
+    title: 'Request a quote',
+    body: 'Send the machine, the dates, and the job location. The rate comes back on the quote.',
+  },
+  {
+    icon: LayoutGrid,
+    title: 'Browse by category',
+    body: 'Each category lists models by brand, lift height, and capacity.',
+  },
+  {
+    icon: MessageCircle,
+    title: 'Ask a question',
+    body: 'Questions about a machine go through the contact page or (888) 392-9175.',
+  },
+  {
+    icon: Package,
+    title: 'Parts too',
+    body: 'Running your own fleet? We ship replacement parts across the US. Freight is calculated at checkout.',
+  },
+];
 
 export default function RentalTrustBadges() {
   return (
-    <section className="bg-white rounded-2xl border border-slate-200 p-8 mb-12">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div className="text-center space-y-3">
-          <div className="w-12 h-12 bg-canyon-rust/10 text-canyon-rust rounded-full flex items-center justify-center mx-auto">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
+    <section className="mb-12 rounded-2xl border border-slate-200 bg-white p-8">
+      <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+        {TILES.map(({ icon: Icon, title, body }) => (
+          <div key={title} className="space-y-3 text-center">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 text-slate-600">
+              <Icon className="h-6 w-6" aria-hidden="true" />
+            </div>
+            <h3 className="font-bold text-slate-900">{title}</h3>
+            <p className="text-sm leading-relaxed text-slate-600">{body}</p>
           </div>
-          <h3 className="font-bold text-slate-900">Quote</h3>
-          <p className="text-sm text-slate-600 leading-relaxed">
-            Send the machine and the dates. The rate comes back on the quote.
-          </p>
-        </div>
-        
-        <div className="text-center space-y-3">
-          <div className="w-12 h-12 bg-canyon-rust/10 text-canyon-rust rounded-full flex items-center justify-center mx-auto">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <h3 className="font-bold text-slate-900">Inspection</h3>
-          <p className="text-sm text-slate-600 leading-relaxed">
-            This page does not say a technician inspected the machine.
-          </p>
-        </div>
-        
-        <div className="text-center space-y-3">
-          <div className="w-12 h-12 bg-canyon-rust/10 text-canyon-rust rounded-full flex items-center justify-center mx-auto">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-            </svg>
-          </div>
-          <h3 className="font-bold text-slate-900">Rate</h3>
-          <p className="text-sm text-slate-600 leading-relaxed">
-            This page does not publish a day rate or a long-term discount.
-          </p>
-        </div>
-        
-        <div className="text-center space-y-3">
-          <div className="w-12 h-12 bg-canyon-rust/10 text-canyon-rust rounded-full flex items-center justify-center mx-auto">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <h3 className="font-bold text-slate-900">Service</h3>
-          <p className="text-sm text-slate-600 leading-relaxed">
-            We do not send a technician to the job site. Questions go through the contact page.
-          </p>
-        </div>
+        ))}
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import TrainingCTALink from '@/components/home/TrainingCTALink';
 
 export default function TrainingCTA() {
   return (
@@ -34,18 +34,20 @@ export default function TrainingCTA() {
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-4">
-          <Link
+          <TrainingCTALink
             href="/safety"
+            cta="start_training"
             className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-canyon-rust px-8 py-4 text-lg font-bold text-white shadow-lg shadow-orange-900/40 transition hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400"
           >
             Start Training →
-          </Link>
-          <Link
+          </TrainingCTALink>
+          <TrainingCTALink
             href="/safety#pricing"
+            cta="see_pricing"
             className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/20 bg-white/0 px-8 py-4 text-lg font-semibold text-white transition hover:border-white/40 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/50"
           >
             See Pricing
-          </Link>
+          </TrainingCTALink>
         </div>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-slate-400">

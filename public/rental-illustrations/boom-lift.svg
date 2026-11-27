@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <ellipse cx="116" cy="146" rx="96" ry="5" fill="#0F172A" opacity="0.08"/>
+  <!-- boom -->
+  <line x1="78" y1="100" x2="170" y2="40" stroke="#334155" stroke-width="14"/>
+  <line x1="82" y1="97.5" x2="166" y2="42.5" stroke="#64748B" stroke-width="7"/>
+  <line x1="168" y1="41.5" x2="196" y2="30" stroke="#334155" stroke-width="8"/>
+  <!-- lift cylinder -->
+  <line x1="96" y1="110" x2="124" y2="76" stroke="#94A3B8" stroke-width="5"/>
+  <circle cx="78" cy="100" r="6" fill="#FFFFFF" stroke="#334155" stroke-width="3"/>
+  <!-- platform basket -->
+  <path d="M190 24 H228 V52 Q228 56 224 56 H194 Q190 56 190 52 Z" fill="#F1F5F9" stroke="#334155" stroke-width="3"/>
+  <line x1="190" y1="38" x2="228" y2="38" stroke="#334155" stroke-width="3"/>
+  <line x1="203" y1="24" x2="203" y2="56" stroke="#334155" stroke-width="2.5"/>
+  <line x1="215" y1="24" x2="215" y2="56" stroke="#334155" stroke-width="2.5"/>
+  <!-- turret -->
+  <path d="M58 104 Q58 94 68 94 H110 Q118 94 118 102 V114 H58 Z" fill="#C45A38" stroke="#334155" stroke-width="3"/>
+  <rect x="66" y="100" width="24" height="8" rx="2" fill="#FFFFFF" opacity="0.35"/>
+  <!-- chassis -->
+  <path d="M30 118 Q30 112 36 112 H150 Q156 112 156 118 V126 Q156 132 150 132 H36 Q30 132 30 126 Z" fill="#475569" stroke="#334155" stroke-width="3"/>
+  <!-- wheels -->
+  <circle cx="54" cy="134" r="16" fill="#1E293B"/>
+  <circle cx="54" cy="134" r="6" fill="#CBD5E1"/>
+  <circle cx="132" cy="134" r="16" fill="#1E293B"/>
+  <circle cx="132" cy="134" r="6" fill="#CBD5E1"/>
+</svg>

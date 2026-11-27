@@ -52,6 +52,22 @@ async function fetchRentalCategories(): Promise<CategoryWithCount[]> {
 
 import RentalTrustBadges from "@/components/rental/RentalTrustBadges";
 
+const CATEGORY_ILLUSTRATIONS: { match: string; src: string }[] = [
+  { match: 'boom', src: '/rental-illustrations/boom-lift.svg' },
+  { match: 'scissor', src: '/rental-illustrations/scissor-lift.svg' },
+  { match: 'forklift', src: '/rental-illustrations/forklift.svg' },
+  { match: 'telehandler', src: '/rental-illustrations/telehandler.svg' },
+  { match: 'skid', src: '/rental-illustrations/skid-steer.svg' },
+  { match: 'compact', src: '/rental-illustrations/compact-utility-loader.svg' },
+  { match: 'attachment', src: '/rental-illustrations/attachments.svg' },
+];
+
+function getCategoryIllustration(category: string): string {
+  const lower = category.toLowerCase();
+  const found = CATEGORY_ILLUSTRATIONS.find((item) => lower.includes(item.match));
+  return found ? found.src : '/rental-illustrations/attachments.svg';
+}
+
 export default async function RentEquipmentPage() {
   const categoriesWithCounts = await fetchRentalCategories();
   const locale = getUserLocale()
@@ -104,7 +120,7 @@ export default async function RentEquipmentPage() {
           <div className="max-w-6xl mx-auto px-4 py-16">
             <div className="text-center">
               <div className="inline-flex items-center gap-2 bg-canyon-rust px-4 py-2 rounded-full text-sm font-semibold mb-6">
-                <span>🏗️</span> Industrial Equipment Rentals
+                Industrial Equipment Rentals
               </div>
               
               <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
@@ -116,7 +132,7 @@ export default async function RentEquipmentPage() {
       </p>
 
               {/* Quick Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-8">
+              <div className="grid grid-cols-3 gap-4 bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-8">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-canyon-rust">70+</div>
                   <div className="text-sm text-slate-300">Equipment Models</div>
@@ -124,10 +140,6 @@ export default async function RentEquipmentPage() {
                 <div className="text-center">
                   <div className="text-2xl font-bold text-canyon-rust">7</div>
                   <div className="text-sm text-slate-300">Equipment Categories</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-canyon-rust">24hr</div>
-                  <div className="text-sm text-slate-300">Quote Response</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-canyon-rust">Quote</div>
@@ -175,62 +187,7 @@ export default async function RentEquipmentPage() {
                 const category = categoryData.name;
                 const categoryCount = categoryData.count;
                 
-                // Get category icon (professional SVG)
-                const getIcon = (cat: string) => {
-                  const lower = cat.toLowerCase();
-                  const iconClass = "w-12 h-12 text-canyon-rust mx-auto mb-4";
-                  
-                  if (lower.includes('boom')) {
-                    return (
-                      <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3l7 7-7-7z" />
-                      </svg>
-                    );
-                  }
-                  if (lower.includes('scissor')) {
-                    return (
-                      <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12V7a5 5 0 0110 0v5" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12h18" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16h10" />
-                      </svg>
-                    );
-                  }
-                  if (lower.includes('forklift')) {
-                    return (
-                      <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                    );
-                  }
-                  if (lower.includes('telehandler')) {
-                    return (
-                      <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                    );
-                  }
-                  if (lower.includes('skid') || lower.includes('compact')) {
-                    return (
-                      <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                      </svg>
-                    );
-                  }
-                  if (lower.includes('attachment')) {
-                    return (
-                      <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4" />
-                      </svg>
-                    );
-                  }
-                  return (
-                    <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                    </svg>
-                  );
-                };
+                const illustration = getCategoryIllustration(category);
 
                 return (
           <Link
@@ -239,8 +196,17 @@ export default async function RentEquipmentPage() {
             className="group block rounded-2xl border border-slate-200 bg-white hover:border-canyon-rust/30 hover:shadow-xl transition-all duration-300 p-8 transform hover:-translate-y-1"
           >
             <div className="text-center">
-              <div className="mb-6 transform group-hover:scale-110 transition-transform duration-300">{getIcon(category)}</div>
-              <h2 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-canyon-rust transition-colors">
+              <div className="mb-6 flex h-32 items-center justify-center rounded-xl bg-slate-50 transition-colors duration-300 group-hover:bg-orange-50/60">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={illustration}
+                  alt=""
+                  aria-hidden="true"
+                  className="h-28 w-auto transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+              <h2 className="text-xl font-bold capitalize text-slate-900 mb-3 group-hover:text-canyon-rust transition-colors">
                 {category}
               </h2>
               <div className="inline-flex items-center justify-center bg-slate-50 px-3 py-1 rounded-full mb-4">
